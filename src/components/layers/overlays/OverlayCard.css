@@ -1,0 +1,18 @@
+.OverlayCard {
+    clear: both;
+    z-index: 2000!important;
+}
+
+.OverlayCard-header {
+    height: 56px;
+    padding-left: 14px;
+    padding-right: 8px;
+    margin-right: -8px;
+    font-size: 10px;
+}
+
+.OverlayCard-header span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

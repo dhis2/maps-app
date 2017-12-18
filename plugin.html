@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+    <title>DHIS2 GIS Plugin</title>
+    <!--<link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all-gray.css"/>-->
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="extjs/ext-all.js"></script>
+    <script src="map.js"></script> <!-- transpiled -->
+
+    <style>
+        h1 {
+            font-size: 20px;
+            padding: 20px 0 10px;
+        }
+
+        #map1, #map2 {
+            width: 700px;
+            height: 400px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+    </style>
+
+    <script>
+        Ext.onReady(function() {
+            var url = "http://localhost:8080";
+
+            var test = GIS.plugin.getMap({
+                url: url,
+                el: "map1",
+                id: 'voX07ulo2Bq',
+                crossDomain: true,
+                username: 'admin',
+                password: 'district'
+                // username: 'system',
+                // password: 'System123'
+            });
+
+            console.log('test', test, GIS);
+
+            /*
+            GIS.plugin.getMap({
+                url: url,
+                el: "map1",
+                crossDomain: true,
+                username: 'admin',
+                password: 'district',
+                dashboard: true,
+                hideLegend: true,
+                basemap: 'googleStreets',
+                mapViews: [
+                    {
+                        layer: 'boundary',
+                        rows: [{dimension: 'ou', items: [{id: 'LEVEL-2'}, {id: 'ImspTQPwCqd'}]}],
+                        labels: {
+                            fontSize: 14,
+                            color: '#00f'
+                        }
+                    }
+                ]
+            });
+            */
+
+            /*
+            GIS.plugin.getMap({
+                url: url,
+                el: "map2",
+                crossDomain: true,
+                username: 'admin',
+                password: 'district',
+                dashboard: true,
+                hideLegend: true,
+                basemap: 'googleStreets',
+                mapViews: [
+                    {
+                        layer: 'boundary',
+                        rows: [{dimension: 'ou', items: [{id: 'LEVEL-2'}, {id: 'ImspTQPwCqd'}]}],
+                        labels: {
+                            fontSize: 14,
+                            color: '#00f'
+                        }
+                    }
+                ]
+            });
+            */
+
+        });
+
+    </script>
+</head>
+
+<body style="margin:10px 0 0 30px; font-family:arial,sans-serif">
+
+<h1>MAP BY UID</h1>
+<div id="map1"></div>
+
+<h1>MAP BY CONFIG</h1>
+<div id="map2"></div>
+
+</body>
+
+</html>

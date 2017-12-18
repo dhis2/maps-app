@@ -1,0 +1,5 @@
+.BasemapList {
+    max-height: 270px;
+    overflow-y: auto;
+    margin-left: 7px;
+}

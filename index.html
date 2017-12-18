@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>DHIS 2 Maps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <!---<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="extjs/resources/css/ext-all-gray.css" rel="stylesheet" />
+    <link href="dhis2/jquery.calendars.picker.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--
+    <link type="text/css" rel="stylesheet" href="../dhis-web-core-resource/material-design-icons/material-icons.css">
+    <link type="text/css" rel="stylesheet" href="../dhis-web-core-resource/fonts/roboto-v15.css">
+    -->
+</head>
+<body>
+<div id="app"></div>
+<div id="context-menu"></div>
+<div id="loading-mask"></div>
+
+<script src="extjs/ext-all.js"></script>
+<script src="dhis2/jquery.min.js"></script>
+<script src="dhis2/jquery.plugin.min.js"></script>
+<script src="dhis2/jquery.calendars.min.js"></script>
+<script src="dhis2/jquery.calendars.plus.min.js"></script>
+<script src="dhis2/jquery.calendars.picker.min.js"></script>
+
+<script src="dhis2/dhis2.util.js"></script>
+<script src="dhis2/date.js"></script>
+
+<script src="dhis2/dhis2.storage.js"></script>
+<script src="dhis2/dhis2.storage.idb.js"></script>
+<script src="dhis2/dhis2.storage.ss.js"></script>
+<script src="dhis2/dhis2.storage.memory.js"></script>
+
+<script src="src/custom/ColorButton.js"></script>
+<script src="src/custom/MultiSelect.js"></script>
+
+<%= htmlWebpackPlugin.options.vendorScripts %>
+<%= htmlWebpackPlugin.options.serviceWorkerScript %>
+
+</body>
+</html>

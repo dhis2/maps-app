@@ -1,0 +1,37 @@
+.Overlay {
+    float: left;
+    width: 120px;
+    margin-right: 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 160px;
+}
+
+.Overlay-image {
+    box-sizing: border-box;
+    border: 1px solid #555;
+    width: 120px;
+    height: 120px;
+}
+
+.Overlay-no-image {
+    box-sizing: border-box;
+    border: 1px solid #555;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    background: #eee;
+    color: #ccc;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.Overlay-title {
+    font-size: 14px;
+    color: #333;
+    padding-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,96 @@
+.dhis2-map-widget-container {
+  height: 100%;
+
+  .dhis2-map-title {
+    height: 19px;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: LiberationSans, arial, sans-serif;
+    color: rgb(51, 51, 51);
+    text-align: center;
+    line-height: 14px;
+    letter-spacing: -0.1px;
+  }
+
+  .leaflet-container {
+    height: calc(100% - 19px);
+    border: 1px solid rgb(208, 208, 208);
+  }
+
+  .dhis2-map-widget-alert {
+    font-size: 11px;
+    padding-left: 20px;
+  }
+
+  .leaflet-popup {
+    max-height: 250px;
+
+    .leaflet-popup-content {
+      max-height: 200px;
+      overflow-y: auto;
+
+      th {
+        white-space: nowrap;
+        vertical-align: top;
+        color: #333;
+        padding: 0;
+        font-weight: bold;
+        padding-right: 10px;
+        font-size: 12px;
+        border: 0;
+        min-height: 0;
+      }
+    }
+  }
+}
+
+// TODO: Remove Ext JS dependency of context menu
+.gis-popupmenu {
+  border: 0;
+
+  *:focus{outline:none}
+  .x-clear{overflow:hidden;clear:both;height:0;width:0;font-size:0;line-height:0}
+  .x-layer{position:absolute;overflow:hidden;zoom:1}
+  .x-css-shadow{position:absolute;-moz-border-radius:5px 5px;-webkit-border-radius:5px 5px;-o-border-radius:5px 5px;-ms-border-radius:5px 5px;-khtml-border-radius:5px 5px;border-radius:5px 5px}
+  .x-btn *{cursor:pointer;cursor:hand}
+  .x-btn em a{text-decoration:none;display:inline-block;color:inherit}
+  .x-btn-disabled span{filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50);opacity:0.5}
+  .x-btn button,.x-btn a{position:relative}
+  .x-item-disabled,.x-item-disabled *{cursor:default}
+  .x-item-disabled .x-datepicker-inner a:hover{background:none}
+  .x-menu-body{user-select:none;-o-user-select:none;-ms-user-select:none;-moz-user-select:-moz-none;-webkit-user-select:none;cursor:default;background:#f0f0f0 !important;padding:2px}
+  .x-menu-focus{display:block;position:absolute;top:-10px;left:-10px;width:0px;height:0px}
+  .x-menu-item{white-space:nowrap;overflow:hidden;z-index:1}
+  .x-menu-item-link{display:block;margin:1px;padding:6px 2px 3px 32px;text-decoration:none !important;line-height:16px;cursor:default}
+  .x-opera .x-menu-item-link{position:relative}
+  .x-menu-item-icon{width:16px;height:16px;position:absolute;top:5px;left:4px;background:no-repeat center center}
+  .x-menu-item-text{font-size:11px;color:#222222}
+  .x-menu-item-active .x-menu-item-link{background-image:none;background-color:#e6e6e6;background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eeeeee), color-stop(100%, #dcdcdc));background-image:-webkit-linear-gradient(top, #eeeeee,#dcdcdc);background-image:-moz-linear-gradient(top, #eeeeee,#dcdcdc);background-image:-o-linear-gradient(top, #eeeeee,#dcdcdc);background-image:-ms-linear-gradient(top, #eeeeee,#dcdcdc);background-image:linear-gradient(top, #eeeeee,#dcdcdc);margin:0px;border:1px solid #9d9d9d;cursor:pointer;-moz-border-radius:3px;-webkit-border-radius:3px;-o-border-radius:3px;-ms-border-radius:3px;-khtml-border-radius:3px;border-radius:3px}
+  .x-menu-item-disabled{filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50);opacity:0.5}
+  .x-ie6 .x-menu-item-link,.x-ie7 .x-menu-item-link,.x-quirks .x-ie8 .x-menu-item-link{padding-bottom:2px}
+  .x-unselectable{user-select:none;-o-user-select:none;-ms-user-select:none;-moz-user-select:-moz-none;-webkit-user-select:none;cursor:default}
+  .x-grid-row-editor .x-panel-body{background-color:#ebe6e6;border-top:1px solid #d0d0d0 !important;border-bottom:1px solid #d0d0d0 !important}
+  .x-webkit *:focus{outline:none !important}
+  .x-ie .x-fieldset-noborder legend span{position:absolute;left:16px}
+  .x-tip-header a,.x-tip-body a,.x-form-invalid-tip-body a{color:#2a2a2a}
+  .x-toolbar-footer .x-box-inner{border-width:0}
+  .x-box-inner{overflow:hidden;zoom:1;position:relative;left:0;top:0}
+  .x-box-item{position:absolute !important;left:0;top:0}
+  .x-box-layout-ct,.x-border-layout-ct{overflow:hidden;zoom:1}
+  .x-inline-children > *{display:inline-block !important}
+  .x-tool{height:15px}
+  .x-box-inner { zoom: 1; }
+  .x-box-item { position: absolute !important; }
+  .x-unselectable { -webkit-user-select: none; cursor: default; }
+  .gis-menu-item-icon-drill, .gis-menu-item-icon-float, .gis-menu-item-icon-relocate, .gis-menu-item-icon-earthengine { left: 6px; }
+  .gis-menu-item-first.x-menu-item-active .x-menu-item-link { border-radius: 0; border-top-left-radius: 2px; border-top-right-radius: 2px; }
+  .gis-menu-item-last.x-menu-item-active .x-menu-item-link { border-radius: 0; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; }
+  .gis-menu-item-icon-drill { background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAVFBMVEUAAAChoaGjo6OYmJiYmJiYmJiYmJh1dXV2dnZ4eHh5eXl6enp9fX1+fn5/f3+AgICFhYWGhoaHh4eIiIiJiYmKioqWlpaXl5eYmJiZmZnNzc3///9MH+hFAAAAB3RSTlMAT0/LzNzeBNbumgAAAH9JREFUGNNtj9sSwiAMBQ8UYgu1CkEb5f//U27t9MF93MnsnAB6IjugSQNK9o40NMyeXpXUjQHF3IlNEGzI67rd/RAWlscFt1ARwnO+hcX3UBUS8vY4QkMUvpVTzMsRGuL5ds5779y/BomkS4NgyprEZ8NAfdpCjhWW+u71fYUfm9cSDGkZm34AAAAASUVORK5CYII=') no-repeat; }
+  .gis-menu-item-icon-float { background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wJGxIFOR7wz0gAAAFSSURBVDjLlZNRagIxEIa/xH3RgCb2XegVvIheQLyFirQioq7rLRYvUC/iQYQuYWVZWWTTh3b7UKPVPIX/nwwzX2YEwG6362VZ9ga8ACX3jwQ+lVLLwWCwF3Ec9/I8/3DO3XwhhPDqSql+kOf5u3OONE29gc45ms2m18uy7D0A2tZaJpPJzQo2mw3GGJ/VDoCyKv9wOFxFdLvdezzKAEBKeTdYCMFfRlVLAYDWmiiKSJKEKIoYjUYYY0jTFCklWmtOp5OXS1CJWmvK8vsHG40GRVEQhuG/XAKfOZ/Pf++z2YyqTeccl8uF1Wr163sTjMdjpJSEYchisbg7G94ErVYLYwzT6fRqkCqYnU7ndoKiKDgej6zX64cYyEqs1WrPMpABkACvVenb7RbnHNbaRxgkIo7j3vl89i6TtRafLoRAa41Sqi8AfjbyqXWu1+vL4XC4/wIId50GbS9kiQAAAABJRU5ErkJggg==') no-repeat; }
+  .gis-menu-item-icon-relocate { background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACM0lEQVQ4jZWTMUsjURSFvzczzvjy0CRulSiBLVJZyGAaFQYsJKWLjVUI+AP0D6yVFnbaRexEBBthFSFdigghjU1skmaTQLCRmCqOSXRmi93Mxt2wsqd6XHjnnnvOvQLg7OxsvdvtfgU+AR7/hga0lVL7mUzmSpyenq67rvvtg09joZT6Yriuuzta9DyPwWCA7/vouo5hGAghxhJ0u91dA5gZKWBZFgsLC5imycPDA41GA6UUr6+v48hmjOHMnU6HdDqNbdvvutRqNa6vr1lcXKRSqWBZFpqmBYINANd1cRwH27apVqvk83men59ZWlqiXq8DsLKywurqKgcHB0QikYBE832ffr/P8vIyzWaT8/Nz4vE46XSacrnM4+Mj/X6fy8tLhBBsb2/T6XTwfR8A4+3tjbm5OQBub2+ZnZ1lc3MTgFQqRa/XQwhBr9cbOs/Ozg65XI6pqSmMj6IyTfOvFEzTDN6Gruu0Wi0AHMfh5OSEi4sLkskk+XweXdfxPI9YLMbW1hYvLy8cHh4SjUZ/eiCEwDRNSqUSiUSCbDZLu92mUCiwtrZGNBrFsiw2NjYAODo6IhKJBKoMACklxWIRKSW2bZNMJgOJ09PT3NzccH9/z93dHeFweDRGxPHx8XfgM/xepPn5eaSUtFotms0moVCIwWDAxMTEn37UDeBpSKCUwvM8KpVKsMqhUIjhmGPwpEkp90ZZNU3DsiwmJyfHdXwHpdSeAPh1kf91zlLK/Ww2e/UDR5TLjoioXeUAAAAASUVORK5CYII=') no-repeat; }
+  .gis-menu-item-icon-earthengine { background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAABaUlEQVR4AT1RA7btMBTNADrCTuqqTdpnG9f4tu2fb9vG2fudXK042VonZiHKYrvPeudTXxk03YWz3efiycjksXtlYVHRsYgNrGMeFmU4nd0rFxtli5WiLOEMTuAoruO+XJElKcGKtn1GpVDCNi6yx2VOc1HXF3yNXb11cF4BZSzJC3mMJ7zFfVyg4yqv8TmWpQzrjQbCZUCI0P4re5/qzPI8z8Ah9abiF3BXbivoMX4goH7yhurMsIpJVLwp+010MMmcc6zyLn+TFD7FAU4yReJN4rc0YpkJU22TbPERfxAKvKwKSbBYRB2bXKLrg6yC2hr3A57IPCqDkMfxFi95kye4qwGtwnJucAd5COl8Bct4JyT5n9/5hp7neVytLNJBHSyKsivv5Bfe8y0/KSjIb+utDXXItNQBsoJ9WFX/JU2wyQlYJINST4w/q4ysv5aQ6Bqae5XFZiWaiLN9LnyvT8II8/C783gh2gNTU5xBzDSClwAAAABJRU5ErkJggg==') no-repeat; }
+  .x-menu-body { border:1px solid #bbb; border-radius: 2px; padding: 0; background-color: #fff !important; }
+  .x-menu-item-active .x-menu-item-link {	border-radius: 0; border-color: #e1e1e1; background-color: #e1e1e1; background-image: none; }
+  .x-menu-item-link { padding: 4px 5px 4px 26px; }
+  .x-menu-item-text { color: #111; }
+}

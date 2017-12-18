@@ -1,0 +1,94 @@
+// Temporarily fix to make Ext look a bit more like Material design
+
+// Same mask as Material UI provides
+.x-mask {
+  background-color: rgba(0, 0, 0, 0.541176)!important;
+  // opacity: 1!important;
+}
+
+// Favorite widget
+.gis-widget-favorite {
+  border-radius: 2px!important;
+  background-color: #fff!important;
+  border: 0!important;
+  padding: 5px!important;
+
+  .x-window-header-default {
+    border-radius: 2px!important;
+    background-color: #fff!important;
+    border: 0!important;
+    padding: 10px 7px 5px 7px;
+  }
+
+  .x-window-header-icon {
+    display: none!important;
+  }
+
+  .x-window-header-text-default {
+    font-family: arial, sans-serif, liberation sans, consolas !important;
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+  .x-window-body-default {
+    border: 0!important;
+    padding: 1px;
+  }
+
+  .x-panel-body-default {
+    border: 0!important;
+  }
+
+  .x-grid {
+    border: 0!important;
+  }
+  .x-grid-header-ct-default {
+    border: 0!important;
+  }
+  .x-grid-body {
+    border: 0!important;
+  }
+  .x-grid-cell {
+    border: 0!important;
+  }
+
+  .x-toolbar-default {
+    background-color: #fff!important;
+    background-image: none;
+    padding-top: 7px;
+    border: 0!important;
+  }
+
+}
+
+
+// Layer panels
+/*
+.gis-widget-layer {
+  padding: 0!important;
+
+  .x-window-header-default {
+
+  }
+
+  .x-panel-header-text-default > div {
+    background-image: none;
+  }
+
+  .x-accordion-item {
+    border: 0!important;
+  }
+
+  .x-btn-inner {
+    text-transform: uppercase;
+  }
+
+  .x-toolbar-default-docked-bottom {
+    background-color: #fff!important;
+    background-image: none;
+    padding-top: 7px;
+  }
+
+}
+*/
+

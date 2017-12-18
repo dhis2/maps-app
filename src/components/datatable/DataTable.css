@@ -1,0 +1,32 @@
+@import "../../../node_modules/react-virtualized/styles.css";
+
+.DataTable {
+
+}
+
+.ReactVirtualized__Table__headerRow {
+    position: relative;
+    background-color: #eee;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 2px;
+    z-index: 10;
+}
+
+.ReactVirtualized__Table__headerColumn {
+    height: 48px;
+    margin-bottom: 2px;
+}
+
+.ReactVirtualized__Table__row {
+    position: relative;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.ReactVirtualized__Table__row:hover {
+    background-color: #fafafa;
+}
+
+.ReactVirtualized__Table__rowColumn.right {
+    text-align: right;
+}

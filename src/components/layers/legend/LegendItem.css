@@ -1,0 +1,24 @@
+.LegendItem {
+    clear: both;
+}
+
+.LegendItem dt {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    float: left;
+    text-align: center;
+}
+
+.LegendItem dt span {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.LegendItem dd {
+    margin-left: 32px;
+    line-height: 24px;
+}

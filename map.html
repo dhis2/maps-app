@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DHIS 2 GIS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <style>
+        body { padding: 0; margin: 0; }
+        html, body, #map { height: 100%; }
+        #map { overflow: hidden; }
+        #map .dhis2-map-title { display: none; }
+        #map .leaflet-container { height: 100%; box-sizing: border-box; }
+        #map .leaflet-control-zoom { display: none; }
+        #map .leaflet-control-legend-toggle { display: none; }
+        #map .leaflet-control-legend-content { display: block; padding: 10px 10px 0 10px; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="extjs/ext-all.js"></script>
+    <script src="map.js"></script> <!-- transpiled -->
+    <script>
+
+        var getURLParameter = function(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+        }
+
+        var mapId = getURLParameter('id');
+
+        Ext.onReady(function() {
+
+            if (mapId) {
+                GIS.plugin.getMap({
+                    url: 'http://localhost:8080',
+                    el: 'map',
+                    id: mapId,
+                    crossDomain: true,
+                    username: 'admin',
+                    password: 'district',
+                    onReady: function() {
+                        console.log('map is ready!');
+                    }
+                });
+            }
+
+        });
+
+    </script>
+</body>
+</html>
+

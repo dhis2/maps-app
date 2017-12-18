@@ -1,0 +1,22 @@
+.UserOrgUnits {
+
+}
+
+
+.UserOrgUnits .selected {
+
+}
+
+.UserOrgUnits svg rect {
+    stroke: #555;
+    fill: none;
+}
+
+.UserOrgUnits svg rect.filled {
+    stroke: #555;
+    fill: #555;
+}
+
+.UserOrgUnits svg path {
+    stroke: #555;
+}
