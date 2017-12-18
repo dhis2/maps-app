@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import i18next from 'i18next';
 import Button from 'd2-ui/lib/button/Button';
-import WidgetWindow from '../../app/WidgetWindow';
 import EventDialog from './EventDialog';
 import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
@@ -56,26 +55,6 @@ class LayerEdit extends Component {
             if (config.type === 'external') { // External layers has no edit widget
                 config.editCounter = 1;
                 getOverlay(config);
-            } else  if (config.old) { // TODO
-                if (!widgets[id]) {
-                    editCounter[id] = 0;
-
-                    widgets[id] = WidgetWindow(gis, config, (editedLayer) => {
-                        widgets[id].hide();
-                        getOverlay(editedLayer);
-                    });
-
-                    if (config.isLoaded) { // Loaded as favorite
-                        widgets[id].show();
-                        console.log('####');
-                        editCounter[id]++;
-                        widgets[id].setLayer(config);
-                    }
-                } else {
-                    config.isNew = false;
-                }
-
-                widgets[id].show();
             }
         }
 

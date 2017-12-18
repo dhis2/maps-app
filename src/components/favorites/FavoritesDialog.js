@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux'
-import FavoriteWindow from '../../app/FavoriteWindow';
+// import FavoriteWindow from '../../app/FavoriteWindow';
 import { getFavorite, closeFavoritesDialog } from '../../actions/favorites';
 
 class FavoritesDialog extends Component {

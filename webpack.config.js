@@ -32,13 +32,13 @@ function log(req, res, opt) {
 const webpackConfig = {
     context: __dirname,
     entry: {
-        'app': './src/maps-app.js',
+        'app': './src/app.js',
         // 'map': './src/map.js',
     },
     devtool: 'source-map',
     output: {
         path: __dirname + '/build',
-        filename: 'maps-app.js',
+        filename: 'app.js',
         chunkFilename: '[name].bundle.js',
         publicPath: isDevBuild ? 'http://localhost:8082/' : './',
     },
@@ -143,11 +143,6 @@ const webpackConfig = {
             { path: '/api/*', target: dhisConfig.baseUrl, bypass: log },
             { path: '/dhis-web-commons/**', target: dhisConfig.baseUrl, bypass: log },
             { path: '/icons/*', target: dhisConfig.baseUrl, bypass: log },
-
-            // TODO: Remove when new platform is in place
-            { path: '/extjs/*', target: '' },
-            { path: '/dhis2/*', target: '' },
-            { path: '/src/custom/*', target: '' },
         ],
     },
 };
