@@ -4,7 +4,7 @@ const defaultBasemaps = [{
     id: 'osmLight',
     title: 'OSM Light',
     subtitle: 'Basemap',
-    img: 'images/layers/osmlight.png',
+    img: 'images/osmlight.png',
     config: {
         type: 'tileLayer',
         url: '//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
@@ -14,7 +14,7 @@ const defaultBasemaps = [{
     id: 'openStreetMap',
     title: 'OSM Detailed',
     subtitle: 'Basemap',
-    img: 'images/layers/osm.png',
+    img: 'images/osm.png',
     config: {
         type: 'tileLayer',
         url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -24,7 +24,7 @@ const defaultBasemaps = [{
     id: 'googleStreets',
     title: 'Google Streets',
     subtitle: 'Basemap',
-    img: 'images/layers/googlestreets.png',
+    img: 'images/googlestreets.png',
     config: {
         type: 'googleLayer',
         style: 'ROADMAP',
@@ -34,7 +34,7 @@ const defaultBasemaps = [{
     id: 'googleHybrid',
     title: 'Google Hybrid',
     subtitle: 'Basemap',
-    img: 'images/layers/googlehybrid.jpeg',
+    img: 'images/googlehybrid.jpeg',
     config: {
         type: 'googleLayer',
         style: 'HYBRID',

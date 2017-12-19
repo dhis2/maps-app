@@ -4,6 +4,7 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 import { apiFetch } from '../util/api';
 import { toGeoJson } from '../util/map';
 import { getClass } from '../util/classify';
+import { dimConf } from '../constants/dimension';
 
 import {
     loadLegendSet,
@@ -14,10 +15,13 @@ import {
 } from '../util/legend';
 
 import {
+    getDisplayProperty,
+} from '../util/helpers';
+
+import {
     getOrgUnitsFromRows,
     getPeriodFromFilters,
     getDataItemsFromColumns,
-    getDisplayProperty,
     getDimensionIndexFromHeaders,
 } from '../util/analytics';
 
@@ -40,9 +44,9 @@ const thematicLoader = async (config) => {
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
     const dataItems = getDataItemsFromColumns(columns); // dx dimension
-    const isOperand = columns[0].dimension === gis.conf.finals.dimension.operand.objectName; // TODO
-    const keyAnalysisDisplayProperty = gis.init.userAccount.settings.keyAnalysisDisplayProperty; // TODO
-    const displayPropertyUpper = getDisplayProperty(displayProperty).toUpperCase();
+    const isOperand = columns[0].dimension === dimConf.operand.objectName; // TODO
+    // const displayPropertyUpper = (await getDisplayProperty(displayProperty)).toUpperCase();
+    const displayPropertyUpper = 'NAME'; // TODO
 
     config.legend = {}; // TODO
 
@@ -73,9 +77,9 @@ const thematicLoader = async (config) => {
     }
 
     const orgUnitReq = d2.geoFeatures
-      .byOrgUnit(orgUnitParams)
-      .displayProperty(displayPropertyUpper)
-      .getAll();
+        .byOrgUnit(orgUnitParams)
+        .displayProperty(displayPropertyUpper)
+        .getAll();
 
     const dataReq = apiFetch(`/analytics.json${dataParams}`);
 
@@ -126,6 +130,9 @@ const thematicLoader = async (config) => {
 
         // console.log('labels', labels, legendItems);
         // console.log('gis.conf.finals.widget.value', gis.conf.finals.widget.value, valueFeatures[0]);
+
+        console.log('valueFeatures', legendSet);
+
 
         valueFeatures.forEach(feature => {
             const prop = feature.properties;
@@ -196,6 +203,10 @@ const thematicLoader = async (config) => {
               }
           });
         */
+
+
+        console.log('not a legend set');
+
     }
 
     // console.log('Create legend');

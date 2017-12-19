@@ -22,4 +22,3 @@ export function apiFetch(url, method, body) {
         .then(res => res.json())
         .catch(error => console.log('Error: ', error)); // TODO: Better error handling
 }
-

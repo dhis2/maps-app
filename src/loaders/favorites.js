@@ -1,14 +1,13 @@
 import { apiFetch } from '../util/api';
-import isArray from 'd2-utilizr/lib/isArray';
+import { mapFields } from '../util/helpers';
 
 // Fetch favorite
-export function fetchFavorite(id) {
-    const fields = gis.conf.url.mapFields.join(','); // TODO
-    return apiFetch(`/maps/${id}.json?fields=${fields}`);
-}
+export const fetchFavorite = async (id) => {
+    return apiFetch(`/maps/${id}.json?fields=${await mapFields()}`);
+};
 
 // Parse favorite (can be removed if we change the format on the server)
-export function parseFavorite({id, name, basemap, mapViews, user}) { // TODO: Add support for longitude, latitude, zoom
+export const parseFavorite = ({id, name, basemap, mapViews, user}) => { // TODO: Add support for longitude, latitude, zoom
     const fav = {
         id,
         name,
@@ -16,7 +15,7 @@ export function parseFavorite({id, name, basemap, mapViews, user}) { // TODO: Ad
         basemap,
     };
 
-    if (isArray(mapViews)) {
+    if (Array.isArray(mapViews)) {
         fav.overlays = mapViews.map(view => {
             view.type = view.layer.replace(/\d$/, ''); // Remove thematic number
             view.title = view.name;
@@ -27,4 +26,4 @@ export function parseFavorite({id, name, basemap, mapViews, user}) { // TODO: Ad
     }
 
     return fav;
-}
+};

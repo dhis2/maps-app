@@ -15,7 +15,10 @@ const layerType = {
 };
 
 export const fetchOverlay = (layer) => {
-    const Loader = layerType[layer.type];
+    const type = layer.layer.replace(/\d$/, ''); // Remove thematic number, temp, should be done in parseFavorite
+
+    // const Loader = layerType[layer.type];
+    const Loader = layerType[type];
 
     if (Loader) {
         return Loader(layer);

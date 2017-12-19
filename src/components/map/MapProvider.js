@@ -1,6 +1,6 @@
 import { Component, Children } from 'react';
 import PropTypes from 'prop-types';
-import d2map from 'gis-api/src/';
+import d2map from 'dhis2-gis-api/src';
 
 // Makes the Leaflet map instance available in all child components
 class MapProvider extends Component {

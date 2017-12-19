@@ -1,24 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 import log from 'loglevel';
-import debounce from 'lodash/fp/debounce';
-import { init, config, getUserSettings, getManifest, getInstance as getD2 } from 'd2/lib/d2';
+import { init, config, getUserSettings, getManifest } from 'd2/lib/d2';
 import i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
-
-// import GIS from './core/index.js';
-// import app from './app/index.js';
-// import appInit from './app-init';
-// import '../scss/app.scss';
-
 // import LoadingMask from 'd2-ui/lib/loading-mask/LoadingMask.component';
-
+import debounce from 'lodash/fp/debounce';
 import store from './store';
 import Root from './components/Root';
-import { loadOrgUnitTree } from './actions/orgUnits';
 import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
+import '../scss/app.scss';
 
 log.setLevel(process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE);
 
@@ -47,6 +40,8 @@ getManifest('manifest.webapp')
         const baseUrl = process.env.NODE_ENV === 'production' ? manifest.getBaseUrl() : DHIS_CONFIG.baseUrl;
         config.baseUrl = `${baseUrl}/api/29`;
         config.context = manifest.activities.dhis; // Added temporarily for util/api.js
+
+        // console.log('context', manifest.activities.dhis);
 
         log.info(`Loading: ${manifest.name} v${manifest.version}`);
         log.info(`Built ${manifest.manifest_generated_at}`);

@@ -1965,6 +1965,13 @@ cwebp-bin@^3.1.0:
     bin-wrapper "^3.0.1"
     logalot "^2.0.0"
 
+d2-analysis@^27.0.85:
+  version "27.0.85"
+  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-27.0.85.tgz#f22177b69165841aab9150b95f466e80f582edec"
+  dependencies:
+    d2-utilizr "0.2.13"
+    jquery "2.1.4"
+
 d2-manifest@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/d2-manifest/-/d2-manifest-1.0.0.tgz#19d4a4c4e8151442ab730e932c9c2170be9ebcc9"
@@ -1979,6 +1986,18 @@ d2-manifest@^1.0.0:
 d2-ui@^28.0.3:
   version "28.0.7"
   resolved "https://registry.yarnpkg.com/d2-ui/-/d2-ui-28.0.7.tgz#c963325be5488348407a4a7cac05ef60af6a6ce6"
+
+d2-utilizr@0.2.13:
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/d2-utilizr/-/d2-utilizr-0.2.13.tgz#aff6dfb054f92e2c974cf69f38f4fdc13699a6d3"
+  dependencies:
+    lodash.isboolean "^3.0.3"
+    lodash.isfunction "^3.0.8"
+    lodash.ismap "^4.3.0"
+    lodash.isnumber "^3.0.3"
+    lodash.isobject "^3.0.2"
+    lodash.isset "^4.3.0"
+    lodash.isstring "^4.0.1"
 
 d2-utilizr@^0.2.15:
   version "0.2.15"
@@ -4793,6 +4812,10 @@ jest@^21.2.1:
   resolved "https://registry.yarnpkg.com/jest/-/jest-21.2.1.tgz#c964e0b47383768a1438e3ccf3c3d470327604e1"
   dependencies:
     jest-cli "^21.2.1"
+
+jquery@2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.1.4.tgz#228bde698a0c61431dc2630a6a154f15890d2317"
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.0"

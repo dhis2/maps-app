@@ -1,8 +1,11 @@
 import { apiFetch } from '../util/api';
 import sortBy from 'lodash/fp/sortBy';
+import { legendSetFields } from '../util/helpers';
 
 export const loadLegendSet = async (legendSet) => {
-    const fields = gis.conf.url.legendSetFields.join(','); // TODO
+    const fields = legendSetFields.join(',');
+
+
 
     // console.log(legendSet, fields);
 

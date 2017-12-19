@@ -1,7 +1,7 @@
 {
   "name": "gis-app",
-  "version": "27.0.0",
-  "description": "GIS Web App for DHIS 2",
+  "version": "29.0.0",
+  "description": "Maps App for DHIS2",
   "main": "src/app.js",
   "scripts": {
     "validate": "npm ls --depth 0",
@@ -34,6 +34,7 @@
   "homepage": "https://github.com/dhis2/gis-app#readme",
   "dependencies": {
     "d2": "^28.2.0",
+    "d2-analysis": "^27.0.85",
     "d2-ui": "^28.0.3",
     "d2-utilizr": "^0.2.15",
     "d3-color": "^1.0.3",

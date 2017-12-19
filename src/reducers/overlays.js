@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 const defaultOverlays = [{
     type: 'event',
     title: 'Events Preview',
-    img: 'images/layers/events.png',
+    img: 'images/events.png',
     opacity: 0.95,
     /*
     program: {
@@ -45,7 +45,7 @@ const defaultOverlays = [{
 },{
     type: 'facility',
     title: 'Facilities Preview',
-    img: 'images/layers/facilities.png',
+    img: 'images/facilities.png',
     opacity: 1,
     rows: [{
         dimension: 'ou',
@@ -56,18 +56,18 @@ const defaultOverlays = [{
 },{
     type: 'thematic',
     title: 'Thematic Preview',
-    img: 'images/layers/thematic.png',
+    img: 'images/thematic.png',
     opacity: 0.8,
 },{
     type: 'boundary',
     title: 'Boundaries Preview',
-    img: 'images/layers/boundaries.png',
+    img: 'images/boundaries.png',
     opacity: 1,
 },{
     type: 'earthEngine',
     datasetId: 'WorldPop/POP',
     title: 'Population density',
-    img: 'images/layers/population.png',
+    img: 'images/population.png',
     params: {
         min: 0,
         max: 1000,
@@ -78,7 +78,7 @@ const defaultOverlays = [{
     type: 'earthEngine',
     datasetId: 'USGS/SRTMGL1_003',
     title: 'Elevation',
-    img: 'images/layers/elevation.png',
+    img: 'images/elevation.png',
     params: {
         min: 0,
         max: 1500,
@@ -89,7 +89,7 @@ const defaultOverlays = [{
     type: 'earthEngine',
     datasetId: 'MODIS/MOD11A2',
     title: 'Temperature',
-    img: 'images/layers/temperature.png',
+    img: 'images/temperature.png',
     params: {
         min: 0,
         max: 50,
@@ -100,7 +100,7 @@ const defaultOverlays = [{
     type: 'earthEngine',
     datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
     title: 'Precipitation',
-    img: 'images/layers/precipitation.png',
+    img: 'images/precipitation.png',
     params: {
         min: 0,
         max: 100,
@@ -111,13 +111,13 @@ const defaultOverlays = [{
     type: 'earthEngine',
     datasetId: 'MODIS/051/MCD12Q1',
     title: 'Landcover',
-    img: 'images/layers/landcover.png',
+    img: 'images/landcover.png',
     opacity: 0.9,
 },{
     type: 'earthEngine',
     datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
     title: 'Nighttime lights',
-    img: 'images/layers/nighttime.png',
+    img: 'images/nighttime.png',
     params: {
         min: 0,
         max: 63,
@@ -128,63 +128,63 @@ const defaultOverlays = [{
     type: 'event',
     old: true,
     title: 'Events',
-    img: 'images/layers/events.png',
+    img: 'images/events.png',
     opacity: 0.95,
 },{
     type: 'facility',
     old: true,
     title: 'Facilities',
-    img: 'images/layers/facilities.png',
+    img: 'images/facilities.png',
     opacity: 1,
 },{
     type: 'thematic',
     old: true,
     title: 'Thematic',
-    img: 'images/layers/thematic.png',
+    img: 'images/thematic.png',
     opacity: 0.8,
 },{
     type: 'boundary',
     old: true,
     title: 'Boundaries',
-    img: 'images/layers/boundaries.png',
+    img: 'images/boundaries.png',
     opacity: 1,
 },{
     type: 'earthEngine',
     old: true,
     title: 'Population density',
-    img: 'images/layers/population.png',
+    img: 'images/population.png',
     subtitle: '2010',
     opacity: 0.9,
 },{
     type: 'earthEngine',
     old: true,
     title: 'Elevation',
-    img: 'images/layers/elevation.png',
+    img: 'images/elevation.png',
     opacity: 0.9,
 },{
     type: 'earthEngine',
     old: true,
     title: 'Temperature',
-    img: 'images/layers/temperature.png',
+    img: 'images/temperature.png',
     opacity: 0.9,
 },{
     type: 'earthEngine',
     old: true,
     title: 'Landcover',
-    img: 'images/layers/landcover.png',
+    img: 'images/landcover.png',
     opacity: 0.9,
 },{
     type: 'earthEngine',
     old: true,
     title: 'Precipitation',
-    img: 'images/layers/precipitation.png',
+    img: 'images/precipitation.png',
     subtitle: '26 - 28 Nov. 2016',
     opacity: 0.9,
 },{
     type: 'earthEngine',
     old: true,
     title: 'Nighttime lights',
-    img: 'images/layers/nighttime.png',
+    img: 'images/nighttime.png',
     opacity: 0.9,
 }*/];
 

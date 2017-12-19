@@ -33,12 +33,12 @@ const webpackConfig = {
     context: __dirname,
     entry: {
         'app': './src/app.js',
-        // 'map': './src/map.js',
+        'plugin': './src/plugin.js',
     },
     devtool: 'source-map',
     output: {
         path: __dirname + '/build',
-        filename: 'app.js',
+        filename: '[name].js',
         chunkFilename: '[name].bundle.js',
         publicPath: isDevBuild ? 'http://localhost:8082/' : './',
     },
@@ -48,7 +48,7 @@ const webpackConfig = {
                 test: /\.jsx?$/,
                 include: [
                     path.resolve(__dirname, 'src/'),
-                    path.resolve(__dirname, '../gis-api/src/'),
+                    path.resolve(__dirname, '../dhis2-gis-api/src/'),
                 ],
                 loader: 'babel-loader',
                 query: {

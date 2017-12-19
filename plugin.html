@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <head>
-    <title>DHIS2 GIS Plugin</title>
-    <script src="map.js"></script> <!-- transpiled -->
+    <title>DHIS2 Maps Plugin</title>
+    <script src="polyfill.min.js"></script>
+    <script src="plugin.js"></script> <!-- transpiled -->
     <style>
         h1 {
             font-size: 20px;
@@ -17,7 +18,15 @@
     </style>
 
     <script>
+        var map1 = { id: 'zDP78aJU8nX', el: "map1" };  // voX07ulo2Bq
 
+        // mapsPlugin.url = '//localhost:8080';
+        mapsPlugin.url = '//localhost:8080';
+        mapsPlugin.username = 'admin';
+        mapsPlugin.password = 'district';
+        mapsPlugin.loadingIndicator = true;
+
+        mapsPlugin.load(map1);
     </script>
 </head>
 
