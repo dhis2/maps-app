@@ -27,15 +27,9 @@ const Plugin = () => {
 
     // https://github.com/dhis2/d2-analysis/blob/master/src/util/Plugin.js#L28
     function load(...layouts) {
-        console.log(layouts, this);
-
         add(Array.isArray(layouts[0]) ? layouts[0] : layouts);
 
-
-
         const { url, username, password } = this;
-
-
 
         if (url, username, password) {
             config.baseUrl = `${url}/api/${apiVersion}`;

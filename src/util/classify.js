@@ -43,6 +43,21 @@ export const getClass = (value, bins) => {
     return null;
 };
 
+export const getLegendItems = (values, method, numClasses) => {
+    const minValue = values[0];
+    const maxValue = values[values.length - 1];
+    let bins;
+
+    if (method === 2) { // Equal intervals - TODO: Use constant
+        bins = getEqualIntervals(minValue, maxValue, numClasses);
+    } else if (method === 3) { // Quantiles - TODO: Use constant
+        bins = getQuantiles(values, numClasses);
+    }
+
+    return bins;
+};
+
+
 export const getClassBins = (values, method, numClasses) => {
     const minValue = values[0];
     const maxValue = values[values.length - 1];
@@ -57,6 +72,7 @@ export const getClassBins = (values, method, numClasses) => {
     return bins;
 };
 
+/*
 export const getEqualIntervals = (minValue, maxValue, numClasses) => {
     const bins = [];
     const binSize = (maxValue - minValue) / numClasses;
@@ -69,8 +85,25 @@ export const getEqualIntervals = (minValue, maxValue, numClasses) => {
 
     return bins;
 };
+*/
 
-// Values had to be ordered!
+export const getEqualIntervals = (minValue, maxValue, numClasses) => {
+    const bins = [];
+    const binSize = (maxValue - minValue) / numClasses;
+
+    for (let i = 0; i < numClasses; i++) {
+        const startValue = minValue + (i * binSize);
+
+        bins.push({
+            startValue: startValue,
+            endValue: (i < numClasses - 1) ? startValue + binSize : maxValue,
+        });
+    }
+
+    return bins;
+};
+
+/*
 export const getQuantiles = (values, numClasses) => {
     const minValue = values[0];
     const maxValue = values[values.length - 1];
@@ -88,6 +121,30 @@ export const getQuantiles = (values, numClasses) => {
     }
 
     return bins;
+};
+*/
+
+// TODO: Refactor
+export const getQuantiles = (values, numClasses) => {
+    const minValue = values[0];
+    const maxValue = values[values.length - 1];
+    const bins = [];
+    const binCount = Math.round(values.length / numClasses);
+    let binLastValPos = (binCount === 0) ? 0 : binCount;
+
+    if (values.length > 0) {
+        bins[0] = minValue;
+        for (let i = 1; i < numClasses; i++) {
+            bins[i] = values[binLastValPos];
+            binLastValPos += binCount;
+        }
+        // bins.push(maxValue);
+    }
+
+    return bins.map((value, index) => ({
+        startValue: value,
+        endValue: bins[index + 1] || maxValue
+    }));
 };
 
 // Classify data

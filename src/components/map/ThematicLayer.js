@@ -35,7 +35,8 @@ class ThematicLayer extends Layer {
         const layerBounds = this.layer.getBounds();
 
         if (layerBounds.isValid()) {
-            map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
+            map.invalidateSize();
+            map.fitBounds(layerBounds); // TODO: Do as action?
         }
     }
 

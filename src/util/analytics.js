@@ -154,6 +154,7 @@ export const getFiltersFromColumns = (columns = []) => {
     return filters.length ? filters : null;
 };
 
+/*
 export const getDimensionIndexFromHeaders = (headers, dimension) => {
     if (!Array.isArray(headers) || !dimension) {
         return null;
@@ -168,6 +169,7 @@ export const getDimensionIndexFromHeaders = (headers, dimension) => {
     // TODO: findIndex is not supported by IE, is it transpiled?
     return headers.findIndex(item => item.name === dim.dimensionName);
 };
+*/
 
 export const getFiltersAsText = (filters = []) => {
     return filters.map(({ name, filter }) => {

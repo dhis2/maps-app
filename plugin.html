@@ -5,20 +5,26 @@
     <script src="plugin.js"></script> <!-- transpiled -->
     <style>
         body {
-            margin: 10px 0 0 30px;
+            margin: 10px;
             font-family: arial,sans-serif;
         }
 
+        .wrapper {
+            width: 350px;
+            float: left;
+            margin: 10px;
+        }
+
         h1 {
-            font-size: 20px;
-            padding: 20px 0 10px;
+            font-size: 12px;
+            margin-top: 0;
         }
 
         .map {
+            box-sizing: border-box;
             border: 1px solid #555;
-            width: 700px;
-            height: 400px;
-            margin-bottom: 30px;
+            width: 100%;
+            height: 350px;
             overflow: hidden;
         }
     </style>
@@ -28,8 +34,9 @@
         var url = '//localhost:8080';
         var username = 'admin';
         var password = 'district';
-        var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&paging=false`;
-        var options = { headers: { Authorization: 'Basic ' + btoa(`${username}:${password}`) } };
+        // var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&paging=false`;
+        var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&pageSize=3&page=1`;
+        var fetchOptions = { headers: { Authorization: 'Basic ' + btoa(`${username}:${password}`) } };
 
         mapsPlugin.url = url;
         mapsPlugin.username = username;
@@ -37,15 +44,18 @@
         mapsPlugin.loadingIndicator = true;
 
         // Fetch all favorites
-        fetch(favoritesUrl, options)
+        fetch(favoritesUrl, fetchOptions)
             .then(res => res.json())
             .then(data => data.maps)
             .then(maps => maps.map(createMapElement))
             .then(maps => mapsPlugin.load(maps))
-            .catch(error => console.log('Error: ', error));
+            .catch(console.error);
 
         // Create map for each favorite
         function createMapElement(favorite) {
+            const wrapperEl = document.createElement('div');
+            wrapperEl.className = 'wrapper';
+
             const nameEl = document.createElement('H1');
             nameEl.innerText = favorite.name;
 
@@ -53,8 +63,10 @@
             mapEl.id = favorite.id;
             mapEl.className = 'map';
 
-            document.body.appendChild(nameEl);
-            document.body.appendChild(mapEl);
+            wrapperEl.appendChild(nameEl);
+            wrapperEl.appendChild(mapEl);
+
+            document.body.appendChild(wrapperEl);
 
             favorite.el = favorite.id;
 

@@ -22,7 +22,7 @@ class MapProvider extends Component {
     }
 
     render() {
-        return Children.only(this.props.children)
+        return Children.only(this.props.children);
     }
 }
 

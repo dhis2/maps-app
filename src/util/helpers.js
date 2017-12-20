@@ -3,6 +3,13 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 // import store from '../store';
 const defaultKeyAnalysisDisplayProperty = 'displayName';
 
+const propertyMap = {
+    'name': 'name',
+    'displayName': 'name',
+    'shortName': 'shortName',
+    'displayShortName': 'shortName'
+};
+
 const displayPropertyMap = {
     name: 'displayName',
     displayName: 'displayName',
@@ -12,15 +19,15 @@ const displayPropertyMap = {
 
 export const getDisplayProperty = async (displayProperty) => {
     const d2 = await getD2();
-    return displayPropertyMap[displayProperty || d2.currentUser.settings.keyAnalysisDisplayProperty || defaultKeyAnalysisDisplayProperty];
+    const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
+    return propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name';
 };
 
+// TODO
 export const getDisplayPropertyUrl = async () => {
     const displayProperty = await getDisplayProperty();
     return `${displayProperty}~rename(name)`;
 };
-
-
 
 const baseFields = [
     'id',

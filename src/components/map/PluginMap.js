@@ -58,33 +58,36 @@ class PluginMap extends Component {
 
         map.invalidateSize();
 
+        const layersBounds = map.getLayersBounds();
+
+        if (layersBounds.isValid) {
+            map.fitBounds(layersBounds);
+        }
+
+        /* TODO
         if (Array.isArray(bounds)) {
             map.fitBounds(bounds);
         } else if (isNumeric(latitude) && isNumeric(longitude) && isNumeric(zoom)) {
             map.setView([latitude, longitude], zoom);
-        }
+        }*/
+     }
+
+    componentDidUpdate(prevProps) {
+        this.context.map.invalidateSize();
+    }
+
+    // Remove map
+    componentWillUnmount() {
+        this.context.map.remove();
     }
 
     render() {
-        const { overlays } = this.props;
+        const { basemap = 'osmLight', overlays } = this.props;
+        const selectedBasemap = defaultBasemaps.filter(map => map.id === basemap)[0];
 
         const style = {
             width: '100%',
             height: '100%',
-        };
-
-        console.log('props', this.props);
-
-        const basemap = { // TODO: Read from favorite
-            id: 'osmLight',
-            title: 'OSM Light',
-            subtitle: 'Basemap',
-            img: 'images/osmlight.png',
-            config: {
-                type: 'tileLayer',
-                url: '//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-            },
         };
 
         return (
@@ -103,7 +106,7 @@ class PluginMap extends Component {
                         />
                     )
                 })}
-                <Layer key='basemap' {...basemap} />
+                <Layer key='basemap' {...selectedBasemap} />
             </div>
         )
     }

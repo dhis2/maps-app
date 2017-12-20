@@ -1,7 +1,9 @@
 import i18next from 'i18next';
 import { getInstance as getD2 } from 'd2/lib/d2';
-// import store from '../store';
-import { apiFetch } from '../util/api';
+import keyBy from 'lodash/fp/keyBy';
+import findIndex from 'lodash/fp/findIndex';
+import pick from 'lodash/fp/pick';
+import curry from 'lodash/fp/curry';
 import { toGeoJson } from '../util/map';
 import { getClass } from '../util/classify';
 import { dimConf } from '../constants/dimension';
@@ -14,6 +16,12 @@ import {
     formatLegendItems,
 } from '../util/legend';
 
+
+import {
+    getLegendItems,
+    getColorsByRgbInterpolation,
+} from '../util/classify';
+
 import {
     getDisplayProperty,
 } from '../util/helpers';
@@ -22,117 +30,35 @@ import {
     getOrgUnitsFromRows,
     getPeriodFromFilters,
     getDataItemsFromColumns,
-    getDimensionIndexFromHeaders,
 } from '../util/analytics';
 
-const thematicLoader = async (config) => {
-    const {
-        rows,
-        columns,
-        filters,
-        displayProperty,
-        userOrgUnit,
-        valueType,
-        relativePeriodDate,
-        aggregationType,
-        legendSet,
-    } = config;
+const thematicLoader = async (layout) => {
+    const { legendSet } = layout;
+    const [ features, data ] = await loadData(layout);
+    // const featureById = keyBy('id', features);
+    const valueById = getValueById(data);
+    const legend = legendSet ? await createLegendFromLegendSet(legendSet) : createLegendFromConfig(data, layout);
 
-    console.log('thematic config', config);
+    // const aggregationTypeLower = aggregationType ? i18next.t(aggregationType).toLowerCase() : '';
+    // const valueFeatures = []; // only include features with values
 
-    const d2 = await getD2();
-    const orgUnits = getOrgUnitsFromRows(rows);
-    const period = getPeriodFromFilters(filters);
-    const dataItems = getDataItemsFromColumns(columns); // dx dimension
-    const isOperand = columns[0].dimension === dimConf.operand.objectName; // TODO
-    // const displayPropertyUpper = (await getDisplayProperty(displayProperty)).toUpperCase();
-    const displayPropertyUpper = 'NAME'; // TODO
+    const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
-    config.legend = {}; // TODO
+    features.forEach(({ id, properties }) => {
+        const value = valueById[id];
+        const item = getLegendItem(value);
 
-    let orgUnitParams = orgUnits.map(item => item.id);
-    let dataParams = '?dimension=ou:' + orgUnits.map(item => item.id).join(';');
-
-    if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        dataParams += '&userOrgUnit=' + userOrgUnit.join(';');
-        orgUnitParams += '&userOrgUnit=' + userOrgUnit.join(';');
-    }
-
-    dataParams += '&dimension=dx:' + dataItems.map(item => isOperand ? item.id.split('.')[0] : item.id).join(';');
-
-    if (valueType === 'ds') {
-        dataParams += '.REPORTING_RATE';
-    }
-
-    dataParams += isOperand ? '&dimension=co' : '';
-    dataParams += `&filter=pe:${period.id}`; // '&filter=pe:' + periods.map(item => item.id).join(';');
-    dataParams += '&displayProperty=' + displayPropertyUpper;
-
-    if (relativePeriodDate) {
-        dataParams += '&relativePeriodDate=' + relativePeriodDate;
-    }
-
-    if (aggregationType) {
-        dataParams += '&aggregationType=' + aggregationType;
-    }
-
-    const orgUnitReq = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(displayPropertyUpper)
-        .getAll();
-
-    const dataReq = apiFetch(`/analytics.json${dataParams}`);
-
-    // Load data from API
-    const data = await Promise.all([orgUnitReq, dataReq]);
-    const features = toGeoJson(data[0], 'ASC');
-    const analyticsData = data[1];
-    const metaData = analyticsData.metaData;
-    const headers = analyticsData.headers;
-    const aggregationTypeLower = aggregationType ? i18next.t(aggregationType).toLowerCase() : '';
-    const ouIndex = getDimensionIndexFromHeaders(headers, 'organisationUnit');
-    const valueIndex = getDimensionIndexFromHeaders(headers, 'value');
-    const featureMap = {};
-    const valueMap = {};
-    const valueFeatures = []; // only include features with values
-    const values = []; // to find min and max values
-
-    // Feature map
-    features.forEach(feature => {
-        featureMap[feature.id] = true;
+        properties.value = value;
+        properties.color = item && item.color;
     });
 
-    // Value map
-    analyticsData.rows.forEach(row => {
-        valueMap[row[ouIndex]] = parseFloat(row[valueIndex]);
-    });
-
-    features.forEach(feature => {
-        const id = feature.id;
-
-        if (featureMap.hasOwnProperty(id) && valueMap.hasOwnProperty(id)) {
-            feature.properties.value = valueMap[id];
-            feature.properties.aggregationType = aggregationTypeLower;
-            valueFeatures.push(feature);
-            values.push(valueMap[id]);
-        }
-    });
-
-    // Sort values in ascending order
-    values.sort((a, b) => a - b);
-
+    /*
     if (legendSet) { // Pre-defined legend set
         const legend = await loadLegendSet(legendSet);
         const legendItems = legend.legends;
         const bins = getBinsFromLegendItems(legendItems);
         const colorScale = getColorScaleFromLegendItems(legendItems);
         const labels = getLabelsFromLegendItems(legendItems);
-
-        // console.log('labels', labels, legendItems);
-        // console.log('gis.conf.finals.widget.value', gis.conf.finals.widget.value, valueFeatures[0]);
-
-        console.log('valueFeatures', legendSet);
-
 
         valueFeatures.forEach(feature => {
             const prop = feature.properties;
@@ -142,10 +68,8 @@ const thematicLoader = async (config) => {
             // console.log(value, classNumber, prop.color);
         });
 
-
         config.legend.items = formatLegendItems(legendItems);
-
-
+*/
         /*
         prop = features[i].properties;
         value = prop[options.indicator];
@@ -163,10 +87,7 @@ const thematicLoader = async (config) => {
           options.count[classNumber]++;
         }
         */
-
-
-
-
+        /*
     } else { // Custom legend
         const elementMap = {
             'in': 'indicators',
@@ -176,7 +97,7 @@ const thematicLoader = async (config) => {
 
         const elementUrl = elementMap[columns[0].objectName];
         const id = columns[0].items[0].id;
-
+*/
         /*
         if (!elementUrl) {
             this.createLegend();
@@ -205,18 +126,136 @@ const thematicLoader = async (config) => {
         */
 
 
-        console.log('not a legend set');
+        // console.log('not a legend set');
 
-    }
+    //}
 
     // console.log('Create legend');
 
-    config.data = valueFeatures;
-    config.isLoaded = true;
-    config.isExpanded = true;
-    config.isVisible = true;
 
-    return config;
+
+    return {
+        ...layout,
+        data: features,
+        legend,
+        isLoaded: true,
+        isExpanded: true,
+        isVisible: true,
+    };
+};
+
+
+// const isWithinItem =>
+
+
+// Returns legend item where a value belongs
+const getLegendItemForValue = (legendItems, value) => {
+    const isLast = (index) => index === legendItems.length - 1;
+    return legendItems.find((item, index) =>
+        value >= item.startValue && (value < item.endValue || (isLast(index) && value === item.endValue)));
+};
+
+// Returns an object mapping org. units and values
+const getValueById = (data) => {
+    const { headers, rows } = data;
+    const ouIndex = findIndex(['name', 'ou'], headers);
+    const valueIndex = findIndex(['name', 'value'], headers);
+
+    return rows.reduce((obj, row) => {
+        obj[row[ouIndex]] = parseFloat(row[valueIndex]);
+        return obj;
+    }, {});
+};
+
+// Returns an array of ordered values
+const getOrderedValues = (data) => {
+    const { headers, rows } = data;
+    const valueIndex = findIndex(['name', 'value'], headers);
+
+    return rows.map(row => parseFloat(row[valueIndex])).sort((a, b) => a - b);
+};
+
+// Retursn a legend created from a pre-defined legend set
+const createLegendFromLegendSet = async (legendSet) => {
+    const { name, legends } = await loadLegendSet(legendSet)
+    const pickSome = pick(['name', 'startValue', 'endValue', 'color']);
+    return {
+        title: name,
+        items: legends.map(pickSome),
+    };
+};
+
+const createLegendFromConfig = (data, config) => {
+    const orderedValues = getOrderedValues(data);
+    const { method, classes, colors, colorLow, colorHigh } = config;
+    const items = getLegendItems(orderedValues, method, classes);
+    const colorScale = colors || getColorsByRgbInterpolation(colorLow, colorHigh, classes);
+
+    return {
+        title: '',
+        items: items.map((item, index) => ({
+            ...item,
+            color: colorScale[index],
+        })),
+    };
+};
+
+// Load features and data values from api
+const loadData = async (config) => {
+    const { rows, columns, filters, displayProperty, userOrgUnit, valueType, relativePeriodDate, aggregationType } = config;
+    const orgUnits = getOrgUnitsFromRows(rows);
+    const period = getPeriodFromFilters(filters);
+    const dataItems = getDataItemsFromColumns(columns);
+    const isOperand = columns[0].dimension === dimConf.operand.objectName;
+    const displayPropertyUpper = (await getDisplayProperty(displayProperty)).toUpperCase();
+    const d2 = await getD2();
+
+    let orgUnitParams = orgUnits.map(item => item.id);
+    let dataDimension = dataItems.map(item => isOperand ? item.id.split('.')[0] : item.id);
+
+    if (valueType === 'ds') {
+        dataDimension = dataDimension.map(id => id + '.REPORTING_RATE'); // TODO: Correct?
+    }
+
+    let analyticsRequest = new d2.analytics.request()
+        .addOrgUnitDimension(orgUnits.map(ou => ou.id))
+        .addDataDimension(dataDimension)
+        .addPeriodFilter(period.id)
+        .withDisplayProperty(displayPropertyUpper);
+
+    if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
+        orgUnitParams += '&userOrgUnit=' + userOrgUnit.join(';');
+        analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit.join(';'));
+    }
+
+    if (relativePeriodDate) {
+        analyticsRequest = analyticsRequest.withRelativePeriodDate(relativePeriodDate);
+    }
+
+    if (aggregationType) {
+        analyticsRequest = analyticsRequest.withAggregationType(aggregationType);
+    }
+
+    if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
+        analyticsRequest = analyticsRequest.addUserOrgUnit(userOrgUnit.map(ou => ou));
+    }
+
+    if (isOperand) {
+        analyticsRequest = analyticsRequest.addDimension('co');
+    }
+
+    // Features promise
+    const orgUnitReq = d2.geoFeatures
+        .byOrgUnit(orgUnitParams)
+        .displayProperty(displayPropertyUpper)
+        .getAll()
+        .then(toGeoJson);
+
+    // Data request
+    const dataReq = d2.analytics.aggregate.get(analyticsRequest);
+
+    // Load promise
+    return Promise.all([orgUnitReq, dataReq]);
 };
 
 
@@ -227,87 +266,6 @@ export default thematicLoader;
 /*
 class ThematicLoader {
 
-    constructor(layer, callback) {
-        this.layer = layer;
-        this.callback = callback;
-        this.dimConf = gis.conf.finals.dimension; // TODO
-
-
-        console.log('ThematicLoader', layer);
-
-        this.load(layer);
-    }
-
-    load(layer) {
-        const orgUnits = layer.rows[0].items;
-        const dxItems = layer.columns[0].items;
-        const isOperand = layer.columns[0].dimension === this.dimConf.operand.objectName;
-        const peItems = layer.filters[0].items;
-        const ouItems = layer.rows[0].items;
-        const propertyMap = {
-            'name': 'name',
-            'displayName': 'name',
-            'shortName': 'shortName',
-            'displayShortName': 'shortName'
-        };
-        const keyAnalysisDisplayProperty = gis.init.userAccount.settings.keyAnalysisDisplayProperty; // TODO
-        const displayProperty = propertyMap[keyAnalysisDisplayProperty] || propertyMap[layer.displayProperty] || 'name';
-
-        // let orgUnitParams = '?ou=ou:' + orgUnits.map(item => item.id).join(';') + '&displayProperty=' + displayProperty.toUpperCase();
-        const orgUnitParams = orgUnits.map(item => item.id);
-
-        // Seems to be not in use
-        // if (isArray(layer.userOrgUnit) && layer.userOrgUnit.length) {
-        //     orgUnitParams += '&userOrgUnit=' + layer.userOrgUnit.join(';');
-        // }
-
-        // ou
-        let dataParams = '?dimension=ou:' + ouItems.map(item => item.id).join(';');
-
-        // dx
-        dataParams += '&dimension=dx:' + dxItems.map(item => isOperand ? item.id.split('.')[0] : item.id).join(';');
-
-        if (layer.valueType === 'ds') {
-            dataParams += '.REPORTING_RATE';
-        }
-
-        dataParams += isOperand ? '&dimension=co' : '';
-
-        // pe
-        dataParams += '&filter=pe:' + peItems.map(item => item.id).join(';');
-
-        // display property
-        dataParams += '&displayProperty=' + displayProperty.toUpperCase();
-
-        if (isArray(layer.userOrgUnit) && layer.userOrgUnit.length) {
-            dataParams += '&userOrgUnit=' + layer.userOrgUnit.join(';');
-        }
-
-        // relative period date
-        if (layer.relativePeriodDate) {
-            dataParams += '&relativePeriodDate=' + layer.relativePeriodDate;
-        }
-
-        if (layer.aggregationType) {
-            dataParams += '&aggregationType=' + layer.aggregationType;
-        }
-
-        getD2()
-            .then((d2) => {
-                const orgUnitReq = d2.geoFeatures
-                    .byOrgUnit(orgUnitParams)
-                    .displayProperty(displayProperty.toUpperCase())
-                    .getAll();
-
-                const dataReq = apiFetch(`/analytics.json${dataParams}`);
-
-                // Load data from API
-                Promise.all([orgUnitReq, dataReq])
-                    .then(data => this.onLoad(data[0], data[1]))
-                    .catch(error => console.log('Parsing failed: ', error));
-
-            });
-    }
 
     // Called when org units and data is loaded
     onLoad(orgUnits, data) {
