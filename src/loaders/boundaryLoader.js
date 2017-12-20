@@ -4,14 +4,12 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 import { toGeoJson } from '../util/map';
 // import { getDisplayPropertyUrl } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
+import { getDisplayProperty } from '../util/helpers';
 
 const colors = ['black', 'blue', 'red', 'green', 'yellow'];
 const weights = [2, 1, 0.75, 0.5, 0.5];
 
 const boundaryLoader = async (config) => { // Returns a promise
-    console.log('config', config);
-
-
     const { rows, radiusLow } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
@@ -25,8 +23,8 @@ const boundaryLoader = async (config) => { // Returns a promise
         'displayShortName': 'shortName'
     };
 
-    const keyAnalysisDisplayProperty = gis.init.userAccount.settings.keyAnalysisDisplayProperty; // TODO
-    const displayProperty = (propertyMap[keyAnalysisDisplayProperty] || 'name').toUpperCase();
+
+    const displayProperty = (await getDisplayProperty()).toUpperCase();
 
     const data = await d2.geoFeatures
         .byOrgUnit(orgUnitParams)

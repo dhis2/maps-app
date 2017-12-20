@@ -35,12 +35,10 @@ import {
 const thematicLoader = async (layout) => {
     const { legendSet } = layout;
     const [ features, data ] = await loadData(layout);
-    // const featureById = keyBy('id', features);
     const valueById = getValueById(data);
     const legend = legendSet ? await createLegendFromLegendSet(legendSet) : createLegendFromConfig(data, layout);
 
     // const aggregationTypeLower = aggregationType ? i18next.t(aggregationType).toLowerCase() : '';
-    // const valueFeatures = []; // only include features with values
 
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 

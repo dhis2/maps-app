@@ -2,8 +2,8 @@ import isString from 'd2-utilizr/lib/isString';
 
 const externalLoader = async (config) => { // Returns a promise
     if (isString(config.config)) { // From database as favorite
-        config.config = JSON.parse(layer.config);
-        config.title = layer.config.name;
+        config.config = JSON.parse(config.config);
+        config.title = config.config.name;
     }
 
     // TODO: Add legend support
