@@ -8,6 +8,7 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
+import { defaultBasemaps } from '../../constants/basemaps';
 import '../../../scss/app.scss';
 
 const layerType = {
@@ -55,17 +56,6 @@ class PluginMap extends Component {
             imperial: false
         });
 
-        // TODO: Use mapzen key from Web API
-        map.addControl({
-            type: 'search',
-            apiKey: 'search-Se1CFzK', // gis.init.systemInfo.mapzenSearchKey
-        });
-
-        // Add measurement control
-        map.addControl({
-            type: 'measure',
-        });
-
         map.invalidateSize();
 
         if (Array.isArray(bounds)) {
@@ -82,6 +72,8 @@ class PluginMap extends Component {
             width: '100%',
             height: '100%',
         };
+
+        console.log('props', this.props);
 
         const basemap = { // TODO: Read from favorite
             id: 'osmLight',

@@ -4,12 +4,18 @@
     <script src="polyfill.min.js"></script>
     <script src="plugin.js"></script> <!-- transpiled -->
     <style>
+        body {
+            margin: 10px 0 0 30px;
+            font-family: arial,sans-serif;
+        }
+
         h1 {
             font-size: 20px;
             padding: 20px 0 10px;
         }
 
-        #map1, #map2 {
+        .map {
+            border: 1px solid #555;
             width: 700px;
             height: 400px;
             margin-bottom: 30px;
@@ -18,26 +24,44 @@
     </style>
 
     <script>
-        var map1 = { id: 'zDP78aJU8nX', el: "map1" };  // voX07ulo2Bq
 
-        // mapsPlugin.url = '//localhost:8080';
-        mapsPlugin.url = '//localhost:8080';
-        mapsPlugin.username = 'admin';
-        mapsPlugin.password = 'district';
+        var url = '//localhost:8080';
+        var username = 'admin';
+        var password = 'district';
+        var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&paging=false`;
+        var options = { headers: { Authorization: 'Basic ' + btoa(`${username}:${password}`) } };
+
+        mapsPlugin.url = url;
+        mapsPlugin.username = username;
+        mapsPlugin.password = password;
         mapsPlugin.loadingIndicator = true;
 
-        mapsPlugin.load(map1);
+        // Fetch all favorites
+        fetch(favoritesUrl, options)
+            .then(res => res.json())
+            .then(data => data.maps)
+            .then(maps => maps.map(createMapElement))
+            .then(maps => mapsPlugin.load(maps))
+            .catch(error => console.log('Error: ', error));
+
+        // Create map for each favorite
+        function createMapElement(favorite) {
+            const nameEl = document.createElement('H1');
+            nameEl.innerText = favorite.name;
+
+            const mapEl = document.createElement('div');
+            mapEl.id = favorite.id;
+            mapEl.className = 'map';
+
+            document.body.appendChild(nameEl);
+            document.body.appendChild(mapEl);
+
+            favorite.el = favorite.id;
+
+            return favorite;
+        }
+
     </script>
 </head>
-
-<body style="margin:10px 0 0 30px; font-family:arial,sans-serif">
-
-<h1>MAP BY UID</h1>
-<div id="map1"></div>
-
-<h1>MAP BY CONFIG</h1>
-<div id="map2"></div>
-
-</body>
-
+<body></body>
 </html>
