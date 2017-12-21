@@ -1,8 +1,8 @@
 import i18next from 'i18next';
+import uniqBy from 'lodash/fp/uniqBy';
 import arrayUnique from 'd2-utilizr/lib/arrayUnique';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { toGeoJson } from '../util/map';
-// import { getDisplayPropertyUrl } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 
@@ -15,49 +15,30 @@ const boundaryLoader = async (config) => { // Returns a promise
     const orgUnitParams = orgUnits.map(item => item.id);
 
     const d2 = await getD2();
-
-    const propertyMap = {
-        'name': 'name',
-        'displayName': 'name',
-        'shortName': 'shortName',
-        'displayShortName': 'shortName'
-    };
-
-
     const displayProperty = (await getDisplayProperty()).toUpperCase();
 
-    const data = await d2.geoFeatures
+    const features = await d2.geoFeatures
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayProperty)
-        .getAll();
+        .getAll()
+        .then(toGeoJson);
 
-    if (!data.length) {
-        console.log('No data!');
+    if (!features.length) {
         // gis.alert(GIS.i18n.no_valid_coordinates_found); // TODO
         return;
     }
 
-    // console.log(data);
+    const levels = uniqBy(f => f.properties.level, features)
+        .map(f => f.properties.level)
+        .sort();
 
-    const features = toGeoJson(data, 'ASC');
-
-    // console.log(features);
-
-    const levelStyle = {};
-    let levels = [];
-
-    for (let i = 0; i < data.length; i++) {
-        levels.push(parseInt(data[i].le));
-    }
-
-    levels = arrayUnique(levels).sort();
-
-    for (let i = 0; i < levels.length; i++) {
-        levelStyle[levels[i]] = {
-            color: colors[i],
-            weight: (levels.length === 1 ? 1 : weights[i])
-        };
-    }
+    const levelStyle = levels.reduce((obj, level, index) => ({
+        ...obj,
+        [level]: {
+            color: colors[index],
+            weight: levels.length === 1 ? 1 : weights[index],
+        }
+    }), {});
 
     features.forEach(feature => {
         feature.properties.style = levelStyle[feature.properties.level];
@@ -65,14 +46,6 @@ const boundaryLoader = async (config) => { // Returns a promise
             paddingTop: feature.geometry.type === 'Point' ? 5 + (radiusLow || 5) + 'px' : '0'
         };
     });
-
-    /*
-    labelFontSize: "11px"
-    labelFontStyle: "normal"
-    labels: false
-    opacity: 1
-    radiusLow: 4
-    */
 
     return {
         ...config,
@@ -85,5 +58,3 @@ const boundaryLoader = async (config) => { // Returns a promise
 };
 
 export default boundaryLoader;
-
-

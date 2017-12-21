@@ -70,7 +70,7 @@ class PluginMap extends Component {
 
         const layersBounds = map.getLayersBounds();
 
-        if (layersBounds.isValid) {
+        if (layersBounds.isValid()) {
             map.fitBounds(layersBounds);
         }
 

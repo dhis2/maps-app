@@ -35,7 +35,7 @@
         var username = 'admin';
         var password = 'district';
         // var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&paging=false`;
-        var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&pageSize=1&page=1`;
+        var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&pageSize=5&page=7`;
         var fetchOptions = { headers: { Authorization: 'Basic ' + btoa(`${username}:${password}`) } };
 
         mapsPlugin.url = url;

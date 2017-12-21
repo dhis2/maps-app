@@ -93,6 +93,8 @@ class ThematicLayer extends Layer {
         const position = [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y];
         const props = this.props;
 
+        console.log(position);
+
         this.props.openContextMenu({
             position,
             coordinate: [latlng.lng, latlng.lat],

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { init } from 'd2/lib/d2';
+import { init, config } from 'd2/lib/d2';
 import PluginMap from './components/map/PluginMap';
 import { fetchFavorite, parseFavorite } from './loaders/favorites';
 import { fetchOverlay } from './loaders/overlays';
@@ -31,17 +31,16 @@ const Plugin = () => {
         const { url, username, password } = this;
 
         if (url, username, password) {
-            init({
-                baseUrl: `${url}/api/${apiVersion}`,
-                context: {
-                    auth: `${username}:${password}`,
-                },
-                schemas: [ 'map', 'legendSet' ],
-            }).then(onInit);
+            // Config options can be added to init method below when all data is fetched through d2
+            config.baseUrl = `${url}/api/${apiVersion}`;
+            config.context =  { auth: `${username}:${password}` };
+            config.schemas = [ 'map', 'legendSet' ];
+
+            init().then(onInit);
         }
     }
 
-    function onInit(d2) {
+    function onInit() {
         _configs.forEach(config => {
             if (config.id) {
                 fetchFavorite(config.id)

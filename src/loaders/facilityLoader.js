@@ -6,7 +6,7 @@ import { getDisplayPropertyUrl } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
 
 const facilityLoader = async (config) => { // Returns a promise
-    console.log('config', config);
+    // console.log('config', config);
 
     const { organisationUnitGroupSet, rows } = config;
     const groupSetId = organisationUnitGroupSet.id;
