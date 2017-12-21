@@ -5,32 +5,44 @@ import { filterData } from '../../util/filter';
 class ThematicLayer extends Layer {
 
     createLayer(callback) {
-        const props = this.props;
-        const valueFilter = props.valueFilter || { gt: null, lt: null, };
-        const map = this.context.map;
+        const {
+            id,
+            data,
+            dataFilters,
+            valueFilter = { gt: null, lt: null, },
+            labels,
+            labelFontSize,
+            labelFontStyle,
+            legend,
+            isPlugin,
+        } = this.props;
 
-        const data = filterData(props.data, props.dataFilters);
+        const map = this.context.map;
 
         const config = {
             type: 'choropleth',
-            pane: props.id,
-            data: data,
+            pane: id,
+            data: filterData(data, dataFilters),
             // hoverLabel: '{name} ({value})'
         };
 
-        if (props.labels) {
+        if (labels) {
             config.label = '{name}';
             config.labelStyle = {
-                fontSize: props.labelFontSize,
-                fontStyle: props.labelFontStyle
+                fontSize: labelFontSize,
+                fontStyle: labelFontStyle
             };
-            config.labelPane = props.id + '-labels';
+            config.labelPane = id + '-labels';
         }
 
-        this.layer = map.createLayer(config);
 
+        this.layer = map.createLayer(config);
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
+
+        if (isPlugin && legend) {
+            map.legend = (map.legend || '') + this.getHtmlLegend(legend); // TODO: Better way to assemple the legend?
+        }
 
         const layerBounds = this.layer.getBounds();
 
@@ -40,14 +52,35 @@ class ThematicLayer extends Layer {
         }
     }
 
+    getHtmlLegend(legend) {
+        const { title, items } = legend;
+
+        let html = `
+            <div class="dhis2-legend">
+                <h2>${title}</h2>
+                <span>Period</span>
+                <dl class="dhis2-legend-automatic">
+                    ${items.map(item => `
+                        <dt style="background-color:${item.color}"></dt>
+                        <dd>${item.name}</dd>
+                    `).join('')}
+                </dl>
+            </div>`;
+
+
+        // console.log('html', html);
+
+        return html;
+    }
+
+
+
     onFeatureClick(evt) {
+        const { name, value } = evt.layer.feature.properties;
+        const { columns, aggregationType, legend } = this.props;
         const map = this.context.map;
-        const props = this.props;
-        const indicator = props.columns[0].items[0].name;
-        const period = props.filters[0].items[0].name;
-        const name = evt.layer.feature.properties.name;
-        const value = evt.layer.feature.properties.value;
-        const aggregationType = evt.layer.feature.properties.aggregationType;
+        const indicator = columns[0].items[0].name;
+        const period = legend.period;
         const content = '<div class="leaflet-popup-orgunit"><em>' + name + '</em><br>' + indicator + '<br>' + period + ': ' + value + ' ' + (aggregationType ? '(' + aggregationType + ')' : '') + '</div>';
 
         L.popup()

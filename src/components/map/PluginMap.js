@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import d2map from 'dhis2-gis-api/src';
 import { isNumeric } from 'd2-utilizr';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
@@ -24,9 +25,22 @@ const layerType = {
 // TODO: Resuse code from Map.js
 class PluginMap extends Component {
 
-    static contextTypes = {
-        map: PropTypes.object,
-    };
+    getChildContext() {
+        return {
+            map: this.map
+        };
+    }
+
+    constructor(props, context) {
+        super(props, context)
+
+        // Create map div
+        const div = document.createElement('div');
+        div.style.width = '100%';
+        div.style.height = '100%';
+
+        this.map = d2map(div);
+    }
 
     componentWillMount() {
         // this.context.map.on('contextmenu', this.onRightClick, this);
@@ -34,27 +48,23 @@ class PluginMap extends Component {
 
     componentDidMount() {
         const { bounds, latitude, longitude, zoom } = this.props;
-        const map = this.context.map;
+        const map = this.map;
 
         this.node.appendChild(map.getContainer()); // Append map container to DOM
 
         // Add zoom control
         map.addControl({
             type: 'zoom',
-            position: 'topright'
+            position: 'topright',
         });
 
-        // Add fit bounds control
-        map.addControl({
-            type: 'fitBounds',
-            position: 'topright'
-        });
-
-        // Add scale control
-        map.addControl({
-            type: 'scale',
-            imperial: false
-        });
+        if (map.legend) {
+            map.addControl({
+                type: 'legend',
+                offset: [0, -64],
+                content: map.legend,
+            });
+        }
 
         map.invalidateSize();
 
@@ -103,6 +113,7 @@ class PluginMap extends Component {
                             index={index}
                             // openContextMenu={openContextMenu}
                             {...layer}
+                            isPlugin={true}
                         />
                     )
                 })}
@@ -111,5 +122,9 @@ class PluginMap extends Component {
         )
     }
 }
+
+PluginMap.childContextTypes = {
+    map: PropTypes.object.isRequired,
+};
 
 export default PluginMap;
