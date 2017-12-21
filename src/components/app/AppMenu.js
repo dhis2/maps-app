@@ -27,32 +27,33 @@ const styles = {
 
 const AppMenu = ({ openOverlaysDialog, openFavoritesDialog, openAboutDialog, contextPath }) => (
     <Toolbar
-      style={styles.toolbar}
-      className='dhis-gis-menu'
+        style={styles.toolbar}
+        className='dhis-gis-menu'
     >
         <ToolbarGroup firstChild={true}>
             <Button
-              onClick={openOverlaysDialog}
-              style={styles.button}
+                onClick={openOverlaysDialog}
+                style={styles.button}
             >{i18next.t('Add layer')}</Button>
             <Button
-              onClick={openFavoritesDialog}
-              style={styles.button}
+                // onClick={openFavoritesDialog}
+                onClick={() => {}}
+                style={styles.button}
             >{i18next.t('Favorites')}</Button>
             <Button
-              disabled={true}
-              onClick={() => {}}
-              style={styles.button}
+                disabled={true}
+                onClick={() => {}}
+                style={styles.button}
             >{i18next.t('Share')}</Button>
         </ToolbarGroup>
         <ToolbarGroup lastChild={true} style={styles.lastToolbar}>
             <Button
-              onClick={openAboutDialog}
-              style={styles.button}
+                onClick={openAboutDialog}
+                style={styles.button}
             >{i18next.t('About')}</Button>
             <Button
-              onClick={() => window.location.href = `${contextPath}/dhis-web-commons-about/redirect.action`}
-              style={styles.button}
+                onClick={() => window.location.href = `${contextPath}/dhis-web-commons-about/redirect.action`}
+                style={styles.button}
             >{i18next.t('Home')}</Button>
         </ToolbarGroup>
     </Toolbar>

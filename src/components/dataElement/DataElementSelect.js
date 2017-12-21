@@ -7,7 +7,7 @@ import { loadDataElements } from '../../actions/dataElements';
 export class DataElementSelect extends Component {
 
     componentDidUpdate() {
-        const { dataElement, dataElements, dataElementGroup, loadDataElements } = this.props;
+        const { dataElements, dataElementGroup, loadDataElements } = this.props;
 
         if (dataElementGroup && !dataElements[dataElementGroup.id]) {
             loadDataElements(dataElementGroup.id);
