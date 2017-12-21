@@ -1,48 +1,13 @@
-import { apiFetch } from '../util/api';
+import { getInstance as getD2 } from 'd2/lib/d2';
 import sortBy from 'lodash/fp/sortBy';
+import { apiFetch } from '../util/api';
 import { legendSetFields } from '../util/helpers';
 
 export const loadLegendSet = async (legendSet) => {
     const fields = legendSetFields.join(',');
+    const d2 = await getD2();
 
-
-
-    // console.log(legendSet, fields);
-
-    // TODO: Load with d2
-    return apiFetch(`/legendSets/${legendSet.id}.json?fields=${fields}`);
-        //.then(legend => {
-        //    const legendItems = legend.legends;
-
-        //    console.log('legend data', data);
-
-          // arraySort(legendItems, 'ASC', 'startValue');
-
-          /*
-          legendItems.forEach(item => {
-            if (bounds[bounds.length - 1] !== item.startValue) {
-              if (bounds.length !== 0) {
-                colors.push('#F0F0F0');
-                names.push('');
-              }
-              bounds.push(item.startValue);
-            }
-            colors.push(item.color);
-            names.push(item.name);
-            bounds.push(item.endValue);
-
-          });
-
-          layer.method = 1; // Predefined legend
-          layer.legendSet.names = names;
-          layer.legendSet.bounds = bounds;
-          layer.legendSet.colors = colors;
-          layer.legendSet.count = this.count;
-
-          this.createLegend()
-          */
-
-    //});
+    return d2.models.legendSet.get(legendSet.id);
 };
 
 export const formatLegendItems = (legendItems) => {

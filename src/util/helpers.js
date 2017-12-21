@@ -83,7 +83,7 @@ const analysisFields = async () => {
 
 export const mapFields = async () => {
     const fields = await analysisFields();
-    return [ baseFields.join(','),  `mapViews[${fields.join(',')}]` ];
+    return  `${baseFields.join(',')}, mapViews[${fields.join(',')}]`;
 };
 
 export const legendFields = [

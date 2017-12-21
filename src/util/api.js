@@ -6,11 +6,13 @@ export function apiFetch(url, method, body) {
         headers: {}
     };
 
+    /*
     if (config.context.auth) {
         options.headers['Authorization'] = 'Basic ' + btoa(config.context.auth);
     } else {
         options.credentials = 'include';
     }
+    */
 
     if (method && body) {
         options.method = method;

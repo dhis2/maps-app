@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { config, init } from 'd2/lib/d2';
-import MapProvider from './components/map/MapProvider';
+import { init } from 'd2/lib/d2';
 import PluginMap from './components/map/PluginMap';
 import { fetchFavorite, parseFavorite } from './loaders/favorites';
 import { fetchOverlay } from './loaders/overlays';
@@ -32,11 +31,13 @@ const Plugin = () => {
         const { url, username, password } = this;
 
         if (url, username, password) {
-            config.baseUrl = `${url}/api/${apiVersion}`;
-            config.context = {
-                auth: `${username}:${password}`, // TODO: Right place for auth info in d2?
-            };
-            init().then(onInit);
+            init({
+                baseUrl: `${url}/api/${apiVersion}`,
+                context: {
+                    auth: `${username}:${password}`,
+                },
+                schemas: [ 'map', 'legendSet' ],
+            }).then(onInit);
         }
     }
 

@@ -23,7 +23,7 @@ class ThematicLayer extends Layer {
             type: 'choropleth',
             pane: id,
             data: filterData(data, dataFilters),
-            // hoverLabel: '{name} ({value})'
+            hoverLabel: '{name} ({value})',
         };
 
         if (labels) {
@@ -35,13 +35,12 @@ class ThematicLayer extends Layer {
             config.labelPane = id + '-labels';
         }
 
-
         this.layer = map.createLayer(config);
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
         if (isPlugin && legend) {
-            map.legend = (map.legend || '') + this.getHtmlLegend(legend); // TODO: Better way to assemple the legend?
+            map.legend = (map.legend || '') + this.getHtmlLegend(legend); // TODO: Better way to assemble the legend?
         }
 
         const layerBounds = this.layer.getBounds();
@@ -55,7 +54,7 @@ class ThematicLayer extends Layer {
     getHtmlLegend(legend) {
         const { title, items } = legend;
 
-        let html = `
+        return `
             <div class="dhis2-legend">
                 <h2>${title}</h2>
                 <span>Period</span>
@@ -66,14 +65,7 @@ class ThematicLayer extends Layer {
                     `).join('')}
                 </dl>
             </div>`;
-
-
-        // console.log('html', html);
-
-        return html;
     }
-
-
 
     onFeatureClick(evt) {
         const { name, value } = evt.layer.feature.properties;
@@ -81,7 +73,12 @@ class ThematicLayer extends Layer {
         const map = this.context.map;
         const indicator = columns[0].items[0].name;
         const period = legend.period;
-        const content = '<div class="leaflet-popup-orgunit"><em>' + name + '</em><br>' + indicator + '<br>' + period + ': ' + value + ' ' + (aggregationType ? '(' + aggregationType + ')' : '') + '</div>';
+        const content = `
+            <div class="leaflet-popup-orgunit">
+                <em>${name}</em><br>
+                ${indicator}<br>
+                ${period}: ${value} ${aggregationType ? `(${aggregationType})` : ''}
+            </div>`;
 
         L.popup()
             .setLatLng(evt.latlng)

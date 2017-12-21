@@ -1,9 +1,13 @@
+import { getInstance as getD2 } from 'd2/lib/d2';
 import { apiFetch } from '../util/api';
 import { mapFields } from '../util/helpers';
 
 // Fetch favorite
 export const fetchFavorite = async (id) => {
-    return apiFetch(`/maps/${id}.json?fields=${await mapFields()}`);
+    const d2 = await getD2();
+    return d2.models.map.get(id, {
+        fields: await mapFields(),
+    });
 };
 
 // Parse favorite (can be removed if we change the format on the server)

@@ -6,7 +6,6 @@ import pick from 'lodash/fp/pick';
 import curry from 'lodash/fp/curry';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
-import { loadLegendSet } from '../util/legend';
 import { getLegendItems, getColorsByRgbInterpolation } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemsFromColumns } from '../util/analytics';
@@ -72,9 +71,10 @@ const getOrderedValues = (data) => {
     return rows.map(row => parseFloat(row[valueIndex])).sort((a, b) => a - b);
 };
 
-// Retursn a legend created from a pre-defined legend set
+// Returns a legend created from a pre-defined legend set
 const createLegendFromLegendSet = async (legendSet) => {
-    const { name, legends } = await loadLegendSet(legendSet);
+    const d2 = await getD2();
+    const { name, legends } = await d2.models.legendSet.get(legendSet.id);
     const pickSome = pick(['name', 'startValue', 'endValue', 'color']);
     return {
         title: name,
