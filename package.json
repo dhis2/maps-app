@@ -1,8 +1,14 @@
 {
-  "name": "gis-app",
+  "name": "maps-app",
   "version": "29.0.0",
-  "description": "Maps App for DHIS2",
+  "description": "DHIS2 Maps app",
   "main": "src/app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhis2/maps-app.git"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Bjørn Sandvik",
   "scripts": {
     "validate": "npm ls --depth 0",
     "start": "./node_modules/.bin/d2-manifest --href='http://localhost:8080' --manifest.activities.dhis.auth='admin:district' package.json manifest.webapp && webpack-dev-server",
@@ -17,21 +23,6 @@
     "components:watch": "NODE_ENV=test nyc --require babel-register --require babel-polyfill mocha --watch --reporter dot --recursive test/components && nyc report --reporter=lcov",
     "postcomponents:test": "open coverage/lcov-report/index.html"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dhis2/gis-app.git"
-  },
-  "keywords": [
-    "DHIS2",
-    "HISP",
-    "GIS"
-  ],
-  "author": "Bjørn Sandvik",
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/dhis2/gis-app/issues"
-  },
-  "homepage": "https://github.com/dhis2/gis-app#readme",
   "dependencies": {
     "d2": "^28.2.0",
     "d2-analysis": "^27.0.85",
@@ -112,9 +103,13 @@
     "test"
   ],
   "manifest.webapp": {
-    "name": "DHIS 2 Maps App",
+    "name": "Maps App",
     "icons": {
       "48": "icon.png"
+    },
+    "developer": {
+      "url": "",
+      "name": "Bjørn Sandvik"
     },
     "activities": {
       "dhis": {
