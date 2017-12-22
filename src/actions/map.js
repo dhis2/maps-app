@@ -1,8 +1,14 @@
 import * as types from '../constants/actionTypes';
 
-export const setMap = (map) => ({
+// Load one map favorite
+export const loadMap = (id) => ({
+  type: types.MAP_LOAD,
+  id,
+});
+
+export const setMap = (config) => ({
     type: types.MAP_SET,
-    payload: map,
+    payload: config,
 });
 
 export const openCoordinatePopup = (coord) => ({

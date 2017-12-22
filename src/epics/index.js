@@ -4,15 +4,16 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/concatMapTo';
 import 'rxjs/add/observable/empty';
-import orgUnitsEpis from './orgUnits';
-import programsEpics from './programs';
-import indicatorsEpics from './indicators';
-import optionSetsEpics from './optionSets';
-import externalLayersEpics from './externalLayers';
-import dataElementsEpics from './dataElements';
-import dataSetsEpics from './dataSets';
-import legendSetsEpics from './legendSets';
+import dataElementEpics from './dataElements';
+import dataSetEpics from './dataSets';
 import earthEngineEpics from './earthEngine';
+import externalLayerEpics from './externalLayers';
+import favoriteEpics from './map';
+import indicatorEpics from './indicators';
+import legendSetEpics from './legendSets';
+import optionSetEpics from './optionSets';
+import orgUnitEpis from './orgUnits';
+import programEpics from './programs';
 
 const errorEpic = (action$) =>
     action$
@@ -21,14 +22,15 @@ const errorEpic = (action$) =>
         .concatMapTo(Observable.empty()); // Avoid infinite loop, same as .map(action => Observable.empty()).concatAll()
 
 export default combineEpics(
-    orgUnitsEpis,
-    programsEpics,
-    indicatorsEpics,
-    optionSetsEpics,
-    externalLayersEpics,
-    dataElementsEpics,
-    dataSetsEpics,
-    legendSetsEpics,
+    dataElementEpics,
+    dataSetEpics,
+    earthEngineEpics,
     errorEpic,
-    earthEngineEpics
+    externalLayerEpics,
+    favoriteEpics,
+    indicatorEpics,
+    legendSetEpics,
+    optionSetEpics,
+    orgUnitEpis,
+    programEpics,
 );

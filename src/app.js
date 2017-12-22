@@ -8,6 +8,7 @@ import XHR from 'i18next-xhr-backend';
 import debounce from 'lodash/fp/debounce';
 import store from './store';
 import Root from './components/Root';
+import { loadMap } from './actions/map'; // Just for testing
 import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
@@ -80,6 +81,9 @@ getManifest('manifest.webapp')
 
         render(<Root d2={d2} store={store} />, document.getElementById('app'));
 
+
+        // console.log('load map');
+        store.dispatch(loadMap('UZydsaAeq1k'));
 
 
         /*

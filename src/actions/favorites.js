@@ -6,6 +6,8 @@ import { loading, loaded } from './loading';
 import { fetchFavorite, parseFavorite } from '../loaders/favorites';
 import { getOverlay } from './overlays';
 
+
+/*
 export const getFavorite = (id) => (dispatch) => {
     dispatch(loading());
 
@@ -30,6 +32,7 @@ export const getFavorite = (id) => (dispatch) => {
         console.log('Error: ', error); // TODO
     });
 };
+*/
 
 export const openFavoritesDialog = () => ({
     type: types.FAVORITES_DIALOG_OPEN_REQUESTED,
