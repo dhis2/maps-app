@@ -13,7 +13,7 @@ const dataTable = (state = null, action) => {
         case types.DATA_TABLE_TOGGLE:
             return state ? null : action.id;
 
-        case types.OVERLAY_REMOVE:
+        case types.LAYER_REMOVE:
             return state === action.id ? null : state;
 
         default:

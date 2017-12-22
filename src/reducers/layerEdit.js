@@ -17,11 +17,11 @@ const layerEdit = (state = null, action) => {
 
     switch (action.type) {
 
-        case types.OVERLAY_EDIT:
+        case types.LAYER_EDIT:
             delete action.payload.img;
             return action.payload;
 
-        case types.OVERLAY_CANCEL:
+        case types.LAYER_CANCEL:
             return null;
 
         case types.LAYER_EDIT_PROGRAM_SET:

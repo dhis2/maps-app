@@ -3,14 +3,18 @@ import { apiFetch } from '../util/api';
 import { mapFields } from '../util/helpers';
 
 // Fetch favorite
+/*
 export const fetchFavorite = async (id) => {
+    console.log('Still in use?');
     const d2 = await getD2();
     return d2.models.map.get(id, {
         fields: await mapFields(),
     });
 };
+*/
 
 // Parse favorite (can be removed if we change the format on the server)
+/*
 export const parseFavorite = ({id, name, basemap, mapViews, user}) => { // TODO: Add support for longitude, latitude, zoom
     const fav = {
         id,
@@ -31,3 +35,4 @@ export const parseFavorite = ({id, name, basemap, mapViews, user}) => { // TODO:
 
     return fav;
 };
+*/

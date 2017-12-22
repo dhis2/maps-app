@@ -6,11 +6,11 @@ import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
 import { grey600 } from 'material-ui/styles/colors';
 import SortableHandle from './SortableHandle';
-import OverlayToolbar from '../toolbar/OverlayToolbar';
+import LayerToolbar from '../toolbar/LayerToolbar';
 import Legend from '../legend/Legend';
-import { editOverlay, removeOverlay, changeOverlayOpacity, toggleOverlayExpand, toggleOverlayVisibility } from '../../../actions/overlays';
+import { editLayer, removeLayer, changeLayerOpacity, toggleLayerExpand, toggleLayerVisibility } from '../../../actions/layers';
 import { toggleDataTable } from '../../../actions/dataTable';
-import './OverlayCard.css';
+import './LayerCard.css';
 
 
 const styles = {
@@ -38,14 +38,14 @@ const styles = {
     },
 };
 
-const OverlayCard = (props) => {
+const LayerCard = (props) => {
     const {
         layer,
-        editOverlay,
-        removeOverlay,
-        changeOverlayOpacity,
-        toggleOverlayExpand,
-        toggleOverlayVisibility,
+        editLayer,
+        removeLayer,
+        changeLayerOpacity,
+        toggleLayerExpand,
+        toggleLayerVisibility,
         toggleDataTable,
     } = props;
 
@@ -60,13 +60,13 @@ const OverlayCard = (props) => {
 
     return (
         <Card
-            className='OverlayCard'
+            className='LayerCard'
             containerStyle={styles.container}
             expanded={isExpanded}
-            onExpandChange={() => toggleOverlayExpand(id)}
+            onExpandChange={() => toggleLayerExpand(id)}
         >
             <CardHeader
-                className='OverlayCard-header'
+                className='LayerCard-header'
                 title={title}
                 subtitle={subtitle}
                 showExpandableButton={true}
@@ -75,7 +75,7 @@ const OverlayCard = (props) => {
                 <SortableHandle color={grey600} />
                 <IconButton
                     style={styles.visibility}
-                    onClick={() => toggleOverlayVisibility(id)}
+                    onClick={() => toggleLayerVisibility(id)}
                     tooltip="Toggle visibility">
                     <SvgIcon
                         icon={isVisible ? 'Visibility' : 'VisibilityOff'}
@@ -85,29 +85,29 @@ const OverlayCard = (props) => {
             </CardHeader>
             <CardText expandable={true} style={styles.body}>
                 {legend && <Legend {...legend} />}
-                <OverlayToolbar
+                <LayerToolbar
                     layer={layer}
-                    onEdit={() => editOverlay(layer)}
+                    onEdit={() => editLayer(layer)}
                     toggleDataTable={toggleDataTable}
-                    onOpacityChange={changeOverlayOpacity}
-                    onRemove={() => removeOverlay(id)}
+                    onOpacityChange={changeLayerOpacity}
+                    onRemove={() => removeLayer(id)}
                 />
             </CardText>
         </Card>
     )
 };
 
-OverlayCard.propTypes = {
+LayerCard.propTypes = {
     layer: PropTypes.object,
-    editOverlay: PropTypes.func.isRequired,
-    removeOverlay: PropTypes.func.isRequired,
-    changeOverlayOpacity: PropTypes.func.isRequired,
-    toggleOverlayExpand: PropTypes.func.isRequired,
-    toggleOverlayVisibility: PropTypes.func.isRequired,
+    editLayer: PropTypes.func.isRequired,
+    removeLayer: PropTypes.func.isRequired,
+    changeLayerOpacity: PropTypes.func.isRequired,
+    toggleLayerExpand: PropTypes.func.isRequired,
+    toggleLayerVisibility: PropTypes.func.isRequired,
     toggleDataTable: PropTypes.func.isRequired,
 };
 
 export default connect(
     null,
-    { editOverlay, removeOverlay, changeOverlayOpacity, toggleOverlayExpand, toggleOverlayVisibility, toggleDataTable }
-)(OverlayCard);
+    { editLayer, removeLayer, changeLayerOpacity, toggleLayerExpand, toggleLayerVisibility, toggleDataTable }
+)(LayerCard);

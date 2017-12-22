@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import appTheme from './app.theme';
 import MapProvider from '../map/MapProvider';
 import AppMenu from './AppMenu';
-import AddOverlayDialog from '../layers/overlays/AddOverlayDialog';
+import AddOverlayDialog from '../layers/layers/AddLayerDialog';
 import FavoritesDialog from '../favorites/FavoritesDialog';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';

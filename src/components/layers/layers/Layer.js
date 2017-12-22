@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Overlay.css';
+import './Layer.css';
 
 const Overlay = ({ overlay, onClick }) => {
     const { img, title } = overlay;

@@ -10,7 +10,7 @@ const defaultState = {
         opacity: 1,
         subtitle: 'Basemap',
     },
-    overlays: [],
+    mapViews: [],
 };
 
 
@@ -57,17 +57,7 @@ const basemap = (state, action) => {
 const overlay = (state, action) => {
     switch (action.type) {
 
-        case types.OVERLAY_LOAD_REQUESTED:
-            if (state.id !== action.id) {
-                return state;
-            }
-
-            return {
-                ...state,
-                isLoading: true,
-            };
-
-        case types.OVERLAY_UPDATE:
+        case types.LAYER_UPDATE:
             if (state.id !== action.id) {
                 return state;
             }
@@ -76,7 +66,7 @@ const overlay = (state, action) => {
                 ...action.payload,
             };
 
-        case types.OVERLAY_CHANGE_OPACITY:
+        case types.LAYER_CHANGE_OPACITY:
             if (state.id !== action.id) {
                 return state;
             }
@@ -86,7 +76,7 @@ const overlay = (state, action) => {
                 opacity: action.opacity,
             };
 
-        case types.OVERLAY_TOGGLE_VISIBILITY:
+        case types.LAYER_TOGGLE_VISIBILITY:
             if (state.id !== action.id) {
                 return state;
             }
@@ -96,7 +86,7 @@ const overlay = (state, action) => {
                 isVisible: !state.isVisible,
             };
 
-        case types.OVERLAY_TOGGLE_EXPAND:
+        case types.LAYER_TOGGLE_EXPAND:
             if (state.id !== action.id) {
                 return state;
             }
@@ -220,7 +210,7 @@ const map = (state = defaultState, action) => {
                 basemap: basemap(state.basemap, action),
             };
 
-        case types.OVERLAY_ADD:
+        case types.LAYER_ADD:
             // Check to only allow external layers to be added once
             if (state.overlays.filter(l => l.id === action.payload.id).length) {
                 return state;
@@ -234,34 +224,34 @@ const map = (state = defaultState, action) => {
                 ],
             };
 
-        case types.OVERLAY_ADD_DATA:
+        case types.LAYER_ADD_DATA:
             return {
                 ...state,
             };
 
-        case types.OVERLAY_LOAD:
+        case types.LAYER_LOAD:
             return {
                 ...state,
             };
 
-        case types.OVERLAY_REMOVE:
+        case types.LAYER_REMOVE:
             return {
                 ...state,
                 overlays: state.overlays.filter(overlay => overlay.id !== action.id)
             };
 
-        case types.OVERLAY_SORT:
+        case types.LAYER_SORT:
             return {
                 ...state,
                 overlays: arrayMove(state.overlays, action.oldIndex, action.newIndex)
             };
 
-        case types.OVERLAY_LOAD_REQUESTED:
-        case types.OVERLAY_UPDATE:
-        case types.OVERLAY_EDIT:
-        case types.OVERLAY_CHANGE_OPACITY:
-        case types.OVERLAY_TOGGLE_VISIBILITY:
-        case types.OVERLAY_TOGGLE_EXPAND:
+        case types.LAYER_LOAD_REQUESTED:
+        case types.LAYER_UPDATE:
+        case types.LAYER_EDIT:
+        case types.LAYER_CHANGE_OPACITY:
+        case types.LAYER_TOGGLE_VISIBILITY:
+        case types.LAYER_TOGGLE_EXPAND:
         case types.ORGANISATION_UNIT_SELECT:
         case types.ORGANISATION_UNIT_UNSELECT:
         case types.ORGANISATION_UNIT_COORDINATE_CHANGE:

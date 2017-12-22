@@ -4,54 +4,54 @@ import { loading, loaded } from './loading';
 import { fetchOverlay } from '../loaders/overlays';
 import { dimConf } from '../constants/dimension';
 
-// Add new overlay
-export const addOverlay = (layer) => ({
-    type: types.OVERLAY_ADD,
-    payload: layer,
+// Add new layer
+export const addLayer = (config) => ({
+    type: types.LAYER_ADD,
+    payload: config,
 });
 
 // Remove an overlay
-export const removeOverlay = (id) => ({
-    type: types.OVERLAY_REMOVE,
+export const removeLayer = (id) => ({
+    type: types.LAYER_REMOVE,
     id,
 });
 
 // Edit overlay
-export const editOverlay = (layer) => ({
-    type: types.OVERLAY_EDIT,
+export const editLayer = (layer) => ({
+    type: types.LAYER_EDIT,
     payload: layer
 });
 
 // Cancel overlay (stop editing)
-export const cancelOverlay = () => ({
-    type: types.OVERLAY_CANCEL,
+export const cancelLayer = () => ({
+    type: types.LAYER_CANCEL,
 });
 
 // Update existing overlay
-export const updateOverlay = (layer) => ({
-    type: types.OVERLAY_UPDATE,
+export const updateLayer = (layer) => ({
+    type: types.LAYER_UPDATE,
     id: layer.id,
     payload: layer,
 });
 
 // Update existing overlay
 export const requestOverlayLoad = (id) => ({
-    type: types.OVERLAY_LOAD_REQUESTED,
+    type: types.LAYER_LOAD_REQUESTED,
     id: layer.id,
 });
 
 // Load overlay data
 // http://redux.js.org/docs/advanced/AsyncActions.html
-export const getOverlay = (layer) => (dispatch) => {
+export const getLayer = (layer) => (dispatch) => {
     dispatch(loading());
 
     return fetchOverlay(layer).then(layer => {
         layer.editCounter++;
 
         if (layer.editCounter === 1) { // Add new layer
-            dispatch(addOverlay(layer));
+            dispatch(addLayer(layer));
         } else { // Update existing layer
-            dispatch(updateOverlay(layer));
+            dispatch(updateLayer(layer));
         }
 
         dispatch(loaded());
@@ -59,33 +59,33 @@ export const getOverlay = (layer) => (dispatch) => {
 };
 
 // Expand/collapse overlay card
-export const toggleOverlayExpand = (id) => ({
-    type: types.OVERLAY_TOGGLE_EXPAND,
+export const toggleLayerExpand = (id) => ({
+    type: types.LAYER_TOGGLE_EXPAND,
     id,
 });
 
 // Show/hide overlay on map
-export const toggleOverlayVisibility = (id) => ({
-    type: types.OVERLAY_TOGGLE_VISIBILITY,
+export const toggleLayerVisibility = (id) => ({
+    type: types.LAYER_TOGGLE_VISIBILITY,
     id,
 });
 
 // Set overlay opacity
-export const changeOverlayOpacity = (id, opacity) => ({
-    type: types.OVERLAY_CHANGE_OPACITY,
+export const changeLayerOpacity = (id, opacity) => ({
+    type: types.LAYER_CHANGE_OPACITY,
     id,
     opacity,
 });
 
 // Change ordering of overlays
-export const sortOverlays = ({oldIndex, newIndex}) => ({
-    type: types.OVERLAY_SORT,
+export const sortLayers = ({oldIndex, newIndex}) => ({
+    type: types.LAYER_SORT,
     oldIndex,
     newIndex,
 });
 
 // Drill
-export const drillOverlay = (layerId, parentId, parentGraph, level) => (dispatch, getState) => {
+export const drillLayer = (layerId, parentId, parentGraph, level) => (dispatch, getState) => {
     dispatch(closeContextMenu());
 
     const state = getState();
@@ -112,11 +112,11 @@ export const drillOverlay = (layerId, parentId, parentGraph, level) => (dispatch
 };
 
 // Open overlay selection dialog
-export const openOverlaysDialog = () => ({
-    type: types.OVERLAYS_DIALOG_OPEN_REQUESTED,
+export const openLayersDialog = () => ({
+    type: types.LAYERS_DIALOG_OPEN_REQUESTED,
 });
 
 // Close overlay selection dialog
-export const closeOverlaysDialog = () => ({
-    type: types.OVERLAYS_DIALOG_CLOSE_REQUESTED,
+export const closeLayersDialog = () => ({
+    type: types.LAYERS_DIALOG_CLOSE_REQUESTED,
 });

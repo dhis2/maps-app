@@ -6,7 +6,7 @@ import Popover from 'material-ui/Popover';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
 import { closeContextMenu, openCoordinatePopup } from '../../actions/map';
-import { drillOverlay } from '../../actions/overlays';
+import { drillOverlay } from '../../actions/layers';
 import { openOrgUnit, startRelocateOrgUnit, changeOrgUnitCoordinate} from '../../actions/orgUnits';
 
 // https://github.com/callemall/material-ui/issues/2866

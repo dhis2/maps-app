@@ -14,8 +14,12 @@ const layerType = {
     external: externalLoader,
 };
 
-export const fetchOverlay = (layer) => {
-    const type = layer.type || layer.layer.replace(/\d$/, ''); // Remove thematic number, temp, should be done in parseFavorite
+export const fetchOverlay = (config) => {
+    console.log('fetchOverlay', config);
+
+    // const type = config.type || config.layer.replace(/\d$/, ''); // Remove thematic number, temp, should be done in parseFavorite
+    const type = config.layer;
+
     const Loader = layerType[type];
 
     if (Loader) {

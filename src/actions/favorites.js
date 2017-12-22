@@ -4,7 +4,7 @@ import { setMap } from './map';
 import { selectBasemap } from './basemap';
 import { loading, loaded } from './loading';
 import { fetchFavorite, parseFavorite } from '../loaders/favorites';
-import { getOverlay } from './overlays';
+import { getOverlay } from './layers';
 
 
 /*

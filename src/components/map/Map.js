@@ -112,7 +112,7 @@ class Map extends Component {
         const {
             basemap,
             basemaps,
-            overlays,
+            mapViews,
             layersPanelOpen,
             dataTableOpen,
             dataTableHeight,
@@ -134,15 +134,17 @@ class Map extends Component {
 
         return (
             <div ref={node => this.node = node} style={style}>
-                {overlays.filter(layer => layer.isLoaded).map((layer, index) => {
-                    const Overlay = layerType[layer.type] || Layer;
+                {mapViews.filter(layer => layer.isLoaded).map((config, index) => {
+                    const Overlay = layerType[config.layer] || Layer;
+
+                    console.log('Overlay', Overlay);
 
                     return (
                         <Overlay
-                            key={layer.id}
+                            key={config.id}
                             index={index}
                             openContextMenu={openContextMenu}
-                            {...layer}
+                            {...config}
                         />
                     )
                 })}

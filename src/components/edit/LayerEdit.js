@@ -8,7 +8,7 @@ import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
 import BoundaryDialog from './BoundaryDialog';
 import EarthEngineDialog from './EarthEngineDialog';
-import { getOverlay, cancelOverlay } from '../../actions/overlays';
+import { getOverlay, cancelOverlay } from '../../actions/layers';
 
 const layerType = {
     event: EventDialog,

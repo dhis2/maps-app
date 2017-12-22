@@ -34,13 +34,13 @@ const ui = (state = defaultState, action) => {
                 layersPanelOpen: false,
             };
 
-        case types.OVERLAYS_DIALOG_OPEN_REQUESTED:
+        case types.LAYERS_DIALOG_OPEN_REQUESTED:
             return {
                 ...state,
                 overlaysDialogOpen: true,
             };
 
-        case types.OVERLAYS_DIALOG_CLOSE_REQUESTED:
+        case types.LAYERS_DIALOG_CLOSE_REQUESTED:
             return {
                 ...state,
                 overlaysDialogOpen: false,

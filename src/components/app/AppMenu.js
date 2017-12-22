@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import i18next from 'i18next';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import Button from 'd2-ui/lib/button/Button';
-import { openOverlaysDialog } from '../../actions/overlays';
+import { openLayersDialog } from '../../actions/layers';
 import { openFavoritesDialog } from '../../actions/favorites';
 import { openAboutDialog } from '../../actions/about';
 import { HEADER_HEIGHT } from '../../constants/layout';
@@ -25,14 +25,14 @@ const styles = {
     },
 };
 
-const AppMenu = ({ openOverlaysDialog, openFavoritesDialog, openAboutDialog, contextPath }) => (
+const AppMenu = ({ openLayersDialog, openFavoritesDialog, openAboutDialog, contextPath }) => (
     <Toolbar
         style={styles.toolbar}
         className='dhis-gis-menu'
     >
         <ToolbarGroup firstChild={true}>
             <Button
-                onClick={openOverlaysDialog}
+                onClick={openLayersDialog}
                 style={styles.button}
             >{i18next.t('Add layer')}</Button>
             <Button
@@ -65,5 +65,5 @@ AppMenu.contextTypes = {
 
 export default connect(
     null,
-    { openOverlaysDialog, openFavoritesDialog, openAboutDialog }
+    { openLayersDialog, openFavoritesDialog, openAboutDialog }
 )(AppMenu);

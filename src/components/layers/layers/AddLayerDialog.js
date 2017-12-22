@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog';
 import Button from 'd2-ui/lib/button/Button';
-import OverlayList from './OverlayList'
-import { editOverlay, closeOverlaysDialog } from '../../../actions/overlays';
+import LayerList from './LayerList'
+import { editLayer, closeLayersDialog } from '../../../actions/layers';
 
 const styles = {
     contentStyle: {
@@ -17,7 +17,7 @@ const styles = {
     },
 };
 
-const AddLayerDialog = ({ overlaysDialogOpen, overlays, onRequestClose, onLayerSelect }) => {
+const AddLayerDialog = ({ layersDialogOpen, layers, onRequestClose, onLayerSelect }) => {
     const actions = [
         <Button
             color='primary'
@@ -30,12 +30,12 @@ const AddLayerDialog = ({ overlaysDialogOpen, overlays, onRequestClose, onLayerS
             title="Add new layer"
             actions={actions}
             modal={true}
-            open={overlaysDialogOpen}
+            open={layersDialogOpen}
             contentStyle={styles.contentStyle}
             bodyStyle={styles.bodyStyle}
         >
-            <OverlayList
-                overlays={overlays}
+            <LayerList
+                layers={layers}
                 onLayerSelect={onLayerSelect}
             />
         </Dialog>
@@ -44,27 +44,27 @@ const AddLayerDialog = ({ overlaysDialogOpen, overlays, onRequestClose, onLayerS
 
 AddLayerDialog.propTypes = {
     layersDialogOpen: PropTypes.bool,
-    overlays: PropTypes.array,
+    layers: PropTypes.array,
     onRequestClose: PropTypes.func.isRequired,
     onLayerSelect: PropTypes.func.isRequired,
 };
 
 AddLayerDialog.defaultProps = {
     layersDialogOpen: false,
-    overlays: [],
+    layers: [],
 };
 
 const mapStateToProps = (state) => ({
-    overlays: state.overlays,
-    overlaysDialogOpen: state.ui.overlaysDialogOpen,
+    layers: state.layers,
+    layersDialogOpen: state.ui.layersDialogOpen,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     onRequestClose: () => dispatch(closeOverlaysDialog()),
     onLayerSelect: layer => {
 
-        dispatch(closeOverlaysDialog());
-        dispatch(editOverlay({
+        dispatch(closeLayersDialog());
+        dispatch(editLayer({
             ...layer,
             editCounter: 0,
         }));

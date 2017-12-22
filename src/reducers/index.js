@@ -9,6 +9,7 @@ import earthEngine from './earthEngine';
 import layerEdit from './layerEdit';
 import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
+import layers from './layers';
 import legendSets from './legendSets';
 import loading from './loading';
 import map from './map';
@@ -18,7 +19,6 @@ import orgUnitTree from './orgUnitTree';
 import orgUnitGroups from './orgUnitGroups';
 import orgUnitGroupSets from './orgUnitGroupSets';
 import orgUnitLevels from './orgUnitLevels';
-import overlays from './overlays';
 import programs from './programs';
 import programIndicators from './programIndicators';
 import programStages from './programStages';
@@ -39,6 +39,7 @@ export default combineReducers({
     indicators,
     indicatorGroups,
     layerEdit,
+    layers,
     legendSets,
     loading,
     map,
@@ -48,7 +49,6 @@ export default combineReducers({
     orgUnitGroupSets,
     orgUnitGroups,
     orgUnitLevels,
-    overlays,
     programs,
     programIndicators,
     programStages,
