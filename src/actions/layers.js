@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes';
 import { closeContextMenu } from './map';
 import { loading, loaded } from './loading';
-import { fetchOverlay } from '../loaders/overlays';
+import { fetchLayer } from '../loaders/layers';
 import { dimConf } from '../constants/dimension';
 
 // Add new layer
@@ -34,18 +34,14 @@ export const updateLayer = (layer) => ({
     payload: layer,
 });
 
-// Update existing overlay
-export const requestOverlayLoad = (id) => ({
-    type: types.LAYER_LOAD_REQUESTED,
-    id: layer.id,
-});
-
 // Load overlay data
 // http://redux.js.org/docs/advanced/AsyncActions.html
-export const getLayer = (layer) => (dispatch) => {
+export const loadLayer = (layer) => (dispatch) => {
+
+
     dispatch(loading());
 
-    return fetchOverlay(layer).then(layer => {
+    return fetchLayer(layer).then(layer => {
         layer.editCounter++;
 
         if (layer.editCounter === 1) { // Add new layer
@@ -108,7 +104,7 @@ export const drillLayer = (layerId, parentId, parentGraph, level) => (dispatch, 
     // console.log('DRILL', overlay);
     // dispatch(updateOverlay(overlay));
 
-    dispatch(getOverlay(overlay));
+    dispatch(loadLayer(overlay));
 };
 
 // Open overlay selection dialog

@@ -6,9 +6,9 @@ const LayerList = ({ layers, onLayerSelect }) => (
     <div className='LayerList'>
         {layers.map((layer, index) => (
             <Layer
-                key={`overlay-${index}`}
+                key={`layer-${index}`}
                 onClick={onLayerSelect}
-                layer={config}
+                layer={layer}
             />
         ))}
     </div>

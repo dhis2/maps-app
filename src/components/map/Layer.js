@@ -90,7 +90,7 @@ class Layer extends PureComponent {
             layerConfig.pane = id;
         }
 
-        // console.log('layerConfig', layerConfig);
+        console.log('layerConfig', layerConfig, this.props);
 
 
         this.layer = map.createLayer(layerConfig);

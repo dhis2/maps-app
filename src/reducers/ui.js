@@ -6,7 +6,7 @@ const defaultState = {
     layersPanelOpen: true,
     dataTableOpen: false,
     dataTableHeight: 300,
-    overlaysDialogOpen: false,
+    layersDialogOpen: false,
     favoritesDialogOpen: false,
     aboutDialogOpen: false,
     mapContextMenu: true,
@@ -37,13 +37,13 @@ const ui = (state = defaultState, action) => {
         case types.LAYERS_DIALOG_OPEN_REQUESTED:
             return {
                 ...state,
-                overlaysDialogOpen: true,
+                layersDialogOpen: true,
             };
 
         case types.LAYERS_DIALOG_CLOSE_REQUESTED:
             return {
                 ...state,
-                overlaysDialogOpen: false,
+                layersDialogOpen: false,
             };
 
         case types.FAVORITES_DIALOG_OPEN_REQUESTED:

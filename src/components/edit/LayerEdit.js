@@ -8,7 +8,7 @@ import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
 import BoundaryDialog from './BoundaryDialog';
 import EarthEngineDialog from './EarthEngineDialog';
-import { getOverlay, cancelOverlay } from '../../actions/layers';
+import { loadLayer, cancelLayer } from '../../actions/layers';
 
 const layerType = {
     event: EventDialog,
@@ -38,45 +38,45 @@ const styles = {
 class LayerEdit extends Component {
 
     componentDidUpdate(prevProps) {
-        const { layer, getOverlay } = this.props;
+        const { layer, loadLayer } = this.props;
 
         if (layer) {
             const config = { ...layer };
             let id = config.id;
 
             if (!id) { // New layer
-                id = 'overlay-' + nextOverlayId++;
+                id = 'layer-' + nextOverlayId++;
                 config.id = id;
                 config.isNew = true;
             } else {
                 config.isNew = false;
             }
 
-            if (config.type === 'external') { // External layers has no edit widget
+            if (config.layer === 'external') { // External layers has no edit widget
                 config.editCounter = 1;
-                getOverlay(config);
+                loadLayer(config);
             }
         }
 
     }
 
     addLayer() {
-        const { layer, getOverlay } = this.props;
+        const { layer, loadLayer } = this.props;
 
         const config = {
             ...layer,
-            id: 'overlay-' + nextOverlayId++,
+            id: 'layer-' + nextOverlayId++,
             isLoaded: false,
         };
 
-        getOverlay(config);
+        loadLayer(config);
         this.closeDialog();
     }
 
     updateLayer() {
-        const { layer, getOverlay } = this.props;
+        const { layer, loadLayer } = this.props;
 
-        getOverlay({
+        loadLayer({
             ...layer,
             isLoaded: false,
         });
@@ -85,7 +85,7 @@ class LayerEdit extends Component {
     }
 
     closeDialog() {
-        this.props.cancelOverlay();
+        this.props.cancelLayer();
     }
 
     onLayerChange(config) {
@@ -100,7 +100,7 @@ class LayerEdit extends Component {
             return null;
         }
 
-        const LayerDialog = layerType[config.type];
+        const LayerDialog = layerType[config.layer];
 
         if (!LayerDialog) {
             return null;
@@ -144,5 +144,5 @@ export default connect(
     (state) => ({
         layer: state.layerEdit,
     }),
-    { getOverlay, cancelOverlay }
+    { loadLayer, cancelLayer }
 )(LayerEdit);

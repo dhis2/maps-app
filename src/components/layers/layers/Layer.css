@@ -1,4 +1,4 @@
-.Overlay {
+.Layer {
     float: left;
     width: 120px;
     margin-right: 24px;
@@ -7,14 +7,14 @@
     height: 160px;
 }
 
-.Overlay-image {
+.Layer-image {
     box-sizing: border-box;
     border: 1px solid #555;
     width: 120px;
     height: 120px;
 }
 
-.Overlay-no-image {
+.Layer-no-image {
     box-sizing: border-box;
     border: 1px solid #555;
     width: 120px;
@@ -27,7 +27,7 @@
     margin-bottom: 4px;
 }
 
-.Overlay-title {
+.Layer-title {
     font-size: 14px;
     color: #333;
     padding-bottom: 20px;

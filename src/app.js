@@ -81,7 +81,7 @@ getManifest('manifest.webapp')
 
         render(<Root d2={d2} store={store} />, document.getElementById('app'));
 
-        store.dispatch(loadMap('UZydsaAeq1k'));
+        // store.dispatch(loadMap('UZydsaAeq1k'));
 
         /*
         const api = d2.Api.getApi();

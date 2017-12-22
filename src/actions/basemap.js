@@ -5,11 +5,6 @@ export const addBasemap = (layer) => ({
     payload: layer,
 });
 
-export const removeBasemap = (id) => ({
-    type: types.BASEMAP_remove,
-    id,
-});
-
 export const selectBasemap = (id) => ({
     type: types.BASEMAP_SELECTED,
     id,

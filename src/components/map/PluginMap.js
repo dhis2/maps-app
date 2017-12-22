@@ -91,8 +91,8 @@ class PluginMap extends Component {
     }
 
     render() {
-        const { basemap = 'osmLight', overlays } = this.props;
-        const selectedBasemap = defaultBasemaps.filter(map => map.id === basemap)[0];
+        const { basemap = { id: 'osmLight' }, mapViews } = this.props;
+        const selectedBasemap = defaultBasemaps.filter(map => map.id === basemap.id)[0];
 
         const style = {
             width: '100%',
@@ -101,7 +101,7 @@ class PluginMap extends Component {
 
         return (
             <div ref={node => this.node = node} style={style}>
-                {overlays.filter(layer => layer.isLoaded).map((layer, index) => {
+                {mapViews.filter(layer => layer.isLoaded).map((layer, index) => {
                     layer.type = layer.layer.replace(/\d$/, ''); // TODO
 
                     const Overlay = layerType[layer.type] || Layer;

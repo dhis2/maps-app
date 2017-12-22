@@ -2,8 +2,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { init, config } from 'd2/lib/d2';
 import PluginMap from './components/map/PluginMap';
-import { fetchFavorite, parseFavorite } from './loaders/favorites';
-import { fetchOverlay } from './loaders/overlays';
+import { mapRequest } from './util/requests';
+import { fetchFavorite } from './loaders/favorites';
+import { fetchLayer } from './loaders/layers';
+
 import '../scss/plugin.scss';
 
 // Inspiration:
@@ -43,7 +45,7 @@ const Plugin = () => {
     function onInit() {
         _configs.forEach(config => {
             if (config.id) {
-                fetchFavorite(config.id)
+                mapRequest(config.id)
                     .then(favorite => loadOverlays({
                         ...config,
                         ...favorite,
@@ -53,13 +55,14 @@ const Plugin = () => {
     }
 
     function loadOverlays(config) {
-        Promise.all(config.mapViews.map(fetchOverlay)).then(overlays => drawMap({
+        Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
             ...config,
-            overlays,
+            mapViews,
         }));
     }
 
     function drawMap(config) {
+        console.log('draw', config);
         render(<PluginMap {...config} />, document.getElementById(config.el));
     }
 

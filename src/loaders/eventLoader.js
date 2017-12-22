@@ -171,7 +171,6 @@ export const getAnalyticsRequest = async (program, programStage, period, startDa
     return analyticsRequest;
 };
 
-
 // Include column for data element used for styling
 export const addStyleDataItem = (dataItems, styleDataItem)  =>
     styleDataItem ? [

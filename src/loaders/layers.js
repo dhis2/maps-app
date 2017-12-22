@@ -14,16 +14,11 @@ const layerType = {
     external: externalLoader,
 };
 
-export const fetchOverlay = (config) => {
-    console.log('fetchOverlay', config);
-
-    // const type = config.type || config.layer.replace(/\d$/, ''); // Remove thematic number, temp, should be done in parseFavorite
-    const type = config.layer;
-
-    const Loader = layerType[type];
+export const fetchLayer = (config) => {
+    const Loader = layerType[config.layer];
 
     if (Loader) {
-        return Loader(layer);
+        return Loader(config);
     } else {
         reject('Unknown layer type.'); // TODO
     }

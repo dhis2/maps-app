@@ -1,12 +1,12 @@
 import * as types from '../constants/actionTypes';
 
 const defaultLayers = [{
-    type: 'event',
+    layer: 'event',
     title: 'Events Preview',
     img: 'images/events.png',
     opacity: 0.95,
 },{
-    type: 'facility',
+    layer: 'facility',
     title: 'Facilities Preview',
     img: 'images/facilities.png',
     opacity: 1,
@@ -17,17 +17,17 @@ const defaultLayers = [{
         }]
     }],
 },{
-    type: 'thematic',
+    layer: 'thematic',
     title: 'Thematic Preview',
     img: 'images/thematic.png',
     opacity: 0.8,
 },{
-    type: 'boundary',
+    layer: 'boundary',
     title: 'Boundaries Preview',
     img: 'images/boundaries.png',
     opacity: 1,
 },{
-    type: 'earthEngine',
+    layer: 'earthEngine',
     datasetId: 'WorldPop/POP',
     title: 'Population density',
     img: 'images/population.png',
@@ -38,7 +38,7 @@ const defaultLayers = [{
     },
     opacity: 0.9,
 },{
-    type: 'earthEngine',
+    layer: 'earthEngine',
     datasetId: 'USGS/SRTMGL1_003',
     title: 'Elevation',
     img: 'images/elevation.png',
@@ -49,7 +49,7 @@ const defaultLayers = [{
     },
     opacity: 0.9,
 },{
-    type: 'earthEngine',
+    layer: 'earthEngine',
     datasetId: 'MODIS/MOD11A2',
     title: 'Temperature',
     img: 'images/temperature.png',
@@ -60,7 +60,7 @@ const defaultLayers = [{
     },
     opacity: 0.9,
 },{
-    type: 'earthEngine',
+    layer: 'earthEngine',
     datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
     title: 'Precipitation',
     img: 'images/precipitation.png',
@@ -71,13 +71,13 @@ const defaultLayers = [{
     },
     opacity: 0.9,
 },{
-    type: 'earthEngine',
+    layer: 'earthEngine',
     datasetId: 'MODIS/051/MCD12Q1',
     title: 'Landcover',
     img: 'images/landcover.png',
     opacity: 0.9,
 },{
-    type: 'earthEngine',
+    layer: 'earthEngine',
     datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
     title: 'Nighttime lights',
     img: 'images/nighttime.png',

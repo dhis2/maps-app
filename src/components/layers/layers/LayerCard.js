@@ -12,7 +12,6 @@ import { editLayer, removeLayer, changeLayerOpacity, toggleLayerExpand, toggleLa
 import { toggleDataTable } from '../../../actions/dataTable';
 import './LayerCard.css';
 
-
 const styles = {
     container: {
         paddingBottom: 0,

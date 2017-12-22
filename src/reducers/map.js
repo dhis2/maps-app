@@ -54,7 +54,7 @@ const basemap = (state, action) => {
 
 
 
-const overlay = (state, action) => {
+const layer = (state, action) => {
     switch (action.type) {
 
         case types.LAYER_UPDATE:
@@ -212,15 +212,15 @@ const map = (state = defaultState, action) => {
 
         case types.LAYER_ADD:
             // Check to only allow external layers to be added once
-            if (state.overlays.filter(l => l.id === action.payload.id).length) {
+            if (state.mapViews.filter(l => l.id === action.payload.id).length) {
                 return state;
             }
 
             return {
                 ...state,
-                overlays: [
+                mapViews: [
                     action.payload,
-                    ...state.overlays,
+                    ...state.mapViews,
                 ],
             };
 
@@ -237,13 +237,13 @@ const map = (state = defaultState, action) => {
         case types.LAYER_REMOVE:
             return {
                 ...state,
-                overlays: state.overlays.filter(overlay => overlay.id !== action.id)
+                mapViews: state.mapViews.filter(layer => layer.id !== action.id)
             };
 
         case types.LAYER_SORT:
             return {
                 ...state,
-                overlays: arrayMove(state.overlays, action.oldIndex, action.newIndex)
+                mapViews: arrayMove(state.mapViews, action.oldIndex, action.newIndex)
             };
 
         case types.LAYER_LOAD_REQUESTED:
@@ -260,7 +260,7 @@ const map = (state = defaultState, action) => {
         case types.DATA_FILTER_CLEAR:
             return {
                 ...state,
-                overlays: state.overlays.map(l => overlay(l, action))
+                mapViews: state.mapViews.map(l => layer(l, action))
             };
 
         default:

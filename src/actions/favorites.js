@@ -4,7 +4,7 @@ import { setMap } from './map';
 import { selectBasemap } from './basemap';
 import { loading, loaded } from './loading';
 import { fetchFavorite, parseFavorite } from '../loaders/favorites';
-import { getOverlay } from './layers';
+import { loadLayer } from './layers';
 
 
 /*
@@ -24,7 +24,7 @@ export const getFavorite = (id) => (dispatch) => {
         }
 
         // Trigger loading of all overlays
-        mapConfig.overlays.forEach(overlay => dispatch(getOverlay(overlay)));
+        mapConfig.overlays.forEach(overlay => dispatch(loadLayer(overlay)));
 
         dispatch(loaded()); // TODO: Dispatch after all overlays are loaded
 
