@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import isObject from 'd2-utilizr/lib/isObject';
+import isPlainObject from 'lodash/fp/isPlainObject';
 import Layer from './Layer';
 
 class FacilityLayer extends Layer {
@@ -61,7 +61,7 @@ class FacilityLayer extends Layer {
         const attr = evt.layer.feature.properties;
         let content = `<div class="leaflet-popup-orgunit"><em>${attr.name}</em>`;
 
-        if (isObject(attr.dimensions)) {
+        if (isPlainObject(attr.dimensions)) {
             content += `<br/>${i18next.t('Groups')}: ${Object.keys(attr.dimensions).map(id => attr.dimensions[id]).join(', ')}`;
         }
 

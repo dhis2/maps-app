@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import isString from 'd2-utilizr/lib/isString';
+import isString from 'lodash/fp/isString';
 import { isValidCoordinate } from '../util/map';
 import { getClassBins, getClass } from '../util/classify';
 import { getNumericLegendItems, getCategoryLegendItems } from '../util/legend';

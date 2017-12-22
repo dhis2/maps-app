@@ -1,4 +1,4 @@
-import isString from 'd2-utilizr/lib/isString';
+import isString from 'lodash/fp/isString';
 
 const externalLoader = async (config) => { // Returns a promise
     if (isString(config.config)) { // From database as favorite

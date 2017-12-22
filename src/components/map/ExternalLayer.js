@@ -1,5 +1,4 @@
 import Layer from './Layer';
-import isString from 'd2-utilizr/lib/isString';
 
 export default class ExternalLayer extends Layer {
     createLayer() {

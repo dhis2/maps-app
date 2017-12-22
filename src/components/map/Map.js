@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { isNumeric } from 'd2-utilizr';
+import isNumeric from 'd2-utilizr/lib/isNumeric';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
 import FacilityLayer from './FacilityLayer';
@@ -164,4 +164,3 @@ export default connect(
     mapStateToProps,
     { openContextMenu, closeCoordinatePopup, }
 )(Map);
-

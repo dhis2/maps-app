@@ -1,13 +1,11 @@
 import i18next from 'i18next';
-import isObject from 'd2-utilizr/lib/isObject';
+import isPlainObject from 'lodash/fp/isPlainObject';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { isValidCoordinate } from '../util/map';
 import { getDisplayPropertyUrl } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
 
 const facilityLoader = async (config) => { // Returns a promise
-    // console.log('config', config);
-
     const { organisationUnitGroupSet, rows } = config;
     const groupSetId = organisationUnitGroupSet.id;
     const orgUnits = getOrgUnitsFromRows(rows);
@@ -57,7 +55,7 @@ const facilityLoader = async (config) => { // Returns a promise
 const parseFacilities = (facilities, groupSetId) =>
     facilities.filter(facility => ( // Only add valid points belonging to an org.unit group
         facility.ty === 1 &&
-        isObject(facility.dimensions) &&
+        isPlainObject(facility.dimensions) &&
         facility.dimensions[groupSetId] &&
         isValidCoordinate(JSON.parse(facility.co))
     ));

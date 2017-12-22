@@ -1,6 +1,5 @@
 import i18next from 'i18next';
 import uniqBy from 'lodash/fp/uniqBy';
-import arrayUnique from 'd2-utilizr/lib/arrayUnique';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { toGeoJson } from '../util/map';
 import { getOrgUnitsFromRows } from '../util/analytics';

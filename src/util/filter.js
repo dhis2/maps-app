@@ -1,5 +1,4 @@
 import isNumeric from 'd2-utilizr/lib/isNumeric';
-import isString from 'd2-utilizr/lib/isString';
 
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {

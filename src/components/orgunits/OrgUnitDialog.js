@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import isNumeric from 'd2-utilizr/lib/isNumeric';
-import isString from 'd2-utilizr/lib/isString';
+import isString from 'lodash/fp/isString';
 import { closeOrgUnit } from '../../actions/orgUnits';
 
 // TODO: Reactify!

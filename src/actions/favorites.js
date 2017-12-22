@@ -1,10 +1,10 @@
+import isString from 'lodash/fp/isString';
 import * as types from '../constants/actionTypes';
 import { setMap } from './map';
 import { selectBasemap } from './basemap';
 import { loading, loaded } from './loading';
 import { fetchFavorite, parseFavorite } from '../loaders/favorites';
 import { getOverlay } from './overlays';
-import isString from 'd2-utilizr/lib/isString';
 
 export const getFavorite = (id) => (dispatch) => {
     dispatch(loading());
