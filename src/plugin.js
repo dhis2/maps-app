@@ -62,7 +62,6 @@ const Plugin = () => {
     }
 
     function drawMap(config) {
-        console.log('draw', config);
         render(<PluginMap {...config} />, document.getElementById(config.el));
     }
 

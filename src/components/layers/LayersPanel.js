@@ -5,7 +5,7 @@ import Drawer from 'material-ui/Drawer';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import BasemapCard from '../layers/basemaps/BasemapCard';
 import LayerCard from './layers/LayerCard';
-import { loadLayer, sortLayers } from '../../actions/layers';
+import { sortLayers } from '../../actions/layers';
 import { HEADER_HEIGHT, LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
 const SortableLayer = SortableElement(LayerCard);
@@ -72,5 +72,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { loadLayer, sortLayers }
+    { sortLayers }
 )(LayersPanel);

@@ -17,6 +17,8 @@ class ThematicLayer extends Layer {
             isPlugin,
         } = this.props;
 
+        console.log('ThematicLAyer');
+
         const map = this.context.map;
 
         const config = {
@@ -35,6 +37,8 @@ class ThematicLayer extends Layer {
             config.labelPane = id + '-labels';
         }
 
+        console.log(config);
+
         this.layer = map.createLayer(config);
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
@@ -47,7 +51,7 @@ class ThematicLayer extends Layer {
 
         if (layerBounds.isValid()) {
             map.invalidateSize();
-            map.fitBounds(layerBounds); // TODO: Do as action?
+            // map.fitBounds(layerBounds); // TODO: Do as action?
         }
     }
 

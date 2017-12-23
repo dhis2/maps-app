@@ -38,6 +38,7 @@ export const updateLayer = (layer) => ({
 // http://redux.js.org/docs/advanced/AsyncActions.html
 export const loadLayer = (layer) => (dispatch) => {
 
+    console.log('#################');
 
     dispatch(loading());
 
