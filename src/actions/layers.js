@@ -39,29 +39,6 @@ export const loadLayer = (layer) => ({
   payload: layer,
 });
 
-// Load overlay data
-// http://redux.js.org/docs/advanced/AsyncActions.html
-/*
-export const loadLayer = (layer) => (dispatch) => {
-
-    console.log('#################');
-
-    dispatch(loading());
-
-    return fetchLayer(layer).then(layer => {
-        layer.editCounter++;
-
-        if (layer.editCounter === 1) { // Add new layer
-            dispatch(addLayer(layer));
-        } else { // Update existing layer
-            dispatch(updateLayer(layer));
-        }
-
-        dispatch(loaded());
-    });
-};
-*/
-
 // Expand/collapse overlay card
 export const toggleLayerExpand = (id) => ({
     type: types.LAYER_TOGGLE_EXPAND,

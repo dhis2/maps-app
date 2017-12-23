@@ -1,5 +1,4 @@
 import * as types from '../constants/actionTypes';
-import { changeCoordinate } from '../util/orgUnit';
 
 // Load organisation unit tree
 export const loadOrgUnitTree = () => ({
@@ -91,23 +90,16 @@ export const stopRelocateOrgUnit = (layerId, feature) => ({
     feature,
 });
 
-export const changeOrgUnitCoordinate = (layerId, featureId, coordinate) => (dispatch) => {
-    changeCoordinate(featureId, coordinate)
-        .then(response => {
-            if (response.ok) {
-                // Update org. unit in redux store
-                dispatch({
-                    type: types.ORGANISATION_UNIT_COORDINATE_CHANGE,
-                    layerId,
-                    featureId,
-                    coordinate,
-                });
-            }
-        })
-        .catch(err => console.log('Error:', err)); // TODO
-};
+export const changeOrgUnitCoordinate = (layerId, featureId, coordinate) => ({
+    type: types.ORGANISATION_UNIT_COORDINATE_CHANGE,
+    layerId,
+    featureId,
+    coordinate,
+});
 
-
-
-
-
+export const setOrgUnitCoordinate = (layerId, featureId, coordinate) => ({
+    type: types.ORGANISATION_UNIT_COORDINATE_SET,
+    layerId,
+    featureId,
+    coordinate,
+});

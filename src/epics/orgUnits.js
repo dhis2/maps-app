@@ -2,9 +2,17 @@ import { combineEpics } from 'redux-observable';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
-import { setOrgUnitTree, setOrgUnitLevels, setOrgUnitGroups, setOrgUnitGroupSets } from '../actions/orgUnits';
 import { errorActionCreator } from '../actions/helpers';
 import { getDisplayPropertyUrl } from '../util/helpers';
+import { apiFetch } from '../util/api';
+import {
+    setOrgUnitTree,
+    setOrgUnitLevels,
+    setOrgUnitGroups,
+    setOrgUnitGroupSets,
+    setOrgUnitCoordinate,
+} from '../actions/orgUnits';
+
 
 export const loadOrgUnitTree = (action$) =>
     action$
@@ -58,4 +66,20 @@ export const loadOrgUnitGroupSets = (action$) =>
                 .catch(errorActionCreator(types.ORGANISATION_UNIT_GROUP_SETS_LOAD_ERROR))
         );
 
-export default combineEpics(loadOrgUnitTree, loadOrgUnitLevels, loadOrgUnitGroups, loadOrgUnitGroupSets);
+export const changeOrgUnitCoordinate = (action$) =>
+    action$
+        .ofType(types.ORGANISATION_UNIT_COORDINATE_CHANGE)
+        .concatMap(({ layerId, featureId, coordinate }) =>
+            apiFetch('/organisationUnits/' + featureId, 'PATCH', {
+                coordinates: JSON.stringify(coordinate)
+            }).then(response => {
+                if (response.ok) {
+                    return setOrgUnitCoordinate(layerId, featureId, coordinate); // Update org. unit in redux store
+                } else {
+                    return errorActionCreator(types.ORGANISATION_UNIT_COORDINATE_CHANGE_ERROR);
+                }
+            })
+        );
+
+
+export default combineEpics(loadOrgUnitTree, loadOrgUnitLevels, loadOrgUnitGroups, loadOrgUnitGroupSets, changeOrgUnitCoordinate);
