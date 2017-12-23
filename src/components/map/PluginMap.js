@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isString from 'lodash/fp/isString';
 import d2map from 'dhis2-gis-api/src';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
@@ -19,7 +20,6 @@ const layerType = {
     earthEngine: EarthEngineLayer,
     external:    ExternalLayer
 };
-
 
 // TODO: Resuse code from Map.js
 class PluginMap extends Component {
@@ -48,6 +48,7 @@ class PluginMap extends Component {
     componentDidMount() {
         const { bounds, latitude, longitude, zoom } = this.props;
         const map = this.map;
+
 
         this.node.appendChild(map.getContainer()); // Append map container to DOM
 
@@ -92,7 +93,8 @@ class PluginMap extends Component {
 
     render() {
         const { basemap = { id: 'osmLight' }, mapViews } = this.props;
-        const selectedBasemap = defaultBasemaps.filter(map => map.id === basemap.id)[0];
+
+        const selectedBasemap = defaultBasemaps.filter(map => map.id === basemap.id || basemap)[0];
 
         const style = {
             width: '100%',
@@ -101,17 +103,14 @@ class PluginMap extends Component {
 
         return (
             <div ref={node => this.node = node} style={style}>
-                {mapViews.filter(layer => layer.isLoaded).map((layer, index) => {
-                    layer.type = layer.layer.replace(/\d$/, ''); // TODO
-
-                    const Overlay = layerType[layer.type] || Layer;
+                {mapViews.filter(layer => layer.isLoaded).map((config) => {
+                    const Overlay = layerType[config.layer] || Layer;
 
                     return (
                         <Overlay
-                            key={layer.id}
-                            index={index}
+                            key={config.id}
                             // openContextMenu={openContextMenu}
-                            {...layer}
+                            {...config}
                             isPlugin={true}
                         />
                     )
