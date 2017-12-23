@@ -7,7 +7,6 @@ import { mapRequest } from '../util/requests';
 import { setMap } from '../actions/map';
 import { loadLayer } from '../actions/layers';
 
-
 // Load one favorite
 export const loadMap = (action$) =>
     action$
@@ -22,24 +21,3 @@ export const loadMap = (action$) =>
         ]);
 
 export default combineEpics(loadMap);
-
-
-
-
-/*
-return fetchFavorite(id).then(favorite => {
-  const mapConfig = parseFavorite(favorite);
-  const basemap = mapConfig.basemap;
-
-  delete(mapConfig.basemap); // Added below
-
-  dispatch(setMap(mapConfig));
-
-  if (isString(basemap)) {
-    dispatch(selectBasemap(basemap));
-  }
-
-  // Trigger loading of all overlays
-  mapConfig.overlays.forEach(overlay => dispatch(getOverlay(overlay)));
-*/
-

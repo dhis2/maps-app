@@ -8,8 +8,9 @@ import dataElementEpics from './dataElements';
 import dataSetEpics from './dataSets';
 import earthEngineEpics from './earthEngine';
 import externalLayerEpics from './externalLayers';
-import favoriteEpics from './map';
+import favoriteEpics from './maps';
 import indicatorEpics from './indicators';
+import layerEpics from './layers';
 import legendSetEpics from './legendSets';
 import optionSetEpics from './optionSets';
 import orgUnitEpis from './orgUnits';
@@ -29,6 +30,7 @@ export default combineEpics(
     externalLayerEpics,
     favoriteEpics,
     indicatorEpics,
+    layerEpics,
     legendSetEpics,
     optionSetEpics,
     orgUnitEpis,

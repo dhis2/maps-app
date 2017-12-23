@@ -30,12 +30,18 @@ export const cancelLayer = () => ({
 // Update existing overlay
 export const updateLayer = (layer) => ({
     type: types.LAYER_UPDATE,
-    id: layer.id,
     payload: layer,
+});
+
+// Load layer data
+export const loadLayer = (layer) => ({
+  type: types.LAYER_LOAD,
+  payload: layer,
 });
 
 // Load overlay data
 // http://redux.js.org/docs/advanced/AsyncActions.html
+/*
 export const loadLayer = (layer) => (dispatch) => {
 
     console.log('#################');
@@ -54,6 +60,7 @@ export const loadLayer = (layer) => (dispatch) => {
         dispatch(loaded());
     });
 };
+*/
 
 // Expand/collapse overlay card
 export const toggleLayerExpand = (id) => ({

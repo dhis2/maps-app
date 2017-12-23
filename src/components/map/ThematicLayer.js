@@ -17,8 +17,6 @@ class ThematicLayer extends Layer {
             isPlugin,
         } = this.props;
 
-        console.log('ThematicLAyer');
-
         const map = this.context.map;
 
         const config = {
@@ -37,7 +35,7 @@ class ThematicLayer extends Layer {
             config.labelPane = id + '-labels';
         }
 
-        console.log(config);
+        // console.log(config);
 
         this.layer = map.createLayer(config);
         this.layer.on('click', this.onFeatureClick, this);
@@ -97,7 +95,7 @@ class ThematicLayer extends Layer {
         const position = [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y];
         const props = this.props;
 
-        console.log(position);
+        // console.log(position);
 
         this.props.openContextMenu({
             position,

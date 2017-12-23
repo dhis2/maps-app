@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
 import { arrayMove } from 'react-sortable-hoc';
+import { generateUid } from 'd2/lib/uid';
 
 const defaultState = {
     bounds: [[-34.9, -18.7], [35.9, 50.2]],
@@ -58,7 +59,7 @@ const layer = (state, action) => {
     switch (action.type) {
 
         case types.LAYER_UPDATE:
-            if (state.id !== action.id) {
+            if (state.id !== action.payload.id) {
                 return state;
             }
 
@@ -210,16 +211,21 @@ const map = (state = defaultState, action) => {
                 basemap: basemap(state.basemap, action),
             };
 
-        case types.LAYER_ADD:
+      case types.LAYER_ADD:
             // Check to only allow external layers to be added once
             if (state.mapViews.filter(l => l.id === action.payload.id).length) {
                 return state;
             }
 
+            console.log('LAYER_ADD', action.payload.id);
+
             return {
                 ...state,
                 mapViews: [
-                    action.payload,
+                    {
+                        id: generateUid(),
+                        ...action.payload,
+                    },
                     ...state.mapViews,
                 ],
             };

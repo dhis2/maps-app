@@ -69,6 +69,8 @@ class LayerEdit extends Component {
             isLoaded: false,
         };
 
+        console.log('Add layer');
+
         loadLayer(config);
         this.closeDialog();
     }
@@ -81,6 +83,8 @@ class LayerEdit extends Component {
             isLoaded: false,
         });
 
+        console.log('Update layer');
+
         this.closeDialog();
     }
 
@@ -90,51 +94,47 @@ class LayerEdit extends Component {
 
     onLayerChange(config) {
         this.config = config;
-        // console.log('onLayerChange', config);
     }
 
     render() {
-        const config = this.props.layer;
+        const { layer, loadLayer, cancelLayer } = this.props;
 
-        if (!config || config.old) {
+        if (!layer) {
             return null;
         }
 
-        const LayerDialog = layerType[config.layer];
+        // console.log('render', layer);
+
+        const LayerDialog = layerType[layer.layer];
 
         if (!LayerDialog) {
             return null;
             // reject('Unknown layer type.'); // TODO
         }
 
+        // console.log('add or update', config.id, (config.id ? 'Update' : 'Add'));
+
         return (
             <Dialog
-                title={config.title} // TODO: i18n
+                title={layer.title} // TODO: i18n
                 bodyStyle={styles.body}
                 titleStyle={styles.title}
                 open={true}
                 actions={[
                     <Button
                         color='primary'
-                        onClick={() => this.closeDialog()}
+                        onClick={() => cancelLayer()}
                         selector='cancel'
                     >{i18next.t('Cancel')}</Button>,
-                    (config.editCounter ?
-                        <Button
-                            color='primary'
-                            onClick={() => this.updateLayer()}
-                            selector='update'
-                        >{i18next.t('Update layer')}</Button>
-                    :
-                        <Button
-                            color='primary'
-                            onClick={() => this.addLayer()}
-                            selector='add'
-                        >{i18next.t('Add layer')}</Button>
-                    )
+                    <Button
+                        color='primary'
+                        onClick={() => loadLayer(this.props.layer)}
+                        selector='update'
+                    >{i18next.t('Update layer')}</Button>
                 ]}
+
             >
-                <LayerDialog {...config} />
+                <LayerDialog {...layer} />
             </Dialog>
         );
     }
@@ -146,3 +146,20 @@ export default connect(
     }),
     { loadLayer, cancelLayer }
 )(LayerEdit);
+
+/*
+>{i18next.t('Cancel')}</Button>,
+(config.id ?
+<Button
+  color='primary'
+  onClick={() => this.updateLayer()}
+  selector='update'
+>{i18next.t('Update layer')}</Button>
+:
+<Button
+  color='primary'
+  onClick={() => this.addLayer()}
+  selector='add'
+>{i18next.t('Add layer')}</Button>
+)
+  */
