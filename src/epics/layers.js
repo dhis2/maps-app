@@ -1,14 +1,15 @@
 import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
-import { addLayer, updateLayer } from '../actions/layers';
-import { fetchLayer } from '../loaders/layers';
+import { closeContextMenu } from '../actions/map';
+import { loadLayer, addLayer, updateLayer } from '../actions/layers';
 import { errorActionCreator } from '../actions/helpers';
+import { dimConf } from '../constants/dimension';
 
 const isNewLayer = (config) => config.id === undefined;
 
 // Load one layer
-export const loadLayer = (action$) =>
+export const loadLayerEpic = (action$) =>
     action$
         .ofType(types.LAYER_LOAD)
         .concatMap((action) =>
@@ -17,4 +18,28 @@ export const loadLayer = (action$) =>
                 .catch(errorActionCreator(types.MAP_LOAD_ERROR))
         );
 
-export default combineEpics(loadLayer);
+
+export const drillLayer = (action$, store) =>
+    action$
+        .ofType(types.LAYER_DRILL)
+        .concatMap(({ layerId, parentId, parentGraph, level }) => {
+            const state = getState();
+            const layer = state.map.overlays.filter(overlay => overlay.id === layerId)[0]; // TODO: Add check
+
+            const overlay = {
+                ...layer,
+                rows: [{
+                    dimension: dimConf.organisationUnit.objectName,
+                    items: [
+                        { id: parentId },
+                        { id: 'LEVEL-' + level }
+                    ]
+                }],
+                parentGraphMap: {}
+            };
+
+            // layer.parentGraphMap[parentId] = parentGraph; // needed ??
+        })
+        .mergeMap((config) => [ closeContextMenu(), loadLayer(overlay) ]);
+
+export default combineEpics(loadLayerEpic, drillLayer);

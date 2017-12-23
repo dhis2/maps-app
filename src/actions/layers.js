@@ -1,8 +1,4 @@
 import * as types from '../constants/actionTypes';
-import { closeContextMenu } from './map';
-import { loading, loaded } from './loading';
-import { fetchLayer } from '../loaders/layers';
-import { dimConf } from '../constants/dimension';
 
 // Add new layer
 export const addLayer = (config) => ({
@@ -64,33 +60,6 @@ export const sortLayers = ({oldIndex, newIndex}) => ({
     oldIndex,
     newIndex,
 });
-
-// Drill
-export const drillLayer = (layerId, parentId, parentGraph, level) => (dispatch, getState) => {
-    dispatch(closeContextMenu());
-
-    const state = getState();
-    const layer = state.map.overlays.filter(overlay => overlay.id === layerId)[0]; // TODO: Add check
-
-    const overlay = {
-        ...layer,
-        rows: [{
-            dimension: dimConf.organisationUnit.objectName,
-            items: [
-                {id: parentId},
-                {id: 'LEVEL-' + level}
-            ]
-        }],
-        parentGraphMap: {}
-    };
-
-    layer.parentGraphMap[parentId] = parentGraph;
-
-    // console.log('DRILL', overlay);
-    // dispatch(updateOverlay(overlay));
-
-    dispatch(loadLayer(overlay));
-};
 
 // Open overlay selection dialog
 export const openLayersDialog = () => ({
