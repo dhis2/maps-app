@@ -30,13 +30,10 @@ export class OrgUnitGroupSelect extends Component {
     render() {
         const { orgUnitGroup, orgUnitGroups, onChange } = this.props;
 
-        if (!orgUnitGroups) {
-            return null; // TODO: Add loading indicator
-        }
-
         return (
             <SelectField
                 label={i18next.t('Select groups')}
+                loading={orgUnitGroups ? false : true}
                 items={orgUnitGroups}
                 value={orgUnitGroup}
                 multiple={true}

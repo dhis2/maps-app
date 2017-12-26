@@ -33,10 +33,7 @@ export class CollectionSelect extends Component {
 
     render() {
         const { id, filter, label, collections, onChange, style } = this.props;
-
-        if (!collections[id]) {
-            return null;
-        }
+        const items = collections[id];
 
         const collectionFilter = collectionFilters[id] || ((index) => [{
             type: 'eq',
@@ -46,7 +43,8 @@ export class CollectionSelect extends Component {
         return (
             <SelectField
                 label={label || i18next.t('Period')}
-                items={collections[id]}
+                loading={items ? false : true}
+                items={items}
                 value={filter && filter[0].arguments[1]}
                 onChange={period => onChange(collectionFilter(period.id))}
                 style={style}

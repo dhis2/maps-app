@@ -35,14 +35,17 @@ export class ProgramIndicatorSelect extends Component {
     render () {
         const { program, programIndicator, programIndicators, onChange, style } = this.props;
 
-        if (!program || !programIndicators[program.id]) {
-            return null; // TODO: Add loading indicator
+        if (!program) {
+            return null;
         }
+
+        const items = programIndicators[program.id];
 
         return (
             <SelectField
                 label={i18next.t('Event data item')}
-                items={programIndicators[program.id]}
+                loading={items ? false : true}
+                items={items}
                 value={programIndicator? programIndicator.id : null}
                 onChange={onChange}
                 style={style}

@@ -25,13 +25,10 @@ export class DataElementGroupSelect extends Component {
     render() {
         const { dataSet, dataSets, onChange, style } = this.props;
 
-        if (!dataSets) {
-            return null; // TODO: Add loading indicator
-        }
-
         return (
             <SelectField
                 label={i18next.t('Data set')}
+                loading={dataSets ? false : true}
                 items={dataSets}
                 value={dataSet ? dataSet.id : null}
                 onChange={onChange}

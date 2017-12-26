@@ -25,13 +25,10 @@ export class LegendSetSelect extends Component {
     render() {
         const { legendSet, legendSets, onChange, style } = this.props;
 
-        if (!legendSets) {
-            return null; // TODO: Add loading indicator
-        }
-
         return (
             <SelectField
                 label={i18next.t('Legend set')}
+                loading={legendSets ? false : true}
                 items={legendSets}
                 value={legendSet ? legendSet.id : null}
                 onChange={onChange}

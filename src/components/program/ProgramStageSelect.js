@@ -36,14 +36,17 @@ export class ProgramStageSelect extends Component {
     render() {
         const { program, programStage, programStages, onChange, style } = this.props;
 
-        if (!program || !programStages[program.id]) {
-            return null; // TODO: Add loading indicator
+        if (!program) {
+            return null;
         }
+
+        const items = programStages[program.id];
 
         return (
             <SelectField
                 label={i18next.t('Stage')}
-                items={programStages[program.id]}
+                loading={items ? false : true}
+                items={items}
                 value={programStage ? programStage.id : null}
                 onChange={onChange}
                 style={style}

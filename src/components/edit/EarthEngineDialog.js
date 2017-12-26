@@ -12,7 +12,6 @@ import { getColorScale, getColorPalette } from '../../util/colorscale';
 import { createLegend } from '../../loaders/earthEngineLoader';
 import '../layers/legend/Legend.css';
 
-
 const datasets = {
     'WorldPop/POP': { // Population density
         description: 'Population density estimates with national totals adjusted to match UN population division estimates. Try a different year if you don\'t see data for your country.',

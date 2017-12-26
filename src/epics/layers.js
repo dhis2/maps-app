@@ -2,8 +2,9 @@ import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
 import { closeContextMenu } from '../actions/map';
-import { loadLayer, addLayer, updateLayer } from '../actions/layers';
+import { addLayer, updateLayer } from '../actions/layers';
 import { errorActionCreator } from '../actions/helpers';
+import { fetchLayer } from '../loaders/layers';
 import { dimConf } from '../constants/dimension';
 
 const isNewLayer = (config) => config.id === undefined;

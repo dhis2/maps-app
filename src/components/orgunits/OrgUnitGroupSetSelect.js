@@ -27,13 +27,10 @@ export class OrgUnitGroupSetSelect extends Component {
     render() {
         const { orgUnitGroupSets, value, onChange, style } = this.props;
 
-        if (!orgUnitGroupSets) {
-            return null; // TODO: Add loading indicator
-        }
-
         return (
             <SelectField
                 label={i18next.t('Group set')}
+                loading={orgUnitGroupSets ? false : true}
                 items={orgUnitGroupSets}
                 value={value ? value.id : null}
                 onChange={onChange}

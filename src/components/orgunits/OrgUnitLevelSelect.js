@@ -30,14 +30,11 @@ export class OrgUnitLevelSelect extends Component {
     render() {
         const { orgUnitLevel, orgUnitLevels, onChange } = this.props;
 
-        if (!orgUnitLevels) {
-            return null; // TODO: Add loading indicator
-        }
-
         return (
             <SelectField
                 label={i18next.t('Select levels')}
-                items={orgUnitLevels.map(({ level, name }) => ({ id: level.toString(), name }))}
+                loading={orgUnitLevels ? false : true}
+                items={orgUnitLevels && orgUnitLevels.map(({ level, name }) => ({ id: level.toString(), name }))}
                 value={orgUnitLevel}
                 multiple={true}
                 onChange={onChange}

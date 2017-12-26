@@ -22,16 +22,12 @@ export class IndicatorGroupSelect  extends Component {
             style,
         } = this.props;
 
-
-        if (!indicatorGroups) {
-            return null; // TODO: Add loading indicator
-        }
-
         return (
             <SelectField
                 label={i18next.t('Indicator group')}
+                loading={indicatorGroups ? false : true}
                 items={indicatorGroups}
-                value={indicatorGroup ? indicatorGroup .id : null}
+                value={indicatorGroup ? indicatorGroup.id : null}
                 onChange={onChange}
                 style={style}
             />

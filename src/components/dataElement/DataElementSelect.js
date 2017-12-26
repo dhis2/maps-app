@@ -23,15 +23,18 @@ export class DataElementSelect extends Component {
             style,
         } = this.props;
 
-        if (!dataElementGroup || !dataElements[dataElementGroup.id]) {
-            return null; // TODO: Add loading indicator
+        if (!dataElementGroup) {
+            return null;
         }
+
+        const items = dataElements[dataElementGroup.id];
 
         return (
             <SelectField
                 key='indicators'
                 label={i18next.t('Data element')}
-                items={dataElements[dataElementGroup.id]}
+                loading={items ? false : true}
+                items={items}
                 value={dataElement ? dataElement.id : null}
                 onChange={onChange}
                 style={style}
