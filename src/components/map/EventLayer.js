@@ -182,7 +182,6 @@ class EventLayer extends Layer {
 
         return features;
     }
-
 }
 
 export default EventLayer;

@@ -165,5 +165,9 @@ export default connect(
         setLabelFontSize,
         setLabelFontStyle,
         setRadiusLow,
-    }
+    },
+  null,
+  {
+    withRef: true,
+  }
 )(BoundaryDialog);

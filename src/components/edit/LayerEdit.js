@@ -60,6 +60,13 @@ class LayerEdit extends Component {
 
     }
 
+
+    loadLayer() {
+        if (this.layerContainer.getWrappedInstance().validate()) { // TODO: Better pattern?
+            console.log('Validated!');
+        }
+    }
+
     addLayer() {
         const { layer, loadLayer } = this.props;
 
@@ -128,15 +135,23 @@ class LayerEdit extends Component {
                     >{i18next.t('Cancel')}</Button>,
                     <Button
                         color='primary'
-                        onClick={() => loadLayer(this.props.layer)}
+                        // onClick={() => loadLayer(this.props.layer)}
+                        onClick={() => this.loadLayer()}
                         selector='update'
                     >{i18next.t('Update layer')}</Button>
                 ]}
 
             >
-                <LayerDialog {...layer} />
+                <LayerDialog
+                    {...layer}
+                    ref={container => this.layerContainer = container}
+                />
             </Dialog>
         );
+    }
+
+    validate() {
+        console.log('validate');
     }
 }
 

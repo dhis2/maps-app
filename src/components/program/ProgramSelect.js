@@ -23,7 +23,7 @@ export class ProgramSelect extends Component {
     }
 
     render() {
-        const { program, programs, onChange, style } = this.props;
+        const { program, programs, onChange, style, errorText } = this.props;
 
         return (
             <SelectField
@@ -33,6 +33,7 @@ export class ProgramSelect extends Component {
                 value={program ? program.id : null}
                 onChange={onChange}
                 style={style}
+                errorText={errorText}
             />
         );
     }

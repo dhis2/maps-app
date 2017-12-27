@@ -75,6 +75,11 @@ const styles = {
 
 export class EventDialog extends Component {
 
+    constructor(props, context) {
+        super(props, context);
+        this.state = {};
+    }
+
     componentDidMount() {
         const { period, setStartDate, setEndDate } = this.props;
 
@@ -117,6 +122,10 @@ export class EventDialog extends Component {
             setEndDate,
         } = this.props;
 
+        const {
+            programError,
+        } = this.state;
+
         const period = getPeriodFromFilters(filters) || { id: 'START_END_DATES' };
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
@@ -139,6 +148,7 @@ export class EventDialog extends Component {
                                 program={program}
                                 onChange={setProgram}
                                 style={styles.flexHalf}
+                                errorText={programError}
                             />
                             <ProgramStageSelect
                                 program={program}
@@ -267,6 +277,19 @@ export class EventDialog extends Component {
             </Tabs>
         );
     }
+
+    validate() {
+        const { program } = this.props;
+
+        if (!program) {
+            this.setState({
+                programError: i18next.t('Program is required'),
+            });
+        }
+
+        return true;
+    }
+
 }
 
 export default connect(
@@ -284,5 +307,9 @@ export default connect(
         setPeriod,
         setStartDate,
         setEndDate,
+    },
+    null,
+    {
+        withRef: true,
     }
 )(EventDialog);
