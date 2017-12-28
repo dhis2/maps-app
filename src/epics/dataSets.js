@@ -13,7 +13,7 @@ export const loadDataSets = (action$) =>
         .concatMap((action) =>
             getD2()
                 .then(d2 => d2.models.dataSets.list({
-                    fields: `dimensionItem~rename(id),${getDisplayPropertyUrl()}`,
+                    fields: `dimensionItem~rename(id),${getDisplayPropertyUrl(d2)}`,
                     paging: false,
                 }))
                 .then(dataSets => setDataSets(dataSets.toArray()))

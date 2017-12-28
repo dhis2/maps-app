@@ -69,7 +69,7 @@ export const loadProgramStageDataElements = (action$) =>
         .concatMap((action) =>
             getD2()
                 .then(d2 => d2.models.programStage.get(action.programStageId, {
-                    fields: `programStageDataElements[dataElement[id,${getDisplayPropertyUrl()},valueType,optionSet[id,displayName~rename(name)]]]`,
+                    fields: `programStageDataElements[dataElement[id,${getDisplayPropertyUrl(d2)},valueType,optionSet[id,displayName~rename(name)]]]`,
                     paging: false,
                 }))
                 .then(programStage => programStage.programStageDataElements.map(d => d.dataElement))

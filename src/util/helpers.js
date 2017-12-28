@@ -23,10 +23,16 @@ export const getDisplayProperty = async (displayProperty) => {
     return propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name';
 };
 
-// TODO
+/*
 export const getDisplayPropertyUrl = async () => {
     const displayProperty = await getDisplayProperty();
     return `${displayProperty}~rename(name)`;
+};
+*/
+
+export const getDisplayPropertyUrl = (d2) => {
+  const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
+  return (propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name') + '~rename(name)';
 };
 
 const baseFields = [

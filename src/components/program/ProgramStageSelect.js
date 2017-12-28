@@ -34,7 +34,7 @@ export class ProgramStageSelect extends Component {
     }
 
     render() {
-        const { program, programStage, programStages, onChange, style } = this.props;
+        const { program, programStage, programStages, onChange, style, errorText } = this.props;
 
         if (!program) {
             return null;
@@ -50,6 +50,7 @@ export class ProgramStageSelect extends Component {
                 value={programStage ? programStage.id : null}
                 onChange={onChange}
                 style={style}
+                errorText={errorText}
             />
         );
     }

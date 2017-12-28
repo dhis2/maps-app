@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import sortBy from 'lodash/fp/sortBy';
-import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
+// import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs'; // Not supporting state change
+import {Tabs, Tab} from 'material-ui/Tabs';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import ProgramSelect from '../program/ProgramSelect';
@@ -77,7 +78,9 @@ export class EventDialog extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {};
+        this.state = {
+            tab: 'data'
+        };
     }
 
     componentDidMount() {
@@ -123,7 +126,9 @@ export class EventDialog extends Component {
         } = this.props;
 
         const {
+            tab,
             programError,
+            programStageError,
         } = this.state;
 
         const period = getPeriodFromFilters(filters) || { id: 'START_END_DATES' };
@@ -140,21 +145,22 @@ export class EventDialog extends Component {
         }, ...dataItems.filter(field => field.valueType === 'COORDINATE')];
 
         return (
-            <Tabs style={styles.tabs}>
-                <Tab label={i18next.t('data')}>
+            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
+                <Tab value='data' label={i18next.t('data')}>
                     <div style={styles.flex}>
                         <div style={styles.flexFull}>
                             <ProgramSelect
                                 program={program}
                                 onChange={setProgram}
                                 style={styles.flexHalf}
-                                errorText={programError}
+                                errorText={!program && programError}
                             />
                             <ProgramStageSelect
                                 program={program}
                                 programStage={programStage}
                                 onChange={setProgramStage}
                                 style={styles.flexHalf}
+                                errorText={!programStage && programStageError}
                             />
                         </div>
                         <RelativePeriodSelect
@@ -193,7 +199,7 @@ export class EventDialog extends Component {
                         <div style={styles.flexHalf}></div>
                     </div>
                 </Tab>
-                <Tab label={i18next.t('Filter')}>
+                <Tab value='filter' label={i18next.t('Filter')}>
                     <div style={styles.flex}>
                         <FilterGroup
                             program={program}
@@ -202,7 +208,7 @@ export class EventDialog extends Component {
                         />
                     </div>
                 </Tab>
-                <Tab label={i18next.t('Organisation units')}>
+                <Tab value='orgunits' label={i18next.t('Organisation units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -219,7 +225,7 @@ export class EventDialog extends Component {
                         </div>
                     </div>
                 </Tab>
-                <Tab label={i18next.t('Style')}>
+                <Tab value='style' label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <div style={{ ...styles.flex, ...styles.flexHalf }}>
                             <ImageSelect
@@ -259,7 +265,7 @@ export class EventDialog extends Component {
                                 label={i18next.t('Style by data item')}
                                 program={program}
                                 programStage={programStage}
-                                // items={dataItems}
+                                allowNone={true}
                                 value={styleDataItem ? styleDataItem.id : null}
                                 onChange={setStyleDataItem}
                                 style={styles.flexHalf}
@@ -278,13 +284,24 @@ export class EventDialog extends Component {
         );
     }
 
+    setErrorState(key, message, tab) {
+      this.setState({
+          [key]: message,
+          tab,
+      });
+
+      return false;
+    }
+
     validate() {
-        const { program } = this.props;
+        const { program, programStage } = this.props;
 
         if (!program) {
-            this.setState({
-                programError: i18next.t('Program is required'),
-            });
+            return this.setErrorState('programError', i18next.t('Program is required'), 'data');
+        }
+
+        if (!programStage) {
+            return this.setErrorState('programStageError', i18next.t('Program stage is required'), 'data');
         }
 
         return true;

@@ -32,7 +32,7 @@ export const loadDataElements = (action$) =>
                     return d2.models.dataElements
                         .filter().on('dataElementGroups.id').equals(action.groupId)
                         .list({
-                            fields: `dimensionItem~rename(id),${getDisplayPropertyUrl()}`,
+                            fields: `dimensionItem~rename(id),${getDisplayPropertyUrl(d2)}`,
                             domainType: 'aggregate',
                             paging: false,
                         });

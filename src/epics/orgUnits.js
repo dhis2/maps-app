@@ -32,8 +32,8 @@ export const loadOrgUnitLevels = (action$) =>
         .ofType(types.ORGANISATION_UNIT_LEVELS_LOAD)
         .concatMap(() =>
             getD2()
-                .then((d2) => d2.models.organisationUnitLevels.list({
-                    fields: `id,${getDisplayPropertyUrl()},level`,
+                .then(async (d2) => d2.models.organisationUnitLevels.list({
+                    fields: `id,${getDisplayPropertyUrl(d2)},level`,
                     pageing: false,
                 }))
                 .then(levels => setOrgUnitLevels(levels.toArray()))
@@ -45,8 +45,8 @@ export const loadOrgUnitGroups = (action$) =>
         .ofType(types.ORGANISATION_UNIT_GROUPS_LOAD)
         .concatMap(() =>
             getD2()
-                .then((d2) => d2.models.organisationUnitGroups.list({
-                    fields: `id,${getDisplayPropertyUrl()}`,
+                .then(async (d2) => d2.models.organisationUnitGroups.list({
+                    fields: `id,${getDisplayPropertyUrl(d2)}`,
                     pageing: false,
                 }))
                 .then(groups => setOrgUnitGroups(groups.toArray()))
@@ -59,7 +59,7 @@ export const loadOrgUnitGroupSets = (action$) =>
         .concatMap(() =>
             getD2()
                 .then((d2) => console.log && d2.models.organisationUnitGroupSets.list({
-                    fields: `id,${getDisplayPropertyUrl()}`,
+                    fields: `id,${getDisplayPropertyUrl(d2)}`,
                     pageing: false,
                 }))
                 .then(groupSets => setOrgUnitGroupSets(groupSets.toArray()))
