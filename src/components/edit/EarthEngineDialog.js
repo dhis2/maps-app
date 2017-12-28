@@ -10,6 +10,7 @@ import LegendItem from '../layers/legend/LegendItem';
 import { setParams, setFilter } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colorscale';
 import { createLegend } from '../../loaders/earthEngineLoader';
+import { layerDialogStyles } from './LayerDialogStyles';
 import '../layers/legend/Legend.css';
 
 const datasets = {
@@ -56,16 +57,7 @@ const datasets = {
 };
 
 const styles = {
-    tabs: {
-        height: 376,
-    },
-    flex: {
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
-        padding: 12,
-    },
+    ...layerDialogStyles,
     flexColumn: {
         flex: '50%',
         display: 'flex',
@@ -73,18 +65,6 @@ const styles = {
         justifyContent: 'space-between',
         alignContent: 'flex-start',
         boxSizing: 'border-box',
-    },
-    flexFull: {
-        flex: '100%',
-        boxSizing: 'border-box',
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
-    },
-    flexThird: {
-        flex: '33%',
-        boxSizing: 'border-box',
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
     },
     legend: {
         borderLeft: '12px solid #fff',
@@ -97,6 +77,13 @@ const styles = {
 };
 
 class EarthEngineDialog extends Component {
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            tab: 'data'
+        };
+    }
 
     // Steps are less as we also have colors for above and below (not below if min = 0)
     getStepsFromParams() {
@@ -126,8 +113,12 @@ class EarthEngineDialog extends Component {
         const { datasetId, params, filter, setParams, setFilter } = this.props;
         const dataset = datasets[datasetId];
 
+        const {
+            tab,
+        } = this.state;
+
         return (
-            <Tabs style={styles.tabs}>
+            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
                 <Tab label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.flexColumn}>
@@ -193,6 +184,22 @@ class EarthEngineDialog extends Component {
             </Tabs>
         );
     }
+
+    // TODO: Add to parent class?
+    setErrorState(key, message, tab) {
+        this.setState({
+            [key]: message,
+            tab,
+        });
+
+        return false;
+    }
+
+    validate() {
+        const {  } = this.props;
+
+        return true;
+    }
 }
 
-export default connect(null, { setParams, setFilter })(EarthEngineDialog);
+export default connect(null, { setParams, setFilter }, null, { withRef: true })(EarthEngineDialog);

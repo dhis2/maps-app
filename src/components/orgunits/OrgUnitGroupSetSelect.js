@@ -25,7 +25,7 @@ export class OrgUnitGroupSetSelect extends Component {
     }
 
     render() {
-        const { orgUnitGroupSets, value, onChange, style } = this.props;
+        const { orgUnitGroupSets, value, onChange, style, errorText } = this.props;
 
         return (
             <SelectField
@@ -35,6 +35,7 @@ export class OrgUnitGroupSetSelect extends Component {
                 value={value ? value.id : null}
                 onChange={onChange}
                 style={style}
+                errorText={!value && errorText}
             />
         );
     }

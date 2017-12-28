@@ -50,7 +50,7 @@ export class ProgramStageSelect extends Component {
                 value={programStage ? programStage.id : null}
                 onChange={onChange}
                 style={style}
-                errorText={errorText}
+                errorText={!programStage && errorText}
             />
         );
     }

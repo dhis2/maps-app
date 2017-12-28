@@ -10,6 +10,7 @@ import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import Checkbox from '../d2-ui/Checkbox';
 import FontStyle from '../d2-ui/FontStyle';
+import { layerDialogStyles } from './LayerDialogStyles';
 
 import {
     setOrgUnitLevels,
@@ -30,28 +31,9 @@ import {
 } from '../../util/analytics';
 
 const styles = {
-    content: { // TODO: reuse styles
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
-        padding: 12,
-        height: 330,
-        overflowY: 'auto',
-    },
-    flexHalf: {
-        flex: '50%',
-        minWidth: 230,
-        boxSizing: 'border-box',
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
-    },
-    flexFull: {
-        flex: '100%',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
+    ...layerDialogStyles,
+    tabs: {
+        height: 376,
     },
     wrapper: {
         width: '100%',
@@ -75,6 +57,13 @@ const styles = {
 
 class BoundaryDialog extends Component {
 
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            tab: 'data'
+        };
+    }
+
     render() {
         const {
             rows = [],
@@ -92,12 +81,16 @@ class BoundaryDialog extends Component {
             setRadiusLow,
         } = this.props;
 
+        const {
+            tab,
+        } = this.state;
+
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <Tabs>
+            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
                 <Tab label={i18next.t('Organisation units')}>
-                    <div style={styles.content}>
+                    <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
@@ -123,7 +116,7 @@ class BoundaryDialog extends Component {
                     </div>
                 </Tab>
                 <Tab label={i18next.t('Style')}>
-                    <div style={styles.content}>
+                    <div style={styles.flex}>
                         <div style={styles.wrapper}>
                             <Checkbox
                                 label={i18next.t('Show labels')}
@@ -153,6 +146,22 @@ class BoundaryDialog extends Component {
             </Tabs>
         );
     }
+
+    // TODO: Add to parent class?
+    setErrorState(key, message, tab) {
+        this.setState({
+            [key]: message,
+            tab,
+        });
+
+        return false;
+    }
+
+    validate() {
+        const {  } = this.props;
+
+        return true;
+    }
 }
 
 export default connect(
@@ -166,8 +175,8 @@ export default connect(
         setLabelFontStyle,
         setRadiusLow,
     },
-  null,
-  {
-    withRef: true,
-  }
+    null,
+    {
+        withRef: true,
+    }
 )(BoundaryDialog);

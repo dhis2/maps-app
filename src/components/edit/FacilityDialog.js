@@ -11,6 +11,7 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import { layerDialogStyles } from './LayerDialogStyles';
 
 import {
     setOrganisationUnitGroupSet,
@@ -34,29 +35,7 @@ import {
 } from '../../util/analytics';
 
 const styles = {
-    content: { // TODO: reuse styles
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
-        padding: 12,
-        height: 330,
-        overflowY: 'auto',
-    },
-    flexHalf: {
-        flex: '50%',
-        minWidth: 230,
-        boxSizing: 'border-box',
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
-    },
-    flexFull: {
-        flex: '100%',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
-    },
+    ...layerDialogStyles,
     wrapper: {
         width: '100%',
         clear: 'both',
@@ -78,6 +57,13 @@ const styles = {
 };
 
 class FacilityDialog extends Component {
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            tab: 'data'
+        };
+    }
 
     render() {
         const {
@@ -102,21 +88,27 @@ class FacilityDialog extends Component {
             setAreaRadius,
         } = this.props;
 
+        const {
+            tab,
+            orgUnitGroupSetError,
+        } = this.state;
+
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <Tabs>
+            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
                 <Tab label={i18next.t('Group set')}>
-                    <div style={styles.content}>
+                    <div style={styles.flex}>
                         <OrgUnitGroupSetSelect
                             value={organisationUnitGroupSet}
                             onChange={setOrganisationUnitGroupSet}
                             style={styles.flexHalf}
+                            errorText={orgUnitGroupSetError}
                         />
                     </div>
                 </Tab>
                 <Tab label={i18next.t('Organisation units')}>
-                    <div style={styles.content}>
+                    <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
@@ -142,7 +134,7 @@ class FacilityDialog extends Component {
                     </div>
                 </Tab>
                 <Tab label={i18next.t('Style')}>
-                    <div style={styles.content}>
+                    <div style={styles.flex}>
                         <div style={styles.wrapper}>
                             <Checkbox
                                 label={i18next.t('Show labels')}
@@ -186,6 +178,26 @@ class FacilityDialog extends Component {
             </Tabs>
         );
     }
+
+    // TODO: Add to parent class?
+    setErrorState(key, message, tab) {
+        this.setState({
+            [key]: message,
+            tab,
+        });
+
+        return false;
+    }
+
+    validate() {
+        const { organisationUnitGroupSet } = this.props;
+
+        if (!organisationUnitGroupSet) {
+            return this.setErrorState('orgUnitGroupSetError', i18next.t('Group set is required'), 'data');
+        }
+
+        return true;
+    }
 }
 
 export default connect(
@@ -201,5 +213,9 @@ export default connect(
         setLabelFontWeight,
         setLabelFontStyle,
         setAreaRadius,
+    },
+    null,
+    {
+        withRef: true,
     }
 )(FacilityDialog);

@@ -19,6 +19,7 @@ import ColorPicker from '../d2-ui/ColorPicker';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import { EVENT_START_DATE, EVENT_END_DATE, EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
+import { layerDialogStyles } from './LayerDialogStyles';
 
 import {
     setProgram,
@@ -41,38 +42,7 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 
-const styles = {
-    tabs: {
-        height: 376,
-    },
-    flex: {
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
-        padding: 12,
-        // overflowY: 'auto',
-    },
-    flexFull: {
-        flex: '100%',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
-    },
-    flexHalf: {
-        flex: '50%',
-        boxSizing: 'border-box',
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
-    },
-    flexQuarter: {
-        flex: '25%',
-        boxSizing: 'border-box',
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
-    },
-};
+const styles = layerDialogStyles;
 
 export class EventDialog extends Component {
 
@@ -153,14 +123,14 @@ export class EventDialog extends Component {
                                 program={program}
                                 onChange={setProgram}
                                 style={styles.flexHalf}
-                                errorText={!program && programError}
+                                errorText={programError}
                             />
                             <ProgramStageSelect
                                 program={program}
                                 programStage={programStage}
                                 onChange={setProgramStage}
                                 style={styles.flexHalf}
-                                errorText={!programStage && programStageError}
+                                errorText={programStageError}
                             />
                         </div>
                         <RelativePeriodSelect
@@ -284,13 +254,14 @@ export class EventDialog extends Component {
         );
     }
 
+    // TODO: Add to parent class?
     setErrorState(key, message, tab) {
-      this.setState({
-          [key]: message,
-          tab,
-      });
+        this.setState({
+            [key]: message,
+            tab,
+        });
 
-      return false;
+        return false;
     }
 
     validate() {

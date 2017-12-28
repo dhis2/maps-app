@@ -27,6 +27,7 @@ import ProgramSelect from '../../program/ProgramSelect';
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import { layerDialogStyles } from '../LayerDialogStyles';
 
 import {
     setClassification,
@@ -65,36 +66,7 @@ import {
 } from '../../../util/analytics';
 
 const styles = {
-    content: { // TODO: reuse styles
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
-        padding: 12,
-        height: 330,
-        overflowY: 'auto',
-    },
-    flexHalf: {
-        flex: '50%',
-        minWidth: 230,
-        boxSizing: 'border-box',
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
-    },
-    flexThird: {
-        flex: '33%',
-        minWidth: 230,
-        boxSizing: 'border-box',
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
-    },
-    flexFull: {
-        flex: '100%',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        // justifyContent: 'space-between',
-        alignContent: 'flex-start',
-    },
+    ...layerDialogStyles,
     wrapper: {
         width: '100%',
         clear: 'both',
@@ -112,6 +84,13 @@ const styles = {
 };
 
 export class ThematicDialog extends Component {
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            tab: 'data'
+        };
+    }
 
     componentDidUpdate(prevProps) {
         const { columns, setClassification, setLegendSet } = this.props;
@@ -177,14 +156,18 @@ export class ThematicDialog extends Component {
             toggleOrganisationUnit,
         } = this.props;
 
+        const {
+            tab,
+        } = this.state;
+
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const indicator = getIndicatorFromColumns(columns);
 
         return (
-            <Tabs>
+            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
                 <Tab label={i18next.t('data')}>
-                    <div style={styles.content}>
+                    <div style={styles.flex}>
                         <ValueTypeSelect
                             value={valueType}
                             style={styles.flexHalf}
@@ -299,7 +282,7 @@ export class ThematicDialog extends Component {
                     </div>
                 </Tab>
                 <Tab label={i18next.t('Organisation units')}>
-                    <div style={styles.content}>
+                    <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
@@ -324,7 +307,7 @@ export class ThematicDialog extends Component {
                     </div>
                 </Tab>
                 <Tab label={i18next.t('Style')}>
-                    <div style={styles.content}>
+                    <div style={styles.flex}>
                         <LegendTypeSelect
                             method={method}
                             onChange={setClassification}
@@ -387,6 +370,32 @@ export class ThematicDialog extends Component {
             </Tabs>
         );
     }
+
+    // TODO: Add to parent class?
+    setErrorState(key, message, tab) {
+        this.setState({
+            [key]: message,
+            tab,
+        });
+
+        return false;
+    }
+
+    validate() {
+        const {  } = this.props;
+
+        /*
+        if (!program) {
+            return this.setErrorState('programError', i18next.t('Program is required'), 'data');
+        }
+
+        if (!programStage) {
+            return this.setErrorState('programStageError', i18next.t('Program stage is required'), 'data');
+        }
+        */
+
+        return true;
+    }
 }
 
 export default connect(
@@ -414,6 +423,10 @@ export default connect(
         setRadiusHigh,
         setUserOrgUnits,
         toggleOrganisationUnit,
+    },
+    null,
+    {
+        withRef: true,
     }
 )(ThematicDialog);
 
