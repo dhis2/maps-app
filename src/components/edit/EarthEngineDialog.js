@@ -58,14 +58,6 @@ const datasets = {
 
 const styles = {
     ...layerDialogStyles,
-    flexColumn: {
-        flex: '50%',
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'space-between',
-        alignContent: 'flex-start',
-        boxSizing: 'border-box',
-    },
     legend: {
         borderLeft: '12px solid #fff',
         borderRight: '12px solid #fff',

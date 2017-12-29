@@ -42,7 +42,15 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 
-const styles = layerDialogStyles;
+const styles = {
+    ...layerDialogStyles,
+    colorLabel: {
+        color: 'rgba(0, 0, 0, 0.3)',
+        fontSize: 12,
+        paddingBottom: 6,
+        marginTop: -2,
+    }
+};
 
 export class EventDialog extends Component {
 
@@ -118,7 +126,7 @@ export class EventDialog extends Component {
             <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
                 <Tab value='data' label={i18next.t('data')}>
                     <div style={styles.flex}>
-                        <div style={styles.flexFull}>
+                        <div style={styles.flexRow}>
                             <ProgramSelect
                                 program={program}
                                 onChange={setProgram}
@@ -219,7 +227,7 @@ export class EventDialog extends Component {
                                 <ColorPicker
                                     color={eventPointColor || EVENT_COLOR}
                                     onChange={setEventPointColor}
-                                    style={{ width: 32, height: 32 }}
+                                    style={{ width: 64, height: 32 }}
                                 />
                             </div>
                             <TextField

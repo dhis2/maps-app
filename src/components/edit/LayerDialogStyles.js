@@ -8,14 +8,27 @@ export const layerDialogStyles = {
         justifyContent: 'space-between',
         alignContent: 'flex-start',
         padding: 12,
-        // overflowY: 'auto',
     },
-    flexFull: {
+    flexRow: {
         flex: '100%',
         display: 'flex',
         flexFlow: 'row wrap',
         justifyContent: 'space-between',
         alignContent: 'flex-start',
+    },
+    flexColumn: {
+        flex: '50%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'space-between',
+        alignContent: 'flex-start',
+        boxSizing: 'border-box',
+    },
+    flexFull: {
+        flex: '100%',
+        boxSizing: 'border-box',
+        borderLeft: '12px solid #fff',
+        borderRight: '12px solid #fff',
     },
     flexHalf: {
         flex: '50%',
@@ -25,7 +38,6 @@ export const layerDialogStyles = {
     },
     flexThird: {
         flex: '33%',
-        minWidth: 230,
         boxSizing: 'border-box',
         borderLeft: '12px solid #fff',
         borderRight: '12px solid #fff',

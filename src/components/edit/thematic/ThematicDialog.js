@@ -56,6 +56,7 @@ import {
 
 import {
     getIndicatorFromColumns,
+    getOrgUnitsFromRows,
     getOrgUnitGroupsFromRows,
     getOrgUnitLevelsFromRows,
     getOrgUnitNodesFromRows,
@@ -172,7 +173,7 @@ export class ThematicDialog extends Component {
                             value={valueType}
                             style={styles.flexHalf}
                         />
-                        <div style={styles.flexFull}>
+                        <div style={styles.flexRow}>
                             {(!valueType || valueType === 'in') && [ // Indicator (default)
                                 <IndicatorGroupSelect
                                     key='group'
@@ -249,33 +250,35 @@ export class ThematicDialog extends Component {
                                 />
                             )}
                         </div>
-                        <PeriodTypeSelect
-                            value={periodType}
-                            onChange={type => setPeriodType(type.id)}
-                            style={styles.flexHalf}
-                        />
-                        {periodType === 'relativePeriods' &&
-                            <RelativePeriodSelect
-                                period={period}
-                                onChange={setPeriod}
+                        <div style={styles.flexRow}>
+                            <PeriodTypeSelect
+                                value={periodType}
+                                onChange={type => setPeriodType(type.id)}
                                 style={styles.flexHalf}
                             />
-                        }
-                        {periodType && periodType !== 'relativePeriods' &&
-                            <PeriodSelect
-                                periodType={periodType}
-                                period={period}
-                                onChange={setPeriod}
-                                style={styles.flexHalf}
-                            />
-                        }
-                        {period && !periodType &&
-                            <DummySelectField
-                                label={i18next.t('Period')}
-                                item={period}
-                                style={styles.flexHalf}
-                            />
-                        }
+                            {periodType === 'relativePeriods' &&
+                                <RelativePeriodSelect
+                                    period={period}
+                                    onChange={setPeriod}
+                                    style={styles.flexHalf}
+                                />
+                            }
+                            {periodType && periodType !== 'relativePeriods' &&
+                                <PeriodSelect
+                                    periodType={periodType}
+                                    period={period}
+                                    onChange={setPeriod}
+                                    style={styles.flexHalf}
+                                />
+                            }
+                            {period && !periodType &&
+                                <DummySelectField
+                                    label={i18next.t('Period')}
+                                    item={period}
+                                    style={styles.flexHalf}
+                                />
+                            }
+                        </div>
                         <AggregationTypeSelect
                             style={styles.flexHalf}
                         />
@@ -382,7 +385,10 @@ export class ThematicDialog extends Component {
     }
 
     validate() {
-        const {  } = this.props;
+        const { rows } = this.props;
+        const orgUnits = getOrgUnitsFromRows(rows);
+
+        console.log('orgUnits', orgUnits);
 
         /*
         if (!program) {
@@ -394,7 +400,7 @@ export class ThematicDialog extends Component {
         }
         */
 
-        return true;
+        return false;
     }
 }
 

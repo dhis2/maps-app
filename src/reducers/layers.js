@@ -10,12 +10,6 @@ const defaultLayers = [{
     title: 'Facilities Preview',
     img: 'images/facilities.png',
     opacity: 1,
-    rows: [{
-        dimension: 'ou',
-        items:[{
-          id: 'LEVEL-4'
-        }]
-    }],
 },{
     layer: 'thematic',
     title: 'Thematic Preview',

@@ -10,9 +10,10 @@ const styles = {
         position: 'relative',
         marginTop: 12,
         width: '100%',
-        height: 300,
+        height: 285,
         padding: 8,
         overflow: 'auto',
+        boxSizing: 'border-box',
         boxShadow: '0px 0px 4px 1px rgba(0,0,0,0.2)',
 
     },
