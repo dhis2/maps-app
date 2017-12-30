@@ -38,6 +38,7 @@ import {
 
 import {
     getPeriodFromFilters,
+    getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
@@ -193,6 +194,7 @@ export class EventDialog extends Component {
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrganisationUnit}
                                 disabled={selectedUserOrgUnits.length ? true : false}
+                                selectRootAsDefault={getOrgUnitsFromRows(rows).length === 0}
                             />
                         </div>
                         <div style={styles.flexHalf}>

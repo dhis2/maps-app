@@ -57,6 +57,16 @@ export class OrgUnitTree extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        const { root, selectRootAsDefault, onClick } = this.props;
+
+        // Select org.unit root as defulat (but only once)
+        if (selectRootAsDefault && root && !this._rootWasSelected) {
+            this._rootWasSelected = true;
+            onClick(root);
+        }
+    }
+
     render() {
         const { root, selected, disabled, onClick } = this.props;
 
@@ -72,10 +82,7 @@ export class OrgUnitTree extends Component {
                     initiallyExpanded={[root.path]}
                     hideCheckboxes={true}
                     hideMemberCount={true}
-                    onSelectClick={(evt, orgUnit) => !disabled ? onClick({
-                        id: orgUnit.id,
-                        path: orgUnit.path,
-                    }) : null}
+                    onSelectClick={(evt, orgUnit) => !disabled ? onClick(orgUnit) : null}
                     labelStyle={styles.label}
                     selectedLabelStyle={styles.selectedLabel}
                 />
