@@ -63,16 +63,17 @@ export class EventDialog extends Component {
     }
 
     componentDidMount() {
-        const { period, setStartDate, setEndDate } = this.props;
+        const { filters, startDate, endDate, setStartDate, setEndDate } = this.props;
+        const period = getPeriodFromFilters(filters);
 
-        if (!period) { // Set default period (last year)
+        if (!period && !startDate && !endDate) { // Set default period (last year)
             setStartDate(EVENT_START_DATE);
             setEndDate(EVENT_END_DATE);
         }
     }
 
     render() {
-        const {
+        const { // layer options
             programAttributes = [],
             dataElements = [],
             columns = [],
@@ -90,6 +91,9 @@ export class EventDialog extends Component {
             colorScale,
             program,
             programStage,
+        } = this.props;
+
+        const { // handlers
             setProgram,
             setProgramStage,
             setStyleDataItem,
@@ -122,6 +126,8 @@ export class EventDialog extends Component {
             id: 'event',
             name: i18next.t('Event location'),
         }, ...dataItems.filter(field => field.valueType === 'COORDINATE')];
+
+        // console.log(period, startDate, endDate, filters);
 
         return (
             <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>

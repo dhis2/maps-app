@@ -73,10 +73,12 @@ class EventLayer extends Layer {
             }
         }
 
+        console.log('config', config, eventClustering);
+
         // Create and add event layer based on config object
         this.layer = map.createLayer(config).addTo(map);
 
-        map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
+        // map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
 
         this.loadDataElements();
     }
@@ -86,7 +88,7 @@ class EventLayer extends Layer {
         const props = this.props;
         const d2 = await getD2();
         const data = await d2.models.programStage.get(props.programStage.id, {
-            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl()},optionSet]]`,
+            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(d2)},optionSet]]`,
             paging: false,
         });
 

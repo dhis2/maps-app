@@ -236,7 +236,7 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_EVENT_POINT_RADIUS_SET:
             return {
                 ...state,
-                eventPointRadius: action.radius,
+                eventPointRadius: parseInt(action.radius, 10),
             };
 
         case types.LAYER_EDIT_EVENT_POINT_COLOR_SET:

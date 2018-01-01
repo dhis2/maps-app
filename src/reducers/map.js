@@ -217,7 +217,7 @@ const map = (state = defaultState, action) => {
                 return state;
             }
 
-            console.log('LAYER_ADD', action.payload.id);
+            // console.log('LAYER_ADD', action.payload.id);
 
             return {
                 ...state,

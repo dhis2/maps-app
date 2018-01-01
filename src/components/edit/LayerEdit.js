@@ -43,9 +43,11 @@ class LayerEdit extends Component {
         const { layer, loadLayer } = this.props;
 
         if (this.layerContainer.getWrappedInstance().validate()) { // TODO: Better pattern?
+
             loadLayer({
                 ...layer,
                 isLoaded: false,
+                editCounter: layer.editCounter === undefined ? 0 : ++layer.editCounter,
             });
 
             this.closeDialog();

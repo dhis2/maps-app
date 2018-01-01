@@ -31,8 +31,8 @@ export const getDisplayPropertyUrl = async () => {
 */
 
 export const getDisplayPropertyUrl = (d2) => {
-  const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
-  return (propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name') + '~rename(name)';
+    const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
+    return (propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name') + '~rename(name)';
 };
 
 const baseFields = [
