@@ -207,7 +207,7 @@ const createEventFeature = (headers, names, event, eventCoordinateField) => {
         properties,
         geometry: {
             type: 'Point',
-            coordinates,
+            coordinates: coordinates.map(parseFloat),
         }
     };
 };

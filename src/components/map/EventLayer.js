@@ -43,11 +43,13 @@ class EventLayer extends Layer {
         const config = {
             type: 'dots',
             pane: id,
-            data: data,
+            data: data.filter(f => f.geometry.coordinates[0] !== 0),
             color: eventPointColor || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
             popup: this.onEventClick.bind(this),
         };
+
+        console.log(config.data);
 
         if (eventClustering) {
             if (serverCluster) {
@@ -73,12 +75,16 @@ class EventLayer extends Layer {
             }
         }
 
-        console.log('config', config, eventClustering);
+        map.fitWorld();
+
+        // console.log('config', config, eventClustering);
+
+        // config.data.forEach(f => console.log(f.geometry.coordinates));
 
         // Create and add event layer based on config object
         this.layer = map.createLayer(config).addTo(map);
 
-        // map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
+        map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
 
         this.loadDataElements();
     }
