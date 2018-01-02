@@ -33,7 +33,7 @@ export class ProgramSelect extends Component {
                 value={program ? program.id : null}
                 onChange={onChange}
                 style={style}
-                errorText={!program && errorText}
+                errorText={!program && errorText ? errorText : null}
             />
         );
     }

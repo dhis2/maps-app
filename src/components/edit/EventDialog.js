@@ -127,8 +127,6 @@ export class EventDialog extends Component {
             name: i18next.t('Event location'),
         }, ...dataItems.filter(field => field.valueType === 'COORDINATE')];
 
-        // console.log(period, startDate, endDate, filters);
-
         return (
             <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
                 <Tab value='data' label={i18next.t('data')}>

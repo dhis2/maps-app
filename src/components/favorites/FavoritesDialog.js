@@ -4,6 +4,7 @@ import { getFavorite, closeFavoritesDialog } from '../../actions/favorites';
 
 import D2FavoritesDialog from 'd2-ui/lib/favorites/FavoritesDialog';
 
+// TODO: Make functional component
 class FavoritesDialog extends Component {
 
     render() {
