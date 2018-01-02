@@ -94,6 +94,13 @@ const webpackConfig = {
         alias: {
             react: path.resolve('./node_modules/react'),
             'material-ui': path.resolve('./node_modules/material-ui'),
+            'material-ui-next': path.resolve('./node_modules/material-ui-next'),
+            'material-ui-icons': path.resolve('./node_modules/material-ui-icons'),
+            'redux': path.resolve('./node_modules/redux'),
+            'react-redux': path.resolve('./node_modules/react-redux'),
+            'redux-thunk': path.resolve('./node_modules/redux-thunk'),
+            'redux-logger':path.resolve('./node_modules/redux-logger'),
+            'd2-ui': path.resolve('./node_modules/d2-ui'),
         },
     },
     /*

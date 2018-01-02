@@ -36,8 +36,7 @@ const AppMenu = ({ openLayersDialog, openFavoritesDialog, openAboutDialog, conte
                 style={styles.button}
             >{i18next.t('Add layer')}</Button>
             <Button
-                // onClick={openFavoritesDialog}
-                onClick={() => {}}
+                onClick={openFavoritesDialog}
                 style={styles.button}
             >{i18next.t('Favorites')}</Button>
             <Button

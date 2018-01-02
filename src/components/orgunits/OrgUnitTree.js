@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import once from 'lodash/fp/once';
 import D2OrgUnitTree from 'd2-ui/lib/org-unit-tree/OrgUnitTree.component';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
 import { toggleOrganisationUnit } from '../../actions/layerEdit';
@@ -49,6 +50,12 @@ export class OrgUnitTree extends Component {
         onClick: PropTypes.func,
     };
 
+    constructor(props, context) {
+        super(props, context);
+
+        this.selectDefault = once(node => props.onClick(node)); // only select default node once
+    }
+
     componentDidMount() {
         const { root, loadOrgUnitTree } = this.props;
 
@@ -60,10 +67,9 @@ export class OrgUnitTree extends Component {
     componentDidUpdate(prevProps) {
         const { root, selectRootAsDefault, onClick } = this.props;
 
-        // Select org.unit root as defulat (but only once)
-        if (selectRootAsDefault && root && !this._rootWasSelected) {
-            this._rootWasSelected = true;
-            onClick(root);
+        // Select org.unit root as default
+        if (selectRootAsDefault && root) {
+            this.selectDefault(root);
         }
     }
 

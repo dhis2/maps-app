@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import FavoritesDialog from 'd2-ui/lib/favorites/FavoritesDialog';
 import appTheme from './app.theme';
 import MapProvider from '../map/MapProvider';
 import AppMenu from './AppMenu';
@@ -55,3 +56,6 @@ class App extends Component {
 }
 
 export default App;
+
+
+// <FavoritesDialog />

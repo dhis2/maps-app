@@ -1,41 +1,27 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-// import FavoriteWindow from '../../app/FavoriteWindow';
 import { getFavorite, closeFavoritesDialog } from '../../actions/favorites';
+
+import D2FavoritesDialog from 'd2-ui/lib/favorites/FavoritesDialog';
 
 class FavoritesDialog extends Component {
 
-    componentDidUpdate(prevProps) {
-        const {
-            map,
-            favoritesDialogOpen,
-            onFavoriteSelect,
-            closeFavoritesDialog,
-        } = this.props;
-
-        if (favoritesDialogOpen) {
-            if (!this.favoriteWindow) { // Only create once
-                this.favoriteWindow = FavoriteWindow(gis);
-                this.favoriteWindow.onFavoriteClick = onFavoriteSelect;
-                this.favoriteWindow.onClose = closeFavoritesDialog;
-            }
-
-            this.favoriteWindow.map = map; // Hack to make map definition available within the Ext component
-            this.favoriteWindow.show();
-        } else if (this.favoriteWindow) {
-            this.favoriteWindow.hide();
-        }
-    }
-
-    // React rendering will happen here later :-)
     render() {
-        return null;
+        const { favoritesDialogOpen, closeFavoritesDialog } = this.props;
+
+        return (
+            <D2FavoritesDialog
+                type='map'
+                open={favoritesDialogOpen}
+                onRequestClose={closeFavoritesDialog}
+                onFavoriteSelect={console.log}
+            />
+        );
     }
 
 }
 
 const mapStateToProps = (state) => ({
-    map: {...state.map},
     favoritesDialogOpen: state.ui.favoritesDialogOpen,
 });
 
