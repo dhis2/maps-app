@@ -3,25 +3,46 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import i18next from 'i18next';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import Button from 'd2-ui/lib/button/Button';
+import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
+// import Button from 'd2-ui/lib/button/Button';
 import { openLayersDialog } from '../../actions/layers';
 import { openFavoritesDialog } from '../../actions/ui';
 import { openAboutDialog } from '../../actions/about';
-import { HEADER_HEIGHT } from '../../constants/layout';
+import { LAYERS_PANEL_WIDTH } from '../../constants/layout';
+
+import ArrowDropDown from 'material-ui/svg-icons/navigation/arrow-drop-down';
+
 
 const styles = {
     toolbar: {
         position: 'absolute',
         width: '100%',
-        height: HEADER_HEIGHT,
-        backgroundColor: 'rgb(39, 102, 150)',
+        height: 40,
+        backgroundColor: '#f3f3f3',
         boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.227451)',
-        zIndex: 1050,
+        zIndex: 1200,
+    },
+    addLayer: {
+        position: 'relative',
+        boxSizing: 'border-box',
+        width: LAYERS_PANEL_WIDTH + 1,
+        borderRight: '1px solid #ddd',
+        textAlign: 'left',
+        paddingLeft: 18,
+    },
+    dropDown: {
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        fill: '#333',
     },
     button: {
-        color: '#fff',
+        color: '#333',
         height: 40,
         margin: 0,
+        paddingLeft: 16,
+        paddingRight: 16,
+        minWidth: 50,
     },
 };
 
@@ -33,27 +54,19 @@ const AppMenu = ({ openLayersDialog, openFavoritesDialog, openAboutDialog, conte
         <ToolbarGroup firstChild={true}>
             <Button
                 onClick={openLayersDialog}
-                style={styles.button}
+                style={{ ...styles.button, ...styles.addLayer }}
+                icon={<ArrowDropDown style={styles.dropDown} />}
             >{i18next.t('Add layer')}</Button>
             <Button
                 onClick={openFavoritesDialog}
                 style={styles.button}
             >{i18next.t('Favorites')}</Button>
-            <Button
-                disabled={true}
-                onClick={() => {}}
-                style={styles.button}
-            >{i18next.t('Share')}</Button>
         </ToolbarGroup>
-        <ToolbarGroup lastChild={true} style={styles.lastToolbar}>
+        <ToolbarGroup lastChild={true}>
             <Button
                 onClick={openAboutDialog}
                 style={styles.button}
             >{i18next.t('About')}</Button>
-            <Button
-                onClick={() => window.location.href = `${contextPath}/dhis-web-commons-about/redirect.action`}
-                style={styles.button}
-            >{i18next.t('Home')}</Button>
         </ToolbarGroup>
     </Toolbar>
 );

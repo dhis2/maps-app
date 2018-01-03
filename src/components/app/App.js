@@ -2,9 +2,9 @@ import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import FavoritesDialog from 'd2-ui/lib/favorites/FavoritesDialog';
 import appTheme from './app.theme';
 import MapProvider from '../map/MapProvider';
+import AppHeader from './AppHeader';
 import AppMenu from './AppMenu';
 import AddOverlayDialog from '../layers/layers/AddLayerDialog';
 import FavoritesDialog from '../favorites/FavoritesDialog';
@@ -37,6 +37,7 @@ class App extends Component {
             <MuiThemeProvider muiTheme={appTheme}>
                 <MapProvider>
                     <div id="dhis-gis-container">
+                        <AppHeader />
                         <AppMenu />
                         <AddOverlayDialog />
                         <FavoritesDialog />

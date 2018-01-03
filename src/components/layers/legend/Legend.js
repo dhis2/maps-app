@@ -9,9 +9,6 @@ const Legend = ({ description, period, filters, unit, items, source, sourceUrl, 
         {description &&
             <div className='Legend-description'>{description}</div>
         }
-        {period &&
-            <div className='Legend-period'>{i18next.t('Period')}: {period}</div>
-        }
         {filters &&
             <div className='Legend-filters'>{i18next.t('Filters')}: {filters.join(', ')}</div>
         }

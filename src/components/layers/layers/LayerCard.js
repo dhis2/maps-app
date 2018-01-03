@@ -50,11 +50,10 @@ const LayerCard = (props) => {
 
     const {
         id,
-        title,
-        subtitle,
+        name,
+        legend,
         isExpanded,
         isVisible,
-        legend,
     } = layer;
 
     return (
@@ -66,8 +65,8 @@ const LayerCard = (props) => {
         >
             <CardHeader
                 className='LayerCard-header'
-                title={title}
-                subtitle={subtitle}
+                title={name}
+                subtitle={legend && legend.period ? legend.period : null}
                 showExpandableButton={true}
                 textStyle={styles.headerText}
             >

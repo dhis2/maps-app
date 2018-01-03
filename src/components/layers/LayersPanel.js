@@ -32,6 +32,7 @@ const style = {
     boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
     overflowX: 'hidden',
     overflowY: 'auto',
+    zIndex: 1190,
 };
 
 const LayersPanel = ({ layersPanelOpen, basemap, basemaps, layers, sortLayers }) => (
