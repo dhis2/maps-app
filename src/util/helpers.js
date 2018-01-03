@@ -46,7 +46,8 @@ const baseFields = [
 ];
 
 const analysisFields = async () => {
-    const namePropertyUrl = await getDisplayPropertyUrl();
+    const d2 = await getD2();
+    const namePropertyUrl = await getDisplayPropertyUrl(d2);
     return [
         '*',
         `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,

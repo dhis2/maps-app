@@ -94,8 +94,6 @@ class Layer extends PureComponent {
     }
 
     onLayerAdd() {
-        // console.log('onLayerAdd');
-
         this.setLayerOpacity();
         this.setLayerVisibility();
 

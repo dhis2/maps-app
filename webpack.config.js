@@ -48,7 +48,7 @@ const webpackConfig = {
                 test: /\.jsx?$/,
                 include: [
                     path.resolve(__dirname, 'src/'),
-                    path.resolve(__dirname, '../dhis2-gis-api/src/'),
+                    path.resolve(__dirname, '../gis-api/src/'),
                 ],
                 loader: 'babel-loader',
                 query: {
@@ -101,26 +101,26 @@ const webpackConfig = {
             'redux-thunk': path.resolve('./node_modules/redux-thunk'),
             'redux-logger':path.resolve('./node_modules/redux-logger'),
             'd2-ui': path.resolve('./node_modules/d2-ui'),
+            'd2': path.resolve('./node_modules/d2'),
         },
     },
-    /*
     externals: [
         {
             'react': 'var React',
             'react-dom': 'var ReactDOM',
+            'rx': 'var Rx',
             'react-addons-transition-group': 'var React.addons.TransitionGroup',
             'react-addons-create-fragment': 'var React.addons.createFragment',
             'react-addons-update': 'var React.addons.update',
             'react-addons-pure-render-mixin': 'var React.addons.PureRenderMixin',
             'react-addons-shallow-compare': 'var React.addons.ShallowCompare',
-            // 'rx': 'var Rx',
-            'lodash': 'var _',
+            'lodash/fp': 'var fp',
         },
         /^react-addons/,
         /^react-dom$/,
-        // /^rx$/,
+        /^rx$/,
+        /^lodash\/fp$/,
     ],
-    */
     plugins: [
         new HTMLWebpackPlugin({
             template: 'index.html',

@@ -2305,25 +2305,6 @@ dhis2-gis-api@^29.0.1:
     rbush "^2.0.2"
     whatwg-fetch "^2.0.3"
 
-dhis2-maps-api@^29.0.0:
-  version "29.0.0"
-  resolved "https://registry.yarnpkg.com/dhis2-maps-api/-/dhis2-maps-api-29.0.0.tgz#e8b27f6a1093e6089ba1968b5eeb0477ce9871b0"
-  dependencies:
-    d3-color "^1.0.3"
-    d3-scale "^1.0.7"
-    enzyme "^3.2.0"
-    geojson-area "^0.2.1"
-    jest-enzyme "^4.0.1"
-    leaflet "^1.2.0"
-    leaflet-geocoder-mapzen "^1.9.4"
-    leaflet-measure "^2.1.7"
-    leaflet.gridlayer.googlemutant "^0.6.4"
-    leaflet.layergroup.collision "^0.3.1"
-    leaflet.markercluster "^1.2.0"
-    polylabel "^1.0.2"
-    rbush "^2.0.2"
-    whatwg-fetch "^2.0.3"
-
 diff@^3.2.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.4.0.tgz#b1d85507daf3964828de54b37d0d73ba67dda56c"

@@ -11,7 +11,7 @@ import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemsFromColumns } from '../util/analytics';
 
 const thematicLoader = async (config) => {
-    const { filters, legendSet, radiusLow, radiusHigh } = config;
+    const { legendSet, radiusLow, radiusHigh } = config;
     const [ features, data ] = await loadData(config);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(({ id }) => valueById[id] !== undefined);

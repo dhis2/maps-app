@@ -5,7 +5,7 @@ import i18next from 'i18next';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import Button from 'd2-ui/lib/button/Button';
 import { openLayersDialog } from '../../actions/layers';
-import { openFavoritesDialog } from '../../actions/favorites';
+import { openFavoritesDialog } from '../../actions/ui';
 import { openAboutDialog } from '../../actions/about';
 import { HEADER_HEIGHT } from '../../constants/layout';
 

@@ -13,3 +13,11 @@ export const closeLayersPanel = (id) => ({
 export const openLayersPanel = () => ({
     type: types.LAYERS_PANEL_OPEN_REQUESTED,
 });
+
+export const openFavoritesDialog = () => ({
+    type: types.FAVORITES_DIALOG_OPEN_REQUESTED,
+});
+
+export const closeFavoritesDialog = () => ({
+    type: types.FAVORITES_DIALOG_CLOSE_REQUESTED,
+});

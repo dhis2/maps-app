@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { getFavorite, closeFavoritesDialog } from '../../actions/favorites';
+import { closeFavoritesDialog } from '../../actions/ui';
+import { loadMap } from '../../actions/map';
 
 import D2FavoritesDialog from 'd2-ui/lib/favorites/FavoritesDialog';
 
@@ -8,14 +9,14 @@ import D2FavoritesDialog from 'd2-ui/lib/favorites/FavoritesDialog';
 class FavoritesDialog extends Component {
 
     render() {
-        const { favoritesDialogOpen, closeFavoritesDialog } = this.props;
+        const { favoritesDialogOpen, onFavoriteSelect, closeFavoritesDialog } = this.props;
 
         return (
             <D2FavoritesDialog
                 type='map'
                 open={favoritesDialogOpen}
                 onRequestClose={closeFavoritesDialog}
-                onFavoriteSelect={console.log}
+                onFavoriteSelect={onFavoriteSelect}
             />
         );
     }
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
     closeFavoritesDialog: () => dispatch(closeFavoritesDialog()),
     onFavoriteSelect: (id) => {
         dispatch(closeFavoritesDialog());
-        dispatch(getFavorite(id));
+        dispatch(loadMap(id));
     },
 });
 

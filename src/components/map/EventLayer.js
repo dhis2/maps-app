@@ -49,8 +49,6 @@ class EventLayer extends Layer {
             popup: this.onEventClick.bind(this),
         };
 
-        console.log(config.data);
-
         if (eventClustering) {
             if (serverCluster) {
 
@@ -75,16 +73,13 @@ class EventLayer extends Layer {
             }
         }
 
-        map.fitWorld();
-
-        // console.log('config', config, eventClustering);
-
-        // config.data.forEach(f => console.log(f.geometry.coordinates));
-
         // Create and add event layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
+        this.layer = map.createLayer(config); // .addTo(map);
 
-        map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
+
+
+
+        // map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
 
         this.loadDataElements();
     }

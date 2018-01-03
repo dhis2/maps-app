@@ -6,6 +6,7 @@ import { mapFields } from './helpers';
 // Fetch one favorite
 export const mapRequest = async (id) => {
     const d2 = await getD2();
+
     return d2.models.map.get(id, {
         fields: await mapFields(),
     }).then((config) => ({

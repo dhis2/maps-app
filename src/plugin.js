@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { init, config } from 'd2/lib/d2';
 import PluginMap from './components/map/PluginMap';
 import { mapRequest } from './util/requests';
-import { fetchFavorite } from './loaders/favorites';
 import { fetchLayer } from './loaders/layers';
 
 import '../scss/plugin.scss';
