@@ -49,7 +49,7 @@ class ThematicLayer extends Layer {
 
         if (layerBounds.isValid()) {
             map.invalidateSize();
-            // map.fitBounds(layerBounds); // TODO: Do as action?
+            map.fitBounds(layerBounds); // TODO: Do as action?
         }
     }
 

@@ -388,7 +388,7 @@ export class ThematicDialog extends Component {
         const { rows } = this.props;
         const orgUnits = getOrgUnitsFromRows(rows);
 
-        console.log('orgUnits', orgUnits);
+        // console.log('orgUnits', orgUnits);
 
         /*
         if (!program) {
@@ -400,7 +400,7 @@ export class ThematicDialog extends Component {
         }
         */
 
-        return false;
+        return true;
     }
 }
 

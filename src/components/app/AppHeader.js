@@ -17,7 +17,7 @@ const styles = {
     logo: {
         boxSizing: 'border-box',
         position: 'absolute',
-        width: LAYERS_PANEL_WIDTH,
+        width: LAYERS_PANEL_WIDTH + 1,
         borderRight: '1px solid #ddd',
         height: '100%',
         padding: '4px 20px',
@@ -27,7 +27,7 @@ const styles = {
     },
     title: {
         position: 'absolute',
-        left: LAYERS_PANEL_WIDTH,
+        left: LAYERS_PANEL_WIDTH + 1,
         right: 0,
         height: '100%',
         fontFamily: 'Roboto, sans-serif',
@@ -42,7 +42,7 @@ const styles = {
     star: {
         verticalAlign: 'middle',
         marginTop: -5,
-        marginRight: 16,
+        marginRight: 8,
         fill: '#bbb',
     },
     homeBtn: {
@@ -65,7 +65,7 @@ const AppHeader = ({ name, contextPath }) => (
             </svg>
         </div>
         <div style={{ ...styles.title, ...(!name ? styles.noFavorite : {}) }}>
-            {name ? [<SvgIcon icon='Star' style={styles.star} />, name]: i18next.t('No favorite selected')}
+            {name ? <span><SvgIcon icon='Star' style={styles.star} />{name}</span> : i18next.t('No favorite selected')}
             <IconButton
                 onClick={() => window.location.href = `${contextPath}/dhis-web-commons-about/redirect.action`}
                 style={styles.homeBtn} iconStyle={styles.homeIcon}>
