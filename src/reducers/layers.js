@@ -2,22 +2,22 @@ import * as types from '../constants/actionTypes';
 
 const defaultLayers = [{
     layer: 'event',
-    title: 'Events Preview',
+    title: 'Events',
     img: 'images/events.png',
     opacity: 0.95,
 },{
     layer: 'facility',
-    title: 'Facilities Preview',
+    title: 'Facilities',
     img: 'images/facilities.png',
     opacity: 1,
 },{
     layer: 'thematic',
-    title: 'Thematic Preview',
+    title: 'Thematic',
     img: 'images/thematic.png',
     opacity: 0.8,
 },{
     layer: 'boundary',
-    title: 'Boundaries Preview',
+    title: 'Boundaries',
     img: 'images/boundaries.png',
     opacity: 1,
 },{

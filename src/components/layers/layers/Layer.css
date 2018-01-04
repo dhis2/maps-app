@@ -1,7 +1,14 @@
+.LayerList {
+    padding: 16px 0 0 16px;
+    height: 320px;
+    overflow-y: auto;
+    max-width: 680px;
+}
+
 .Layer {
     float: left;
     width: 120px;
-    margin-right: 24px;
+    margin-right: 16px;
     cursor: pointer;
     box-sizing: border-box;
     height: 160px;
