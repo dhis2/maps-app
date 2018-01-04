@@ -118,6 +118,18 @@ export const addOrgUnitGroupsToRows = (rows = [], levels = []) => [
     ])
 ];
 
+/* ORGANISATION UNIT PATH */
+// Set organisation unit tree path (temporary solution, as favorites don't include paths)
+export const setOrgUnitPathInRows = (rows = [], id, path) => {
+    const orgUnits = getOrgUnitsFromRows(rows);
+    const orgUnit = orgUnits.find(ou => ou.id === id);
+    return [
+        createDimension('ou',
+            [ ...orgUnits.filter(ou => ou.id !== id), { ...orgUnit, path } ]
+        )
+    ];
+};
+
 /* USER ORGANISATION UNITS */
 
 const isUserOrgUnit = (ou) => ou.id.substring(0, 12) === 'USER_ORGUNIT';

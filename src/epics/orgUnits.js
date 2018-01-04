@@ -12,6 +12,9 @@ import {
     setOrgUnitGroupSets,
     setOrgUnitCoordinate,
 } from '../actions/orgUnits';
+import {
+    setOrgUnitPath,
+} from '../actions/layerEdit';
 
 
 export const loadOrgUnitTree = (action$) =>
@@ -81,5 +84,17 @@ export const changeOrgUnitCoordinate = (action$) =>
             })
         );
 
+// Load organisation unit tree path (temporary solution, as favorites don't include paths)
+export const loadOrgUnitPath = (action$) =>
+    action$
+        .ofType(types.LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD)
+        .concatMap((action) =>
+            getD2()
+                .then(async (d2) => d2.models.organisationUnit.get(action.id, {
+                    fields: 'path',
+                }))
+                .then(ou => setOrgUnitPath(action.id, ou.path))
+                .catch(errorActionCreator(types.LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD_ERROR))
+        );
 
-export default combineEpics(loadOrgUnitTree, loadOrgUnitLevels, loadOrgUnitGroups, loadOrgUnitGroupSets, changeOrgUnitCoordinate);
+export default combineEpics(loadOrgUnitTree, loadOrgUnitLevels, loadOrgUnitGroups, loadOrgUnitGroupSets, changeOrgUnitCoordinate, loadOrgUnitPath);

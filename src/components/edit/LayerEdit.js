@@ -42,12 +42,7 @@ class LayerEdit extends Component {
     loadLayer() {
         const { layer, loadLayer } = this.props;
 
-        console.log('loadLayer');
-
         if (this.layerContainer.getWrappedInstance().validate()) { // TODO: Better pattern?
-            console.log('validated');
-
-
             loadLayer({
                 ...layer,
                 isLoaded: false,

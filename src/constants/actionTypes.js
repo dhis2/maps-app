@@ -163,6 +163,9 @@ export const LAYER_EDIT_AREA_RADIUS_SET = 'LAYER_EDIT_AREA_RADIUS_SET';
 export const LAYER_EDIT_RADIUS_LOW_SET = 'LAYER_EDIT_RADIUS_LOW_SET';
 export const LAYER_EDIT_RADIUS_HIGH_SET = 'LAYER_EDIT_RADIUS_HIGH_SET';
 export const LAYER_EDIT_LEGEND_SET_SET = 'LAYER_EDIT_LEGEND_SET_SET';
+export const LAYER_EDIT_ORGANISATION_UNIT_PATH_SET = 'LAYER_EDIT_ORGANISATION_UNIT_PATH_SET'; // Load organisation unit tree path (temporary solution, as favorites don't include paths)
+export const LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD = 'LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD'; // Load organisation unit tree path (temporary solution, as favorites don't include paths)
+export const LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD_ERROR = 'LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD_ERROR'; // Load organisation unit tree path (temporary solution, as favorites don't include paths)
 
 /* PERIODS */
 export const RELATIVE_PERIODS_SET = 'RELATIVE_PERIODS_SET';

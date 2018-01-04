@@ -244,3 +244,16 @@ export const setLegendSet = (legendSet) => ({
     type: types.LAYER_EDIT_LEGEND_SET_SET,
     legendSet,
 });
+
+// Load organisation unit tree path (temporary solution, as favorites don't include paths)
+export const loadOrgUnitPath = (id) => ({
+    type: types.LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD,
+    id,
+});
+
+// Load organisation unit tree path (temporary solution, as favorites don't include paths)
+export const setOrgUnitPath = (id, path) => ({
+    type: types.LAYER_EDIT_ORGANISATION_UNIT_PATH_SET,
+    id,
+    path,
+});

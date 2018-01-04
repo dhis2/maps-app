@@ -9,6 +9,7 @@ import {
     addOrgUnitGroupsToRows,
     addUserOrgUnitsToRows,
     toggleOrgUnitNodeInRows,
+    setOrgUnitPathInRows,
 } from '../util/analytics';
 
 const layerEdit = (state = null, action) => {
@@ -273,6 +274,13 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 rows: toggleOrgUnitNodeInRows(state.rows, action.orgUnit),
+            };
+
+        // Set organisation unit tree path (temporary solution, as favorites don't include paths)
+        case types.LAYER_EDIT_ORGANISATION_UNIT_PATH_SET:
+            return {
+                ...state,
+                rows: setOrgUnitPathInRows(state.rows, action.id, action.path),
             };
 
         case types.LAYER_EDIT_PARAMS_SET:

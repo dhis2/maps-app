@@ -5,7 +5,7 @@ export const loadOrgUnitTree = () => ({
     type: types.ORGANISATION_UNIT_TREE_LOAD,
 });
 
-// setorganisation unit tree
+// set organisation unit tree
 export const setOrgUnitTree = (rootModel) => ({
     type: types.ORGANISATION_UNIT_TREE_SET,
     payload: rootModel,
@@ -65,6 +65,7 @@ export const unselectOrgUnit = (layerId, featureId) => ({
     featureId,
 });
 
+/*
 export const setOrgUnitsFilter = (layerId, fieldId, filter) => ({
     type: types.ORGANISATION_UNITS_FILTER_SET,
     layerId,
@@ -77,6 +78,7 @@ export const clearOrgUnitsFilter = (layerId, fieldId) => ({
     layerId,
     fieldId,
 });
+*/
 
 export const startRelocateOrgUnit = (layerId, feature) => ({
     type: types.ORGANISATION_UNIT_RELOCATE_START,

@@ -52,6 +52,7 @@ import {
     setRadiusHigh,
     setUserOrgUnits,
     toggleOrganisationUnit,
+    loadOrgUnitPath,
 } from '../../../actions/layerEdit';
 
 import {
@@ -94,7 +95,7 @@ export class ThematicDialog extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { columns, setClassification, setLegendSet } = this.props;
+        const { columns, rows, setClassification, setLegendSet, loadOrgUnitPath } = this.props;
 
         // Set connected legend set when indicator is selected
         if (columns) {
@@ -106,6 +107,13 @@ export class ThematicDialog extends Component {
                 setClassification(1); // TODO: Use constant
                 setLegendSet(indicator.legendSet);
             }
+        }
+
+        if (rows) {
+            const orgUnits = getOrgUnitNodesFromRows(rows);
+
+            // Load organisation unit tree path (temporary solution, as favorites don't include paths)
+            orgUnits.filter(ou => !ou.path).forEach(ou => loadOrgUnitPath(ou.id));
         }
     }
 
@@ -429,6 +437,7 @@ export default connect(
         setRadiusHigh,
         setUserOrgUnits,
         toggleOrganisationUnit,
+        loadOrgUnitPath,
     },
     null,
     {
