@@ -8,7 +8,7 @@ import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
 import * as types from '../constants/actionTypes';
 import { addBasemap } from '../actions/basemap';
-import { addExternalOverlay } from '../actions/externalLayers';
+import { addExternalLayer } from '../actions/externalLayers';
 import { errorActionCreator } from '../actions/helpers';
 
 // Loade external layers from Web API
@@ -26,7 +26,7 @@ export const loadExternalLayers = (action$) => {
     const externalOverlayLayers$ = externalMapLayers$
         .filter(isOverlay)
         .map(createLayerConfig('External layer'))
-        .map(addExternalOverlay);
+        .map(addExternalLayer);
 
     return Observable.merge(externalBaseMapLayers$, externalOverlayLayers$);
 };

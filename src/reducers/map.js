@@ -131,6 +131,11 @@ const layer = (state, action) => {
                 // editCounter: ++state.editCounter, // Will trigger redraw
             };
 
+        case types.ALERTS_REMOVE:
+            return {
+                ...state,
+                alerts: null,
+            };
 
         default:
             return state;
@@ -266,6 +271,13 @@ const map = (state = defaultState, action) => {
         case types.DATA_FILTER_CLEAR:
             return {
                 ...state,
+                mapViews: state.mapViews.map(l => layer(l, action))
+            };
+
+        case types.ALERTS_REMOVE:
+            return {
+                ...state,
+                alerts: null,
                 mapViews: state.mapViews.map(l => layer(l, action))
             };
 

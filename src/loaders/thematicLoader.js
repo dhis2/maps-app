@@ -4,6 +4,7 @@ import findIndex from 'lodash/fp/findIndex';
 import sortBy from 'lodash/fp/sortBy';
 import pick from 'lodash/fp/pick';
 import curry from 'lodash/fp/curry';
+// import store from '../store';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
 import { getLegendItems, getColorsByRgbInterpolation } from '../util/classify';
@@ -20,8 +21,16 @@ const thematicLoader = async (config) => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const legend = legendSet ? await createLegendFromLegendSet(legendSet) : createLegendFromConfig(orderedValues, config);
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
+    let alerts = [];
 
     legend.period = data.metaData.dimensions.pe[0];
+
+    if (!valueFeatures.length) {
+        alerts.push({
+            title: config.name,
+            description: i18next.t('No data found'),
+        });
+    }
 
     valueFeatures.forEach(({ id, properties }) => {
         const value = valueById[id];
@@ -38,6 +47,7 @@ const thematicLoader = async (config) => {
         ...config,
         data: valueFeatures,
         legend,
+        ...(alerts.length ? { alerts } : {}),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

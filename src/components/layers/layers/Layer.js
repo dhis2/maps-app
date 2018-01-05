@@ -7,7 +7,7 @@ const Layer = ({ layer, onClick }) => {
 
     return (
         <div className='Layer' onClick={() => onClick(layer)}>
-            {img ? <img src={img} className='Layer-image' /> : <div className='Layery-no-image'>External layer</div>}
+            {img ? <img src={img} className='Layer-image' /> : <div className='Layer-no-image'>External layer</div>}
             <div className='Layer-title'>{title}</div>
         </div>
     );

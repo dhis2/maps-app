@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import Popover from 'material-ui/Popover';
-import Button from 'd2-ui/lib/button/Button';
 import LayerList from './LayerList'
 import { editLayer, closeLayersDialog } from '../../../actions/layers';
 

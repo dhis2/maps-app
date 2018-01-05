@@ -16,6 +16,7 @@ import ContextMenu from '../map/ContextMenu';
 // import OrgUnitDialog from '../orgunits/OrgUnitDialog';
 import RelocateDialog from '../orgunits/RelocateDialog';
 import AboutDialog from '../about/AboutDialog';
+import AlertDialog from '../d2-ui/AlertsDialog';
 
 // Makes d2 available in all child components
 // Not using AppWithD2 from d2-ui because it requires d2 to be a promise
@@ -47,6 +48,7 @@ class App extends Component {
                         <ContextMenu />
                         <RelocateDialog />
                         <AboutDialog />
+                        <AlertDialog />
                     </div>
                 </MapProvider>
             </MuiThemeProvider>

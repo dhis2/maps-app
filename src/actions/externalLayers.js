@@ -1,14 +1,14 @@
 import * as types from '../constants/actionTypes';
 
 // Add external overlay
-export const addExternalOverlay = (layer) => ({
-    type: types.EXTERNAL_OVERLAY_ADD,
+export const addExternalLayer = (layer) => ({
+    type: types.EXTERNAL_LAYER_ADD,
     payload: layer,
 });
 
 // Remove external overlay
-export const removeExternalOverlay = (id) => ({
-    type: types.EXTERNAL_OVERLAY_REMOVE,
+export const removeExternalLayer = (id) => ({
+    type: types.EXTERNAL_LAYER_REMOVE,
     id,
 });
 

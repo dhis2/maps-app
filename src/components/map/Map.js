@@ -121,7 +121,7 @@ class Map extends Component {
 
         const basemapConfig = {
             ...basemaps.filter(b => b.id === basemap.id)[0],
-            ...basemap
+            ...basemap,
         };
 
         const style = {
