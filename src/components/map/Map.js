@@ -135,7 +135,11 @@ class Map extends Component {
         return (
             <div ref={node => this.node = node} style={style}>
                 {mapViews.filter(layer => layer.isLoaded).map((config, index) => {
+                    console.log('#', config);
+
                     const Overlay = layerType[config.layer] || Layer;
+
+
 
                     return (
                         <Overlay

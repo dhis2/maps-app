@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import './Layer.css';
 
 const Layer = ({ layer, onClick }) => {
-    const { img, title } = layer;
+    const { img, name } = layer;
 
     return (
         <div className='Layer' onClick={() => onClick(layer)}>
             {img ? <img src={img} className='Layer-image' /> : <div className='Layer-no-image'>External layer</div>}
-            <div className='Layer-title'>{title}</div>
+            <div className='Layer-name'>{name}</div>
         </div>
     );
 };

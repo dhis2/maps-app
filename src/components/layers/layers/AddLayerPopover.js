@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import Popover from 'material-ui/Popover';
 import LayerList from './LayerList'
-import { editLayer, closeLayersDialog } from '../../../actions/layers';
+import { addLayer, editLayer, closeLayersDialog } from '../../../actions/layers';
 
 const AddLayerPopover = ({ anchorEl, layersDialogOpen, layers, onRequestClose, onLayerSelect }) => (
     <Popover
@@ -40,13 +40,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onRequestClose: () => dispatch(closeLayersDialog()),
-    onLayerSelect: layer => {
+    onLayerSelect: (layer) => {
+        if (layer.type === 'external') {
+            dispatch(addLayer({ ...layer, isLoaded: true }));
+        } else {
+            dispatch(editLayer({ ...layer }));
+        }
 
         dispatch(closeLayersDialog());
-        dispatch(editLayer({
-            ...layer,
-            editCounter: 0,
-        }));
     },
 });
 

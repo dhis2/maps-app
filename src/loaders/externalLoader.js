@@ -3,7 +3,7 @@ import isString from 'lodash/fp/isString';
 const externalLoader = async (config) => { // Returns a promise
     if (isString(config.config)) { // From database as favorite
         config.config = JSON.parse(config.config);
-        config.title = config.config.name;
+        config.name = config.config.name;
     }
 
     // TODO: Add legend support
@@ -11,7 +11,6 @@ const externalLoader = async (config) => { // Returns a promise
     return {
         ...config,
         type: 'external',
-        subtitle: 'External layer',
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

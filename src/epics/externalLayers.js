@@ -67,8 +67,8 @@ const createLayerConfig = (subTitle) => (layer) => {
     return {
         id: layer.id,
         type: 'external',
-        title: layer.name,
-        subtitle: subTitle, // layer.mapLayerPosition === 'BASEMAP' ? 'External basemap' : 'External layer', // TODO: i18n
+        name: layer.name,
+        // subtitle: subTitle, // layer.mapLayerPosition === 'BASEMAP' ? 'External basemap' : 'External layer', // TODO: i18n
         // img: layer.img, // TODO: Get from Web API
         opacity: 1,
         config,

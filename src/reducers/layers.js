@@ -2,28 +2,28 @@ import * as types from '../constants/actionTypes';
 
 const defaultLayers = [{
     layer: 'event',
-    title: 'Events',
+    name: 'Events',
     img: 'images/events.png',
     opacity: 0.95,
 },{
     layer: 'facility',
-    title: 'Facilities',
+    name: 'Facilities',
     img: 'images/facilities.png',
     opacity: 1,
 },{
     layer: 'thematic',
-    title: 'Thematic',
+    name: 'Thematic',
     img: 'images/thematic.png',
     opacity: 0.8,
 },{
     layer: 'boundary',
-    title: 'Boundaries',
+    name: 'Boundaries',
     img: 'images/boundaries.png',
     opacity: 1,
 },{
     layer: 'earthEngine',
     datasetId: 'WorldPop/POP',
-    title: 'Population density',
+    name: 'Population density',
     img: 'images/population.png',
     params: {
         min: 0,
@@ -34,7 +34,7 @@ const defaultLayers = [{
 },{
     layer: 'earthEngine',
     datasetId: 'USGS/SRTMGL1_003',
-    title: 'Elevation',
+    name: 'Elevation',
     img: 'images/elevation.png',
     params: {
         min: 0,
@@ -45,7 +45,7 @@ const defaultLayers = [{
 },{
     layer: 'earthEngine',
     datasetId: 'MODIS/MOD11A2',
-    title: 'Temperature',
+    name: 'Temperature',
     img: 'images/temperature.png',
     params: {
         min: 0,
@@ -56,7 +56,7 @@ const defaultLayers = [{
 },{
     layer: 'earthEngine',
     datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
-    title: 'Precipitation',
+    name: 'Precipitation',
     img: 'images/precipitation.png',
     params: {
         min: 0,
@@ -67,13 +67,13 @@ const defaultLayers = [{
 },{
     layer: 'earthEngine',
     datasetId: 'MODIS/051/MCD12Q1',
-    title: 'Landcover',
+    name: 'Landcover',
     img: 'images/landcover.png',
     opacity: 0.9,
 },{
     layer: 'earthEngine',
     datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
-    title: 'Nighttime lights',
+    name: 'Nighttime lights',
     img: 'images/nighttime.png',
     params: {
         min: 0,

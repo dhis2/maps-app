@@ -78,8 +78,6 @@ class Layer extends PureComponent {
 
     // Create new layer from config object (override in subclasses)
     createLayer() {
-        // console.log('createLayer');
-
         const { id, index, config } = this.props;
         const map = this.context.map;
         const layerConfig = {
@@ -89,8 +87,6 @@ class Layer extends PureComponent {
         if (index !== undefined) { // If not a basemap
             layerConfig.pane = id;
         }
-
-        console.log('layerConfig', layerConfig, layerConfig.type);
 
         this.layer = map.createLayer(layerConfig);
     }
