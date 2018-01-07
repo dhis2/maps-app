@@ -38,7 +38,7 @@ const styles = {
 // Basemap card shown in left layers panel
 const BasemapCard = (props) => {
     const {
-        title,
+        name,
         subtitle,
         opacity,
         isExpanded,
@@ -57,7 +57,7 @@ const BasemapCard = (props) => {
         >
             <CardHeader
                 className='BasemapCard-header'
-                title={title}
+                title={name}
                 subtitle={subtitle}
                 showExpandableButton={true}
                 textStyle={styles.headerText}

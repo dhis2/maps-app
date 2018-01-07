@@ -1,7 +1,6 @@
 export const defaultBasemaps = [{
     id: 'osmLight',
-    title: 'OSM Light',
-    subtitle: 'Basemap',
+    name: 'OSM Light',
     img: 'images/osmlight.png',
     config: {
         type: 'tileLayer',
@@ -10,8 +9,7 @@ export const defaultBasemaps = [{
     },
 },{
     id: 'openStreetMap',
-    title: 'OSM Detailed',
-    subtitle: 'Basemap',
+    name: 'OSM Detailed',
     img: 'images/osm.png',
     config: {
         type: 'tileLayer',
@@ -20,8 +18,7 @@ export const defaultBasemaps = [{
     },
 },{
     id: 'googleStreets',
-    title: 'Google Streets',
-    subtitle: 'Basemap',
+    name: 'Google Streets',
     img: 'images/googlestreets.png',
     config: {
         type: 'googleLayer',
@@ -30,8 +27,7 @@ export const defaultBasemaps = [{
     },
 },{
     id: 'googleHybrid',
-    title: 'Google Hybrid',
-    subtitle: 'Basemap',
+    name: 'Google Hybrid',
     img: 'images/googlehybrid.jpeg',
     config: {
         type: 'googleLayer',

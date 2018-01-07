@@ -154,7 +154,7 @@ DataTable.defaultProps = {
 };
 
 const mapStateToProps = (state) => {
-    const overlay = state.dataTable ? state.map.overlays.filter(layer => layer.id === state.dataTable)[0] : null;
+    const overlay = state.dataTable ? state.map.mapViews.filter(layer => layer.id === state.dataTable)[0] : null;
 
     if (overlay) {
         const data = filterData(overlay.data.map((d, i) => ({

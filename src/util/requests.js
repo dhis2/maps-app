@@ -32,7 +32,7 @@ const getBasemap = (config) => {
 
     if (externalBasemap) {
         basemap = JSON.parse(externalBasemap.config);
-        mapViews = config.mapViews.filter(view => view.id !== basemap.id);
+        mapViews = config.mapViews.filter(view => view.id !== externalBasemap.id);
     } else if (isString(config.basemap)) {
         basemap = { id: config.basemap };
     } else if (isObject(config.basemap)) {

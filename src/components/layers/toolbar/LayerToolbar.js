@@ -37,7 +37,7 @@ const styles = {
 const OverlayToolbar = ({ layer, onEdit, onRemove, toggleDataTable, onOpacityChange }) => (
     <Toolbar style={styles.toolbar}>
         <ToolbarGroup>
-            {onEdit && layer.type !== 'external' &&
+            {onEdit && layer.layer !== 'external' &&
                 <IconButton
                     onClick={() => onEdit(layer)}
                     tooltip="Edit"
@@ -48,7 +48,7 @@ const OverlayToolbar = ({ layer, onEdit, onRemove, toggleDataTable, onOpacityCha
                 </IconButton>
             }
 
-            {layer.type === 'thematic' &&
+            {layer.layer === 'thematic' &&
                 <IconButton
                     onClick={() => toggleDataTable(layer.id)}
                     tooltip="Data table"

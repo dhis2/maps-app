@@ -56,12 +56,10 @@ class Map extends Component {
         });
 
         // TODO: Use mapzen key from Web API
-        /* Error
         map.addControl({
             type: 'search',
             apiKey: 'search-Se1CFzK', // gis.init.systemInfo.mapzenSearchKey
         });
-        */
 
         // Add measurement control
         map.addControl({
