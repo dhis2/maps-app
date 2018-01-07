@@ -33,7 +33,7 @@ const webpackConfig = {
     context: __dirname,
     entry: {
         'app': './src/app.js',
-        'plugin': './src/plugin.js',
+        // 'plugin': './src/plugin.js',
     },
     devtool: 'source-map',
     output: {

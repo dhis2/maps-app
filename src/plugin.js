@@ -13,6 +13,8 @@ import '../scss/plugin.scss';
 
 const apiVersion = 29;
 
+console.log('LOADED?');
+
 const Plugin = () => {
     let _configs = [];
 
