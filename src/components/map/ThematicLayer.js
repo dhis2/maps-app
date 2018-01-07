@@ -35,8 +35,6 @@ class ThematicLayer extends Layer {
             config.labelPane = id + '-labels';
         }
 
-        // console.log(config);
-
         this.layer = map.createLayer(config);
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);

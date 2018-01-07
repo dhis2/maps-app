@@ -62,3 +62,9 @@ export const toGeoJson = (organisationUnits) =>
         }
     })
     .filter(({ geometry }) => Array.isArray(geometry.coordinates) && geometry.coordinates.length);
+
+export const setExternalBasemap = (mapConfig) => {
+    console.log('setExternalBasemap', mapConfig);
+
+    return mapConfig;
+};
