@@ -43,8 +43,10 @@ class FacilityLayer extends Layer {
             });
         }
 
+        console.log('before', config);
+
         // Create and add facility layer based on config object
-        this.layer = map.createLayer(config); // .addTo(map);
+        this.layer = map.createLayer(config).addTo(map);
 
         // Handle facility click
         this.layer.on('click', this.onFeatureClick, this);

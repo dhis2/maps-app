@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import isPlainObject from 'lodash/fp/isPlainObject';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { isValidCoordinate } from '../util/map';
-import { getDisplayPropertyUrl } from '../util/helpers';
+import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
 
 const facilityLoader = async (config) => { // Returns a promise
@@ -13,11 +13,10 @@ const facilityLoader = async (config) => { // Returns a promise
 
     const d2 = await getD2();
     const contextPath = d2.system.systemInfo.contextPath;
-    const displayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty || 'name'; // TODO
-    const namePropertyUrl = getDisplayPropertyUrl(displayProperty);
+    const displayProperty = getDisplayProperty(d2);
 
     const groupSetReq = d2.models.organisationUnitGroupSet.get(groupSetId, {
-        fields: `organisationUnitGroups[id,${namePropertyUrl},symbol]`,
+        fields: `organisationUnitGroups[id,${displayProperty}~rename(name),symbol]`,
     }).then(parseGroupSet);
 
     const facilitiesReq = d2.geoFeatures

@@ -17,22 +17,13 @@ const displayPropertyMap = {
     displayShortName: 'displayShortName',
 };
 
-export const getDisplayProperty = async (displayProperty) => {
-    const d2 = await getD2();
-    const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
-    return propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name';
+export const getDisplayProperty = (d2, displayProperty) => {
+  const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
+  return propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name';
 };
-
-/*
-export const getDisplayPropertyUrl = async () => {
-    const displayProperty = await getDisplayProperty();
-    return `${displayProperty}~rename(name)`;
-};
-*/
 
 export const getDisplayPropertyUrl = (d2) => {
-    const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
-    return (propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name') + '~rename(name)';
+    return `${getDisplayProperty(d2)}~rename(name)`;
 };
 
 const baseFields = [

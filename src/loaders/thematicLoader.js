@@ -4,7 +4,6 @@ import findIndex from 'lodash/fp/findIndex';
 import sortBy from 'lodash/fp/sortBy';
 import pick from 'lodash/fp/pick';
 import curry from 'lodash/fp/curry';
-// import store from '../store';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
 import { getLegendItems, getColorsByRgbInterpolation } from '../util/classify';
@@ -112,8 +111,8 @@ const loadData = async (config) => {
     const period = getPeriodFromFilters(filters);
     const dataItems = getDataItemsFromColumns(columns);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
-    const displayPropertyUpper = (await getDisplayProperty(displayProperty)).toUpperCase();
     const d2 = await getD2();
+    const displayPropertyUpper = getDisplayProperty(d2, displayProperty).toUpperCase();
 
     let orgUnitParams = orgUnits.map(item => item.id);
     let dataDimension = dataItems.map(item => isOperand ? item.id.split('.')[0] : item.id);

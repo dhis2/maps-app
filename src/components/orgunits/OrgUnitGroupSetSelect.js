@@ -35,7 +35,7 @@ export class OrgUnitGroupSetSelect extends Component {
                 value={value ? value.id : null}
                 onChange={onChange}
                 style={style}
-                errorText={!value && errorText}
+                errorText={!value && errorText ? errorText : null}
             />
         );
     }

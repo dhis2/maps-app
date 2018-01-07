@@ -19,7 +19,6 @@ export const loadLayerEpic = (action$) =>
                 .catch(errorActionCreator(types.MAP_LOAD_ERROR))
         );
 
-
 export const drillLayer = (action$, store) =>
     action$
         .ofType(types.LAYER_DRILL)
