@@ -84,8 +84,9 @@ class EarthEngineDialog extends Component {
     }
 
     // Always set state to update text field, but only store if valid
-    onStepsChange(steps) {
+    onStepsChange(newSteps) {
         const { min, max, palette } = this.props.params;
+        const steps = (newSteps === '') ? '' : parseInt(newSteps, 10);
 
         this.setState({ steps });
 
@@ -104,10 +105,7 @@ class EarthEngineDialog extends Component {
     render() {
         const { datasetId, params, filter, setParams, setFilter } = this.props;
         const dataset = datasets[datasetId];
-
-        const {
-            tab,
-        } = this.state;
+        const { tab, steps } = this.state;
 
         return (
             <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
@@ -145,8 +143,8 @@ class EarthEngineDialog extends Component {
                                     key='steps'
                                     type='number'
                                     label={i18next.t('Steps')}
-                                    value={this.state ? this.state.steps : this.getStepsFromParams() || ''}
-                                    onChange={steps => this.onStepsChange(parseInt(steps))}
+                                    value={steps !== undefined ? steps : this.getStepsFromParams()}
+                                    onChange={steps => this.onStepsChange(steps)}
                                     style={styles.flexThird}
                                 />,
                                 <ColorScaleSelect
