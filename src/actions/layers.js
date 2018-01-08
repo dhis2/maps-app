@@ -70,3 +70,12 @@ export const openLayersDialog = () => ({
 export const closeLayersDialog = () => ({
     type: types.LAYERS_DIALOG_CLOSE_REQUESTED,
 });
+
+// Add new layer
+export const drillLayer = (layerId, parentId, parentGraph, level) => ({
+  type: types.LAYER_DRILL,
+  layerId,
+  parentId,
+  parentGraph,
+  level,
+});

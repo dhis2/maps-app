@@ -6,7 +6,7 @@ import Popover from 'material-ui/Popover';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
 import { closeContextMenu, openCoordinatePopup } from '../../actions/map';
-import { drillOverlay } from '../../actions/layers';
+import { drillLayer } from '../../actions/layers';
 import { openOrgUnit, startRelocateOrgUnit, changeOrgUnitCoordinate} from '../../actions/orgUnits';
 
 // https://github.com/callemall/material-ui/issues/2866
@@ -171,7 +171,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onClose: () => dispatch(closeContextMenu()),
-    onDrill: (layerId, parentId, parentGraph, level) => dispatch(drillOverlay(layerId, parentId, parentGraph, level)),
+    onDrill: (layerId, parentId, parentGraph, level) => dispatch(drillLayer(layerId, parentId, parentGraph, level)),
     onShowInformation: attr => {
         dispatch(closeContextMenu());
         dispatch(openOrgUnit(attr));

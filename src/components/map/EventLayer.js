@@ -74,12 +74,13 @@ class EventLayer extends Layer {
         }
 
         // Create and add event layer based on config object
-        this.layer = map.createLayer(config); // .addTo(map);
+        this.layer = map.createLayer(config).addTo(map);
 
+        const layerBounds = this.layer.getBounds();
 
-
-
-        // map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
+        if (layerBounds.isValid()) {
+            map.fitBounds(layerBounds);
+        }
 
         this.loadDataElements();
     }

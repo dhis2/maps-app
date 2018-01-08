@@ -118,7 +118,7 @@ const eventLoader = async (config) => { // Returns a promise
 
     return {
         ...config,
-        title: programStage.name,
+        name: programStage.name,
         legend,
         data,
         bounds,

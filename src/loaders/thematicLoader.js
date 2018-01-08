@@ -11,13 +11,15 @@ import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemsFromColumns } from '../util/analytics';
 
 const thematicLoader = async (config) => {
-    const { legendSet, radiusLow, radiusHigh } = config;
+    const { columns, legendSet, radiusLow, radiusHigh } = config;
     const [ features, data ] = await loadData(config);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(({ id }) => valueById[id] !== undefined);
     const orderedValues = getOrderedValues(data);
     const minValue = orderedValues[0];
     const maxValue = orderedValues[orderedValues.length - 1];
+    const dataItem = getDataItemsFromColumns(columns)[0];
+    const name = config.name || dataItem.name;
     const legend = legendSet ? await createLegendFromLegendSet(legendSet) : createLegendFromConfig(orderedValues, config);
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
     let alerts = [];
@@ -45,6 +47,7 @@ const thematicLoader = async (config) => {
     return {
         ...config,
         data: valueFeatures,
+        name,
         legend,
         ...(alerts.length ? { alerts } : {}),
         isLoaded: true,

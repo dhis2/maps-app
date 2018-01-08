@@ -18,7 +18,7 @@ const styles = {
     },
     headerText: {
         position: 'relative',
-        width: 200,
+        width: 195,
         top: '50%',
         left: 16,
         transform: 'translateY(-50%)',
