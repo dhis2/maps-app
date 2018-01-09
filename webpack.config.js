@@ -33,7 +33,7 @@ const webpackConfig = {
     context: __dirname,
     entry: {
         'app': './src/app.js',
-        // 'plugin': './src/plugin.js',
+        'plugin': './src/plugin.js',
     },
     devtool: 'source-map',
     output: {
@@ -124,6 +124,7 @@ const webpackConfig = {
     plugins: [
         new HTMLWebpackPlugin({
             template: 'index.html',
+            chunks: ['app'],
             vendorScripts: [
                 "polyfill.min.js",
                 `${scriptPrefix}/dhis-web-core-resource/react/16.1.1/umd/react.${isDevBuild ? 'development' : 'production.min'}.js`,

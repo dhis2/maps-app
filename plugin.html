@@ -4,7 +4,9 @@
     <script src="http://localhost:8080/dhis-web-core-resource/react/16.1.1/umd/react.development.js"></script>
     <script src="http://localhost:8080/dhis-web-core-resource/react-dom/16.1.1/umd/react-dom.development.js"></script>
     <script src="polyfill.min.js"></script>
-    <script src="plugin.js"></script> <!-- transpiled -->
+    <script src="build/plugin.js"></script>
+
+    <!-- <script src="plugin.js"></script> --> <!-- transpiled -->
     <style>
         body {
             margin: 10px;
@@ -37,7 +39,7 @@
         var username = 'admin';
         var password = 'district';
         // var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&paging=false`;
-        var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&pageSize=1&page=1`;
+        var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&pageSize=1&page=6`;
         var fetchOptions = { headers: { Authorization: 'Basic ' + btoa(`${username}:${password}`) } };
 
         mapsPlugin.url = url;
