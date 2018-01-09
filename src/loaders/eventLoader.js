@@ -1,12 +1,12 @@
 import i18next from 'i18next';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import isString from 'lodash/fp/isString';
+import isEmpty from 'lodash/fp/isEmpty';
 import { isValidCoordinate } from '../util/map';
 import { getClassBins, getClass } from '../util/classify';
 import { getNumericLegendItems, getCategoryLegendItems } from '../util/legend';
 import {
     getOrgUnitsFromRows,
-    getDataItemsFromColumns,
     getFiltersFromColumns,
     getFiltersAsText,
     getPeriodFromFilters,
@@ -73,6 +73,8 @@ const eventLoader = async (config) => { // Returns a promise
         // Find header names and keys - TODO: Needed?
         response.headers.forEach(header => names[header.name] = header.column);
 
+        console.log('rows', response.rows);
+
         data = response.rows
             .map(row => createEventFeature(response.headers, names, row, eventCoordinateField))
             .filter(feature => isValidCoordinate(feature.geometry.coordinates));
@@ -128,9 +130,6 @@ const eventLoader = async (config) => { // Returns a promise
         isVisible: true,
     };
 };
-
-
-
 
 const getBounds = (bbox) => {
     if (!bbox) {
@@ -194,8 +193,10 @@ const createEventFeature = (headers, names, event, eventCoordinateField) => {
 
         if (Array.isArray(eventCoord)) {
             coordinates = eventCoord;
-        } else if (isString(eventCoord)) {
+        } else if (isString(eventCoord) && !isEmpty(eventCoord)) {
             coordinates = JSON.parse(eventCoord);
+        } else {
+            coordinates = [];
         }
     } else { // Use event location
         coordinates = [properties.longitude, properties.latitude]; // Event location
