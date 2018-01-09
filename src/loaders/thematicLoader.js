@@ -1,5 +1,6 @@
 import i18next from 'i18next';
 import { getInstance as getD2 } from 'd2/lib/d2';
+import isString from 'lodash/fp/isString';
 import findIndex from 'lodash/fp/findIndex';
 import sortBy from 'lodash/fp/sortBy';
 import pick from 'lodash/fp/pick';
@@ -95,9 +96,18 @@ const createLegendFromLegendSet = async (legendSet) => {
 };
 
 const createLegendFromConfig = (data, config) => {
-    const { method, classes, colorScale, colorLow, colorHigh } = config;
+    const {method, classes, colorScale, colorLow, colorHigh} = config;
     const items = getLegendItems(data, method, classes);
-    const colors = colorScale ? colorScale.split(',') : getColorsByRgbInterpolation(colorLow, colorHigh, classes);
+    let colors;
+
+    // TODO: Unify how we represent a colorScale
+    if (Array.isArray(colorScale)) {
+        colors = colorScale;
+    } else if (isString(colorScale)) {
+        colors = colorScale.split(',');
+    } else {
+        colors = getColorsByRgbInterpolation(colorLow, colorHigh, classes);
+    }
 
     return {
         items: items.map((item, index) => ({

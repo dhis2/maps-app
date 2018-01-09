@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './LegendItem.css';
 
-const LegendItem = ({ image, color, radius, name, range }) => {
+const LegendItem = ({ image, color, radius, name, startValue, endValue }) => {
+    if (!name && !startValue) {
+        return null;
+    }
+
     const symbol = {
         backgroundImage: image ? `url(${image})` : 'none',
         backgroundColor: color ? color : 'transparent',
@@ -17,7 +21,7 @@ const LegendItem = ({ image, color, radius, name, range }) => {
     return (
         <div className='LegendItem'>
             <dt><span style={symbol}></span></dt>
-            <dd>{name} {range}</dd>
+            <dd>{name} {isNaN(startValue) ? '' : `${startValue} - ${endValue}`}</dd>
         </div>
     );
 };
