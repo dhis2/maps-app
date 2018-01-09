@@ -43,7 +43,7 @@ class EventLayer extends Layer {
         const config = {
             type: 'dots',
             pane: id,
-            data: data.filter(f => f.geometry.coordinates[0] !== 0),
+            data,
             color: eventPointColor || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
             popup: this.onEventClick.bind(this),
