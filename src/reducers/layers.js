@@ -5,6 +5,7 @@ const defaultLayers = [{
     type: 'Events',
     img: 'images/events.png',
     opacity: 0.95,
+    eventClustering: true,
 },{
     layer: 'facility',
     type: 'Facilities',

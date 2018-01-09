@@ -15,6 +15,7 @@ import FilterGroup from '../filter/FilterGroup';
 import ImageSelect from '../d2-ui/ImageSelect';
 import DataItemSelect from '../dataItem/DataItemSelect';
 import DataItemStyle from '../dataItem/DataItemStyle';
+import CoordinateField from '../dataItem/CoordinateField';
 import ColorPicker from '../d2-ui/ColorPicker';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
@@ -55,6 +56,11 @@ const styles = {
 
 export class EventDialog extends Component {
 
+    static propTypes = {
+        classes: PropTypes.number,
+        columns: PropTypes.array,
+    };
+
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -74,23 +80,23 @@ export class EventDialog extends Component {
 
     render() {
         const { // layer options
-            programAttributes = [],
-            dataElements = [],
+            classes,
             columns = [],
-            rows = [],
-            filters = [],
-            startDate,
+            colorScale,
+            dataElements = [],
             endDate,
-            eventCoordinateField,
             eventClustering,
+            eventCoordinateField,
             eventPointColor,
             eventPointRadius,
-            styleDataItem,
+            filters = [],
             method,
-            classes,
-            colorScale,
             program,
+            programAttributes = [],
             programStage,
+            rows = [],
+            startDate,
+            styleDataItem,
         } = this.props;
 
         const { // handlers
@@ -117,15 +123,19 @@ export class EventDialog extends Component {
         const period = getPeriodFromFilters(filters) || { id: 'START_END_DATES' };
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
+        /*
         // Merge data elements and program attributes, filter out items not supported, and sort the result
         const dataItems = sortBy('name', [ ...programAttributes, ...dataElements ]
             .filter(item => !['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'].includes(item.valueType))
         );
 
+        console.log(programAttributes, dataElements);
+
         const coordinateFields = [{
             id: 'event',
             name: i18next.t('Event location'),
         }, ...dataItems.filter(field => field.valueType === 'COORDINATE')];
+        */
 
         return (
             <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
@@ -172,11 +182,11 @@ export class EventDialog extends Component {
                                 // textFieldStyle={styles.dateField}
                             />
                         ]}
-                        <SelectField
-                            label={i18next.t('Coordinate field')}
-                            items={coordinateFields}
-                            value={eventCoordinateField || 'event'}
-                            onChange={field => setEventCoordinateField(field.id)}
+                        <CoordinateField
+                            program={program}
+                            programStage={programStage}
+                            value={eventCoordinateField}
+                            onChange={setEventCoordinateField}
                             style={styles.flexHalf}
                         />
                         <div style={styles.flexHalf}></div>
