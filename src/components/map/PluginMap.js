@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isString from 'lodash/fp/isString';
 import d2map from 'dhis2-gis-api/src';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
@@ -65,8 +64,6 @@ class PluginMap extends Component {
                 content: map.legend,
             });
         }
-
-        console.log('map.legend', map.legend);
 
         map.invalidateSize();
 

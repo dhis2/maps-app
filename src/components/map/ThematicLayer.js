@@ -51,21 +51,18 @@ class ThematicLayer extends Layer {
         }
     }
 
-    getHtmlLegend(legend) {
-        const { title, items } = legend;
-
-        return `
-            <div class="dhis2-legend">
-                <h2>${title}</h2>
-                <span>Period</span>
-                <dl class="dhis2-legend-automatic">
-                    ${items.map(item => `
-                        <dt style="background-color:${item.color}"></dt>
-                        <dd>${item.name}</dd>
-                    `).join('')}
-                </dl>
-            </div>`;
-    }
+    // Used for legend in map plugins
+    getHtmlLegend = ({ title, period, items}) => `
+        <div class="dhis2-legend">
+            <h2>${title}</h2>
+            <span>${period}</span>
+            <dl class="dhis2-legend-automatic">
+                ${items.map(item => `
+                    <dt style="background-color:${item.color}"></dt>
+                    <dd>${item.name} ${!isNaN(item.startValue) ? `${item.startValue} - ${item.endValue}` : ''}</dd>
+                `).join('')}
+            </dl>
+        </div>`;
 
     onFeatureClick(evt) {
         const { name, value } = evt.layer.feature.properties;
