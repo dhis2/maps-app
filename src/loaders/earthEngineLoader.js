@@ -155,7 +155,8 @@ const earthEngineLoader = async (config) => { // Returns a promise
 
     if (typeof config.config === 'string') { // From database as favorite
         layerConfig = JSON.parse(config.config);
-        dataset = datasets[layerConfig.datasetId];
+        dataset = datasets[layerConfig.id];
+        dataset.datasetId = layerConfig.id;
         delete (config.config);
     } else {
         dataset = datasets[config.datasetId];

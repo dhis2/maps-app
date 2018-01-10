@@ -6,10 +6,6 @@ const externalLoader = async (config) => { // Returns a promise
         config.name = config.config.name;
     }
 
-    console.log('external loader');
-
-    // TODO: Add legend support
-
     return {
         ...config,
         type: 'external',

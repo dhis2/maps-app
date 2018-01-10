@@ -35,7 +35,7 @@ const Plugin = () => {
             // Config options can be added to init method below when all data is fetched through d2
             config.baseUrl = `${url}/api/${apiVersion}`;
             config.context =  { auth: `${username}:${password}` };
-            config.schemas = [ 'map', 'legendSet' ];
+            config.schemas = [ 'map', 'legendSet', 'organisationUnitGroup', 'organisationUnitGroupSet' ];
 
             getUserSettings()
                 .then(configI18n)

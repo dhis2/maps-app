@@ -21,6 +21,21 @@ const layerType = {
     external:    ExternalLayer
 };
 
+const styles = {
+    map: {
+        width: '100%',
+        height: '100%',
+    },
+    alerts: {
+        padding: 20,
+        fontSize: 12,
+    },
+    alert: {
+        lineHeight: '16px',
+        paddingBottom: 8,
+    },
+};
+
 // TODO: Resuse code from Map.js
 class PluginMap extends Component {
 
@@ -73,14 +88,13 @@ class PluginMap extends Component {
 
             if (layersBounds.isValid()) {
                 map.fitBounds(layersBounds);
-            }
-
-            /* TODO
-            if (Array.isArray(bounds)) {
+            } else if (Array.isArray(bounds)) {
                 map.fitBounds(bounds);
-            } else if (isNumeric(latitude) && isNumeric(longitude) && isNumeric(zoom)) {
+            } else if (latitude && longitude && zoom) {
                 map.setView([latitude, longitude], zoom);
-            }*/
+            } else {
+                map.fitWorld();
+            }
         }
      }
 
@@ -111,13 +125,8 @@ class PluginMap extends Component {
 
         const alerts = getMapAlerts(this.props);
 
-        const style = {
-            width: '100%',
-            height: '100%',
-        };
-
         return (!alerts.length ?
-            <div ref={node => this.node = node} style={style}>
+            <div ref={node => this.node = node} style={styles.map}>
                 {mapViews.reverse().filter(layer => layer.isLoaded).map((config) => { // Bottom layers first
                     const Overlay = layerType[config.layer] || Layer;
 
@@ -134,9 +143,11 @@ class PluginMap extends Component {
                 <Layer key='basemap' {...selectedBasemap} />
             </div>
             :
-            <div style={{ padding: 20, fontSize: 12 }}>
+            <div style={styles.alerts}>
                 {alerts.map((alert, index) =>
-                    <div key={index}><strong>{alert.title}</strong>: {alert.description}</div>
+                    <div key={index} style={styles.alert}>
+                        <strong>{alert.title}</strong>: {alert.description}
+                    </div>
                 )}
             </div>
         )

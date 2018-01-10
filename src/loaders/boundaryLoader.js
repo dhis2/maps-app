@@ -14,7 +14,7 @@ const boundaryLoader = async (config) => { // Returns a promise
     const orgUnitParams = orgUnits.map(item => item.id);
 
     const d2 = await getD2();
-    const displayProperty = (await getDisplayProperty()).toUpperCase();
+    const displayProperty = (getDisplayProperty(d2)).toUpperCase();
 
     const features = await d2.geoFeatures
         .byOrgUnit(orgUnitParams)
