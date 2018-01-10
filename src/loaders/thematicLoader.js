@@ -96,7 +96,7 @@ const createLegendFromLegendSet = async (legendSet) => {
 };
 
 const createLegendFromConfig = (data, config) => {
-    const {method, classes, colorScale, colorLow, colorHigh} = config;
+    const {name, method, classes, colorScale, colorLow, colorHigh} = config;
     const items = getLegendItems(data, method, classes);
     let colors;
 
@@ -110,6 +110,7 @@ const createLegendFromConfig = (data, config) => {
     }
 
     return {
+        title: name,
         items: items.map((item, index) => ({
             ...item,
             color: colors[index],
