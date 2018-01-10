@@ -93,8 +93,19 @@ class PluginMap extends Component {
 
     render() {
         const { basemap = { id: 'osmLight' }, mapViews } = this.props;
+        let selectedBasemap;
 
-        const selectedBasemap = defaultBasemaps.filter(map => map.id === basemap.id || basemap)[0];
+        if (basemap.url) { // External layer
+            selectedBasemap = {
+                id: basemap.id,
+                config: {
+                    type: 'tileLayer',
+                    ...basemap,
+                },
+            }
+        } else {
+            selectedBasemap = defaultBasemaps.filter(map => map.id === basemap.id || basemap)[0];
+        }
 
         const style = {
             width: '100%',
