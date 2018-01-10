@@ -118,13 +118,14 @@ class PluginMap extends Component {
 
         return (!alerts.length ?
             <div ref={node => this.node = node} style={style}>
-                {mapViews.filter(layer => layer.isLoaded).map((config) => {
+                {mapViews.reverse().filter(layer => layer.isLoaded).map((config) => { // Bottom layers first
                     const Overlay = layerType[config.layer] || Layer;
 
                     return (
                         <Overlay
                             key={config.id}
                             // openContextMenu={openContextMenu}
+                            openContextMenu={console.log}
                             {...config}
                             isPlugin={true}
                         />
@@ -133,7 +134,7 @@ class PluginMap extends Component {
                 <Layer key='basemap' {...selectedBasemap} />
             </div>
             :
-            <div style={{ padding: 20 }}>
+            <div style={{ padding: 20, fontSize: 12 }}>
                 {alerts.map((alert, index) =>
                     <div key={index}><strong>{alert.title}</strong>: {alert.description}</div>
                 )}

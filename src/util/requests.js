@@ -14,12 +14,10 @@ export const mapRequest = async (id) => {
     }).then(getBasemap)
       .then((config) => ({
         ...config,
-        mapViews: config.mapViews.map((view) => ({
-            ...view,
-            layer: view.layer.replace(/\d$/, ''), // Remove thematic number used in previous versions
-        }))
+        mapViews: upgradeLayers(config.mapViews),
     }));
 };
+
 
 // Different ways of specifying a basemap - TODO: simplify!
 const getBasemap = (config) => {
@@ -44,4 +42,11 @@ const getBasemap = (config) => {
         basemap: basemap,
         mapViews: mapViews,
     };
+};
+
+const upgradeLayers = (layers) => {
+    return layers.map((layer) => ({
+        ...layer,
+        layer: layer.layer.replace(/\d$/, ''), // Remove thematic number used in previous versions
+    }));
 };
