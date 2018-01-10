@@ -5,6 +5,8 @@ import i18next from 'i18next';
 import Dialog from 'material-ui/Dialog';
 import Button from 'd2-ui/lib/button/Button';
 import { removeAlerts } from '../../actions/map'
+import { getMapAlerts } from '../../util/helpers'
+
 
 const AlertsDialog = ({ alerts = [], removeAlerts }) => alerts.length && (
     <Dialog
@@ -20,11 +22,6 @@ AlertsDialog.propTypes = {
 };
 
 export default connect(
-    ({ map }) => ({ // Concat alerts from map config and layers
-        alerts: [].concat(...(map && map.alerts ? map.alerts : []))
-            .concat(...(map && map.mapViews &&
-                map.mapViews.filter(layer => layer.alerts)
-                    .map(layer => layer.alerts))),
-    }),
+    (state) => ({ alerts: getMapAlerts(state.map) }),
     { removeAlerts }
 )(AlertsDialog);
