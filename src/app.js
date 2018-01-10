@@ -3,36 +3,17 @@ import { render } from 'react-dom';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2/lib/d2';
 import i18next from 'i18next';
-import XHR from 'i18next-xhr-backend';
 // import LoadingMask from 'd2-ui/lib/loading-mask/LoadingMask.component';
 import debounce from 'lodash/fp/debounce';
 import store from './store';
 import Root from './components/Root';
-import { loadMap } from './actions/map'; // Just for testing
+import { configI18n } from './util/i18n';
 import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
 import '../scss/app.scss';
 
 log.setLevel(process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE);
-
-const configI18n = (userSettings) => {
-    i18next
-        .use(XHR)
-        .init({
-            returnEmptyString: false,
-            fallbackLng: false,
-            keySeparator: '|',
-            backend: {
-                loadPath: '/i18n/{{lng}}.json'
-            }
-        }, (err, t) => {
-            const uiLocale = userSettings.keyUiLocale;
-            if (uiLocale && uiLocale !== 'en') {
-                i18next.changeLanguage(uiLocale);
-            }
-        });
-};
 
 store.dispatch(loadExternalLayers());
 
@@ -41,8 +22,6 @@ getManifest('manifest.webapp')
         const baseUrl = process.env.NODE_ENV === 'production' ? manifest.getBaseUrl() : DHIS_CONFIG.baseUrl;
         config.baseUrl = `${baseUrl}/api/29`;
         config.context = manifest.activities.dhis; // Added temporarily for util/api.js
-
-        // console.log('context', manifest.activities.dhis);
 
         log.info(`Loading: ${manifest.name} v${manifest.version}`);
         log.info(`Built ${manifest.manifest_generated_at}`);
@@ -80,8 +59,6 @@ getManifest('manifest.webapp')
         }
 
         render(<Root d2={d2} store={store} />, document.getElementById('app'));
-
-        // store.dispatch(loadMap('zDP78aJU8nX')); //  Gives error: UZydsaAeq1k
 
         /*
         const api = d2.Api.getApi();

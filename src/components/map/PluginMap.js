@@ -66,6 +66,8 @@ class PluginMap extends Component {
             });
         }
 
+        console.log('map.legend', map.legend);
+
         map.invalidateSize();
 
         const layersBounds = map.getLayersBounds();

@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { init, config } from 'd2/lib/d2';
+import { init, config, getUserSettings } from 'd2/lib/d2';
 import PluginMap from './components/map/PluginMap';
 import { mapRequest } from './util/requests';
 import { fetchLayer } from './loaders/layers';
-
+import { configI18n } from './util/i18n';
 import '../scss/plugin.scss';
 
 // Inspiration:
@@ -37,7 +37,10 @@ const Plugin = () => {
             config.context =  { auth: `${username}:${password}` };
             config.schemas = [ 'map', 'legendSet' ];
 
-            init().then(onInit);
+            getUserSettings()
+                .then(configI18n)
+                .then(init)
+                .then(onInit);
         }
     }
 
