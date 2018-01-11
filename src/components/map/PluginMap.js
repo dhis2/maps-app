@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import d2map from 'dhis2-gis-api/src';
+import d2map from 'dhis2-gis-api/build';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
 import FacilityLayer from './FacilityLayer';
@@ -95,6 +95,8 @@ class PluginMap extends Component {
             } else {
                 map.fitWorld();
             }
+
+            map.invalidateSize();
         }
      }
 
@@ -120,7 +122,7 @@ class PluginMap extends Component {
                 },
             }
         } else {
-            selectedBasemap = defaultBasemaps.filter(map => map.id === basemap.id || basemap)[0];
+            selectedBasemap = defaultBasemaps.find(map => map.id === (basemap.id || basemap));
         }
 
         const alerts = getMapAlerts(this.props);

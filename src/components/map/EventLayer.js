@@ -82,7 +82,9 @@ class EventLayer extends Layer {
             map.fitBounds(layerBounds);
         }
 
-        this.loadDataElements();
+        if (program && programStage) {
+            this.loadDataElements();
+        }
     }
 
     // Load data elements that should be displayed in popups

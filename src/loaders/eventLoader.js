@@ -10,7 +10,8 @@ import {
     getFiltersFromColumns,
     getFiltersAsText,
     getPeriodFromFilters,
-    getPeriodNameFromId
+    getPeriodNameFromId,
+    removeEmptyItems,
 } from '../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 
@@ -72,8 +73,6 @@ const eventLoader = async (config) => { // Returns a promise
 
         // Find header names and keys - TODO: Needed?
         response.headers.forEach(header => names[header.name] = header.column);
-
-        console.log('rows', response.rows);
 
         data = response.rows
             .map(row => createEventFeature(response.headers, names, row, eventCoordinateField))
@@ -157,7 +156,7 @@ export const getAnalyticsRequest = async (program, programStage, period, startDa
 
     analyticsRequest = analyticsRequest.addOrgUnitDimension(orgUnits.map(ou => ou.id));
 
-    dataItems.forEach(item => {
+    removeEmptyItems(dataItems).forEach(item => {
         analyticsRequest = analyticsRequest.addDimension(item.dimension, item.filter);
     });
 

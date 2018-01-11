@@ -209,5 +209,7 @@ export const combineDataItems = (dataItemsA = [], dataItemsB = [], excludeTypes 
     sortBy('name', [ ...dataItemsA, ...dataItemsB ]
         .filter(item => !excludeTypes.includes(item.valueType)));
 
-
-
+// Some favorites have emtpy items in dx dimension
+export const removeEmptyItems = (items) => {
+    return items.filter((item) => item.items.length);
+};
