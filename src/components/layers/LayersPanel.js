@@ -66,7 +66,7 @@ const mapStateToProps = (state) => ({
         ...state.basemaps.filter(b => b.id === state.map.basemap.id)[0],
         ...state.map.basemap,
     },
-    layers: state.map.mapViews || [],
+    layers: [...state.map.mapViews].reverse(),
     basemaps: state.basemaps,
     layersPanelOpen: state.ui.layersPanelOpen,
 });

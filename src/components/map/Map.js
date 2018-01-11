@@ -124,6 +124,8 @@ class Map extends Component {
             ...basemap,
         };
 
+        const layers = [...mapViews].reverse();
+
         const style = {
             position: 'absolute',
             top: HEADER_HEIGHT,
@@ -134,7 +136,7 @@ class Map extends Component {
 
         return (
             <div ref={node => this.node = node} style={style}>
-                {mapViews.filter(layer => layer.isLoaded).map((config, index) => {
+                {layers.filter(layer => layer.isLoaded).map((config, index) => {
                     const Overlay = layerType[config.layer] || Layer;
 
                     return (

@@ -127,7 +127,7 @@ class PluginMap extends Component {
 
         return (!alerts.length ?
             <div ref={node => this.node = node} style={styles.map}>
-                {mapViews.reverse().filter(layer => layer.isLoaded).map((config) => { // Bottom layers first
+                {mapViews.filter(layer => layer.isLoaded).map((config) => {
                     const Overlay = layerType[config.layer] || Layer;
 
                     return (
