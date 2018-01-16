@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import union from 'lodash/fp/union';
 import { init, config, getUserSettings } from 'd2/lib/d2';
 import PluginMap from './components/map/PluginMap';
 import { mapRequest } from './util/requests';
@@ -31,24 +32,27 @@ const Plugin = () => {
 
         const { url, username, password } = this;
 
-        if (url, username, password) {
-            // Config options can be added to init method below when all data is fetched through d2
+        if (url) {
             config.baseUrl = `${url}/api/${apiVersion}`;
-            config.context =  { auth: `${username}:${password}` };
-            config.schemas = [
-                'legendSet',
-                'map',
-                'optionSet',
-                'organisationUnitGroup',
-                'organisationUnitGroupSet',
-                'programStage'
-            ];
-
-            getUserSettings()
-                .then(configI18n)
-                .then(init)
-                .then(onInit);
         }
+
+        if (username && password) {
+            config.context = {auth: `${username}:${password}`};
+        }
+
+        config.schemas = union(config.schemas, [
+            'legendSet',
+            'map',
+            'optionSet',
+            'organisationUnitGroup',
+            'organisationUnitGroupSet',
+            'programStage'
+        ]);
+
+        getUserSettings()
+            .then(configI18n)
+            .then(init)
+            .then(onInit);
     }
 
     function onInit() {

@@ -38,6 +38,7 @@
 </head>
 <body>
 
+    <div id="map1" class="map"></div>
 
 
 <script>
@@ -54,13 +55,20 @@
     mapsPlugin.password = password;
     mapsPlugin.loadingIndicator = true;
 
+    mapsPlugin.load({
+        id: 'inePJWH75JW',
+        el: 'map1',
+    });
+
     // Fetch all favorites
+    /*
     fetch(favoritesUrl, fetchOptions)
         .then(res => res.json())
         .then(data => data.maps)
         .then(maps => maps.map(createMapElement))
         .then(maps => mapsPlugin.load(maps))
         .catch(console.error);
+    */
 
     /*
     const config = {
