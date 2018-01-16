@@ -53,9 +53,11 @@ const Plugin = () => {
 
     function onInit() {
         _configs.forEach(config => {
-            if (config.id) {
+            if (!config.id) {
+                loadLayers(config);
+            } else { // Load favorite
                 mapRequest(config.id)
-                    .then(favorite => loadOverlays({
+                    .then(favorite => loadLayers({
                         ...config,
                         ...favorite,
                     }));
@@ -63,7 +65,7 @@ const Plugin = () => {
         });
     }
 
-    function loadOverlays(config) {
+    function loadLayers(config) {
         Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
             ...config,
             mapViews,
