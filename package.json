@@ -17,7 +17,7 @@
     "test:watch": "yarn test -- --watch",
     "prebuild": "yarn test",
     "build": "rm -rf build && NODE_ENV=production webpack --progress && npm run manifest",
-    "postbuild": "cp icon.png ./build/",
+    "postbuild": "cp icon.png ./build/ && cp -r images ./build",
     "validate": "npm ls --depth 0 || yarn list",
     "manifest": "d2-manifest package.json build/manifest.webapp",
     "deploy": "npm run build && mvn clean deploy",
