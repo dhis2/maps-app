@@ -2,6 +2,7 @@
 .idea
 node_modules
 build
+target
 npm-debug.log
 yarn-error.log
 manifest.webapp

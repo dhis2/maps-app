@@ -90,4 +90,8 @@ const Plugin = () => {
     };
 };
 
-global.mapsPlugin = new Plugin();
+const mapsPlugin = new Plugin();
+
+global.mapsPlugin = mapsPlugin;
+
+export default mapsPlugin;

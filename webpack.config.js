@@ -22,7 +22,7 @@ try {
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
-const scriptPrefix = (isDevBuild ? dhisConfig.baseUrl : './');
+const scriptPrefix = (isDevBuild ? dhisConfig.baseUrl : '..');
 
 function log(req, res, opt) {
     req.headers.Authorization = dhisConfig.authorization;
@@ -126,7 +126,7 @@ const webpackConfig = {
             template: 'index.html',
             chunks: ['app'],
             vendorScripts: [
-                "polyfill.min.js",
+                `${scriptPrefix}/dhis-web-core-resource/babel-polyfill/6.20.0/dist/polyfill${isDevBuild ? '' : '.min'}.js`,
                 `${scriptPrefix}/dhis-web-core-resource/react/16.1.1/umd/react.${isDevBuild ? 'development' : 'production.min'}.js`,
                 `${scriptPrefix}/dhis-web-core-resource/react-dom/16.1.1/umd/react-dom.${isDevBuild ? 'development' : 'production.min'}.js`,
                 `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${isDevBuild ? '' : '.min'}.js`,
