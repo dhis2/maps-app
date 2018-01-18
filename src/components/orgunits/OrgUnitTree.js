@@ -15,8 +15,7 @@ const styles = {
         padding: 8,
         overflow: 'auto',
         boxSizing: 'border-box',
-        boxShadow: '0px 0px 4px 1px rgba(0,0,0,0.2)',
-
+        outline: '1px solid #ddd',
     },
     label: {
         cursor: 'pointer',

@@ -19,11 +19,12 @@ const displayPropertyMap = {
 
 export const getDisplayProperty = (d2, displayProperty) => {
   const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
-  return propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name';
+  return propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name'; // TODO: check
 };
 
 export const getDisplayPropertyUrl = (d2) => {
-    return `${getDisplayProperty(d2)}~rename(name)`;
+    // return `${getDisplayProperty(d2)}~rename(name)`; // TODO
+    return `displayName~rename(name)`;
 };
 
 const baseFields = [

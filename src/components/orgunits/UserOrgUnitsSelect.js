@@ -55,7 +55,7 @@ const UserOrgUnitSelect = ({ selected, onChange, style }) => (
                         className={isSelected ? 'selected' : null}
                         style={{
                             ...styles.level,
-                            outline: isSelected ? '3px solid orange' : '1px solid #bbb',
+                            outline: isSelected ? '3px solid orange' : '1px solid #ddd',
                         }}
                         onClick={() => onChange(!isSelected ? [...selected, level.id] : selected.filter(id => id !== level.id))}
                     >

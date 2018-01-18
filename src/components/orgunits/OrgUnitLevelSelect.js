@@ -34,7 +34,7 @@ export class OrgUnitLevelSelect extends Component {
             <SelectField
                 label={i18next.t('Select levels')}
                 loading={orgUnitLevels ? false : true}
-                items={orgUnitLevels && orgUnitLevels.map(({ level, name }) => ({ id: level.toString(), name }))}
+                items={orgUnitLevels && orgUnitLevels.map(({ level, name }) => ({ id: level.toString(),  name }))} // TODO
                 value={orgUnitLevel}
                 multiple={true}
                 onChange={onChange}

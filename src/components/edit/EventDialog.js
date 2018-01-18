@@ -19,6 +19,7 @@ import CoordinateField from '../dataItem/CoordinateField';
 import ColorPicker from '../d2-ui/ColorPicker';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import { EVENT_START_DATE, EVENT_END_DATE, EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import { layerDialogStyles } from './LayerDialogStyles';
 
@@ -83,7 +84,6 @@ export class EventDialog extends Component {
             classes,
             columns = [],
             colorScale,
-            dataElements = [],
             endDate,
             eventClustering,
             eventCoordinateField,
@@ -92,7 +92,6 @@ export class EventDialog extends Component {
             filters = [],
             method,
             program,
-            programAttributes = [],
             programStage,
             rows = [],
             startDate,
@@ -206,6 +205,9 @@ export class EventDialog extends Component {
                             <UserOrgUnitsSelect
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
+                            />
+                            <SelectedOrgUnits
+                                rows={rows}
                             />
                         </div>
                     </div>
