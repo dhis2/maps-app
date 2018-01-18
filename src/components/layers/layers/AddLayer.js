@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import i18next from 'i18next';
 import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
-// import Button from 'd2-ui/lib/button/Button';
-import ArrowDropDown from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
 import AddLayerPopover from './AddLayerPopover';
 import { openLayersDialog } from '../../../actions/layers';
@@ -61,7 +59,6 @@ export class AddLayer extends Component {
                 key='button'
                 onClick={event => this.handleClick(event)}
                 style={{...styles.button, ...styles.addLayer}}
-                icon={<ArrowDropDown style={styles.dropDown}/>}
             ><AddCircle style={styles.addCircle}/> {i18next.t('Add layer')}</Button>,
             <AddLayerPopover
                 key='popover'
