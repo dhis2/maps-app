@@ -123,22 +123,13 @@ export class EventDialog extends Component {
         const period = getPeriodFromFilters(filters) || { id: 'START_END_DATES' };
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
-        /*
-        // Merge data elements and program attributes, filter out items not supported, and sort the result
-        const dataItems = sortBy('name', [ ...programAttributes, ...dataElements ]
-            .filter(item => !['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'].includes(item.valueType))
-        );
-
-        console.log(programAttributes, dataElements);
-
-        const coordinateFields = [{
-            id: 'event',
-            name: i18next.t('Event location'),
-        }, ...dataItems.filter(field => field.valueType === 'COORDINATE')];
-        */
-
         return (
-            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
+            <Tabs
+                style={styles.tabs}
+                tabItemContainerStyle={styles.tabBar}
+                value={tab}
+                onChange={(tab) => this.setState({ tab })}
+            >
                 <Tab value='data' label={i18next.t('data')}>
                     <div style={styles.flex}>
                         <div style={styles.flexRow}>

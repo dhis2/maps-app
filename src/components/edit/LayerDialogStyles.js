@@ -2,12 +2,15 @@ export const layerDialogStyles = {
     tabs: {
         height: 376,
     },
+    tabBar: {
+        borderBottom: '1px solid #ddd',
+    },
     flex: {
         display: 'flex',
         flexFlow: 'row wrap',
         justifyContent: 'space-between',
         alignContent: 'flex-start',
-        padding: 12,
+        margin: '4px -12px 0',
     },
     flexRow: {
         flex: '100%',

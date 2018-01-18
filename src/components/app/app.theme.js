@@ -1,4 +1,4 @@
-import { blue500, blue700, blue100, orange500, grey100, darkBlack, white, grey500, grey400 } from 'material-ui/styles/colors';
+import { blue500, blue800, blue100, orange500, red500, grey100, darkBlack, white, grey500, grey400, grey700 } from 'material-ui/styles/colors';
 import { fade } from 'material-ui/utils/colorManipulator';
 import Spacing from 'material-ui/styles/spacing';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -9,11 +9,9 @@ const theme = {
     fontFamily: 'Roboto, sans-serif',
     palette: {
         primary1Color: blue500,
-        primary2Color: blue700,
+        primary2Color: blue800,
         primary3Color: blue100,
-        accent1Color: orange500,
-        accent2Color: grey100,
-        accent3Color: grey500,
+        accent1Color: blue800,
         textColor: darkBlack,
         alternateTextColor: white,
         canvasColor: white,
@@ -24,7 +22,9 @@ const theme = {
 
 const muiTheme = getMuiTheme(theme, {
     tabs: {
-        backgroundColor: 'rgb(39, 102, 150)',
+        backgroundColor: '#fff',
+        selectedTextColor: blue800,
+        textColor: grey500,
     },
 });
 

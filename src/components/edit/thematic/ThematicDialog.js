@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
-import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
+// import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
@@ -174,8 +175,13 @@ export class ThematicDialog extends Component {
         const indicator = getIndicatorFromColumns(columns);
 
         return (
-            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
-                <Tab label={i18next.t('data')}>
+            <Tabs
+                style={styles.tabs}
+                tabItemContainerStyle={styles.tabBar}
+                value={tab}
+                onChange={(tab) => this.setState({ tab })}
+            >
+                <Tab value='data' label={i18next.t('data')}>
                     <div style={styles.flex}>
                         <ValueTypeSelect
                             value={valueType}
@@ -292,7 +298,7 @@ export class ThematicDialog extends Component {
                         />
                     </div>
                 </Tab>
-                <Tab label={i18next.t('Organisation units')}>
+                <Tab value='orgunits' label={i18next.t('Organisation units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -317,7 +323,7 @@ export class ThematicDialog extends Component {
                         </div>
                     </div>
                 </Tab>
-                <Tab label={i18next.t('Style')}>
+                <Tab value='style' label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <LegendTypeSelect
                             method={method}

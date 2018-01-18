@@ -19,13 +19,14 @@ const layerType = {
 };
 
 const styles = {
-    body: {
-        padding: 0,
-        minHeight: 300,
-    },
     title: {
-        padding: '8px 16px',
-        fontSize: 18,
+        padding: '16px 24px 0',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    body: {
+        padding: '0 24px',
+        minHeight: 300,
     },
 };
 
@@ -69,7 +70,7 @@ class LayerEdit extends Component {
 
         return (
             <Dialog
-                title={layer.title} // TODO: i18n
+                title={i18next.t(layer.type)}
                 bodyStyle={styles.body}
                 titleStyle={styles.title}
                 open={true}

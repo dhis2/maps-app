@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
-import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
+// import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
@@ -60,7 +61,7 @@ class BoundaryDialog extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab: 'data'
+            tab: 'orgunits'
         };
     }
 
@@ -88,8 +89,13 @@ class BoundaryDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
-                <Tab label={i18next.t('Organisation units')}>
+            <Tabs
+                style={styles.tabs}
+                tabItemContainerStyle={styles.tabBar}
+                value={tab}
+                onChange={(tab) => this.setState({ tab })}
+            >
+                <Tab value='orgunits' label={i18next.t('Organisation units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -115,7 +121,7 @@ class BoundaryDialog extends Component {
                         </div>
                     </div>
                 </Tab>
-                <Tab label={i18next.t('Style')}>
+                <Tab value='style' label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.wrapper}>
                             <Checkbox

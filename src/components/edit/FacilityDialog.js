@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
-import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
+// import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import Checkbox from '../d2-ui/Checkbox';
 import FontStyle from '../d2-ui/FontStyle';
@@ -61,7 +62,7 @@ class FacilityDialog extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab: 'data'
+            tab: 'group'
         };
     }
 
@@ -96,8 +97,13 @@ class FacilityDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
-                <Tab label={i18next.t('Group set')}>
+            <Tabs
+                style={styles.tabs}
+                tabItemContainerStyle={styles.tabBar}
+                value={tab}
+                onChange={(tab) => this.setState({ tab })}
+            >
+                <Tab value='group' label={i18next.t('Group set')}>
                     <div style={styles.flex}>
                         <OrgUnitGroupSetSelect
                             value={organisationUnitGroupSet}
@@ -107,7 +113,7 @@ class FacilityDialog extends Component {
                         />
                     </div>
                 </Tab>
-                <Tab label={i18next.t('Organisation units')}>
+                <Tab value='orgunits' label={i18next.t('Organisation units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -133,7 +139,7 @@ class FacilityDialog extends Component {
                         </div>
                     </div>
                 </Tab>
-                <Tab label={i18next.t('Style')}>
+                <Tab value='style' label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.wrapper}>
                             <Checkbox
