@@ -104,11 +104,11 @@ class FacilityDialog extends Component {
                 onChange={(tab) => this.setState({ tab })}
             >
                 <Tab value='group' label={i18next.t('Group set')}>
-                    <div style={styles.flex}>
+                    <div style={styles.flexColumnFlow}>
                         <OrgUnitGroupSetSelect
                             value={organisationUnitGroupSet}
                             onChange={setOrganisationUnitGroupSet}
-                            style={styles.flexHalf}
+                            style={styles.select}
                             errorText={orgUnitGroupSetError}
                         />
                     </div>

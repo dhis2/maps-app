@@ -13,7 +13,6 @@ import DataElementGroupSelect  from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect  from '../../dataElement/DataElementSelect';
 import DataItemSelect from '../../dataItem/DataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect';
-import DummySelectField from '../../d2-ui/DummySelectField';
 import FontStyle from '../../d2-ui/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
 import LegendSetSelect from '../../legendSet/LegendSetSelect';
@@ -182,123 +181,116 @@ export class ThematicDialog extends Component {
                 onChange={(tab) => this.setState({ tab })}
             >
                 <Tab value='data' label={i18next.t('data')}>
-                    <div style={styles.flex}>
+                    <div style={styles.flexColumnFlow}>
                         <ValueTypeSelect
                             value={valueType}
-                            style={styles.flexHalf}
+                            style={styles.select}
                         />
-                        <div style={styles.flexRow}>
-                            {(!valueType || valueType === 'in') && [ // Indicator (default)
-                                <IndicatorGroupSelect
-                                    key='group'
-                                    indicatorGroup={indicatorGroup}
-                                    onChange={setIndicatorGroup}
-                                    style={styles.flexHalf}
-                                />,
-                                <GroupIndicatorSelect
-                                    key='indicator'
-                                    indicatorGroup={indicatorGroup}
-                                    indicator={getIndicatorFromColumns(columns)}
-                                    onChange={setIndicator}
-                                    style={styles.flexHalf}
-                                />,
-                                (!indicatorGroup && indicator && (
-                                    <DummySelectField
-                                        key='dummy'
-                                        label={i18next.t('Indicator')}
-                                        item={indicator}
-                                        style={styles.flexHalf}
-                                    />
-                                ))
-                            ]}
-                            {valueType === 'pi' && [ // Program indicator
-                                <ProgramSelect
-                                    key='program'
-                                    program={program}
-                                    onChange={setProgram}
-                                    style={styles.flexHalf}
-                                />,
-                                <ProgramIndicatorSelect
-                                    key='indicator'
-                                    program={program}
-                                    programIndicator={getProgramIndicatorFromColumns(columns)}
-                                    onChange={setProgramIndicator}
-                                    style={styles.flexHalf}
-                                />
-                            ]}
-                            {valueType === 'de' && [ // Data element
-                                <DataElementGroupSelect
-                                    key='group'
-                                    dataElementGroup={dataElementGroup}
-                                    onChange={setDataElementGroup}
-                                    style={styles.flexHalf}
-                                />,
-                                <DataElementSelect
-                                    key='element'
-                                    dataElementGroup={dataElementGroup}
-                                    onChange={setDataElement}
-                                    style={styles.flexHalf}
-                                />,
-                            ]}
-                            {valueType === 'di' && [ // Event data items
-                                <ProgramSelect
-                                    key='program'
-                                    program={program}
-                                    onChange={setProgram}
-                                    style={styles.flexHalf}
-                                />,
-                                <DataItemSelect
-                                    key='item'
-                                    program={program}
-                                    // value={styleDataItem ? styleDataItem.id : null}
-                                    onChange={console.log}
-                                    style={styles.flexHalf}
-                                />
-                            ]}
-                            {valueType === 'ds' && ( // Reporting rates
-                                <DataSetsSelect
-                                    key='item'
-                                    dataSet={getReportingRateFromColumns(columns)}
-                                    onChange={setDataSetItem}
-                                    style={styles.flexHalf}
-                                />
-                            )}
-                        </div>
-                        <div style={styles.flexRow}>
-                            <PeriodTypeSelect
-                                value={periodType}
-                                onChange={type => setPeriodType(type.id)}
-                                style={styles.flexHalf}
-                            />
-                            {periodType === 'relativePeriods' &&
-                                <RelativePeriodSelect
-                                    period={period}
-                                    onChange={setPeriod}
-                                    style={styles.flexHalf}
-                                />
-                            }
-                            {periodType && periodType !== 'relativePeriods' &&
-                                <PeriodSelect
-                                    periodType={periodType}
-                                    period={period}
-                                    onChange={setPeriod}
-                                    style={styles.flexHalf}
-                                />
-                            }
-                            {period && !periodType &&
+                        {(!valueType || valueType === 'in') && [ // Indicator (default)
+                            <IndicatorGroupSelect
+                                key='group'
+                                indicatorGroup={indicatorGroup}
+                                onChange={setIndicatorGroup}
+                                style={styles.select}
+                            />,
+                            <GroupIndicatorSelect
+                                key='indicator'
+                                indicatorGroup={indicatorGroup}
+                                indicator={getIndicatorFromColumns(columns)}
+                                onChange={setIndicator}
+                                style={styles.select}
+                            />,
+                            (!indicatorGroup && indicator && (
                                 <DummySelectField
-                                    label={i18next.t('Period')}
-                                    item={period}
-                                    style={styles.flexHalf}
+                                    key='dummy'
+                                    label={i18next.t('Indicator')}
+                                    item={indicator}
+                                    style={styles.select}
                                 />
-                            }
-                        </div>
+                            ))
+                        ]}
+                        {valueType === 'pi' && [ // Program indicator
+                            <ProgramSelect
+                                key='program'
+                                program={program}
+                                onChange={setProgram}
+                                style={styles.select}
+                            />,
+                            <ProgramIndicatorSelect
+                                key='indicator'
+                                program={program}
+                                programIndicator={getProgramIndicatorFromColumns(columns)}
+                                onChange={setProgramIndicator}
+                                style={styles.select}
+                            />
+                        ]}
+                        {valueType === 'de' && [ // Data element
+                            <DataElementGroupSelect
+                                key='group'
+                                dataElementGroup={dataElementGroup}
+                                onChange={setDataElementGroup}
+                                style={styles.select}
+                            />,
+                            <DataElementSelect
+                                key='element'
+                                dataElementGroup={dataElementGroup}
+                                onChange={setDataElement}
+                                style={styles.select}
+                            />,
+                        ]}
+                        {valueType === 'di' && [ // Event data items
+                            <ProgramSelect
+                                key='program'
+                                program={program}
+                                onChange={setProgram}
+                                style={styles.select}
+                            />,
+                            <DataItemSelect
+                                key='item'
+                                program={program}
+                                // value={styleDataItem ? styleDataItem.id : null}
+                                onChange={console.log}
+                                style={styles.select}
+                            />
+                        ]}
+                        {valueType === 'ds' && ( // Reporting rates
+                            <DataSetsSelect
+                                key='item'
+                                dataSet={getReportingRateFromColumns(columns)}
+                                onChange={setDataSetItem}
+                                style={styles.select}
+                            />
+                        )}
                         <AggregationTypeSelect
-                            style={styles.flexHalf}
+                            style={styles.select}
                         />
                     </div>
                 </Tab>
-                <Tab value='orgunits' label={i18next.t('Organisation units')}>
+                <Tab value='period' label={i18next.t('period')}>
+                    <div style={styles.flexColumnFlow}>
+                        <PeriodTypeSelect
+                            value={periodType}
+                            onChange={type => setPeriodType(type.id)}
+                            style={styles.select}
+                        />
+                        {periodType === 'relativePeriods' &&
+                            <RelativePeriodSelect
+                                period={period}
+                                onChange={setPeriod}
+                                style={styles.select}
+                            />
+                        }
+                        {periodType && periodType !== 'relativePeriods' &&
+                            <PeriodSelect
+                                periodType={periodType}
+                                period={period}
+                                onChange={setPeriod}
+                                style={styles.select}
+                            />
+                        }
+                    </div>
+                </Tab>
+                <Tab value='orgunits' label={i18next.t('Org units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -324,25 +316,26 @@ export class ThematicDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value='style' label={i18next.t('Style')}>
-                    <div style={styles.flex}>
+                    <div style={styles.flexColumnFlow}>
                         <LegendTypeSelect
                             method={method}
                             onChange={setClassification}
-                            style={{ ...styles.flexFull, marginTop: 12, marginLeft: 12 }}
+                            style={{ ...styles.select, marginTop: 12 }}
                         />
                         {method !== 1 &&
                             <Classification
                                 method={method}
                                 classes={classes}
                                 colorScale={colorScale}
-                                style={{ ...styles.flexFull, marginTop: 12, marginLeft: 12 }}
+                                style={{ ...styles.select, marginTop: 12 }}
                             />
                         }
                         {method === 1 &&
                             <LegendSetSelect
                                 legendSet={legendSet}
                                 onChange={setLegendSet}
-                                style={{ width: 354, margin: '4px 0 8px 12px' }}
+                                style={{ ...styles.select, marginTop: 4 }}
+                                // style={{ width: 354, margin: '4px 0 8px 12px' }}
                             />
                         }
                         <div style={{ ...styles.flexFull, marginTop: -12, marginLeft: 12 }}>

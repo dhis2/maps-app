@@ -20,7 +20,7 @@ const SelectedOrgUnits = ({ rows }) => {
     let selected = i18next.t('No organisation units are selected');
 
     if (orgUnits.length || userOrgUnits.length) {
-        selected = i18next.t('All events in') + ' ';
+        selected = i18next.t('Events in') + ' ';
 
         if (userOrgUnits.length) {
             selected += userOrgUnits.join(', ');

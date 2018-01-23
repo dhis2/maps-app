@@ -225,7 +225,6 @@ export class EventDialog extends Component {
                                 onClick={() => setEventClustering(true)}
                                 isSelected={eventClustering}
                                 style={styles.image}
-                                // style={styles.flexHalf}
                             />
                             <ImageSelect
                                 id='nocluster'
@@ -234,7 +233,6 @@ export class EventDialog extends Component {
                                 onClick={() => setEventClustering(false)}
                                 isSelected={!eventClustering}
                                 style={styles.image}
-                                //style={styles.flexHalf}
                             />
                         </div>
                         <div style={{ marginLeft: 3 }}>

@@ -4,24 +4,19 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { PREDEFINED, EQUAL_INTERVALS } from '../../../constants/layers';
 
 const styles = {
-    label: {
-        display: 'inline-block',
-        lineHeight: '24px',
-        verticalAlign: 'top',
-    },
     radioGroup: {
         display: 'inline-block',
+        marginTop: 8,
     },
     radioButton: {
         display: 'inline-block',
-        paddingLeft: 16,
+        paddingRight: 16,
         width: 'auto',
     },
 };
 
 export const LegendTypeSelect = ({ method, onChange, style }) => (
     <div style={style}>
-        <span style={styles.label}>{i18next.t('Legend type')}:</span>
         <RadioButtonGroup
             name='method'
             valueSelected={method === PREDEFINED ? PREDEFINED : EQUAL_INTERVALS}
