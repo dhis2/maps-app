@@ -5,6 +5,24 @@ export const layerDialogStyles = {
     tabBar: {
         borderBottom: '1px solid #ddd',
     },
+    select: {
+        width: 'auto',
+        maxWidth: 300,
+    },
+    flexColumnFlow: {
+        display: 'flex',
+        flexFlow: 'column',
+        maxHeight: 320,
+        overflowY: 'auto',
+    },
+    flexRowFlow: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        margin: '4px -12px 0',
+    },
+    flexItem: {
+
+    },
     flex: {
         display: 'flex',
         flexFlow: 'row wrap',
@@ -33,13 +51,26 @@ export const layerDialogStyles = {
         borderLeft: '12px solid #fff',
         borderRight: '12px solid #fff',
     },
-    flexHalf: {
-        flex: '50%',
+    flexFullMax: {
+        maxWidth: 400,
+        flex: '100%',
         boxSizing: 'border-box',
         borderLeft: '12px solid #fff',
         borderRight: '12px solid #fff',
     },
+
+    flexHalf: {
+        // flex: '50%',
+        flexGrow: 1,
+        flexShrink: 1,
+        flexBasis: 20,
+        boxSizing: 'border-box',
+        borderLeft: '12px solid #fff',
+        borderRight: '12px solid #fff',
+        overflow: 'auto',
+    },
     flexThird: {
+        maxWidth: 280,
         flex: '33%',
         boxSizing: 'border-box',
         borderLeft: '12px solid #fff',

@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
-import sortBy from 'lodash/fp/sortBy';
 // import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs'; // Not supporting state change
 import {Tabs, Tab} from 'material-ui/Tabs';
 import TextField from 'd2-ui/lib/text-field/TextField';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
 import ProgramSelect from '../program/ProgramSelect';
 import ProgramStageSelect from '../program/ProgramStageSelect';
 import RelativePeriodSelect from '../periods/RelativePeriodSelect';
@@ -52,6 +50,12 @@ const styles = {
         fontSize: 12,
         paddingBottom: 6,
         marginTop: -2,
+    },
+    image: {
+        width: '50%',
+        float: 'left',
+        boxSizing: 'border-box',
+        padding: '12px 12px 0 3px',
     }
 };
 
@@ -130,27 +134,36 @@ export class EventDialog extends Component {
                 onChange={(tab) => this.setState({ tab })}
             >
                 <Tab value='data' label={i18next.t('data')}>
-                    <div style={styles.flex}>
-                        <div style={styles.flexRow}>
-                            <ProgramSelect
-                                program={program}
-                                onChange={setProgram}
-                                style={styles.flexHalf}
-                                errorText={programError}
-                            />
-                            <ProgramStageSelect
-                                program={program}
-                                programStage={programStage}
-                                onChange={setProgramStage}
-                                style={styles.flexHalf}
-                                errorText={programStageError}
-                            />
-                        </div>
+                    <div style={styles.flexColumnFlow}>
+                        <ProgramSelect
+                            program={program}
+                            onChange={setProgram}
+                            style={styles.select}
+                            errorText={programError}
+                        />
+                        <ProgramStageSelect
+                            program={program}
+                            programStage={programStage}
+                            onChange={setProgramStage}
+                            style={styles.select}
+                            errorText={programStageError}
+                        />
+                        <CoordinateField
+                            program={program}
+                            programStage={programStage}
+                            value={eventCoordinateField}
+                            onChange={setEventCoordinateField}
+                            style={styles.select}
+                        />
+                    </div>
+                </Tab>
+                <Tab value='period' label={i18next.t('period')}>
+                    <div style={styles.flexColumnFlow}>
                         <RelativePeriodSelect
                             period={period}
                             startEndDates={true}
                             onChange={setPeriod}
-                            style={styles.flexHalf}
+                            style={styles.select}
                         />
                         {period.id === 'START_END_DATES' && [
                             <DatePicker
@@ -159,8 +172,7 @@ export class EventDialog extends Component {
                                 value={startDate}
                                 default={EVENT_START_DATE}
                                 onChange={setStartDate}
-                                style={styles.flexQuarter}
-                                // textFieldStyle={styles.dateField}
+                                style={styles.select}
                             />,
                             <DatePicker
                                 key='enddate'
@@ -168,18 +180,9 @@ export class EventDialog extends Component {
                                 value={endDate}
                                 default={EVENT_END_DATE}
                                 onChange={setEndDate}
-                                style={styles.flexQuarter}
-                                // textFieldStyle={styles.dateField}
+                                style={styles.select}
                             />
                         ]}
-                        <CoordinateField
-                            program={program}
-                            programStage={programStage}
-                            value={eventCoordinateField}
-                            onChange={setEventCoordinateField}
-                            style={styles.flexHalf}
-                        />
-                        <div style={styles.flexHalf}></div>
                     </div>
                 </Tab>
                 <Tab value='filter' label={i18next.t('Filter')}>
@@ -191,8 +194,8 @@ export class EventDialog extends Component {
                         />
                     </div>
                 </Tab>
-                <Tab value='orgunits' label={i18next.t('Organisation units')}>
-                    <div style={styles.flex}>
+                <Tab value='orgunits' label={i18next.t('Org units')}>
+                    <div style={styles.flexRowFlow}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
@@ -213,15 +216,16 @@ export class EventDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value='style' label={i18next.t('Style')}>
-                    <div style={styles.flex}>
-                        <div style={{ ...styles.flex, ...styles.flexHalf }}>
+                    <div style={styles.flexColumnFlow}>
+                        <div style={styles.select}>
                             <ImageSelect
                                 id='cluster'
                                 img='images/cluster.png'
                                 title={i18next.t('Group events')}
                                 onClick={() => setEventClustering(true)}
                                 isSelected={eventClustering}
-                                style={styles.flexHalf}
+                                style={styles.image}
+                                // style={styles.flexHalf}
                             />
                             <ImageSelect
                                 id='nocluster'
@@ -229,9 +233,12 @@ export class EventDialog extends Component {
                                 title={i18next.t('View all events')}
                                 onClick={() => setEventClustering(false)}
                                 isSelected={!eventClustering}
-                                style={styles.flexHalf}
+                                style={styles.image}
+                                //style={styles.flexHalf}
                             />
-                            <div style={{ ...styles.flexHalf, marginTop: 20  }}>
+                        </div>
+                        <div style={{ marginLeft: 3 }}>
+                            <div style={{ marginTop: 20, marginRight: 20, float: 'left'  }}>
                                 <div style={styles.colorLabel}>{i18next.t('Color')}</div>
                                 <ColorPicker
                                     color={eventPointColor || EVENT_COLOR}
@@ -244,10 +251,9 @@ export class EventDialog extends Component {
                                 label={i18next.t('Radius')}
                                 value={eventPointRadius || EVENT_RADIUS}
                                 onChange={setEventPointRadius}
-                                style={styles.flexHalf}
+                                style={{ float: 'left', maxWidth: 100 }}
                             />
                         </div>
-                        <div style={styles.flexHalf}>
                             <DataItemSelect
                                 label={i18next.t('Style by data item')}
                                 program={program}
@@ -255,16 +261,15 @@ export class EventDialog extends Component {
                                 allowNone={true}
                                 value={styleDataItem ? styleDataItem.id : null}
                                 onChange={setStyleDataItem}
-                                style={styles.flexHalf}
+                                style={styles.select}
                             />
                             <DataItemStyle
                                 method={method}
                                 classes={classes}
                                 colorScale={colorScale}
-                                style={styles.flexHalf}
+                                style={styles.select}
                                 {...styleDataItem}
                             />
-                        </div>
                     </div>
                 </Tab>
             </Tabs>

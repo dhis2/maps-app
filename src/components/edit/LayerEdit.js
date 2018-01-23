@@ -19,6 +19,10 @@ const layerType = {
 };
 
 const styles = {
+    content: {
+        minWidth: 400,
+        maxWidth: 600,
+    },
     title: {
         padding: '16px 24px 0',
         fontSize: 16,
@@ -71,6 +75,7 @@ class LayerEdit extends Component {
         return (
             <Dialog
                 title={i18next.t(layer.type)}
+                contentStyle={styles.content}
                 bodyStyle={styles.body}
                 titleStyle={styles.title}
                 open={true}

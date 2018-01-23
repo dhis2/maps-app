@@ -11,11 +11,11 @@ const styles = {
         position: 'relative',
         marginTop: 12,
         width: '100%',
-        height: 285,
+        height: 310,
         padding: 8,
         overflow: 'auto',
         boxSizing: 'border-box',
-        outline: '1px solid #ddd',
+        border: '1px solid #ddd',
     },
     label: {
         cursor: 'pointer',

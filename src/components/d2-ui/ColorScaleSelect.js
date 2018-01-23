@@ -11,7 +11,10 @@ const styles = {
         textAlign: 'center',
     },
     scale: {
-        marginTop: 30,
+        marginTop: 19,
+        overflow: 'visible',
+        whiteSpace: 'nowrap',
+
     },
     popover: {
         height: '100%',
@@ -55,12 +58,12 @@ class ColorScaleSelect extends Component {
     };
 
     render() {
-        const palette = this.props.palette;
+        const { palette, style } = this.props;
         const classes = palette.split(',').length;
         const scale = getColorScale(palette);
 
         return (
-            <div style={styles.container}>
+            <div style={style}>
                 <ColorScale
                     classes={classes}
                     scale={scale}

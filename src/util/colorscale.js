@@ -43,6 +43,6 @@ export const getColorPalette = (scale, classes) => {
 // Returns color scale name for a palette
 export const getColorScale = (palette) => {
     const classes = palette.split(',').length;
-    return Object.keys(colorbrewer).filter(key => colorbrewer[key][classes].join(',') === palette)[0];
+    return colorScales.find(name => colorbrewer[name][classes].join(',') === palette);
 };
 

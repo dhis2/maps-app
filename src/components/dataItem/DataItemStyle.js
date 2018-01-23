@@ -10,6 +10,7 @@ const DataElementStyle = ({ method, classes, colorScale, id, valueType, name, op
                 method={method}
                 classes={classes}
                 colorScale={colorScale}
+                style={{ width: '100%' }}
             />
         : null}
 

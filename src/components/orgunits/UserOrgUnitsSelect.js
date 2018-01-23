@@ -7,12 +7,12 @@ import './UserOrgUnits.css';
 
 const styles = {
     title: {
-        paddingTop: 27,
+        paddingTop: 12,
         color: 'rgba(0, 0, 0, 0.3)',
     },
     container: {
         display: 'flex',
-        paddingTop: 12,
+        padding: '12px 3px 0 3px',
         margin: -8,
     },
     level: {
