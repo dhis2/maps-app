@@ -12,14 +12,12 @@ const styles = {
     },
     container: {
         display: 'flex',
-        padding: '12px 3px 0 3px',
-        margin: -8,
     },
     level: {
         flex: '33%',
-        paddingBottom: 12,
+        // padding: '8px 8px 12px 8px',
         cursor: 'pointer',
-        margin: 8,
+        margin: 5,
         textAlign: 'center',
     },
     icon: {
