@@ -29,6 +29,7 @@ import {
 } from '../../actions/layerEdit';
 
 import {
+    getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     getOrgUnitLevelsFromRows,
     getOrgUnitGroupsFromRows,
@@ -54,7 +55,10 @@ const styles = {
     radius: {
         width: 206,
         marginTop: -8,
-    }
+    },
+    help: {
+        marginTop: 10,
+    },
 };
 
 class FacilityDialog extends Component {
@@ -120,6 +124,7 @@ class FacilityDialog extends Component {
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrganisationUnit}
                                 disabled={selectedUserOrgUnits.length ? true : false}
+                                selectRootAsDefault={getOrgUnitsFromRows(rows).length === 0}
                             />
                         </div>
                         <div style={styles.flexHalf}>
@@ -136,6 +141,9 @@ class FacilityDialog extends Component {
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
+                            <div style={styles.help}>
+                                {i18next.t('Remember to select the organisation unit level containing the facilities.')}
+                            </div>
                         </div>
                     </div>
                 </Tab>
@@ -199,7 +207,7 @@ class FacilityDialog extends Component {
         const { organisationUnitGroupSet } = this.props;
 
         if (!organisationUnitGroupSet) {
-            return this.setErrorState('orgUnitGroupSetError', i18next.t('Group set is required'), 'data');
+            return this.setErrorState('orgUnitGroupSetError', i18next.t('Group set is required'), 'group');
         }
 
         return true;

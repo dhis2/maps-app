@@ -14,6 +14,7 @@ export const layerDialogStyles = {
         flexFlow: 'column',
         maxHeight: 320,
         overflowY: 'auto',
+        paddingBottom: 16,
     },
     flexRowFlow: {
         display: 'flex',

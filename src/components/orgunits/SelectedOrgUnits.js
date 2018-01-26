@@ -13,14 +13,14 @@ const levels = {
     'USER_ORGUNIT_GRANDCHILDREN': 'two levels below user organisation unit',
 };
 
-const SelectedOrgUnits = ({ rows }) => {
+const SelectedOrgUnits = ({ units, rows }) => {
     const orgUnits = getOrgUnitNodesFromRows(rows).map(ou => ou.displayName).sort();
     const userOrgUnits = getUserOrgUnitsFromRows(rows).sort().map(id => i18next.t(levels[id]));
 
     let selected = i18next.t('No organisation units are selected');
 
     if (orgUnits.length || userOrgUnits.length) {
-        selected = i18next.t('Events in') + ' ';
+        selected = `${units} ${i18next.t('in')} `;
 
         if (userOrgUnits.length) {
             selected += userOrgUnits.join(', ');

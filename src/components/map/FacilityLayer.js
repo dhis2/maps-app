@@ -50,10 +50,11 @@ class FacilityLayer extends Layer {
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
-        // Defined in parent class
-        // this.onLayerAdd();
+        const layerBounds = this.layer.getBounds();
 
-        map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
+        if (layerBounds.isValid()) {
+            map.fitBounds(layerBounds);
+        }
     }
 
     // Show pupup on facility click

@@ -38,8 +38,9 @@ const facilityLoader = async (config) => { // Returns a promise
     return {
         ...config,
         data: features,
-        title: i18next.t('Facilities'),
+        name: i18next.t('Facilities'),
         legend: {
+            unit: organisationUnitGroupSet.name,
             items: Object.keys(groupSet).map(id => ({
                 image: `${contextPath}/images/orgunitgroup/${groupSet[id].symbol}`,
                 name: groupSet[id].name,

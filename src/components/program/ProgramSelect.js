@@ -12,6 +12,7 @@ export class ProgramSelect extends Component {
         programs: PropTypes.array,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        errorText: PropTypes.string,
     };
 
     componentDidMount() {

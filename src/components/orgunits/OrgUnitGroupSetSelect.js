@@ -14,6 +14,7 @@ export class OrgUnitGroupSetSelect extends Component {
         loadOrgUnitGroupSets: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        errorText: PropTypes.string,
     };
 
     componentDidMount() {

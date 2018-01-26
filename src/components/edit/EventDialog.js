@@ -211,6 +211,7 @@ export class EventDialog extends Component {
                             />
                             <SelectedOrgUnits
                                 rows={rows}
+                                units={i18next.t('Events')}
                             />
                         </div>
                     </div>
