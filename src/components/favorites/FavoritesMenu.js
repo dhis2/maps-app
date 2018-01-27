@@ -7,7 +7,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import FavoritesDialog from './FavoritesDialog';
 import SaveFavoriteDialog from './SaveFavoriteDialog';
-import { openFavoritesDialog, openSaveFavoriteDialog } from '../../actions/ui';
+import { openFavoritesDialog, openSaveFavoriteDialog } from '../../actions/favorites';
 
 const styles = {
     button: {

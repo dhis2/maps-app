@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import D2FavoritesDialog from 'd2-ui/lib/favorites/FavoritesDialog';
-import { closeFavoritesDialog } from '../../actions/ui';
+import { closeFavoritesDialog } from '../../actions/favorites';
 import { loadMap } from '../../actions/map';
 
 const FavoritesDialog = ({ favoritesDialogOpen, onFavoriteSelect, closeFavoritesDialog }) => (

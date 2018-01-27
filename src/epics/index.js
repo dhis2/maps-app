@@ -15,6 +15,7 @@ import legendSetEpics from './legendSets';
 import optionSetEpics from './optionSets';
 import orgUnitEpis from './orgUnits';
 import programEpics from './programs';
+import favoritesEpics from './favorites';
 
 const errorEpic = (action$) =>
     action$
@@ -35,4 +36,5 @@ export default combineEpics(
     optionSetEpics,
     orgUnitEpis,
     programEpics,
+    favoritesEpics,
 );
