@@ -257,7 +257,7 @@ const map = (state = defaultState, action) => {
                 mapViews: arrayMove(state.mapViews, action.oldIndex, action.newIndex)
             };
 
-        case types.LAYER_LOAD_REQUESTED:
+        case types.LAYER_LOAD:
         case types.LAYER_UPDATE:
         case types.LAYER_EDIT:
         case types.LAYER_CHANGE_OPACITY:

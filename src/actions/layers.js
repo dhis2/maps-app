@@ -63,12 +63,12 @@ export const sortLayers = ({oldIndex, newIndex}) => ({
 
 // Open overlay selection dialog
 export const openLayersDialog = () => ({
-    type: types.LAYERS_DIALOG_OPEN_REQUESTED,
+    type: types.LAYERS_DIALOG_OPEN,
 });
 
 // Close overlay selection dialog
 export const closeLayersDialog = () => ({
-    type: types.LAYERS_DIALOG_CLOSE_REQUESTED,
+    type: types.LAYERS_DIALOG_CLOSE,
 });
 
 // Add new layer

@@ -6,7 +6,6 @@ import appTheme from './app.theme';
 import MapProvider from '../map/MapProvider';
 import AppHeader from './AppHeader';
 import AppMenu from './AppMenu';
-import FavoritesDialog from '../favorites/FavoritesDialog';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
 import Map from '../map/Map';
@@ -39,7 +38,6 @@ class App extends Component {
                     <div id="dhis-gis-container">
                         <AppHeader />
                         <AppMenu />
-                        <FavoritesDialog />
                         <LayersPanel />
                         <LayersToggle />
                         <Map />
