@@ -8,16 +8,16 @@ import { setMap } from '../actions/map';
 import { loadLayer } from '../actions/layers';
 
 // Load one favorite
-export const loadMap = (action$) =>
+export const loadFavorite = (action$) =>
     action$
-        .ofType(types.MAP_LOAD)
+        .ofType(types.FAVORITE_LOAD)
         .concatMap((action) =>
             mapRequest(action.id)
-              .catch(errorActionCreator(types.MAP_LOAD_ERROR))
+              .catch(errorActionCreator(types.FAVORITE_LOAD_ERROR))
         )
         .mergeMap((config) => [
             setMap(config),
             ...config.mapViews.map(loadLayer)
         ]);
 
-export default combineEpics(loadMap);
+export default combineEpics(loadFavorite);

@@ -24,7 +24,7 @@ export const loadLayerEpic = (action$) =>
             fetchLayer(action.payload)
                 .then(increaseEditCounter)
                 .then(config => isNewLayer(config) ? addLayer(config) : updateLayer(config))
-                .catch(errorActionCreator(types.MAP_LOAD_ERROR))
+                .catch(errorActionCreator(types.LAYER_LOAD_ERROR))
         );
 
 export const drillLayer = (action$, store) =>

@@ -166,6 +166,7 @@ export const getFiltersFromColumns = (columns = []) => {
     return filters.length ? filters : null;
 };
 
+
 /*
 export const getDimensionIndexFromHeaders = (headers, dimension) => {
     if (!Array.isArray(headers) || !dimension) {

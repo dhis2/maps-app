@@ -11,6 +11,7 @@ import { configI18n } from './util/i18n';
 import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
+import { loadFavorite } from './actions/favorites'; // TODO: Testing only
 import '../scss/app.scss';
 
 log.setLevel(process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE);
@@ -57,6 +58,10 @@ getManifest('manifest.webapp')
             document.write(i18next.t('Access denied'));
             return;
         }
+
+        store.dispatch(loadExternalLayers()); // TODO: Testing only
+
+        // store.dispatch(loadFavorite('qTfO4YkQ9xW'));
 
         render(<Root d2={d2} store={store} />, document.getElementById('app'));
 

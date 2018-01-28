@@ -1,11 +1,5 @@
 import * as types from '../constants/actionTypes';
 
-// Load one map favorite
-export const loadMap = (id) => ({
-  type: types.MAP_LOAD,
-  id,
-});
-
 export const setMap = (config) => ({
     type: types.MAP_SET,
     payload: config,

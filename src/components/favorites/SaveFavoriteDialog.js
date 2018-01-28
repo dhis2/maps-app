@@ -6,6 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import Button from 'd2-ui/lib/button/Button';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import { saveFavorite, closeSaveFavoriteDialog } from '../../actions/favorites';
+import { cleanMapConfig } from '../../util/favorites';
 
 const styles = {
     content: {
@@ -16,22 +17,35 @@ const styles = {
     },
     body: {
         padding: '0 24px 10px',
+        lineHeight: '26px',
     },
 };
 
 class SaveFavoriteDialog extends Component {
     state = {
-        name: ''
+        name: 'AAAA'
     };
 
     validateName(name) {
         // TODO: Set error text if name is empty
-        this.props.saveFavorite(name);
+
+        const config = {
+            ...cleanMapConfig(this.props.config),
+            name,
+        };
+
+        // console.log('save config', config);
+
+        this.props.saveFavorite(config);
     }
 
     render() {
-        const { hasLayers, saveFavoriteDialogOpen, closeSaveFavoriteDialog } = this.props;
+        const { response, hasLayers, saveDialogOpen, closeSaveFavoriteDialog } = this.props; // TODO: config included only for testing
         const { name } = this.state;
+
+        if (!saveDialogOpen) {
+            return null;
+        }
 
         return (
             <Dialog
@@ -44,30 +58,44 @@ class SaveFavoriteDialog extends Component {
                         color='primary'
                         onClick={closeSaveFavoriteDialog}
                     >Close</Button>,
-                    (hasLayers ? <Button
+                    (hasLayers && !response ? <Button
                           color='primary'
                           onClick={() => this.validateName(name)}
                       >Save</Button> : null)
                 ]}
-                open={saveFavoriteDialogOpen}
+                open={saveDialogOpen}
                 onRequestClose={closeSaveFavoriteDialog}
-              >
-                  {hasLayers ?
-                      <TextField
-                          label={i18next.t('Favorite name')}
-                          value={name}
-                          onChange={(name) => this.setState({ name })}
-                      />
-                  : <div>{i18next.t('Your map is empty, please add a layer before you save a favorite.')}</div>}
+            >
+                {response && response.status === 'OK' ?
+                    <div>{i18next.t('Your map was saved successfully.')}</div>
+                : null}
+
+                {response && response.status !== 'OK' ?
+                    <div>{i18next.t('An error occurred')} (response.httpStatusCode): {response.message}</div>
+                : null}
+
+                {hasLayers && !response ?
+                    <TextField
+                        label={i18next.t('Favorite name')}
+                        value={name}
+                        onChange={(name) => this.setState({ name })}
+                    />
+                : null}
+
+                {!hasLayers && !response ?
+                    <div>{i18next.t('Your map is empty, please add a layer before you save a favorite.')}</div>
+                : null}
             </Dialog>
         );
     }
 }
 
 export default connect(
-  (state) => ({
-      saveFavoriteDialogOpen: state.ui.saveFavoriteDialogOpen,
-      hasLayers: Boolean(state.map.mapViews.length),
-  }),
-  { saveFavorite, closeSaveFavoriteDialog }
+    (state) => ({
+        saveDialogOpen: state.favorite.saveDialogOpen,
+        hasLayers: Boolean(state.map.mapViews.length),
+        config: state.map,
+        response: state.favorite.response,
+    }),
+    { saveFavorite, closeSaveFavoriteDialog }
 )(SaveFavoriteDialog);
