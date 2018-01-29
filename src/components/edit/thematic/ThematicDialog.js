@@ -106,6 +106,9 @@ export class ThematicDialog extends Component {
             if (indicator && indicator !== prevIndicator && indicator.legendSet) {
                 setClassification(1); // TODO: Use constant
                 setLegendSet(indicator.legendSet);
+            } else {
+                setClassification(2); // TODO: Use constant
+
             }
         }
 

@@ -196,6 +196,10 @@ const layerEdit = (state = null, action) => {
                 method: action.method,
             };
 
+            if (action.method !== 1) { // // TODO: Make constant
+                delete newState.legendSet;
+            }
+
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet;
             }

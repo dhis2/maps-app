@@ -21,9 +21,14 @@ const thematicLoader = async (config) => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemsFromColumns(columns)[0];
     const name = config.name || dataItem.name;
+
+    // console.log('legendSet', legendSet);
+
     const legend = legendSet ? await createLegendFromLegendSet(legendSet) : createLegendFromConfig(orderedValues, config);
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
     let alerts = [];
+
+    console.log('legend.items', legend.items);
 
     legend.period = data.metaData.dimensions.pe[0];
 
@@ -38,6 +43,7 @@ const thematicLoader = async (config) => {
         const value = valueById[id];
         const item = getLegendItem(value);
 
+        // console.log(value, item, id, properties);
         item.count === undefined ? item.count = 1 : item.count++;
 
         properties.value = value;
@@ -99,6 +105,8 @@ const createLegendFromConfig = (data, config) => {
     const {name, method, classes, colorScale, colorLow, colorHigh} = config;
     const items = getLegendItems(data, method, classes);
     let colors;
+
+    console.log('createLegendFromConfig');
 
     // TODO: Unify how we represent a colorScale
     if (Array.isArray(colorScale)) {

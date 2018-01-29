@@ -32,6 +32,8 @@ const defaultColorScaleName = 'YlOrRd';
 const defaultClasses = 5;
 const defaultColorScale = getColorPalette(defaultColorScaleName, defaultClasses);
 
+console.log(defaultColorScale);
+
 // TODO: Refactoring
 const Classification = ({method, classes, colorScale, setClassification, setColorScale, style }) => {
     const colorScaleName = colorScale ? getColorScale(colorScale.join(',')) : defaultColorScaleName;

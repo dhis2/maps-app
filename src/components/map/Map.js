@@ -55,10 +55,9 @@ class Map extends Component {
             imperial: false
         });
 
-        // TODO: Use mapzen key from Web API
+        // Add place search control (OSM Nominatim)
         map.addControl({
             type: 'search',
-            apiKey: 'search-Se1CFzK', // gis.init.systemInfo.mapzenSearchKey
         });
 
         // Add measurement control
