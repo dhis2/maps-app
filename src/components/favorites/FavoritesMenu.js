@@ -62,11 +62,11 @@ class FavoritesMenu extends Component {
             >
               <Menu>
                   <MenuItem
-                      primaryText={i18next.t('Load')}
+                      primaryText={i18next.t('Open')}
                       onClick={() => this.onLoadClick()}
                   />
                   <MenuItem
-                      primaryText={i18next.t('Save')}
+                      primaryText={i18next.t('New')}
                       onClick={() => this.onSaveClick()}
                   />
               </Menu>
