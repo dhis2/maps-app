@@ -17,6 +17,10 @@ const apiVersion = 29;
 const Plugin = () => {
     let _configs = [];
 
+    function getType() {
+        return 'MAP';
+    }
+
     // https://github.com/dhis2/d2-analysis/blob/master/src/util/Plugin.js#L20
     function add(...configs) {
         configs = Array.isArray(configs[0]) ? configs[0] : configs;
@@ -77,7 +81,14 @@ const Plugin = () => {
     }
 
     function drawMap(config) {
-        render(<PluginMap {...config} />, document.getElementById(config.el));
+        if (config.el) {
+            const domEl = document.getElementById(config.el);
+
+            if (domEl) {
+                render(<PluginMap {...config} />, domEl);
+            } else {
+                console.log(`Map plugin: Element with id ${config.el} don't exist on page!`);
+            }}
     }
 
     return { // Public properties
@@ -87,11 +98,12 @@ const Plugin = () => {
         loadingIndicator: false,
         load,
         add,
+        getType,
     };
 };
 
-const mapsPlugin = new Plugin();
+const mapPlugin = new Plugin();
 
-global.mapsPlugin = mapsPlugin;
+global.mapPlugin = mapPlugin;
 
-export default mapsPlugin;
+export default mapPlugin;

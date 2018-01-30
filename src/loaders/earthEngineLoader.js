@@ -158,7 +158,7 @@ const earthEngineLoader = async (config) => { // Returns a promise
 
         dataset = datasets[layerConfig.id];
 
-        console.log(dataset, layerConfig);
+        // console.log(dataset, layerConfig);
 
         if (dataset) {
             dataset.datasetId = layerConfig.id;

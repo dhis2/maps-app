@@ -7,7 +7,7 @@ export const apiFetch = async (url, method, body) => {
         headers: {}
     };
 
-    if (config.context.auth) {
+    if (config.context && config.context.auth) {
         options.headers['Authorization'] = 'Basic ' + btoa(config.context.auth);
     } else {
         options.credentials = 'include';

@@ -28,7 +28,7 @@ const thematicLoader = async (config) => {
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
     let alerts = [];
 
-    console.log('legend.items', legend.items);
+    // onsole.log('legend.items', legend.items);
 
     legend.period = data.metaData.dimensions.pe[0];
 
@@ -106,7 +106,7 @@ const createLegendFromConfig = (data, config) => {
     const items = getLegendItems(data, method, classes);
     let colors;
 
-    console.log('createLegendFromConfig');
+    // console.log('createLegendFromConfig');
 
     // TODO: Unify how we represent a colorScale
     if (Array.isArray(colorScale)) {

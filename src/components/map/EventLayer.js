@@ -29,6 +29,9 @@ class EventLayer extends Layer {
             styleDataItem,
         } = this.props;
 
+        // Some older favorites don't have a valid color code
+        const color = eventPointColor && eventPointColor.charAt(0) !== '#' ? '#' + eventPointColor : eventPointColor;
+
         const orgUnits = getOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItems = addStyleDataItem(columns, styleDataItem);
@@ -44,7 +47,7 @@ class EventLayer extends Layer {
             type: 'dots',
             pane: id,
             data,
-            color: eventPointColor || EVENT_COLOR,
+            color: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
             popup: this.onEventClick.bind(this),
         };

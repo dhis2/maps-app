@@ -53,7 +53,9 @@ class PluginMap extends Component {
         div.style.width = '100%';
         div.style.height = '100%';
 
-        this.map = d2map(div);
+        this.map = d2map(div, {
+            scrollWheelZoom: false,
+        });
     }
 
     componentWillMount() {
@@ -61,7 +63,7 @@ class PluginMap extends Component {
     }
 
     componentDidMount() {
-        if (this.node) { // If map is rendered
+        if (this.node && this.map) { // If map is rendered
             const { bounds, latitude, longitude, zoom } = this.props;
             const map = this.map;
 
@@ -101,12 +103,16 @@ class PluginMap extends Component {
      }
 
     componentDidUpdate(prevProps) {
-        this.context.map.invalidateSize();
+        if (this.map) {
+            this.map.invalidateSize();
+        }
     }
 
     // Remove map
     componentWillUnmount() {
-        this.context.map.remove();
+        if (this.map) {
+            this.map.remove();
+        }
     }
 
     render() {
