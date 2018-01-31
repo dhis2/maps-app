@@ -16,6 +16,8 @@ const apiVersion = 29;
 
 const Plugin = () => {
     let _configs = [];
+    let _isReady = false;
+    let _isPending = false;
 
     function getType() {
         return 'MAP';
@@ -27,6 +29,7 @@ const Plugin = () => {
 
         if (configs.length) {
             _configs = [..._configs, ...configs];
+            configs.forEach(renderLoadingIndicator);
         }
     }
 
@@ -34,8 +37,16 @@ const Plugin = () => {
     function load(...configs) {
         add(Array.isArray(configs[0]) ? configs[0] : configs);
 
-        const { url, username, password } = this;
+        if (_isReady) {
+            onInit();
+        } else if (!_isPending) {
+            _isPending = true;
+            const { url, username, password } = this;
+            initialize(url, username, password);
+        }
+    }
 
+    function initialize(url, username, password) {
         if (url) {
             config.baseUrl = `${url}/api/${apiVersion}`;
         }
@@ -60,17 +71,23 @@ const Plugin = () => {
     }
 
     function onInit() {
-        _configs.forEach(config => {
-            if (!config.id) {
-                loadLayers(config);
-            } else { // Load favorite
-                mapRequest(config.id)
-                    .then(favorite => loadLayers({
-                        ...config,
-                        ...favorite,
-                    }));
-            }
-        });
+        _isReady = true;
+
+        while (_configs.length) {
+            loadMap(_configs.shift());
+        }
+    }
+
+    function loadMap(config) {
+        if (config.id) {
+            mapRequest(config.id)
+                .then(favorite => loadLayers({
+                    ...config,
+                    ...favorite,
+                }));
+        } else { // Load favorite
+            loadLayers(config);
+        }
     }
 
     function loadLayers(config) {
@@ -86,9 +103,20 @@ const Plugin = () => {
 
             if (domEl) {
                 render(<PluginMap {...config} />, domEl);
-            } else {
-                console.log(`Map plugin: Element with id ${config.el} don't exist on page!`);
-            }}
+            }
+        }
+    }
+
+    function renderLoadingIndicator(config) {
+        if (config.el) {
+            const domEl = document.getElementById(config.el);
+
+            if (domEl) {
+                const div = document.createElement('div');
+                div.className = 'spinner';
+                domEl.appendChild(div);
+            }
+        }
     }
 
     return { // Public properties
