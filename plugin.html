@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <head>
     <title>DHIS2 Maps Plugin</title>
-    <script src="https://play.dhis2.org/dev/dhis-web-core-resource/react/16.1.1/umd/react.production.min.js"></script>
-    <script src="https://play.dhis2.org/dev/dhis-web-core-resource/react-dom/16.1.1/umd/react-dom.production.min.js"></script>
-    <script src="https://play.dhis2.org/dev/dhis-web-core-resource/babel-polyfill/6.20.0/dist/polyfill.min.js"></script>
-    <script src="https://play.dhis2.org/dev/dhis-web-maps/plugin.js"></script>
+    <script src="http://localhost:8080/dhis-web-core-resource/react/16.1.1/umd/react.development.js"></script>
+    <script src="http://localhost:8080/dhis-web-core-resource/react-dom/16.1.1/umd/react-dom.development.js"></script>
+    <script src="polyfill.min.js"></script>
+    <script src="map.js"></script>
     <style>
-        #map {
+        .map {
             width: 350px;
             height: 350px;
         }
@@ -14,14 +14,124 @@
 </head>
 <body>
     <div id="map" class="map"></div>
+    <div id="map2" class="map"></div>
     <script>
-        mapsPlugin.url = '//localhost:8080';
-        mapsPlugin.username = 'admin';
-        mapsPlugin.password = 'district';
+        mapPlugin.url = '//localhost:8080';
+        mapPlugin.username = 'admin';
+        mapPlugin.password = 'district';
 
-        mapsPlugin.load({
+        /*
+        mapPlugin.load({
             id: 'inePJWH75JW',
             el: 'map',
+        });
+        */
+
+        mapPlugin.load({
+          el: 'map',
+          "lastUpdated": "2018-02-01T18:11:34.334",
+          // "id": "hlzEdAWPd4L",
+          "created": "2014-04-06T12:05:03.122",
+          "name": "Reporting rates: Morbidity by orgunit last year",
+          "publicAccess": "rw------",
+          "type": "COLUMN",
+          "cumulativeValues": false,
+          "sortOrder": 0,
+          "favorite": false,
+          "topLimit": 0,
+          "displayName": "Reporting rates: Morbidity by orgunit last year",
+          "percentStackedValues": false,
+          "noSpaceBetweenColumns": false,
+          "hideTitle": false,
+          "series": "dx",
+          "showData": false,
+          "parentGraphMap": {},
+          "regressionType": "NONE",
+          "completedOnly": false,
+          "hideEmptyRowItems": "NONE",
+          "aggregationType": "DEFAULT",
+          "hideSubtitle": false,
+          "hideLegend": false,
+          "category": "ou",
+          "access": {
+            "read": true,
+            "update": true,
+            "externalize": true,
+            "delete": true,
+            "write": true,
+            "manage": true
+          },
+          "lastUpdatedBy": {
+            "id": "xE7jOejl9FI"
+          },
+          "user": {
+            "displayName": "Tom Wakiki"
+          },
+          "dataElementGroupSetDimensions": [],
+          "attributeDimensions": [],
+          "translations": [],
+          "interpretations": [],
+          "userGroupAccesses": [],
+          "columns": [{
+            "dimension": "dx",
+            "items": [{
+              "id": "eZDhcZi6FLP.REPORTING_RATE",
+              "name": "Morbidity Reporting rate",
+              "dimensionItemType": "REPORTING_RATE"
+            }]
+          }],
+          "dataElementDimensions": [],
+          "categoryDimensions": [],
+          "programIndicatorDimensions": [],
+          "attributeValues": [],
+          "userAccesses": [],
+          "favorites": [],
+          "dataDimensionItems": [{
+            "dataDimensionItemType": "REPORTING_RATE",
+            "reportingRate": {
+              "id": "eZDhcZi6FLP",
+              "name": "Morbidity Reporting rate",
+              "shortName": "Morbidity Reporting rate",
+              "displayName": "Morbidity Reporting rate",
+              "displayShortName": "Morbidity Reporting rate",
+              "externalAccess": false,
+              "dimensionItem": "eZDhcZi6FLP.REPORTING_RATE",
+              "metric": "REPORTING_RATE",
+              "favorite": false,
+              "dimensionItemType": "REPORTING_RATE",
+              "dataSet": {
+                "id": "eZDhcZi6FLP"
+              },
+              "favorites": [],
+              "translations": [],
+              "userGroupAccesses": [],
+              "attributeValues": [],
+              "userAccesses": [],
+              "legendSets": [{
+                "id": "k1JHPfXsJND"
+              }]
+            }
+          }],
+          "categoryOptionGroupSetDimensions": [],
+          "organisationUnitGroupSetDimensions": [],
+          "filters": [{
+            "dimension": "pe",
+            "items": [{
+              "id": "THIS_YEAR",
+              "name": "THIS_YEAR",
+              "dimensionItemType": "PERIOD"
+            }]
+          }],
+          "rows": [{
+            "dimension": "ou",
+            "items": [{
+              "id": "USER_ORGUNIT",
+              "name": "USER_ORGUNIT"
+            }, {
+              "id": "USER_ORGUNIT_CHILDREN",
+              "name": "USER_ORGUNIT_CHILDREN"
+            }]
+          }]
         });
     </script>
 </body>
