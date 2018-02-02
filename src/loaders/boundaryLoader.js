@@ -49,7 +49,7 @@ const boundaryLoader = async (config) => { // Returns a promise
     return {
         ...config,
         data: features,
-        title: i18next.t('Boundaries'),
+        name: i18next.t('Boundaries'),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

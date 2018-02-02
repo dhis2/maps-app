@@ -56,6 +56,8 @@ const LayerCard = (props) => {
         isVisible,
     } = layer;
 
+    // console.log(layer.layer, id, name, layer);
+
     return (
         <Card
             className='LayerCard'
