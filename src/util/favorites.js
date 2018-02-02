@@ -105,157 +105,43 @@ export const translateConfig = (config) => {
     if (!config.mapViews) { // TODO: Best way to detect chart/pivot config
         const {el, name } = config;
         const dimensions = [...config.columns, ...config.rows, ...config.filters];
-        const columns = [dimensions.find(dim => dim.dimension === 'dx')];
-        const rows = [dimensions.find(dim => dim.dimension === 'ou')];
-        const filters = [dimensions.find(dim => dim.dimension === 'pe')];
+        const columns = [dimensions.find(dim => dim.dimension === 'dx')]; // Data item
+        const rows = [dimensions.find(dim => dim.dimension === 'ou')]; // Org units
+        const filters = [dimensions.find(dim => dim.dimension === 'pe')]; // Period
 
         if (!columns || !rows || !filters) {
             return {
                 el,
                 name,
-                // alert
+                alerts: [{
+                    title: name,
+                    description: i18next.t('Map could not be created'),
+                }]
             }
         }
 
         // TODO: Temp to get some data
+        /*
         filters[0].items[0] = {
             dimensionItemType: 'PERIOD',
             id: 'LAST_YEAR',
             name: 'LAST_YEAR',
         };
+        */
 
         return {
             el,
             name,
-            // latitude: 8.325647599239064,
-            // longitude: -10.659484863281252,
-            // zoom: 8,
-            basemap: 'osmLight',
             mapViews: [{
+                layer: 'thematic',
                 id: generateUid(),
                 name,
-                layer: 'thematic',
                 columns,
                 rows,
                 filters,
-                // classes: 5,
-                // method: 3,
-                // colorScale: ['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'],
             }]
         }
     }
 
     return config;
 };
-
-
-
-/*
-{
-  "id": "Sf0sJriqqVW",
-  "name": "LLITN given after delivery",
-  "method": 3,
-  "labels": false,
-  "favorite": false,
-  "displayName": "LLITN given after delivery",
-  "labelFontColor": "#000000",
-  "layer": "thematic",
-  "labelFontStyle": "normal",
-  "radiusHigh": 15,
-  "hideTitle": false,
-  "eventClustering": false,
-  "colorLow": "00447F",
-  "opacity": 0.8,
-  "parentLevel": 0,
-  "parentGraphMap": {
-  "ImspTQPwCqd": ""
-},
-  "labelFontSize": "11px",
-  "colorHigh": "DAFFFF",
-  "completedOnly": false,
-  "eventPointRadius": 0,
-  "hidden": false,
-  "classes": 5,
-  "hideSubtitle": false,
-  "labelFontWeight": "normal",
-  "radiusLow": 5,
-  "dataElementGroupSetDimensions": [],
-  "attributeDimensions": [],
-  "translations": [],
-  "interpretations": [],
-  "columns": [{
-  "dimension": "dx",
-  "items": [{
-    "id": "ntzmpYRSKGg",
-    "name": "LLITN given after delivery",
-    "dimensionItemType": "DATA_ELEMENT"
-  }]
-}],
-  "dataElementDimensions": [],
-  "categoryDimensions": [],
-  "programIndicatorDimensions": [],
-  "attributeValues": [],
-  "userAccesses": [],
-  "favorites": [],
-  "dataDimensionItems": [{
-  "dataDimensionItemType": "DATA_ELEMENT",
-  "dataElement": {
-    "id": "ntzmpYRSKGg"
-  }
-}],
-  "categoryOptionGroupSetDimensions": [],
-  "organisationUnitGroupSetDimensions": [],
-  "filters": [{
-  "dimension": "pe",
-  "items": [{
-    "id": "2017",
-    "name": "2017",
-    "dimensionItemType": "PERIOD"
-  }]
-}],
-  "rows": [{
-  "dimension": "ou",
-  "items": [{
-    "id": "ImspTQPwCqd",
-    "name": "Sierra Leone",
-    "dimensionItemType": "ORGANISATION_UNIT"
-  }, {
-    "id": "LEVEL-3",
-    "name": "LEVEL-3"
-  }]
-}],
-  "legend": {
-  "title": "LLITN given after delivery",
-    "items": [{
-    "startValue": 4,
-    "endValue": 49,
-    "color": "#00447f",
-    "count": 30
-  }, {
-    "startValue": 49,
-    "endValue": 95,
-    "color": "#36729f",
-    "count": 30
-  }, {
-    "startValue": 95,
-    "endValue": 184,
-    "color": "#6da1bf",
-    "count": 30
-  }, {
-    "startValue": 184,
-    "endValue": 261,
-    "color": "#a3d0df",
-    "count": 30
-  }, {
-    "startValue": 261,
-    "endValue": 3726,
-    "color": "#daffff",
-    "count": 32
-  }],
-    "period": "2017"
-},
-  "isLoaded": true,
-  "isExpanded": true,
-  "isVisible": true
-}
-  */
