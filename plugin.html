@@ -29,17 +29,17 @@
 
         mapPlugin.load({
           el: 'map',
-          "lastUpdated": "2018-02-01T18:11:34.334",
-          // "id": "hlzEdAWPd4L",
-          "created": "2014-04-06T12:05:03.122",
-          "name": "Reporting rates: Morbidity by orgunit last year",
+          "lastUpdated": "2018-02-02T10:46:17.063",
+          "id": "bmbGtJv6dcR",
+          "created": "2014-04-03T14:05:10.234",
+          "name": "ANC: 1st and 3rd visit coverage by orgunit last year",
           "publicAccess": "rw------",
-          "type": "COLUMN",
+          "type": "BAR",
           "cumulativeValues": false,
           "sortOrder": 0,
           "favorite": false,
           "topLimit": 0,
-          "displayName": "Reporting rates: Morbidity by orgunit last year",
+          "displayName": "ANC: 1st and 3rd visit coverage by orgunit last year",
           "percentStackedValues": false,
           "noSpaceBetweenColumns": false,
           "hideTitle": false,
@@ -54,32 +54,36 @@
           "hideLegend": false,
           "category": "ou",
           "access": {
-            "read": true,
+          "read": true,
             "update": true,
             "externalize": true,
             "delete": true,
             "write": true,
             "manage": true
-          },
+        },
           "lastUpdatedBy": {
-            "id": "xE7jOejl9FI"
-          },
+          "id": "GOLswS44mh8"
+        },
           "user": {
-            "displayName": "Tom Wakiki"
-          },
+          "displayName": "Tom Wakiki"
+        },
           "dataElementGroupSetDimensions": [],
           "attributeDimensions": [],
           "translations": [],
           "interpretations": [],
           "userGroupAccesses": [],
           "columns": [{
-            "dimension": "dx",
-            "items": [{
-              "id": "eZDhcZi6FLP.REPORTING_RATE",
-              "name": "Morbidity Reporting rate",
-              "dimensionItemType": "REPORTING_RATE"
-            }]
-          }],
+          "dimension": "dx",
+          "items": [{
+            "id": "Uvn6LCg7dVU",
+            "name": "ANC 1 Coverage",
+            "dimensionItemType": "INDICATOR"
+          }, {
+            "id": "sB79w2hiLp8",
+            "name": "ANC 3 Coverage",
+            "dimensionItemType": "INDICATOR"
+          }]
+        }],
           "dataElementDimensions": [],
           "categoryDimensions": [],
           "programIndicatorDimensions": [],
@@ -87,52 +91,35 @@
           "userAccesses": [],
           "favorites": [],
           "dataDimensionItems": [{
-            "dataDimensionItemType": "REPORTING_RATE",
-            "reportingRate": {
-              "id": "eZDhcZi6FLP",
-              "name": "Morbidity Reporting rate",
-              "shortName": "Morbidity Reporting rate",
-              "displayName": "Morbidity Reporting rate",
-              "displayShortName": "Morbidity Reporting rate",
-              "externalAccess": false,
-              "dimensionItem": "eZDhcZi6FLP.REPORTING_RATE",
-              "metric": "REPORTING_RATE",
-              "favorite": false,
-              "dimensionItemType": "REPORTING_RATE",
-              "dataSet": {
-                "id": "eZDhcZi6FLP"
-              },
-              "favorites": [],
-              "translations": [],
-              "userGroupAccesses": [],
-              "attributeValues": [],
-              "userAccesses": [],
-              "legendSets": [{
-                "id": "k1JHPfXsJND"
-              }]
-            }
-          }],
+          "dataDimensionItemType": "INDICATOR",
+          "indicator": {
+            "id": "Uvn6LCg7dVU"
+          }
+        }, {
+          "dataDimensionItemType": "INDICATOR",
+          "indicator": {
+            "id": "sB79w2hiLp8"
+          }
+        }],
           "categoryOptionGroupSetDimensions": [],
           "organisationUnitGroupSetDimensions": [],
           "filters": [{
-            "dimension": "pe",
-            "items": [{
-              "id": "THIS_YEAR",
-              "name": "THIS_YEAR",
-              "dimensionItemType": "PERIOD"
-            }]
-          }],
-          "rows": [{
-            "dimension": "ou",
-            "items": [{
-              "id": "USER_ORGUNIT",
-              "name": "USER_ORGUNIT"
-            }, {
-              "id": "USER_ORGUNIT_CHILDREN",
-              "name": "USER_ORGUNIT_CHILDREN"
-            }]
+          "dimension": "pe",
+          "items": [{
+            "id": "THIS_YEAR",
+            "name": "THIS_YEAR",
+            "dimensionItemType": "PERIOD"
           }]
-        });
+        }],
+          "rows": [{
+          "dimension": "ou",
+          "items": [{
+            "id": "USER_ORGUNIT"
+          }, {
+            "id": "USER_ORGUNIT_CHILDREN"
+          }]
+        }]
+      });
     </script>
 </body>
 </html>

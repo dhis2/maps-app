@@ -10,6 +10,19 @@ export const loadLegendSet = async (legendSet) => {
     return d2.models.legendSet.get(legendSet.id);
 };
 
+export const loadDataItemLegendSet = async (dataItem) => {
+    const type = (dataItem.dimensionItemType || '').toLowerCase();
+    const d2 = await getD2();
+
+    if (!type || !d2.models[type]) {
+        return;
+    }
+
+    return d2.models[type].get(dataItem.id, {
+        fields: 'legendSet[id,displayName~rename(name)]',
+    }).then(model => model.legendSet);
+};
+
 export const formatLegendItems = (legendItems) => {
     const sortedItems = sortBy('startValue', legendItems);
     return sortedItems.map(item => ({

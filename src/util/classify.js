@@ -18,8 +18,6 @@ export const classify = (features, options) => {
     console.log(bins);
 };
 
-
-
 // Returns class number
 export const getClass = (value, bins) => {
     if (value >= bins[0]) {

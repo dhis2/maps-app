@@ -57,6 +57,7 @@ const Plugin = () => {
         }
 
         config.schemas = union(config.schemas, [
+            'indicator',
             'legendSet',
             'map',
             'optionSet',
