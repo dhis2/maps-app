@@ -46,3 +46,6 @@ export const getColorScale = (palette) => {
     return colorScales.find(name => colorbrewer[name][classes].join(',') === palette);
 };
 
+export const defaultColorScaleName = 'YlOrRd';
+export const defaultClasses = 5;
+export const defaultColorScale = getColorPalette(defaultColorScaleName, defaultClasses);

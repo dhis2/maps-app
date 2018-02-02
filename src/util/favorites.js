@@ -102,26 +102,45 @@ const cleanDimension = (dim) => ({
 
 // Translate from chart/pivot config to map config
 export const translateConfig = (config) => {
-    if (!config.mapViews && config.columns) { // TODO: Best way to detect chart/pivot config
-        const {el, name, columns, filters, rows } = config;
+    if (!config.mapViews) { // TODO: Best way to detect chart/pivot config
+        const {el, name } = config;
+        const dimensions = [...config.columns, ...config.rows, ...config.filters];
+        const columns = [dimensions.find(dim => dim.dimension === 'dx')];
+        const rows = [dimensions.find(dim => dim.dimension === 'ou')];
+        const filters = [dimensions.find(dim => dim.dimension === 'pe')];
+
+        if (!columns || !rows || !filters) {
+            return {
+                el,
+                name,
+                // alert
+            }
+        }
+
+        // TODO: Temp to get some data
+        filters[0].items[0] = {
+            dimensionItemType: 'PERIOD',
+            id: 'LAST_YEAR',
+            name: 'LAST_YEAR',
+        };
 
         return {
             el,
             name,
-            latitude: 8.325647599239064,
-            longitude: -10.659484863281252,
-            zoom: 8,
+            // latitude: 8.325647599239064,
+            // longitude: -10.659484863281252,
+            // zoom: 8,
             basemap: 'osmLight',
             mapViews: [{
                 id: generateUid(),
                 name,
                 layer: 'thematic',
                 columns,
-                filters,
                 rows,
-                classes: 5,
-                method: 3,
-                colorScale: ['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'],
+                filters,
+                // classes: 5,
+                // method: 3,
+                // colorScale: ['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'],
             }]
         }
     }

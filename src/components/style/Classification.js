@@ -8,7 +8,13 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
 import { setClassification, setColorScale } from '../../actions/layerEdit';
 import { classificationTypes } from '../../constants/layers';
-import { getColorPalette, getColorScale } from '../../util/colorscale';
+import {
+    defaultColorScaleName,
+    defaultClasses,
+    defaultColorScale,
+    getColorPalette,
+    getColorScale
+} from '../../util/colorscale';
 
 const styles = {
     selectField: {
@@ -28,11 +34,6 @@ const styles = {
 };
 
 const classRange = range(3, 10).map(num => ({ id: num, name: num.toString() })); // 3 - 9
-const defaultColorScaleName = 'YlOrRd';
-const defaultClasses = 5;
-const defaultColorScale = getColorPalette(defaultColorScaleName, defaultClasses);
-
-console.log(defaultColorScale);
 
 // TODO: Refactoring
 const Classification = ({method, classes, colorScale, setClassification, setColorScale, style }) => {
