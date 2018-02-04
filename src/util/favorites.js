@@ -104,12 +104,16 @@ const cleanDimension = (dim) => ({
 export const translateConfig = (config) => {
     if (!config.mapViews) { // TODO: Best way to detect chart/pivot config
         const {el, name } = config;
-        const dimensions = [...config.columns, ...config.rows, ...config.filters];
+        const dimensions = [
+          ...config.columns || [],
+          ...config.rows || [],
+          ...config.filters || [],
+        ];
         const columns = [dimensions.find(dim => dim.dimension === 'dx')]; // Data item
         const rows = [dimensions.find(dim => dim.dimension === 'ou')]; // Org units
         const filters = [dimensions.find(dim => dim.dimension === 'pe')]; // Period
 
-        if (!columns || !rows || !filters) {
+        if (!columns.length || !rows.length || !filters.length) {
             return {
                 el,
                 name,
@@ -119,15 +123,6 @@ export const translateConfig = (config) => {
                 }]
             }
         }
-
-        // TODO: Temp to get some data
-        /*
-        filters[0].items[0] = {
-            dimensionItemType: 'PERIOD',
-            id: 'LAST_YEAR',
-            name: 'LAST_YEAR',
-        };
-        */
 
         return {
             el,
