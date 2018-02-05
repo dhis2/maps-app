@@ -32,8 +32,9 @@ export class CollectionSelect extends Component {
     }
 
     render() {
-        const { id, filter, label, collections, onChange, style } = this.props;
+        const { id, filter, label, collections, onChange, style, errorText } = this.props;
         const items = collections[id];
+        const value = filter && filter[0].arguments[1];
 
         const collectionFilter = collectionFilters[id] || ((index) => [{
             type: 'eq',
@@ -45,9 +46,10 @@ export class CollectionSelect extends Component {
                 label={label || i18next.t('Period')}
                 loading={items ? false : true}
                 items={items}
-                value={filter && filter[0].arguments[1]}
+                value={value}
                 onChange={period => onChange(collectionFilter(period.id))}
                 style={style}
+                errorText={!value && errorText}
             />
         );
     }
