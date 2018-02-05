@@ -59,6 +59,10 @@ const styles = {
     help: {
         marginTop: 10,
     },
+    error: {
+        marginTop: 10,
+        color: 'red',
+    },
 };
 
 class FacilityDialog extends Component {
@@ -96,8 +100,10 @@ class FacilityDialog extends Component {
         const {
             tab,
             orgUnitGroupSetError,
+            orgUnitsError,
         } = this.state;
 
+        const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
@@ -124,7 +130,6 @@ class FacilityDialog extends Component {
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrganisationUnit}
                                 disabled={selectedUserOrgUnits.length ? true : false}
-                                selectRootAsDefault={getOrgUnitsFromRows(rows).length === 0}
                             />
                         </div>
                         <div style={styles.flexHalf}>
@@ -141,9 +146,13 @@ class FacilityDialog extends Component {
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
-                            <div style={styles.help}>
-                                {i18next.t('Remember to select the organisation unit level containing the facilities.')}
-                            </div>
+                            {!orgUnits.length && orgUnitsError ?
+                                <div style={styles.error}>{orgUnitsError}</div>
+                            :
+                                <div style={styles.help}>
+                                    {i18next.t('Remember to select the organisation unit level containing the facilities.')}
+                                </div>
+                            }
                         </div>
                     </div>
                 </Tab>
@@ -204,10 +213,14 @@ class FacilityDialog extends Component {
     }
 
     validate() {
-        const { organisationUnitGroupSet } = this.props;
+        const { organisationUnitGroupSet, rows } = this.props;
 
         if (!organisationUnitGroupSet) {
             return this.setErrorState('orgUnitGroupSetError', i18next.t('Group set is required'), 'group');
+        }
+
+        if (!getOrgUnitsFromRows(rows).length) {
+          return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected.'), 'orgunits');
         }
 
         return true;

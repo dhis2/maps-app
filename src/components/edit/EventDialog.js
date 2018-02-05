@@ -121,6 +121,7 @@ export class EventDialog extends Component {
             tab,
             programError,
             programStageError,
+            orgUnitsError,
         } = this.state;
 
         const period = getPeriodFromFilters(filters) || { id: 'START_END_DATES' };
@@ -212,6 +213,7 @@ export class EventDialog extends Component {
                             <SelectedOrgUnits
                                 rows={rows}
                                 units={i18next.t('Events')}
+                                error={orgUnitsError}
                             />
                         </div>
                     </div>
@@ -286,7 +288,7 @@ export class EventDialog extends Component {
     }
 
     validate() {
-        const { program, programStage } = this.props;
+        const { program, programStage, rows } = this.props;
 
         if (!program) {
             return this.setErrorState('programError', i18next.t('Program is required'), 'data');
@@ -294,6 +296,10 @@ export class EventDialog extends Component {
 
         if (!programStage) {
             return this.setErrorState('programStageError', i18next.t('Program stage is required'), 'data');
+        }
+
+        if (!getOrgUnitsFromRows(rows).length) {
+            return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected.'), 'orgunits');
         }
 
         return true;
