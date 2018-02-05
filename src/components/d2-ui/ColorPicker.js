@@ -6,6 +6,9 @@ import ChromePicker from 'react-color/lib/components/chrome/Chrome';
 import { hcl } from 'd3-color';
 
 const styles = {
+    wrapper: {
+        display: 'inline-block',
+    },
     color: {
         padding: 0,
         textAlign: 'right',
@@ -44,7 +47,7 @@ export default class ColorPicker extends Component {
         const { color, isOpen, anchorEl } = this.state;
 
         return (
-            <div>
+            <div style={styles.wrapper}>
                 <IconButton
                     onClick={this.handleOpen}
                     style={{ ...styles.color, background: color, ...this.props.style }}
