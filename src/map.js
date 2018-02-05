@@ -78,19 +78,19 @@ const Plugin = () => {
         _isReady = true;
 
         while (_configs.length) {
-            loadMap(translateConfig(_configs.shift()));
+            loadMap(_configs.shift());
         }
     }
 
     function loadMap(config) {
-        if (config.id) {
+        if (config.id) { // Load favorite
             mapRequest(config.id)
                 .then(favorite => loadLayers({
                     ...config,
                     ...favorite,
                 }));
-        } else { // Load favorite
-            loadLayers(config);
+        } else {
+            loadLayers(translateConfig(config));
         }
     }
 

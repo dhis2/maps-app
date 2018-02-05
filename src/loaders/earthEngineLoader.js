@@ -153,17 +153,14 @@ const earthEngineLoader = async (config) => { // Returns a promise
     let layerConfig = {};
     let dataset;
 
-    // console.log(config.config, config.datasetId);
-
     if (typeof config.config === 'string') { // From database as favorite
         layerConfig = JSON.parse(config.config);
 
         dataset = datasets[layerConfig.id];
 
-        // console.log(dataset, layerConfig);
-
         if (dataset) {
             dataset.datasetId = layerConfig.id;
+            delete(layerConfig.id);
         }
 
         delete (config.config);
@@ -176,8 +173,6 @@ const earthEngineLoader = async (config) => { // Returns a promise
         ...layerConfig,
         ...dataset,
     };
-
-    // console.log('dataset', dataset);
 
     // Create legend items from params
     if (layer.legend && !layer.legend.items && layer.params) {
@@ -192,6 +187,8 @@ const earthEngineLoader = async (config) => { // Returns a promise
     };
 };
 
+// https://stackoverflow.com/questions/33289726/combination-of-async-function-await-settimeout
+const timeout = (ms) =>  new Promise(resolve => setTimeout(resolve, ms));
 
 // TODO: This function is currently duplicated from  GIS API
 export const createLegend = (params) => {
