@@ -14,8 +14,11 @@ import {
     removeEmptyItems,
 } from '../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
+import { timeFormat } from 'd3-time-format';
 
 // Look at: https://github.com/dhis2/maintenance-app/blob/master/src/App/appStateStore.js
+
+const formatTime = (date) => timeFormat('%Y-%m-%d')(new Date(date));
 
 const eventLoader = async (config) => { // Returns a promise
     const {
@@ -46,7 +49,7 @@ const eventLoader = async (config) => { // Returns a promise
     let analyticsRequest = await getAnalyticsRequest(program, programStage, period, startDate, endDate, orgUnits, dataItems, eventCoordinateField);
 
     const legend = {
-        period: period ? getPeriodNameFromId(period.id) : `${startDate} - ${endDate}`,
+        period: period ? getPeriodNameFromId(period.id) : `${formatTime(startDate)} - ${formatTime(endDate)}`,
         filters: dataFilters && getFiltersAsText(dataFilters),
     };
 
