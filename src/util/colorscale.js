@@ -2,7 +2,7 @@ import colorbrewer from 'd2-ui/lib/legend/colorbrewer';
 
 // Allowed color scales from ColorBrewer for EE (needs to have at least 9 classes)
 export const colorScales = [
-  'YlOrRd',
+  'YlOrBr',
   'Reds',
   'YlGn',
   'Greens',
