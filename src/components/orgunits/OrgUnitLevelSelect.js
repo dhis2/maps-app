@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
+import sortBy from 'lodash/fp/sortBy';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
 
@@ -29,12 +30,18 @@ export class OrgUnitLevelSelect extends Component {
 
     render() {
         const { orgUnitLevel, orgUnitLevels, onChange } = this.props;
+        let sortedOrgUnitLevels;
+
+        if (orgUnitLevels) {
+            sortedOrgUnitLevels = sortBy((item) => item.level, orgUnitLevels)
+                .map(({ level, name }) => ({ id: level.toString(),  name })); // TODO
+        }
 
         return (
             <SelectField
                 label={i18next.t('Select levels')}
                 loading={orgUnitLevels ? false : true}
-                items={orgUnitLevels && orgUnitLevels.map(({ level, name }) => ({ id: level.toString(),  name }))} // TODO
+                items={sortedOrgUnitLevels}
                 value={orgUnitLevel}
                 multiple={true}
                 onChange={onChange}
