@@ -316,6 +316,7 @@ export class ThematicDialog extends Component {
                         <div style={styles.flexHalf}>
                             <OrgUnitLevelSelect
                                 orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
+                                defaultLevel={2}
                                 onChange={setOrgUnitLevels}
                             />
                             <OrgUnitGroupSelect

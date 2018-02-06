@@ -63,8 +63,8 @@ export class OrgUnitTree extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        const { root, selectRootAsDefault, onClick } = this.props;
+    componentDidUpdate() {
+        const { root, selectRootAsDefault } = this.props;
 
         // Select org.unit root as default
         if (selectRootAsDefault && root) {

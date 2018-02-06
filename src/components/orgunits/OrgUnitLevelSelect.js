@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
+import once from 'lodash/fp/once';
 import sortBy from 'lodash/fp/sortBy';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
@@ -20,11 +21,29 @@ export class OrgUnitLevelSelect extends Component {
         style: PropTypes.object,
     };
 
+    constructor(props, context) {
+        super(props, context);
+
+        this.selectDefault = once(level => props.onChange(level)); // only select default level once
+    }
+
     componentDidMount() {
         const { orgUnitLevels, loadOrgUnitLevels } = this.props;
 
         if (!orgUnitLevels) {
             loadOrgUnitLevels();
+        }
+    }
+
+    componentDidUpdate() {
+        const { defaultLevel, orgUnitLevel, orgUnitLevels, onChange } = this.props;
+
+        if (!orgUnitLevel.length && defaultLevel && orgUnitLevels) {
+            const levelItem = orgUnitLevels.find(item => item.level === defaultLevel);
+
+            if (levelItem) {
+                this.selectDefault([levelItem.level.toString()]);
+            }
         }
     }
 
