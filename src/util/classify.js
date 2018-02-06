@@ -1,5 +1,5 @@
 // Utils for thematic mapping
-
+import { format, precisionRound } from 'd3-format';
 import curryRight from 'lodash/fp/curryRight';
 
 export const classify = (features, options) => {
@@ -68,13 +68,16 @@ export const getClassBins = (values, method, numClasses) => {
 export const getEqualIntervals = (minValue, maxValue, numClasses) => {
     const bins = [];
     const binSize = (maxValue - minValue) / numClasses;
+    const precision = precisionRound(binSize, maxValue);
+    const valueFormat = format(`.${precision}f`);
 
     for (let i = 0; i < numClasses; i++) {
         const startValue = minValue + (i * binSize);
+        const endValue = (i < numClasses - 1) ? startValue + binSize : maxValue;
 
         bins.push({
-            startValue: startValue,
-            endValue: (i < numClasses - 1) ? startValue + binSize : maxValue,
+            startValue: Number(valueFormat(startValue)),
+            endValue: Number(valueFormat(endValue)),
         });
     }
 
@@ -89,17 +92,19 @@ export const getQuantiles = (values, numClasses) => {
     const binCount = Math.round(values.length / numClasses);
     let binLastValPos = (binCount === 0) ? 0 : binCount;
 
+    const precision = precisionRound((maxValue - minValue) / numClasses, maxValue);
+    const valueFormat = format(`.${precision}f`);
+
     if (values.length > 0) {
         bins[0] = minValue;
         for (let i = 1; i < numClasses; i++) {
             bins[i] = values[binLastValPos];
             binLastValPos += binCount;
         }
-        // bins.push(maxValue);
     }
 
     return bins.map((value, index) => ({
-        startValue: value,
-        endValue: bins[index + 1] || maxValue
+        startValue: Number(valueFormat(value)),
+        endValue: Number(valueFormat(bins[index + 1] || maxValue))
     }));
 };

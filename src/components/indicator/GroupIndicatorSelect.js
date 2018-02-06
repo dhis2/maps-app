@@ -21,6 +21,7 @@ export class GroupIndicatorSelect extends Component {
             indicators,
             onChange,
             style,
+            errorText,
         } = this.props;
 
         if (!indicatorGroup) {
@@ -38,6 +39,7 @@ export class GroupIndicatorSelect extends Component {
                 value={indicator ? indicator.id : null}
                 onChange={onChange}
                 style={style}
+                errorText={!indicator && errorText ? errorText : null}
             />
         );
     }

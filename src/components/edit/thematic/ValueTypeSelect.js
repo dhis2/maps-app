@@ -5,8 +5,10 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { dimConf } from '../../../constants/dimension';
 import { setValueType } from '../../../actions/layerEdit';
 
-export const ValueTypeSelect = (props) => {
-    const { value, setValueType } = props;
+const ValueTypeSelect = (props) => {
+    const { value, onChange } = props;
+
+    // console.log(dimConf.indicator.objectName);
 
     // TODO: Avoid creating on each render (needs to be created after i18next conatins transaltions
     const items = [
@@ -22,11 +24,12 @@ export const ValueTypeSelect = (props) => {
             {...props}
             label={i18next.t('Item type')}
             items={items}
-            value={value || dimConf.indicator.objectName}
-            onChange={(valueType) => setValueType(valueType.id)}
+            // value={value || dimConf.indicator.objectName}
+            value={value}
+            onChange={(valueType) => onChange(valueType.id)}
         />
     );
 
 };
 
-export default connect(null, { setValueType })(ValueTypeSelect);
+export default ValueTypeSelect;

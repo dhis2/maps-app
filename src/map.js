@@ -123,6 +123,7 @@ const Plugin = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
+                domEl.innerHTML = '';
                 const div = document.createElement('div');
                 div.className = 'spinner';
                 domEl.appendChild(div);

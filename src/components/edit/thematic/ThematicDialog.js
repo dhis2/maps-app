@@ -51,6 +51,7 @@ import {
     setRadiusLow,
     setRadiusHigh,
     setUserOrgUnits,
+    setValueType,
     toggleOrganisationUnit,
     loadOrgUnitPath,
 } from '../../../actions/layerEdit';
@@ -99,7 +100,19 @@ export class ThematicDialog extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { columns, rows, setClassification, setLegendSet, loadOrgUnitPath } = this.props;
+        const {
+            valueType,
+            columns,
+            rows,
+            setValueType,
+            setClassification,
+            setLegendSet,
+            loadOrgUnitPath
+        } = this.props;
+
+        if (!valueType) {
+            setValueType('in'); // TODO: Make constant
+        }
 
         // Set connected legend set when indicator is selected
         if (columns) {
@@ -169,11 +182,14 @@ export class ThematicDialog extends Component {
             setRadiusLow,
             setRadiusHigh,
             setUserOrgUnits,
+            setValueType,
             toggleOrganisationUnit,
         } = this.props;
 
         const {
             tab,
+            indicatorGroupError,
+            indicatorError,
             orgUnitsError,
             periodTypeError,
             periodError,
@@ -196,6 +212,7 @@ export class ThematicDialog extends Component {
                         <ValueTypeSelect
                             value={valueType}
                             style={styles.select}
+                            onChange={setValueType}
                         />
                         {(!valueType || valueType === 'in') && [ // Indicator (default)
                             <IndicatorGroupSelect
@@ -203,6 +220,7 @@ export class ThematicDialog extends Component {
                                 indicatorGroup={indicatorGroup}
                                 onChange={setIndicatorGroup}
                                 style={styles.select}
+                                errorText={indicatorGroupError}
                             />,
                             <GroupIndicatorSelect
                                 key='indicator'
@@ -210,15 +228,8 @@ export class ThematicDialog extends Component {
                                 indicator={getIndicatorFromColumns(columns)}
                                 onChange={setIndicator}
                                 style={styles.select}
-                            />,
-                            (!indicatorGroup && indicator && (
-                                <DummySelectField
-                                    key='dummy'
-                                    label={i18next.t('Indicator')}
-                                    item={indicator}
-                                    style={styles.select}
-                                />
-                            ))
+                                errorText={indicatorError}
+                            />
                         ]}
                         {valueType === 'pi' && [ // Program indicator
                             <ProgramSelect
@@ -410,13 +421,19 @@ export class ThematicDialog extends Component {
     }
 
     validate() {
-        const { periodType, filters, rows } = this.props;
-        const period = getPeriodFromFilters(filters);
-        const orgUnits = getOrgUnitsFromRows(rows);
+        const { valueType, indicatorGroup, periodType, columns, rows, filters } = this.props;
+
+        if (valueType === 'in') { // TODO: Use constant
+            if (!indicatorGroup) {
+                return this.setErrorState('indicatorGroupError', i18next.t('Indicator group is required'), 'data');
+            } else if (!getIndicatorFromColumns(columns)) {
+                return this.setErrorState('indicatorError', i18next.t('Indicator is required'), 'data');
+            }
+        }
 
         if (!periodType) {
             return this.setErrorState('periodTypeError', i18next.t('Period type is required'), 'period');
-        } else if (!period) {
+        } else if (!getPeriodFromFilters(filters)) {
             return this.setErrorState('periodError', i18next.t('Period is required'), 'period');
         }
 
@@ -452,6 +469,7 @@ export default connect(
         setRadiusLow,
         setRadiusHigh,
         setUserOrgUnits,
+        setValueType,
         toggleOrganisationUnit,
         loadOrgUnitPath,
     },
