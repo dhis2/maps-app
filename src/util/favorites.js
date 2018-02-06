@@ -1,6 +1,7 @@
 import isNil from 'lodash/fp/isNil';
 import omitBy from 'lodash/fp/omitBy';
 import pick from 'lodash/fp/pick';
+import { generateUid } from 'd2/lib/uid';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -98,3 +99,44 @@ const cleanDimension = (dim) => ({
     ...dim,
     items: dim.items.map(item => pick(validModelProperties, item)),
 });
+
+// Translate from chart/pivot config to map config
+export const translateConfig = (config) => {
+    if (!config.mapViews) { // TODO: Best way to detect chart/pivot config
+        const {el, name } = config;
+        const dimensions = [
+          ...config.columns || [],
+          ...config.rows || [],
+          ...config.filters || [],
+        ];
+        const columns = [dimensions.find(dim => dim.dimension === 'dx')]; // Data item
+        const rows = [dimensions.find(dim => dim.dimension === 'ou')]; // Org units
+        const filters = [dimensions.find(dim => dim.dimension === 'pe')]; // Period
+
+        if (!columns.length || !rows.length || !filters.length) {
+            return {
+                el,
+                name,
+                alerts: [{
+                    title: name,
+                    description: i18next.t('Map could not be created'),
+                }]
+            }
+        }
+
+        return {
+            el,
+            name,
+            mapViews: [{
+                layer: 'thematic',
+                id: generateUid(),
+                name,
+                columns,
+                rows,
+                filters,
+            }]
+        }
+    }
+
+    return config;
+};

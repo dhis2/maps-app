@@ -341,7 +341,7 @@ export class ThematicDialog extends Component {
                                 // style={{ width: 354, margin: '4px 0 8px 12px' }}
                             />
                         }
-                        <div style={{ ...styles.flexFull, marginTop: -12, marginLeft: 12 }}>
+                        <div style={{ ...styles.flexFull, marginTop: -12, marginLeft: -12 }}>
                             <TextField
                                 type='number'
                                 label={i18next.t('Low size')}
@@ -357,7 +357,7 @@ export class ThematicDialog extends Component {
                                 style={{ width: 125 }}
                             />
                         </div>
-                        <div style={styles.wrapper}>
+                        <div style={{ ...styles.wrapper, marginLeft: -12 }}>
                             <Checkbox
                                 label={i18next.t('Show labels')}
                                 checked={labels}

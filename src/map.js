@@ -6,6 +6,7 @@ import PluginMap from './components/map/PluginMap';
 import { mapRequest } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { configI18n } from './util/i18n';
+import { translateConfig } from './util/favorites';
 import '../scss/plugin.scss';
 
 // Inspiration:
@@ -56,6 +57,9 @@ const Plugin = () => {
         }
 
         config.schemas = union(config.schemas, [
+            'dataElement',
+            'dataSet',
+            'indicator',
             'legendSet',
             'map',
             'optionSet',
@@ -79,22 +83,26 @@ const Plugin = () => {
     }
 
     function loadMap(config) {
-        if (config.id) {
+        if (config.id) { // Load favorite
             mapRequest(config.id)
                 .then(favorite => loadLayers({
                     ...config,
                     ...favorite,
                 }));
-        } else { // Load favorite
-            loadLayers(config);
+        } else {
+            loadLayers(translateConfig(config));
         }
     }
 
     function loadLayers(config) {
-        Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
-            ...config,
-            mapViews,
-        }));
+        if (config.mapViews) {
+            Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
+                ...config,
+                mapViews,
+            }));
+        } else {
+            console.log('Map contains no layers.');
+        }
     }
 
     function drawMap(config) {

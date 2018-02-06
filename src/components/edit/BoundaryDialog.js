@@ -25,6 +25,7 @@ import {
 } from '../../actions/layerEdit';
 
 import {
+    getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     getOrgUnitLevelsFromRows,
     getOrgUnitGroupsFromRows,

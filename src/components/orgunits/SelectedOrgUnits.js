@@ -2,9 +2,14 @@ import React from 'react';
 import i18next from 'i18next';
 import { getOrgUnitNodesFromRows, getUserOrgUnitsFromRows } from '../../util/analytics';
 
-const style = {
-    paddingTop: 24,
-    lineHeight: '22px',
+const styles = {
+    container: {
+        paddingTop: 24,
+        lineHeight: '22px',
+    },
+    error: {
+        color: 'red',
+    },
 };
 
 const levels = {
@@ -13,7 +18,7 @@ const levels = {
     'USER_ORGUNIT_GRANDCHILDREN': 'two levels below user organisation unit',
 };
 
-const SelectedOrgUnits = ({ units, rows }) => {
+const SelectedOrgUnits = ({ units, rows, error }) => {
     const orgUnits = getOrgUnitNodesFromRows(rows).map(ou => ou.displayName).sort();
     const userOrgUnits = getUserOrgUnitsFromRows(rows).sort().map(id => i18next.t(levels[id]));
 
@@ -30,11 +35,16 @@ const SelectedOrgUnits = ({ units, rows }) => {
     }
 
     return (
-        <div style={style}>
-            <strong>Selected organisation units</strong><br/>
-            {selected}
+        <div style={styles.container}>
+            {error && !orgUnits.length && !userOrgUnits.length ?
+                <div style={styles.error}>{error}</div>
+            :
+                <div>
+                    <strong>Selected organisation units</strong><br/>
+                    {selected}
+                </div>
+            }
         </div>
-
     );
 };
 

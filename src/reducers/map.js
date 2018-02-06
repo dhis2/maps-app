@@ -222,16 +222,14 @@ const map = (state = defaultState, action) => {
                 return state;
             }
 
-            // console.log('LAYER_ADD', action.payload.id);
-
             return {
                 ...state,
                 mapViews: [
+                    ...state.mapViews,
                     {
                         id: generateUid(),
                         ...action.payload,
                     },
-                    ...state.mapViews,
                 ],
             };
 
@@ -251,10 +249,13 @@ const map = (state = defaultState, action) => {
                 mapViews: state.mapViews.filter(layer => layer.id !== action.id)
             };
 
-        case types.LAYER_SORT:
+      case types.LAYER_SORT:
+            const mapViews = [...state.mapViews].reverse(); // TODO: Refactor
+            const sortedMapViews = arrayMove(mapViews, action.oldIndex, action.newIndex).reverse();
+
             return {
                 ...state,
-                mapViews: arrayMove(state.mapViews, action.oldIndex, action.newIndex)
+                mapViews: sortedMapViews,
             };
 
         case types.LAYER_LOAD:

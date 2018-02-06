@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <head>
     <title>DHIS2 Maps Plugin</title>
-    <script src="https://play.dhis2.org/dev/dhis-web-core-resource/react/16.1.1/umd/react.production.min.js"></script>
-    <script src="https://play.dhis2.org/dev/dhis-web-core-resource/react-dom/16.1.1/umd/react-dom.production.min.js"></script>
-    <script src="https://play.dhis2.org/dev/dhis-web-core-resource/babel-polyfill/6.20.0/dist/polyfill.min.js"></script>
-    <script src="https://play.dhis2.org/dev/dhis-web-maps/plugin.js"></script>
+    <script src="http://localhost:8080/dhis-web-core-resource/react/16.1.1/umd/react.development.js"></script>
+    <script src="http://localhost:8080/dhis-web-core-resource/react-dom/16.1.1/umd/react-dom.development.js"></script>
+    <script src="polyfill.min.js"></script>
+    <script src="map.js"></script>
     <style>
-        #map {
+        .map {
             width: 350px;
             height: 350px;
         }
@@ -14,15 +14,112 @@
 </head>
 <body>
     <div id="map" class="map"></div>
+    <div id="map2" class="map"></div>
     <script>
-        mapsPlugin.url = '//localhost:8080';
-        mapsPlugin.username = 'admin';
-        mapsPlugin.password = 'district';
+        mapPlugin.url = '//localhost:8080';
+        mapPlugin.username = 'admin';
+        mapPlugin.password = 'district';
 
-        mapsPlugin.load({
-            id: 'inePJWH75JW',
+        /*
+        mapPlugin.load({
+            id: 'JYba6vkp8tU',
             el: 'map',
         });
+        */
+
+        mapPlugin.load({
+          el: 'map',
+          "lastUpdated": "2018-02-02T10:46:17.063",
+          // "id": "bmbGtJv6dcR",
+          "created": "2014-04-03T14:05:10.234",
+          "name": "ANC: 1st and 3rd visit coverage by orgunit last year",
+          "publicAccess": "rw------",
+          "type": "BAR",
+          "cumulativeValues": false,
+          "sortOrder": 0,
+          "favorite": false,
+          "topLimit": 0,
+          "displayName": "ANC: 1st and 3rd visit coverage by orgunit last year",
+          "percentStackedValues": false,
+          "noSpaceBetweenColumns": false,
+          "hideTitle": false,
+          "series": "dx",
+          "showData": false,
+          "parentGraphMap": {},
+          "regressionType": "NONE",
+          "completedOnly": false,
+          "hideEmptyRowItems": "NONE",
+          "aggregationType": "DEFAULT",
+          "hideSubtitle": false,
+          "hideLegend": false,
+          "category": "ou",
+          "access": {
+          "read": true,
+            "update": true,
+            "externalize": true,
+            "delete": true,
+            "write": true,
+            "manage": true
+        },
+          "lastUpdatedBy": {
+          "id": "GOLswS44mh8"
+        },
+          "user": {
+          "displayName": "Tom Wakiki"
+        },
+          "dataElementGroupSetDimensions": [],
+          "attributeDimensions": [],
+          "translations": [],
+          "interpretations": [],
+          "userGroupAccesses": [],
+          "columns": [{
+          "dimension": "dx",
+          "items": [{
+            "id": "Uvn6LCg7dVU",
+            "name": "ANC 1 Coverage",
+            "dimensionItemType": "INDICATOR"
+          }, {
+            "id": "sB79w2hiLp8",
+            "name": "ANC 3 Coverage",
+            "dimensionItemType": "INDICATOR"
+          }]
+        }],
+          "dataElementDimensions": [],
+          "categoryDimensions": [],
+          "programIndicatorDimensions": [],
+          "attributeValues": [],
+          "userAccesses": [],
+          "favorites": [],
+          "dataDimensionItems": [{
+          "dataDimensionItemType": "INDICATOR",
+          "indicator": {
+            "id": "Uvn6LCg7dVU"
+          }
+        }, {
+          "dataDimensionItemType": "INDICATOR",
+          "indicator": {
+            "id": "sB79w2hiLp8"
+          }
+        }],
+          "categoryOptionGroupSetDimensions": [],
+          "organisationUnitGroupSetDimensions": [],
+          "filters": [{
+          "dimension": "pe",
+          "items": [{
+            "id": "THIS_YEAR",
+            "name": "THIS_YEAR",
+            "dimensionItemType": "PERIOD"
+          }]
+        }],
+          "rows": [{
+          "dimension": "ou",
+          "items": [{
+            "id": "USER_ORGUNIT"
+          }, {
+            "id": "USER_ORGUNIT_CHILDREN"
+          }]
+        }]
+      });
     </script>
 </body>
 </html>

@@ -7,12 +7,14 @@ import pick from 'lodash/fp/pick';
 import curry from 'lodash/fp/curry';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
-import { getLegendItems, getColorsByRgbInterpolation } from '../util/classify';
+import { getLegendItems } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
+import { loadDataItemLegendSet } from '../util/legend';
 import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemsFromColumns } from '../util/analytics';
+import { defaultColorScaleName, defaultClasses, defaultColorScale } from '../util/colorscale';
 
 const thematicLoader = async (config) => {
-    const { columns, legendSet, radiusLow, radiusHigh } = config;
+    const { columns, method, radiusLow, radiusHigh } = config;
     const [ features, data ] = await loadData(config);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(({ id }) => valueById[id] !== undefined);
@@ -21,14 +23,16 @@ const thematicLoader = async (config) => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemsFromColumns(columns)[0];
     const name = config.name || dataItem.name;
+    let legendSet = config.legendSet;
 
-    // console.log('legendSet', legendSet);
+    // Check if data item has legend set (needed is config is converted for chart/pivot layout)
+    if (!legendSet && !method) {
+        legendSet = await loadDataItemLegendSet(dataItem);
+    }
 
     const legend = legendSet ? await createLegendFromLegendSet(legendSet) : createLegendFromConfig(orderedValues, config);
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
     let alerts = [];
-
-    // onsole.log('legend.items', legend.items);
 
     legend.period = data.metaData.dimensions.pe[0];
 
@@ -102,19 +106,20 @@ const createLegendFromLegendSet = async (legendSet) => {
 };
 
 const createLegendFromConfig = (data, config) => {
-    const {name, method, classes, colorScale, colorLow, colorHigh} = config;
+    const {
+        name,
+        method = 2, // TODO: Make constant
+        classes = defaultClasses,
+        colorScale = defaultColorScale,
+    } = config;
     const items = getLegendItems(data, method, classes);
     let colors;
-
-    // console.log('createLegendFromConfig');
 
     // TODO: Unify how we represent a colorScale
     if (Array.isArray(colorScale)) {
         colors = colorScale;
     } else if (isString(colorScale)) {
         colors = colorScale.split(',');
-    } else {
-        colors = getColorsByRgbInterpolation(colorLow, colorHigh, classes);
     }
 
     return {

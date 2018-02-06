@@ -74,3 +74,11 @@ const upgradeGisAppLayers = (layers) => {
             layer: config.layer.replace(/\d$/, ''), // Remove thematic number used in previous versions
     }));
 };
+
+// https://davidwalsh.name/query-string-javascript
+export const getUrlParameter = (name) => {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};

@@ -1,6 +1,6 @@
 const datasets = {
     'USGS/SRTMGL1_003': {
-        title: 'Elevation',
+        name: 'Elevation',
         band: 'elevation',
         mask: true,
         legend: {
@@ -11,7 +11,7 @@ const datasets = {
         },
     },
     'WorldPop/POP': {
-        title: 'Population density',
+        name: 'Population density',
         aggregation: 'mosaic',
         mask: true,
         methods: {
@@ -30,7 +30,7 @@ const datasets = {
         },
     },
     'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': {
-        title: 'Nighttime lights',
+        name: 'Nighttime lights',
         band: 'stable_lights',
         mask: true,
         popup: '{name}: {value}',
@@ -42,7 +42,7 @@ const datasets = {
         },
     },
     'UCSB-CHG/CHIRPS/PENTAD': {
-        title: 'Precipitation',
+        name: 'Precipitation',
         band: 'precipitation',
         mask: true,
         value(value) {
@@ -56,7 +56,7 @@ const datasets = {
         },
     },
     'MODIS/MOD11A2': {
-        title: 'Temperature',
+        name: 'Temperature',
         band: 'LST_Day_1km',
         mask: true,
         methods: {
@@ -76,7 +76,7 @@ const datasets = {
         },
     },
     'MODIS/051/MCD12Q1': {
-        title: 'Landcover',
+        name: 'Landcover',
         band: 'Land_Cover_Type_1',
         params: {
             min: 0,
@@ -158,10 +158,9 @@ const earthEngineLoader = async (config) => { // Returns a promise
 
         dataset = datasets[layerConfig.id];
 
-        // console.log(dataset, layerConfig);
-
         if (dataset) {
             dataset.datasetId = layerConfig.id;
+            delete(layerConfig.id);
         }
 
         delete (config.config);
@@ -188,6 +187,8 @@ const earthEngineLoader = async (config) => { // Returns a promise
     };
 };
 
+// https://stackoverflow.com/questions/33289726/combination-of-async-function-await-settimeout
+const timeout = (ms) =>  new Promise(resolve => setTimeout(resolve, ms));
 
 // TODO: This function is currently duplicated from  GIS API
 export const createLegend = (params) => {

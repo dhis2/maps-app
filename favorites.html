@@ -50,12 +50,12 @@
     var favoritesUrl = `${url}/api/29/maps.json?fields=id,displayName~rename(name)&pageSize=5&page=6`; // &pageSize=1&page=24 Google map
     var fetchOptions = { headers: { Authorization: 'Basic ' + btoa(`${username}:${password}`) } };
 
-    mapsPlugin.url = url;
-    mapsPlugin.username = username;
-    mapsPlugin.password = password;
-    mapsPlugin.loadingIndicator = true;
+    mapPlugin.url = url;
+    mapPlugin.username = username;
+    mapPlugin.password = password;
+    mapPlugin.loadingIndicator = true;
 
-    mapsPlugin.load({
+    mapPlugin.load({
         id: 'inePJWH75JW',
         el: 'map1',
     });

@@ -67,7 +67,6 @@ class PluginMap extends Component {
             const { bounds, latitude, longitude, zoom } = this.props;
             const map = this.map;
 
-
             this.node.appendChild(map.getContainer()); // Append map container to DOM
 
             // Add zoom control

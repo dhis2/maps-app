@@ -105,11 +105,11 @@ class EarthEngineDialog extends Component {
     render() {
         const { datasetId, params, filter, setParams, setFilter } = this.props;
         const dataset = datasets[datasetId];
-        const { tab, steps } = this.state;
+        const { tab, steps, filterError } = this.state;
 
         return (
             <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
-                <Tab label={i18next.t('Style')}>
+                <Tab value='style' label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.flexColumn}>
                             <div style={{ ...styles.flexFull, marginTop: 16 }}>{dataset.description}</div>
@@ -119,7 +119,8 @@ class EarthEngineDialog extends Component {
                                     id={datasetId}
                                     filter={filter}
                                     onChange={setFilter}
-                                    style={styles.flexFull}
+                                    style={{ ...styles.flexFull, marginBottom: 12 }}
+                                    errorText={filterError}
                                 />
                             }
                             {params && [
@@ -186,7 +187,11 @@ class EarthEngineDialog extends Component {
     }
 
     validate() {
-        const {  } = this.props;
+        const { datasetId, filter } = this.props;
+
+        if (datasetId !== 'USGS/SRTMGL1_003' && !filter) {
+            return this.setErrorState('filterError', i18next.t('This field is required'), 'style');
+        }
 
         return true;
     }
