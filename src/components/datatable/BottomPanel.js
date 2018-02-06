@@ -45,12 +45,13 @@ class BottomPanel extends Component {
                     className='BottomPanel'
                     style={style}
                 >
-                    <SvgIcon
-                        icon='Cancel'
-                        className='BottomPanel-close'
-                        // onClick={closeDataTable} // TODO: Wrapp in IconButton cmp
-                        style={styles.closeIcon}
-                    />
+                    <span onClick={closeDataTable}>
+                        <SvgIcon
+                            icon='Cancel'
+                            className='BottomPanel-close'
+                            style={styles.closeIcon}
+                        />
+                    </span>
                     <ResizeHandle
                         maxHeight={maxHeight}
                         onResize={(height) => this.onResize(height)}
