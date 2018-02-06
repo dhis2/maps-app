@@ -83,6 +83,10 @@ const styles = {
         float: 'left',
         marginTop: -8,
     },
+    error: {
+        marginTop: 10,
+        color: 'red',
+    },
 };
 
 export class ThematicDialog extends Component {
@@ -170,8 +174,12 @@ export class ThematicDialog extends Component {
 
         const {
             tab,
+            orgUnitsError,
+            periodTypeError,
+            periodError,
         } = this.state;
 
+        const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const indicator = getIndicatorFromColumns(columns);
@@ -275,12 +283,14 @@ export class ThematicDialog extends Component {
                             value={periodType}
                             onChange={type => setPeriodType(type.id)}
                             style={styles.select}
+                            errorText={periodTypeError}
                         />
                         {periodType === 'relativePeriods' &&
                             <RelativePeriodSelect
                                 period={period}
                                 onChange={setPeriod}
                                 style={styles.select}
+                                errorText={periodError}
                             />
                         }
                         {periodType && periodType !== 'relativePeriods' &&
@@ -289,6 +299,7 @@ export class ThematicDialog extends Component {
                                 period={period}
                                 onChange={setPeriod}
                                 style={styles.select}
+                                errorText={periodError}
                             />
                         }
                     </div>
@@ -315,6 +326,9 @@ export class ThematicDialog extends Component {
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
+                            {!orgUnits.length && orgUnitsError &&
+                                <div style={styles.error}>{orgUnitsError}</div>
+                            }
                         </div>
                     </div>
                 </Tab>
@@ -395,20 +409,19 @@ export class ThematicDialog extends Component {
     }
 
     validate() {
-        const { rows } = this.props;
+        const { periodType, filters, rows } = this.props;
+        const period = getPeriodFromFilters(filters);
         const orgUnits = getOrgUnitsFromRows(rows);
 
-        // console.log('orgUnits', orgUnits);
-
-        /*
-        if (!program) {
-            return this.setErrorState('programError', i18next.t('Program is required'), 'data');
+        if (!periodType) {
+            return this.setErrorState('periodTypeError', i18next.t('Period type is required'), 'period');
+        } else if (!period) {
+            return this.setErrorState('periodError', i18next.t('Period is required'), 'period');
         }
 
-        if (!programStage) {
-            return this.setErrorState('programStageError', i18next.t('Program stage is required'), 'data');
+        if (!getOrgUnitsFromRows(rows).length) {
+            return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected'), 'orgunits');
         }
-        */
 
         return true;
     }

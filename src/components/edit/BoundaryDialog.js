@@ -55,6 +55,10 @@ const styles = {
         marginLeft: 12,
         width: 127,
     },
+    error: {
+        marginTop: 10,
+        color: 'red',
+    },
 };
 
 class BoundaryDialog extends Component {
@@ -85,8 +89,10 @@ class BoundaryDialog extends Component {
 
         const {
             tab,
+            orgUnitsError,
         } = this.state;
 
+        const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
@@ -119,6 +125,9 @@ class BoundaryDialog extends Component {
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
+                            {!orgUnits.length && orgUnitsError &&
+                                <div style={styles.error}>{orgUnitsError}</div>
+                            }
                         </div>
                     </div>
                 </Tab>
@@ -165,7 +174,11 @@ class BoundaryDialog extends Component {
     }
 
     validate() {
-        const {  } = this.props;
+        const { rows } = this.props;
+
+        if (!getOrgUnitsFromRows(rows).length) {
+            return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected'), 'orgunits');
+        }
 
         return true;
     }

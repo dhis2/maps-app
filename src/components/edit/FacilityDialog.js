@@ -220,7 +220,7 @@ class FacilityDialog extends Component {
         }
 
         if (!getOrgUnitsFromRows(rows).length) {
-          return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected.'), 'orgunits');
+          return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected'), 'orgunits');
         }
 
         return true;

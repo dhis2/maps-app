@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { render, unmountComponentAtNode } from 'react-dom';
 import union from 'lodash/fp/union';
 import { init, config, getUserSettings } from 'd2/lib/d2';
 import PluginMap from './components/map/PluginMap';
@@ -110,6 +110,9 @@ const Plugin = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
+                // unmountComponentAtNode(domEl);
+                console.log(unmountComponentAtNode(domEl) ? 'unmounted' : 'nothing to unmount');
+
                 render(<PluginMap {...config} />, domEl);
             }
         }

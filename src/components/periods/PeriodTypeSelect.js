@@ -5,7 +5,7 @@ import { periodTypes } from '../../constants/periods';
 
 let periods;
 
-const PeriodTypeSelect = (props) => {
+const PeriodTypeSelect = ({ value, onChange, style, errorText }) => {
 
     if (!periods) { // Translate period names
         periods = periodTypes.map(period => ({
@@ -18,7 +18,10 @@ const PeriodTypeSelect = (props) => {
         <SelectField
             label={i18next.t('Period type')}
             items={periods}
-            {...props}
+            value={value}
+            onChange={onChange}
+            style={style}
+            errorText={!value && errorText ? errorText : null}
         />
     );
 };

@@ -6,7 +6,8 @@ import { createPeriodGeneratorsForLocale } from 'd2/lib/period/generators'
 // TODO: Add locale for period generator
 const periodGenerator = createPeriodGeneratorsForLocale();
 
-const PeriodSelect = ({ periodType, period, onChange, style }) => {
+const PeriodSelect = ({ periodType, period, onChange, style, errorText }) => {
+    const value = period ? period.id : null;
     const generator = periodGenerator[`generate${periodType}PeriodsForYear`] || periodGenerator[`generate${periodType}PeriodsUpToYear`];
 
     if(!generator) {
@@ -19,9 +20,10 @@ const PeriodSelect = ({ periodType, period, onChange, style }) => {
         <SelectField
             label={i18next.t('Period')}
             items={periods}
-            value={period && period.id}
+            value={value}
             onChange={onChange}
             style={style}
+            errorText={!value && errorText ? errorText : null}
         />
     );
 };
