@@ -20,13 +20,18 @@
         mapPlugin.username = 'admin';
         mapPlugin.password = 'district';
 
-        /*
         mapPlugin.load({
             id: 'JYba6vkp8tU',
             el: 'map',
         });
-        */
 
+
+        setTimeout(function() {
+            console.log(mapPlugin.unmount('map'));
+        }, 5000);
+
+
+        /*
         mapPlugin.load({
           el: 'map',
           "lastUpdated": "2018-02-02T10:46:17.063",
@@ -120,6 +125,7 @@
           }]
         }]
       });
+      */
     </script>
 </body>
 </html>

@@ -17,6 +17,7 @@ const apiVersion = 29;
 
 const Plugin = () => {
     let _configs = [];
+    let _components = {};
     let _isReady = false;
     let _isPending = false;
 
@@ -24,7 +25,6 @@ const Plugin = () => {
         return 'MAP';
     }
 
-    // https://github.com/dhis2/d2-analysis/blob/master/src/util/Plugin.js#L20
     function add(...configs) {
         configs = Array.isArray(configs[0]) ? configs[0] : configs;
 
@@ -34,7 +34,6 @@ const Plugin = () => {
         }
     }
 
-    // https://github.com/dhis2/d2-analysis/blob/master/src/util/Plugin.js#L28
     function load(...configs) {
         add(Array.isArray(configs[0]) ? configs[0] : configs);
 
@@ -83,7 +82,7 @@ const Plugin = () => {
     }
 
     function loadMap(config) {
-        if (config.id) { // Load favorite
+        if (config.id && !isUnmounted(config.el)) { // Load favorite
             mapRequest(config.id)
                 .then(favorite => loadLayers({
                     ...config,
@@ -95,25 +94,21 @@ const Plugin = () => {
     }
 
     function loadLayers(config) {
-        if (config.mapViews) {
+        if (config.mapViews && !isUnmounted(config.el)) {
             Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
                 ...config,
                 mapViews,
             }));
-        } else {
-            console.log('Map contains no layers.');
         }
     }
 
     function drawMap(config) {
-        if (config.el) {
+        if (config.el && !isUnmounted(config.el)) {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                // unmountComponentAtNode(domEl);
-                console.log(unmountComponentAtNode(domEl) ? 'unmounted' : 'nothing to unmount');
-
                 render(<PluginMap {...config} />, domEl);
+                _components[config.el] = 'rendered';
             }
         }
     }
@@ -123,12 +118,38 @@ const Plugin = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                domEl.innerHTML = '';
+                domEl.innerHTML = ''; // TODO: Remove when unmount is used
                 const div = document.createElement('div');
                 div.className = 'spinner';
                 domEl.appendChild(div);
+                _components[config.el] = 'loading';
             }
         }
+    }
+
+    function unmount(el) {
+        const mapComponent = _components[el];
+
+        if (mapComponent) {
+            _components[el] = 'unmounted';
+
+            const domEl = document.getElementById(el);
+
+            if (domEl) {
+                if (mapComponent === 'loading') {
+                    domEl.innerHTML = ''; // Remove spinner
+                    return true;
+                } else if (mapComponent === 'rendered') {
+                    return unmountComponentAtNode(domEl);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    function isUnmounted(el) {
+        return el && _components[el] === 'unmounted';
     }
 
     return { // Public properties
@@ -136,9 +157,10 @@ const Plugin = () => {
         username: null,
         password: null,
         loadingIndicator: false,
+        getType,
         load,
         add,
-        getType,
+        unmount,
     };
 };
 
