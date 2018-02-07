@@ -10,20 +10,21 @@ import { dimConf } from '../constants/dimension';
 import { getLegendItems } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
 import { loadDataItemLegendSet } from '../util/legend';
-import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemsFromColumns } from '../util/analytics';
-import { defaultColorScaleName, defaultClasses, defaultColorScale } from '../util/colorscale';
+import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemFromColumns } from '../util/analytics';
+import { defaultClasses, defaultColorScale } from '../util/colorscale';
 
 const thematicLoader = async (config) => {
-    const { columns, method, radiusLow, radiusHigh } = config;
+    const { columns, radiusLow, radiusHigh } = config;
     const [ features, data ] = await loadData(config);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(({ id }) => valueById[id] !== undefined);
     const orderedValues = getOrderedValues(data);
     const minValue = orderedValues[0];
     const maxValue = orderedValues[orderedValues.length - 1];
-    const dataItem = getDataItemsFromColumns(columns)[0];
+    const dataItem = getDataItemFromColumns(columns);
     const name = config.name || dataItem.name;
     let legendSet = config.legendSet;
+    let method = legendSet ? 1 : config.method; // Favorites often have wrong method
 
     // Check if data item has legend set (needed is config is converted for chart/pivot layout)
     if (!legendSet && !method) {
@@ -60,6 +61,7 @@ const thematicLoader = async (config) => {
         data: valueFeatures,
         name,
         legend,
+        method,
         ...(alerts.length ? { alerts } : {}),
         isLoaded: true,
         isExpanded: true,
@@ -112,15 +114,9 @@ const createLegendFromConfig = (data, config) => {
         classes = defaultClasses,
         colorScale = defaultColorScale,
     } = config;
-    const items = getLegendItems(data, method, classes);
-    let colors;
 
-    // TODO: Unify how we represent a colorScale
-    if (Array.isArray(colorScale)) {
-        colors = colorScale;
-    } else if (isString(colorScale)) {
-        colors = colorScale.split(',');
-    }
+    const items = data.length ? getLegendItems(data, method, classes) : [];
+    const colors = colorScale.split(',');
 
     return {
         title: name,
@@ -136,16 +132,16 @@ const loadData = async (config) => {
     const { rows, columns, filters, displayProperty, userOrgUnit, valueType, relativePeriodDate, aggregationType } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
-    const dataItems = getDataItemsFromColumns(columns);
+    const dataItem = getDataItemFromColumns(columns);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
     const d2 = await getD2();
     const displayPropertyUpper = getDisplayProperty(d2, displayProperty).toUpperCase();
 
     let orgUnitParams = orgUnits.map(item => item.id);
-    let dataDimension = dataItems.map(item => isOperand ? item.id.split('.')[0] : item.id);
+    let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id;
 
     if (valueType === 'ds') {
-        dataDimension = dataDimension.map(id => id + '.REPORTING_RATE'); // TODO: Correct?
+        dataDimension += '.REPORTING_RATE';
     }
 
     let analyticsRequest = new d2.analytics.request()

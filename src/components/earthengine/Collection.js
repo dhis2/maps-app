@@ -49,7 +49,7 @@ export class CollectionSelect extends Component {
                 value={value}
                 onChange={period => onChange(collectionFilter(period.id))}
                 style={style}
-                errorText={!value && errorText}
+                errorText={!value && errorText ? errorText : null}
             />
         );
     }

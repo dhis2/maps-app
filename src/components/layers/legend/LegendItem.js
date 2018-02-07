@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './LegendItem.css';
 
 const LegendItem = ({ image, color, radius, name, startValue, endValue }) => {
-    if (!name && !startValue) {
+    if (!name && startValue === undefined) {
         return null;
     }
 

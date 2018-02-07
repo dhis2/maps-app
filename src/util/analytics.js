@@ -18,7 +18,8 @@ const getDimensionItems = (dimension, arr) => {
 
 /* DATA ITEMS */
 
-export const getDataItemsFromColumns = (columns = []) => getDimensionItems('dx', columns);
+// export const getDataItemsFromColumns = (columns = []) => getDimensionItems('dx', columns);
+export const getDataItemFromColumns = (columns = []) => getDimensionItems('dx', columns)[0];
 
 /* INDICATORS */
 
@@ -212,5 +213,5 @@ export const combineDataItems = (dataItemsA = [], dataItemsB = [], excludeTypes 
 
 // Some favorites have emtpy items in dx dimension
 export const removeEmptyItems = (items) => {
-    return items.filter((item) => item.items.length);
+    return items.filter((item) => !item.items || (item.items && item.items.length));
 };

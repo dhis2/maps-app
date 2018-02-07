@@ -8,13 +8,20 @@ const periodGenerator = createPeriodGeneratorsForLocale();
 
 const PeriodSelect = ({ periodType, period, onChange, style, errorText }) => {
     const value = period ? period.id : null;
-    const generator = periodGenerator[`generate${periodType}PeriodsForYear`] || periodGenerator[`generate${periodType}PeriodsUpToYear`];
+    let periods;
 
-    if(!generator) {
-        return null;
+    if (periodType) {
+        const generator = periodGenerator[`generate${periodType}PeriodsForYear`] || periodGenerator[`generate${periodType}PeriodsUpToYear`];
+        if (!generator) {
+            return null;
+        }
+        periods = generator().reverse();
+    } else {
+        if (!period) {
+            return null;
+        }
+        periods = [period]; // If favorite is loaded, we only know the used period
     }
-
-    const periods = generator().reverse();
 
     return (
         <SelectField

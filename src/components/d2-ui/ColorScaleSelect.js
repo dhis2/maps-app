@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import colorbrewer from 'd2-ui/lib/legend/colorbrewer';
+// import PropTypes from 'prop-types';
 import ColorScale from 'd2-ui/lib/legend/ColorScale.component';
 import Popover from 'material-ui/Popover/Popover';
 import { colorScales, getColorScale, getColorPalette } from '../../util/colorscale';
@@ -53,6 +52,7 @@ class ColorScaleSelect extends Component {
     onColorScaleSelect = (event, scale) => {
         const { palette, onChange } = this.props;
         const classes = palette.split(',').length;
+
         onChange(getColorPalette(scale, classes));
         this.hideColorScales();
     };

@@ -93,11 +93,12 @@ const eventLoader = async (config) => { // Returns a promise
                 if (styleByNumeric) {
                     const values = data.map(feature => Number(feature.properties.value)).sort((a, b) => a - b);
                     const bins = getClassBins(values, method, classes);
+                    const colors = colorScale ? colorScale.split(',') : [];
 
                     data.forEach(feature =>
-                        feature.properties.color = colorScale[getClass(Number(feature.properties.value), bins) - 1]
+                        feature.properties.color = colors[getClass(Number(feature.properties.value), bins) - 1]
                     );
-                    legend.items = getNumericLegendItems(bins, colorScale, eventPointRadius || EVENT_RADIUS);
+                    legend.items = getNumericLegendItems(bins, colors, eventPointRadius || EVENT_RADIUS);
                 } else if (styleByOptionSet) {
                     data.forEach(feature => {
                         feature.properties.color = styleDataItem.optionSet.options[feature.properties.value];

@@ -14,8 +14,6 @@ export const classify = (features, options) => {
            // console.log(feature.properties.value, getClassIndex(feature.properties.value), feature.properties.color);
        });
     }
-
-    console.log(bins);
 };
 
 // Returns class number
@@ -69,6 +67,7 @@ export const getEqualIntervals = (minValue, maxValue, numClasses) => {
     const bins = [];
     const binSize = (maxValue - minValue) / numClasses;
     const precision = precisionRound(binSize, maxValue);
+
     const valueFormat = format(`.${precision}f`);
 
     for (let i = 0; i < numClasses; i++) {

@@ -37,7 +37,7 @@ const classRange = range(3, 10).map(num => ({ id: num, name: num.toString() }));
 
 // TODO: Refactoring
 const Classification = ({method, classes, colorScale, setClassification, setColorScale, style }) => {
-    const colorScaleName = colorScale ? getColorScale(colorScale.join(',')) : defaultColorScaleName;
+    const colorScaleName = colorScale ? getColorScale(colorScale) : defaultColorScaleName;
 
     return (
         <div style={style}>
@@ -57,7 +57,7 @@ const Classification = ({method, classes, colorScale, setClassification, setColo
                     style={styles.classes}
                 />
                 <ColorScaleSelect
-                    palette={colorScale ? colorScale.join(',') : defaultColorScale.join(',')}
+                    palette={colorScale ? colorScale : defaultColorScale}
                     onChange={setColorScale}
                     style={styles.scale}
                 />

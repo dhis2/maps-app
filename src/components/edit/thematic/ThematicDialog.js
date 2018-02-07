@@ -28,6 +28,7 @@ import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import { layerDialogStyles } from '../LayerDialogStyles';
+import { dimConf } from '../../../constants/dimension';
 
 import {
     setClassification,
@@ -57,7 +58,7 @@ import {
 } from '../../../actions/layerEdit';
 
 import {
-    getIndicatorFromColumns,
+    getDataItemFromColumns,
     getOrgUnitsFromRows,
     getOrgUnitGroupsFromRows,
     getOrgUnitLevelsFromRows,
@@ -99,11 +100,22 @@ export class ThematicDialog extends Component {
         };
     }
 
+    componentDidMount() {
+        const { valueType, columns, setValueType } = this.props;
+        const dataItem = getDataItemFromColumns(columns);
+
+        // Set value type if favorite is loaded
+        if (!valueType && dataItem && dataItem.dimensionItemType) {
+            setValueType(dimConf[dataItem.dimensionItemType.toLowerCase()].objectName);
+        }
+    }
+
     componentDidUpdate(prevProps) {
         const {
             valueType,
             columns,
             rows,
+            method,
             setValueType,
             setClassification,
             setLegendSet,
@@ -116,16 +128,17 @@ export class ThematicDialog extends Component {
 
         // Set connected legend set when indicator is selected
         if (columns) {
-            const indicator = getIndicatorFromColumns(columns);
-            const prevIndicator = getIndicatorFromColumns(prevProps.columns);
+            const dataItem = getDataItemFromColumns(columns);
+            const prevDataItem = getDataItemFromColumns(prevProps.columns);
 
-            // If user selected indicator with legend set
-            if (indicator && indicator !== prevIndicator && indicator.legendSet) {
-                setClassification(1); // TODO: Use constant
-                setLegendSet(indicator.legendSet);
-            } else {
-                setClassification(2); // TODO: Use constant
-
+            if (!method) {
+                // If user selected indicator with legend set
+                if (dataItem && dataItem !== prevDataItem && dataItem.legendSet) {
+                    setClassification(1); // TODO: Use constant
+                    setLegendSet(dataItem.legendSet);
+                } else {
+                    setClassification(2); // TODO: Use constant
+                }
             }
         }
 
@@ -198,7 +211,10 @@ export class ThematicDialog extends Component {
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
-        const indicator = getIndicatorFromColumns(columns);
+        const dataItem = getDataItemFromColumns(columns);
+
+
+        // console.log('colorScale', colorScale);
 
         return (
             <Tabs
@@ -225,7 +241,7 @@ export class ThematicDialog extends Component {
                             <GroupIndicatorSelect
                                 key='indicator'
                                 indicatorGroup={indicatorGroup}
-                                indicator={getIndicatorFromColumns(columns)}
+                                indicator={dataItem}
                                 onChange={setIndicator}
                                 style={styles.select}
                                 errorText={indicatorError}
@@ -304,7 +320,7 @@ export class ThematicDialog extends Component {
                                 errorText={periodError}
                             />
                         }
-                        {periodType && periodType !== 'relativePeriods' &&
+                        {periodType !== 'relativePeriods' &&
                             <PeriodSelect
                                 periodType={periodType}
                                 period={period}
@@ -364,7 +380,6 @@ export class ThematicDialog extends Component {
                                 legendSet={legendSet}
                                 onChange={setLegendSet}
                                 style={{ ...styles.select, marginTop: 4 }}
-                                // style={{ width: 354, margin: '4px 0 8px 12px' }}
                             />
                         }
                         <div style={{ ...styles.flexFull, marginTop: -12, marginLeft: -12 }}>
@@ -422,18 +437,21 @@ export class ThematicDialog extends Component {
 
     validate() {
         const { valueType, indicatorGroup, periodType, columns, rows, filters } = this.props;
+        const dataItem = getDataItemFromColumns(columns);
+        const period = getPeriodFromFilters(filters);
+
 
         if (valueType === 'in') { // TODO: Use constant
-            if (!indicatorGroup) {
+            if (!indicatorGroup && !dataItem) {
                 return this.setErrorState('indicatorGroupError', i18next.t('Indicator group is required'), 'data');
-            } else if (!getIndicatorFromColumns(columns)) {
+            } else if (!dataItem) {
                 return this.setErrorState('indicatorError', i18next.t('Indicator is required'), 'data');
             }
         }
 
-        if (!periodType) {
+        if (!periodType && !period) {
             return this.setErrorState('periodTypeError', i18next.t('Period type is required'), 'period');
-        } else if (!getPeriodFromFilters(filters)) {
+        } else if (!period) {
             return this.setErrorState('periodError', i18next.t('Period is required'), 'period');
         }
 
@@ -478,4 +496,3 @@ export default connect(
         withRef: true,
     }
 )(ThematicDialog);
-

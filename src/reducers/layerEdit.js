@@ -204,6 +204,8 @@ const layerEdit = (state = null, action) => {
                 delete newState.styleDataItem.optionSet;
             }
 
+            // console.log(action.method, newState);
+
             return newState;
 
 
@@ -211,7 +213,7 @@ const layerEdit = (state = null, action) => {
             newState = {
                 ...state,
                 colorScale: action.colorScale,
-                classes: action.colorScale.length,
+                classes: action.colorScale.split(',').length,
                 method: state.method || 2, // TODO: Make constant
             };
 

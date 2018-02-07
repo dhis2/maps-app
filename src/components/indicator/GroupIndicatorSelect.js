@@ -24,11 +24,16 @@ export class GroupIndicatorSelect extends Component {
             errorText,
         } = this.props;
 
-        if (!indicatorGroup) {
-            return null;
-        }
+        let items;
 
-        const items = indicators[indicatorGroup.id];
+        if (indicatorGroup) {
+            items = indicators[indicatorGroup.id];
+        } else {
+            if (!indicator) {
+                return null;
+            }
+            items = [indicator]; // If favorite is loaded, we only know the used indicator
+        }
 
         return (
             <SelectField

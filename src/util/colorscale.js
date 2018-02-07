@@ -37,7 +37,7 @@ export const colorScales = [
 
 // Returns a color brewer scale for a number of classes
 export const getColorPalette = (scale, classes) => {
-    return colorbrewer[scale][classes];
+    return colorbrewer[scale][classes].join(',');
 };
 
 // Returns color scale name for a palette
