@@ -18,7 +18,7 @@ const defaultLayers = [{
     opacity: 0.8,
 },{
     layer: 'boundary',
-    name: 'Boundaries',
+    type: 'Boundaries',
     img: 'images/boundaries.png',
     opacity: 1,
 },{
