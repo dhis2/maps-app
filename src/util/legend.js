@@ -55,9 +55,9 @@ export const getLabelsFromLegendItems = (legendItems) => {
 export const getNumericLegendItems = (bins, colors, radius) => {
     const items = [];
 
-    for (let i = 0, item; i < bins.length - 1; i++) {
+    for (let i = 0; i < bins.length; i++) {
         items.push({
-            name: `${bins[i]} - ${bins[i + 1]}`,
+            ...bins[i],
             color: colors[i],
             radius,
         });

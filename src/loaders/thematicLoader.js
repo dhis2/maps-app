@@ -7,7 +7,7 @@ import pick from 'lodash/fp/pick';
 import curry from 'lodash/fp/curry';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
-import { getLegendItems } from '../util/classify';
+import { getLegendItems, getLegendItemForValue } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
 import { loadDataItemLegendSet } from '../util/legend';
 import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemFromColumns } from '../util/analytics';
@@ -67,13 +67,6 @@ const thematicLoader = async (config) => {
         isExpanded: true,
         isVisible: true,
     };
-};
-
-// Returns legend item where a value belongs
-const getLegendItemForValue = (legendItems, value) => {
-    const isLast = (index) => index === legendItems.length - 1;
-    return legendItems.find((item, index) =>
-        value >= item.startValue && (value < item.endValue || (isLast(index) && value === item.endValue)));
 };
 
 // Returns an object mapping org. units and values

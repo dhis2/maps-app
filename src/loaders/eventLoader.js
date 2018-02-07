@@ -1,9 +1,10 @@
 import i18next from 'i18next';
 import { getInstance as getD2 } from 'd2/lib/d2';
+import curry from 'lodash/fp/curry';
 import isString from 'lodash/fp/isString';
 import isEmpty from 'lodash/fp/isEmpty';
 import { isValidCoordinate } from '../util/map';
-import { getClassBins, getClass } from '../util/classify';
+import { getClassBins, getLegendItemForValue } from '../util/classify';
 import { getNumericLegendItems, getCategoryLegendItems } from '../util/legend';
 import {
     getOrgUnitsFromRows,
@@ -15,6 +16,7 @@ import {
 } from '../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { timeFormat } from 'd3-time-format';
+import { defaultClasses, defaultColorScale } from '../util/colorscale';
 
 // Look at: https://github.com/dhis2/maintenance-app/blob/master/src/App/appStateStore.js
 
@@ -22,8 +24,8 @@ const formatTime = (date) => timeFormat('%Y-%m-%d')(new Date(date));
 
 const eventLoader = async (config) => { // Returns a promise
     const {
-        classes,
-        colorScale,
+        classes = defaultClasses,
+        colorScale = defaultColorScale,
         columns,
         endDate,
         eventClustering,
@@ -31,7 +33,7 @@ const eventLoader = async (config) => { // Returns a promise
         eventPointColor,
         eventPointRadius,
         filters,
-        method,
+        method = 2,
         program,
         programStage,
         rows,
@@ -81,7 +83,7 @@ const eventLoader = async (config) => { // Returns a promise
             .map(row => createEventFeature(response.headers, names, row, eventCoordinateField))
             .filter(feature => isValidCoordinate(feature.geometry.coordinates));
 
-        const styleByNumeric = method && classes && colorScale;
+        const styleByNumeric = styleDataItem && styleDataItem.valueType === 'INTEGER';
         const styleByOptionSet = styleDataItem && styleDataItem.optionSet && styleDataItem.optionSet.options;
 
         if (Array.isArray(data) && data.length) {
@@ -94,11 +96,12 @@ const eventLoader = async (config) => { // Returns a promise
                     const values = data.map(feature => Number(feature.properties.value)).sort((a, b) => a - b);
                     const bins = getClassBins(values, method, classes);
                     const colors = colorScale ? colorScale.split(',') : [];
-
-                    data.forEach(feature =>
-                        feature.properties.color = colors[getClass(Number(feature.properties.value), bins) - 1]
-                    );
                     legend.items = getNumericLegendItems(bins, colors, eventPointRadius || EVENT_RADIUS);
+
+                    const getLegendItem = curry(getLegendItemForValue)(legend.items);
+
+                    data.forEach(feature => feature.properties.color = getLegendItem(45).color);
+
                 } else if (styleByOptionSet) {
                     data.forEach(feature => {
                         feature.properties.color = styleDataItem.optionSet.options[feature.properties.value];

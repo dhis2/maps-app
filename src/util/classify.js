@@ -16,22 +16,11 @@ export const classify = (features, options) => {
     }
 };
 
-// Returns class number
-export const getClass = (value, bins) => {
-    if (value >= bins[0]) {
-        for (let i = 1; i < bins.length; i++) {
-            if (value < bins[i]) {
-                return i;
-            }
-        }
-
-        // If value is the highest number, use the last bin index
-        if (value === bins[bins.length - 1]) {
-            return bins.length - 1;
-        }
-    }
-
-    return null;
+// Returns legend item where a value belongs
+export const getLegendItemForValue = (legendItems, value) => {
+    const isLast = (index) => index === legendItems.length - 1;
+    return legendItems.find((item, index) =>
+    value >= item.startValue && (value < item.endValue || (isLast(index) && value === item.endValue)));
 };
 
 export const getLegendItems = (values, method, numClasses) => {
