@@ -34,6 +34,7 @@ export const loadProgramStages = (action$) =>
                 .catch(errorActionCreator(types.PROGRAM_STAGES_LOAD_ERROR))
         );
 
+
 // Load program indicators
 export const loadProgramIndicators = (action$) =>
     action$
@@ -62,6 +63,24 @@ export const loadProgramTrackedEntityAttributes = (action$) =>
                 .catch(errorActionCreator(types.PROGRAM_ATTRIBUTES_LOAD_ERROR))
         );
 
+// Load program data elements - TODO
+export const loadProgramDataElements = (action$) =>
+    action$
+        .ofType(types.PROGRAM_DATA_ELEMENTS_LOAD)
+        .concatMap((action) =>
+            getD2()
+                .then(d2 => d2.models.programDataElement.list({
+                    program: action.programId,
+                    fields: `dimensionItem~rename(id),${getDisplayPropertyUrl(d2)}`,
+                    paging: false,
+                    valueTypePaging: false, // TODO: copied from LayerWidgetThemaic.js
+                }))
+                .then(console.log)
+                // .then(programStage => programStage.programStageDataElements.map(d => d.dataElement))
+                // .then(dataElements => setProgramStageDataElements(action.programStageId, dataElements))
+                .catch(errorActionCreator(types.PROGRAM_DATA_ELEMENTS_LOAD_ERROR))
+        );
+
 // Load program stage data elements
 export const loadProgramStageDataElements = (action$) =>
     action$
@@ -77,4 +96,4 @@ export const loadProgramStageDataElements = (action$) =>
                 .catch(errorActionCreator(types.PROGRAM_STAGE_DATA_ELEMENTS_LOAD_ERROR))
         );
 
-export default combineEpics(loadPrograms, loadProgramStages, loadProgramIndicators, loadProgramTrackedEntityAttributes, loadProgramStageDataElements);
+export default combineEpics(loadPrograms, loadProgramStages, loadProgramIndicators, loadProgramTrackedEntityAttributes, loadProgramDataElements, loadProgramStageDataElements);

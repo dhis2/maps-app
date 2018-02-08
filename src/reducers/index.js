@@ -22,6 +22,7 @@ import orgUnitGroups from './orgUnitGroups';
 import orgUnitGroupSets from './orgUnitGroupSets';
 import orgUnitLevels from './orgUnitLevels';
 import programs from './programs';
+import programDataElements from './programDataElements';
 import programIndicators from './programIndicators';
 import programStages from './programStages';
 import programStageDataElements from './programStageDataElements';
@@ -54,6 +55,7 @@ export default combineReducers({
     orgUnitGroups,
     orgUnitLevels,
     programs,
+    programDataElements,
     programIndicators,
     programStages,
     programStageDataElements,

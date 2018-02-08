@@ -14,7 +14,15 @@ export class ProgramIndicatorSelect extends Component {
         style: PropTypes.object,
     };
 
+    componentDidMount() {
+        this.loadProgramIndicators();
+    }
+
     componentDidUpdate() {
+        this.loadProgramIndicators();
+    }
+
+    loadProgramIndicators() {
         const { program, programIndicator, programIndicators, onChange, loadProgramIndicators } = this.props;
 
         if (program) {
@@ -25,7 +33,7 @@ export class ProgramIndicatorSelect extends Component {
                 loadProgramIndicators(program.id);
             }
 
-            // Select first program stage if only one
+            // Select first program indicator if only one
             if (program && !programIndicator && indicators && indicators.length === 1) {
                 onChange(indicators[0]);
             }
@@ -43,7 +51,7 @@ export class ProgramIndicatorSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Event data item')}
+                label={i18next.t('Program indicator')}
                 loading={items ? false : true}
                 items={items}
                 value={programIndicator? programIndicator.id : null}

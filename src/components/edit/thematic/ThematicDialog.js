@@ -13,7 +13,7 @@ import DataElementGroupSelect  from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect  from '../../dataElement/DataElementSelect';
 import DataElementOperandSelect  from '../../dataElement/DataElementOperandSelect';
 import TotalsDetailsSelect  from '../../dataElement/TotalsDetailsSelect';
-import DataItemSelect from '../../dataItem/DataItemSelect';
+import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect';
 import FontStyle from '../../d2-ui/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
@@ -67,8 +67,8 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitNodesFromRows,
     getPeriodFromFilters,
-    getProgramIndicatorFromColumns,
-    getReportingRateFromColumns,
+    // getProgramIndicatorFromColumns,
+    // getReportingRateFromColumns,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
 
@@ -140,7 +140,7 @@ export class ThematicDialog extends Component {
                     setClassification(1); // TODO: Use constant
                     setLegendSet(dataItem.legendSet);
                 } else {
-                    setClassification(2); // TODO: Use constant
+                    // setClassification(2); // TODO: Use constant
                 }
             }
         }
@@ -218,6 +218,8 @@ export class ThematicDialog extends Component {
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
 
+        // console.log('valueType', valueType);
+
         return (
             <Tabs
                 style={styles.tabs}
@@ -249,21 +251,6 @@ export class ThematicDialog extends Component {
                                 errorText={indicatorError}
                             />
                         ]}
-                        {valueType === 'pi' && [ // Program indicator
-                            <ProgramSelect
-                                key='program'
-                                program={program}
-                                onChange={setProgram}
-                                style={styles.select}
-                            />,
-                            <ProgramIndicatorSelect
-                                key='indicator'
-                                program={program}
-                                programIndicator={getProgramIndicatorFromColumns(columns)}
-                                onChange={setProgramIndicator}
-                                style={styles.select}
-                            />
-                        ]}
                         {valueType === 'de' && [ // Data element
                             <DataElementGroupSelect
                                 key='group'
@@ -280,24 +267,32 @@ export class ThematicDialog extends Component {
                                 />
                             ),
                             (operand === true ?
-                                <DataElementOperandSelect
-                                    key='element'
-                                    dataElementGroup={dataElementGroup}
-                                    dataElement={dataItem}
-                                    onChange={setDataElement}
-                                    style={styles.select}
-                                />
-                            :
-                                <DataElementSelect
-                                    key='element'
-                                    dataElementGroup={dataElementGroup}
-                                    dataElement={dataItem}
-                                    onChange={setDataElement}
-                                    style={styles.select}
-                                />
+                                    <DataElementOperandSelect
+                                        key='element'
+                                        dataElementGroup={dataElementGroup}
+                                        dataElement={dataItem}
+                                        onChange={setDataElement}
+                                        style={styles.select}
+                                    />
+                                    :
+                                    <DataElementSelect
+                                        key='element'
+                                        dataElementGroup={dataElementGroup}
+                                        dataElement={dataItem}
+                                        onChange={setDataElement}
+                                        style={styles.select}
+                                    />
                             ),
 
                         ]}
+                        {valueType === 'ds' && ( // Reporting rates
+                            <DataSetsSelect
+                                key='item'
+                                dataSet={dataItem}
+                                onChange={setDataSetItem}
+                                style={styles.select}
+                            />
+                        )}
                         {valueType === 'di' && [ // Event data items
                             <ProgramSelect
                                 key='program'
@@ -305,22 +300,32 @@ export class ThematicDialog extends Component {
                                 onChange={setProgram}
                                 style={styles.select}
                             />,
-                            <DataItemSelect
-                                key='item'
-                                program={program}
-                                // value={styleDataItem ? styleDataItem.id : null}
-                                onChange={console.log}
-                                style={styles.select}
-                            />
+                            (program &&
+                                <EventDataItemSelect
+                                    key='item'
+                                    program={program}
+                                    onChange={console.log}
+                                    style={styles.select}
+                                />
+                            ),
                         ]}
-                        {valueType === 'ds' && ( // Reporting rates
-                            <DataSetsSelect
-                                key='item'
-                                dataSet={getReportingRateFromColumns(columns)}
-                                onChange={setDataSetItem}
+                        {valueType === 'pi' && [ // Program indicator
+                            <ProgramSelect
+                                key='program'
+                                program={program}
+                                onChange={setProgram}
                                 style={styles.select}
-                            />
-                        )}
+                            />,
+                            (program &&
+                                <ProgramIndicatorSelect
+                                    key='indicator'
+                                    program={program}
+                                    programIndicator={dataItem}
+                                    onChange={setProgramIndicator}
+                                    style={styles.select}
+                                />
+                            ),
+                        ]}
                         <AggregationTypeSelect
                             style={styles.select}
                         />
