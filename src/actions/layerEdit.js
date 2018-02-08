@@ -47,6 +47,12 @@ export const setDataElement = (dataElement) => ({
     dataElement,
 });
 
+// Set data element operand (operand = true = details, operand = false = totals)
+export const setOperand = (operand) => ({
+    type: types.LAYER_EDIT_OPERAND_SET,
+    operand,
+});
+
 // Set data element used for styling (event)
 export const setStyleDataItem = (dataItem) => ({
     type: types.LAYER_EDIT_STYLE_DATA_ITEM_SET,
@@ -136,9 +142,9 @@ export const setValueType = (valueType) => ({
 });
 
 // Set indicator group (thematic)
-export const setIndicatorGroup = (groupId) => ({
+export const setIndicatorGroup = (indicatorGroup) => ({
     type: types.LAYER_EDIT_INDICATOR_GROUP_SET,
-    groupId,
+    indicatorGroup,
 });
 
 // Set indicator (thematic)

@@ -1,6 +1,7 @@
 import omit from 'lodash/fp/omit';
 import * as types from '../constants/actionTypes';
 import {
+    setDataElementInColumns,
     setFiltersFromPeriod,
     setIndicatorInColumns,
     setProgramIndicatorInColumns,
@@ -50,12 +51,17 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 valueType: action.valueType,
+                columns: [],
             };
 
         case types.LAYER_EDIT_INDICATOR_GROUP_SET:
             return {
                 ...state,
-                indicatorGroup: action.groupId,
+                indicatorGroup: {
+                    id: action.indicatorGroup.id,
+                    name: action.indicatorGroup.name,
+                },
+                columns: [],
             };
 
         case types.LAYER_EDIT_INDICATOR_SET:
@@ -77,12 +83,21 @@ const layerEdit = (state = null, action) => {
                     id: action.dataElementGroup.id,
                     name: action.dataElementGroup.name,
                 },
+                columns: [],
+            };
+
+        case types.LAYER_EDIT_OPERAND_SET:
+            return {
+                ...state,
+                operand: action.operand,
+                columns: [],
             };
 
         case types.LAYER_EDIT_DATA_ELEMENT_SET:
-            console.log('LAYER_EDIT_DATA_ELEMENT_SET');
-
-            return state;
+            return {
+                ...state,
+                columns: setDataElementInColumns(action.dataElement),
+            };
 
         case types.LAYER_EDIT_DATA_SET_ITEM_SET:
             return {

@@ -22,12 +22,13 @@ const getDimensionItems = (dimension, arr) => {
 export const getDataItemFromColumns = (columns = []) => getDimensionItems('dx', columns)[0];
 
 /* INDICATORS */
-
+/*
 export const getIndicatorFromColumns = (columns = []) => {
     // const indicator = columns.filter(item => item.objectName === 'in')[0];
     const indicator = columns.filter(item => item.dimension === 'dx')[0];
     return (indicator && indicator.items) ? indicator.items[0] : null;
 };
+*/
 
 export const setIndicatorInColumns = (indicator) => [
     createDimension('dx', [{
@@ -36,6 +37,16 @@ export const setIndicatorInColumns = (indicator) => [
         dimensionItemType: 'INDICATOR',
         legendSet: indicator.legendSet, // TODO: Keep outside of columns?
     }], { objectName: 'in' })
+];
+
+/* DATA ELEMENTS */
+
+export const setDataElementInColumns = (dataElement) => [
+    createDimension('dx', [{
+        id: dataElement.id,
+        name: dataElement.name,
+        dimensionItemType: 'DATA_ELEMENT',
+    }], { objectName: 'de' })
 ];
 
 /* PROGRAM INDICATORS */

@@ -175,6 +175,7 @@ export const LAYER_EDIT_LEGEND_SET_SET = 'LAYER_EDIT_LEGEND_SET_SET';
 export const LAYER_EDIT_ORGANISATION_UNIT_PATH_SET = 'LAYER_EDIT_ORGANISATION_UNIT_PATH_SET'; // Load organisation unit tree path (temporary solution, as favorites don't include paths)
 export const LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD = 'LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD'; // Load organisation unit tree path (temporary solution, as favorites don't include paths)
 export const LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD_ERROR = 'LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD_ERROR'; // Load organisation unit tree path (temporary solution, as favorites don't include paths)
+export const LAYER_EDIT_OPERAND_SET = 'OPERAND_SET'; // Data element operands (details)
 
 /* PERIODS */
 export const RELATIVE_PERIODS_SET = 'RELATIVE_PERIODS_SET';
@@ -195,6 +196,9 @@ export const DATA_ELEMENT_GROUPS_LOAD_ERROR = 'DATA_ELEMENT_GROUPS_LOAD_ERROR';
 export const DATA_ELEMENTS_SET = 'DATA_ELEMENTS_SET';
 export const DATA_ELEMENTS_LOAD = 'DATA_ELEMENTS_LOAD';
 export const DATA_ELEMENTS_LOAD_ERROR = 'DATA_ELEMENTS_LOAD_ERROR';
+export const DATA_ELEMENT_OPERANDS_SET = 'DATA_ELEMENT_OPERANDS_SET';
+export const DATA_ELEMENT_OPERANDS_LOAD = 'DATA_ELEMENT_OPERANDS_LOAD';
+export const DATA_ELEMENT_OPERANDS_LOAD_ERROR = 'DATA_ELEMENT_OPERANDS_LOAD_ERROR';
 
 /* DATA SETS */
 export const DATA_SETS_SET = 'DATA_SETS_SET';

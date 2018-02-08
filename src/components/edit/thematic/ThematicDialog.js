@@ -11,6 +11,8 @@ import Checkbox from '../../d2-ui/Checkbox';
 import Classification from '../../style/Classification';
 import DataElementGroupSelect  from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect  from '../../dataElement/DataElementSelect';
+import DataElementOperandSelect  from '../../dataElement/DataElementOperandSelect';
+import TotalsDetailsSelect  from '../../dataElement/TotalsDetailsSelect';
 import DataItemSelect from '../../dataItem/DataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect';
 import FontStyle from '../../d2-ui/FontStyle';
@@ -43,6 +45,7 @@ import {
     setLabelFontWeight,
     setLabelFontStyle,
     setLegendSet,
+    setOperand,
     setOrgUnitLevels,
     setOrgUnitGroups,
     setPeriod,
@@ -165,6 +168,7 @@ export class ThematicDialog extends Component {
             labelFontWeight,
             legendSet,
             method,
+            operand,
             periodType,
             program,
             radiusHigh,
@@ -186,6 +190,7 @@ export class ThematicDialog extends Component {
             setLabelFontWeight,
             setLabelFontStyle,
             setLegendSet,
+            setOperand,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setPeriod,
@@ -212,9 +217,6 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
-
-
-        // console.log('colorScale', colorScale);
 
         return (
             <Tabs
@@ -269,12 +271,32 @@ export class ThematicDialog extends Component {
                                 onChange={setDataElementGroup}
                                 style={styles.select}
                             />,
-                            <DataElementSelect
-                                key='element'
-                                dataElementGroup={dataElementGroup}
-                                onChange={setDataElement}
-                                style={styles.select}
-                            />,
+                            (dataElementGroup &&
+                                <TotalsDetailsSelect
+                                    key='totals'
+                                    operand={operand}
+                                    onChange={setOperand}
+                                    style={styles.select}
+                                />
+                            ),
+                            (operand === true ?
+                                <DataElementOperandSelect
+                                    key='element'
+                                    dataElementGroup={dataElementGroup}
+                                    dataElement={dataItem}
+                                    onChange={setDataElement}
+                                    style={styles.select}
+                                />
+                            :
+                                <DataElementSelect
+                                    key='element'
+                                    dataElementGroup={dataElementGroup}
+                                    dataElement={dataItem}
+                                    onChange={setDataElement}
+                                    style={styles.select}
+                                />
+                            ),
+
                         ]}
                         {valueType === 'di' && [ // Event data items
                             <ProgramSelect
@@ -478,6 +500,7 @@ export default connect(
         setLabelFontWeight,
         setLabelFontStyle,
         setLegendSet,
+        setOperand,
         setOrgUnitLevels,
         setOrgUnitGroups,
         setPeriod,

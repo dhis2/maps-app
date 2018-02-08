@@ -3,6 +3,7 @@ import basemaps from './basemaps';
 import contextMenu from './contextMenu';
 import dataElements from './dataElements';
 import dataElementGroups from './dataElementGroups';
+import dataElementOperands from './dataElementOperands';
 import dataSets from './dataSets';
 import dataTable from './dataTable';
 import earthEngine from './earthEngine';
@@ -34,6 +35,7 @@ export default combineReducers({
     contextMenu,
     dataElements,
     dataElementGroups,
+    dataElementOperands,
     dataSets,
     dataTable,
     earthEngine,

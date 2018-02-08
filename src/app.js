@@ -32,6 +32,7 @@ getManifest('manifest.webapp')
         config.schemas = [
             'dataElement',
             'dataElementGroup',
+            'dataElementOperand',
             'dataSet',
             'externalMapLayer',
             'indicator',
