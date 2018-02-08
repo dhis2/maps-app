@@ -107,8 +107,7 @@ const Plugin = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                render(<PluginMap {...config} />, domEl);
-                _components[config.el] = 'rendered';
+                _components[config.el] = render(<PluginMap {...config} />, domEl);
             }
         }
     }
@@ -139,7 +138,7 @@ const Plugin = () => {
                 if (mapComponent === 'loading') {
                     domEl.innerHTML = ''; // Remove spinner
                     return true;
-                } else if (mapComponent === 'rendered') {
+                } else if (mapComponent instanceof PluginMap) {
                     return unmountComponentAtNode(domEl);
                 }
             }
@@ -152,6 +151,18 @@ const Plugin = () => {
         return el && _components[el] === 'unmounted';
     }
 
+    // Should be called if the map container is resized
+    function resize(el) {
+        const mapComponent = _components[el];
+
+        if (mapComponent && mapComponent instanceof PluginMap && mapComponent.map) {
+            mapComponent.map.invalidateSize();
+            return true;
+        }
+
+        return false;
+    }
+
     return { // Public properties
         url: null,
         username: null,
@@ -161,6 +172,7 @@ const Plugin = () => {
         load,
         add,
         unmount,
+        resize,
     };
 };
 
