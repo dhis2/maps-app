@@ -68,12 +68,14 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 columns: setIndicatorInColumns(action.indicator),
+                name: null,
             };
 
         case types.LAYER_EDIT_PROGRAM_INDICATOR_SET:
             return {
                 ...state,
                 columns: setProgramIndicatorInColumns(action.programIndicator),
+                name: null,
             };
 
         case types.LAYER_EDIT_DATA_ELEMENT_GROUP_SET:
@@ -97,12 +99,14 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 columns: setDataElementInColumns(action.dataElement),
+                name: null,
             };
 
         case types.LAYER_EDIT_DATA_SET_ITEM_SET:
             return {
                 ...state,
                 columns: setReportingRateInColumns(action.dataSetItem),
+                name: null,
             };
 
         case types.LAYER_EDIT_PERIOD_TYPE_SET:

@@ -67,7 +67,7 @@ const AppHeader = ({ name, contextPath }) => (
         <div style={{ ...styles.title, ...(!name ? styles.noFavorite : {}) }}>
             {name ? <span><SvgIcon icon='Star' style={styles.star} />{name}</span> : i18next.t('No favorite selected')}
             <IconButton
-                onClick={() => window.location.href = `${contextPath}/dhis-web-commons-about/redirect.action`}
+                onClick={() => window.location.href = `/dhis-web-commons-about/redirect.action`}
                 style={styles.homeBtn} iconStyle={styles.homeIcon}>
                 <HomeIcon />
             </IconButton>
