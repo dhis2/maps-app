@@ -20,6 +20,6 @@ export const fetchLayer = (config) => {
     if (Loader) {
         return Loader(config);
     } else {
-        reject('Unknown layer type.'); // TODO
+        console.log('Unknown layer type', config.layer, config);
     }
 };
