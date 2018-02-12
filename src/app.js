@@ -62,8 +62,6 @@ getManifest('manifest.webapp')
             return;
         }
 
-        store.dispatch(loadExternalLayers()); // TODO: Testing only
-
         const mapId = getUrlParameter('id');
         if (mapId) {
             store.dispatch(loadFavorite(mapId));
