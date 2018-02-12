@@ -7,7 +7,7 @@ class FacilityLayer extends Layer {
     createLayer(callback) {
         const props = this.props;
         const map = this.context.map;
-
+        
         // Create layer config object
         const config = {
             type: 'markers',

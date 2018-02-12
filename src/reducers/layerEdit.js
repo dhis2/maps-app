@@ -353,7 +353,7 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_AREA_RADIUS_SET:
             return {
                 ...state,
-                areaRadius: action.radius,
+                areaRadius: parseInt(action.radius, 10),
             };
 
         case types.LAYER_EDIT_RADIUS_LOW_SET:
