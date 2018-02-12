@@ -35,10 +35,11 @@ export const relativePeriods = [
     {id: 'THIS_SIX_MONTH', name: 'This six-month'},
     {id: 'LAST_SIX_MONTH', name: 'Last six-month'},
     {id: 'LAST_2_SIX_MONTHS', name: 'Last 2 six-months'},
-    {id: 'THIS_FINANCIAL_YEAR', name: 'This financial year'},
-    {id: 'LAST_FINANCIAL_YEAR', name: 'Last financial year'},
-    {id: 'LAST_5_FINANCIAL_YEARS', name: 'Last 5 financial years'},
     {id: 'THIS_YEAR', name: 'This year'},
     {id: 'LAST_YEAR', name: 'Last year'},
     {id: 'LAST_5_YEARS', name: 'Last 5 years'},
+    {id: 'THIS_FINANCIAL_YEAR', name: 'This financial year'},
+    {id: 'LAST_FINANCIAL_YEAR', name: 'Last financial year'},
+    {id: 'LAST_5_FINANCIAL_YEARS', name: 'Last 5 financial years'},
+
 ];

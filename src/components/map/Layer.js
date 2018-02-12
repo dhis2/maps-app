@@ -118,11 +118,11 @@ class Layer extends PureComponent {
         }
 
         if (this.areaPane) {
-            this.areaPane.style.zIndex = zIndex + 1;
+            this.areaPane.style.zIndex = zIndex - 1;
         }
 
         if (this.labelPane) {
-            this.labelPane.style.zIndex = zIndex + 2;
+            this.labelPane.style.zIndex = zIndex + 1;
         }
     }
 

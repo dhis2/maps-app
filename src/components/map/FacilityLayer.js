@@ -39,8 +39,8 @@ class FacilityLayer extends Layer {
         // Create and add area layer
         if (props.areaRadius) {
             this.areaInstance = map.addLayer({
-                pane: `${props.id}-area`,
                 type: 'circles',
+                pane: `${props.id}-area`,
                 radius: props.areaRadius,
                 highlightStyle: false,
                 data: props.data
