@@ -51,7 +51,7 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 valueType: action.valueType,
-                columns: [],
+                columns: action.keepColumns ? state.columns : [], // Kept if favorite is loaded
             };
 
         case types.LAYER_EDIT_INDICATOR_GROUP_SET:

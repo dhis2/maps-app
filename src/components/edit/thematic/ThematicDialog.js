@@ -109,7 +109,7 @@ export class ThematicDialog extends Component {
 
         // Set value type if favorite is loaded
         if (!valueType && dataItem && dataItem.dimensionItemType) {
-            setValueType(dimConf[dataItem.dimensionItemType.toLowerCase()].objectName);
+            setValueType(dimConf[dataItem.dimensionItemType.toLowerCase()].objectName, true);
         }
     }
 
@@ -217,8 +217,6 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
-
-        // console.log('valueType', valueType);
 
         return (
             <Tabs

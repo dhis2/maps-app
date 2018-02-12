@@ -136,9 +136,10 @@ export const setEndDate = (endDate) => ({
 });
 
 // Set value type (thematic)
-export const setValueType = (valueType) => ({
+export const setValueType = (valueType, keepColumns) => ({
     type: types.LAYER_EDIT_VALUE_TYPE_SET,
     valueType,
+    keepColumns, // Kept if favorite is loaded
 });
 
 // Set indicator group (thematic)
