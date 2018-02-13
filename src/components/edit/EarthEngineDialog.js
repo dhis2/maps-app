@@ -107,8 +107,6 @@ class EarthEngineDialog extends Component {
         const dataset = datasets[datasetId];
         const { tab, steps, filterError } = this.state;
 
-        console.log('filter', filter);
-
         return (
             <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
                 <Tab value='style' label={i18next.t('Style')}>
