@@ -54,8 +54,8 @@ export class ProgramIndicatorSelect extends Component {
                 label={i18next.t('Program indicator')}
                 loading={items ? false : true}
                 items={items}
-                value={programIndicator? programIndicator.id : null}
-                onChange={onChange}
+                value={programIndicator ? programIndicator.id : null}
+                onChange={programIndicator => onChange(programIndicator, 'programIndicator')}
                 style={style}
             />
         );

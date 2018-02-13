@@ -8,7 +8,7 @@ const programDataElements = (state = {}, action) => {
         case types.PROGRAM_DATA_ELEMENTS_SET:
             return {
                 ...state,
-                [action.programId]: action.payload
+                [action.programId]: action.payload,
             };
 
         default:

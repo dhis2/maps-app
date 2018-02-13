@@ -39,7 +39,6 @@ export class DataItemSelect extends Component {
         const {
             label,
             value,
-            allowNone,
             program,
             programStage,
             programAttributes,
@@ -57,7 +56,7 @@ export class DataItemSelect extends Component {
             programStage ? dataElements[programStage.id] : [],
             ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'] // Exclude some value types
         );
-        
+
         return (
             <SelectField
                 label={label || i18next.t('Data item')}

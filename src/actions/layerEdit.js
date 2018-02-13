@@ -29,22 +29,17 @@ export const setProgramStage = (programStage) => ({
     programStage,
 });
 
-// Set program indicator used (thematic)
-export const setProgramIndicator = (programIndicator) => ({
-    type: types.LAYER_EDIT_PROGRAM_INDICATOR_SET,
-    programIndicator,
+// Set data item (thematic)
+export const setDataItem = (dataItem, dimension) => ({
+    type: types.LAYER_EDIT_DATA_ITEM_SET,
+    dataItem,
+    dimension,
 });
 
 // Set program indicator used (thematic)
 export const setDataElementGroup = (dataElementGroup) => ({
     type: types.LAYER_EDIT_DATA_ELEMENT_GROUP_SET,
     dataElementGroup,
-});
-
-// Set program indicator used (thematic)
-export const setDataElement = (dataElement) => ({
-    type: types.LAYER_EDIT_DATA_ELEMENT_SET,
-    dataElement,
 });
 
 // Set data element operand (operand = true = details, operand = false = totals)

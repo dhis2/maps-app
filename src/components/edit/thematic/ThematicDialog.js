@@ -19,7 +19,7 @@ import FontStyle from '../../d2-ui/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
 import LegendSetSelect from '../../legendSet/LegendSetSelect';
 import LegendTypeSelect from './LegendTypeSelect';
-import GroupIndicatorSelect from '../../indicator/GroupIndicatorSelect';
+import IndicatorSelect from '../../indicator/IndicatorSelect';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
@@ -34,10 +34,8 @@ import { dimConf } from '../../../constants/dimension';
 
 import {
     setClassification,
-    setDataElement,
+    setDataItem,
     setDataElementGroup,
-    setDataSetItem,
-    setIndicator,
     setIndicatorGroup,
     setLabels,
     setLabelFontColor,
@@ -51,7 +49,6 @@ import {
     setPeriod,
     setPeriodType,
     setProgram,
-    setProgramIndicator,
     setRadiusLow,
     setRadiusHigh,
     setUserOrgUnits,
@@ -67,8 +64,6 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitNodesFromRows,
     getPeriodFromFilters,
-    // getProgramIndicatorFromColumns,
-    // getReportingRateFromColumns,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
 
@@ -179,10 +174,8 @@ export class ThematicDialog extends Component {
 
         const { // Handlers
             setClassification,
-            setDataElement,
+            setDataItem,
             setDataElementGroup,
-            setDataSetItem,
-            setIndicator,
             setIndicatorGroup,
             setLabels,
             setLabelFontColor,
@@ -196,7 +189,6 @@ export class ThematicDialog extends Component {
             setPeriod,
             setPeriodType,
             setProgram,
-            setProgramIndicator,
             setRadiusLow,
             setRadiusHigh,
             setUserOrgUnits,
@@ -240,11 +232,11 @@ export class ThematicDialog extends Component {
                                 style={styles.select}
                                 errorText={indicatorGroupError}
                             />,
-                            <GroupIndicatorSelect
+                            <IndicatorSelect
                                 key='indicator'
                                 indicatorGroup={indicatorGroup}
                                 indicator={dataItem}
-                                onChange={setIndicator}
+                                onChange={setDataItem}
                                 style={styles.select}
                                 errorText={indicatorError}
                             />
@@ -269,7 +261,7 @@ export class ThematicDialog extends Component {
                                         key='element'
                                         dataElementGroup={dataElementGroup}
                                         dataElement={dataItem}
-                                        onChange={setDataElement}
+                                        onChange={setDataItem}
                                         style={styles.select}
                                     />
                                     :
@@ -277,7 +269,7 @@ export class ThematicDialog extends Component {
                                         key='element'
                                         dataElementGroup={dataElementGroup}
                                         dataElement={dataItem}
-                                        onChange={setDataElement}
+                                        onChange={setDataItem}
                                         style={styles.select}
                                     />
                             ),
@@ -287,7 +279,7 @@ export class ThematicDialog extends Component {
                             <DataSetsSelect
                                 key='item'
                                 dataSet={dataItem}
-                                onChange={setDataSetItem}
+                                onChange={setDataItem}
                                 style={styles.select}
                             />
                         )}
@@ -302,7 +294,8 @@ export class ThematicDialog extends Component {
                                 <EventDataItemSelect
                                     key='item'
                                     program={program}
-                                    onChange={console.log}
+                                    dataItem={dataItem}
+                                    onChange={setDataItem}
                                     style={styles.select}
                                 />
                             ),
@@ -319,7 +312,7 @@ export class ThematicDialog extends Component {
                                     key='indicator'
                                     program={program}
                                     programIndicator={dataItem}
-                                    onChange={setProgramIndicator}
+                                    onChange={setDataItem}
                                     style={styles.select}
                                 />
                             ),
@@ -492,10 +485,8 @@ export default connect(
     null,
     {
         setClassification,
-        setDataElement,
+        setDataItem,
         setDataElementGroup,
-        setDataSetItem,
-        setIndicator,
         setIndicatorGroup,
         setLabels,
         setLabelFontColor,
@@ -509,7 +500,6 @@ export default connect(
         setPeriod,
         setPeriodType,
         setProgram,
-        setProgramIndicator,
         setRadiusLow,
         setRadiusHigh,
         setUserOrgUnits,

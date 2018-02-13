@@ -3,7 +3,8 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 import 'rxjs/add/operator/concatMap';
 import sortBy from 'lodash/fp/sortBy';
 import * as types from '../constants/actionTypes';
-import { setPrograms, setProgramStages, setProgramAttributes, setProgramIndicators, setProgramStageDataElements } from '../actions/programs';
+import { apiFetch } from '../util/api';
+import { setPrograms, setProgramStages, setProgramAttributes, setProgramDataElements, setProgramIndicators, setProgramStageDataElements } from '../actions/programs';
 import { errorActionCreator } from '../actions/helpers';
 import { getDisplayPropertyUrl } from '../util/helpers';
 
@@ -63,22 +64,14 @@ export const loadProgramTrackedEntityAttributes = (action$) =>
                 .catch(errorActionCreator(types.PROGRAM_ATTRIBUTES_LOAD_ERROR))
         );
 
-// Load program data elements - TODO
+// Load program data elements
 export const loadProgramDataElements = (action$) =>
     action$
         .ofType(types.PROGRAM_DATA_ELEMENTS_LOAD)
         .concatMap((action) =>
             getD2()
-                .then(d2 => d2.models.programDataElement.list({
-                    program: action.programId,
-                    fields: `dimensionItem~rename(id),${getDisplayPropertyUrl(d2)}`,
-                    paging: false,
-                    valueTypePaging: false, // TODO: copied from LayerWidgetThemaic.js
-                }))
-                .then(console.log)
-                // .then(programStage => programStage.programStageDataElements.map(d => d.dataElement))
-                // .then(dataElements => setProgramStageDataElements(action.programStageId, dataElements))
-                .catch(errorActionCreator(types.PROGRAM_DATA_ELEMENTS_LOAD_ERROR))
+                .then(d2 => apiFetch(`/programDataElements.json?program=${action.programId}&fields=dimensionItem~rename(id),${getDisplayPropertyUrl(d2)},valueType&paging=false`))
+                .then(data => setProgramDataElements(action.programId, data.programDataElements))
         );
 
 // Load program stage data elements

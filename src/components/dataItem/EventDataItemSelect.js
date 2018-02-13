@@ -31,33 +31,34 @@ export class EventDataItemSelect extends Component {
         }
 
         if (program && !dataElements[program.id]) {
-            // loadProgramDataElements(program.id); // TODO: Not supported by Web API / d2.models
+            loadProgramDataElements(program.id);
         }
     }
 
     render() {
         const {
+            dataItem,
             program,
             programAttributes,
             dataElements,
+            onChange,
             style
         } = this.props;
-
-        console.log('###', program, programAttributes, dataElements, aggregationTypes);
 
         const dataItems = combineDataItems(
             programAttributes[program.id],
             dataElements[program.id],
-            ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'] // Exclude some value types
+            ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE', 'DATE', 'TEXT', 'BOOLEAN'] // Exclude some value types
         );
+
+        // console.log('dataItem', dataItem);
 
         return (
             <SelectField
                 label={i18next.t('Event data item')}
                 items={dataItems}
-                // value={value}
-                // onChange={onChange}
-                onChange={console.log}
+                value={dataItem ? dataItem.id : null}
+                onChange={dataItem => onChange(dataItem, 'eventDataItem')}
                 style={style}
             />
         );
