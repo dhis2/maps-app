@@ -7,7 +7,6 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
 import AddLayer from '../layers/layers/AddLayer';
 import FavoritesMenu from '../favorites/FavoritesMenu';
-// import { openFavoritesDialog } from '../../actions/ui';
 import { openAboutDialog } from '../../actions/about';
 
 const styles = {
