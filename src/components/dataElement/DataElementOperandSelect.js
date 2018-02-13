@@ -18,7 +18,7 @@ export class DataElementOperandSelect extends Component {
         const { dataElementOperands, dataElementGroup, loadDataElementOperands } = this.props;
 
         if (dataElementGroup && !dataElementOperands[dataElementGroup.id]) {
-            // loadDataElementOperands(dataElementGroup.id); // TODO: Needs to be enabled in d2
+            loadDataElementOperands(dataElementGroup.id);
         }
     }
 

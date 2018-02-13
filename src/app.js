@@ -32,7 +32,7 @@ getManifest('manifest.webapp')
         config.schemas = [
             'dataElement',
             'dataElementGroup',
-            'dataElementOperand',
+            // 'dataElementOperand', // Not supported in d2 ()
             'dataSet',
             'externalMapLayer',
             'indicator',
@@ -46,7 +46,7 @@ getManifest('manifest.webapp')
             'organisationUnitLevel',
             'program',
             'programStage',
-            'programDataElement',
+            // 'programDataElement', // Not supported in d2
         ];
     })
     .then(getUserSettings)
