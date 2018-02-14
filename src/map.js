@@ -2,8 +2,9 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import union from 'lodash/fp/union';
 import { init, config, getUserSettings } from 'd2/lib/d2';
+import { isValidUid } from 'd2/lib/uid';
 import PluginMap from './components/map/PluginMap';
-import { mapRequest } from './util/requests';
+import { mapRequest, getExternalLayer } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { configI18n } from './util/i18n';
 import { translateConfig } from './util/favorites';
@@ -58,6 +59,7 @@ const Plugin = () => {
         config.schemas = union(config.schemas, [
             'dataElement',
             'dataSet',
+            'externalMapLayer',
             'indicator',
             'legendSet',
             'map',
@@ -93,12 +95,21 @@ const Plugin = () => {
         }
     }
 
-    function loadLayers(config) {
-        if (config.mapViews && !isUnmounted(config.el)) {
-            Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
-                ...config,
-                mapViews,
-            }));
+    async function loadLayers(config) {
+        if (!isUnmounted(config.el)) {
+            let basemap;
+
+            if (isValidUid(config.basemap)) { // If external layer id
+                basemap = await getExternalLayer(config.basemap);
+            }
+
+            if (config.mapViews) {
+                Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
+                    ...config,
+                    mapViews,
+                    basemap: basemap || config.basemap,
+                }));
+            }
         }
     }
 
