@@ -34,7 +34,7 @@ class SaveFavoriteDialog extends Component {
             name,
         };
 
-        console.log('save config', config);
+        // console.log('save config', config);
 
         this.props.saveFavorite(config);
     }
