@@ -1,8 +1,8 @@
 .LayerList {
     padding: 16px 0 0 16px;
-    height: 320px;
     overflow-y: auto;
     max-width: 680px;
+    max-height: calc(100vh - 150px);
 }
 
 .Layer {

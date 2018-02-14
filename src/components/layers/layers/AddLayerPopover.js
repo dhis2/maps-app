@@ -20,7 +20,6 @@ const AddLayerPopover = ({ anchorEl, layersDialogOpen, layers, onRequestClose, o
     </Popover>
 );
 
-
 AddLayerPopover.propTypes = {
     layersDialogOpen: PropTypes.bool,
     layers: PropTypes.array,
