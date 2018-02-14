@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import i18next from 'i18next';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
@@ -9,6 +10,7 @@ import SortableHandle from './SortableHandle';
 import LayerToolbar from '../toolbar/LayerToolbar';
 import Legend from '../legend/Legend';
 import { editLayer, removeLayer, changeLayerOpacity, toggleLayerExpand, toggleLayerVisibility } from '../../../actions/layers';
+import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
 import './LayerCard.css';
 
@@ -46,6 +48,7 @@ const LayerCard = (props) => {
         toggleLayerExpand,
         toggleLayerVisibility,
         toggleDataTable,
+        setMessage,
     } = props;
 
     const {
@@ -74,7 +77,7 @@ const LayerCard = (props) => {
                 <IconButton
                     style={styles.visibility}
                     onClick={() => toggleLayerVisibility(id)}
-                    tooltip="Toggle visibility">
+                    tooltip={i18next.t('Toggle visibility')}>
                     <SvgIcon
                         icon={isVisible ? 'Visibility' : 'VisibilityOff'}
                         color={grey600}
@@ -88,7 +91,10 @@ const LayerCard = (props) => {
                     onEdit={() => editLayer(layer)}
                     toggleDataTable={toggleDataTable}
                     onOpacityChange={changeLayerOpacity}
-                    onRemove={() => removeLayer(id)}
+                    onRemove={() => {
+                        removeLayer(id);
+                        setMessage(`${name} ${i18next.t('deleted')}.`);
+                    }}
                 />
             </CardText>
         </Card>
@@ -107,5 +113,5 @@ LayerCard.propTypes = {
 
 export default connect(
     null,
-    { editLayer, removeLayer, changeLayerOpacity, toggleLayerExpand, toggleLayerVisibility, toggleDataTable }
+    { editLayer, removeLayer, changeLayerOpacity, toggleLayerExpand, toggleLayerVisibility, toggleDataTable, setMessage }
 )(LayerCard);

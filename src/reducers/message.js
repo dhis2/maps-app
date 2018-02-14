@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-const message = (state = 'Layer deleted', action) => {
+const message = (state = null, action) => {
     switch (action.type) {
 
         case types.MESSAGE_SET:
