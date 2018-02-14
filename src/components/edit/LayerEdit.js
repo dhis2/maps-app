@@ -59,7 +59,7 @@ class LayerEdit extends Component {
     }
 
     render() {
-        const { layer, loadLayer, cancelLayer } = this.props;
+        const { layer, cancelLayer } = this.props;
 
         if (!layer) {
             return null;
@@ -72,9 +72,11 @@ class LayerEdit extends Component {
             // reject('Unknown layer type.'); // TODO
         }
 
+        const title = i18next.t(layer.id ? `Edit ${layer.type} layer` : `Add new ${layer.type} layer`);
+
         return (
             <Dialog
-                title={i18next.t(layer.type)}
+                title={i18next.t(title)}
                 contentStyle={styles.content}
                 bodyStyle={styles.body}
                 titleStyle={styles.title}
@@ -89,7 +91,7 @@ class LayerEdit extends Component {
                         color='primary'
                         onClick={() => this.loadLayer()}
                         selector='update'
-                    >{i18next.t(layer.id ? 'Update layer' : 'Add layer')}</Button>
+                    >{i18next.t(layer.id ? i18next.t('Update layer') : i18next.t('Add layer'))}</Button>
                 ]}
             >
                 <LayerDialog
