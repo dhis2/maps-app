@@ -2,8 +2,8 @@
 export const ALERTS_REMOVE = 'ALERTS_REMOVE';
 
 /* MAP */
+export const MAP_NEW = 'MAP_NEW';
 export const MAP_SET = 'MAP_SET';
-export const MAP_CLEAR = 'MAP_CLEAR'; // Needed?
 export const MAP_CONTEXT_MENU_OPEN = 'MAP_CONTEXT_MENU_OPEN';
 export const MAP_CONTEXT_MENU_CLOSE = 'MAP_CONTEXT_MENU_CLOSE';
 export const MAP_COORDINATE_OPEN = 'MAP_COORDINATE_OPEN';

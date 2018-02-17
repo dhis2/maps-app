@@ -7,6 +7,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import FavoritesDialog from './FavoritesDialog';
 import SaveFavoriteDialog from './SaveFavoriteDialog';
+import { newMap } from '../../actions/map';
 import { openFavoritesDialog, openSaveFavoriteDialog } from '../../actions/favorites';
 
 const styles = {
@@ -33,6 +34,11 @@ class FavoritesMenu extends Component {
         this.setState({ anchorEl: null });
     }
 
+    onNewMapClick() {
+        this.closeMenu();
+        this.props.newMap();
+    }
+
     onLoadClick() {
         this.closeMenu();
         this.props.openFavoritesDialog();
@@ -44,7 +50,7 @@ class FavoritesMenu extends Component {
     }
 
     render() {
-        const { openFavoritesDialog, openSaveFavoriteDialog } = this.props;
+        const { newMap, openFavoritesDialog, openSaveFavoriteDialog } = this.props;
         const { anchorEl } = this.state;
 
         return [
@@ -62,11 +68,20 @@ class FavoritesMenu extends Component {
             >
               <Menu>
                   <MenuItem
+                      primaryText={i18next.t('New')}
+                      onClick={() => this.onNewMapClick()}
+                  />
+                  <MenuItem
                       primaryText={i18next.t('Open')}
                       onClick={() => this.onLoadClick()}
                   />
                   <MenuItem
-                      primaryText={i18next.t('New')}
+                      primaryText={i18next.t('Save')}
+                      onClick={() => this.onSaveClick()}
+                      disabled={true}
+                  />
+                  <MenuItem
+                      primaryText={i18next.t('Save as')}
                       onClick={() => this.onSaveClick()}
                   />
               </Menu>
@@ -83,5 +98,5 @@ class FavoritesMenu extends Component {
 
 export default connect(
   null,
-  { openFavoritesDialog, openSaveFavoriteDialog }
+  { newMap, openFavoritesDialog, openSaveFavoriteDialog }
 )(FavoritesMenu);

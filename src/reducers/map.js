@@ -189,9 +189,14 @@ const orgUnit = (state, action) => {
 const map = (state = defaultState, action) => {
 
     switch (action.type) {
+        case types.MAP_NEW:
+            return {
+                ...defaultState,
+            };
+
         case types.MAP_SET:
             return {
-                ...defaultState, // TODO: Not sure why needed
+                ...defaultState,
                 ...action.payload
             };
 

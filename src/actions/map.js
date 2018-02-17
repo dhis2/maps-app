@@ -1,5 +1,9 @@
 import * as types from '../constants/actionTypes';
 
+export const newMap = () => ({
+  type: types.MAP_NEW,
+});
+
 export const setMap = (config) => ({
     type: types.MAP_SET,
     payload: config,
