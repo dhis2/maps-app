@@ -156,7 +156,6 @@ const ContextMenu = (props) => {
                                 style={styles.icon}
                             />
                         }
-                        disabled={true}
                         innerDivStyle={styles.menuItemInner}
                     >{i18next.t('Show longitude/latitude')}</MenuItem>
                 }
