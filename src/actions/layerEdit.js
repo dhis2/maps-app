@@ -29,10 +29,11 @@ export const setProgramStage = (programStage) => ({
     programStage,
 });
 
-// Set program indicator used (thematic)
-export const setProgramIndicator = (programIndicator) => ({
-    type: types.LAYER_EDIT_PROGRAM_INDICATOR_SET,
-    programIndicator,
+// Set data item (thematic)
+export const setDataItem = (dataItem, dimension) => ({
+    type: types.LAYER_EDIT_DATA_ITEM_SET,
+    dataItem,
+    dimension,
 });
 
 // Set program indicator used (thematic)
@@ -41,10 +42,10 @@ export const setDataElementGroup = (dataElementGroup) => ({
     dataElementGroup,
 });
 
-// Set program indicator used (thematic)
-export const setDataElement = (dataElement) => ({
-    type: types.LAYER_EDIT_DATA_ELEMENT_SET,
-    dataElement,
+// Set data element operand (operand = true = details, operand = false = totals)
+export const setOperand = (operand) => ({
+    type: types.LAYER_EDIT_OPERAND_SET,
+    operand,
 });
 
 // Set data element used for styling (event)
@@ -130,15 +131,16 @@ export const setEndDate = (endDate) => ({
 });
 
 // Set value type (thematic)
-export const setValueType = (valueType) => ({
+export const setValueType = (valueType, keepColumns) => ({
     type: types.LAYER_EDIT_VALUE_TYPE_SET,
     valueType,
+    keepColumns, // Kept if favorite is loaded
 });
 
 // Set indicator group (thematic)
-export const setIndicatorGroup = (groupId) => ({
+export const setIndicatorGroup = (indicatorGroup) => ({
     type: types.LAYER_EDIT_INDICATOR_GROUP_SET,
-    groupId,
+    indicatorGroup,
 });
 
 // Set indicator (thematic)

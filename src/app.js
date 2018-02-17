@@ -32,6 +32,7 @@ getManifest('manifest.webapp')
         config.schemas = [
             'dataElement',
             'dataElementGroup',
+            // 'dataElementOperand', // Not supported in d2 ()
             'dataSet',
             'externalMapLayer',
             'indicator',
@@ -45,6 +46,7 @@ getManifest('manifest.webapp')
             'organisationUnitLevel',
             'program',
             'programStage',
+            // 'programDataElement', // Not supported in d2
         ];
     })
     .then(getUserSettings)
@@ -59,8 +61,6 @@ getManifest('manifest.webapp')
             document.write(i18next.t('Access denied'));
             return;
         }
-
-        store.dispatch(loadExternalLayers()); // TODO: Testing only
 
         const mapId = getUrlParameter('id');
         if (mapId) {

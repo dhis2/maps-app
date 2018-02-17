@@ -2,9 +2,10 @@ import omit from 'lodash/fp/omit';
 import * as types from '../constants/actionTypes';
 import {
     setFiltersFromPeriod,
+    setDataItemInColumns,
     setIndicatorInColumns,
-    setProgramIndicatorInColumns,
     setReportingRateInColumns,
+    setEventDataItemInColumns,
     addOrgUnitLevelsToRows,
     addOrgUnitGroupsToRows,
     addUserOrgUnitsToRows,
@@ -50,24 +51,17 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 valueType: action.valueType,
+                columns: action.keepColumns ? state.columns : [], // Kept if favorite is loaded
             };
 
         case types.LAYER_EDIT_INDICATOR_GROUP_SET:
             return {
                 ...state,
-                indicatorGroup: action.groupId,
-            };
-
-        case types.LAYER_EDIT_INDICATOR_SET:
-            return {
-                ...state,
-                columns: setIndicatorInColumns(action.indicator),
-            };
-
-        case types.LAYER_EDIT_PROGRAM_INDICATOR_SET:
-            return {
-                ...state,
-                columns: setProgramIndicatorInColumns(action.programIndicator),
+                indicatorGroup: {
+                    id: action.indicatorGroup.id,
+                    name: action.indicatorGroup.name,
+                },
+                columns: [],
             };
 
         case types.LAYER_EDIT_DATA_ELEMENT_GROUP_SET:
@@ -77,17 +71,21 @@ const layerEdit = (state = null, action) => {
                     id: action.dataElementGroup.id,
                     name: action.dataElementGroup.name,
                 },
+                columns: [],
             };
 
-        case types.LAYER_EDIT_DATA_ELEMENT_SET:
-            console.log('LAYER_EDIT_DATA_ELEMENT_SET');
-
-            return state;
-
-        case types.LAYER_EDIT_DATA_SET_ITEM_SET:
+        case types.LAYER_EDIT_OPERAND_SET:
             return {
                 ...state,
-                columns: setReportingRateInColumns(action.dataSetItem),
+                operand: action.operand,
+                columns: [],
+            };
+
+        case types.LAYER_EDIT_DATA_ITEM_SET:
+            return {
+                ...state,
+                columns: setDataItemInColumns(action.dataItem, action.dimension),
+                name: null,
             };
 
         case types.LAYER_EDIT_PERIOD_TYPE_SET:
@@ -338,19 +336,19 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_AREA_RADIUS_SET:
             return {
                 ...state,
-                areaRadius: action.radius,
+                areaRadius: parseInt(action.radius, 10),
             };
 
         case types.LAYER_EDIT_RADIUS_LOW_SET:
             return {
                 ...state,
-                radiusLow: action.radius,
+                radiusLow: parseInt(action.radius, 10),
             };
 
         case types.LAYER_EDIT_RADIUS_HIGH_SET:
             return {
                 ...state,
-                radiusHigh: action.radius,
+                radiusHigh: parseInt(action.radius, 10),
             };
 
         case types.LAYER_EDIT_LEGEND_SET_SET:

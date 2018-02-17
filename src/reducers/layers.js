@@ -91,7 +91,10 @@ const layers = (state = defaultLayers, action) => {
         case types.EXTERNAL_LAYER_ADD:
             return [
                 ...state,
-                action.payload,
+                {
+                    ...action.payload,
+                    isVisible: true,
+                },
             ];
 
         case types.EXTERNAL_LAYER_REMOVE:

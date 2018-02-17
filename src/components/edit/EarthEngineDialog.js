@@ -159,14 +159,18 @@ class EarthEngineDialog extends Component {
                             {params &&
                                 <div style={styles.legend}>
                                     <div style={styles.legendTitle}>{i18next.t('Legend preview')}</div>
-                                    <dl className='Legend'>
-                                        {createLegend(params).map((item, index) => (
-                                            <LegendItem
-                                                {...item}
-                                                key={`item-${index}`}
-                                            />
-                                        ))}
-                                    </dl>
+                                    <div className='Legend'>
+                                        <table>
+                                            <tbody>
+                                                {createLegend(params).map((item, index) => (
+                                                    <LegendItem
+                                                        {...item}
+                                                        key={`item-${index}`}
+                                                    />
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             }
                         </div>

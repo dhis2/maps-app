@@ -66,13 +66,17 @@ class Layer extends PureComponent {
 
     // Create custom pane to control layer ordering: http://leafletjs.com/examples/map-panes/
     createPane() {
-        const { id, labels } = this.props;
+        const { id, labels, areaRadius } = this.props;
         const map = this.context.map;
 
         this.pane = map.createPane(id);
 
         if (labels) {
             this.labelPane = map.createPane(`${id}-labels`);
+        }
+
+        if (areaRadius) {
+            this.areaPane = map.createPane(`${id}-area`);
         }
     }
 
@@ -109,8 +113,12 @@ class Layer extends PureComponent {
         const { index } = this.props;
         const zIndex = 600 - (index * 10);
 
-        if (this.pane) { // TODO: Needed?
+        if (this.pane) {
             this.pane.style.zIndex = zIndex;
+        }
+
+        if (this.areaPane) {
+            this.areaPane.style.zIndex = zIndex - 1;
         }
 
         if (this.labelPane) {
@@ -141,6 +149,7 @@ class Layer extends PureComponent {
         delete(this.layer);
         delete(this.pane);
         delete(this.labelPane);
+        delete(this.areaPane);
     }
 
     render() {

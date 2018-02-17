@@ -3,9 +3,10 @@ import i18next from 'i18next';
 import { connect } from 'react-redux';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { combineDataItems } from '../../util/analytics';
-import { loadProgramTrackedEntityAttributes, loadProgramStageDataElements } from '../../actions/programs';
+import { loadProgramTrackedEntityAttributes, loadProgramDataElements } from '../../actions/programs';
+import { aggregationTypes } from '../../constants/aggregationTypes';
 
-export class DataItemSelect extends Component {
+export class EventDataItemSelect extends Component {
 
     componentDidMount() {
         this.loadDataItems();
@@ -19,50 +20,45 @@ export class DataItemSelect extends Component {
     loadDataItems() {
         const {
             program,
-            programStage,
             programAttributes,
             dataElements,
             loadProgramTrackedEntityAttributes,
-            loadProgramStageDataElements
+            loadProgramDataElements
         } = this.props;
 
         if (program && !programAttributes[program.id]) {
             loadProgramTrackedEntityAttributes(program.id);
         }
 
-        if (programStage && !dataElements[programStage.id]) {
-            loadProgramStageDataElements(programStage.id);
+        if (program && !dataElements[program.id]) {
+            loadProgramDataElements(program.id);
         }
     }
 
     render() {
         const {
-            label,
-            value,
+            dataItem,
             program,
-            programStage,
             programAttributes,
             dataElements,
             onChange,
-            style,
+            style
         } = this.props;
-
-        if (!program) {
-            return null;
-        }
 
         const dataItems = combineDataItems(
             programAttributes[program.id],
-            programStage ? dataElements[programStage.id] : [],
-            ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'] // Exclude some value types
+            dataElements[program.id],
+            ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE', 'DATE', 'TEXT', 'BOOLEAN'] // Exclude some value types
         );
+
+        // console.log('dataItem', dataItem);
 
         return (
             <SelectField
-                label={label || i18next.t('Data item')}
+                label={i18next.t('Event data item')}
                 items={dataItems}
-                value={value}
-                onChange={onChange}
+                value={dataItem ? dataItem.id : null}
+                onChange={dataItem => onChange(dataItem, 'eventDataItem')}
                 style={style}
             />
         );
@@ -73,7 +69,7 @@ export class DataItemSelect extends Component {
 export default connect(
     (state) => ({
         programAttributes: state.programTrackedEntityAttributes,
-        dataElements: state.programStageDataElements,
+        dataElements: state.programDataElements,
     }),
-    { loadProgramTrackedEntityAttributes, loadProgramStageDataElements }
-)(DataItemSelect);
+    { loadProgramTrackedEntityAttributes, loadProgramDataElements }
+)(EventDataItemSelect);

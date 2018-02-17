@@ -20,6 +20,13 @@ export const setProgramAttributes = (programId, payload) => ({
     payload,
 });
 
+// Set data elements for one program
+export const setProgramDataElements = (programId, payload) => ({
+    type: types.PROGRAM_DATA_ELEMENTS_SET,
+    programId,
+    payload,
+});
+
 // Set program indicators for one program
 export const setProgramIndicators = (programId, payload) => ({
     type: types.PROGRAM_INDICATORS_SET,
@@ -42,6 +49,12 @@ export const loadPrograms = () => ({
 // Load all stages for one program
 export const loadProgramStages = (programId) => ({
     type: types.PROGRAM_STAGES_LOAD,
+    programId,
+});
+
+// Load program data elements
+export const loadProgramDataElements = (programId) => ({
+    type: types.PROGRAM_DATA_ELEMENTS_LOAD,
     programId,
 });
 

@@ -5,6 +5,8 @@ import { isValidUid } from 'd2/lib/uid';
 import { relativePeriods } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
 
+// console.log('dimConf', dimConf);
+
 /* DIMENSIONS */
 
 const createDimension = (dimension, items, props) => ({ dimension, items, ...props });
@@ -16,44 +18,23 @@ const getDimensionItems = (dimension, arr) => {
     return (dataItems && dataItems.items) ? dataItems.items : [];
 };
 
-/* DATA ITEMS */
+/* DATA ITEM */
 
-// export const getDataItemsFromColumns = (columns = []) => getDimensionItems('dx', columns);
 export const getDataItemFromColumns = (columns = []) => getDimensionItems('dx', columns)[0];
 
-/* INDICATORS */
-
-export const getIndicatorFromColumns = (columns = []) => {
-    // const indicator = columns.filter(item => item.objectName === 'in')[0];
-    const indicator = columns.filter(item => item.dimension === 'dx')[0];
-    return (indicator && indicator.items) ? indicator.items[0] : null;
+export const setDataItemInColumns = (dataItem, dimension) => {
+    const dim = dimConf[dimension];
+    return (dim ? [ createDimension(dim.dimensionName, [{
+        id: dataItem.id,
+        name: dataItem.name,
+        dimensionItemType: dim.itemType,
+        legendSet: dataItem.legendSet, // TODO: Keep outside of columns?
+    }], { objectName: dim.objectName })] : [])
 };
-
-export const setIndicatorInColumns = (indicator) => [
-    createDimension('dx', [{
-        id: indicator.id,
-        name: indicator.name,
-        dimensionItemType: 'INDICATOR',
-        legendSet: indicator.legendSet, // TODO: Keep outside of columns?
-    }], { objectName: 'in' })
-];
-
-/* PROGRAM INDICATORS */
-
-export const getProgramIndicatorFromColumns = (columns = []) => getDimensionItems('pi', columns);
-
-export const setProgramIndicatorInColumns = (programIndicator) => [
-    createDimension('dx', [{
-        id: programIndicator.id,
-        name: programIndicator.name,
-        dimensionItemType: 'PROGRAM_INDICATOR',
-    }], { objectName: 'pi' })
-];
 
 /* REPORTING RATES */
 
-export const getReportingRateFromColumns = (columns = []) => getDimensionItems('ds', columns);
-
+/*
 export const setReportingRateInColumns = (dataSetItem) => [
     createDimension('dx', [{
         id: dataSetItem.id,
@@ -61,6 +42,7 @@ export const setReportingRateInColumns = (dataSetItem) => [
         dimensionItemType: 'REPORTING_RATE',
     }], { objectName: 'ds' })
 ];
+*/
 
 /* ORGANISATION UNIT */
 
@@ -167,23 +149,6 @@ export const getFiltersFromColumns = (columns = []) => {
     return filters.length ? filters : null;
 };
 
-
-/*
-export const getDimensionIndexFromHeaders = (headers, dimension) => {
-    if (!Array.isArray(headers) || !dimension) {
-        return null;
-    }
-
-    const dim = dimConf[dimension];
-
-    if (!dim) {
-        return null;
-    }
-
-    // TODO: findIndex is not supported by IE, is it transpiled?
-    return headers.findIndex(item => item.name === dim.dimensionName);
-};
-*/
 
 export const getFiltersAsText = (filters = []) => {
     return filters.map(({ name, filter }) => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './LegendItem.css';
 
 const LegendItem = ({ image, color, radius, name, startValue, endValue }) => {
     if (!name && startValue === undefined) {
@@ -19,10 +18,10 @@ const LegendItem = ({ image, color, radius, name, startValue, endValue }) => {
     }
 
     return (
-        <div className='LegendItem'>
-            <dt><span style={symbol}></span></dt>
-            <dd>{name} {isNaN(startValue) ? '' : `${startValue} - ${endValue}`}</dd>
-        </div>
+        <tr>
+            <th><span style={symbol}></span></th>
+            <td>{name} {isNaN(startValue) ? '' : `${startValue} - ${endValue}`}</td>
+        </tr>
     );
 };
 

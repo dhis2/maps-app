@@ -31,7 +31,7 @@ export class DataElementGroupSelect extends Component {
                 loading={dataSets ? false : true}
                 items={dataSets}
                 value={dataSet ? dataSet.id : null}
-                onChange={onChange}
+                onChange={dataSet => onChange(dataSet, 'dataSet')}
                 style={style}
             />
         );

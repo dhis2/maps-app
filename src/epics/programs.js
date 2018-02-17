@@ -3,7 +3,8 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 import 'rxjs/add/operator/concatMap';
 import sortBy from 'lodash/fp/sortBy';
 import * as types from '../constants/actionTypes';
-import { setPrograms, setProgramStages, setProgramAttributes, setProgramIndicators, setProgramStageDataElements } from '../actions/programs';
+import { apiFetch } from '../util/api';
+import { setPrograms, setProgramStages, setProgramAttributes, setProgramDataElements, setProgramIndicators, setProgramStageDataElements } from '../actions/programs';
 import { errorActionCreator } from '../actions/helpers';
 import { getDisplayPropertyUrl } from '../util/helpers';
 
@@ -34,6 +35,7 @@ export const loadProgramStages = (action$) =>
                 .catch(errorActionCreator(types.PROGRAM_STAGES_LOAD_ERROR))
         );
 
+
 // Load program indicators
 export const loadProgramIndicators = (action$) =>
     action$
@@ -62,6 +64,16 @@ export const loadProgramTrackedEntityAttributes = (action$) =>
                 .catch(errorActionCreator(types.PROGRAM_ATTRIBUTES_LOAD_ERROR))
         );
 
+// Load program data elements
+export const loadProgramDataElements = (action$) =>
+    action$
+        .ofType(types.PROGRAM_DATA_ELEMENTS_LOAD)
+        .concatMap((action) =>
+            getD2()
+                .then(d2 => apiFetch(`/programDataElements.json?program=${action.programId}&fields=dimensionItem~rename(id),${getDisplayPropertyUrl(d2)},valueType&paging=false`))
+                .then(data => setProgramDataElements(action.programId, data.programDataElements))
+        );
+
 // Load program stage data elements
 export const loadProgramStageDataElements = (action$) =>
     action$
@@ -77,4 +89,4 @@ export const loadProgramStageDataElements = (action$) =>
                 .catch(errorActionCreator(types.PROGRAM_STAGE_DATA_ELEMENTS_LOAD_ERROR))
         );
 
-export default combineEpics(loadPrograms, loadProgramStages, loadProgramIndicators, loadProgramTrackedEntityAttributes, loadProgramStageDataElements);
+export default combineEpics(loadPrograms, loadProgramStages, loadProgramIndicators, loadProgramTrackedEntityAttributes, loadProgramDataElements, loadProgramStageDataElements);

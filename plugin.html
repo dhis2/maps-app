@@ -27,105 +27,177 @@
 
         /*
         setTimeout(function() {
-            console.log(mapPlugin.unmount('map'));
+            console.log(mapPlugin.resize('map'));
         }, 5000);
         */
 
         /*
         mapPlugin.load({
-          el: 'map',
-          "lastUpdated": "2018-02-02T10:46:17.063",
-          // "id": "bmbGtJv6dcR",
-          "created": "2014-04-03T14:05:10.234",
-          "name": "ANC: 1st and 3rd visit coverage by orgunit last year",
-          "publicAccess": "rw------",
-          "type": "BAR",
-          "cumulativeValues": false,
-          "sortOrder": 0,
-          "favorite": false,
-          "topLimit": 0,
-          "displayName": "ANC: 1st and 3rd visit coverage by orgunit last year",
-          "percentStackedValues": false,
-          "noSpaceBetweenColumns": false,
-          "hideTitle": false,
-          "series": "dx",
-          "showData": false,
-          "parentGraphMap": {},
-          "regressionType": "NONE",
-          "completedOnly": false,
-          "hideEmptyRowItems": "NONE",
-          "aggregationType": "DEFAULT",
-          "hideSubtitle": false,
-          "hideLegend": false,
-          "category": "ou",
-          "access": {
-          "read": true,
-            "update": true,
-            "externalize": true,
-            "delete": true,
-            "write": true,
-            "manage": true
-        },
-          "lastUpdatedBy": {
-          "id": "GOLswS44mh8"
-        },
-          "user": {
-          "displayName": "Tom Wakiki"
-        },
-          "dataElementGroupSetDimensions": [],
-          "attributeDimensions": [],
-          "translations": [],
-          "interpretations": [],
-          "userGroupAccesses": [],
-          "columns": [{
-          "dimension": "dx",
-          "items": [{
-            "id": "Uvn6LCg7dVU",
-            "name": "ANC 1 Coverage",
-            "dimensionItemType": "INDICATOR"
-          }, {
-            "id": "sB79w2hiLp8",
-            "name": "ANC 3 Coverage",
-            "dimensionItemType": "INDICATOR"
-          }]
-        }],
-          "dataElementDimensions": [],
-          "categoryDimensions": [],
-          "programIndicatorDimensions": [],
-          "attributeValues": [],
-          "userAccesses": [],
-          "favorites": [],
-          "dataDimensionItems": [{
-          "dataDimensionItemType": "INDICATOR",
-          "indicator": {
-            "id": "Uvn6LCg7dVU"
-          }
-        }, {
-          "dataDimensionItemType": "INDICATOR",
-          "indicator": {
-            "id": "sB79w2hiLp8"
-          }
-        }],
-          "categoryOptionGroupSetDimensions": [],
-          "organisationUnitGroupSetDimensions": [],
-          "filters": [{
-          "dimension": "pe",
-          "items": [{
-            "id": "THIS_YEAR",
-            "name": "THIS_YEAR",
-            "dimensionItemType": "PERIOD"
-          }]
-        }],
-          "rows": [{
-          "dimension": "ou",
-          "items": [{
-            "id": "USER_ORGUNIT"
-          }, {
-            "id": "USER_ORGUNIT_CHILDREN"
-          }]
-        }]
-      });
+            el: 'map',
+            // "id": "S5Ez20WrUNB",
+            "name": "AAA",
+            "basemap": "LOw2p0kPwua",
+            "user": {
+                "id": "GOLswS44mh8"
+            },
+            "mapViews": [{
+                "id": "XxAoPECJqS4",
+                "name": "XxAoPECJqS4",
+                "favorite": false,
+                "displayName": "XxAoPECJqS4",
+                "layer": "earthEngine",
+                "hideTitle": false,
+                "eventClustering": false,
+                "opacity": 0.9,
+                "config": "{\"id\":\"WorldPop/POP\",\"params\":{\"min\":0,\"max\":1000,\"palette\":\"#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15\"},\"image\":2010,\"filter\":[{\"type\":\"eq\",\"arguments\":[\"year\",2010]},{\"type\":\"eq\",\"arguments\":[\"UNadj\",\"yes\"]}]}",
+                "parentLevel": 0,
+                "parentGraphMap": {},
+                "completedOnly": false,
+                "eventPointRadius": 0,
+                "hidden": false,
+                "hideSubtitle": false,
+                "dataElementGroupSetDimensions": [],
+                "attributeDimensions": [],
+                "translations": [],
+                "interpretations": [],
+                "columns": [{
+                    "dimension": "dx",
+                    "items": []
+                }],
+                "dataElementDimensions": [],
+                "categoryDimensions": [],
+                "programIndicatorDimensions": [],
+                "attributeValues": [],
+                "userAccesses": [],
+                "favorites": [],
+                "dataDimensionItems": [],
+                "categoryOptionGroupSetDimensions": [],
+                "organisationUnitGroupSetDimensions": [],
+                "filters": [],
+                "rows": [{
+                    "dimension": "ou",
+                    "items": []
+                }]
+            }, {
+                "id": "sg5EjDWWzxY",
+                "name": "ANC 1 Coverage",
+                "method": 1,
+                "favorite": false,
+                "displayName": "ANC 1 Coverage",
+                "layer": "thematic",
+                "hideTitle": false,
+                "eventClustering": false,
+                "opacity": 0.8,
+                "parentLevel": 0,
+                "parentGraphMap": {},
+                "completedOnly": false,
+                "eventPointRadius": 0,
+                "hidden": false,
+                "hideSubtitle": false,
+                "legendSet": {
+                    "id": "fqs276KXCXi",
+                    "name": "ANC Coverage"
+                },
+                "dataElementGroupSetDimensions": [],
+                "attributeDimensions": [],
+                "translations": [],
+                "interpretations": [],
+                "columns": [{
+                    "dimension": "dx",
+                    "items": [{
+                        "id": "Uvn6LCg7dVU",
+                        "name": "ANC 1 Coverage",
+                        "dimensionItemType": "INDICATOR"
+                    }]
+                }],
+                "dataElementDimensions": [],
+                "categoryDimensions": [],
+                "programIndicatorDimensions": [],
+                "attributeValues": [],
+                "userAccesses": [],
+                "favorites": [],
+                "dataDimensionItems": [{
+                    "dataDimensionItemType": "INDICATOR",
+                    "indicator": {
+                        "id": "Uvn6LCg7dVU"
+                    }
+                }],
+                "categoryOptionGroupSetDimensions": [],
+                "organisationUnitGroupSetDimensions": [],
+                "filters": [{
+                    "dimension": "pe",
+                    "items": [{
+                        "id": "2017",
+                        "name": "2017",
+                        "dimensionItemType": "PERIOD"
+                    }]
+                }],
+                "rows": [{
+                    "dimension": "ou",
+                    "items": [{
+                        "id": "LEVEL-3",
+                        "name": "LEVEL-3"
+                    }]
+                }]
+            }, {
+                "id": "XAAqTyF9SWy",
+                "name": "XAAqTyF9SWy",
+                "endDate": "2018-02-13T00:00:00.000",
+                "favorite": false,
+                "startDate": "2015-02-13T00:00:00.000",
+                "displayName": "XAAqTyF9SWy",
+                "layer": "event",
+                "hideTitle": false,
+                "eventClustering": true,
+                "opacity": 0.95,
+                "parentLevel": 0,
+                "parentGraphMap": {
+                    "ImspTQPwCqd": ""
+                },
+                "completedOnly": false,
+                "eventPointRadius": 0,
+                "hidden": false,
+                "hideSubtitle": false,
+                "program": {
+                    "id": "eBAyeGv0exc",
+                    "name": "Inpatient morbidity and mortality"
+                },
+                "programStage": {
+                    "id": "Zj7UnCAulEk",
+                    "name": "Inpatient morbidity and mortality"
+                },
+                "dataElementGroupSetDimensions": [],
+                "attributeDimensions": [],
+                "translations": [],
+                "interpretations": [],
+                "columns": [{
+                    "dimension": "dx",
+                    "items": []
+                }],
+                "dataElementDimensions": [],
+                "categoryDimensions": [],
+                "programIndicatorDimensions": [],
+                "attributeValues": [],
+                "userAccesses": [],
+                "favorites": [],
+                "dataDimensionItems": [],
+                "categoryOptionGroupSetDimensions": [],
+                "organisationUnitGroupSetDimensions": [],
+                "filters": [],
+                "rows": [{
+                    "dimension": "ou",
+                    "items": [{
+                        "id": "ImspTQPwCqd",
+                        "name": "Sierra Leone",
+                        "dimensionItemType": "ORGANISATION_UNIT"
+                    }]
+                }]
+            }]
+        }
+
+      );
       */
+
     </script>
 </body>
 </html>

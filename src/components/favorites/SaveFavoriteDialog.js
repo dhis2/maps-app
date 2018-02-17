@@ -23,7 +23,7 @@ const styles = {
 
 class SaveFavoriteDialog extends Component {
     state = {
-        name: 'AAAA'
+        name: ''
     };
 
     validateName(name) {
@@ -34,9 +34,9 @@ class SaveFavoriteDialog extends Component {
             name,
         };
 
-        console.log('save config', config);
+        // console.log('save config', config);
 
-        // this.props.saveFavorite(config);
+        this.props.saveFavorite(config);
     }
 
     render() {

@@ -188,7 +188,7 @@ const earthEngineLoader = async (config) => { // Returns a promise
 };
 
 // https://stackoverflow.com/questions/33289726/combination-of-async-function-await-settimeout
-const timeout = (ms) =>  new Promise(resolve => setTimeout(resolve, ms));
+// const timeout = (ms) =>  new Promise(resolve => setTimeout(resolve, ms));
 
 // TODO: This function is currently duplicated from  GIS API
 export const createLegend = (params) => {

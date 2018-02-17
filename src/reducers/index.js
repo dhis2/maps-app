@@ -3,6 +3,7 @@ import basemaps from './basemaps';
 import contextMenu from './contextMenu';
 import dataElements from './dataElements';
 import dataElementGroups from './dataElementGroups';
+import dataElementOperands from './dataElementOperands';
 import dataSets from './dataSets';
 import dataTable from './dataTable';
 import earthEngine from './earthEngine';
@@ -14,6 +15,7 @@ import layers from './layers';
 import legendSets from './legendSets';
 import loading from './loading';
 import map from './map';
+import message from './message';
 import optionSets from './optionSets';
 import orgUnit from './orgUnit';
 import orgUnitTree from './orgUnitTree';
@@ -21,6 +23,7 @@ import orgUnitGroups from './orgUnitGroups';
 import orgUnitGroupSets from './orgUnitGroupSets';
 import orgUnitLevels from './orgUnitLevels';
 import programs from './programs';
+import programDataElements from './programDataElements';
 import programIndicators from './programIndicators';
 import programStages from './programStages';
 import programStageDataElements from './programStageDataElements';
@@ -34,6 +37,7 @@ export default combineReducers({
     contextMenu,
     dataElements,
     dataElementGroups,
+    dataElementOperands,
     dataSets,
     dataTable,
     earthEngine,
@@ -45,6 +49,7 @@ export default combineReducers({
     legendSets,
     loading,
     map,
+    message,
     optionSets,
     orgUnit,
     orgUnitTree,
@@ -52,6 +57,7 @@ export default combineReducers({
     orgUnitGroups,
     orgUnitLevels,
     programs,
+    programDataElements,
     programIndicators,
     programStages,
     programStageDataElements,

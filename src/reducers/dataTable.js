@@ -11,7 +11,7 @@ const dataTable = (state = null, action) => {
             return null;
 
         case types.DATA_TABLE_TOGGLE:
-            return state ? null : action.id;
+            return state === action.id ? null : action.id;
 
         case types.LAYER_REMOVE:
             return state === action.id ? null : state;

@@ -36,7 +36,7 @@ export class DataElementSelect extends Component {
                 loading={items ? false : true}
                 items={items}
                 value={dataElement ? dataElement.id : null}
-                onChange={onChange}
+                onChange={dataElement => onChange(dataElement, 'dataElement')}
                 style={style}
             />
         );

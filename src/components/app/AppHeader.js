@@ -54,7 +54,7 @@ const styles = {
     }
 };
 
-const AppHeader = ({ name, contextPath }) => (
+const AppHeader = ({ name }, context) => (
     <div style={styles.header}>
         <div style={styles.logo}>
             <svg style={styles.svg} viewBox="0 0 400 233.33" xmlns="http://www.w3.org/2000/svg" display="block">
@@ -67,13 +67,14 @@ const AppHeader = ({ name, contextPath }) => (
         <div style={{ ...styles.title, ...(!name ? styles.noFavorite : {}) }}>
             {name ? <span><SvgIcon icon='Star' style={styles.star} />{name}</span> : i18next.t('No favorite selected')}
             <IconButton
-                onClick={() => window.location.href = `${contextPath}/dhis-web-commons-about/redirect.action`}
+                onClick={() => window.location.href = `../dhis-web-commons-about/redirect.action`}
                 style={styles.homeBtn} iconStyle={styles.homeIcon}>
                 <HomeIcon />
             </IconButton>
         </div>
     </div>
 );
+
 
 const mapStateToProps = (state) => ({
     name: state.map ? state.map.name : null,

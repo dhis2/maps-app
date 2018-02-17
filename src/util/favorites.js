@@ -23,12 +23,14 @@ const validLayerProperties = [
     'colorLow',  // Deprecated
     'colorScale',
     'columns',
-    'config',   // TODO: Convert to string (ee + external)
+    'config',
+    'datasetId',
     'displayName',
     'endDate',
     'eventClustering',
     'eventPointColor',
     'eventPointRadius',
+    'filter',
     'filters',
     'labels',
     'labelFontSize',
@@ -40,6 +42,7 @@ const validLayerProperties = [
     'method',
     'opacity',
     'organisationUnitGroupSet',
+    'params',
     'program',
     'programStage',
     'radiusHigh',
@@ -60,6 +63,7 @@ const validLayerProperties = [
 const models = [ // TODO: Better way to translate models to pure object?
     'program',
     'programStage',
+    'organisationUnitGroupSet',
 ];
 
 const validModelProperties = [
@@ -90,6 +94,18 @@ const models2objects = (config) => {
 
     if (config.rows) {
         config.rows = config.rows.map(cleanDimension);
+    }
+
+    if (config.params) { // EE layer config
+        config.config = JSON.stringify({
+            id: config.datasetId,
+            params: config.params,
+            image: config.filter ? config.filter[0].arguments[1] : null,
+            filter: config.filter,
+        });
+        delete(config.datasetId);
+        delete(config.params);
+        delete(config.filter);
     }
 
     return config;

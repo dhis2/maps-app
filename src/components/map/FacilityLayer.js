@@ -33,18 +33,19 @@ class FacilityLayer extends Layer {
             map.removeLayer(this.areaInstance);
         }
 
+        // Create and add facility layer based on config object
+        this.layer = map.createLayer(config).addTo(map);
+
         // Create and add area layer
         if (props.areaRadius) {
             this.areaInstance = map.addLayer({
                 type: 'circles',
+                pane: `${props.id}-area`,
                 radius: props.areaRadius,
                 highlightStyle: false,
                 data: props.data
             });
         }
-
-        // Create and add facility layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
 
         // Handle facility click
         this.layer.on('click', this.onFeatureClick, this);
@@ -83,7 +84,7 @@ class FacilityLayer extends Layer {
 
         const latlng = evt.latlng;
         const position = [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y];
-        const propsr = this.props;
+        const props = this.props;
 
         this.props.openContextMenu({
             position,

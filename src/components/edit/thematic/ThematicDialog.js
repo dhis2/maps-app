@@ -11,13 +11,15 @@ import Checkbox from '../../d2-ui/Checkbox';
 import Classification from '../../style/Classification';
 import DataElementGroupSelect  from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect  from '../../dataElement/DataElementSelect';
-import DataItemSelect from '../../dataItem/DataItemSelect';
+import DataElementOperandSelect  from '../../dataElement/DataElementOperandSelect';
+import TotalsDetailsSelect  from '../../dataElement/TotalsDetailsSelect';
+import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect';
 import FontStyle from '../../d2-ui/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
 import LegendSetSelect from '../../legendSet/LegendSetSelect';
 import LegendTypeSelect from './LegendTypeSelect';
-import GroupIndicatorSelect from '../../indicator/GroupIndicatorSelect';
+import IndicatorSelect from '../../indicator/IndicatorSelect';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
@@ -32,10 +34,8 @@ import { dimConf } from '../../../constants/dimension';
 
 import {
     setClassification,
-    setDataElement,
+    setDataItem,
     setDataElementGroup,
-    setDataSetItem,
-    setIndicator,
     setIndicatorGroup,
     setLabels,
     setLabelFontColor,
@@ -43,12 +43,12 @@ import {
     setLabelFontWeight,
     setLabelFontStyle,
     setLegendSet,
+    setOperand,
     setOrgUnitLevels,
     setOrgUnitGroups,
     setPeriod,
     setPeriodType,
     setProgram,
-    setProgramIndicator,
     setRadiusLow,
     setRadiusHigh,
     setUserOrgUnits,
@@ -64,8 +64,6 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitNodesFromRows,
     getPeriodFromFilters,
-    getProgramIndicatorFromColumns,
-    getReportingRateFromColumns,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
 
@@ -106,7 +104,7 @@ export class ThematicDialog extends Component {
 
         // Set value type if favorite is loaded
         if (!valueType && dataItem && dataItem.dimensionItemType) {
-            setValueType(dimConf[dataItem.dimensionItemType.toLowerCase()].objectName);
+            setValueType(dimConf[dataItem.dimensionItemType.toLowerCase()].objectName, true);
         }
     }
 
@@ -137,7 +135,7 @@ export class ThematicDialog extends Component {
                     setClassification(1); // TODO: Use constant
                     setLegendSet(dataItem.legendSet);
                 } else {
-                    setClassification(2); // TODO: Use constant
+                    // setClassification(2); // TODO: Use constant
                 }
             }
         }
@@ -165,6 +163,7 @@ export class ThematicDialog extends Component {
             labelFontWeight,
             legendSet,
             method,
+            operand,
             periodType,
             program,
             radiusHigh,
@@ -175,10 +174,8 @@ export class ThematicDialog extends Component {
 
         const { // Handlers
             setClassification,
-            setDataElement,
+            setDataItem,
             setDataElementGroup,
-            setDataSetItem,
-            setIndicator,
             setIndicatorGroup,
             setLabels,
             setLabelFontColor,
@@ -186,12 +183,12 @@ export class ThematicDialog extends Component {
             setLabelFontWeight,
             setLabelFontStyle,
             setLegendSet,
+            setOperand,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setPeriod,
             setPeriodType,
             setProgram,
-            setProgramIndicator,
             setRadiusLow,
             setRadiusHigh,
             setUserOrgUnits,
@@ -212,9 +209,6 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
-
-
-        // console.log('colorScale', colorScale);
 
         return (
             <Tabs
@@ -238,28 +232,13 @@ export class ThematicDialog extends Component {
                                 style={styles.select}
                                 errorText={indicatorGroupError}
                             />,
-                            <GroupIndicatorSelect
+                            <IndicatorSelect
                                 key='indicator'
                                 indicatorGroup={indicatorGroup}
                                 indicator={dataItem}
-                                onChange={setIndicator}
+                                onChange={setDataItem}
                                 style={styles.select}
                                 errorText={indicatorError}
-                            />
-                        ]}
-                        {valueType === 'pi' && [ // Program indicator
-                            <ProgramSelect
-                                key='program'
-                                program={program}
-                                onChange={setProgram}
-                                style={styles.select}
-                            />,
-                            <ProgramIndicatorSelect
-                                key='indicator'
-                                program={program}
-                                programIndicator={getProgramIndicatorFromColumns(columns)}
-                                onChange={setProgramIndicator}
-                                style={styles.select}
                             />
                         ]}
                         {valueType === 'de' && [ // Data element
@@ -269,13 +248,41 @@ export class ThematicDialog extends Component {
                                 onChange={setDataElementGroup}
                                 style={styles.select}
                             />,
-                            <DataElementSelect
-                                key='element'
-                                dataElementGroup={dataElementGroup}
-                                onChange={setDataElement}
-                                style={styles.select}
-                            />,
+                            (dataElementGroup &&
+                                <TotalsDetailsSelect
+                                    key='totals'
+                                    operand={operand}
+                                    onChange={setOperand}
+                                    style={styles.select}
+                                />
+                            ),
+                            (operand === true ?
+                                    <DataElementOperandSelect
+                                        key='element'
+                                        dataElementGroup={dataElementGroup}
+                                        dataElement={dataItem}
+                                        onChange={setDataItem}
+                                        style={styles.select}
+                                    />
+                                    :
+                                    <DataElementSelect
+                                        key='element'
+                                        dataElementGroup={dataElementGroup}
+                                        dataElement={dataItem}
+                                        onChange={setDataItem}
+                                        style={styles.select}
+                                    />
+                            ),
+
                         ]}
+                        {valueType === 'ds' && ( // Reporting rates
+                            <DataSetsSelect
+                                key='item'
+                                dataSet={dataItem}
+                                onChange={setDataItem}
+                                style={styles.select}
+                            />
+                        )}
                         {valueType === 'di' && [ // Event data items
                             <ProgramSelect
                                 key='program'
@@ -283,22 +290,33 @@ export class ThematicDialog extends Component {
                                 onChange={setProgram}
                                 style={styles.select}
                             />,
-                            <DataItemSelect
-                                key='item'
-                                program={program}
-                                // value={styleDataItem ? styleDataItem.id : null}
-                                onChange={console.log}
-                                style={styles.select}
-                            />
+                            (program &&
+                                <EventDataItemSelect
+                                    key='item'
+                                    program={program}
+                                    dataItem={dataItem}
+                                    onChange={setDataItem}
+                                    style={styles.select}
+                                />
+                            ),
                         ]}
-                        {valueType === 'ds' && ( // Reporting rates
-                            <DataSetsSelect
-                                key='item'
-                                dataSet={getReportingRateFromColumns(columns)}
-                                onChange={setDataSetItem}
+                        {valueType === 'pi' && [ // Program indicator
+                            <ProgramSelect
+                                key='program'
+                                program={program}
+                                onChange={setProgram}
                                 style={styles.select}
-                            />
-                        )}
+                            />,
+                            (program &&
+                                <ProgramIndicatorSelect
+                                    key='indicator'
+                                    program={program}
+                                    programIndicator={dataItem}
+                                    onChange={setDataItem}
+                                    style={styles.select}
+                                />
+                            ),
+                        ]}
                         <AggregationTypeSelect
                             style={styles.select}
                         />
@@ -467,10 +485,8 @@ export default connect(
     null,
     {
         setClassification,
-        setDataElement,
+        setDataItem,
         setDataElementGroup,
-        setDataSetItem,
-        setIndicator,
         setIndicatorGroup,
         setLabels,
         setLabelFontColor,
@@ -478,12 +494,12 @@ export default connect(
         setLabelFontWeight,
         setLabelFontStyle,
         setLegendSet,
+        setOperand,
         setOrgUnitLevels,
         setOrgUnitGroups,
         setPeriod,
         setPeriodType,
         setProgram,
-        setProgramIndicator,
         setRadiusLow,
         setRadiusHigh,
         setUserOrgUnits,

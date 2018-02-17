@@ -15,12 +15,18 @@ const Legend = ({ description, period, filters, unit, items, source, sourceUrl, 
         {unit && items &&
             <div className='Legend-unit'>{unit}</div>
         }
-        {items && items.map((item, index) => (
-            <LegendItem
-                {...item}
-                key={`item-${index}`}
-            />
-        ))}
+        {items &&
+            <table>
+                <tbody>
+                    {items.map((item, index) => (
+                        <LegendItem
+                            {...item}
+                            key={`item-${index}`}
+                        />
+                    ))}
+                </tbody>
+            </table>
+        }
         {source && (
             <div className='Legend-source'>
                 Source:&nbsp;

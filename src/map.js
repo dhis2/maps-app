@@ -2,8 +2,9 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import union from 'lodash/fp/union';
 import { init, config, getUserSettings } from 'd2/lib/d2';
+import { isValidUid } from 'd2/lib/uid';
 import PluginMap from './components/map/PluginMap';
-import { mapRequest } from './util/requests';
+import { mapRequest, getExternalLayer } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { configI18n } from './util/i18n';
 import { translateConfig } from './util/favorites';
@@ -58,6 +59,7 @@ const Plugin = () => {
         config.schemas = union(config.schemas, [
             'dataElement',
             'dataSet',
+            'externalMapLayer',
             'indicator',
             'legendSet',
             'map',
@@ -93,12 +95,21 @@ const Plugin = () => {
         }
     }
 
-    function loadLayers(config) {
-        if (config.mapViews && !isUnmounted(config.el)) {
-            Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
-                ...config,
-                mapViews,
-            }));
+    async function loadLayers(config) {
+        if (!isUnmounted(config.el)) {
+            let basemap;
+
+            if (isValidUid(config.basemap)) { // If external layer id
+                basemap = await getExternalLayer(config.basemap);
+            }
+
+            if (config.mapViews) {
+                Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
+                    ...config,
+                    mapViews,
+                    basemap: basemap || config.basemap,
+                }));
+            }
         }
     }
 
@@ -107,8 +118,7 @@ const Plugin = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                render(<PluginMap {...config} />, domEl);
-                _components[config.el] = 'rendered';
+                _components[config.el] = render(<PluginMap {...config} />, domEl);
             }
         }
     }
@@ -139,7 +149,7 @@ const Plugin = () => {
                 if (mapComponent === 'loading') {
                     domEl.innerHTML = ''; // Remove spinner
                     return true;
-                } else if (mapComponent === 'rendered') {
+                } else if (mapComponent instanceof PluginMap) {
                     return unmountComponentAtNode(domEl);
                 }
             }
@@ -152,6 +162,18 @@ const Plugin = () => {
         return el && _components[el] === 'unmounted';
     }
 
+    // Should be called if the map container is resized
+    function resize(el) {
+        const mapComponent = _components[el];
+
+        if (mapComponent && mapComponent instanceof PluginMap && mapComponent.map) {
+            mapComponent.map.invalidateSize();
+            return true;
+        }
+
+        return false;
+    }
+
     return { // Public properties
         url: null,
         username: null,
@@ -161,6 +183,7 @@ const Plugin = () => {
         load,
         add,
         unmount,
+        resize,
     };
 };
 

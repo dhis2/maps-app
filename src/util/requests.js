@@ -19,6 +19,12 @@ export const mapRequest = async (id) => {
     }));
 };
 
+// Fetch one external layer
+export const getExternalLayer = async (id) => {
+    const d2 = await getD2();
+    return d2.models.externalMapLayers.get(id);
+};
+
 
 // Different ways of specifying a basemap - TODO: simplify!
 const getBasemap = (config) => {
