@@ -5,7 +5,7 @@ import i18next from 'i18next';
 import Dialog from 'material-ui/Dialog';
 import Button from 'd2-ui/lib/button/Button';
 import TextField from 'd2-ui/lib/text-field/TextField';
-import { saveFavorite, closeSaveFavoriteDialog } from '../../actions/favorites';
+import { saveNewFavorite, closeSaveNewFavoriteDialog } from '../../actions/favorites';
 import { cleanMapConfig } from '../../util/favorites';
 
 const styles = {
@@ -36,35 +36,35 @@ class SaveFavoriteDialog extends Component {
 
         // console.log('save config', config);
 
-        this.props.saveFavorite(config);
+        this.props.saveNewFavorite(config);
     }
 
     render() {
-        const { response, hasLayers, saveDialogOpen, closeSaveFavoriteDialog } = this.props; // TODO: config included only for testing
+        const { response, hasLayers, saveNewDialogOpen, closeSaveNewFavoriteDialog } = this.props; // TODO: config included only for testing
         const { name } = this.state;
 
-        if (!saveDialogOpen) {
+        if (!saveNewDialogOpen) {
             return null;
         }
 
         return (
             <Dialog
-                title={i18next.t('Save favorite')}
+                title={i18next.t('Save as new favorite')}
                 contentStyle={styles.content}
                 titleStyle={styles.title}
                 bodyStyle={styles.body}
                 actions={[
                     <Button
                         color='primary'
-                        onClick={closeSaveFavoriteDialog}
+                        onClick={closeSaveNewFavoriteDialog}
                     >Close</Button>,
                     (hasLayers && !response ? <Button
                           color='primary'
                           onClick={() => this.validateName(name)}
                       >Save</Button> : null)
                 ]}
-                open={saveDialogOpen}
-                onRequestClose={closeSaveFavoriteDialog}
+                open={saveNewDialogOpen}
+                onRequestClose={closeSaveNewFavoriteDialog}
             >
                 {response && response.status === 'OK' ?
                     <div>{i18next.t('Your map was saved successfully.')}</div>
@@ -92,10 +92,10 @@ class SaveFavoriteDialog extends Component {
 
 export default connect(
     (state) => ({
-        saveDialogOpen: state.favorite.saveDialogOpen,
+        saveNewDialogOpen: state.favorite.saveNewDialogOpen,
         hasLayers: Boolean(state.map.mapViews.length),
         config: state.map,
         response: state.favorite.response,
     }),
-    { saveFavorite, closeSaveFavoriteDialog }
+    { saveNewFavorite, closeSaveNewFavoriteDialog }
 )(SaveFavoriteDialog);

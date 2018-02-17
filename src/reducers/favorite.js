@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes';
 
 const defaultState = {
     dialogOpen: false,
-    saveDialogOpen: false,
+    saveNewDialogOpen: false,
     response: null,
 };
 
@@ -22,20 +22,20 @@ const favorite = (state = defaultState, action) => {
                 dialogOpen: false,
             };
 
-        case types.FAVORITE_SAVE_DIALOG_OPEN:
+        case types.FAVORITE_SAVE_NEW_DIALOG_OPEN:
             return {
                 ...state,
-                saveDialogOpen: true,
+                saveNewDialogOpen: true,
             };
 
-        case types.FAVORITE_SAVE_DIALOG_CLOSE:
+        case types.FAVORITE_SAVE_NEW_DIALOG_CLOSE:
             return {
                 ...state,
-                saveDialogOpen: false,
+                saveNewDialogOpen: false,
                 response: null,
             };
 
-        case types.FAVORITE_SAVE_RESPONSE_SET:
+        case types.FAVORITE_SAVE_NEW_RESPONSE_SET:
             return {
                 ...state,
                 response: action.response,

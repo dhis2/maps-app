@@ -6,9 +6,9 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import FavoritesDialog from './FavoritesDialog';
-import SaveFavoriteDialog from './SaveFavoriteDialog';
+import SaveNewFavoriteDialog from './SaveNewFavoriteDialog';
 import { newMap } from '../../actions/map';
-import { openFavoritesDialog, openSaveFavoriteDialog } from '../../actions/favorites';
+import { saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog } from '../../actions/favorites';
 
 const styles = {
     button: {
@@ -46,11 +46,21 @@ class FavoritesMenu extends Component {
 
     onSaveClick() {
         this.closeMenu();
-        this.props.openSaveFavoriteDialog();
+        this.props.saveFavorite();
+
+        console.log('Save favorite with id: ', this.props.mapId);
+
+
+        // this.props.openSaveNewFavoriteDialog();
+    }
+
+    onSaveNewClick() {
+        this.closeMenu();
+        this.props.openSaveNewFavoriteDialog();
     }
 
     render() {
-        const { newMap, openFavoritesDialog, openSaveFavoriteDialog } = this.props;
+        const { mapId } = this.props;
         const { anchorEl } = this.state;
 
         return [
@@ -78,18 +88,18 @@ class FavoritesMenu extends Component {
                   <MenuItem
                       primaryText={i18next.t('Save')}
                       onClick={() => this.onSaveClick()}
-                      disabled={true}
+                      disabled={mapId === undefined}
                   />
                   <MenuItem
                       primaryText={i18next.t('Save as')}
-                      onClick={() => this.onSaveClick()}
+                      onClick={() => this.onSaveNewClick()}
                   />
               </Menu>
             </Popover>,
             <FavoritesDialog
                 key='favorite-load'
             />,
-            <SaveFavoriteDialog
+            <SaveNewFavoriteDialog
                 key='favorite-save'
             />
         ]
@@ -97,6 +107,8 @@ class FavoritesMenu extends Component {
 }
 
 export default connect(
-  null,
-  { newMap, openFavoritesDialog, openSaveFavoriteDialog }
+    (state) => ({
+        mapId: state.map.id,
+    }),
+    { newMap, saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog }
 )(FavoritesMenu);

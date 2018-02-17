@@ -11,7 +11,7 @@ const validMapProperties = [
     'longitude',
     'mapViews',
     'name',
-    // 'user', // ?
+    'user',
     'zoom',
 ];
 
@@ -25,13 +25,14 @@ const validLayerProperties = [
     'columns',
     'config',
     'datasetId',
-    'displayName',
+     // 'displayName',
     'endDate',
     'eventClustering',
     'eventPointColor',
     'eventPointRadius',
     'filter',
     'filters',
+    'id',
     'labels',
     'labelFontSize',
     'labelFontStyle',

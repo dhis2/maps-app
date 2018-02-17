@@ -6,18 +6,23 @@ export const loadFavorite = (id) => ({
     id,
 });
 
-export const saveFavorite = (config) => ({
-    type: types.FAVORITE_SAVE,
+// Save existing favorite
+export const saveFavorite = () => ({
+  type: types.FAVORITE_SAVE,
+});
+
+export const saveNewFavorite = (config) => ({
+    type: types.FAVORITE_SAVE_NEW,
     config,
 });
 
-export const setSaveFavoriteResponse = (response) => ({
-    type: types.FAVORITE_SAVE_RESPONSE_SET,
+export const setSaveNewFavoriteResponse = (response) => ({
+    type: types.FAVORITE_SAVE_NEW_RESPONSE_SET,
     response,
 });
 
-export const clearSaveFavoriteResponse = () => ({
-    type: types.FAVORITE_SAVE_RESPONSE_CLEAR,
+export const clearSaveNewFavoriteResponse = () => ({
+    type: types.FAVORITE_SAVE_NEW_RESPONSE_CLEAR,
 });
 
 /*
@@ -38,10 +43,10 @@ export const closeFavoritesDialog = () => ({
     type: types.FAVORITES_DIALOG_CLOSE,
 });
 
-export const openSaveFavoriteDialog = () => ({
-    type: types.FAVORITE_SAVE_DIALOG_OPEN,
+export const openSaveNewFavoriteDialog = () => ({
+    type: types.FAVORITE_SAVE_NEW_DIALOG_OPEN,
 });
 
-export const closeSaveFavoriteDialog = () => ({
-    type: types.FAVORITE_SAVE_DIALOG_CLOSE,
+export const closeSaveNewFavoriteDialog = () => ({
+    type: types.FAVORITE_SAVE_NEW_DIALOG_CLOSE,
 });
