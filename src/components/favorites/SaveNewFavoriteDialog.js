@@ -5,6 +5,7 @@ import i18next from 'i18next';
 import Dialog from 'material-ui/Dialog';
 import Button from 'd2-ui/lib/button/Button';
 import TextField from 'd2-ui/lib/text-field/TextField';
+import { setMapName } from '../../actions/map';
 import { saveNewFavorite, closeSaveNewFavoriteDialog } from '../../actions/favorites';
 import { cleanMapConfig } from '../../util/favorites';
 
@@ -21,21 +22,29 @@ const styles = {
     },
 };
 
-class SaveFavoriteDialog extends Component {
+class SaveNewFavoriteDialog extends Component {
     state = {
         name: ''
     };
 
     validateName(name) {
         // TODO: Set error text if name is empty
+        this.saveFavorite(name);
+    }
 
+    saveFavorite(name) {
         const config = {
             ...cleanMapConfig(this.props.config),
             name,
         };
 
-        // console.log('save config', config);
+        delete config.id;
 
+        if (config.mapViews) {
+            config.mapViews.forEach(view => delete view.id);
+        }
+
+        this.props.setMapName(name);
         this.props.saveNewFavorite(config);
     }
 
@@ -61,6 +70,7 @@ class SaveFavoriteDialog extends Component {
                     (hasLayers && !response ? <Button
                           color='primary'
                           onClick={() => this.validateName(name)}
+                          disabled={name.length === 0}
                       >Save</Button> : null)
                 ]}
                 open={saveNewDialogOpen}
@@ -97,5 +107,5 @@ export default connect(
         config: state.map,
         response: state.favorite.response,
     }),
-    { saveNewFavorite, closeSaveNewFavoriteDialog }
-)(SaveFavoriteDialog);
+    { setMapName, saveNewFavorite, closeSaveNewFavoriteDialog }
+)(SaveNewFavoriteDialog);

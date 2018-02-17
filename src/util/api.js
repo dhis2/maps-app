@@ -17,7 +17,6 @@ export const apiFetch = async (url, method, body) => {
         options.method = method;
         options.headers['Content-Type'] = 'application/json';
         options.body = JSON.stringify(body);
-        // console.log('options.body', options.body);
     }
 
     return fetch(encodeURI(config.baseUrl + url), options)

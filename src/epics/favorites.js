@@ -1,6 +1,8 @@
 import { combineEpics } from 'redux-observable';
+import i18next from 'i18next';
 import * as types from '../constants/actionTypes';
 import { setSaveNewFavoriteResponse } from '../actions/favorites';
+import { setMessage } from '../actions/message';
 import { apiFetch } from '../util/api';
 import { cleanMapConfig } from '../util/favorites';
 
@@ -12,20 +14,11 @@ export const saveFavorite = (action$, store) =>
             const config = cleanMapConfig(store.getState().map);
 
             if (config.mapViews) {
-                 config.mapViews = config.mapViews.map(layer => ({
-                     ...layer,
-                     // layer: layer.id,
-                 }));
-
-                 delete config.mapViews[0].id;
-                 // delete config.mapViews[0].columns;
-                 // delete config.mapViews[0].filters
+                config.mapViews.forEach(view => delete view.id);
             }
 
-            // console.log('save config', config)
-
             return apiFetch(`/maps/${config.id}`, 'PUT', config)
-                .then(() => console.log('Saved'));
+                .then(() => setMessage(`${i18next.t('Favorite')} "${config.name}" ${i18next.t('is saved')}.`));
         });
 
 // Save new favorite

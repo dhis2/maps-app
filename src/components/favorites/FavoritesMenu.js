@@ -47,11 +47,6 @@ class FavoritesMenu extends Component {
     onSaveClick() {
         this.closeMenu();
         this.props.saveFavorite();
-
-        console.log('Save favorite with id: ', this.props.mapId);
-
-
-        // this.props.openSaveNewFavoriteDialog();
     }
 
     onSaveNewClick() {

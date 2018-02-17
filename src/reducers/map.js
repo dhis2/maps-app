@@ -200,6 +200,12 @@ const map = (state = defaultState, action) => {
                 ...action.payload
             };
 
+        case types.MAP_NAME_SET:
+            return {
+                ...state,
+                name: action.payload,
+            };
+
         case types.MAP_COORDINATE_OPEN:
             return {
                 ...state,
