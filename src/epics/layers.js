@@ -41,5 +41,4 @@ export const drillLayer = (action$, store) =>
         )
         .mergeMap((config) => [ closeContextMenu(), loadLayer(config) ]);
 
-
 export default combineEpics(loadLayerEpic, drillLayer);

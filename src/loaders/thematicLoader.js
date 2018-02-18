@@ -48,6 +48,7 @@ const thematicLoader = async (config) => {
         const value = valueById[id];
         const item = getLegendItem(value);
 
+        // console.log('item', item, value);
         // console.log(value, item, id, properties);
         item.count === undefined ? item.count = 1 : item.count++;
 

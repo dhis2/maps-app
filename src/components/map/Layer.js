@@ -36,11 +36,11 @@ class Layer extends PureComponent {
     }
 
     componentDidUpdate(prev) {
-        const { id, index, opacity, isVisible, editCounter, dataFilters } = this.props;
+        const { id, data, index, opacity, isVisible, editCounter, dataFilters } = this.props;
         const map = this.context.map;
 
         // Create new map if new id of editCounter is increased
-        if (id !== prev.id || editCounter !== prev.editCounter || dataFilters !== prev.dataFilters) {
+        if (id !== prev.id || data !== prev.data || editCounter !== prev.editCounter || dataFilters !== prev.dataFilters) {
             this.removeLayer();
             this.createLayer();
             map.addLayer(this.layer);

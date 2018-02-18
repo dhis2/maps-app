@@ -11,6 +11,8 @@ import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
 import { defaultBasemaps } from '../../constants/basemaps';
 import { getMapAlerts } from '../../util/helpers'
+import { drillUpDown } from '../../util/map';
+import { fetchLayer } from '../../loaders/layers';
 import '../../../scss/app.scss';
 
 const layerType = {
@@ -39,9 +41,6 @@ const styles = {
 
 // TODO: Resuse code from Map.js
 class PluginMap extends Component {
-    state = {
-        contextMenuPosition: null,
-    };
 
     getChildContext() {
         return {
@@ -60,10 +59,10 @@ class PluginMap extends Component {
         this.map = d2map(div, {
             scrollWheelZoom: false,
         });
-    }
 
-    componentWillMount() {
-        // this.map.on('contextmenu', this.onRightClick, this);
+        this.state = {
+            mapViews: props.mapViews, // Can be changed by drilling
+        }
     }
 
     onRightClick(evt) {
@@ -88,7 +87,7 @@ class PluginMap extends Component {
             });
 
             if (map.legend) {
-                map.addControl({
+                this.legend = map.addControl({
                     type: 'legend',
                     offset: [0, -64],
                     content: map.legend,
@@ -110,12 +109,20 @@ class PluginMap extends Component {
             }
 
             map.invalidateSize();
+
+            map.on('click', this.onCloseContextMenu, this);
         }
      }
 
     componentDidUpdate(prevProps) {
-        if (this.map) {
-            this.map.invalidateSize();
+        const map = this.map;
+
+        if (map) {
+            map.invalidateSize();
+
+            if (this.legend) {
+                this.legend.setContent(map.legend);
+            }
         }
     }
 
@@ -127,13 +134,47 @@ class PluginMap extends Component {
     }
 
     onOpenContextMenu(state) {
-        console.log(state);
-
         this.setState(state);
     }
 
+    onCloseContextMenu() {
+        this.setState({
+            position: null,
+            feature: null,
+        });
+    }
+
+    async onDrill(direction) {
+        const { layerId, feature, mapViews } = this.state;
+        let newConfig;
+
+        if (layerId && feature) {
+            const { level, id, parentGraph, grandParentId, grandParentParentGraph } = feature.properties;
+            const layerConfig = mapViews.find(layer => layer.id === layerId);
+
+            if (direction === 'up') {
+                newConfig = drillUpDown(layerConfig, grandParentId, grandParentParentGraph, parseInt(level) - 1);
+            } else {
+                newConfig = drillUpDown(layerConfig, id, parentGraph, parseInt(level) + 1);
+            }
+
+            const newLayer = await fetchLayer(newConfig);
+
+            this.map.legend = '';
+
+            this.setState({
+                mapViews: mapViews.map(layer => layer.id === layerId ? newLayer : layer),
+                position: null,
+                feature: null,
+            });
+        }
+    }
+
+
     render() {
-        const { basemap = { id: 'osmLight' }, mapViews, onDrillDown, onDrillUp } = this.props;
+        const { basemap = { id: 'osmLight' } } = this.props;
+        const { mapViews, position, feature } = this.state;
+
         let selectedBasemap;
 
         if (basemap.url) { // External layer
@@ -167,10 +208,11 @@ class PluginMap extends Component {
                     })}
                     <Layer key='basemap' {...selectedBasemap} />
                     <ContextMenu
-                         position={this.state.position}
+                         position={position}
+                         feature={feature}
                          // onClose={console.log}
-                         onDrillDown={() => onDrillDown()}
-                         onDrillUp={() => onDrillUp}
+                         onDrillDown={() => this.onDrill('down')}
+                         onDrillUp={() => this.onDrill('up')}
                     />
                 </div>
                 :

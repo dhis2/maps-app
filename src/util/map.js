@@ -64,6 +64,7 @@ export const toGeoJson = (organisationUnits) =>
     })
     .filter(({ geometry }) => Array.isArray(geometry.coordinates) && geometry.coordinates.length);
 
+// TODO: parentGraph is not used
 export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
     ...layerConfig,
     rows: [{
