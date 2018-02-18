@@ -126,6 +126,7 @@ export class EventDialog extends Component {
 
         const period = getPeriodFromFilters(filters) || { id: 'START_END_DATES' };
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
+        const allowStyleByDataItem = false; // TODO: Remove check
 
         return (
             <Tabs
@@ -255,15 +256,16 @@ export class EventDialog extends Component {
                                 style={{ float: 'left', maxWidth: 100 }}
                             />
                         </div>
+                        {allowStyleByDataItem && [ // TODO: Remove check
                             <DataItemSelect
-                                label={i18next.t('Style by data item')}
-                                program={program}
-                                programStage={programStage}
-                                allowNone={true}
-                                value={styleDataItem ? styleDataItem.id : null}
-                                onChange={setStyleDataItem}
-                                style={styles.select}
-                            />
+                                 label={i18next.t('Style by data item')}
+                                 program={program}
+                                 programStage={programStage}
+                                 allowNone={true}
+                                 value={styleDataItem ? styleDataItem.id : null}
+                                 onChange={setStyleDataItem}
+                                 style={styles.select}
+                            />,
                             <DataItemStyle
                                 method={method}
                                 classes={classes}
@@ -271,6 +273,8 @@ export class EventDialog extends Component {
                                 style={styles.select}
                                 {...styleDataItem}
                             />
+                            ]
+                        }
                     </div>
                 </Tab>
             </Tabs>

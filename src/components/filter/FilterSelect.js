@@ -104,7 +104,7 @@ const FilterSelect = ({ valueType, filter, optionSet, optionSets, loadOptionSet,
         operator = operators[0].id;
     }
 
-    // console.log('valueType', valueType);
+    // console.log('valueType', valueType, value);
 
     return [
         (operators ?
@@ -133,7 +133,7 @@ const FilterSelect = ({ valueType, filter, optionSet, optionSets, loadOptionSet,
                 key='number'
                 label={i18next.t('Value')}
                 type='number'
-                value={value}
+                value={value !== undefined ? value : ''}
                 onChange={newValue => onChange(`${operator}:${newValue}`)}
                 style={styles.textField}
             />
