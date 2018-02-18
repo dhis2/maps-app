@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import d2map from 'dhis2-gis-api/build';
+import ContextMenu from './PluginContextMenu';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
 import FacilityLayer from './FacilityLayer';
@@ -38,6 +39,9 @@ const styles = {
 
 // TODO: Resuse code from Map.js
 class PluginMap extends Component {
+    state = {
+        contextMenuPosition: null,
+    };
 
     getChildContext() {
         return {
@@ -59,7 +63,15 @@ class PluginMap extends Component {
     }
 
     componentWillMount() {
-        // this.context.map.on('contextmenu', this.onRightClick, this);
+        // this.map.on('contextmenu', this.onRightClick, this);
+    }
+
+    onRightClick(evt) {
+        L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+
+        this.setState({
+            contextMenuPosition: [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y],
+        });
     }
 
     componentDidMount() {
@@ -114,8 +126,14 @@ class PluginMap extends Component {
         }
     }
 
+    onOpenContextMenu(state) {
+        console.log(state);
+
+        this.setState(state);
+    }
+
     render() {
-        const { basemap = { id: 'osmLight' }, mapViews } = this.props;
+        const { basemap = { id: 'osmLight' }, mapViews, onDrillDown, onDrillUp } = this.props;
         let selectedBasemap;
 
         if (basemap.url) { // External layer
@@ -132,31 +150,38 @@ class PluginMap extends Component {
 
         const alerts = getMapAlerts(this.props);
 
-        return (!alerts.length ?
-            <div ref={node => this.node = node} style={styles.map}>
-                {mapViews.filter(layer => layer.isLoaded).map((config) => {
-                    const Overlay = layerType[config.layer] || Layer;
+        return (
+            (!alerts.length ?
+                <div ref={node => this.node = node} style={styles.map}>
+                    {mapViews.filter(layer => layer.isLoaded).map((config) => {
+                        const Overlay = layerType[config.layer] || Layer;
 
-                    return (
-                        <Overlay
-                            key={config.id}
-                            // openContextMenu={openContextMenu}
-                            openContextMenu={console.log}
-                            {...config}
-                            isPlugin={true}
-                        />
-                    )
-                })}
-                <Layer key='basemap' {...selectedBasemap} />
-            </div>
-            :
-            <div style={styles.alerts}>
-                {alerts.map((alert, index) =>
-                    <div key={index} style={styles.alert}>
-                        <strong>{alert.title}</strong>: {alert.description}
-                    </div>
-                )}
-            </div>
+                        return (
+                            <Overlay
+                                key={config.id}
+                                openContextMenu={this.onOpenContextMenu.bind(this)}
+                                {...config}
+                                isPlugin={true}
+                            />
+                        )
+                    })}
+                    <Layer key='basemap' {...selectedBasemap} />
+                    <ContextMenu
+                         position={this.state.position}
+                         // onClose={console.log}
+                         onDrillDown={() => onDrillDown()}
+                         onDrillUp={() => onDrillUp}
+                    />
+                </div>
+                :
+                <div style={styles.alerts}>
+                    {alerts.map((alert, index) =>
+                        <div key={index} style={styles.alert}>
+                            <strong>{alert.title}</strong>: {alert.description}
+                        </div>
+                    )}
+                </div>
+            )
         )
     }
 }

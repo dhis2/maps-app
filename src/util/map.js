@@ -1,6 +1,7 @@
 import compact from 'lodash/fp/compact';
 import sortBy from 'lodash/fp/sortBy';
 import isString from 'lodash/fp/isString';
+import { dimConf } from '../constants/dimension';
 
 export const isValidCoordinate = (coord) =>
     Array.isArray(coord)
@@ -63,8 +64,14 @@ export const toGeoJson = (organisationUnits) =>
     })
     .filter(({ geometry }) => Array.isArray(geometry.coordinates) && geometry.coordinates.length);
 
-export const setExternalBasemap = (mapConfig) => {
-    console.log('setExternalBasemap', mapConfig);
-
-    return mapConfig;
-};
+export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
+    ...layerConfig,
+    rows: [{
+        dimension: dimConf.organisationUnit.objectName,
+        items: [
+            { id: parentId },
+            { id: 'LEVEL-' + level }
+        ]
+    }],
+    parentGraphMap: {},
+});

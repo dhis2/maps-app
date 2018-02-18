@@ -6,7 +6,7 @@ import { closeContextMenu } from '../actions/map';
 import { addLayer, updateLayer, loadLayer } from '../actions/layers';
 import { errorActionCreator } from '../actions/helpers';
 import { fetchLayer } from '../loaders/layers';
-import { dimConf } from '../constants/dimension';
+import { drillUpDown } from '../util/map';
 
 const isNewLayer = (config) => config.id === undefined;
 
@@ -31,30 +31,12 @@ export const drillLayer = (action$, store) =>
     action$
         .ofType(types.LAYER_DRILL)
         .concatMap(({ layerId, parentId, parentGraph, level }) =>
-            getD2() // TODO: D2 is not needed, just icluded to return a promise
+            getD2() // TODO: D2 is not needed, just included to return a promise
                 .then((d2) => {
                     const state = store.getState();
-                    const layer = state.map.mapViews.filter(config => config.id === layerId)[0]; // TODO: Add check
+                    const layerConfig = state.map.mapViews.filter(config => config.id === layerId)[0]; // TODO: Add check
 
-                    const config = {
-                        ...layer,
-                        rows: [{
-                            dimension: dimConf.organisationUnit.objectName,
-                            items: [
-                                { id: parentId },
-                                { id: 'LEVEL-' + level }
-                            ]
-                        }],
-                        parentGraphMap: {},
-                        // isLoaded: false,
-                        // data: null,
-                    };
-
-                    // console.log('drillLayer', config);
-                    // layer.parentGraphMap[parentId] = parentGraph; // needed ??
-
-                    return config;
-
+                    return drillUpDown(layerConfig, parentId, parentGraph, level);
                 })
         )
         .mergeMap((config) => [ closeContextMenu(), loadLayer(config) ]);

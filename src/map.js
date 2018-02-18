@@ -118,7 +118,13 @@ const Plugin = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                _components[config.el] = render(<PluginMap {...config} />, domEl);
+                _components[config.el] = render(
+                    <PluginMap
+                        {...config}
+                        onDrillDown={onDrillDown}
+                        onDrillUp={onDrillUp}
+                    />,
+                domEl);
             }
         }
     }
@@ -160,6 +166,14 @@ const Plugin = () => {
 
     function isUnmounted(el) {
         return el && _components[el] === 'unmounted';
+    }
+
+    function onDrillDown() {
+        console.log('# onDrillDown');
+    }
+
+    function onDrillUp() {
+        console.log('# onDrillUp');
     }
 
     // Should be called if the map container is resized
