@@ -11,7 +11,9 @@ import { addFilter, removeFilter, changeFilter } from '../../actions/layerEdit';
 const styles = {
     container: {
         width: '100%',
+        height: 300,
         padding: 12,
+        overflowY: 'auto',
     },
     button: {
         marginTop: 8,
