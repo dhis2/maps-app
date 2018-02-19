@@ -35,6 +35,7 @@ const thematicLoader = async (config) => {
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
     let alerts = [];
 
+    legend.items.forEach(item => item.count = 0);
     legend.period = data.metaData.dimensions.pe[0];
 
     if (!valueFeatures.length) {
@@ -48,10 +49,7 @@ const thematicLoader = async (config) => {
         const value = valueById[id];
         const item = getLegendItem(value);
 
-        // console.log('item', item, value);
-        // console.log(value, item, id, properties);
-        item.count === undefined ? item.count = 1 : item.count++;
-
+        item.count++;
         properties.value = value;
         properties.color = item && item.color;
         properties.radius = (value - minValue) / (maxValue - minValue) * (radiusHigh - radiusLow) + radiusLow;

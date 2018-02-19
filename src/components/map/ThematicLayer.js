@@ -59,7 +59,7 @@ class ThematicLayer extends Layer {
             <dl class="dhis2-legend-automatic">
                 ${items.map(item => `
                     <dt style="background-color:${item.color}"></dt>
-                    <dd>${item.name || ''} ${!isNaN(item.startValue) ? `${item.startValue} - ${item.endValue}` : ''}</dd>
+                    <dd>${item.name || ''} ${!isNaN(item.startValue) ? `${item.startValue} - ${item.endValue}` : ''} (${item.count})</dd>
                 `).join('')}
             </dl>
         </div>`;

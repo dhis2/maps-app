@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LegendItem = ({ image, color, radius, name, startValue, endValue }) => {
+const LegendItem = ({ image, color, radius, name, startValue, endValue, count }) => {
     if (!name && startValue === undefined) {
         return null;
     }
@@ -20,7 +20,7 @@ const LegendItem = ({ image, color, radius, name, startValue, endValue }) => {
     return (
         <tr>
             <th><span style={symbol}></span></th>
-            <td>{name} {isNaN(startValue) ? '' : `${startValue} - ${endValue}`}</td>
+            <td>{name} {isNaN(startValue) ? '' : `${startValue} - ${endValue} (${count})`}</td>
         </tr>
     );
 };
