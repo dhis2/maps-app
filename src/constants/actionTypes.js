@@ -1,5 +1,7 @@
 /* ALERT */
-export const ALERTS_REMOVE = 'ALERTS_REMOVE';
+export const ALERT_SET = 'ALERT_SET';
+export const ALERT_DIALOG_CLOSE = 'ALERT_DIALOG_CLOSE';
+export const ALERTS_CLEAR = 'ALERT_CLEAR';
 
 /* MAP */
 export const MAP_NEW = 'MAP_NEW';

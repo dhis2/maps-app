@@ -31,7 +31,3 @@ export const openContextMenu = (payload) => ({
 export const closeContextMenu = () => ({
     type: types.MAP_CONTEXT_MENU_CLOSE,
 });
-
-export const removeAlerts = () => ({
-    type: types.ALERTS_REMOVE,
-});

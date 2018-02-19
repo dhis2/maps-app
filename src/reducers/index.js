@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import alert from './alert';
 import basemaps from './basemaps';
 import contextMenu from './contextMenu';
 import dataElements from './dataElements';
@@ -33,6 +34,7 @@ import ui from './ui';
 import userSettings from './userSettings';
 
 export default combineReducers({
+    alert,
     basemaps,
     contextMenu,
     dataElements,

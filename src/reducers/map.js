@@ -131,7 +131,7 @@ const layer = (state, action) => {
                 // editCounter: ++state.editCounter, // Will trigger redraw
             };
 
-        case types.ALERTS_REMOVE:
+        case types.ALERTS_CLEAR:
             return {
                 ...state,
                 alerts: null,
@@ -286,7 +286,7 @@ const map = (state = defaultState, action) => {
                 mapViews: state.mapViews.map(l => layer(l, action))
             };
 
-        case types.ALERTS_REMOVE:
+        case types.ALERTS_CLEAR:
             return {
                 ...state,
                 alerts: null,

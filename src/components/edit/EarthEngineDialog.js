@@ -233,7 +233,7 @@ class EarthEngineDialog extends Component {
         if (!this.isValidRange()) {
             return this.setErrorState('rangeError', `${i18next.t('Valid range is')} ${minValue} - ${maxValue}`, 'style');
         }
-        
+
         return true;
     }
 }

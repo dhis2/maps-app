@@ -78,15 +78,25 @@ const setAuthToken = ({ client_id, access_token, expires_in }) => {
     ee.initialize();
 };
 
+const getAuthToken = () => {
+    // console.log('getAuthToken');
+
+    return apiFetch('/tokens/google');
+        //.then(console.log);
+
+};
+
 // Load collection (periods) for one EE dataset
 export const loadCollection = (action$) =>
     action$
         .ofType(types.EARTH_ENGINE_COLLECTION_LOAD)
-        .concatMap((action) => apiFetch('/tokens/google')
+        // .concatMap((action) => apiFetch('/tokens/google')
+        .concatMap((action) => getAuthToken()
             .then(setAuthToken)
             .then(() => new Promise(collections[action.id]))
             .then((data) => setEarthEngineCollection(action.id, data))
             .catch(errorActionCreator(types.EARTH_ENGINE_COLLECTION_LOAD_ERROR))
+            // .catch((error) => console.log('catched', error))
         );
 
 export default combineEpics(loadCollection);
