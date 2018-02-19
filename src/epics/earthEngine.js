@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
 import { timeFormat } from 'd3-time-format';
@@ -5,6 +6,7 @@ import * as types from '../constants/actionTypes';
 import { apiFetch } from '../util/api';
 import { setEarthEngineCollection } from '../actions/earthEngine';
 import { errorActionCreator } from '../actions/helpers';
+import { setAlert } from '../actions/alerts';
 
 const collections = {
     'WorldPop/POP': (resolve, reject) => { // Population density
@@ -78,25 +80,25 @@ const setAuthToken = ({ client_id, access_token, expires_in }) => {
     ee.initialize();
 };
 
-const getAuthToken = () => {
-    // console.log('getAuthToken');
-
-    return apiFetch('/tokens/google');
-        //.then(console.log);
-
-};
-
 // Load collection (periods) for one EE dataset
 export const loadCollection = (action$) =>
     action$
         .ofType(types.EARTH_ENGINE_COLLECTION_LOAD)
-        // .concatMap((action) => apiFetch('/tokens/google')
-        .concatMap((action) => getAuthToken()
-            .then(setAuthToken)
-            .then(() => new Promise(collections[action.id]))
-            .then((data) => setEarthEngineCollection(action.id, data))
-            .catch(errorActionCreator(types.EARTH_ENGINE_COLLECTION_LOAD_ERROR))
-            // .catch((error) => console.log('catched', error))
-        );
+        .concatMap(async (action) => {
+            const token = await apiFetch('/tokens/google')
+                .catch(errorActionCreator(types.EARTH_ENGINE_COLLECTION_LOAD_ERROR));
+
+            if (token && token.status === 'ERROR') {
+                return setAlert({
+                    title: i18next.t(token.message),
+                    description: i18next.t('To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.'),
+                });
+            }
+
+            setAuthToken(token);
+
+            return new Promise(collections[action.id])
+                .then((data) => setEarthEngineCollection(action.id, data));
+        });
 
 export default combineEpics(loadCollection);
