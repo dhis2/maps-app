@@ -66,6 +66,18 @@ const styles = {
         padding: '16px 0 16px 32px',
         fontWeight: 'bold',
     },
+    colorScale: {
+        marginLeft: 12,
+        maxWidth: 270,
+        overflow: 'hidden',
+    },
+    error: {
+        width: '100%',
+        color: 'rgb(244, 67, 54)',
+        fontSize: 12,
+        lineHeight: '12px',
+        marginLeft: 12,
+    }
 };
 
 class EarthEngineDialog extends Component {
@@ -90,13 +102,13 @@ class EarthEngineDialog extends Component {
 
         this.setState({ steps });
 
-        if (steps > 0 && steps < 8) { // Valid steps: 1-7
+        if (this.isValidSteps(steps)) {
             const scale = getColorScale(palette);
             const classes = (steps == 1 && min == 0 ? 2 : steps) + (min == 0 ? 1 : 2);
             const newPalette = getColorPalette(scale, classes);
 
             if (newPalette) {
-                this.props.setParams(min, max, newPalette.join());
+                this.props.setParams(min, max, newPalette);
             }
         }
     }
@@ -105,7 +117,7 @@ class EarthEngineDialog extends Component {
     render() {
         const { datasetId, params, filter, setParams, setFilter } = this.props;
         const dataset = datasets[datasetId];
-        const { tab, steps, filterError } = this.state;
+        const { tab, steps, filterError, rangeError, stepsError } = this.state;
 
         return (
             <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
@@ -148,10 +160,13 @@ class EarthEngineDialog extends Component {
                                     onChange={steps => this.onStepsChange(steps)}
                                     style={styles.flexThird}
                                 />,
+                                <div key='range_error' style={styles.error}>{!this.isValidRange() && rangeError}</div>,
+                                <div key='steps_error' style={styles.error}>{!this.isValidSteps() && stepsError}</div>,
                                 <ColorScaleSelect
                                     key='scale'
                                     palette={params.palette}
                                     onChange={palette => setParams(params.min, params.max, palette.join())}
+                                    style={styles.colorScale}
                                 />,
                             ]}
                         </div>
@@ -190,13 +205,35 @@ class EarthEngineDialog extends Component {
         return false;
     }
 
+    isValidRange() {
+        const { datasetId, params } = this.props;
+        const dataset = datasets[datasetId];
+        const { min, max } = params;
+        const { minValue, maxValue } = dataset;
+
+        return min < max && min >= minValue && min <= maxValue && max >= minValue && max <= maxValue;
+    }
+
+    isValidSteps(newSteps) {
+        const steps = newSteps !== undefined ? newSteps : this.getStepsFromParams();
+        return (steps > 0 && steps < 8);  // Valid steps: 1-7
+    }
+
     validate() {
-        const { datasetId, filter } = this.props;
+        const { datasetId, filter, params } = this.props;
+        const dataset = datasets[datasetId];
+        const { min, max } = params;
+        const { minValue, maxValue } = dataset;
 
         if (datasetId !== 'USGS/SRTMGL1_003' && !filter) {
             return this.setErrorState('filterError', i18next.t('This field is required'), 'style');
         }
 
+        // TODO: This should be implemented in the number fields directly
+        if (!this.isValidRange()) {
+            return this.setErrorState('rangeError', `${i18next.t('Valid range is')} ${minValue} - ${maxValue}`, 'style');
+        }
+        
         return true;
     }
 }
