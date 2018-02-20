@@ -10,19 +10,20 @@ import { dimConf } from '../constants/dimension';
 import { getLegendItems, getLegendItemForValue } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
 import { loadDataItemLegendSet } from '../util/legend';
-import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemFromColumns } from '../util/analytics';
+import { getOrgUnitsFromRows, getPeriodFromFilters, getDataItemFromColumns, getApiResponseNames } from '../util/analytics';
 import { defaultClasses, defaultColorScale } from '../util/colorscale';
 
 const thematicLoader = async (config) => {
     const { columns, radiusLow, radiusHigh } = config;
     const [ features, data ] = await loadData(config);
+    const names = getApiResponseNames(data);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(({ id }) => valueById[id] !== undefined);
     const orderedValues = getOrderedValues(data);
     const minValue = orderedValues[0];
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemFromColumns(columns);
-    const name = dataItem.name;
+    const name = names[dataItem.id];
     let legendSet = config.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
 
@@ -36,11 +37,11 @@ const thematicLoader = async (config) => {
     let alerts = [];
 
     legend.items.forEach(item => item.count = 0);
-    legend.period = data.metaData.dimensions.pe[0];
+    legend.period = names[data.metaData.dimensions.pe[0]];
 
     if (!valueFeatures.length) {
         alerts.push({
-            title: config.name,
+            title: name,
             description: i18next.t('No data found'),
         });
     }
