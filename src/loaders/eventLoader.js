@@ -13,6 +13,7 @@ import {
     getPeriodFromFilters,
     getPeriodNameFromId,
     removeEmptyItems,
+    getApiResponseNames,
 } from '../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { timeFormat } from 'd3-time-format';
@@ -48,6 +49,8 @@ const eventLoader = async (config) => { // Returns a promise
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
+    // console.log('period', period, config);
+
     let analyticsRequest = await getAnalyticsRequest(program, programStage, period, startDate, endDate, orgUnits, dataItems, eventCoordinateField);
 
     const legend = {
@@ -67,20 +70,7 @@ const eventLoader = async (config) => { // Returns a promise
 
     if (!serverCluster) {
         const response = await d2.analytics.events.getQuery(analyticsRequest);
-        const items = response.metaData.items;
-
-        const names = {
-            ...Object.keys(items).reduce((names, key) => ({
-                ...names,
-                [key]: items[key].name,
-            }), {}),
-            // ...data.metaData.optionNames, // TODO: In use? See below
-            true: i18next.t('Yes'),
-            false: i18next.t('No'),
-        };
-
-        // Find header names and keys - TODO: Needed?
-        response.headers.forEach(header => names[header.name] = header.column);
+        const names = getApiResponseNames(response);
 
         data = response.rows
             .map(row => createEventFeature(response.headers, names, row, eventCoordinateField))

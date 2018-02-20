@@ -180,3 +180,19 @@ export const combineDataItems = (dataItemsA = [], dataItemsB = [], excludeTypes 
 export const removeEmptyItems = (items) => {
     return items.filter((item) => !item.items || (item.items && item.items.length));
 };
+
+// Builds an object with key/names pairs from an API response
+export const getApiResponseNames = ({ metaData, headers }) => ({
+    ...Object.keys(metaData.items).reduce((names, key) => ({
+        ...names,
+        [key]: metaData.items[key].name,
+    }), {}),
+    ...headers.reduce((names, header) => ({
+        ...names,
+        [header.name]: header.column
+    }), {}),
+    true: i18next.t('Yes'),
+    false: i18next.t('No'),
+});
+
+

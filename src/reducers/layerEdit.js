@@ -97,7 +97,7 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_PERIOD_SET:
             return {
                 ...state,
-                filters: setFiltersFromPeriod(action.period),
+                filters: (action.period.id !== 'START_END_DATES' ? setFiltersFromPeriod(action.period) : []),
             };
 
         case types.LAYER_EDIT_START_DATE_SET:
