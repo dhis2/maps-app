@@ -67,14 +67,17 @@ const eventLoader = async (config) => { // Returns a promise
 
     if (!serverCluster) {
         const response = await d2.analytics.events.getQuery(analyticsRequest);
+        const items = response.metaData.items;
+
         const names = {
-            // ...data.metaData.names, // TODO: In use?
+            ...Object.keys(items).reduce((names, key) => ({
+                ...names,
+                [key]: items[key].name,
+            }), {}),
             // ...data.metaData.optionNames, // TODO: In use? See below
             true: i18next.t('Yes'),
             false: i18next.t('No'),
         };
-
-        // names[header.name] = header.column;
 
         // Find header names and keys - TODO: Needed?
         response.headers.forEach(header => names[header.name] = header.column);
