@@ -13,7 +13,6 @@ import { defaultBasemaps } from '../../constants/basemaps';
 import { getMapAlerts } from '../../util/helpers'
 import { drillUpDown } from '../../util/map';
 import { fetchLayer } from '../../loaders/layers';
-import '../../../scss/app.scss';
 
 const layerType = {
     event:       EventLayer,
