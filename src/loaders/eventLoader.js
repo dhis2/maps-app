@@ -49,8 +49,6 @@ const eventLoader = async (config) => { // Returns a promise
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
-    // console.log('period', period, config);
-
     let analyticsRequest = await getAnalyticsRequest(program, programStage, period, startDate, endDate, orgUnits, dataItems, eventCoordinateField);
 
     const legend = {
@@ -61,6 +59,7 @@ const eventLoader = async (config) => { // Returns a promise
     let bounds;
     let serverCluster;
     let data;
+    let names;
 
     if (spatialSupport && eventClustering) {
         const response = await d2.analytics.events.getCount(analyticsRequest);
@@ -70,7 +69,19 @@ const eventLoader = async (config) => { // Returns a promise
 
     if (!serverCluster) {
         const response = await d2.analytics.events.getQuery(analyticsRequest);
-        const names = getApiResponseNames(response);
+        names = getApiResponseNames(response);
+        const optionSetHeaders = response.headers.filter((header) => header.optionSet);
+
+        // Load option sets used for filtering/styling
+        if (optionSetHeaders.length) {
+            await Promise.all(optionSetHeaders.map(header =>
+                d2.models.optionSets.get(header.optionSet, {
+                    fields: 'id,options[code,displayName~rename(name)]'
+                })
+                .then(model => model.options)
+                .then(options => options.forEach(({ code, name }) => names[code] = name))
+            ));
+        }
 
         data = response.rows
             .map(row => createEventFeature(response.headers, names, row, eventCoordinateField))
@@ -116,6 +127,8 @@ const eventLoader = async (config) => { // Returns a promise
             }
         }
     }
+
+    legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
 
     return {
         ...config,

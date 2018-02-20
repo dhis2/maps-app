@@ -150,10 +150,10 @@ export const getFiltersFromColumns = (columns = []) => {
 };
 
 
-export const getFiltersAsText = (filters = []) => {
+export const getFiltersAsText = (filters = [], names = {}) => {
     return filters.map(({ name, filter }) => {
         const [ operator, value ] = filter.split(':');
-        return `${name} ${getFilterOperatorAsText(operator)} ${value}`;
+        return `${name} ${getFilterOperatorAsText(operator)} [${getFilterValueName(value, names)}]`;
     });
 };
 
@@ -170,6 +170,9 @@ export const getFilterOperatorAsText = (id) => ({
     'LIKE': i18next.t('contains'),
     '!LIKE': i18next.t('doesn\'t contains'),
 }[id]);
+
+export const getFilterValueName = (value, names) =>
+    value.split(';').map(val => names[val] || val).join(', ');
 
 // Combine data items into one array and exclude certain value types
 export const combineDataItems = (dataItemsA = [], dataItemsB = [], excludeTypes = []) =>
