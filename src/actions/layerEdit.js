@@ -144,6 +144,7 @@ export const setIndicatorGroup = (indicatorGroup) => ({
 });
 
 // Set indicator (thematic)
+/*
 export const setIndicator = (indicator) => ({
     type: types.LAYER_EDIT_INDICATOR_SET,
     indicator,
@@ -154,6 +155,7 @@ export const setDataSetItem = (dataSetItem) => ({
     type: types.LAYER_EDIT_DATA_SET_ITEM_SET,
     dataSetItem,
 });
+*/
 
 // Set aggregation type (thematic)
 export const setAggregationType = (aggregationType) => ({

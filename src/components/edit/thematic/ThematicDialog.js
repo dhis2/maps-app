@@ -14,7 +14,7 @@ import DataElementSelect  from '../../dataElement/DataElementSelect';
 import DataElementOperandSelect  from '../../dataElement/DataElementOperandSelect';
 import TotalsDetailsSelect  from '../../dataElement/TotalsDetailsSelect';
 import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
-import DataSetsSelect from '../../dataSets/DataSetsSelect';
+import DataSetsSelect from '../../dataSets/DataSetsSelect'; // Reporting rate
 import FontStyle from '../../d2-ui/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
 import LegendSetSelect from '../../legendSet/LegendSetSelect';
@@ -104,7 +104,11 @@ export class ThematicDialog extends Component {
 
         // Set value type if favorite is loaded
         if (!valueType && dataItem && dataItem.dimensionItemType) {
-            setValueType(dimConf[dataItem.dimensionItemType.toLowerCase()].objectName, true);
+            const dimension = Object.keys(dimConf).find(dim => dimConf[dim].itemType === dataItem.dimensionItemType);
+
+            if (dimension) {
+                setValueType(dimConf[dimension].objectName, true);
+            }
         }
     }
 

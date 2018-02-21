@@ -25,7 +25,7 @@ export const getDataItemFromColumns = (columns = []) => getDimensionItems('dx', 
 export const setDataItemInColumns = (dataItem, dimension) => {
     const dim = dimConf[dimension];
     return (dim ? [ createDimension(dim.dimensionName, [{
-        id: dataItem.id,
+        id: dataItem.id + (dimension === 'reportingRate' ? '.REPORTING_RATE' : ''),
         name: dataItem.name,
         dimensionItemType: dim.itemType,
         legendSet: dataItem.legendSet, // TODO: Keep outside of columns?

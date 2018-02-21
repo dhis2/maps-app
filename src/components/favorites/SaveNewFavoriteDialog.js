@@ -44,6 +44,8 @@ class SaveNewFavoriteDialog extends Component {
             config.mapViews.forEach(view => delete view.id);
         }
 
+        // console.log('save config', config);
+
         this.props.setMapName(name);
         this.props.saveNewFavorite(config);
     }

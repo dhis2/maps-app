@@ -80,6 +80,12 @@ export const dimConf = {
         dimensionName: 'ou',
         objectName: 'ou',
     },
+    reportingRate: {
+        value: 'reportingRate',
+        dimensionName: 'dx',
+        objectName: 'ds',
+        itemType: 'REPORTING_RATE',
+    },
     value: {
         id: 'value',
         value: 'value',

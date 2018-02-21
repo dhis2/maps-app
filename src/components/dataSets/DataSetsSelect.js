@@ -24,14 +24,15 @@ export class DataElementGroupSelect extends Component {
 
     render() {
         const { dataSet, dataSets, onChange, style } = this.props;
+        const dataSetId = dataSet ? dataSet.id.split('.')[0] : null; // Remove ".REPORTING_RATE"
 
         return (
             <SelectField
                 label={i18next.t('Data set')}
                 loading={dataSets ? false : true}
                 items={dataSets}
-                value={dataSet ? dataSet.id : null}
-                onChange={dataSet => onChange(dataSet, 'dataSet')}
+                value={dataSetId}
+                onChange={dataSet => onChange(dataSet, 'reportingRate')} // Reporting rates
                 style={style}
             />
         );
