@@ -21,11 +21,11 @@ export const setSaveNewFavoriteResponse = (response) => ({
     response,
 });
 
+/*
 export const clearSaveNewFavoriteResponse = () => ({
     type: types.FAVORITE_SAVE_NEW_RESPONSE_CLEAR,
 });
 
-/*
 export const saveFavoriteSuccess = () => ({
     type: types.FAVORITE_SAVE_SUCCESS,
 });

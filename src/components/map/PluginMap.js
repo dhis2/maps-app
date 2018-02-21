@@ -205,7 +205,7 @@ class PluginMap extends Component {
                             />
                         )
                     })}
-                    <Layer key='basemap' {...selectedBasemap} />
+                    {basemap.isVisible !== false && <Layer key='basemap' {...selectedBasemap} />}
                     <ContextMenu
                          position={position}
                          feature={feature}

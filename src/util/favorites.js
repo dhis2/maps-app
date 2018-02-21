@@ -77,15 +77,25 @@ const validModelProperties = [
 // TODO: Set hidden attribute
 export const cleanMapConfig = (config) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
-    basemap: config.basemap ? config.basemap.id : 'osmLight',
+    basemap: getBasemapString(config.basemap),
     mapViews: config.mapViews.map(cleanLayerConfig),
 });
 
-const cleanLayerConfig = (config) => {
-    return {
-        ...models2objects(pick(validLayerProperties, config)),
-    };
+const getBasemapString = (basemap) => {
+    if (!basemap) {
+        return 'osmLight';
+    }
+
+    if (basemap.isVisible === false) {
+        return 'none';
+    }
+
+    return basemap.id;
 };
+
+const cleanLayerConfig = (config) => ({
+    ...models2objects(pick(validLayerProperties, config)),
+});
 
 // TODO: This feels hacky, find better way to clean map configs before saving
 const models2objects = (config) => {

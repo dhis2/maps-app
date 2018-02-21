@@ -39,7 +39,7 @@ const getBasemap = (config) => {
         basemap = JSON.parse(externalBasemap.config);
         mapViews = config.mapViews.filter(view => view.id !== externalBasemap.id);
     } else if (isString(config.basemap)) {
-        basemap = { id: config.basemap };
+        basemap = config.basemap === 'none' ? { id: 'osmLight', isVisible: false } : { id: config.basemap };
     } else if (isObject(config.basemap)) {
         basemap = config.basemap;
     }
