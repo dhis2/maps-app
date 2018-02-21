@@ -75,7 +75,7 @@ getManifest('manifest.webapp')
             .then((locales) => {
                 console.log('locales', locales);
             });
-        */
+            */
 
     }, (err) => {
         log.error('Failed to initialize D2:', JSON.stringify(err));

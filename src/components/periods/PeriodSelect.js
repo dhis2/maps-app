@@ -1,38 +1,49 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { createPeriodGeneratorsForLocale } from 'd2/lib/period/generators'
 
-// TODO: Add locale for period generator
-const periodGenerator = createPeriodGeneratorsForLocale();
+class PeriodSelect extends Component {
 
-const PeriodSelect = ({ periodType, period, onChange, style, errorText }) => {
-    const value = period ? period.id : null;
-    let periods;
-
-    if (periodType) {
-        const generator = periodGenerator[`generate${periodType}PeriodsForYear`] || periodGenerator[`generate${periodType}PeriodsUpToYear`];
-        if (!generator) {
-            return null;
-        }
-        periods = generator().reverse();
-    } else {
-        if (!period) {
-            return null;
-        }
-        periods = [period]; // If favorite is loaded, we only know the used period
+    constructor(props, context) {
+        super(props, context);
+        this.periodGenerator = createPeriodGeneratorsForLocale(props.locale);
     }
 
-    return (
-        <SelectField
-            label={i18next.t('Period')}
-            items={periods}
-            value={value}
-            onChange={onChange}
-            style={style}
-            errorText={!value && errorText ? errorText : null}
-        />
-    );
-};
+    render() {
+        const { periodType, period, onChange, style, errorText } = this.props;
+        const value = period ? period.id : null;
+        let periods;
 
-export default PeriodSelect;
+        if (periodType) {
+            const generator = this.periodGenerator[`generate${periodType}PeriodsForYear`] || this.periodGenerator[`generate${periodType}PeriodsUpToYear`];
+            if (!generator) {
+                return null;
+            }
+            periods = generator().reverse();
+        } else {
+            if (!period) {
+                return null;
+            }
+            periods = [period]; // If favorite is loaded, we only know the used period
+        }
+
+        return (
+            <SelectField
+                label={i18next.t('Period')}
+                items={periods}
+                value={value}
+                onChange={onChange}
+                style={style}
+                errorText={!value && errorText ? errorText : null}
+            />
+        );
+    }
+}
+
+export default connect(
+    (state) => ({
+        locale: state.userSettings.keyUiLocale,
+    })
+)(PeriodSelect);
