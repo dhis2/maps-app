@@ -72,21 +72,20 @@ export const getEqualIntervals = (minValue, maxValue, numClasses) => {
     return bins;
 };
 
-// TODO: Refactor
 export const getQuantiles = (values, numClasses) => {
     const minValue = values[0];
     const maxValue = values[values.length - 1];
     const bins = [];
-    const binCount = Math.round(values.length / numClasses);
-    let binLastValPos = (binCount === 0) ? 0 : binCount;
-
+    const binCount = values.length / numClasses;
     const precision = precisionRound((maxValue - minValue) / numClasses, maxValue);
     const valueFormat = format(`.${precision}f`);
+
+    let binLastValPos = (binCount === 0) ? 0 : binCount;
 
     if (values.length > 0) {
         bins[0] = minValue;
         for (let i = 1; i < numClasses; i++) {
-            bins[i] = values[binLastValPos];
+            bins[i] = values[Math.round(binLastValPos)];
             binLastValPos += binCount;
         }
     }
