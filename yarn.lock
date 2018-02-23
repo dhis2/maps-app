@@ -2225,9 +2225,9 @@ d2-manifest@^1.0.0:
     minimist "^1.1.0"
     readline-sync "^1.4.1"
 
-d2-ui-favorites@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/d2-ui-favorites/-/d2-ui-favorites-1.0.0.tgz#425f2b63f45ca632514b2101dc09d983ee615fa1"
+d2-ui-favorites@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/d2-ui-favorites/-/d2-ui-favorites-1.0.2.tgz#37f79d3ce9f9e8bc3133d23891759429b02a1706"
   dependencies:
     d2-ui "^29.0.5"
     d2-ui-sharing "^1.0.0"
