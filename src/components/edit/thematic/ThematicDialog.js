@@ -135,6 +135,8 @@ export class ThematicDialog extends Component {
 
             if (!method) {
                 // If user selected indicator with legend set
+                // console.log('dataItem', dataItem);
+
                 if (dataItem && dataItem !== prevDataItem && dataItem.legendSet) {
                     setClassification(1); // TODO: Use constant
                     setLegendSet(dataItem.legendSet);
