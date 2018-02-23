@@ -158,7 +158,7 @@ if (!isDevBuild) {
     webpackConfig.plugins.push(
         // Replace any occurance of process.env.NODE_ENV with the string 'production'
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"',
+            'process.env': { NODE_ENV: JSON.stringify("production") },
             DHIS_CONFIG: JSON.stringify({}),
         })
     );
@@ -174,7 +174,7 @@ if (!isDevBuild) {
 } else {
     webpackConfig.plugins.push(
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"development"',
+            'process.env': { NODE_ENV: JSON.stringify("development") },
             DHIS_CONFIG: JSON.stringify(dhisConfig)
         })
     );
