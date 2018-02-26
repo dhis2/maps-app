@@ -35,22 +35,8 @@ export const saveFavoriteInterpretation = (action$) =>
     action$
         .ofType(types.FAVORITE_INTERPRETATION_SAVE)
         .concatMap(({ id, interpretation }) =>
-            console.log('save', id, interpretation)
+            apiFetch(`/interpretations/map/${id}`, 'POST', interpretation)
+                .then((response) => setMessage(i18next.t(response.message)))
         );
 
 export default combineEpics(saveFavorite, saveNewFavorite, saveFavoriteInterpretation);
-
-
-
-/*
-Ext.Ajax.request({
-    url: encodeURI(gis.init.apiPath + 'interpretations/map/' + gis.map.id),
-    method: 'POST',
-    params: textArea.getValue(),
-    headers: {'Content-Type': 'text/html'},
-    success: function() {
-        textArea.reset();
-        window.hide();
-    }
-});
-*/

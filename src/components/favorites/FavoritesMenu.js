@@ -138,7 +138,10 @@ class FavoritesMenu extends Component {
                 <InterpretationDialog
                     key='interpretation'
                     favoriteId={mapId}
-                    onSave={saveFavoriteInterpretation}
+                    onSave={(id, interpretation) => {
+                        saveFavoriteInterpretation(id, interpretation);
+                        this.onDialogClose();
+                    }}
                     onClose={() => this.onDialogClose()}
                 />
             ),
@@ -156,6 +159,7 @@ class FavoritesMenu extends Component {
 export default connect(
     (state) => ({
         mapId: state.map.id,
+        favoritesDialogOpen: state.favorite.dialogOpen,
     }),
     { newMap, saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog, saveFavoriteInterpretation }
 )(FavoritesMenu);

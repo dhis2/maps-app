@@ -1,3 +1,5 @@
+import isString from 'lodash/fp/isString';
+import isObject from 'lodash/fp/isObject';
 import { config } from 'd2/lib/d2';
 
 // TODO: Channel all api request through d2
@@ -15,8 +17,14 @@ export const apiFetch = async (url, method, body) => {
 
     if (method && body) {
         options.method = method;
-        options.headers['Content-Type'] = 'application/json';
-        options.body = JSON.stringify(body);
+
+        if (isString(body)) {
+            options.headers['Content-Type'] = 'text/html';
+            options.body = body;
+        } else if (isObject(body)) {
+            options.headers['Content-Type'] = 'application/json';
+            options.body = JSON.stringify(body);
+        }
     }
 
     return fetch(encodeURI(config.baseUrl + url), options)
