@@ -27,7 +27,7 @@ const styles = {
     },
 };
 
-const AppMenu = ({ openFavoritesDialog, openAboutDialog, contextPath }) => (
+const AppMenu = ({ openAboutDialog }) => (
     <Toolbar
         style={styles.toolbar}
         className='dhis-gis-menu'
