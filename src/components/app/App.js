@@ -12,7 +12,7 @@ import Map from '../map/Map';
 import BottomPanel from "../datatable/BottomPanel";
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
-// import OrgUnitDialog from '../orgunits/OrgUnitDialog';
+import OrgUnitDialog from '../orgunits/OrgUnitDialog';
 import RelocateDialog from '../orgunits/RelocateDialog';
 import AboutDialog from '../about/AboutDialog';
 import AlertsDialog from '../alerts/AlertsDialog';
@@ -46,6 +46,7 @@ class App extends Component {
                         <LayerEdit />
                         <ContextMenu />
                         <RelocateDialog />
+                        <OrgUnitDialog />
                         <AboutDialog />
                         <AlertsDialog />
                         <Message />

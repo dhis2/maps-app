@@ -44,6 +44,11 @@ export const setOrgUnitGroupSets = (data) => ({
     payload: data,
 });
 
+export const loadOrgUnit = (id) => ({
+    type: types.ORGANISATION_UNIT_LOAD,
+    id,
+});
+
 export const openOrgUnit = (attr) => ({
     type: types.ORGANISATION_UNIT_OPEN,
     payload: attr,

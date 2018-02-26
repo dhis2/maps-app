@@ -1,11 +1,57 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import isNumeric from 'd2-utilizr/lib/isNumeric';
-import isString from 'lodash/fp/isString';
+import i18next from 'i18next';
+import Dialog from 'material-ui/Dialog';
 import { closeOrgUnit } from '../../actions/orgUnits';
 
+const styles = {
+    dialog: {
+        maxWidth: 600,
+    },
+};
+
+class OrgUnitDialog extends Component {
+
+    componentDidUpdate(prevProps) {
+        // showInfo(this.props);
+    }
+
+    render() {
+        const { id, name, closeOrgUnit } = this.props;
+
+        if (!id) {
+            return null;
+        }
+
+        // console.log('Infrastructural data', id, this.props)
+
+
+        return (
+            <Dialog
+                title={name}
+                open={true}
+                contentStyle={styles.dialog}
+                onRequestClose={closeOrgUnit}
+            >
+
+            </Dialog>
+        );
+    }
+
+}
+
+export default connect(
+    state => ({
+        ...state.orgUnit
+    }),
+    { closeOrgUnit }
+)(OrgUnitDialog);
+
+
+
 // TODO: Reactify!
+/*
 let infrastructuralWindow;
 const infrastructuralDataElementValuesStore = Ext.create('Ext.data.Store', {
     fields: ['name', 'value'],
@@ -326,24 +372,7 @@ const showInfo = function(att) {
         }
     });
 };
+*/
 
-class OrgUnitDialog extends Component {
 
-    componentDidUpdate(prevProps) {
-        showInfo(this.props);
-    }
-
-    // TODO: Add react component here later
-    render() {
-        return null;
-    }
-
-}
-
-export default connect(
-    state => ({
-        ...state.orgUnit
-    }),
-    { closeOrgUnit, }
-)(OrgUnitDialog);
 
