@@ -21,6 +21,12 @@ export const setSaveNewFavoriteResponse = (response) => ({
     response,
 });
 
+export const saveFavoriteInterpretation = (id, interpretation) => ({
+    type: types.FAVORITE_INTERPRETATION_SAVE,
+    id,
+    interpretation,
+});
+
 /*
 export const clearSaveNewFavoriteResponse = () => ({
     type: types.FAVORITE_SAVE_NEW_RESPONSE_CLEAR,

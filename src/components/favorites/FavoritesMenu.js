@@ -7,8 +7,15 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import FavoritesDialog from './FavoritesDialog';
 import SaveNewFavoriteDialog from './SaveNewFavoriteDialog';
+import InterpretationDialog from './InterpretationDialog';
+import LinksDialog from './LinksDialog';
 import { newMap } from '../../actions/map';
-import { saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog } from '../../actions/favorites';
+import {
+    saveFavorite,
+    openFavoritesDialog,
+    openSaveNewFavoriteDialog,
+    saveFavoriteInterpretation,
+} from '../../actions/favorites';
 
 const styles = {
     button: {
@@ -24,7 +31,10 @@ const styles = {
 };
 
 class FavoritesMenu extends Component {
-    state = {};
+    state = {
+        showInterpretationDialog: false,
+        showLinksDialog: false,
+    };
 
     openMenu(evt) {
         this.setState({ anchorEl: evt.currentTarget })
@@ -54,9 +64,26 @@ class FavoritesMenu extends Component {
         this.props.openSaveNewFavoriteDialog();
     }
 
+    onWriteInterpretationClick() {
+        this.closeMenu();
+        this.setState({ showInterpretationDialog: true });
+    }
+
+    onGetLinkClick() {
+        this.closeMenu();
+        this.setState({ showLinksDialog: true });
+    }
+
+    onDialogClose() {
+        this.setState({
+            showInterpretationDialog: false,
+            showLinksDialog: false,
+        });
+    }
+
     render() {
-        const { mapId } = this.props;
-        const { anchorEl } = this.state;
+        const { mapId, saveFavoriteInterpretation } = this.props;
+        const { anchorEl, showInterpretationDialog, showLinksDialog } = this.state;
 
         return [
             <Button
@@ -89,6 +116,16 @@ class FavoritesMenu extends Component {
                       primaryText={i18next.t('Save as')}
                       onClick={() => this.onSaveNewClick()}
                   />
+                  <MenuItem
+                      primaryText={i18next.t('Write interpretation')}
+                      onClick={() => this.onWriteInterpretationClick()}
+                      disabled={mapId === undefined}
+                  />
+                  <MenuItem
+                      primaryText={i18next.t('Get link')}
+                      onClick={() => this.onGetLinkClick()}
+                      disabled={mapId === undefined}
+                  />
               </Menu>
             </Popover>,
             <FavoritesDialog
@@ -96,7 +133,22 @@ class FavoritesMenu extends Component {
             />,
             <SaveNewFavoriteDialog
                 key='favorite-save'
-            />
+            />,
+            (showInterpretationDialog &&
+                <InterpretationDialog
+                    key='interpretation'
+                    favoriteId={mapId}
+                    onSave={saveFavoriteInterpretation}
+                    onClose={() => this.onDialogClose()}
+                />
+            ),
+            (showLinksDialog &&
+                <LinksDialog
+                    key='links'
+                    favoriteId={mapId}
+                    onClose={() => this.onDialogClose()}
+                />
+            ),
         ]
     }
 }
@@ -105,5 +157,5 @@ export default connect(
     (state) => ({
         mapId: state.map.id,
     }),
-    { newMap, saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog }
+    { newMap, saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog, saveFavoriteInterpretation }
 )(FavoritesMenu);
