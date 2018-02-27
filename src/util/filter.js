@@ -6,7 +6,6 @@ export const filterData = (data, filters) => {
         return data;
     }
 
-    const fieldIds = Object.keys(filters);
     let filteredData = [...data];
 
     Object.keys(filters).forEach(field => { // Loop through all filters
@@ -15,6 +14,7 @@ export const filterData = (data, filters) => {
         filteredData = filteredData.filter(d => { // Loop through all data items
             const props = d.properties || d; // GeoJSON or plain object
             const value = props[field];
+
             return isNumeric(value) ? numericFilter(value, filter) : stringFilter(value, filter);
         });
     });

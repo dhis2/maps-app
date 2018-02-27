@@ -40,7 +40,7 @@ class DataTable extends Component {
                 rowHeight={32}
                 rowCount={sortedData.length}
                 rowGetter={({ index }) => sortedData[index]}
-                onRowClick={evt => console.log('row click')}
+                // onRowClick={evt => console.log('row click')}
                 sort={({ sortBy, sortDirection }) => this.onSort(sortBy, sortDirection) }
                 sortBy={sortBy}
                 sortDirection={sortDirection}
@@ -130,6 +130,7 @@ class DataTable extends Component {
 
     // TODO: Make sure sorting works across different locales - use lib method
     sort(data, sortBy, sortDirection) {
+
         return data.sort((a, b) => {
             a = a[sortBy];
             b = b[sortBy];

@@ -67,6 +67,7 @@ getManifest('manifest.webapp')
             store.dispatch(loadFavorite(mapId));
         }
 
+        // console.log('app.js', d2);
         render(<Root d2={d2} store={store} />, document.getElementById('app'));
 
         /*

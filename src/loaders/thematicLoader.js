@@ -46,7 +46,7 @@ const thematicLoader = async (config) => {
         });
     }
 
-    valueFeatures.forEach(({ id, properties }) => {
+    valueFeatures.forEach(({ id, geometry, properties }) => {
         const value = valueById[id];
         const item = getLegendItem(value);
 
@@ -54,6 +54,9 @@ const thematicLoader = async (config) => {
         properties.value = value;
         properties.color = item && item.color;
         properties.radius = (value - minValue) / (maxValue - minValue) * (radiusHigh - radiusLow) + radiusLow;
+        properties.legend = item.name; // Shown in data table
+        properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
+        properties.type = geometry.type; // Shown in data table
     });
 
     return {

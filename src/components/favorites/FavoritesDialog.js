@@ -3,6 +3,8 @@ import D2FavoritesDialog from 'd2-ui-favorites';
 import { closeFavoritesDialog } from '../../actions/favorites';
 import { loadFavorite } from '../../actions/favorites';
 import PropTypes from 'prop-types';
+import { getInstance as getD2 } from 'd2/lib/d2';
+
 
 const FavoritesDialog = ({ dialogOpen, onFavoriteSelect, closeFavoritesDialog }, context) => (
     <D2FavoritesDialog
@@ -15,7 +17,7 @@ const FavoritesDialog = ({ dialogOpen, onFavoriteSelect, closeFavoritesDialog },
 );
 
 FavoritesDialog.contextTypes = { 
-    d2: PropTypes.object.isRequired 
+    d2: PropTypes.object, // .isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
