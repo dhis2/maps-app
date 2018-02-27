@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2/lib/d2';
 import i18next from 'i18next';
-// import LoadingMask from 'd2-ui/lib/loading-mask/LoadingMask.component';
 import debounce from 'lodash/fp/debounce';
 import store from './store';
 import Root from './components/Root';
@@ -14,6 +13,7 @@ import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
 import { getUrlParameter } from './util/requests';
 import '../scss/app.scss';
+
 
 log.setLevel(process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE);
 
@@ -32,7 +32,6 @@ getManifest('manifest.webapp')
         config.schemas = [
             'dataElement',
             'dataElementGroup',
-            // 'dataElementOperand', // Not supported in d2 ()
             'dataSet',
             'externalMapLayer',
             'indicator',
@@ -46,7 +45,6 @@ getManifest('manifest.webapp')
             'organisationUnitLevel',
             'program',
             'programStage',
-            // 'programDataElement', // Not supported in d2
         ];
     })
     .then(getUserSettings)
@@ -67,16 +65,7 @@ getManifest('manifest.webapp')
             store.dispatch(loadFavorite(mapId));
         }
 
-        // console.log('app.js', d2);
         render(<Root d2={d2} store={store} />, document.getElementById('app'));
-
-        /*
-        const api = d2.Api.getApi();
-        api.get('locales/ui') // TODO: Is locales used?
-            .then((locales) => {
-                console.log('locales', locales);
-            });
-            */
 
     }, (err) => {
         log.error('Failed to initialize D2:', JSON.stringify(err));

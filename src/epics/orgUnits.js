@@ -6,6 +6,7 @@ import { errorActionCreator } from '../actions/helpers';
 import { getDisplayPropertyUrl } from '../util/helpers';
 import { apiFetch } from '../util/api';
 import {
+    setOrgUnit,
     setOrgUnitTree,
     setOrgUnitLevels,
     setOrgUnitGroups,
@@ -16,6 +17,16 @@ import {
     setOrgUnitPath,
 } from '../actions/layerEdit';
 
+export const loadOrgUnit = (action$) =>
+    action$
+        .ofType(types.ORGANISATION_UNIT_LOAD)
+        .concatMap((action) =>
+            getD2()
+                .then((d2) => d2.models.organisationUnit.get(action.payload.id, {
+                    fields: `id,${getDisplayPropertyUrl(d2)},code,address,email,phoneNumber,coordinates,parent[id,${getDisplayPropertyUrl(d2)}],organisationUnitGroups[id,${getDisplayPropertyUrl(d2)}]`,
+                }))
+                .then(setOrgUnit)
+        );
 
 export const loadOrgUnitTree = (action$) =>
     action$
@@ -97,4 +108,4 @@ export const loadOrgUnitPath = (action$) =>
                 .catch(errorActionCreator(types.LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD_ERROR))
         );
 
-export default combineEpics(loadOrgUnitTree, loadOrgUnitLevels, loadOrgUnitGroups, loadOrgUnitGroupSets, changeOrgUnitCoordinate, loadOrgUnitPath);
+export default combineEpics(loadOrgUnit, loadOrgUnitTree, loadOrgUnitLevels, loadOrgUnitGroups, loadOrgUnitGroupSets, changeOrgUnitCoordinate, loadOrgUnitPath);

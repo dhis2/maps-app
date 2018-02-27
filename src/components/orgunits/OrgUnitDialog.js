@@ -9,23 +9,42 @@ const styles = {
     dialog: {
         maxWidth: 600,
     },
+    metadata: {
+        fontSize: 14,
+        marginTop: -10,
+        width: 200,
+        float: 'left'
+    },
+    header: {
+        margin: '10px 0 2px 0',
+        fontSize: 14,
+    },
+    data: {
+        float: 'left',
+        width: 350,
+    }
 };
 
 class OrgUnitDialog extends Component {
 
-    componentDidUpdate(prevProps) {
-        // showInfo(this.props);
-    }
+    static contextTypes = {
+        d2: PropTypes.object.isRequired
+    };
 
     render() {
-        const { id, name, closeOrgUnit } = this.props;
+        const { id, name, code, parent, coordinates, organisationUnitGroups, closeOrgUnit } = this.props;
 
         if (!id) {
             return null;
         }
 
-        // console.log('Infrastructural data', id, this.props)
+        // console.log('#', this.context.d2.system.settings);
 
+        const groups = organisationUnitGroups.toArray();
+        const coords = JSON.parse(coordinates);
+
+        // console.log('props', JSON.parse(coordinates));
+        // console.log('Infrastructural data', id, this.props)
 
         return (
             <Dialog
@@ -34,7 +53,21 @@ class OrgUnitDialog extends Component {
                 contentStyle={styles.dialog}
                 onRequestClose={closeOrgUnit}
             >
-
+                <div style={styles.metadata}>
+                    <h3 style={styles.header}>Parent unit</h3>
+                    {parent.name}
+                    <h3 style={styles.header}>Code</h3>
+                    {code}
+                    <h3 style={styles.header}>Coordinates</h3>
+                    {coords[0]}, {coords[1]}
+                    <h3 style={styles.header}>Groups</h3>
+                    {groups.map(group =>
+                        <div key={group.id}>{group.name}</div>
+                    )}
+                </div>
+                <div style={styles.data}>
+                    DATA
+                </div>
             </Dialog>
         );
     }

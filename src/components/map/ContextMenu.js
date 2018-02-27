@@ -9,8 +9,7 @@ import OrgUnitDialog from '../orgunits/OrgUnitDialog';
 import RelocateDialog from '../orgunits/RelocateDialog';
 import { closeContextMenu, openCoordinatePopup } from '../../actions/map';
 import { drillLayer } from '../../actions/layers';
-import { openOrgUnit, startRelocateOrgUnit, changeOrgUnitCoordinate} from '../../actions/orgUnits';
-
+import { loadOrgUnit, startRelocateOrgUnit, changeOrgUnitCoordinate} from '../../actions/orgUnits';
 
 // https://github.com/callemall/material-ui/issues/2866
 const anchorEl = document.getElementById('context-menu');
@@ -177,7 +176,7 @@ const mapDispatchToProps = (dispatch) => ({
     onDrill: (layerId, parentId, parentGraph, level) => dispatch(drillLayer(layerId, parentId, parentGraph, level)),
     onShowInformation: attr => {
         dispatch(closeContextMenu());
-        dispatch(openOrgUnit(attr));
+        dispatch(loadOrgUnit(attr));
     },
     showCoordinate: coord => {
         dispatch(closeContextMenu());
@@ -189,8 +188,6 @@ const mapDispatchToProps = (dispatch) => ({
     },
     onSwapCoordinate: (layerId, featureId, coordinate) => {
         dispatch(closeContextMenu());
-        console.log('swap', coordinate);
-
         dispatch(changeOrgUnitCoordinate(layerId, featureId, coordinate));
     }
 });
