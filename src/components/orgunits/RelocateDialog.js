@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import Paper from 'material-ui/Paper';
-import Button from 'd2-ui/lib/button/Button';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
 import { changeOrgUnitCoordinate, stopRelocateOrgUnit} from '../../actions/orgUnits';
 
@@ -24,48 +23,64 @@ const styles = {
     }
 };
 
-const RelocateDialog = (props, context) => {
-    const feature = props.feature;
-    const map = context.map;
-    const mapContainer = map.getContainer();
 
-    const onMapClick = evt => {
-        const latlng = evt.latlng;
-        const coordinate = '[' + latlng.lng.toFixed(6) + ',' + latlng.lat.toFixed(6)+ ']';
+class RelocateDialog extends Component {
 
-        props.changeOrgUnitCoordinate(props.layerId, feature.id, coordinate);
-        props.stopRelocateOrgUnit();
+    static contextTypes = {
+        map: PropTypes.object
     };
 
-    if (feature) {
-        mapContainer.style.cursor = 'crosshair';
-        map.on('click', onMapClick);
+    componentDidUpdate() {
+        const feature = this.props.feature;
+        const map = this.context.map;
+        const mapContainer = map.getContainer();
+
+        if (feature) {
+            map.on('click', this.onMapClick, this);
+            mapContainer.style.cursor = 'crosshair';
+        } else {
+            map.off('click', this.onMapClick, this);
+            mapContainer.style.cursor = 'auto';
+            mapContainer.style.cursor = '-webkit-grab';
+            mapContainer.style.cursor = '-moz-grab';
+        }
+    }
+
+    onMapClick(evt) {
+        const { layerId, feature, changeOrgUnitCoordinate, stopRelocateOrgUnit } = this.props;
+        const latlng = evt.latlng;
+        const coordinate = [parseFloat(latlng.lng.toFixed(6)), parseFloat(latlng.lat.toFixed(6))];
+
+        changeOrgUnitCoordinate(layerId, feature.id, coordinate);
+        stopRelocateOrgUnit();
+    }
+
+    render() {
+        const { feature, stopRelocateOrgUnit } = this.props;
+
+        if (!feature) {
+            return null;
+        }
 
         return (
             <Paper style={styles.paper}>
-                <span onClick={props.stopRelocateOrgUnit}>
+                <span onClick={stopRelocateOrgUnit}>
                     <SvgIcon
                         icon='Cancel'
                         style={styles.close}
                     />
                 </span>
-                {i18next.t('Click the map where you want to relocate facility')} <strong>{props.feature.properties.name}</strong>
+                {i18next.t('Click the map where you want to relocate facility')} <strong>{feature.properties.name}</strong>
             </Paper>
         );
-    } else {
-        map.off('click', onMapClick);
 
-        mapContainer.style.cursor = 'auto';
-        mapContainer.style.cursor = '-webkit-grab';
-        mapContainer.style.cursor = '-moz-grab';
     }
 
-    return null;
+
 };
 
-RelocateDialog.contextTypes = {
-    map: PropTypes.object
-};
+
+
 
 
 export default connect(

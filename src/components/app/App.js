@@ -12,8 +12,6 @@ import Map from '../map/Map';
 import BottomPanel from "../datatable/BottomPanel";
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
-import OrgUnitDialog from '../orgunits/OrgUnitDialog';
-import RelocateDialog from '../orgunits/RelocateDialog';
 import AboutDialog from '../about/AboutDialog';
 import AlertsDialog from '../alerts/AlertsDialog';
 import Message from '../message/Message';
@@ -45,8 +43,6 @@ class App extends Component {
                         <BottomPanel />
                         <LayerEdit />
                         <ContextMenu />
-                        <RelocateDialog />
-                        <OrgUnitDialog />
                         <AboutDialog />
                         <AlertsDialog />
                         <Message />

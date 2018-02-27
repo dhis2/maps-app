@@ -5,9 +5,12 @@ import i18next from 'i18next';
 import Popover from 'material-ui/Popover';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import OrgUnitDialog from '../orgunits/OrgUnitDialog';
+import RelocateDialog from '../orgunits/RelocateDialog';
 import { closeContextMenu, openCoordinatePopup } from '../../actions/map';
 import { drillLayer } from '../../actions/layers';
 import { openOrgUnit, startRelocateOrgUnit, changeOrgUnitCoordinate} from '../../actions/orgUnits';
+
 
 // https://github.com/callemall/material-ui/issues/2866
 const anchorEl = document.getElementById('context-menu');
@@ -52,8 +55,9 @@ const ContextMenu = (props, context) => {
         attr = feature.properties;
     }
 
-    return (
+    return [
         <Popover
+            key='popover'
             open={props.position ? true : false}
             anchorEl={anchorEl}
             onRequestClose={props.onClose}
@@ -154,8 +158,10 @@ const ContextMenu = (props, context) => {
                     >{i18next.t('Show longitude/latitude')}</MenuItem>
                 }
             </Menu>
-        </Popover>
-    );
+        </Popover>,
+        <OrgUnitDialog key='orgunit' />,
+        <RelocateDialog key='relocate' />,
+    ];
 };
 
 ContextMenu.contextTypes = {
@@ -183,6 +189,8 @@ const mapDispatchToProps = (dispatch) => ({
     },
     onSwapCoordinate: (layerId, featureId, coordinate) => {
         dispatch(closeContextMenu());
+        console.log('swap', coordinate);
+
         dispatch(changeOrgUnitCoordinate(layerId, featureId, coordinate));
     }
 });
