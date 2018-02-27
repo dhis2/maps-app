@@ -2,6 +2,7 @@
 
 .DataTable {
     font-size: 11px;
+    font-family: Roboto, sans-serif;
 }
 
 .ReactVirtualized__Table__headerRow {
