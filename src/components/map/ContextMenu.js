@@ -34,19 +34,13 @@ const styles = {
     }
 };
 
-const ContextMenu = (props) => {
+const ContextMenu = (props, context) => {
     const { feature, layerType } = props;
+    const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const iconColor = '#777';
     const iconDisabledColor = '#eee';
-    let isRelocate;
-    let isPlugin;
     let isPoint;
     let attr = {};
-
-    if (typeof(gis) !== 'undefined') { // TODO
-        isRelocate = !!GIS.app ? !!gis.init.user.isAdmin : false;
-        isPlugin = gis.plugin;
-    }
 
     if (props.position) {
         anchorEl.style.left = props.position[0] + 'px';
@@ -95,7 +89,7 @@ const ContextMenu = (props) => {
                     >{i18next.t('Drill down one level')}</MenuItem>
                 }
 
-                {isRelocate && isPoint &&
+                {isAdmin && isPoint &&
                     <MenuItem
                         onClick={() => props.onRelocateStart(props.layerId, feature)}
                         leftIcon={
@@ -108,7 +102,7 @@ const ContextMenu = (props) => {
                     >{i18next.t('Relocate')}</MenuItem>
                 }
 
-                {isRelocate && isPoint &&
+                {isAdmin && isPoint &&
                     <MenuItem
                         onClick={() => props.onSwapCoordinate(props.layerId, feature.id, feature.geometry.coordinates.slice(0).reverse())}
                         leftIcon={
@@ -121,7 +115,7 @@ const ContextMenu = (props) => {
                     >{i18next.t('Swap longitude/latitude')}</MenuItem>
                 }
 
-                {!isPlugin && feature &&
+                {feature &&
                     <MenuItem
                         onClick={() => props.onShowInformation(attr)}
                         innerDivStyle={styles.menuItemInner}
@@ -164,6 +158,10 @@ const ContextMenu = (props) => {
     );
 };
 
+ContextMenu.contextTypes = {
+    d2: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => ({
     ...state.contextMenu
 });
@@ -181,7 +179,6 @@ const mapDispatchToProps = (dispatch) => ({
     },
     onRelocateStart: (layerId, feature) => {
         dispatch(closeContextMenu());
-        console.log('startRelocateOrgUnit', layerId, feature);
         dispatch(startRelocateOrgUnit(layerId, feature));
     },
     onSwapCoordinate: (layerId, featureId, coordinate) => {

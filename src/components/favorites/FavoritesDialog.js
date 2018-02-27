@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import { connect } from 'react-redux';
 import D2FavoritesDialog from 'd2-ui-favorites';
 import { closeFavoritesDialog } from '../../actions/favorites';

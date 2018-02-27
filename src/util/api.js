@@ -28,6 +28,6 @@ export const apiFetch = async (url, method, body) => {
     }
 
     return fetch(encodeURI(config.baseUrl + url), options)
-        .then(response => options.method !== 'PUT' ? response.json() : response) // Avoids error
+        .then(response => method !== 'PUT' && method !== 'PATCH' ? response.json() : response) // Avoids error
         .catch(error => console.log('Error: ', error)); // TODO: Better error handling
 };

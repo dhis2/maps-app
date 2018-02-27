@@ -96,7 +96,7 @@ class ThematicLayer extends Layer {
             position,
             coordinate: [latlng.lng, latlng.lat],
             layerId: props.id,
-            layerType: props.type,
+            layerType: props.layer,
             feature: evt.layer.feature,
         });
     }

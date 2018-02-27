@@ -73,11 +73,11 @@ export const changeOrgUnitCoordinate = (action$) =>
     action$
         .ofType(types.ORGANISATION_UNIT_COORDINATE_CHANGE)
         .concatMap(({ layerId, featureId, coordinate }) =>
-            apiFetch('/organisationUnits/' + featureId, 'PATCH', {
-                coordinates: JSON.stringify(coordinate)
+            apiFetch(`/organisationUnits/${featureId}`, 'PATCH', {
+                coordinates: coordinate,
             }).then(response => {
                 if (response.ok) {
-                    return setOrgUnitCoordinate(layerId, featureId, coordinate); // Update org. unit in redux store
+                    return setOrgUnitCoordinate(layerId, featureId, JSON.parse(coordinate)); // Update org. unit in redux store
                 } else {
                     return errorActionCreator(types.ORGANISATION_UNIT_COORDINATE_CHANGE_ERROR);
                 }

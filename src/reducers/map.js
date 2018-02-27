@@ -175,7 +175,7 @@ const orgUnit = (state, action) => {
                 ...state,
                 geometry: {
                     ...state.geometry,
-                    coordinates: action.coordinate
+                    coordinates: JSON.parse(action.coordinate),
                 },
             };
 

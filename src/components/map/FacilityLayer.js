@@ -90,7 +90,7 @@ class FacilityLayer extends Layer {
             position,
             coordinate: [latlng[1], latlng[0]],
             layerId: props.id,
-            layerType: props.type,
+            layerType: props.layer,
             feature: evt.layer.feature,
         });
     }

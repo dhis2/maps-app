@@ -5,22 +5,18 @@ import Popover from 'material-ui/Popover/Popover';
 import { colorScales, getColorScale, getColorPalette } from '../../util/colorscale';
 
 const styles = {
-    container: {
-        width: '100%',
-        textAlign: 'center',
-    },
     scale: {
         marginTop: 19,
         overflow: 'visible',
         whiteSpace: 'nowrap',
-
     },
     popover: {
         height: '100%',
     },
     scaleItem: {
         display: 'block',
-        margin: '5px 5px 0 5px'
+        margin: '5px 12px 0 12px',
+        overflow: 'visible',
     },
 };
 
