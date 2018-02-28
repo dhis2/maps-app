@@ -2225,12 +2225,12 @@ d2-manifest@^1.0.0:
     minimist "^1.1.0"
     readline-sync "^1.4.1"
 
-d2-ui-favorites@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/d2-ui-favorites/-/d2-ui-favorites-1.0.2.tgz#37f79d3ce9f9e8bc3133d23891759429b02a1706"
+d2-ui-favorites@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/d2-ui-favorites/-/d2-ui-favorites-1.0.4.tgz#27aee112f49e47f461160c2bbf6202fe714c91ba"
   dependencies:
     d2-ui "^29.0.5"
-    d2-ui-sharing "^1.0.0"
+    d2-ui-sharing "^1.0.1"
     material-ui "^1.0.0-beta.34"
     material-ui-icons "^1.0.0-beta.17"
     prop-types "^15.6.0"
@@ -2239,11 +2239,10 @@ d2-ui-favorites@^1.0.2:
     redux-logger "^3.0.6"
     redux-thunk "^2.2.0"
 
-d2-ui-sharing@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/d2-ui-sharing/-/d2-ui-sharing-1.0.0.tgz#86fda4a6f0fecc59dfbe6a3af65cab2ca9f1610a"
+d2-ui-sharing@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/d2-ui-sharing/-/d2-ui-sharing-1.0.1.tgz#20667e83e6369f9249c119cd441a4b5dacc7a745"
   dependencies:
-    d2 "^29.0.1"
     d2-ui "^29.0.5"
     material-ui "^0.19.3"
     prop-types "^15.5.10"
@@ -2266,9 +2265,9 @@ d2-utilizr@^0.2.15:
     lodash.isset "^4.3.0"
     lodash.isstring "^4.0.1"
 
-d2@^29.0.1, d2@^29.0.2:
-  version "29.0.2"
-  resolved "https://registry.yarnpkg.com/d2/-/d2-29.0.2.tgz#058f104ce33d5192f1a36153401c52827992e8ab"
+d2@^29.1.1:
+  version "29.1.1"
+  resolved "https://registry.yarnpkg.com/d2/-/d2-29.1.1.tgz#7ab897df534b58bec845f547bae26b4ac0035ab9"
   dependencies:
     docdash "^0.4.0"
     jsdoc "^3.5.5"
