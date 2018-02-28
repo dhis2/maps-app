@@ -73,6 +73,7 @@ class EventLayer extends Layer {
                 }
             } else {
                 config.type = 'clientCluster';
+                config.clusterPane = id;
             }
         }
 
