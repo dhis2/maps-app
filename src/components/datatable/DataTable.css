@@ -3,6 +3,7 @@
 .DataTable {
     font-size: 11px;
     font-family: Roboto, sans-serif;
+    overflow: hidden;
 }
 
 .ReactVirtualized__Table__headerRow {

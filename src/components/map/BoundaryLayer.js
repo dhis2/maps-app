@@ -47,7 +47,12 @@ export default class BoundaryLayer extends Layer {
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
-        map.fitBounds(this.layer.getBounds()); // TODO: Do as action?
+        const layerBounds = this.layer.getBounds();
+
+        if (layerBounds.isValid()) {
+            map.invalidateSize();
+            map.fitBounds(layerBounds);
+        }
     }
 
     onFeatureClick(evt) {

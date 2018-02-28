@@ -1,7 +1,7 @@
 .Basemap {
     float: left;
     width: 120px;
-    margin-left: 16px;
+    margin-left: 12px;
     cursor: pointer;
     box-sizing: border-box;
     height: 90px;

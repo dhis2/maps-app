@@ -28,14 +28,14 @@ class DataTable extends Component {
     }
 
     render() {
-        const { width, height, data } = this.props;
-
-        if (!data.length) {
-            return null;
-        }
+        const { width, height, data, layerType } = this.props;
         const fields = mapValues(() => true, data[0]);
         const { sortBy, sortDirection } = this.state;
         const sortedData = this.sort(data, sortBy, sortDirection);
+        const isFacility = (layerType === 'facility');
+        const isThematic = (layerType === 'thematic');
+        const isBoundary = (layerType === 'boundary');
+
 
         return (
             <Table
@@ -52,27 +52,23 @@ class DataTable extends Component {
                 useDynamicRowHeight={false}
                 hideIndexRow={false}
             >
-                {fields['index'] &&
-                    <Column
-                        cellDataGetter={
-                            ({ columnData, dataKey, rowData }) => rowData.index
-                        }
-                        dataKey='index'
-                        label='Index'
-                        width={72}
-                        className='right'
-                        headerRenderer={props => <ColumnHeader type='number' {...props}  />}
-                    />
-                }
-                {fields['name'] &&
-                    <Column
-                        dataKey='name'
-                        label='Name'
-                        width={100}
-                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                    />
-                }
-                {fields['value'] &&
+                <Column
+                    cellDataGetter={
+                        ({ columnData, dataKey, rowData }) => rowData.index
+                    }
+                    dataKey='index'
+                    label='Index'
+                    width={72}
+                    className='right'
+                    headerRenderer={props => <ColumnHeader type='number' {...props}  />}
+                />
+                <Column
+                    dataKey='name'
+                    label='Name'
+                    width={100}
+                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                />
+                {isThematic &&
                     <Column
                         dataKey='value'
                         label='Value'
@@ -81,7 +77,7 @@ class DataTable extends Component {
                         headerRenderer={(props) => <ColumnHeader type='number' {...props}  />}
                     />
                 }
-                {fields['legend'] &&
+                {isThematic &&
                     <Column
                         dataKey='legend'
                         label='Legend'
@@ -89,7 +85,7 @@ class DataTable extends Component {
                         headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
                     />
                 }
-                {fields['range'] &&
+                {isThematic &&
                     <Column
                         dataKey='range'
                         label='Range'
@@ -97,7 +93,7 @@ class DataTable extends Component {
                         headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
                     />
                 }
-                {fields['level'] &&
+                {(isThematic || isBoundary) &&
                     <Column
                         dataKey='level'
                         label='Level'
@@ -106,7 +102,7 @@ class DataTable extends Component {
                         headerRenderer={(props) => <ColumnHeader type='number' {...props}  />}
                     />
                 }
-                {fields['parentName'] &&
+                {(isThematic || isBoundary) &&
                     <Column
                         dataKey='parentName'
                         label='Parent'
@@ -114,23 +110,19 @@ class DataTable extends Component {
                         headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
                     />
                 }
-                {fields['id'] &&
-                    <Column
-                        dataKey='id'
-                        label='ID'
-                        width={100}
-                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                    />
-                }
-                {fields['type'] &&
-                    <Column
-                        dataKey='type'
-                        label='Type'
-                        width={100}
-                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                    />
-                }
-                {fields['color'] &&
+                <Column
+                    dataKey='id'
+                    label='ID'
+                    width={100}
+                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                />
+                <Column
+                    dataKey='type'
+                    label='Type'
+                    width={100}
+                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                />
+                {isThematic &&
                     <Column
                         dataKey='color'
                         label='Color'
@@ -189,7 +181,10 @@ const mapStateToProps = (state) => {
             type: d.geometry.type,
         })), overlay.dataFilters);
 
-        return { data };
+        return {
+            layerType: overlay.layer,
+            data
+        };
     }
 
     return null;
