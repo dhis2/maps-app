@@ -118,7 +118,7 @@ const ContextMenu = (props, context) => {
                     >{i18next.t('Swap longitude/latitude')}</MenuItem>
                 }
 
-                {feature &&
+                {feature && false &&
                     <MenuItem
                         onClick={() => props.onShowInformation(attr)}
                         innerDivStyle={styles.menuItemInner}
