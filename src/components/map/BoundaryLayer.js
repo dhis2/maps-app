@@ -1,16 +1,28 @@
 import i18next from 'i18next';
 import Layer from './Layer';
+import { filterData } from '../../util/filter';
 
 export default class BoundaryLayer extends Layer {
 
     createLayer() {
-        const props = this.props;
+        const {
+            id,
+            data,
+            labels,
+            labelFontSize,
+            labelFontStyle,
+            radiusLow,
+            dataFilters,
+        } = this.props;
+
+        const filteredData = filterData(data, dataFilters);
+
         const map = this.context.map;
 
         const config = {
             type: 'boundary',
-            pane: props.id,
-            data: props.data,
+            pane: id,
+            data: filteredData,
             hoverLabel: '{name}',
             style: {
                 opacity: 1,
@@ -19,16 +31,16 @@ export default class BoundaryLayer extends Layer {
             },
         };
 
-        if (props.labels) {
+        if (labels) {
             config.label = '{name}';
             config.labelStyle = {
-                fontSize: props.labelFontSize,
-                fontStyle: props.labelFontStyle
+                fontSize: labelFontSize,
+                fontStyle: labelFontStyle
             };
         }
 
-        if (props.radiusLow) {
-            config.style.radius = props.radiusLow;
+        if (radiusLow) {
+            config.style.radius = radiusLow;
         }
 
         this.layer = map.createLayer(config);

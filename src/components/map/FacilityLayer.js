@@ -1,29 +1,43 @@
 import i18next from 'i18next';
 import isPlainObject from 'lodash/fp/isPlainObject';
 import Layer from './Layer';
+import { filterData } from '../../util/filter';
 
 class FacilityLayer extends Layer {
 
     createLayer(callback) {
-        const props = this.props;
+        const {
+            id,
+            data,
+            dataFilters,
+            labels,
+            areaRadius,
+            labelFontColor,
+            labelFontSize,
+            labelFontStyle,
+            labelFontWeight,
+        } = this.props;
+
+        const filteredData = filterData(data, dataFilters);
+
         const map = this.context.map;
 
         // Create layer config object
         const config = {
             type: 'markers',
-            pane: props.id,
-            data: props.data,
+            pane: id,
+            data: filteredData,
             hoverLabel: '{label}',
         };
 
         // Labels and label style
-        if (props.labels) {
+        if (labels) {
             config.label = '{name}';
             config.labelStyle = {
-                color: props.labelFontColor,
-                fontSize: props.labelFontSize,
-                fontStyle: props.labelFontStyle,
-                fontWeight: props.labelFontWeight,
+                color: labelFontColor,
+                fontSize: labelFontSize,
+                fontStyle: labelFontStyle,
+                fontWeight: labelFontWeight,
                 paddingTop: '10px'
             };
         }
@@ -37,13 +51,13 @@ class FacilityLayer extends Layer {
         this.layer = map.createLayer(config).addTo(map);
 
         // Create and add area layer
-        if (props.areaRadius) {
+        if (areaRadius) {
             this.areaInstance = map.addLayer({
                 type: 'circles',
-                pane: `${props.id}-area`,
-                radius: props.areaRadius,
+                pane: `${id}-area`,
+                radius: areaRadius,
                 highlightStyle: false,
-                data: props.data
+                data: filteredData
             });
         }
 

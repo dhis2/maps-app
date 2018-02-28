@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Table, Column } from 'react-virtualized';
+import mapValues from 'lodash/fp/mapValues';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
@@ -28,8 +29,15 @@ class DataTable extends Component {
 
     render() {
         const { width, height, data } = this.props;
+
+        if (!data.length) {
+            return null;
+        }
+        const fields = mapValues(() => true, data[0]);
         const { sortBy, sortDirection } = this.state;
         const sortedData = this.sort(data, sortBy, sortDirection);
+
+        // console.log('fields', fields);
 
         return (
             <Table
@@ -40,80 +48,99 @@ class DataTable extends Component {
                 rowHeight={32}
                 rowCount={sortedData.length}
                 rowGetter={({ index }) => sortedData[index]}
-                // onRowClick={evt => console.log('row click')}
                 sort={({ sortBy, sortDirection }) => this.onSort(sortBy, sortDirection) }
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 useDynamicRowHeight={false}
                 hideIndexRow={false}
             >
-                <Column
-                    cellDataGetter={
-                        ({ columnData, dataKey, rowData }) => rowData.index
-                    }
-                    dataKey='index'
-                    label='Index'
-                    width={72}
-                    className='right'
-                    headerRenderer={props => <ColumnHeader type='number' {...props}  />}
-                />
-                <Column
-                    dataKey='name'
-                    label='Name'
-                    width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                />
-                <Column
-                    dataKey='value'
-                    label='Value'
-                    width={72}
-                    className='right'
-                    headerRenderer={(props) => <ColumnHeader type='number' {...props}  />}
-                />
-                <Column
-                    dataKey='legend'
-                    label='Legend'
-                    width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                />
-                <Column
-                    dataKey='range'
-                    label='Range'
-                    width={72}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                />
-                <Column
-                    dataKey='level'
-                    label='Level'
-                    width={72}
-                    className='right'
-                    headerRenderer={(props) => <ColumnHeader type='number' {...props}  />}
-                />
-                <Column
-                    dataKey='parentName'
-                    label='Parent'
-                    width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                />
-                <Column
-                    dataKey='id'
-                    label='ID'
-                    width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                />
-                <Column
-                    dataKey='type'
-                    label='Type'
-                    width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                />
-                <Column
-                    dataKey='color'
-                    label='Color'
-                    width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
-                    cellRenderer={ColorCell}
-                />
+                {fields['index'] &&
+                    <Column
+                        cellDataGetter={
+                            ({ columnData, dataKey, rowData }) => rowData.index
+                        }
+                        dataKey='index'
+                        label='Index'
+                        width={72}
+                        className='right'
+                        headerRenderer={props => <ColumnHeader type='number' {...props}  />}
+                    />
+                }
+                {fields['name'] &&
+                    <Column
+                        dataKey='name'
+                        label='Name'
+                        width={100}
+                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    />
+                }
+                {fields['value'] &&
+                    <Column
+                        dataKey='value'
+                        label='Value'
+                        width={72}
+                        className='right'
+                        headerRenderer={(props) => <ColumnHeader type='number' {...props}  />}
+                    />
+                }
+                {fields['legend'] &&
+                    <Column
+                        dataKey='legend'
+                        label='Legend'
+                        width={100}
+                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    />
+                }
+                {fields['range'] &&
+                    <Column
+                        dataKey='range'
+                        label='Range'
+                        width={72}
+                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    />
+                }
+                {fields['level'] &&
+                    <Column
+                        dataKey='level'
+                        label='Level'
+                        width={72}
+                        className='right'
+                        headerRenderer={(props) => <ColumnHeader type='number' {...props}  />}
+                    />
+                }
+                {fields['parentName'] &&
+                    <Column
+                        dataKey='parentName'
+                        label='Parent'
+                        width={100}
+                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    />
+                }
+                {fields['id'] &&
+                    <Column
+                        dataKey='id'
+                        label='ID'
+                        width={100}
+                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    />
+                }
+                {fields['type'] &&
+                    <Column
+                        dataKey='type'
+                        label='Type'
+                        width={100}
+                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    />
+                }
+                {fields['color'] &&
+                    <Column
+                        dataKey='color'
+                        label='Color'
+                        width={100}
+                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                        cellRenderer={ColorCell}
+                    />
+                }
             </Table>
         );
     }

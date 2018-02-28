@@ -47,8 +47,7 @@ const OverlayToolbar = ({ layer, onEdit, onRemove, toggleDataTable, onOpacityCha
                     <SvgIcon icon='Create' />
                 </IconButton>
             }
-
-            {layer.layer === 'thematic' &&
+            {(layer.layer === 'thematic' || layer.layer === 'boundary'  || layer.layer === 'facility' ) &&
                 <IconButton
                     onClick={() => toggleDataTable(layer.id)}
                     tooltip="Data table"
