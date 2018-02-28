@@ -37,8 +37,6 @@ class DataTable extends Component {
         const { sortBy, sortDirection } = this.state;
         const sortedData = this.sort(data, sortBy, sortDirection);
 
-        // console.log('fields', fields);
-
         return (
             <Table
                 className='DataTable'
