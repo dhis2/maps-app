@@ -31,3 +31,9 @@ export const openContextMenu = (payload) => ({
 export const closeContextMenu = () => ({
     type: types.MAP_CONTEXT_MENU_CLOSE,
 });
+
+export const showEarthEngineValue = (layerId, coordinate) => ({
+    type: types.MAP_EARTH_ENGINE_VALUE_SHOW,
+    layerId,
+    coordinate,
+});

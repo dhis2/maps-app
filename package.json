@@ -25,8 +25,8 @@
     "profile": "yarn start -- --profile"
   },
   "dependencies": {
-    "d2": "^29.0.2",
-    "d2-ui": "^29.0.5",
+    "d2": "^29.1.1",
+    "d2-ui": "^29.0.10",
     "d2-ui-favorites": "^1.0.2",
     "d2-utilizr": "^0.2.15",
     "d3-color": "^1.0.3",

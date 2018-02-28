@@ -12,11 +12,14 @@ const styles = {
     },
     popover: {
         height: '100%',
+        whiteSpace: 'nowrap',
     },
     scaleItem: {
         display: 'block',
         margin: '5px 12px 0 12px',
         overflow: 'visible',
+        background: 'yellow',
+        whiteSpace: 'nowrap',
     },
 };
 

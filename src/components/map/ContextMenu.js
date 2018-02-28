@@ -7,7 +7,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
 import OrgUnitDialog from '../orgunits/OrgUnitDialog';
 import RelocateDialog from '../orgunits/RelocateDialog';
-import { closeContextMenu, openCoordinatePopup } from '../../actions/map';
+import { closeContextMenu, openCoordinatePopup, showEarthEngineValue } from '../../actions/map';
 import { drillLayer } from '../../actions/layers';
 import { loadOrgUnit, startRelocateOrgUnit, changeOrgUnitCoordinate} from '../../actions/orgUnits';
 
@@ -37,7 +37,7 @@ const styles = {
 };
 
 const ContextMenu = (props, context) => {
-    const { feature, layerType } = props;
+    const { feature, layerType, earthEngineLayers } = props;
     const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const iconColor = '#777';
     const iconDisabledColor = '#eee';
@@ -53,6 +53,8 @@ const ContextMenu = (props, context) => {
         isPoint = feature.geometry.type === 'Point';
         attr = feature.properties;
     }
+
+    // console.log('earthEngineLayers', earthEngineLayers)
 
     return [
         <Popover
@@ -131,17 +133,18 @@ const ContextMenu = (props, context) => {
                     >{i18next.t('Show information')}</MenuItem>
                 }
 
-                {layerType === 'earthEngine' &&
+                {earthEngineLayers.map((layer) =>
                     <MenuItem
-                        onClick={() => props.onShowValue()}
+                        key={layer.id}
+                        onClick={() => props.showEarthEngineValue(layer.id, props.coordinate)}
                         innerDivStyle={styles.menuItemInner}
                         leftIcon={
                             <SvgIcon
-                                icon='InfoOutline'
+                                icon='Room'
                                 style={styles.icon}
                             />
                         }
-                    >{i18next.t('Show value')}</MenuItem>
+                    >{i18next.t(layer.name)}</MenuItem>)
                 }
 
                 {props.coordinate && !isPoint &&
@@ -167,8 +170,9 @@ ContextMenu.contextTypes = {
     d2: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    ...state.contextMenu
+const mapStateToProps = (state) => ({
+    ...state.contextMenu,
+    earthEngineLayers: state.map.mapViews.filter(view => view.layer === 'earthEngine'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -189,7 +193,11 @@ const mapDispatchToProps = (dispatch) => ({
     onSwapCoordinate: (layerId, featureId, coordinate) => {
         dispatch(closeContextMenu());
         dispatch(changeOrgUnitCoordinate(layerId, featureId, coordinate));
-    }
+    },
+    showEarthEngineValue: (layerId, coordinate) => {
+        dispatch(closeContextMenu());
+        dispatch(showEarthEngineValue(layerId, coordinate));
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContextMenu);

@@ -222,16 +222,19 @@ class EarthEngineDialog extends Component {
     validate() {
         const { datasetId, filter, params } = this.props;
         const dataset = datasets[datasetId];
-        const { min, max } = params;
-        const { minValue, maxValue } = dataset;
 
         if (datasetId !== 'USGS/SRTMGL1_003' && !filter) {
             return this.setErrorState('filterError', i18next.t('This field is required'), 'style');
         }
 
-        // TODO: This should be implemented in the number fields directly
-        if (!this.isValidRange()) {
-            return this.setErrorState('rangeError', `${i18next.t('Valid range is')} ${minValue} - ${maxValue}`, 'style');
+        if (params) {
+            const { min, max } = params;
+            const { minValue, maxValue } = dataset;
+
+            // TODO: This should be implemented in the number fields directly
+            if (!this.isValidRange()) {
+                return this.setErrorState('rangeError', `${i18next.t('Valid range is')} ${minValue} - ${maxValue}`, 'style');
+            }
         }
 
         return true;

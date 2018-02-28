@@ -137,6 +137,16 @@ const layer = (state, action) => {
                 alerts: null,
             };
 
+        case types.MAP_EARTH_ENGINE_VALUE_SHOW:
+            if (state.id !== action.layerId) {
+                return state;
+            }
+
+            return {
+                ...state,
+                coordinate: action.coordinate,
+            };
+
         default:
             return state;
 
@@ -281,6 +291,7 @@ const map = (state = defaultState, action) => {
         case types.ORGANISATION_UNITS_FILTER:
         case types.DATA_FILTER_SET:
         case types.DATA_FILTER_CLEAR:
+        case types.MAP_EARTH_ENGINE_VALUE_SHOW:
             return {
                 ...state,
                 mapViews: state.mapViews.map(l => layer(l, action))
