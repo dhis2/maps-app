@@ -54,8 +54,6 @@ const ContextMenu = (props, context) => {
         attr = feature.properties;
     }
 
-    // console.log('earthEngineLayers', earthEngineLayers)
-
     return [
         <Popover
             key='popover'

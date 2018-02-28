@@ -43,8 +43,11 @@ class OrgUnitDialog extends Component {
         const groups = organisationUnitGroups.toArray();
         const coords = JSON.parse(coordinates);
 
-        // console.log('props', JSON.parse(coordinates));
+        // console.log('props', this.props);
         // console.log('Infrastructural data', id, this.props)
+
+        // <h3 style={styles.header}>Coordinates</h3>
+        // {coords[0]}, {coords[1]}
 
         return (
             <Dialog
@@ -58,15 +61,13 @@ class OrgUnitDialog extends Component {
                     {parent.name}
                     <h3 style={styles.header}>Code</h3>
                     {code}
-                    <h3 style={styles.header}>Coordinates</h3>
-                    {coords[0]}, {coords[1]}
                     <h3 style={styles.header}>Groups</h3>
                     {groups.map(group =>
                         <div key={group.id}>{group.name}</div>
                     )}
                 </div>
                 <div style={styles.data}>
-                    DATA
+
                 </div>
             </Dialog>
         );

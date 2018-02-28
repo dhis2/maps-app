@@ -60,8 +60,18 @@ export default class BoundaryLayer extends Layer {
 
     onFeatureRightClick(evt) {
         L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-        // const contextMenu = GIS.core.ContextMenu(gis, this.props, evt.layer, evt.latlng); // TODO
-        // contextMenu.showAt([evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y]);
+
+        const latlng = evt.latlng;
+        const position = [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y];
+        const props = this.props;
+
+        this.props.openContextMenu({
+            position,
+            coordinate: [latlng.lng, latlng.lat],
+            layerId: props.id,
+            layerType: props.layer,
+            feature: evt.layer.feature,
+        });
     }
 
     removeLayer() {
