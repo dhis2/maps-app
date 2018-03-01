@@ -13,9 +13,26 @@
     z-index: 10;
 }
 
+.ReactVirtualized__Table__headerTruncatedText {
+    display: inline-block;
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    right: 15px;
+    user-select: none;
+    overflow: hidden;
+}
+
+.ReactVirtualized__Table__sortableHeaderIcon {
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+
 .ReactVirtualized__Table__headerColumn {
     height: 48px;
     margin-bottom: 2px;
+    position: relative;
 }
 
 .ReactVirtualized__Table__row {

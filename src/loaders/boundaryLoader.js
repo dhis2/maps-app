@@ -44,6 +44,7 @@ const boundaryLoader = async (config) => { // Returns a promise
         feature.properties.labelStyle = {
             paddingTop: feature.geometry.type === 'Point' ? 5 + (radiusLow || 5) + 'px' : '0'
         };
+        feature.properties.type = feature.geometry.type;
     });
 
     return {

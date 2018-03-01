@@ -60,7 +60,7 @@ class DataTable extends Component {
                     label='Index'
                     width={72}
                     className='right'
-                    headerRenderer={props => <ColumnHeader type='number' {...props}  />}
+                    // headerRenderer={props => <ColumnHeader type='number' {...props}  />}
                 />
                 <Column
                     dataKey='name'
@@ -178,7 +178,6 @@ const mapStateToProps = (state) => {
         const data = filterData(overlay.data.map((d, i) => ({
             ...d.properties,
             index: i,
-            type: d.geometry.type,
         })), overlay.dataFilters);
 
         return {

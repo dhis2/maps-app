@@ -111,6 +111,10 @@ const layer = (state, action) => {
 
         // Add/change filter
         case types.DATA_FILTER_SET:
+            if (state.id !== action.layerId) {
+                return state;
+            }
+
             return {
                 ...state,
                 dataFilters: {
@@ -122,6 +126,10 @@ const layer = (state, action) => {
 
         // Remove field from filter
         case types.DATA_FILTER_CLEAR:
+            if (state.id !== action.layerId) {
+                return state;
+            }
+
             const filters = { ...state.dataFilters };
             delete (filters[action.fieldId]);
 
