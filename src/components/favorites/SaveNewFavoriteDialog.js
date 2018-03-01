@@ -46,6 +46,7 @@ class SaveNewFavoriteDialog extends Component {
 
         this.props.setMapName(name);
         this.props.saveNewFavorite(config);
+        this.props.closeSaveNewFavoriteDialog();
     }
 
     render() {

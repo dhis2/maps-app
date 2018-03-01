@@ -18,7 +18,7 @@ const styles = {
         boxSizing: 'border-box',
         position: 'absolute',
         width: LAYERS_PANEL_WIDTH + 1,
-        borderRight: '1px solid #ddd',
+        // borderRight: '1px solid #ddd',
         height: '100%',
         padding: '4px 20px',
     },

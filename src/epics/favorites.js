@@ -1,7 +1,6 @@
 import { combineEpics } from 'redux-observable';
 import i18next from 'i18next';
 import * as types from '../constants/actionTypes';
-import { setSaveNewFavoriteResponse } from '../actions/favorites';
 import { setMessage } from '../actions/message';
 import { apiFetch } from '../util/api';
 import { cleanMapConfig } from '../util/favorites';
@@ -27,7 +26,12 @@ export const saveNewFavorite = (action$) =>
         .ofType(types.FAVORITE_SAVE_NEW)
         .concatMap(({ config }) =>
             apiFetch('/maps/', 'POST', config)
-                .then(setSaveNewFavoriteResponse)
+                .then(response =>
+                  response.status === 'OK' ?
+                    setMessage(`${i18next.t('Favorite')} "${config.name}" ${i18next.t('is saved')}.`)
+                    :
+                    setMessage(`${i18next.t('Error')}: ${response.message}`)
+                )
         );
 
 // Save new favorite interpretation

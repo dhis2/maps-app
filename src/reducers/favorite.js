@@ -35,12 +35,6 @@ const favorite = (state = defaultState, action) => {
                 response: null,
             };
 
-        case types.FAVORITE_SAVE_NEW_RESPONSE_SET:
-            return {
-                ...state,
-                response: action.response,
-            };
-
         default:
             return state;
 

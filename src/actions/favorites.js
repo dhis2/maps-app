@@ -16,11 +16,6 @@ export const saveNewFavorite = (config) => ({
     config,
 });
 
-export const setSaveNewFavoriteResponse = (response) => ({
-    type: types.FAVORITE_SAVE_NEW_RESPONSE_SET,
-    response,
-});
-
 export const saveFavoriteInterpretation = (id, interpretation) => ({
     type: types.FAVORITE_INTERPRETATION_SAVE,
     id,
