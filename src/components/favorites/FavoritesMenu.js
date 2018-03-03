@@ -10,6 +10,7 @@ import SaveNewFavoriteDialog from './SaveNewFavoriteDialog';
 import InterpretationDialog from './InterpretationDialog';
 import LinksDialog from './LinksDialog';
 import { newMap } from '../../actions/map';
+import { closeDataTable } from '../../actions/dataTable';
 import {
     saveFavorite,
     openFavoritesDialog,
@@ -45,7 +46,9 @@ class FavoritesMenu extends Component {
     }
 
     onNewMapClick() {
+
         this.closeMenu();
+        this.props.closeDataTable();
         this.props.newMap();
     }
 
@@ -161,5 +164,5 @@ export default connect(
         mapId: state.map.id,
         favoritesDialogOpen: state.favorite.dialogOpen,
     }),
-    { newMap, saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog, saveFavoriteInterpretation }
+    { newMap, saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog, saveFavoriteInterpretation, closeDataTable }
 )(FavoritesMenu);

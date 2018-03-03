@@ -1,10 +1,8 @@
 import { connect } from 'react-redux';
 import D2FavoritesDialog from 'd2-ui-favorites';
-import { closeFavoritesDialog } from '../../actions/favorites';
-import { loadFavorite } from '../../actions/favorites';
+import { loadFavorite, closeFavoritesDialog } from '../../actions/favorites';
+import { closeDataTable } from '../../actions/dataTable';
 import PropTypes from 'prop-types';
-import { getInstance as getD2 } from 'd2/lib/d2';
-
 
 const FavoritesDialog = ({ dialogOpen, onFavoriteSelect, closeFavoritesDialog }, context) => (
     <D2FavoritesDialog
@@ -23,6 +21,7 @@ FavoritesDialog.contextTypes = {
 const mapDispatchToProps = (dispatch) => ({
     closeFavoritesDialog: () => dispatch(closeFavoritesDialog()),
     onFavoriteSelect: (id) => {
+        dispatch(closeDataTable());
         dispatch(closeFavoritesDialog());
         dispatch(loadFavorite(id));
     },
