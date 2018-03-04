@@ -44,7 +44,7 @@ class FacilityLayer extends Layer {
 
         // Remove area layer instance if already exist
         if (this.areaInstance && map.hasLayer(this.areaInstance)) {
-            map.removeLayer(this.areaInstance);
+            // map.removeLayer(this.areaInstance);
         }
 
         // Create and add facility layer based on config object

@@ -70,8 +70,23 @@ class FacilityDialog extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab: 'group'
+            tab: 'group',
+            showBuffer: false,
         };
+    }
+
+    componentDidUpdate(props) {
+        if (props.areaRadius && !this.state.showBuffer) {
+            this.setState({ showBuffer: true });
+        }
+    }
+
+    onShowBufferClick(isChecked) {
+        const { setAreaRadius, areaRadius } = this.props;
+
+        this.setState({ showBuffer: isChecked });
+
+        setAreaRadius(isChecked ? areaRadius || 5000 : null)
     }
 
     render() {
@@ -101,6 +116,7 @@ class FacilityDialog extends Component {
             tab,
             orgUnitGroupSetError,
             orgUnitsError,
+            showBuffer,
         } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
@@ -182,11 +198,11 @@ class FacilityDialog extends Component {
                         <div style={styles.labelWrapper}>
                             <Checkbox
                                 label={i18next.t('Show buffer')}
-                                checked={areaRadius === null || areaRadius === undefined ? false : true}
-                                onCheck={checked => setAreaRadius(checked ? areaRadius || 5000 : null)}
+                                checked={showBuffer}
+                                onCheck={this.onShowBufferClick.bind(this)}
                                 style={styles.checkbox}
                             />
-                            {(areaRadius !== null && areaRadius !== undefined) &&
+                            {showBuffer &&
                                 <TextField
                                     type='number'
                                     label={i18next.t('Radius in meters')}

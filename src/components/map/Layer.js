@@ -42,6 +42,7 @@ class Layer extends PureComponent {
         // Create new map if new id of editCounter is increased
         if (id !== prev.id || data !== prev.data || editCounter !== prev.editCounter || dataFilters !== prev.dataFilters) {
             this.removeLayer();
+            this.createPane();
             this.createLayer();
             map.addLayer(this.layer);
             this.onLayerAdd();
