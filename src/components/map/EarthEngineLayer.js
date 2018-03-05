@@ -8,10 +8,15 @@ export default class EarthEngineLayer extends Layer {
         const { coordinate } = this.props;
 
         if (coordinate && (coordinate !== prev.coordinate)) {
+          try {
             this.layer.showValue({
-                lng: coordinate[0],
-                lat: coordinate[1],
+              lng: coordinate[0],
+              lat: coordinate[1],
             });
+          }
+          catch(err) {
+            console.error('Google Earth Engine failed. Is the service configured for this DHIS2 instance?');
+          }
         }
     }
 
@@ -45,10 +50,10 @@ export default class EarthEngineLayer extends Layer {
             config.popup = props.popup;
         }
 
-        config.accessToken = (callback) => {
+        config.accessToken = (callback) =>
             apiFetch('/tokens/google')
                 .then(json => callback(json));
-        };
+
 
         this.layer = map.createLayer(config);
     }
