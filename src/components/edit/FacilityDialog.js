@@ -71,22 +71,22 @@ class FacilityDialog extends Component {
         super(props, context);
         this.state = {
             tab: 'group',
-            showBuffer: false,
+            showBuffer: this.hasBuffer(props.areaRadius),
         };
     }
 
-    componentDidUpdate(props) {
-        if (props.areaRadius && !this.state.showBuffer) {
-            this.setState({ showBuffer: true });
+    componentWillReceiveProps({ areaRadius }) {
+        if (areaRadius !== this.props.areaRadius) {
+            this.setState({
+                showBuffer: this.hasBuffer(areaRadius),
+            });
         }
     }
 
     onShowBufferClick(isChecked) {
         const { setAreaRadius, areaRadius } = this.props;
 
-        this.setState({ showBuffer: isChecked });
-
-        setAreaRadius(isChecked ? areaRadius || 5000 : null)
+       setAreaRadius(isChecked ? areaRadius || 5000 : null);
     }
 
     render() {
@@ -216,6 +216,10 @@ class FacilityDialog extends Component {
                 </Tab>
             </Tabs>
         );
+    }
+
+    hasBuffer(areaRadius) {
+        return (areaRadius !== undefined && areaRadius !== null);
     }
 
     // TODO: Add to parent class?
