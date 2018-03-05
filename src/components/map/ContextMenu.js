@@ -41,8 +41,10 @@ const ContextMenu = (props, context) => {
     const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const iconColor = '#777';
     const iconDisabledColor = '#eee';
+    let coordinate = props.coordinate;
     let isPoint;
     let attr = {};
+
 
     if (props.position) {
         anchorEl.style.left = props.position[0] + 'px';
@@ -52,6 +54,7 @@ const ContextMenu = (props, context) => {
     if (feature) {
         isPoint = feature.geometry.type === 'Point';
         attr = feature.properties;
+        coordinate = feature.geometry.coordinates;
     }
 
     return [
@@ -92,9 +95,22 @@ const ContextMenu = (props, context) => {
                     >{i18next.t('Drill down one level')}</MenuItem>
                 }
 
-                {isAdmin && isPoint &&
+                {feature && false &&
                     <MenuItem
-                        onClick={() => props.onRelocateStart(props.layerId, feature)}
+                        onClick={() => props.onShowInformation(attr)}
+                        innerDivStyle={styles.menuItemInner}
+                        leftIcon={
+                            <SvgIcon
+                                icon='InfoOutline'
+                                style={styles.icon}
+                            />
+                        }
+                    >{i18next.t('Show information')}</MenuItem>
+                }
+
+                {coordinate  &&
+                    <MenuItem
+                        onClick={() => props.showCoordinate(coordinate)}
                         leftIcon={
                             <SvgIcon
                                 icon='Room'
@@ -102,8 +118,10 @@ const ContextMenu = (props, context) => {
                             />
                         }
                         innerDivStyle={styles.menuItemInner}
-                    >{i18next.t('Relocate')}</MenuItem>
+                    >{i18next.t('Show longitude/latitude')}</MenuItem>
                 }
+
+
 
                 {isAdmin && isPoint &&
                     <MenuItem
@@ -118,23 +136,23 @@ const ContextMenu = (props, context) => {
                     >{i18next.t('Swap longitude/latitude')}</MenuItem>
                 }
 
-                {feature && false &&
+                {isAdmin && isPoint &&
                     <MenuItem
-                        onClick={() => props.onShowInformation(attr)}
-                        innerDivStyle={styles.menuItemInner}
+                        onClick={() => props.onRelocateStart(props.layerId, feature)}
                         leftIcon={
                             <SvgIcon
-                                icon='InfoOutline'
+                                icon='Room'
                                 style={styles.icon}
                             />
                         }
-                    >{i18next.t('Show information')}</MenuItem>
+                        innerDivStyle={styles.menuItemInner}
+                    >{i18next.t('Relocate')}</MenuItem>
                 }
 
                 {earthEngineLayers.map((layer) =>
                     <MenuItem
                         key={layer.id}
-                        onClick={() => props.showEarthEngineValue(layer.id, props.coordinate)}
+                        onClick={() => props.showEarthEngineValue(layer.id, coordinate)}
                         innerDivStyle={styles.menuItemInner}
                         leftIcon={
                             <SvgIcon
@@ -145,18 +163,6 @@ const ContextMenu = (props, context) => {
                     >{i18next.t(layer.name)}</MenuItem>)
                 }
 
-                {props.coordinate && !isPoint &&
-                    <MenuItem
-                        onClick={() => props.showCoordinate(props.coordinate)}
-                        leftIcon={
-                            <SvgIcon
-                                icon='Room'
-                                style={styles.icon}
-                            />
-                        }
-                        innerDivStyle={styles.menuItemInner}
-                    >{i18next.t('Show longitude/latitude')}</MenuItem>
-                }
             </Menu>
         </Popover>,
         <OrgUnitDialog key='orgunit' />,
