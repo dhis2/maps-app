@@ -173,9 +173,13 @@ class DataTable extends Component {
                 return sortDirection === 'ASC' ? a - b : b - a;
             }
 
-            return sortDirection === 'ASC'
-                ? a.localeCompare(b)
-                : b.localeCompare(a);
+            if (a !== undefined) {
+                return sortDirection === 'ASC'
+                    ? a.localeCompare(b)
+                    : b.localeCompare(a);
+            }
+
+            return 0;
         });
     }
 }
