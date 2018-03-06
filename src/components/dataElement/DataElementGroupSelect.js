@@ -6,7 +6,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadDataElementGroups } from '../../actions/dataElements';
 
 export class DataElementGroupSelect extends Component {
-
     static propTypes = {
         dataElementGroup: PropTypes.object,
         dataElementGroups: PropTypes.array,
@@ -23,7 +22,12 @@ export class DataElementGroupSelect extends Component {
     }
 
     render() {
-        const { dataElementGroup, dataElementGroups, onChange, style } = this.props;
+        const {
+            dataElementGroup,
+            dataElementGroups,
+            onChange,
+            style,
+        } = this.props;
 
         return (
             <SelectField
@@ -39,7 +43,7 @@ export class DataElementGroupSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         dataElementGroups: state.dataElementGroups,
     }),
     { loadDataElementGroups }

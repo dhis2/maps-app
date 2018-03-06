@@ -4,10 +4,10 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 const defaultKeyAnalysisDisplayProperty = 'displayName';
 
 const propertyMap = {
-    'name': 'name',
-    'displayName': 'name',
-    'shortName': 'shortName',
-    'displayShortName': 'shortName'
+    name: 'name',
+    displayName: 'name',
+    shortName: 'shortName',
+    displayShortName: 'shortName',
 };
 
 const displayPropertyMap = {
@@ -18,11 +18,16 @@ const displayPropertyMap = {
 };
 
 export const getDisplayProperty = (d2, displayProperty) => {
-  const keyAnalysisDisplayProperty = d2.currentUser.settings.keyAnalysisDisplayProperty;
-  return propertyMap[keyAnalysisDisplayProperty] || propertyMap[displayProperty] || 'name'; // TODO: check
+    const keyAnalysisDisplayProperty =
+        d2.currentUser.settings.keyAnalysisDisplayProperty;
+    return (
+        propertyMap[keyAnalysisDisplayProperty] ||
+        propertyMap[displayProperty] ||
+        'name'
+    ); // TODO: check
 };
 
-export const getDisplayPropertyUrl = (d2) => {
+export const getDisplayPropertyUrl = d2 => {
     // return `${getDisplayProperty(d2)}~rename(name)`; // TODO
     return `displayName~rename(name)`;
 };
@@ -34,7 +39,7 @@ const baseFields = [
     'longitude',
     'latitude',
     'zoom',
-    'basemap'
+    'basemap',
 ];
 
 const analysisFields = async () => {
@@ -76,13 +81,13 @@ const analysisFields = async () => {
         '!organisationUnitLevels',
         '!organisationUnits',
         '!sortOrder',
-        '!topLimit'
+        '!topLimit',
     ];
 };
 
 export const mapFields = async () => {
     const fields = await analysisFields();
-    return  `${baseFields.join(',')}, mapViews[${fields.join(',')}]`;
+    return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`;
 };
 
 export const legendFields = [
@@ -92,20 +97,9 @@ export const legendFields = [
     '!displayName',
     '!externalAccess',
     '!access',
-    '!userGroupAccesses'
+    '!userGroupAccesses',
 ];
 
 export const legendSetFields = [
-    'id,displayName~rename(name),legends[' + legendFields.join(',') + ']'
+    'id,displayName~rename(name),legends[' + legendFields.join(',') + ']',
 ];
-
-// Returns array of all alerts from map config and layers (mapViews)
-export const getMapAlerts = (mapConfig) =>
-    [].concat(
-        ...(mapConfig && mapConfig.alerts ? mapConfig.alerts : [])
-    ).concat(
-        ...(mapConfig && mapConfig.mapViews && mapConfig.mapViews
-            .filter(layer => layer.alerts)
-            .map(layer => layer.alerts)
-        )
-    );

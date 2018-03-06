@@ -14,14 +14,18 @@ import { loadFavorite } from './actions/favorites';
 import { getUrlParameter } from './util/requests';
 import '../scss/app.scss';
 
-
-log.setLevel(process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE);
+log.setLevel(
+    process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
+);
 
 store.dispatch(loadExternalLayers());
 
 getManifest('manifest.webapp')
-    .then((manifest) => {
-        const baseUrl = process.env.NODE_ENV === 'production' ? manifest.getBaseUrl() : DHIS_CONFIG.baseUrl;
+    .then(manifest => {
+        const baseUrl =
+            process.env.NODE_ENV === 'production'
+                ? manifest.getBaseUrl()
+                : DHIS_CONFIG.baseUrl;
         config.baseUrl = `${baseUrl}/api/29`;
         config.context = manifest.activities.dhis; // Added temporarily for util/api.js
 
@@ -54,23 +58,33 @@ getManifest('manifest.webapp')
     })
     .then(configI18n)
     .then(init)
-    .then((d2) => {
-        if (!d2.currentUser.authorities.has('F_SYSTEM_SETTING')) {
-            document.write(i18next.t('Access denied'));
-            return;
+    .then(
+        d2 => {
+            if (!d2.currentUser.authorities.has('F_SYSTEM_SETTING')) {
+                document.write(i18next.t('Access denied'));
+                return;
+            }
+
+            const mapId = getUrlParameter('id');
+            if (mapId) {
+                store.dispatch(loadFavorite(mapId));
+            }
+
+            render(
+                <Root d2={d2} store={store} />,
+                document.getElementById('app')
+            );
+        },
+        err => {
+            log.error('Failed to initialize D2:', JSON.stringify(err));
+            document.write(`D2 initialization error: ${err}`);
         }
-
-        const mapId = getUrlParameter('id');
-        if (mapId) {
-            store.dispatch(loadFavorite(mapId));
-        }
-
-        render(<Root d2={d2} store={store} />, document.getElementById('app'));
-
-    }, (err) => {
-        log.error('Failed to initialize D2:', JSON.stringify(err));
-        document.write(`D2 initialization error: ${err}`);
-    });
+    );
 
 // Window resize listener: http://stackoverflow.com/questions/35073669/window-resize-react-redux
-window.addEventListener('resize', debounce(150, () => store.dispatch(resizeScreen(window.innerWidth, window.innerHeight))));
+window.addEventListener(
+    'resize',
+    debounce(150, () =>
+        store.dispatch(resizeScreen(window.innerWidth, window.innerHeight))
+    )
+);

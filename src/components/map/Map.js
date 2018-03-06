@@ -13,16 +13,15 @@ import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
 import { HEADER_HEIGHT, LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
 const layerType = {
-    event:       EventLayer,
-    facility:    FacilityLayer,
-    thematic:    ThematicLayer,
-    boundary:    BoundaryLayer,
+    event: EventLayer,
+    facility: FacilityLayer,
+    thematic: ThematicLayer,
+    boundary: BoundaryLayer,
     earthEngine: EarthEngineLayer,
-    external:    ExternalLayer
+    external: ExternalLayer,
 };
 
 class Map extends Component {
-
     static contextTypes = {
         map: PropTypes.object,
     };
@@ -40,19 +39,19 @@ class Map extends Component {
         // Add zoom control
         map.addControl({
             type: 'zoom',
-            position: 'topright'
+            position: 'topright',
         });
 
         // Add fit bounds control
         map.addControl({
             type: 'fitBounds',
-            position: 'topright'
+            position: 'topright',
         });
 
         // Add scale control
         map.addControl({
             type: 'scale',
-            imperial: false
+            imperial: false,
         });
 
         // Add place search control (OSM Nominatim)
@@ -67,7 +66,11 @@ class Map extends Component {
 
         if (Array.isArray(bounds)) {
             map.fitBounds(bounds);
-        } else if (isNumeric(latitude) && isNumeric(longitude) && isNumeric(zoom)) {
+        } else if (
+            isNumeric(latitude) &&
+            isNumeric(longitude) &&
+            isNumeric(zoom)
+        ) {
             map.setView([latitude, longitude], zoom);
         }
     }
@@ -90,7 +93,12 @@ class Map extends Component {
     showCoordinate(coord) {
         L.popup()
             .setLatLng([coord[1], coord[0]])
-            .setContent('Longitude: ' + coord[0].toFixed(6) + '<br />Latitude: ' + coord[1].toFixed(6))
+            .setContent(
+                'Longitude: ' +
+                    coord[0].toFixed(6) +
+                    '<br />Latitude: ' +
+                    coord[1].toFixed(6)
+            )
             .on('remove', this.props.closeCoordinatePopup)
             .openOn(this.context.map);
     }
@@ -99,7 +107,10 @@ class Map extends Component {
         L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         const latlng = evt.latlng;
-        const position = [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y];
+        const position = [
+            evt.originalEvent.x,
+            evt.originalEvent.pageY || evt.originalEvent.y,
+        ];
 
         this.props.openContextMenu({
             position,
@@ -115,7 +126,7 @@ class Map extends Component {
             layersPanelOpen,
             dataTableOpen,
             dataTableHeight,
-            openContextMenu
+            openContextMenu,
         } = this.props;
 
         const basemapConfig = {
@@ -134,7 +145,7 @@ class Map extends Component {
         };
 
         return (
-            <div ref={node => this.node = node} style={style}>
+            <div ref={node => (this.node = node)} style={style}>
                 {layers.filter(layer => layer.isLoaded).map((config, index) => {
                     const Overlay = layerType[config.layer] || Layer;
 
@@ -145,15 +156,15 @@ class Map extends Component {
                             openContextMenu={openContextMenu}
                             {...config}
                         />
-                    )
+                    );
                 })}
-                <Layer key='basemap' {...basemapConfig} />
+                <Layer key="basemap" {...basemapConfig} />
             </div>
-        )
+        );
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     ...state.map,
     basemaps: state.basemaps,
     layersPanelOpen: state.ui.layersPanelOpen,
@@ -161,7 +172,7 @@ const mapStateToProps = (state) => ({
     dataTableHeight: state.ui.dataTableHeight,
 });
 
-export default connect(
-    mapStateToProps,
-    { openContextMenu, closeCoordinatePopup, }
-)(Map);
+export default connect(mapStateToProps, {
+    openContextMenu,
+    closeCoordinatePopup,
+})(Map);

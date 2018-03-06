@@ -6,8 +6,7 @@ export const loadLegendSets = () => ({
 });
 
 // Set all legend sets
-export const setLegendSets = (data) => ({
+export const setLegendSets = data => ({
     type: types.LEGEND_SETS_SET,
     payload: data,
 });
-

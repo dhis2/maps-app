@@ -3,7 +3,6 @@ import i18next from 'i18next';
 import './PluginContextMenu.css';
 
 class ContextMenu extends Component {
-
     componentDidUpdate() {
         const { position } = this.props;
 
@@ -23,23 +22,19 @@ class ContextMenu extends Component {
         const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties;
 
         return (
-            <div
-                className='MapContextMenu'
-                ref={el => this.el = el}
-            >
-                {hasCoordinatesUp &&
+            <div className="MapContextMenu" ref={el => (this.el = el)}>
+                {hasCoordinatesUp && (
                     <div onClick={onDrillUp}>
                         {i18next.t('Drill up one level')}
                     </div>
-                }
-                {hasCoordinatesDown &&
+                )}
+                {hasCoordinatesDown && (
                     <div onClick={onDrillDown}>
                         {i18next.t('Drill down one level')}
                     </div>
-                }
+                )}
             </div>
         );
-
     }
 }
 

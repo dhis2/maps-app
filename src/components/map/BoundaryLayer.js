@@ -3,7 +3,6 @@ import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
 export default class BoundaryLayer extends Layer {
-
     createLayer() {
         const {
             id,
@@ -35,7 +34,7 @@ export default class BoundaryLayer extends Layer {
             config.label = '{name}';
             config.labelStyle = {
                 fontSize: labelFontSize,
-                fontStyle: labelFontStyle
+                fontStyle: labelFontStyle,
             };
         }
 
@@ -57,7 +56,9 @@ export default class BoundaryLayer extends Layer {
 
     onFeatureClick(evt) {
         const attr = evt.layer.feature.properties;
-        let content = `<div class="leaflet-popup-orgunit"><em>${attr.name}</em>`;
+        let content = `<div class="leaflet-popup-orgunit"><em>${
+            attr.name
+        }</em>`;
 
         if (attr.level) {
             content += `<br/>${i18next.t('Level')}: ${attr.level}`;
@@ -79,7 +80,10 @@ export default class BoundaryLayer extends Layer {
         L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         const latlng = evt.latlng;
-        const position = [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y];
+        const position = [
+            evt.originalEvent.x,
+            evt.originalEvent.pageY || evt.originalEvent.y,
+        ];
         const props = this.props;
 
         this.props.openContextMenu({

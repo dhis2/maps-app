@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 // import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import Checkbox from '../d2-ui/Checkbox';
 import FontStyle from '../d2-ui/FontStyle';
@@ -66,7 +66,6 @@ const styles = {
 };
 
 class FacilityDialog extends Component {
-
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -86,7 +85,7 @@ class FacilityDialog extends Component {
     onShowBufferClick(isChecked) {
         const { setAreaRadius, areaRadius } = this.props;
 
-       setAreaRadius(isChecked ? areaRadius || 5000 : null);
+        setAreaRadius(isChecked ? areaRadius || 5000 : null);
     }
 
     render() {
@@ -127,9 +126,9 @@ class FacilityDialog extends Component {
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
                 value={tab}
-                onChange={(tab) => this.setState({ tab })}
+                onChange={tab => this.setState({ tab })}
             >
-                <Tab value='group' label={i18next.t('Group set')}>
+                <Tab value="group" label={i18next.t('Group set')}>
                     <div style={styles.flexColumnFlow}>
                         <OrgUnitGroupSetSelect
                             value={organisationUnitGroupSet}
@@ -139,13 +138,15 @@ class FacilityDialog extends Component {
                         />
                     </div>
                 </Tab>
-                <Tab value='orgunits' label={i18next.t('Organisation units')}>
+                <Tab value="orgunits" label={i18next.t('Organisation units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrganisationUnit}
-                                disabled={selectedUserOrgUnits.length ? true : false}
+                                disabled={
+                                    selectedUserOrgUnits.length ? true : false
+                                }
                             />
                         </div>
                         <div style={styles.flexHalf}>
@@ -156,23 +157,24 @@ class FacilityDialog extends Component {
                             <OrgUnitGroupSelect
                                 orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
                                 onChange={setOrgUnitGroups}
-
                             />
                             <UserOrgUnitsSelect
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
-                            {!orgUnits.length && orgUnitsError ?
+                            {!orgUnits.length && orgUnitsError ? (
                                 <div style={styles.error}>{orgUnitsError}</div>
-                            :
+                            ) : (
                                 <div style={styles.help}>
-                                    {i18next.t('Remember to select the organisation unit level containing the facilities.')}
+                                    {i18next.t(
+                                        'Remember to select the organisation unit level containing the facilities.'
+                                    )}
                                 </div>
-                            }
+                            )}
                         </div>
                     </div>
                 </Tab>
-                <Tab value='style' label={i18next.t('Style')}>
+                <Tab value="style" label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.wrapper}>
                             <Checkbox
@@ -181,7 +183,7 @@ class FacilityDialog extends Component {
                                 onCheck={setLabels}
                                 style={styles.checkbox}
                             />
-                            {labels &&
+                            {labels && (
                                 <FontStyle
                                     color={labelFontColor}
                                     size={labelFontSize}
@@ -193,7 +195,7 @@ class FacilityDialog extends Component {
                                     onStyleChange={setLabelFontStyle}
                                     style={styles.font}
                                 />
-                            }
+                            )}
                         </div>
                         <div style={styles.labelWrapper}>
                             <Checkbox
@@ -202,15 +204,15 @@ class FacilityDialog extends Component {
                                 onCheck={this.onShowBufferClick.bind(this)}
                                 style={styles.checkbox}
                             />
-                            {showBuffer &&
+                            {showBuffer && (
                                 <TextField
-                                    type='number'
+                                    type="number"
                                     label={i18next.t('Radius in meters')}
                                     value={areaRadius || ''}
                                     onChange={setAreaRadius}
                                     style={styles.radius}
                                 />
-                            }
+                            )}
                         </div>
                     </div>
                 </Tab>
@@ -219,7 +221,7 @@ class FacilityDialog extends Component {
     }
 
     hasBuffer(areaRadius) {
-        return (areaRadius !== undefined && areaRadius !== null);
+        return areaRadius !== undefined && areaRadius !== null;
     }
 
     // TODO: Add to parent class?
@@ -236,11 +238,19 @@ class FacilityDialog extends Component {
         const { organisationUnitGroupSet, rows } = this.props;
 
         if (!organisationUnitGroupSet) {
-            return this.setErrorState('orgUnitGroupSetError', i18next.t('Group set is required'), 'group');
+            return this.setErrorState(
+                'orgUnitGroupSetError',
+                i18next.t('Group set is required'),
+                'group'
+            );
         }
 
         if (!getOrgUnitsFromRows(rows).length) {
-          return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected'), 'orgunits');
+            return this.setErrorState(
+                'orgUnitsError',
+                i18next.t('No organisation units are selected'),
+                'orgunits'
+            );
         }
 
         return true;
@@ -248,7 +258,8 @@ class FacilityDialog extends Component {
 }
 
 export default connect(
-    null, {
+    null,
+    {
         setOrganisationUnitGroupSet,
         setOrgUnitLevels,
         setOrgUnitGroups,

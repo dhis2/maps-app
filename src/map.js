@@ -53,7 +53,7 @@ const Plugin = () => {
         }
 
         if (username && password) {
-            config.context = {auth: `${username}:${password}`};
+            config.context = { auth: `${username}:${password}` };
         }
 
         config.schemas = union(config.schemas, [
@@ -66,7 +66,7 @@ const Plugin = () => {
             'optionSet',
             'organisationUnitGroup',
             'organisationUnitGroupSet',
-            'programStage'
+            'programStage',
         ]);
 
         getUserSettings()
@@ -84,12 +84,14 @@ const Plugin = () => {
     }
 
     function loadMap(config) {
-        if (config.id && !isUnmounted(config.el)) { // Load favorite
-            mapRequest(config.id)
-                .then(favorite => loadLayers({
+        if (config.id && !isUnmounted(config.el)) {
+            // Load favorite
+            mapRequest(config.id).then(favorite =>
+                loadLayers({
                     ...config,
                     ...favorite,
-                }));
+                })
+            );
         } else {
             loadLayers(translateConfig(config));
         }
@@ -99,16 +101,19 @@ const Plugin = () => {
         if (!isUnmounted(config.el)) {
             let basemap;
 
-            if (isValidUid(config.basemap)) { // If external layer id
+            if (isValidUid(config.basemap)) {
+                // If external layer id
                 basemap = await getExternalLayer(config.basemap);
             }
 
             if (config.mapViews) {
-                Promise.all(config.mapViews.map(fetchLayer)).then(mapViews => drawMap({
-                    ...config,
-                    mapViews,
-                    basemap: basemap || config.basemap,
-                }));
+                Promise.all(config.mapViews.map(fetchLayer)).then(mapViews =>
+                    drawMap({
+                        ...config,
+                        mapViews,
+                        basemap: basemap || config.basemap,
+                    })
+                );
             }
         }
     }
@@ -119,10 +124,9 @@ const Plugin = () => {
 
             if (domEl) {
                 _components[config.el] = render(
-                    <PluginMap
-                        {...config}
-                    />,
-                domEl);
+                    <PluginMap {...config} />,
+                    domEl
+                );
             }
         }
     }
@@ -170,7 +174,11 @@ const Plugin = () => {
     function resize(el) {
         const mapComponent = _components[el];
 
-        if (mapComponent && mapComponent instanceof PluginMap && mapComponent.map) {
+        if (
+            mapComponent &&
+            mapComponent instanceof PluginMap &&
+            mapComponent.map
+        ) {
             mapComponent.map.invalidateSize();
             return true;
         }
@@ -178,7 +186,8 @@ const Plugin = () => {
         return false;
     }
 
-    return { // Public properties
+    return {
+        // Public properties
         url: null,
         username: null,
         password: null,

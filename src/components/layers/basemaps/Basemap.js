@@ -8,11 +8,15 @@ const Basemap = ({ id, img, name, isSelected, onClick }) => {
     };
 
     return (
-        <div className='Basemap' title={name} onClick={() => onClick(id)}>
-            <div className='Basemap-image-container' style={borderStyle}>
-                {img ? <img src={img} className='Basemap-image' /> : <div className='Basemap-no-image'>External basemap</div>}
+        <div className="Basemap" title={name} onClick={() => onClick(id)}>
+            <div className="Basemap-image-container" style={borderStyle}>
+                {img ? (
+                    <img src={img} className="Basemap-image" />
+                ) : (
+                    <div className="Basemap-no-image">External basemap</div>
+                )}
             </div>
-            <div className='Basemap-name'>{name}</div>
+            <div className="Basemap-name">{name}</div>
         </div>
     );
 };

@@ -25,16 +25,16 @@ const styles = {
         position: 'absolute',
         top: 8,
         right: 8,
-    }
+    },
 };
 
 class FilterRow extends Component {
-
     onChange(dimension, filter) {
         const { index, dataItems, onChange } = this.props;
         const name = dataItems.filter(d => d.id === dimension)[0].name;
 
-        if (dimension !== this.props.dimension) { // New dimension
+        if (dimension !== this.props.dimension) {
+            // New dimension
             onChange(index, {
                 dimension,
                 name,
@@ -50,7 +50,15 @@ class FilterRow extends Component {
     }
 
     render() {
-        const { index, dimension, filter, dataItems, program, programStage, onRemove } = this.props;
+        const {
+            index,
+            dimension,
+            filter,
+            dataItems,
+            program,
+            programStage,
+            onRemove,
+        } = this.props;
         let dataItem;
 
         if (dataItems && dimension) {
@@ -67,22 +75,22 @@ class FilterRow extends Component {
                     onChange={dataItem => this.onChange(dataItem.id, filter)}
                     style={styles.select}
                 />
-                {dimension ?
+                {dimension ? (
                     <FilterSelect
                         {...dataItem}
                         filter={filter}
                         onChange={filter => this.onChange(dimension, filter)}
                     />
-                : null}
+                ) : null}
                 <IconButton
                     tooltip="Remove filter"
                     style={styles.removeBtn}
                     onClick={() => onRemove(index)}
                 >
-                    <SvgIcon icon='Close' />
+                    <SvgIcon icon="Close" />
                 </IconButton>
             </div>
-        )
+        );
     }
 }
 

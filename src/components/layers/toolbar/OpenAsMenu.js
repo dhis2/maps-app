@@ -16,8 +16,8 @@ const styles = {
 
 const OpenAsMenu = ({ id }) => (
     <MenuItem
-        primaryText='Open as ...'
-        rightIcon={<SvgIcon icon='ArrowDropRight' style={styles.icon} />}
+        primaryText="Open as ..."
+        rightIcon={<SvgIcon icon="ArrowDropRight" style={styles.icon} />}
         menuItems={[
             <MenuItem primaryText="Pivot" style={styles.menuItem} />,
             <MenuItem primaryText="Chart" style={styles.menuItem} />,
@@ -30,4 +30,4 @@ OpenAsMenu.propTypes = {
     id: PropTypes.string.isRequired,
 };
 
-export default OpenAsMenu
+export default OpenAsMenu;

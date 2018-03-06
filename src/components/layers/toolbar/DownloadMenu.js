@@ -23,30 +23,32 @@ const downloadGeoJson = ({ id, data }) => {
         features: data,
     };
 
-    const blob = new Blob([JSON.stringify(geojson)], {type: 'application/json;charset=utf-8'});
+    const blob = new Blob([JSON.stringify(geojson)], {
+        type: 'application/json;charset=utf-8',
+    });
 
     FileSaver.saveAs(blob, id + '.geojson');
 };
 
-const downloadStyle = ( id ) => {
+const downloadStyle = id => {
     const sld = createSld(); // TODO: Make generic
-    const blob = new Blob([sld], {type: 'application/xml;charset=utf-8'});
+    const blob = new Blob([sld], { type: 'application/xml;charset=utf-8' });
 
     FileSaver.saveAs(blob, id + '.sld');
 };
 
 const DownloadMenu = ({ id, data }) => (
     <MenuItem
-        primaryText='Download ...'
-        rightIcon={<SvgIcon icon='ArrowDropRight' style={styles.icon} />}
+        primaryText="Download ..."
+        rightIcon={<SvgIcon icon="ArrowDropRight" style={styles.icon} />}
         menuItems={[
             <MenuItem
-                primaryText='Organisation units (GeoJSON)'
+                primaryText="Organisation units (GeoJSON)"
                 onClick={() => downloadGeoJson(id, data)}
                 style={styles.menuItem}
             />,
             <MenuItem
-                primaryText='Style (SLD)'
+                primaryText="Style (SLD)"
                 onClick={() => downloadStyle(id)}
                 style={styles.menuItem}
             />,

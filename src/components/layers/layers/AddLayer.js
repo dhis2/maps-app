@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import i18next from 'i18next';
 import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
 import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
@@ -39,13 +39,12 @@ const styles = {
 };
 
 export class AddLayer extends Component {
-
     constructor(props) {
         super(props);
         this.state = {};
     }
 
-    handleClick = (event) => {
+    handleClick = event => {
         event.preventDefault(); // This prevents ghost click.
         this.setState({
             anchorEl: event.currentTarget,
@@ -56,19 +55,15 @@ export class AddLayer extends Component {
     render() {
         return [
             <Button
-                key='button'
+                key="button"
                 onClick={event => this.handleClick(event)}
-                style={{...styles.button, ...styles.addLayer}}
-            ><AddCircle style={styles.addCircle}/> {i18next.t('Add layer')}</Button>,
-            <AddLayerPopover
-                key='popover'
-                anchorEl={this.state.anchorEl}
-            />
+                style={{ ...styles.button, ...styles.addLayer }}
+            >
+                <AddCircle style={styles.addCircle} /> {i18next.t('Add layer')}
+            </Button>,
+            <AddLayerPopover key="popover" anchorEl={this.state.anchorEl} />,
         ];
     }
 }
 
-export default connect(
-    null,
-    { openLayersDialog }
-)(AddLayer);
+export default connect(null, { openLayersDialog })(AddLayer);

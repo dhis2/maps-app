@@ -6,7 +6,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadPrograms } from '../../actions/programs';
 
 export class ProgramSelect extends Component {
-
     static propTypes = {
         program: PropTypes.object,
         programs: PropTypes.array,
@@ -41,7 +40,7 @@ export class ProgramSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         programs: state.programs,
     }),
     { loadPrograms }

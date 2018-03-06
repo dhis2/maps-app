@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
-import { createPeriodGeneratorsForLocale } from 'd2/lib/period/generators'
+import { createPeriodGeneratorsForLocale } from 'd2/lib/period/generators';
 
 class PeriodSelect extends Component {
-
     constructor(props, context) {
         super(props, context);
         this.periodGenerator = createPeriodGeneratorsForLocale(props.locale);
@@ -17,7 +16,9 @@ class PeriodSelect extends Component {
         let periods;
 
         if (periodType) {
-            const generator = this.periodGenerator[`generate${periodType}PeriodsForYear`] || this.periodGenerator[`generate${periodType}PeriodsUpToYear`];
+            const generator =
+                this.periodGenerator[`generate${periodType}PeriodsForYear`] ||
+                this.periodGenerator[`generate${periodType}PeriodsUpToYear`];
             if (!generator) {
                 return null;
             }
@@ -42,8 +43,6 @@ class PeriodSelect extends Component {
     }
 }
 
-export default connect(
-    (state) => ({
-        locale: state.userSettings.keyUiLocale,
-    })
-)(PeriodSelect);
+export default connect(state => ({
+    locale: state.userSettings.keyUiLocale,
+}))(PeriodSelect);

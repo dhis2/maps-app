@@ -35,11 +35,11 @@ const styles = {
 };
 
 class LayerEdit extends Component {
-
     componentDidUpdate(prevProps) {
         const { layer, loadLayer } = this.props;
 
-        if (layer && layer.layer === 'external') { // External layers has no edit widget
+        if (layer && layer.layer === 'external') {
+            // External layers has no edit widget
             loadLayer({ ...layer });
         }
     }
@@ -47,7 +47,8 @@ class LayerEdit extends Component {
     loadLayer() {
         const { layer, loadLayer } = this.props;
 
-        if (this.layerContainer.getWrappedInstance().validate()) { // TODO: Better pattern?
+        if (this.layerContainer.getWrappedInstance().validate()) {
+            // TODO: Better pattern?
             loadLayer(layer);
 
             this.closeDialog();
@@ -72,7 +73,11 @@ class LayerEdit extends Component {
             // reject('Unknown layer type.'); // TODO
         }
 
-        const title = i18next.t(layer.id ? `Edit ${layer.type} layer` : `Add new ${layer.type} layer`);
+        const title = i18next.t(
+            layer.id
+                ? `Edit ${layer.type} layer`
+                : `Add new ${layer.type} layer`
+        );
 
         return (
             <Dialog
@@ -83,20 +88,28 @@ class LayerEdit extends Component {
                 open={true}
                 actions={[
                     <Button
-                        color='primary'
+                        color="primary"
                         onClick={() => cancelLayer()}
-                        selector='cancel'
-                    >{i18next.t('Cancel')}</Button>,
+                        selector="cancel"
+                    >
+                        {i18next.t('Cancel')}
+                    </Button>,
                     <Button
-                        color='primary'
+                        color="primary"
                         onClick={() => this.loadLayer()}
-                        selector='update'
-                    >{i18next.t(layer.id ? i18next.t('Update layer') : i18next.t('Add layer'))}</Button>
+                        selector="update"
+                    >
+                        {i18next.t(
+                            layer.id
+                                ? i18next.t('Update layer')
+                                : i18next.t('Add layer')
+                        )}
+                    </Button>,
                 ]}
             >
                 <LayerDialog
                     {...layer}
-                    ref={container => this.layerContainer = container}
+                    ref={container => (this.layerContainer = container)}
                 />
             </Dialog>
         );
@@ -104,7 +117,7 @@ class LayerEdit extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         layer: state.layerEdit,
     }),
     { loadLayer, cancelLayer }

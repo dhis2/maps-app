@@ -6,13 +6,13 @@ export const loadDataElementGroups = () => ({
 });
 
 // Set all data element groups
-export const setDataElementGroups = (data) => ({
+export const setDataElementGroups = data => ({
     type: types.DATA_ELEMENT_GROUPS_SET,
     payload: data,
 });
 
 // Load data elements in one group
-export const loadDataElements = (groupId) => ({
+export const loadDataElements = groupId => ({
     type: types.DATA_ELEMENTS_LOAD,
     groupId,
 });
@@ -25,7 +25,7 @@ export const setDataElements = (groupId, payload) => ({
 });
 
 // Load data element operands in one group
-export const loadDataElementOperands = (groupId) => ({
+export const loadDataElementOperands = groupId => ({
     type: types.DATA_ELEMENT_OPERANDS_LOAD,
     groupId,
 });

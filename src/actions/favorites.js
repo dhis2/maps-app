@@ -1,17 +1,15 @@
 import * as types from '../constants/actionTypes';
 
-// Load one map favorite
-export const loadFavorite = (id) => ({
+export const loadFavorite = id => ({
     type: types.FAVORITE_LOAD,
     id,
 });
 
-// Save existing favorite
 export const saveFavorite = () => ({
-  type: types.FAVORITE_SAVE,
+    type: types.FAVORITE_SAVE,
 });
 
-export const saveNewFavorite = (config) => ({
+export const saveNewFavorite = config => ({
     type: types.FAVORITE_SAVE_NEW,
     config,
 });
@@ -21,20 +19,6 @@ export const saveFavoriteInterpretation = (id, interpretation) => ({
     id,
     interpretation,
 });
-
-/*
-export const clearSaveNewFavoriteResponse = () => ({
-    type: types.FAVORITE_SAVE_NEW_RESPONSE_CLEAR,
-});
-
-export const saveFavoriteSuccess = () => ({
-    type: types.FAVORITE_SAVE_SUCCESS,
-});
-
-export const saveFavoriteError = () => ({
-    type: types.FAVORITE_SAVE_ERROR,
-});
-*/
 
 export const openFavoritesDialog = () => ({
     type: types.FAVORITES_DIALOG_OPEN,

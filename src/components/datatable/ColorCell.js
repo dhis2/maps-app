@@ -10,10 +10,10 @@ const ColorCell = ({ cellData }) => {
     };
 
     return (
-        <div className='ColorCell' style={style}>
+        <div className="ColorCell" style={style}>
             {cellData.toLowerCase()}
         </div>
-    )
+    );
 };
 
 ColorCell.propTypes = {

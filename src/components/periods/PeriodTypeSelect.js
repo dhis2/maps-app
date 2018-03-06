@@ -6,8 +6,8 @@ import { periodTypes } from '../../constants/periods';
 let periods;
 
 const PeriodTypeSelect = ({ value, onChange, style, errorText }) => {
-
-    if (!periods) { // Translate period names
+    if (!periods) {
+        // Translate period names
         periods = periodTypes.map(period => ({
             id: period.id,
             name: i18next.t(period.name),

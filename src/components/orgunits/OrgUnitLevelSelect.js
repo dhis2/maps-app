@@ -13,9 +13,8 @@ const style = {
 };
 
 export class OrgUnitLevelSelect extends Component {
-
     static propTypes = {
-        orgUnitLevel: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
+        orgUnitLevel: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         orgUnitLevels: PropTypes.array,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
@@ -36,10 +35,17 @@ export class OrgUnitLevelSelect extends Component {
     }
 
     componentDidUpdate() {
-        const { defaultLevel, orgUnitLevel, orgUnitLevels, onChange } = this.props;
+        const {
+            defaultLevel,
+            orgUnitLevel,
+            orgUnitLevels,
+            onChange,
+        } = this.props;
 
         if (!orgUnitLevel.length && defaultLevel && orgUnitLevels) {
-            const levelItem = orgUnitLevels.find(item => item.level === defaultLevel);
+            const levelItem = orgUnitLevels.find(
+                item => item.level === defaultLevel
+            );
 
             if (levelItem) {
                 this.selectDefault([levelItem.level.toString()]);
@@ -52,8 +58,9 @@ export class OrgUnitLevelSelect extends Component {
         let sortedOrgUnitLevels;
 
         if (orgUnitLevels) {
-            sortedOrgUnitLevels = sortBy((item) => item.level, orgUnitLevels)
-                .map(({ level, name }) => ({ id: level.toString(),  name })); // TODO
+            sortedOrgUnitLevels = sortBy(item => item.level, orgUnitLevels).map(
+                ({ level, name }) => ({ id: level.toString(), name })
+            ); // TODO
         }
 
         return (
@@ -71,7 +78,7 @@ export class OrgUnitLevelSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         orgUnitLevels: state.orgUnitLevels,
     }),
     { loadOrgUnitLevels }

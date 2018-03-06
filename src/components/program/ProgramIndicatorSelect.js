@@ -6,7 +6,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadProgramIndicators } from '../../actions/programs';
 
 export class ProgramIndicatorSelect extends Component {
-
     static propTypes = {
         programIndicator: PropTypes.object,
         programIndicators: PropTypes.object,
@@ -23,7 +22,13 @@ export class ProgramIndicatorSelect extends Component {
     }
 
     loadProgramIndicators() {
-        const { program, programIndicator, programIndicators, onChange, loadProgramIndicators } = this.props;
+        const {
+            program,
+            programIndicator,
+            programIndicators,
+            onChange,
+            loadProgramIndicators,
+        } = this.props;
 
         if (program) {
             const indicators = programIndicators[program.id];
@@ -34,14 +39,25 @@ export class ProgramIndicatorSelect extends Component {
             }
 
             // Select first program indicator if only one
-            if (program && !programIndicator && indicators && indicators.length === 1) {
+            if (
+                program &&
+                !programIndicator &&
+                indicators &&
+                indicators.length === 1
+            ) {
                 onChange(indicators[0]);
             }
         }
     }
 
-    render () {
-        const { program, programIndicator, programIndicators, onChange, style } = this.props;
+    render() {
+        const {
+            program,
+            programIndicator,
+            programIndicators,
+            onChange,
+            style,
+        } = this.props;
 
         if (!program) {
             return null;
@@ -55,19 +71,18 @@ export class ProgramIndicatorSelect extends Component {
                 loading={items ? false : true}
                 items={items}
                 value={programIndicator ? programIndicator.id : null}
-                onChange={programIndicator => onChange(programIndicator, 'programIndicator')}
+                onChange={programIndicator =>
+                    onChange(programIndicator, 'programIndicator')
+                }
                 style={style}
             />
         );
     }
-
 }
 
-
 export default connect(
-    (state) => ({
+    state => ({
         programIndicators: state.programIndicators,
     }),
     { loadProgramIndicators }
 )(ProgramIndicatorSelect);
-

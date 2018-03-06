@@ -7,7 +7,11 @@ import { setAggregationType } from '../../../actions/layerEdit';
 
 let types;
 
-export const AggregationTypeSelect = ({ aggregationType, setAggregationType, style }) => {
+export const AggregationTypeSelect = ({
+    aggregationType,
+    setAggregationType,
+    style,
+}) => {
     if (!types) {
         types = aggregationTypes.map(type => ({
             id: type.id,
@@ -27,7 +31,7 @@ export const AggregationTypeSelect = ({ aggregationType, setAggregationType, sty
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         aggregationType: state.layerEdit.aggregationType,
     }),
     { setAggregationType }

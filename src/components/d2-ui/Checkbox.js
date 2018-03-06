@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MuiCheckbox from 'material-ui/Checkbox';
 
-const Checkbox = ({ label, checked, onCheck, style, labelStyle, iconStyle }) => (
+const Checkbox = ({
+    label,
+    checked,
+    onCheck,
+    style,
+    labelStyle,
+    iconStyle,
+}) => (
     <MuiCheckbox
         label={label}
         checked={checked}

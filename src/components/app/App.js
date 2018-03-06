@@ -9,7 +9,7 @@ import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
 import Map from '../map/Map';
-import BottomPanel from "../datatable/BottomPanel";
+import BottomPanel from '../datatable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
 import AboutDialog from '../about/AboutDialog';
@@ -19,18 +19,17 @@ import Message from '../message/Message';
 // Makes d2 available in all child components
 // Not using AppWithD2 from d2-ui because it requires d2 to be a promise
 class App extends Component {
-
     static childContextTypes = {
         d2: PropTypes.object.isRequired,
     };
 
     getChildContext() {
         return {
-            d2: this.props.d2
+            d2: this.props.d2,
         };
     }
 
-    render () {
+    render() {
         return (
             <MuiThemeProvider muiTheme={appTheme}>
                 <MapProvider>
@@ -49,9 +48,8 @@ class App extends Component {
                     </div>
                 </MapProvider>
             </MuiThemeProvider>
-        )
+        );
     }
 }
 
 export default App;
-

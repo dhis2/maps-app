@@ -4,7 +4,7 @@ import Basemap from './Basemap';
 import './BasemapList.css';
 
 const BasemapList = ({ id, basemaps, selectBasemap }) => (
-    <div className='BasemapList'>
+    <div className="BasemapList">
         {basemaps.map((basemap, index) => (
             <Basemap
                 key={`basemap-${index}`}

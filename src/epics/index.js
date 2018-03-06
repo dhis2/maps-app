@@ -17,10 +17,10 @@ import orgUnitEpis from './orgUnits';
 import programEpics from './programs';
 import favoritesEpics from './favorites';
 
-const errorEpic = (action$) =>
+const errorEpic = action$ =>
     action$
-        .filter((action) => action.type.indexOf('ERROR') !== -1)
-        .do((action) => console.error(action.error))
+        .filter(action => action.type.indexOf('ERROR') !== -1)
+        .do(action => console.error(action.error))
         .concatMapTo(Observable.empty()); // Avoid infinite loop, same as .map(action => Observable.empty()).concatAll()
 
 export default combineEpics(
@@ -36,5 +36,5 @@ export default combineEpics(
     optionSetEpics,
     orgUnitEpis,
     programEpics,
-    favoritesEpics,
+    favoritesEpics
 );

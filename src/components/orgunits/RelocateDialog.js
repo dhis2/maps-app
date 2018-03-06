@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import i18next from 'i18next';
 import Paper from 'material-ui/Paper';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
-import { changeOrgUnitCoordinate, stopRelocateOrgUnit} from '../../actions/orgUnits';
+import {
+    changeOrgUnitCoordinate,
+    stopRelocateOrgUnit,
+} from '../../actions/orgUnits';
 
 const styles = {
     paper: {
@@ -20,14 +23,12 @@ const styles = {
         height: 16,
         float: 'right',
         cursor: 'pointer',
-    }
+    },
 };
 
-
 class RelocateDialog extends Component {
-
     static contextTypes = {
-        map: PropTypes.object
+        map: PropTypes.object,
     };
 
     componentDidUpdate() {
@@ -47,9 +48,17 @@ class RelocateDialog extends Component {
     }
 
     onMapClick(evt) {
-        const { layerId, feature, changeOrgUnitCoordinate, stopRelocateOrgUnit } = this.props;
+        const {
+            layerId,
+            feature,
+            changeOrgUnitCoordinate,
+            stopRelocateOrgUnit,
+        } = this.props;
         const latlng = evt.latlng;
-        const coordinate = [parseFloat(latlng.lng.toFixed(6)), parseFloat(latlng.lat.toFixed(6))];
+        const coordinate = [
+            parseFloat(latlng.lng.toFixed(6)),
+            parseFloat(latlng.lat.toFixed(6)),
+        ];
 
         changeOrgUnitCoordinate(layerId, feature.id, coordinate);
         stopRelocateOrgUnit();
@@ -65,28 +74,18 @@ class RelocateDialog extends Component {
         return (
             <Paper style={styles.paper}>
                 <span onClick={stopRelocateOrgUnit}>
-                    <SvgIcon
-                        icon='Cancel'
-                        style={styles.close}
-                    />
+                    <SvgIcon icon="Cancel" style={styles.close} />
                 </span>
-                {i18next.t('Click the map where you want to relocate facility')} <strong>{feature.properties.name}</strong>
+                {i18next.t('Click the map where you want to relocate facility')}{' '}
+                <strong>{feature.properties.name}</strong>
             </Paper>
         );
-
     }
-
-
-};
-
-
-
-
+}
 
 export default connect(
     state => ({
-        ...state.relocate
+        ...state.relocate,
     }),
-    { changeOrgUnitCoordinate, stopRelocateOrgUnit, }
+    { changeOrgUnitCoordinate, stopRelocateOrgUnit }
 )(RelocateDialog);
-

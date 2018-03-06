@@ -34,29 +34,38 @@ const styles = {
     },
 };
 
-const OverlayToolbar = ({ layer, onEdit, onRemove, toggleDataTable, onOpacityChange }) => (
+const OverlayToolbar = ({
+    layer,
+    onEdit,
+    onRemove,
+    toggleDataTable,
+    onOpacityChange,
+}) => (
     <Toolbar style={styles.toolbar}>
         <ToolbarGroup>
-            {onEdit && layer.type !== 'external' &&
-                <IconButton
-                    onClick={() => onEdit(layer)}
-                    tooltip="Edit"
-                    tooltipPosition="top-center"
-                    style={styles.button}
-                >
-                    <SvgIcon icon='Create' />
-                </IconButton>
-            }
-            {(layer.layer === 'thematic' || layer.layer === 'boundary'  || layer.layer === 'facility' ) &&
+            {onEdit &&
+                layer.type !== 'external' && (
+                    <IconButton
+                        onClick={() => onEdit(layer)}
+                        tooltip="Edit"
+                        tooltipPosition="top-center"
+                        style={styles.button}
+                    >
+                        <SvgIcon icon="Create" />
+                    </IconButton>
+                )}
+            {(layer.layer === 'thematic' ||
+                layer.layer === 'boundary' ||
+                layer.layer === 'facility') && (
                 <IconButton
                     onClick={() => toggleDataTable(layer.id)}
                     tooltip="Data table"
                     tooltipPosition="top-center"
                     style={styles.button}
                 >
-                    <SvgIcon icon='ViewList' />
+                    <SvgIcon icon="ViewList" />
                 </IconButton>
-            }
+            )}
 
             <OpacitySlider
                 {...layer}
@@ -65,31 +74,34 @@ const OverlayToolbar = ({ layer, onEdit, onRemove, toggleDataTable, onOpacityCha
         </ToolbarGroup>
 
         <ToolbarGroup>
-            {onRemove &&
+            {onRemove && (
                 <IconButton
                     onClick={onRemove}
                     tooltip="Delete"
                     tooltipPosition="top-center"
                     style={styles.button}
                 >
-                    <SvgIcon icon='Delete' />
+                    <SvgIcon icon="Delete" />
                 </IconButton>
-            }
+            )}
 
-            {true === false && //    TODO
-                <IconMenu iconButtonElement={
-                    <IconButton
-                        tooltip="More"
-                        tooltipPosition="top-center"
-                        style={styles.moreButton}
-                    >
-                        <SvgIcon icon='MoreVert' />
-                    </IconButton>
-                } listStyle={styles.menuList}>
+            {true === false && ( //    TODO
+                <IconMenu
+                    iconButtonElement={
+                        <IconButton
+                            tooltip="More"
+                            tooltipPosition="top-center"
+                            style={styles.moreButton}
+                        >
+                            <SvgIcon icon="MoreVert" />
+                        </IconButton>
+                    }
+                    listStyle={styles.menuList}
+                >
                     <OpenAsMenu {...layer} />
                     <DownloadMenu {...layer} />
                 </IconMenu>
-            }
+            )}
         </ToolbarGroup>
     </Toolbar>
 );

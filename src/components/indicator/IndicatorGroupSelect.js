@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadIndicatorGroups } from '../../actions/indicators';
 
-export class IndicatorGroupSelect  extends Component {
-
+export class IndicatorGroupSelect extends Component {
     componentDidMount() {
         const { indicatorGroups, loadIndicatorGroups } = this.props;
 
@@ -38,9 +37,8 @@ export class IndicatorGroupSelect  extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         indicatorGroups: state.indicatorGroups,
     }),
     { loadIndicatorGroups }
 )(IndicatorGroupSelect);
-

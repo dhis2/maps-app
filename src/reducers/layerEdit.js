@@ -18,7 +18,6 @@ const layerEdit = (state = null, action) => {
     let newState;
 
     switch (action.type) {
-
         case types.LAYER_EDIT:
             delete action.payload.img;
             return action.payload;
@@ -84,7 +83,10 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_DATA_ITEM_SET:
             return {
                 ...state,
-                columns: setDataItemInColumns(action.dataItem, action.dimension),
+                columns: setDataItemInColumns(
+                    action.dataItem,
+                    action.dimension
+                ),
                 name: null,
             };
 
@@ -97,7 +99,10 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_PERIOD_SET:
             return {
                 ...state,
-                filters: (action.period.id !== 'START_END_DATES' ? setFiltersFromPeriod(action.period) : []),
+                filters:
+                    action.period.id !== 'START_END_DATES'
+                        ? setFiltersFromPeriod(action.period)
+                        : [],
             };
 
         case types.LAYER_EDIT_START_DATE_SET:
@@ -127,8 +132,8 @@ const layerEdit = (state = null, action) => {
                         dimension: null,
                         name: null,
                         filter: null,
-                    }
-                ]
+                    },
+                ],
             };
 
         case types.LAYER_EDIT_FILTER_REMOVE:
@@ -142,8 +147,8 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 columns: [
                     ...state.columns.filter(c => c.filter === undefined),
-                    ...columns.filter((c, i) => i !== action.index)
-                ]
+                    ...columns.filter((c, i) => i !== action.index),
+                ],
             };
 
         case types.LAYER_EDIT_FILTER_CHANGE:
@@ -159,8 +164,8 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 columns: [
                     ...state.columns.filter(c => c.filter === undefined),
-                    ...columns
-                ]
+                    ...columns,
+                ],
             };
 
         case types.LAYER_EDIT_STYLE_DATA_ITEM_SET:
@@ -194,7 +199,8 @@ const layerEdit = (state = null, action) => {
                 method: action.method,
             };
 
-            if (action.method !== 1) { // // TODO: Make constant
+            if (action.method !== 1) {
+                // // TODO: Make constant
                 delete newState.legendSet;
             }
 
@@ -205,7 +211,6 @@ const layerEdit = (state = null, action) => {
             // console.log(action.method, newState);
 
             return newState;
-
 
         case types.LAYER_EDIT_COLOR_SCALE_SET:
             newState = {
@@ -224,7 +229,8 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET:
             newState = { ...state };
 
-            if (action.fieldId === 'event') { // Default
+            if (action.fieldId === 'event') {
+                // Default
                 delete newState.eventCoordinateField;
             } else {
                 newState.eventCoordinateField = action.fieldId;
@@ -359,7 +365,6 @@ const layerEdit = (state = null, action) => {
 
         default:
             return state;
-
     }
 };
 

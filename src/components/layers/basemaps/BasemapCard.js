@@ -7,9 +7,13 @@ import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
 import { grey600 } from 'material-ui/styles/colors';
 import BasemapList from './BasemapList';
 import OpacitySlider from '../toolbar/OpacitySlider';
-import { changeBasemapOpacity, toggleBasemapExpand, toggleBasemapVisibility, selectBasemap } from '../../../actions/basemap';
+import {
+    changeBasemapOpacity,
+    toggleBasemapExpand,
+    toggleBasemapVisibility,
+    selectBasemap,
+} from '../../../actions/basemap';
 import './BasemapCard.css';
-
 
 const styles = {
     container: {
@@ -36,7 +40,7 @@ const styles = {
 };
 
 // Basemap card shown in left layers panel
-const BasemapCard = (props) => {
+const BasemapCard = props => {
     const {
         name,
         subtitle,
@@ -45,18 +49,18 @@ const BasemapCard = (props) => {
         isVisible,
         toggleBasemapExpand,
         toggleBasemapVisibility,
-        changeBasemapOpacity
+        changeBasemapOpacity,
     } = props;
 
     return (
         <Card
-            className='BasemapCard'
+            className="BasemapCard"
             containerStyle={styles.container}
             expanded={isExpanded}
             onExpandChange={toggleBasemapExpand}
         >
             <CardHeader
-                className='BasemapCard-header'
+                className="BasemapCard-header"
                 title={name}
                 subtitle={subtitle}
                 showExpandableButton={true}
@@ -65,7 +69,7 @@ const BasemapCard = (props) => {
                 <IconButton
                     style={styles.visibility}
                     onClick={toggleBasemapVisibility}
-                    tooltip='Toggle visibility'
+                    tooltip="Toggle visibility"
                 >
                     <SvgIcon
                         icon={isVisible ? 'Visibility' : 'VisibilityOff'}
@@ -76,7 +80,7 @@ const BasemapCard = (props) => {
 
             <CardText expandable={true} style={styles.body}>
                 <BasemapList {...props} />
-                <div className='BasemapCard-toolbar'>
+                <div className="BasemapCard-toolbar">
                     <OpacitySlider
                         opacity={opacity}
                         onChange={opacity => changeBasemapOpacity(opacity)}
@@ -84,10 +88,10 @@ const BasemapCard = (props) => {
                 </div>
             </CardText>
         </Card>
-    )
+    );
 };
 
-BasemapCard.propTypes= {
+BasemapCard.propTypes = {
     opacity: PropTypes.number,
     isVisible: PropTypes.bool,
     isExpanded: PropTypes.bool,
@@ -103,9 +107,14 @@ BasemapCard.defaultProps = {
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         basemap: state.map.basemap, // Selected basemap
         basemaps: state.basemaps, // All basemaps
     }),
-    { changeBasemapOpacity, toggleBasemapExpand, toggleBasemapVisibility, selectBasemap, }
+    {
+        changeBasemapOpacity,
+        toggleBasemapExpand,
+        toggleBasemapVisibility,
+        selectBasemap,
+    }
 )(BasemapCard);

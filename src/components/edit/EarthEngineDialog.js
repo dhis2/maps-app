@@ -14,42 +14,52 @@ import { layerDialogStyles } from './LayerDialogStyles';
 import '../layers/legend/Legend.css';
 
 const datasets = {
-    'WorldPop/POP': { // Population density
-        description: 'Population density estimates with national totals adjusted to match UN population division estimates. Try a different year if you don\'t see data for your country.',
+    'WorldPop/POP': {
+        // Population density
+        description:
+            "Population density estimates with national totals adjusted to match UN population division estimates. Try a different year if you don't see data for your country.",
         collectionLabel: 'Select year',
         minValue: 0,
         maxValue: Number.MAX_VALUE,
         minLabel: 'Min people',
         maxLabel: 'Max people',
     },
-    'USGS/SRTMGL1_003': { // Elevation
-        description: 'Elevation above sea-level. You can adjust the min and max values so it better representes the terrain in your region.',
+    'USGS/SRTMGL1_003': {
+        // Elevation
+        description:
+            'Elevation above sea-level. You can adjust the min and max values so it better representes the terrain in your region.',
         minValue: 0,
         maxValue: 8848,
         minLabel: 'Min meters',
         maxLabel: 'Max meters',
     },
-    'UCSB-CHG/CHIRPS/PENTAD' : { // Precipitation
-        description: 'Precipitation collected from satellite and weather stations on the ground. The values are in millimeters within 5 days periods. Updated monthly, during the 3rd week of the following month.',
+    'UCSB-CHG/CHIRPS/PENTAD': {
+        // Precipitation
+        description:
+            'Precipitation collected from satellite and weather stations on the ground. The values are in millimeters within 5 days periods. Updated monthly, during the 3rd week of the following month.',
         minValue: 0,
         maxValue: 100,
         minLabel: 'Min mm',
         maxLabel: 'Max mm',
     },
-    'MODIS/MOD11A2' : { // Temperature
-        description: 'Land surface temperatures collected from satellite in 8 days periods. Blank spots will appear in areas with a persistent cloud cover.',
+    'MODIS/MOD11A2': {
+        // Temperature
+        description:
+            'Land surface temperatures collected from satellite in 8 days periods. Blank spots will appear in areas with a persistent cloud cover.',
         minValue: -100,
         maxValue: 100,
         minLabel: 'Min °C',
         maxLabel: 'Max °C',
     },
-    'MODIS/051/MCD12Q1' : { // Landcover
+    'MODIS/051/MCD12Q1': {
+        // Landcover
         description: '17 distinct landcover types collected from satellites.',
         valueLabel: 'Select year',
-
     },
-    'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS' : { // Nighttime lights
-        description: 'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.',
+    'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': {
+        // Nighttime lights
+        description:
+            'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.',
         valueLabel: 'Select year',
         minValue: 0,
         maxValue: 63,
@@ -77,15 +87,14 @@ const styles = {
         fontSize: 12,
         lineHeight: '12px',
         marginLeft: 12,
-    }
+    },
 };
 
 class EarthEngineDialog extends Component {
-
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab: 'data'
+            tab: 'data',
         };
     }
 
@@ -98,13 +107,14 @@ class EarthEngineDialog extends Component {
     // Always set state to update text field, but only store if valid
     onStepsChange(newSteps) {
         const { min, max, palette } = this.props.params;
-        const steps = (newSteps === '') ? '' : parseInt(newSteps, 10);
+        const steps = newSteps === '' ? '' : parseInt(newSteps, 10);
 
         this.setState({ steps });
 
         if (this.isValidSteps(steps)) {
             const scale = getColorScale(palette);
-            const classes = (steps == 1 && min == 0 ? 2 : steps) + (min == 0 ? 1 : 2);
+            const classes =
+                (steps == 1 && min == 0 ? 2 : steps) + (min == 0 ? 1 : 2);
             const newPalette = getColorPalette(scale, classes);
 
             if (newPalette) {
@@ -120,74 +130,115 @@ class EarthEngineDialog extends Component {
         const { tab, steps, filterError, rangeError, stepsError } = this.state;
 
         return (
-            <Tabs style={styles.tabs} value={tab} onChange={(tab) => this.setState({ tab })}>
-                <Tab value='style' label={i18next.t('Style')}>
+            <Tabs
+                style={styles.tabs}
+                value={tab}
+                onChange={tab => this.setState({ tab })}
+            >
+                <Tab value="style" label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.flexColumn}>
-                            <div style={{ ...styles.flexFull, marginTop: 16 }}>{dataset.description}</div>
-                            {datasetId !== 'USGS/SRTMGL1_003' && // If not elevation
+                            <div style={{ ...styles.flexFull, marginTop: 16 }}>
+                                {dataset.description}
+                            </div>
+                            {datasetId !== 'USGS/SRTMGL1_003' && ( // If not elevation
                                 <Collection
                                     label={i18next.t(dataset.collectionLabel)}
                                     id={datasetId}
                                     filter={filter}
                                     onChange={setFilter}
-                                    style={{ ...styles.flexFull, marginBottom: 12 }}
+                                    style={{
+                                        ...styles.flexFull,
+                                        marginBottom: 12,
+                                    }}
                                     errorText={filterError}
                                 />
-                            }
+                            )}
                             {params && [
                                 <TextField
-                                    key='min'
-                                    type='number'
+                                    key="min"
+                                    type="number"
                                     label={i18next.t(dataset.minLabel || 'Min')}
                                     value={params.min}
-                                    onChange={min => setParams(parseInt(min), parseInt(params.max), params.palette)}
+                                    onChange={min =>
+                                        setParams(
+                                            parseInt(min),
+                                            parseInt(params.max),
+                                            params.palette
+                                        )
+                                    }
                                     style={styles.flexThird}
                                 />,
                                 <TextField
-                                    key='max'
-                                    type='number'
+                                    key="max"
+                                    type="number"
                                     label={i18next.t(dataset.maxLabel || 'Max')}
                                     value={params.max}
-                                    onChange={max => setParams(parseInt(params.min), parseInt(max), params.palette)}
+                                    onChange={max =>
+                                        setParams(
+                                            parseInt(params.min),
+                                            parseInt(max),
+                                            params.palette
+                                        )
+                                    }
                                     style={styles.flexThird}
                                 />,
                                 <TextField
-                                    key='steps'
-                                    type='number'
+                                    key="steps"
+                                    type="number"
                                     label={i18next.t('Steps')}
-                                    value={steps !== undefined ? steps : this.getStepsFromParams()}
-                                    onChange={steps => this.onStepsChange(steps)}
+                                    value={
+                                        steps !== undefined
+                                            ? steps
+                                            : this.getStepsFromParams()
+                                    }
+                                    onChange={steps =>
+                                        this.onStepsChange(steps)
+                                    }
                                     style={styles.flexThird}
                                 />,
-                                <div key='range_error' style={styles.error}>{!this.isValidRange() && rangeError}</div>,
-                                <div key='steps_error' style={styles.error}>{!this.isValidSteps() && stepsError}</div>,
+                                <div key="range_error" style={styles.error}>
+                                    {!this.isValidRange() && rangeError}
+                                </div>,
+                                <div key="steps_error" style={styles.error}>
+                                    {!this.isValidSteps() && stepsError}
+                                </div>,
                                 <ColorScaleSelect
-                                    key='scale'
+                                    key="scale"
                                     palette={params.palette}
-                                    onChange={palette => setParams(params.min, params.max, palette.join())}
+                                    onChange={palette =>
+                                        setParams(
+                                            params.min,
+                                            params.max,
+                                            palette.join()
+                                        )
+                                    }
                                     style={styles.colorScale}
                                 />,
                             ]}
                         </div>
                         <div style={styles.flexColumn}>
-                            {params &&
+                            {params && (
                                 <div style={styles.legend}>
-                                    <div style={styles.legendTitle}>{i18next.t('Legend preview')}</div>
-                                    <div className='Legend'>
+                                    <div style={styles.legendTitle}>
+                                        {i18next.t('Legend preview')}
+                                    </div>
+                                    <div className="Legend">
                                         <table>
                                             <tbody>
-                                                {createLegend(params).map((item, index) => (
-                                                    <LegendItem
-                                                        {...item}
-                                                        key={`item-${index}`}
-                                                    />
-                                                ))}
+                                                {createLegend(params).map(
+                                                    (item, index) => (
+                                                        <LegendItem
+                                                            {...item}
+                                                            key={`item-${index}`}
+                                                        />
+                                                    )
+                                                )}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                            }
+                            )}
                         </div>
                     </div>
                 </Tab>
@@ -211,12 +262,19 @@ class EarthEngineDialog extends Component {
         const { min, max } = params;
         const { minValue, maxValue } = dataset;
 
-        return min < max && min >= minValue && min <= maxValue && max >= minValue && max <= maxValue;
+        return (
+            min < max &&
+            min >= minValue &&
+            min <= maxValue &&
+            max >= minValue &&
+            max <= maxValue
+        );
     }
 
     isValidSteps(newSteps) {
-        const steps = newSteps !== undefined ? newSteps : this.getStepsFromParams();
-        return (steps > 0 && steps < 8);  // Valid steps: 1-7
+        const steps =
+            newSteps !== undefined ? newSteps : this.getStepsFromParams();
+        return steps > 0 && steps < 8; // Valid steps: 1-7
     }
 
     validate() {
@@ -224,7 +282,11 @@ class EarthEngineDialog extends Component {
         const dataset = datasets[datasetId];
 
         if (datasetId !== 'USGS/SRTMGL1_003' && !filter) {
-            return this.setErrorState('filterError', i18next.t('This field is required'), 'style');
+            return this.setErrorState(
+                'filterError',
+                i18next.t('This field is required'),
+                'style'
+            );
         }
 
         if (params) {
@@ -233,7 +295,11 @@ class EarthEngineDialog extends Component {
 
             // TODO: This should be implemented in the number fields directly
             if (!this.isValidRange()) {
-                return this.setErrorState('rangeError', `${i18next.t('Valid range is')} ${minValue} - ${maxValue}`, 'style');
+                return this.setErrorState(
+                    'rangeError',
+                    `${i18next.t('Valid range is')} ${minValue} - ${maxValue}`,
+                    'style'
+                );
             }
         }
 
@@ -241,4 +307,6 @@ class EarthEngineDialog extends Component {
     }
 }
 
-export default connect(null, { setParams, setFilter }, null, { withRef: true })(EarthEngineDialog);
+export default connect(null, { setParams, setFilter }, null, { withRef: true })(
+    EarthEngineDialog
+);

@@ -26,22 +26,26 @@ const styles = {
     },
 };
 
-const levels = [{
-    id: 'USER_ORGUNIT',
-    label: 'Main',
-    Icon: FirstLevel,
-}, {
-    id: 'USER_ORGUNIT_CHILDREN',
-    label: 'Below',
-    Icon: SecondLevel,
-}, {
-    id: 'USER_ORGUNIT_GRANDCHILDREN',
-    label: '2 x below',
-    Icon: ThirdLevel,
-}];
+const levels = [
+    {
+        id: 'USER_ORGUNIT',
+        label: 'Main',
+        Icon: FirstLevel,
+    },
+    {
+        id: 'USER_ORGUNIT_CHILDREN',
+        label: 'Below',
+        Icon: SecondLevel,
+    },
+    {
+        id: 'USER_ORGUNIT_GRANDCHILDREN',
+        label: '2 x below',
+        Icon: ThirdLevel,
+    },
+];
 
 const UserOrgUnitSelect = ({ selected, onChange, style }) => (
-    <div className='UserOrgUnits' style={style}>
+    <div className="UserOrgUnits" style={style}>
         <div style={styles.title}>User organisation units</div>
         <div style={styles.container}>
             {levels.map(level => {
@@ -53,9 +57,17 @@ const UserOrgUnitSelect = ({ selected, onChange, style }) => (
                         className={isSelected ? 'selected' : null}
                         style={{
                             ...styles.level,
-                            outline: isSelected ? '3px solid orange' : '1px solid #ddd',
+                            outline: isSelected
+                                ? '3px solid orange'
+                                : '1px solid #ddd',
                         }}
-                        onClick={() => onChange(!isSelected ? [...selected, level.id] : selected.filter(id => id !== level.id))}
+                        onClick={() =>
+                            onChange(
+                                !isSelected
+                                    ? [...selected, level.id]
+                                    : selected.filter(id => id !== level.id)
+                            )
+                        }
                     >
                         <level.Icon style={styles.icon} />
                         {level.label}
@@ -67,7 +79,7 @@ const UserOrgUnitSelect = ({ selected, onChange, style }) => (
 );
 
 UserOrgUnitSelect.propTypes = {
-    selected:  PropTypes.array,
+    selected: PropTypes.array,
     onChange: PropTypes.func,
 };
 

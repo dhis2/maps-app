@@ -4,14 +4,14 @@ import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
 import './ResizeHandle.css';
 
 const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
-
     let dragHeight = 0;
 
-    const onDragStart = (evt) => {
+    const onDragStart = evt => {
         // Set the drag ghost image to a transparent 1x1px
         // https://stackoverflow.com/questions/7680285/how-do-you-turn-off-setdragimage
         const img = document.createElement('img');
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        img.src =
+            'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         evt.dataTransfer.setDragImage(img, 0, 0);
 
         evt.dataTransfer.setData('text/plain', 'node'); // Required to initialize dragging in Firefox
@@ -20,7 +20,7 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
         document.ondragover = onDrag;
     };
 
-    const onDrag = (evt) => {
+    const onDrag = evt => {
         const height = getHeight(evt || window.event);
 
         if (height && onResize) {
@@ -29,7 +29,7 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
         }
     };
 
-    const onDragEnd = (evt) => {
+    const onDragEnd = evt => {
         const height = getHeight(evt);
 
         if (height && onResizeEnd) {
@@ -37,24 +37,27 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
         }
     };
 
-    const getHeight = (evt) => {
+    const getHeight = evt => {
         if (evt.pageY) {
             const height = window.innerHeight - evt.pageY;
-            dragHeight = height < minHeight ? minHeight : height > maxHeight ? maxHeight : height;
+            dragHeight =
+                height < minHeight
+                    ? minHeight
+                    : height > maxHeight ? maxHeight : height;
         }
 
-        return dragHeight
+        return dragHeight;
     };
 
     return (
         <div
-            className='ResizeHandle'
+            className="ResizeHandle"
             draggable={true}
-            onDragStart={(evt) => onDragStart(evt)}
+            onDragStart={evt => onDragStart(evt)}
             // onDrag={(evt) => onDrag(evt)}
-            onDragEnd={(evt) => onDragEnd(evt)}
+            onDragEnd={evt => onDragEnd(evt)}
         >
-            <SvgIcon icon='DragHandle' />
+            <SvgIcon icon="DragHandle" />
         </div>
     );
 };

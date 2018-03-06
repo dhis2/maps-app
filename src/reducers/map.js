@@ -14,13 +14,11 @@ const defaultState = {
     mapViews: [],
 };
 
-
 const basemap = (state, action) => {
-
     switch (action.type) {
-
         case types.BASEMAP_SELECTED:
-            if (state.id === action.id) { // No change
+            if (state.id === action.id) {
+                // No change
                 return state;
             }
 
@@ -49,15 +47,11 @@ const basemap = (state, action) => {
 
         default:
             return state;
-
     }
 };
 
-
-
 const layer = (state, action) => {
     switch (action.type) {
-
         case types.LAYER_UPDATE:
             if (state.id !== action.payload.id) {
                 return state;
@@ -106,7 +100,7 @@ const layer = (state, action) => {
 
             return {
                 ...state,
-                data: state.data.map(l => orgUnit(l, action))
+                data: state.data.map(l => orgUnit(l, action)),
             };
 
         // Add/change filter
@@ -131,7 +125,7 @@ const layer = (state, action) => {
             }
 
             const filters = { ...state.dataFilters };
-            delete (filters[action.fieldId]);
+            delete filters[action.fieldId];
 
             return {
                 ...state,
@@ -157,12 +151,10 @@ const layer = (state, action) => {
 
         default:
             return state;
-
     }
 };
 
 const orgUnit = (state, action) => {
-
     switch (action.type) {
         case types.ORGANISATION_UNIT_SELECT:
             if (state.id !== action.featureId) {
@@ -199,13 +191,10 @@ const orgUnit = (state, action) => {
 
         default:
             return state;
-
     }
-
 };
 
 const map = (state = defaultState, action) => {
-
     switch (action.type) {
         case types.MAP_NEW:
             return {
@@ -215,7 +204,7 @@ const map = (state = defaultState, action) => {
         case types.MAP_SET:
             return {
                 ...defaultState,
-                ...action.payload
+                ...action.payload,
             };
 
         case types.MAP_NAME_SET:
@@ -245,7 +234,7 @@ const map = (state = defaultState, action) => {
                 basemap: basemap(state.basemap, action),
             };
 
-      case types.LAYER_ADD:
+        case types.LAYER_ADD:
             // Check to only allow external layers to be added once
             if (state.mapViews.filter(l => l.id === action.payload.id).length) {
                 return state;
@@ -275,12 +264,18 @@ const map = (state = defaultState, action) => {
         case types.LAYER_REMOVE:
             return {
                 ...state,
-                mapViews: state.mapViews.filter(layer => layer.id !== action.id)
+                mapViews: state.mapViews.filter(
+                    layer => layer.id !== action.id
+                ),
             };
 
-      case types.LAYER_SORT:
+        case types.LAYER_SORT:
             const mapViews = [...state.mapViews].reverse(); // TODO: Refactor
-            const sortedMapViews = arrayMove(mapViews, action.oldIndex, action.newIndex).reverse();
+            const sortedMapViews = arrayMove(
+                mapViews,
+                action.oldIndex,
+                action.newIndex
+            ).reverse();
 
             return {
                 ...state,
@@ -302,19 +297,18 @@ const map = (state = defaultState, action) => {
         case types.MAP_EARTH_ENGINE_VALUE_SHOW:
             return {
                 ...state,
-                mapViews: state.mapViews.map(l => layer(l, action))
+                mapViews: state.mapViews.map(l => layer(l, action)),
             };
 
         case types.ALERTS_CLEAR:
             return {
                 ...state,
                 alerts: null,
-                mapViews: state.mapViews.map(l => layer(l, action))
+                mapViews: state.mapViews.map(l => layer(l, action)),
             };
 
         default:
             return state;
-
     }
 };
 

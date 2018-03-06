@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
-import { loadProgramTrackedEntityAttributes, loadProgramStageDataElements } from '../../actions/programs';
+import {
+    loadProgramTrackedEntityAttributes,
+    loadProgramStageDataElements,
+} from '../../actions/programs';
 
 export class CoordinateField extends Component {
-
     componentDidUpdate() {
         const {
             program,
@@ -14,7 +16,7 @@ export class CoordinateField extends Component {
             programAttributes,
             dataElements,
             loadProgramTrackedEntityAttributes,
-            loadProgramStageDataElements
+            loadProgramStageDataElements,
         } = this.props;
 
         if (program && !programAttributes[program.id]) {
@@ -27,16 +29,26 @@ export class CoordinateField extends Component {
     }
 
     render() {
-        const { value, program, programStage, programAttributes, dataElements, onChange, style } = this.props;
+        const {
+            value,
+            program,
+            programStage,
+            programAttributes,
+            dataElements,
+            onChange,
+            style,
+        } = this.props;
         let fields = [
             { id: 'event', name: i18next.t('Event location') }, // Default coordinate field
         ];
 
         if (program && programStage) {
-            fields = fields.concat([
-                ...programAttributes[program.id] || [],
-                ...dataElements[programStage.id] || []
-            ].filter(field => field.valueType === 'COORDINATE'));
+            fields = fields.concat(
+                [
+                    ...(programAttributes[program.id] || []),
+                    ...(dataElements[programStage.id] || []),
+                ].filter(field => field.valueType === 'COORDINATE')
+            );
         }
 
         return (
@@ -47,12 +59,12 @@ export class CoordinateField extends Component {
                 onChange={field => onChange(field.id)}
                 style={style}
             />
-        )
+        );
     }
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         programAttributes: state.programTrackedEntityAttributes,
         dataElements: state.programStageDataElements,
     }),

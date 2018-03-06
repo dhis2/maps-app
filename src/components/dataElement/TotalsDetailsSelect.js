@@ -17,7 +17,7 @@ const styles = {
 const TotalsDetailsSelect = ({ operand, onChange, style }) => (
     <div style={style}>
         <RadioButtonGroup
-            name='operand'
+            name="operand"
             valueSelected={operand === true}
             onChange={(event, value) => onChange(value)}
             style={styles.radioGroup}

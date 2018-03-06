@@ -3,11 +3,13 @@ import i18next from 'i18next';
 import { connect } from 'react-redux';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { combineDataItems } from '../../util/analytics';
-import { loadProgramTrackedEntityAttributes, loadProgramDataElements } from '../../actions/programs';
+import {
+    loadProgramTrackedEntityAttributes,
+    loadProgramDataElements,
+} from '../../actions/programs';
 import { aggregationTypes } from '../../constants/aggregationTypes';
 
 export class EventDataItemSelect extends Component {
-
     componentDidMount() {
         this.loadDataItems();
     }
@@ -23,7 +25,7 @@ export class EventDataItemSelect extends Component {
             programAttributes,
             dataElements,
             loadProgramTrackedEntityAttributes,
-            loadProgramDataElements
+            loadProgramDataElements,
         } = this.props;
 
         if (program && !programAttributes[program.id]) {
@@ -42,13 +44,20 @@ export class EventDataItemSelect extends Component {
             programAttributes,
             dataElements,
             onChange,
-            style
+            style,
         } = this.props;
 
         const dataItems = combineDataItems(
             programAttributes[program.id],
             dataElements[program.id],
-            ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE', 'DATE', 'TEXT', 'BOOLEAN'] // Exclude some value types
+            [
+                'FILE_RESOURCE',
+                'ORGANISATION_UNIT',
+                'COORDINATE',
+                'DATE',
+                'TEXT',
+                'BOOLEAN',
+            ] // Exclude some value types
         );
 
         // console.log('dataItem', dataItem);
@@ -65,9 +74,8 @@ export class EventDataItemSelect extends Component {
     }
 }
 
-
 export default connect(
-    (state) => ({
+    state => ({
         programAttributes: state.programTrackedEntityAttributes,
         dataElements: state.programDataElements,
     }),

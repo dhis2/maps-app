@@ -21,9 +21,10 @@ import { defaultClasses, defaultColorScale } from '../util/colorscale';
 
 // Look at: https://github.com/dhis2/maintenance-app/blob/master/src/App/appStateStore.js
 
-const formatTime = (date) => timeFormat('%Y-%m-%d')(new Date(date));
+const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
-const eventLoader = async (config) => { // Returns a promise
+const eventLoader = async config => {
+    // Returns a promise
     const {
         classes = defaultClasses,
         colorScale = defaultColorScale,
@@ -49,10 +50,21 @@ const eventLoader = async (config) => { // Returns a promise
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
-    let analyticsRequest = await getAnalyticsRequest(program, programStage, period, startDate, endDate, orgUnits, dataItems, eventCoordinateField);
+    let analyticsRequest = await getAnalyticsRequest(
+        program,
+        programStage,
+        period,
+        startDate,
+        endDate,
+        orgUnits,
+        dataItems,
+        eventCoordinateField
+    );
 
     const legend = {
-        period: period ? getPeriodNameFromId(period.id) : `${formatTime(startDate)} - ${formatTime(endDate)}`,
+        period: period
+            ? getPeriodNameFromId(period.id)
+            : `${formatTime(startDate)} - ${formatTime(endDate)}`,
         filters: dataFilters && getFiltersAsText(dataFilters),
     };
 
@@ -70,47 +82,87 @@ const eventLoader = async (config) => { // Returns a promise
     if (!serverCluster) {
         const response = await d2.analytics.events.getQuery(analyticsRequest);
         names = getApiResponseNames(response);
-        const optionSetHeaders = response.headers.filter((header) => header.optionSet);
+        const optionSetHeaders = response.headers.filter(
+            header => header.optionSet
+        );
 
         // Load option sets used for filtering/styling
         if (optionSetHeaders.length) {
-            await Promise.all(optionSetHeaders.map(header =>
-                d2.models.optionSets.get(header.optionSet, {
-                    fields: 'id,options[code,displayName~rename(name)]'
-                })
-                .then(model => model.options)
-                .then(options => options.forEach(({ code, name }) => names[code] = name))
-            ));
+            await Promise.all(
+                optionSetHeaders.map(header =>
+                    d2.models.optionSets
+                        .get(header.optionSet, {
+                            fields: 'id,options[code,displayName~rename(name)]',
+                        })
+                        .then(model => model.options)
+                        .then(options =>
+                            options.forEach(
+                                ({ code, name }) => (names[code] = name)
+                            )
+                        )
+                )
+            );
         }
 
         data = response.rows
-            .map(row => createEventFeature(response.headers, names, row, eventCoordinateField))
+            .map(row =>
+                createEventFeature(
+                    response.headers,
+                    names,
+                    row,
+                    eventCoordinateField
+                )
+            )
             .filter(feature => isValidCoordinate(feature.geometry.coordinates));
 
-        const styleByNumeric = styleDataItem && styleDataItem.valueType === 'INTEGER';
-        const styleByOptionSet = styleDataItem && styleDataItem.optionSet && styleDataItem.optionSet.options;
+        const styleByNumeric =
+            styleDataItem && styleDataItem.valueType === 'INTEGER';
+        const styleByOptionSet =
+            styleDataItem &&
+            styleDataItem.optionSet &&
+            styleDataItem.optionSet.options;
 
         if (Array.isArray(data) && data.length) {
             if (styleDataItem) {
                 // Set value property to value of styleDataItem
-                data.forEach(feature => feature.properties.value = feature.properties[styleDataItem.id]);
+                data.forEach(
+                    feature =>
+                        (feature.properties.value =
+                            feature.properties[styleDataItem.id])
+                );
                 legend.unit = styleDataItem.name;
 
                 if (styleByNumeric) {
-                    const values = data.map(feature => Number(feature.properties.value)).sort((a, b) => a - b);
+                    const values = data
+                        .map(feature => Number(feature.properties.value))
+                        .sort((a, b) => a - b);
                     const bins = getClassBins(values, method, classes);
                     const colors = colorScale ? colorScale.split(',') : [];
-                    legend.items = getNumericLegendItems(bins, colors, eventPointRadius || EVENT_RADIUS);
+                    legend.items = getNumericLegendItems(
+                        bins,
+                        colors,
+                        eventPointRadius || EVENT_RADIUS
+                    );
 
-                    const getLegendItem = curry(getLegendItemForValue)(legend.items);
+                    const getLegendItem = curry(getLegendItemForValue)(
+                        legend.items
+                    );
 
-                    data.forEach(feature => feature.properties.color = getLegendItem(45).color);
-
+                    data.forEach(
+                        feature =>
+                            (feature.properties.color = getLegendItem(45).color)
+                    );
                 } else if (styleByOptionSet) {
                     data.forEach(feature => {
-                        feature.properties.color = styleDataItem.optionSet.options[feature.properties.value];
+                        feature.properties.color =
+                            styleDataItem.optionSet.options[
+                                feature.properties.value
+                            ];
                     });
-                    legend.items = getCategoryLegendItems(styleDataItem.optionSet.options, eventPointRadius || EVENT_RADIUS);
+                    legend.items = getCategoryLegendItems(
+                        styleDataItem.optionSet.options,
+                        eventPointRadius || EVENT_RADIUS
+                    );
                 }
 
                 legend.items.push({
@@ -118,12 +170,15 @@ const eventLoader = async (config) => { // Returns a promise
                     color: eventPointColor || EVENT_COLOR,
                     radius: eventPointRadius || EVENT_RADIUS,
                 });
-            } else { // Simple style
-                legend.items = [{
-                    name: i18next.t('Event'),
-                    color: eventPointColor || EVENT_COLOR,
-                    radius: eventPointRadius || EVENT_RADIUS,
-                }];
+            } else {
+                // Simple style
+                legend.items = [
+                    {
+                        name: i18next.t('Event'),
+                        color: eventPointColor || EVENT_COLOR,
+                        radius: eventPointRadius || EVENT_RADIUS,
+                    },
+                ];
             }
         }
     }
@@ -143,19 +198,28 @@ const eventLoader = async (config) => { // Returns a promise
     };
 };
 
-const getBounds = (bbox) => {
+const getBounds = bbox => {
     if (!bbox) {
         return null;
     }
     const extent = bbox.match(/([-\d\.]+)/g);
-    return [[extent[1], extent[0]], [extent[3], extent[2]]]
+    return [[extent[1], extent[0]], [extent[3], extent[2]]];
 };
 
 // Server clustering if more than 2000 events
-const useServerCluster = (count) => count > 2000; // TODO: Use constant
+const useServerCluster = count => count > 2000; // TODO: Use constant
 
 // Also used to query for server cluster in map/EventLayer.js
-export const getAnalyticsRequest = async (program, programStage, period, startDate, endDate, orgUnits, dataItems, eventCoordinateField) => {
+export const getAnalyticsRequest = async (
+    program,
+    programStage,
+    period,
+    startDate,
+    endDate,
+    orgUnits,
+    dataItems,
+    eventCoordinateField
+) => {
     const d2 = await getD2();
 
     let analyticsRequest = new d2.analytics.request()
@@ -163,17 +227,23 @@ export const getAnalyticsRequest = async (program, programStage, period, startDa
         .withStage(programStage.id)
         .withCoordinatesOnly(true);
 
-    analyticsRequest = period ? analyticsRequest.addPeriodFilter(period.id) : analyticsRequest
-        .withStartDate(startDate)
-        .withEndDate(endDate);
+    analyticsRequest = period
+        ? analyticsRequest.addPeriodFilter(period.id)
+        : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
 
-    analyticsRequest = analyticsRequest.addOrgUnitDimension(orgUnits.map(ou => ou.id));
+    analyticsRequest = analyticsRequest.addOrgUnitDimension(
+        orgUnits.map(ou => ou.id)
+    );
 
     removeEmptyItems(dataItems).forEach(item => {
-        analyticsRequest = analyticsRequest.addDimension(item.dimension, item.filter);
+        analyticsRequest = analyticsRequest.addDimension(
+            item.dimension,
+            item.filter
+        );
     });
 
-    if (eventCoordinateField) { // If coordinate field other than event coordinate
+    if (eventCoordinateField) {
+        // If coordinate field other than event coordinate
         analyticsRequest = analyticsRequest
             .addDimension(eventCoordinateField) // Used by analytics/events/query/
             .withCoordinateField(eventCoordinateField); // Used by analytics/events/count and analytics/events/cluster
@@ -183,24 +253,30 @@ export const getAnalyticsRequest = async (program, programStage, period, startDa
 };
 
 // Include column for data element used for styling
-export const addStyleDataItem = (dataItems, styleDataItem)  =>
-    styleDataItem ? [
-        ...dataItems, styleDataItem && {
-            dimension: styleDataItem.id,
-            name: styleDataItem.name,
-        }
-    ] : [ ...dataItems ];
-
+export const addStyleDataItem = (dataItems, styleDataItem) =>
+    styleDataItem
+        ? [
+              ...dataItems,
+              styleDataItem && {
+                  dimension: styleDataItem.id,
+                  name: styleDataItem.name,
+              },
+          ]
+        : [...dataItems];
 
 const createEventFeature = (headers, names, event, eventCoordinateField) => {
-    const properties = event.reduce((props, value, i) => ({
-        ...props,
-        [headers[i].name]: names[value] || value,
-    }), {});
+    const properties = event.reduce(
+        (props, value, i) => ({
+            ...props,
+            [headers[i].name]: names[value] || value,
+        }),
+        {}
+    );
 
     let coordinates;
 
-    if (eventCoordinateField) { // If coordinate field other than event location
+    if (eventCoordinateField) {
+        // If coordinate field other than event location
         const eventCoord = properties[eventCoordinateField];
 
         if (Array.isArray(eventCoord)) {
@@ -210,7 +286,8 @@ const createEventFeature = (headers, names, event, eventCoordinateField) => {
         } else {
             coordinates = [];
         }
-    } else { // Use event location
+    } else {
+        // Use event location
         coordinates = [properties.longitude, properties.latitude]; // Event location
     }
 
@@ -221,7 +298,7 @@ const createEventFeature = (headers, names, event, eventCoordinateField) => {
         geometry: {
             type: 'Point',
             coordinates: coordinates.map(parseFloat),
-        }
+        },
     };
 };
 

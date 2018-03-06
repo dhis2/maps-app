@@ -8,13 +8,14 @@ import { getDisplayProperty } from '../util/helpers';
 const colors = ['black', 'blue', 'red', 'green', 'yellow'];
 const weights = [2, 1, 0.75, 0.5, 0.5];
 
-const boundaryLoader = async (config) => { // Returns a promise
+const boundaryLoader = async config => {
+    // Returns a promise
     const { rows, radiusLow } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
 
     const d2 = await getD2();
-    const displayProperty = (getDisplayProperty(d2)).toUpperCase();
+    const displayProperty = getDisplayProperty(d2).toUpperCase();
 
     const features = await d2.geoFeatures
         .byOrgUnit(orgUnitParams)
@@ -31,18 +32,24 @@ const boundaryLoader = async (config) => { // Returns a promise
         .map(f => f.properties.level)
         .sort();
 
-    const levelStyle = levels.reduce((obj, level, index) => ({
-        ...obj,
-        [level]: {
-            color: colors[index],
-            weight: levels.length === 1 ? 1 : weights[index],
-        }
-    }), {});
+    const levelStyle = levels.reduce(
+        (obj, level, index) => ({
+            ...obj,
+            [level]: {
+                color: colors[index],
+                weight: levels.length === 1 ? 1 : weights[index],
+            },
+        }),
+        {}
+    );
 
     features.forEach(feature => {
         feature.properties.style = levelStyle[feature.properties.level];
         feature.properties.labelStyle = {
-            paddingTop: feature.geometry.type === 'Point' ? 5 + (radiusLow || 5) + 'px' : '0'
+            paddingTop:
+                feature.geometry.type === 'Point'
+                    ? 5 + (radiusLow || 5) + 'px'
+                    : '0',
         };
         feature.properties.type = feature.geometry.type;
     });

@@ -4,9 +4,12 @@ import { loadFavorite, closeFavoritesDialog } from '../../actions/favorites';
 import { closeDataTable } from '../../actions/dataTable';
 import PropTypes from 'prop-types';
 
-const FavoritesDialog = ({ dialogOpen, onFavoriteSelect, closeFavoritesDialog }, context) => (
+const FavoritesDialog = (
+    { dialogOpen, onFavoriteSelect, closeFavoritesDialog },
+    context
+) => (
     <D2FavoritesDialog
-        type='map'
+        type="map"
         open={dialogOpen}
         onRequestClose={closeFavoritesDialog}
         onFavoriteSelect={onFavoriteSelect}
@@ -14,13 +17,13 @@ const FavoritesDialog = ({ dialogOpen, onFavoriteSelect, closeFavoritesDialog },
     />
 );
 
-FavoritesDialog.contextTypes = { 
+FavoritesDialog.contextTypes = {
     d2: PropTypes.object, // .isRequired
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     closeFavoritesDialog: () => dispatch(closeFavoritesDialog()),
-    onFavoriteSelect: (id) => {
+    onFavoriteSelect: id => {
         dispatch(closeDataTable());
         dispatch(closeFavoritesDialog());
         dispatch(loadFavorite(id));
@@ -28,8 +31,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(
-  (state) => ({
-      dialogOpen: state.favorite.dialogOpen,
-  }),
-  mapDispatchToProps
+    state => ({
+        dialogOpen: state.favorite.dialogOpen,
+    }),
+    mapDispatchToProps
 )(FavoritesDialog);

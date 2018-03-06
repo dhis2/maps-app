@@ -21,7 +21,7 @@ const styles = {
         display: 'block',
         fontSize: 14,
         marginBottom: 20,
-    }
+    },
 };
 
 const LinkDialog = ({ favoriteId, onClose }, { d2 }) => {
@@ -38,15 +38,21 @@ const LinkDialog = ({ favoriteId, onClose }, { d2 }) => {
             contentStyle={styles.dialog}
         >
             <h3 style={styles.heading}>{i18next.t('Open in this app')}</h3>
-            <a href={appUrl} target='_blank' style={styles.link}>{appUrl}</a>
-            <h3 style={styles.heading}>{i18next.t('Open in Web API (limited support)')}</h3>
-            <a href={apiUrl} target='_blank' style={styles.link}>{apiUrl}</a>
+            <a href={appUrl} target="_blank" style={styles.link}>
+                {appUrl}
+            </a>
+            <h3 style={styles.heading}>
+                {i18next.t('Open in Web API (limited support)')}
+            </h3>
+            <a href={apiUrl} target="_blank" style={styles.link}>
+                {apiUrl}
+            </a>
         </Dialog>
-    )
+    );
 };
 
 LinkDialog.contextTypes = {
-    d2: PropTypes.object.isRequired
+    d2: PropTypes.object.isRequired,
 };
 
 export default LinkDialog;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Layer from './Layer';
 
 const LayerList = ({ layers, onLayerSelect }) => (
-    <div className='LayerList'>
+    <div className="LayerList">
         {layers.map((layer, index) => (
             <Layer
                 key={`layer-${index}`}

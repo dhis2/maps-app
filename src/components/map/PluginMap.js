@@ -10,17 +10,17 @@ import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
 import { defaultBasemaps } from '../../constants/basemaps';
-import { getMapAlerts } from '../../util/helpers'
+import { getMapAlerts } from '../../util/alerts';
 import { drillUpDown } from '../../util/map';
 import { fetchLayer } from '../../loaders/layers';
 
 const layerType = {
-    event:       EventLayer,
-    facility:    FacilityLayer,
-    thematic:    ThematicLayer,
-    boundary:    BoundaryLayer,
+    event: EventLayer,
+    facility: FacilityLayer,
+    thematic: ThematicLayer,
+    boundary: BoundaryLayer,
     earthEngine: EarthEngineLayer,
-    external:    ExternalLayer
+    external: ExternalLayer,
 };
 
 const styles = {
@@ -40,15 +40,14 @@ const styles = {
 
 // TODO: Resuse code from Map.js
 class PluginMap extends Component {
-
     getChildContext() {
         return {
-            map: this.map
+            map: this.map,
         };
     }
 
     constructor(props, context) {
-        super(props, context)
+        super(props, context);
 
         // Create map div
         const div = document.createElement('div');
@@ -61,19 +60,23 @@ class PluginMap extends Component {
 
         this.state = {
             mapViews: props.mapViews, // Can be changed by drilling
-        }
+        };
     }
 
     onRightClick(evt) {
         L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         this.setState({
-            contextMenuPosition: [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y],
+            contextMenuPosition: [
+                evt.originalEvent.x,
+                evt.originalEvent.pageY || evt.originalEvent.y,
+            ],
         });
     }
 
     componentDidMount() {
-        if (this.node && this.map) { // If map is rendered
+        if (this.node && this.map) {
+            // If map is rendered
             const { bounds, latitude, longitude, zoom } = this.props;
             const map = this.map;
 
@@ -111,7 +114,7 @@ class PluginMap extends Component {
 
             map.on('click', this.onCloseContextMenu, this);
         }
-     }
+    }
 
     componentDidUpdate(prevProps) {
         const map = this.map;
@@ -148,13 +151,29 @@ class PluginMap extends Component {
         let newConfig;
 
         if (layerId && feature) {
-            const { level, id, parentGraph, grandParentId, grandParentParentGraph } = feature.properties;
+            const {
+                level,
+                id,
+                parentGraph,
+                grandParentId,
+                grandParentParentGraph,
+            } = feature.properties;
             const layerConfig = mapViews.find(layer => layer.id === layerId);
 
             if (direction === 'up') {
-                newConfig = drillUpDown(layerConfig, grandParentId, grandParentParentGraph, parseInt(level) - 1);
+                newConfig = drillUpDown(
+                    layerConfig,
+                    grandParentId,
+                    grandParentParentGraph,
+                    parseInt(level) - 1
+                );
             } else {
-                newConfig = drillUpDown(layerConfig, id, parentGraph, parseInt(level) + 1);
+                newConfig = drillUpDown(
+                    layerConfig,
+                    id,
+                    parentGraph,
+                    parseInt(level) + 1
+                );
             }
 
             const newLayer = await fetchLayer(newConfig);
@@ -162,13 +181,14 @@ class PluginMap extends Component {
             this.map.legend = '';
 
             this.setState({
-                mapViews: mapViews.map(layer => layer.id === layerId ? newLayer : layer),
+                mapViews: mapViews.map(
+                    layer => (layer.id === layerId ? newLayer : layer)
+                ),
                 position: null,
                 feature: null,
             });
         }
     }
-
 
     render() {
         const { basemap = { id: 'osmLight' } } = this.props;
@@ -176,54 +196,57 @@ class PluginMap extends Component {
 
         let selectedBasemap;
 
-        if (basemap.url) { // External layer
+        if (basemap.url) {
+            // External layer
             selectedBasemap = {
                 id: basemap.id,
                 config: {
                     type: 'tileLayer',
                     ...basemap,
                 },
-            }
+            };
         } else {
-            selectedBasemap = defaultBasemaps.find(map => map.id === (basemap.id || basemap));
+            selectedBasemap = defaultBasemaps.find(
+                map => map.id === (basemap.id || basemap)
+            );
         }
 
         const alerts = getMapAlerts(this.props);
 
-        return (
-            (!alerts.length ?
-                <div ref={node => this.node = node} style={styles.map}>
-                    {mapViews.filter(layer => layer.isLoaded).map((config) => {
-                        const Overlay = layerType[config.layer] || Layer;
+        return !alerts.length ? (
+            <div ref={node => (this.node = node)} style={styles.map}>
+                {mapViews.filter(layer => layer.isLoaded).map(config => {
+                    const Overlay = layerType[config.layer] || Layer;
 
-                        return (
-                            <Overlay
-                                key={config.id}
-                                openContextMenu={this.onOpenContextMenu.bind(this)}
-                                {...config}
-                                isPlugin={true}
-                            />
-                        )
-                    })}
-                    {basemap.isVisible !== false && <Layer key='basemap' {...selectedBasemap} />}
-                    <ContextMenu
-                         position={position}
-                         feature={feature}
-                         // onClose={console.log}
-                         onDrillDown={() => this.onDrill('down')}
-                         onDrillUp={() => this.onDrill('up')}
-                    />
-                </div>
-                :
-                <div style={styles.alerts}>
-                    {alerts.map((alert, index) =>
-                        <div key={index} style={styles.alert}>
-                            <strong>{alert.title}</strong>: {alert.description}
-                        </div>
-                    )}
-                </div>
-            )
-        )
+                    return (
+                        <Overlay
+                            key={config.id}
+                            openContextMenu={this.onOpenContextMenu.bind(this)}
+                            {...config}
+                            isPlugin={true}
+                        />
+                    );
+                })}
+                {basemap.isVisible !== false && (
+                    <Layer key="basemap" {...selectedBasemap} />
+                )}
+                <ContextMenu
+                    position={position}
+                    feature={feature}
+                    // onClose={console.log}
+                    onDrillDown={() => this.onDrill('down')}
+                    onDrillUp={() => this.onDrill('up')}
+                />
+            </div>
+        ) : (
+            <div style={styles.alerts}>
+                {alerts.map(alert => (
+                    <div key={alert.id} style={styles.alert}>
+                        <strong>{alert.title}</strong>: {alert.description}
+                    </div>
+                ))}
+            </div>
+        );
     }
 }
 

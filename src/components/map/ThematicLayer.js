@@ -3,13 +3,12 @@ import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
 class ThematicLayer extends Layer {
-
     createLayer(callback) {
         const {
             id,
             data,
             dataFilters,
-            valueFilter = { gt: null, lt: null, },
+            valueFilter = { gt: null, lt: null },
             labels,
             labelFontSize,
             labelFontStyle,
@@ -30,7 +29,7 @@ class ThematicLayer extends Layer {
             config.label = '{name}';
             config.labelStyle = {
                 fontSize: labelFontSize,
-                fontStyle: labelFontStyle
+                fontStyle: labelFontStyle,
             };
             config.labelPane = id + '-labels';
         }
@@ -52,15 +51,23 @@ class ThematicLayer extends Layer {
     }
 
     // Used for legend in map plugins
-    getHtmlLegend = ({ title, period, items}) => `
+    getHtmlLegend = ({ title, period, items }) => `
         <div class="dhis2-legend">
             <h2>${title}</h2>
             <span>${period}</span>
             <dl class="dhis2-legend-automatic">
-                ${items.map(item => `
+                ${items
+                    .map(
+                        item => `
                     <dt style="background-color:${item.color}"></dt>
-                    <dd>${item.name || ''} ${!isNaN(item.startValue) ? `${item.startValue} - ${item.endValue}` : ''} (${item.count})</dd>
-                `).join('')}
+                    <dd>${item.name || ''} ${
+                            !isNaN(item.startValue)
+                                ? `${item.startValue} - ${item.endValue}`
+                                : ''
+                        } (${item.count})</dd>
+                `
+                    )
+                    .join('')}
             </dl>
         </div>`;
 
@@ -68,13 +75,15 @@ class ThematicLayer extends Layer {
         const { name, value } = evt.layer.feature.properties;
         const { columns, aggregationType, legend } = this.props;
         const map = this.context.map;
-        const indicator = columns[0].items[0].name;
+        const indicator = columns[0].items[0].name || '';
         const period = legend.period;
         const content = `
             <div class="leaflet-popup-orgunit">
                 <em>${name}</em><br>
                 ${indicator}<br>
-                ${period}: ${value} ${aggregationType ? `(${aggregationType})` : ''}
+                ${period}: ${value} ${
+            aggregationType ? `(${aggregationType})` : ''
+        }
             </div>`;
 
         L.popup()
@@ -87,7 +96,10 @@ class ThematicLayer extends Layer {
         L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         const latlng = evt.latlng;
-        const position = [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y];
+        const position = [
+            evt.originalEvent.x,
+            evt.originalEvent.pageY || evt.originalEvent.y,
+        ];
         const props = this.props;
 
         this.props.openContextMenu({

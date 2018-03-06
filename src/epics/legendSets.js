@@ -6,18 +6,17 @@ import { setLegendSets } from '../actions/legendSets';
 import { errorActionCreator } from '../actions/helpers';
 
 // Load data sets
-export const loadLegendSets = (action$) =>
-    action$
-        .ofType(types.LEGEND_SETS_LOAD)
-        .concatMap((action) =>
-            getD2()
-                .then(d2 => d2.models.legendSets.list({
+export const loadLegendSets = action$ =>
+    action$.ofType(types.LEGEND_SETS_LOAD).concatMap(action =>
+        getD2()
+            .then(d2 =>
+                d2.models.legendSets.list({
                     fields: 'id,displayName~rename(name)',
                     paging: false,
-                }))
-                .then(legendSets => setLegendSets(legendSets.toArray()))
-                .catch(errorActionCreator(types.LEGEND_SETS_LOAD_ERROR))
-        );
+                })
+            )
+            .then(legendSets => setLegendSets(legendSets.toArray()))
+            .catch(errorActionCreator(types.LEGEND_SETS_LOAD_ERROR))
+    );
 
 export default combineEpics(loadLegendSets);
-

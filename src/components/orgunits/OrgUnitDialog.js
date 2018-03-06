@@ -13,7 +13,7 @@ const styles = {
         fontSize: 14,
         marginTop: -10,
         width: 200,
-        float: 'left'
+        float: 'left',
     },
     header: {
         margin: '10px 0 2px 0',
@@ -22,17 +22,24 @@ const styles = {
     data: {
         float: 'left',
         width: 350,
-    }
+    },
 };
 
 class OrgUnitDialog extends Component {
-
     static contextTypes = {
-        d2: PropTypes.object.isRequired
+        d2: PropTypes.object.isRequired,
     };
 
     render() {
-        const { id, name, code, parent, coordinates, organisationUnitGroups, closeOrgUnit } = this.props;
+        const {
+            id,
+            name,
+            code,
+            parent,
+            coordinates,
+            organisationUnitGroups,
+            closeOrgUnit,
+        } = this.props;
 
         if (!id) {
             return null;
@@ -62,27 +69,22 @@ class OrgUnitDialog extends Component {
                     <h3 style={styles.header}>Code</h3>
                     {code}
                     <h3 style={styles.header}>Groups</h3>
-                    {groups.map(group =>
+                    {groups.map(group => (
                         <div key={group.id}>{group.name}</div>
-                    )}
+                    ))}
                 </div>
-                <div style={styles.data}>
-
-                </div>
+                <div style={styles.data} />
             </Dialog>
         );
     }
-
 }
 
 export default connect(
     state => ({
-        ...state.orgUnit
+        ...state.orgUnit,
     }),
     { closeOrgUnit }
 )(OrgUnitDialog);
-
-
 
 // TODO: Reactify!
 /*
@@ -407,6 +409,3 @@ const showInfo = function(att) {
     });
 };
 */
-
-
-

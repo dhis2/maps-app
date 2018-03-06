@@ -28,7 +28,7 @@ const styles = {
     },
     popover: {
         marginLeft: 10,
-    }
+    },
 };
 
 class FavoritesMenu extends Component {
@@ -38,7 +38,7 @@ class FavoritesMenu extends Component {
     };
 
     openMenu(evt) {
-        this.setState({ anchorEl: evt.currentTarget })
+        this.setState({ anchorEl: evt.currentTarget });
     }
 
     closeMenu() {
@@ -46,7 +46,6 @@ class FavoritesMenu extends Component {
     }
 
     onNewMapClick() {
-
         this.closeMenu();
         this.props.closeDataTable();
         this.props.newMap();
@@ -86,60 +85,62 @@ class FavoritesMenu extends Component {
 
     render() {
         const { mapId, saveFavoriteInterpretation } = this.props;
-        const { anchorEl, showInterpretationDialog, showLinksDialog } = this.state;
+        const {
+            anchorEl,
+            showInterpretationDialog,
+            showLinksDialog,
+        } = this.state;
 
         return [
             <Button
-                key='favorites-btn'
+                key="favorites-btn"
                 onClick={evt => this.openMenu(evt)}
                 style={styles.button}
-            >{i18next.t('Favorites')}</Button>,
+            >
+                {i18next.t('Favorites')}
+            </Button>,
             <Popover
-                key='favorites-menu'
+                key="favorites-menu"
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
                 onRequestClose={evt => this.closeMenu()}
                 style={styles.popover}
             >
-              <Menu>
-                  <MenuItem
-                      primaryText={i18next.t('New')}
-                      onClick={() => this.onNewMapClick()}
-                  />
-                  <MenuItem
-                      primaryText={i18next.t('Open')}
-                      onClick={() => this.onLoadClick()}
-                  />
-                  <MenuItem
-                      primaryText={i18next.t('Save')}
-                      onClick={() => this.onSaveClick()}
-                      disabled={mapId === undefined}
-                  />
-                  <MenuItem
-                      primaryText={i18next.t('Save as')}
-                      onClick={() => this.onSaveNewClick()}
-                  />
-                  <MenuItem
-                      primaryText={i18next.t('Write interpretation')}
-                      onClick={() => this.onWriteInterpretationClick()}
-                      disabled={mapId === undefined}
-                  />
-                  <MenuItem
-                      primaryText={i18next.t('Get link')}
-                      onClick={() => this.onGetLinkClick()}
-                      disabled={mapId === undefined}
-                  />
-              </Menu>
+                <Menu>
+                    <MenuItem
+                        primaryText={i18next.t('New')}
+                        onClick={() => this.onNewMapClick()}
+                    />
+                    <MenuItem
+                        primaryText={i18next.t('Open')}
+                        onClick={() => this.onLoadClick()}
+                    />
+                    <MenuItem
+                        primaryText={i18next.t('Save')}
+                        onClick={() => this.onSaveClick()}
+                        disabled={mapId === undefined}
+                    />
+                    <MenuItem
+                        primaryText={i18next.t('Save as')}
+                        onClick={() => this.onSaveNewClick()}
+                    />
+                    <MenuItem
+                        primaryText={i18next.t('Write interpretation')}
+                        onClick={() => this.onWriteInterpretationClick()}
+                        disabled={mapId === undefined}
+                    />
+                    <MenuItem
+                        primaryText={i18next.t('Get link')}
+                        onClick={() => this.onGetLinkClick()}
+                        disabled={mapId === undefined}
+                    />
+                </Menu>
             </Popover>,
-            <FavoritesDialog
-                key='favorite-load'
-            />,
-            <SaveNewFavoriteDialog
-                key='favorite-save'
-            />,
-            (showInterpretationDialog &&
+            <FavoritesDialog key="favorite-load" />,
+            <SaveNewFavoriteDialog key="favorite-save" />,
+            showInterpretationDialog && (
                 <InterpretationDialog
-                    key='interpretation'
+                    key="interpretation"
                     favoriteId={mapId}
                     onSave={(id, interpretation) => {
                         saveFavoriteInterpretation(id, interpretation);
@@ -148,21 +149,28 @@ class FavoritesMenu extends Component {
                     onClose={() => this.onDialogClose()}
                 />
             ),
-            (showLinksDialog &&
+            showLinksDialog && (
                 <LinksDialog
-                    key='links'
+                    key="links"
                     favoriteId={mapId}
                     onClose={() => this.onDialogClose()}
                 />
             ),
-        ]
+        ];
     }
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         mapId: state.map.id,
         favoritesDialogOpen: state.favorite.dialogOpen,
     }),
-    { newMap, saveFavorite, openFavoritesDialog, openSaveNewFavoriteDialog, saveFavoriteInterpretation, closeDataTable }
+    {
+        newMap,
+        saveFavorite,
+        openFavoritesDialog,
+        openSaveNewFavoriteDialog,
+        saveFavoriteInterpretation,
+        closeDataTable,
+    }
 )(FavoritesMenu);

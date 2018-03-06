@@ -1,15 +1,20 @@
 import i18next from 'i18next';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { apiFetch } from '../../util/api';
-import { getAnalyticsRequest, addStyleDataItem } from '../../loaders/eventLoader';
-import { getOrgUnitsFromRows, getPeriodFromFilters } from '../../util/analytics';
+import {
+    getAnalyticsRequest,
+    addStyleDataItem,
+} from '../../loaders/eventLoader';
+import {
+    getOrgUnitsFromRows,
+    getPeriodFromFilters,
+} from '../../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
 import { getDisplayPropertyUrl } from '../../util/helpers';
 
 class EventLayer extends Layer {
-
-    createLayer (callback) {
+    createLayer(callback) {
         const {
             bounds,
             columns,
@@ -30,7 +35,10 @@ class EventLayer extends Layer {
         } = this.props;
 
         // Some older favorites don't have a valid color code
-        const color = eventPointColor && eventPointColor.charAt(0) !== '#' ? '#' + eventPointColor : eventPointColor;
+        const color =
+            eventPointColor && eventPointColor.charAt(0) !== '#'
+                ? '#' + eventPointColor
+                : eventPointColor;
 
         const orgUnits = getOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
@@ -54,23 +62,35 @@ class EventLayer extends Layer {
 
         if (eventClustering) {
             if (serverCluster) {
-
                 config.type = 'serverCluster';
                 config.bounds = bounds;
 
                 config.load = async (params, callback) => {
-                    d2 = d2 || await getD2();
-                    eventRequest = eventRequest || await getAnalyticsRequest(program, programStage, period, startDate, endDate, orgUnits, dataItems, eventCoordinateField);
+                    d2 = d2 || (await getD2());
+                    eventRequest =
+                        eventRequest ||
+                        (await getAnalyticsRequest(
+                            program,
+                            programStage,
+                            period,
+                            startDate,
+                            endDate,
+                            orgUnits,
+                            dataItems,
+                            eventCoordinateField
+                        ));
 
                     eventRequest = eventRequest
                         .withBbox(params.bbox)
                         .withClusterSize(params.clusterSize)
                         .withIncludeClusterPoints(params.includeClusterPoints);
 
-                    const clusterData = await d2.analytics.events.getCluster(eventRequest);
+                    const clusterData = await d2.analytics.events.getCluster(
+                        eventRequest
+                    );
 
                     callback(params.tileId, this.toGeoJson(clusterData));
-                }
+                };
             } else {
                 config.type = 'clientCluster';
                 config.clusterPane = id;
@@ -96,7 +116,9 @@ class EventLayer extends Layer {
         const props = this.props;
         const d2 = await getD2();
         const data = await d2.models.programStage.get(props.programStage.id, {
-            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(d2)},optionSet]]`,
+            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
+                d2
+            )},optionSet]]`,
             paging: false,
         });
 
@@ -108,14 +130,24 @@ class EventLayer extends Layer {
                     this.displayElements[dataElement.id] = dataElement;
 
                     if (dataElement.optionSet && dataElement.optionSet.id) {
-                        d2.models.optionSets.get(dataElement.optionSet.id, {
-                            fields: 'id,displayName~rename(name),options[code,displayName~rename(name)]',
-                            paging: false,
-                        }).then(optionSet => {
-                            optionSet.options.forEach(option => dataElement.optionSet[option.code] = option.name);
-                        });
+                        d2.models.optionSets
+                            .get(dataElement.optionSet.id, {
+                                fields:
+                                    'id,displayName~rename(name),options[code,displayName~rename(name)]',
+                                paging: false,
+                            })
+                            .then(optionSet => {
+                                optionSet.options.forEach(
+                                    option =>
+                                        (dataElement.optionSet[option.code] =
+                                            option.name)
+                                );
+                            });
                     }
-                } else if (props.eventCoordinateField && dataElement.id === props.eventCoordinateField) {
+                } else if (
+                    props.eventCoordinateField &&
+                    dataElement.id === props.eventCoordinateField
+                ) {
                     this.eventCoordinateFieldName = dataElement.name;
                 }
             });
@@ -125,38 +157,50 @@ class EventLayer extends Layer {
     onEventClick(feature, callback) {
         const coord = feature.geometry.coordinates;
 
-        apiFetch('/events/' + feature.id + '.json')
-            .then(data => {
-                const time = data.eventDate.substring(0, 10) + ' ' + data.eventDate.substring(11, 16);
-                const dataValues = data.dataValues;
-                let content = '<table><tbody>';
+        apiFetch('/events/' + feature.id + '.json').then(data => {
+            const time =
+                data.eventDate.substring(0, 10) +
+                ' ' +
+                data.eventDate.substring(11, 16);
+            const dataValues = data.dataValues;
+            let content = '<table><tbody>';
 
-                if (Array.isArray(dataValues)) {
-                    dataValues.forEach(dataValue => {
-                        const displayEl = this.displayElements[dataValue.dataElement];
+            if (Array.isArray(dataValues)) {
+                dataValues.forEach(dataValue => {
+                    const displayEl = this.displayElements[
+                        dataValue.dataElement
+                    ];
 
-                        if (displayEl) {
-                            let value = dataValue.value;
+                    if (displayEl) {
+                        let value = dataValue.value;
 
-                            if (displayEl.optionSet) {
-                                value = displayEl.optionSet[value];
-                            }
-
-                            content += `<tr><th>${displayEl.name}</th><td>${value}</td></tr>`;
+                        if (displayEl.optionSet) {
+                            value = displayEl.optionSet[value];
                         }
-                    });
 
-                    content += '<tr style="height:5px;"><th></th><td></td></tr>';
-                }
+                        content += `<tr><th>${
+                            displayEl.name
+                        }</th><td>${value}</td></tr>`;
+                    }
+                });
 
-                content += `<tr><th>${i18next.t('Organisation unit')}</th><td>${data.orgUnitName}</td></tr>
-                            <tr><th>${i18next.t('Event time')}</th><td>${time}</td></tr>
-                            <tr><th>${this.eventCoordinateFieldName || i18next.t('Event location')}</th><td>${coord[0]}, ${coord[1]}</td></tr> 
+                content += '<tr style="height:5px;"><th></th><td></td></tr>';
+            }
+
+            content += `<tr><th>${i18next.t('Organisation unit')}</th><td>${
+                data.orgUnitName
+            }</td></tr>
+                            <tr><th>${i18next.t(
+                                'Event time'
+                            )}</th><td>${time}</td></tr>
+                            <tr><th>${this.eventCoordinateFieldName ||
+                                i18next.t('Event location')}</th><td>${
+                coord[0]
+            }, ${coord[1]}</td></tr> 
                             </tbody></table>`;
 
-                callback(content);
-            });
-
+            callback(content);
+        });
     }
 
     toGeoJson(data) {
@@ -164,7 +208,7 @@ class EventLayer extends Layer {
         const features = [];
 
         // Convert headers to object for easier lookup
-        data.headers.forEach((h, i) => header[h.name] = i);
+        data.headers.forEach((h, i) => (header[h.name] = i));
 
         if (Array.isArray(data.rows)) {
             data.rows.forEach(row => {
@@ -180,12 +224,15 @@ class EventLayer extends Layer {
                     id: row[header.points],
                     geometry: {
                         type: 'Point',
-                        coordinates: coords
+                        coordinates: coords,
                     },
                     properties: {
                         count: parseInt(row[header.count], 10),
-                        bounds: [[extent[1], extent[0]], [extent[3], extent[2]]]
-                    }
+                        bounds: [
+                            [extent[1], extent[0]],
+                            [extent[3], extent[2]],
+                        ],
+                    },
                 });
             });
         }

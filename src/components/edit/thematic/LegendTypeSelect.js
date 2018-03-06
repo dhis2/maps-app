@@ -18,13 +18,13 @@ const styles = {
 export const LegendTypeSelect = ({ method, onChange, style }) => (
     <div style={style}>
         <RadioButtonGroup
-            name='method'
+            name="method"
             valueSelected={method === PREDEFINED ? PREDEFINED : EQUAL_INTERVALS}
             onChange={(event, type) => onChange(type)}
             style={styles.radioGroup}
         >
             <RadioButton
-                value={EQUAL_INTERVALS }
+                value={EQUAL_INTERVALS}
                 label={i18next.t('Automatic')}
                 style={styles.radioButton}
             />
@@ -36,6 +36,5 @@ export const LegendTypeSelect = ({ method, onChange, style }) => (
         </RadioButtonGroup>
     </div>
 );
-
 
 export default LegendTypeSelect;

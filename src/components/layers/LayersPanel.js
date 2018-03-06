@@ -14,11 +14,7 @@ const SortableLayer = SortableElement(LayerCard);
 const SortableLayersList = SortableContainer(({ layers }) => (
     <div style={{ zIndex: 3000 }}>
         {layers.map((layer, index) => (
-            <SortableLayer
-                key={layer.id}
-                index={index}
-                layer={layer}
-            />
+            <SortableLayer key={layer.id} index={index} layer={layer} />
         ))}
     </div>
 ));
@@ -35,7 +31,13 @@ const style = {
     zIndex: 1190,
 };
 
-const LayersPanel = ({ layersPanelOpen, basemap, basemaps, layers, sortLayers }) => (
+const LayersPanel = ({
+    layersPanelOpen,
+    basemap,
+    basemaps,
+    layers,
+    sortLayers,
+}) => (
     <Drawer
         open={layersPanelOpen}
         containerStyle={style}
@@ -46,10 +48,7 @@ const LayersPanel = ({ layersPanelOpen, basemap, basemaps, layers, sortLayers })
             onSortEnd={sortLayers}
             useDragHandle={true}
         />
-        <BasemapCard
-            {...basemap}
-            basemaps={basemaps}
-        />
+        <BasemapCard {...basemap} basemaps={basemaps} />
     </Drawer>
 );
 
@@ -61,7 +60,7 @@ LayersPanel.propTypes = {
     sortLayers: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     basemap: {
         ...state.basemaps.filter(b => b.id === state.map.basemap.id)[0],
         ...state.map.basemap,
@@ -71,7 +70,4 @@ const mapStateToProps = (state) => ({
     layersPanelOpen: state.ui.layersPanelOpen,
 });
 
-export default connect(
-    mapStateToProps,
-    { sortLayers }
-)(LayersPanel);
+export default connect(mapStateToProps, { sortLayers })(LayersPanel);
