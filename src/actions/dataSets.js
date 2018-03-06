@@ -6,8 +6,7 @@ export const loadDataSets = () => ({
 });
 
 // Set all programs
-export const setDataSets = (data) => ({
+export const setDataSets = data => ({
     type: types.DATA_SETS_SET,
     payload: data,
 });
-

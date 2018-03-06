@@ -8,11 +8,20 @@ const ImageSelect = ({ id, img, title, isSelected, onClick, style }) => {
     };
 
     return (
-        <div className='ImageSelect' title={title} onClick={() => onClick(id)} style={style}>
-            <div className='ImageSelect-image-container' style={borderStyle}>
-                {img ? <img src={img} className='ImageSelect-image' /> : <div className='ImageSelect-no-image'></div>}
+        <div
+            className="ImageSelect"
+            title={title}
+            onClick={() => onClick(id)}
+            style={style}
+        >
+            <div className="ImageSelect-image-container" style={borderStyle}>
+                {img ? (
+                    <img src={img} className="ImageSelect-image" />
+                ) : (
+                    <div className="ImageSelect-no-image" />
+                )}
             </div>
-            {title ? <div className='ImageSelect-title'>{title}</div> : null}
+            {title ? <div className="ImageSelect-title">{title}</div> : null}
         </div>
     );
 };

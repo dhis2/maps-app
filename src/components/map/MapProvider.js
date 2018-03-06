@@ -6,12 +6,12 @@ import d2map from 'dhis2-gis-api/build';
 class MapProvider extends Component {
     getChildContext() {
         return {
-            map: this.map
+            map: this.map,
         };
     }
 
     constructor(props, context) {
-        super(props, context)
+        super(props, context);
 
         // Create map div
         const div = document.createElement('div');
@@ -19,8 +19,7 @@ class MapProvider extends Component {
         div.style.height = '100%';
 
         this.map = d2map(div);
-          // console.log('this.map', this.map.addControl);
-
+        // console.log('this.map', this.map.addControl);
     }
 
     render() {

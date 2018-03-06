@@ -12,11 +12,11 @@ import { addExternalLayer } from '../actions/externalLayers';
 import { errorActionCreator } from '../actions/helpers';
 
 // Loade external layers from Web API
-export const loadExternalLayers = (action$) => {
+export const loadExternalLayers = action$ => {
     const externalMapLayers$ = action$
         .ofType(types.EXTERNAL_LAYERS_LOAD)
         .mergeMap(loadExternalMapLayers)
-        .concatAll();// Create separate action objects in the stream [[a1], [a2], [a2]] => [a1], [a2], [a3]
+        .concatAll(); // Create separate action objects in the stream [[a1], [a2], [a2]] => [a1], [a2], [a3]
 
     const externalBaseMapLayers$ = externalMapLayers$
         .filter(isBaseMap)
@@ -36,15 +36,20 @@ const isOverlay = layer => !isBaseMap(layer);
 
 const loadExternalMapLayers = () =>
     getD2()
-        .then(d2 => d2.models.externalMapLayers.list({
-            fields: 'id,displayName~rename(name),service,url,attribution,mapService,layer,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
-            paging: false,
-        }))
-        .then((externalMapLayersCollection) => externalMapLayersCollection.toArray())
+        .then(d2 =>
+            d2.models.externalMapLayers.list({
+                fields:
+                    'id,displayName~rename(name),service,url,attribution,mapService,layer,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
+                paging: false,
+            })
+        )
+        .then(externalMapLayersCollection =>
+            externalMapLayersCollection.toArray()
+        )
         .catch(errorActionCreator(types.EXTERNAL_LAYERS_LOAD_ERROR));
 
 // Create external layer config object
-const createLayerConfig = (subTitle) => (layer) => {
+const createLayerConfig = subTitle => layer => {
     const config = {
         type: 'tileLayer',
         url: layer.url,
@@ -59,7 +64,8 @@ const createLayerConfig = (subTitle) => (layer) => {
         config.type = 'wmsLayer';
         config.layers = layer.layers;
 
-        if (layer.imageFormat === 'JPG') { // PNG is default
+        if (layer.imageFormat === 'JPG') {
+            // PNG is default
             config.format = 'image/jpeg';
         }
     }
@@ -72,7 +78,7 @@ const createLayerConfig = (subTitle) => (layer) => {
         // img: layer.img, // TODO: Get from Web API
         opacity: 1,
         config,
-    }
+    };
 };
 
 export default combineEpics(loadExternalLayers);

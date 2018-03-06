@@ -5,7 +5,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadDataElements } from '../../actions/dataElements';
 
 export class DataElementSelect extends Component {
-
     componentDidUpdate() {
         const { dataElements, dataElementGroup, loadDataElements } = this.props;
 
@@ -31,7 +30,7 @@ export class DataElementSelect extends Component {
 
         return (
             <SelectField
-                key='indicators'
+                key="indicators"
                 label={i18next.t('Data element')}
                 loading={items ? false : true}
                 items={items}
@@ -44,7 +43,7 @@ export class DataElementSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         dataElements: state.dataElements,
     }),
     { loadDataElements }

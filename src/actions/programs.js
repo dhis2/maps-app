@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 // Set all programs
-export const setPrograms = (data) => ({
+export const setPrograms = data => ({
     type: types.PROGRAMS_SET,
     payload: data,
 });
@@ -47,32 +47,31 @@ export const loadPrograms = () => ({
 });
 
 // Load all stages for one program
-export const loadProgramStages = (programId) => ({
+export const loadProgramStages = programId => ({
     type: types.PROGRAM_STAGES_LOAD,
     programId,
 });
 
 // Load program data elements
-export const loadProgramDataElements = (programId) => ({
+export const loadProgramDataElements = programId => ({
     type: types.PROGRAM_DATA_ELEMENTS_LOAD,
     programId,
 });
 
 // Load all indicators for one program
-export const loadProgramIndicators = (programId) => ({
+export const loadProgramIndicators = programId => ({
     type: types.PROGRAM_INDICATORS_LOAD,
     programId,
 });
 
 // Load program tracked entity attributes
-export const loadProgramTrackedEntityAttributes = (programId) => ({
+export const loadProgramTrackedEntityAttributes = programId => ({
     type: types.PROGRAM_ATTRIBUTES_LOAD,
     programId,
 });
 
 // Load program stage data elements
-export const loadProgramStageDataElements = (programStageId) => ({
+export const loadProgramStageDataElements = programStageId => ({
     type: types.PROGRAM_STAGE_DATA_ELEMENTS_LOAD,
     programStageId,
 });
-

@@ -7,9 +7,7 @@ const defaultState = {
 };
 
 const favorite = (state = defaultState, action) => {
-
     switch (action.type) {
-
         case types.FAVORITES_DIALOG_OPEN:
             return {
                 ...state,
@@ -37,7 +35,6 @@ const favorite = (state = defaultState, action) => {
 
         default:
             return state;
-
     }
 };
 

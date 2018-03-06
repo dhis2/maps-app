@@ -2,7 +2,6 @@ import * as types from '../constants/actionTypes';
 
 const message = (state = null, action) => {
     switch (action.type) {
-
         case types.MESSAGE_SET:
             return action.payload;
 
@@ -11,7 +10,6 @@ const message = (state = null, action) => {
 
         default:
             return state;
-
     }
 };
 

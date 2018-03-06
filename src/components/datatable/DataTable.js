@@ -12,7 +12,6 @@ import './DataTable.css';
 
 // Using react component to keep sorting state, which is only used within the data table.
 class DataTable extends Component {
-
     constructor(props, context) {
         super(props, context);
 
@@ -32,105 +31,124 @@ class DataTable extends Component {
         const fields = mapValues(() => true, data[0]);
         const { sortBy, sortDirection } = this.state;
         const sortedData = this.sort(data, sortBy, sortDirection);
-        const isFacility = (layerType === 'facility');
-        const isThematic = (layerType === 'thematic');
-        const isBoundary = (layerType === 'boundary');
-
+        const isFacility = layerType === 'facility';
+        const isThematic = layerType === 'thematic';
+        const isBoundary = layerType === 'boundary';
 
         return (
             <Table
-                className='DataTable'
+                className="DataTable"
                 width={width}
                 height={height}
                 headerHeight={48}
                 rowHeight={32}
                 rowCount={sortedData.length}
                 rowGetter={({ index }) => sortedData[index]}
-                sort={({ sortBy, sortDirection }) => this.onSort(sortBy, sortDirection) }
+                sort={({ sortBy, sortDirection }) =>
+                    this.onSort(sortBy, sortDirection)
+                }
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 useDynamicRowHeight={false}
                 hideIndexRow={false}
             >
                 <Column
-                    cellDataGetter={
-                        ({ columnData, dataKey, rowData }) => rowData.index
+                    cellDataGetter={({ columnData, dataKey, rowData }) =>
+                        rowData.index
                     }
-                    dataKey='index'
-                    label='Index'
+                    dataKey="index"
+                    label="Index"
                     width={72}
-                    className='right'
+                    className="right"
                     // headerRenderer={props => <ColumnHeader type='number' {...props}  />}
                 />
                 <Column
-                    dataKey='name'
-                    label='Name'
+                    dataKey="name"
+                    label="Name"
                     width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    headerRenderer={props => (
+                        <ColumnHeader type="string" {...props} />
+                    )}
                 />
-                {isThematic &&
+                {isThematic && (
                     <Column
-                        dataKey='value'
-                        label='Value'
+                        dataKey="value"
+                        label="Value"
                         width={72}
-                        className='right'
-                        headerRenderer={(props) => <ColumnHeader type='number' {...props}  />}
+                        className="right"
+                        headerRenderer={props => (
+                            <ColumnHeader type="number" {...props} />
+                        )}
                     />
-                }
-                {isThematic &&
+                )}
+                {isThematic && (
                     <Column
-                        dataKey='legend'
-                        label='Legend'
+                        dataKey="legend"
+                        label="Legend"
                         width={100}
-                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                        headerRenderer={props => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
                     />
-                }
-                {isThematic &&
+                )}
+                {isThematic && (
                     <Column
-                        dataKey='range'
-                        label='Range'
+                        dataKey="range"
+                        label="Range"
                         width={72}
-                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                        headerRenderer={props => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
                     />
-                }
-                {(isThematic || isBoundary) &&
+                )}
+                {(isThematic || isBoundary) && (
                     <Column
-                        dataKey='level'
-                        label='Level'
+                        dataKey="level"
+                        label="Level"
                         width={72}
-                        className='right'
-                        headerRenderer={(props) => <ColumnHeader type='number' {...props}  />}
+                        className="right"
+                        headerRenderer={props => (
+                            <ColumnHeader type="number" {...props} />
+                        )}
                     />
-                }
-                {(isThematic || isBoundary) &&
+                )}
+                {(isThematic || isBoundary) && (
                     <Column
-                        dataKey='parentName'
-                        label='Parent'
+                        dataKey="parentName"
+                        label="Parent"
                         width={100}
-                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                        headerRenderer={props => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
                     />
-                }
+                )}
                 <Column
-                    dataKey='id'
-                    label='ID'
+                    dataKey="id"
+                    label="ID"
                     width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    headerRenderer={props => (
+                        <ColumnHeader type="string" {...props} />
+                    )}
                 />
                 <Column
-                    dataKey='type'
-                    label='Type'
+                    dataKey="type"
+                    label="Type"
                     width={100}
-                    headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                    headerRenderer={props => (
+                        <ColumnHeader type="string" {...props} />
+                    )}
                 />
-                {isThematic &&
+                {isThematic && (
                     <Column
-                        dataKey='color'
-                        label='Color'
+                        dataKey="color"
+                        label="Color"
                         width={100}
-                        headerRenderer={(props) => <ColumnHeader type='string' {...props}  />}
+                        headerRenderer={props => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
                         cellRenderer={ColorCell}
                     />
-                }
+                )}
             </Table>
         );
     }
@@ -147,7 +165,6 @@ class DataTable extends Component {
 
     // TODO: Make sure sorting works across different locales - use lib method
     sort(data, sortBy, sortDirection) {
-
         return data.sort((a, b) => {
             a = a[sortBy];
             b = b[sortBy];
@@ -156,7 +173,9 @@ class DataTable extends Component {
                 return sortDirection === 'ASC' ? a - b : b - a;
             }
 
-            return sortDirection === 'ASC' ? a.localeCompare(b) : b.localeCompare(a);
+            return sortDirection === 'ASC'
+                ? a.localeCompare(b)
+                : b.localeCompare(a);
         });
     }
 }
@@ -171,25 +190,32 @@ DataTable.defaultProps = {
     data: [],
 };
 
-const mapStateToProps = (state) => {
-    const overlay = state.dataTable ? state.map.mapViews.filter(layer => layer.id === state.dataTable)[0] : null;
+const mapStateToProps = state => {
+    const overlay = state.dataTable
+        ? state.map.mapViews.filter(layer => layer.id === state.dataTable)[0]
+        : null;
 
     if (overlay) {
-        const data = filterData(overlay.data.map((d, i) => ({
-            ...d.properties,
-            index: i,
-        })), overlay.dataFilters);
+        const data = filterData(
+            overlay.data.map((d, i) => ({
+                ...d.properties,
+                index: i,
+            })),
+            overlay.dataFilters
+        );
 
         return {
             layerType: overlay.layer,
-            data
+            data,
         };
     }
 
     return null;
 };
 
-export default connect(
-    mapStateToProps,
-    { selectOrgUnit, unselectOrgUnit, setDataFilter, clearDataFilter }
-)(DataTable);
+export default connect(mapStateToProps, {
+    selectOrgUnit,
+    unselectOrgUnit,
+    setDataFilter,
+    clearDataFilter,
+})(DataTable);

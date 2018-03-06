@@ -12,12 +12,16 @@ const styles = {
         height: 24,
         lineHeight: '32px',
         verticalAlign: 'top',
-    }
+    },
 };
 
 const OptionStyle = ({ id, name, color, onChange }) => (
     <div>
-        <ColorPicker color={color} onChange={newColor => onChange(id, newColor)} style={styles.color} />
+        <ColorPicker
+            color={color}
+            onChange={newColor => onChange(id, newColor)}
+            style={styles.color}
+        />
         <span style={styles.label}>{name}</span>
     </div>
 );

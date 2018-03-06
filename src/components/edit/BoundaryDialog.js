@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 // import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
@@ -62,11 +62,10 @@ const styles = {
 };
 
 class BoundaryDialog extends Component {
-
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab: 'orgunits'
+            tab: 'orgunits',
         };
     }
 
@@ -87,10 +86,7 @@ class BoundaryDialog extends Component {
             setRadiusLow,
         } = this.props;
 
-        const {
-            tab,
-            orgUnitsError,
-        } = this.state;
+        const { tab, orgUnitsError } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
@@ -100,15 +96,17 @@ class BoundaryDialog extends Component {
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
                 value={tab}
-                onChange={(tab) => this.setState({ tab })}
+                onChange={tab => this.setState({ tab })}
             >
-                <Tab value='orgunits' label={i18next.t('Organisation units')}>
+                <Tab value="orgunits" label={i18next.t('Organisation units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrganisationUnit}
-                                disabled={selectedUserOrgUnits.length ? true : false}
+                                disabled={
+                                    selectedUserOrgUnits.length ? true : false
+                                }
                             />
                         </div>
                         <div style={styles.flexHalf}>
@@ -119,19 +117,21 @@ class BoundaryDialog extends Component {
                             <OrgUnitGroupSelect
                                 orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
                                 onChange={setOrgUnitGroups}
-
                             />
                             <UserOrgUnitsSelect
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
-                            {!orgUnits.length && orgUnitsError &&
-                                <div style={styles.error}>{orgUnitsError}</div>
-                            }
+                            {!orgUnits.length &&
+                                orgUnitsError && (
+                                    <div style={styles.error}>
+                                        {orgUnitsError}
+                                    </div>
+                                )}
                         </div>
                     </div>
                 </Tab>
-                <Tab value='style' label={i18next.t('Style')}>
+                <Tab value="style" label={i18next.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.wrapper}>
                             <Checkbox
@@ -140,7 +140,7 @@ class BoundaryDialog extends Component {
                                 onCheck={setLabels}
                                 style={styles.checkbox}
                             />
-                            {labels &&
+                            {labels && (
                                 <FontStyle
                                     size={labelFontSize}
                                     fontStyle={labelFontStyle}
@@ -148,10 +148,10 @@ class BoundaryDialog extends Component {
                                     onStyleChange={setLabelFontStyle}
                                     style={styles.font}
                                 />
-                            }
+                            )}
                         </div>
                         <TextField
-                            type='number'
+                            type="number"
                             label={i18next.t('Point radius')}
                             value={radiusLow !== undefined ? radiusLow : 5}
                             onChange={setRadiusLow}
@@ -177,7 +177,11 @@ class BoundaryDialog extends Component {
         const { rows } = this.props;
 
         if (!getOrgUnitsFromRows(rows).length) {
-            return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected'), 'orgunits');
+            return this.setErrorState(
+                'orgUnitsError',
+                i18next.t('No organisation units are selected'),
+                'orgunits'
+            );
         }
 
         return true;
@@ -185,7 +189,8 @@ class BoundaryDialog extends Component {
 }
 
 export default connect(
-    null, {
+    null,
+    {
         setOrgUnitLevels,
         setOrgUnitGroups,
         setUserOrgUnits,

@@ -6,7 +6,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadProgramStages } from '../../actions/programs';
 
 export class ProgramStageSelect extends Component {
-
     static propTypes = {
         program: PropTypes.object,
         programStage: PropTypes.object,
@@ -16,7 +15,13 @@ export class ProgramStageSelect extends Component {
     };
 
     componentDidUpdate() {
-        const { program, programStage, programStages, loadProgramStages, onChange } = this.props;
+        const {
+            program,
+            programStage,
+            programStages,
+            loadProgramStages,
+            onChange,
+        } = this.props;
 
         if (program) {
             const stages = programStages[program.id];
@@ -34,7 +39,14 @@ export class ProgramStageSelect extends Component {
     }
 
     render() {
-        const { program, programStage, programStages, onChange, style, errorText } = this.props;
+        const {
+            program,
+            programStage,
+            programStages,
+            onChange,
+            style,
+            errorText,
+        } = this.props;
 
         if (!program) {
             return null;
@@ -57,7 +69,7 @@ export class ProgramStageSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         programStages: state.programStages,
     }),
     { loadProgramStages }

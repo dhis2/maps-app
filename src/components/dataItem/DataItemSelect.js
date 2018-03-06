@@ -3,10 +3,12 @@ import i18next from 'i18next';
 import { connect } from 'react-redux';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { combineDataItems } from '../../util/analytics';
-import { loadProgramTrackedEntityAttributes, loadProgramStageDataElements } from '../../actions/programs';
+import {
+    loadProgramTrackedEntityAttributes,
+    loadProgramStageDataElements,
+} from '../../actions/programs';
 
 export class DataItemSelect extends Component {
-
     componentDidMount() {
         this.loadDataItems();
     }
@@ -23,7 +25,7 @@ export class DataItemSelect extends Component {
             programAttributes,
             dataElements,
             loadProgramTrackedEntityAttributes,
-            loadProgramStageDataElements
+            loadProgramStageDataElements,
         } = this.props;
 
         if (program && !programAttributes[program.id]) {
@@ -69,9 +71,8 @@ export class DataItemSelect extends Component {
     }
 }
 
-
 export default connect(
-    (state) => ({
+    state => ({
         programAttributes: state.programTrackedEntityAttributes,
         dataElements: state.programStageDataElements,
     }),

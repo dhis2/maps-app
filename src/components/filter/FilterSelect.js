@@ -63,8 +63,14 @@ const styles = {
 - URL
 */
 
-
-const FilterSelect = ({ valueType, filter, optionSet, optionSets, loadOptionSet, onChange }) => {
+const FilterSelect = ({
+    valueType,
+    filter,
+    optionSet,
+    optionSets,
+    loadOptionSet,
+    onChange,
+}) => {
     let operators;
     let operator;
     let value;
@@ -76,7 +82,7 @@ const FilterSelect = ({ valueType, filter, optionSet, optionSets, loadOptionSet,
             { id: 'GE', name: '>=' },
             { id: 'LT', name: '<' },
             { id: 'LE', name: '<=' },
-            { id: 'NE', name: '!=' }
+            { id: 'NE', name: '!=' },
         ];
     } else if (optionSet) {
         operators = [
@@ -86,7 +92,7 @@ const FilterSelect = ({ valueType, filter, optionSet, optionSets, loadOptionSet,
     } else if (['TEXT', 'LONG_TEXT'].includes(valueType)) {
         operators = [
             { id: 'LIKE', name: i18next.t('contains') },
-            { id: '!LIKE', name: i18next.t('doesn\'t contains') },
+            { id: '!LIKE', name: i18next.t("doesn't contains") },
             { id: 'EQ', name: i18next.t('is') },
             { id: '!EQ', name: i18next.t('is not') },
         ];
@@ -107,73 +113,74 @@ const FilterSelect = ({ valueType, filter, optionSet, optionSets, loadOptionSet,
     // console.log('valueType', valueType, value);
 
     return [
-        (operators ?
+        operators ? (
             <SelectField
-                key='operator'
+                key="operator"
                 label={i18next.t('Operator')}
                 items={operators}
                 value={operator}
-                onChange={newOperator => onChange(`${newOperator.id}:${value ? value : ''}`)}
+                onChange={newOperator =>
+                    onChange(`${newOperator.id}:${value ? value : ''}`)
+                }
                 style={styles.operator}
             />
-        : null),
-
-        (optionSet && optionSets[optionSet.id] ?
+        ) : null,
+        optionSet && optionSets[optionSet.id] ? (
             <OptionSetSelect
-                key='optionset'
+                key="optionset"
                 options={optionSets[optionSet.id].options}
                 value={value ? value.split(';') : null}
-                onChange={newValue => onChange(`${operator}:${newValue.join(';')}`)}
+                onChange={newValue =>
+                    onChange(`${operator}:${newValue.join(';')}`)
+                }
                 style={styles.textField}
             />
-        : null),
-
-        (['NUMBER', 'INTEGER', 'INTEGER_POSITIVE'].includes(valueType) ?
+        ) : null,
+        ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE'].includes(valueType) ? (
             <TextField
-                key='number'
+                key="number"
                 label={i18next.t('Value')}
-                type='number'
+                type="number"
                 value={value !== undefined ? value : ''}
                 onChange={newValue => onChange(`${operator}:${newValue}`)}
                 style={styles.textField}
             />
-        : null),
-
-        (['TEXT', 'LONG_TEXT'].includes(valueType) && !optionSet ?
+        ) : null,
+        ['TEXT', 'LONG_TEXT'].includes(valueType) && !optionSet ? (
             <TextField
-                key='text'
+                key="text"
                 label={i18next.t('Value')}
                 value={value || ''}
                 onChange={newValue => onChange(`${operator}:${newValue}`)}
                 style={styles.textField}
             />
-        : null),
-
-        (valueType === 'BOOLEAN' ?
+        ) : null,
+        valueType === 'BOOLEAN' ? (
             <Checkbox
-                key='checkbox'
+                key="checkbox"
                 label={i18next.t('Yes')}
                 checked={value == 1 ? true : false}
-                onCheck={(event, isChecked) => onChange(isChecked ? 'IN:1' : 'IN:0' )}
+                onCheck={(event, isChecked) =>
+                    onChange(isChecked ? 'IN:1' : 'IN:0')
+                }
                 style={styles.checkbox}
             />
-        : null),
-
-        (valueType === 'DATE' ?
+        ) : null,
+        valueType === 'DATE' ? (
             <DatePicker
-                key='date'
+                key="date"
                 label={i18next.t('Date')}
                 value={value}
-                onChange={(date) => onChange(`${operator}:${date}`)}
+                onChange={date => onChange(`${operator}:${date}`)}
                 style={styles.datePicker}
                 textFieldStyle={styles.dateField}
             />
-        : null)
+        ) : null,
     ];
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         optionSets: state.optionSets,
     }),
     { loadOptionSet }

@@ -22,15 +22,24 @@ const style = {
 };
 
 // Thiss expand/collapse toggle is separate from LayersPanel to avoid overflow issue
-const LayersToggle = ({ isOpen, openLayersPanel, closeLayersPanel }) => (isOpen ?
-    <IconButton onClick={closeLayersPanel} style={style} disableTouchRipple={true}>
-        <SvgIcon icon="ChevronLeft" color={grey800} />
-    </IconButton>
-:
-    <IconButton onClick={openLayersPanel} style={{...style, left: 0}} disableTouchRipple={true}>
-        <SvgIcon icon="ChevronRight" color={grey800} />
-    </IconButton>
-);
+const LayersToggle = ({ isOpen, openLayersPanel, closeLayersPanel }) =>
+    isOpen ? (
+        <IconButton
+            onClick={closeLayersPanel}
+            style={style}
+            disableTouchRipple={true}
+        >
+            <SvgIcon icon="ChevronLeft" color={grey800} />
+        </IconButton>
+    ) : (
+        <IconButton
+            onClick={openLayersPanel}
+            style={{ ...style, left: 0 }}
+            disableTouchRipple={true}
+        >
+            <SvgIcon icon="ChevronRight" color={grey800} />
+        </IconButton>
+    );
 
 LayersToggle.propTypes = {
     isOpen: PropTypes.bool.isRequired,
@@ -39,8 +48,8 @@ LayersToggle.propTypes = {
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         isOpen: state.ui.layersPanelOpen,
     }),
-    { openLayersPanel, closeLayersPanel, }
+    { openLayersPanel, closeLayersPanel }
 )(LayersToggle);

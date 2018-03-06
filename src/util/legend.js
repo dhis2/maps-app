@@ -3,14 +3,14 @@ import sortBy from 'lodash/fp/sortBy';
 import { apiFetch } from '../util/api';
 import { legendSetFields } from '../util/helpers';
 
-export const loadLegendSet = async (legendSet) => {
+export const loadLegendSet = async legendSet => {
     const fields = legendSetFields.join(',');
     const d2 = await getD2();
 
     return d2.models.legendSet.get(legendSet.id);
 };
 
-export const loadDataItemLegendSet = async (dataItem) => {
+export const loadDataItemLegendSet = async dataItem => {
     const type = (dataItem.dimensionItemType || '').toLowerCase();
     const d2 = await getD2();
 
@@ -18,12 +18,14 @@ export const loadDataItemLegendSet = async (dataItem) => {
         return;
     }
 
-    return d2.models[type].get(dataItem.id, {
-        fields: 'legendSet[id,displayName~rename(name)]',
-    }).then(model => model.legendSet);
+    return d2.models[type]
+        .get(dataItem.id, {
+            fields: 'legendSet[id,displayName~rename(name)]',
+        })
+        .then(model => model.legendSet);
 };
 
-export const formatLegendItems = (legendItems) => {
+export const formatLegendItems = legendItems => {
     const sortedItems = sortBy('startValue', legendItems);
     return sortedItems.map(item => ({
         color: item.color,
@@ -32,23 +34,23 @@ export const formatLegendItems = (legendItems) => {
     }));
 };
 
-export const getBinsFromLegendItems = (legendItems) => {
-  const sortedItems = sortBy('startValue', legendItems);
-  const lastItem = sortedItems[sortedItems.length -1 ];
-  const bins = sortedItems.map(item => item.startValue);
+export const getBinsFromLegendItems = legendItems => {
+    const sortedItems = sortBy('startValue', legendItems);
+    const lastItem = sortedItems[sortedItems.length - 1];
+    const bins = sortedItems.map(item => item.startValue);
 
-  bins.push(lastItem.endValue);
-  return bins;
+    bins.push(lastItem.endValue);
+    return bins;
 };
 
-export const getColorScaleFromLegendItems = (legendItems) => {
-  const sortedItems = sortBy('startValue', legendItems);
-  return sortedItems.map(item => item.color);
+export const getColorScaleFromLegendItems = legendItems => {
+    const sortedItems = sortBy('startValue', legendItems);
+    return sortedItems.map(item => item.color);
 };
 
-export const getLabelsFromLegendItems = (legendItems) => {
-  const sortedItems = sortBy('startValue', legendItems);
-  return sortedItems.map(item => item.name);
+export const getLabelsFromLegendItems = legendItems => {
+    const sortedItems = sortBy('startValue', legendItems);
+    return sortedItems.map(item => item.name);
 };
 
 // TODO: Add support for counts in each class?
@@ -65,7 +67,6 @@ export const getNumericLegendItems = (bins, colors, radius) => {
 
     return items;
 };
-
 
 // TODO: Add support for counts in each class?
 export const getCategoryLegendItems = (options, radius) =>

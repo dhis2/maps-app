@@ -18,53 +18,62 @@ const styles = {
     buttonPressed: {
         background: '#555',
         marginRight: 5,
-    }
+    },
 };
 
-const FontStyle = ({ color, size, weight, fontStyle, onColorChange, onSizeChange, onWeightChange, onStyleChange, style }) => (
+const FontStyle = ({
+    color,
+    size,
+    weight,
+    fontStyle,
+    onColorChange,
+    onSizeChange,
+    onWeightChange,
+    onStyleChange,
+    style,
+}) => (
     <div style={style}>
-        {onSizeChange &&
+        {onSizeChange && (
             <TextField
-                type='number'
-                label='Size'
+                type="number"
+                label="Size"
                 value={size !== undefined ? size : 11}
                 onChange={onSizeChange}
                 style={styles.sizeField}
             />
-        }
-        {onWeightChange &&
+        )}
+        {onWeightChange && (
             <IconButton
-                onClick={() => onWeightChange(weight === 'bold' ? 'normal' : 'bold')}
+                onClick={() =>
+                    onWeightChange(weight === 'bold' ? 'normal' : 'bold')
+                }
                 style={weight === 'bold' ? styles.buttonPressed : styles.button}
                 disableTouchRipple={true}
             >
-                <BoldIcon
-                    color={weight === 'bold' ? '#fff' : '#555'}
-                />
+                <BoldIcon color={weight === 'bold' ? '#fff' : '#555'} />
             </IconButton>
-        }
-        {onStyleChange &&
+        )}
+        {onStyleChange && (
             <IconButton
-                onClick={() => onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic')}
-                style={fontStyle === 'italic' ? styles.buttonPressed : styles.button}
-                disableTouchRipple={true}>
-                <ItalicIcon
-                    color={fontStyle === 'italic' ? '#fff' : '#555'}
-                />
+                onClick={() =>
+                    onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic')
+                }
+                style={
+                    fontStyle === 'italic'
+                        ? styles.buttonPressed
+                        : styles.button
+                }
+                disableTouchRipple={true}
+            >
+                <ItalicIcon color={fontStyle === 'italic' ? '#fff' : '#555'} />
             </IconButton>
-        }
-        {onColorChange &&
-            <ColorPicker
-                color={color || '#333333'}
-                onChange={onColorChange}
-            />
-        }
+        )}
+        {onColorChange && (
+            <ColorPicker color={color || '#333333'} onChange={onColorChange} />
+        )}
     </div>
 );
 
-
-FontStyle.propTypes = {
-
-};
+FontStyle.propTypes = {};
 
 export default FontStyle;

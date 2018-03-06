@@ -6,17 +6,19 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadEarthEngineCollection } from '../../actions/earthEngine';
 
 const collectionFilters = {
-    'WorldPop/POP': (year) => [{
-        type: 'eq',
-        arguments: ['year', year],
-    }, {
-        type: 'eq',
-        arguments: ['UNadj', 'yes'],
-    }],
+    'WorldPop/POP': year => [
+        {
+            type: 'eq',
+            arguments: ['year', year],
+        },
+        {
+            type: 'eq',
+            arguments: ['UNadj', 'yes'],
+        },
+    ],
 };
 
 export class CollectionSelect extends Component {
-
     static propTypes = {
         collections: PropTypes.object,
         onChange: PropTypes.func.isRequired,
@@ -32,14 +34,26 @@ export class CollectionSelect extends Component {
     }
 
     render() {
-        const { id, filter, label, collections, onChange, style, errorText } = this.props;
+        const {
+            id,
+            filter,
+            label,
+            collections,
+            onChange,
+            style,
+            errorText,
+        } = this.props;
         const items = collections[id];
         const value = filter && filter[0].arguments[1];
 
-        const collectionFilter = collectionFilters[id] || ((index) => [{
-            type: 'eq',
-            arguments: ['system:index', index],
-        }]);
+        const collectionFilter =
+            collectionFilters[id] ||
+            (index => [
+                {
+                    type: 'eq',
+                    arguments: ['system:index', index],
+                },
+            ]);
 
         return (
             <SelectField
@@ -56,7 +70,7 @@ export class CollectionSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         collections: state.earthEngine,
     }),
     { loadEarthEngineCollection }

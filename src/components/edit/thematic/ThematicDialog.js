@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 // import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
 import Checkbox from '../../d2-ui/Checkbox';
 import Classification from '../../style/Classification';
-import DataElementGroupSelect  from '../../dataElement/DataElementGroupSelect';
-import DataElementSelect  from '../../dataElement/DataElementSelect';
-import DataElementOperandSelect  from '../../dataElement/DataElementOperandSelect';
-import TotalsDetailsSelect  from '../../dataElement/TotalsDetailsSelect';
+import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect';
+import DataElementSelect from '../../dataElement/DataElementSelect';
+import DataElementOperandSelect from '../../dataElement/DataElementOperandSelect';
+import TotalsDetailsSelect from '../../dataElement/TotalsDetailsSelect';
 import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect'; // Reporting rate
 import FontStyle from '../../d2-ui/FontStyle';
@@ -90,11 +90,10 @@ const styles = {
 };
 
 export class ThematicDialog extends Component {
-
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab: 'data'
+            tab: 'data',
         };
     }
 
@@ -104,7 +103,9 @@ export class ThematicDialog extends Component {
 
         // Set value type if favorite is loaded
         if (!valueType && dataItem && dataItem.dimensionItemType) {
-            const dimension = Object.keys(dimConf).find(dim => dimConf[dim].itemType === dataItem.dimensionItemType);
+            const dimension = Object.keys(dimConf).find(
+                dim => dimConf[dim].itemType === dataItem.dimensionItemType
+            );
 
             if (dimension) {
                 setValueType(dimConf[dimension].objectName, true);
@@ -121,7 +122,7 @@ export class ThematicDialog extends Component {
             setValueType,
             setClassification,
             setLegendSet,
-            loadOrgUnitPath
+            loadOrgUnitPath,
         } = this.props;
 
         if (!valueType) {
@@ -137,7 +138,11 @@ export class ThematicDialog extends Component {
                 // If user selected indicator with legend set
                 // console.log('dataItem', dataItem);
 
-                if (dataItem && dataItem !== prevDataItem && dataItem.legendSet) {
+                if (
+                    dataItem &&
+                    dataItem !== prevDataItem &&
+                    dataItem.legendSet
+                ) {
                     setClassification(1); // TODO: Use constant
                     setLegendSet(dataItem.legendSet);
                 } else {
@@ -150,12 +155,15 @@ export class ThematicDialog extends Component {
             const orgUnits = getOrgUnitNodesFromRows(rows);
 
             // Load organisation unit tree path (temporary solution, as favorites don't include paths)
-            orgUnits.filter(ou => !ou.path).forEach(ou => loadOrgUnitPath(ou.id));
+            orgUnits
+                .filter(ou => !ou.path)
+                .forEach(ou => loadOrgUnitPath(ou.id));
         }
     }
 
     render() {
-        const { // layer options
+        const {
+            // layer options
             classes,
             colorScale,
             columns,
@@ -178,7 +186,8 @@ export class ThematicDialog extends Component {
             valueType,
         } = this.props;
 
-        const { // Handlers
+        const {
+            // Handlers
             setClassification,
             setDataItem,
             setDataElementGroup,
@@ -221,84 +230,86 @@ export class ThematicDialog extends Component {
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
                 value={tab}
-                onChange={(tab) => this.setState({ tab })}
+                onChange={tab => this.setState({ tab })}
             >
-                <Tab value='data' label={i18next.t('data')}>
+                <Tab value="data" label={i18next.t('data')}>
                     <div style={styles.flexColumnFlow}>
                         <ValueTypeSelect
                             value={valueType}
                             style={styles.select}
                             onChange={setValueType}
                         />
-                        {(!valueType || valueType === 'in') && [ // Indicator (default)
+                        {(!valueType || valueType === 'in') && [
+                            // Indicator (default)
                             <IndicatorGroupSelect
-                                key='group'
+                                key="group"
                                 indicatorGroup={indicatorGroup}
                                 onChange={setIndicatorGroup}
                                 style={styles.select}
                                 errorText={indicatorGroupError}
                             />,
                             <IndicatorSelect
-                                key='indicator'
+                                key="indicator"
                                 indicatorGroup={indicatorGroup}
                                 indicator={dataItem}
                                 onChange={setDataItem}
                                 style={styles.select}
                                 errorText={indicatorError}
-                            />
+                            />,
                         ]}
-                        {valueType === 'de' && [ // Data element
+                        {valueType === 'de' && [
+                            // Data element
                             <DataElementGroupSelect
-                                key='group'
+                                key="group"
                                 dataElementGroup={dataElementGroup}
                                 onChange={setDataElementGroup}
                                 style={styles.select}
                             />,
-                            (dataElementGroup &&
+                            dataElementGroup && (
                                 <TotalsDetailsSelect
-                                    key='totals'
+                                    key="totals"
                                     operand={operand}
                                     onChange={setOperand}
                                     style={styles.select}
                                 />
                             ),
-                            (operand === true ?
-                                    <DataElementOperandSelect
-                                        key='element'
-                                        dataElementGroup={dataElementGroup}
-                                        dataElement={dataItem}
-                                        onChange={setDataItem}
-                                        style={styles.select}
-                                    />
-                                    :
-                                    <DataElementSelect
-                                        key='element'
-                                        dataElementGroup={dataElementGroup}
-                                        dataElement={dataItem}
-                                        onChange={setDataItem}
-                                        style={styles.select}
-                                    />
+                            operand === true ? (
+                                <DataElementOperandSelect
+                                    key="element"
+                                    dataElementGroup={dataElementGroup}
+                                    dataElement={dataItem}
+                                    onChange={setDataItem}
+                                    style={styles.select}
+                                />
+                            ) : (
+                                <DataElementSelect
+                                    key="element"
+                                    dataElementGroup={dataElementGroup}
+                                    dataElement={dataItem}
+                                    onChange={setDataItem}
+                                    style={styles.select}
+                                />
                             ),
-
                         ]}
                         {valueType === 'ds' && ( // Reporting rates
                             <DataSetsSelect
-                                key='item'
+                                key="item"
                                 dataSet={dataItem}
                                 onChange={setDataItem}
                                 style={styles.select}
                             />
                         )}
-                        {valueType === 'di' && [ // Event data items
+                        {valueType === 'di' && [
+                            // Event data items
                             <ProgramSelect
-                                key='program'
+                                key="program"
                                 program={program}
                                 onChange={setProgram}
                                 style={styles.select}
                             />,
-                            (program &&
+                            program && (
                                 <EventDataItemSelect
-                                    key='item'
+                                    key="item"
                                     program={program}
                                     dataItem={dataItem}
                                     onChange={setDataItem}
@@ -306,16 +317,17 @@ export class ThematicDialog extends Component {
                                 />
                             ),
                         ]}
-                        {valueType === 'pi' && [ // Program indicator
+                        {valueType === 'pi' && [
+                            // Program indicator
                             <ProgramSelect
-                                key='program'
+                                key="program"
                                 program={program}
                                 onChange={setProgram}
                                 style={styles.select}
                             />,
-                            (program &&
+                            program && (
                                 <ProgramIndicatorSelect
-                                    key='indicator'
+                                    key="indicator"
                                     program={program}
                                     programIndicator={dataItem}
                                     onChange={setDataItem}
@@ -323,12 +335,10 @@ export class ThematicDialog extends Component {
                                 />
                             ),
                         ]}
-                        <AggregationTypeSelect
-                            style={styles.select}
-                        />
+                        <AggregationTypeSelect style={styles.select} />
                     </div>
                 </Tab>
-                <Tab value='period' label={i18next.t('period')}>
+                <Tab value="period" label={i18next.t('period')}>
                     <div style={styles.flexColumnFlow}>
                         <PeriodTypeSelect
                             value={periodType}
@@ -336,15 +346,15 @@ export class ThematicDialog extends Component {
                             style={styles.select}
                             errorText={periodTypeError}
                         />
-                        {periodType === 'relativePeriods' &&
+                        {periodType === 'relativePeriods' && (
                             <RelativePeriodSelect
                                 period={period}
                                 onChange={setPeriod}
                                 style={styles.select}
                                 errorText={periodError}
                             />
-                        }
-                        {periodType !== 'relativePeriods' &&
+                        )}
+                        {periodType !== 'relativePeriods' && (
                             <PeriodSelect
                                 periodType={periodType}
                                 period={period}
@@ -352,16 +362,18 @@ export class ThematicDialog extends Component {
                                 style={styles.select}
                                 errorText={periodError}
                             />
-                        }
+                        )}
                     </div>
                 </Tab>
-                <Tab value='orgunits' label={i18next.t('Org units')}>
+                <Tab value="orgunits" label={i18next.t('Org units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrganisationUnit}
-                                disabled={selectedUserOrgUnits.length ? true : false}
+                                disabled={
+                                    selectedUserOrgUnits.length ? true : false
+                                }
                             />
                         </div>
                         <div style={styles.flexHalf}>
@@ -378,46 +390,57 @@ export class ThematicDialog extends Component {
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
-                            {!orgUnits.length && orgUnitsError &&
-                                <div style={styles.error}>{orgUnitsError}</div>
-                            }
+                            {!orgUnits.length &&
+                                orgUnitsError && (
+                                    <div style={styles.error}>
+                                        {orgUnitsError}
+                                    </div>
+                                )}
                         </div>
                     </div>
                 </Tab>
-                <Tab value='style' label={i18next.t('Style')}>
+                <Tab value="style" label={i18next.t('Style')}>
                     <div style={styles.flexColumnFlow}>
                         <LegendTypeSelect
                             method={method}
                             onChange={setClassification}
                             style={{ ...styles.select, marginTop: 12 }}
                         />
-                        {method !== 1 &&
+                        {method !== 1 && (
                             <Classification
                                 method={method}
                                 classes={classes}
                                 colorScale={colorScale}
                                 style={{ ...styles.select, marginTop: 12 }}
                             />
-                        }
-                        {method === 1 &&
+                        )}
+                        {method === 1 && (
                             <LegendSetSelect
                                 legendSet={legendSet}
                                 onChange={setLegendSet}
                                 style={{ ...styles.select, marginTop: 4 }}
                             />
-                        }
-                        <div style={{ ...styles.flexFull, marginTop: -12, marginLeft: -12 }}>
+                        )}
+                        <div
+                            style={{
+                                ...styles.flexFull,
+                                marginTop: -12,
+                                marginLeft: -12,
+                            }}
+                        >
                             <TextField
-                                type='number'
+                                type="number"
                                 label={i18next.t('Low size')}
                                 value={radiusLow !== undefined ? radiusLow : 5}
                                 onChange={setRadiusLow}
                                 style={{ width: 125, marginRight: 24 }}
                             />
                             <TextField
-                                type='number'
+                                type="number"
                                 label={i18next.t('High size')}
-                                value={radiusHigh !== undefined ? radiusHigh : 15}
+                                value={
+                                    radiusHigh !== undefined ? radiusHigh : 15
+                                }
                                 onChange={setRadiusHigh}
                                 style={{ width: 125 }}
                             />
@@ -429,7 +452,7 @@ export class ThematicDialog extends Component {
                                 onCheck={setLabels}
                                 style={styles.checkbox}
                             />
-                            {labels &&
+                            {labels && (
                                 <FontStyle
                                     color={labelFontColor}
                                     size={labelFontSize}
@@ -441,7 +464,7 @@ export class ThematicDialog extends Component {
                                     onStyleChange={setLabelFontStyle}
                                     style={styles.font}
                                 />
-                            }
+                            )}
                         </div>
                     </div>
                 </Tab>
@@ -460,27 +483,54 @@ export class ThematicDialog extends Component {
     }
 
     validate() {
-        const { valueType, indicatorGroup, periodType, columns, rows, filters } = this.props;
+        const {
+            valueType,
+            indicatorGroup,
+            periodType,
+            columns,
+            rows,
+            filters,
+        } = this.props;
         const dataItem = getDataItemFromColumns(columns);
         const period = getPeriodFromFilters(filters);
 
-
-        if (valueType === 'in') { // TODO: Use constant
+        if (valueType === 'in') {
+            // TODO: Use constant
             if (!indicatorGroup && !dataItem) {
-                return this.setErrorState('indicatorGroupError', i18next.t('Indicator group is required'), 'data');
+                return this.setErrorState(
+                    'indicatorGroupError',
+                    i18next.t('Indicator group is required'),
+                    'data'
+                );
             } else if (!dataItem) {
-                return this.setErrorState('indicatorError', i18next.t('Indicator is required'), 'data');
+                return this.setErrorState(
+                    'indicatorError',
+                    i18next.t('Indicator is required'),
+                    'data'
+                );
             }
         }
 
         if (!periodType && !period) {
-            return this.setErrorState('periodTypeError', i18next.t('Period type is required'), 'period');
+            return this.setErrorState(
+                'periodTypeError',
+                i18next.t('Period type is required'),
+                'period'
+            );
         } else if (!period) {
-            return this.setErrorState('periodError', i18next.t('Period is required'), 'period');
+            return this.setErrorState(
+                'periodError',
+                i18next.t('Period is required'),
+                'period'
+            );
         }
 
         if (!getOrgUnitsFromRows(rows).length) {
-            return this.setErrorState('orgUnitsError', i18next.t('No organisation units are selected'), 'orgunits');
+            return this.setErrorState(
+                'orgUnitsError',
+                i18next.t('No organisation units are selected'),
+                'orgunits'
+            );
         }
 
         return true;

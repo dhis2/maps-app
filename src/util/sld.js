@@ -1,7 +1,14 @@
-
 export const createSld = () => {
     const bounds = [0, 40, 60, 70, 80, 90, 120, 990];
-    const colors = ['#ffffb2', '#fed976', '#feb24c', '#fd8d3c', '#f03b20', '#bd0026', '#CCCCCC'];
+    const colors = [
+        '#ffffb2',
+        '#fed976',
+        '#feb24c',
+        '#fd8d3c',
+        '#f03b20',
+        '#bd0026',
+        '#CCCCCC',
+    ];
 
     let sld = `<?xml version="1.0" encoding="UTF-8"?>
                 <StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd" xmlns:se="http://www.opengis.net/se">
@@ -18,7 +25,8 @@ export const createSld = () => {
 
         let stopFilter = 'PropertyIsLessThan';
 
-        if (i === colors.length - 1) { // If last
+        if (i === colors.length - 1) {
+            // If last
             let stopFilter = 'PropertyIsLessThanOrEqualTo';
         }
 

@@ -6,7 +6,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadOrgUnitGroupSets } from '../../actions/orgUnits';
 
 export class OrgUnitGroupSetSelect extends Component {
-
     static propTypes = {
         label: PropTypes.string,
         value: PropTypes.object,
@@ -26,7 +25,13 @@ export class OrgUnitGroupSetSelect extends Component {
     }
 
     render() {
-        const { orgUnitGroupSets, value, onChange, style, errorText } = this.props;
+        const {
+            orgUnitGroupSets,
+            value,
+            onChange,
+            style,
+            errorText,
+        } = this.props;
 
         return (
             <SelectField
@@ -43,7 +48,8 @@ export class OrgUnitGroupSetSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         orgUnitGroupSets: state.orgUnitGroupSets,
-    }), { loadOrgUnitGroupSets }
+    }),
+    { loadOrgUnitGroupSets }
 )(OrgUnitGroupSetSelect);

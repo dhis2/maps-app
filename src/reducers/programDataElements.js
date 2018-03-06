@@ -1,9 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 const programDataElements = (state = {}, action) => {
-
     switch (action.type) {
-
         // Set data elements for program
         case types.PROGRAM_DATA_ELEMENTS_SET:
             return {
@@ -13,7 +11,6 @@ const programDataElements = (state = {}, action) => {
 
         default:
             return state;
-
     }
 };
 

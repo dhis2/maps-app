@@ -37,14 +37,13 @@ const styles = {
         padding: 40,
         lineHeight: '30px',
         fontStyle: 'italic',
-    }
+    },
 };
 
 export class OrgUnitTree extends Component {
-
     static propTypes = {
         root: PropTypes.object,
-        selected:  PropTypes.array,
+        selected: PropTypes.array,
         disabled: PropTypes.bool,
         onClick: PropTypes.func,
     };
@@ -75,7 +74,8 @@ export class OrgUnitTree extends Component {
     render() {
         const { root, selected, disabled, onClick } = this.props;
 
-        if (!root) { // TODO: Add loading indicator
+        if (!root) {
+            // TODO: Add loading indicator
             return null;
         }
 
@@ -83,28 +83,32 @@ export class OrgUnitTree extends Component {
             <div style={styles.container}>
                 <D2OrgUnitTree
                     root={root}
-                    selected={selected.filter(item => item.path).map(item => item.path)} // TODO: Need to select all
+                    selected={selected
+                        .filter(item => item.path)
+                        .map(item => item.path)} // TODO: Need to select all
                     initiallyExpanded={[root.path]}
                     hideCheckboxes={true}
                     hideMemberCount={true}
-                    onSelectClick={(evt, orgUnit) => !disabled ? onClick(orgUnit) : null}
+                    onSelectClick={(evt, orgUnit) =>
+                        !disabled ? onClick(orgUnit) : null
+                    }
                     labelStyle={styles.label}
                     selectedLabelStyle={styles.selectedLabel}
                 />
-                {disabled ?
+                {disabled ? (
                     <div style={styles.disabled}>
-                        It’s not possible to combine user organisation units and select individual units.
+                        It’s not possible to combine user organisation units and
+                        select individual units.
                     </div>
-                : null}
+                ) : null}
             </div>
         );
     }
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         root: state.orgUnitTree,
     }),
     { loadOrgUnitTree, toggleOrganisationUnit }
 )(OrgUnitTree);
-

@@ -9,7 +9,13 @@ import { grey600 } from 'material-ui/styles/colors';
 import SortableHandle from './SortableHandle';
 import LayerToolbar from '../toolbar/LayerToolbar';
 import Legend from '../legend/Legend';
-import { editLayer, removeLayer, changeLayerOpacity, toggleLayerExpand, toggleLayerVisibility } from '../../../actions/layers';
+import {
+    editLayer,
+    removeLayer,
+    changeLayerOpacity,
+    toggleLayerExpand,
+    toggleLayerVisibility,
+} from '../../../actions/layers';
 import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
 import './LayerCard.css';
@@ -39,7 +45,7 @@ const styles = {
     },
 };
 
-const LayerCard = (props) => {
+const LayerCard = props => {
     const {
         layer,
         editLayer,
@@ -51,23 +57,17 @@ const LayerCard = (props) => {
         setMessage,
     } = props;
 
-    const {
-        id,
-        name,
-        legend,
-        isExpanded,
-        isVisible,
-    } = layer;
+    const { id, name, legend, isExpanded, isVisible } = layer;
 
     return (
         <Card
-            className='LayerCard'
+            className="LayerCard"
             containerStyle={styles.container}
             expanded={isExpanded}
             onExpandChange={() => toggleLayerExpand(id)}
         >
             <CardHeader
-                className='LayerCard-header'
+                className="LayerCard-header"
                 title={name}
                 subtitle={legend && legend.period ? legend.period : null}
                 showExpandableButton={true}
@@ -77,7 +77,8 @@ const LayerCard = (props) => {
                 <IconButton
                     style={styles.visibility}
                     onClick={() => toggleLayerVisibility(id)}
-                    tooltip={i18next.t('Toggle visibility')}>
+                    tooltip={i18next.t('Toggle visibility')}
+                >
                     <SvgIcon
                         icon={isVisible ? 'Visibility' : 'VisibilityOff'}
                         color={grey600}
@@ -98,7 +99,7 @@ const LayerCard = (props) => {
                 />
             </CardText>
         </Card>
-    )
+    );
 };
 
 LayerCard.propTypes = {
@@ -111,7 +112,12 @@ LayerCard.propTypes = {
     toggleDataTable: PropTypes.func.isRequired,
 };
 
-export default connect(
-    null,
-    { editLayer, removeLayer, changeLayerOpacity, toggleLayerExpand, toggleLayerVisibility, toggleDataTable, setMessage }
-)(LayerCard);
+export default connect(null, {
+    editLayer,
+    removeLayer,
+    changeLayerOpacity,
+    toggleLayerExpand,
+    toggleLayerVisibility,
+    toggleDataTable,
+    setMessage,
+})(LayerCard);

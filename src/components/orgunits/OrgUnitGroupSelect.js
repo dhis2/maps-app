@@ -11,9 +11,8 @@ const style = {
 };
 
 export class OrgUnitGroupSelect extends Component {
-
     static propTypes = {
-        orgUnitGroup: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
+        orgUnitGroup: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         orgUnitGroups: PropTypes.array,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
@@ -45,7 +44,7 @@ export class OrgUnitGroupSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         orgUnitGroups: state.orgUnitGroups,
     }),
     { loadOrgUnitGroups }

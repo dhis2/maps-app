@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import i18next from 'i18next';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 // import Button from 'd2-ui/lib/button/Button';
@@ -28,24 +28,17 @@ const styles = {
 };
 
 const AppMenu = ({ openAboutDialog }) => (
-    <Toolbar
-        style={styles.toolbar}
-        className='dhis-gis-menu'
-    >
+    <Toolbar style={styles.toolbar} className="dhis-gis-menu">
         <ToolbarGroup firstChild={true}>
             <AddLayer />
             <FavoritesMenu />
         </ToolbarGroup>
         <ToolbarGroup lastChild={true}>
-            <Button
-                onClick={openAboutDialog}
-                style={styles.button}
-            >{i18next.t('About')}</Button>
+            <Button onClick={openAboutDialog} style={styles.button}>
+                {i18next.t('About')}
+            </Button>
         </ToolbarGroup>
     </Toolbar>
 );
 
-export default connect(
-    null,
-    { openAboutDialog }
-)(AppMenu);
+export default connect(null, { openAboutDialog })(AppMenu);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import MuiDatePicker from 'material-ui/DatePicker';
 import { timeFormat } from 'd3-time-format';
 
-const formatTime = timeFormat("%Y-%m-%d");
+const formatTime = timeFormat('%Y-%m-%d');
 
 const DatePicker = ({ label, value, onChange, style, textFieldStyle }) => (
     <MuiDatePicker

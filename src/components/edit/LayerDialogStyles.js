@@ -21,9 +21,7 @@ export const layerDialogStyles = {
         flexFlow: 'row wrap',
         margin: '4px -12px 0',
     },
-    flexItem: {
-
-    },
+    flexItem: {},
     flex: {
         display: 'flex',
         flexFlow: 'row wrap',

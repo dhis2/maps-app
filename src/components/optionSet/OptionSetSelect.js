@@ -9,8 +9,11 @@ const OptionSetSelect = ({ options, value, onChange, style }) => {
 
     return (
         <SelectField
-            label='Options' // TODO: i18n
-            items={options.map(option => ({ id: option.code, name: option.name }))}
+            label="Options" // TODO: i18n
+            items={options.map(option => ({
+                id: option.code,
+                name: option.name,
+            }))}
             value={value}
             multiple={true}
             onChange={values => onChange(values)}

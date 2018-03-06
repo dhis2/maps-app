@@ -6,7 +6,10 @@ import Dialog from 'material-ui/Dialog';
 import Button from 'd2-ui/lib/button/Button';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import { setMapName } from '../../actions/map';
-import { saveNewFavorite, closeSaveNewFavoriteDialog } from '../../actions/favorites';
+import {
+    saveNewFavorite,
+    closeSaveNewFavoriteDialog,
+} from '../../actions/favorites';
 import { cleanMapConfig } from '../../util/favorites';
 
 const styles = {
@@ -24,7 +27,7 @@ const styles = {
 
 class SaveNewFavoriteDialog extends Component {
     state = {
-        name: ''
+        name: '',
     };
 
     validateName(name) {
@@ -50,7 +53,12 @@ class SaveNewFavoriteDialog extends Component {
     }
 
     render() {
-        const { response, hasLayers, saveNewDialogOpen, closeSaveNewFavoriteDialog } = this.props; // TODO: config included only for testing
+        const {
+            response,
+            hasLayers,
+            saveNewDialogOpen,
+            closeSaveNewFavoriteDialog,
+        } = this.props; // TODO: config included only for testing
         const { name } = this.state;
 
         if (!saveNewDialogOpen) {
@@ -65,44 +73,57 @@ class SaveNewFavoriteDialog extends Component {
                 bodyStyle={styles.body}
                 actions={[
                     <Button
-                        color='primary'
+                        color="primary"
                         onClick={closeSaveNewFavoriteDialog}
-                    >Close</Button>,
-                    (hasLayers && !response ? <Button
-                          color='primary'
-                          onClick={() => this.validateName(name)}
-                          disabled={name.length === 0}
-                      >Save</Button> : null)
+                    >
+                        Close
+                    </Button>,
+                    hasLayers && !response ? (
+                        <Button
+                            color="primary"
+                            onClick={() => this.validateName(name)}
+                            disabled={name.length === 0}
+                        >
+                            Save
+                        </Button>
+                    ) : null,
                 ]}
                 open={saveNewDialogOpen}
                 onRequestClose={closeSaveNewFavoriteDialog}
             >
-                {response && response.status === 'OK' ?
+                {response && response.status === 'OK' ? (
                     <div>{i18next.t('Your map was saved successfully.')}</div>
-                : null}
+                ) : null}
 
-                {response && response.status !== 'OK' ?
-                    <div>{i18next.t('An error occurred')} (response.httpStatusCode): {response.message}</div>
-                : null}
+                {response && response.status !== 'OK' ? (
+                    <div>
+                        {i18next.t('An error occurred')}{' '}
+                        (response.httpStatusCode): {response.message}
+                    </div>
+                ) : null}
 
-                {hasLayers && !response ?
+                {hasLayers && !response ? (
                     <TextField
                         label={i18next.t('Favorite name')}
                         value={name}
-                        onChange={(name) => this.setState({ name })}
+                        onChange={name => this.setState({ name })}
                     />
-                : null}
+                ) : null}
 
-                {!hasLayers && !response ?
-                    <div>{i18next.t('Your map is empty, please add a layer before you save a favorite.')}</div>
-                : null}
+                {!hasLayers && !response ? (
+                    <div>
+                        {i18next.t(
+                            'Your map is empty, please add a layer before you save a favorite.'
+                        )}
+                    </div>
+                ) : null}
             </Dialog>
         );
     }
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         saveNewDialogOpen: state.favorite.saveNewDialogOpen,
         hasLayers: Boolean(state.map.mapViews.length),
         config: state.map,

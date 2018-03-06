@@ -1,9 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 const dataTable = (state = null, action) => {
-
     switch (action.type) {
-
         case types.DATA_TABLE_OPEN:
             return action.id;
 
@@ -18,7 +16,6 @@ const dataTable = (state = null, action) => {
 
         default:
             return state;
-
     }
 };
 

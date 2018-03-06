@@ -4,9 +4,7 @@ import { apiFetch } from '../util/api';
 export function fetchOrgUnit(id) {
     //const fields = gis.conf.url.mapFields.join(','); // TODO
 
-
-
-
-
-    return apiFetch(`/maps/${id}.json?fields=${fields}`).then(res => res.json());
+    return apiFetch(`/maps/${id}.json?fields=${fields}`).then(res =>
+        res.json()
+    );
 }

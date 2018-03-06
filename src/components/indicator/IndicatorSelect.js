@@ -5,7 +5,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadIndicators } from '../../actions/indicators';
 
 export class IndicatorSelect extends Component {
-
     componentDidUpdate() {
         const { indicatorGroup, indicators, loadIndicators } = this.props;
 
@@ -37,7 +36,7 @@ export class IndicatorSelect extends Component {
 
         return (
             <SelectField
-                key='indicators'
+                key="indicators"
                 loading={items ? false : true}
                 label={i18next.t('Indicator')}
                 items={items}
@@ -51,7 +50,7 @@ export class IndicatorSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         indicators: state.indicators,
     }),
     { loadIndicators }

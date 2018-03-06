@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import ColorScale from 'd2-ui/lib/legend/ColorScale.component';
 import Popover from 'material-ui/Popover/Popover';
-import { colorScales, getColorScale, getColorPalette } from '../../util/colorscale';
+import {
+    colorScales,
+    getColorScale,
+    getColorPalette,
+} from '../../util/colorscale';
 
 const styles = {
     scale: {
@@ -34,7 +38,7 @@ class ColorScaleSelect extends Component {
     }
 
     // Show popover with allowed color scales
-    showColorScales = (event) => {
+    showColorScales = event => {
         this.setState({
             open: true,
             anchorEl: event.currentTarget,
@@ -43,9 +47,9 @@ class ColorScaleSelect extends Component {
 
     hideColorScales() {
         this.setState({
-            open: false
+            open: false,
         });
-    };
+    }
 
     // Called when a new color scale is selected in the popover
     onColorScaleSelect = (event, scale) => {
@@ -77,21 +81,19 @@ class ColorScaleSelect extends Component {
                     targetOrigin={{ horizontal: 'left', vertical: 'top' }}
                     onRequestClose={() => this.hideColorScales()}
                 >
-                    {colorScales.map((scale, index) =>
+                    {colorScales.map((scale, index) => (
                         <ColorScale
                             key={index}
                             scale={scale}
                             classes={classes}
                             style={styles.scaleItem}
                             onClick={this.onColorScaleSelect}
-                        />,
-                    )}
-              </Popover>
+                        />
+                    ))}
+                </Popover>
             </div>
         );
     }
 }
-
-
 
 export default ColorScaleSelect;

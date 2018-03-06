@@ -5,7 +5,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadDataElementOperands } from '../../actions/dataElements';
 
 export class DataElementOperandSelect extends Component {
-
     componentDidMount() {
         this.loadDataElementOperands();
     }
@@ -15,7 +14,11 @@ export class DataElementOperandSelect extends Component {
     }
 
     loadDataElementOperands() {
-        const { dataElementOperands, dataElementGroup, loadDataElementOperands } = this.props;
+        const {
+            dataElementOperands,
+            dataElementGroup,
+            loadDataElementOperands,
+        } = this.props;
 
         if (dataElementGroup && !dataElementOperands[dataElementGroup.id]) {
             loadDataElementOperands(dataElementGroup.id);
@@ -51,7 +54,7 @@ export class DataElementOperandSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         dataElementOperands: state.dataElementOperands,
     }),
     { loadDataElementOperands }

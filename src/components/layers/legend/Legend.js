@@ -4,31 +4,35 @@ import i18next from 'i18next';
 import LegendItem from './LegendItem';
 import './Legend.css';
 
-const Legend = ({ description, period, filters, unit, items, source, sourceUrl, attribution }) => (
-    <dl className='Legend'>
-        {description &&
-            <div className='Legend-description'>{description}</div>
-        }
-        {filters &&
-            <div className='Legend-filters'>{i18next.t('Filters')}: {filters.join(', ')}</div>
-        }
-        {unit && items &&
-            <div className='Legend-unit'>{unit}</div>
-        }
-        {items &&
+const Legend = ({
+    description,
+    period,
+    filters,
+    unit,
+    items,
+    source,
+    sourceUrl,
+    attribution,
+}) => (
+    <dl className="Legend">
+        {description && <div className="Legend-description">{description}</div>}
+        {filters && (
+            <div className="Legend-filters">
+                {i18next.t('Filters')}: {filters.join(', ')}
+            </div>
+        )}
+        {unit && items && <div className="Legend-unit">{unit}</div>}
+        {items && (
             <table>
                 <tbody>
                     {items.map((item, index) => (
-                        <LegendItem
-                            {...item}
-                            key={`item-${index}`}
-                        />
+                        <LegendItem {...item} key={`item-${index}`} />
                     ))}
                 </tbody>
             </table>
-        }
+        )}
         {source && (
-            <div className='Legend-source'>
+            <div className="Legend-source">
                 Source:&nbsp;
                 {sourceUrl ? (
                     <a href={sourceUrl}>{source}</a>

@@ -14,7 +14,7 @@ const layerType = {
     external: externalLoader,
 };
 
-export const fetchLayer = (config) => {
+export const fetchLayer = config => {
     const Loader = layerType[config.layer];
 
     if (Loader) {

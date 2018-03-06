@@ -24,7 +24,6 @@ const styles = {
 };
 
 class FilterGroup extends Component {
-
     render() {
         const {
             filters = [],
@@ -39,7 +38,9 @@ class FilterGroup extends Component {
         if (!programStage) {
             return (
                 <div style={styles.note}>
-                    {i18next.t('Filtering is available after selecting a program stage.')}
+                    {i18next.t(
+                        'Filtering is available after selecting a program stage.'
+                    )}
                 </div>
             );
         }
@@ -59,10 +60,13 @@ class FilterGroup extends Component {
                     />
                 ))}
                 <Button
-                    raised color='accent'
+                    raised
+                    color="accent"
                     onClick={() => addFilter()}
                     style={styles.button}
-                >{i18next.t('Add filter')}</Button>
+                >
+                    {i18next.t('Add filter')}
+                </Button>
             </div>
         );
     }
@@ -70,14 +74,14 @@ class FilterGroup extends Component {
 
 export default connect(
     (state, { program, programStage }) => ({
-        dataItems: (program && programStage) ? combineDataItems(
-            state.programTrackedEntityAttributes[program.id],
-            state.programStageDataElements[programStage.id],
-            ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'], // Exclude these value types
-        ) : [],
+        dataItems:
+            program && programStage
+                ? combineDataItems(
+                      state.programTrackedEntityAttributes[program.id],
+                      state.programStageDataElements[programStage.id],
+                      ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'] // Exclude these value types
+                  )
+                : [],
     }),
     { addFilter, removeFilter, changeFilter }
 )(FilterGroup);
-
-
-

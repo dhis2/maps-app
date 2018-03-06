@@ -4,7 +4,6 @@ import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
 class FacilityLayer extends Layer {
-
     createLayer(callback) {
         const {
             id,
@@ -38,7 +37,7 @@ class FacilityLayer extends Layer {
                 fontSize: labelFontSize,
                 fontStyle: labelFontStyle,
                 fontWeight: labelFontWeight,
-                paddingTop: '10px'
+                paddingTop: '10px',
             };
         }
 
@@ -57,7 +56,7 @@ class FacilityLayer extends Layer {
                 pane: `${id}-area`,
                 radius: areaRadius,
                 highlightStyle: false,
-                data: filteredData
+                data: filteredData,
             });
         }
 
@@ -75,10 +74,16 @@ class FacilityLayer extends Layer {
     // Show pupup on facility click
     onFeatureClick(evt) {
         const attr = evt.layer.feature.properties;
-        let content = `<div class="leaflet-popup-orgunit"><em>${attr.name}</em>`;
+        let content = `<div class="leaflet-popup-orgunit"><em>${
+            attr.name
+        }</em>`;
 
         if (isPlainObject(attr.dimensions)) {
-            content += `<br/>${i18next.t('Groups')}: ${Object.keys(attr.dimensions).map(id => attr.dimensions[id]).join(', ')}`;
+            content += `<br/>${i18next.t('Groups')}: ${Object.keys(
+                attr.dimensions
+            )
+                .map(id => attr.dimensions[id])
+                .join(', ')}`;
         }
 
         if (attr.pn) {
@@ -91,13 +96,16 @@ class FacilityLayer extends Layer {
             .setLatLng(evt.latlng)
             .setContent(content)
             .openOn(this.context.map);
-    };
+    }
 
     onFeatureRightClick(evt) {
         L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         const latlng = evt.latlng;
-        const position = [evt.originalEvent.x, evt.originalEvent.pageY || evt.originalEvent.y];
+        const position = [
+            evt.originalEvent.x,
+            evt.originalEvent.pageY || evt.originalEvent.y,
+        ];
         const props = this.props;
 
         this.props.openContextMenu({
@@ -118,7 +126,6 @@ class FacilityLayer extends Layer {
         }
         super.removeLayer();
     }
-
 }
 
 export default FacilityLayer;

@@ -5,7 +5,7 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { dimConf } from '../../../constants/dimension';
 import { setValueType } from '../../../actions/layerEdit';
 
-const ValueTypeSelect = (props) => {
+const ValueTypeSelect = props => {
     const { value, onChange } = props;
 
     // console.log(dimConf.indicator.objectName);
@@ -15,8 +15,14 @@ const ValueTypeSelect = (props) => {
         { id: dimConf.indicator.objectName, name: i18next.t('Indicator') },
         { id: dimConf.dataElement.objectName, name: i18next.t('Data element') },
         { id: dimConf.dataSet.objectName, name: i18next.t('Reporting rates') },
-        { id: dimConf.eventDataItem.objectName, name: i18next.t('Event data items') },
-        { id: dimConf.programIndicator.objectName, name: i18next.t('Program indicators') },
+        {
+            id: dimConf.eventDataItem.objectName,
+            name: i18next.t('Event data items'),
+        },
+        {
+            id: dimConf.programIndicator.objectName,
+            name: i18next.t('Program indicators'),
+        },
     ];
 
     return (
@@ -26,10 +32,9 @@ const ValueTypeSelect = (props) => {
             items={items}
             // value={value || dimConf.indicator.objectName}
             value={value}
-            onChange={(valueType) => onChange(valueType.id)}
+            onChange={valueType => onChange(valueType.id)}
         />
     );
-
 };
 
 export default ValueTypeSelect;

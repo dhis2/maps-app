@@ -25,7 +25,7 @@ export default class ColorPicker extends Component {
         };
     }
 
-    handleOpen = (event) => {
+    handleOpen = event => {
         this.setState({
             isOpen: true,
             anchorEl: event.currentTarget,
@@ -36,7 +36,7 @@ export default class ColorPicker extends Component {
         this.setState({ isOpen: false });
     };
 
-    handleChange = (color) => {
+    handleChange = color => {
         const hexColor = color.hex.toUpperCase();
 
         this.setState({ color: hexColor });
@@ -50,7 +50,11 @@ export default class ColorPicker extends Component {
             <div style={styles.wrapper}>
                 <IconButton
                     onClick={this.handleOpen}
-                    style={{ ...styles.color, background: color, ...this.props.style }}
+                    style={{
+                        ...styles.color,
+                        background: color,
+                        ...this.props.style,
+                    }}
                     disableTouchRipple={true}
                 >
                     <ArrowDropDownIcon // TODO: Switch to d2-ui cmp
@@ -66,6 +70,6 @@ export default class ColorPicker extends Component {
                     <ChromePicker color={color} onChange={this.handleChange} />
                 </Popover>
             </div>
-        )
+        );
     }
 }

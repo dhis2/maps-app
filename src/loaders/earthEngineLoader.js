@@ -7,7 +7,8 @@ const datasets = {
             unit: 'metres',
             description: 'Elevation above sea-level.',
             source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
-            sourceUrl: 'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
+            sourceUrl:
+                'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
         },
     },
     'WorldPop/POP': {
@@ -15,7 +16,7 @@ const datasets = {
         aggregation: 'mosaic',
         mask: true,
         methods: {
-            multiply: [100] // Convert from people/hectare to people/km2
+            multiply: [100], // Convert from people/hectare to people/km2
         },
         resolution: 100,
         projection: 'EPSG:4326',
@@ -24,9 +25,11 @@ const datasets = {
         },
         legend: {
             unit: 'people per km²',
-            description: 'Population density estimates with national totals adjusted to match UN population division estimates.',
+            description:
+                'Population density estimates with national totals adjusted to match UN population division estimates.',
             source: 'WorldPop / Google Earth Engine',
-            sourceUrl: 'https://explorer.earthengine.google.com/#detail/WorldPop%2FPOP',
+            sourceUrl:
+                'https://explorer.earthengine.google.com/#detail/WorldPop%2FPOP',
         },
     },
     'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': {
@@ -36,9 +39,11 @@ const datasets = {
         popup: '{name}: {value}',
         legend: {
             unit: 'light intensity',
-            description: 'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.',
+            description:
+                'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.',
             source: 'NOAA / Google Earth Engine',
-            sourceUrl: 'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
+            sourceUrl:
+                'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
         },
     },
     'UCSB-CHG/CHIRPS/PENTAD': {
@@ -50,9 +55,11 @@ const datasets = {
         },
         legend: {
             unit: 'millimeter',
-            description: 'Precipitation collected from satellite and weather stations on the ground.',
+            description:
+                'Precipitation collected from satellite and weather stations on the ground.',
             source: 'UCSB / CHG / Google Earth Engine',
-            sourceUrl: 'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
+            sourceUrl:
+                'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
         },
     },
     'MODIS/MOD11A2': {
@@ -70,9 +77,11 @@ const datasets = {
         popup: '{name}: {value}{unit}',
         legend: {
             unit: '°C during daytime',
-            description: 'Land surface temperatures collected from satellite. Blank spots will appear in areas with a persistent cloud cover.',
+            description:
+                'Land surface temperatures collected from satellite. Blank spots will appear in areas with a persistent cloud cover.',
             source: 'NASA LP DAAC / Google Earth Engine',
-            sourceUrl: 'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
+            sourceUrl:
+                'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
         },
     },
     'MODIS/051/MCD12Q1': {
@@ -81,89 +90,111 @@ const datasets = {
         params: {
             min: 0,
             max: 17,
-            palette: 'aec3d6,162103,235123,399b38,38eb38,39723b,6a2424,c3a55f,b76124,d99125,92af1f,10104c,cdb400,cc0202,332808,d7cdcc,f7e174,743411',
+            palette:
+                'aec3d6,162103,235123,399b38,38eb38,39723b,6a2424,c3a55f,b76124,d99125,92af1f,10104c,cdb400,cc0202,332808,d7cdcc,f7e174,743411',
         },
         mask: false,
         legend: {
             description: 'Distinct landcover types collected from satellites.',
             source: 'NASA LP DAAC / Google Earth Engine',
-            sourceUrl: 'https://code.earthengine.google.com/dataset/MODIS/051/MCD12Q1',
-            items: [{
-                color: '#aec3d6',
-                name: 'Water'
-            },{
-                color: '#162103',
-                name: 'Evergreen Needleleaf forest'
-            },{
-                color: '#235123',
-                name: 'Evergreen Broadleaf forest'
-            },{
-                color: '#399b38',
-                name: 'Deciduous Needleleaf forest'
-            },{
-                color: '#38eb38',
-                name: 'Deciduous Broadleaf forest'
-            },{
-                color: '#39723b',
-                name: 'Mixed forest'
-            },{
-                color: '#6a2424',
-                name: 'Closed shrublands'
-            },{
-                color: '#c3a55f',
-                name: 'Open shrublands'
-            },{
-                color: '#b76124',
-                name: 'Woody savannas'
-            },{
-                color: '#d99125',
-                name: 'Savannas'
-            },{
-                color: '#92af1f',
-                name: 'Grasslands'
-            },{
-                color: '#10104c',
-                name: 'Permanent wetlands'
-            },{
-                color: '#cdb400',
-                name: 'Croplands'
-            },{
-                color: '#cc0202',
-                name: 'Urban and built-up'
-            },{
-                color: '#332808',
-                name: 'Cropland/Natural vegetation mosaic'
-            },{
-                color: '#d7cdcc',
-                name: 'Snow and ice'
-            },{
-                color: '#f7e174',
-                name: 'Barren or sparsely vegetated'
-            },{
-                color: '#743411',
-                name: 'Unclassified'
-            }]
+            sourceUrl:
+                'https://code.earthengine.google.com/dataset/MODIS/051/MCD12Q1',
+            items: [
+                {
+                    color: '#aec3d6',
+                    name: 'Water',
+                },
+                {
+                    color: '#162103',
+                    name: 'Evergreen Needleleaf forest',
+                },
+                {
+                    color: '#235123',
+                    name: 'Evergreen Broadleaf forest',
+                },
+                {
+                    color: '#399b38',
+                    name: 'Deciduous Needleleaf forest',
+                },
+                {
+                    color: '#38eb38',
+                    name: 'Deciduous Broadleaf forest',
+                },
+                {
+                    color: '#39723b',
+                    name: 'Mixed forest',
+                },
+                {
+                    color: '#6a2424',
+                    name: 'Closed shrublands',
+                },
+                {
+                    color: '#c3a55f',
+                    name: 'Open shrublands',
+                },
+                {
+                    color: '#b76124',
+                    name: 'Woody savannas',
+                },
+                {
+                    color: '#d99125',
+                    name: 'Savannas',
+                },
+                {
+                    color: '#92af1f',
+                    name: 'Grasslands',
+                },
+                {
+                    color: '#10104c',
+                    name: 'Permanent wetlands',
+                },
+                {
+                    color: '#cdb400',
+                    name: 'Croplands',
+                },
+                {
+                    color: '#cc0202',
+                    name: 'Urban and built-up',
+                },
+                {
+                    color: '#332808',
+                    name: 'Cropland/Natural vegetation mosaic',
+                },
+                {
+                    color: '#d7cdcc',
+                    name: 'Snow and ice',
+                },
+                {
+                    color: '#f7e174',
+                    name: 'Barren or sparsely vegetated',
+                },
+                {
+                    color: '#743411',
+                    name: 'Unclassified',
+                },
+            ],
         },
         popup: '{name}: {value}',
     },
 };
 
-
-const earthEngineLoader = async (config) => { // Returns a promise
+const earthEngineLoader = async config => {
+    // Returns a promise
     let layerConfig = {};
     let dataset;
 
-    if (typeof config.config === 'string') { // From database as favorite
+    if (typeof config.config === 'string') {
+        // From database as favorite
         layerConfig = JSON.parse(config.config);
 
         dataset = datasets[layerConfig.id];
 
         if (dataset) {
             dataset.datasetId = layerConfig.id;
-            delete(layerConfig.id);
+            delete layerConfig.id;
         }
 
-        delete (config.config);
+        delete config.config;
     } else {
         dataset = datasets[config.datasetId];
     }
@@ -191,7 +222,7 @@ const earthEngineLoader = async (config) => { // Returns a promise
 // const timeout = (ms) =>  new Promise(resolve => setTimeout(resolve, ms));
 
 // TODO: This function is currently duplicated from  GIS API
-export const createLegend = (params) => {
+export const createLegend = params => {
     const min = params.min;
     const max = params.max;
     const palette = params.palette.split(',');
@@ -205,21 +236,22 @@ export const createLegend = (params) => {
             color: color,
         };
 
-        if (index === 0 && min > 0) { // Less than min
+        if (index === 0 && min > 0) {
+            // Less than min
             item.name = '< ' + min;
             to = min;
         } else if (from < max) {
             item.name = from + ' - ' + to;
-        } else { // Higher than max
+        } else {
+            // Higher than max
             item.name = '> ' + from;
         }
 
         from = to;
-        to = Math.round(min + (step * (index + (min > 0 ? 1 : 2))));
+        to = Math.round(min + step * (index + (min > 0 ? 1 : 2)));
 
         return item;
     });
 };
 
 export default earthEngineLoader;
-

@@ -6,7 +6,6 @@ import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadLegendSets } from '../../actions/legendSets';
 
 export class LegendSetSelect extends Component {
-
     static propTypes = {
         legendSet: PropTypes.object,
         legendSets: PropTypes.array,
@@ -39,7 +38,7 @@ export class LegendSetSelect extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         legendSets: state.legendSets,
     }),
     { loadLegendSets }

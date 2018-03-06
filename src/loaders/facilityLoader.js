@@ -5,7 +5,8 @@ import { isValidCoordinate } from '../util/map';
 import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
 
-const facilityLoader = async (config) => { // Returns a promise
+const facilityLoader = async config => {
+    // Returns a promise
     const { organisationUnitGroupSet, rows } = config;
     const groupSetId = organisationUnitGroupSet.id;
     const orgUnits = getOrgUnitsFromRows(rows);
@@ -15,9 +16,11 @@ const facilityLoader = async (config) => { // Returns a promise
     const contextPath = d2.system.systemInfo.contextPath;
     const displayProperty = getDisplayProperty(d2);
 
-    const groupSetReq = d2.models.organisationUnitGroupSet.get(groupSetId, {
-        fields: `organisationUnitGroups[id,${displayProperty}~rename(name),symbol]`,
-    }).then(parseGroupSet);
+    const groupSetReq = d2.models.organisationUnitGroupSet
+        .get(groupSetId, {
+            fields: `organisationUnitGroups[id,${displayProperty}~rename(name),symbol]`,
+        })
+        .then(parseGroupSet);
 
     const facilitiesReq = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
@@ -27,7 +30,10 @@ const facilityLoader = async (config) => { // Returns a promise
         })
         .then(facilities => parseFacilities(facilities, groupSetId));
 
-    const [ groupSet, facilities ] = await Promise.all([groupSetReq, facilitiesReq]);
+    const [groupSet, facilities] = await Promise.all([
+        groupSetReq,
+        facilitiesReq,
+    ]);
 
     // Convert API response to GeoJSON features
     const features = facilities.map(facility => {
@@ -42,7 +48,9 @@ const facilityLoader = async (config) => { // Returns a promise
         legend: {
             unit: organisationUnitGroupSet.name,
             items: Object.keys(groupSet).map(id => ({
-                image: `${contextPath}/images/orgunitgroup/${groupSet[id].symbol}`,
+                image: `${contextPath}/images/orgunitgroup/${
+                    groupSet[id].symbol
+                }`,
                 name: groupSet[id].name,
             })),
         },
@@ -53,20 +61,25 @@ const facilityLoader = async (config) => { // Returns a promise
 };
 
 const parseFacilities = (facilities, groupSetId) =>
-    facilities.filter(facility => ( // Only add valid points belonging to an org.unit group
-        facility.ty === 1 &&
-        isPlainObject(facility.dimensions) &&
-        facility.dimensions[groupSetId] &&
-        isValidCoordinate(JSON.parse(facility.co))
-    ));
+    facilities.filter(
+        (
+            facility // Only add valid points belonging to an org.unit group
+        ) =>
+            facility.ty === 1 &&
+            isPlainObject(facility.dimensions) &&
+            facility.dimensions[groupSetId] &&
+            isValidCoordinate(JSON.parse(facility.co))
+    );
 
-const parseGroupSet = (groupSet) =>
-    groupSet.organisationUnitGroups.toArray().reduce((symbols, group, index) => { // Easier lookup of unit group symbols
-        group.symbol = group.symbol || (21 + index) + '.png'; // Default symbol 21-25 are coloured circles
-        symbols[group.id] = group;
-        return symbols;
-    }, {});
-
+const parseGroupSet = groupSet =>
+    groupSet.organisationUnitGroups
+        .toArray()
+        .reduce((symbols, group, index) => {
+            // Easier lookup of unit group symbols
+            group.symbol = group.symbol || 21 + index + '.png'; // Default symbol 21-25 are coloured circles
+            symbols[group.id] = group;
+            return symbols;
+        }, {});
 
 const toGeoJson = (facility, group, contextPath) => ({
     type: 'Feature',
@@ -84,8 +97,7 @@ const toGeoJson = (facility, group, contextPath) => ({
     geometry: {
         type: 'Point',
         coordinates: JSON.parse(facility.co),
-    }
+    },
 });
-
 
 export default facilityLoader;

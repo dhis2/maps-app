@@ -13,7 +13,6 @@ const defaultState = {
 
 const ui = (state = defaultState, action) => {
     switch (action.type) {
-
         case types.SCREEN_RESIZE:
             return {
                 ...state,
@@ -64,8 +63,7 @@ const ui = (state = defaultState, action) => {
             };
 
         default:
-            return state
-
+            return state;
     }
 };
 

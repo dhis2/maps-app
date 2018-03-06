@@ -2,7 +2,6 @@ import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 class Layer extends PureComponent {
-
     static contextTypes = {
         map: PropTypes.object,
         d2: PropTypes.object,
@@ -36,11 +35,24 @@ class Layer extends PureComponent {
     }
 
     componentDidUpdate(prev) {
-        const { id, data, index, opacity, isVisible, editCounter, dataFilters } = this.props;
+        const {
+            id,
+            data,
+            index,
+            opacity,
+            isVisible,
+            editCounter,
+            dataFilters,
+        } = this.props;
         const map = this.context.map;
 
         // Create new map if new id of editCounter is increased
-        if (id !== prev.id || data !== prev.data || editCounter !== prev.editCounter || dataFilters !== prev.dataFilters) {
+        if (
+            id !== prev.id ||
+            data !== prev.data ||
+            editCounter !== prev.editCounter ||
+            dataFilters !== prev.dataFilters
+        ) {
             this.removeLayer();
             this.createPane();
             this.createLayer();
@@ -89,7 +101,8 @@ class Layer extends PureComponent {
             ...config,
         };
 
-        if (index !== undefined) { // If not a basemap
+        if (index !== undefined) {
+            // If not a basemap
             layerConfig.pane = id;
         }
 
@@ -100,7 +113,8 @@ class Layer extends PureComponent {
         this.setLayerOpacity();
         this.setLayerVisibility();
 
-        if (this.props.index !== undefined) { // Basemap don't have index
+        if (this.props.index !== undefined) {
+            // Basemap don't have index
             this.setLayerOrder();
         }
     }
@@ -112,7 +126,7 @@ class Layer extends PureComponent {
     // Set layer order using custom panes and z-index: http://leafletjs.com/examples/map-panes/
     setLayerOrder() {
         const { index } = this.props;
-        const zIndex = 600 - (index * 10);
+        const zIndex = 600 - index * 10;
 
         if (this.pane) {
             this.pane.style.zIndex = zIndex;
@@ -147,10 +161,10 @@ class Layer extends PureComponent {
             map.removeLayer(layer);
         }
 
-        delete(this.layer);
-        delete(this.pane);
-        delete(this.labelPane);
-        delete(this.areaPane);
+        delete this.layer;
+        delete this.pane;
+        delete this.labelPane;
+        delete this.areaPane;
     }
 
     render() {

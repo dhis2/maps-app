@@ -14,14 +14,12 @@ const styles = {
     },
 };
 
-
 class InterpretationDialog extends Component {
-
     state = {
         value: '',
     };
 
-    render () {
+    render() {
         const { favoriteId, onSave, onClose } = this.props;
         const { value } = this.state;
 
@@ -31,24 +29,21 @@ class InterpretationDialog extends Component {
                 open={true}
                 onRequestClose={onClose}
                 actions={[
-                    <Button
-                        color='primary'
-                        onClick={onClose}
-                    >
+                    <Button color="primary" onClick={onClose}>
                         {i18next.t('Cancel')}
                     </Button>,
                     <Button
-                        color='primary'
+                        color="primary"
                         disabled={value ? false : true}
                         onClick={() => onSave(favoriteId, value)}
                     >
                         {i18next.t('Save')}
-                    </Button>
+                    </Button>,
                 ]}
                 contentStyle={styles.dialog}
             >
                 <TextField
-                    name='interpretation'
+                    name="interpretation"
                     value={value}
                     multiLine={true}
                     rows={4}
@@ -56,7 +51,7 @@ class InterpretationDialog extends Component {
                     style={styles.textfield}
                 />
             </Dialog>
-        )
+        );
     }
 }
 

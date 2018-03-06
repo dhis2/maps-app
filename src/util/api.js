@@ -6,7 +6,7 @@ import { config } from 'd2/lib/d2';
 
 export const apiFetch = async (url, method, body) => {
     const options = {
-        headers: {}
+        headers: {},
     };
 
     if (config.context && config.context.auth) {
@@ -28,6 +28,11 @@ export const apiFetch = async (url, method, body) => {
     }
 
     return fetch(encodeURI(config.baseUrl + url), options)
-        .then(response => method !== 'PUT' && method !== 'PATCH' ? response.json() : response) // Avoids error
+        .then(
+            response =>
+                method !== 'PUT' && method !== 'PATCH'
+                    ? response.json()
+                    : response
+        ) // Avoids error
         .catch(error => console.log('Error: ', error)); // TODO: Better error handling
 };

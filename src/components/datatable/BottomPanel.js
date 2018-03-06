@@ -9,15 +9,14 @@ import { closeDataTable, resizeDataTable } from '../../actions/dataTable';
 import './BottomPanel.css';
 
 const styles = {
-  closeIcon: {
-      width: 16,
-      height: 16,
-  },
+    closeIcon: {
+        width: 16,
+        height: 16,
+    },
 };
 
 // Container for DataTable
 class BottomPanel extends Component {
-
     render() {
         const {
             layersPanelOpen,
@@ -31,8 +30,10 @@ class BottomPanel extends Component {
 
         if (dataTableOpen) {
             const maxHeight = height - HEADER_HEIGHT - 20;
-            const tableHeight = dataTableHeight < maxHeight ? dataTableHeight : maxHeight;
-            const tableWidth = width - (layersPanelOpen ? LAYERS_PANEL_WIDTH : 0);
+            const tableHeight =
+                dataTableHeight < maxHeight ? dataTableHeight : maxHeight;
+            const tableWidth =
+                width - (layersPanelOpen ? LAYERS_PANEL_WIDTH : 0);
 
             const style = {
                 left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
@@ -41,26 +42,23 @@ class BottomPanel extends Component {
 
             return (
                 <div
-                    ref={node => this.node = node}
-                    className='BottomPanel'
+                    ref={node => (this.node = node)}
+                    className="BottomPanel"
                     style={style}
                 >
                     <span onClick={closeDataTable}>
                         <SvgIcon
-                            icon='Cancel'
-                            className='BottomPanel-close'
+                            icon="Cancel"
+                            className="BottomPanel-close"
                             style={styles.closeIcon}
                         />
                     </span>
                     <ResizeHandle
                         maxHeight={maxHeight}
-                        onResize={(height) => this.onResize(height)}
-                        onResizeEnd={(height) => resizeDataTable(height)}
+                        onResize={height => this.onResize(height)}
+                        onResizeEnd={height => resizeDataTable(height)}
                     />
-                    <DataTable
-                        width={tableWidth}
-                        height={tableHeight}
-                    />
+                    <DataTable width={tableWidth} height={tableHeight} />
                 </div>
             );
         }
@@ -85,7 +83,7 @@ BottomPanel.propTypes = {
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         dataTableOpen: state.dataTable ? true : false,
         dataTableHeight: state.ui.dataTableHeight,
         layersPanelOpen: state.ui.layersPanelOpen,
