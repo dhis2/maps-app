@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import i18next from 'i18next';
 import range from 'lodash/fp/range';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
-// import ColorScaleSelect from 'd2-ui/lib/legend/ColorScaleSelect.component';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
 import { setClassification, setColorScale } from '../../actions/layerEdit';
 import { classificationTypes } from '../../constants/layers';

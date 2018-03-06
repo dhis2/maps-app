@@ -75,7 +75,7 @@ class ThematicLayer extends Layer {
         const { name, value } = evt.layer.feature.properties;
         const { columns, aggregationType, legend } = this.props;
         const map = this.context.map;
-        const indicator = columns[0].items[0].name;
+        const indicator = columns[0].items[0].name || '';
         const period = legend.period;
         const content = `
             <div class="leaflet-popup-orgunit">
