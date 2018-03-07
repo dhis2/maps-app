@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import { connect } from 'react-redux';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadDataElements } from '../../actions/dataElements';
 
-export class DataElementSelect extends Component {
+export class DataElementSelect extends PureComponent {
+    static propTypes = {
+        dataElement: PropTypes.object,
+        dataElements: PropTypes.object,
+        dataElementGroup: PropTypes.object,
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+    };
+
     componentDidUpdate() {
         const { dataElements, dataElementGroup, loadDataElements } = this.props;
 

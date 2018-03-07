@@ -1,0 +1,10 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+    "ecmaFeatures": {
+        "classes": true
+    },
+    "plugins": ["prettier"],
+    "rules": {
+        "prettier/prettier": "error"
+    }
+}

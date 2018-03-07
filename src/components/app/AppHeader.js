@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import i18next from 'i18next';
 import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
-import { LAYERS_PANEL_WIDTH } from '../../constants/layout';
 import HomeIcon from 'material-ui/svg-icons/action/home';
+import { LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
 const styles = {
     header: {
@@ -18,7 +18,6 @@ const styles = {
         boxSizing: 'border-box',
         position: 'absolute',
         width: LAYERS_PANEL_WIDTH + 1,
-        // borderRight: '1px solid #ddd',
         height: '100%',
         padding: '4px 20px',
     },
@@ -96,6 +95,14 @@ const AppHeader = ({ name }, context) => (
         </div>
     </div>
 );
+
+AppHeader.propTypes = {
+    name: PropTypes.string,
+};
+
+AppHeader.defaultProps = {
+    name: '',
+};
 
 const mapStateToProps = state => ({
     name: state.map ? state.map.name : null,

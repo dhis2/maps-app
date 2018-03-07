@@ -26,6 +26,36 @@ class DataTable extends Component {
         };
     }
 
+    onSort(sortBy, sortDirection) {
+        const data = this.state.data;
+
+        this.setState({
+            sortBy,
+            sortDirection,
+            data: this.sort(data, sortBy, sortDirection),
+        });
+    }
+
+    // TODO: Make sure sorting works across different locales - use lib method
+    sort(data, sortBy, sortDirection) {
+        return data.sort((a, b) => {
+            a = a[sortBy];
+            b = b[sortBy];
+
+            if (typeof a === 'number') {
+                return sortDirection === 'ASC' ? a - b : b - a;
+            }
+
+            if (a !== undefined) {
+                return sortDirection === 'ASC'
+                    ? a.localeCompare(b)
+                    : b.localeCompare(a);
+            }
+
+            return 0;
+        });
+    }
+
     render() {
         const { width, height, data, layerType } = this.props;
         const fields = mapValues(() => true, data[0]);
@@ -151,36 +181,6 @@ class DataTable extends Component {
                 )}
             </Table>
         );
-    }
-
-    onSort(sortBy, sortDirection) {
-        const data = this.state.data;
-
-        this.setState({
-            sortBy,
-            sortDirection,
-            data: this.sort(data, sortBy, sortDirection),
-        });
-    }
-
-    // TODO: Make sure sorting works across different locales - use lib method
-    sort(data, sortBy, sortDirection) {
-        return data.sort((a, b) => {
-            a = a[sortBy];
-            b = b[sortBy];
-
-            if (typeof a === 'number') {
-                return sortDirection === 'ASC' ? a - b : b - a;
-            }
-
-            if (a !== undefined) {
-                return sortDirection === 'ASC'
-                    ? a.localeCompare(b)
-                    : b.localeCompare(a);
-            }
-
-            return 0;
-        });
     }
 }
 
