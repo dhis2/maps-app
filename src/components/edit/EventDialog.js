@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
-// import { Tabs, Tab } from 'd2-ui/lib/tabs/Tabs'; // Not supporting state change
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'd2-ui/lib/text-field/TextField';
 import ProgramSelect from '../program/ProgramSelect';
