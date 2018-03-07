@@ -14,7 +14,6 @@ export const classify = (features, options) => {
         features.forEach(feature => {
             feature.properties.color =
                 colorScale[getClassIndex(feature.properties.value) - 1];
-            // console.log(feature.properties.value, getClassIndex(feature.properties.value), feature.properties.color);
         });
     }
 };

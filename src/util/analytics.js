@@ -5,8 +5,6 @@ import { isValidUid } from 'd2/lib/uid';
 import { relativePeriods } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
 
-// console.log('dimConf', dimConf);
-
 /* DIMENSIONS */
 
 const createDimension = (dimension, items, props) => ({
@@ -51,18 +49,6 @@ export const setDataItemInColumns = (dataItem, dimension) => {
           ]
         : [];
 };
-
-/* REPORTING RATES */
-
-/*
-export const setReportingRateInColumns = (dataSetItem) => [
-    createDimension('dx', [{
-        id: dataSetItem.id,
-        name: dataSetItem.name,
-        dimensionItemType: 'REPORTING_RATE',
-    }], { objectName: 'ds' })
-];
-*/
 
 /* ORGANISATION UNIT */
 

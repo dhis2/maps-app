@@ -12,6 +12,16 @@ import './DataTable.css';
 
 // Using react component to keep sorting state, which is only used within the data table.
 class DataTable extends Component {
+    static propTypes = {
+        data: PropTypes.array.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+    };
+
+    static defaultProps = {
+        data: [],
+    };
+
     constructor(props, context) {
         super(props, context);
 
@@ -183,16 +193,6 @@ class DataTable extends Component {
         );
     }
 }
-
-DataTable.propTypes = {
-    data: PropTypes.array.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-};
-
-DataTable.defaultProps = {
-    data: [],
-};
 
 const mapStateToProps = state => {
     const overlay = state.dataTable

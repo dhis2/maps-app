@@ -1,7 +1,12 @@
 {
     "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
-    "ecmaFeatures": {
-        "classes": true
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "classes": true,
+            "modules": true,
+            "jsx": true
+        }
     },
     "plugins": ["prettier"],
     "rules": {
