@@ -75,13 +75,13 @@ class LayerEdit extends Component {
 
         const title = i18next.t(
             layer.id
-                ? `Edit ${layer.type} layer`
-                : `Add new ${layer.type} layer`
+                ? `Edit ${layer.layer} layer`
+                : `Add new ${layer.layer} layer`
         );
 
         return (
             <Dialog
-                title={i18next.t(title)}
+                title={title}
                 contentStyle={styles.content}
                 bodyStyle={styles.body}
                 titleStyle={styles.title}
