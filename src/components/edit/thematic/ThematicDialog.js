@@ -168,6 +168,7 @@ export class ThematicDialog extends Component {
             columns,
             dataElementGroup,
             filters,
+            id,
             indicatorGroup,
             labels,
             labelFontColor,
@@ -353,7 +354,7 @@ export class ThematicDialog extends Component {
                                 errorText={periodError}
                             />
                         )}
-                        {periodType !== 'relativePeriods' && (
+                        {((periodType && periodType !== 'relativePeriods') || (!periodType && id)) && (
                             <PeriodSelect
                                 periodType={periodType}
                                 period={period}
