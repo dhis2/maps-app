@@ -21,7 +21,7 @@ const style = {
     zIndex: 1100,
 };
 
-// Thiss expand/collapse toggle is separate from LayersPanel to avoid overflow issue
+// This expand/collapse toggle is separate from LayersPanel to avoid overflow issue
 const LayersToggle = ({ isOpen, openLayersPanel, closeLayersPanel }) =>
     isOpen ? (
         <IconButton

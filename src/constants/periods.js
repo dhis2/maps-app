@@ -8,7 +8,7 @@ export const periodTypes = [
     { id: 'SixMonthly', name: 'Six-monthly' },
     { id: 'SixMonthlyApril', name: 'Six-monthly April' },
     { id: 'Yearly', name: 'Yearly' },
-    { id: 'FinancialOct', name: 'Financial year (Start October)' },
+    { id: 'FinancialOctober', name: 'Financial year (Start October)' },
     { id: 'FinancialJuly', name: 'Financial year (Start July)' },
     { id: 'FinancialApril', name: 'Financial year (Start April)' },
 ];
