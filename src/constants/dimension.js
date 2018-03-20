@@ -1,5 +1,3 @@
-// Moved from getInstance.js
-
 export const dimConf = {
     data: {
         id: 'data',
@@ -27,7 +25,7 @@ export const dimConf = {
         param: 'de',
         dimensionName: 'dx',
         objectName: 'de',
-        itemType: 'AGGREGATE_DATA_ELEMENT',
+        itemType: 'DATA_ELEMENT', // AGGREGATE_DATA_ELEMENT
     },
     operand: {
         id: 'operand',

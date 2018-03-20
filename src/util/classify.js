@@ -1,6 +1,10 @@
 // Utils for thematic mapping
 import { format, precisionRound } from 'd3-format';
 import curryRight from 'lodash/fp/curryRight';
+import {
+    CLASSIFICATION_EQUAL_INTERVALS,
+    CLASSIFICATION_EQUAL_COUNTS,
+} from '../constants/layers';
 
 export const classify = (features, options) => {
     const { method, classes, colorScale } = options;
@@ -34,11 +38,9 @@ export const getLegendItems = (values, method, numClasses) => {
     const maxValue = values[values.length - 1];
     let bins;
 
-    if (method === 2) {
-        // Equal intervals - TODO: Use constant
+    if (method === CLASSIFICATION_EQUAL_INTERVALS) {
         bins = getEqualIntervals(minValue, maxValue, numClasses);
-    } else if (method === 3) {
-        // Quantiles - TODO: Use constant
+    } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
         bins = getQuantiles(values, numClasses);
     }
 
@@ -50,11 +52,9 @@ export const getClassBins = (values, method, numClasses) => {
     const maxValue = values[values.length - 1];
     let bins;
 
-    if (method === 2) {
-        // Equal intervals - TODO: Use constant
+    if (method === CLASSIFICATION_EQUAL_INTERVALS) {
         bins = getEqualIntervals(minValue, maxValue, numClasses);
-    } else if (method === 3) {
-        // Quantiles - TODO: Use constant
+    } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
         bins = getQuantiles(values, numClasses);
     }
 

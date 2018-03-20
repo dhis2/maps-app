@@ -12,17 +12,17 @@ export const EVENT_RADIUS = 6;
 
 /* CLASSIFICATION */
 
-export const PREDEFINED = 1;
-export const EQUAL_INTERVALS = 2;
-export const EQUAL_COUNTS = 3;
+export const CLASSIFICATION_PREDEFINED = 1;
+export const CLASSIFICATION_EQUAL_INTERVALS = 2;
+export const CLASSIFICATION_EQUAL_COUNTS = 3;
 
 export const classificationTypes = [
     {
-        id: EQUAL_INTERVALS,
+        id: CLASSIFICATION_EQUAL_INTERVALS,
         name: 'Equal intervals',
     },
     {
-        id: EQUAL_COUNTS,
+        id: CLASSIFICATION_EQUAL_COUNTS,
         name: 'Equal counts',
     },
 ];

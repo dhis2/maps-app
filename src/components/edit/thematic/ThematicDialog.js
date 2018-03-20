@@ -30,6 +30,10 @@ import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import { layerDialogStyles } from '../LayerDialogStyles';
 import { dimConf } from '../../../constants/dimension';
+import {
+    CLASSIFICATION_PREDEFINED,
+    CLASSIFICATION_EQUAL_INTERVALS,
+} from '../../../constants/layers';
 
 import {
     setClassification,
@@ -134,18 +138,15 @@ export class ThematicDialog extends Component {
             const prevDataItem = getDataItemFromColumns(prevProps.columns);
 
             if (!method) {
-                // If user selected indicator with legend set
-                // console.log('dataItem', dataItem);
-
                 if (
                     dataItem &&
                     dataItem !== prevDataItem &&
                     dataItem.legendSet
                 ) {
-                    setClassification(1); // TODO: Use constant
+                    setClassification(CLASSIFICATION_PREDEFINED);
                     setLegendSet(dataItem.legendSet);
                 } else {
-                    // setClassification(2); // TODO: Use constant
+                    setClassification(CLASSIFICATION_EQUAL_INTERVALS);
                 }
             }
         }
