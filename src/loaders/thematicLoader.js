@@ -46,6 +46,7 @@ const thematicLoader = async config => {
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
     let alerts = [];
 
+    legend.title = name;
     legend.items.forEach(item => (item.count = 0));
     legend.period = names[data.metaData.dimensions.pe[0]];
 
@@ -106,17 +107,16 @@ const getOrderedValues = data => {
 // Returns a legend created from a pre-defined legend set
 const createLegendFromLegendSet = async legendSet => {
     const d2 = await getD2();
-    const { name, legends } = await d2.models.legendSet.get(legendSet.id);
+    const { legends } = await d2.models.legendSet.get(legendSet.id);
     const pickSome = pick(['name', 'startValue', 'endValue', 'color']);
+
     return {
-        title: name,
         items: sortBy('startValue', legends).map(pickSome),
     };
 };
 
 const createLegendFromConfig = (data, config) => {
     const {
-        name,
         method = 2, // TODO: Make constant
         classes = defaultClasses,
         colorScale = defaultColorScale,
@@ -126,7 +126,6 @@ const createLegendFromConfig = (data, config) => {
     const colors = colorScale.split(',');
 
     return {
-        title: name,
         items: items.map((item, index) => ({
             ...item,
             color: colors[index],

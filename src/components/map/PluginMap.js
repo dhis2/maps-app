@@ -233,7 +233,6 @@ class PluginMap extends Component {
                 <ContextMenu
                     position={position}
                     feature={feature}
-                    // onClose={console.log}
                     onDrillDown={() => this.onDrill('down')}
                     onDrillUp={() => this.onDrill('up')}
                 />
