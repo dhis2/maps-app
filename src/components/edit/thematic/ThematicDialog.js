@@ -137,12 +137,8 @@ export class ThematicDialog extends Component {
             const dataItem = getDataItemFromColumns(columns);
             const prevDataItem = getDataItemFromColumns(prevProps.columns);
 
-            if (!method) {
-                if (
-                    dataItem &&
-                    dataItem !== prevDataItem &&
-                    dataItem.legendSet
-                ) {
+            if (dataItem && dataItem !== prevDataItem) {
+                if (dataItem.legendSet) {
                     setClassification(CLASSIFICATION_PREDEFINED);
                     setLegendSet(dataItem.legendSet);
                 } else {
@@ -355,7 +351,8 @@ export class ThematicDialog extends Component {
                                 errorText={periodError}
                             />
                         )}
-                        {((periodType && periodType !== 'relativePeriods') || (!periodType && id)) && (
+                        {((periodType && periodType !== 'relativePeriods') ||
+                            (!periodType && id)) && (
                             <PeriodSelect
                                 periodType={periodType}
                                 period={period}
