@@ -1,9 +1,13 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import Dialog from 'material-ui/Dialog';
+import SelectField from 'd2-ui/lib/select-field/SelectField';
+import { createPeriodGeneratorsForLocale } from 'd2/lib/period/generators';
 import { closeOrgUnit } from '../../actions/orgUnits';
+import { createPeriods } from '../../util/periods';
+import { filterFuturePeriods } from 'd2/lib/period/helpers';
 
 const styles = {
     dialog: {
@@ -21,13 +25,117 @@ const styles = {
     },
     data: {
         float: 'left',
-        width: 350,
+        width: 345,
+    },
+    select: {
+        margin: '-17px 0 0 3px',
+        width: 340,
+    },
+    table: {
+        fontSize: 14,
+    },
+    left: {
+        textAlign: 'left',
+    },
+    right: {
+        textAlign: 'right',
+        verticalAlign: 'top',
     },
 };
 
 class OrgUnitDialog extends Component {
     static contextTypes = {
         d2: PropTypes.object.isRequired,
+    };
+
+    state = {
+        period: null,
+        periods: null,
+    };
+
+    componentDidMount() {
+        this.loadConfigurations();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { id } = this.props;
+        const { period } = this.state;
+
+        if (
+            id &&
+            period &&
+            (id !== prevProps.id || period !== prevState.period)
+        ) {
+            this.loadData();
+        }
+    }
+
+    async loadConfigurations() {
+        const d2 = this.context.d2;
+        const api = d2.Api.getApi();
+        const [
+            infrastructuralPeriodType = {},
+            infrastructuralIndicators = {},
+            infrastructuralDataElements = {},
+        ] = await Promise.all([
+            api.get('configuration/infrastructuralPeriodType'),
+            api.get('configuration/infrastructuralIndicators'),
+            api.get('configuration/infrastructuralDataElements'),
+        ]);
+        const periodType = infrastructuralPeriodType.id || 'Yearly';
+        const indicators = infrastructuralIndicators.indicators || [];
+        const dataElements = infrastructuralDataElements.dataElements || [];
+
+        const periods = filterFuturePeriods(
+            createPeriods(this.props.locale, periodType)
+        );
+
+        if (periods) {
+            this.setState({
+                periods,
+                period: periods[0].id,
+                dataItems: [].concat(indicators, dataElements),
+            });
+        }
+    }
+
+    async loadData() {
+        const { id } = this.props;
+        const { period, dataItems } = this.state;
+        const { d2 } = this.context;
+
+        const analyticsRequest = new d2.analytics.request()
+            .addDataDimension(dataItems.map(item => item.id))
+            .addOrgUnitDimension(id)
+            .addPeriodFilter(period);
+
+        const data = await d2.analytics.aggregate.get(analyticsRequest);
+
+        if (data.rows) {
+            const dxIndex = data.headers.findIndex(
+                header => header.name === 'dx'
+            );
+            const valueIndex = data.headers.findIndex(
+                header => header.name === 'value'
+            );
+
+            this.setState({
+                data: data.rows
+                    .map(row => ({
+                        id: row[dxIndex],
+                        name: data.metaData.items[row[dxIndex]].name,
+                        value: row[valueIndex],
+                    }))
+                    .sort((a, b) => a.name.localeCompare(b.name)),
+            });
+        }
+    }
+
+    // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
+    onPeriodChange = period => {
+        this.setState({
+            period: period.id,
+        });
     };
 
     render() {
@@ -38,23 +146,18 @@ class OrgUnitDialog extends Component {
             parent,
             coordinates,
             organisationUnitGroups,
+            locale,
             closeOrgUnit,
         } = this.props;
 
-        if (!id) {
+        const { period, periods, data } = this.state;
+
+        if (!id || !periods) {
             return null;
         }
 
-        // console.log('#', this.context.d2.system.settings);
-
         const groups = organisationUnitGroups.toArray();
         const coords = JSON.parse(coordinates);
-
-        // console.log('props', this.props);
-        // console.log('Infrastructural data', id, this.props)
-
-        // <h3 style={styles.header}>Coordinates</h3>
-        // {coords[0]}, {coords[1]}
 
         return (
             <Dialog
@@ -73,7 +176,37 @@ class OrgUnitDialog extends Component {
                         <div key={group.id}>{group.name}</div>
                     ))}
                 </div>
-                <div style={styles.data} />
+                <div style={styles.data}>
+                    <SelectField
+                        label={i18next.t('Period')}
+                        items={periods}
+                        value={period}
+                        onChange={this.onPeriodChange}
+                        style={styles.select}
+                    />
+                    {data && data.length ? (
+                        <table style={styles.table}>
+                            <thead>
+                                <tr>
+                                    <th style={styles.left}>
+                                        {i18next.t('Data element')}
+                                    </th>
+                                    <th style={styles.right}>
+                                        {i18next.t('Value')}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map(({ id, name, value }) => (
+                                    <tr key={id}>
+                                        <td>{name}</td>
+                                        <td style={styles.right}>{value}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : null}
+                </div>
             </Dialog>
         );
     }
@@ -82,330 +215,7 @@ class OrgUnitDialog extends Component {
 export default connect(
     state => ({
         ...state.orgUnit,
+        locale: state.userSettings.keyUiLocale,
     }),
     { closeOrgUnit }
 )(OrgUnitDialog);
-
-// TODO: Reactify!
-/*
-let infrastructuralWindow;
-const infrastructuralDataElementValuesStore = Ext.create('Ext.data.Store', {
-    fields: ['name', 'value'],
-    sorters: [{
-        property: 'name',
-        direction: 'ASC'
-    }]
-});
-
-// Infrastructural data
-const showInfo = function(att) {
-
-    // Destroy window if created previously
-    if (infrastructuralWindow) {
-        infrastructuralWindow.destroy();
-        infrastructuralDataElementValuesStore.removeAll();
-    }
-
-    const orgUnitInfo = Ext.create('Ext.panel.Panel', {
-        cls: 'gis-container-inner',
-        width: 150,
-        bodyStyle: 'padding-right:5px;',
-        items: [
-            {
-                html: GIS.i18n.name,
-                cls: 'gis-panel-html-title'
-            },
-            {
-                html: att.name || '',
-                cls: 'gis-panel-html'
-            },
-            {
-                cls: 'gis-panel-html-separator'
-            }
-        ]
-    });
-
-    const onPeriodChange = function(cmp) {
-        const period = cmp.getValue();
-        const url = gis.init.analyticsPath + 'analytics.json?';
-        const iig = gis.init.systemSettings.infrastructuralIndicatorGroup || {};
-        const ideg = gis.init.systemSettings.infrastructuralDataElementGroup || {};
-        const indicators = iig.indicators || [];
-        const dataElements = ideg.dataElements || [];
-        const data = [].concat(indicators, dataElements);
-
-        // data
-        let paramString = 'dimension=dx:';
-        data.forEach((d, i) => paramString += d.id + (i < data.length - 1 ? ';' : ''));
-
-        // period
-        paramString += '&filter=pe:' + period;
-
-        // orgunit
-        paramString += '&dimension=ou:' + att.id;
-
-        Ext.Ajax.request({
-            url: encodeURI(url + paramString),
-            success(r) {
-                const records = [];
-                let dxIndex;
-                let valueIndex;
-
-                r = JSON.parse(r.responseText);
-
-                if (!r.rows && r.rows.length) {
-                    return;
-                }
-                else {
-                    // index
-                    r.headers.forEach((header, i) => {
-                        if (header.name === 'dx') {
-                            dxIndex = i;
-                        }
-                        if (header.name === 'value') {
-                            valueIndex = i;
-                        }
-                    });
-
-                    // records
-                    r.rows.forEach(row => {
-                        const value = row[valueIndex];
-                        records.push({
-                            name: r.metaData.names[row[dxIndex]],
-                            value: isNumeric(value) ? parseFloat(value) : value
-                        });
-
-                    });
-
-                    infrastructuralDataElementValuesStore.loadData(records);
-                }
-            }
-        });
-    };
-
-    const orgUnitDataCombo = Ext.create('Ext.form.field.ComboBox', {
-        fieldLabel: GIS.i18n.period,
-        editable: false,
-        valueField: 'id',
-        displayField: 'name',
-        emptyText: 'Select period',
-        forceSelection: true,
-        width: 340,
-        labelWidth: 70,
-        store: {
-            fields: ['id', 'name'],
-            data: function() {
-                const periodType = gis.init.systemSettings.infrastructuralPeriodType.id;
-                const generator = gis.init.periodGenerator;
-                let periods = generator.filterFuturePeriodsExceptCurrent(generator.generateReversedPeriods(periodType, undefined)) || [];
-
-                if (Array.isArray(periods) && periods.length) {
-                    periods.forEach(period => period.id = period.iso);
-                    periods = periods.slice(0,5);
-                }
-
-                return periods;
-            }()
-        },
-        lockPosition: false,
-        listeners: {
-            change: onPeriodChange,
-            render() {
-                this.select(this.getStore().getAt(0));
-            }
-        }
-    });
-
-    const orgUnitDataGrid = Ext.create('Ext.grid.Panel',                     {
-        xtype: 'grid',
-        cls: 'gis-grid plain',
-        height: 163,
-        width: 340,
-        scroll: 'vertical',
-        columns: [
-            {
-                id: 'name',
-                text: GIS.i18n.dataelement,
-                dataIndex: 'name',
-                sortable: true,
-                width: 190
-            },
-            {
-                id: 'value',
-                header: GIS.i18n.value,
-                dataIndex: 'value',
-                sortable: true,
-                width: 150
-            }
-        ],
-        disableSelection: true,
-        store: infrastructuralDataElementValuesStore
-    });
-
-    // Ext.form.Panel
-    const orgUnitForm = Ext.create('Ext.panel.Panel', {
-        cls: 'gis-container-inner gis-form-widget',
-        bodyStyle: 'padding-left:4px;',
-        width: 350,
-        items: [
-            {
-                html: GIS.i18n.infrastructural_data,
-                cls: 'gis-panel-html-title'
-            },
-            {
-                cls: 'gis-panel-html-separator'
-            },
-            orgUnitDataCombo,
-            orgUnitDataGrid
-        ]
-    });
-
-    infrastructuralWindow = Ext.create('Ext.window.Window', {
-        title: GIS.i18n.information,
-        layout: 'column',
-        iconCls: 'gis-window-title-icon-information',
-        cls: 'gis-container-default',
-        height: 250,
-        period: null,
-        modal: true,
-        items: [orgUnitInfo, orgUnitForm],
-        listeners: {
-            close: att.closeOrgUnit
-        }
-    });
-
-    infrastructuralWindow.show();
-    // gis.util.gui.window.setPositionTopRight(infrastructuralWindow);
-
-    // Load info about organisation unit
-    Ext.Ajax.request({
-        url: encodeURI(gis.init.apiPath + 'organisationUnits/' + att.id + '.json?fields=id,' + gis.init.namePropertyUrl + ',code,address,email,phoneNumber,coordinates,parent[id,' + gis.init.namePropertyUrl + '],organisationUnitGroups[id,' + gis.init.namePropertyUrl + ']'),
-        success(r) {
-            const ou = JSON.parse(r.responseText);
-
-            if (ou.parent) {
-                orgUnitInfo.add(
-                    {
-                        html: GIS.i18n.parent_unit,
-                        cls: 'gis-panel-html-title'
-                    },
-                    {
-                        html: ou.parent.name,
-                        cls: 'gis-panel-html'
-                    },
-                    {
-                        cls: 'gis-panel-html-separator'
-                    }
-                );
-            }
-
-            if (ou.code) {
-                orgUnitInfo.add(
-                    {
-                        html: GIS.i18n.code,
-                        cls: 'gis-panel-html-title'
-                    },
-                    {
-                        html: ou.code,
-                        cls: 'gis-panel-html'
-                    },
-                    {
-                        cls: 'gis-panel-html-separator'
-                    }
-                );
-            }
-
-            if (ou.address) {
-                orgUnitInfo.add(
-                    {
-                        html: GIS.i18n.address,
-                        cls: 'gis-panel-html-title'
-                    },
-                    {
-                        html: ou.address,
-                        cls: 'gis-panel-html'
-                    },
-                    {
-                        cls: 'gis-panel-html-separator'
-                    }
-                );
-            }
-
-            if (ou.email) {
-                orgUnitInfo.add(
-                    {
-                        html: GIS.i18n.email,
-                        cls: 'gis-panel-html-title'
-                    },
-                    {
-                        html: ou.email,
-                        cls: 'gis-panel-html'
-                    },
-                    {
-                        cls: 'gis-panel-html-separator'
-                    }
-                );
-            }
-
-            if (ou.phoneNumber) {
-                orgUnitInfo.add(
-                    {
-                        html: GIS.i18n.phone_number,
-                        cls: 'gis-panel-html-title'
-                    },
-                    {
-                        html: ou.phoneNumber,
-                        cls: 'gis-panel-html'
-                    },
-                    {
-                        cls: 'gis-panel-html-separator'
-                    }
-                );
-            }
-
-            if (isString(ou.coordinates)) { // TODO: We don't need to download coordinates
-                var co = JSON.parse(ou.coordinates);
-
-                if (typeof co[0] === 'number') {
-                    orgUnitInfo.add(
-                        {
-                            html: GIS.i18n.coordinates,
-                            cls: 'gis-panel-html-title'
-                        },
-                        {
-                            html: co.join(', '),
-                            cls: 'gis-panel-html'
-                        },
-                        {
-                            cls: 'gis-panel-html-separator'
-                        }
-                    );
-                }
-            }
-
-            if (Array.isArray(ou.organisationUnitGroups) && ou.organisationUnitGroups.length) {
-                let html = '';
-
-                ou.organisationUnitGroups.forEach((group, index) => {
-                    html += group.name;
-                    html += index < ou.organisationUnitGroups.length - 1 ? '<br/>' : '';
-                });
-
-                orgUnitInfo.add(
-                    {
-                        html: GIS.i18n.groups,
-                        cls: 'gis-panel-html-title'
-                    },
-                    {
-                        html: html,
-                        cls: 'gis-panel-html'
-                    },
-                    {
-                        cls: 'gis-panel-html-separator'
-                    }
-                );
-            }
-        }
-    });
-};
-*/

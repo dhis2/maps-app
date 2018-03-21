@@ -135,21 +135,17 @@ const ContextMenu = (props, context) => {
                         </MenuItem>
                     )}
 
-                {feature &&
-                    false && (
-                        <MenuItem
-                            onClick={() => props.onShowInformation(attr)}
-                            innerDivStyle={styles.menuItemInner}
-                            leftIcon={
-                                <SvgIcon
-                                    icon="InfoOutline"
-                                    style={styles.icon}
-                                />
-                            }
-                        >
-                            {i18next.t('Show information')}
-                        </MenuItem>
-                    )}
+                {feature && (
+                    <MenuItem
+                        onClick={() => props.onShowInformation(attr)}
+                        innerDivStyle={styles.menuItemInner}
+                        leftIcon={
+                            <SvgIcon icon="InfoOutline" style={styles.icon} />
+                        }
+                    >
+                        {i18next.t('Show information')}
+                    </MenuItem>
+                )}
 
                 {coordinate && (
                     <MenuItem
