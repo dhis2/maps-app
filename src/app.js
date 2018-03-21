@@ -52,9 +52,9 @@ getManifest('manifest.webapp')
         ];
     })
     .then(getUserSettings)
-    .then(settings => {
-        store.dispatch(setUserSettings(settings));
-        return settings;
+    .then(userSettings => {
+        store.dispatch(setUserSettings(userSettings));
+        return userSettings;
     })
     .then(configI18n)
     .then(init)

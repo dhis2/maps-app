@@ -4,7 +4,7 @@ import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
-import { createPeriodGeneratorsForLocale } from 'd2/lib/period/generators';
+import { createPeriods } from '../../util/periods';
 
 const styles = {
     select: {
@@ -21,7 +21,7 @@ const styles = {
         width: 24,
         height: 24,
         padding: 0,
-    }
+    },
 };
 
 class PeriodSelect extends Component {
@@ -31,8 +31,6 @@ class PeriodSelect extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.periodGenerator = createPeriodGeneratorsForLocale(props.locale);
-
         this.nextYear = this.nextYear.bind(this);
         this.previousYear = this.previousYear.bind(this);
     }
@@ -49,7 +47,10 @@ class PeriodSelect extends Component {
     componentDidUpdate(prevProps, prevState) {
         const { periodType, period, onChange } = this.props;
 
-        if (periodType !== prevProps.periodType || this.state.year !== prevState.year) {
+        if (
+            periodType !== prevProps.periodType ||
+            this.state.year !== prevState.year
+        ) {
             const periods = this.generatePeriods(periodType, period);
 
             onChange(periods[0]);
@@ -57,18 +58,14 @@ class PeriodSelect extends Component {
     }
 
     generatePeriods(periodType, period) {
-        const { year } = this.state;
         let periods;
 
         if (periodType) {
-            const generator =
-                this.periodGenerator[`generate${periodType}PeriodsForYear`] ||
-                this.periodGenerator[`generate${periodType}PeriodsUpToYear`];
-
-            if (!generator) {
-                return null;
-            }
-            periods = generator(year).reverse();
+            periods = createPeriods(
+                this.props.locale,
+                periodType,
+                this.state.year
+            );
         } else {
             if (!period) {
                 return null;
@@ -85,7 +82,7 @@ class PeriodSelect extends Component {
         this.setState({ year: this.state.year + 1 });
     }
 
-    previousYear () {
+    previousYear() {
         this.setState({ year: this.state.year - 1 });
     }
 
@@ -95,7 +92,7 @@ class PeriodSelect extends Component {
         const value = period ? period.id : null;
 
         return (
-            <div style={{...style, height: 100 }}>
+            <div style={{ ...style, height: 100 }}>
                 <SelectField
                     label={i18next.t('Period')}
                     items={periods}
@@ -104,24 +101,24 @@ class PeriodSelect extends Component {
                     style={styles.select}
                     errorText={!value && errorText ? errorText : null}
                 />
-                    <div  style={styles.stepper}>
-                        <IconButton
-                            tooltip={i18next.t('Previous year')}
-                            onClick={this.previousYear}
-                            style={styles.button}
-                            disableTouchRipple={true}
-                        >
-                            <SvgIcon icon="ChevronLeft" />
-                        </IconButton>
-                        <IconButton
-                            tooltip={i18next.t('Next year')}
-                            onClick={this.nextYear}
-                            style={styles.button}
-                            disableTouchRipple={true}
-                        >
-                            <SvgIcon icon="ChevronRight" />
-                        </IconButton>
-                    </div>
+                <div style={styles.stepper}>
+                    <IconButton
+                        tooltip={i18next.t('Previous year')}
+                        onClick={this.previousYear}
+                        style={styles.button}
+                        disableTouchRipple={true}
+                    >
+                        <SvgIcon icon="ChevronLeft" />
+                    </IconButton>
+                    <IconButton
+                        tooltip={i18next.t('Next year')}
+                        onClick={this.nextYear}
+                        style={styles.button}
+                        disableTouchRipple={true}
+                    >
+                        <SvgIcon icon="ChevronRight" />
+                    </IconButton>
+                </div>
             </div>
         );
     }
