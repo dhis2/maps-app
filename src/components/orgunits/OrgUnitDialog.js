@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import Dialog from 'material-ui/Dialog';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
-import { createPeriodGeneratorsForLocale } from 'd2/lib/period/generators';
+import PeriodSelect from '../periods/PeriodSelect';
 import { closeOrgUnit } from '../../actions/orgUnits';
-import { createPeriods } from '../../util/periods';
-import { filterFuturePeriods } from 'd2/lib/period/helpers';
 
 const styles = {
     dialog: {
         maxWidth: 600,
+    },
+    content: {
+        height: 300,
+        maxHeight: 300,
     },
     metadata: {
         fontSize: 14,
@@ -27,12 +28,15 @@ const styles = {
         float: 'left',
         width: 345,
     },
-    select: {
+    period: {
+        height: 70,
         margin: '-17px 0 0 3px',
-        width: 340,
     },
     table: {
+        display: 'block',
         fontSize: 14,
+        maxHeight: 240,
+        overflowY: 'auto',
     },
     left: {
         textAlign: 'left',
@@ -49,6 +53,7 @@ class OrgUnitDialog extends Component {
     };
 
     state = {
+        peridType: null,
         period: null,
         periods: null,
     };
@@ -86,17 +91,10 @@ class OrgUnitDialog extends Component {
         const indicators = infrastructuralIndicators.indicators || [];
         const dataElements = infrastructuralDataElements.dataElements || [];
 
-        const periods = filterFuturePeriods(
-            createPeriods(this.props.locale, periodType)
-        );
-
-        if (periods) {
-            this.setState({
-                periods,
-                period: periods[0].id,
-                dataItems: [].concat(indicators, dataElements),
-            });
-        }
+        this.setState({
+            periodType,
+            dataItems: [].concat(indicators, dataElements),
+        });
     }
 
     async loadData() {
@@ -107,7 +105,7 @@ class OrgUnitDialog extends Component {
         const analyticsRequest = new d2.analytics.request()
             .addDataDimension(dataItems.map(item => item.id))
             .addOrgUnitDimension(id)
-            .addPeriodFilter(period);
+            .addPeriodFilter(period.id);
 
         const data = await d2.analytics.aggregate.get(analyticsRequest);
 
@@ -134,7 +132,7 @@ class OrgUnitDialog extends Component {
     // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
     onPeriodChange = period => {
         this.setState({
-            period: period.id,
+            period,
         });
     };
 
@@ -150,9 +148,9 @@ class OrgUnitDialog extends Component {
             closeOrgUnit,
         } = this.props;
 
-        const { period, periods, data } = this.state;
+        const { periodType, period, data } = this.state;
 
-        if (!id || !periods) {
+        if (!id) {
             return null;
         }
 
@@ -164,48 +162,52 @@ class OrgUnitDialog extends Component {
                 title={name}
                 open={true}
                 contentStyle={styles.dialog}
+                bodyStyle={styles.body}
                 onRequestClose={closeOrgUnit}
             >
-                <div style={styles.metadata}>
-                    <h3 style={styles.header}>Parent unit</h3>
-                    {parent.name}
-                    <h3 style={styles.header}>Code</h3>
-                    {code}
-                    <h3 style={styles.header}>Groups</h3>
-                    {groups.map(group => (
-                        <div key={group.id}>{group.name}</div>
-                    ))}
-                </div>
-                <div style={styles.data}>
-                    <SelectField
-                        label={i18next.t('Period')}
-                        items={periods}
-                        value={period}
-                        onChange={this.onPeriodChange}
-                        style={styles.select}
-                    />
-                    {data && data.length ? (
-                        <table style={styles.table}>
-                            <thead>
-                                <tr>
-                                    <th style={styles.left}>
-                                        {i18next.t('Data element')}
-                                    </th>
-                                    <th style={styles.right}>
-                                        {i18next.t('Value')}
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.map(({ id, name, value }) => (
-                                    <tr key={id}>
-                                        <td>{name}</td>
-                                        <td style={styles.right}>{value}</td>
+                <div style={styles.content}>
+                    <div style={styles.metadata}>
+                        <h3 style={styles.header}>Parent unit</h3>
+                        {parent.name}
+                        <h3 style={styles.header}>Code</h3>
+                        {code}
+                        <h3 style={styles.header}>Groups</h3>
+                        {groups.map(group => (
+                            <div key={group.id}>{group.name}</div>
+                        ))}
+                    </div>
+                    <div style={styles.data}>
+                        <PeriodSelect
+                            periodType={periodType}
+                            period={period}
+                            onChange={this.onPeriodChange}
+                            style={styles.period}
+                        />
+                        {data && data.length ? (
+                            <table style={styles.table}>
+                                <thead>
+                                    <tr>
+                                        <th style={styles.left}>
+                                            {i18next.t('Data element')}
+                                        </th>
+                                        <th style={styles.right}>
+                                            {i18next.t('Value')}
+                                        </th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    ) : null}
+                                </thead>
+                                <tbody>
+                                    {data.map(({ id, name, value }) => (
+                                        <tr key={id}>
+                                            <td>{name}</td>
+                                            <td style={styles.right}>
+                                                {value}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : null}
+                    </div>
                 </div>
             </Dialog>
         );
