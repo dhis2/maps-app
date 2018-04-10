@@ -4,11 +4,12 @@ import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import { filterFuturePeriods } from 'd2/lib/period/helpers';
 import { createPeriods } from '../../util/periods';
 
 const styles = {
     select: {
-        width: 240,
+        width: 'calc(100% - 60px)',
     },
     stepper: {
         display: 'inline-block',
@@ -40,7 +41,7 @@ class PeriodSelect extends Component {
         const periods = this.generatePeriods(periodType, period);
 
         if (!period && periods) {
-            onChange(periods[0]); // Select first period
+            onChange(filterFuturePeriods(periods)[0]); // Select most recent period
         }
     }
 
@@ -92,7 +93,7 @@ class PeriodSelect extends Component {
         const value = period ? period.id : null;
 
         return (
-            <div style={{ ...style, height: 100 }}>
+            <div style={{ height: 100, ...style }}>
                 <SelectField
                     label={i18next.t('Period')}
                     items={periods}
