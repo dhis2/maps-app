@@ -107,7 +107,7 @@
     },
     "pre-commit": ["validate", "test"],
     "manifest.webapp": {
-        "name": "Maps App",
+        "name": "DHIS2 Maps",
         "icons": {
             "48": "icon.png"
         },
