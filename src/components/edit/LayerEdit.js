@@ -18,6 +18,14 @@ const layerType = {
     earthEngine: EarthEngineDialog,
 };
 
+const layerName = {
+    event: 'event',
+    facility: 'facility',
+    thematic: 'thematic',
+    boundary: 'boundary',
+    earthEngine: 'Earth Engine',
+};
+
 const styles = {
     content: {
         minWidth: 400,
@@ -66,17 +74,16 @@ class LayerEdit extends Component {
             return null;
         }
 
-        const LayerDialog = layerType[layer.layer];
+        const type = layer.layer;
+        const name = layerName[type];
+        const LayerDialog = layerType[type];
 
         if (!LayerDialog) {
             return null;
-            // reject('Unknown layer type.'); // TODO
         }
 
         const title = i18next.t(
-            layer.id
-                ? `Edit ${layer.layer} layer`
-                : `Add new ${layer.layer} layer`
+            layer.id ? `Edit ${name} layer` : `Add new ${name} layer`
         );
 
         return (
