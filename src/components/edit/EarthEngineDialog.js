@@ -210,7 +210,7 @@ class EarthEngineDialog extends Component {
                                         setParams(
                                             params.min,
                                             params.max,
-                                            palette.join()
+                                            palette
                                         )
                                     }
                                     style={styles.colorScale}
