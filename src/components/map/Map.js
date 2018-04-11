@@ -10,7 +10,7 @@ import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
-import { HEADER_HEIGHT, LAYERS_PANEL_WIDTH } from '../../constants/layout';
+import { HEADER_HEIGHT, LAYERS_PANEL_WIDTH, RIGHT_PANEL_WIDTH } from '../../constants/layout';
 
 const layerType = {
     event: EventLayer,
@@ -124,6 +124,7 @@ class Map extends Component {
             basemaps,
             mapViews,
             layersPanelOpen,
+            rightPanelOpen,
             dataTableOpen,
             dataTableHeight,
             openContextMenu,
@@ -141,7 +142,7 @@ class Map extends Component {
             top: HEADER_HEIGHT,
             left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
             bottom: dataTableOpen ? dataTableHeight : 0,
-            right: 0,
+            right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
         };
 
         return (
@@ -168,6 +169,7 @@ const mapStateToProps = state => ({
     ...state.map,
     basemaps: state.basemaps,
     layersPanelOpen: state.ui.layersPanelOpen,
+    rightPanelOpen: state.ui.rightPanelOpen && !!state.map.id,
     dataTableOpen: state.dataTable,
     dataTableHeight: state.ui.dataTableHeight,
 });

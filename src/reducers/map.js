@@ -234,6 +234,12 @@ const map = (state = defaultState, action) => {
                 basemap: basemap(state.basemap, action),
             };
 
+        case types.MAP_UPDATE:
+            return {
+                ...state,
+                ...action.payload,
+            };
+
         case types.LAYER_ADD:
             // Check to only allow external layers to be added once
             if (state.mapViews.filter(l => l.id === action.payload.id).length) {

@@ -7,11 +7,13 @@ import dataElementGroups from './dataElementGroups';
 import dataElementOperands from './dataElementOperands';
 import dataSets from './dataSets';
 import dataTable from './dataTable';
+import details from './details';
 import earthEngine from './earthEngine';
 import favorite from './favorite';
 import layerEdit from './layerEdit';
 import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
+import interpretations from './interpretations';
 import layers from './layers';
 import legendSets from './legendSets';
 import loading from './loading';
@@ -33,7 +35,7 @@ import relocate from './relocate';
 import ui from './ui';
 import userSettings from './userSettings';
 
-export default combineReducers({
+export default {
     alert,
     basemaps,
     contextMenu,
@@ -42,10 +44,12 @@ export default combineReducers({
     dataElementOperands,
     dataSets,
     dataTable,
+    details,
     earthEngine,
     favorite,
     indicators,
     indicatorGroups,
+    interpretations,
     layerEdit,
     layers,
     legendSets,
@@ -67,4 +71,4 @@ export default combineReducers({
     relocate,
     ui,
     userSettings,
-});
+};

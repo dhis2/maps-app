@@ -1,0 +1,33 @@
+.DetailsCard {
+    clear: both;
+    z-index: 1010;
+    margin: 8px 4px 8px 4px;
+}
+
+.DetailsCard-header {
+    height: 32px;
+    padding-left: 14px;
+    padding-right: 8px;
+    margin-right: -8px;
+    font-size: 10px;
+}
+
+.DetailsCard-list {
+    margin-left: 15px;
+}
+
+.DetailsCard-list > div {
+    padding: 5px 0px;
+}
+
+.DetailsCard-header span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.DetailsCard-toolbar {
+    background-color: #eee;
+    height: 32px;
+    padding-left: 7px;
+}

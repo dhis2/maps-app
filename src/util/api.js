@@ -30,7 +30,7 @@ export const apiFetch = async (url, method, body) => {
     return fetch(encodeURI(config.baseUrl + url), options)
         .then(
             response =>
-                method !== 'PUT' && method !== 'PATCH'
+                method !== 'PUT' && method !== 'PATCH' && method !== 'DELETE'
                     ? response.json()
                     : response
         ) // Avoids error

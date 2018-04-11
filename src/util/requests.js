@@ -9,15 +9,14 @@ import sortBy from 'lodash/fp/sortBy';
 // Fetch one favorite
 export const mapRequest = async id => {
     const d2 = await getD2();
+    const getMapConfig = d2.models.map.get(id, {fields: await mapFields()}).then(getBasemap);
+    const getFavoriteViews = d2.Api.getApi().get(`dataStatistics/favorites/${id}`).then(json => json.views);
 
-    return d2.models.map
-        .get(id, {
-            fields: await mapFields(),
-        })
-        .then(getBasemap)
-        .then(config => ({
-            ...config,
-            mapViews: upgradeGisAppLayers(config.mapViews),
+    return Promise.all([getMapConfig, getFavoriteViews])
+        .then(([mapConfig, favoriteViews]) => ({
+            ...mapConfig,
+            mapViews: upgradeGisAppLayers(mapConfig.mapViews),
+            favoriteViews: favoriteViews,
         }));
 };
 

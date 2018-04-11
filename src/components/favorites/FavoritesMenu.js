@@ -9,14 +9,17 @@ import FavoritesDialog from './FavoritesDialog';
 import SaveNewFavoriteDialog from './SaveNewFavoriteDialog';
 import InterpretationDialog from './InterpretationDialog';
 import LinksDialog from './LinksDialog';
-import { newMap } from '../../actions/map';
 import { closeDataTable } from '../../actions/dataTable';
 import {
+    loadFavorite,
     saveFavorite,
     openFavoritesDialog,
     openSaveNewFavoriteDialog,
-    saveFavoriteInterpretation,
 } from '../../actions/favorites';
+
+import {
+    saveInterpretation,
+} from '../../actions/interpretations';
 
 const styles = {
     button: {
@@ -48,7 +51,7 @@ class FavoritesMenu extends Component {
     onNewMapClick() {
         this.closeMenu();
         this.props.closeDataTable();
-        this.props.newMap();
+        this.props.loadFavorite(null);
     }
 
     onLoadClick() {
@@ -83,8 +86,13 @@ class FavoritesMenu extends Component {
         });
     }
 
+    onDialogSave(newInterpretation) {
+        this.props.saveInterpretation(newInterpretation);
+        this.onDialogClose();
+    }
+
     render() {
-        const { mapId, saveFavoriteInterpretation } = this.props;
+        const { mapId } = this.props;
         const {
             anchorEl,
             showInterpretationDialog,
@@ -142,10 +150,7 @@ class FavoritesMenu extends Component {
                 <InterpretationDialog
                     key="interpretation"
                     favoriteId={mapId}
-                    onSave={(id, interpretation) => {
-                        saveFavoriteInterpretation(id, interpretation);
-                        this.onDialogClose();
-                    }}
+                    onSave={newInterpretation => this.onDialogSave(newInterpretation)}
                     onClose={() => this.onDialogClose()}
                 />
             ),
@@ -166,11 +171,11 @@ export default connect(
         favoritesDialogOpen: state.favorite.dialogOpen,
     }),
     {
-        newMap,
+        loadFavorite,
         saveFavorite,
         openFavoritesDialog,
         openSaveNewFavoriteDialog,
-        saveFavoriteInterpretation,
+        saveInterpretation,
         closeDataTable,
     }
 )(FavoritesMenu);

@@ -1,0 +1,123 @@
+.interpretationDescSection {
+  padding: 5px 5px 5px 12px;
+  font-size: 12px;
+}
+
+.interpretationName {
+  display: inline-block;
+}
+
+.interpretationText {
+  margin-bottom: 5px;
+  margin-left: 0px;
+  margin-top: 5px;
+}
+
+.interpretationItem {
+  padding: 2px 2px 2px 30px;
+}
+
+.interpretationItem img {
+  border: 0px;
+  padding: 0px;
+}
+
+.interpretationCommentArea {
+  margin: 2px 5px 5px 0px;
+  font-size: 12px;
+}
+
+.likeArea {
+  padding: 4px 4px 4px 5px;
+}
+
+.commentArea {
+  height: 50px;
+  width: 95%;
+  border: 1px solid #ccc;
+  resize: none;
+  overflow: auto;
+  padding: 4px 0px 0px 6px;
+  font-family: Roboto,Arial,sans-serif;
+  font-size: 12px;
+}
+
+.commentButton {
+  width: 120px;
+  height: 24px;
+  margin: 1px 0 0 5px;
+  float: right;
+}
+
+.commentAuthor {
+  margin-bottom: 2px;
+}
+
+.commentText {
+  margin-bottom: 2px;
+}
+
+.disabledLink {
+  color: #cac4c4;
+}
+
+.valignTop {
+  vertical-align: top;
+}
+
+.leftSpace {
+  margin-left: 4px;
+}
+
+a.interpretation {
+  color: #3162C5;
+  cursor: pointer;
+}
+
+.userLink {
+  text-decoration: none;
+  color: #3162c5;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.hidden {
+  display:none;
+}
+
+.postComment {
+  clear: none;
+}
+
+.greyBackground {
+    background-color: #efefef;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: 2px;
+}
+
+.greyBackground:first-child {
+    margin-top: 0px;
+}
+
+.linkArea {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.paddingLeft {
+  padding-left: 5px;
+}
+
+.center {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.tipText {
+    color: #9e9999;
+    font-weight: normal;
+}
