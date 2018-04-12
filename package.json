@@ -46,7 +46,7 @@
         "material-ui-icons": "^1.0.0-beta.17",
         "promise-polyfill": "^7.1.0",
         "prop-types": "^15.5.10",
-        "query-string": "^6.0.0",
+        "query-string": "^4.3.4",
         "react": "^16.1.1",
         "react-color": "^2.13.5",
         "react-dom": "^16.1.1",
