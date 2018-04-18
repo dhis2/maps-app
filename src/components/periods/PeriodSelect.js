@@ -38,35 +38,52 @@ class PeriodSelect extends Component {
 
     componentDidMount() {
         const { periodType, period, onChange } = this.props;
-        const periods = this.generatePeriods(periodType, period);
+        const periods = this.generatePeriods(
+            periodType,
+            this.state.year,
+            period
+        );
 
         if (!period && periods) {
-            onChange(filterFuturePeriods(periods)[0]); // Select most recent period
+            const lastPeriod = filterFuturePeriods(periods)[0]; // Select most recent period
+            onChange(lastPeriod);
         }
     }
 
+    // TODO: Refactor
+    // If the same period type is selected a second time, the period field is cleared
     componentDidUpdate(prevProps, prevState) {
         const { periodType, period, onChange } = this.props;
+        const { year } = this.state;
+        const periodHasChanged =
+            periodType !== prevProps.periodType || year !== prevState.year;
+        let periodIndex = 0;
 
-        if (
-            periodType !== prevProps.periodType ||
-            this.state.year !== prevState.year
-        ) {
-            const periods = this.generatePeriods(periodType, period);
+        if (periodHasChanged) {
+            if (year !== prevState.year) {
+                // Find previous period index
+                periodIndex = this.generatePeriods(
+                    prevProps.periodType,
+                    prevState.year,
+                    prevProps.period
+                ).findIndex(item => item.id === prevProps.period.id);
+            }
 
-            onChange(periods[0]);
+            const periods = this.generatePeriods(
+                periodType,
+                this.state.year,
+                period
+            );
+
+            onChange(periods[periodIndex]);
         }
     }
 
-    generatePeriods(periodType, period) {
+    generatePeriods(periodType, year, period) {
         let periods;
 
         if (periodType) {
-            periods = createPeriods(
-                this.props.locale,
-                periodType,
-                this.state.year
-            );
+            periods = createPeriods(this.props.locale, periodType, year);
         } else {
             if (!period) {
                 return null;

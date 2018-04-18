@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
+import Button from 'd2-ui/lib/button/Button';
 import Dialog from 'material-ui/Dialog';
 import PeriodSelect from '../periods/PeriodSelect';
 import { closeOrgUnit } from '../../actions/orgUnits';
@@ -164,6 +165,11 @@ class OrgUnitDialog extends Component {
                 contentStyle={styles.dialog}
                 bodyStyle={styles.body}
                 onRequestClose={closeOrgUnit}
+                actions={[
+                    <Button color="primary" onClick={closeOrgUnit}>
+                        {i18next.t('Close')}
+                    </Button>,
+                ]}
             >
                 <div style={styles.content}>
                     <div style={styles.metadata}>
