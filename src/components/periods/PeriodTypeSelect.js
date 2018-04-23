@@ -14,12 +14,20 @@ const PeriodTypeSelect = ({ value, onChange, style, errorText }) => {
         }));
     }
 
+    // TODO: Avoid creating this function on each render
+    // We could also add this check to the SelectField component
+    const onPeriodChange = period => {
+        if (period.id !== value) {
+            onChange(period);
+        }
+    };
+
     return (
         <SelectField
             label={i18next.t('Period type')}
             items={periods}
             value={value}
-            onChange={onChange}
+            onChange={onPeriodChange}
             style={style}
             errorText={!value && errorText ? errorText : null}
         />

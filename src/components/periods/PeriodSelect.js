@@ -28,80 +28,35 @@ const styles = {
 class PeriodSelect extends Component {
     state = {
         year: new Date().getFullYear(),
+        periods: null,
     };
 
-    constructor(props, context) {
-        super(props, context);
-        this.nextYear = this.nextYear.bind(this);
-        this.previousYear = this.previousYear.bind(this);
+    constructor(props) {
+        super(props);
+        this.periodIndex = null;
     }
 
     componentDidMount() {
-        const { periodType, period, onChange } = this.props;
-        const periods = this.generatePeriods(
-            periodType,
-            this.state.year,
-            period
-        );
-
-        if (!period && periods) {
-            const lastPeriod = filterFuturePeriods(periods)[0]; // Select most recent period
-            onChange(lastPeriod);
-        }
+        this.setPeriods();
     }
 
-    // TODO: Refactor
-    // If the same period type is selected a second time, the period field is cleared
     componentDidUpdate(prevProps, prevState) {
         const { periodType, period, onChange } = this.props;
-        const { year } = this.state;
-        const periodHasChanged =
-            periodType !== prevProps.periodType || year !== prevState.year;
-        let periodIndex = 0;
+        const { year, periods } = this.state;
 
-        if (periodHasChanged) {
-            if (year !== prevState.year) {
-                // Find previous period index
-                periodIndex = this.generatePeriods(
-                    prevProps.periodType,
-                    prevState.year,
-                    prevProps.period
-                ).findIndex(item => item.id === prevProps.period.id);
-            }
+        if (periodType !== prevProps.periodType) {
+            this.setPeriods();
+        } else if (periods && !period) {
+            onChange(filterFuturePeriods(periods)[0]); // Autoselect most recent period
+        }
 
-            const periods = this.generatePeriods(
-                periodType,
-                this.state.year,
-                period
+        // Change period if year is changed (but keep period index)
+        if (period && year !== prevState.year) {
+            const periodIndex = prevState.periods.findIndex(
+                item => item.id === period.id
             );
-
             onChange(periods[periodIndex]);
         }
-    }
-
-    generatePeriods(periodType, year, period) {
-        let periods;
-
-        if (periodType) {
-            periods = createPeriods(this.props.locale, periodType, year);
-        } else {
-            if (!period) {
-                return null;
-            }
-            periods = [period]; // If favorite is loaded, we only know the used period
-        }
-
-        this.setState({ periods });
-
-        return periods;
-    }
-
-    nextYear() {
-        this.setState({ year: this.state.year + 1 });
-    }
-
-    previousYear() {
-        this.setState({ year: this.state.year - 1 });
     }
 
     render() {
@@ -119,27 +74,60 @@ class PeriodSelect extends Component {
                     style={styles.select}
                     errorText={!value && errorText ? errorText : null}
                 />
-                <div style={styles.stepper}>
-                    <IconButton
-                        tooltip={i18next.t('Previous year')}
-                        onClick={this.previousYear}
-                        style={styles.button}
-                        disableTouchRipple={true}
-                    >
-                        <SvgIcon icon="ChevronLeft" />
-                    </IconButton>
-                    <IconButton
-                        tooltip={i18next.t('Next year')}
-                        onClick={this.nextYear}
-                        style={styles.button}
-                        disableTouchRipple={true}
-                    >
-                        <SvgIcon icon="ChevronRight" />
-                    </IconButton>
-                </div>
+                {periodType && (
+                    <div style={styles.stepper}>
+                        <IconButton
+                            tooltip={i18next.t('Previous year')}
+                            onClick={this.previousYear}
+                            style={styles.button}
+                            disableTouchRipple={true}
+                        >
+                            <SvgIcon icon="ChevronLeft" />
+                        </IconButton>
+                        <IconButton
+                            tooltip={i18next.t('Next year')}
+                            onClick={this.nextYear}
+                            style={styles.button}
+                            disableTouchRipple={true}
+                        >
+                            <SvgIcon icon="ChevronRight" />
+                        </IconButton>
+                    </div>
+                )}
             </div>
         );
     }
+
+    setPeriods() {
+        const { periodType, period, locale } = this.props;
+        let periods;
+
+        if (periodType) {
+            periods = createPeriods(locale, periodType, this.state.year);
+        } else if (period) {
+            periods = [period]; // If period is loaded in favorite
+        }
+
+        this.setState({ periods });
+    }
+
+    nextYear = () => {
+        this.changeYear(1);
+    };
+
+    previousYear = () => {
+        this.changeYear(-1);
+    };
+
+    changeYear = change => {
+        const { locale, periodType } = this.props;
+        const year = this.state.year + change;
+
+        this.setState({
+            year,
+            periods: createPeriods(locale, periodType, year),
+        });
+    };
 }
 
 export default connect(state => ({
