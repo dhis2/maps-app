@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { relativePeriods } from '../../constants/periods';
@@ -27,9 +28,9 @@ const RelativePeriodSelect = ({
             : []
         )
             .concat(relativePeriods)
-            .map(period => ({
-                id: period.id,
-                name: i18next.t(period.name), // Translate period names
+            .map(({ id, name }) => ({
+                id,
+                name: i18next.t(name), // Translate period names
             }));
     }
 
@@ -43,6 +44,17 @@ const RelativePeriodSelect = ({
             errorText={!value && errorText ? errorText : null}
         />
     );
+};
+
+RelativePeriodSelect.propTypes = {
+    startEndDates: PropTypes.bool,
+    period: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string,
+    }),
+    onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
+    errorText: PropTypes.string,
 };
 
 export default RelativePeriodSelect;

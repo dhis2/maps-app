@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { periodTypes } from '../../constants/periods';
@@ -8,30 +9,29 @@ let periods;
 const PeriodTypeSelect = ({ value, onChange, style, errorText }) => {
     if (!periods) {
         // Translate period names
-        periods = periodTypes.map(period => ({
-            id: period.id,
-            name: i18next.t(period.name),
+        periods = periodTypes.map(({ id, name }) => ({
+            id,
+            name: i18next.t(name),
         }));
     }
-
-    // TODO: Avoid creating this function on each render
-    // We could also add this check to the SelectField component
-    const onPeriodChange = period => {
-        if (period.id !== value) {
-            onChange(period);
-        }
-    };
 
     return (
         <SelectField
             label={i18next.t('Period type')}
             items={periods}
             value={value}
-            onChange={onPeriodChange}
+            onChange={onChange}
             style={style}
             errorText={!value && errorText ? errorText : null}
         />
     );
+};
+
+PeriodTypeSelect.propTypes = {
+    value: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
+    errorText: PropTypes.string,
 };
 
 export default PeriodTypeSelect;
