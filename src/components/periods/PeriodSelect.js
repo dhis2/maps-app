@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
@@ -26,6 +27,17 @@ const styles = {
 };
 
 class PeriodSelect extends Component {
+    static propTypes = {
+        periodType: PropTypes.string,
+        period: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+        }),
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+        errorText: PropTypes.string,
+    };
+
     state = {
         year: new Date().getFullYear(),
         periods: null,
