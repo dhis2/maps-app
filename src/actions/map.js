@@ -37,3 +37,8 @@ export const showEarthEngineValue = (layerId, coordinate) => ({
     layerId,
     coordinate,
 });
+
+export const updateMap = payload => ({
+    type: types.MAP_UPDATE,
+    payload,
+});

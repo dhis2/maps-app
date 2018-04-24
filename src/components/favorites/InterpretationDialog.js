@@ -15,17 +15,21 @@ const styles = {
 };
 
 class InterpretationDialog extends Component {
-    state = {
-        value: '',
-    };
+    constructor(props) {
+        super(props);
+        this.state = { value: props.interpretation ? props.interpretation.text : "" };
+    }
 
     render() {
-        const { favoriteId, onSave, onClose } = this.props;
+        const { interpretation, favoriteId, onSave, onClose } = this.props;
         const { value } = this.state;
+        const title = interpretation && interpretation.id
+            ? i18next.t('Edit interpretation')
+            : i18next.t('Create interpretation');
 
         return (
             <Dialog
-                title={i18next.t('Write interpretation')}
+                title={title}
                 open={true}
                 onRequestClose={onClose}
                 actions={[
@@ -35,7 +39,7 @@ class InterpretationDialog extends Component {
                     <Button
                         color="primary"
                         disabled={value ? false : true}
-                        onClick={() => onSave(favoriteId, value)}
+                        onClick={() => onSave({ ...interpretation, text: value })}
                     >
                         {i18next.t('Save')}
                     </Button>,
@@ -46,7 +50,7 @@ class InterpretationDialog extends Component {
                     name="interpretation"
                     value={value}
                     multiLine={true}
-                    rows={4}
+                    rows={1}
                     onChange={(evt, value) => this.setState({ value })}
                     style={styles.textfield}
                 />

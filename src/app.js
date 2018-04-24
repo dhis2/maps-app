@@ -65,11 +65,6 @@ getManifest('manifest.webapp')
                 return;
             }
 
-            const mapId = getUrlParameter('id');
-            if (mapId) {
-                store.dispatch(loadFavorite(mapId));
-            }
-
             render(
                 <Root d2={d2} store={store} />,
                 document.getElementById('app')
