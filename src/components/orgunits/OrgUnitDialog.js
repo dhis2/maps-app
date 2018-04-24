@@ -9,7 +9,7 @@ import { closeOrgUnit } from '../../actions/orgUnits';
 import { loadConfigurations, loadData } from '../../util/infrastructural';
 import './OrgUnitDialog.css';
 
-class OrgUnitDialog extends Component {
+export class OrgUnitDialog extends Component {
     static propTypes = {
         id: PropTypes.string,
         name: PropTypes.string,
