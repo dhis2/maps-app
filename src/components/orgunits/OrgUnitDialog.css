@@ -1,0 +1,43 @@
+.OrgUnitDialog-content {
+    height: 300px;
+    max-height: 300px;
+}
+
+.OrgUnitDialog-metadata {
+    font-size: 14px;
+    margin-top: -10px;
+    width: 200px;
+    float: left;
+}
+
+.OrgUnitDialog-metadata h3 {
+    margin: 10px 0 2px 0;
+    font-size: 14px;
+}
+
+.OrgUnitDialog-data {
+    float: left;
+    width: 345px;
+}
+
+.OrgUnitDialog-nodata {
+    font-style: italic;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.OrgUnitDialog-table {
+    display: block;
+    font-size: 14px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.OrgUnitDialog-table .left {
+    text-align: left;
+}
+
+.OrgUnitDialog-table .right {
+    text-align: right;
+    vertical-align: top;
+}

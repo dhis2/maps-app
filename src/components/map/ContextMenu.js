@@ -45,7 +45,7 @@ const styles = {
 };
 
 const ContextMenu = (props, context) => {
-    const { feature, layerType, earthEngineLayers } = props;
+    const { feature, layerType, earthEngineLayers, position } = props;
     const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const iconColor = '#777';
     const iconDisabledColor = '#eee';
@@ -53,9 +53,9 @@ const ContextMenu = (props, context) => {
     let isPoint;
     let attr = {};
 
-    if (props.position) {
-        anchorEl.style.left = props.position[0] + 'px';
-        anchorEl.style.top = props.position[1] + 'px';
+    if (position) {
+        anchorEl.style.left = position[0] + 'px';
+        anchorEl.style.top = position[1] + 'px';
     }
 
     if (feature) {
