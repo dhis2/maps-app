@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import { connect } from 'react-redux';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadIndicatorGroups } from '../../actions/indicators';
 
 export class IndicatorGroupSelect extends Component {
+    static propTypes = {
+        indicatorGroups: PropTypes.array,
+        indicatorGroup: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        loadIndicatorGroups: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+        errorText: PropTypes.string,
+    };
+
     componentDidMount() {
         const { indicatorGroups, loadIndicatorGroups } = this.props;
 

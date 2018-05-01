@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import { connect } from 'react-redux';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
 import { loadIndicators } from '../../actions/indicators';
 
 export class IndicatorSelect extends Component {
+    static propTypes = {
+        indicatorGroup: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        indicator: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        indicators: PropTypes.array,
+        loadIndicators: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+        errorText: PropTypes.string,
+    };
+
     componentDidUpdate() {
         const { indicatorGroup, indicators, loadIndicators } = this.props;
 
-        if (indicatorGroup && !indicators[indicatorGroup.id]) {
+        if (indicatorGroup && !indicators) {
             loadIndicators(indicatorGroup.id);
         }
     }
@@ -23,20 +38,17 @@ export class IndicatorSelect extends Component {
             errorText,
         } = this.props;
 
-        let items;
+        let items = indicators;
 
-        if (indicatorGroup) {
-            items = indicators[indicatorGroup.id];
-        } else {
-            if (!indicator) {
-                return null;
-            }
+        if (!indicatorGroup && !indicator) {
+            return null;
+        } else if (indicator) {
             items = [indicator]; // If favorite is loaded, we only know the used indicator
         }
 
         return (
             <SelectField
-                key="indicators"
+                key='indicators'
                 loading={items ? false : true}
                 label={i18next.t('Indicator')}
                 items={items}
@@ -50,8 +62,8 @@ export class IndicatorSelect extends Component {
 }
 
 export default connect(
-    state => ({
-        indicators: state.indicators,
+    (state, props) => ({
+        indicators: props.indicatorGroup ? state.indicators[props.indicatorGroup.id] : null,
     }),
     { loadIndicators }
 )(IndicatorSelect);
