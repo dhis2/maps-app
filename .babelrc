@@ -1,9 +1,9 @@
 {
-    "presets": ["react", "es2015", "stage-2"],
+    "presets": ["react", "es2015", "stage-0"],
     "plugins": ["transform-object-assign"],
     "env": {
         "test": {
-            "presets": ["react", "es2015", "stage-2"],
+            "presets": ["react", "es2015", "stage-0"],
             "plugins": ["transform-es2015-modules-commonjs"]
         }
     }

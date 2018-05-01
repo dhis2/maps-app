@@ -7,3 +7,4 @@ target
 npm-debug.log
 yarn-error.log
 manifest.webapp
+coverage
