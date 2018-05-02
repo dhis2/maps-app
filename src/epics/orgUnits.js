@@ -81,13 +81,11 @@ export const loadOrgUnitGroups = action$ =>
 export const loadOrgUnitGroupSets = action$ =>
     action$.ofType(types.ORGANISATION_UNIT_GROUP_SETS_LOAD).concatMap(() =>
         getD2()
-            .then(
-                d2 =>
-                    console.log &&
-                    d2.models.organisationUnitGroupSets.list({
-                        fields: `id,${getDisplayPropertyUrl(d2)}`,
-                        pageing: false,
-                    })
+            .then(d2 =>
+                d2.models.organisationUnitGroupSets.list({
+                    fields: `id,${getDisplayPropertyUrl(d2)}`,
+                    pageing: false,
+                })
             )
             .then(groupSets => setOrgUnitGroupSets(groupSets.toArray()))
             .catch(

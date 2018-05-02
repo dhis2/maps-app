@@ -4,25 +4,29 @@ import Dialog from 'material-ui/Dialog';
 import { OrgUnitDialog } from '../OrgUnitDialog';
 
 describe('Org unit dialog (infrastuctural data)', () => {
-    let orgUnitDialog;
-    let closeOrgUnit;
+    const renderWithProps = props => shallow(<OrgUnitDialog {...props} />);
     let props;
 
     beforeEach(() => {
-        closeOrgUnit = jest.fn();
-
         props = {
-            closeOrgUnit,
+            id: 'abc123',
+            parent: {
+                name: 'Parent',
+            },
+            organisationUnitGroups: {
+                toArray: () => [],
+            },
+            closeOrgUnit: jest.fn(),
         };
-
-        orgUnitDialog = shallow(<OrgUnitDialog {...props} />);
     });
 
-    it('should render a MUI Dialog compoent', () => {
-        expect(true).toBeTruthy();
-
-        // const loadIndicatorGroups = jest.fn();
-        // const onChange = jest.fn();
-        // expect(orgUnitDialog.type()).toBe(Dialog);
+    it('not renders if no org unit id is passed', () => {
+        expect(renderWithProps({ closeOrgUnit: jest.fn() }).type()).toBe(null);
     });
+
+    it('renders a MUI Dialog if an org unit id is passed', () => {
+        expect(renderWithProps(props).find(Dialog).length).toBe(1);
+    });
+
+    // TODO: Check if loadConfigurations or loadData is called
 });

@@ -1,7 +1,10 @@
-// Dummy test
+import React from 'react';
+import { shallow } from 'enzyme';
+import { App } from '../App';
+import MapProvider from '../../map/MapProvider';
 
-describe('DHIS2 Maps', () => {
-    it('should export be a valid test', () => {
-        expect(true).toBeTruthy();
+describe('App', () => {
+    it('renders a MapProvider', () => {
+        expect(shallow(<App />).find(MapProvider).length).toBe(1);
     });
 });
