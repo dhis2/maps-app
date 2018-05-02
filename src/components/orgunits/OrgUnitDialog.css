@@ -29,15 +29,18 @@
 .OrgUnitDialog-table {
     display: block;
     font-size: 14px;
+    width: 345px;
     max-height: 240px;
     overflow-y: auto;
 }
 
 .OrgUnitDialog-table .left {
     text-align: left;
+    width: 280px;
 }
 
 .OrgUnitDialog-table .right {
     text-align: right;
     vertical-align: top;
+    width: 65px;
 }

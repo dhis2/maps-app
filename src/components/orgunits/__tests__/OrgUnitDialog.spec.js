@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-// import { OrgUnitDialog } from '../OrgUnitDialog';
+import Dialog from 'material-ui/Dialog';
+import { OrgUnitDialog } from '../OrgUnitDialog';
 
 describe('Org unit dialog (infrastuctural data)', () => {
     let orgUnitDialog;
@@ -14,10 +15,14 @@ describe('Org unit dialog (infrastuctural data)', () => {
             closeOrgUnit,
         };
 
-        // orgUnitDialog = shallow(<OrgUnitDialog {...props} />);
+        orgUnitDialog = shallow(<OrgUnitDialog {...props} />);
     });
 
     it('should render a MUI Dialog compoent', () => {
         expect(true).toBeTruthy();
+
+        // const loadIndicatorGroups = jest.fn();
+        // const onChange = jest.fn();
+        // expect(orgUnitDialog.type()).toBe(Dialog);
     });
 });
