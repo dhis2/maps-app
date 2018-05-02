@@ -53,7 +53,7 @@ const styles = {
     },
 };
 
-const AppHeader = ({ name }, context) => (
+export const AppHeader = ({ name }) => (
     <div style={styles.header}>
         <div style={styles.logo}>
             <svg
@@ -104,8 +104,6 @@ AppHeader.defaultProps = {
     name: '',
 };
 
-const mapStateToProps = state => ({
+export default connect(state => ({
     name: state.map ? state.map.name : null,
-});
-
-export default connect(mapStateToProps)(AppHeader);
+}))(AppHeader);
