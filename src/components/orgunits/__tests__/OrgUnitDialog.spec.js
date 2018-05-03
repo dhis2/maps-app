@@ -20,7 +20,7 @@ describe('Org unit dialog (infrastuctural data)', () => {
         };
     });
 
-    it('not renders if no org unit id is passed', () => {
+    it('do not render if no org unit id is passed', () => {
         expect(renderWithProps({ closeOrgUnit: jest.fn() }).type()).toBe(null);
     });
 

@@ -27,7 +27,7 @@ const styles = {
     },
 };
 
-const AppMenu = ({ openAboutDialog }) => (
+export const AppMenu = ({ openAboutDialog }) => (
     <Toolbar style={styles.toolbar} className="dhis-gis-menu">
         <ToolbarGroup firstChild={true}>
             <AddLayer />
@@ -40,5 +40,9 @@ const AppMenu = ({ openAboutDialog }) => (
         </ToolbarGroup>
     </Toolbar>
 );
+
+AppMenu.propTypes = {
+    openAboutDialog: PropTypes.func.isRequired,
+};
 
 export default connect(null, { openAboutDialog })(AppMenu);
