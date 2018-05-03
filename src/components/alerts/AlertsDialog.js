@@ -7,7 +7,7 @@ import Button from 'd2-ui/lib/button/Button';
 import { clearAlerts } from '../../actions/alerts';
 import { getMapAlerts } from '../../util/alerts';
 
-const AlertsDialog = ({ alerts = [], clearAlerts }) =>
+export const AlertsDialog = ({ alerts = [], clearAlerts }) =>
     alerts.length && (
         <Dialog
             title={i18next.t('Notifications')}
@@ -26,7 +26,10 @@ const AlertsDialog = ({ alerts = [], clearAlerts }) =>
     );
 
 AlertsDialog.propTypes = {
-    alerts: PropTypes.array,
+    alerts: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+    })),
     clearAlerts: PropTypes.func.isRequired,
 };
 
