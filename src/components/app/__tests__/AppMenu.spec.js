@@ -1,11 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AppMenu } from '../AppMenu';
+import i18next from 'i18next';
 import { Toolbar } from 'material-ui/Toolbar';
 import Button from 'material-ui/FlatButton';
+import { AppMenu } from '../AppMenu';
 
 describe('AppMenu', () => {
-    // TODO: Warning: {i18next.t('About')} returns empty string
+    jest.spyOn(i18next, 't').mockImplementation(text => text);
+
     it('renders a MUI Toolbar', () => {
         const wrapper = shallow(<AppMenu openAboutDialog={jest.fn()} />);
         expect(wrapper.find(Toolbar).length).toBe(1);

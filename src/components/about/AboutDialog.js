@@ -10,7 +10,7 @@ const style = {
     padding: 5,
 };
 
-const AboutDialog = ({ aboutDialogOpen, closeAboutDialog }, { d2 }) => {
+export const AboutDialog = ({ aboutDialogOpen, closeAboutDialog }, { d2 }) => {
     const system = d2.system.systemInfo;
     const user = d2.currentUser;
 
@@ -38,7 +38,7 @@ const AboutDialog = ({ aboutDialogOpen, closeAboutDialog }, { d2 }) => {
             title={i18next.t('About DHIS2 Maps')}
             actions={[
                 <Button color="primary" onClick={closeAboutDialog}>
-                    Close
+                    {i18next.t('Close')}
                 </Button>,
             ]}
             open={aboutDialogOpen}
