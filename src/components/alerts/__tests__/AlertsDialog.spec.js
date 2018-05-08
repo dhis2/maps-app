@@ -34,7 +34,7 @@ describe('AlertsDialog', () => {
         expect(wrapper.find('strong').text()).toContain(alerts[0].title);
         expect(wrapper.find('div').text()).toContain(alerts[0].description);
     });
-    
+
     // TODO: test button/clearAlerts after MUI v1 upgrade
     // https://github.com/mui-org/material-ui/issues/9200
 });

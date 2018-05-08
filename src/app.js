@@ -60,7 +60,7 @@ getManifest('manifest.webapp')
     .then(init)
     .then(
         d2 => {
-            if (!d2.currentUser.authorities.has('F_SYSTEM_SETTING')) {
+            if (!d2.currentUser.authorities.has('M_dhis-web-maps')) {
                 document.write(i18next.t('Access denied'));
                 return;
             }
