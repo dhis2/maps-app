@@ -16,8 +16,7 @@
         "test": "jest",
         "test:watch": "yarn test -- --watch",
         "prebuild": "yarn test",
-        "build":
-            "rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build",
+        "build": "rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build",
         "postbuild": "cp icon.png ./build/ && cp -r images ./build",
         "validate": "npm ls --depth 0 || yarn list",
         "manifest": "d2-manifest package.json build/manifest.webapp",
@@ -35,7 +34,7 @@
         "d3-color": "^1.0.3",
         "d3-format": "^1.2.2",
         "d3-time-format": "^2.1.1",
-        "dhis2-gis-api": "^29.0.7",
+        "dhis2-gis-api": "29.0.8",
         "file-saver": "^1.3.3",
         "i18next": "^10.4.1",
         "i18next-xhr-backend": "^1.5.1",
@@ -109,7 +108,10 @@
         "webpack-dev-server": "^2.11.1",
         "webpack-uglify-js-plugin": "^1.1.9"
     },
-    "pre-commit": ["validate", "test"],
+    "pre-commit": [
+        "validate",
+        "test"
+    ],
     "manifest.webapp": {
         "name": "DHIS2 Maps",
         "icons": {

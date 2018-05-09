@@ -9,7 +9,6 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
-import { defaultBasemaps } from '../../constants/basemaps';
 import { getMapAlerts } from '../../util/alerts';
 import { drillUpDown } from '../../util/map';
 import { fetchLayer } from '../../loaders/layers';
@@ -194,23 +193,6 @@ class PluginMap extends Component {
         const { basemap = { id: 'osmLight' } } = this.props;
         const { mapViews, position, feature } = this.state;
 
-        let selectedBasemap;
-
-        if (basemap.url) {
-            // External layer
-            selectedBasemap = {
-                id: basemap.id,
-                config: {
-                    type: 'tileLayer',
-                    ...basemap,
-                },
-            };
-        } else {
-            selectedBasemap = defaultBasemaps.find(
-                map => map.id === (basemap.id || basemap)
-            );
-        }
-
         const alerts = getMapAlerts(this.props);
 
         return !alerts.length ? (
@@ -228,7 +210,7 @@ class PluginMap extends Component {
                     );
                 })}
                 {basemap.isVisible !== false && (
-                    <Layer key="basemap" {...selectedBasemap} />
+                    <Layer key="basemap" {...basemap} />
                 )}
                 <ContextMenu
                     position={position}

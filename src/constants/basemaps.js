@@ -38,7 +38,6 @@ export const defaultBasemaps = [
         config: {
             type: 'googleLayer',
             style: 'HYBRID',
-            // apiKey: 'AIzaSyBjlDmwuON9lJbPMDlh_LI3zGpGtpK9erc',
         },
     },
 ];

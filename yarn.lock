@@ -2696,9 +2696,9 @@ detect-node@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.0.3.tgz#a2033c09cc8e158d37748fbde7507832bd6ce127"
 
-dhis2-gis-api@^29.0.7:
-  version "29.0.7"
-  resolved "https://registry.yarnpkg.com/dhis2-gis-api/-/dhis2-gis-api-29.0.7.tgz#d8447273b9982448bd61ceb0032045b703ed23aa"
+dhis2-gis-api@29.0.8:
+  version "29.0.8"
+  resolved "https://registry.yarnpkg.com/dhis2-gis-api/-/dhis2-gis-api-29.0.8.tgz#aa242ec1a46aff4d7bd8dd6100cc699d6e74d0b8"
   dependencies:
     d3-color "^1.0.3"
     d3-scale "^2.0.0"
@@ -8357,11 +8357,11 @@ resolve-url@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
 
-resolve@1.1.7, resolve@1.1.x, resolve@^1.1.5:
+resolve@1.1.7, resolve@1.1.x:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
 
-resolve@^1.1.6, resolve@^1.5.0:
+resolve@^1.1.5, resolve@^1.1.6, resolve@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.5.0.tgz#1f09acce796c9a762579f31b2c1cc4c3cddf9f36"
   dependencies:

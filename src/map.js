@@ -4,10 +4,15 @@ import union from 'lodash/fp/union';
 import { init, config, getUserSettings } from 'd2/lib/d2';
 import { isValidUid } from 'd2/lib/uid';
 import PluginMap from './components/map/PluginMap';
-import { mapRequest, getExternalLayer } from './util/requests';
+import {
+    mapRequest,
+    getExternalLayer,
+    getGoogleMapsKey,
+} from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { configI18n } from './util/i18n';
 import { translateConfig } from './util/favorites';
+import { defaultBasemaps } from './constants/basemaps';
 import '../scss/plugin.scss';
 
 // Inspiration:
@@ -99,11 +104,24 @@ const Plugin = () => {
 
     async function loadLayers(config) {
         if (!isUnmounted(config.el)) {
-            let basemap;
+            let basemap = config.basemap;
+            const basemapId = basemap.id || basemap;
 
-            if (isValidUid(config.basemap)) {
-                // If external layer id
-                basemap = await getExternalLayer(config.basemap);
+            if (isValidUid(basemapId)) {
+                const externalLayer = await getExternalLayer(basemapId);
+                basemap = {
+                    id: basemapId,
+                    config: {
+                        type: 'tileLayer',
+                        ...externalLayer,
+                    },
+                };
+            } else {
+                basemap = defaultBasemaps.find(map => map.id === basemapId);
+            }
+
+            if (basemapId.substring(0, 6) === 'google') {
+                basemap.config.apiKey = await getGoogleMapsKey();
             }
 
             if (config.mapViews) {
@@ -111,7 +129,7 @@ const Plugin = () => {
                     drawMap({
                         ...config,
                         mapViews,
-                        basemap: basemap || config.basemap,
+                        basemap,
                     })
                 );
             }
