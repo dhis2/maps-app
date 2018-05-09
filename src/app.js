@@ -60,6 +60,8 @@ getManifest('manifest.webapp')
     .then(init)
     .then(
         d2 => {
+            // This check is probably not needed when set on server:
+            // https://github.com/dhis2/dhis2-core/blob/2.29/dhis-2/dhis-web/dhis-web-commons/src/main/resources/META-INF/dhis/security.xml#L146
             if (!d2.currentUser.authorities.has('M_dhis-web-maps')) {
                 document.write(i18next.t('Access denied'));
                 return;
