@@ -27,6 +27,12 @@ export const getExternalLayer = async id => {
     return d2.models.externalMapLayers.get(id);
 };
 
+// Fetch Google Maps key
+export const getGoogleMapsKey = async () => {
+    const d2 = await getD2();
+    return d2.system.settings.get('keyGoogleMapsApiKey');
+};
+
 // Different ways of specifying a basemap - TODO: simplify!
 const getBasemap = config => {
     const externalBasemap = config.mapViews.find(

@@ -19,7 +19,6 @@ class MapProvider extends Component {
         div.style.height = '100%';
 
         this.map = d2map(div);
-        // console.log('this.map', this.map.addControl);
     }
 
     render() {

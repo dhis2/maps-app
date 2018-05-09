@@ -29,7 +29,6 @@ export const defaultBasemaps = [
         config: {
             type: 'googleLayer',
             style: 'ROADMAP',
-            apiKey: 'AIzaSyBjlDmwuON9lJbPMDlh_LI3zGpGtpK9erc',
         },
     },
     {
@@ -39,7 +38,6 @@ export const defaultBasemaps = [
         config: {
             type: 'googleLayer',
             style: 'HYBRID',
-            apiKey: 'AIzaSyBjlDmwuON9lJbPMDlh_LI3zGpGtpK9erc',
         },
     },
 ];
