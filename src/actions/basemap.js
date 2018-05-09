@@ -22,3 +22,8 @@ export const changeBasemapOpacity = opacity => ({
     type: types.BASEMAP_CHANGE_OPACITY,
     opacity,
 });
+
+export const setGooleMapsKey = key => ({
+    type: types.BASEMAP_GOOGLE_KEY_SET,
+    key,
+});
