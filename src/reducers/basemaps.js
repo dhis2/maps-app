@@ -10,8 +10,15 @@ const basemaps = (state = defaultBasemaps, action) => {
         case types.BASEMAP_REMOVE:
             return state.filter(basemap => basemap.id !== action.id);
 
-        // Set Google Maps key on Google basemaps
         case types.BASEMAP_GOOGLE_KEY_SET:
+            // Remove Google basemaps is no key is provided
+            if (!action.key) {
+                return state.filter(
+                    layer => layer.config.type !== 'googleLayer'
+                );
+            }
+
+            // Set key property on Google basemaps
             return state.map(layer => {
                 if (layer.config.type !== 'googleLayer') {
                     return layer;
