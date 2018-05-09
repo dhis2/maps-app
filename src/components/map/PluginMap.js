@@ -37,7 +37,7 @@ const styles = {
     },
 };
 
-// TODO: Resuse code from Map.js
+// TODO: Reuse code from Map.js
 class PluginMap extends Component {
     getChildContext() {
         return {
