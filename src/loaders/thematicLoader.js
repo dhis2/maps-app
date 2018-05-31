@@ -58,16 +58,20 @@ const thematicLoader = async config => {
         const value = valueById[id];
         const item = getLegendItem(value);
 
-        item.count++;
+        // A predefined legend can have a shorter range
+        if (item) {
+            item.count++;
+            properties.color = item.color;
+            properties.legend = item.name; // Shown in data table
+            properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
+        }
+
         properties.value = value;
-        properties.color = item && item.color;
         properties.radius =
             (value - minValue) /
                 (maxValue - minValue) *
                 (radiusHigh - radiusLow) +
             radiusLow;
-        properties.legend = item.name; // Shown in data table
-        properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
         properties.type = geometry.type; // Shown in data table
     });
 
@@ -111,7 +115,14 @@ const createLegendFromLegendSet = async legendSet => {
     const pickSome = pick(['name', 'startValue', 'endValue', 'color']);
 
     return {
-        items: sortBy('startValue', legends).map(pickSome),
+        items: sortBy('startValue', legends)
+            .map(pickSome)
+            .map(
+                item =>
+                    item.name === `${item.startValue} - ${item.endValue}`
+                        ? { ...item, name: '' } // Clear name if same as startValue - endValue
+                        : item
+            ),
     };
 };
 

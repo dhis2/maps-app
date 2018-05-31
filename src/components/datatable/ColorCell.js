@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { hcl } from 'd3-color';
 import './ColorCell.css';
 
-const ColorCell = ({ cellData }) => {
+const ColorCell = ({ cellData = '' }) => {
     const style = {
         backgroundColor: cellData,
         color: hcl(cellData).l < 70 ? '#fff' : '#000',

@@ -146,9 +146,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@dhis2/gis-api@^29.0.11":
-  version "29.0.11"
-  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-29.0.11.tgz#93c7cdd37e2ff9e2f1ac8f90df2f40e3aacd73a3"
+"@dhis2/gis-api@29.0.13":
+  version "29.0.13"
+  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-29.0.13.tgz#02dac16ee8cd9c73c6db723132c14be8af2dca62"
   dependencies:
     d3-color "^1.0.3"
     d3-scale "^2.0.0"
