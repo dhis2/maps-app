@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import sortBy from 'lodash/fp/sortBy';
-import Button from 'd2-ui/lib/button/Button';
+import { Button } from '@dhis2/d2-ui-core';
 import FilterRow from './FilterRow';
 import { combineDataItems } from '../../util/analytics';
 import { addFilter, removeFilter, changeFilter } from '../../actions/layerEdit';

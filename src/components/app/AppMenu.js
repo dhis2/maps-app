@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-// import Button from 'd2-ui/lib/button/Button';
+// import { Button } from '@dhis2/d2-ui-core';
 import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
 import AddLayer from '../layers/layers/AddLayer';
 import FavoritesMenu from '../favorites/FavoritesMenu';

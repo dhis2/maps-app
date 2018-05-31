@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import i18next from 'i18next';
-import Button from 'd2-ui/lib/button/Button';
+import { Button } from '@dhis2/d2-ui-core';
 import EventDialog from './EventDialog';
 import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
