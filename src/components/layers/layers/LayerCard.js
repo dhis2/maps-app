@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import { SvgIcon } from '@dhis2/d2-ui-core';
@@ -77,7 +77,7 @@ const LayerCard = props => {
                 <IconButton
                     style={styles.visibility}
                     onClick={() => toggleLayerVisibility(id)}
-                    tooltip={i18next.t('Toggle visibility')}
+                    tooltip={i18n.t('Toggle visibility')}
                 >
                     <SvgIcon
                         icon={isVisible ? 'Visibility' : 'VisibilityOff'}
@@ -94,7 +94,7 @@ const LayerCard = props => {
                     onOpacityChange={changeLayerOpacity}
                     onRemove={() => {
                         removeLayer(id);
-                        setMessage(`${name} ${i18next.t('deleted')}.`);
+                        setMessage(`${name} ${i18n.t('deleted')}.`);
                     }}
                 />
             </CardText>

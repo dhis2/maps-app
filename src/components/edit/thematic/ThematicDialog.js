@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { SelectField } from '@dhis2/d2-ui-core';
 import ValueTypeSelect from './ValueTypeSelect';
@@ -229,7 +229,7 @@ export class ThematicDialog extends Component {
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
-                <Tab value="data" label={i18next.t('data')}>
+                <Tab value="data" label={i18n.t('data')}>
                     <div style={styles.flexColumnFlow}>
                         <ValueTypeSelect
                             value={valueType}
@@ -335,7 +335,7 @@ export class ThematicDialog extends Component {
                         <AggregationTypeSelect style={styles.select} />
                     </div>
                 </Tab>
-                <Tab value="period" label={i18next.t('period')}>
+                <Tab value="period" label={i18n.t('period')}>
                     <div style={styles.flexColumnFlow}>
                         <PeriodTypeSelect
                             value={periodType}
@@ -363,7 +363,7 @@ export class ThematicDialog extends Component {
                         )}
                     </div>
                 </Tab>
-                <Tab value="orgunits" label={i18next.t('Org units')}>
+                <Tab value="orgunits" label={i18n.t('Org units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -397,7 +397,7 @@ export class ThematicDialog extends Component {
                         </div>
                     </div>
                 </Tab>
-                <Tab value="style" label={i18next.t('Style')}>
+                <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
                         <LegendTypeSelect
                             method={method}
@@ -428,14 +428,14 @@ export class ThematicDialog extends Component {
                         >
                             <TextField
                                 type="number"
-                                label={i18next.t('Low size')}
+                                label={i18n.t('Low size')}
                                 value={radiusLow !== undefined ? radiusLow : 5}
                                 onChange={setRadiusLow}
                                 style={{ width: 125, marginRight: 24 }}
                             />
                             <TextField
                                 type="number"
-                                label={i18next.t('High size')}
+                                label={i18n.t('High size')}
                                 value={
                                     radiusHigh !== undefined ? radiusHigh : 15
                                 }
@@ -445,7 +445,7 @@ export class ThematicDialog extends Component {
                         </div>
                         <div style={{ ...styles.wrapper, marginLeft: -12 }}>
                             <Checkbox
-                                label={i18next.t('Show labels')}
+                                label={i18n.t('Show labels')}
                                 checked={labels}
                                 onCheck={setLabels}
                                 style={styles.checkbox}
@@ -497,13 +497,13 @@ export class ThematicDialog extends Component {
             if (!indicatorGroup && !dataItem) {
                 return this.setErrorState(
                     'indicatorGroupError',
-                    i18next.t('Indicator group is required'),
+                    i18n.t('Indicator group is required'),
                     'data'
                 );
             } else if (!dataItem) {
                 return this.setErrorState(
                     'indicatorError',
-                    i18next.t('Indicator is required'),
+                    i18n.t('Indicator is required'),
                     'data'
                 );
             }
@@ -512,13 +512,13 @@ export class ThematicDialog extends Component {
         if (!periodType && !period) {
             return this.setErrorState(
                 'periodTypeError',
-                i18next.t('Period type is required'),
+                i18n.t('Period type is required'),
                 'period'
             );
         } else if (!period) {
             return this.setErrorState(
                 'periodError',
-                i18next.t('Period is required'),
+                i18n.t('Period is required'),
                 'period'
             );
         }
@@ -526,7 +526,7 @@ export class ThematicDialog extends Component {
         if (!getOrgUnitsFromRows(rows).length) {
             return this.setErrorState(
                 'orgUnitsError',
-                i18next.t('No organisation units are selected'),
+                i18n.t('No organisation units are selected'),
                 'orgunits'
             );
         }

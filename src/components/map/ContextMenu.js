@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import Popover from 'material-ui/Popover';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { SvgIcon } from '@dhis2/d2-ui-core';
@@ -102,7 +102,7 @@ const ContextMenu = (props, context) => {
                             }
                             innerDivStyle={styles.menuItemInner}
                         >
-                            {i18next.t('Drill up one level')}
+                            {i18n.t('Drill up one level')}
                         </MenuItem>
                     )}
 
@@ -131,7 +131,7 @@ const ContextMenu = (props, context) => {
                             }
                             innerDivStyle={styles.menuItemInner}
                         >
-                            {i18next.t('Drill down one level')}
+                            {i18n.t('Drill down one level')}
                         </MenuItem>
                     )}
 
@@ -143,7 +143,7 @@ const ContextMenu = (props, context) => {
                             <SvgIcon icon="InfoOutline" style={styles.icon} />
                         }
                     >
-                        {i18next.t('Show information')}
+                        {i18n.t('Show information')}
                     </MenuItem>
                 )}
 
@@ -153,7 +153,7 @@ const ContextMenu = (props, context) => {
                         leftIcon={<SvgIcon icon="Room" style={styles.icon} />}
                         innerDivStyle={styles.menuItemInner}
                     >
-                        {i18next.t('Show longitude/latitude')}
+                        {i18n.t('Show longitude/latitude')}
                     </MenuItem>
                 )}
 
@@ -174,7 +174,7 @@ const ContextMenu = (props, context) => {
                             }
                             innerDivStyle={styles.menuItemInner}
                         >
-                            {i18next.t('Swap longitude/latitude')}
+                            {i18n.t('Swap longitude/latitude')}
                         </MenuItem>
                     )}
 
@@ -189,7 +189,7 @@ const ContextMenu = (props, context) => {
                             }
                             innerDivStyle={styles.menuItemInner}
                         >
-                            {i18next.t('Relocate')}
+                            {i18n.t('Relocate')}
                         </MenuItem>
                     )}
 
@@ -202,7 +202,7 @@ const ContextMenu = (props, context) => {
                         innerDivStyle={styles.menuItemInner}
                         leftIcon={<SvgIcon icon="Room" style={styles.icon} />}
                     >
-                        {i18next.t(layer.name)}
+                        {i18n.t(layer.name)}
                     </MenuItem>
                 ))}
             </Menu>

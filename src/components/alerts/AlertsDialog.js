@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import Dialog from 'material-ui/Dialog';
 import { Button } from '@dhis2/d2-ui-core';
 import { clearAlerts } from '../../actions/alerts';
@@ -10,11 +10,11 @@ import { getMapAlerts } from '../../util/alerts';
 export const AlertsDialog = ({ alerts = [], clearAlerts }) =>
     alerts.length && (
         <Dialog
-            title={i18next.t('Notifications')}
+            title={i18n.t('Notifications')}
             open
             onRequestClose={clearAlerts}
             actions={
-                <Button onClick={clearAlerts}>{i18next.t('Close')}</Button>
+                <Button onClick={clearAlerts}>{i18n.t('Close')}</Button>
             }
         >
             {alerts.map((alert, index) => (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Toolbar } from 'material-ui/Toolbar';
 import Button from 'material-ui/FlatButton';
 import { AppMenu } from '../AppMenu';

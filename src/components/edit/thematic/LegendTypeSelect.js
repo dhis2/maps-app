@@ -1,5 +1,5 @@
 import React from 'react';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import {
     CLASSIFICATION_PREDEFINED,
@@ -32,12 +32,12 @@ export const LegendTypeSelect = ({ method, onChange, style }) => (
         >
             <RadioButton
                 value={CLASSIFICATION_EQUAL_INTERVALS}
-                label={i18next.t('Automatic')}
+                label={i18n.t('Automatic')}
                 style={styles.radioButton}
             />
             <RadioButton
                 value={CLASSIFICATION_PREDEFINED}
-                label={i18next.t('Predefined')}
+                label={i18n.t('Predefined')}
                 style={styles.radioButton}
             />
         </RadioButtonGroup>

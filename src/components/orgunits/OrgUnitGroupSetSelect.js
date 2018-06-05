@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadOrgUnitGroupSets } from '../../actions/orgUnits';
 
@@ -35,7 +35,7 @@ export class OrgUnitGroupSetSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Group set')}
+                label={i18n.t('Group set')}
                 loading={orgUnitGroupSets ? false : true}
                 items={orgUnitGroupSets}
                 value={value ? value.id : null}

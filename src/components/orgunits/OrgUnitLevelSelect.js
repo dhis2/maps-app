@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import once from 'lodash/fp/once';
 import sortBy from 'lodash/fp/sortBy';
 import { SelectField } from '@dhis2/d2-ui-core';
@@ -65,7 +65,7 @@ export class OrgUnitLevelSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Select levels')}
+                label={i18n.t('Select levels')}
                 loading={orgUnitLevels ? false : true}
                 items={sortedOrgUnitLevels}
                 value={orgUnitLevel}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import IconButton from 'material-ui/IconButton';
 import { SvgIcon } from '@dhis2/d2-ui-core';
@@ -79,7 +79,7 @@ class PeriodSelect extends Component {
         return (
             <div style={{ height: 100, ...style }}>
                 <SelectField
-                    label={i18next.t('Period')}
+                    label={i18n.t('Period')}
                     items={periods}
                     value={value}
                     onChange={onChange}
@@ -89,7 +89,7 @@ class PeriodSelect extends Component {
                 {periodType && (
                     <div style={styles.stepper}>
                         <IconButton
-                            tooltip={i18next.t('Previous year')}
+                            tooltip={i18n.t('Previous year')}
                             onClick={this.previousYear}
                             style={styles.button}
                             disableTouchRipple={true}
@@ -97,7 +97,7 @@ class PeriodSelect extends Component {
                             <SvgIcon icon="ChevronLeft" />
                         </IconButton>
                         <IconButton
-                            tooltip={i18next.t('Next year')}
+                            tooltip={i18n.t('Next year')}
                             onClick={this.nextYear}
                             style={styles.button}
                             disableTouchRipple={true}

@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
 import { timeFormat } from 'd3-time-format';
@@ -154,7 +154,7 @@ export const loadCollection = action$ =>
             );
 
             if (token && token.status === 'ERROR') {
-                return setAlert(createAlert(i18next.t(token.message), i18next.t('To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.')));
+                return setAlert(createAlert(i18n.t(token.message), i18n.t('To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.')));
             }
 
             setAuthToken(token);

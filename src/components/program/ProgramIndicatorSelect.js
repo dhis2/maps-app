@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadProgramIndicators } from '../../actions/programs';
 
@@ -67,7 +67,7 @@ export class ProgramIndicatorSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Program indicator')}
+                label={i18n.t('Program indicator')}
                 loading={items ? false : true}
                 items={items}
                 value={programIndicator ? programIndicator.id : null}

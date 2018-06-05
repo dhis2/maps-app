@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import isString from 'lodash/fp/isString';
 import findIndex from 'lodash/fp/findIndex';
@@ -51,7 +51,7 @@ const thematicLoader = async config => {
     legend.period = names[data.metaData.dimensions.pe[0]];
 
     if (!valueFeatures.length) {
-        alerts.push(createAlert(name, i18next.t('No data found')));
+        alerts.push(createAlert(name, i18n.t('No data found')));
     }
 
     valueFeatures.forEach(({ id, geometry, properties }) => {

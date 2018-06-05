@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
@@ -97,7 +97,7 @@ class FavoritesMenu extends Component {
                 onClick={evt => this.openMenu(evt)}
                 style={styles.button}
             >
-                {i18next.t('Favorites')}
+                {i18n.t('Favorites')}
             </Button>,
             <Popover
                 key="favorites-menu"
@@ -108,29 +108,29 @@ class FavoritesMenu extends Component {
             >
                 <Menu>
                     <MenuItem
-                        primaryText={i18next.t('New')}
+                        primaryText={i18n.t('New')}
                         onClick={() => this.onNewMapClick()}
                     />
                     <MenuItem
-                        primaryText={i18next.t('Open')}
+                        primaryText={i18n.t('Open')}
                         onClick={() => this.onLoadClick()}
                     />
                     <MenuItem
-                        primaryText={i18next.t('Save')}
+                        primaryText={i18n.t('Save')}
                         onClick={() => this.onSaveClick()}
                         disabled={mapId === undefined}
                     />
                     <MenuItem
-                        primaryText={i18next.t('Save as')}
+                        primaryText={i18n.t('Save as')}
                         onClick={() => this.onSaveNewClick()}
                     />
                     <MenuItem
-                        primaryText={i18next.t('Write interpretation')}
+                        primaryText={i18n.t('Write interpretation')}
                         onClick={() => this.onWriteInterpretationClick()}
                         disabled={mapId === undefined}
                     />
                     <MenuItem
-                        primaryText={i18next.t('Get link')}
+                        primaryText={i18n.t('Get link')}
                         onClick={() => this.onGetLinkClick()}
                         disabled={mapId === undefined}
                     />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import Paper from 'material-ui/Paper';
 import { SvgIcon } from '@dhis2/d2-ui-core';
 import {
@@ -76,7 +76,7 @@ class RelocateDialog extends Component {
                 <span onClick={stopRelocateOrgUnit}>
                     <SvgIcon icon="Cancel" style={styles.close} />
                 </span>
-                {i18next.t('Click the map where you want to relocate facility')}{' '}
+                {i18n.t('Click the map where you want to relocate facility')}{' '}
                 <strong>{feature.properties.name}</strong>
             </Paper>
         );

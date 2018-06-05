@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
@@ -61,11 +61,11 @@ export default class BoundaryLayer extends Layer {
         }</em>`;
 
         if (attr.level) {
-            content += `<br/>${i18next.t('Level')}: ${attr.level}`;
+            content += `<br/>${i18n.t('Level')}: ${attr.level}`;
         }
 
         if (attr.parentName) {
-            content += `<br/>${i18next.t('Parent unit')}: ${attr.parentName}`;
+            content += `<br/>${i18n.t('Parent unit')}: ${attr.parentName}`;
         }
 
         content += '</div>';

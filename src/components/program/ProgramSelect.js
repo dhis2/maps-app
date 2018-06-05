@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadPrograms } from '../../actions/programs';
 
@@ -27,7 +27,7 @@ export class ProgramSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Program')}
+                label={i18n.t('Program')}
                 loading={programs ? false : true}
                 items={programs}
                 value={program ? program.id : null}

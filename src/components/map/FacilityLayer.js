@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import isPlainObject from 'lodash/fp/isPlainObject';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
@@ -79,7 +79,7 @@ class FacilityLayer extends Layer {
         }</em>`;
 
         if (isPlainObject(attr.dimensions)) {
-            content += `<br/>${i18next.t('Groups')}: ${Object.keys(
+            content += `<br/>${i18n.t('Groups')}: ${Object.keys(
                 attr.dimensions
             )
                 .map(id => attr.dimensions[id])
@@ -87,7 +87,7 @@ class FacilityLayer extends Layer {
         }
 
         if (attr.pn) {
-            content += `<br/>${i18next.t('Parent unit')}: ${attr.pn}`;
+            content += `<br/>${i18n.t('Parent unit')}: ${attr.pn}`;
         }
 
         content += '</div>';

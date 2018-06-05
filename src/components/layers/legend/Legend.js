@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import LegendItem from './LegendItem';
 import './Legend.css';
 
@@ -18,7 +18,7 @@ const Legend = ({
         {description && <div className="Legend-description">{description}</div>}
         {filters && (
             <div className="Legend-filters">
-                {i18next.t('Filters')}: {filters.join(', ')}
+                {i18n.t('Filters')}: {filters.join(', ')}
             </div>
         )}
         {unit && items && <div className="Legend-unit">{unit}</div>}

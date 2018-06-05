@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { SelectField } from '@dhis2/d2-ui-core';
 import ProgramSelect from '../program/ProgramSelect';
@@ -149,7 +149,7 @@ export class EventDialog extends Component {
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
-                <Tab value="data" label={i18next.t('data')}>
+                <Tab value="data" label={i18n.t('data')}>
                     <div style={styles.flexColumnFlow}>
                         <ProgramSelect
                             program={program}
@@ -173,7 +173,7 @@ export class EventDialog extends Component {
                         />
                     </div>
                 </Tab>
-                <Tab value="period" label={i18next.t('period')}>
+                <Tab value="period" label={i18n.t('period')}>
                     <div style={styles.flexColumnFlow}>
                         <RelativePeriodSelect
                             period={period}
@@ -184,7 +184,7 @@ export class EventDialog extends Component {
                         {period.id === 'START_END_DATES' && [
                             <DatePicker
                                 key="startdate"
-                                label={i18next.t('Start date')}
+                                label={i18n.t('Start date')}
                                 value={startDate}
                                 default={EVENT_START_DATE}
                                 onChange={setStartDate}
@@ -192,7 +192,7 @@ export class EventDialog extends Component {
                             />,
                             <DatePicker
                                 key="enddate"
-                                label={i18next.t('End date')}
+                                label={i18n.t('End date')}
                                 value={endDate}
                                 default={EVENT_END_DATE}
                                 onChange={setEndDate}
@@ -201,7 +201,7 @@ export class EventDialog extends Component {
                         ]}
                     </div>
                 </Tab>
-                <Tab value="filter" label={i18next.t('Filter')}>
+                <Tab value="filter" label={i18n.t('Filter')}>
                     <div style={styles.flex}>
                         <FilterGroup
                             program={program}
@@ -212,7 +212,7 @@ export class EventDialog extends Component {
                         />
                     </div>
                 </Tab>
-                <Tab value="orgunits" label={i18next.t('Org units')}>
+                <Tab value="orgunits" label={i18n.t('Org units')}>
                     <div style={styles.flexRowFlow}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -233,19 +233,19 @@ export class EventDialog extends Component {
                             />
                             <SelectedOrgUnits
                                 rows={rows}
-                                units={i18next.t('Events')}
+                                units={i18n.t('Events')}
                                 error={orgUnitsError}
                             />
                         </div>
                     </div>
                 </Tab>
-                <Tab value="style" label={i18next.t('Style')}>
+                <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
                         <div style={styles.select}>
                             <ImageSelect
                                 id="cluster"
                                 img="images/cluster.png"
-                                title={i18next.t('Group events')}
+                                title={i18n.t('Group events')}
                                 onClick={() => setEventClustering(true)}
                                 isSelected={eventClustering}
                                 style={styles.image}
@@ -253,7 +253,7 @@ export class EventDialog extends Component {
                             <ImageSelect
                                 id="nocluster"
                                 img="images/nocluster.png"
-                                title={i18next.t('View all events')}
+                                title={i18n.t('View all events')}
                                 onClick={() => setEventClustering(false)}
                                 isSelected={!eventClustering}
                                 style={styles.image}
@@ -268,7 +268,7 @@ export class EventDialog extends Component {
                                 }}
                             >
                                 <div style={styles.colorLabel}>
-                                    {i18next.t('Color')}
+                                    {i18n.t('Color')}
                                 </div>
                                 <ColorPicker
                                     color={eventPointColor || EVENT_COLOR}
@@ -278,7 +278,7 @@ export class EventDialog extends Component {
                             </div>
                             <TextField
                                 type="number"
-                                label={i18next.t('Radius')}
+                                label={i18n.t('Radius')}
                                 value={eventPointRadius || EVENT_RADIUS}
                                 onChange={setEventPointRadius}
                                 style={{ float: 'left', maxWidth: 100 }}
@@ -287,7 +287,7 @@ export class EventDialog extends Component {
                         {allowStyleByDataItem && [
                             // TODO: Remove check
                             <DataItemSelect
-                                label={i18next.t('Style by data item')}
+                                label={i18n.t('Style by data item')}
                                 program={program}
                                 programStage={programStage}
                                 allowNone={true}
@@ -325,7 +325,7 @@ export class EventDialog extends Component {
         if (!program) {
             return this.setErrorState(
                 'programError',
-                i18next.t('Program is required'),
+                i18n.t('Program is required'),
                 'data'
             );
         }
@@ -333,7 +333,7 @@ export class EventDialog extends Component {
         if (!programStage) {
             return this.setErrorState(
                 'programStageError',
-                i18next.t('Program stage is required'),
+                i18n.t('Program stage is required'),
                 'data'
             );
         }
@@ -341,7 +341,7 @@ export class EventDialog extends Component {
         if (!getOrgUnitsFromRows(rows).length) {
             return this.setErrorState(
                 'orgUnitsError',
-                i18next.t('No organisation units are selected.'),
+                i18n.t('No organisation units are selected.'),
                 'orgunits'
             );
         }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import Dialog from 'material-ui/Dialog';
 import { Button } from '@dhis2/d2-ui-core';
 import { TextField } from '@dhis2/d2-ui-core';
@@ -67,7 +67,7 @@ class SaveNewFavoriteDialog extends Component {
 
         return (
             <Dialog
-                title={i18next.t('Save as new favorite')}
+                title={i18n.t('Save as new favorite')}
                 contentStyle={styles.content}
                 titleStyle={styles.title}
                 bodyStyle={styles.body}
@@ -92,19 +92,19 @@ class SaveNewFavoriteDialog extends Component {
                 onRequestClose={closeSaveNewFavoriteDialog}
             >
                 {response && response.status === 'OK' ? (
-                    <div>{i18next.t('Your map was saved successfully.')}</div>
+                    <div>{i18n.t('Your map was saved successfully.')}</div>
                 ) : null}
 
                 {response && response.status !== 'OK' ? (
                     <div>
-                        {i18next.t('An error occurred')}{' '}
+                        {i18n.t('An error occurred')}{' '}
                         (response.httpStatusCode): {response.message}
                     </div>
                 ) : null}
 
                 {hasLayers && !response ? (
                     <TextField
-                        label={i18next.t('Favorite name')}
+                        label={i18n.t('Favorite name')}
                         value={name}
                         onChange={name => this.setState({ name })}
                     />
@@ -112,7 +112,7 @@ class SaveNewFavoriteDialog extends Component {
 
                 {!hasLayers && !response ? (
                     <div>
-                        {i18next.t(
+                        {i18n.t(
                             'Your map is empty, please add a layer before you save a favorite.'
                         )}
                     </div>

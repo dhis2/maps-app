@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadDataElements } from '../../actions/dataElements';
@@ -40,7 +40,7 @@ export class DataElementSelect extends PureComponent {
         return (
             <SelectField
                 key="indicators"
-                label={i18next.t('Data element')}
+                label={i18n.t('Data element')}
                 loading={items ? false : true}
                 items={items}
                 value={dataElement ? dataElement.id : null}

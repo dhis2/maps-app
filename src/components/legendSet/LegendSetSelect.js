@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadLegendSets } from '../../actions/legendSets';
 
@@ -26,7 +26,7 @@ export class LegendSetSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Legend set')}
+                label={i18n.t('Legend set')}
                 loading={legendSets ? false : true}
                 items={legendSets}
                 value={legendSet ? legendSet.id : null}

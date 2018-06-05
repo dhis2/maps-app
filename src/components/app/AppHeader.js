@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import IconButton from 'material-ui/IconButton';
 import { SvgIcon } from '@dhis2/d2-ui-core';
 import HomeIcon from 'material-ui/svg-icons/action/home';
@@ -81,7 +81,7 @@ export const AppHeader = ({ name }) => (
                     {name}
                 </span>
             ) : (
-                i18next.t('No favorite selected')
+                i18n.t('No favorite selected')
             )}
             <IconButton
                 onClick={() =>

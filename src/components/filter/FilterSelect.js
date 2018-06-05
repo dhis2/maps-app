@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { TextField, SelectField } from '@dhis2/d2-ui-core';
 import Checkbox from 'material-ui/Checkbox';
 import OptionSetSelect from '../optionSet/OptionSetSelect';
@@ -85,15 +85,15 @@ const FilterSelect = ({
         ];
     } else if (optionSet) {
         operators = [
-            { id: 'IN', name: i18next.t('one of') },
-            { id: '!IN', name: i18next.t('not one of') },
+            { id: 'IN', name: i18n.t('one of') },
+            { id: '!IN', name: i18n.t('not one of') },
         ];
     } else if (['TEXT', 'LONG_TEXT'].includes(valueType)) {
         operators = [
-            { id: 'LIKE', name: i18next.t('contains') },
-            { id: '!LIKE', name: i18next.t("doesn't contains") },
-            { id: 'EQ', name: i18next.t('is') },
-            { id: '!EQ', name: i18next.t('is not') },
+            { id: 'LIKE', name: i18n.t('contains') },
+            { id: '!LIKE', name: i18n.t("doesn't contains") },
+            { id: 'EQ', name: i18n.t('is') },
+            { id: '!EQ', name: i18n.t('is not') },
         ];
     }
 
@@ -115,7 +115,7 @@ const FilterSelect = ({
         operators ? (
             <SelectField
                 key="operator"
-                label={i18next.t('Operator')}
+                label={i18n.t('Operator')}
                 items={operators}
                 value={operator}
                 onChange={newOperator =>
@@ -138,7 +138,7 @@ const FilterSelect = ({
         ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE'].includes(valueType) ? (
             <TextField
                 key="number"
-                label={i18next.t('Value')}
+                label={i18n.t('Value')}
                 type="number"
                 value={value !== undefined ? value : ''}
                 onChange={newValue => onChange(`${operator}:${newValue}`)}
@@ -148,7 +148,7 @@ const FilterSelect = ({
         ['TEXT', 'LONG_TEXT'].includes(valueType) && !optionSet ? (
             <TextField
                 key="text"
-                label={i18next.t('Value')}
+                label={i18n.t('Value')}
                 value={value || ''}
                 onChange={newValue => onChange(`${operator}:${newValue}`)}
                 style={styles.textField}
@@ -157,7 +157,7 @@ const FilterSelect = ({
         valueType === 'BOOLEAN' ? (
             <Checkbox
                 key="checkbox"
-                label={i18next.t('Yes')}
+                label={i18n.t('Yes')}
                 checked={value == 1 ? true : false}
                 onCheck={(event, isChecked) =>
                     onChange(isChecked ? 'IN:1' : 'IN:0')
@@ -168,7 +168,7 @@ const FilterSelect = ({
         valueType === 'DATE' ? (
             <DatePicker
                 key="date"
-                label={i18next.t('Date')}
+                label={i18n.t('Date')}
                 value={value}
                 onChange={date => onChange(`${operator}:${date}`)}
                 style={styles.datePicker}

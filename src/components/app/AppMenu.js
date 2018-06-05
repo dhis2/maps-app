@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 // import { Button } from '@dhis2/d2-ui-core';
 import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
@@ -35,7 +35,7 @@ export const AppMenu = ({ openAboutDialog }) => (
         </ToolbarGroup>
         <ToolbarGroup lastChild={true}>
             <Button onClick={openAboutDialog} style={styles.button}>
-                {i18next.t('About')}
+                {i18n.t('About')}
             </Button>
         </ToolbarGroup>
     </Toolbar>

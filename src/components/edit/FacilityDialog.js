@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { SelectField } from '@dhis2/d2-ui-core';
 import Checkbox from '../d2-ui/Checkbox';
@@ -127,7 +127,7 @@ class FacilityDialog extends Component {
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
-                <Tab value="group" label={i18next.t('Group set')}>
+                <Tab value="group" label={i18n.t('Group set')}>
                     <div style={styles.flexColumnFlow}>
                         <OrgUnitGroupSetSelect
                             value={organisationUnitGroupSet}
@@ -137,7 +137,7 @@ class FacilityDialog extends Component {
                         />
                     </div>
                 </Tab>
-                <Tab value="orgunits" label={i18next.t('Organisation units')}>
+                <Tab value="orgunits" label={i18n.t('Organisation units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -165,7 +165,7 @@ class FacilityDialog extends Component {
                                 <div style={styles.error}>{orgUnitsError}</div>
                             ) : (
                                 <div style={styles.help}>
-                                    {i18next.t(
+                                    {i18n.t(
                                         'Remember to select the organisation unit level containing the facilities.'
                                     )}
                                 </div>
@@ -173,11 +173,11 @@ class FacilityDialog extends Component {
                         </div>
                     </div>
                 </Tab>
-                <Tab value="style" label={i18next.t('Style')}>
+                <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.wrapper}>
                             <Checkbox
-                                label={i18next.t('Show labels')}
+                                label={i18n.t('Show labels')}
                                 checked={labels}
                                 onCheck={setLabels}
                                 style={styles.checkbox}
@@ -198,7 +198,7 @@ class FacilityDialog extends Component {
                         </div>
                         <div style={styles.labelWrapper}>
                             <Checkbox
-                                label={i18next.t('Show buffer')}
+                                label={i18n.t('Show buffer')}
                                 checked={showBuffer}
                                 onCheck={this.onShowBufferClick.bind(this)}
                                 style={styles.checkbox}
@@ -206,7 +206,7 @@ class FacilityDialog extends Component {
                             {showBuffer && (
                                 <TextField
                                     type="number"
-                                    label={i18next.t('Radius in meters')}
+                                    label={i18n.t('Radius in meters')}
                                     value={areaRadius || ''}
                                     onChange={setAreaRadius}
                                     style={styles.radius}
@@ -239,7 +239,7 @@ class FacilityDialog extends Component {
         if (!organisationUnitGroupSet) {
             return this.setErrorState(
                 'orgUnitGroupSetError',
-                i18next.t('Group set is required'),
+                i18n.t('Group set is required'),
                 'group'
             );
         }
@@ -247,7 +247,7 @@ class FacilityDialog extends Component {
         if (!getOrgUnitsFromRows(rows).length) {
             return this.setErrorState(
                 'orgUnitsError',
-                i18next.t('No organisation units are selected'),
+                i18n.t('No organisation units are selected'),
                 'orgunits'
             );
         }

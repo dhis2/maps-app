@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import Dialog from 'material-ui/Dialog';
 import { Button } from '@dhis2/d2-ui-core';
 import { closeAboutDialog } from '../../actions/about';
@@ -16,29 +16,29 @@ export const AboutDialog = ({ aboutDialogOpen, closeAboutDialog }, { d2 }) => {
 
     const data = [
         {
-            name: i18next.t('Time since last data update'),
+            name: i18n.t('Time since last data update'),
             value: system.intervalSinceLastAnalyticsTableSuccess,
         },
         {
-            name: i18next.t('Version'),
+            name: i18n.t('Version'),
             value: system.version,
         },
         {
-            name: i18next.t('Revision'),
+            name: i18n.t('Revision'),
             value: system.revision,
         },
         {
-            name: i18next.t('Username'),
+            name: i18n.t('Username'),
             value: user.username,
         },
     ];
 
     return (
         <Dialog
-            title={i18next.t('About DHIS2 Maps')}
+            title={i18n.t('About DHIS2 Maps')}
             actions={[
                 <Button color="primary" onClick={closeAboutDialog}>
-                    {i18next.t('Close')}
+                    {i18n.t('Close')}
                 </Button>,
             ]}
             open={aboutDialogOpen}

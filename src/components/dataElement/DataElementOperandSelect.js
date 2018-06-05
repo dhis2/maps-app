@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadDataElementOperands } from '../../actions/dataElements';
@@ -42,7 +42,7 @@ export class DataElementOperandSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Data element operand')}
+                label={i18n.t('Data element operand')}
                 loading={items ? false : true}
                 items={items}
                 value={dataElement ? dataElement.id : null}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import {
     loadProgramTrackedEntityAttributes,
@@ -39,7 +39,7 @@ export class CoordinateField extends Component {
             style,
         } = this.props;
         let fields = [
-            { id: 'event', name: i18next.t('Event location') }, // Default coordinate field
+            { id: 'event', name: i18n.t('Event location') }, // Default coordinate field
         ];
 
         if (program && programStage) {
@@ -53,7 +53,7 @@ export class CoordinateField extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Coordinate field')}
+                label={i18n.t('Coordinate field')}
                 items={fields}
                 value={value || 'event'}
                 onChange={field => onChange(field.id)}

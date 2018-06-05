@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadIndicatorGroups } from '../../actions/indicators';
@@ -36,7 +36,7 @@ export class IndicatorGroupSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Indicator group')}
+                label={i18n.t('Indicator group')}
                 loading={indicatorGroups ? false : true}
                 items={indicatorGroups}
                 value={indicatorGroup ? indicatorGroup.id : null}

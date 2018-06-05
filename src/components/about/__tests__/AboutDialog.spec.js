@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Dialog from 'material-ui/Dialog';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 // import { Button } from '@dhis2/d2-ui-core';
 import { AboutDialog } from '../AboutDialog';
 import { getStubContext } from '../../../../config/testContext';

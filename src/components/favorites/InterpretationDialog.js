@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import Dialog from 'material-ui/Dialog';
 import { Button } from '@dhis2/d2-ui-core';
 import TextField from 'material-ui/TextField';
@@ -25,19 +25,19 @@ class InterpretationDialog extends Component {
 
         return (
             <Dialog
-                title={i18next.t('Write interpretation')}
+                title={i18n.t('Write interpretation')}
                 open={true}
                 onRequestClose={onClose}
                 actions={[
                     <Button color="primary" onClick={onClose}>
-                        {i18next.t('Cancel')}
+                        {i18n.t('Cancel')}
                     </Button>,
                     <Button
                         color="primary"
                         disabled={value ? false : true}
                         onClick={() => onSave(favoriteId, value)}
                     >
-                        {i18next.t('Save')}
+                        {i18n.t('Save')}
                     </Button>,
                 ]}
                 contentStyle={styles.dialog}

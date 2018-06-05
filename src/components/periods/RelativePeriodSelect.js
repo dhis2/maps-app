@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { relativePeriods } from '../../constants/periods';
 
@@ -30,13 +30,13 @@ const RelativePeriodSelect = ({
             .concat(relativePeriods)
             .map(({ id, name }) => ({
                 id,
-                name: i18next.t(name), // Translate period names
+                name: i18n.t(name), // Translate period names
             }));
     }
 
     return (
         <SelectField
-            label={i18next.t('Period')}
+            label={i18n.t('Period')}
             items={periods}
             value={value}
             onChange={onChange}

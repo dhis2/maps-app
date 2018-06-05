@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import uniqBy from 'lodash/fp/uniqBy';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { toGeoJson } from '../util/map';
@@ -57,7 +57,7 @@ const boundaryLoader = async config => {
     return {
         ...config,
         data: features,
-        name: i18next.t('Boundaries'),
+        name: i18n.t('Boundaries'),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

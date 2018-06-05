@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadIndicators } from '../../actions/indicators';
@@ -50,7 +50,7 @@ export class IndicatorSelect extends Component {
             <SelectField
                 key='indicators'
                 loading={items ? false : true}
-                label={i18next.t('Indicator')}
+                label={i18n.t('Indicator')}
                 items={items}
                 value={indicator ? indicator.id : null}
                 onChange={dataItem => onChange(dataItem, 'indicator')}

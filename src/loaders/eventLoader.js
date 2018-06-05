@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import curry from 'lodash/fp/curry';
 import isString from 'lodash/fp/isString';
@@ -166,7 +166,7 @@ const eventLoader = async config => {
                 }
 
                 legend.items.push({
-                    name: i18next.t('Not set'),
+                    name: i18n.t('Not set'),
                     color: eventPointColor || EVENT_COLOR,
                     radius: eventPointRadius || EVENT_RADIUS,
                 });
@@ -174,7 +174,7 @@ const eventLoader = async config => {
                 // Simple style
                 legend.items = [
                     {
-                        name: i18next.t('Event'),
+                        name: i18n.t('Event'),
                         color: eventPointColor || EVENT_COLOR,
                         radius: eventPointRadius || EVENT_RADIUS,
                     },

@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { apiFetch } from '../../util/api';
 import {
@@ -187,14 +187,14 @@ class EventLayer extends Layer {
                 content += '<tr style="height:5px;"><th></th><td></td></tr>';
             }
 
-            content += `<tr><th>${i18next.t('Organisation unit')}</th><td>${
+            content += `<tr><th>${i18n.t('Organisation unit')}</th><td>${
                 data.orgUnitName
             }</td></tr>
-                            <tr><th>${i18next.t(
+                            <tr><th>${i18n.t(
                                 'Event time'
                             )}</th><td>${time}</td></tr>
                             <tr><th>${this.eventCoordinateFieldName ||
-                                i18next.t('Event location')}</th><td>${
+                                i18n.t('Event location')}</th><td>${
                 coord[0]
             }, ${coord[1]}</td></tr> 
                             </tbody></table>`;

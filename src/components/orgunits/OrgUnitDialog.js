@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Button } from '@dhis2/d2-ui-core';
 import Dialog from 'material-ui/Dialog';
 import PeriodSelect from '../periods/PeriodSelect';
@@ -73,7 +73,7 @@ export class OrgUnitDialog extends Component {
 
         const closeBtn = (
             <Button color="primary" onClick={this.onClose}>
-                {i18next.t('Close')}
+                {i18n.t('Close')}
             </Button>
         );
 
@@ -88,11 +88,11 @@ export class OrgUnitDialog extends Component {
             >
                 <div className="OrgUnitDialog-content">
                     <div className="OrgUnitDialog-metadata">
-                        <h3>{i18next.t('Parent unit')}</h3>
+                        <h3>{i18n.t('Parent unit')}</h3>
                         {parent.name}
-                        <h3>{i18next.t('Code')}</h3>
+                        <h3>{i18n.t('Code')}</h3>
                         {code}
-                        <h3>{i18next.t('Groups')}</h3>
+                        <h3>{i18n.t('Groups')}</h3>
                         {groups.map(group => (
                             <div key={group.id}>{group.name}</div>
                         ))}
@@ -109,10 +109,10 @@ export class OrgUnitDialog extends Component {
                                 <thead>
                                     <tr>
                                         <th className="left">
-                                            {i18next.t('Data element')}
+                                            {i18n.t('Data element')}
                                         </th>
                                         <th className="right">
-                                            {i18next.t('Value')}
+                                            {i18n.t('Value')}
                                         </th>
                                     </tr>
                                 </thead>
@@ -127,7 +127,7 @@ export class OrgUnitDialog extends Component {
                             </table>
                         ) : (
                             <div className="OrgUnitDialog-nodata">
-                                {i18next.t('No data found for this period.')}
+                                {i18n.t('No data found for this period.')}
                             </div>
                         )}
                     </div>

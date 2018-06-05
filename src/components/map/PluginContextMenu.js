@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import './PluginContextMenu.css';
 
 class ContextMenu extends Component {
@@ -25,12 +25,12 @@ class ContextMenu extends Component {
             <div className="MapContextMenu" ref={el => (this.el = el)}>
                 {hasCoordinatesUp && (
                     <div onClick={onDrillUp}>
-                        {i18next.t('Drill up one level')}
+                        {i18n.t('Drill up one level')}
                     </div>
                 )}
                 {hasCoordinatesDown && (
                     <div onClick={onDrillDown}>
-                        {i18next.t('Drill down one level')}
+                        {i18n.t('Drill down one level')}
                     </div>
                 )}
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
@@ -97,7 +97,7 @@ class BoundaryDialog extends Component {
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
-                <Tab value="orgunits" label={i18next.t('Organisation units')}>
+                <Tab value="orgunits" label={i18n.t('Organisation units')}>
                     <div style={styles.flex}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
@@ -130,11 +130,11 @@ class BoundaryDialog extends Component {
                         </div>
                     </div>
                 </Tab>
-                <Tab value="style" label={i18next.t('Style')}>
+                <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.wrapper}>
                             <Checkbox
-                                label={i18next.t('Show labels')}
+                                label={i18n.t('Show labels')}
                                 checked={labels}
                                 onCheck={setLabels}
                                 style={styles.checkbox}
@@ -151,7 +151,7 @@ class BoundaryDialog extends Component {
                         </div>
                         <TextField
                             type="number"
-                            label={i18next.t('Point radius')}
+                            label={i18n.t('Point radius')}
                             value={radiusLow !== undefined ? radiusLow : 5}
                             onChange={setRadiusLow}
                             style={styles.radius}
@@ -178,7 +178,7 @@ class BoundaryDialog extends Component {
         if (!getOrgUnitsFromRows(rows).length) {
             return this.setErrorState(
                 'orgUnitsError',
-                i18next.t('No organisation units are selected'),
+                i18n.t('No organisation units are selected'),
                 'orgunits'
             );
         }

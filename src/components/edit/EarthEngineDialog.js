@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
 import { Tabs, Tab, TextField } from '@dhis2/d2-ui-core';
 import Collection from '../earthengine/Collection';
@@ -134,7 +134,7 @@ class EarthEngineDialog extends Component {
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
-                <Tab value="style" label={i18next.t('Style')}>
+                <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flex}>
                         <div style={styles.flexColumn}>
                             <div style={{ ...styles.flexFull, marginTop: 16 }}>
@@ -142,7 +142,7 @@ class EarthEngineDialog extends Component {
                             </div>
                             {datasetId !== 'USGS/SRTMGL1_003' && ( // If not elevation
                                 <Collection
-                                    label={i18next.t(dataset.collectionLabel)}
+                                    label={i18n.t(dataset.collectionLabel)}
                                     id={datasetId}
                                     filter={filter}
                                     onChange={setFilter}
@@ -157,7 +157,7 @@ class EarthEngineDialog extends Component {
                                 <TextField
                                     key="min"
                                     type="number"
-                                    label={i18next.t(dataset.minLabel || 'Min')}
+                                    label={i18n.t(dataset.minLabel || 'Min')}
                                     value={params.min}
                                     onChange={min =>
                                         setParams(
@@ -171,7 +171,7 @@ class EarthEngineDialog extends Component {
                                 <TextField
                                     key="max"
                                     type="number"
-                                    label={i18next.t(dataset.maxLabel || 'Max')}
+                                    label={i18n.t(dataset.maxLabel || 'Max')}
                                     value={params.max}
                                     onChange={max =>
                                         setParams(
@@ -185,7 +185,7 @@ class EarthEngineDialog extends Component {
                                 <TextField
                                     key="steps"
                                     type="number"
-                                    label={i18next.t('Steps')}
+                                    label={i18n.t('Steps')}
                                     value={
                                         steps !== undefined
                                             ? steps
@@ -220,7 +220,7 @@ class EarthEngineDialog extends Component {
                             {params && (
                                 <div style={styles.legend}>
                                     <div style={styles.legendTitle}>
-                                        {i18next.t('Legend preview')}
+                                        {i18n.t('Legend preview')}
                                     </div>
                                     <div className="Legend">
                                         <table>
@@ -283,7 +283,7 @@ class EarthEngineDialog extends Component {
         if (datasetId !== 'USGS/SRTMGL1_003' && !filter) {
             return this.setErrorState(
                 'filterError',
-                i18next.t('This field is required'),
+                i18n.t('This field is required'),
                 'style'
             );
         }
@@ -296,7 +296,7 @@ class EarthEngineDialog extends Component {
             if (!this.isValidRange()) {
                 return this.setErrorState(
                     'rangeError',
-                    `${i18next.t('Valid range is')} ${minValue} - ${maxValue}`,
+                    `${i18n.t('Valid range is')} ${minValue} - ${maxValue}`,
                     'style'
                 );
             }

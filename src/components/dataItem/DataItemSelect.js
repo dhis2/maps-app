@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { combineDataItems } from '../../util/analytics';
@@ -61,7 +61,7 @@ export class DataItemSelect extends Component {
 
         return (
             <SelectField
-                label={label || i18next.t('Data item')}
+                label={label || i18n.t('Data item')}
                 items={dataItems}
                 value={value}
                 onChange={onChange}

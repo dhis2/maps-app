@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import isPlainObject from 'lodash/fp/isPlainObject';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { isValidCoordinate } from '../util/map';
@@ -44,7 +44,7 @@ const facilityLoader = async config => {
     return {
         ...config,
         data: features,
-        name: i18next.t('Facilities'),
+        name: i18n.t('Facilities'),
         legend: {
             unit: organisationUnitGroupSet.name,
             items: Object.keys(groupSet).map(id => ({

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { combineDataItems } from '../../util/analytics';
@@ -64,7 +64,7 @@ export class EventDataItemSelect extends Component {
 
         return (
             <SelectField
-                label={i18next.t('Event data item')}
+                label={i18n.t('Event data item')}
                 items={dataItems}
                 value={dataItem ? dataItem.id : null}
                 onChange={dataItem => onChange(dataItem, 'eventDataItem')}

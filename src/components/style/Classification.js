@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import range from 'lodash/fp/range';
 import { SelectField } from '@dhis2/d2-ui-core';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
@@ -50,18 +50,18 @@ const Classification = ({
     return (
         <div style={style}>
             <SelectField
-                label={i18next.t('Classification')}
+                label={i18n.t('Classification')}
                 value={method || 2}
                 items={classificationTypes.map(({ id, name }) => ({
                     id,
-                    name: i18next.t(name),
+                    name: i18n.t(name),
                 }))}
                 onChange={method => setClassification(method.id)}
                 style={styles.selectField}
             />
             <div style={styles.selectField}>
                 <SelectField
-                    label={i18next.t('Classes')}
+                    label={i18n.t('Classes')}
                     value={classes !== undefined ? classes : defaultClasses}
                     items={classRange}
                     onChange={item =>

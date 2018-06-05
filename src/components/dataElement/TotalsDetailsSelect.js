@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
 const styles = {
@@ -24,12 +24,12 @@ const TotalsDetailsSelect = ({ operand, onChange, style }) => (
         >
             <RadioButton
                 value={false}
-                label={i18next.t('Totals')}
+                label={i18n.t('Totals')}
                 style={styles.radioButton}
             />
             <RadioButton
                 value={true}
-                label={i18next.t('Details')}
+                label={i18n.t('Details')}
                 style={styles.radioButton}
             />
         </RadioButtonGroup>

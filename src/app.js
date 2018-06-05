@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2/lib/d2';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import debounce from 'lodash/fp/debounce';
 import store from './store';
 import Root from './components/Root';

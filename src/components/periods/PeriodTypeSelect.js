@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { periodTypes } from '../../constants/periods';
 
@@ -11,13 +11,13 @@ const PeriodTypeSelect = ({ value, onChange, style, errorText }) => {
         // Translate period names
         periods = periodTypes.map(({ id, name }) => ({
             id,
-            name: i18next.t(name),
+            name: i18n.t(name),
         }));
     }
 
     return (
         <SelectField
-            label={i18next.t('Period type')}
+            label={i18n.t('Period type')}
             items={periods}
             value={value}
             onChange={onChange}

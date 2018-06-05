@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import * as types from '../constants/actionTypes';
 import { setMessage } from '../actions/message';
 import { apiFetch } from '../util/api';
@@ -16,7 +16,7 @@ export const saveFavorite = (action$, store) =>
 
         return apiFetch(`/maps/${config.id}`, 'PUT', config).then(() =>
             setMessage(
-                `${i18next.t('Favorite')} "${config.name}" ${i18next.t(
+                `${i18n.t('Favorite')} "${config.name}" ${i18n.t(
                     'is saved'
                 )}.`
             )
@@ -32,12 +32,12 @@ export const saveNewFavorite = action$ =>
                 response =>
                     response.status === 'OK'
                         ? setMessage(
-                              `${i18next.t('Favorite')} "${
+                              `${i18n.t('Favorite')} "${
                                   config.name
-                              }" ${i18next.t('is saved')}.`
+                              }" ${i18n.t('is saved')}.`
                           )
                         : setMessage(
-                              `${i18next.t('Error')}: ${response.message}`
+                              `${i18n.t('Error')}: ${response.message}`
                           )
             )
         );
@@ -48,7 +48,7 @@ export const saveFavoriteInterpretation = action$ =>
         .ofType(types.FAVORITE_INTERPRETATION_SAVE)
         .concatMap(({ id, interpretation }) =>
             apiFetch(`/interpretations/map/${id}`, 'POST', interpretation).then(
-                response => setMessage(i18next.t(response.message))
+                response => setMessage(i18n.t(response.message))
             )
         );
 

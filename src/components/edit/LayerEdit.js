@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { Button } from '@dhis2/d2-ui-core';
 import EventDialog from './EventDialog';
 import FacilityDialog from './FacilityDialog';
@@ -82,7 +82,7 @@ class LayerEdit extends Component {
             return null;
         }
 
-        const title = i18next.t(
+        const title = i18n.t(
             layer.id ? `Edit ${name} layer` : `Add new ${name} layer`
         );
 
@@ -99,17 +99,17 @@ class LayerEdit extends Component {
                         onClick={() => cancelLayer()}
                         selector="cancel"
                     >
-                        {i18next.t('Cancel')}
+                        {i18n.t('Cancel')}
                     </Button>,
                     <Button
                         color="primary"
                         onClick={() => this.loadLayer()}
                         selector="update"
                     >
-                        {i18next.t(
+                        {i18n.t(
                             layer.id
-                                ? i18next.t('Update layer')
-                                : i18next.t('Add layer')
+                                ? i18n.t('Update layer')
+                                : i18n.t('Add layer')
                         )}
                     </Button>,
                 ]}

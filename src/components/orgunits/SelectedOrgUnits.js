@@ -1,5 +1,5 @@
 import React from 'react';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import {
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
@@ -27,12 +27,12 @@ const SelectedOrgUnits = ({ units, rows, error }) => {
         .sort();
     const userOrgUnits = getUserOrgUnitsFromRows(rows)
         .sort()
-        .map(id => i18next.t(levels[id]));
+        .map(id => i18n.t(levels[id]));
 
-    let selected = i18next.t('No organisation units are selected');
+    let selected = i18n.t('No organisation units are selected');
 
     if (orgUnits.length || userOrgUnits.length) {
-        selected = `${units} ${i18next.t('in')} `;
+        selected = `${units} ${i18n.t('in')} `;
 
         if (userOrgUnits.length) {
             selected += userOrgUnits.join(', ');

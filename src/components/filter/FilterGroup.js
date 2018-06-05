@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import sortBy from 'lodash/fp/sortBy';
 import { Button } from '@dhis2/d2-ui-core';
 import FilterRow from './FilterRow';
@@ -38,7 +38,7 @@ class FilterGroup extends Component {
         if (!programStage) {
             return (
                 <div style={styles.note}>
-                    {i18next.t(
+                    {i18n.t(
                         'Filtering is available after selecting a program stage.'
                     )}
                 </div>
@@ -65,7 +65,7 @@ class FilterGroup extends Component {
                     onClick={() => addFilter()}
                     style={styles.button}
                 >
-                    {i18next.t('Add filter')}
+                    {i18n.t('Add filter')}
                 </Button>
             </div>
         );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadEarthEngineCollection } from '../../actions/earthEngine';
 
@@ -57,7 +57,7 @@ export class CollectionSelect extends Component {
 
         return (
             <SelectField
-                label={label || i18next.t('Period')}
+                label={label || i18n.t('Period')}
                 loading={items ? false : true}
                 items={items}
                 value={value}

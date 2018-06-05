@@ -1,5 +1,5 @@
 import React from 'react';
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { aggregationTypes } from '../../../constants/aggregationTypes';
@@ -15,13 +15,13 @@ export const AggregationTypeSelect = ({
     if (!types) {
         types = aggregationTypes.map(type => ({
             id: type.id,
-            name: i18next.t(type.name),
+            name: i18n.t(type.name),
         }));
     }
 
     return (
         <SelectField
-            label={i18next.t('Aggregation type')}
+            label={i18n.t('Aggregation type')}
             items={types}
             value={aggregationType || types[0].id}
             onChange={type => setAggregationType(type.id)}

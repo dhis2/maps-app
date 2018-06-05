@@ -1,4 +1,12 @@
-import i18next from 'i18next';
+import i18n from './locales';
+
+export const configI18n = userSettings => {
+  i18n.changeLanguage(userSettings.keyUiLocale);
+};
+
+
+/*
+import i18n from '@dhis2/d2-i18n';
 import XHR from 'i18next-xhr-backend';
 import { config } from 'd2/lib/d2';
 
@@ -27,3 +35,4 @@ export const configI18n = userSettings => {
         }
     );
 };
+*/

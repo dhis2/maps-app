@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from '@dhis2/d2-i18n';
 import sortBy from 'lodash/fp/sortBy';
 import negate from 'lodash/fp/negate';
 import { isValidUid } from 'd2/lib/uid';
@@ -149,7 +149,7 @@ export const getPeriodFromFilters = (filters = []) =>
 
 export const getPeriodNameFromId = id => {
     const period = relativePeriods.filter(period => period.id === id)[0];
-    return period ? i18next.t(period.name) : null;
+    return period ? i18n.t(period.name) : null;
 };
 
 export const setFiltersFromPeriod = period => [
@@ -179,10 +179,10 @@ export const getFilterOperatorAsText = id =>
         LT: '<',
         LE: '<=',
         NE: '!=',
-        IN: i18next.t('one of'),
-        '!IN': i18next.t('not one of'),
-        LIKE: i18next.t('contains'),
-        '!LIKE': i18next.t("doesn't contains"),
+        IN: i18n.t('one of'),
+        '!IN': i18n.t('not one of'),
+        LIKE: i18n.t('contains'),
+        '!LIKE': i18n.t("doesn't contains"),
     }[id]);
 
 export const getFilterValueName = (value, names) =>
@@ -227,6 +227,6 @@ export const getApiResponseNames = ({ metaData, headers }) => ({
         }),
         {}
     ),
-    true: i18next.t('Yes'),
-    false: i18next.t('No'),
+    true: i18n.t('Yes'),
+    false: i18n.t('No'),
 });
