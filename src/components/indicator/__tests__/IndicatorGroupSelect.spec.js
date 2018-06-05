@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
+import { SelectField } from '@dhis2/d2-ui-core';
 import { IndicatorGroupSelect } from '../IndicatorGroupSelect';
 
 // TODO:

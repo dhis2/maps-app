@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18next from 'i18next';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
-import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import { SvgIcon } from '@dhis2/d2-ui-core';
 import { grey600 } from 'material-ui/styles/colors';
 import SortableHandle from './SortableHandle';
 import LayerToolbar from '../toolbar/LayerToolbar';

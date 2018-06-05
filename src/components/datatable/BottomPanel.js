@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import { SvgIcon } from '@dhis2/d2-ui-core';
 import ResizeHandle from './ResizeHandle';
 import DataTable from '../datatable/DataTable';
 import { LAYERS_PANEL_WIDTH, HEADER_HEIGHT } from '../../constants/layout';

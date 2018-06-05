@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import TextField from 'd2-ui/lib/text-field/TextField';
+import { SelectField } from '@dhis2/d2-ui-core';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
 import Checkbox from '../../d2-ui/Checkbox';

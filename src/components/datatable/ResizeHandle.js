@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import { SvgIcon } from '@dhis2/d2-ui-core';
 import './ResizeHandle.css';
 
 const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {

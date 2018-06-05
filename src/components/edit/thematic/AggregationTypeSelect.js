@@ -1,7 +1,7 @@
 import React from 'react';
 import i18next from 'i18next';
 import { connect } from 'react-redux';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
+import { SelectField } from '@dhis2/d2-ui-core';
 import { aggregationTypes } from '../../../constants/aggregationTypes';
 import { setAggregationType } from '../../../actions/layerEdit';
 

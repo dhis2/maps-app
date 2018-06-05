@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18next from 'i18next';
 import Dialog from 'material-ui/Dialog';
 import { Button } from '@dhis2/d2-ui-core';
-import TextField from 'd2-ui/lib/text-field/TextField';
+import { TextField } from '@dhis2/d2-ui-core';
 import { setMapName } from '../../actions/map';
 import {
     saveNewFavorite,

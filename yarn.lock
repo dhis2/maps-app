@@ -154,6 +154,70 @@
     lodash "^4.17.10"
     material-ui "^0.20.0"
 
+"@dhis2/d2-ui-forms@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-forms/-/d2-ui-forms-1.0.6.tgz#6cfa7ba10887adf4ea46316f0ef499cf2aa48181"
+  dependencies:
+    "@dhis2/d2-ui-core" "^1.2.0"
+    babel-runtime "^6.26.0"
+    classnames "^2.2.5"
+    d2 "^30.0.0"
+    lodash "^4.17.10"
+    loglevel "^1.6.1"
+    material-ui "^0.20.0"
+    rxjs "^5.5.7"
+
+"@dhis2/d2-ui-legend@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-legend/-/d2-ui-legend-1.0.11.tgz#e4d59a4e95528199f4c8dd32180491bddb9e3e90"
+  dependencies:
+    "@dhis2/d2-ui-core" "^1.2.0"
+    "@dhis2/d2-ui-forms" "^1.0.6"
+    "@dhis2/d2-ui-table" "^1.0.11"
+    babel-runtime "^6.26.0"
+    d2-utilizr "^0.2.15"
+    material-ui "^0.19.3"
+    prop-types "^15.5.10"
+    recompose "^0.26.0"
+    rxjs "^5.5.7"
+
+"@dhis2/d2-ui-org-unit-tree@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-1.0.10.tgz#6d64c2e9697e685a83bcda921ca6beb078618953"
+  dependencies:
+    "@dhis2/d2-ui-core" "^1.2.0"
+    babel-runtime "^6.26.0"
+    material-ui "^0.19.3"
+    prop-types "^15.5.10"
+    recompose "^0.26.0"
+    rxjs "^5.5.7"
+
+"@dhis2/d2-ui-table@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-table/-/d2-ui-table-1.0.11.tgz#aa701b2c793b9921d626b110399f45db33dcabf6"
+  dependencies:
+    "@dhis2/d2-ui-core" "^1.2.0"
+    "@dhis2/d2-ui-translation-dialog" "^1.0.11"
+    babel-runtime "^6.26.0"
+    d2-utilizr "^0.2.15"
+    lodash "^4.17.10"
+    material-ui "^0.19.3"
+    prop-types "^15.5.10"
+    recompose "^0.26.0"
+    rxjs "^5.5.7"
+
+"@dhis2/d2-ui-translation-dialog@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-translation-dialog/-/d2-ui-translation-dialog-1.0.11.tgz#0e314fda68c3dcb43a354ea2de0122f7803ef17b"
+  dependencies:
+    "@dhis2/d2-ui-core" "^1.2.0"
+    babel-runtime "^6.26.0"
+    d2-utilizr "^0.2.15"
+    material-ui "^0.19.3"
+    prop-types "^15.5.10"
+    recompose "^0.26.0"
+    rxjs "^5.5.7"
+
 "@dhis2/gis-api@29.0.13":
   version "29.0.13"
   resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-29.0.13.tgz#02dac16ee8cd9c73c6db723132c14be8af2dca62"
@@ -2435,6 +2499,14 @@ d2-utilizr@^0.2.15:
 d2@^29.1.1:
   version "29.1.1"
   resolved "https://registry.yarnpkg.com/d2/-/d2-29.1.1.tgz#7ab897df534b58bec845f547bae26b4ac0035ab9"
+  dependencies:
+    docdash "^0.4.0"
+    jsdoc "^3.5.5"
+    whatwg-fetch "^2.0.3"
+
+d2@^30.0.0:
+  version "30.0.0"
+  resolved "https://registry.yarnpkg.com/d2/-/d2-30.0.0.tgz#470b516f21bda6bda09b65579352e37225ca7e1d"
   dependencies:
     docdash "^0.4.0"
     jsdoc "^3.5.5"
@@ -8432,7 +8504,13 @@ rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
-rxjs@^5.4.3, rxjs@^5.5.6:
+rxjs@^5.4.3, rxjs@^5.5.7:
+  version "5.5.11"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.11.tgz#f733027ca43e3bec6b994473be4ab98ad43ced87"
+  dependencies:
+    symbol-observable "1.0.1"
+
+rxjs@^5.5.6:
   version "5.5.6"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.6.tgz#e31fb96d6fd2ff1fd84bcea8ae9c02d007179c02"
   dependencies:

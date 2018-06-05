@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import { SvgIcon } from '@dhis2/d2-ui-core';
 import OpacitySlider from './OpacitySlider';
 import DownloadMenu from './DownloadMenu';
 import OpenAsMenu from './OpenAsMenu';

@@ -1,5 +1,5 @@
 import React from 'react';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
+import { SelectField } from '@dhis2/d2-ui-core';
 
 const OptionSetSelect = ({ options, value, onChange, style }) => {
     // TODO: Temporarily fix until we have a searchable SelectField handling hundreds of options

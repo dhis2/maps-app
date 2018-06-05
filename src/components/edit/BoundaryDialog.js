@@ -7,7 +7,7 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import TextField from 'd2-ui/lib/text-field/TextField';
+import { TextField } from '@dhis2/d2-ui-core';
 import Checkbox from '../d2-ui/Checkbox';
 import FontStyle from '../d2-ui/FontStyle';
 import { layerDialogStyles } from './LayerDialogStyles';
