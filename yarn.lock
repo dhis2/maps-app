@@ -154,6 +154,21 @@
     lodash "^4.17.10"
     material-ui "^0.20.0"
 
+"@dhis2/d2-ui-favorites-dialog@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-favorites-dialog/-/d2-ui-favorites-dialog-1.0.10.tgz#5795b3312cdc87a4c0ca6386f99ad2367ac9a56f"
+  dependencies:
+    "@dhis2/d2-ui-core" "^1.2.0"
+    "@dhis2/d2-ui-sharing-dialog" "^1.0.10"
+    babel-runtime "^6.26.0"
+    material-ui "^1.0.0-beta.34"
+    material-ui-icons "^1.0.0-beta.17"
+    prop-types "^15.6.0"
+    react-redux "^5.0.7"
+    redux "^3.7.2"
+    redux-logger "^3.0.6"
+    redux-thunk "^2.2.0"
+
 "@dhis2/d2-ui-forms@^1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-forms/-/d2-ui-forms-1.0.6.tgz#6cfa7ba10887adf4ea46316f0ef499cf2aa48181"
@@ -184,6 +199,17 @@
 "@dhis2/d2-ui-org-unit-tree@^1.0.10":
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-1.0.10.tgz#6d64c2e9697e685a83bcda921ca6beb078618953"
+  dependencies:
+    "@dhis2/d2-ui-core" "^1.2.0"
+    babel-runtime "^6.26.0"
+    material-ui "^0.19.3"
+    prop-types "^15.5.10"
+    recompose "^0.26.0"
+    rxjs "^5.5.7"
+
+"@dhis2/d2-ui-sharing-dialog@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-sharing-dialog/-/d2-ui-sharing-dialog-1.0.10.tgz#a565840cab83c5bf0ccf8c5228cf46b4c0175f03"
   dependencies:
     "@dhis2/d2-ui-core" "^1.2.0"
     babel-runtime "^6.26.0"

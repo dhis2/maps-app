@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import D2FavoritesDialog from 'd2-ui-favorites';
+// import FavoritesDialog from '@dhis2/d2-ui-favorites-dialog'; // Not working
 import { loadFavorite, closeFavoritesDialog } from '../../actions/favorites';
 import { closeDataTable } from '../../actions/dataTable';
 import PropTypes from 'prop-types';
