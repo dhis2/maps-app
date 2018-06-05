@@ -1,6 +1,8 @@
 .DS_Store
 .idea
 .vscode
+.jshintignore
+.jshintrc
 node_modules
 build
 target

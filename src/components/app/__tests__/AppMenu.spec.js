@@ -6,7 +6,7 @@ import Button from 'material-ui/FlatButton';
 import { AppMenu } from '../AppMenu';
 
 describe('AppMenu', () => {
-    jest.spyOn(i18next, 't').mockImplementation(text => text);
+    jest.spyOn(i18n, 't').mockImplementation(text => text);
 
     it('renders a MUI Toolbar', () => {
         const wrapper = shallow(<AppMenu openAboutDialog={jest.fn()} />);

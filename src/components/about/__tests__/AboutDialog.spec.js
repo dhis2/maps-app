@@ -6,7 +6,7 @@ import i18n from '@dhis2/d2-i18n';
 import { AboutDialog } from '../AboutDialog';
 import { getStubContext } from '../../../../config/testContext';
 
-jest.spyOn(i18next, 't').mockImplementation(text => text); // stub i18next.t
+jest.spyOn(i18n, 't').mockImplementation(text => text); // stub i18n.t
 
 describe('AboutDialog', () => {
     const renderWithProps = props => shallow(<AboutDialog {...props} />,  { context: getStubContext() });
