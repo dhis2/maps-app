@@ -15,13 +15,13 @@
         }
     },
     "scripts": {
-        "prestart": "npm run localize && d2-manifest package.json manifest.webapp",
+        "prestart": "yarn localize && d2-manifest package.json manifest.webapp",
         "start": "webpack-dev-server",
-        "coverage": "npm test -- --coverage",
+        "coverage": "yarn test -- --coverage",
         "test": "jest",
         "test:watch": "yarn test -- --watch",
         "prebuild": "yarn test",
-        "build": "npm run localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build",
+        "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build",
         "postbuild": "cp icon.png ./build/ && cp -r images ./build",
         "validate": "npm ls --depth 0 || yarn list",
         "manifest": "d2-manifest package.json build/manifest.webapp",
@@ -30,7 +30,7 @@
         "profile": "yarn start -- --profile",
         "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
-        "localize": "npm run extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/"
+        "localize": "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/"
     },
     "dependencies": {
         "@dhis2/d2-i18n": "^1.0.3",
