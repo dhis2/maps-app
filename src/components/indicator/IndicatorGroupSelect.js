@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import { connect } from 'react-redux';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
+import { SelectField } from '@dhis2/d2-ui-core';
 import { loadIndicatorGroups } from '../../actions/indicators';
 
 export class IndicatorGroupSelect extends Component {

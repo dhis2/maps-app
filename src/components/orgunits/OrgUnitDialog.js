@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
-import Button from 'd2-ui/lib/button/Button';
+import { Button } from '@dhis2/d2-ui-core';
 import Dialog from 'material-ui/Dialog';
 import PeriodSelect from '../periods/PeriodSelect';
 import { closeOrgUnit } from '../../actions/orgUnits';

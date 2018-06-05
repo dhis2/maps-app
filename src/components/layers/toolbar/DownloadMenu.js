@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MenuItem from 'material-ui/MenuItem';
-import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import { SvgIcon } from '@dhis2/d2-ui-core';
 import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
 import { createSld } from '../../../util/sld';
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import range from 'lodash/fp/range';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
+import { SelectField } from '@dhis2/d2-ui-core';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
 import { setClassification, setColorScale } from '../../actions/layerEdit';
 import { classificationTypes } from '../../constants/layers';

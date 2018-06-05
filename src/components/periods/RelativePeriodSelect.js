@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18next from 'i18next';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
+import { SelectField } from '@dhis2/d2-ui-core';
 import { relativePeriods } from '../../constants/periods';
 
 let periods;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import once from 'lodash/fp/once';
-import D2OrgUnitTree from 'd2-ui/lib/org-unit-tree/OrgUnitTree.component';
+import { OrgUnitTree } from '@dhis2/d2-ui-org-unit-tree';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
 import { toggleOrganisationUnit } from '../../actions/layerEdit';
 
@@ -40,7 +40,7 @@ const styles = {
     },
 };
 
-export class OrgUnitTree extends Component {
+export class OrgUnitTreeMaps extends Component {
     static propTypes = {
         root: PropTypes.object,
         selected: PropTypes.array,
@@ -81,7 +81,7 @@ export class OrgUnitTree extends Component {
 
         return (
             <div style={styles.container}>
-                <D2OrgUnitTree
+                <OrgUnitTree
                     root={root}
                     selected={selected
                         .filter(item => item.path)
@@ -111,4 +111,4 @@ export default connect(
         root: state.orgUnitTree,
     }),
     { loadOrgUnitTree, toggleOrganisationUnit }
-)(OrgUnitTree);
+)(OrgUnitTreeMaps);

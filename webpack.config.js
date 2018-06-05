@@ -29,6 +29,7 @@ function log(req, res, opt) {
 }
 
 const webpackConfig = {
+    mode: `${isDevBuild ? 'development' : 'production'}`,
     context: __dirname,
     entry: {
         'app': './src/app.js',
@@ -42,12 +43,12 @@ const webpackConfig = {
         publicPath: isDevBuild ? 'http://localhost:8082/' : './',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 include: [
-                    path.resolve(__dirname, 'src/'),
-                    path.resolve(__dirname, '../gis-api/src/'),
+                    path.resolve(__dirname, 'src/') //,
+                    // path.resolve(__dirname, '../gis-api/src/'),
                 ],
                 loader: 'babel-loader',
                 query: {
@@ -65,11 +66,11 @@ const webpackConfig = {
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loaders: [
+                use: [
                     'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
                     {
                         loader: 'image-webpack-loader',
-                        query: {
+                        options: {
                             mozjpeg: {
                                 progressive: true,
                             },

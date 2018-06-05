@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18next from 'i18next';
 import Dialog from 'material-ui/Dialog';
-import Button from 'd2-ui/lib/button/Button';
+import { Button } from '@dhis2/d2-ui-core';
 import TextField from 'material-ui/TextField';
 
 const styles = {

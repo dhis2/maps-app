@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18next from 'i18next';
 import Popover from 'material-ui/Popover';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import { SvgIcon } from '@dhis2/d2-ui-core';
 import OrgUnitDialog from '../orgunits/OrgUnitDialog';
 import RelocateDialog from '../orgunits/RelocateDialog';
 import {

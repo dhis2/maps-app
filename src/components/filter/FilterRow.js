@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DataItemSelect from '../dataItem/DataItemSelect';
 import FilterSelect from './FilterSelect';
 import IconButton from 'material-ui/IconButton';
-import SvgIcon from 'd2-ui/lib/svg-icon/SvgIcon';
+import { SvgIcon } from '@dhis2/d2-ui-core';
 
 // https://react.rocks/example/react-redux-test
 

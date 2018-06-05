@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import ColorScale from 'd2-ui/lib/legend/ColorScale.component';
+import { ColorScale } from '@dhis2/d2-ui-legend';
 import Popover from 'material-ui/Popover/Popover';
 import {
     colorScales,

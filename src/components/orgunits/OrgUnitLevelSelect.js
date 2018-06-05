@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18next from 'i18next';
 import once from 'lodash/fp/once';
 import sortBy from 'lodash/fp/sortBy';
-import SelectField from 'd2-ui/lib/select-field/SelectField';
+import { SelectField } from '@dhis2/d2-ui-core';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
 
 const style = {

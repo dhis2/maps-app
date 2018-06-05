@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import Dialog from 'material-ui/Dialog';
-import Button from 'd2-ui/lib/button/Button';
+import { Button } from '@dhis2/d2-ui-core';
 import { closeAboutDialog } from '../../actions/about';
 
 const style = {
     padding: 5,
 };
+
+console.log('Button', Button);
 
 export const AboutDialog = ({ aboutDialogOpen, closeAboutDialog }, { d2 }) => {
     const system = d2.system.systemInfo;
