@@ -16,44 +16,28 @@ export const saveFavorite = (action$, store) =>
 
         return apiFetch(`/maps/${config.id}`, 'PUT', config).then(() =>
             setMessage(
-                `${i18n.t('Favorite')} "${config.name}" ${i18n.t(
-                    'is saved'
-                )}.`
+                `${i18n.t('Favorite')} "${config.name}" ${i18n.t('is saved')}.`
             )
         );
     });
 
 // Save new favorite
 export const saveNewFavorite = action$ =>
-    action$
-        .ofType(types.FAVORITE_SAVE_NEW)
-        .concatMap(({ config }) =>
-            apiFetch('/maps/', 'POST', config).then(
-                response =>
-                    response.status === 'OK'
-                        ? setMessage(
-                              `${i18n.t('Favorite')} "${
-                                  config.name
-                              }" ${i18n.t('is saved')}.`
-                          )
-                        : setMessage(
-                              `${i18n.t('Error')}: ${response.message}`
-                          )
-            )
-        );
+    action$.ofType(types.FAVORITE_SAVE_NEW).concatMap(({ config }) => {
+        console.log('saveNewFavorite', config);
 
-// Save new favorite interpretation
-export const saveFavoriteInterpretation = action$ =>
-    action$
-        .ofType(types.FAVORITE_INTERPRETATION_SAVE)
-        .concatMap(({ id, interpretation }) =>
-            apiFetch(`/interpretations/map/${id}`, 'POST', interpretation).then(
-                response => setMessage(i18n.t(response.message))
-            )
+        /*
+        return apiFetch('/maps/', 'POST', config).then(
+            response =>
+                response.status === 'OK'
+                    ? setMessage(
+                          `${i18n.t('Favorite')} "${config.name}" ${i18n.t(
+                              'is saved'
+                          )}.`
+                      )
+                    : setMessage(`${i18n.t('Error')}: ${response.message}`)
         );
+        */
+    });
 
-export default combineEpics(
-    saveFavorite,
-    saveNewFavorite,
-    saveFavoriteInterpretation
-);
+export default combineEpics(saveFavorite, saveNewFavorite);

@@ -15,6 +15,7 @@ import ContextMenu from '../map/ContextMenu';
 import AboutDialog from '../about/AboutDialog';
 import AlertsDialog from '../alerts/AlertsDialog';
 import Message from '../message/Message';
+import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 
 // Makes d2 available in all child components
 // Not using AppWithD2 from d2-ui because it requires d2 to be a promise
@@ -36,6 +37,7 @@ export class App extends Component {
                     <div id="dhis-gis-container">
                         <AppHeader />
                         <AppMenu />
+                        <InterpretationsPanel />
                         <LayersPanel />
                         <LayersToggle />
                         <Map />

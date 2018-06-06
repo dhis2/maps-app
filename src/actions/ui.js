@@ -6,10 +6,18 @@ export const resizeScreen = (width, height) => ({
     height,
 });
 
+export const openLayersPanel = () => ({
+    type: types.LAYERS_PANEL_OPEN,
+});
+
 export const closeLayersPanel = id => ({
     type: types.LAYERS_PANEL_CLOSE,
 });
 
-export const openLayersPanel = () => ({
-    type: types.LAYERS_PANEL_OPEN,
+export const openInterpretationsPanel = () => ({
+    type: types.INTERPRETATIONS_PANEL_OPEN,
+});
+
+export const closeInterpretationsPanel = id => ({
+    type: types.INTERPRETATIONS_PANEL_CLOSE,
 });

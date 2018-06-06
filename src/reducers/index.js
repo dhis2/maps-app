@@ -8,7 +8,6 @@ import dataElementOperands from './dataElementOperands';
 import dataSets from './dataSets';
 import dataTable from './dataTable';
 import earthEngine from './earthEngine';
-import favorite from './favorite';
 import layerEdit from './layerEdit';
 import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
@@ -43,7 +42,6 @@ export default combineReducers({
     dataSets,
     dataTable,
     earthEngine,
-    favorite,
     indicators,
     indicatorGroups,
     layerEdit,

@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 // import { Button } from '@dhis2/d2-ui-core';
-import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
+import Button from 'material-ui/FlatButton'; // TODO: Support buttons without uppercase in d2-ui
 import AddLayer from '../layers/layers/AddLayer';
-import FavoritesMenu from '../favorites/FavoritesMenu';
+import FileMenu from './FileMenu';
+import InterpretationsToggle from '../interpretations/InterpretationsToggle';
 import { openAboutDialog } from '../../actions/about';
 
 const styles = {
@@ -31,7 +32,8 @@ export const AppMenu = ({ openAboutDialog }) => (
     <Toolbar style={styles.toolbar} className="dhis-gis-menu">
         <ToolbarGroup firstChild={true}>
             <AddLayer />
-            <FavoritesMenu />
+            <FileMenu />
+            <InterpretationsToggle />
         </ToolbarGroup>
         <ToolbarGroup lastChild={true}>
             <Button onClick={openAboutDialog} style={styles.button}>
@@ -45,4 +47,7 @@ AppMenu.propTypes = {
     openAboutDialog: PropTypes.func.isRequired,
 };
 
-export default connect(null, { openAboutDialog })(AppMenu);
+export default connect(
+    null,
+    { openAboutDialog }
+)(AppMenu);

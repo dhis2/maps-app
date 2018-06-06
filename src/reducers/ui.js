@@ -4,6 +4,7 @@ const defaultState = {
     width: typeof window === 'object' ? window.innerWidth : null,
     height: typeof window === 'object' ? window.innerHeight : null,
     layersPanelOpen: true,
+    interpretationsPanelOpen: false,
     dataTableOpen: false,
     dataTableHeight: 300,
     layersDialogOpen: false,
@@ -30,6 +31,18 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 layersPanelOpen: false,
+            };
+
+        case types.INTERPRETATIONS_PANEL_OPEN:
+            return {
+                ...state,
+                interpretationsPanelOpen: true,
+            };
+
+        case types.INTERPRETATIONS_PANEL_CLOSE:
+            return {
+                ...state,
+                interpretationsPanelOpen: false,
             };
 
         case types.LAYERS_DIALOG_OPEN:

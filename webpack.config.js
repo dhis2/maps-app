@@ -99,10 +99,10 @@ const webpackConfig = {
     resolve: {
         alias: {
             react: path.resolve('./node_modules/react'),
-            'material-ui': path.resolve('./node_modules/material-ui'),
-            'material-ui-icons': path.resolve(
-                './node_modules/material-ui-icons'
-            ),
+            // 'material-ui': path.resolve('./node_modules/material-ui'),
+            // 'material-ui-icons': path.resolve(
+            //    './node_modules/material-ui-icons'
+            //),
             redux: path.resolve('./node_modules/redux'),
             'react-redux': path.resolve('./node_modules/react-redux'),
             'redux-thunk': path.resolve('./node_modules/redux-thunk'),
@@ -138,10 +138,10 @@ const webpackConfig = {
                 `${scriptPrefix}/dhis-web-core-resource/babel-polyfill/6.20.0/dist/polyfill${
                     isDevBuild ? '' : '.min'
                 }.js`,
-                `${scriptPrefix}/dhis-web-core-resource/react/16.1.1/umd/react.${
+                `${scriptPrefix}/dhis-web-core-resource/react/16.2.0/umd/react.${
                     isDevBuild ? 'development' : 'production.min'
                 }.js`,
-                `${scriptPrefix}/dhis-web-core-resource/react-dom/16.1.1/umd/react-dom.${
+                `${scriptPrefix}/dhis-web-core-resource/react-dom/16.2.0/umd/react-dom.${
                     isDevBuild ? 'development' : 'production.min'
                 }.js`,
                 `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${
