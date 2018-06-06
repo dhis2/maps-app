@@ -11,5 +11,5 @@ export const saveFavorite = () => ({
 
 export const saveNewFavorite = config => ({
     type: types.FAVORITE_SAVE_NEW,
-    config,
+    payload: config,
 });
