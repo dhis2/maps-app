@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import i18n from '@dhis2/d2-i18n';
 import { Button } from '@dhis2/d2-ui-core';
 import EventDialog from './EventDialog';
+import TrackedEntityDialog from './TrackedEntityDialog';
 import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
 import BoundaryDialog from './BoundaryDialog';
@@ -12,6 +13,7 @@ import { loadLayer, cancelLayer } from '../../actions/layers';
 
 const layerType = {
     event: EventDialog,
+    trackedEntity: TrackedEntityDialog,
     facility: FacilityDialog,
     thematic: ThematicDialog,
     boundary: BoundaryDialog,
@@ -20,6 +22,7 @@ const layerType = {
 
 const layerName = {
     event: 'event',
+    trackedEntity: 'tracked entity',
     facility: 'facility',
     thematic: 'thematic',
     boundary: 'boundary',

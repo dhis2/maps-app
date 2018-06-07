@@ -28,16 +28,7 @@ export const InterpretationsPanel = ({ isOpen, id }, { d2 }) => {
             containerStyle={style}
             width={INTERPRETATIONS_PANEL_WIDTH}
         >
-            {id && (
-                <Interpretations
-                    d2={d2}
-                    id={id}
-                    type="map"
-                    onChange={model =>
-                        console.log(model.name, model.description)
-                    }
-                />
-            )}
+            {id && <Interpretations d2={d2} id={id} type="map" />}
         </Drawer>
     );
 };

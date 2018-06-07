@@ -50,6 +50,7 @@ getManifest('manifest.webapp')
             'organisationUnitLevel',
             'program',
             'programStage',
+            'trackedEntityInstance',
         ];
     })
     .then(getUserSettings)

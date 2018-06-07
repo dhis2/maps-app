@@ -9,6 +9,12 @@ const defaultLayers = [
         eventClustering: true,
     },
     {
+        layer: 'trackedEntity',
+        type: 'Tracked entities',
+        img: 'images/events.png',
+        opacity: 1,
+    },
+    {
         layer: 'facility',
         type: 'Facilities',
         img: 'images/facilities.png',
