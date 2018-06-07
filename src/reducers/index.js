@@ -11,6 +11,7 @@ import earthEngine from './earthEngine';
 import layerEdit from './layerEdit';
 import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
+import interpretation from './interpretation';
 import layers from './layers';
 import legendSets from './legendSets';
 import loading from './loading';
@@ -44,6 +45,7 @@ export default combineReducers({
     earthEngine,
     indicators,
     indicatorGroups,
+    interpretation,
     layerEdit,
     layers,
     legendSets,

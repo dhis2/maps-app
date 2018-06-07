@@ -11,6 +11,7 @@ import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
+import { setInterpretation } from './actions/interpretations';
 import { setGooleMapsKey } from './actions/basemap';
 import { getUrlParameter } from './util/requests';
 import '../scss/app.scss';
@@ -69,6 +70,11 @@ getManifest('manifest.webapp')
             const mapId = getUrlParameter('id');
             if (mapId) {
                 store.dispatch(loadFavorite(mapId));
+            }
+
+            const interpretationId = getUrlParameter('interpretationid');
+            if (interpretationId) {
+                store.dispatch(setInterpretation(interpretationId));
             }
 
             render(

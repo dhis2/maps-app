@@ -37,3 +37,8 @@ export const showEarthEngineValue = (layerId, coordinate) => ({
     layerId,
     coordinate,
 });
+
+export const setRelativePeriodDate = date => ({
+    type: types.MAP_RELATIVE_PERIOD_DATE_SET,
+    payload: date,
+});

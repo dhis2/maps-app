@@ -33,6 +33,7 @@ const ui = (state = defaultState, action) => {
             };
 
         case types.INTERPRETATIONS_PANEL_OPEN:
+        case types.INTERPRETATION_SET:
             return {
                 ...state,
                 interpretationsPanelOpen: true,

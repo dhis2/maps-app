@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
 import Interpretations from '@dhis2/d2-ui-interpretations';
+import { setRelativePeriodDate } from '../../actions/map';
 import {
     HEADER_HEIGHT,
     INTERPRETATIONS_PANEL_WIDTH,
@@ -20,21 +21,29 @@ const style = {
     zIndex: 1190,
 };
 
-export const InterpretationsPanel = ({ isOpen, id }, { d2 }) => {
+// https://github.com/EyeSeeTea/d2-ui-playground/blob/feature/interpretations/src/Root.js
+// http://localhost:8082/?id=zDP78aJU8nX&interpretationid=u2ugGSBGTbE
+export const InterpretationsPanel = (
+    { isOpen, mapId, interpretationId, setRelativePeriodDate },
+    { d2 }
+) => {
     return (
         <Drawer
-            open={Boolean(isOpen && id)}
+            open={Boolean(isOpen && mapId)}
             openSecondary={true}
             containerStyle={style}
             width={INTERPRETATIONS_PANEL_WIDTH}
         >
-            {id && (
+            {mapId && (
                 <Interpretations
                     d2={d2}
-                    id={id}
+                    id={mapId}
                     type="map"
-                    currentInterpretationId={'u2ugGSBGTbE'}
-                    onCurrentInterpretationChange={console.log}
+                    currentInterpretationId={interpretationId}
+                    onCurrentInterpretationChange={
+                        interpretation =>
+                            setRelativePeriodDate(interpretation.created) // &relativePeriodDate=2018-10-10T18:20:04.272
+                    }
                 />
             )}
         </Drawer>
@@ -45,7 +54,11 @@ InterpretationsPanel.contextTypes = {
     d2: PropTypes.object,
 };
 
-export default connect(state => ({
-    isOpen: state.ui.interpretationsPanelOpen,
-    id: state.map ? state.map.id : null,
-}))(InterpretationsPanel);
+export default connect(
+    state => ({
+        isOpen: state.ui.interpretationsPanelOpen,
+        mapId: state.map.id,
+        interpretationId: state.interpretation.id,
+    }),
+    { setRelativePeriodDate }
+)(InterpretationsPanel);
