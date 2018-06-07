@@ -27,7 +27,7 @@ getManifest('manifest.webapp')
             process.env.NODE_ENV === 'production'
                 ? manifest.getBaseUrl()
                 : DHIS_CONFIG.baseUrl;
-        config.baseUrl = `${baseUrl}/api/29`;
+        config.baseUrl = `${baseUrl}/api/30`;
         config.context = manifest.activities.dhis; // Added temporarily for util/api.js
 
         log.info(`Loading: ${manifest.name} v${manifest.version}`);

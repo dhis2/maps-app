@@ -19,7 +19,7 @@ import '../scss/plugin.scss';
 // pivot: https://github.com/dhis2/pivot-tables-app/blob/master/src/plugin.js
 // d2-analysis: https://github.com/dhis2/d2-analysis/blob/master/src/util/Plugin.js
 
-const apiVersion = 29;
+const apiVersion = 30;
 
 const Plugin = () => {
     let _configs = [];

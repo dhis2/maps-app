@@ -28,7 +28,15 @@ export const InterpretationsPanel = ({ isOpen, id }, { d2 }) => {
             containerStyle={style}
             width={INTERPRETATIONS_PANEL_WIDTH}
         >
-            {id && <Interpretations d2={d2} id={id} type="map" />}
+            {id && (
+                <Interpretations
+                    d2={d2}
+                    id={id}
+                    type="map"
+                    currentInterpretationId={'u2ugGSBGTbE'}
+                    onCurrentInterpretationChange={console.log}
+                />
+            )}
         </Drawer>
     );
 };
