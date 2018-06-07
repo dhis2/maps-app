@@ -12,11 +12,4 @@ describe('AppMenu', () => {
         const wrapper = shallow(<AppMenu openAboutDialog={jest.fn()} />);
         expect(wrapper.find(Toolbar).length).toBe(1);
     });
-
-    it('call openAboutDialog function if About button is clicked', () => {
-        const openAboutDialog = jest.fn();
-        const wrapper = shallow(<AppMenu openAboutDialog={openAboutDialog} />);
-        wrapper.find(Button).simulate('click');
-        expect(openAboutDialog).toHaveBeenCalledTimes(1);
-    });
 });

@@ -8,7 +8,6 @@ const defaultState = {
     dataTableOpen: false,
     dataTableHeight: 300,
     layersDialogOpen: false,
-    aboutDialogOpen: false,
     mapContextMenu: true,
 };
 
@@ -61,18 +60,6 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 dataTableHeight: action.height,
-            };
-
-        case types.ABOUT_DIALOG_OPEN:
-            return {
-                ...state,
-                aboutDialogOpen: true,
-            };
-
-        case types.ABOUT_DIALOG_CLOSE:
-            return {
-                ...state,
-                aboutDialogOpen: false,
             };
 
         default:

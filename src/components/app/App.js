@@ -12,7 +12,6 @@ import Map from '../map/Map';
 import BottomPanel from '../datatable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
-import AboutDialog from '../about/AboutDialog';
 import AlertsDialog from '../alerts/AlertsDialog';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
@@ -44,7 +43,6 @@ export class App extends Component {
                         <BottomPanel />
                         <LayerEdit />
                         <ContextMenu />
-                        <AboutDialog />
                         <AlertsDialog />
                         <Message />
                     </div>
