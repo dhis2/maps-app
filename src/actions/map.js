@@ -9,9 +9,9 @@ export const setMap = config => ({
     payload: config,
 });
 
-export const setMapName = name => ({
-    type: types.MAP_NAME_SET,
-    payload: name,
+export const setMapProps = props => ({
+    type: types.MAP_PROPS_SET,
+    payload: props,
 });
 
 export const openCoordinatePopup = coord => ({

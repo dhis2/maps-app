@@ -21,9 +21,10 @@ export const FileMenu = (
             onOpen={loadFavorite}
             onSave={saveFavorite}
             onSaveAs={saveNewFavorite}
-            onTranslate={() => {}}
-            onDelete={() => console.log('delete callback')}
-            onError={() => console.log('error!')}
+            onRename={console.log}
+            onTranslate={console.log}
+            onDelete={newMap}
+            onError={error => console.log('error', error)}
         />
     );
 };

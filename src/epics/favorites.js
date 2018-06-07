@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable';
 import i18n from '@dhis2/d2-i18n';
 import * as types from '../constants/actionTypes';
-import { setMapName } from '../actions/map';
+import { setMapProps } from '../actions/map';
 import { setMessage } from '../actions/message';
 import { apiFetch } from '../util/api';
 import { cleanMapConfig } from '../util/favorites';
@@ -48,7 +48,10 @@ export const saveNewFavorite = (action$, store) =>
             config =>
                 config.name
                     ? [
-                          setMapName(config.name),
+                          setMapProps({
+                              name: config.name,
+                              description: config.description,
+                          }),
                           setMessage(
                               `${i18n.t('Favorite')} "${config.name}" ${i18n.t(
                                   'is saved'

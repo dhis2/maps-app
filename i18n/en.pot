@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-06-05T12:46:19.648Z\n"
-"PO-Revision-Date: 2018-06-05T12:46:19.648Z\n"
+"POT-Creation-Date: 2018-06-07T08:18:58.454Z\n"
+"PO-Revision-Date: 2018-06-07T08:18:58.454Z\n"
 
 msgid "Time since last data update"
 msgstr ""
@@ -206,51 +206,6 @@ msgstr ""
 msgid "Item type"
 msgstr ""
 
-msgid "Favorites"
-msgstr ""
-
-msgid "New"
-msgstr ""
-
-msgid "Open"
-msgstr ""
-
-msgid "Save"
-msgstr ""
-
-msgid "Save as"
-msgstr ""
-
-msgid "Write interpretation"
-msgstr ""
-
-msgid "Get link"
-msgstr ""
-
-msgid "Favorite link"
-msgstr ""
-
-msgid "Open in this app"
-msgstr ""
-
-msgid "Open in Web API (limited support)"
-msgstr ""
-
-msgid "Save as new favorite"
-msgstr ""
-
-msgid "Your map was saved successfully."
-msgstr ""
-
-msgid "An error occurred"
-msgstr ""
-
-msgid "Favorite name"
-msgstr ""
-
-msgid "Your map is empty, please add a layer before you save a favorite."
-msgstr ""
-
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
@@ -288,6 +243,9 @@ msgid "Date"
 msgstr ""
 
 msgid "Indicator group"
+msgstr ""
+
+msgid "Interpretations"
 msgstr ""
 
 msgid "Toggle visibility"

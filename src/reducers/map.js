@@ -207,10 +207,10 @@ const map = (state = defaultState, action) => {
                 ...action.payload,
             };
 
-        case types.MAP_NAME_SET:
+        case types.MAP_PROPS_SET:
             return {
                 ...state,
-                name: action.payload,
+                ...action.payload,
             };
 
         case types.MAP_COORDINATE_OPEN:
