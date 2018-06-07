@@ -49,6 +49,7 @@ export class ViewMenu extends Component {
                         <MenuItem
                             checked={layersOpen}
                             onClick={this.onLayersToggle}
+                            insetChildren={true}
                         >
                             {i18n.t('Show layer list')}
                         </MenuItem>
@@ -56,6 +57,7 @@ export class ViewMenu extends Component {
                             checked={interpretationsOpen}
                             onClick={this.onInterpretationsToggle}
                             disabled={!interpretationsEnabled}
+                            insetChildren={true}
                         >
                             {i18n.t('Show interpretations')}
                         </MenuItem>
@@ -78,6 +80,8 @@ export class ViewMenu extends Component {
         const { layersOpen, openLayersPanel, closeLayersPanel } = this.props;
 
         layersOpen ? closeLayersPanel() : openLayersPanel();
+
+        this.onClose();
     };
 
     onInterpretationsToggle = event => {
@@ -91,6 +95,8 @@ export class ViewMenu extends Component {
         interpretationsOpen
             ? closeInterpretationsPanel()
             : openInterpretationsPanel();
+
+        this.onClose();
     };
 
     onClose = () => {

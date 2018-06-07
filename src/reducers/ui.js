@@ -39,6 +39,7 @@ const ui = (state = defaultState, action) => {
             };
 
         case types.INTERPRETATIONS_PANEL_CLOSE:
+        case types.MAP_NEW:
             return {
                 ...state,
                 interpretationsPanelOpen: false,
