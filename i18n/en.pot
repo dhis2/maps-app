@@ -5,34 +5,25 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-06-07T08:18:58.454Z\n"
-"PO-Revision-Date: 2018-06-07T08:18:58.454Z\n"
+"POT-Creation-Date: 2018-06-08T07:45:33.396Z\n"
+"PO-Revision-Date: 2018-06-08T07:45:33.396Z\n"
 
-msgid "Time since last data update"
-msgstr ""
-
-msgid "Version"
-msgstr ""
-
-msgid "Revision"
-msgstr ""
-
-msgid "Username"
-msgstr ""
-
-msgid "About DHIS2 Maps"
+msgid "Notifications"
 msgstr ""
 
 msgid "Close"
 msgstr ""
 
-msgid "Notifications"
-msgstr ""
-
 msgid "No favorite selected"
 msgstr ""
 
-msgid "About"
+msgid "View"
+msgstr ""
+
+msgid "Show layer list"
+msgstr ""
+
+msgid "Show interpretations"
 msgstr ""
 
 msgid "Data element group"
@@ -243,9 +234,6 @@ msgid "Date"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
-
-msgid "Interpretations"
 msgstr ""
 
 msgid "Toggle visibility"
