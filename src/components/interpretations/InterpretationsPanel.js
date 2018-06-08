@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
 import Interpretations from '@dhis2/d2-ui-interpretations';
 import queryString from 'query-string';
+import { openInterpretationsPanel } from '../../actions/ui';
 import { setRelativePeriodDate } from '../../actions/map';
 import { setInterpretation } from '../../actions/interpretations';
 import {
@@ -24,6 +25,7 @@ const style = {
 };
 
 // https://github.com/EyeSeeTea/d2-ui-playground/blob/feature/interpretations/src/Root.js
+// http://localhost:8082/?id=zDP78aJU8nX&interpretationid=zS8iVkpyCVb
 class InterpretationsPanel extends Component {
     static contextTypes = {
         d2: PropTypes.object,
@@ -31,11 +33,20 @@ class InterpretationsPanel extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.props.setInterpretation(queryString.parse(location.search).interpretationid);
+        const interpretationId = queryString.parse(location.search).interpretationid;
+
+        if (interpretationId) {
+            this.props.setInterpretation(interpretationId);
+            this.props.openInterpretationsPanel();
+        }
     }
 
     render() {
-        const { isOpen, mapId,  interpretationId } = this.props;
+        const { mapId, isOpen, interpretationId } = this.props;
+
+        if (!mapId) {
+            return null;
+        }
 
         return (
             <Drawer
@@ -44,15 +55,13 @@ class InterpretationsPanel extends Component {
                 containerStyle={style}
                 width={INTERPRETATIONS_PANEL_WIDTH}
             >
-                {mapId && (
-                    <Interpretations
-                        d2={this.context.d2}
-                        id={mapId}
-                        type="map"
-                        currentInterpretationId={interpretationId}
-                        onCurrentInterpretationChange={this.onCurrentInterpretationChange}
-                    />
-                )}
+                <Interpretations
+                    d2={this.context.d2}
+                    id={mapId}
+                    type="map"
+                    currentInterpretationId={interpretationId}
+                    onCurrentInterpretationChange={this.onCurrentInterpretationChange}
+                />
             </Drawer>
         )
     }
@@ -69,5 +78,5 @@ export default connect(
         mapId: state.map.id,
         interpretationId: state.interpretation.id,
     }),
-    { setInterpretation, setRelativePeriodDate }
+    { openInterpretationsPanel, setInterpretation, setRelativePeriodDate }
 )(InterpretationsPanel);
