@@ -6,17 +6,17 @@ import Layer from './Layer';
 class TrackedEntityLayer extends Layer {
     createLayer(callback) {
         const {
+            id,
+            data,
             trackedEntityType,
         } = this.props;
 
-        /*
+        const map = this.context.map;
+
         const config = {
-            type: 'dots',
+            type: 'boundary',
             pane: id,
             data,
-            color: color || EVENT_COLOR,
-            radius: eventPointRadius || EVENT_RADIUS,
-            popup: this.onEventClick.bind(this),
         };
 
         // Create and add event layer based on config object
@@ -27,8 +27,6 @@ class TrackedEntityLayer extends Layer {
         if (layerBounds.isValid()) {
             map.fitBounds(layerBounds);
         }
-        */
-
     }
 
 }

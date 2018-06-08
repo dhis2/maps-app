@@ -12,14 +12,28 @@ const trackedEntityLoader = async config => {
     const data = await apiFetch(`/trackedEntityInstances?ou=${orgUnit}&trackedEntityType=${trackedEntityType.id}`);
     const instances = data.trackedEntityInstances.filter(instance => geometryTypes.includes(instance.featureType));
 
-    console.log(instances);
+    const features = toGeoJson(instances);
 
     return {
         ...config,
+        name: trackedEntityType.name,
+        data: features,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
     };
 };
+
+const toGeoJson = (instances) => 
+    instances
+        .filter(instance => geometryTypes.includes(instance.featureType))
+        .map(instance => ({
+            type: 'Feature',
+            geometry: {
+                type: instance.featureType === 'POINT' ? 'Point' : 'MultiPolygon',
+                coordinates: JSON.parse(instance.coordinates),
+            },
+            properties: {},
+        }));  
 
 export default trackedEntityLoader;
