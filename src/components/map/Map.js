@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import isNumeric from 'd2-utilizr/lib/isNumeric';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
+import TrackedEntityLayer from './TrackedEntityLayer';
 import FacilityLayer from './FacilityLayer';
 import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
@@ -18,6 +19,7 @@ import {
 
 const layerType = {
     event: EventLayer,
+    trackedEntity: TrackedEntityLayer,
     facility: FacilityLayer,
     thematic: ThematicLayer,
     boundary: BoundaryLayer,

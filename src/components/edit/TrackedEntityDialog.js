@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-//import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TrackedEntityTypeSelect from '../trackedEntity/TrackedEntityTypeSelect';
 import { layerDialogStyles } from './LayerDialogStyles';
+import { setTrackedEntityType } from '../../actions/layerEdit';
 
 const styles = {
     ...layerDialogStyles,
@@ -22,9 +23,8 @@ export class TrackedEntityDialog extends Component {
         };
     }
 
-    componentDidMount() {}
-
     render() {
+        const { trackedEntityType, setTrackedEntityType } = this.props;
         const { tab } = this.state;
 
         return (
@@ -36,7 +36,10 @@ export class TrackedEntityDialog extends Component {
             >
                 <Tab value="data" label={i18n.t('data')}>
                     <div style={styles.flexColumnFlow}>
-                        <TrackedEntityTypeSelect onChange={console.log} />
+                        <TrackedEntityTypeSelect 
+                            trackedEntityType={trackedEntityType}
+                            onChange={setTrackedEntityType} 
+                        />
                     </div>
                 </Tab>
                 <Tab value="period" label={i18n.t('period')} />
@@ -46,6 +49,20 @@ export class TrackedEntityDialog extends Component {
             </Tabs>
         );
     }
+
+    validate() {
+        // TODO
+        return true;
+    }
 }
 
-export default TrackedEntityDialog;
+export default connect(
+    null,
+    {
+        setTrackedEntityType,
+    },   
+    null,
+    {
+        withRef: true,
+    }
+)(TrackedEntityDialog);

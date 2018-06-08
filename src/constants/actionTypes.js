@@ -212,6 +212,7 @@ export const LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD =
 export const LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD_ERROR =
     'LAYER_EDIT_ORGANISATION_UNIT_PATH_LOAD_ERROR'; // Load organisation unit tree path (temporary solution, as favorites don't include paths)
 export const LAYER_EDIT_OPERAND_SET = 'OPERAND_SET'; // Data element operands (details)
+export const LAYER_EDIT_TRACKED_ENTITY_TYPE_SET = 'LAYER_EDIT_TRACKED_ENTITY_TYPE_SET';
 
 /* PERIODS */
 export const RELATIVE_PERIODS_SET = 'RELATIVE_PERIODS_SET';

@@ -32,6 +32,7 @@ import programTrackedEntityAttributes from './programTrackedEntityAttributes';
 import relocate from './relocate';
 import ui from './ui';
 import userSettings from './userSettings';
+import trackedEntityTypes from './trackedEntityTypes.js';
 
 export default combineReducers({
     alert,
@@ -67,4 +68,5 @@ export default combineReducers({
     relocate,
     ui,
     userSettings,
+    trackedEntityTypes,
 });

@@ -363,6 +363,14 @@ const layerEdit = (state = null, action) => {
                 legendSet: action.legendSet,
             };
 
+        case types.LAYER_EDIT_TRACKED_ENTITY_TYPE_SET:
+            return {
+                ...state,
+                trackedEntityType: {
+                    ...action.trackedEntityType,
+                },
+            };
+
         default:
             return state;
     }

@@ -31,11 +31,11 @@ export class TrackedEntityTypeSelect extends Component {
 
         return (
             <SelectField
-                label={i18n.t('Data set')}
+                label={i18n.t('Tracked Entity Type')}
                 loading={trackedEntityTypes ? false : true}
                 items={trackedEntityTypes}
                 value={trackedEntityType ? trackedEntityType.id : null}
-                onChange={dataSet => onChange(trackedEntityType)}
+                onChange={trackedEntityType => onChange(trackedEntityType)}
                 style={style}
             />
         );

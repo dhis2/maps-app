@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
 import { getOptionSet } from './optionSets';
+import { TrackedEntityTypeSelect } from '../components/trackedEntity/TrackedEntityTypeSelect';
 
 export const addFilter = filter => ({
     type: types.LAYER_EDIT_FILTER_ADD,
@@ -246,4 +247,10 @@ export const setOrgUnitPath = (id, path) => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_PATH_SET,
     id,
     path,
+});
+
+// Set program used (event and thematic)
+export const setTrackedEntityType = trackedEntityType => ({
+    type: types.LAYER_EDIT_TRACKED_ENTITY_TYPE_SET,
+    trackedEntityType,
 });
