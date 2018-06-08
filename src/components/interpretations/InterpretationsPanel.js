@@ -31,8 +31,7 @@ class InterpretationsPanel extends Component {
         d2: PropTypes.object,
     }
 
-    constructor(props, context) {
-        super(props, context);
+    componentWillMount() {
         const interpretationId = queryString.parse(location.search).interpretationid;
 
         if (interpretationId) {
