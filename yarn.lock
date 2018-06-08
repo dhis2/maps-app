@@ -235,9 +235,9 @@
     lodash "^4.17.10"
     material-ui "^0.20.0"
 
-"@dhis2/d2-ui-favorites-dialog@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-favorites-dialog/-/d2-ui-favorites-dialog-1.0.10.tgz#5795b3312cdc87a4c0ca6386f99ad2367ac9a56f"
+"@dhis2/d2-ui-favorites-dialog@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-favorites-dialog/-/d2-ui-favorites-dialog-1.0.11.tgz#87a553b3cc2ccfb8fcf319d6e8453f5f5a2786e2"
   dependencies:
     "@dhis2/d2-ui-core" "^1.2.0"
     "@dhis2/d2-ui-sharing-dialog" "^1.0.10"
@@ -250,12 +250,12 @@
     redux-logger "^3.0.6"
     redux-thunk "^2.2.0"
 
-"@dhis2/d2-ui-file-menu@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-file-menu/-/d2-ui-file-menu-1.0.2.tgz#ba674759049f886606629e8f32cee6facbd92a95"
+"@dhis2/d2-ui-file-menu@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-file-menu/-/d2-ui-file-menu-1.0.3.tgz#537268482e10a9f5426ac8fb02ad18a282dcb3ef"
   dependencies:
     "@dhis2/d2-i18n" "^1.0.3"
-    "@dhis2/d2-ui-favorites-dialog" "^1.0.10"
+    "@dhis2/d2-ui-favorites-dialog" "^1.0.11"
     "@dhis2/d2-ui-sharing-dialog" "^1.0.10"
     "@dhis2/d2-ui-translation-dialog" "^1.0.11"
     d2-ui "^29.0.18"
@@ -276,9 +276,9 @@
     material-ui "^0.20.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-interpretations@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-1.0.0.tgz#fb53a9d02b78cc1685abe55342bf02be5fd641e4"
+"@dhis2/d2-ui-interpretations@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-1.0.1.tgz#e4e685c0cfa36e6f991dc28c57abaed96881e164"
   dependencies:
     "@dhis2/d2-ui-core" "^1.1.2"
     "@dhis2/d2-ui-sharing-dialog" "^1.0.9"
