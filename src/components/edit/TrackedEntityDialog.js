@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import TrackedEntityTypeSelect from '../trackedEntity/TrackedEntityTypeSelect';
+import ProgramSelect from '../program/ProgramSelect';
 import { layerDialogStyles } from './LayerDialogStyles';
-import { setTrackedEntityType } from '../../actions/layerEdit';
+import { setTrackedEntityType, setProgram } from '../../actions/layerEdit';
 
 const styles = {
     ...layerDialogStyles,
@@ -24,7 +25,16 @@ export class TrackedEntityDialog extends Component {
     }
 
     render() {
-        const { trackedEntityType, setTrackedEntityType } = this.props;
+        const {
+            trackedEntityType,
+            program 
+        } = this.props;
+
+        const { 
+            setTrackedEntityType, 
+            setProgram 
+        } = this.props;
+
         const { tab } = this.state;
 
         return (
@@ -39,6 +49,14 @@ export class TrackedEntityDialog extends Component {
                         <TrackedEntityTypeSelect 
                             trackedEntityType={trackedEntityType}
                             onChange={setTrackedEntityType} 
+                            style={styles.select}
+                            // errorText={programError}
+                        />
+                        <ProgramSelect
+                            program={program}
+                            onChange={setProgram}
+                            style={styles.select}
+                            // errorText={programError}
                         />
                     </div>
                 </Tab>
@@ -60,6 +78,7 @@ export default connect(
     null,
     {
         setTrackedEntityType,
+        setProgram,
     },   
     null,
     {

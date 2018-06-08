@@ -7,6 +7,7 @@ import { newMap } from '../../actions/map';
 import { loadFavorite } from '../../actions/favorites';
 import { closeDataTable } from '../../actions/dataTable';
 import { saveFavorite, saveNewFavorite } from '../../actions/favorites';
+import './FileMenu.css';
 
 // https://github.com/dhis2/d2-ui/tree/master/packages/file-menu
 export const FileMenu = (

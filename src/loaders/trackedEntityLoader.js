@@ -4,12 +4,19 @@ import { apiFetch } from '../util/api';
 const geometryTypes = ['POINT', 'POLYGON'];
 
 const trackedEntityLoader = async config => {
-    const { trackedEntityType } = config; 
+    const { trackedEntityType, program, } = config; 
     const orgUnit = 'ImspTQPwCqd'; // TODO
+    let url = `/trackedEntityInstances?ou=${orgUnit}&trackedEntityType=${trackedEntityType.id}`;
+
+    if (program) {
+        url += `&program=${program.id}`;
+    }
+
+    console.log(program);
 
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#d0e14057
     // http://localhost:8080/api/30/trackedEntityInstances?ou=ImspTQPwCqd&trackedEntity=nEenWmSyUEp
-    const data = await apiFetch(`/trackedEntityInstances?ou=${orgUnit}&trackedEntityType=${trackedEntityType.id}`);
+    const data = await apiFetch(url);
     const instances = data.trackedEntityInstances.filter(instance => geometryTypes.includes(instance.featureType));
 
     const features = toGeoJson(instances);

@@ -7,7 +7,8 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import { TextField } from '@dhis2/d2-ui-core';
+// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
+import TextField from 'material-ui/TextField';
 import Checkbox from '../d2-ui/Checkbox';
 import FontStyle from '../d2-ui/FontStyle';
 import { layerDialogStyles } from './LayerDialogStyles';
@@ -150,6 +151,7 @@ class BoundaryDialog extends Component {
                             )}
                         </div>
                         <TextField
+                            id="radius"
                             type="number"
                             label={i18n.t('Point radius')}
                             value={radiusLow !== undefined ? radiusLow : 5}

@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
-import { Tabs, Tab, TextField } from '@dhis2/d2-ui-core';
+import { Tabs, Tab } from '@dhis2/d2-ui-core';
+import TextField from 'material-ui/TextField'; // TODO: d2-ui-core version don't accept numbers as values
 import Collection from '../earthengine/Collection';
 import LegendItem from '../layers/legend/LegendItem';
 import { setParams, setFilter } from '../../actions/layerEdit';

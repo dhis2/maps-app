@@ -1,14 +1,3 @@
-/*
-.ImageSelect {
-    float: left;
-     width: calc(50% - 24px);
-    margin: 12px;
-    cursor: pointer;
-    box-sizing: border-box;
-}
-*/
-
-
 .ImageSelect-image-container {
     position: relative;
     /* height: 120px; */
@@ -22,15 +11,6 @@
     width: 100%;
     display: block;
 }
-
-/*
-.ImageSelect-image {
-    position: absolute;
-    clip: rect(64px, 256px, 192px, 0);
-    width: 100%;
-    top: -64px;
-}
-*/
 
 .ImageSelect-no-image {
     position: absolute;
