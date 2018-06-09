@@ -41,6 +41,7 @@ const eventLoader = async config => {
         rows,
         startDate,
         styleDataItem,
+        areaRadius,
     } = config;
 
     const orgUnits = getOrgUnitsFromRows(rows);
@@ -58,7 +59,7 @@ const eventLoader = async config => {
         endDate,
         orgUnits,
         dataItems,
-        eventCoordinateField
+        eventCoordinateField,
     );
 
     const legend = {
@@ -179,6 +180,10 @@ const eventLoader = async config => {
                         radius: eventPointRadius || EVENT_RADIUS,
                     },
                 ];
+            }
+
+            if (areaRadius) {
+                legend.items.forEach(item => item.name += ` + ${areaRadius} ${'m'} ${'buffer'}`)
             }
         }
     }
