@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { TextField } from '@dhis2/d2-ui-core';
+// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
+import TextField from 'material-ui/TextField'; 
 import ProgramSelect from '../program/ProgramSelect';
 import ProgramStageSelect from '../program/ProgramStageSelect';
 import RelativePeriodSelect from '../periods/RelativePeriodSelect';
 import DatePicker from '../d2-ui/DatePicker';
+import Checkbox from '../d2-ui/Checkbox';
 import FilterGroup from '../filter/FilterGroup';
 import ImageSelect from '../d2-ui/ImageSelect';
 import DataItemSelect from '../dataItem/DataItemSelect';
@@ -38,6 +40,7 @@ import {
     setPeriod,
     setStartDate,
     setEndDate,
+    setAreaRadius,
 } from '../../actions/layerEdit';
 
 import {
@@ -61,6 +64,15 @@ const styles = {
         boxSizing: 'border-box',
         padding: '12px 12px 0 3px',
     },
+    checkbox: {
+        float: 'left',
+        marginTop: 24,
+        width: 180,
+    },
+    radius: {
+        width: 110,
+        marginTop: 12,
+    },
 };
 
 export class EventDialog extends Component {
@@ -73,7 +85,22 @@ export class EventDialog extends Component {
         super(props, context);
         this.state = {
             tab: 'data',
+            showBuffer: this.hasBuffer(props.areaRadius),
         };
+    }
+
+    componentWillReceiveProps({ areaRadius }) {
+        if (areaRadius !== this.props.areaRadius) {
+            this.setState({
+                showBuffer: this.hasBuffer(areaRadius),
+            });
+        }
+    }
+
+    onShowBufferClick(isChecked) {
+        const { setAreaRadius, areaRadius } = this.props;
+
+        setAreaRadius(isChecked ? areaRadius || 500 : null);
     }
 
     componentDidMount() {
@@ -111,6 +138,7 @@ export class EventDialog extends Component {
             rows = [],
             startDate,
             styleDataItem,
+            areaRadius,
         } = this.props;
 
         const {
@@ -127,6 +155,7 @@ export class EventDialog extends Component {
             setPeriod,
             setStartDate,
             setEndDate,
+            setAreaRadius,
         } = this.props;
 
         const {
@@ -134,6 +163,7 @@ export class EventDialog extends Component {
             programError,
             programStageError,
             orgUnitsError,
+            showBuffer,
         } = this.state;
 
         const period = getPeriodFromFilters(filters) || {
@@ -277,12 +307,33 @@ export class EventDialog extends Component {
                                 />
                             </div>
                             <TextField
+                                id="radius"
                                 type="number"
                                 label={i18n.t('Radius')}
                                 value={eventPointRadius || EVENT_RADIUS}
                                 onChange={setEventPointRadius}
-                                style={{ float: 'left', maxWidth: 100 }}
+                                style={{ float: 'left', maxWidth: 100, marginTop: 30 }}
                             />
+                        </div>
+                        <div style={styles.labelWrapper}>
+                            <Checkbox
+                                label={i18n.t('Show buffer')}
+                                checked={showBuffer}
+                                onCheck={this.onShowBufferClick.bind(this)}
+                                style={styles.checkbox}
+                                disabled={eventClustering}
+                            />
+                            {showBuffer && (
+                                <TextField
+                                    id='radius'
+                                    type="number"
+                                    label={i18n.t('Radius in meters')}
+                                    value={areaRadius || ''}
+                                    onChange={setAreaRadius}
+                                    style={styles.radius}
+                                    disabled={eventClustering}
+                                />
+                            )}
                         </div>
                         {allowStyleByDataItem && [
                             // TODO: Remove check
@@ -307,6 +358,10 @@ export class EventDialog extends Component {
                 </Tab>
             </Tabs>
         );
+    }
+
+    hasBuffer(areaRadius) {
+        return areaRadius !== undefined && areaRadius !== null;
     }
 
     // TODO: Add to parent class?
@@ -365,6 +420,7 @@ export default connect(
         setPeriod,
         setStartDate,
         setEndDate,
+        setAreaRadius,
     },
     null,
     {

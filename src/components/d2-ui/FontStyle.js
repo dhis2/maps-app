@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold';
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic';
-import { TextField } from '@dhis2/d2-ui-core';
+// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
+import TextField from 'material-ui/TextField'; 
 import ColorPicker from './ColorPicker';
 
 const styles = {
@@ -35,6 +36,7 @@ const FontStyle = ({
     <div style={style}>
         {onSizeChange && (
             <TextField
+                id="size"
                 type="number"
                 label="Size"
                 value={size !== undefined ? size : 11}

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import { SelectField } from '@dhis2/d2-ui-core';
+// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
+import TextField from 'material-ui/TextField'; 
 import Checkbox from '../d2-ui/Checkbox';
 import FontStyle from '../d2-ui/FontStyle';
 import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
@@ -49,11 +50,11 @@ const styles = {
     },
     font: {
         float: 'left',
-        marginTop: -8,
+        marginTop: 5,
     },
     radius: {
         width: 206,
-        marginTop: -8,
+        marginTop: 12,
     },
     help: {
         marginTop: 10,
@@ -205,6 +206,7 @@ class FacilityDialog extends Component {
                             />
                             {showBuffer && (
                                 <TextField
+                                    id='radius'
                                     type="number"
                                     label={i18n.t('Radius in meters')}
                                     value={areaRadius || ''}

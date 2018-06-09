@@ -32,6 +32,7 @@ class EventLayer extends Layer {
             serverCluster,
             startDate,
             styleDataItem,
+            areaRadius,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -95,6 +96,21 @@ class EventLayer extends Layer {
                 config.type = 'clientCluster';
                 config.clusterPane = id;
             }
+        } else if (areaRadius) {
+            // Create and add buffer area layer
+            this.areaInstance = map.addLayer({
+                type: 'circles',
+                pane: `${id}-area`,
+                radius: areaRadius,
+                style: {
+                    color: color || EVENT_COLOR,
+                    weight: 1,
+                    opacity: 0.2,
+                    fillOpacity: 0.1,
+                },
+                highlightStyle: false,
+                data,
+            });
         }
 
         // Create and add event layer based on config object
@@ -238,6 +254,16 @@ class EventLayer extends Layer {
         }
 
         return features;
+    }
+
+    // Remove layer instance (both events and areas)
+    removeLayer() {
+        const map = this.context.map;
+
+        if (map.hasLayer(this.areaInstance)) {
+            map.removeLayer(this.areaInstance);
+        }
+        super.removeLayer();
     }
 }
 

@@ -22,6 +22,13 @@ class TrackedEntityLayer extends Layer {
         // Create and add event layer based on config object
         this.layer = map.createLayer(config).addTo(map);
 
+        map.createLayer({
+            type: 'buffer', // 'boundary',
+            pane: id,
+            data,
+            buffer: 5000, // meters
+        }).addTo(map);
+
         const layerBounds = this.layer.getBounds();
 
         if (layerBounds.isValid()) {

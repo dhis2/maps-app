@@ -9,6 +9,7 @@ const Checkbox = ({
     style,
     labelStyle,
     iconStyle,
+    disabled,
 }) => (
     <MuiCheckbox
         label={label}
@@ -17,6 +18,7 @@ const Checkbox = ({
         style={style}
         labelStyle={labelStyle}
         iconStyle={iconStyle}
+        disabled={disabled}
     />
 );
 
@@ -27,6 +29,7 @@ Checkbox.propTypes = {
     style: PropTypes.object,
     labelStyle: PropTypes.object,
     iconStyle: PropTypes.object,
+    disabled: PropTypes.bool,
 };
 
 export default Checkbox;
