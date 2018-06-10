@@ -97,12 +97,6 @@ export class EventDialog extends Component {
         }
     }
 
-    onShowBufferClick(isChecked) {
-        const { setAreaRadius, areaRadius } = this.props;
-
-        setAreaRadius(isChecked ? areaRadius || 500 : null);
-    }
-
     componentDidMount() {
         const {
             filters,
@@ -358,6 +352,11 @@ export class EventDialog extends Component {
                 </Tab>
             </Tabs>
         );
+    }
+
+    onShowBufferClick(isChecked) {
+        const { setAreaRadius, areaRadius } = this.props;
+        setAreaRadius(isChecked ? areaRadius || 500 : null);
     }
 
     hasBuffer(areaRadius) {

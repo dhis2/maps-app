@@ -27,6 +27,7 @@ export class TrackedEntityTypeSelect extends Component {
             trackedEntityTypes,
             onChange,
             style,
+            errorText,
         } = this.props;
 
         return (
@@ -37,6 +38,7 @@ export class TrackedEntityTypeSelect extends Component {
                 value={trackedEntityType ? trackedEntityType.id : null}
                 onChange={trackedEntityType => onChange(trackedEntityType)}
                 style={style}
+                errorText={!trackedEntityType && errorText ? errorText : null}
             />
         );
     }

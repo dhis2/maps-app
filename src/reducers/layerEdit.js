@@ -26,11 +26,11 @@ const layerEdit = (state = null, action) => {
             return null;
 
         case types.LAYER_EDIT_PROGRAM_SET:
+            const program = action.program;
+
             return {
                 ...state,
-                program: {
-                    ...action.program,
-                },
+                program: program ? { ...program } : null,
                 columns: [],
                 programStage: null,
                 styleDataElement: null,
