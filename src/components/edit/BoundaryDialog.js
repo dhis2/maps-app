@@ -155,7 +155,7 @@ class BoundaryDialog extends Component {
                             type="number"
                             floatingLabelText={i18n.t('Point radius')}
                             value={radiusLow !== undefined ? radiusLow : 5}
-                            onChange={setRadiusLow}
+                            onChange={(evt, radius) => setRadiusLow(radius)}
                             style={styles.radius}
                         />
                     </div>

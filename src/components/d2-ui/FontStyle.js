@@ -40,7 +40,7 @@ const FontStyle = ({
                 type="number"
                 floatingLabelText="Size"
                 value={size !== undefined ? size : 11}
-                onChange={onSizeChange}
+                onChange={(evt, value) => onSizeChange(value)}
                 style={styles.sizeField}
             />
         )}

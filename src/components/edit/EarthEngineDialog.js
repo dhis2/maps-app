@@ -162,7 +162,7 @@ class EarthEngineDialog extends Component {
                                         dataset.minLabel || 'Min'
                                     )}
                                     value={params.min}
-                                    onChange={min =>
+                                    onChange={(evt, min) =>
                                         setParams(
                                             parseInt(min),
                                             parseInt(params.max),
@@ -178,7 +178,7 @@ class EarthEngineDialog extends Component {
                                         dataset.maxLabel || 'Max'
                                     )}
                                     value={params.max}
-                                    onChange={max =>
+                                    onChange={(evt, max) =>
                                         setParams(
                                             parseInt(params.min),
                                             parseInt(max),
@@ -196,7 +196,7 @@ class EarthEngineDialog extends Component {
                                             ? steps
                                             : this.getStepsFromParams()
                                     }
-                                    onChange={steps =>
+                                    onChange={(evt, steps) =>
                                         this.onStepsChange(steps)
                                     }
                                     style={styles.flexThird}

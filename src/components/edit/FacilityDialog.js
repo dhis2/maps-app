@@ -212,7 +212,9 @@ class FacilityDialog extends Component {
                                         'Radius in meters'
                                     )}
                                     value={areaRadius || ''}
-                                    onChange={setAreaRadius}
+                                    onChange={(evt, radius) =>
+                                        setAreaRadius(radius)
+                                    }
                                     style={styles.radius}
                                 />
                             )}

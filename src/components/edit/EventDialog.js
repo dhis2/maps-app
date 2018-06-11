@@ -310,7 +310,7 @@ export class EventDialog extends Component {
                                 style={{
                                     float: 'left',
                                     maxWidth: 100,
-                                    marginTop: 30,
+                                    marginTop: 0,
                                 }}
                             />
                         </div>
@@ -324,14 +324,20 @@ export class EventDialog extends Component {
                             />
                             {showBuffer && (
                                 <TextField
-                                    id="radius"
+                                    id="buffer"
                                     type="number"
                                     floatingLabelText={i18n.t(
                                         'Radius in meters'
                                     )}
                                     value={areaRadius || ''}
-                                    onChange={setAreaRadius}
-                                    style={styles.radius}
+                                    onChange={(evt, radius) =>
+                                        setAreaRadius(radius)
+                                    }
+                                    style={{
+                                        float: 'left',
+                                        maxWidth: 150,
+                                        marginTop: 0,
+                                    }}
                                     disabled={eventClustering}
                                 />
                             )}
@@ -363,6 +369,9 @@ export class EventDialog extends Component {
 
     onShowBufferClick(isChecked) {
         const { setAreaRadius, areaRadius } = this.props;
+
+        console.log('#', isChecked ? areaRadius || EVENT_BUFFER : null);
+
         setAreaRadius(isChecked ? areaRadius || EVENT_BUFFER : null);
     }
 

@@ -293,7 +293,9 @@ export class TrackedEntityDialog extends Component {
                                         'Buffer in meters'
                                     )}
                                     value={areaRadius || ''}
-                                    onChange={setAreaRadius}
+                                    onChange={(evt, radius) =>
+                                        setAreaRadius(radius)
+                                    }
                                     style={{
                                         float: 'left',
                                         maxWidth: 150,

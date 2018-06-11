@@ -432,7 +432,7 @@ export class ThematicDialog extends Component {
                                 type="number"
                                 floatingLabelText={i18n.t('Low size')}
                                 value={radiusLow !== undefined ? radiusLow : 5}
-                                onChange={setRadiusLow}
+                                onChange={(evt, radius) => setRadiusLow(radius)}
                                 style={{ width: 125, marginRight: 24 }}
                             />
                             <TextField
@@ -442,7 +442,9 @@ export class ThematicDialog extends Component {
                                 value={
                                     radiusHigh !== undefined ? radiusHigh : 15
                                 }
-                                onChange={setRadiusHigh}
+                                onChange={(evt, radius) =>
+                                    setRadiusHigh(radius)
+                                }
                                 style={{ width: 125 }}
                             />
                         </div>
