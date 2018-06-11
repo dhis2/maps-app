@@ -6,8 +6,8 @@ import { SelectField } from '@dhis2/d2-ui-core';
 import { loadPrograms } from '../../actions/programs';
 
 const allProgramsItem = {
-    id: 'allPrograms',
-    name: i18n.t('All programs'),
+    id: 'noPrograms',
+    name: i18n.t('No programs'),
 };
 
 export class ProgramSelect extends Component {
@@ -28,24 +28,38 @@ export class ProgramSelect extends Component {
     }
 
     render() {
-        const { program, programs, allPrograms, onChange, style, errorText } = this.props;
-        let programsAll;
+        const {
+            program,
+            programs,
+            trackedEntityType,
+            onChange,
+            style,
+            errorText,
+        } = this.props;
+        let trackedEntityPrograms;
         let value = program ? program.id : null;
 
-        if (allPrograms && programs) {
-            programsAll = [allProgramsItem, ...programs];
+        if (programs && trackedEntityType) {
+            trackedEntityPrograms = [
+                allProgramsItem,
+                ...programs.filter(
+                    program =>
+                        program.trackedEntityType &&
+                        program.trackedEntityType.id === trackedEntityType.id
+                ),
+            ];
+
             if (!value) {
-                value = 'allPrograms';
+                value = 'noPrograms';
             }
-        }   
+        }
 
         return (
             <SelectField
                 label={i18n.t('Program')}
                 loading={programs ? false : true}
-                items={programsAll || programs}
+                items={trackedEntityPrograms || programs}
                 value={value}
-                // onChange={onChange}
                 onChange={this.onChange}
                 style={style}
                 errorText={!program && errorText ? errorText : null}
@@ -53,9 +67,9 @@ export class ProgramSelect extends Component {
         );
     }
 
-    onChange = (program) => {
-        this.props.onChange(program.id !== 'allPrograms' ? program : null);
-    }
+    onChange = program => {
+        this.props.onChange(program.id !== 'noPrograms' ? program : null);
+    };
 }
 
 export default connect(

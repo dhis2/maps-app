@@ -11,6 +11,10 @@ export const EVENT_COLOR = '#333333';
 export const EVENT_RADIUS = 6;
 
 /* TEI LAYER */
+export const TEI_START_DATE = formatTime(
+    new Date().setFullYear(new Date().getFullYear() - 1)
+);
+export const TEI_END_DATE = formatTime(new Date());
 export const TEI_COLOR = '#ff0000';
 export const TEI_RADIUS = 6;
 

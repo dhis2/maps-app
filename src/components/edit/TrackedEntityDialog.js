@@ -3,33 +3,50 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import { SelectField } from '@dhis2/d2-ui-core';
 // import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField'; 
+import TextField from 'material-ui/TextField';
+import DatePicker from '../d2-ui/DatePicker';
 import Checkbox from '../d2-ui/Checkbox';
 import TrackedEntityTypeSelect from '../trackedEntity/TrackedEntityTypeSelect';
 import ProgramSelect from '../program/ProgramSelect';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import ColorPicker from '../d2-ui/ColorPicker';
-import { TEI_COLOR, TEI_RADIUS } from '../../constants/layers';
+import {
+    TEI_START_DATE,
+    TEI_END_DATE,
+    TEI_COLOR,
+    TEI_RADIUS,
+} from '../../constants/layers';
 import { layerDialogStyles } from './LayerDialogStyles';
 
-import { 
-    setTrackedEntityType, 
-    setProgram, 
-    toggleOrganisationUnit,     
+import {
+    setTrackedEntityType,
+    setProgram,
+    setProgramStatus,
+    setFollowUpStatus,
+    setStartDate,
+    setEndDate,
+    toggleOrgUnit,
+    setOrgUnitMode,
     setEventPointColor,
-    setEventPointRadius, 
+    setEventPointRadius,
     setAreaRadius,
 } from '../../actions/layerEdit';
 
-import { 
-    getOrgUnitsFromRows, 
-    getOrgUnitNodesFromRows 
+import {
+    getOrgUnitsFromRows,
+    getOrgUnitNodesFromRows,
 } from '../../util/analytics';
 
 const styles = {
     ...layerDialogStyles,
+    checkbox: {
+        float: 'left',
+        marginTop: 16,
+        width: 180,
+    },
 };
 
 export class TrackedEntityDialog extends Component {
@@ -45,6 +62,27 @@ export class TrackedEntityDialog extends Component {
         };
     }
 
+    componentDidMount() {
+        const {
+            startDate,
+            endDate,
+            programStatus,
+            setStartDate,
+            setEndDate,
+            setProgramStatus,
+        } = this.props;
+
+        // Set default period (last year)
+        if (!startDate && !endDate) {
+            setStartDate(TEI_START_DATE);
+            setEndDate(TEI_END_DATE);
+        }
+
+        if (!programStatus) {
+            setProgramStatus('ACTIVE');
+        }
+    }
+
     componentWillReceiveProps({ areaRadius }) {
         if (areaRadius !== this.props.areaRadius) {
             this.setState({
@@ -57,29 +95,41 @@ export class TrackedEntityDialog extends Component {
         const {
             trackedEntityType,
             program,
-            rows = [], 
+            programStatus,
+            followUp,
+            startDate,
+            endDate,
+            rows = [],
+            ouMode,
             eventPointColor,
             eventPointRadius,
             areaRadius,
         } = this.props;
 
-        console.log('areaRadius', areaRadius);
-
-        const { 
-            setTrackedEntityType, 
+        const {
+            setTrackedEntityType,
             setProgram,
-            toggleOrganisationUnit, 
+            setProgramStatus,
+            setFollowUpStatus,
+            setStartDate,
+            setEndDate,
+            toggleOrgUnit,
+            setOrgUnitMode,
             setEventPointColor,
             setEventPointRadius,
             setAreaRadius,
         } = this.props;
 
-        const { 
-            tab, 
+        const {
+            tab,
             trackedEntityTypeError,
-            orgUnitsError, 
+            orgUnitsError,
             showBuffer,
         } = this.state;
+
+        const periodHelp = program
+            ? i18n.t('Select program period')
+            : i18n.t('Select period when tracked entities were last updated');
 
         return (
             <Tabs
@@ -90,36 +140,104 @@ export class TrackedEntityDialog extends Component {
             >
                 <Tab value="data" label={i18n.t('data')}>
                     <div style={styles.flexColumnFlow}>
-                        <TrackedEntityTypeSelect 
+                        <TrackedEntityTypeSelect
                             trackedEntityType={trackedEntityType}
-                            onChange={setTrackedEntityType} 
+                            onChange={setTrackedEntityType}
                             style={styles.select}
                             errorText={trackedEntityTypeError}
                         />
-                        <ProgramSelect
-                            allPrograms={true}
-                            program={program}
-                            onChange={setProgram}
+                        {trackedEntityType && (
+                            <ProgramSelect
+                                allPrograms={true}
+                                program={program}
+                                trackedEntityType={trackedEntityType}
+                                onChange={setProgram}
+                                style={styles.select}
+                            />
+                        )}
+                        {program && (
+                            <SelectField
+                                label={i18n.t('Program status')}
+                                items={[
+                                    {
+                                        id: 'ACTIVE',
+                                        name: 'Active',
+                                    },
+                                    {
+                                        id: 'COMPLETED',
+                                        name: 'Completed',
+                                    },
+                                ]}
+                                value={programStatus}
+                                onChange={status => setProgramStatus(status.id)}
+                                style={styles.select}
+                            />
+                        )}
+                        {program && (
+                            <Checkbox
+                                label={i18n.t('Follow up')}
+                                checked={followUp}
+                                onCheck={setFollowUpStatus}
+                                style={styles.checkbox}
+                            />
+                        )}
+                    </div>
+                </Tab>
+                <Tab value="period" label={i18n.t('period')}>
+                    <div style={styles.flexColumnFlow}>
+                        <div style={{ marginTop: 24 }}>{periodHelp}:</div>
+                        <DatePicker
+                            key="startdate"
+                            label={i18n.t('Start date')}
+                            value={startDate}
+                            default={TEI_START_DATE}
+                            onChange={setStartDate}
+                            style={styles.select}
+                        />
+                        <DatePicker
+                            key="enddate"
+                            label={i18n.t('End date')}
+                            value={endDate}
+                            default={TEI_END_DATE}
+                            onChange={setEndDate}
                             style={styles.select}
                         />
                     </div>
                 </Tab>
-                <Tab value="period" label={i18n.t('period')} />
-                <Tab value="filter" label={i18n.t('Filter')} />
                 <Tab value="orgunits" label={i18n.t('Org units')}>
                     <div style={styles.flexRowFlow}>
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrganisationUnit}
+                                onClick={toggleOrgUnit}
                                 selectRootAsDefault={
                                     getOrgUnitsFromRows(rows).length === 0
                                 }
                             />
                         </div>
                         <div style={styles.flexHalf}>
+                            <SelectField
+                                label={i18n.t('Selection mode')}
+                                items={[
+                                    {
+                                        id: 'SELECTED',
+                                        name: 'Selected only',
+                                    },
+                                    {
+                                        id: 'CHILDREN',
+                                        name: 'Children',
+                                    },
+                                ]}
+                                value={ouMode || 'SELECTED'}
+                                onChange={mode => setOrgUnitMode(mode.id)}
+                                style={{
+                                    width: '100%',
+                                }}
+                            />
+
                             <SelectedOrgUnits
                                 rows={rows}
+                                mode={ouMode}
                                 units={i18n.t('Tracked entities')}
                                 error={orgUnitsError}
                             />
@@ -129,7 +247,13 @@ export class TrackedEntityDialog extends Component {
                 <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
                         <div style={{ marginLeft: 3 }}>
-                            <div style={{ marginTop: 20, marginRight: 20, float: 'left' }}>
+                            <div
+                                style={{
+                                    marginTop: 20,
+                                    marginRight: 20,
+                                    float: 'left',
+                                }}
+                            >
                                 <div style={styles.colorLabel}>
                                     {i18n.t('Color')}
                                 </div>
@@ -142,14 +266,18 @@ export class TrackedEntityDialog extends Component {
                             <TextField
                                 id="radius"
                                 type="number"
-                                label={i18n.t('Radius')}
+                                floatingLabelText={i18n.t('Point size')}
                                 value={eventPointRadius || TEI_RADIUS}
                                 // onChange={setEventPointRadius}
                                 onChange={console.log}
-                                style={{ float: 'left', maxWidth: 100, marginTop: 30 }}
+                                style={{
+                                    float: 'left',
+                                    maxWidth: 100,
+                                    marginTop: 8,
+                                }}
                             />
                         </div>
-                        <div style={styles.labelWrapper}>
+                        <div style={{ marginTop: 20 }}>
                             <Checkbox
                                 label={i18n.t('Show buffer')}
                                 checked={showBuffer}
@@ -158,12 +286,18 @@ export class TrackedEntityDialog extends Component {
                             />
                             {showBuffer && (
                                 <TextField
-                                    id='radius'
+                                    id="radius"
                                     type="number"
-                                    label={i18n.t('Radius in meters')}
+                                    floatingLabelText={i18n.t(
+                                        'Buffer in meters'
+                                    )}
                                     value={areaRadius || ''}
                                     onChange={setAreaRadius}
-                                    style={styles.radius}
+                                    style={{
+                                        float: 'left',
+                                        maxWidth: 150,
+                                        marginTop: -24,
+                                    }}
                                 />
                             )}
                         </div>
@@ -175,7 +309,7 @@ export class TrackedEntityDialog extends Component {
 
     onShowBufferClick(isChecked) {
         const { setAreaRadius, areaRadius } = this.props;
-        setAreaRadius(isChecked ? areaRadius || 500 : null);
+        setAreaRadius(isChecked ? areaRadius || 100 : null);
     }
 
     hasBuffer(areaRadius) {
@@ -220,11 +354,16 @@ export default connect(
     {
         setTrackedEntityType,
         setProgram,
-        toggleOrganisationUnit,
+        setProgramStatus,
+        setFollowUpStatus,
+        setStartDate,
+        setEndDate,
+        toggleOrgUnit,
+        setOrgUnitMode,
         setEventPointColor,
         setEventPointRadius,
         setAreaRadius,
-    },   
+    },
     null,
     {
         withRef: true,

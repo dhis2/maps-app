@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import once from 'lodash/fp/once';
 import { OrgUnitTree } from '@dhis2/d2-ui-org-unit-tree';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
-import { toggleOrganisationUnit } from '../../actions/layerEdit';
+import { toggleOrgUnit } from '../../actions/layerEdit';
 
 const styles = {
     container: {
@@ -110,5 +110,5 @@ export default connect(
     state => ({
         root: state.orgUnitTree,
     }),
-    { loadOrgUnitTree, toggleOrganisationUnit }
+    { loadOrgUnitTree, toggleOrgUnit }
 )(OrgUnitTreeMaps);

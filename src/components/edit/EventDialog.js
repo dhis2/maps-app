@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
 // import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField'; 
+import TextField from 'material-ui/TextField';
 import ProgramSelect from '../program/ProgramSelect';
 import ProgramStageSelect from '../program/ProgramStageSelect';
 import RelativePeriodSelect from '../periods/RelativePeriodSelect';
@@ -36,7 +36,7 @@ import {
     setEventPointColor,
     setEventPointRadius,
     setUserOrgUnits,
-    toggleOrganisationUnit,
+    toggleOrgUnit,
     setPeriod,
     setStartDate,
     setEndDate,
@@ -145,7 +145,7 @@ export class EventDialog extends Component {
             setEventPointColor,
             setEventPointRadius,
             setUserOrgUnits,
-            toggleOrganisationUnit,
+            toggleOrgUnit,
             setPeriod,
             setStartDate,
             setEndDate,
@@ -241,7 +241,7 @@ export class EventDialog extends Component {
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrganisationUnit}
+                                onClick={toggleOrgUnit}
                                 disabled={
                                     selectedUserOrgUnits.length ? true : false
                                 }
@@ -306,7 +306,11 @@ export class EventDialog extends Component {
                                 label={i18n.t('Radius')}
                                 value={eventPointRadius || EVENT_RADIUS}
                                 onChange={setEventPointRadius}
-                                style={{ float: 'left', maxWidth: 100, marginTop: 30 }}
+                                style={{
+                                    float: 'left',
+                                    maxWidth: 100,
+                                    marginTop: 30,
+                                }}
                             />
                         </div>
                         <div style={styles.labelWrapper}>
@@ -319,7 +323,7 @@ export class EventDialog extends Component {
                             />
                             {showBuffer && (
                                 <TextField
-                                    id='radius'
+                                    id="radius"
                                     type="number"
                                     label={i18n.t('Radius in meters')}
                                     value={areaRadius || ''}
@@ -415,7 +419,7 @@ export default connect(
         setEventPointColor,
         setEventPointRadius,
         setUserOrgUnits,
-        toggleOrganisationUnit,
+        toggleOrgUnit,
         setPeriod,
         setStartDate,
         setEndDate,

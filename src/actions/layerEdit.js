@@ -96,7 +96,7 @@ export const setEventPointColor = color => ({
     color,
 });
 
-export const toggleOrganisationUnit = orgUnit => ({
+export const toggleOrgUnit = orgUnit => ({
     type: types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE,
     orgUnit,
 });
@@ -166,6 +166,12 @@ export const setOrgUnitGroups = groups => ({
 export const setUserOrgUnits = userOrgUnits => ({
     type: types.LAYER_EDIT_USER_ORGANISATION_UNITS_SET,
     userOrgUnits,
+});
+
+// Set org. unit levels (facility, thematic, boundary)
+export const setOrgUnitMode = mode => ({
+    type: types.LAYER_EDIT_ORGANISATION_UNIT_MODE_SET,
+    payload: mode,
 });
 
 // Set layer params (EE)
@@ -253,4 +259,16 @@ export const setOrgUnitPath = (id, path) => ({
 export const setTrackedEntityType = trackedEntityType => ({
     type: types.LAYER_EDIT_TRACKED_ENTITY_TYPE_SET,
     trackedEntityType,
+});
+
+// Set program status for a TEI
+export const setProgramStatus = status => ({
+    type: types.LAYER_EDIT_PROGRAM_STATUS_SET,
+    payload: status,
+});
+
+// Set follow up status of a TEI for a given program
+export const setFollowUpStatus = checked => ({
+    type: types.LAYER_EDIT_FOLLOW_UP_SET,
+    payload: checked,
 });

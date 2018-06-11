@@ -17,7 +17,7 @@ import {
     setOrgUnitLevels,
     setOrgUnitGroups,
     setUserOrgUnits,
-    toggleOrganisationUnit,
+    toggleOrgUnit,
     setLabels,
     setLabelFontSize,
     setLabelFontStyle,
@@ -79,7 +79,7 @@ class BoundaryDialog extends Component {
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
-            toggleOrganisationUnit,
+            toggleOrgUnit,
             setLabels,
             setLabelFontSize,
             setLabelFontStyle,
@@ -103,7 +103,7 @@ class BoundaryDialog extends Component {
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrganisationUnit}
+                                onClick={toggleOrgUnit}
                                 disabled={
                                     selectedUserOrgUnits.length ? true : false
                                 }
@@ -195,7 +195,7 @@ export default connect(
         setOrgUnitLevels,
         setOrgUnitGroups,
         setUserOrgUnits,
-        toggleOrganisationUnit,
+        toggleOrgUnit,
         setLabels,
         setLabelFontSize,
         setLabelFontStyle,

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Tabs, Tab } from 'material-ui/Tabs';
 // import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField'; 
+import TextField from 'material-ui/TextField';
 import Checkbox from '../d2-ui/Checkbox';
 import FontStyle from '../d2-ui/FontStyle';
 import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
@@ -19,7 +19,7 @@ import {
     setOrgUnitLevels,
     setOrgUnitGroups,
     setUserOrgUnits,
-    toggleOrganisationUnit,
+    toggleOrgUnit,
     setLabels,
     setLabelFontColor,
     setLabelFontSize,
@@ -102,7 +102,7 @@ class FacilityDialog extends Component {
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
-            toggleOrganisationUnit,
+            toggleOrgUnit,
             setLabels,
             setLabelFontColor,
             setLabelFontSize,
@@ -143,7 +143,7 @@ class FacilityDialog extends Component {
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrganisationUnit}
+                                onClick={toggleOrgUnit}
                                 disabled={
                                     selectedUserOrgUnits.length ? true : false
                                 }
@@ -206,7 +206,7 @@ class FacilityDialog extends Component {
                             />
                             {showBuffer && (
                                 <TextField
-                                    id='radius'
+                                    id="radius"
                                     type="number"
                                     label={i18n.t('Radius in meters')}
                                     value={areaRadius || ''}
@@ -265,7 +265,7 @@ export default connect(
         setOrgUnitLevels,
         setOrgUnitGroups,
         setUserOrgUnits,
-        toggleOrganisationUnit,
+        toggleOrgUnit,
         setLabels,
         setLabelFontColor,
         setLabelFontSize,

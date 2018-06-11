@@ -57,7 +57,7 @@ import {
     setRadiusHigh,
     setUserOrgUnits,
     setValueType,
-    toggleOrganisationUnit,
+    toggleOrgUnit,
     loadOrgUnitPath,
 } from '../../../actions/layerEdit';
 
@@ -206,7 +206,7 @@ export class ThematicDialog extends Component {
             setRadiusHigh,
             setUserOrgUnits,
             setValueType,
-            toggleOrganisationUnit,
+            toggleOrgUnit,
         } = this.props;
 
         const {
@@ -369,7 +369,7 @@ export class ThematicDialog extends Component {
                         <div style={styles.flexHalf}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrganisationUnit}
+                                onClick={toggleOrgUnit}
                                 disabled={
                                     selectedUserOrgUnits.length ? true : false
                                 }
@@ -559,7 +559,7 @@ export default connect(
         setRadiusHigh,
         setUserOrgUnits,
         setValueType,
-        toggleOrganisationUnit,
+        toggleOrgUnit,
         loadOrgUnitPath,
     },
     null,

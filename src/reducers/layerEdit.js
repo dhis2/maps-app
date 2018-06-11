@@ -293,6 +293,12 @@ const layerEdit = (state = null, action) => {
                 rows: setOrgUnitPathInRows(state.rows, action.id, action.path),
             };
 
+        case types.LAYER_EDIT_ORGANISATION_UNIT_MODE_SET:
+            return {
+                ...state,
+                ouMode: action.payload,
+            };
+
         case types.LAYER_EDIT_PARAMS_SET:
             return {
                 ...state,
@@ -369,6 +375,18 @@ const layerEdit = (state = null, action) => {
                 trackedEntityType: {
                     ...action.trackedEntityType,
                 },
+            };
+
+        case types.LAYER_EDIT_PROGRAM_STATUS_SET:
+            return {
+                ...state,
+                programStatus: action.payload,
+            };
+
+        case types.LAYER_EDIT_FOLLOW_UP_SET:
+            return {
+                ...state,
+                followUp: action.payload,
             };
 
         default:

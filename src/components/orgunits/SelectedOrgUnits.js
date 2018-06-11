@@ -21,7 +21,7 @@ const levels = {
     USER_ORGUNIT_GRANDCHILDREN: 'two levels below user organisation unit',
 };
 
-const SelectedOrgUnits = ({ units, rows, error }) => {
+const SelectedOrgUnits = ({ units, rows, mode, error }) => {
     const orgUnits = getOrgUnitNodesFromRows(rows)
         .map(ou => ou.displayName)
         .sort();
@@ -32,7 +32,9 @@ const SelectedOrgUnits = ({ units, rows, error }) => {
     let selected = i18n.t('No organisation units are selected');
 
     if (orgUnits.length || userOrgUnits.length) {
-        selected = `${units} ${i18n.t('in')} `;
+        selected = `${units} ${
+            mode === 'CHILDREN' ? i18n.t('below') : i18n.t('in')
+        } `;
 
         if (userOrgUnits.length) {
             selected += userOrgUnits.join(', ');

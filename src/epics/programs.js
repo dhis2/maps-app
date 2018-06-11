@@ -20,7 +20,8 @@ export const loadPrograms = action$ =>
         getD2()
             .then(d2 =>
                 d2.models.programs.list({
-                    fields: 'id,displayName~rename(name)',
+                    fields:
+                        'id,displayName~rename(name),trackedEntityType[id,displayName~rename(name)]',
                     paging: false,
                 })
             )
