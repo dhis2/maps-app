@@ -2,14 +2,13 @@ import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { apiFetch } from '../../util/api';
 import Layer from './Layer';
+import { TEI_COLOR, TEI_RADIUS, TEI_BUFFER } from '../../constants/layers';
 
 class TrackedEntityLayer extends Layer {
     createLayer(callback) {
-        const {
-            id,
-            data,
-            trackedEntityType,
-        } = this.props;
+        const { id, data, trackedEntityType } = this.props;
+
+        console.log('props', this.props);
 
         const map = this.context.map;
 
@@ -35,7 +34,6 @@ class TrackedEntityLayer extends Layer {
             map.fitBounds(layerBounds);
         }
     }
-
 }
 
 export default TrackedEntityLayer;

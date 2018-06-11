@@ -9,6 +9,7 @@ export const EVENT_START_DATE = formatTime(
 export const EVENT_END_DATE = formatTime(new Date());
 export const EVENT_COLOR = '#333333';
 export const EVENT_RADIUS = 6;
+export const EVENT_BUFFER = 100;
 
 /* TEI LAYER */
 export const TEI_START_DATE = formatTime(
@@ -17,6 +18,7 @@ export const TEI_START_DATE = formatTime(
 export const TEI_END_DATE = formatTime(new Date());
 export const TEI_COLOR = '#ff0000';
 export const TEI_RADIUS = 6;
+export const TEI_BUFFER = 100;
 
 /* CLASSIFICATION */
 

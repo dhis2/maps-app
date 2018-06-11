@@ -24,6 +24,7 @@ import {
     EVENT_END_DATE,
     EVENT_COLOR,
     EVENT_RADIUS,
+    EVENT_BUFFER,
 } from '../../constants/layers';
 import { layerDialogStyles } from './LayerDialogStyles';
 
@@ -303,7 +304,7 @@ export class EventDialog extends Component {
                             <TextField
                                 id="radius"
                                 type="number"
-                                label={i18n.t('Radius')}
+                                floatingLabelText={i18n.t('Radius')}
                                 value={eventPointRadius || EVENT_RADIUS}
                                 onChange={setEventPointRadius}
                                 style={{
@@ -325,7 +326,9 @@ export class EventDialog extends Component {
                                 <TextField
                                     id="radius"
                                     type="number"
-                                    label={i18n.t('Radius in meters')}
+                                    floatingLabelText={i18n.t(
+                                        'Radius in meters'
+                                    )}
                                     value={areaRadius || ''}
                                     onChange={setAreaRadius}
                                     style={styles.radius}
@@ -360,7 +363,7 @@ export class EventDialog extends Component {
 
     onShowBufferClick(isChecked) {
         const { setAreaRadius, areaRadius } = this.props;
-        setAreaRadius(isChecked ? areaRadius || 500 : null);
+        setAreaRadius(isChecked ? areaRadius || EVENT_BUFFER : null);
     }
 
     hasBuffer(areaRadius) {

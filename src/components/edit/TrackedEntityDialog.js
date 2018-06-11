@@ -18,6 +18,7 @@ import {
     TEI_END_DATE,
     TEI_COLOR,
     TEI_RADIUS,
+    TEI_BUFFER,
 } from '../../constants/layers';
 import { layerDialogStyles } from './LayerDialogStyles';
 
@@ -309,7 +310,7 @@ export class TrackedEntityDialog extends Component {
 
     onShowBufferClick(isChecked) {
         const { setAreaRadius, areaRadius } = this.props;
-        setAreaRadius(isChecked ? areaRadius || 100 : null);
+        setAreaRadius(isChecked ? areaRadius || TEI_BUFFER : null);
     }
 
     hasBuffer(areaRadius) {

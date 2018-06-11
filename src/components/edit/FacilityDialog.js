@@ -208,7 +208,9 @@ class FacilityDialog extends Component {
                                 <TextField
                                     id="radius"
                                     type="number"
-                                    label={i18n.t('Radius in meters')}
+                                    floatingLabelText={i18n.t(
+                                        'Radius in meters'
+                                    )}
                                     value={areaRadius || ''}
                                     onChange={setAreaRadius}
                                     style={styles.radius}

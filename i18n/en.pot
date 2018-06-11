@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-06-11T07:28:28.809Z\n"
-"PO-Revision-Date: 2018-06-11T07:28:28.809Z\n"
+"POT-Creation-Date: 2018-06-11T15:56:45.725Z\n"
+"PO-Revision-Date: 2018-06-11T15:56:45.725Z\n"
 
 msgid "Notifications"
 msgstr ""
@@ -155,7 +155,28 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "Program status"
+msgstr ""
+
+msgid "Follow up"
+msgstr ""
+
+msgid "Selection mode"
+msgstr ""
+
 msgid "Tracked entities"
+msgstr ""
+
+msgid "Point size"
+msgstr ""
+
+msgid "Buffer in meters"
 msgstr ""
 
 msgid "Aggregation type"
@@ -299,6 +320,9 @@ msgstr ""
 msgid "Click the map where you want to relocate facility"
 msgstr ""
 
+msgid "below"
+msgstr ""
+
 msgid "in"
 msgstr ""
 
@@ -314,7 +338,7 @@ msgstr ""
 msgid "Program indicator"
 msgstr ""
 
-msgid "All programs"
+msgid "No programs"
 msgstr ""
 
 msgid "Program"

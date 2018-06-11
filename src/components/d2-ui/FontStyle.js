@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold';
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic';
 // import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField'; 
+import TextField from 'material-ui/TextField';
 import ColorPicker from './ColorPicker';
 
 const styles = {
@@ -38,7 +38,7 @@ const FontStyle = ({
             <TextField
                 id="size"
                 type="number"
-                label="Size"
+                floatingLabelText="Size"
                 value={size !== undefined ? size : 11}
                 onChange={onSizeChange}
                 style={styles.sizeField}

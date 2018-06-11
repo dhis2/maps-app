@@ -153,7 +153,7 @@ class BoundaryDialog extends Component {
                         <TextField
                             id="radius"
                             type="number"
-                            label={i18n.t('Point radius')}
+                            floatingLabelText={i18n.t('Point radius')}
                             value={radiusLow !== undefined ? radiusLow : 5}
                             onChange={setRadiusLow}
                             style={styles.radius}

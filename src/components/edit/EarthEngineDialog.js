@@ -158,7 +158,9 @@ class EarthEngineDialog extends Component {
                                 <TextField
                                     key="min"
                                     type="number"
-                                    label={i18n.t(dataset.minLabel || 'Min')}
+                                    floatingLabelText={i18n.t(
+                                        dataset.minLabel || 'Min'
+                                    )}
                                     value={params.min}
                                     onChange={min =>
                                         setParams(
@@ -172,7 +174,9 @@ class EarthEngineDialog extends Component {
                                 <TextField
                                     key="max"
                                     type="number"
-                                    label={i18n.t(dataset.maxLabel || 'Max')}
+                                    floatingLabelText={i18n.t(
+                                        dataset.maxLabel || 'Max'
+                                    )}
                                     value={params.max}
                                     onChange={max =>
                                         setParams(
@@ -186,7 +190,7 @@ class EarthEngineDialog extends Component {
                                 <TextField
                                     key="steps"
                                     type="number"
-                                    label={i18n.t('Steps')}
+                                    floatingLabelText={i18n.t('Steps')}
                                     value={
                                         steps !== undefined
                                             ? steps
@@ -307,6 +311,9 @@ class EarthEngineDialog extends Component {
     }
 }
 
-export default connect(null, { setParams, setFilter }, null, { withRef: true })(
-    EarthEngineDialog
-);
+export default connect(
+    null,
+    { setParams, setFilter },
+    null,
+    { withRef: true }
+)(EarthEngineDialog);

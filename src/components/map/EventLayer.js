@@ -9,7 +9,11 @@ import {
     getOrgUnitsFromRows,
     getPeriodFromFilters,
 } from '../../util/analytics';
-import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
+import {
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    EVENT_BUFFER,
+} from '../../constants/layers';
 import Layer from './Layer';
 import { getDisplayPropertyUrl } from '../../util/helpers';
 

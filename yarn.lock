@@ -263,9 +263,9 @@
     material-ui-icons "^1.0.0-beta.17"
     prop-types "^15.6.0"
 
-"@dhis2/d2-ui-forms@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-forms/-/d2-ui-forms-1.0.6.tgz#6cfa7ba10887adf4ea46316f0ef499cf2aa48181"
+"@dhis2/d2-ui-forms@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-forms/-/d2-ui-forms-1.0.7.tgz#c5c8cdcc20e94d283e5a8333874d26ab04d4024e"
   dependencies:
     "@dhis2/d2-ui-core" "^1.2.0"
     babel-runtime "^6.26.0"
@@ -289,12 +289,12 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-legend@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-legend/-/d2-ui-legend-1.1.0.tgz#e4378de6d24e2ab7570210e6cb43f291dda40e3e"
+"@dhis2/d2-ui-legend@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-legend/-/d2-ui-legend-1.2.0.tgz#23191fa165b3e39357f07c0559c8da3519c3a593"
   dependencies:
     "@dhis2/d2-ui-core" "^1.2.0"
-    "@dhis2/d2-ui-forms" "^1.0.6"
+    "@dhis2/d2-ui-forms" "^1.0.7"
     "@dhis2/d2-ui-table" "^1.0.11"
     babel-runtime "^6.26.0"
     d2-utilizr "^0.2.15"
