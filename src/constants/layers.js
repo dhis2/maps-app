@@ -16,7 +16,7 @@ export const TEI_START_DATE = formatTime(
     new Date().setFullYear(new Date().getFullYear() - 1)
 );
 export const TEI_END_DATE = formatTime(new Date());
-export const TEI_COLOR = '#ff0000';
+export const TEI_COLOR = '#BB0000';
 export const TEI_RADIUS = 6;
 export const TEI_BUFFER = 100;
 

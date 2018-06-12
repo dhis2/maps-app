@@ -11,7 +11,7 @@ const defaultLayers = [
     {
         layer: 'trackedEntity',
         type: 'Tracked entities',
-        img: 'images/events.png',
+        img: 'images/trackedentities.png',
         opacity: 0.4,
     },
     {

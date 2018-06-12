@@ -306,7 +306,9 @@ export class EventDialog extends Component {
                                 type="number"
                                 floatingLabelText={i18n.t('Radius')}
                                 value={eventPointRadius || EVENT_RADIUS}
-                                onChange={setEventPointRadius}
+                                onChange={(evt, radius) =>
+                                    setEventPointRadius(radius)
+                                }
                                 style={{
                                     float: 'left',
                                     maxWidth: 100,
@@ -369,9 +371,6 @@ export class EventDialog extends Component {
 
     onShowBufferClick(isChecked) {
         const { setAreaRadius, areaRadius } = this.props;
-
-        console.log('#', isChecked ? areaRadius || EVENT_BUFFER : null);
-
         setAreaRadius(isChecked ? areaRadius || EVENT_BUFFER : null);
     }
 

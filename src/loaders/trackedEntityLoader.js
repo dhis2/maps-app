@@ -42,7 +42,7 @@ const trackedEntityLoader = async config => {
     // http://localhost:8080/api/30/trackedEntityInstances?ou=ImspTQPwCqd&trackedEntity=nEenWmSyUEp
     const data = await apiFetch(url);
 
-    console.log(url, data.trackedEntityInstances);
+    // console.log(url, data.trackedEntityInstances);
 
     const instances = data.trackedEntityInstances.filter(instance =>
         geometryTypes.includes(instance.featureType)

@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { apiFetch } from '../../util/api';
 import Layer from './Layer';
-import { TEI_COLOR, TEI_RADIUS, TEI_BUFFER } from '../../constants/layers';
+import { TEI_COLOR, TEI_RADIUS } from '../../constants/layers';
 
 class TrackedEntityLayer extends Layer {
     createLayer(callback) {
@@ -15,31 +15,25 @@ class TrackedEntityLayer extends Layer {
             areaRadius,
         } = this.props;
 
-        const color = eventPointColor || TEI_COLOR;
-
-        // console.log('props', this.props, TEI_COLOR, TEI_RADIUS, TEI_BUFFER);
-
-        console.log('##', color);
-
         const map = this.context.map;
+        const color = eventPointColor || TEI_COLOR;
+        const radius = eventPointRadius || TEI_RADIUS;
 
         if (areaRadius) {
-            console.log('areaRadius', areaRadius);
             map.createLayer({
-                type: 'buffer', // 'boundary',
+                type: 'buffer',
                 pane: id,
                 data,
-                buffer: areaRadius, // meters
+                buffer: areaRadius,
                 style: {
                     color,
-                    // color: 'green',
+                    weight: 1,
                     opacity: 0.2,
                     fillOpacity: 0.1,
                 },
             }).addTo(map);
         }
 
-        // Create and add event layer based on config object
         this.layer = map
             .createLayer({
                 type: 'geoJson',
@@ -47,6 +41,8 @@ class TrackedEntityLayer extends Layer {
                 data,
                 style: {
                     color,
+                    weight: 1,
+                    radius,
                 },
             })
             .addTo(map);

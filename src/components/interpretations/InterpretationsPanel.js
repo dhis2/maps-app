@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
 import Interpretations from '@dhis2/d2-ui-interpretations';
-import queryString from 'query-string';
 import { openInterpretationsPanel } from '../../actions/ui';
 import { setRelativePeriodDate } from '../../actions/map';
 import { setInterpretation } from '../../actions/interpretations';
+import { getUrlParameter } from '../../util/requests';
 import {
     HEADER_HEIGHT,
     INTERPRETATIONS_PANEL_WIDTH,
@@ -29,10 +29,10 @@ const style = {
 class InterpretationsPanel extends Component {
     static contextTypes = {
         d2: PropTypes.object,
-    }
+    };
 
     componentWillMount() {
-        const interpretationId = queryString.parse(location.search).interpretationid;
+        const interpretationId = getUrlParameter('interpretationid');
 
         if (interpretationId) {
             this.props.setInterpretation(interpretationId);
@@ -59,16 +59,20 @@ class InterpretationsPanel extends Component {
                     id={mapId}
                     type="map"
                     currentInterpretationId={interpretationId}
-                    onCurrentInterpretationChange={this.onCurrentInterpretationChange}
+                    onCurrentInterpretationChange={
+                        this.onCurrentInterpretationChange
+                    }
                 />
             </Drawer>
-        )
+        );
     }
 
-    onCurrentInterpretationChange = (interpretation) => {
+    onCurrentInterpretationChange = interpretation => {
         this.props.setInterpretation(interpretation ? interpretation.id : null);
-        this.props.setRelativePeriodDate(interpretation ? interpretation.created : null);
-    }
+        this.props.setRelativePeriodDate(
+            interpretation ? interpretation.created : null
+        );
+    };
 }
 
 export default connect(

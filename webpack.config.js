@@ -49,7 +49,7 @@ const webpackConfig = {
         publicPath: isDevBuild ? 'http://localhost:8082/' : './',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 include: [
