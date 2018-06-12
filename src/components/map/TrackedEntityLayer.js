@@ -20,18 +20,20 @@ class TrackedEntityLayer extends Layer {
         const radius = eventPointRadius || TEI_RADIUS;
 
         if (areaRadius) {
-            map.createLayer({
-                type: 'buffer',
-                pane: id,
-                data,
-                buffer: areaRadius,
-                style: {
-                    color,
-                    weight: 1,
-                    opacity: 0.2,
-                    fillOpacity: 0.1,
-                },
-            }).addTo(map);
+            this.areaInstance = map
+                .createLayer({
+                    type: 'buffer',
+                    pane: id,
+                    data,
+                    buffer: areaRadius,
+                    style: {
+                        color,
+                        weight: 1,
+                        opacity: 0.2,
+                        fillOpacity: 0.1,
+                    },
+                })
+                .addTo(map);
         }
 
         this.layer = map
@@ -52,6 +54,16 @@ class TrackedEntityLayer extends Layer {
         if (layerBounds.isValid()) {
             map.fitBounds(layerBounds);
         }
+    }
+
+    // Remove layer instance (both facilities and areas)
+    removeLayer() {
+        const map = this.context.map;
+
+        if (map.hasLayer(this.areaInstance)) {
+            map.removeLayer(this.areaInstance);
+        }
+        super.removeLayer();
     }
 }
 

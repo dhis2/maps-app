@@ -48,6 +48,9 @@ const styles = {
         marginTop: 16,
         width: 180,
     },
+    indent: {
+        marginLeft: 24,
+    },
 };
 
 export class TrackedEntityDialog extends Component {
@@ -179,7 +182,11 @@ export class TrackedEntityDialog extends Component {
                                 ]}
                                 value={programStatus}
                                 onChange={status => setProgramStatus(status.id)}
-                                style={styles.select}
+                                style={{
+                                    ...styles.select,
+                                    width: 276,
+                                    marginLeft: 24,
+                                }}
                             />
                         )}
                         {program && (
@@ -187,7 +194,7 @@ export class TrackedEntityDialog extends Component {
                                 label={i18n.t('Follow up')}
                                 checked={followUp}
                                 onCheck={setFollowUpStatus}
-                                style={styles.checkbox}
+                                style={{ ...styles.checkbox, marginLeft: 24 }}
                             />
                         )}
                     </div>
