@@ -75,7 +75,7 @@ const trackedEntityLoader = async config => {
 
     return {
         ...config,
-        name: trackedEntityType.name,
+        name: program ? program.name : trackedEntityType.name,
         data: features,
         legend,
         isLoaded: true,
