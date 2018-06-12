@@ -3,6 +3,7 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 import curry from 'lodash/fp/curry';
 import isString from 'lodash/fp/isString';
 import isEmpty from 'lodash/fp/isEmpty';
+import { timeFormat } from 'd3-time-format';
 import { isValidCoordinate } from '../util/map';
 import { getClassBins, getLegendItemForValue } from '../util/classify';
 import { getNumericLegendItems, getCategoryLegendItems } from '../util/legend';
@@ -16,7 +17,6 @@ import {
     getApiResponseNames,
 } from '../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
-import { timeFormat } from 'd3-time-format';
 import { defaultClasses, defaultColorScale } from '../util/colorscale';
 
 // Look at: https://github.com/dhis2/maintenance-app/blob/master/src/App/appStateStore.js
@@ -59,7 +59,7 @@ const eventLoader = async config => {
         endDate,
         orgUnits,
         dataItems,
-        eventCoordinateField,
+        eventCoordinateField
     );
 
     const legend = {
@@ -183,7 +183,9 @@ const eventLoader = async config => {
             }
 
             if (areaRadius) {
-                legend.items.forEach(item => item.name += ` + ${areaRadius} ${'m'} ${'buffer'}`)
+                legend.items.forEach(
+                    item => (item.name += ` + ${areaRadius} ${'m'} ${'buffer'}`)
+                );
             }
         }
     }
