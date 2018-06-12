@@ -7,7 +7,7 @@ import { loadPrograms } from '../../actions/programs';
 
 const allProgramsItem = {
     id: 'noPrograms',
-    name: i18n.t('No programs'),
+    name: i18n.t('No program'),
 };
 
 export class ProgramSelect extends Component {

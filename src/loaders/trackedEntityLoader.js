@@ -1,6 +1,11 @@
 import { apiFetch } from '../util/api';
 import { getOrgUnitsFromRows } from '../util/analytics';
 
+const fields = [
+    'trackedEntityInstance~rename(id)',
+    'featureType',
+    'coordinates',
+];
 const geometryTypes = ['POINT', 'POLYGON'];
 
 const trackedEntityLoader = async config => {
@@ -17,7 +22,7 @@ const trackedEntityLoader = async config => {
         .map(ou => ou.id)
         .join(';'); // TODO: use ouMode?
 
-    let url = `/trackedEntityInstances?skipPaging=false&ou=${orgUnits}`;
+    let url = `/trackedEntityInstances?skipPaging=false&ou=${orgUnits}&fields=${fields}`;
 
     if (program) {
         url += `&program=${
@@ -37,7 +42,7 @@ const trackedEntityLoader = async config => {
     // http://localhost:8080/api/30/trackedEntityInstances?ou=ImspTQPwCqd&trackedEntity=nEenWmSyUEp
     const data = await apiFetch(url);
 
-    console.log(url, data);
+    console.log(url, data.trackedEntityInstances);
 
     const instances = data.trackedEntityInstances.filter(instance =>
         geometryTypes.includes(instance.featureType)

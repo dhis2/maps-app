@@ -6,18 +6,22 @@ import { TEI_COLOR, TEI_RADIUS, TEI_BUFFER } from '../../constants/layers';
 
 class TrackedEntityLayer extends Layer {
     createLayer(callback) {
-        const { id, data, trackedEntityType, areaRadius } = this.props;
+        const {
+            id,
+            data,
+            trackedEntityType,
+            eventPointColor,
+            eventPointRadius,
+            areaRadius,
+        } = this.props;
+
+        const color = eventPointColor || TEI_COLOR;
+
+        // console.log('props', this.props, TEI_COLOR, TEI_RADIUS, TEI_BUFFER);
+
+        console.log('##', color);
 
         const map = this.context.map;
-
-        const config = {
-            type: 'geoJson',
-            pane: id,
-            data,
-        };
-
-        // Create and add event layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
 
         if (areaRadius) {
             console.log('areaRadius', areaRadius);
@@ -26,8 +30,27 @@ class TrackedEntityLayer extends Layer {
                 pane: id,
                 data,
                 buffer: areaRadius, // meters
+                style: {
+                    color,
+                    // color: 'green',
+                    opacity: 0.2,
+                    fillOpacity: 0.1,
+                },
             }).addTo(map);
         }
+
+        // Create and add event layer based on config object
+        this.layer = map
+            .createLayer({
+                type: 'geoJson',
+                pane: id,
+                data,
+                style: {
+                    color,
+                },
+            })
+            .addTo(map);
+
         const layerBounds = this.layer.getBounds();
 
         if (layerBounds.isValid()) {

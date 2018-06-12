@@ -226,7 +226,11 @@ export class TrackedEntityDialog extends Component {
                                     },
                                     {
                                         id: 'CHILDREN',
-                                        name: 'Children',
+                                        name: 'Selected and below',
+                                    },
+                                    {
+                                        id: 'DESCENDANTS',
+                                        name: 'Selected and all below',
                                     },
                                 ]}
                                 value={ouMode || 'SELECTED'}
@@ -269,8 +273,9 @@ export class TrackedEntityDialog extends Component {
                                 type="number"
                                 floatingLabelText={i18n.t('Point size')}
                                 value={eventPointRadius || TEI_RADIUS}
-                                // onChange={setEventPointRadius}
-                                onChange={console.log}
+                                onChange={(evt, radius) =>
+                                    setEventPointRadius(radius)
+                                }
                                 style={{
                                     float: 'left',
                                     maxWidth: 100,
