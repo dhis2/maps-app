@@ -1,5 +1,5 @@
 import { getInstance as getD2 } from 'd2/lib/d2';
-import sortBy from 'lodash/fp/sortBy';
+import { sortBy } from 'lodash/fp';
 import { apiFetch } from '../util/api';
 import { legendSetFields } from '../util/helpers';
 

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import once from 'lodash/fp/once';
-import sortBy from 'lodash/fp/sortBy';
+import { once, sortBy } from 'lodash/fp';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
 

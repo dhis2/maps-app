@@ -1,10 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import isString from 'lodash/fp/isString';
-import findIndex from 'lodash/fp/findIndex';
-import sortBy from 'lodash/fp/sortBy';
-import pick from 'lodash/fp/pick';
-import curry from 'lodash/fp/curry';
+import { isString, findIndex, sortBy, pick, curry } from 'lodash/fp';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
 import { getLegendItems, getLegendItemForValue } from '../util/classify';
@@ -68,8 +64,7 @@ const thematicLoader = async config => {
 
         properties.value = value;
         properties.radius =
-            (value - minValue) /
-                (maxValue - minValue) *
+            ((value - minValue) / (maxValue - minValue)) *
                 (radiusHigh - radiusLow) +
             radiusLow;
         properties.type = geometry.type; // Shown in data table

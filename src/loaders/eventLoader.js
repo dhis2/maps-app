@@ -1,8 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import curry from 'lodash/fp/curry';
-import isString from 'lodash/fp/isString';
-import isEmpty from 'lodash/fp/isEmpty';
+import { curry, isString, isEmpty } from 'lodash/fp';
 import { timeFormat } from 'd3-time-format';
 import { isValidCoordinate } from '../util/map';
 import { getClassBins, getLegendItemForValue } from '../util/classify';

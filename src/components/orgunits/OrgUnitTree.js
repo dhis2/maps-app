@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import once from 'lodash/fp/once';
+import { once } from 'lodash/fp';
 import { OrgUnitTree } from '@dhis2/d2-ui-org-unit-tree';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
 import { toggleOrgUnit } from '../../actions/layerEdit';

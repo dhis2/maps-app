@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
-import isPlainObject from 'lodash/fp/isPlainObject';
+import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
@@ -74,9 +74,7 @@ class FacilityLayer extends Layer {
         }</em>`;
 
         if (isPlainObject(attr.dimensions)) {
-            content += `<br/>${i18n.t('Groups')}: ${Object.keys(
-                attr.dimensions
-            )
+            content += `<br/>${i18n.t('Groups')}: ${Object.keys(attr.dimensions)
                 .map(id => attr.dimensions[id])
                 .join(', ')}`;
         }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import sortBy from 'lodash/fp/sortBy';
+import { sortBy } from 'lodash/fp';
 import { Button } from '@dhis2/d2-ui-core';
 import FilterRow from './FilterRow';
 import { combineDataItems } from '../../util/analytics';

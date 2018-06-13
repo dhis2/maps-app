@@ -1,6 +1,4 @@
-import isNil from 'lodash/fp/isNil';
-import omitBy from 'lodash/fp/omitBy';
-import pick from 'lodash/fp/pick';
+import { isNil, omitBy, pick } from 'lodash/fp';
 import { generateUid } from 'd2/lib/uid';
 import { createAlert } from '../util/alerts';
 
@@ -150,7 +148,7 @@ export const translateConfig = config => {
             return {
                 el,
                 name,
-                alerts: [ createAlert(name, i18n.t('Map could not be created')) ],
+                alerts: [createAlert(name, i18n.t('Map could not be created'))],
             };
         }
 

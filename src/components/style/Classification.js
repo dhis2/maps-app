@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import range from 'lodash/fp/range';
+import { range } from 'lodash/fp';
 import { SelectField } from '@dhis2/d2-ui-core';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
 import { setClassification, setColorScale } from '../../actions/layerEdit';
@@ -79,6 +79,7 @@ const Classification = ({
     );
 };
 
-export default connect(null, { setClassification, setColorScale })(
-    Classification
-);
+export default connect(
+    null,
+    { setClassification, setColorScale }
+)(Classification);

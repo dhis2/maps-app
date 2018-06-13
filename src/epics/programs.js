@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import 'rxjs/add/operator/concatMap';
-import sortBy from 'lodash/fp/sortBy';
+import { sortBy } from 'lodash/fp';
 import * as types from '../constants/actionTypes';
 import { apiFetch } from '../util/api';
 import {

@@ -1,6 +1,4 @@
-import compact from 'lodash/fp/compact';
-import sortBy from 'lodash/fp/sortBy';
-import isString from 'lodash/fp/isString';
+import { compact, sortBy, isString } from 'lodash/fp';
 import { dimConf } from '../constants/dimension';
 
 export const isValidCoordinate = coord =>

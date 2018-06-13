@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Table, Column } from 'react-virtualized';
-import mapValues from 'lodash/fp/mapValues';
+import { mapValues } from 'lodash/fp';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
@@ -217,9 +217,12 @@ const mapStateToProps = state => {
     return null;
 };
 
-export default connect(mapStateToProps, {
-    selectOrgUnit,
-    unselectOrgUnit,
-    setDataFilter,
-    clearDataFilter,
-})(DataTable);
+export default connect(
+    mapStateToProps,
+    {
+        selectOrgUnit,
+        unselectOrgUnit,
+        setDataFilter,
+        clearDataFilter,
+    }
+)(DataTable);

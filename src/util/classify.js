@@ -1,6 +1,6 @@
 // Utils for thematic mapping
 import { format, precisionRound } from 'd3-format';
-import curryRight from 'lodash/fp/curryRight';
+import { curryRight } from 'lodash/fp';
 import {
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,

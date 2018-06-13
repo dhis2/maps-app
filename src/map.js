@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import union from 'lodash/fp/union';
+import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2/lib/d2';
 import { isValidUid } from 'd2/lib/uid';
 import PluginMap from './components/map/PluginMap';

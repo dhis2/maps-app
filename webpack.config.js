@@ -121,14 +121,10 @@ const webpackConfig = {
             'react-addons-update': 'React.addons.update',
             'react-addons-pure-render-mixin': 'React.addons.PureRenderMixin',
             'react-addons-shallow-compare': 'React.addons.ShallowCompare',
-            lodash: 'var _',
-            'lodash/fp': 'var fp',
         },
         /^react-addons/,
         /^react-dom$/,
         /^rx$/,
-        /^lodash$/,
-        /^lodash\/fp$/,
     ],
     plugins: [
         new HTMLWebpackPlugin({
@@ -147,10 +143,6 @@ const webpackConfig = {
                 `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${
                     isDevBuild ? '' : '.min'
                 }.js`,
-                `${scriptPrefix}/dhis-web-core-resource/lodash/4.15.0/lodash${
-                    isDevBuild ? '' : '.min'
-                }.js`,
-                `${scriptPrefix}/dhis-web-core-resource/lodash-functional/1.0.1/lodash-functional.js`,
             ]
                 .map(script => {
                     if (Array.isArray(script)) {

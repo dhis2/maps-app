@@ -1,5 +1,4 @@
-import isString from 'lodash/fp/isString';
-import isObject from 'lodash/fp/isObject';
+import { isString, isObject } from 'lodash/fp';
 import { config } from 'd2/lib/d2';
 
 // TODO: Channel all api request through d2

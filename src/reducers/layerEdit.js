@@ -1,4 +1,4 @@
-import omit from 'lodash/fp/omit';
+import { omit } from 'lodash/fp';
 import * as types from '../constants/actionTypes';
 import {
     setFiltersFromPeriod,

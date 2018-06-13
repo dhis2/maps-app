@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2/lib/d2';
 import i18n from '@dhis2/d2-i18n';
-import debounce from 'lodash/fp/debounce';
+import { debounce } from 'lodash/fp';
 import store from './store';
 import Root from './components/Root';
 import { configI18n } from './util/i18n';

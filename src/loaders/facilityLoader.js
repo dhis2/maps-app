@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
-import isPlainObject from 'lodash/fp/isPlainObject';
+import { isPlainObject } from 'lodash/fp';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { isValidCoordinate } from '../util/map';
 import { getDisplayProperty } from '../util/helpers';
