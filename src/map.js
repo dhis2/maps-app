@@ -3,6 +3,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2/lib/d2';
 import { isValidUid } from 'd2/lib/uid';
+import i18n from './locales';
 import PluginMap from './components/map/PluginMap';
 import {
     mapRequest,
@@ -10,7 +11,7 @@ import {
     getGoogleMapsKey,
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
-import { configI18n } from './util/i18n';
+// import { configI18n } from './util/i18n';
 import { translateConfig } from './util/favorites';
 import { defaultBasemaps } from './constants/basemaps';
 import '../scss/plugin.scss';
@@ -78,6 +79,10 @@ const Plugin = () => {
             .then(configI18n)
             .then(init)
             .then(onInit);
+    }
+
+    function configI18n(userSettings) {
+        i18n.changeLanguage(userSettings.keyUiLocale);
     }
 
     function onInit() {
