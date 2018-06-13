@@ -25,7 +25,7 @@ const levels = {
 
 const modes = {
     SELECTED: i18n.t('in'),
-    CHILDREN: i18n.t('in and below'),
+    CHILDREN: i18n.t('in and right below'),
     DESCENDANTS: i18n.t('in and all below'),
 };
 

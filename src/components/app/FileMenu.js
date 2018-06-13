@@ -11,30 +11,31 @@ import './FileMenu.css';
 
 // https://github.com/dhis2/d2-ui/tree/master/packages/file-menu
 export const FileMenu = (
-    { newMap, loadFavorite, saveFavorite, saveNewFavorite },
+    { id, newMap, loadFavorite, saveFavorite, saveNewFavorite },
     { d2 }
-) => {
-    return (
-        <D2FileMenu
-            d2={d2}
-            fileType="map"
-            onNew={newMap}
-            onOpen={loadFavorite}
-            onSave={saveFavorite}
-            onSaveAs={saveNewFavorite}
-            onRename={console.log}
-            onTranslate={console.log}
-            onDelete={newMap}
-            onError={error => console.log('error', error)}
-        />
-    );
-};
+) => (
+    <D2FileMenu
+        d2={d2}
+        fileType="map"
+        fileId={id}
+        onNew={newMap}
+        onOpen={loadFavorite}
+        onSave={saveFavorite}
+        onSaveAs={saveNewFavorite}
+        onRename={console.log}
+        onTranslate={console.log}
+        onDelete={newMap}
+        onError={error => console.log('error', error)}
+    />
+);
 
 FileMenu.contextTypes = {
     d2: PropTypes.object,
 };
 
 export default connect(
-    null,
+    state => ({
+        id: state.map ? state.map.id : null,
+    }),
     { newMap, loadFavorite, saveFavorite, saveNewFavorite }
 )(FileMenu);

@@ -29,8 +29,8 @@ export const saveNewFavorite = (action$, store) =>
         .concatMap(({ payload }) => {
             const config = {
                 ...cleanMapConfig(store.getState().map),
-                name: payload.newName,
-                description: payload.newDescription,
+                name: payload.name,
+                description: payload.description,
             };
 
             delete config.id;

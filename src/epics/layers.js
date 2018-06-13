@@ -7,6 +7,8 @@ import { addLayer, updateLayer, loadLayer } from '../actions/layers';
 import { errorActionCreator } from '../actions/helpers';
 import { fetchLayer } from '../loaders/layers';
 import { drillUpDown } from '../util/map';
+import { getPeriodFromFilters } from '../util/analytics';
+import { relativePeriods } from '../constants/periods';
 
 const isNewLayer = config => config.id === undefined;
 
@@ -49,4 +51,24 @@ export const drillLayer = (action$, store) =>
         )
         .mergeMap(config => [closeContextMenu(), loadLayer(config)]);
 
-export default combineEpics(loadLayerEpic, drillLayer);
+// Reload layers with relative periods using a specific date (from interpretation)
+export const setRelativePeriodDate = (action$, store) =>
+    action$
+        .ofType(types.MAP_RELATIVE_PERIOD_DATE_SET)
+        .mergeMap(action =>
+            store
+                .getState()
+                .map.mapViews.filter(config => {
+                    const period = getPeriodFromFilters(config.filters);
+                    return (
+                        period && relativePeriods.find(p => p.id === period.id)
+                    );
+                })
+                .map(config => ({
+                    ...config,
+                    relativePeriodDate: action.payload,
+                }))
+        )
+        .map(loadLayer);
+
+export default combineEpics(loadLayerEpic, drillLayer, setRelativePeriodDate);

@@ -68,10 +68,9 @@ class InterpretationsPanel extends Component {
     }
 
     onCurrentInterpretationChange = interpretation => {
-        this.props.setInterpretation(interpretation ? interpretation.id : null);
-        this.props.setRelativePeriodDate(
-            interpretation ? interpretation.created : null
-        );
+        const { setInterpretation, setRelativePeriodDate } = this.props;
+        setInterpretation(interpretation ? interpretation.id : null);
+        setRelativePeriodDate(interpretation ? interpretation.created : null);
     };
 }
 

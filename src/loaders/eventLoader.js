@@ -40,6 +40,7 @@ const eventLoader = async config => {
         startDate,
         styleDataItem,
         areaRadius,
+        relativePeriodDate,
     } = config;
 
     const orgUnits = getOrgUnitsFromRows(rows);
@@ -55,6 +56,7 @@ const eventLoader = async config => {
         period,
         startDate,
         endDate,
+        relativePeriodDate,
         orgUnits,
         dataItems,
         eventCoordinateField
@@ -221,6 +223,7 @@ export const getAnalyticsRequest = async (
     period,
     startDate,
     endDate,
+    relativePeriodDate,
     orgUnits,
     dataItems,
     eventCoordinateField
@@ -235,6 +238,12 @@ export const getAnalyticsRequest = async (
     analyticsRequest = period
         ? analyticsRequest.addPeriodFilter(period.id)
         : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
+
+    if (relativePeriodDate) {
+        analyticsRequest = analyticsRequest.withRelativePeriodDate(
+            relativePeriodDate
+        );
+    }
 
     analyticsRequest = analyticsRequest.addOrgUnitDimension(
         orgUnits.map(ou => ou.id)
