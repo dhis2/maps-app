@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n';
-import { getInstance as getD2 } from 'd2/lib/d2';
 import { apiFetch } from '../../util/api';
 import Layer from './Layer';
 import { TEI_COLOR, TEI_RADIUS } from '../../constants/layers';
@@ -32,6 +31,7 @@ class TrackedEntityLayer extends Layer {
                         opacity: 0.2,
                         fillOpacity: 0.1,
                     },
+                    popup: this.onEventClick,
                 })
                 .addTo(map);
         }
@@ -49,6 +49,8 @@ class TrackedEntityLayer extends Layer {
             })
             .addTo(map);
 
+        this.layer.on('click', this.onEntityClick);
+
         const layerBounds = this.layer.getBounds();
 
         if (layerBounds.isValid()) {
@@ -60,10 +62,23 @@ class TrackedEntityLayer extends Layer {
     removeLayer() {
         const map = this.context.map;
 
+        this.layer.off('click', this.onEventClick);
+
         if (map.hasLayer(this.areaInstance)) {
             map.removeLayer(this.areaInstance);
         }
         super.removeLayer();
+    }
+
+    onEntityClick = async (evt) => {
+        const feature = evt.layer.feature; 
+        const data = await apiFetch(`/trackedEntityInstances/${feature.id}?fields=attributes[displayName~rename(name),value]`);
+        const content = data.attributes.map(({ name, value }) => `<tr><th>${name}:</th><td>${value}</td></tr>`).join('');
+
+        L.popup()
+          .setLatLng(evt.latlng)
+          .setContent(`<table>${content}</table>`)
+          .openOn(this.context.map);
     }
 }
 
