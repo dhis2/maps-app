@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { JssProvider, jss, createGenerateClassName } from 'react-jss';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2/lib/d2';
 import i18n from '@dhis2/d2-i18n';
@@ -70,8 +71,14 @@ getManifest('manifest.webapp')
                 store.dispatch(loadFavorite(mapId));
             }
 
+            // JSS initialization
+            const generateClassName = createGenerateClassName();
+            jss.options.insertionPoint = 'jss-insertion-point';
+
             render(
-                <Root d2={d2} store={store} />,
+                <JssProvider jss={jss} generateClassName={generateClassName}>
+                    <Root d2={d2} store={store} />
+                </JssProvider>,
                 document.getElementById('app')
             );
         },

@@ -59,6 +59,7 @@
         "react": "16.2.0",
         "react-color": "^2.13.5",
         "react-dom": "16.2.0",
+        "react-jss": "^8.5.1",
         "react-redux": "^5.0.7",
         "react-sortable-hoc": "^0.6.8",
         "react-virtualized": "^9.18.5",
