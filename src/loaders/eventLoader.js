@@ -56,10 +56,10 @@ const eventLoader = async config => {
         period,
         startDate,
         endDate,
-        relativePeriodDate,
         orgUnits,
         dataItems,
-        eventCoordinateField
+        eventCoordinateField,
+        relativePeriodDate,
     );
 
     const legend = {
@@ -223,10 +223,10 @@ export const getAnalyticsRequest = async (
     period,
     startDate,
     endDate,
-    relativePeriodDate,
     orgUnits,
     dataItems,
-    eventCoordinateField
+    eventCoordinateField,
+    relativePeriodDate,
 ) => {
     const d2 = await getD2();
 
@@ -249,12 +249,14 @@ export const getAnalyticsRequest = async (
         orgUnits.map(ou => ou.id)
     );
 
-    removeEmptyItems(dataItems).forEach(item => {
-        analyticsRequest = analyticsRequest.addDimension(
-            item.dimension,
-            item.filter
-        );
-    });
+    if (dataItems) {
+        removeEmptyItems(dataItems).forEach(item => {
+            analyticsRequest = analyticsRequest.addDimension(
+                item.dimension,
+                item.filter
+            );
+        });
+    }
 
     if (eventCoordinateField) {
         // If coordinate field other than event coordinate

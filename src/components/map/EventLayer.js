@@ -37,6 +37,7 @@ class EventLayer extends Layer {
             startDate,
             styleDataItem,
             areaRadius,
+            relativePeriodDate,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -72,6 +73,7 @@ class EventLayer extends Layer {
 
                 config.load = async (params, callback) => {
                     d2 = d2 || (await getD2());
+
                     eventRequest =
                         eventRequest ||
                         (await getAnalyticsRequest(
@@ -82,7 +84,8 @@ class EventLayer extends Layer {
                             endDate,
                             orgUnits,
                             dataItems,
-                            eventCoordinateField
+                            eventCoordinateField,
+                            relativePeriodDate,
                         ));
 
                     eventRequest = eventRequest
