@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-06-12T12:21:54.579Z\n"
-"PO-Revision-Date: 2018-06-12T12:21:54.579Z\n"
+"POT-Creation-Date: 2018-06-19T08:59:32.876Z\n"
+"PO-Revision-Date: 2018-06-19T08:59:32.876Z\n"
 
 msgid "Notifications"
 msgstr ""
@@ -326,10 +326,22 @@ msgstr ""
 msgid "Click the map where you want to relocate facility"
 msgstr ""
 
-msgid "below"
+msgid "user organisation unit"
+msgstr ""
+
+msgid "right below user organisation unit"
+msgstr ""
+
+msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
+msgstr ""
+
+msgid "in and right below"
+msgstr ""
+
+msgid "in and all below"
 msgstr ""
 
 msgid "Previous year"
