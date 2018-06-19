@@ -43,7 +43,7 @@ class InterpretationsPanel extends Component {
     render() {
         const { mapId, isOpen, interpretationId } = this.props;
 
-        if (!mapId) {
+        if (!mapId || !isOpen) {
             return null;
         }
 
