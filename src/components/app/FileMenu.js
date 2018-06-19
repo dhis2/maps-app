@@ -23,7 +23,7 @@ export const FileMenu = (
         onSave={saveFavorite}
         onSaveAs={saveNewFavorite}
         onRename={console.log}
-        onTranslate={console.log}
+        // onTranslate={console.log}
         onDelete={newMap}
         onError={error => console.log('error', error)}
     />

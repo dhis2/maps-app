@@ -92,7 +92,7 @@ const toGeoJson = instances =>
             geometry: {
                 type:
                     instance.featureType === 'POINT' ? 'Point' : 'MultiPolygon',
-                    coordinates: JSON.parse(instance.coordinates),
+                coordinates: JSON.parse(instance.coordinates),
             },
             id: instance.id,
             properties: {},

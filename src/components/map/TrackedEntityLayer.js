@@ -8,7 +8,7 @@ class TrackedEntityLayer extends Layer {
         const {
             id,
             data,
-            trackedEntityType,
+            // trackedEntityType,
             eventPointColor,
             eventPointRadius,
             areaRadius,
@@ -51,7 +51,9 @@ class TrackedEntityLayer extends Layer {
 
         this.layer.on('click', this.onEntityClick);
 
-        const layerBounds = this.layer.getBounds();
+        const layerBounds = this.areaInstance
+            ? this.areaInstance.getBounds()
+            : this.layer.getBounds();
 
         if (layerBounds.isValid()) {
             map.fitBounds(layerBounds);
@@ -70,16 +72,34 @@ class TrackedEntityLayer extends Layer {
         super.removeLayer();
     }
 
-    onEntityClick = async (evt) => {
-        const feature = evt.layer.feature; 
-        const data = await apiFetch(`/trackedEntityInstances/${feature.id}?fields=attributes[displayName~rename(name),value]`);
-        const content = data.attributes.map(({ name, value }) => `<tr><th>${name}:</th><td>${value}</td></tr>`).join('');
+    onEntityClick = async evt => {
+        const feature = evt.layer.feature;
+        const data = await apiFetch(
+            `/trackedEntityInstances/${
+                feature.id
+            }?fields=lastUpdated,attributes[displayName~rename(name),value]`
+        );
+        const time =
+            data.lastUpdated.substring(0, 10) +
+            ' ' +
+            data.lastUpdated.substring(11, 16);
+
+        const content = data.attributes
+            .map(
+                ({ name, value }) =>
+                    `<tr><th>${name}:</th><td>${value}</td></tr>`
+            )
+            .join('');
 
         L.popup()
-          .setLatLng(evt.latlng)
-          .setContent(`<table>${content}</table>`)
-          .openOn(this.context.map);
-    }
+            .setLatLng(evt.latlng)
+            .setContent(
+                `<table>${content}<tr><th>${i18n.t(
+                    'Last updated'
+                )}:</th><td>${time}</td></tr></table>`
+            )
+            .openOn(this.context.map);
+    };
 }
 
 export default TrackedEntityLayer;
