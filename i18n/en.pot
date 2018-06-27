@@ -5,13 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2018-06-19T08:59:32.876Z\n"
-"PO-Revision-Date: 2018-06-19T08:59:32.876Z\n"
-=======
-"POT-Creation-Date: 2018-06-14T16:53:38.610Z\n"
-"PO-Revision-Date: 2018-06-14T16:53:38.611Z\n"
->>>>>>> a4f0503bb68fb138e0ff6d2e4a8d1dfa7a5cc984
+"POT-Creation-Date: 2018-06-27T09:25:52.977Z\n"
+"PO-Revision-Date: 2018-06-27T09:25:52.977Z\n"
 
 msgid "Notifications"
 msgstr ""
@@ -314,6 +309,9 @@ msgid "Event time"
 msgstr ""
 
 msgid "Groups"
+msgstr ""
+
+msgid "Last updated"
 msgstr ""
 
 msgid "Code"

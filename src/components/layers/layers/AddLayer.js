@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Button from 'material-ui/FlatButton'; // TODO: Support buttons with without uppercase in d2-ui
+import Button from 'material-ui/FlatButton'; // TODO: Support buttons with uppercase in d2-ui
 import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
 import AddLayerPopover from './AddLayerPopover';
 import { openLayersDialog } from '../../../actions/layers';

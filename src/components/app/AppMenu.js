@@ -2,7 +2,7 @@ import React from 'react';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import AddLayer from '../layers/layers/AddLayer';
 import FileMenu from './FileMenu';
-import ViewMenu from './ViewMenu';
+import InterpretationsToggle from '../interpretations/InterpretationsToggle';
 
 const style = {
     position: 'absolute',
@@ -18,7 +18,9 @@ export const AppMenu = () => (
         <ToolbarGroup firstChild={true}>
             <AddLayer />
             <FileMenu />
-            <ViewMenu />
+        </ToolbarGroup>
+        <ToolbarGroup lastChild={true}>
+            <InterpretationsToggle />
         </ToolbarGroup>
     </Toolbar>
 );
