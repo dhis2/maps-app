@@ -143,6 +143,7 @@ const webpackConfig = {
                 `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${
                     isDevBuild ? '' : '.min'
                 }.js`,
+                [`${scriptPrefix}/dhis-web-core-resource/ckeditor/4.6.1/ckeditor.js`, 'defer async'],
             ]
                 .map(script => {
                     if (Array.isArray(script)) {
