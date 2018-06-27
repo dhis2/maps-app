@@ -19,7 +19,7 @@ export const FileMenu = (
         onOpen={loadFavorite}
         onSave={saveFavorite}
         onSaveAs={saveNewFavorite}
-        onRename={console.log}
+        // onRename={console.log}
         onDelete={newMap}
         onError={error => console.log('error', error)}
     />
