@@ -21,8 +21,8 @@ export const TEI_RADIUS = 6;
 export const TEI_BUFFER = 100;
 
 /* BUFFERS */
-export const BUFFER_MAX_FILL_OPACITY = 0.4;
-export const BUFFER_MAX_LINE_OPACITY = 0.6;
+export const BUFFER_MAX_FILL_OPACITY = 0.3;
+export const BUFFER_MAX_LINE_OPACITY = 0.7;
 
 /* CLASSIFICATION */
 

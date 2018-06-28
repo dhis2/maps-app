@@ -88,7 +88,6 @@ export class TrackedEntityDialog extends Component {
     }
 
     componentWillReceiveProps({ areaRadius }) {
-        console.log('areaRadius', areaRadius);
         if (areaRadius !== this.props.areaRadius) {
             this.setState({
                 showBuffer: this.hasBuffer(areaRadius),
