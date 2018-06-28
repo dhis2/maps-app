@@ -1,4 +1,3 @@
-import { PureComponent } from 'react';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
@@ -8,7 +7,6 @@ class ThematicLayer extends Layer {
             id,
             data,
             dataFilters,
-            valueFilter = { gt: null, lt: null },
             labels,
             labelFontSize,
             labelFontStyle,

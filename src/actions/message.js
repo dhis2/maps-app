@@ -10,3 +10,9 @@ export const setMessage = message => ({
 export const clearMessage = () => ({
     type: types.MESSAGE_CLEAR,
 });
+
+// Show error in snackbar
+export const setError = error => ({
+    type: types.ERROR_SET,
+    payload: error,
+});

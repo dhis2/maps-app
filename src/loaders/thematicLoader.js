@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import { isString, findIndex, sortBy, pick, curry } from 'lodash/fp';
+import { findIndex, sortBy, pick, curry } from 'lodash/fp';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
 import { getLegendItems, getLegendItemForValue } from '../util/classify';

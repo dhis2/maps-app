@@ -19,7 +19,7 @@ export const openCoordinatePopup = coord => ({
     payload: coord,
 });
 
-export const closeCoordinatePopup = coord => ({
+export const closeCoordinatePopup = () => ({
     type: types.MAP_COORDINATE_CLOSE,
 });
 
