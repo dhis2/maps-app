@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 import { clearMessage } from '../../actions/message';
 
+// TODO: Merge with AlertSnackbar
 const Message = ({ message, clearMessage }) =>
     message && (
         <Snackbar
@@ -18,6 +19,7 @@ Message.propTypes = {
     message: PropTypes.string,
 };
 
-export default connect(({ message }) => ({ message }), { clearMessage })(
-    Message
-);
+export default connect(
+    ({ message }) => ({ message }),
+    { clearMessage }
+)(Message);

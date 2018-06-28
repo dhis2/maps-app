@@ -5,14 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-06-28T09:38:45.000Z\n"
-"PO-Revision-Date: 2018-06-28T09:38:45.000Z\n"
-
-msgid "Notifications"
-msgstr ""
-
-msgid "Close"
-msgstr ""
+"POT-Creation-Date: 2018-06-28T15:58:14.318Z\n"
+"PO-Revision-Date: 2018-06-28T15:58:14.318Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -315,6 +309,9 @@ msgid "Groups"
 msgstr ""
 
 msgid "Last updated"
+msgstr ""
+
+msgid "Close"
 msgstr ""
 
 msgid "Code"
