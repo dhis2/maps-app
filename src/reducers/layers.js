@@ -5,7 +5,7 @@ const defaultLayers = [
         layer: 'event',
         type: 'Events',
         img: 'images/events.png',
-        opacity: 0.95,
+        opacity: 0.8,
         eventClustering: true,
     },
     {
@@ -18,7 +18,7 @@ const defaultLayers = [
         layer: 'facility',
         type: 'Facilities',
         img: 'images/facilities.png',
-        opacity: 1,
+        opacity: 0.8,
     },
     {
         layer: 'thematic',

@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { apiFetch } from '../../util/api';
 import Layer from './Layer';
-import { TEI_COLOR, TEI_RADIUS } from '../../constants/layers';
+import { TEI_COLOR, TEI_RADIUS, TEI_BUFFER } from '../../constants/layers';
 
 class TrackedEntityLayer extends Layer {
     createLayer(callback) {
@@ -19,7 +19,7 @@ class TrackedEntityLayer extends Layer {
         const radius = eventPointRadius || TEI_RADIUS;
 
         if (areaRadius) {
-            this.areaInstance = map
+            this.buffers = map
                 .createLayer({
                     type: 'buffer',
                     pane: id,
@@ -51,8 +51,8 @@ class TrackedEntityLayer extends Layer {
 
         this.layer.on('click', this.onEntityClick);
 
-        const layerBounds = this.areaInstance
-            ? this.areaInstance.getBounds()
+        const layerBounds = this.buffers
+            ? this.buffers.getBounds()
             : this.layer.getBounds();
 
         if (layerBounds.isValid()) {
@@ -66,8 +66,8 @@ class TrackedEntityLayer extends Layer {
 
         this.layer.off('click', this.onEventClick);
 
-        if (map.hasLayer(this.areaInstance)) {
-            map.removeLayer(this.areaInstance);
+        if (map.hasLayer(this.buffers)) {
+            map.removeLayer(this.buffers);
         }
         super.removeLayer();
     }

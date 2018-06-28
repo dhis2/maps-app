@@ -1,5 +1,9 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import {
+    BUFFER_MAX_FILL_OPACITY,
+    BUFFER_MAX_LINE_OPACITY,
+} from '../../constants/layers';
 
 class Layer extends PureComponent {
     static contextTypes = {
@@ -120,7 +124,16 @@ class Layer extends PureComponent {
     }
 
     setLayerOpacity() {
-        this.layer.setOpacity(this.props.opacity);
+        const { opacity } = this.props;
+
+        this.layer.setOpacity(opacity);
+
+        if (this.buffers) {
+            this.buffers.setStyle({
+                opacity: BUFFER_MAX_LINE_OPACITY * opacity,
+                fillOpacity: BUFFER_MAX_FILL_OPACITY * opacity,
+            });
+        }
     }
 
     // Set layer order using custom panes and z-index: http://leafletjs.com/examples/map-panes/
@@ -145,11 +158,22 @@ class Layer extends PureComponent {
         const isVisible = this.props.isVisible;
         const map = this.context.map;
         const layer = this.layer;
+        const buffers = this.buffers;
 
-        if (isVisible && map.hasLayer(layer) === false) {
-            map.addLayer(layer);
-        } else if (!isVisible && map.hasLayer(layer) === true) {
-            map.removeLayer(layer);
+        if (isVisible) {
+            if (!map.hasLayer(layer)) {
+                map.addLayer(layer);
+            }
+            if (buffers && !map.hasLayer(buffers)) {
+                map.addLayer(buffers);
+            }
+        } else if (!isVisible) {
+            if (map.hasLayer(layer)) {
+                map.removeLayer(layer);
+            }
+            if (buffers && map.hasLayer(buffers)) {
+                map.removeLayer(buffers);
+            }
         }
     }
 

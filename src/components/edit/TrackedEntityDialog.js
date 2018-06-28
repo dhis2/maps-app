@@ -88,6 +88,7 @@ export class TrackedEntityDialog extends Component {
     }
 
     componentWillReceiveProps({ areaRadius }) {
+        console.log('areaRadius', areaRadius);
         if (areaRadius !== this.props.areaRadius) {
             this.setState({
                 showBuffer: this.hasBuffer(areaRadius),
@@ -302,7 +303,7 @@ export class TrackedEntityDialog extends Component {
                             <Checkbox
                                 label={i18n.t('Show buffer')}
                                 checked={showBuffer}
-                                onCheck={this.onShowBufferClick.bind(this)}
+                                onCheck={this.onShowBufferClick}
                                 style={styles.checkbox}
                             />
                             {showBuffer && (
@@ -330,10 +331,10 @@ export class TrackedEntityDialog extends Component {
         );
     }
 
-    onShowBufferClick(isChecked) {
+    onShowBufferClick = isChecked => {
         const { setAreaRadius, areaRadius } = this.props;
         setAreaRadius(isChecked ? areaRadius || TEI_BUFFER : null);
-    }
+    };
 
     hasBuffer(areaRadius) {
         return areaRadius !== undefined && areaRadius !== null;

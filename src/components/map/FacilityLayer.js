@@ -46,7 +46,7 @@ class FacilityLayer extends Layer {
 
         // Create and add area layer
         if (areaRadius) {
-            this.areaInstance = map.addLayer({
+            this.buffers = map.addLayer({
                 type: 'circles',
                 pane: `${id}-area`,
                 radius: areaRadius,
@@ -114,8 +114,8 @@ class FacilityLayer extends Layer {
     removeLayer() {
         const map = this.context.map;
 
-        if (map.hasLayer(this.areaInstance)) {
-            map.removeLayer(this.areaInstance);
+        if (map.hasLayer(this.buffers)) {
+            map.removeLayer(this.buffers);
         }
         super.removeLayer();
     }

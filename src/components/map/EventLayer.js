@@ -85,7 +85,7 @@ class EventLayer extends Layer {
                             orgUnits,
                             dataItems,
                             eventCoordinateField,
-                            relativePeriodDate,
+                            relativePeriodDate
                         ));
 
                     eventRequest = eventRequest
@@ -105,7 +105,7 @@ class EventLayer extends Layer {
             }
         } else if (areaRadius) {
             // Create and add buffer area layer
-            this.areaInstance = map.addLayer({
+            this.buffers = map.addLayer({
                 type: 'circles',
                 pane: `${id}-area`,
                 radius: areaRadius,
@@ -267,8 +267,8 @@ class EventLayer extends Layer {
     removeLayer() {
         const map = this.context.map;
 
-        if (map.hasLayer(this.areaInstance)) {
-            map.removeLayer(this.areaInstance);
+        if (map.hasLayer(this.buffers)) {
+            map.removeLayer(this.buffers);
         }
         super.removeLayer();
     }
