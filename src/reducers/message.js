@@ -13,7 +13,7 @@ const message = (state = null, action) => {
             if (!action.payload || !action.payload.message) {
                 return i18n.t('Error');
             } else {
-                return `${i18n.t('Error')}: ${i18n.t(action.payload.message)}`;
+                return `${i18n.t('Error')}: ${action.payload.message}`;
             }
 
         default:

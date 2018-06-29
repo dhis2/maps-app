@@ -54,6 +54,7 @@ const analysisFields = async () => {
         `program[id,${namePropertyUrl}]`,
         'programStage[id,displayName~rename(name)]',
         'legendSet[id,displayName~rename(name)]',
+        'trackedEntityType[id,displayName~rename(name)]',
         '!lastUpdated',
         '!href',
         '!created',
