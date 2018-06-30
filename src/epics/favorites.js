@@ -40,25 +40,28 @@ export const saveNewFavorite = (action$, store) =>
             }
 
             return apiFetch('/maps/', 'POST', config).then(
-                response => (response.status === 'OK' ? config : response)
+                async (res) => {
+                    const id = res.headers.location ? res.headers.location.substring(6) : null;
+                    const response = await res.json();
+
+                    console.log('saved', id, response); // TODO: Remove
+                    
+                    return (response.status === 'OK' ? { ...config, id } : response)
+                }
             );
         })
         .mergeMap(
-            // TODO: Refactor
-            config =>
-                config.name
+            ({ id, name, description, message }) =>
+                name
                     ? [
-                          setMapProps({
-                              name: config.name,
-                              description: config.description,
-                          }),
+                          setMapProps({ id, name, description }),
                           setMessage(
-                              `${i18n.t('Favorite')} "${config.name}" ${i18n.t(
+                              `${i18n.t('Favorite')} "${name}" ${i18n.t(
                                   'is saved'
                               )}.`
                           ),
                       ]
-                    : [setMessage(`${i18n.t('Error')}: ${config.message}`)]
+                    : [setMessage(`${i18n.t('Error')}: ${message}`)]
         );
 
 export default combineEpics(saveFavorite, saveNewFavorite);

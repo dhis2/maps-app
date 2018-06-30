@@ -28,10 +28,8 @@ export const apiFetch = async (url, method, body) => {
 
     return fetch(encodeURI(config.baseUrl + url), options)
         .then(
-            response =>
-                method !== 'PUT' && method !== 'PATCH'
-                    ? response.json()
-                    : response
-        ) // Avoids error
+            response => 
+                ['POST', 'PUT', 'PATCH'].includes(method) ? response : response.json()
+        ) 
         .catch(error => console.log('Error: ', error)); // TODO: Better error handling
 };
