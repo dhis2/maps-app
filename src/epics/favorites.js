@@ -41,6 +41,7 @@ export const saveNewFavorite = (action$, store) =>
 
             return apiFetch('/maps/', 'POST', config).then(
                 async (res) => {
+                    // TODO: id is not available when using CORS - add Access-Control-Expose-Headers on server
                     const id = res.headers.location ? res.headers.location.substring(6) : null;
                     const response = await res.json();
 
