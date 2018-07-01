@@ -1,7 +1,9 @@
+import i18n from '@dhis2/d2-i18n';
 import { timeFormat } from 'd3-time-format';
 import { apiFetch } from '../util/api';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { TEI_COLOR, TEI_RADIUS } from '../constants/layers';
+import { createAlert } from '../util/alerts';
 
 const fields = [
     'trackedEntityInstance~rename(id)',
@@ -27,6 +29,8 @@ const trackedEntityLoader = async config => {
         areaRadius,
     } = config;
 
+    const name = program ? program.name : i18n.t('Tracked entity');
+
     const legend = {
         period: `${formatTime(startDate)} - ${formatTime(endDate)}`,
         items: [
@@ -45,6 +49,7 @@ const trackedEntityLoader = async config => {
         .join(';');
 
     let url = `/trackedEntityInstances?skipPaging=false&fields=${fields}&ou=${orgUnits}`;
+    let alert;
 
     if (organisationUnitSelectionMode) {
         url += `&ouMode=${organisationUnitSelectionMode}`;
@@ -73,11 +78,16 @@ const trackedEntityLoader = async config => {
 
     const features = toGeoJson(instances);
 
+    if (!instances.length) {
+        alert = createAlert(trackedEntityType.name, i18n.t('No tracked entities found'));
+    }
+
     return {
         ...config,
-        name: program ? program.name : trackedEntityType.name,
+        name,
         data: features,
         legend,
+        ...(alert ? { alerts: [ alert ] } : {}),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

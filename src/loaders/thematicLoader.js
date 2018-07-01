@@ -30,6 +30,7 @@ const thematicLoader = async config => {
     const name = names[dataItem.id];
     let legendSet = config.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
+    let alert;
 
     // Check if data item has legend set (needed if config is converted for chart/pivot layout)
     if (!legendSet && !method) {
@@ -40,14 +41,13 @@ const thematicLoader = async config => {
         ? await createLegendFromLegendSet(legendSet)
         : createLegendFromConfig(orderedValues, config);
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
-    let alerts = [];
 
     legend.title = name;
     legend.items.forEach(item => (item.count = 0));
     legend.period = names[data.metaData.dimensions.pe[0]];
 
     if (!valueFeatures.length) {
-        alerts.push(createAlert(name, i18n.t('No data found')));
+        alert = createAlert(name, i18n.t('No data found'));
     }
 
     valueFeatures.forEach(({ id, geometry, properties }) => {
@@ -76,7 +76,7 @@ const thematicLoader = async config => {
         name,
         legend,
         method,
-        ...(alerts.length ? { alerts } : {}),
+        ...(alert ? { alerts: [ alert ] } : {}),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
