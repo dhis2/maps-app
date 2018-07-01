@@ -5,6 +5,7 @@ import ContextMenu from './PluginContextMenu';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
 import FacilityLayer from './FacilityLayer';
+import TrackedEntityLayer from './TrackedEntityLayer';
 import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
@@ -15,6 +16,7 @@ import { fetchLayer } from '../../loaders/layers';
 
 const layerType = {
     event: EventLayer,
+    trackedEntity: TrackedEntityLayer,
     facility: FacilityLayer,
     thematic: ThematicLayer,
     boundary: BoundaryLayer,

@@ -51,7 +51,8 @@ class TrackedEntityLayer extends Layer {
 
         this.layer.on('click', this.onEntityClick);
 
-        const layerBounds = this.buffers
+        // TODO: layer is not always added to map before this check
+        const layerBounds = this.buffers && this.buffers._map 
             ? this.buffers.getBounds()
             : this.layer.getBounds();
 
