@@ -39,13 +39,18 @@ export const saveNewFavorite = (action$, store) =>
                 config.mapViews.forEach(view => delete view.id);
             }
 
+            console.log('save favorite', config);
+
             return apiFetch('/maps/', 'POST', config).then(
                 async (res) => {
                     // TODO: id is not available when using CORS - add Access-Control-Expose-Headers on server
-                    const id = res.headers.location ? res.headers.location.substring(6) : null;
+                    // Access-Control-Expose-Headers: Location
+                    const location = res.headers.get('Location');
+                    // const id = res.headers.location ? res.headers.location.substring(6) : null;
+                    const id = location ? location.substring(6) : null;
                     const response = await res.json();
-
-                    console.log('saved', id, response); // TODO: Remove
+                    
+                    console.log('saved', location, id, res); // TODO: Remove
                     
                     return (response.status === 'OK' ? { ...config, id } : response)
                 }
