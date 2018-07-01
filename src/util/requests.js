@@ -8,6 +8,8 @@ import { isString, isObject, sortBy } from 'lodash/fp';
 export const mapRequest = async id => {
     const d2 = await getD2();
 
+    console.log(await mapFields());
+
     return d2.models.map
         .get(id, {
             fields: await mapFields(),

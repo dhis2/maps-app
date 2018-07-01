@@ -55,6 +55,7 @@ const analysisFields = async () => {
         'programStage[id,displayName~rename(name)]',
         'legendSet[id,displayName~rename(name)]',
         'trackedEntityType[id,displayName~rename(name)]',
+        'organisationUnitSelectionMode',
         '!lastUpdated',
         '!href',
         '!created',

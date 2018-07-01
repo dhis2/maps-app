@@ -296,7 +296,7 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_ORGANISATION_UNIT_MODE_SET:
             return {
                 ...state,
-                ouMode: action.payload,
+                organisationUnitSelectionMode: action.payload,
             };
 
         case types.LAYER_EDIT_PARAMS_SET:

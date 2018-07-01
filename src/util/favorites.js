@@ -43,7 +43,7 @@ const validLayerProperties = [
     'method',
     'opacity',
     'organisationUnitGroupSet',
-    'ouMode',
+    'organisationUnitSelectionMode',
     'params',
     'program',
     'programStage',

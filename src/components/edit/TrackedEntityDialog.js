@@ -104,7 +104,7 @@ export class TrackedEntityDialog extends Component {
             startDate,
             endDate,
             rows = [],
-            ouMode,
+            organisationUnitSelectionMode,
             eventPointColor,
             eventPointRadius,
             areaRadius,
@@ -248,7 +248,7 @@ export class TrackedEntityDialog extends Component {
                                         name: 'Selected and all below',
                                     },
                                 ]}
-                                value={ouMode || 'SELECTED'}
+                                value={organisationUnitSelectionMode || 'SELECTED'}
                                 onChange={mode => setOrgUnitMode(mode.id)}
                                 style={{
                                     width: '100%',
@@ -257,7 +257,7 @@ export class TrackedEntityDialog extends Component {
 
                             <SelectedOrgUnits
                                 rows={rows}
-                                mode={ouMode}
+                                mode={organisationUnitSelectionMode}
                                 units={i18n.t('Tracked entities')}
                                 error={orgUnitsError}
                             />

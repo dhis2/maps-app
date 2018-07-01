@@ -21,7 +21,7 @@ const trackedEntityLoader = async config => {
         startDate,
         endDate,
         rows,
-        ouMode,
+        organisationUnitSelectionMode,
         eventPointColor,
         eventPointRadius,
         areaRadius,
@@ -46,8 +46,8 @@ const trackedEntityLoader = async config => {
 
     let url = `/trackedEntityInstances?skipPaging=false&fields=${fields}&ou=${orgUnits}`;
 
-    if (ouMode) {
-        url += `&ouMode=${ouMode}`;
+    if (organisationUnitSelectionMode) {
+        url += `&ouMode=${organisationUnitSelectionMode}`;
     }
 
     if (program) {
