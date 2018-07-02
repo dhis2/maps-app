@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-06-28T15:58:14.318Z\n"
-"PO-Revision-Date: 2018-06-28T15:58:14.318Z\n"
+"POT-Creation-Date: 2018-07-02T11:11:24.338Z\n"
+"PO-Revision-Date: 2018-07-02T11:11:24.338Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -404,6 +404,12 @@ msgid "Facilities"
 msgstr ""
 
 msgid "No data found"
+msgstr ""
+
+msgid "Tracked entity"
+msgstr ""
+
+msgid "No tracked entities found"
 msgstr ""
 
 msgid "No"
