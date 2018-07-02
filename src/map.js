@@ -109,7 +109,7 @@ const Plugin = () => {
 
     async function loadLayers(config) {
         if (!isUnmounted(config.el)) {
-            let basemap = config.basemap;
+            let basemap = config.basemap || 'osmLight';
             const basemapId = basemap.id || basemap;
 
             if (isValidUid(basemapId)) {
