@@ -276,9 +276,9 @@
     material-ui "^0.20.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-interpretations@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-1.1.0.tgz#d24fd6d0d95b95b92056c46d22f737e9e628d965"
+"@dhis2/d2-ui-interpretations@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-1.1.3.tgz#80afef7aaec57515c1443cc2faf80906b08942f1"
   dependencies:
     "@dhis2/d2-i18n" "^1.0.3"
     "@dhis2/d2-i18n-extract" "^1.0.7"
