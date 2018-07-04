@@ -48,7 +48,7 @@ const trackedEntityLoader = async config => {
         .map(ou => ou.id)
         .join(';');
 
-    let url = `/trackedEntityInstances?skipPaging=false&fields=${fields}&ou=${orgUnits}`;
+    let url = `/trackedEntityInstances?skipPaging=true&fields=${fields}&ou=${orgUnits}`;
     let alert;
 
     if (organisationUnitSelectionMode) {

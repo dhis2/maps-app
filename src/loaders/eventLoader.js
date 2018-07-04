@@ -50,6 +50,8 @@ const eventLoader = async config => {
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
+    // console.log('dataItems', dataItems);
+
     let analyticsRequest = await getAnalyticsRequest(
         program,
         programStage,
@@ -66,7 +68,6 @@ const eventLoader = async config => {
         period: period
             ? getPeriodNameFromId(period.id)
             : `${formatTime(startDate)} - ${formatTime(endDate)}`,
-        filters: dataFilters && getFiltersAsText(dataFilters),
     };
 
     let bounds;
@@ -87,8 +88,11 @@ const eventLoader = async config => {
             header => header.optionSet
         );
 
+        // console.log('optionSetHeaders', optionSetHeaders, response.headers);
+
         // Load option sets used for filtering/styling
         if (optionSetHeaders.length) {
+            // console.log('Load option sets used');
             await Promise.all(
                 optionSetHeaders.map(header =>
                     d2.models.optionSets
@@ -249,8 +253,12 @@ export const getAnalyticsRequest = async (
         orgUnits.map(ou => ou.id)
     );
 
+    //console.log('dataItems', dataItems);
+
     if (dataItems) {
         removeEmptyItems(dataItems).forEach(item => {
+        // dataItems.forEach(item => {
+            //console.log('####', item.dimension, item.filter);
             analyticsRequest = analyticsRequest.addDimension(
                 item.dimension,
                 item.filter

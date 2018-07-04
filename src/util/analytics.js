@@ -161,6 +161,8 @@ export const getFiltersFromColumns = (columns = []) => {
 };
 
 export const getFiltersAsText = (filters = [], names = {}) => {
+    // console.log(filters, names);
+
     return filters.map(({ name, filter }) => {
         const [operator, value] = filter.split(':');
         return `${name} ${getFilterOperatorAsText(
@@ -205,6 +207,7 @@ export const combineDataItems = (
 
 // Some favorites have emtpy items in dx dimension
 export const removeEmptyItems = items => {
+    // console.log('removeEmptyItems', items);
     return items.filter(
         item => !item.items || (item.items && item.items.length)
     );
