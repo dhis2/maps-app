@@ -52,7 +52,11 @@ export class ProgramStageSelect extends Component {
             return null;
         }
 
-        const items = programStages[program.id];
+        let items = programStages[program.id];
+
+        if (!items && programStage) {
+            items = [programStage]; // If favorite is loaded, we only know the used program stage
+        }
 
         return (
             <SelectField

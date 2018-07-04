@@ -98,6 +98,7 @@ const FilterSelect = ({
     }
 
     if (optionSet && !optionSets[optionSet.id]) {
+        // TODO: Anti-pattern to call in render method
         loadOptionSet(optionSet.id);
     }
 
