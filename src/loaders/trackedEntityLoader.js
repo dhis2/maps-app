@@ -73,7 +73,7 @@ const trackedEntityLoader = async config => {
     const data = await apiFetch(url);
 
     const instances = data.trackedEntityInstances.filter(instance =>
-        geometryTypes.includes(instance.featureType)
+        geometryTypes.includes(instance.featureType) && instance.coordinates
     );
 
     const features = toGeoJson(instances);
@@ -95,17 +95,14 @@ const trackedEntityLoader = async config => {
 };
 
 const toGeoJson = instances =>
-    instances
-        .filter(instance => geometryTypes.includes(instance.featureType))
-        .map(instance => ({
-            type: 'Feature',
-            geometry: {
-                type:
-                    instance.featureType === 'POINT' ? 'Point' : 'MultiPolygon',
-                coordinates: JSON.parse(instance.coordinates),
-            },
-            id: instance.id,
-            properties: {},
-        }));
+    instances.map(instance => ({
+        type: 'Feature',
+        geometry: {
+            type: instance.featureType === 'POINT' ? 'Point' : 'MultiPolygon',
+            coordinates: JSON.parse(instance.coordinates),
+        },
+        id: instance.id,
+        properties: {},
+    }));
 
 export default trackedEntityLoader;
