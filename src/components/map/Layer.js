@@ -178,14 +178,18 @@ class Layer extends PureComponent {
     }
 
     removeLayer() {
-        const layer = this.layer;
         const map = this.context.map;
 
-        if (map.hasLayer(layer)) {
-            map.removeLayer(layer);
+        if (map.hasLayer(this.layer)) {
+            map.removeLayer(this.layer);
+        }
+
+        if (map.hasLayer(this.buffers)) {
+            map.removeLayer(this.buffers);
         }
 
         delete this.layer;
+        delete this.buffers;
         delete this.pane;
         delete this.labelPane;
         delete this.areaPane;

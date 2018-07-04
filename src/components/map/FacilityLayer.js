@@ -109,16 +109,6 @@ class FacilityLayer extends Layer {
             feature: evt.layer.feature,
         });
     }
-
-    // Remove layer instance (both facilities and areas)
-    removeLayer() {
-        const map = this.context.map;
-
-        if (map.hasLayer(this.buffers)) {
-            map.removeLayer(this.buffers);
-        }
-        super.removeLayer();
-    }
 }
 
 export default FacilityLayer;

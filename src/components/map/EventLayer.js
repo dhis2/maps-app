@@ -262,16 +262,6 @@ class EventLayer extends Layer {
 
         return features;
     }
-
-    // Remove layer instance (both events and areas)
-    removeLayer() {
-        const map = this.context.map;
-
-        if (map.hasLayer(this.buffers)) {
-            map.removeLayer(this.buffers);
-        }
-        super.removeLayer();
-    }
 }
 
 export default EventLayer;

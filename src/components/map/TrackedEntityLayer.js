@@ -8,7 +8,6 @@ class TrackedEntityLayer extends Layer {
         const {
             id,
             data,
-            // trackedEntityType,
             eventPointColor,
             eventPointRadius,
             areaRadius,
@@ -34,7 +33,7 @@ class TrackedEntityLayer extends Layer {
                     popup: this.onEventClick,
                 })
                 .addTo(map);
-        }
+        } 
 
         this.layer = map
             .createLayer({
@@ -63,13 +62,7 @@ class TrackedEntityLayer extends Layer {
 
     // Remove layer instance (both facilities and areas)
     removeLayer() {
-        const map = this.context.map;
-
         this.layer.off('click', this.onEventClick);
-
-        if (map.hasLayer(this.buffers)) {
-            map.removeLayer(this.buffers);
-        }
         super.removeLayer();
     }
 
