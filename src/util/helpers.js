@@ -1,6 +1,6 @@
 import { getInstance as getD2 } from 'd2/lib/d2';
+import { getOrgUnitsFromRows } from './analytics';
 
-// import store from '../store';
 const defaultKeyAnalysisDisplayProperty = 'displayName';
 
 const propertyMap = {
@@ -50,6 +50,7 @@ const analysisFields = async () => {
         `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
         `rows[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
         `filters[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
+        'organisationUnits[id,path]', // Added to retrieve org unit paths
         'dataDimensionItems',
         `program[id,${namePropertyUrl}]`,
         'programStage[id,displayName~rename(name)]',
@@ -81,7 +82,6 @@ const analysisFields = async () => {
         '!dataSets',
         '!periods',
         '!organisationUnitLevels',
-        '!organisationUnits',
         '!sortOrder',
         '!topLimit',
     ];
@@ -105,3 +105,16 @@ export const legendFields = [
 export const legendSetFields = [
     'id,displayName~rename(name),legends[' + legendFields.join(',') + ']',
 ];
+
+// Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
+export const addOrgUnitPaths = (mapViews) => 
+    mapViews.map(view => view.rows && view.organisationUnits ? {
+        ...view, 
+        rows: view.rows.map(dim => ({
+            ...dim,
+            items: dim.items.map(orgUnit => ({
+                ...orgUnit,
+                path: (view.organisationUnits.find(ou => ou.id === orgUnit.id) || {}).path,
+            })),
+        }))
+    } : view);

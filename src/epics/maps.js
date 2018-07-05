@@ -4,6 +4,7 @@ import 'rxjs/add/operator/mergeMap';
 import * as types from '../constants/actionTypes';
 import { errorActionCreator } from '../actions/helpers';
 import { mapRequest } from '../util/requests';
+import { addOrgUnitPaths } from '../util/helpers';
 import { setMap } from '../actions/map';
 import { loadLayer } from '../actions/layers';
 
@@ -18,7 +19,8 @@ export const loadFavorite = action$ =>
         )
         .mergeMap(config => [
             setMap(config),
-            ...config.mapViews.map(loadLayer),
+            // ...config.mapViews.map(loadLayer),
+            ...addOrgUnitPaths(config.mapViews).map(loadLayer),
         ]);
 
 export default combineEpics(loadFavorite);
