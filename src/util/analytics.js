@@ -160,16 +160,13 @@ export const getFiltersFromColumns = (columns = []) => {
     return filters.length ? filters : null;
 };
 
-export const getFiltersAsText = (filters = [], names = {}) => {
-    // console.log(filters, names);
-
-    return filters.map(({ name, filter }) => {
+export const getFiltersAsText = (filters = [], names = {}) => 
+    filters.map(({ dimension, filter }) => {
         const [operator, value] = filter.split(':');
-        return `${name} ${getFilterOperatorAsText(
+        return `${names[dimension]} ${getFilterOperatorAsText(
             operator
         )} [${getFilterValueName(value, names)}]`;
     });
-};
 
 // TODO: Cache?
 export const getFilterOperatorAsText = id =>
@@ -204,14 +201,6 @@ export const combineDataItems = (
             item => !excludeTypes.includes(item.valueType)
         )
     );
-
-// Some favorites have emtpy items in dx dimension
-export const removeEmptyItems = items => {
-    // console.log('removeEmptyItems', items);
-    return items.filter(
-        item => !item.items || (item.items && item.items.length)
-    );
-};
 
 // Builds an object with key/names pairs from an API response
 export const getApiResponseNames = ({ metaData, headers }) => ({

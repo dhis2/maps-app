@@ -11,7 +11,6 @@ import {
     getFiltersAsText,
     getPeriodFromFilters,
     getPeriodNameFromId,
-    removeEmptyItems,
     getApiResponseNames,
 } from '../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
@@ -253,12 +252,8 @@ export const getAnalyticsRequest = async (
         orgUnits.map(ou => ou.id)
     );
 
-    //console.log('dataItems', dataItems);
-
     if (dataItems) {
-        removeEmptyItems(dataItems).forEach(item => {
-        // dataItems.forEach(item => {
-            //console.log('####', item.dimension, item.filter);
+        dataItems.forEach(item => {
             analyticsRequest = analyticsRequest.addDimension(
                 item.dimension,
                 item.filter
