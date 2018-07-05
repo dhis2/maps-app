@@ -170,6 +170,7 @@ class EarthEngineDialog extends Component {
                                         )
                                     }
                                     style={styles.flexThird}
+                                    floatingLabelStyle={{ whiteSpace: 'nowrap' }}
                                 />,
                                 <TextField
                                     key="max"
@@ -186,6 +187,7 @@ class EarthEngineDialog extends Component {
                                         )
                                     }
                                     style={styles.flexThird}
+                                    floatingLabelStyle={{ whiteSpace: 'nowrap' }}
                                 />,
                                 <TextField
                                     key="steps"
