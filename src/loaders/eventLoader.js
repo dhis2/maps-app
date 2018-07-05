@@ -87,11 +87,8 @@ const eventLoader = async config => {
             header => header.optionSet
         );
 
-        // console.log('optionSetHeaders', optionSetHeaders, response.headers);
-
         // Load option sets used for filtering/styling
         if (optionSetHeaders.length) {
-            // console.log('Load option sets used');
             await Promise.all(
                 optionSetHeaders.map(header =>
                     d2.models.optionSets

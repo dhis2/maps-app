@@ -31,7 +31,7 @@ const modes = {
 
 const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
     const orgUnits = getOrgUnitNodesFromRows(rows)
-        .map(ou => ou.displayName)
+        .map(ou => ou.displayName || ou.name)
         .sort();
     const userOrgUnits = getUserOrgUnitsFromRows(rows)
         .sort()

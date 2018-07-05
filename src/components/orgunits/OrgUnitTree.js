@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { once } from 'lodash/fp';
 import { OrgUnitTree } from '@dhis2/d2-ui-org-unit-tree';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
-import { toggleOrgUnit } from '../../actions/layerEdit';
 
 const styles = {
     container: {
@@ -48,12 +47,6 @@ export class OrgUnitTreeMaps extends Component {
         onClick: PropTypes.func,
     };
 
-    constructor(props, context) {
-        super(props, context);
-
-        this.selectDefault = once(node => props.onClick(node)); // only select default node once
-    }
-
     componentDidMount() {
         const { root, loadOrgUnitTree } = this.props;
 
@@ -63,11 +56,11 @@ export class OrgUnitTreeMaps extends Component {
     }
 
     componentDidUpdate() {
-        const { root, selectRootAsDefault } = this.props;
+        const { root, selectRootAsDefault, onClick } = this.props;
 
         // Select org.unit root as default
-        if (selectRootAsDefault && root) {
-            this.selectDefault(root);
+        if (!this._isClicked && selectRootAsDefault && root) {
+            onClick(root);
         }
     }
 
@@ -89,9 +82,7 @@ export class OrgUnitTreeMaps extends Component {
                     initiallyExpanded={[root.path]}
                     hideCheckboxes={true}
                     hideMemberCount={true}
-                    onSelectClick={(evt, orgUnit) =>
-                        !disabled ? onClick(orgUnit) : null
-                    }
+                    onSelectClick={this.onSelectClick}
                     labelStyle={styles.label}
                     selectedLabelStyle={styles.selectedLabel}
                 />
@@ -104,11 +95,18 @@ export class OrgUnitTreeMaps extends Component {
             </div>
         );
     }
+
+    onSelectClick = (evt, orgUnit) => {
+        if (!this.props.disabled) {
+            this._isClicked = true;
+            this.props.onClick(orgUnit);
+        }
+    }
 }
 
 export default connect(
     state => ({
         root: state.orgUnitTree,
     }),
-    { loadOrgUnitTree, toggleOrgUnit }
+    { loadOrgUnitTree }
 )(OrgUnitTreeMaps);
