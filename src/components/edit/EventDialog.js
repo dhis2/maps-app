@@ -74,6 +74,9 @@ const styles = {
         width: 110,
         marginTop: 12,
     },
+    buffer: {
+        marginTop: 12,
+    }
 };
 
 export class EventDialog extends Component {
@@ -316,7 +319,7 @@ export class EventDialog extends Component {
                                 }}
                             />
                         </div>
-                        <div style={styles.labelWrapper}>
+                        <div style={styles.buffer}>
                             <Checkbox
                                 label={i18n.t('Show buffer')}
                                 checked={showBuffer}
@@ -338,7 +341,7 @@ export class EventDialog extends Component {
                                     style={{
                                         float: 'left',
                                         maxWidth: 150,
-                                        marginTop: 0,
+                                        marginTop: -20,
                                     }}
                                     disabled={eventClustering}
                                 />

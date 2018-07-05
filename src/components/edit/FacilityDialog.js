@@ -41,20 +41,20 @@ const styles = {
     wrapper: {
         width: '100%',
         clear: 'both',
-        height: 64,
+        height: 80,
     },
     checkbox: {
         float: 'left',
-        margin: '24px 0 0 12px',
+        margin: '40px 0 0 12px',
         width: 180,
     },
     font: {
         float: 'left',
-        marginTop: 5,
+        marginTop: 2,
     },
     radius: {
         width: 206,
-        marginTop: 12,
+        marginTop: 2,
     },
     help: {
         marginTop: 10,
@@ -197,7 +197,7 @@ class FacilityDialog extends Component {
                                 />
                             )}
                         </div>
-                        <div style={styles.labelWrapper}>
+                        <div style={styles.wrapper}>
                             <Checkbox
                                 label={i18n.t('Show buffer')}
                                 checked={showBuffer}
