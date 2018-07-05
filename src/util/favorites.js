@@ -1,4 +1,4 @@
-import { isNil, omitBy, pick } from 'lodash/fp';
+import { isNil, omitBy, pick, isObject } from 'lodash/fp';
 import { generateUid } from 'd2/lib/uid';
 import { createAlert } from '../util/alerts';
 
@@ -41,6 +41,7 @@ const validLayerProperties = [
     'layer',
     'legendSet',
     'method',
+    'name',
     'opacity',
     'organisationUnitGroupSet',
     'organisationUnitSelectionMode',
@@ -124,6 +125,10 @@ const models2objects = config => {
         delete config.datasetId;
         delete config.params;
         delete config.filter;
+    }
+
+    if (isObject(config.config)) { 
+        config.config = JSON.stringify(config.config); // External overlay
     }
 
     return config;

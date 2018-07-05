@@ -10,7 +10,8 @@ const externalLoader = async config => {
 
     return {
         ...config,
-        type: 'external',
+        layer: 'external',
+        name: config.name,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

@@ -54,6 +54,7 @@ const createLayerConfig = subTitle => layer => {
         type: 'tileLayer',
         url: layer.url,
         attribution: layer.attribution,
+        name: layer.name,
     };
 
     if (layer.mapService === 'TMS') {
@@ -72,7 +73,7 @@ const createLayerConfig = subTitle => layer => {
 
     return {
         id: layer.id,
-        type: 'external',
+        layer: 'external',
         name: layer.name,
         // subtitle: subTitle, // layer.mapLayerPosition === 'BASEMAP' ? 'External basemap' : 'External layer', // TODO: i18n
         // img: layer.img, // TODO: Get from Web API

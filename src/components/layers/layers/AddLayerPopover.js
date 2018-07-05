@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onRequestClose: () => dispatch(closeLayersDialog()),
     onLayerSelect: layer => {
-        if (layer.type === 'external') {
+        if (layer.layer === 'external') {
             dispatch(addLayer({ ...layer, isLoaded: true }));
         } else {
             dispatch(editLayer({ ...layer }));
