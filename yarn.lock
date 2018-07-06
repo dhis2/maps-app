@@ -250,14 +250,14 @@
     redux-logger "^3.0.6"
     redux-thunk "^2.2.0"
 
-"@dhis2/d2-ui-file-menu@1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-file-menu/-/d2-ui-file-menu-1.0.7.tgz#cb52d3c29f3c494ddb9e88dc7264445f0761fc1d"
+"@dhis2/d2-ui-file-menu@1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-file-menu/-/d2-ui-file-menu-1.0.9.tgz#6ac391e8ad069bb9eaaa725013e3d31563151e1c"
   dependencies:
     "@dhis2/d2-i18n" "^1.0.3"
     "@dhis2/d2-ui-favorites-dialog" "^1.0.13"
     "@dhis2/d2-ui-sharing-dialog" "^1.0.12"
-    "@dhis2/d2-ui-translation-dialog" "^1.0.11"
+    "@dhis2/d2-ui-translation-dialog" "^1.0.12"
     d2-ui "^29.0.18"
     material-ui "^1.0.0-beta.34"
     material-ui-icons "^1.0.0-beta.17"
@@ -276,15 +276,15 @@
     material-ui "^0.20.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-interpretations@1.1.7":
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-1.1.7.tgz#07fbdba0f46aae1dd595111af1ab70023a8ccbc5"
+"@dhis2/d2-ui-interpretations@1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-1.1.8.tgz#e455c39e8b23eb04144434f33df2d82fa39512d4"
   dependencies:
     "@dhis2/d2-i18n" "^1.0.3"
     "@dhis2/d2-i18n-extract" "^1.0.7"
     "@dhis2/d2-i18n-generate" "^1.0.18"
     "@dhis2/d2-ui-core" "^1.1.2"
-    "@dhis2/d2-ui-mentions-wrapper" "^1.0.2"
+    "@dhis2/d2-ui-mentions-wrapper" "^1.0.3"
     "@dhis2/d2-ui-sharing-dialog" "^1.0.12"
     babel-runtime "^6.26.0"
     husky "^1.0.0-rc.8"
@@ -309,9 +309,9 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-mentions-wrapper@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-mentions-wrapper/-/d2-ui-mentions-wrapper-1.0.2.tgz#4fb85177c5fbac089380dd1326a95a43eb267698"
+"@dhis2/d2-ui-mentions-wrapper@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-mentions-wrapper/-/d2-ui-mentions-wrapper-1.0.3.tgz#e6baed67a53c3f8e71b92a99e21195f4a933d60b"
   dependencies:
     "@dhis2/d2-i18n" "^1.0.3"
     lodash "^4.17.10"
@@ -354,9 +354,9 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-translation-dialog@^1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-translation-dialog/-/d2-ui-translation-dialog-1.0.11.tgz#0e314fda68c3dcb43a354ea2de0122f7803ef17b"
+"@dhis2/d2-ui-translation-dialog@^1.0.11", "@dhis2/d2-ui-translation-dialog@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-translation-dialog/-/d2-ui-translation-dialog-1.0.12.tgz#dfbc917563b7a6b152d77819630129dcc87dc7ad"
   dependencies:
     "@dhis2/d2-ui-core" "^1.2.0"
     babel-runtime "^6.26.0"
