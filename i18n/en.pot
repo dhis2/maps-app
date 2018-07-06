@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-07-02T11:11:24.338Z\n"
-"PO-Revision-Date: 2018-07-02T11:11:24.338Z\n"
+"POT-Creation-Date: 2018-07-06T08:34:34.432Z\n"
+"PO-Revision-Date: 2018-07-06T08:34:34.432Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -227,6 +227,18 @@ msgstr ""
 msgid "Add filter"
 msgstr ""
 
+msgid "Operator"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
 msgid "one of"
 msgstr ""
 
@@ -243,18 +255,6 @@ msgid "is"
 msgstr ""
 
 msgid "is not"
-msgstr ""
-
-msgid "Operator"
-msgstr ""
-
-msgid "Value"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "Date"
 msgstr ""
 
 msgid "Indicator group"
