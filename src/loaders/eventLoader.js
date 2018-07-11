@@ -251,10 +251,12 @@ export const getAnalyticsRequest = async (
 
     if (dataItems) {
         dataItems.forEach(item => {
-            analyticsRequest = analyticsRequest.addDimension(
-                item.dimension,
-                item.filter
-            );
+            if (item.dimension && item.filer) { // Empty filter sometimes returned for favorite
+                analyticsRequest = analyticsRequest.addDimension(
+                    item.dimension,
+                    item.filter
+                );
+            }
         });
     }
 
