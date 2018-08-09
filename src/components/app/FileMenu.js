@@ -34,6 +34,16 @@ export const FileMenu = (
     />
 );
 
+FileMenu.propTypes = {
+    id: PropTypes.object,
+    newMap: PropTypes.func.isRequired,
+    setMapProps: PropTypes.func.isRequired,
+    loadFavorite: PropTypes.func.isRequired,
+    saveFavorite: PropTypes.func.isRequired,
+    saveNewFavorite: PropTypes.func.isRequired,
+    setError: PropTypes.func.isRequired,
+};
+
 FileMenu.contextTypes = {
     d2: PropTypes.object,
 };
