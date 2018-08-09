@@ -10,6 +10,7 @@ export class DataElementSelect extends PureComponent {
         dataElement: PropTypes.object,
         dataElements: PropTypes.object,
         dataElementGroup: PropTypes.object,
+        loadDataElements: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
     };
