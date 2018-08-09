@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadDataElementOperands } from '../../actions/dataElements';
 
 export class DataElementOperandSelect extends Component {
+    static propTypes = {
+        dataElement: PropTypes.object,
+        dataElementGroup: PropTypes.object,
+        dataElementOperands: PropTypes.object,
+        loadDataElementOperands: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+    };
+
     componentDidMount() {
         this.loadDataElementOperands();
     }
