@@ -9,6 +9,18 @@ import {
 } from '../../actions/programs';
 
 export class CoordinateField extends Component {
+    static propTypes = {
+        value: PropTypes.string,
+        program: PropTypes.object,
+        programStage: PropTypes.object,
+        programAttributes: PropTypes.object.isRequired,
+        dataElements: PropTypes.object.isRequired,
+        loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
+        loadProgramStageDataElements: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+    };
+
     componentDidUpdate() {
         const {
             program,
