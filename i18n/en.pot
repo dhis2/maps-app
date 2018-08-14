@@ -5,19 +5,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-07-06T08:34:34.432Z\n"
-"PO-Revision-Date: 2018-07-06T08:34:34.432Z\n"
+"POT-Creation-Date: 2018-08-14T12:26:07.793Z\n"
+"PO-Revision-Date: 2018-08-14T12:26:07.793Z\n"
 
 msgid "No favorite selected"
-msgstr ""
-
-msgid "View"
-msgstr ""
-
-msgid "Show layer list"
-msgstr ""
-
-msgid "Show interpretations"
 msgstr ""
 
 msgid "Data element group"

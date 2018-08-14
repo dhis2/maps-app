@@ -63,7 +63,7 @@ getManifest('manifest.webapp')
     .then(
         d2 => {
             d2.system.settings
-                .get('keyGoogleMapsApiKey')
+                .get('keyGoogleCloudApiKey')
                 .then(key => store.dispatch(setGooleMapsKey(key)));
 
             const mapId = getUrlParameter('id');
