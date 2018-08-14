@@ -76,7 +76,7 @@ const styles = {
     },
     buffer: {
         marginTop: 12,
-    }
+    },
 };
 
 export class EventDialog extends Component {
@@ -168,7 +168,6 @@ export class EventDialog extends Component {
             id: 'START_END_DATES',
         };
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
-        const allowStyleByDataItem = false; // TODO: Remove check
 
         return (
             <Tabs
@@ -347,25 +346,22 @@ export class EventDialog extends Component {
                                 />
                             )}
                         </div>
-                        {allowStyleByDataItem && [
-                            // TODO: Remove check
-                            <DataItemSelect
-                                label={i18n.t('Style by data item')}
-                                program={program}
-                                programStage={programStage}
-                                allowNone={true}
-                                value={styleDataItem ? styleDataItem.id : null}
-                                onChange={setStyleDataItem}
-                                style={styles.select}
-                            />,
-                            <DataItemStyle
-                                method={method}
-                                classes={classes}
-                                colorScale={colorScale}
-                                style={styles.select}
-                                {...styleDataItem}
-                            />,
-                        ]}
+                        <DataItemSelect
+                            label={i18n.t('Style by data item')}
+                            program={program}
+                            programStage={programStage}
+                            allowNone={true}
+                            value={styleDataItem ? styleDataItem.id : null}
+                            onChange={setStyleDataItem}
+                            style={styles.select}
+                        />
+                        <DataItemStyle
+                            method={method}
+                            classes={classes}
+                            colorScale={colorScale}
+                            style={styles.select}
+                            {...styleDataItem}
+                        />
                     </div>
                 </Tab>
             </Tabs>

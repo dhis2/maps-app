@@ -23,7 +23,7 @@ export const changeBasemapOpacity = opacity => ({
     opacity,
 });
 
-export const setGooleMapsKey = key => ({
+export const setGoogleCloudApiKey = key => ({
     type: types.BASEMAP_GOOGLE_KEY_SET,
     key,
 });

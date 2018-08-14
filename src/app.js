@@ -12,7 +12,7 @@ import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
-import { setGooleMapsKey } from './actions/basemap';
+import { setGoogleCloudApiKey } from './actions/basemap';
 import { getUrlParameter } from './util/requests';
 import '../scss/app.scss';
 
@@ -63,8 +63,8 @@ getManifest('manifest.webapp')
     .then(
         d2 => {
             d2.system.settings
-                .get('keyGoogleMapsApiKey')
-                .then(key => store.dispatch(setGooleMapsKey(key)));
+                .get('keyGoogleCloudApiKey')
+                .then(key => store.dispatch(setGoogleCloudApiKey(key)));
 
             const mapId = getUrlParameter('id');
             if (mapId) {

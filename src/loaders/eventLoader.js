@@ -16,12 +16,10 @@ import {
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { defaultClasses, defaultColorScale } from '../util/colorscale';
 
-// Look at: https://github.com/dhis2/maintenance-app/blob/master/src/App/appStateStore.js
-
 const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
+// Returns a promise
 const eventLoader = async config => {
-    // Returns a promise
     const {
         classes = defaultClasses,
         colorScale = defaultColorScale,
@@ -49,8 +47,6 @@ const eventLoader = async config => {
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
-    // console.log('dataItems', dataItems);
-
     let analyticsRequest = await getAnalyticsRequest(
         program,
         programStage,
@@ -60,7 +56,7 @@ const eventLoader = async config => {
         orgUnits,
         dataItems,
         eventCoordinateField,
-        relativePeriodDate,
+        relativePeriodDate
     );
 
     const legend = {
@@ -82,6 +78,7 @@ const eventLoader = async config => {
 
     if (!serverCluster) {
         const response = await d2.analytics.events.getQuery(analyticsRequest);
+
         names = getApiResponseNames(response);
         const optionSetHeaders = response.headers.filter(
             header => header.optionSet
@@ -116,15 +113,15 @@ const eventLoader = async config => {
             )
             .filter(feature => isValidCoordinate(feature.geometry.coordinates));
 
-        const styleByNumeric =
-            styleDataItem && styleDataItem.valueType === 'INTEGER';
-        const styleByOptionSet =
-            styleDataItem &&
-            styleDataItem.optionSet &&
-            styleDataItem.optionSet.options;
-
         if (Array.isArray(data) && data.length) {
             if (styleDataItem) {
+                const styleByNumeric =
+                    styleDataItem && styleDataItem.valueType === 'INTEGER';
+                const styleByOptionSet =
+                    styleDataItem &&
+                    styleDataItem.optionSet &&
+                    styleDataItem.optionSet.options;
+
                 // Set value property to value of styleDataItem
                 data.forEach(
                     feature =>
@@ -137,22 +134,29 @@ const eventLoader = async config => {
                     const values = data
                         .map(feature => Number(feature.properties.value))
                         .sort((a, b) => a - b);
+
                     const bins = getClassBins(values, method, classes);
                     const colors = colorScale ? colorScale.split(',') : [];
+
                     legend.items = getNumericLegendItems(
                         bins,
                         colors,
                         eventPointRadius || EVENT_RADIUS
                     );
 
+                    legend.items.forEach(item => (item.count = 0));
+
                     const getLegendItem = curry(getLegendItemForValue)(
                         legend.items
                     );
 
-                    data.forEach(
-                        feature =>
-                            (feature.properties.color = getLegendItem(45).color)
-                    );
+                    data.forEach(feature => {
+                        const item = getLegendItem(
+                            Number(feature.properties.value)
+                        );
+                        item.count++;
+                        feature.properties.color = item.color;
+                    });
                 } else if (styleByOptionSet) {
                     data.forEach(feature => {
                         feature.properties.color =
@@ -226,7 +230,7 @@ export const getAnalyticsRequest = async (
     orgUnits,
     dataItems,
     eventCoordinateField,
-    relativePeriodDate,
+    relativePeriodDate
 ) => {
     const d2 = await getD2();
 
@@ -251,7 +255,7 @@ export const getAnalyticsRequest = async (
 
     if (dataItems) {
         dataItems.forEach(item => {
-            if (item.dimension && item.filer) { // Empty filter sometimes returned for favorite
+            if (item.dimension) {
                 analyticsRequest = analyticsRequest.addDimension(
                     item.dimension,
                     item.filter

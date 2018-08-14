@@ -26,9 +26,9 @@ export const getExternalLayer = async id => {
 };
 
 // Fetch Google Maps key
-export const getGoogleMapsKey = async () => {
+export const getGoogleCloudApiKey = async () => {
     const d2 = await getD2();
-    return d2.system.settings.get('keyGoogleMapsApiKey');
+    return d2.system.settings.get('keyGoogleCloudApiKey');
 };
 
 // Different ways of specifying a basemap - TODO: simplify!

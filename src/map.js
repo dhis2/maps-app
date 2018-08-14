@@ -8,7 +8,7 @@ import PluginMap from './components/map/PluginMap';
 import {
     mapRequest,
     getExternalLayer,
-    getGoogleMapsKey,
+    getGoogleCloudApiKey,
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 // import { configI18n } from './util/i18n';
@@ -126,7 +126,7 @@ const Plugin = () => {
             }
 
             if (basemapId.substring(0, 6) === 'google') {
-                basemap.config.apiKey = await getGoogleMapsKey();
+                basemap.config.apiKey = await getGoogleCloudApiKey();
             }
 
             if (config.mapViews) {
