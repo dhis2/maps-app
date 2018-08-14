@@ -121,6 +121,7 @@ export class EventDialog extends Component {
     render() {
         const {
             // layer options
+            areaRadius,
             classes,
             columns = [],
             colorScale,
@@ -136,7 +137,6 @@ export class EventDialog extends Component {
             rows = [],
             startDate,
             styleDataItem,
-            areaRadius,
         } = this.props;
 
         const {

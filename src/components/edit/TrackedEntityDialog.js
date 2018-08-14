@@ -13,6 +13,8 @@ import ProgramSelect from '../program/ProgramSelect';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import ColorPicker from '../d2-ui/ColorPicker';
+import DataItemSelect from '../dataItem/DataItemSelect';
+import DataItemStyle from '../dataItem/DataItemStyle';
 import {
     TEI_START_DATE,
     TEI_END_DATE,
@@ -34,6 +36,7 @@ import {
     setEventPointColor,
     setEventPointRadius,
     setAreaRadius,
+    setStyleDataItem,
 } from '../../actions/layerEdit';
 
 import {
@@ -97,17 +100,21 @@ export class TrackedEntityDialog extends Component {
 
     render() {
         const {
-            trackedEntityType,
-            program,
-            programStatus,
-            followUp,
-            startDate,
+            areaRadius,
+            classes,
+            colorScale,
             endDate,
-            rows = [],
-            organisationUnitSelectionMode,
             eventPointColor,
             eventPointRadius,
-            areaRadius,
+            followUp,
+            method,
+            organisationUnitSelectionMode,
+            program,
+            programStatus,
+            rows = [],
+            startDate,
+            styleDataItem,
+            trackedEntityType,
         } = this.props;
 
         const {
@@ -122,6 +129,7 @@ export class TrackedEntityDialog extends Component {
             setEventPointColor,
             setEventPointRadius,
             setAreaRadius,
+            setStyleDataItem,
         } = this.props;
 
         const {
@@ -134,6 +142,8 @@ export class TrackedEntityDialog extends Component {
         const periodHelp = program
             ? i18n.t('Select program period')
             : i18n.t('Select period when tracked entities were last updated');
+
+        // console.log('styleDataItem', styleDataItem);
 
         return (
             <Tabs
@@ -248,7 +258,9 @@ export class TrackedEntityDialog extends Component {
                                         name: 'Selected and all below',
                                     },
                                 ]}
-                                value={organisationUnitSelectionMode || 'SELECTED'}
+                                value={
+                                    organisationUnitSelectionMode || 'SELECTED'
+                                }
                                 onChange={mode => setOrgUnitMode(mode.id)}
                                 style={{
                                     width: '100%',
@@ -323,6 +335,21 @@ export class TrackedEntityDialog extends Component {
                                     }}
                                 />
                             )}
+                            <DataItemSelect
+                                label={i18n.t('Style by data item')}
+                                program={program}
+                                allowNone={true}
+                                value={styleDataItem ? styleDataItem.id : null}
+                                onChange={setStyleDataItem}
+                                // style={styles.select}
+                            />
+                            <DataItemStyle
+                                method={method}
+                                classes={classes}
+                                colorScale={colorScale}
+                                // style={styles.select}
+                                {...styleDataItem}
+                            />
                         </div>
                     </div>
                 </Tab>
@@ -386,6 +413,7 @@ export default connect(
         setEventPointColor,
         setEventPointRadius,
         setAreaRadius,
+        setStyleDataItem,
     },
     null,
     {

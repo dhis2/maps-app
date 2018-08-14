@@ -27,7 +27,10 @@ const trackedEntityLoader = async config => {
         eventPointColor,
         eventPointRadius,
         areaRadius,
+        styleDataItem,
     } = config;
+
+    console.log(styleDataItem);
 
     const name = program ? program.name : i18n.t('Tracked entity');
 
@@ -48,6 +51,7 @@ const trackedEntityLoader = async config => {
         .map(ou => ou.id)
         .join(';');
 
+    // https://docs.dhis2.org/2.29/en/developer/html/webapi_tracked_entity_instance_query.html
     let url = `/trackedEntityInstances?skipPaging=true&fields=${fields}&ou=${orgUnits}`;
     let alert;
 
@@ -72,14 +76,18 @@ const trackedEntityLoader = async config => {
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
     const data = await apiFetch(url);
 
-    const instances = data.trackedEntityInstances.filter(instance =>
-        geometryTypes.includes(instance.featureType) && instance.coordinates
+    const instances = data.trackedEntityInstances.filter(
+        instance =>
+            geometryTypes.includes(instance.featureType) && instance.coordinates
     );
 
     const features = toGeoJson(instances);
 
     if (!instances.length) {
-        alert = createAlert(trackedEntityType.name, i18n.t('No tracked entities found'));
+        alert = createAlert(
+            trackedEntityType.name,
+            i18n.t('No tracked entities found')
+        );
     }
 
     return {
@@ -87,7 +95,7 @@ const trackedEntityLoader = async config => {
         name,
         data: features,
         legend,
-        ...(alert ? { alerts: [ alert ] } : {}),
+        ...(alert ? { alerts: [alert] } : {}),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

@@ -3,6 +3,8 @@ import BooleanStyle from './BooleanStyle';
 import OptionSetStyle from '../optionSet/OptionSetStyle';
 import Classification from '../style/Classification';
 
+const numberTypes = ['NUMBER', 'INTEGER', 'AGE']; // TODO: Why value type AGE (TEI-Persopn-TB program)?
+
 const DataElementStyle = ({
     method,
     classes,
@@ -14,7 +16,7 @@ const DataElementStyle = ({
     style,
 }) => (
     <div style={style}>
-        {valueType === 'INTEGER' ? (
+        {numberTypes.includes(valueType) ? (
             <Classification
                 method={method}
                 classes={classes}
