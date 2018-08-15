@@ -8,7 +8,6 @@ import TextField from 'material-ui/TextField';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
 import Checkbox from '../../d2-ui/Checkbox';
-import Classification from '../../style/Classification';
 import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect from '../../dataElement/DataElementSelect';
 import DataElementOperandSelect from '../../dataElement/DataElementOperandSelect';
@@ -17,8 +16,7 @@ import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect'; // Reporting rate
 import FontStyle from '../../d2-ui/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
-import LegendSetSelect from '../../legendSet/LegendSetSelect';
-import LegendTypeSelect from './LegendTypeSelect';
+import LegendStyle from '../../classification/LegendStyle';
 import IndicatorSelect from '../../indicator/IndicatorSelect';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
@@ -400,26 +398,17 @@ export class ThematicDialog extends Component {
                 </Tab>
                 <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
-                        <LegendTypeSelect
+                        <LegendStyle
                             method={method}
-                            onChange={setClassification}
-                            style={{ ...styles.select, marginTop: 12 }}
+                            legendSet={legendSet}
+                            classes={classes}
+                            colorScale={colorScale}
+                            // onChange={setClassification}
+                            style={{
+                                ...styles.select,
+                                marginTop: 12,
+                            }}
                         />
-                        {method !== 1 && (
-                            <Classification
-                                method={method}
-                                classes={classes}
-                                colorScale={colorScale}
-                                style={{ ...styles.select, marginTop: 12 }}
-                            />
-                        )}
-                        {method === 1 && (
-                            <LegendSetSelect
-                                legendSet={legendSet}
-                                onChange={setLegendSet}
-                                style={{ ...styles.select, marginTop: 4 }}
-                            />
-                        )}
                         <div
                             style={{
                                 ...styles.flexFull,

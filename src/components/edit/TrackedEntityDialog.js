@@ -13,8 +13,8 @@ import ProgramSelect from '../program/ProgramSelect';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import ColorPicker from '../d2-ui/ColorPicker';
-import DataItemSelect from '../dataItem/DataItemSelect';
-import DataItemStyle from '../dataItem/DataItemStyle';
+// import DataItemSelect from '../dataItem/DataItemSelect';
+// import DataItemStyle from '../dataItem/DataItemStyle';
 import {
     TEI_START_DATE,
     TEI_END_DATE,
@@ -335,27 +335,30 @@ export class TrackedEntityDialog extends Component {
                                     }}
                                 />
                             )}
-                            <DataItemSelect
-                                label={i18n.t('Style by data item')}
-                                program={program}
-                                allowNone={true}
-                                value={styleDataItem ? styleDataItem.id : null}
-                                onChange={setStyleDataItem}
-                                // style={styles.select}
-                            />
-                            <DataItemStyle
-                                method={method}
-                                classes={classes}
-                                colorScale={colorScale}
-                                // style={styles.select}
-                                {...styleDataItem}
-                            />
                         </div>
                     </div>
                 </Tab>
             </Tabs>
         );
     }
+
+    /*
+    <DataItemSelect
+        label={i18n.t('Style by data item')}
+        program={program}
+        allowNone={true}
+        value={styleDataItem ? styleDataItem.id : null}
+        onChange={setStyleDataItem}
+        // style={styles.select}
+    />
+    <DataItemStyle
+        method={method}
+        classes={classes}
+        colorScale={colorScale}
+        // style={styles.select}
+        {...styleDataItem}
+    />
+    */
 
     onShowBufferClick = isChecked => {
         const { setAreaRadius, areaRadius } = this.props;

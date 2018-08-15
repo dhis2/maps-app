@@ -4,13 +4,18 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { loadLegendSets } from '../../actions/legendSets';
+import { setLegendSet } from '../../actions/layerEdit';
+
+const style = {
+    width: '100%',
+};
 
 export class LegendSetSelect extends Component {
     static propTypes = {
         legendSet: PropTypes.object,
         legendSets: PropTypes.array,
-        onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        loadLegendSets: PropTypes.func.isRequired,
+        setLegendSet: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
@@ -22,7 +27,7 @@ export class LegendSetSelect extends Component {
     }
 
     render() {
-        const { legendSet, legendSets, onChange, style } = this.props;
+        const { legendSet, legendSets, setLegendSet } = this.props;
 
         return (
             <SelectField
@@ -30,7 +35,7 @@ export class LegendSetSelect extends Component {
                 loading={legendSets ? false : true}
                 items={legendSets}
                 value={legendSet ? legendSet.id : null}
-                onChange={onChange}
+                onChange={setLegendSet}
                 style={style}
             />
         );
@@ -41,5 +46,5 @@ export default connect(
     state => ({
         legendSets: state.legendSets,
     }),
-    { loadLegendSets }
+    { loadLegendSets, setLegendSet }
 )(LegendSetSelect);

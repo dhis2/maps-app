@@ -1,7 +1,7 @@
 import React from 'react';
 import BooleanStyle from './BooleanStyle';
 import OptionSetStyle from '../optionSet/OptionSetStyle';
-import Classification from '../style/Classification';
+import Classification from '../classification/Classification';
 
 const numberTypes = ['NUMBER', 'INTEGER', 'AGE']; // TODO: Why value type AGE (TEI-Persopn-TB program)?
 

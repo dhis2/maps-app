@@ -5,10 +5,22 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-08-14T12:56:25.160Z\n"
-"PO-Revision-Date: 2018-08-14T12:56:25.160Z\n"
+"POT-Creation-Date: 2018-08-15T08:45:08.721Z\n"
+"PO-Revision-Date: 2018-08-15T08:45:08.721Z\n"
 
 msgid "No favorite selected"
+msgstr ""
+
+msgid "Classification"
+msgstr ""
+
+msgid "Classes"
+msgstr ""
+
+msgid "Automatic"
+msgstr ""
+
+msgid "Predefined"
 msgstr ""
 
 msgid "Data element group"
@@ -171,12 +183,6 @@ msgid "Buffer in meters"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
-
-msgid "Automatic"
-msgstr ""
-
-msgid "Predefined"
 msgstr ""
 
 msgid "Low size"
@@ -357,12 +363,6 @@ msgid "Program"
 msgstr ""
 
 msgid "Stage"
-msgstr ""
-
-msgid "Classification"
-msgstr ""
-
-msgid "Classes"
 msgstr ""
 
 msgid "Tracked Entity Type"
