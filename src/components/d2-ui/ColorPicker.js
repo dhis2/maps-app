@@ -6,12 +6,11 @@ import ChromePicker from 'react-color/lib/components/chrome/Chrome';
 import { hcl } from 'd3-color';
 
 const styles = {
-    wrapper: {
-        display: 'inline-block',
-    },
-    color: {
-        padding: 0,
-        textAlign: 'right',
+    label: {
+        color: 'rgba(0, 0, 0, 0.3)',
+        fontSize: 12,
+        paddingBottom: 6,
+        marginTop: 18,
     },
 };
 
@@ -44,16 +43,20 @@ export default class ColorPicker extends Component {
     };
 
     render() {
+        const { label, width, height, style } = this.props;
         const { color, isOpen, anchorEl } = this.state;
 
         return (
-            <div style={styles.wrapper}>
+            <div style={style}>
+                {label && <div style={styles.label}>{label}</div>}
                 <IconButton
                     onClick={this.handleOpen}
                     style={{
-                        ...styles.color,
                         background: color,
-                        ...this.props.style,
+                        width: width || '100%',
+                        height: height || 26,
+                        padding: 0,
+                        textAlign: 'right',
                     }}
                     disableTouchRipple={true}
                 >
@@ -61,7 +64,6 @@ export default class ColorPicker extends Component {
                         color={hcl(color).l < 70 ? '#fff' : '#333'}
                     />
                 </IconButton>
-
                 <Popover
                     open={isOpen}
                     onRequestClose={this.handleClose}

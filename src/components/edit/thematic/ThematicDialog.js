@@ -225,11 +225,12 @@ export class ThematicDialog extends Component {
             <Tabs
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
+                contentContainerStyle={styles.tabContent}
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
                 <Tab value="data" label={i18n.t('data')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <ValueTypeSelect
                             value={valueType}
                             style={styles.select}
@@ -335,7 +336,7 @@ export class ThematicDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="period" label={i18n.t('period')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <PeriodTypeSelect
                             value={periodType}
                             onChange={type => setPeriodType(type.id)}
@@ -363,8 +364,10 @@ export class ThematicDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="orgunits" label={i18n.t('Org units')}>
-                    <div style={styles.flex}>
-                        <div style={styles.flexHalf}>
+                    <div style={styles.flexColumnFlow}>
+                        <div
+                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                        >
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrgUnit}
@@ -373,7 +376,7 @@ export class ThematicDialog extends Component {
                                 }
                             />
                         </div>
-                        <div style={styles.flexHalf}>
+                        <div style={styles.flexColumn}>
                             <OrgUnitLevelSelect
                                 orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
                                 defaultLevel={2}
@@ -398,65 +401,71 @@ export class ThematicDialog extends Component {
                 </Tab>
                 <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
-                        <LegendStyle
-                            method={method}
-                            legendSet={legendSet}
-                            classes={classes}
-                            colorScale={colorScale}
-                            // onChange={setClassification}
-                            style={{
-                                ...styles.select,
-                                marginTop: 12,
-                            }}
-                        />
-                        <div
-                            style={{
-                                ...styles.flexFull,
-                                marginTop: -12,
-                                marginLeft: -12,
-                            }}
-                        >
-                            <TextField
-                                id="lowsize"
-                                type="number"
-                                floatingLabelText={i18n.t('Low size')}
-                                value={radiusLow !== undefined ? radiusLow : 5}
-                                onChange={(evt, radius) => setRadiusLow(radius)}
-                                style={{ width: 125, marginRight: 24 }}
+                        <div style={{ ...styles.flexColumn, marginTop: 0 }}>
+                            <LegendStyle
+                                method={method}
+                                legendSet={legendSet}
+                                classes={classes}
+                                colorScale={colorScale}
+                                style={styles.select}
                             />
-                            <TextField
-                                id="highsize"
-                                type="number"
-                                floatingLabelText={i18n.t('High size')}
-                                value={
-                                    radiusHigh !== undefined ? radiusHigh : 15
-                                }
-                                onChange={(evt, radius) =>
-                                    setRadiusHigh(radius)
-                                }
-                                style={{ width: 125 }}
-                            />
-                        </div>
-                        <div style={{ ...styles.wrapper, marginLeft: -12 }}>
-                            <Checkbox
-                                label={i18n.t('Show labels')}
-                                checked={labels}
-                                onCheck={setLabels}
-                                style={styles.checkbox}
-                            />
-                            {labels && (
-                                <FontStyle
-                                    color={labelFontColor}
-                                    size={labelFontSize}
-                                    weight={labelFontWeight}
-                                    fontStyle={labelFontStyle}
-                                    onColorChange={setLabelFontColor}
-                                    onSizeChange={setLabelFontSize}
-                                    onWeightChange={setLabelFontWeight}
-                                    onStyleChange={setLabelFontStyle}
-                                    style={styles.font}
+                            <div style={styles.flexInnerColumnFlow}>
+                                <TextField
+                                    id="lowsize"
+                                    type="number"
+                                    floatingLabelText={i18n.t('Low size')}
+                                    value={
+                                        radiusLow !== undefined ? radiusLow : 5
+                                    }
+                                    onChange={(evt, radius) =>
+                                        setRadiusLow(radius)
+                                    }
+                                    style={styles.flexInnerColumn}
                                 />
-                            )}
+                                <TextField
+                                    id="highsize"
+                                    type="number"
+                                    floatingLabelText={i18n.t('High size')}
+                                    value={
+                                        radiusHigh !== undefined
+                                            ? radiusHigh
+                                            : 15
+                                    }
+                                    onChange={(evt, radius) =>
+                                        setRadiusHigh(radius)
+                                    }
+                                    style={styles.flexInnerColumn}
+                                />
+                            </div>
+                            <div style={styles.flexInnerColumnFlow}>
+                                <Checkbox
+                                    label={i18n.t('Labels')}
+                                    checked={labels}
+                                    onCheck={setLabels}
+                                    style={{
+                                        ...styles.flexInnerColumn,
+                                        maxWidth: 150,
+                                        paddingTop: 24,
+                                        height: 42,
+                                    }}
+                                />
+                                {labels && (
+                                    <FontStyle
+                                        color={labelFontColor}
+                                        size={labelFontSize}
+                                        weight={labelFontWeight}
+                                        fontStyle={labelFontStyle}
+                                        onColorChange={setLabelFontColor}
+                                        onSizeChange={setLabelFontSize}
+                                        onWeightChange={setLabelFontWeight}
+                                        onStyleChange={setLabelFontStyle}
+                                        style={{
+                                            ...styles.flexInnerColumn,
+                                            ...styles.font,
+                                        }}
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </Tab>

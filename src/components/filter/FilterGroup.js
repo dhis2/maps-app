@@ -12,14 +12,14 @@ const styles = {
     container: {
         width: '100%',
         height: 300,
-        padding: 12,
+        paddingTop: 16,
         overflowY: 'auto',
     },
     button: {
         marginTop: 8,
     },
     note: {
-        padding: 12,
+        paddingTop: 16,
     },
 };
 

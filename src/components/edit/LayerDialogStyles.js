@@ -9,12 +9,45 @@ export const layerDialogStyles = {
         width: 'auto',
         maxWidth: 300,
     },
+    tabContent: {
+        margin: '0px -16px',
+    },
     flexColumnFlow: {
         display: 'flex',
-        flexFlow: 'column',
+        flexWrap: 'wrap',
+    },
+    flexRowFlow: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: '0 16px',
+    },
+    flexColumn: {
+        flex: '1 1 0',
+        margin: 16,
+        boxSizing: 'border-box',
+        // overflow: 'auto',
+        maxWidth: 380,
+    },
+    flexInnerColumnFlow: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        margin: -8,
+        clear: 'both',
+    },
+    flexInnerColumn: {
+        flex: 1,
+        margin: 8,
+    },
+
+    /*
+    flexColumnFlow: {
+        display: 'flex',
+        // flexFlow: 'column',
+        flexWrap: 'wrap',
         maxHeight: 320,
         overflowY: 'auto',
         paddingBottom: 16,
+        background: '#ddd',
     },
     flexRowFlow: {
         display: 'flex',
@@ -81,4 +114,5 @@ export const layerDialogStyles = {
         borderLeft: '12px solid #fff',
         borderRight: '12px solid #fff',
     },
+    */
 };

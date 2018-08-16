@@ -7,7 +7,6 @@ import './UserOrgUnits.css';
 
 const styles = {
     title: {
-        paddingTop: 12,
         color: 'rgba(0, 0, 0, 0.3)',
     },
     container: {
@@ -80,7 +79,8 @@ const UserOrgUnitSelect = ({ selected, onChange, style }) => (
 
 UserOrgUnitSelect.propTypes = {
     selected: PropTypes.array,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
 };
 
 export default UserOrgUnitSelect;

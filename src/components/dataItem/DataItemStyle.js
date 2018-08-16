@@ -1,7 +1,8 @@
 import React from 'react';
 import BooleanStyle from './BooleanStyle';
 import OptionSetStyle from '../optionSet/OptionSetStyle';
-import Classification from '../classification/Classification';
+
+import LegendStyle from '../classification/LegendStyle';
 
 const numberTypes = ['NUMBER', 'INTEGER', 'AGE']; // TODO: Why value type AGE (TEI-Persopn-TB program)?
 
@@ -17,7 +18,7 @@ const DataElementStyle = ({
 }) => (
     <div style={style}>
         {numberTypes.includes(valueType) ? (
-            <Classification
+            <LegendStyle
                 method={method}
                 classes={classes}
                 colorScale={colorScale}

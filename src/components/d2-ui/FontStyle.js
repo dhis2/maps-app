@@ -20,6 +20,9 @@ const styles = {
         background: '#555',
         marginRight: 5,
     },
+    color: {
+        display: 'inline-block',
+    },
 };
 
 const FontStyle = ({
@@ -71,7 +74,13 @@ const FontStyle = ({
             </IconButton>
         )}
         {onColorChange && (
-            <ColorPicker color={color || '#333333'} onChange={onColorChange} />
+            <ColorPicker
+                color={color || '#333333'}
+                width={48}
+                height={48}
+                onChange={onColorChange}
+                style={styles.color}
+            />
         )}
     </div>
 );
