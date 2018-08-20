@@ -61,53 +61,31 @@ export const getCategoryLegendItems = (options, radius) =>
     }));
 
 // Returns a legend created from a pre-defined legend set
-export const getPredefinedLegend = async legendSet => {
+export const getPredefinedLegendItems = async legendSet => {
     const { legends } = await loadLegendSet(legendSet);
     const pickSome = pick(['name', 'startValue', 'endValue', 'color']);
 
-    return {
-        items: sortBy('startValue', legends)
-            .map(pickSome)
-            .map(
-                item =>
-                    item.name === `${item.startValue} - ${item.endValue}`
-                        ? { ...item, name: '' } // Clear name if same as startValue - endValue
-                        : item
-            ),
-    };
+    return sortBy('startValue', legends)
+        .map(pickSome)
+        .map(
+            item =>
+                item.name === `${item.startValue} - ${item.endValue}`
+                    ? { ...item, name: '' } // Clear name if same as startValue - endValue
+                    : item
+        );
 };
 
-export const getAutomaticLegend = (
+export const getAutomaticLegendItems = (
     data,
     method = CLASSIFICATION_EQUAL_INTERVALS,
     classes = defaultClasses,
     colorScale = defaultColorScale
 ) => {
-    console.log('getAutomaticLegend', data, method, classes, colorScale);
-
     const items = data.length ? getLegendItems(data, method, classes) : [];
     const colors = colorScale.split(',');
 
-    return {
-        items: items.map((item, index) => ({
-            ...item,
-            color: colors[index],
-        })),
-    };
+    return items.map((item, index) => ({
+        ...item,
+        color: colors[index],
+    }));
 };
-
-/*
-export const getNumericLegendItems = (bins, colors, radius) => {
-    const items = [];
-
-    for (let i = 0; i < bins.length; i++) {
-        items.push({
-            ...bins[i],
-            color: colors[i],
-            radius,
-        });
-    }
-
-    return items;
-};
-*/

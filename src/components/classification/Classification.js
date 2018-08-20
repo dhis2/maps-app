@@ -72,6 +72,7 @@ const Classification = ({
                 onChange={setColorScale}
                 style={styles.scale}
             />
+            <div style={{ clear: 'both' }} />
         </div>,
     ];
 };

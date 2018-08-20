@@ -7,8 +7,8 @@ import { getLegendItemForValue } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
 import {
     loadDataItemLegendSet,
-    getPredefinedLegend,
-    getAutomaticLegend,
+    getPredefinedLegendItems,
+    getAutomaticLegendItems,
 } from '../util/legend';
 import {
     getOrgUnitsFromRows,
@@ -40,14 +40,22 @@ const thematicLoader = async config => {
         legendSet = await loadDataItemLegendSet(dataItem);
     }
 
-    const legend = legendSet
-        ? await getPredefinedLegend(legendSet)
-        : getAutomaticLegend(orderedValues, method, classes, colorScale);
-    const getLegendItem = curry(getLegendItemForValue)(legend.items);
+    const legend = {
+        title: name,
+        period: names[data.metaData.dimensions.pe[0]],
+        items: legendSet
+            ? await getPredefinedLegendItems(legendSet)
+            : getAutomaticLegendItems(
+                  orderedValues,
+                  method,
+                  classes,
+                  colorScale
+              ),
+    };
 
-    legend.title = name;
     legend.items.forEach(item => (item.count = 0));
-    legend.period = names[data.metaData.dimensions.pe[0]];
+
+    const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
     if (!valueFeatures.length) {
         alert = createAlert(name, i18n.t('No data found'));

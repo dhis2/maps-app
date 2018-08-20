@@ -12,19 +12,23 @@ export const StyleByDataItem = ({
     programStage,
     styleDataItem,
     setStyleDataItem,
-}) => [
-    <DataItemSelect
-        key="select"
-        label={i18n.t('Style by data item')}
-        program={program}
-        programStage={programStage}
-        allowNone={true}
-        value={styleDataItem ? styleDataItem.id : null}
-        onChange={setStyleDataItem}
-        // style={styles.select}
-    />,
-    styleDataItem && <DataItemStyle key="style" dataItem={styleDataItem} />,
-];
+}) => (
+    <div style={{ overflowY: 'auto' }}>
+        <DataItemSelect
+            key="select"
+            label={i18n.t('Style by data item')}
+            program={program}
+            programStage={programStage}
+            allowNone={true}
+            value={styleDataItem ? styleDataItem.id : null}
+            onChange={setStyleDataItem}
+            // style={styles.select}
+        />
+        {styleDataItem && (
+            <DataItemStyle key="style" dataItem={styleDataItem} />
+        )}
+    </div>
+);
 
 StyleByDataItem.propTypes = {
     setStyleDataItem: PropTypes.func.isRequired,
@@ -38,14 +42,3 @@ export default connect(
     }),
     { setStyleDataItem }
 )(StyleByDataItem);
-
-/*
-<DataItemStyle
-key="style"
-// method={method}
-// classes={classes}
-//colorScale={colorScale}
-// style={styles.select}
-// {...styleDataItem}
-/>,
-*/

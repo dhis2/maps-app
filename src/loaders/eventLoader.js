@@ -5,14 +5,6 @@ import { timeFormat } from 'd3-time-format';
 import { isValidCoordinate } from '../util/map';
 import { getLegendItemForValue } from '../util/classify';
 import {
-    getAutomaticLegend,
-    getPredefinedLegend,
-    loadDataItemLegendSet,
-    // getNumericLegendItems,
-    getCategoryLegendItems,
-} from '../util/legend';
-
-import {
     getOrgUnitsFromRows,
     getFiltersFromColumns,
     getFiltersAsText,
@@ -20,6 +12,11 @@ import {
     getPeriodNameFromId,
     getApiResponseNames,
 } from '../util/analytics';
+import {
+    getAutomaticLegendItems,
+    getPredefinedLegendItems,
+    getCategoryLegendItems,
+} from '../util/legend';
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
@@ -142,25 +139,21 @@ const eventLoader = async config => {
                 legend.unit = styleDataItem.name;
 
                 if (styleByNumeric) {
-                    // console.log('styleByNumeric');
                     if (method === CLASSIFICATION_PREDEFINED) {
-                        const test = await getPredefinedLegend(legendSet);
-                        legend.items = test.items; // TODO
-                        console.log('Predefined', legend);
-                        // legend.items = [];
+                        legend.items = await getPredefinedLegendItems(
+                            legendSet
+                        );
                     } else {
                         const values = data
                             .map(feature => Number(feature.properties.value))
                             .sort((a, b) => a - b);
 
-                        const test = getAutomaticLegend(
+                        legend.items = getAutomaticLegendItems(
                             values,
                             method,
                             classes,
                             colorScale
                         );
-
-                        legend.items = test.items; // TODO
                     }
 
                     // TODO
