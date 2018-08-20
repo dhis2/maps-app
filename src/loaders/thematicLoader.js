@@ -3,20 +3,23 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 import { findIndex, sortBy, pick, curry } from 'lodash/fp';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
-import { getLegendItems, getLegendItemForValue } from '../util/classify';
+import { getLegendItemForValue } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
-import { loadDataItemLegendSet } from '../util/legend';
+import {
+    loadDataItemLegendSet,
+    getPredefinedLegend,
+    getAutomaticLegend,
+} from '../util/legend';
 import {
     getOrgUnitsFromRows,
     getPeriodFromFilters,
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
-import { defaultClasses, defaultColorScale } from '../util/colorscale';
 import { createAlert } from '../util/alerts';
 
 const thematicLoader = async config => {
-    const { columns, radiusLow, radiusHigh } = config;
+    const { columns, radiusLow, radiusHigh, classes, colorScale } = config;
     const [features, data] = await loadData(config);
     const names = getApiResponseNames(data);
     const valueById = getValueById(data);
@@ -38,8 +41,8 @@ const thematicLoader = async config => {
     }
 
     const legend = legendSet
-        ? await createLegendFromLegendSet(legendSet)
-        : createLegendFromConfig(orderedValues, config);
+        ? await getPredefinedLegend(legendSet)
+        : getAutomaticLegend(orderedValues, method, classes, colorScale);
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
     legend.title = name;
@@ -76,7 +79,7 @@ const thematicLoader = async config => {
         name,
         legend,
         method,
-        ...(alert ? { alerts: [ alert ] } : {}),
+        ...(alert ? { alerts: [alert] } : {}),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
@@ -101,42 +104,6 @@ const getOrderedValues = data => {
     const valueIndex = findIndex(['name', 'value'], headers);
 
     return rows.map(row => parseFloat(row[valueIndex])).sort((a, b) => a - b);
-};
-
-// Returns a legend created from a pre-defined legend set
-const createLegendFromLegendSet = async legendSet => {
-    const d2 = await getD2();
-    const { legends } = await d2.models.legendSet.get(legendSet.id);
-    const pickSome = pick(['name', 'startValue', 'endValue', 'color']);
-
-    return {
-        items: sortBy('startValue', legends)
-            .map(pickSome)
-            .map(
-                item =>
-                    item.name === `${item.startValue} - ${item.endValue}`
-                        ? { ...item, name: '' } // Clear name if same as startValue - endValue
-                        : item
-            ),
-    };
-};
-
-const createLegendFromConfig = (data, config) => {
-    const {
-        method = 2, // TODO: Make constant
-        classes = defaultClasses,
-        colorScale = defaultColorScale,
-    } = config;
-
-    const items = data.length ? getLegendItems(data, method, classes) : [];
-    const colors = colorScale.split(',');
-
-    return {
-        items: items.map((item, index) => ({
-            ...item,
-            color: colors[index],
-        })),
-    };
 };
 
 // Load features and data values from api

@@ -16,7 +16,7 @@ import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect'; // Reporting rate
 import FontStyle from '../../d2-ui/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
-import LegendStyle from '../../classification/LegendStyle';
+import NumericLegendStyle from '../../classification/NumericLegendStyle';
 import IndicatorSelect from '../../indicator/IndicatorSelect';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
@@ -35,7 +35,6 @@ import {
 } from '../../../constants/layers';
 
 import {
-    setClassification,
     setDataItem,
     setDataElementGroup,
     setIndicatorGroup,
@@ -44,7 +43,6 @@ import {
     setLabelFontSize,
     setLabelFontWeight,
     setLabelFontStyle,
-    setLegendSet,
     setOperand,
     setOrgUnitLevels,
     setOrgUnitGroups,
@@ -115,35 +113,11 @@ export class ThematicDialog extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        const {
-            valueType,
-            columns,
-            rows,
-            method,
-            setValueType,
-            setClassification,
-            setLegendSet,
-            loadOrgUnitPath,
-        } = this.props;
+    componentDidUpdate() {
+        const { valueType, rows, setValueType, loadOrgUnitPath } = this.props;
 
         if (!valueType) {
             setValueType('in'); // TODO: Make constant
-        }
-
-        // Set connected legend set when indicator is selected
-        if (columns) {
-            const dataItem = getDataItemFromColumns(columns);
-            const prevDataItem = getDataItemFromColumns(prevProps.columns);
-
-            if (dataItem && dataItem !== prevDataItem) {
-                if (dataItem.legendSet) {
-                    setClassification(CLASSIFICATION_PREDEFINED);
-                    setLegendSet(dataItem.legendSet);
-                } else {
-                    setClassification(CLASSIFICATION_EQUAL_INTERVALS);
-                }
-            }
         }
 
         if (rows) {
@@ -159,8 +133,6 @@ export class ThematicDialog extends Component {
     render() {
         const {
             // layer options
-            classes,
-            colorScale,
             columns,
             dataElementGroup,
             filters,
@@ -171,8 +143,6 @@ export class ThematicDialog extends Component {
             labelFontSize,
             labelFontStyle,
             labelFontWeight,
-            legendSet,
-            method,
             operand,
             periodType,
             program,
@@ -184,7 +154,6 @@ export class ThematicDialog extends Component {
 
         const {
             // Handlers
-            setClassification,
             setDataItem,
             setDataElementGroup,
             setIndicatorGroup,
@@ -193,7 +162,6 @@ export class ThematicDialog extends Component {
             setLabelFontSize,
             setLabelFontWeight,
             setLabelFontStyle,
-            setLegendSet,
             setOperand,
             setOrgUnitLevels,
             setOrgUnitGroups,
@@ -402,11 +370,8 @@ export class ThematicDialog extends Component {
                 <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
                         <div style={{ ...styles.flexColumn, marginTop: 0 }}>
-                            <LegendStyle
-                                method={method}
-                                legendSet={legendSet}
-                                classes={classes}
-                                colorScale={colorScale}
+                            <NumericLegendStyle
+                                dataItem={dataItem}
                                 style={styles.select}
                             />
                             <div style={styles.flexInnerColumnFlow}>
@@ -541,7 +506,6 @@ export class ThematicDialog extends Component {
 export default connect(
     null,
     {
-        setClassification,
         setDataItem,
         setDataElementGroup,
         setIndicatorGroup,
@@ -550,7 +514,6 @@ export default connect(
         setLabelFontSize,
         setLabelFontWeight,
         setLabelFontStyle,
-        setLegendSet,
         setOperand,
         setOrgUnitLevels,
         setOrgUnitGroups,

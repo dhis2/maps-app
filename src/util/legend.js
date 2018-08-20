@@ -1,12 +1,12 @@
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { sortBy } from 'lodash/fp';
-import { apiFetch } from '../util/api';
-import { legendSetFields } from '../util/helpers';
+import { pick } from 'lodash/fp';
+import { getLegendItems } from '../util/classify';
+import { defaultClasses, defaultColorScale } from '../util/colorscale';
+import { CLASSIFICATION_EQUAL_INTERVALS } from '../constants/layers';
 
 export const loadLegendSet = async legendSet => {
-    const fields = legendSetFields.join(',');
     const d2 = await getD2();
-
     return d2.models.legendSet.get(legendSet.id);
 };
 
@@ -53,7 +53,50 @@ export const getLabelsFromLegendItems = legendItems => {
     return sortedItems.map(item => item.name);
 };
 
-// TODO: Add support for counts in each class?
+export const getCategoryLegendItems = (options, radius) =>
+    Object.keys(options).map(option => ({
+        name: option,
+        color: options[option],
+        radius: radius,
+    }));
+
+// Returns a legend created from a pre-defined legend set
+export const getPredefinedLegend = async legendSet => {
+    const { legends } = await loadLegendSet(legendSet);
+    const pickSome = pick(['name', 'startValue', 'endValue', 'color']);
+
+    return {
+        items: sortBy('startValue', legends)
+            .map(pickSome)
+            .map(
+                item =>
+                    item.name === `${item.startValue} - ${item.endValue}`
+                        ? { ...item, name: '' } // Clear name if same as startValue - endValue
+                        : item
+            ),
+    };
+};
+
+export const getAutomaticLegend = (
+    data,
+    method = CLASSIFICATION_EQUAL_INTERVALS,
+    classes = defaultClasses,
+    colorScale = defaultColorScale
+) => {
+    console.log('getAutomaticLegend', data, method, classes, colorScale);
+
+    const items = data.length ? getLegendItems(data, method, classes) : [];
+    const colors = colorScale.split(',');
+
+    return {
+        items: items.map((item, index) => ({
+            ...item,
+            color: colors[index],
+        })),
+    };
+};
+
+/*
 export const getNumericLegendItems = (bins, colors, radius) => {
     const items = [];
 
@@ -67,11 +110,4 @@ export const getNumericLegendItems = (bins, colors, radius) => {
 
     return items;
 };
-
-// TODO: Add support for counts in each class?
-export const getCategoryLegendItems = (options, radius) =>
-    Object.keys(options).map(option => ({
-        name: option,
-        color: options[option],
-        radius: radius,
-    }));
+*/

@@ -12,8 +12,7 @@ import DatePicker from '../d2-ui/DatePicker';
 import Checkbox from '../d2-ui/Checkbox';
 import FilterGroup from '../filter/FilterGroup';
 import ImageSelect from '../d2-ui/ImageSelect';
-import DataItemSelect from '../dataItem/DataItemSelect';
-import DataItemStyle from '../dataItem/DataItemStyle';
+import StyleByDataItem from '../dataItem/StyleByDataItem';
 import CoordinateField from '../dataItem/CoordinateField';
 import ColorPicker from '../d2-ui/ColorPicker';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
@@ -78,14 +77,6 @@ export class EventDialog extends Component {
         };
     }
 
-    componentWillReceiveProps({ areaRadius }) {
-        if (areaRadius !== this.props.areaRadius) {
-            this.setState({
-                showBuffer: this.hasBuffer(areaRadius),
-            });
-        }
-    }
-
     componentDidMount() {
         const {
             filters,
@@ -100,6 +91,16 @@ export class EventDialog extends Component {
             // Set default period (last year)
             setStartDate(EVENT_START_DATE);
             setEndDate(EVENT_END_DATE);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const { areaRadius } = this.props;
+
+        if (areaRadius !== prevProps.areaRadius) {
+            this.setState({
+                showBuffer: this.hasBuffer(areaRadius),
+            });
         }
     }
 
@@ -324,7 +325,9 @@ export class EventDialog extends Component {
                                 )}
                             </div>
                         </div>
-                        <div style={styles.flexColumn} />
+                        <div style={styles.flexColumn}>
+                            {program && <StyleByDataItem />}
+                        </div>
                     </div>
                 </Tab>
             </Tabs>
@@ -403,22 +406,3 @@ export default connect(
         withRef: true,
     }
 )(EventDialog);
-
-/*
-<DataItemSelect
-label={i18n.t('Style by data item')}
-program={program}
-programStage={programStage}
-allowNone={true}
-value={styleDataItem ? styleDataItem.id : null}
-onChange={setStyleDataItem}
-style={styles.select}
-/>
-<DataItemStyle
-method={method}
-classes={classes}
-colorScale={colorScale}
-style={styles.select}
-{...styleDataItem}
-/>
-*/

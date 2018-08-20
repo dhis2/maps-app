@@ -85,6 +85,10 @@ Classification.propTypes = {
 };
 
 export default connect(
-    null,
+    ({ layerEdit }) => ({
+        method: layerEdit.method,
+        classes: layerEdit.classes,
+        colorScale: layerEdit.colorScale,
+    }),
     { setClassification, setColorScale }
 )(Classification);

@@ -44,6 +44,7 @@ export class LegendSetSelect extends Component {
 
 export default connect(
     state => ({
+        legendSet: state.layerEdit.legendSet,
         legendSets: state.legendSets,
     }),
     { loadLegendSets, setLegendSet }
