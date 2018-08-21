@@ -21,14 +21,16 @@ const styles = {
         width: '100%',
     },
     classes: {
-        width: 60,
+        width: 50,
         marginRight: 16,
         top: -8,
         float: 'left',
+        // border: '1px solid red',
     },
     scale: {
         float: 'left',
-        width: 200,
+        width: 190,
+        // border: '1px solid yellow',
     },
 };
 
