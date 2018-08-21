@@ -30,7 +30,6 @@ import { layerDialogStyles } from './LayerDialogStyles';
 import {
     setProgram,
     setProgramStage,
-    setStyleDataItem,
     setEventCoordinateField,
     setEventClustering,
     setEventPointColor,
@@ -65,8 +64,34 @@ const styles = {
 
 export class EventDialog extends Component {
     static propTypes = {
-        classes: PropTypes.number,
+        areaRadius: PropTypes.number,
         columns: PropTypes.array,
+        endDate: PropTypes.string,
+        eventClustering: PropTypes.bool,
+        eventCoordinateField: PropTypes.string,
+        eventPointColor: PropTypes.string,
+        eventPointRadius: PropTypes.number,
+        filters: PropTypes.array,
+        program: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        programStage: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        rows: PropTypes.array,
+        startDate: PropTypes.string,
+        setProgram: PropTypes.func.isRequired,
+        setProgramStage: PropTypes.func.isRequired,
+        setEventCoordinateField: PropTypes.func.isRequired,
+        setEventClustering: PropTypes.func.isRequired,
+        setEventPointColor: PropTypes.func.isRequired,
+        setEventPointRadius: PropTypes.func.isRequired,
+        setUserOrgUnits: PropTypes.func.isRequired,
+        toggleOrgUnit: PropTypes.func.isRequired,
+        setPeriod: PropTypes.func.isRequired,
+        setStartDate: PropTypes.func.isRequired,
+        setEndDate: PropTypes.func.isRequired,
+        setAreaRadius: PropTypes.func.isRequired,
     };
 
     constructor(props, context) {
@@ -108,28 +133,23 @@ export class EventDialog extends Component {
         const {
             // layer options
             areaRadius,
-            classes,
             columns = [],
-            colorScale,
             endDate,
             eventClustering,
             eventCoordinateField,
             eventPointColor,
             eventPointRadius,
             filters = [],
-            method,
             program,
             programStage,
             rows = [],
             startDate,
-            styleDataItem,
         } = this.props;
 
         const {
             // handlers
             setProgram,
             setProgramStage,
-            setStyleDataItem,
             setEventCoordinateField,
             setEventClustering,
             setEventPointColor,
@@ -389,7 +409,6 @@ export default connect(
     {
         setProgram,
         setProgramStage,
-        setStyleDataItem,
         setEventCoordinateField,
         setEventClustering,
         setEventPointColor,

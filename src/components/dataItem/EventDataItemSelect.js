@@ -50,6 +50,7 @@ export class EventDataItemSelect extends Component {
         const dataItems = combineDataItems(
             programAttributes[program.id],
             dataElements[program.id],
+            null,
             [
                 'FILE_RESOURCE',
                 'ORGANISATION_UNIT',

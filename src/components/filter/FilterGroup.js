@@ -79,6 +79,7 @@ export default connect(
                 ? combineDataItems(
                       state.programTrackedEntityAttributes[program.id],
                       state.programStageDataElements[programStage.id],
+                      null,
                       ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'] // Exclude these value types
                   )
                 : [],

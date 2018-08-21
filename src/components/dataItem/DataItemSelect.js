@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
@@ -9,6 +10,25 @@ import {
 } from '../../actions/programs';
 
 export class DataItemSelect extends Component {
+    static propTypes = {
+        label: PropTypes.string,
+        value: PropTypes.string,
+        program: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        programStage: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        programAttributes: PropTypes.object.isRequired,
+        dataElements: PropTypes.object.isRequired,
+        includeTypes: PropTypes.array,
+        excludeTypes: PropTypes.array,
+        loadProgramTrackedEntityAttributes: PropTypes.func,
+        loadProgramStageDataElements: PropTypes.func,
+        onChange: PropTypes.func,
+        style: PropTypes.object,
+    };
+
     componentDidMount() {
         this.loadDataItems();
     }
@@ -45,6 +65,8 @@ export class DataItemSelect extends Component {
             programStage,
             programAttributes,
             dataElements,
+            includeTypes,
+            excludeTypes,
             onChange,
             style,
         } = this.props;
@@ -56,7 +78,8 @@ export class DataItemSelect extends Component {
         const dataItems = combineDataItems(
             programAttributes[program.id],
             programStage ? dataElements[programStage.id] : [],
-            ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'] // Exclude some value types
+            includeTypes,
+            excludeTypes
         );
 
         return (
