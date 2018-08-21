@@ -25,12 +25,10 @@ const styles = {
         marginRight: 16,
         top: -8,
         float: 'left',
-        // border: '1px solid red',
     },
     scale: {
         float: 'left',
         width: 190,
-        // border: '1px solid yellow',
     },
 };
 
