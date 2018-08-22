@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
 import MenuItem from 'material-ui/MenuItem';
 import { SvgIcon } from '@dhis2/d2-ui-core';
 import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
@@ -39,16 +40,18 @@ const downloadStyle = id => {
 
 const DownloadMenu = ({ id, data }) => (
     <MenuItem
-        primaryText="Download ..."
+        primaryText={`${i18n.t('Download')} ...`}
         rightIcon={<SvgIcon icon="ArrowDropRight" style={styles.icon} />}
         menuItems={[
             <MenuItem
-                primaryText="Organisation units (GeoJSON)"
+                key="geojson"
+                primaryText={i18n.t('Organisation units (GeoJSON)')}
                 onClick={() => downloadGeoJson(id, data)}
                 style={styles.menuItem}
             />,
             <MenuItem
-                primaryText="Style (SLD)"
+                key="sld"
+                primaryText={i18n.t('Style (SLD)')}
                 onClick={() => downloadStyle(id)}
                 style={styles.menuItem}
             />,

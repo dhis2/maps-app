@@ -37,6 +37,7 @@ class InterpretationsPanel extends Component {
         interpretationId: PropTypes.string,
         setInterpretation: PropTypes.func.isRequired,
         openInterpretationsPanel: PropTypes.func.isRequired,
+        setRelativePeriodDate: PropTypes.func.isRequired,
     };
 
     componentDidMount() {

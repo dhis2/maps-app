@@ -24,7 +24,7 @@ const Basemap = ({ id, img, name, isSelected, onClick }) => {
 Basemap.propTypes = {
     id: PropTypes.string.isRequired,
     img: PropTypes.string,
-    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     isSelected: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
 };

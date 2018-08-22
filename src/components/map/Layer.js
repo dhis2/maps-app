@@ -27,7 +27,9 @@ class Layer extends PureComponent {
     };
 
     // Create pane and layer
-    componentWillMount() {
+    constructor(...args) {
+        super(...args);
+
         this.createPane();
         this.createLayer();
     }

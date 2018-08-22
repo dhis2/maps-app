@@ -14,7 +14,7 @@ import Layer from './Layer';
 import { getDisplayPropertyUrl } from '../../util/helpers';
 
 class EventLayer extends Layer {
-    createLayer(callback) {
+    createLayer() {
         const {
             bounds,
             columns,

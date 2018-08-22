@@ -39,6 +39,10 @@ const styles = {
 };
 
 export class AddLayer extends Component {
+    static propTypes = {
+        openLayersDialog: PropTypes.func.isRequired,
+    };
+
     constructor(props) {
         super(props);
         this.state = {};
@@ -66,4 +70,7 @@ export class AddLayer extends Component {
     }
 }
 
-export default connect(null, { openLayersDialog })(AddLayer);
+export default connect(
+    null,
+    { openLayersDialog }
+)(AddLayer);

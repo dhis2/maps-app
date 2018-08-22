@@ -5,7 +5,10 @@ import i18n from '@dhis2/d2-i18n';
 import FlatButton from 'material-ui/FlatButton'; // TODO: Support buttons with uppercase in d2-ui
 import LeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import RightIcon from 'material-ui/svg-icons/navigation/chevron-right';
-import { openInterpretationsPanel, closeInterpretationsPanel } from '../../actions/ui';
+import {
+    openInterpretationsPanel,
+    closeInterpretationsPanel,
+} from '../../actions/ui';
 
 const style = {
     textTransform: 'none',
@@ -14,19 +17,22 @@ const style = {
 };
 
 export const InterpretationsToggle = ({
-    layersOpen,
     interpretationsOpen,
     interpretationsEnabled,
     openInterpretationsPanel,
     closeInterpretationsPanel,
 }) => (
-    <FlatButton 
+    <FlatButton
         label={i18n.t('Interpretations')}
-        onClick={interpretationsOpen ? closeInterpretationsPanel : openInterpretationsPanel}
+        onClick={
+            interpretationsOpen
+                ? closeInterpretationsPanel
+                : openInterpretationsPanel
+        }
         disabled={!interpretationsEnabled}
         icon={interpretationsOpen ? <RightIcon /> : <LeftIcon />}
         labelStyle={style}
-    /> 
+    />
 );
 
 InterpretationsToggle.propTypes = {

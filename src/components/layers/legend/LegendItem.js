@@ -45,7 +45,9 @@ LegendItem.propTypes = {
     color: PropTypes.string,
     radius: PropTypes.number,
     name: PropTypes.string,
-    range: PropTypes.string,
+    startValue: PropTypes.number,
+    endValue: PropTypes.number,
+    count: PropTypes.number,
 };
 
 export default LegendItem;

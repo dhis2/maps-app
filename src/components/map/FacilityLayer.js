@@ -4,7 +4,7 @@ import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
 class FacilityLayer extends Layer {
-    createLayer(callback) {
+    createLayer() {
         const {
             id,
             data,
