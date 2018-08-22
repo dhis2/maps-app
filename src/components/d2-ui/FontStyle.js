@@ -85,6 +85,16 @@ const FontStyle = ({
     </div>
 );
 
-FontStyle.propTypes = {};
+FontStyle.propTypes = {
+    color: PropTypes.string,
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    weight: PropTypes.string,
+    fontStyle: PropTypes.string,
+    onColorChange: PropTypes.func,
+    onSizeChange: PropTypes.func,
+    onWeightChange: PropTypes.func,
+    onStyleChange: PropTypes.func,
+    style: PropTypes.object,
+};
 
 export default FontStyle;

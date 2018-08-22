@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { ColorScale } from '@dhis2/d2-ui-legend';
 import Popover from 'material-ui/Popover/Popover';
 import {
@@ -28,6 +28,12 @@ const styles = {
 };
 
 class ColorScaleSelect extends Component {
+    static propTypes = {
+        palette: PropTypes.string.isRequired,
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+    };
+
     constructor(...args) {
         super(...args);
 

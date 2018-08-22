@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import i18n from '@dhis2/d2-i18n';
 import { Table, Column } from 'react-virtualized';
-import { mapValues } from 'lodash/fp';
+// import { mapValues } from 'lodash/fp';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
@@ -13,6 +14,7 @@ import './DataTable.css';
 // Using react component to keep sorting state, which is only used within the data table.
 class DataTable extends Component {
     static propTypes = {
+        layerType: PropTypes.string.isRequired,
         data: PropTypes.array.isRequired,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
@@ -68,10 +70,10 @@ class DataTable extends Component {
 
     render() {
         const { width, height, data, layerType } = this.props;
-        const fields = mapValues(() => true, data[0]);
+        // const fields = mapValues(() => true, data[0]);
         const { sortBy, sortDirection } = this.state;
         const sortedData = this.sort(data, sortBy, sortDirection);
-        const isFacility = layerType === 'facility';
+        // const isFacility = layerType === 'facility';
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
 
@@ -93,11 +95,9 @@ class DataTable extends Component {
                 hideIndexRow={false}
             >
                 <Column
-                    cellDataGetter={({ columnData, dataKey, rowData }) =>
-                        rowData.index
-                    }
+                    cellDataGetter={({ rowData }) => rowData.index}
                     dataKey="index"
-                    label="Index"
+                    label={i18n.t('Index')}
                     width={72}
                     className="right"
                     // headerRenderer={props => <ColumnHeader type='number' {...props}  />}
@@ -113,7 +113,7 @@ class DataTable extends Component {
                 {isThematic && (
                     <Column
                         dataKey="value"
-                        label="Value"
+                        label={i18n.t('Value')}
                         width={72}
                         className="right"
                         headerRenderer={props => (
@@ -124,7 +124,7 @@ class DataTable extends Component {
                 {isThematic && (
                     <Column
                         dataKey="legend"
-                        label="Legend"
+                        label={i18n.t('Legend')}
                         width={100}
                         headerRenderer={props => (
                             <ColumnHeader type="string" {...props} />
@@ -134,7 +134,7 @@ class DataTable extends Component {
                 {isThematic && (
                     <Column
                         dataKey="range"
-                        label="Range"
+                        label={i18n.t('Range')}
                         width={72}
                         headerRenderer={props => (
                             <ColumnHeader type="string" {...props} />
@@ -144,7 +144,7 @@ class DataTable extends Component {
                 {(isThematic || isBoundary) && (
                     <Column
                         dataKey="level"
-                        label="Level"
+                        label={i18n.t('Level')}
                         width={72}
                         className="right"
                         headerRenderer={props => (
@@ -155,7 +155,7 @@ class DataTable extends Component {
                 {(isThematic || isBoundary) && (
                     <Column
                         dataKey="parentName"
-                        label="Parent"
+                        label={i18n.t('Parent')}
                         width={100}
                         headerRenderer={props => (
                             <ColumnHeader type="string" {...props} />
@@ -164,7 +164,7 @@ class DataTable extends Component {
                 )}
                 <Column
                     dataKey="id"
-                    label="ID"
+                    label={i18n.t('Id')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
@@ -172,7 +172,7 @@ class DataTable extends Component {
                 />
                 <Column
                     dataKey="type"
-                    label="Type"
+                    label={i18n.t('Type')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
@@ -181,7 +181,7 @@ class DataTable extends Component {
                 {isThematic && (
                     <Column
                         dataKey="color"
-                        label="Color"
+                        label={i18n.t('Color')}
                         width={100}
                         headerRenderer={props => (
                             <ColumnHeader type="string" {...props} />
