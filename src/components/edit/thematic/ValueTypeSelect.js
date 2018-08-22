@@ -1,16 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
 import { dimConf } from '../../../constants/dimension';
-import { setValueType } from '../../../actions/layerEdit';
 
 const ValueTypeSelect = props => {
     const { value, onChange } = props;
 
-    // console.log(dimConf.indicator.objectName);
-
-    // TODO: Avoid creating on each render (needs to be created after i18next conatins transaltions
+    // TODO: Avoid creating on each render (needs to be created after i18next contains translations
     const items = [
         { id: dimConf.indicator.objectName, name: i18n.t('Indicator') },
         { id: dimConf.dataElement.objectName, name: i18n.t('Data element') },
@@ -30,11 +27,15 @@ const ValueTypeSelect = props => {
             {...props}
             label={i18n.t('Item type')}
             items={items}
-            // value={value || dimConf.indicator.objectName}
             value={value}
             onChange={valueType => onChange(valueType.id)}
         />
     );
+};
+
+ValueTypeSelect.propTypes = {
+    value: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
 };
 
 export default ValueTypeSelect;

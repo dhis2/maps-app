@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
 import DataItemSelect from '../dataItem/DataItemSelect';
 import FilterSelect from './FilterSelect';
 import IconButton from 'material-ui/IconButton';
@@ -29,6 +31,21 @@ const styles = {
 };
 
 class FilterRow extends Component {
+    static propTypes = {
+        index: PropTypes.number.isRequired,
+        dataItems: PropTypes.array,
+        dimension: PropTypes.string,
+        filter: PropTypes.string,
+        program: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        programStage: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        onRemove: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+    };
+
     onChange(dimension, filter) {
         const { index, dataItems, onChange } = this.props;
         const name = dataItems.filter(d => d.id === dimension)[0].name;
@@ -83,11 +100,11 @@ class FilterRow extends Component {
                     />
                 ) : null}
                 <IconButton
-                    tooltip="Remove filter"
+                    tooltip={i18n.t('Remove filter')}
                     style={styles.removeBtn}
                     onClick={() => onRemove(index)}
                 >
-                    <SvgIcon icon="Close" />
+                    <SvgIcon icon={i18n.t('Close')} />
                 </IconButton>
             </div>
         );

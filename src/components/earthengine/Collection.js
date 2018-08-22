@@ -20,7 +20,12 @@ const collectionFilters = {
 
 export class CollectionSelect extends Component {
     static propTypes = {
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string,
+        errorText: PropTypes.string,
         collections: PropTypes.object,
+        filter: PropTypes.array,
+        loadEarthEngineCollection: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
     };
@@ -43,6 +48,7 @@ export class CollectionSelect extends Component {
             style,
             errorText,
         } = this.props;
+
         const items = collections[id];
         const value = filter && filter[0].arguments[1];
 

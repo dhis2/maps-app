@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { SvgIcon } from '@dhis2/d2-ui-core';
 import './ResizeHandle.css';

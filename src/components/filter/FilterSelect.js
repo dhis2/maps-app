@@ -69,6 +69,7 @@ export class FilterSelect extends Component {
         filter: PropTypes.string,
         optionSet: PropTypes.object,
         optionSets: PropTypes.object,
+        loadOptionSet: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
     };
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { sortBy } from 'lodash/fp';
 import { Button } from '@dhis2/d2-ui-core';
 import FilterRow from './FilterRow';
 import { combineDataItems } from '../../util/analytics';
@@ -24,6 +23,20 @@ const styles = {
 };
 
 class FilterGroup extends Component {
+    static propTypes = {
+        filters: PropTypes.array,
+        dataItems: PropTypes.array,
+        program: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        programStage: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        addFilter: PropTypes.func.isRequired,
+        removeFilter: PropTypes.func.isRequired,
+        changeFilter: PropTypes.func.isRequired,
+    };
+
     render() {
         const {
             filters = [],
