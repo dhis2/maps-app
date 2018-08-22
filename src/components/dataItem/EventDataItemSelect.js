@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { SelectField } from '@dhis2/d2-ui-core';
@@ -7,9 +8,31 @@ import {
     loadProgramTrackedEntityAttributes,
     loadProgramDataElements,
 } from '../../actions/programs';
-import { aggregationTypes } from '../../constants/aggregationTypes';
 
+const excludeValueTypes = [
+    'FILE_RESOURCE',
+    'ORGANISATION_UNIT',
+    'COORDINATE',
+    'DATE',
+    'TEXT',
+    'BOOLEAN',
+];
+
+// Used in thematic layer dialog
 export class EventDataItemSelect extends Component {
+    static propTypes = {
+        dataItem: PropTypes.object,
+        program: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        programAttributes: PropTypes.object.isRequired,
+        dataElements: PropTypes.object.isRequired,
+        loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
+        loadProgramDataElements: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+    };
+
     componentDidMount() {
         this.loadDataItems();
     }
@@ -51,17 +74,8 @@ export class EventDataItemSelect extends Component {
             programAttributes[program.id],
             dataElements[program.id],
             null,
-            [
-                'FILE_RESOURCE',
-                'ORGANISATION_UNIT',
-                'COORDINATE',
-                'DATE',
-                'TEXT',
-                'BOOLEAN',
-            ] // Exclude some value types
+            excludeValueTypes
         );
-
-        // console.log('dataItem', dataItem);
 
         return (
             <SelectField

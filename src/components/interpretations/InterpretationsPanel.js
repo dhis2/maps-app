@@ -31,7 +31,15 @@ class InterpretationsPanel extends Component {
         d2: PropTypes.object,
     };
 
-    componentWillMount() {
+    static propTypes = {
+        isOpen: PropTypes.bool,
+        mapId: PropTypes.string,
+        interpretationId: PropTypes.string,
+        setInterpretation: PropTypes.func.isRequired,
+        openInterpretationsPanel: PropTypes.func.isRequired,
+    };
+
+    componentDidMount() {
         const interpretationId = getUrlParameter('interpretationid');
 
         if (interpretationId) {
