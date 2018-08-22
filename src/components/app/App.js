@@ -19,6 +19,10 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 // Makes d2 available in all child components
 // Not using AppWithD2 from d2-ui because it requires d2 to be a promise
 export class App extends Component {
+    static propTypes = {
+        d2: PropTypes.object.isRequired,
+    };
+
     static childContextTypes = {
         d2: PropTypes.object.isRequired,
     };

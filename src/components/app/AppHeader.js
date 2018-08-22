@@ -53,7 +53,7 @@ const styles = {
     },
 };
 
-export const AppHeader = ({ name }) => (
+export const AppHeader = ({ name = '' }) => (
     <div style={styles.header}>
         <div style={styles.logo}>
             <svg
@@ -98,10 +98,6 @@ export const AppHeader = ({ name }) => (
 
 AppHeader.propTypes = {
     name: PropTypes.string,
-};
-
-AppHeader.defaultProps = {
-    name: '',
 };
 
 export default connect(state => ({

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
 import Popover from 'material-ui/Popover';
 import ArrowDropDownIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
@@ -15,6 +16,15 @@ const styles = {
 };
 
 export default class ColorPicker extends Component {
+    static propTypes = {
+        color: PropTypes.string.isRequired,
+        label: PropTypes.string,
+        width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        onChange: PropTypes.func.isRequired,
+        style: PropTypes.object,
+    };
+
     constructor(...args) {
         super(...args);
 
@@ -60,7 +70,7 @@ export default class ColorPicker extends Component {
                     }}
                     disableTouchRipple={true}
                 >
-                    <ArrowDropDownIcon // TODO: Switch to d2-ui cmp
+                    <ArrowDropDownIcon
                         color={hcl(color).l < 70 ? '#fff' : '#333'}
                     />
                 </IconButton>
