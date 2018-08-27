@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "30.0.30",
+    "version": "30.0.31",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -37,7 +37,7 @@
         "@dhis2/d2-i18n-extract": "^1.0.7",
         "@dhis2/d2-i18n-generate": "^1.0.18",
         "@dhis2/d2-ui-core": "^1.2.0",
-        "@dhis2/d2-ui-file-menu": "1.0.10",
+        "@dhis2/d2-ui-file-menu": "1.0.11",
         "@dhis2/d2-ui-interpretations": "1.1.8",
         "@dhis2/d2-ui-legend": "1.2.0",
         "@dhis2/d2-ui-org-unit-tree": "^1.0.10",

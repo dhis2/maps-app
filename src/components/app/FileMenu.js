@@ -35,7 +35,7 @@ export const FileMenu = (
 );
 
 FileMenu.propTypes = {
-    id: PropTypes.object,
+    id: PropTypes.string,
     newMap: PropTypes.func.isRequired,
     setMapProps: PropTypes.func.isRequired,
     loadFavorite: PropTypes.func.isRequired,
