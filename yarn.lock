@@ -300,6 +300,10 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
+"@dhis2/deploy-build@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/deploy-build/-/deploy-build-1.0.4.tgz#4cdfe26b4ab10e94019783243734da60eb3eda18"
+
 "@dhis2/gis-api@30.0.0":
   version "30.0.0"
   resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-30.0.0.tgz#6b2da8fc6b23fbb573cf9496559be18c97e11728"

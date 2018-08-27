@@ -252,6 +252,15 @@ msgid "Add filter"
 msgstr ""
 
 msgid "Remove filter"
+<<<<<<< HEAD
+=======
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Operator"
+>>>>>>> fix: yarn 1.0 no longer needs double-dash to passthrough args
 msgstr ""
 
 msgid "Operator"
@@ -302,6 +311,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+<<<<<<< HEAD
 msgid "Toggle visibility"
 msgstr ""
 
@@ -321,6 +331,15 @@ msgid "Edit layer"
 msgstr ""
 
 msgid "Remove layer"
+=======
+msgid "Data table"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "More"
+>>>>>>> fix: yarn 1.0 no longer needs double-dash to passthrough args
 msgstr ""
 
 msgid "Open as"
