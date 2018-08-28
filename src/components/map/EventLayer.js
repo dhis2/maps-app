@@ -14,7 +14,7 @@ import Layer from './Layer';
 import { getDisplayPropertyUrl } from '../../util/helpers';
 
 class EventLayer extends Layer {
-    createLayer(callback) {
+    createLayer() {
         const {
             bounds,
             columns,
@@ -92,8 +92,6 @@ class EventLayer extends Layer {
                     const clusterData = await d2.analytics.events.getCluster(
                         eventRequest
                     );
-
-                    console.log(params, clusterData);
 
                     callback(params.tileId, this.toGeoJson(clusterData));
                 };
@@ -177,6 +175,8 @@ class EventLayer extends Layer {
 
     onEventClick(feature, callback) {
         const coord = feature.geometry.coordinates;
+        const props = feature.properties;
+        const { styleDataItem } = this.props;
 
         apiFetch('/events/' + feature.id + '.json').then(data => {
             const time =
@@ -185,6 +185,13 @@ class EventLayer extends Layer {
                 data.eventDate.substring(11, 16);
             const dataValues = data.dataValues;
             let content = '<table><tbody>';
+
+            // Output value if styled by data item, and item is not included in display elements
+            if (styleDataItem && !this.displayElements[styleDataItem.id]) {
+                content += `<tr><th>${styleDataItem.name}</th><td>${
+                    props[styleDataItem.id]
+                }</td></tr>`;
+            }
 
             if (Array.isArray(dataValues)) {
                 dataValues.forEach(dataValue => {

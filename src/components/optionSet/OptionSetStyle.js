@@ -53,6 +53,12 @@ class OptionSetStyle extends Component {
         }
     }
 
+    onChange(name, color) {
+        const options = { ...this.props.options };
+        options[name] = color;
+        this.props.setStyleOptions(options);
+    }
+
     render() {
         const { options } = this.props;
 
@@ -64,6 +70,7 @@ class OptionSetStyle extends Component {
                             key={name}
                             name={name}
                             color={options[name]}
+                            onChange={color => this.onChange(name, color)}
                         />
                     ))
                 ) : (
@@ -73,10 +80,6 @@ class OptionSetStyle extends Component {
         );
     }
 }
-
-const mapStateToProps = state => ({
-    optionSets: state.optionSets,
-});
 
 export default connect(
     state => ({

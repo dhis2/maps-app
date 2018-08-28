@@ -28,6 +28,7 @@ const AddLayerPopover = ({
 );
 
 AddLayerPopover.propTypes = {
+    anchorEl: PropTypes.instanceOf(Element),
     layersDialogOpen: PropTypes.bool,
     layers: PropTypes.array,
     onRequestClose: PropTypes.func.isRequired,
@@ -57,4 +58,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddLayerPopover);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddLayerPopover);

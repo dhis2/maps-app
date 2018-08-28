@@ -3,8 +3,7 @@ import { getInstance as getD2 } from 'd2/lib/d2';
 import { curry, isString, isEmpty } from 'lodash/fp';
 import { timeFormat } from 'd3-time-format';
 import { isValidCoordinate } from '../util/map';
-import { getClassBins, getLegendItemForValue } from '../util/classify';
-import { getNumericLegendItems, getCategoryLegendItems } from '../util/legend';
+import { getLegendItemForValue } from '../util/classify';
 import {
     getOrgUnitsFromRows,
     getFiltersFromColumns,
@@ -13,16 +12,24 @@ import {
     getPeriodNameFromId,
     getApiResponseNames,
 } from '../util/analytics';
-import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
-import { defaultClasses, defaultColorScale } from '../util/colorscale';
+import {
+    getAutomaticLegendItems,
+    getPredefinedLegendItems,
+    getCategoryLegendItems,
+} from '../util/legend';
+import {
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    CLASSIFICATION_PREDEFINED,
+} from '../constants/layers';
 
 const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
 // Returns a promise
 const eventLoader = async config => {
     const {
-        classes = defaultClasses,
-        colorScale = defaultColorScale,
+        classes,
+        colorScale,
         columns,
         endDate,
         eventClustering,
@@ -30,7 +37,8 @@ const eventLoader = async config => {
         eventPointColor,
         eventPointRadius,
         filters,
-        method = 2,
+        legendSet,
+        method,
         program,
         programStage,
         rows,
@@ -116,7 +124,7 @@ const eventLoader = async config => {
         if (Array.isArray(data) && data.length) {
             if (styleDataItem) {
                 const styleByNumeric =
-                    styleDataItem && styleDataItem.valueType === 'INTEGER';
+                    styleDataItem && styleDataItem.valueType === 'INTEGER'; // TODO
                 const styleByOptionSet =
                     styleDataItem &&
                     styleDataItem.optionSet &&
@@ -131,20 +139,28 @@ const eventLoader = async config => {
                 legend.unit = styleDataItem.name;
 
                 if (styleByNumeric) {
-                    const values = data
-                        .map(feature => Number(feature.properties.value))
-                        .sort((a, b) => a - b);
+                    if (method === CLASSIFICATION_PREDEFINED) {
+                        legend.items = await getPredefinedLegendItems(
+                            legendSet
+                        );
+                    } else {
+                        const values = data
+                            .map(feature => Number(feature.properties.value))
+                            .sort((a, b) => a - b);
 
-                    const bins = getClassBins(values, method, classes);
-                    const colors = colorScale ? colorScale.split(',') : [];
+                        legend.items = getAutomaticLegendItems(
+                            values,
+                            method,
+                            classes,
+                            colorScale
+                        );
+                    }
 
-                    legend.items = getNumericLegendItems(
-                        bins,
-                        colors,
-                        eventPointRadius || EVENT_RADIUS
-                    );
-
-                    legend.items.forEach(item => (item.count = 0));
+                    // TODO
+                    legend.items.forEach(item => {
+                        item.radius = eventPointRadius || EVENT_RADIUS;
+                        item.count = 0;
+                    });
 
                     const getLegendItem = curry(getLegendItemForValue)(
                         legend.items

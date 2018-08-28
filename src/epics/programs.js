@@ -75,7 +75,7 @@ export const loadProgramTrackedEntityAttributes = action$ =>
             .then(d2 =>
                 d2.models.program.get(action.programId, {
                     fields:
-                        'programTrackedEntityAttributes[trackedEntityAttribute[id,displayName~rename(name),valueType,optionSet[id,displayName~rename(name)]]]',
+                        'programTrackedEntityAttributes[trackedEntityAttribute[id,displayName~rename(name),valueType,optionSet[id,displayName~rename(name)],legendSet]]',
                     paging: false,
                 })
             )
@@ -100,7 +100,7 @@ export const loadProgramDataElements = action$ =>
                         action.programId
                     }&fields=dimensionItem~rename(id),${getDisplayPropertyUrl(
                         d2
-                    )},valueType&paging=false`
+                    )},valueType,legendSet&paging=false`
                 )
             )
             .then(data =>
@@ -119,7 +119,7 @@ export const loadProgramStageDataElements = action$ =>
                 d2.models.programStage.get(action.programStageId, {
                     fields: `programStageDataElements[dataElement[id,${getDisplayPropertyUrl(
                         d2
-                    )},valueType,optionSet[id,displayName~rename(name)]]]`,
+                    )},valueType,optionSet[id,displayName~rename(name)],legendSet]]`,
                     paging: false,
                 })
             )

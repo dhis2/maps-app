@@ -12,8 +12,7 @@ import DatePicker from '../d2-ui/DatePicker';
 import Checkbox from '../d2-ui/Checkbox';
 import FilterGroup from '../filter/FilterGroup';
 import ImageSelect from '../d2-ui/ImageSelect';
-import DataItemSelect from '../dataItem/DataItemSelect';
-import DataItemStyle from '../dataItem/DataItemStyle';
+import StyleByDataItem from '../dataItem/StyleByDataItem';
 import CoordinateField from '../dataItem/CoordinateField';
 import ColorPicker from '../d2-ui/ColorPicker';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
@@ -31,7 +30,6 @@ import { layerDialogStyles } from './LayerDialogStyles';
 import {
     setProgram,
     setProgramStage,
-    setStyleDataItem,
     setEventCoordinateField,
     setEventClustering,
     setEventPointColor,
@@ -53,18 +51,6 @@ import {
 
 const styles = {
     ...layerDialogStyles,
-    colorLabel: {
-        color: 'rgba(0, 0, 0, 0.3)',
-        fontSize: 12,
-        paddingBottom: 6,
-        marginTop: -2,
-    },
-    image: {
-        width: '50%',
-        float: 'left',
-        boxSizing: 'border-box',
-        padding: '12px 12px 0 3px',
-    },
     checkbox: {
         float: 'left',
         marginTop: 24,
@@ -74,15 +60,38 @@ const styles = {
         width: 110,
         marginTop: 12,
     },
-    buffer: {
-        marginTop: 12,
-    },
 };
 
 export class EventDialog extends Component {
     static propTypes = {
-        classes: PropTypes.number,
+        areaRadius: PropTypes.number,
         columns: PropTypes.array,
+        endDate: PropTypes.string,
+        eventClustering: PropTypes.bool,
+        eventCoordinateField: PropTypes.string,
+        eventPointColor: PropTypes.string,
+        eventPointRadius: PropTypes.number,
+        filters: PropTypes.array,
+        program: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        programStage: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        rows: PropTypes.array,
+        startDate: PropTypes.string,
+        setProgram: PropTypes.func.isRequired,
+        setProgramStage: PropTypes.func.isRequired,
+        setEventCoordinateField: PropTypes.func.isRequired,
+        setEventClustering: PropTypes.func.isRequired,
+        setEventPointColor: PropTypes.func.isRequired,
+        setEventPointRadius: PropTypes.func.isRequired,
+        setUserOrgUnits: PropTypes.func.isRequired,
+        toggleOrgUnit: PropTypes.func.isRequired,
+        setPeriod: PropTypes.func.isRequired,
+        setStartDate: PropTypes.func.isRequired,
+        setEndDate: PropTypes.func.isRequired,
+        setAreaRadius: PropTypes.func.isRequired,
     };
 
     constructor(props, context) {
@@ -91,14 +100,6 @@ export class EventDialog extends Component {
             tab: 'data',
             showBuffer: this.hasBuffer(props.areaRadius),
         };
-    }
-
-    componentWillReceiveProps({ areaRadius }) {
-        if (areaRadius !== this.props.areaRadius) {
-            this.setState({
-                showBuffer: this.hasBuffer(areaRadius),
-            });
-        }
     }
 
     componentDidMount() {
@@ -118,32 +119,37 @@ export class EventDialog extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        const { areaRadius } = this.props;
+
+        if (areaRadius !== prevProps.areaRadius) {
+            this.setState({
+                showBuffer: this.hasBuffer(areaRadius),
+            });
+        }
+    }
+
     render() {
         const {
             // layer options
             areaRadius,
-            classes,
             columns = [],
-            colorScale,
             endDate,
             eventClustering,
             eventCoordinateField,
             eventPointColor,
             eventPointRadius,
             filters = [],
-            method,
             program,
             programStage,
             rows = [],
             startDate,
-            styleDataItem,
         } = this.props;
 
         const {
             // handlers
             setProgram,
             setProgramStage,
-            setStyleDataItem,
             setEventCoordinateField,
             setEventClustering,
             setEventPointColor,
@@ -173,11 +179,12 @@ export class EventDialog extends Component {
             <Tabs
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
+                contentContainerStyle={styles.tabContent}
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
                 <Tab value="data" label={i18n.t('data')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <ProgramSelect
                             program={program}
                             onChange={setProgram}
@@ -201,7 +208,7 @@ export class EventDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="period" label={i18n.t('period')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <RelativePeriodSelect
                             period={period}
                             startEndDates={true}
@@ -229,7 +236,7 @@ export class EventDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="filter" label={i18n.t('Filter')}>
-                    <div style={styles.flex}>
+                    <div style={styles.flexRowFlow}>
                         <FilterGroup
                             program={program}
                             programStage={programStage}
@@ -240,8 +247,10 @@ export class EventDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="orgunits" label={i18n.t('Org units')}>
-                    <div style={styles.flexRowFlow}>
-                        <div style={styles.flexHalf}>
+                    <div style={styles.flexColumnFlow}>
+                        <div
+                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                        >
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrgUnit}
@@ -253,7 +262,7 @@ export class EventDialog extends Component {
                                 }
                             />
                         </div>
-                        <div style={styles.flexHalf}>
+                        <div style={styles.flexColumn}>
                             <UserOrgUnitsSelect
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
@@ -268,100 +277,77 @@ export class EventDialog extends Component {
                 </Tab>
                 <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
-                        <div style={styles.select}>
-                            <ImageSelect
-                                id="cluster"
-                                img="images/cluster.png"
-                                title={i18n.t('Group events')}
-                                onClick={() => setEventClustering(true)}
-                                isSelected={eventClustering}
-                                style={styles.image}
-                            />
-                            <ImageSelect
-                                id="nocluster"
-                                img="images/nocluster.png"
-                                title={i18n.t('View all events')}
-                                onClick={() => setEventClustering(false)}
-                                isSelected={!eventClustering}
-                                style={styles.image}
-                            />
-                        </div>
-                        <div style={{ marginLeft: 3 }}>
-                            <div
-                                style={{
-                                    marginTop: 20,
-                                    marginRight: 20,
-                                    float: 'left',
-                                }}
-                            >
-                                <div style={styles.colorLabel}>
-                                    {i18n.t('Color')}
-                                </div>
-                                <ColorPicker
-                                    color={eventPointColor || EVENT_COLOR}
-                                    onChange={setEventPointColor}
-                                    style={{ width: 64, height: 32 }}
+                        <div style={styles.flexColumn}>
+                            <div style={styles.flexInnerColumnFlow}>
+                                <ImageSelect
+                                    id="cluster"
+                                    img="images/cluster.png"
+                                    title={i18n.t('Group events')}
+                                    onClick={() => setEventClustering(true)}
+                                    isSelected={eventClustering}
+                                    style={styles.flexInnerColumn}
+                                />
+                                <ImageSelect
+                                    id="nocluster"
+                                    img="images/nocluster.png"
+                                    title={i18n.t('View all events')}
+                                    onClick={() => setEventClustering(false)}
+                                    isSelected={!eventClustering}
+                                    style={styles.flexInnerColumn}
                                 />
                             </div>
-                            <TextField
-                                id="radius"
-                                type="number"
-                                floatingLabelText={i18n.t('Radius')}
-                                value={eventPointRadius || EVENT_RADIUS}
-                                onChange={(evt, radius) =>
-                                    setEventPointRadius(radius)
-                                }
-                                style={{
-                                    float: 'left',
-                                    maxWidth: 100,
-                                    marginTop: 0,
-                                }}
-                            />
-                        </div>
-                        <div style={styles.buffer}>
-                            <Checkbox
-                                label={i18n.t('Show buffer')}
-                                checked={showBuffer}
-                                onCheck={this.onShowBufferClick.bind(this)}
-                                style={styles.checkbox}
-                                disabled={eventClustering}
-                            />
-                            {showBuffer && (
+                            <div style={styles.flexInnerColumnFlow}>
+                                <ColorPicker
+                                    label={i18n.t('Color')}
+                                    color={eventPointColor || EVENT_COLOR}
+                                    onChange={setEventPointColor}
+                                    style={styles.flexInnerColumn}
+                                />
                                 <TextField
-                                    id="buffer"
+                                    id="radius"
                                     type="number"
-                                    floatingLabelText={i18n.t(
-                                        'Radius in meters'
-                                    )}
-                                    value={areaRadius || ''}
+                                    floatingLabelText={i18n.t('Radius')}
+                                    value={eventPointRadius || EVENT_RADIUS}
                                     onChange={(evt, radius) =>
-                                        setAreaRadius(radius)
+                                        setEventPointRadius(radius)
                                     }
+                                    style={styles.flexInnerColumn}
+                                />
+                            </div>
+                            <div style={styles.flexInnerColumnFlow}>
+                                <Checkbox
+                                    label={i18n.t('Buffer')}
+                                    checked={showBuffer}
+                                    onCheck={this.onShowBufferClick.bind(this)}
                                     style={{
-                                        float: 'left',
-                                        maxWidth: 150,
-                                        marginTop: -20,
+                                        ...styles.flexInnerColumn,
+                                        marginTop: 47,
                                     }}
                                     disabled={eventClustering}
                                 />
-                            )}
+                                {showBuffer && (
+                                    <TextField
+                                        id="buffer"
+                                        type="number"
+                                        floatingLabelText={i18n.t(
+                                            'Radius in meters'
+                                        )}
+                                        value={areaRadius || ''}
+                                        onChange={(evt, radius) =>
+                                            setAreaRadius(radius)
+                                        }
+                                        style={styles.flexInnerColumn}
+                                        floatingLabelStyle={{
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                        disabled={eventClustering}
+                                    />
+                                )}
+                            </div>
                         </div>
-                        <DataItemSelect
-                            label={i18n.t('Style by data item')}
-                            program={program}
-                            programStage={programStage}
-                            allowNone={true}
-                            value={styleDataItem ? styleDataItem.id : null}
-                            onChange={setStyleDataItem}
-                            style={styles.select}
-                        />
-                        <DataItemStyle
-                            method={method}
-                            classes={classes}
-                            colorScale={colorScale}
-                            style={styles.select}
-                            {...styleDataItem}
-                        />
+                        <div style={styles.flexColumn}>
+                            {program && <StyleByDataItem />}
+                        </div>
                     </div>
                 </Tab>
             </Tabs>
@@ -423,7 +409,6 @@ export default connect(
     {
         setProgram,
         setProgramStage,
-        setStyleDataItem,
         setEventCoordinateField,
         setEventClustering,
         setEventPointColor,

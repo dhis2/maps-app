@@ -112,12 +112,15 @@ LayerCard.propTypes = {
     toggleDataTable: PropTypes.func.isRequired,
 };
 
-export default connect(null, {
-    editLayer,
-    removeLayer,
-    changeLayerOpacity,
-    toggleLayerExpand,
-    toggleLayerVisibility,
-    toggleDataTable,
-    setMessage,
-})(LayerCard);
+export default connect(
+    null,
+    {
+        editLayer,
+        removeLayer,
+        changeLayerOpacity,
+        toggleLayerExpand,
+        toggleLayerVisibility,
+        toggleDataTable,
+        setMessage,
+    }
+)(LayerCard);

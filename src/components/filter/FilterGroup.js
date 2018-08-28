@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { sortBy } from 'lodash/fp';
 import { Button } from '@dhis2/d2-ui-core';
 import FilterRow from './FilterRow';
 import { combineDataItems } from '../../util/analytics';
@@ -12,18 +11,32 @@ const styles = {
     container: {
         width: '100%',
         height: 300,
-        padding: 12,
+        paddingTop: 16,
         overflowY: 'auto',
     },
     button: {
         marginTop: 8,
     },
     note: {
-        padding: 12,
+        paddingTop: 16,
     },
 };
 
 class FilterGroup extends Component {
+    static propTypes = {
+        filters: PropTypes.array,
+        dataItems: PropTypes.array,
+        program: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        programStage: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        addFilter: PropTypes.func.isRequired,
+        removeFilter: PropTypes.func.isRequired,
+        changeFilter: PropTypes.func.isRequired,
+    };
+
     render() {
         const {
             filters = [],
@@ -79,6 +92,7 @@ export default connect(
                 ? combineDataItems(
                       state.programTrackedEntityAttributes[program.id],
                       state.programStageDataElements[programStage.id],
+                      null,
                       ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'] // Exclude these value types
                   )
                 : [],

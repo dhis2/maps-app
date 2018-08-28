@@ -32,6 +32,7 @@ ImageSelect.propTypes = {
     title: PropTypes.string,
     isSelected: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
+    style: PropTypes.object,
 };
 
 export default ImageSelect;

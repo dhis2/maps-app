@@ -9,6 +9,7 @@ export class DataElementGroupSelect extends Component {
     static propTypes = {
         dataElementGroup: PropTypes.object,
         dataElementGroups: PropTypes.array,
+        loadDataElementGroups: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
     };

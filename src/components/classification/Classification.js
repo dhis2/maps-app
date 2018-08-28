@@ -21,14 +21,14 @@ const styles = {
         width: '100%',
     },
     classes: {
-        width: 60,
+        width: 50,
         marginRight: 16,
         top: -8,
         float: 'left',
     },
     scale: {
         float: 'left',
-        width: 200,
+        width: 190,
     },
 };
 
@@ -72,6 +72,7 @@ const Classification = ({
                 onChange={setColorScale}
                 style={styles.scale}
             />
+            <div style={{ clear: 'both' }} />
         </div>,
     ];
 };
@@ -85,6 +86,10 @@ Classification.propTypes = {
 };
 
 export default connect(
-    null,
+    ({ layerEdit }) => ({
+        method: layerEdit.method,
+        classes: layerEdit.classes,
+        colorScale: layerEdit.colorScale,
+    }),
     { setClassification, setColorScale }
 )(Classification);

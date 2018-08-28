@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -47,7 +48,7 @@ const OverlayToolbar = ({
                 layer.type !== 'external' && (
                     <IconButton
                         onClick={() => onEdit(layer)}
-                        tooltip="Edit"
+                        tooltip={i18n.t('Edit')}
                         tooltipPosition="top-center"
                         style={styles.button}
                     >
@@ -59,7 +60,7 @@ const OverlayToolbar = ({
                 layer.layer === 'facility') && (
                 <IconButton
                     onClick={() => toggleDataTable(layer.id)}
-                    tooltip="Data table"
+                    tooltip={i18n.t('Data table')}
                     tooltipPosition="top-center"
                     style={styles.button}
                 >
@@ -77,7 +78,7 @@ const OverlayToolbar = ({
             {onRemove && (
                 <IconButton
                     onClick={onRemove}
-                    tooltip="Delete"
+                    tooltip={i18n.t('Delete')}
                     tooltipPosition="top-center"
                     style={styles.button}
                 >
@@ -89,7 +90,7 @@ const OverlayToolbar = ({
                 <IconMenu
                     iconButtonElement={
                         <IconButton
-                            tooltip="More"
+                            tooltip={i18n.t('More')}
                             tooltipPosition="top-center"
                             style={styles.moreButton}
                         >
@@ -110,8 +111,8 @@ OverlayToolbar.propTypes = {
     layer: PropTypes.object,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
-    onDataTableShow: PropTypes.func,
     onOpacityChange: PropTypes.func,
+    toggleDataTable: PropTypes.func,
 };
 
 export default OverlayToolbar;

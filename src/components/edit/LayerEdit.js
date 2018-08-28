@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import i18n from '@dhis2/d2-i18n';
@@ -46,7 +47,13 @@ const styles = {
 };
 
 class LayerEdit extends Component {
-    componentDidUpdate(prevProps) {
+    static propTypes = {
+        layer: PropTypes.object,
+        loadLayer: PropTypes.func.isRequired,
+        cancelLayer: PropTypes.func.isRequired,
+    };
+
+    componentDidUpdate() {
         const { layer, loadLayer } = this.props;
 
         if (layer && layer.layer === 'external') {
@@ -98,6 +105,7 @@ class LayerEdit extends Component {
                 open={true}
                 actions={[
                     <Button
+                        key="cancel"
                         color="primary"
                         onClick={() => cancelLayer()}
                         selector="cancel"
@@ -105,6 +113,7 @@ class LayerEdit extends Component {
                         {i18n.t('Cancel')}
                     </Button>,
                     <Button
+                        key="update"
                         color="primary"
                         onClick={() => this.loadLayer()}
                         selector="update"

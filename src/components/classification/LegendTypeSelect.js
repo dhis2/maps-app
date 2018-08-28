@@ -8,17 +8,10 @@ import {
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
 } from '../../constants/layers';
+import { layerDialogStyles } from '../edit/LayerDialogStyles';
 
 const styles = {
-    radioGroup: {
-        display: 'inline-block',
-        marginTop: 8,
-    },
-    radioButton: {
-        display: 'inline-block',
-        paddingRight: 16,
-        width: 'auto',
-    },
+    ...layerDialogStyles, // TODO: Only import used styles
 };
 
 // Select between user defined (automatic) and predefined legends
@@ -31,17 +24,17 @@ export const LegendTypeSelect = ({ method, setClassification }) => (
                 : CLASSIFICATION_EQUAL_INTERVALS
         }
         onChange={(event, type) => setClassification(type)}
-        style={styles.radioGroup}
+        style={{ ...styles.flexInnerColumnFlow, marginTop: 8 }}
     >
         <RadioButton
             value={CLASSIFICATION_EQUAL_INTERVALS}
             label={i18n.t('Automatic')}
-            style={styles.radioButton}
+            style={styles.flexInnerColumn}
         />
         <RadioButton
             value={CLASSIFICATION_PREDEFINED}
             label={i18n.t('Predefined')}
-            style={styles.radioButton}
+            style={styles.flexInnerColumn}
         />
     </RadioButtonGroup>
 );

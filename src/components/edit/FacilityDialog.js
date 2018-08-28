@@ -58,6 +58,7 @@ const styles = {
     },
     help: {
         marginTop: 10,
+        fontSize: 14,
     },
     error: {
         marginTop: 10,
@@ -125,11 +126,12 @@ class FacilityDialog extends Component {
             <Tabs
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
+                contentContainerStyle={styles.tabContent}
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
                 <Tab value="group" label={i18n.t('Group set')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <OrgUnitGroupSetSelect
                             value={organisationUnitGroupSet}
                             onChange={setOrganisationUnitGroupSet}
@@ -139,8 +141,10 @@ class FacilityDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="orgunits" label={i18n.t('Organisation units')}>
-                    <div style={styles.flex}>
-                        <div style={styles.flexHalf}>
+                    <div style={styles.flexColumnFlow}>
+                        <div
+                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                        >
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrgUnit}
@@ -149,7 +153,7 @@ class FacilityDialog extends Component {
                                 }
                             />
                         </div>
-                        <div style={styles.flexHalf}>
+                        <div style={styles.flexColumn}>
                             <OrgUnitLevelSelect
                                 orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
                                 onChange={setOrgUnitLevels}
@@ -175,13 +179,23 @@ class FacilityDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="style" label={i18n.t('Style')}>
-                    <div style={styles.flex}>
-                        <div style={styles.wrapper}>
+                    <div
+                        style={{
+                            ...styles.flexRowFlow,
+                            marginTop: 16,
+                        }}
+                    >
+                        <div style={styles.flexInnerColumnFlow}>
                             <Checkbox
-                                label={i18n.t('Show labels')}
+                                label={i18n.t('Labels')}
                                 checked={labels}
                                 onCheck={setLabels}
-                                style={styles.checkbox}
+                                style={{
+                                    ...styles.flexInnerColumn,
+                                    maxWidth: 150,
+                                    paddingTop: 24,
+                                    height: 42,
+                                }}
                             />
                             {labels && (
                                 <FontStyle
@@ -193,16 +207,24 @@ class FacilityDialog extends Component {
                                     onSizeChange={setLabelFontSize}
                                     onWeightChange={setLabelFontWeight}
                                     onStyleChange={setLabelFontStyle}
-                                    style={styles.font}
+                                    style={{
+                                        ...styles.flexInnerColumn,
+                                        ...styles.font,
+                                    }}
                                 />
                             )}
                         </div>
-                        <div style={styles.wrapper}>
+                        <div style={styles.flexInnerColumnFlow}>
                             <Checkbox
-                                label={i18n.t('Show buffer')}
+                                label={i18n.t('Buffer')}
                                 checked={showBuffer}
                                 onCheck={this.onShowBufferClick.bind(this)}
-                                style={styles.checkbox}
+                                style={{
+                                    ...styles.flexInnerColumn,
+                                    maxWidth: 150,
+                                    paddingTop: 24,
+                                    height: 42,
+                                }}
                             />
                             {showBuffer && (
                                 <TextField
@@ -215,7 +237,10 @@ class FacilityDialog extends Component {
                                     onChange={(evt, radius) =>
                                         setAreaRadius(radius)
                                     }
-                                    style={styles.radius}
+                                    style={{
+                                        ...styles.flexInnerColumn,
+                                        ...styles.radius,
+                                    }}
                                 />
                             )}
                         </div>

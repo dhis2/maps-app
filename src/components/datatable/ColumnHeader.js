@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilterInput from './FilterInput';
-import FilterMultiSelect from './FilterMultiSelect';
 import './ColumnHeader.css';
 import { SortIndicator } from 'react-virtualized';
 
@@ -15,11 +14,7 @@ const ColumnHeader = ({ dataKey, label, type, sortBy, sortDirection }) => (
         {sortBy === dataKey ? (
             <SortIndicator sortDirection={sortDirection} />
         ) : null}
-        {type === 'multiselect' ? (
-            <FilterMultiSelect dataKey={dataKey} />
-        ) : (
-            <FilterInput type={type} dataKey={dataKey} />
-        )}
+        <FilterInput type={type} dataKey={dataKey} />
     </div>
 );
 

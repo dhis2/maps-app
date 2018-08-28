@@ -149,11 +149,12 @@ export class TrackedEntityDialog extends Component {
             <Tabs
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
+                contentContainerStyle={styles.tabContent}
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
                 <Tab value="data" label={i18n.t('data')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <div style={{ marginTop: 24, fontSize: 14 }}>
                             {i18n.t(
                                 'This map layer is still experimental. Please provide your feedback on our'
@@ -210,7 +211,7 @@ export class TrackedEntityDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="period" label={i18n.t('period')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <div style={{ marginTop: 24 }}>{periodHelp}:</div>
                         <DatePicker
                             key="startdate"
@@ -231,8 +232,10 @@ export class TrackedEntityDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="orgunits" label={i18n.t('Org units')}>
-                    <div style={styles.flexRowFlow}>
-                        <div style={styles.flexHalf}>
+                    <div style={styles.flexColumnFlow}>
+                        <div
+                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                        >
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrgUnit}
@@ -241,7 +244,7 @@ export class TrackedEntityDialog extends Component {
                                 }
                             />
                         </div>
-                        <div style={styles.flexHalf}>
+                        <div style={styles.flexColumn}>
                             <SelectField
                                 label={i18n.t('Selection mode')}
                                 items={[
@@ -278,64 +281,55 @@ export class TrackedEntityDialog extends Component {
                 </Tab>
                 <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
-                        <div style={{ marginLeft: 3 }}>
-                            <div
-                                style={{
-                                    marginTop: 20,
-                                    marginRight: 20,
-                                    float: 'left',
-                                }}
-                            >
-                                <div style={styles.colorLabel}>
-                                    {i18n.t('Color')}
-                                </div>
+                        <div style={styles.flexColumn}>
+                            <div style={styles.flexInnerColumnFlow}>
                                 <ColorPicker
+                                    label={i18n.t('Color')}
                                     color={eventPointColor || TEI_COLOR}
                                     onChange={setEventPointColor}
-                                    style={{ width: 64, height: 32 }}
+                                    style={styles.flexInnerColumn}
                                 />
-                            </div>
-                            <TextField
-                                id="radius"
-                                type="number"
-                                floatingLabelText={i18n.t('Point size')}
-                                value={eventPointRadius || TEI_RADIUS}
-                                onChange={(evt, radius) =>
-                                    setEventPointRadius(radius)
-                                }
-                                style={{
-                                    float: 'left',
-                                    maxWidth: 100,
-                                    marginTop: 8,
-                                }}
-                            />
-                        </div>
-                        <div style={{ marginTop: 20 }}>
-                            <Checkbox
-                                label={i18n.t('Show buffer')}
-                                checked={showBuffer}
-                                onCheck={this.onShowBufferClick}
-                                style={styles.checkbox}
-                            />
-                            {showBuffer && (
                                 <TextField
                                     id="radius"
                                     type="number"
-                                    floatingLabelText={i18n.t(
-                                        'Buffer in meters'
-                                    )}
-                                    value={areaRadius || ''}
+                                    floatingLabelText={i18n.t('Point size')}
+                                    value={eventPointRadius || TEI_RADIUS}
                                     onChange={(evt, radius) =>
-                                        setAreaRadius(radius)
+                                        setEventPointRadius(radius)
                                     }
+                                    style={styles.flexInnerColumn}
+                                />
+                            </div>
+                            <div style={styles.flexInnerColumnFlow}>
+                                <Checkbox
+                                    label={i18n.t('Buffer')}
+                                    checked={showBuffer}
+                                    onCheck={this.onShowBufferClick}
                                     style={{
-                                        float: 'left',
-                                        maxWidth: 150,
-                                        marginTop: -24,
+                                        ...styles.flexInnerColumn,
+                                        marginTop: 47,
                                     }}
                                 />
-                            )}
+                                {showBuffer && (
+                                    <TextField
+                                        id="buffer"
+                                        type="number"
+                                        floatingLabelText={i18n.t(
+                                            'Radius in meters'
+                                        )}
+                                        value={areaRadius || ''}
+                                        onChange={(evt, radius) =>
+                                            setAreaRadius(radius)
+                                        }
+                                        style={styles.flexInnerColumn}
+                                        floatingLabelStyle={{
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                    />
+                                )}
+                            </div>
                         </div>
+                        <div style={styles.flexColumn} />
                     </div>
                 </Tab>
             </Tabs>

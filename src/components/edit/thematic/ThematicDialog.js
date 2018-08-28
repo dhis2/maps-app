@@ -16,7 +16,7 @@ import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect'; // Reporting rate
 import FontStyle from '../../d2-ui/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
-import LegendStyle from '../../classification/LegendStyle';
+import NumericLegendStyle from '../../classification/NumericLegendStyle';
 import IndicatorSelect from '../../indicator/IndicatorSelect';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
@@ -35,7 +35,6 @@ import {
 } from '../../../constants/layers';
 
 import {
-    setClassification,
     setDataItem,
     setDataElementGroup,
     setIndicatorGroup,
@@ -44,7 +43,6 @@ import {
     setLabelFontSize,
     setLabelFontWeight,
     setLabelFontStyle,
-    setLegendSet,
     setOperand,
     setOrgUnitLevels,
     setOrgUnitGroups,
@@ -115,35 +113,11 @@ export class ThematicDialog extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        const {
-            valueType,
-            columns,
-            rows,
-            method,
-            setValueType,
-            setClassification,
-            setLegendSet,
-            loadOrgUnitPath,
-        } = this.props;
+    componentDidUpdate() {
+        const { valueType, rows, setValueType, loadOrgUnitPath } = this.props;
 
         if (!valueType) {
             setValueType('in'); // TODO: Make constant
-        }
-
-        // Set connected legend set when indicator is selected
-        if (columns) {
-            const dataItem = getDataItemFromColumns(columns);
-            const prevDataItem = getDataItemFromColumns(prevProps.columns);
-
-            if (dataItem && dataItem !== prevDataItem) {
-                if (dataItem.legendSet) {
-                    setClassification(CLASSIFICATION_PREDEFINED);
-                    setLegendSet(dataItem.legendSet);
-                } else {
-                    setClassification(CLASSIFICATION_EQUAL_INTERVALS);
-                }
-            }
         }
 
         if (rows) {
@@ -159,8 +133,6 @@ export class ThematicDialog extends Component {
     render() {
         const {
             // layer options
-            classes,
-            colorScale,
             columns,
             dataElementGroup,
             filters,
@@ -171,8 +143,6 @@ export class ThematicDialog extends Component {
             labelFontSize,
             labelFontStyle,
             labelFontWeight,
-            legendSet,
-            method,
             operand,
             periodType,
             program,
@@ -184,7 +154,6 @@ export class ThematicDialog extends Component {
 
         const {
             // Handlers
-            setClassification,
             setDataItem,
             setDataElementGroup,
             setIndicatorGroup,
@@ -193,7 +162,6 @@ export class ThematicDialog extends Component {
             setLabelFontSize,
             setLabelFontWeight,
             setLabelFontStyle,
-            setLegendSet,
             setOperand,
             setOrgUnitLevels,
             setOrgUnitGroups,
@@ -225,11 +193,12 @@ export class ThematicDialog extends Component {
             <Tabs
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
+                contentContainerStyle={styles.tabContent}
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
                 <Tab value="data" label={i18n.t('data')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <ValueTypeSelect
                             value={valueType}
                             style={styles.select}
@@ -335,7 +304,7 @@ export class ThematicDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="period" label={i18n.t('period')}>
-                    <div style={styles.flexColumnFlow}>
+                    <div style={styles.flexRowFlow}>
                         <PeriodTypeSelect
                             value={periodType}
                             onChange={type => setPeriodType(type.id)}
@@ -363,8 +332,10 @@ export class ThematicDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="orgunits" label={i18n.t('Org units')}>
-                    <div style={styles.flex}>
-                        <div style={styles.flexHalf}>
+                    <div style={styles.flexColumnFlow}>
+                        <div
+                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                        >
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrgUnit}
@@ -373,7 +344,7 @@ export class ThematicDialog extends Component {
                                 }
                             />
                         </div>
-                        <div style={styles.flexHalf}>
+                        <div style={styles.flexColumn}>
                             <OrgUnitLevelSelect
                                 orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
                                 defaultLevel={2}
@@ -398,65 +369,68 @@ export class ThematicDialog extends Component {
                 </Tab>
                 <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
-                        <LegendStyle
-                            method={method}
-                            legendSet={legendSet}
-                            classes={classes}
-                            colorScale={colorScale}
-                            // onChange={setClassification}
-                            style={{
-                                ...styles.select,
-                                marginTop: 12,
-                            }}
-                        />
-                        <div
-                            style={{
-                                ...styles.flexFull,
-                                marginTop: -12,
-                                marginLeft: -12,
-                            }}
-                        >
-                            <TextField
-                                id="lowsize"
-                                type="number"
-                                floatingLabelText={i18n.t('Low size')}
-                                value={radiusLow !== undefined ? radiusLow : 5}
-                                onChange={(evt, radius) => setRadiusLow(radius)}
-                                style={{ width: 125, marginRight: 24 }}
+                        <div style={{ ...styles.flexColumn, marginTop: 0 }}>
+                            <NumericLegendStyle
+                                dataItem={dataItem}
+                                style={styles.select}
                             />
-                            <TextField
-                                id="highsize"
-                                type="number"
-                                floatingLabelText={i18n.t('High size')}
-                                value={
-                                    radiusHigh !== undefined ? radiusHigh : 15
-                                }
-                                onChange={(evt, radius) =>
-                                    setRadiusHigh(radius)
-                                }
-                                style={{ width: 125 }}
-                            />
-                        </div>
-                        <div style={{ ...styles.wrapper, marginLeft: -12 }}>
-                            <Checkbox
-                                label={i18n.t('Show labels')}
-                                checked={labels}
-                                onCheck={setLabels}
-                                style={styles.checkbox}
-                            />
-                            {labels && (
-                                <FontStyle
-                                    color={labelFontColor}
-                                    size={labelFontSize}
-                                    weight={labelFontWeight}
-                                    fontStyle={labelFontStyle}
-                                    onColorChange={setLabelFontColor}
-                                    onSizeChange={setLabelFontSize}
-                                    onWeightChange={setLabelFontWeight}
-                                    onStyleChange={setLabelFontStyle}
-                                    style={styles.font}
+                            <div style={styles.flexInnerColumnFlow}>
+                                <TextField
+                                    id="lowsize"
+                                    type="number"
+                                    floatingLabelText={i18n.t('Low size')}
+                                    value={
+                                        radiusLow !== undefined ? radiusLow : 5
+                                    }
+                                    onChange={(evt, radius) =>
+                                        setRadiusLow(radius)
+                                    }
+                                    style={styles.flexInnerColumn}
                                 />
-                            )}
+                                <TextField
+                                    id="highsize"
+                                    type="number"
+                                    floatingLabelText={i18n.t('High size')}
+                                    value={
+                                        radiusHigh !== undefined
+                                            ? radiusHigh
+                                            : 15
+                                    }
+                                    onChange={(evt, radius) =>
+                                        setRadiusHigh(radius)
+                                    }
+                                    style={styles.flexInnerColumn}
+                                />
+                            </div>
+                            <div style={styles.flexInnerColumnFlow}>
+                                <Checkbox
+                                    label={i18n.t('Labels')}
+                                    checked={labels}
+                                    onCheck={setLabels}
+                                    style={{
+                                        ...styles.flexInnerColumn,
+                                        maxWidth: 150,
+                                        paddingTop: 24,
+                                        height: 42,
+                                    }}
+                                />
+                                {labels && (
+                                    <FontStyle
+                                        color={labelFontColor}
+                                        size={labelFontSize}
+                                        weight={labelFontWeight}
+                                        fontStyle={labelFontStyle}
+                                        onColorChange={setLabelFontColor}
+                                        onSizeChange={setLabelFontSize}
+                                        onWeightChange={setLabelFontWeight}
+                                        onStyleChange={setLabelFontStyle}
+                                        style={{
+                                            ...styles.flexInnerColumn,
+                                            ...styles.font,
+                                        }}
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </Tab>
@@ -532,7 +506,6 @@ export class ThematicDialog extends Component {
 export default connect(
     null,
     {
-        setClassification,
         setDataItem,
         setDataElementGroup,
         setIndicatorGroup,
@@ -541,7 +514,6 @@ export default connect(
         setLabelFontSize,
         setLabelFontWeight,
         setLabelFontStyle,
-        setLegendSet,
         setOperand,
         setOrgUnitLevels,
         setOrgUnitGroups,

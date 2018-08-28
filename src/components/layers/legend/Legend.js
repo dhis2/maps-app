@@ -4,16 +4,7 @@ import i18n from '@dhis2/d2-i18n';
 import LegendItem from './LegendItem';
 import './Legend.css';
 
-const Legend = ({
-    description,
-    period,
-    filters,
-    unit,
-    items,
-    source,
-    sourceUrl,
-    attribution,
-}) => (
+const Legend = ({ description, filters, unit, items, source, sourceUrl }) => (
     <dl className="Legend">
         {description && <div className="Legend-description">{description}</div>}
         {filters && (
@@ -46,6 +37,7 @@ const Legend = ({
 
 Legend.propTypes = {
     description: PropTypes.string,
+    filters: PropTypes.array,
     unit: PropTypes.string,
     items: PropTypes.array,
     source: PropTypes.string,

@@ -95,12 +95,15 @@ class BoundaryDialog extends Component {
             <Tabs
                 style={styles.tabs}
                 tabItemContainerStyle={styles.tabBar}
+                contentContainerStyle={styles.tabContent}
                 value={tab}
                 onChange={tab => this.setState({ tab })}
             >
                 <Tab value="orgunits" label={i18n.t('Organisation units')}>
-                    <div style={styles.flex}>
-                        <div style={styles.flexHalf}>
+                    <div style={styles.flexColumnFlow}>
+                        <div
+                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                        >
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrgUnit}
@@ -109,7 +112,7 @@ class BoundaryDialog extends Component {
                                 }
                             />
                         </div>
-                        <div style={styles.flexHalf}>
+                        <div style={styles.flexColumn}>
                             <OrgUnitLevelSelect
                                 orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
                                 onChange={setOrgUnitLevels}
@@ -132,32 +135,39 @@ class BoundaryDialog extends Component {
                     </div>
                 </Tab>
                 <Tab value="style" label={i18n.t('Style')}>
-                    <div style={styles.flex}>
-                        <div style={styles.wrapper}>
-                            <Checkbox
-                                label={i18n.t('Show labels')}
-                                checked={labels}
-                                onCheck={setLabels}
-                                style={styles.checkbox}
-                            />
-                            {labels && (
-                                <FontStyle
-                                    size={labelFontSize}
-                                    fontStyle={labelFontStyle}
-                                    onSizeChange={setLabelFontSize}
-                                    onStyleChange={setLabelFontStyle}
-                                    style={styles.font}
+                    <div style={styles.flexColumnFlow}>
+                        <div style={styles.flexColumn}>
+                            <div style={styles.flexInnerColumnFlow}>
+                                <Checkbox
+                                    label={i18n.t('Labels')}
+                                    checked={labels}
+                                    onCheck={setLabels}
+                                    style={{
+                                        ...styles.flexInnerColumn,
+                                        maxWidth: 150,
+                                        paddingTop: 24,
+                                        height: 48,
+                                    }}
                                 />
-                            )}
+                                {labels && (
+                                    <FontStyle
+                                        size={labelFontSize}
+                                        fontStyle={labelFontStyle}
+                                        onSizeChange={setLabelFontSize}
+                                        onStyleChange={setLabelFontStyle}
+                                        style={styles.flexInnerColumn}
+                                    />
+                                )}
+                            </div>
+                            <TextField
+                                id="radius"
+                                type="number"
+                                floatingLabelText={i18n.t('Point radius')}
+                                value={radiusLow !== undefined ? radiusLow : 5}
+                                onChange={(evt, radius) => setRadiusLow(radius)}
+                                style={styles.radius}
+                            />
                         </div>
-                        <TextField
-                            id="radius"
-                            type="number"
-                            floatingLabelText={i18n.t('Point radius')}
-                            value={radiusLow !== undefined ? radiusLow : 5}
-                            onChange={(evt, radius) => setRadiusLow(radius)}
-                            style={styles.radius}
-                        />
                     </div>
                 </Tab>
             </Tabs>

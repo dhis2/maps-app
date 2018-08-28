@@ -7,7 +7,6 @@ import { loadOrgUnitTree } from '../../actions/orgUnits';
 const styles = {
     container: {
         position: 'relative',
-        marginTop: 12,
         width: '100%',
         height: 310,
         padding: 8,
@@ -100,7 +99,7 @@ export class OrgUnitTreeMaps extends Component {
             this._isClicked = true;
             this.props.onClick(orgUnit);
         }
-    }
+    };
 }
 
 export default connect(

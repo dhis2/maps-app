@@ -5,8 +5,13 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2018-08-17T07:30:12.499Z\n"
 "PO-Revision-Date: 2018-08-17T07:30:12.499Z\n"
+=======
+"POT-Creation-Date: 2018-08-20T12:34:21.115Z\n"
+"PO-Revision-Date: 2018-08-20T12:34:21.115Z\n"
+>>>>>>> 9ebefe8efc94123e2d10a65a169fc53e4d2af10c
 
 msgid "No favorite selected"
 msgstr ""
@@ -53,6 +58,9 @@ msgstr ""
 msgid "Event data item"
 msgstr ""
 
+msgid "Style by data item"
+msgstr ""
+
 msgid "Data set"
 msgstr ""
 
@@ -65,7 +73,7 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-msgid "Show labels"
+msgid "Labels"
 msgstr ""
 
 msgid "Point radius"
@@ -119,13 +127,10 @@ msgstr ""
 msgid "Radius"
 msgstr ""
 
-msgid "Show buffer"
+msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "Style by data item"
 msgstr ""
 
 msgid "Program is required"
@@ -180,9 +185,6 @@ msgid "Tracked entities"
 msgstr ""
 
 msgid "Point size"
-msgstr ""
-
-msgid "Buffer in meters"
 msgstr ""
 
 msgid "Aggregation type"

@@ -45,7 +45,21 @@ const styles = {
 };
 
 const ContextMenu = (props, context) => {
-    const { feature, layerType, earthEngineLayers, position } = props;
+    const {
+        feature,
+        layerId,
+        layerType,
+        earthEngineLayers,
+        position,
+        onClose,
+        onDrill,
+        onShowInformation,
+        showCoordinate,
+        onSwapCoordinate,
+        onRelocateStart,
+        showEarthEngineValue,
+    } = props;
+
     const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const iconColor = '#777';
     const iconDisabledColor = '#eee';
@@ -67,9 +81,9 @@ const ContextMenu = (props, context) => {
     return [
         <Popover
             key="popover"
-            open={props.position ? true : false}
+            open={position ? true : false}
             anchorEl={anchorEl}
-            onRequestClose={props.onClose}
+            onRequestClose={onClose}
         >
             <Menu
                 autoWidth={true}
@@ -82,8 +96,8 @@ const ContextMenu = (props, context) => {
                         <MenuItem
                             disabled={!attr.hasCoordinatesUp}
                             onClick={() =>
-                                props.onDrill(
-                                    props.layerId,
+                                onDrill(
+                                    layerId,
                                     attr.grandParentId,
                                     attr.grandParentParentGraph,
                                     parseInt(attr.level) - 1
@@ -111,8 +125,8 @@ const ContextMenu = (props, context) => {
                         <MenuItem
                             disabled={!attr.hasCoordinatesDown}
                             onClick={() =>
-                                props.onDrill(
-                                    props.layerId,
+                                onDrill(
+                                    layerId,
                                     attr.id,
                                     attr.parentGraph,
                                     parseInt(attr.level) + 1
@@ -137,7 +151,7 @@ const ContextMenu = (props, context) => {
 
                 {feature && (
                     <MenuItem
-                        onClick={() => props.onShowInformation(attr)}
+                        onClick={() => onShowInformation(attr)}
                         innerDivStyle={styles.menuItemInner}
                         leftIcon={
                             <SvgIcon icon="InfoOutline" style={styles.icon} />
@@ -149,7 +163,7 @@ const ContextMenu = (props, context) => {
 
                 {coordinate && (
                     <MenuItem
-                        onClick={() => props.showCoordinate(coordinate)}
+                        onClick={() => showCoordinate(coordinate)}
                         leftIcon={<SvgIcon icon="Room" style={styles.icon} />}
                         innerDivStyle={styles.menuItemInner}
                     >
@@ -161,8 +175,8 @@ const ContextMenu = (props, context) => {
                     isPoint && (
                         <MenuItem
                             onClick={() =>
-                                props.onSwapCoordinate(
-                                    props.layerId,
+                                onSwapCoordinate(
+                                    layerId,
                                     feature.id,
                                     feature.geometry.coordinates
                                         .slice(0)
@@ -181,9 +195,7 @@ const ContextMenu = (props, context) => {
                 {isAdmin &&
                     isPoint && (
                         <MenuItem
-                            onClick={() =>
-                                props.onRelocateStart(props.layerId, feature)
-                            }
+                            onClick={() => onRelocateStart(layerId, feature)}
                             leftIcon={
                                 <SvgIcon icon="Room" style={styles.icon} />
                             }
@@ -197,7 +209,7 @@ const ContextMenu = (props, context) => {
                     <MenuItem
                         key={layer.id}
                         onClick={() =>
-                            props.showEarthEngineValue(layer.id, coordinate)
+                            showEarthEngineValue(layer.id, coordinate)
                         }
                         innerDivStyle={styles.menuItemInner}
                         leftIcon={<SvgIcon icon="Room" style={styles.icon} />}
@@ -214,6 +226,21 @@ const ContextMenu = (props, context) => {
 
 ContextMenu.contextTypes = {
     d2: PropTypes.object.isRequired,
+};
+
+ContextMenu.propTypes = {
+    feature: PropTypes.object,
+    layerType: PropTypes.string,
+    coordinate: PropTypes.array,
+    position: PropTypes.array,
+    earthEngineLayers: PropTypes.array,
+    onClose: PropTypes.func.isRequired,
+    onDrill: PropTypes.func.isRequired,
+    onShowInformation: PropTypes.func.isRequired,
+    showCoordinate: PropTypes.func.isRequired,
+    onRelocateStart: PropTypes.func.isRequired,
+    onSwapCoordinate: PropTypes.func.isRequired,
+    showEarthEngineValue: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -249,4 +276,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContextMenu);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ContextMenu);

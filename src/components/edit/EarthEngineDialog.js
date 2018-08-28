@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
-import { Tabs, Tab } from '@dhis2/d2-ui-core';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField'; // TODO: d2-ui-core version don't accept numbers as values
 import Collection from '../earthengine/Collection';
 import LegendItem from '../layers/legend/LegendItem';
@@ -73,7 +73,7 @@ const styles = {
         borderRight: '12px solid #fff',
     },
     legendTitle: {
-        padding: '16px 0 16px 32px',
+        paddingBottom: 16,
         fontWeight: 'bold',
     },
     colorScale: {
@@ -94,7 +94,7 @@ class EarthEngineDialog extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab: 'data',
+            tab: 'style',
         };
     }
 
@@ -134,13 +134,12 @@ class EarthEngineDialog extends Component {
                 style={styles.tabs}
                 value={tab}
                 onChange={tab => this.setState({ tab })}
+                contentContainerStyle={styles.tabContent}
             >
                 <Tab value="style" label={i18n.t('Style')}>
-                    <div style={styles.flex}>
+                    <div style={styles.flexColumnFlow}>
                         <div style={styles.flexColumn}>
-                            <div style={{ ...styles.flexFull, marginTop: 16 }}>
-                                {dataset.description}
-                            </div>
+                            <div>{dataset.description}</div>
                             {datasetId !== 'USGS/SRTMGL1_003' && ( // If not elevation
                                 <Collection
                                     label={i18n.t(dataset.collectionLabel)}
@@ -155,54 +154,60 @@ class EarthEngineDialog extends Component {
                                 />
                             )}
                             {params && [
-                                <TextField
-                                    key="min"
-                                    type="number"
-                                    floatingLabelText={i18n.t(
-                                        dataset.minLabel || 'Min'
-                                    )}
-                                    value={params.min}
-                                    onChange={(evt, min) =>
-                                        setParams(
-                                            parseInt(min),
-                                            parseInt(params.max),
-                                            params.palette
-                                        )
-                                    }
-                                    style={styles.flexThird}
-                                    floatingLabelStyle={{ whiteSpace: 'nowrap' }}
-                                />,
-                                <TextField
-                                    key="max"
-                                    type="number"
-                                    floatingLabelText={i18n.t(
-                                        dataset.maxLabel || 'Max'
-                                    )}
-                                    value={params.max}
-                                    onChange={(evt, max) =>
-                                        setParams(
-                                            parseInt(params.min),
-                                            parseInt(max),
-                                            params.palette
-                                        )
-                                    }
-                                    style={styles.flexThird}
-                                    floatingLabelStyle={{ whiteSpace: 'nowrap' }}
-                                />,
-                                <TextField
-                                    key="steps"
-                                    type="number"
-                                    floatingLabelText={i18n.t('Steps')}
-                                    value={
-                                        steps !== undefined
-                                            ? steps
-                                            : this.getStepsFromParams()
-                                    }
-                                    onChange={(evt, steps) =>
-                                        this.onStepsChange(steps)
-                                    }
-                                    style={styles.flexThird}
-                                />,
+                                <div
+                                    key="minmax"
+                                    style={styles.flexInnerColumnFlow}
+                                >
+                                    <TextField
+                                        type="number"
+                                        floatingLabelText={i18n.t(
+                                            dataset.minLabel || 'Min'
+                                        )}
+                                        value={params.min}
+                                        onChange={(evt, min) =>
+                                            setParams(
+                                                parseInt(min),
+                                                parseInt(params.max),
+                                                params.palette
+                                            )
+                                        }
+                                        style={styles.flexInnerColumn}
+                                        floatingLabelStyle={{
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                    />
+                                    <TextField
+                                        type="number"
+                                        floatingLabelText={i18n.t(
+                                            dataset.maxLabel || 'Max'
+                                        )}
+                                        value={params.max}
+                                        onChange={(evt, max) =>
+                                            setParams(
+                                                parseInt(params.min),
+                                                parseInt(max),
+                                                params.palette
+                                            )
+                                        }
+                                        style={styles.flexInnerColumn}
+                                        floatingLabelStyle={{
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                    />
+                                    <TextField
+                                        type="number"
+                                        floatingLabelText={i18n.t('Steps')}
+                                        value={
+                                            steps !== undefined
+                                                ? steps
+                                                : this.getStepsFromParams()
+                                        }
+                                        onChange={(evt, steps) =>
+                                            this.onStepsChange(steps)
+                                        }
+                                        style={styles.flexInnerColumn}
+                                    />
+                                </div>,
                                 <div key="range_error" style={styles.error}>
                                     {!this.isValidRange() && rangeError}
                                 </div>,
@@ -223,29 +228,31 @@ class EarthEngineDialog extends Component {
                                 />,
                             ]}
                         </div>
-                        <div style={styles.flexColumn}>
-                            {params && (
-                                <div style={styles.legend}>
-                                    <div style={styles.legendTitle}>
-                                        {i18n.t('Legend preview')}
-                                    </div>
-                                    <div className="Legend">
-                                        <table>
-                                            <tbody>
-                                                {createLegend(params).map(
-                                                    (item, index) => (
-                                                        <LegendItem
-                                                            {...item}
-                                                            key={`item-${index}`}
-                                                        />
-                                                    )
-                                                )}
-                                            </tbody>
-                                        </table>
-                                    </div>
+
+                        {params && (
+                            <div style={styles.flexColumn}>
+                                <div style={styles.legendTitle}>
+                                    {i18n.t('Legend preview')}
                                 </div>
-                            )}
-                        </div>
+                                <div
+                                    className="Legend"
+                                    style={{ marginLeft: -32 }}
+                                >
+                                    <table>
+                                        <tbody>
+                                            {createLegend(params).map(
+                                                (item, index) => (
+                                                    <LegendItem
+                                                        {...item}
+                                                        key={`item-${index}`}
+                                                    />
+                                                )
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </Tab>
             </Tabs>

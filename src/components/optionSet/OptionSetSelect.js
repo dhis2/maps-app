@@ -1,4 +1,5 @@
 import React from 'react';
+import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
 
 const OptionSetSelect = ({ options, value, onChange, style }) => {
@@ -9,7 +10,7 @@ const OptionSetSelect = ({ options, value, onChange, style }) => {
 
     return (
         <SelectField
-            label="Options" // TODO: i18n
+            label={i18n.t('Options')}
             items={options.map(option => ({
                 id: option.code,
                 name: option.name,

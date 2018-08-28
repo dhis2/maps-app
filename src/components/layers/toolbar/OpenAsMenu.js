@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
 import MenuItem from 'material-ui/MenuItem';
 import { SvgIcon } from '@dhis2/d2-ui-core';
 
@@ -16,11 +17,19 @@ const styles = {
 
 const OpenAsMenu = ({ id }) => (
     <MenuItem
-        primaryText="Open as ..."
+        primaryText={`${i18n.t('Open as')} ...`}
         rightIcon={<SvgIcon icon="ArrowDropRight" style={styles.icon} />}
         menuItems={[
-            <MenuItem primaryText="Pivot" style={styles.menuItem} />,
-            <MenuItem primaryText="Chart" style={styles.menuItem} />,
+            <MenuItem
+                key="pivot"
+                primaryText={i18n.t('Pivot')}
+                style={styles.menuItem}
+            />,
+            <MenuItem
+                key="chart"
+                primaryText={i18n.t('Chart')}
+                style={styles.menuItem}
+            />,
         ]}
         style={styles.menuItem}
     />
