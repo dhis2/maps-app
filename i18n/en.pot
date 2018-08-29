@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-08-20T12:34:21.115Z\n"
-"PO-Revision-Date: 2018-08-20T12:34:21.115Z\n"
+"POT-Creation-Date: 2018-08-27T12:07:32.192Z\n"
+"PO-Revision-Date: 2018-08-27T12:07:32.192Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -57,6 +57,33 @@ msgid "Style by data item"
 msgstr ""
 
 msgid "Data set"
+msgstr ""
+
+msgid "Index"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Legend"
+msgstr ""
+
+msgid "Range"
+msgstr ""
+
+msgid "Level"
+msgstr ""
+
+msgid "Parent"
+msgstr ""
+
+msgid "Id"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Color"
 msgstr ""
 
 msgid "Period"
@@ -114,9 +141,6 @@ msgid "Group events"
 msgstr ""
 
 msgid "View all events"
-msgstr ""
-
-msgid "Color"
 msgstr ""
 
 msgid "Radius"
@@ -224,10 +248,13 @@ msgstr ""
 msgid "Add filter"
 msgstr ""
 
-msgid "Operator"
+msgid "Remove filter"
 msgstr ""
 
-msgid "Value"
+msgid "Close"
+msgstr ""
+
+msgid "Operator"
 msgstr ""
 
 msgid "Yes"
@@ -269,7 +296,34 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-msgid "Level"
+msgid "Download"
+msgstr ""
+
+msgid "Organisation units (GeoJSON)"
+msgstr ""
+
+msgid "Style (SLD)"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Data table"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "More"
+msgstr ""
+
+msgid "Open as"
+msgstr ""
+
+msgid "Pivot"
+msgstr ""
+
+msgid "Chart"
 msgstr ""
 
 msgid "Parent unit"
@@ -305,7 +359,7 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
-msgid "Close"
+msgid "Options"
 msgstr ""
 
 msgid "Code"
