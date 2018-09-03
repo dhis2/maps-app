@@ -12,7 +12,7 @@ export const loadOptionSet = action$ =>
             .then(d2 =>
                 d2.models.optionSets.get(action.id, {
                     fields:
-                        'id,displayName~rename(name),version,options[code,displayName~rename(name)]',
+                        'id,displayName~rename(name),version,options[id,code,displayName~rename(name),style]',
                     paging: false,
                 })
             )

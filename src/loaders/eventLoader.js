@@ -4,6 +4,7 @@ import { curry, isString, isEmpty } from 'lodash/fp';
 import { timeFormat } from 'd3-time-format';
 import { isValidCoordinate } from '../util/map';
 import { getLegendItemForValue } from '../util/classify';
+import { styleByDataItem } from '../util/styleByDataItem';
 import {
     getOrgUnitsFromRows,
     getFiltersFromColumns,
@@ -123,6 +124,13 @@ const eventLoader = async config => {
 
         if (Array.isArray(data) && data.length) {
             if (styleDataItem) {
+                const temp = await styleByDataItem(styleDataItem, method, classes, colorScale, eventPointRadius, data);
+
+                console.log('temp', temp);
+
+
+                
+                /*
                 const styleByNumeric =
                     styleDataItem && styleDataItem.valueType === 'INTEGER'; // TODO
                 const styleByOptionSet =
@@ -191,6 +199,7 @@ const eventLoader = async config => {
                     color: eventPointColor || EVENT_COLOR,
                     radius: eventPointRadius || EVENT_RADIUS,
                 });
+                */
             } else {
                 // Simple style
                 legend.items = [

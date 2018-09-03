@@ -39,38 +39,55 @@ class OptionSetStyle extends Component {
     }
 
     setOptions() {
-        const { id, optionSets, loadOptionSet, setStyleOptions } = this.props;
+        const { id, optionSet, loadOptionSet, setStyleOptions } = this.props;
 
-        if (!optionSets[id]) {
+        if (!optionSet) {
             loadOptionSet(id);
         } else {
+
+            const byId = optionSet.options.reduce((obj, { id }, index) => {
+                obj[id] = colors[index] || '#ffffff';
+                return obj
+            }, {});
+
+            /*
             const byName = {}; // TODO: Use by code when API support it
             optionSets[id].options.forEach(
                 (option, index) =>
                     (byName[option.name] = colors[index] || '#ffffff')
             );
-            setStyleOptions(byName);
+            */
+
+            // console.log('setStyleOptions', byId, optionSets[id].options);
+            setStyleOptions(byId);
         }
     }
 
-    onChange(name, color) {
+    onChange(id, color) {
         const options = { ...this.props.options };
-        options[name] = color;
+        options[id] = color;
+
+        console.log('setStyleOptions', options);
+
         this.props.setStyleOptions(options);
     }
 
     render() {
-        const { options } = this.props;
+        const { options, optionSet } = this.props;
+        
+        // if (!)
+
+        console.log('render', options, optionSet);
 
         return (
             <div style={style}>
-                {options ? (
-                    Object.keys(options).map(name => (
+                {optionSet && options ? (
+                    optionSet.options.map(({ id, name }) => (
                         <OptionStyle
-                            key={name}
+                            key={id}
                             name={name}
-                            color={options[name]}
-                            onChange={color => this.onChange(name, color)}
+                            color={options[id]}
+                            onChange={color => this.onChange(id, color)}
                         />
                     ))
                 ) : (
@@ -82,8 +99,8 @@ class OptionSetStyle extends Component {
 }
 
 export default connect(
-    state => ({
-        optionSets: state.optionSets,
+    (state, props) => ({
+        optionSet: state.optionSets[props.id],
     }),
     { loadOptionSet, setStyleOptions }
 )(OptionSetStyle);
