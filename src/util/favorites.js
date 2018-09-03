@@ -54,6 +54,7 @@ const validLayerProperties = [
     'rows',
     'serverCluster',
     'startDate',
+    'styleDataItem',
     'trackedEntityType',
     'valueType',
 ];
@@ -127,9 +128,11 @@ const models2objects = config => {
         delete config.filter;
     }
 
-    if (isObject(config.config)) { 
+    if (isObject(config.config)) {
         config.config = JSON.stringify(config.config); // External overlay
     }
+
+    console.log('config', config);
 
     return config;
 };
