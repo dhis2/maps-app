@@ -44,21 +44,11 @@ class OptionSetStyle extends Component {
         if (!optionSet) {
             loadOptionSet(id);
         } else {
-
             const byId = optionSet.options.reduce((obj, { id }, index) => {
                 obj[id] = colors[index] || '#ffffff';
-                return obj
+                return obj;
             }, {});
 
-            /*
-            const byName = {}; // TODO: Use by code when API support it
-            optionSets[id].options.forEach(
-                (option, index) =>
-                    (byName[option.name] = colors[index] || '#ffffff')
-            );
-            */
-
-            // console.log('setStyleOptions', byId, optionSets[id].options);
             setStyleOptions(byId);
         }
     }
@@ -67,17 +57,11 @@ class OptionSetStyle extends Component {
         const options = { ...this.props.options };
         options[id] = color;
 
-        console.log('setStyleOptions', options);
-
         this.props.setStyleOptions(options);
     }
 
     render() {
         const { options, optionSet } = this.props;
-        
-        // if (!)
-
-        console.log('render', options, optionSet);
 
         return (
             <div style={style}>

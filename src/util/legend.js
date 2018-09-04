@@ -7,7 +7,7 @@ import { CLASSIFICATION_EQUAL_INTERVALS } from '../constants/layers';
 
 export const loadLegendSet = async legendSet => {
     const d2 = await getD2();
-    return d2.models.legendSet.get(legendSet.id);
+    return d2.models.legendSet.get(legendSet.id); // TODO: Restrict loading fields
 };
 
 export const loadDataItemLegendSet = async dataItem => {
@@ -53,19 +53,11 @@ export const getLabelsFromLegendItems = legendItems => {
     return sortedItems.map(item => item.name);
 };
 
-export const getCategoryLegendItems = (options, radius) =>
-    Object.keys(options).map(option => ({
-        name: option,
-        color: options[option],
-        radius: radius,
-    }));
-
 // Returns a legend created from a pre-defined legend set
-export const getPredefinedLegendItems = async legendSet => {
-    const { legends } = await loadLegendSet(legendSet);
+export const getPredefinedLegendItems = legendSet => {
     const pickSome = pick(['name', 'startValue', 'endValue', 'color']);
 
-    return sortBy('startValue', legends)
+    return sortBy('startValue', legendSet.legends)
         .map(pickSome)
         .map(
             item =>

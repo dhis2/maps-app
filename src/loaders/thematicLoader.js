@@ -40,11 +40,13 @@ const thematicLoader = async config => {
         legendSet = await loadDataItemLegendSet(dataItem);
     }
 
+    console.log('legendSet', legendSet);
+
     const legend = {
         title: name,
         period: names[data.metaData.dimensions.pe[0]],
         items: legendSet
-            ? await getPredefinedLegendItems(legendSet)
+            ? getPredefinedLegendItems(legendSet)
             : getAutomaticLegendItems(
                   orderedValues,
                   method,

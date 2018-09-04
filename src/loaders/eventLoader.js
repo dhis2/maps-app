@@ -1,9 +1,8 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import { curry, isString, isEmpty } from 'lodash/fp';
+import { isString, isEmpty } from 'lodash/fp';
 import { timeFormat } from 'd3-time-format';
 import { isValidCoordinate } from '../util/map';
-import { getLegendItemForValue } from '../util/classify';
 import { styleByDataItem } from '../util/styleByDataItem';
 import {
     getOrgUnitsFromRows,
@@ -13,24 +12,13 @@ import {
     getPeriodNameFromId,
     getApiResponseNames,
 } from '../util/analytics';
-import {
-    getAutomaticLegendItems,
-    getPredefinedLegendItems,
-    getCategoryLegendItems,
-} from '../util/legend';
-import {
-    EVENT_COLOR,
-    EVENT_RADIUS,
-    CLASSIFICATION_PREDEFINED,
-} from '../constants/layers';
+import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 
 const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
 // Returns a promise
 const eventLoader = async config => {
     const {
-        classes,
-        colorScale,
         columns,
         endDate,
         eventClustering,
@@ -38,8 +26,6 @@ const eventLoader = async config => {
         eventPointColor,
         eventPointRadius,
         filters,
-        legendSet,
-        method,
         program,
         programStage,
         rows,
@@ -124,82 +110,18 @@ const eventLoader = async config => {
 
         if (Array.isArray(data) && data.length) {
             if (styleDataItem) {
-                const temp = await styleByDataItem(styleDataItem, method, classes, colorScale, eventPointRadius, data);
+                const style = await styleByDataItem(styleDataItem, config);
 
-                console.log('temp', temp);
+                data = style.getData(data);
+                legend.items = style.getLegendItems();
 
-
-                
-                /*
-                const styleByNumeric =
-                    styleDataItem && styleDataItem.valueType === 'INTEGER'; // TODO
-                const styleByOptionSet =
-                    styleDataItem &&
-                    styleDataItem.optionSet &&
-                    styleDataItem.optionSet.options;
-
-                // Set value property to value of styleDataItem
-                data.forEach(
-                    feature =>
-                        (feature.properties.value =
-                            feature.properties[styleDataItem.id])
-                );
-                legend.unit = styleDataItem.name;
-
-                if (styleByNumeric) {
-                    if (method === CLASSIFICATION_PREDEFINED) {
-                        legend.items = await getPredefinedLegendItems(
-                            legendSet
-                        );
-                    } else {
-                        const values = data
-                            .map(feature => Number(feature.properties.value))
-                            .sort((a, b) => a - b);
-
-                        legend.items = getAutomaticLegendItems(
-                            values,
-                            method,
-                            classes,
-                            colorScale
-                        );
-                    }
-
-                    // TODO
-                    legend.items.forEach(item => {
-                        item.radius = eventPointRadius || EVENT_RADIUS;
-                        item.count = 0;
-                    });
-
-                    const getLegendItem = curry(getLegendItemForValue)(
-                        legend.items
-                    );
-
-                    data.forEach(feature => {
-                        const item = getLegendItem(
-                            Number(feature.properties.value)
-                        );
-                        item.count++;
-                        feature.properties.color = item.color;
-                    });
-                } else if (styleByOptionSet) {
-                    data.forEach(feature => {
-                        feature.properties.color =
-                            styleDataItem.optionSet.options[
-                                feature.properties.value
-                            ];
-                    });
-                    legend.items = getCategoryLegendItems(
-                        styleDataItem.optionSet.options,
-                        eventPointRadius || EVENT_RADIUS
-                    );
-                }
+                legend.unit = styleDataItem.name; // TODO
 
                 legend.items.push({
                     name: i18n.t('Not set'),
                     color: eventPointColor || EVENT_COLOR,
                     radius: eventPointRadius || EVENT_RADIUS,
                 });
-                */
             } else {
                 // Simple style
                 legend.items = [
