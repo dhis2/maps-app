@@ -79,7 +79,7 @@ const eventLoader = async config => {
             header => header.optionSet
         );
 
-        // Load option sets used for filtering/styling
+        // Load option sets used for filtering/styling - TODO: styleDataItem option set is loaded twice
         if (optionSetHeaders.length) {
             await Promise.all(
                 optionSetHeaders.map(header =>
@@ -114,8 +114,7 @@ const eventLoader = async config => {
 
                 data = style.getData(data);
                 legend.items = style.getLegendItems();
-
-                legend.unit = styleDataItem.name; // TODO
+                legend.unit = style.getName();
 
                 legend.items.push({
                     name: i18n.t('Not set'),
@@ -142,6 +141,8 @@ const eventLoader = async config => {
     }
 
     legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
+
+    // console.log('Stored styleDataItem', config.styleDataItem);
 
     return {
         ...config,

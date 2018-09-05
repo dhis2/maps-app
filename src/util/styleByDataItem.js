@@ -25,11 +25,14 @@ export const styleByNumeric = async (styleDataItem, config) => {
     let legendItems;
 
     if (method === CLASSIFICATION_PREDEFINED) {
+        console.log('legendSet', legendSet);
         const legendSetFull = await loadLegendSet(legendSet);
         name = legendSetFull.name;
         legendItems = getPredefinedLegendItems(legendSetFull);
     } else {
-        name = await getDataElementName(styleDataItem.id);
+        console.log('name', styleDataItem.name);
+        name =
+            styleDataItem.name || (await getDataElementName(styleDataItem.id));
     }
 
     return {
@@ -82,9 +85,24 @@ export const styleByNumeric = async (styleDataItem, config) => {
 };
 
 export const styleByOptionSet = async (styleDataItem, config = {}) => {
-    const styleOptions = styleDataItem.optionSet.options;
-    const optionSet = await getOptionSet(styleDataItem.optionSet.id);
-    const options = optionSet.options.reduce((obj, option) => {
+    const id = styleDataItem.id;
+    const optionSet = styleDataItem.optionSet;
+
+    // True if optionSet is from a favorite
+    // TODO: We should not modify styleDataItem directly
+    if (!optionSet.name) {
+        const fullOptionSet = await getOptionSet(optionSet.id);
+        optionSet.name = fullOptionSet.name;
+        styleDataItem.name = optionSet.name; // Used in popup
+
+        optionSet.options = optionSet.options.map(option => ({
+            ...fullOptionSet.options.find(opt => opt.id === option.id),
+            ...option,
+        }));
+    }
+
+    // For easier and faster lookup below
+    const optionsByCode = optionSet.options.reduce((obj, option) => {
         obj[option.code] = option;
         return obj;
     }, {});
@@ -96,7 +114,7 @@ export const styleByOptionSet = async (styleDataItem, config = {}) => {
         // Returns data features with value and color properties
         getData(data) {
             return data.map(feature => {
-                const option = options[feature.properties[styleDataItem.id]];
+                const option = optionsByCode[feature.properties[id]];
 
                 if (!option) {
                     return feature;
@@ -107,7 +125,7 @@ export const styleByOptionSet = async (styleDataItem, config = {}) => {
                     properties: {
                         ...feature.properties,
                         value: option.name,
-                        color: styleOptions[option.id],
+                        color: option.style.color,
                     },
                 };
             });
@@ -116,7 +134,7 @@ export const styleByOptionSet = async (styleDataItem, config = {}) => {
         getLegendItems() {
             return optionSet.options.map(option => ({
                 name: option.name,
-                color: styleOptions[option.id],
+                color: option.style.color,
                 radius: config.eventPointRadius || EVENT_RADIUS,
             }));
         },

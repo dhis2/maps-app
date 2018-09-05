@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import OptionStyle from './OptionStyle';
@@ -26,6 +27,14 @@ const style = {
 };
 
 class OptionSetStyle extends Component {
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        options: PropTypes.array,
+        optionSet: PropTypes.object,
+        loadOptionSet: PropTypes.func.isRequired,
+        setStyleOptions: PropTypes.func.isRequired,
+    };
+
     componentDidMount() {
         if (!this.props.options) {
             this.setOptions();
@@ -44,33 +53,46 @@ class OptionSetStyle extends Component {
         if (!optionSet) {
             loadOptionSet(id);
         } else {
-            const byId = optionSet.options.reduce((obj, { id }, index) => {
-                obj[id] = colors[index] || '#ffffff';
-                return obj;
-            }, {});
-
-            setStyleOptions(byId);
+            setStyleOptions(
+                optionSet.options.map((option, index) => ({
+                    ...option,
+                    style: {
+                        color: option.style
+                            ? option.style.color
+                            : colors[index] || '#ffffff',
+                    },
+                }))
+            );
         }
     }
 
     onChange(id, color) {
-        const options = { ...this.props.options };
-        options[id] = color;
-
-        this.props.setStyleOptions(options);
+        this.props.setStyleOptions(
+            this.props.options.map(option => {
+                if (option.id === id) {
+                    return {
+                        ...option,
+                        style: {
+                            color,
+                        },
+                    };
+                }
+                return option;
+            })
+        );
     }
 
     render() {
-        const { options, optionSet } = this.props;
+        const { options } = this.props;
 
         return (
             <div style={style}>
-                {optionSet && options ? (
-                    optionSet.options.map(({ id, name }) => (
+                {options ? (
+                    options.map(({ id, name, style }) => (
                         <OptionStyle
                             key={id}
                             name={name}
-                            color={options[id]}
+                            color={style.color}
                             onChange={color => this.onChange(id, color)}
                         />
                     ))

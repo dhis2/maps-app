@@ -1,4 +1,4 @@
-import { isNil, omitBy, pick, isObject } from 'lodash/fp';
+import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { generateUid } from 'd2/lib/uid';
 import { createAlert } from '../util/alerts';
 
@@ -59,19 +59,7 @@ const validLayerProperties = [
     'valueType',
 ];
 
-// TODO:
-//  "hidden": false,
-//  "userOrganisationUnit": false,
-//  "userOrganisationUnitChildren": false,
-//  "userOrganisationUnitGrandChildren": false,
-//  "parentGraphMap": null,
-
-const models = [
-    // TODO: Better way to translate models to pure object?
-    'program',
-    'programStage',
-    'organisationUnitGroupSet',
-];
+const models = ['program', 'programStage', 'organisationUnitGroupSet'];
 
 const validModelProperties = [
     'id',
@@ -80,7 +68,6 @@ const validModelProperties = [
     'dimensionItemType',
 ];
 
-// TODO: Set hidden attribute
 export const cleanMapConfig = config => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
     basemap: getBasemapString(config.basemap),
@@ -132,7 +119,22 @@ const models2objects = config => {
         config.config = JSON.stringify(config.config); // External overlay
     }
 
-    console.log('config', config);
+    if (config.styleDataItem) {
+        // Remove legendSet from styleDataItem as this is stored in a separate property
+        // Remove names as these can be translated and will be fetched on layer load
+        config.styleDataItem = omit(
+            ['legendSet', 'name', 'optionSet.name'],
+            config.styleDataItem
+        );
+
+        if (config.styleDataItem.optionSet) {
+            // Remove name and code from options as these are not persistent
+            config.styleDataItem.optionSet.options.forEach(option => {
+                delete option.name;
+                delete option.code;
+            });
+        }
+    }
 
     return config;
 };

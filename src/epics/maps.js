@@ -19,7 +19,6 @@ export const loadFavorite = action$ =>
         )
         .mergeMap(config => [
             setMap(config),
-            // ...config.mapViews.map(loadLayer),
             ...addOrgUnitPaths(config.mapViews).map(loadLayer),
         ]);
 
