@@ -17,7 +17,8 @@ import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
 // Returns a promise
-const eventLoader = async config => {
+const eventLoader = async layerConfig => {
+    const config = { ...layerConfig };
     const {
         columns,
         endDate,
@@ -54,24 +55,24 @@ const eventLoader = async config => {
         relativePeriodDate
     );
 
-    const legend = {
+    config.name = programStage.name;
+
+    config.legend = {
         period: period
             ? getPeriodNameFromId(period.id)
             : `${formatTime(startDate)} - ${formatTime(endDate)}`,
+        items: [],
     };
 
-    let bounds;
-    let serverCluster;
-    let data;
     let names;
 
     if (spatialSupport && eventClustering) {
         const response = await d2.analytics.events.getCount(analyticsRequest);
-        bounds = getBounds(response.extent);
-        serverCluster = useServerCluster(response.count);
+        config.bounds = getBounds(response.extent);
+        config.serverCluster = useServerCluster(response.count);
     }
 
-    if (!serverCluster) {
+    if (!config.serverCluster) {
         const response = await d2.analytics.events.getQuery(analyticsRequest);
 
         names = getApiResponseNames(response);
@@ -97,7 +98,7 @@ const eventLoader = async config => {
             );
         }
 
-        data = response.rows
+        config.data = response.rows
             .map(row =>
                 createEventFeature(
                     response.headers,
@@ -108,22 +109,11 @@ const eventLoader = async config => {
             )
             .filter(feature => isValidCoordinate(feature.geometry.coordinates));
 
-        if (Array.isArray(data) && data.length) {
+        if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
-                const style = await styleByDataItem(styleDataItem, config);
-
-                data = style.getData(data);
-                legend.items = style.getLegendItems();
-                legend.unit = style.getName();
-
-                legend.items.push({
-                    name: i18n.t('Not set'),
-                    color: eventPointColor || EVENT_COLOR,
-                    radius: eventPointRadius || EVENT_RADIUS,
-                });
+                await styleByDataItem(config);
             } else {
-                // Simple style
-                legend.items = [
+                config.legend.items = [
                     {
                         name: i18n.t('Event'),
                         color: eventPointColor || EVENT_COLOR,
@@ -133,28 +123,20 @@ const eventLoader = async config => {
             }
 
             if (areaRadius) {
-                legend.items.forEach(
+                config.legend.items.forEach(
                     item => (item.name += ` + ${areaRadius} ${'m'} ${'buffer'}`)
                 );
             }
         }
     }
 
-    legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
+    config.legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
 
-    // console.log('Stored styleDataItem', config.styleDataItem);
+    config.isLoaded = true;
+    config.isExpanded = true;
+    config.isVisible = true;
 
-    return {
-        ...config,
-        name: programStage.name,
-        legend,
-        data,
-        bounds,
-        serverCluster,
-        isLoaded: true,
-        isExpanded: true,
-        isVisible: true,
-    };
+    return config;
 };
 
 const getBounds = bbox => {

@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { curry } from 'lodash/fp';
 import { getLegendItemForValue } from '../util/classify';
@@ -6,100 +7,111 @@ import {
     getAutomaticLegendItems,
     getPredefinedLegendItems,
 } from '../util/legend';
-import { EVENT_RADIUS, CLASSIFICATION_PREDEFINED } from '../constants/layers';
+import {
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    CLASSIFICATION_PREDEFINED,
+} from '../constants/layers';
 
-export const styleByDataItem = async (styleDataItem, config) => {
+// "Style by data item" handling for event layer
+// Can be reused for TEI layer when the Web API is improved
+// This function is modifiyng the config object before it's added to the redux store
+export const styleByDataItem = async config => {
+    const { styleDataItem } = config;
+
     // TODO: Support more numeric fields
     if (styleDataItem.valueType === 'INTEGER') {
-        return styleByNumeric(styleDataItem, config);
+        await styleByNumeric(config);
     } else if (styleDataItem.optionSet) {
-        return styleByOptionSet(styleDataItem, config);
+        await styleByOptionSet(config);
     }
 
-    return null; // Should never return here
+    config.legend.items.push({
+        name: i18n.t('Not set'),
+        color: config.eventPointColor || EVENT_COLOR,
+        radius: config.eventPointRadius || EVENT_RADIUS,
+    });
+
+    return config;
 };
 
-export const styleByNumeric = async (styleDataItem, config) => {
-    const { method, classes, colorScale, legendSet, eventPointRadius } = config;
-    let name;
-    let legendItems;
+export const styleByNumeric = async config => {
+    const {
+        styleDataItem,
+        method,
+        classes,
+        colorScale,
+        eventPointRadius,
+        data,
+    } = config;
 
+    // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
-        console.log('legendSet', legendSet);
-        const legendSetFull = await loadLegendSet(legendSet);
-        name = legendSetFull.name;
-        legendItems = getPredefinedLegendItems(legendSetFull);
+        // Load legend set from server
+        const legendSet = await loadLegendSet(config.legendSet);
+
+        // Use legend set name and legend unit
+        config.legend.unit = legendSet.name;
+
+        // Generate legend items from legendSet
+        config.legend.items = getPredefinedLegendItems(legendSet);
     } else {
-        console.log('name', styleDataItem.name);
-        name =
+        // Create array of sorted values needed for classification
+        const sortedValues = data
+            .map(feature => Number(feature.properties[styleDataItem.id]))
+            .sort((a, b) => a - b);
+
+        // Use data item name as legend unit (load from server if needed)
+        config.legend.unit =
             styleDataItem.name || (await getDataElementName(styleDataItem.id));
+
+        // Generate legend items based on layer config
+        config.legend.items = getAutomaticLegendItems(
+            sortedValues,
+            method,
+            classes,
+            colorScale
+        );
     }
 
-    return {
-        getName() {
-            return name;
-        },
-        getData(data) {
-            if (method !== CLASSIFICATION_PREDEFINED) {
-                const sortedValues = data
-                    .map(feature =>
-                        Number(feature.properties[styleDataItem.id])
-                    )
-                    .sort((a, b) => a - b);
+    // Add radius and count to each legend item
+    config.legend.items.forEach(item => {
+        item.radius = eventPointRadius || EVENT_RADIUS;
+        item.count = 0;
+    });
 
-                legendItems = getAutomaticLegendItems(
-                    sortedValues,
-                    method,
-                    classes,
-                    colorScale
-                );
-            }
+    // Helper function to get legend item for data value
+    const getLegendItem = curry(getLegendItemForValue)(config.legend.items);
 
-            legendItems.forEach(item => {
-                item.radius = eventPointRadius || EVENT_RADIUS;
-                item.count = 0;
-            });
+    // Add style data value and color to each feature
+    config.data = config.data.map(feature => {
+        const value = Number(feature.properties[styleDataItem.id]);
+        const legendItem = getLegendItem(value);
 
-            const getLegendItem = curry(getLegendItemForValue)(legendItems);
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                value,
+                color: legendItem ? legendItem.color : null,
+            },
+        };
+    });
 
-            return data.map(feature => {
-                const value = Number(feature.properties[styleDataItem.id]);
-                const legendItem = getLegendItem(value);
-
-                return {
-                    ...feature,
-                    properties: {
-                        ...feature.properties,
-                        value,
-                        color: legendItem ? legendItem.color : null,
-                    },
-                };
-            });
-        },
-
-        // Returns empty array if called before getData for automtic legends
-        getLegendItems() {
-            return legendItems || [];
-        },
-    };
+    return config;
 };
 
-export const styleByOptionSet = async (styleDataItem, config = {}) => {
+export const styleByOptionSet = async config => {
+    const { styleDataItem } = config;
+    const optionSet = await getOptionSet(styleDataItem.optionSet);
     const id = styleDataItem.id;
-    const optionSet = styleDataItem.optionSet;
 
-    // True if optionSet is from a favorite
-    // TODO: We should not modify styleDataItem directly
-    if (!optionSet.name) {
-        const fullOptionSet = await getOptionSet(optionSet.id);
-        optionSet.name = fullOptionSet.name;
-        styleDataItem.name = optionSet.name; // Used in popup
-
-        optionSet.options = optionSet.options.map(option => ({
-            ...fullOptionSet.options.find(opt => opt.id === option.id),
-            ...option,
-        }));
-    }
+    // Replace styleDataItem with a version with names
+    config.styleDataItem = {
+        ...styleDataItem,
+        name: optionSet.name,
+        optionSet,
+    };
 
     // For easier and faster lookup below
     const optionsByCode = optionSet.options.reduce((obj, option) => {
@@ -107,50 +119,62 @@ export const styleByOptionSet = async (styleDataItem, config = {}) => {
         return obj;
     }, {});
 
-    return {
-        getName() {
-            return optionSet.name;
-        },
-        // Returns data features with value and color properties
-        getData(data) {
-            return data.map(feature => {
-                const option = optionsByCode[feature.properties[id]];
+    // Add style data value and color to each feature
+    config.data = config.data.map(feature => {
+        const option = optionsByCode[feature.properties[id]];
 
-                if (!option) {
-                    return feature;
-                }
+        if (!option) {
+            return feature;
+        }
 
-                return {
-                    ...feature,
-                    properties: {
-                        ...feature.properties,
-                        value: option.name,
-                        color: option.style.color,
-                    },
-                };
-            });
-        },
-        // Returns legend items
-        getLegendItems() {
-            return optionSet.options.map(option => ({
-                name: option.name,
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                value: option.name,
                 color: option.style.color,
-                radius: config.eventPointRadius || EVENT_RADIUS,
-            }));
-        },
-    };
+            },
+        };
+    });
+
+    // Add legend data
+    config.legend.unit = optionSet.name;
+    config.legend.items = optionSet.options.map(option => ({
+        name: option.name,
+        color: option.style.color,
+        radius: config.eventPointRadius || EVENT_RADIUS,
+    }));
+
+    return config;
 };
 
-// TODO: Move to other file?
-export const getOptionSet = async id => {
+// The style option set included in a favorite is stripped for names
+// and this function add the names if needed
+const getOptionSet = async optionSet => {
+    // Return unmodified option set if names are included
+    if (optionSet.name) {
+        return optionSet;
+    }
+
+    // Load option set from server
     const d2 = await getD2();
-    return d2.models.optionSet.get(id, {
+    const optSet = await d2.models.optionSet.get(optionSet.id, {
         fields:
             'displayName~rename(name),options[id,code,displayName~rename(name)]',
     });
+
+    // Return modified option set with names and codes
+    return {
+        ...optionSet,
+        name: optSet.name,
+        options: optionSet.options.map(option => ({
+            ...optSet.options.find(opt => opt.id === option.id),
+            ...option,
+        })),
+    };
 };
 
-export const getDataElementName = async id => {
+const getDataElementName = async id => {
     const d2 = await getD2();
     return d2.models.dataElement
         .get(id, {
