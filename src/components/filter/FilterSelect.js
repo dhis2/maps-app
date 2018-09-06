@@ -8,6 +8,7 @@ import Checkbox from 'material-ui/Checkbox';
 import OptionSetSelect from '../optionSet/OptionSetSelect';
 import DatePicker from '../d2-ui/DatePicker';
 import { loadOptionSet } from '../../actions/optionSets';
+import { numberValueTypes, textValueTypes } from '../../constants/valueTypes';
 
 const styles = {
     operator: {
@@ -32,36 +33,6 @@ const styles = {
         top: -8,
     },
 };
-
-// https://react.rocks/example/react-redux-test
-// https://docs.dhis2.org/master/en/developer/html/webapi_metadata_object_filter.html
-
-/* Value Types: https://play.dhis2.org/demo/api/schemas/dataElement
-- TEXT
-- LONG_TEXT
-- LETTER
-- PHONE_NUMBER
-- EMAIL
-- BOOLEAN
-- TRUE_ONLY
-- DATE
-- DATETIME
-- TIME
-- NUMBER
-- UNIT_INTERVAL
-- PERCENTAGE
-- INTEGER
-- INTEGER_POSITIVE
-- INTEGER_NEGATIVE
-- INTEGER_ZERO_OR_POSITIVE
-- TRACKER_ASSOCIATE
-- USERNAME
-- FILE_RESOURCE
-- COORDINATE
-- ORGANISATION_UNIT
-- AGE
-- URL
-*/
 
 export class FilterSelect extends Component {
     static propTypes = {
@@ -126,28 +97,24 @@ export class FilterSelect extends Component {
                     style={styles.textField}
                 />
             ) : null,
-            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE'].includes(valueType) ? (
+            numberValueTypes.includes(valueType) ? (
                 <TextField
                     id="number"
                     key="number"
-                    // label={i18n.t('Value')}
                     floatingLabelText={i18n.t('Value')}
                     type="number"
                     value={value !== undefined ? value : ''}
-                    // onChange={newValue => onChange(`${operator}:${newValue}`)}
                     onChange={(evt, newValue) =>
                         onChange(`${operator}:${newValue}`)
                     }
                     style={styles.textField}
                 />
             ) : null,
-            ['TEXT', 'LONG_TEXT'].includes(valueType) && !optionSet ? (
+            textValueTypes.includes(valueType) && !optionSet ? (
                 <TextField
                     key="text"
-                    // label={i18n.t('Value')}
                     floatingLabelText={i18n.t('Value')}
                     value={value || ''}
-                    // onChange={newValue => onChange(`${operator}:${newValue}`)}
                     onChange={(evt, newValue) =>
                         onChange(`${operator}:${newValue}`)
                     }
@@ -199,7 +166,7 @@ export class FilterSelect extends Component {
                 { id: 'IN', name: i18n.t('one of') },
                 { id: '!IN', name: i18n.t('not one of') },
             ];
-        } else if (['TEXT', 'LONG_TEXT'].includes(valueType)) {
+        } else if (textValueTypes.includes(valueType)) {
             operators = [
                 { id: 'LIKE', name: i18n.t('contains') },
                 { id: '!LIKE', name: i18n.t("doesn't contains") },

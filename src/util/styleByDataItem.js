@@ -12,6 +12,7 @@ import {
     EVENT_RADIUS,
     CLASSIFICATION_PREDEFINED,
 } from '../constants/layers';
+import { numberValueTypes } from '../constants/valueTypes';
 
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved
@@ -19,8 +20,7 @@ import {
 export const styleByDataItem = async config => {
     const { styleDataItem } = config;
 
-    // TODO: Support more numeric fields
-    if (styleDataItem.valueType === 'INTEGER') {
+    if (numberValueTypes.includes(styleDataItem.valueType)) {
         await styleByNumeric(config);
     } else if (styleDataItem.optionSet) {
         await styleByOptionSet(config);

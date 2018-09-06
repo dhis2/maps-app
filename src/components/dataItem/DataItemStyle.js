@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import BooleanStyle from './BooleanStyle';
 import OptionSetStyle from '../optionSet/OptionSetStyle';
 import NumericLegendStyle from '../classification/NumericLegendStyle';
-
-const numberTypes = ['NUMBER', 'INTEGER', 'AGE']; // TODO: Why value type AGE (TEI-Persopn-TB program)?
+import { numberValueTypes } from '../../constants/valueTypes';
 
 const DataItemStyle = ({ dataItem, style }) => {
     if (!dataItem) {
@@ -15,7 +14,7 @@ const DataItemStyle = ({ dataItem, style }) => {
 
     return (
         <div style={style}>
-            {numberTypes.includes(valueType) ? (
+            {numberValueTypes.includes(valueType) ? (
                 <NumericLegendStyle
                     dataItem={dataItem}
                     style={{ width: '100%' }}
