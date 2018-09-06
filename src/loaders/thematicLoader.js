@@ -6,6 +6,7 @@ import { dimConf } from '../constants/dimension';
 import { getLegendItemForValue } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
 import {
+    loadLegendSet,
     loadDataItemLegendSet,
     getPredefinedLegendItems,
     getAutomaticLegendItems,
@@ -40,7 +41,9 @@ const thematicLoader = async config => {
         legendSet = await loadDataItemLegendSet(dataItem);
     }
 
-    console.log('legendSet', legendSet);
+    if (legendSet) {
+        legendSet = await loadLegendSet(legendSet);
+    }
 
     const legend = {
         title: name,
