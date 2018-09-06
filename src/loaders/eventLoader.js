@@ -76,27 +76,6 @@ const eventLoader = async layerConfig => {
         const response = await d2.analytics.events.getQuery(analyticsRequest);
 
         names = getApiResponseNames(response);
-        const optionSetHeaders = response.headers.filter(
-            header => header.optionSet
-        );
-
-        // Load option sets used for filtering/styling - TODO: styleDataItem option set is loaded twice
-        if (optionSetHeaders.length) {
-            await Promise.all(
-                optionSetHeaders.map(header =>
-                    d2.models.optionSets
-                        .get(header.optionSet, {
-                            fields: 'id,options[code,displayName~rename(name)]',
-                        })
-                        .then(model => model.options)
-                        .then(options =>
-                            options.forEach(
-                                ({ code, name }) => (names[code] = name)
-                            )
-                        )
-                )
-            );
-        }
 
         config.data = response.rows
             .map(row =>
@@ -128,9 +107,14 @@ const eventLoader = async layerConfig => {
                 );
             }
         }
-    }
 
-    config.legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
+        config.legend.filters =
+            dataFilters &&
+            getFiltersAsText(dataFilters, {
+                ...names,
+                ...(await getFilterOptionNames(dataFilters, response.headers)),
+            });
+    }
 
     config.isLoaded = true;
     config.isExpanded = true;
@@ -252,6 +236,41 @@ const createEventFeature = (headers, names, event, eventCoordinateField) => {
             coordinates: coordinates.map(parseFloat),
         },
     };
+};
+
+// If the layer included filters using option sets, this function return an object
+// mapping option codes to named used to translate codes in the legend
+const getFilterOptionNames = async (filters, headers) => {
+    const d2 = await getD2();
+
+    if (!filters) {
+        return null;
+    }
+
+    // Returns array of option set ids used for filtering
+    const optionSets = filters
+        .map(filter => headers.find(header => header.name === filter.dimension))
+        .filter(header => header.optionSet)
+        .map(header => header.optionSet);
+
+    // Returns one object with all option codes mapped to names
+    return Object.assign(
+        ...(await Promise.all(
+            optionSets.map(id =>
+                d2.models.optionSets
+                    .get(id, {
+                        fields: 'options[code,displayName~rename(name)]',
+                    })
+                    .then(model => model.options)
+                    .then(options =>
+                        options.reduce((obj, { code, name }) => {
+                            obj[code] = name;
+                            return obj;
+                        }, {})
+                    )
+            )
+        ))
+    );
 };
 
 export default eventLoader;
