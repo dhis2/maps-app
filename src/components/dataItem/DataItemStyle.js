@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import BooleanStyle from './BooleanStyle';
 import OptionSetStyle from '../optionSet/OptionSetStyle';
 import NumericLegendStyle from '../classification/NumericLegendStyle';
-import { numberValueTypes } from '../../constants/valueTypes';
+import {
+    numberValueTypes,
+    booleanValueTypes,
+} from '../../constants/valueTypes';
 
 const DataItemStyle = ({ dataItem, style }) => {
     if (!dataItem) {
@@ -21,7 +24,9 @@ const DataItemStyle = ({ dataItem, style }) => {
                 />
             ) : null}
 
-            {valueType === 'BOOLEAN' ? <BooleanStyle /> : null}
+            {booleanValueTypes.includes(valueType) ? (
+                <BooleanStyle {...dataItem} />
+            ) : null}
 
             {optionSet ? <OptionSetStyle {...optionSet} /> : null}
         </div>

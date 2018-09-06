@@ -193,6 +193,30 @@ const layerEdit = (state = null, action) => {
 
             return newState;
 
+        case types.LAYER_EDIT_STYLE_DATA_ITEM_BOOLEAN_SET:
+            console.log(
+                'LAYER_EDIT_STYLE_DATA_ITEM_OPTIONS_SET',
+                action.value,
+                action.color
+            );
+
+            newState = {
+                ...state,
+                styleDataItem: {
+                    ...state.styleDataItem,
+                    values: {
+                        ...state.styleDataItem.values,
+                        [action.value]: action.color,
+                    },
+                },
+            };
+
+            delete newState.method;
+            delete newState.classes;
+            delete newState.colorScale;
+
+            return newState;
+
         case types.LAYER_EDIT_CLASSIFICATION_SET:
             newState = {
                 ...state,
@@ -207,8 +231,6 @@ const layerEdit = (state = null, action) => {
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet;
             }
-
-            // console.log(action.method, newState);
 
             return newState;
 

@@ -56,9 +56,15 @@ export const setStyleDataItem = dataItem => ({
 });
 
 // Set options for style data element with option set (options are loaded separately) (event layer)
-export const setStyleOptions = options => ({
+export const setOptionStyle = options => ({
     type: types.LAYER_EDIT_STYLE_DATA_ITEM_OPTIONS_SET,
     options,
+});
+
+export const setBooleanStyle = (value, color) => ({
+    type: types.LAYER_EDIT_STYLE_DATA_ITEM_BOOLEAN_SET,
+    value,
+    color,
 });
 
 // Set classification style (method, classes, colorScale)

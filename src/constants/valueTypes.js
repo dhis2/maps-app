@@ -23,3 +23,6 @@ export const textValueTypes = [
     'TEXT',
     'USERNAME',
 ];
+
+// Boolean value types
+export const booleanValueTypes = ['BOOLEAN', 'TRUE_ONLY'];

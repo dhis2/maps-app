@@ -4,23 +4,8 @@ import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import OptionStyle from './OptionStyle';
 import { loadOptionSet } from '../../actions/optionSets';
-import { setStyleOptions } from '../../actions/layerEdit';
-
-// From ColorBrewer
-const colors = [
-    '#a6cee3',
-    '#1f78b4',
-    '#b2df8a',
-    '#33a02c',
-    '#fb9a99',
-    '#e31a1c',
-    '#fdbf6f',
-    '#ff7f00',
-    '#cab2d6',
-    '#6a3d9a',
-    '#ffff99',
-    '#b15928',
-];
+import { setOptionStyle } from '../../actions/layerEdit';
+import { qualitativeColors } from '../../constants/colors';
 
 const style = {
     marginTop: 20,
@@ -32,7 +17,7 @@ class OptionSetStyle extends Component {
         options: PropTypes.array,
         optionSet: PropTypes.object,
         loadOptionSet: PropTypes.func.isRequired,
-        setStyleOptions: PropTypes.func.isRequired,
+        setOptionStyle: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
@@ -48,18 +33,18 @@ class OptionSetStyle extends Component {
     }
 
     setOptions() {
-        const { id, optionSet, loadOptionSet, setStyleOptions } = this.props;
+        const { id, optionSet, loadOptionSet, setOptionStyle } = this.props;
 
         if (!optionSet) {
             loadOptionSet(id);
         } else {
-            setStyleOptions(
+            setOptionStyle(
                 optionSet.options.map((option, index) => ({
                     ...option,
                     style: {
                         color: option.style
                             ? option.style.color
-                            : colors[index] || '#ffffff',
+                            : qualitativeColors[index] || '#ffffff',
                     },
                 }))
             );
@@ -67,7 +52,7 @@ class OptionSetStyle extends Component {
     }
 
     onChange(id, color) {
-        this.props.setStyleOptions(
+        this.props.setOptionStyle(
             this.props.options.map(option => {
                 if (option.id === id) {
                     return {
@@ -108,5 +93,5 @@ export default connect(
     (state, props) => ({
         optionSet: state.optionSets[props.id],
     }),
-    { loadOptionSet, setStyleOptions }
+    { loadOptionSet, setOptionStyle }
 )(OptionSetStyle);
