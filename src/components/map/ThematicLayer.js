@@ -37,8 +37,6 @@ class ThematicLayer extends Layer {
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
-        console.log('#', this, this.getHtmlLegend, this.testing);
-
         if (isPlugin && legend) {
             map.legend = (map.legend || '') + this.getHtmlLegend(legend); // TODO: Better way to assemble the legend?
         }
