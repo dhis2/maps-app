@@ -3,9 +3,6 @@ import * as types from '../constants/actionTypes';
 import {
     setFiltersFromPeriod,
     setDataItemInColumns,
-    setIndicatorInColumns,
-    setReportingRateInColumns,
-    setEventDataItemInColumns,
     addOrgUnitLevelsToRows,
     addOrgUnitGroupsToRows,
     addUserOrgUnitsToRows,
@@ -194,12 +191,6 @@ const layerEdit = (state = null, action) => {
             return newState;
 
         case types.LAYER_EDIT_STYLE_DATA_ITEM_BOOLEAN_SET:
-            console.log(
-                'LAYER_EDIT_STYLE_DATA_ITEM_OPTIONS_SET',
-                action.value,
-                action.color
-            );
-
             newState = {
                 ...state,
                 styleDataItem: {

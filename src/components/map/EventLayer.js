@@ -189,7 +189,7 @@ class EventLayer extends Layer {
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
                 content += `<tr><th>${styleDataItem.name}</th><td>${
-                    props[styleDataItem.id]
+                    props.value
                 }</td></tr>`;
             }
 

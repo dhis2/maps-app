@@ -20,11 +20,13 @@ import { numberValueTypes } from '../constants/valueTypes';
 export const styleByDataItem = async config => {
     const { styleDataItem } = config;
 
-    if (numberValueTypes.includes(styleDataItem.valueType)) {
-        await styleByNumeric(config);
-    } else if (styleDataItem.optionSet) {
+    if (styleDataItem.optionSet) {
         await styleByOptionSet(config);
-    }
+    } else if (numberValueTypes.includes(styleDataItem.valueType)) {
+        await styleByNumeric(config);
+    } else if (styleDataItem.valueType === 'BOOLEAN') {
+        await styleByBoolean(config);
+    }    
 
     config.legend.items.push({
         name: i18n.t('Not set'),
@@ -34,6 +36,48 @@ export const styleByDataItem = async config => {
 
     return config;
 };
+
+
+export const styleByBoolean = async config => {
+    const { styleDataItem, data, legend, eventPointRadius } = config;
+    const { id, name, values } = styleDataItem;
+
+    config.data = data.map(feature => {
+        const value = feature.properties[id] || '0';
+
+        if (!value) {
+            return feature;
+        }        
+
+        // TODO: Not sure if return values are '1' and '0'
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                value: value === '1' ? i18n.t('Yes') : i18n.t('No'),
+                color: value === '1' ? values.true : values.false,
+            },
+        }
+    });
+
+    legend.unit = name || (await getDataElementName(id));
+
+    legend.items = [{
+        name: i18n.t('Yes'),
+        color: values.true,
+        radius: eventPointRadius || EVENT_RADIUS,
+    }];    
+
+    if (values.false) {
+        legend.items.push({
+            name: i18n.t('No'),
+            color: values.false,
+            radius: eventPointRadius || EVENT_RADIUS,
+        });     
+    }
+
+    return config;
+}
 
 export const styleByNumeric = async config => {
     const {
