@@ -48,6 +48,9 @@ class FilterRow extends Component {
 
     onChange(dimension, filter) {
         const { index, dataItems, onChange } = this.props;
+        const dataItem = dataItems.filter(d => d.id === dimension);
+        // console.log(dataItem, dataItems);
+
         const name = dataItems.filter(d => d.id === dimension)[0].name;
 
         if (dimension !== this.props.dimension) {
@@ -85,10 +88,15 @@ class FilterRow extends Component {
         return (
             <div style={styles.container}>
                 <DataItemSelect
-                    items={dataItems}
+                    // items={dataItems}
                     value={dimension || null}
                     program={program}
                     programStage={programStage}
+                    excludeTypes={[
+                        'FILE_RESOURCE',
+                        'ORGANISATION_UNIT',
+                        'COORDINATE',
+                    ]}
                     onChange={dataItem => this.onChange(dataItem.id, filter)}
                     style={styles.select}
                 />
