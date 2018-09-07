@@ -2,6 +2,7 @@ import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
 class ThematicLayer extends Layer {
+
     createLayer(callback) {
         const {
             id,
@@ -36,6 +37,8 @@ class ThematicLayer extends Layer {
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
+        console.log('#', this, this.getHtmlLegend, this.testing);
+
         if (isPlugin && legend) {
             map.legend = (map.legend || '') + this.getHtmlLegend(legend); // TODO: Better way to assemble the legend?
         }
@@ -49,8 +52,8 @@ class ThematicLayer extends Layer {
     }
 
     // Used for legend in map plugins
-    getHtmlLegend = ({ title, period, items }) => `
-        <div class="dhis2-legend">
+    getHtmlLegend({ title, period, items }) {
+        return `<div class="dhis2-legend">
             <h2>${title}</h2>
             <span>${period}</span>
             <dl class="dhis2-legend-automatic">
@@ -68,6 +71,7 @@ class ThematicLayer extends Layer {
                     .join('')}
             </dl>
         </div>`;
+    }
 
     onFeatureClick(evt) {
         const { name, value } = evt.layer.feature.properties;
