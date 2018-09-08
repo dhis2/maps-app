@@ -69,7 +69,7 @@ const eventLoader = async layerConfig => {
     if (spatialSupport && eventClustering) {
         const response = await d2.analytics.events.getCount(analyticsRequest);
         config.bounds = getBounds(response.extent);
-        config.serverCluster = useServerCluster(response.count);
+        config.serverCluster = useServerCluster(response.count) && !styleDataItem;
     }
 
     if (!config.serverCluster) {
