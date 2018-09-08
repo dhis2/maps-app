@@ -2,45 +2,36 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Button from 'material-ui/FlatButton'; // TODO: Support buttons with uppercase in d2-ui
-import AddCircle from 'material-ui/svg-icons/content/add-circle-outline';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import AddCircleIcon from '@material-ui/icons/AddCircleOutline';
 import AddLayerPopover from './AddLayerPopover';
 import { openLayersDialog } from '../../../actions/layers';
 import { LAYERS_PANEL_WIDTH } from '../../../constants/layout';
 
-const styles = {
+const styles = theme => ({
     button: {
-        color: '#333',
-        height: 40,
-        margin: 0,
-        padding: '4px 16px 0 16px',
-        minWidth: 50,
-    },
-    addLayer: {
-        position: 'relative',
         boxSizing: 'border-box',
         width: LAYERS_PANEL_WIDTH + 1,
         borderRight: '1px solid #ddd',
-        textAlign: 'left',
-        paddingLeft: 48,
+        paddingLeft: 18,
+    }, 
+    label: {
+        textTransform: 'none',
+        fontSize: 16,
+        fontWeight: 'normal',
+        color: '#333',
+        justifyContent: 'initial',
     },
-    addCircle: {
-        position: 'absolute',
-        top: 8,
-        left: 18,
-        fill: '#333',
-    },
-    dropDown: {
-        position: 'absolute',
-        top: 8,
-        right: 8,
-        fill: '#333',
-    },
-};
+    icon: {
+        marginRight: 8,
+    }
+});
 
 export class AddLayer extends Component {
     static propTypes = {
         openLayersDialog: PropTypes.func.isRequired,
+        classes: PropTypes.object.isRequired,
     };
 
     constructor(props) {
@@ -57,13 +48,18 @@ export class AddLayer extends Component {
     };
 
     render() {
+        const { classes } = this.props;
+
         return [
             <Button
                 key="button"
                 onClick={event => this.handleClick(event)}
-                style={{ ...styles.button, ...styles.addLayer }}
+                classes={{
+                    root: classes.button,
+                    label: classes.label
+                }}
             >
-                <AddCircle style={styles.addCircle} /> {i18n.t('Add layer')}
+                <AddCircleIcon className={classes.icon} /> {i18n.t('Add layer')}
             </Button>,
             <AddLayerPopover key="popover" anchorEl={this.state.anchorEl} />,
         ];
@@ -73,4 +69,4 @@ export class AddLayer extends Component {
 export default connect(
     null,
     { openLayersDialog }
-)(AddLayer);
+)(withStyles(styles)(AddLayer));

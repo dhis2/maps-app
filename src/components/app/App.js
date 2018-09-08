@@ -33,25 +33,28 @@ export class App extends Component {
         };
     }
 
+    // TODO: Remove MuiThemeProvider
     render() {
         return (
-            <MuiThemeProvider muiTheme={appTheme}>
-                <MapProvider>
-                    <div id="dhis-gis-container">
-                        <AppHeader />
-                        <AppMenu />
-                        <InterpretationsPanel />
-                        <LayersPanel />
-                        <LayersToggle />
-                        <Map />
-                        <BottomPanel />
-                        <LayerEdit />
-                        <ContextMenu />
-                        <AlertSnackbar />
-                        <Message />
-                    </div>
-                </MapProvider>
-            </MuiThemeProvider>
+            <React.Fragment>
+                <MuiThemeProvider muiTheme={appTheme}>
+                    <MapProvider>
+                        <div id="dhis-gis-container">
+                            <AppHeader />
+                            <AppMenu />
+                            <InterpretationsPanel />
+                            <LayersPanel />
+                            <LayersToggle />
+                            <Map />
+                            <BottomPanel />
+                            <LayerEdit />
+                            <ContextMenu />
+                            <AlertSnackbar />
+                            <Message />
+                        </div>
+                    </MapProvider>
+                </MuiThemeProvider>
+            </React.Fragment>
         );
     }
 }

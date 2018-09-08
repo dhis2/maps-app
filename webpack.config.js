@@ -98,7 +98,7 @@ const webpackConfig = {
     },
     resolve: {
         alias: {
-            react: path.resolve('./node_modules/react'),
+            // react: path.resolve('./node_modules/react'),
             // 'material-ui': path.resolve('./node_modules/material-ui'),
             // 'material-ui-icons': path.resolve(
             //    './node_modules/material-ui-icons'
@@ -113,17 +113,17 @@ const webpackConfig = {
     },
     externals: [
         {
-            react: 'React',
-            'react-dom': 'ReactDOM',
+            // react: 'React',
+            // 'react-dom': 'ReactDOM',
             rx: 'Rx',
-            'react-addons-transition-group': 'React.addons.TransitionGroup',
-            'react-addons-create-fragment': 'React.addons.createFragment',
-            'react-addons-update': 'React.addons.update',
-            'react-addons-pure-render-mixin': 'React.addons.PureRenderMixin',
-            'react-addons-shallow-compare': 'React.addons.ShallowCompare',
+            // 'react-addons-transition-group': 'React.addons.TransitionGroup',
+            // 'react-addons-create-fragment': 'React.addons.createFragment',
+            // 'react-addons-update': 'React.addons.update',
+            // 'react-addons-pure-render-mixin': 'React.addons.PureRenderMixin',
+            // 'react-addons-shallow-compare': 'React.addons.ShallowCompare',
         },
-        /^react-addons/,
-        /^react-dom$/,
+        // /^react-addons/,
+        // /^react-dom$/,
         /^rx$/,
     ],
     plugins: [
@@ -134,12 +134,14 @@ const webpackConfig = {
                 `${scriptPrefix}/dhis-web-core-resource/babel-polyfill/6.20.0/dist/polyfill${
                     isDevBuild ? '' : '.min'
                 }.js`,
+                /*
                 `${scriptPrefix}/dhis-web-core-resource/react/16.2.0/umd/react.${
                     isDevBuild ? 'development' : 'production.min'
                 }.js`,
                 `${scriptPrefix}/dhis-web-core-resource/react-dom/16.2.0/umd/react-dom.${
                     isDevBuild ? 'development' : 'production.min'
                 }.js`,
+                */
                 `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${
                     isDevBuild ? '' : '.min'
                 }.js`,

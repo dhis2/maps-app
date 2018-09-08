@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Drawer from 'material-ui/Drawer';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import BasemapCard from '../layers/basemaps/BasemapCard';
 import LayerCard from './layers/LayerCard';
@@ -19,16 +20,18 @@ const SortableLayersList = SortableContainer(({ layers }) => (
     </div>
 ));
 
-const style = {
-    position: 'absolute',
-    top: HEADER_HEIGHT,
-    height: 'auto',
-    bottom: 0,
-    backgroundColor: '#fafafa',
-    boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
-    overflowX: 'hidden',
-    overflowY: 'auto',
-    zIndex: 1190,
+const styles = {
+    drawer: {
+        top: HEADER_HEIGHT,
+        backgroundColor: '#fafafa',
+        boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
+        height: 'auto',
+        bottom: 0,
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        zIndex: 1190,
+        width: LAYERS_PANEL_WIDTH,
+    },
 };
 
 const LayersPanel = ({
@@ -37,11 +40,12 @@ const LayersPanel = ({
     basemaps,
     layers,
     sortLayers,
+    classes,
 }) => (
     <Drawer
         open={layersPanelOpen}
-        containerStyle={style}
-        width={LAYERS_PANEL_WIDTH}
+        variant="persistent"
+        classes={{ paper: classes.drawer }}
     >
         <SortableLayersList
             layers={layers}
@@ -58,6 +62,7 @@ LayersPanel.propTypes = {
     basemaps: PropTypes.array.isRequired,
     layers: PropTypes.array.isRequired,
     sortLayers: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -70,4 +75,4 @@ const mapStateToProps = state => ({
     layersPanelOpen: state.ui.layersPanelOpen,
 });
 
-export default connect(mapStateToProps, { sortLayers })(LayersPanel);
+export default connect(mapStateToProps, { sortLayers })(withStyles(styles)(LayersPanel));

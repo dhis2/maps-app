@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
-import { SvgIcon } from '@dhis2/d2-ui-core';
-import { grey600 } from 'material-ui/styles/colors';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import BasemapList from './BasemapList';
 import OpacitySlider from '../toolbar/OpacitySlider';
 import {
@@ -13,9 +18,13 @@ import {
     toggleBasemapVisibility,
     selectBasemap,
 } from '../../../actions/basemap';
-import './BasemapCard.css';
+// import './BasemapCard.css';
 
 const styles = {
+    actions: {
+        backgroundColor: '#eee',
+        height: 32,
+    },
     container: {
         paddingBottom: 0,
     },
@@ -50,43 +59,48 @@ const BasemapCard = props => {
         toggleBasemapExpand,
         toggleBasemapVisibility,
         changeBasemapOpacity,
+        classes
     } = props;
+
+    // Icon color: '#757575'
 
     return (
         <Card
             className="BasemapCard"
-            containerStyle={styles.container}
-            expanded={isExpanded}
-            onExpandChange={toggleBasemapExpand}
+            // containerStyle={styles.container}
+            // expanded={isExpanded}
+            // onExpandChange={toggleBasemapExpand}
         >
-            <CardHeader
-                className="BasemapCard-header"
-                title={name}
-                subtitle={subtitle}
-                showExpandableButton={true}
-                textStyle={styles.headerText}
+            <CardHeader>
+                // className="BasemapCard-header"
+                // title={name}
+                // subtitle={subtitle}
+                // showExpandableButton={true}
+                // textStyle={styles.headerText}
             >
-                <IconButton
+                <Button
                     style={styles.visibility}
                     onClick={toggleBasemapVisibility}
                     tooltip="Toggle visibility"
                 >
-                    <SvgIcon
-                        icon={isVisible ? 'Visibility' : 'VisibilityOff'}
-                        color={grey600}
-                    />
-                </IconButton>
+                    {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </Button>
             </CardHeader>
 
-            <CardText expandable={true} style={styles.body}>
-                <BasemapList {...props} />
-                <div className="BasemapCard-toolbar">
-                    <OpacitySlider
-                        opacity={opacity}
-                        onChange={opacity => changeBasemapOpacity(opacity)}
-                    />
-                </div>
-            </CardText>
+            <Collapse in={true} timeout="auto" unmountOnExit>
+                <CardContent 
+                    // expandable={true} 
+                    style={styles.body}
+                >
+                    <BasemapList {...props} />
+                    <CardActions className={classes.actions}>
+                        <OpacitySlider
+                            opacity={opacity}
+                            onChange={opacity => changeBasemapOpacity(opacity)}
+                        />
+                    </CardActions>
+                </CardContent>
+            </Collapse>
         </Card>
     );
 };
@@ -100,6 +114,7 @@ BasemapCard.propTypes = {
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
     changeBasemapOpacity: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 BasemapCard.defaultProps = {
@@ -119,4 +134,4 @@ export default connect(
         toggleBasemapVisibility,
         selectBasemap,
     }
-)(BasemapCard);
+)(withStyles(styles)(BasemapCard));

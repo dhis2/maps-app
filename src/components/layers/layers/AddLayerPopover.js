@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Popover from 'material-ui/Popover';
+import Popover from '@material-ui/core/Popover';
 import LayerList from './LayerList';
 import {
     addLayer,
@@ -9,18 +9,25 @@ import {
     closeLayersDialog,
 } from '../../../actions/layers';
 
+// TODO: Remove 16 px left margin
 const AddLayerPopover = ({
     anchorEl,
     layersDialogOpen,
     layers,
-    onRequestClose,
+    onClose,
     onLayerSelect,
 }) => (
     <Popover
         anchorEl={anchorEl}
-        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-        targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-        onRequestClose={onRequestClose}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+        }}
+        onClose={onClose}
         open={layersDialogOpen}
     >
         <LayerList layers={layers} onLayerSelect={onLayerSelect} />
@@ -31,7 +38,7 @@ AddLayerPopover.propTypes = {
     anchorEl: PropTypes.instanceOf(Element),
     layersDialogOpen: PropTypes.bool,
     layers: PropTypes.array,
-    onRequestClose: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     onLayerSelect: PropTypes.func.isRequired,
 };
 
@@ -46,7 +53,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onRequestClose: () => dispatch(closeLayersDialog()),
+    onClose: () => dispatch(closeLayersDialog()),
     onLayerSelect: layer => {
         if (layer.layer === 'external') {
             dispatch(addLayer({ ...layer, isLoaded: true }));

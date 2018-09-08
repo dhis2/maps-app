@@ -1,30 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Slider from 'material-ui/Slider';
+import { withStyles } from '@material-ui/core/styles';
+import Slider from '@material-ui/lab/Slider'; // TODO: Change when in core
 
 const styles = {
-    container: {
-        float: 'left',
-        width: 100,
-        marginBottom: 0,
-    },
     slider: {
-        margin: 8,
+        // float: 'left',
+        width: 100,
+        //marginBottom: 0,
     },
 };
 
-const OpacitySlider = ({ opacity, onChange }) => (
+const OpacitySlider = ({ opacity, onChange, classes }) => (
     <Slider
-        defaultValue={opacity}
+        value={opacity}
+        min={0}
+        max={1}
         onChange={(evt, opacity) => onChange(opacity)}
-        style={styles.container}
-        sliderStyle={styles.slider}
+        className={classes.slider}
     />
 );
 
 OpacitySlider.propTypes = {
     opacity: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
-export default OpacitySlider;
+export default withStyles(styles)(OpacitySlider);
