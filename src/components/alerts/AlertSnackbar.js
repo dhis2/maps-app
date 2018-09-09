@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 import { clearAlerts } from '../../actions/alerts';
 import { getMapAlerts } from '../../util/alerts';
 
@@ -12,7 +12,7 @@ export const AlertSnackbar = ({ alert, clearAlerts }) =>
             open={true}
             message={`${alert.title}: ${alert.description}`}
             autoHideDuration={5000}
-            onRequestClose={clearAlerts}
+            onClose={clearAlerts}
         />
     ) : null;
 

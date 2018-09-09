@@ -49,12 +49,12 @@ const Classification = ({
         <SelectField
             key="classification"
             label={i18n.t('Classification')}
-            value={method || CLASSIFICATION_EQUAL_INTERVALS}
+            value={method ? String(method) : CLASSIFICATION_EQUAL_INTERVALS}
             items={classificationTypes.map(({ id, name }) => ({
                 id,
                 name: i18n.t(name),
             }))}
-            onChange={method => setClassification(method.id)}
+            onChange={method => setClassification(Number(method.id))}
             style={styles.select}
         />,
         <div key="scale">

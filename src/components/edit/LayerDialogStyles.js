@@ -1,9 +1,12 @@
 export const layerDialogStyles = {
     tabs: {
-        height: 376,
+        // height: 376,
     },
     tabBar: {
         borderBottom: '1px solid #ddd',
+    },
+    tab: {
+        minWidth: 0,
     },
     select: {
         width: 'auto',
@@ -11,6 +14,7 @@ export const layerDialogStyles = {
     },
     tabContent: {
         margin: '0px -16px',
+        height: 340,
     },
     flexColumnFlow: {
         display: 'flex',

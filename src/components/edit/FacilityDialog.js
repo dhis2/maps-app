@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tabs, Tab } from 'material-ui/Tabs';
-// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import TextField from '@material-ui/core/TextField';
 import Checkbox from '../d2-ui/Checkbox';
 import FontStyle from '../d2-ui/FontStyle';
 import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
@@ -67,6 +68,10 @@ const styles = {
 };
 
 class FacilityDialog extends Component {
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+    };
+
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -112,6 +117,8 @@ class FacilityDialog extends Component {
             setAreaRadius,
         } = this.props;
 
+        const { classes } = this.props;
+
         const {
             tab,
             orgUnitGroupSetError,
@@ -123,130 +130,137 @@ class FacilityDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <Tabs
-                style={styles.tabs}
-                tabItemContainerStyle={styles.tabBar}
-                contentContainerStyle={styles.tabContent}
-                value={tab}
-                onChange={tab => this.setState({ tab })}
-            >
-                <Tab value="group" label={i18n.t('Group set')}>
-                    <div style={styles.flexRowFlow}>
-                        <OrgUnitGroupSetSelect
-                            value={organisationUnitGroupSet}
-                            onChange={setOrganisationUnitGroupSet}
-                            style={styles.select}
-                            errorText={orgUnitGroupSetError}
-                        />
-                    </div>
-                </Tab>
-                <Tab value="orgunits" label={i18n.t('Organisation units')}>
-                    <div style={styles.flexColumnFlow}>
-                        <div
-                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
-                        >
-                            <OrgUnitTree
-                                selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrgUnit}
-                                disabled={
-                                    selectedUserOrgUnits.length ? true : false
-                                }
+            <div>
+                <Tabs
+                    value={tab}
+                    onChange={(event, tab) => this.setState({ tab })}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    fullWidth
+                >
+                    <Tab value="group" label={i18n.t('Group set')} />
+                    <Tab value="orgunits" label={i18n.t('Organisation units')} />
+                    <Tab value="style" label={i18n.t('Style')} />
+                </Tabs>
+                <div className={classes.tabContent}>
+                    {tab === 'group' && 
+                        <div style={styles.flexRowFlow}>
+                            <OrgUnitGroupSetSelect
+                                value={organisationUnitGroupSet}
+                                onChange={setOrganisationUnitGroupSet}
+                                style={styles.select}
+                                errorText={orgUnitGroupSetError}
                             />
                         </div>
-                        <div style={styles.flexColumn}>
-                            <OrgUnitLevelSelect
-                                orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
-                                onChange={setOrgUnitLevels}
-                            />
-                            <OrgUnitGroupSelect
-                                orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
-                                onChange={setOrgUnitGroups}
-                            />
-                            <UserOrgUnitsSelect
-                                selected={selectedUserOrgUnits}
-                                onChange={setUserOrgUnits}
-                            />
-                            {!orgUnits.length && orgUnitsError ? (
-                                <div style={styles.error}>{orgUnitsError}</div>
-                            ) : (
-                                <div style={styles.help}>
-                                    {i18n.t(
-                                        'Remember to select the organisation unit level containing the facilities.'
-                                    )}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </Tab>
-                <Tab value="style" label={i18n.t('Style')}>
-                    <div
-                        style={{
-                            ...styles.flexRowFlow,
-                            marginTop: 16,
-                        }}
-                    >
-                        <div style={styles.flexInnerColumnFlow}>
-                            <Checkbox
-                                label={i18n.t('Labels')}
-                                checked={labels}
-                                onCheck={setLabels}
-                                style={{
-                                    ...styles.flexInnerColumn,
-                                    maxWidth: 150,
-                                    paddingTop: 24,
-                                    height: 42,
-                                }}
-                            />
-                            {labels && (
-                                <FontStyle
-                                    color={labelFontColor}
-                                    size={labelFontSize}
-                                    weight={labelFontWeight}
-                                    fontStyle={labelFontStyle}
-                                    onColorChange={setLabelFontColor}
-                                    onSizeChange={setLabelFontSize}
-                                    onWeightChange={setLabelFontWeight}
-                                    onStyleChange={setLabelFontStyle}
-                                    style={{
-                                        ...styles.flexInnerColumn,
-                                        ...styles.font,
-                                    }}
-                                />
-                            )}
-                        </div>
-                        <div style={styles.flexInnerColumnFlow}>
-                            <Checkbox
-                                label={i18n.t('Buffer')}
-                                checked={showBuffer}
-                                onCheck={this.onShowBufferClick.bind(this)}
-                                style={{
-                                    ...styles.flexInnerColumn,
-                                    maxWidth: 150,
-                                    paddingTop: 24,
-                                    height: 42,
-                                }}
-                            />
-                            {showBuffer && (
-                                <TextField
-                                    id="radius"
-                                    type="number"
-                                    floatingLabelText={i18n.t(
-                                        'Radius in meters'
-                                    )}
-                                    value={areaRadius || ''}
-                                    onChange={(evt, radius) =>
-                                        setAreaRadius(radius)
+                    }
+                    {tab === 'orgunits' && 
+                        <div style={styles.flexColumnFlow}>
+                            <div
+                                style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                            >
+                                <OrgUnitTree
+                                    selected={getOrgUnitNodesFromRows(rows)}
+                                    onClick={toggleOrgUnit}
+                                    disabled={
+                                        selectedUserOrgUnits.length ? true : false
                                     }
+                                />
+                            </div>
+                            <div style={styles.flexColumn}>
+                                <OrgUnitLevelSelect
+                                    orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
+                                    onChange={setOrgUnitLevels}
+                                />
+                                <OrgUnitGroupSelect
+                                    orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
+                                    onChange={setOrgUnitGroups}
+                                />
+                                <UserOrgUnitsSelect
+                                    selected={selectedUserOrgUnits}
+                                    onChange={setUserOrgUnits}
+                                />
+                                {!orgUnits.length && orgUnitsError ? (
+                                    <div style={styles.error}>{orgUnitsError}</div>
+                                ) : (
+                                    <div style={styles.help}>
+                                        {i18n.t(
+                                            'Remember to select the organisation unit level containing the facilities.'
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    }
+                    {tab === 'style' && 
+                        <div
+                            style={{
+                                ...styles.flexRowFlow,
+                                marginTop: 16,
+                            }}
+                        >
+                            <div style={styles.flexInnerColumnFlow}>
+                                <Checkbox
+                                    label={i18n.t('Labels')}
+                                    checked={labels}
+                                    onCheck={setLabels}
                                     style={{
                                         ...styles.flexInnerColumn,
-                                        ...styles.radius,
+                                        maxWidth: 150,
+                                        paddingTop: 24,
+                                        height: 42,
                                     }}
                                 />
-                            )}
+                                {labels && (
+                                    <FontStyle
+                                        color={labelFontColor}
+                                        size={labelFontSize}
+                                        weight={labelFontWeight}
+                                        fontStyle={labelFontStyle}
+                                        onColorChange={setLabelFontColor}
+                                        onSizeChange={setLabelFontSize}
+                                        onWeightChange={setLabelFontWeight}
+                                        onStyleChange={setLabelFontStyle}
+                                        style={{
+                                            ...styles.flexInnerColumn,
+                                            ...styles.font,
+                                        }}
+                                    />
+                                )}
+                            </div>
+                            <div style={styles.flexInnerColumnFlow}>
+                                <Checkbox
+                                    label={i18n.t('Buffer')}
+                                    checked={showBuffer}
+                                    onCheck={this.onShowBufferClick.bind(this)}
+                                    style={{
+                                        ...styles.flexInnerColumn,
+                                        maxWidth: 150,
+                                        paddingTop: 24,
+                                        height: 42,
+                                    }}
+                                />
+                                {showBuffer && (
+                                    <TextField
+                                        id="radius"
+                                        type="number"
+                                        floatingLabelText={i18n.t(
+                                            'Radius in meters'
+                                        )}
+                                        value={areaRadius || ''}
+                                        onChange={(evt, radius) =>
+                                            setAreaRadius(radius)
+                                        }
+                                        style={{
+                                            ...styles.flexInnerColumn,
+                                            ...styles.radius,
+                                        }}
+                                    />
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </Tab>
-            </Tabs>
+                    }
+                </div>
+            </div>
         );
     }
 
@@ -306,4 +320,4 @@ export default connect(
     {
         withRef: true,
     }
-)(FacilityDialog);
+)(withStyles(styles)(FacilityDialog));
