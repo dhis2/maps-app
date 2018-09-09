@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-09-07T13:38:26.990Z\n"
-"PO-Revision-Date: 2018-09-07T13:38:26.990Z\n"
+"POT-Creation-Date: 2018-09-09T08:20:22.838Z\n"
+"PO-Revision-Date: 2018-09-09T08:20:22.838Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -288,6 +288,12 @@ msgid "Interpretations"
 msgstr ""
 
 msgid "Toggle visibility"
+msgstr ""
+
+msgid "Collapse"
+msgstr ""
+
+msgid "Expand"
 msgstr ""
 
 msgid "deleted"

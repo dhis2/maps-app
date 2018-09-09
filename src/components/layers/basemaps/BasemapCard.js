@@ -26,13 +26,13 @@ import {
 
 const styles = {
     card: {
+        position: 'relative',
         margin: '8px 4px 8px 4px',
         paddingBottom: 0,
     },
     header: {
-        height: 56,
-        padding: '0 8px 0 18px',
-        // background: 'yellow',
+        height: 54,
+        padding: '2px 8px 0 18px',
         fontSize: 14,
     },
     title: {
@@ -42,6 +42,10 @@ const styles = {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         fontWeight: 500,
+        lineHeight: '17px',
+    },
+    subheader: {
+        lineHeight: '17px',
     },
     actions: {
         backgroundColor: '#eee',
@@ -49,13 +53,13 @@ const styles = {
     },
     visibility: {
         position: 'absolute',
-        right: 32,
-        top: 10,
+        right: 28,
+        top: 4,
     },
     expand: {
         position: 'absolute',
-        right: 0,
-        top: 10,
+        right: -4,
+        top: 4,
     },
     content: { // TODO: Not working on :last-child
         padding: 0,
@@ -66,7 +70,7 @@ const styles = {
 const BasemapCard = props => {
     const {
         name,
-        subtitle,
+        subtitle = i18n.t('Basemap'),
         opacity,
         isExpanded,
         isVisible,
@@ -82,6 +86,7 @@ const BasemapCard = props => {
                 classes={{ 
                     root: classes.header,
                     title: classes.title,
+                    subheader: classes.subheader,
                 }}
                 title={name}
                 subheader={subtitle}
