@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import OptionStyle from './OptionStyle';
 import { loadOptionSet } from '../../actions/optionSets';
 import { setOptionStyle } from '../../actions/layerEdit';
@@ -82,7 +82,7 @@ class OptionSetStyle extends Component {
                         />
                     ))
                 ) : (
-                    <CircularProgress />
+                    <CircularProgress size={48} />
                 )}
             </div>
         );

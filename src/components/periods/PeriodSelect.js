@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '@dhis2/d2-ui-core';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import { SvgIcon } from '@dhis2/d2-ui-core';
 import { filterFuturePeriods } from 'd2/lib/period/helpers';
 import { createPeriods } from '../../util/periods';

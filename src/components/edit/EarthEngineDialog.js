@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { withStyles } from '@material-ui/core/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import TextField from '@material-ui/core/TextField';
 import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import TextField from 'material-ui/TextField'; // TODO: d2-ui-core version don't accept numbers as values
 import Collection from '../earthengine/Collection';
 import LegendItem from '../layers/legend/LegendItem';
 import { setParams, setFilter } from '../../actions/layerEdit';
@@ -91,6 +93,10 @@ const styles = {
 };
 
 class EarthEngineDialog extends Component {
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+    };
+
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -125,18 +131,22 @@ class EarthEngineDialog extends Component {
 
     // TODO: Create a d2-ui number field that returns numbers (not text) and controls min and max
     render() {
-        const { datasetId, params, filter, setParams, setFilter } = this.props;
+        const { datasetId, params, filter, setParams, setFilter, classes } = this.props;
         const dataset = datasets[datasetId];
         const { tab, steps, filterError, rangeError, stepsError } = this.state;
 
         return (
-            <Tabs
-                style={styles.tabs}
-                value={tab}
-                onChange={tab => this.setState({ tab })}
-                contentContainerStyle={styles.tabContent}
-            >
-                <Tab value="style" label={i18n.t('Style')}>
+            <div>
+                <Tabs
+                    value={tab}
+                    onChange={(event, tab) => this.setState({ tab })}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    fullWidth
+                >
+                    <Tab value="style" label={i18n.t('Style')} />
+                </Tabs>
+                <div className={classes.tabContent}>
                     <div style={styles.flexColumnFlow}>
                         <div style={styles.flexColumn}>
                             <div>{dataset.description}</div>
@@ -160,7 +170,7 @@ class EarthEngineDialog extends Component {
                                 >
                                     <TextField
                                         type="number"
-                                        floatingLabelText={i18n.t(
+                                        label={i18n.t(
                                             dataset.minLabel || 'Min'
                                         )}
                                         value={params.min}
@@ -172,13 +182,13 @@ class EarthEngineDialog extends Component {
                                             )
                                         }
                                         style={styles.flexInnerColumn}
-                                        floatingLabelStyle={{
-                                            whiteSpace: 'nowrap',
-                                        }}
+                                        // floatingLabelStyle={{
+                                        //     whiteSpace: 'nowrap',
+                                        // }}
                                     />
                                     <TextField
                                         type="number"
-                                        floatingLabelText={i18n.t(
+                                        label={i18n.t(
                                             dataset.maxLabel || 'Max'
                                         )}
                                         value={params.max}
@@ -190,13 +200,13 @@ class EarthEngineDialog extends Component {
                                             )
                                         }
                                         style={styles.flexInnerColumn}
-                                        floatingLabelStyle={{
-                                            whiteSpace: 'nowrap',
-                                        }}
+                                        // floatingLabelStyle={{
+                                        //     whiteSpace: 'nowrap',
+                                        // }}
                                     />
                                     <TextField
                                         type="number"
-                                        floatingLabelText={i18n.t('Steps')}
+                                        label={i18n.t('Steps')}
                                         value={
                                             steps !== undefined
                                                 ? steps
@@ -254,8 +264,8 @@ class EarthEngineDialog extends Component {
                             </div>
                         )}
                     </div>
-                </Tab>
-            </Tabs>
+                </div>
+            </div>
         );
     }
 
@@ -325,4 +335,4 @@ export default connect(
     { setParams, setFilter },
     null,
     { withRef: true }
-)(EarthEngineDialog);
+)(withStyles(styles)(EarthEngineDialog));

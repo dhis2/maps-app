@@ -21,7 +21,7 @@ const SortableLayersList = SortableContainer(({ layers }) => (
 ));
 
 const styles = {
-    drawer: {
+    panel: {
         top: HEADER_HEIGHT,
         backgroundColor: '#fafafa',
         boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
@@ -45,7 +45,7 @@ const LayersPanel = ({
     <Drawer
         open={layersPanelOpen}
         variant="persistent"
-        classes={{ paper: classes.drawer }}
+        classes={{ paper: classes.panel }}
     >
         <SortableLayersList
             layers={layers}

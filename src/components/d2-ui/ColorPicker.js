@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
-import Popover from 'material-ui/Popover';
-import ArrowDropDownIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import Popover from '@material-ui/core/Popover';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ChromePicker from 'react-color/lib/components/chrome/Chrome';
 import { hcl } from 'd3-color';
 
@@ -15,7 +16,7 @@ const styles = {
     },
 };
 
-export default class ColorPicker extends Component {
+export class ColorPicker extends Component {
     static propTypes = {
         color: PropTypes.string.isRequired,
         label: PropTypes.string,
@@ -71,12 +72,12 @@ export default class ColorPicker extends Component {
                     disableTouchRipple={true}
                 >
                     <ArrowDropDownIcon
-                        color={hcl(color).l < 70 ? '#fff' : '#333'}
+                        nativeColor={hcl(color).l < 70 ? '#fff' : '#333'}
                     />
                 </IconButton>
                 <Popover
                     open={isOpen}
-                    onRequestClose={this.handleClose}
+                    onClose={this.handleClose}
                     anchorEl={anchorEl}
                 >
                     <ChromePicker color={color} onChange={this.handleChange} />
@@ -85,3 +86,5 @@ export default class ColorPicker extends Component {
         );
     }
 }
+
+export default withStyles(styles)(ColorPicker);

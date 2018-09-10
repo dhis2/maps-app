@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-09-09T08:20:22.838Z\n"
-"PO-Revision-Date: 2018-09-09T08:20:22.838Z\n"
+"POT-Creation-Date: 2018-09-09T19:48:54.799Z\n"
+"PO-Revision-Date: 2018-09-09T19:48:54.799Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -125,16 +125,16 @@ msgstr ""
 msgid "period"
 msgstr ""
 
-msgid "Start date"
-msgstr ""
-
-msgid "End date"
-msgstr ""
-
 msgid "Filter"
 msgstr ""
 
 msgid "Org units"
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "End date"
 msgstr ""
 
 msgid "Events"
@@ -285,6 +285,9 @@ msgid "Indicator group"
 msgstr ""
 
 msgid "Interpretations"
+msgstr ""
+
+msgid "Basemap"
 msgstr ""
 
 msgid "Toggle visibility"

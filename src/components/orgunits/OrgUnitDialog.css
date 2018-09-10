@@ -1,6 +1,7 @@
 .OrgUnitDialog-content {
     height: 300px;
     max-height: 300px;
+    background: 'yellow';
 }
 
 .OrgUnitDialog-metadata {

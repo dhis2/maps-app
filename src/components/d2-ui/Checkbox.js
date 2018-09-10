@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MuiCheckbox from 'material-ui/Checkbox';
+import MuiCheckbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const Checkbox = ({
     label,
@@ -11,14 +12,19 @@ const Checkbox = ({
     iconStyle,
     disabled,
 }) => (
-    <MuiCheckbox
+    <FormControlLabel
         label={label}
-        checked={checked}
-        onCheck={(event, isChecked) => onCheck(isChecked)}
-        style={style}
-        labelStyle={labelStyle}
-        iconStyle={iconStyle}
-        disabled={disabled}
+        control={
+            <MuiCheckbox
+                label={label}
+                checked={checked}
+                onChange={(event, isChecked) => onCheck(isChecked)}
+                // style={style}
+                // labelStyle={labelStyle}
+                // iconStyle={iconStyle}
+                disabled={disabled}
+            />
+        }
     />
 );
 

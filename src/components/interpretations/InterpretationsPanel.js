@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Drawer from 'material-ui/Drawer';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
 import Interpretations from '@dhis2/d2-ui-interpretations';
 import { openInterpretationsPanel } from '../../actions/ui';
 import { setRelativePeriodDate } from '../../actions/map';
@@ -12,16 +13,19 @@ import {
     INTERPRETATIONS_PANEL_WIDTH,
 } from '../../constants/layout';
 
-const style = {
-    position: 'absolute',
-    top: HEADER_HEIGHT,
-    bottom: 0,
-    height: 'auto',
-    backgroundColor: '#fafafa',
-    boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
-    overflowX: 'hidden',
-    overflowY: 'auto',
-    zIndex: 1190,
+const styles = {
+    panel: {
+        position: 'absolute',
+        top: HEADER_HEIGHT,
+        bottom: 0,
+        height: 'auto',
+        width: INTERPRETATIONS_PANEL_WIDTH,
+        backgroundColor: '#fafafa',
+        boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        zIndex: 1190,
+    }
 };
 
 // https://github.com/EyeSeeTea/d2-ui-playground/blob/feature/interpretations/src/Root.js
@@ -38,6 +42,7 @@ class InterpretationsPanel extends Component {
         setInterpretation: PropTypes.func.isRequired,
         openInterpretationsPanel: PropTypes.func.isRequired,
         setRelativePeriodDate: PropTypes.func.isRequired,
+        classes: PropTypes.object.isRequired,
     };
 
     componentDidMount() {
@@ -50,7 +55,7 @@ class InterpretationsPanel extends Component {
     }
 
     render() {
-        const { mapId, isOpen, interpretationId } = this.props;
+        const { mapId, isOpen, interpretationId, classes } = this.props;
 
         if (!mapId || !isOpen) {
             return null;
@@ -59,9 +64,9 @@ class InterpretationsPanel extends Component {
         return (
             <Drawer
                 open={Boolean(isOpen && mapId)}
-                openSecondary={true}
-                containerStyle={style}
-                width={INTERPRETATIONS_PANEL_WIDTH}
+                variant="persistent"
+                anchor="right"
+                classes={{ paper: classes.panel }}
             >
                 <Interpretations
                     d2={this.context.d2}
@@ -90,4 +95,4 @@ export default connect(
         interpretationId: state.interpretation.id,
     }),
     { openInterpretationsPanel, setInterpretation, setRelativePeriodDate }
-)(InterpretationsPanel);
+)(withStyles(styles)(InterpretationsPanel));

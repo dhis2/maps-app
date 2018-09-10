@@ -9,7 +9,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import Tooltip from '@material-ui/core/Tooltip';
 import OpacitySlider from './OpacitySlider';
-// import IconMenu from 'material-ui/IconMenu';
 // import DownloadMenu from './DownloadMenu';
 // import OpenAsMenu from './OpenAsMenu';
 
