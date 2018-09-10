@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../core/TextField';
 import ProgramSelect from '../program/ProgramSelect';
 import ProgramStageSelect from '../program/ProgramStageSelect';
 import RelativePeriodSelect from '../periods/RelativePeriodSelect';
@@ -321,9 +321,7 @@ export class EventDialog extends Component {
                                         type="number"
                                         label={i18n.t('Radius')}
                                         value={eventPointRadius || EVENT_RADIUS}
-                                        onChange={(evt, radius) =>
-                                            setEventPointRadius(radius)
-                                        }
+                                        onChange={setEventPointRadius}
                                         style={styles.flexInnerColumn}
                                     />
                                 </div>
@@ -344,13 +342,8 @@ export class EventDialog extends Component {
                                             type="number"
                                             label={i18n.t('Radius in meters')}
                                             value={areaRadius || ''}
-                                            onChange={(evt, radius) =>
-                                                setAreaRadius(radius)
-                                            }
+                                            onChange={setAreaRadius}
                                             style={styles.flexInnerColumn}
-                                            // floatingLabelStyle={{
-                                            //    whiteSpace: 'nowrap',
-                                            //}}
                                             disabled={eventClustering}
                                         />
                                     )}

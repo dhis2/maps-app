@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MuiCheckbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+// Wrapper around MUI Checkbox with label support
 const Checkbox = ({
     label,
     checked,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Button } from '@dhis2/d2-ui-core';
+import Button from '@material-ui/core/Button';
 import FilterRow from './FilterRow';
 import { combineDataItems } from '../../util/analytics';
 import { addFilter, removeFilter, changeFilter } from '../../actions/layerEdit';

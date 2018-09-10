@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import DataItemSelect from '../dataItem/DataItemSelect';
 import FilterSelect from './FilterSelect';
-import IconButton from 'material-ui/IconButton';
-import { SvgIcon } from '@dhis2/d2-ui-core';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 // https://react.rocks/example/react-redux-test
 
@@ -112,7 +112,7 @@ class FilterRow extends Component {
                     style={styles.removeBtn}
                     onClick={() => onRemove(index)}
                 >
-                    <SvgIcon icon={i18n.t('Close')} />
+                    <CloseIcon />
                 </IconButton>
             </div>
         );

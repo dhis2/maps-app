@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import Radio from '../core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 const styles = {
     radioGroup: {
         display: 'inline-block',
         marginTop: 8,
     },
-    radioButton: {
+    radio: {
         display: 'inline-block',
         paddingRight: 16,
         width: 'auto',
@@ -17,23 +18,23 @@ const styles = {
 
 const TotalsDetailsSelect = ({ operand, onChange, style }) => (
     <div style={style}>
-        <RadioButtonGroup
+        <RadioGroup
             name="operand"
-            valueSelected={operand === true}
+            value={operand === true}
             onChange={(event, value) => onChange(value)}
             style={styles.radioGroup}
         >
-            <RadioButton
+            <Radio
                 value={false}
                 label={i18n.t('Totals')}
-                style={styles.radioButton}
+                // style={styles.radio}
             />
-            <RadioButton
+            <Radio
                 value={true}
                 label={i18n.t('Details')}
-                style={styles.radioButton}
+                // style={styles.radio}
             />
-        </RadioButtonGroup>
+        </RadioGroup>
     </div>
 );
 

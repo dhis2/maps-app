@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '@dhis2/d2-ui-core';
-import TextField from 'material-ui/TextField'; // TODO: d2-ui-core version don't accept numbers as values
-import Checkbox from 'material-ui/Checkbox';
-import OptionSetSelect from '../optionSet/OptionSetSelect';
+import SelectField from '../core/SelectField';
+import TextField from '../core/TextField';
+import Checkbox from '../core/Checkbox';
 import DatePicker from '../core/DatePicker';
+import OptionSetSelect from '../optionSet/OptionSetSelect';
 import { loadOptionSet } from '../../actions/optionSets';
 import { numberValueTypes, textValueTypes } from '../../constants/valueTypes';
 
@@ -104,7 +104,7 @@ export class FilterSelect extends Component {
                     floatingLabelText={i18n.t('Value')}
                     type="number"
                     value={value !== undefined ? value : ''}
-                    onChange={(evt, newValue) =>
+                    onChange={newValue =>
                         onChange(`${operator}:${newValue}`)
                     }
                     style={styles.textField}
@@ -115,7 +115,7 @@ export class FilterSelect extends Component {
                     key="text"
                     floatingLabelText={i18n.t('Value')}
                     value={value || ''}
-                    onChange={(evt, newValue) =>
+                    onChange={newValue =>
                         onChange(`${operator}:${newValue}`)
                     }
                     style={styles.textField}

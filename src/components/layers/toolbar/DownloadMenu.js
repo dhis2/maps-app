@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import MenuItem from 'material-ui/MenuItem';
-import { SvgIcon } from '@dhis2/d2-ui-core';
+import MenuItem from '@material-ui/core/MenuItem';
+import ArrowIcon from '@material-ui/icons/ArrowDropRight';
 import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
 import { createSld } from '../../../util/sld';
 
@@ -38,10 +38,11 @@ const downloadStyle = id => {
     FileSaver.saveAs(blob, id + '.sld');
 };
 
+// NB! Created with an older version of Material-UI
 const DownloadMenu = ({ id, data }) => (
     <MenuItem
         primaryText={`${i18n.t('Download')} ...`}
-        rightIcon={<SvgIcon icon="ArrowDropRight" style={styles.icon} />}
+        rightIcon={<ArrowIcon style={styles.icon} />}
         menuItems={[
             <MenuItem
                 key="geojson"

@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
+import Radio from '../core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { setClassification } from '../../actions/layerEdit';
 import {
     CLASSIFICATION_PREDEFINED,
@@ -35,18 +34,19 @@ export const LegendTypeSelect = ({ method, setClassification, classes}) => (
         className={classes.radioGroup}
         // style={{ ...styles.flexInnerColumnFlow, marginTop: 8 }}
     >
-        <FormControlLabel 
+        <Radio 
             value={CLASSIFICATION_EQUAL_INTERVALS} 
             control={<Radio />} 
             label={i18n.t('Automatic')} 
             className={classes.radio}
-        />
-        <FormControlLabel 
+        />        
+        <Radio 
             value={CLASSIFICATION_PREDEFINED} 
             control={<Radio />} 
             label={i18n.t('Predefined')} 
             className={classes.radio}
         />
+
     </RadioGroup>
 );
 

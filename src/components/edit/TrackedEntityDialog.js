@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../core/TextField';
 import SelectField from '../core/SelectField';
 import DatePicker from '../core/DatePicker';
 import Checkbox from '../core/Checkbox';
@@ -296,9 +296,7 @@ export class TrackedEntityDialog extends Component {
                                         type="number"
                                         label={i18n.t('Point size')}
                                         value={eventPointRadius || TEI_RADIUS}
-                                        onChange={(evt, radius) =>
-                                            setEventPointRadius(radius)
-                                        }
+                                        onChange={setEventPointRadius}
                                         style={styles.flexInnerColumn}
                                     />
                                 </div>
@@ -320,13 +318,8 @@ export class TrackedEntityDialog extends Component {
                                                 'Radius in meters'
                                             )}
                                             value={areaRadius || ''}
-                                            onChange={(evt, radius) =>
-                                                setAreaRadius(radius)
-                                            }
+                                            onChange={setAreaRadius}
                                             style={styles.flexInnerColumn}
-                                            // floatingLabelStyle={{
-                                            //     whiteSpace: 'nowrap',
-                                            // }}
                                         />
                                     )}
                                 </div>

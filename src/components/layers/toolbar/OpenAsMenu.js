@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import MenuItem from 'material-ui/MenuItem';
-import { SvgIcon } from '@dhis2/d2-ui-core';
+import MenuItem from '@material-ui/core/MenuItem';
+import ArrowIcon from '@material-ui/icons/ArrowDropRight';
 
 const styles = {
     icon: {
@@ -15,10 +15,11 @@ const styles = {
     },
 };
 
+// NB! Created with an older version of Material-UI
 const OpenAsMenu = ({ id }) => (
     <MenuItem
         primaryText={`${i18n.t('Open as')} ...`}
-        rightIcon={<SvgIcon icon="ArrowDropRight" style={styles.icon} />}
+        rightIcon={<ArrowIcon style={styles.icon} />}
         menuItems={[
             <MenuItem
                 key="pivot"
