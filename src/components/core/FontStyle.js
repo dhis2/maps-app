@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
-import BoldIcon from 'material-ui/svg-icons/editor/format-bold';
-import ItalicIcon from 'material-ui/svg-icons/editor/format-italic';
-// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import BoldIcon from '@material-ui/icons/FormatBold';
+import ItalicIcon from '@material-ui/icons/FormatItalic';
+import TextField from './TextField';
 import ColorPicker from './ColorPicker';
 
 const styles = {
@@ -35,15 +35,16 @@ const FontStyle = ({
     onWeightChange,
     onStyleChange,
     style,
+    classes,
 }) => (
     <div style={style}>
         {onSizeChange && (
             <TextField
                 id="size"
                 type="number"
-                floatingLabelText="Size"
+                label="Size"
                 value={size !== undefined ? size : 11}
-                onChange={(evt, value) => onSizeChange(value)}
+                onChange={onSizeChange}
                 style={styles.sizeField}
             />
         )}
@@ -55,7 +56,7 @@ const FontStyle = ({
                 style={weight === 'bold' ? styles.buttonPressed : styles.button}
                 disableTouchRipple={true}
             >
-                <BoldIcon color={weight === 'bold' ? '#fff' : '#555'} />
+                <BoldIcon nativeColor={weight === 'bold' ? '#fff' : '#555'} />
             </IconButton>
         )}
         {onStyleChange && (
@@ -70,7 +71,7 @@ const FontStyle = ({
                 }
                 disableTouchRipple={true}
             >
-                <ItalicIcon color={fontStyle === 'italic' ? '#fff' : '#555'} />
+                <ItalicIcon nativeColor={fontStyle === 'italic' ? '#fff' : '#555'} />
             </IconButton>
         )}
         {onColorChange && (
@@ -95,6 +96,7 @@ FontStyle.propTypes = {
     onWeightChange: PropTypes.func,
     onStyleChange: PropTypes.func,
     style: PropTypes.object,
+    classes: PropTypes.object.isRequired,
 };
 
-export default FontStyle;
+export default withStyles(styles)(FontStyle);

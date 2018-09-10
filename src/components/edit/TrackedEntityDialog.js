@@ -7,13 +7,13 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TextField from '@material-ui/core/TextField';
 import SelectField from '../core/SelectField';
-import DatePicker from '../d2-ui/DatePicker';
-import Checkbox from '../d2-ui/Checkbox';
+import DatePicker from '../core/DatePicker';
+import Checkbox from '../core/Checkbox';
 import TrackedEntityTypeSelect from '../trackedEntity/TrackedEntityTypeSelect';
 import ProgramSelect from '../program/ProgramSelect';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
-import ColorPicker from '../d2-ui/ColorPicker';
+import ColorPicker from '../core/ColorPicker';
 import {
     TEI_START_DATE,
     TEI_END_DATE,

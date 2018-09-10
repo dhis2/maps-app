@@ -10,8 +10,8 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import Checkbox from '../d2-ui/Checkbox';
-import FontStyle from '../d2-ui/FontStyle';
+import Checkbox from '../core/Checkbox';
+import FontStyle from '../core/FontStyle';
 import { layerDialogStyles } from './LayerDialogStyles';
 
 import {

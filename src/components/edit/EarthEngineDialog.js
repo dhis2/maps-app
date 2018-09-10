@@ -5,8 +5,8 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import TextField from '@material-ui/core/TextField';
-import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
+import TextField from '../core/TextField';
+import ColorScaleSelect from '../core/ColorScaleSelect';
 import Collection from '../earthengine/Collection';
 import LegendItem from '../layers/legend/LegendItem';
 import { setParams, setFilter } from '../../actions/layerEdit';
@@ -111,7 +111,7 @@ class EarthEngineDialog extends Component {
     }
 
     // Always set state to update text field, but only store if valid
-    onStepsChange(newSteps) {
+    onStepsChange = newSteps => {
         const { min, max, palette } = this.props.params;
         const steps = newSteps === '' ? '' : parseInt(newSteps, 10);
 
@@ -174,7 +174,7 @@ class EarthEngineDialog extends Component {
                                             dataset.minLabel || 'Min'
                                         )}
                                         value={params.min}
-                                        onChange={(evt, min) =>
+                                        onChange={min =>
                                             setParams(
                                                 parseInt(min),
                                                 parseInt(params.max),
@@ -182,9 +182,6 @@ class EarthEngineDialog extends Component {
                                             )
                                         }
                                         style={styles.flexInnerColumn}
-                                        // floatingLabelStyle={{
-                                        //     whiteSpace: 'nowrap',
-                                        // }}
                                     />
                                     <TextField
                                         type="number"
@@ -192,7 +189,7 @@ class EarthEngineDialog extends Component {
                                             dataset.maxLabel || 'Max'
                                         )}
                                         value={params.max}
-                                        onChange={(evt, max) =>
+                                        onChange={max =>
                                             setParams(
                                                 parseInt(params.min),
                                                 parseInt(max),
@@ -200,9 +197,6 @@ class EarthEngineDialog extends Component {
                                             )
                                         }
                                         style={styles.flexInnerColumn}
-                                        // floatingLabelStyle={{
-                                        //     whiteSpace: 'nowrap',
-                                        // }}
                                     />
                                     <TextField
                                         type="number"
@@ -212,9 +206,7 @@ class EarthEngineDialog extends Component {
                                                 ? steps
                                                 : this.getStepsFromParams()
                                         }
-                                        onChange={(evt, steps) =>
-                                            this.onStepsChange(steps)
-                                        }
+                                        onChange={this.onStepsChange}
                                         style={styles.flexInnerColumn}
                                     />
                                 </div>,

@@ -7,14 +7,14 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
-import Checkbox from '../../d2-ui/Checkbox';
+import Checkbox from '../../core/Checkbox';
 import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect from '../../dataElement/DataElementSelect';
 import DataElementOperandSelect from '../../dataElement/DataElementOperandSelect';
 import TotalsDetailsSelect from '../../dataElement/TotalsDetailsSelect';
 import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect'; // Reporting rate
-import FontStyle from '../../d2-ui/FontStyle';
+import FontStyle from '../../core/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
 import NumericLegendStyle from '../../classification/NumericLegendStyle';
 import IndicatorSelect from '../../indicator/IndicatorSelect';

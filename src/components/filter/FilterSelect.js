@@ -6,7 +6,7 @@ import { SelectField } from '@dhis2/d2-ui-core';
 import TextField from 'material-ui/TextField'; // TODO: d2-ui-core version don't accept numbers as values
 import Checkbox from 'material-ui/Checkbox';
 import OptionSetSelect from '../optionSet/OptionSetSelect';
-import DatePicker from '../d2-ui/DatePicker';
+import DatePicker from '../core/DatePicker';
 import { loadOptionSet } from '../../actions/optionSets';
 import { numberValueTypes, textValueTypes } from '../../constants/valueTypes';
 

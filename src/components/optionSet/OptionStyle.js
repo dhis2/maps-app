@@ -1,5 +1,5 @@
 import React from 'react';
-import ColorPicker from '../d2-ui/ColorPicker';
+import ColorPicker from '../core/ColorPicker';
 
 const styles = {
     item: {
