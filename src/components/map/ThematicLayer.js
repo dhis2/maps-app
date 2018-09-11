@@ -1,4 +1,3 @@
-import { PureComponent } from 'react';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
@@ -39,7 +38,7 @@ class ThematicLayer extends Layer {
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
         if (isPlugin && legend) {
-            map.legend = (map.legend || '') + this.getHtmlLegend(legend); // TODO: Better way to assemble the legend?
+            map.legend = (map.legend || '') + this.getHtmlLegend(legend, data); // TODO: Better way to assemble the legend?
         }
 
         const layerBounds = this.layer.getBounds();
@@ -51,7 +50,7 @@ class ThematicLayer extends Layer {
     }
 
     // Used for legend in map plugins
-    getHtmlLegend = ({ title, period, items }) => `
+    getHtmlLegend = ({ title, period, items }, data) => `
         <div class="dhis2-legend">
             <h2>${title}</h2>
             <span>${period}</span>
@@ -69,6 +68,7 @@ class ThematicLayer extends Layer {
                     )
                     .join('')}
             </dl>
+            ${!data.length ? '<em>No data found</em>' : ''}
         </div>`;
 
     onFeatureClick(evt) {
