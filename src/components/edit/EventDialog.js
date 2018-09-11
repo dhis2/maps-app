@@ -93,7 +93,6 @@ export class EventDialog extends Component {
         setStartDate: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
         setAreaRadius: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
     };
 
     constructor(props, context) {
@@ -188,7 +187,7 @@ export class EventDialog extends Component {
                     <Tab value="orgunits" label={i18n.t('Org units')} />
                     <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
-                <div className={classes.tabContent}>
+                <div classes={styles.tabContent}>
                     {tab === 'data' && (
                         <div style={styles.flexRowFlow}>
                             <ProgramSelect

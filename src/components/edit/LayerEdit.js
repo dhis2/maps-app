@@ -69,12 +69,11 @@ class LayerEdit extends Component {
     loadLayer() {
         const { layer, loadLayer } = this.props;
 
-        console.log(this.layerContainer.getWrappedInstance());
+        // console.log(this.layerContainer.getWrappedInstance());
 
+        // TODO: Better pattern?
         if (this.layerContainer.getWrappedInstance().validate()) {
-            // TODO: Better pattern?
             loadLayer(layer);
-
             this.closeDialog();
         }
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
 import { OrgUnitDialog } from '../OrgUnitDialog';
 
 describe('Org unit dialog (infrastuctural data)', () => {

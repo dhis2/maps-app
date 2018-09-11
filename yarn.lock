@@ -138,6 +138,12 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime@7.0.0-beta.56":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.56.tgz#cda612dffd5b1719a7b8e91e3040bd6ae64de8b0"
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/runtime@7.0.0-rc.1":
   version "7.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-rc.1.tgz#42f36fc5817911c89ea75da2b874054922967616"
@@ -216,9 +222,9 @@
     i18next-conv "^6.0.0"
     i18next-scanner "^2.4.4"
 
-"@dhis2/d2-i18n-generate@^1.0.18":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-i18n-generate/-/d2-i18n-generate-1.0.18.tgz#e3426d381030856232fbe1e2097b8ca2aebe90f3"
+"@dhis2/d2-i18n-generate@^1.0.18", "@dhis2/d2-i18n-generate@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-i18n-generate/-/d2-i18n-generate-1.0.19.tgz#263bce81d7cd0f58d33fcce9703481046f3c8e93"
   dependencies:
     argparse "^1.0.10"
     handlebars "^4.0.11"
@@ -232,20 +238,20 @@
   dependencies:
     i18next "^10.3"
 
-"@dhis2/d2-ui-core@^1.1.2", "@dhis2/d2-ui-core@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-core/-/d2-ui-core-1.2.0.tgz#e3b712fab9e5677fc54ef0488d1ecf8cc62302c6"
+"@dhis2/d2-ui-core@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-core/-/d2-ui-core-1.3.2.tgz#0e8fe88c76240065772e8296f267c478a4a00028"
   dependencies:
     babel-runtime "^6.26.0"
     lodash "^4.17.10"
     material-ui "^0.20.0"
 
 "@dhis2/d2-ui-favorites-dialog@^1.0.13":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-favorites-dialog/-/d2-ui-favorites-dialog-1.0.13.tgz#5809b93fbe6338f0d70423e57f6fe465b9cb1066"
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-favorites-dialog/-/d2-ui-favorites-dialog-1.0.16.tgz#ede06207ba183071f8ba56b4422ea4d1e8a62255"
   dependencies:
-    "@dhis2/d2-ui-core" "^1.2.0"
-    "@dhis2/d2-ui-sharing-dialog" "^1.0.12"
+    "@dhis2/d2-ui-core" "^1.3.2"
+    "@dhis2/d2-ui-sharing-dialog" "^1.0.15"
     babel-runtime "^6.26.0"
     material-ui "^1.0.0-beta.34"
     material-ui-icons "^1.0.0-beta.17"
@@ -268,11 +274,11 @@
     material-ui-icons "^1.0.0-beta.17"
     prop-types "^15.6.0"
 
-"@dhis2/d2-ui-forms@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-forms/-/d2-ui-forms-1.0.7.tgz#c5c8cdcc20e94d283e5a8333874d26ab04d4024e"
+"@dhis2/d2-ui-forms@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-forms/-/d2-ui-forms-1.0.10.tgz#a0c9ef2ffa454cf60b3bff439cb6d6296ce42ffa"
   dependencies:
-    "@dhis2/d2-ui-core" "^1.2.0"
+    "@dhis2/d2-ui-core" "^1.3.2"
     babel-runtime "^6.26.0"
     classnames "^2.2.5"
     d2 "^30.0.0"
@@ -281,16 +287,16 @@
     material-ui "^0.20.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-interpretations@1.1.8":
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-1.1.8.tgz#e455c39e8b23eb04144434f33df2d82fa39512d4"
+"@dhis2/d2-ui-interpretations@^1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-1.1.12.tgz#c081aa9fb7f6add9fa92a1f8eacf5410e3e77f32"
   dependencies:
     "@dhis2/d2-i18n" "^1.0.3"
     "@dhis2/d2-i18n-extract" "^1.0.7"
     "@dhis2/d2-i18n-generate" "^1.0.18"
-    "@dhis2/d2-ui-core" "^1.1.2"
-    "@dhis2/d2-ui-mentions-wrapper" "^1.0.3"
-    "@dhis2/d2-ui-sharing-dialog" "^1.0.12"
+    "@dhis2/d2-ui-core" "^1.3.2"
+    "@dhis2/d2-ui-mentions-wrapper" "^2.0.0"
+    "@dhis2/d2-ui-sharing-dialog" "^1.0.15"
     babel-runtime "^6.26.0"
     husky "^1.0.0-rc.8"
     material-ui "^0.19.3"
@@ -300,13 +306,13 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-legend@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-legend/-/d2-ui-legend-1.2.0.tgz#23191fa165b3e39357f07c0559c8da3519c3a593"
+"@dhis2/d2-ui-legend@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-legend/-/d2-ui-legend-1.2.4.tgz#f36e001db11d3ab226d0b5c4c3922e86e859457e"
   dependencies:
-    "@dhis2/d2-ui-core" "^1.2.0"
-    "@dhis2/d2-ui-forms" "^1.0.7"
-    "@dhis2/d2-ui-table" "^1.0.11"
+    "@dhis2/d2-ui-core" "^1.3.2"
+    "@dhis2/d2-ui-forms" "^1.0.10"
+    "@dhis2/d2-ui-table" "^1.0.15"
     babel-runtime "^6.26.0"
     d2-utilizr "^0.2.15"
     material-ui "^0.19.3"
@@ -314,43 +320,43 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-mentions-wrapper@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-mentions-wrapper/-/d2-ui-mentions-wrapper-1.0.3.tgz#e6baed67a53c3f8e71b92a99e21195f4a933d60b"
+"@dhis2/d2-ui-mentions-wrapper@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-mentions-wrapper/-/d2-ui-mentions-wrapper-2.0.0.tgz#641e733a60034e05cdbf209b9c46d8aa1e8c8e37"
   dependencies:
     "@dhis2/d2-i18n" "^1.0.3"
+    "@material-ui/core" "^1.5.1"
     lodash "^4.17.10"
-    material-ui "^1.0.0-beta.34"
     prop-types "^15.6.2"
 
-"@dhis2/d2-ui-org-unit-tree@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-1.0.10.tgz#6d64c2e9697e685a83bcda921ca6beb078618953"
+"@dhis2/d2-ui-org-unit-tree@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-1.0.13.tgz#eb9ece938b519fa4624b9651b162716fe2963c6d"
   dependencies:
-    "@dhis2/d2-ui-core" "^1.2.0"
+    "@dhis2/d2-ui-core" "^1.3.2"
     babel-runtime "^6.26.0"
     material-ui "^0.19.3"
     prop-types "^15.5.10"
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-sharing-dialog@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-sharing-dialog/-/d2-ui-sharing-dialog-1.0.12.tgz#88d4f172eb58c7d1add9ac78ce870c5621010909"
+"@dhis2/d2-ui-sharing-dialog@^1.0.12", "@dhis2/d2-ui-sharing-dialog@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-sharing-dialog/-/d2-ui-sharing-dialog-1.0.15.tgz#2cc6cc1bd5cd401dd6163776c775bec79a018b71"
   dependencies:
-    "@dhis2/d2-ui-core" "^1.2.0"
+    "@dhis2/d2-ui-core" "^1.3.2"
     babel-runtime "^6.26.0"
     material-ui "^0.19.3"
     prop-types "^15.5.10"
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-table@^1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-table/-/d2-ui-table-1.0.11.tgz#aa701b2c793b9921d626b110399f45db33dcabf6"
+"@dhis2/d2-ui-table@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-table/-/d2-ui-table-1.0.15.tgz#ca9e5b08c7012c2c47d03b4c25455dcdb1e3fc44"
   dependencies:
-    "@dhis2/d2-ui-core" "^1.2.0"
-    "@dhis2/d2-ui-translation-dialog" "^1.0.11"
+    "@dhis2/d2-ui-core" "^1.3.2"
+    "@dhis2/d2-ui-translation-dialog" "^1.0.15"
     babel-runtime "^6.26.0"
     d2-utilizr "^0.2.15"
     lodash "^4.17.10"
@@ -359,11 +365,11 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-translation-dialog@^1.0.11", "@dhis2/d2-ui-translation-dialog@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-translation-dialog/-/d2-ui-translation-dialog-1.0.12.tgz#dfbc917563b7a6b152d77819630129dcc87dc7ad"
+"@dhis2/d2-ui-translation-dialog@^1.0.12", "@dhis2/d2-ui-translation-dialog@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-translation-dialog/-/d2-ui-translation-dialog-1.0.15.tgz#7e245b75d58c5be5298fbf65b1053216778ffb6c"
   dependencies:
-    "@dhis2/d2-ui-core" "^1.2.0"
+    "@dhis2/d2-ui-core" "^1.3.2"
     babel-runtime "^6.26.0"
     d2-utilizr "^0.2.15"
     material-ui "^0.19.3"
@@ -390,6 +396,38 @@
     polylabel "^1.0.2"
     rbush "^2.0.2"
     whatwg-fetch "^2.0.3"
+
+"@material-ui/core@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-1.5.1.tgz#cb00cb934447ae688e08129f1dab55f54d29d87a"
+  dependencies:
+    "@babel/runtime" "7.0.0-rc.1"
+    "@types/jss" "^9.5.3"
+    "@types/react-transition-group" "^2.0.8"
+    brcast "^3.0.1"
+    classnames "^2.2.5"
+    csstype "^2.5.2"
+    debounce "^1.1.0"
+    deepmerge "^2.0.1"
+    dom-helpers "^3.2.1"
+    hoist-non-react-statics "^2.5.0"
+    is-plain-object "^2.0.4"
+    jss "^9.3.3"
+    jss-camel-case "^6.0.0"
+    jss-default-unit "^8.0.2"
+    jss-global "^3.0.0"
+    jss-nested "^6.0.1"
+    jss-props-sort "^6.0.0"
+    jss-vendor-prefixer "^7.0.0"
+    keycode "^2.1.9"
+    normalize-scroll-left "^0.1.2"
+    popper.js "^1.14.1"
+    prop-types "^15.6.0"
+    react-event-listener "^0.6.2"
+    react-jss "^8.1.0"
+    react-transition-group "^2.2.1"
+    recompose "^0.28.0"
+    warning "^4.0.1"
 
 "@material-ui/core@^3.0.3":
   version "3.0.3"
@@ -2995,8 +3033,8 @@ d2@29.1.5:
     whatwg-fetch "^2.0.3"
 
 d2@^30.0.0:
-  version "30.0.0"
-  resolved "https://registry.yarnpkg.com/d2/-/d2-30.0.0.tgz#470b516f21bda6bda09b65579352e37225ca7e1d"
+  version "30.0.2"
+  resolved "https://registry.yarnpkg.com/d2/-/d2-30.0.2.tgz#d231289aa24074044b4e6b552308fcad42523181"
   dependencies:
     docdash "^0.4.0"
     jsdoc "^3.5.5"
@@ -9589,6 +9627,17 @@ recompose@^0.26.0, "recompose@^0.26.0 || ^0.27.0":
     change-emitter "^0.1.2"
     fbjs "^0.8.1"
     hoist-non-react-statics "^2.3.1"
+    symbol-observable "^1.0.4"
+
+recompose@^0.28.0:
+  version "0.28.2"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.28.2.tgz#19e679227bdf979e0d31b73ffe7ae38c9194f4a7"
+  dependencies:
+    "@babel/runtime" "7.0.0-beta.56"
+    change-emitter "^0.1.2"
+    fbjs "^0.8.1"
+    hoist-non-react-statics "^2.3.1"
+    react-lifecycles-compat "^3.0.2"
     symbol-observable "^1.0.4"
 
 recursive-readdir@^2.2.2:

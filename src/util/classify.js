@@ -38,9 +38,9 @@ export const getLegendItems = (values, method, numClasses) => {
     const maxValue = values[values.length - 1];
     let bins;
 
-    if (method === CLASSIFICATION_EQUAL_INTERVALS) {
+    if (method == CLASSIFICATION_EQUAL_INTERVALS) {
         bins = getEqualIntervals(minValue, maxValue, numClasses);
-    } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
+    } else if (method == CLASSIFICATION_EQUAL_COUNTS) {
         bins = getQuantiles(values, numClasses);
     }
 
@@ -52,9 +52,9 @@ export const getClassBins = (values, method, numClasses) => {
     const maxValue = values[values.length - 1];
     let bins;
 
-    if (method === CLASSIFICATION_EQUAL_INTERVALS) {
+    if (method == CLASSIFICATION_EQUAL_INTERVALS) {
         bins = getEqualIntervals(minValue, maxValue, numClasses);
-    } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
+    } else if (method == CLASSIFICATION_EQUAL_COUNTS) {
         bins = getQuantiles(values, numClasses);
     }
 

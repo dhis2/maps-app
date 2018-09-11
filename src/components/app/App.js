@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import appTheme from './app.theme';
+// import appTheme from './app.theme'; // TODO: Delete file
 import MapProvider from '../map/MapProvider';
 import AppHeader from './AppHeader';
 import AppMenu from './AppMenu';
@@ -34,10 +34,11 @@ export class App extends Component {
     }
 
     // TODO: Remove MuiThemeProvider
+    // <MuiThemeProvider muiTheme={appTheme}>
     render() {
         return (
             <React.Fragment>
-                <MuiThemeProvider muiTheme={appTheme}>
+                <MuiThemeProvider>
                     <MapProvider>
                         <div id="dhis-gis-container">
                             <AppHeader />
