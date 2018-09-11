@@ -14,22 +14,12 @@ const DatePicker = ({ label, value, onChange, style, textFieldStyle }) => (
         defaultValue={value}
         onChange={event => onChange(event.target.value)}
         style={style}
-        // className={classes.textField}
         // InputLabelProps={{
         //    shrink: true,
         //}}
     />
 );
 
-/*
-<MuiDatePicker
-floatingLabelText={label}
-onChange={(event, date) => onChange(formatTime(date))}
-value={value && value !== 'undefined' ? new Date(value) : null}
-style={style}
-textFieldStyle={textFieldStyle}
-/>
-*/
 
 DatePicker.propTypes = {
     label: PropTypes.string.isRequired,

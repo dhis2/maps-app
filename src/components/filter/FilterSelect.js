@@ -101,7 +101,7 @@ export class FilterSelect extends Component {
                 <TextField
                     id="number"
                     key="number"
-                    floatingLabelText={i18n.t('Value')}
+                    label={i18n.t('Value')}
                     type="number"
                     value={value !== undefined ? value : ''}
                     onChange={newValue =>
@@ -113,7 +113,7 @@ export class FilterSelect extends Component {
             textValueTypes.includes(valueType) && !optionSet ? (
                 <TextField
                     key="text"
-                    floatingLabelText={i18n.t('Value')}
+                    label={i18n.t('Value')}
                     value={value || ''}
                     onChange={newValue =>
                         onChange(`${operator}:${newValue}`)

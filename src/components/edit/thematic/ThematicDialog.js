@@ -385,7 +385,7 @@ export class ThematicDialog extends Component {
                                     <TextField
                                         id="lowsize"
                                         type="number"
-                                        floatingLabelText={i18n.t('Low size')}
+                                        label={i18n.t('Low size')}
                                         value={
                                             radiusLow !== undefined
                                                 ? radiusLow
@@ -399,7 +399,7 @@ export class ThematicDialog extends Component {
                                     <TextField
                                         id="highsize"
                                         type="number"
-                                        floatingLabelText={i18n.t('High size')}
+                                        label={i18n.t('High size')}
                                         value={
                                             radiusHigh !== undefined
                                                 ? radiusHigh
