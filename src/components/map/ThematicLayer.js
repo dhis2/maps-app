@@ -1,4 +1,5 @@
 import Layer from './Layer';
+import i18n from '../../locales'; 
 import { filterData } from '../../util/filter';
 
 class ThematicLayer extends Layer {
@@ -38,7 +39,8 @@ class ThematicLayer extends Layer {
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
         if (isPlugin && legend) {
-            map.legend = (map.legend || '') + this.getHtmlLegend(legend); // TODO: Better way to assemble the legend?
+            // TODO: Better way to assemble the legend?
+            map.legend = (map.legend || '') + this.getHtmlLegend(legend, data); 
         }
 
         const layerBounds = this.layer.getBounds();
@@ -50,7 +52,7 @@ class ThematicLayer extends Layer {
     }
 
     // Used for legend in map plugins
-    getHtmlLegend({ title, period, items }) {
+    getHtmlLegend({ title, period, items }, data) { 
         return `<div class="dhis2-legend">
             <h2>${title}</h2>
             <span>${period}</span>
@@ -68,7 +70,8 @@ class ThematicLayer extends Layer {
                     )
                     .join('')}
             </dl>
-        </div>`;
+            ${!data.length ? `<em>${i18n.t('No data found')}</em>` : ''}     
+        </div>`; 
     }
 
     onFeatureClick(evt) {
