@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import Tabs from '../core/Tabs';
+import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import ProgramSelect from '../program/ProgramSelect';
 import ProgramStageSelect from '../program/ProgramStageSelect';
@@ -181,22 +181,15 @@ export class EventDialog extends Component {
 
         return (
             <div>
-                <Tabs
-                    value={tab}
-                    onChange={(event, tab) => this.setState({ tab })}
-
-                    indicatorColor="primary"
-                    textColor="primary"
-                    fullWidth
-                >
-                    <Tab value="data" label={i18n.t('data')} className={classes.tab} />
-                    <Tab value="period" label={i18n.t('period')} className={classes.tab} />
-                    <Tab value="filter" label={i18n.t('Filter')} className={classes.tab} />
-                    <Tab value="orgunits" label={i18n.t('Org units')} className={classes.tab} />
-                    <Tab value="style" label={i18n.t('Style')} className={classes.tab} />
+                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="data" label={i18n.t('data')} />
+                    <Tab value="period" label={i18n.t('period')} />
+                    <Tab value="filter" label={i18n.t('Filter')} />
+                    <Tab value="orgunits" label={i18n.t('Org units')} />
+                    <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
                 <div className={classes.tabContent}>
-                    {tab === 'data' && 
+                    {tab === 'data' && (
                         <div style={styles.flexRowFlow}>
                             <ProgramSelect
                                 program={program}
@@ -219,8 +212,8 @@ export class EventDialog extends Component {
                                 style={styles.select}
                             />
                         </div>
-                    }
-                    {tab === 'period' && 
+                    )}
+                    {tab === 'period' && (
                         <div style={styles.flexRowFlow}>
                             <RelativePeriodSelect
                                 period={period}
@@ -247,8 +240,8 @@ export class EventDialog extends Component {
                                 />,
                             ]}
                         </div>
-                     }
-                    {tab === 'filter' && 
+                    )}
+                    {tab === 'filter' && (
                         <div style={styles.flexRowFlow}>
                             <FilterGroup
                                 program={program}
@@ -258,17 +251,22 @@ export class EventDialog extends Component {
                                 )}
                             />
                         </div>
-                    }
-                    {tab === 'orgunits' && 
+                    )}
+                    {tab === 'orgunits' && (
                         <div style={styles.flexColumnFlow}>
                             <div
-                                style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                                style={{
+                                    ...styles.flexColumn,
+                                    overflow: 'hidden',
+                                }}
                             >
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
                                     disabled={
-                                        selectedUserOrgUnits.length ? true : false
+                                        selectedUserOrgUnits.length
+                                            ? true
+                                            : false
                                     }
                                     selectRootAsDefault={
                                         getOrgUnitsFromRows(rows).length === 0
@@ -287,8 +285,8 @@ export class EventDialog extends Component {
                                 />
                             </div>
                         </div>
-                    }
-                    {tab === 'style' && 
+                    )}
+                    {tab === 'style' && (
                         <div style={styles.flexColumnFlow}>
                             <div style={styles.flexColumn}>
                                 <div style={styles.flexInnerColumnFlow}>
@@ -304,7 +302,9 @@ export class EventDialog extends Component {
                                         id="nocluster"
                                         img="images/nocluster.png"
                                         title={i18n.t('View all events')}
-                                        onClick={() => setEventClustering(false)}
+                                        onClick={() =>
+                                            setEventClustering(false)
+                                        }
                                         isSelected={!eventClustering}
                                         style={styles.flexInnerColumn}
                                     />
@@ -329,7 +329,9 @@ export class EventDialog extends Component {
                                     <Checkbox
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
-                                        onCheck={this.onShowBufferClick.bind(this)}
+                                        onCheck={this.onShowBufferClick.bind(
+                                            this
+                                        )}
                                         style={{
                                             ...styles.flexInnerColumn,
                                             marginTop: 47,
@@ -353,9 +355,9 @@ export class EventDialog extends Component {
                                 {program && <StyleByDataItem />}
                             </div>
                         </div>
-                    }
+                    )}
                 </div>
-            </div> 
+            </div>
         );
     }
 

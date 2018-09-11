@@ -7,10 +7,10 @@ const styles = theme => ({
     root: {
         whiteSpace: 'nowrap',
     },
-});    
+});
 
 // Wrapper component around MUI TextField
-const TextField = (props) => (
+const TextField = props => (
     <MuiTextField
         {...props}
         onChange={evt => props.onChange(evt.target.value)}
@@ -21,5 +21,5 @@ TextField.propTypes = {
     onChange: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };
-  
+
 export default withStyles(styles)(TextField);

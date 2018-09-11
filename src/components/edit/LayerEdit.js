@@ -69,6 +69,8 @@ class LayerEdit extends Component {
     loadLayer() {
         const { layer, loadLayer } = this.props;
 
+        console.log(this.layerContainer.getWrappedInstance());
+
         if (this.layerContainer.getWrappedInstance().validate()) {
             // TODO: Better pattern?
             loadLayer(layer);
@@ -101,10 +103,7 @@ class LayerEdit extends Component {
         );
 
         return (
-            <Dialog 
-                open={true} 
-                classes={{ paper: classes.paper }}
-            >
+            <Dialog open={true} classes={{ paper: classes.paper }}>
                 <DialogTitle disableTypography={true} className={classes.title}>
                     {title}
                 </DialogTitle>
@@ -115,16 +114,10 @@ class LayerEdit extends Component {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        color="primary"
-                        onClick={() => cancelLayer()}
-                    >
+                    <Button color="primary" onClick={() => cancelLayer()}>
                         {i18n.t('Cancel')}
                     </Button>
-                    <Button
-                        color="primary"
-                        onClick={() => this.loadLayer()}
-                    >
+                    <Button color="primary" onClick={() => this.loadLayer()}>
                         {i18n.t(
                             layer.id
                                 ? i18n.t('Update layer')

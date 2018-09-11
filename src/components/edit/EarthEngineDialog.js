@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import Tabs from '../core/Tabs';
+import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import ColorScaleSelect from '../core/ColorScaleSelect';
 import Collection from '../earthengine/Collection';
@@ -127,23 +127,24 @@ class EarthEngineDialog extends Component {
                 this.props.setParams(min, max, newPalette);
             }
         }
-    }
+    };
 
     // TODO: Create a d2-ui number field that returns numbers (not text) and controls min and max
     render() {
-        const { datasetId, params, filter, setParams, setFilter, classes } = this.props;
+        const {
+            datasetId,
+            params,
+            filter,
+            setParams,
+            setFilter,
+            classes,
+        } = this.props;
         const dataset = datasets[datasetId];
         const { tab, steps, filterError, rangeError, stepsError } = this.state;
 
         return (
             <div>
-                <Tabs
-                    value={tab}
-                    onChange={(event, tab) => this.setState({ tab })}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    fullWidth
-                >
+                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
                 <div className={classes.tabContent}>

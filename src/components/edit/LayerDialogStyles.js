@@ -5,9 +5,6 @@ export const layerDialogStyles = {
     tabBar: {
         borderBottom: '1px solid #ddd',
     },
-    tab: {
-        minWidth: 0,
-    },
     select: {
         width: 'auto',
         maxWidth: 300,

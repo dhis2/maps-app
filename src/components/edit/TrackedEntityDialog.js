@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import Tabs from '../core/Tabs';
+import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import SelectField from '../core/SelectField';
 import DatePicker from '../core/DatePicker';
@@ -141,20 +141,14 @@ export class TrackedEntityDialog extends Component {
 
         return (
             <div>
-                <Tabs
-                    value={tab}
-                    onChange={(event, tab) => this.setState({ tab })}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    fullWidth
-                >
-                    <Tab value="data" label={i18n.t('data')} className={classes.tab} />
-                    <Tab value="period" label={i18n.t('period')} className={classes.tab} />
-                    <Tab value="orgunits" label={i18n.t('Org units')} className={classes.tab} />
-                    <Tab value="style" label={i18n.t('Style')} className={classes.tab} />
+                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="data" label={i18n.t('data')} />
+                    <Tab value="period" label={i18n.t('period')} />
+                    <Tab value="orgunits" label={i18n.t('Org units')} />
+                    <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
                 <div className={classes.tabContent}>
-                    {tab === 'data' && 
+                    {tab === 'data' && (
                         <div style={styles.flexRowFlow}>
                             <div style={{ marginTop: 24, fontSize: 14 }}>
                                 {i18n.t(
@@ -193,7 +187,9 @@ export class TrackedEntityDialog extends Component {
                                         },
                                     ]}
                                     value={programStatus}
-                                    onChange={status => setProgramStatus(status.id)}
+                                    onChange={status =>
+                                        setProgramStatus(status.id)
+                                    }
                                     style={{
                                         ...styles.select,
                                         width: 276,
@@ -206,12 +202,15 @@ export class TrackedEntityDialog extends Component {
                                     label={i18n.t('Follow up')}
                                     checked={followUp}
                                     onCheck={setFollowUpStatus}
-                                    style={{ ...styles.checkbox, marginLeft: 24 }}
+                                    style={{
+                                        ...styles.checkbox,
+                                        marginLeft: 24,
+                                    }}
                                 />
                             )}
                         </div>
-                    }
-                    {tab === 'period' && 
+                    )}
+                    {tab === 'period' && (
                         <div style={styles.flexRowFlow}>
                             <div style={{ marginTop: 24 }}>{periodHelp}:</div>
                             <DatePicker
@@ -231,12 +230,15 @@ export class TrackedEntityDialog extends Component {
                                 style={styles.select}
                             />
                         </div>
-                    }
- 
-                    {tab === 'orgunits' && 
+                    )}
+
+                    {tab === 'orgunits' && (
                         <div style={styles.flexColumnFlow}>
                             <div
-                                style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                                style={{
+                                    ...styles.flexColumn,
+                                    overflow: 'hidden',
+                                }}
                             >
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
@@ -264,7 +266,8 @@ export class TrackedEntityDialog extends Component {
                                         },
                                     ]}
                                     value={
-                                        organisationUnitSelectionMode || 'SELECTED'
+                                        organisationUnitSelectionMode ||
+                                        'SELECTED'
                                     }
                                     onChange={mode => setOrgUnitMode(mode.id)}
                                     style={{
@@ -280,8 +283,8 @@ export class TrackedEntityDialog extends Component {
                                 />
                             </div>
                         </div>
-                    }
-                    {tab === 'style' && 
+                    )}
+                    {tab === 'style' && (
                         <div style={styles.flexColumnFlow}>
                             <div style={styles.flexColumn}>
                                 <div style={styles.flexInnerColumnFlow}>
@@ -314,9 +317,7 @@ export class TrackedEntityDialog extends Component {
                                         <TextField
                                             id="buffer"
                                             type="number"
-                                            label={i18n.t(
-                                                'Radius in meters'
-                                            )}
+                                            label={i18n.t('Radius in meters')}
                                             value={areaRadius || ''}
                                             onChange={setAreaRadius}
                                             style={styles.flexInnerColumn}
@@ -326,7 +327,7 @@ export class TrackedEntityDialog extends Component {
                             </div>
                             <div style={styles.flexColumn} />
                         </div>
-                    }
+                    )}
                 </div>
             </div>
         );

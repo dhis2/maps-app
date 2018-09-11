@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import Tabs from '../core/Tabs';
+import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import Checkbox from '../core/Checkbox';
 import FontStyle from '../core/FontStyle';
@@ -131,19 +131,16 @@ class FacilityDialog extends Component {
 
         return (
             <div>
-                <Tabs
-                    value={tab}
-                    onChange={(event, tab) => this.setState({ tab })}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    fullWidth
-                >
+                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="group" label={i18n.t('Group set')} />
-                    <Tab value="orgunits" label={i18n.t('Organisation units')} />
+                    <Tab
+                        value="orgunits"
+                        label={i18n.t('Organisation units')}
+                    />
                     <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
                 <div className={classes.tabContent}>
-                    {tab === 'group' && 
+                    {tab === 'group' && (
                         <div style={styles.flexRowFlow}>
                             <OrgUnitGroupSetSelect
                                 value={organisationUnitGroupSet}
@@ -152,27 +149,36 @@ class FacilityDialog extends Component {
                                 errorText={orgUnitGroupSetError}
                             />
                         </div>
-                    }
-                    {tab === 'orgunits' && 
+                    )}
+                    {tab === 'orgunits' && (
                         <div style={styles.flexColumnFlow}>
                             <div
-                                style={{ ...styles.flexColumn, overflow: 'hidden' }}
+                                style={{
+                                    ...styles.flexColumn,
+                                    overflow: 'hidden',
+                                }}
                             >
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
                                     disabled={
-                                        selectedUserOrgUnits.length ? true : false
+                                        selectedUserOrgUnits.length
+                                            ? true
+                                            : false
                                     }
                                 />
                             </div>
                             <div style={styles.flexColumn}>
                                 <OrgUnitLevelSelect
-                                    orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
+                                    orgUnitLevel={getOrgUnitLevelsFromRows(
+                                        rows
+                                    )}
                                     onChange={setOrgUnitLevels}
                                 />
                                 <OrgUnitGroupSelect
-                                    orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
+                                    orgUnitGroup={getOrgUnitGroupsFromRows(
+                                        rows
+                                    )}
                                     onChange={setOrgUnitGroups}
                                 />
                                 <UserOrgUnitsSelect
@@ -180,7 +186,9 @@ class FacilityDialog extends Component {
                                     onChange={setUserOrgUnits}
                                 />
                                 {!orgUnits.length && orgUnitsError ? (
-                                    <div style={styles.error}>{orgUnitsError}</div>
+                                    <div style={styles.error}>
+                                        {orgUnitsError}
+                                    </div>
                                 ) : (
                                     <div style={styles.help}>
                                         {i18n.t(
@@ -190,8 +198,8 @@ class FacilityDialog extends Component {
                                 )}
                             </div>
                         </div>
-                    }
-                    {tab === 'style' && 
+                    )}
+                    {tab === 'style' && (
                         <div
                             style={{
                                 ...styles.flexRowFlow,
@@ -243,9 +251,7 @@ class FacilityDialog extends Component {
                                     <TextField
                                         id="radius"
                                         type="number"
-                                        label={i18n.t(
-                                            'Radius in meters'
-                                        )}
+                                        label={i18n.t('Radius in meters')}
                                         value={areaRadius || ''}
                                         onChange={setAreaRadius}
                                         style={{
@@ -256,7 +262,7 @@ class FacilityDialog extends Component {
                                 )}
                             </div>
                         </div>
-                    }
+                    )}
                 </div>
             </div>
         );

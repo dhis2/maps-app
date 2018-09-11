@@ -11,7 +11,9 @@ const DatePicker = ({ label, value, onChange, style, textFieldStyle }) => (
     <TextField
         type="date"
         label={label}
-        value={value && value !== 'undefined' ? new Date(value) : null}
+        defaultValue={value}
+        onChange={event => onChange(event.target.value)}
+        style={style}
         // className={classes.textField}
         // InputLabelProps={{
         //    shrink: true,
@@ -31,11 +33,11 @@ textFieldStyle={textFieldStyle}
 
 DatePicker.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    // value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     style: PropTypes.object,
     textFieldStyle: PropTypes.object,
-    classes: PropTypes.object.isRequired,
+    // classes: PropTypes.object.isRequired,
 };
 
 export default DatePicker;
