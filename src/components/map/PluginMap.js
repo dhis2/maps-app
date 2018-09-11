@@ -10,7 +10,7 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
-import { getMapAlerts } from '../../util/alerts';
+// import { getMapAlerts } from '../../util/alerts';
 import { drillUpDown } from '../../util/map';
 import { fetchLayer } from '../../loaders/layers';
 
@@ -195,7 +195,9 @@ class PluginMap extends Component {
         const { basemap = { id: 'osmLight' } } = this.props;
         const { mapViews, position, feature } = this.state;
 
-        const alerts = getMapAlerts(this.props);
+        // Disabled alerts as one layer without data will result in no map
+        // No data warning added to legend instead
+        const alerts = [] // getMapAlerts(this.props); 
 
         return !alerts.length ? (
             <div ref={node => (this.node = node)} style={styles.map}>
