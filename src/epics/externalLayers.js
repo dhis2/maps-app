@@ -39,7 +39,7 @@ const loadExternalMapLayers = () =>
         .then(d2 =>
             d2.models.externalMapLayers.list({
                 fields:
-                    'id,displayName~rename(name),service,url,attribution,mapService,layer,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
+                    'id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
                 paging: false,
             })
         )

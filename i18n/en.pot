@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-09-09T19:48:54.799Z\n"
-"PO-Revision-Date: 2018-09-09T19:48:54.799Z\n"
+"POT-Creation-Date: 2018-09-11T09:34:15.065Z\n"
+"PO-Revision-Date: 2018-09-11T09:34:15.065Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -254,9 +254,6 @@ msgstr ""
 msgid "Remove filter"
 msgstr ""
 
-msgid "Close"
-msgstr ""
-
 msgid "Operator"
 msgstr ""
 
@@ -375,6 +372,9 @@ msgid "Code"
 msgstr ""
 
 msgid "No data found for this period."
+msgstr ""
+
+msgid "Close"
 msgstr ""
 
 msgid "Select groups"
