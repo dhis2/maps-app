@@ -6,8 +6,6 @@ import FilterSelect from './FilterSelect';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-// https://react.rocks/example/react-redux-test
-
 const styles = {
     container: {
         height: 64,
@@ -48,8 +46,6 @@ class FilterRow extends Component {
 
     onChange(dimension, filter) {
         const { index, dataItems, onChange } = this.props;
-        const dataItem = dataItems.filter(d => d.id === dimension);
-        // console.log(dataItem, dataItems);
 
         const name = dataItems.filter(d => d.id === dimension)[0].name;
 
@@ -88,7 +84,6 @@ class FilterRow extends Component {
         return (
             <div style={styles.container}>
                 <DataItemSelect
-                    // items={dataItems}
                     value={dimension || null}
                     program={program}
                     programStage={programStage}

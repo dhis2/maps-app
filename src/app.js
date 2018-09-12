@@ -8,6 +8,7 @@ import { debounce } from 'lodash/fp';
 import store from './store';
 import Root from './components/Root';
 import { configI18n } from './util/i18n';
+import { loadOrgUnitTree } from './actions/orgUnits';
 import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
@@ -20,6 +21,7 @@ log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
 );
 
+store.dispatch(loadOrgUnitTree());
 store.dispatch(loadExternalLayers());
 
 getManifest('manifest.webapp')

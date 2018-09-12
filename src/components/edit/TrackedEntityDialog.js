@@ -30,6 +30,7 @@ import {
     setFollowUpStatus,
     setStartDate,
     setEndDate,
+    setOrgUnitRoot,
     toggleOrgUnit,
     setOrgUnitMode,
     setEventPointColor,
@@ -70,13 +71,22 @@ export class TrackedEntityDialog extends Component {
 
     componentDidMount() {
         const {
+            rows,
             startDate,
             endDate,
             programStatus,
+            setOrgUnitRoot,
             setStartDate,
             setEndDate,
             setProgramStatus,
         } = this.props;
+
+        const orgUnits = getOrgUnitNodesFromRows(rows);
+
+        // Set org unit tree root as default
+        if (orgUnits.length === 0) {
+            setOrgUnitRoot();
+        }
 
         // Set default period (last year)
         if (!startDate && !endDate) {
@@ -243,9 +253,6 @@ export class TrackedEntityDialog extends Component {
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
-                                    selectRootAsDefault={
-                                        getOrgUnitsFromRows(rows).length === 0
-                                    }
                                 />
                             </div>
                             <div style={styles.flexColumn}>
@@ -384,6 +391,7 @@ export default connect(
         setFollowUpStatus,
         setStartDate,
         setEndDate,
+        setOrgUnitRoot,
         toggleOrgUnit,
         setOrgUnitMode,
         setEventPointColor,

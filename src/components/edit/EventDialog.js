@@ -34,6 +34,7 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
+    setOrgUnitRoot,
     setUserOrgUnits,
     toggleOrgUnit,
     setPeriod,
@@ -86,6 +87,7 @@ export class EventDialog extends Component {
         setEventClustering: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
+        setOrgUnitRoot: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
@@ -104,13 +106,22 @@ export class EventDialog extends Component {
 
     componentDidMount() {
         const {
+            rows,
             filters,
             startDate,
             endDate,
             setStartDate,
             setEndDate,
+            setOrgUnitRoot,
         } = this.props;
+
+        const orgUnits = getOrgUnitNodesFromRows(rows);
         const period = getPeriodFromFilters(filters);
+
+        // Set org unit tree root as default
+        if (orgUnits.length === 0) {
+            setOrgUnitRoot();
+        }
 
         if (!period && !startDate && !endDate) {
             // Set default period (last year)
@@ -264,9 +275,6 @@ export class EventDialog extends Component {
                                             ? true
                                             : false
                                     }
-                                    selectRootAsDefault={
-                                        getOrgUnitsFromRows(rows).length === 0
-                                    }
                                 />
                             </div>
                             <div style={styles.flexColumn}>
@@ -416,6 +424,7 @@ export default connect(
         setEventClustering,
         setEventPointColor,
         setEventPointRadius,
+        setOrgUnitRoot,
         setUserOrgUnits,
         toggleOrgUnit,
         setPeriod,

@@ -13,13 +13,13 @@ import { numberValueTypes, textValueTypes } from '../../constants/valueTypes';
 const styles = {
     operator: {
         float: 'left',
-        top: -8,
+        top: -12,
         marginRight: 24,
         width: 'calc((100% - 48px) / 8 * 2)',
     },
     textField: {
         float: 'left',
-        top: -8,
+        top: 8,
         width: 'calc((100% - 48px) / 8 * 3)',
     },
     checkbox: {
@@ -104,9 +104,7 @@ export class FilterSelect extends Component {
                     label={i18n.t('Value')}
                     type="number"
                     value={value !== undefined ? value : ''}
-                    onChange={newValue =>
-                        onChange(`${operator}:${newValue}`)
-                    }
+                    onChange={newValue => onChange(`${operator}:${newValue}`)}
                     style={styles.textField}
                 />
             ) : null,
@@ -115,9 +113,7 @@ export class FilterSelect extends Component {
                     key="text"
                     label={i18n.t('Value')}
                     value={value || ''}
-                    onChange={newValue =>
-                        onChange(`${operator}:${newValue}`)
-                    }
+                    onChange={newValue => onChange(`${operator}:${newValue}`)}
                     style={styles.textField}
                 />
             ) : null,
