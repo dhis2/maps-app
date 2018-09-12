@@ -54,21 +54,26 @@ class ThematicLayer extends Layer {
         <div class="dhis2-legend">
             <h2>${title}</h2>
             <span>${period}</span>
-            <dl class="dhis2-legend-automatic">
-                ${items
-                    .map(
-                        item => `
-                    <dt style="background-color:${item.color}"></dt>
-                    <dd>${item.name || ''} ${
-                            !isNaN(item.startValue)
-                                ? `${item.startValue} - ${item.endValue}`
-                                : ''
-                        } (${item.count})</dd>
-                `
-                    )
-                    .join('')}
-            </dl>
-            ${!data.length ? '<em>No data found</em>' : ''}
+            ${
+                data.length
+                    ? `<dl class="dhis2-legend-automatic">
+                        ${items
+                            .map(
+                                item => `
+                        <dt style="background-color:${item.color}"></dt>
+                        <dd>${item.name || ''} ${
+                                    !isNaN(item.startValue)
+                                        ? `${item.startValue} - ${
+                                              item.endValue
+                                          }`
+                                        : ''
+                                } (${item.count})</dd>
+                    `
+                            )
+                            .join('')}
+                    </dl>`
+                    : `<p><em>No data found</em></p>`
+            }
         </div>`;
 
     onFeatureClick(evt) {
