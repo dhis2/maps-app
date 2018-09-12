@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "31.0.1",
+    "version": "31.0.2",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -11,7 +11,8 @@
     "author": "Bjørn Sandvik",
     "husky": {
         "hooks": {
-            "pre-commit": "npm run extract-pot && npm run prettify && CI=true npm run test && git add -A ."
+            "pre-commit":
+                "npm run extract-pot && npm run prettify && CI=true npm run test && git add -A ."
         }
     },
     "scripts": {
@@ -21,7 +22,8 @@
         "test": "jest",
         "test:watch": "yarn test -- --watch",
         "prebuild": "yarn test",
-        "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build && cp -r i18n_old build",
+        "build":
+            "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build && cp -r i18n_old build",
         "postbuild": "cp icon.png ./build/ && cp -r images ./build",
         "validate": "npm ls --depth 0 || yarn list",
         "manifest": "d2-manifest package.json build/manifest.webapp",
@@ -30,7 +32,8 @@
         "profile": "yarn start -- --profile",
         "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
-        "localize": "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/"
+        "localize":
+            "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/"
     },
     "dependencies": {
         "@dhis2/d2-i18n": "^1.0.4",
@@ -57,7 +60,7 @@
         "loglevel": "^1.6.1",
         "material-ui": "^0.20.0",
         "material-ui-icons": "^1.0.0-beta.17",
-        "promise-polyfill": "^7.1.0",
+        "promise-polyfill": "^8.1.0",
         "prop-types": "^15.6.2",
         "react": "16.5.0",
         "react-color": "^2.13.5",
@@ -71,7 +74,7 @@
         "redux-observable": "^0.18.0",
         "redux-thunk": "^2.2.0",
         "rxjs": "5.5.6",
-        "whatwg-fetch": "^2.0.3"
+        "whatwg-fetch": "^3.0.0"
     },
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.46",
@@ -123,10 +126,7 @@
         "webpack-dev-server": "^2.11.1",
         "webpack-uglify-js-plugin": "^1.1.9"
     },
-    "pre-commit": [
-        "validate",
-        "test"
-    ],
+    "pre-commit": ["validate", "test"],
     "manifest.webapp": {
         "name": "DHIS2 Maps",
         "icons": {
