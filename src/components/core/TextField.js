@@ -5,6 +5,7 @@ import MuiTextField from '@material-ui/core/TextField';
 
 const styles = {
     root: {
+        margin: '12px 0',
         whiteSpace: 'nowrap',
     },
 };

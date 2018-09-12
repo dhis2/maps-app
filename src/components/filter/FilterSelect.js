@@ -13,24 +13,21 @@ import { numberValueTypes, textValueTypes } from '../../constants/valueTypes';
 const styles = {
     operator: {
         float: 'left',
-        top: -12,
         marginRight: 24,
         width: 'calc((100% - 48px) / 8 * 2)',
     },
     textField: {
         float: 'left',
-        top: 8,
         width: 'calc((100% - 48px) / 8 * 3)',
     },
     checkbox: {
         float: 'left',
-        marginTop: 26,
+        marginTop: 36,
         marginLeft: -4,
         width: 'calc((100% - 48px) / 8 * 5)',
     },
     datePicker: {
         width: 165,
-        marginTop: 8,
     },
 };
 

@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 
 const styles = {
     root: {
-        marginTop: 20,
+        margin: '12px 0',
     },
 };
 

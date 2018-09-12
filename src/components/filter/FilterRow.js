@@ -8,15 +8,14 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const styles = {
     container: {
-        height: 64,
+        height: 68,
         marginBottom: 8,
-        padding: '0 56px 0 8px',
+        padding: '-0 56px 0 8px',
         background: '#f4f4f4',
         position: 'relative',
         clear: 'both',
     },
     select: {
-        top: -8,
         marginRight: 24,
         float: 'left',
         width: 'calc((100% - 48px) / 8 * 3)',
