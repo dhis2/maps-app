@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { once, sortBy } from 'lodash/fp';
-import { SelectField } from '@dhis2/d2-ui-core';
+import SelectField from '../core/SelectField';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
 
 const style = {

@@ -28,9 +28,9 @@ const styles = {
         marginLeft: -4,
         width: 'calc((100% - 48px) / 8 * 5)',
     },
-    dateField: {
-        width: 'calc((100% - 48px) / 8 * 3)',
-        top: -8,
+    datePicker: {
+        width: 165,
+        marginTop: 8,
     },
 };
 
@@ -134,12 +134,7 @@ export class FilterSelect extends Component {
                     label={i18n.t('Date')}
                     value={value}
                     onChange={date => onChange(`${operator}:${date}`)}
-                    style={{
-                        width: 165,
-                        marginTop: 8,
-                    }}
-                    // style={styles.datePicker}
-                    // textFieldStyle={styles.dateField}
+                    style={styles.datePicker}
                 />
             ) : null,
         ];

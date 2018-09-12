@@ -20,7 +20,7 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 // Not using AppWithD2 from d2-ui because it requires d2 to be a promise
 export class App extends Component {
     static propTypes = {
-        d2: PropTypes.object.isRequired,
+        d2: PropTypes.object,
     };
 
     static childContextTypes = {

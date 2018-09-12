@@ -1,6 +1,6 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '@dhis2/d2-ui-core';
+import SelectField from '../core/SelectField';
 
 const OptionSetSelect = ({ options, value, onChange, style }) => {
     // TODO: Temporarily fix until we have a searchable SelectField handling hundreds of options
