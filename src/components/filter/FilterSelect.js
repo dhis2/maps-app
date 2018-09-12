@@ -134,8 +134,12 @@ export class FilterSelect extends Component {
                     label={i18n.t('Date')}
                     value={value}
                     onChange={date => onChange(`${operator}:${date}`)}
-                    style={styles.datePicker}
-                    textFieldStyle={styles.dateField}
+                    style={{
+                        width: 165,
+                        marginTop: 8,
+                    }}
+                    // style={styles.datePicker}
+                    // textFieldStyle={styles.dateField}
                 />
             ) : null,
         ];

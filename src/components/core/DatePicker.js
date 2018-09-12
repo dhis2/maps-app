@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -19,6 +19,9 @@ const DatePicker = ({ label, value, onChange, classes, style }) => (
         onChange={event => onChange(event.target.value)}
         style={style}
         classes={classes}
+        InputLabelProps={{
+            shrink: true,
+        }}
     />
 );
 
