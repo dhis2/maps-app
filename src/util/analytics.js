@@ -162,7 +162,6 @@ export const getFiltersFromColumns = (columns = []) => {
 
 export const getFiltersAsText = (filters = [], names = {}) =>
     filters.map(({ dimension, filter }) => {
-        console.log(filters, names);
         const [operator, value] = filter.split(':');
         return `${names[dimension]} ${getFilterOperatorAsText(
             operator

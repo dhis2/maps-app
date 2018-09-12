@@ -69,7 +69,8 @@ const eventLoader = async layerConfig => {
     if (spatialSupport && eventClustering) {
         const response = await d2.analytics.events.getCount(analyticsRequest);
         config.bounds = getBounds(response.extent);
-        config.serverCluster = useServerCluster(response.count) && !styleDataItem;
+        config.serverCluster =
+            useServerCluster(response.count) && !styleDataItem;
     }
 
     if (!config.serverCluster) {
@@ -252,6 +253,10 @@ const getFilterOptionNames = async (filters, headers) => {
         .map(filter => headers.find(header => header.name === filter.dimension))
         .filter(header => header.optionSet)
         .map(header => header.optionSet);
+
+    if (!optionSets.length) {
+        return;
+    }
 
     // Returns one object with all option codes mapped to names
     return Object.assign(
