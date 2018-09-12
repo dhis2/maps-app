@@ -73,8 +73,8 @@ class FilterGroup extends Component {
                     />
                 ))}
                 <Button
-                    raised
-                    color="accent"
+                    variant="contained"
+                    color="primary"
                     onClick={() => addFilter()}
                     style={styles.button}
                 >

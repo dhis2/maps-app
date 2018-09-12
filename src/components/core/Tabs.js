@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import MuiTabs from '@material-ui/core/Tabs';
+
+const styles = {
+    root: {
+        borderBottom: '1px solid rgb(221, 221, 221)',
+    },
+};
 
 // Wrapper around MUI Tabs
 const Tabs = props => (
@@ -15,6 +22,7 @@ const Tabs = props => (
 
 Tabs.propTypes = {
     onChange: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
-export default Tabs;
+export default withStyles(styles)(Tabs);

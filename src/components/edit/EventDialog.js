@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
 import TextField from '../core/TextField';
@@ -163,8 +162,6 @@ export class EventDialog extends Component {
             setAreaRadius,
         } = this.props;
 
-        const { classes } = this.props;
-
         const {
             tab,
             programError,
@@ -187,7 +184,7 @@ export class EventDialog extends Component {
                     <Tab value="orgunits" label={i18n.t('Org units')} />
                     <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
-                <div classes={styles.tabContent}>
+                <div style={styles.tabContent}>
                     {tab === 'data' && (
                         <div style={styles.flexRowFlow}>
                             <ProgramSelect
@@ -430,4 +427,4 @@ export default connect(
     {
         withRef: true,
     }
-)(withStyles(styles)(EventDialog));
+)(EventDialog);

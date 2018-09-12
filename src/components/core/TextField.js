@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MuiTextField from '@material-ui/core/TextField';
 
-const styles = theme => ({
+const styles = {
     root: {
         whiteSpace: 'nowrap',
     },
-});
+};
 
 // Wrapper component around MUI TextField
 const TextField = props => (

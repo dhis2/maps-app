@@ -39,7 +39,7 @@ const styles = {
         width: 600,
     },
     title: {
-        padding: '16px 24px 0',
+        padding: '20px 24px 4px 24px',
         fontSize: 16,
         fontWeight: 'bold',
     },
@@ -68,8 +68,6 @@ class LayerEdit extends Component {
 
     loadLayer() {
         const { layer, loadLayer } = this.props;
-
-        // console.log(this.layerContainer.getWrappedInstance());
 
         // TODO: Better pattern?
         if (this.layerContainer.getWrappedInstance().validate()) {

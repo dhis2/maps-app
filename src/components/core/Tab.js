@@ -5,6 +5,7 @@ import MuiTab from '@material-ui/core/Tab';
 const styles = {
     root: {
         minWidth: 0,
+        fontSize: 14,
     },
 };
 
