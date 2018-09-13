@@ -158,6 +158,8 @@ const Plugin = () => {
         if (config.el) {
             const domEl = document.getElementById(config.el);
 
+            console.log('plugin configs', config);
+
             if (domEl) {
                 domEl.innerHTML = ''; // TODO: Remove when unmount is used
                 const div = document.createElement('div');
