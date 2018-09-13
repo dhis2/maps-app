@@ -10,6 +10,7 @@ const styles = {
         marginTop: 16,
     },
     textField: {
+        width: '100%',
         margin: '12px 0',
     },
     menu: {
@@ -50,6 +51,8 @@ const SelectField = props => {
     if (loading) {
         return <CircularProgress className={classes.loading} size={48} />; // TODO: Same size as text field
     }
+
+    console.log('style', style);
 
     return (
         <TextField

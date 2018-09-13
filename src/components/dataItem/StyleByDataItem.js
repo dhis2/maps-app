@@ -6,10 +6,6 @@ import DataItemSelect from './DataItemSelect';
 import DataItemStyle from './DataItemStyle';
 import { setStyleDataItem } from '../../actions/layerEdit';
 
-const style = {
-    marginTop: -16,
-};
-
 // Style by data item is used by event layer, and can be reused for TEI layer in the future.
 // Displays a select field with data items that support styling.
 // Styling options are shown when a data item is selected.
@@ -19,7 +15,7 @@ export const StyleByDataItem = ({
     styleDataItem,
     setStyleDataItem,
 }) => (
-    <div style={style}>
+    <div>
         <DataItemSelect
             key="select"
             label={i18n.t('Style by data item')}
