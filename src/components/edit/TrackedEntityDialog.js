@@ -160,7 +160,7 @@ export class TrackedEntityDialog extends Component {
                 <div className={classes.tabContent}>
                     {tab === 'data' && (
                         <div style={styles.flexRowFlow}>
-                            <div style={{ marginTop: 24, fontSize: 14 }}>
+                            <div style={{ margin: '12px 0', fontSize: 14 }}>
                                 {i18n.t(
                                     'This map layer is still experimental. Please provide your feedback on our'
                                 )}&nbsp;
@@ -222,7 +222,9 @@ export class TrackedEntityDialog extends Component {
                     )}
                     {tab === 'period' && (
                         <div style={styles.flexRowFlow}>
-                            <div style={{ marginTop: 24 }}>{periodHelp}:</div>
+                            <div style={{ margin: '12px 0', fontSize: 14 }}>
+                                {periodHelp}:
+                            </div>
                             <DatePicker
                                 key="startdate"
                                 label={i18n.t('Start date')}
@@ -315,10 +317,7 @@ export class TrackedEntityDialog extends Component {
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
                                         onCheck={this.onShowBufferClick}
-                                        style={{
-                                            ...styles.flexInnerColumn,
-                                            marginTop: 47,
-                                        }}
+                                        style={styles.flexInnerColumn}
                                     />
                                     {showBuffer && (
                                         <TextField
