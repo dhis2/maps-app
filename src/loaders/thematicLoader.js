@@ -80,7 +80,8 @@ const thematicLoader = async config => {
 
         properties.value = value;
         properties.radius =
-            ((value - minValue) / (maxValue - minValue)) *
+            (value - minValue) /
+                (maxValue - minValue) *
                 (radiusHigh - radiusLow) +
             radiusLow;
         properties.type = geometry.type; // Shown in data table
