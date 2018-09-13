@@ -20,12 +20,6 @@ const styles = {
         float: 'left',
         width: 'calc((100% - 48px) / 8 * 3)',
     },
-    checkbox: {
-        float: 'left',
-        marginTop: 36,
-        marginLeft: -4,
-        width: 'calc((100% - 48px) / 8 * 5)',
-    },
     datePicker: {
         width: 165,
     },
@@ -119,10 +113,7 @@ export class FilterSelect extends Component {
                     key="checkbox"
                     label={i18n.t('Yes')}
                     checked={value == 1 ? true : false}
-                    onCheck={(event, isChecked) =>
-                        onChange(isChecked ? 'IN:1' : 'IN:0')
-                    }
-                    style={styles.checkbox}
+                    onCheck={isChecked => onChange(isChecked ? 'IN:1' : 'IN:0')}
                 />
             ) : null,
             valueType === 'DATE' ? (

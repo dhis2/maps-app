@@ -1,31 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import MuiCheckbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+const styles = {
+    root: {
+        margin: '12px 0',
+    },
+};
+
 // Wrapper around MUI Checkbox with label support
-const Checkbox = ({
-    label,
-    checked,
-    onCheck,
-    style,
-    labelStyle,
-    iconStyle,
-    disabled,
-}) => (
+const Checkbox = ({ label, checked, onCheck, disabled, classes, style }) => (
     <FormControlLabel
         label={label}
         control={
             <MuiCheckbox
-                label={label}
+                color="primary"
                 checked={checked}
                 onChange={(event, isChecked) => onCheck(isChecked)}
-                // style={style}
-                // labelStyle={labelStyle}
-                // iconStyle={iconStyle}
                 disabled={disabled}
             />
         }
+        classes={classes}
+        style={style}
     />
 );
 
@@ -37,6 +35,7 @@ Checkbox.propTypes = {
     labelStyle: PropTypes.object,
     iconStyle: PropTypes.object,
     disabled: PropTypes.bool,
+    classes: PropTypes.object.isRequired,
 };
 
-export default Checkbox;
+export default withStyles(styles)(Checkbox);
