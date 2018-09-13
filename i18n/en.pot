@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-09-07T13:38:26.990Z\n"
-"PO-Revision-Date: 2018-09-07T13:38:26.990Z\n"
+"POT-Creation-Date: 2018-09-12T11:16:24.750Z\n"
+"PO-Revision-Date: 2018-09-12T11:16:24.750Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -125,16 +125,16 @@ msgstr ""
 msgid "period"
 msgstr ""
 
-msgid "Start date"
-msgstr ""
-
-msgid "End date"
-msgstr ""
-
 msgid "Filter"
 msgstr ""
 
 msgid "Org units"
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "End date"
 msgstr ""
 
 msgid "Events"
@@ -254,9 +254,6 @@ msgstr ""
 msgid "Remove filter"
 msgstr ""
 
-msgid "Close"
-msgstr ""
-
 msgid "Operator"
 msgstr ""
 
@@ -287,7 +284,16 @@ msgstr ""
 msgid "Interpretations"
 msgstr ""
 
+msgid "Basemap"
+msgstr ""
+
 msgid "Toggle visibility"
+msgstr ""
+
+msgid "Collapse"
+msgstr ""
+
+msgid "Expand"
 msgstr ""
 
 msgid "deleted"
@@ -356,6 +362,9 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
+msgid "No data found"
+msgstr ""
+
 msgid "Last updated"
 msgstr ""
 
@@ -366,6 +375,9 @@ msgid "Code"
 msgstr ""
 
 msgid "No data found for this period."
+msgstr ""
+
+msgid "Close"
 msgstr ""
 
 msgid "Select groups"
@@ -440,9 +452,6 @@ msgid "Event"
 msgstr ""
 
 msgid "Facilities"
-msgstr ""
-
-msgid "No data found"
 msgstr ""
 
 msgid "Tracked entity"

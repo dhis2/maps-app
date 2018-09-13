@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tabs, Tab } from 'material-ui/Tabs';
-// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField';
+import Tabs from '../core/Tabs';
+import Tab from '../core/Tab';
+import TextField from '../core/TextField';
 import ProgramSelect from '../program/ProgramSelect';
 import ProgramStageSelect from '../program/ProgramStageSelect';
 import RelativePeriodSelect from '../periods/RelativePeriodSelect';
-import DatePicker from '../d2-ui/DatePicker';
-import Checkbox from '../d2-ui/Checkbox';
+import DatePicker from '../core/DatePicker';
+import Checkbox from '../core/Checkbox';
 import FilterGroup from '../filter/FilterGroup';
-import ImageSelect from '../d2-ui/ImageSelect';
+import ImageSelect from '../core/ImageSelect';
 import StyleByDataItem from '../dataItem/StyleByDataItem';
 import CoordinateField from '../dataItem/CoordinateField';
-import ColorPicker from '../d2-ui/ColorPicker';
+import ColorPicker from '../core/ColorPicker';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
@@ -34,6 +34,7 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
+    setOrgUnitRoot,
     setUserOrgUnits,
     toggleOrgUnit,
     setPeriod,
@@ -86,6 +87,7 @@ export class EventDialog extends Component {
         setEventClustering: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
+        setOrgUnitRoot: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
@@ -104,13 +106,22 @@ export class EventDialog extends Component {
 
     componentDidMount() {
         const {
+            rows,
             filters,
             startDate,
             endDate,
             setStartDate,
             setEndDate,
+            setOrgUnitRoot,
         } = this.props;
+
+        const orgUnits = getOrgUnitNodesFromRows(rows);
         const period = getPeriodFromFilters(filters);
+
+        // Set org unit tree root as default
+        if (orgUnits.length === 0) {
+            setOrgUnitRoot();
+        }
 
         if (!period && !startDate && !endDate) {
             // Set default period (last year)
@@ -176,181 +187,178 @@ export class EventDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <Tabs
-                style={styles.tabs}
-                tabItemContainerStyle={styles.tabBar}
-                contentContainerStyle={styles.tabContent}
-                value={tab}
-                onChange={tab => this.setState({ tab })}
-            >
-                <Tab value="data" label={i18n.t('data')}>
-                    <div style={styles.flexRowFlow}>
-                        <ProgramSelect
-                            program={program}
-                            onChange={setProgram}
-                            style={styles.select}
-                            errorText={programError}
-                        />
-                        <ProgramStageSelect
-                            program={program}
-                            programStage={programStage}
-                            onChange={setProgramStage}
-                            style={styles.select}
-                            errorText={programStageError}
-                        />
-                        <CoordinateField
-                            program={program}
-                            programStage={programStage}
-                            value={eventCoordinateField}
-                            onChange={setEventCoordinateField}
-                            style={styles.select}
-                        />
-                    </div>
-                </Tab>
-                <Tab value="period" label={i18n.t('period')}>
-                    <div style={styles.flexRowFlow}>
-                        <RelativePeriodSelect
-                            period={period}
-                            startEndDates={true}
-                            onChange={setPeriod}
-                            style={styles.select}
-                        />
-                        {period.id === 'START_END_DATES' && [
-                            <DatePicker
-                                key="startdate"
-                                label={i18n.t('Start date')}
-                                value={startDate}
-                                default={EVENT_START_DATE}
-                                onChange={setStartDate}
+            <div>
+                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="data" label={i18n.t('data')} />
+                    <Tab value="period" label={i18n.t('period')} />
+                    <Tab value="filter" label={i18n.t('Filter')} />
+                    <Tab value="orgunits" label={i18n.t('Org units')} />
+                    <Tab value="style" label={i18n.t('Style')} />
+                </Tabs>
+                <div style={styles.tabContent}>
+                    {tab === 'data' && (
+                        <div style={styles.flexRowFlow}>
+                            <ProgramSelect
+                                program={program}
+                                onChange={setProgram}
                                 style={styles.select}
-                            />,
-                            <DatePicker
-                                key="enddate"
-                                label={i18n.t('End date')}
-                                value={endDate}
-                                default={EVENT_END_DATE}
-                                onChange={setEndDate}
+                                errorText={programError}
+                            />
+                            <ProgramStageSelect
+                                program={program}
+                                programStage={programStage}
+                                onChange={setProgramStage}
                                 style={styles.select}
-                            />,
-                        ]}
-                    </div>
-                </Tab>
-                <Tab value="filter" label={i18n.t('Filter')}>
-                    <div style={styles.flexRowFlow}>
-                        <FilterGroup
-                            program={program}
-                            programStage={programStage}
-                            filters={columns.filter(
-                                c => c.filter !== undefined
-                            )}
-                        />
-                    </div>
-                </Tab>
-                <Tab value="orgunits" label={i18n.t('Org units')}>
-                    <div style={styles.flexColumnFlow}>
-                        <div
-                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
-                        >
-                            <OrgUnitTree
-                                selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrgUnit}
-                                disabled={
-                                    selectedUserOrgUnits.length ? true : false
-                                }
-                                selectRootAsDefault={
-                                    getOrgUnitsFromRows(rows).length === 0
-                                }
+                                errorText={programStageError}
+                            />
+                            <CoordinateField
+                                program={program}
+                                programStage={programStage}
+                                value={eventCoordinateField}
+                                onChange={setEventCoordinateField}
+                                style={styles.select}
                             />
                         </div>
-                        <div style={styles.flexColumn}>
-                            <UserOrgUnitsSelect
-                                selected={selectedUserOrgUnits}
-                                onChange={setUserOrgUnits}
+                    )}
+                    {tab === 'period' && (
+                        <div style={styles.flexRowFlow}>
+                            <RelativePeriodSelect
+                                period={period}
+                                startEndDates={true}
+                                onChange={setPeriod}
+                                style={styles.select}
                             />
-                            <SelectedOrgUnits
-                                rows={rows}
-                                units={i18n.t('Events')}
-                                error={orgUnitsError}
+                            {period.id === 'START_END_DATES' && [
+                                <DatePicker
+                                    key="startdate"
+                                    label={i18n.t('Start date')}
+                                    value={startDate}
+                                    default={EVENT_START_DATE}
+                                    onChange={setStartDate}
+                                    style={styles.select}
+                                />,
+                                <DatePicker
+                                    key="enddate"
+                                    label={i18n.t('End date')}
+                                    value={endDate}
+                                    default={EVENT_END_DATE}
+                                    onChange={setEndDate}
+                                    style={styles.select}
+                                />,
+                            ]}
+                        </div>
+                    )}
+                    {tab === 'filter' && (
+                        <div style={styles.flexRowFlow}>
+                            <FilterGroup
+                                program={program}
+                                programStage={programStage}
+                                filters={columns.filter(
+                                    c => c.filter !== undefined
+                                )}
                             />
                         </div>
-                    </div>
-                </Tab>
-                <Tab value="style" label={i18n.t('Style')}>
-                    <div style={styles.flexColumnFlow}>
-                        <div style={styles.flexColumn}>
-                            <div style={styles.flexInnerColumnFlow}>
-                                <ImageSelect
-                                    id="cluster"
-                                    img="images/cluster.png"
-                                    title={i18n.t('Group events')}
-                                    onClick={() => setEventClustering(true)}
-                                    isSelected={eventClustering}
-                                    style={styles.flexInnerColumn}
-                                />
-                                <ImageSelect
-                                    id="nocluster"
-                                    img="images/nocluster.png"
-                                    title={i18n.t('View all events')}
-                                    onClick={() => setEventClustering(false)}
-                                    isSelected={!eventClustering}
-                                    style={styles.flexInnerColumn}
-                                />
-                            </div>
-                            <div style={styles.flexInnerColumnFlow}>
-                                <ColorPicker
-                                    label={i18n.t('Color')}
-                                    color={eventPointColor || EVENT_COLOR}
-                                    onChange={setEventPointColor}
-                                    style={styles.flexInnerColumn}
-                                />
-                                <TextField
-                                    id="radius"
-                                    type="number"
-                                    floatingLabelText={i18n.t('Radius')}
-                                    value={eventPointRadius || EVENT_RADIUS}
-                                    onChange={(evt, radius) =>
-                                        setEventPointRadius(radius)
+                    )}
+                    {tab === 'orgunits' && (
+                        <div style={styles.flexColumnFlow}>
+                            <div
+                                style={{
+                                    ...styles.flexColumn,
+                                    overflow: 'hidden',
+                                }}
+                            >
+                                <OrgUnitTree
+                                    selected={getOrgUnitNodesFromRows(rows)}
+                                    onClick={toggleOrgUnit}
+                                    disabled={
+                                        selectedUserOrgUnits.length
+                                            ? true
+                                            : false
                                     }
-                                    style={styles.flexInnerColumn}
                                 />
                             </div>
-                            <div style={styles.flexInnerColumnFlow}>
-                                <Checkbox
-                                    label={i18n.t('Buffer')}
-                                    checked={showBuffer}
-                                    onCheck={this.onShowBufferClick.bind(this)}
-                                    style={{
-                                        ...styles.flexInnerColumn,
-                                        marginTop: 47,
-                                    }}
-                                    disabled={eventClustering}
+                            <div style={styles.flexColumn}>
+                                <UserOrgUnitsSelect
+                                    selected={selectedUserOrgUnits}
+                                    onChange={setUserOrgUnits}
                                 />
-                                {showBuffer && (
-                                    <TextField
-                                        id="buffer"
-                                        type="number"
-                                        floatingLabelText={i18n.t(
-                                            'Radius in meters'
-                                        )}
-                                        value={areaRadius || ''}
-                                        onChange={(evt, radius) =>
-                                            setAreaRadius(radius)
-                                        }
+                                <SelectedOrgUnits
+                                    rows={rows}
+                                    units={i18n.t('Events')}
+                                    error={orgUnitsError}
+                                />
+                            </div>
+                        </div>
+                    )}
+                    {tab === 'style' && (
+                        <div style={styles.flexColumnFlow}>
+                            <div style={styles.flexColumn}>
+                                <div style={styles.flexInnerColumnFlow}>
+                                    <ImageSelect
+                                        id="cluster"
+                                        img="images/cluster.png"
+                                        title={i18n.t('Group events')}
+                                        onClick={() => setEventClustering(true)}
+                                        isSelected={eventClustering}
                                         style={styles.flexInnerColumn}
-                                        floatingLabelStyle={{
-                                            whiteSpace: 'nowrap',
-                                        }}
+                                    />
+                                    <ImageSelect
+                                        id="nocluster"
+                                        img="images/nocluster.png"
+                                        title={i18n.t('View all events')}
+                                        onClick={() =>
+                                            setEventClustering(false)
+                                        }
+                                        isSelected={!eventClustering}
+                                        style={styles.flexInnerColumn}
+                                    />
+                                </div>
+                                <div style={styles.flexInnerColumnFlow}>
+                                    <ColorPicker
+                                        label={i18n.t('Color')}
+                                        color={eventPointColor || EVENT_COLOR}
+                                        onChange={setEventPointColor}
+                                        style={styles.flexInnerColumn}
+                                    />
+                                    <TextField
+                                        id="radius"
+                                        type="number"
+                                        label={i18n.t('Radius')}
+                                        value={eventPointRadius || EVENT_RADIUS}
+                                        onChange={setEventPointRadius}
+                                        style={styles.flexInnerColumn}
+                                    />
+                                </div>
+                                <div style={styles.flexInnerColumnFlow}>
+                                    <Checkbox
+                                        label={i18n.t('Buffer')}
+                                        checked={showBuffer}
+                                        onCheck={this.onShowBufferClick.bind(
+                                            this
+                                        )}
+                                        style={styles.flexInnerColumn}
                                         disabled={eventClustering}
                                     />
-                                )}
+                                    {showBuffer && (
+                                        <TextField
+                                            id="buffer"
+                                            type="number"
+                                            label={i18n.t('Radius in meters')}
+                                            value={areaRadius || ''}
+                                            onChange={setAreaRadius}
+                                            style={styles.flexInnerColumn}
+                                            disabled={eventClustering}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                            <div style={styles.flexColumn}>
+                                {program && <StyleByDataItem />}
                             </div>
                         </div>
-                        <div style={styles.flexColumn}>
-                            {program && <StyleByDataItem />}
-                        </div>
-                    </div>
-                </Tab>
-            </Tabs>
+                    )}
+                </div>
+            </div>
         );
     }
 
@@ -413,6 +421,7 @@ export default connect(
         setEventClustering,
         setEventPointColor,
         setEventPointRadius,
+        setOrgUnitRoot,
         setUserOrgUnits,
         toggleOrgUnit,
         setPeriod,

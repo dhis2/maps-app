@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tabs, Tab } from 'material-ui/Tabs';
-// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField';
+import Tabs from '../../core/Tabs';
+import Tab from '../../core/Tab';
+import TextField from '../../core/TextField';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
-import Checkbox from '../../d2-ui/Checkbox';
+import Checkbox from '../../core/Checkbox';
 import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect from '../../dataElement/DataElementSelect';
 import DataElementOperandSelect from '../../dataElement/DataElementOperandSelect';
 import TotalsDetailsSelect from '../../dataElement/TotalsDetailsSelect';
 import EventDataItemSelect from '../../dataItem/EventDataItemSelect';
 import DataSetsSelect from '../../dataSets/DataSetsSelect'; // Reporting rate
-import FontStyle from '../../d2-ui/FontStyle';
+import FontStyle from '../../core/FontStyle';
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect';
 import NumericLegendStyle from '../../classification/NumericLegendStyle';
 import IndicatorSelect from '../../indicator/IndicatorSelect';
@@ -29,10 +29,6 @@ import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import { layerDialogStyles } from '../LayerDialogStyles';
 import { dimConf } from '../../../constants/dimension';
-import {
-    CLASSIFICATION_PREDEFINED,
-    CLASSIFICATION_EQUAL_INTERVALS,
-} from '../../../constants/layers';
 
 import {
     setDataItem,
@@ -190,251 +186,265 @@ export class ThematicDialog extends Component {
         const dataItem = getDataItemFromColumns(columns);
 
         return (
-            <Tabs
-                style={styles.tabs}
-                tabItemContainerStyle={styles.tabBar}
-                contentContainerStyle={styles.tabContent}
-                value={tab}
-                onChange={tab => this.setState({ tab })}
-            >
-                <Tab value="data" label={i18n.t('data')}>
-                    <div style={styles.flexRowFlow}>
-                        <ValueTypeSelect
-                            value={valueType}
-                            style={styles.select}
-                            onChange={setValueType}
-                        />
-                        {(!valueType || valueType === 'in') && [
-                            // Indicator (default)
-                            <IndicatorGroupSelect
-                                key="group"
-                                indicatorGroup={indicatorGroup}
-                                onChange={setIndicatorGroup}
+            <div>
+                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="data" label={i18n.t('data')} />
+                    <Tab value="period" label={i18n.t('period')} />
+                    <Tab value="orgunits" label={i18n.t('Org units')} />
+                    <Tab value="style" label={i18n.t('Style')} />
+                </Tabs>
+                <div style={styles.tabContent}>
+                    {tab === 'data' && (
+                        <div style={styles.flexRowFlow}>
+                            <ValueTypeSelect
+                                value={valueType}
                                 style={styles.select}
-                                errorText={indicatorGroupError}
-                            />,
-                            <IndicatorSelect
-                                key="indicator"
-                                indicatorGroup={indicatorGroup}
-                                indicator={dataItem}
-                                onChange={setDataItem}
-                                style={styles.select}
-                                errorText={indicatorError}
-                            />,
-                        ]}
-                        {valueType === 'de' && [
-                            // Data element
-                            <DataElementGroupSelect
-                                key="group"
-                                dataElementGroup={dataElementGroup}
-                                onChange={setDataElementGroup}
-                                style={styles.select}
-                            />,
-                            dataElementGroup && (
-                                <TotalsDetailsSelect
-                                    key="totals"
-                                    operand={operand}
-                                    onChange={setOperand}
-                                    style={styles.select}
-                                />
-                            ),
-                            operand === true ? (
-                                <DataElementOperandSelect
-                                    key="element"
-                                    dataElementGroup={dataElementGroup}
-                                    dataElement={dataItem}
-                                    onChange={setDataItem}
-                                    style={styles.select}
-                                />
-                            ) : (
-                                <DataElementSelect
-                                    key="element"
-                                    dataElementGroup={dataElementGroup}
-                                    dataElement={dataItem}
-                                    onChange={setDataItem}
-                                    style={styles.select}
-                                />
-                            ),
-                        ]}
-                        {valueType === 'ds' && ( // Reporting rates
-                            <DataSetsSelect
-                                key="item"
-                                dataSet={dataItem}
-                                onChange={setDataItem}
-                                style={styles.select}
+                                onChange={setValueType}
                             />
-                        )}
-                        {valueType === 'di' && [
-                            // Event data items
-                            <ProgramSelect
-                                key="program"
-                                program={program}
-                                onChange={setProgram}
-                                style={styles.select}
-                            />,
-                            program && (
-                                <EventDataItemSelect
-                                    key="item"
-                                    program={program}
-                                    dataItem={dataItem}
-                                    onChange={setDataItem}
+                            {(!valueType || valueType === 'in') && [
+                                // Indicator (default)
+                                <IndicatorGroupSelect
+                                    key="group"
+                                    indicatorGroup={indicatorGroup}
+                                    onChange={setIndicatorGroup}
                                     style={styles.select}
-                                />
-                            ),
-                        ]}
-                        {valueType === 'pi' && [
-                            // Program indicator
-                            <ProgramSelect
-                                key="program"
-                                program={program}
-                                onChange={setProgram}
-                                style={styles.select}
-                            />,
-                            program && (
-                                <ProgramIndicatorSelect
+                                    errorText={indicatorGroupError}
+                                />,
+                                <IndicatorSelect
                                     key="indicator"
-                                    program={program}
-                                    programIndicator={dataItem}
+                                    indicatorGroup={indicatorGroup}
+                                    indicator={dataItem}
+                                    onChange={setDataItem}
+                                    style={styles.select}
+                                    errorText={indicatorError}
+                                />,
+                            ]}
+                            {valueType === 'de' && [
+                                // Data element
+                                <DataElementGroupSelect
+                                    key="group"
+                                    dataElementGroup={dataElementGroup}
+                                    onChange={setDataElementGroup}
+                                    style={styles.select}
+                                />,
+                                dataElementGroup && (
+                                    <TotalsDetailsSelect
+                                        key="totals"
+                                        operand={operand}
+                                        onChange={setOperand}
+                                        style={styles.select}
+                                    />
+                                ),
+                                operand === true ? (
+                                    <DataElementOperandSelect
+                                        key="element"
+                                        dataElementGroup={dataElementGroup}
+                                        dataElement={dataItem}
+                                        onChange={setDataItem}
+                                        style={styles.select}
+                                    />
+                                ) : (
+                                    <DataElementSelect
+                                        key="element"
+                                        dataElementGroup={dataElementGroup}
+                                        dataElement={dataItem}
+                                        onChange={setDataItem}
+                                        style={styles.select}
+                                    />
+                                ),
+                            ]}
+                            {valueType === 'ds' && ( // Reporting rates
+                                <DataSetsSelect
+                                    key="item"
+                                    dataSet={dataItem}
                                     onChange={setDataItem}
                                     style={styles.select}
                                 />
-                            ),
-                        ]}
-                        <AggregationTypeSelect style={styles.select} />
-                    </div>
-                </Tab>
-                <Tab value="period" label={i18n.t('period')}>
-                    <div style={styles.flexRowFlow}>
-                        <PeriodTypeSelect
-                            value={periodType}
-                            onChange={type => setPeriodType(type.id)}
-                            style={styles.select}
-                            errorText={periodTypeError}
-                        />
-                        {periodType === 'relativePeriods' && (
-                            <RelativePeriodSelect
-                                period={period}
-                                onChange={setPeriod}
-                                style={styles.select}
-                                errorText={periodError}
-                            />
-                        )}
-                        {((periodType && periodType !== 'relativePeriods') ||
-                            (!periodType && id)) && (
-                            <PeriodSelect
-                                periodType={periodType}
-                                period={period}
-                                onChange={setPeriod}
-                                style={styles.select}
-                                errorText={periodError}
-                            />
-                        )}
-                    </div>
-                </Tab>
-                <Tab value="orgunits" label={i18n.t('Org units')}>
-                    <div style={styles.flexColumnFlow}>
-                        <div
-                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
-                        >
-                            <OrgUnitTree
-                                selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrgUnit}
-                                disabled={
-                                    selectedUserOrgUnits.length ? true : false
-                                }
-                            />
+                            )}
+                            {valueType === 'di' && [
+                                // Event data items
+                                <ProgramSelect
+                                    key="program"
+                                    program={program}
+                                    onChange={setProgram}
+                                    style={styles.select}
+                                />,
+                                program && (
+                                    <EventDataItemSelect
+                                        key="item"
+                                        program={program}
+                                        dataItem={dataItem}
+                                        onChange={setDataItem}
+                                        style={styles.select}
+                                    />
+                                ),
+                            ]}
+                            {valueType === 'pi' && [
+                                // Program indicator
+                                <ProgramSelect
+                                    key="program"
+                                    program={program}
+                                    onChange={setProgram}
+                                    style={styles.select}
+                                />,
+                                program && (
+                                    <ProgramIndicatorSelect
+                                        key="indicator"
+                                        program={program}
+                                        programIndicator={dataItem}
+                                        onChange={setDataItem}
+                                        style={styles.select}
+                                    />
+                                ),
+                            ]}
+                            <AggregationTypeSelect style={styles.select} />
                         </div>
-                        <div style={styles.flexColumn}>
-                            <OrgUnitLevelSelect
-                                orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
-                                defaultLevel={2}
-                                onChange={setOrgUnitLevels}
-                            />
-                            <OrgUnitGroupSelect
-                                orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
-                                onChange={setOrgUnitGroups}
-                            />
-                            <UserOrgUnitsSelect
-                                selected={selectedUserOrgUnits}
-                                onChange={setUserOrgUnits}
-                            />
-                            {!orgUnits.length &&
-                                orgUnitsError && (
-                                    <div style={styles.error}>
-                                        {orgUnitsError}
-                                    </div>
-                                )}
-                        </div>
-                    </div>
-                </Tab>
-                <Tab value="style" label={i18n.t('Style')}>
-                    <div style={styles.flexColumnFlow}>
-                        <div style={{ ...styles.flexColumn, marginTop: 0 }}>
-                            <NumericLegendStyle
-                                dataItem={dataItem}
+                    )}
+                    {tab === 'period' && (
+                        <div style={styles.flexRowFlow}>
+                            <PeriodTypeSelect
+                                value={periodType}
+                                onChange={type => setPeriodType(type.id)}
                                 style={styles.select}
+                                errorText={periodTypeError}
                             />
-                            <div style={styles.flexInnerColumnFlow}>
-                                <TextField
-                                    id="lowsize"
-                                    type="number"
-                                    floatingLabelText={i18n.t('Low size')}
-                                    value={
-                                        radiusLow !== undefined ? radiusLow : 5
-                                    }
-                                    onChange={(evt, radius) =>
-                                        setRadiusLow(radius)
-                                    }
-                                    style={styles.flexInnerColumn}
+                            {periodType === 'relativePeriods' && (
+                                <RelativePeriodSelect
+                                    period={period}
+                                    onChange={setPeriod}
+                                    style={styles.select}
+                                    errorText={periodError}
                                 />
-                                <TextField
-                                    id="highsize"
-                                    type="number"
-                                    floatingLabelText={i18n.t('High size')}
-                                    value={
-                                        radiusHigh !== undefined
-                                            ? radiusHigh
-                                            : 15
+                            )}
+                            {((periodType &&
+                                periodType !== 'relativePeriods') ||
+                                (!periodType && id)) && (
+                                <PeriodSelect
+                                    periodType={periodType}
+                                    period={period}
+                                    onChange={setPeriod}
+                                    style={styles.select}
+                                    errorText={periodError}
+                                />
+                            )}
+                        </div>
+                    )}
+                    {tab === 'orgunits' && (
+                        <div style={styles.flexColumnFlow}>
+                            <div
+                                style={{
+                                    ...styles.flexColumn,
+                                    overflow: 'hidden',
+                                }}
+                            >
+                                <OrgUnitTree
+                                    selected={getOrgUnitNodesFromRows(rows)}
+                                    onClick={toggleOrgUnit}
+                                    disabled={
+                                        selectedUserOrgUnits.length
+                                            ? true
+                                            : false
                                     }
-                                    onChange={(evt, radius) =>
-                                        setRadiusHigh(radius)
-                                    }
-                                    style={styles.flexInnerColumn}
                                 />
                             </div>
-                            <div style={styles.flexInnerColumnFlow}>
-                                <Checkbox
-                                    label={i18n.t('Labels')}
-                                    checked={labels}
-                                    onCheck={setLabels}
-                                    style={{
-                                        ...styles.flexInnerColumn,
-                                        maxWidth: 150,
-                                        paddingTop: 24,
-                                        height: 42,
-                                    }}
+                            <div style={styles.flexColumn}>
+                                <OrgUnitLevelSelect
+                                    orgUnitLevel={getOrgUnitLevelsFromRows(
+                                        rows
+                                    )}
+                                    defaultLevel={2}
+                                    onChange={setOrgUnitLevels}
                                 />
-                                {labels && (
-                                    <FontStyle
-                                        color={labelFontColor}
-                                        size={labelFontSize}
-                                        weight={labelFontWeight}
-                                        fontStyle={labelFontStyle}
-                                        onColorChange={setLabelFontColor}
-                                        onSizeChange={setLabelFontSize}
-                                        onWeightChange={setLabelFontWeight}
-                                        onStyleChange={setLabelFontStyle}
+                                <OrgUnitGroupSelect
+                                    orgUnitGroup={getOrgUnitGroupsFromRows(
+                                        rows
+                                    )}
+                                    onChange={setOrgUnitGroups}
+                                />
+                                <UserOrgUnitsSelect
+                                    selected={selectedUserOrgUnits}
+                                    onChange={setUserOrgUnits}
+                                />
+                                {!orgUnits.length &&
+                                    orgUnitsError && (
+                                        <div style={styles.error}>
+                                            {orgUnitsError}
+                                        </div>
+                                    )}
+                            </div>
+                        </div>
+                    )}
+                    {tab === 'style' && (
+                        <div style={styles.flexColumnFlow}>
+                            <div style={{ ...styles.flexColumn, marginTop: 0 }}>
+                                <NumericLegendStyle
+                                    dataItem={dataItem}
+                                    style={styles.select}
+                                />
+                                <div style={styles.flexInnerColumnFlow}>
+                                    <TextField
+                                        id="lowsize"
+                                        type="number"
+                                        label={i18n.t('Low size')}
+                                        value={
+                                            radiusLow !== undefined
+                                                ? radiusLow
+                                                : 5
+                                        }
+                                        onChange={(evt, radius) =>
+                                            setRadiusLow(radius)
+                                        }
+                                        style={styles.flexInnerColumn}
+                                    />
+                                    <TextField
+                                        id="highsize"
+                                        type="number"
+                                        label={i18n.t('High size')}
+                                        value={
+                                            radiusHigh !== undefined
+                                                ? radiusHigh
+                                                : 15
+                                        }
+                                        onChange={(evt, radius) =>
+                                            setRadiusHigh(radius)
+                                        }
+                                        style={styles.flexInnerColumn}
+                                    />
+                                </div>
+                                <div style={styles.flexInnerColumnFlow}>
+                                    <Checkbox
+                                        label={i18n.t('Labels')}
+                                        checked={labels}
+                                        onCheck={setLabels}
                                         style={{
                                             ...styles.flexInnerColumn,
-                                            ...styles.font,
+                                            maxWidth: 150,
+                                            paddingTop: 24,
+                                            height: 42,
                                         }}
                                     />
-                                )}
+                                    {labels && (
+                                        <FontStyle
+                                            color={labelFontColor}
+                                            size={labelFontSize}
+                                            weight={labelFontWeight}
+                                            fontStyle={labelFontStyle}
+                                            onColorChange={setLabelFontColor}
+                                            onSizeChange={setLabelFontSize}
+                                            onWeightChange={setLabelFontWeight}
+                                            onStyleChange={setLabelFontStyle}
+                                            style={{
+                                                ...styles.flexInnerColumn,
+                                                ...styles.font,
+                                            }}
+                                        />
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Tab>
-            </Tabs>
+                    )}
+                </div>
+            </div>
         );
     }
 

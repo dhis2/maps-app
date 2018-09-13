@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Popover from '@material-ui/core/Popover';
 import { ColorScale } from '@dhis2/d2-ui-legend';
-import Popover from 'material-ui/Popover/Popover';
 import {
     colorScales,
     getColorScale,
@@ -13,16 +14,16 @@ const styles = {
         marginTop: 19,
         overflow: 'visible',
         whiteSpace: 'nowrap',
+        background: 'yellow',
     },
     popover: {
         height: '100%',
-        whiteSpace: 'nowrap',
     },
     scaleItem: {
         display: 'block',
         margin: '5px 12px 0 12px',
         overflow: 'visible',
-        background: 'yellow',
+        background: 'red',
         whiteSpace: 'nowrap',
     },
 };
@@ -32,6 +33,7 @@ class ColorScaleSelect extends Component {
         palette: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        classes: PropTypes.object.isRequired,
     };
 
     constructor(...args) {
@@ -67,31 +69,31 @@ class ColorScaleSelect extends Component {
     };
 
     render() {
-        const { palette, style } = this.props;
-        const classes = palette.split(',').length;
+        const { palette, style, classes } = this.props;
+        const bins = palette.split(',').length;
         const scale = getColorScale(palette);
 
         return (
             <div style={style}>
                 <ColorScale
-                    classes={classes}
+                    classes={bins}
                     scale={scale}
                     onClick={this.showColorScales}
-                    style={styles.scale}
+                    className={classes.scale}
                 />
                 <Popover
-                    style={styles.popover}
+                    classes={{ paper: classes.popover }}
+                    // style={styles.popover}
                     open={this.state.open}
                     anchorEl={this.state.anchorEl}
                     anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                    targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-                    onRequestClose={() => this.hideColorScales()}
+                    onClose={() => this.hideColorScales()}
                 >
                     {colorScales.map((scale, index) => (
                         <ColorScale
                             key={index}
                             scale={scale}
-                            classes={classes}
+                            classes={bins}
                             style={styles.scaleItem}
                             onClick={this.onColorScaleSelect}
                         />
@@ -102,4 +104,4 @@ class ColorScaleSelect extends Component {
     }
 }
 
-export default ColorScaleSelect;
+export default withStyles(styles)(ColorScaleSelect);

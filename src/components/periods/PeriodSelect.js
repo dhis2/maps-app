@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '@dhis2/d2-ui-core';
-import IconButton from 'material-ui/IconButton';
-import { SvgIcon } from '@dhis2/d2-ui-core';
+import SelectField from '../core/SelectField';
+import IconButton from '@material-ui/core/IconButton';
+import LeftIcon from '@material-ui/icons/ChevronLeft';
+import RightIcon from '@material-ui/icons/ChevronRight';
 import { filterFuturePeriods } from 'd2/lib/period/helpers';
 import { createPeriods } from '../../util/periods';
 
@@ -76,6 +77,10 @@ class PeriodSelect extends Component {
         const { periods } = this.state;
         const value = period ? period.id : null;
 
+        if (!periods) {
+            return null;
+        }
+
         return (
             <div style={{ height: 100, ...style }}>
                 <SelectField
@@ -94,7 +99,7 @@ class PeriodSelect extends Component {
                             style={styles.button}
                             disableTouchRipple={true}
                         >
-                            <SvgIcon icon="ChevronLeft" />
+                            <LeftIcon />
                         </IconButton>
                         <IconButton
                             tooltip={i18n.t('Next year')}
@@ -102,7 +107,7 @@ class PeriodSelect extends Component {
                             style={styles.button}
                             disableTouchRipple={true}
                         >
-                            <SvgIcon icon="ChevronRight" />
+                            <RightIcon />
                         </IconButton>
                     </div>
                 )}

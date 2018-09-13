@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SvgIcon } from '@dhis2/d2-ui-core';
+import CancelIcon from '@material-ui/icons/Cancel';
 import ResizeHandle from './ResizeHandle';
 import DataTable from '../datatable/DataTable';
 import { LAYERS_PANEL_WIDTH, HEADER_HEIGHT } from '../../constants/layout';
@@ -47,8 +47,7 @@ class BottomPanel extends Component {
                     style={style}
                 >
                     <span onClick={closeDataTable}>
-                        <SvgIcon
-                            icon="Cancel"
+                        <CancelIcon
                             className="BottomPanel-close"
                             style={styles.closeIcon}
                         />

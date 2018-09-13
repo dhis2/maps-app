@@ -1,19 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import FlatButton from 'material-ui/FlatButton'; // TODO: Support buttons with uppercase in d2-ui
-import LeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
-import RightIcon from 'material-ui/svg-icons/navigation/chevron-right';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import LeftIcon from '@material-ui/icons/ChevronLeft';
+import RightIcon from '@material-ui/icons/ChevronRight';
 import {
     openInterpretationsPanel,
     closeInterpretationsPanel,
 } from '../../actions/ui';
 
-const style = {
-    textTransform: 'none',
-    fontSize: 16,
-    fontWeight: 400,
+const styles = {
+    button: {
+        position: 'absolute',
+        right: 0,
+    }, 
+    label: {
+        textTransform: 'none',
+        fontSize: 16,
+        fontWeight: 400,
+    },
+    icon: {
+        marginRight: 8,
+        marginTop: 2,
+    }
 };
 
 export const InterpretationsToggle = ({
@@ -21,18 +32,23 @@ export const InterpretationsToggle = ({
     interpretationsEnabled,
     openInterpretationsPanel,
     closeInterpretationsPanel,
+    classes,
 }) => (
-    <FlatButton
-        label={i18n.t('Interpretations')}
+    <Button
         onClick={
             interpretationsOpen
                 ? closeInterpretationsPanel
                 : openInterpretationsPanel
         }
         disabled={!interpretationsEnabled}
-        icon={interpretationsOpen ? <RightIcon /> : <LeftIcon />}
-        labelStyle={style}
-    />
+        classes={{
+            root: classes.button,
+            label: classes.label
+        }}
+    >{interpretationsOpen ? 
+        <RightIcon className={classes.icon} /> : 
+        <LeftIcon className={classes.icon} />
+    }{i18n.t('Interpretations')}</Button>
 );
 
 InterpretationsToggle.propTypes = {
@@ -40,6 +56,7 @@ InterpretationsToggle.propTypes = {
     interpretationsEnabled: PropTypes.bool.isRequired,
     openInterpretationsPanel: PropTypes.func.isRequired,
     closeInterpretationsPanel: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default connect(
@@ -51,4 +68,4 @@ export default connect(
         openInterpretationsPanel,
         closeInterpretationsPanel,
     }
-)(InterpretationsToggle);
+)(withStyles(styles)(InterpretationsToggle));

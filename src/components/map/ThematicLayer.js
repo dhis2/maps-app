@@ -1,8 +1,8 @@
+import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
 
 class ThematicLayer extends Layer {
-
     createLayer(callback) {
         const {
             id,
@@ -38,7 +38,8 @@ class ThematicLayer extends Layer {
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
         if (isPlugin && legend) {
-            map.legend = (map.legend || '') + this.getHtmlLegend(legend); // TODO: Better way to assemble the legend?
+            // TODO: Better way to assemble the legend?
+            map.legend = (map.legend || '') + this.getHtmlLegend(legend, data);
         }
 
         const layerBounds = this.layer.getBounds();
@@ -50,26 +51,31 @@ class ThematicLayer extends Layer {
     }
 
     // Used for legend in map plugins
-    getHtmlLegend({ title, period, items }) {
-        return `<div class="dhis2-legend">
+    getHtmlLegend = ({ title, period, items }, data) => `
+        <div class="dhis2-legend">
             <h2>${title}</h2>
             <span>${period}</span>
-            <dl class="dhis2-legend-automatic">
-                ${items
-                    .map(
-                        item => `
-                    <dt style="background-color:${item.color}"></dt>
-                    <dd>${item.name || ''} ${
-                            !isNaN(item.startValue)
-                                ? `${item.startValue} - ${item.endValue}`
-                                : ''
-                        } (${item.count})</dd>
-                `
-                    )
-                    .join('')}
-            </dl>
+            ${
+                data.length
+                    ? `<dl class="dhis2-legend-automatic">
+                        ${items
+                            .map(
+                                item => `
+                        <dt style="background-color:${item.color}"></dt>
+                        <dd>${item.name || ''} ${
+                                    !isNaN(item.startValue)
+                                        ? `${item.startValue} - ${
+                                              item.endValue
+                                          }`
+                                        : ''
+                                } (${item.count})</dd>
+                    `
+                            )
+                            .join('')}
+                    </dl>`
+                    : `<p><em>${i18n.t('No data found')}</em></p>`
+            }
         </div>`;
-    }
 
     onFeatureClick(evt) {
         const { name, value } = evt.layer.feature.properties;

@@ -1,10 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
-import { SvgIcon } from '@dhis2/d2-ui-core';
-import { grey600 } from 'material-ui/styles/colors';
+import i18n from '@dhis2/d2-i18n';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import Tooltip from '@material-ui/core/Tooltip';
 import BasemapList from './BasemapList';
 import OpacitySlider from '../toolbar/OpacitySlider';
 import {
@@ -13,28 +22,46 @@ import {
     toggleBasemapVisibility,
     selectBasemap,
 } from '../../../actions/basemap';
-import './BasemapCard.css';
+// import './BasemapCard.css'; // TODO: Delete file
 
 const styles = {
-    container: {
+    card: {
+        position: 'relative',
+        margin: '8px 4px 8px 4px',
         paddingBottom: 0,
     },
-    headerText: {
-        position: 'relative',
+    header: {
+        height: 54,
+        padding: '2px 8px 0 18px',
+        fontSize: 14,
+    },
+    title: {
         width: 210,
-        top: '50%',
-        transform: 'translateY(-50%)',
-        paddingRight: 0,
+        fontSize: 15,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        fontWeight: 500,
+        lineHeight: '17px',
+    },
+    subheader: {
+        lineHeight: '17px',
+    },
+    actions: {
+        backgroundColor: '#eee',
+        height: 32,
     },
     visibility: {
-        width: 56,
-        height: 56,
-        padding: 8,
         position: 'absolute',
-        right: 32,
-        top: 0,
+        right: 28,
+        top: 4,
     },
-    body: {
+    expand: {
+        position: 'absolute',
+        right: -4,
+        top: 4,
+    },
+    content: { // TODO: Not working on :last-child
         padding: 0,
     },
 };
@@ -43,50 +70,69 @@ const styles = {
 const BasemapCard = props => {
     const {
         name,
-        subtitle,
+        subtitle = i18n.t('Basemap'),
         opacity,
         isExpanded,
         isVisible,
         toggleBasemapExpand,
         toggleBasemapVisibility,
         changeBasemapOpacity,
+        classes
     } = props;
 
     return (
-        <Card
-            className="BasemapCard"
-            containerStyle={styles.container}
-            expanded={isExpanded}
-            onExpandChange={toggleBasemapExpand}
-        >
+        <Card className={classes.card}>
             <CardHeader
-                className="BasemapCard-header"
+                classes={{ 
+                    root: classes.header,
+                    title: classes.title,
+                    subheader: classes.subheader,
+                }}
                 title={name}
-                subtitle={subtitle}
-                showExpandableButton={true}
-                textStyle={styles.headerText}
-            >
-                <IconButton
-                    style={styles.visibility}
-                    onClick={toggleBasemapVisibility}
-                    tooltip="Toggle visibility"
-                >
-                    <SvgIcon
-                        icon={isVisible ? 'Visibility' : 'VisibilityOff'}
-                        color={grey600}
-                    />
-                </IconButton>
-            </CardHeader>
+                subheader={subtitle}
+                action={[
+                    <Tooltip 
+                        key="visibility" 
+                        title={i18n.t('Toggle visibility')}
+                    >
+                        <IconButton
+                            className={classes.visibility}
+                            onClick={toggleBasemapVisibility}
+                            style={{ backgroundColor: 'transparent' }}
+                        >
+                            {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                        </IconButton>
+                    </Tooltip>,
+                    <Tooltip 
+                        key="expand" 
+                        title={i18n.t('Collapse')}
+                    >
+                        <IconButton
+                            className={classes.expand}
+                            onClick={toggleBasemapExpand}
+                            tooltip={isExpanded ? i18n.t('Collapse') : i18n.t('Expand')}
+                            style={{ backgroundColor: 'transparent' }}
+                        >
+                            {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                        </IconButton>
+                    </Tooltip>,
+                ]}
+            />
 
-            <CardText expandable={true} style={styles.body}>
-                <BasemapList {...props} />
-                <div className="BasemapCard-toolbar">
-                    <OpacitySlider
-                        opacity={opacity}
-                        onChange={opacity => changeBasemapOpacity(opacity)}
-                    />
-                </div>
-            </CardText>
+            <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+                <CardContent 
+                    className={classes.content}
+                    style={{ padding: 0 }}
+                >
+                    <BasemapList {...props} />
+                    <CardActions className={classes.actions}>
+                        <OpacitySlider
+                            opacity={opacity}
+                            onChange={opacity => changeBasemapOpacity(opacity)}
+                        />
+                    </CardActions>
+                </CardContent>
+            </Collapse>
         </Card>
     );
 };
@@ -100,6 +146,7 @@ BasemapCard.propTypes = {
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
     changeBasemapOpacity: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 BasemapCard.defaultProps = {
@@ -119,4 +166,4 @@ export default connect(
         toggleBasemapVisibility,
         selectBasemap,
     }
-)(BasemapCard);
+)(withStyles(styles)(BasemapCard));

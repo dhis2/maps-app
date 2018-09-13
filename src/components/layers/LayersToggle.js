@@ -1,50 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import IconButton from 'material-ui/IconButton';
-import { SvgIcon } from '@dhis2/d2-ui-core';
-import { grey800 } from 'material-ui/styles/colors';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import LeftIcon from '@material-ui/icons/ChevronLeft';
+import RightIcon from '@material-ui/icons/ChevronRight';
 import { openLayersPanel, closeLayersPanel } from '../../actions/ui';
 import { HEADER_HEIGHT, LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
-const style = {
-    position: 'absolute',
-    top: HEADER_HEIGHT + 15,
-    left: LAYERS_PANEL_WIDTH,
-    width: 24,
-    height: 40,
-    padding: 0,
-    background: '#fff',
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-    boxShadow: '3px 1px 5px -1px rgba(0, 0, 0, 0.2)',
-    zIndex: 1100,
+const styles = {
+    button: {
+        position: 'absolute',
+        top: HEADER_HEIGHT + 15,
+        left: LAYERS_PANEL_WIDTH,
+        width: 24,
+        height: 40,
+        padding: 0,
+        background: '#fff',
+        borderRadius: 0,
+        boxShadow: '3px 1px 5px -1px rgba(0, 0, 0, 0.2)',
+        zIndex: 1100,
+    }
 };
 
 // This expand/collapse toggle is separate from LayersPanel to avoid overflow issue
-const LayersToggle = ({ isOpen, openLayersPanel, closeLayersPanel }) =>
-    isOpen ? (
-        <IconButton
-            onClick={closeLayersPanel}
-            style={style}
-            disableTouchRipple={true}
-        >
-            <SvgIcon icon="ChevronLeft" color={grey800} />
-        </IconButton>
-    ) : (
-        <IconButton
-            onClick={openLayersPanel}
-            style={{ ...style, left: 0 }}
-            disableTouchRipple={true}
-        >
-            <SvgIcon icon="ChevronRight" color={grey800} />
-        </IconButton>
-    );
+const LayersToggle = ({ isOpen, openLayersPanel, closeLayersPanel, classes }) => (
+    <IconButton
+        onClick={isOpen ? closeLayersPanel : openLayersPanel}
+        className={classes.button}
+        disableTouchRipple={true}
+        style={isOpen ? {} : { left: 0 }}
+    >
+        {isOpen ? <LeftIcon /> : <RightIcon /> }
+    </IconButton>
+);
 
 LayersToggle.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     openLayersPanel: PropTypes.func.isRequired,
     closeLayersPanel: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default connect(
@@ -52,4 +47,4 @@ export default connect(
         isOpen: state.ui.layersPanelOpen,
     }),
     { openLayersPanel, closeLayersPanel }
-)(LayersToggle);
+)(withStyles(styles)(LayersToggle));

@@ -2,12 +2,54 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Button } from '@dhis2/d2-ui-core';
-import Dialog from 'material-ui/Dialog';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import PeriodSelect from '../periods/PeriodSelect';
 import { closeOrgUnit } from '../../actions/orgUnits';
 import { loadConfigurations, loadData } from '../../util/infrastructural';
-import './OrgUnitDialog.css';
+// import './OrgUnitDialog.css'; // Delete file
+
+const styles = {
+    metadata: {
+        fontSize: 14,
+        marginTop: -10,
+        width: 200,
+        float: 'left',
+    },
+    heading: {
+        margin: '10px 0 2px 0',
+        fontSize: 14,
+    },
+    data: {
+        float: 'left',
+        width: 345,
+    },
+    nodata: {
+        fontStyle: 'italic',
+        padding: 5,
+        fontSize: 14,
+    },
+    table: {
+        display: 'block',
+        fontSize: 14,
+        width: 345,
+        maxHeight: 240,
+        overflowY: 'auto',
+    },
+    left: {
+        textAlign: 'left',
+        width: 280,
+    },
+    right: {
+        textAlign: 'right',
+        verticalAlign: 'top',
+        width: 65,
+    },
+};
 
 export class OrgUnitDialog extends Component {
     static propTypes = {
@@ -19,6 +61,7 @@ export class OrgUnitDialog extends Component {
         }),
         organisationUnitGroups: PropTypes.object,
         closeOrgUnit: PropTypes.func.isRequired,
+        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -62,7 +105,7 @@ export class OrgUnitDialog extends Component {
     };
 
     render() {
-        const { id, name, code, parent, organisationUnitGroups } = this.props;
+        const { id, name, code, parent, organisationUnitGroups, classes } = this.props;
         const { periodType, period, data } = this.state;
 
         if (!id) {
@@ -71,33 +114,25 @@ export class OrgUnitDialog extends Component {
 
         const groups = organisationUnitGroups.toArray();
 
-        const closeBtn = (
-            <Button color="primary" onClick={this.onClose}>
-                {i18n.t('Close')}
-            </Button>
-        );
-
         return (
             <Dialog
                 title={name}
                 open={true}
-                contentStyle={{ maxWidth: 600 }}
-                onRequestClose={this.onClose}
-                actions={closeBtn}
-                className="OrgUnitDialog"
+                onClose={this.onClose}
             >
-                <div className="OrgUnitDialog-content">
-                    <div className="OrgUnitDialog-metadata">
-                        <h3>{i18n.t('Parent unit')}</h3>
+                <DialogTitle>{name}</DialogTitle>
+                <DialogContent>
+                    <div className={classes.metadata}>
+                        <h3 className={classes.heading}>{i18n.t('Parent unit')}</h3>
                         {parent.name}
-                        <h3>{i18n.t('Code')}</h3>
+                        <h3 className={classes.heading}>{i18n.t('Code')}</h3>
                         {code}
-                        <h3>{i18n.t('Groups')}</h3>
+                        <h3 className={classes.heading}>{i18n.t('Groups')}</h3>
                         {groups.map(group => (
                             <div key={group.id}>{group.name}</div>
                         ))}
                     </div>
-                    <div className="OrgUnitDialog-data">
+                    <div className={classes.data}>
                         <PeriodSelect
                             periodType={periodType}
                             period={period}
@@ -105,13 +140,13 @@ export class OrgUnitDialog extends Component {
                             style={{ height: 70, margin: '-17px 0 0 3px' }}
                         />
                         {data && data.length ? (
-                            <table className="OrgUnitDialog-table">
+                            <table className={classes.table}>
                                 <thead>
                                     <tr>
-                                        <th className="left">
+                                        <th className={classes.left}>
                                             {i18n.t('Data element')}
                                         </th>
-                                        <th className="right">
+                                        <th className={classes.right}>
                                             {i18n.t('Value')}
                                         </th>
                                     </tr>
@@ -120,18 +155,23 @@ export class OrgUnitDialog extends Component {
                                     {data.map(({ id, name, value }) => (
                                         <tr key={id}>
                                             <td>{name}</td>
-                                            <td className="right">{value}</td>
+                                            <td className={classes.right}>{value}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         ) : (
-                            <div className="OrgUnitDialog-nodata">
+                            <div className={classes.nodata}>
                                 {i18n.t('No data found for this period.')}
                             </div>
                         )}
                     </div>
-                </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button color="primary" onClick={this.onClose}>
+                        {i18n.t('Close')}
+                    </Button>
+                </DialogActions>
             </Dialog>
         );
     }
@@ -142,4 +182,4 @@ export default connect(
         ...state.orgUnit,
     }),
     { closeOrgUnit }
-)(OrgUnitDialog);
+)(withStyles(styles)(OrgUnitDialog));

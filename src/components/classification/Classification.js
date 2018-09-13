@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { range } from 'lodash/fp';
-import { SelectField } from '@dhis2/d2-ui-core';
-import ColorScaleSelect from '../d2-ui/ColorScaleSelect';
+import SelectField from '../core/SelectField';
+import ColorScaleSelect from '../core/ColorScaleSelect';
 import { setClassification, setColorScale } from '../../actions/layerEdit';
 import { classificationTypes } from '../../constants/layers';
 import {
@@ -29,6 +29,7 @@ const styles = {
     scale: {
         float: 'left',
         width: 190,
+        whiteSpace: 'nowrap',
     },
 };
 
@@ -49,12 +50,12 @@ const Classification = ({
         <SelectField
             key="classification"
             label={i18n.t('Classification')}
-            value={method || CLASSIFICATION_EQUAL_INTERVALS}
+            value={method ? String(method) : CLASSIFICATION_EQUAL_INTERVALS}
             items={classificationTypes.map(({ id, name }) => ({
                 id,
                 name: i18n.t(name),
             }))}
-            onChange={method => setClassification(method.id)}
+            onChange={method => setClassification(Number(method.id))}
             style={styles.select}
         />,
         <div key="scale">
