@@ -18,11 +18,11 @@ const styles = {
     },
     radio: {
         flex: 1,
-    }
+    },
 };
 
 // Select between user defined (automatic) and predefined legends
-export const LegendTypeSelect = ({ method, setClassification, classes}) => (
+export const LegendTypeSelect = ({ method, setClassification, classes }) => (
     <RadioGroup
         name="method"
         value={
@@ -34,29 +34,25 @@ export const LegendTypeSelect = ({ method, setClassification, classes}) => (
         className={classes.radioGroup}
         // style={{ ...styles.flexInnerColumnFlow, marginTop: 8 }}
     >
-        <Radio 
-            value={CLASSIFICATION_EQUAL_INTERVALS} 
-            control={<Radio />} 
-            label={i18n.t('Automatic')} 
-            className={classes.radio}
-        />        
-        <Radio 
-            value={CLASSIFICATION_PREDEFINED} 
-            control={<Radio />} 
-            label={i18n.t('Predefined')} 
+        <Radio
+            value={CLASSIFICATION_EQUAL_INTERVALS}
+            label={i18n.t('Automatic')}
             className={classes.radio}
         />
-
+        <Radio
+            value={CLASSIFICATION_PREDEFINED}
+            label={i18n.t('Predefined')}
+            className={classes.radio}
+        />
     </RadioGroup>
 );
 
 LegendTypeSelect.propTypes = {
-    method: PropTypes.number, 
+    method: PropTypes.number,
     setClassification: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(
-    null,
-    { setClassification }
-)(withStyles(styles)(LegendTypeSelect));
+export default connect(null, { setClassification })(
+    withStyles(styles)(LegendTypeSelect)
+);
