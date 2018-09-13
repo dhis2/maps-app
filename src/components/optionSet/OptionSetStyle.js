@@ -8,7 +8,7 @@ import { setOptionStyle } from '../../actions/layerEdit';
 import { qualitativeColors } from '../../constants/colors';
 
 const style = {
-    marginTop: 20,
+    marginTop: 8,
 };
 
 class OptionSetStyle extends Component {

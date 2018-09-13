@@ -9,7 +9,7 @@ const styles = {
         display: 'inline-block',
         width: 32,
         height: 32,
-        marginRight: 8,
+        margin: '0 8px 0 0',
     },
     label: {
         display: 'inline-block',

@@ -19,8 +19,6 @@ const styles = {
 };
 
 const getMenuItems = (items, isMultiple, value) => {
-    // console.log('items', items);
-
     return items.map(item => (
         <MenuItem
             key={item.id}
@@ -51,8 +49,6 @@ const SelectField = props => {
     if (loading) {
         return <CircularProgress className={classes.loading} size={48} />; // TODO: Same size as text field
     }
-
-    console.log('style', style);
 
     return (
         <TextField

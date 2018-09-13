@@ -29,6 +29,7 @@ const styles = {
     scale: {
         float: 'left',
         width: 190,
+        whiteSpace: 'nowrap',
     },
 };
 
