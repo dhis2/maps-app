@@ -77,6 +77,10 @@ class PeriodSelect extends Component {
         const { periods } = this.state;
         const value = period ? period.id : null;
 
+        if (!periods) {
+            return null;
+        }
+
         return (
             <div style={{ height: 100, ...style }}>
                 <SelectField
