@@ -8,11 +8,22 @@ import ChromePicker from 'react-color/lib/components/chrome/Chrome';
 import { hcl } from 'd3-color';
 
 const styles = {
+    root: {
+        margin: '12px 0',
+    },
+    button: {
+        padding: 0,
+        textAlign: 'right',
+        borderRadius: 0,
+    },
+    icon: {
+        position: 'absolute',
+        right: 4,
+    },
     label: {
-        color: 'rgba(0, 0, 0, 0.3)',
+        color: 'rgba(0, 0, 0, 0.54)',
         fontSize: 12,
         paddingBottom: 6,
-        marginTop: 18,
     },
 };
 
@@ -24,6 +35,7 @@ export class ColorPicker extends Component {
         height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        classes: PropTypes.object.isRequired,
     };
 
     constructor(...args) {
@@ -54,25 +66,25 @@ export class ColorPicker extends Component {
     };
 
     render() {
-        const { label, width, height, style } = this.props;
+        const { label, width, height, style, classes } = this.props;
         const { color, isOpen, anchorEl } = this.state;
 
         return (
-            <div style={style}>
-                {label && <div style={styles.label}>{label}</div>}
+            <div className={classes.root} style={style}>
+                {label && <div className={classes.label}>{label}</div>}
                 <IconButton
                     onClick={this.handleOpen}
+                    className={classes.button}
                     style={{
                         background: color,
                         width: width || '100%',
-                        height: height || 26,
-                        padding: 0,
-                        textAlign: 'right',
+                        height: height || 28,
                     }}
                     disableTouchRipple={true}
                 >
                     <ArrowDropDownIcon
                         nativeColor={hcl(color).l < 70 ? '#fff' : '#333'}
+                        className={classes.icon}
                     />
                 </IconButton>
                 <Popover

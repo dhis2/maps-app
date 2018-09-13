@@ -11,7 +11,7 @@ const styles = {
     container: {
         width: '100%',
         height: 300,
-        paddingTop: 16,
+        paddingTop: 8,
         overflowY: 'auto',
     },
     button: {

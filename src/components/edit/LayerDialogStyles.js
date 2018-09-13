@@ -18,14 +18,14 @@ export const layerDialogStyles = {
     },
     flexColumn: {
         flex: '1 1 0',
-        margin: 16,
+        margin: '8px 16px',
         boxSizing: 'border-box',
         maxWidth: 380,
     },
     flexInnerColumnFlow: {
         display: 'flex',
         flexWrap: 'wrap',
-        margin: -8,
+        margin: '0 -8px',
         clear: 'both',
     },
     flexInnerColumn: {

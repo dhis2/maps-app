@@ -336,10 +336,7 @@ export class EventDialog extends Component {
                                         onCheck={this.onShowBufferClick.bind(
                                             this
                                         )}
-                                        style={{
-                                            ...styles.flexInnerColumn,
-                                            marginTop: 47,
-                                        }}
+                                        style={styles.flexInnerColumn}
                                         disabled={eventClustering}
                                     />
                                     {showBuffer && (
