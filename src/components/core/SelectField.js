@@ -53,12 +53,15 @@ const SelectField = props => {
     return (
         <TextField
             select
-            multiple={multiple}
             label={label}
-            value={value ? value : ''}
+            value={value ? value : multiple ? [] : ''}
             onChange={event =>
-                onChange(items.find(item => item.id === event.target.value))
-            } // TODO: Possible to get item index from event?
+                onChange(
+                    multiple
+                        ? event.target.value
+                        : items.find(item => item.id === event.target.value)
+                )
+            }
             error={errorText ? true : false}
             helperText={errorText}
             className={classes.textField}
@@ -66,6 +69,7 @@ const SelectField = props => {
                 MenuProps: {
                     className: classes.menu,
                 },
+                multiple,
             }}
             style={style}
         >

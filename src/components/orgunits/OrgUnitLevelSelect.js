@@ -34,12 +34,7 @@ export class OrgUnitLevelSelect extends Component {
     }
 
     componentDidUpdate() {
-        const {
-            defaultLevel,
-            orgUnitLevel,
-            orgUnitLevels,
-            onChange,
-        } = this.props;
+        const { defaultLevel, orgUnitLevel, orgUnitLevels } = this.props;
 
         if (!orgUnitLevel.length && defaultLevel && orgUnitLevels) {
             const levelItem = orgUnitLevels.find(
@@ -69,7 +64,8 @@ export class OrgUnitLevelSelect extends Component {
                 items={sortedOrgUnitLevels}
                 value={orgUnitLevel}
                 multiple={true}
-                onChange={onChange}
+                // onChange={onChange}
+                onChange={console.log}
                 style={style}
             />
         );
