@@ -200,12 +200,7 @@ class FacilityDialog extends Component {
                         </div>
                     )}
                     {tab === 'style' && (
-                        <div
-                            style={{
-                                ...styles.flexRowFlow,
-                                marginTop: 16,
-                            }}
-                        >
+                        <div style={styles.flexRowFlow}>
                             <div style={styles.flexInnerColumnFlow}>
                                 <Checkbox
                                     label={i18n.t('Labels')}
@@ -214,8 +209,7 @@ class FacilityDialog extends Component {
                                     style={{
                                         ...styles.flexInnerColumn,
                                         maxWidth: 150,
-                                        paddingTop: 24,
-                                        height: 42,
+                                        height: 80,
                                     }}
                                 />
                                 {labels && (
@@ -243,8 +237,6 @@ class FacilityDialog extends Component {
                                     style={{
                                         ...styles.flexInnerColumn,
                                         maxWidth: 150,
-                                        paddingTop: 24,
-                                        height: 42,
                                     }}
                                 />
                                 {showBuffer && (

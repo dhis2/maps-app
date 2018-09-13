@@ -7,8 +7,7 @@ import SelectField from '../core/SelectField';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
 
 const style = {
-    width: '100%',
-    marginTop: -7,
+    marginTop: 0,
 };
 
 export class OrgUnitLevelSelect extends Component {
@@ -64,8 +63,7 @@ export class OrgUnitLevelSelect extends Component {
                 items={sortedOrgUnitLevels}
                 value={orgUnitLevel}
                 multiple={true}
-                // onChange={onChange}
-                onChange={console.log}
+                onChange={onChange}
                 style={style}
             />
         );

@@ -15,10 +15,12 @@ const styles = {
     button: {
         background: '#fafafa',
         marginRight: 5,
+        borderRadius: 0,
     },
     buttonPressed: {
         background: '#555',
         marginRight: 5,
+        borderRadius: 0,
     },
     color: {
         display: 'inline-block',
@@ -71,7 +73,9 @@ const FontStyle = ({
                 }
                 disableTouchRipple={true}
             >
-                <ItalicIcon nativeColor={fontStyle === 'italic' ? '#fff' : '#555'} />
+                <ItalicIcon
+                    nativeColor={fontStyle === 'italic' ? '#fff' : '#555'}
+                />
             </IconButton>
         )}
         {onColorChange && (
