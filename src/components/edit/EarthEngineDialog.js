@@ -79,9 +79,7 @@ const styles = {
         fontWeight: 'bold',
     },
     colorScale: {
-        marginLeft: 12,
-        maxWidth: 270,
-        overflow: 'hidden',
+        paddingLeft: 20,
     },
     error: {
         width: '100%',
@@ -227,6 +225,7 @@ class EarthEngineDialog extends Component {
                                             palette
                                         )
                                     }
+                                    width={260}
                                     style={styles.colorScale}
                                 />,
                             ]}

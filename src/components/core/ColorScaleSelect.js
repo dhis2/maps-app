@@ -14,16 +14,11 @@ const styles = {
         marginTop: 19,
         overflow: 'visible',
         whiteSpace: 'nowrap',
-        background: 'yellow',
-    },
-    popover: {
-        height: '100%',
     },
     scaleItem: {
         display: 'block',
         margin: '5px 12px 0 12px',
         overflow: 'visible',
-        background: 'red',
         whiteSpace: 'nowrap',
     },
 };
@@ -46,7 +41,8 @@ class ColorScaleSelect extends Component {
     }
 
     // Show popover with allowed color scales
-    showColorScales = event => {
+    showColorScales = (event) => {
+
         this.setState({
             open: true,
             anchorEl: event.currentTarget,
@@ -60,7 +56,7 @@ class ColorScaleSelect extends Component {
     }
 
     // Called when a new color scale is selected in the popover
-    onColorScaleSelect = (event, scale) => {
+    onColorScaleSelect = (scale) => {
         const { palette, onChange } = this.props;
         const classes = palette.split(',').length;
 
@@ -69,21 +65,21 @@ class ColorScaleSelect extends Component {
     };
 
     render() {
-        const { palette, style, classes } = this.props;
+        const { palette, width, style, classes } = this.props;
         const bins = palette.split(',').length;
         const scale = getColorScale(palette);
 
         return (
             <div style={style}>
                 <ColorScale
-                    classes={bins}
+                    bins={bins}
                     scale={scale}
                     onClick={this.showColorScales}
                     className={classes.scale}
+                    width={width || 260}
                 />
                 <Popover
                     classes={{ paper: classes.popover }}
-                    // style={styles.popover}
                     open={this.state.open}
                     anchorEl={this.state.anchorEl}
                     anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
@@ -93,9 +89,10 @@ class ColorScaleSelect extends Component {
                         <ColorScale
                             key={index}
                             scale={scale}
-                            classes={bins}
+                            bins={bins}
                             style={styles.scaleItem}
-                            onClick={this.onColorScaleSelect}
+                            onClick={(event, scale) => this.onColorScaleSelect(scale)}
+                            width={width || 260}
                         />
                     ))}
                 </Popover>
