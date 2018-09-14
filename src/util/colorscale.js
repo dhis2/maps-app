@@ -1,4 +1,4 @@
-import { colorbrewer } from '@dhis2/d2-ui-legend';
+import colorbrewer from '../constants/colorbrewer';
 
 // Allowed color scales from ColorBrewer for EE (needs to have at least 9 classes)
 export const colorScales = [

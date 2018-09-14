@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
-import { ColorScale } from '@dhis2/d2-ui-legend';
+import ColorScale from './ColorScale';
 import {
     colorScales,
     getColorScale,
