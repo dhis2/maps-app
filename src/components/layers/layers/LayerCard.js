@@ -25,13 +25,13 @@ import {
 } from '../../../actions/layers';
 import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
-// import './LayerCard.css'; // TODO: Delete file
 
 const styles = {
     card: {
         position: 'relative',
         margin: '8px 4px 0 4px',
         paddingBottom: 0,
+        zIndex: 2000,
     },
     header: {
         height: 54,
@@ -89,10 +89,7 @@ const LayerCard = props => {
     const { id, name, legend, isExpanded, isVisible } = layer;
 
     return (
-        <Card className={classes.card}
-            // expanded={isExpanded}
-            // onExpandChange={() => toggleLayerExpand(id)}
-        >
+        <Card className={classes.card}>
             <CardHeader
                 classes={{ 
                     root: classes.header,
@@ -121,7 +118,7 @@ const LayerCard = props => {
                     >
                         <IconButton
                             className={classes.expand}
-                            // onClick={toggleLayerExpand} 
+                            onClick={() => toggleLayerExpand(id)} 
                             tooltip={isExpanded ? i18n.t('Collapse') : i18n.t('Expand')}
                             style={{ backgroundColor: 'transparent' }}
                         >
