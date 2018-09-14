@@ -43,6 +43,7 @@ export class OrgUnitTreeMaps extends Component {
         selected: PropTypes.array,
         disabled: PropTypes.bool,
         onClick: PropTypes.func,
+        loadOrgUnitTree: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
@@ -53,17 +54,8 @@ export class OrgUnitTreeMaps extends Component {
         }
     }
 
-    componentDidUpdate() {
-        const { root, selectRootAsDefault, onClick } = this.props;
-
-        // Select org.unit root as default
-        if (!this._isClicked && selectRootAsDefault && root) {
-            onClick(root);
-        }
-    }
-
     render() {
-        const { root, selected, disabled, onClick } = this.props;
+        const { root, selected, disabled } = this.props;
 
         if (!root) {
             // TODO: Add loading indicator

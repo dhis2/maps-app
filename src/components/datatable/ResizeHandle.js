@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SvgIcon } from '@dhis2/d2-ui-core';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import './ResizeHandle.css';
 
 const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
@@ -43,9 +43,7 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
             dragHeight =
                 height < minHeight
                     ? minHeight
-                    : height > maxHeight
-                        ? maxHeight
-                        : height;
+                    : height > maxHeight ? maxHeight : height;
         }
 
         return dragHeight;
@@ -59,7 +57,7 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
             // onDrag={(evt) => onDrag(evt)}
             onDragEnd={evt => onDragEnd(evt)}
         >
-            <SvgIcon icon="DragHandle" />
+            <DragHandleIcon />
         </div>
     );
 };

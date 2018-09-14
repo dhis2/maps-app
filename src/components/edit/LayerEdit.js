@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Dialog from 'material-ui/Dialog';
 import i18n from '@dhis2/d2-i18n';
-import { Button } from '@dhis2/d2-ui-core';
+import { withStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 import EventDialog from './EventDialog';
 import TrackedEntityDialog from './TrackedEntityDialog';
 import FacilityDialog from './FacilityDialog';
@@ -31,16 +35,15 @@ const layerName = {
 };
 
 const styles = {
-    content: {
-        minWidth: 400,
-        maxWidth: 600,
+    paper: {
+        width: 600,
     },
     title: {
-        padding: '16px 24px 0',
+        padding: '20px 24px 4px 24px',
         fontSize: 16,
         fontWeight: 'bold',
     },
-    body: {
+    content: {
         padding: '0 24px',
         minHeight: 300,
     },
@@ -51,6 +54,7 @@ class LayerEdit extends Component {
         layer: PropTypes.object,
         loadLayer: PropTypes.func.isRequired,
         cancelLayer: PropTypes.func.isRequired,
+        classes: PropTypes.object.isRequired,
     };
 
     componentDidUpdate() {
@@ -65,10 +69,9 @@ class LayerEdit extends Component {
     loadLayer() {
         const { layer, loadLayer } = this.props;
 
+        // TODO: Better pattern?
         if (this.layerContainer.getWrappedInstance().validate()) {
-            // TODO: Better pattern?
             loadLayer(layer);
-
             this.closeDialog();
         }
     }
@@ -78,7 +81,7 @@ class LayerEdit extends Component {
     }
 
     render() {
-        const { layer, cancelLayer } = this.props;
+        const { layer, cancelLayer, classes } = this.props;
 
         if (!layer) {
             return null;
@@ -97,39 +100,28 @@ class LayerEdit extends Component {
         );
 
         return (
-            <Dialog
-                title={title}
-                contentStyle={styles.content}
-                bodyStyle={styles.body}
-                titleStyle={styles.title}
-                open={true}
-                actions={[
-                    <Button
-                        key="cancel"
-                        color="primary"
-                        onClick={() => cancelLayer()}
-                        selector="cancel"
-                    >
+            <Dialog open={true} classes={{ paper: classes.paper }}>
+                <DialogTitle disableTypography={true} className={classes.title}>
+                    {title}
+                </DialogTitle>
+                <DialogContent className={classes.content}>
+                    <LayerDialog
+                        {...layer}
+                        ref={container => (this.layerContainer = container)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button color="primary" onClick={() => cancelLayer()}>
                         {i18n.t('Cancel')}
-                    </Button>,
-                    <Button
-                        key="update"
-                        color="primary"
-                        onClick={() => this.loadLayer()}
-                        selector="update"
-                    >
+                    </Button>
+                    <Button color="primary" onClick={() => this.loadLayer()}>
                         {i18n.t(
                             layer.id
                                 ? i18n.t('Update layer')
                                 : i18n.t('Add layer')
                         )}
-                    </Button>,
-                ]}
-            >
-                <LayerDialog
-                    {...layer}
-                    ref={container => (this.layerContainer = container)}
-                />
+                    </Button>
+                </DialogActions>
             </Dialog>
         );
     }
@@ -140,4 +132,4 @@ export default connect(
         layer: state.layerEdit,
     }),
     { loadLayer, cancelLayer }
-)(LayerEdit);
+)(withStyles(styles)(LayerEdit));

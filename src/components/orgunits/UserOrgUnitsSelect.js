@@ -7,7 +7,7 @@ import './UserOrgUnits.css';
 
 const styles = {
     title: {
-        color: 'rgba(0, 0, 0, 0.3)',
+        color: 'rgba(0, 0, 0, 0.54)',
     },
     container: {
         display: 'flex',

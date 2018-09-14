@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { once, sortBy } from 'lodash/fp';
-import { SelectField } from '@dhis2/d2-ui-core';
+import SelectField from '../core/SelectField';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
 
 const style = {
-    width: '100%',
-    marginTop: -7,
+    marginTop: 0,
 };
 
 export class OrgUnitLevelSelect extends Component {
@@ -34,12 +33,7 @@ export class OrgUnitLevelSelect extends Component {
     }
 
     componentDidUpdate() {
-        const {
-            defaultLevel,
-            orgUnitLevel,
-            orgUnitLevels,
-            onChange,
-        } = this.props;
+        const { defaultLevel, orgUnitLevel, orgUnitLevels } = this.props;
 
         if (!orgUnitLevel.length && defaultLevel && orgUnitLevels) {
             const levelItem = orgUnitLevels.find(

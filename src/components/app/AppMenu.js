@@ -1,28 +1,35 @@
 import React from 'react';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import AddLayer from '../layers/layers/AddLayer';
 import FileMenu from './FileMenu';
 import InterpretationsToggle from '../interpretations/InterpretationsToggle';
 
-const style = {
-    position: 'absolute',
-    width: '100%',
-    height: 40,
-    backgroundColor: '#f3f3f3',
-    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.227451)',
-    zIndex: 1200,
+const styles = {
+    toolbar: {
+        position: 'absolute',
+        width: '100%',
+        height: 40,
+        minHeight: 40,
+        paddingLeft: 0,
+        paddingRight: 0,
+        backgroundColor: '#f3f3f3',
+        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.227451)',
+        zIndex: 1200,
+    }
 };
 
-export const AppMenu = () => (
-    <Toolbar style={style} className="dhis-gis-menu">
-        <ToolbarGroup firstChild={true}>
-            <AddLayer />
-            <FileMenu />
-        </ToolbarGroup>
-        <ToolbarGroup lastChild={true}>
-            <InterpretationsToggle />
-        </ToolbarGroup>
+export const AppMenu = ({ classes }) => (
+    <Toolbar variant="dense" className={classes.toolbar}>
+        <AddLayer />
+        <FileMenu />
+        <InterpretationsToggle />
     </Toolbar>
 );
 
-export default AppMenu;
+AppMenu.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(AppMenu);

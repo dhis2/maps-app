@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import { SvgIcon } from '@dhis2/d2-ui-core';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import Tooltip from '@material-ui/core/Tooltip';
 import OpacitySlider from './OpacitySlider';
-import DownloadMenu from './DownloadMenu';
-import OpenAsMenu from './OpenAsMenu';
+// import DownloadMenu from './DownloadMenu';
+// import OpenAsMenu from './OpenAsMenu';
 
 const styles = {
     toolbar: {
+        position: 'relative',
         backgroundColor: '#eee',
         height: 32,
+        minHeight: 32,
         padding: '0 8px',
     },
     button: {
@@ -33,7 +38,13 @@ const styles = {
         paddingTop: 0,
         paddingBottom: 0,
     },
+    alignRight: {
+        position: 'absolute',
+        right: 8,
+    },
 };
+
+const dataTableLayers = ['facility', 'thematic', 'boundary'];
 
 const OverlayToolbar = ({
     layer,
@@ -41,71 +52,58 @@ const OverlayToolbar = ({
     onRemove,
     toggleDataTable,
     onOpacityChange,
+    classes
 }) => (
-    <Toolbar style={styles.toolbar}>
-        <ToolbarGroup>
-            {onEdit &&
-                layer.type !== 'external' && (
-                    <IconButton
-                        onClick={() => onEdit(layer)}
-                        tooltip={i18n.t('Edit')}
-                        tooltipPosition="top-center"
-                        style={styles.button}
-                    >
-                        <SvgIcon icon="Create" />
+    <Toolbar className={classes.toolbar}>
+        {onEdit &&
+            layer.type !== 'external' && (
+                <Tooltip title={i18n.t('Edit')}>
+                    <IconButton onClick={() => onEdit(layer)} className={classes.button}>
+                        <CreateIcon />
                     </IconButton>
-                )}
-            {(layer.layer === 'thematic' ||
-                layer.layer === 'boundary' ||
-                layer.layer === 'facility') && (
-                <IconButton
-                    onClick={() => toggleDataTable(layer.id)}
-                    tooltip={i18n.t('Data table')}
-                    tooltipPosition="top-center"
-                    style={styles.button}
-                >
-                    <SvgIcon icon="ViewList" />
-                </IconButton>
-            )}
-
-            <OpacitySlider
-                {...layer}
-                onChange={opacity => onOpacityChange(layer.id, opacity)}
-            />
-        </ToolbarGroup>
-
-        <ToolbarGroup>
+                </Tooltip>
+            )
+        }
+        {dataTableLayers.includes(layer.layer) && (
+            <Tooltip title={i18n.t('Data table')}>
+            <IconButton onClick={() => toggleDataTable(layer.id)} className={classes.button}>
+                <ViewListIcon />
+            </IconButton>
+            </Tooltip>
+        )}
+        <OpacitySlider
+            opacity={layer.opacity}
+            onChange={opacity => onOpacityChange(layer.id, opacity)}
+        />
+        <div className={classes.alignRight}>
             {onRemove && (
-                <IconButton
-                    onClick={onRemove}
-                    tooltip={i18n.t('Delete')}
-                    tooltipPosition="top-center"
-                    style={styles.button}
-                >
-                    <SvgIcon icon="Delete" />
-                </IconButton>
+                <Tooltip title={i18n.t('Delete')}>
+                    <IconButton onClick={onRemove} className={classes.button}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
             )}
-
-            {true === false && ( //    TODO
-                <IconMenu
-                    iconButtonElement={
-                        <IconButton
-                            tooltip={i18n.t('More')}
-                            tooltipPosition="top-center"
-                            style={styles.moreButton}
-                        >
-                            <SvgIcon icon="MoreVert" />
-                        </IconButton>
-                    }
-                    listStyle={styles.menuList}
-                >
-                    <OpenAsMenu {...layer} />
-                    <DownloadMenu {...layer} />
-                </IconMenu>
-            )}
-        </ToolbarGroup>
+        </div>
     </Toolbar>
 );
+
+/*
+<IconMenu
+    iconButtonElement={
+        <IconButton
+            tooltip={i18n.t('More')}
+            tooltipPosition="top-center"
+            style={styles.moreButton}
+        >
+            <SvgIcon icon="MoreVert" />
+        </IconButton>
+    }
+    listStyle={styles.menuList}
+>
+    <OpenAsMenu {...layer} />
+    <DownloadMenu {...layer} />
+</IconMenu>
+*/
 
 OverlayToolbar.propTypes = {
     layer: PropTypes.object,
@@ -113,6 +111,7 @@ OverlayToolbar.propTypes = {
     onRemove: PropTypes.func,
     onOpacityChange: PropTypes.func,
     toggleDataTable: PropTypes.func,
+    classes: PropTypes.object.isRequired,
 };
 
-export default OverlayToolbar;
+export default withStyles(styles)(OverlayToolbar);

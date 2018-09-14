@@ -1,6 +1,4 @@
 import * as types from '../constants/actionTypes';
-import { getOptionSet } from './optionSets';
-import { TrackedEntityTypeSelect } from '../components/trackedEntity/TrackedEntityTypeSelect';
 
 export const addFilter = filter => ({
     type: types.LAYER_EDIT_FILTER_ADD,
@@ -106,6 +104,14 @@ export const toggleOrgUnit = orgUnit => ({
     type: types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE,
     orgUnit,
 });
+
+// Set organisation unit tree root as default selected
+export const setOrgUnitRoot = () => (dispatch, getState) => {
+    const root = getState().orgUnitTree;
+    if (root) {
+        dispatch(toggleOrgUnit(root));
+    }
+};
 
 // Set organisation unit group set (facility layer)
 export const setOrganisationUnitGroupSet = organisationUnitGroupSet => ({

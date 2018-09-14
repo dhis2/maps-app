@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
-import { SvgIcon } from '@dhis2/d2-ui-core';
-import { grey600 } from 'material-ui/styles/colors';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import Tooltip from '@material-ui/core/Tooltip';
 import SortableHandle from './SortableHandle';
 import LayerToolbar from '../toolbar/LayerToolbar';
 import Legend from '../legend/Legend';
@@ -18,30 +25,51 @@ import {
 } from '../../../actions/layers';
 import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
-import './LayerCard.css';
+// import './LayerCard.css'; // TODO: Delete file
 
 const styles = {
-    container: {
+    card: {
+        position: 'relative',
+        margin: '8px 4px 0 4px',
         paddingBottom: 0,
     },
-    headerText: {
-        position: 'relative',
+    header: {
+        height: 54,
+        padding: '2px 8px 0 18px',
+        fontSize: 14,
+    },
+    title: {
         width: 195,
-        top: '50%',
-        left: 16,
-        transform: 'translateY(-50%)',
-        paddingRight: 0,
+        paddingLeft: 15,
+        fontSize: 15,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        fontWeight: 500,
+        lineHeight: '17px',
+    },
+    subheader: {
+        width: 195,
+        paddingLeft: 15,
+        lineHeight: '17px',
+    },
+    actions: {
+        backgroundColor: '#eee',
+        height: 32,
     },
     visibility: {
-        width: 56,
-        height: 56,
-        padding: 8,
         position: 'absolute',
-        right: 32,
-        top: 0,
+        right: 28,
+        top: 4,
     },
-    body: {
-        padding: 0,
+    expand: {
+        position: 'absolute',
+        right: -4,
+        top: 4,
+    },
+    content: { 
+        fontSize: 14,
+        padding: 0, // TODO: Not working on :last-child
     },
 };
 
@@ -55,49 +83,72 @@ const LayerCard = props => {
         toggleLayerVisibility,
         toggleDataTable,
         setMessage,
+        classes,
     } = props;
 
     const { id, name, legend, isExpanded, isVisible } = layer;
 
     return (
-        <Card
-            className="LayerCard"
-            containerStyle={styles.container}
-            expanded={isExpanded}
-            onExpandChange={() => toggleLayerExpand(id)}
+        <Card className={classes.card}
+            // expanded={isExpanded}
+            // onExpandChange={() => toggleLayerExpand(id)}
         >
             <CardHeader
-                className="LayerCard-header"
+                classes={{ 
+                    root: classes.header,
+                    title: classes.title,
+                    subheader: classes.subheader,
+                }}
                 title={name}
-                subtitle={legend && legend.period ? legend.period : null}
-                showExpandableButton={true}
-                textStyle={styles.headerText}
-            >
-                <SortableHandle color={grey600} />
-                <IconButton
-                    style={styles.visibility}
-                    onClick={() => toggleLayerVisibility(id)}
-                    tooltip={i18n.t('Toggle visibility')}
+                subheader={legend && legend.period ? legend.period : null}
+                action={[
+                    <SortableHandle key='handle' color='#757575' />,
+                    <Tooltip 
+                        key="visibility" 
+                        title={i18n.t('Toggle visibility')}
+                    >
+                        <IconButton
+                            className={classes.visibility}
+                            onClick={() => toggleLayerVisibility(id)}
+                            style={{ backgroundColor: 'transparent' }}
+                        >
+                            {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                        </IconButton>
+                    </Tooltip>,
+                    <Tooltip 
+                        key="expand" 
+                        title={i18n.t('Collapse')}
+                    >
+                        <IconButton
+                            className={classes.expand}
+                            // onClick={toggleLayerExpand} 
+                            tooltip={isExpanded ? i18n.t('Collapse') : i18n.t('Expand')}
+                            style={{ backgroundColor: 'transparent' }}
+                        >
+                            {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                        </IconButton>
+                    </Tooltip>,
+                ]}
+            />
+
+            <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+                <CardContent 
+                    className={classes.content}
+                    style={{ padding: 0 }}
                 >
-                    <SvgIcon
-                        icon={isVisible ? 'Visibility' : 'VisibilityOff'}
-                        color={grey600}
+                    {legend && <Legend {...legend} />}
+                    <LayerToolbar
+                        layer={layer}
+                        onEdit={() => editLayer(layer)}
+                        toggleDataTable={toggleDataTable}
+                        onOpacityChange={changeLayerOpacity}
+                        onRemove={() => {
+                            removeLayer(id);
+                            setMessage(`${name} ${i18n.t('deleted')}.`);
+                        }}
                     />
-                </IconButton>
-            </CardHeader>
-            <CardText expandable={true} style={styles.body}>
-                {legend && <Legend {...legend} />}
-                <LayerToolbar
-                    layer={layer}
-                    onEdit={() => editLayer(layer)}
-                    toggleDataTable={toggleDataTable}
-                    onOpacityChange={changeLayerOpacity}
-                    onRemove={() => {
-                        removeLayer(id);
-                        setMessage(`${name} ${i18n.t('deleted')}.`);
-                    }}
-                />
-            </CardText>
+                </CardContent>
+            </Collapse>
         </Card>
     );
 };
@@ -110,6 +161,7 @@ LayerCard.propTypes = {
     toggleLayerExpand: PropTypes.func.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
     toggleDataTable: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default connect(
@@ -123,4 +175,4 @@ export default connect(
         toggleDataTable,
         setMessage,
     }
-)(LayerCard);
+)(withStyles(styles)(LayerCard));

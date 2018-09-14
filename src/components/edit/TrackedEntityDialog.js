@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import { SelectField } from '@dhis2/d2-ui-core';
-// import { TextField } from '@dhis2/d2-ui-core'; // TODO: Don't accept numbers as values
-import TextField from 'material-ui/TextField';
-import DatePicker from '../d2-ui/DatePicker';
-import Checkbox from '../d2-ui/Checkbox';
+import { withStyles } from '@material-ui/core/styles';
+import Tabs from '../core/Tabs';
+import Tab from '../core/Tab';
+import TextField from '../core/TextField';
+import SelectField from '../core/SelectField';
+import DatePicker from '../core/DatePicker';
+import Checkbox from '../core/Checkbox';
 import TrackedEntityTypeSelect from '../trackedEntity/TrackedEntityTypeSelect';
 import ProgramSelect from '../program/ProgramSelect';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
-import ColorPicker from '../d2-ui/ColorPicker';
-// import DataItemSelect from '../dataItem/DataItemSelect';
-// import DataItemStyle from '../dataItem/DataItemStyle';
+import ColorPicker from '../core/ColorPicker';
 import {
     TEI_START_DATE,
     TEI_END_DATE,
@@ -31,6 +30,7 @@ import {
     setFollowUpStatus,
     setStartDate,
     setEndDate,
+    setOrgUnitRoot,
     toggleOrgUnit,
     setOrgUnitMode,
     setEventPointColor,
@@ -58,7 +58,7 @@ const styles = {
 
 export class TrackedEntityDialog extends Component {
     static propTypes = {
-        // classes: PropTypes.number,
+        classes: PropTypes.object.isRequired,
     };
 
     constructor(props, context) {
@@ -71,13 +71,22 @@ export class TrackedEntityDialog extends Component {
 
     componentDidMount() {
         const {
+            rows,
             startDate,
             endDate,
             programStatus,
+            setOrgUnitRoot,
             setStartDate,
             setEndDate,
             setProgramStatus,
         } = this.props;
+
+        const orgUnits = getOrgUnitNodesFromRows(rows);
+
+        // Set org unit tree root as default
+        if (orgUnits.length === 0) {
+            setOrgUnitRoot();
+        }
 
         // Set default period (last year)
         if (!startDate && !endDate) {
@@ -101,19 +110,15 @@ export class TrackedEntityDialog extends Component {
     render() {
         const {
             areaRadius,
-            classes,
-            colorScale,
             endDate,
             eventPointColor,
             eventPointRadius,
             followUp,
-            method,
             organisationUnitSelectionMode,
             program,
             programStatus,
             rows = [],
             startDate,
-            styleDataItem,
             trackedEntityType,
         } = this.props;
 
@@ -129,8 +134,9 @@ export class TrackedEntityDialog extends Component {
             setEventPointColor,
             setEventPointRadius,
             setAreaRadius,
-            setStyleDataItem,
         } = this.props;
+
+        const { classes } = this.props;
 
         const {
             tab,
@@ -143,216 +149,195 @@ export class TrackedEntityDialog extends Component {
             ? i18n.t('Select program period')
             : i18n.t('Select period when tracked entities were last updated');
 
-        // console.log('styleDataItem', styleDataItem);
-
         return (
-            <Tabs
-                style={styles.tabs}
-                tabItemContainerStyle={styles.tabBar}
-                contentContainerStyle={styles.tabContent}
-                value={tab}
-                onChange={tab => this.setState({ tab })}
-            >
-                <Tab value="data" label={i18n.t('data')}>
-                    <div style={styles.flexRowFlow}>
-                        <div style={{ marginTop: 24, fontSize: 14 }}>
-                            {i18n.t(
-                                'This map layer is still experimental. Please provide your feedback on our'
-                            )}&nbsp;
-                            <a href="//www.dhis2.org/contact#mailing-lists">
-                                {i18n.t('mailing lists')}
-                            </a>.
-                        </div>
-                        <TrackedEntityTypeSelect
-                            trackedEntityType={trackedEntityType}
-                            onChange={setTrackedEntityType}
-                            style={styles.select}
-                            errorText={trackedEntityTypeError}
-                        />
-                        {trackedEntityType && (
-                            <ProgramSelect
-                                allPrograms={true}
-                                program={program}
-                                trackedEntityType={trackedEntityType}
-                                onChange={setProgram}
-                                style={styles.select}
-                            />
-                        )}
-                        {program && (
-                            <SelectField
-                                label={i18n.t('Program status')}
-                                items={[
-                                    {
-                                        id: 'ACTIVE',
-                                        name: 'Active',
-                                    },
-                                    {
-                                        id: 'COMPLETED',
-                                        name: 'Completed',
-                                    },
-                                ]}
-                                value={programStatus}
-                                onChange={status => setProgramStatus(status.id)}
-                                style={{
-                                    ...styles.select,
-                                    width: 276,
-                                    marginLeft: 24,
-                                }}
-                            />
-                        )}
-                        {program && (
-                            <Checkbox
-                                label={i18n.t('Follow up')}
-                                checked={followUp}
-                                onCheck={setFollowUpStatus}
-                                style={{ ...styles.checkbox, marginLeft: 24 }}
-                            />
-                        )}
-                    </div>
-                </Tab>
-                <Tab value="period" label={i18n.t('period')}>
-                    <div style={styles.flexRowFlow}>
-                        <div style={{ marginTop: 24 }}>{periodHelp}:</div>
-                        <DatePicker
-                            key="startdate"
-                            label={i18n.t('Start date')}
-                            value={startDate}
-                            default={TEI_START_DATE}
-                            onChange={setStartDate}
-                            style={styles.select}
-                        />
-                        <DatePicker
-                            key="enddate"
-                            label={i18n.t('End date')}
-                            value={endDate}
-                            default={TEI_END_DATE}
-                            onChange={setEndDate}
-                            style={styles.select}
-                        />
-                    </div>
-                </Tab>
-                <Tab value="orgunits" label={i18n.t('Org units')}>
-                    <div style={styles.flexColumnFlow}>
-                        <div
-                            style={{ ...styles.flexColumn, overflow: 'hidden' }}
-                        >
-                            <OrgUnitTree
-                                selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrgUnit}
-                                selectRootAsDefault={
-                                    getOrgUnitsFromRows(rows).length === 0
-                                }
-                            />
-                        </div>
-                        <div style={styles.flexColumn}>
-                            <SelectField
-                                label={i18n.t('Selection mode')}
-                                items={[
-                                    {
-                                        id: 'SELECTED',
-                                        name: 'Selected only',
-                                    },
-                                    {
-                                        id: 'CHILDREN',
-                                        name: 'Selected and below',
-                                    },
-                                    {
-                                        id: 'DESCENDANTS',
-                                        name: 'Selected and all below',
-                                    },
-                                ]}
-                                value={
-                                    organisationUnitSelectionMode || 'SELECTED'
-                                }
-                                onChange={mode => setOrgUnitMode(mode.id)}
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-
-                            <SelectedOrgUnits
-                                rows={rows}
-                                mode={organisationUnitSelectionMode}
-                                units={i18n.t('Tracked entities')}
-                                error={orgUnitsError}
-                            />
-                        </div>
-                    </div>
-                </Tab>
-                <Tab value="style" label={i18n.t('Style')}>
-                    <div style={styles.flexColumnFlow}>
-                        <div style={styles.flexColumn}>
-                            <div style={styles.flexInnerColumnFlow}>
-                                <ColorPicker
-                                    label={i18n.t('Color')}
-                                    color={eventPointColor || TEI_COLOR}
-                                    onChange={setEventPointColor}
-                                    style={styles.flexInnerColumn}
-                                />
-                                <TextField
-                                    id="radius"
-                                    type="number"
-                                    floatingLabelText={i18n.t('Point size')}
-                                    value={eventPointRadius || TEI_RADIUS}
-                                    onChange={(evt, radius) =>
-                                        setEventPointRadius(radius)
-                                    }
-                                    style={styles.flexInnerColumn}
-                                />
+            <div>
+                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="data" label={i18n.t('data')} />
+                    <Tab value="period" label={i18n.t('period')} />
+                    <Tab value="orgunits" label={i18n.t('Org units')} />
+                    <Tab value="style" label={i18n.t('Style')} />
+                </Tabs>
+                <div className={classes.tabContent}>
+                    {tab === 'data' && (
+                        <div style={styles.flexRowFlow}>
+                            <div style={{ margin: '12px 0', fontSize: 14 }}>
+                                {i18n.t(
+                                    'This map layer is still experimental. Please provide your feedback on our'
+                                )}&nbsp;
+                                <a href="//www.dhis2.org/contact#mailing-lists">
+                                    {i18n.t('mailing lists')}
+                                </a>.
                             </div>
-                            <div style={styles.flexInnerColumnFlow}>
-                                <Checkbox
-                                    label={i18n.t('Buffer')}
-                                    checked={showBuffer}
-                                    onCheck={this.onShowBufferClick}
+                            <TrackedEntityTypeSelect
+                                trackedEntityType={trackedEntityType}
+                                onChange={setTrackedEntityType}
+                                style={styles.select}
+                                errorText={trackedEntityTypeError}
+                            />
+                            {trackedEntityType && (
+                                <ProgramSelect
+                                    allPrograms={true}
+                                    program={program}
+                                    trackedEntityType={trackedEntityType}
+                                    onChange={setProgram}
+                                    style={styles.select}
+                                />
+                            )}
+                            {program && (
+                                <SelectField
+                                    label={i18n.t('Program status')}
+                                    items={[
+                                        {
+                                            id: 'ACTIVE',
+                                            name: 'Active',
+                                        },
+                                        {
+                                            id: 'COMPLETED',
+                                            name: 'Completed',
+                                        },
+                                    ]}
+                                    value={programStatus}
+                                    onChange={status =>
+                                        setProgramStatus(status.id)
+                                    }
                                     style={{
-                                        ...styles.flexInnerColumn,
-                                        marginTop: 47,
+                                        ...styles.select,
+                                        width: 276,
+                                        marginLeft: 24,
                                     }}
                                 />
-                                {showBuffer && (
-                                    <TextField
-                                        id="buffer"
-                                        type="number"
-                                        floatingLabelText={i18n.t(
-                                            'Radius in meters'
-                                        )}
-                                        value={areaRadius || ''}
-                                        onChange={(evt, radius) =>
-                                            setAreaRadius(radius)
-                                        }
-                                        style={styles.flexInnerColumn}
-                                        floatingLabelStyle={{
-                                            whiteSpace: 'nowrap',
-                                        }}
-                                    />
-                                )}
+                            )}
+                            {program && (
+                                <Checkbox
+                                    label={i18n.t('Follow up')}
+                                    checked={followUp}
+                                    onCheck={setFollowUpStatus}
+                                    style={{
+                                        ...styles.checkbox,
+                                        marginLeft: 24,
+                                    }}
+                                />
+                            )}
+                        </div>
+                    )}
+                    {tab === 'period' && (
+                        <div style={styles.flexRowFlow}>
+                            <div style={{ margin: '12px 0', fontSize: 14 }}>
+                                {periodHelp}:
+                            </div>
+                            <DatePicker
+                                key="startdate"
+                                label={i18n.t('Start date')}
+                                value={startDate}
+                                default={TEI_START_DATE}
+                                onChange={setStartDate}
+                                style={styles.select}
+                            />
+                            <DatePicker
+                                key="enddate"
+                                label={i18n.t('End date')}
+                                value={endDate}
+                                default={TEI_END_DATE}
+                                onChange={setEndDate}
+                                style={styles.select}
+                            />
+                        </div>
+                    )}
+
+                    {tab === 'orgunits' && (
+                        <div style={styles.flexColumnFlow}>
+                            <div
+                                style={{
+                                    ...styles.flexColumn,
+                                    overflow: 'hidden',
+                                }}
+                            >
+                                <OrgUnitTree
+                                    selected={getOrgUnitNodesFromRows(rows)}
+                                    onClick={toggleOrgUnit}
+                                />
+                            </div>
+                            <div style={styles.flexColumn}>
+                                <SelectField
+                                    label={i18n.t('Selection mode')}
+                                    items={[
+                                        {
+                                            id: 'SELECTED',
+                                            name: 'Selected only',
+                                        },
+                                        {
+                                            id: 'CHILDREN',
+                                            name: 'Selected and below',
+                                        },
+                                        {
+                                            id: 'DESCENDANTS',
+                                            name: 'Selected and all below',
+                                        },
+                                    ]}
+                                    value={
+                                        organisationUnitSelectionMode ||
+                                        'SELECTED'
+                                    }
+                                    onChange={mode => setOrgUnitMode(mode.id)}
+                                    style={{
+                                        width: '100%',
+                                    }}
+                                />
+
+                                <SelectedOrgUnits
+                                    rows={rows}
+                                    mode={organisationUnitSelectionMode}
+                                    units={i18n.t('Tracked entities')}
+                                    error={orgUnitsError}
+                                />
                             </div>
                         </div>
-                        <div style={styles.flexColumn} />
-                    </div>
-                </Tab>
-            </Tabs>
+                    )}
+                    {tab === 'style' && (
+                        <div style={styles.flexColumnFlow}>
+                            <div style={styles.flexColumn}>
+                                <div style={styles.flexInnerColumnFlow}>
+                                    <ColorPicker
+                                        label={i18n.t('Color')}
+                                        color={eventPointColor || TEI_COLOR}
+                                        onChange={setEventPointColor}
+                                        style={styles.flexInnerColumn}
+                                    />
+                                    <TextField
+                                        id="radius"
+                                        type="number"
+                                        label={i18n.t('Point size')}
+                                        value={eventPointRadius || TEI_RADIUS}
+                                        onChange={setEventPointRadius}
+                                        style={styles.flexInnerColumn}
+                                    />
+                                </div>
+                                <div style={styles.flexInnerColumnFlow}>
+                                    <Checkbox
+                                        label={i18n.t('Buffer')}
+                                        checked={showBuffer}
+                                        onCheck={this.onShowBufferClick}
+                                        style={styles.flexInnerColumn}
+                                    />
+                                    {showBuffer && (
+                                        <TextField
+                                            id="buffer"
+                                            type="number"
+                                            label={i18n.t('Radius in meters')}
+                                            value={areaRadius || ''}
+                                            onChange={setAreaRadius}
+                                            style={styles.flexInnerColumn}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                            <div style={styles.flexColumn} />
+                        </div>
+                    )}
+                </div>
+            </div>
         );
     }
-
-    /*
-    <DataItemSelect
-        label={i18n.t('Style by data item')}
-        program={program}
-        allowNone={true}
-        value={styleDataItem ? styleDataItem.id : null}
-        onChange={setStyleDataItem}
-        // style={styles.select}
-    />
-    <DataItemStyle
-        method={method}
-        classes={classes}
-        colorScale={colorScale}
-        // style={styles.select}
-        {...styleDataItem}
-    />
-    */
 
     onShowBufferClick = isChecked => {
         const { setAreaRadius, areaRadius } = this.props;
@@ -405,6 +390,7 @@ export default connect(
         setFollowUpStatus,
         setStartDate,
         setEndDate,
+        setOrgUnitRoot,
         toggleOrgUnit,
         setOrgUnitMode,
         setEventPointColor,
@@ -416,4 +402,4 @@ export default connect(
     {
         withRef: true,
     }
-)(TrackedEntityDialog);
+)(withStyles(styles)(TrackedEntityDialog));

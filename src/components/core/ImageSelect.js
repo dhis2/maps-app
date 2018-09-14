@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './ImageSelect.css';
+import './ImageSelect.css'; // TODO: Switch to inline styles
 
 const ImageSelect = ({ id, img, title, isSelected, onClick, style }) => {
     const borderStyle = {

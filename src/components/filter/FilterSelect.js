@@ -2,35 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '@dhis2/d2-ui-core';
-import TextField from 'material-ui/TextField'; // TODO: d2-ui-core version don't accept numbers as values
-import Checkbox from 'material-ui/Checkbox';
+import SelectField from '../core/SelectField';
+import TextField from '../core/TextField';
+import Checkbox from '../core/Checkbox';
+import DatePicker from '../core/DatePicker';
 import OptionSetSelect from '../optionSet/OptionSetSelect';
-import DatePicker from '../d2-ui/DatePicker';
 import { loadOptionSet } from '../../actions/optionSets';
 import { numberValueTypes, textValueTypes } from '../../constants/valueTypes';
 
 const styles = {
     operator: {
         float: 'left',
-        top: -8,
         marginRight: 24,
         width: 'calc((100% - 48px) / 8 * 2)',
     },
     textField: {
         float: 'left',
-        top: -8,
         width: 'calc((100% - 48px) / 8 * 3)',
     },
-    checkbox: {
-        float: 'left',
-        marginTop: 26,
-        marginLeft: -4,
-        width: 'calc((100% - 48px) / 8 * 5)',
-    },
-    dateField: {
-        width: 'calc((100% - 48px) / 8 * 3)',
-        top: -8,
+    datePicker: {
+        width: 165,
     },
 };
 
@@ -101,23 +92,19 @@ export class FilterSelect extends Component {
                 <TextField
                     id="number"
                     key="number"
-                    floatingLabelText={i18n.t('Value')}
+                    label={i18n.t('Value')}
                     type="number"
                     value={value !== undefined ? value : ''}
-                    onChange={(evt, newValue) =>
-                        onChange(`${operator}:${newValue}`)
-                    }
+                    onChange={newValue => onChange(`${operator}:${newValue}`)}
                     style={styles.textField}
                 />
             ) : null,
             textValueTypes.includes(valueType) && !optionSet ? (
                 <TextField
                     key="text"
-                    floatingLabelText={i18n.t('Value')}
+                    label={i18n.t('Value')}
                     value={value || ''}
-                    onChange={(evt, newValue) =>
-                        onChange(`${operator}:${newValue}`)
-                    }
+                    onChange={newValue => onChange(`${operator}:${newValue}`)}
                     style={styles.textField}
                 />
             ) : null,
@@ -126,10 +113,7 @@ export class FilterSelect extends Component {
                     key="checkbox"
                     label={i18n.t('Yes')}
                     checked={value == 1 ? true : false}
-                    onCheck={(event, isChecked) =>
-                        onChange(isChecked ? 'IN:1' : 'IN:0')
-                    }
-                    style={styles.checkbox}
+                    onCheck={isChecked => onChange(isChecked ? 'IN:1' : 'IN:0')}
                 />
             ) : null,
             valueType === 'DATE' ? (
@@ -139,7 +123,6 @@ export class FilterSelect extends Component {
                     value={value}
                     onChange={date => onChange(`${operator}:${date}`)}
                     style={styles.datePicker}
-                    textFieldStyle={styles.dateField}
                 />
             ) : null,
         ];

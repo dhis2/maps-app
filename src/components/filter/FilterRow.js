@@ -3,22 +3,19 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import DataItemSelect from '../dataItem/DataItemSelect';
 import FilterSelect from './FilterSelect';
-import IconButton from 'material-ui/IconButton';
-import { SvgIcon } from '@dhis2/d2-ui-core';
-
-// https://react.rocks/example/react-redux-test
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const styles = {
     container: {
-        height: 64,
+        height: 68,
         marginBottom: 8,
-        padding: '0 56px 0 8px',
+        padding: '-0 56px 0 8px',
         background: '#f4f4f4',
         position: 'relative',
         clear: 'both',
     },
     select: {
-        top: -8,
         marginRight: 24,
         float: 'left',
         width: 'calc((100% - 48px) / 8 * 3)',
@@ -48,8 +45,6 @@ class FilterRow extends Component {
 
     onChange(dimension, filter) {
         const { index, dataItems, onChange } = this.props;
-        const dataItem = dataItems.filter(d => d.id === dimension);
-        // console.log(dataItem, dataItems);
 
         const name = dataItems.filter(d => d.id === dimension)[0].name;
 
@@ -88,7 +83,6 @@ class FilterRow extends Component {
         return (
             <div style={styles.container}>
                 <DataItemSelect
-                    // items={dataItems}
                     value={dimension || null}
                     program={program}
                     programStage={programStage}
@@ -112,7 +106,7 @@ class FilterRow extends Component {
                     style={styles.removeBtn}
                     onClick={() => onRemove(index)}
                 >
-                    <SvgIcon icon={i18n.t('Close')} />
+                    <CloseIcon />
                 </IconButton>
             </div>
         );

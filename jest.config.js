@@ -6,4 +6,10 @@ module.exports = {
     moduleNameMapper: {
         '\\.(css)$': '<rootDir>/config/jest/styleMock.js',
     },
+    testEnvironment: 'node',
+    globals: {
+        window: true,
+        document: true,
+        Element: true,
+    }
 };

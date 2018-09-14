@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 import { clearMessage } from '../../actions/message';
 
 // TODO: Merge with AlertSnackbar
@@ -11,7 +11,7 @@ const Message = ({ message, clearMessage }) =>
             open={true}
             message={message}
             autoHideDuration={5000}
-            onRequestClose={clearMessage}
+            onClose={clearMessage}
         />
     );
 

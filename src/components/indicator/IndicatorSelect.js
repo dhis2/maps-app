@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
-import { SelectField } from '@dhis2/d2-ui-core';
+import SelectField from '../core/SelectField';
 import { loadIndicators } from '../../actions/indicators';
 
 export class IndicatorSelect extends Component {
@@ -48,7 +48,7 @@ export class IndicatorSelect extends Component {
 
         return (
             <SelectField
-                key='indicators'
+                key="indicators"
                 loading={items ? false : true}
                 label={i18n.t('Indicator')}
                 items={items}
@@ -63,7 +63,9 @@ export class IndicatorSelect extends Component {
 
 export default connect(
     (state, props) => ({
-        indicators: props.indicatorGroup ? state.indicators[props.indicatorGroup.id] : null,
+        indicators: props.indicatorGroup
+            ? state.indicators[props.indicatorGroup.id]
+            : null,
     }),
     { loadIndicators }
 )(IndicatorSelect);

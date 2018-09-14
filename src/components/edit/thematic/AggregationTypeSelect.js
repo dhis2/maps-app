@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
-import { SelectField } from '@dhis2/d2-ui-core';
+import SelectField from '../../core/SelectField';
 import { aggregationTypes } from '../../../constants/aggregationTypes';
 import { setAggregationType } from '../../../actions/layerEdit';
 

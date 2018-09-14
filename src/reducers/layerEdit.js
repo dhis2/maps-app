@@ -115,6 +115,13 @@ const layerEdit = (state = null, action) => {
             };
 
         case types.LAYER_EDIT_AGGREGATION_TYPE_SET:
+            // DEFAULT aggregation type is not stored
+            if (action.aggregationType === 'DEFAULT') {
+                const newState = { ...state };
+                delete state.aggregationType;
+                return newState;
+            }
+
             return {
                 ...state,
                 aggregationType: action.aggregationType,
@@ -298,6 +305,10 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 rows: toggleOrgUnitNodeInRows(state.rows, action.orgUnit),
             };
+
+        case types.LAYER_EDIT_ORGANISATIOM_UNIT_ROOT_SET:
+            console.log('LAYER_EDIT_ORGANISATIOM_UNIT_ROOT_SET', state, action);
+            return state;
 
         // Set organisation unit tree path (temporary solution, as favorites don't include paths)
         case types.LAYER_EDIT_ORGANISATION_UNIT_PATH_SET:

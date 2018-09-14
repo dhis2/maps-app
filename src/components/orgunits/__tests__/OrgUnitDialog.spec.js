@@ -1,10 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Dialog from 'material-ui/Dialog';
-import { OrgUnitDialog } from '../OrgUnitDialog';
+import { unwrap } from '@material-ui/core/test-utils';
+import Dialog from '@material-ui/core/Dialog';
+import OrgUnitDialog from '../OrgUnitDialog';
+
+// https://github.com/mui-org/material-ui/issues/11864
+const OrgUnitDialogNaked = unwrap(OrgUnitDialog);
 
 describe('Org unit dialog (infrastuctural data)', () => {
-    const renderWithProps = props => shallow(<OrgUnitDialog {...props} />);
+    const renderWithProps = props =>
+        shallow(<OrgUnitDialogNaked classes={{}} {...props} />);
     let props;
 
     beforeEach(() => {

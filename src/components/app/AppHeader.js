@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import IconButton from 'material-ui/IconButton';
-import { SvgIcon } from '@dhis2/d2-ui-core';
-import HomeIcon from 'material-ui/svg-icons/action/home';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import StarIcon from '@material-ui/icons/Star';
+import HomeIcon from '@material-ui/icons/Home';
 import { LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
 const styles = {
@@ -53,11 +54,11 @@ const styles = {
     },
 };
 
-export const AppHeader = ({ name = '' }) => (
-    <div style={styles.header}>
-        <div style={styles.logo}>
+export const AppHeader = ({ name = '', classes }) => (
+    <div className={classes.header}>
+        <div className={classes.logo}>
             <svg
-                style={styles.svg}
+                className={classes.svg}
                 viewBox="0 0 400 233.33"
                 xmlns="http://www.w3.org/2000/svg"
                 display="block"
@@ -77,7 +78,7 @@ export const AppHeader = ({ name = '' }) => (
         <div style={{ ...styles.title, ...(!name ? styles.noFavorite : {}) }}>
             {name ? (
                 <span>
-                    <SvgIcon icon="Star" style={styles.star} />
+                    <StarIcon className={classes.star} />
                     {name}
                 </span>
             ) : (
@@ -87,8 +88,7 @@ export const AppHeader = ({ name = '' }) => (
                 onClick={() =>
                     (window.location.href = `../dhis-web-commons-about/redirect.action`)
                 }
-                style={styles.homeBtn}
-                iconStyle={styles.homeIcon}
+                className={classes.homeBtn}
             >
                 <HomeIcon />
             </IconButton>
@@ -98,8 +98,9 @@ export const AppHeader = ({ name = '' }) => (
 
 AppHeader.propTypes = {
     name: PropTypes.string,
+    classes: PropTypes.object.isRequired,
 };
 
 export default connect(state => ({
     name: state.map ? state.map.name : null,
-}))(AppHeader);
+}))(withStyles(styles)(AppHeader));

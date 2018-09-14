@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '@dhis2/d2-ui-core';
+import SelectField from '../core/SelectField';
 import { periodTypes } from '../../constants/periods';
 
 let periods;
