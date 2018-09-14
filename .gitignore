@@ -3,6 +3,7 @@
 .vscode
 .jshintignore
 .jshintrc
+package-lock.json
 node_modules
 build
 target
