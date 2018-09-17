@@ -64,7 +64,8 @@ const thematicLoader = async config => {
 
         properties.value = value;
         properties.radius =
-            ((value - minValue) / (maxValue - minValue)) *
+            (value - minValue) /
+                (maxValue - minValue) *
                 (radiusHigh - radiusLow) +
             radiusLow;
         properties.type = geometry.type; // Shown in data table
@@ -76,7 +77,7 @@ const thematicLoader = async config => {
         name,
         legend,
         method,
-        ...(alert ? { alerts: [ alert ] } : {}),
+        ...(alert ? { alerts: [alert] } : {}),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
@@ -160,7 +161,7 @@ const loadData = async config => {
         d2,
         displayProperty
     ).toUpperCase();
-
+    const geoFeaturesParams = {};
     let orgUnitParams = orgUnits.map(item => item.id);
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id;
 
@@ -175,10 +176,8 @@ const loadData = async config => {
         .withDisplayProperty(displayPropertyUpper);
 
     if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        orgUnitParams += '&userOrgUnit=' + userOrgUnit.join(';');
-        analyticsRequest = analyticsRequest.withUserOrgUnit(
-            userOrgUnit.join(';')
-        );
+        geoFeaturesParams.userOrgUnit = userOrgUnit.join(';');
+        analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit);
     }
 
     if (relativePeriodDate) {
@@ -193,12 +192,6 @@ const loadData = async config => {
         );
     }
 
-    if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        analyticsRequest = analyticsRequest.addUserOrgUnit(
-            userOrgUnit.map(ou => ou)
-        );
-    }
-
     if (isOperand) {
         analyticsRequest = analyticsRequest.addDimension('co');
     }
@@ -207,7 +200,7 @@ const loadData = async config => {
     const orgUnitReq = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayPropertyUpper)
-        .getAll()
+        .getAll(geoFeaturesParams)
         .then(toGeoJson);
 
     // Data request
