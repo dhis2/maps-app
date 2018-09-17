@@ -51,8 +51,8 @@ class ThematicLayer extends Layer {
     }
 
     // Used for legend in map plugins
-    getHtmlLegend = ({ title, period, items }, data) => `
-        <div class="dhis2-legend">
+    getHtmlLegend({ title, period, items }, data) {
+        return `<div class="dhis2-legend">
             <h2>${title}</h2>
             <span>${period}</span>
             ${
@@ -76,6 +76,7 @@ class ThematicLayer extends Layer {
                     : `<p><em>${i18n.t('No data found')}</em></p>`
             }
         </div>`;
+    }
 
     onFeatureClick(evt) {
         const { name, value } = evt.layer.feature.properties;
