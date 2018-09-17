@@ -15,10 +15,6 @@ import { translateConfig } from './util/favorites';
 import { defaultBasemaps } from './constants/basemaps';
 import '../scss/plugin.scss';
 
-// Inspiration:
-// pivot: https://github.com/dhis2/pivot-tables-app/blob/master/src/plugin.js
-// d2-analysis: https://github.com/dhis2/d2-analysis/blob/master/src/util/Plugin.js
-
 const apiVersion = 29;
 
 const Plugin = () => {
@@ -125,6 +121,13 @@ const Plugin = () => {
             }
 
             if (config.mapViews) {
+                if (config.userOrgUnit) {
+                    config.mapViews = config.mapViews.map(mapView => ({
+                        ...mapView,
+                        userOrgUnit: config.userOrgUnit,
+                    }));
+                }
+
                 Promise.all(config.mapViews.map(fetchLayer)).then(mapViews =>
                     drawMap({
                         ...config,
@@ -154,7 +157,7 @@ const Plugin = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                domEl.innerHTML = ''; // TODO: Remove when unmount is used
+                domEl.innerHTML = '';
                 const div = document.createElement('div');
                 div.className = 'spinner';
                 domEl.appendChild(div);

@@ -1,6 +1,5 @@
 import i18next from 'i18next';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import isString from 'lodash/fp/isString';
 import findIndex from 'lodash/fp/findIndex';
 import sortBy from 'lodash/fp/sortBy';
 import pick from 'lodash/fp/pick';
@@ -165,7 +164,7 @@ const loadData = async config => {
         d2,
         displayProperty
     ).toUpperCase();
-
+    const geoFeaturesParams = {};
     let orgUnitParams = orgUnits.map(item => item.id);
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id;
 
@@ -180,10 +179,8 @@ const loadData = async config => {
         .withDisplayProperty(displayPropertyUpper);
 
     if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        orgUnitParams += '&userOrgUnit=' + userOrgUnit.join(';');
-        analyticsRequest = analyticsRequest.withUserOrgUnit(
-            userOrgUnit.join(';')
-        );
+        geoFeaturesParams.userOrgUnit = userOrgUnit.join(';');
+        analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit);
     }
 
     if (relativePeriodDate) {
@@ -198,12 +195,6 @@ const loadData = async config => {
         );
     }
 
-    if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        analyticsRequest = analyticsRequest.addUserOrgUnit(
-            userOrgUnit.map(ou => ou)
-        );
-    }
-
     if (isOperand) {
         analyticsRequest = analyticsRequest.addDimension('co');
     }
@@ -212,7 +203,7 @@ const loadData = async config => {
     const orgUnitReq = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayPropertyUpper)
-        .getAll()
+        .getAll(geoFeaturesParams)
         .then(toGeoJson);
 
     // Data request
