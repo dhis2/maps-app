@@ -1,9 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+// import { shallow } from 'enzyme';
+import { createShallow } from '@material-ui/core/test-utils';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { SelectField } from '../SelectField';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const items = [
     {
@@ -20,7 +22,15 @@ const items = [
     },
 ];
 
+// https://material-ui.com/guides/testing/
+// https://github.com/mui-org/material-ui/issues/9266
 describe('SelectField', () => {
+    let shallow;
+
+    beforeEach(() => {
+        shallow = createShallow();
+    });
+
     const renderWithProps = props =>
         shallow(<SelectField classes={{}} {...props} />);
 
@@ -38,13 +48,15 @@ describe('SelectField', () => {
     it('should render items array as menu items', () => {
         const component = renderWithProps({ items });
 
-        console.log('####', component);
+        console.log('#', component.debug());
 
-        const node = <MenuItem value="mouse" />;
+        // const node = <MenuItem value="mouse" />;
+        const node = <Checkbox />;
         expect(component.contains(node)).toBe(true);
     });
+    */
 
-
+    /*
     it('should inset items when multiple select', () => {
         const component = renderWithProps({ items, multiple: true });
         const node = <MenuItem value="cat" primaryText="Cat" insetChildren />;
