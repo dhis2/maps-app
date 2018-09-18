@@ -36,7 +36,7 @@ const styles = {
         fontSize: 14,
     },
     title: {
-        width: 210,
+        width: 242,
         fontSize: 15,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
@@ -52,9 +52,9 @@ const styles = {
         height: 32,
     },
     visibility: {
-        position: 'absolute',
-        right: 28,
-        top: 4,
+        height: 32,
+        width: 32,
+        padding: 4,
     },
     expand: {
         position: 'absolute',
@@ -92,18 +92,6 @@ const BasemapCard = props => {
                 subheader={subtitle}
                 action={[
                     <Tooltip 
-                        key="visibility" 
-                        title={i18n.t('Toggle visibility')}
-                    >
-                        <IconButton
-                            className={classes.visibility}
-                            onClick={toggleBasemapVisibility}
-                            style={{ backgroundColor: 'transparent' }}
-                        >
-                            {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                        </IconButton>
-                    </Tooltip>,
-                    <Tooltip 
                         key="expand" 
                         title={i18n.t('Collapse')}
                     >
@@ -130,6 +118,20 @@ const BasemapCard = props => {
                             opacity={opacity}
                             onChange={opacity => changeBasemapOpacity(opacity)}
                         />
+                        <div>
+                            <Tooltip
+                                key="visibility"
+                                title={i18n.t('Toggle visibility')}
+                            >
+                                <IconButton
+                                    className={classes.visibility}
+                                    onClick={toggleBasemapVisibility}
+                                    style={{ backgroundColor: 'transparent' }}
+                                >
+                                    {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                </IconButton>
+                            </Tooltip>
+                        </div>
                     </CardActions>
                 </CardContent>
             </Collapse>

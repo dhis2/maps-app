@@ -8,8 +8,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -39,7 +37,7 @@ const styles = {
         fontSize: 14,
     },
     title: {
-        width: 195,
+        width: 227,
         paddingLeft: 15,
         fontSize: 15,
         whiteSpace: 'nowrap',
@@ -101,18 +99,6 @@ const LayerCard = props => {
                 action={[
                     <SortableHandle key='handle' color='#757575' />,
                     <Tooltip 
-                        key="visibility" 
-                        title={i18n.t('Toggle visibility')}
-                    >
-                        <IconButton
-                            className={classes.visibility}
-                            onClick={() => toggleLayerVisibility(id)}
-                            style={{ backgroundColor: 'transparent' }}
-                        >
-                            {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                        </IconButton>
-                    </Tooltip>,
-                    <Tooltip 
                         key="expand" 
                         title={i18n.t('Collapse')}
                     >
@@ -138,6 +124,7 @@ const LayerCard = props => {
                         layer={layer}
                         onEdit={() => editLayer(layer)}
                         toggleDataTable={toggleDataTable}
+                        toggleLayerVisibility={toggleLayerVisibility}
                         onOpacityChange={changeLayerOpacity}
                         onRemove={() => {
                             removeLayer(id);

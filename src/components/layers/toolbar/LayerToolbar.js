@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -51,6 +53,7 @@ const OverlayToolbar = ({
     onEdit,
     onRemove,
     toggleDataTable,
+    toggleLayerVisibility,
     onOpacityChange,
     classes
 }) => (
@@ -75,6 +78,18 @@ const OverlayToolbar = ({
             opacity={layer.opacity}
             onChange={opacity => onOpacityChange(layer.id, opacity)}
         />
+        <Tooltip
+            key="visibility"
+            title={i18n.t('Toggle visibility')}
+        >
+            <IconButton
+                className={classes.button}
+                onClick={() => toggleLayerVisibility(layer.id)}
+                style={{ backgroundColor: 'transparent' }}
+            >
+                {layer.isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+        </Tooltip>
         <div className={classes.alignRight}>
             {onRemove && (
                 <Tooltip title={i18n.t('Delete')}>
@@ -109,6 +124,7 @@ OverlayToolbar.propTypes = {
     layer: PropTypes.object,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
+    toggleLayerVisibility: PropTypes.func,
     onOpacityChange: PropTypes.func,
     toggleDataTable: PropTypes.func,
     classes: PropTypes.object.isRequired,
