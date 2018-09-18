@@ -205,6 +205,10 @@ const map = (state = defaultState, action) => {
             return {
                 ...defaultState,
                 ...action.payload,
+                basemap: {
+                    ...defaultState.basemap,
+                    ...action.payload.basemap,
+                },
             };
 
         case types.MAP_PROPS_SET:
