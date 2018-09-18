@@ -23,7 +23,7 @@ const styles = {
 };
 
 /**
- * Wrapper component around MUI SelectField supporting default styling,labels, error text,
+ * Wrapper component around MUI TextField supporting default styling, labels, error text,
  * multiple select, and rendering select items from an array of objects.
  * https://github.com/dhis2/d2-ui/blob/master/packages/core/src/select-field/SelectField.js
  */
