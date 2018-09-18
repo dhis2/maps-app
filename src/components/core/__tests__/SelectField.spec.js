@@ -1,6 +1,5 @@
 import React from 'react';
-// import { shallow } from 'enzyme';
-import { createShallow } from '@material-ui/core/test-utils';
+import { shallow } from 'enzyme';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -24,106 +23,85 @@ const items = [
 
 // https://material-ui.com/guides/testing/
 // https://github.com/mui-org/material-ui/issues/9266
+// https://github.com/mui-org/material-ui/blob/57e463dc67779dbd2de995b3fb6042793fcff5f3/packages/material-ui/src/TextField/TextField.test.js
+// https://github.com/airbnb/enzyme/blob/master/docs/api/shallow.md
+// https://jestjs.io/docs/en/expect
+
 describe('SelectField', () => {
-    let shallow;
-
-    beforeEach(() => {
-        shallow = createShallow();
-    });
-
     const renderWithProps = props =>
         shallow(<SelectField classes={{}} {...props} />);
 
-    it('should render a MUI TextField', () => {
-        expect(renderWithProps().type()).toBe(TextField);
+    it('should be a TextField', () => {
+        const wrapper = renderWithProps();
+        expect(wrapper.type()).toBe(TextField);
     });
 
-    it('should set floatingLabelText when label is passed', () => {
-        expect(renderWithProps({ label: 'My label' }).props().label).toEqual(
-            'My label'
-        );
+    it('should pass label to TextField', () => {
+        const wrapper = renderWithProps({ label: 'My label' });
+        expect(wrapper.props().label).toBe('My label');
     });
 
-    /*
+    it('should pass value to TextField', () => {
+        const wrapper = renderWithProps({ value: 'cat' });
+        expect(wrapper.props().value).toBe('cat');
+    });
+
+    it('should pass style to TextField', () => {
+        const wrapper = renderWithProps({ style: { background: 'red' } });
+        expect(wrapper.props().style).toEqual({ background: 'red' });
+    });
+
     it('should render items array as menu items', () => {
-        const component = renderWithProps({ items });
-
-        console.log('#', component.debug());
-
-        // const node = <MenuItem value="mouse" />;
-        const node = <Checkbox />;
-        expect(component.contains(node)).toBe(true);
-    });
-    */
-
-    /*
-    it('should inset items when multiple select', () => {
-        const component = renderWithProps({ items, multiple: true });
-        const node = <MenuItem value="cat" primaryText="Cat" insetChildren />;
-        expect(component.contains(node)).toBe(true);
+        const wrapper = renderWithProps({ items });
+        expect(wrapper.find(MenuItem)).toHaveLength(items.length);
     });
 
-    it('should check selected items when multiple select', () => {
-        const component = renderWithProps({
-            items,
+    it('should render checkboxes for menu items if multiple select', () => {
+        const wrapper = renderWithProps({
             multiple: true,
-            value: ['cat'],
-        }); // multiple: true, value: ['cat']
-        const node = (
-            <MenuItem value="cat" primaryText="Cat" insetChildren checked />
-        );
-        expect(component.contains(node)).toBe(true);
+            items,
+        });
+        expect(wrapper.find(Checkbox)).toHaveLength(items.length);
     });
 
-    it('should render child nodes inside select field', () => {
-        const noop = () => {};
-        const node = (
-            <SelectField onChange={noop}>
-                <MenuItem value="cat" primaryText="Cat" />
-            </SelectField>
-        );
-        const component = shallow(node, { context: getStubContext() });
+    it('should check item if value is passed to multiple select', () => {
+        const wrapper = renderWithProps({
+            multiple: true,
+            value: ['dog'],
+            items,
+        });
         expect(
-            component.contains(<MenuItem value="cat" primaryText="Cat" />)
+            wrapper
+                .find({ value: 'dog' })
+                .find(Checkbox)
+                .props().checked
         ).toBe(true);
     });
 
-    it('should call onChange function when field content is changed', () => {
+    it('should call onChange with item object when single select', () => {
         const onChangeSpy = jest.fn();
         renderWithProps({ items, onChange: onChangeSpy })
             .props()
-            .onChange({}, 1);
+            .onChange({ target: { value: 'mouse' } });
         expect(onChangeSpy).toHaveBeenCalledWith(items[1]);
     });
 
-    it('should call onChange with item value when child nodes are used', () => {
+    it('should call onChange with item id when multiple select', () => {
         const onChangeSpy = jest.fn();
-        const node = (
-            <SelectField onChange={onChangeSpy}>
-                <MenuItem value="cat" primaryText="Cat" />
-            </SelectField>
-        );
-        shallow(node, { context: getStubContext() })
+        renderWithProps({ multiple: true, items, onChange: onChangeSpy })
             .props()
-            .onChange({}, 0, 'cat');
-        expect(onChangeSpy).toHaveBeenCalledWith('cat');
+            .onChange({ target: { value: 'mouse' } });
+        expect(onChangeSpy).toHaveBeenCalledWith('mouse');
     });
 
     it('should show spinner when loading is set to true', () => {
-        const component = renderWithProps({ loading: true });
-        expect(component.contains(<CircularProgress size={30} />)).toBe(true);
+        const wrapper = renderWithProps({ loading: true });
+        expect(wrapper.find(CircularProgress)).toHaveLength(1);
     });
 
-    it('should show text when loading is string', () => {
-        const message = 'Loading...';
-        const component = renderWithProps({ loading: message });
-        expect(component.contains(<div>{message}</div>)).toBe(true);
+    it('should pass errorText as error with helperText to TextField', () => {
+        const wrapper = renderWithProps({ errorText: 'Error message' });
+        expect(wrapper.props().error).toBe(true);
+        expect(wrapper.props().helperText).toBe('Error message');
     });
-
-    it('should show error text', () => {
-        expect(
-            renderWithProps({ errorText: 'Error message' }).props().errorText
-        ).toEqual('Error message');
-    });
-    */
 });
