@@ -21,12 +21,6 @@ const items = [
     },
 ];
 
-// https://material-ui.com/guides/testing/
-// https://github.com/mui-org/material-ui/issues/9266
-// https://github.com/mui-org/material-ui/blob/57e463dc67779dbd2de995b3fb6042793fcff5f3/packages/material-ui/src/TextField/TextField.test.js
-// https://github.com/airbnb/enzyme/blob/master/docs/api/shallow.md
-// https://jestjs.io/docs/en/expect
-
 describe('SelectField', () => {
     const renderWithProps = props =>
         shallow(<SelectField classes={{}} {...props} />);
