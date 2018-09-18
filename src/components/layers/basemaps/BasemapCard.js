@@ -118,7 +118,7 @@ const BasemapCard = props => {
                             opacity={opacity}
                             onChange={opacity => changeBasemapOpacity(opacity)}
                         />
-                        <div>
+                        <React.Fragment>
                             <Tooltip
                                 key="visibility"
                                 title={i18n.t('Toggle visibility')}
@@ -131,7 +131,7 @@ const BasemapCard = props => {
                                     {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                 </IconButton>
                             </Tooltip>
-                        </div>
+                        </React.Fragment>
                     </CardActions>
                 </CardContent>
             </Collapse>
