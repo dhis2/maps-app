@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import CheckIcon from '@material-ui/icons/Check';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = {
     loading: {
@@ -17,27 +17,28 @@ const styles = {
     menu: {
         zIndex: 2500,
     },
-    insetItem: {
-        paddingLeft: 48,
-    },
-    checkIcon: {
-        position: 'absolute',
-        left: 10,
+    menuItem: {
+        paddingLeft: 0,
     },
 };
 
-// https://github.com/dhis2/d2-ui/blob/master/packages/core/src/select-field/SelectField.js
+/**
+ * Wrapper component around MUI SelectField supporting default styling,labels, error text,
+ * multiple select, and rendering select items from an array of objects.
+ * https://github.com/dhis2/d2-ui/blob/master/packages/core/src/select-field/SelectField.js
+ */
+
 const SelectField = props => {
     const {
-        label,
+        classes,
+        errorText,
         items = [],
+        label,
+        loading,
         multiple,
-        value,
         onChange,
         style,
-        loading,
-        errorText,
-        classes,
+        value,
     } = props;
 
     if (loading) {
@@ -78,13 +79,13 @@ const SelectField = props => {
                     key={id}
                     value={id}
                     dense
-                    className={multiple && classes.insetItem}
+                    className={multiple && classes.menuItem}
                 >
-                    {multiple &&
-                        Array.isArray(value) &&
-                        value.includes(id) && (
-                            <CheckIcon className={classes.checkIcon} />
-                        )}
+                    {multiple && (
+                        <Checkbox
+                            checked={Array.isArray(value) && value.includes(id)}
+                        />
+                    )}
                     {name}
                 </MenuItem>
             ))}
@@ -93,12 +94,15 @@ const SelectField = props => {
 };
 
 SelectField.propTypes = {
+    /**
+     * The styles applied to the component using withStyles.
+     */
     classes: PropTypes.object.isRequired,
 
     /**
-     * The label of the select field
+     * If set, shows the error message below the SelectField
      */
-    label: PropTypes.string,
+    errorText: PropTypes.string,
 
     /**
      * The select field items (rendered as MenuItems)
@@ -112,14 +116,19 @@ SelectField.propTypes = {
     ),
 
     /**
-     * If true, the select field will support multiple selection. A check mark will show before selected items.
+     * The label of the select field
      */
-    multiple: PropTypes.bool,
+    label: PropTypes.string,
 
     /**
      * If true, a spinner will be shown in the select menu. If string, the loading text will be shown.
      */
     loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+
+    /**
+     * If true, the select field will support multiple selection. Adds a checkbox to each menu item.
+     */
+    multiple: PropTypes.bool,
 
     /**
      * onChange callback, that is fired when the select field's value changes
@@ -128,6 +137,11 @@ SelectField.propTypes = {
      * ids if multiple.
      */
     onChange: PropTypes.func,
+
+    /**
+     * Override the inline-styles of the root element
+     */
+    style: PropTypes.object,
 
     /**
      * The value(s) of the select field
@@ -139,16 +153,6 @@ SelectField.propTypes = {
             PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         ),
     ]),
-
-    /**
-     * Override the inline-styles of the root element
-     */
-    style: PropTypes.object,
-
-    /**
-     * If set, shows the error message below the SelectField
-     */
-    errorText: PropTypes.string,
 };
 
 export default withStyles(styles)(SelectField);
