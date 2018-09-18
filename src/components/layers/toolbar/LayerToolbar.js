@@ -85,7 +85,6 @@ const OverlayToolbar = ({
             <IconButton
                 className={classes.button}
                 onClick={() => toggleLayerVisibility(layer.id)}
-                style={{ backgroundColor: 'transparent' }}
             >
                 {layer.isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </IconButton>

@@ -84,7 +84,7 @@ const LayerCard = props => {
         classes,
     } = props;
 
-    const { id, name, legend, isExpanded, isVisible } = layer;
+    const { id, name, legend, isExpanded } = layer;
 
     return (
         <Card className={classes.card}>

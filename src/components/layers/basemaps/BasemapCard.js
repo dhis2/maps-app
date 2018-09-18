@@ -126,7 +126,6 @@ const BasemapCard = props => {
                                 <IconButton
                                     className={classes.visibility}
                                     onClick={toggleBasemapVisibility}
-                                    style={{ backgroundColor: 'transparent' }}
                                 >
                                     {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                 </IconButton>
