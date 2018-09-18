@@ -28,7 +28,7 @@ const styles = {
  * https://github.com/dhis2/d2-ui/blob/master/packages/core/src/select-field/SelectField.js
  */
 
-const SelectField = props => {
+export const SelectField = props => {
     const {
         classes,
         errorText,
