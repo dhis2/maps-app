@@ -80,6 +80,19 @@ describe('SelectField', () => {
         expect(onChangeSpy).toHaveBeenCalledWith(items[1]);
     });
 
+    it('should call onChange with array of id when multiple select', () => {
+        const onChangeSpy = jest.fn();
+        renderWithProps({
+            multiple: true,
+            items,
+            onChange: onChangeSpy,
+        })
+            .props()
+            .onChange({ target: { value: ['cat'] } });
+
+        expect(onChangeSpy).toHaveBeenCalledWith(['cat']);
+    });
+
     it('should call onChange with array of ids when multiple select', () => {
         const onChangeSpy = jest.fn();
         renderWithProps({
