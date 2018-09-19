@@ -4,7 +4,6 @@ import SelectField from '../core/SelectField';
 
 const OptionSetSelect = ({ options, value, onChange, style }) => {
     // TODO: Temporarily fix until we have a searchable SelectField handling hundreds of options
-
     if (options.length > 100) {
         options = options.slice(0, 100);
     }

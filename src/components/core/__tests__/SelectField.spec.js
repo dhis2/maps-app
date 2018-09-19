@@ -82,10 +82,15 @@ describe('SelectField', () => {
 
     it('should call onChange with item id when multiple select', () => {
         const onChangeSpy = jest.fn();
-        renderWithProps({ multiple: true, items, onChange: onChangeSpy })
+        renderWithProps({
+            multiple: true,
+            items,
+            onChange: onChangeSpy,
+        })
             .props()
-            .onChange({ target: { value: 'mouse' } });
-        expect(onChangeSpy).toHaveBeenCalledWith('mouse');
+            .onChange({ target: { value: ['cat', 'mouse'] } });
+
+        expect(onChangeSpy).toHaveBeenCalledWith(['cat', 'mouse']);
     });
 
     it('should show spinner when loading is set to true', () => {
