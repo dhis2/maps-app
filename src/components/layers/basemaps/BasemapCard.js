@@ -5,24 +5,20 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Tooltip from '@material-ui/core/Tooltip';
 import BasemapList from './BasemapList';
-import OpacitySlider from '../toolbar/OpacitySlider';
+import LayerToolbar from '../toolbar/LayerToolbar';
 import {
     changeBasemapOpacity,
     toggleBasemapExpand,
     toggleBasemapVisibility,
     selectBasemap,
 } from '../../../actions/basemap';
-// import './BasemapCard.css'; // TODO: Delete file
 
 const styles = {
     card: {
@@ -77,24 +73,21 @@ const BasemapCard = props => {
         toggleBasemapExpand,
         toggleBasemapVisibility,
         changeBasemapOpacity,
-        classes
+        classes,
     } = props;
 
     return (
         <Card className={classes.card}>
             <CardHeader
-                classes={{ 
+                classes={{
                     root: classes.header,
                     title: classes.title,
                     subheader: classes.subheader,
                 }}
                 title={name}
                 subheader={subtitle}
-                action={[
-                    <Tooltip 
-                        key="expand" 
-                        title={i18n.t('Collapse')}
-                    >
+                action={
+                    <Tooltip key="expand" title={i18n.t('Collapse')}>
                         <IconButton
                             className={classes.expand}
                             onClick={toggleBasemapExpand}
@@ -103,35 +96,24 @@ const BasemapCard = props => {
                         >
                             {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                         </IconButton>
-                    </Tooltip>,
-                ]}
+                    </Tooltip>
+                }
             />
 
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                <CardContent 
-                    className={classes.content}
-                    style={{ padding: 0 }}
-                >
-                    <BasemapList {...props} />
-                    <CardActions className={classes.actions}>
-                        <OpacitySlider
-                            opacity={opacity}
-                            onChange={opacity => changeBasemapOpacity(opacity)}
-                        />
-                        <React.Fragment>
-                            <Tooltip
-                                key="visibility"
-                                title={i18n.t('Toggle visibility')}
-                            >
-                                <IconButton
-                                    className={classes.visibility}
-                                    onClick={toggleBasemapVisibility}
-                                >
-                                    {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                                </IconButton>
-                            </Tooltip>
-                        </React.Fragment>
-                    </CardActions>
+                <CardContent className={classes.content} style={{ padding: 0 }}>
+                    <BasemapList
+                        selectedID={props.basemap.id}
+                        basemaps={props.basemaps}
+                        selectBasemap={props.selectBasemap}
+                    />
+                    <LayerToolbar
+                        layerType="basemap"
+                        opacity={opacity}
+                        isVisible={isVisible}
+                        onOpacityChange={changeBasemapOpacity}
+                        toggleLayerVisibility={toggleBasemapVisibility}
+                    />
                 </CardContent>
             </Collapse>
         </Card>
@@ -139,15 +121,21 @@ const BasemapCard = props => {
 };
 
 BasemapCard.propTypes = {
+    classes: PropTypes.object.isRequired,
+
     name: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     opacity: PropTypes.number,
     isVisible: PropTypes.bool,
     isExpanded: PropTypes.bool,
+
+    basemap: PropTypes.object.isRequired,
+    basemaps: PropTypes.array.isRequired,
+
+    changeBasemapOpacity: PropTypes.func.isRequired,
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
-    changeBasemapOpacity: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
+    selectBasemap: PropTypes.func.isRequired,
 };
 
 BasemapCard.defaultProps = {

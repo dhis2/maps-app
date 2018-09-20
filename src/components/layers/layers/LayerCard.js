@@ -65,7 +65,7 @@ const styles = {
         right: -4,
         top: 4,
     },
-    content: { 
+    content: {
         fontSize: 14,
         padding: 0, // TODO: Not working on :last-child
     },
@@ -89,7 +89,7 @@ const LayerCard = props => {
     return (
         <Card className={classes.card}>
             <CardHeader
-                classes={{ 
+                classes={{
                     root: classes.header,
                     title: classes.title,
                     subheader: classes.subheader,
@@ -98,13 +98,10 @@ const LayerCard = props => {
                 subheader={legend && legend.period ? legend.period : null}
                 action={[
                     <SortableHandle key='handle' color='#757575' />,
-                    <Tooltip 
-                        key="expand" 
-                        title={i18n.t('Collapse')}
-                    >
+                    <Tooltip key="expand" title={i18n.t('Collapse')}>
                         <IconButton
                             className={classes.expand}
-                            onClick={() => toggleLayerExpand(id)} 
+                            onClick={() => toggleLayerExpand(id)}
                             tooltip={isExpanded ? i18n.t('Collapse') : i18n.t('Expand')}
                             style={{ backgroundColor: 'transparent' }}
                         >
@@ -115,17 +112,18 @@ const LayerCard = props => {
             />
 
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                <CardContent 
-                    className={classes.content}
-                    style={{ padding: 0 }}
-                >
+                <CardContent className={classes.content} style={{ padding: 0 }}>
                     {legend && <Legend {...legend} />}
                     <LayerToolbar
-                        layer={layer}
+                        opacity={layer.opacity}
+                        isVisible={layer.isVisible}
+                        layerType={layer.layer}
                         onEdit={() => editLayer(layer)}
-                        toggleDataTable={toggleDataTable}
-                        toggleLayerVisibility={toggleLayerVisibility}
-                        onOpacityChange={changeLayerOpacity}
+                        toggleDataTable={() => toggleDataTable(id)}
+                        toggleLayerVisibility={() => toggleLayerVisibility(id)}
+                        onOpacityChange={opacity =>
+                            changeLayerOpacity(id, opacity)
+                        }
                         onRemove={() => {
                             removeLayer(id);
                             setMessage(`${name} ${i18n.t('deleted')}.`);

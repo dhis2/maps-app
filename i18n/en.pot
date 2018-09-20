@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-09-18T14:04:59.374Z\n"
-"PO-Revision-Date: 2018-09-18T14:04:59.374Z\n"
+"POT-Creation-Date: 2018-09-20T09:16:03.406Z\n"
+"PO-Revision-Date: 2018-09-20T09:16:03.406Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -293,9 +293,6 @@ msgstr ""
 msgid "Expand"
 msgstr ""
 
-msgid "Toggle visibility"
-msgstr ""
-
 msgid "deleted"
 msgstr ""
 
@@ -311,16 +308,22 @@ msgstr ""
 msgid "Style (SLD)"
 msgstr ""
 
-msgid "Edit"
-msgstr ""
-
-msgid "Data table"
-msgstr ""
-
-msgid "Delete"
+msgid "Toggle visibility"
 msgstr ""
 
 msgid "More"
+msgstr ""
+
+msgid "Edit layer"
+msgstr ""
+
+msgid "Open data table"
+msgstr ""
+
+msgid "Remove layer"
+msgstr ""
+
+msgid "Delete"
 msgstr ""
 
 msgid "Open as"
