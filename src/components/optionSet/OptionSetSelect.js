@@ -17,7 +17,7 @@ const OptionSetSelect = ({ options, value, onChange, style }) => {
             }))}
             value={value}
             multiple={true}
-            onChange={values => onChange(values)}
+            onChange={onChange}
             style={style}
         />
     );
