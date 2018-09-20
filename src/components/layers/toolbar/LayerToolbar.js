@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import OpacitySlider from './OpacitySlider';
@@ -50,7 +51,13 @@ const LayerCardToolbar = ({
     classes,
 }) => (
     <Toolbar className={classes.toolbar}>
-        <OpacitySlider opacity={opacity} onChange={onOpacityChange} />
+        {onEdit && (
+            <Tooltip key="edit" title={i18n.t('Edit')}>
+                <IconButton className={classes.button} onClick={onEdit}>
+                    <CreateIcon />
+                </IconButton>
+            </Tooltip>
+        )}
         <Tooltip key="visibility" title={i18n.t('Toggle visibility')}>
             <IconButton
                 className={classes.button}
@@ -59,6 +66,7 @@ const LayerCardToolbar = ({
                 {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </IconButton>
         </Tooltip>
+        <OpacitySlider opacity={opacity} onChange={onOpacityChange} />
         {layerType !== 'basemap' && (
             <div className={classes.alignRight}>
                 <LayerToolbarMoreMenu
