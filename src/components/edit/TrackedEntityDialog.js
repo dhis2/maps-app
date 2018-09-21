@@ -59,6 +59,8 @@ const styles = {
 export class TrackedEntityDialog extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
+        onLayerValidation: PropTypes.func.isRequired,
+        validateLayer: PropTypes.bool.isRequired,
     };
 
     constructor(props, context) {
@@ -104,6 +106,14 @@ export class TrackedEntityDialog extends Component {
             this.setState({
                 showBuffer: this.hasBuffer(areaRadius),
             });
+        }
+    }
+
+    componentDidUpdate(prev) {
+        const { validateLayer, onLayerValidation } = this.props;
+
+        if (validateLayer && validateLayer !== prev.validateLayer) {
+            onLayerValidation(this.validate());
         }
     }
 
@@ -163,10 +173,12 @@ export class TrackedEntityDialog extends Component {
                             <div style={{ margin: '12px 0', fontSize: 14 }}>
                                 {i18n.t(
                                     'This map layer is still experimental. Please provide your feedback on our'
-                                )}&nbsp;
+                                )}
+                                &nbsp;
                                 <a href="//www.dhis2.org/contact#mailing-lists">
                                     {i18n.t('mailing lists')}
-                                </a>.
+                                </a>
+                                .
                             </div>
                             <TrackedEntityTypeSelect
                                 trackedEntityType={trackedEntityType}

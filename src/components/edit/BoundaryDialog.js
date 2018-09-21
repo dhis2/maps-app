@@ -65,13 +65,20 @@ const styles = {
 class BoundaryDialog extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
+        onLayerValidation: PropTypes.func.isRequired,
+        validateLayer: PropTypes.bool.isRequired,
     };
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            tab: 'orgunits',
-        };
+    state = {
+        tab: 'orgunits',
+    };
+
+    componentDidUpdate(prev) {
+        const { validateLayer, onLayerValidation } = this.props;
+
+        if (validateLayer && validateLayer !== prev.validateLayer) {
+            onLayerValidation(this.validate());
+        }
     }
 
     render() {

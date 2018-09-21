@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import Tabs from '../../core/Tabs';
@@ -86,12 +86,14 @@ const styles = {
 };
 
 export class ThematicDialog extends Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            tab: 'data',
-        };
-    }
+    static propTypes = {
+        onLayerValidation: PropTypes.func.isRequired,
+        validateLayer: PropTypes.bool.isRequired,
+    };
+
+    state = {
+        tab: 'data',
+    };
 
     componentDidMount() {
         const { valueType, columns, setValueType } = this.props;
@@ -109,8 +111,15 @@ export class ThematicDialog extends Component {
         }
     }
 
-    componentDidUpdate() {
-        const { valueType, rows, setValueType, loadOrgUnitPath } = this.props;
+    componentDidUpdate(prev) {
+        const {
+            valueType,
+            rows,
+            setValueType,
+            loadOrgUnitPath,
+            validateLayer,
+            onLayerValidation,
+        } = this.props;
 
         if (!valueType) {
             setValueType('in'); // TODO: Make constant
@@ -123,6 +132,10 @@ export class ThematicDialog extends Component {
             orgUnits
                 .filter(ou => !ou.path)
                 .forEach(ou => loadOrgUnitPath(ou.id));
+        }
+
+        if (validateLayer && validateLayer !== prev.validateLayer) {
+            onLayerValidation(this.validate());
         }
     }
 

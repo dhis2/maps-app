@@ -70,6 +70,8 @@ const styles = {
 class FacilityDialog extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
+        onLayerValidation: PropTypes.func.isRequired,
+        validateLayer: PropTypes.bool.isRequired,
     };
 
     constructor(props, context) {
@@ -85,6 +87,14 @@ class FacilityDialog extends Component {
             this.setState({
                 showBuffer: this.hasBuffer(areaRadius),
             });
+        }
+    }
+
+    componentDidUpdate(prev) {
+        const { validateLayer, onLayerValidation } = this.props;
+
+        if (validateLayer && validateLayer !== prev.validateLayer) {
+            onLayerValidation(this.validate());
         }
     }
 

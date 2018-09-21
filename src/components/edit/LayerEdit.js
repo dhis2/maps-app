@@ -57,6 +57,10 @@ class LayerEdit extends Component {
         classes: PropTypes.object.isRequired,
     };
 
+    state = {
+        validateLayer: false,
+    };
+
     componentDidUpdate() {
         const { layer, loadLayer } = this.props;
 
@@ -66,19 +70,23 @@ class LayerEdit extends Component {
         }
     }
 
-    loadLayer() {
-        const { layer, loadLayer } = this.props;
-
-        // TODO: Better pattern?
-        if (this.layerContainer.getWrappedInstance().validate()) {
-            loadLayer(layer);
-            this.closeDialog();
-        }
-    }
-
     closeDialog() {
         this.props.cancelLayer();
     }
+
+    validateLayer() {
+        this.setState({
+            validateLayer: true,
+        });
+    }
+
+    onLayerValidation = isValid => {
+        this.setState({ validateLayer: false });
+        if (isValid) {
+            this.props.loadLayer(this.props.layer);
+            this.closeDialog();
+        }
+    };
 
     render() {
         const { layer, cancelLayer, classes } = this.props;
@@ -107,14 +115,18 @@ class LayerEdit extends Component {
                 <DialogContent className={classes.content}>
                     <LayerDialog
                         {...layer}
-                        ref={container => (this.layerContainer = container)}
+                        validateLayer={this.state.validateLayer}
+                        onLayerValidation={this.onLayerValidation}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button color="primary" onClick={() => cancelLayer()}>
                         {i18n.t('Cancel')}
                     </Button>
-                    <Button color="primary" onClick={() => this.loadLayer()}>
+                    <Button
+                        color="primary"
+                        onClick={() => this.validateLayer()}
+                    >
                         {i18n.t(
                             layer.id
                                 ? i18n.t('Update layer')

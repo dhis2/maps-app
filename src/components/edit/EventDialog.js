@@ -73,6 +73,7 @@ export class EventDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         filters: PropTypes.array,
+        onLayerValidation: PropTypes.func.isRequired,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
         }),
@@ -94,6 +95,7 @@ export class EventDialog extends Component {
         setStartDate: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
         setAreaRadius: PropTypes.func.isRequired,
+        validateLayer: PropTypes.bool.isRequired,
     };
 
     constructor(props, context) {
@@ -130,13 +132,17 @@ export class EventDialog extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        const { areaRadius } = this.props;
+    componentDidUpdate(prev) {
+        const { areaRadius, validateLayer, onLayerValidation } = this.props;
 
-        if (areaRadius !== prevProps.areaRadius) {
+        if (areaRadius !== prev.areaRadius) {
             this.setState({
                 showBuffer: this.hasBuffer(areaRadius),
             });
+        }
+
+        if (validateLayer && validateLayer !== prev.validateLayer) {
+            onLayerValidation(this.validate());
         }
     }
 
