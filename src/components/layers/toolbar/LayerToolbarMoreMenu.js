@@ -84,6 +84,10 @@ class LayerMoreMenu extends Component {
         const canToggleDataTable =
             toggleDataTable && dataTableLayerTypes.includes(layerType);
 
+        const somethingAboveDivider = canToggleDataTable,
+            somethingBelowDivider = onRemove || onEdit,
+            showDivider = somethingAboveDivider && somethingBelowDivider;
+
         return (
             <Fragment>
                 <Tooltip title={i18n.t('More')}>
@@ -109,7 +113,7 @@ class LayerMoreMenu extends Component {
                             <ListItemText primary={i18n.t('Data table')} />
                         </MenuItem>
                     )}
-                    {(onRemove || onEdit) && <Divider light />}
+                    {showDivider && <Divider light />}
                     {onEdit && (
                         <MenuItem onClick={this.handleEditBtnClick}>
                             <ListItemIcon>
