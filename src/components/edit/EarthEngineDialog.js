@@ -78,11 +78,6 @@ const styles = {
         ...legendStyle,
         marginLeft: -32,
     },
-    // Unused?
-    // legend: {
-    //     borderLeft: '12px solid #fff',
-    //     borderRight: '12px solid #fff',
-    // },
     legendTitle: {
         paddingBottom: 16,
         fontWeight: 'bold',
@@ -234,19 +229,19 @@ class EarthEngineDialog extends Component {
                                 >
                                     {!this.isValidSteps() && stepsError}
                                 </div>,
-                                <ColorScaleSelect
-                                    key="scale"
-                                    palette={params.palette}
-                                    onChange={palette =>
-                                        setParams(
-                                            params.min,
-                                            params.max,
-                                            palette
-                                        )
-                                    }
-                                    width={260}
-                                    className={classes.colorScale}
-                                />,
+                                <div key="scale" className={classes.colorScale}>
+                                    <ColorScaleSelect
+                                        palette={params.palette}
+                                        onChange={palette =>
+                                            setParams(
+                                                params.min,
+                                                params.max,
+                                                palette
+                                            )
+                                        }
+                                        width={260}
+                                    />
+                                </div>,
                             ]}
                         </div>
 

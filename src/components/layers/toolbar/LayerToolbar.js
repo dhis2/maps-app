@@ -25,14 +25,6 @@ const styles = {
         width: 32,
         height: 32,
     },
-    // moreButton: {
-    //     float: 'right',
-    //     padding: 4,
-    //     width: 32,
-    //     height: 32,
-    //     marginRight: -7,
-    //     marginLeft: -5,
-    // },
     alignRight: {
         position: 'absolute',
         right: 8,
@@ -58,7 +50,7 @@ const LayerCardToolbar = ({
                 </IconButton>
             </Tooltip>
         )}
-        <Tooltip key="visibility" title={i18n.t('Toggle visibility')}>
+        <Tooltip title={i18n.t('Toggle visibility')}>
             <IconButton
                 className={classes.button}
                 onClick={toggleLayerVisibility}
@@ -66,7 +58,11 @@ const LayerCardToolbar = ({
                 {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </IconButton>
         </Tooltip>
-        <OpacitySlider opacity={opacity} onChange={onOpacityChange} />
+        <Tooltip title={i18n.t('Set layer opacity')}>
+            <div>
+                <OpacitySlider opacity={opacity} onChange={onOpacityChange} />
+            </div>
+        </Tooltip>
         {layerType !== 'basemap' && (
             <div className={classes.alignRight}>
                 <LayerToolbarMoreMenu
