@@ -13,7 +13,7 @@ const SortableLayer = SortableElement(LayerCard);
 
 // Draggable layers - last layer on top
 const SortableLayersList = SortableContainer(({ layers }) => (
-    <div style={{ zIndex: 3000 }}>
+    <div>
         {layers.map((layer, index) => (
             <SortableLayer key={layer.id} index={index} layer={layer} />
         ))}
@@ -26,6 +26,7 @@ const styles = {
         backgroundColor: '#fafafa',
         boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
         height: 'auto',
+        maxHeight: '100%',
         bottom: 0,
         overflowX: 'hidden',
         overflowY: 'auto',
@@ -52,7 +53,9 @@ const LayersPanel = ({
             onSortEnd={sortLayers}
             useDragHandle={true}
         />
-        <BasemapCard {...basemap} basemaps={basemaps} />
+        <div>
+            <BasemapCard {...basemap} basemaps={basemaps} />
+        </div>
     </Drawer>
 );
 
