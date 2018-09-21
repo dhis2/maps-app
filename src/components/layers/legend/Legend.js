@@ -3,35 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import LegendItem from './LegendItem';
+import legendStyle from './legendStyle';
 
-const styles = {
+export const styles = {
     legend: {
-        padding: '0 16px 16px 32px',
-        margin: 0,
-    },
-    table: {
-        borderCollapse: 'collapse',
-        borderSpacing: 0,
-        '& tr': {
-            height: 24,
-        },
-        '& th': {
-            minWidth: 24,
-            height: 24,
-            padding: 0,
-            verticalAlign: 'middle',
-            '& span': {
-                display: 'inline-block',
-                width: '100%',
-                height: '100%',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center center',
-            },
-        },
-        '& td': {
-            paddingLeft: 10,
-            whiteSpace: 'nowrap',
-        },
+        ...legendStyle,
     },
     description: {
         paddingBottom: 12,
@@ -72,7 +48,7 @@ const Legend = ({
         )}
         {unit && items && <div className={classes.unit}>{unit}</div>}
         {items && (
-            <table className={classes.table}>
+            <table>
                 <tbody>
                     {items.map((item, index) => (
                         <LegendItem {...item} key={`item-${index}`} />

@@ -13,6 +13,7 @@ import { setParams, setFilter } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colorscale';
 import { createLegend } from '../../loaders/earthEngineLoader';
 import { layerDialogStyles } from './LayerDialogStyles';
+import legendStyle from '../layers/legend/legendStyle';
 
 const datasets = {
     'WorldPop/POP': {
@@ -74,8 +75,7 @@ const styles = {
         marginBottom: 12,
     },
     legend: {
-        padding: '0 16px 16px 32px',
-        margin: 0,
+        ...legendStyle,
         marginLeft: -32,
     },
     // Unused?
