@@ -1,15 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import Basemap from './Basemap';
-import './BasemapList.css';
 
-const BasemapList = ({ id, basemaps, selectBasemap }) => (
-    <div className="BasemapList">
+const styles = {
+    container: {
+        maxHeight: 270,
+        overflowY: 'auto',
+        marginLeft: 7,
+    },
+};
+
+const BasemapList = ({ classes, selectedID, basemaps, selectBasemap }) => (
+    <div className={classes.container}>
         {basemaps.map((basemap, index) => (
             <Basemap
                 key={`basemap-${index}`}
                 onClick={selectBasemap}
-                isSelected={basemap.id === id}
+                isSelected={basemap.id === selectedID}
                 {...basemap}
             />
         ))}
@@ -17,9 +25,10 @@ const BasemapList = ({ id, basemaps, selectBasemap }) => (
 );
 
 BasemapList.propTypes = {
-    id: PropTypes.string.isRequired,
+    classes: PropTypes.object.isRequired,
+    selectedID: PropTypes.string.isRequired,
     basemaps: PropTypes.array.isRequired,
     selectBasemap: PropTypes.func.isRequired,
 };
 
-export default BasemapList;
+export default withStyles(styles)(BasemapList);

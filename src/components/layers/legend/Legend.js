@@ -1,18 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import LegendItem from './LegendItem';
-import './Legend.css';
+import legendStyle from './legendStyle';
 
-const Legend = ({ description, filters, unit, items, source, sourceUrl }) => (
-    <dl className="Legend">
-        {description && <div className="Legend-description">{description}</div>}
+export const styles = {
+    legend: {
+        ...legendStyle,
+    },
+    description: {
+        paddingBottom: 12,
+    },
+    period: {
+        paddingBottom: 12,
+    },
+    filters: {
+        paddingBottom: 12,
+    },
+    unit: {
+        marginLeft: 32,
+        lineHeight: '24px',
+    },
+    source: {
+        paddingTop: 16,
+        fontSize: 12,
+    },
+};
+
+const Legend = ({
+    classes,
+    description,
+    filters,
+    unit,
+    items,
+    source,
+    sourceUrl,
+}) => (
+    <dl className={classes.legend}>
+        {description && (
+            <div className={classes.description}>{description}</div>
+        )}
         {filters && (
-            <div className="Legend-filters">
+            <div className={classes.filters}>
                 {i18n.t('Filters')}: {filters.join(', ')}
             </div>
         )}
-        {unit && items && <div className="Legend-unit">{unit}</div>}
+        {unit && items && <div className={classes.unit}>{unit}</div>}
         {items && (
             <table>
                 <tbody>
@@ -23,7 +57,7 @@ const Legend = ({ description, filters, unit, items, source, sourceUrl }) => (
             </table>
         )}
         {source && (
-            <div className="Legend-source">
+            <div className={classes.source}>
                 Source:&nbsp;
                 {sourceUrl ? (
                     <a href={sourceUrl}>{source}</a>
@@ -36,6 +70,7 @@ const Legend = ({ description, filters, unit, items, source, sourceUrl }) => (
 );
 
 Legend.propTypes = {
+    classes: PropTypes.object.isRequired,
     description: PropTypes.string,
     filters: PropTypes.array,
     unit: PropTypes.string,
@@ -44,4 +79,4 @@ Legend.propTypes = {
     sourceUrl: PropTypes.string,
 };
 
-export default Legend;
+export default withStyles(styles)(Legend);

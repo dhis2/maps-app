@@ -1,27 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Basemap.css';
+import { withStyles } from '@material-ui/core/styles';
 
-const Basemap = ({ id, img, name, isSelected, onClick }) => {
+const styles = {
+    container: {
+        float: 'left',
+        width: 120,
+        marginLeft: 12,
+        cursor: 'pointer',
+        boxSizing: 'border-box',
+        height: 90,
+    },
+    imageContainer: {
+        position: 'relative',
+        height: 56,
+        width: '100%',
+        marginTop: 4,
+        overflow: 'hidden',
+    },
+    image: {
+        position: 'absolute',
+        clip: 'rect(64px, 256px, 192px, 0)',
+        width: '100%',
+        top: -64,
+    },
+    noImage: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        background: '#eee',
+        color: '#ccc',
+        fontSize: 12,
+        textAlign: 'center',
+        lineHeight: '56px',
+    },
+    name: {
+        fontSize: 12,
+        color: '#333',
+        paddingTop: 4,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+    },
+};
+
+const Basemap = ({ classes, id, img, name, isSelected, onClick }) => {
     const borderStyle = {
         outline: isSelected ? '3px solid orange' : '1px solid #999',
     };
 
     return (
-        <div className="Basemap" title={name} onClick={() => onClick(id)}>
-            <div className="Basemap-image-container" style={borderStyle}>
+        <div
+            className={classes.container}
+            title={name}
+            onClick={() => onClick(id)}
+        >
+            <div className={classes.imageContainer} style={borderStyle}>
                 {img ? (
-                    <img src={img} className="Basemap-image" />
+                    <img src={img} className={classes.image} />
                 ) : (
-                    <div className="Basemap-no-image">External basemap</div>
+                    <div className={classes.noImage}>External basemap</div>
                 )}
             </div>
-            <div className="Basemap-name">{name}</div>
+            <div className={classes.name}>{name}</div>
         </div>
     );
 };
 
 Basemap.propTypes = {
+    classes: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     img: PropTypes.string,
     name: PropTypes.string.isRequired,
@@ -33,4 +80,4 @@ Basemap.defaultProps = {
     title: '',
 };
 
-export default Basemap;
+export default withStyles(styles)(Basemap);

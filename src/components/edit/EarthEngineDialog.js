@@ -13,7 +13,7 @@ import { setParams, setFilter } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colorscale';
 import { createLegend } from '../../loaders/earthEngineLoader';
 import { layerDialogStyles } from './LayerDialogStyles';
-import '../layers/legend/Legend.css';
+import legendStyle from '../layers/legend/legendStyle';
 
 const datasets = {
     'WorldPop/POP': {
@@ -70,9 +70,13 @@ const datasets = {
 
 const styles = {
     ...layerDialogStyles,
+    flexFull: {
+        ...layerDialogStyles.flexFull,
+        marginBottom: 12,
+    },
     legend: {
-        borderLeft: '12px solid #fff',
-        borderRight: '12px solid #fff',
+        ...legendStyle,
+        marginLeft: -32,
     },
     legendTitle: {
         paddingBottom: 16,
@@ -146,8 +150,8 @@ class EarthEngineDialog extends Component {
                     <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
                 <div className={classes.tabContent}>
-                    <div style={styles.flexColumnFlow}>
-                        <div style={styles.flexColumn}>
+                    <div className={classes.flexColumnFlow}>
+                        <div className={classes.flexColumn}>
                             <div>{dataset.description}</div>
                             {datasetId !== 'USGS/SRTMGL1_003' && ( // If not elevation
                                 <Collection
@@ -155,17 +159,14 @@ class EarthEngineDialog extends Component {
                                     id={datasetId}
                                     filter={filter}
                                     onChange={setFilter}
-                                    style={{
-                                        ...styles.flexFull,
-                                        marginBottom: 12,
-                                    }}
+                                    className={classes.flexFull}
                                     errorText={filterError}
                                 />
                             )}
                             {params && [
                                 <div
                                     key="minmax"
-                                    style={styles.flexInnerColumnFlow}
+                                    className={classes.flexInnerColumnFlow}
                                 >
                                     <TextField
                                         type="number"
@@ -180,7 +181,7 @@ class EarthEngineDialog extends Component {
                                                 params.palette
                                             )
                                         }
-                                        style={styles.flexInnerColumn}
+                                        className={classes.flexInnerColumn}
                                     />
                                     <TextField
                                         type="number"
@@ -195,7 +196,7 @@ class EarthEngineDialog extends Component {
                                                 params.palette
                                             )
                                         }
-                                        style={styles.flexInnerColumn}
+                                        className={classes.flexInnerColumn}
                                     />
                                     <TextField
                                         type="number"
@@ -206,40 +207,43 @@ class EarthEngineDialog extends Component {
                                                 : this.getStepsFromParams()
                                         }
                                         onChange={this.onStepsChange}
-                                        style={styles.flexInnerColumn}
+                                        className={classes.flexInnerColumn}
                                     />
                                 </div>,
-                                <div key="range_error" style={styles.error}>
+                                <div
+                                    key="range_error"
+                                    className={classes.error}
+                                >
                                     {!this.isValidRange() && rangeError}
                                 </div>,
-                                <div key="steps_error" style={styles.error}>
+                                <div
+                                    key="steps_error"
+                                    className={classes.error}
+                                >
                                     {!this.isValidSteps() && stepsError}
                                 </div>,
-                                <ColorScaleSelect
-                                    key="scale"
-                                    palette={params.palette}
-                                    onChange={palette =>
-                                        setParams(
-                                            params.min,
-                                            params.max,
-                                            palette
-                                        )
-                                    }
-                                    width={260}
-                                    style={styles.colorScale}
-                                />,
+                                <div key="scale" className={classes.colorScale}>
+                                    <ColorScaleSelect
+                                        palette={params.palette}
+                                        onChange={palette =>
+                                            setParams(
+                                                params.min,
+                                                params.max,
+                                                palette
+                                            )
+                                        }
+                                        width={260}
+                                    />
+                                </div>,
                             ]}
                         </div>
 
                         {params && (
-                            <div style={styles.flexColumn}>
-                                <div style={styles.legendTitle}>
+                            <div className={classes.flexColumn}>
+                                <div className={classes.legendTitle}>
                                     {i18n.t('Legend preview')}
                                 </div>
-                                <div
-                                    className="Legend"
-                                    style={{ marginLeft: -32 }}
-                                >
+                                <div className={classes.legend}>
                                     <table>
                                         <tbody>
                                             {createLegend(params).map(
@@ -305,7 +309,6 @@ class EarthEngineDialog extends Component {
         }
 
         if (params) {
-            const { min, max } = params;
             const { minValue, maxValue } = dataset;
 
             // TODO: This should be implemented in the number fields directly
