@@ -7,7 +7,6 @@ const styles = {
     container: {
         maxHeight: 270,
         overflowY: 'auto',
-        // overflowY: 'overlay', // This is a deprecated API and we can't have both 'overlay' and 'auto', see https://developer.mozilla.org/en-US/docs/Web/CSS/overflow
         marginLeft: 7,
     },
 };

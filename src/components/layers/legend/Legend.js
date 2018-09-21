@@ -20,7 +20,7 @@ export const styles = {
     },
     unit: {
         marginLeft: 32,
-        lineHeight: 24,
+        lineHeight: '24px',
     },
     source: {
         paddingTop: 16,

@@ -8,7 +8,7 @@ const styles = {
         width: 120,
         marginLeft: 12,
         cursor: 'pointer',
-        boxSizing: 'border - box',
+        boxSizing: 'border-box',
         height: 90,
     },
     imageContainer: {
@@ -32,7 +32,7 @@ const styles = {
         color: '#ccc',
         fontSize: 12,
         textAlign: 'center',
-        lineHeight: 56,
+        lineHeight: '56px',
     },
     name: {
         fontSize: 12,

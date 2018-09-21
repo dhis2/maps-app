@@ -24,7 +24,7 @@ const styles = {
         border: '1px solid #555',
         width: 120,
         height: 120,
-        lineHeight: 120,
+        lineHeight: '120px',
         background: '#eee',
         color: '#ccc',
         fontSize: 12,
