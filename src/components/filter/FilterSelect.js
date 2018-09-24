@@ -88,7 +88,7 @@ export class FilterSelect extends Component {
                     style={styles.textField}
                 />
             ) : null,
-            numberValueTypes.includes(valueType) ? (
+            numberValueTypes.indexOf(valueType) !== -1 ? (
                 <TextField
                     id="number"
                     key="number"
@@ -99,7 +99,7 @@ export class FilterSelect extends Component {
                     style={styles.textField}
                 />
             ) : null,
-            textValueTypes.includes(valueType) && !optionSet ? (
+            textValueTypes.indexOf(valueType) !== -1 && !optionSet ? (
                 <TextField
                     key="text"
                     label={i18n.t('Value')}
@@ -132,9 +132,9 @@ export class FilterSelect extends Component {
         let operators;
 
         if (
-            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(
+            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].indexOf(
                 valueType
-            )
+            ) !== -1
         ) {
             operators = [
                 { id: 'EQ', name: '=' },
@@ -149,7 +149,7 @@ export class FilterSelect extends Component {
                 { id: 'IN', name: i18n.t('one of') },
                 { id: '!IN', name: i18n.t('not one of') },
             ];
-        } else if (textValueTypes.includes(valueType)) {
+        } else if (textValueTypes.indexOf(valueType) !== -1) {
             operators = [
                 { id: 'LIKE', name: i18n.t('contains') },
                 { id: '!LIKE', name: i18n.t("doesn't contains") },

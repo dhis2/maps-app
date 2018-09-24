@@ -30,7 +30,7 @@ export const apiFetch = async (url, method, body) => {
     return fetch(encodeURI(config.baseUrl + url), options)
         .then(
             response =>
-                ['POST', 'PUT', 'PATCH'].includes(method)
+                ['POST', 'PUT', 'PATCH'].indexOf(method) !== -1
                     ? response
                     : response.json()
         )

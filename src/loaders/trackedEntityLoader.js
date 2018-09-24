@@ -78,7 +78,8 @@ const trackedEntityLoader = async config => {
 
     const instances = data.trackedEntityInstances.filter(
         instance =>
-            geometryTypes.includes(instance.featureType) && instance.coordinates
+            geometryTypes.indexOf(instance.featureType) !== -1 &&
+            instance.coordinates
     );
 
     const features = toGeoJson(instances);

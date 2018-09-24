@@ -259,7 +259,7 @@ const getFilterOptionNames = async (filters, headers) => {
     }
 
     // Returns one object with all option codes mapped to names
-    return Object.assign(
+    return {
         ...(await Promise.all(
             optionSets.map(id =>
                 d2.models.optionSets
@@ -274,8 +274,8 @@ const getFilterOptionNames = async (filters, headers) => {
                         }, {})
                     )
             )
-        ))
-    );
+        )),
+    };
 };
 
 export default eventLoader;

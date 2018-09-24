@@ -93,9 +93,10 @@ const cleanLayerConfig = config => ({
 // TODO: This feels hacky, find better way to clean map configs before saving
 const models2objects = config => {
     Object.keys(config).forEach(key => {
-        config[key] = models.includes(key)
-            ? pick(validModelProperties, config[key])
-            : config[key];
+        config[key] =
+            models.indexOf(key) !== -1
+                ? pick(validModelProperties, config[key])
+                : config[key];
     });
 
     if (config.rows) {
