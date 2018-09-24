@@ -40,6 +40,7 @@ const LayerCardToolbar = ({
     toggleDataTable,
     toggleLayerVisibility,
     onOpacityChange,
+    downloadData,
     classes,
 }) => (
     <Toolbar className={classes.toolbar}>
@@ -71,6 +72,7 @@ const LayerCardToolbar = ({
                     onEdit={onEdit}
                     onRemove={onRemove}
                     toggleDataTable={toggleDataTable}
+                    downloadData={downloadData}
                 />
             </div>
         )}
@@ -85,6 +87,7 @@ LayerCardToolbar.propTypes = {
     toggleLayerVisibility: PropTypes.func.isRequired,
     onOpacityChange: PropTypes.func.isRequired,
     toggleDataTable: PropTypes.func,
+    downloadData: PropTypes.func,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
 };

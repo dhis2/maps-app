@@ -15,6 +15,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CreateIcon from '@material-ui/icons/Create';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/SaveAlt';
 
 // import DownloadMenu from './DownloadMenu';
 // import OpenAsMenu from './OpenAsMenu';
@@ -28,6 +29,7 @@ const styles = {
     },
 };
 
+const downloadLayerTypes = ['facility', 'thematic', 'boundary'];
 const dataTableLayerTypes = ['facility', 'thematic', 'boundary'];
 
 class LayerMoreMenu extends Component {
@@ -42,6 +44,7 @@ class LayerMoreMenu extends Component {
         onEdit: PropTypes.func,
         onRemove: PropTypes.func,
         toggleDataTable: PropTypes.func,
+        downloadData: PropTypes.func,
     };
 
     handleBtnClick = e => {
@@ -73,6 +76,11 @@ class LayerMoreMenu extends Component {
         this.props.onRemove();
     };
 
+    handleDownloadBtnClick = () => {
+        this.closeMenu();
+        this.props.downloadData();
+    }
+
     render() {
         const {
             classes,
@@ -80,11 +88,14 @@ class LayerMoreMenu extends Component {
             onEdit,
             onRemove,
             toggleDataTable,
+            downloadData,
         } = this.props;
         const canToggleDataTable =
             toggleDataTable && dataTableLayerTypes.includes(layerType);
+        const canDownloadData =
+            downloadData && downloadLayerTypes.includes(layerType);
 
-        const somethingAboveDivider = canToggleDataTable,
+        const somethingAboveDivider = canToggleDataTable || canDownloadData,
             somethingBelowDivider = onRemove || onEdit,
             showDivider = somethingAboveDivider && somethingBelowDivider;
 
@@ -111,6 +122,14 @@ class LayerMoreMenu extends Component {
                                 <ViewListIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Data table')} />
+                        </MenuItem>
+                    )}
+                    {canDownloadData && (
+                        <MenuItem onClick={this.handleDownloadBtnClick}>
+                            <ListItemIcon>
+                                <SaveIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={i18n.t('Download data')} />
                         </MenuItem>
                     )}
                     {showDivider && <Divider light />}

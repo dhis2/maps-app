@@ -24,6 +24,8 @@ import {
 import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
 
+import { downloadGeoJson } from '../../../util/dataDownload';
+
 const styles = {
     card: {
         position: 'relative',
@@ -84,7 +86,7 @@ const LayerCard = props => {
         classes,
     } = props;
 
-    const { id, name, legend, isExpanded } = layer;
+    const { id, name, legend, isExpanded, data } = layer;
 
     return (
         <Card className={classes.card}>
@@ -128,6 +130,9 @@ const LayerCard = props => {
                             removeLayer(id);
                             setMessage(`${name} ${i18n.t('deleted')}.`);
                         }}
+                        downloadData={() => {
+                            downloadGeoJson({ name, data });
+                        }}
                     />
                 </CardContent>
             </Collapse>
@@ -136,7 +141,7 @@ const LayerCard = props => {
 };
 
 LayerCard.propTypes = {
-    layer: PropTypes.object,
+    layer: PropTypes.object.isRequired,
     editLayer: PropTypes.func.isRequired,
     removeLayer: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
