@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-09-21T09:00:48.998Z\n"
-"PO-Revision-Date: 2018-09-21T09:00:48.998Z\n"
+"POT-Creation-Date: 2018-09-24T08:56:44.546Z\n"
+"PO-Revision-Date: 2018-09-24T08:56:44.546Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -312,6 +312,9 @@ msgid "Edit"
 msgstr ""
 
 msgid "Toggle visibility"
+msgstr ""
+
+msgid "Set layer opacity"
 msgstr ""
 
 msgid "More"

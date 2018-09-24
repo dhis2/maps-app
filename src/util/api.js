@@ -5,7 +5,9 @@ import { config } from 'd2/lib/d2';
 
 export const apiFetch = async (url, method, body) => {
     const options = {
-        headers: {},
+        headers: {
+            'Content-Type': 'application/json', // Default API response
+        },
     };
 
     if (config.context && config.context.auth) {
@@ -21,15 +23,16 @@ export const apiFetch = async (url, method, body) => {
             options.headers['Content-Type'] = 'text/html';
             options.body = body;
         } else if (isObject(body)) {
-            options.headers['Content-Type'] = 'application/json';
             options.body = JSON.stringify(body);
         }
     }
 
     return fetch(encodeURI(config.baseUrl + url), options)
         .then(
-            response => 
-                ['POST', 'PUT', 'PATCH'].includes(method) ? response : response.json()
-        ) 
+            response =>
+                ['POST', 'PUT', 'PATCH'].includes(method)
+                    ? response
+                    : response.json()
+        )
         .catch(error => console.log('Error: ', error)); // TODO: Better error handling
 };
