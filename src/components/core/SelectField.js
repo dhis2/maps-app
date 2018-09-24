@@ -83,7 +83,9 @@ export const SelectField = props => {
                 >
                     {multiple && (
                         <Checkbox
-                            checked={Array.isArray(value) && value.includes(id)}
+                            checked={
+                                Array.isArray(value) && value.indexOf(id) !== -1
+                            }
                         />
                     )}
                     {name}

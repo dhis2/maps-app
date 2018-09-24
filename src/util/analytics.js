@@ -200,8 +200,9 @@ export const combineDataItems = (
         'name',
         [...dataItemsA, ...dataItemsB].filter(
             item =>
-                (!includeTypes || includeTypes.includes(item.valueType)) &&
-                (!excludeTypes || !excludeTypes.includes(item.valueType))
+                (!includeTypes ||
+                    includeTypes.indexOf(item.valueType) !== -1) &&
+                (!excludeTypes || !excludeTypes.indexOf(item.valueType) !== -1)
         )
     );
 

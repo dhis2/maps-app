@@ -82,7 +82,7 @@ class LayerMoreMenu extends Component {
             toggleDataTable,
         } = this.props;
         const canToggleDataTable =
-            toggleDataTable && dataTableLayerTypes.includes(layerType);
+            toggleDataTable && dataTableLayerTypes.indexOf(layerType) !== -1;
 
         const somethingAboveDivider = canToggleDataTable,
             somethingBelowDivider = onRemove || onEdit,

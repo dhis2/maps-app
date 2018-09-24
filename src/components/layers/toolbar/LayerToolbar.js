@@ -28,6 +28,7 @@ const styles = {
     alignRight: {
         position: 'absolute',
         right: 8,
+        top: 0,
     },
 };
 

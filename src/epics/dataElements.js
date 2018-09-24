@@ -61,7 +61,7 @@ export const loadDataElementOperands = action$ =>
         getD2()
             .then(d2 =>
                 apiFetch(
-                    `/dataElementOperands.json?fields=id,${getDisplayPropertyUrl(
+                    `/dataElementOperands?fields=id,${getDisplayPropertyUrl(
                         d2
                     )}&paging=false&filter=dataElement.dataElementGroups.id:eq:${
                         action.groupId

@@ -178,7 +178,7 @@ class EventLayer extends Layer {
         const props = feature.properties;
         const { styleDataItem } = this.props;
 
-        apiFetch('/events/' + feature.id + '.json').then(data => {
+        apiFetch('/events/' + feature.id).then(data => {
             const time =
                 data.eventDate.substring(0, 10) +
                 ' ' +
