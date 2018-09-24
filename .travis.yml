@@ -8,11 +8,11 @@ before_script:
 - npm install --global @dhis2/deploy-build
 - npm rebuild node-sass
 script:
-- npm rebuild node-sass
 - npm run build
 deploy:
     provider: script
     script: deploy-build
+    skip_cleanup: true
     on:
         all_branches: true
 env:
