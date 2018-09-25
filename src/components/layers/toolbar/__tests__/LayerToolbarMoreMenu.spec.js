@@ -122,25 +122,37 @@ describe('LayerToolbarMoreMenu', () => {
             />
         );
 
-        wrapper.find('WithStyles(MenuItem)').at(0).simulate('click');
+        wrapper
+            .find('WithStyles(MenuItem)')
+            .at(0)
+            .simulate('click');
         expect(toggleDataTable).toHaveBeenCalledTimes(1);
         expect(downloadData).toHaveBeenCalledTimes(0);
         expect(onEdit).toHaveBeenCalledTimes(0);
         expect(onRemove).toHaveBeenCalledTimes(0);
 
-        wrapper.find('WithStyles(MenuItem)').at(1).simulate('click');
+        wrapper
+            .find('WithStyles(MenuItem)')
+            .at(1)
+            .simulate('click');
         expect(toggleDataTable).toHaveBeenCalledTimes(1);
         expect(downloadData).toHaveBeenCalledTimes(1);
         expect(onEdit).toHaveBeenCalledTimes(0);
         expect(onRemove).toHaveBeenCalledTimes(0);
-        
-        wrapper.find('WithStyles(MenuItem)').at(2).simulate('click');
+
+        wrapper
+            .find('WithStyles(MenuItem)')
+            .at(2)
+            .simulate('click');
         expect(toggleDataTable).toHaveBeenCalledTimes(1);
         expect(downloadData).toHaveBeenCalledTimes(1);
         expect(onEdit).toHaveBeenCalledTimes(1);
         expect(onRemove).toHaveBeenCalledTimes(0);
-        
-        wrapper.find('WithStyles(MenuItem)').at(3).simulate('click');
+
+        wrapper
+            .find('WithStyles(MenuItem)')
+            .at(3)
+            .simulate('click');
         expect(toggleDataTable).toHaveBeenCalledTimes(1);
         expect(downloadData).toHaveBeenCalledTimes(1);
         expect(onEdit).toHaveBeenCalledTimes(1);
