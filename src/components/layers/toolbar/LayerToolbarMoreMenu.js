@@ -93,7 +93,7 @@ export class LayerToolbarMoreMenu extends Component {
 
         return (
             <Fragment>
-                <Tooltip title={i18n.t('More')}>
+                <Tooltip title={i18n.t('More actions')}>
                     <IconButton
                         className={classes.button}
                         onClick={this.handleBtnClick}

@@ -25,7 +25,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <WithStyles(Tooltip)
-          title="More"
+          title="More actions"
         >
           <WithStyles(IconButton)
             className={undefined}
@@ -105,7 +105,7 @@ ShallowWrapper {
           >
             <pure(MoreVertIcon) />
           </WithStyles(IconButton)>,
-          "title": "More",
+          "title": "More actions",
         },
         "ref": null,
         "rendered": Object {
@@ -417,7 +417,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <WithStyles(Tooltip)
-            title="More"
+            title="More actions"
           >
             <WithStyles(IconButton)
               className={undefined}
@@ -497,7 +497,7 @@ ShallowWrapper {
             >
               <pure(MoreVertIcon) />
             </WithStyles(IconButton)>,
-            "title": "More",
+            "title": "More actions",
           },
           "ref": null,
           "rendered": Object {
