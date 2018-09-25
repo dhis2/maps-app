@@ -17,9 +17,6 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/SaveAlt';
 
-// import DownloadMenu from './DownloadMenu';
-// import OpenAsMenu from './OpenAsMenu';
-
 const styles = {
     button: {
         float: 'left',
@@ -29,10 +26,7 @@ const styles = {
     },
 };
 
-const downloadLayerTypes = ['facility', 'thematic', 'boundary'];
-const dataTableLayerTypes = ['facility', 'thematic', 'boundary'];
-
-class LayerMoreMenu extends Component {
+export class LayerToolbarMoreMenu extends Component {
     state = {
         open: false,
         anchorEl: null,
@@ -40,7 +34,6 @@ class LayerMoreMenu extends Component {
 
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        layerType: PropTypes.string.isRequired,
         onEdit: PropTypes.func,
         onRemove: PropTypes.func,
         toggleDataTable: PropTypes.func,
@@ -79,25 +72,24 @@ class LayerMoreMenu extends Component {
     handleDownloadBtnClick = () => {
         this.closeMenu();
         this.props.downloadData();
-    }
+    };
 
     render() {
         const {
             classes,
-            layerType,
             onEdit,
             onRemove,
             toggleDataTable,
             downloadData,
         } = this.props;
-        const canToggleDataTable =
-            toggleDataTable && dataTableLayerTypes.includes(layerType);
-        const canDownloadData =
-            downloadData && downloadLayerTypes.includes(layerType);
 
-        const somethingAboveDivider = canToggleDataTable || canDownloadData,
+        const somethingAboveDivider = toggleDataTable || downloadData,
             somethingBelowDivider = onRemove || onEdit,
             showDivider = somethingAboveDivider && somethingBelowDivider;
+
+        if (!somethingAboveDivider && !somethingBelowDivider) {
+            return null;
+        }
 
         return (
             <Fragment>
@@ -116,7 +108,7 @@ class LayerMoreMenu extends Component {
                     open={this.state.open}
                     onClose={this.closeMenu}
                 >
-                    {canToggleDataTable && (
+                    {toggleDataTable && (
                         <MenuItem onClick={this.handleDataTableBtnClick}>
                             <ListItemIcon>
                                 <ViewListIcon />
@@ -124,7 +116,7 @@ class LayerMoreMenu extends Component {
                             <ListItemText primary={i18n.t('Data table')} />
                         </MenuItem>
                     )}
-                    {canDownloadData && (
+                    {downloadData && (
                         <MenuItem onClick={this.handleDownloadBtnClick}>
                             <ListItemIcon>
                                 <SaveIcon />
@@ -155,4 +147,4 @@ class LayerMoreMenu extends Component {
     }
 }
 
-export default withStyles(styles)(LayerMoreMenu);
+export default withStyles(styles)(LayerToolbarMoreMenu);

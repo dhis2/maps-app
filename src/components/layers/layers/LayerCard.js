@@ -73,6 +73,9 @@ const styles = {
     },
 };
 
+const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
+const dataTableLayerTypes = ['facility', 'thematic', 'boundary'];
+
 const LayerCard = props => {
     const {
         layer,
@@ -86,7 +89,20 @@ const LayerCard = props => {
         classes,
     } = props;
 
-    const { id, name, legend, isExpanded, data } = layer;
+    const {
+        id,
+        name,
+        legend,
+        isExpanded,
+        opacity,
+        isVisible,
+        data,
+        layer: layerType,
+    } = layer;
+
+    const canToggleDataTable = dataTableLayerTypes.includes(layerType);
+    const canDownload =
+        downloadableLayerTypes.includes(layerType) && data && data.length;
 
     return (
         <Card className={classes.card}>
@@ -99,7 +115,7 @@ const LayerCard = props => {
                 title={name}
                 subheader={legend && legend.period ? legend.period : null}
                 action={[
-                    <SortableHandle key='handle' color='#757575' />,
+                    <SortableHandle key="handle" color="#757575" />,
                     <Tooltip key="expand" title={i18n.t('Collapse')}>
                         <IconButton
                             className={classes.expand}
@@ -117,22 +133,27 @@ const LayerCard = props => {
                 <CardContent className={classes.content} style={{ padding: 0 }}>
                     {legend && <Legend {...legend} />}
                     <LayerToolbar
-                        opacity={layer.opacity}
-                        isVisible={layer.isVisible}
-                        layerType={layer.layer}
+                        opacity={opacity}
+                        isVisible={isVisible}
                         onEdit={() => editLayer(layer)}
-                        toggleDataTable={() => toggleDataTable(id)}
+                        toggleDataTable={
+                            canToggleDataTable
+                                ? () => toggleDataTable(id)
+                                : undefined
+                        }
                         toggleLayerVisibility={() => toggleLayerVisibility(id)}
-                        onOpacityChange={opacity =>
-                            changeLayerOpacity(id, opacity)
+                        onOpacityChange={newOpacity =>
+                            changeLayerOpacity(id, newOpacity)
                         }
                         onRemove={() => {
                             removeLayer(id);
                             setMessage(`${name} ${i18n.t('deleted')}.`);
                         }}
-                        downloadData={() => {
-                            downloadGeoJson({ name, data });
-                        }}
+                        downloadData={
+                            canDownload
+                                ? () => downloadGeoJson({ name, data })
+                                : undefined
+                        }
                     />
                 </CardContent>
             </Collapse>

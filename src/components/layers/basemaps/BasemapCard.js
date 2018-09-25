@@ -108,7 +108,6 @@ const BasemapCard = props => {
                         selectBasemap={props.selectBasemap}
                     />
                     <LayerToolbar
-                        layerType="basemap"
                         opacity={opacity}
                         isVisible={isVisible}
                         onOpacityChange={changeBasemapOpacity}

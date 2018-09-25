@@ -25,71 +25,65 @@ const styles = {
         width: 32,
         height: 32,
     },
-    alignRight: {
+    moreMenuButton: {
+        width: 32,
+        height: 32,
+        padding: 4,
         position: 'absolute',
         right: 8,
     },
 };
 
-const LayerCardToolbar = ({
+export const LayerToolbar = ({
     opacity,
     isVisible,
-    layerType,
-    onEdit,
-    onRemove,
-    toggleDataTable,
-    toggleLayerVisibility,
     onOpacityChange,
-    downloadData,
+    toggleLayerVisibility,
     classes,
-}) => (
-    <Toolbar className={classes.toolbar}>
-        {onEdit && (
-            <Tooltip key="edit" title={i18n.t('Edit')}>
-                <IconButton className={classes.button} onClick={onEdit}>
-                    <CreateIcon />
+    ...expansionMenuProps
+}) => {
+    const onEdit = expansionMenuProps.onEdit;
+
+    return (
+        <Toolbar className={classes.toolbar}>
+            {onEdit && (
+                <Tooltip key="edit" title={i18n.t('Edit')}>
+                    <IconButton className={classes.button} onClick={onEdit}>
+                        <CreateIcon />
+                    </IconButton>
+                </Tooltip>
+            )}
+            <Tooltip title={i18n.t('Toggle visibility')}>
+                <IconButton
+                    className={classes.button}
+                    onClick={toggleLayerVisibility}
+                >
+                    {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             </Tooltip>
-        )}
-        <Tooltip title={i18n.t('Toggle visibility')}>
-            <IconButton
-                className={classes.button}
-                onClick={toggleLayerVisibility}
-            >
-                {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-            </IconButton>
-        </Tooltip>
-        <Tooltip title={i18n.t('Set layer opacity')}>
-            <div>
-                <OpacitySlider opacity={opacity} onChange={onOpacityChange} />
-            </div>
-        </Tooltip>
-        {layerType !== 'basemap' && (
-            <div className={classes.alignRight}>
-                <LayerToolbarMoreMenu
-                    classes={{ button: classes.button }}
-                    layerType={layerType}
-                    onEdit={onEdit}
-                    onRemove={onRemove}
-                    toggleDataTable={toggleDataTable}
-                    downloadData={downloadData}
-                />
-            </div>
-        )}
-    </Toolbar>
-);
+            <Tooltip title={i18n.t('Set layer opacity')}>
+                <div>
+                    <OpacitySlider
+                        opacity={opacity}
+                        onChange={onOpacityChange}
+                    />
+                </div>
+            </Tooltip>
+            <LayerToolbarMoreMenu
+                classes={{ button: classes.moreMenuButton }}
+                {...expansionMenuProps}
+            />
+        </Toolbar>
+    );
+};
 
-LayerCardToolbar.propTypes = {
+LayerToolbar.propTypes = {
     classes: PropTypes.object.isRequired,
-    layerType: PropTypes.string.isRequired,
     opacity: PropTypes.number.isRequired,
     isVisible: PropTypes.bool.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
     onOpacityChange: PropTypes.func.isRequired,
-    toggleDataTable: PropTypes.func,
-    downloadData: PropTypes.func,
     onEdit: PropTypes.func,
-    onRemove: PropTypes.func,
 };
 
-export default withStyles(styles)(LayerCardToolbar);
+export default withStyles(styles)(LayerToolbar);
