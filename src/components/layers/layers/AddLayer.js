@@ -9,7 +9,7 @@ import AddLayerPopover from './AddLayerPopover';
 import { openLayersDialog } from '../../../actions/layers';
 import { LAYERS_PANEL_WIDTH } from '../../../constants/layout';
 
-const styles = theme => ({
+const styles = {
     button: {
         boxSizing: 'border-box',
         width: LAYERS_PANEL_WIDTH + 1,
@@ -27,7 +27,7 @@ const styles = theme => ({
     icon: {
         marginRight: 8,
     },
-});
+};
 
 export class AddLayer extends Component {
     static propTypes = {
