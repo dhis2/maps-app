@@ -80,12 +80,6 @@ export const muiTheme = createMuiTheme({
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
     },
     overrides: {
-        MuiToolbar: {
-            root: {
-                // backgroundColor: palette.background.paper,
-                // boxShadow: `0 1px 1px 0 ${palette.shadow}`,
-            },
-        },
         MuiDivider: {
             light: {
                 backgroundColor: palette.divider, // No light dividers for now
