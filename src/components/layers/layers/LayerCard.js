@@ -51,10 +51,6 @@ const styles = {
         paddingLeft: 15,
         lineHeight: '17px',
     },
-    actions: {
-        backgroundColor: '#eee',
-        height: 32,
-    },
     visibility: {
         position: 'absolute',
         right: 28,
@@ -97,7 +93,7 @@ const LayerCard = props => {
                 title={name}
                 subheader={legend && legend.period ? legend.period : null}
                 action={[
-                    <SortableHandle key='handle' color='#757575' />,
+                    <SortableHandle key="handle" />,
                     <Tooltip key="expand" title={i18n.t('Collapse')}>
                         <IconButton
                             className={classes.expand}

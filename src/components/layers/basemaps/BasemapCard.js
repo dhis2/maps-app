@@ -43,10 +43,6 @@ const styles = {
     subheader: {
         lineHeight: '17px',
     },
-    actions: {
-        backgroundColor: '#eee',
-        height: 32,
-    },
     visibility: {
         height: 32,
         width: 32,

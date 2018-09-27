@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,8 +10,9 @@ import RightIcon from '@material-ui/icons/ChevronRight';
 import { filterFuturePeriods } from 'd2/lib/period/helpers';
 import { createPeriods } from '../../util/periods';
 
-const styles = {
+const styles = theme => ({
     select: {
+        margin: '12px 0',
         width: 'calc(100% - 60px)',
     },
     stepper: {
@@ -20,15 +22,16 @@ const styles = {
         marginLeft: 12,
     },
     button: {
-        backgroundColor: '#eee',
+        backgroundColor: theme.palette.background.menu,
         width: 24,
         height: 24,
         padding: 0,
     },
-};
+});
 
 class PeriodSelect extends Component {
     static propTypes = {
+        classes: PropTypes.object.isRequired,
         periodType: PropTypes.string,
         period: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -73,7 +76,14 @@ class PeriodSelect extends Component {
     }
 
     render() {
-        const { periodType, period, onChange, style, errorText } = this.props;
+        const {
+            classes,
+            periodType,
+            period,
+            onChange,
+            style,
+            errorText,
+        } = this.props;
         const { periods } = this.state;
         const value = period ? period.id : null;
 
@@ -88,15 +98,17 @@ class PeriodSelect extends Component {
                     items={periods}
                     value={value}
                     onChange={onChange}
-                    style={styles.select}
+                    classes={{
+                        textField: classes.select,
+                    }}
                     errorText={!value && errorText ? errorText : null}
                 />
                 {periodType && (
-                    <div style={styles.stepper}>
+                    <div className={classes.stepper}>
                         <IconButton
                             tooltip={i18n.t('Previous year')}
                             onClick={this.previousYear}
-                            style={styles.button}
+                            className={classes.button}
                             disableTouchRipple={true}
                         >
                             <LeftIcon />
@@ -104,7 +116,7 @@ class PeriodSelect extends Component {
                         <IconButton
                             tooltip={i18n.t('Next year')}
                             onClick={this.nextYear}
-                            style={styles.button}
+                            className={classes.button}
                             disableTouchRipple={true}
                         >
                             <RightIcon />
@@ -149,4 +161,4 @@ class PeriodSelect extends Component {
 
 export default connect(state => ({
     locale: state.userSettings.keyUiLocale,
-}))(PeriodSelect);
+}))(withStyles(styles)(PeriodSelect));

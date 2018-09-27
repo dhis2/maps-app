@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { OrgUnitTree } from '@dhis2/d2-ui-org-unit-tree';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
 
@@ -13,12 +14,6 @@ const styles = {
         overflow: 'auto',
         boxSizing: 'border-box',
         border: '1px solid #ddd',
-    },
-    label: {
-        cursor: 'pointer',
-    },
-    selectedLabel: {
-        cursor: 'pointer',
     },
     disabled: {
         position: 'absolute',
@@ -39,6 +34,8 @@ const styles = {
 
 export class OrgUnitTreeMaps extends Component {
     static propTypes = {
+        theme: PropTypes.object.isRequired,
+        classes: PropTypes.object.isRequired,
         root: PropTypes.object,
         selected: PropTypes.array,
         disabled: PropTypes.bool,
@@ -55,15 +52,24 @@ export class OrgUnitTreeMaps extends Component {
     }
 
     render() {
-        const { root, selected, disabled } = this.props;
+        const { theme, classes, root, selected, disabled } = this.props;
 
         if (!root) {
             // TODO: Add loading indicator
             return null;
         }
 
+        //TODO: The d2-ui component should use classes, not styles!
+        const labelStyle = {
+                cursor: 'pointer',
+            },
+            selectedLabelStyle = {
+                cursor: 'pointer',
+                color: theme.palette.secondary.light,
+            };
+
         return (
-            <div style={styles.container}>
+            <div className={classes.container}>
                 <OrgUnitTree
                     root={root}
                     selected={selected
@@ -73,11 +79,11 @@ export class OrgUnitTreeMaps extends Component {
                     hideCheckboxes={true}
                     hideMemberCount={true}
                     onSelectClick={this.onSelectClick}
-                    labelStyle={styles.label}
-                    selectedLabelStyle={styles.selectedLabel}
+                    labelStyle={labelStyle}
+                    selectedLabelStyle={selectedLabelStyle}
                 />
                 {disabled ? (
-                    <div style={styles.disabled}>
+                    <div className={classes.disabled}>
                         It’s not possible to combine user organisation units and
                         select individual units.
                     </div>
@@ -99,4 +105,8 @@ export default connect(
         root: state.orgUnitTree,
     }),
     { loadOrgUnitTree }
-)(OrgUnitTreeMaps);
+)(
+    withStyles(styles, {
+        withTheme: true,
+    })(OrgUnitTreeMaps)
+);

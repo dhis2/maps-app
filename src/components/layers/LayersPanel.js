@@ -20,11 +20,11 @@ const SortableLayersList = SortableContainer(({ layers }) => (
     </div>
 ));
 
-const styles = {
+const styles = theme => ({
     panel: {
         top: HEADER_HEIGHT,
-        backgroundColor: '#fafafa',
-        boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
+        backgroundColor: theme.palette.background.default,
+        boxShadow: `1px 0 1px 0 ${theme.palette.shadow}`,
         height: 'auto',
         maxHeight: '100%',
         bottom: 0,
@@ -33,7 +33,7 @@ const styles = {
         zIndex: 1190,
         width: LAYERS_PANEL_WIDTH,
     },
-};
+});
 
 const LayersPanel = ({
     layersPanelOpen,

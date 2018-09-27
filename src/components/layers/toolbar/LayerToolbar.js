@@ -11,13 +11,13 @@ import Tooltip from '@material-ui/core/Tooltip';
 import OpacitySlider from './OpacitySlider';
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu';
 
-const styles = {
+const styles = theme => ({
     toolbar: {
         position: 'relative',
-        backgroundColor: '#eee',
         height: 32,
         minHeight: 32,
         padding: '0 8px',
+        backgroundColor: theme.palette.background.menu,
     },
     button: {
         float: 'left',
@@ -29,7 +29,7 @@ const styles = {
         position: 'absolute',
         right: 8,
     },
-};
+});
 
 const LayerCardToolbar = ({
     opacity,

@@ -11,6 +11,7 @@ import {
 
 export class DataItemSelect extends Component {
     static propTypes = {
+        className: PropTypes.string,
         label: PropTypes.string,
         value: PropTypes.string,
         program: PropTypes.shape({
@@ -59,6 +60,7 @@ export class DataItemSelect extends Component {
 
     render() {
         const {
+            className,
             label,
             value,
             program,
@@ -84,6 +86,9 @@ export class DataItemSelect extends Component {
 
         return (
             <SelectField
+                classes={{
+                    textField: className,
+                }}
                 label={label || i18n.t('Data item')}
                 items={dataItems}
                 value={value}

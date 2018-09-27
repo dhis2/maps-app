@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = theme => ({
     container: {
         float: 'left',
         width: 120,
@@ -17,6 +17,10 @@ const styles = {
         width: '100%',
         marginTop: 4,
         overflow: 'hidden',
+        outline: `1px solid ${theme.palette.divider}`,
+    },
+    selected: {
+        outline: `3px solid ${theme.palette.secondary.light}`,
     },
     image: {
         position: 'absolute',
@@ -28,41 +32,52 @@ const styles = {
         position: 'absolute',
         width: '100%',
         height: '100%',
-        background: '#eee',
-        color: '#ccc',
+        background: theme.palette.background.default,
+        color: theme.palette.text.hint,
         fontSize: 12,
         textAlign: 'center',
         lineHeight: '56px',
     },
     name: {
         fontSize: 12,
-        color: '#333',
+        color: theme.palette.text.secondary,
         paddingTop: 4,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        textAlign: 'center',
     },
-};
+    nameSelected: {
+        color: theme.palette.secondary.light,
+    },
+});
 
+// TODO: Use ImageSelect.js component for selectable image
 const Basemap = ({ classes, id, img, name, isSelected, onClick }) => {
-    const borderStyle = {
-        outline: isSelected ? '3px solid orange' : '1px solid #999',
-    };
-
     return (
         <div
             className={classes.container}
             title={name}
             onClick={() => onClick(id)}
         >
-            <div className={classes.imageContainer} style={borderStyle}>
+            <div
+                className={`${classes.imageContainer} ${
+                    isSelected ? classes.selected : ''
+                }`}
+            >
                 {img ? (
                     <img src={img} className={classes.image} />
                 ) : (
                     <div className={classes.noImage}>External basemap</div>
                 )}
             </div>
-            <div className={classes.name}>{name}</div>
+            <div
+                className={`${classes.name} ${
+                    isSelected ? classes.nameSelected : ''
+                }`}
+            >
+                {name}
+            </div>
         </div>
     );
 };
