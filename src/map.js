@@ -89,6 +89,8 @@ const Plugin = () => {
     }
 
     function loadMap(config) {
+        console.log('map plugin config', config);
+
         if (config.id && !isUnmounted(config.el)) {
             // Load favorite
             mapRequest(config.id).then(favorite =>
