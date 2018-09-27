@@ -80,8 +80,7 @@ const thematicLoader = async config => {
 
         properties.value = value;
         properties.radius =
-            (value - minValue) /
-                (maxValue - minValue) *
+            ((value - minValue) / (maxValue - minValue)) *
                 (radiusHigh - radiusLow) +
             radiusLow;
         properties.type = geometry.type; // Shown in data table
@@ -155,6 +154,7 @@ const loadData = async config => {
         .addPeriodFilter(period.id)
         .withDisplayProperty(displayPropertyUpper);
 
+    console.log('userOrgUnit:', userOrgUnit);
     if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
         geoFeaturesParams.userOrgUnit = userOrgUnit.join(';');
         analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit);

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
+<Fragment>
+  <WithStyles(Tooltip)
+    title="More actions"
+  >
+    <WithStyles(IconButton)
+      onClick={[Function]}
+    >
+      <pure(MoreVertIcon) />
+    </WithStyles(IconButton)>
+  </WithStyles(Tooltip)>
+  <WithStyles(Menu)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "left",
+        "vertical": "bottom",
+      }
+    }
+    getContentAnchorEl={null}
+    onClose={[Function]}
+    open={false}
+  >
+    <WithStyles(MenuItem)
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemIcon)>
+        <pure(ViewListIcon) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        primary="Data table"
+      />
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemIcon)>
+        <pure(SaveAltIcon) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        primary="Download data"
+      />
+    </WithStyles(MenuItem)>
+    <WithStyles(Divider)
+      light={true}
+    />
+    <WithStyles(MenuItem)
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemIcon)>
+        <pure(CreateIcon) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        primary="Edit layer"
+      />
+    </WithStyles(MenuItem)>
+    <WithStyles(MenuItem)
+      onClick={[Function]}
+    >
+      <WithStyles(ListItemIcon)>
+        <pure(DeleteIcon) />
+      </WithStyles(ListItemIcon)>
+      <WithStyles(ListItemText)
+        primary="Remove layer"
+      />
+    </WithStyles(MenuItem)>
+  </WithStyles(Menu)>
+</Fragment>
+`;

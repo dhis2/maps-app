@@ -15,9 +15,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CreateIcon from '@material-ui/icons/Create';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
-
-// import DownloadMenu from './DownloadMenu';
-// import OpenAsMenu from './OpenAsMenu';
+import SaveIcon from '@material-ui/icons/SaveAlt';
 
 const styles = {
     button: {
@@ -28,9 +26,7 @@ const styles = {
     },
 };
 
-const dataTableLayerTypes = ['facility', 'thematic', 'boundary'];
-
-class LayerMoreMenu extends Component {
+export class LayerToolbarMoreMenu extends Component {
     state = {
         open: false,
         anchorEl: null,
@@ -38,10 +34,10 @@ class LayerMoreMenu extends Component {
 
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        layerType: PropTypes.string.isRequired,
         onEdit: PropTypes.func,
         onRemove: PropTypes.func,
         toggleDataTable: PropTypes.func,
+        downloadData: PropTypes.func,
     };
 
     handleBtnClick = e => {
@@ -73,24 +69,31 @@ class LayerMoreMenu extends Component {
         this.props.onRemove();
     };
 
+    handleDownloadBtnClick = () => {
+        this.closeMenu();
+        this.props.downloadData();
+    };
+
     render() {
         const {
             classes,
-            layerType,
             onEdit,
             onRemove,
             toggleDataTable,
+            downloadData,
         } = this.props;
-        const canToggleDataTable =
-            toggleDataTable && dataTableLayerTypes.includes(layerType);
 
-        const somethingAboveDivider = canToggleDataTable,
+        const somethingAboveDivider = toggleDataTable || downloadData,
             somethingBelowDivider = onRemove || onEdit,
             showDivider = somethingAboveDivider && somethingBelowDivider;
 
+        if (!somethingAboveDivider && !somethingBelowDivider) {
+            return null;
+        }
+
         return (
             <Fragment>
-                <Tooltip title={i18n.t('More')}>
+                <Tooltip title={i18n.t('More actions')}>
                     <IconButton
                         className={classes.button}
                         onClick={this.handleBtnClick}
@@ -105,12 +108,20 @@ class LayerMoreMenu extends Component {
                     open={this.state.open}
                     onClose={this.closeMenu}
                 >
-                    {canToggleDataTable && (
+                    {toggleDataTable && (
                         <MenuItem onClick={this.handleDataTableBtnClick}>
                             <ListItemIcon>
                                 <ViewListIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Data table')} />
+                        </MenuItem>
+                    )}
+                    {downloadData && (
+                        <MenuItem onClick={this.handleDownloadBtnClick}>
+                            <ListItemIcon>
+                                <SaveIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={i18n.t('Download data')} />
                         </MenuItem>
                     )}
                     {showDivider && <Divider light />}
@@ -136,4 +147,4 @@ class LayerMoreMenu extends Component {
     }
 }
 
-export default withStyles(styles)(LayerMoreMenu);
+export default withStyles(styles)(LayerToolbarMoreMenu);
