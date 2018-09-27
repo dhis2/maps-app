@@ -15,7 +15,8 @@ const styles = theme => ({
         width: LAYERS_PANEL_WIDTH + 1,
         borderRight: '1px solid #ddd',
         paddingLeft: 18,
-    }, 
+        justifyContent: 'flex-start',
+    },
     label: {
         textTransform: 'none',
         fontSize: 16,
@@ -25,7 +26,7 @@ const styles = theme => ({
     },
     icon: {
         marginRight: 8,
-    }
+    },
 });
 
 export class AddLayer extends Component {
@@ -56,7 +57,7 @@ export class AddLayer extends Component {
                 onClick={event => this.handleClick(event)}
                 classes={{
                     root: classes.button,
-                    label: classes.label
+                    label: classes.label,
                 }}
             >
                 <AddCircleIcon className={classes.icon} /> {i18n.t('Add layer')}

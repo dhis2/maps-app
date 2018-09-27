@@ -96,7 +96,7 @@ export const loadProgramDataElements = action$ =>
         getD2()
             .then(d2 =>
                 apiFetch(
-                    `/programDataElements.json?program=${
+                    `/programDataElements?program=${
                         action.programId
                     }&fields=dimensionItem~rename(id),${getDisplayPropertyUrl(
                         d2
