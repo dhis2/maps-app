@@ -31,6 +31,7 @@ const styles = theme => ({
         padding: 4,
         position: 'absolute',
         right: 8,
+        top: 0,
     },
 });
 

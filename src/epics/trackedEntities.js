@@ -8,9 +8,12 @@ import { apiFetch } from '../util/api';
 
 // Load tracked entity types
 export const loadTrackedEntityTypes = action$ =>
-    action$.ofType(types.TRACKED_ENTITY_TYPES_LOAD).concatMap(() =>
-        apiFetch('/trackedEntityTypes.json?fields=id,displayName~rename(name)')
-        .then(data => setTrackedEntityTypes(data.trackedEntityTypes))
-    );
+    action$
+        .ofType(types.TRACKED_ENTITY_TYPES_LOAD)
+        .concatMap(() =>
+            apiFetch(
+                '/trackedEntityTypes?fields=id,displayName~rename(name)'
+            ).then(data => setTrackedEntityTypes(data.trackedEntityTypes))
+        );
 
 export default combineEpics(loadTrackedEntityTypes);

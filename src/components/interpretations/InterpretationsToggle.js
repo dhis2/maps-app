@@ -15,7 +15,8 @@ const styles = {
     button: {
         position: 'absolute',
         right: 0,
-    }, 
+        top: 0,
+    },
     label: {
         textTransform: 'none',
         fontSize: 16,
@@ -24,7 +25,7 @@ const styles = {
     icon: {
         marginRight: 8,
         marginTop: 2,
-    }
+    },
 };
 
 export const InterpretationsToggle = ({
@@ -43,12 +44,16 @@ export const InterpretationsToggle = ({
         disabled={!interpretationsEnabled}
         classes={{
             root: classes.button,
-            label: classes.label
+            label: classes.label,
         }}
-    >{interpretationsOpen ? 
-        <RightIcon className={classes.icon} /> : 
-        <LeftIcon className={classes.icon} />
-    }{i18n.t('Interpretations')}</Button>
+    >
+        {interpretationsOpen ? (
+            <RightIcon className={classes.icon} />
+        ) : (
+            <LeftIcon className={classes.icon} />
+        )}
+        {i18n.t('Interpretations')}
+    </Button>
 );
 
 InterpretationsToggle.propTypes = {

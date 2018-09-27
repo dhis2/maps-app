@@ -14,6 +14,7 @@ const styles = {
         boxSizing: 'border-box',
         width: LAYERS_PANEL_WIDTH + 1,
         paddingLeft: 18,
+        justifyContent: 'flex-start',
     },
     label: {
         textTransform: 'none',
@@ -54,7 +55,7 @@ export class AddLayer extends Component {
                 onClick={event => this.handleClick(event)}
                 classes={{
                     root: classes.button,
-                    label: classes.label
+                    label: classes.label,
                 }}
             >
                 <AddCircleIcon className={classes.icon} /> {i18n.t('Add layer')}
