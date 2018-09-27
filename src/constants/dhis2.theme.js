@@ -27,7 +27,7 @@ export const colors = {
 };
 export const palette = {
     common: {
-        white: colors.snow,
+        white: colors.white,
         black: colors.black,
     },
     action: {
