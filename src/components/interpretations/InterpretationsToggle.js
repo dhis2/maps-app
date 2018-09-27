@@ -15,6 +15,7 @@ const styles = {
     button: {
         position: 'absolute',
         right: 0,
+        top: 0,
     },
     label: {
         textTransform: 'none',
