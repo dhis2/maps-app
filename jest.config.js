@@ -12,5 +12,6 @@ module.exports = {
         document: true,
         navigator: true,
         Element: true,
-    }
+    },
+    snapshotSerializers: ['enzyme-to-json/serializer'],
 };

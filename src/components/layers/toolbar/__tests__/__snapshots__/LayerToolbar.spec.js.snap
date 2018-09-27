@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
+<WithStyles(Toolbar)>
+  <WithStyles(Tooltip)
+    key="edit"
+    title="Edit"
+  >
+    <WithStyles(IconButton)
+      onClick={[Function]}
+    >
+      <pure(CreateIcon) />
+    </WithStyles(IconButton)>
+  </WithStyles(Tooltip)>
+  <WithStyles(Tooltip)
+    title="Toggle visibility"
+  >
+    <WithStyles(IconButton)
+      onClick={[Function]}
+    >
+      <pure(VisibilityIcon) />
+    </WithStyles(IconButton)>
+  </WithStyles(Tooltip)>
+  <WithStyles(Tooltip)
+    title="Set layer opacity"
+  >
+    <div>
+      <WithStyles(OpacitySlider)
+        onChange={[Function]}
+        opacity={0}
+      />
+    </div>
+  </WithStyles(Tooltip)>
+  <WithStyles(LayerToolbarMoreMenu)
+    classes={
+      Object {
+        "button": undefined,
+      }
+    }
+    onEdit={[Function]}
+  />
+</WithStyles(Toolbar)>
+`;
+
+exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
+<WithStyles(Toolbar)>
+  <WithStyles(Tooltip)
+    title="Toggle visibility"
+  >
+    <WithStyles(IconButton)
+      onClick={[Function]}
+    >
+      <pure(VisibilityIcon) />
+    </WithStyles(IconButton)>
+  </WithStyles(Tooltip)>
+  <WithStyles(Tooltip)
+    title="Set layer opacity"
+  >
+    <div>
+      <WithStyles(OpacitySlider)
+        onChange={[Function]}
+        opacity={0}
+      />
+    </div>
+  </WithStyles(Tooltip)>
+  <WithStyles(LayerToolbarMoreMenu)
+    classes={
+      Object {
+        "button": undefined,
+      }
+    }
+  />
+</WithStyles(Toolbar)>
+`;
