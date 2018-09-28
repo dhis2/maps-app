@@ -14,28 +14,29 @@
             "pre-commit": "npm run extract-pot && npm run prettify && CI=true npm run test && git add -A ."
         }
     },
+    "pre-commit": [
+        "validate",
+        "test"
+    ],
     "scripts": {
         "prestart": "yarn localize && d2-manifest package.json manifest.webapp",
         "start": "webpack-dev-server",
-        "coverage": "yarn test -- --coverage",
+        "coverage": "yarn test --coverage",
         "test": "jest",
-        "test:watch": "yarn test -- --watch",
+        "test:watch": "yarn test --watch",
         "prebuild": "yarn test",
         "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build && cp -r i18n_old build",
-        "postbuild": "cp icon.png ./build/ && cp -r images ./build",
-        "validate": "npm ls --depth 0 || yarn list",
+        "postbuild": "cp icon.png ./build/ && cp -r images ./build && cp ./package.json ./build/package.json",
         "manifest": "d2-manifest package.json build/manifest.webapp",
-        "deploy": "yarn build && mvn clean deploy",
         "lint": "eslint ./src",
-        "profile": "yarn start -- --profile",
+        "validate": "npm ls --depth 0 || yarn list",
+        "profile": "yarn start --profile",
         "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
         "localize": "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/"
     },
     "dependencies": {
         "@dhis2/d2-i18n": "^1.0.4",
-        "@dhis2/d2-i18n-extract": "^1.0.7",
-        "@dhis2/d2-i18n-generate": "^1.0.19",
         "@dhis2/d2-ui-file-menu": "^2.0.0",
         "@dhis2/d2-ui-interpretations": "^1.1.12",
         "@dhis2/d2-ui-org-unit-tree": "^1.0.13",
@@ -73,8 +74,8 @@
         "whatwg-fetch": "^3.0.0"
     },
     "devDependencies": {
-        "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.46",
-        "@babel/runtime": "^7.0.0",
+        "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+        "babel-runtime": "^6.26.0",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.2",
@@ -89,9 +90,8 @@
         "babel-preset-stage-2": "^6.24.1",
         "chai": "^4.1.2",
         "css-loader": "^0.28.10",
-        "d2-i18n": "^1.0.3",
-        "d2-i18n-extract": "^1.0.5",
-        "d2-i18n-generate": "^1.0.15",
+        "@dhis2/d2-i18n-extract": "^1.0.7",
+        "@dhis2/d2-i18n-generate": "^1.0.19",
         "d2-manifest": "^1.0.0",
         "enzyme": "^3.3.0",
         "enzyme-adapter-react-16": "^1.1.1",
@@ -126,10 +126,6 @@
         "webpack-dev-server": "^2.11.1",
         "webpack-uglify-js-plugin": "^1.1.9"
     },
-    "pre-commit": [
-        "validate",
-        "test"
-    ],
     "manifest.webapp": {
         "name": "DHIS2 Maps",
         "icons": {
