@@ -40,8 +40,6 @@ export class IndicatorSelect extends Component {
 
         let items = indicators;
 
-        console.log('A', indicatorGroup, indicators);
-
         if (!indicatorGroup && !indicator) {
             return null;
         } else if (!indicators && indicator) {
