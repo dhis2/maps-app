@@ -14,6 +14,10 @@
             "pre-commit": "npm run extract-pot && npm run prettify && CI=true npm run test && git add -A ."
         }
     },
+    "pre-commit": [
+        "validate",
+        "test"
+    ],
     "scripts": {
         "prestart": "yarn localize && d2-manifest package.json manifest.webapp",
         "start": "webpack-dev-server",
