@@ -122,9 +122,8 @@
         "webpack-uglify-js-plugin": "^1.1.9"
     },
     "activities": {
-      "dhis": {
-        "href": ".."
-      }
+        "dhis": {
+            "href": ".."
+        }
     }
-  }
 }
