@@ -42,13 +42,13 @@ export class IndicatorSelect extends Component {
 
         if (!indicatorGroup && !indicator) {
             return null;
-        } else if (indicator) {
+        } else if (!indicators && indicator) {
             items = [indicator]; // If favorite is loaded, we only know the used indicator
         }
 
         return (
             <SelectField
-                key='indicators'
+                key="indicators"
                 loading={items ? false : true}
                 label={i18n.t('Indicator')}
                 items={items}
@@ -63,7 +63,9 @@ export class IndicatorSelect extends Component {
 
 export default connect(
     (state, props) => ({
-        indicators: props.indicatorGroup ? state.indicators[props.indicatorGroup.id] : null,
+        indicators: props.indicatorGroup
+            ? state.indicators[props.indicatorGroup.id]
+            : null,
     }),
     { loadIndicators }
 )(IndicatorSelect);
