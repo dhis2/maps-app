@@ -29,6 +29,7 @@
         "postbuild": "cp icon.png ./build/ && cp -r images ./build && cp ./package.json ./build/package.json",
         "manifest": "d2-manifest package.json build/manifest.webapp",
         "lint": "eslint ./src",
+        "validate": "npm ls --depth 0 || yarn list",
         "profile": "yarn start --profile",
         "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
