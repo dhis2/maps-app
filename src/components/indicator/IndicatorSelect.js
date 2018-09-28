@@ -42,7 +42,7 @@ export class IndicatorSelect extends Component {
 
         if (!indicatorGroup && !indicator) {
             return null;
-        } else if (indicator) {
+        } else if (!indicators && indicator) {
             items = [indicator]; // If favorite is loaded, we only know the used indicator
         }
 
