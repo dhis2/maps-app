@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "29.0.38",
+    "version": "29.0.39",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -16,8 +16,7 @@
         "test": "jest",
         "test:watch": "yarn test -- --watch",
         "prebuild": "yarn test",
-        "build":
-            "rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build",
+        "build": "rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build",
         "postbuild": "cp icon.png ./build/ && cp -r images ./build",
         "validate": "npm ls --depth 0 || yarn list",
         "manifest": "d2-manifest package.json build/manifest.webapp",
@@ -111,7 +110,10 @@
         "webpack-dev-server": "^2.11.1",
         "webpack-uglify-js-plugin": "^1.1.9"
     },
-    "pre-commit": ["validate", "test"],
+    "pre-commit": [
+        "validate",
+        "test"
+    ],
     "manifest.webapp": {
         "name": "DHIS2 Maps",
         "icons": {
