@@ -40,9 +40,11 @@ export class IndicatorSelect extends Component {
 
         let items = indicators;
 
+        console.log('A', indicatorGroup, indicators);
+
         if (!indicatorGroup && !indicator) {
             return null;
-        } else if (indicator) {
+        } else if (!indicators && indicator) {
             items = [indicator]; // If favorite is loaded, we only know the used indicator
         }
 
