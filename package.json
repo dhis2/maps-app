@@ -126,6 +126,21 @@
         "webpack-dev-server": "^2.11.1",
         "webpack-uglify-js-plugin": "^1.1.9"
     },
+    "manifest.webapp": {
+        "name": "DHIS2 Maps",
+        "icons": {
+            "48": "icon.png"
+        },
+        "developer": {
+            "url": "",
+            "name": "Bjørn Sandvik"
+        },
+        "activities": {
+            "dhis": {
+                "href": ".."
+            }
+        }
+    },
     "activities": {
         "dhis": {
             "href": ".."
