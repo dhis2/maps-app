@@ -12,7 +12,7 @@ import {
     getFiltersAsText,
     getPeriodFromFilters,
     getPeriodNameFromId,
-    removeEmptyItems,
+    // removeEmptyItems,
     getApiResponseNames,
 } from '../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
@@ -65,7 +65,6 @@ const eventLoader = async config => {
         period: period
             ? getPeriodNameFromId(period.id)
             : `${formatTime(startDate)} - ${formatTime(endDate)}`,
-        filters: dataFilters && getFiltersAsText(dataFilters),
     };
 
     let bounds;
@@ -181,9 +180,9 @@ const eventLoader = async config => {
                 ];
             }
         }
-    }
 
-    legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
+        legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
+    }
 
     return {
         ...config,
@@ -235,12 +234,17 @@ export const getAnalyticsRequest = async (
         orgUnits.map(ou => ou.id)
     );
 
-    removeEmptyItems(dataItems).forEach(item => {
-        analyticsRequest = analyticsRequest.addDimension(
-            item.dimension,
-            item.filter
-        );
-    });
+    if (dataItems) {
+        dataItems.forEach(item => {
+            if (item.dimension && item.filter) {
+                // Empty filter sometimes returned for favorite
+                analyticsRequest = analyticsRequest.addDimension(
+                    item.dimension,
+                    item.filter
+                );
+            }
+        });
+    }
 
     if (eventCoordinateField) {
         // If coordinate field other than event coordinate

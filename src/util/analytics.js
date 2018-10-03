@@ -161,14 +161,13 @@ export const getFiltersFromColumns = (columns = []) => {
     return filters.length ? filters : null;
 };
 
-export const getFiltersAsText = (filters = [], names = {}) => {
-    return filters.map(({ name, filter }) => {
+export const getFiltersAsText = (filters = [], names = {}) =>
+    filters.map(({ dimension, filter }) => {
         const [operator, value] = filter.split(':');
-        return `${name} ${getFilterOperatorAsText(
+        return `${names[dimension]} ${getFilterOperatorAsText(
             operator
         )} [${getFilterValueName(value, names)}]`;
     });
-};
 
 // TODO: Cache?
 export const getFilterOperatorAsText = id =>
