@@ -146,7 +146,7 @@ export class FilterSelect extends Component {
                     style={styles.textField}
                 />
             ) : null,
-            valueType === 'BOOLEAN' ? (
+            ['BOOLEAN', 'TRUE_ONLY'].includes(valueType) ? (
                 <Checkbox
                     key="checkbox"
                     label={i18n.t('Yes')}
