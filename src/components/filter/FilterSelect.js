@@ -64,13 +64,12 @@ const styles = {
 */
 
 export class FilterSelect extends Component {
+    componentDidMount() {
+        this.loadOptionSet();
+    }
 
     componentDidUpdate() {
-        const { optionSet, optionSets, loadOptionSet } = this.props;
-
-        if (optionSet && !optionSets[optionSet.id]) {
-            loadOptionSet(optionSet.id);
-        }
+        this.loadOptionSet();
     }
 
     render() {
@@ -86,7 +85,7 @@ export class FilterSelect extends Component {
         const operators = this.getOperators(valueType, optionSet);
         let operator;
         let value;
-    
+
         if (filter) {
             const splitFilter = filter.split(':');
             operator = splitFilter[0];
@@ -128,7 +127,9 @@ export class FilterSelect extends Component {
                     type="number"
                     value={value !== undefined ? value : ''}
                     // onChange={newValue => onChange(`${operator}:${newValue}`)}
-                    onChange={(evt, newValue) => onChange(`${operator}:${newValue}`)}
+                    onChange={(evt, newValue) =>
+                        onChange(`${operator}:${newValue}`)
+                    }
                     style={styles.textField}
                 />
             ) : null,
@@ -139,7 +140,9 @@ export class FilterSelect extends Component {
                     floatingLabelText={i18n.t('Value')}
                     value={value || ''}
                     // onChange={newValue => onChange(`${operator}:${newValue}`)}
-                    onChange={(evt, newValue) => onChange(`${operator}:${newValue}`)}
+                    onChange={(evt, newValue) =>
+                        onChange(`${operator}:${newValue}`)
+                    }
                     style={styles.textField}
                 />
             ) : null,
@@ -165,13 +168,16 @@ export class FilterSelect extends Component {
                 />
             ) : null,
         ];
-    
     }
 
     getOperators(valueType, optionSet) {
         let operators;
 
-        if (['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(valueType)) {
+        if (
+            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(
+                valueType
+            )
+        ) {
             operators = [
                 { id: 'EQ', name: '=' },
                 { id: 'GT', name: '>' },
@@ -195,6 +201,14 @@ export class FilterSelect extends Component {
         }
 
         return operators;
+    }
+
+    loadOptionSet() {
+        const { optionSet, optionSets, loadOptionSet } = this.props;
+
+        if (optionSet && !optionSets[optionSet.id]) {
+            loadOptionSet(optionSet.id);
+        }
     }
 }
 
