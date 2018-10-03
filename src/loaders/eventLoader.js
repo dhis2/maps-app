@@ -60,7 +60,7 @@ const eventLoader = async config => {
         orgUnits,
         dataItems,
         eventCoordinateField,
-        relativePeriodDate,
+        relativePeriodDate
     );
 
     const legend = {
@@ -226,7 +226,7 @@ export const getAnalyticsRequest = async (
     orgUnits,
     dataItems,
     eventCoordinateField,
-    relativePeriodDate,
+    relativePeriodDate
 ) => {
     const d2 = await getD2();
 
@@ -251,7 +251,8 @@ export const getAnalyticsRequest = async (
 
     if (dataItems) {
         dataItems.forEach(item => {
-            if (item.dimension && item.filer) { // Empty filter sometimes returned for favorite
+            if (item.dimension && item.filter) {
+                // Empty filter sometimes returned for favorite
                 analyticsRequest = analyticsRequest.addDimension(
                     item.dimension,
                     item.filter
