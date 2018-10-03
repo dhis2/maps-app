@@ -190,7 +190,9 @@ const eventLoader = async config => {
         }
     }
 
-    legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
+    if (!serverCluster) {
+        legend.filters = dataFilters && getFiltersAsText(dataFilters, names);
+    }
 
     return {
         ...config,
