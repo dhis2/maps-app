@@ -155,7 +155,7 @@ const FilterSelect = ({
                 style={styles.textField}
             />
         ) : null,
-        valueType === 'BOOLEAN' ? (
+        ['BOOLEAN', 'TRUE_ONLY'].includes(valueType) ? (
             <Checkbox
                 key="checkbox"
                 label={i18next.t('Yes')}
