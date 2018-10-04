@@ -118,7 +118,8 @@ export class FilterSelect extends Component {
                     style={styles.textField}
                 />
             ) : null,
-            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE'].includes(valueType) ? (
+            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE'].indexOf(valueType) !==
+            -1 ? (
                 <TextField
                     id="number"
                     key="number"
@@ -133,7 +134,7 @@ export class FilterSelect extends Component {
                     style={styles.textField}
                 />
             ) : null,
-            ['TEXT', 'LONG_TEXT'].includes(valueType) && !optionSet ? (
+            ['TEXT', 'LONG_TEXT'].indexOf(valueType) !== -1 && !optionSet ? (
                 <TextField
                     key="text"
                     // label={i18n.t('Value')}
@@ -146,7 +147,7 @@ export class FilterSelect extends Component {
                     style={styles.textField}
                 />
             ) : null,
-            ['BOOLEAN', 'TRUE_ONLY'].includes(valueType) ? (
+            ['BOOLEAN', 'TRUE_ONLY'].indexOf(valueType) !== -1 ? (
                 <Checkbox
                     key="checkbox"
                     label={i18n.t('Yes')}
@@ -174,9 +175,9 @@ export class FilterSelect extends Component {
         let operators;
 
         if (
-            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(
+            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].indexOf(
                 valueType
-            )
+            ) !== -1
         ) {
             operators = [
                 { id: 'EQ', name: '=' },
@@ -191,7 +192,7 @@ export class FilterSelect extends Component {
                 { id: 'IN', name: i18n.t('one of') },
                 { id: '!IN', name: i18n.t('not one of') },
             ];
-        } else if (['TEXT', 'LONG_TEXT'].includes(valueType)) {
+        } else if (['TEXT', 'LONG_TEXT'].indexOf(valueType) !== -1) {
             operators = [
                 { id: 'LIKE', name: i18n.t('contains') },
                 { id: '!LIKE', name: i18n.t("doesn't contains") },

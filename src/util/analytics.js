@@ -160,7 +160,7 @@ export const getFiltersFromColumns = (columns = []) => {
     return filters.length ? filters : null;
 };
 
-export const getFiltersAsText = (filters = [], names = {}) => 
+export const getFiltersAsText = (filters = [], names = {}) =>
     filters.map(({ dimension, filter }) => {
         const [operator, value] = filter.split(':');
         return `${names[dimension]} ${getFilterOperatorAsText(
@@ -198,7 +198,7 @@ export const combineDataItems = (
     sortBy(
         'name',
         [...dataItemsA, ...dataItemsB].filter(
-            item => !excludeTypes.includes(item.valueType)
+            item => !excludeTypes.indexOf(item.valueType) !== -1
         )
     );
 

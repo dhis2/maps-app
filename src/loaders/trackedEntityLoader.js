@@ -72,14 +72,19 @@ const trackedEntityLoader = async config => {
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
     const data = await apiFetch(url);
 
-    const instances = data.trackedEntityInstances.filter(instance =>
-        geometryTypes.includes(instance.featureType) && instance.coordinates
+    const instances = data.trackedEntityInstances.filter(
+        instance =>
+            geometryTypes.indexOf(instance.featureType) !== -1 &&
+            instance.coordinates
     );
 
     const features = toGeoJson(instances);
 
     if (!instances.length) {
-        alert = createAlert(trackedEntityType.name, i18n.t('No tracked entities found'));
+        alert = createAlert(
+            trackedEntityType.name,
+            i18n.t('No tracked entities found')
+        );
     }
 
     return {
@@ -87,7 +92,7 @@ const trackedEntityLoader = async config => {
         name,
         data: features,
         legend,
-        ...(alert ? { alerts: [ alert ] } : {}),
+        ...(alert ? { alerts: [alert] } : {}),
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
