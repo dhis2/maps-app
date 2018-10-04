@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-09-25T13:28:20.387Z\n"
-"PO-Revision-Date: 2018-09-25T13:28:20.387Z\n"
+"POT-Creation-Date: 2018-10-04T14:37:58.055Z\n"
+"PO-Revision-Date: 2018-10-04T14:37:58.055Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -249,6 +249,9 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Add filter"
+msgstr ""
+
+msgid "Delete filter"
 msgstr ""
 
 msgid "Remove filter"
