@@ -154,7 +154,6 @@ const loadData = async config => {
         .addPeriodFilter(period.id)
         .withDisplayProperty(displayPropertyUpper);
 
-    console.log('userOrgUnit:', userOrgUnit);
     if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
         geoFeaturesParams.userOrgUnit = userOrgUnit.join(';');
         analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit);

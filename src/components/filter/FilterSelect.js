@@ -8,7 +8,11 @@ import Checkbox from '../core/Checkbox';
 import DatePicker from '../core/DatePicker';
 import OptionSetSelect from '../optionSet/OptionSetSelect';
 import { loadOptionSet } from '../../actions/optionSets';
-import { numberValueTypes, textValueTypes } from '../../constants/valueTypes';
+import {
+    numberValueTypes,
+    textValueTypes,
+    booleanValueTypes,
+} from '../../constants/valueTypes';
 
 const styles = {
     operator: {
@@ -108,7 +112,7 @@ export class FilterSelect extends Component {
                     style={styles.textField}
                 />
             ) : null,
-            valueType === 'BOOLEAN' ? (
+            booleanValueTypes.includes(valueType) ? (
                 <Checkbox
                     key="checkbox"
                     label={i18n.t('Yes')}

@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "31.0.5",
+    "version": "31.0.6",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -14,29 +14,31 @@
             "pre-commit": "npm run extract-pot && npm run prettify && CI=true npm run test && git add -A ."
         }
     },
+    "pre-commit": [
+        "validate",
+        "test"
+    ],
     "scripts": {
         "prestart": "yarn localize && d2-manifest package.json manifest.webapp",
         "start": "webpack-dev-server",
-        "coverage": "yarn test -- --coverage",
+        "coverage": "yarn test --coverage",
         "test": "jest",
-        "test:watch": "yarn test -- --watch",
+        "test:watch": "yarn test --watch",
         "prebuild": "yarn test",
         "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build && cp -r i18n_old build",
-        "postbuild": "cp icon.png ./build/ && cp -r images ./build",
-        "validate": "npm ls --depth 0 || yarn list",
+        "postbuild": "cp icon.png ./build/ && cp -r images ./build && cp ./package.json ./build/package.json",
         "manifest": "d2-manifest package.json build/manifest.webapp",
-        "deploy": "yarn build && mvn clean deploy",
         "lint": "eslint ./src",
-        "profile": "yarn start -- --profile",
+        "validate": "npm ls --depth 0 || yarn list",
+        "profile": "yarn start --profile",
         "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
-        "localize": "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/"
+        "localize": "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/",
+        "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
         "@dhis2/d2-i18n": "^1.0.4",
-        "@dhis2/d2-i18n-extract": "^1.0.7",
-        "@dhis2/d2-i18n-generate": "^1.0.19",
-        "@dhis2/d2-ui-file-menu": "^2.0.0",
+        "@dhis2/d2-ui-file-menu": "^3.1.0",
         "@dhis2/d2-ui-interpretations": "^1.1.12",
         "@dhis2/d2-ui-org-unit-tree": "^1.0.13",
         "@dhis2/gis-api": "30.0.0",
@@ -49,13 +51,11 @@
         "d3-color": "^1.2.3",
         "d3-format": "^1.3.2",
         "d3-time-format": "^2.1.3",
-        "enzyme-to-json": "^3.3.4",
         "file-saver": "^1.3.3",
         "husky": "next",
         "lodash": "^4.17.5",
         "loglevel": "^1.6.1",
         "material-ui": "^0.20.0",
-        "material-ui-icons": "^1.0.0-beta.17",
         "promise-polyfill": "^8.1.0",
         "prop-types": "^15.6.2",
         "react": "16.5.0",
@@ -73,8 +73,8 @@
         "whatwg-fetch": "^3.0.0"
     },
     "devDependencies": {
-        "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.46",
-        "@babel/runtime": "^7.0.0",
+        "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+        "babel-runtime": "^6.26.0",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.2",
@@ -89,12 +89,12 @@
         "babel-preset-stage-2": "^6.24.1",
         "chai": "^4.1.2",
         "css-loader": "^0.28.10",
-        "d2-i18n": "^1.0.3",
-        "d2-i18n-extract": "^1.0.5",
-        "d2-i18n-generate": "^1.0.15",
+        "@dhis2/d2-i18n-extract": "^1.0.7",
+        "@dhis2/d2-i18n-generate": "^1.0.19",
         "d2-manifest": "^1.0.0",
         "enzyme": "^3.3.0",
         "enzyme-adapter-react-16": "^1.1.1",
+        "enzyme-to-json": "^3.3.4",
         "eslint": "^4.18.1",
         "eslint-config-dhis2": "^3.0.7",
         "eslint-config-prettier": "^2.9.0",
@@ -123,13 +123,10 @@
         "susy": "^3.0.3",
         "url-loader": "^0.6.2",
         "webpack": "^3.11.0",
+        "webpack-bundle-analyzer": "^3.0.2",
         "webpack-dev-server": "^2.11.1",
         "webpack-uglify-js-plugin": "^1.1.9"
     },
-    "pre-commit": [
-        "validate",
-        "test"
-    ],
     "manifest.webapp": {
         "name": "DHIS2 Maps",
         "icons": {
