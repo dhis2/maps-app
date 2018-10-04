@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import FirstLevel from './UserOrgUnitsFirstLevel';
@@ -21,7 +21,7 @@ const styles = theme => ({
         outline: `1px solid ${theme.palette.divider}`,
     },
     selectedLevel: {
-        outline: `3px solid ${theme.palette.secondary.light}`,
+        outline: `3px solid ${theme.palette.primary.main}`,
     },
     icon: {
         display: 'block',

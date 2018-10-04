@@ -65,7 +65,7 @@ export class OrgUnitTreeMaps extends Component {
             },
             selectedLabelStyle = {
                 cursor: 'pointer',
-                color: theme.palette.secondary.light,
+                color: theme.palette.primary.main,
             };
 
         return (

@@ -11,7 +11,7 @@ const styles = theme => ({
         outline: `1px solid ${theme.palette.divider}`,
     },
     imageContainerSelected: {
-        outline: `3px solid ${theme.palette.secondary.light}`,
+        outline: `3px solid ${theme.palette.primary.main}`,
     },
     image: {
         width: '100%',

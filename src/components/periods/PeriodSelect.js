@@ -22,7 +22,7 @@ const styles = theme => ({
         marginLeft: 12,
     },
     button: {
-        backgroundColor: theme.palette.background.menu,
+        backgroundColor: theme.palette.background.grey,
         width: 24,
         height: 24,
         padding: 0,

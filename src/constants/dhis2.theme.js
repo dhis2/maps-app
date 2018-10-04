@@ -35,10 +35,10 @@ export const palette = {
         disabled: colors.greyLight,
     },
     text: {
-        primary: colors.greyBlack,
-        secondary: colors.grey,
-        disabled: colors.greyLight,
-        hint: colors.greyLight,
+        primary: colors.black,
+        secondary: colors.greyBlack,
+        disabled: colors.grey,
+        hint: colors.grey,
     },
     primary: {
         main: colors.accentPrimary,
@@ -67,9 +67,10 @@ export const palette = {
     background: {
         paper: colors.white,
         default: colors.snow,
-        menu: colors.blueGrey,
+        grey: '#FCFCFC',
+        hover: colors.greyLight,
     },
-    divider: 'rgba(32, 32, 32, 0.15)', // From https://projects.invisionapp.com/share/A7LT4TJYETS#/screens/306822640
+    divider: colors.greyLight,
     shadow: colors.grey,
 };
 

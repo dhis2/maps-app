@@ -5,17 +5,17 @@ import i18n from '@dhis2/d2-i18n';
 import DataItemSelect from '../dataItem/DataItemSelect';
 import FilterSelect from './FilterSelect';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
     container: {
         height: 68,
         marginBottom: 8,
         padding: '-0 56px 0 8px',
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.grey,
         position: 'relative',
         clear: 'both',
-        borderRadius: 8,
+        borderRadius: 4,
         border: `1px solid ${theme.palette.divider}`,
     },
     select: {
@@ -31,10 +31,11 @@ const styles = theme => ({
         right: 0,
         padding: '10px 0px',
         '&:hover': {
-            backgroundColor: theme.palette.background.menu,
+            backgroundColor: theme.palette.background.hover,
         },
     },
     removeBtn: {
+        color: theme.palette.status.negative,
         '&:hover': {
             backgroundColor: 'inherit',
         },
@@ -123,7 +124,7 @@ class FilterRow extends Component {
                         className={classes.removeBtn}
                         onClick={() => onRemove(index)}
                     >
-                        <CloseIcon />
+                        <DeleteIcon />
                     </IconButton>
                 </div>
             </div>

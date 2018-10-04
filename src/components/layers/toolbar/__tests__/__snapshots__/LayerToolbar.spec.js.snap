@@ -12,6 +12,7 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
       <pure(CreateIcon) />
     </WithStyles(IconButton)>
   </WithStyles(Tooltip)>
+  <span />
   <WithStyles(Tooltip)
     title="Toggle visibility"
   >

@@ -16,7 +16,7 @@ const styles = theme => ({
         paddingRight: 0,
         zIndex: 1200,
 
-        backgroundColor: theme.palette.background.menu,
+        backgroundColor: theme.palette.background.paper,
         boxShadow: `0 1px 1px 0 ${theme.palette.shadow}`,
     },
     divider: {

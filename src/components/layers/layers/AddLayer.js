@@ -15,6 +15,7 @@ const styles = {
         width: LAYERS_PANEL_WIDTH + 1,
         paddingLeft: 18,
         justifyContent: 'flex-start',
+        borderRadius: 0,
     },
     label: {
         textTransform: 'none',

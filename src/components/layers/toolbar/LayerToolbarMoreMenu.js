@@ -11,7 +11,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreIcon from '@material-ui/icons/MoreHoriz';
 import CreateIcon from '@material-ui/icons/Create';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -98,7 +98,7 @@ export class LayerToolbarMoreMenu extends Component {
                         className={classes.button}
                         onClick={this.handleBtnClick}
                     >
-                        <MoreVertIcon />
+                        <MoreIcon />
                     </IconButton>
                 </Tooltip>
                 <Menu

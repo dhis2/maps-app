@@ -20,7 +20,7 @@ const styles = theme => ({
         outline: `1px solid ${theme.palette.divider}`,
     },
     selected: {
-        outline: `3px solid ${theme.palette.secondary.light}`,
+        outline: `3px solid ${theme.palette.primary.main}`,
     },
     image: {
         position: 'absolute',
@@ -48,7 +48,8 @@ const styles = theme => ({
         textAlign: 'center',
     },
     nameSelected: {
-        color: theme.palette.secondary.light,
+        color: theme.palette.primary.dark,
+        fontWeight: 500,
     },
 });
 

@@ -8,7 +8,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
     <WithStyles(IconButton)
       onClick={[Function]}
     >
-      <pure(MoreVertIcon) />
+      <pure(MoreHorizIcon) />
     </WithStyles(IconButton)>
   </WithStyles(Tooltip)>
   <WithStyles(Menu)
