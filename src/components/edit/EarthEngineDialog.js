@@ -154,74 +154,76 @@ class EarthEngineDialog extends Component {
                                     errorText={filterError}
                                 />
                             )}
-                            {params && [
-                                <TextField
-                                    key="min"
-                                    type="number"
-                                    floatingLabelText={i18n.t(
-                                        dataset.minLabel || 'Min'
-                                    )}
-                                    value={params.min}
-                                    onChange={(evt, min) =>
-                                        setParams(
-                                            parseInt(min),
-                                            parseInt(params.max),
-                                            params.palette
-                                        )
-                                    }
-                                    style={styles.flexThird}
-                                    floatingLabelStyle={{ whiteSpace: 'nowrap' }}
-                                />,
-                                <TextField
-                                    key="max"
-                                    type="number"
-                                    floatingLabelText={i18n.t(
-                                        dataset.maxLabel || 'Max'
-                                    )}
-                                    value={params.max}
-                                    onChange={(evt, max) =>
-                                        setParams(
-                                            parseInt(params.min),
-                                            parseInt(max),
-                                            params.palette
-                                        )
-                                    }
-                                    style={styles.flexThird}
-                                    floatingLabelStyle={{ whiteSpace: 'nowrap' }}
-                                />,
-                                <TextField
-                                    key="steps"
-                                    type="number"
-                                    floatingLabelText={i18n.t('Steps')}
-                                    value={
-                                        steps !== undefined
-                                            ? steps
-                                            : this.getStepsFromParams()
-                                    }
-                                    onChange={(evt, steps) =>
-                                        this.onStepsChange(steps)
-                                    }
-                                    style={styles.flexThird}
-                                />,
-                                <div key="range_error" style={styles.error}>
-                                    {!this.isValidRange() && rangeError}
-                                </div>,
-                                <div key="steps_error" style={styles.error}>
-                                    {!this.isValidSteps() && stepsError}
-                                </div>,
-                                <ColorScaleSelect
-                                    key="scale"
-                                    palette={params.palette}
-                                    onChange={palette =>
-                                        setParams(
-                                            params.min,
-                                            params.max,
-                                            palette
-                                        )
-                                    }
-                                    style={styles.colorScale}
-                                />,
-                            ]}
+                            {params && (
+                                <div style={styles.flexColumn}>
+                                    <TextField
+                                        key="min"
+                                        type="number"
+                                        floatingLabelText={i18n.t(
+                                            dataset.minLabel || 'Min'
+                                        )}
+                                        value={params.min}
+                                        onChange={(evt, min) =>
+                                            setParams(
+                                                parseInt(min),
+                                                parseInt(params.max),
+                                                params.palette
+                                            )
+                                        }
+                                        style={styles.flexThird}
+                                        floatingLabelStyle={{
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                    />
+                                    <TextField
+                                        key="max"
+                                        type="number"
+                                        floatingLabelText={i18n.t(
+                                            dataset.maxLabel || 'Max'
+                                        )}
+                                        value={params.max}
+                                        onChange={(evt, max) =>
+                                            setParams(
+                                                parseInt(params.min),
+                                                parseInt(max),
+                                                params.palette
+                                            )
+                                        }
+                                        style={styles.flexThird}
+                                        floatingLabelStyle={{
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                    />
+                                    <TextField
+                                        key="steps"
+                                        type="number"
+                                        floatingLabelText={i18n.t('Steps')}
+                                        value={
+                                            steps !== undefined
+                                                ? steps
+                                                : this.getStepsFromParams()
+                                        }
+                                        onChange={(evt, steps) =>
+                                            this.onStepsChange(steps)
+                                        }
+                                        style={styles.flexThird}
+                                    />
+                                </div>
+                            )}
+                            <div key="range_error" style={styles.error}>
+                                {!this.isValidRange() && rangeError}
+                            </div>
+                            <div key="steps_error" style={styles.error}>
+                                {!this.isValidSteps() && stepsError}
+                            </div>
+                            <ColorScaleSelect
+                                key="scale"
+                                palette={params.palette}
+                                onChange={palette =>
+                                    setParams(params.min, params.max, palette)
+                                }
+                                style={styles.colorScale}
+                            />
                         </div>
                         <div style={styles.flexColumn}>
                             {params && (

@@ -76,7 +76,7 @@ const styles = {
     },
     buffer: {
         marginTop: 12,
-    }
+    },
 };
 
 export class EventDialog extends Component {
@@ -269,7 +269,7 @@ export class EventDialog extends Component {
                 </Tab>
                 <Tab value="style" label={i18n.t('Style')}>
                     <div style={styles.flexColumnFlow}>
-                        <div style={styles.select}>
+                        <div style={{ ...styles.select, height: 140 }}>
                             <ImageSelect
                                 id="cluster"
                                 img="images/cluster.png"

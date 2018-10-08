@@ -425,6 +425,7 @@ export class ThematicDialog extends Component {
                                 ...styles.flexFull,
                                 marginTop: -12,
                                 marginLeft: -12,
+                                flexBasis: 70,
                             }}
                         >
                             <TextField
