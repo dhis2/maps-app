@@ -59,11 +59,12 @@ const ContextMenu = (props, context) => {
         onRelocateStart,
         showEarthEngineValue,
         classes,
+        theme,
     } = props;
 
     const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
-    const iconColor = '#777';
-    const iconDisabledColor = '#eee';
+    const iconColor = theme.colors.greyBlack;
+    const iconDisabledColor = theme.colors.greyLight;
     let coordinate = props.coordinate;
     let isPoint;
     let attr = {};
@@ -101,13 +102,13 @@ const ContextMenu = (props, context) => {
                         className={classes.menuItem}
                     >
                         <ListItemIcon className={classes.icon}>
-                            <ArrowUpwardIcon 
+                            <ArrowUpwardIcon
                                 nativeColor={
                                     attr.hasCoordinatesUp
                                         ? iconColor
                                         : iconDisabledColor
                                 }
-                                style={styles.icon} 
+                                style={styles.icon}
                             />
                         </ListItemIcon>
                         <ListItemText 
@@ -301,4 +302,8 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(ContextMenu));
+)(
+    withStyles(styles, {
+        withTheme: true,
+    })(ContextMenu)
+);

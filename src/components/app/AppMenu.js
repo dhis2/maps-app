@@ -6,7 +6,7 @@ import AddLayer from '../layers/layers/AddLayer';
 import FileMenu from './FileMenu';
 import InterpretationsToggle from '../interpretations/InterpretationsToggle';
 
-const styles = {
+const styles = theme => ({
     toolbar: {
         position: 'absolute',
         width: '100%',
@@ -14,15 +14,22 @@ const styles = {
         minHeight: 40,
         paddingLeft: 0,
         paddingRight: 0,
-        backgroundColor: '#f3f3f3',
-        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.227451)',
         zIndex: 1200,
-    }
-};
+
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: `0 1px 1px 0 ${theme.palette.shadow}`,
+    },
+    divider: {
+        // TODO: make this a standalone component for re-use as a generic vertical divider
+        height: '100%',
+        borderRight: `1px solid ${theme.palette.divider}`,
+    },
+});
 
 export const AppMenu = ({ classes }) => (
     <Toolbar variant="dense" className={classes.toolbar}>
         <AddLayer />
+        <span className={classes.divider} />
         <FileMenu />
         <InterpretationsToggle />
     </Toolbar>

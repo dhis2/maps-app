@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
@@ -11,13 +11,17 @@ import Tooltip from '@material-ui/core/Tooltip';
 import OpacitySlider from './OpacitySlider';
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu';
 
-const styles = {
+const styles = theme => ({
     toolbar: {
         position: 'relative',
-        backgroundColor: '#eee',
         height: 32,
         minHeight: 32,
         padding: '0 8px',
+        backgroundColor: theme.palette.background.paper,
+        borderTop: `1px solid ${theme.palette.divider}`,
+    },
+    spacer: {
+        marginRight: 16,
     },
     button: {
         float: 'left',
@@ -30,10 +34,10 @@ const styles = {
         height: 32,
         padding: 4,
         position: 'absolute',
-        right: 8,
+        right: 4,
         top: 0,
     },
-};
+});
 
 export const LayerToolbar = ({
     opacity,
@@ -48,11 +52,14 @@ export const LayerToolbar = ({
     return (
         <Toolbar className={classes.toolbar}>
             {onEdit && (
-                <Tooltip key="edit" title={i18n.t('Edit')}>
-                    <IconButton className={classes.button} onClick={onEdit}>
-                        <CreateIcon />
-                    </IconButton>
-                </Tooltip>
+                <Fragment>
+                    <Tooltip key="edit" title={i18n.t('Edit')}>
+                        <IconButton className={classes.button} onClick={onEdit}>
+                            <CreateIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <span className={classes.spacer} />
+                </Fragment>
             )}
             <Tooltip title={i18n.t('Toggle visibility')}>
                 <IconButton

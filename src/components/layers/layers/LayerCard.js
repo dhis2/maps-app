@@ -115,7 +115,7 @@ const LayerCard = props => {
                 title={name}
                 subheader={legend && legend.period ? legend.period : null}
                 action={[
-                    <SortableHandle key="handle" color="#757575" />,
+                    <SortableHandle key="handle" />,
                     <Tooltip key="expand" title={i18n.t('Collapse')}>
                         <IconButton
                             className={classes.expand}

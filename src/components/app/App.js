@@ -1,8 +1,9 @@
 import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import appTheme from './app.theme'; // TODO: Delete file
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import OldMuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; // TODO: REMOVE (currently needed for FileMenu in d2-ui)
+import { muiTheme } from '../../constants/dhis2.theme';
 import MapProvider from '../map/MapProvider';
 import AppHeader from './AppHeader';
 import AppMenu from './AppMenu';
@@ -33,27 +34,27 @@ export class App extends Component {
         };
     }
 
-    // TODO: Remove MuiThemeProvider
-    // <MuiThemeProvider muiTheme={appTheme}>
     render() {
         return (
             <React.Fragment>
-                <MuiThemeProvider>
-                    <MapProvider>
-                        <div id="dhis-gis-container">
-                            <AppHeader />
-                            <AppMenu />
-                            <InterpretationsPanel />
-                            <LayersPanel />
-                            <LayersToggle />
-                            <Map />
-                            <BottomPanel />
-                            <LayerEdit />
-                            <ContextMenu />
-                            <AlertSnackbar />
-                            <Message />
-                        </div>
-                    </MapProvider>
+                <MuiThemeProvider theme={muiTheme}>
+                    <OldMuiThemeProvider>
+                        <MapProvider>
+                            <div id="dhis-gis-container">
+                                <AppHeader />
+                                <AppMenu />
+                                <InterpretationsPanel />
+                                <LayersPanel />
+                                <LayersToggle />
+                                <Map />
+                                <BottomPanel />
+                                <LayerEdit />
+                                <ContextMenu />
+                                <AlertSnackbar />
+                                <Message />
+                            </div>
+                        </MapProvider>
+                    </OldMuiThemeProvider>
                 </MuiThemeProvider>
             </React.Fragment>
         );

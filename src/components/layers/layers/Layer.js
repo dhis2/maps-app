@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = theme => ({
     container: {
         float: 'left',
         width: 120,
@@ -14,19 +14,19 @@ const styles = {
 
     image: {
         boxSizing: 'border-box',
-        border: '1px solid #555',
+        border: `1px solid ${theme.palette.divider}`,
         width: 120,
         height: 120,
     },
 
     noImage: {
         boxSizing: 'border-box',
-        border: '1px solid #555',
+        border: `1px solid ${theme.palette.divider}`,
         width: 120,
         height: 120,
         lineHeight: '120px',
-        background: '#eee',
-        color: '#ccc',
+        background: theme.palette.background.default,
+        color: theme.palette.text.hint,
         fontSize: 12,
         textAlign: 'center',
         marginBottom: 4,
@@ -34,13 +34,14 @@ const styles = {
 
     name: {
         fontSize: 14,
-        color: '#333',
+        color: theme.palette.text.secondary,
         paddingBottom: 20,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        textAlign: 'center',
     },
-};
+});
 
 const Layer = ({ classes, layer, onClick }) => {
     const { img, type, name } = layer;

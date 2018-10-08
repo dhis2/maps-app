@@ -9,25 +9,24 @@ import AddLayerPopover from './AddLayerPopover';
 import { openLayersDialog } from '../../../actions/layers';
 import { LAYERS_PANEL_WIDTH } from '../../../constants/layout';
 
-const styles = theme => ({
+const styles = {
     button: {
         boxSizing: 'border-box',
         width: LAYERS_PANEL_WIDTH + 1,
-        borderRight: '1px solid #ddd',
         paddingLeft: 18,
         justifyContent: 'flex-start',
+        borderRadius: 0,
     },
     label: {
         textTransform: 'none',
         fontSize: 16,
         fontWeight: 'normal',
-        color: '#333',
         justifyContent: 'initial',
     },
     icon: {
         marginRight: 8,
     },
-});
+};
 
 export class AddLayer extends Component {
     static propTypes = {

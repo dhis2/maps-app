@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/lab/Slider'; // TODO: Change when in core
 
-const styles = {
-    slider: {
-        // float: 'left',
+const styles = theme => ({
+    root: {
         width: 100,
-        //marginBottom: 0,
+        paddingLeft: 4,
     },
-};
+    track: {
+        backgroundColor: theme.palette.action.active,
+    },
+    thumb: {
+        backgroundColor: theme.palette.action.active,
+    },
+});
 
 const OpacitySlider = ({ opacity, onChange, classes }) => (
     <Slider
@@ -17,7 +22,7 @@ const OpacitySlider = ({ opacity, onChange, classes }) => (
         min={0}
         max={1}
         onChange={(evt, opacity) => onChange(opacity)}
-        className={classes.slider}
+        classes={classes}
     />
 );
 

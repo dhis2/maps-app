@@ -8,12 +8,12 @@ import StarIcon from '@material-ui/icons/Star';
 import HomeIcon from '@material-ui/icons/Home';
 import { LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
-const styles = {
+const styles = theme => ({
     header: {
         position: 'relative',
         boxSizing: 'border-box',
         height: 48,
-        borderBottom: '1px solid #ddd',
+        borderBottom: `1px solid ${theme.palette.divider}`,
     },
     logo: {
         boxSizing: 'border-box',
@@ -36,23 +36,20 @@ const styles = {
         marginLeft: 16,
     },
     noFavorite: {
-        color: '#aaa',
+        color: theme.palette.text.disabled,
         fontStyle: 'italic',
     },
     star: {
         verticalAlign: 'middle',
         marginTop: -5,
         marginRight: 8,
-        fill: '#bbb',
+        color: theme.colors.grey,
     },
     homeBtn: {
         position: 'absolute',
         right: 0,
     },
-    homeIcon: {
-        fill: '#777',
-    },
-};
+});
 
 export const AppHeader = ({ name = '', classes }) => (
     <div className={classes.header}>
@@ -75,7 +72,11 @@ export const AppHeader = ({ name = '', classes }) => (
                 </g>
             </svg>
         </div>
-        <div style={{ ...styles.title, ...(!name ? styles.noFavorite : {}) }}>
+        <div
+            className={
+                name ? classes.title : `${classes.title} ${classes.noFavorite}`
+            }
+        >
             {name ? (
                 <span>
                     <StarIcon className={classes.star} />
