@@ -70,7 +70,7 @@ export const layerDialogStyles = {
     },
     flexThird: {
         maxWidth: 280,
-        flex: '33%',
+        flex: 72, // 33% not wokring in IE 11
         boxSizing: 'border-box',
         borderLeft: '12px solid #fff',
         borderRight: '12px solid #fff',
