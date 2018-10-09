@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "31.0.6",
+    "version": "31.0.7",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -38,7 +38,7 @@
     },
     "dependencies": {
         "@dhis2/d2-i18n": "^1.0.4",
-        "@dhis2/d2-ui-file-menu": "^3.1.0",
+        "@dhis2/d2-ui-file-menu": "3.2.1",
         "@dhis2/d2-ui-interpretations": "^1.1.12",
         "@dhis2/d2-ui-org-unit-tree": "^1.0.13",
         "@dhis2/gis-api": "30.0.0",
@@ -73,8 +73,8 @@
         "whatwg-fetch": "^3.0.0"
     },
     "devDependencies": {
-        "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-        "babel-runtime": "^6.26.0",
+        "@dhis2/d2-i18n-extract": "^1.0.7",
+        "@dhis2/d2-i18n-generate": "^1.0.19",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.2",
@@ -82,15 +82,15 @@
         "babel-loader": "^7.1.2",
         "babel-plugin-istanbul": "^4.1.4",
         "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+        "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
         "babel-plugin-transform-object-assign": "^6.22.0",
         "babel-polyfill": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
         "babel-preset-stage-2": "^6.24.1",
+        "babel-runtime": "^6.26.0",
         "chai": "^4.1.2",
         "css-loader": "^0.28.10",
-        "@dhis2/d2-i18n-extract": "^1.0.7",
-        "@dhis2/d2-i18n-generate": "^1.0.19",
         "d2-manifest": "^1.0.0",
         "enzyme": "^3.3.0",
         "enzyme-adapter-react-16": "^1.1.1",
