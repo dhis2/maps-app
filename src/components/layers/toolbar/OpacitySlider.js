@@ -27,4 +27,8 @@ OpacitySlider.propTypes = {
     onChange: PropTypes.func.isRequired,
 };
 
+OpacitySlider.defaultProps = {
+    opacity: 1,
+};
+
 export default OpacitySlider;
