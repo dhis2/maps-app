@@ -94,4 +94,8 @@ LayerToolbar.propTypes = {
     onEdit: PropTypes.func,
 };
 
+LayerToolbar.defaultProps = {
+    opacity: 1,
+};
+
 export default withStyles(styles)(LayerToolbar);
