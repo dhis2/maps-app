@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { OrgUnitTree } from '@dhis2/d2-ui-org-unit-tree';
+import {
+    OrgUnitTree,
+    OrgUnitTreeMultipleRoots,
+} from '@dhis2/d2-ui-org-unit-tree';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
 
 const styles = {
@@ -36,7 +39,7 @@ export class OrgUnitTreeMaps extends Component {
     static propTypes = {
         theme: PropTypes.object.isRequired,
         classes: PropTypes.object.isRequired,
-        root: PropTypes.object,
+        roots: PropTypes.array,
         selected: PropTypes.array,
         disabled: PropTypes.bool,
         onClick: PropTypes.func,
@@ -52,9 +55,9 @@ export class OrgUnitTreeMaps extends Component {
     }
 
     render() {
-        const { theme, classes, root, selected, disabled } = this.props;
+        const { theme, classes, roots, selected, disabled } = this.props;
 
-        if (!root) {
+        if (!roots) {
             // TODO: Add loading indicator
             return null;
         }
@@ -70,12 +73,12 @@ export class OrgUnitTreeMaps extends Component {
 
         return (
             <div className={classes.container}>
-                <OrgUnitTree
-                    root={root}
+                <OrgUnitTreeMultipleRoots
+                    roots={roots}
                     selected={selected
                         .filter(item => item.path)
-                        .map(item => item.path)} // TODO: Need to select all
-                    initiallyExpanded={[root.path]}
+                        .map(item => item.path)}
+                    initiallyExpanded={roots.map(root => root.path)}
                     hideCheckboxes={true}
                     hideMemberCount={true}
                     onSelectClick={this.onSelectClick}
@@ -102,7 +105,7 @@ export class OrgUnitTreeMaps extends Component {
 
 export default connect(
     state => ({
-        root: state.orgUnitTree,
+        roots: state.orgUnitTree,
     }),
     { loadOrgUnitTree }
 )(
