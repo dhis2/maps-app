@@ -163,7 +163,7 @@
     redux-logger "^3.0.6"
     redux-thunk "^2.2.0"
 
-"@dhis2/d2-ui-file-menu@3.2.1":
+"@dhis2/d2-ui-file-menu@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-file-menu/-/d2-ui-file-menu-3.2.1.tgz#a71324b61343a797a80446f20eeca42dff2c64d7"
   dependencies:
