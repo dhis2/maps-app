@@ -42,9 +42,7 @@ export const loadOrgUnitTree = action$ =>
                         'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
                 })
             )
-            .then(modelCollection =>
-                setOrgUnitTree(modelCollection.toArray()[0])
-            )
+            .then(modelCollection => setOrgUnitTree(modelCollection.toArray()))
             .catch(errorActionCreator(types.ORGANISATION_UNIT_TREE_LOAD_ERROR))
     );
 
