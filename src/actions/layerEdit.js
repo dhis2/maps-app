@@ -107,7 +107,7 @@ export const toggleOrgUnit = orgUnit => ({
 
 // Set organisation unit tree root as default selected
 export const setOrgUnitRoot = () => (dispatch, getState) => {
-    const root = getState().orgUnitTree;
+    const root = getState().orgUnitTree[0]; // First root node
     if (root) {
         dispatch(toggleOrgUnit(root));
     }
