@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {
-    OrgUnitTree,
-    OrgUnitTreeMultipleRoots,
-} from '@dhis2/d2-ui-org-unit-tree';
+import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
 
 const styles = {
