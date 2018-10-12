@@ -23,6 +23,7 @@
  * Modified by heshan0131 to allow loading external stylesheets and inline webfonts
  */
 
+ /*
 import window, {
     Blob,
     Image,
@@ -42,6 +43,7 @@ import window, {
     CSSRule,
     fetch,
 } from 'global/window';
+*/
 
 const util = newUtil();
 const inliner = newInliner();
