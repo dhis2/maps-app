@@ -52,6 +52,7 @@
         "d3-format": "^1.3.2",
         "d3-time-format": "^2.1.3",
         "file-saver": "^1.3.3",
+        "global": "^4.3.2",
         "husky": "next",
         "lodash": "^4.17.5",
         "loglevel": "^1.6.1",
