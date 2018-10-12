@@ -190,7 +190,7 @@ export class EventDialog extends Component {
         const period = getPeriodFromFilters(filters) || {
             id: 'START_END_DATES',
         };
-        console.log('rows', rows);
+
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (

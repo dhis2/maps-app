@@ -26,9 +26,9 @@ export const BUFFER_MAX_LINE_OPACITY = 0.7;
 
 /* CLASSIFICATION */
 
-export const CLASSIFICATION_PREDEFINED = '1';
-export const CLASSIFICATION_EQUAL_INTERVALS = '2';
-export const CLASSIFICATION_EQUAL_COUNTS = '3';
+export const CLASSIFICATION_PREDEFINED = 1;
+export const CLASSIFICATION_EQUAL_INTERVALS = 2;
+export const CLASSIFICATION_EQUAL_COUNTS = 3;
 
 export const classificationTypes = [
     {
