@@ -15,7 +15,7 @@ const fields = [
 const geometryTypesMap = {
     POINT: 'Point',
     POLYGON: 'Polygon',
-    MULTIPOLYGON: 'MultiPolygon',
+    MULTI_POLYGON: 'MultiPolygon',
 };
 
 // Valid geometry types for TEIs
