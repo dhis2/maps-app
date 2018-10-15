@@ -10,7 +10,16 @@ const fields = [
     'featureType',
     'coordinates',
 ];
-const geometryTypes = ['POINT', 'POLYGON'];
+
+// Mapping netween DHIS2 types and GeoJSON types
+const geometryTypesMap = {
+    POINT: 'Point',
+    POLYGON: 'Polygon',
+    MULTIPOLYGON: 'MultiPolygon',
+};
+
+// Valid geometry types for TEIs
+const geometryTypes = Object.keys(geometryTypesMap);
 
 const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
@@ -27,10 +36,7 @@ const trackedEntityLoader = async config => {
         eventPointColor,
         eventPointRadius,
         areaRadius,
-        styleDataItem,
     } = config;
-
-    console.log(styleDataItem);
 
     const name = program ? program.name : i18n.t('Tracked entity');
 
@@ -103,13 +109,13 @@ const trackedEntityLoader = async config => {
 };
 
 const toGeoJson = instances =>
-    instances.map(instance => ({
+    instances.map(({ id, featureType, coordinates }) => ({
         type: 'Feature',
         geometry: {
-            type: instance.featureType === 'POINT' ? 'Point' : 'MultiPolygon',
-            coordinates: JSON.parse(instance.coordinates),
+            type: geometryTypesMap[featureType],
+            coordinates: JSON.parse(coordinates),
         },
-        id: instance.id,
+        id,
         properties: {},
     }));
 
