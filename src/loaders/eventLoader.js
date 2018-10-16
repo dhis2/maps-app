@@ -109,6 +109,8 @@ const eventLoader = async layerConfig => {
             }
         }
 
+        console.log('dataFilters', dataFilters);
+
         config.legend.filters =
             dataFilters &&
             getFiltersAsText(dataFilters, {
