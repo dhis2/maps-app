@@ -20,18 +20,23 @@ const styles = theme => ({
         borderRadius: 0,
         boxShadow: '3px 1px 5px -1px rgba(0, 0, 0, 0.2)',
         zIndex: 1100,
-    }
+    },
 });
 
 // This expand/collapse toggle is separate from LayersPanel to avoid overflow issue
-const LayersToggle = ({ isOpen, openLayersPanel, closeLayersPanel, classes }) => (
+const LayersToggle = ({
+    isOpen,
+    openLayersPanel,
+    closeLayersPanel,
+    classes,
+}) => (
     <IconButton
         onClick={isOpen ? closeLayersPanel : openLayersPanel}
         className={classes.button}
         disableTouchRipple={true}
         style={isOpen ? {} : { left: 0 }}
     >
-        {isOpen ? <LeftIcon /> : <RightIcon /> }
+        {isOpen ? <LeftIcon /> : <RightIcon />}
     </IconButton>
 );
 

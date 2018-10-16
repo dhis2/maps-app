@@ -25,7 +25,7 @@ const styles = {
         width: 'calc((100% - 48px) / 8 * 3)',
     },
     datePicker: {
-        width: 165,
+        width: 164,
     },
 };
 
