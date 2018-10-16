@@ -103,9 +103,7 @@ const eventLoader = async layerConfig => {
             }
 
             if (areaRadius) {
-                config.legend.items.forEach(
-                    item => (item.name += ` + ${areaRadius} ${'m'} ${'buffer'}`)
-                );
+                config.legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
             }
         }
 
