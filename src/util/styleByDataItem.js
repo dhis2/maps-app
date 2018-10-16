@@ -1,12 +1,12 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { curry } from 'lodash/fp';
-import { getLegendItemForValue } from '../util/classify';
+import { getLegendItemForValue } from './classify';
 import {
     loadLegendSet,
     getAutomaticLegendItems,
     getPredefinedLegendItems,
-} from '../util/legend';
+} from './legend';
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
@@ -48,7 +48,6 @@ export const styleByBoolean = async config => {
             return feature;
         }
 
-        // TODO: Not sure if return values are '1' and '0'
         return {
             ...feature,
             properties: {
@@ -132,6 +131,10 @@ export const styleByNumeric = async config => {
     config.data = config.data.map(feature => {
         const value = Number(feature.properties[styleDataItem.id]);
         const legendItem = getLegendItem(value);
+
+        if (legendItem) {
+            legendItem.count++;
+        }
 
         return {
             ...feature,
