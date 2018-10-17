@@ -197,9 +197,9 @@ class EventLayer extends Layer {
 
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
-                content += `<tr><th>${styleDataItem.name}</th><td>${
-                    props.value
-                }</td></tr>`;
+                content += `<tr><th>${
+                    styleDataItem.name
+                }</th><td>${props.value || i18n.t('Not set')}</td></tr>`;
             }
 
             if (Array.isArray(dataValues)) {
@@ -215,9 +215,8 @@ class EventLayer extends Layer {
                             value = displayEl.optionSet[value];
                         }
 
-                        content += `<tr><th>${
-                            displayEl.name
-                        }</th><td>${value}</td></tr>`;
+                        content += `<tr><th>${displayEl.name}</th><td>${value ||
+                            i18n.t('Not set')}</td></tr>`;
                     }
                 });
 
