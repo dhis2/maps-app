@@ -197,22 +197,27 @@ class PluginMap extends Component {
 
         // Disabled alerts as one layer without data will result in no map
         // No data warning added to legend instead
-        const alerts = [] // getMapAlerts(this.props); // ADDED
+        const alerts = []; // getMapAlerts(this.props); // ADDED
 
         return !alerts.length ? (
             <div ref={node => (this.node = node)} style={styles.map}>
-                {mapViews.filter(layer => layer.isLoaded).map(config => {
-                    const Overlay = layerType[config.layer] || Layer;
+                {mapViews
+                    .filter(layer => layer.isLoaded)
+                    .map((config, index) => {
+                        const Overlay = layerType[config.layer] || Layer;
 
-                    return (
-                        <Overlay
-                            key={config.id}
-                            openContextMenu={this.onOpenContextMenu.bind(this)}
-                            {...config}
-                            isPlugin={true}
-                        />
-                    );
-                })}
+                        return (
+                            <Overlay
+                                key={config.id}
+                                index={index}
+                                openContextMenu={this.onOpenContextMenu.bind(
+                                    this
+                                )}
+                                {...config}
+                                isPlugin={true}
+                            />
+                        );
+                    })}
                 {basemap.isVisible !== false && (
                     <Layer key="basemap" {...basemap} />
                 )}

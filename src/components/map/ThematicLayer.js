@@ -39,7 +39,6 @@ class ThematicLayer extends Layer {
 
         // Create legend in HTML if showed as plugin
         if (isPlugin && legend) {
-            console.log('Thematic', legend);
             map.legend =
                 (map.legend || '') + getHtmlLegend(legend, data.length > 0);
         }

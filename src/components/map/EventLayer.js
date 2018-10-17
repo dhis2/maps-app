@@ -124,7 +124,6 @@ class EventLayer extends Layer {
 
         // Create legend in HTML if showed as plugin
         if (isPlugin && legend) {
-            console.log('Event', legend);
             map.legend =
                 (map.legend || '') + getHtmlLegend(legend, data.length > 0);
         }
