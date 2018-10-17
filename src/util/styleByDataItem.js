@@ -89,7 +89,7 @@ export const styleByNumeric = async config => {
         data,
     } = config;
 
-    // If legend set (can be 1 or '1')
+    // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
         // Load legend set from server
         const legendSet = await loadLegendSet(config.legendSet);
