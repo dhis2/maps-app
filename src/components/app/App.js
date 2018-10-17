@@ -16,6 +16,7 @@ import ContextMenu from '../map/ContextMenu';
 import AlertSnackbar from '../alerts/AlertSnackbar';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
+import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 
 // Makes d2 available in all child components
 // Not using AppWithD2 from d2-ui because it requires d2 to be a promise
@@ -52,6 +53,7 @@ export class App extends Component {
                                 <ContextMenu />
                                 <AlertSnackbar />
                                 <Message />
+                                <DataDownloadDialog />
                             </div>
                         </MapProvider>
                     </OldMuiThemeProvider>

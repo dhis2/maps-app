@@ -194,18 +194,34 @@ export const addStyleDataItem = (dataItems, styleDataItem) =>
     styleDataItem
         ? [
               ...dataItems,
-              styleDataItem && {
+              {
                   dimension: styleDataItem.id,
                   name: styleDataItem.name,
               },
           ]
         : [...dataItems];
 
-const createEventFeature = (headers, names, event, eventCoordinateField) => {
+const findIndex = (array, predicate) => {
+    var index = -1;
+    for (var i = 0; i < array.length; ++i) {
+        if (predicate(array[i], i, array)) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+};
+
+export const createEventFeature = (
+    headers,
+    names,
+    event,
+    eventCoordinateField
+) => {
     const properties = event.reduce(
         (props, value, i) => ({
             ...props,
-            [headers[i].name]: names[value] || value,
+            [names[headers[i].name] || headers[i].name]: value,
         }),
         {}
     );
@@ -214,7 +230,11 @@ const createEventFeature = (headers, names, event, eventCoordinateField) => {
 
     if (eventCoordinateField) {
         // If coordinate field other than event location
-        const eventCoord = properties[eventCoordinateField];
+        const coordCol = findIndex(
+            headers,
+            h => h.name === eventCoordinateField
+        );
+        const eventCoord = event[coordCol];
 
         if (Array.isArray(eventCoord)) {
             coordinates = eventCoord;
@@ -225,7 +245,9 @@ const createEventFeature = (headers, names, event, eventCoordinateField) => {
         }
     } else {
         // Use event location
-        coordinates = [properties.longitude, properties.latitude]; // Event location
+        const lonCol = findIndex(headers, h => h.name === 'longitude');
+        const latCol = findIndex(headers, h => h.name === 'latitude');
+        coordinates = [event[lonCol], event[latCol]]; // Event location
     }
 
     return {
