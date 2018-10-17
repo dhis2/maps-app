@@ -20,6 +20,9 @@ const styles = theme => ({
         borderRadius: 0,
         boxShadow: '3px 1px 5px -1px rgba(0, 0, 0, 0.2)',
         zIndex: 1100,
+        '&:hover': {
+            backgroundColor: theme.palette.background.hover,
+        },
     },
 });
 
