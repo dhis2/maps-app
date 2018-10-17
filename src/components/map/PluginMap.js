@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import d2map from '@dhis2/gis-api/build';
+import d2map from '@dhis2/gis-api';
 import ContextMenu from './PluginContextMenu';
 import Layer from './Layer';
 import EventLayer from './EventLayer';

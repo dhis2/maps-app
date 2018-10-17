@@ -253,9 +253,9 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/gis-api@30.0.0":
-  version "30.0.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-30.0.0.tgz#6b2da8fc6b23fbb573cf9496559be18c97e11728"
+"@dhis2/gis-api@31.0.3":
+  version "31.0.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-31.0.3.tgz#94103e0b1c65ddcf82d3a15ef5a6f50de638f70e"
   dependencies:
     "@turf/buffer" "^5.1.5"
     d3-color "^1.0.3"
