@@ -102,17 +102,17 @@ export const getHtmlLegend = (
         <h2>${title} <span>${period}</span></h2>`;
 
     if (description) {
-        legend += `<div className="dhis2-legend-description">${description}</div>`;
+        legend += `<div class="dhis2-legend-description">${description}</div>`;
     }
 
     if (filters) {
-        legend += `<div className="dhis2-legend-filters">
+        legend += `<div class="dhis2-legend-filters">
             ${i18n.t('Filters')}: ${filters.join(', ')}
         </div>`;
     }
 
     if (unit) {
-        legend += `<div className="dhis2-legend-unit">${unit}</div>`;
+        legend += `<div class="dhis2-legend-unit">${unit}</div>`;
     }
 
     if (hasData) {
@@ -124,11 +124,11 @@ export const getHtmlLegend = (
     }
 
     if (explanation) {
-        legend += `<div className="dhis2-legend-explanation">${explanation}</div>`;
+        legend += `<div class="dhis2-legend-explanation">${explanation}</div>`;
     }
 
     if (source) {
-        legend += `<div className="dhis2-legend-source">
+        legend += `<div class="dhis2-legend-source">
                 Source:&nbsp;
                 ${
                     sourceUrl
