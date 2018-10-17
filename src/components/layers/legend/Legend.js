@@ -24,7 +24,6 @@ export const styles = {
     },
     explanation: {
         paddingTop: 16,
-        // fontSize: 12,
     },
     source: {
         paddingTop: 16,

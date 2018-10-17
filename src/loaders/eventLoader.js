@@ -58,6 +58,7 @@ const eventLoader = async layerConfig => {
     config.name = programStage.name;
 
     config.legend = {
+        title: config.name,
         period: period
             ? getPeriodNameFromId(period.id)
             : `${formatTime(startDate)} - ${formatTime(endDate)}`,
