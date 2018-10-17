@@ -41,7 +41,7 @@
         "@dhis2/d2-ui-file-menu": "^3.2.1",
         "@dhis2/d2-ui-interpretations": "^1.1.12",
         "@dhis2/d2-ui-org-unit-tree": "^1.0.13",
-        "@dhis2/gis-api": "30.0.0",
+        "@dhis2/gis-api": "31.0.3",
         "@material-ui/core": "^3.0.3",
         "@material-ui/icons": "^3.0.1",
         "@material-ui/lab": "^3.0.0-alpha.15",
