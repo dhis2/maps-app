@@ -13,3 +13,4 @@ yarn-error.log
 manifest.webapp
 coverage
 src/locales/
+.netlify
