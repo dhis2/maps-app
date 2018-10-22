@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { sortBy } from 'lodash/fp';
 import { pick } from 'lodash/fp';
@@ -81,3 +82,70 @@ export const getAutomaticLegendItems = (
         color: colors[index],
     }));
 };
+
+// Used for legend in map plugins
+export const getHtmlLegend = (
+    {
+        title,
+        period,
+        description,
+        filters,
+        unit,
+        items,
+        explanation,
+        source,
+        sourceUrl,
+    },
+    hasData
+) => {
+    let legend = `<div class="dhis2-legend">
+        <h2>${title} <span>${period}</span></h2>`;
+
+    if (description) {
+        legend += `<div class="dhis2-legend-description">${description}</div>`;
+    }
+
+    if (filters) {
+        legend += `<div class="dhis2-legend-filters">
+            ${i18n.t('Filters')}: ${filters.join(', ')}
+        </div>`;
+    }
+
+    if (unit) {
+        legend += `<div class="dhis2-legend-unit">${unit}</div>`;
+    }
+
+    if (hasData) {
+        legend += `<dl class="dhis2-legend-automatic">${items
+            .map(getHtmlLegendItem)
+            .join('')}</dl>`;
+    } else {
+        `<p><em>${i18n.t('No data found')}</em></p>`;
+    }
+
+    if (explanation) {
+        legend += `<div class="dhis2-legend-explanation">${explanation}</div>`;
+    }
+
+    if (source) {
+        legend += `<div class="dhis2-legend-source">
+                Source:&nbsp;
+                ${
+                    sourceUrl
+                        ? `<a href=${sourceUrl}>{source}</a>`
+                        : `<span>${source}</span>`
+                }
+            </div>`;
+    }
+
+    legend += `</div>`;
+
+    return legend;
+};
+
+// Helper function to get a legend item
+const getHtmlLegendItem = ({ color, name, startValue, endValue, count }) => `
+  <dt style="background-color:${color}"></dt>
+  <dd>${name || ''} ${!isNaN(startValue) ? `${startValue} - ${endValue}` : ''} 
+    ${count !== undefined ? `(${count})` : ''}
+  </dd>`;

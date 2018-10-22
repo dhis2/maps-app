@@ -38,7 +38,11 @@ export class NumericLegendStyle extends Component {
         return (
             <div style={style}>
                 <LegendTypeSelect method={method} />
-                {method == 1 ? <LegendSetSelect /> : <Classification />}
+                {method === CLASSIFICATION_PREDEFINED ? (
+                    <LegendSetSelect />
+                ) : (
+                    <Classification />
+                )}
             </div>
         );
     }
@@ -61,7 +65,7 @@ export class NumericLegendStyle extends Component {
             }
         }
 
-        if (method !== prevMethod && method == CLASSIFICATION_PREDEFINED) {
+        if (method !== prevMethod && method === CLASSIFICATION_PREDEFINED) {
             setLegendSet(dataItem.legendSet);
         }
     }

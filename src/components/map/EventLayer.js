@@ -11,6 +11,7 @@ import {
 } from '../../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
+import { getHtmlLegend } from '../../util/legend';
 import { getDisplayPropertyUrl } from '../../util/helpers';
 
 class EventLayer extends Layer {
@@ -34,6 +35,8 @@ class EventLayer extends Layer {
             styleDataItem,
             areaRadius,
             relativePeriodDate,
+            legend,
+            isPlugin,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -119,6 +122,12 @@ class EventLayer extends Layer {
         // Create and add event layer based on config object
         this.layer = map.createLayer(config).addTo(map);
 
+        // Create legend in HTML if showed as plugin
+        if (isPlugin && legend) {
+            map.legend =
+                (map.legend || '') + getHtmlLegend(legend, data.length > 0);
+        }
+
         const layerBounds = this.layer.getBounds();
 
         if (layerBounds.isValid()) {
@@ -188,9 +197,9 @@ class EventLayer extends Layer {
 
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
-                content += `<tr><th>${styleDataItem.name}</th><td>${
-                    props.value
-                }</td></tr>`;
+                content += `<tr><th>${
+                    styleDataItem.name
+                }</th><td>${props.value || i18n.t('Not set')}</td></tr>`;
             }
 
             if (Array.isArray(dataValues)) {
@@ -206,9 +215,8 @@ class EventLayer extends Layer {
                             value = displayEl.optionSet[value];
                         }
 
-                        content += `<tr><th>${
-                            displayEl.name
-                        }</th><td>${value}</td></tr>`;
+                        content += `<tr><th>${displayEl.name}</th><td>${value ||
+                            i18n.t('Not set')}</td></tr>`;
                     }
                 });
 
