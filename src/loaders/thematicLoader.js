@@ -120,7 +120,7 @@ const getOrderedValues = data => {
 };
 
 // Load features and data values from api
-const loadData = async config => {
+export const loadData = async config => {
     const {
         rows,
         columns,

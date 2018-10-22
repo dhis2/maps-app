@@ -11,11 +11,9 @@ export const closeDataDownloadDialog = () => ({
     type: types.DATA_DOWNLOAD_CLOSE_DIALOG,
 });
 
-export const startDataDownload = layer => ({
+export const startDataDownload = (layer, format, humanReadableKeys) => ({
     type: types.DATA_DOWNLOAD_START,
-    payload: {
-        layer,
-    },
+    payload: { layer, format, humanReadableKeys },
 });
 
 export const cancelDataDownload = () => ({

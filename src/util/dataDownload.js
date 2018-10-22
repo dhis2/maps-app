@@ -1,6 +1,10 @@
 import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
 // import { createSld } from './sld';
 
+export const META_DATA_FORMAT_ID = 'ID';
+export const META_DATA_FORMAT_NAME = 'Name';
+export const META_DATA_FORMAT_CODE = 'Code';
+
 const standardizeFilename = rawName => rawName.replace(/\s+/g, '_');
 export const createGeoJsonBlob = data => {
     const geojson = {
@@ -12,9 +16,13 @@ export const createGeoJsonBlob = data => {
         type: 'application/json;charset=utf-8',
     });
     return blob;
-}
+};
+
 export const downloadGeoJson = ({ name, data }) => {
-    FileSaver.saveAs(createGeoJsonBlob(data), standardizeFilename(name) + '.geojson');
+    FileSaver.saveAs(
+        createGeoJsonBlob(data),
+        standardizeFilename(name) + '.geojson'
+    );
 };
 
 // export const downloadStyle = name => {

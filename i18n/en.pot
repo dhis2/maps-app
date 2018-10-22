@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-10-17T14:42:44.097Z\n"
-"PO-Revision-Date: 2018-10-17T14:42:44.097Z\n"
+"POT-Creation-Date: 2018-10-22T22:30:07.164Z\n"
+"PO-Revision-Date: 2018-10-22T22:30:07.164Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -299,13 +299,25 @@ msgstr ""
 msgid "Expand"
 msgstr ""
 
-msgid "Download Event Layer Data"
+msgid "Download Layer Data"
+msgstr ""
+
+msgid "The data for this layer will be downloaded in GeoJSON format."
+msgstr ""
+
+msgid "What is GeoJSON?"
+msgstr ""
+
+msgid "Please select the format for GeoJSON Feature keys"
+msgstr ""
+
+msgid "Meta-data ID Format"
+msgstr ""
+
+msgid "Output human-readable keys for non-dimension data attributes"
 msgstr ""
 
 msgid "Download"
-msgstr ""
-
-msgid "Key Format"
 msgstr ""
 
 msgid "deleted"

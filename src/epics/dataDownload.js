@@ -3,81 +3,79 @@ import { errorActionCreator } from '../actions/helpers';
 import { dataDownloadSuccess } from '../actions/dataDownload';
 
 import { getInstance as getD2 } from 'd2/lib/d2';
-import { downloadGeoJson } from '../util/dataDownload';
 import {
-    getApiResponseNames,
-    getOrgUnitsFromRows,
-    getPeriodFromFilters,
-} from '../util/analytics';
-import { isValidCoordinate } from '../util/map';
+    downloadGeoJson,
+    META_DATA_FORMAT_ID,
+    META_DATA_FORMAT_CODE,
+    META_DATA_FORMAT_NAME,
+} from '../util/dataDownload';
 import { getDisplayPropertyUrl } from '../util/helpers';
+
 import {
+    loadData as loadEventData,
     getAnalyticsRequest,
-    createEventFeature,
 } from '../loaders/eventLoader';
+
 import { combineEpics } from 'redux-observable';
 
-const getColumns = (d2, layer) =>
-    d2.models.programStage
-        .get(layer.programStage.id, {
-            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
-                d2
-            )},optionSet]]`,
-            paging: false,
-        })
-        .then(result => result.programStageDataElements)
-        .then(data =>
-            data.filter(el => el.displayInReports).map(el => ({
-                dimension: el.dataElement.id,
-                name: el.dataElement.name,
-            }))
+const formatEnum = {
+    [META_DATA_FORMAT_ID]: 'id',
+    [META_DATA_FORMAT_NAME]: 'name',
+    [META_DATA_FORMAT_CODE]: 'code',
+};
+
+const getEventColumns = async (layer, format) => {
+    const d2 = await getD2();
+    const result = await d2.models.programStage.get(layer.programStage.id, {
+        fields: `programStageDataElements[displayInReports,dataElement[id,code,${getDisplayPropertyUrl(
+            d2
+        )},optionSet]]`,
+        paging: false,
+    });
+    let formatKey = formatEnum[format];
+    return result.programStageDataElements
+        .filter(el => el.displayInReports)
+        .map(el => ({
+            dimension: el.dataElement.id,
+            name: el.dataElement[formatKey],
+        }));
+};
+
+const loadData = async (layer, format, humanReadableKeys) => {
+    const layerType = layer.layer;
+    if (layerType === 'event') {
+        const columns = await getEventColumns(layer, format);
+        const config = {
+            ...layer,
+            columns,
+            outputIdScheme: humanReadableKeys ? 'NAME' : 'ID',
+            columnNames: columns.reduce((res, col) => {
+                res[col.dimension] = col.name;
+                return res;
+            }, {}),
+        };
+        const result = await loadEventData(
+            await getAnalyticsRequest(config),
+            config
         );
-
-const makeRequest = (d2, layer, columns) =>
-    getAnalyticsRequest(
-        layer.program,
-        layer.programStage,
-        getPeriodFromFilters(layer.filters),
-        layer.startDate,
-        layer.endDate,
-        getOrgUnitsFromRows(layer.rows),
-        columns,
-        layer.eventCoordinateField,
-        layer.relativePeriodDate
-    ).then(req => d2.analytics.events.getQuery(req));
-
-const parseResponseToFeatures = (layer, response) =>
-    response.rows
-        .map(row =>
-            createEventFeature(
-                response.headers,
-                getApiResponseNames(response),
-                row,
-                layer.eventCoordinateField
-            )
-        )
-        .filter(feature => isValidCoordinate(feature.geometry.coordinates));
+        return result.data;
+    }
+    return layer.data;
+};
 
 const downloadData = action$ =>
-    action$.ofType(types.DATA_DOWNLOAD_START).concatMap(action =>
-        getD2()
-            .then(d2 => {
-                const layer = action.payload.layer;
-                const layerType = layer.layer;
-                if (layerType === 'event') {
-                    return getColumns(d2, layer)
-                        .then(columns => makeRequest(d2, layer, columns))
-                        .then(response =>
-                            parseResponseToFeatures(layer, response)
-                        );
-                }
-                return layer.data;
-            })
-            .then(data =>
-                downloadGeoJson({ name: action.payload.layer.name, data })
-            )
-            .then(() => dataDownloadSuccess())
-            .catch(errorActionCreator(types.DATA_DOWNLOAD_FAILURE))
-    );
+    action$.ofType(types.DATA_DOWNLOAD_START).concatMap(async action => {
+        try {
+            const { layer, format, humanReadableKeys } = action.payload;
+            const data = await loadData(layer, format, humanReadableKeys);
+            await downloadGeoJson({
+                name: layer.name,
+                data: data,
+            });
+            return dataDownloadSuccess();
+        } catch (e) {
+            return errorActionCreator(types.DATA_DOWNLOAD_FAILURE)(e);
+        }
+    });
 
 export default combineEpics(downloadData);

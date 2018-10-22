@@ -23,37 +23,21 @@ const eventLoader = async layerConfig => {
         columns,
         endDate,
         eventClustering,
-        eventCoordinateField,
         eventPointColor,
         eventPointRadius,
         filters,
-        program,
         programStage,
-        rows,
         startDate,
         styleDataItem,
         areaRadius,
-        relativePeriodDate,
     } = config;
 
-    const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
-    const dataItems = addStyleDataItem(columns, styleDataItem);
     const dataFilters = getFiltersFromColumns(columns);
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
-    let analyticsRequest = await getAnalyticsRequest(
-        program,
-        programStage,
-        period,
-        startDate,
-        endDate,
-        orgUnits,
-        dataItems,
-        eventCoordinateField,
-        relativePeriodDate
-    );
+    let analyticsRequest = await getAnalyticsRequest(config);
 
     config.name = programStage.name;
 
@@ -65,30 +49,16 @@ const eventLoader = async layerConfig => {
         items: [],
     };
 
-    let names;
-
     if (spatialSupport && eventClustering) {
-        const response = await d2.analytics.events.getCount(analyticsRequest);
+        const response = await getCount(analyticsRequest);
         config.bounds = getBounds(response.extent);
         config.serverCluster =
             useServerCluster(response.count) && !styleDataItem;
     }
 
     if (!config.serverCluster) {
-        const response = await d2.analytics.events.getQuery(analyticsRequest);
-
-        names = getApiResponseNames(response);
-
-        config.data = response.rows
-            .map(row =>
-                createEventFeature(
-                    response.headers,
-                    names,
-                    row,
-                    eventCoordinateField
-                )
-            )
-            .filter(feature => isValidCoordinate(feature.geometry.coordinates));
+        const { names, data, response } = await loadData(analyticsRequest);
+        config.data = data;
 
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
@@ -135,17 +105,22 @@ const getBounds = bbox => {
 const useServerCluster = count => count > 2000; // TODO: Use constant
 
 // Also used to query for server cluster in map/EventLayer.js
-export const getAnalyticsRequest = async (
+export const getAnalyticsRequest = async ({
     program,
     programStage,
-    period,
+    filters,
     startDate,
     endDate,
-    orgUnits,
-    dataItems,
+    rows,
+    columns,
+    styleDataItem,
     eventCoordinateField,
-    relativePeriodDate
-) => {
+    relativePeriodDate,
+}) => {
+    const orgUnits = getOrgUnitsFromRows(rows),
+        period = getPeriodFromFilters(filters);
+    let dataItems = addStyleDataItem(columns, styleDataItem);
+
     const d2 = await getD2();
 
     let analyticsRequest = new d2.analytics.request()
@@ -186,6 +161,40 @@ export const getAnalyticsRequest = async (
     }
 
     return analyticsRequest;
+};
+
+export const getCount = async request => {
+    const d2 = await getD2();
+    return await d2.analytics.events.getCount(request);
+};
+
+export const loadData = async (request, config) => {
+    const d2 = await getD2();
+    const response = await d2.analytics.events.getQuery(request);
+
+    const names = {
+        ...(config.outputIdScheme !== 'ID' // TODO: Pass this through the the request to support ID/NAME/CODE output natively.  Server bugfix needed.
+            ? getApiResponseNames(response)
+            : null),
+        ...config.columnNames,
+    };
+
+    const data = response.rows
+        .map(row =>
+            createEventFeature(
+                response.headers,
+                names,
+                row,
+                config.eventCoordinateField
+            )
+        )
+        .filter(feature => isValidCoordinate(feature.geometry.coordinates));
+
+    return {
+        data,
+        names,
+        response,
+    };
 };
 
 // Include column for data element used for styling
