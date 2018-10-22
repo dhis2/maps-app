@@ -22,6 +22,9 @@ export const styles = {
         marginLeft: 32,
         lineHeight: '24px',
     },
+    explanation: {
+        paddingTop: 16,
+    },
     source: {
         paddingTop: 16,
         fontSize: 12,
@@ -34,6 +37,7 @@ const Legend = ({
     filters,
     unit,
     items,
+    explanation,
     source,
     sourceUrl,
 }) => (
@@ -56,6 +60,9 @@ const Legend = ({
                 </tbody>
             </table>
         )}
+        {explanation && (
+            <div className={classes.explanation}>{explanation}</div>
+        )}
         {source && (
             <div className={classes.source}>
                 Source:&nbsp;
@@ -75,6 +82,7 @@ Legend.propTypes = {
     filters: PropTypes.array,
     unit: PropTypes.string,
     items: PropTypes.array,
+    explanation: PropTypes.string,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,
 };

@@ -26,13 +26,6 @@ const styles = {
         top: -8,
         float: 'left',
     },
-    /*
-    scale: {
-        float: 'left',
-        width: 190,
-        whiteSpace: 'nowrap',
-    },
-    */
 };
 
 const classRange = range(3, 10).map(num => ({ id: num, name: num.toString() })); // 3 - 9
@@ -52,12 +45,12 @@ const Classification = ({
         <SelectField
             key="classification"
             label={i18n.t('Classification')}
-            value={method ? String(method) : CLASSIFICATION_EQUAL_INTERVALS}
+            value={method || CLASSIFICATION_EQUAL_INTERVALS}
             items={classificationTypes.map(({ id, name }) => ({
                 id,
                 name: i18n.t(name),
             }))}
-            onChange={method => setClassification(Number(method.id))}
+            onChange={method => setClassification(method.id)}
             style={styles.select}
         />,
         <div key="scale">
@@ -73,7 +66,6 @@ const Classification = ({
             <ColorScaleSelect
                 palette={colorScale ? colorScale : defaultColorScale}
                 onChange={setColorScale}
-                // style={styles.scale}
                 width={190}
             />
             <div style={{ clear: 'both' }} />

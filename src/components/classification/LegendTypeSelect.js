@@ -22,25 +22,25 @@ const styles = {
 };
 
 // Select between user defined (automatic) and predefined legends
+// MUI RadioGroup/Radio only accepts strings as value
 export const LegendTypeSelect = ({ method, setClassification, classes }) => (
     <RadioGroup
         name="method"
-        value={
-            method == CLASSIFICATION_PREDEFINED
+        value={String(
+            method === CLASSIFICATION_PREDEFINED
                 ? CLASSIFICATION_PREDEFINED
                 : CLASSIFICATION_EQUAL_INTERVALS
-        }
+        )}
         onChange={(event, method) => setClassification(Number(method))}
         className={classes.radioGroup}
-        // style={{ ...styles.flexInnerColumnFlow, marginTop: 8 }}
     >
         <Radio
-            value={CLASSIFICATION_EQUAL_INTERVALS}
+            value={String(CLASSIFICATION_EQUAL_INTERVALS)}
             label={i18n.t('Automatic')}
             className={classes.radio}
         />
         <Radio
-            value={CLASSIFICATION_PREDEFINED}
+            value={String(CLASSIFICATION_PREDEFINED)}
             label={i18n.t('Predefined')}
             className={classes.radio}
         />
@@ -53,6 +53,7 @@ LegendTypeSelect.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(null, { setClassification })(
-    withStyles(styles)(LegendTypeSelect)
-);
+export default connect(
+    null,
+    { setClassification }
+)(withStyles(styles)(LegendTypeSelect));
