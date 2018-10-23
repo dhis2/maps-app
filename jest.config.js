@@ -1,4 +1,5 @@
 module.exports = {
+    testURL: "http://localhost/",
     setupTestFrameworkScriptFile: '<rootDir>/config/testSetup.js',
     collectCoverageFrom: ['src/**/*.js'],
     testPathIgnorePatterns: ['/node_modules/'],

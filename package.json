@@ -120,7 +120,8 @@
         "webpack-uglify-js-plugin": "^1.1.9"
     },
     "pre-commit": [
-        "validate"
+        "validate",
+        "test"
     ],
     "manifest.webapp": {
         "name": "DHIS2 Maps",
