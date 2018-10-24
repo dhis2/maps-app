@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "31.0.8",
+    "version": "31.0.9",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -26,7 +26,7 @@
         "test:watch": "yarn test --watch",
         "prebuild": "yarn test",
         "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build && cp -r i18n_old build",
-        "postbuild": "cp icon.png ./build/ && cp -r images ./build && cp ./package.json ./build/package.json",
+        "postbuild": "cp icon.png ./build/ && cp -r images ./build",
         "manifest": "d2-manifest package.json build/manifest.webapp",
         "lint": "eslint ./src",
         "validate": "npm ls --depth 0 || yarn list",
