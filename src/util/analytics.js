@@ -160,17 +160,29 @@ export const getFiltersFromColumns = (columns = []) => {
     return filters.length ? filters : null;
 };
 
+// Returns list of filters in a readable format
 export const getFiltersAsText = (filters = [], names = {}) =>
     filters.map(({ dimension, filter }) => {
         const [operator, value] = filter.split(':');
-        return `${names[dimension]} ${getFilterOperatorAsText(
-            operator
-        )} [${getFilterValueName(value, names)}]`;
+        const filterName = names[dimension];
+        const filterOperator = getFilterOperatorAsText(operator, value);
+        const filterValue = getFilterValueName(value, operator, names);
+
+        return `${filterName} ${filterOperator} ${filterValue}`;
     });
 
-// TODO: Cache?
-export const getFilterOperatorAsText = id =>
-    ({
+// Returns filter operator in a readable format
+export const getFilterOperatorAsText = (operator, value) => {
+    // If only one value, use is / is not
+    if (!value.includes(';')) {
+        if (operator === 'IN') {
+            return i18n.t('is');
+        } else if (operator === '!IN') {
+            return i18n.t('is not');
+        }
+    }
+
+    return {
         EQ: '=',
         GT: '>',
         GE: '>=',
@@ -181,13 +193,24 @@ export const getFilterOperatorAsText = id =>
         '!IN': i18n.t('not one of'),
         LIKE: i18n.t('contains'),
         '!LIKE': i18n.t("doesn't contains"),
-    }[id]);
+    }[operator];
+};
 
-export const getFilterValueName = (value, names) =>
-    value
+// Returns filter value is a readable fromat
+export const getFilterValueName = (value, operator, names) => {
+    if (operator === 'IN') {
+        if (value === '1') {
+            return i18n.t('true');
+        } else if (value === '0') {
+            return i18n.t('false');
+        }
+    }
+
+    return value
         .split(';')
         .map(val => names[val] || val)
         .join(', ');
+};
 
 // Combine data items into one array and exclude certain value types
 export const combineDataItems = (

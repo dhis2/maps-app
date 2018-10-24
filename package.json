@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "31.0.8",
+    "version": "31.0.9",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -26,7 +26,7 @@
         "test:watch": "yarn test --watch",
         "prebuild": "yarn test",
         "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build && cp -r i18n_old build",
-        "postbuild": "cp icon.png ./build/ && cp -r images ./build && cp ./package.json ./build/package.json",
+        "postbuild": "cp icon.png ./build/ && cp -r images ./build",
         "manifest": "d2-manifest package.json build/manifest.webapp",
         "lint": "eslint ./src",
         "validate": "npm ls --depth 0 || yarn list",
@@ -41,7 +41,7 @@
         "@dhis2/d2-ui-file-menu": "^3.2.1",
         "@dhis2/d2-ui-interpretations": "^1.1.12",
         "@dhis2/d2-ui-org-unit-tree": "^1.0.13",
-        "@dhis2/gis-api": "30.0.0",
+        "@dhis2/gis-api": "31.0.3",
         "@material-ui/core": "^3.0.3",
         "@material-ui/icons": "^3.0.1",
         "@material-ui/lab": "^3.0.0-alpha.15",
