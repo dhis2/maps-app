@@ -3395,6 +3395,7 @@ d2-utilizr@^0.2.15:
 d2@^31:
   version "31.0.1"
   resolved "https://registry.yarnpkg.com/d2/-/d2-31.0.1.tgz#b56a31a57b9b07c44080c8152d4e6673958916a9"
+  integrity sha512-Z1qM5cV8uydjglrHtn3cHO/P8/FkTIOQuWIy5jM6sVHkGOtp4H5m7R/lzVrSzPke9zjSD+CL3w46qkgkPqh/8A==
   dependencies:
     babel-jest "^22.4.3"
     docdash "^0.4.0"
@@ -10966,6 +10967,8 @@ rxjs@^5.5.7:
   version "5.5.12"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.12.tgz#6fa61b8a77c3d793dbaf270bee2f43f652d741cc"
   integrity sha512-xx2itnL5sBbqeeiVgNPVuQQ1nC8Jp2WfNJhXWHmElW9YmrpS9UVnNzhP3EH3HFqexO5Tlp8GhYY+WEcqcVMvGw==
+  dependencies:
+    symbol-observable "1.0.1"
 
 safe-buffer@5.1.1:
   version "5.1.1"
