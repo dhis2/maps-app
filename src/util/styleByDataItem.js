@@ -1,12 +1,12 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { curry } from 'lodash/fp';
-import { getLegendItemForValue } from '../util/classify';
+import { getLegendItemForValue } from './classify';
 import {
     loadLegendSet,
     getAutomaticLegendItems,
     getPredefinedLegendItems,
-} from '../util/legend';
+} from './legend';
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
@@ -26,7 +26,7 @@ export const styleByDataItem = async config => {
         await styleByNumeric(config);
     } else if (styleDataItem.valueType === 'BOOLEAN') {
         await styleByBoolean(config);
-    }    
+    }
 
     config.legend.items.push({
         name: i18n.t('Not set'),
@@ -37,7 +37,6 @@ export const styleByDataItem = async config => {
     return config;
 };
 
-
 export const styleByBoolean = async config => {
     const { styleDataItem, data, legend, eventPointRadius } = config;
     const { id, name, values } = styleDataItem;
@@ -47,9 +46,8 @@ export const styleByBoolean = async config => {
 
         if (!value) {
             return feature;
-        }        
+        }
 
-        // TODO: Not sure if return values are '1' and '0'
         return {
             ...feature,
             properties: {
@@ -57,27 +55,29 @@ export const styleByBoolean = async config => {
                 value: value === '1' ? i18n.t('Yes') : i18n.t('No'),
                 color: value === '1' ? values.true : values.false,
             },
-        }
+        };
     });
 
     legend.unit = name || (await getDataElementName(id));
 
-    legend.items = [{
-        name: i18n.t('Yes'),
-        color: values.true,
-        radius: eventPointRadius || EVENT_RADIUS,
-    }];    
+    legend.items = [
+        {
+            name: i18n.t('Yes'),
+            color: values.true,
+            radius: eventPointRadius || EVENT_RADIUS,
+        },
+    ];
 
     if (values.false) {
         legend.items.push({
             name: i18n.t('No'),
             color: values.false,
             radius: eventPointRadius || EVENT_RADIUS,
-        });     
+        });
     }
 
     return config;
-}
+};
 
 export const styleByNumeric = async config => {
     const {
@@ -131,6 +131,10 @@ export const styleByNumeric = async config => {
     config.data = config.data.map(feature => {
         const value = Number(feature.properties[styleDataItem.id]);
         const legendItem = getLegendItem(value);
+
+        if (legendItem) {
+            legendItem.count++;
+        }
 
         return {
             ...feature,

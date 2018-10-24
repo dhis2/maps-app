@@ -58,6 +58,7 @@ const eventLoader = async layerConfig => {
     config.name = programStage.name;
 
     config.legend = {
+        title: config.name,
         period: period
             ? getPeriodNameFromId(period.id)
             : `${formatTime(startDate)} - ${formatTime(endDate)}`,
@@ -103,9 +104,7 @@ const eventLoader = async layerConfig => {
             }
 
             if (areaRadius) {
-                config.legend.items.forEach(
-                    item => (item.name += ` + ${areaRadius} ${'m'} ${'buffer'}`)
-                );
+                config.legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
             }
         }
 

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-10-12T14:41:13.250Z\n"
-"PO-Revision-Date: 2018-10-12T14:41:13.250Z\n"
+"POT-Creation-Date: 2018-10-17T14:42:44.097Z\n"
+"PO-Revision-Date: 2018-10-17T14:42:44.097Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -156,6 +156,9 @@ msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Program is required"
@@ -359,6 +362,9 @@ msgstr ""
 msgid "Relocate"
 msgstr ""
 
+msgid "Not set"
+msgstr ""
+
 msgid "Organisation unit"
 msgstr ""
 
@@ -366,9 +372,6 @@ msgid "Event time"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
-
-msgid "No data found"
 msgstr ""
 
 msgid "Last updated"
@@ -460,17 +463,23 @@ msgstr ""
 msgid "Facilities"
 msgstr ""
 
+msgid "No data found"
+msgstr ""
+
 msgid "Tracked entity"
 msgstr ""
 
 msgid "No tracked entities found"
 msgstr ""
 
+msgid "true"
+msgstr ""
+
+msgid "false"
+msgstr ""
+
 msgid "No"
 msgstr ""
 
 msgid "Map could not be created"
-msgstr ""
-
-msgid "Not set"
 msgstr ""

@@ -61,6 +61,10 @@ const styles = {
         width: 110,
         marginTop: 12,
     },
+    text: {
+        paddingTop: 8,
+        lineHeight: '22px',
+    },
 };
 
 export class EventDialog extends Component {
@@ -360,7 +364,15 @@ export class EventDialog extends Component {
                                 </div>
                             </div>
                             <div style={styles.flexColumn}>
-                                {program && <StyleByDataItem />}
+                                {program ? (
+                                    <StyleByDataItem />
+                                ) : (
+                                    <div style={styles.text}>
+                                        {i18n.t(
+                                            'You can style events by data element after selecting a program.'
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )}
