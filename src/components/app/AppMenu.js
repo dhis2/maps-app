@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import AddLayer from '../layers/layers/AddLayer';
 import FileMenu from './FileMenu';
-import MapExport from './MapExport';
+import DownloadButton from '../download/DownloadButton';
 import InterpretationsToggle from '../interpretations/InterpretationsToggle';
 
 const styles = theme => ({
@@ -32,7 +32,7 @@ export const AppMenu = ({ classes }) => (
         <AddLayer />
         <span className={classes.divider} />
         <FileMenu />
-        <MapExport />
+        <DownloadButton />
         <InterpretationsToggle />
     </Toolbar>
 );
