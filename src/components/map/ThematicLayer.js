@@ -12,7 +12,6 @@ class ThematicLayer extends Layer {
             labelFontSize,
             labelFontStyle,
             legend,
-            isPlugin,
         } = this.props;
 
         const map = this.context.map;
@@ -37,8 +36,8 @@ class ThematicLayer extends Layer {
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
-        // Create legend in HTML if showed as plugin
-        if (isPlugin && legend) {
+        // Create legend in HTML if showed as plugin or download
+        if (legend) {
             map.legend =
                 (map.legend || '') + getHtmlLegend(legend, data.length > 0);
         }

@@ -36,7 +36,6 @@ class EventLayer extends Layer {
             areaRadius,
             relativePeriodDate,
             legend,
-            isPlugin,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -122,8 +121,8 @@ class EventLayer extends Layer {
         // Create and add event layer based on config object
         this.layer = map.createLayer(config).addTo(map);
 
-        // Create legend in HTML if showed as plugin
-        if (isPlugin && legend) {
+        // Create legend in HTML if showed as plugin or download
+        if (legend) {
             map.legend = (map.legend || '') + getHtmlLegend(legend, true);
         }
 
