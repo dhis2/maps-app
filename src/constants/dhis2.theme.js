@@ -74,16 +74,47 @@ export const palette = {
     shadow: colors.grey,
 };
 
+const spacingUnit = 8; // 8px unit spacing
+
 export const muiTheme = createMuiTheme({
     colors,
     palette,
     typography: {
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
     },
+    spacing: {
+        unit: spacingUnit,
+    },
     overrides: {
         MuiDivider: {
             light: {
                 backgroundColor: palette.divider, // No light dividers for now
+            },
+        },
+        MuiDialogTitle: {
+            root: {
+                padding: '20px 24px 4px 24px',
+                fontSize: 16,
+                fontWeight: 'bold',
+            },
+        },
+        MuiDialogContent: {
+            root: {
+                margin: spacingUnit * 3,
+                padding: 0,
+                '&:first-child': {
+                    paddingTop: 0,
+                },
+            },
+        },
+        MuiDialogActions: {
+            root: {
+                padding: `${spacingUnit * 1.5}px ${spacingUnit * 3}px`,
+                margin: 0,
+                '&> *:last-child': {
+                    marginRight: 0,
+                },
+                borderTop: `1px solid ${palette.divider}`,
             },
         },
     },

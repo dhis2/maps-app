@@ -44,7 +44,6 @@ const styles = {
         fontWeight: 'bold',
     },
     content: {
-        padding: '0 24px',
         minHeight: 300,
     },
 };

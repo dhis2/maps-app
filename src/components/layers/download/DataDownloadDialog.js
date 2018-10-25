@@ -10,7 +10,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Checkbox from '../../core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import InfoIcon from '@material-ui/icons/HelpOutline';
 
 import SelectField from '../../core/SelectField';
 import {
@@ -28,17 +27,10 @@ const styles = theme => ({
     paper: {
         width: 600,
     },
-    title: {
-        padding: '20px 24px 4px 24px',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
     content: {
-        padding: '0 24px',
         minHeight: 300,
     },
     wrapper: {
-        margin: theme.spacing.unit,
         position: 'relative',
     },
     btnProgress: {
@@ -49,15 +41,11 @@ const styles = theme => ({
         marginLeft: -12,
     },
     contentDiv: {
-        margin: theme.spacing.unit * 4,
-        '& a': {
-            color: theme.palette.primary.main,
-            marginLeft: theme.spacing.unit,
-        },
+        marginBottom: theme.spacing.unit * 3,
     },
-    infoIcon: {
-        height: 16,
-        marginBottom: -3,
+    selectField: {
+        width: '50%',
+        marginLeft: theme.spacing.unit * 1.5,
     },
 });
 
@@ -124,35 +112,44 @@ class DataDownloadDialog extends Component {
                             'The data for this layer will be downloaded in GeoJSON format.'
                         )}
                         <br />
-                        <small>
-                            <a target="_new" href="http://geojson.org">
-                                <InfoIcon className={classes.infoIcon} />
-                                {i18n.t('What is GeoJSON?')}
-                            </a>
-                        </small>
+                        {i18n.t(
+                            'This format is supported by most GIS software, including QGIS and ArcGIS Desktop.'
+                        )}
                     </div>
-                    {isEventLayer ? (
-                        <div className={classes.contentDiv}>
-                            {i18n.t(
-                                'Please select the format for GeoJSON Feature keys'
-                            )}
-                            <SelectField
-                                label={i18n.t('Meta-data ID Format')}
-                                items={formatOptions}
-                                value={this.state.selectedFormatOption + 1}
-                                onChange={this.onChangeFormatOption}
-                            />
-                            <Checkbox
-                                label={i18n.t(
-                                    'Output human-readable keys for non-dimension data attributes'
-                                )}
-                                checked={this.state.humanReadableChecked}
-                                onCheck={this.onCheckHumanReadable}
-                            />
-                        </div>
-                    ) : null}
+                    {isEventLayer
+                        ? [
+                              <div
+                                  key="description"
+                                  className={classes.contentDiv}
+                              >
+                                  {i18n.t(
+                                      'Please select the format for GeoJSON Feature keys'
+                                  )}
+                              </div>,
+                              <div key="form" className={classes.contentDiv}>
+                                  <SelectField
+                                      classes={{
+                                          textField: classes.selectField,
+                                      }}
+                                      label={i18n.t('Meta-data ID Format')}
+                                      items={formatOptions}
+                                      value={
+                                          this.state.selectedFormatOption + 1
+                                      }
+                                      onChange={this.onChangeFormatOption}
+                                  />
+                                  <Checkbox
+                                      label={i18n.t(
+                                          'Output human-readable keys for non-dimension data attributes'
+                                      )}
+                                      checked={this.state.humanReadableChecked}
+                                      onCheck={this.onCheckHumanReadable}
+                                  />
+                              </div>,
+                          ]
+                        : null}
                 </DialogContent>
-                <DialogActions>
+                <DialogActions className={classes.dialogActions}>
                     <Button
                         color="primary"
                         onClick={() => closeDialog()}

@@ -57,7 +57,10 @@ const eventLoader = async layerConfig => {
     }
 
     if (!config.serverCluster) {
-        const { names, data, response } = await loadData(analyticsRequest);
+        const { names, data, response } = await loadData(
+            analyticsRequest,
+            config
+        );
         config.data = data;
 
         if (Array.isArray(config.data) && config.data.length) {
@@ -168,16 +171,16 @@ export const getCount = async request => {
     return await d2.analytics.events.getCount(request);
 };
 
-export const loadData = async (request, config) => {
+export const loadData = async (request, config = {}) => {
     const d2 = await getD2();
     const response = await d2.analytics.events.getQuery(request);
 
     const names = {
-        ...(config.outputIdScheme !== 'ID' // TODO: Pass this through the the request to support ID/NAME/CODE output natively.  Server bugfix needed.
+        ...(config.outputIdScheme !== 'ID'
             ? getApiResponseNames(response)
             : null),
         ...config.columnNames,
-    };
+    }; // TODO: Pass this through the the request to support ID/NAME/CODE output natively.  Server bugfix needed.
 
     const data = response.rows
         .map(row =>
@@ -185,7 +188,7 @@ export const loadData = async (request, config) => {
                 response.headers,
                 names,
                 row,
-                config.eventCoordinateField
+                config && config.eventCoordinateField
             )
         )
         .filter(feature => isValidCoordinate(feature.geometry.coordinates));
