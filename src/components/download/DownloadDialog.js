@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import { setDownloadState } from '../../actions/download';
 import {
     convertToPng,
     dataURItoBlob,
@@ -33,8 +35,8 @@ const styles = {
 // https://github.com/uber/kepler.gl/blob/master/src/components/plot-container.js
 class DownloadDialog extends Component {
     static propTypes = {
-        open: PropTypes.bool.isRequired,
-        onClose: PropTypes.func.isRequired,
+        isActive: PropTypes.bool.isRequired,
+        setDownloadState: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
@@ -48,6 +50,7 @@ class DownloadDialog extends Component {
 
     // TODO: Best place to update state?
     componentDidUpdate(prevProps) {
+        /*
         const mapEl = document.getElementsByClassName('leaflet-container')[0];
         const { offsetWidth, offsetHeight } = mapEl;
         const { width, height } = this.state;
@@ -66,10 +69,11 @@ class DownloadDialog extends Component {
                 height: mapEl.offsetHeight,
             });
         }
+        */
     }
 
     render() {
-        const { open, onClose, classes } = this.props;
+        const { isActive, classes } = this.props;
         /*
         const { width, height, ratio, resolution } = this.state;
 
@@ -84,13 +88,13 @@ class DownloadDialog extends Component {
         // console.log(width, height, ratio, resolution, exportImageSize);
 
         return (
-            <Dialog open={open} onClose={onClose}>
+            <Dialog open={isActive} onClose={this.onClose}>
                 <DialogTitle disableTypography={true} className={classes.title}>
                     {i18n.t('Download map')}
                 </DialogTitle>
                 <DialogContent className={classes.content}>#</DialogContent>
                 <DialogActions>
-                    <Button color="primary" onClick={onClose}>
+                    <Button color="primary" onClick={this.onClose}>
                         {i18n.t('Cancel')}
                     </Button>
                     <Button color="primary" onClick={this.onDownload}>
@@ -100,6 +104,8 @@ class DownloadDialog extends Component {
             </Dialog>
         );
     }
+
+    onClose = () => this.props.setDownloadState(false);
 
     onDownload = () => {
         // const exportImageSize = calculateExportImageSize(this.state);
@@ -147,4 +153,9 @@ class DownloadDialog extends Component {
     };
 }
 
-export default withStyles(styles)(DownloadDialog);
+export default connect(
+    state => ({
+        ...state.download,
+    }),
+    { setDownloadState }
+)(withStyles(styles)(DownloadDialog));

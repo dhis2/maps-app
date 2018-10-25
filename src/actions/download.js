@@ -1,8 +1,8 @@
 import * as types from '../constants/actionTypes';
 
-// Set download active state (download dialog is open)
-export const setDownloadActiveState = isActive => ({
-    type: types.DOWNLOAD_ACTIVE_STATE_SET,
+// Set download state (download dialog is open)
+export const setDownloadState = isActive => ({
+    type: types.DOWNLOAD_STATE_SET,
     payload: isActive,
 });
 

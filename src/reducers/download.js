@@ -8,7 +8,7 @@ const defaultState = {
 
 const download = (state = defaultState, action) => {
     switch (action.type) {
-        case types.DOWNLOAD_ACTIVE_STATE_SET:
+        case types.DOWNLOAD_STATE_SET:
             return {
                 ...state,
                 isActive: action.payload,

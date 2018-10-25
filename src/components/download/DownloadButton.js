@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DownloadDialog from './DownloadDialog';
+import { setDownloadState } from '../../actions/download';
 
 const styles = {
     button: {
@@ -19,15 +21,12 @@ const styles = {
 
 class DownloadButton extends Component {
     static propTypes = {
+        setDownloadState: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
-    state = {
-        dialogOpen: false,
-    };
-
     render() {
-        const { classes } = this.props;
+        const { isOpen, classes } = this.props;
 
         return (
             <React.Fragment>
@@ -41,23 +40,15 @@ class DownloadButton extends Component {
                 >
                     {i18n.t('Download')}
                 </Button>
-                <DownloadDialog
-                    open={this.state.dialogOpen}
-                    onClose={this.onDownloadDialogClose}
-                />
+                <DownloadDialog />
             </React.Fragment>
         );
     }
 
-    onClick = () =>
-        this.setState({
-            dialogOpen: true,
-        });
-
-    onDownloadDialogClose = () =>
-        this.setState({
-            dialogOpen: false,
-        });
+    onClick = () => this.props.setDownloadState(true);
 }
 
-export default withStyles(styles)(DownloadButton);
+export default connect(
+    null,
+    { setDownloadState }
+)(withStyles(styles)(DownloadButton));
