@@ -23,7 +23,7 @@
  * Modified by heshan0131 to allow loading external stylesheets and inline webfonts
  */
 
- /*
+/*
 import window, {
     Blob,
     Image,

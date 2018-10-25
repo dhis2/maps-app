@@ -35,7 +35,7 @@ const LayersToggle = ({
 }) => (
     <IconButton
         onClick={isOpen ? closeLayersPanel : openLayersPanel}
-        className={classes.button}
+        className={`${classes.button} dhis2-layers-toggle`}
         disableTouchRipple={true}
         style={isOpen ? {} : { left: 0 }}
     >

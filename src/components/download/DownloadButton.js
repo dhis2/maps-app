@@ -7,7 +7,8 @@ import DownloadDialog from './DownloadDialog';
 
 const styles = {
     button: {
-        top: -1, // To align with File button
+        height: 38,
+        lineHeight: '22px', // To align with File button
     },
     label: {
         textTransform: 'none',

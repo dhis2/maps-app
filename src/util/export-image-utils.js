@@ -19,6 +19,8 @@
 // THE SOFTWARE.
 
 import domtoimage from './dom-to-image';
+import { RESOLUTION_OPTIONS, RATIO_OPTIONS } from '../constants/resolutions';
+
 /*
 import {
     Blob,
@@ -28,10 +30,8 @@ import {
     ArrayBuffer,
     document,
 } from 'global/window';
-import { RESOLUTION_OPTIONS, RATIO_OPTIONS } from 'constants/default-settings';
 */
 
-/*
 export function calculateExportImageSize({ width, height, ratio, resolution }) {
     const resolutionItem = RESOLUTION_OPTIONS.find(op => op.id === resolution);
     const { width: scaledWidth, height: scaledHeight } = resolutionItem.getSize(
@@ -49,10 +49,10 @@ export function calculateExportImageSize({ width, height, ratio, resolution }) {
         ),
     };
 }
-*/
 
-export function convertToPng(sourceElem) {
-    return domtoimage.toPng(sourceElem);
+// TODO: options needed?
+export function convertToPng(sourceElem, options) {
+    return domtoimage.toPng(sourceElem, options);
 }
 
 export function dataURItoBlob(dataURI) {

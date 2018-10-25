@@ -11,6 +11,7 @@ import {
     convertToPng,
     dataURItoBlob,
     downloadFile,
+    calculateExportImageSize,
 } from '../../util/export-image-utils';
 
 const styles = {
@@ -21,10 +22,15 @@ const styles = {
     },
     content: {
         padding: '0 24px',
-        // minHeight: 300,
+        minHeight: 150,
     },
 };
 
+// https://github.com/uber/kepler.gl/blob/master/src/constants/default-settings.js
+// https://github.com/uber/kepler.gl/blob/master/src/utils/export-image-utils.js
+// https://github.com/uber/kepler.gl/blob/master/src/components/modal-container.js
+// https://github.com/uber/kepler.gl/blob/master/src/components/modals/export-image-modal.js
+// https://github.com/uber/kepler.gl/blob/master/src/components/plot-container.js
 class DownloadDialog extends Component {
     static propTypes = {
         open: PropTypes.bool.isRequired,
@@ -32,8 +38,50 @@ class DownloadDialog extends Component {
         classes: PropTypes.object.isRequired,
     };
 
+    state = {
+        mapEl: null,
+        width: null,
+        height: null,
+        ratio: 'screen',
+        resolution: '1x',
+    };
+
+    // TODO: Best place to update state?
+    componentDidUpdate(prevProps) {
+        const mapEl = document.getElementsByClassName('leaflet-container')[0];
+        const { offsetWidth, offsetHeight } = mapEl;
+        const { width, height } = this.state;
+        const { open } = this.props;
+
+        if (open !== prevProps.open && mapEl) {
+            open
+                ? this.setDownloadStyle(mapEl)
+                : this.clearDownloadStyle(mapEl);
+        }
+
+        if (width !== offsetWidth || height !== offsetHeight) {
+            this.setState({
+                mapEl,
+                width: mapEl.offsetWidth,
+                height: mapEl.offsetHeight,
+            });
+        }
+    }
+
     render() {
         const { open, onClose, classes } = this.props;
+        /*
+        const { width, height, ratio, resolution } = this.state;
+
+        const exportImageSize = calculateExportImageSize({
+            width,
+            height,
+            ratio,
+            resolution,
+        });
+        */
+
+        // console.log(width, height, ratio, resolution, exportImageSize);
 
         return (
             <Dialog open={open} onClose={onClose}>
@@ -54,18 +102,48 @@ class DownloadDialog extends Component {
     }
 
     onDownload = () => {
-        console.log('DOWNLOAD!');
+        // const exportImageSize = calculateExportImageSize(this.state);
+        const { mapEl, width, height } = this.state;
+        // const { mapEl } = this.state;
 
-        const mapEl = document.getElementsByClassName('leaflet-container')[0];
+        // this.setDownloadStyle();
 
-        convertToPng(mapEl).then(dataUri =>
+        convertToPng(mapEl, { width, height }).then(dataUri => {
+            // convertToPng(mapEl).then(dataUri => {
             downloadFile(
                 dataURItoBlob(dataUri),
                 `map-${Math.random()
                     .toString(36)
                     .substring(7)}.png`
-            )
-        );
+            );
+
+            // this.clearDownloadStyle();
+        });
+    };
+
+    setDownloadStyle = () => {
+        const el = document.getElementById('dhis-gis-container');
+
+        // const exportImageSize = calculateExportImageSize(this.state);
+        // const { width, height } = exportImageSize;
+
+        el.classList.add('dhis2-download');
+
+        // mapEl.style.width = width + 'px';
+        // mapEl.style.height = height + 'px';
+        // mapEl.style.position = 'absolute';
+
+        console.log('setDownloadStyle', el);
+    };
+
+    clearDownloadStyle = () => {
+        const el = document.getElementById('dhis-gis-container');
+        el.classList.remove('dhis2-download');
+
+        console.log('clearDownloadStyle');
+
+        // mapEl.style.width = '100%';
+        // mapEl.style.height = '100%';
     };
 }
 
