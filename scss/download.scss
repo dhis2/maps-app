@@ -1,6 +1,10 @@
 .dhis2-maps-download {
     .dhis2-layers-toggle,
-    .leaflet-top.leaflet-right {
-        display: none;
+    .leaflet-control-zoom,
+    .leaflet-control-fit-bounds,
+    .leaflet-control-geocoder,
+    .leaflet-control-measure,
+    .leaflet-control-fit-bounds {
+        display: none !important;
     }
 }

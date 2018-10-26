@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+const positions = ['topleft', 'topright', 'bottomleft', 'bottomright'];
 
 const styles = theme => ({
     root: {
         width: 120,
+        paddingLeft: 20,
     },
     position: {
         position: 'relative',
@@ -27,19 +28,19 @@ const styles = theme => ({
     selected: {
         outline: `3px solid ${theme.palette.primary.main}`,
     },
-    'top-left': {
+    topleft: {
         top: 8,
         left: 8,
     },
-    'top-right': {
+    topright: {
         top: 8,
         right: 8,
     },
-    'bottom-left': {
+    bottomleft: {
         bottom: 8,
         left: 8,
     },
-    'bottom-right': {
+    bottomright: {
         bottom: 8,
         right: 8,
     },

@@ -13,7 +13,7 @@ export default {
             padding: 0,
             verticalAlign: 'middle',
             '& span': {
-                display: 'inline-block',
+                display: 'block',
                 width: '100%',
                 height: '100%',
                 backgroundRepeat: 'no-repeat',
@@ -25,4 +25,4 @@ export default {
             whiteSpace: 'nowrap',
         },
     },
-}
+};

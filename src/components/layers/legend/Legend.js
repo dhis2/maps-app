@@ -31,7 +31,7 @@ export const styles = {
     },
 };
 
-const Legend = ({
+const MapLegend = ({
     classes,
     description,
     filters,
@@ -76,7 +76,7 @@ const Legend = ({
     </dl>
 );
 
-Legend.propTypes = {
+MapLegend.propTypes = {
     classes: PropTypes.object.isRequired,
     description: PropTypes.string,
     filters: PropTypes.array,
@@ -87,4 +87,4 @@ Legend.propTypes = {
     sourceUrl: PropTypes.string,
 };
 
-export default withStyles(styles)(Legend);
+export default withStyles(styles)(MapLegend);

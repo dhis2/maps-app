@@ -30,7 +30,6 @@ const styles = {
     },
     content: {
         padding: '0 24px',
-        minHeight: 150,
         lineHeight: '24px',
     },
 };
@@ -62,7 +61,7 @@ class DownloadDialog extends Component {
         } = this.props;
         const isSupported = downloadSupport();
 
-        console.log(showLegend, legendPosition);
+        // console.log(showLegend, legendPosition);
 
         return (
             <Dialog open={isActive} onClose={this.onClose}>

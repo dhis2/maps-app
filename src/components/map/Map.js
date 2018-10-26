@@ -10,6 +10,7 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
+import MapLegend from './MapLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
 import {
     HEADER_HEIGHT,
@@ -81,7 +82,7 @@ class Map extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         const { coordinatePopup } = this.props;
 
         if (coordinatePopup) {
@@ -129,6 +130,7 @@ class Map extends Component {
             basemap,
             basemaps,
             mapViews,
+            legendPosition,
             layersPanelOpen,
             interpretationsPanelOpen,
             dataTableOpen,
@@ -166,6 +168,9 @@ class Map extends Component {
                     );
                 })}
                 <Layer key="basemap" {...basemapConfig} />
+                {legendPosition && (
+                    <MapLegend position={legendPosition} layers={mapViews} />
+                )}
             </div>
         );
     }
@@ -178,6 +183,10 @@ const mapStateToProps = state => ({
     interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
     dataTableOpen: state.dataTable,
     dataTableHeight: state.ui.dataTableHeight,
+    legendPosition:
+        state.download.isActive && state.download.showLegend
+            ? state.download.legendPosition
+            : null,
 });
 
 export default connect(

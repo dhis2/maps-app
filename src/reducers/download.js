@@ -2,8 +2,8 @@ import * as types from '../constants/actionTypes';
 
 const defaultState = {
     isActive: false,
-    showLegend: true,
-    legendPosition: 'bottom-right',
+    showLegend: false,
+    legendPosition: 'bottomright',
 };
 
 const download = (state = defaultState, action) => {
