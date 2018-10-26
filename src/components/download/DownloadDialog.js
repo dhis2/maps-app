@@ -8,12 +8,18 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { setDownloadState } from '../../actions/download';
+import Checkbox from '../core/Checkbox';
+import LegendPosition from './LegendPosition';
+import {
+    setDownloadState,
+    setDownloadLegendState,
+    setDownloadLegendPosition,
+} from '../../actions/download';
 import {
     convertToPng,
     dataURItoBlob,
     downloadFile,
-    calculateExportImageSize,
+    downloadSupport,
 } from '../../util/export-image-utils';
 
 const styles = {
@@ -25,6 +31,7 @@ const styles = {
     content: {
         padding: '0 24px',
         minHeight: 150,
+        lineHeight: '24px',
     },
 };
 
@@ -36,68 +43,64 @@ const styles = {
 class DownloadDialog extends Component {
     static propTypes = {
         isActive: PropTypes.bool.isRequired,
+        showLegend: PropTypes.bool.isRequired,
+        legendPosition: PropTypes.string.isRequired,
         setDownloadState: PropTypes.func.isRequired,
+        setDownloadLegendState: PropTypes.func.isRequired,
+        setDownloadLegendPosition: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
-    state = {
-        mapEl: null,
-        width: null,
-        height: null,
-        ratio: 'screen',
-        resolution: '1x',
-    };
-
-    // TODO: Best place to update state?
-    componentDidUpdate(prevProps) {
-        /*
-        const mapEl = document.getElementsByClassName('leaflet-container')[0];
-        const { offsetWidth, offsetHeight } = mapEl;
-        const { width, height } = this.state;
-        const { open } = this.props;
-
-        if (open !== prevProps.open && mapEl) {
-            open
-                ? this.setDownloadStyle(mapEl)
-                : this.clearDownloadStyle(mapEl);
-        }
-
-        if (width !== offsetWidth || height !== offsetHeight) {
-            this.setState({
-                mapEl,
-                width: mapEl.offsetWidth,
-                height: mapEl.offsetHeight,
-            });
-        }
-        */
-    }
-
     render() {
-        const { isActive, classes } = this.props;
-        /*
-        const { width, height, ratio, resolution } = this.state;
+        const {
+            isActive,
+            showLegend,
+            legendPosition,
+            setDownloadLegendState,
+            setDownloadLegendPosition,
+            classes,
+        } = this.props;
+        const isSupported = downloadSupport();
 
-        const exportImageSize = calculateExportImageSize({
-            width,
-            height,
-            ratio,
-            resolution,
-        });
-        */
-
-        // console.log(width, height, ratio, resolution, exportImageSize);
+        console.log(showLegend, legendPosition);
 
         return (
             <Dialog open={isActive} onClose={this.onClose}>
                 <DialogTitle disableTypography={true} className={classes.title}>
                     {i18n.t('Download map')}
                 </DialogTitle>
-                <DialogContent className={classes.content}>#</DialogContent>
+                <DialogContent className={classes.content}>
+                    {isSupported ? (
+                        <React.Fragment>
+                            <Checkbox
+                                label={i18n.t('Include legend')}
+                                checked={showLegend}
+                                onCheck={setDownloadLegendState}
+                            />
+                            {showLegend && (
+                                <LegendPosition
+                                    position={legendPosition}
+                                    onChange={setDownloadLegendPosition}
+                                />
+                            )}
+                        </React.Fragment>
+                    ) : (
+                        <p>
+                            {i18n.t(
+                                'Map download is not supported by your browser. Try Google Chrome or Firefox.'
+                            )}
+                        </p>
+                    )}
+                </DialogContent>
                 <DialogActions>
                     <Button color="primary" onClick={this.onClose}>
                         {i18n.t('Cancel')}
                     </Button>
-                    <Button color="primary" onClick={this.onDownload}>
+                    <Button
+                        color="primary"
+                        disabled={!isSupported}
+                        onClick={this.onDownload}
+                    >
                         {i18n.t('Download')}
                     </Button>
                 </DialogActions>
@@ -108,48 +111,20 @@ class DownloadDialog extends Component {
     onClose = () => this.props.setDownloadState(false);
 
     onDownload = () => {
-        // const exportImageSize = calculateExportImageSize(this.state);
-        const { mapEl, width, height } = this.state;
-        // const { mapEl } = this.state;
+        const mapEl = document.getElementsByClassName('leaflet-container')[0];
+        const options = {
+            width: mapEl.offsetWidth,
+            height: mapEl.offsetHeight,
+        };
 
-        // this.setDownloadStyle();
-
-        convertToPng(mapEl, { width, height }).then(dataUri => {
-            // convertToPng(mapEl).then(dataUri => {
+        convertToPng(mapEl, options).then(dataUri =>
             downloadFile(
                 dataURItoBlob(dataUri),
                 `map-${Math.random()
                     .toString(36)
                     .substring(7)}.png`
-            );
-
-            // this.clearDownloadStyle();
-        });
-    };
-
-    setDownloadStyle = () => {
-        const el = document.getElementById('dhis-gis-container');
-
-        // const exportImageSize = calculateExportImageSize(this.state);
-        // const { width, height } = exportImageSize;
-
-        el.classList.add('dhis2-download');
-
-        // mapEl.style.width = width + 'px';
-        // mapEl.style.height = height + 'px';
-        // mapEl.style.position = 'absolute';
-
-        console.log('setDownloadStyle', el);
-    };
-
-    clearDownloadStyle = () => {
-        const el = document.getElementById('dhis-gis-container');
-        el.classList.remove('dhis2-download');
-
-        console.log('clearDownloadStyle');
-
-        // mapEl.style.width = '100%';
-        // mapEl.style.height = '100%';
+            )
+        );
     };
 }
 
@@ -157,5 +132,5 @@ export default connect(
     state => ({
         ...state.download,
     }),
-    { setDownloadState }
+    { setDownloadState, setDownloadLegendState, setDownloadLegendPosition }
 )(withStyles(styles)(DownloadDialog));

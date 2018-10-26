@@ -19,43 +19,30 @@
 // THE SOFTWARE.
 
 import domtoimage from './dom-to-image';
-import { RESOLUTION_OPTIONS, RATIO_OPTIONS } from '../constants/resolutions';
 
-/*
-import {
-    Blob,
-    URL,
-    atob,
-    Uint8Array,
-    ArrayBuffer,
-    document,
-} from 'global/window';
-*/
+const toStringFn = {}.toString;
 
-export function calculateExportImageSize({ width, height, ratio, resolution }) {
-    const resolutionItem = RESOLUTION_OPTIONS.find(op => op.id === resolution);
-    const { width: scaledWidth, height: scaledHeight } = resolutionItem.getSize(
-        width,
-        height
+// https://github.com/tsayen/dom-to-image#browsers
+// https://github.com/Modernizr/Modernizr/blob/master/feature-detects/svg/foreignobject.js
+// TODO: Safari is not supported, as it uses a stricter security model on <foreignObject> tag
+export const downloadSupport = () => {
+    return (
+        !!document.createElementNS &&
+        /SVGForeignObject/.test(
+            toStringFn.call(
+                document.createElementNS(
+                    'http://www.w3.org/2000/svg',
+                    'foreignObject'
+                )
+            )
+        )
     );
-    const { zoomOffset, scale } = resolutionItem;
+};
 
-    return {
-        zoomOffset,
-        scale,
-        ...RATIO_OPTIONS.find(op => op.id === ratio).getSize(
-            scaledWidth,
-            scaledHeight
-        ),
-    };
-}
+export const convertToPng = (sourceElem, options) =>
+    domtoimage.toPng(sourceElem, options);
 
-// TODO: options needed?
-export function convertToPng(sourceElem, options) {
-    return domtoimage.toPng(sourceElem, options);
-}
-
-export function dataURItoBlob(dataURI) {
+export const dataURItoBlob = dataURI => {
     const binary = atob(dataURI.split(',')[1]);
 
     // separate out the mime component
@@ -75,9 +62,9 @@ export function dataURItoBlob(dataURI) {
     }
 
     return new Blob([ab], { type: mimeString });
-}
+};
 
-export function downloadFile(fileBlob, filename) {
+export const downloadFile = (fileBlob, filename) => {
     const url = URL.createObjectURL(fileBlob);
 
     const link = document.createElement('a');
@@ -88,4 +75,4 @@ export function downloadFile(fileBlob, filename) {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-}
+};

@@ -26,7 +26,7 @@ class DownloadButton extends Component {
     };
 
     render() {
-        const { isOpen, classes } = this.props;
+        const { classes } = this.props;
 
         return (
             <React.Fragment>

@@ -23,28 +23,6 @@
  * Modified by heshan0131 to allow loading external stylesheets and inline webfonts
  */
 
-/*
-import window, {
-    Blob,
-    Image,
-    XMLHttpRequest,
-    FileReader,
-    setTimeout,
-    HTMLInputElement,
-    HTMLTextAreaElement,
-    HTMLCanvasElement,
-    SVGElement,
-    Element,
-    HTMLImageElement,
-    SVGRectElement,
-    document,
-    XMLSerializer,
-    console,
-    CSSRule,
-    fetch,
-} from 'global/window';
-*/
-
 const util = newUtil();
 const inliner = newInliner();
 const fontFaces = newFontFaces();
