@@ -1,8 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import { isString, isEmpty } from 'lodash/fp';
 import { timeFormat } from 'd3-time-format';
-import { isValidCoordinate } from '../util/map';
 import { styleByDataItem } from '../util/styleByDataItem';
 import {
     getOrgUnitsFromRows,
@@ -10,10 +8,17 @@ import {
     getFiltersAsText,
     getPeriodFromFilters,
     getPeriodNameFromId,
-    getApiResponseNames,
 } from '../util/analytics';
+import {
+    createEventFeatures,
+    addStyleDataItem,
+    getBounds,
+} from '../util/geojson';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
+import findIndex from 'lodash/findIndex';
 
+// Server clustering if more than 2000 events
+const useServerCluster = count => count > 2000; // TODO: Use constant
 const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
 // Returns a promise
@@ -96,17 +101,6 @@ const eventLoader = async layerConfig => {
     return config;
 };
 
-const getBounds = bbox => {
-    if (!bbox) {
-        return null;
-    }
-    const extent = bbox.match(/([-\d\.]+)/g);
-    return [[extent[1], extent[0]], [extent[3], extent[2]]];
-};
-
-// Server clustering if more than 2000 events
-const useServerCluster = count => count > 2000; // TODO: Use constant
-
 // Also used to query for server cluster in map/EventLayer.js
 export const getAnalyticsRequest = async ({
     program,
@@ -175,101 +169,12 @@ export const loadData = async (request, config = {}) => {
     const d2 = await getD2();
     const response = await d2.analytics.events.getQuery(request);
 
-    const names = {
-        ...(config.outputIdScheme !== 'ID'
-            ? getApiResponseNames(response)
-            : null),
-        ...config.columnNames,
-    }; // TODO: Pass this through the the request to support ID/NAME/CODE output natively.  Server bugfix needed.
-
-    const data = response.rows
-        .map(row =>
-            createEventFeature(
-                response.headers,
-                names,
-                row,
-                config && config.eventCoordinateField
-            )
-        )
-        .filter(feature => isValidCoordinate(feature.geometry.coordinates));
+    const { data, names } = createEventFeatures(response, config);
 
     return {
         data,
         names,
         response,
-    };
-};
-
-// Include column for data element used for styling
-export const addStyleDataItem = (dataItems, styleDataItem) =>
-    styleDataItem
-        ? [
-              ...dataItems,
-              {
-                  dimension: styleDataItem.id,
-                  name: styleDataItem.name,
-              },
-          ]
-        : [...dataItems];
-
-const findIndex = (array, predicate) => {
-    var index = -1;
-    for (var i = 0; i < array.length; ++i) {
-        if (predicate(array[i], i, array)) {
-            index = i;
-            break;
-        }
-    }
-    return index;
-};
-
-export const createEventFeature = (
-    headers,
-    names,
-    event,
-    eventCoordinateField
-) => {
-    const properties = event.reduce(
-        (props, value, i) => ({
-            ...props,
-            [names[headers[i].name] || headers[i].name]: value,
-        }),
-        {}
-    );
-
-    let coordinates;
-
-    if (eventCoordinateField) {
-        // If coordinate field other than event location
-        const coordCol = findIndex(
-            headers,
-            h => h.name === eventCoordinateField
-        );
-        const eventCoord = event[coordCol];
-
-        if (Array.isArray(eventCoord)) {
-            coordinates = eventCoord;
-        } else if (isString(eventCoord) && !isEmpty(eventCoord)) {
-            coordinates = JSON.parse(eventCoord);
-        } else {
-            coordinates = [];
-        }
-    } else {
-        // Use event location
-        const lonCol = findIndex(headers, h => h.name === 'longitude');
-        const latCol = findIndex(headers, h => h.name === 'latitude');
-        coordinates = [event[lonCol], event[latCol]]; // Event location
-    }
-
-    const idCol = findIndex(headers, h => h.name === 'psi');
-    return {
-        type: 'Feature',
-        id: event[idCol],
-        properties,
-        geometry: {
-            type: 'Point',
-            coordinates: coordinates.map(parseFloat),
-        },
     };
 };
 

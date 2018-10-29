@@ -1,5 +1,5 @@
 import FileSaver from 'file-saver';
-import { createGeoJsonBlob, downloadGeoJson } from '../dataDownload';
+import { createGeoJsonBlob, downloadGeoJson } from '../geojson';
 
 // Since we're not in a browser environment we unfortunately have to mock FileSaver and Blob
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }));

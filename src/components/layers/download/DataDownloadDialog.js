@@ -16,7 +16,7 @@ import {
     META_DATA_FORMAT_ID,
     META_DATA_FORMAT_NAME,
     META_DATA_FORMAT_CODE,
-} from '../../../util/dataDownload';
+} from '../../../util/geojson';
 
 import {
     closeDataDownloadDialog,

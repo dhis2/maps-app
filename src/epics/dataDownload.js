@@ -8,7 +8,7 @@ import {
     META_DATA_FORMAT_ID,
     META_DATA_FORMAT_CODE,
     META_DATA_FORMAT_NAME,
-} from '../util/dataDownload';
+} from '../util/geojson';
 import { getDisplayPropertyUrl } from '../util/helpers';
 
 import {
