@@ -123,6 +123,7 @@ class LayerEdit extends Component {
                         {i18n.t('Cancel')}
                     </Button>
                     <Button
+                        variant="contained"
                         color="primary"
                         onClick={() => this.validateLayer()}
                     >

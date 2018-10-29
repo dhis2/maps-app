@@ -81,6 +81,7 @@ export const muiTheme = createMuiTheme({
     palette,
     typography: {
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+        useNextVariants: true,
     },
     spacing: {
         unit: spacingUnit,
