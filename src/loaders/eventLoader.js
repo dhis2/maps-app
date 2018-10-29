@@ -261,9 +261,10 @@ export const createEventFeature = (
         coordinates = [event[lonCol], event[latCol]]; // Event location
     }
 
+    const idCol = findIndex(headers, h => h.name === 'psi');
     return {
         type: 'Feature',
-        id: properties.psi,
+        id: event[idCol],
         properties,
         geometry: {
             type: 'Point',
