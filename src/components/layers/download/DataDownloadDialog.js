@@ -82,6 +82,30 @@ class DataDownloadDialog extends Component {
         this.setState({ humanReadableChecked: isChecked });
     };
 
+    renderEventDownloadInputs = ({ classes }) => [
+        <div key="description" className={classes.contentDiv}>
+            {i18n.t('Please select the format for GeoJSON Feature keys')}
+        </div>,
+        <div key="form" className={classes.contentDiv}>
+            <SelectField
+                classes={{
+                    textField: classes.selectField,
+                }}
+                label={i18n.t('Meta-data ID Format')}
+                items={formatOptions}
+                value={this.state.selectedFormatOption + 1}
+                onChange={this.onChangeFormatOption}
+            />
+            <Checkbox
+                label={i18n.t(
+                    'Output human-readable keys for non-dimension data attributes'
+                )}
+                checked={this.state.humanReadableChecked}
+                onCheck={this.onCheckHumanReadable}
+            />
+        </div>,
+    ];
+
     render() {
         const {
             open,
@@ -117,36 +141,7 @@ class DataDownloadDialog extends Component {
                         )}
                     </div>
                     {isEventLayer
-                        ? [
-                              <div
-                                  key="description"
-                                  className={classes.contentDiv}
-                              >
-                                  {i18n.t(
-                                      'Please select the format for GeoJSON Feature keys'
-                                  )}
-                              </div>,
-                              <div key="form" className={classes.contentDiv}>
-                                  <SelectField
-                                      classes={{
-                                          textField: classes.selectField,
-                                      }}
-                                      label={i18n.t('Meta-data ID Format')}
-                                      items={formatOptions}
-                                      value={
-                                          this.state.selectedFormatOption + 1
-                                      }
-                                      onChange={this.onChangeFormatOption}
-                                  />
-                                  <Checkbox
-                                      label={i18n.t(
-                                          'Output human-readable keys for non-dimension data attributes'
-                                      )}
-                                      checked={this.state.humanReadableChecked}
-                                      onCheck={this.onCheckHumanReadable}
-                                  />
-                              </div>,
-                          ]
+                        ? this.renderEventDownloadInputs({ classes })
                         : null}
                 </DialogContent>
                 <DialogActions className={classes.dialogActions}>
