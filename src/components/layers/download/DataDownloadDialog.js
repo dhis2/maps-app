@@ -10,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Checkbox from '../../core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 import SelectField from '../../core/SelectField';
 import {
@@ -25,10 +26,10 @@ import {
 
 const styles = theme => ({
     paper: {
-        width: 600,
+        width: 480,
     },
     content: {
-        minHeight: 300,
+        minHeight: 320,
     },
     wrapper: {
         position: 'relative',
@@ -41,11 +42,19 @@ const styles = theme => ({
         marginLeft: -12,
     },
     contentDiv: {
-        marginBottom: theme.spacing.unit * 3,
+        marginBottom: theme.spacing.unit * 1.5,
     },
     selectField: {
         width: '50%',
         marginLeft: theme.spacing.unit * 1.5,
+    },
+    error: {
+        marginTop: theme.spacing.unit * 1.5,
+        color: theme.palette.error.main,
+    },
+    errorIcon: {
+        marginBottom: -6,
+        marginRight: theme.spacing.unit * 1.5,
     },
 });
 
@@ -63,6 +72,7 @@ class DataDownloadDialog extends Component {
     static propTypes = {
         open: PropTypes.bool.isRequired,
         downloading: PropTypes.bool.isRequired,
+        error: PropTypes.string,
         layer: PropTypes.object,
         startDownload: PropTypes.func.isRequired,
         closeDialog: PropTypes.func.isRequired,
@@ -71,8 +81,8 @@ class DataDownloadDialog extends Component {
     };
 
     state = {
-        selectedFormatOption: 0,
-        humanReadableChecked: false,
+        selectedFormatOption: 2,
+        humanReadableChecked: true,
     };
 
     onChangeFormatOption = newValue => {
@@ -98,7 +108,7 @@ class DataDownloadDialog extends Component {
             />
             <Checkbox
                 label={i18n.t(
-                    'Output human-readable keys for non-dimension data attributes'
+                    'Output human-readable keys for non-dimension attributes'
                 )}
                 checked={this.state.humanReadableChecked}
                 onCheck={this.onCheckHumanReadable}
@@ -110,8 +120,9 @@ class DataDownloadDialog extends Component {
         const {
             open,
             layer,
-
             downloading,
+            error,
+
             startDownload,
             closeDialog,
 
@@ -135,14 +146,20 @@ class DataDownloadDialog extends Component {
                         {i18n.t(
                             'The data for this layer will be downloaded in GeoJSON format.'
                         )}
-                        <br />
+                    </div>
+                    <div className={classes.contentDiv}>
                         {i18n.t(
                             'This format is supported by most GIS software, including QGIS and ArcGIS Desktop.'
                         )}
                     </div>
-                    {isEventLayer
-                        ? this.renderEventDownloadInputs({ classes })
-                        : null}
+                    {isEventLayer &&
+                        this.renderEventDownloadInputs({ classes })}
+                    {error && (
+                        <div className={classes.error}>
+                            <ErrorIcon className={classes.errorIcon} />
+                            {i18n.t('Data download failed.')}
+                        </div>
+                    )}
                 </DialogContent>
                 <DialogActions className={classes.dialogActions}>
                     <Button
@@ -196,6 +213,7 @@ const mapStateToProps = state => {
         open: state.dataDownload.dialogOpen,
         layer: layer,
         downloading: state.dataDownload.downloading,
+        error: state.dataDownload.error,
     };
 };
 
