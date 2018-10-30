@@ -29,7 +29,9 @@ const EventDownloadInputs = ({
 
     formatOptions,
     selectedFormatOption = 0,
+    humanReadableChecked,
     onChangeFormatOption,
+    onCheckHumanReadable,
 }) => [
     <div key="description" className={classes.contentDiv}>
         {i18n.t('Please select the format for GeoJSON Feature keys')}
@@ -48,8 +50,8 @@ const EventDownloadInputs = ({
             label={i18n.t(
                 'Output human-readable keys for non-dimension attributes'
             )}
-            checked={this.state.humanReadableChecked}
-            onCheck={this.onCheckHumanReadable}
+            checked={humanReadableChecked}
+            onCheck={onCheckHumanReadable}
         />
     </div>,
 ];
@@ -62,7 +64,9 @@ const DataDownloadDialogContent = ({
 
     formatOptions,
     selectedFormatOption,
+    humanReadableChecked,
     onChangeFormatOption,
+    onCheckHumanReadable,
 }) => (
     <Fragment>
         <div className={classes.contentDiv}>
@@ -78,9 +82,11 @@ const DataDownloadDialogContent = ({
         {isEventLayer && (
             <EventDownloadInputs
                 classes={classes}
-                formatOptions={formatOptions}
                 selectedFormatOption={selectedFormatOption}
+                humanReadableChecked={humanReadableChecked}
+                formatOptions={formatOptions}
                 onChangeFormatOption={onChangeFormatOption}
+                onCheckHumanReadable={onCheckHumanReadable}
             />
         )}
         {error && (
@@ -100,7 +106,10 @@ DataDownloadDialogContent.propTypes = {
 
     formatOptions: PropTypes.array.isRequired,
     selectedFormatOption: PropTypes.number,
+    humanReadableChecked: PropTypes.bool.isRequired,
+
     onChangeFormatOption: PropTypes.func.isRequired,
+    onCheckHumanReadable: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(DataDownloadDialogContent);

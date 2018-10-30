@@ -101,7 +101,9 @@ class DataDownloadDialog extends Component {
                         selectedFormatOption={
                             this.state.selectedFormatOption + 1
                         }
+                        humanReadableChecked={this.state.humanReadableChecked}
                         onChangeFormatOption={this.onChangeFormatOption}
+                        onCheckHumanReadable={this.onCheckHumanReadable}
                     />
                 </DialogContent>
                 <DialogActions>

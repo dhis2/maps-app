@@ -68,12 +68,11 @@ const downloadData = action$ =>
         try {
             const { layer, format, humanReadableKeys } = action.payload;
             const data = await loadData(layer, format, humanReadableKeys);
-            throw new Error('Test Error');
-            // await downloadGeoJson({
-            //     name: layer.name,
-            //     data: data,
-            // });
-            // return dataDownloadSuccess();
+            await downloadGeoJson({
+                name: layer.name,
+                data: data,
+            });
+            return dataDownloadSuccess();
         } catch (e) {
             return errorActionCreator(types.DATA_DOWNLOAD_FAILURE)(e);
         }
