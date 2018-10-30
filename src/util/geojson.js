@@ -66,7 +66,11 @@ export const buildEventCoordinateGetter = (headers, eventCoordinateField) => {
             if (Array.isArray(coordinates)) {
                 return coordinates;
             } else if (isString(coordinates) && !isEmpty(coordinates)) {
-                return JSON.parse(coordinates);
+                try {
+                    return JSON.parse(coordinates);
+                } catch (e) {
+                    return [];
+                }
             } else {
                 return [];
             }
@@ -79,7 +83,7 @@ export const buildEventCoordinateGetter = (headers, eventCoordinateField) => {
     }
 };
 
-export const createEventFeatures = (response, config) => {
+export const createEventFeatures = (response, config = {}) => {
     const names = {
         ...(config.outputIdScheme !== 'ID'
             ? getApiResponseNames(response)
@@ -87,7 +91,8 @@ export const createEventFeatures = (response, config) => {
         ...config.columnNames,
     }; // TODO: Pass this through the the request to support ID/NAME/CODE output natively.  Server bugfix needed.
 
-    const idCol = findIndex(response.headers, h => h.name === 'psi');
+    const idColName = config.idCol || 'psi';
+    const idCol = findIndex(response.headers, h => h.name === idColName);
     const getCoordinates = buildEventCoordinateGetter(
         response.headers,
         config && config.eventCoordinateField
