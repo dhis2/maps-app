@@ -7,12 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import Checkbox from '../../core/Checkbox';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
-import SelectField from '../../core/SelectField';
 import {
     META_DATA_FORMAT_ID,
     META_DATA_FORMAT_NAME,
@@ -23,40 +18,17 @@ import {
     closeDataDownloadDialog,
     startDataDownload,
 } from '../../../actions/dataDownload';
+import DataDownloadDialogContent from './DataDownloadDialogContent';
+import DataDownloadDialogActions from './DataDownloadDialogActions';
 
-const styles = theme => ({
+const styles = {
     paper: {
         width: 480,
     },
     content: {
         minHeight: 320,
     },
-    wrapper: {
-        position: 'relative',
-    },
-    btnProgress: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        marginTop: -12,
-        marginLeft: -12,
-    },
-    contentDiv: {
-        marginBottom: theme.spacing.unit * 1.5,
-    },
-    selectField: {
-        width: '50%',
-        marginLeft: theme.spacing.unit * 1.5,
-    },
-    error: {
-        marginTop: theme.spacing.unit * 1.5,
-        color: theme.palette.error.main,
-    },
-    errorIcon: {
-        marginBottom: -6,
-        marginRight: theme.spacing.unit * 1.5,
-    },
-});
+};
 
 const formatOptionsFlat = [
     META_DATA_FORMAT_ID,
@@ -92,30 +64,6 @@ class DataDownloadDialog extends Component {
         this.setState({ humanReadableChecked: isChecked });
     };
 
-    renderEventDownloadInputs = ({ classes }) => [
-        <div key="description" className={classes.contentDiv}>
-            {i18n.t('Please select the format for GeoJSON Feature keys')}
-        </div>,
-        <div key="form" className={classes.contentDiv}>
-            <SelectField
-                classes={{
-                    textField: classes.selectField,
-                }}
-                label={i18n.t('Meta-data ID Format')}
-                items={formatOptions}
-                value={this.state.selectedFormatOption + 1}
-                onChange={this.onChangeFormatOption}
-            />
-            <Checkbox
-                label={i18n.t(
-                    'Output human-readable keys for non-dimension attributes'
-                )}
-                checked={this.state.humanReadableChecked}
-                onCheck={this.onCheckHumanReadable}
-            />
-        </div>,
-    ];
-
     render() {
         const {
             open,
@@ -137,62 +85,39 @@ class DataDownloadDialog extends Component {
             isEventLayer = layerType === 'event';
 
         return (
-            <Dialog open={open} classes={{ paper: classes.paper }}>
+            <Dialog
+                open={open}
+                onClose={closeDialog}
+                classes={{ paper: classes.paper }}
+            >
                 <DialogTitle disableTypography={true} className={classes.title}>
                     {i18n.t('Download Layer Data')}
                 </DialogTitle>
                 <DialogContent className={classes.content}>
-                    <div className={classes.contentDiv}>
-                        {i18n.t(
-                            'The data for this layer will be downloaded in GeoJSON format.'
-                        )}
-                    </div>
-                    <div className={classes.contentDiv}>
-                        {i18n.t(
-                            'This format is supported by most GIS software, including QGIS and ArcGIS Desktop.'
-                        )}
-                    </div>
-                    {isEventLayer &&
-                        this.renderEventDownloadInputs({ classes })}
-                    {error && (
-                        <div className={classes.error}>
-                            <ErrorIcon className={classes.errorIcon} />
-                            {i18n.t('Data download failed.')}
-                        </div>
-                    )}
+                    <DataDownloadDialogContent
+                        isEventLayer={isEventLayer}
+                        error={error}
+                        formatOptions={formatOptions}
+                        selectedFormatOption={
+                            this.state.selectedFormatOption + 1
+                        }
+                        onChangeFormatOption={this.onChangeFormatOption}
+                    />
                 </DialogContent>
-                <DialogActions className={classes.dialogActions}>
-                    <Button
-                        color="primary"
-                        onClick={() => closeDialog()}
-                        disabled={downloading}
-                    >
-                        {i18n.t('Cancel')}
-                    </Button>
-                    <div className={classes.wrapper}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() =>
-                                startDownload(
-                                    layer,
-                                    formatOptionsFlat[
-                                        this.state.selectedFormatOption
-                                    ],
-                                    this.state.humanReadableChecked
-                                )
-                            }
-                            disabled={downloading}
-                        >
-                            {i18n.t('Download')}
-                        </Button>
-                        {downloading && (
-                            <CircularProgress
-                                size={24}
-                                className={classes.btnProgress}
-                            />
-                        )}
-                    </div>
+                <DialogActions>
+                    <DataDownloadDialogActions
+                        downloading={downloading}
+                        onStartClick={() =>
+                            startDownload(
+                                layer,
+                                formatOptionsFlat[
+                                    this.state.selectedFormatOption
+                                ],
+                                this.state.humanReadableChecked
+                            )
+                        }
+                        onCancelClick={closeDialog}
+                    />
                 </DialogActions>
             </Dialog>
         );
