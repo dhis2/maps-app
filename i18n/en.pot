@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-10-25T08:47:16.946Z\n"
-"PO-Revision-Date: 2018-10-25T08:47:16.946Z\n"
+"POT-Creation-Date: 2018-10-30T11:01:04.445Z\n"
+"PO-Revision-Date: 2018-10-30T11:01:04.445Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -93,6 +93,12 @@ msgid "Color"
 msgstr ""
 
 msgid "Download map"
+msgstr ""
+
+msgid "Include legend"
+msgstr ""
+
+msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 import isNumeric from 'd2-utilizr/lib/isNumeric';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
@@ -10,6 +11,7 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
+import MapName from './MapName';
 import MapLegend from './MapLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
 import {
@@ -28,9 +30,19 @@ const layerType = {
     external: ExternalLayer,
 };
 
+const styles = {
+    mapContainer: {
+        height: '100%',
+    },
+};
+
 class Map extends Component {
     static contextTypes = {
         map: PropTypes.object,
+    };
+
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
     };
 
     componentWillMount() {
@@ -127,6 +139,7 @@ class Map extends Component {
 
     render() {
         const {
+            name,
             basemap,
             basemaps,
             mapViews,
@@ -136,6 +149,7 @@ class Map extends Component {
             dataTableOpen,
             dataTableHeight,
             openContextMenu,
+            classes,
         } = this.props;
 
         const basemapConfig = {
@@ -153,24 +167,38 @@ class Map extends Component {
             bottom: dataTableOpen ? dataTableHeight : 0,
         };
 
-        return (
-            <div ref={node => (this.node = node)} style={style}>
-                {layers.filter(layer => layer.isLoaded).map((config, index) => {
-                    const Overlay = layerType[config.layer] || Layer;
+        // <div ref={node => (this.node = node)} style={style}></div>
 
-                    return (
-                        <Overlay
-                            key={config.id}
-                            index={index}
-                            openContextMenu={openContextMenu}
-                            {...config}
+        return (
+            <div style={style}>
+                <div
+                    id="dhis2-maps-container"
+                    ref={node => (this.node = node)}
+                    className={classes.mapContainer}
+                >
+                    {name && <MapName name={name} />}
+                    {layers
+                        .filter(layer => layer.isLoaded)
+                        .map((config, index) => {
+                            const Overlay = layerType[config.layer] || Layer;
+
+                            return (
+                                <Overlay
+                                    key={config.id}
+                                    index={index}
+                                    openContextMenu={openContextMenu}
+                                    {...config}
+                                />
+                            );
+                        })}
+                    <Layer key="basemap" {...basemapConfig} />
+                    {legendPosition && (
+                        <MapLegend
+                            position={legendPosition}
+                            layers={mapViews}
                         />
-                    );
-                })}
-                <Layer key="basemap" {...basemapConfig} />
-                {legendPosition && (
-                    <MapLegend position={legendPosition} layers={mapViews} />
-                )}
+                    )}
+                </div>
             </div>
         );
     }
@@ -195,4 +223,4 @@ export default connect(
         openContextMenu,
         closeCoordinatePopup,
     }
-)(Map);
+)(withStyles(styles)(Map));

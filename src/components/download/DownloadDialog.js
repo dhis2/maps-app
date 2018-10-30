@@ -110,7 +110,9 @@ class DownloadDialog extends Component {
     onClose = () => this.props.setDownloadState(false);
 
     onDownload = () => {
-        const mapEl = document.getElementsByClassName('leaflet-container')[0];
+        // dhis2-maps-container
+        const mapEl = document.getElementById('dhis2-maps-container');
+        // const mapEl = document.getElementsByClassName('leaflet-container')[0];
         const options = {
             width: mapEl.offsetWidth,
             height: mapEl.offsetHeight,

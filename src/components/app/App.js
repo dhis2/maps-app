@@ -1,7 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import OldMuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; // TODO: REMOVE (currently needed for FileMenu in d2-ui)
 import { muiTheme } from '../../constants/dhis2.theme';
@@ -23,7 +22,6 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 export class App extends Component {
     static propTypes = {
         d2: PropTypes.object,
-        downloadMode: PropTypes.bool.isRequired,
     };
 
     static childContextTypes = {
@@ -42,25 +40,17 @@ export class App extends Component {
                 <MuiThemeProvider theme={muiTheme}>
                     <OldMuiThemeProvider>
                         <MapProvider>
-                            <div
-                                className={
-                                    this.props.downloadMode
-                                        ? 'dhis2-maps-download'
-                                        : null
-                                }
-                            >
-                                <AppHeader />
-                                <AppMenu />
-                                <InterpretationsPanel />
-                                <LayersPanel />
-                                <LayersToggle />
-                                <Map />
-                                <BottomPanel />
-                                <LayerEdit />
-                                <ContextMenu />
-                                <AlertSnackbar />
-                                <Message />
-                            </div>
+                            <AppHeader />
+                            <AppMenu />
+                            <InterpretationsPanel />
+                            <LayersPanel />
+                            <LayersToggle />
+                            <Map />
+                            <BottomPanel />
+                            <LayerEdit />
+                            <ContextMenu />
+                            <AlertSnackbar />
+                            <Message />
                         </MapProvider>
                     </OldMuiThemeProvider>
                 </MuiThemeProvider>
@@ -69,6 +59,4 @@ export class App extends Component {
     }
 }
 
-export default connect(state => ({
-    downloadMode: state.download.isActive,
-}))(App);
+export default App;

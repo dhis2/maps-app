@@ -1,5 +1,6 @@
-import { Component, Children } from 'react';
+import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import d2map from '@dhis2/gis-api';
 
 // Makes the Leaflet map instance available in all child components
@@ -22,16 +23,29 @@ class MapProvider extends Component {
     }
 
     render() {
-        return Children.only(this.props.children);
+        const { isDownload, children } = this.props;
+
+        // Adds CSS class if in download mode (used to hide map controls)
+        return (
+            <div className={isDownload ? 'dhis2-maps-download' : null}>
+                {children}
+            </div>
+        );
     }
 }
 
 MapProvider.propTypes = {
-    children: PropTypes.element.isRequired,
+    isDownload: PropTypes.bool.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ]),
 };
 
 MapProvider.childContextTypes = {
     map: PropTypes.object.isRequired,
 };
 
-export default MapProvider;
+export default connect(state => ({
+    isDownload: state.download.isActive,
+}))(MapProvider);
