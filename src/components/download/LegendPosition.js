@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import i18n from '@dhis2/d2-i18n';
 
 const positions = ['topleft', 'topright', 'bottomleft', 'bottomright'];
 
 const styles = theme => ({
     root: {
         width: 120,
-        paddingLeft: 20,
+        paddingLeft: 30,
+    },
+    label: {
+        fontSize: 14,
+        padding: 5,
     },
     position: {
         position: 'relative',
@@ -48,6 +53,7 @@ const styles = theme => ({
 
 const LegendPosition = ({ position, onChange, classes }) => (
     <div className={classes.root}>
+        <div className={classes.label}>{i18n.t('Legend position')}</div>
         {positions.map(pos => (
             <div
                 key={pos}

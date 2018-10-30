@@ -12,6 +12,7 @@ import Checkbox from '../core/Checkbox';
 import LegendPosition from './LegendPosition';
 import {
     setDownloadState,
+    setDownloadNameState,
     setDownloadLegendState,
     setDownloadLegendPosition,
 } from '../../actions/download';
@@ -29,8 +30,16 @@ const styles = {
         fontWeight: 'bold',
     },
     content: {
-        padding: '0 24px',
+        padding: '12px 24px 0',
         lineHeight: '24px',
+        minHeight: 250,
+        minWidth: 250,
+    },
+    checkbox: {
+        display: 'block',
+        marginLeft: -14,
+        marginTop: -16,
+        marginBottom: -16,
     },
 };
 
@@ -42,9 +51,11 @@ const styles = {
 class DownloadDialog extends Component {
     static propTypes = {
         isActive: PropTypes.bool.isRequired,
+        showName: PropTypes.bool.isRequired,
         showLegend: PropTypes.bool.isRequired,
         legendPosition: PropTypes.string.isRequired,
         setDownloadState: PropTypes.func.isRequired,
+        setDownloadNameState: PropTypes.func.isRequired,
         setDownloadLegendState: PropTypes.func.isRequired,
         setDownloadLegendPosition: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
@@ -53,15 +64,15 @@ class DownloadDialog extends Component {
     render() {
         const {
             isActive,
+            showName,
             showLegend,
             legendPosition,
+            setDownloadNameState,
             setDownloadLegendState,
             setDownloadLegendPosition,
             classes,
         } = this.props;
         const isSupported = downloadSupport();
-
-        // console.log(showLegend, legendPosition);
 
         return (
             <Dialog open={isActive} onClose={this.onClose}>
@@ -71,11 +82,20 @@ class DownloadDialog extends Component {
                 <DialogContent className={classes.content}>
                     {isSupported ? (
                         <React.Fragment>
-                            <Checkbox
-                                label={i18n.t('Include legend')}
-                                checked={showLegend}
-                                onCheck={setDownloadLegendState}
-                            />
+                            <div className={classes.checkbox}>
+                                <Checkbox
+                                    label={i18n.t('Show title')}
+                                    checked={showName}
+                                    onCheck={setDownloadNameState}
+                                />
+                            </div>
+                            <div className={classes.checkbox}>
+                                <Checkbox
+                                    label={i18n.t('Show legend')}
+                                    checked={showLegend}
+                                    onCheck={setDownloadLegendState}
+                                />
+                            </div>
                             {showLegend && (
                                 <LegendPosition
                                     position={legendPosition}
@@ -110,9 +130,8 @@ class DownloadDialog extends Component {
     onClose = () => this.props.setDownloadState(false);
 
     onDownload = () => {
-        // dhis2-maps-container
         const mapEl = document.getElementById('dhis2-maps-container');
-        // const mapEl = document.getElementsByClassName('leaflet-container')[0];
+
         const options = {
             width: mapEl.offsetWidth,
             height: mapEl.offsetHeight,
@@ -133,5 +152,10 @@ export default connect(
     state => ({
         ...state.download,
     }),
-    { setDownloadState, setDownloadLegendState, setDownloadLegendPosition }
+    {
+        setDownloadState,
+        setDownloadNameState,
+        setDownloadLegendState,
+        setDownloadLegendPosition,
+    }
 )(withStyles(styles)(DownloadDialog));

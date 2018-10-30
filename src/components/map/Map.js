@@ -168,14 +168,14 @@ class Map extends Component {
             bottom: dataTableOpen ? dataTableHeight : 0,
         };
 
-        // <div ref={node => (this.node = node)} style={style}></div>
-
         return (
             <div style={style}>
                 <div
                     id="dhis2-maps-container"
                     ref={node => (this.node = node)}
-                    className={classes.mapContainer}
+                    className={`${classes.mapContainer}${
+                        showName ? ' dhis2-maps-name' : ''
+                    }`}
                 >
                     {name && showName && <MapName name={name} />}
                     {layers

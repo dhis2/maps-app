@@ -4,12 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Legend from '../layers/legend/Legend';
 
 const styles = {
-    root: {
-        // background: 'red',
-    },
-    legend: {
-        // background: '#eee',
-    },
     title: {
         fontSize: 15,
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
@@ -57,19 +51,17 @@ class MapLegend extends PureComponent {
 
         return (
             <div ref={el => (this.container = el)} style={{ display: 'none' }}>
-                <div className={classes.root}>
-                    {legends.map((legend, index) => (
-                        <div key={index} className={classes.legend}>
-                            <h2 className={classes.title}>
-                                {legend.title}{' '}
-                                <span className={classes.period}>
-                                    {legend.period}
-                                </span>
-                            </h2>
-                            <Legend {...legend} />
-                        </div>
-                    ))}
-                </div>
+                {legends.map((legend, index) => (
+                    <div key={index}>
+                        <h2 className={classes.title}>
+                            {legend.title}{' '}
+                            <span className={classes.period}>
+                                {legend.period}
+                            </span>
+                        </h2>
+                        <Legend {...legend} />
+                    </div>
+                ))}
             </div>
         );
     }

@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 const defaultState = {
     isActive: false,
     showName: true,
-    showLegend: false,
+    showLegend: true,
     legendPosition: 'bottomright',
 };
 
