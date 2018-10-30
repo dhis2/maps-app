@@ -100,30 +100,28 @@ export class ThematicDialog extends Component {
         const dataItem = getDataItemFromColumns(columns);
 
         // Set value type if favorite is loaded
-        if (!valueType && dataItem && dataItem.dimensionItemType) {
-            const dimension = Object.keys(dimConf).find(
-                dim => dimConf[dim].itemType === dataItem.dimensionItemType
-            );
+        if (!valueType) {
+            if (dataItem && dataItem.dimensionItemType) {
+                const dimension = Object.keys(dimConf).find(
+                    dim => dimConf[dim].itemType === dataItem.dimensionItemType
+                );
 
-            if (dimension) {
-                setValueType(dimConf[dimension].objectName, true);
+                if (dimension) {
+                    setValueType(dimConf[dimension].objectName, true);
+                }
+            } else {
+                setValueType('in'); // TODO: Make constant
             }
         }
     }
 
     componentDidUpdate(prev) {
         const {
-            valueType,
             rows,
-            setValueType,
             loadOrgUnitPath,
             validateLayer,
             onLayerValidation,
         } = this.props;
-
-        if (!valueType) {
-            setValueType('in'); // TODO: Make constant
-        }
 
         if (rows) {
             const orgUnits = getOrgUnitNodesFromRows(rows);
