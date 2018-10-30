@@ -110,7 +110,7 @@ export class ThematicDialog extends Component {
                     setValueType(dimConf[dimension].objectName, true);
                 }
             } else {
-                setValueType('in'); // TODO: Make constant
+                setValueType(dimConf.indicator.objectName);
             }
         }
     }
