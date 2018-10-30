@@ -143,6 +143,7 @@ class Map extends Component {
             basemap,
             basemaps,
             mapViews,
+            showName,
             legendPosition,
             layersPanelOpen,
             interpretationsPanelOpen,
@@ -176,7 +177,7 @@ class Map extends Component {
                     ref={node => (this.node = node)}
                     className={classes.mapContainer}
                 >
-                    {name && <MapName name={name} />}
+                    {name && showName && <MapName name={name} />}
                     {layers
                         .filter(layer => layer.isLoaded)
                         .map((config, index) => {
@@ -211,6 +212,7 @@ const mapStateToProps = state => ({
     interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
     dataTableOpen: state.dataTable,
     dataTableHeight: state.ui.dataTableHeight,
+    showName: state.download.isActive ? state.download.showName : true,
     legendPosition:
         state.download.isActive && state.download.showLegend
             ? state.download.legendPosition

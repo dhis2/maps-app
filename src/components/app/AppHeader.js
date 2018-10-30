@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,20 +24,6 @@ const styles = theme => ({
     svg: {
         width: 74,
     },
-    title: {
-        position: 'absolute',
-        left: LAYERS_PANEL_WIDTH + 1,
-        right: 0,
-        height: '100%',
-        fontFamily: 'Roboto, sans-serif',
-        lineHeight: '48px',
-        marginTop: 2,
-        marginLeft: 16,
-    },
-    noFavorite: {
-        color: theme.palette.text.disabled,
-        fontStyle: 'italic',
-    },
     star: {
         verticalAlign: 'middle',
         marginTop: -5,
@@ -51,7 +36,7 @@ const styles = theme => ({
     },
 });
 
-export const AppHeader = ({ name = '', classes }) => (
+export const AppHeader = ({ classes }) => (
     <div className={classes.header}>
         <div className={classes.logo}>
             <svg
@@ -72,36 +57,19 @@ export const AppHeader = ({ name = '', classes }) => (
                 </g>
             </svg>
         </div>
-        <div
-            className={
-                name ? classes.title : `${classes.title} ${classes.noFavorite}`
+        <IconButton
+            onClick={() =>
+                (window.location.href = `../dhis-web-commons-about/redirect.action`)
             }
+            className={classes.homeBtn}
         >
-            {name ? (
-                <span>
-                    <StarIcon className={classes.star} />
-                    {name}
-                </span>
-            ) : (
-                i18n.t('No favorite selected')
-            )}
-            <IconButton
-                onClick={() =>
-                    (window.location.href = `../dhis-web-commons-about/redirect.action`)
-                }
-                className={classes.homeBtn}
-            >
-                <HomeIcon />
-            </IconButton>
-        </div>
+            <HomeIcon />
+        </IconButton>
     </div>
 );
 
 AppHeader.propTypes = {
-    name: PropTypes.string,
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(state => ({
-    name: state.map ? state.map.name : null,
-}))(withStyles(styles)(AppHeader));
+export default withStyles(styles)(AppHeader);

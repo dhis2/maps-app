@@ -2,6 +2,7 @@ import * as types from '../constants/actionTypes';
 
 const defaultState = {
     isActive: false,
+    showName: true,
     showLegend: false,
     legendPosition: 'bottomright',
 };
@@ -12,6 +13,12 @@ const download = (state = defaultState, action) => {
             return {
                 ...state,
                 isActive: action.payload,
+            };
+
+        case types.DOWNLOAD_NAME_STATE_SET:
+            return {
+                ...state,
+                showName: action.payload,
             };
 
         case types.DOWNLOAD_LEGEND_STATE_SET:
