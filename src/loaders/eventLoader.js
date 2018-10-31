@@ -15,7 +15,6 @@ import {
     getBounds,
 } from '../util/geojson';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
-import findIndex from 'lodash/findIndex';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
@@ -102,6 +101,7 @@ const eventLoader = async layerConfig => {
 };
 
 // Also used to query for server cluster in map/EventLayer.js
+// TODO: Use DataIDScheme / OutputIDScheme instead of requesting all metaData (which can easily dwarf the actual response data)
 export const getAnalyticsRequest = async ({
     program,
     programStage,
