@@ -144,6 +144,7 @@ class Map extends Component {
             basemaps,
             mapViews,
             showName,
+            isDownload,
             legendPosition,
             layersPanelOpen,
             interpretationsPanelOpen,
@@ -169,13 +170,14 @@ class Map extends Component {
         };
 
         return (
-            <div style={style}>
+            <div
+                className={isDownload ? 'dhis2-maps-download ' : null}
+                style={style}
+            >
                 <div
                     id="dhis2-maps-container"
                     ref={node => (this.node = node)}
-                    className={`${classes.mapContainer}${
-                        showName ? ' dhis2-maps-name' : ''
-                    }`}
+                    className={classes.mapContainer}
                 >
                     {name && showName && <MapName name={name} />}
                     {layers
@@ -193,13 +195,14 @@ class Map extends Component {
                             );
                         })}
                     <Layer key="basemap" {...basemapConfig} />
-                    {legendPosition && (
-                        <MapLegend
-                            position={legendPosition}
-                            layers={mapViews}
-                            showName={showName}
-                        />
-                    )}
+                    {isDownload &&
+                        legendPosition && (
+                            <MapLegend
+                                position={legendPosition}
+                                layers={mapViews}
+                                showName={showName}
+                            />
+                        )}
                 </div>
             </div>
         );
@@ -214,10 +217,10 @@ const mapStateToProps = state => ({
     dataTableOpen: state.dataTable,
     dataTableHeight: state.ui.dataTableHeight,
     showName: state.download.isActive ? state.download.showName : true,
-    legendPosition:
-        state.download.isActive && state.download.showLegend
-            ? state.download.legendPosition
-            : null,
+    isDownload: state.download.isActive,
+    legendPosition: state.download.showLegend
+        ? state.download.legendPosition
+        : null,
 });
 
 export default connect(
