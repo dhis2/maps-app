@@ -43,42 +43,33 @@ const styles = theme => ({
     },
 });
 
-class MapLegend extends PureComponent {
-    static contextTypes = {
-        map: PropTypes.object,
-    };
+export const MapLegend = ({ position, layers, showName, classes }) => {
+    const style = positions(showName)[position];
 
-    static propTypes = {
-        position: PropTypes.string.isRequired,
-        showName: PropTypes.bool.isRequired,
-        classes: PropTypes.object.isRequired,
-    };
+    const legends = layers
+        .filter(layer => layer.legend)
+        .map(layer => layer.legend);
 
-    render() {
-        const { position, layers, showName, classes } = this.props;
+    return (
+        <div className={classes.root} style={style}>
+            {legends.map((legend, index) => (
+                <div key={index}>
+                    <h2 className={classes.title}>
+                        {legend.title}{' '}
+                        <span className={classes.period}>{legend.period}</span>
+                    </h2>
+                    <Legend {...legend} />
+                </div>
+            ))}
+        </div>
+    );
+};
 
-        const style = positions(showName)[position];
-
-        const legends = layers
-            .filter(layer => layer.legend)
-            .map(layer => layer.legend);
-
-        return (
-            <div className={classes.root} style={style}>
-                {legends.map((legend, index) => (
-                    <div key={index}>
-                        <h2 className={classes.title}>
-                            {legend.title}{' '}
-                            <span className={classes.period}>
-                                {legend.period}
-                            </span>
-                        </h2>
-                        <Legend {...legend} />
-                    </div>
-                ))}
-            </div>
-        );
-    }
-}
+MapLegend.propTypes = {
+    position: PropTypes.string.isRequired,
+    layers: PropTypes.array.isRequired,
+    showName: PropTypes.bool.isRequired,
+    classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(MapLegend);
