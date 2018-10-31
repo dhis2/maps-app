@@ -28,35 +28,47 @@ const EventDownloadInputs = ({
     classes,
 
     formatOptions,
-    selectedFormatOption = 0,
+    selectedFormatOption,
     humanReadableChecked,
     onChangeFormatOption,
     onCheckHumanReadable,
-}) => [
-    <div key="description" className={classes.contentDiv}>
-        {i18n.t('Please select the format for GeoJSON Feature keys')}
-    </div>,
-    <div key="form" className={classes.contentDiv}>
-        <SelectField
-            classes={{
-                textField: classes.selectField,
-            }}
-            label={i18n.t('Meta-data ID Format')}
-            items={formatOptions}
-            value={selectedFormatOption}
-            onChange={onChangeFormatOption}
-        />
-        <Checkbox
-            label={i18n.t(
-                'Output human-readable keys for non-dimension attributes'
-            )}
-            checked={humanReadableChecked}
-            onCheck={onCheckHumanReadable}
-        />
-    </div>,
-];
+}) => (
+    <Fragment>
+        <div key="description" className={classes.contentDiv}>
+            {i18n.t('Please select the format for GeoJSON Feature keys')}
+        </div>
+        <div key="form" className={classes.contentDiv}>
+            <SelectField
+                classes={{
+                    textField: classes.selectField,
+                }}
+                label={i18n.t('Meta-data ID Format')}
+                items={formatOptions}
+                value={selectedFormatOption}
+                onChange={onChangeFormatOption}
+            />
+            <Checkbox
+                label={i18n.t(
+                    'Output human-readable keys for non-dimension attributes'
+                )}
+                checked={humanReadableChecked}
+                onCheck={onCheckHumanReadable}
+            />
+        </div>
+    </Fragment>
+);
+EventDownloadInputs.propTypes = {
+    classes: PropTypes.object.isRequired,
 
-const DataDownloadDialogContent = ({
+    formatOptions: PropTypes.array.isRequired,
+    selectedFormatOption: PropTypes.number.isRequired,
+    humanReadableChecked: PropTypes.bool.isRequired,
+
+    onChangeFormatOption: PropTypes.func.isRequired,
+    onCheckHumanReadable: PropTypes.func.isRequired,
+};
+
+export const DataDownloadDialogContent = ({
     classes,
 
     isEventLayer,
@@ -110,6 +122,9 @@ DataDownloadDialogContent.propTypes = {
 
     onChangeFormatOption: PropTypes.func.isRequired,
     onCheckHumanReadable: PropTypes.func.isRequired,
+};
+DataDownloadDialogContent.defaultProps = {
+    selectedFormatOption: 0,
 };
 
 export default withStyles(styles)(DataDownloadDialogContent);

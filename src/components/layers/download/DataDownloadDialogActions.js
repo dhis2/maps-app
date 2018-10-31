@@ -18,7 +18,7 @@ const styles = {
     },
 };
 
-const DataDownloadDialogActions = ({
+export const DataDownloadDialogActions = ({
     classes,
 
     downloading,
@@ -26,7 +26,12 @@ const DataDownloadDialogActions = ({
     onCancelClick,
 }) => (
     <Fragment>
-        <Button color="primary" onClick={onCancelClick} disabled={downloading}>
+        <Button
+            variant="text"
+            color="primary"
+            onClick={onCancelClick}
+            disabled={downloading}
+        >
             {i18n.t('Cancel')}
         </Button>
         <div className={classes.wrapper}>
