@@ -5,11 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-10-31T08:06:57.219Z\n"
-"PO-Revision-Date: 2018-10-31T08:06:57.219Z\n"
-
-msgid "Download"
-msgstr ""
+"POT-Creation-Date: 2018-10-31T12:13:12.407Z\n"
+"PO-Revision-Date: 2018-10-31T12:13:12.407Z\n"
 
 msgid "Classification"
 msgstr ""
@@ -87,6 +84,9 @@ msgid "Type"
 msgstr ""
 
 msgid "Color"
+msgstr ""
+
+msgid "Download"
 msgstr ""
 
 msgid "Download map"
@@ -386,6 +386,9 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
+msgid "No data found"
+msgstr ""
+
 msgid "Last updated"
 msgstr ""
 
@@ -473,9 +476,6 @@ msgid "Event"
 msgstr ""
 
 msgid "Facilities"
-msgstr ""
-
-msgid "No data found"
 msgstr ""
 
 msgid "Tracked entity"

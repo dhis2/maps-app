@@ -29,22 +29,25 @@ const styles = theme => ({
 // This expand/collapse toggle is separate from LayersPanel to avoid overflow issue
 const LayersToggle = ({
     isOpen,
+    isDownload,
     openLayersPanel,
     closeLayersPanel,
     classes,
-}) => (
-    <IconButton
-        onClick={isOpen ? closeLayersPanel : openLayersPanel}
-        className={`${classes.button} dhis2-layers-toggle`}
-        disableTouchRipple={true}
-        style={isOpen ? {} : { left: 0 }}
-    >
-        {isOpen ? <LeftIcon /> : <RightIcon />}
-    </IconButton>
-);
+}) =>
+    !isDownload && (
+        <IconButton
+            onClick={isOpen ? closeLayersPanel : openLayersPanel}
+            className={classes.button}
+            disableTouchRipple={true}
+            style={isOpen ? {} : { left: 0 }}
+        >
+            {isOpen ? <LeftIcon /> : <RightIcon />}
+        </IconButton>
+    );
 
 LayersToggle.propTypes = {
     isOpen: PropTypes.bool.isRequired,
+    isDownload: PropTypes.bool.isRequired,
     openLayersPanel: PropTypes.func.isRequired,
     closeLayersPanel: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
@@ -53,6 +56,7 @@ LayersToggle.propTypes = {
 export default connect(
     state => ({
         isOpen: state.ui.layersPanelOpen,
+        isDownload: state.download.isActive,
     }),
     { openLayersPanel, closeLayersPanel }
 )(withStyles(styles)(LayersToggle));

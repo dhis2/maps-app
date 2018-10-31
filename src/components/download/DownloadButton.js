@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -29,7 +29,7 @@ class DownloadButton extends Component {
         const { classes } = this.props;
 
         return (
-            <React.Fragment>
+            <Fragment>
                 <Button
                     key="button"
                     onClick={this.onClick}
@@ -41,7 +41,7 @@ class DownloadButton extends Component {
                     {i18n.t('Download')}
                 </Button>
                 <DownloadDialog />
-            </React.Fragment>
+            </Fragment>
         );
     }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -36,7 +36,7 @@ export class App extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <Fragment>
                 <MuiThemeProvider theme={muiTheme}>
                     <OldMuiThemeProvider>
                         <MapProvider>
@@ -54,7 +54,7 @@ export class App extends Component {
                         </MapProvider>
                     </OldMuiThemeProvider>
                 </MuiThemeProvider>
-            </React.Fragment>
+            </Fragment>
         );
     }
 }

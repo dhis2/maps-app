@@ -6,13 +6,13 @@ export const setDownloadState = isActive => ({
     payload: isActive,
 });
 
-// Weather the name should be included on the map download
+// Whether the name should be included on the map download
 export const setDownloadNameState = show => ({
     type: types.DOWNLOAD_NAME_STATE_SET,
     payload: show,
 });
 
-// Weather the legend should be included on the map download
+// Whether the legend should be included on the map download
 export const setDownloadLegendState = show => ({
     type: types.DOWNLOAD_LEGEND_STATE_SET,
     payload: show,

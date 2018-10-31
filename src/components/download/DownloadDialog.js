@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -81,7 +81,7 @@ class DownloadDialog extends Component {
                 </DialogTitle>
                 <DialogContent className={classes.content}>
                     {isSupported ? (
-                        <React.Fragment>
+                        <Fragment>
                             <div className={classes.checkbox}>
                                 <Checkbox
                                     label={i18n.t('Show title')}
@@ -102,7 +102,7 @@ class DownloadDialog extends Component {
                                     onChange={setDownloadLegendPosition}
                                 />
                             )}
-                        </React.Fragment>
+                        </Fragment>
                     ) : (
                         <p>
                             {i18n.t(

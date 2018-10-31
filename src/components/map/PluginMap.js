@@ -90,16 +90,6 @@ class PluginMap extends Component {
 
             this.node.appendChild(map.getContainer()); // Append map container to DOM
 
-            /*
-            if (map.legend) {
-                this.legend = map.addControl({
-                    type: 'legend',
-                    offset: [0, -64],
-                    content: map.legend,
-                });
-            }
-            */
-
             map.invalidateSize();
 
             const layersBounds = map.getLayersBounds();
@@ -120,17 +110,9 @@ class PluginMap extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        const map = this.map;
-
-        if (map) {
-            map.invalidateSize();
-
-            /*
-            if (this.legend) {
-                this.legend.setContent(map.legend);
-            }
-            */
+    componentDidUpdate() {
+        if (this.map) {
+            this.map.invalidateSize();
         }
     }
 
@@ -183,8 +165,6 @@ class PluginMap extends Component {
             }
 
             const newLayer = await fetchLayer(newConfig);
-
-            // this.map.legend = '';
 
             this.setState({
                 mapViews: mapViews.map(
