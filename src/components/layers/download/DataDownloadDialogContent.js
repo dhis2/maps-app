@@ -14,6 +14,9 @@ const styles = theme => ({
         width: '50%',
         marginLeft: theme.spacing.unit * 1.5,
     },
+    inputContainer: {
+        margin: `${theme.spacing.unit * 3}px 0`,
+    },
     error: {
         marginTop: theme.spacing.unit * 1.5,
         color: theme.palette.error.main,
@@ -35,21 +38,21 @@ export const EventDownloadInputs = ({
 }) => (
     <Fragment>
         <div key="description" className={classes.contentDiv}>
-            {i18n.t('Please select the format for GeoJSON Feature keys')}
+            {i18n.t('Please select the format for dimension attributes')}
         </div>
-        <div key="form" className={classes.contentDiv}>
+        <div key="form" className={classes.inputContainer}>
             <SelectField
                 classes={{
                     textField: classes.selectField,
                 }}
-                label={i18n.t('Meta-data ID Format')}
+                label={i18n.t('Meta-data ID scheme')}
                 items={formatOptions}
                 value={selectedFormatOption}
                 onChange={onChangeFormatOption}
             />
             <Checkbox
                 label={i18n.t(
-                    'Output human-readable keys for non-dimension attributes'
+                    'Use human-readable keys for all other attributes'
                 )}
                 checked={humanReadableChecked}
                 onCheck={onCheckHumanReadable}

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-10-30T09:29:00.873Z\n"
-"PO-Revision-Date: 2018-10-30T09:29:00.873Z\n"
+"POT-Creation-Date: 2018-10-31T16:22:25.548Z\n"
+"PO-Revision-Date: 2018-10-31T16:22:25.548Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -305,13 +305,13 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-msgid "Please select the format for GeoJSON Feature keys"
+msgid "Please select the format for dimension attributes"
 msgstr ""
 
-msgid "Meta-data ID Format"
+msgid "Meta-data ID scheme"
 msgstr ""
 
-msgid "Output human-readable keys for non-dimension attributes"
+msgid "Use human-readable keys for all other attributes"
 msgstr ""
 
 msgid "The data for this layer will be downloaded in GeoJSON format."
