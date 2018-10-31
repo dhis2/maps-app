@@ -1,6 +1,5 @@
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
-import { getHtmlLegend } from '../../util/legend';
 
 class ThematicLayer extends Layer {
     createLayer() {
@@ -11,7 +10,6 @@ class ThematicLayer extends Layer {
             labels,
             labelFontSize,
             labelFontStyle,
-            legend,
         } = this.props;
 
         const map = this.context.map;
@@ -35,12 +33,6 @@ class ThematicLayer extends Layer {
         this.layer = map.createLayer(config);
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
-
-        // Create legend in HTML if showed as plugin or download
-        if (legend) {
-            map.legend =
-                (map.legend || '') + getHtmlLegend(legend, data.length > 0);
-        }
 
         const layerBounds = this.layer.getBounds();
 

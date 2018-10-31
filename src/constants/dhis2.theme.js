@@ -88,5 +88,3 @@ export const muiTheme = createMuiTheme({
         },
     },
 });
-
-console.log('muiTheme', muiTheme);

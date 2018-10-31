@@ -42,6 +42,16 @@ class PluginLegend extends PureComponent {
             .filter(layer => layer.legend)
             .map(layer => layer.legend);
 
+        /*
+            if (hasData) {
+                legend += `<dl class="dhis2-legend-automatic">${items
+                    .map(getHtmlLegendItem)
+                    .join('')}</dl>`;
+            } else {
+                `<p><em>${i18n.t('No data found')}</em></p>`;
+            }
+        */
+
         // TODO: Add alerts
         return (
             <div ref={el => (this.container = el)} style={{ display: 'none' }}>
