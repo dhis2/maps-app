@@ -40,7 +40,7 @@ export const createEventFeature = (
     const properties = event.reduce(
         (props, value, i) => ({
             ...props,
-            [names[headers[i].name] || headers[i].name]: value,
+            [names[headers[i].name] || headers[i].name]: value, // TODO: Regression - values no longer translated
         }),
         {}
     );

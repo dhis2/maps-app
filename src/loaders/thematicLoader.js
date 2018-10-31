@@ -15,29 +15,9 @@ import {
     getOrgUnitsFromRows,
     getPeriodFromFilters,
     getDataItemFromColumns,
+    getApiResponseNames,
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
-
-// TODO: This is VERY expensive because metaData.items can have 100000+ elements.  Consider removing.
-// Builds an object with key/names pairs from an API response
-const getApiResponseNames = ({ metaData, headers }) => ({
-    ...Object.keys(metaData.items).reduce(
-        (names, key) => ({
-            ...names,
-            [key]: metaData.items[key].name,
-        }),
-        {}
-    ),
-    ...headers.reduce(
-        (names, header) => ({
-            ...names,
-            [header.name]: header.column,
-        }),
-        {}
-    ),
-    true: i18n.t('Yes'),
-    false: i18n.t('No'),
-});
 
 const thematicLoader = async config => {
     const { columns, radiusLow, radiusHigh, classes, colorScale } = config;

@@ -227,3 +227,24 @@ export const combineDataItems = (
                 (!excludeTypes || !excludeTypes.includes(item.valueType))
         )
     );
+
+// TODO: This is VERY expensive because metaData.items can have 100000+ elements.  Consider removing.
+// Builds an object with key/names pairs from an API response
+export const getApiResponseNames = ({ metaData, headers }) => ({
+    ...Object.keys(metaData.items).reduce(
+        (names, key) => ({
+            ...names,
+            [key]: metaData.items[key].name,
+        }),
+        {}
+    ),
+    ...headers.reduce(
+        (names, header) => ({
+            ...names,
+            [header.name]: header.column,
+        }),
+        {}
+    ),
+    true: i18n.t('Yes'),
+    false: i18n.t('No'),
+});

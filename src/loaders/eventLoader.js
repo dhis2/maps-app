@@ -61,6 +61,7 @@ const eventLoader = async layerConfig => {
     }
 
     if (!config.serverCluster) {
+        config.outputIdScheme = 'ID'; // Required for StyleByDataItem to work
         const { names, data, response } = await loadData(
             analyticsRequest,
             config
@@ -116,7 +117,7 @@ export const getAnalyticsRequest = async ({
 }) => {
     const orgUnits = getOrgUnitsFromRows(rows),
         period = getPeriodFromFilters(filters);
-    let dataItems = addStyleDataItem(columns, styleDataItem);
+    const dataItems = addStyleDataItem(columns, styleDataItem);
 
     const d2 = await getD2();
 
