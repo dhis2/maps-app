@@ -1,6 +1,5 @@
 import FileSaver from 'file-saver';
 import { createGeoJsonBlob, downloadGeoJson, getBounds, addStyleDataItem, createEventFeature, buildEventCoordinateGetter, createEventFeatures } from '../geojson';
-import { getApiResponseNames } from '../analytics';
 
 // Since we're not in a browser environment we unfortunately have to mock FileSaver and Blob
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }));
@@ -191,7 +190,14 @@ describe('geojson utils', () => {
             metaData
         };
 
-        const defaultNames = getApiResponseNames(response);
+        const defaultNames = headers.reduce(
+            (names, header) => ({
+                ...names,
+                [header.name]: header.column,
+            }),
+            {}
+        );
+
         it('Should create an array of features with the proper field mappings', () => {
             const out = createEventFeatures(response);
             expect(out.names).toEqual(defaultNames)
@@ -259,11 +265,7 @@ describe('geojson utils', () => {
             const out = createEventFeatures(response, {
                 columnNames
             });
-            expect(out.names).toEqual({
-                ...columnNames,
-                'true': 'Yes',
-                'false': 'No',
-            });
+            expect(out.names).toEqual(columnNames);
             expect(out.data).toEqual(rows.map(row => ({
                 type: 'Feature',
                 id: row[1],

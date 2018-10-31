@@ -1,7 +1,6 @@
 import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
 import { isString, isEmpty } from 'lodash/fp';
 import findIndex from 'lodash/findIndex';
-import { getApiResponseNames } from './analytics';
 import { isValidCoordinate } from './map';
 // import { createSld } from './sld';
 
@@ -86,7 +85,13 @@ export const buildEventCoordinateGetter = (headers, eventCoordinateField) => {
 export const createEventFeatures = (response, config = {}) => {
     const names = {
         ...(config.outputIdScheme !== 'ID'
-            ? getApiResponseNames(response)
+            ? response.headers.reduce(
+                  (names, header) => ({
+                      ...names,
+                      [header.name]: header.column,
+                  }),
+                  {}
+              )
             : null),
         ...config.columnNames,
     }; // TODO: Pass this through the the request to support ID/NAME/CODE output natively.  Server bugfix needed.

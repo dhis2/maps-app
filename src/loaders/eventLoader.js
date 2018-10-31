@@ -170,7 +170,6 @@ export const loadData = async (request, config = {}) => {
     const response = await d2.analytics.events.getQuery(request);
 
     const { data, names } = createEventFeatures(response, config);
-
     return {
         data,
         names,
