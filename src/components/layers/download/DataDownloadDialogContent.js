@@ -24,7 +24,7 @@ const styles = theme => ({
     },
 });
 
-const EventDownloadInputs = ({
+export const EventDownloadInputs = ({
     classes,
 
     formatOptions,
