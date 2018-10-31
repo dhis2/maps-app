@@ -64,6 +64,14 @@ export class DataDownloadDialog extends Component {
         this.setState({ humanReadableChecked: isChecked });
     };
 
+    onStartDownload = () => {
+        this.props.startDownload(
+            this.props.layer,
+            formatOptionsFlat[this.state.selectedFormatOption],
+            this.state.humanReadableChecked
+        );
+    };
+
     render() {
         const {
             open,
@@ -71,7 +79,6 @@ export class DataDownloadDialog extends Component {
             downloading,
             error,
 
-            startDownload,
             closeDialog,
 
             classes,
@@ -109,15 +116,7 @@ export class DataDownloadDialog extends Component {
                 <DialogActions>
                     <DataDownloadDialogActions
                         downloading={downloading}
-                        onStartClick={() =>
-                            startDownload(
-                                layer,
-                                formatOptionsFlat[
-                                    this.state.selectedFormatOption
-                                ],
-                                this.state.humanReadableChecked
-                            )
-                        }
+                        onStartClick={this.onStartDownload}
                         onCancelClick={closeDialog}
                     />
                 </DialogActions>
