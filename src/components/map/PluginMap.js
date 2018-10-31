@@ -203,6 +203,7 @@ class PluginMap extends Component {
             <div ref={node => (this.node = node)} style={styles.map}>
                 {mapViews
                     .filter(layer => layer.isLoaded)
+                    .reverse() 
                     .map((config, index) => {
                         const Overlay = layerType[config.layer] || Layer;
 
