@@ -197,6 +197,7 @@ class Map extends Component {
                         <MapLegend
                             position={legendPosition}
                             layers={mapViews}
+                            showName={showName}
                         />
                     )}
                 </div>

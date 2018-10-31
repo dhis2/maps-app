@@ -3,18 +3,45 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Legend from '../layers/legend/Legend';
 
-const styles = {
+const positions = showName => ({
+    topleft: {
+        top: 8 + (showName ? 40 : 0),
+        left: 8,
+    },
+    topright: {
+        top: 8 + (showName ? 40 : 0),
+        right: 8,
+    },
+    bottomleft: {
+        bottom: 30,
+        left: 8,
+    },
+    bottomright: {
+        bottom: 20,
+        right: 8,
+    },
+});
+
+const styles = theme => ({
+    root: {
+        position: 'absolute',
+        padding: '8px 8px 0 0',
+        zIndex: 998,
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        boxShadow: theme.shadows[1],
+        borderRadius: theme.shape.borderRadius,
+        fontSize: theme.typography.fontSize,
+    },
     title: {
         fontSize: 15,
-        fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+        fontWeight: 'normal',
         paddingLeft: 10,
         marginTop: 5,
     },
     period: {
         display: 'block',
-        fontWeight: 'normal',
     },
-};
+});
 
 class MapLegend extends PureComponent {
     static contextTypes = {
@@ -23,34 +50,21 @@ class MapLegend extends PureComponent {
 
     static propTypes = {
         position: PropTypes.string.isRequired,
+        showName: PropTypes.bool.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
-    componentDidMount() {
-        this.addLegend();
-        this.setLegendContent();
-    }
-
-    componentWillUnmount() {
-        this.removeLegend();
-    }
-
-    componentDidUpdate(prevProps) {
-        const { position } = this.props;
-
-        if (position !== prevProps.position && this.legend) {
-            this.legend.setPosition(position);
-        }
-    }
-
     render() {
-        const { classes, layers } = this.props;
+        const { position, layers, showName, classes } = this.props;
+
+        const style = positions(showName)[position];
+
         const legends = layers
             .filter(layer => layer.legend)
             .map(layer => layer.legend);
 
         return (
-            <div ref={el => (this.container = el)} style={{ display: 'none' }}>
+            <div className={classes.root} style={style}>
                 {legends.map((legend, index) => (
                     <div key={index}>
                         <h2 className={classes.title}>
@@ -64,27 +78,6 @@ class MapLegend extends PureComponent {
                 ))}
             </div>
         );
-    }
-
-    addLegend() {
-        const { position } = this.props;
-        const { map } = this.context;
-
-        this.legend = map.addControl({
-            type: 'legend',
-            position,
-            collapsed: false,
-        });
-    }
-
-    removeLegend() {
-        if (this.legend) {
-            this.legend.remove();
-        }
-    }
-
-    setLegendContent() {
-        this.legend.setContent(this.container.cloneNode(true).innerHTML);
     }
 }
 

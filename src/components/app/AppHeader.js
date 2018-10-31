@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import StarIcon from '@material-ui/icons/Star';
 import HomeIcon from '@material-ui/icons/Home';
 import { LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
