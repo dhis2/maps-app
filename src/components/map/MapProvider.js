@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import d2map from '@dhis2/gis-api';
 
@@ -23,7 +23,7 @@ class MapProvider extends Component {
     }
 
     render() {
-        return <Fragment>{this.props.children}</Fragment>;
+        return this.props.children;
     }
 }
 
