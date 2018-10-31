@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Legend from '../layers/legend/Legend';
@@ -25,7 +25,7 @@ const positions = showName => ({
 const styles = theme => ({
     root: {
         position: 'absolute',
-        padding: '8px 8px 0 0',
+        padding: '8px 8px 0 8px',
         zIndex: 998,
         backgroundColor: 'rgba(255,255,255,0.9)',
         boxShadow: theme.shadows[1],
@@ -35,8 +35,8 @@ const styles = theme => ({
     title: {
         fontSize: 15,
         fontWeight: 'normal',
-        paddingLeft: 10,
-        marginTop: 5,
+        margin: 0,
+        paddingBottom: 10,
     },
     period: {
         display: 'block',

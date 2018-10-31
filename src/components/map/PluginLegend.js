@@ -1,18 +1,24 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import i18n from '@dhis2/d2-i18n';
 import Legend from '../layers/legend/Legend';
 
+// theme is not used for plugin maps
 const styles = {
     title: {
+        margin: 0,
         fontSize: 14,
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
-        paddingLeft: 10,
-        marginTop: 5,
+        lineHeight: '16px',
+        paddingBottom: 8,
     },
     period: {
         display: 'block',
         fontWeight: 'normal',
+    },
+    nodata: {
+        fontStyle: 'italic',
     },
 };
 
@@ -26,65 +32,63 @@ class PluginLegend extends PureComponent {
         classes: PropTypes.object.isRequired,
     };
 
+    // Add Leaflet legend control on mount
     componentDidMount() {
-        this.addLegend();
-        this.setLegendContent();
-    }
-
-    componentWillUnmount() {
-        this.removeLegend();
-    }
-
-    render() {
-        const { layers, classes } = this.props;
-
-        const legends = layers
-            .filter(layer => layer.legend)
-            .map(layer => layer.legend);
-
-        /*
-            if (hasData) {
-                legend += `<dl class="dhis2-legend-automatic">${items
-                    .map(getHtmlLegendItem)
-                    .join('')}</dl>`;
-            } else {
-                `<p><em>${i18n.t('No data found')}</em></p>`;
-            }
-        */
-
-        // TODO: Add alerts
-        return (
-            <div ref={el => (this.container = el)} style={{ display: 'none' }}>
-                {legends.map((legend, index) => (
-                    <div key={index}>
-                        <h2 className={classes.title}>
-                            {legend.title}{' '}
-                            <span className={classes.period}>
-                                {legend.period}
-                            </span>
-                        </h2>
-                        <Legend {...legend} />
-                    </div>
-                ))}
-            </div>
-        );
-    }
-
-    addLegend() {
-        const { map } = this.context;
-
-        this.legend = map.addControl({
+        this.legend = this.context.map.addControl({
             type: 'legend',
             offset: [0, -64],
         });
+
+        this.setLegendContent();
     }
 
-    removeLegend() {
+    // Legend can change when user is drilling down
+    componentDidUpdate() {
+        this.setLegendContent();
+    }
+
+    // Remove Leaflet legend control on unmount
+    componentWillUnmount() {
         if (this.legend) {
             this.legend.remove();
         }
     }
 
+    // Contents is rendered to a hidden div
+    render() {
+        const { layers, classes } = this.props;
+        const legendLayers = layers.filter(layer => layer.legend);
+
+        return (
+            <div ref={el => (this.container = el)} style={{ display: 'none' }}>
+                {legendLayers.map(({ id, legend, serverCluster, data }) => {
+                    const hasData =
+                        (Array.isArray(data) && data.length > 0) ||
+                        serverCluster;
+
+                    return (
+                        <div key={id}>
+                            <h2 className={classes.title}>
+                                {legend.title}{' '}
+                                <span className={classes.period}>
+                                    {legend.period}
+                                </span>
+                            </h2>
+                            {hasData ? (
+                                <Legend {...legend} />
+                            ) : (
+                                <div className={classes.nodata}>
+                                    {i18n.t('No data found')}
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    }
+
+    // Add contents from render function to Leaflet legend control (not react)
     setLegendContent() {
         this.legend.setContent(this.container.cloneNode(true).innerHTML);
     }
