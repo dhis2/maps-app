@@ -19,8 +19,10 @@
 // THE SOFTWARE.
 
 /**
- * This file is copied from https://github.com/tsayen/dom-to-image
- * Modified by heshan0131 to allow loading external stylesheets and inline webfonts
+ *
+ * This file is copied from kepler.gl on 31 Oct 2018:
+ * https://github.com/uber/kepler.gl/blob/master/src/utils/dom-to-image.js
+ * NPM global dependency has been removed
  */
 
 const util = newUtil();

@@ -33,7 +33,7 @@ const styles = {
         padding: '12px 24px 0',
         lineHeight: '24px',
         minHeight: 250,
-        minWidth: 250,
+        width: 250,
     },
     checkbox: {
         display: 'block',
@@ -43,11 +43,6 @@ const styles = {
     },
 };
 
-// https://github.com/uber/kepler.gl/blob/master/src/constants/default-settings.js
-// https://github.com/uber/kepler.gl/blob/master/src/utils/export-image-utils.js
-// https://github.com/uber/kepler.gl/blob/master/src/components/modal-container.js
-// https://github.com/uber/kepler.gl/blob/master/src/components/modals/export-image-modal.js
-// https://github.com/uber/kepler.gl/blob/master/src/components/plot-container.js
 class DownloadDialog extends Component {
     static propTypes = {
         isActive: PropTypes.bool.isRequired,
@@ -61,6 +56,10 @@ class DownloadDialog extends Component {
         classes: PropTypes.object.isRequired,
     };
 
+    state = {
+        error: null,
+    };
+
     render() {
         const {
             isActive,
@@ -72,6 +71,7 @@ class DownloadDialog extends Component {
             setDownloadLegendPosition,
             classes,
         } = this.props;
+
         const isSupported = downloadSupport();
 
         return (
@@ -80,7 +80,7 @@ class DownloadDialog extends Component {
                     {i18n.t('Download map')}
                 </DialogTitle>
                 <DialogContent className={classes.content}>
-                    {isSupported ? (
+                    {isSupported && !this.state.error ? (
                         <Fragment>
                             <div className={classes.checkbox}>
                                 <Checkbox
@@ -131,20 +131,23 @@ class DownloadDialog extends Component {
 
     onDownload = () => {
         const mapEl = document.getElementById('dhis2-maps-container');
+        const filename = `map-${Math.random()
+            .toString(36)
+            .substring(7)}.png`;
 
         const options = {
             width: mapEl.offsetWidth,
             height: mapEl.offsetHeight,
         };
 
-        convertToPng(mapEl, options).then(dataUri =>
-            downloadFile(
-                dataURItoBlob(dataUri),
-                `map-${Math.random()
-                    .toString(36)
-                    .substring(7)}.png`
-            )
-        );
+        convertToPng(mapEl, options)
+            .then(dataUri => downloadFile(dataURItoBlob(dataUri), filename))
+            .catch(this.onError);
+    };
+
+    // Not working in Safari: https://github.com/tsayen/dom-to-image/issues/27
+    onError = error => {
+        this.setState({ error });
     };
 }
 

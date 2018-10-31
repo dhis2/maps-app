@@ -18,6 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+/**
+ *
+ * This file is copied from kepler.gl on 31 Oct 2018:
+ * https://github.com/uber/kepler.gl/blob/master/src/utils/export-image-utils.js
+ * NPM global dependency and unused calculateExportImageSize function has been removed
+ */
+
 import domtoimage from './dom-to-image';
 
 const toStringFn = {}.toString;
