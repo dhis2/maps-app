@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import d2map from '@dhis2/gis-api';
+import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
@@ -59,6 +60,12 @@ class PluginMap extends Component {
             scrollWheelZoom: false,
         });
 
+        // Add zoom control
+        this.map.addControl({
+            type: 'zoom',
+            position: 'topright',
+        });
+
         this.state = {
             mapViews: props.mapViews, // Can be changed by drilling
         };
@@ -83,12 +90,7 @@ class PluginMap extends Component {
 
             this.node.appendChild(map.getContainer()); // Append map container to DOM
 
-            // Add zoom control
-            map.addControl({
-                type: 'zoom',
-                position: 'topright',
-            });
-
+            /*
             if (map.legend) {
                 this.legend = map.addControl({
                     type: 'legend',
@@ -96,6 +98,7 @@ class PluginMap extends Component {
                     content: map.legend,
                 });
             }
+            */
 
             map.invalidateSize();
 
@@ -123,9 +126,11 @@ class PluginMap extends Component {
         if (map) {
             map.invalidateSize();
 
+            /*
             if (this.legend) {
                 this.legend.setContent(map.legend);
             }
+            */
         }
     }
 
@@ -179,7 +184,7 @@ class PluginMap extends Component {
 
             const newLayer = await fetchLayer(newConfig);
 
-            this.map.legend = '';
+            // this.map.legend = '';
 
             this.setState({
                 mapViews: mapViews.map(
@@ -221,6 +226,7 @@ class PluginMap extends Component {
                 {basemap.isVisible !== false && (
                     <Layer key="basemap" {...basemap} />
                 )}
+                <PluginLegend layers={mapViews} />
                 <ContextMenu
                     position={position}
                     feature={feature}

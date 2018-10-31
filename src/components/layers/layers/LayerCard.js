@@ -53,6 +53,9 @@ const styles = {
         paddingLeft: 15,
         lineHeight: '17px',
     },
+    legend: {
+        paddingLeft: 32,
+    },
     actions: {
         backgroundColor: '#eee',
         height: 32,
@@ -120,10 +123,18 @@ const LayerCard = props => {
                         <IconButton
                             className={classes.expand}
                             onClick={() => toggleLayerExpand(id)}
-                            tooltip={isExpanded ? i18n.t('Collapse') : i18n.t('Expand')}
+                            tooltip={
+                                isExpanded
+                                    ? i18n.t('Collapse')
+                                    : i18n.t('Expand')
+                            }
                             style={{ backgroundColor: 'transparent' }}
                         >
-                            {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {isExpanded ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </IconButton>
                     </Tooltip>,
                 ]}
@@ -131,7 +142,11 @@ const LayerCard = props => {
 
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content} style={{ padding: 0 }}>
-                    {legend && <Legend {...legend} />}
+                    {legend && (
+                        <div className={classes.legend}>
+                            <Legend {...legend} />
+                        </div>
+                    )}
                     <LayerToolbar
                         opacity={opacity}
                         isVisible={isVisible}
