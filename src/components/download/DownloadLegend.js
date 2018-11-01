@@ -3,29 +3,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Legend from '../layers/legend/Legend';
 
-const positions = showName => ({
-    topleft: {
-        top: 8 + (showName ? 40 : 0),
-        left: 8,
-    },
-    topright: {
-        top: 8 + (showName ? 40 : 0),
-        right: 8,
-    },
-    bottomleft: {
-        bottom: 30,
-        left: 8,
-    },
-    bottomright: {
-        bottom: 20,
-        right: 8,
-    },
-});
-
 const styles = theme => ({
     root: {
         position: 'absolute',
-        padding: '8px 8px 0 8px',
+        paddingTop: theme.spacing.unit,
+        paddingLeft: theme.spacing.unit,
+        paddingRight: theme.spacing.unit,
         zIndex: 998,
         backgroundColor: 'rgba(255,255,255,0.9)',
         boxShadow: theme.shadows[1],
@@ -41,18 +24,40 @@ const styles = theme => ({
     period: {
         display: 'block',
     },
+    topleft: {
+        top: theme.spacing.unit,
+        left: theme.spacing.unit,
+    },
+    topright: {
+        top: theme.spacing.unit,
+        right: theme.spacing.unit,
+    },
+    bottomleft: {
+        bottom: 30,
+        left: theme.spacing.unit,
+    },
+    bottomright: {
+        bottom: 20,
+        right: theme.spacing.unit,
+    },
+    name: {
+        top: theme.spacing.unit * 6,
+    }
 });
 
-//
 export const DownloadLegend = ({ position, layers, showName, classes }) => {
-    const style = positions(showName)[position];
+    let className = `${classes.root} ${classes[position]}`;
+
+    if (showName && position.substring(0, 3) === 'top') {
+        className += ` ${classes.name}`;
+    }
 
     const legends = layers
         .filter(layer => layer.legend)
         .map(layer => layer.legend);
 
     return (
-        <div className={classes.root} style={style}>
+        <div className={className}>
             {legends.map((legend, index) => (
                 <div key={index}>
                     <h2 className={classes.title}>

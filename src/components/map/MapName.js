@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     name: {
         position: 'absolute',
-        top: 8,
+        top: theme.spacing.unit,
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 999,

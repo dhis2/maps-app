@@ -4,14 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import Legend from '../../layers/legend/Legend';
 
-// theme is not used for plugin maps
-const styles = {
+const styles = theme => ({
     title: {
         margin: 0,
         fontSize: 14,
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
         lineHeight: '16px',
-        paddingBottom: 8,
+        paddingBottom: theme.spacing.unit,
     },
     period: {
         display: 'block',
@@ -20,7 +19,7 @@ const styles = {
     nodata: {
         fontStyle: 'italic',
     },
-};
+});
 
 class PluginLegend extends PureComponent {
     static contextTypes = {
