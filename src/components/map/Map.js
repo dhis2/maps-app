@@ -12,7 +12,7 @@ import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
 import MapName from './MapName';
-import MapLegend from './MapLegend';
+import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
 import {
     HEADER_HEIGHT,
@@ -197,7 +197,7 @@ class Map extends Component {
                     <Layer key="basemap" {...basemapConfig} />
                     {isDownload &&
                         legendPosition && (
-                            <MapLegend
+                            <DownloadLegend
                                 position={legendPosition}
                                 layers={mapViews}
                                 showName={showName}

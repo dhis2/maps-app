@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import d2map from '@dhis2/gis-api';
 import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
-import Layer from './Layer';
-import EventLayer from './EventLayer';
-import FacilityLayer from './FacilityLayer';
-import TrackedEntityLayer from './TrackedEntityLayer';
-import ThematicLayer from './ThematicLayer';
-import BoundaryLayer from './BoundaryLayer';
-import EarthEngineLayer from './EarthEngineLayer';
-import ExternalLayer from './ExternalLayer';
+import Layer from '../Layer';
+import EventLayer from '../EventLayer';
+import FacilityLayer from '../FacilityLayer';
+import TrackedEntityLayer from '../TrackedEntityLayer';
+import ThematicLayer from '../ThematicLayer';
+import BoundaryLayer from '../BoundaryLayer';
+import EarthEngineLayer from '../EarthEngineLayer';
+import ExternalLayer from '../ExternalLayer';
 // import { getMapAlerts } from '../../util/alerts';
-import { drillUpDown } from '../../util/map';
-import { fetchLayer } from '../../loaders/layers';
+import { drillUpDown } from '../../../util/map';
+import { fetchLayer } from '../../../loaders/layers';
 
 const layerType = {
     event: EventLayer,

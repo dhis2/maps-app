@@ -31,7 +31,8 @@ export const styles = {
     },
 };
 
-const MapLegend = ({
+// Rendering a layer legend in the left drawer, on a map (download) or in a control (plugin)
+const Legend = ({
     classes,
     description,
     filters,
@@ -76,7 +77,7 @@ const MapLegend = ({
     </dl>
 );
 
-MapLegend.propTypes = {
+Legend.propTypes = {
     classes: PropTypes.object.isRequired,
     description: PropTypes.string,
     filters: PropTypes.array,
@@ -87,4 +88,4 @@ MapLegend.propTypes = {
     sourceUrl: PropTypes.string,
 };
 
-export default withStyles(styles)(MapLegend);
+export default withStyles(styles)(Legend);

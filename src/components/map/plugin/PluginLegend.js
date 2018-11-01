@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
-import Legend from '../layers/legend/Legend';
+import Legend from '../../layers/legend/Legend';
 
 // theme is not used for plugin maps
 const styles = {

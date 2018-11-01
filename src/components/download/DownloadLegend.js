@@ -43,7 +43,8 @@ const styles = theme => ({
     },
 });
 
-export const MapLegend = ({ position, layers, showName, classes }) => {
+//
+export const DownloadLegend = ({ position, layers, showName, classes }) => {
     const style = positions(showName)[position];
 
     const legends = layers
@@ -65,11 +66,11 @@ export const MapLegend = ({ position, layers, showName, classes }) => {
     );
 };
 
-MapLegend.propTypes = {
+DownloadLegend.propTypes = {
     position: PropTypes.string.isRequired,
     layers: PropTypes.array.isRequired,
     showName: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MapLegend);
+export default withStyles(styles)(DownloadLegend);
