@@ -107,6 +107,7 @@ export class LayerToolbarMoreMenu extends Component {
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                     open={this.state.open}
                     onClose={this.closeMenu}
+                    disableRestoreFocus={true} // Don't re-focus on the Tooltip after the dialog is closed
                 >
                     {toggleDataTable && (
                         <MenuItem onClick={this.handleDataTableBtnClick}>

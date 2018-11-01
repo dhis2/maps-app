@@ -17,6 +17,7 @@ import orgUnitEpis from './orgUnits';
 import programEpics from './programs';
 import favoritesEpics from './favorites';
 import trackedEntitiesEpics from './trackedEntities';
+import dataDownloadEpics from './dataDownload';
 
 const errorEpic = action$ =>
     action$
@@ -39,4 +40,5 @@ export default combineEpics(
     programEpics,
     favoritesEpics,
     trackedEntitiesEpics,
+    dataDownloadEpics
 );

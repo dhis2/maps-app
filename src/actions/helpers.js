@@ -1,4 +1,4 @@
 export const errorActionCreator = actionType => error => ({
     type: actionType,
-    error,
+    error: String(error),
 });

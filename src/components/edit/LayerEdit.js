@@ -44,7 +44,6 @@ const styles = {
         fontWeight: 'bold',
     },
     content: {
-        padding: '0 24px',
         minHeight: 300,
     },
 };
@@ -124,6 +123,7 @@ class LayerEdit extends Component {
                         {i18n.t('Cancel')}
                     </Button>
                     <Button
+                        variant="contained"
                         color="primary"
                         onClick={() => this.validateLayer()}
                     >

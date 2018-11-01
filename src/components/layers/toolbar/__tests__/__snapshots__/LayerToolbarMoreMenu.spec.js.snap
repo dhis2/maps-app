@@ -19,6 +19,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
         "vertical": "bottom",
       }
     }
+    disableRestoreFocus={true}
     getContentAnchorEl={null}
     onClose={[Function]}
     open={false}

@@ -1,14 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
 import { apiFetch } from '../../util/api';
-import {
-    getAnalyticsRequest,
-    addStyleDataItem,
-} from '../../loaders/eventLoader';
-import {
-    getOrgUnitsFromRows,
-    getPeriodFromFilters,
-} from '../../util/analytics';
+import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
 import { getDisplayPropertyUrl } from '../../util/helpers';
@@ -17,23 +10,15 @@ class EventLayer extends Layer {
     createLayer() {
         const {
             bounds,
-            columns,
             data,
-            endDate,
             eventClustering,
-            eventCoordinateField,
             eventPointColor,
             eventPointRadius,
-            filters,
             id,
             program,
             programStage,
-            rows,
             serverCluster,
-            startDate,
-            styleDataItem,
             areaRadius,
-            relativePeriodDate,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -42,9 +27,6 @@ class EventLayer extends Layer {
                 ? '#' + eventPointColor
                 : eventPointColor;
 
-        const orgUnits = getOrgUnitsFromRows(rows);
-        const period = getPeriodFromFilters(filters);
-        const dataItems = addStyleDataItem(columns, styleDataItem);
         const map = this.context.map;
         let d2;
         let eventRequest;
@@ -71,18 +53,7 @@ class EventLayer extends Layer {
                     d2 = d2 || (await getD2());
 
                     eventRequest =
-                        eventRequest ||
-                        (await getAnalyticsRequest(
-                            program,
-                            programStage,
-                            period,
-                            startDate,
-                            endDate,
-                            orgUnits,
-                            dataItems,
-                            eventCoordinateField,
-                            relativePeriodDate
-                        ));
+                        eventRequest || (await getAnalyticsRequest(this.props));
 
                     eventRequest = eventRequest
                         .withBbox(params.bbox)
