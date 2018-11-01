@@ -14,6 +14,7 @@ describe('DataDownloadDialogContent', () => {
                 classes={{}}
                 isEventLayer={false}
                 error={null}
+                layerName={'Test Layer'}
                 formatOptions={formatOptions}
                 humanReadableChecked={false}
                 onChangeFormatOption={() => null}
