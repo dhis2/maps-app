@@ -37,7 +37,7 @@ export const loadOrgUnitTree = action$ =>
         getD2()
             .then(d2 =>
                 d2.models.organisationUnits.list({
-                    level: 1,
+                    userDataViewFallback: true,
                     fields:
                         'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
                 })
