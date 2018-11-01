@@ -127,6 +127,7 @@ class DownloadDialog extends Component {
                         {i18n.t('Cancel')}
                     </Button>
                     <Button
+                        variant="contained"
                         color="primary"
                         disabled={!isSupported}
                         onClick={this.onDownload}
@@ -158,6 +159,7 @@ class DownloadDialog extends Component {
 
     // Not working in Safari: https://github.com/tsayen/dom-to-image/issues/27
     onError = error => {
+        console.log('error', error);
         this.setState({ error });
     };
 }
