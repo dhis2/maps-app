@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import ErrorIcon from '@material-ui/icons/ErrorOutline';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
 import i18n from '@dhis2/d2-i18n';
 import EventDownloadInputs from './EventDownloadInputs';
 
@@ -9,13 +10,21 @@ const styles = theme => ({
     contentDiv: {
         marginBottom: theme.spacing.unit * 1.5,
     },
+    inputContainer: {
+        marginTop: theme.spacing.unit * 4,
+    },
+    infoDiv: {
+        fontSize: '0.85em',
+        color: theme.palette.text.secondary,
+    },
+    icon: {
+        fontSize: '1.125em',
+        marginBottom: -3,
+        marginRight: theme.spacing.unit,
+    },
     error: {
         marginTop: theme.spacing.unit * 1.5,
         color: theme.palette.error.main,
-    },
-    errorIcon: {
-        marginBottom: -6,
-        marginRight: theme.spacing.unit * 1.5,
     },
 });
 
@@ -25,6 +34,8 @@ export const DataDownloadDialogContent = ({
     isEventLayer,
     error,
 
+    layerName,
+
     formatOptions,
     selectedFormatOption,
     humanReadableChecked,
@@ -33,28 +44,30 @@ export const DataDownloadDialogContent = ({
 }) => (
     <Fragment>
         <div className={classes.contentDiv}>
-            {i18n.t(
-                'The data for this layer will be downloaded in GeoJSON format.'
-            )}
+            {i18n.t('Downloading GeoJSON data for "{{layerName}}"', {
+                layerName: layerName,
+            })}
         </div>
-        <div className={classes.contentDiv}>
+        <div className={classes.infoDiv}>
+            <InfoIcon className={classes.icon} />
             {i18n.t(
-                'This format is supported by most GIS software, including QGIS and ArcGIS Desktop.'
+                'GeoJSON format is supported by most GIS software, including QGIS and ArcGIS Desktop.'
             )}
         </div>
         {isEventLayer && (
-            <EventDownloadInputs
-                classes={classes}
-                selectedFormatOption={selectedFormatOption}
-                humanReadableChecked={humanReadableChecked}
-                formatOptions={formatOptions}
-                onChangeFormatOption={onChangeFormatOption}
-                onCheckHumanReadable={onCheckHumanReadable}
-            />
+            <div className={classes.inputContainer}>
+                <EventDownloadInputs
+                    selectedFormatOption={selectedFormatOption}
+                    humanReadableChecked={humanReadableChecked}
+                    formatOptions={formatOptions}
+                    onChangeFormatOption={onChangeFormatOption}
+                    onCheckHumanReadable={onCheckHumanReadable}
+                />
+            </div>
         )}
         {error && (
             <div className={classes.error}>
-                <ErrorIcon className={classes.errorIcon} />
+                <ErrorIcon className={classes.icon} />
                 {i18n.t('Data download failed.')}
             </div>
         )}
@@ -66,6 +79,8 @@ DataDownloadDialogContent.propTypes = {
 
     isEventLayer: PropTypes.bool.isRequired,
     error: PropTypes.string,
+
+    layerName: PropTypes.string.isRequired,
 
     formatOptions: PropTypes.array.isRequired,
     selectedFormatOption: PropTypes.number,

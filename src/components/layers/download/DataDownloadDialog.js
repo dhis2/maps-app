@@ -23,10 +23,8 @@ import DataDownloadDialogActions from './DataDownloadDialogActions';
 
 const styles = {
     paper: {
-        width: 480,
-    },
-    content: {
-        minHeight: 320,
+        width: 640,
+        maxWidth: 640,
     },
 };
 
@@ -97,13 +95,14 @@ export class DataDownloadDialog extends Component {
                 onClose={closeDialog}
                 classes={{ paper: classes.paper }}
             >
-                <DialogTitle disableTypography={true} className={classes.title}>
+                <DialogTitle disableTypography={true}>
                     {i18n.t('Download Layer Data')}
                 </DialogTitle>
-                <DialogContent className={classes.content}>
+                <DialogContent>
                     <DataDownloadDialogContent
                         isEventLayer={isEventLayer}
                         error={error}
+                        layerName={layer.name}
                         formatOptions={formatOptions}
                         selectedFormatOption={
                             this.state.selectedFormatOption + 1
