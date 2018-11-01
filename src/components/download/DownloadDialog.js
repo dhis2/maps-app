@@ -24,14 +24,7 @@ import {
 } from '../../util/export-image-utils';
 
 const styles = {
-    title: {
-        padding: '20px 24px 4px 24px',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
     content: {
-        padding: '12px 24px 0',
-        lineHeight: '24px',
         minHeight: 250,
         width: 250,
     },
@@ -39,7 +32,7 @@ const styles = {
         display: 'block',
         marginLeft: -14,
         marginTop: -16,
-        marginBottom: -16,
+        marginBottom: -8,
     },
 };
 
@@ -84,7 +77,7 @@ class DownloadDialog extends Component {
 
         return (
             <Dialog open={showDialog} onClose={this.onClose}>
-                <DialogTitle disableTypography={true} className={classes.title}>
+                <DialogTitle disableTypography={true}>
                     {i18n.t('Download map')}
                 </DialogTitle>
                 <DialogContent className={classes.content}>
