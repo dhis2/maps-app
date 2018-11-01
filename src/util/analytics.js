@@ -228,6 +228,7 @@ export const combineDataItems = (
         )
     );
 
+// TODO: This is VERY expensive because metaData.items can have 100000+ elements.  Consider removing.
 // Builds an object with key/names pairs from an API response
 export const getApiResponseNames = ({ metaData, headers }) => ({
     ...Object.keys(metaData.items).reduce(

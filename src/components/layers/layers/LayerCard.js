@@ -23,8 +23,7 @@ import {
 } from '../../../actions/layers';
 import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
-
-import { downloadGeoJson } from '../../../util/dataDownload';
+import { openDataDownloadDialog } from '../../../actions/dataDownload';
 
 const styles = {
     card: {
@@ -76,19 +75,18 @@ const styles = {
 const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
 const dataTableLayerTypes = ['facility', 'thematic', 'boundary'];
 
-const LayerCard = props => {
-    const {
-        layer,
-        editLayer,
-        removeLayer,
-        changeLayerOpacity,
-        toggleLayerExpand,
-        toggleLayerVisibility,
-        toggleDataTable,
-        setMessage,
-        classes,
-    } = props;
-
+const LayerCard = ({
+    layer,
+    editLayer,
+    removeLayer,
+    changeLayerOpacity,
+    toggleLayerExpand,
+    toggleLayerVisibility,
+    toggleDataTable,
+    openDataDownloadDialog,
+    setMessage,
+    classes,
+}) => {
     const {
         id,
         name,
@@ -96,13 +94,11 @@ const LayerCard = props => {
         isExpanded,
         opacity,
         isVisible,
-        data,
         layer: layerType,
     } = layer;
 
     const canToggleDataTable = dataTableLayerTypes.includes(layerType);
-    const canDownload =
-        downloadableLayerTypes.includes(layerType) && data && data.length;
+    const canDownload = downloadableLayerTypes.includes(layerType);
 
     return (
         <Card className={classes.card}>
@@ -120,10 +116,18 @@ const LayerCard = props => {
                         <IconButton
                             className={classes.expand}
                             onClick={() => toggleLayerExpand(id)}
-                            tooltip={isExpanded ? i18n.t('Collapse') : i18n.t('Expand')}
+                            tooltip={
+                                isExpanded
+                                    ? i18n.t('Collapse')
+                                    : i18n.t('Expand')
+                            }
                             style={{ backgroundColor: 'transparent' }}
                         >
-                            {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {isExpanded ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </IconButton>
                     </Tooltip>,
                 ]}
@@ -151,7 +155,7 @@ const LayerCard = props => {
                         }}
                         downloadData={
                             canDownload
-                                ? () => downloadGeoJson({ name, data })
+                                ? () => openDataDownloadDialog(id)
                                 : undefined
                         }
                     />
@@ -182,5 +186,6 @@ export default connect(
         toggleLayerVisibility,
         toggleDataTable,
         setMessage,
+        openDataDownloadDialog,
     }
 )(withStyles(styles)(LayerCard));

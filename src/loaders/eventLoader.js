@@ -1,8 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import { isString, isEmpty } from 'lodash/fp';
 import { timeFormat } from 'd3-time-format';
-import { isValidCoordinate } from '../util/map';
 import { styleByDataItem } from '../util/styleByDataItem';
 import {
     getOrgUnitsFromRows,
@@ -10,10 +8,16 @@ import {
     getFiltersAsText,
     getPeriodFromFilters,
     getPeriodNameFromId,
-    getApiResponseNames,
 } from '../util/analytics';
+import {
+    createEventFeatures,
+    addStyleDataItem,
+    getBounds,
+} from '../util/geojson';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 
+// Server clustering if more than 2000 events
+const useServerCluster = count => count > 2000; // TODO: Use constant
 const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
 // Returns a promise
@@ -23,37 +27,21 @@ const eventLoader = async layerConfig => {
         columns,
         endDate,
         eventClustering,
-        eventCoordinateField,
         eventPointColor,
         eventPointRadius,
         filters,
-        program,
         programStage,
-        rows,
         startDate,
         styleDataItem,
         areaRadius,
-        relativePeriodDate,
     } = config;
 
-    const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
-    const dataItems = addStyleDataItem(columns, styleDataItem);
     const dataFilters = getFiltersFromColumns(columns);
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
-    let analyticsRequest = await getAnalyticsRequest(
-        program,
-        programStage,
-        period,
-        startDate,
-        endDate,
-        orgUnits,
-        dataItems,
-        eventCoordinateField,
-        relativePeriodDate
-    );
+    let analyticsRequest = await getAnalyticsRequest(config);
 
     config.name = programStage.name;
 
@@ -65,30 +53,20 @@ const eventLoader = async layerConfig => {
         items: [],
     };
 
-    let names;
-
     if (spatialSupport && eventClustering) {
-        const response = await d2.analytics.events.getCount(analyticsRequest);
+        const response = await getCount(analyticsRequest);
         config.bounds = getBounds(response.extent);
         config.serverCluster =
             useServerCluster(response.count) && !styleDataItem;
     }
 
     if (!config.serverCluster) {
-        const response = await d2.analytics.events.getQuery(analyticsRequest);
-
-        names = getApiResponseNames(response);
-
-        config.data = response.rows
-            .map(row =>
-                createEventFeature(
-                    response.headers,
-                    names,
-                    row,
-                    eventCoordinateField
-                )
-            )
-            .filter(feature => isValidCoordinate(feature.geometry.coordinates));
+        config.outputIdScheme = 'ID'; // Required for StyleByDataItem to work
+        const { names, data, response } = await loadData(
+            analyticsRequest,
+            config
+        );
+        config.data = data;
 
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
@@ -123,29 +101,24 @@ const eventLoader = async layerConfig => {
     return config;
 };
 
-const getBounds = bbox => {
-    if (!bbox) {
-        return null;
-    }
-    const extent = bbox.match(/([-\d\.]+)/g);
-    return [[extent[1], extent[0]], [extent[3], extent[2]]];
-};
-
-// Server clustering if more than 2000 events
-const useServerCluster = count => count > 2000; // TODO: Use constant
-
 // Also used to query for server cluster in map/EventLayer.js
-export const getAnalyticsRequest = async (
+// TODO: Use DataIDScheme / OutputIDScheme instead of requesting all metaData (which can easily dwarf the actual response data)
+export const getAnalyticsRequest = async ({
     program,
     programStage,
-    period,
+    filters,
     startDate,
     endDate,
-    orgUnits,
-    dataItems,
+    rows,
+    columns,
+    styleDataItem,
     eventCoordinateField,
-    relativePeriodDate
-) => {
+    relativePeriodDate,
+}) => {
+    const orgUnits = getOrgUnitsFromRows(rows),
+        period = getPeriodFromFilters(filters);
+    const dataItems = addStyleDataItem(columns, styleDataItem);
+
     const d2 = await getD2();
 
     let analyticsRequest = new d2.analytics.request()
@@ -188,53 +161,20 @@ export const getAnalyticsRequest = async (
     return analyticsRequest;
 };
 
-// Include column for data element used for styling
-export const addStyleDataItem = (dataItems, styleDataItem) =>
-    styleDataItem
-        ? [
-              ...dataItems,
-              styleDataItem && {
-                  dimension: styleDataItem.id,
-                  name: styleDataItem.name,
-              },
-          ]
-        : [...dataItems];
+export const getCount = async request => {
+    const d2 = await getD2();
+    return await d2.analytics.events.getCount(request);
+};
 
-const createEventFeature = (headers, names, event, eventCoordinateField) => {
-    const properties = event.reduce(
-        (props, value, i) => ({
-            ...props,
-            [headers[i].name]: names[value] || value,
-        }),
-        {}
-    );
+export const loadData = async (request, config = {}) => {
+    const d2 = await getD2();
+    const response = await d2.analytics.events.getQuery(request);
 
-    let coordinates;
-
-    if (eventCoordinateField) {
-        // If coordinate field other than event location
-        const eventCoord = properties[eventCoordinateField];
-
-        if (Array.isArray(eventCoord)) {
-            coordinates = eventCoord;
-        } else if (isString(eventCoord) && !isEmpty(eventCoord)) {
-            coordinates = JSON.parse(eventCoord);
-        } else {
-            coordinates = [];
-        }
-    } else {
-        // Use event location
-        coordinates = [properties.longitude, properties.latitude]; // Event location
-    }
-
+    const { data, names } = createEventFeatures(response, config);
     return {
-        type: 'Feature',
-        id: properties.psi,
-        properties,
-        geometry: {
-            type: 'Point',
-            coordinates: coordinates.map(parseFloat),
-        },
+        data,
+        names,
+        response,
     };
 };
 
