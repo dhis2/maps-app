@@ -1,20 +1,20 @@
 import * as types from '../constants/actionTypes';
 
 // Set download state (download dialog is open)
-export const setDownloadState = isActive => ({
-    type: types.DOWNLOAD_STATE_SET,
-    payload: isActive,
+export const toggleDownloadDialog = show => ({
+    type: types.DOWNLOAD_DIALOG_TOGGLE,
+    payload: show,
 });
 
 // Whether the name should be included on the map download
-export const setDownloadNameState = show => ({
-    type: types.DOWNLOAD_NAME_STATE_SET,
+export const toggleDownloadShowName = show => ({
+    type: types.DOWNLOAD_NAME_SHOW_TOGGLE,
     payload: show,
 });
 
 // Whether the legend should be included on the map download
-export const setDownloadLegendState = show => ({
-    type: types.DOWNLOAD_LEGEND_STATE_SET,
+export const toggleDownloadShowLegend = show => ({
+    type: types.DOWNLOAD_LEGEND_SHOW_TOGGLE,
     payload: show,
 });
 

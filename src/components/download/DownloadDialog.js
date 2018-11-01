@@ -11,9 +11,9 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '../core/Checkbox';
 import LegendPosition from './LegendPosition';
 import {
-    setDownloadState,
-    setDownloadNameState,
-    setDownloadLegendState,
+    toggleDownloadDialog,
+    toggleDownloadShowName,
+    toggleDownloadShowLegend,
     setDownloadLegendPosition,
 } from '../../actions/download';
 import {
@@ -45,13 +45,15 @@ const styles = {
 
 class DownloadDialog extends Component {
     static propTypes = {
-        isActive: PropTypes.bool.isRequired,
+        showDialog: PropTypes.bool.isRequired,
         showName: PropTypes.bool.isRequired,
         showLegend: PropTypes.bool.isRequired,
         legendPosition: PropTypes.string.isRequired,
-        setDownloadState: PropTypes.func.isRequired,
-        setDownloadNameState: PropTypes.func.isRequired,
-        setDownloadLegendState: PropTypes.func.isRequired,
+        hasName: PropTypes.bool.isRequired,
+        hasLegend: PropTypes.bool.isRequired,
+        toggleDownloadDialog: PropTypes.func.isRequired,
+        toggleDownloadShowName: PropTypes.func.isRequired,
+        toggleDownloadShowLegend: PropTypes.func.isRequired,
         setDownloadLegendPosition: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
@@ -62,20 +64,26 @@ class DownloadDialog extends Component {
 
     render() {
         const {
-            isActive,
+            showDialog,
+            hasName,
             showName,
+            hasLegend,
             showLegend,
             legendPosition,
-            setDownloadNameState,
-            setDownloadLegendState,
+            toggleDownloadShowName,
+            toggleDownloadShowLegend,
             setDownloadLegendPosition,
             classes,
         } = this.props;
 
+        if (!showDialog) {
+            return null;
+        }
+
         const isSupported = downloadSupport();
 
         return (
-            <Dialog open={isActive} onClose={this.onClose}>
+            <Dialog open={showDialog} onClose={this.onClose}>
                 <DialogTitle disableTypography={true} className={classes.title}>
                     {i18n.t('Download map')}
                 </DialogTitle>
@@ -84,24 +92,27 @@ class DownloadDialog extends Component {
                         <Fragment>
                             <div className={classes.checkbox}>
                                 <Checkbox
-                                    label={i18n.t('Show title')}
+                                    label={i18n.t('Show name')}
                                     checked={showName}
-                                    onCheck={setDownloadNameState}
+                                    disabled={!hasName}
+                                    onCheck={toggleDownloadShowName}
                                 />
                             </div>
                             <div className={classes.checkbox}>
                                 <Checkbox
                                     label={i18n.t('Show legend')}
                                     checked={showLegend}
-                                    onCheck={setDownloadLegendState}
+                                    disabled={!hasLegend}
+                                    onCheck={toggleDownloadShowLegend}
                                 />
                             </div>
-                            {showLegend && (
-                                <LegendPosition
-                                    position={legendPosition}
-                                    onChange={setDownloadLegendPosition}
-                                />
-                            )}
+                            {hasLegend &&
+                                showLegend && (
+                                    <LegendPosition
+                                        position={legendPosition}
+                                        onChange={setDownloadLegendPosition}
+                                    />
+                                )}
                         </Fragment>
                     ) : (
                         <p>
@@ -127,7 +138,7 @@ class DownloadDialog extends Component {
         );
     }
 
-    onClose = () => this.props.setDownloadState(false);
+    onClose = () => this.props.toggleDownloadDialog(false);
 
     onDownload = () => {
         const mapEl = document.getElementById('dhis2-maps-container');
@@ -153,12 +164,14 @@ class DownloadDialog extends Component {
 
 export default connect(
     state => ({
+        hasName: state.map.name !== undefined,
+        hasLegend: state.map.mapViews.filter(layer => layer.legend).length > 0,
         ...state.download,
     }),
     {
-        setDownloadState,
-        setDownloadNameState,
-        setDownloadLegendState,
+        toggleDownloadDialog,
+        toggleDownloadShowName,
+        toggleDownloadShowLegend,
         setDownloadLegendPosition,
     }
 )(withStyles(styles)(DownloadDialog));

@@ -216,8 +216,8 @@ const mapStateToProps = state => ({
     interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
     dataTableOpen: state.dataTable,
     dataTableHeight: state.ui.dataTableHeight,
-    showName: state.download.isActive ? state.download.showName : true,
-    isDownload: state.download.isActive,
+    isDownload: state.download.showDialog,
+    showName: state.download.showDialog ? state.download.showName : true,
     legendPosition: state.download.showLegend
         ? state.download.legendPosition
         : null,

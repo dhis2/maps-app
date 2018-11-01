@@ -56,7 +56,7 @@ LayersToggle.propTypes = {
 export default connect(
     state => ({
         isOpen: state.ui.layersPanelOpen,
-        isDownload: state.download.isActive,
+        isDownload: state.download.showDialog,
     }),
     { openLayersPanel, closeLayersPanel }
 )(withStyles(styles)(LayersToggle));

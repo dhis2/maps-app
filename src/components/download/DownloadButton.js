@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DownloadDialog from './DownloadDialog';
-import { setDownloadState } from '../../actions/download';
+import { toggleDownloadDialog } from '../../actions/download';
 
 const styles = {
     button: {
@@ -21,7 +21,7 @@ const styles = {
 
 class DownloadButton extends Component {
     static propTypes = {
-        setDownloadState: PropTypes.func.isRequired,
+        toggleDownloadDialog: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
@@ -45,10 +45,10 @@ class DownloadButton extends Component {
         );
     }
 
-    onClick = () => this.props.setDownloadState(true);
+    onClick = () => this.props.toggleDownloadDialog(true);
 }
 
 export default connect(
     null,
-    { setDownloadState }
+    { toggleDownloadDialog }
 )(withStyles(styles)(DownloadButton));

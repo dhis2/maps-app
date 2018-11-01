@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 const defaultState = {
-    isActive: false,
+    showDialog: false,
     showName: true,
     showLegend: true,
     legendPosition: 'bottomright',
@@ -9,19 +9,19 @@ const defaultState = {
 
 const download = (state = defaultState, action) => {
     switch (action.type) {
-        case types.DOWNLOAD_STATE_SET:
+        case types.DOWNLOAD_DIALOG_TOGGLE:
             return {
                 ...state,
-                isActive: action.payload,
+                showDialog: action.payload,
             };
 
-        case types.DOWNLOAD_NAME_STATE_SET:
+        case types.DOWNLOAD_NAME_SHOW_TOGGLE:
             return {
                 ...state,
                 showName: action.payload,
             };
 
-        case types.DOWNLOAD_LEGEND_STATE_SET:
+        case types.DOWNLOAD_LEGEND_SHOW_TOGGLE:
             return {
                 ...state,
                 showLegend: action.payload,
