@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import d2map from '@dhis2/gis-api';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { muiTheme } from '../../../constants/dhis2.theme';
 import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
 import Layer from '../Layer';
@@ -184,44 +186,50 @@ class PluginMap extends Component {
         // No data warning added to legend instead
         const alerts = []; // getMapAlerts(this.props); // ADDED
 
-        return !alerts.length ? (
-            <div ref={node => (this.node = node)} style={styles.map}>
-                {mapViews
-                    .filter(layer => layer.isLoaded)
-                    .map((config, index) => {
-                        const Overlay = layerType[config.layer] || Layer;
+        return (
+            <MuiThemeProvider theme={muiTheme}>
+                {!alerts.length ? (
+                    <div ref={node => (this.node = node)} style={styles.map}>
+                        {mapViews
+                            .filter(layer => layer.isLoaded)
+                            .map((config, index) => {
+                                const Overlay =
+                                    layerType[config.layer] || Layer;
 
-                        return (
-                            <Overlay
-                                key={config.id}
-                                index={index}
-                                openContextMenu={this.onOpenContextMenu.bind(
-                                    this
-                                )}
-                                {...config}
-                                isPlugin={true}
-                            />
-                        );
-                    })}
-                {basemap.isVisible !== false && (
-                    <Layer key="basemap" {...basemap} />
-                )}
-                <PluginLegend layers={mapViews} />
-                <ContextMenu
-                    position={position}
-                    feature={feature}
-                    onDrillDown={() => this.onDrill('down')}
-                    onDrillUp={() => this.onDrill('up')}
-                />
-            </div>
-        ) : (
-            <div style={styles.alerts}>
-                {alerts.map(alert => (
-                    <div key={alert.id} style={styles.alert}>
-                        <strong>{alert.title}</strong>: {alert.description}
+                                return (
+                                    <Overlay
+                                        key={config.id}
+                                        index={index}
+                                        openContextMenu={this.onOpenContextMenu.bind(
+                                            this
+                                        )}
+                                        {...config}
+                                        isPlugin={true}
+                                    />
+                                );
+                            })}
+                        {basemap.isVisible !== false && (
+                            <Layer key="basemap" {...basemap} />
+                        )}
+                        <PluginLegend layers={mapViews} />
+                        <ContextMenu
+                            position={position}
+                            feature={feature}
+                            onDrillDown={() => this.onDrill('down')}
+                            onDrillUp={() => this.onDrill('up')}
+                        />
                     </div>
-                ))}
-            </div>
+                ) : (
+                    <div style={styles.alerts}>
+                        {alerts.map(alert => (
+                            <div key={alert.id} style={styles.alert}>
+                                <strong>{alert.title}</strong>:{' '}
+                                {alert.description}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </MuiThemeProvider>
         );
     }
 }
