@@ -36,7 +36,7 @@ const styles = {
     },
 };
 
-class DownloadDialog extends Component {
+export class DownloadDialog extends Component {
     static propTypes = {
         showDialog: PropTypes.bool.isRequired,
         showName: PropTypes.bool.isRequired,
@@ -136,7 +136,7 @@ class DownloadDialog extends Component {
 
     onDownload = () => {
         const mapEl = document.getElementById('dhis2-maps-container');
-        
+
         const filename = `map-${Math.random()
             .toString(36)
             .substring(7)}.png`;
@@ -153,7 +153,6 @@ class DownloadDialog extends Component {
 
     // Not working in Safari: https://github.com/tsayen/dom-to-image/issues/27
     onError = error => {
-        console.log('error', error);
         this.setState({ error });
     };
 }
