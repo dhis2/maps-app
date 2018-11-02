@@ -21,7 +21,7 @@ import {
     dataURItoBlob,
     downloadFile,
     downloadSupport,
-} from '../../util/export-image-utils';
+} from '../../util/export-image';
 
 const styles = {
     content: {
@@ -136,6 +136,7 @@ class DownloadDialog extends Component {
 
     onDownload = () => {
         const mapEl = document.getElementById('dhis2-maps-container');
+        
         const filename = `map-${Math.random()
             .toString(36)
             .substring(7)}.png`;
