@@ -23,8 +23,10 @@
  * This file is copied from kepler.gl on 31 Oct 2018:
  * https://github.com/uber/kepler.gl/blob/master/src/utils/export-image-utils.js
  * NPM global dependency and unused calculateExportImageSize function has been removed
+ * FileSaver.js was added for image download
  */
 
+import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
 import domtoimage from './dom-to-image';
 
 const toStringFn = {}.toString;
@@ -71,15 +73,5 @@ export const dataURItoBlob = dataURI => {
     return new Blob([ab], { type: mimeString });
 };
 
-export const downloadFile = (fileBlob, filename) => {
-    const url = URL.createObjectURL(fileBlob);
-
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', filename);
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-};
+export const downloadFile = (fileBlob, filename) => 
+    FileSaver.saveAs(fileBlob, filename);
