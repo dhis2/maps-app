@@ -19,7 +19,7 @@ const styles = {
     },
 };
 
-class DownloadButton extends Component {
+export class DownloadButton extends Component {
     static propTypes = {
         toggleDownloadDialog: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,

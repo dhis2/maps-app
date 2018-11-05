@@ -51,7 +51,7 @@ const styles = theme => ({
     },
 });
 
-const LegendPosition = ({ position, onChange, classes }) => (
+export const LegendPosition = ({ position, onChange, classes }) => (
     <div className={classes.root}>
         <div className={classes.label}>{i18n.t('Legend position')}</div>
         {positions.map(pos => (
@@ -69,7 +69,7 @@ const LegendPosition = ({ position, onChange, classes }) => (
 );
 
 LegendPosition.propTypes = {
-    position: PropTypes.string.isRequired,
+    position: PropTypes.oneOf(['topleft', 'topright', 'bottomleft', 'bottomright']).isRequired,
     onChange: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };

@@ -39,7 +39,7 @@ const styles = theme => ({
     bottomright: {
         bottom: 20,
         right: theme.spacing.unit,
-    },
+    },  
     name: {
         top: theme.spacing.unit * 6,
     }
@@ -61,7 +61,7 @@ export const DownloadLegend = ({ position, layers, showName, classes }) => {
             {legends.map((legend, index) => (
                 <div key={index}>
                     <h2 className={classes.title}>
-                        {legend.title}{' '}
+                        {legend.title}
                         <span className={classes.period}>{legend.period}</span>
                     </h2>
                     <Legend {...legend} />
@@ -72,7 +72,7 @@ export const DownloadLegend = ({ position, layers, showName, classes }) => {
 };
 
 DownloadLegend.propTypes = {
-    position: PropTypes.string.isRequired,
+    position: PropTypes.oneOf(['topleft', 'topright', 'bottomleft', 'bottomright']).isRequired,
     layers: PropTypes.array.isRequired,
     showName: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,

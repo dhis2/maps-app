@@ -39,7 +39,7 @@ describe('DownloadDialog', () => {
     it('Should render a dialog when showDialog is true', () => {
         const wrapper = renderComponent();
         expect(wrapper.isEmptyRender()).toBe(false);
-        expect(wrapper.find('WithStyles(Dialog)').length).toBe(1);
+        expect(wrapper.find('WithStyles(Dialog)').exists()).toBe(true);
     });
 
     it('should call toggleDownloadDialog with false on dialog close', () => {
@@ -49,7 +49,7 @@ describe('DownloadDialog', () => {
             toggleDownloadDialog: toggleDownloadDialogSpy,
         });
         
-        wrapper.props().onClose();
+        wrapper.simulate('close');
         expect(toggleDownloadDialogSpy).toHaveBeenCalledWith(false);
     });
 
@@ -95,10 +95,10 @@ describe('DownloadDialog', () => {
         });
         const checkbox = wrapper.find('WithStyles(Checkbox)').at(0);
         
-        checkbox.props().onCheck(true);
+        checkbox.simulate('check', true);
         expect(toggleDownloadShowNameSpy).toHaveBeenCalledWith(true);
 
-        checkbox.props().onCheck(false);
+        checkbox.simulate('check', false);
         expect(toggleDownloadShowNameSpy).toHaveBeenCalledWith(false);
     });
 
@@ -127,10 +127,10 @@ describe('DownloadDialog', () => {
         });
         const checkbox = wrapper.find('WithStyles(Checkbox)').at(1);
         
-        checkbox.props().onCheck(true);
+        checkbox.simulate('check', true);
         expect(toggleDownloadShowLegendSpy).toHaveBeenCalledWith(true);
 
-        checkbox.props().onCheck(false);
+        checkbox.simulate('check', false);
         expect(toggleDownloadShowLegendSpy).toHaveBeenCalledWith(false);
     });
 
@@ -142,6 +142,7 @@ describe('DownloadDialog', () => {
 
         expect(wrapper.find('WithStyles(LegendPosition)').exists()).toBe(false);
         wrapper.setProps({ showLegend: true });
+
         expect(wrapper.find('WithStyles(LegendPosition)').exists()).toBe(true);
     });
 
@@ -153,8 +154,17 @@ describe('DownloadDialog', () => {
             setDownloadLegendPosition: setDownloadLegendPositionSpy,
         });
         
-        wrapper.find('WithStyles(LegendPosition)').props().onChange('bottomleft');
+        wrapper.find('WithStyles(LegendPosition)').simulate('change', 'bottomleft');
         expect(setDownloadLegendPositionSpy).toHaveBeenCalledWith('bottomleft');
     });
 
+    it('Should show browser message if error state is set', () => {
+        const wrapper = renderComponent();
+
+        wrapper.setState({ error: {} });
+
+        expect(wrapper.find('WithStyles(DialogContent)').render().text().substring(0, 29))
+            .toEqual('Map download is not supported');
+    });
 });
+
