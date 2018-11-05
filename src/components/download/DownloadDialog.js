@@ -108,25 +108,22 @@ export class DownloadDialog extends Component {
                                 )}
                         </Fragment>
                     ) : (
-                        <p>
-                            {i18n.t(
-                                'Map download is not supported by your browser. Try Google Chrome or Firefox.'
-                            )}
-                        </p>
+                        i18n.t('Map download is not supported by your browser. Try Google Chrome or Firefox.')
                     )}
                 </DialogContent>
                 <DialogActions>
                     <Button color="primary" onClick={this.onClose}>
-                        {i18n.t('Cancel')}
+                        {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
                     </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        disabled={!isSupported}
-                        onClick={this.onDownload}
-                    >
-                        {i18n.t('Download')}
-                    </Button>
+                    {isSupported &&
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={this.onDownload}
+                        >
+                            {i18n.t('Download')}
+                        </Button>
+                    }
                 </DialogActions>
             </Dialog>
         );
