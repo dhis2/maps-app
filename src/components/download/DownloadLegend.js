@@ -14,7 +14,7 @@ const styles = theme => ({
         boxShadow: theme.shadows[1],
         borderRadius: theme.shape.borderRadius,
         fontSize: theme.typography.fontSize,
-        maxWidth: 200,
+        maxWidth: 220,
     },
     title: {
         fontSize: 15,
