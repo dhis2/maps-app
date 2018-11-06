@@ -60,29 +60,32 @@ class PluginLegend extends PureComponent {
 
         return (
             <div ref={el => (this.container = el)} style={{ display: 'none' }}>
-                {legendLayers.map(({ id, legend, serverCluster, data }) => {
-                    const hasData =
-                        (Array.isArray(data) && data.length > 0) ||
-                        serverCluster;
+                {legendLayers.map(
+                    ({ id, layer, legend, serverCluster, data }) => {
+                        const hasData =
+                            (Array.isArray(data) && data.length > 0) ||
+                            serverCluster ||
+                            layer === 'earthEngine';
 
-                    return (
-                        <div key={id}>
-                            <h2 className={classes.title}>
-                                {legend.title}{' '}
-                                <span className={classes.period}>
-                                    {legend.period}
-                                </span>
-                            </h2>
-                            {hasData ? (
-                                <Legend {...legend} />
-                            ) : (
-                                <div className={classes.nodata}>
-                                    {i18n.t('No data found')}
-                                </div>
-                            )}
-                        </div>
-                    );
-                })}
+                        return (
+                            <div key={id}>
+                                <h2 className={classes.title}>
+                                    {legend.title}{' '}
+                                    <span className={classes.period}>
+                                        {legend.period}
+                                    </span>
+                                </h2>
+                                {hasData ? (
+                                    <Legend {...legend} />
+                                ) : (
+                                    <div className={classes.nodata}>
+                                        {i18n.t('No data found')}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    }
+                )}
             </div>
         );
     }
