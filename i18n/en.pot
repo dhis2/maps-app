@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-11-01T13:25:23.709Z\n"
-"PO-Revision-Date: 2018-11-01T13:25:23.709Z\n"
+"POT-Creation-Date: 2018-11-06T08:42:58.947Z\n"
+"PO-Revision-Date: 2018-11-06T08:42:58.947Z\n"
 
 msgid "Classification"
 msgstr ""
@@ -102,6 +102,9 @@ msgid "Map download is not supported by your browser. Try Google Chrome or Firef
 msgstr ""
 
 msgid "Cancel"
+msgstr ""
+
+msgid "Close"
 msgstr ""
 
 msgid "Legend position"
@@ -419,9 +422,6 @@ msgid "Code"
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
-
-msgid "Close"
 msgstr ""
 
 msgid "Select groups"

@@ -12,33 +12,37 @@ describe('DownloadLegend', () => {
         name: 'name-class',
     };
 
-    const layers = [{ 
-        id: 'layer-1', 
-        legend: {
-            title: 'Layer 1',
-            period: '2018',
-        }, 
-    },{ 
-        id: 'layer-2' 
-    },{ 
-        id: 'layer-3', 
-        legend: {
-            title: 'Layer 2',
-            period: '2017',
-        }, 
-    }];
+    const layers = [
+        {
+            id: 'layer-1',
+            legend: {
+                title: 'Layer 1',
+                period: '2018',
+            },
+        },
+        {
+            id: 'layer-2',
+        },
+        {
+            id: 'layer-3',
+            legend: {
+                title: 'Layer 2',
+                period: '2017',
+            },
+        },
+    ];
 
-    const renderComponent = props => 
+    const renderComponent = props =>
         shallow(
             <DownloadLegend
                 classes={classes}
-                position='bottomright'
+                position="bottomright"
                 layers={[]}
                 showName={false}
                 {...props}
             />
         );
-    
+
     it('Should render a legend component', () => {
         expect(renderComponent().exists()).toBe(true);
     });

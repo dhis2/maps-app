@@ -3,13 +3,13 @@ import { shallow } from 'enzyme';
 import { DownloadDialog } from '../DownloadDialog';
 import { downloadSupport } from '../../../util/export-image';
 
-jest.mock('../../../util/export-image', () => ({ 
-    downloadSupport: jest.fn(), 
+jest.mock('../../../util/export-image', () => ({
+    downloadSupport: jest.fn(),
 }));
 
 describe('DownloadDialog', () => {
     const renderComponent = (props = {}, isSupported = true) => {
-        downloadSupport.mockImplementation(() => isSupported); 
+        downloadSupport.mockImplementation(() => isSupported);
 
         return shallow(
             <DownloadDialog
@@ -17,7 +17,7 @@ describe('DownloadDialog', () => {
                 showDialog={true}
                 showName={false}
                 showLegend={false}
-                legendPosition='bottomright'
+                legendPosition="bottomright"
                 hasName={false}
                 hasLegend={false}
                 toggleDownloadDialog={() => null}
@@ -27,7 +27,7 @@ describe('DownloadDialog', () => {
                 {...props}
             />
         );
-    }
+    };
 
     it('Should render null when showDialog is false', () => {
         const wrapper = renderComponent({
@@ -42,13 +42,18 @@ describe('DownloadDialog', () => {
         expect(wrapper.find('WithStyles(Dialog)').exists()).toBe(true);
     });
 
+    it('Should match snapshot when showDialog is true', () => {
+        const wrapper = renderComponent();
+        expect(wrapper).toMatchSnapshot();
+    });
+
     it('should call toggleDownloadDialog with false on dialog close', () => {
         const toggleDownloadDialogSpy = jest.fn();
         const wrapper = renderComponent({
             hasName: true,
             toggleDownloadDialog: toggleDownloadDialogSpy,
         });
-        
+
         wrapper.simulate('close');
         expect(toggleDownloadDialogSpy).toHaveBeenCalledWith(false);
     });
@@ -56,36 +61,73 @@ describe('DownloadDialog', () => {
     it('Should not show download options if no browser support', () => {
         const wrapper = renderComponent(null, false);
 
-        expect(wrapper.find('WithStyles(DialogContent)').render().text().substring(0, 29))
-            .toEqual('Map download is not supported');
+        expect(
+            wrapper
+                .find('WithStyles(DialogContent)')
+                .render()
+                .text()
+                .substring(0, 29)
+        ).toEqual('Map download is not supported');
 
-        expect(wrapper.find('WithStyles(Button)').at(0).render().text()).toEqual('Close');
-    }); 
+        expect(
+            wrapper
+                .find('WithStyles(Button)')
+                .at(0)
+                .render()
+                .text()
+        ).toEqual('Close');
+    });
 
     it('Should show download options if browser support', () => {
         const wrapper = renderComponent();
 
         expect(wrapper.find('WithStyles(Checkbox)').length).toBe(2);
         expect(wrapper.find('WithStyles(Button)').length).toBe(2);
-        expect(wrapper.find('WithStyles(Button)').at(0).render().text()).toEqual('Cancel');
-    }); 
+        expect(
+            wrapper
+                .find('WithStyles(Button)')
+                .at(0)
+                .render()
+                .text()
+        ).toEqual('Cancel');
+    });
 
     it('Should enable name checkbox if name exist', () => {
         const wrapper = renderComponent();
-        expect(wrapper.find('WithStyles(Checkbox)').at(0).prop('disabled')).toBe(true);
+        expect(
+            wrapper
+                .find('WithStyles(Checkbox)')
+                .at(0)
+                .prop('disabled')
+        ).toBe(true);
         wrapper.setProps({ hasName: true });
-        expect(wrapper.find('WithStyles(Checkbox)').at(0).prop('disabled')).toBe(false);        
-    }); 
+        expect(
+            wrapper
+                .find('WithStyles(Checkbox)')
+                .at(0)
+                .prop('disabled')
+        ).toBe(false);
+    });
 
     it('Should check name checkbox if showName prop is true', () => {
         const wrapper = renderComponent({
             hasName: true,
         });
 
-        expect(wrapper.find('WithStyles(Checkbox)').at(0).prop('checked')).toBe(false);
+        expect(
+            wrapper
+                .find('WithStyles(Checkbox)')
+                .at(0)
+                .prop('checked')
+        ).toBe(false);
         wrapper.setProps({ showName: true });
-        expect(wrapper.find('WithStyles(Checkbox)').at(0).prop('checked')).toBe(true);
-    }); 
+        expect(
+            wrapper
+                .find('WithStyles(Checkbox)')
+                .at(0)
+                .prop('checked')
+        ).toBe(true);
+    });
 
     it('should call toggleDownloadShowName when name checkbox is checked', () => {
         const toggleDownloadShowNameSpy = jest.fn();
@@ -94,7 +136,7 @@ describe('DownloadDialog', () => {
             toggleDownloadShowName: toggleDownloadShowNameSpy,
         });
         const checkbox = wrapper.find('WithStyles(Checkbox)').at(0);
-        
+
         checkbox.simulate('check', true);
         expect(toggleDownloadShowNameSpy).toHaveBeenCalledWith(true);
 
@@ -104,20 +146,40 @@ describe('DownloadDialog', () => {
 
     it('Should enable legend checkbox if legend exist', () => {
         const wrapper = renderComponent();
-        expect(wrapper.find('WithStyles(Checkbox)').at(1).prop('disabled')).toBe(true);
+        expect(
+            wrapper
+                .find('WithStyles(Checkbox)')
+                .at(1)
+                .prop('disabled')
+        ).toBe(true);
         wrapper.setProps({ hasLegend: true });
-        expect(wrapper.find('WithStyles(Checkbox)').at(1).prop('disabled')).toBe(false);        
-    }); 
+        expect(
+            wrapper
+                .find('WithStyles(Checkbox)')
+                .at(1)
+                .prop('disabled')
+        ).toBe(false);
+    });
 
     it('Should check legend checkbox if showLegend prop is true', () => {
         const wrapper = renderComponent({
             hasLegend: true,
         });
 
-        expect(wrapper.find('WithStyles(Checkbox)').at(1).prop('checked')).toBe(false);
+        expect(
+            wrapper
+                .find('WithStyles(Checkbox)')
+                .at(1)
+                .prop('checked')
+        ).toBe(false);
         wrapper.setProps({ showLegend: true });
-        expect(wrapper.find('WithStyles(Checkbox)').at(1).prop('checked')).toBe(true);
-    }); 
+        expect(
+            wrapper
+                .find('WithStyles(Checkbox)')
+                .at(1)
+                .prop('checked')
+        ).toBe(true);
+    });
 
     it('should call toggleDownloadShowLegend when name checkbox is checked', () => {
         const toggleDownloadShowLegendSpy = jest.fn();
@@ -126,7 +188,7 @@ describe('DownloadDialog', () => {
             toggleDownloadShowLegend: toggleDownloadShowLegendSpy,
         });
         const checkbox = wrapper.find('WithStyles(Checkbox)').at(1);
-        
+
         checkbox.simulate('check', true);
         expect(toggleDownloadShowLegendSpy).toHaveBeenCalledWith(true);
 
@@ -153,8 +215,10 @@ describe('DownloadDialog', () => {
             showLegend: true,
             setDownloadLegendPosition: setDownloadLegendPositionSpy,
         });
-        
-        wrapper.find('WithStyles(LegendPosition)').simulate('change', 'bottomleft');
+
+        wrapper
+            .find('WithStyles(LegendPosition)')
+            .simulate('change', 'bottomleft');
         expect(setDownloadLegendPositionSpy).toHaveBeenCalledWith('bottomleft');
     });
 
@@ -163,8 +227,12 @@ describe('DownloadDialog', () => {
 
         wrapper.setState({ error: {} });
 
-        expect(wrapper.find('WithStyles(DialogContent)').render().text().substring(0, 29))
-            .toEqual('Map download is not supported');
+        expect(
+            wrapper
+                .find('WithStyles(DialogContent)')
+                .render()
+                .text()
+                .substring(0, 29)
+        ).toEqual('Map download is not supported');
     });
 });
-
