@@ -6,7 +6,6 @@ import UI from 'ui/core/UI';
 import HeaderBar from 'ui/widgets/HeaderBar';
 import { muiTheme } from '../../constants/dhis2.theme';
 import MapProvider from '../map/MapProvider';
-import AppHeader from './AppHeader';
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
