@@ -55,7 +55,8 @@ export const DownloadLegend = ({ position, layers, showName, classes }) => {
 
     const legends = layers
         .filter(layer => layer.legend)
-        .map(layer => layer.legend);
+        .map(layer => layer.legend)
+        .reverse();
 
     return (
         <div className={className}>
