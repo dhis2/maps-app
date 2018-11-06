@@ -14,6 +14,7 @@ const styles = theme => ({
         boxShadow: theme.shadows[1],
         borderRadius: theme.shape.borderRadius,
         fontSize: theme.typography.fontSize,
+        maxWidth: 200,
     },
     title: {
         fontSize: 15,
@@ -39,10 +40,10 @@ const styles = theme => ({
     bottomright: {
         bottom: 20,
         right: theme.spacing.unit,
-    },  
+    },
     name: {
         top: theme.spacing.unit * 6,
-    }
+    },
 });
 
 export const DownloadLegend = ({ position, layers, showName, classes }) => {
@@ -72,7 +73,12 @@ export const DownloadLegend = ({ position, layers, showName, classes }) => {
 };
 
 DownloadLegend.propTypes = {
-    position: PropTypes.oneOf(['topleft', 'topright', 'bottomleft', 'bottomright']).isRequired,
+    position: PropTypes.oneOf([
+        'topleft',
+        'topright',
+        'bottomleft',
+        'bottomright',
+    ]).isRequired,
     layers: PropTypes.array.isRequired,
     showName: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
