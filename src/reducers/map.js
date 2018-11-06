@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 import { arrayMove } from 'react-sortable-hoc';
-import { generateUid } from 'd2/lib/uid';
+import { generateUid } from 'd2/uid';
 
 const defaultState = {
     bounds: [[-34.9, -18.7], [35.9, 50.2]],

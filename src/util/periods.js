@@ -1,4 +1,4 @@
-import { createPeriodGeneratorsForLocale } from 'd2/lib/period/generators';
+import { createPeriodGeneratorsForLocale } from 'd2/period/generators';
 
 export const createPeriods = (locale, periodType, year) => {
     const localePeriodGenerator = createPeriodGeneratorsForLocale(locale);

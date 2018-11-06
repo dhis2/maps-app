@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-10-31T16:22:25.548Z\n"
-"PO-Revision-Date: 2018-10-31T16:22:25.548Z\n"
+"POT-Creation-Date: 2018-11-06T13:56:12.079Z\n"
+"PO-Revision-Date: 2018-11-06T13:56:12.079Z\n"
 
 msgid "No favorite selected"
 msgstr ""
@@ -305,24 +305,21 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-msgid "Please select the format for dimension attributes"
-msgstr ""
-
-msgid "Meta-data ID scheme"
-msgstr ""
-
-msgid "Use human-readable keys for all other attributes"
-msgstr ""
-
-msgid "The data for this layer will be downloaded in GeoJSON format."
+msgid "Downloading GeoJSON data for \"{{layerName}}\""
 msgstr ""
 
 msgid ""
-"This format is supported by most GIS software, including QGIS and ArcGIS "
+"GeoJSON format is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
 
 msgid "Data download failed."
+msgstr ""
+
+msgid "ID Format"
+msgstr ""
+
+msgid "Use human-readable keys"
 msgstr ""
 
 msgid "deleted"

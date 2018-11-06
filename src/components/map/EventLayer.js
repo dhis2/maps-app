@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
-import { getInstance as getD2 } from 'd2/lib/d2';
+import { getInstance as getD2 } from 'd2';
 import { apiFetch } from '../../util/api';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';

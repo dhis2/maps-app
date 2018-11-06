@@ -7,7 +7,7 @@ import SelectField from '../core/SelectField';
 import IconButton from '@material-ui/core/IconButton';
 import LeftIcon from '@material-ui/icons/ChevronLeft';
 import RightIcon from '@material-ui/icons/ChevronRight';
-import { filterFuturePeriods } from 'd2/lib/period/helpers';
+import { filterFuturePeriods } from 'd2/period/helpers';
 import { createPeriods } from '../../util/periods';
 
 const styles = theme => ({

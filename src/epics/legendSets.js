@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import { getInstance as getD2 } from 'd2/lib/d2';
+import { getInstance as getD2 } from 'd2';
 import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
 import { setLegendSets } from '../actions/legendSets';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
-import { init, config, getUserSettings } from 'd2/lib/d2';
-import { isValidUid } from 'd2/lib/uid';
+import { init, config, getUserSettings } from 'd2';
+import { isValidUid } from 'd2/uid';
 import i18n from './locales';
 import PluginMap from './components/map/PluginMap';
 import {
