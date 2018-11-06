@@ -3,6 +3,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import OldMuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; // TODO: REMOVE (currently needed for FileMenu in d2-ui)
+import UI from 'ui/core/UI';
 import { muiTheme } from '../../constants/dhis2.theme';
 import MapProvider from '../map/MapProvider';
 import AppHeader from './AppHeader';
@@ -37,7 +38,7 @@ export class App extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <UI>
                 <MuiThemeProvider theme={muiTheme}>
                     <OldMuiThemeProvider>
                         <MapProvider>
@@ -58,7 +59,7 @@ export class App extends Component {
                         </MapProvider>
                     </OldMuiThemeProvider>
                 </MuiThemeProvider>
-            </React.Fragment>
+            </UI>
         );
     }
 }
