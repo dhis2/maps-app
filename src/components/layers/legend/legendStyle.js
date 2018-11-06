@@ -1,6 +1,5 @@
 export default {
     paddingBottom: 16,
-    // padding: '0 16px 16px 8px',
     margin: 0,
     '& table': {
         borderCollapse: 'collapse',
@@ -22,7 +21,7 @@ export default {
             },
         },
         '& td': {
-            paddingLeft: 10,
+            paddingLeft: 8,
             whiteSpace: 'nowrap',
         },
     },
