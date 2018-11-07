@@ -49,9 +49,9 @@ describe('DownloadLegend', () => {
 
     it('Should set legend position class', () => {
         const wrapper = renderComponent();
-        expect(wrapper.hasClass('bottomright-class')).toBe(true);
+        expect(wrapper.hasClass(classes.bottomright)).toBe(true);
         wrapper.setProps({ position: 'topleft' });
-        expect(wrapper.hasClass('topleft-class')).toBe(true);
+        expect(wrapper.hasClass(classes.topleft)).toBe(true);
     });
 
     it('Should set extra style class if top position and showName is true', () => {
@@ -60,13 +60,13 @@ describe('DownloadLegend', () => {
             showName: false,
         });
 
-        expect(wrapper.hasClass('name-class')).toBe(false);
+        expect(wrapper.hasClass(classes.name)).toBe(false);
         wrapper.setProps({ showName: true });
-        expect(wrapper.hasClass('name-class')).toBe(false);
+        expect(wrapper.hasClass(classes.name)).toBe(false);
         wrapper.setProps({ position: 'topleft' });
-        expect(wrapper.hasClass('name-class')).toBe(true);
+        expect(wrapper.hasClass(classes.name)).toBe(true);
         wrapper.setProps({ position: 'topright' });
-        expect(wrapper.hasClass('name-class')).toBe(true);
+        expect(wrapper.hasClass(classes.name)).toBe(true);
     });
 
     it('Should only render layers with legends', () => {
