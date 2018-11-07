@@ -7,7 +7,6 @@ describe('DownloadLegend', () => {
         root: 'root-class',
         topleft: 'topleft-class',
         topright: 'topright-class',
-        bottomleft: 'bottomleft-class',
         bottomright: 'bottomright-class',
         name: 'name-class',
     };
