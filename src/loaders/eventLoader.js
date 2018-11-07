@@ -14,12 +14,17 @@ import {
     addStyleDataItem,
     getBounds,
 } from '../util/geojson';
-import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
+import {
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    DATE_FORMAT_SPECIFIER,
+} from '../constants/layers';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
-const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
+const formatTime = date => timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));
 
+//TODO: Refactor to share code with other loaders
 // Returns a promise
 const eventLoader = async layerConfig => {
     const config = { ...layerConfig };

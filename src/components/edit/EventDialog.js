@@ -19,8 +19,8 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import {
-    EVENT_START_DATE,
-    EVENT_END_DATE,
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
@@ -64,6 +64,10 @@ const styles = {
     text: {
         paddingTop: 8,
         lineHeight: '22px',
+    },
+    error: {
+        marginTop: 10,
+        color: 'red',
     },
 };
 
@@ -131,8 +135,8 @@ export class EventDialog extends Component {
 
         if (!period && !startDate && !endDate) {
             // Set default period (last year)
-            setStartDate(EVENT_START_DATE);
-            setEndDate(EVENT_END_DATE);
+            setStartDate(DEFAULT_START_DATE);
+            setEndDate(DEFAULT_END_DATE);
         }
     }
 
@@ -187,6 +191,7 @@ export class EventDialog extends Component {
             tab,
             programError,
             programStageError,
+            periodError,
             orgUnitsError,
             showBuffer,
         } = this.state;
@@ -244,7 +249,7 @@ export class EventDialog extends Component {
                                     key="startdate"
                                     label={i18n.t('Start date')}
                                     value={startDate}
-                                    default={EVENT_START_DATE}
+                                    default={DEFAULT_START_DATE}
                                     onChange={setStartDate}
                                     style={styles.select}
                                 />,
@@ -252,11 +257,16 @@ export class EventDialog extends Component {
                                     key="enddate"
                                     label={i18n.t('End date')}
                                     value={endDate}
-                                    default={EVENT_END_DATE}
+                                    default={DEFAULT_END_DATE}
                                     onChange={setEndDate}
                                     style={styles.select}
                                 />,
                             ]}
+                            {periodError ? (
+                                <div key="error" style={styles.error}>
+                                    {periodError}
+                                </div>
+                            ) : null}
                         </div>
                     )}
                     {tab === 'filter' && (
@@ -401,7 +411,15 @@ export class EventDialog extends Component {
     }
 
     validate() {
-        const { program, programStage, rows } = this.props;
+        const {
+            program,
+            programStage,
+            rows,
+            filters,
+            startDate,
+            endDate,
+        } = this.props;
+        const period = getPeriodFromFilters(filters);
 
         if (!program) {
             return this.setErrorState(
@@ -416,6 +434,32 @@ export class EventDialog extends Component {
                 'programStageError',
                 i18n.t('Program stage is required'),
                 'data'
+            );
+        }
+
+        if (!period) {
+            return this.setErrorState(
+                'periodError',
+                i18n.t('Period is required'),
+                'period'
+            );
+        } else if (
+            period.id === 'START_END_DATES' &&
+            (!startDate && !parseTime(startDate))
+        ) {
+            return this.setErrorState(
+                'periodError',
+                i18n.t('Start date is invalid'),
+                'period'
+            );
+        } else if (
+            period.id === 'START_END_DATES' &&
+            (!endDate && !parseTime(endDate))
+        ) {
+            return this.setErrorState(
+                'periodError',
+                i18n.t('End date is invalid'),
+                'period'
             );
         }
 

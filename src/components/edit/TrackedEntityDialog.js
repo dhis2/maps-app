@@ -15,8 +15,8 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import ColorPicker from '../core/ColorPicker';
 import {
-    TEI_START_DATE,
-    TEI_END_DATE,
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
     TEI_COLOR,
     TEI_RADIUS,
     TEI_BUFFER,
@@ -92,8 +92,8 @@ export class TrackedEntityDialog extends Component {
 
         // Set default period (last year)
         if (!startDate && !endDate) {
-            setStartDate(TEI_START_DATE);
-            setEndDate(TEI_END_DATE);
+            setStartDate(DEFAULT_START_DATE);
+            setEndDate(DEFAULT_END_DATE);
         }
 
         if (!programStatus) {
@@ -241,7 +241,7 @@ export class TrackedEntityDialog extends Component {
                                 key="startdate"
                                 label={i18n.t('Start date')}
                                 value={startDate}
-                                default={TEI_START_DATE}
+                                default={DEFAULT_START_DATE}
                                 onChange={setStartDate}
                                 style={styles.select}
                             />
@@ -249,7 +249,7 @@ export class TrackedEntityDialog extends Component {
                                 key="enddate"
                                 label={i18n.t('End date')}
                                 value={endDate}
-                                default={TEI_END_DATE}
+                                default={DEFAULT_END_DATE}
                                 onChange={setEndDate}
                                 style={styles.select}
                             />

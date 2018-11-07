@@ -2,7 +2,11 @@ import i18n from '@dhis2/d2-i18n';
 import { timeFormat } from 'd3-time-format';
 import { apiFetch } from '../util/api';
 import { getOrgUnitsFromRows } from '../util/analytics';
-import { TEI_COLOR, TEI_RADIUS } from '../constants/layers';
+import {
+    TEI_COLOR,
+    TEI_RADIUS,
+    DATE_FORMAT_SPECIFIER,
+} from '../constants/layers';
 import { createAlert } from '../util/alerts';
 
 const fields = [
@@ -21,8 +25,9 @@ const geometryTypesMap = {
 // Valid geometry types for TEIs
 const geometryTypes = Object.keys(geometryTypesMap);
 
-const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
+const formatTime = date => timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));
 
+//TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async config => {
     const {
         trackedEntityType,

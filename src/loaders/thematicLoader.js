@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
+import { timeFormat } from 'd3-time-format';
 import { findIndex, curry } from 'lodash/fp';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
@@ -18,10 +19,15 @@ import {
     getApiResponseNames,
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
+import { DATE_FORMAT_SPECIFIER } from '../constants/layers';
 
+const formatTime = date => timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));
+
+//TODO: Refactor to share code with other loaders
 const thematicLoader = async config => {
     const { columns, radiusLow, radiusHigh, classes, colorScale } = config;
     const [features, data] = await loadData(config);
+    const period = getPeriodFromFilters(config.filters);
     const names = getApiResponseNames(data);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(
@@ -47,7 +53,9 @@ const thematicLoader = async config => {
 
     const legend = {
         title: name,
-        period: names[data.metaData.dimensions.pe[0]],
+        period: period
+            ? names[data.metaData.dimensions.pe[0]]
+            : `${formatTime(config.startDate)} - ${formatTime(config.endDate)}`,
         items: legendSet
             ? getPredefinedLegendItems(legendSet)
             : getAutomaticLegendItems(
@@ -126,6 +134,8 @@ const loadData = async config => {
         columns,
         filters,
         displayProperty,
+        startDate,
+        endDate,
         userOrgUnit,
         valueType,
         relativePeriodDate,
@@ -151,8 +161,11 @@ const loadData = async config => {
     let analyticsRequest = new d2.analytics.request()
         .addOrgUnitDimension(orgUnits.map(ou => ou.id))
         .addDataDimension(dataDimension)
-        .addPeriodFilter(period.id)
         .withDisplayProperty(displayPropertyUpper);
+
+    analyticsRequest = period
+        ? analyticsRequest.addPeriodFilter(period.id)
+        : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
 
     if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
         geoFeaturesParams.userOrgUnit = userOrgUnit.join(';');

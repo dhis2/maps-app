@@ -80,6 +80,7 @@ export const muiTheme = createMuiTheme({
     colors,
     palette,
     typography: {
+        fontSize: 16,
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
         useNextVariants: true,
     },
@@ -94,8 +95,8 @@ export const muiTheme = createMuiTheme({
         },
         MuiDialogTitle: {
             root: {
-                padding: '20px 24px 4px 24px',
-                fontSize: 16,
+                padding: `${spacingUnit * 2.5}px ${spacingUnit * 3}px ${spacingUnit * 0.5}px`,
+                fontSize: '1em',
                 fontWeight: 'bold',
             },
         },
