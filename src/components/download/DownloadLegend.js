@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Legend from '../layers/legend/Legend';
+import { legendPositions } from './LegendPosition';
 
 const styles = theme => ({
     root: {
@@ -74,12 +75,7 @@ export const DownloadLegend = ({ position, layers, showName, classes }) => {
 };
 
 DownloadLegend.propTypes = {
-    position: PropTypes.oneOf([
-        'topleft',
-        'topright',
-        'bottomleft',
-        'bottomright',
-    ]).isRequired,
+    position: PropTypes.oneOf(legendPositions).isRequired,
     layers: PropTypes.array.isRequired,
     showName: PropTypes.bool.isRequired,
     classes: PropTypes.object.isRequired,
