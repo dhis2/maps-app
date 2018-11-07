@@ -22,7 +22,7 @@ const AddLayerPopover = ({
         anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
-          }}
+        }}
         transformOrigin={{
             vertical: 'top',
             horizontal: 'left',
