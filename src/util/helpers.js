@@ -1,22 +1,12 @@
 import { getInstance as getD2 } from 'd2/lib/d2';
-import { timeParse } from 'd3-time-format';
-import { getOrgUnitsFromRows } from './analytics';
+import { timeParse, timeFormat } from 'd3-time-format';
 import { DATE_FORMAT_SPECIFIER } from '../constants/layers';
-
-const defaultKeyAnalysisDisplayProperty = 'displayName';
 
 const propertyMap = {
     name: 'name',
     displayName: 'name',
     shortName: 'shortName',
     displayShortName: 'shortName',
-};
-
-const displayPropertyMap = {
-    name: 'displayName',
-    displayName: 'displayName',
-    shortName: 'displayShortName',
-    displayShortName: 'displayShortName',
 };
 
 export const getDisplayProperty = (d2, displayProperty) => {
@@ -109,16 +99,27 @@ export const legendSetFields = [
 ];
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
-export const addOrgUnitPaths = (mapViews) => 
-    mapViews.map(view => view.rows && view.organisationUnits ? {
-        ...view, 
-        rows: view.rows.map(dim => ({
-            ...dim,
-            items: dim.items.map(orgUnit => ({
-                ...orgUnit,
-                path: (view.organisationUnits.find(ou => ou.id === orgUnit.id) || {}).path,
-            })),
-        }))
-    } : view);
+export const addOrgUnitPaths = mapViews =>
+    mapViews.map(
+        view =>
+            view.rows && view.organisationUnits
+                ? {
+                      ...view,
+                      rows: view.rows.map(dim => ({
+                          ...dim,
+                          items: dim.items.map(orgUnit => ({
+                              ...orgUnit,
+                              path: (
+                                  view.organisationUnits.find(
+                                      ou => ou.id === orgUnit.id
+                                  ) || {}
+                              ).path,
+                          })),
+                      })),
+                  }
+                : view
+    );
 
 export const parseTime = date => timeParse(DATE_FORMAT_SPECIFIER)(date);
+export const formatTime = date =>
+    timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));

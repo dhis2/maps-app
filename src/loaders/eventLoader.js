@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import { timeFormat } from 'd3-time-format';
 import { styleByDataItem } from '../util/styleByDataItem';
 import {
     getOrgUnitsFromRows,
@@ -14,15 +13,11 @@ import {
     addStyleDataItem,
     getBounds,
 } from '../util/geojson';
-import {
-    EVENT_COLOR,
-    EVENT_RADIUS,
-    DATE_FORMAT_SPECIFIER,
-} from '../constants/layers';
+import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
+import { formatTime } from '../util/helpers';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
-const formatTime = date => timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));
 
 //TODO: Refactor to share code with other loaders
 // Returns a promise

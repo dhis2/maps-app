@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2/lib/d2';
-import { timeFormat } from 'd3-time-format';
 import { findIndex, curry } from 'lodash/fp';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
@@ -19,9 +18,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
-import { DATE_FORMAT_SPECIFIER } from '../constants/layers';
-
-const formatTime = date => timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));
+import { formatTime } from '../util/helpers';
 
 //TODO: Refactor to share code with other loaders
 const thematicLoader = async config => {
