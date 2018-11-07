@@ -49,7 +49,7 @@ import {
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
-import { parseTime } from '../../util/helpers';
+import { getStartEndDateError } from '../../util/helpers';
 
 // TODO: Don't use inline styles!
 const styles = {
@@ -441,24 +441,11 @@ export class EventDialog extends Component {
             );
         }
 
-        if (
-            period.id === 'START_END_DATES' &&
-            (!startDate && !parseTime(startDate))
-        ) {
-            return this.setErrorState(
-                'periodError',
-                i18n.t('Start date is invalid'),
-                'period'
-            );
-        } else if (
-            period.id === 'START_END_DATES' &&
-            (!endDate && !parseTime(endDate))
-        ) {
-            return this.setErrorState(
-                'periodError',
-                i18n.t('End date is invalid'),
-                'period'
-            );
+        if (period.id === 'START_END_DATES') {
+            const error = getStartEndDateError(startDate, endDate);
+            if (error) {
+                return this.setErrorState('periodError', error, 'period');
+            }
         }
 
         if (!getOrgUnitsFromRows(rows).length) {

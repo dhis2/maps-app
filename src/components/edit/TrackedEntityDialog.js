@@ -43,7 +43,7 @@ import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
 } from '../../util/analytics';
-import { parseTime } from '../../util/helpers';
+import { getStartEndDateError } from '../../util/helpers';
 
 const styles = {
     ...layerDialogStyles,
@@ -392,20 +392,9 @@ export class TrackedEntityDialog extends Component {
             );
         }
 
-        if (!startDate || !parseTime(startDate)) {
-            return this.setErrorState(
-                'periodError',
-                i18n.t('Start date is invalid'),
-                'period'
-            );
-        }
-
-        if (!endDate || !parseTime(endDate)) {
-            return this.setErrorState(
-                'periodError',
-                i18n.t('End date is invalid'),
-                'period'
-            );
+        const error = getStartEndDateError(startDate, endDate);
+        if (error) {
+            return this.setErrorState('periodError', error, 'period');
         }
 
         if (!getOrgUnitsFromRows(rows).length) {

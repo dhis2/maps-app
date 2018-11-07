@@ -1,5 +1,6 @@
 import { getInstance as getD2 } from 'd2';
 import { timeParse, timeFormat } from 'd3-time-format';
+import i18n from '@dhis2/d2-i18n';
 import { DATE_FORMAT_SPECIFIER } from '../constants/layers';
 
 const propertyMap = {
@@ -100,26 +101,38 @@ export const legendSetFields = [
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
 export const addOrgUnitPaths = mapViews =>
-    mapViews.map(
-        view =>
-            view.rows && view.organisationUnits
-                ? {
-                      ...view,
-                      rows: view.rows.map(dim => ({
-                          ...dim,
-                          items: dim.items.map(orgUnit => ({
-                              ...orgUnit,
-                              path: (
-                                  view.organisationUnits.find(
-                                      ou => ou.id === orgUnit.id
-                                  ) || {}
-                              ).path,
-                          })),
+    mapViews.map(view =>
+        view.rows && view.organisationUnits
+            ? {
+                  ...view,
+                  rows: view.rows.map(dim => ({
+                      ...dim,
+                      items: dim.items.map(orgUnit => ({
+                          ...orgUnit,
+                          path: (
+                              view.organisationUnits.find(
+                                  ou => ou.id === orgUnit.id
+                              ) || {}
+                          ).path,
                       })),
-                  }
-                : view
+                  })),
+              }
+            : view
     );
 
 export const parseTime = date => timeParse(DATE_FORMAT_SPECIFIER)(date);
 export const formatTime = date =>
     timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));
+
+export const getStartEndDateError = (startDate, endDate) => {
+    const start = parseTime(startDate);
+    const end = parseTime(endDate);
+    if (!start) {
+        return i18n.t('Start date is invalid');
+    } else if (!end) {
+        return i18n.t('End date is invalid');
+    } else if (end < start) {
+        return i18n.t('End date cannot be earlier than start date');
+    }
+    return null;
+};

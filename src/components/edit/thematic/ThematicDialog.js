@@ -69,7 +69,7 @@ import {
     getPeriodFromFilters,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
-import { parseTime } from '../../../util/helpers';
+import { getStartEndDateError } from '../../../util/helpers';
 
 // TODO: Don't use inline styles!
 const styles = {
@@ -565,24 +565,11 @@ export class ThematicDialog extends Component {
                 i18n.t('Period is required'),
                 'period'
             );
-        } else if (
-            periodType === 'StartEndDates' &&
-            (!startDate && !parseTime(startDate))
-        ) {
-            return this.setErrorState(
-                'periodError',
-                i18n.t('Start date is invalid'),
-                'period'
-            );
-        } else if (
-            periodType === 'StartEndDates' &&
-            (!endDate && !parseTime(endDate))
-        ) {
-            return this.setErrorState(
-                'periodError',
-                i18n.t('End date is invalid'),
-                'period'
-            );
+        } else if (periodType === 'StartEndDates') {
+            const error = getStartEndDateError(startDate, endDate);
+            if (error) {
+                return this.setErrorState('periodError', error, 'period');
+            }
         }
 
         if (!getOrgUnitsFromRows(rows).length) {
