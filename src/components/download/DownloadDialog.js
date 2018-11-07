@@ -73,7 +73,7 @@ export class DownloadDialog extends Component {
             return null;
         }
 
-        const isSupported = downloadSupport();
+        const isSupported = downloadSupport() && !this.state.error;
 
         return (
             <Dialog open={showDialog} onClose={this.onClose}>
@@ -81,7 +81,7 @@ export class DownloadDialog extends Component {
                     {i18n.t('Download map')}
                 </DialogTitle>
                 <DialogContent className={classes.content}>
-                    {isSupported && !this.state.error ? (
+                    {isSupported ? (
                         <Fragment>
                             <div className={classes.checkbox}>
                                 <Checkbox
@@ -108,14 +108,16 @@ export class DownloadDialog extends Component {
                                 )}
                         </Fragment>
                     ) : (
-                        i18n.t('Map download is not supported by your browser. Try Google Chrome or Firefox.')
+                        i18n.t(
+                            'Map download is not supported by your browser. Try Google Chrome or Firefox.'
+                        )
                     )}
                 </DialogContent>
                 <DialogActions>
                     <Button color="primary" onClick={this.onClose}>
                         {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
                     </Button>
-                    {isSupported &&
+                    {isSupported && (
                         <Button
                             variant="contained"
                             color="primary"
@@ -123,7 +125,7 @@ export class DownloadDialog extends Component {
                         >
                             {i18n.t('Download')}
                         </Button>
-                    }
+                    )}
                 </DialogActions>
             </Dialog>
         );
