@@ -373,7 +373,6 @@ export class ThematicDialog extends Component {
                                     key="startdate"
                                     label={i18n.t('Start date')}
                                     value={startDate}
-                                    default={DEFAULT_START_DATE}
                                     onChange={setStartDate}
                                     style={styles.select}
                                 />,
@@ -381,7 +380,6 @@ export class ThematicDialog extends Component {
                                     key="enddate"
                                     label={i18n.t('End date')}
                                     value={endDate}
-                                    default={DEFAULT_END_DATE}
                                     onChange={setEndDate}
                                     style={styles.select}
                                 />,
@@ -429,12 +427,11 @@ export class ThematicDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
-                                {!orgUnits.length &&
-                                    orgUnitsError && (
-                                        <div style={styles.error}>
-                                            {orgUnitsError}
-                                        </div>
-                                    )}
+                                {!orgUnits.length && orgUnitsError && (
+                                    <div style={styles.error}>
+                                        {orgUnitsError}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )}
