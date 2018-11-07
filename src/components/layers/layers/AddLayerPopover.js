@@ -9,7 +9,6 @@ import {
     closeLayersDialog,
 } from '../../../actions/layers';
 
-// TODO: Remove 16 px left margin
 const AddLayerPopover = ({
     anchorEl,
     layersDialogOpen,
