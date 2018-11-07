@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import OldMuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; // TODO: REMOVE (currently needed for FileMenu in d2-ui)
+import i18n from '@dhis2/d2-i18n';
+import UI from 'ui/core/UI';
+import HeaderBar from 'ui/widgets/HeaderBar';
 import { muiTheme } from '../../constants/dhis2.theme';
 import MapProvider from '../map/MapProvider';
-import AppHeader from './AppHeader';
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
@@ -37,26 +37,24 @@ export class App extends Component {
 
     render() {
         return (
-            <Fragment>
+            <UI>
+                <HeaderBar appName={i18n.t('Maps')} />
                 <MuiThemeProvider theme={muiTheme}>
-                    <OldMuiThemeProvider>
-                        <MapProvider>
-                            <AppHeader />
-                            <AppMenu />
-                            <InterpretationsPanel />
-                            <LayersPanel />
-                            <LayersToggle />
-                            <Map />
-                            <BottomPanel />
-                            <LayerEdit />
-                            <ContextMenu />
-                            <AlertSnackbar />
-                            <Message />
-                            <DataDownloadDialog />
-                        </MapProvider>
-                    </OldMuiThemeProvider>
+                    <MapProvider>
+                        <AppMenu />
+                        <InterpretationsPanel />
+                        <LayersPanel />
+                        <LayersToggle />
+                        <Map />
+                        <BottomPanel />
+                        <LayerEdit />
+                        <ContextMenu />
+                        <AlertSnackbar />
+                        <Message />
+                        <DataDownloadDialog />
+                    </MapProvider>
                 </MuiThemeProvider>
-            </Fragment>
+            </UI>
         );
     }
 }

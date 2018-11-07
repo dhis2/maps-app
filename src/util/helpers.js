@@ -1,4 +1,4 @@
-import { getInstance as getD2 } from 'd2/lib/d2';
+import { getInstance as getD2 } from 'd2';
 import { timeParse, timeFormat } from 'd3-time-format';
 import { DATE_FORMAT_SPECIFIER } from '../constants/layers';
 
