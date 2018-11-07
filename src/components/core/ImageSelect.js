@@ -6,7 +6,6 @@ const styles = theme => ({
     container: {}, // For container class override
     imageContainer: {
         position: 'relative',
-        // marginTop: 4,
         overflow: 'visible',
         border: `1px solid ${theme.palette.divider}`,
         boxSizing: 'border-box',
