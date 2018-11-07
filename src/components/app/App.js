@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import React, { Component, Fragment } from 'react';
+=======
+import React, { Fragment } from 'react';
+import { Component } from 'react';
+>>>>>>> master
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';

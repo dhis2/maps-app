@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DownloadButton Should render a download button and a dialog component 1`] = `
+<Fragment>
+  <WithStyles(Button)
+    classes={
+      Object {
+        "label": undefined,
+        "root": undefined,
+      }
+    }
+    key="button"
+    onClick={[Function]}
+  >
+    Download
+  </WithStyles(Button)>
+  <Connect(WithStyles(DownloadDialog)) />
+</Fragment>
+`;

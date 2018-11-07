@@ -56,7 +56,7 @@ msgstr ""
 msgid "Event data item"
 msgstr ""
 
-msgid "Style by data item"
+msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
@@ -87,6 +87,30 @@ msgid "Type"
 msgstr ""
 
 msgid "Color"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid "Download map"
+msgstr ""
+
+msgid "Show name"
+msgstr ""
+
+msgid "Show legend"
+msgstr ""
+
+msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Legend position"
 msgstr ""
 
 msgid "Period"
@@ -174,9 +198,6 @@ msgid "Remember to select the organisation unit level containing the facilities.
 msgstr ""
 
 msgid "Group set is required"
-msgstr ""
-
-msgid "Cancel"
 msgstr ""
 
 msgid "Update layer"
@@ -302,9 +323,6 @@ msgstr ""
 msgid "Download Layer Data"
 msgstr ""
 
-msgid "Download"
-msgstr ""
-
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
 msgstr ""
 
@@ -397,6 +415,9 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
+msgid "No data found"
+msgstr ""
+
 msgid "Options"
 msgstr ""
 
@@ -404,9 +425,6 @@ msgid "Code"
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
-
-msgid "Close"
 msgstr ""
 
 msgid "Select groups"
@@ -481,9 +499,6 @@ msgid "Event"
 msgstr ""
 
 msgid "Facilities"
-msgstr ""
-
-msgid "No data found"
 msgstr ""
 
 msgid "Tracked entity"

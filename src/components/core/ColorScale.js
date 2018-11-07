@@ -16,8 +16,8 @@ const styles = {
         marginLeft: 0,
         display: 'inline-block',
         height: '100%',
-    }
-}
+    },
+};
 
 // Returns one color scale based on a code and number of classes
 const ColorScale = ({ scale, bins, width, style, onClick, classes }) => {
@@ -25,24 +25,24 @@ const ColorScale = ({ scale, bins, width, style, onClick, classes }) => {
     const itemWidth = width ? width / bins : 36;
 
     return (
-        <ul 
-            className={classes.scale} 
-            style={{ 
-                ...width && { width },
-                ...style 
-            }} 
-            onClick={(event => onClick(event, scale))}
+        <ul
+            className={classes.scale}
+            style={{
+                ...(width && { width }),
+                ...style,
+            }}
+            onClick={event => onClick(event, scale)}
         >
             {colors.map((color, index) => (
-                <li 
-                    key={index} 
-                    className={classes.item} 
-                    style={{ backgroundColor: color, width: itemWidth }} 
+                <li
+                    key={index}
+                    className={classes.item}
+                    style={{ backgroundColor: color, width: itemWidth }}
                 />
             ))}
         </ul>
     );
-}
+};
 
 ColorScale.propTypes = {
     onClick: PropTypes.func.isRequired,

@@ -41,11 +41,14 @@ const facilityLoader = async config => {
         return toGeoJson(facility, groupSet[id], contextPath);
     });
 
+    const name = i18n.t('Facilities');
+
     return {
         ...config,
         data: features,
-        name: i18n.t('Facilities'),
+        name,
         legend: {
+            title: name,
             unit: organisationUnitGroupSet.name,
             items: Object.keys(groupSet).map(id => ({
                 image: `${contextPath}/images/orgunitgroup/${
