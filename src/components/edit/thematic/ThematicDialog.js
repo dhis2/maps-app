@@ -77,7 +77,6 @@ const styles = {
     },
     font: {
         float: 'left',
-        marginTop: -8,
     },
     error: {
         marginTop: 10,

@@ -21,6 +21,7 @@ export default {
             },
         },
         '& td': {
+            lineHeight: '24px',
             paddingLeft: 8,
             whiteSpace: 'nowrap',
         },

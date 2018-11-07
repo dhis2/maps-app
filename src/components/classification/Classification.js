@@ -26,6 +26,9 @@ const styles = {
         top: -8,
         float: 'left',
     },
+    scale: {
+        paddingTop: 16,
+    },
 };
 
 const classRange = range(3, 10).map(num => ({ id: num, name: num.toString() })); // 3 - 9
@@ -67,6 +70,7 @@ const Classification = ({
                 palette={colorScale ? colorScale : defaultColorScale}
                 onChange={setColorScale}
                 width={190}
+                style={styles.scale}
             />
             <div style={{ clear: 'both' }} />
         </div>,
