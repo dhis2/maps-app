@@ -1,5 +1,7 @@
 import { getInstance as getD2 } from 'd2/lib/d2';
+import { timeParse } from 'd3-time-format';
 import { getOrgUnitsFromRows } from './analytics';
+import { DATE_FORMAT_SPECIFIER } from '../constants/layers';
 
 const defaultKeyAnalysisDisplayProperty = 'displayName';
 
@@ -118,3 +120,5 @@ export const addOrgUnitPaths = (mapViews) =>
             })),
         }))
     } : view);
+
+export const parseTime = date => timeParse(DATE_FORMAT_SPECIFIER)(date);

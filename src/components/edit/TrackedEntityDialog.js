@@ -43,6 +43,7 @@ import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
 } from '../../util/analytics';
+import { parseTime } from '../../util/helpers';
 
 const styles = {
     ...layerDialogStyles,
@@ -53,6 +54,10 @@ const styles = {
     },
     indent: {
         marginLeft: 24,
+    },
+    error: {
+        marginTop: 12,
+        color: 'red',
     },
 };
 
@@ -153,6 +158,7 @@ export class TrackedEntityDialog extends Component {
             trackedEntityTypeError,
             orgUnitsError,
             showBuffer,
+            periodError,
         } = this.state;
 
         const periodHelp = program
@@ -253,6 +259,11 @@ export class TrackedEntityDialog extends Component {
                                 onChange={setEndDate}
                                 style={styles.select}
                             />
+                            {periodError ? (
+                                <div style={styles.error}>
+                                    {periodError}
+                                </div>
+                            ) : null}
                         </div>
                     )}
 
@@ -371,13 +382,29 @@ export class TrackedEntityDialog extends Component {
     }
 
     validate() {
-        const { trackedEntityType, rows } = this.props;
+        const { trackedEntityType, rows, startDate, endDate } = this.props;
 
         if (!trackedEntityType) {
             return this.setErrorState(
                 'trackedEntityTypeError',
                 i18n.t('This field is required'),
                 'data'
+            );
+        }
+
+        if (!startDate || !parseTime(startDate)) {
+            return this.setErrorState(
+                'periodError',
+                i18n.t('Start date is invalid'),
+                'period'
+            );
+        }
+
+        if (!endDate || !parseTime(endDate)) {
+            return this.setErrorState(
+                'periodError',
+                i18n.t('End date is invalid'),
+                'period'
             );
         }
 

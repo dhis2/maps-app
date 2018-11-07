@@ -30,8 +30,10 @@ import DatePicker from '../../core/DatePicker';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import { layerDialogStyles } from '../LayerDialogStyles';
 import { dimConf } from '../../../constants/dimension';
-import { DEFAULT_START_DATE, DEFAULT_END_DATE, DATE_FORMAT_SPECIFIER } from '../../../constants/layers';
-import { timeParse } from 'd3-time-format';
+import {
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
+} from '../../../constants/layers';
 
 import {
     setDataItem,
@@ -67,7 +69,9 @@ import {
     getPeriodFromFilters,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
+import { parseTime } from '../../../util/helpers';
 
+// TODO: Don't use inline styles!
 const styles = {
     ...layerDialogStyles,
     wrapper: {
@@ -89,8 +93,6 @@ const styles = {
         color: 'red',
     },
 };
-
-const parseTime = date => timeParse(DATE_FORMAT_SPECIFIER)(date)
 
 export class ThematicDialog extends Component {
     static propTypes = {

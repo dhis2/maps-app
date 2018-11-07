@@ -49,7 +49,9 @@ import {
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
+import { parseTime } from '../../util/helpers';
 
+// TODO: Don't use inline styles!
 const styles = {
     ...layerDialogStyles,
     checkbox: {
@@ -419,7 +421,9 @@ export class EventDialog extends Component {
             startDate,
             endDate,
         } = this.props;
-        const period = getPeriodFromFilters(filters);
+        const period = getPeriodFromFilters(filters) || {
+            id: 'START_END_DATES',
+        }; // TODO: refactor
 
         if (!program) {
             return this.setErrorState(
@@ -437,13 +441,7 @@ export class EventDialog extends Component {
             );
         }
 
-        if (!period) {
-            return this.setErrorState(
-                'periodError',
-                i18n.t('Period is required'),
-                'period'
-            );
-        } else if (
+        if (
             period.id === 'START_END_DATES' &&
             (!startDate && !parseTime(startDate))
         ) {
