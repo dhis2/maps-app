@@ -2,20 +2,17 @@ import { timeFormat } from 'd3-time-format';
 
 const formatTime = timeFormat('%Y-%m-%d');
 
-/* EVENT LAYER */
-export const EVENT_START_DATE = formatTime(
+export const DEFAULT_START_DATE = formatTime(
     new Date().setFullYear(new Date().getFullYear() - 1)
 );
-export const EVENT_END_DATE = formatTime(new Date());
+export const DEFAULT_END_DATE = formatTime(new Date());
+
+/* EVENT LAYER */
 export const EVENT_COLOR = '#333333';
 export const EVENT_RADIUS = 6;
 export const EVENT_BUFFER = 100;
 
 /* TEI LAYER */
-export const TEI_START_DATE = formatTime(
-    new Date().setFullYear(new Date().getFullYear() - 1)
-);
-export const TEI_END_DATE = formatTime(new Date());
 export const TEI_COLOR = '#BB0000';
 export const TEI_RADIUS = 6;
 export const TEI_BUFFER = 100;
@@ -40,3 +37,5 @@ export const classificationTypes = [
         name: 'Equal counts',
     },
 ];
+
+export const DATE_FORMAT_SPECIFIER = '%Y-%m-%d';

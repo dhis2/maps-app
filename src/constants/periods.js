@@ -11,6 +11,7 @@ export const periodTypes = [
     { id: 'FinancialOctober', name: 'Financial year (Start October)' },
     { id: 'FinancialJuly', name: 'Financial year (Start July)' },
     { id: 'FinancialApril', name: 'Financial year (Start April)' },
+    { id: 'StartEndDates', name: 'Start/end dates' },
 ];
 
 export const relativePeriods = [

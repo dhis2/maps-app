@@ -15,8 +15,8 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import ColorPicker from '../core/ColorPicker';
 import {
-    TEI_START_DATE,
-    TEI_END_DATE,
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
     TEI_COLOR,
     TEI_RADIUS,
     TEI_BUFFER,
@@ -43,6 +43,7 @@ import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
 } from '../../util/analytics';
+import { getStartEndDateError } from '../../util/helpers';
 
 const styles = {
     ...layerDialogStyles,
@@ -53,6 +54,10 @@ const styles = {
     },
     indent: {
         marginLeft: 24,
+    },
+    error: {
+        marginTop: 12,
+        color: 'red',
     },
 };
 
@@ -92,8 +97,8 @@ export class TrackedEntityDialog extends Component {
 
         // Set default period (last year)
         if (!startDate && !endDate) {
-            setStartDate(TEI_START_DATE);
-            setEndDate(TEI_END_DATE);
+            setStartDate(DEFAULT_START_DATE);
+            setEndDate(DEFAULT_END_DATE);
         }
 
         if (!programStatus) {
@@ -153,6 +158,7 @@ export class TrackedEntityDialog extends Component {
             trackedEntityTypeError,
             orgUnitsError,
             showBuffer,
+            periodError,
         } = this.state;
 
         const periodHelp = program
@@ -241,7 +247,6 @@ export class TrackedEntityDialog extends Component {
                                 key="startdate"
                                 label={i18n.t('Start date')}
                                 value={startDate}
-                                default={TEI_START_DATE}
                                 onChange={setStartDate}
                                 style={styles.select}
                             />
@@ -249,10 +254,12 @@ export class TrackedEntityDialog extends Component {
                                 key="enddate"
                                 label={i18n.t('End date')}
                                 value={endDate}
-                                default={TEI_END_DATE}
                                 onChange={setEndDate}
                                 style={styles.select}
                             />
+                            {periodError ? (
+                                <div style={styles.error}>{periodError}</div>
+                            ) : null}
                         </div>
                     )}
 
@@ -371,7 +378,7 @@ export class TrackedEntityDialog extends Component {
     }
 
     validate() {
-        const { trackedEntityType, rows } = this.props;
+        const { trackedEntityType, rows, startDate, endDate } = this.props;
 
         if (!trackedEntityType) {
             return this.setErrorState(
@@ -379,6 +386,11 @@ export class TrackedEntityDialog extends Component {
                 i18n.t('This field is required'),
                 'data'
             );
+        }
+
+        const error = getStartEndDateError(startDate, endDate);
+        if (error) {
+            return this.setErrorState('periodError', error, 'period');
         }
 
         if (!getOrgUnitsFromRows(rows).length) {

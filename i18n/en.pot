@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-11-07T10:30:01.364Z\n"
-"PO-Revision-Date: 2018-11-07T10:30:01.364Z\n"
+"POT-Creation-Date: 2018-11-07T15:52:33.909Z\n"
+"PO-Revision-Date: 2018-11-07T15:52:33.909Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -517,4 +517,13 @@ msgid "No"
 msgstr ""
 
 msgid "Map could not be created"
+msgstr ""
+
+msgid "Start date is invalid"
+msgstr ""
+
+msgid "End date is invalid"
+msgstr ""
+
+msgid "End date cannot be earlier than start date"
 msgstr ""

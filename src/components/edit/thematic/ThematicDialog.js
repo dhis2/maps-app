@@ -26,9 +26,14 @@ import PeriodTypeSelect from '../../periods/PeriodTypeSelect';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
+import DatePicker from '../../core/DatePicker';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import { layerDialogStyles } from '../LayerDialogStyles';
 import { dimConf } from '../../../constants/dimension';
+import {
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
+} from '../../../constants/layers';
 
 import {
     setDataItem,
@@ -44,6 +49,8 @@ import {
     setOrgUnitGroups,
     setPeriod,
     setPeriodType,
+    setStartDate,
+    setEndDate,
     setProgram,
     setRadiusLow,
     setRadiusHigh,
@@ -62,7 +69,9 @@ import {
     getPeriodFromFilters,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
+import { getStartEndDateError } from '../../../util/helpers';
 
+// TODO: Don't use inline styles!
 const styles = {
     ...layerDialogStyles,
     wrapper: {
@@ -96,8 +105,18 @@ export class ThematicDialog extends Component {
     };
 
     componentDidMount() {
-        const { valueType, columns, setValueType } = this.props;
+        const {
+            valueType,
+            columns,
+            setValueType,
+            filters,
+            startDate,
+            endDate,
+            setStartDate,
+            setEndDate,
+        } = this.props;
         const dataItem = getDataItemFromColumns(columns);
+        const period = getPeriodFromFilters(filters);
 
         // Set value type if favorite is loaded
         if (!valueType) {
@@ -112,6 +131,12 @@ export class ThematicDialog extends Component {
             } else {
                 setValueType(dimConf.indicator.objectName);
             }
+        }
+
+        if (!startDate && !endDate) {
+            // Set default period (last year)
+            setStartDate(DEFAULT_START_DATE);
+            setEndDate(DEFAULT_END_DATE);
         }
     }
 
@@ -152,6 +177,8 @@ export class ThematicDialog extends Component {
             labelFontWeight,
             operand,
             periodType,
+            startDate,
+            endDate,
             program,
             radiusHigh,
             radiusLow,
@@ -173,6 +200,8 @@ export class ThematicDialog extends Component {
             setOrgUnitLevels,
             setOrgUnitGroups,
             setPeriod,
+            setStartDate,
+            setEndDate,
             setPeriodType,
             setProgram,
             setRadiusLow,
@@ -328,7 +357,8 @@ export class ThematicDialog extends Component {
                                 />
                             )}
                             {((periodType &&
-                                periodType !== 'relativePeriods') ||
+                                periodType !== 'relativePeriods' &&
+                                periodType !== 'StartEndDates') ||
                                 (!periodType && id)) && (
                                 <PeriodSelect
                                     periodType={periodType}
@@ -338,6 +368,27 @@ export class ThematicDialog extends Component {
                                     errorText={periodError}
                                 />
                             )}
+                            {periodType === 'StartEndDates' && [
+                                <DatePicker
+                                    key="startdate"
+                                    label={i18n.t('Start date')}
+                                    value={startDate}
+                                    onChange={setStartDate}
+                                    style={styles.select}
+                                />,
+                                <DatePicker
+                                    key="enddate"
+                                    label={i18n.t('End date')}
+                                    value={endDate}
+                                    onChange={setEndDate}
+                                    style={styles.select}
+                                />,
+                                periodError ? (
+                                    <div key="error" style={styles.error}>
+                                        {periodError}
+                                    </div>
+                                ) : null,
+                            ]}
                         </div>
                     )}
                     {tab === 'orgunits' && (
@@ -376,12 +427,11 @@ export class ThematicDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
-                                {!orgUnits.length &&
-                                    orgUnitsError && (
-                                        <div style={styles.error}>
-                                            {orgUnitsError}
-                                        </div>
-                                    )}
+                                {!orgUnits.length && orgUnitsError && (
+                                    <div style={styles.error}>
+                                        {orgUnitsError}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )}
@@ -477,6 +527,8 @@ export class ThematicDialog extends Component {
             columns,
             rows,
             filters,
+            startDate,
+            endDate,
         } = this.props;
         const dataItem = getDataItemFromColumns(columns);
         const period = getPeriodFromFilters(filters);
@@ -504,12 +556,17 @@ export class ThematicDialog extends Component {
                 i18n.t('Period type is required'),
                 'period'
             );
-        } else if (!period) {
+        } else if (!period && periodType !== 'StartEndDates') {
             return this.setErrorState(
                 'periodError',
                 i18n.t('Period is required'),
                 'period'
             );
+        } else if (periodType === 'StartEndDates') {
+            const error = getStartEndDateError(startDate, endDate);
+            if (error) {
+                return this.setErrorState('periodError', error, 'period');
+            }
         }
 
         if (!getOrgUnitsFromRows(rows).length) {
@@ -540,6 +597,8 @@ export default connect(
         setOrgUnitGroups,
         setPeriod,
         setPeriodType,
+        setStartDate,
+        setEndDate,
         setProgram,
         setRadiusLow,
         setRadiusHigh,
