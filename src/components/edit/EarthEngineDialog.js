@@ -76,14 +76,14 @@ const styles = {
     },
     legend: {
         ...legendStyle,
-        marginLeft: -32,
+        marginLeft: 0,
     },
     legendTitle: {
         paddingBottom: 16,
         fontWeight: 'bold',
     },
-    colorScale: {
-        paddingLeft: 20,
+    scale: {
+        marginTop: 16,
     },
     error: {
         width: '100%',
@@ -229,7 +229,7 @@ class EarthEngineDialog extends Component {
                                 >
                                     {!this.isValidSteps() && stepsError}
                                 </div>,
-                                <div key="scale" className={classes.colorScale}>
+                                <div key="scale" className={classes.scale}>
                                     <ColorScaleSelect
                                         palette={params.palette}
                                         onChange={palette =>

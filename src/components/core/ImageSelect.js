@@ -6,12 +6,14 @@ const styles = theme => ({
     container: {}, // For container class override
     imageContainer: {
         position: 'relative',
-        marginTop: 4,
-        overflow: 'hidden',
-        outline: `1px solid ${theme.palette.divider}`,
+        overflow: 'visible',
+        border: `1px solid ${theme.palette.divider}`,
+        boxSizing: 'border-box',
+        margin: 2,
     },
     imageContainerSelected: {
-        outline: `3px solid ${theme.palette.primary.main}`,
+        margin: 0,
+        border: `3px solid ${theme.palette.primary.main}`,
     },
     image: {
         width: '100%',

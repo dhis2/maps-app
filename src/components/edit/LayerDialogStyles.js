@@ -4,8 +4,8 @@ export const layerDialogStyles = {
         maxWidth: 300,
     },
     tabContent: {
-        margin: '8px 0 0',
-        height: 340,
+        margin: '8px -16px 0',
+        height: 320,
     },
     flexColumnFlow: {
         display: 'flex',
@@ -18,7 +18,7 @@ export const layerDialogStyles = {
     },
     flexColumn: {
         flex: '1 1 0',
-        margin: '8px 16px',
+        margin: '8px 16px 0',
         boxSizing: 'border-box',
         maxWidth: 380,
     },

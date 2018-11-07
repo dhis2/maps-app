@@ -7,7 +7,7 @@ const styles = {
     list: {
         padding: '16px 0 0 16px',
         overflowY: 'auto',
-        maxWidth: 680,
+        maxWidth: 696,
         maxHeight: 'calc(100vh - 150px)',
     },
 };

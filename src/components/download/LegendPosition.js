@@ -12,7 +12,7 @@ export const legendPositions = [
 
 const styles = theme => ({
     root: {
-        width: 120,
+        width: 150,
         paddingLeft: 30,
     },
     label: {
