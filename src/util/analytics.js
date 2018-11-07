@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { sortBy, negate } from 'lodash/fp';
-import { isValidUid } from 'd2/lib/uid';
+import { isValidUid } from 'd2/uid';
 import { relativePeriods } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
 

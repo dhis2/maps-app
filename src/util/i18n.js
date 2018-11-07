@@ -1,5 +1,5 @@
 import i18n from '../locales';
-import { config } from 'd2/lib/d2';
+import { config } from 'd2';
 
 export const configI18n = userSettings => {
     const uiLocale = userSettings.keyUiLocale;

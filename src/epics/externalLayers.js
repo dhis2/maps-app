@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import { getInstance as getD2 } from 'd2/lib/d2';
+import { getInstance as getD2 } from 'd2';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/concatAll';

@@ -1,4 +1,4 @@
-import { getInstance as getD2 } from 'd2/lib/d2';
+import { getInstance as getD2 } from 'd2';
 
 // Loads settings and data for the infrastuctural dialog for org units
 

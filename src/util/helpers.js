@@ -1,4 +1,4 @@
-import { getInstance as getD2 } from 'd2/lib/d2';
+import { getInstance as getD2 } from 'd2';
 import { getOrgUnitsFromRows } from './analytics';
 
 const defaultKeyAnalysisDisplayProperty = 'displayName';

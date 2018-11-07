@@ -1,4 +1,4 @@
-import { generateUid } from 'd2/lib/uid';
+import { generateUid } from 'd2/uid';
 
 export const createAlert = (title, description) => ({
     id: generateUid(),

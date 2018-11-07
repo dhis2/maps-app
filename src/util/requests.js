@@ -1,4 +1,4 @@
-import { getInstance as getD2 } from 'd2/lib/d2';
+import { getInstance as getD2 } from 'd2';
 import { mapFields } from './helpers';
 import { isString, isObject, sortBy } from 'lodash/fp';
 

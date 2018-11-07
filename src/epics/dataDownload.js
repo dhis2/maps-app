@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes';
 import { errorActionCreator } from '../actions/helpers';
 import { dataDownloadSuccess } from '../actions/dataDownload';
 
-import { getInstance as getD2 } from 'd2/lib/d2';
+import { getInstance as getD2 } from 'd2';
 import {
     downloadGeoJson,
     META_DATA_FORMAT_ID,
