@@ -36,8 +36,9 @@ export const loadOrgUnitTree = action$ =>
     action$.ofType(types.ORGANISATION_UNIT_TREE_LOAD).concatMap(() =>
         getD2()
             .then(d2 =>
+                // Fetches the root org units associated with the current user with fallback to data capture org units
                 d2.models.organisationUnits.list({
-                    level: 1,
+                    userDataViewFallback: true,
                     fields:
                         'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
                 })

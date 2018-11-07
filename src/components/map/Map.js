@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 import isNumeric from 'd2-utilizr/lib/isNumeric';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
@@ -10,6 +11,8 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
+import MapName from './MapName';
+import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
 import {
     HEADER_HEIGHT,
@@ -27,9 +30,24 @@ const layerType = {
     external: ExternalLayer,
 };
 
+const styles = {
+    mapContainer: {
+        height: '100%',
+    },
+    mapDownload: {
+        '& .leaflet-control-zoom, & .leaflet-control-geocoder, & .leaflet-control-measure, & .leaflet-control-fit-bounds': {
+            display: 'none!important',
+        },
+    },
+};
+
 class Map extends Component {
     static contextTypes = {
         map: PropTypes.object,
+    };
+
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
     };
 
     componentWillMount() {
@@ -81,7 +99,7 @@ class Map extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         const { coordinatePopup } = this.props;
 
         if (coordinatePopup) {
@@ -126,14 +144,19 @@ class Map extends Component {
 
     render() {
         const {
+            name,
             basemap,
             basemaps,
             mapViews,
+            showName,
+            isDownload,
+            legendPosition,
             layersPanelOpen,
             interpretationsPanelOpen,
             dataTableOpen,
             dataTableHeight,
             openContextMenu,
+            classes,
         } = this.props;
 
         const basemapConfig = {
@@ -152,20 +175,40 @@ class Map extends Component {
         };
 
         return (
-            <div ref={node => (this.node = node)} style={style}>
-                {layers.filter(layer => layer.isLoaded).map((config, index) => {
-                    const Overlay = layerType[config.layer] || Layer;
+            <div
+                className={isDownload ? classes.mapDownload : null}
+                style={style}
+            >
+                <div
+                    id="dhis2-maps-container"
+                    ref={node => (this.node = node)}
+                    className={classes.mapContainer}
+                >
+                    {name && showName && <MapName name={name} />}
+                    {layers
+                        .filter(layer => layer.isLoaded)
+                        .map((config, index) => {
+                            const Overlay = layerType[config.layer] || Layer;
 
-                    return (
-                        <Overlay
-                            key={config.id}
-                            index={index}
-                            openContextMenu={openContextMenu}
-                            {...config}
-                        />
-                    );
-                })}
-                <Layer key="basemap" {...basemapConfig} />
+                            return (
+                                <Overlay
+                                    key={config.id}
+                                    index={index}
+                                    openContextMenu={openContextMenu}
+                                    {...config}
+                                />
+                            );
+                        })}
+                    <Layer key="basemap" {...basemapConfig} />
+                    {isDownload &&
+                        legendPosition && (
+                            <DownloadLegend
+                                position={legendPosition}
+                                layers={mapViews}
+                                showName={showName}
+                            />
+                        )}
+                </div>
             </div>
         );
     }
@@ -178,6 +221,11 @@ const mapStateToProps = state => ({
     interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
     dataTableOpen: state.dataTable,
     dataTableHeight: state.ui.dataTableHeight,
+    isDownload: state.download.showDialog,
+    showName: state.download.showDialog ? state.download.showName : true,
+    legendPosition: state.download.showLegend
+        ? state.download.legendPosition
+        : null,
 });
 
 export default connect(
@@ -186,4 +234,4 @@ export default connect(
         openContextMenu,
         closeCoordinatePopup,
     }
-)(Map);
+)(withStyles(styles)(Map));

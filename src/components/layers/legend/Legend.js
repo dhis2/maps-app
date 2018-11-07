@@ -5,32 +5,33 @@ import i18n from '@dhis2/d2-i18n';
 import LegendItem from './LegendItem';
 import legendStyle from './legendStyle';
 
-export const styles = {
+export const styles = theme => ({
     legend: {
         ...legendStyle,
     },
     description: {
-        paddingBottom: 12,
+        paddingBottom: theme.spacing.unit * 1.5,
     },
     period: {
-        paddingBottom: 12,
+        paddingBottom: theme.spacing.unit * 1.5,
     },
     filters: {
-        paddingBottom: 12,
+        paddingBottom: theme.spacing.unit * 1.5,
     },
     unit: {
-        marginLeft: 32,
+        marginLeft: theme.spacing.unit * 4,
         lineHeight: '24px',
     },
     explanation: {
-        paddingTop: 16,
+        paddingTop: theme.spacing.unit * 2,
     },
     source: {
-        paddingTop: 16,
+        paddingTop: theme.spacing.unit * 2,
         fontSize: 12,
     },
-};
+});
 
+// Rendering a layer legend in the left drawer, on a map (download) or in a control (plugin)
 const Legend = ({
     classes,
     description,

@@ -119,5 +119,12 @@ export const muiTheme = createMuiTheme({
                 borderTop: `1px solid ${palette.divider}`,
             },
         },
+        MuiSelect: {
+            select: {
+                '&:focus': {
+                    background: 'transparent',
+                },
+            },
+        },
     },
 });

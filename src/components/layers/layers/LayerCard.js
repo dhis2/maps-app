@@ -52,6 +52,9 @@ const styles = {
         paddingLeft: 15,
         lineHeight: '17px',
     },
+    legend: {
+        paddingLeft: 32,
+    },
     actions: {
         backgroundColor: '#eee',
         height: 32,
@@ -135,7 +138,11 @@ const LayerCard = ({
 
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content} style={{ padding: 0 }}>
-                    {legend && <Legend {...legend} />}
+                    {legend && (
+                        <div className={classes.legend}>
+                            <Legend {...legend} />
+                        </div>
+                    )}
                     <LayerToolbar
                         opacity={opacity}
                         isVisible={isVisible}
