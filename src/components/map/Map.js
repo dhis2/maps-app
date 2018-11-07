@@ -34,6 +34,11 @@ const styles = {
     mapContainer: {
         height: '100%',
     },
+    mapDownload: {
+        '& .leaflet-control-zoom, & .leaflet-control-geocoder, & .leaflet-control-measure, & .leaflet-control-fit-bounds': {
+            display: 'none!important',
+        },
+    },
 };
 
 class Map extends Component {
@@ -171,7 +176,7 @@ class Map extends Component {
 
         return (
             <div
-                className={isDownload ? 'dhis2-maps-download ' : null}
+                className={isDownload ? classes.mapDownload : null}
                 style={style}
             >
                 <div
