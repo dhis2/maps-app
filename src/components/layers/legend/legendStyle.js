@@ -1,5 +1,5 @@
 export default {
-    padding: '0 16px 16px 32px',
+    paddingBottom: 16,
     margin: 0,
     '& table': {
         borderCollapse: 'collapse',
@@ -13,7 +13,7 @@ export default {
             padding: 0,
             verticalAlign: 'middle',
             '& span': {
-                display: 'inline-block',
+                display: 'block',
                 width: '100%',
                 height: '100%',
                 backgroundRepeat: 'no-repeat',
@@ -21,8 +21,8 @@ export default {
             },
         },
         '& td': {
-            paddingLeft: 10,
+            paddingLeft: 8,
             whiteSpace: 'nowrap',
         },
     },
-}
+};

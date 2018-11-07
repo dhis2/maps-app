@@ -5,11 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-10-31T16:22:25.548Z\n"
-"PO-Revision-Date: 2018-10-31T16:22:25.548Z\n"
-
-msgid "No favorite selected"
-msgstr ""
+"POT-Creation-Date: 2018-11-07T08:05:34.222Z\n"
+"PO-Revision-Date: 2018-11-07T08:05:34.222Z\n"
 
 msgid "Classification"
 msgstr ""
@@ -56,7 +53,7 @@ msgstr ""
 msgid "Event data item"
 msgstr ""
 
-msgid "Style by data item"
+msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
@@ -87,6 +84,30 @@ msgid "Type"
 msgstr ""
 
 msgid "Color"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid "Download map"
+msgstr ""
+
+msgid "Show name"
+msgstr ""
+
+msgid "Show legend"
+msgstr ""
+
+msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Legend position"
 msgstr ""
 
 msgid "Period"
@@ -174,9 +195,6 @@ msgid "Remember to select the organisation unit level containing the facilities.
 msgstr ""
 
 msgid "Group set is required"
-msgstr ""
-
-msgid "Cancel"
 msgstr ""
 
 msgid "Update layer"
@@ -302,27 +320,21 @@ msgstr ""
 msgid "Download Layer Data"
 msgstr ""
 
-msgid "Download"
-msgstr ""
-
-msgid "Please select the format for dimension attributes"
-msgstr ""
-
-msgid "Meta-data ID scheme"
-msgstr ""
-
-msgid "Use human-readable keys for all other attributes"
-msgstr ""
-
-msgid "The data for this layer will be downloaded in GeoJSON format."
+msgid "Downloading GeoJSON data for \"{{layerName}}\""
 msgstr ""
 
 msgid ""
-"This format is supported by most GIS software, including QGIS and ArcGIS "
+"GeoJSON format is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
 
 msgid "Data download failed."
+msgstr ""
+
+msgid "ID Format"
+msgstr ""
+
+msgid "Use human-readable keys"
 msgstr ""
 
 msgid "deleted"
@@ -400,6 +412,9 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
+msgid "No data found"
+msgstr ""
+
 msgid "Options"
 msgstr ""
 
@@ -407,9 +422,6 @@ msgid "Code"
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
-
-msgid "Close"
 msgstr ""
 
 msgid "Select groups"
@@ -484,9 +496,6 @@ msgid "Event"
 msgstr ""
 
 msgid "Facilities"
-msgstr ""
-
-msgid "No data found"
 msgstr ""
 
 msgid "Tracked entity"

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DownloadDialog Should match snapshot when showDialog is true 1`] = `
+<WithStyles(Dialog)
+  onClose={[Function]}
+  open={true}
+>
+  <WithStyles(DialogTitle)
+    disableTypography={true}
+  >
+    Download map
+  </WithStyles(DialogTitle)>
+  <WithStyles(DialogContent)>
+    <div>
+      <WithStyles(Checkbox)
+        checked={false}
+        disabled={true}
+        label="Show name"
+        onCheck={[Function]}
+      />
+    </div>
+    <div>
+      <WithStyles(Checkbox)
+        checked={false}
+        disabled={true}
+        label="Show legend"
+        onCheck={[Function]}
+      />
+    </div>
+  </WithStyles(DialogContent)>
+  <WithStyles(DialogActions)>
+    <WithStyles(Button)
+      color="primary"
+      onClick={[Function]}
+    >
+      Cancel
+    </WithStyles(Button)>
+    <WithStyles(Button)
+      color="primary"
+      onClick={[Function]}
+      variant="contained"
+    >
+      Download
+    </WithStyles(Button)>
+  </WithStyles(DialogActions)>
+</WithStyles(Dialog)>
+`;

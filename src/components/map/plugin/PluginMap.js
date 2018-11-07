@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import d2map from '@dhis2/gis-api';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { muiTheme } from '../../../constants/dhis2.theme';
+import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
-import Layer from './Layer';
-import EventLayer from './EventLayer';
-import FacilityLayer from './FacilityLayer';
-import TrackedEntityLayer from './TrackedEntityLayer';
-import ThematicLayer from './ThematicLayer';
-import BoundaryLayer from './BoundaryLayer';
-import EarthEngineLayer from './EarthEngineLayer';
-import ExternalLayer from './ExternalLayer';
+import Layer from '../Layer';
+import EventLayer from '../EventLayer';
+import FacilityLayer from '../FacilityLayer';
+import TrackedEntityLayer from '../TrackedEntityLayer';
+import ThematicLayer from '../ThematicLayer';
+import BoundaryLayer from '../BoundaryLayer';
+import EarthEngineLayer from '../EarthEngineLayer';
+import ExternalLayer from '../ExternalLayer';
 // import { getMapAlerts } from '../../util/alerts';
-import { drillUpDown } from '../../util/map';
-import { fetchLayer } from '../../loaders/layers';
+import { drillUpDown } from '../../../util/map';
+import { fetchLayer } from '../../../loaders/layers';
 
 const layerType = {
     event: EventLayer,
@@ -59,6 +62,12 @@ class PluginMap extends Component {
             scrollWheelZoom: false,
         });
 
+        // Add zoom control
+        this.map.addControl({
+            type: 'zoom',
+            position: 'topright',
+        });
+
         this.state = {
             mapViews: props.mapViews, // Can be changed by drilling
         };
@@ -83,20 +92,6 @@ class PluginMap extends Component {
 
             this.node.appendChild(map.getContainer()); // Append map container to DOM
 
-            // Add zoom control
-            map.addControl({
-                type: 'zoom',
-                position: 'topright',
-            });
-
-            if (map.legend) {
-                this.legend = map.addControl({
-                    type: 'legend',
-                    offset: [0, -64],
-                    content: map.legend,
-                });
-            }
-
             map.invalidateSize();
 
             const layersBounds = map.getLayersBounds();
@@ -117,15 +112,9 @@ class PluginMap extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        const map = this.map;
-
-        if (map) {
-            map.invalidateSize();
-
-            if (this.legend) {
-                this.legend.setContent(map.legend);
-            }
+    componentDidUpdate() {
+        if (this.map) {
+            this.map.invalidateSize();
         }
     }
 
@@ -179,8 +168,6 @@ class PluginMap extends Component {
 
             const newLayer = await fetchLayer(newConfig);
 
-            this.map.legend = '';
-
             this.setState({
                 mapViews: mapViews.map(
                     layer => (layer.id === layerId ? newLayer : layer)
@@ -203,7 +190,7 @@ class PluginMap extends Component {
             <div ref={node => (this.node = node)} style={styles.map}>
                 {mapViews
                     .filter(layer => layer.isLoaded)
-                    .reverse() 
+                    .reverse()
                     .map((config, index) => {
                         const Overlay = layerType[config.layer] || Layer;
 
@@ -222,6 +209,7 @@ class PluginMap extends Component {
                 {basemap.isVisible !== false && (
                     <Layer key="basemap" {...basemap} />
                 )}
+                <PluginLegend layers={mapViews} />
                 <ContextMenu
                     position={position}
                     feature={feature}

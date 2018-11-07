@@ -1,4 +1,4 @@
-import { Component, Children } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import d2map from '@dhis2/gis-api';
 
@@ -18,16 +18,20 @@ class MapProvider extends Component {
         div.style.width = '100%';
         div.style.height = '100%';
 
+        // Create Leaflet map
         this.map = d2map(div);
     }
 
     render() {
-        return Children.only(this.props.children);
+        return this.props.children;
     }
 }
 
 MapProvider.propTypes = {
-    children: PropTypes.element.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ]),
 };
 
 MapProvider.childContextTypes = {

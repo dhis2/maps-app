@@ -18,7 +18,7 @@ export const StyleByDataItem = ({
     <div>
         <DataItemSelect
             key="select"
-            label={i18n.t('Style by data item')}
+            label={i18n.t('Style by data element')}
             program={program}
             programStage={programStage}
             allowNone={true}
