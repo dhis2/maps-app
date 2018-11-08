@@ -42,6 +42,7 @@ const styles = {
     },
     subheader: {
         lineHeight: '17px',
+        fontSize: 14,
     },
     visibility: {
         height: 32,
@@ -53,7 +54,8 @@ const styles = {
         right: -4,
         top: 4,
     },
-    content: { // TODO: Not working on :last-child
+    content: {
+        // TODO: Not working on :last-child
         padding: 0,
     },
 };
@@ -87,10 +89,18 @@ const BasemapCard = props => {
                         <IconButton
                             className={classes.expand}
                             onClick={toggleBasemapExpand}
-                            tooltip={isExpanded ? i18n.t('Collapse') : i18n.t('Expand')}
+                            tooltip={
+                                isExpanded
+                                    ? i18n.t('Collapse')
+                                    : i18n.t('Expand')
+                            }
                             style={{ backgroundColor: 'transparent' }}
                         >
-                            {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                            {isExpanded ? (
+                                <ExpandLessIcon />
+                            ) : (
+                                <ExpandMoreIcon />
+                            )}
                         </IconButton>
                     </Tooltip>
                 }
