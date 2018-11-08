@@ -176,16 +176,6 @@ export class TrackedEntityDialog extends Component {
                 <div className={classes.tabContent}>
                     {tab === 'data' && (
                         <div style={styles.flexRowFlow}>
-                            <div style={{ margin: '12px 0', fontSize: 14 }}>
-                                {i18n.t(
-                                    'This map layer is still experimental. Please provide your feedback on our'
-                                )}
-                                &nbsp;
-                                <a href="//www.dhis2.org/contact#mailing-lists">
-                                    {i18n.t('mailing lists')}
-                                </a>
-                                .
-                            </div>
                             <TrackedEntityTypeSelect
                                 trackedEntityType={trackedEntityType}
                                 onChange={setTrackedEntityType}
