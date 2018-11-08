@@ -15,7 +15,7 @@ import { translateConfig } from './util/favorites';
 import { defaultBasemaps } from './constants/basemaps';
 import '../scss/plugin.scss';
 
-const apiVersion = 30;
+const apiVersion = 31;
 
 const Plugin = () => {
     let _configs = [];
