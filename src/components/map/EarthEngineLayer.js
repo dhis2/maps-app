@@ -52,8 +52,6 @@ export default class EarthEngineLayer extends Layer {
             config.popup = props.popup;
         }
 
-        console.log('config', config);
-
         config.accessToken = callback =>
             apiFetch('/tokens/google').then(json => callback(json));
 
