@@ -21,8 +21,8 @@ const styles = {
         right: 4,
     },
     label: {
-        color: 'rgba(0, 0, 0, 0.54)',
-        fontSize: 12,
+        color: '#494949',
+        fontSize: 14,
         paddingBottom: 6,
     },
 };
