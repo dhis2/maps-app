@@ -33,6 +33,7 @@ import { dimConf } from '../../../constants/dimension';
 import {
     DEFAULT_START_DATE,
     DEFAULT_END_DATE,
+    DEFAULT_ORG_UNIT_LEVEL,
 } from '../../../constants/layers';
 
 import {
@@ -132,8 +133,8 @@ export class ThematicDialog extends Component {
             }
         }
 
+        // Set default period (last year)
         if (!startDate && !endDate) {
-            // Set default period (last year)
             setStartDate(DEFAULT_START_DATE);
             setEndDate(DEFAULT_END_DATE);
         }
@@ -413,7 +414,7 @@ export class ThematicDialog extends Component {
                                     orgUnitLevel={getOrgUnitLevelsFromRows(
                                         rows
                                     )}
-                                    defaultLevel={2}
+                                    defaultLevel={DEFAULT_ORG_UNIT_LEVEL}
                                     onChange={setOrgUnitLevels}
                                 />
                                 <OrgUnitGroupSelect
