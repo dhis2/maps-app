@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import UI from 'ui/core/UI';
 import HeaderBar from 'ui/widgets/HeaderBar';
-import { muiTheme } from '../../constants/dhis2.theme';
+import mui3theme from '@dhis2/d2-ui-core/theme/mui3.theme';
 import MapProvider from '../map/MapProvider';
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
@@ -17,6 +17,8 @@ import AlertSnackbar from '../alerts/AlertSnackbar';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
+
+const theme = createMuiTheme(mui3theme);
 
 // Makes d2 available in all child components
 // Not using AppWithD2 from d2-ui because it requires d2 to be a promise
@@ -39,7 +41,7 @@ export class App extends Component {
         return (
             <UI>
                 <HeaderBar appName={i18n.t('Maps')} />
-                <MuiThemeProvider theme={muiTheme}>
+                <MuiThemeProvider theme={theme}>
                     <MapProvider>
                         <AppMenu />
                         <InterpretationsPanel />

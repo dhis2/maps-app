@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import d2map from '@dhis2/gis-api';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import { muiTheme } from '../../../constants/dhis2.theme';
 import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
 import Layer from '../Layer';
@@ -13,7 +11,6 @@ import ThematicLayer from '../ThematicLayer';
 import BoundaryLayer from '../BoundaryLayer';
 import EarthEngineLayer from '../EarthEngineLayer';
 import ExternalLayer from '../ExternalLayer';
-// import { getMapAlerts } from '../../util/alerts';
 import { drillUpDown } from '../../../util/map';
 import { fetchLayer } from '../../../loaders/layers';
 
