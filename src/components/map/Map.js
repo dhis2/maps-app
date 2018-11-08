@@ -33,6 +33,9 @@ const layerType = {
 const styles = {
     mapContainer: {
         height: '100%',
+        '& img': {
+            maxWidth: 'none',
+        },
     },
     mapDownload: {
         '& .leaflet-control-zoom, & .leaflet-control-geocoder, & .leaflet-control-measure, & .leaflet-control-fit-bounds': {
@@ -200,14 +203,13 @@ class Map extends Component {
                             );
                         })}
                     <Layer key="basemap" {...basemapConfig} />
-                    {isDownload &&
-                        legendPosition && (
-                            <DownloadLegend
-                                position={legendPosition}
-                                layers={mapViews}
-                                showName={showName}
-                            />
-                        )}
+                    {isDownload && legendPosition && (
+                        <DownloadLegend
+                            position={legendPosition}
+                            layers={mapViews}
+                            showName={showName}
+                        />
+                    )}
                 </div>
             </div>
         );
