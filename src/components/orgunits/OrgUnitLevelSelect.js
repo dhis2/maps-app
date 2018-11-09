@@ -12,8 +12,10 @@ const style = {
 
 export class OrgUnitLevelSelect extends Component {
     static propTypes = {
+        defaultLevel: PropTypes.number,
         orgUnitLevel: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         orgUnitLevels: PropTypes.array,
+        loadOrgUnitLevels: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
     };

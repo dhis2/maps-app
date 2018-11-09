@@ -7,6 +7,8 @@ export const DEFAULT_START_DATE = formatTime(
 );
 export const DEFAULT_END_DATE = formatTime(new Date());
 
+export const DEFAULT_ORG_UNIT_LEVEL = 2;
+
 /* EVENT LAYER */
 export const EVENT_COLOR = '#333333';
 export const EVENT_RADIUS = 6;

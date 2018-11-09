@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-11-07T15:52:33.909Z\n"
-"PO-Revision-Date: 2018-11-07T15:52:33.909Z\n"
+"POT-Creation-Date: 2018-11-08T16:28:15.164Z\n"
+"PO-Revision-Date: 2018-11-08T16:28:15.164Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -210,12 +210,6 @@ msgid "Select program period"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
-
-msgid "This map layer is still experimental. Please provide your feedback on our"
-msgstr ""
-
-msgid "mailing lists"
 msgstr ""
 
 msgid "Program status"

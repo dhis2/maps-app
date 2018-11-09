@@ -51,6 +51,7 @@ const styles = {
         width: 195,
         paddingLeft: 15,
         lineHeight: '17px',
+        fontSize: 14,
     },
     legend: {
         paddingLeft: 32,
