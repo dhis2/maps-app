@@ -87,6 +87,12 @@ const layerEdit = (state = null, action) => {
                 name: null,
             };
 
+        case types.LAYER_EDIT_PERIOD_LABEL_SET:
+            return {
+                ...state,
+                periodLabel: action.periodLabel,
+            };
+
         case types.LAYER_EDIT_PERIOD_TYPE_SET:
             return {
                 ...omit('filters', state),

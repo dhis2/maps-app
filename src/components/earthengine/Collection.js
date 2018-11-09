@@ -67,7 +67,9 @@ export class CollectionSelect extends Component {
                 loading={items ? false : true}
                 items={items}
                 value={value}
-                onChange={period => onChange(collectionFilter(period.id))}
+                onChange={period =>
+                    onChange(period.name, collectionFilter(period.id))
+                }
                 style={style}
                 errorText={!value && errorText ? errorText : null}
             />
