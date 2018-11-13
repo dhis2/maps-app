@@ -87,10 +87,10 @@ const layerEdit = (state = null, action) => {
                 name: null,
             };
 
-        case types.LAYER_EDIT_PERIOD_LABEL_SET:
+        case types.LAYER_EDIT_PERIOD_NAME_SET:
             return {
                 ...state,
-                periodLabel: action.periodLabel,
+                periodName: action.periodName,
             };
 
         case types.LAYER_EDIT_PERIOD_TYPE_SET:

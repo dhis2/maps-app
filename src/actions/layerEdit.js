@@ -120,9 +120,9 @@ export const setOrganisationUnitGroupSet = organisationUnitGroupSet => ({
 });
 
 // Set period label (earth engine)
-export const setPeriodLabel = periodLabel => ({
-    type: types.LAYER_EDIT_PERIOD_LABEL_SET,
-    periodLabel,
+export const setPeriodName = periodName => ({
+    type: types.LAYER_EDIT_PERIOD_NAME_SET,
+    periodName,
 });
 
 // Set period type (thematic)

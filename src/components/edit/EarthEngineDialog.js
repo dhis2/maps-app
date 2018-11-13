@@ -9,7 +9,7 @@ import TextField from '../core/TextField';
 import ColorScaleSelect from '../core/ColorScaleSelect';
 import Collection from '../earthengine/Collection';
 import LegendItem from '../layers/legend/LegendItem';
-import { setParams, setFilter, setPeriodLabel } from '../../actions/layerEdit';
+import { setParams, setFilter, setPeriodName } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colorscale';
 import { createLegend } from '../../loaders/earthEngineLoader';
 import { layerDialogStyles } from './LayerDialogStyles';
@@ -146,7 +146,7 @@ class EarthEngineDialog extends Component {
             filter,
             setParams,
             setFilter,
-            setPeriodLabel,
+            setPeriodName,
             classes,
         } = this.props;
         const dataset = datasets[datasetId];
@@ -167,7 +167,7 @@ class EarthEngineDialog extends Component {
                                     id={datasetId}
                                     filter={filter}
                                     onChange={(periodName, filter) => {
-                                        setPeriodLabel(periodName);
+                                        setPeriodName(periodName);
                                         setFilter(filter);
                                     }}
                                     className={classes.flexFull}
@@ -338,7 +338,7 @@ class EarthEngineDialog extends Component {
 
 export default connect(
     null,
-    { setParams, setFilter, setPeriodLabel },
+    { setParams, setFilter, setPeriodName },
     null,
     { withRef: true }
 )(withStyles(styles)(EarthEngineDialog));
