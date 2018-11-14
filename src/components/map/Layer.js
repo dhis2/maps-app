@@ -142,7 +142,7 @@ class Layer extends PureComponent {
     setLayerOrder() {
         const { index } = this.props;
 
-        // Needs to be below 600 to leaflet-measure to operate on top
+        // Needs to be below 600 to allow leaflet-measure to operate on top
         const zIndex = 590 - index * 10;
 
         if (this.pane) {
