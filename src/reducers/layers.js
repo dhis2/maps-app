@@ -5,7 +5,7 @@ const defaultLayers = [
         layer: 'thematic',
         type: 'Thematic',
         img: 'images/thematic.png',
-        opacity: 0.8,
+        opacity: 0.9,
     },
     {
         layer: 'event',
