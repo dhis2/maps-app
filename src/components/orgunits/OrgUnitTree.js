@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
+import orgUnitTreeStyles from './OrgUnitTree.style';
 
 const styles = {
     container: {
@@ -34,7 +35,6 @@ const styles = {
 
 export class OrgUnitTreeMaps extends Component {
     static propTypes = {
-        theme: PropTypes.object.isRequired,
         classes: PropTypes.object.isRequired,
         roots: PropTypes.array,
         selected: PropTypes.array,
@@ -52,21 +52,12 @@ export class OrgUnitTreeMaps extends Component {
     }
 
     render() {
-        const { theme, classes, roots, selected, disabled } = this.props;
+        const { classes, roots, selected, disabled } = this.props;
 
+        // TODO: Add loading indicator
         if (!roots) {
-            // TODO: Add loading indicator
             return null;
         }
-
-        //TODO: The d2-ui component should use classes, not styles!
-        const labelStyle = {
-                cursor: 'pointer',
-            },
-            selectedLabelStyle = {
-                cursor: 'pointer',
-                color: theme.palette.primary.main,
-            };
 
         return (
             <div className={classes.container}>
@@ -76,11 +67,10 @@ export class OrgUnitTreeMaps extends Component {
                         .filter(item => item.path)
                         .map(item => item.path)}
                     initiallyExpanded={roots.map(root => root.path)}
-                    hideCheckboxes={true}
-                    hideMemberCount={true}
                     onSelectClick={this.onSelectClick}
-                    labelStyle={labelStyle}
-                    selectedLabelStyle={selectedLabelStyle}
+                    showFolderIcon
+                    disableSpacer
+                    {...orgUnitTreeStyles}
                 />
                 {disabled ? (
                     <div className={classes.disabled}>
@@ -105,8 +95,4 @@ export default connect(
         roots: state.orgUnitTree,
     }),
     { loadOrgUnitTree }
-)(
-    withStyles(styles, {
-        withTheme: true,
-    })(OrgUnitTreeMaps)
-);
+)(withStyles(styles)(OrgUnitTreeMaps));
