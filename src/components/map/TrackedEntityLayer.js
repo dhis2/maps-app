@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { apiFetch } from '../../util/api';
 import Layer from './Layer';
-import { TEI_COLOR, TEI_RADIUS, TEI_BUFFER } from '../../constants/layers';
+import { TEI_COLOR, TEI_RADIUS } from '../../constants/layers';
 
 class TrackedEntityLayer extends Layer {
     createLayer(callback) {
@@ -11,6 +11,7 @@ class TrackedEntityLayer extends Layer {
             eventPointColor,
             eventPointRadius,
             areaRadius,
+            editCounter,
         } = this.props;
 
         const map = this.context.map;
@@ -33,7 +34,7 @@ class TrackedEntityLayer extends Layer {
                     popup: this.onEventClick,
                 })
                 .addTo(map);
-        } 
+        }
 
         this.layer = map
             .createLayer({
@@ -50,13 +51,17 @@ class TrackedEntityLayer extends Layer {
 
         this.layer.on('click', this.onEntityClick);
 
-        // TODO: layer is not always added to map before this check
-        const layerBounds = this.buffers && this.buffers._map 
-            ? this.buffers.getBounds()
-            : this.layer.getBounds();
+        // Only fit map to layer bounds on first add
+        if (!editCounter) {
+            // TODO: layer is not always added to map before this check
+            const layerBounds =
+                this.buffers && this.buffers._map
+                    ? this.buffers.getBounds()
+                    : this.layer.getBounds();
 
-        if (layerBounds.isValid()) {
-            map.fitBounds(layerBounds);
+            if (layerBounds.isValid()) {
+                map.fitBounds(layerBounds);
+            }
         }
     }
 
