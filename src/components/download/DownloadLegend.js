@@ -16,6 +16,9 @@ const styles = theme => ({
         borderRadius: theme.shape.borderRadius,
         fontSize: theme.typography.fontSize,
         maxWidth: 220,
+        '& div a:link, & div a:visited': {
+            color: theme.palette.text.primary,
+        },
     },
     title: {
         fontSize: 15,
