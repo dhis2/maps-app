@@ -67,6 +67,7 @@ const Plugin = () => {
             'optionSet',
             'organisationUnitGroup',
             'organisationUnitGroupSet',
+            'organisationUnitLevel',
             'programStage',
         ]);
 
