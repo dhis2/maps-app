@@ -8,8 +8,8 @@ import { getDisplayProperty } from '../util/helpers';
 const colors = ['black', 'blue', 'red', 'green', 'yellow'];
 const weights = [2, 1, 0.75, 0.5, 0.5];
 
+// Returns a promise
 const boundaryLoader = async config => {
-    // Returns a promise
     const { rows, radiusLow } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
@@ -24,7 +24,6 @@ const boundaryLoader = async config => {
         .then(toGeoJson);
 
     if (!features.length) {
-        // gis.alert(GIS.i18n.no_valid_coordinates_found); // TODO
         return;
     }
 
@@ -53,6 +52,18 @@ const boundaryLoader = async config => {
         };
         feature.properties.type = feature.geometry.type;
     });
+
+    // console.log(config);
+
+    config.legend = {
+        title: config.name,
+        items: levels.map((level, index) => ({
+            name: orgUnits[index].name,
+            ...levelStyle[level],
+        })),
+    };
+
+    // console.log('legend', config.legend.items);
 
     return {
         ...config,
