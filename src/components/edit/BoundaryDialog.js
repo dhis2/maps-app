@@ -105,12 +105,6 @@ class BoundaryDialog extends Component {
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
-        console.log(
-            'getOrgUnitGroupsFromRows',
-            rows,
-            getOrgUnitGroupsFromRows(rows)
-        );
-
         return (
             <div>
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
