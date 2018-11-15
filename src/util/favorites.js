@@ -46,6 +46,7 @@ const validLayerProperties = [
     'organisationUnitGroupSet',
     'organisationUnitSelectionMode',
     'params',
+    'periodName',
     'program',
     'programStage',
     'programStatus',
@@ -103,16 +104,20 @@ const models2objects = config => {
     }
 
     if (config.params) {
+        const { datasetId, params, filter, periodName } = config;
+
         // EE layer config
         config.config = JSON.stringify({
-            id: config.datasetId,
-            params: config.params,
-            image: config.filter ? config.filter[0].arguments[1] : null,
-            filter: config.filter,
+            id: datasetId,
+            params,
+            image: filter ? filter[0].arguments[1] : null,
+            filter,
+            periodName,
         });
         delete config.datasetId;
         delete config.params;
         delete config.filter;
+        delete config.periodName;
     }
 
     if (isObject(config.config)) {
