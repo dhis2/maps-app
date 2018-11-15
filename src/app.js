@@ -15,7 +15,6 @@ import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
 import { setGoogleCloudApiKey } from './actions/basemap';
 import { getUrlParameter } from './util/requests';
-import '../scss/app.scss';
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE

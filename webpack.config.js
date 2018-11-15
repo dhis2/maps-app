@@ -68,7 +68,7 @@ const webpackConfig = {
             },
             {
                 test: /\.scss$/,
-                loader: 'style-loader!css-loader!sass-loader',
+                loader: 'style-loader!css-loader',
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,

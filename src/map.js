@@ -13,7 +13,6 @@ import {
 import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
 import { defaultBasemaps } from './constants/basemaps';
-import '../scss/plugin.scss';
 
 const apiVersion = 31;
 
