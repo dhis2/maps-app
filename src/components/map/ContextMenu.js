@@ -41,7 +41,7 @@ const styles = {
     text: {
         fontSize: 12,
         padding: '0 8px',
-    }
+    },
 };
 
 const ContextMenu = (props, context) => {
@@ -70,6 +70,7 @@ const ContextMenu = (props, context) => {
     let attr = {};
 
     if (position) {
+        anchorEl.style.position = 'fixed';
         anchorEl.style.left = position[0] + 'px';
         anchorEl.style.top = position[1] + 'px';
     }
@@ -87,69 +88,67 @@ const ContextMenu = (props, context) => {
             anchorEl={anchorEl}
             onClose={onClose}
         >
-            {layerType !== 'facility' &&
-                feature && (
-                    <MenuItem
-                        disabled={!attr.hasCoordinatesUp}
-                        onClick={() =>
-                            onDrill(
-                                layerId,
-                                attr.grandParentId,
-                                attr.grandParentParentGraph,
-                                parseInt(attr.level) - 1
-                            )
-                        }
-                        className={classes.menuItem}
-                    >
-                        <ListItemIcon className={classes.icon}>
-                            <ArrowUpwardIcon
-                                nativeColor={
-                                    attr.hasCoordinatesUp
-                                        ? iconColor
-                                        : iconDisabledColor
-                                }
-                                style={styles.icon}
-                            />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={i18n.t('Drill up one level')}
-                            className={classes.text} 
-                            disableTypography={true}
-                        />  
-                    </MenuItem>
-                )}
+            {layerType !== 'facility' && feature && (
+                <MenuItem
+                    disabled={!attr.hasCoordinatesUp}
+                    onClick={() =>
+                        onDrill(
+                            layerId,
+                            attr.grandParentId,
+                            attr.grandParentParentGraph,
+                            parseInt(attr.level) - 1
+                        )
+                    }
+                    className={classes.menuItem}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <ArrowUpwardIcon
+                            nativeColor={
+                                attr.hasCoordinatesUp
+                                    ? iconColor
+                                    : iconDisabledColor
+                            }
+                            style={styles.icon}
+                        />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={i18n.t('Drill up one level')}
+                        className={classes.text}
+                        disableTypography={true}
+                    />
+                </MenuItem>
+            )}
 
-            {layerType !== 'facility' &&
-                feature && (
-                    <MenuItem
-                        disabled={!attr.hasCoordinatesDown}
-                        onClick={() =>
-                            onDrill(
-                                layerId,
-                                attr.id,
-                                attr.parentGraph,
-                                parseInt(attr.level) + 1
-                            )
-                        }
-                        className={classes.menuItem}
-                    >
-                        <ListItemIcon className={classes.icon}>
-                            <ArrowDownwardIcon 
-                                nativeColor={
-                                    attr.hasCoordinatesDown
-                                        ? iconColor
-                                        : iconDisabledColor
-                                }
-                                style={styles.icon} 
-                            />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={i18n.t('Drill down one level')}
-                            className={classes.text} 
-                            disableTypography={true}
-                        />  
-                    </MenuItem>
-                )}
+            {layerType !== 'facility' && feature && (
+                <MenuItem
+                    disabled={!attr.hasCoordinatesDown}
+                    onClick={() =>
+                        onDrill(
+                            layerId,
+                            attr.id,
+                            attr.parentGraph,
+                            parseInt(attr.level) + 1
+                        )
+                    }
+                    className={classes.menuItem}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <ArrowDownwardIcon
+                            nativeColor={
+                                attr.hasCoordinatesDown
+                                    ? iconColor
+                                    : iconDisabledColor
+                            }
+                            style={styles.icon}
+                        />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={i18n.t('Drill down one level')}
+                        className={classes.text}
+                        disableTypography={true}
+                    />
+                </MenuItem>
+            )}
 
             {feature && (
                 <MenuItem
@@ -159,83 +158,80 @@ const ContextMenu = (props, context) => {
                     <ListItemIcon className={classes.icon}>
                         <InfoOutlinedIcon style={styles.icon} />
                     </ListItemIcon>
-                    <ListItemText 
-                        primary={i18n.t('Show information')} 
-                        className={classes.text} 
-                        disableTypography={true}
-                    />                    
-                </MenuItem>
-            )}
-
-            {coordinate && (
-                <MenuItem onClick={() => showCoordinate(coordinate)} className={classes.menuItem}>
-                    <ListItemIcon className={classes.icon}>
-                        <RoomIcon style={styles.icon} />
-                    </ListItemIcon>
-                    <ListItemText 
-                        primary={i18n.t('Show longitude/latitude')} 
-                        className={classes.text} 
+                    <ListItemText
+                        primary={i18n.t('Show information')}
+                        className={classes.text}
                         disableTypography={true}
                     />
                 </MenuItem>
             )}
 
-            {isAdmin &&
-                isPoint && (
-                    <MenuItem
-                        onClick={() =>
-                            onSwapCoordinate(
-                                layerId,
-                                feature.id,
-                                feature.geometry.coordinates
-                                    .slice(0)
-                                    .reverse()
-                            )
-                        }
-                        className={classes.menuItem}
-                    >
-                        <ListItemIcon className={classes.icon}>
-                            <RoomIcon style={styles.icon} />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={i18n.t('Swap longitude/latitude')} 
-                            className={classes.text} 
-                            disableTypography={true}
-                        />
-                    </MenuItem>
-                )}
-
-            {isAdmin &&
-                isPoint && (
-                    <MenuItem
-                        onClick={() => onRelocateStart(layerId, feature)}
-                        className={classes.menuItem}
-                    >
-                        <ListItemIcon className={classes.icon}>
-                            <RoomIcon style={styles.icon} />
-                        </ListItemIcon>
-                        <ListItemText 
-                            primary={i18n.t('Relocate')} 
-                            className={classes.text} 
-                            disableTypography={true}
-                        />
-                    </MenuItem>
-                )}
-
-            {earthEngineLayers.map(layer => (
+            {coordinate && (
                 <MenuItem
-                    key={layer.id}
+                    onClick={() => showCoordinate(coordinate)}
+                    className={classes.menuItem}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <RoomIcon style={styles.icon} />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={i18n.t('Show longitude/latitude')}
+                        className={classes.text}
+                        disableTypography={true}
+                    />
+                </MenuItem>
+            )}
+
+            {isAdmin && isPoint && (
+                <MenuItem
                     onClick={() =>
-                        showEarthEngineValue(layer.id, coordinate)
+                        onSwapCoordinate(
+                            layerId,
+                            feature.id,
+                            feature.geometry.coordinates.slice(0).reverse()
+                        )
                     }
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
                         <RoomIcon style={styles.icon} />
                     </ListItemIcon>
-                    <ListItemText 
-                        primary={i18n.t(layer.name)} 
-                        className={classes.text} 
+                    <ListItemText
+                        primary={i18n.t('Swap longitude/latitude')}
+                        className={classes.text}
+                        disableTypography={true}
+                    />
+                </MenuItem>
+            )}
+
+            {isAdmin && isPoint && (
+                <MenuItem
+                    onClick={() => onRelocateStart(layerId, feature)}
+                    className={classes.menuItem}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <RoomIcon style={styles.icon} />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={i18n.t('Relocate')}
+                        className={classes.text}
+                        disableTypography={true}
+                    />
+                </MenuItem>
+            )}
+
+            {earthEngineLayers.map(layer => (
+                <MenuItem
+                    key={layer.id}
+                    onClick={() => showEarthEngineValue(layer.id, coordinate)}
+                    className={classes.menuItem}
+                >
+                    <ListItemIcon className={classes.icon}>
+                        <RoomIcon style={styles.icon} />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={i18n.t(layer.name)}
+                        className={classes.text}
                         disableTypography={true}
                     />
                 </MenuItem>
