@@ -243,7 +243,18 @@
     lodash "^4.17.10"
     prop-types "^15.6.2"
 
-"@dhis2/d2-ui-org-unit-tree@^5.0.3":
+"@dhis2/d2-ui-org-unit-dialog@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-dialog/-/d2-ui-org-unit-dialog-5.0.3.tgz#eac604893d51f8ee94104347c7b531bb2fdeacd2"
+  integrity sha512-sTn8XW9Nlte2zPSzVTnAzWB8e3NAtRc0Gd8MLUDokeBl9C13CTmYa5gbdKqMa8sVuyzCgUZoX2o42hWUDjL3SA==
+  dependencies:
+    "@dhis2/d2-i18n" "^1.0.3"
+    "@dhis2/d2-ui-org-unit-tree" "5.0.3"
+    "@material-ui/core" "^3.3.1"
+    "@material-ui/icons" "^3.0.1"
+    prop-types "^15.5.10"
+
+"@dhis2/d2-ui-org-unit-tree@5.0.3", "@dhis2/d2-ui-org-unit-tree@^5.0.3":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-5.0.3.tgz#10ea55b955d114f73f81dd72e0f061fa8f8060f0"
   integrity sha512-+o+xHk3Ve9I0ydZ5cJe0oWqxMsFuC9WCPeIur/NLT9cpZgO7YkqHsA789VqMwEvbJ1Skzhd0rlTZYCtpIDVhAA==

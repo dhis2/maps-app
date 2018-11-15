@@ -11,7 +11,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import PeriodSelect from '../periods/PeriodSelect';
 import { closeOrgUnit } from '../../actions/orgUnits';
 import { loadConfigurations, loadData } from '../../util/infrastructural';
-// import './OrgUnitDialog.css'; // Delete file
 
 const styles = {
     metadata: {
@@ -105,7 +104,14 @@ export class OrgUnitDialog extends Component {
     };
 
     render() {
-        const { id, name, code, parent, organisationUnitGroups, classes } = this.props;
+        const {
+            id,
+            name,
+            code,
+            parent,
+            organisationUnitGroups,
+            classes,
+        } = this.props;
         const { periodType, period, data } = this.state;
 
         if (!id) {
@@ -115,15 +121,13 @@ export class OrgUnitDialog extends Component {
         const groups = organisationUnitGroups.toArray();
 
         return (
-            <Dialog
-                title={name}
-                open={true}
-                onClose={this.onClose}
-            >
+            <Dialog title={name} open={true} onClose={this.onClose}>
                 <DialogTitle>{name}</DialogTitle>
                 <DialogContent>
                     <div className={classes.metadata}>
-                        <h3 className={classes.heading}>{i18n.t('Parent unit')}</h3>
+                        <h3 className={classes.heading}>
+                            {i18n.t('Parent unit')}
+                        </h3>
                         {parent.name}
                         <h3 className={classes.heading}>{i18n.t('Code')}</h3>
                         {code}
@@ -155,7 +159,9 @@ export class OrgUnitDialog extends Component {
                                     {data.map(({ id, name, value }) => (
                                         <tr key={id}>
                                             <td>{name}</td>
-                                            <td className={classes.right}>{value}</td>
+                                            <td className={classes.right}>
+                                                {value}
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>

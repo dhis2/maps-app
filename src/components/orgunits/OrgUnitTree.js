@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree';
+import orgUnitStyles from '@dhis2/d2-ui-org-unit-dialog/styles/OrgUnitDialog.style';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
-import orgUnitTreeStyles from './OrgUnitTree.style';
 
 const styles = {
     container: {
@@ -70,7 +70,7 @@ export class OrgUnitTreeMaps extends Component {
                     onSelectClick={this.onSelectClick}
                     showFolderIcon
                     disableSpacer
-                    {...orgUnitTreeStyles}
+                    {...orgUnitStyles.orgUnitTree}
                 />
                 {disabled ? (
                     <div className={classes.disabled}>
