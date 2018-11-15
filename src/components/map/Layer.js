@@ -181,6 +181,15 @@ class Layer extends PureComponent {
         }
     }
 
+    // Fit map to layer bounds
+    fitBounds() {
+        const layerBounds = this.layer.getBounds();
+
+        if (layerBounds.isValid()) {
+            this.context.map.fitBounds(layerBounds);
+        }
+    }
+
     removeLayer() {
         const map = this.context.map;
 

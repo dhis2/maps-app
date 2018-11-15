@@ -10,6 +10,7 @@ class ThematicLayer extends Layer {
             labels,
             labelFontSize,
             labelFontStyle,
+            editCounter,
         } = this.props;
 
         const map = this.context.map;
@@ -34,11 +35,9 @@ class ThematicLayer extends Layer {
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
-        const layerBounds = this.layer.getBounds();
-
-        if (layerBounds.isValid()) {
-            map.invalidateSize();
-            map.fitBounds(layerBounds);
+        // Only fit map to layer bounds on first add
+        if (!editCounter) {
+            this.fitBounds();
         }
     }
 

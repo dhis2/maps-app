@@ -12,6 +12,7 @@ export default class BoundaryLayer extends Layer {
             labelFontStyle,
             radiusLow,
             dataFilters,
+            editCounter,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
@@ -46,11 +47,9 @@ export default class BoundaryLayer extends Layer {
         this.layer.on('click', this.onFeatureClick, this);
         this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
-        const layerBounds = this.layer.getBounds();
-
-        if (layerBounds.isValid()) {
-            map.invalidateSize();
-            map.fitBounds(layerBounds);
+        // Only fit map to layer bounds on first add
+        if (!editCounter) {
+            this.fitBounds();
         }
     }
 
