@@ -141,7 +141,9 @@ class Layer extends PureComponent {
     // Set layer order using custom panes and z-index: http://leafletjs.com/examples/map-panes/
     setLayerOrder() {
         const { index } = this.props;
-        const zIndex = 600 - index * 10;
+
+        // Needs to be below 600 to allow leaflet-measure to operate on top
+        const zIndex = 590 - index * 10;
 
         if (this.pane) {
             this.pane.style.zIndex = zIndex;

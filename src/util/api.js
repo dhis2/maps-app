@@ -2,7 +2,6 @@ import { isString, isObject } from 'lodash/fp';
 import { config } from 'd2';
 
 // TODO: Channel all api request through d2
-
 export const apiFetch = async (url, method, body) => {
     const options = {
         headers: {
@@ -28,11 +27,10 @@ export const apiFetch = async (url, method, body) => {
     }
 
     return fetch(encodeURI(config.baseUrl + url), options)
-        .then(
-            response =>
-                ['POST', 'PUT', 'PATCH'].indexOf(method) !== -1
-                    ? response
-                    : response.json()
+        .then(response =>
+            ['POST', 'PUT', 'PATCH'].indexOf(method) !== -1
+                ? response
+                : response.json()
         )
         .catch(error => console.log('Error: ', error)); // TODO: Better error handling
 };
