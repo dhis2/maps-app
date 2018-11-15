@@ -3,10 +3,10 @@ import { uniqBy } from 'lodash/fp';
 import { getInstance as getD2 } from 'd2';
 import { toGeoJson } from '../util/map';
 import { getOrgUnitsFromRows } from '../util/analytics';
-import { getDisplayProperty } from '../util/helpers';
+import { getDisplayProperty, getDisplayPropertyUrl } from '../util/helpers';
 
-const colors = ['black', 'blue', 'red', 'green', 'yellow'];
-const weights = [2, 1, 0.75, 0.5, 0.5];
+const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
+const weights = [2, 1, 0.75, 0.5];
 
 // Returns a promise
 const boundaryLoader = async config => {
@@ -16,6 +16,8 @@ const boundaryLoader = async config => {
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
+    const layerName = i18n.t('Boundaries');
+    const orgUnitLevelNames = await getOrgUnitLevelNames(d2);
 
     const features = await d2.geoFeatures
         .byOrgUnit(orgUnitParams)
@@ -35,8 +37,8 @@ const boundaryLoader = async config => {
         (obj, level, index) => ({
             ...obj,
             [level]: {
-                color: colors[index],
-                weight: levels.length === 1 ? 1 : weights[index],
+                color: colors[index] || '#333',
+                weight: levels.length === 1 ? 1 : weights[index] || 0.5,
             },
         }),
         {}
@@ -53,26 +55,42 @@ const boundaryLoader = async config => {
         feature.properties.type = feature.geometry.type;
     });
 
-    // console.log(config);
-
     config.legend = {
-        title: config.name,
-        items: levels.map((level, index) => ({
-            name: orgUnits[index].name,
+        title: layerName,
+        items: levels.map(level => ({
+            name: orgUnitLevelNames[level],
             ...levelStyle[level],
         })),
     };
 
-    // console.log('legend', config.legend.items);
-
     return {
         ...config,
         data: features,
-        name: i18n.t('Boundaries'),
+        name: layerName,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
     };
+};
+
+// This function returns the org unit level names used in the legend
+// TODO: Refacotor when org unit level names are included in the metadata section
+// of the analytics requests
+const getOrgUnitLevelNames = async d2 => {
+    const orgUnitLevels = await d2.models.organisationUnitLevels.list({
+        fields: `${getDisplayPropertyUrl(d2)},level`,
+        pageing: false,
+    });
+
+    return orgUnitLevels
+        ? orgUnitLevels.toArray().reduce(
+              (obj, item) => ({
+                  ...obj,
+                  [item.level]: item.name,
+              }),
+              {}
+          )
+        : {};
 };
 
 export default boundaryLoader;
