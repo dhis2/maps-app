@@ -34,7 +34,15 @@ const styles = {
     mapContainer: {
         height: '100%',
         '& img': {
+            // Override from ui/core/UI'
             maxWidth: 'none',
+        },
+        '& .leaflet-control-zoom a': {
+            // Override from ui/core/UI'
+            color: 'black!important',
+        },
+        '& .leaflet-control-measure a': {
+            fontSize: '12px!important',
         },
     },
     mapDownload: {
