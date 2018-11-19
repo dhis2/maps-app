@@ -38,7 +38,7 @@ const styles = theme => ({
         top: 0,
     },
     sliderContainer: {
-        marginLeft: 4,
+        marginLeft: theme.spacing.unit / 2,
     },
     sliderRoot: {
         paddingLeft: 0,
