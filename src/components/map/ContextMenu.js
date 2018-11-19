@@ -78,7 +78,6 @@ const ContextMenu = (props, context) => {
     if (feature) {
         isPoint = feature.geometry.type === 'Point';
         attr = feature.properties;
-        coordinate = feature.geometry.coordinates;
     }
 
     return [
