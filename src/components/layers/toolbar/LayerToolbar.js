@@ -16,12 +16,12 @@ const styles = theme => ({
         position: 'relative',
         height: 32,
         minHeight: 32,
-        padding: '0 8px',
+        padding: `0 ${theme.spacing.unit}px`,
         backgroundColor: theme.palette.background.paper,
         borderTop: `1px solid ${theme.palette.divider}`,
     },
     spacer: {
-        marginRight: 16,
+        marginRight: theme.spacing.unit * 2,
     },
     button: {
         float: 'left',
@@ -34,8 +34,16 @@ const styles = theme => ({
         height: 32,
         padding: 4,
         position: 'absolute',
-        right: 4,
+        right: theme.spacing.unit / 2,
         top: 0,
+    },
+    sliderContainer: {
+        marginLeft: theme.spacing.unit / 2,
+    },
+    sliderRoot: {
+        paddingLeft: 0,
+        paddingTop: 8,
+        paddingBottom: 8,
     },
 });
 
@@ -69,14 +77,19 @@ export const LayerToolbar = ({
                     {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             </Tooltip>
-            <Tooltip title={i18n.t('Set layer opacity')}>
-                <div>
-                    <OpacitySlider
-                        opacity={opacity}
-                        onChange={onOpacityChange}
-                    />
-                </div>
-            </Tooltip>
+            <div className={classes.sliderContainer}>
+                <Tooltip title={i18n.t('Set layer opacity')}>
+                    <div>
+                        <OpacitySlider
+                            classes={{
+                                root: classes.sliderRoot,
+                            }}
+                            opacity={opacity}
+                            onChange={onOpacityChange}
+                        />
+                    </div>
+                </Tooltip>
+            </div>
             <LayerToolbarMoreMenu
                 classes={{ button: classes.moreMenuButton }}
                 {...expansionMenuProps}

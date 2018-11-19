@@ -22,16 +22,23 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
       <pure(VisibilityIcon) />
     </WithStyles(IconButton)>
   </WithStyles(Tooltip)>
-  <WithStyles(Tooltip)
-    title="Set layer opacity"
-  >
-    <div>
-      <WithStyles(OpacitySlider)
-        onChange={[Function]}
-        opacity={0}
-      />
-    </div>
-  </WithStyles(Tooltip)>
+  <div>
+    <WithStyles(Tooltip)
+      title="Set layer opacity"
+    >
+      <div>
+        <WithStyles(OpacitySlider)
+          classes={
+            Object {
+              "root": undefined,
+            }
+          }
+          onChange={[Function]}
+          opacity={0}
+        />
+      </div>
+    </WithStyles(Tooltip)>
+  </div>
   <WithStyles(LayerToolbarMoreMenu)
     classes={
       Object {
@@ -54,16 +61,23 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
       <pure(VisibilityIcon) />
     </WithStyles(IconButton)>
   </WithStyles(Tooltip)>
-  <WithStyles(Tooltip)
-    title="Set layer opacity"
-  >
-    <div>
-      <WithStyles(OpacitySlider)
-        onChange={[Function]}
-        opacity={0}
-      />
-    </div>
-  </WithStyles(Tooltip)>
+  <div>
+    <WithStyles(Tooltip)
+      title="Set layer opacity"
+    >
+      <div>
+        <WithStyles(OpacitySlider)
+          classes={
+            Object {
+              "root": undefined,
+            }
+          }
+          onChange={[Function]}
+          opacity={0}
+        />
+      </div>
+    </WithStyles(Tooltip)>
+  </div>
   <WithStyles(LayerToolbarMoreMenu)
     classes={
       Object {
