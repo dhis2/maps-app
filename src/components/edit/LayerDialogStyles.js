@@ -6,6 +6,7 @@ export const layerDialogStyles = {
     tabContent: {
         margin: '8px -16px 0',
         height: 320,
+        width: '100%',
     },
     flexColumnFlow: {
         display: 'flex',
