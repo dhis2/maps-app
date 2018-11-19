@@ -16,12 +16,12 @@ const styles = theme => ({
         position: 'relative',
         height: 32,
         minHeight: 32,
-        padding: '0 8px',
+        padding: `0 ${theme.spacing.unit}px`,
         backgroundColor: theme.palette.background.paper,
         borderTop: `1px solid ${theme.palette.divider}`,
     },
     spacer: {
-        marginRight: 16,
+        marginRight: theme.spacing.unit * 2,
     },
     button: {
         float: 'left',
@@ -34,7 +34,7 @@ const styles = theme => ({
         height: 32,
         padding: 4,
         position: 'absolute',
-        right: 4,
+        right: theme.spacing.unit / 2,
         top: 0,
     },
     sliderContainer: {
