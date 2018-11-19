@@ -37,6 +37,14 @@ const styles = theme => ({
         right: 4,
         top: 0,
     },
+    sliderContainer: {
+        marginLeft: 4,
+    },
+    sliderRoot: {
+        paddingLeft: 0,
+        paddingTop: 8,
+        paddingBottom: 8,
+    },
 });
 
 export const LayerToolbar = ({
@@ -69,14 +77,19 @@ export const LayerToolbar = ({
                     {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             </Tooltip>
-            <Tooltip title={i18n.t('Set layer opacity')}>
-                <div>
-                    <OpacitySlider
-                        opacity={opacity}
-                        onChange={onOpacityChange}
-                    />
-                </div>
-            </Tooltip>
+            <div className={classes.sliderContainer}>
+                <Tooltip title={i18n.t('Set layer opacity')}>
+                    <div>
+                        <OpacitySlider
+                            classes={{
+                                root: classes.sliderRoot,
+                            }}
+                            opacity={opacity}
+                            onChange={onOpacityChange}
+                        />
+                    </div>
+                </Tooltip>
+            </div>
             <LayerToolbarMoreMenu
                 classes={{ button: classes.moreMenuButton }}
                 {...expansionMenuProps}
