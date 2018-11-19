@@ -45,7 +45,7 @@ const FontStyle = ({
                 id="size"
                 type="number"
                 label="Size"
-                value={size !== undefined ? size : 11}
+                value={size !== undefined ? parseInt(size, 10) : 11}
                 onChange={onSizeChange}
                 style={styles.sizeField}
             />
