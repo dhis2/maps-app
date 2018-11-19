@@ -145,7 +145,10 @@ export class DownloadDialog extends Component {
         };
 
         convertToPng(mapEl, options)
-            .then(dataUri => downloadFile(dataURItoBlob(dataUri), filename))
+            .then(dataUri => {
+                downloadFile(dataURItoBlob(dataUri), filename);
+                this.onClose();
+            })
             .catch(this.onError);
     };
 
