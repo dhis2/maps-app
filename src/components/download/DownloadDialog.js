@@ -99,13 +99,12 @@ export class DownloadDialog extends Component {
                                     onCheck={toggleDownloadShowLegend}
                                 />
                             </div>
-                            {hasLegend &&
-                                showLegend && (
-                                    <LegendPosition
-                                        position={legendPosition}
-                                        onChange={setDownloadLegendPosition}
-                                    />
-                                )}
+                            {hasLegend && showLegend && (
+                                <LegendPosition
+                                    position={legendPosition}
+                                    onChange={setDownloadLegendPosition}
+                                />
+                            )}
                         </Fragment>
                     ) : (
                         i18n.t(
@@ -152,6 +151,10 @@ export class DownloadDialog extends Component {
 
     // Not working in Safari: https://github.com/tsayen/dom-to-image/issues/27
     onError = error => {
+        // Added temporary to test in a build environment running https
+        if (console && console.error) {
+            console.error(error);
+        }
         this.setState({ error });
     };
 }

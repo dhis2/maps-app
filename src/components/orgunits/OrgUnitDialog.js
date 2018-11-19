@@ -26,6 +26,7 @@ const styles = {
     data: {
         float: 'left',
         width: 345,
+        marginTop: -12,
     },
     nodata: {
         fontStyle: 'italic',
@@ -38,6 +39,7 @@ const styles = {
         width: 345,
         maxHeight: 240,
         overflowY: 'auto',
+        marginTop: -24,
     },
     left: {
         textAlign: 'left',
@@ -141,7 +143,7 @@ export class OrgUnitDialog extends Component {
                             periodType={periodType}
                             period={period}
                             onChange={this.onPeriodChange}
-                            style={{ height: 70, margin: '-17px 0 0 3px' }}
+                            // style={{ height: 70, margin: '-12px 0 0 3px' }}
                         />
                         {data && data.length ? (
                             <table className={classes.table}>
