@@ -33,7 +33,7 @@ const styles = {
         padding: '0 8px',
     },
     icon: {
-        margin: 3,
+        margin: '0 3px',
         left: 6,
         width: 18,
         height: 18,
@@ -78,7 +78,6 @@ const ContextMenu = (props, context) => {
     if (feature) {
         isPoint = feature.geometry.type === 'Point';
         attr = feature.properties;
-        coordinate = feature.geometry.coordinates;
     }
 
     return [

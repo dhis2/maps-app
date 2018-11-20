@@ -45,9 +45,9 @@ const FontStyle = ({
                 id="size"
                 type="number"
                 label="Size"
-                value={size !== undefined ? size : 11}
+                value={size !== undefined ? parseInt(size, 10) : 11}
                 onChange={onSizeChange}
-                style={styles.sizeField}
+                className={classes.sizeField}
             />
         )}
         {onWeightChange && (
@@ -55,7 +55,9 @@ const FontStyle = ({
                 onClick={() =>
                     onWeightChange(weight === 'bold' ? 'normal' : 'bold')
                 }
-                style={weight === 'bold' ? styles.buttonPressed : styles.button}
+                className={
+                    weight === 'bold' ? classes.buttonPressed : classes.button
+                }
                 disableTouchRipple={true}
             >
                 <BoldIcon nativeColor={weight === 'bold' ? '#fff' : '#555'} />
@@ -66,10 +68,10 @@ const FontStyle = ({
                 onClick={() =>
                     onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic')
                 }
-                style={
+                className={
                     fontStyle === 'italic'
-                        ? styles.buttonPressed
-                        : styles.button
+                        ? classes.buttonPressed
+                        : classes.button
                 }
                 disableTouchRipple={true}
             >
