@@ -25,7 +25,7 @@ const styles = theme => ({
         overflowX: 'hidden',
         overflowY: 'auto',
         zIndex: 1190,
-    }
+    },
 });
 
 // https://github.com/EyeSeeTea/d2-ui-playground/blob/feature/interpretations/src/Root.js
