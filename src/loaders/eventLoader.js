@@ -197,23 +197,29 @@ const getFilterOptionNames = async (filters, headers) => {
         return;
     }
 
+    const mappedOptionSets = await Promise.all(
+        optionSets.map(id =>
+            d2.models.optionSets
+                .get(id, {
+                    fields: 'options[code,displayName~rename(name)]',
+                })
+                .then(model => model.options)
+                .then(options =>
+                    options.reduce((obj, { code, name }) => {
+                        obj[code] = name;
+                        return obj;
+                    }, {})
+                )
+        )
+    );
+
     // Returns one object with all option codes mapped to names
-    return Object.assign(
-        ...(await Promise.all(
-            optionSets.map(id =>
-                d2.models.optionSets
-                    .get(id, {
-                        fields: 'options[code,displayName~rename(name)]',
-                    })
-                    .then(model => model.options)
-                    .then(options =>
-                        options.reduce((obj, { code, name }) => {
-                            obj[code] = name;
-                            return obj;
-                        }, {})
-                    )
-            )
-        ))
+    return mappedOptionSets.reduce(
+        (obj, set) => ({
+            ...obj,
+            ...set,
+        }),
+        {}
     );
 };
 

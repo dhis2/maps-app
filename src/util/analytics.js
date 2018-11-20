@@ -174,7 +174,7 @@ export const getFiltersAsText = (filters = [], names = {}) =>
 // Returns filter operator in a readable format
 export const getFilterOperatorAsText = (operator, value) => {
     // If only one value, use is / is not
-    if (!value.includes(';')) {
+    if (!value.indexOf(';') >= 0) {
         if (operator === 'IN') {
             return i18n.t('is');
         } else if (operator === '!IN') {
@@ -223,8 +223,8 @@ export const combineDataItems = (
         'name',
         [...dataItemsA, ...dataItemsB].filter(
             item =>
-                (!includeTypes || includeTypes.includes(item.valueType)) &&
-                (!excludeTypes || !excludeTypes.includes(item.valueType))
+                (!includeTypes || includeTypes.indexOf(item.valueType) >= 0) &&
+                (!excludeTypes || !excludeTypes.indexOf(item.valueType) >= 0)
         )
     );
 
