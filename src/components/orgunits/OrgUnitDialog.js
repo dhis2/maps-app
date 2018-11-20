@@ -143,7 +143,6 @@ export class OrgUnitDialog extends Component {
                             periodType={periodType}
                             period={period}
                             onChange={this.onPeriodChange}
-                            // style={{ height: 70, margin: '-12px 0 0 3px' }}
                         />
                         {data && data.length ? (
                             <table className={classes.table}>
