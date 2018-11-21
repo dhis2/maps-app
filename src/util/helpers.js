@@ -125,8 +125,8 @@ export const formatTime = date =>
     timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));
 
 export const getStartEndDateError = (startDate, endDate) => {
-    const start = parseTime(startDate);
-    const end = parseTime(endDate);
+    const start = parseTime(startDate.substring(0, 10)); // Only check date part
+    const end = parseTime(endDate.substring(0, 10)); // Only check date part
     if (!start) {
         return i18n.t('Start date is invalid');
     } else if (!end) {

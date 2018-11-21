@@ -388,9 +388,9 @@ function newUtil() {
 
     function mimes() {
         /*
-              * Only WOFF and EOT mime types for fonts are 'real'
-              * see http://www.iana.org/assignments/media-types/media-types.xhtml
-              */
+         * Only WOFF and EOT mime types for fonts are 'real'
+         * see http://www.iana.org/assignments/media-types/media-types.xhtml
+         */
         const WOFF = 'application/font-woff';
         const JPEG = 'image/jpeg';
 
@@ -483,7 +483,9 @@ function newUtil() {
                 resolve(image);
             };
             image.onerror = reject;
-            image.src = uri;
+            // Applied fix to fix issue with Google Maps
+            // https://github.com/tsayen/dom-to-image/issues/243#issuecomment-414955354
+            image.src = encodeURI(uri);
         });
     }
 
