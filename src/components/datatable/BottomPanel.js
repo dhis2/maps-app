@@ -37,17 +37,16 @@ class BottomPanel extends Component {
             const maxHeight = height - HEADER_HEIGHT - 20;
             const tableHeight =
                 dataTableHeight < maxHeight ? dataTableHeight : maxHeight;
-            const tableWidth =
-                width -
-                (layersPanelOpen ? LAYERS_PANEL_WIDTH : 0) -
-                (interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0);
+            const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0;
+            const interpretationsWidth = interpretationsPanelOpen
+                ? INTERPRETATIONS_PANEL_WIDTH
+                : 0;
+            const tableWidth = width - layersWidth - interpretationsWidth;
 
             const style = {
-                left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
-                right: interpretationsPanelOpen
-                    ? INTERPRETATIONS_PANEL_WIDTH
-                    : 0,
                 height: tableHeight,
+                left: layersWidth,
+                right: interpretationsWidth,
             };
 
             return (
