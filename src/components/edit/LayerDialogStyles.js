@@ -18,7 +18,7 @@ export const layerDialogStyles = {
         margin: '0 16px',
     },
     flexColumn: {
-        flex: '1 1 0',
+        flex: '1 1 0px',
         margin: '8px 16px 0',
         boxSizing: 'border-box',
         maxWidth: 380,
