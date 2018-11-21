@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { JssProvider, jss, createGenerateClassName } from 'react-jss';
+import 'url-polyfill';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2';
 import i18n from '@dhis2/d2-i18n';
