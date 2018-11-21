@@ -142,7 +142,7 @@ export const getAnalyticsRequest = async ({
 
     if (dataItems) {
         dataItems.forEach(item => {
-            if (item.dimension) {
+            if (isValidDimension(item)) {
                 analyticsRequest = analyticsRequest.addDimension(
                     item.dimension,
                     item.filter
@@ -222,5 +222,9 @@ const getFilterOptionNames = async (filters, headers) => {
         {}
     );
 };
+
+// Empty filter sometimes returned for saved maps
+const isValidDimension = ({ dimension, items }) =>
+    Boolean(dimension && (!items || items.length));
 
 export default eventLoader;
