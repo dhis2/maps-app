@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ResizeHandle from './ResizeHandle';
 import DataTable from '../datatable/DataTable';
-import { LAYERS_PANEL_WIDTH, HEADER_HEIGHT } from '../../constants/layout';
+import {
+    HEADER_HEIGHT,
+    LAYERS_PANEL_WIDTH,
+    INTERPRETATIONS_PANEL_WIDTH,
+} from '../../constants/layout';
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable';
 import './BottomPanel.css';
 
@@ -20,6 +24,7 @@ class BottomPanel extends Component {
     render() {
         const {
             layersPanelOpen,
+            interpretationsPanelOpen,
             dataTableOpen,
             dataTableHeight,
             width,
@@ -33,10 +38,15 @@ class BottomPanel extends Component {
             const tableHeight =
                 dataTableHeight < maxHeight ? dataTableHeight : maxHeight;
             const tableWidth =
-                width - (layersPanelOpen ? LAYERS_PANEL_WIDTH : 0);
+                width -
+                (layersPanelOpen ? LAYERS_PANEL_WIDTH : 0) -
+                (interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0);
 
             const style = {
                 left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
+                right: interpretationsPanelOpen
+                    ? INTERPRETATIONS_PANEL_WIDTH
+                    : 0,
                 height: tableHeight,
             };
 
@@ -73,6 +83,7 @@ class BottomPanel extends Component {
 
 BottomPanel.propTypes = {
     layersPanelOpen: PropTypes.bool.isRequired,
+    interpretationsPanelOpen: PropTypes.bool.isRequired,
     dataTableOpen: PropTypes.bool.isRequired,
     dataTableHeight: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
@@ -86,6 +97,7 @@ export default connect(
         dataTableOpen: state.dataTable ? true : false,
         dataTableHeight: state.ui.dataTableHeight,
         layersPanelOpen: state.ui.layersPanelOpen,
+        interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
         width: state.ui.width,
         height: state.ui.height,
     }),
