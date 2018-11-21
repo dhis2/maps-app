@@ -218,7 +218,7 @@ const getFilterOptionNames = async (filters, headers) => {
 };
 
 // Empty filter sometimes returned for saved maps
-const isValidDimension = ({ dimension, filter, items }) =>
-    Boolean(dimension && ((items && items.length) || filter));
+const isValidDimension = ({ dimension, items }) =>
+    Boolean(dimension && !(items && !items.length));
 
 export default eventLoader;
