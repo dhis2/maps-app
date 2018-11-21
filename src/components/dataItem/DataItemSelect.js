@@ -8,12 +8,14 @@ import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
 } from '../../actions/programs';
+import { BottomNavigationItem } from 'material-ui';
 
 export class DataItemSelect extends Component {
     static propTypes = {
         className: PropTypes.string,
         label: PropTypes.string,
         value: PropTypes.string,
+        allowNone: PropTypes.bool,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
         }),
@@ -60,6 +62,7 @@ export class DataItemSelect extends Component {
 
     render() {
         const {
+            allowNone,
             className,
             label,
             value,
@@ -69,7 +72,6 @@ export class DataItemSelect extends Component {
             dataElements,
             includeTypes,
             excludeTypes,
-            onChange,
             style,
         } = this.props;
 
@@ -77,12 +79,15 @@ export class DataItemSelect extends Component {
             return null;
         }
 
-        const dataItems = combineDataItems(
-            programAttributes[program.id],
-            programStage ? dataElements[programStage.id] : [],
-            includeTypes,
-            excludeTypes
-        );
+        const dataItems = [
+            ...(allowNone ? [{ id: 'none', name: i18n.t('None') }] : []),
+            ...combineDataItems(
+                programAttributes[program.id],
+                programStage ? dataElements[programStage.id] : [],
+                includeTypes,
+                excludeTypes
+            ),
+        ];
 
         return (
             <SelectField
@@ -92,11 +97,13 @@ export class DataItemSelect extends Component {
                 label={label || i18n.t('Data item')}
                 items={dataItems}
                 value={value}
-                onChange={onChange}
+                onChange={this.onChange}
                 style={style}
             />
         );
     }
+
+    onChange = item => this.props.onChange(item.id !== 'none' ? item : null);
 }
 
 export default connect(
