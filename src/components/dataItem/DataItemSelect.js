@@ -8,7 +8,6 @@ import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
 } from '../../actions/programs';
-import { BottomNavigationItem } from 'material-ui';
 
 export class DataItemSelect extends Component {
     static propTypes = {
