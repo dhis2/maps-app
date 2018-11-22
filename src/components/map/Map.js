@@ -44,6 +44,10 @@ const styles = {
         '& .leaflet-control-measure a': {
             fontSize: '12px!important',
         },
+        '& .leaflet-popup-content th': {
+            fontWeight: 'bold',
+            paddingRight: 5,
+        },
     },
     mapDownload: {
         '& .leaflet-control-zoom, & .leaflet-control-geocoder, & .leaflet-control-measure, & .leaflet-control-fit-bounds': {
