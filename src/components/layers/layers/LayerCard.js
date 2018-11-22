@@ -105,8 +105,6 @@ const LayerCard = ({
     const canToggleDataTable = dataTableLayerTypes.indexOf(layerType) >= 0;
     const canDownload = downloadableLayerTypes.indexOf(layerType) >= 0;
 
-    console.log(layerType, canEdit);
-
     return (
         <Card className={classes.card}>
             <CardHeader
