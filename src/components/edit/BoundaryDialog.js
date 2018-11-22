@@ -169,7 +169,6 @@ class BoundaryDialog extends Component {
                                         style={{
                                             ...styles.flexInnerColumn,
                                             maxWidth: 150,
-                                            paddingTop: 24,
                                             height: 48,
                                         }}
                                     />
