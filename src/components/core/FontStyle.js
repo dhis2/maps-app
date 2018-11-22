@@ -13,6 +13,7 @@ const styles = {
         marginRight: 5,
     },
     button: {
+        marginTop: 12,
         background: '#fafafa',
         marginRight: 5,
         borderRadius: 0,
