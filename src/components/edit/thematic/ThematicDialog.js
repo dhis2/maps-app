@@ -457,7 +457,10 @@ export class ThematicDialog extends Component {
                                         onChange={(evt, radius) =>
                                             setRadiusLow(radius)
                                         }
-                                        style={styles.flexInnerColumn}
+                                        style={{
+                                            ...styles.flexInnerColumn,
+                                            maxWidth: 140,
+                                        }}
                                     />
                                     <TextField
                                         id="highsize"
@@ -471,7 +474,10 @@ export class ThematicDialog extends Component {
                                         onChange={(evt, radius) =>
                                             setRadiusHigh(radius)
                                         }
-                                        style={styles.flexInnerColumn}
+                                        style={{
+                                            ...styles.flexInnerColumn,
+                                            maxWidth: 140,
+                                        }}
                                     />
                                 </div>
                                 <div style={styles.flexInnerColumnFlow}>
@@ -481,6 +487,7 @@ export class ThematicDialog extends Component {
                                         onCheck={setLabels}
                                         style={{
                                             ...styles.flexInnerColumn,
+                                            marginLeft: -6,
                                             maxWidth: 150,
                                             paddingTop: 24,
                                             height: 42,

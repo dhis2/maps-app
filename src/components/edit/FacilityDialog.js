@@ -54,7 +54,7 @@ const styles = {
         marginTop: 2,
     },
     radius: {
-        width: 206,
+        maxWidth: 206,
         marginTop: 2,
     },
     help: {
