@@ -224,7 +224,7 @@ export const combineDataItems = (
         [...dataItemsA, ...dataItemsB].filter(
             item =>
                 (!includeTypes || includeTypes.indexOf(item.valueType) >= 0) &&
-                (!excludeTypes || !excludeTypes.indexOf(item.valueType) >= 0)
+                (!excludeTypes || !(excludeTypes.indexOf(item.valueType) >= 0))
         )
     );
 
