@@ -6,7 +6,6 @@ exports[`DownloadButton Should render a download button and a dialog component 1
     classes={
       Object {
         "label": undefined,
-        "root": undefined,
       }
     }
     key="button"

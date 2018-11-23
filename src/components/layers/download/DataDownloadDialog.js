@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -21,13 +20,6 @@ import {
 import DataDownloadDialogContent from './DataDownloadDialogContent';
 import DataDownloadDialogActions from './DataDownloadDialogActions';
 
-const styles = {
-    paper: {
-        width: 640,
-        maxWidth: 640,
-    },
-};
-
 const formatOptionsFlat = [
     META_DATA_FORMAT_ID,
     META_DATA_FORMAT_CODE,
@@ -46,8 +38,6 @@ export class DataDownloadDialog extends Component {
         layer: PropTypes.object,
         startDownload: PropTypes.func.isRequired,
         closeDialog: PropTypes.func.isRequired,
-
-        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -78,8 +68,6 @@ export class DataDownloadDialog extends Component {
             error,
 
             closeDialog,
-
-            classes,
         } = this.props;
 
         if (!open || !layer) {
@@ -90,11 +78,7 @@ export class DataDownloadDialog extends Component {
             isEventLayer = layerType === 'event';
 
         return (
-            <Dialog
-                open={open}
-                onClose={closeDialog}
-                classes={{ paper: classes.paper }}
-            >
+            <Dialog open={open} onClose={closeDialog} maxWidth="md">
                 <DialogTitle disableTypography={true}>
                     {i18n.t('Download Layer Data')}
                 </DialogTitle>
@@ -148,4 +132,4 @@ export default connect(
         closeDialog: closeDataDownloadDialog,
         startDownload: startDataDownload,
     }
-)(withStyles(styles)(DataDownloadDialog));
+)(DataDownloadDialog);

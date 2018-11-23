@@ -20,7 +20,7 @@ const styles = {
     },
     label: {
         textTransform: 'none',
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: 400,
     },
     icon: {

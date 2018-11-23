@@ -24,6 +24,7 @@ const styles = theme => ({
         // TODO: make this a standalone component for re-use as a generic vertical divider
         height: '100%',
         borderRight: `1px solid ${theme.palette.divider}`,
+        marginRight: theme.spacing.unit,
     },
 });
 

@@ -51,7 +51,7 @@ export const DataDownloadDialogContent = ({
         <div className={classes.infoDiv}>
             <InfoIcon className={classes.icon} />
             {i18n.t(
-                'GeoJSON format is supported by most GIS software, including QGIS and ArcGIS Desktop.'
+                'GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop.'
             )}
         </div>
         {isEventLayer && (
