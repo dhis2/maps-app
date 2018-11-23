@@ -225,8 +225,6 @@ export class ThematicDialog extends Component {
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
 
-        console.log(labelFontColor);
-
         return (
             <div>
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
