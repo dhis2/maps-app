@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-11-08T16:28:15.164Z\n"
-"PO-Revision-Date: 2018-11-08T16:28:15.164Z\n"
+"POT-Creation-Date: 2018-11-22T09:44:58.970Z\n"
+"PO-Revision-Date: 2018-11-22T09:44:58.970Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -48,6 +48,9 @@ msgid "Event location"
 msgstr ""
 
 msgid "Coordinate field"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "Data item"

@@ -10,7 +10,8 @@ import ColorPicker from './ColorPicker';
 const styles = {
     sizeField: {
         width: 48,
-        marginRight: 5,
+        margin: '0 5px 0 0',
+        verticalAlign: 'middle',
     },
     button: {
         background: '#fafafa',

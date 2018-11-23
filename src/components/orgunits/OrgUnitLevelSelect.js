@@ -8,6 +8,7 @@ import { loadOrgUnitLevels } from '../../actions/orgUnits';
 
 const style = {
     marginTop: 0,
+    marginBottom: 24,
 };
 
 export class OrgUnitLevelSelect extends Component {

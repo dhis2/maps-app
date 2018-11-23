@@ -101,6 +101,7 @@ const LayerCard = ({
         layer: layerType,
     } = layer;
 
+    const canEdit = layerType !== 'external';
     const canToggleDataTable = dataTableLayerTypes.indexOf(layerType) >= 0;
     const canDownload = downloadableLayerTypes.indexOf(layerType) >= 0;
 
@@ -147,7 +148,7 @@ const LayerCard = ({
                     <LayerToolbar
                         opacity={opacity}
                         isVisible={isVisible}
-                        onEdit={() => editLayer(layer)}
+                        onEdit={canEdit ? () => editLayer(layer) : undefined}
                         toggleDataTable={
                             canToggleDataTable
                                 ? () => toggleDataTable(id)
