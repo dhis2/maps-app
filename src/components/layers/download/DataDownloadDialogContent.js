@@ -14,12 +14,14 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 4,
     },
     infoDiv: {
+        height: theme.spacing.unit * 2.5, // Ensure that we have enough buffer around the svg icon to prevent unnecessary scrollbars
+        display: 'flex',
+        alignItems: 'center',
         fontSize: '0.85em',
         color: theme.palette.text.secondary,
     },
     icon: {
         fontSize: '1.125em',
-        marginBottom: -3,
         marginRight: theme.spacing.unit,
     },
     error: {
