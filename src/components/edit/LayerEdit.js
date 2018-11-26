@@ -35,9 +35,6 @@ const layerName = {
 };
 
 const styles = {
-    paper: {
-        width: 600,
-    },
     title: {
         padding: '20px 24px 4px 24px',
         fontSize: 16,
@@ -107,7 +104,7 @@ class LayerEdit extends Component {
         );
 
         return (
-            <Dialog open={true} classes={{ paper: classes.paper }}>
+            <Dialog open={true} maxWidth="md">
                 <DialogTitle disableTypography={true} className={classes.title}>
                     {title}
                 </DialogTitle>

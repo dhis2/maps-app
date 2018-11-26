@@ -8,13 +8,9 @@ import DownloadDialog from './DownloadDialog';
 import { toggleDownloadDialog } from '../../actions/download';
 
 const styles = {
-    button: {
-        height: 38,
-        lineHeight: '22px', // To align with File button
-    },
     label: {
         textTransform: 'none',
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: 400,
     },
 };
@@ -34,7 +30,6 @@ export class DownloadButton extends Component {
                     key="button"
                     onClick={this.onClick}
                     classes={{
-                        root: classes.button,
                         label: classes.label,
                     }}
                 >
