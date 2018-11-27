@@ -7,6 +7,12 @@ import { dimConf } from '../../../constants/dimension';
 const ValueTypeSelect = props => {
     const { value, onChange } = props;
 
+    // If value type is data element operand, make it data element
+    const type =
+        value === dimConf.operand.objectName
+            ? dimConf.dataElement.objectName
+            : value;
+
     // TODO: Avoid creating on each render (needs to be created after i18next contains translations
     const items = [
         { id: dimConf.indicator.objectName, name: i18n.t('Indicator') },
@@ -27,7 +33,7 @@ const ValueTypeSelect = props => {
             {...props}
             label={i18n.t('Item type')}
             items={items}
-            value={value}
+            value={type}
             onChange={valueType => onChange(valueType.id)}
         />
     );

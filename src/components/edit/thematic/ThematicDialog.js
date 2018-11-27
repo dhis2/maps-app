@@ -259,40 +259,41 @@ export class ThematicDialog extends Component {
                                     errorText={indicatorError}
                                 />,
                             ]}
-                            {valueType === 'de' && [
-                                // Data element
-                                <DataElementGroupSelect
-                                    key="group"
-                                    dataElementGroup={dataElementGroup}
-                                    onChange={setDataElementGroup}
-                                    style={styles.select}
-                                />,
-                                dataElementGroup && (
-                                    <TotalsDetailsSelect
-                                        key="totals"
-                                        operand={operand}
-                                        onChange={setOperand}
-                                        style={styles.select}
-                                    />
-                                ),
-                                operand === true ? (
-                                    <DataElementOperandSelect
-                                        key="element"
+                            {valueType === 'de' ||
+                                (valueType === 'dc' && [
+                                    // Data element
+                                    <DataElementGroupSelect
+                                        key="group"
                                         dataElementGroup={dataElementGroup}
-                                        dataElement={dataItem}
-                                        onChange={setDataItem}
+                                        onChange={setDataElementGroup}
                                         style={styles.select}
-                                    />
-                                ) : (
-                                    <DataElementSelect
-                                        key="element"
-                                        dataElementGroup={dataElementGroup}
-                                        dataElement={dataItem}
-                                        onChange={setDataItem}
-                                        style={styles.select}
-                                    />
-                                ),
-                            ]}
+                                    />,
+                                    dataElementGroup && (
+                                        <TotalsDetailsSelect
+                                            key="totals"
+                                            operand={operand}
+                                            onChange={setOperand}
+                                            style={styles.select}
+                                        />
+                                    ),
+                                    operand === true || valueType === 'dc' ? (
+                                        <DataElementOperandSelect
+                                            key="element"
+                                            dataElementGroup={dataElementGroup}
+                                            dataElement={dataItem}
+                                            onChange={setDataItem}
+                                            style={styles.select}
+                                        />
+                                    ) : (
+                                        <DataElementSelect
+                                            key="element"
+                                            dataElementGroup={dataElementGroup}
+                                            dataElement={dataItem}
+                                            onChange={setDataItem}
+                                            style={styles.select}
+                                        />
+                                    ),
+                                ])}
                             {valueType === 'ds' && ( // Reporting rates
                                 <DataSetsSelect
                                     key="item"

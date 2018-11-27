@@ -44,11 +44,15 @@ export class DataElementOperandSelect extends Component {
             style,
         } = this.props;
 
-        if (!dataElementGroup) {
-            return null;
-        }
+        let items;
 
-        const items = dataElementOperands[dataElementGroup.id];
+        if (!dataElementOperands && !dataElementGroup && !dataElement) {
+            return null;
+        } else if (!dataElementGroup && dataElement) {
+            items = [dataElement];
+        } else {
+            items = dataElementOperands[dataElementGroup.id];
+        }
 
         return (
             <SelectField
