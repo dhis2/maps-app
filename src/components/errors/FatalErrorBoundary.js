@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
@@ -56,13 +57,13 @@ class FatalErrorBoundary extends Component {
                     <div className={classes.container}>
                         <InfoIcon className={classes.icon} />
                         <div className={classes.message}>
-                            Something went wrong
+                            {i18n.t('Something went wrong')}
                         </div>
                         <div
                             className={classes.link}
                             onClick={() => window.location.reload()}
                         >
-                            Refresh to try again
+                            {i18n.t('Refresh to try again')}
                         </div>
                     </div>
                 </div>
