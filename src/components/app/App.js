@@ -17,6 +17,7 @@ import AlertSnackbar from '../alerts/AlertSnackbar';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
+import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 
 const theme = createMuiTheme(mui3theme);
 
@@ -40,22 +41,24 @@ export class App extends Component {
     render() {
         return (
             <UI>
-                <HeaderBar appName={i18n.t('Maps')} />
-                <MuiThemeProvider theme={theme}>
-                    <MapProvider>
-                        <AppMenu />
-                        <InterpretationsPanel />
-                        <LayersPanel />
-                        <LayersToggle />
-                        <Map />
-                        <BottomPanel />
-                        <LayerEdit />
-                        <ContextMenu />
-                        <AlertSnackbar />
-                        <Message />
-                        <DataDownloadDialog />
-                    </MapProvider>
-                </MuiThemeProvider>
+                <FatalErrorBoundary>
+                    <HeaderBar appName={i18n.t('Maps')} />
+                    <MuiThemeProvider theme={theme}>
+                        <MapProvider>
+                            <AppMenu />
+                            <InterpretationsPanel />
+                            <LayersPanel />
+                            <LayersToggle />
+                            <Map />
+                            <BottomPanel />
+                            <LayerEdit />
+                            <ContextMenu />
+                            <AlertSnackbar />
+                            <Message />
+                            <DataDownloadDialog />
+                        </MapProvider>
+                    </MuiThemeProvider>
+                </FatalErrorBoundary>
             </UI>
         );
     }
