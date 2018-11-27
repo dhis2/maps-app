@@ -3,7 +3,7 @@ import { getInstance as getD2 } from 'd2';
 import { sortBy } from 'lodash/fp';
 import { pick } from 'lodash/fp';
 import { getLegendItems } from '../util/classify';
-import { defaultClasses, defaultColorScale } from '../util/colorscale';
+import { defaultClasses, defaultColorScale } from '../util/colors';
 import { CLASSIFICATION_EQUAL_INTERVALS } from '../constants/layers';
 
 export const loadLegendSet = async legendSet => {
@@ -60,11 +60,10 @@ export const getPredefinedLegendItems = legendSet => {
 
     return sortBy('startValue', legendSet.legends)
         .map(pickSome)
-        .map(
-            item =>
-                item.name === `${item.startValue} - ${item.endValue}`
-                    ? { ...item, name: '' } // Clear name if same as startValue - endValue
-                    : item
+        .map(item =>
+            item.name === `${item.startValue} - ${item.endValue}`
+                ? { ...item, name: '' } // Clear name if same as startValue - endValue
+                : item
         );
 };
 

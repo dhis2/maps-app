@@ -13,6 +13,7 @@ import {
     CLASSIFICATION_PREDEFINED,
 } from '../constants/layers';
 import { numberValueTypes } from '../constants/valueTypes';
+import { cssColor } from '../util/colors';
 
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved
@@ -30,7 +31,7 @@ export const styleByDataItem = async config => {
 
     config.legend.items.push({
         name: i18n.t('Not set'),
-        color: config.eventPointColor || EVENT_COLOR,
+        color: cssColor(config.eventPointColor) || EVENT_COLOR,
         radius: config.eventPointRadius || EVENT_RADIUS,
     });
 
