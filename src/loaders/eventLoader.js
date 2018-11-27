@@ -15,6 +15,7 @@ import {
 } from '../util/geojson';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { formatTime } from '../util/helpers';
+import { cssColor } from '../util/colors';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
@@ -75,7 +76,7 @@ const eventLoader = async layerConfig => {
                 config.legend.items = [
                     {
                         name: i18n.t('Event'),
-                        color: eventPointColor || EVENT_COLOR,
+                        color: cssColor(eventPointColor) || EVENT_COLOR,
                         radius: eventPointRadius || EVENT_RADIUS,
                     },
                 ];
