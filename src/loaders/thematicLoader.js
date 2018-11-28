@@ -20,10 +20,28 @@ import {
 import { createAlert } from '../util/alerts';
 import { formatTime } from '../util/helpers';
 
-//TODO: Refactor to share code with other loaders
 const thematicLoader = async config => {
+    let error;
+
+    const response = await loadData(config).catch(err => {
+        error = err;
+    });
+
+    if (!response) {
+        return {
+            ...config,
+            ...(error && error.message
+                ? {
+                      alerts: [createAlert(i18n.t('Error'), error.message)],
+                  }
+                : {}),
+            isLoaded: true,
+            isVisible: true,
+        };
+    }
+
+    const [features, data] = response;
     const { columns, radiusLow, radiusHigh, classes, colorScale } = config;
-    const [features, data] = await loadData(config);
     const period = getPeriodFromFilters(config.filters);
     const names = getApiResponseNames(data);
     const valueById = getValueById(data);
@@ -191,9 +209,11 @@ const loadData = async config => {
         .displayProperty(displayPropertyUpper)
         .getAll(geoFeaturesParams)
         .then(toGeoJson);
+    // .catch(console.log);
 
     // Data request
     const dataReq = d2.analytics.aggregate.get(analyticsRequest);
+    // .catch(console.log);
 
     // Return promise with both requests
     return Promise.all([orgUnitReq, dataReq]);
