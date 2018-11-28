@@ -144,7 +144,8 @@ class FatalErrorBoundary extends Component {
                         >
                             <div className={classes.errorIntro}>
                                 {i18n.t(
-                                    'An error occurred in the DHIS2 Maps application.'
+                                    'An error occurred in the DHIS2 {{AppName}} application.',
+                                    { AppName: 'Maps' }
                                 )}
                                 <br />
                                 {i18n.t(
