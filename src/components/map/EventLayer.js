@@ -185,19 +185,23 @@ class EventLayer extends Layer {
                 content += '<tr style="height:5px;"><th></th><td></td></tr>';
             }
 
-            content += `<tr><th>${i18n.t('Organisation unit')}</th><td>${
-                data.orgUnitName
-            }</td></tr>
-                            <tr><th>${i18n.t(
-                                'Event time'
-                            )}</th><td>${time}</td></tr>
-                            <tr><th>${this.eventCoordinateFieldName ||
-                                i18n.t('Event location')}</th><td>${
-                coord[0]
-            }, ${coord[1]}</td></tr> 
-                            </tbody></table>`;
+            content += `<tr>
+                <th>${i18n.t('Organisation unit')}</th>
+                <td>${data.orgUnitName}</td>
+              </tr>
+              <tr>
+                <th>${i18n.t('Event time')}</th>
+                <td>${time}</td>
+              </tr>
+              <tr>
+                <th>${this.eventCoordinateFieldName ||
+                    i18n.t('Event location')}</th>
+                <td>${coord[0]}, ${coord[1]}</td>
+              </tr> 
+              </tbody></table>`;
 
-            callback(content);
+            // Remove all line breaks as it's not working for map download
+            callback(content.replace(/(\r\n\t|\n|\r\t)/gm, ''));
         });
     }
 
