@@ -268,7 +268,7 @@ describe('geojson utils', () => {
             const out = createEventFeatures(response, {
                 outputIdScheme: 'ID',
             });
-            // expect(out.names).toEqual({});
+            expect(out.names).toEqual(defaultNames);
             expect(out.data).toEqual(
                 rows.map(row => ({
                     type: 'Feature',
