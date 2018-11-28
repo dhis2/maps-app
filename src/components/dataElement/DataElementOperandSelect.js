@@ -46,12 +46,12 @@ export class DataElementOperandSelect extends Component {
 
         let items;
 
-        if (!dataElementOperands && !dataElementGroup && !dataElement) {
-            return null;
-        } else if (!dataElementGroup && dataElement) {
+        if (dataElementOperands && dataElementGroup) {
+            items = dataElementOperands[dataElementGroup.id];
+        } else if (dataElement) {
             items = [dataElement];
         } else {
-            items = dataElementOperands[dataElementGroup.id];
+            return null;
         }
 
         return (
