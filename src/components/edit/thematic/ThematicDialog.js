@@ -217,9 +217,13 @@ export class ThematicDialog extends Component {
             indicatorError,
             dataElementGroupError,
             dataElementError,
-            orgUnitsError,
+            dataSetError,
+            programError,
+            eventDataItemError,
+            programIndicatorError,
             periodTypeError,
             periodError,
+            orgUnitsError,
         } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
@@ -304,6 +308,7 @@ export class ThematicDialog extends Component {
                                     dataSet={dataItem}
                                     onChange={setDataItem}
                                     style={styles.select}
+                                    errorText={dataSetError}
                                 />
                             )}
                             {valueType === 'di' && [
@@ -313,6 +318,7 @@ export class ThematicDialog extends Component {
                                     program={program}
                                     onChange={setProgram}
                                     style={styles.select}
+                                    errorText={programError}
                                 />,
                                 program && (
                                     <EventDataItemSelect
@@ -321,6 +327,7 @@ export class ThematicDialog extends Component {
                                         dataItem={dataItem}
                                         onChange={setDataItem}
                                         style={styles.select}
+                                        errorText={eventDataItemError}
                                     />
                                 ),
                             ]}
@@ -331,6 +338,7 @@ export class ThematicDialog extends Component {
                                     program={program}
                                     onChange={setProgram}
                                     style={styles.select}
+                                    errorText={programError}
                                 />,
                                 program && (
                                     <ProgramIndicatorSelect
@@ -339,6 +347,7 @@ export class ThematicDialog extends Component {
                                         programIndicator={dataItem}
                                         onChange={setDataItem}
                                         style={styles.select}
+                                        errorText={programIndicatorError}
                                     />
                                 ),
                             ]}
@@ -536,6 +545,7 @@ export class ThematicDialog extends Component {
             valueType,
             indicatorGroup,
             dataElementGroup,
+            program,
             periodType,
             columns,
             rows,
@@ -546,7 +556,8 @@ export class ThematicDialog extends Component {
         const dataItem = getDataItemFromColumns(columns);
         const period = getPeriodFromFilters(filters);
 
-        if (valueType === 'in') {
+        // Indicators
+        if (valueType === dimConf.indicator.objectName) {
             if (!indicatorGroup && !dataItem) {
                 return this.setErrorState(
                     'indicatorGroupError',
@@ -562,7 +573,11 @@ export class ThematicDialog extends Component {
             }
         }
 
-        if (valueType === 'de' || valueType === 'dc') {
+        // Data elements
+        if (
+            valueType === dimConf.dataElement.objectName ||
+            valueType === dimConf.operand.objectName
+        ) {
             if (!dataElementGroup && !dataItem) {
                 return this.setErrorState(
                     'dataElementGroupError',
@@ -575,6 +590,41 @@ export class ThematicDialog extends Component {
                     i18n.t('Data element is required'),
                     'data'
                 );
+            }
+        }
+
+        // Reporting rates
+        if (valueType === dimConf.dataSet.objectName && !dataItem) {
+            return this.setErrorState(
+                'dataSetError',
+                i18n.t('Data set is required'),
+                'data'
+            );
+        }
+
+        // Event data items / Program indicators
+        if (
+            valueType === dimConf.eventDataItem.objectName ||
+            valueType === dimConf.programIndicator.objectName
+        ) {
+            if (!program && !dataItem) {
+                return this.setErrorState(
+                    'programError',
+                    i18n.t('Program is required'),
+                    'data'
+                );
+            } else if (!dataItem) {
+                return valueType === dimConf.eventDataItem.objectName
+                    ? this.setErrorState(
+                          'eventDataItemError',
+                          i18n.t('Event data item is required'),
+                          'data'
+                      )
+                    : this.setErrorState(
+                          'programIndicatorError',
+                          i18n.t('Program indicator is required'),
+                          'data'
+                      );
             }
         }
 

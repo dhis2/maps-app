@@ -11,6 +11,7 @@ export class ProgramIndicatorSelect extends Component {
         programIndicators: PropTypes.object,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        errorText: PropTypes.string,
     };
 
     componentDidMount() {
@@ -57,6 +58,7 @@ export class ProgramIndicatorSelect extends Component {
             programIndicators,
             onChange,
             style,
+            errorText,
         } = this.props;
 
         if (!program) {
@@ -75,6 +77,7 @@ export class ProgramIndicatorSelect extends Component {
                     onChange(programIndicator, 'programIndicator')
                 }
                 style={style}
+                errorText={!programIndicator && errorText ? errorText : null}
             />
         );
     }
