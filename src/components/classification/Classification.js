@@ -13,7 +13,7 @@ import {
     defaultColorScale,
     getColorPalette,
     getColorScale,
-} from '../../util/colorscale';
+} from '../../util/colors';
 import { CLASSIFICATION_EQUAL_INTERVALS } from '../../constants/layers';
 
 const styles = {

@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import ColorScale from './ColorScale';
-import {
-    colorScales,
-    getColorScale,
-    getColorPalette,
-} from '../../util/colorscale';
+import { colorScales, getColorScale, getColorPalette } from '../../util/colors';
 
 const styles = {
     scale: {
@@ -41,8 +37,7 @@ class ColorScaleSelect extends Component {
     }
 
     // Show popover with allowed color scales
-    showColorScales = (event) => {
-
+    showColorScales = event => {
         this.setState({
             open: true,
             anchorEl: event.currentTarget,
@@ -56,7 +51,7 @@ class ColorScaleSelect extends Component {
     }
 
     // Called when a new color scale is selected in the popover
-    onColorScaleSelect = (scale) => {
+    onColorScaleSelect = scale => {
         const { palette, onChange } = this.props;
         const classes = palette.split(',').length;
 
@@ -91,7 +86,9 @@ class ColorScaleSelect extends Component {
                             scale={scale}
                             bins={bins}
                             style={styles.scaleItem}
-                            onClick={(event, scale) => this.onColorScaleSelect(scale)}
+                            onClick={(event, scale) =>
+                                this.onColorScaleSelect(scale)
+                            }
                             width={width || 260}
                         />
                     ))}

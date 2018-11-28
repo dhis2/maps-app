@@ -19,8 +19,8 @@ export const styles = theme => ({
         paddingBottom: theme.spacing.unit * 1.5,
     },
     unit: {
-        marginLeft: theme.spacing.unit * 4,
         lineHeight: '24px',
+        fontWeight: 'bold',
     },
     explanation: {
         paddingTop: theme.spacing.unit * 2,

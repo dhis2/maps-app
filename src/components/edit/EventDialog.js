@@ -50,6 +50,7 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 import { getStartEndDateError } from '../../util/helpers';
+import { cssColor } from '../../util/colors';
 
 // TODO: Don't use inline styles!
 const styles = {
@@ -337,7 +338,10 @@ export class EventDialog extends Component {
                                 <div style={styles.flexInnerColumnFlow}>
                                     <ColorPicker
                                         label={i18n.t('Color')}
-                                        color={eventPointColor || EVENT_COLOR}
+                                        color={
+                                            cssColor(eventPointColor) ||
+                                            EVENT_COLOR
+                                        }
                                         onChange={setEventPointColor}
                                         style={styles.flexInnerColumn}
                                     />
