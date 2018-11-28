@@ -35,6 +35,7 @@ const thematicLoader = async config => {
                       alerts: [createAlert(i18n.t('Error'), error.message)],
                   }
                 : {}),
+            isLoaded: true,
             isVisible: true,
         };
     }
