@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-11-23T17:53:55.903Z\n"
-"PO-Revision-Date: 2018-11-23T17:53:55.903Z\n"
+"POT-Creation-Date: 2018-11-28T17:45:14.013Z\n"
+"PO-Revision-Date: 2018-11-28T17:45:14.013Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -264,6 +264,24 @@ msgid "Program indicators"
 msgstr ""
 
 msgid "Item type"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Refresh to try again"
+msgstr ""
+
+msgid "Hide technical details"
+msgstr ""
+
+msgid "Show technical details"
+msgstr ""
+
+msgid "An error occurred in the DHIS2 {{AppName}} application."
+msgstr ""
+
+msgid "The following information may be requested by technical support."
 msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
