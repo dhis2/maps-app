@@ -36,18 +36,54 @@ const styles = {
         fontSize: '18px',
         textDecoration: 'underline',
         cursor: 'pointer',
+        marginBottom: 24,
+    },
+    drawerToggle: {
+        fontSize: '12px',
+        color: 'rgba(0,0,0,0.7)',
+        textDecoration: 'underline',
+        cursor: 'pointer',
+        marginBottom: 12,
+    },
+    drawerVisible: {
+        padding: 8,
+        display: 'block',
+        height: 100,
+        maxWidth: 500,
+        overflowY: 'auto',
+        fontSize: '12px',
+        color: 'red',
+        border: `1px solid rgba(0,0,0,0.7)`,
+        textAlign: 'left',
+    },
+    drawerHidden: {
+        display: 'none',
     },
 };
 
 class FatalErrorBoundary extends Component {
     constructor(props) {
         super(props);
-        this.state = { hasError: false };
+        this.state = {
+            hasError: false,
+            techInfoDrawerOpen: false,
+            techInfoText: '',
+        };
     }
 
     componentDidCatch(error, info) {
-        this.setState({ hasError: true });
+        this.setState({
+            hasError: true,
+            techInfoDrawerOpen: false,
+            techInfoText: `${error.stack}\n---${info.componentStack}`,
+        });
     }
+
+    toggleTechInfoDrawer = () => {
+        this.setState({
+            techInfoDrawerOpen: !this.state.techInfoDrawerOpen,
+        });
+    };
 
     render() {
         const { classes, children } = this.props;
@@ -64,6 +100,32 @@ class FatalErrorBoundary extends Component {
                             onClick={() => window.location.reload()}
                         >
                             {i18n.t('Refresh to try again')}
+                        </div>
+                        <div
+                            className={classes.drawerToggle}
+                            onClick={this.toggleTechInfoDrawer}
+                        >
+                            {this.state.techInfoDrawerOpen
+                                ? i18n.t('Hide technical details')
+                                : i18n.t('Show technical details')}
+                        </div>
+                        <div
+                            className={
+                                this.state.techInfoDrawerOpen
+                                    ? classes.drawerVisible
+                                    : classes.drawerHidden
+                            }
+                        >
+                            {this.state.techInfoText
+                                .split('\n')
+                                .reduce(
+                                    (out, line, i) => [
+                                        ...out,
+                                        line,
+                                        <br key={i} />,
+                                    ],
+                                    []
+                                )}
                         </div>
                     </div>
                 </div>
