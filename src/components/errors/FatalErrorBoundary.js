@@ -4,6 +4,8 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
+const bgColor = '#F4F6F8',
+    secondaryTextColor = '#494949';
 const styles = {
     mask: {
         position: 'absolute',
@@ -12,7 +14,7 @@ const styles = {
         right: 0,
         bottom: 0,
 
-        backgroundColor: '#F4F6F8',
+        backgroundColor: bgColor,
 
         display: 'flex',
         alignItems: 'center',
@@ -40,7 +42,7 @@ const styles = {
     },
     drawerToggle: {
         fontSize: '12px',
-        color: 'rgba(0,0,0,0.7)',
+        color: secondaryTextColor,
         textDecoration: 'underline',
         cursor: 'pointer',
         marginBottom: 12,
@@ -53,7 +55,7 @@ const styles = {
         overflowY: 'auto',
         fontSize: '12px',
         color: 'red',
-        border: `1px solid rgba(0,0,0,0.7)`,
+        border: `1px solid ${secondaryTextColor}`,
         textAlign: 'left',
     },
     drawerHidden: {
