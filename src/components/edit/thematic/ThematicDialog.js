@@ -247,7 +247,8 @@ export class ThematicDialog extends Component {
                                 style={styles.select}
                                 onChange={setValueType}
                             />
-                            {(!valueType || valueType === 'in') && [
+                            {(!valueType ||
+                                valueType === dimConf.indicator.objectName) && [
                                 // Indicator (default)
                                 <IndicatorGroupSelect
                                     key="group"
@@ -265,7 +266,8 @@ export class ThematicDialog extends Component {
                                     errorText={indicatorError}
                                 />,
                             ]}
-                            {(valueType === 'de' || valueType === 'dc') && [
+                            {(valueType === dimConf.dataElement.objectName ||
+                                valueType === dimConf.operand.objectName) && [
                                 // Data element
                                 <DataElementGroupSelect
                                     key="group"
@@ -282,7 +284,8 @@ export class ThematicDialog extends Component {
                                         style={styles.select}
                                     />
                                 ),
-                                operand === true || valueType === 'dc' ? (
+                                operand === true ||
+                                valueType === dimConf.operand.objectName ? (
                                     <DataElementOperandSelect
                                         key="element"
                                         dataElementGroup={dataElementGroup}
@@ -302,7 +305,7 @@ export class ThematicDialog extends Component {
                                     />
                                 ),
                             ]}
-                            {valueType === 'ds' && ( // Reporting rates
+                            {valueType === dimConf.dataSet.objectName && ( // Reporting rates
                                 <DataSetsSelect
                                     key="item"
                                     dataSet={dataItem}
@@ -311,7 +314,7 @@ export class ThematicDialog extends Component {
                                     errorText={dataSetError}
                                 />
                             )}
-                            {valueType === 'di' && [
+                            {valueType === dimConf.eventDataItem.objectName && [
                                 // Event data items
                                 <ProgramSelect
                                     key="program"
@@ -331,7 +334,8 @@ export class ThematicDialog extends Component {
                                     />
                                 ),
                             ]}
-                            {valueType === 'pi' && [
+                            {valueType ===
+                                dimConf.programIndicator.objectName && [
                                 // Program indicator
                                 <ProgramSelect
                                     key="program"
