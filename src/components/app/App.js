@@ -17,6 +17,7 @@ import AlertSnackbar from '../alerts/AlertSnackbar';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
+import './App.css';
 
 const theme = createMuiTheme(mui3theme);
 
