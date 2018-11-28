@@ -203,7 +203,7 @@ const getFilterOptionNames = async (filters, headers) => {
         optionSets.map(id =>
             d2.models.optionSets
                 .get(id, {
-                    fields: 'options[id,code,displayName~rename(name)]',
+                    fields: 'options[code,displayName~rename(name)]',
                 })
                 .then(model => model.options)
                 .then(options =>
