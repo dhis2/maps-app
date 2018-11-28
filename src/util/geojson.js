@@ -86,20 +86,6 @@ export const buildEventCoordinateGetter = (headers, eventCoordinateField) => {
 
 export const createEventFeatures = (response, config = {}) => {
     const names = {
-        ...(config.outputIdScheme !== 'ID'
-            ? response.headers.reduce(
-                  (names, header) => ({
-                      ...names,
-                      [header.name]: header.column,
-                  }),
-                  {}
-              )
-            : null),
-        ...config.columnNames,
-    }; // TODO: Pass this through the the request to support ID/NAME/CODE output natively.  Server bugfix needed.
-
-    /*
-    const names = {
         ...response.headers.reduce(
             (names, header) => ({
                 ...names,
@@ -107,8 +93,8 @@ export const createEventFeatures = (response, config = {}) => {
             }),
             {}
         ),
+        ...config.columnNames,
     };
-    */
 
     const idColName = config.idCol || 'psi';
     const idCol = findIndex(response.headers, h => h.name === idColName);
@@ -120,7 +106,7 @@ export const createEventFeatures = (response, config = {}) => {
         .map(row =>
             createEventFeature(
                 response.headers,
-                names,
+                config.outputIdScheme !== 'ID' ? names : {},
                 row,
                 row[idCol],
                 getCoordinates

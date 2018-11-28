@@ -130,8 +130,6 @@ export const styleByNumeric = async config => {
 
     // Add style data value and color to each feature
     config.data = config.data.map(feature => {
-        console.log(feature.properties, styleDataItem.id);
-
         const value = Number(feature.properties[styleDataItem.id]);
         const legendItem = getLegendItem(value);
 
