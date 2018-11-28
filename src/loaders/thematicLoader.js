@@ -35,7 +35,6 @@ const thematicLoader = async config => {
                       alerts: [createAlert(i18n.t('Error'), error.message)],
                   }
                 : {}),
-            isLoaded: true,
             isVisible: true,
         };
     }
@@ -209,11 +208,9 @@ const loadData = async config => {
         .displayProperty(displayPropertyUpper)
         .getAll(geoFeaturesParams)
         .then(toGeoJson);
-    // .catch(console.log);
 
     // Data request
     const dataReq = d2.analytics.aggregate.get(analyticsRequest);
-    // .catch(console.log);
 
     // Return promise with both requests
     return Promise.all([orgUnitReq, dataReq]);
