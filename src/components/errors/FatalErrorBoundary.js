@@ -6,6 +6,12 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 const bgColor = '#F4F6F8',
     secondaryTextColor = '#494949';
+
+const replaceNewlinesWithBreaks = text =>
+    text
+        .split('\n')
+        .reduce((out, line, i) => [...out, line, <br key={i} />], []);
+
 const styles = {
     mask: {
         position: 'absolute',
@@ -14,9 +20,16 @@ const styles = {
         right: 0,
         bottom: 0,
 
+        overflow: 'auto',
+        overflowY: 'auto',
+
         backgroundColor: bgColor,
 
         display: 'flex',
+
+        minWidth: 640,
+        minHeight: 480,
+
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -50,16 +63,28 @@ const styles = {
     drawerVisible: {
         padding: 8,
         display: 'block',
-        height: 100,
-        maxWidth: 500,
+        height: 150,
+        width: 500,
+        overflow: 'auto',
         overflowY: 'auto',
-        fontSize: '12px',
-        color: 'red',
         border: `1px solid ${secondaryTextColor}`,
         textAlign: 'left',
     },
     drawerHidden: {
         display: 'none',
+    },
+    errorIntro: {
+        fontSize: '12px',
+        lineHeight: 1.2,
+        color: secondaryTextColor,
+        marginBottom: 8,
+        fontFamily: 'Menlo, Courier, monospace !important',
+    },
+    errorDetails: {
+        fontSize: '12px',
+        lineHeight: 1.2,
+        color: 'red',
+        fontFamily: 'Menlo, Courier, monospace !important',
     },
 };
 
@@ -67,29 +92,28 @@ class FatalErrorBoundary extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hasError: false,
-            techInfoDrawerOpen: false,
-            techInfoText: '',
+            error: null,
+            errorInfo: null,
+            drawerOpen: false,
         };
     }
 
     componentDidCatch(error, info) {
         this.setState({
-            hasError: true,
-            techInfoDrawerOpen: false,
-            techInfoText: `${error.stack}\n---${info.componentStack}`,
+            error,
+            errorInfo: info,
         });
     }
 
     toggleTechInfoDrawer = () => {
         this.setState({
-            techInfoDrawerOpen: !this.state.techInfoDrawerOpen,
+            drawerOpen: !this.state.drawerOpen,
         });
     };
 
     render() {
         const { classes, children } = this.props;
-        if (this.state.hasError) {
+        if (this.state.error) {
             return (
                 <div className={classes.mask}>
                     <div className={classes.container}>
@@ -107,27 +131,35 @@ class FatalErrorBoundary extends Component {
                             className={classes.drawerToggle}
                             onClick={this.toggleTechInfoDrawer}
                         >
-                            {this.state.techInfoDrawerOpen
+                            {this.state.drawerOpen
                                 ? i18n.t('Hide technical details')
                                 : i18n.t('Show technical details')}
                         </div>
                         <div
                             className={
-                                this.state.techInfoDrawerOpen
+                                this.state.drawerOpen
                                     ? classes.drawerVisible
                                     : classes.drawerHidden
                             }
                         >
-                            {this.state.techInfoText
-                                .split('\n')
-                                .reduce(
-                                    (out, line, i) => [
-                                        ...out,
-                                        line,
-                                        <br key={i} />,
-                                    ],
-                                    []
+                            <div className={classes.errorIntro}>
+                                {i18n.t(
+                                    'An error occurred in the DHIS2 Maps application.'
                                 )}
+                                <br />
+                                {i18n.t(
+                                    'The following information may be requested by technical support.'
+                                )}
+                            </div>
+                            <div className={classes.errorDetails}>
+                                {[
+                                    replaceNewlinesWithBreaks(
+                                        this.state.error.stack +
+                                            '\n---' +
+                                            this.state.errorInfo.componentStack
+                                    ),
+                                ]}
+                            </div>
                         </div>
                     </div>
                 </div>
