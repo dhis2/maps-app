@@ -12,6 +12,7 @@ export class DataElementGroupSelect extends Component {
         loadDataElementGroups: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        errorText: PropTypes.string,
     };
 
     componentDidMount() {
@@ -28,6 +29,7 @@ export class DataElementGroupSelect extends Component {
             dataElementGroups,
             onChange,
             style,
+            errorText,
         } = this.props;
 
         return (
@@ -38,6 +40,7 @@ export class DataElementGroupSelect extends Component {
                 value={dataElementGroup ? dataElementGroup.id : null}
                 onChange={onChange}
                 style={style}
+                errorText={!dataElementGroup && errorText ? errorText : null}
             />
         );
     }

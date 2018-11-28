@@ -215,6 +215,8 @@ export class ThematicDialog extends Component {
             tab,
             indicatorGroupError,
             indicatorError,
+            dataElementGroupError,
+            dataElementError,
             orgUnitsError,
             periodTypeError,
             periodError,
@@ -266,6 +268,7 @@ export class ThematicDialog extends Component {
                                     dataElementGroup={dataElementGroup}
                                     onChange={setDataElementGroup}
                                     style={styles.select}
+                                    errorText={dataElementGroupError}
                                 />,
                                 dataElementGroup && (
                                     <TotalsDetailsSelect
@@ -282,6 +285,7 @@ export class ThematicDialog extends Component {
                                         dataElement={dataItem}
                                         onChange={setDataItem}
                                         style={styles.select}
+                                        errorText={dataElementError}
                                     />
                                 ) : (
                                     <DataElementSelect
@@ -290,6 +294,7 @@ export class ThematicDialog extends Component {
                                         dataElement={dataItem}
                                         onChange={setDataItem}
                                         style={styles.select}
+                                        errorText={dataElementError}
                                     />
                                 ),
                             ]}
@@ -530,6 +535,7 @@ export class ThematicDialog extends Component {
         const {
             valueType,
             indicatorGroup,
+            dataElementGroup,
             periodType,
             columns,
             rows,
@@ -541,7 +547,6 @@ export class ThematicDialog extends Component {
         const period = getPeriodFromFilters(filters);
 
         if (valueType === 'in') {
-            // TODO: Use constant
             if (!indicatorGroup && !dataItem) {
                 return this.setErrorState(
                     'indicatorGroupError',
@@ -552,6 +557,22 @@ export class ThematicDialog extends Component {
                 return this.setErrorState(
                     'indicatorError',
                     i18n.t('Indicator is required'),
+                    'data'
+                );
+            }
+        }
+
+        if (valueType === 'de' || valueType === 'dc') {
+            if (!dataElementGroup && !dataItem) {
+                return this.setErrorState(
+                    'dataElementGroupError',
+                    i18n.t('Data element group is required'),
+                    'data'
+                );
+            } else if (!dataItem) {
+                return this.setErrorState(
+                    'dataElementError',
+                    i18n.t('Data element is required'),
                     'data'
                 );
             }
