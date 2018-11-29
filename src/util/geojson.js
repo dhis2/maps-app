@@ -93,7 +93,7 @@ export const createEventFeatures = (response, config = {}) => {
             }),
             {}
         ),
-        ...config.columnNames,
+        ...config.columnNames, // TODO: Check if columnNames is still needed
     };
 
     const idColName = config.idCol || 'psi';
