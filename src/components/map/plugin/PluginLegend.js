@@ -1,7 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import i18n from '@dhis2/d2-i18n';
 import Legend from '../../layers/legend/Legend';
 
 const styles = theme => ({
@@ -16,8 +15,8 @@ const styles = theme => ({
         display: 'block',
         fontWeight: 'normal',
     },
-    nodata: {
-        fontStyle: 'italic',
+    alert: {
+        paddingBottom: 8,
     },
 });
 
@@ -56,12 +55,15 @@ class PluginLegend extends PureComponent {
     // Contents is rendered to a hidden div
     render() {
         const { layers, classes } = this.props;
-        const legendLayers = layers.filter(layer => layer.legend);
+        const legendLayers = layers.filter(
+            layer => layer.legend || layer.alerts
+        );
 
+        // Alerts are added to legend to be less intrusive
         return (
             <div ref={el => (this.container = el)} style={{ display: 'none' }}>
                 {legendLayers.map(
-                    ({ id, layer, legend, serverCluster, data }) => {
+                    ({ id, layer, legend, serverCluster, data, alerts }) => {
                         const hasData =
                             (Array.isArray(data) && data.length > 0) ||
                             serverCluster ||
@@ -69,19 +71,27 @@ class PluginLegend extends PureComponent {
 
                         return (
                             <div key={id}>
-                                <h2 className={classes.title}>
-                                    {legend.title}{' '}
-                                    <span className={classes.period}>
-                                        {legend.period}
-                                    </span>
-                                </h2>
-                                {hasData ? (
-                                    <Legend {...legend} />
-                                ) : (
-                                    <div className={classes.nodata}>
-                                        {i18n.t('No data found')}
-                                    </div>
+                                {legend && (
+                                    <Fragment>
+                                        <h2 className={classes.title}>
+                                            {legend.title}{' '}
+                                            <span className={classes.period}>
+                                                {legend.period}
+                                            </span>
+                                        </h2>
+                                        {hasData && <Legend {...legend} />}
+                                    </Fragment>
                                 )}
+                                {alerts &&
+                                    alerts.map(alert => (
+                                        <div
+                                            key={alert.id}
+                                            className={classes.alert}
+                                        >
+                                            <strong>{alert.title}</strong>:{' '}
+                                            {alert.description}
+                                        </div>
+                                    ))}
                             </div>
                         );
                     }

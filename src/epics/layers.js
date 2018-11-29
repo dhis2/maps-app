@@ -23,9 +23,8 @@ export const loadLayerEpic = action$ =>
     action$.ofType(types.LAYER_LOAD).concatMap(action =>
         fetchLayer(action.payload)
             .then(increaseEditCounter)
-            .then(
-                config =>
-                    isNewLayer(config) ? addLayer(config) : updateLayer(config)
+            .then(config =>
+                isNewLayer(config) ? addLayer(config) : updateLayer(config)
             )
             .catch(errorActionCreator(types.LAYER_LOAD_ERROR))
     );

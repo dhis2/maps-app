@@ -29,14 +29,6 @@ const styles = {
         width: '100%',
         height: '100%',
     },
-    alerts: {
-        padding: 20,
-        fontSize: 12,
-    },
-    alert: {
-        lineHeight: '16px',
-        paddingBottom: 8,
-    },
 };
 
 // TODO: Reuse code from Map.js
@@ -166,8 +158,8 @@ class PluginMap extends Component {
             const newLayer = await fetchLayer(newConfig);
 
             this.setState({
-                mapViews: mapViews.map(
-                    layer => (layer.id === layerId ? newLayer : layer)
+                mapViews: mapViews.map(layer =>
+                    layer.id === layerId ? newLayer : layer
                 ),
                 position: null,
                 feature: null,
@@ -179,11 +171,7 @@ class PluginMap extends Component {
         const { basemap = { id: 'osmLight' } } = this.props;
         const { mapViews, position, feature } = this.state;
 
-        // Disabled alerts as one layer without data will result in no map
-        // No data warning added to legend instead
-        const alerts = []; // getMapAlerts(this.props); // ADDED
-
-        return !alerts.length ? (
+        return (
             <div ref={node => (this.node = node)} style={styles.map}>
                 {mapViews
                     .filter(layer => layer.isLoaded)
@@ -213,14 +201,6 @@ class PluginMap extends Component {
                     onDrillDown={() => this.onDrill('down')}
                     onDrillUp={() => this.onDrill('up')}
                 />
-            </div>
-        ) : (
-            <div style={styles.alerts}>
-                {alerts.map(alert => (
-                    <div key={alert.id} style={styles.alert}>
-                        <strong>{alert.title}</strong>: {alert.description}
-                    </div>
-                ))}
             </div>
         );
     }
