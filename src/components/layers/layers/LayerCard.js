@@ -99,6 +99,7 @@ const LayerCard = ({
         opacity,
         isVisible,
         layer: layerType,
+        isLoaded,
     } = layer;
 
     const canEdit = layerType !== 'external';
@@ -113,8 +114,10 @@ const LayerCard = ({
                     title: classes.title,
                     subheader: classes.subheader,
                 }}
-                title={name}
-                subheader={legend && legend.period ? legend.period : null}
+                title={isLoaded ? name : i18n.t('Loading layer') + '...'}
+                subheader={
+                    isLoaded && legend && legend.period ? legend.period : null
+                }
                 action={[
                     <SortableHandle key="handle" />,
                     <Tooltip key="expand" title={i18n.t('Collapse')}>
