@@ -1,6 +1,6 @@
 import React from 'react';
 import { FatalErrorBoundary } from '../FatalErrorBoundary';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 const Something = () => {
     // Placeholder
