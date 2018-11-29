@@ -48,10 +48,10 @@ describe('FatalErrorBoundary', () => {
         const errorInfo = {
             componentStack: 'This is the component stack',
         };
-        
+
         wrapper.setState({ error, errorInfo });
         expect(wrapper.contains('Something went wrong')).toBe(true);
 
         expect(wrapper).toMatchSnapshot();
-    })
+    });
 });
