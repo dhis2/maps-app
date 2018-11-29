@@ -228,6 +228,6 @@ const getFilterOptionNames = async (filters, headers) => {
 // Empty filter sometimes returned for saved maps
 // Dimension without filter and empty items array returns false
 const isValidDimension = ({ dimension, filter, items }) =>
-    Boolean(dimension && (filter || (!items || items.length)));
+    Boolean(dimension && (filter || !items || items.length));
 
 export default eventLoader;
