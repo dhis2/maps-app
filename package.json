@@ -22,7 +22,7 @@
         "prestart": "yarn localize && d2-manifest package.json manifest.webapp",
         "start": "webpack-dev-server",
         "coverage": "yarn test --coverage",
-        "test": "jest --env=jsdom",
+        "test": "jest",
         "test:watch": "yarn test --watch",
         "prebuild": "yarn test",
         "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build && cp -r i18n_old build",

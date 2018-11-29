@@ -1,166 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FatalErrorBoundary Should render the error mask when an error is thrown 1`] = `
-<WithStyles(FatalErrorBoundary)>
-  <FatalErrorBoundary
-    classes={
-      Object {
-        "container": "FatalErrorBoundary-container-2",
-        "drawerHidden": "FatalErrorBoundary-drawerHidden-8",
-        "drawerToggle": "FatalErrorBoundary-drawerToggle-6",
-        "drawerVisible": "FatalErrorBoundary-drawerVisible-7",
-        "errorDetails": "FatalErrorBoundary-errorDetails-10",
-        "errorIntro": "FatalErrorBoundary-errorIntro-9",
-        "icon": "FatalErrorBoundary-icon-3",
-        "link": "FatalErrorBoundary-link-5",
-        "mask": "FatalErrorBoundary-mask-1",
-        "message": "FatalErrorBoundary-message-4",
-      }
-    }
-  >
+exports[`FatalErrorBoundary Should match the snapshot tree when error is manually invoked 1`] = `
+<div>
+  <div>
+    <pure(InfoOutlinedIcon) />
+    <div>
+      Something went wrong
+    </div>
     <div
-      className="FatalErrorBoundary-mask-1"
+      onClick={[Function]}
     >
-      <div
-        className="FatalErrorBoundary-container-2"
-      >
-        <pure(InfoOutlinedIcon)
-          className="FatalErrorBoundary-icon-3"
-        >
-          <InfoOutlinedIcon
-            className="FatalErrorBoundary-icon-3"
-          >
-            <WithStyles(SvgIcon)
-              className="FatalErrorBoundary-icon-3"
-            >
-              <SvgIcon
-                className="FatalErrorBoundary-icon-3"
-                classes={
-                  Object {
-                    "colorAction": "MuiSvgIcon-colorAction-14",
-                    "colorDisabled": "MuiSvgIcon-colorDisabled-16",
-                    "colorError": "MuiSvgIcon-colorError-15",
-                    "colorPrimary": "MuiSvgIcon-colorPrimary-12",
-                    "colorSecondary": "MuiSvgIcon-colorSecondary-13",
-                    "fontSizeInherit": "MuiSvgIcon-fontSizeInherit-17",
-                    "fontSizeLarge": "MuiSvgIcon-fontSizeLarge-19",
-                    "fontSizeSmall": "MuiSvgIcon-fontSizeSmall-18",
-                    "root": "MuiSvgIcon-root-11",
-                  }
-                }
-                color="inherit"
-                component="svg"
-                fontSize="default"
-                viewBox="0 0 24 24"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-11 FatalErrorBoundary-icon-3"
-                  focusable="false"
-                  role="presentation"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M0 0h24v24H0V0z"
-                    fill="none"
-                  />
-                  <path
-                    d="M11 7h2v2h-2zM11 11h2v6h-2z"
-                  />
-                  <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-                  />
-                </svg>
-              </SvgIcon>
-            </WithStyles(SvgIcon)>
-          </InfoOutlinedIcon>
-        </pure(InfoOutlinedIcon)>
-        <div
-          className="FatalErrorBoundary-message-4"
-        >
-          Something went wrong
-        </div>
-        <div
-          className="FatalErrorBoundary-link-5"
-          onClick={[Function]}
-        >
-          Refresh to try again
-        </div>
-        <div
-          className="FatalErrorBoundary-drawerToggle-6"
-          onClick={[Function]}
-        >
-          Show technical details
-        </div>
-        <div
-          className="FatalErrorBoundary-drawerHidden-8"
-        >
-          <div
-            className="FatalErrorBoundary-errorIntro-9"
-          >
-            An error occurred in the DHIS2 Maps application.
-            <br />
-            The following information may be requested by technical support.
-          </div>
-          <div
-            className="FatalErrorBoundary-errorDetails-10"
-          >
-            Error: This is a test of the emergency alert system.  This is only a test.
-            <br
-              key="0"
-            />
-                at Object.&lt;anonymous&gt; (/Users/austin/dev/dhis2/apps/maps/src/components/errors/__tests__/FatalErrorBoundary.spec.js:34:47)
-            <br
-              key="1"
-            />
-                at Object.asyncFn (/Users/austin/dev/dhis2/apps/maps/node_modules/jest-jasmine2/build/jasmine_async.js:82:37)
-            <br
-              key="2"
-            />
-                at resolve (/Users/austin/dev/dhis2/apps/maps/node_modules/jest-jasmine2/build/queue_runner.js:52:12)
-            <br
-              key="3"
-            />
-                at new Promise (&lt;anonymous&gt;)
-            <br
-              key="4"
-            />
-                at mapper (/Users/austin/dev/dhis2/apps/maps/node_modules/jest-jasmine2/build/queue_runner.js:39:19)
-            <br
-              key="5"
-            />
-                at promise.then (/Users/austin/dev/dhis2/apps/maps/node_modules/jest-jasmine2/build/queue_runner.js:73:82)
-            <br
-              key="6"
-            />
-                at process._tickCallback (internal/process/next_tick.js:68:7)
-            <br
-              key="7"
-            />
-            ---
-            <br
-              key="8"
-            />
-                in Something (created by FatalErrorBoundary)
-            <br
-              key="9"
-            />
-                in FatalErrorBoundary (created by WithStyles(FatalErrorBoundary))
-            <br
-              key="10"
-            />
-                in WithStyles(FatalErrorBoundary) (created by WrapperComponent)
-            <br
-              key="11"
-            />
-                in WrapperComponent
-            <br
-              key="12"
-            />
-          </div>
-        </div>
+      Refresh to try again
+    </div>
+    <div
+      onClick={[Function]}
+    >
+      Show technical details
+    </div>
+    <div>
+      <div>
+        An error occurred in the DHIS2 Maps application.
+        <br />
+        The following information may be requested by technical support.
+      </div>
+      <div>
+        This is the stack
+        <br
+          key="0"
+        />
+        ---This is the component stack
+        <br
+          key="1"
+        />
       </div>
     </div>
-  </FatalErrorBoundary>
-</WithStyles(FatalErrorBoundary)>
+  </div>
+</div>
 `;

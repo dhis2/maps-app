@@ -1,6 +1,6 @@
 import React from 'react';
-import FatalErrorBoundary from '../FatalErrorBoundary';
-import { mount } from 'enzyme';
+import { FatalErrorBoundary } from '../FatalErrorBoundary';
+import { shallow, mount } from 'enzyme';
 
 const Something = () => {
     // Placeholder
@@ -9,8 +9,8 @@ const Something = () => {
 
 describe('FatalErrorBoundary', () => {
     it('Should render the normal tree when no error occurs', () => {
-        const wrapper = mount(
-            <FatalErrorBoundary>
+        const wrapper = shallow(
+            <FatalErrorBoundary classes={{}}>
                 <div>
                     <span id="testme">Hello there!</span>
                 </div>
@@ -21,8 +21,8 @@ describe('FatalErrorBoundary', () => {
     });
 
     it('Should render the error mask when an error is thrown', () => {
-        const wrapper = mount(
-            <FatalErrorBoundary>
+        const wrapper = shallow(
+            <FatalErrorBoundary classes={{}}>
                 <Something />
             </FatalErrorBoundary>
         );
@@ -33,6 +33,25 @@ describe('FatalErrorBoundary', () => {
             'This is a test of the emergency alert system.  This is only a test.';
         wrapper.find(Something).simulateError(new Error(testErrorText));
         expect(wrapper.contains('Something went wrong')).toBe(true);
-        expect(wrapper).toMatchSnapshot(); // NOTE: This snapshot will change if the .simulateError location changes in this file, since the snapshot includes the callstack!
     });
+
+    it('Should match the snapshot tree when error is manually invoked', () => {
+        const wrapper = shallow(
+            <FatalErrorBoundary classes={{}}>
+                <Something />
+            </FatalErrorBoundary>
+        );
+
+        const error = {
+            stack: 'This is the stack',
+        };
+        const errorInfo = {
+            componentStack: 'This is the component stack',
+        };
+        
+        wrapper.setState({ error, errorInfo });
+        expect(wrapper.contains('Something went wrong')).toBe(true);
+
+        expect(wrapper).toMatchSnapshot();
+    })
 });
