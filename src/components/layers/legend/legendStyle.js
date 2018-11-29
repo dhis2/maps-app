@@ -1,6 +1,6 @@
 export default {
-    paddingBottom: 16,
-    margin: 0,
+    margin: '0 8px 16px 0',
+    lineHeight: '18px',
     '& table': {
         borderCollapse: 'collapse',
         borderSpacing: 0,

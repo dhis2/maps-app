@@ -172,6 +172,7 @@ export const loadData = async (request, config = {}) => {
     const response = await d2.analytics.events.getQuery(request);
 
     const { data, names } = createEventFeatures(response, config);
+
     return {
         data,
         names,
@@ -225,7 +226,8 @@ const getFilterOptionNames = async (filters, headers) => {
 };
 
 // Empty filter sometimes returned for saved maps
-const isValidDimension = ({ dimension, items }) =>
-    Boolean(dimension && (!items || items.length));
+// Dimension without filter and empty items array returns false
+const isValidDimension = ({ dimension, filter, items }) =>
+    Boolean(dimension && (filter || !items || items.length));
 
 export default eventLoader;
