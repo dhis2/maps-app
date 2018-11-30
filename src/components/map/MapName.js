@@ -15,8 +15,6 @@ const styles = theme => ({
         boxShadow: theme.shadows[1],
         borderRadius: theme.shape.borderRadius,
         fontSize: theme.typography.fontSize,
-        fontWeight: 'normal',
-        boxSizing: 'border-box',
     },
 });
 
