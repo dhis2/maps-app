@@ -6,6 +6,8 @@ import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
 import TextField from './TextField';
 import ColorPicker from './ColorPicker';
+import { cssColor } from '../../util/colors';
+import { LABEL_FONT_SIZE, LABEL_FONT_COLOR } from '../../constants/layers';
 
 const styles = {
     sizeField: {
@@ -15,11 +17,6 @@ const styles = {
     },
     button: {
         background: '#fafafa',
-        marginRight: 5,
-        borderRadius: 0,
-    },
-    buttonPressed: {
-        background: '#555',
         marginRight: 5,
         borderRadius: 0,
     },
@@ -46,8 +43,11 @@ const FontStyle = ({
                 id="size"
                 type="number"
                 label="Size"
-                value={size !== undefined ? parseInt(size, 10) : 11}
-                onChange={onSizeChange}
+                value={parseInt(
+                    size !== undefined ? size : LABEL_FONT_SIZE,
+                    10
+                )}
+                onChange={value => onSizeChange(value + 'px')}
                 className={classes.sizeField}
             />
         )}
@@ -56,12 +56,10 @@ const FontStyle = ({
                 onClick={() =>
                     onWeightChange(weight === 'bold' ? 'normal' : 'bold')
                 }
-                className={
-                    weight === 'bold' ? classes.buttonPressed : classes.button
-                }
+                className={classes.button}
                 disableTouchRipple={true}
             >
-                <BoldIcon nativeColor={weight === 'bold' ? '#fff' : '#555'} />
+                <BoldIcon nativeColor={weight === 'bold' ? '#333' : '#aaa'} />
             </IconButton>
         )}
         {onStyleChange && (
@@ -69,21 +67,17 @@ const FontStyle = ({
                 onClick={() =>
                     onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic')
                 }
-                className={
-                    fontStyle === 'italic'
-                        ? classes.buttonPressed
-                        : classes.button
-                }
+                className={classes.button}
                 disableTouchRipple={true}
             >
                 <ItalicIcon
-                    nativeColor={fontStyle === 'italic' ? '#fff' : '#555'}
+                    nativeColor={fontStyle === 'italic' ? '#333' : '#aaa'}
                 />
             </IconButton>
         )}
         {onColorChange && (
             <ColorPicker
-                color={color || '#333333'}
+                color={cssColor(color) || LABEL_FONT_COLOR}
                 width={48}
                 height={48}
                 onChange={onColorChange}

@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
+import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../constants/layers';
 
 export default class BoundaryLayer extends Layer {
     createLayer() {
@@ -32,10 +33,13 @@ export default class BoundaryLayer extends Layer {
         };
 
         if (labels) {
+            const fontSize = labelFontSize || LABEL_FONT_SIZE;
+
             config.label = '{name}';
             config.labelStyle = {
-                fontSize: labelFontSize,
-                fontStyle: labelFontStyle,
+                fontSize,
+                fontStyle: labelFontStyle || LABEL_FONT_STYLE,
+                lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
             };
         }
 
