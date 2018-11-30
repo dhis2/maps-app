@@ -13,6 +13,7 @@ export class DataElementOperandSelect extends Component {
         loadDataElementOperands: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        errorText: PropTypes.string,
     };
 
     componentDidMount() {
@@ -42,13 +43,18 @@ export class DataElementOperandSelect extends Component {
             dataElementGroup,
             onChange,
             style,
+            errorText,
         } = this.props;
 
-        if (!dataElementGroup) {
+        let items;
+
+        if (dataElementOperands && dataElementGroup) {
+            items = dataElementOperands[dataElementGroup.id];
+        } else if (dataElement) {
+            items = [dataElement];
+        } else {
             return null;
         }
-
-        const items = dataElementOperands[dataElementGroup.id];
 
         return (
             <SelectField
@@ -58,6 +64,7 @@ export class DataElementOperandSelect extends Component {
                 value={dataElement ? dataElement.id : null}
                 onChange={dataElement => onChange(dataElement, 'operand')}
                 style={style}
+                errorText={!dataElement && errorText ? errorText : null}
             />
         );
     }

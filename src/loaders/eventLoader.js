@@ -15,6 +15,7 @@ import {
 } from '../util/geojson';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { formatTime } from '../util/helpers';
+import { cssColor } from '../util/colors';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
@@ -75,7 +76,7 @@ const eventLoader = async layerConfig => {
                 config.legend.items = [
                     {
                         name: i18n.t('Event'),
-                        color: eventPointColor || EVENT_COLOR,
+                        color: cssColor(eventPointColor) || EVENT_COLOR,
                         radius: eventPointRadius || EVENT_RADIUS,
                     },
                 ];
@@ -171,6 +172,7 @@ export const loadData = async (request, config = {}) => {
     const response = await d2.analytics.events.getQuery(request);
 
     const { data, names } = createEventFeatures(response, config);
+
     return {
         data,
         names,
@@ -224,7 +226,8 @@ const getFilterOptionNames = async (filters, headers) => {
 };
 
 // Empty filter sometimes returned for saved maps
-const isValidDimension = ({ dimension, items }) =>
-    Boolean(dimension && (!items || items.length));
+// Dimension without filter and empty items array returns false
+const isValidDimension = ({ dimension, filter, items }) =>
+    Boolean(dimension && (filter || !items || items.length));
 
 export default eventLoader;

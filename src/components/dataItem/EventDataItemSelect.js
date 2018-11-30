@@ -31,6 +31,7 @@ export class EventDataItemSelect extends Component {
         loadProgramDataElements: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        errorText: PropTypes.string,
     };
 
     componentDidMount() {
@@ -68,6 +69,7 @@ export class EventDataItemSelect extends Component {
             dataElements,
             onChange,
             style,
+            errorText,
         } = this.props;
 
         const dataItems = combineDataItems(
@@ -84,6 +86,7 @@ export class EventDataItemSelect extends Component {
                 value={dataItem ? dataItem.id : null}
                 onChange={dataItem => onChange(dataItem, 'eventDataItem')}
                 style={style}
+                errorText={!dataItem && errorText ? errorText : null}
             />
         );
     }

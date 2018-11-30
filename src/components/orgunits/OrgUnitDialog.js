@@ -123,7 +123,12 @@ export class OrgUnitDialog extends Component {
         const groups = organisationUnitGroups.toArray();
 
         return (
-            <Dialog title={name} open={true} onClose={this.onClose}>
+            <Dialog
+                maxWidth="md"
+                title={name}
+                open={true}
+                onClose={this.onClose}
+            >
                 <DialogTitle>{name}</DialogTitle>
                 <DialogContent>
                     <div className={classes.metadata}>

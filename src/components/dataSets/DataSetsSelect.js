@@ -9,8 +9,10 @@ export class DataElementGroupSelect extends Component {
     static propTypes = {
         dataSet: PropTypes.object,
         dataSets: PropTypes.array,
+        loadDataSets: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+        errorText: PropTypes.string,
     };
 
     componentDidMount() {
@@ -22,7 +24,7 @@ export class DataElementGroupSelect extends Component {
     }
 
     render() {
-        const { dataSet, dataSets, onChange, style } = this.props;
+        const { dataSet, dataSets, onChange, style, errorText } = this.props;
         const dataSetId = dataSet ? dataSet.id.split('.')[0] : null; // Remove ".REPORTING_RATE"
 
         return (
@@ -33,6 +35,7 @@ export class DataElementGroupSelect extends Component {
                 value={dataSetId}
                 onChange={dataSet => onChange(dataSet, 'reportingRate')} // Reporting rates
                 style={style}
+                errorText={!dataSet && errorText ? errorText : null}
             />
         );
     }

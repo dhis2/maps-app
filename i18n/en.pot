@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-11-22T09:44:58.970Z\n"
-"PO-Revision-Date: 2018-11-22T09:44:58.970Z\n"
+"POT-Creation-Date: 2018-11-28T17:45:14.013Z\n"
+"PO-Revision-Date: 2018-11-28T17:45:14.013Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -266,6 +266,24 @@ msgstr ""
 msgid "Item type"
 msgstr ""
 
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Refresh to try again"
+msgstr ""
+
+msgid "Hide technical details"
+msgstr ""
+
+msgid "Show technical details"
+msgstr ""
+
+msgid "An error occurred in the DHIS2 {{AppName}} application."
+msgstr ""
+
+msgid "The following information may be requested by technical support."
+msgstr ""
+
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
@@ -324,7 +342,7 @@ msgid "Downloading GeoJSON data for \"{{layerName}}\""
 msgstr ""
 
 msgid ""
-"GeoJSON format is supported by most GIS software, including QGIS and ArcGIS "
+"GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
 

@@ -86,17 +86,15 @@ export const buildEventCoordinateGetter = (headers, eventCoordinateField) => {
 
 export const createEventFeatures = (response, config = {}) => {
     const names = {
-        ...(config.outputIdScheme !== 'ID'
-            ? response.headers.reduce(
-                  (names, header) => ({
-                      ...names,
-                      [header.name]: header.column,
-                  }),
-                  {}
-              )
-            : null),
-        ...config.columnNames,
-    }; // TODO: Pass this through the the request to support ID/NAME/CODE output natively.  Server bugfix needed.
+        ...response.headers.reduce(
+            (names, header) => ({
+                ...names,
+                [header.name]: header.column,
+            }),
+            {}
+        ),
+        ...config.columnNames, // TODO: Check if columnNames is still needed
+    };
 
     const idColName = config.idCol || 'psi';
     const idCol = findIndex(response.headers, h => h.name === idColName);
@@ -108,7 +106,7 @@ export const createEventFeatures = (response, config = {}) => {
         .map(row =>
             createEventFeature(
                 response.headers,
-                names,
+                config.outputIdScheme !== 'ID' ? names : {},
                 row,
                 row[idCol],
                 getCoordinates
@@ -119,9 +117,10 @@ export const createEventFeatures = (response, config = {}) => {
     return { data, names };
 };
 
-// Include column for data element used for styling
+// Include column for data element used for styling (if not already used in filter)
 export const addStyleDataItem = (dataItems, styleDataItem) =>
-    styleDataItem
+    styleDataItem &&
+    !dataItems.find(item => item.dimension === styleDataItem.id)
         ? [
               ...dataItems,
               {

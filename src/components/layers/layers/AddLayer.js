@@ -19,7 +19,7 @@ const styles = {
     },
     label: {
         textTransform: 'none',
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: 'normal',
         justifyContent: 'initial',
     },

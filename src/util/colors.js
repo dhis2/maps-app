@@ -1,3 +1,4 @@
+import { isString } from 'lodash/fp';
 import colorbrewer from '../constants/colorbrewer';
 
 // Allowed color scales from ColorBrewer for EE (needs to have at least 9 classes)
@@ -54,3 +55,11 @@ export const defaultColorScale = getColorPalette(
     defaultColorScaleName,
     defaultClasses
 );
+
+// Correct colors not adhering to the css standard (add missing #)
+export const cssColor = color => {
+    if (!isString(color)) {
+        return color;
+    }
+    return (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(color) ? '#' : '') + color;
+};

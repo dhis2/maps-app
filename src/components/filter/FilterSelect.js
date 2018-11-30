@@ -31,7 +31,7 @@ const styles = {
 
 export class FilterSelect extends Component {
     static propTypes = {
-        valueType: PropTypes.string.isRequired,
+        valueType: PropTypes.string,
         filter: PropTypes.string,
         optionSet: PropTypes.object,
         optionSets: PropTypes.object,
