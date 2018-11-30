@@ -109,14 +109,13 @@ export class ThematicDialog extends Component {
             valueType,
             columns,
             setValueType,
-            filters,
             startDate,
             endDate,
             setStartDate,
             setEndDate,
         } = this.props;
+
         const dataItem = getDataItemFromColumns(columns);
-        const period = getPeriodFromFilters(filters);
 
         // Set value type if favorite is loaded
         if (!valueType) {
@@ -230,8 +229,6 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
-
-        console.log(labelFontColor);
 
         return (
             <div>
@@ -472,7 +469,7 @@ export class ThematicDialog extends Component {
                                                 ? radiusLow
                                                 : 5
                                         }
-                                        onChange={(evt, radius) =>
+                                        onChange={radius =>
                                             setRadiusLow(radius)
                                         }
                                         style={{
@@ -489,7 +486,7 @@ export class ThematicDialog extends Component {
                                                 ? radiusHigh
                                                 : 15
                                         }
-                                        onChange={(evt, radius) =>
+                                        onChange={radius =>
                                             setRadiusHigh(radius)
                                         }
                                         style={{
@@ -507,7 +504,7 @@ export class ThematicDialog extends Component {
                                             ...styles.flexInnerColumn,
                                             marginLeft: -6,
                                             maxWidth: 150,
-                                            paddingTop: 24,
+                                            paddingTop: 16,
                                             height: 42,
                                         }}
                                     />

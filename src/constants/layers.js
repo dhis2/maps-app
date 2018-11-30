@@ -24,7 +24,6 @@ export const BUFFER_MAX_FILL_OPACITY = 0.3;
 export const BUFFER_MAX_LINE_OPACITY = 0.7;
 
 /* CLASSIFICATION */
-
 export const CLASSIFICATION_PREDEFINED = 1;
 export const CLASSIFICATION_EQUAL_INTERVALS = 2;
 export const CLASSIFICATION_EQUAL_COUNTS = 3;
@@ -41,3 +40,9 @@ export const classificationTypes = [
 ];
 
 export const DATE_FORMAT_SPECIFIER = '%Y-%m-%d';
+
+/* LABEL STYLES */
+export const LABEL_FONT_SIZE = '11px';
+export const LABEL_FONT_STYLE = 'normal';
+export const LABEL_FONT_WEIGHT = 'normal';
+export const LABEL_FONT_COLOR = '#333333';

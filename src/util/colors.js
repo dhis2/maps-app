@@ -60,6 +60,9 @@ export const defaultColorScale = getColorPalette(
 export const cssColor = color => {
     if (!isString(color)) {
         return color;
+    } else if (color === '##normal') {
+        // ##normal is used in old map favorites
+        return null; // Will apply default color
     }
     return (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(color) ? '#' : '') + color;
 };

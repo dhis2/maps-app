@@ -1,5 +1,12 @@
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
+import { cssColor } from '../../util/colors';
+import {
+    LABEL_FONT_SIZE,
+    LABEL_FONT_STYLE,
+    LABEL_FONT_WEIGHT,
+    LABEL_FONT_COLOR,
+} from '../../constants/layers';
 
 class ThematicLayer extends Layer {
     createLayer() {
@@ -10,6 +17,8 @@ class ThematicLayer extends Layer {
             labels,
             labelFontSize,
             labelFontStyle,
+            labelFontWeight,
+            labelFontColor,
             editCounter,
         } = this.props;
 
@@ -23,10 +32,15 @@ class ThematicLayer extends Layer {
         };
 
         if (labels) {
+            const fontSize = labelFontSize || LABEL_FONT_SIZE;
+
             config.label = '{name}';
             config.labelStyle = {
-                fontSize: labelFontSize,
-                fontStyle: labelFontStyle,
+                fontSize,
+                fontStyle: labelFontStyle || LABEL_FONT_STYLE,
+                fontWeight: labelFontWeight || LABEL_FONT_WEIGHT,
+                color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
+                lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
             };
             config.labelPane = id + '-labels';
         }

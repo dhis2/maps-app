@@ -2,6 +2,13 @@ import i18n from '@dhis2/d2-i18n';
 import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
+import { cssColor } from '../../util/colors';
+import {
+    LABEL_FONT_SIZE,
+    LABEL_FONT_STYLE,
+    LABEL_FONT_WEIGHT,
+    LABEL_FONT_COLOR,
+} from '../../constants/layers';
 
 class FacilityLayer extends Layer {
     createLayer() {
@@ -32,12 +39,15 @@ class FacilityLayer extends Layer {
 
         // Labels and label style
         if (labels) {
+            const fontSize = labelFontSize || LABEL_FONT_SIZE;
+
             config.label = '{name}';
             config.labelStyle = {
-                color: labelFontColor,
-                fontSize: labelFontSize,
-                fontStyle: labelFontStyle,
-                fontWeight: labelFontWeight,
+                fontSize,
+                fontStyle: labelFontStyle || LABEL_FONT_STYLE,
+                fontWeight: labelFontWeight || LABEL_FONT_WEIGHT,
+                lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
+                color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
                 paddingTop: '10px',
             };
         }
