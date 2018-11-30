@@ -87,6 +87,8 @@ const eventLoader = async layerConfig => {
             }
         }
 
+        // TODO: Also show filters in legend when using server clusters
+        // Currently not done as names are not loaded
         config.legend.filters =
             dataFilters &&
             getFiltersAsText(dataFilters, {
