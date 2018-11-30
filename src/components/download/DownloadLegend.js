@@ -22,7 +22,7 @@ const styles = theme => ({
     },
     title: {
         fontSize: 15,
-        fontWeight: 'normal',
+        fontWeight: 500,
         margin: 0,
         paddingBottom: 10,
     },
