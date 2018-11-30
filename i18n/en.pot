@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-11-28T17:45:14.013Z\n"
-"PO-Revision-Date: 2018-11-28T17:45:14.013Z\n"
+"POT-Creation-Date: 2018-11-30T19:27:42.919Z\n"
+"PO-Revision-Date: 2018-11-30T19:27:42.919Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -245,6 +245,21 @@ msgstr ""
 msgid "Indicator is required"
 msgstr ""
 
+msgid "Data element group is required"
+msgstr ""
+
+msgid "Data element is required"
+msgstr ""
+
+msgid "Data set is required"
+msgstr ""
+
+msgid "Event data item is required"
+msgstr ""
+
+msgid "Program indicator is required"
+msgstr ""
+
 msgid "Period type is required"
 msgstr ""
 
@@ -266,6 +281,9 @@ msgstr ""
 msgid "Item type"
 msgstr ""
 
+msgid "An error occurred in the DHIS2 Maps application."
+msgstr ""
+
 msgid "Something went wrong"
 msgstr ""
 
@@ -276,9 +294,6 @@ msgid "Hide technical details"
 msgstr ""
 
 msgid "Show technical details"
-msgstr ""
-
-msgid "An error occurred in the DHIS2 {{AppName}} application."
 msgstr ""
 
 msgid "The following information may be requested by technical support."
@@ -355,6 +370,9 @@ msgstr ""
 msgid "Use human-readable keys"
 msgstr ""
 
+msgid "Loading layer"
+msgstr ""
+
 msgid "deleted"
 msgstr ""
 
@@ -428,9 +446,6 @@ msgid "Groups"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
-
-msgid "No data found"
 msgstr ""
 
 msgid "Options"
@@ -514,6 +529,9 @@ msgid "Event"
 msgstr ""
 
 msgid "Facilities"
+msgstr ""
+
+msgid "No data found"
 msgstr ""
 
 msgid "Tracked entity"

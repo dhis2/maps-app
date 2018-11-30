@@ -28,6 +28,7 @@ const styles = theme => ({
     },
     period: {
         display: 'block',
+        fontWeight: 'normal',
     },
     topleft: {
         top: theme.spacing.unit,
