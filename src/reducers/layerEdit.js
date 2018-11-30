@@ -124,7 +124,7 @@ const layerEdit = (state = null, action) => {
             // DEFAULT aggregation type is not stored
             if (action.aggregationType === 'DEFAULT') {
                 const newState = { ...state };
-                delete state.aggregationType;
+                delete newState.aggregationType;
                 return newState;
             }
 
