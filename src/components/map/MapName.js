@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     name: {
         position: 'absolute',
+        fontFamily: 'Arial, Helvetica, sans-serif!important',
         top: theme.spacing.unit,
         left: '50%',
         transform: 'translateX(-50%)',
@@ -14,6 +15,8 @@ const styles = theme => ({
         boxShadow: theme.shadows[1],
         borderRadius: theme.shape.borderRadius,
         fontSize: theme.typography.fontSize,
+        fontWeight: 'normal',
+        boxSizing: 'border-box',
     },
 });
 
