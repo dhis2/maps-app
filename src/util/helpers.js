@@ -136,3 +136,6 @@ export const getStartEndDateError = (startDate, endDate) => {
     }
     return null;
 };
+
+// Remove line breaks from text (not displayed corrently in map downloads)
+export const removeLineBreaks = text => text.replace(/(\r\n\t|\n|\r\t)/gm, '');

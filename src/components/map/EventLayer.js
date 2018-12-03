@@ -4,7 +4,7 @@ import { apiFetch } from '../../util/api';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
-import { getDisplayPropertyUrl } from '../../util/helpers';
+import { getDisplayPropertyUrl, removeLineBreaks } from '../../util/helpers';
 
 class EventLayer extends Layer {
     createLayer() {
@@ -201,7 +201,7 @@ class EventLayer extends Layer {
               </tbody></table>`;
 
             // Remove all line breaks as it's not working for map download
-            callback(content.replace(/(\r\n\t|\n|\r\t)/gm, ''));
+            callback(removeLineBreaks(content));
         });
     }
 
