@@ -50,6 +50,10 @@ const styles = {
         },
     },
     mapDownload: {
+        // Roboto font is not loaded by dom-to-image => switch to Arial
+        '& div': {
+            fontFamily: 'Arial,sans-serif!important',
+        },
         '& .leaflet-control-zoom, & .leaflet-control-geocoder, & .leaflet-control-measure, & .leaflet-control-fit-bounds': {
             display: 'none!important',
         },

@@ -20,6 +20,9 @@ const styles = theme => ({
             color: theme.palette.text.primary,
         },
     },
+    legend: {
+        marginBottom: 16,
+    },
     title: {
         fontSize: 15,
         fontWeight: 500,
@@ -66,7 +69,7 @@ export const DownloadLegend = ({ position, layers, showName, classes }) => {
     return (
         <div className={className}>
             {legends.map((legend, index) => (
-                <div key={index}>
+                <div key={index} className={classes.legend}>
                     <h2 className={classes.title}>
                         {legend.title}
                         <span className={classes.period}>{legend.period}</span>
