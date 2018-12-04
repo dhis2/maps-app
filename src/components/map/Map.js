@@ -164,6 +164,7 @@ class Map extends Component {
     render() {
         const {
             name,
+            interpretationDate,
             basemap,
             basemaps,
             mapViews,
@@ -203,7 +204,12 @@ class Map extends Component {
                     ref={node => (this.node = node)}
                     className={classes.mapContainer}
                 >
-                    {name && showName && <MapName name={name} />}
+                    {name && showName && (
+                        <MapName
+                            name={name}
+                            interpretationDate={interpretationDate}
+                        />
+                    )}
                     {layers
                         .filter(layer => layer.isLoaded)
                         .map((config, index) => {

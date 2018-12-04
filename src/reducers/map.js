@@ -314,7 +314,7 @@ const map = (state = defaultState, action) => {
         case types.MAP_RELATIVE_PERIOD_DATE_SET:
             return {
                 ...state,
-                relativePeriodDate: action.payload,
+                interpretationDate: action.payload,
             };
 
         default:
