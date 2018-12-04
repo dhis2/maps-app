@@ -1,6 +1,7 @@
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
+import { removeLineBreaks } from '../../util/helpers';
 import {
     LABEL_FONT_SIZE,
     LABEL_FONT_STYLE,
@@ -72,7 +73,7 @@ class ThematicLayer extends Layer {
 
         L.popup()
             .setLatLng(evt.latlng)
-            .setContent(content)
+            .setContent(removeLineBreaks(content))
             .openOn(map);
     }
 

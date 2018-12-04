@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     name: {
         position: 'absolute',
-        fontFamily: 'Arial, Helvetica, sans-serif!important', // TODO: Fix wrapping problems with Roboto font (download)
         top: theme.spacing.unit,
         left: '50%',
         transform: 'translateX(-50%)',
