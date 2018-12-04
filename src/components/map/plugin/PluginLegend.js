@@ -55,9 +55,9 @@ class PluginLegend extends PureComponent {
     // Contents is rendered to a hidden div
     render() {
         const { layers, classes } = this.props;
-        const legendLayers = layers.filter(
-            layer => layer.legend || layer.alerts
-        );
+        const legendLayers = layers
+            .filter(layer => layer.legend || layer.alerts)
+            .reverse(); // Show top layer first
 
         // Alerts are added to legend to be less intrusive
         return (
