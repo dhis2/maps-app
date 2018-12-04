@@ -138,4 +138,5 @@ export const getStartEndDateError = (startDate, endDate) => {
 };
 
 // Remove line breaks from text (not displayed corrently in map downloads)
-export const removeLineBreaks = text => text.replace(/(\r\n\t|\n|\r\t)/gm, '');
+// https://stackoverflow.com/questions/10805125/how-to-remove-all-line-breaks-from-a-string/10805292#10805292
+export const removeLineBreaks = text => text.replace(/\r?\n|\r/g, '');
