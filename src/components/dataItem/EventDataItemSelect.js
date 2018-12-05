@@ -77,7 +77,13 @@ export class EventDataItemSelect extends Component {
             dataElements[program.id],
             null,
             excludeValueTypes
-        );
+        ).map(item => ({
+            ...item,
+            id:
+                item.id.indexOf('.') === -1
+                    ? `${program.id}.${item.id}`
+                    : item.id, // Add program id to tracked entity attributes
+        }));
 
         return (
             <SelectField
