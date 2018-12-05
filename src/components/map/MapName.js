@@ -23,7 +23,7 @@ const styles = theme => ({
             backgroundColor: 'rgba(255,255,255,0.9)',
             boxShadow: theme.shadows[1],
             borderRadius: theme.shape.borderRadius,
-            margin: 8,
+            margin: theme.spacing.unit,
         },
     },
     name: {
