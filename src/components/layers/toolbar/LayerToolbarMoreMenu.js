@@ -17,14 +17,17 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/SaveAlt';
 
-const styles = {
+const styles = theme => ({
     button: {
         float: 'left',
         padding: 4,
         width: 32,
         height: 32,
     },
-};
+    divider: {
+        margin: `${theme.spacing.unit}px 0`,
+    },
+});
 
 export class LayerToolbarMoreMenu extends Component {
     state = {
@@ -125,7 +128,9 @@ export class LayerToolbarMoreMenu extends Component {
                             <ListItemText primary={i18n.t('Download data')} />
                         </MenuItem>
                     )}
-                    {showDivider && <Divider light />}
+                    {showDivider && (
+                        <Divider className={classes.divider} light />
+                    )}
                     {onEdit && (
                         <MenuItem onClick={this.handleEditBtnClick}>
                             <ListItemIcon>
