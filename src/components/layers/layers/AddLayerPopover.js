@@ -28,6 +28,7 @@ const AddLayerPopover = ({
         }}
         onClose={onClose}
         open={layersDialogOpen}
+        data-test="addlayerpopover"
     >
         <LayerList layers={layers} onLayerSelect={onLayerSelect} />
     </Popover>

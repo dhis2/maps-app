@@ -206,7 +206,7 @@ export class EventDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <div>
+            <div data-test="eventdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="data" label={i18n.t('data')} />
                     <Tab value="period" label={i18n.t('period')} />
@@ -214,14 +214,18 @@ export class EventDialog extends Component {
                     <Tab value="orgunits" label={i18n.t('Org units')} />
                     <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
-                <div style={styles.tabContent}>
+                <div style={styles.tabContent} data-test="eventdialog-content">
                     {tab === 'data' && (
-                        <div style={styles.flexRowFlow}>
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="eventdialog-datatab"
+                        >
                             <ProgramSelect
                                 program={program}
                                 onChange={setProgram}
                                 style={styles.select}
                                 errorText={programError}
+                                data-test="eventdialog-programselect"
                             />
                             <ProgramStageSelect
                                 program={program}
@@ -240,7 +244,10 @@ export class EventDialog extends Component {
                         </div>
                     )}
                     {tab === 'period' && (
-                        <div style={styles.flexRowFlow}>
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="eventdialog-periodtab"
+                        >
                             <RelativePeriodSelect
                                 period={period}
                                 startEndDates={true}
@@ -271,7 +278,10 @@ export class EventDialog extends Component {
                         </div>
                     )}
                     {tab === 'filter' && (
-                        <div style={styles.flexRowFlow}>
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="eventdialog-filtertab"
+                        >
                             <FilterGroup
                                 program={program}
                                 programStage={programStage}
@@ -282,7 +292,10 @@ export class EventDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div style={styles.flexColumnFlow}>
+                        <div
+                            style={styles.flexColumnFlow}
+                            data-test="eventdialog-orgunittab"
+                        >
                             <div
                                 style={{
                                     ...styles.flexColumn,
@@ -313,7 +326,10 @@ export class EventDialog extends Component {
                         </div>
                     )}
                     {tab === 'style' && (
-                        <div style={styles.flexColumnFlow}>
+                        <div
+                            style={styles.flexColumnFlow}
+                            data-test="eventdialog-styletab"
+                        >
                             <div style={styles.flexColumn}>
                                 <div style={styles.flexInnerColumnFlow}>
                                     <ImageSelect

@@ -231,16 +231,35 @@ export class ThematicDialog extends Component {
         const dataItem = getDataItemFromColumns(columns);
 
         return (
-            <div>
+            <div data-test="thematicdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="data" label={i18n.t('data')} />
-                    <Tab value="period" label={i18n.t('period')} />
-                    <Tab value="orgunits" label={i18n.t('Org units')} />
-                    <Tab value="style" label={i18n.t('Style')} />
+                    <Tab
+                        value="data"
+                        label={i18n.t('data')}
+                        data-test="thematicdialog-tab"
+                    />
+                    <Tab
+                        value="period"
+                        label={i18n.t('period')}
+                        data-test="thematicdialog-tab"
+                    />
+                    <Tab
+                        value="orgunits"
+                        label={i18n.t('Org units')}
+                        data-test="thematicdialog-tab"
+                    />
+                    <Tab
+                        value="style"
+                        label={i18n.t('Style')}
+                        data-test="thematicdialog-tab"
+                    />
                 </Tabs>
                 <div style={styles.tabContent}>
                     {tab === 'data' && (
-                        <div style={styles.flexRowFlow}>
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="thematicdialog-datatab"
+                        >
                             <ValueTypeSelect
                                 value={valueType}
                                 style={styles.select}
@@ -358,7 +377,10 @@ export class ThematicDialog extends Component {
                         </div>
                     )}
                     {tab === 'period' && (
-                        <div style={styles.flexRowFlow}>
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="thematicdialog-periodtab"
+                        >
                             <PeriodTypeSelect
                                 value={periodType}
                                 onChange={type => setPeriodType(type.id)}
@@ -409,7 +431,10 @@ export class ThematicDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div style={styles.flexColumnFlow}>
+                        <div
+                            style={styles.flexColumnFlow}
+                            data-test="thematicdialog-orgunitstab"
+                        >
                             <div
                                 style={{
                                     ...styles.flexColumn,
@@ -453,7 +478,10 @@ export class ThematicDialog extends Component {
                         </div>
                     )}
                     {tab === 'style' && (
-                        <div style={styles.flexColumnFlow}>
+                        <div
+                            style={styles.flexColumnFlow}
+                            data-test="thematicdialog-styletab"
+                        >
                             <div style={{ ...styles.flexColumn, marginTop: 0 }}>
                                 <NumericLegendStyle
                                     dataItem={dataItem}

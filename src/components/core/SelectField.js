@@ -39,6 +39,7 @@ export const SelectField = props => {
         onChange,
         style,
         value,
+        ...extraProps,
     } = props;
 
     if (loading) {
@@ -73,6 +74,7 @@ export const SelectField = props => {
                             .join(', ')),
             }}
             style={style}
+            {...extraProps}
         >
             {items.map(({ id, name }) => (
                 <MenuItem
@@ -80,6 +82,7 @@ export const SelectField = props => {
                     value={id}
                     dense
                     className={multiple && classes.menuItem}
+                    data-test="selectfield-menuitem"
                 >
                     {multiple && (
                         <Checkbox

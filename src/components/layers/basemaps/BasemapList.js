@@ -12,7 +12,7 @@ const styles = {
 };
 
 const BasemapList = ({ classes, selectedID, basemaps, selectBasemap }) => (
-    <div className={classes.container}>
+    <div className={classes.container} data-test="basemaplist">
         {basemaps.map((basemap, index) => (
             <Basemap
                 key={`basemap-${index}`}

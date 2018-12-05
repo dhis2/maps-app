@@ -68,6 +68,7 @@ export class OrgUnitLevelSelect extends Component {
                 multiple={true}
                 onChange={onChange}
                 style={style}
+                data-test="orgunitlevelselect"
             />
         );
     }

@@ -60,11 +60,13 @@ const Basemap = ({ classes, id, img, name, isSelected, onClick }) => {
             className={classes.container}
             title={name}
             onClick={() => onClick(id)}
+            data-test="basemaplistitem"
         >
             <div
                 className={`${classes.imageContainer} ${
                     isSelected ? classes.selected : ''
                 }`}
+                data-test="basemaplistitem-img"
             >
                 {img ? (
                     <img src={img} className={classes.image} />
@@ -76,6 +78,7 @@ const Basemap = ({ classes, id, img, name, isSelected, onClick }) => {
                 className={`${classes.name} ${
                     isSelected ? classes.nameSelected : ''
                 }`}
+                data-test="basemaplistitem-name"
             >
                 {name}
             </div>

@@ -46,14 +46,19 @@ const styles = theme => ({
 const Layer = ({ classes, layer, onClick }) => {
     const { img, type, name } = layer;
 
+    const label = name || type;
     return (
-        <div className={classes.container} onClick={() => onClick(layer)}>
+        <div
+            className={classes.container}
+            onClick={() => onClick(layer)}
+            data-test={`addlayeritem-${label}`}
+        >
             {img ? (
                 <img src={img} className={classes.image} />
             ) : (
                 <div className={classes.noImage}>External layer</div>
             )}
-            <div className={classes.name}>{name || type}</div>
+            <div className={classes.name}>{label}</div>
         </div>
     );
 };

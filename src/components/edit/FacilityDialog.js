@@ -140,7 +140,7 @@ class FacilityDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <div>
+            <div data-test="facilitydialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="group" label={i18n.t('Group set')} />
                     <Tab
@@ -151,7 +151,10 @@ class FacilityDialog extends Component {
                 </Tabs>
                 <div className={classes.tabContent}>
                     {tab === 'group' && (
-                        <div style={styles.flexRowFlow}>
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="facilitydialog-grouptab"
+                        >
                             <OrgUnitGroupSetSelect
                                 value={organisationUnitGroupSet}
                                 onChange={setOrganisationUnitGroupSet}
@@ -161,7 +164,10 @@ class FacilityDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div style={styles.flexColumnFlow}>
+                        <div
+                            style={styles.flexColumnFlow}
+                            data-test="facilitydialog-orgunitstab"
+                        >
                             <div
                                 style={{
                                     ...styles.flexColumn,
@@ -210,7 +216,10 @@ class FacilityDialog extends Component {
                         </div>
                     )}
                     {tab === 'style' && (
-                        <div style={styles.flexRowFlow}>
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="facilitydialog-styletab"
+                        >
                             <div style={styles.flexInnerColumnFlow}>
                                 <Checkbox
                                     label={i18n.t('Labels')}
