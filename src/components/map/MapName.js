@@ -69,6 +69,7 @@ MapName.propTypes = {
     showName: PropTypes.bool,
     name: PropTypes.string,
     interpretationDate: PropTypes.string,
+    uiLocale: PropTypes.string,
     classes: PropTypes.object.isRequired,
 };
 
