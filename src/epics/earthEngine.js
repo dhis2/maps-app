@@ -1,10 +1,10 @@
 import i18n from '@dhis2/d2-i18n';
 import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
-import { timeFormat } from 'd3-time-format';
 import * as types from '../constants/actionTypes';
 import { apiFetch } from '../util/api';
 import { createAlert } from '../util/alerts';
+import { formatStartEndDate } from '../util/time';
 import { setEarthEngineCollection } from '../actions/earthEngine';
 import { errorActionCreator } from '../actions/helpers';
 import { setAlert } from '../actions/alerts';
@@ -68,15 +68,12 @@ const collections = {
 
         featureCollection.getInfo(data =>
             resolve(
-                data.features.map(feature => ({
-                    id: feature.id,
-                    name:
-                        timeFormat('%-d – ')(
-                            feature.properties['system:time_start']
-                        ) +
-                        timeFormat('%-d %b %Y')(
-                            feature.properties['system:time_end'] - 7200001
-                        ), // Minus 2 hrs to end the day before
+                data.features.map(f => ({
+                    id: f.id,
+                    name: formatStartEndDate(
+                        f.properties['system:time_start'],
+                        f.properties['system:time_end'] - 7200001
+                    ), // Minus 2 hrs to end the day before
                 }))
             )
         );
@@ -93,15 +90,12 @@ const collections = {
 
         featureCollection.getInfo(data =>
             resolve(
-                data.features.map(feature => ({
-                    id: feature.id,
-                    name:
-                        timeFormat('%-d %b – ')(
-                            feature.properties['system:time_start']
-                        ) +
-                        timeFormat('%-d %b %Y')(
-                            feature.properties['system:time_end'] - 7200001
-                        ), // Minus 2 hrs to end the day before
+                data.features.map(f => ({
+                    id: f.id,
+                    name: formatStartEndDate(
+                        f.properties['system:time_start'],
+                        f.properties['system:time_end'] - 7200001
+                    ), // Minus 2 hrs to end the day before
                 }))
             )
         );
