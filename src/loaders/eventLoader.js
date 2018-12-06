@@ -14,7 +14,7 @@ import {
     getBounds,
 } from '../util/geojson';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
-import { formatDate } from '../util/time';
+import { formatLocaleDate } from '../util/time';
 import { cssColor } from '../util/colors';
 
 // Server clustering if more than 2000 events
@@ -50,7 +50,7 @@ const eventLoader = async layerConfig => {
         title: config.name,
         period: period
             ? getPeriodNameFromId(period.id)
-            : `${formatDate(startDate)} - ${formatDate(endDate)}`,
+            : `${formatLocaleDate(startDate)} - ${formatLocaleDate(endDate)}`,
         items: [],
     };
 

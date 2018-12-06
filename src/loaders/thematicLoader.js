@@ -18,7 +18,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
-import { formatDate } from '../util/helpers';
+import { formatLocaleDate } from '../util/helpers';
 
 const thematicLoader = async config => {
     let error;
@@ -70,7 +70,9 @@ const thematicLoader = async config => {
         title: name,
         period: period
             ? names[data.metaData.dimensions.pe[0]]
-            : `${formatDate(config.startDate)} - ${formatDate(config.endDate)}`,
+            : `${formatLocaleDatee(config.startDate)} - ${formatLocaleDate(
+                  config.endDate
+              )}`,
         items: legendSet
             ? getPredefinedLegendItems(legendSet)
             : getAutomaticLegendItems(

@@ -91,8 +91,6 @@ class PeriodSelect extends Component {
             return null;
         }
 
-        console.log('##', getYear());
-
         return (
             <div style={{ height: 100, ...style }}>
                 <SelectField

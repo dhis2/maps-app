@@ -3,7 +3,7 @@ import { apiFetch } from '../util/api';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { TEI_COLOR, TEI_RADIUS } from '../constants/layers';
 import { createAlert } from '../util/alerts';
-import { formatDate } from '../util/helpers';
+import { formatLocaleDate } from '../util/helpers';
 
 const fields = [
     'trackedEntityInstance~rename(id)',
@@ -40,7 +40,7 @@ const trackedEntityLoader = async config => {
     const name = program ? program.name : i18n.t('Tracked entity');
 
     const legend = {
-        period: `${formatDate(startDate)} - ${formatDate(endDate)}`,
+        period: `${formatLocaleDate(startDate)} - ${formatLocaleDate(endDate)}`,
         items: [
             {
                 name:
