@@ -9,8 +9,9 @@ import LeftIcon from '@material-ui/icons/ChevronLeft';
 import RightIcon from '@material-ui/icons/ChevronRight';
 import { filterFuturePeriods } from 'd2/period/helpers';
 import { createPeriods } from '../../util/periods';
+import { getYear } from '../../util/time';
 
-const styles = theme => ({
+const styles = () => ({
     select: {
         margin: '12px 0',
         width: 'calc(100% - 60px)',
@@ -42,7 +43,7 @@ class PeriodSelect extends Component {
     };
 
     state = {
-        year: new Date().getFullYear(),
+        year: getYear(),
         periods: null,
     };
 
@@ -89,6 +90,8 @@ class PeriodSelect extends Component {
         if (!periods) {
             return null;
         }
+
+        console.log('##', getYear());
 
         return (
             <div style={{ height: 100, ...style }}>

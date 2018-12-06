@@ -1,9 +1,9 @@
-import { dateFormat } from '../util/time';
+import { formatDate } from '../util/time';
 
-export const DEFAULT_START_DATE = dateFormat(
+export const DEFAULT_START_DATE = formatDate(
     new Date().setFullYear(new Date().getFullYear() - 1)
 );
-export const DEFAULT_END_DATE = dateFormat(new Date());
+export const DEFAULT_END_DATE = formatDate(new Date());
 
 export const DEFAULT_ORG_UNIT_LEVEL = 2;
 

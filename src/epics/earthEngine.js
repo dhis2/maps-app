@@ -4,7 +4,7 @@ import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
 import { apiFetch } from '../util/api';
 import { createAlert } from '../util/alerts';
-import { formatStartEndDate } from '../util/time';
+import { getYear, formatStartEndDate } from '../util/time';
 import { setEarthEngineCollection } from '../actions/earthEngine';
 import { errorActionCreator } from '../actions/helpers';
 import { setAlert } from '../actions/alerts';
@@ -47,10 +47,8 @@ const collections = {
                 data.features.map(feature => ({
                     id: feature.id,
                     name: String(
-                        new Date(
-                            feature.properties['system:time_start']
-                        ).getFullYear()
-                    ), // TODO: Support numbers in d2-ui cmp
+                        getYear(feature.properties['system:time_start'])
+                    ),
                 }))
             )
         );
@@ -115,10 +113,8 @@ const collections = {
                 data.features.map(feature => ({
                     id: feature.id,
                     name: String(
-                        new Date(
-                            feature.properties['system:time_start']
-                        ).getFullYear()
-                    ), // TODO: Support numbers in d2-ui cmp
+                        getYear(feature.properties['system:time_start'])
+                    ),
                 }))
             )
         );
