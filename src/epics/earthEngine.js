@@ -154,7 +154,14 @@ export const loadCollection = action$ =>
             );
 
             if (token && token.status === 'ERROR') {
-                return setAlert(createAlert(i18n.t(token.message), i18n.t('To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.')));
+                return setAlert(
+                    createAlert(
+                        i18n.t(token.message),
+                        i18n.t(
+                            'To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.'
+                        )
+                    )
+                );
             }
 
             setAuthToken(token);

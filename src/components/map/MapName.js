@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import InterpretationIcon from '../core/InterpretationIcon';
-import { formatDate } from '../../util/time';
+import { formatDisplayDate } from '../../util/time';
 
 const styles = theme => ({
     root: {
@@ -54,7 +54,7 @@ const MapName = ({ showName, name, interpretationDate, uiLocale, classes }) =>
                     {i18n.t(
                         'Viewing interpretation from {{interpretationDate}}',
                         {
-                            interpretationDate: formatDate(
+                            interpretationDate: formatDisplayDate(
                                 interpretationDate,
                                 uiLocale
                             ),

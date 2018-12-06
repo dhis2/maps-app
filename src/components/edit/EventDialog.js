@@ -49,7 +49,7 @@ import {
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
-import { getStartEndDateError } from '../../util/helpers';
+import { getStartEndDateError } from '../../util/time';
 import { cssColor } from '../../util/colors';
 
 // TODO: Don't use inline styles!

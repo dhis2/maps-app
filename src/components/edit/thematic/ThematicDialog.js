@@ -70,7 +70,7 @@ import {
     getPeriodFromFilters,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
-import { getStartEndDateError } from '../../../util/helpers';
+import { getStartEndDateError } from '../../../util/time';
 
 // TODO: Don't use inline styles!
 const styles = {

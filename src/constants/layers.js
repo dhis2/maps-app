@@ -1,11 +1,9 @@
-import { timeFormat } from 'd3-time-format';
+import { dateFormat } from '../util/time';
 
-const formatTime = timeFormat('%Y-%m-%d');
-
-export const DEFAULT_START_DATE = formatTime(
+export const DEFAULT_START_DATE = dateFormat(
     new Date().setFullYear(new Date().getFullYear() - 1)
 );
-export const DEFAULT_END_DATE = formatTime(new Date());
+export const DEFAULT_END_DATE = dateFormat(new Date());
 
 export const DEFAULT_ORG_UNIT_LEVEL = 2;
 
@@ -38,8 +36,6 @@ export const classificationTypes = [
         name: 'Equal counts',
     },
 ];
-
-export const DATE_FORMAT_SPECIFIER = '%Y-%m-%d';
 
 /* LABEL STYLES */
 export const LABEL_FONT_SIZE = '11px';
