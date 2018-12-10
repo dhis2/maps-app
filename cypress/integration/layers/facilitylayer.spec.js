@@ -1,12 +1,14 @@
 /// <reference types="Cypress" />
 
 context('Facility Layers', () => {
-    before(() => {
+    before(() => {});
+    beforeEach(() => {
+        cy.startServer('facilitylayer');
         cy.login('system', 'System123');
         cy.loadPage();
     });
-    beforeEach(() => {
-        cy.persistLogin();
+    after(() => {
+        cy.saveFixtures('facilitylayer');
     });
 
     it('opens FacilityLayer dialog', () => {
@@ -25,8 +27,8 @@ context('Facility Layers', () => {
     });
 
     it('shows error if no group selected', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Facilities"]').click();
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Facilities"]').click();
         cy.get('[data-test="layeredit-addbtn"]').click();
         cy.get('[data-test="layeredit"')
             .should('have.length', 1)
@@ -40,8 +42,8 @@ context('Facility Layers', () => {
             .contains('Group set is required');
     });
     it('shows error if no orgunit level selected', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Facilities"]').click();
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Facilities"]').click();
         cy.get('[data-test="orgunitgroupsetselect"]')
             .should('have.length', 1)
             .click();
@@ -64,11 +66,11 @@ context('Facility Layers', () => {
     });
 
     it('adds a facilities layer', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Facilities"]').click();
-        // cy.get('[data-test="facilitydialog-datatab"]')
-        //     .should('have.length', 1)
-        //     .should('be.visible')
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Facilities"]').click();
+        cy.get('[data-test="facilitydialog-orgunitstab"]')
+            .should('have.length', 1)
+            .should('be.visible');
         cy.get('[data-test="orgunitlevelselect"]')
             .should('have.length', 1)
             .click();

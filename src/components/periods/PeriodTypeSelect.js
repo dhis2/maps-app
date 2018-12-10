@@ -23,7 +23,7 @@ const PeriodTypeSelect = ({ value, onChange, style, errorText }) => {
             onChange={onChange}
             style={style}
             errorText={!value && errorText ? errorText : null}
-            data-testid="periodtypeselect"
+            data-test="periodtypeselect"
         />
     );
 };

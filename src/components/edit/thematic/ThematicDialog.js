@@ -236,22 +236,22 @@ export class ThematicDialog extends Component {
                     <Tab
                         value="data"
                         label={i18n.t('data')}
-                        data-test="thematicdialog-tab"
+                        data-test="thematicdialog-tabs-data"
                     />
                     <Tab
                         value="period"
                         label={i18n.t('period')}
-                        data-test="thematicdialog-tab"
+                        data-test="thematicdialog-tabs-period"
                     />
                     <Tab
                         value="orgunits"
                         label={i18n.t('Org units')}
-                        data-test="thematicdialog-tab"
+                        data-test="thematicdialog-tabs-orgunits"
                     />
                     <Tab
                         value="style"
                         label={i18n.t('Style')}
-                        data-test="thematicdialog-tab"
+                        data-test="thematicdialog-tabs-style"
                     />
                 </Tabs>
                 <div style={styles.tabContent}>

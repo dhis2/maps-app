@@ -38,7 +38,7 @@ function log(req, res, opt) {
 const webpackConfig = {
     context: __dirname,
     entry: {
-        app: './src/app.js',
+        app: ['babel-polyfill', './src/app.js'],
         map: './src/map.js',
     },
     devtool: 'source-map',
@@ -115,7 +115,7 @@ const webpackConfig = {
         {
             // react: 'React',
             // 'react-dom': 'ReactDOM',
-            rx: 'Rx',
+            // rx: 'Rx',
             // 'react-addons-transition-group': 'React.addons.TransitionGroup',
             // 'react-addons-create-fragment': 'React.addons.createFragment',
             // 'react-addons-update': 'React.addons.update',
@@ -124,16 +124,14 @@ const webpackConfig = {
         },
         // /^react-addons/,
         // /^react-dom$/,
-        /^rx$/,
+        // /^rx$/,
     ],
     plugins: [
         new HTMLWebpackPlugin({
             template: 'index.html',
             chunks: ['app'],
             vendorScripts: [
-                `${scriptPrefix}/dhis-web-core-resource/babel-polyfill/6.20.0/dist/polyfill${
-                    isDevBuild ? '' : '.min'
-                }.js`,
+                // `/polyfill${isDevBuild ? '' : '.min'}.js`,
                 /*
                 `${scriptPrefix}/dhis-web-core-resource/react/16.2.0/umd/react.${
                     isDevBuild ? 'development' : 'production.min'
@@ -142,9 +140,9 @@ const webpackConfig = {
                     isDevBuild ? 'development' : 'production.min'
                 }.js`,
                 */
-                `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${
-                    isDevBuild ? '' : '.min'
-                }.js`,
+                // `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${
+                //     isDevBuild ? '' : '.min'
+                // }.js`,
             ]
                 .map(script => {
                     if (Array.isArray(script)) {
@@ -162,21 +160,15 @@ const webpackConfig = {
         port: 8082,
         inline: true,
         compress: true,
-        proxy: [
-            {
-                path: '/polyfill.min.js',
-                target:
-                    'http://localhost:8082/node_modules/babel-polyfill/dist',
-                bypass: log,
-            },
-            { path: '/api/*', target: dhisConfig.baseUrl, bypass: log },
-            {
-                path: '/dhis-web-commons/**',
-                target: dhisConfig.baseUrl,
-                bypass: log,
-            },
-            { path: '/icons/*', target: dhisConfig.baseUrl, bypass: log },
-        ],
+        // proxy: [
+            // { path: '/api/*', target: dhisConfig.baseUrl, bypass: log },
+            // {
+            //     path: '/dhis-web-commons/**',
+            //     target: dhisConfig.baseUrl,
+            //     bypass: log,
+            // },
+            // { path: '/icons/*', target: dhisConfig.baseUrl, bypass: log },
+        // ],
     },
 };
 

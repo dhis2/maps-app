@@ -1,11 +1,15 @@
 /// <reference types="Cypress" />
 
 context('Smoke Test', () => {
-    before(() => {
+    before(() => {});
+    beforeEach(() => {
+        cy.startServer('smoke');
         cy.login('system', 'System123');
         cy.loadPage();
     });
-    beforeEach(() => {});
+    after(() => {
+        cy.saveFixtures('smoke');
+    });
 
     it('loads', () => {
         cy.title().should('equal', 'DHIS2 Maps');

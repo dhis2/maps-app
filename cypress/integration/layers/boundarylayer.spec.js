@@ -1,12 +1,14 @@
 /// <reference types="Cypress" />
 
 context('Boundary Layers', () => {
-    before(() => {
+    before(() => {});
+    beforeEach(() => {
+        cy.startServer('boundarylayer');
         cy.login('system', 'System123');
         cy.loadPage();
     });
-    beforeEach(() => {
-        cy.persistLogin();
+    after(() => {
+        cy.saveFixtures('boundarylayer');
     });
 
     it('opens BoundaryLayer dialog', () => {
@@ -25,8 +27,8 @@ context('Boundary Layers', () => {
     });
 
     it('shows error if no orgunit level selected', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Boundaries"]').click();
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Boundaries"]').click();
         cy.get('[data-test="layeredit-addbtn"]').click();
         cy.get('[data-test="layeredit"')
             .should('have.length', 1)
@@ -41,11 +43,11 @@ context('Boundary Layers', () => {
     });
 
     it('adds a boundary layer', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Boundaries"]').click();
-        // cy.get('[data-test="boundarydialog-datatab"]')
-        //     .should('have.length', 1)
-        //     .should('be.visible')
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Boundaries"]').click();
+        cy.get('[data-test="boundarydialog-orgunitstab"]')
+            .should('have.length', 1)
+            .should('be.visible');
         cy.get('[data-test="orgunitlevelselect"]')
             .should('have.length', 1)
             .click();

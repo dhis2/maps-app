@@ -1,12 +1,14 @@
 /// <reference types="Cypress" />
 
 context('Event Layers', () => {
-    before(() => {
+    before(() => {});
+    beforeEach(() => {
+        cy.startServer('eventlayer');
         cy.login('system', 'System123');
         cy.loadPage();
     });
-    beforeEach(() => {
-        cy.persistLogin();
+    after(() => {
+        cy.saveFixtures('eventlayer');
     });
 
     it('opens EventLayer dialog', () => {
@@ -25,8 +27,8 @@ context('Event Layers', () => {
     });
 
     it('shows error if no program selected', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Events"]').click();
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Events"]').click();
         cy.get('[data-test="layeredit-addbtn"]').click();
         cy.get('[data-test="layeredit"')
             .should('have.length', 1)
@@ -41,11 +43,11 @@ context('Event Layers', () => {
     });
 
     it('adds an event layer', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Events"]').click();
-        // cy.get('[data-test="eventdialog-datatab"]')
-        //     .should('have.length', 1)
-        //     .should('be.visible')
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Events"]').click();
+        cy.get('[data-test="eventdialog-datatab"]')
+            .should('have.length', 1)
+            .should('be.visible');
         cy.get('[data-test="programselect"]')
             .should('have.length', 1)
             .click();
@@ -67,6 +69,7 @@ context('Event Layers', () => {
             .should('have.length', 1)
             .contains('Inpatient morbidity and mortality');
 
+        cy.wait(1000);
         card.get('[data-test="layerlegend"]').should('have.length', 1);
         card.get('[data-test="layerlegend-item"]').should('have.length', 1);
         card.get('[data-test="layercard"] [data-test="layertoolbar"]').should(

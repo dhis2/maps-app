@@ -1,12 +1,14 @@
 /// <reference types="Cypress" />
 
 context('Thematic Layers', () => {
-    before(() => {
+    before(() => {});
+    beforeEach(() => {
+        cy.startServer('thematiclayer');
         cy.login('system', 'System123');
         cy.loadPage();
     });
-    beforeEach(() => {
-        cy.persistLogin();
+    after(() => {
+        cy.saveFixtures('thematiclayer');
     });
 
     it('opens ThematicLayer dialog', () => {
@@ -25,8 +27,8 @@ context('Thematic Layers', () => {
     });
 
     it('shows error if no indicator group selected', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Thematic"]').click();
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Thematic"]').click();
         cy.get('[data-test="layeredit-addbtn"]').click();
         cy.get('[data-test="thematicdialog-datatab"]')
             .should('have.length', 1)
@@ -35,8 +37,8 @@ context('Thematic Layers', () => {
     });
 
     it('shows error if no indicator selected', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Thematic"]').click();
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Thematic"]').click();
         cy.get('[data-test="indicatorgroupselect"]')
             .should('have.length', 1)
             .click();
@@ -57,10 +59,10 @@ context('Thematic Layers', () => {
     });
 
     it('shows error if no period type selected', () => {
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Thematic"]').click();
-        // cy.get('[data-test="indicatorgroupselect"]').click();
-        // cy.get('[data-value="RsvclmONCT3"]').click(); // HIV
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Thematic"]').click();
+        cy.get('[data-test="indicatorgroupselect"]').click();
+        cy.get('[data-value="RsvclmONCT3"]').click(); // HIV
         cy.get('[data-test="indicatorselect"]').click();
         cy.get('[data-test="selectfield-menuitem"]').should('have.length', 1);
         cy.get('[data-value="lZZxDlIsvTc"]') // VCCT post-test counselling rate
@@ -72,18 +74,16 @@ context('Thematic Layers', () => {
             .contains('Period type is required');
     });
 
-    it('shows error if no period selected', () => {
-        // cy.loadPage();
-        // cy.get('[data-test="addlayerbutton"]').click();
-        // cy.get('[data-test="addlayeritem-Thematic"]').click();
-        // cy.get('[data-test="indicatorgroupselect"]').click();
-        // cy.get('[data-value="RsvclmONCT3"]').click(); // HIV
-        // cy.get('[data-test="indicatorselect"]').click();
-        // cy.get('[data-value="lZZxDlIsvTc"]').click(); // VCCT post-test counselling rate
-        // cy.get('[data-test="thematicdialog-tab"]')
-        //     .shuld([1].click();
+    it('shows error if no org unit selected', () => {
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Thematic"]').click();
+        cy.get('[data-test="indicatorgroupselect"]').click();
+        cy.get('[data-value="RsvclmONCT3"]').click(); // HIV
+        cy.get('[data-test="indicatorselect"]').click();
+        cy.get('[data-value="lZZxDlIsvTc"]').click(); // VCCT post-test counselling rate
+        cy.get('[data-test="thematicdialog-tabs-period"]').click();
         cy.get('[data-test="thematicdialog-periodtab"]').should('be.visible');
-        cy.get('[data-testid="periodtypeselect"]').click();
+        cy.get('[data-test="periodtypeselect"]').click();
         cy.get('[data-value="Yearly"]').click();
         cy.get('[data-test="layeredit-addbtn"]').click();
         cy.get('[data-test="thematicdialog-orgunitstab"]')
@@ -92,7 +92,23 @@ context('Thematic Layers', () => {
     });
 
     it('adds a thematic layer', () => {
-        // TODO: This should actually fail, because it failed before, but the error clears when focusing on the orgunits tab and the default is used
+        cy.get('[data-test="addlayerbutton"]').click();
+        cy.get('[data-test="addlayeritem-Thematic"]').click();
+        cy.get('[data-test="indicatorgroupselect"]').click();
+        cy.get('[data-value="RsvclmONCT3"]').click(); // HIV
+        cy.get('[data-test="indicatorselect"]').click();
+        cy.get('[data-value="lZZxDlIsvTc"]').click(); // VCCT post-test counselling rate
+        cy.get('[data-test="thematicdialog-tabs-period"]').click();
+        cy.get('[data-test="thematicdialog-periodtab"]').should('be.visible');
+        cy.get('[data-test="periodtypeselect"]').click();
+        cy.get('[data-value="Yearly"]').click();
+
+        cy.get('[data-test="thematicdialog-tabs-orgunits"]').click();
+
+        cy.get('[data-test="thematicdialog-orgunitstab"]').should('be.visible');
+        cy.get('[data-test="orgunitlevelselect"]').should('be.visible');
+        // TODO: This is a bug!  The orgunit error clears by navigating to the orgunit tab and waiting for the levels to load.
+
         cy.get('[data-test="layeredit-addbtn"]').click();
         cy.get('[data-test="thematicdialog"]')
             .should('have.length', 0)
@@ -101,7 +117,6 @@ context('Thematic Layers', () => {
             .get('[data-test="layercard"]')
             .should('have.length', 1)
             .contains('VCCT post-test couns rate'); // This is how it appears in the test DB
-
         card.get('[data-test="layerlegend"]').should('have.length', 1);
         card.get('[data-test="layerlegend-item"]').should('have.length', 5);
         card.get('[data-test="layercard"] [data-test="layertoolbar"]').should(
