@@ -5,11 +5,15 @@ cache:
     directories:
         - node_modules
         - $HOME/.cache
+    overrides:
+        - yarn install --frozen-lockfile
 before_script:
     - npm install --global @dhis2/deploy-build
 script:
     - yarn build
-    - yarn start & yarn cy:run
+    - yarn start &> /dev/null &
+    - yarn cy:run
+    - kill $(jobs -p) || true
 deploy:
     - provider: script
       script: deploy-build
