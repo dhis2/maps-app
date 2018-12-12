@@ -16,7 +16,7 @@ const onBeforeLoad = win => {
 };
 
 const xhrManager = {
-    size: 0,
+    totalSize: 0,
     duplicates: 0,
     nonDeterministicResponses: 0,
     requests: [],
@@ -80,11 +80,8 @@ const genFixturesOnResponse = async xhr => {
     const dedupKey = `${xhr.method} ${xhr.url}`;
 
     const body = xhr.response.body;
-    const size = body.size;
 
     const req = xhrRequestMap[dedupKey];
-
-    xhrManager.size += size;
     const res = await blobToText(body);
 
     if (xhrRequestMap[dedupKey].response) {
@@ -94,8 +91,10 @@ const genFixturesOnResponse = async xhr => {
         }
     } else {
         req.response = res;
-        req.size = size;
+        req.size = body.size;
         req.method = xhr.method;
+
+        xhrManager.totalSize += body.size;
     }
 
     return xhr;
