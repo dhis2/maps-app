@@ -3,13 +3,11 @@ node_js:
     - 8.11.1
 cache:
     directories:
-        - node_modules
         - $HOME/.cache
-    override:
-        - yarn install --frozen-lockfile
-        - yarn cy:verify
-before_script:
-    - npm install --global @dhis2/deploy-build
+install:
+    - yarn install --global @dhis2/deploy-build
+    - yarn install --frozen-lockfile
+    - yarn cy:verify
 script:
     - yarn build
     - yarn start &> /dev/null &
