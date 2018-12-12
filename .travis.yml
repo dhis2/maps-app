@@ -5,7 +5,7 @@ cache:
     directories:
         - $HOME/.cache
 install:
-    - yarn install --global @dhis2/deploy-build
+    - yarn global add @dhis2/deploy-build
     - yarn install --frozen-lockfile
     - yarn cy:verify
 script:
