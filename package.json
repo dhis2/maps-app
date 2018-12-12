@@ -24,6 +24,7 @@
         "coverage": "yarn test --coverage",
         "test": "jest",
         "test:watch": "yarn test --watch",
+        "cy:verify": "cypress verify",
         "cy:run": "cypress run",
         "cy:open": "cypress open",
         "cy:e2e:open": "CYPRESS_E2E=true cypress open",

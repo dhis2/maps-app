@@ -7,6 +7,7 @@ cache:
         - $HOME/.cache
     override:
         - yarn install --frozen-lockfile
+        - yarn cy:verify
 before_script:
     - npm install --global @dhis2/deploy-build
 script:
