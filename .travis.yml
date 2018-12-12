@@ -4,11 +4,12 @@ node_js:
 cache:
     directories:
         - node_modules
+        - $HOME/.cache
 before_script:
     - npm install --global @dhis2/deploy-build
 script:
     - yarn build
-    - yarn cy:run
+    - yarn start & yarn cy:run
 deploy:
     - provider: script
       script: deploy-build
