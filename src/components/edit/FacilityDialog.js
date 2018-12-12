@@ -146,6 +146,7 @@ class FacilityDialog extends Component {
                     <Tab
                         value="orgunits"
                         label={i18n.t('Organisation units')}
+                        data-test="facilitydialog-tabs-orgunits"
                     />
                     <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>

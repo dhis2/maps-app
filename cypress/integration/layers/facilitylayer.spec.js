@@ -68,9 +68,10 @@ context('Facility Layers', () => {
     it('adds a facilities layer', () => {
         cy.get('[data-test="addlayerbutton"]').click();
         cy.get('[data-test="addlayeritem-Facilities"]').click();
-        cy.get('[data-test="facilitydialog-orgunitstab"]')
-            .should('have.length', 1)
-            .should('be.visible');
+        cy.get('[data-test="orgunitgroupsetselect"]').click();
+        cy.get('[data-value="J5jldMd8OHv"]') // Facility type
+            .click();
+        cy.get('[data-test="facilitydialog-tabs-orgunits"]').click();
         cy.get('[data-test="orgunitlevelselect"]')
             .should('have.length', 1)
             .click();
