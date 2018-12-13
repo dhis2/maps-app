@@ -84,7 +84,7 @@ const genFixturesOnResponse = async xhr => {
     const req = xhrRequestMap[dedupKey];
     const res = await blobToText(body);
 
-    if (xhrRequestMap[dedupKey].response) {
+    if (req.response) {
         if (res !== req.response) {
             xhrManager.nonDeterministicResponses += 1;
             req.nonDeterministic = true;
@@ -131,7 +131,6 @@ Cypress.Commands.add('startServer', collection => {
 
 Cypress.Commands.add('saveFixtures', collection => {
     if (generateFixtures) {
-        console.log(xhrManager);
         xhrManager.requests.forEach(req => {
             cy.wrap(req, { log: false })
                 .its('response')

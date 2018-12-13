@@ -74,25 +74,6 @@ context('Thematic Layers', () => {
             .contains('Period type is required');
     });
 
-    it('shows error if no org unit selected', () => {
-        cy.get('[data-test="addlayerbutton"]').click();
-        cy.get('[data-test="addlayeritem-Thematic"]').click();
-        cy.get('[data-test="indicatorgroupselect"]').click();
-        cy.get('[data-value="RsvclmONCT3"]').click(); // HIV
-        cy.get('[data-test="indicatorselect"]').click();
-        cy.get('[data-value="lZZxDlIsvTc"]').click(); // VCCT post-test counselling rate
-        cy.get('[data-test="thematicdialog-tabs-period"]').click();
-        cy.get('[data-test="thematicdialog-periodtab"]').should('be.visible');
-        cy.get('[data-test="periodtypeselect"]').click();
-        cy.get('[data-value="Yearly"]').click();
-        cy.get('[data-test="layeredit-addbtn"]').click();
-
-        // BUG - This fails when stubbing network requests because the error appears and then clears too quickly (when the XHR returns)
-        cy.get('[data-test="thematicdialog-orgunitstab"]').contains(
-            'No organisation units are selected'
-        );
-    });
-
     it('adds a thematic layer', () => {
         cy.get('[data-test="addlayerbutton"]').click();
         cy.get('[data-test="addlayeritem-Thematic"]').click();

@@ -113,6 +113,8 @@ export class ThematicDialog extends Component {
             endDate,
             setStartDate,
             setEndDate,
+            setOrgUnitLevels,
+            rows,
         } = this.props;
 
         const dataItem = getDataItemFromColumns(columns);
@@ -136,6 +138,10 @@ export class ThematicDialog extends Component {
         if (!startDate && !endDate) {
             setStartDate(DEFAULT_START_DATE);
             setEndDate(DEFAULT_END_DATE);
+        }
+
+        if (!getOrgUnitLevelsFromRows(rows).length) {
+            setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
         }
     }
 
@@ -456,7 +462,6 @@ export class ThematicDialog extends Component {
                                     orgUnitLevel={getOrgUnitLevelsFromRows(
                                         rows
                                     )}
-                                    defaultLevel={DEFAULT_ORG_UNIT_LEVEL}
                                     onChange={setOrgUnitLevels}
                                 />
                                 <OrgUnitGroupSelect
