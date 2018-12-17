@@ -143,6 +143,8 @@ export const loadCollection = action$ =>
                 errorActionCreator(types.EARTH_ENGINE_COLLECTION_LOAD_ERROR)
             );
 
+            console.log('i18n', i18n);
+
             if (token && token.status === 'ERROR') {
                 return setAlert(
                     createAlert(

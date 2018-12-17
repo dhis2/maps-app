@@ -53,9 +53,9 @@ export const hasIntlSupport =
  * @param {String} locale
  * @returns {String}
  */
-export const formatLocaleDate = (dateString, locale = DEFAULT_LOCALE) =>
+export const formatLocaleDate = (dateString, locale) =>
     hasIntlSupport
-        ? new Intl.DateTimeFormat(locale, {
+        ? new Intl.DateTimeFormat(locale || i18n.language || DEFAULT_LOCALE, {
               year: 'numeric',
               month: 'short',
               day: 'numeric',
@@ -69,15 +69,13 @@ export const formatLocaleDate = (dateString, locale = DEFAULT_LOCALE) =>
  * @param {String} locale
  * @returns {String}
  */
-export const formatStartEndDate = (
-    startDate,
-    endDate,
-    locale = DEFAULT_LOCALE
-) =>
-    `${formatLocaleDate(startDate, locale)} - ${formatLocaleDate(
+export const formatStartEndDate = (startDate, endDate, locale) => {
+    const loc = locale || i18n.language || DEFAULT_LOCALE;
+    return `${formatLocaleDate(startDate, loc)} - ${formatLocaleDate(
         endDate,
         locale
     )}`;
+};
 
 /**
  * Checks for errors for start and end date strings or timestamps
