@@ -38,7 +38,7 @@ export const formatDate = date => {
  * @param {String} dateString
  * @returns {String}
  */
-export const fallbackDateFormat = dateString => dateString.substr(0, 10);
+const fallbackDateFormat = dateString => dateString.substr(0, 10);
 
 /**
  * Returns true if the Internationalization API is supported
@@ -49,18 +49,18 @@ export const hasIntlSupport =
 
 /**
  * Formats a date string or timestamp to the default display format: 13 Aug 2018 (en locale)
- * @param {String|Number} date
+ * @param {String} dateString
  * @param {String} locale
  * @returns {String}
  */
-export const formatLocaleDate = (date, locale = DEFAULT_LOCALE) =>
+export const formatLocaleDate = (dateString, locale = DEFAULT_LOCALE) =>
     hasIntlSupport
         ? new Intl.DateTimeFormat(locale, {
               year: 'numeric',
               month: 'short',
               day: 'numeric',
-          }).format(new Date(date))
-        : fallbackDateFormat(date);
+          }).format(toDate(dateString))
+        : fallbackDateFormat(dateString);
 
 /**
  * Formats a date range
