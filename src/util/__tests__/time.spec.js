@@ -5,6 +5,7 @@ import {
     formatLocaleDate,
     formatStartEndDate,
     getStartEndDateError,
+    getYear,
 } from '../time';
 
 const validDateString = '2018-12-17T12:00:00';
@@ -14,6 +15,7 @@ const validTimestamp = 1545044966178;
 const invalidTimestamp = 15450221323142342;
 const validDate = new Date('2018-12-17T12:00:00');
 const invalidDate = new Date('2018-13-17T12:00:00');
+const currentYear = new Date().getFullYear();
 
 // https://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
 const isValidDate = d => d instanceof Date && !isNaN(d.getTime());
@@ -65,5 +67,12 @@ describe('time utils', () => {
         expect(getStartEndDateError('2018-12-17', '2018-2-16')).toEqual(
             'End date is invalid'
         );
+    });
+
+    it('getYear should return the year from a date, or the current year', () => {
+        expect(getYear()).toEqual(currentYear);
+        expect(getYear(validDateString)).toEqual(2018);
+        expect(getYear(validTimestamp)).toEqual(2018);
+        expect(getYear(validDate)).toEqual(2018);
     });
 });
