@@ -59,7 +59,7 @@ const genFixturesOnRequest = async xhr => {
 
     if (!xhrRequestMap[dedupKey]) {
         xhrRequestMap[dedupKey] = {
-            url: xhr.url,
+            path: xhr.url.substr(apiUrl.length),
             method: xhr.method,
             count: 0,
             response: null,
@@ -111,10 +111,10 @@ Cypress.Commands.add('startServer', collection => {
 
         cy.fixture(collection).then(requestsFixture => {
             requestsFixture.requests.forEach(req => {
-                const { url, method = 'GET', response } = req;
+                const { path, method = 'GET', response } = req;
 
                 if (response) {
-                    stubRequest(url, response, method);
+                    stubRequest(`${apiUrl}${path}`, response, method);
                 }
             });
         });
