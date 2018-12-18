@@ -5,6 +5,7 @@ context('Smoke Test', () => {
     beforeEach(() => {
         cy.startServer('smoke');
         cy.login('system', 'System123');
+        cy.clock(Date.UTC(2018, 11, 16, 13, 10, 9), ['Date']); // Ensure we don't get fixture cache misses because of date changes
         cy.loadPage();
     });
     after(() => {
