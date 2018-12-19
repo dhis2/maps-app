@@ -70,8 +70,10 @@ context('Event Layers', () => {
             .should('have.length', 1)
             .contains('Inpatient morbidity and mortality');
 
-        cy.wait(1000);
-        card.get('[data-test="layerlegend"]').should('have.length', 1);
+        card.get('[data-test="layerlegend"]', { timeout: 10000 }).should(
+            'have.length',
+            1
+        );
         card.get('[data-test="layerlegend-item"]').should('have.length', 1);
         card.get('[data-test="layercard"] [data-test="layertoolbar"]').should(
             'have.length',
