@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import InterpretationIcon from '../core/InterpretationIcon';
-import { timeFormat } from 'd3-time-format';
-
-const formatTime = timeFormat('%b %d, %Y'); // TODO: Support different locales
+import { formatLocaleDate } from '../../util/time';
 
 const styles = theme => ({
     root: {
@@ -43,28 +42,40 @@ const styles = theme => ({
     },
 });
 
-const MapName = ({ name, interpretationDate, classes }) => (
-    <div className={classes.root}>
-        <div className={classes.name}>{name}</div>
-        {interpretationDate && (
-            <div className={classes.interpretation}>
-                <div className={classes.interpretationIcon}>
-                    <InterpretationIcon />
+const MapName = ({ showName, name, interpretationDate, uiLocale, classes }) =>
+    showName && name ? (
+        <div className={classes.root}>
+            <div className={classes.name}>{name}</div>
+            {interpretationDate && (
+                <div className={classes.interpretation}>
+                    <div className={classes.interpretationIcon}>
+                        <InterpretationIcon />
+                    </div>
+                    {i18n.t(
+                        'Viewing interpretation from {{interpretationDate}}',
+                        {
+                            interpretationDate: formatLocaleDate(
+                                interpretationDate,
+                                uiLocale
+                            ),
+                        }
+                    )}
                 </div>
-                {i18n.t('Viewing interpretation from {{interpretationDate}}', {
-                    interpretationDate: formatTime(
-                        new Date(interpretationDate)
-                    ),
-                })}
-            </div>
-        )}
-    </div>
-);
+            )}
+        </div>
+    ) : null;
 
 MapName.propTypes = {
+    showName: PropTypes.bool,
     name: PropTypes.string,
     interpretationDate: PropTypes.string,
+    uiLocale: PropTypes.string,
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MapName);
+export default connect(({ map, download, userSettings }) => ({
+    name: map.name,
+    interpretationDate: map.interpretationDate,
+    showName: download.showDialog ? download.showName : true,
+    uiLocale: userSettings.keyUiLocale,
+}))(withStyles(styles)(MapName));

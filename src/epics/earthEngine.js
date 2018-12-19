@@ -1,10 +1,10 @@
 import i18n from '@dhis2/d2-i18n';
 import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
-import { timeFormat } from 'd3-time-format';
 import * as types from '../constants/actionTypes';
 import { apiFetch } from '../util/api';
 import { createAlert } from '../util/alerts';
+import { getYear, formatStartEndDate } from '../util/time';
 import { setEarthEngineCollection } from '../actions/earthEngine';
 import { errorActionCreator } from '../actions/helpers';
 import { setAlert } from '../actions/alerts';
@@ -47,10 +47,8 @@ const collections = {
                 data.features.map(feature => ({
                     id: feature.id,
                     name: String(
-                        new Date(
-                            feature.properties['system:time_start']
-                        ).getFullYear()
-                    ), // TODO: Support numbers in d2-ui cmp
+                        getYear(feature.properties['system:time_start'])
+                    ),
                 }))
             )
         );
@@ -68,15 +66,12 @@ const collections = {
 
         featureCollection.getInfo(data =>
             resolve(
-                data.features.map(feature => ({
-                    id: feature.id,
-                    name:
-                        timeFormat('%-d – ')(
-                            feature.properties['system:time_start']
-                        ) +
-                        timeFormat('%-d %b %Y')(
-                            feature.properties['system:time_end'] - 7200001
-                        ), // Minus 2 hrs to end the day before
+                data.features.map(f => ({
+                    id: f.id,
+                    name: formatStartEndDate(
+                        f.properties['system:time_start'],
+                        f.properties['system:time_end'] - 7200001
+                    ), // Minus 2 hrs to end the day before
                 }))
             )
         );
@@ -93,15 +88,12 @@ const collections = {
 
         featureCollection.getInfo(data =>
             resolve(
-                data.features.map(feature => ({
-                    id: feature.id,
-                    name:
-                        timeFormat('%-d %b – ')(
-                            feature.properties['system:time_start']
-                        ) +
-                        timeFormat('%-d %b %Y')(
-                            feature.properties['system:time_end'] - 7200001
-                        ), // Minus 2 hrs to end the day before
+                data.features.map(f => ({
+                    id: f.id,
+                    name: formatStartEndDate(
+                        f.properties['system:time_start'],
+                        f.properties['system:time_end'] - 7200001
+                    ), // Minus 2 hrs to end the day before
                 }))
             )
         );
@@ -121,10 +113,8 @@ const collections = {
                 data.features.map(feature => ({
                     id: feature.id,
                     name: String(
-                        new Date(
-                            feature.properties['system:time_start']
-                        ).getFullYear()
-                    ), // TODO: Support numbers in d2-ui cmp
+                        getYear(feature.properties['system:time_start'])
+                    ),
                 }))
             )
         );
@@ -154,7 +144,14 @@ export const loadCollection = action$ =>
             );
 
             if (token && token.status === 'ERROR') {
-                return setAlert(createAlert(i18n.t(token.message), i18n.t('To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.')));
+                return setAlert(
+                    createAlert(
+                        i18n.t(token.message),
+                        i18n.t(
+                            'To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.'
+                        )
+                    )
+                );
             }
 
             setAuthToken(token);

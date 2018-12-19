@@ -1,7 +1,4 @@
 import { getInstance as getD2 } from 'd2';
-import { timeParse, timeFormat } from 'd3-time-format';
-import i18n from '@dhis2/d2-i18n';
-import { DATE_FORMAT_SPECIFIER } from '../constants/layers';
 
 const propertyMap = {
     name: 'name',
@@ -119,23 +116,6 @@ export const addOrgUnitPaths = mapViews =>
               }
             : view
     );
-
-export const parseTime = date => timeParse(DATE_FORMAT_SPECIFIER)(date);
-export const formatTime = date =>
-    timeFormat(DATE_FORMAT_SPECIFIER)(new Date(date));
-
-export const getStartEndDateError = (startDate, endDate) => {
-    const start = parseTime(startDate.substring(0, 10)); // Only check date part
-    const end = parseTime(endDate.substring(0, 10)); // Only check date part
-    if (!start) {
-        return i18n.t('Start date is invalid');
-    } else if (!end) {
-        return i18n.t('End date is invalid');
-    } else if (end < start) {
-        return i18n.t('End date cannot be earlier than start date');
-    }
-    return null;
-};
 
 // Remove line breaks from text (not displayed corrently in map downloads)
 // https://stackoverflow.com/questions/10805125/how-to-remove-all-line-breaks-from-a-string/10805292#10805292

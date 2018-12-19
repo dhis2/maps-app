@@ -43,7 +43,7 @@ import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
 } from '../../util/analytics';
-import { getStartEndDateError } from '../../util/helpers';
+import { getStartEndDateError } from '../../util/time';
 
 const styles = {
     ...layerDialogStyles,

@@ -3,7 +3,7 @@ import { apiFetch } from '../util/api';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { TEI_COLOR, TEI_RADIUS } from '../constants/layers';
 import { createAlert } from '../util/alerts';
-import { formatTime } from '../util/helpers';
+import { formatLocaleDate } from '../util/helpers';
 
 const fields = [
     'trackedEntityInstance~rename(id)',
@@ -40,7 +40,7 @@ const trackedEntityLoader = async config => {
     const name = program ? program.name : i18n.t('Tracked entity');
 
     const legend = {
-        period: `${formatTime(startDate)} - ${formatTime(endDate)}`,
+        period: `${formatLocaleDate(startDate)} - ${formatLocaleDate(endDate)}`,
         items: [
             {
                 name:
@@ -83,7 +83,8 @@ const trackedEntityLoader = async config => {
 
     const instances = data.trackedEntityInstances.filter(
         instance =>
-            geometryTypes.indexOf(instance.featureType) >= 0 && instance.coordinates
+            geometryTypes.indexOf(instance.featureType) >= 0 &&
+            instance.coordinates
     );
 
     const features = toGeoJson(instances);
