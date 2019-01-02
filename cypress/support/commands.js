@@ -4,7 +4,7 @@
 // TODO: Move fixture generation processing to a node.js Cypress plugin using cy.task()
 
 // TODO: Use EXTERNAL_API exclusively, E2E is redundant
-const apiUrl = Cypress.env('EXTERNAL_API') || 'http://localhost:8080';
+const externalUrl = Cypress.env('EXTERNAL_API') || 'http://localhost:8080';
 const e2e = Cypress.env('E2E');
 const generateFixtures = Cypress.env('GEN_FIXTURES');
 const stubBackend = !e2e && !generateFixtures;
@@ -59,7 +59,7 @@ const genFixturesOnRequest = async xhr => {
 
     if (!xhrRequestMap[dedupKey]) {
         xhrRequestMap[dedupKey] = {
-            path: xhr.url.substr(apiUrl.length),
+            path: xhr.url.substr(externalUrl.length),
             method: xhr.method,
             count: 0,
             response: null,
@@ -114,7 +114,7 @@ Cypress.Commands.add('startServer', collection => {
                 const { path, method = 'GET', response } = req;
 
                 if (response) {
-                    stubRequest(`${apiUrl}${path}`, response, method);
+                    stubRequest(`${externalUrl}${path}`, response, method);
                 }
             });
         });
@@ -124,7 +124,7 @@ Cypress.Commands.add('startServer', collection => {
             onResponse: genFixturesOnResponse,
         });
         httpMethods.forEach(method => {
-            cy.route(method, `${apiUrl}/**`);
+            cy.route(method, `${externalUrl}/**`);
         });
     }
 });
@@ -147,7 +147,9 @@ Cypress.Commands.add('login', (username, password) => {
             'Stubbing all backend network requests - unmatched requests will automatically fail'
         );
     } else {
-        cy.log(`Performing end-to-end test with API server URL '${apiUrl}'`);
+        cy.log(
+            `Performing end-to-end test with API server URL '${externalUrl}'`
+        );
         if (generateFixtures) {
             cy.log('Generating fixtures from end-to-end network requests');
         }
@@ -155,7 +157,7 @@ Cypress.Commands.add('login', (username, password) => {
     if (!stubBackend) {
         cy.request({
             method: 'POST',
-            url: `${apiUrl}/dhis-web-commons-security/login.action`,
+            url: `${externalUrl}/dhis-web-commons-security/login.action`,
             body: {
                 j_username: username,
                 j_password: password,
