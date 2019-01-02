@@ -65,6 +65,12 @@ context('Event Layers', () => {
         cy.get('[data-test="eventdialog"]')
             .should('have.length', 0)
             .should('not.be.visible');
+
+        cy.getReduxState(state => state.map.mapViews).should('have.length', 1);
+        cy.getReduxState(state => state.map.mapViews[0].data).should(
+            'have.length',
+            86
+        );
         const card = cy
             .get('[data-test="layercard"]')
             .should('have.length', 1)
