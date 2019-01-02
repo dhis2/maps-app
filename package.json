@@ -11,7 +11,7 @@
     "author": "Bjørn Sandvik",
     "husky": {
         "hooks": {
-            "pre-commit": "npm run extract-pot && npm run prettify && CI=true npm run test && git add -A ."
+            "pre-commit": "yarn extract-pot && yarn prettify && CI=true yarn test && git add -A ."
         }
     },
     "pre-commit": [
@@ -32,7 +32,7 @@
         "cy:e2e:update": "CYPRESS_GEN_FIXTURES=true cypress run --config video=false",
         "cy:e2e:open:update": "CYPRESS_GEN_FIXTURES=true cypress open",
         "prebuild": "yarn test",
-        "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && npm erun manifest && cp -r i18n build && cp -r i18n_old build",
+        "build": "yarn localize && rm -rf build && NODE_ENV=production webpack --progress && yarn manifest && cp -r i18n build && cp -r i18n_old build",
         "postbuild": "cp icon.png ./build/ && cp -r images ./build",
         "manifest": "d2-manifest package.json build/manifest.webapp",
         "lint": "eslint ./src",
