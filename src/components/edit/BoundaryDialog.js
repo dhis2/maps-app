@@ -64,6 +64,19 @@ const styles = {
 
 class BoundaryDialog extends Component {
     static propTypes = {
+        labels: PropTypes.bool,
+        labelFontSize: PropTypes.number,
+        labelFontStyle: PropTypes.string,
+        radiusLow: PropTypes.number,
+        rows: PropTypes.array,
+        setLabels: PropTypes.func.isRequired,
+        setLabelFontSize: PropTypes.func.isRequired,
+        setLabelFontStyle: PropTypes.func.isRequired,
+        setOrgUnitGroups: PropTypes.func.isRequired,
+        setOrgUnitLevels: PropTypes.func.isRequired,
+        setRadiusLow: PropTypes.func.isRequired,
+        setUserOrgUnits: PropTypes.func.isRequired,
+        toggleOrgUnit: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
