@@ -90,6 +90,7 @@ class TrackedEntityLayer extends Layer {
             )
             .join('');
 
+        // TODO: Should not be dependant on L in global namespace
         L.popup()
             .setLatLng(evt.latlng)
             .setContent(

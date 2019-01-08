@@ -134,6 +134,7 @@ class Map extends Component {
     }
 
     showCoordinate(coord) {
+        // TODO: Should not be dependant on L in global namespace
         L.popup()
             .setLatLng([coord[1], coord[0]])
             .setContent(

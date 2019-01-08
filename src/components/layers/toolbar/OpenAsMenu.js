@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -16,7 +15,7 @@ const styles = {
 };
 
 // NB! Created with an older version of Material-UI
-const OpenAsMenu = ({ id }) => (
+const OpenAsMenu = () => (
     <MenuItem
         primaryText={`${i18n.t('Open as')} ...`}
         rightIcon={<ArrowIcon style={styles.icon} />}
@@ -35,9 +34,5 @@ const OpenAsMenu = ({ id }) => (
         style={styles.menuItem}
     />
 );
-
-OpenAsMenu.propTypes = {
-    id: PropTypes.string.isRequired,
-};
 
 export default OpenAsMenu;
