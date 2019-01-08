@@ -20,5 +20,8 @@
         "react": {
             "version": "detect"
         }
+    },
+    "globals": {
+        "DHIS_CONFIG": true
     }
 }
