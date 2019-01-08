@@ -65,7 +65,7 @@ const styles = {
 class BoundaryDialog extends Component {
     static propTypes = {
         labels: PropTypes.bool,
-        labelFontSize: PropTypes.number,
+        labelFontSize: PropTypes.string,
         labelFontStyle: PropTypes.string,
         radiusLow: PropTypes.number,
         rows: PropTypes.array,
