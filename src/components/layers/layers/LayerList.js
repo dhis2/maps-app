@@ -13,7 +13,7 @@ const styles = {
 };
 
 const LayerList = ({ classes, layers, onLayerSelect }) => (
-    <div className={classes.list}>
+    <div className={classes.list} data-test="addlayerlist">
         {layers.map((layer, index) => (
             <Layer
                 key={`layer-${index}`}

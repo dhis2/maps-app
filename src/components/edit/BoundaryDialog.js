@@ -106,7 +106,7 @@ class BoundaryDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <div>
+            <div data-test="boundarydialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab
                         value="orgunits"
@@ -116,7 +116,10 @@ class BoundaryDialog extends Component {
                 </Tabs>
                 <div className={classes.tabContent}>
                     {tab === 'orgunits' && (
-                        <div style={styles.flexColumnFlow}>
+                        <div
+                            style={styles.flexColumnFlow}
+                            data-test="boundarydialog-orgunitstab"
+                        >
                             <div
                                 style={{
                                     ...styles.flexColumn,
@@ -159,7 +162,10 @@ class BoundaryDialog extends Component {
                         </div>
                     )}
                     {tab === 'style' && (
-                        <div style={styles.flexColumnFlow}>
+                        <div
+                            style={styles.flexColumnFlow}
+                            data-test="boundarydialog-styletab"
+                        >
                             <div style={styles.flexColumn}>
                                 <div style={styles.flexInnerColumnFlow}>
                                     <Checkbox

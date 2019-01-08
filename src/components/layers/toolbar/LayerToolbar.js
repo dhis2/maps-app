@@ -58,7 +58,7 @@ export const LayerToolbar = ({
     const onEdit = expansionMenuProps.onEdit;
 
     return (
-        <Toolbar className={classes.toolbar}>
+        <Toolbar className={classes.toolbar} data-test="layertoolbar">
             {onEdit && (
                 <Fragment>
                     <Tooltip key="edit" title={i18n.t('Edit')}>

@@ -75,7 +75,7 @@ const BasemapCard = props => {
     } = props;
 
     return (
-        <Card className={classes.card}>
+        <Card className={classes.card} data-test="basemapcard">
             <CardHeader
                 classes={{
                     root: classes.header,

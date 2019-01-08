@@ -43,6 +43,7 @@ export class IndicatorGroupSelect extends Component {
                 onChange={onChange}
                 style={style}
                 errorText={!indicatorGroup && errorText ? errorText : null}
+                data-test="indicatorgroupselect"
             />
         );
     }

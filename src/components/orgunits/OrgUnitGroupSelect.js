@@ -38,6 +38,7 @@ export class OrgUnitGroupSelect extends Component {
                 multiple={true}
                 onChange={onChange}
                 style={style}
+                data-test="orgunitgroupselect"
             />
         );
     }

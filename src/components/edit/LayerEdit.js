@@ -104,7 +104,7 @@ class LayerEdit extends Component {
         );
 
         return (
-            <Dialog open={true} maxWidth="md">
+            <Dialog open={true} maxWidth="md" data-test="layeredit">
                 <DialogTitle disableTypography={true} className={classes.title}>
                     {title}
                 </DialogTitle>
@@ -123,6 +123,7 @@ class LayerEdit extends Component {
                         variant="contained"
                         color="primary"
                         onClick={() => this.validateLayer()}
+                        data-test="layeredit-addbtn"
                     >
                         {i18n.t(
                             layer.id

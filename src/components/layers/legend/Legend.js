@@ -42,7 +42,7 @@ const Legend = ({
     source,
     sourceUrl,
 }) => (
-    <dl className={classes.legend}>
+    <dl className={classes.legend} data-test="layerlegend">
         {description && (
             <div className={classes.description}>{description}</div>
         )}

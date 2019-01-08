@@ -67,6 +67,7 @@ export class ProgramStageSelect extends Component {
                 onChange={onChange}
                 style={style}
                 errorText={!programStage && errorText ? errorText : null}
+                data-test="programstageselect"
             />
         );
     }

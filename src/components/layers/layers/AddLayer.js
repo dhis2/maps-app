@@ -58,6 +58,7 @@ export class AddLayer extends Component {
                     root: classes.button,
                     label: classes.label,
                 }}
+                data-test="addlayerbutton"
             >
                 <AddCircleIcon className={classes.icon} /> {i18n.t('Add layer')}
             </Button>,

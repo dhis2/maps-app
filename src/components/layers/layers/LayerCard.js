@@ -107,7 +107,7 @@ const LayerCard = ({
     const canDownload = downloadableLayerTypes.indexOf(layerType) >= 0;
 
     return (
-        <Card className={classes.card}>
+        <Card className={classes.card} data-test="layercard">
             <CardHeader
                 classes={{
                     root: classes.header,

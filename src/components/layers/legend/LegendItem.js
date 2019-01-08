@@ -27,7 +27,7 @@ const LegendItem = ({
     }
 
     return (
-        <tr>
+        <tr data-test="layerlegend-item">
             <th>
                 {!weight ? (
                     // Show image or color

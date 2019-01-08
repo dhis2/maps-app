@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
-<WithStyles(Toolbar)>
+<WithStyles(Toolbar)
+  data-test="layertoolbar"
+>
   <WithStyles(Tooltip)
     key="edit"
     title="Edit"
@@ -51,7 +53,9 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
 `;
 
 exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
-<WithStyles(Toolbar)>
+<WithStyles(Toolbar)
+  data-test="layertoolbar"
+>
   <WithStyles(Tooltip)
     title="Toggle visibility"
   >

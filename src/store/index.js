@@ -16,4 +16,8 @@ const store = createStore(
     composeEnhancer(applyMiddleware(thunk, epicMiddleware))
 );
 
+if (window.Cypress) {
+    window.store = store;
+}
+
 export default store;
