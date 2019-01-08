@@ -109,7 +109,7 @@
         "eslint-config-dhis2": "^3.0.7",
         "eslint-config-prettier": "^2.9.0",
         "eslint-plugin-prettier": "^2.6.0",
-        "eslint-plugin-react": "^7.7.0",
+        "eslint-plugin-react": "7.12.3",
         "exports-loader": "^0.7.0",
         "file-loader": "^1.1.9",
         "gifsicle": "^3.0.4",
