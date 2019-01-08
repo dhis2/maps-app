@@ -12,13 +12,16 @@ class Layer extends PureComponent {
     };
 
     static propTypes = {
+        areaRadius: PropTypes.number,
+        data: PropTypes.array,
+        dataFilters: PropTypes.array,
         id: PropTypes.string.isRequired,
         index: PropTypes.number,
         editCounter: PropTypes.number,
         opacity: PropTypes.number,
         isVisible: PropTypes.bool,
         config: PropTypes.object,
-        // labels: PropTypes.object, // TODO: Is sometimes boolean
+        labels: PropTypes.bool,
     };
 
     static defaultProps = {

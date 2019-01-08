@@ -103,8 +103,10 @@ export const getQuantiles = (values, numClasses) => {
     }
 
     // bin can be undefined if few values
-    return bins.filter(bin => bin !== undefined).map((value, index) => ({
-        startValue: Number(valueFormat(value)),
-        endValue: Number(valueFormat(bins[index + 1] || maxValue)),
-    }));
+    return bins
+        .filter(bin => bin !== undefined)
+        .map((value, index) => ({
+            startValue: Number(valueFormat(value)),
+            endValue: Number(valueFormat(bins[index + 1] || maxValue)),
+        }));
 };
