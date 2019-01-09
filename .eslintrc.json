@@ -24,6 +24,7 @@
     },
     "globals": {
         "DHIS_CONFIG": true,
-        "L": true
+        "L": true,
+        "ee": true
     }
 }

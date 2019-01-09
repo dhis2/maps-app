@@ -9,7 +9,9 @@ export class TrackedEntityTypeSelect extends Component {
     static propTypes = {
         trackedEntityType: PropTypes.object,
         trackedEntityTypes: PropTypes.array,
+        errorText: PropTypes.string,
         onChange: PropTypes.func.isRequired,
+        loadTrackedEntityTypes: PropTypes.func.isRequired,
         style: PropTypes.object,
     };
 

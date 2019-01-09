@@ -13,6 +13,7 @@ import {
 const layerEdit = (state = null, action) => {
     let columns;
     let newState;
+    let program;
 
     switch (action.type) {
         case types.LAYER_EDIT:
@@ -23,7 +24,7 @@ const layerEdit = (state = null, action) => {
             return null;
 
         case types.LAYER_EDIT_PROGRAM_SET:
-            const program = action.program;
+            program = action.program;
 
             return {
                 ...state,

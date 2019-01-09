@@ -7,7 +7,7 @@ import { errorActionCreator } from '../actions/helpers';
 
 // Load data sets
 export const loadLegendSets = action$ =>
-    action$.ofType(types.LEGEND_SETS_LOAD).concatMap(action =>
+    action$.ofType(types.LEGEND_SETS_LOAD).concatMap(() =>
         getD2()
             .then(d2 =>
                 d2.models.legendSets.list({

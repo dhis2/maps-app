@@ -51,6 +51,8 @@ const basemap = (state, action) => {
 };
 
 const layer = (state, action) => {
+    let filters;
+
     switch (action.type) {
         case types.LAYER_UPDATE:
             if (state.id !== action.payload.id) {
@@ -124,7 +126,7 @@ const layer = (state, action) => {
                 return state;
             }
 
-            const filters = { ...state.dataFilters };
+            filters = { ...state.dataFilters };
             delete filters[action.fieldId];
 
             return {
@@ -195,6 +197,9 @@ const orgUnit = (state, action) => {
 };
 
 const map = (state = defaultState, action) => {
+    let mapViews;
+    let sortedMapViews;
+
     switch (action.type) {
         case types.MAP_NEW:
             return {
@@ -260,10 +265,12 @@ const map = (state = defaultState, action) => {
                 ...state,
             };
 
+        /*    
         case types.LAYER_LOAD:
             return {
                 ...state,
             };
+        */
 
         case types.LAYER_REMOVE:
             return {
@@ -274,8 +281,8 @@ const map = (state = defaultState, action) => {
             };
 
         case types.LAYER_SORT:
-            const mapViews = [...state.mapViews].reverse(); // TODO: Refactor
-            const sortedMapViews = arrayMove(
+            mapViews = [...state.mapViews].reverse(); // TODO: Refactor
+            sortedMapViews = arrayMove(
                 mapViews,
                 action.oldIndex,
                 action.newIndex

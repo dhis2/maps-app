@@ -409,7 +409,7 @@ function newUtil() {
     }
 
     function parseExtension(url) {
-        const match = /\.([^\.\/]*?)$/g.exec(url);
+        const match = /\.([^./]*?)$/g.exec(url);
         if (match) {
             return match[1];
         }
@@ -564,7 +564,7 @@ function newUtil() {
     }
 
     function escape(string) {
-        return string.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1');
+        return string.replace(/([.*+?^${}()|[\]/\\])/g, '\\$1');
     }
 
     function delay(ms) {
@@ -644,7 +644,7 @@ function newInliner() {
 
         function urlAsRegex(url0) {
             return new RegExp(
-                `(url\\([\'"]?)(${util.escape(url0)})([\'"]?\\))`,
+                `(url\\(['"]?)(${util.escape(url0)})(['"]?\\))`,
                 'g'
             );
         }
