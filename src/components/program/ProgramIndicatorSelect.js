@@ -7,9 +7,11 @@ import { loadProgramIndicators } from '../../actions/programs';
 
 export class ProgramIndicatorSelect extends Component {
     static propTypes = {
+        program: PropTypes.object,
         programIndicator: PropTypes.object,
         programIndicators: PropTypes.object,
         onChange: PropTypes.func.isRequired,
+        loadProgramIndicators: PropTypes.func.isRequired,
         style: PropTypes.object,
         errorText: PropTypes.string,
     };
