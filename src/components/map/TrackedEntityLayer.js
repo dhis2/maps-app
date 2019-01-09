@@ -4,7 +4,7 @@ import Layer from './Layer';
 import { TEI_COLOR, TEI_RADIUS } from '../../constants/layers';
 
 class TrackedEntityLayer extends Layer {
-    createLayer(callback) {
+    createLayer() {
         const {
             id,
             data,
