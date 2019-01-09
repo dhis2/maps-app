@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const UserOrgUnitsSecondLevel = ({ style }) => (
     <svg
@@ -29,5 +30,9 @@ const UserOrgUnitsSecondLevel = ({ style }) => (
         <path d="M28.5,28.5 L40.5,28.5" />
     </svg>
 );
+
+UserOrgUnitsSecondLevel.propTypes = {
+    style: PropTypes.object,
+};
 
 export default UserOrgUnitsSecondLevel;
