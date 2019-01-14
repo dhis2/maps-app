@@ -1,32 +1,15 @@
 // <reference types="Cypress" />
 /* global Promise, Cypress, cy */
 
-import './redux';
-
-import {
-    stubFetch,
-    externalUrl,
-    generateFixtures,
-    stubBackend,
-} from './network-fixtures';
+import { getNetworkShimConfig } from './cypress-plugin-network-shim';
+import { MODES } from './cypress-plugin-network-shim/constants';
 
 Cypress.Commands.add('login', (username, password) => {
-    if (stubBackend) {
-        cy.log(
-            'Stubbing all backend network requests - unmatched requests will automatically fail'
-        );
-    } else {
-        cy.log(
-            `Performing end-to-end test with API server URL '${externalUrl}'`
-        );
-        if (generateFixtures) {
-            cy.log('Generating fixtures from end-to-end network requests');
-        }
-    }
-    if (!stubBackend) {
+    const config = getNetworkShimConfig();
+    if (config.mode !== MODES.STUB) {
         cy.request({
             method: 'POST',
-            url: `${externalUrl}/dhis-web-commons-security/login.action`,
+            url: `${config.hosts.core}/dhis-web-commons-security/login.action`,
             body: {
                 j_username: username,
                 j_password: password,
@@ -42,9 +25,10 @@ Cypress.Commands.add('persistLogin', () => {
 });
 
 Cypress.Commands.add('loadPage', (path = '/') => {
-    cy.visit(path, { onBeforeLoad: stubFetch });
+    const config = getNetworkShimConfig();
+    cy.visit(path);
     cy.get('header', { log: false, timeout: 10000 }); // Waits for the page to fully load
-    if (generateFixtures) {
+    if (config.mode === MODES.GENERATE) {
         //Make sure all the delayed network requests get captured
         cy.wait(1000);
     }

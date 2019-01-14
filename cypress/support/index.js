@@ -13,8 +13,12 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
-import './commands'
+import { initialize as initNetworkShim } from './cypress-plugin-network-shim';
+initNetworkShim({
+    hosts: {
+        core: 'http://localhost:8080',
+    },
+});
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+import './commands';
+import './redux';
