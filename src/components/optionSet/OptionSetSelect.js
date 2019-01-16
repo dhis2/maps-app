@@ -25,8 +25,8 @@ const OptionSetSelect = ({ options, value, onChange, style }) => {
 };
 
 OptionSetSelect.propTypes = {
-    options: PropTypes.object,
-    value: PropTypes.string,
+    options: PropTypes.array,
+    value: PropTypes.array,
     onChange: PropTypes.func.isRequired,
     style: PropTypes.object,
 };
