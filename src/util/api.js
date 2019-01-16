@@ -26,11 +26,12 @@ export const apiFetch = async (url, method, body) => {
         }
     }
 
+    // TODO: Better error handling
     return fetch(encodeURI(config.baseUrl + url), options)
         .then(response =>
             ['POST', 'PUT', 'PATCH'].indexOf(method) !== -1
                 ? response
                 : response.json()
         )
-        .catch(error => console.log('Error: ', error)); // TODO: Better error handling
+        .catch(error => console.log('Error: ', error)); // eslint-disable-line
 };

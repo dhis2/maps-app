@@ -313,10 +313,6 @@ const layerEdit = (state = null, action) => {
                 rows: toggleOrgUnitNodeInRows(state.rows, action.orgUnit),
             };
 
-        case types.LAYER_EDIT_ORGANISATIOM_UNIT_ROOT_SET:
-            console.log('LAYER_EDIT_ORGANISATIOM_UNIT_ROOT_SET', state, action);
-            return state;
-
         // Set organisation unit tree path (temporary solution, as favorites don't include paths)
         case types.LAYER_EDIT_ORGANISATION_UNIT_PATH_SET:
             return {

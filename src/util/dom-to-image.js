@@ -553,7 +553,7 @@ function newUtil() {
             }
 
             function fail(message) {
-                console.error(message);
+                console.error(message); // eslint-disable-line
                 resolve('');
             }
         });
@@ -710,7 +710,7 @@ function newFontFaces() {
                             .catch(err => {
                                 // Handle any error that occurred in any of the previous
                                 // promises in the chain.
-                                console.log(err);
+                                console.log(err); // eslint-disable-line
                                 return sheet;
                             });
                     }
@@ -786,12 +786,14 @@ function newFontFaces() {
                             cssRules.push.bind(cssRules)
                         );
                     } catch (e) {
+                        // eslint-disable-next-line
                         console.log(
                             `Error while reading CSS rules from ${sheet.href}`,
                             e.toString()
                         );
                     }
                 } else {
+                    // eslint-disable-next-line
                     console.log('getCssRules can not fint cssRules');
                 }
             });

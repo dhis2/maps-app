@@ -114,6 +114,7 @@ const mapStateToProps = state => {
         id !== null ? state.map.mapViews.filter(l => l.id === id)[0] : null;
 
     if (state.dataDownload.dialogOpen && !layer) {
+        // eslint-disable-next-line
         console.error(
             'Tried to open data download dialog without specifying a source layer!'
         );
