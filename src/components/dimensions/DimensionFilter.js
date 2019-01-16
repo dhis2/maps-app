@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import DimensionSelect from './DimensionSelect';
-/*
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import Button from '@material-ui/core/Button';
-import FilterRow from './FilterRow';
-import { combineDataItems } from '../../util/analytics';
-import { addFilter, removeFilter, changeFilter } from '../../actions/layerEdit';
-*/
+import DimensionRow from './DimensionRow';
+import { addDimension } from '../../actions/layerEdit';
 
-const styles = {
+const styles = () => ({
     container: {
         width: '100%',
         height: 300,
@@ -23,12 +20,12 @@ const styles = {
     note: {
         paddingTop: 16,
     },
-};
+});
 
 class DimensionFilter extends Component {
-    /*
     static propTypes = {
-        filters: PropTypes.array,
+        dimensions: PropTypes.array,
+        /*
         dataItems: PropTypes.array,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -39,81 +36,42 @@ class DimensionFilter extends Component {
         addFilter: PropTypes.func.isRequired,
         removeFilter: PropTypes.func.isRequired,
         changeFilter: PropTypes.func.isRequired,
+        */
     };
-    */
 
     render() {
-        /*
-        const {
-            filters = [],
-            dataItems,
-            program,
-            programStage,
-            addFilter,
-            removeFilter,
-            changeFilter,
-        } = this.props;
+        const { addDimension, classes, dimensions = [] } = this.props;
 
-        if (!programStage) {
-            return (
-                <div style={styles.note}>
-                    {i18n.t(
-                        'Filtering is available after selecting a program stage.'
-                    )}
-                </div>
-            );
-        }
-        */
-        /*
+        // console.log('#', dimensions);
+
         return (
-            <div style={styles.container}>
-                {filters.map((item, index) => (
-                    <FilterRow
+            <div className={classes.container}>
+                {dimensions.map((item, index) => (
+                    <DimensionRow
                         key={index}
                         index={index}
-                        dataItems={dataItems}
-                        program={program}
-                        programStage={programStage}
-                        onChange={changeFilter}
-                        onRemove={removeFilter}
+                        // dataItems={dataItems}
+                        // program={program}
+                        // programStage={programStage}
+                        // onChange={changeFilter}
+                        // onRemove={removeFilter}
                         {...item}
                     />
                 ))}
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => addFilter()}
-                    style={styles.button}
+                    onClick={() => addDimension()}
+                    className={classes.button}
                 >
                     {i18n.t('Add filter')}
                 </Button>
             </div>
         );
-        */
-
-        return (
-            <div>
-                <DimensionSelect />
-            </div>
-        );
     }
 }
 
-/*
 export default connect(
-    (state, { program, programStage }) => ({
-        dataItems:
-            program && programStage
-                ? combineDataItems(
-                      state.programTrackedEntityAttributes[program.id],
-                      state.programStageDataElements[programStage.id],
-                      null,
-                      ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE'] // Exclude these value types
-                  )
-                : [],
-    }),
-    { addFilter, removeFilter, changeFilter }
-)(FilterGroup);
-*/
-
-export default DimensionFilter;
+    null,
+    { addDimension }
+)(withStyles(styles)(DimensionFilter));

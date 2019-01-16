@@ -155,6 +155,15 @@ export const setFiltersFromPeriod = period => [
     createDimension('pe', [{ ...period }]),
 ];
 
+/* DYNAMIC DATA DIMENSIONS */
+
+export const getDynamicDimensionsFromFilters = (filters = []) =>
+    filters.filter(
+        item => isValidUid(item.dimension) || item.dimension === null
+    );
+
+/* FILTERS */
+
 export const getFiltersFromColumns = (columns = []) => {
     const filters = columns.filter(item => item.filter);
     return filters.length ? filters : null;

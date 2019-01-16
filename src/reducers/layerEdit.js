@@ -133,6 +133,17 @@ const layerEdit = (state = null, action) => {
                 aggregationType: action.aggregationType,
             };
 
+        case types.LAYER_EDIT_DIMENSION_ADD:
+            return {
+                ...state,
+                filters: [
+                    ...(state.filters || []),
+                    action.filter || {
+                        dimension: null,
+                    },
+                ],
+            };
+
         case types.LAYER_EDIT_FILTER_ADD:
             return {
                 ...state,

@@ -1,15 +1,30 @@
 import * as types from '../constants/actionTypes';
 
+// Add dimension filter
+export const addDimension = filter => ({
+    type: types.LAYER_EDIT_DIMENSION_ADD,
+    filter,
+});
+
+// Remove dimension filter
+export const removeDimension = index => ({
+    type: types.LAYER_EDIT_DIMENSION_REMOVE,
+    index,
+});
+
+// Add event filter
 export const addFilter = filter => ({
     type: types.LAYER_EDIT_FILTER_ADD,
     filter,
 });
 
+// Remove event filter
 export const removeFilter = index => ({
     type: types.LAYER_EDIT_FILTER_REMOVE,
     index,
 });
 
+// Change event filter
 export const changeFilter = (index, filter) => ({
     type: types.LAYER_EDIT_FILTER_CHANGE,
     index,

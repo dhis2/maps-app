@@ -69,6 +69,7 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitNodesFromRows,
     getPeriodFromFilters,
+    getDynamicDimensionsFromFilters,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
 import { getStartEndDateError } from '../../../util/time';
@@ -236,6 +237,7 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
+        const dimensions = getDynamicDimensionsFromFilters(filters);
 
         return (
             <div data-test="thematicdialog">
@@ -447,7 +449,7 @@ export class ThematicDialog extends Component {
                             style={styles.flexRowFlow}
                             data-test="thematicdialog-filtertab"
                         >
-                            <DimensionFilter />
+                            <DimensionFilter dimensions={dimensions} />
                         </div>
                     )}
                     {tab === 'orgunits' && (
