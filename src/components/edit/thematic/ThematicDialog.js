@@ -28,6 +28,7 @@ import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import DatePicker from '../../core/DatePicker';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import DimensionFilter from '../../dimensions/DimensionFilter';
 import { layerDialogStyles } from '../LayerDialogStyles';
 import { dimConf } from '../../../constants/dimension';
 import {
@@ -250,6 +251,11 @@ export class ThematicDialog extends Component {
                         data-test="thematicdialog-tabs-period"
                     />
                     <Tab
+                        value="filter"
+                        label={i18n.t('Filter')}
+                        data-test="thematicdialog-tabs-filter"
+                    />
+                    <Tab
                         value="orgunits"
                         label={i18n.t('Org units')}
                         data-test="thematicdialog-tabs-orgunits"
@@ -434,6 +440,14 @@ export class ThematicDialog extends Component {
                                     </div>
                                 ) : null,
                             ]}
+                        </div>
+                    )}
+                    {tab === 'filter' && (
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="thematicdialog-filtertab"
+                        >
+                            <DimensionFilter />
                         </div>
                     )}
                     {tab === 'orgunits' && (
