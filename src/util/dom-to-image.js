@@ -793,7 +793,7 @@ function newFontFaces() {
                         );
                     }
                 } else {
-                    // eslint-disable-next-line
+                    // eslint-disable-line
                     console.log('getCssRules can not fint cssRules');
                 }
             });
