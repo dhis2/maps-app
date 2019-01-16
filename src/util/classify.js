@@ -6,22 +6,6 @@ import {
     CLASSIFICATION_EQUAL_COUNTS,
 } from '../constants/layers';
 
-export const classify = (features, options) => {
-    const { method, classes, colorScale } = options;
-    const values = features
-        .map(feature => Number(feature.properties.value))
-        .sort((a, b) => a - b);
-    const bins = getClassBins(values, method, classes);
-    const getClassIndex = curryRight(getClass)(bins);
-
-    if (bins.length) {
-        features.forEach(feature => {
-            feature.properties.color =
-                colorScale[getClassIndex(feature.properties.value) - 1];
-        });
-    }
-};
-
 // Returns legend item where a value belongs
 export const getLegendItemForValue = (legendItems, value) => {
     const isLast = index => index === legendItems.length - 1;
