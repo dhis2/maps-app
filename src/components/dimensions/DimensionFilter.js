@@ -4,8 +4,12 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import Button from '@material-ui/core/Button';
-import DimensionRow from './DimensionRow';
-import { addDimension } from '../../actions/layerEdit';
+import DimensionFilterRow from './DimensionFilterRow';
+import {
+    addDimensionFilter,
+    removeDimensionFilter,
+    setDimensionFilterItems,
+} from '../../actions/layerEdit';
 
 const styles = () => ({
     container: {
@@ -25,6 +29,10 @@ const styles = () => ({
 class DimensionFilter extends Component {
     static propTypes = {
         dimensions: PropTypes.array,
+        addDimensionFilter: PropTypes.func.isRequired,
+        removeDimensionFilter: PropTypes.func.isRequired,
+        setDimensionFilterItems: PropTypes.func.isRequired,
+        classes: PropTypes.object.isRequired,
         /*
         dataItems: PropTypes.array,
         program: PropTypes.shape({
@@ -34,34 +42,41 @@ class DimensionFilter extends Component {
             id: PropTypes.string.isRequired,
         }),
         addFilter: PropTypes.func.isRequired,
-        removeFilter: PropTypes.func.isRequired,
+        
         changeFilter: PropTypes.func.isRequired,
         */
     };
 
     render() {
-        const { addDimension, classes, dimensions = [] } = this.props;
+        const {
+            addDimensionFilter,
+            classes,
+            dimensions = [],
+            setDimensionFilterItems,
+            removeDimensionFilter,
+        } = this.props;
 
         // console.log('#', dimensions);
 
         return (
             <div className={classes.container}>
                 {dimensions.map((item, index) => (
-                    <DimensionRow
+                    <DimensionFilterRow
                         key={index}
                         index={index}
                         // dataItems={dataItems}
                         // program={program}
                         // programStage={programStage}
-                        // onChange={changeFilter}
-                        // onRemove={removeFilter}
+                        onChange={this.onChange}
+                        onItemSelect={setDimensionFilterItems}
+                        onRemove={removeDimensionFilter}
                         {...item}
                     />
                 ))}
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => addDimension()}
+                    onClick={() => addDimensionFilter()}
                     className={classes.button}
                 >
                     {i18n.t('Add filter')}
@@ -69,9 +84,13 @@ class DimensionFilter extends Component {
             </div>
         );
     }
+
+    onChange(filter) {
+        console.log('onChange', filter);
+    }
 }
 
 export default connect(
     null,
-    { addDimension }
+    { addDimensionFilter, removeDimensionFilter, setDimensionFilterItems }
 )(withStyles(styles)(DimensionFilter));

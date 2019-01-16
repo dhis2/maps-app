@@ -6,6 +6,7 @@ import SelectField from '../core/SelectField';
 import { loadDimensions } from '../../actions/dimensions';
 
 export class DimensionSelect extends Component {
+    /*
     static propTypes = {
         dimension: PropTypes.object,
         dimensions: PropTypes.array,
@@ -14,7 +15,9 @@ export class DimensionSelect extends Component {
         style: PropTypes.object,
         errorText: PropTypes.string,
     };
+    */
 
+    /*
     componentDidMount() {
         const { dimensions, loadDimensions } = this.props;
 
@@ -22,9 +25,11 @@ export class DimensionSelect extends Component {
             loadDimensions();
         }
     }
+    */
 
+    /*
     render() {
-        const { dimensions, onChange } = this.props;
+        const { dimensions } = this.props;
 
         return (
             <SelectField
@@ -32,19 +37,29 @@ export class DimensionSelect extends Component {
                 loading={dimensions ? false : true}
                 items={dimensions}
                 // value={value}
-                onChange={onChange}
+                onChange={this.onChange}
                 //style={style}
                 //errorText={!program && errorText ? errorText : null}
                 data-test="dimensionselect"
-                style={{ width: 200 }}
             />
         );
     }
+    */
+
+    render() {
+        return <span>###</span>;
+    }
+
+    /*
+    onChange = dimension => {
+        console.log('onChange', dimension);
+    };
+    */
 }
 
 export default connect(
     state => ({
-        dimensions: state.dimensions,
+        // dimensions: state.dimensions,
     }),
     { loadDimensions }
 )(DimensionSelect);

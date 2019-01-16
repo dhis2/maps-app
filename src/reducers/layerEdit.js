@@ -8,11 +8,13 @@ import {
     addUserOrgUnitsToRows,
     toggleOrgUnitNodeInRows,
     setOrgUnitPathInRows,
+    getDynamicDimensionsFromFilters,
 } from '../util/analytics';
 
 const layerEdit = (state = null, action) => {
     let columns;
     let newState;
+    let dimensions;
 
     switch (action.type) {
         case types.LAYER_EDIT:
@@ -133,7 +135,7 @@ const layerEdit = (state = null, action) => {
                 aggregationType: action.aggregationType,
             };
 
-        case types.LAYER_EDIT_DIMENSION_ADD:
+        case types.LAYER_EDIT_DIMENSION_FILTER_ADD:
             return {
                 ...state,
                 filters: [
@@ -141,6 +143,21 @@ const layerEdit = (state = null, action) => {
                     action.filter || {
                         dimension: null,
                     },
+                ],
+            };
+
+        case types.LAYER_EDIT_DIMENSION_FILTER_REMOVE:
+            dimensions = getDynamicDimensionsFromFilters(state.filters); // Also used for periods
+
+            if (!dimensions || !dimensions[action.index]) {
+                return state;
+            }
+
+            return {
+                ...state,
+                filters: [
+                    ...state.filters.filter(f => f.dimension === 'pe'), // TODO
+                    ...dimensions.filter((d, i) => i !== action.index),
                 ],
             };
 

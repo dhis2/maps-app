@@ -6,7 +6,20 @@ export const loadDimensions = () => ({
 });
 
 // Set all dimensions
-export const setDimensions = data => ({
+export const setDimensions = dimensions => ({
     type: types.DIMENSIONS_SET,
-    payload: data,
+    payload: dimensions,
+});
+
+// Load all dimension items
+export const loadDimensionItems = dimensionId => ({
+    type: types.DIMENSION_ITEMS_LOAD,
+    dimensionId,
+});
+
+// Set all dimension items
+export const setDimensionItems = (dimensionId, items) => ({
+    type: types.DIMENSION_ITEMS_SET,
+    dimensionId,
+    payload: items,
 });
