@@ -16,7 +16,8 @@
     },
     "pre-commit": [
         "validate",
-        "test"
+        "test",
+        "lint"
     ],
     "scripts": {
         "prestart": "yarn localize && d2-manifest package.json manifest.webapp",
