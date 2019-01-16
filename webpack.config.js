@@ -98,11 +98,6 @@ const webpackConfig = {
     },
     resolve: {
         alias: {
-            // react: path.resolve('./node_modules/react'),
-            // 'material-ui': path.resolve('./node_modules/material-ui'),
-            // 'material-ui-icons': path.resolve(
-            //    './node_modules/material-ui-icons'
-            //),
             redux: path.resolve('./node_modules/redux'),
             'react-redux': path.resolve('./node_modules/react-redux'),
             'redux-thunk': path.resolve('./node_modules/redux-thunk'),
@@ -111,48 +106,10 @@ const webpackConfig = {
             d2: path.resolve('./node_modules/d2'),
         },
     },
-    externals: [
-        {
-            // react: 'React',
-            // 'react-dom': 'ReactDOM',
-            // rx: 'Rx',
-            // 'react-addons-transition-group': 'React.addons.TransitionGroup',
-            // 'react-addons-create-fragment': 'React.addons.createFragment',
-            // 'react-addons-update': 'React.addons.update',
-            // 'react-addons-pure-render-mixin': 'React.addons.PureRenderMixin',
-            // 'react-addons-shallow-compare': 'React.addons.ShallowCompare',
-        },
-        // /^react-addons/,
-        // /^react-dom$/,
-        // /^rx$/,
-    ],
     plugins: [
         new HTMLWebpackPlugin({
             template: 'index.html',
             chunks: ['app'],
-            vendorScripts: [
-                // `/polyfill${isDevBuild ? '' : '.min'}.js`,
-                /*
-                `${scriptPrefix}/dhis-web-core-resource/react/16.2.0/umd/react.${
-                    isDevBuild ? 'development' : 'production.min'
-                }.js`,
-                `${scriptPrefix}/dhis-web-core-resource/react-dom/16.2.0/umd/react-dom.${
-                    isDevBuild ? 'development' : 'production.min'
-                }.js`,
-                */
-                // `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${
-                //     isDevBuild ? '' : '.min'
-                // }.js`,
-            ]
-                .map(script => {
-                    if (Array.isArray(script)) {
-                        return `<script ${script[1]} src="${
-                            script[0]
-                        }"></script>`;
-                    }
-                    return `<script src="${script}"></script>`;
-                })
-                .join('\n'),
         }),
     ],
     devServer: {
@@ -160,15 +117,14 @@ const webpackConfig = {
         port: 8082,
         inline: true,
         compress: true,
-        // proxy: [
-            // { path: '/api/*', target: dhisConfig.baseUrl, bypass: log },
-            // {
-            //     path: '/dhis-web-commons/**',
-            //     target: dhisConfig.baseUrl,
-            //     bypass: log,
-            // },
-            // { path: '/icons/*', target: dhisConfig.baseUrl, bypass: log },
-        // ],
+        proxy: [
+            {
+                path: '/polyfill.min.js',
+                target:
+                    'http://localhost:8082/node_modules/babel-polyfill/dist',
+                bypass: log,
+            },
+        ],
     },
 };
 
