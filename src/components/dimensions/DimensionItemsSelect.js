@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import i18n from '@dhis2/d2-i18n';
-// import SelectField from '../core/SelectField';
+import i18n from '@dhis2/d2-i18n';
+import SelectField from '../core/SelectField';
 import { loadDimensionItems } from '../../actions/dimensions';
 
 export class DimensionItemsSelect extends Component {
     static propTypes = {
         dimension: PropTypes.string,
         items: PropTypes.array,
-        // onChange: PropTypes.func.isRequired,
+        value: PropTypes.array,
+        onChange: PropTypes.func.isRequired,
         loadDimensionItems: PropTypes.func.isRequired,
         style: PropTypes.object,
         errorText: PropTypes.string,
@@ -24,8 +25,22 @@ export class DimensionItemsSelect extends Component {
     }
 
     render() {
-        // console.log(this.props.items);
-        return <span>###</span>;
+        const { items, value, onChange } = this.props;
+
+        if (!items) {
+            return null;
+        }
+
+        return (
+            <SelectField
+                label={i18n.t('Items')}
+                items={items}
+                value={value}
+                multiple={true}
+                onChange={onChange}
+                style={{ width: 200, marginLeft: 20 }}
+            />
+        );
     }
 }
 

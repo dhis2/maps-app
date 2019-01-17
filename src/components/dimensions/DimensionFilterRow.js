@@ -57,8 +57,6 @@ class DimensionFilterRow extends Component {
     render() {
         const { dimension, items, index, onRemove, classes } = this.props;
 
-        // console.log(index, dimension, items);
-
         return (
             <div className={classes.container}>
                 <DimensionSelect
@@ -67,6 +65,7 @@ class DimensionFilterRow extends Component {
                 />
                 <DimensionItemsSelect
                     dimension={dimension}
+                    value={items ? items.map(item => item.id) : null}
                     onChange={items => this.onChange(dimension, items)}
                 />
                 <Tooltip title={i18n.t('Delete filter')}>
@@ -87,17 +86,19 @@ class DimensionFilterRow extends Component {
     }
 
     // onChange(dimension, items) {
-    onChange(dimension) {
+    onChange(dimension, items) {
         const { index, onChange } = this.props;
 
         if (dimension !== this.props.dimension) {
-            // New dimension
             onChange(index, {
                 dimension,
                 items: null,
             });
         } else {
-            // console.log('Dimension items change');
+            onChange(index, {
+                dimension,
+                items: items.map(item => ({ id: item })),
+            });
         }
     }
 }
