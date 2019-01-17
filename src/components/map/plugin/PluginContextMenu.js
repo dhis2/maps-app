@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import './PluginContextMenu.css';
 
@@ -37,5 +38,12 @@ class ContextMenu extends Component {
         );
     }
 }
+
+ContextMenu.propTypes = {
+    feature: PropTypes.object,
+    position: PropTypes.string,
+    onDrillDown: PropTypes.func.isRequired,
+    onDrillUp: PropTypes.func.isRequired,
+};
 
 export default ContextMenu;

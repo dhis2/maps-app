@@ -28,7 +28,7 @@ export const dataURItoBlob = dataURI => {
 export const convertToPng = (sourceElem, options) =>
     domtoimage.toPng(sourceElem, options);
 
-export const downloadFile = (fileBlob, filename) => 
+export const downloadFile = (fileBlob, filename) =>
     FileSaver.saveAs(fileBlob, filename);
 
 const toStringFn = {}.toString;

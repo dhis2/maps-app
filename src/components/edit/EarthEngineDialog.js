@@ -96,6 +96,16 @@ const styles = {
 
 class EarthEngineDialog extends Component {
     static propTypes = {
+        datasetId: PropTypes.string.isRequired,
+        filter: PropTypes.array,
+        params: PropTypes.shape({
+            min: PropTypes.number.isRequired,
+            max: PropTypes.number.isRequired,
+            palette: PropTypes.string.isRequired,
+        }),
+        setFilter: PropTypes.func.isRequired,
+        setParams: PropTypes.func.isRequired,
+        setPeriodName: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,

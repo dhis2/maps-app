@@ -10,4 +10,4 @@ const trackedEntityTypes = (state = null, action) => {
     }
 };
 
-export default trackedEntityTypes ;
+export default trackedEntityTypes;

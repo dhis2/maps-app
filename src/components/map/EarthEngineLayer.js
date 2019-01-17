@@ -14,6 +14,7 @@ export default class EarthEngineLayer extends Layer {
                     lat: coordinate[1],
                 });
             } catch (err) {
+                // eslint-disable-next-line
                 console.error(
                     'Google Earth Engine failed. Is the service configured for this DHIS2 instance?'
                 );

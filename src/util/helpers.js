@@ -17,10 +17,13 @@ export const getDisplayProperty = (d2, displayProperty) => {
     ); // TODO: check
 };
 
+/*
 export const getDisplayPropertyUrl = d2 => {
-    // return `${getDisplayProperty(d2)}~rename(name)`; // TODO
-    return `displayName~rename(name)`;
+    return `${getDisplayProperty(d2)}~rename(name)`; // TODO
 };
+*/
+
+export const getDisplayPropertyUrl = () => `displayName~rename(name)`;
 
 const baseFields = [
     'id',

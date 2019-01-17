@@ -1,9 +1,7 @@
 import { combineEpics } from 'redux-observable';
-import { getInstance as getD2 } from 'd2';
 import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
 import { setTrackedEntityTypes } from '../actions/trackedEntities';
-import { errorActionCreator } from '../actions/helpers';
 import { apiFetch } from '../util/api';
 
 // Load tracked entity types

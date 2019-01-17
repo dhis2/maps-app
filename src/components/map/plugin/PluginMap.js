@@ -33,6 +33,19 @@ const styles = {
 
 // TODO: Reuse code from Map.js
 class PluginMap extends Component {
+    static propTypes = {
+        basemap: PropTypes.object,
+        bounds: PropTypes.array,
+        mapViews: PropTypes.array,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number,
+    };
+
+    static childContextTypes = {
+        map: PropTypes.object.isRequired,
+    };
+
     getChildContext() {
         return {
             map: this.map,
@@ -205,9 +218,5 @@ class PluginMap extends Component {
         );
     }
 }
-
-PluginMap.childContextTypes = {
-    map: PropTypes.object.isRequired,
-};
 
 export default PluginMap;

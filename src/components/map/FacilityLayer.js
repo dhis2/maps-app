@@ -95,6 +95,7 @@ class FacilityLayer extends Layer {
 
         content += '</div>';
 
+        // TODO: Should not be dependant on L in global namespace
         L.popup()
             .setLatLng(evt.latlng)
             .setContent(content)
@@ -102,6 +103,7 @@ class FacilityLayer extends Layer {
     }
 
     onFeatureRightClick(evt) {
+        // TODO: Should not be dependant on L in global namespace
         L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         const latlng = evt.latlng;
