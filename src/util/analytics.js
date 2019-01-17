@@ -146,21 +146,51 @@ export const addUserOrgUnitsToRows = (rows = [], userOrgUnits = []) => [
 export const getPeriodFromFilters = (filters = []) =>
     getDimensionItems('pe', filters)[0];
 
+export const removePeriodFromFilters = (filters = []) => [
+    ...filters.filter(f => f.dimension !== 'pe'),
+];
+
 export const getPeriodNameFromId = id => {
     const period = relativePeriods.filter(period => period.id === id)[0];
     return period ? i18n.t(period.name) : null;
 };
 
-export const setFiltersFromPeriod = period => [
+export const setFiltersFromPeriod = (filters, period) => [
+    ...removePeriodFromFilters(filters),
     createDimension('pe', [{ ...period }]),
 ];
 
-/* DYNAMIC DATA DIMENSIONS */
+/* DUNAMIC DIMENSION FILTERS */
 
-export const getDynamicDimensionsFromFilters = (filters = []) =>
+export const getDimensionsFromFilters = (filters = []) =>
     filters.filter(
         item => isValidUid(item.dimension) || item.dimension === null
     );
+
+export const removeDimensionFromFilters = (filters, index) => {
+    const dimensions = getDimensionsFromFilters(filters);
+
+    if (!dimensions || !dimensions[index]) {
+        return filters;
+    }
+
+    return [
+        ...(getPeriodFromFilters(filters) || []),
+        ...dimensions.filter((d, i) => i !== index),
+    ];
+};
+
+export const changeDimensionInFilters = (filters, index, filter) => {
+    const dimensions = getDimensionsFromFilters(filters);
+
+    if (!dimensions || !dimensions[index]) {
+        return filters;
+    }
+
+    dimensions[index] = filter;
+
+    return [...(getPeriodFromFilters(filters) || []), ...dimensions];
+};
 
 /* FILTERS */
 

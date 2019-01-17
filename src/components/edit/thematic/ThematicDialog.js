@@ -69,7 +69,7 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitNodesFromRows,
     getPeriodFromFilters,
-    getDynamicDimensionsFromFilters,
+    getDimensionsFromFilters,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
 
@@ -279,7 +279,7 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
-        const dimensions = getDynamicDimensionsFromFilters(filters);
+        const dimensions = getDimensionsFromFilters(filters);
 
         return (
             <div data-test="thematicdialog">

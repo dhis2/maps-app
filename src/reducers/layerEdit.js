@@ -1,4 +1,3 @@
-import { omit } from 'lodash/fp';
 import * as types from '../constants/actionTypes';
 import {
     setFiltersFromPeriod,
@@ -8,13 +7,14 @@ import {
     addUserOrgUnitsToRows,
     toggleOrgUnitNodeInRows,
     setOrgUnitPathInRows,
-    getDynamicDimensionsFromFilters,
+    removePeriodFromFilters,
+    changeDimensionInFilters,
+    removeDimensionFromFilters,
 } from '../util/analytics';
 
 const layerEdit = (state = null, action) => {
     let columns;
     let newState;
-    let dimensions;
     let program;
 
     switch (action.type) {
@@ -98,8 +98,9 @@ const layerEdit = (state = null, action) => {
 
         case types.LAYER_EDIT_PERIOD_TYPE_SET:
             return {
-                ...omit('filters', state),
+                ...state,
                 periodType: action.periodType,
+                filters: removePeriodFromFilters(state.filters),
             };
 
         case types.LAYER_EDIT_PERIOD_SET:
@@ -107,7 +108,7 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 filters:
                     action.period.id !== 'START_END_DATES'
-                        ? setFiltersFromPeriod(action.period)
+                        ? setFiltersFromPeriod(state.filters, action.period)
                         : [],
             };
 
@@ -148,35 +149,22 @@ const layerEdit = (state = null, action) => {
             };
 
         case types.LAYER_EDIT_DIMENSION_FILTER_REMOVE:
-            dimensions = getDynamicDimensionsFromFilters(state.filters); // Also used for periods
-
-            if (!dimensions || !dimensions[action.index]) {
-                return state;
-            }
-
             return {
                 ...state,
-                filters: [
-                    ...state.filters.filter(f => f.dimension === 'pe'), // TODO
-                    ...dimensions.filter((d, i) => i !== action.index),
-                ],
+                filters: removeDimensionFromFilters(
+                    state.filters,
+                    action.index
+                ),
             };
 
         case types.LAYER_EDIT_DIMENSION_FILTER_CHANGE:
-            dimensions = getDynamicDimensionsFromFilters(state.filters); // Also used for periods
-
-            if (!dimensions || !dimensions[action.index]) {
-                return state;
-            }
-
-            dimensions[action.index] = action.filter;
-
             return {
                 ...state,
-                filters: [
-                    ...state.filters.filter(f => f.dimension === 'pe'), // TODO
-                    ...dimensions,
-                ],
+                filters: changeDimensionInFilters(
+                    state.filters,
+                    action.index,
+                    action.filter
+                ),
             };
 
         case types.LAYER_EDIT_FILTER_ADD:
