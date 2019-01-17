@@ -160,12 +160,13 @@ export const setFiltersFromPeriod = (filters, period) => [
     createDimension('pe', [{ ...period }]),
 ];
 
-/* DUNAMIC DIMENSION FILTERS */
+/* DYNAMIC DIMENSION FILTERS */
 
 export const getDimensionsFromFilters = (filters = []) =>
-    filters.filter(
-        item => isValidUid(item.dimension) || item.dimension === null
-    );
+    filters.filter(d => isValidUid(d.dimension) || d.dimension === null);
+
+export const getValidDimensionsFromFilters = (filters = []) =>
+    filters.filter(d => isValidUid(d.dimension) && d.items && d.items.length);
 
 export const removeDimensionFromFilters = (filters, index) => {
     const dimensions = getDimensionsFromFilters(filters);
@@ -175,7 +176,7 @@ export const removeDimensionFromFilters = (filters, index) => {
     }
 
     return [
-        ...(getPeriodFromFilters(filters) || []),
+        ...filters.filter(f => f.dimension === 'pe'),
         ...dimensions.filter((d, i) => i !== index),
     ];
 };
@@ -189,7 +190,7 @@ export const changeDimensionInFilters = (filters, index, filter) => {
 
     dimensions[index] = filter;
 
-    return [...(getPeriodFromFilters(filters) || []), ...dimensions];
+    return [...filters.filter(f => f.dimension === 'pe'), ...dimensions];
 };
 
 /* FILTERS */
