@@ -134,7 +134,7 @@ export const getBounds = bbox => {
     if (!bbox) {
         return null;
     }
-    const extent = bbox.match(/([-\d\.]+)/g);
+    const extent = bbox.match(/([-\d.]+)/g);
     return [[extent[1], extent[0]], [extent[3], extent[2]]];
 };
 

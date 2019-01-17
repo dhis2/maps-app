@@ -14,7 +14,9 @@ export class ProgramSelect extends Component {
     static propTypes = {
         program: PropTypes.object,
         programs: PropTypes.array,
+        trackedEntityType: PropTypes.object,
         onChange: PropTypes.func.isRequired,
+        loadPrograms: PropTypes.func.isRequired,
         style: PropTypes.object,
         errorText: PropTypes.string,
     };

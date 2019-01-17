@@ -1,26 +1,9 @@
 // Utils for thematic mapping
 import { format, precisionRound } from 'd3-format';
-import { curryRight } from 'lodash/fp';
 import {
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
 } from '../constants/layers';
-
-export const classify = (features, options) => {
-    const { method, classes, colorScale } = options;
-    const values = features
-        .map(feature => Number(feature.properties.value))
-        .sort((a, b) => a - b);
-    const bins = getClassBins(values, method, classes);
-    const getClassIndex = curryRight(getClass)(bins);
-
-    if (bins.length) {
-        features.forEach(feature => {
-            feature.properties.color =
-                colorScale[getClassIndex(feature.properties.value) - 1];
-        });
-    }
-};
 
 // Returns legend item where a value belongs
 export const getLegendItemForValue = (legendItems, value) => {
@@ -103,8 +86,10 @@ export const getQuantiles = (values, numClasses) => {
     }
 
     // bin can be undefined if few values
-    return bins.filter(bin => bin !== undefined).map((value, index) => ({
-        startValue: Number(valueFormat(value)),
-        endValue: Number(valueFormat(bins[index + 1] || maxValue)),
-    }));
+    return bins
+        .filter(bin => bin !== undefined)
+        .map((value, index) => ({
+            startValue: Number(valueFormat(value)),
+            endValue: Number(valueFormat(bins[index + 1] || maxValue)),
+        }));
 };

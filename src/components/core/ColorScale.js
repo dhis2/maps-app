@@ -45,7 +45,11 @@ const ColorScale = ({ scale, bins, width, style, onClick, classes }) => {
 };
 
 ColorScale.propTypes = {
+    bins: PropTypes.number.isRequired,
+    scale: PropTypes.string.isRequired,
+    width: PropTypes.number,
     onClick: PropTypes.func.isRequired,
+    style: PropTypes.object,
     classes: PropTypes.object.isRequired,
 };
 

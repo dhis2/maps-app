@@ -66,6 +66,23 @@ class Map extends Component {
     };
 
     static propTypes = {
+        basemap: PropTypes.object,
+        basemaps: PropTypes.array,
+        bounds: PropTypes.array,
+        dataTableOpen: PropTypes.bool,
+        dataTableHeight: PropTypes.number,
+        isDownload: PropTypes.bool,
+        interpretationsPanelOpen: PropTypes.bool,
+        layersPanelOpen: PropTypes.bool,
+        legendPosition: PropTypes.string,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        mapViews: PropTypes.array,
+        showName: PropTypes.bool,
+        zoom: PropTypes.number,
+        coordinatePopup: PropTypes.array,
+        closeCoordinatePopup: PropTypes.func.isRequired,
+        openContextMenu: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
@@ -134,6 +151,7 @@ class Map extends Component {
     }
 
     showCoordinate(coord) {
+        // TODO: Should not be dependant on L in global namespace
         L.popup()
             .setLatLng([coord[1], coord[0]])
             .setContent(

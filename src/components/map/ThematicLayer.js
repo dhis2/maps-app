@@ -71,6 +71,7 @@ class ThematicLayer extends Layer {
         }
             </div>`;
 
+        // TODO: Should not be dependant on L in global namespace
         L.popup()
             .setLatLng(evt.latlng)
             .setContent(removeLineBreaks(content))
@@ -78,6 +79,7 @@ class ThematicLayer extends Layer {
     }
 
     onFeatureRightClick(evt) {
+        // TODO: Should not be dependant on L in global namespace
         L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         const latlng = evt.latlng;

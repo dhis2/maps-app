@@ -31,6 +31,13 @@ class RelocateDialog extends Component {
         map: PropTypes.object,
     };
 
+    static propTypes = {
+        feature: PropTypes.object,
+        layerId: PropTypes.string,
+        changeOrgUnitCoordinate: PropTypes.func.isRequired,
+        stopRelocateOrgUnit: PropTypes.func.isRequired,
+    };
+
     componentDidUpdate() {
         const feature = this.props.feature;
         const map = this.context.map;

@@ -15,6 +15,7 @@ export class OrgUnitGroupSelect extends Component {
         orgUnitGroup: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         orgUnitGroups: PropTypes.array,
         onChange: PropTypes.func.isRequired,
+        loadOrgUnitGroups: PropTypes.func.isRequired,
         style: PropTypes.object,
     };
 
