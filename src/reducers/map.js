@@ -265,13 +265,6 @@ const map = (state = defaultState, action) => {
                 ...state,
             };
 
-        /*    
-        case types.LAYER_LOAD:
-            return {
-                ...state,
-            };
-        */
-
         case types.LAYER_REMOVE:
             return {
                 ...state,
