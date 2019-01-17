@@ -161,6 +161,23 @@ const layerEdit = (state = null, action) => {
                 ],
             };
 
+        case types.LAYER_EDIT_DIMENSION_FILTER_CHANGE:
+            dimensions = getDynamicDimensionsFromFilters(state.filters); // Also used for periods
+
+            if (!dimensions || !dimensions[action.index]) {
+                return state;
+            }
+
+            dimensions[action.index] = action.filter;
+
+            return {
+                ...state,
+                filters: [
+                    ...state.filters.filter(f => f.dimension === 'pe'), // TODO
+                    ...dimensions,
+                ],
+            };
+
         case types.LAYER_EDIT_FILTER_ADD:
             return {
                 ...state,

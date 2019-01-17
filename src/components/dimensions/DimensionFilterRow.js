@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import DimensionSelect from './DimensionSelect';
-import DimensionItemSelect from './DimensionItemSelect';
+import DimensionItemsSelect from './DimensionItemsSelect';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Tooltip } from '@material-ui/core';
@@ -57,14 +57,16 @@ class DimensionFilterRow extends Component {
     render() {
         const { dimension, items, index, onRemove, classes } = this.props;
 
-        // console.log(index, items);
+        console.log(index, dimension, items);
 
         return (
             <div className={classes.container}>
                 <DimensionSelect
+                    dimension={dimension}
                     onChange={dimension => this.onChange(dimension.id, items)}
                 />
-                <DimensionItemSelect
+                <DimensionItemsSelect
+                    dimension={dimension}
                     onChange={items => this.onChange(dimension, items)}
                 />
                 <Tooltip title={i18n.t('Delete filter')}>
@@ -85,7 +87,17 @@ class DimensionFilterRow extends Component {
     }
 
     onChange(dimension, items) {
-        console.log('onChange', dimension, items);
+        const { index, onChange } = this.props;
+
+        if (dimension !== this.props.dimension) {
+            // New dimension
+            onChange(index, {
+                dimension,
+                items: null,
+            });
+        } else {
+            console.log('Dimension items change');
+        }
     }
 }
 

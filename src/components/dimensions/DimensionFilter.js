@@ -8,7 +8,7 @@ import DimensionFilterRow from './DimensionFilterRow';
 import {
     addDimensionFilter,
     removeDimensionFilter,
-    setDimensionFilterItems,
+    changeDimensionFilter,
 } from '../../actions/layerEdit';
 
 const styles = () => ({
@@ -31,20 +31,8 @@ class DimensionFilter extends Component {
         dimensions: PropTypes.array,
         addDimensionFilter: PropTypes.func.isRequired,
         removeDimensionFilter: PropTypes.func.isRequired,
-        setDimensionFilterItems: PropTypes.func.isRequired,
+        changeDimensionFilter: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
-        /*
-        dataItems: PropTypes.array,
-        program: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
-        programStage: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
-        addFilter: PropTypes.func.isRequired,
-        
-        changeFilter: PropTypes.func.isRequired,
-        */
     };
 
     render() {
@@ -52,7 +40,7 @@ class DimensionFilter extends Component {
             addDimensionFilter,
             classes,
             dimensions = [],
-            setDimensionFilterItems,
+            changeDimensionFilter,
             removeDimensionFilter,
         } = this.props;
 
@@ -64,11 +52,7 @@ class DimensionFilter extends Component {
                     <DimensionFilterRow
                         key={index}
                         index={index}
-                        // dataItems={dataItems}
-                        // program={program}
-                        // programStage={programStage}
-                        onChange={this.onChange}
-                        onItemSelect={setDimensionFilterItems}
+                        onChange={changeDimensionFilter}
                         onRemove={removeDimensionFilter}
                         {...item}
                     />
@@ -84,13 +68,9 @@ class DimensionFilter extends Component {
             </div>
         );
     }
-
-    onChange(filter) {
-        console.log('onChange', filter);
-    }
 }
 
 export default connect(
     null,
-    { addDimensionFilter, removeDimensionFilter, setDimensionFilterItems }
+    { addDimensionFilter, removeDimensionFilter, changeDimensionFilter }
 )(withStyles(styles)(DimensionFilter));

@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
 import { loadDimensions } from '../../actions/dimensions';
 
-export class DimensionSelect extends Component {
+export class DimensionItemsSelect extends Component {
     /*
     static propTypes = {
         dimension: PropTypes.object,
@@ -62,4 +62,4 @@ export default connect(
         // dimensions: state.dimensions,
     }),
     { loadDimensions }
-)(DimensionSelect);
+)(DimensionItemsSelect);

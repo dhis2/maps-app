@@ -7,9 +7,9 @@ import { loadDimensions } from '../../actions/dimensions';
 
 export class DimensionSelect extends Component {
     static propTypes = {
-        dimension: PropTypes.object,
+        dimension: PropTypes.string,
         dimensions: PropTypes.array,
-        // onChange: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
         loadDimensions: PropTypes.func.isRequired,
         style: PropTypes.object,
         errorText: PropTypes.string,
@@ -24,14 +24,14 @@ export class DimensionSelect extends Component {
     }
 
     render() {
-        const { dimensions, onChange } = this.props;
+        const { dimension, dimensions, onChange } = this.props;
 
         return (
             <SelectField
                 label={i18n.t('Dimension')}
                 loading={dimensions ? false : true}
                 items={dimensions}
-                // value={value}
+                value={dimension}
                 onChange={onChange}
                 //style={style}
                 //errorText={!program && errorText ? errorText : null}

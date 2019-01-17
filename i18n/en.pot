@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-12-05T09:55:15.234Z\n"
-"PO-Revision-Date: 2018-12-05T09:55:15.234Z\n"
+"POT-Creation-Date: 2019-01-17T09:35:38.941Z\n"
+"PO-Revision-Date: 2019-01-17T09:35:38.941Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -90,6 +90,18 @@ msgid "Type"
 msgstr ""
 
 msgid "Color"
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Delete filter"
+msgstr ""
+
+msgid "Remove filter"
+msgstr ""
+
+msgid "Dimension"
 msgstr ""
 
 msgid "Download"
@@ -300,15 +312,6 @@ msgid "The following information may be requested by technical support."
 msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "Add filter"
-msgstr ""
-
-msgid "Delete filter"
-msgstr ""
-
-msgid "Remove filter"
 msgstr ""
 
 msgid "Operator"

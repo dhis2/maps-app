@@ -12,10 +12,10 @@ export const removeDimensionFilter = index => ({
     index,
 });
 
-export const setDimensionFilterItems = (dimensionId, items) => ({
-    type: types.LAYER_EDIT_DIMENSION_FILTER_ITEMS_SET,
-    dimensionId,
-    items,
+export const changeDimensionFilter = (index, filter) => ({
+    type: types.LAYER_EDIT_DIMENSION_FILTER_CHANGE,
+    index,
+    filter,
 });
 
 // Add event filter
