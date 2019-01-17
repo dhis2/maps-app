@@ -25,7 +25,7 @@ export const loadDimensionItems = action$ =>
                 action.dimensionId
             }/items?fields=id,displayName~rename(name)&order=displayName:asc&paging=false`
         )
-            .then(data => setDimensionItems(data.items))
+            .then(data => setDimensionItems(action.dimensionId, data.items))
             .catch(errorActionCreator(types.DIMENSION_ITEMS_LOAD_ERROR))
     );
 

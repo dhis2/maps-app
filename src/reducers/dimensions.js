@@ -5,6 +5,10 @@ const dimensions = (state = null, action) => {
         case types.DIMENSIONS_SET:
             return action.payload;
 
+        case types.DIMENSION_ITEMS_SET:
+            console.log('DIMENSION_ITEMS_SET', action, state);
+            return state;
+
         default:
             return state;
     }

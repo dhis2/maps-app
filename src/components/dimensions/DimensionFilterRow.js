@@ -57,7 +57,7 @@ class DimensionFilterRow extends Component {
     render() {
         const { dimension, items, index, onRemove, classes } = this.props;
 
-        console.log(index, dimension, items);
+        // console.log(index, dimension, items);
 
         return (
             <div className={classes.container}>
