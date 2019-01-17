@@ -34,7 +34,7 @@ export const drillLayer = (action$, store) =>
         .ofType(types.LAYER_DRILL)
         .concatMap(({ layerId, parentId, parentGraph, level }) =>
             getD2() // TODO: D2 is not needed, just included to return a promise
-                .then(d2 => {
+                .then(() => {
                     const state = store.getState();
                     const layerConfig = state.map.mapViews.filter(
                         config => config.id === layerId

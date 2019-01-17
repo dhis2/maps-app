@@ -6,7 +6,7 @@ const dimensions = (state = null, action) => {
             return action.payload;
 
         case types.DIMENSION_ITEMS_SET:
-            console.log('DIMENSION_ITEMS_SET', action, state);
+            // console.log('DIMENSION_ITEMS_SET', action, state);
             return state;
 
         default:

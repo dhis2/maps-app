@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import {
     getOrgUnitNodesFromRows,
@@ -62,6 +63,13 @@ const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
             )}
         </div>
     );
+};
+
+SelectedOrgUnits.propTypes = {
+    mode: PropTypes.string,
+    units: PropTypes.string,
+    rows: PropTypes.array,
+    error: PropTypes.object,
 };
 
 export default SelectedOrgUnits;

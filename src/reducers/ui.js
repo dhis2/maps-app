@@ -32,7 +32,6 @@ const ui = (state = defaultState, action) => {
                 layersPanelOpen: false,
             };
 
-
         case types.INTERPRETATIONS_PANEL_OPEN:
             return {
                 ...state,

@@ -49,7 +49,7 @@ const loadExternalMapLayers = () =>
         .catch(errorActionCreator(types.EXTERNAL_LAYERS_LOAD_ERROR));
 
 // Create external layer config object
-const createLayerConfig = subTitle => layer => {
+const createLayerConfig = () => layer => {
     const config = {
         type: 'tileLayer',
         url: layer.url,

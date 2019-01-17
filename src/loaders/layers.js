@@ -22,6 +22,7 @@ export const fetchLayer = config => {
     if (Loader) {
         return Loader(config);
     } else {
+        // eslint-disable-next-line
         console.log('Unknown layer type', config.layer, config);
     }
 };

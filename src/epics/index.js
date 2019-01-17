@@ -23,7 +23,7 @@ import dataDownloadEpics from './dataDownload';
 const errorEpic = action$ =>
     action$
         .filter(action => action.type.indexOf('ERROR') !== -1)
-        .do(action => console.error(action.error))
+        .do(action => console.error(action.error)) // eslint-disable-line
         .concatMapTo(Observable.empty()); // Avoid infinite loop, same as .map(action => Observable.empty()).concatAll()
 
 export default combineEpics(

@@ -86,7 +86,8 @@ class DimensionFilterRow extends Component {
         );
     }
 
-    onChange(dimension, items) {
+    // onChange(dimension, items) {
+    onChange(dimension) {
         const { index, onChange } = this.props;
 
         if (dimension !== this.props.dimension) {
@@ -96,7 +97,7 @@ class DimensionFilterRow extends Component {
                 items: null,
             });
         } else {
-            console.log('Dimension items change');
+            // console.log('Dimension items change');
         }
     }
 }

@@ -214,8 +214,8 @@ class EventLayer extends Layer {
 
         if (Array.isArray(data.rows)) {
             data.rows.forEach(row => {
-                const extent = row[header.extent].match(/([-\d\.]+)/g);
-                const coords = row[header.center].match(/([-\d\.]+)/g);
+                const extent = row[header.extent].match(/([-\d.]+)/g);
+                const coords = row[header.center].match(/([-\d.]+)/g);
 
                 // Round to 6 decimals - http://www.jacklmoore.com/notes/rounding-in-javascript/
                 coords[0] = Number(Math.round(coords[0] + 'e6') + 'e-6');

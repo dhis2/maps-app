@@ -32,6 +32,7 @@ const styles = () => ({
 class PeriodSelect extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
+        locale: PropTypes.string,
         periodType: PropTypes.string,
         period: PropTypes.shape({
             id: PropTypes.string.isRequired,

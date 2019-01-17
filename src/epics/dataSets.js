@@ -8,7 +8,7 @@ import { getDisplayPropertyUrl } from '../util/helpers';
 
 // Load data sets
 export const loadDataSets = action$ =>
-    action$.ofType(types.DATA_SETS_LOAD).concatMap(action =>
+    action$.ofType(types.DATA_SETS_LOAD).concatMap(() =>
         getD2()
             .then(d2 =>
                 d2.models.dataSets.list({

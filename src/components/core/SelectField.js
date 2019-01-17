@@ -39,7 +39,7 @@ export const SelectField = props => {
         onChange,
         style,
         value,
-        ...extraProps,
+        ...extraProps
     } = props;
 
     if (loading) {
