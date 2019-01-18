@@ -44,6 +44,7 @@ const thematicLoader = async config => {
     const [features, data] = response;
     const { columns, radiusLow, radiusHigh, classes, colorScale } = config;
     const period = getPeriodFromFilters(config.filters);
+    const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(
@@ -83,6 +84,13 @@ const thematicLoader = async config => {
                   colorScale
               ),
     };
+
+    if (dimensions) {
+        // TODO: Show names for dimensions and items
+        legend.filters = dimensions.map(
+            d => `${d.dimension}: ${d.items.map(i => i.id).join(', ')}`
+        );
+    }
 
     legend.items.forEach(item => (item.count = 0));
 
