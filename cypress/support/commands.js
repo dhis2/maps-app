@@ -1,15 +1,18 @@
 // <reference types="Cypress" />
 /* global Promise, Cypress, cy */
 
-import { getNetworkShimConfig } from './cypress-plugin-network-shim';
 import { MODES } from './cypress-plugin-network-shim/constants';
 
 Cypress.Commands.add('login', (username, password) => {
-    const config = getNetworkShimConfig();
-    if (config.mode !== MODES.STUB) {
+    if (
+        !Cypress.NetworkShim.enabled ||
+        Cypress.NetworkShim.config.mode !== MODES.STUB
+    ) {
         cy.request({
             method: 'POST',
-            url: `${config.hosts.core}/dhis-web-commons-security/login.action`,
+            url: `${
+                Cypress.NetworkShim.config.hosts.core
+            }/dhis-web-commons-security/login.action`,
             body: {
                 j_username: username,
                 j_password: password,
@@ -25,7 +28,7 @@ Cypress.Commands.add('persistLogin', () => {
 });
 
 Cypress.Commands.add('loadPage', (path = '/') => {
-    const config = getNetworkShimConfig();
+    const config = Cypress.NetworkShim.config;
     cy.visit(path);
     cy.get('header', { log: false, timeout: 10000 }); // Waits for the page to fully load
     if (config.mode === MODES.GENERATE) {

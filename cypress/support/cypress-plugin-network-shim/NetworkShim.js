@@ -12,12 +12,12 @@ import {
 
 class NetworkShim {
     constructor({
-        specName = 'default',
+        specName,
         hosts,
         mode = MODES.STUB,
         fetchPolyfill = true,
         fixturePrefix = 'network/',
-        fixturePostfix = '.network.shim',
+        fixturePostfix = '.network',
         clock = Date.UTC(2018, 11, 16, 13, 10, 9),
     }) {
         this.hosts = hosts;
@@ -28,15 +28,17 @@ class NetworkShim {
             fixturePrefix,
             fixturePostfix,
         });
+        this.fixtureFile = `cypress/fixtures/${this.fixtureName}`;
 
-        if (this.mode === MODES.GENERATE) {
+        if (this.mode === MODES.STUB) {
+            cy.log(`Loading network shim fixture at ${this.fixtureName}`);
+            this.loadFixture();
+        } else if (this.mode === MODES.GENERATE) {
             this.store = {
-                name: specName,
-                hosts: Object.keys(hosts),
+                name: this.specName,
+                hosts: Object.keys(this.hosts),
                 tests: {},
             };
-        } else if (this.mode === MODES.STUB) {
-            this.loadFixture();
         }
 
         if (fetchPolyfill !== false) {
@@ -51,17 +53,17 @@ class NetworkShim {
 
     loadFixture() {
         cy.fixture(this.fixtureName).then(fixture => {
+            console.log('LOAD', fixture);
             this.store = fixture;
         });
+        console.log(this.store);
     }
-    startTest(name = '__default__') {
+    startTest(name) {
         if (this.mode === MODES.STUB) {
             this.current = this.store.tests[name];
-            if (this.current) {
-                cy.server();
 
-                this.addStubRoutes();
-            }
+            cy.server();
+            this.addStubRoutes();
         } else if (this.mode === MODES.GENERATE) {
             this.current = this.store.tests[name] = {
                 name,
@@ -84,28 +86,48 @@ class NetworkShim {
     }
 
     addStubRoutes() {
-        // TODO: Force 404 if no match found
-
-        // Allow all requests to app server (usually webpack-dev-server) to pass through, all other XHR urls will generate a 404
-        HTTP_METHODS.forEach(method => {
-            cy.route(method, `${Cypress.config('baseUrl')}/**`);
+        Object.values(this.hosts).forEach(host => {
+            HTTP_METHODS.forEach(method => {
+                cy.route({
+                    method,
+                    url: `${host}/**`,
+                    status: 404,
+                    response: 'Cypress::NetworkShim Missing fixture',
+                    onResponse: xhr => {
+                        console.error(
+                            `Cypress::NetworkShim ERROR: No request fixture found for ${
+                                xhr.method
+                            } ${xhr.url}`
+                        );
+                    },
+                });
+            });
         });
 
-        this.current.requests.forEach(req => {
-            const { path, method = 'GET', response, hostIndex = 0 } = req;
+        // // Allow all requests to app server (usually webpack-dev-server) to pass through, all other XHR urls will generate a 404
+        // HTTP_METHODS.forEach(method => {
+        //     cy.route(method, `${Cypress.config('baseUrl')}/**`);
+        // });
 
-            if (response) {
-                stubRequest(
-                    `${this.hosts[hostIndex]}${path}`,
-                    response,
-                    method
-                );
-            }
-        });
+        if (this.current && this.current.requests) {
+            this.current.requests.forEach(req => {
+                const { path, method = 'GET', response, host } = req;
+
+                if (!host) {
+                    console.error(
+                        `Host ${host} not recognized in fixture, skipping`
+                    );
+                }
+
+                if (response) {
+                    stubRequest(`${this.hosts[host]}${path}`, response, method);
+                }
+            });
+        }
     }
 
     addCaptureRoutes() {
-        this.hosts.forEach(host => {
+        Object.values(this.hosts).forEach(host => {
             HTTP_METHODS.forEach(method => {
                 cy.route(method, `${host}/**`);
             });
@@ -175,13 +197,16 @@ class NetworkShim {
     };
 
     flush() {
+        console.log('FLUSH1', this.started, this.mode, MODES.GENERATE);
         if (!this.started || this.mode !== MODES.GENERATE) {
             return;
         }
+        console.log('flush2');
 
-        const fixtureFile = `cypress/fixtures/${this.fixtureName}.json`;
         cy.log(
-            `Writing network fixture for ${this.specName} to ${fixtureFile}`
+            `Writing network fixture for ${this.specName} to ${
+                this.fixtureFile
+            }`
         );
 
         this.current.requests.forEach(req => {
@@ -190,7 +215,7 @@ class NetworkShim {
                 .should('not.be', null);
         });
 
-        cy.writeFile(fixtureFile, this.store, {
+        cy.writeFile(this.fixtureFile, this.store, {
             timeout: 30000,
         });
 

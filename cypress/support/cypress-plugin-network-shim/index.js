@@ -1,51 +1,62 @@
-/* global Cypress, beforeEach, after */
+/* global Cypress, cy, afterEach, before, after */
 
 import { getConfig } from './config';
 import { getSpecName } from './utils';
 import NetworkShim from './NetworkShim';
 
-let theShim = null;
-let theConfigDefaults = null;
-let theConfig = null;
-
-export const getNetworkShimConfig = () => {
-    return theConfig;
+const checkConfig = config => {
+    return config.specName;
 };
-Cypress.Commands.add('getNetworkShimConfig', getNetworkShimConfig);
 
-export const getNetworkShim = () => {
-    return theShim;
-};
-Cypress.Commands.add('getNetworkShim', getNetworkShim);
+const enable = options => {
+    let shim;
+    let success = true;
 
-export const initialize = (defaults = {}) => {
-    const specName = getSpecName();
-    theConfigDefaults = defaults;
-    theConfig = getConfig(defaults);
+    const config = getConfig(options);
+    console.log('INIT', config.specName, config);
+    shim = new NetworkShim(config);
 
     beforeEach(function() {
-        if (!theShim) {
-            theShim = new NetworkShim({ specName, ...theConfig });
+        if (shim) {
+            console.log('start', this.currentTest);
+            shim.startTest(this.currentTest.fullTitle());
         }
-        theShim.startTest(this.currentTest.fullTitle());
+    });
+
+    afterEach(function() {
+        success = success && this.currentTest.state === 'passed';
     });
 
     after(function() {
-        console.log('FLUSH', this.currentTest.state);
-        if (this.currentTest.state === 'passed') {
-            theShim.flush();
+        console.log('AFTER', success, Cypress.spec.absolute);
+        if (shim && success) {
+            shim.flush();
         }
+        shim = null;
     });
 };
 
-Cypress.Commands.add('configureNetworkShim', opts => {
-    if (theShim) {
-        throw new Error(
-            'The Network Shim is already running, be sure to configure it in a before() hook!'
-        );
-    }
-    theConfig = getConfig({
-        ...theConfigDefaults,
-        opts,
-    });
-});
+const theShimNamespace = {
+    _enabled: false,
+    _defaults: {},
+    enable(options) {
+        const config = { ...this._defaults, ...options };
+        config.specName = config.specName || getSpecName();
+        if (checkConfig) {
+            this._enabled = true;
+            return enable(config);
+        }
+    },
+    defaults(config) {
+        this._defaults = { ...config };
+        return this._defaults;
+    },
+    get enabled() {
+        return this._enabled;
+    },
+    get config() {
+        return getConfig(this._defaults);
+    },
+};
+
+Cypress.NetworkShim = theShimNamespace;

@@ -1,15 +1,12 @@
 /// <reference types="Cypress" />
 
 context('Smoke Test', () => {
-    before(() => {});
-    beforeEach(() => {
-        cy.startServer('smoke');
-        cy.login('system', 'System123');
-        cy.clock(Date.UTC(2018, 11, 16, 13, 10, 9), ['Date']); // Ensure we don't get fixture cache misses because of date changes
-        cy.loadPage();
+    before(() => {
+        Cypress.NetworkShim.enable({ specName: 'common/smoke' });
     });
-    after(() => {
-        cy.saveFixtures('smoke');
+    beforeEach(() => {
+        cy.login('system', 'System123');
+        cy.loadPage();
     });
 
     it('loads', () => {

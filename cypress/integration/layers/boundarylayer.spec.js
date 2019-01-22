@@ -1,10 +1,11 @@
 /// <reference types="Cypress" />
 
 context('Boundary Layers', () => {
-    // before(() => {
-    //     cy.useNetworkShim();
-    // });
-
+    before(() => {
+        Cypress.NetworkShim.enable({
+            specName: 'layers/boundarylayer',
+        });
+    });
     beforeEach(() => {
         cy.login('system', 'System123');
         cy.loadPage();

@@ -2,12 +2,12 @@ import { MODES } from './constants';
 
 /* global Promise, cy, Cypress */
 
-export const parseMode = mode => {
+export const parseMode = (mode = '') => {
     switch (mode.toUpperCase()) {
         case MODES.SKIP:
         case MODES.STUB:
         case MODES.GENERATE:
-            return mode;
+            return mode.toUpperCase();
         default:
             return null;
     }
@@ -58,8 +58,12 @@ export const getMatchingHost = (url, hosts) => {
 
 export const getSpecName = () => {
     const spec = Cypress.spec;
-    const specName = spec.name
-        .replace(/integration\//, '')
+    if (spec.relative === '__all') {
+        return null;
+    }
+
+    const specName = spec.relative
+        .replace(/cypress\/integration\//, '')
         .replace(/(.spec)?(.ts|.js)$/g, '');
     return specName;
 };
@@ -68,7 +72,7 @@ export const makeFixtureName = (
     specName,
     { fixturePrefix, fixturePostfix }
 ) => {
-    return `${fixturePrefix}${specName}${fixturePostfix}`;
+    return `${fixturePrefix}${specName}${fixturePostfix}.json`;
 };
 
 export const stubFetch = polyfill => win => {
