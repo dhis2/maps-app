@@ -53,7 +53,7 @@ class FacilityLayer extends Layer {
         }
 
         // Create and add facility layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
+        this.layer = map.createLayer(config); // .addTo(map);
 
         // Create and add area layer
         if (areaRadius) {
