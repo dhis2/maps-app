@@ -89,7 +89,7 @@ class EventLayer extends Layer {
         }
 
         // Create and add event layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
+        this.layer = map.createLayer(config); // .addTo(map);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
