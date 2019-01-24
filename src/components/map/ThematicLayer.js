@@ -47,8 +47,8 @@ class ThematicLayer extends Layer {
         }
 
         this.layer = map.createLayer(config);
-        this.layer.on('click', this.onFeatureClick, this);
-        this.layer.on('contextmenu', this.onFeatureRightClick, this);
+        this.layer.on('click', this.onFeatureClick.bind(this));
+        this.layer.on('contextmenu', this.onFeatureRightClick.bind(this));
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
@@ -72,7 +72,9 @@ class ThematicLayer extends Layer {
             </div>`;
 
         // TODO: Should not be dependant on L in global namespace
-        if (window.L) {
+        if (map.setPopup) {
+            map.setPopup(evt.lngLat, content);
+        } else if (window.L) {
             L.popup()
                 .setLatLng(evt.latlng)
                 .setContent(removeLineBreaks(content))
