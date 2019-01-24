@@ -91,14 +91,16 @@ class TrackedEntityLayer extends Layer {
             .join('');
 
         // TODO: Should not be dependant on L in global namespace
-        L.popup()
-            .setLatLng(evt.latlng)
-            .setContent(
-                `<table>${content}<tr><th>${i18n.t(
-                    'Last updated'
-                )}:</th><td>${time}</td></tr></table>`
-            )
-            .openOn(this.context.map);
+        if (window.L) {
+            L.popup()
+                .setLatLng(evt.latlng)
+                .setContent(
+                    `<table>${content}<tr><th>${i18n.t(
+                        'Last updated'
+                    )}:</th><td>${time}</td></tr></table>`
+                )
+                .openOn(this.context.map);
+        }
     };
 }
 

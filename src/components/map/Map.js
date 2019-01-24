@@ -152,20 +152,24 @@ class Map extends Component {
 
     showCoordinate(coord) {
         // TODO: Should not be dependant on L in global namespace
-        L.popup()
-            .setLatLng([coord[1], coord[0]])
-            .setContent(
-                'Longitude: ' +
-                    coord[0].toFixed(6) +
-                    '<br />Latitude: ' +
-                    coord[1].toFixed(6)
-            )
-            .on('remove', this.props.closeCoordinatePopup)
-            .openOn(this.context.map);
+        if (window.L) {
+            L.popup()
+                .setLatLng([coord[1], coord[0]])
+                .setContent(
+                    'Longitude: ' +
+                        coord[0].toFixed(6) +
+                        '<br />Latitude: ' +
+                        coord[1].toFixed(6)
+                )
+                .on('remove', this.props.closeCoordinatePopup)
+                .openOn(this.context.map);
+        }
     }
 
     onRightClick(evt) {
-        L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+        if (window.L) {
+            L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+        }
 
         const latlng = evt.latlng;
         const position = [

@@ -72,15 +72,19 @@ class ThematicLayer extends Layer {
             </div>`;
 
         // TODO: Should not be dependant on L in global namespace
-        L.popup()
-            .setLatLng(evt.latlng)
-            .setContent(removeLineBreaks(content))
-            .openOn(map);
+        if (window.L) {
+            L.popup()
+                .setLatLng(evt.latlng)
+                .setContent(removeLineBreaks(content))
+                .openOn(map);
+        }
     }
 
     onFeatureRightClick(evt) {
         // TODO: Should not be dependant on L in global namespace
-        L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+        if (window.L) {
+            L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+        }
 
         const latlng = evt.latlng;
         const position = [

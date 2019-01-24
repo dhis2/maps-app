@@ -168,14 +168,18 @@ class Layer extends PureComponent {
         const buffers = this.buffers;
 
         if (isVisible) {
-            if (!map.hasLayer(layer)) {
+            if (layer.setVisibility) {
+                layer.setVisibility(true);
+            } else if (!map.hasLayer(layer)) {
                 map.addLayer(layer);
             }
             if (buffers && !map.hasLayer(buffers)) {
                 map.addLayer(buffers);
             }
         } else if (!isVisible) {
-            if (map.hasLayer(layer)) {
+            if (layer.setVisibility) {
+                layer.setVisibility(false);
+            } else if (map.hasLayer(layer)) {
                 map.removeLayer(layer);
             }
             if (buffers && map.hasLayer(buffers)) {

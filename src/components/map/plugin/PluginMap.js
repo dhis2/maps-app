@@ -76,7 +76,9 @@ class PluginMap extends Component {
     }
 
     onRightClick(evt) {
-        L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+        if (window.L) {
+            L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+        }
 
         this.setState({
             contextMenuPosition: [

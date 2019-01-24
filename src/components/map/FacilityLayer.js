@@ -53,7 +53,8 @@ class FacilityLayer extends Layer {
         }
 
         // Create and add facility layer based on config object
-        this.layer = map.createLayer(config); // .addTo(map);
+        this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
 
         // Create and add area layer
         if (areaRadius) {
@@ -96,15 +97,19 @@ class FacilityLayer extends Layer {
         content += '</div>';
 
         // TODO: Should not be dependant on L in global namespace
-        L.popup()
-            .setLatLng(evt.latlng)
-            .setContent(content)
-            .openOn(this.context.map);
+        if (window.L) {
+            L.popup()
+                .setLatLng(evt.latlng)
+                .setContent(content)
+                .openOn(this.context.map);
+        }
     }
 
     onFeatureRightClick(evt) {
         // TODO: Should not be dependant on L in global namespace
-        L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+        if (window.L) {
+            L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
+        }
 
         const latlng = evt.latlng;
         const position = [
