@@ -105,8 +105,8 @@ class ThematicLayer extends Layer {
     }
 
     removeLayer() {
-        this.layer.off('click', this.onFeatureClick, this);
-        this.layer.off('contextmenu', this.onFeatureRightClick, this);
+        this.layer.off('click', this.onFeatureClick.bind(this));
+        this.layer.off('contextmenu', this.onFeatureRightClick.bind(this));
 
         super.removeLayer();
     }

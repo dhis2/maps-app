@@ -145,6 +145,13 @@ class Layer extends PureComponent {
     setLayerOrder() {
         const { index } = this.props;
 
+        // maps-gl
+        if (this.layer.setIndex) {
+            this.layer.setIndex(
+                this.context.map.getLayers().length - index - 1
+            );
+        }
+
         // Needs to be below 600 to allow leaflet-measure to operate on top
         const zIndex = 590 - index * 10;
 

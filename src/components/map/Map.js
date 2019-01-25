@@ -151,16 +151,20 @@ class Map extends Component {
     }
 
     showCoordinate(coord) {
+        const map = this.context.map;
+        const content =
+            'Longitude: ' +
+            coord[0].toFixed(6) +
+            '<br />Latitude: ' +
+            coord[1].toFixed(6);
+
         // TODO: Should not be dependant on L in global namespace
-        if (window.L) {
+        if (map.setPopup) {
+            map.setPopup(coord, content);
+        } else if (window.L) {
             L.popup()
                 .setLatLng([coord[1], coord[0]])
-                .setContent(
-                    'Longitude: ' +
-                        coord[0].toFixed(6) +
-                        '<br />Latitude: ' +
-                        coord[1].toFixed(6)
-                )
+                .setContent(content)
                 .on('remove', this.props.closeCoordinatePopup)
                 .openOn(this.context.map);
         }
