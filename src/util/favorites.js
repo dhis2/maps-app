@@ -30,6 +30,7 @@ const validLayerProperties = [
     'eventClustering',
     'eventPointColor',
     'eventPointRadius',
+    'eventCoordinateField',
     'filter',
     'filters',
     'followUp',
