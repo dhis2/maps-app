@@ -31,6 +31,7 @@ const validLayerProperties = [
     'eventClustering',
     'eventPointColor',
     'eventPointRadius',
+    'eventCoordinateField',
     'filter',
     'filters',
     'id',
@@ -150,7 +151,9 @@ export const translateConfig = config => {
             return {
                 el,
                 name,
-                alerts: [ createAlert(name, i18next.t('Map could not be created')) ],
+                alerts: [
+                    createAlert(name, i18next.t('Map could not be created')),
+                ],
             };
         }
 

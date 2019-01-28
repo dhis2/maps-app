@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import SelectField from 'd2-ui/lib/select-field/SelectField';
@@ -9,23 +8,12 @@ import {
 } from '../../actions/programs';
 
 export class CoordinateField extends Component {
+    componentDidMount() {
+        this.loadData();
+    }
+
     componentDidUpdate() {
-        const {
-            program,
-            programStage,
-            programAttributes,
-            dataElements,
-            loadProgramTrackedEntityAttributes,
-            loadProgramStageDataElements,
-        } = this.props;
-
-        if (program && !programAttributes[program.id]) {
-            loadProgramTrackedEntityAttributes(program.id);
-        }
-
-        if (programStage && !dataElements[programStage.id]) {
-            loadProgramStageDataElements(programStage.id);
-        }
+        this.loadData();
     }
 
     render() {
@@ -60,6 +48,25 @@ export class CoordinateField extends Component {
                 style={style}
             />
         );
+    }
+
+    loadData() {
+        const {
+            program,
+            programStage,
+            programAttributes,
+            dataElements,
+            loadProgramTrackedEntityAttributes,
+            loadProgramStageDataElements,
+        } = this.props;
+
+        if (program && !programAttributes[program.id]) {
+            loadProgramTrackedEntityAttributes(program.id);
+        }
+
+        if (programStage && !dataElements[programStage.id]) {
+            loadProgramStageDataElements(programStage.id);
+        }
     }
 }
 
