@@ -1,4 +1,3 @@
-import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { sortBy } from 'lodash/fp';
 import { pick } from 'lodash/fp';

@@ -95,7 +95,7 @@ const upgradeGisAppLayers = layers => {
 
 // https://davidwalsh.name/query-string-javascript
 export const getUrlParameter = name => {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
     const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     const results = regex.exec(location.search);
     return results === null

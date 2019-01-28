@@ -23,6 +23,7 @@ class ColorScaleSelect extends Component {
     static propTypes = {
         palette: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
+        width: PropTypes.number,
         style: PropTypes.object,
         classes: PropTypes.object.isRequired,
     };

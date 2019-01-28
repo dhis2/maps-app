@@ -70,7 +70,7 @@ const thematicLoader = async config => {
         title: name,
         period: period
             ? names[data.metaData.dimensions.pe[0]]
-            : `${formatLocaleDatee(config.startDate)} - ${formatLocaleDate(
+            : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
                   config.endDate
               )}`,
         items: legendSet

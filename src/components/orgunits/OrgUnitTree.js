@@ -44,9 +44,9 @@ export class OrgUnitTreeMaps extends Component {
     };
 
     componentDidMount() {
-        const { root, loadOrgUnitTree } = this.props;
+        const { roots, loadOrgUnitTree } = this.props;
 
-        if (!root) {
+        if (!roots) {
             loadOrgUnitTree();
         }
     }

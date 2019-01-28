@@ -10,7 +10,9 @@ export class ProgramStageSelect extends Component {
         program: PropTypes.object,
         programStage: PropTypes.object,
         programStages: PropTypes.object,
+        errorText: PropTypes.string,
         onChange: PropTypes.func.isRequired,
+        loadProgramStages: PropTypes.func.isRequired,
         style: PropTypes.object,
     };
 

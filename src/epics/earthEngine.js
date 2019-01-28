@@ -10,7 +10,7 @@ import { errorActionCreator } from '../actions/helpers';
 import { setAlert } from '../actions/alerts';
 
 const collections = {
-    'WorldPop/POP': (resolve, reject) => {
+    'WorldPop/POP': resolve => {
         // Population density
         const imageCollection = ee
             .ImageCollection('WorldPop/POP')
@@ -31,7 +31,7 @@ const collections = {
             )
         );
     },
-    'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': (resolve, reject) => {
+    'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': resolve => {
         // Nighttime lights
         const imageCollection = ee
             .ImageCollection('NOAA/DMSP-OLS/NIGHTTIME_LIGHTS')
@@ -53,7 +53,7 @@ const collections = {
             )
         );
     },
-    'UCSB-CHG/CHIRPS/PENTAD': (resolve, reject) => {
+    'UCSB-CHG/CHIRPS/PENTAD': resolve => {
         // Precipitation
         const imageCollection = ee
             .ImageCollection('UCSB-CHG/CHIRPS/PENTAD')
@@ -76,7 +76,7 @@ const collections = {
             )
         );
     },
-    'MODIS/MOD11A2': (resolve, reject) => {
+    'MODIS/MOD11A2': resolve => {
         // Temperature
         const imageCollection = ee
             .ImageCollection('MODIS/MOD11A2')
@@ -98,7 +98,7 @@ const collections = {
             )
         );
     },
-    'MODIS/051/MCD12Q1': (resolve, reject) => {
+    'MODIS/051/MCD12Q1': resolve => {
         // Landcover
         const imageCollection = ee
             .ImageCollection('MODIS/051/MCD12Q1')

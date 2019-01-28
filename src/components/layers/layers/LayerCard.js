@@ -182,6 +182,8 @@ LayerCard.propTypes = {
     editLayer: PropTypes.func.isRequired,
     removeLayer: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
+    openDataDownloadDialog: PropTypes.func.isRequired,
+    setMessage: PropTypes.func.isRequired,
     toggleLayerExpand: PropTypes.func.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
     toggleDataTable: PropTypes.func.isRequired,

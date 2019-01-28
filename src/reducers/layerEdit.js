@@ -13,6 +13,7 @@ import {
 const layerEdit = (state = null, action) => {
     let columns;
     let newState;
+    let program;
 
     switch (action.type) {
         case types.LAYER_EDIT:
@@ -23,7 +24,7 @@ const layerEdit = (state = null, action) => {
             return null;
 
         case types.LAYER_EDIT_PROGRAM_SET:
-            const program = action.program;
+            program = action.program;
 
             return {
                 ...state,
@@ -311,10 +312,6 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 rows: toggleOrgUnitNodeInRows(state.rows, action.orgUnit),
             };
-
-        case types.LAYER_EDIT_ORGANISATIOM_UNIT_ROOT_SET:
-            console.log('LAYER_EDIT_ORGANISATIOM_UNIT_ROOT_SET', state, action);
-            return state;
 
         // Set organisation unit tree path (temporary solution, as favorites don't include paths)
         case types.LAYER_EDIT_ORGANISATION_UNIT_PATH_SET:

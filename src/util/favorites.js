@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n';
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { generateUid } from 'd2/uid';
 import { createAlert } from '../util/alerts';
@@ -29,6 +30,7 @@ const validLayerProperties = [
     'eventClustering',
     'eventPointColor',
     'eventPointRadius',
+    'eventCoordinateField',
     'filter',
     'filters',
     'followUp',

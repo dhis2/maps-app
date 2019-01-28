@@ -25,10 +25,12 @@ export const createSld = () => {
 
         let stopFilter = 'PropertyIsLessThan';
 
+        /*
         if (i === colors.length - 1) {
             // If last
             let stopFilter = 'PropertyIsLessThanOrEqualTo';
         }
+        */
 
         sld += `<se:Rule>
                   <se:Name>${start} - ${stop}</se:Name>
