@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-01-17T09:35:38.941Z\n"
-"PO-Revision-Date: 2019-01-17T09:35:38.941Z\n"
+"POT-Creation-Date: 2019-01-22T09:00:42.459Z\n"
+"PO-Revision-Date: 2019-01-22T09:00:42.459Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -99,6 +99,9 @@ msgid "Delete filter"
 msgstr ""
 
 msgid "Remove filter"
+msgstr ""
+
+msgid "Items"
 msgstr ""
 
 msgid "Dimension"
