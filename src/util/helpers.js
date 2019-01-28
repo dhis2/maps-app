@@ -107,14 +107,22 @@ export const legendSetFields = [
 ];
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
-export const addOrgUnitPaths = (mapViews) => 
-    mapViews.map(view => view.rows && view.organisationUnits ? {
-        ...view, 
-        rows: view.rows.map(dim => ({
-            ...dim,
-            items: dim.items.map(orgUnit => ({
-                ...orgUnit,
-                path: (view.organisationUnits.find(ou => ou.id === orgUnit.id) || {}).path,
-            })),
-        }))
-    } : view);
+export const addOrgUnitPaths = (mapViews = []) =>
+    mapViews.map(view =>
+        view.rows && view.organisationUnits
+            ? {
+                  ...view,
+                  rows: view.rows.map(dim => ({
+                      ...dim,
+                      items: dim.items.map(orgUnit => ({
+                          ...orgUnit,
+                          path: (
+                              view.organisationUnits.find(
+                                  ou => ou.id === orgUnit.id
+                              ) || {}
+                          ).path,
+                      })),
+                  })),
+              }
+            : view
+    );

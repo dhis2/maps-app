@@ -21,23 +21,12 @@ export class CoordinateField extends Component {
         style: PropTypes.object,
     };
 
+    componentDidMount() {
+        this.loadData();
+    }
+
     componentDidUpdate() {
-        const {
-            program,
-            programStage,
-            programAttributes,
-            dataElements,
-            loadProgramTrackedEntityAttributes,
-            loadProgramStageDataElements,
-        } = this.props;
-
-        if (program && !programAttributes[program.id]) {
-            loadProgramTrackedEntityAttributes(program.id);
-        }
-
-        if (programStage && !dataElements[programStage.id]) {
-            loadProgramStageDataElements(programStage.id);
-        }
+        this.loadData();
     }
 
     render() {
@@ -72,6 +61,25 @@ export class CoordinateField extends Component {
                 style={style}
             />
         );
+    }
+
+    loadData() {
+        const {
+            program,
+            programStage,
+            programAttributes,
+            dataElements,
+            loadProgramTrackedEntityAttributes,
+            loadProgramStageDataElements,
+        } = this.props;
+
+        if (program && !programAttributes[program.id]) {
+            loadProgramTrackedEntityAttributes(program.id);
+        }
+
+        if (programStage && !dataElements[programStage.id]) {
+            loadProgramStageDataElements(programStage.id);
+        }
     }
 }
 
