@@ -1,7 +1,7 @@
 /* global Cypress */
 
-import './cypress-plugin-network-shim';
-Cypress.NetworkShim.defaults({
+import initNetworkShim from 'cypress-plugin-network-shim';
+initNetworkShim({
     hosts: {
         core: 'http://localhost:8080',
     },

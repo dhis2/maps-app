@@ -1,7 +1,7 @@
 // <reference types="Cypress" />
 /* global Promise, Cypress, cy */
 
-import { MODES } from './cypress-plugin-network-shim/constants';
+import { MODES } from 'cypress-plugin-network-shim';
 
 Cypress.Commands.add('login', (username, password) => {
     if (

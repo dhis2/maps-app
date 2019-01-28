@@ -3559,6 +3559,11 @@ cypress-pipe@^1.3.2:
   resolved "https://registry.yarnpkg.com/cypress-pipe/-/cypress-pipe-1.3.2.tgz#c7d923ae5c69dc6b5aaba76fad8a726da39aedac"
   integrity sha512-adl17ihAWfvCemzCjPk+xHaH4ZP9rjANgO0N3C8Qz09qc6TrhHQHQZqV7iutWUAXT8QiKr2dO5oJnvODoqFtRA==
 
+cypress-plugin-network-shim@0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/cypress-plugin-network-shim/-/cypress-plugin-network-shim-0.9.3.tgz#cb2355dd173ed27b8ce13de9c76cfbc57eef0252"
+  integrity sha512-Pz7AodT6pGvAH1hnwseDTkk1RDlB6DSN915H2gZhXPMLd6nQaGjeCuP1U74fbYYEUHo3Klcj3TiUlp4a1DLsVA==
+
 cypress@3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-3.1.4.tgz#2af04da05e09f9d3871d05713b364472744c4216"
