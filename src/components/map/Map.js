@@ -142,7 +142,7 @@ class Map extends Component {
             this.showCoordinate(coordinatePopup);
         }
 
-        this.context.map.invalidateSize();
+        this.context.map.resize();
     }
 
     // Remove map
@@ -170,22 +170,9 @@ class Map extends Component {
         }
     }
 
-    onRightClick(evt) {
-        if (window.L) {
-            L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-        }
-
-        const latlng = evt.latlng;
-        const position = [
-            evt.originalEvent.x,
-            evt.originalEvent.pageY || evt.originalEvent.y,
-        ];
-
-        this.props.openContextMenu({
-            position,
-            coordinate: [latlng.lng, latlng.lat],
-        });
-    }
+    onRightClick = evt => {
+        this.props.openContextMenu(evt);
+    };
 
     render() {
         const {

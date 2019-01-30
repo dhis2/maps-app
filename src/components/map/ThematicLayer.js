@@ -62,24 +62,16 @@ class ThematicLayer extends Layer {
         const map = this.context.map;
         const indicator = columns[0].items[0].name || '';
         const period = legend.period;
-        const content = `
+        const content = removeLineBreaks(`
             <div class="leaflet-popup-orgunit">
                 <em>${name}</em><br>
                 ${indicator}<br>
                 ${period}: ${value} ${
             aggregationType ? `(${aggregationType})` : ''
         }
-            </div>`;
+            </div>`);
 
-        // TODO: Should not be dependant on L in global namespace
-        if (map.setPopup) {
-            map.setPopup(evt.lngLat, content);
-        } else if (window.L) {
-            L.popup()
-                .setLatLng(evt.latlng)
-                .setContent(removeLineBreaks(content))
-                .openOn(map);
-        }
+        map.setPopup(evt.latlng || evt.lngLat, content);
     }
 
     onFeatureRightClick(evt) {

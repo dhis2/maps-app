@@ -204,7 +204,7 @@ const Plugin = () => {
             mapComponent instanceof PluginMap &&
             mapComponent.map
         ) {
-            mapComponent.map.invalidateSize();
+            mapComponent.map.resize();
             return true;
         }
 

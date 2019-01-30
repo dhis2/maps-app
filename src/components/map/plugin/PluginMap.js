@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import d2map from '@dhis2/gis-api';
-import d2map from '@dhis2/gis-api/build'; // TODO: when symlinked only
+import d2map from '@dhis2/gis-api/src'; // TODO: when symlinked only
 import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
 import Layer from '../Layer';
@@ -97,7 +97,7 @@ class PluginMap extends Component {
 
             this.node.appendChild(map.getContainer()); // Append map container to DOM
 
-            map.invalidateSize();
+            map.resize();
 
             const layersBounds = map.getLayersBounds();
 
@@ -111,7 +111,7 @@ class PluginMap extends Component {
                 map.fitWorld();
             }
 
-            map.invalidateSize();
+            map.resize();
 
             map.on('click', this.onCloseContextMenu, this);
         }
@@ -119,7 +119,7 @@ class PluginMap extends Component {
 
     componentDidUpdate() {
         if (this.map) {
-            this.map.invalidateSize();
+            this.map.resize();
         }
     }
 
