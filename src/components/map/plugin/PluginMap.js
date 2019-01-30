@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import d2map from '@dhis2/gis-api';
+// import d2map from '@dhis2/gis-api';
+import d2map from '@dhis2/gis-api/build'; // TODO: when symlinked only
 import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
 import Layer from '../Layer';
