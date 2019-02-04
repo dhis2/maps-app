@@ -1,3 +1,5 @@
+/* global L */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import d2map from '@dhis2/gis-api';

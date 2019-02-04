@@ -22,8 +22,9 @@ const dataDownloadReducer = (state = defaultState, action) => {
             return { ...defaultState };
         case types.DATA_DOWNLOAD_FAILURE:
             return { ...state, downloading: false, error: action.error };
+        default:
+            return state;
     }
-    return state;
 };
 
 export default dataDownloadReducer;

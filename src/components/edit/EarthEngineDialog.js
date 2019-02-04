@@ -139,7 +139,7 @@ class EarthEngineDialog extends Component {
         if (this.isValidSteps(steps)) {
             const scale = getColorScale(palette);
             const classes =
-                (steps == 1 && min == 0 ? 2 : steps) + (min == 0 ? 1 : 2);
+                (steps === 1 && min === 0 ? 2 : steps) + (min === 0 ? 1 : 2);
             const newPalette = getColorPalette(scale, classes);
 
             if (newPalette) {

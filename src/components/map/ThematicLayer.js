@@ -1,3 +1,5 @@
+/* global L */
+
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';

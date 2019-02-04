@@ -116,7 +116,7 @@ export class FilterSelect extends Component {
                 <Checkbox
                     key="checkbox"
                     label={i18n.t('Yes')}
-                    checked={value == 1 ? true : false}
+                    checked={value === 1 ? true : false}
                     onCheck={isChecked => onChange(isChecked ? 'IN:1' : 'IN:0')}
                 />
             ) : null,

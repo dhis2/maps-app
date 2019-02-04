@@ -33,7 +33,7 @@ export class App extends Component {
         d2: PropTypes.object.isRequired,
     };
 
-    getChildContext() {
+    getChildContext(test) {
         return {
             d2: this.props.d2,
         };

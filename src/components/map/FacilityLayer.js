@@ -1,3 +1,5 @@
+/* global L */
+
 import i18n from '@dhis2/d2-i18n';
 import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
