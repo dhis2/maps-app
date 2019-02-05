@@ -73,19 +73,11 @@ export default class BoundaryLayer extends Layer {
 
         content += '</div>';
 
-        // TODO: Should not be dependant on L in global namespace
-        if (window.L) {
-            L.popup()
-                .setLatLng(evt.latlng)
-                .setContent(content)
-                .openOn(this.context.map);
-        }
+        this.context.map.openPopup(content, evt.latlng);
     }
 
     onFeatureRightClick(evt) {
-        if (window.L) {
-            L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-        }
+        // L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         const latlng = evt.latlng;
         const position = [

@@ -20,8 +20,6 @@ class MapProvider extends Component {
         div.style.width = '100%';
         div.style.height = '100%';
 
-        // Create Leaflet map
-        // this.map = d2map(div);
         this.map = new D2map(div);
     }
 

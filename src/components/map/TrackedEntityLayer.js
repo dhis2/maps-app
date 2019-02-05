@@ -14,7 +14,7 @@ class TrackedEntityLayer extends Layer {
             editCounter,
         } = this.props;
 
-        const map = this.context.map;
+        const { map } = this.context;
         const color = eventPointColor || TEI_COLOR;
         const radius = eventPointRadius || TEI_RADIUS;
 
@@ -90,17 +90,12 @@ class TrackedEntityLayer extends Layer {
             )
             .join('');
 
-        // TODO: Should not be dependant on L in global namespace
-        if (window.L) {
-            L.popup()
-                .setLatLng(evt.latlng)
-                .setContent(
-                    `<table>${content}<tr><th>${i18n.t(
-                        'Last updated'
-                    )}:</th><td>${time}</td></tr></table>`
-                )
-                .openOn(this.context.map);
-        }
+        this.context.map.openPopup(
+            `<table>${content}<tr><th>${i18n.t(
+                'Last updated'
+            )}:</th><td>${time}</td></tr></table>`,
+            evt.latlng
+        );
     };
 }
 

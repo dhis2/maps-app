@@ -151,23 +151,23 @@ class Map extends Component {
     }
 
     showCoordinate(coord) {
-        const map = this.context.map;
+        const { map } = this.context;
         const content =
             'Longitude: ' +
             coord[0].toFixed(6) +
             '<br />Latitude: ' +
             coord[1].toFixed(6);
 
-        // TODO: Should not be dependant on L in global namespace
-        if (map.setPopup) {
-            map.setPopup(coord, content);
-        } else if (window.L) {
-            L.popup()
-                .setLatLng([coord[1], coord[0]])
-                .setContent(content)
-                .on('remove', this.props.closeCoordinatePopup)
-                .openOn(this.context.map);
-        }
+        // TODO: on('remove', this.props.closeCoordinatePopup)
+        map.openPopup(content, [coord[1], coord[0]]);
+
+        /*
+        L.popup()
+            .setLatLng([coord[1], coord[0]])
+            .setContent(content)
+            .on('remove', this.props.closeCoordinatePopup)
+            .openOn(this.context.map);   
+        */
     }
 
     onRightClick = evt => {

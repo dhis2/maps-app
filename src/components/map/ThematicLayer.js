@@ -30,6 +30,8 @@ class ThematicLayer extends Layer {
             pane: id,
             data: filterData(data, dataFilters),
             hoverLabel: '{name} ({value})',
+            onClick: this.onFeatureClick.bind(this),
+            onRightClick: this.onFeatureRightClick.bind(this),
         };
 
         if (labels) {
@@ -47,8 +49,6 @@ class ThematicLayer extends Layer {
         }
 
         this.layer = map.createLayer(config);
-        this.layer.on('click', this.onFeatureClick.bind(this));
-        this.layer.on('contextmenu', this.onFeatureRightClick.bind(this));
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
@@ -71,15 +71,10 @@ class ThematicLayer extends Layer {
         }
             </div>`);
 
-        map.setPopup(evt.latlng || evt.lngLat, content);
+        map.openPopup(content, evt.latlng || evt.lngLat);
     }
 
     onFeatureRightClick(evt) {
-        // TODO: Should not be dependant on L in global namespace
-        if (window.L) {
-            L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-        }
-
         const latlng = evt.latlng;
         const position = [
             evt.originalEvent.x,
@@ -94,13 +89,6 @@ class ThematicLayer extends Layer {
             layerType: props.layer,
             feature: evt.layer.feature,
         });
-    }
-
-    removeLayer() {
-        this.layer.off('click', this.onFeatureClick.bind(this));
-        this.layer.off('contextmenu', this.onFeatureRightClick.bind(this));
-
-        super.removeLayer();
     }
 }
 

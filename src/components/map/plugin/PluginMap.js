@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import d2map from '@dhis2/gis-api';
-import d2map from '@dhis2/gis-api/src'; // TODO: when symlinked only
+// import D2map from '@dhis2/gis-api';
+import D2map from '@dhis2/gis-api/src'; // TODO: when symlinked only
 import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
 import Layer from '../Layer';
@@ -61,7 +61,7 @@ class PluginMap extends Component {
         div.style.width = '100%';
         div.style.height = '100%';
 
-        this.map = d2map(div, {
+        this.map = new D2map(div, {
             scrollWheelZoom: false,
         });
 
@@ -77,9 +77,7 @@ class PluginMap extends Component {
     }
 
     onRightClick(evt) {
-        if (window.L) {
-            L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-        }
+        //  L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
 
         this.setState({
             contextMenuPosition: [
