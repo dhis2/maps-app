@@ -57,37 +57,28 @@ class ThematicLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        const { name, value } = evt.layer.feature.properties;
+        const { map } = this.context;
+        const { feature, coordinates } = evt;
+        const { name, value } = feature.properties;
         const { columns, aggregationType, legend } = this.props;
-        const map = this.context.map;
         const indicator = columns[0].items[0].name || '';
-        const period = legend.period;
-        const content = removeLineBreaks(`
-            <div class="leaflet-popup-orgunit">
-                <em>${name}</em><br>
-                ${indicator}<br>
-                ${period}: ${value} ${
-            aggregationType ? `(${aggregationType})` : ''
-        }
-            </div>`);
+        const { period } = legend;
+        const content = `<div class="leaflet-popup-orgunit">
+            <em>${name}</em><br>
+            ${indicator}<br>
+            ${period}: ${value} ${aggregationType ? `(${aggregationType})` : ''}
+        </div>`;
 
-        map.openPopup(content, evt.latlng || evt.lngLat);
+        map.openPopup(removeLineBreaks(content), coordinates);
     }
 
     onFeatureRightClick(evt) {
-        const latlng = evt.latlng;
-        const position = [
-            evt.originalEvent.x,
-            evt.originalEvent.pageY || evt.originalEvent.y,
-        ];
-        const props = this.props;
+        const { id, layer } = this.props;
 
         this.props.openContextMenu({
-            position,
-            coordinate: [latlng.lng, latlng.lat],
-            layerId: props.id,
-            layerType: props.layer,
-            feature: evt.layer.feature,
+            ...evt,
+            layerId: id,
+            layerType: layer,
         });
     }
 }

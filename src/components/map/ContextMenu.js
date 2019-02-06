@@ -49,6 +49,7 @@ const ContextMenu = (props, context) => {
         feature,
         layerId,
         layerType,
+        coordinates,
         earthEngineLayers,
         position,
         onClose,
@@ -65,7 +66,6 @@ const ContextMenu = (props, context) => {
     const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const iconColor = theme.colors.greyBlack;
     const iconDisabledColor = theme.colors.greyLight;
-    let coordinate = props.coordinate;
     let isPoint;
     let attr = {};
 
@@ -165,9 +165,9 @@ const ContextMenu = (props, context) => {
                 </MenuItem>
             )}
 
-            {coordinate && (
+            {coordinates && (
                 <MenuItem
-                    onClick={() => showCoordinate(coordinate)}
+                    onClick={() => showCoordinate(coordinates)}
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
@@ -222,7 +222,7 @@ const ContextMenu = (props, context) => {
             {earthEngineLayers.map(layer => (
                 <MenuItem
                     key={layer.id}
-                    onClick={() => showEarthEngineValue(layer.id, coordinate)}
+                    onClick={() => showEarthEngineValue(layer.id, coordinates)}
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>

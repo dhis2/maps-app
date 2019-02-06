@@ -159,7 +159,7 @@ class Map extends Component {
             coord[1].toFixed(6);
 
         // TODO: on('remove', this.props.closeCoordinatePopup)
-        map.openPopup(content, [coord[1], coord[0]]);
+        map.openPopup(content, coord);
 
         /*
         L.popup()
