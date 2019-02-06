@@ -30,6 +30,8 @@ export default class BoundaryLayer extends Layer {
                 fillOpacity: 0,
                 fill: false,
             },
+            onClick: this.onFeatureClick.bind(this),
+            onRightClick: this.onFeatureRightClick.bind(this),
         };
 
         if (labels) {
@@ -48,8 +50,6 @@ export default class BoundaryLayer extends Layer {
         }
 
         this.layer = map.createLayer(config);
-        this.layer.on('click', this.onFeatureClick, this);
-        this.layer.on('contextmenu', this.onFeatureRightClick, this);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
@@ -58,40 +58,31 @@ export default class BoundaryLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        const attr = evt.layer.feature.properties;
-        let content = `<div class="leaflet-popup-orgunit"><em>${
-            attr.name
-        }</em>`;
+        const { feature, coordinates } = evt;
+        const { name, level, parentName } = feature.properties;
 
-        if (attr.level) {
-            content += `<br/>${i18n.t('Level')}: ${attr.level}`;
+        let content = `<div class="leaflet-popup-orgunit"><em>${name}</em>`;
+
+        if (level) {
+            content += `<br/>${i18n.t('Level')}: ${level}`;
         }
 
-        if (attr.parentName) {
-            content += `<br/>${i18n.t('Parent unit')}: ${attr.parentName}`;
+        if (parentName) {
+            content += `<br/>${i18n.t('Parent unit')}: ${parentName}`;
         }
 
         content += '</div>';
 
-        this.context.map.openPopup(content, evt.latlng);
+        this.context.map.openPopup(content, coordinates);
     }
 
     onFeatureRightClick(evt) {
-        // L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-
-        const latlng = evt.latlng;
-        const position = [
-            evt.originalEvent.x,
-            evt.originalEvent.pageY || evt.originalEvent.y,
-        ];
-        const props = this.props;
+        const { id, layer } = this.props;
 
         this.props.openContextMenu({
-            position,
-            coordinate: [latlng.lng, latlng.lat],
-            layerId: props.id,
-            layerType: props.layer,
-            feature: evt.layer.feature,
+            ...evt,
+            layerId: id,
+            layerType: layer,
         });
     }
 

@@ -35,6 +35,8 @@ class FacilityLayer extends Layer {
             pane: id,
             data: filteredData,
             hoverLabel: '{label}',
+            onClick: this.onFeatureClick.bind(this),
+            onRightClick: this.onFeatureRightClick.bind(this),
         };
 
         // Labels and label style
@@ -67,10 +69,6 @@ class FacilityLayer extends Layer {
             });
         }
 
-        // Handle facility click
-        this.layer.on('click', this.onFeatureClick, this);
-        this.layer.on('contextmenu', this.onFeatureRightClick, this);
-
         // Only fit map to layer bounds on first add
         if (!editCounter) {
             this.fitBounds();
@@ -79,42 +77,32 @@ class FacilityLayer extends Layer {
 
     // Show pupup on facility click
     onFeatureClick(evt) {
-        const attr = evt.layer.feature.properties;
-        let content = `<div class="leaflet-popup-orgunit"><em>${
-            attr.name
-        }</em>`;
+        const { feature, coordinates } = evt;
+        const { name, dimensions, pn } = feature.properties;
+        let content = `<div class="leaflet-popup-orgunit"><em>${name}</em>`;
 
-        if (isPlainObject(attr.dimensions)) {
-            content += `<br/>${i18n.t('Groups')}: ${Object.keys(attr.dimensions)
-                .map(id => attr.dimensions[id])
+        if (isPlainObject(dimensions)) {
+            content += `<br/>${i18n.t('Groups')}: ${Object.keys(dimensions)
+                .map(id => dimensions[id])
                 .join(', ')}`;
         }
 
-        if (attr.pn) {
-            content += `<br/>${i18n.t('Parent unit')}: ${attr.pn}`;
+        if (pn) {
+            content += `<br/>${i18n.t('Parent unit')}: ${pn}`;
         }
 
         content += '</div>';
 
-        this.context.map.openPopup(content, evt.latlng);
+        this.context.map.openPopup(content, coordinates);
     }
 
     onFeatureRightClick(evt) {
-        // L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-
-        const latlng = evt.latlng;
-        const position = [
-            evt.originalEvent.x,
-            evt.originalEvent.pageY || evt.originalEvent.y,
-        ];
-        const props = this.props;
+        const { id, layer } = this.props;
 
         this.props.openContextMenu({
-            position,
-            coordinate: [latlng[1], latlng[0]],
-            layerId: props.id,
-            layerType: props.layer,
-            feature: evt.layer.feature,
+            ...evt,
+            layerId: id,
+            layerType: layer,
         });
     }
 }

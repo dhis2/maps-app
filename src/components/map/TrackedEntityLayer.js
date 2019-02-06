@@ -46,10 +46,9 @@ class TrackedEntityLayer extends Layer {
                     weight: 1,
                     radius,
                 },
+                onClick: this.onEntityClick.bind(this),
             })
             .addTo(map);
-
-        this.layer.on('click', this.onEntityClick);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
@@ -71,8 +70,7 @@ class TrackedEntityLayer extends Layer {
         super.removeLayer();
     }
 
-    onEntityClick = async evt => {
-        const feature = evt.layer.feature;
+    onEntityClick = async ({ feature, coordinates }) => {
         const data = await apiFetch(
             `/trackedEntityInstances/${
                 feature.id
@@ -94,7 +92,7 @@ class TrackedEntityLayer extends Layer {
             `<table>${content}<tr><th>${i18n.t(
                 'Last updated'
             )}:</th><td>${time}</td></tr></table>`,
-            evt.latlng
+            coordinates
         );
     };
 }

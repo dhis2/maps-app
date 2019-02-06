@@ -57,7 +57,6 @@ class ThematicLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        const { map } = this.context;
         const { feature, coordinates } = evt;
         const { name, value } = feature.properties;
         const { columns, aggregationType, legend } = this.props;
@@ -69,7 +68,7 @@ class ThematicLayer extends Layer {
             ${period}: ${value} ${aggregationType ? `(${aggregationType})` : ''}
         </div>`;
 
-        map.openPopup(removeLineBreaks(content), coordinates);
+        this.context.map.openPopup(removeLineBreaks(content), coordinates);
     }
 
     onFeatureRightClick(evt) {
