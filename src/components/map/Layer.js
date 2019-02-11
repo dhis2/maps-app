@@ -153,6 +153,7 @@ class Layer extends PureComponent {
         }
 
         // Needs to be below 600 to allow leaflet-measure to operate on top
+        /*
         const zIndex = 590 - index * 10;
 
         if (this.pane) {
@@ -166,6 +167,7 @@ class Layer extends PureComponent {
         if (this.labelPane) {
             this.labelPane.style.zIndex = zIndex + 1;
         }
+        */
     }
 
     setLayerVisibility() {
@@ -175,20 +177,16 @@ class Layer extends PureComponent {
         const buffers = this.buffers;
 
         if (isVisible) {
-            if (layer.setVisibility) {
-                layer.setVisibility(true);
-            } else if (!map.hasLayer(layer)) {
-                map.addLayer(layer);
-            }
+            layer.setVisibility(true);
+
             if (buffers && !map.hasLayer(buffers)) {
                 map.addLayer(buffers);
             }
         } else if (!isVisible) {
             if (layer.setVisibility) {
                 layer.setVisibility(false);
-            } else if (map.hasLayer(layer)) {
-                map.removeLayer(layer);
             }
+
             if (buffers && map.hasLayer(buffers)) {
                 map.removeLayer(buffers);
             }
