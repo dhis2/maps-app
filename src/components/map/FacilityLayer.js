@@ -54,11 +54,16 @@ class FacilityLayer extends Layer {
             };
         }
 
+        if (areaRadius) {
+            config.buffer = areaRadius;
+        }
+
         // Create and add facility layer based on config object
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
         // Create and add area layer
+        /*
         if (areaRadius) {
             this.buffers = map.addLayer({
                 type: 'circles',
@@ -68,6 +73,7 @@ class FacilityLayer extends Layer {
                 data: filteredData,
             });
         }
+        */
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {

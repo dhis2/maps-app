@@ -1,9 +1,12 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+
+/*
 import {
     BUFFER_MAX_FILL_OPACITY,
     BUFFER_MAX_LINE_OPACITY,
 } from '../../constants/layers';
+*/
 
 class Layer extends PureComponent {
     static contextTypes = {
@@ -33,7 +36,6 @@ class Layer extends PureComponent {
     constructor(...args) {
         super(...args);
 
-        this.createPane();
         this.createLayer();
     }
 
@@ -63,7 +65,6 @@ class Layer extends PureComponent {
             dataFilters !== prev.dataFilters
         ) {
             this.removeLayer();
-            this.createPane();
             this.createLayer();
             map.addLayer(this.layer);
             this.onLayerAdd();
@@ -87,6 +88,7 @@ class Layer extends PureComponent {
     }
 
     // Create custom pane to control layer ordering: http://leafletjs.com/examples/map-panes/
+    /*
     createPane() {
         const { id, labels, areaRadius } = this.props;
         const map = this.context.map;
@@ -101,6 +103,7 @@ class Layer extends PureComponent {
             this.areaPane = map.createPane(`${id}-area`);
         }
     }
+    */
 
     // Create new layer from config object (override in subclasses)
     createLayer() {
@@ -129,68 +132,28 @@ class Layer extends PureComponent {
     }
 
     setLayerOpacity() {
-        const { opacity } = this.props;
+        this.layer.setOpacity(this.props.opacity);
 
-        this.layer.setOpacity(opacity);
-
+        /*
         if (this.buffers) {
             this.buffers.setStyle({
                 opacity: BUFFER_MAX_LINE_OPACITY * opacity,
                 fillOpacity: BUFFER_MAX_FILL_OPACITY * opacity,
             });
         }
-    }
-
-    // Set layer order using custom panes and z-index: http://leafletjs.com/examples/map-panes/
-    setLayerOrder() {
-        const { index } = this.props;
-
-        // maps-gl
-        if (this.layer.setIndex) {
-            this.layer.setIndex(
-                this.context.map.getLayers().length - index - 1
-            );
-        }
-
-        // Needs to be below 600 to allow leaflet-measure to operate on top
-        /*
-        const zIndex = 590 - index * 10;
-
-        if (this.pane) {
-            this.pane.style.zIndex = zIndex;
-        }
-
-        if (this.areaPane) {
-            this.areaPane.style.zIndex = zIndex - 1;
-        }
-
-        if (this.labelPane) {
-            this.labelPane.style.zIndex = zIndex + 1;
-        }
         */
     }
 
+    setLayerOrder() {
+        const { index } = this.props;
+        const { map } = this.context;
+        const numLayers = map.getLayers().length;
+
+        this.layer.setIndex(numLayers - index - 1);
+    }
+
     setLayerVisibility() {
-        const isVisible = this.props.isVisible;
-        const map = this.context.map;
-        const layer = this.layer;
-        const buffers = this.buffers;
-
-        if (isVisible) {
-            layer.setVisibility(true);
-
-            if (buffers && !map.hasLayer(buffers)) {
-                map.addLayer(buffers);
-            }
-        } else if (!isVisible) {
-            if (layer.setVisibility) {
-                layer.setVisibility(false);
-            }
-
-            if (buffers && map.hasLayer(buffers)) {
-                map.removeLayer(buffers);
-            }
-        }
+        this.layer.setVisibility(this.props.isVisible);
     }
 
     // Fit map to layer bounds
@@ -214,10 +177,10 @@ class Layer extends PureComponent {
         }
 
         delete this.layer;
-        delete this.buffers;
-        delete this.pane;
-        delete this.labelPane;
-        delete this.areaPane;
+        // delete this.buffers;
+        // delete this.pane;
+        // delete this.labelPane;
+        // delete this.areaPane;
     }
 
     render() {
