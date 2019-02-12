@@ -49,7 +49,7 @@ export default class BoundaryLayer extends Layer {
             config.style.radius = radiusLow;
         }
 
-        this.layer = map.createLayer(config);
+        this.layer = map.createLayer(config).addTo(map);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
