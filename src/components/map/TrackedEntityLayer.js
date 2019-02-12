@@ -18,49 +18,34 @@ class TrackedEntityLayer extends Layer {
         const color = eventPointColor || TEI_COLOR;
         const radius = eventPointRadius || TEI_RADIUS;
 
+        const config = {
+            type: 'geoJson',
+            pane: id,
+            data,
+            style: {
+                color,
+                weight: 1,
+                radius,
+            },
+            onClick: this.onEntityClick.bind(this),
+        };
+
         if (areaRadius) {
-            this.buffers = map
-                .createLayer({
-                    type: 'buffer',
-                    pane: id,
-                    data,
-                    buffer: areaRadius,
-                    style: {
-                        color,
-                        weight: 1,
-                        opacity: 0.2,
-                        fillOpacity: 0.1,
-                    },
-                    popup: this.onEventClick,
-                })
-                .addTo(map);
+            config.buffer = areaRadius;
+            config.bufferStyle = {
+                color,
+                weight: 1,
+                opacity: 0.2,
+                fillOpacity: 0.1,
+            };
         }
 
-        this.layer = map
-            .createLayer({
-                type: 'geoJson',
-                pane: id,
-                data,
-                style: {
-                    color,
-                    weight: 1,
-                    radius,
-                },
-                onClick: this.onEntityClick.bind(this),
-            })
-            .addTo(map);
+        // Create and add layer based on config object
+        this.layer = map.createLayer(config).addTo(map);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
-            // TODO: layer is not always added to map before this check
-            const layerBounds =
-                this.buffers && this.buffers._map
-                    ? this.buffers.getBounds()
-                    : this.layer.getBounds();
-
-            if (layerBounds.isValid()) {
-                map.fitBounds(layerBounds);
-            }
+            this.fitBounds();
         }
     }
 

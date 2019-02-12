@@ -72,24 +72,17 @@ class EventLayer extends Layer {
                 config.clusterPane = id;
             }
         } else if (areaRadius) {
-            // Create and add buffer area layer
-            this.buffers = map.addLayer({
-                type: 'circles',
-                pane: `${id}-area`,
-                radius: areaRadius,
-                style: {
-                    color: color || EVENT_COLOR,
-                    weight: 1,
-                    opacity: 0.2,
-                    fillOpacity: 0.1,
-                },
-                highlightStyle: false,
-                data,
-            });
+            config.buffer = areaRadius;
+            config.bufferStyle = {
+                color: color || EVENT_COLOR,
+                weight: 1,
+                opacity: 0.2,
+                fillOpacity: 0.1,
+            };
         }
 
         // Create and add event layer based on config object
-        this.layer = map.createLayer(config); // .addTo(map);
+        this.layer = map.createLayer(config).addTo(map);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {

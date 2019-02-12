@@ -45,10 +45,9 @@ class ThematicLayer extends Layer {
                 color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
                 lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
             };
-            config.labelPane = id + '-labels';
         }
 
-        this.layer = map.createLayer(config);
+        this.layer = map.createLayer(config).addTo(map);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
