@@ -20,7 +20,7 @@ class TrackedEntityLayer extends Layer {
 
         const config = {
             type: 'geoJson',
-            pane: id,
+            id,
             data,
             style: {
                 color,
@@ -41,7 +41,8 @@ class TrackedEntityLayer extends Layer {
         }
 
         // Create and add layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
+        this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {

@@ -27,7 +27,7 @@ class ThematicLayer extends Layer {
 
         const config = {
             type: 'choropleth',
-            pane: id,
+            id,
             data: filterData(data, dataFilters),
             hoverLabel: '{name} ({value})',
             onClick: this.onFeatureClick.bind(this),
@@ -47,7 +47,8 @@ class ThematicLayer extends Layer {
             };
         }
 
-        this.layer = map.createLayer(config).addTo(map);
+        this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {

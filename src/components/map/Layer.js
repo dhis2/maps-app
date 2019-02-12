@@ -89,7 +89,7 @@ class Layer extends PureComponent {
 
         if (index !== undefined) {
             // If not a basemap
-            layerConfig.pane = id;
+            layerConfig.id = id;
         }
 
         this.layer = map.createLayer(layerConfig);
@@ -118,11 +118,7 @@ class Layer extends PureComponent {
 
     // Fit map to layer bounds
     fitBounds() {
-        const layerBounds = this.layer.getBounds();
-
-        if (layerBounds.isValid()) {
-            this.context.map.fitBounds(layerBounds);
-        }
+        this.context.map.fitBounds(this.layer.getBounds());
     }
 
     removeLayer() {

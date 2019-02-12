@@ -38,7 +38,7 @@ class EventLayer extends Layer {
         // Default props = no cluster
         const config = {
             type: 'dots',
-            pane: id,
+            id,
             data,
             color: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
@@ -82,7 +82,8 @@ class EventLayer extends Layer {
         }
 
         // Create and add event layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
+        this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {

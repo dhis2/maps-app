@@ -6,7 +6,7 @@ export default class ExternalLayer extends Layer {
         const config = props.config;
         const map = this.context.map;
 
-        config.pane = props.id;
+        config.id = props.id;
 
         this.layer = map.createLayer(config);
     }

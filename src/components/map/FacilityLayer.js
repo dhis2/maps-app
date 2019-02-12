@@ -32,7 +32,7 @@ class FacilityLayer extends Layer {
         // Create layer config object
         const config = {
             type: 'markers',
-            pane: id,
+            id,
             data: filteredData,
             hoverLabel: '{label}',
             onClick: this.onFeatureClick.bind(this),
@@ -59,7 +59,8 @@ class FacilityLayer extends Layer {
         }
 
         // Create and add facility layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
+        this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {

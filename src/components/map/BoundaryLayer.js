@@ -22,7 +22,7 @@ export default class BoundaryLayer extends Layer {
 
         const config = {
             type: 'boundary',
-            pane: id,
+            id,
             data: filteredData,
             hoverLabel: '{name}',
             style: {
@@ -49,7 +49,8 @@ export default class BoundaryLayer extends Layer {
             config.style.radius = radiusLow;
         }
 
-        this.layer = map.createLayer(config).addTo(map);
+        this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
