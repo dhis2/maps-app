@@ -1,13 +1,6 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-/*
-import {
-    BUFFER_MAX_FILL_OPACITY,
-    BUFFER_MAX_LINE_OPACITY,
-} from '../../constants/layers';
-*/
-
 class Layer extends PureComponent {
     static contextTypes = {
         map: PropTypes.object,
@@ -32,7 +25,6 @@ class Layer extends PureComponent {
         isVisible: true,
     };
 
-    // Create pane and layer
     constructor(...args) {
         super(...args);
 
@@ -87,24 +79,6 @@ class Layer extends PureComponent {
         this.removeLayer();
     }
 
-    // Create custom pane to control layer ordering: http://leafletjs.com/examples/map-panes/
-    /*
-    createPane() {
-        const { id, labels, areaRadius } = this.props;
-        const map = this.context.map;
-
-        this.pane = map.createPane(id);
-
-        if (labels) {
-            this.labelPane = map.createPane(`${id}-labels`);
-        }
-
-        if (areaRadius) {
-            this.areaPane = map.createPane(`${id}-area`);
-        }
-    }
-    */
-
     // Create new layer from config object (override in subclasses)
     createLayer() {
         const { id, index, config } = this.props;
@@ -124,24 +98,10 @@ class Layer extends PureComponent {
     onLayerAdd() {
         this.setLayerOpacity();
         this.setLayerVisibility();
-
-        if (this.props.index !== undefined) {
-            // Basemap don't have index
-            this.setLayerOrder();
-        }
     }
 
     setLayerOpacity() {
         this.layer.setOpacity(this.props.opacity);
-
-        /*
-        if (this.buffers) {
-            this.buffers.setStyle({
-                opacity: BUFFER_MAX_LINE_OPACITY * opacity,
-                fillOpacity: BUFFER_MAX_FILL_OPACITY * opacity,
-            });
-        }
-        */
     }
 
     setLayerOrder() {
@@ -177,10 +137,6 @@ class Layer extends PureComponent {
         }
 
         delete this.layer;
-        // delete this.buffers;
-        // delete this.pane;
-        // delete this.labelPane;
-        // delete this.areaPane;
     }
 
     render() {

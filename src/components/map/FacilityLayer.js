@@ -62,19 +62,6 @@ class FacilityLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Create and add area layer
-        /*
-        if (areaRadius) {
-            this.buffers = map.addLayer({
-                type: 'circles',
-                pane: `${id}-area`,
-                radius: areaRadius,
-                highlightStyle: false,
-                data: filteredData,
-            });
-        }
-        */
-
         // Only fit map to layer bounds on first add
         if (!editCounter) {
             this.fitBounds();
