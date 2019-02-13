@@ -7,6 +7,7 @@ class TrackedEntityLayer extends Layer {
     createLayer() {
         const {
             id,
+            index,
             data,
             eventPointColor,
             eventPointRadius,
@@ -21,6 +22,7 @@ class TrackedEntityLayer extends Layer {
         const config = {
             type: 'geoJson',
             id,
+            index,
             data,
             style: {
                 color,

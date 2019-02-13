@@ -9,12 +9,13 @@ import { getDisplayPropertyUrl, removeLineBreaks } from '../../util/helpers';
 class EventLayer extends Layer {
     createLayer() {
         const {
+            id,
+            index,
             bounds,
             data,
             eventClustering,
             eventPointColor,
             eventPointRadius,
-            id,
             program,
             programStage,
             serverCluster,
@@ -39,6 +40,7 @@ class EventLayer extends Layer {
         const config = {
             type: 'dots',
             id,
+            index,
             data,
             color: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,

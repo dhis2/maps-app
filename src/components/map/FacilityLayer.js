@@ -14,6 +14,7 @@ class FacilityLayer extends Layer {
     createLayer() {
         const {
             id,
+            index,
             data,
             dataFilters,
             labels,
@@ -33,6 +34,7 @@ class FacilityLayer extends Layer {
         const config = {
             type: 'markers',
             id,
+            index,
             data: filteredData,
             hoverLabel: '{label}',
             onClick: this.onFeatureClick.bind(this),

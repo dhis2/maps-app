@@ -7,6 +7,7 @@ export default class BoundaryLayer extends Layer {
     createLayer() {
         const {
             id,
+            index,
             data,
             labels,
             labelFontSize,
@@ -23,6 +24,7 @@ export default class BoundaryLayer extends Layer {
         const config = {
             type: 'boundary',
             id,
+            index,
             data: filteredData,
             hoverLabel: '{name}',
             style: {

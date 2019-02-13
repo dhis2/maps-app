@@ -29,6 +29,7 @@ export default class EarthEngineLayer extends Layer {
         const config = {
             type: 'earthEngine',
             id: props.id,
+            index: props.index,
             datasetId: props.datasetId,
             band: props.band,
             mask: props.mask,

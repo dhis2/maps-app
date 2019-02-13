@@ -224,7 +224,7 @@ class Map extends Component {
                             return (
                                 <Overlay
                                     key={config.id}
-                                    index={index}
+                                    index={index + 1}
                                     openContextMenu={openContextMenu}
                                     {...config}
                                 />

@@ -13,6 +13,7 @@ class ThematicLayer extends Layer {
     createLayer() {
         const {
             id,
+            index,
             data,
             dataFilters,
             labels,
@@ -28,6 +29,7 @@ class ThematicLayer extends Layer {
         const config = {
             type: 'choropleth',
             id,
+            index,
             data: filterData(data, dataFilters),
             hoverLabel: '{name} ({value})',
             onClick: this.onFeatureClick.bind(this),
