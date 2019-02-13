@@ -11,6 +11,8 @@ class EventLayer extends Layer {
         const {
             id,
             index,
+            opacity,
+            isVisible,
             bounds,
             data,
             eventClustering,
@@ -41,6 +43,8 @@ class EventLayer extends Layer {
             type: 'dots',
             id,
             index,
+            opacity,
+            isVisible,
             data,
             color: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,

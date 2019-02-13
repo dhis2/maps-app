@@ -8,6 +8,8 @@ class TrackedEntityLayer extends Layer {
         const {
             id,
             index,
+            opacity,
+            isVisible,
             data,
             eventPointColor,
             eventPointRadius,
@@ -23,6 +25,8 @@ class TrackedEntityLayer extends Layer {
             type: 'geoJson',
             id,
             index,
+            opacity,
+            isVisible,
             data,
             style: {
                 color,

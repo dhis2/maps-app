@@ -8,6 +8,8 @@ export default class BoundaryLayer extends Layer {
         const {
             id,
             index,
+            opacity,
+            isVisible,
             data,
             labels,
             labelFontSize,
@@ -25,6 +27,8 @@ export default class BoundaryLayer extends Layer {
             type: 'boundary',
             id,
             index,
+            opacity,
+            isVisible,
             data: filteredData,
             hoverLabel: '{name}',
             style: {

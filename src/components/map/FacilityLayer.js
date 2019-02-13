@@ -15,6 +15,8 @@ class FacilityLayer extends Layer {
         const {
             id,
             index,
+            opacity,
+            isVisible,
             data,
             dataFilters,
             labels,
@@ -35,6 +37,8 @@ class FacilityLayer extends Layer {
             type: 'markers',
             id,
             index,
+            opacity,
+            isVisible,
             data: filteredData,
             hoverLabel: '{label}',
             onClick: this.onFeatureClick.bind(this),

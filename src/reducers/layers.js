@@ -11,7 +11,7 @@ const defaultLayers = [
         layer: 'event',
         type: 'Events',
         img: 'images/events.png',
-        opacity: 0.95,
+        opacity: 0.5, // 0.95,
         eventClustering: true,
     },
     {

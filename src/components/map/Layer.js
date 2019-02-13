@@ -30,10 +30,6 @@ class Layer extends PureComponent {
         this.createLayer();
     }
 
-    componentDidMount() {
-        this.onLayerAdd();
-    }
-
     componentDidUpdate(prev) {
         const {
             id,
@@ -44,7 +40,6 @@ class Layer extends PureComponent {
             editCounter,
             dataFilters,
         } = this.props;
-        const map = this.context.map;
 
         // Create new map if new id of editCounter is increased
         if (
@@ -55,8 +50,6 @@ class Layer extends PureComponent {
         ) {
             this.removeLayer();
             this.createLayer();
-            map.addLayer(this.layer);
-            this.onLayerAdd();
         }
 
         if (index !== undefined && index !== prev.index) {
@@ -78,21 +71,22 @@ class Layer extends PureComponent {
 
     // Create new layer from config object (override in subclasses)
     createLayer() {
-        const { id, index = 0, config } = this.props;
+        const { id, index = 0, config, opacity, isVisible } = this.props;
         const { map } = this.context;
 
         this.layer = map.createLayer({
             ...config,
             id,
             index,
+            opacity,
+            isVisible,
         });
 
         map.addLayer(this.layer);
     }
 
-    onLayerAdd() {
-        this.setLayerOpacity();
-        this.setLayerVisibility();
+    setLayerVisibility() {
+        this.layer.setVisibility(this.props.isVisible);
     }
 
     setLayerOpacity() {
@@ -101,10 +95,6 @@ class Layer extends PureComponent {
 
     setLayerOrder() {
         this.layer.setIndex(this.props.index);
-    }
-
-    setLayerVisibility() {
-        this.layer.setVisibility(this.props.isVisible);
     }
 
     // Fit map to layer bounds

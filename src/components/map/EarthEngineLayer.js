@@ -23,40 +23,62 @@ export default class EarthEngineLayer extends Layer {
     }
 
     createLayer() {
-        const props = this.props;
-        const map = this.context.map;
+        const {
+            id,
+            index,
+            opacity,
+            isVisible,
+            datasetId,
+            band,
+            mask,
+            attribution,
+            filter,
+            methods,
+            aggregation,
+            name,
+            legend,
+            value,
+            resolution,
+            projection,
+            params,
+            popup,
+        } = this.props;
+
+        const { map } = this.context;
 
         const config = {
             type: 'earthEngine',
-            id: props.id,
-            index: props.index,
-            datasetId: props.datasetId,
-            band: props.band,
-            mask: props.mask,
-            attribution: props.attribution,
-            filter: props.filter,
-            methods: props.methods,
-            aggregation: props.aggregation,
-            name: props.name,
-            unit: props.legend.unit,
-            value: props.value,
-            legend:
-                props.legend && !props.legend.unit ? props.legend.items : null,
-            resolution: props.resolution,
-            projection: props.projection,
+            id,
+            index,
+            opacity,
+            isVisible,
+            datasetId,
+            band,
+            mask,
+            attribution,
+            filter,
+            methods,
+            aggregation,
+            name,
+            unit: legend.unit,
+            value: value,
+            legend: legend && !legend.unit ? legend.items : null,
+            resolution,
+            projection,
         };
 
-        if (props.params) {
-            config.params = props.params;
+        if (params) {
+            config.params = params;
         }
 
-        if (props.popup) {
-            config.popup = props.popup;
+        if (popup) {
+            config.popup = popup;
         }
 
         config.accessToken = callback =>
             apiFetch('/tokens/google').then(json => callback(json));
 
         this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
     }
 }
