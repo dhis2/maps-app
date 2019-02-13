@@ -27,13 +27,10 @@ class Layer extends PureComponent {
 
     constructor(...args) {
         super(...args);
-
         this.createLayer();
     }
 
     componentDidMount() {
-        const map = this.context.map;
-        map.addLayer(this.layer);
         this.onLayerAdd();
     }
 
@@ -82,12 +79,15 @@ class Layer extends PureComponent {
     // Create new layer from config object (override in subclasses)
     createLayer() {
         const { id, index = 0, config } = this.props;
+        const { map } = this.context;
 
-        this.layer = this.context.map.createLayer({
+        this.layer = map.createLayer({
             ...config,
             id,
             index,
         });
+
+        map.addLayer(this.layer);
     }
 
     onLayerAdd() {
