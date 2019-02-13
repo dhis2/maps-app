@@ -99,13 +99,13 @@ class Map extends Component {
         // Add zoom control
         map.addControl({
             type: 'zoom',
-            position: 'topright',
+            position: 'top-right',
         });
 
         // Add fit bounds control
         map.addControl({
             type: 'fitBounds',
-            position: 'topright',
+            position: 'top-right',
         });
 
         // Add scale control
