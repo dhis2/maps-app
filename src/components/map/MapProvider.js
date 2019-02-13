@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-//import D2map from '@dhis2/gis-api';
+// import D2map from '@dhis2/gis-api';
 // import D2map from '@dhis2/gis-api/src';
 import D2map from '@dhis2/maps-gl';
 
