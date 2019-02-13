@@ -100,11 +100,7 @@ class Layer extends PureComponent {
     }
 
     setLayerOrder() {
-        const { index } = this.props;
-        const { map } = this.context;
-        const numLayers = map.getLayers().length;
-
-        this.layer.setIndex(numLayers - index - 1);
+        this.layer.setIndex(this.props.index);
     }
 
     setLayerVisibility() {

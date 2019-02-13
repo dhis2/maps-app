@@ -195,7 +195,7 @@ class Map extends Component {
             ...basemap,
         };
 
-        const layers = [...mapViews].reverse();
+        const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
 
         const style = {
             position: 'absolute',
@@ -216,20 +216,18 @@ class Map extends Component {
                     className={classes.mapContainer}
                 >
                     <MapName />
-                    {layers
-                        .filter(layer => layer.isLoaded)
-                        .map((config, index) => {
-                            const Overlay = layerType[config.layer] || Layer;
+                    {layers.map((config, index) => {
+                        const Overlay = layerType[config.layer] || Layer;
 
-                            return (
-                                <Overlay
-                                    key={config.id}
-                                    index={index + 1}
-                                    openContextMenu={openContextMenu}
-                                    {...config}
-                                />
-                            );
-                        })}
+                        return (
+                            <Overlay
+                                key={config.id}
+                                index={layers.length - index}
+                                openContextMenu={openContextMenu}
+                                {...config}
+                            />
+                        );
+                    })}
                     <Layer key="basemap" {...basemapConfig} />
                     {isDownload && legendPosition && (
                         <DownloadLegend
