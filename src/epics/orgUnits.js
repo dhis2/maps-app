@@ -54,7 +54,7 @@ export const loadOrgUnitLevels = action$ =>
             .then(async d2 =>
                 d2.models.organisationUnitLevels.list({
                     fields: `id,${getDisplayPropertyUrl(d2)},level`,
-                    pageing: false,
+                    paging: false,
                 })
             )
             .then(levels => setOrgUnitLevels(levels.toArray()))
@@ -69,7 +69,7 @@ export const loadOrgUnitGroups = action$ =>
             .then(async d2 =>
                 d2.models.organisationUnitGroups.list({
                     fields: `id,${getDisplayPropertyUrl(d2)}`,
-                    pageing: false,
+                    paging: false,
                 })
             )
             .then(groups => setOrgUnitGroups(groups.toArray()))
@@ -84,7 +84,7 @@ export const loadOrgUnitGroupSets = action$ =>
             .then(d2 =>
                 d2.models.organisationUnitGroupSets.list({
                     fields: `id,${getDisplayPropertyUrl(d2)}`,
-                    pageing: false,
+                    paging: false,
                 })
             )
             .then(groupSets => setOrgUnitGroupSets(groupSets.toArray()))
