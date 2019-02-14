@@ -76,17 +76,6 @@ class PluginMap extends Component {
         };
     }
 
-    onRightClick(evt) {
-        //  L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-
-        this.setState({
-            contextMenuPosition: [
-                evt.originalEvent.x,
-                evt.originalEvent.pageY || evt.originalEvent.y,
-            ],
-        });
-    }
-
     componentDidMount() {
         if (this.node && this.map) {
             // If map is rendered
@@ -99,19 +88,19 @@ class PluginMap extends Component {
 
             const layersBounds = map.getLayersBounds();
 
-            if (layersBounds.isValid()) {
+            if (layersBounds) {
                 map.fitBounds(layersBounds);
-            } else if (Array.isArray(bounds)) {
+            } else if (bounds) {
                 map.fitBounds(bounds);
             } else if (latitude && longitude && zoom) {
-                map.setView([latitude, longitude], zoom);
+                map.setView([longitude, latitude], zoom);
             } else {
                 map.fitWorld();
             }
 
             map.resize();
 
-            map.on('click', this.onCloseContextMenu, this);
+            map.on('click', this.onCloseContextMenu);
         }
     }
 
@@ -132,12 +121,12 @@ class PluginMap extends Component {
         this.setState(state);
     }
 
-    onCloseContextMenu() {
+    onCloseContextMenu = () => {
         this.setState({
             position: null,
             feature: null,
         });
-    }
+    };
 
     async onDrill(direction) {
         const { layerId, feature, mapViews } = this.state;
@@ -184,27 +173,23 @@ class PluginMap extends Component {
     render() {
         const { basemap = { id: 'osmLight' } } = this.props;
         const { mapViews, position, feature } = this.state;
+        const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
 
         return (
             <div ref={node => (this.node = node)} style={styles.map}>
-                {mapViews
-                    .filter(layer => layer.isLoaded)
-                    .reverse()
-                    .map((config, index) => {
-                        const Overlay = layerType[config.layer] || Layer;
+                {layers.map((config, index) => {
+                    const Overlay = layerType[config.layer] || Layer;
 
-                        return (
-                            <Overlay
-                                key={config.id}
-                                index={index}
-                                openContextMenu={this.onOpenContextMenu.bind(
-                                    this
-                                )}
-                                {...config}
-                                isPlugin={true}
-                            />
-                        );
-                    })}
+                    return (
+                        <Overlay
+                            key={config.id}
+                            index={layers.length - index}
+                            openContextMenu={this.onOpenContextMenu.bind(this)}
+                            {...config}
+                            isPlugin={true}
+                        />
+                    );
+                })}
                 {basemap.isVisible !== false && (
                     <Layer key="basemap" {...basemap} />
                 )}
