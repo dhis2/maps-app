@@ -79,7 +79,7 @@ const boundaryLoader = async config => {
 const getOrgUnitLevelNames = async d2 => {
     const orgUnitLevels = await d2.models.organisationUnitLevels.list({
         fields: `id,${getDisplayPropertyUrl(d2)},level`,
-        pageing: false,
+        paging: false,
     });
 
     return orgUnitLevels
