@@ -75,8 +75,7 @@ export default class EarthEngineLayer extends Layer {
             config.popup = popup;
         }
 
-        config.accessToken = callback =>
-            apiFetch('/tokens/google').then(json => callback(json));
+        config.accessToken = apiFetch('/tokens/google'); // returns promise
 
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
