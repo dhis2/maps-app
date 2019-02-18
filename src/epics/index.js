@@ -18,6 +18,7 @@ import programEpics from './programs';
 import favoritesEpics from './favorites';
 import trackedEntitiesEpics from './trackedEntities';
 import dataDownloadEpics from './dataDownload';
+import analyticalObjectEpics from './analyticalObject';
 
 const errorEpic = action$ =>
     action$
@@ -40,5 +41,6 @@ export default combineEpics(
     programEpics,
     favoritesEpics,
     trackedEntitiesEpics,
-    dataDownloadEpics
+    dataDownloadEpics,
+    analyticalObjectEpics
 );

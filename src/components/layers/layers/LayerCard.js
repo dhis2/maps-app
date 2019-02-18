@@ -24,6 +24,7 @@ import {
 import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
 import { openDataDownloadDialog } from '../../../actions/dataDownload';
+import { openAsChart } from '../../../actions/analyticalObject';
 
 const styles = {
     card: {
@@ -78,6 +79,7 @@ const styles = {
 
 const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
 const dataTableLayerTypes = ['facility', 'thematic', 'boundary'];
+const openAsChartLayerTypes = ['thematic'];
 
 const LayerCard = ({
     layer,
@@ -105,6 +107,7 @@ const LayerCard = ({
     const canEdit = layerType !== 'external';
     const canToggleDataTable = dataTableLayerTypes.indexOf(layerType) >= 0;
     const canDownload = downloadableLayerTypes.indexOf(layerType) >= 0;
+    const canOpenAsChart = openAsChartLayerTypes.indexOf(layerType) >= 0;
 
     return (
         <Card className={classes.card} data-test="layercard">
@@ -169,6 +172,9 @@ const LayerCard = ({
                             canDownload
                                 ? () => openDataDownloadDialog(id)
                                 : undefined
+                        }
+                        openAsChart={
+                            canOpenAsChart ? () => openAsChart(id) : undefined
                         }
                     />
                 </CardContent>

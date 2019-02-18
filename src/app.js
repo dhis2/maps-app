@@ -76,7 +76,6 @@ getManifest('manifest.webapp')
             // If analytical object is passed from another app
             const analyticalObject = getUrlParameter('currentAnalyticalObject');
             if (analyticalObject === 'true') {
-                console.log(getAnalyticalObject);
                 store.dispatch(getAnalyticalObject());
             }
 

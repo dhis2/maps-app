@@ -16,6 +16,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/SaveAlt';
+import OpenAsChartIcon from '@material-ui/icons/BarChart';
 
 const styles = theme => ({
     button: {
@@ -40,6 +41,7 @@ export class LayerToolbarMoreMenu extends Component {
         onEdit: PropTypes.func,
         onRemove: PropTypes.func,
         toggleDataTable: PropTypes.func,
+        openAsChart: PropTypes.func,
         downloadData: PropTypes.func,
     };
 
@@ -67,6 +69,11 @@ export class LayerToolbarMoreMenu extends Component {
         this.props.toggleDataTable();
     };
 
+    handleOpenAsChartBtnClick = () => {
+        this.closeMenu();
+        this.props.openAsChart();
+    };
+
     handleRemoveBtnClick = () => {
         this.closeMenu();
         this.props.onRemove();
@@ -83,6 +90,7 @@ export class LayerToolbarMoreMenu extends Component {
             onEdit,
             onRemove,
             toggleDataTable,
+            openAsChart,
             downloadData,
         } = this.props;
 
@@ -118,6 +126,14 @@ export class LayerToolbarMoreMenu extends Component {
                                 <ViewListIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Data table')} />
+                        </MenuItem>
+                    )}
+                    {openAsChart && (
+                        <MenuItem onClick={this.handleOpenAsChartBtnClick}>
+                            <ListItemIcon>
+                                <OpenAsChartIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={i18n.t('Open as chart')} />
                         </MenuItem>
                     )}
                     {downloadData && (
