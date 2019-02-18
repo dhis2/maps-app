@@ -13,6 +13,7 @@ import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
+import { getAnalyticalObject } from './actions/analyticalObject';
 import { setGoogleCloudApiKey } from './actions/basemap';
 import { getUrlParameter } from './util/requests';
 
@@ -70,6 +71,13 @@ getManifest('manifest.webapp')
             const mapId = getUrlParameter('id');
             if (mapId) {
                 store.dispatch(loadFavorite(mapId));
+            }
+
+            // If analytical object is passed from another app
+            const analyticalObject = getUrlParameter('currentAnalyticalObject');
+            if (analyticalObject === 'true') {
+                console.log(getAnalyticalObject);
+                store.dispatch(getAnalyticalObject());
             }
 
             // JSS initialization
