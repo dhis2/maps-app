@@ -24,7 +24,7 @@ import {
 import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
 import { openDataDownloadDialog } from '../../../actions/dataDownload';
-import { openAsChart } from '../../../actions/analyticalObject';
+import { setAnalyticalObject } from '../../../actions/analyticalObject';
 
 const styles = {
     card: {
@@ -79,7 +79,7 @@ const styles = {
 
 const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
 const dataTableLayerTypes = ['facility', 'thematic', 'boundary'];
-const openAsChartLayerTypes = ['thematic'];
+const openAsLayerTypes = ['thematic'];
 
 const LayerCard = ({
     layer,
@@ -90,6 +90,7 @@ const LayerCard = ({
     toggleLayerVisibility,
     toggleDataTable,
     openDataDownloadDialog,
+    setAnalyticalObject,
     setMessage,
     classes,
 }) => {
@@ -107,7 +108,7 @@ const LayerCard = ({
     const canEdit = layerType !== 'external';
     const canToggleDataTable = dataTableLayerTypes.indexOf(layerType) >= 0;
     const canDownload = downloadableLayerTypes.indexOf(layerType) >= 0;
-    const canOpenAsChart = openAsChartLayerTypes.indexOf(layerType) >= 0;
+    const canOpenAs = openAsLayerTypes.indexOf(layerType) >= 0;
 
     return (
         <Card className={classes.card} data-test="layercard">
@@ -173,8 +174,10 @@ const LayerCard = ({
                                 ? () => openDataDownloadDialog(id)
                                 : undefined
                         }
-                        openAsChart={
-                            canOpenAsChart ? () => openAsChart(id) : undefined
+                        openAs={
+                            canOpenAs
+                                ? type => setAnalyticalObject(id, type)
+                                : undefined
                         }
                     />
                 </CardContent>
@@ -189,6 +192,7 @@ LayerCard.propTypes = {
     removeLayer: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
     openDataDownloadDialog: PropTypes.func.isRequired,
+    setAnalyticalObject: PropTypes.func.isRequired,
     setMessage: PropTypes.func.isRequired,
     toggleLayerExpand: PropTypes.func.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
@@ -207,5 +211,6 @@ export default connect(
         toggleDataTable,
         setMessage,
         openDataDownloadDialog,
+        setAnalyticalObject,
     }
 )(withStyles(styles)(LayerCard));

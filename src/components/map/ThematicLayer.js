@@ -67,7 +67,9 @@ class ThematicLayer extends Layer {
                 <em>${name}</em><br>
                 ${indicator}<br>
                 ${period}: ${value} ${
-            aggregationType ? `(${aggregationType})` : ''
+            aggregationType && aggregationType !== 'DEFAULT'
+                ? `(${aggregationType})`
+                : ''
         }
             </div>`;
 

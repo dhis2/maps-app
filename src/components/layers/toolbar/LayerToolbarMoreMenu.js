@@ -41,7 +41,7 @@ export class LayerToolbarMoreMenu extends Component {
         onEdit: PropTypes.func,
         onRemove: PropTypes.func,
         toggleDataTable: PropTypes.func,
-        openAsChart: PropTypes.func,
+        openAs: PropTypes.func,
         downloadData: PropTypes.func,
     };
 
@@ -71,7 +71,7 @@ export class LayerToolbarMoreMenu extends Component {
 
     handleOpenAsChartBtnClick = () => {
         this.closeMenu();
-        this.props.openAsChart();
+        this.props.openAs('CHART');
     };
 
     handleRemoveBtnClick = () => {
@@ -90,7 +90,7 @@ export class LayerToolbarMoreMenu extends Component {
             onEdit,
             onRemove,
             toggleDataTable,
-            openAsChart,
+            openAs,
             downloadData,
         } = this.props;
 
@@ -128,7 +128,7 @@ export class LayerToolbarMoreMenu extends Component {
                             <ListItemText primary={i18n.t('Data table')} />
                         </MenuItem>
                     )}
-                    {openAsChart && (
+                    {openAs && (
                         <MenuItem onClick={this.handleOpenAsChartBtnClick}>
                             <ListItemIcon>
                                 <OpenAsChartIcon />

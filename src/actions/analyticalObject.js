@@ -4,6 +4,7 @@ export const getAnalyticalObject = () => ({
     type: types.ANALYTICAL_OBJECT_GET,
 });
 
-export const openAsChart = () => ({
-    type: types.ANALYTICAL_OBJECT_AS_CHART,
+export const setAnalyticalObject = (id, openAs) => ({
+    type: types.ANALYTICAL_OBJECT_SET,
+    payload: { id, openAs },
 });
