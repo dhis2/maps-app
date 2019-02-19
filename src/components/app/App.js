@@ -17,6 +17,7 @@ import AlertSnackbar from '../alerts/AlertSnackbar';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
+import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 import './App.css';
 
@@ -57,6 +58,7 @@ export class App extends Component {
                             <AlertSnackbar />
                             <Message />
                             <DataDownloadDialog />
+                            <OpenAsMapDialog />
                         </MapProvider>
                     </MuiThemeProvider>
                 </FatalErrorBoundary>

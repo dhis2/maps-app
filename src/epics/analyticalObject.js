@@ -2,6 +2,7 @@ import { combineEpics } from 'redux-observable';
 import { config, getInstance as getD2 } from 'd2';
 import * as types from '../constants/actionTypes';
 import { loadLayer } from '../actions/layers';
+// import { setAnalyticalObject } from '../actions/analyticalObject';
 import { errorActionCreator } from '../actions/helpers';
 
 const NAMESPACE = 'analytics';
@@ -11,6 +12,31 @@ const APP_URLS = {
     CHART: 'dhis-web-data-visualizer',
     PIVOT: 'dhis-web-pivot',
 };
+
+// const FIXED_DIMENSIONS = ['dx', 'ou', 'pe'];
+
+// Checks if anaytical object is valid as a map layer
+/*
+const isValidMapLayer = ao => {
+    const { columns, rows, filters } = ao;
+    const dimensions = [...columns, ...rows, ...filters];
+
+    const dataItems = dimensions.filter(i => i.dimension === 'dx');
+
+    const orgUnits = dimensions.filter(i => i.dimension === 'ou');
+    const periods = dimensions.filter(i => i.dimension === 'pe');
+    const dynamic = dimensions.filter(
+        i => !FIXED_DIMENSIONS.includes(i.dimension)
+    );
+
+    let isValid = true;
+
+    if (dataItems.length !== 1 || dataItems[0].items.length !== 1) {
+        isValid = false;
+    }
+    return isValid;
+};
+*/
 
 // Convert analytical object to thematic layer
 // TODO: Support multiple period, filters and data dimensions
@@ -59,7 +85,13 @@ export const getAnalyticalObject = action$ =>
         getD2()
             .then(getNamespace)
             .then(ns => ns.get(CURRENT_AO_KEY))
-            .then(ao => loadLayer(toThematicLayer(ao)))
+            .then(
+                ao => loadLayer(toThematicLayer(ao))
+                /*
+                isValidMapLayer(ao)
+                    ? loadLayer(toThematicLayer(ao))
+                    : setAnalyticalObject(ao) */
+            )
             .catch(
                 e => errorActionCreator(types.ANALYTICAL_OBJECT_FAILURE)(e) // TODO: Show error
             )
