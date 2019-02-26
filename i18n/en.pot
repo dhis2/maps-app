@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-12-05T09:55:15.234Z\n"
-"PO-Revision-Date: 2018-12-05T09:55:15.234Z\n"
+"POT-Creation-Date: 2019-02-26T13:24:36.310Z\n"
+"PO-Revision-Date: 2019-02-26T13:24:36.310Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -394,6 +394,9 @@ msgstr ""
 msgid "Data table"
 msgstr ""
 
+msgid "Open as chart"
+msgstr ""
+
 msgid "Download data"
 msgstr ""
 
@@ -401,15 +404,6 @@ msgid "Edit layer"
 msgstr ""
 
 msgid "Remove layer"
-msgstr ""
-
-msgid "Open as"
-msgstr ""
-
-msgid "Pivot"
-msgstr ""
-
-msgid "Chart"
 msgstr ""
 
 msgid "Parent unit"
@@ -449,6 +443,12 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
+msgstr ""
+
+msgid "Open as map"
+msgstr ""
+
+msgid "Proceed"
 msgstr ""
 
 msgid "Options"

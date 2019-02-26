@@ -2,7 +2,7 @@ import { combineEpics } from 'redux-observable';
 import { config, getInstance as getD2 } from 'd2';
 import * as types from '../constants/actionTypes';
 import { loadLayer } from '../actions/layers';
-// import { setAnalyticalObject } from '../actions/analyticalObject';
+import { setAnalyticalObject } from '../actions/analyticalObject';
 import { errorActionCreator } from '../actions/helpers';
 
 const NAMESPACE = 'analytics';
@@ -13,10 +13,9 @@ const APP_URLS = {
     PIVOT: 'dhis-web-pivot',
 };
 
-// const FIXED_DIMENSIONS = ['dx', 'ou', 'pe'];
+const FIXED_DIMENSIONS = ['dx', 'ou', 'pe'];
 
 // Checks if anaytical object is valid as a map layer
-/*
 const isValidMapLayer = ao => {
     const { columns, rows, filters } = ao;
     const dimensions = [...columns, ...rows, ...filters];
@@ -34,9 +33,9 @@ const isValidMapLayer = ao => {
     if (dataItems.length !== 1 || dataItems[0].items.length !== 1) {
         isValid = false;
     }
+
     return isValid;
 };
-*/
 
 // Convert analytical object to thematic layer
 // TODO: Support multiple period, filters and data dimensions
@@ -85,12 +84,10 @@ export const getAnalyticalObject = action$ =>
         getD2()
             .then(getNamespace)
             .then(ns => ns.get(CURRENT_AO_KEY))
-            .then(
-                ao => loadLayer(toThematicLayer(ao))
-                /*
+            .then(ao =>
                 isValidMapLayer(ao)
                     ? loadLayer(toThematicLayer(ao))
-                    : setAnalyticalObject(ao) */
+                    : setAnalyticalObject(ao)
             )
             .catch(
                 e => errorActionCreator(types.ANALYTICAL_OBJECT_FAILURE)(e) // TODO: Show error
@@ -98,6 +95,7 @@ export const getAnalyticalObject = action$ =>
     );
 
 // Set analytical object to user data store
+/*
 export const setAnalyticalObject = (action$, store) =>
     action$.ofType(types.ANALYTICAL_OBJECT_SET).concatMap(action =>
         getD2()
@@ -116,5 +114,7 @@ export const setAnalyticalObject = (action$, store) =>
                 }/${app}/#/currentAnalyticalObject`;
             })
     );
+    */
 
-export default combineEpics(getAnalyticalObject, setAnalyticalObject);
+// export default combineEpics(getAnalyticalObject, setAnalyticalObject);
+export default combineEpics(getAnalyticalObject);

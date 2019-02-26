@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import alert from './alert';
-// import analyticalObject from './analyticalObject';
+import analyticalObject from './analyticalObject';
 import basemaps from './basemaps';
 import contextMenu from './contextMenu';
 import dataElements from './dataElements';
@@ -39,7 +39,7 @@ import dataDownload from './dataDownload';
 
 export default combineReducers({
     alert,
-    // analyticalObject,
+    analyticalObject,
     basemaps,
     contextMenu,
     dataElements,
