@@ -54,7 +54,7 @@ const webpackConfig = {
                 test: /\.jsx?$/,
                 include: [
                     path.resolve(__dirname, 'src/'),
-                    path.resolve(__dirname, '../gis-api/src/'),
+                    // path.resolve(__dirname, '../gis-api/src/'),
                 ],
                 loader: 'babel-loader',
                 query: {
