@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Interpretations from '@dhis2/d2-ui-interpretations';
+import InterpretationsComponent from '@dhis2/d2-ui-interpretations';
 import { openInterpretationsPanel } from '../../actions/ui';
 import { setRelativePeriodDate } from '../../actions/map';
 import { setInterpretation } from '../../actions/interpretations';
@@ -18,7 +18,7 @@ const styles = theme => ({
         position: 'absolute',
         top: HEADER_HEIGHT,
         bottom: 0,
-        height: 'auto',
+        height: '100vh',
         width: INTERPRETATIONS_PANEL_WIDTH,
         backgroundColor: theme.palette.background.default,
         boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
@@ -69,7 +69,7 @@ class InterpretationsPanel extends Component {
                 classes={{ paper: classes.panel }}
             >
                 <div>
-                    <Interpretations
+                    <InterpretationsComponent
                         d2={this.context.d2}
                         id={mapId}
                         type="map"
