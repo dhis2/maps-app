@@ -310,6 +310,8 @@ export const getThematicLayerFromAnalyticalObject = (ao, dataId) => {
         };
     }
 
+    console.log('ao', ao);
+
     return {
         layer: 'thematic',
         columns: [{ dimension: 'dx', items: [dataDim] }],
