@@ -4,6 +4,11 @@ import * as types from '../constants/actionTypes';
 import { loadLayer } from '../actions/layers';
 import { setAnalyticalObject } from '../actions/analyticalObject';
 import { errorActionCreator } from '../actions/helpers';
+import {
+    isValidAnalyticalObject,
+    getDataDimensionsFromAnalyticalObject,
+    getThematicLayerFromAnalyticalObject,
+} from '../util/analytics';
 
 const NAMESPACE = 'analytics';
 const CURRENT_AO_KEY = 'currentAnalyticalObject';
@@ -11,61 +16,6 @@ const CURRENT_AO_KEY = 'currentAnalyticalObject';
 const APP_URLS = {
     CHART: 'dhis-web-data-visualizer',
     PIVOT: 'dhis-web-pivot',
-};
-
-const FIXED_DIMENSIONS = ['dx', 'ou', 'pe'];
-
-// Checks if anaytical object is valid as a map layer
-const isValidMapLayer = ao => {
-    const { columns, rows, filters } = ao;
-    const dimensions = [...columns, ...rows, ...filters];
-
-    const dataItems = dimensions.filter(i => i.dimension === 'dx');
-
-    const orgUnits = dimensions.filter(i => i.dimension === 'ou');
-    const periods = dimensions.filter(i => i.dimension === 'pe');
-    const dynamic = dimensions.filter(
-        i => !FIXED_DIMENSIONS.includes(i.dimension)
-    );
-
-    let isValid = true;
-
-    if (dataItems.length !== 1 || dataItems[0].items.length !== 1) {
-        isValid = false;
-    }
-
-    return isValid;
-};
-
-// Convert analytical object to thematic layer
-// TODO: Support multiple period, filters and data dimensions
-const toThematicLayer = ao => {
-    const { columns, rows, filters, aggregationType } = ao;
-    const dimensions = [...columns, ...rows, ...filters];
-    const dataItem = dimensions.find(i => i.dimension === 'dx');
-    const orgUnits = dimensions.find(i => i.dimension === 'ou');
-    const period = dimensions.find(i => i.dimension === 'pe');
-
-    // console.log('Analytical object: ', ao);
-
-    return {
-        layer: 'thematic',
-        columns: [dataItem],
-        rows: [orgUnits],
-        filters: [period],
-        aggregationType,
-    };
-};
-
-const toAnalyticalObject = layer => {
-    const { columns, rows, filters, aggregationType } = layer;
-
-    return {
-        columns,
-        rows,
-        filters,
-        aggregationType,
-    };
 };
 
 // Returns or creates "analytics" namespace in user data store
@@ -85,8 +35,8 @@ export const getAnalyticalObject = action$ =>
             .then(getNamespace)
             .then(ns => ns.get(CURRENT_AO_KEY))
             .then(ao =>
-                isValidMapLayer(ao)
-                    ? loadLayer(toThematicLayer(ao))
+                isValidAnalyticalObject(ao)
+                    ? loadLayer(getThematicLayerFromAnalyticalObject(ao))
                     : setAnalyticalObject(ao)
             )
             .catch(

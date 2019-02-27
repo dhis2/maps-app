@@ -1,8 +1,10 @@
 import i18n from '@dhis2/d2-i18n';
 import { sortBy, negate } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
-import { relativePeriods } from '../constants/periods';
+import { periodNames } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
+
+const FIXED_DIMENSIONS = ['dx', 'ou', 'pe'];
 
 /* DIMENSIONS */
 
@@ -146,10 +148,7 @@ export const addUserOrgUnitsToRows = (rows = [], userOrgUnits = []) => [
 export const getPeriodFromFilters = (filters = []) =>
     getDimensionItems('pe', filters)[0];
 
-export const getPeriodNameFromId = id => {
-    const period = relativePeriods.filter(period => period.id === id)[0];
-    return period ? i18n.t(period.name) : null;
-};
+export const getPeriodNameFromId = id => i18n.t(periodNames[id]);
 
 export const setFiltersFromPeriod = period => [
     createDimension('pe', [{ ...period }]),
@@ -248,3 +247,85 @@ export const getApiResponseNames = ({ metaData, headers }) => ({
     true: i18n.t('Yes'),
     false: i18n.t('No'),
 });
+
+// Returns the data items of the first dx dimension in an analytical object
+export const getDataDimensionsFromAnalyticalObject = ao => {
+    const { columns, rows, filters } = ao;
+
+    // TODO: Should filters be included?
+    const dataDim = [...columns, ...rows, ...filters].find(
+        i => i.dimension === 'dx'
+    );
+
+    // We only use the first dx dimension
+    return dataDim ? dataDim.items : [];
+};
+
+// Checks if anaytical object is valid as a map layer
+// TODO
+export const isValidAnalyticalObject = ao => {
+    const { columns, rows, filters } = ao;
+    const dimensions = [...columns, ...rows, ...filters];
+
+    const dataItems = dimensions.filter(i => i.dimension === 'dx');
+
+    const orgUnits = dimensions.filter(i => i.dimension === 'ou');
+    const periods = dimensions.filter(i => i.dimension === 'pe');
+    const dynamic = dimensions.filter(
+        i => !FIXED_DIMENSIONS.includes(i.dimension)
+    );
+
+    let isValid = true;
+
+    if (dataItems.length !== 1 || dataItems[0].items.length !== 1) {
+        isValid = false;
+    }
+
+    return isValid;
+};
+
+// Returns a thematic layer config from an analytical object
+export const getThematicLayerFromAnalyticalObject = (ao, dataId) => {
+    const { columns, rows, filters, yearlySeries, aggregationType } = ao;
+    const dimensions = [...columns, ...rows, ...filters];
+    const dataDims = getDataDimensionsFromAnalyticalObject(ao);
+    const orgUnits = dimensions.find(i => i.dimension === 'ou');
+    let period = dimensions.find(i => i.dimension === 'pe');
+    let dataDim = dataDims[0];
+
+    if (dataId) {
+        dataDim = dataDims.find(item => item.id === dataId);
+    }
+
+    // Currently we only support one period in map filters so we select the first
+    if (yearlySeries && yearlySeries.length) {
+        period = {
+            dimension: 'pe',
+            items: [
+                {
+                    id: yearlySeries[0],
+                    name: getPeriodNameFromId(yearlySeries[0]),
+                },
+            ],
+        };
+    }
+
+    return {
+        layer: 'thematic',
+        columns: [{ dimension: 'dx', items: [dataDim] }],
+        rows: [orgUnits],
+        filters: [period],
+        aggregationType,
+    };
+};
+
+export const getAnalyticalObjectFromThematicLayer = layer => {
+    const { columns, rows, filters, aggregationType } = layer;
+
+    return {
+        columns,
+        rows,
+        filters,
+        aggregationType,
+    };
+};

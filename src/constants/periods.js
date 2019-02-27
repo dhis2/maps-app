@@ -43,3 +43,15 @@ export const relativePeriods = [
     { id: 'LAST_FINANCIAL_YEAR', name: 'Last financial year' },
     { id: 'LAST_5_FINANCIAL_YEARS', name: 'Last 5 financial years' },
 ];
+
+// All period names
+export const periodNames = {
+    ...periodTypes.reduce((obj, { id, name }) => {
+        obj[id] = name;
+        return obj;
+    }, {}),
+    ...relativePeriods.reduce((obj, { id, name }) => {
+        obj[id] = name;
+        return obj;
+    }, {}),
+};

@@ -11,6 +11,10 @@ import Button from '@material-ui/core/Button';
 import SelectField from '../core/SelectField';
 import { loadLayer } from '../../actions/layers';
 import { clearAnalyticalObject } from '../../actions/analyticalObject';
+import {
+    getDataDimensionsFromAnalyticalObject,
+    getThematicLayerFromAnalyticalObject,
+} from '../../util/analytics';
 
 const styles = {
     content: {
@@ -28,6 +32,7 @@ export class OpenAsMapDialog extends Component {
     static propTypes = {
         showDialog: PropTypes.bool.isRequired,
         ao: PropTypes.object,
+        loadLayer: PropTypes.func.isRequired,
         clearAnalyticalObject: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
@@ -45,7 +50,7 @@ export class OpenAsMapDialog extends Component {
     }
 
     setDefaultState() {
-        const dataDims = this.getDataDimensions();
+        const dataDims = getDataDimensionsFromAnalyticalObject(this.props.ao);
 
         // Select the first data dimension
         if (dataDims && dataDims.length) {
@@ -53,31 +58,15 @@ export class OpenAsMapDialog extends Component {
         }
     }
 
-    getDataDimensions() {
-        const { ao } = this.props;
-        const { columns, rows, filters } = ao;
-        // TODO: Should filters be included?
-        const dims = [...columns, ...rows, ...filters];
-        const dataDims = dims.filter(i => i.dimension === 'dx');
-
-        if (dataDims.length > 1) {
-            console.log('TODO: More than one dx dimension');
-        } else if (dataDims.length) {
-            return dataDims[0].items;
-        }
-
-        return [];
-    }
-
     render() {
-        const { showDialog, clearAnalyticalObject, classes } = this.props;
+        const { ao, showDialog, clearAnalyticalObject, classes } = this.props;
         const { selectedDataDims } = this.state;
 
         if (!showDialog) {
             return null;
         }
 
-        const dataDims = this.getDataDimensions();
+        const dataDims = getDataDimensionsFromAnalyticalObject(ao);
         const disableProceedBtn = !selectedDataDims.length;
 
         return (
@@ -129,30 +118,28 @@ export class OpenAsMapDialog extends Component {
         const { clearAnalyticalObject } = this.props;
         const { selectedDataDims } = this.state;
 
-        [...selectedDataDims].reverse().forEach(this.createThematicLayer);
+        [...selectedDataDims]
+            .reverse()
+            .forEach((dataId, index) =>
+                this.createThematicLayer(
+                    dataId,
+                    index === selectedDataDims.length - 1
+                )
+            );
 
         clearAnalyticalObject();
     };
 
-    // TODO: Seperate file
-    createThematicLayer = (dataDimId, index) => {
-        const { ao, loadLayer } = this.props;
-        const { columns, rows, filters, aggregationType } = ao;
-        const dimensions = [...columns, ...rows, ...filters];
-        const dataDim = this.getDataDimensions().find(i => i.id === dataDimId);
-        const orgUnits = dimensions.find(i => i.dimension === 'ou');
-        const period = dimensions.find(i => i.dimension === 'pe');
+    createThematicLayer = (dataId, isVisible) => {
+        const layerConfig = getThematicLayerFromAnalyticalObject(
+            this.props.ao,
+            dataId
+        );
 
-        const layerConfig = {
-            layer: 'thematic',
-            columns: [{ dimension: 'dx', items: [dataDim] }],
-            rows: [orgUnits],
-            filters: [period],
-            aggregationType,
-            isVisible: index === 0,
-        };
-
-        loadLayer(layerConfig);
+        this.props.loadLayer({
+            ...layerConfig,
+            isVisible,
+        });
     };
 }
 
