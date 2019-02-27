@@ -65,7 +65,7 @@ const thematicLoader = async config => {
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
     let alert;
 
-    // Check if data item has legend set (needed if config is converted for chart/pivot layout)
+    // Check if data item has legend set (needed if config is converted from chart/pivot layout)
     if (!legendSet && !method) {
         legendSet = await loadDataItemLegendSet(dataItem);
     }
