@@ -98,9 +98,10 @@ const thematicLoader = async config => {
     if (!valueFeatures.length) {
         if (!features.length) {
             const orgUnits = getOrgUnitsFromRows(rows);
+
             alert = createAlert(
                 orgUnits.length === 1
-                    ? names[orgUnits[0].id]
+                    ? names[orgUnits[0].id] || i18n.t(orgUnits[0].name)
                     : i18n.t('Selected org units'),
                 i18n.t('No coordinates found')
             );

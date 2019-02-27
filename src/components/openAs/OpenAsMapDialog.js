@@ -129,7 +129,7 @@ export class OpenAsMapDialog extends Component {
         const { clearAnalyticalObject } = this.props;
         const { selectedDataDims } = this.state;
 
-        selectedDataDims.forEach(this.createThematicLayer);
+        [...selectedDataDims].reverse().forEach(this.createThematicLayer);
 
         clearAnalyticalObject();
     };
@@ -139,7 +139,7 @@ export class OpenAsMapDialog extends Component {
         const { ao, loadLayer } = this.props;
         const { columns, rows, filters, aggregationType } = ao;
         const dimensions = [...columns, ...rows, ...filters];
-        const dataDim = this.getDataDimensions().find(i => (i.id = dataDimId));
+        const dataDim = this.getDataDimensions().find(i => i.id === dataDimId);
         const orgUnits = dimensions.find(i => i.dimension === 'ou');
         const period = dimensions.find(i => i.dimension === 'pe');
 
