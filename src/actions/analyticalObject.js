@@ -4,13 +4,6 @@ export const getAnalyticalObject = () => ({
     type: types.ANALYTICAL_OBJECT_GET,
 });
 
-/*
-export const setAnalyticalObject = (id, openAs) => ({
-    type: types.ANALYTICAL_OBJECT_SET,
-    payload: { id, openAs },
-});
-*/
-
 export const setAnalyticalObject = ao => ({
     type: types.ANALYTICAL_OBJECT_SET,
     payload: ao,
