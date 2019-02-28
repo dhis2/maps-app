@@ -19,7 +19,6 @@ import {
 const styles = {
     content: {
         minHeight: 80,
-        // width: 250,
     },
     description: {
         fontSize: 14,
@@ -114,32 +113,23 @@ export class OpenAsMapDialog extends Component {
         this.setState({ selectedDataDims });
     };
 
-    onProceedClick = () => {
-        const { clearAnalyticalObject } = this.props;
-        const { selectedDataDims } = this.state;
+    onProceedClick = async () => {
+        const { ao, loadLayer, clearAnalyticalObject } = this.props;
+        const dataDims = [...this.state.selectedDataDims].reverse();
+        const lastDataId = dataDims[dataDims.length - 1];
 
-        [...selectedDataDims]
-            .reverse()
-            .forEach((dataId, index) =>
-                this.createThematicLayer(
+        // Call in sequence
+        for (const dataId of dataDims) {
+            loadLayer(
+                await getThematicLayerFromAnalyticalObject(
+                    ao,
                     dataId,
-                    index === selectedDataDims.length - 1
+                    dataId === lastDataId
                 )
             );
+        }
 
         clearAnalyticalObject();
-    };
-
-    createThematicLayer = (dataId, isVisible) => {
-        const layerConfig = getThematicLayerFromAnalyticalObject(
-            this.props.ao,
-            dataId
-        );
-
-        this.props.loadLayer({
-            ...layerConfig,
-            isVisible,
-        });
     };
 }
 

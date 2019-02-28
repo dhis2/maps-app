@@ -286,7 +286,11 @@ export const isValidAnalyticalObject = ao => {
 };
 
 // Returns a thematic layer config from an analytical object
-export const getThematicLayerFromAnalyticalObject = async (ao, dataId) => {
+export const getThematicLayerFromAnalyticalObject = async (
+    ao,
+    dataId,
+    isVisible = true
+) => {
     const { columns, rows, filters, yearlySeries, aggregationType } = ao;
     const dimensions = [...columns, ...rows, ...filters];
     const dataDims = getDataDimensionsFromAnalyticalObject(ao);
@@ -321,6 +325,7 @@ export const getThematicLayerFromAnalyticalObject = async (ao, dataId) => {
         filters: [period],
         aggregationType,
         legendSet,
+        isVisible,
     };
 };
 
