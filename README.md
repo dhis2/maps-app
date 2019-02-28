@@ -1,5 +1,7 @@
 # maps-app
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dhis2/maps-app.svg)](https://greenkeeper.io/)
+
 DHIS2 Maps App
 
 Travis CI: https://travis-ci.com/dhis2/maps-app
