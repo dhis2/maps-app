@@ -36,7 +36,7 @@ export const getAnalyticalObject = action$ =>
             .then(ns => ns.get(CURRENT_AO_KEY))
             .then(ao =>
                 isValidAnalyticalObject(ao)
-                    ? loadLayer(getThematicLayerFromAnalyticalObject(ao))
+                    ? getThematicLayerFromAnalyticalObject(ao).then(loadLayer)
                     : setAnalyticalObject(ao)
             )
             .catch(

@@ -7,7 +7,6 @@ import { getLegendItemForValue } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
 import {
     loadLegendSet,
-    loadDataItemLegendSet,
     getPredefinedLegendItems,
     getAutomaticLegendItems,
 } from '../util/legend';
@@ -64,11 +63,6 @@ const thematicLoader = async config => {
     let legendSet = config.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
     let alert;
-
-    // Check if data item has legend set (needed if config is converted from chart/pivot layout)
-    if (!legendSet && !method) {
-        legendSet = await loadDataItemLegendSet(dataItem);
-    }
 
     if (legendSet) {
         legendSet = await loadLegendSet(legendSet);

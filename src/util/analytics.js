@@ -3,6 +3,7 @@ import { sortBy, negate } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
 import { periodNames } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
+import { loadDataItemLegendSet } from '../util/legend';
 
 const FIXED_DIMENSIONS = ['dx', 'ou', 'pe'];
 
@@ -285,7 +286,7 @@ export const isValidAnalyticalObject = ao => {
 };
 
 // Returns a thematic layer config from an analytical object
-export const getThematicLayerFromAnalyticalObject = (ao, dataId) => {
+export const getThematicLayerFromAnalyticalObject = async (ao, dataId) => {
     const { columns, rows, filters, yearlySeries, aggregationType } = ao;
     const dimensions = [...columns, ...rows, ...filters];
     const dataDims = getDataDimensionsFromAnalyticalObject(ao);
@@ -296,6 +297,9 @@ export const getThematicLayerFromAnalyticalObject = (ao, dataId) => {
     if (dataId) {
         dataDim = dataDims.find(item => item.id === dataId);
     }
+
+    // Load default legend set for selected data diemension
+    const legendSet = await loadDataItemLegendSet(dataDim);
 
     // Currently we only support one period in map filters so we select the first
     if (yearlySeries && yearlySeries.length) {
@@ -310,14 +314,13 @@ export const getThematicLayerFromAnalyticalObject = (ao, dataId) => {
         };
     }
 
-    console.log('ao', ao);
-
     return {
         layer: 'thematic',
         columns: [{ dimension: 'dx', items: [dataDim] }],
         rows: [orgUnits],
         filters: [period],
         aggregationType,
+        legendSet,
     };
 };
 
