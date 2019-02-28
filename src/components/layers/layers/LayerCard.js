@@ -24,7 +24,7 @@ import {
 import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
 import { openDataDownloadDialog } from '../../../actions/dataDownload';
-import { setAnalyticalObject } from '../../../actions/analyticalObject';
+import { setAnalyticalObjectAndSwitchApp } from '../../../util/analyticalObject';
 
 const styles = {
     card: {
@@ -90,7 +90,6 @@ const LayerCard = ({
     toggleLayerVisibility,
     toggleDataTable,
     openDataDownloadDialog,
-    setAnalyticalObject,
     setMessage,
     classes,
 }) => {
@@ -176,7 +175,11 @@ const LayerCard = ({
                         }
                         openAs={
                             canOpenAs
-                                ? type => setAnalyticalObject(id, type)
+                                ? type =>
+                                      setAnalyticalObjectAndSwitchApp(
+                                          layer,
+                                          type
+                                      )
                                 : undefined
                         }
                     />
@@ -192,7 +195,6 @@ LayerCard.propTypes = {
     removeLayer: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
     openDataDownloadDialog: PropTypes.func.isRequired,
-    setAnalyticalObject: PropTypes.func.isRequired,
     setMessage: PropTypes.func.isRequired,
     toggleLayerExpand: PropTypes.func.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
@@ -211,6 +213,5 @@ export default connect(
         toggleDataTable,
         setMessage,
         openDataDownloadDialog,
-        setAnalyticalObject,
     }
 )(withStyles(styles)(LayerCard));

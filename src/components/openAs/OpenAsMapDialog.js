@@ -14,7 +14,7 @@ import { clearAnalyticalObject } from '../../actions/analyticalObject';
 import {
     getDataDimensionsFromAnalyticalObject,
     getThematicLayerFromAnalyticalObject,
-} from '../../util/analytics';
+} from '../../util/analyticalObject';
 
 const styles = {
     content: {
