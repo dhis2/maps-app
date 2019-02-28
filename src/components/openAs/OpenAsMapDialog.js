@@ -77,11 +77,12 @@ export class OpenAsMapDialog extends Component {
                     {dataDims.length > 1 && (
                         <Fragment>
                             <div className={classes.description}>
-                                The chart or pivot contains {dataDims.length}{' '}
-                                data dimensions. Select the dimensions you want
-                                to see below. One thematic layer will be created
-                                for each data dimension. You can toggle the
-                                visibility of the layers in the left panel.
+                                {i18n.t(
+                                    'This chart/table contains {{numDimensions}} data dimensions. Choose which dimensions you want to import from the list below. Each dimension will be created as a map layer.',
+                                    {
+                                        numDimensions: dataDims.length,
+                                    }
+                                )}
                             </div>
                             <SelectField
                                 label={i18n.t('Data dimensions')}

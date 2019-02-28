@@ -30,6 +30,7 @@ export const relativePeriods = [
     { id: 'THIS_BIMONTH', name: 'This bi-month' },
     { id: 'LAST_BIMONTH', name: 'Last bi-month' },
     { id: 'LAST_6_BIMONTHS', name: 'Last 6 bi-months' },
+    { id: 'BIMONTHS_THIS_YEAR', name: 'Bi-months this year' },
     { id: 'THIS_QUARTER', name: 'This quarter' },
     { id: 'LAST_QUARTER', name: 'Last quarter' },
     { id: 'LAST_4_QUARTERS', name: 'Last 4 quarters' },
