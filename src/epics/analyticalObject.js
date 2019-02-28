@@ -1,22 +1,23 @@
 import { combineEpics } from 'redux-observable';
-import { config, getInstance as getD2 } from 'd2';
+import { /*config,*/ getInstance as getD2 } from 'd2';
 import * as types from '../constants/actionTypes';
 import { loadLayer } from '../actions/layers';
 import { setAnalyticalObject } from '../actions/analyticalObject';
 import { errorActionCreator } from '../actions/helpers';
 import {
     isValidAnalyticalObject,
-    getDataDimensionsFromAnalyticalObject,
     getThematicLayerFromAnalyticalObject,
 } from '../util/analytics';
 
 const NAMESPACE = 'analytics';
 const CURRENT_AO_KEY = 'currentAnalyticalObject';
 
+/*
 const APP_URLS = {
     CHART: 'dhis-web-data-visualizer',
     PIVOT: 'dhis-web-pivot',
 };
+*/
 
 // Returns or creates "analytics" namespace in user data store
 const getNamespace = async d2 => {

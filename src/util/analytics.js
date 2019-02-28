@@ -5,8 +5,6 @@ import { periodNames } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
 import { loadDataItemLegendSet } from '../util/legend';
 
-const FIXED_DIMENSIONS = ['dx', 'ou', 'pe'];
-
 /* DIMENSIONS */
 
 const createDimension = (dimension, items, props) => ({
@@ -263,26 +261,12 @@ export const getDataDimensionsFromAnalyticalObject = ao => {
 };
 
 // Checks if anaytical object is valid as a map layer
-// TODO
 export const isValidAnalyticalObject = ao => {
     const { columns, rows, filters } = ao;
     const dimensions = [...columns, ...rows, ...filters];
-
     const dataItems = dimensions.filter(i => i.dimension === 'dx');
 
-    const orgUnits = dimensions.filter(i => i.dimension === 'ou');
-    const periods = dimensions.filter(i => i.dimension === 'pe');
-    const dynamic = dimensions.filter(
-        i => !FIXED_DIMENSIONS.includes(i.dimension)
-    );
-
-    let isValid = true;
-
-    if (dataItems.length !== 1 || dataItems[0].items.length !== 1) {
-        isValid = false;
-    }
-
-    return isValid;
+    return dataItems.length === 1 && dataItems[0].items.length === 1;
 };
 
 // Returns a thematic layer config from an analytical object
