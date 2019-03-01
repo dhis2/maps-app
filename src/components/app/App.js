@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
-import UI from 'ui/core/UI';
-import HeaderBar from 'ui/widgets/HeaderBar';
+import HeaderBar from '@dhis2/ui/widgets/HeaderBar';
 import mui3theme from '@dhis2/d2-ui-core/theme/mui3.theme';
 import MapProvider from '../map/MapProvider';
 import AppMenu from './AppMenu';
@@ -18,6 +17,7 @@ import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
+import '@dhis2/ui/defaults/reset.css';
 import './App.css';
 
 const theme = createMuiTheme(mui3theme);
@@ -41,26 +41,24 @@ export class App extends Component {
 
     render() {
         return (
-            <UI>
-                <FatalErrorBoundary>
-                    <HeaderBar appName={i18n.t('Maps')} />
-                    <MuiThemeProvider theme={theme}>
-                        <MapProvider>
-                            <AppMenu />
-                            <InterpretationsPanel />
-                            <LayersPanel />
-                            <LayersToggle />
-                            <Map />
-                            <BottomPanel />
-                            <LayerEdit />
-                            <ContextMenu />
-                            <AlertSnackbar />
-                            <Message />
-                            <DataDownloadDialog />
-                        </MapProvider>
-                    </MuiThemeProvider>
-                </FatalErrorBoundary>
-            </UI>
+            <FatalErrorBoundary>
+                <HeaderBar appName={i18n.t('Maps')} />
+                <MuiThemeProvider theme={theme}>
+                    <MapProvider>
+                        <AppMenu />
+                        <InterpretationsPanel />
+                        <LayersPanel />
+                        <LayersToggle />
+                        <Map />
+                        <BottomPanel />
+                        <LayerEdit />
+                        <ContextMenu />
+                        <AlertSnackbar />
+                        <Message />
+                        <DataDownloadDialog />
+                    </MapProvider>
+                </MuiThemeProvider>
+            </FatalErrorBoundary>
         );
     }
 }
