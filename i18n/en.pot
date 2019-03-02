@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-02-26T13:24:36.310Z\n"
-"PO-Revision-Date: 2019-02-26T13:24:36.310Z\n"
+"POT-Creation-Date: 2019-03-02T14:39:49.273Z\n"
+"PO-Revision-Date: 2019-03-02T14:39:49.273Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -448,6 +448,15 @@ msgstr ""
 msgid "Open as map"
 msgstr ""
 
+msgid ""
+"This chart/table contains {{numDimensions}} data dimensions. Choose which "
+"dimensions you want to import from the list below. Each dimension will be "
+"created as a map layer."
+msgstr ""
+
+msgid "Data dimensions"
+msgstr ""
+
 msgid "Proceed"
 msgstr ""
 
@@ -532,6 +541,12 @@ msgid "Event"
 msgstr ""
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Selected org units"
+msgstr ""
+
+msgid "No coordinates found"
 msgstr ""
 
 msgid "No data found"
