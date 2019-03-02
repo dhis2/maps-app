@@ -2,7 +2,7 @@
 
 DHIS2 Maps App
 
-Travis CI: https://travis-ci.org/dhis2/maps-app
+Travis CI: https://travis-ci.com/dhis2/maps-app
 
 ## Running Tests
 
