@@ -2,34 +2,34 @@ import { config, getInstance as getD2 } from 'd2';
 import { getPeriodNameFromId } from './analytics';
 import { loadDataItemLegendSet } from './legend';
 
-const NAMESPACE = 'analytics';
-const CURRENT_AO_KEY = 'currentAnalyticalObject';
+export const NAMESPACE = 'analytics';
+export const CURRENT_AO_KEY = 'currentAnalyticalObject';
 
 const APP_URLS = {
     CHART: 'dhis-web-data-visualizer',
     PIVOT: 'dhis-web-pivot',
 };
 
+// Combines all dimensions in columns, rows and filters
+const getDimensionsFromAnalyticalObject = ao => {
+    const { columns = [], rows = [], filters = [] } = ao;
+    return [...columns, ...rows, ...filters];
+};
+
 // Returns the data items of the first dx dimension in an analytical object
 export const getDataDimensionsFromAnalyticalObject = ao => {
-    const { columns, rows, filters } = ao;
-
-    // TODO: Should filters be included?
-    const dataDim = [...columns, ...rows, ...filters].find(
-        i => i.dimension === 'dx'
-    );
+    const dims = getDimensionsFromAnalyticalObject(ao);
+    const dataDim = dims.find(i => i.dimension === 'dx');
 
     // We only use the first dx dimension
     return dataDim ? dataDim.items : [];
 };
 
 // Checks if anaytical object is valid as a map layer
+// Currently only checks if it contains one data item only
 export const isValidAnalyticalObject = ao => {
-    const { columns, rows, filters } = ao;
-    const dimensions = [...columns, ...rows, ...filters];
-    const dataItems = dimensions.filter(i => i.dimension === 'dx');
-
-    return dataItems.length === 1 && dataItems[0].items.length === 1;
+    const dataItems = getDataDimensionsFromAnalyticalObject(ao);
+    return dataItems.length === 1;
 };
 
 // Returns a thematic layer config from an analytical object
@@ -38,18 +38,18 @@ export const getThematicLayerFromAnalyticalObject = async (
     dataId,
     isVisible = true
 ) => {
-    const { columns, rows, filters, yearlySeries, aggregationType } = ao;
-    const dimensions = [...columns, ...rows, ...filters];
+    const { yearlySeries, aggregationType } = ao;
     const dataDims = getDataDimensionsFromAnalyticalObject(ao);
-    const orgUnits = dimensions.find(i => i.dimension === 'ou');
-    let period = dimensions.find(i => i.dimension === 'pe');
+    const dims = getDimensionsFromAnalyticalObject(ao);
+    const orgUnits = dims.find(i => i.dimension === 'ou');
+    let period = dims.find(i => i.dimension === 'pe');
     let dataDim = dataDims[0];
 
     if (dataId) {
         dataDim = dataDims.find(item => item.id === dataId);
     }
 
-    // Load default legend set for selected data diemension
+    // Load default legend set for selected data dimension
     const legendSet = await loadDataItemLegendSet(dataDim);
 
     // Currently we only support one period in map filters so we select the first
@@ -89,7 +89,7 @@ export const getAnalyticalObjectFromThematicLayer = layer => {
 };
 
 // Returns or creates "analytics" namespace in user data store
-const getAnalyticsNamespace = async () => {
+export const getAnalyticsNamespace = async () => {
     const d2 = await getD2();
     const { dataStore } = d2.currentUser;
     const hasNamespace = await dataStore.has(NAMESPACE);
