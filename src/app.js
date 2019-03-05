@@ -16,6 +16,7 @@ import { loadFavorite } from './actions/favorites';
 import { setGoogleCloudApiKey } from './actions/basemap';
 import { getUrlParameter } from './util/requests';
 
+try {
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
 );
@@ -96,3 +97,6 @@ window.addEventListener(
         store.dispatch(resizeScreen(window.innerWidth, window.innerHeight))
     )
 );
+} catch (err) {
+    console.error('BOOM', err)
+}

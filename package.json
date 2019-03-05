@@ -14,11 +14,6 @@
             "pre-commit": "yarn extract-pot && yarn prettify && CI=true yarn test && git add -A ."
         }
     },
-    "pre-commit": [
-        "validate",
-        "test",
-        "lint"
-    ],
     "scripts": {
         "prestart": "yarn localize && d2-manifest package.json manifest.webapp",
         "start": "webpack-dev-server",
