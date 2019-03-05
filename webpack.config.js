@@ -38,7 +38,7 @@ function log(req, res, opt) {
 const webpackConfig = {
     context: __dirname,
     entry: {
-        app: ['babel-polyfill', './src/app.js'],
+        app: [require.resolve('babel-polyfill'), './src/app.js'],
         map: './src/map.js',
     },
     devtool: 'source-map',
