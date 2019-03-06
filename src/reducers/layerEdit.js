@@ -5,7 +5,7 @@ import {
     setDataItemInColumns,
     addOrgUnitLevelsToRows,
     addOrgUnitGroupsToRows,
-    addUserOrgUnitsToRows,
+    createUserOrgUnitsDimension,
     toggleOrgUnitNodeInRows,
     setOrgUnitPathInRows,
 } from '../util/analytics';
@@ -303,7 +303,7 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_USER_ORGANISATION_UNITS_SET:
             return {
                 ...state,
-                rows: addUserOrgUnitsToRows(state.rows, action.userOrgUnits),
+                rows: createUserOrgUnitsDimension(action.userOrgUnits),
             };
 
         case types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE:
