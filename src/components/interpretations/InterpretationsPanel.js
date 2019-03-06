@@ -68,17 +68,15 @@ class InterpretationsPanel extends Component {
                 anchor="right"
                 classes={{ paper: classes.panel }}
             >
-                <div>
-                    <InterpretationsComponent
-                        d2={this.context.d2}
-                        id={mapId}
-                        type="map"
-                        currentInterpretationId={interpretationId}
-                        onCurrentInterpretationChange={
-                            this.onCurrentInterpretationChange
-                        }
-                    />
-                </div>
+                <InterpretationsComponent
+                    d2={this.context.d2}
+                    id={mapId}
+                    type="map"
+                    currentInterpretationId={interpretationId}
+                    onCurrentInterpretationChange={
+                        this.onCurrentInterpretationChange
+                    }
+                />
             </Drawer>
         );
     }
