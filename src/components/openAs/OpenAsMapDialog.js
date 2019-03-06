@@ -78,14 +78,14 @@ export class OpenAsMapDialog extends Component {
                         <Fragment>
                             <div className={classes.description}>
                                 {i18n.t(
-                                    'This chart/table contains {{numDimensions}} data dimensions. Choose which dimensions you want to import from the list below. Each dimension will be created as a map layer.',
+                                    'This chart/table contains {{numItems}} data items. Choose which items you want to import from the list below. Each data item will be created as a map layer.',
                                     {
-                                        numDimensions: dataDims.length,
+                                        numItems: dataDims.length,
                                     }
                                 )}
                             </div>
                             <SelectField
-                                label={i18n.t('Data dimensions')}
+                                label={i18n.t('Data items')}
                                 items={dataDims}
                                 value={selectedDataDims}
                                 multiple={true}
