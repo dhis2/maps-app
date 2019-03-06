@@ -41,9 +41,19 @@ export class OrgUnitLevelSelect extends Component {
     }
 
     componentDidUpdate() {
-        const { defaultLevel, orgUnitLevel, orgUnitLevels } = this.props;
+        const {
+            defaultLevel,
+            orgUnitLevel,
+            orgUnitLevels,
+            disabled,
+        } = this.props;
 
-        if (!orgUnitLevel.length && defaultLevel && orgUnitLevels) {
+        if (
+            !disabled &&
+            !orgUnitLevel.length &&
+            defaultLevel &&
+            orgUnitLevels
+        ) {
             const levelItem = orgUnitLevels.find(
                 item => item.level === defaultLevel
             );
