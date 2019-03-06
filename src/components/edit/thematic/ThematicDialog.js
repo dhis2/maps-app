@@ -222,6 +222,7 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
+        const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
             <Tabs
@@ -370,9 +371,7 @@ export class ThematicDialog extends Component {
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrgUnit}
-                                disabled={
-                                    selectedUserOrgUnits.length ? true : false
-                                }
+                                disabled={hasUserOrgUnits}
                             />
                         </div>
                         <div style={styles.flexHalf}>
@@ -380,21 +379,20 @@ export class ThematicDialog extends Component {
                                 orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
                                 defaultLevel={2}
                                 onChange={setOrgUnitLevels}
+                                disabled={hasUserOrgUnits}
                             />
                             <OrgUnitGroupSelect
                                 orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
                                 onChange={setOrgUnitGroups}
+                                disabled={hasUserOrgUnits}
                             />
                             <UserOrgUnitsSelect
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
-                            {!orgUnits.length &&
-                                orgUnitsError && (
-                                    <div style={styles.error}>
-                                        {orgUnitsError}
-                                    </div>
-                                )}
+                            {!orgUnits.length && orgUnitsError && (
+                                <div style={styles.error}>{orgUnitsError}</div>
+                            )}
                         </div>
                     </div>
                 </Tab>

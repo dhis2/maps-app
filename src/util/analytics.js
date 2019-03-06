@@ -134,11 +134,9 @@ export const getUserOrgUnitsFromRows = (rows = []) =>
         .filter(isUserOrgUnit)
         .map(getIdFromUserOrgUnit);
 
-export const addUserOrgUnitsToRows = (rows = [], userOrgUnits = []) => [
-    createDimension('ou', [
-        ...getOrgUnitsFromRows(rows).filter(negate(isUserOrgUnit)),
-        ...userOrgUnits.map(createUserOrgUnit),
-    ]),
+// Adding user org units will clear other org unit selections
+export const createUserOrgUnitsDimension = (userOrgUnits = []) => [
+    createDimension('ou', [...userOrgUnits.map(createUserOrgUnit)]),
 ];
 
 /* PERIODS */
