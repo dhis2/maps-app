@@ -16,8 +16,13 @@ export class OrgUnitLevelSelect extends Component {
     static propTypes = {
         orgUnitLevel: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         orgUnitLevels: PropTypes.array,
+        disabled: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+    };
+
+    static defaultProps = {
+        disabled: false,
     };
 
     constructor(props, context) {
@@ -39,10 +44,15 @@ export class OrgUnitLevelSelect extends Component {
             defaultLevel,
             orgUnitLevel,
             orgUnitLevels,
-            onChange,
+            disabled,
         } = this.props;
 
-        if (!orgUnitLevel.length && defaultLevel && orgUnitLevels) {
+        if (
+            !disabled &&
+            !orgUnitLevel.length &&
+            defaultLevel &&
+            orgUnitLevels
+        ) {
             const levelItem = orgUnitLevels.find(
                 item => item.level === defaultLevel
             );
@@ -54,7 +64,7 @@ export class OrgUnitLevelSelect extends Component {
     }
 
     render() {
-        const { orgUnitLevel, orgUnitLevels, onChange } = this.props;
+        const { orgUnitLevel, orgUnitLevels, disabled, onChange } = this.props;
         let sortedOrgUnitLevels;
 
         if (orgUnitLevels) {
@@ -70,8 +80,9 @@ export class OrgUnitLevelSelect extends Component {
                 items={sortedOrgUnitLevels}
                 value={orgUnitLevel}
                 multiple={true}
-                onChange={onChange}
+                onChange={disabled ? null : onChange}
                 style={style}
+                disabled={disabled}
             />
         );
     }

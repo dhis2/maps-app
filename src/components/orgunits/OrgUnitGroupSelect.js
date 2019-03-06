@@ -14,8 +14,13 @@ export class OrgUnitGroupSelect extends Component {
     static propTypes = {
         orgUnitGroup: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         orgUnitGroups: PropTypes.array,
+        disabled: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,
+    };
+
+    static defaultProps = {
+        disabled: false,
     };
 
     componentDidMount() {
@@ -27,7 +32,7 @@ export class OrgUnitGroupSelect extends Component {
     }
 
     render() {
-        const { orgUnitGroup, orgUnitGroups, onChange } = this.props;
+        const { orgUnitGroup, orgUnitGroups, disabled, onChange } = this.props;
 
         return (
             <SelectField
@@ -36,8 +41,9 @@ export class OrgUnitGroupSelect extends Component {
                 items={orgUnitGroups}
                 value={orgUnitGroup}
                 multiple={true}
-                onChange={onChange}
+                onChange={disabled ? null : onChange}
                 style={style}
+                disabled={disabled}
             />
         );
     }

@@ -89,6 +89,7 @@ class BoundaryDialog extends Component {
 
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
+        const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
             <Tabs
@@ -103,30 +104,27 @@ class BoundaryDialog extends Component {
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrganisationUnit}
-                                disabled={
-                                    selectedUserOrgUnits.length ? true : false
-                                }
+                                disabled={hasUserOrgUnits}
                             />
                         </div>
                         <div style={styles.flexHalf}>
                             <OrgUnitLevelSelect
                                 orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
                                 onChange={setOrgUnitLevels}
+                                disabled={hasUserOrgUnits}
                             />
                             <OrgUnitGroupSelect
                                 orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
                                 onChange={setOrgUnitGroups}
+                                disabled={hasUserOrgUnits}
                             />
                             <UserOrgUnitsSelect
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
-                            {!orgUnits.length &&
-                                orgUnitsError && (
-                                    <div style={styles.error}>
-                                        {orgUnitsError}
-                                    </div>
-                                )}
+                            {!orgUnits.length && orgUnitsError && (
+                                <div style={styles.error}>{orgUnitsError}</div>
+                            )}
                         </div>
                     </div>
                 </Tab>

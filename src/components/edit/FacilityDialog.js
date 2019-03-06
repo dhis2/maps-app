@@ -119,6 +119,7 @@ class FacilityDialog extends Component {
 
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
+        const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
             <Tabs
@@ -143,19 +144,19 @@ class FacilityDialog extends Component {
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
                                 onClick={toggleOrganisationUnit}
-                                disabled={
-                                    selectedUserOrgUnits.length ? true : false
-                                }
+                                disabled={hasUserOrgUnits}
                             />
                         </div>
                         <div style={styles.flexHalf}>
                             <OrgUnitLevelSelect
                                 orgUnitLevel={getOrgUnitLevelsFromRows(rows)}
                                 onChange={setOrgUnitLevels}
+                                disabled={hasUserOrgUnits}
                             />
                             <OrgUnitGroupSelect
                                 orgUnitGroup={getOrgUnitGroupsFromRows(rows)}
                                 onChange={setOrgUnitGroups}
+                                disabled={hasUserOrgUnits}
                             />
                             <UserOrgUnitsSelect
                                 selected={selectedUserOrgUnits}
