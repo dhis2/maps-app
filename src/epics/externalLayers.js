@@ -2,34 +2,35 @@ import { combineEpics } from 'redux-observable';
 import { getInstance as getD2 } from 'd2';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatAll';
 import 'rxjs/add/operator/filter';
-import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
 import * as types from '../constants/actionTypes';
 import { addBasemap } from '../actions/basemap';
 import { addExternalLayer } from '../actions/externalLayers';
 import { errorActionCreator } from '../actions/helpers';
 
-// Loade external layers from Web API
-export const loadExternalLayers = action$ => {
-    const externalMapLayers$ = action$
-        .ofType(types.EXTERNAL_LAYERS_LOAD)
-        .mergeMap(loadExternalMapLayers)
-        .concatAll(); // Create separate action objects in the stream [[a1], [a2], [a2]] => [a1], [a2], [a3]
+// Load external layers from Web API
+export const loadExternalLayers = action$ =>
+    action$.ofType(types.EXTERNAL_LAYERS_LOAD).mergeMap(() => {
+        return Observable.from(loadExternalMapLayers())
+            .mergeMap(collection => {
+                const externalBaseMapLayers = collection
+                    .filter(isBaseMap)
+                    .map(createLayerConfig('External basemap'))
+                    .map(addBasemap);
 
-    const externalBaseMapLayers$ = externalMapLayers$
-        .filter(isBaseMap)
-        .map(createLayerConfig('External basemap'))
-        .map(addBasemap);
-
-    const externalOverlayLayers$ = externalMapLayers$
-        .filter(isOverlay)
-        .map(createLayerConfig('External layer'))
-        .map(addExternalLayer);
-
-    return Observable.merge(externalBaseMapLayers$, externalOverlayLayers$);
-};
+                const externalOverlayLayers = collection
+                    .filter(isOverlay)
+                    .map(createLayerConfig('External layer'))
+                    .map(addExternalLayer);
+                return [...externalBaseMapLayers, ...externalOverlayLayers];
+            })
+            .catch(err => [
+                errorActionCreator(types.EXTERNAL_LAYERS_LOAD_ERROR)(err),
+            ]);
+    });
 
 const isBaseMap = layer => layer.mapLayerPosition === 'BASEMAP';
 const isOverlay = layer => !isBaseMap(layer);
@@ -45,8 +46,7 @@ const loadExternalMapLayers = () =>
         )
         .then(externalMapLayersCollection =>
             externalMapLayersCollection.toArray()
-        )
-        .catch(errorActionCreator(types.EXTERNAL_LAYERS_LOAD_ERROR));
+        );
 
 // Create external layer config object
 const createLayerConfig = () => layer => {
