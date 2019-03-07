@@ -10,9 +10,9 @@ install:
     - yarn cy:verify
 script:
     - yarn build
-    # - yarn start &> /dev/null &
-    # - yarn cy:stub:run
-    # - kill $(jobs -p) || true
+    - yarn start &> /dev/null &
+    - yarn cy:stub:run
+    - kill $(jobs -p) || true
 deploy:
     - provider: script
       script: deploy-build
