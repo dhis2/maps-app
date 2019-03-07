@@ -17,7 +17,7 @@ import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
-import '@dhis2/ui/defaults/reset.css';
+import '@dhis2/ui/css/reset.css';
 import './App.css';
 
 const theme = createMuiTheme(mui3theme);
