@@ -121,13 +121,15 @@ export class OpenAsMapDialog extends Component {
 
         // Call in sequence
         for (const dataId of dataDims) {
-            loadLayer(
-                await getThematicLayerFromAnalyticalObject(
-                    ao,
-                    dataId,
-                    dataId === lastDataId
-                )
+            const layer = await getThematicLayerFromAnalyticalObject(
+                ao,
+                dataId,
+                dataId === lastDataId
             );
+
+            if (layer) {
+                loadLayer(layer);
+            }
         }
 
         clearAnalyticalObject();

@@ -5,7 +5,7 @@ import { setAnalyticalObject } from '../actions/analyticalObject';
 import { errorActionCreator } from '../actions/helpers';
 import {
     getCurrentAnalyticalObject,
-    isValidAnalyticalObject,
+    hasSingleDataDimension,
     getThematicLayerFromAnalyticalObject,
 } from '../util/analyticalObject';
 
@@ -14,7 +14,7 @@ export const getAnalyticalObject = action$ =>
     action$.ofType(types.ANALYTICAL_OBJECT_GET).concatMap(() =>
         getCurrentAnalyticalObject()
             .then(ao =>
-                isValidAnalyticalObject(ao)
+                hasSingleDataDimension(ao)
                     ? getThematicLayerFromAnalyticalObject(ao).then(loadLayer)
                     : setAnalyticalObject(ao)
             )

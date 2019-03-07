@@ -1,46 +1,59 @@
 import * as d2 from 'd2';
-import { 
-    isValidAnalyticalObject,
+import {
+    hasSingleDataDimension,
     getDataDimensionsFromAnalyticalObject,
-    getAnalyticsNamespace, 
-    getCurrentAnalyticalObject, 
+    getThematicLayerFromAnalyticalObject,
+    getAnalyticalObjectFromThematicLayer,
+    getAnalyticsNamespace,
+    getCurrentAnalyticalObject,
     setCurrentAnalyticalObject,
-    NAMESPACE, 
-    CURRENT_AO_KEY 
+    NAMESPACE,
+    CURRENT_AO_KEY,
 } from '../analyticalObject';
+
+const dataItems = [{ id: 'test' }];
+const dataDim = {
+    dimension: 'dx',
+    items: dataItems,
+};
+const columns = [dataDim];
+const rows = [
+    {
+        dimension: 'ou',
+        items: [],
+    },
+];
+const filters = [
+    {
+        dimension: 'pe',
+        items: [],
+    },
+];
+const aggregationType = 'average';
 
 let mockD2;
 let mockNamespace;
-let dataDim;
-let dataItems;
+
+// Mock out legend set loading
+jest.mock('../legend');
 
 describe('analytical object utils', () => {
     describe('analytical object handling', () => {
-        beforeEach(() => {
-            dataItems = [{
-                id: 'test'
-            }];
-            dataDim = {
-                dimension: 'dx',
-                items: dataItems,
-            };
-        });
-
         it('returns true if analytic object contains one data item', () => {
-            const result = isValidAnalyticalObject({
-                columns: [dataDim],
+            const result = hasSingleDataDimension({
+                columns,
             });
             expect(result).toBeTruthy();
         });
 
         it('returns false if analytic object is without data item', () => {
-            const result = isValidAnalyticalObject({});
+            const result = hasSingleDataDimension({});
             expect(result).toBeFalsy();
         });
 
         it('returns data items from columns in analytical object', () => {
             const result = getDataDimensionsFromAnalyticalObject({
-                columns: [dataDim],
+                columns,
             });
             expect(result).toEqual(dataItems);
         });
@@ -62,6 +75,62 @@ describe('analytical object utils', () => {
         it('returns empty array if no data dimensions in analytical object', () => {
             const result = getDataDimensionsFromAnalyticalObject({});
             expect(result).toEqual([]);
+        });
+
+        it('returns undefined if no data dimension is passed', async () => {
+            const result = await getThematicLayerFromAnalyticalObject({});
+            expect(result).toBeUndefined();
+        });
+
+        it('returns undefined if no org unit dimension is passed', async () => {
+            const result = await getThematicLayerFromAnalyticalObject({
+                columns,
+            });
+            expect(result).toBeUndefined();
+        });
+
+        it('returns undefined if no period dimension is passed', async () => {
+            const result = await getThematicLayerFromAnalyticalObject({
+                columns,
+                rows,
+            });
+            expect(result).toBeUndefined();
+        });
+
+        it('returns layer object if data, org unit and period dimensions are passed', async () => {
+            const result = await getThematicLayerFromAnalyticalObject({
+                columns,
+                rows,
+                filters,
+            });
+
+            expect(result).toBeInstanceOf(Object);
+        });
+
+        it('returns default values for analytical oobject properties', async () => {
+            const result = await getAnalyticalObjectFromThematicLayer();
+
+            expect(result).toBeInstanceOf(Object);
+            expect(result.columns).toBeInstanceOf(Array);
+            expect(result.rows).toBeInstanceOf(Array);
+            expect(result.filters).toBeInstanceOf(Array);
+            expect(result.aggregationType).toEqual('DEFAULT');
+        });
+
+        it('keeps columns, rows, filters and aggregationType and skips other properties', async () => {
+            const result = await getAnalyticalObjectFromThematicLayer({
+                id: 'abc',
+                rows,
+                columns,
+                filters,
+                aggregationType,
+            });
+
+            expect(result.columns).toEqual(columns);
+            expect(result.rows).toEqual(rows);
+            expect(result.filters).toEqual(filters);
+            expect(result.aggregationType).toEqual(aggregationType);
+            expect(result.id).toBeUndefined();
         });
     });
 
@@ -89,7 +158,9 @@ describe('analytical object utils', () => {
             expect(mockD2.currentUser.dataStore.has).toHaveBeenCalledTimes(1);
             expect(mockD2.currentUser.dataStore.has).toBeCalledWith(NAMESPACE);
             expect(mockD2.currentUser.dataStore.get).not.toHaveBeenCalled();
-            expect(mockD2.currentUser.dataStore.create).toHaveBeenCalledTimes(1);
+            expect(mockD2.currentUser.dataStore.create).toHaveBeenCalledTimes(
+                1
+            );
             expect(result).toEqual(mockNamespace);
         });
 

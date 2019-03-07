@@ -25,20 +25,19 @@ export const getDataDimensionsFromAnalyticalObject = ao => {
     return dataDim ? dataDim.items : [];
 };
 
-// Checks if anaytical object is valid as a map layer
-// Currently only checks if it contains one data item only
-export const isValidAnalyticalObject = ao => {
+// Returns true if analytical object contains a single data dimension item
+export const hasSingleDataDimension = ao => {
     const dataItems = getDataDimensionsFromAnalyticalObject(ao);
     return dataItems.length === 1;
 };
 
 // Returns a thematic layer config from an analytical object
 export const getThematicLayerFromAnalyticalObject = async (
-    ao,
+    ao = {},
     dataId,
     isVisible = true
 ) => {
-    const { yearlySeries, aggregationType } = ao;
+    const { yearlySeries, aggregationType = 'DEFAULT' } = ao;
     const dataDims = getDataDimensionsFromAnalyticalObject(ao);
     const dims = getDimensionsFromAnalyticalObject(ao);
     const orgUnits = dims.find(i => i.dimension === 'ou');
@@ -47,6 +46,10 @@ export const getThematicLayerFromAnalyticalObject = async (
 
     if (dataId) {
         dataDim = dataDims.find(item => item.id === dataId);
+    }
+
+    if (!dataDim || !orgUnits || !period) {
+        return;
     }
 
     // Load default legend set for selected data dimension
@@ -77,8 +80,13 @@ export const getThematicLayerFromAnalyticalObject = async (
 };
 
 // Translates a thematic layer to an analytical object
-export const getAnalyticalObjectFromThematicLayer = layer => {
-    const { columns, rows, filters, aggregationType } = layer;
+export const getAnalyticalObjectFromThematicLayer = (layer = {}) => {
+    const {
+        columns = [],
+        rows = [],
+        filters = [],
+        aggregationType = 'DEFAULT',
+    } = layer;
 
     return {
         columns,
