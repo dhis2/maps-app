@@ -158,16 +158,7 @@ class Map extends Component {
             '<br />Latitude: ' +
             coord[1].toFixed(6);
 
-        // TODO: on('remove', this.props.closeCoordinatePopup)
         map.openPopup(content, coord);
-
-        /*
-        L.popup()
-            .setLatLng([coord[1], coord[0]])
-            .setContent(content)
-            .on('remove', this.props.closeCoordinatePopup)
-            .openOn(this.context.map);   
-        */
     }
 
     onRightClick = evt => {
