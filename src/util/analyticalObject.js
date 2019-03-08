@@ -130,3 +130,19 @@ export const setAnalyticalObjectAndSwitchApp = async (layer, openAs) => {
 
     window.location.href = url;
 };
+
+// Temporary fix until we switch to hash and react router
+export const clearAnalyticalObjectFromUrl = () => {
+    const [base, params] = window.location.href.split('?');
+
+    if (params && history && history.pushState) {
+        const leftParams = params
+            .split('&')
+            .filter(p => p.indexOf('currentAnalyticalObject') === -1);
+
+        const url =
+            base + (leftParams.length ? `?${leftParams.join('&')}` : '');
+
+        history.pushState({}, null, url);
+    }
+};
