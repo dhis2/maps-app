@@ -17,8 +17,8 @@ const styles = theme => ({
     panel: {
         position: 'absolute',
         top: HEADER_HEIGHT,
-        bottom: 0,
         height: 'auto',
+        bottom: 0,
         width: INTERPRETATIONS_PANEL_WIDTH,
         backgroundColor: theme.palette.background.default,
         boxShadow: '0 3px 10px 0 rgba(0, 0, 0, 0.227451)',
