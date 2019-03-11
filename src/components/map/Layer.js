@@ -109,10 +109,6 @@ class Layer extends PureComponent {
             map.removeLayer(this.layer);
         }
 
-        if (map.hasLayer(this.buffers)) {
-            map.removeLayer(this.buffers);
-        }
-
         delete this.layer;
     }
 
