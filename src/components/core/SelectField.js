@@ -39,6 +39,7 @@ export const SelectField = props => {
         onChange,
         style,
         value,
+        disabled,
     } = props;
 
     if (loading) {
@@ -73,6 +74,7 @@ export const SelectField = props => {
                             .join(', ')),
             }}
             style={style}
+            disabled={disabled}
         >
             {items.map(({ id, name }) => (
                 <MenuItem
@@ -155,6 +157,10 @@ SelectField.propTypes = {
             PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         ),
     ]),
+};
+
+SelectField.defaultProps = {
+    disabled: false,
 };
 
 export default withStyles(styles)(SelectField);

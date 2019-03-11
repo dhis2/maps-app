@@ -229,6 +229,7 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
+        const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
             <div>
@@ -419,11 +420,7 @@ export class ThematicDialog extends Component {
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
-                                    disabled={
-                                        selectedUserOrgUnits.length
-                                            ? true
-                                            : false
-                                    }
+                                    disabled={hasUserOrgUnits}
                                 />
                             </div>
                             <div style={styles.flexColumn}>
@@ -433,12 +430,14 @@ export class ThematicDialog extends Component {
                                     )}
                                     defaultLevel={DEFAULT_ORG_UNIT_LEVEL}
                                     onChange={setOrgUnitLevels}
+                                    disabled={hasUserOrgUnits}
                                 />
                                 <OrgUnitGroupSelect
                                     orgUnitGroup={getOrgUnitGroupsFromRows(
                                         rows
                                     )}
                                     onChange={setOrgUnitGroups}
+                                    disabled={hasUserOrgUnits}
                                 />
                                 <UserOrgUnitsSelect
                                     selected={selectedUserOrgUnits}
