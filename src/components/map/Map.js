@@ -99,13 +99,13 @@ class Map extends Component {
         // Add zoom control
         map.addControl({
             type: 'zoom',
-            position: 'topright',
+            position: 'top-right',
         });
 
         // Add fit bounds control
         map.addControl({
             type: 'fitBounds',
-            position: 'topright',
+            position: 'top-right',
         });
 
         // Add scale control
@@ -142,7 +142,7 @@ class Map extends Component {
             this.showCoordinate(coordinatePopup);
         }
 
-        this.context.map.invalidateSize();
+        this.context.map.resize();
     }
 
     // Remove map
@@ -151,33 +151,19 @@ class Map extends Component {
     }
 
     showCoordinate(coord) {
-        // TODO: Should not be dependant on L in global namespace
-        L.popup()
-            .setLatLng([coord[1], coord[0]])
-            .setContent(
-                'Longitude: ' +
-                    coord[0].toFixed(6) +
-                    '<br />Latitude: ' +
-                    coord[1].toFixed(6)
-            )
-            .on('remove', this.props.closeCoordinatePopup)
-            .openOn(this.context.map);
+        const { map } = this.context;
+        const content =
+            'Longitude: ' +
+            coord[0].toFixed(6) +
+            '<br />Latitude: ' +
+            coord[1].toFixed(6);
+
+        map.openPopup(content, coord);
     }
 
-    onRightClick(evt) {
-        L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-
-        const latlng = evt.latlng;
-        const position = [
-            evt.originalEvent.x,
-            evt.originalEvent.pageY || evt.originalEvent.y,
-        ];
-
-        this.props.openContextMenu({
-            position,
-            coordinate: [latlng.lng, latlng.lat],
-        });
-    }
+    onRightClick = evt => {
+        this.props.openContextMenu(evt);
+    };
 
     render() {
         const {
@@ -200,7 +186,7 @@ class Map extends Component {
             ...basemap,
         };
 
-        const layers = [...mapViews].reverse();
+        const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
 
         const style = {
             position: 'absolute',
@@ -221,20 +207,18 @@ class Map extends Component {
                     className={classes.mapContainer}
                 >
                     <MapName />
-                    {layers
-                        .filter(layer => layer.isLoaded)
-                        .map((config, index) => {
-                            const Overlay = layerType[config.layer] || Layer;
+                    {layers.map((config, index) => {
+                        const Overlay = layerType[config.layer] || Layer;
 
-                            return (
-                                <Overlay
-                                    key={config.id}
-                                    index={index}
-                                    openContextMenu={openContextMenu}
-                                    {...config}
-                                />
-                            );
-                        })}
+                        return (
+                            <Overlay
+                                key={config.id}
+                                index={layers.length - index}
+                                openContextMenu={openContextMenu}
+                                {...config}
+                            />
+                        );
+                    })}
                     <Layer key="basemap" {...basemapConfig} />
                     {isDownload && legendPosition && (
                         <DownloadLegend

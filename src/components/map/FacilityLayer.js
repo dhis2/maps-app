@@ -14,6 +14,9 @@ class FacilityLayer extends Layer {
     createLayer() {
         const {
             id,
+            index,
+            opacity,
+            isVisible,
             data,
             dataFilters,
             labels,
@@ -32,9 +35,14 @@ class FacilityLayer extends Layer {
         // Create layer config object
         const config = {
             type: 'markers',
-            pane: id,
+            id,
+            index,
+            opacity,
+            isVisible,
             data: filteredData,
             hoverLabel: '{label}',
+            onClick: this.onFeatureClick.bind(this),
+            onRightClick: this.onFeatureRightClick.bind(this),
         };
 
         // Labels and label style
@@ -52,23 +60,13 @@ class FacilityLayer extends Layer {
             };
         }
 
-        // Create and add facility layer based on config object
-        this.layer = map.createLayer(config).addTo(map);
-
-        // Create and add area layer
         if (areaRadius) {
-            this.buffers = map.addLayer({
-                type: 'circles',
-                pane: `${id}-area`,
-                radius: areaRadius,
-                highlightStyle: false,
-                data: filteredData,
-            });
+            config.buffer = areaRadius;
         }
 
-        // Handle facility click
-        this.layer.on('click', this.onFeatureClick, this);
-        this.layer.on('contextmenu', this.onFeatureRightClick, this);
+        // Create and add facility layer based on config object
+        this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
@@ -78,47 +76,32 @@ class FacilityLayer extends Layer {
 
     // Show pupup on facility click
     onFeatureClick(evt) {
-        const attr = evt.layer.feature.properties;
-        let content = `<div class="leaflet-popup-orgunit"><em>${
-            attr.name
-        }</em>`;
+        const { feature, coordinates } = evt;
+        const { name, dimensions, pn } = feature.properties;
+        let content = `<div class="leaflet-popup-orgunit"><em>${name}</em>`;
 
-        if (isPlainObject(attr.dimensions)) {
-            content += `<br/>${i18n.t('Groups')}: ${Object.keys(attr.dimensions)
-                .map(id => attr.dimensions[id])
+        if (isPlainObject(dimensions)) {
+            content += `<br/>${i18n.t('Groups')}: ${Object.keys(dimensions)
+                .map(id => dimensions[id])
                 .join(', ')}`;
         }
 
-        if (attr.pn) {
-            content += `<br/>${i18n.t('Parent unit')}: ${attr.pn}`;
+        if (pn) {
+            content += `<br/>${i18n.t('Parent unit')}: ${pn}`;
         }
 
         content += '</div>';
 
-        // TODO: Should not be dependant on L in global namespace
-        L.popup()
-            .setLatLng(evt.latlng)
-            .setContent(content)
-            .openOn(this.context.map);
+        this.context.map.openPopup(content, coordinates);
     }
 
     onFeatureRightClick(evt) {
-        // TODO: Should not be dependant on L in global namespace
-        L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-
-        const latlng = evt.latlng;
-        const position = [
-            evt.originalEvent.x,
-            evt.originalEvent.pageY || evt.originalEvent.y,
-        ];
-        const props = this.props;
+        const { id, layer } = this.props;
 
         this.props.openContextMenu({
-            position,
-            coordinate: [latlng[1], latlng[0]],
-            layerId: props.id,
-            layerType: props.layer,
-            feature: evt.layer.feature,
+            ...evt,
+            layerId: id,
+            layerType: layer,
         });
     }
 }

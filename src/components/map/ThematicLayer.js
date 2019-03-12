@@ -13,6 +13,9 @@ class ThematicLayer extends Layer {
     createLayer() {
         const {
             id,
+            index,
+            opacity,
+            isVisible,
             data,
             dataFilters,
             labels,
@@ -27,9 +30,14 @@ class ThematicLayer extends Layer {
 
         const config = {
             type: 'choropleth',
-            pane: id,
+            id,
+            index,
+            opacity,
+            isVisible,
             data: filterData(data, dataFilters),
             hoverLabel: '{name} ({value})',
+            onClick: this.onFeatureClick.bind(this),
+            onRightClick: this.onFeatureRightClick.bind(this),
         };
 
         if (labels) {
@@ -43,12 +51,10 @@ class ThematicLayer extends Layer {
                 color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
                 lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
             };
-            config.labelPane = id + '-labels';
         }
 
         this.layer = map.createLayer(config);
-        this.layer.on('click', this.onFeatureClick, this);
-        this.layer.on('contextmenu', this.onFeatureRightClick, this);
+        map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
@@ -57,9 +63,9 @@ class ThematicLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        const { name, value } = evt.layer.feature.properties;
+        const { feature, coordinates } = evt;
+        const { name, value } = feature.properties;
         const { columns, aggregationType, legend } = this.props;
-        const map = this.context.map;
         const indicator = columns[0].items[0].name || '';
         const period = legend.period;
         const content = `
@@ -73,38 +79,17 @@ class ThematicLayer extends Layer {
         }
             </div>`;
 
-        // TODO: Should not be dependant on L in global namespace
-        L.popup()
-            .setLatLng(evt.latlng)
-            .setContent(removeLineBreaks(content))
-            .openOn(map);
+        this.context.map.openPopup(removeLineBreaks(content), coordinates);
     }
 
     onFeatureRightClick(evt) {
-        // TODO: Should not be dependant on L in global namespace
-        L.DomEvent.stopPropagation(evt); // Don't propagate to map right-click
-
-        const latlng = evt.latlng;
-        const position = [
-            evt.originalEvent.x,
-            evt.originalEvent.pageY || evt.originalEvent.y,
-        ];
-        const props = this.props;
+        const { id, layer } = this.props;
 
         this.props.openContextMenu({
-            position,
-            coordinate: [latlng.lng, latlng.lat],
-            layerId: props.id,
-            layerType: props.layer,
-            feature: evt.layer.feature,
+            ...evt,
+            layerId: id,
+            layerType: layer,
         });
-    }
-
-    removeLayer() {
-        this.layer.off('click', this.onFeatureClick, this);
-        this.layer.off('contextmenu', this.onFeatureRightClick, this);
-
-        super.removeLayer();
     }
 }
 

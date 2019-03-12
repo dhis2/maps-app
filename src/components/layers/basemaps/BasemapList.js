@@ -11,18 +11,27 @@ const styles = {
     },
 };
 
-const BasemapList = ({ classes, selectedID, basemaps, selectBasemap }) => (
+const BasemapList = (
+    { classes, selectedID, basemaps, selectBasemap },
+    { map }
+) => (
     <div className={classes.container} data-test="basemaplist">
-        {basemaps.map((basemap, index) => (
-            <Basemap
-                key={`basemap-${index}`}
-                onClick={selectBasemap}
-                isSelected={basemap.id === selectedID}
-                {...basemap}
-            />
-        ))}
+        {basemaps
+            .filter(basemap => map.hasLayerSupport(basemap.config.type))
+            .map((basemap, index) => (
+                <Basemap
+                    key={`basemap-${index}`}
+                    onClick={selectBasemap}
+                    isSelected={basemap.id === selectedID}
+                    {...basemap}
+                />
+            ))}
     </div>
 );
+
+BasemapList.contextTypes = {
+    map: PropTypes.object,
+};
 
 BasemapList.propTypes = {
     classes: PropTypes.object.isRequired,
