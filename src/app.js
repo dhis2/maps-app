@@ -53,6 +53,7 @@ getManifest('manifest.webapp')
             'organisationUnitLevel',
             'program',
             'programStage',
+            'userGroup',
         ];
     })
     .then(getUserSettings)
