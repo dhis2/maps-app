@@ -34,11 +34,13 @@ export class DataElementSelect extends PureComponent {
             errorText,
         } = this.props;
 
-        if (!dataElementGroup) {
-            return null;
-        }
+        let items = dataElements;
 
-        const items = dataElements[dataElementGroup.id];
+        if (!dataElementGroup && !dataElement) {
+            return null;
+        } else if (!dataElements && dataElement) {
+            items = [dataElement]; // If favorite is loaded, we only know the used data element
+        }
 
         return (
             <SelectField
@@ -56,8 +58,10 @@ export class DataElementSelect extends PureComponent {
 }
 
 export default connect(
-    state => ({
-        dataElements: state.dataElements,
+    (state, props) => ({
+        dataElements: props.dataElementGroup
+            ? state.dataElements[props.dataElementGroup.id]
+            : null,
     }),
     { loadDataElements }
 )(DataElementSelect);

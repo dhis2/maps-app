@@ -67,12 +67,17 @@ class ThematicLayer extends Layer {
         const { name, value } = feature.properties;
         const { columns, aggregationType, legend } = this.props;
         const indicator = columns[0].items[0].name || '';
-        const { period } = legend;
-        const content = `<div class="leaflet-popup-orgunit">
-            <em>${name}</em><br>
-            ${indicator}<br>
-            ${period}: ${value} ${aggregationType ? `(${aggregationType})` : ''}
-        </div>`;
+        const period = legend.period;
+        const content = `
+            <div class="leaflet-popup-orgunit">
+                <em>${name}</em><br>
+                ${indicator}<br>
+                ${period}: ${value} ${
+            aggregationType && aggregationType !== 'DEFAULT'
+                ? `(${aggregationType})`
+                : ''
+        }
+            </div>`;
 
         this.context.map.openPopup(removeLineBreaks(content), coordinates);
     }

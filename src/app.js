@@ -13,6 +13,7 @@ import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
+import { getAnalyticalObject } from './actions/analyticalObject';
 import { setGoogleCloudApiKey } from './actions/basemap';
 import { getUrlParameter } from './util/requests';
 
@@ -29,7 +30,10 @@ getManifest('manifest.webapp')
             process.env.NODE_ENV === 'production'
                 ? manifest.getBaseUrl()
                 : DHIS_CONFIG.baseUrl;
-        config.baseUrl = `${baseUrl}/api/31`;
+
+        config.appUrl = baseUrl; // Base url for switching between apps
+        config.baseUrl = `${baseUrl}/api/31`; // Base url for Web API requests
+
         config.context = manifest.activities.dhis; // Added temporarily for util/api.js
 
         log.info(`Loading: ${manifest.name} v${manifest.version}`);
@@ -52,6 +56,7 @@ getManifest('manifest.webapp')
             'organisationUnitLevel',
             'program',
             'programStage',
+            'userGroup',
         ];
     })
     .then(getUserSettings)
@@ -70,6 +75,12 @@ getManifest('manifest.webapp')
             const mapId = getUrlParameter('id');
             if (mapId) {
                 store.dispatch(loadFavorite(mapId));
+            }
+
+            // If analytical object is passed from another app
+            const analyticalObject = getUrlParameter('currentAnalyticalObject');
+            if (analyticalObject === 'true') {
+                store.dispatch(getAnalyticalObject());
             }
 
             // JSS initialization

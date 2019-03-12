@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { sortBy, negate } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
-import { relativePeriods } from '../constants/periods';
+import { periodNames } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
 
 /* DIMENSIONS */
@@ -144,10 +144,7 @@ export const createUserOrgUnitsDimension = (userOrgUnits = []) => [
 export const getPeriodFromFilters = (filters = []) =>
     getDimensionItems('pe', filters)[0];
 
-export const getPeriodNameFromId = id => {
-    const period = relativePeriods.filter(period => period.id === id)[0];
-    return period ? i18n.t(period.name) : null;
-};
+export const getPeriodNameFromId = id => i18n.t(periodNames[id]);
 
 export const setFiltersFromPeriod = period => [
     createDimension('pe', [{ ...period }]),
