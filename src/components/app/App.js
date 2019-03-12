@@ -16,6 +16,7 @@ import AlertSnackbar from '../alerts/AlertSnackbar';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
+import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 import '@dhis2/ui/defaults/reset.css';
 import './App.css';
@@ -23,7 +24,6 @@ import './App.css';
 const theme = createMuiTheme(mui3theme);
 
 // Makes d2 available in all child components
-// Not using AppWithD2 from d2-ui because it requires d2 to be a promise
 export class App extends Component {
     static propTypes = {
         d2: PropTypes.object,
@@ -56,6 +56,7 @@ export class App extends Component {
                         <AlertSnackbar />
                         <Message />
                         <DataDownloadDialog />
+                        <OpenAsMapDialog />
                     </MapProvider>
                 </MuiThemeProvider>
             </FatalErrorBoundary>
