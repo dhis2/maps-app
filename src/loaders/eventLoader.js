@@ -20,7 +20,7 @@ import { cssColor } from '../util/colors';
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
 
-//TODO: Refactor to share code with other loaders
+// TODO: Refactor to share code with other loaders
 // Returns a promise
 const eventLoader = async layerConfig => {
     const config = { ...layerConfig };
