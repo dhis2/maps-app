@@ -39,7 +39,7 @@ const webpackConfig = {
     context: __dirname,
     entry: {
         app: ['babel-polyfill', './src/app.js'],
-        map: './src/map.js',
+        map: ['babel-regenerator-runtime', './src/map.js'],
     },
     devtool: 'source-map',
     output: {
