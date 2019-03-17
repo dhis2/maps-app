@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import D2map from '@dhis2/gis-api';
+// import D2map from '@dhis2/gis-api';
+import D2map from '@dhis2/maps-gl';
 import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
 import Layer from '../Layer';
