@@ -5,13 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-<<<<<<< HEAD
 "POT-Creation-Date: 2019-01-22T09:00:42.459Z\n"
 "PO-Revision-Date: 2019-01-22T09:00:42.459Z\n"
-=======
-"POT-Creation-Date: 2019-01-18T10:13:51.870Z\n"
-"PO-Revision-Date: 2019-01-18T10:13:51.870Z\n"
->>>>>>> e5b4474648541a735234196973d9d69cb787884a
 
 msgid "Maps"
 msgstr ""
@@ -405,6 +400,9 @@ msgstr ""
 msgid "Data table"
 msgstr ""
 
+msgid "Open as chart"
+msgstr ""
+
 msgid "Download data"
 msgstr ""
 
@@ -412,15 +410,6 @@ msgid "Edit layer"
 msgstr ""
 
 msgid "Remove layer"
-msgstr ""
-
-msgid "Open as"
-msgstr ""
-
-msgid "Pivot"
-msgstr ""
-
-msgid "Chart"
 msgstr ""
 
 msgid "Parent unit"
@@ -460,6 +449,21 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
+msgstr ""
+
+msgid "Open as map"
+msgstr ""
+
+msgid ""
+"This chart/table contains {{numItems}} data items. Choose which items you "
+"want to import from the list below. Each data item will be created as a map "
+"layer."
+msgstr ""
+
+msgid "Data items"
+msgstr ""
+
+msgid "Proceed"
 msgstr ""
 
 msgid "Options"
@@ -543,6 +547,12 @@ msgid "Event"
 msgstr ""
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Selected org units"
+msgstr ""
+
+msgid "No coordinates found"
 msgstr ""
 
 msgid "No data found"

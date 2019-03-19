@@ -7,7 +7,6 @@ import { getLegendItemForValue } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
 import {
     loadLegendSet,
-    loadDataItemLegendSet,
     getPredefinedLegendItems,
     getAutomaticLegendItems,
 } from '../util/legend';
@@ -42,7 +41,15 @@ const thematicLoader = async config => {
     }
 
     const [features, data] = response;
-    const { columns, radiusLow, radiusHigh, classes, colorScale } = config;
+
+    const {
+        columns,
+        rows,
+        radiusLow,
+        radiusHigh,
+        classes,
+        colorScale,
+    } = config;
     const period = getPeriodFromFilters(config.filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
@@ -59,11 +66,6 @@ const thematicLoader = async config => {
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
     let alert;
 
-    // Check if data item has legend set (needed if config is converted for chart/pivot layout)
-    if (!legendSet && !method) {
-        legendSet = await loadDataItemLegendSet(dataItem);
-    }
-
     if (legendSet) {
         legendSet = await loadLegendSet(legendSet);
     }
@@ -71,7 +73,7 @@ const thematicLoader = async config => {
     const legend = {
         title: name,
         period: period
-            ? names[data.metaData.dimensions.pe[0]]
+            ? getPeriodName(period, data.metaData.dimensions.pe, names)
             : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
                   config.endDate
               )}`,
@@ -97,7 +99,18 @@ const thematicLoader = async config => {
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
     if (!valueFeatures.length) {
-        alert = createAlert(name, i18n.t('No data found'));
+        if (!features.length) {
+            const orgUnits = getOrgUnitsFromRows(rows);
+
+            alert = createAlert(
+                orgUnits.length === 1
+                    ? names[orgUnits[0].id] || i18n.t(orgUnits[0].name)
+                    : i18n.t('Selected org units'),
+                i18n.t('No coordinates found')
+            );
+        } else {
+            alert = createAlert(name, i18n.t('No data found'));
+        }
     }
 
     valueFeatures.forEach(({ id, geometry, properties }) => {
@@ -152,6 +165,11 @@ const getOrderedValues = data => {
 
     return rows.map(row => parseFloat(row[valueIndex])).sort((a, b) => a - b);
 };
+
+// Returns the period name
+// TODO: Period name should be returned in server response
+const getPeriodName = (period, periodDims, names) =>
+    periodDims.length > 1 ? i18n.t(period.name) : names[periodDims[0]];
 
 // Load features and data values from api
 const loadData = async config => {

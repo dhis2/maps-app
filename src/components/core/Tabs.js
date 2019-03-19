@@ -14,7 +14,7 @@ const Tabs = props => (
     <MuiTabs
         indicatorColor="primary"
         textColor="primary"
-        fullWidth
+        variant="fullWidth"
         {...props}
         onChange={(event, tab) => props.onChange(tab)}
     />

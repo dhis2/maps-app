@@ -2,12 +2,17 @@ import Layer from './Layer';
 
 export default class ExternalLayer extends Layer {
     createLayer() {
-        const props = this.props;
-        const config = props.config;
-        const map = this.context.map;
+        const { id, index, opacity, isVisible, config } = this.props;
+        const { map } = this.context;
 
-        config.pane = props.id;
+        this.layer = map.createLayer({
+            id,
+            index,
+            opacity,
+            isVisible,
+            ...config,
+        });
 
-        this.layer = map.createLayer(config);
+        map.addLayer(this.layer);
     }
 }

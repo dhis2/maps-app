@@ -41,7 +41,7 @@ class ContextMenu extends Component {
 
 ContextMenu.propTypes = {
     feature: PropTypes.object,
-    position: PropTypes.string,
+    position: PropTypes.array,
     onDrillDown: PropTypes.func.isRequired,
     onDrillUp: PropTypes.func.isRequired,
 };

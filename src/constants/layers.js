@@ -17,10 +17,6 @@ export const TEI_COLOR = '#BB0000';
 export const TEI_RADIUS = 6;
 export const TEI_BUFFER = 100;
 
-/* BUFFERS */
-export const BUFFER_MAX_FILL_OPACITY = 0.3;
-export const BUFFER_MAX_LINE_OPACITY = 0.7;
-
 /* CLASSIFICATION */
 export const CLASSIFICATION_PREDEFINED = 1;
 export const CLASSIFICATION_EQUAL_INTERVALS = 2;

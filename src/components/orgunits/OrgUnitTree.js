@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree';
-import orgUnitStyles from '@dhis2/d2-ui-org-unit-dialog/styles/OrgUnitDialog.style';
+import orgUnitStyles from '@dhis2/d2-ui-org-unit-dialog/styles/OrgUnitSelector.style';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
 
 const styles = {

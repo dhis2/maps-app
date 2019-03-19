@@ -39,7 +39,7 @@ const webpackConfig = {
     context: __dirname,
     entry: {
         app: ['babel-polyfill', './src/app.js'],
-        map: './src/map.js',
+        map: ['babel-regenerator-runtime', './src/map.js'],
     },
     devtool: 'source-map',
     output: {
@@ -52,10 +52,7 @@ const webpackConfig = {
         rules: [
             {
                 test: /\.jsx?$/,
-                include: [
-                    path.resolve(__dirname, 'src/'),
-                    path.resolve(__dirname, '../gis-api/src/'),
-                ],
+                include: [path.resolve(__dirname, 'src/')],
                 loader: 'babel-loader',
                 query: {
                     cacheDirectory: true,
@@ -65,6 +62,10 @@ const webpackConfig = {
             {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader',
+            },
+            {
+                test: /\.scss$/,
+                loader: 'style-loader!css-loader!sass-loader',
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,

@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { sortBy, negate } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
-import { relativePeriods } from '../constants/periods';
+import { periodNames } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
 
 /* DIMENSIONS */
@@ -134,11 +134,9 @@ export const getUserOrgUnitsFromRows = (rows = []) =>
         .filter(isUserOrgUnit)
         .map(getIdFromUserOrgUnit);
 
-export const addUserOrgUnitsToRows = (rows = [], userOrgUnits = []) => [
-    createDimension('ou', [
-        ...getOrgUnitsFromRows(rows).filter(negate(isUserOrgUnit)),
-        ...userOrgUnits.map(createUserOrgUnit),
-    ]),
+// Adding user org units will clear other org unit selections
+export const createUserOrgUnitsDimension = (userOrgUnits = []) => [
+    createDimension('ou', [...userOrgUnits.map(createUserOrgUnit)]),
 ];
 
 /* PERIODS */
@@ -150,10 +148,7 @@ export const removePeriodFromFilters = (filters = []) => [
     ...filters.filter(f => f.dimension !== 'pe'),
 ];
 
-export const getPeriodNameFromId = id => {
-    const period = relativePeriods.filter(period => period.id === id)[0];
-    return period ? i18n.t(period.name) : null;
-};
+export const getPeriodNameFromId = id => i18n.t(periodNames[id]);
 
 export const setFiltersFromPeriod = (filters, period) => [
     ...removePeriodFromFilters(filters),
