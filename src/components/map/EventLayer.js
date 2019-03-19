@@ -53,26 +53,30 @@ class EventLayer extends Layer {
 
         if (eventClustering) {
             if (serverCluster) {
-                config.type = 'serverCluster';
+                config.type = 'vectorTile';
+                config.url = 'http://localhost:5001/malaria/{z}/{x}/{y}';
+                config.sourceLayer = 'malariaevents';
+                config.layerType = 'circle';
+                config.minzoom = 7;
                 config.bounds = bounds;
 
-                config.load = async (params, callback) => {
-                    d2 = d2 || (await getD2());
+                // config.load = async (params, callback) => {
+                //     d2 = d2 || (await getD2());
 
-                    eventRequest =
-                        eventRequest || (await getAnalyticsRequest(this.props));
+                //     eventRequest =
+                //         eventRequest || (await getAnalyticsRequest(this.props));
 
-                    eventRequest = eventRequest
-                        .withBbox(params.bbox)
-                        .withClusterSize(params.clusterSize)
-                        .withIncludeClusterPoints(params.includeClusterPoints);
+                //     eventRequest = eventRequest
+                //         .withBbox(params.bbox)
+                //         .withClusterSize(params.clusterSize)
+                //         .withIncludeClusterPoints(params.includeClusterPoints);
 
-                    const clusterData = await d2.analytics.events.getCluster(
-                        eventRequest
-                    );
+                //     const clusterData = await d2.analytics.events.getCluster(
+                //         eventRequest
+                //     );
 
-                    callback(params.tileId, this.toGeoJson(clusterData));
-                };
+                //     callback(params.tileId, this.toGeoJson(clusterData));
+                // };
             } else {
                 config.type = 'clientCluster';
                 config.clusterPane = id;
