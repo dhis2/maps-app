@@ -33,7 +33,7 @@ class TrackedEntityLayer extends Layer {
                 weight: 1,
                 radius,
             },
-            onClick: this.onEntityClick.bind(this),
+            onClick: this.onEntityClick,
         };
 
         if (areaRadius) {
