@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-03-07T12:04:33.581Z\n"
-"PO-Revision-Date: 2019-03-07T12:04:33.581Z\n"
+"POT-Creation-Date: 2019-03-26T08:01:11.496Z\n"
+"PO-Revision-Date: 2019-03-26T08:01:11.496Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -525,13 +525,16 @@ msgid ""
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
 
+msgid "Error"
+msgstr ""
+
+msgid "A connection to Google Earth Engine could not be established."
+msgstr ""
+
 msgid "Favorite"
 msgstr ""
 
 msgid "is saved"
-msgstr ""
-
-msgid "Error"
 msgstr ""
 
 msgid "Boundaries"
