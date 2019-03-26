@@ -3,7 +3,7 @@ import { apiFetch } from '../util/api';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { TEI_COLOR, TEI_RADIUS } from '../constants/layers';
 import { createAlert } from '../util/alerts';
-import { formatLocaleDate } from '../util/helpers';
+import { formatLocaleDate } from '../util/time';
 
 const fields = [
     'trackedEntityInstance~rename(id)',
