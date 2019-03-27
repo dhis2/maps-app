@@ -147,22 +147,20 @@ export const loadCollection = action$ =>
                 );
             }
 
-            return setAuthToken(token)
-                .then(() =>
-                    new Promise(collections[action.id]).then(data =>
-                        setEarthEngineCollection(action.id, data)
-                    )
-                )
-                .catch(() =>
-                    setAlert(
-                        createAlert(
-                            i18n.t('Error'),
-                            i18n.t(
-                                'A connection to Google Earth Engine could not be established.'
-                            )
+            await setAuthToken(token).catch(() =>
+                setAlert(
+                    createAlert(
+                        i18n.t('Error'),
+                        i18n.t(
+                            'A connection to Google Earth Engine could not be established.'
                         )
                     )
-                );
+                )
+            );
+
+            return new Promise(collections[action.id]).then(data =>
+                setEarthEngineCollection(action.id, data)
+            );
         });
 
 export default combineEpics(loadCollection);
