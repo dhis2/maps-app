@@ -302,12 +302,12 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/gis-api@32.0.9":
-  version "32.0.9"
-  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-32.0.9.tgz#4c18e06a7fe4b6f956fd6b1c1813a36f9226d1c3"
-  integrity sha512-6+9fG7xyYLNFZC/8kVbAQNDSnxcIAFRhkiEB7fxrcStX3rZMMmzHXtb3gZhLVfS3NEm4yErSf1SzInLiLBnkAQ==
+"@dhis2/gis-api@^32.0.15":
+  version "32.0.15"
+  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-32.0.15.tgz#822e3790f5b5c8be77d34a806d69b9734e55bdcb"
+  integrity sha512-A3qSdS8pLQPvqAy4rGvlB+XFq57q+yimWbh+/7LUKuclHFRXFlWqZkgRd9EviMafWDoirZP6Vm1jL6w5smfTrg==
   dependencies:
-    "@google/earthengine" "^0.1.167"
+    "@google/earthengine" "^0.1.172"
     "@mapbox/geojson-area" "^0.2.2"
     "@mapbox/polylabel" "^1.0.2"
     "@turf/buffer" "^5.1.5"
@@ -375,10 +375,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
-"@google/earthengine@^0.1.167":
-  version "0.1.171"
-  resolved "https://registry.yarnpkg.com/@google/earthengine/-/earthengine-0.1.171.tgz#929012aa21bec3befa663a11493867d9b63a6b22"
-  integrity sha512-vxyI1t5oCVRNjuSeEwI2cjHtBaup87uKXqgJFfeYXOxhg8Plbk+oZAkukYdyZnPFD6DDsG51GOc41qBPTbfEMw==
+"@google/earthengine@^0.1.172":
+  version "0.1.172"
+  resolved "https://registry.yarnpkg.com/@google/earthengine/-/earthengine-0.1.172.tgz#407e4273efc395d4b24bb4e33efaf4249a280314"
+  integrity sha512-QnQR2jUMlboWXHQfdTW0BdHxJ51GHv4E7ijUdtKCotCAlGU6kWnPk49XKxeT9N07m8gnvxxMedKhNm0U4tUh4g==
   dependencies:
     googleapis "^16.1.0"
     xmlhttprequest "^1.8.0"

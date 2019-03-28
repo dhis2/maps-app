@@ -18,7 +18,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
-import { formatLocaleDate } from '../util/helpers';
+import { formatLocaleDate } from '../util/time';
 
 const thematicLoader = async config => {
     let error;
