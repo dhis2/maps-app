@@ -33,7 +33,7 @@ class TrackedEntityLayer extends Layer {
                 weight: 1,
                 radius,
             },
-            onClick: this.onEntityClick,
+            onClick: this.onEntityClick.bind(this),
         };
 
         if (areaRadius) {
@@ -56,13 +56,9 @@ class TrackedEntityLayer extends Layer {
         }
     }
 
-    // Remove layer instance (both facilities and areas)
-    removeLayer() {
-        this.layer.off('click', this.onEventClick);
-        super.removeLayer();
-    }
+    async onEntityClick(evt) {
+        const { feature, coordinates } = evt;
 
-    onEntityClick = async ({ feature, coordinates }) => {
         const data = await apiFetch(
             `/trackedEntityInstances/${
                 feature.id
@@ -86,7 +82,7 @@ class TrackedEntityLayer extends Layer {
             )}:</th><td>${time}</td></tr></table>`,
             coordinates
         );
-    };
+    }
 }
 
 export default TrackedEntityLayer;
