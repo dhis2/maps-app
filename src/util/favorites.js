@@ -1,7 +1,8 @@
 import i18n from '@dhis2/d2-i18n';
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { generateUid } from 'd2/uid';
-import { createAlert } from '../util/alerts';
+import { createAlert } from './alerts';
+import { upgradeGisAppLayers } from './requests';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -152,7 +153,7 @@ const cleanDimension = dim => ({
     items: dim.items.map(item => pick(validModelProperties, item)),
 });
 
-// Translate from chart/pivot config to map config
+// Translate from chart/pivot config to map config, or from the old GIS app format
 export const translateConfig = config => {
     if (!config.mapViews) {
         // TODO: Best way to detect chart/pivot config
@@ -190,5 +191,8 @@ export const translateConfig = config => {
         };
     }
 
-    return config;
+    return {
+        ...config,
+        mapViews: upgradeGisAppLayers(config.mapViews),
+    };
 };
