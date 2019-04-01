@@ -80,7 +80,7 @@ const gisAppLayerOrder = {
 const isGisAppFormat = layers =>
     layers.some(config => config.layer.match(/thematic[1-4]/));
 
-const upgradeGisAppLayers = layers => {
+export const upgradeGisAppLayers = layers => {
     if (!isGisAppFormat(layers)) {
         return layers;
     }
