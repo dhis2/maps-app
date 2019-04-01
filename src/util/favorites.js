@@ -191,8 +191,22 @@ export const translateConfig = config => {
         };
     }
 
+    const { mapViews } = config;
+    const externalBasemap = mapViews.find(
+        view =>
+            view.layer === 'external' &&
+            view.config.mapLayerPosition === 'BASEMAP'
+    );
+
     return {
         ...config,
-        mapViews: upgradeGisAppLayers(config.mapViews),
+        mapViews: upgradeGisAppLayers(
+            externalBasemap
+                ? mapViews.filter(view => view.id !== externalBasemap.id)
+                : mapViews
+        ),
+        basemap: externalBasemap
+            ? { id: externalBasemap.config.id }
+            : config.basemap,
     };
 };
