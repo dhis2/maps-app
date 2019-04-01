@@ -35,7 +35,7 @@ export const createEventFeature = (
     names,
     event,
     id,
-    getCoordinates
+    getGeometry // getCoordinates
 ) => {
     const properties = event.reduce(
         (props, value, i) => ({
@@ -49,38 +49,47 @@ export const createEventFeature = (
         type: 'Feature',
         id,
         properties,
+        geometry: getGeometry(event),
+        /*
         geometry: {
             type: 'Point',
-            coordinates: getCoordinates(event).map(parseFloat),
+            coordinates: getGeometry(event).map(parseFloat),
         },
+        */
     };
 };
 
-export const buildEventCoordinateGetter = (headers, eventCoordinateField) => {
+export const buildEventGeometryGetter = (headers, eventCoordinateField) => {
     if (eventCoordinateField) {
-        // If coordinate field other than event location
+        // If coordinate field other than event location (only points are currently supported)
         const col = findIndex(headers, h => h.name === eventCoordinateField);
 
         return event => {
             const coordinates = event[col];
 
             if (Array.isArray(coordinates)) {
-                return coordinates;
+                return {
+                    type: 'Point',
+                    coordinates,
+                };
             } else if (isString(coordinates) && !isEmpty(coordinates)) {
                 try {
-                    return JSON.parse(coordinates);
+                    return {
+                        type: 'Point',
+                        coordinates: JSON.parse(coordinates),
+                    };
                 } catch (e) {
-                    return [];
+                    return null;
                 }
             } else {
-                return [];
+                return null;
             }
         };
     } else {
-        // Use event location
-        const lonCol = findIndex(headers, h => h.name === 'longitude');
-        const latCol = findIndex(headers, h => h.name === 'latitude');
-        return event => [event[lonCol], event[latCol]];
+        // Use event location (can be point or polygon)
+        const geomCol = findIndex(headers, h => h.name === 'geometry');
+
+        return event => JSON.parse(event[geomCol]);
     }
 };
 
@@ -98,21 +107,23 @@ export const createEventFeatures = (response, config = {}) => {
 
     const idColName = config.idCol || 'psi';
     const idCol = findIndex(response.headers, h => h.name === idColName);
-    const getCoordinates = buildEventCoordinateGetter(
+    const getGeometry = buildEventGeometryGetter(
         response.headers,
         config && config.eventCoordinateField
     );
-    const data = response.rows
-        .map(row =>
-            createEventFeature(
-                response.headers,
-                config.outputIdScheme !== 'ID' ? names : {},
-                row,
-                row[idCol],
-                getCoordinates
-            )
+
+    const data = response.rows.map(row =>
+        createEventFeature(
+            response.headers,
+            config.outputIdScheme !== 'ID' ? names : {},
+            row,
+            row[idCol],
+            getGeometry
         )
-        .filter(feature => isValidCoordinate(feature.geometry.coordinates));
+    );
+    // .filter(feature => isValidCoordinate(feature.geometry.coordinates)); // TODO
+
+    console.log(data);
 
     return { data, names };
 };
