@@ -40,15 +40,20 @@ class EventLayer extends Layer {
 
         // Default props = no cluster
         const config = {
-            type: 'dots',
+            type: 'geoJson',
             id,
             index,
             opacity,
             isVisible,
             data,
-            color: color || EVENT_COLOR,
-            radius: eventPointRadius || EVENT_RADIUS,
-            popup: this.onEventClick.bind(this),
+            style: {
+                color: color || EVENT_COLOR,
+                radius: eventPointRadius || EVENT_RADIUS,
+            },
+            // color: color || EVENT_COLOR,
+            // radius: eventPointRadius || EVENT_RADIUS,
+            // popup: this.onEventClick.bind(this),
+            onClick: this.onEventClick.bind(this),
         };
 
         if (eventClustering) {
@@ -144,9 +149,10 @@ class EventLayer extends Layer {
         }
     }
 
-    onEventClick(feature, callback) {
-        const coord = feature.geometry.coordinates;
-        const props = feature.properties;
+    onEventClick(evt) {
+        const { feature, coordinates } = evt;
+        const { type, coordinates: coord } = feature.geometry;
+        const { value } = feature.properties;
         const { styleDataItem } = this.props;
 
         apiFetch('/events/' + feature.id).then(data => {
@@ -159,9 +165,9 @@ class EventLayer extends Layer {
 
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
-                content += `<tr><th>${
-                    styleDataItem.name
-                }</th><td>${props.value || i18n.t('Not set')}</td></tr>`;
+                content += `<tr><th>${styleDataItem.name}</th><td>${
+                    value !== undefined ? value : i18n.t('Not set')
+                }</td></tr>`;
             }
 
             if (Array.isArray(dataValues)) {
@@ -185,6 +191,16 @@ class EventLayer extends Layer {
                 content += '<tr style="height:5px;"><th></th><td></td></tr>';
             }
 
+            // Show event location for points
+            if (type === 'Point') {
+                content += `
+                    <tr>
+                      <th>${this.eventCoordinateFieldName ||
+                          i18n.t('Event location')}</th>
+                      <td>${coord[0]}, ${coord[1]}</td>
+                    </tr>`;
+            }
+
             content += `<tr>
                 <th>${i18n.t('Organisation unit')}</th>
                 <td>${data.orgUnitName}</td>
@@ -192,16 +208,12 @@ class EventLayer extends Layer {
               <tr>
                 <th>${i18n.t('Event time')}</th>
                 <td>${time}</td>
-              </tr>
-              <tr>
-                <th>${this.eventCoordinateFieldName ||
-                    i18n.t('Event location')}</th>
-                <td>${coord[0]}, ${coord[1]}</td>
-              </tr> 
-              </tbody></table>`;
+              </tr>`;
+
+            content += '</tbody></table>';
 
             // Remove all line breaks as it's not working for map download
-            callback(removeLineBreaks(content));
+            this.context.map.openPopup(removeLineBreaks(content), coordinates);
         });
     }
 

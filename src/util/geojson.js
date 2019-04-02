@@ -1,5 +1,5 @@
 import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
-import { isString, isEmpty } from 'lodash/fp';
+// import { isString, isEmpty } from 'lodash/fp';
 import findIndex from 'lodash/findIndex';
 import { isValidCoordinate } from './map';
 // import { createSld } from './sld';
@@ -60,35 +60,33 @@ export const createEventFeature = (
 };
 
 export const buildEventGeometryGetter = (headers, eventCoordinateField) => {
+    // If coordinate field other than event location (only points are currently supported)
     if (eventCoordinateField) {
-        // If coordinate field other than event location (only points are currently supported)
         const col = findIndex(headers, h => h.name === eventCoordinateField);
 
         return event => {
-            const coordinates = event[col];
+            let coordinates = event[col];
 
-            if (Array.isArray(coordinates)) {
+            if (typeof coordinates === 'string' && coordinates.length) {
+                try {
+                    coordinates = JSON.parse(coordinates);
+                } catch (evt) {
+                    return null;
+                }
+            }
+
+            if (Array.isArray(coordinates) && isValidCoordinate(coordinates)) {
                 return {
                     type: 'Point',
                     coordinates,
                 };
-            } else if (isString(coordinates) && !isEmpty(coordinates)) {
-                try {
-                    return {
-                        type: 'Point',
-                        coordinates: JSON.parse(coordinates),
-                    };
-                } catch (e) {
-                    return null;
-                }
-            } else {
-                return null;
             }
+
+            return null;
         };
     } else {
         // Use event location (can be point or polygon)
         const geomCol = findIndex(headers, h => h.name === 'geometry');
-
         return event => JSON.parse(event[geomCol]);
     }
 };
@@ -121,9 +119,6 @@ export const createEventFeatures = (response, config = {}) => {
             getGeometry
         )
     );
-    // .filter(feature => isValidCoordinate(feature.geometry.coordinates)); // TODO
-
-    console.log(data);
 
     return { data, names };
 };
