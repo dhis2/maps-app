@@ -153,10 +153,31 @@ const cleanDimension = dim => ({
     items: dim.items.map(item => pick(validModelProperties, item)),
 });
 
+// Ugrade map config (basemap and thematic layers) from previous versions
+const upgradeMapConfig = config => {
+    const { mapViews } = config;
+    const externalBasemap = mapViews.find(
+        view =>
+            view.layer === 'external' &&
+            view.config.mapLayerPosition === 'BASEMAP'
+    );
+
+    if (!externalBasemap) {
+        return config;
+    }
+
+    return {
+        ...config,
+        basemap: { id: externalBasemap.config.id },
+        mapViews: upgradeGisAppLayers(
+            mapViews.filter(view => view.id !== externalBasemap.id)
+        ),
+    };
+};
+
 // Translate from chart/pivot config to map config, or from the old GIS app format
 export const translateConfig = config => {
     if (!config.mapViews) {
-        // TODO: Best way to detect chart/pivot config
         const { el, name } = config;
         const dimensions = [
             ...(config.columns || []),
@@ -191,22 +212,5 @@ export const translateConfig = config => {
         };
     }
 
-    const { mapViews } = config;
-    const externalBasemap = mapViews.find(
-        view =>
-            view.layer === 'external' &&
-            view.config.mapLayerPosition === 'BASEMAP'
-    );
-
-    return {
-        ...config,
-        mapViews: upgradeGisAppLayers(
-            externalBasemap
-                ? mapViews.filter(view => view.id !== externalBasemap.id)
-                : mapViews
-        ),
-        basemap: externalBasemap
-            ? { id: externalBasemap.config.id }
-            : config.basemap,
-    };
+    return upgradeMapConfig(config);
 };
