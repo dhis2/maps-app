@@ -153,10 +153,30 @@ const cleanDimension = dim => ({
     items: dim.items.map(item => pick(validModelProperties, item)),
 });
 
+// Set external basemap from mapViews (old format)
+const setExternalBasemap = config => {
+    const { mapViews } = config;
+    const externalBasemap = mapViews.find(
+        view =>
+            view.layer === 'external' &&
+            view.config.mapLayerPosition === 'BASEMAP'
+    );
+
+    if (!externalBasemap) {
+        return config;
+    }
+
+    return {
+        ...config,
+        basemap: { id: externalBasemap.config.id },
+        mapViews: mapViews.filter(view => view.id !== externalBasemap.id),
+    };
+};
+
 // Translate from chart/pivot config to map config, or from the old GIS app format
 export const translateConfig = config => {
+    // If chart/pivot config
     if (!config.mapViews) {
-        // TODO: Best way to detect chart/pivot config
         const { el, name } = config;
         const dimensions = [
             ...(config.columns || []),
@@ -191,8 +211,10 @@ export const translateConfig = config => {
         };
     }
 
+    const newConfig = setExternalBasemap(config);
+
     return {
-        ...config,
-        mapViews: upgradeGisAppLayers(config.mapViews),
+        ...newConfig,
+        mapViews: upgradeGisAppLayers(newConfig.mapViews),
     };
 };
