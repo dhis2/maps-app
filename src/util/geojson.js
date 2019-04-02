@@ -1,5 +1,4 @@
 import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
-// import { isString, isEmpty } from 'lodash/fp';
 import findIndex from 'lodash/findIndex';
 import { isValidCoordinate } from './map';
 // import { createSld } from './sld';
@@ -50,12 +49,6 @@ export const createEventFeature = (
         id,
         properties,
         geometry: getGeometry(event),
-        /*
-        geometry: {
-            type: 'Point',
-            coordinates: getGeometry(event).map(parseFloat),
-        },
-        */
     };
 };
 
