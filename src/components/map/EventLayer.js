@@ -40,7 +40,7 @@ class EventLayer extends Layer {
 
         // Default props = no cluster
         const config = {
-            type: 'geoJson',
+            type: 'events',
             id,
             index,
             opacity,
@@ -57,8 +57,6 @@ class EventLayer extends Layer {
             radius: eventPointRadius || EVENT_RADIUS,
             onClick: this.onEventClick.bind(this),
         };
-
-        console.log('data', data);
 
         if (eventClustering) {
             if (serverCluster) {
