@@ -46,13 +46,6 @@ class EventLayer extends Layer {
             opacity,
             isVisible,
             data,
-            /*
-            style: {
-                color: color || EVENT_COLOR,
-                radius: eventPointRadius || EVENT_RADIUS,
-                weight: 1,
-            },
-            */
             color: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
             onClick: this.onEventClick.bind(this),
