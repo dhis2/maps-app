@@ -156,11 +156,16 @@ const cleanDimension = dim => ({
 // Set external basemap from mapViews (old format)
 const setExternalBasemap = config => {
     const { mapViews } = config;
-    const externalBasemap = mapViews.find(
-        view =>
-            view.layer === 'external' &&
-            view.config.mapLayerPosition === 'BASEMAP'
-    );
+    const externalBasemap = mapViews.find(view => {
+        if (view.layer === 'external') {
+            if (typeof view.config === 'string') {
+                view.config = JSON.parse(view.config);
+            }
+
+            return view.config.mapLayerPosition === 'BASEMAP';
+        }
+        return false;
+    });
 
     if (!externalBasemap) {
         return config;
