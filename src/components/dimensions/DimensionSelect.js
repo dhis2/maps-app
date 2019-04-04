@@ -2,10 +2,18 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { withStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import TextField from '@material-ui/core/TextField';
 import { DimensionsPanel } from '@dhis2/d2-ui-analytics';
 import { loadDimensions } from '../../actions/dimensions';
+
+const styles = {
+    textField: {
+        width: '100%',
+        margin: '12px 0',
+    },
+};
 
 // Inspired by: https://github.com/dhis2/dashboards-app/blob/feat/period-filter/src/components/ItemFilter/FilterSelector.js
 export class DimensionSelect extends Component {
@@ -16,6 +24,7 @@ export class DimensionSelect extends Component {
         loadDimensions: PropTypes.func.isRequired,
         style: PropTypes.object,
         errorText: PropTypes.string,
+        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -49,7 +58,7 @@ export class DimensionSelect extends Component {
     };
 
     render() {
-        const { dimension, dimensions } = this.props;
+        const { dimension, dimensions, classes } = this.props;
         const { anchorEl } = this.state;
 
         if (!dimensions) {
@@ -65,6 +74,7 @@ export class DimensionSelect extends Component {
                     onClick={this.onOpen}
                     style={{ width: 200 }}
                     value={selected ? selected.name : ''}
+                    className={classes.textField}
                 />
                 <Popover
                     open={!!anchorEl}
@@ -94,4 +104,4 @@ export default connect(
             : null,
     }),
     { loadDimensions }
-)(DimensionSelect);
+)(withStyles(styles)(DimensionSelect));
