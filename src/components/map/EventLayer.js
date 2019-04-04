@@ -212,6 +212,7 @@ class EventLayer extends Layer {
         });
     }
 
+    // Convert surver cluster response to GeoJSON
     toGeoJson(data) {
         const header = {};
         const features = [];
@@ -222,19 +223,11 @@ class EventLayer extends Layer {
         if (Array.isArray(data.rows)) {
             data.rows.forEach(row => {
                 const extent = row[header.extent].match(/([-\d.]+)/g);
-                const coords = row[header.center].match(/([-\d.]+)/g);
-
-                // Round to 6 decimals - http://www.jacklmoore.com/notes/rounding-in-javascript/
-                coords[0] = Number(Math.round(coords[0] + 'e6') + 'e-6');
-                coords[1] = Number(Math.round(coords[1] + 'e6') + 'e-6');
 
                 features.push({
                     type: 'Feature',
                     id: row[header.points],
-                    geometry: {
-                        type: 'Point',
-                        coordinates: coords,
-                    },
+                    geometry: JSON.parse(row[header.center]),
                     properties: {
                         count: parseInt(row[header.count], 10),
                         bounds: [
