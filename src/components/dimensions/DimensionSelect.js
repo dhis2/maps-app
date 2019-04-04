@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import Popover from '@material-ui/core/Popover';
 import TextField from '@material-ui/core/TextField';
-// import SelectField from '../core/SelectField';
 import { DimensionsPanel } from '@dhis2/d2-ui-analytics';
 import { loadDimensions } from '../../actions/dimensions';
 
@@ -19,6 +18,10 @@ export class DimensionSelect extends Component {
         errorText: PropTypes.string,
     };
 
+    state = {
+        anchorEl: null,
+    };
+
     componentDidMount() {
         const { dimensions, loadDimensions } = this.props;
 
@@ -27,58 +30,57 @@ export class DimensionSelect extends Component {
         }
     }
 
+    onOpen = evt => {
+        this.setState({ anchorEl: evt.currentTarget });
+    };
+
+    onClose = () => {
+        this.setState({ anchorEl: null });
+    };
+
+    onDimensionClick = dim => {
+        const { dimension, onChange } = this.props;
+
+        if (dim !== dimension) {
+            onChange({ id: dim });
+        }
+
+        this.setState({ anchorEl: null });
+    };
+
     render() {
-        const { dimension, dimensions, onChange } = this.props;
+        const { dimension, dimensions } = this.props;
+        const { anchorEl } = this.state;
 
         if (!dimensions) {
             return null;
         }
 
-        console.log('dimensions', dimensions);
+        const selected = dimensions[dimension];
 
         return (
             <Fragment>
                 <TextField
                     label={i18n.t('Dimension')}
-                    // className={classes.textField}
-                    // value={this.state.currency}
-                    // onChange={console.log}
-                    // helperText="Please select your currency"
-                    // margin="normal"
-                    onClick={console.log}
+                    onClick={this.onOpen}
                     style={{ width: 200 }}
+                    value={selected ? selected.name : ''}
                 />
-            </Fragment>
-        );
-
-        /*
-
                 <Popover
-                    open={true}
-                    onClose={console.log}
+                    open={!!anchorEl}
+                    anchorEl={anchorEl}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    onClose={this.onClose}
                     style={{ height: '100%' }}
                 >
                     <DimensionsPanel
                         dimensions={dimensions}
-                        onDimensionClick={console.log}
-                        selectedIds={['uIuxlbV1vRT']}
+                        onDimensionClick={this.onDimensionClick}
+                        selectedIds={[dimension]}
                     />
                 </Popover>
-
-        return (
-            <SelectField
-                label={i18n.t('Dimension')}
-                loading={dimensions ? false : true}
-                items={dimensions}
-                value={dimension}
-                onChange={onChange}
-                //style={style}
-                //errorText={!program && errorText ? errorText : null}
-                data-test="dimensionselect"
-                style={{ width: 200 }}
-            />
+            </Fragment>
         );
-        */
     }
 }
 
