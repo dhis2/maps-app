@@ -14,6 +14,7 @@ const styles = {
         display: 'inline-block',
         width: '40%',
         position: 'relative',
+        paddingRight: 24,
     },
     textField: {
         margin: '12px 0',
@@ -27,7 +28,7 @@ const styles = {
     icon: {
         position: 'absolute',
         top: 32,
-        right: 0,
+        right: 24,
     },
 };
 

@@ -5,6 +5,12 @@ import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
 import { loadDimensionItems } from '../../actions/dimensions';
 
+const styles = {
+    select: {
+        width: '60%',
+    },
+};
+
 export class DimensionItemsSelect extends Component {
     static propTypes = {
         dimension: PropTypes.string,
@@ -38,7 +44,7 @@ export class DimensionItemsSelect extends Component {
                 value={value}
                 multiple={true}
                 onChange={onChange}
-                style={{ width: 200, marginLeft: 20 }}
+                style={styles.select}
             />
         );
     }
