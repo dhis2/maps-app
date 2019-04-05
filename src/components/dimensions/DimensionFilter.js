@@ -21,9 +21,6 @@ const styles = () => ({
     button: {
         marginTop: 8,
     },
-    note: {
-        paddingTop: 16,
-    },
 });
 
 class DimensionFilter extends Component {
@@ -43,8 +40,6 @@ class DimensionFilter extends Component {
             changeDimensionFilter,
             removeDimensionFilter,
         } = this.props;
-
-        // console.log('#', dimensions);
 
         return (
             <div className={classes.container}>

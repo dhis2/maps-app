@@ -5,13 +5,29 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import TextField from '@material-ui/core/TextField';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { DimensionsPanel } from '@dhis2/d2-ui-analytics';
 import { loadDimensions } from '../../actions/dimensions';
 
 const styles = {
+    dropdown: {
+        display: 'inline-block',
+        width: '40%',
+        position: 'relative',
+    },
     textField: {
-        width: '100%',
         margin: '12px 0',
+    },
+    input: {
+        '& input': {
+            cursor: 'pointer',
+            color: '#000',
+        },
+    },
+    icon: {
+        position: 'absolute',
+        top: 32,
+        right: 0,
     },
 };
 
@@ -69,13 +85,20 @@ export class DimensionSelect extends Component {
 
         return (
             <Fragment>
-                <TextField
-                    label={i18n.t('Dimension')}
-                    onClick={this.onOpen}
-                    style={{ width: 200 }}
-                    value={selected ? selected.name : ''}
-                    className={classes.textField}
-                />
+                <div onClick={this.onOpen} className={classes.dropdown}>
+                    <TextField
+                        label={i18n.t('Dimension')}
+                        value={selected ? selected.name : ''}
+                        fullWidth={true}
+                        className={classes.textField}
+                        InputProps={{
+                            autoFocus: false,
+                            className: classes.input,
+                            disabled: true,
+                        }}
+                    />
+                    <ArrowDropDownIcon className={classes.icon} />
+                </div>
                 <Popover
                     open={!!anchorEl}
                     anchorEl={anchorEl}
