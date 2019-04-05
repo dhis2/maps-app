@@ -54,6 +54,12 @@ class DimensionFilterRow extends Component {
         classes: PropTypes.object.isRequired,
     };
 
+    onChange(dimension, items) {
+        const { index, onChange } = this.props;
+
+        onChange(index, { dimension, items });
+    }
+
     render() {
         const { dimension, items, index, onRemove, classes } = this.props;
 
@@ -83,23 +89,6 @@ class DimensionFilterRow extends Component {
                 </Tooltip>
             </div>
         );
-    }
-
-    // onChange(dimension, items) {
-    onChange(dimension, items) {
-        const { index, onChange } = this.props;
-
-        if (dimension !== this.props.dimension) {
-            onChange(index, {
-                dimension,
-                items: null,
-            });
-        } else {
-            onChange(index, {
-                dimension,
-                items: items.map(item => ({ id: item })),
-            });
-        }
     }
 }
 

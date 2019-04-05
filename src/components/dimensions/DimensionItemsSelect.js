@@ -30,8 +30,14 @@ export class DimensionItemsSelect extends Component {
         }
     }
 
+    onDimensionItemClick = ids => {
+        const { items, onChange } = this.props;
+
+        onChange(ids.map(id => items.find(item => item.id === id)));
+    };
+
     render() {
-        const { items, value, onChange } = this.props;
+        const { items, value } = this.props;
 
         if (!items) {
             return null;
@@ -43,7 +49,7 @@ export class DimensionItemsSelect extends Component {
                 items={items}
                 value={value}
                 multiple={true}
-                onChange={onChange}
+                onChange={this.onDimensionItemClick}
                 style={styles.select}
             />
         );

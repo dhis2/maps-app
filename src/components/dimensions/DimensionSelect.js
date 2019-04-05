@@ -32,7 +32,6 @@ const styles = {
     },
 };
 
-// Inspired by: https://github.com/dhis2/dashboards-app/blob/feat/period-filter/src/components/ItemFilter/FilterSelector.js
 export class DimensionSelect extends Component {
     static propTypes = {
         dimension: PropTypes.string,
@@ -65,10 +64,10 @@ export class DimensionSelect extends Component {
     };
 
     onDimensionClick = dim => {
-        const { dimension, onChange } = this.props;
+        const { dimension, dimensions, onChange } = this.props;
 
         if (dim !== dimension) {
-            onChange({ id: dim });
+            onChange(dimensions[dim]);
         }
 
         this.setState({ anchorEl: null });
