@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import i18n from '@dhis2/d2-i18n';
 import LegendItem from './LegendItem';
 import legendStyle from './legendStyle';
 
@@ -16,7 +15,8 @@ export const styles = theme => ({
         paddingBottom: theme.spacing.unit * 1.5,
     },
     filters: {
-        paddingBottom: theme.spacing.unit * 1.5,
+        paddingTop: theme.spacing.unit * 2,
+        fontSize: 12,
     },
     unit: {
         lineHeight: '24px',
@@ -46,11 +46,6 @@ const Legend = ({
         {description && (
             <div className={classes.description}>{description}</div>
         )}
-        {filters && (
-            <div className={classes.filters}>
-                {i18n.t('Filters')}: {filters.join(', ')}
-            </div>
-        )}
         {unit && items && <div className={classes.unit}>{unit}</div>}
         {items && (
             <table>
@@ -60,6 +55,13 @@ const Legend = ({
                     ))}
                 </tbody>
             </table>
+        )}
+        {filters && (
+            <div className={classes.filters}>
+                {filters.map((filter, index) => (
+                    <div key={index}>{filter}</div>
+                ))}
+            </div>
         )}
         {explanation && (
             <div className={classes.explanation}>{explanation}</div>
