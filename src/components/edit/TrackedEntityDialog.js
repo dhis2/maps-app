@@ -28,6 +28,7 @@ import {
     setProgram,
     setProgramStatus,
     setFollowUpStatus,
+    setTrackedEntityRelationshipType,
     setStartDate,
     setEndDate,
     setOrgUnitRoot,
@@ -44,6 +45,7 @@ import {
     getOrgUnitNodesFromRows,
 } from '../../util/analytics';
 import { getStartEndDateError } from '../../util/time';
+import TrackedEntityRelationshipTypeSelect from './trackedEntity/TrackedEntityRelationshipTypeSelect';
 
 const styles = {
     ...layerDialogStyles,
@@ -69,6 +71,7 @@ export class TrackedEntityDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         followUp: PropTypes.bool,
+        relationshipType: PropTypes.string,
         organisationUnitSelectionMode: PropTypes.string,
         program: PropTypes.object,
         programStatus: PropTypes.string,
@@ -80,6 +83,7 @@ export class TrackedEntityDialog extends Component {
         setFollowUpStatus: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStatus: PropTypes.func.isRequired,
+        setTrackedEntityRelationshipType: PropTypes.func.isRequired,
         setOrgUnitRoot: PropTypes.func.isRequired,
         setStartDate: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
@@ -96,6 +100,7 @@ export class TrackedEntityDialog extends Component {
         this.state = {
             tab: 'data',
             showBuffer: this.hasBuffer(props.areaRadius),
+            showRelationshipsChecked: false,
         };
     }
 
@@ -105,6 +110,7 @@ export class TrackedEntityDialog extends Component {
             startDate,
             endDate,
             programStatus,
+            relationshipType,
             setOrgUnitRoot,
             setStartDate,
             setEndDate,
@@ -126,6 +132,12 @@ export class TrackedEntityDialog extends Component {
 
         if (!programStatus) {
             setProgramStatus('ACTIVE');
+        }
+
+        if (relationshipType) {
+            this.setState({
+                showRelationshipsChecked: true,
+            });
         }
     }
 
@@ -158,6 +170,7 @@ export class TrackedEntityDialog extends Component {
             rows = [],
             startDate,
             trackedEntityType,
+            relationshipType,
         } = this.props;
 
         const {
@@ -165,6 +178,7 @@ export class TrackedEntityDialog extends Component {
             setProgram,
             setProgramStatus,
             setFollowUpStatus,
+            setTrackedEntityRelationshipType,
             setStartDate,
             setEndDate,
             toggleOrgUnit,
@@ -192,6 +206,10 @@ export class TrackedEntityDialog extends Component {
             <div>
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="data" label={i18n.t('data')} />
+                    <Tab
+                        value="relationships"
+                        label={i18n.t('relationships')}
+                    />
                     <Tab value="period" label={i18n.t('period')} />
                     <Tab value="orgunits" label={i18n.t('Org units')} />
                     <Tab value="style" label={i18n.t('Style')} />
@@ -247,6 +265,34 @@ export class TrackedEntityDialog extends Component {
                                         ...styles.checkbox,
                                         marginLeft: 24,
                                     }}
+                                />
+                            )}
+                        </div>
+                    )}
+                    {tab === 'relationships' && (
+                        <div style={styles.flexRowFlow}>
+                            <Checkbox
+                                label={i18n.t(
+                                    'Display Tracked Entity relationships'
+                                )}
+                                checked={this.state.showRelationshipsChecked}
+                                onCheck={checked => {
+                                    if (!checked) {
+                                        setTrackedEntityRelationshipType(null);
+                                    }
+                                    this.setState({
+                                        showRelationshipsChecked: checked,
+                                    });
+                                }}
+                            />
+                            {this.state.showRelationshipsChecked && (
+                                <TrackedEntityRelationshipTypeSelect
+                                    trackedEntityType={
+                                        this.props.trackedEntityType &&
+                                        this.props.trackedEntityType.id
+                                    }
+                                    value={relationshipType}
+                                    onChange={setTrackedEntityRelationshipType}
                                 />
                             )}
                         </div>
@@ -425,6 +471,7 @@ export default connect(
         setProgram,
         setProgramStatus,
         setFollowUpStatus,
+        setTrackedEntityRelationshipType,
         setStartDate,
         setEndDate,
         setOrgUnitRoot,

@@ -404,6 +404,18 @@ const layerEdit = (state = null, action) => {
                 },
             };
 
+        // case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET:
+        //     return {
+        //         ...state,
+        //         showRelationships: action.value,
+        //     };
+
+        case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_TYPE_SET:
+            return {
+                ...state,
+                relationshipType: action.relationshipType,
+            };
+
         case types.LAYER_EDIT_PROGRAM_STATUS_SET:
             return {
                 ...state,

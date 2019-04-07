@@ -273,10 +273,22 @@ export const setOrgUnitPath = (id, path) => ({
     path,
 });
 
-// Set program used (event and thematic)
+// Set the tracked entity type
 export const setTrackedEntityType = trackedEntityType => ({
     type: types.LAYER_EDIT_TRACKED_ENTITY_TYPE_SET,
     trackedEntityType,
+});
+
+// // Set the type of tracked entity relationship to render
+// export const setTrackedEntityShowRelationships = value => ({
+//     type: types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET,
+//     value,
+// });
+
+// Set the type of tracked entity relationship to render
+export const setTrackedEntityRelationshipType = relationshipType => ({
+    type: types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_TYPE_SET,
+    relationshipType,
 });
 
 // Set program status for a TEI

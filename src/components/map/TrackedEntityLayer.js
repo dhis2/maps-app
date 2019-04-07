@@ -3,6 +3,93 @@ import { apiFetch } from '../../util/api';
 import Layer from './Layer';
 import { TEI_COLOR, TEI_RADIUS } from '../../constants/layers';
 
+const getCentroid = points => {
+    const totals = points.reduce(
+        (accum, point) => {
+            accum[0] += point[0];
+            accum[1] += point[1];
+            return accum;
+        },
+        [0, 0]
+    );
+    return [totals[0] / points.length, totals[1] / points.length];
+};
+
+const fetchTEI = async (id, fieldsString) => {
+    const data = await apiFetch(
+        `/trackedEntityInstances/${id}?fields=${fieldsString}`
+    );
+    return data;
+};
+
+const geomToCentroid = (type, coords) => {
+    switch (type) {
+        case 'POINT':
+            return JSON.parse(coords);
+        case 'POLYGON':
+            // TODO: Confirm multipolygon
+            return getCentroid(JSON.parse(coords)[0]);
+        default:
+            return null;
+    }
+};
+
+const makeRelationshipGeometry = ({ from, to }) => {
+    const fromGeom = geomToCentroid(from.featureType, from.coordinates);
+    const toGeom = geomToCentroid(to.featureType, to.coordinates);
+    if (!fromGeom || !toGeom) {
+        // console.error('Invalid relationship geometries', from, to);
+        return null;
+    }
+    return {
+        type: 'Feature',
+        geometry: {
+            type: 'LineString',
+            coordinates: [fromGeom, toGeom],
+        },
+        properties: {},
+    };
+};
+const makeRelationshipLayer = relationships => {
+    return {
+        type: 'geoJson',
+        id: 'relationships',
+        index: 0,
+        opacity: 1,
+        isVisible: true,
+        data: relationships.map(makeRelationshipGeometry).filter(x => !!x),
+        style: {
+            color: '#000',
+            weight: 1,
+        },
+    };
+};
+const getRelativeTEIRelationship = async (id, relationship) => {
+    const fieldsString = '';
+
+    const name = relationship.relationshipName,
+        from = relationship.from.trackedEntityInstance.trackedEntityInstance,
+        to = relationship.to.trackedEntityInstance.trackedEntityInstance;
+
+    if (from === id) {
+        return {
+            name,
+            direction: 'to',
+            data: await fetchTEI(to, fieldsString),
+        };
+    } else if (to === id) {
+        return {
+            name,
+            direction: 'from',
+            data: await fetchTEI(from, fieldsString),
+        };
+    }
+
+    throw new Error(
+        'Unknown relationship, neither terminus matches current TEI!'
+    );
+};
+
 class TrackedEntityLayer extends Layer {
     createLayer() {
         const {
@@ -11,6 +98,8 @@ class TrackedEntityLayer extends Layer {
             opacity,
             isVisible,
             data,
+            relationships,
+            secondaryData,
             eventPointColor,
             eventPointRadius,
             areaRadius,
@@ -33,7 +122,7 @@ class TrackedEntityLayer extends Layer {
                 weight: 1,
                 radius,
             },
-            onClick: this.onEntityClick,
+            onClick: this.onEntityClick.bind(this),
         };
 
         if (areaRadius) {
@@ -47,8 +136,39 @@ class TrackedEntityLayer extends Layer {
         }
 
         // Create and add layer based on config object
-        this.layer = map.createLayer(config);
-        map.addLayer(this.layer);
+        const primaryLayer = map.createLayer(config);
+        this.layer = primaryLayer;
+
+        if (relationships) {
+            const secondaryConfig = {
+                type: 'geoJson',
+                id: 'related',
+                index: 0,
+                opacity: 1,
+                isVisible: true,
+                data: secondaryData,
+                style: {
+                    color: '#000',
+                    weight: 0.5,
+                    radius: radius / 2,
+                },
+                onClick: this.onEntityClick.bind(this),
+            };
+            const secondaryLayer = map.createLayer(secondaryConfig);
+
+            const relationshipLayer = map.createLayer(
+                makeRelationshipLayer(relationships)
+            );
+
+            map.addLayer(relationshipLayer);
+            map.addLayer(secondaryLayer);
+        }
+        map.addLayer(primaryLayer);
+        // this.layer = map.createLayer({
+        //     type: 'group',
+        //     layers: [relationshipLayer, primaryLayer],
+        // });
+        // map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {
@@ -62,21 +182,37 @@ class TrackedEntityLayer extends Layer {
         super.removeLayer();
     }
 
-    onEntityClick = async ({ feature, coordinates }) => {
-        const data = await apiFetch(
-            `/trackedEntityInstances/${
-                feature.id
-            }?fields=lastUpdated,attributes[displayName~rename(name),value]`
+    async onEntityClick({ feature, coordinates }) {
+        const data = await fetchTEI(
+            feature.id,
+            'lastUpdated,attributes[displayName~rename(name),value],relationships'
         );
+
         const time =
             data.lastUpdated.substring(0, 10) +
             ' ' +
             data.lastUpdated.substring(11, 16);
 
-        const content = data.attributes
+        let content = data.attributes
             .map(
                 ({ name, value }) =>
                     `<tr><th>${name}:</th><td>${value}</td></tr>`
+            )
+            .join('');
+
+        const rels = await Promise.all(
+            data.relationships.map(rel =>
+                getRelativeTEIRelationship(feature.id, rel)
+            )
+        );
+        content += rels
+            .map(
+                rel =>
+                    `<tr><th>${
+                        rel.name
+                    }</th><td>${rel.direction.toUpperCase()} ${
+                        rel.data.trackedEntityInstance
+                    }</td></tr>`
             )
             .join('');
 
@@ -86,7 +222,7 @@ class TrackedEntityLayer extends Layer {
             )}:</th><td>${time}</td></tr></table>`,
             coordinates
         );
-    };
+    }
 }
 
 export default TrackedEntityLayer;
