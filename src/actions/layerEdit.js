@@ -12,6 +12,7 @@ export const removeDimensionFilter = index => ({
     index,
 });
 
+// Chenge a dimension filter in an array
 export const changeDimensionFilter = (index, filter) => ({
     type: types.LAYER_EDIT_DIMENSION_FILTER_CHANGE,
     index,

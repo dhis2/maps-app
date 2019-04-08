@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import i18n from '@dhis2/d2-i18n';
 import DataItemSelect from '../dataItem/DataItemSelect';
 import FilterSelect from './FilterSelect';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { Tooltip } from '@material-ui/core';
+import RemoveFilter from './RemoveFilter';
 
 const styles = theme => ({
     container: {
@@ -23,24 +20,6 @@ const styles = theme => ({
         marginRight: 24,
         float: 'left',
         width: 'calc((100% - 48px) / 8 * 3)',
-    },
-    removeBtnContainer: {
-        borderLeft: `1px solid ${theme.palette.divider}`,
-        cursor: 'pointer',
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        right: 0,
-        padding: '10px 0px',
-        '&:hover': {
-            backgroundColor: theme.palette.primary.lightest,
-        },
-    },
-    removeBtn: {
-        color: theme.palette.status.negative,
-        '&:hover': {
-            backgroundColor: 'inherit',
-        },
     },
 });
 
@@ -120,19 +99,7 @@ class FilterRow extends Component {
                         onChange={filter => this.onChange(dimension, filter)}
                     />
                 ) : null}
-                <Tooltip title={i18n.t('Delete filter')}>
-                    <div
-                        className={classes.removeBtnContainer}
-                        onClick={() => onRemove(index)}
-                    >
-                        <IconButton
-                            tooltip={i18n.t('Remove filter')}
-                            className={classes.removeBtn}
-                        >
-                            <DeleteIcon />
-                        </IconButton>
-                    </div>
-                </Tooltip>
+                <RemoveFilter onClick={() => onRemove(index)} />
             </div>
         );
     }
