@@ -4,26 +4,34 @@ import * as types from '../constants/actionTypes';
 import { apiFetch } from '../util/api';
 import { setDimensions, setDimensionItems } from '../actions/dimensions';
 import { errorActionCreator } from '../actions/helpers';
-// import { getDisplayPropertyUrl } from '../util/helpers';
+import { getDisplayPropertyUrl } from '../util/helpers';
 
-// https://github.com/dhis2/data-visualizer-app/blob/master/packages/app/src/api/dimensions.js#L28-L35
-// TODO: Fix getDisplayPropertyUrl
+// Include the following dimension types
+const dimensionTypes = [
+    'CATEGORY',
+    'CATEGORY_OPTION_GROUP_SET',
+    'ORGANISATION_UNIT_GROUP_SET',
+];
+
+// Load dimensions of above types
 export const loadDimensions = action$ =>
     action$.ofType(types.DIMENSIONS_LOAD).concatMap(() =>
         apiFetch(
-            '/dimensions?fields=id,displayName~rename(name),dimensionType&filter=dimensionType:in:[CATEGORY,CATEGORY_OPTION_GROUP_SET,ORGANISATION_UNIT_GROUP_SET]&order=displayName:asc&paging=false'
+            `/dimensions?fields=id,${getDisplayPropertyUrl()},dimensionType&filter=dimensionType:in:[${dimensionTypes.join(
+                ','
+            )}]&order=displayName:asc&paging=false`
         )
             .then(data => setDimensions(data.dimensions))
             .catch(errorActionCreator(types.DIMENSIONS_LOAD_ERROR))
     );
 
-// https://play.dhis2.org/dev/api/31/dimensions/uIuxlbV1vRT/items?fields=id,displayName~rename(name)&order=displayName:asc
+// Load items for one dimension
 export const loadDimensionItems = action$ =>
     action$.ofType(types.DIMENSION_ITEMS_LOAD).concatMap(action =>
         apiFetch(
             `/dimensions/${
                 action.dimensionId
-            }/items?fields=id,displayName~rename(name)&order=displayName:asc&paging=false`
+            }/items?fields=id,${getDisplayPropertyUrl()}&order=displayName:asc&paging=false`
         )
             .then(data => setDimensionItems(action.dimensionId, data.items))
             .catch(errorActionCreator(types.DIMENSION_ITEMS_LOAD_ERROR))
