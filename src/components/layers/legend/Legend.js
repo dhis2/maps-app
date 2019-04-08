@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import i18n from '@dhis2/d2-i18n';
 import LegendItem from './LegendItem';
 import legendStyle from './legendStyle';
 
@@ -17,6 +18,9 @@ export const styles = theme => ({
     filters: {
         paddingTop: theme.spacing.unit * 2,
         fontSize: 12,
+        '& > div:first-child': {
+            fontWeight: 'bold',
+        },
     },
     unit: {
         lineHeight: '24px',
@@ -58,6 +62,7 @@ const Legend = ({
         )}
         {filters && (
             <div className={classes.filters}>
+                <div>{i18n.t('Filters')}:</div>
                 {filters.map((filter, index) => (
                     <div key={index}>{filter}</div>
                 ))}

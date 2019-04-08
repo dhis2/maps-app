@@ -30,6 +30,11 @@ const styles = {
         top: 32,
         right: 24,
     },
+    dimensions: {
+        width: 400,
+        marginTop: -13,
+        marginLeft: -8,
+    },
 };
 
 export class DimensionSelect extends Component {
@@ -104,7 +109,7 @@ export class DimensionSelect extends Component {
                     anchorEl={anchorEl}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                     onClose={this.onClose}
-                    style={{ height: '100%' }}
+                    classes={{ paper: classes.dimensions }}
                 >
                     <DimensionsPanel
                         dimensions={dimensions}

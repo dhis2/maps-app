@@ -88,9 +88,11 @@ const thematicLoader = async config => {
     };
 
     if (dimensions && dimensions.length) {
-        // TODO: Show names for dimensions
         legend.filters = dimensions.map(
-            d => `${d.dimension}: ${d.items.map(i => i.name).join(', ')}`
+            d =>
+                `${names[d.dimension]}: ${d.items
+                    .map(i => names[i.id])
+                    .join(', ')}`
         );
     }
 
