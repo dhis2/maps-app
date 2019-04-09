@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -20,6 +20,9 @@ import {
     TEI_COLOR,
     TEI_RADIUS,
     TEI_BUFFER,
+    TEI_RELATED_COLOR,
+    TEI_RELATIONSHIP_LINE_COLOR,
+    TEI_RELATED_RADIUS,
 } from '../../constants/layers';
 import { layerDialogStyles } from './LayerDialogStyles';
 
@@ -28,6 +31,7 @@ import {
     setProgram,
     setProgramStatus,
     setFollowUpStatus,
+    setTrackedEntityRelationshipType,
     setStartDate,
     setEndDate,
     setOrgUnitRoot,
@@ -36,6 +40,9 @@ import {
     setEventPointColor,
     setEventPointRadius,
     setAreaRadius,
+    setRelatedPointColor,
+    setRelatedPointRadius,
+    setRelationshipLineColor,
     setStyleDataItem,
 } from '../../actions/layerEdit';
 
@@ -44,6 +51,7 @@ import {
     getOrgUnitNodesFromRows,
 } from '../../util/analytics';
 import { getStartEndDateError } from '../../util/time';
+import TrackedEntityRelationshipTypeSelect from './trackedEntity/TrackedEntityRelationshipTypeSelect';
 
 const styles = {
     ...layerDialogStyles,
@@ -68,7 +76,11 @@ export class TrackedEntityDialog extends Component {
         endDate: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
+        relatedPointColor: PropTypes.string,
+        relatedPointRadius: PropTypes.number,
+        relationshipLineColor: PropTypes.string,
         followUp: PropTypes.bool,
+        relationshipType: PropTypes.string,
         organisationUnitSelectionMode: PropTypes.string,
         program: PropTypes.object,
         programStatus: PropTypes.string,
@@ -77,9 +89,13 @@ export class TrackedEntityDialog extends Component {
         setAreaRadius: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
+        setRelatedPointColor: PropTypes.func.isRequired,
+        setRelatedPointRadius: PropTypes.func.isRequired,
+        setRelationshipLineColor: PropTypes.func.isRequired,
         setFollowUpStatus: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStatus: PropTypes.func.isRequired,
+        setTrackedEntityRelationshipType: PropTypes.func.isRequired,
         setOrgUnitRoot: PropTypes.func.isRequired,
         setStartDate: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
@@ -96,6 +112,7 @@ export class TrackedEntityDialog extends Component {
         this.state = {
             tab: 'data',
             showBuffer: this.hasBuffer(props.areaRadius),
+            showRelationshipsChecked: false,
         };
     }
 
@@ -105,6 +122,7 @@ export class TrackedEntityDialog extends Component {
             startDate,
             endDate,
             programStatus,
+            relationshipType,
             setOrgUnitRoot,
             setStartDate,
             setEndDate,
@@ -126,6 +144,12 @@ export class TrackedEntityDialog extends Component {
 
         if (!programStatus) {
             setProgramStatus('ACTIVE');
+        }
+
+        if (relationshipType) {
+            this.setState({
+                showRelationshipsChecked: true,
+            });
         }
     }
 
@@ -158,6 +182,10 @@ export class TrackedEntityDialog extends Component {
             rows = [],
             startDate,
             trackedEntityType,
+            relationshipType,
+            relatedPointColor,
+            relatedPointRadius,
+            relationshipLineColor,
         } = this.props;
 
         const {
@@ -165,6 +193,7 @@ export class TrackedEntityDialog extends Component {
             setProgram,
             setProgramStatus,
             setFollowUpStatus,
+            setTrackedEntityRelationshipType,
             setStartDate,
             setEndDate,
             toggleOrgUnit,
@@ -172,6 +201,9 @@ export class TrackedEntityDialog extends Component {
             setEventPointColor,
             setEventPointRadius,
             setAreaRadius,
+            setRelatedPointColor,
+            setRelatedPointRadius,
+            setRelationshipLineColor,
         } = this.props;
 
         const { classes } = this.props;
@@ -192,6 +224,10 @@ export class TrackedEntityDialog extends Component {
             <div>
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="data" label={i18n.t('data')} />
+                    <Tab
+                        value="relationships"
+                        label={i18n.t('relationships')}
+                    />
                     <Tab value="period" label={i18n.t('period')} />
                     <Tab value="orgunits" label={i18n.t('Org units')} />
                     <Tab value="style" label={i18n.t('Style')} />
@@ -251,6 +287,80 @@ export class TrackedEntityDialog extends Component {
                             )}
                         </div>
                     )}
+                    {tab === 'relationships' &&
+                        (!this.props.trackedEntityType ? (
+                            <div
+                                style={{
+                                    fontSize: 14,
+                                    paddingTop: 16,
+                                    marginLeft: 16,
+                                }}
+                            >
+                                {i18n.t(
+                                    'Please select a Tracked Entity Type before selecting a Relationship Type'
+                                )}
+                            </div>
+                        ) : (
+                            <div style={styles.flexRowFlow}>
+                                <div
+                                    style={{
+                                        fontSize: 14,
+                                        padding: '12px 12px 0',
+                                    }}
+                                >
+                                    <h3
+                                        style={{
+                                            fontWeight: 'bold',
+                                            marginBottom: 8,
+                                        }}
+                                    >
+                                        {i18n.t('WARNING')}
+                                    </h3>
+                                    <p>
+                                        {i18n.t(
+                                            'Displaying tracked entity relationships in Maps is an experimental feature'
+                                        )}
+                                    </p>
+                                </div>
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Display Tracked Entity relationships'
+                                    )}
+                                    checked={
+                                        this.state.showRelationshipsChecked
+                                    }
+                                    onCheck={checked => {
+                                        if (!checked) {
+                                            setTrackedEntityRelationshipType(
+                                                null
+                                            );
+                                        }
+                                        this.setState({
+                                            showRelationshipsChecked: checked,
+                                        });
+                                    }}
+                                    style={{
+                                        marginBottom: 0,
+                                    }}
+                                />
+                                {this.state.showRelationshipsChecked && (
+                                    <TrackedEntityRelationshipTypeSelect
+                                        trackedEntityType={
+                                            this.props.trackedEntityType
+                                        }
+                                        value={relationshipType}
+                                        onChange={
+                                            setTrackedEntityRelationshipType
+                                        }
+                                        style={{
+                                            ...styles.select,
+                                            width: 276,
+                                            margin: '0 0 0 48px',
+                                        }}
+                                    />
+                                )}
+                            </div>
+                        ))}
                     {tab === 'period' && (
                         <div style={styles.flexRowFlow}>
                             <div style={{ margin: '12px 0', fontSize: 14 }}>
@@ -328,6 +438,16 @@ export class TrackedEntityDialog extends Component {
                     {tab === 'style' && (
                         <div style={styles.flexColumnFlow}>
                             <div style={styles.flexColumn}>
+                                <div
+                                    style={{
+                                        ...styles.flexInnerColumnFlow,
+                                        margin: '12px 0',
+                                        fontSize: 14,
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    {i18n.t('Tracked entity style')}:
+                                </div>
                                 <div style={styles.flexInnerColumnFlow}>
                                     <ColorPicker
                                         label={i18n.t('Color')}
@@ -362,6 +482,53 @@ export class TrackedEntityDialog extends Component {
                                         />
                                     )}
                                 </div>
+                                {relationshipType ? (
+                                    <Fragment>
+                                        <div
+                                            style={{
+                                                ...styles.flexInnerColumnFlow,
+                                                margin: '12px 0',
+                                                fontSize: 14,
+                                                fontWeight: 'bold',
+                                            }}
+                                        >
+                                            {i18n.t('Related entity style')}:
+                                        </div>
+                                        <div style={styles.flexInnerColumnFlow}>
+                                            <ColorPicker
+                                                label={i18n.t('Color')}
+                                                color={
+                                                    relatedPointColor ||
+                                                    TEI_RELATED_COLOR
+                                                }
+                                                onChange={setRelatedPointColor}
+                                                style={styles.flexInnerColumn}
+                                            />
+                                            <TextField
+                                                id="buffer"
+                                                type="number"
+                                                label={i18n.t('Point size')}
+                                                value={
+                                                    relatedPointRadius ||
+                                                    TEI_RELATED_RADIUS
+                                                }
+                                                onChange={setRelatedPointRadius}
+                                                style={styles.flexInnerColumn}
+                                            />
+                                            <ColorPicker
+                                                label={i18n.t('Line Color')}
+                                                color={
+                                                    relationshipLineColor ||
+                                                    TEI_RELATIONSHIP_LINE_COLOR
+                                                }
+                                                onChange={
+                                                    setRelationshipLineColor
+                                                }
+                                                style={styles.flexInnerColumn}
+                                            />
+                                        </div>
+                                    </Fragment>
+                                ) : null}
                             </div>
                             <div style={styles.flexColumn} />
                         </div>
@@ -425,6 +592,7 @@ export default connect(
         setProgram,
         setProgramStatus,
         setFollowUpStatus,
+        setTrackedEntityRelationshipType,
         setStartDate,
         setEndDate,
         setOrgUnitRoot,
@@ -433,6 +601,9 @@ export default connect(
         setEventPointColor,
         setEventPointRadius,
         setAreaRadius,
+        setRelatedPointColor,
+        setRelatedPointRadius,
+        setRelationshipLineColor,
         setStyleDataItem,
     },
     null,

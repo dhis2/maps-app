@@ -1,9 +1,16 @@
 import i18n from '@dhis2/d2-i18n';
 import { apiFetch } from '../util/api';
 import { getOrgUnitsFromRows } from '../util/analytics';
-import { TEI_COLOR, TEI_RADIUS } from '../constants/layers';
+import {
+    TEI_COLOR,
+    TEI_RADIUS,
+    TEI_RELATED_COLOR,
+    TEI_RELATED_RADIUS,
+    TEI_RELATIONSHIP_LINE_COLOR,
+} from '../constants/layers';
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
+import { getDataWithRelationships } from '../util/teiRelationshipsParser';
 
 const fields = [
     'trackedEntityInstance~rename(id)',
@@ -28,6 +35,7 @@ const trackedEntityLoader = async config => {
         program,
         programStatus,
         followUp,
+        relationshipType: relationshipTypeID,
         startDate,
         endDate,
         rows,
@@ -35,6 +43,9 @@ const trackedEntityLoader = async config => {
         eventPointColor,
         eventPointRadius,
         areaRadius,
+        relatedPointColor,
+        relatedPointRadius,
+        relationshipLineColor,
     } = config;
 
     const name = program ? program.name : i18n.t('Tracked entity');
@@ -56,8 +67,9 @@ const trackedEntityLoader = async config => {
         .map(ou => ou.id)
         .join(';');
 
+    const fieldsWithRelationships = [...fields, 'relationships'];
     // https://docs.dhis2.org/2.29/en/developer/html/webapi_tracked_entity_instance_query.html
-    let url = `/trackedEntityInstances?skipPaging=true&fields=${fields}&ou=${orgUnits}`;
+    let url = `/trackedEntityInstances?skipPaging=true&fields=${fieldsWithRelationships}&ou=${orgUnits}`;
     let alert;
 
     if (organisationUnitSelectionMode) {
@@ -79,15 +91,13 @@ const trackedEntityLoader = async config => {
     }
 
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
-    const data = await apiFetch(url);
+    const primaryData = await apiFetch(url);
 
-    const instances = data.trackedEntityInstances.filter(
+    const instances = primaryData.trackedEntityInstances.filter(
         instance =>
             geometryTypes.indexOf(instance.featureType) >= 0 &&
             instance.coordinates
     );
-
-    const features = toGeoJson(instances);
 
     if (!instances.length) {
         alert = createAlert(
@@ -96,10 +106,54 @@ const trackedEntityLoader = async config => {
         );
     }
 
+    let data, relationships, secondaryData;
+
+    if (relationshipTypeID) {
+        const relationshipType = await apiFetch(
+            `/relationshipTypes/${relationshipTypeID}`
+        );
+
+        const relatedTypeId =
+            relationshipType.toConstraint.trackedEntityType.id;
+        const relatedEntityType = await apiFetch(
+            `/trackedEntityTypes/${relatedTypeId}?fields=displayName`
+        );
+
+        legend.items.push(
+            {
+                name: relationshipType.displayName,
+                color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
+                weight: 1,
+            },
+            {
+                name: `${relatedEntityType.displayName} (${i18n.t('related')})`,
+                color: relatedPointColor || TEI_RELATED_COLOR,
+                radius: relatedPointRadius || TEI_RELATED_RADIUS,
+            }
+        );
+
+        const dataWithRels = await getDataWithRelationships(
+            instances,
+            relationshipType,
+            {
+                orgUnits,
+                organisationUnitSelectionMode,
+            }
+        );
+
+        data = toGeoJson(dataWithRels.primary);
+        relationships = dataWithRels.relationships;
+        secondaryData = toGeoJson(dataWithRels.secondary);
+    } else {
+        data = toGeoJson(instances);
+    }
+
     return {
         ...config,
         name,
-        data: features,
+        data,
+        relationships,
+        secondaryData,
         legend,
         ...(alert ? { alerts: [alert] } : {}),
         isLoaded: true,

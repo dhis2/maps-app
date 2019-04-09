@@ -145,7 +145,6 @@ class Map extends Component {
         this.context.map.resize();
     }
 
-    // Remove map
     componentWillUnmount() {
         this.context.map.remove();
     }

@@ -1,0 +1,93 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import SelectField from '../../core/SelectField';
+import memoize from 'lodash/memoize';
+import { apiFetch } from '../../../util/api';
+
+const fromIsTEI = type =>
+    type.fromConstraint.relationshipEntity === 'TRACKED_ENTITY_INSTANCE';
+const fromTEIType = type => type.fromConstraint.trackedEntityType.id;
+const filterRelationshipTypes = memoize((allTypes, trackedEntityTypeId) => {
+    return allTypes
+        .filter(type => {
+            return fromIsTEI(type) && fromTEIType(type) === trackedEntityTypeId;
+        })
+        .map(type => ({
+            id: type.id,
+            name: type.displayName,
+        }));
+});
+
+class TrackedEntityRelationshipTypeSelect extends Component {
+    state = {
+        allTypes: null,
+        error: null,
+    };
+
+    componentDidMount() {
+        const url = `/relationshipTypes?fields=id,displayName,fromConstraint`;
+        apiFetch(url)
+            .then(response => {
+                this.setState({
+                    allTypes: response.relationshipTypes,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    error: i18n.t('Failed to load relationship types.'),
+                });
+            });
+    }
+
+    render() {
+        if (!this.state.allTypes) {
+            return <CircularProgress />;
+        } else if (this.state.error) {
+            return <span>{this.state.error}</span>;
+        }
+
+        const types = filterRelationshipTypes(
+            this.state.allTypes,
+            this.props.trackedEntityType.id
+        );
+        if (!types.length) {
+            return (
+                <div
+                    style={{
+                        fontSize: 14,
+                        marginLeft: 12,
+                    }}
+                >
+                    {i18n.t(
+                        'No relationship types were found for tracked entity type {{type}}',
+                        { type: this.props.trackedEntityType.name }
+                    )}
+                </div>
+            );
+        }
+
+        return (
+            <SelectField
+                label={i18n.t('Relationship type')}
+                items={types}
+                value={this.props.value}
+                onChange={type => this.props.onChange(type.id)}
+                style={this.props.style}
+            />
+        );
+    }
+}
+
+TrackedEntityRelationshipTypeSelect.propTypes = {
+    value: PropTypes.string,
+    trackedEntityType: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+    }),
+    onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
+};
+
+export default TrackedEntityRelationshipTypeSelect;

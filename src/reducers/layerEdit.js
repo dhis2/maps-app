@@ -316,6 +316,24 @@ const layerEdit = (state = null, action) => {
                 eventPointColor: action.color,
             };
 
+        case types.LAYER_EDIT_RELATED_POINT_COLOR_SET:
+            return {
+                ...state,
+                relatedPointColor: action.color,
+            };
+
+        case types.LAYER_EDIT_RELATIONSHIP_LINE_COLOR_SET:
+            return {
+                ...state,
+                relationshipLineColor: action.color,
+            };
+
+        case types.LAYER_EDIT_RELATED_POINT_RADIUS_SET:
+            return {
+                ...state,
+                relatedPointRadius: parseInt(action.radius, 10),
+            };
+
         case types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_SET:
             return {
                 ...state,
@@ -435,6 +453,18 @@ const layerEdit = (state = null, action) => {
                 trackedEntityType: {
                     ...action.trackedEntityType,
                 },
+            };
+
+        // case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET:
+        //     return {
+        //         ...state,
+        //         showRelationships: action.value,
+        //     };
+
+        case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_TYPE_SET:
+            return {
+                ...state,
+                relationshipType: action.relationshipType,
             };
 
         case types.LAYER_EDIT_PROGRAM_STATUS_SET:

@@ -224,10 +224,25 @@ msgstr ""
 msgid "Select period when tracked entities were last updated"
 msgstr ""
 
+msgid "relationships"
+msgstr ""
+
 msgid "Program status"
 msgstr ""
 
 msgid "Follow up"
+msgstr ""
+
+msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid "WARNING"
+msgstr ""
+
+msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
 msgstr ""
 
 msgid "Selection mode"
@@ -236,7 +251,16 @@ msgstr ""
 msgid "Tracked entities"
 msgstr ""
 
+msgid "Tracked entity style"
+msgstr ""
+
 msgid "Point size"
+msgstr ""
+
+msgid "Related entity style"
+msgstr ""
+
+msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
@@ -288,6 +312,15 @@ msgid "Program indicators"
 msgstr ""
 
 msgid "Item type"
+msgstr ""
+
+msgid "Failed to load relationship types."
+msgstr ""
+
+msgid "No relationship types were found for tracked entity type {{type}}"
+msgstr ""
+
+msgid "Relationship type"
 msgstr ""
 
 msgid "An error occurred in the DHIS2 Maps application."
@@ -562,6 +595,9 @@ msgid "Tracked entity"
 msgstr ""
 
 msgid "No tracked entities found"
+msgstr ""
+
+msgid "related"
 msgstr ""
 
 msgid "true"
