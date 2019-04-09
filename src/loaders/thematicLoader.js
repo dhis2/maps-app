@@ -13,6 +13,7 @@ import {
 import {
     getOrgUnitsFromRows,
     getPeriodFromFilters,
+    getValidDimensionsFromFilters,
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
@@ -50,6 +51,7 @@ const thematicLoader = async config => {
         colorScale,
     } = config;
     const period = getPeriodFromFilters(config.filters);
+    const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(
@@ -84,6 +86,15 @@ const thematicLoader = async config => {
                   colorScale
               ),
     };
+
+    if (dimensions && dimensions.length) {
+        legend.filters = dimensions.map(
+            d =>
+                `${names[d.dimension]}: ${d.items
+                    .map(i => names[i.id])
+                    .join(', ')}`
+        );
+    }
 
     legend.items.forEach(item => (item.count = 0));
 
@@ -178,6 +189,7 @@ const loadData = async config => {
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
+    const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
     const d2 = await getD2();
@@ -201,6 +213,16 @@ const loadData = async config => {
     analyticsRequest = period
         ? analyticsRequest.addPeriodFilter(period.id)
         : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
+
+    if (dimensions) {
+        dimensions.forEach(
+            d =>
+                (analyticsRequest = analyticsRequest.addFilter(
+                    d.dimension,
+                    d.items.map(i => i.id)
+                ))
+        );
+    }
 
     if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
         geoFeaturesParams.userOrgUnit = userOrgUnit.join(';');

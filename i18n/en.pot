@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-03-26T08:01:11.496Z\n"
-"PO-Revision-Date: 2019-03-26T08:01:11.496Z\n"
+"POT-Creation-Date: 2019-04-09T10:41:02.448Z\n"
+"PO-Revision-Date: 2019-04-09T10:41:02.448Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -90,6 +90,15 @@ msgid "Type"
 msgstr ""
 
 msgid "Color"
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Dimension"
 msgstr ""
 
 msgid "Download"
@@ -302,15 +311,6 @@ msgstr ""
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
-msgid "Add filter"
-msgstr ""
-
-msgid "Delete filter"
-msgstr ""
-
-msgid "Remove filter"
-msgstr ""
-
 msgid "Operator"
 msgstr ""
 
@@ -333,6 +333,9 @@ msgid "is"
 msgstr ""
 
 msgid "is not"
+msgstr ""
+
+msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
