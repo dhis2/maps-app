@@ -145,7 +145,6 @@ class Map extends Component {
         this.context.map.resize();
     }
 
-    // Remove map
     componentWillUnmount() {
         this.context.map.remove();
     }
@@ -225,7 +224,7 @@ class Map extends Component {
                             position={legendPosition}
                             layers={mapViews}
                             showName={showName}
-                        />
+                        /> 
                     )}
                 </div>
             </div>

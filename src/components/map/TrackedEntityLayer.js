@@ -53,10 +53,6 @@ const makeRelationshipGeometry = ({ from, to }) => {
 const makeRelationshipLayer = relationships => {
     return {
         type: 'geoJson',
-        id: 'relationships',
-        index: 0,
-        opacity: 1,
-        isVisible: true,
         data: relationships.map(makeRelationshipGeometry).filter(x => !!x),
         style: {
             color: '#000',
@@ -112,10 +108,6 @@ class TrackedEntityLayer extends Layer {
 
         const config = {
             type: 'geoJson',
-            id,
-            index,
-            opacity,
-            isVisible,
             data,
             style: {
                 color,
@@ -136,16 +128,17 @@ class TrackedEntityLayer extends Layer {
         }
 
         // Create and add layer based on config object
-        const primaryLayer = map.createLayer(config);
-        this.layer = primaryLayer;
+        const group = map.createLayer({
+            type: 'group',
+            id,
+            index,
+            opacity,
+            isVisible,
+        });
 
         if (relationships) {
             const secondaryConfig = {
                 type: 'geoJson',
-                id: 'related',
-                index: 0,
-                opacity: 1,
-                isVisible: true,
                 data: secondaryData,
                 style: {
                     color: '#000',
@@ -154,21 +147,16 @@ class TrackedEntityLayer extends Layer {
                 },
                 onClick: this.onEntityClick.bind(this),
             };
-            const secondaryLayer = map.createLayer(secondaryConfig);
 
-            const relationshipLayer = map.createLayer(
-                makeRelationshipLayer(relationships)
-            );
+            const relationshipConfig = makeRelationshipLayer(relationships);
 
-            map.addLayer(relationshipLayer);
-            map.addLayer(secondaryLayer);
+            group.addLayer(relationshipConfig);
+            group.addLayer(secondaryConfig);
         }
-        map.addLayer(primaryLayer);
-        // this.layer = map.createLayer({
-        //     type: 'group',
-        //     layers: [relationshipLayer, primaryLayer],
-        // });
-        // map.addLayer(this.layer);
+        group.addLayer(config);
+
+        this.layer = group;
+        map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
         if (!editCounter) {

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-03-26T08:01:11.496Z\n"
-"PO-Revision-Date: 2019-03-26T08:01:11.496Z\n"
+"POT-Creation-Date: 2019-04-08T10:28:37.346Z\n"
+"PO-Revision-Date: 2019-04-08T10:28:37.346Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -215,10 +215,16 @@ msgstr ""
 msgid "Select period when tracked entities were last updated"
 msgstr ""
 
+msgid "relationships"
+msgstr ""
+
 msgid "Program status"
 msgstr ""
 
 msgid "Follow up"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
 msgstr ""
 
 msgid "Selection mode"
@@ -279,6 +285,15 @@ msgid "Program indicators"
 msgstr ""
 
 msgid "Item type"
+msgstr ""
+
+msgid "Failed to load relationship types."
+msgstr ""
+
+msgid "Select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid "Relationship type"
 msgstr ""
 
 msgid "An error occurred in the DHIS2 Maps application."
@@ -559,6 +574,9 @@ msgid "Tracked entity"
 msgstr ""
 
 msgid "No tracked entities found"
+msgstr ""
+
+msgid "related"
 msgstr ""
 
 msgid "true"
