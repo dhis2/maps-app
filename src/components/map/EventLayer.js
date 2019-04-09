@@ -40,7 +40,7 @@ class EventLayer extends Layer {
 
         // Default props = no cluster
         const config = {
-            type: 'dots',
+            type: 'events',
             id,
             index,
             opacity,
@@ -48,7 +48,7 @@ class EventLayer extends Layer {
             data,
             color: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
-            popup: this.onEventClick.bind(this),
+            onClick: this.onEventClick.bind(this),
         };
 
         if (eventClustering) {
@@ -144,9 +144,10 @@ class EventLayer extends Layer {
         }
     }
 
-    onEventClick(feature, callback) {
-        const coord = feature.geometry.coordinates;
-        const props = feature.properties;
+    onEventClick(evt) {
+        const { feature, coordinates } = evt;
+        const { type, coordinates: coord } = feature.geometry;
+        const { value } = feature.properties;
         const { styleDataItem } = this.props;
 
         apiFetch('/events/' + feature.id).then(data => {
@@ -159,9 +160,9 @@ class EventLayer extends Layer {
 
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
-                content += `<tr><th>${
-                    styleDataItem.name
-                }</th><td>${props.value || i18n.t('Not set')}</td></tr>`;
+                content += `<tr><th>${styleDataItem.name}</th><td>${
+                    value !== undefined ? value : i18n.t('Not set')
+                }</td></tr>`;
             }
 
             if (Array.isArray(dataValues)) {
@@ -185,6 +186,16 @@ class EventLayer extends Layer {
                 content += '<tr style="height:5px;"><th></th><td></td></tr>';
             }
 
+            // Show event location for points
+            if (type === 'Point') {
+                content += `
+                    <tr>
+                      <th>${this.eventCoordinateFieldName ||
+                          i18n.t('Event location')}</th>
+                      <td>${coord[0]}, ${coord[1]}</td>
+                    </tr>`;
+            }
+
             content += `<tr>
                 <th>${i18n.t('Organisation unit')}</th>
                 <td>${data.orgUnitName}</td>
@@ -192,19 +203,16 @@ class EventLayer extends Layer {
               <tr>
                 <th>${i18n.t('Event time')}</th>
                 <td>${time}</td>
-              </tr>
-              <tr>
-                <th>${this.eventCoordinateFieldName ||
-                    i18n.t('Event location')}</th>
-                <td>${coord[0]}, ${coord[1]}</td>
-              </tr> 
-              </tbody></table>`;
+              </tr>`;
+
+            content += '</tbody></table>';
 
             // Remove all line breaks as it's not working for map download
-            callback(removeLineBreaks(content));
+            this.context.map.openPopup(removeLineBreaks(content), coordinates);
         });
     }
 
+    // Convert surver cluster response to GeoJSON
     toGeoJson(data) {
         const header = {};
         const features = [];
@@ -215,19 +223,11 @@ class EventLayer extends Layer {
         if (Array.isArray(data.rows)) {
             data.rows.forEach(row => {
                 const extent = row[header.extent].match(/([-\d.]+)/g);
-                const coords = row[header.center].match(/([-\d.]+)/g);
-
-                // Round to 6 decimals - http://www.jacklmoore.com/notes/rounding-in-javascript/
-                coords[0] = Number(Math.round(coords[0] + 'e6') + 'e-6');
-                coords[1] = Number(Math.round(coords[1] + 'e6') + 'e-6');
 
                 features.push({
                     type: 'Feature',
                     id: row[header.points],
-                    geometry: {
-                        type: 'Point',
-                        coordinates: coords,
-                    },
+                    geometry: JSON.parse(row[header.center]),
                     properties: {
                         count: parseInt(row[header.count], 10),
                         bounds: [
