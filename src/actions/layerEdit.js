@@ -100,6 +100,21 @@ export const setEventPointColor = color => ({
     color,
 });
 
+export const setRelatedPointColor = color => ({
+    type: types.LAYER_EDIT_RELATED_POINT_COLOR_SET,
+    color,
+});
+
+export const setRelatedPointRadius = radius => ({
+    type: types.LAYER_EDIT_RELATED_POINT_RADIUS_SET,
+    radius,
+});
+
+export const setRelationshipLineColor = color => ({
+    type: types.LAYER_EDIT_RELATIONSHIP_LINE_COLOR_SET,
+    color,
+});
+
 export const toggleOrgUnit = orgUnit => ({
     type: types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE,
     orgUnit,

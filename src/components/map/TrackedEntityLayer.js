@@ -1,7 +1,13 @@
 import i18n from '@dhis2/d2-i18n';
 import { apiFetch } from '../../util/api';
 import Layer from './Layer';
-import { TEI_COLOR, TEI_RADIUS } from '../../constants/layers';
+import {
+    TEI_COLOR,
+    TEI_RADIUS,
+    TEI_RELATIONSHIP_LINE_COLOR,
+    TEI_RELATED_COLOR,
+    TEI_RELATED_RADIUS,
+} from '../../constants/layers';
 
 const getCentroid = points => {
     const totals = points.reduce(
@@ -50,13 +56,13 @@ const makeRelationshipGeometry = ({ from, to }) => {
         properties: {},
     };
 };
-const makeRelationshipLayer = relationships => {
+const makeRelationshipLayer = (relationships, color, weight) => {
     return {
         type: 'geoJson',
         data: relationships.map(makeRelationshipGeometry).filter(x => !!x),
         style: {
-            color: '#000',
-            weight: 1,
+            color,
+            weight,
         },
     };
 };
@@ -100,6 +106,9 @@ class TrackedEntityLayer extends Layer {
             eventPointRadius,
             areaRadius,
             editCounter,
+            relatedPointColor,
+            relatedPointRadius,
+            relationshipLineColor,
         } = this.props;
 
         const { map } = this.context;
@@ -141,14 +150,18 @@ class TrackedEntityLayer extends Layer {
                 type: 'geoJson',
                 data: secondaryData,
                 style: {
-                    color: '#000',
-                    weight: 0.5,
-                    radius: radius / 2,
+                    color: relatedPointColor || TEI_RELATED_COLOR,
+                    weight: 1,
+                    radius: relatedPointRadius || TEI_RELATED_RADIUS,
                 },
                 onClick: this.onEntityClick.bind(this),
             };
 
-            const relationshipConfig = makeRelationshipLayer(relationships);
+            const relationshipConfig = makeRelationshipLayer(
+                relationships,
+                relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
+                1
+            );
 
             group.addLayer(relationshipConfig);
             group.addLayer(secondaryConfig);

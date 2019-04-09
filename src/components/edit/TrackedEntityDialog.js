@@ -20,6 +20,9 @@ import {
     TEI_COLOR,
     TEI_RADIUS,
     TEI_BUFFER,
+    TEI_RELATED_COLOR,
+    TEI_RELATIONSHIP_LINE_COLOR,
+    TEI_RELATED_RADIUS,
 } from '../../constants/layers';
 import { layerDialogStyles } from './LayerDialogStyles';
 
@@ -37,6 +40,9 @@ import {
     setEventPointColor,
     setEventPointRadius,
     setAreaRadius,
+    setRelatedPointColor,
+    setRelatedPointRadius,
+    setRelationshipLineColor,
     setStyleDataItem,
 } from '../../actions/layerEdit';
 
@@ -46,6 +52,7 @@ import {
 } from '../../util/analytics';
 import { getStartEndDateError } from '../../util/time';
 import TrackedEntityRelationshipTypeSelect from './trackedEntity/TrackedEntityRelationshipTypeSelect';
+import Typography from 'material-ui/styles/typography';
 
 const styles = {
     ...layerDialogStyles,
@@ -70,6 +77,9 @@ export class TrackedEntityDialog extends Component {
         endDate: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
+        relatedPointColor: PropTypes.string,
+        relatedPointRadius: PropTypes.number,
+        relationshipLineColor: PropTypes.string,
         followUp: PropTypes.bool,
         relationshipType: PropTypes.string,
         organisationUnitSelectionMode: PropTypes.string,
@@ -80,6 +90,9 @@ export class TrackedEntityDialog extends Component {
         setAreaRadius: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
+        setRelatedPointColor: PropTypes.func.isRequired,
+        setRelatedPointRadius: PropTypes.func.isRequired,
+        setRelationshipLineColor: PropTypes.func.isRequired,
         setFollowUpStatus: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStatus: PropTypes.func.isRequired,
@@ -171,6 +184,9 @@ export class TrackedEntityDialog extends Component {
             startDate,
             trackedEntityType,
             relationshipType,
+            relatedPointColor,
+            relatedPointRadius,
+            relationshipLineColor,
         } = this.props;
 
         const {
@@ -186,6 +202,9 @@ export class TrackedEntityDialog extends Component {
             setEventPointColor,
             setEventPointRadius,
             setAreaRadius,
+            setRelatedPointColor,
+            setRelatedPointRadius,
+            setRelationshipLineColor,
         } = this.props;
 
         const { classes } = this.props;
@@ -375,6 +394,14 @@ export class TrackedEntityDialog extends Component {
                         <div style={styles.flexColumnFlow}>
                             <div style={styles.flexColumn}>
                                 <div style={styles.flexInnerColumnFlow}>
+                                    <div
+                                        style={{
+                                            margin: '12px 0',
+                                            fontSize: 14,
+                                        }}
+                                    >
+                                        {i18n.t('Tracked entity style')}:
+                                    </div>
                                     <ColorPicker
                                         label={i18n.t('Color')}
                                         color={eventPointColor || TEI_COLOR}
@@ -408,6 +435,47 @@ export class TrackedEntityDialog extends Component {
                                         />
                                     )}
                                 </div>
+                                {relationshipType ? (
+                                    <div style={styles.flexInnerColumnFlow}>
+                                        <div
+                                            style={{
+                                                margin: '12px 0',
+                                                fontSize: 14,
+                                            }}
+                                        >
+                                            {i18n.t('Related entity style')}:
+                                        </div>
+                                        <ColorPicker
+                                            label={i18n.t('Color')}
+                                            color={
+                                                relatedPointColor ||
+                                                TEI_RELATED_COLOR
+                                            }
+                                            onChange={setRelatedPointColor}
+                                            style={styles.flexInnerColumn}
+                                        />
+                                        <TextField
+                                            id="buffer"
+                                            type="number"
+                                            label={i18n.t('Point size')}
+                                            value={
+                                                relatedPointRadius ||
+                                                TEI_RELATED_RADIUS
+                                            }
+                                            onChange={setRelatedPointRadius}
+                                            style={styles.flexInnerColumn}
+                                        />
+                                        <ColorPicker
+                                            label={i18n.t('Line Color')}
+                                            color={
+                                                relationshipLineColor ||
+                                                TEI_RELATIONSHIP_LINE_COLOR
+                                            }
+                                            onChange={setRelationshipLineColor}
+                                            style={styles.flexInnerColumn}
+                                        />
+                                    </div>
+                                ) : null}
                             </div>
                             <div style={styles.flexColumn} />
                         </div>
@@ -480,6 +548,9 @@ export default connect(
         setEventPointColor,
         setEventPointRadius,
         setAreaRadius,
+        setRelatedPointColor,
+        setRelatedPointRadius,
+        setRelationshipLineColor,
         setStyleDataItem,
     },
     null,

@@ -283,6 +283,24 @@ const layerEdit = (state = null, action) => {
                 eventPointColor: action.color,
             };
 
+        case types.LAYER_EDIT_RELATED_POINT_COLOR_SET:
+            return {
+                ...state,
+                relatedPointColor: action.color,
+            };
+
+        case types.LAYER_EDIT_RELATIONSHIP_LINE_COLOR_SET:
+            return {
+                ...state,
+                relationshipLineColor: action.color,
+            };
+
+        case types.LAYER_EDIT_RELATED_POINT_RADIUS_SET:
+            return {
+                ...state,
+                relatedPointRadius: parseInt(action.radius, 10),
+            };
+
         case types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_SET:
             return {
                 ...state,

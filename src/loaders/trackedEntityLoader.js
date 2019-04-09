@@ -1,7 +1,13 @@
 import i18n from '@dhis2/d2-i18n';
 import { apiFetch } from '../util/api';
 import { getOrgUnitsFromRows } from '../util/analytics';
-import { TEI_COLOR, TEI_RADIUS } from '../constants/layers';
+import {
+    TEI_COLOR,
+    TEI_RADIUS,
+    TEI_RELATED_COLOR,
+    TEI_RELATED_RADIUS,
+    TEI_RELATIONSHIP_LINE_COLOR,
+} from '../constants/layers';
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import { getDataWithRelationships } from '../util/teiRelationshipsParser';
@@ -37,6 +43,9 @@ const trackedEntityLoader = async config => {
         eventPointColor,
         eventPointRadius,
         areaRadius,
+        relatedPointColor,
+        relatedPointRadius,
+        relationshipLineColor,
     } = config;
 
     const name = program ? program.name : i18n.t('Tracked entity');
@@ -113,13 +122,13 @@ const trackedEntityLoader = async config => {
         legend.items.push(
             {
                 name: relationshipType.displayName,
-                color: '#000',
+                color: relatedPointColor || TEI_RELATED_COLOR,
                 weight: 1,
             },
             {
                 name: `${relatedEntityType.displayName} (${i18n.t('related')})`,
-                color: '#000',
-                radius: (eventPointRadius || TEI_RADIUS) / 2,
+                color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
+                radius: relatedPointRadius || TEI_RELATED_RADIUS,
             }
         );
 

@@ -224,7 +224,7 @@ class Map extends Component {
                             position={legendPosition}
                             layers={mapViews}
                             showName={showName}
-                        /> 
+                        />
                     )}
                 </div>
             </div>
