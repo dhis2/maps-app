@@ -22,6 +22,9 @@ try {
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
+// Replacement for UglifyJsPlugin not working with d2-ui-anlaytics and ui-core
+const TerserPlugin = require('terser-webpack-plugin-legacy');
+
 const scriptPrefix = isDevBuild ? dhisConfig.baseUrl : '..';
 
 function log(req, res, opt) {
@@ -138,12 +141,15 @@ if (!isDevBuild) {
         })
     );
     webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
+    /* Currently not working with d2-ui-anlaytics and ui-core
     webpackConfig.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
             comments: false,
             sourceMap: true,
         })
     );
+    */
+    webpackConfig.plugins.push(new TerserPlugin());
 } else {
     webpackConfig.plugins.push(
         new webpack.DefinePlugin({
