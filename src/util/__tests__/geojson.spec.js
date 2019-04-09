@@ -5,7 +5,7 @@ import {
     getBounds,
     addStyleDataItem,
     createEventFeature,
-    buildEventCoordinateGetter,
+    buildEventGeometryGetter,
     createEventFeatures,
 } from '../geojson';
 
@@ -75,8 +75,10 @@ describe('geojson utils', () => {
         const headers = [{ name: 'C1' }, { name: 'C2' }];
         const dummyID = 'IAmAnID';
         const dummyEventRow = ['What is the question?', 42];
-        const dummyCoordinates = [0, 0];
-        const dummyGetCoordinates = jest.fn(x => dummyCoordinates.map(String)); // Stringify
+        const dummyGeometry = {
+            geometry: { coordinates: [0, 0], type: 'Point' },
+        };
+        const dummyGetGeometry = jest.fn(x => dummyGeometry);
         it('Should create a single feature from a single event with no Names passed', () => {
             expect(
                 createEventFeature(
@@ -84,7 +86,7 @@ describe('geojson utils', () => {
                     {},
                     dummyEventRow,
                     dummyID,
-                    dummyGetCoordinates
+                    dummyGetGeometry
                 )
             ).toEqual({
                 type: 'Feature',
@@ -93,10 +95,7 @@ describe('geojson utils', () => {
                     [headers[0].name]: dummyEventRow[0],
                     [headers[1].name]: dummyEventRow[1],
                 },
-                geometry: {
-                    type: 'Point',
-                    coordinates: dummyCoordinates,
-                },
+                geometry: dummyGeometry,
             });
         });
 
@@ -110,7 +109,7 @@ describe('geojson utils', () => {
                     names,
                     dummyEventRow,
                     dummyID,
-                    dummyGetCoordinates
+                    dummyGetGeometry
                 )
             ).toEqual({
                 type: 'Feature',
@@ -119,65 +118,70 @@ describe('geojson utils', () => {
                     [names[headers[0].name]]: dummyEventRow[0],
                     [headers[1].name]: dummyEventRow[1],
                 },
-                geometry: {
-                    type: 'Point',
-                    coordinates: dummyCoordinates,
-                },
+                geometry: dummyGeometry,
             });
         });
     });
 
-    describe('buildEventCoordinateGetter', () => {
+    describe('buildEventGeometryGetter', () => {
         const headers = [
             { name: 'id' },
-            { name: 'latitude' },
+            { name: 'geometry' },
             { name: 'myStringCoordinates' },
-            { name: 'longitude' },
             { name: 'SomeField' },
             { name: 'myArrayCoordinates' },
             { name: 'SomeOtherField' },
         ];
-        const coords = [12.9, 5.4];
+
         const stringCoords = [9, 14.3];
         const arrayCoords = [21.1, 42.2];
+        const point = {
+            type: 'Point',
+            coordinates: [0, 0],
+        };
         const dummyEvent = [
             'MyID',
-            coords[1],
+            JSON.stringify(point),
             JSON.stringify(stringCoords),
-            coords[0],
             54321,
             arrayCoords,
             1234,
         ];
-        it('Should default to fetching longitude and latitude columns', () => {
-            const getter = buildEventCoordinateGetter(headers);
-            expect(getter(dummyEvent)).toEqual(coords);
+        it('Should default to fetching geometry column', () => {
+            const getter = buildEventGeometryGetter(headers);
+            expect(getter(dummyEvent)).toEqual(point);
         });
 
         it('Should parse a string coordinate', () => {
-            const getter = buildEventCoordinateGetter(
+            const getter = buildEventGeometryGetter(
                 headers,
                 'myStringCoordinates'
             );
-            expect(getter(dummyEvent)).toEqual(stringCoords);
+            expect(getter(dummyEvent)).toEqual({
+                type: 'Point',
+                coordinates: stringCoords,
+            });
         });
 
         it('Should parse a coordinate array', () => {
-            const getter = buildEventCoordinateGetter(
+            const getter = buildEventGeometryGetter(
                 headers,
                 'myArrayCoordinates'
             );
-            expect(getter(dummyEvent)).toEqual(arrayCoords);
+            expect(getter(dummyEvent)).toEqual({
+                type: 'Point',
+                coordinates: arrayCoords,
+            });
         });
 
-        it('Should return an empty array on integer value', () => {
-            const getter = buildEventCoordinateGetter(headers, 'SomeField');
-            expect(getter(dummyEvent)).toEqual([]);
+        it('Should return null on integer value', () => {
+            const getter = buildEventGeometryGetter(headers, 'SomeField');
+            expect(getter(dummyEvent)).toEqual(null);
         });
 
         it('Should return an empty array on invalid string value', () => {
-            const getter = buildEventCoordinateGetter(headers, 'id');
-            expect(getter(dummyEvent)).toEqual([]);
+            const getter = buildEventGeometryGetter(headers, 'id');
+            expect(getter(dummyEvent)).toEqual(null);
         });
     });
 
@@ -186,8 +190,7 @@ describe('geojson utils', () => {
             { name: 'SomeField', column: 'SomeField Column' },
             { name: 'psi', column: 'psi Column' },
             { name: 'TheRealID', column: 'TheRealID Column' },
-            { name: 'latitude', column: 'latitude Column' },
-            { name: 'longitude', column: 'longitude Column' },
+            { name: 'geometry', column: 'Geometry Column' },
             { name: 'SomeOtherField', column: 'SomeOtherField Column' },
         ];
         const metaData = {
@@ -200,11 +203,17 @@ describe('geojson utils', () => {
             ),
         };
 
+        const point = {
+            type: 'Point',
+            coordinates: [0, 0],
+        };
+        const pointString = JSON.stringify(point);
+
         const rows = [
-            ['ping', 'psi0', 'id0', 21.1, 42.2, 'pong'],
-            ['foo', 'psi1', 'id1', 21.2, 42.3, 'bar'],
-            ['bill', 'psi2', 'id2', 21.3, 42.4, 'gates'],
-            ['paul', 'psi3', 'id3', 21.4, 42.5, 'allen'],
+            ['ping', 'psi0', 'id0', pointString, 'pong'],
+            ['foo', 'psi1', 'id1', pointString, 'bar'],
+            ['bill', 'psi2', 'id2', pointString, 'gates'],
+            ['paul', 'psi3', 'id3', pointString, 'allen'],
         ];
         const response = {
             headers,
@@ -234,10 +243,7 @@ describe('geojson utils', () => {
                         }),
                         {}
                     ),
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [row[4], row[3]],
-                    },
+                    geometry: point,
                 }))
             );
         });
@@ -256,10 +262,7 @@ describe('geojson utils', () => {
                         }),
                         {}
                     ),
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [row[4], row[3]],
-                    },
+                    geometry: point,
                 }))
             );
         });
@@ -280,10 +283,7 @@ describe('geojson utils', () => {
                         }),
                         {}
                     ),
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [row[4], row[3]],
-                    },
+                    geometry: point,
                 }))
             );
         });
@@ -311,10 +311,7 @@ describe('geojson utils', () => {
                         }),
                         {}
                     ),
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [row[4], row[3]],
-                    },
+                    geometry: point,
                 }))
             );
         });
