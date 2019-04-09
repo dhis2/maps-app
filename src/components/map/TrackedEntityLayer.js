@@ -33,7 +33,7 @@ const geomToCentroid = (type, coords) => {
         case 'POINT':
             return JSON.parse(coords);
         case 'POLYGON':
-            // TODO: Confirm multipolygon
+            // TODO: Support multipolygon / use turf
             return getCentroid(JSON.parse(coords)[0]);
         default:
             return null;
@@ -65,31 +65,6 @@ const makeRelationshipLayer = (relationships, color, weight) => {
             weight,
         },
     };
-};
-const getRelativeTEIRelationship = async (id, relationship) => {
-    const fieldsString = '';
-
-    const name = relationship.relationshipName,
-        from = relationship.from.trackedEntityInstance.trackedEntityInstance,
-        to = relationship.to.trackedEntityInstance.trackedEntityInstance;
-
-    if (from === id) {
-        return {
-            name,
-            direction: 'to',
-            data: await fetchTEI(to, fieldsString),
-        };
-    } else if (to === id) {
-        return {
-            name,
-            direction: 'from',
-            data: await fetchTEI(from, fieldsString),
-        };
-    }
-
-    throw new Error(
-        'Unknown relationship, neither terminus matches current TEI!'
-    );
 };
 
 class TrackedEntityLayer extends Layer {
@@ -198,22 +173,6 @@ class TrackedEntityLayer extends Layer {
             .map(
                 ({ name, value }) =>
                     `<tr><th>${name}:</th><td>${value}</td></tr>`
-            )
-            .join('');
-
-        const rels = await Promise.all(
-            data.relationships.map(rel =>
-                getRelativeTEIRelationship(feature.id, rel)
-            )
-        );
-        content += rels
-            .map(
-                rel =>
-                    `<tr><th>${
-                        rel.name
-                    }</th><td>${rel.direction.toUpperCase()} ${
-                        rel.data.trackedEntityInstance
-                    }</td></tr>`
             )
             .join('');
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -52,7 +52,6 @@ import {
 } from '../../util/analytics';
 import { getStartEndDateError } from '../../util/time';
 import TrackedEntityRelationshipTypeSelect from './trackedEntity/TrackedEntityRelationshipTypeSelect';
-import Typography from 'material-ui/styles/typography';
 
 const styles = {
     ...layerDialogStyles,
@@ -393,15 +392,17 @@ export class TrackedEntityDialog extends Component {
                     {tab === 'style' && (
                         <div style={styles.flexColumnFlow}>
                             <div style={styles.flexColumn}>
+                                <div
+                                    style={{
+                                        ...styles.flexInnerColumnFlow,
+                                        margin: '12px 0',
+                                        fontSize: 14,
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    {i18n.t('Tracked entity style')}:
+                                </div>
                                 <div style={styles.flexInnerColumnFlow}>
-                                    <div
-                                        style={{
-                                            margin: '12px 0',
-                                            fontSize: 14,
-                                        }}
-                                    >
-                                        {i18n.t('Tracked entity style')}:
-                                    </div>
                                     <ColorPicker
                                         label={i18n.t('Color')}
                                         color={eventPointColor || TEI_COLOR}
@@ -436,45 +437,51 @@ export class TrackedEntityDialog extends Component {
                                     )}
                                 </div>
                                 {relationshipType ? (
-                                    <div style={styles.flexInnerColumnFlow}>
+                                    <Fragment>
                                         <div
                                             style={{
+                                                ...styles.flexInnerColumnFlow,
                                                 margin: '12px 0',
                                                 fontSize: 14,
+                                                fontWeight: 'bold',
                                             }}
                                         >
                                             {i18n.t('Related entity style')}:
                                         </div>
-                                        <ColorPicker
-                                            label={i18n.t('Color')}
-                                            color={
-                                                relatedPointColor ||
-                                                TEI_RELATED_COLOR
-                                            }
-                                            onChange={setRelatedPointColor}
-                                            style={styles.flexInnerColumn}
-                                        />
-                                        <TextField
-                                            id="buffer"
-                                            type="number"
-                                            label={i18n.t('Point size')}
-                                            value={
-                                                relatedPointRadius ||
-                                                TEI_RELATED_RADIUS
-                                            }
-                                            onChange={setRelatedPointRadius}
-                                            style={styles.flexInnerColumn}
-                                        />
-                                        <ColorPicker
-                                            label={i18n.t('Line Color')}
-                                            color={
-                                                relationshipLineColor ||
-                                                TEI_RELATIONSHIP_LINE_COLOR
-                                            }
-                                            onChange={setRelationshipLineColor}
-                                            style={styles.flexInnerColumn}
-                                        />
-                                    </div>
+                                        <div style={styles.flexInnerColumnFlow}>
+                                            <ColorPicker
+                                                label={i18n.t('Color')}
+                                                color={
+                                                    relatedPointColor ||
+                                                    TEI_RELATED_COLOR
+                                                }
+                                                onChange={setRelatedPointColor}
+                                                style={styles.flexInnerColumn}
+                                            />
+                                            <TextField
+                                                id="buffer"
+                                                type="number"
+                                                label={i18n.t('Point size')}
+                                                value={
+                                                    relatedPointRadius ||
+                                                    TEI_RELATED_RADIUS
+                                                }
+                                                onChange={setRelatedPointRadius}
+                                                style={styles.flexInnerColumn}
+                                            />
+                                            <ColorPicker
+                                                label={i18n.t('Line Color')}
+                                                color={
+                                                    relationshipLineColor ||
+                                                    TEI_RELATIONSHIP_LINE_COLOR
+                                                }
+                                                onChange={
+                                                    setRelationshipLineColor
+                                                }
+                                                style={styles.flexInnerColumn}
+                                            />
+                                        </div>
+                                    </Fragment>
                                 ) : null}
                             </div>
                             <div style={styles.flexColumn} />

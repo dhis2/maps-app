@@ -122,12 +122,12 @@ const trackedEntityLoader = async config => {
         legend.items.push(
             {
                 name: relationshipType.displayName,
-                color: relatedPointColor || TEI_RELATED_COLOR,
+                color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
                 weight: 1,
             },
             {
                 name: `${relatedEntityType.displayName} (${i18n.t('related')})`,
-                color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
+                color: relatedPointColor || TEI_RELATED_COLOR,
                 radius: relatedPointRadius || TEI_RELATED_RADIUS,
             }
         );
