@@ -152,12 +152,6 @@ class TrackedEntityLayer extends Layer {
         }
     }
 
-    // Remove layer instance (both facilities and areas)
-    removeLayer() {
-        this.layer.off('click', this.onEventClick);
-        super.removeLayer();
-    }
-
     async onEntityClick({ feature, coordinates }) {
         const data = await fetchTEI(
             feature.id,
