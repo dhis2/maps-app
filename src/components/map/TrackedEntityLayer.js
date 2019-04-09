@@ -163,7 +163,7 @@ class TrackedEntityLayer extends Layer {
             ' ' +
             data.lastUpdated.substring(11, 16);
 
-        let content = data.attributes
+        const content = data.attributes
             .map(
                 ({ name, value }) =>
                     `<tr><th>${name}:</th><td>${value}</td></tr>`
