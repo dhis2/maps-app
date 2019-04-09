@@ -46,6 +46,7 @@
     },
     "dependencies": {
         "@dhis2/d2-i18n": "^1.0.4",
+        "@dhis2/d2-ui-analytics": "^0.0.1",
         "@dhis2/d2-ui-core": "5.2.10",
         "@dhis2/d2-ui-file-menu": "5.2.10",
         "@dhis2/d2-ui-interpretations": "5.2.10",
