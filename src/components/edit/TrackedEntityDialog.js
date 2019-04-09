@@ -302,6 +302,26 @@ export class TrackedEntityDialog extends Component {
                             </div>
                         ) : (
                             <div style={styles.flexRowFlow}>
+                                <div
+                                    style={{
+                                        fontSize: 14,
+                                        padding: '12px 12px 0',
+                                    }}
+                                >
+                                    <h3
+                                        style={{
+                                            fontWeight: 'bold',
+                                            marginBottom: 8,
+                                        }}
+                                    >
+                                        {i18n.t('WARNING')}
+                                    </h3>
+                                    <p>
+                                        {i18n.t(
+                                            'Displaying tracked entity relationships in Maps is an experimental feature'
+                                        )}
+                                    </p>
+                                </div>
                                 <Checkbox
                                     label={i18n.t(
                                         'Display Tracked Entity relationships'
@@ -319,6 +339,9 @@ export class TrackedEntityDialog extends Component {
                                             showRelationshipsChecked: checked,
                                         });
                                     }}
+                                    style={{
+                                        marginBottom: 0,
+                                    }}
                                 />
                                 {this.state.showRelationshipsChecked && (
                                     <TrackedEntityRelationshipTypeSelect
@@ -332,7 +355,7 @@ export class TrackedEntityDialog extends Component {
                                         style={{
                                             ...styles.select,
                                             width: 276,
-                                            margin: '0 12px',
+                                            margin: '0 0 0 48px',
                                         }}
                                     />
                                 )}
