@@ -8,7 +8,7 @@ import { loadDataElements } from '../../actions/dataElements';
 export class DataElementSelect extends PureComponent {
     static propTypes = {
         dataElement: PropTypes.object,
-        dataElements: PropTypes.object,
+        dataElements: PropTypes.array,
         dataElementGroup: PropTypes.object,
         loadDataElements: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
@@ -19,7 +19,7 @@ export class DataElementSelect extends PureComponent {
     componentDidUpdate() {
         const { dataElements, dataElementGroup, loadDataElements } = this.props;
 
-        if (dataElementGroup && !dataElements[dataElementGroup.id]) {
+        if (dataElementGroup && !dataElements) {
             loadDataElements(dataElementGroup.id);
         }
     }
