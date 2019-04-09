@@ -9,10 +9,10 @@ import { apiFetch } from '../../../util/api';
 const fromIsTEI = type =>
     type.fromConstraint.relationshipEntity === 'TRACKED_ENTITY_INSTANCE';
 const fromTEIType = type => type.fromConstraint.trackedEntityType.id;
-const filterRelationshipTypes = memoize((allTypes, trackedEntityType) => {
+const filterRelationshipTypes = memoize((allTypes, trackedEntityTypeId) => {
     return allTypes
         .filter(type => {
-            return fromIsTEI(type) && fromTEIType(type) === trackedEntityType;
+            return fromIsTEI(type) && fromTEIType(type) === trackedEntityTypeId;
         })
         .map(type => ({
             id: type.id,
@@ -42,32 +42,39 @@ class TrackedEntityRelationshipTypeSelect extends Component {
     }
 
     render() {
-        if (!this.props.trackedEntityType) {
-            return (
-                <div>
-                    {i18n.t(
-                        'Select a Tracked Entity Type before selecting a Relationship Type'
-                    )}
-                </div>
-            );
-        } else if (!this.state.allTypes) {
+        if (!this.state.allTypes) {
             return <CircularProgress />;
         } else if (this.state.error) {
             return <span>{this.state.error}</span>;
         }
 
+        const types = filterRelationshipTypes(
+            this.state.allTypes,
+            this.props.trackedEntityType.id
+        );
+        if (!types.length) {
+            return (
+                <div
+                    style={{
+                        fontSize: 14,
+                        marginLeft: 12,
+                    }}
+                >
+                    {i18n.t(
+                        'No relationship types were found for tracked entity type {{type}}',
+                        { type: this.props.trackedEntityType.name }
+                    )}
+                </div>
+            );
+        }
+
         return (
             <SelectField
                 label={i18n.t('Relationship type')}
-                items={filterRelationshipTypes(
-                    this.state.allTypes,
-                    this.props.trackedEntityType
-                )}
+                items={types}
                 value={this.props.value}
                 onChange={type => this.props.onChange(type.id)}
-                style={{
-                    width: '100%',
-                }}
+                style={this.props.style}
             />
         );
     }
@@ -75,8 +82,12 @@ class TrackedEntityRelationshipTypeSelect extends Component {
 
 TrackedEntityRelationshipTypeSelect.propTypes = {
     value: PropTypes.string,
-    trackedEntityType: PropTypes.string,
+    trackedEntityType: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+    }),
     onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
 };
 
 export default TrackedEntityRelationshipTypeSelect;

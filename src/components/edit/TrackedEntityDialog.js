@@ -287,34 +287,57 @@ export class TrackedEntityDialog extends Component {
                             )}
                         </div>
                     )}
-                    {tab === 'relationships' && (
-                        <div style={styles.flexRowFlow}>
-                            <Checkbox
-                                label={i18n.t(
-                                    'Display Tracked Entity relationships'
-                                )}
-                                checked={this.state.showRelationshipsChecked}
-                                onCheck={checked => {
-                                    if (!checked) {
-                                        setTrackedEntityRelationshipType(null);
-                                    }
-                                    this.setState({
-                                        showRelationshipsChecked: checked,
-                                    });
+                    {tab === 'relationships' &&
+                        (!this.props.trackedEntityType ? (
+                            <div
+                                style={{
+                                    fontSize: 14,
+                                    paddingTop: 16,
+                                    marginLeft: 16,
                                 }}
-                            />
-                            {this.state.showRelationshipsChecked && (
-                                <TrackedEntityRelationshipTypeSelect
-                                    trackedEntityType={
-                                        this.props.trackedEntityType &&
-                                        this.props.trackedEntityType.id
+                            >
+                                {i18n.t(
+                                    'Please select a Tracked Entity Type before selecting a Relationship Type'
+                                )}
+                            </div>
+                        ) : (
+                            <div style={styles.flexRowFlow}>
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Display Tracked Entity relationships'
+                                    )}
+                                    checked={
+                                        this.state.showRelationshipsChecked
                                     }
-                                    value={relationshipType}
-                                    onChange={setTrackedEntityRelationshipType}
+                                    onCheck={checked => {
+                                        if (!checked) {
+                                            setTrackedEntityRelationshipType(
+                                                null
+                                            );
+                                        }
+                                        this.setState({
+                                            showRelationshipsChecked: checked,
+                                        });
+                                    }}
                                 />
-                            )}
-                        </div>
-                    )}
+                                {this.state.showRelationshipsChecked && (
+                                    <TrackedEntityRelationshipTypeSelect
+                                        trackedEntityType={
+                                            this.props.trackedEntityType
+                                        }
+                                        value={relationshipType}
+                                        onChange={
+                                            setTrackedEntityRelationshipType
+                                        }
+                                        style={{
+                                            ...styles.select,
+                                            width: 276,
+                                            margin: '0 12px',
+                                        }}
+                                    />
+                                )}
+                            </div>
+                        ))}
                     {tab === 'period' && (
                         <div style={styles.flexRowFlow}>
                             <div style={{ margin: '12px 0', fontSize: 14 }}>
