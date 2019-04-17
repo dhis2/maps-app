@@ -164,7 +164,7 @@ export const styleByOptionSet = async config => {
 
     // For easier and faster lookup below
     const optionsByCode = optionSet.options.reduce((obj, option) => {
-        obj[option.code] = option;
+        obj[option.code.toLowerCase()] = option;
         return obj;
     }, {});
 
