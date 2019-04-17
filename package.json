@@ -34,7 +34,7 @@
         "cy:e2e:open:update": "CYPRESS_GEN_FIXTURES=true cypress open",
         "prebuild": "yarn test && yarn localize && yarn manifest",
         "build": "rm -rf build && NODE_ENV=production webpack --progress",
-        "postbuild": "cp -r i18n_old public/* ./build",
+        "postbuild": "cp -r public/* ./build",
         "manifest": "d2-manifest package.json public/manifest.webapp",
         "lint": "eslint ./src",
         "validate": "npm ls --depth 0 || yarn list",
