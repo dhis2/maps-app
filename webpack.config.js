@@ -117,18 +117,10 @@ const webpackConfig = {
         }),
     ],
     devServer: {
-        contentBase: './',
+        contentBase: './public',
         port: 8082,
         inline: true,
         compress: true,
-        proxy: [
-            {
-                path: '/polyfill.min.js',
-                target:
-                    'http://localhost:8082/node_modules/babel-polyfill/dist',
-                bypass: log,
-            },
-        ],
     },
 };
 
