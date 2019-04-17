@@ -112,7 +112,7 @@ const webpackConfig = {
     },
     plugins: [
         new HTMLWebpackPlugin({
-            template: 'index.html',
+            template: 'public/index.html',
             chunks: ['app'],
         }),
     ],
