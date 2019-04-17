@@ -123,15 +123,15 @@ const LayerCard = ({
                 }
                 action={[
                     <SortableHandle key="handle" />,
-                    <Tooltip key="expand" title={i18n.t('Collapse')}>
+                    <Tooltip
+                        key="expand"
+                        title={
+                            isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
+                        }
+                    >
                         <IconButton
                             className={classes.expand}
                             onClick={() => toggleLayerExpand(id)}
-                            tooltip={
-                                isExpanded
-                                    ? i18n.t('Collapse')
-                                    : i18n.t('Expand')
-                            }
                             style={{ backgroundColor: 'transparent' }}
                         >
                             {isExpanded ? (

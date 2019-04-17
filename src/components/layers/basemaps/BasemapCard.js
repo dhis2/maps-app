@@ -85,15 +85,14 @@ const BasemapCard = props => {
                 title={name}
                 subheader={subtitle}
                 action={
-                    <Tooltip key="expand" title={i18n.t('Collapse')}>
+                    <Tooltip
+                        title={
+                            isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
+                        }
+                    >
                         <IconButton
                             className={classes.expand}
                             onClick={toggleBasemapExpand}
-                            tooltip={
-                                isExpanded
-                                    ? i18n.t('Collapse')
-                                    : i18n.t('Expand')
-                            }
                             style={{ backgroundColor: 'transparent' }}
                         >
                             {isExpanded ? (
