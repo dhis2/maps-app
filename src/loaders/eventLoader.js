@@ -14,6 +14,7 @@ import {
     getBounds,
 } from '../util/geojson';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
+import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import { cssColor } from '../util/colors';
 
@@ -43,6 +44,7 @@ const eventLoader = async layerConfig => {
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
     let analyticsRequest = await getAnalyticsRequest(config);
+    let alert;
 
     config.name = programStage.name;
 
@@ -85,6 +87,8 @@ const eventLoader = async layerConfig => {
             if (areaRadius) {
                 config.legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
             }
+        } else {
+            alert = createAlert(config.name, i18n.t('No data found'));
         }
 
         // TODO: Add filters to legend when using server cluster
@@ -95,6 +99,10 @@ const eventLoader = async layerConfig => {
                 ...names,
                 ...(await getFilterOptionNames(dataFilters, response.headers)),
             });
+    }
+
+    if (alert) {
+        config.alerts = [alert];
     }
 
     config.isLoaded = true;

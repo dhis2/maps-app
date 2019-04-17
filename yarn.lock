@@ -374,10 +374,10 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/gis-api@32.0.19":
-  version "32.0.19"
-  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-32.0.19.tgz#c899d72293db95072699ad1b4ae3baa0b7de9f22"
-  integrity sha512-m5gMQaQ46Jr8V5+lDzJw5XVCMoVbMmXfUTsJEd0Wc9LGoPLU/LAgxE5AYI1HS/EMQ2pUYihbfUmMB0N5CMSe6w==
+"@dhis2/gis-api@^32.0.20":
+  version "32.0.20"
+  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-32.0.20.tgz#75ec1263711e9102bd244faa5c24440bca758c8c"
+  integrity sha512-aXAJR5EDEXRydSnrX4MKr0UMpGJZL3qC7Z/2NI63eI40D8EaScFElO0EcifM2+YkzzFbr0Jl2kcpdPqukTkooQ==
   dependencies:
     "@google/earthengine" "^0.1.172"
     "@mapbox/geojson-area" "^0.2.2"
