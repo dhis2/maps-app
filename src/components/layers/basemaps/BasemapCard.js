@@ -55,8 +55,10 @@ const styles = {
         top: 4,
     },
     content: {
-        // TODO: Not working on :last-child
         padding: 0,
+    },
+    tooltip: {
+        marginTop: -8,
     },
 };
 
@@ -89,6 +91,9 @@ const BasemapCard = props => {
                         title={
                             isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
                         }
+                        classes={{
+                            tooltipPlacementBottom: classes.tooltip,
+                        }}
                     >
                         <IconButton
                             className={classes.expand}

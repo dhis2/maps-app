@@ -75,6 +75,9 @@ const styles = {
         fontSize: 14,
         padding: 0, // TODO: Not working on :last-child
     },
+    tooltip: {
+        marginTop: -8,
+    },
 };
 
 const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
@@ -128,6 +131,9 @@ const LayerCard = ({
                         title={
                             isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
                         }
+                        classes={{
+                            tooltipPlacementBottom: classes.tooltip,
+                        }}
                     >
                         <IconButton
                             className={classes.expand}
