@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-04-09T10:41:02.448Z\n"
-"PO-Revision-Date: 2019-04-09T10:41:02.448Z\n"
+"POT-Creation-Date: 2019-04-23T11:20:55.613Z\n"
+"PO-Revision-Date: 2019-04-23T11:20:55.613Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -579,6 +579,9 @@ msgstr ""
 msgid "Event"
 msgstr ""
 
+msgid "No data found"
+msgstr ""
+
 msgid "Facilities"
 msgstr ""
 
@@ -586,9 +589,6 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
-msgstr ""
-
-msgid "No data found"
 msgstr ""
 
 msgid "Tracked entity"
