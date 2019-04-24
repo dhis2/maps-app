@@ -46,7 +46,7 @@ export const saveNewFavorite = (action$, store) =>
 
             return apiFetch('/maps/', 'POST', config).then(async res => {
                 const location = res.headers.get('Location');
-                const id = location ? location.substring(6) : null;
+                const id = location ? location.match(/([^/]+$)/)[0] : null;
                 const response = await res.json();
 
                 return response.status === 'OK' ? { ...config, id } : response;

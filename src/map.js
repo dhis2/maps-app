@@ -16,7 +16,7 @@ import { translateConfig } from './util/favorites';
 import { defaultBasemaps } from './constants/basemaps';
 import { version } from '../package.json'; // TODO: Remove version logging
 
-const apiVersion = 31;
+const apiVersion = 32;
 
 log.info(`Maps plugin: ${version}`); // TODO: Remove version logging
 
