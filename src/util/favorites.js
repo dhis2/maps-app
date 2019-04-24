@@ -61,6 +61,10 @@ const validLayerProperties = [
     'styleDataItem',
     'trackedEntityType',
     'valueType',
+    'relationshipType',
+    'relatedPointColor',
+    'relatedPointRadius',
+    'relationshipLineColor',
 ];
 
 const models = ['program', 'programStage', 'organisationUnitGroupSet'];
@@ -122,6 +126,20 @@ const models2objects = config => {
         delete config.params;
         delete config.filter;
         delete config.periodName;
+    } else if (config.relationshipType) {
+        config.config = JSON.stringify({
+            relationships: {
+                type: config.relationshipType,
+                pointColor: config.relatedPointColor,
+                pointRadius: config.relatedPointRadius,
+                lineColor: config.relationshipLineColor,
+            },
+        });
+
+        delete config.relationshipType;
+        delete config.relatedPointColor;
+        delete config.relatedPointRadius;
+        delete config.relationshipLineColor;
     }
 
     if (isObject(config.config)) {
