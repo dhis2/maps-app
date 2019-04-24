@@ -48,7 +48,7 @@ export class CoordinateField extends Component {
                 [
                     ...(programAttributes[program.id] || []),
                     ...(dataElements[programStage.id] || []),
-                ].filter(field => field.valueType === 'COORDINATE')
+                ].filter(field => field && field.valueType === 'COORDINATE')
             );
         }
 
