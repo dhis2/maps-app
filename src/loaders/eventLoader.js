@@ -126,9 +126,12 @@ export const getAnalyticsRequest = async ({
     eventCoordinateField,
     relativePeriodDate,
 }) => {
-    const orgUnits = getOrgUnitsFromRows(rows),
-        period = getPeriodFromFilters(filters);
-    const dataItems = addStyleDataItem(columns, styleDataItem);
+    const orgUnits = getOrgUnitsFromRows(rows);
+    const period = getPeriodFromFilters(filters);
+    const dataItems = addStyleDataItem(
+        columns.filter(isValidDimension),
+        styleDataItem
+    );
 
     const d2 = await getD2();
 
@@ -153,12 +156,10 @@ export const getAnalyticsRequest = async ({
 
     if (dataItems) {
         dataItems.forEach(item => {
-            if (isValidDimension(item)) {
-                analyticsRequest = analyticsRequest.addDimension(
-                    item.dimension,
-                    item.filter
-                );
-            }
+            analyticsRequest = analyticsRequest.addDimension(
+                item.dimension,
+                item.filter
+            );
         });
     }
 
