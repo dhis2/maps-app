@@ -374,7 +374,7 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/gis-api@32.0.21":
+"@dhis2/gis-api@^32.0.21":
   version "32.0.21"
   resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-32.0.21.tgz#ba874f21365a40d756e3fcdf282ce1fc2849cd08"
   integrity sha512-00tVNyOlhKpfLSaW4dWlWTVtZAt6SR5F/IRNpMl9E2q8knrKc+z3JNRTeXRLNWePw5oONjzo8ZZZYn/uFa89xw==
