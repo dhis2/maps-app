@@ -210,8 +210,8 @@ export class EventDialog extends Component {
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="data" label={i18n.t('data')} />
                     <Tab value="period" label={i18n.t('period')} />
-                    <Tab value="filter" label={i18n.t('Filter')} />
                     <Tab value="orgunits" label={i18n.t('Org units')} />
+                    <Tab value="filter" label={i18n.t('Filter')} />
                     <Tab value="style" label={i18n.t('Style')} />
                 </Tabs>
                 <div style={styles.tabContent} data-test="eventdialog-content">
@@ -277,20 +277,6 @@ export class EventDialog extends Component {
                             ) : null}
                         </div>
                     )}
-                    {tab === 'filter' && (
-                        <div
-                            style={styles.flexRowFlow}
-                            data-test="eventdialog-filtertab"
-                        >
-                            <FilterGroup
-                                program={program}
-                                programStage={programStage}
-                                filters={columns.filter(
-                                    c => c.filter !== undefined
-                                )}
-                            />
-                        </div>
-                    )}
                     {tab === 'orgunits' && (
                         <div
                             style={styles.flexColumnFlow}
@@ -323,6 +309,20 @@ export class EventDialog extends Component {
                                     error={orgUnitsError}
                                 />
                             </div>
+                        </div>
+                    )}
+                    {tab === 'filter' && (
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="eventdialog-filtertab"
+                        >
+                            <FilterGroup
+                                program={program}
+                                programStage={programStage}
+                                filters={columns.filter(
+                                    c => c.filter !== undefined
+                                )}
+                            />
                         </div>
                     )}
                     {tab === 'style' && (

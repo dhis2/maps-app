@@ -296,14 +296,14 @@ export class ThematicDialog extends Component {
                         data-test="thematicdialog-tabs-period"
                     />
                     <Tab
-                        value="filter"
-                        label={i18n.t('Filter')}
-                        data-test="thematicdialog-tabs-filter"
-                    />
-                    <Tab
                         value="orgunits"
                         label={i18n.t('Org units')}
                         data-test="thematicdialog-tabs-orgunits"
+                    />
+                    <Tab
+                        value="filter"
+                        label={i18n.t('Filter')}
+                        data-test="thematicdialog-tabs-filter"
                     />
                     <Tab
                         value="style"
@@ -487,14 +487,6 @@ export class ThematicDialog extends Component {
                             ]}
                         </div>
                     )}
-                    {tab === 'filter' && (
-                        <div
-                            style={styles.flexRowFlow}
-                            data-test="thematicdialog-filtertab"
-                        >
-                            <DimensionFilter dimensions={dimensions} />
-                        </div>
-                    )}
                     {tab === 'orgunits' && (
                         <div
                             style={styles.flexColumnFlow}
@@ -537,6 +529,14 @@ export class ThematicDialog extends Component {
                                     </div>
                                 )}
                             </div>
+                        </div>
+                    )}
+                    {tab === 'filter' && (
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="thematicdialog-filtertab"
+                        >
+                            <DimensionFilter dimensions={dimensions} />
                         </div>
                     )}
                     {tab === 'style' && (
