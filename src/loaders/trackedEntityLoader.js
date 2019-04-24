@@ -30,6 +30,19 @@ const geometryTypes = Object.keys(geometryTypesMap);
 
 //TODO: Refactor to share code with other loaders
 const trackedEntityLoader = async config => {
+    if (config.config && typeof config.config === 'string') {
+        try {
+            const customConfig = JSON.parse(config.config);
+            config.relationshipType = customConfig.relationships.type;
+            config.relatedPointColor = customConfig.relationships.pointColor;
+            config.relatedPointRadius = customConfig.relationships.pointRadius;
+            config.relationshipLineColor = customConfig.relationships.lineColor;
+        } catch (e) {
+            // Failed to load JSON relationship config, assuming no relationships
+        }
+        delete config.config;
+    }
+
     const {
         trackedEntityType,
         program,
