@@ -125,10 +125,12 @@ export const addOrgUnitPaths = mapViews =>
 // https://stackoverflow.com/questions/10805125/how-to-remove-all-line-breaks-from-a-string/10805292#10805292
 export const removeLineBreaks = text => text.replace(/\r?\n|\r/g, ' ');
 
-const mandatoryProps = ['id', 'name', 'valueType'];
+const mandatoryDataItemAttributes = ['id', 'name', 'valueType'];
 
 // Checks if a data item is valid (program stage data elements and tracked entity attributes)
 export const getValidDataItems = items =>
     items.filter(
-        item => isObject(item) && mandatoryProps.every(prop => prop in item)
+        item =>
+            isObject(item) &&
+            mandatoryDataItemAttributes.every(prop => prop in item)
     );
