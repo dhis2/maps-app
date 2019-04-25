@@ -13,7 +13,7 @@ import {
     setProgramStageDataElements,
 } from '../actions/programs';
 import { errorActionCreator } from '../actions/helpers';
-import { getDisplayPropertyUrl } from '../util/helpers';
+import { getDisplayPropertyUrl, getValidDataItems } from '../util/helpers';
 
 export const loadPrograms = action$ =>
     action$.ofType(types.PROGRAMS_LOAD).concatMap(() =>
@@ -80,12 +80,13 @@ export const loadProgramTrackedEntityAttributes = action$ =>
                 })
             )
             .then(program =>
-                setProgramAttributes(
-                    action.programId,
-                    program.programTrackedEntityAttributes.map(
-                        d => d.trackedEntityAttribute
-                    )
+                program.programTrackedEntityAttributes.map(
+                    d => d.trackedEntityAttribute
                 )
+            )
+            .then(getValidDataItems)
+            .then(attributes =>
+                setProgramAttributes(action.programId, attributes)
             )
             .catch(errorActionCreator(types.PROGRAM_ATTRIBUTES_LOAD_ERROR))
     );
@@ -126,6 +127,7 @@ export const loadProgramStageDataElements = action$ =>
             .then(programStage =>
                 programStage.programStageDataElements.map(d => d.dataElement)
             )
+            .then(getValidDataItems)
             .then(dataElements =>
                 setProgramStageDataElements(action.programStageId, dataElements)
             )
