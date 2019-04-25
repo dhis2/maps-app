@@ -10,7 +10,7 @@ class Layer extends PureComponent {
     static propTypes = {
         areaRadius: PropTypes.number,
         data: PropTypes.array,
-        dataFilters: PropTypes.array,
+        dataFilters: PropTypes.object,
         id: PropTypes.string.isRequired,
         index: PropTypes.number,
         editCounter: PropTypes.number,
