@@ -107,6 +107,9 @@ export const createEventFeatures = (response, config = {}) => {
         )
     );
 
+    // Sort to draw polygons before points
+    data.sort(feature => (feature.geometry.type === 'Polygon' ? -1 : 0));
+
     return { data, names };
 };
 
