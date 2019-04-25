@@ -1,4 +1,5 @@
 import { getInstance as getD2 } from 'd2';
+import { isObject } from 'lodash/fp';
 
 const propertyMap = {
     name: 'name',
@@ -123,3 +124,13 @@ export const addOrgUnitPaths = mapViews =>
 // Remove line breaks from text (not displayed corrently in map downloads)
 // https://stackoverflow.com/questions/10805125/how-to-remove-all-line-breaks-from-a-string/10805292#10805292
 export const removeLineBreaks = text => text.replace(/\r?\n|\r/g, ' ');
+
+const mandatoryDataItemAttributes = ['id', 'name', 'valueType'];
+
+// Checks if a data item is valid (program stage data elements and tracked entity attributes)
+export const getValidDataItems = items =>
+    items.filter(
+        item =>
+            isObject(item) &&
+            mandatoryDataItemAttributes.every(prop => prop in item)
+    );
