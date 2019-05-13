@@ -170,7 +170,8 @@ export const styleByOptionSet = async config => {
 
     // Add style data value and color to each feature
     config.data = config.data.map(feature => {
-        const option = optionsByCode[feature.properties[id]];
+        const featureOptionCode = String(feature.properties[id]).toLowerCase();
+        const option = optionsByCode[featureOptionCode];
 
         if (!option) {
             return feature;
