@@ -55,23 +55,24 @@ export class CollectionSelect extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { id, collections } = this.props;
+        const { id, filter, collections } = this.props;
 
         if (id && collections[id] !== prevProps.collections[id]) {
-            const years = collections[id]
+            const yearItems = collections[id]
                 .filter(item => item.year)
                 .map(item => item.year);
 
-            if (years.length) {
-                const yearItems = [...new Set(years)].map(year => ({
+            if (yearItems.length) {
+                const years = [...new Set(yearItems)].map(year => ({
                     id: year,
                     name: year.toString(),
                 }));
 
-                this.setState({
-                    years: yearItems,
-                    year: yearItems[0].id,
-                });
+                const year = filter
+                    ? Number(filter[0].arguments[1].substring(0, 4))
+                    : years[0].id;
+
+                this.setState({ years, year });
             }
         }
     }
