@@ -73,8 +73,10 @@ const collections = {
                     ).getFullYear(),
                     name: formatStartEndDate(
                         f.properties['system:time_start'],
-                        f.properties['system:time_end'] - 7200001
-                    ), // Minus 2 hrs to end the day before
+                        f.properties['system:time_end'] - 7200001, // Minus 2 hrs to end the day before
+                        null,
+                        false
+                    ),
                 }))
             )
         );
@@ -98,8 +100,10 @@ const collections = {
                     ).getFullYear(),
                     name: formatStartEndDate(
                         f.properties['system:time_start'],
-                        f.properties['system:time_end'] - 7200001
-                    ), // Minus 2 hrs to end the day before
+                        f.properties['system:time_end'] - 7200001, // Minus 2 hrs to end the day before
+                        null,
+                        false
+                    ),
                 }))
             )
         );
