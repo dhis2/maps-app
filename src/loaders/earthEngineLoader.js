@@ -62,7 +62,7 @@ const datasets = {
                 'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
         },
     },
-    'MODIS/MOD11A2': {
+    'MODIS/006/MOD11A2': {
         name: 'Temperature',
         band: 'LST_Day_1km',
         mask: true,
