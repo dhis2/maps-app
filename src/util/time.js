@@ -64,7 +64,7 @@ export const formatLocaleDate = (dateString, locale, showYear = true) =>
         : fallbackDateFormat(dateString);
 
 /**
- * Formats a date range without showing year
+ * Formats a date range
  * @param {String|Number} startDate
  * @param {String|Number} endDate
  * @param {String} locale
