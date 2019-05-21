@@ -63,11 +63,13 @@ export class CollectionSelect extends Component {
                 .map(item => item.year);
 
             if (yearItems.length) {
+                // Get unique years
                 const years = [...new Set(yearItems)].map(year => ({
                     id: year,
                     name: year.toString(),
                 }));
 
+                // Get year from saved filter or select the most recent
                 const year = filter
                     ? Number(filter[0].arguments[1].substring(0, 4))
                     : years[0].id;
@@ -105,7 +107,7 @@ export class CollectionSelect extends Component {
                     items={items}
                     value={value}
                     onChange={this.onPeriodChange}
-                    style={styles.period}
+                    style={years && styles.period}
                     errorText={!value && errorText ? errorText : null}
                 />
             </div>
