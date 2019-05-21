@@ -68,6 +68,9 @@ const collections = {
             resolve(
                 data.features.map(f => ({
                     id: f.id,
+                    year: new Date(
+                        f.properties['system:time_start']
+                    ).getFullYear(),
                     name: formatStartEndDate(
                         f.properties['system:time_start'],
                         f.properties['system:time_end'] - 7200001
