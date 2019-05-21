@@ -8,3 +8,9 @@ body {
         opacity: 0.5;
     }
 }
+
+/* Fix to allow menus to have a width that fits its content in Material-UI 0.20 */
+div[role='presentation'] {
+    width: auto !important;
+    max-width: 400px;
+}
