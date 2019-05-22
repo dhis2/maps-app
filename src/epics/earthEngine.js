@@ -81,10 +81,10 @@ const collections = {
             )
         );
     },
-    'MODIS/MOD11A2': (resolve, reject) => {
+    'MODIS/006/MOD11A2': (resolve, reject) => {
         // Temperature
         const imageCollection = ee
-            .ImageCollection('MODIS/MOD11A2')
+            .ImageCollection('MODIS/006/MOD11A2')
             .sort('system:time_start', false);
 
         const featureCollection = ee
@@ -154,7 +154,14 @@ export const loadCollection = action$ =>
             );
 
             if (token && token.status === 'ERROR') {
-                return setAlert(createAlert(i18n.t(token.message), i18n.t('To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.')));
+                return setAlert(
+                    createAlert(
+                        i18n.t(token.message),
+                        i18n.t(
+                            'To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.'
+                        )
+                    )
+                );
             }
 
             setAuthToken(token);

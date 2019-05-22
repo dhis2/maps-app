@@ -42,7 +42,7 @@ const datasets = {
         minLabel: 'Min mm',
         maxLabel: 'Max mm',
     },
-    'MODIS/MOD11A2': {
+    'MODIS/006/MOD11A2': {
         // Temperature
         description:
             'Land surface temperatures collected from satellite in 8 days periods. Blank spots will appear in areas with a persistent cloud cover.',

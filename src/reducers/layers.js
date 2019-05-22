@@ -58,7 +58,7 @@ const defaultLayers = [
     },
     {
         layer: 'earthEngine',
-        datasetId: 'MODIS/MOD11A2',
+        datasetId: 'MODIS/006/MOD11A2',
         type: 'Temperature',
         img: 'images/temperature.png',
         params: {
