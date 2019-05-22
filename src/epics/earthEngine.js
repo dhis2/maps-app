@@ -76,10 +76,10 @@ const collections = {
             )
         );
     },
-    'MODIS/MOD11A2': (resolve, reject) => {
+    'MODIS/006/MOD11A2': (resolve, reject) => {
         // Temperature
         const imageCollection = ee
-            .ImageCollection('MODIS/MOD11A2')
+            .ImageCollection('MODIS/006/MOD11A2')
             .sort('system:time_start', false);
 
         const featureCollection = ee
