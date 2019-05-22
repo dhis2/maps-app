@@ -68,10 +68,15 @@ const collections = {
             resolve(
                 data.features.map(f => ({
                     id: f.id,
+                    year: new Date(
+                        f.properties['system:time_start']
+                    ).getFullYear(),
                     name: formatStartEndDate(
                         f.properties['system:time_start'],
-                        f.properties['system:time_end'] - 7200001
-                    ), // Minus 2 hrs to end the day before
+                        f.properties['system:time_end'] - 7200001, // Minus 2 hrs to end the day before
+                        null,
+                        false
+                    ),
                 }))
             )
         );
@@ -90,10 +95,15 @@ const collections = {
             resolve(
                 data.features.map(f => ({
                     id: f.id,
+                    year: new Date(
+                        f.properties['system:time_start']
+                    ).getFullYear(),
                     name: formatStartEndDate(
                         f.properties['system:time_start'],
-                        f.properties['system:time_end'] - 7200001
-                    ), // Minus 2 hrs to end the day before
+                        f.properties['system:time_end'] - 7200001, // Minus 2 hrs to end the day before
+                        null,
+                        false
+                    ),
                 }))
             )
         );

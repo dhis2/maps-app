@@ -18,6 +18,17 @@ const collectionFilters = {
     ],
 };
 
+const styles = {
+    year: {
+        width: '35%',
+        paddingRight: 16,
+        boxSizing: 'border-box',
+    },
+    period: {
+        width: '65%',
+    },
+};
+
 export class CollectionSelect extends Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
@@ -30,6 +41,11 @@ export class CollectionSelect extends Component {
         style: PropTypes.object,
     };
 
+    state = {
+        years: null,
+        year: null,
+    };
+
     componentDidMount() {
         const { id, collections, loadEarthEngineCollection } = this.props;
 
@@ -38,20 +54,73 @@ export class CollectionSelect extends Component {
         }
     }
 
-    render() {
-        const {
-            id,
-            filter,
-            label,
-            collections,
-            onChange,
-            style,
-            errorText,
-        } = this.props;
+    componentDidUpdate(prevProps) {
+        const { id, filter, collections } = this.props;
 
-        const items = collections[id];
+        if (id && collections[id] !== prevProps.collections[id]) {
+            const yearItems = collections[id]
+                .filter(item => item.year)
+                .map(item => item.year);
+
+            if (yearItems.length) {
+                // Get unique years
+                const years = [...new Set(yearItems)].map(year => ({
+                    id: year,
+                    name: year.toString(),
+                }));
+
+                // Get year from saved filter or select the most recent
+                const year = filter
+                    ? Number(filter[0].arguments[1].substring(0, 4))
+                    : years[0].id;
+
+                this.setState({ years, year });
+            }
+        }
+    }
+
+    render() {
+        const { id, filter, label, collections, style, errorText } = this.props;
+
+        const { years, year } = this.state;
+
+        const items = year
+            ? collections[id].filter(item => item.year === year)
+            : collections[id];
+
         const value = filter && filter[0].arguments[1];
 
+        return (
+            <div style={style}>
+                {years && (
+                    <SelectField
+                        label={label || i18n.t('Year')}
+                        items={years}
+                        value={year}
+                        onChange={this.onYearChange}
+                        style={styles.year}
+                    />
+                )}
+                <SelectField
+                    label={label || i18n.t('Period')}
+                    loading={items ? false : true}
+                    items={items}
+                    value={value}
+                    onChange={this.onPeriodChange}
+                    style={years && styles.period}
+                    errorText={!value && errorText ? errorText : null}
+                />
+            </div>
+        );
+    }
+
+    onYearChange = year => {
+        this.setState({ year: year.id });
+        this.props.onChange(null, null);
+    };
+
+    onPeriodChange = period => {
+        const { id, onChange } = this.props;
         const collectionFilter =
             collectionFilters[id] ||
             (index => [
@@ -61,20 +130,8 @@ export class CollectionSelect extends Component {
                 },
             ]);
 
-        return (
-            <SelectField
-                label={label || i18n.t('Period')}
-                loading={items ? false : true}
-                items={items}
-                value={value}
-                onChange={period =>
-                    onChange(period.name, collectionFilter(period.id))
-                }
-                style={style}
-                errorText={!value && errorText ? errorText : null}
-            />
-        );
-    }
+        onChange(period.name, collectionFilter(period.id));
+    };
 }
 
 export default connect(
