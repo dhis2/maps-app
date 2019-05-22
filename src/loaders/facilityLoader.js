@@ -7,7 +7,7 @@ import { getOrgUnitsFromRows } from '../util/analytics';
 
 const facilityLoader = async config => {
     // Returns a promise
-    const { organisationUnitGroupSet, rows } = config;
+    const { organisationUnitGroupSet, rows, areaRadius } = config;
     const groupSetId = organisationUnitGroupSet.id;
     const orgUnits = getOrgUnitsFromRows(rows);
     let orgUnitParams = orgUnits.map(item => item.id);
@@ -41,22 +41,26 @@ const facilityLoader = async config => {
         return toGeoJson(facility, groupSet[id], contextPath);
     });
 
+    const legend = {
+        title: name,
+        unit: organisationUnitGroupSet.name,
+        items: Object.keys(groupSet).map(id => ({
+            image: `${contextPath}/images/orgunitgroup/${groupSet[id].symbol}`,
+            name: groupSet[id].name,
+        })),
+    };
+
+    if (areaRadius) {
+        legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
+    }
+
     const name = i18n.t('Facilities');
 
     return {
         ...config,
         data: features,
         name,
-        legend: {
-            title: name,
-            unit: organisationUnitGroupSet.name,
-            items: Object.keys(groupSet).map(id => ({
-                image: `${contextPath}/images/orgunitgroup/${
-                    groupSet[id].symbol
-                }`,
-                name: groupSet[id].name,
-            })),
-        },
+        legend,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

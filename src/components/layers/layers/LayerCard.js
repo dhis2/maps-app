@@ -75,6 +75,9 @@ const styles = {
         fontSize: 14,
         padding: 0, // TODO: Not working on :last-child
     },
+    tooltip: {
+        marginTop: -8,
+    },
 };
 
 const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
@@ -123,15 +126,18 @@ const LayerCard = ({
                 }
                 action={[
                     <SortableHandle key="handle" />,
-                    <Tooltip key="expand" title={i18n.t('Collapse')}>
+                    <Tooltip
+                        key="expand"
+                        title={
+                            isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
+                        }
+                        classes={{
+                            tooltipPlacementBottom: classes.tooltip,
+                        }}
+                    >
                         <IconButton
                             className={classes.expand}
                             onClick={() => toggleLayerExpand(id)}
-                            tooltip={
-                                isExpanded
-                                    ? i18n.t('Collapse')
-                                    : i18n.t('Expand')
-                            }
                             style={{ backgroundColor: 'transparent' }}
                         >
                             {isExpanded ? (

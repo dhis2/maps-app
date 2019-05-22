@@ -28,6 +28,7 @@ import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import DatePicker from '../../core/DatePicker';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import DimensionFilter from '../../dimensions/DimensionFilter';
 import { layerDialogStyles } from '../LayerDialogStyles';
 import { dimConf } from '../../../constants/dimension';
 import {
@@ -68,8 +69,10 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitNodesFromRows,
     getPeriodFromFilters,
+    getDimensionsFromFilters,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
+
 import { getStartEndDateError } from '../../../util/time';
 
 // TODO: Don't use inline styles!
@@ -276,6 +279,7 @@ export class ThematicDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const period = getPeriodFromFilters(filters);
         const dataItem = getDataItemFromColumns(columns);
+        const dimensions = getDimensionsFromFilters(filters);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
@@ -295,6 +299,11 @@ export class ThematicDialog extends Component {
                         value="orgunits"
                         label={i18n.t('Org units')}
                         data-test="thematicdialog-tabs-orgunits"
+                    />
+                    <Tab
+                        value="filter"
+                        label={i18n.t('Filter')}
+                        data-test="thematicdialog-tabs-filter"
                     />
                     <Tab
                         value="style"
@@ -520,6 +529,14 @@ export class ThematicDialog extends Component {
                                     </div>
                                 )}
                             </div>
+                        </div>
+                    )}
+                    {tab === 'filter' && (
+                        <div
+                            style={styles.flexRowFlow}
+                            data-test="thematicdialog-filtertab"
+                        >
+                            <DimensionFilter dimensions={dimensions} />
                         </div>
                     )}
                     {tab === 'style' && (

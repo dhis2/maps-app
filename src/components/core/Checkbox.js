@@ -11,7 +11,14 @@ const styles = {
 };
 
 // Wrapper around MUI Checkbox with label support
-const Checkbox = ({ label, checked, onCheck, disabled, classes, style }) => (
+const Checkbox = ({
+    label,
+    checked = false,
+    onCheck,
+    disabled,
+    classes,
+    style,
+}) => (
     <FormControlLabel
         label={label}
         control={

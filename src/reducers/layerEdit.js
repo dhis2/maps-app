@@ -1,4 +1,3 @@
-import { omit } from 'lodash/fp';
 import * as types from '../constants/actionTypes';
 import {
     setFiltersFromPeriod,
@@ -8,6 +7,9 @@ import {
     createUserOrgUnitsDimension,
     toggleOrgUnitNodeInRows,
     setOrgUnitPathInRows,
+    removePeriodFromFilters,
+    changeDimensionInFilters,
+    removeDimensionFromFilters,
 } from '../util/analytics';
 
 const layerEdit = (state = null, action) => {
@@ -96,8 +98,9 @@ const layerEdit = (state = null, action) => {
 
         case types.LAYER_EDIT_PERIOD_TYPE_SET:
             return {
-                ...omit('filters', state),
+                ...state,
                 periodType: action.periodType,
+                filters: removePeriodFromFilters(state.filters),
             };
 
         case types.LAYER_EDIT_PERIOD_SET:
@@ -105,7 +108,7 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 filters:
                     action.period.id !== 'START_END_DATES'
-                        ? setFiltersFromPeriod(action.period)
+                        ? setFiltersFromPeriod(state.filters, action.period)
                         : [],
             };
 
@@ -132,6 +135,36 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 aggregationType: action.aggregationType,
+            };
+
+        case types.LAYER_EDIT_DIMENSION_FILTER_ADD:
+            return {
+                ...state,
+                filters: [
+                    ...(state.filters || []),
+                    action.filter || {
+                        dimension: null,
+                    },
+                ],
+            };
+
+        case types.LAYER_EDIT_DIMENSION_FILTER_REMOVE:
+            return {
+                ...state,
+                filters: removeDimensionFromFilters(
+                    state.filters,
+                    action.index
+                ),
+            };
+
+        case types.LAYER_EDIT_DIMENSION_FILTER_CHANGE:
+            return {
+                ...state,
+                filters: changeDimensionInFilters(
+                    state.filters,
+                    action.index,
+                    action.filter
+                ),
             };
 
         case types.LAYER_EDIT_FILTER_ADD:
@@ -283,6 +316,24 @@ const layerEdit = (state = null, action) => {
                 eventPointColor: action.color,
             };
 
+        case types.LAYER_EDIT_RELATED_POINT_COLOR_SET:
+            return {
+                ...state,
+                relatedPointColor: action.color,
+            };
+
+        case types.LAYER_EDIT_RELATIONSHIP_LINE_COLOR_SET:
+            return {
+                ...state,
+                relationshipLineColor: action.color,
+            };
+
+        case types.LAYER_EDIT_RELATED_POINT_RADIUS_SET:
+            return {
+                ...state,
+                relatedPointRadius: parseInt(action.radius, 10),
+            };
+
         case types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_SET:
             return {
                 ...state,
@@ -402,6 +453,18 @@ const layerEdit = (state = null, action) => {
                 trackedEntityType: {
                     ...action.trackedEntityType,
                 },
+            };
+
+        // case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET:
+        //     return {
+        //         ...state,
+        //         showRelationships: action.value,
+        //     };
+
+        case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_TYPE_SET:
+            return {
+                ...state,
+                relationshipType: action.relationshipType,
             };
 
         case types.LAYER_EDIT_PROGRAM_STATUS_SET:

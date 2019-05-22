@@ -22,6 +22,9 @@ try {
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
+// Replacement for UglifyJsPlugin not working with d2-ui-anlaytics and ui-core
+const TerserPlugin = require('terser-webpack-plugin-legacy');
+
 const scriptPrefix = isDevBuild ? dhisConfig.baseUrl : '..';
 
 function log(req, res, opt) {
@@ -39,7 +42,7 @@ const webpackConfig = {
     context: __dirname,
     entry: {
         app: ['babel-polyfill', './src/app.js'],
-        map: './src/map.js',
+        map: ['babel-regenerator-runtime', './src/map.js'],
     },
     devtool: 'source-map',
     output: {
@@ -109,23 +112,15 @@ const webpackConfig = {
     },
     plugins: [
         new HTMLWebpackPlugin({
-            template: 'index.html',
+            template: 'public/index.html',
             chunks: ['app'],
         }),
     ],
     devServer: {
-        contentBase: './',
+        contentBase: './public',
         port: 8082,
         inline: true,
         compress: true,
-        proxy: [
-            {
-                path: '/polyfill.min.js',
-                target:
-                    'http://localhost:8082/node_modules/babel-polyfill/dist',
-                bypass: log,
-            },
-        ],
     },
 };
 
@@ -138,12 +133,15 @@ if (!isDevBuild) {
         })
     );
     webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
+    /* Currently not working with d2-ui-anlaytics and ui-core
     webpackConfig.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
             comments: false,
             sourceMap: true,
         })
     );
+    */
+    webpackConfig.plugins.push(new TerserPlugin());
 } else {
     webpackConfig.plugins.push(
         new webpack.DefinePlugin({

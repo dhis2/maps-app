@@ -62,7 +62,7 @@ const datasets = {
                 'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
         },
     },
-    'MODIS/MOD11A2': {
+    'MODIS/006/MOD11A2': {
         name: 'Temperature',
         band: 'LST_Day_1km',
         mask: true,
@@ -186,6 +186,14 @@ const earthEngineLoader = async config => {
     if (typeof config.config === 'string') {
         // From database as favorite
         layerConfig = JSON.parse(config.config);
+
+        // Backward compability for temperature layer (could also be fixed in a db update script)
+        if (layerConfig.id === 'MODIS/MOD11A2' && layerConfig.filter) {
+            const period = layerConfig.image.slice(-10);
+            layerConfig.id = 'MODIS/006/MOD11A2';
+            layerConfig.image = period;
+            layerConfig.filter[0].arguments[1] = period;
+        }
 
         dataset = datasets[layerConfig.id];
 

@@ -51,12 +51,13 @@ export const hasIntlSupport =
  * Formats a date string or timestamp to the default display format: 13 Aug 2018 (en locale)
  * @param {String} dateString
  * @param {String} locale
+ * @param {Boolean} showYear
  * @returns {String}
  */
-export const formatLocaleDate = (dateString, locale) =>
+export const formatLocaleDate = (dateString, locale, showYear = true) =>
     hasIntlSupport
         ? new Intl.DateTimeFormat(locale || i18n.language || DEFAULT_LOCALE, {
-              year: 'numeric',
+              year: showYear ? 'numeric' : undefined,
               month: 'short',
               day: 'numeric',
           }).format(toDate(dateString))
@@ -67,13 +68,15 @@ export const formatLocaleDate = (dateString, locale) =>
  * @param {String|Number} startDate
  * @param {String|Number} endDate
  * @param {String} locale
+ * @param {Boolean} showYear
  * @returns {String}
  */
-export const formatStartEndDate = (startDate, endDate, locale) => {
+export const formatStartEndDate = (startDate, endDate, locale, showYear) => {
     const loc = locale || i18n.language || DEFAULT_LOCALE;
-    return `${formatLocaleDate(startDate, loc)} - ${formatLocaleDate(
+    return `${formatLocaleDate(startDate, loc, showYear)} - ${formatLocaleDate(
         endDate,
-        locale
+        locale,
+        showYear
     )}`;
 };
 

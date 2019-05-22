@@ -164,13 +164,14 @@ export const styleByOptionSet = async config => {
 
     // For easier and faster lookup below
     const optionsByCode = optionSet.options.reduce((obj, option) => {
-        obj[option.code] = option;
+        obj[option.code.toLowerCase()] = option;
         return obj;
     }, {});
 
     // Add style data value and color to each feature
     config.data = config.data.map(feature => {
-        const option = optionsByCode[feature.properties[id]];
+        const featureOptionCode = String(feature.properties[id]).toLowerCase();
+        const option = optionsByCode[featureOptionCode];
 
         if (!option) {
             return feature;

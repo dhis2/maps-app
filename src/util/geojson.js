@@ -1,5 +1,4 @@
 import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
-import { isString, isEmpty } from 'lodash/fp';
 import findIndex from 'lodash/findIndex';
 import { isValidCoordinate } from './map';
 // import { createSld } from './sld';
@@ -30,13 +29,7 @@ export const downloadGeoJson = ({ name, data }) => {
 
 // TODO: Remove name mapping logic, use server params DataIDScheme / OuputIDScheme instead
 // TODO: Validate this logic - value might sometimes need to be mapped with names
-export const createEventFeature = (
-    headers,
-    names,
-    event,
-    id,
-    getCoordinates
-) => {
+export const createEventFeature = (headers, names, event, id, getGeometry) => {
     const properties = event.reduce(
         (props, value, i) => ({
             ...props,
@@ -49,38 +42,39 @@ export const createEventFeature = (
         type: 'Feature',
         id,
         properties,
-        geometry: {
-            type: 'Point',
-            coordinates: getCoordinates(event).map(parseFloat),
-        },
+        geometry: getGeometry(event),
     };
 };
 
-export const buildEventCoordinateGetter = (headers, eventCoordinateField) => {
+export const buildEventGeometryGetter = (headers, eventCoordinateField) => {
+    // If coordinate field other than event location (only points are currently supported)
     if (eventCoordinateField) {
-        // If coordinate field other than event location
         const col = findIndex(headers, h => h.name === eventCoordinateField);
 
         return event => {
-            const coordinates = event[col];
+            let coordinates = event[col];
 
-            if (Array.isArray(coordinates)) {
-                return coordinates;
-            } else if (isString(coordinates) && !isEmpty(coordinates)) {
+            if (typeof coordinates === 'string' && coordinates.length) {
                 try {
-                    return JSON.parse(coordinates);
-                } catch (e) {
-                    return [];
+                    coordinates = JSON.parse(coordinates);
+                } catch (evt) {
+                    return null;
                 }
-            } else {
-                return [];
             }
+
+            if (Array.isArray(coordinates) && isValidCoordinate(coordinates)) {
+                return {
+                    type: 'Point',
+                    coordinates,
+                };
+            }
+
+            return null;
         };
     } else {
-        // Use event location
-        const lonCol = findIndex(headers, h => h.name === 'longitude');
-        const latCol = findIndex(headers, h => h.name === 'latitude');
-        return event => [event[lonCol], event[latCol]];
+        // Use event location (can be point or polygon)
+        const geomCol = findIndex(headers, h => h.name === 'geometry');
+        return event => JSON.parse(event[geomCol]);
     }
 };
 
@@ -98,21 +92,23 @@ export const createEventFeatures = (response, config = {}) => {
 
     const idColName = config.idCol || 'psi';
     const idCol = findIndex(response.headers, h => h.name === idColName);
-    const getCoordinates = buildEventCoordinateGetter(
+    const getGeometry = buildEventGeometryGetter(
         response.headers,
         config && config.eventCoordinateField
     );
-    const data = response.rows
-        .map(row =>
-            createEventFeature(
-                response.headers,
-                config.outputIdScheme !== 'ID' ? names : {},
-                row,
-                row[idCol],
-                getCoordinates
-            )
+
+    const data = response.rows.map(row =>
+        createEventFeature(
+            response.headers,
+            config.outputIdScheme !== 'ID' ? names : {},
+            row,
+            row[idCol],
+            getGeometry
         )
-        .filter(feature => isValidCoordinate(feature.geometry.coordinates));
+    );
+
+    // Sort to draw polygons before points
+    data.sort(feature => (feature.geometry.type === 'Polygon' ? -1 : 0));
 
     return { data, names };
 };

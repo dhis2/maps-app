@@ -1,15 +1,37 @@
 import * as types from '../constants/actionTypes';
 
+// Add dimension filter
+export const addDimensionFilter = filter => ({
+    type: types.LAYER_EDIT_DIMENSION_FILTER_ADD,
+    filter,
+});
+
+// Remove dimension filter
+export const removeDimensionFilter = index => ({
+    type: types.LAYER_EDIT_DIMENSION_FILTER_REMOVE,
+    index,
+});
+
+// Chenge a dimension filter in an array
+export const changeDimensionFilter = (index, filter) => ({
+    type: types.LAYER_EDIT_DIMENSION_FILTER_CHANGE,
+    index,
+    filter,
+});
+
+// Add event filter
 export const addFilter = filter => ({
     type: types.LAYER_EDIT_FILTER_ADD,
     filter,
 });
 
+// Remove event filter
 export const removeFilter = index => ({
     type: types.LAYER_EDIT_FILTER_REMOVE,
     index,
 });
 
+// Change event filter
 export const changeFilter = (index, filter) => ({
     type: types.LAYER_EDIT_FILTER_CHANGE,
     index,
@@ -97,6 +119,21 @@ export const setEventPointRadius = radius => ({
 // Set event point color (event layer)
 export const setEventPointColor = color => ({
     type: types.LAYER_EDIT_EVENT_POINT_COLOR_SET,
+    color,
+});
+
+export const setRelatedPointColor = color => ({
+    type: types.LAYER_EDIT_RELATED_POINT_COLOR_SET,
+    color,
+});
+
+export const setRelatedPointRadius = radius => ({
+    type: types.LAYER_EDIT_RELATED_POINT_RADIUS_SET,
+    radius,
+});
+
+export const setRelationshipLineColor = color => ({
+    type: types.LAYER_EDIT_RELATIONSHIP_LINE_COLOR_SET,
     color,
 });
 
@@ -273,10 +310,22 @@ export const setOrgUnitPath = (id, path) => ({
     path,
 });
 
-// Set program used (event and thematic)
+// Set the tracked entity type
 export const setTrackedEntityType = trackedEntityType => ({
     type: types.LAYER_EDIT_TRACKED_ENTITY_TYPE_SET,
     trackedEntityType,
+});
+
+// // Set the type of tracked entity relationship to render
+// export const setTrackedEntityShowRelationships = value => ({
+//     type: types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET,
+//     value,
+// });
+
+// Set the type of tracked entity relationship to render
+export const setTrackedEntityRelationshipType = relationshipType => ({
+    type: types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_TYPE_SET,
+    relationshipType,
 });
 
 // Set program status for a TEI

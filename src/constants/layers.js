@@ -16,6 +16,9 @@ export const EVENT_BUFFER = 100;
 export const TEI_COLOR = '#BB0000';
 export const TEI_RADIUS = 6;
 export const TEI_BUFFER = 100;
+export const TEI_RELATED_COLOR = '#000000';
+export const TEI_RELATED_RADIUS = 3;
+export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
 
 /* CLASSIFICATION */
 export const CLASSIFICATION_PREDEFINED = 1;

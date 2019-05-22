@@ -1,7 +1,8 @@
 import i18n from '@dhis2/d2-i18n';
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { generateUid } from 'd2/uid';
-import { createAlert } from '../util/alerts';
+import { createAlert } from './alerts';
+import { upgradeGisAppLayers } from './requests';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -60,6 +61,10 @@ const validLayerProperties = [
     'styleDataItem',
     'trackedEntityType',
     'valueType',
+    'relationshipType',
+    'relatedPointColor',
+    'relatedPointRadius',
+    'relationshipLineColor',
 ];
 
 const models = ['program', 'programStage', 'organisationUnitGroupSet'];
@@ -121,6 +126,20 @@ const models2objects = config => {
         delete config.params;
         delete config.filter;
         delete config.periodName;
+    } else if (config.relationshipType) {
+        config.config = JSON.stringify({
+            relationships: {
+                type: config.relationshipType,
+                pointColor: config.relatedPointColor,
+                pointRadius: config.relatedPointRadius,
+                lineColor: config.relationshipLineColor,
+            },
+        });
+
+        delete config.relationshipType;
+        delete config.relatedPointColor;
+        delete config.relatedPointRadius;
+        delete config.relationshipLineColor;
     }
 
     if (isObject(config.config)) {
@@ -152,10 +171,35 @@ const cleanDimension = dim => ({
     items: dim.items.map(item => pick(validModelProperties, item)),
 });
 
-// Translate from chart/pivot config to map config
+// Set external basemap from mapViews (old format)
+const setExternalBasemap = config => {
+    const { mapViews } = config;
+    const externalBasemap = mapViews.find(view => {
+        if (view.layer === 'external') {
+            if (typeof view.config === 'string') {
+                view.config = JSON.parse(view.config);
+            }
+
+            return view.config.mapLayerPosition === 'BASEMAP';
+        }
+        return false;
+    });
+
+    if (!externalBasemap) {
+        return config;
+    }
+
+    return {
+        ...config,
+        basemap: { id: externalBasemap.config.id },
+        mapViews: mapViews.filter(view => view.id !== externalBasemap.id),
+    };
+};
+
+// Translate from chart/pivot config to map config, or from the old GIS app format
 export const translateConfig = config => {
+    // If chart/pivot config
     if (!config.mapViews) {
-        // TODO: Best way to detect chart/pivot config
         const { el, name } = config;
         const dimensions = [
             ...(config.columns || []),
@@ -190,5 +234,10 @@ export const translateConfig = config => {
         };
     }
 
-    return config;
+    const newConfig = setExternalBasemap(config);
+
+    return {
+        ...newConfig,
+        mapViews: upgradeGisAppLayers(newConfig.mapViews),
+    };
 };

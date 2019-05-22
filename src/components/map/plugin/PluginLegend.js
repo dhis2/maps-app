@@ -88,7 +88,6 @@ class PluginLegend extends PureComponent {
                                             key={alert.id}
                                             className={classes.alert}
                                         >
-                                            <strong>{alert.title}</strong>:{' '}
                                             {alert.description}
                                         </div>
                                     ))}

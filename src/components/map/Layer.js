@@ -10,7 +10,7 @@ class Layer extends PureComponent {
     static propTypes = {
         areaRadius: PropTypes.number,
         data: PropTypes.array,
-        dataFilters: PropTypes.array,
+        dataFilters: PropTypes.object,
         id: PropTypes.string.isRequired,
         index: PropTypes.number,
         editCounter: PropTypes.number,
@@ -99,7 +99,9 @@ class Layer extends PureComponent {
 
     // Fit map to layer bounds
     fitBounds() {
-        this.context.map.fitBounds(this.layer.getBounds());
+        if (this.layer.getBounds) {
+            this.context.map.fitBounds(this.layer.getBounds());
+        }
     }
 
     removeLayer() {

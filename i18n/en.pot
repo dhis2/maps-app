@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-03-07T12:04:33.581Z\n"
-"PO-Revision-Date: 2019-03-07T12:04:33.581Z\n"
+"POT-Creation-Date: 2019-04-25T12:42:43.299Z\n"
+"PO-Revision-Date: 2019-04-25T12:42:43.299Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -92,6 +92,15 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
+msgid "Add filter"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Dimension"
+msgstr ""
+
 msgid "Download"
 msgstr ""
 
@@ -152,10 +161,10 @@ msgstr ""
 msgid "period"
 msgstr ""
 
-msgid "Filter"
+msgid "Org units"
 msgstr ""
 
-msgid "Org units"
+msgid "Filter"
 msgstr ""
 
 msgid "Start date"
@@ -215,10 +224,25 @@ msgstr ""
 msgid "Select period when tracked entities were last updated"
 msgstr ""
 
+msgid "relationships"
+msgstr ""
+
 msgid "Program status"
 msgstr ""
 
 msgid "Follow up"
+msgstr ""
+
+msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid "WARNING"
+msgstr ""
+
+msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
 msgstr ""
 
 msgid "Selection mode"
@@ -227,7 +251,16 @@ msgstr ""
 msgid "Tracked entities"
 msgstr ""
 
+msgid "Tracked entity style"
+msgstr ""
+
 msgid "Point size"
+msgstr ""
+
+msgid "Related entity style"
+msgstr ""
+
+msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
@@ -281,6 +314,15 @@ msgstr ""
 msgid "Item type"
 msgstr ""
 
+msgid "Failed to load relationship types."
+msgstr ""
+
+msgid "No relationship types were found for tracked entity type {{type}}"
+msgstr ""
+
+msgid "Relationship type"
+msgstr ""
+
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
@@ -300,15 +342,6 @@ msgid "The following information may be requested by technical support."
 msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "Add filter"
-msgstr ""
-
-msgid "Delete filter"
-msgstr ""
-
-msgid "Remove filter"
 msgstr ""
 
 msgid "Operator"
@@ -333,6 +366,9 @@ msgid "is"
 msgstr ""
 
 msgid "is not"
+msgstr ""
+
+msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
@@ -525,19 +561,37 @@ msgid ""
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
 
+msgid "Error"
+msgstr ""
+
+msgid "A connection to Google Earth Engine could not be established."
+msgstr ""
+
 msgid "Favorite"
 msgstr ""
 
 msgid "is saved"
 msgstr ""
 
-msgid "Error"
-msgstr ""
-
 msgid "Boundaries"
 msgstr ""
 
+msgid "Access denied"
+msgstr ""
+
+msgid "user is not allowed to read layer data"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "an unknown error occurred while reading layer data"
+msgstr ""
+
 msgid "Event"
+msgstr ""
+
+msgid "No data found"
 msgstr ""
 
 msgid "Facilities"
@@ -549,13 +603,13 @@ msgstr ""
 msgid "No coordinates found"
 msgstr ""
 
-msgid "No data found"
-msgstr ""
-
 msgid "Tracked entity"
 msgstr ""
 
 msgid "No tracked entities found"
+msgstr ""
+
+msgid "related"
 msgstr ""
 
 msgid "true"

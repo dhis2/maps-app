@@ -145,7 +145,6 @@ class Map extends Component {
         this.context.map.resize();
     }
 
-    // Remove map
     componentWillUnmount() {
         this.context.map.remove();
     }
@@ -158,7 +157,7 @@ class Map extends Component {
             '<br />Latitude: ' +
             coord[1].toFixed(6);
 
-        map.openPopup(content, coord);
+        map.openPopup(content, coord, this.props.closeCoordinatePopup);
     }
 
     onRightClick = evt => {
@@ -238,7 +237,7 @@ const mapStateToProps = state => ({
     basemaps: state.basemaps,
     layersPanelOpen: state.ui.layersPanelOpen,
     interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
-    dataTableOpen: state.dataTable,
+    dataTableOpen: state.dataTable ? true : false,
     dataTableHeight: state.ui.dataTableHeight,
     isDownload: state.download.showDialog,
     showName: state.download.showDialog ? state.download.showName : true,

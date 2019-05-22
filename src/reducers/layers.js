@@ -11,14 +11,14 @@ const defaultLayers = [
         layer: 'event',
         type: 'Events',
         img: 'images/events.png',
-        opacity: 0.95,
+        opacity: 0.8,
         eventClustering: true,
     },
     {
         layer: 'trackedEntity',
         type: 'Tracked entities',
         img: 'images/trackedentities.png',
-        opacity: 0.4,
+        opacity: 0.5,
     },
     {
         layer: 'facility',
@@ -58,7 +58,7 @@ const defaultLayers = [
     },
     {
         layer: 'earthEngine',
-        datasetId: 'MODIS/MOD11A2',
+        datasetId: 'MODIS/006/MOD11A2',
         type: 'Temperature',
         img: 'images/temperature.png',
         params: {

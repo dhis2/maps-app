@@ -22,14 +22,14 @@ const collections = {
             .FeatureCollection(imageCollection)
             .select(['year'], null, false);
 
-        featureCollection.getInfo(data =>
+        featureCollection.getInfo(data => {
             resolve(
                 data.features.map(feature => ({
                     id: feature.properties['year'],
                     name: String(feature.properties['year']), // TODO: Support numbers in d2-ui cmp
                 }))
-            )
-        );
+            );
+        });
     },
     'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': resolve => {
         // Nighttime lights
@@ -68,18 +68,23 @@ const collections = {
             resolve(
                 data.features.map(f => ({
                     id: f.id,
+                    year: new Date(
+                        f.properties['system:time_start']
+                    ).getFullYear(),
                     name: formatStartEndDate(
                         f.properties['system:time_start'],
-                        f.properties['system:time_end'] - 7200001
-                    ), // Minus 2 hrs to end the day before
+                        f.properties['system:time_end'] - 7200001, // Minus 2 hrs to end the day before
+                        null,
+                        false
+                    ),
                 }))
             )
         );
     },
-    'MODIS/MOD11A2': resolve => {
+    'MODIS/006/MOD11A2': resolve => {
         // Temperature
         const imageCollection = ee
-            .ImageCollection('MODIS/MOD11A2')
+            .ImageCollection('MODIS/006/MOD11A2')
             .sort('system:time_start', false);
 
         const featureCollection = ee
@@ -90,10 +95,15 @@ const collections = {
             resolve(
                 data.features.map(f => ({
                     id: f.id,
+                    year: new Date(
+                        f.properties['system:time_start']
+                    ).getFullYear(),
                     name: formatStartEndDate(
                         f.properties['system:time_start'],
-                        f.properties['system:time_end'] - 7200001
-                    ), // Minus 2 hrs to end the day before
+                        f.properties['system:time_end'] - 7200001, // Minus 2 hrs to end the day before
+                        null,
+                        false
+                    ),
                 }))
             )
         );
@@ -121,18 +131,11 @@ const collections = {
     },
 };
 
-const setAuthToken = ({ client_id, access_token, expires_in }) => {
-    ee.data.setAuthToken(
-        client_id,
-        'Bearer',
-        access_token,
-        expires_in,
-        null,
-        null,
-        false
-    );
-    ee.initialize();
-};
+const setAuthToken = async ({ client_id, access_token, expires_in }) =>
+    new Promise((resolve, reject) => {
+        ee.data.setAuthToken(client_id, 'Bearer', access_token, expires_in);
+        ee.initialize(null, null, resolve, reject);
+    });
 
 // Load collection (periods) for one EE dataset
 export const loadCollection = action$ =>
@@ -154,8 +157,18 @@ export const loadCollection = action$ =>
                 );
             }
 
-            setAuthToken(token);
-
+            try {
+                await setAuthToken(token);
+            } catch (e) {
+                return setAlert(
+                    createAlert(
+                        i18n.t('Error'),
+                        i18n.t(
+                            'A connection to Google Earth Engine could not be established.'
+                        )
+                    )
+                );
+            }
             return new Promise(collections[action.id]).then(data =>
                 setEarthEngineCollection(action.id, data)
             );

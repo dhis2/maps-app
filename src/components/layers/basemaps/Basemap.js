@@ -46,6 +46,7 @@ const styles = theme => ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         textAlign: 'center',
+        lineHeight: '18px',
     },
     nameSelected: {
         color: theme.palette.primary.dark,

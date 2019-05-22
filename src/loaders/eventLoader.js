@@ -14,16 +14,44 @@ import {
     getBounds,
 } from '../util/geojson';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
+import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import { cssColor } from '../util/colors';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
 
-//TODO: Refactor to share code with other loaders
+const accessDeniedAlert = createAlert(
+    i18n.t('Access denied'),
+    i18n.t('user is not allowed to read layer data')
+);
+const unknownErrorAlert = createAlert(
+    i18n.t('Failed'),
+    i18n.t('an unknown error occurred while reading layer data')
+);
+
+// TODO: Refactor to share code with other loaders
 // Returns a promise
 const eventLoader = async layerConfig => {
-    const config = { ...layerConfig };
+    let config = { ...layerConfig };
+    try {
+        await loadEventLayer(config);
+    } catch (e) {
+        if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
+            config.alerts = [accessDeniedAlert];
+        } else {
+            config.alerts = [unknownErrorAlert];
+        }
+    }
+
+    config.isLoaded = true;
+    config.isExpanded = true;
+    config.isVisible = true;
+
+    return config;
+};
+
+const loadEventLayer = async config => {
     const {
         columns,
         endDate,
@@ -43,6 +71,7 @@ const eventLoader = async layerConfig => {
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
     let analyticsRequest = await getAnalyticsRequest(config);
+    let alert;
 
     config.name = programStage.name;
 
@@ -85,6 +114,8 @@ const eventLoader = async layerConfig => {
             if (areaRadius) {
                 config.legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
             }
+        } else {
+            alert = createAlert(config.name, i18n.t('No data found'));
         }
 
         // TODO: Add filters to legend when using server cluster
@@ -97,11 +128,9 @@ const eventLoader = async layerConfig => {
             });
     }
 
-    config.isLoaded = true;
-    config.isExpanded = true;
-    config.isVisible = true;
-
-    return config;
+    if (alert) {
+        config.alerts = [alert];
+    }
 };
 
 // Also used to query for server cluster in map/EventLayer.js
@@ -118,9 +147,12 @@ export const getAnalyticsRequest = async ({
     eventCoordinateField,
     relativePeriodDate,
 }) => {
-    const orgUnits = getOrgUnitsFromRows(rows),
-        period = getPeriodFromFilters(filters);
-    const dataItems = addStyleDataItem(columns, styleDataItem);
+    const orgUnits = getOrgUnitsFromRows(rows);
+    const period = getPeriodFromFilters(filters);
+    const dataItems = addStyleDataItem(
+        columns.filter(isValidDimension),
+        styleDataItem
+    );
 
     const d2 = await getD2();
 
@@ -145,12 +177,10 @@ export const getAnalyticsRequest = async ({
 
     if (dataItems) {
         dataItems.forEach(item => {
-            if (isValidDimension(item)) {
-                analyticsRequest = analyticsRequest.addDimension(
-                    item.dimension,
-                    item.filter
-                );
-            }
+            analyticsRequest = analyticsRequest.addDimension(
+                item.dimension,
+                item.filter
+            );
         });
     }
 

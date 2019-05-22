@@ -34,7 +34,7 @@ const LegendItem = ({
                     <span style={symbol} />
                 ) : (
                     // Draw line
-                    <svg viewBox="0 0 24 24">
+                    <svg viewBox="0 0 24 24" style={{ width: 24, height: 24 }}>
                         <path
                             stroke={color}
                             strokeWidth={weight}
