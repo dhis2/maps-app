@@ -219,13 +219,14 @@ class Map extends Component {
                         );
                     })}
                     <Layer key="basemap" {...basemapConfig} />
-                    {isDownload && legendPosition && (
-                        <DownloadLegend
-                            position={legendPosition}
-                            layers={mapViews}
-                            showName={showName}
-                        />
-                    )}
+                    {isDownload &&
+                        legendPosition && (
+                            <DownloadLegend
+                                position={legendPosition}
+                                layers={mapViews}
+                                showName={showName}
+                            />
+                        )}
                 </div>
             </div>
         );
