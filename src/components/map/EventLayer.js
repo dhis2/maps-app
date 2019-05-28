@@ -23,6 +23,8 @@ class EventLayer extends Layer {
             serverCluster,
             areaRadius,
             editCounter,
+            styleDataItem,
+            legend,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -48,6 +50,7 @@ class EventLayer extends Layer {
             data,
             fillColor: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
+            groups: styleDataItem && legend ? legend.items : null,
             onClick: this.onEventClick.bind(this),
         };
 
@@ -212,7 +215,7 @@ class EventLayer extends Layer {
         });
     }
 
-    // Convert surver cluster response to GeoJSON
+    // Convert server cluster response to GeoJSON
     toGeoJson(data) {
         const header = {};
         const features = [];
