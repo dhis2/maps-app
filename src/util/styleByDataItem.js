@@ -29,11 +29,23 @@ export const styleByDataItem = async config => {
         await styleByBoolean(config);
     }
 
-    config.legend.items.push({
-        name: i18n.t('Not set'),
-        color: cssColor(config.eventPointColor) || EVENT_COLOR,
-        radius: config.eventPointRadius || EVENT_RADIUS,
-    });
+    // Check if there are features without style
+    const noStyleFeatures = config.data.filter(
+        feature => !feature.properties.color
+    );
+
+    // Add default color to features without style + legend item
+    if (noStyleFeatures.length) {
+        const color = cssColor(config.eventPointColor) || EVENT_COLOR;
+
+        noStyleFeatures.forEach(feature => (feature.properties.color = color));
+
+        config.legend.items.push({
+            name: i18n.t('Not set'),
+            color,
+            radius: config.eventPointRadius || EVENT_RADIUS,
+        });
+    }
 
     return config;
 };
