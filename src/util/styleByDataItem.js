@@ -170,20 +170,23 @@ export const styleByOptionSet = async config => {
 
     // Add style data value and color to each feature
     config.data = config.data.map(feature => {
-        const option = optionsByCode[feature.properties[id]];
+        const code = feature.properties[id];
 
-        if (!option) {
-            return feature;
+        if (code) {
+            const option = optionsByCode[code.toLowerCase()];
+            if (option) {
+                return {
+                    ...feature,
+                    properties: {
+                        ...feature.properties,
+                        value: option.name,
+                        color: option.style.color,
+                    },
+                };
+            }
         }
 
-        return {
-            ...feature,
-            properties: {
-                ...feature.properties,
-                value: option.name,
-                color: option.style.color,
-            },
-        };
+        return feature;
     });
 
     // Add legend data
