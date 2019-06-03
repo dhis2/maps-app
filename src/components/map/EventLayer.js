@@ -153,53 +153,56 @@ class EventLayer extends Layer {
         const { value } = feature.properties;
         const { styleDataItem } = this.props;
 
-        apiFetch('/events/' + feature.id).then(data => {
-            const time =
-                data.eventDate.substring(0, 10) +
-                ' ' +
-                data.eventDate.substring(11, 16);
-            const dataValues = data.dataValues;
-            let content = '<table><tbody>';
+        if (typeof feature.id === 'string' && !feature.properties.cluster) {
+            apiFetch('/events/' + feature.id).then(data => {
+                const time =
+                    data.eventDate.substring(0, 10) +
+                    ' ' +
+                    data.eventDate.substring(11, 16);
+                const dataValues = data.dataValues;
+                let content = '<table><tbody>';
 
-            // Output value if styled by data item, and item is not included in display elements
-            if (styleDataItem && !this.displayElements[styleDataItem.id]) {
-                content += `<tr><th>${styleDataItem.name}</th><td>${
-                    value !== undefined ? value : i18n.t('Not set')
-                }</td></tr>`;
-            }
+                // Output value if styled by data item, and item is not included in display elements
+                if (styleDataItem && !this.displayElements[styleDataItem.id]) {
+                    content += `<tr><th>${styleDataItem.name}</th><td>${
+                        value !== undefined ? value : i18n.t('Not set')
+                    }</td></tr>`;
+                }
 
-            if (Array.isArray(dataValues)) {
-                dataValues.forEach(dataValue => {
-                    const displayEl = this.displayElements[
-                        dataValue.dataElement
-                    ];
+                if (Array.isArray(dataValues)) {
+                    dataValues.forEach(dataValue => {
+                        const displayEl = this.displayElements[
+                            dataValue.dataElement
+                        ];
 
-                    if (displayEl) {
-                        let value = dataValue.value;
+                        if (displayEl) {
+                            let value = dataValue.value;
 
-                        if (displayEl.optionSet) {
-                            value = displayEl.optionSet[value];
+                            if (displayEl.optionSet) {
+                                value = displayEl.optionSet[value];
+                            }
+
+                            content += `<tr><th>${
+                                displayEl.name
+                            }</th><td>${value || i18n.t('Not set')}</td></tr>`;
                         }
+                    });
 
-                        content += `<tr><th>${displayEl.name}</th><td>${value ||
-                            i18n.t('Not set')}</td></tr>`;
-                    }
-                });
+                    content +=
+                        '<tr style="height:5px;"><th></th><td></td></tr>';
+                }
 
-                content += '<tr style="height:5px;"><th></th><td></td></tr>';
-            }
-
-            // Show event location for points
-            if (type === 'Point') {
-                content += `
+                // Show event location for points
+                if (type === 'Point') {
+                    content += `
                     <tr>
                       <th>${this.eventCoordinateFieldName ||
                           i18n.t('Event location')}</th>
                       <td>${coord[0]}, ${coord[1]}</td>
                     </tr>`;
-            }
+                }
 
-            content += `<tr>
+                content += `<tr>
                 <th>${i18n.t('Organisation unit')}</th>
                 <td>${data.orgUnitName}</td>
               </tr>
@@ -208,11 +211,15 @@ class EventLayer extends Layer {
                 <td>${time}</td>
               </tr>`;
 
-            content += '</tbody></table>';
+                content += '</tbody></table>';
 
-            // Remove all line breaks as it's not working for map download
-            this.context.map.openPopup(removeLineBreaks(content), coordinates);
-        });
+                // Remove all line breaks as it's not working for map download
+                this.context.map.openPopup(
+                    removeLineBreaks(content),
+                    coordinates
+                );
+            });
+        }
     }
 
     // Convert server cluster response to GeoJSON
