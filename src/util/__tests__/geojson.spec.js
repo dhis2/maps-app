@@ -23,7 +23,7 @@ const sampleData = [
             type: 'MultiPolygon',
             coordinates: [[[0, 0], [1, 1], [2, 3], [0, 3]]],
         },
-        attributes: {
+        properties: {
             testAttribute: 'someValue',
             attr2: 'someOtherValue',
         },
@@ -35,7 +35,7 @@ const sampleData = [
             type: 'Point',
             coordinates: [[[0, 0], [1, 1], [2, 3], [0, 3]]],
         },
-        attributes: {
+        properties: {
             testAttribute: 'someValue',
             attr2: 'someOtherValue',
         },

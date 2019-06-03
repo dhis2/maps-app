@@ -35,7 +35,7 @@ export const createEventFeature = (headers, names, event, id, getGeometry) => {
             ...props,
             [names[headers[i].name] || headers[i].name]: value, // TODO: Regression - values no longer translated
         }),
-        {}
+        { id } // Can be removed when Mapbox GL JS supports string ids: https://github.com/mapbox/mapbox-gl-js/issues/2716
     );
 
     return {
