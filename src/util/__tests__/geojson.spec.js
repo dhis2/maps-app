@@ -94,6 +94,7 @@ describe('geojson utils', () => {
                 properties: {
                     [headers[0].name]: dummyEventRow[0],
                     [headers[1].name]: dummyEventRow[1],
+                    id: dummyID,
                 },
                 geometry: dummyGeometry,
             });
@@ -117,6 +118,7 @@ describe('geojson utils', () => {
                 properties: {
                     [names[headers[0].name]]: dummyEventRow[0],
                     [headers[1].name]: dummyEventRow[1],
+                    id: dummyID,
                 },
                 geometry: dummyGeometry,
             });
@@ -241,7 +243,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.column]: row[i],
                         }),
-                        {}
+                        { id: row[1] }
                     ),
                     geometry: point,
                 }))
@@ -260,7 +262,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.column]: row[i],
                         }),
-                        {}
+                        { id: row[2] }
                     ),
                     geometry: point,
                 }))
@@ -281,7 +283,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.name]: row[i],
                         }),
-                        {}
+                        { id: row[1] }
                     ),
                     geometry: point,
                 }))
@@ -309,7 +311,7 @@ describe('geojson utils', () => {
                             ...out,
                             [`${header.name} CUSTOM`]: row[i],
                         }),
-                        {}
+                        { id: row[1] }
                     ),
                     geometry: point,
                 }))
