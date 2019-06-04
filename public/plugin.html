@@ -26,6 +26,10 @@
             <input type="text" id="inputMapID" value="smxK71C26QU" />
         </div>
         <div>
+            <label>Config JSON</label>
+            <textarea id="inputMapConfig"></textarea>
+        </div>
+        <div>
             <label>User Org Unit</label>
             <input type="text" id="inputUserOrgUnit" value="" />
             <small><strong>Bo</strong> district = <strong>O6uvpzGd5pu</strong></small>
@@ -48,11 +52,24 @@
         mapPlugin.url = '//localhost:8080';
         mapPlugin.username = 'admin';
         mapPlugin.password = 'district';
+
         function onReloadBtnPress(e) {
+            let config = {}
+            try {
+                config = JSON.parse(document.getElementById('inputMapConfig').value);
+            } catch (e) {}
+
+            const id = document.getElementById('inputMapID').value;
+            if (id && id.length) {
+                config = {
+                    id
+                }
+            }
+
             mapPlugin.load({
-                id: document.getElementById('inputMapID').value,
                 el: 'map',
                 userOrgUnit: [document.getElementById('inputUserOrgUnit').value],
+                ...config
             })
 
             picker.style.display = 'none';
