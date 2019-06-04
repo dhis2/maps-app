@@ -244,6 +244,7 @@ class EventLayer extends Layer {
                             [extent[1], extent[0]],
                             [extent[3], extent[2]],
                         ],
+                        id: row[header.points],
                     },
                 });
             });
