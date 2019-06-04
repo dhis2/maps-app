@@ -57,20 +57,23 @@
             let config = {}
             try {
                 config = JSON.parse(document.getElementById('inputMapConfig').value);
-            } catch (e) {}
+            } catch (e) {
+                console.error(e)
+            }
 
             const id = document.getElementById('inputMapID').value;
             if (id && id.length) {
-                config = {
+                config.id = {
                     id
                 }
             }
 
-            mapPlugin.load({
+            config = Object.assign({
                 el: 'map',
-                userOrgUnit: [document.getElementById('inputUserOrgUnit').value],
-                ...config
-            })
+                userOrgUnit: [document.getElementById('inputUserOrgUnit').value]
+            }, config);
+
+            mapPlugin.load(config);
 
             picker.style.display = 'none';
             mapContainer.style.display = 'block';
