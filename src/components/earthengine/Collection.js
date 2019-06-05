@@ -51,31 +51,39 @@ export class CollectionSelect extends Component {
 
         if (id && !collections[id]) {
             loadEarthEngineCollection(id);
+        } else {
+            this.setYears();
         }
     }
 
     componentDidUpdate(prevProps) {
-        const { id, filter, collections } = this.props;
+        const { id, collections } = this.props;
 
         if (id && collections[id] !== prevProps.collections[id]) {
-            const yearItems = collections[id]
-                .filter(item => item.year)
-                .map(item => item.year);
+            this.setYears();
+        }
+    }
 
-            if (yearItems.length) {
-                // Get unique years
-                const years = [...new Set(yearItems)].map(year => ({
-                    id: year,
-                    name: year.toString(),
-                }));
+    setYears() {
+        const { id, filter, collections } = this.props;
 
-                // Get year from saved filter or select the most recent
-                const year = filter
-                    ? Number(filter[0].arguments[1].substring(0, 4))
-                    : years[0].id;
+        const yearItems = collections[id]
+            .filter(item => item.year)
+            .map(item => item.year);
 
-                this.setState({ years, year });
-            }
+        if (yearItems.length) {
+            // Get unique years
+            const years = [...new Set(yearItems)].map(year => ({
+                id: year,
+                name: year.toString(),
+            }));
+
+            // Get year from saved filter or select the most recent
+            const year = filter
+                ? Number(filter[0].arguments[1].substring(0, 4))
+                : years[0].id;
+
+            this.setState({ years, year });
         }
     }
 
