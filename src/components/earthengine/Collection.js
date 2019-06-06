@@ -34,7 +34,7 @@ export class CollectionSelect extends Component {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
         errorText: PropTypes.string,
-        collections: PropTypes.object,
+        collections: PropTypes.object.isRequired,
         filter: PropTypes.array,
         loadEarthEngineCollection: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
@@ -49,10 +49,12 @@ export class CollectionSelect extends Component {
     componentDidMount() {
         const { id, collections, loadEarthEngineCollection } = this.props;
 
-        if (id && !collections[id]) {
-            loadEarthEngineCollection(id);
-        } else {
-            this.setYears();
+        if (id) {
+            if (collections[id]) {
+                this.setYears();
+            } else {
+                loadEarthEngineCollection(id);
+            }
         }
     }
 
