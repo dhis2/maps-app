@@ -105,6 +105,12 @@ const Plugin = () => {
     async function loadLayers(config) {
         if (!isUnmounted(config.el)) {
             let basemap = config.basemap || 'osmLight';
+
+            // Default basemap is required, visibility is set to false below
+            if (basemap === 'none') {
+                basemap = 'osmLight';
+            }
+
             const basemapId = basemap.id || basemap;
 
             if (isValidUid(basemapId)) {
@@ -130,6 +136,10 @@ const Plugin = () => {
                         ...mapView,
                         userOrgUnit: config.userOrgUnit,
                     }));
+                }
+
+                if (config.basemap === 'none') {
+                    basemap.isVisible = false;
                 }
 
                 Promise.all(config.mapViews.map(fetchLayer)).then(mapViews =>
