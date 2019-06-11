@@ -23,6 +23,7 @@ import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import PeriodSelect from '../../periods/PeriodSelect';
 import PeriodTypeSelect from '../../periods/PeriodTypeSelect';
+import PeriodDisplay from '../../periods/PeriodDisplay';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
@@ -485,6 +486,9 @@ export class ThematicDialog extends Component {
                                     </div>
                                 ) : null,
                             ]}
+                            {periodType !== 'StartEndDates' && (
+                                <PeriodDisplay />
+                            )}
                         </div>
                     )}
                     {tab === 'orgunits' && (
