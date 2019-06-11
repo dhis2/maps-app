@@ -16,8 +16,7 @@ const styles = () => ({
     },
 });
 
-const PeriodDisplay = ({ classes }) => {
-    const value = 'aggregate';
+const PeriodDisplay = ({ value = 'aggregate', onChange, classes }) => {
     return (
         <FormControl component="fieldset" className={classes.control}>
             <FormLabel component="legend" className={classes.label}>
@@ -27,6 +26,7 @@ const PeriodDisplay = ({ classes }) => {
                 aria-label="Period display"
                 name="periodd-display"
                 value={value}
+                onChange={(evt, value) => onChange(value)}
             >
                 <FormControlLabel
                     value="aggregate"
@@ -49,6 +49,8 @@ const PeriodDisplay = ({ classes }) => {
 };
 
 PeriodDisplay.propTypes = {
+    value: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };
 

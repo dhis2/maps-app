@@ -8,7 +8,7 @@ import MapProvider from '../map/MapProvider';
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
-import Map from '../map/Map';
+import MapContainer from '../map/MapContainer';
 import BottomPanel from '../datatable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
@@ -49,7 +49,7 @@ export class App extends Component {
                         <InterpretationsPanel />
                         <LayersPanel />
                         <LayersToggle />
-                        <Map />
+                        <MapContainer />
                         <BottomPanel />
                         <LayerEdit />
                         <ContextMenu />

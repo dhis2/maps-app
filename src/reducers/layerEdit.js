@@ -112,6 +112,12 @@ const layerEdit = (state = null, action) => {
                         : [],
             };
 
+        case types.LAYER_EDIT_PERIOD_DISPLAY_SET:
+            return {
+                ...state,
+                periodDisplay: action.payload,
+            };
+
         case types.LAYER_EDIT_START_DATE_SET:
             return {
                 ...state,

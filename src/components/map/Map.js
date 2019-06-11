@@ -14,11 +14,6 @@ import ExternalLayer from './ExternalLayer';
 import MapName from './MapName';
 import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
-import {
-    HEADER_HEIGHT,
-    LAYERS_PANEL_WIDTH,
-    INTERPRETATIONS_PANEL_WIDTH,
-} from '../../constants/layout';
 
 const layerType = {
     event: EventLayer,
@@ -172,10 +167,6 @@ class Map extends Component {
             showName,
             isDownload,
             legendPosition,
-            layersPanelOpen,
-            interpretationsPanelOpen,
-            dataTableOpen,
-            dataTableHeight,
             openContextMenu,
             classes,
         } = this.props;
@@ -187,46 +178,33 @@ class Map extends Component {
 
         const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
 
-        const style = {
-            position: 'absolute',
-            top: HEADER_HEIGHT,
-            left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
-            right: interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0,
-            bottom: dataTableOpen ? dataTableHeight : 0,
-        };
-
         return (
             <div
-                className={isDownload ? classes.mapDownload : null}
-                style={style}
+                id="dhis2-maps-container"
+                ref={node => (this.node = node)}
+                className={classes.mapContainer}
             >
-                <div
-                    id="dhis2-maps-container"
-                    ref={node => (this.node = node)}
-                    className={classes.mapContainer}
-                >
-                    <MapName />
-                    {layers.map((config, index) => {
-                        const Overlay = layerType[config.layer] || Layer;
+                <MapName />
+                {layers.map((config, index) => {
+                    const Overlay = layerType[config.layer] || Layer;
 
-                        return (
-                            <Overlay
-                                key={config.id}
-                                index={layers.length - index}
-                                openContextMenu={openContextMenu}
-                                {...config}
-                            />
-                        );
-                    })}
-                    <Layer key="basemap" {...basemapConfig} />
-                    {isDownload && legendPosition && (
-                        <DownloadLegend
-                            position={legendPosition}
-                            layers={mapViews}
-                            showName={showName}
+                    return (
+                        <Overlay
+                            key={config.id}
+                            index={layers.length - index}
+                            openContextMenu={openContextMenu}
+                            {...config}
                         />
-                    )}
-                </div>
+                    );
+                })}
+                <Layer key="basemap" {...basemapConfig} />
+                {isDownload && legendPosition && (
+                    <DownloadLegend
+                        position={legendPosition}
+                        layers={mapViews}
+                        showName={showName}
+                    />
+                )}
             </div>
         );
     }
@@ -235,10 +213,6 @@ class Map extends Component {
 const mapStateToProps = state => ({
     ...state.map,
     basemaps: state.basemaps,
-    layersPanelOpen: state.ui.layersPanelOpen,
-    interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
-    dataTableOpen: state.dataTable ? true : false,
-    dataTableHeight: state.ui.dataTableHeight,
     isDownload: state.download.showDialog,
     showName: state.download.showDialog ? state.download.showName : true,
     legendPosition: state.download.showLegend

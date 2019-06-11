@@ -52,6 +52,7 @@ import {
     setOrgUnitGroups,
     setPeriod,
     setPeriodType,
+    setPeriodDisplay,
     setStartDate,
     setEndDate,
     setProgram,
@@ -116,6 +117,7 @@ export class ThematicDialog extends Component {
         startDate: PropTypes.string,
         endDate: PropTypes.string,
         periodType: PropTypes.string,
+        periodDisplay: PropTypes.string,
         radiusHigh: PropTypes.number,
         radiusLow: PropTypes.number,
         valueType: PropTypes.string,
@@ -137,6 +139,7 @@ export class ThematicDialog extends Component {
         toggleOrgUnit: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         setPeriodType: PropTypes.func.isRequired,
+        setPeriodDisplay: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
         setRadiusHigh: PropTypes.func.isRequired,
@@ -227,6 +230,7 @@ export class ThematicDialog extends Component {
             labelFontWeight,
             operand,
             periodType,
+            periodDisplay,
             startDate,
             endDate,
             program,
@@ -253,6 +257,7 @@ export class ThematicDialog extends Component {
             setStartDate,
             setEndDate,
             setPeriodType,
+            setPeriodDisplay,
             setProgram,
             setRadiusLow,
             setRadiusHigh,
@@ -487,7 +492,10 @@ export class ThematicDialog extends Component {
                                 ) : null,
                             ]}
                             {periodType !== 'StartEndDates' && (
-                                <PeriodDisplay />
+                                <PeriodDisplay
+                                    value={periodDisplay}
+                                    onChange={setPeriodDisplay}
+                                />
                             )}
                         </div>
                     )}
@@ -772,6 +780,7 @@ export default connect(
         setOrgUnitGroups,
         setPeriod,
         setPeriodType,
+        setPeriodDisplay,
         setStartDate,
         setEndDate,
         setProgram,
