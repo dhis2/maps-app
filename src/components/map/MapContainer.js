@@ -28,7 +28,7 @@ const MapContainer = ({
     dataTableOpen,
     dataTableHeight,
     isDownload,
-    splitView,
+    mapViews,
     classes,
 }) => {
     const style = {
@@ -39,9 +39,13 @@ const MapContainer = ({
         bottom: dataTableOpen ? dataTableHeight : 0,
     };
 
+    const splitViewLayer = mapViews.filter(
+        view => view.periodDisplay === 'split'
+    )[0];
+
     return (
         <div className={isDownload ? classes.mapDownload : null} style={style}>
-            {splitView ? <SplitView count={splitView} /> : <Map />}
+            {splitViewLayer ? <SplitView layer={splitViewLayer} /> : <Map />}
         </div>
     );
 };
@@ -52,12 +56,13 @@ MapContainer.propTypes = {
     isDownload: PropTypes.bool,
     interpretationsPanelOpen: PropTypes.bool,
     layersPanelOpen: PropTypes.bool,
-    splitView: PropTypes.number,
+    mapViews: PropTypes.array.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
 export default connect(({ map, download, ui }) => ({
     splitView: map.splitView,
+    mapViews: map.mapViews,
     isDownload: download.showDialog,
     ...ui,
 }))(withStyles(styles)(MapContainer));

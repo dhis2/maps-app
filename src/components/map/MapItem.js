@@ -5,6 +5,7 @@ import D2map from '@dhis2/gis-api';
 
 const styles = () => ({
     item: {
+        position: 'relative',
         boxSizing: 'border-box',
         width: '33.3333%',
         borderRight: '1px solid #aaa',

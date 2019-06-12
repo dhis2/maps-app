@@ -24,7 +24,10 @@ class ThematicLayer extends Layer {
             labelFontWeight,
             labelFontColor,
             editCounter,
+            period,
         } = this.props;
+
+        // console.log('thematicLayer', period, data);
 
         const map = this.context.map;
 
@@ -57,7 +60,8 @@ class ThematicLayer extends Layer {
         map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
-        if (!editCounter) {
+        // if (!editCounter) {
+        if (!editCounter && !period) {
             this.fitBounds();
         }
     }

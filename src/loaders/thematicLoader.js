@@ -23,6 +23,9 @@ import { formatLocaleDate } from '../util/time';
 const thematicLoader = async config => {
     let error;
 
+    // TODO: remove
+    config.periodDisplay = 'split';
+
     const response = await loadData(config).catch(err => {
         error = err;
     });
@@ -41,6 +44,7 @@ const thematicLoader = async config => {
     }
 
     const [features, data] = response;
+    const { metaData } = data;
 
     const {
         columns,
@@ -49,10 +53,17 @@ const thematicLoader = async config => {
         radiusHigh,
         classes,
         colorScale,
+        // periodDisplay,
     } = config;
+
     const period = getPeriodFromFilters(config.filters);
+
+    // console.log(periodDisplay, metaData.dimensions.pe);
+    // console.log('##', periodDisplay, periodDimensions);
+
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
+    const valuesByPeriod = getValuesByPeriod(data);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(
         ({ id }) => valueById[id] !== undefined
@@ -73,7 +84,7 @@ const thematicLoader = async config => {
     const legend = {
         title: name,
         period: period
-            ? getPeriodName(period, data.metaData.dimensions.pe, names)
+            ? getPeriodName(period, metaData.dimensions.pe, names)
             : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
                   config.endDate
               )}`,
@@ -138,6 +149,7 @@ const thematicLoader = async config => {
     return {
         ...config,
         data: valueFeatures,
+        valuesByPeriod: valuesByPeriod, // TODO
         name,
         legend,
         method,
@@ -146,6 +158,20 @@ const thematicLoader = async config => {
         isExpanded: true,
         isVisible: true,
     };
+};
+
+const getValuesByPeriod = data => {
+    const { headers, rows } = data;
+    const periodIndex = findIndex(['name', 'pe'], headers);
+    const ouIndex = findIndex(['name', 'ou'], headers);
+    const valueIndex = findIndex(['name', 'value'], headers);
+
+    return rows.reduce((obj, row) => {
+        const period = row[periodIndex];
+        const periodObj = (obj[period] = obj[period] || {});
+        periodObj[row[ouIndex]] = row[valueIndex];
+        return obj;
+    }, {});
 };
 
 // Returns an object mapping org. units and values
@@ -186,6 +212,7 @@ const loadData = async config => {
         valueType,
         relativePeriodDate,
         aggregationType,
+        periodDisplay,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
@@ -210,9 +237,13 @@ const loadData = async config => {
         .addDataDimension(dataDimension)
         .withDisplayProperty(displayPropertyUpper);
 
-    analyticsRequest = period
-        ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
+    if (periodDisplay === 'split') {
+        analyticsRequest = analyticsRequest.addPeriodDimension(period.id);
+    } else {
+        analyticsRequest = period
+            ? analyticsRequest.addPeriodFilter(period.id)
+            : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
+    }
 
     if (dimensions) {
         dimensions.forEach(
