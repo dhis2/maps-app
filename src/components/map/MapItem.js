@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import D2map from '@dhis2/gis-api';
-import Layer from './Layer';
 
 const styles = () => ({
     item: {
@@ -13,7 +12,7 @@ const styles = () => ({
     },
 });
 
-class MapItem extends Component {
+class MapItem extends PureComponent {
     static contextTypes = {
         map: PropTypes.object,
         basemap: PropTypes.object,
@@ -24,7 +23,9 @@ class MapItem extends Component {
     };
 
     static propTypes = {
-        basemap: PropTypes.object,
+        children: PropTypes.node.isRequired,
+        // basemap: PropTypes.object,
+        onCreate: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
@@ -47,15 +48,16 @@ class MapItem extends Component {
 
     componentDidMount() {
         this.node.appendChild(this.map.getContainer());
-        this.map.setView([-11.8, 8.5], 6);
+        this.map.setView([-11.8, 8.5], 7);
+        this.props.onCreate(this.map);
     }
 
     render() {
-        const { basemap, classes } = this.props;
+        const { children, classes } = this.props;
 
         return (
             <div ref={node => (this.node = node)} className={classes.item}>
-                <Layer key="basemap" {...basemap} />
+                {children}
             </div>
         );
     }
