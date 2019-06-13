@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import MapName from './MapName';
 import MapItem from './MapItem';
 import Layer from './Layer';
 import ThematicLayer from './ThematicLayer';
@@ -62,6 +63,7 @@ class SplitView extends PureComponent {
 
         return (
             <div className={classes.root}>
+                <MapName />
                 {periods.map(period => (
                     <MapItem
                         key={period.id}

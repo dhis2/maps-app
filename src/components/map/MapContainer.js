@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Map from '../map/Map';
+import Map from './Map';
 import SplitView from './SplitView';
 import {
     HEADER_HEIGHT,
