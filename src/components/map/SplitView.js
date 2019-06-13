@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MapItem from './MapItem';
 import Layer from './Layer';
 import ThematicLayer from './ThematicLayer';
+import { openContextMenu } from '../../actions/map';
 
 const styles = theme => ({
     root: {
@@ -33,6 +34,7 @@ class SplitView extends PureComponent {
         basemap: PropTypes.object,
         basemaps: PropTypes.array,
         classes: PropTypes.object.isRequired,
+        openContextMenu: PropTypes.func.isRequired,
     };
 
     constructor(props, context) {
@@ -42,7 +44,13 @@ class SplitView extends PureComponent {
     }
 
     render() {
-        const { basemap, basemaps, layer, classes } = this.props;
+        const {
+            basemap,
+            basemaps,
+            layer,
+            classes,
+            openContextMenu,
+        } = this.props;
         const periods = Object.keys(layer.valuesByPeriod);
 
         this._mapCount = periods.length;
@@ -63,7 +71,11 @@ class SplitView extends PureComponent {
                         onCreate={this.onMapCreate}
                     >
                         <Layer key="basemap" {...basemapConfig} />
-                        <ThematicLayer period={period} {...layer} />
+                        <ThematicLayer
+                            period={period}
+                            {...layer}
+                            openContextMenu={openContextMenu}
+                        />
                         <div className={classes.period}>{period}</div>
                     </MapItem>
                 ))}
@@ -95,7 +107,12 @@ class SplitView extends PureComponent {
     }
 }
 
-export default connect(({ map, basemaps }) => ({
-    basemap: map.basemap,
-    basemaps,
-}))(withStyles(styles)(SplitView));
+export default connect(
+    ({ map, basemaps }) => ({
+        basemap: map.basemap,
+        basemaps,
+    }),
+    {
+        openContextMenu,
+    }
+)(withStyles(styles)(SplitView));
