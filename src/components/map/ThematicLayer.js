@@ -28,7 +28,7 @@ class ThematicLayer extends Layer {
             valuesByPeriod,
         } = this.props;
 
-        const values = valuesByPeriod[period];
+        const values = valuesByPeriod[period.id];
         // console.log('thematicLayer', data, valuesByPeriod[period]);
 
         data.forEach(feature => {

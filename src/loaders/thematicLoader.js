@@ -57,7 +57,9 @@ const thematicLoader = async config => {
     } = config;
 
     const period = getPeriodFromFilters(config.filters);
+    const periods = getPeriodsFromMetaData(data.metaData);
 
+    // console.log('periods', periods);
     // console.log(periodDisplay, metaData.dimensions.pe);
     // console.log('##', periodDisplay, periodDimensions);
 
@@ -161,6 +163,7 @@ const thematicLoader = async config => {
     return {
         ...config,
         data: valueFeatures,
+        periods,
         valuesByPeriod: valuesByPeriod, // TODO
         name,
         legend,
@@ -171,6 +174,12 @@ const thematicLoader = async config => {
         isVisible: true,
     };
 };
+
+const getPeriodsFromMetaData = ({ dimensions, items }) =>
+    dimensions.pe.map(id => ({
+        id,
+        name: items[id].name,
+    }));
 
 const getValuesByPeriod = data => {
     const { headers, rows } = data;

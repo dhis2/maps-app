@@ -51,8 +51,7 @@ class SplitView extends PureComponent {
             classes,
             openContextMenu,
         } = this.props;
-        const periods = Object.keys(layer.valuesByPeriod);
-
+        const { periods } = layer;
         this._mapCount = periods.length;
 
         // TODO: Cleaner way
@@ -65,8 +64,7 @@ class SplitView extends PureComponent {
             <div className={classes.root}>
                 {periods.map(period => (
                     <MapItem
-                        key={period}
-                        period={period}
+                        key={period.id}
                         basemap={basemap}
                         onCreate={this.onMapCreate}
                     >
@@ -76,7 +74,7 @@ class SplitView extends PureComponent {
                             {...layer}
                             openContextMenu={openContextMenu}
                         />
-                        <div className={classes.period}>{period}</div>
+                        <div className={classes.period}>{period.name}</div>
                     </MapItem>
                 ))}
             </div>
