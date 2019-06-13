@@ -126,6 +126,18 @@ const thematicLoader = async config => {
         }
     }
 
+    // TODO: Simplify
+    if (valuesByPeriod) {
+        // console.log('####', valuesByPeriod);
+        Object.keys(valuesByPeriod).forEach(period => {
+            Object.keys(valuesByPeriod[period]).forEach(orgunit => {
+                const item = valuesByPeriod[period][orgunit];
+                const legend = getLegendItem(item.value);
+                item.color = legend ? legend.color : '#888';
+            });
+        });
+    }
+
     valueFeatures.forEach(({ id, geometry, properties }) => {
         const value = valueById[id];
         const item = getLegendItem(value);
@@ -169,7 +181,9 @@ const getValuesByPeriod = data => {
     return rows.reduce((obj, row) => {
         const period = row[periodIndex];
         const periodObj = (obj[period] = obj[period] || {});
-        periodObj[row[ouIndex]] = row[valueIndex];
+        periodObj[row[ouIndex]] = {
+            value: row[valueIndex],
+        };
         return obj;
     }, {});
 };

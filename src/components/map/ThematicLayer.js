@@ -25,9 +25,18 @@ class ThematicLayer extends Layer {
             labelFontColor,
             editCounter,
             period,
+            valuesByPeriod,
         } = this.props;
 
-        // console.log('thematicLayer', period, data);
+        const values = valuesByPeriod[period];
+        // console.log('thematicLayer', data, valuesByPeriod[period]);
+
+        data.forEach(feature => {
+            feature.properties = {
+                ...feature.properties,
+                ...values[feature.id],
+            };
+        });
 
         const map = this.context.map;
 
