@@ -22,7 +22,6 @@ class SplitView extends PureComponent {
     static propTypes = {
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
-        basemaps: PropTypes.array,
         classes: PropTypes.object.isRequired,
         openContextMenu: PropTypes.func.isRequired,
     };
@@ -33,33 +32,22 @@ class SplitView extends PureComponent {
         this._mapCount = 0;
     }
 
+    // Unsync the maps (remove event handlers)
+    componentWillUnmount() {
+        this.syncEachMap(true); // true to unsync
+    }
+
     render() {
-        const {
-            basemap,
-            basemaps,
-            layer,
-            classes,
-            openContextMenu,
-        } = this.props;
+        const { basemap, layer, classes, openContextMenu } = this.props;
         const { periods } = layer;
         this._mapCount = periods.length;
-
-        // TODO: Cleaner way
-        const basemapConfig = {
-            ...basemaps.filter(b => b.id === basemap.id)[0],
-            ...basemap,
-        };
 
         return (
             <div className={classes.root}>
                 <MapName />
                 {periods.map(period => (
-                    <MapItem
-                        key={period.id}
-                        basemap={basemap}
-                        onCreate={this.onMapCreate}
-                    >
-                        <Layer key="basemap" {...basemapConfig} />
+                    <MapItem key={period.id} onCreate={this.onMapCreate}>
+                        <Layer {...basemap} />
                         <ThematicLayer
                             period={period}
                             {...layer}
@@ -72,25 +60,25 @@ class SplitView extends PureComponent {
         );
     }
 
+    // Called when each map is created
     onMapCreate = map => {
         this._maps.push(map);
         map.resize();
 
+        // Sync maps when all are created
         if (this._maps.length === this._mapCount) {
-            this.synchronizeMaps();
+            this.syncEachMap();
         }
     };
 
-    synchronizeMaps() {
+    // Sync all maps (both ways)
+    syncEachMap(unsync) {
         const maps = this._maps;
-        const count = this._mapCount;
-        let map;
-
-        for (let x = 0; x < count; x++) {
-            map = maps[x];
-            for (let y = 0; y < count; y++) {
+        for (let x = 0; x < maps.length; x++) {
+            for (let y = 0; y < maps.length; y++) {
+                // Don't sync with itself
                 if (y !== x) {
-                    map.sync(maps[y]);
+                    maps[x][unsync ? 'unsync' : 'sync'](maps[y]);
                 }
             }
         }
@@ -99,8 +87,10 @@ class SplitView extends PureComponent {
 
 export default connect(
     ({ map, basemaps }) => ({
-        basemap: map.basemap,
-        basemaps,
+        basemap: {
+            ...basemaps.filter(b => b.id === map.basemap.id)[0],
+            ...map.basemap,
+        },
     }),
     {
         openContextMenu,

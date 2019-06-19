@@ -26,7 +26,6 @@ class MapItem extends PureComponent {
 
     static propTypes = {
         children: PropTypes.node.isRequired,
-        // basemap: PropTypes.object,
         onCreate: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };

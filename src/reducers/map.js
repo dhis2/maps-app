@@ -19,7 +19,6 @@ const basemap = (state, action) => {
     switch (action.type) {
         case types.BASEMAP_SELECTED:
             if (state.id === action.id) {
-                // No change
                 return state;
             }
 
