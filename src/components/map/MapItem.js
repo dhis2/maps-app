@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import D2map from '@dhis2/gis-api';
+// import D2map from '@dhis2/gis-api';
+import D2map from '@dhis2/maps-gl';
 
 const styles = () => ({
     item: {

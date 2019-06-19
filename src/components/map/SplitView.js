@@ -3,31 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import MapName from './MapName';
+import PeriodName from './PeriodName';
 import MapItem from './MapItem';
 import Layer from './Layer';
 import ThematicLayer from './ThematicLayer';
 import { openContextMenu } from '../../actions/map';
 
-const styles = theme => ({
+const styles = {
     root: {
         height: '100%',
         display: 'flex',
         flexWrap: 'wrap',
         alignContent: 'stretch',
     },
-    period: {
-        background: 'yellow',
-        position: 'absolute',
-        bottom: 16,
-        left: '50%',
-        transform: 'translate(-50%, 0)',
-        backgroundColor: 'rgba(255,255,255,0.9)',
-        boxShadow: theme.shadows[1],
-        borderRadius: theme.shape.borderRadius,
-        padding: '4px 6px 3px',
-        zIndex: 999,
-    },
-});
+};
 
 class SplitView extends PureComponent {
     static propTypes = {
@@ -76,7 +65,7 @@ class SplitView extends PureComponent {
                             {...layer}
                             openContextMenu={openContextMenu}
                         />
-                        <div className={classes.period}>{period.name}</div>
+                        <PeriodName period={period.name} />
                     </MapItem>
                 ))}
             </div>
@@ -85,6 +74,7 @@ class SplitView extends PureComponent {
 
     onMapCreate = map => {
         this._maps.push(map);
+        map.resize();
 
         if (this._maps.length === this._mapCount) {
             this.synchronizeMaps();
