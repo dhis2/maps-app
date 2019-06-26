@@ -652,6 +652,7 @@ export class ThematicDialog extends Component {
             dataElementGroup,
             program,
             periodType,
+            periodDisplay,
             columns,
             rows,
             filters,
@@ -750,6 +751,19 @@ export class ThematicDialog extends Component {
             if (error) {
                 return this.setErrorState('periodError', error, 'period');
             }
+        } else if (
+            period &&
+            period.id === 'LAST_52_WEEKS' &&
+            periodDisplay === 'split'
+        ) {
+            // Not able to draw 52 maps at the same time
+            return this.setErrorState(
+                'periodError',
+                i18n.t('{{ period }} is not supported in split map view', {
+                    period: period.name,
+                }),
+                'period'
+            );
         }
 
         if (!getOrgUnitsFromRows(rows).length) {

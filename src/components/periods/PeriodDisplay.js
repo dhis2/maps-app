@@ -39,7 +39,7 @@ const PeriodDisplay = ({ value = 'aggregate', onChange, classes }) => {
                     label="Timeline"
                 />
                 <FormControlLabel
-                    value="spit"
+                    value="split"
                     control={<Radio className={classes.radio} />}
                     label="Split map views"
                 />

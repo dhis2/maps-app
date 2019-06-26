@@ -41,7 +41,7 @@ const RelativePeriodSelect = ({
             value={value}
             onChange={onChange}
             style={style}
-            errorText={!value && errorText ? errorText : null}
+            errorText={errorText}
         />
     );
 };

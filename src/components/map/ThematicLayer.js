@@ -71,7 +71,6 @@ class ThematicLayer extends Layer {
         map.addLayer(this.layer);
 
         // Only fit map to layer bounds on first add
-        // if (!editCounter) {
         if (!editCounter && !period) {
             this.fitBounds();
         }
