@@ -24,7 +24,8 @@ const thematicLoader = async config => {
     let error;
 
     // TODO: remove
-    config.periodDisplay = 'split';
+    // console.log('loader', config);
+    // config.periodDisplay = 'split';
 
     const response = await loadData(config).catch(err => {
         error = err;
