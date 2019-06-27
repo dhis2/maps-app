@@ -446,7 +446,8 @@ export class ThematicDialog extends Component {
                         >
                             <PeriodTypeSelect
                                 value={periodType}
-                                onChange={type => setPeriodType(type.id)}
+                                period={period}
+                                onChange={setPeriodType}
                                 style={styles.select}
                                 errorText={periodTypeError}
                             />

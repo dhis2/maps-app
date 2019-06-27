@@ -45,7 +45,6 @@ const thematicLoader = async config => {
     }
 
     const [features, data] = response;
-    const { metaData } = data;
 
     const {
         columns,
@@ -54,16 +53,10 @@ const thematicLoader = async config => {
         radiusHigh,
         classes,
         colorScale,
-        // periodDisplay,
     } = config;
 
     const period = getPeriodFromFilters(config.filters);
     const periods = getPeriodsFromMetaData(data.metaData);
-
-    // console.log('periods', periods);
-    // console.log(periodDisplay, metaData.dimensions.pe);
-    // console.log('##', periodDisplay, periodDimensions);
-
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
     const valuesByPeriod = getValuesByPeriod(data);
@@ -87,7 +80,7 @@ const thematicLoader = async config => {
     const legend = {
         title: name,
         period: period
-            ? getPeriodName(period, metaData.dimensions.pe, names)
+            ? names[period.id] || period.id
             : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
                   config.endDate
               )}`,
@@ -131,7 +124,6 @@ const thematicLoader = async config => {
 
     // TODO: Simplify
     if (valuesByPeriod) {
-        // console.log('####', valuesByPeriod);
         Object.keys(valuesByPeriod).forEach(period => {
             Object.keys(valuesByPeriod[period]).forEach(orgunit => {
                 const item = valuesByPeriod[period][orgunit];
@@ -217,11 +209,6 @@ const getOrderedValues = data => {
 
     return rows.map(row => parseFloat(row[valueIndex])).sort((a, b) => a - b);
 };
-
-// Returns the period name
-// TODO: Period name should be returned in server response
-const getPeriodName = (period, periodDims, names) =>
-    periodDims.length > 1 ? i18n.t(period.name) : names[periodDims[0]];
 
 // Load features and data values from api
 const loadData = async config => {

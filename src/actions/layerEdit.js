@@ -163,9 +163,10 @@ export const setPeriodName = periodName => ({
 });
 
 // Set period type (thematic)
-export const setPeriodType = periodType => ({
+export const setPeriodType = (periodType, clearPeriod = true) => ({
     type: types.LAYER_EDIT_PERIOD_TYPE_SET,
     periodType,
+    clearPeriod,
 });
 
 // Set period (event & thematic)
