@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import D2map from '@dhis2/gis-api';
+import mapApi from '../MapApi';
 import PluginLegend from './PluginLegend';
 import ContextMenu from './PluginContextMenu';
 import Layer from '../Layer';
@@ -54,13 +54,7 @@ class PluginMap extends Component {
 
     constructor(props, context) {
         super(props, context);
-
-        // Create map div
-        const div = document.createElement('div');
-        div.style.width = '100%';
-        div.style.height = '100%';
-
-        this.map = new D2map(div, {
+        this.map = mapApi({
             scrollWheelZoom: false,
         });
 

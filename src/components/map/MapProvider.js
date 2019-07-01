@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import D2map from '@dhis2/gis-api';
-// import D2map from '@dhis2/maps-gl';
+import mapApi from './MapApi';
 
 // Makes the Leaflet map instance available in all child components
 class MapProvider extends Component {
@@ -13,13 +12,12 @@ class MapProvider extends Component {
 
     constructor(props, context) {
         super(props, context);
+        this.map = mapApi();
+    }
 
-        // Create map div
-        const div = document.createElement('div');
-        div.style.width = '100%';
-        div.style.height = '100%';
-
-        this.map = new D2map(div);
+    componentWillUnmount() {
+        this.map.remove();
+        delete this.map;
     }
 
     render() {

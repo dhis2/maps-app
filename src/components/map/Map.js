@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import isNumeric from 'd2-utilizr/lib/isNumeric';
+import mapApi from './MapApi';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
 import TrackedEntityLayer from './TrackedEntityLayer';
@@ -56,8 +57,14 @@ const styles = {
 };
 
 class Map extends Component {
+    /*
     static contextTypes = {
         map: PropTypes.object,
+    };
+    */
+
+    static childContextTypes = {
+        map: PropTypes.object.isRequired,
     };
 
     static propTypes = {
@@ -81,13 +88,21 @@ class Map extends Component {
         classes: PropTypes.object.isRequired,
     };
 
-    componentWillMount() {
-        this.context.map.on('contextmenu', this.onRightClick, this);
+    getChildContext() {
+        return {
+            map: this.map,
+        };
+    }
+
+    constructor(props, context) {
+        super(props, context);
+        this.map = mapApi();
+        this.map.on('contextmenu', this.onRightClick, this);
     }
 
     componentDidMount() {
         const { bounds, latitude, longitude, zoom } = this.props;
-        const map = this.context.map;
+        const map = this.map;
 
         this.node.appendChild(map.getContainer()); // Append map container to DOM
 
@@ -137,22 +152,22 @@ class Map extends Component {
             this.showCoordinate(coordinatePopup);
         }
 
-        this.context.map.resize();
+        this.map.resize();
     }
 
     componentWillUnmount() {
-        this.context.map.remove();
+        this.map.remove();
+        delete this.map;
     }
 
     showCoordinate(coord) {
-        const { map } = this.context;
         const content =
             'Longitude: ' +
             coord[0].toFixed(6) +
             '<br />Latitude: ' +
             coord[1].toFixed(6);
 
-        map.openPopup(content, coord, this.props.closeCoordinatePopup);
+        this.map.openPopup(content, coord, this.props.closeCoordinatePopup);
     }
 
     onRightClick = evt => {

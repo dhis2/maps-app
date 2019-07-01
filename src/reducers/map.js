@@ -12,7 +12,6 @@ const defaultState = {
         subtitle: 'Basemap',
     },
     mapViews: [],
-    splitView: null,
 };
 
 const basemap = (state, action) => {

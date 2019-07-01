@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import D2map from '@dhis2/gis-api';
-// import D2map from '@dhis2/maps-gl';
+import mapApi from './MapApi';
 
 const styles = () => ({
     item: {
@@ -15,11 +14,6 @@ const styles = () => ({
 });
 
 class MapItem extends PureComponent {
-    static contextTypes = {
-        map: PropTypes.object,
-        basemap: PropTypes.object,
-    };
-
     static childContextTypes = {
         map: PropTypes.object.isRequired,
     };
@@ -32,13 +26,7 @@ class MapItem extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
-
-        // Create map div
-        const div = document.createElement('div');
-        div.style.width = '100%';
-        div.style.height = '100%';
-
-        this.map = new D2map(div);
+        this.map = mapApi();
     }
 
     getChildContext() {
@@ -51,6 +39,11 @@ class MapItem extends PureComponent {
         this.node.appendChild(this.map.getContainer());
         this.map.setView([-11.8, 8.5], 7);
         this.props.onCreate(this.map);
+    }
+
+    componentWillUnmount() {
+        this.map.remove();
+        delete this.map;
     }
 
     render() {
