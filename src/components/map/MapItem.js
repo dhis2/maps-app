@@ -37,7 +37,15 @@ class MapItem extends PureComponent {
 
     componentDidMount() {
         this.node.appendChild(this.map.getContainer());
-        this.map.setView([-11.8, 8.5], 7);
+        this.map.resize();
+
+        // Zoom to layers bounds on mount
+        const bounds = this.map.getLayersBounds();
+        if (bounds) {
+            this.map.fitBounds(bounds);
+        }
+
+        // Sync map
         this.props.onCreate(this.map);
     }
 

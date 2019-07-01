@@ -105,6 +105,7 @@ class Map extends Component {
         const map = this.map;
 
         this.node.appendChild(map.getContainer()); // Append map container to DOM
+        map.resize();
 
         // Add zoom control
         map.addControl({
@@ -134,7 +135,12 @@ class Map extends Component {
             type: 'measure',
         });
 
-        if (Array.isArray(bounds)) {
+        const layerBounds = map.getLayersBounds();
+
+        // If layers are created before the map
+        if (Array.isArray(layerBounds)) {
+            map.fitBounds(layerBounds);
+        } else if (Array.isArray(bounds)) {
             map.fitBounds(bounds);
         } else if (
             isNumeric(latitude) &&
