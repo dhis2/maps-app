@@ -26,27 +26,21 @@ class SplitView extends PureComponent {
         openContextMenu: PropTypes.func.isRequired,
     };
 
-    constructor(props, context) {
-        super(props, context);
-        this._maps = [];
-        this._mapCount = 0;
-    }
-
-    // Unsync the maps (remove event handlers)
-    componentWillUnmount() {
-        this.syncEachMap(true); // true to unsync
-    }
-
     render() {
         const { basemap, layer, classes, openContextMenu } = this.props;
         const { periods } = layer;
-        this._mapCount = periods.length;
 
         return (
             <div className={classes.root}>
                 <MapName />
-                {periods.map(period => (
-                    <MapItem key={period.id} onCreate={this.onMapCreate}>
+                {periods.map((period, index) => (
+                    <MapItem
+                        key={period.id}
+                        index={index}
+                        count={periods.length}
+                        onAdd={this.onMapAdd}
+                        onRemove={this.onMapRemove}
+                    >
                         <Layer {...basemap} />
                         <ThematicLayer
                             period={period}
@@ -58,30 +52,6 @@ class SplitView extends PureComponent {
                 ))}
             </div>
         );
-    }
-
-    // Called when each map is created
-    onMapCreate = map => {
-        this._maps.push(map);
-        map.resize();
-
-        // Sync maps when all are created
-        if (this._maps.length === this._mapCount) {
-            this.syncEachMap();
-        }
-    };
-
-    // Sync all maps (both ways)
-    syncEachMap(unsync) {
-        const maps = this._maps;
-        for (let x = 0; x < maps.length; x++) {
-            for (let y = 0; y < maps.length; y++) {
-                // Don't sync with itself
-                if (y !== x) {
-                    maps[x][unsync ? 'unsync' : 'sync'](maps[y]);
-                }
-            }
-        }
     }
 }
 

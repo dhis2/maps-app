@@ -19,8 +19,8 @@ class MapItem extends PureComponent {
     };
 
     static propTypes = {
+        count: PropTypes.number.isRequired,
         children: PropTypes.node.isRequired,
-        onCreate: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
@@ -37,19 +37,18 @@ class MapItem extends PureComponent {
 
     componentDidMount() {
         this.node.appendChild(this.map.getContainer());
-        this.map.resize();
+        this.fitLayerBounds();
+        this.map.sync(123); // TODO
+    }
 
-        // Zoom to layers bounds on mount
-        const bounds = this.map.getLayersBounds();
-        if (bounds) {
-            this.map.fitBounds(bounds);
+    componentDidUpdate(prevProps) {
+        if (this.props.count !== prevProps.count) {
+            this.fitLayerBounds();
         }
-
-        // Sync map
-        this.props.onCreate(this.map);
     }
 
     componentWillUnmount() {
+        this.map.unsync(123); // TODO
         this.map.remove();
         delete this.map;
     }
@@ -62,6 +61,16 @@ class MapItem extends PureComponent {
                 {children}
             </div>
         );
+    }
+
+    fitLayerBounds() {
+        this.map.resize();
+
+        // Zoom to layers bounds on mount
+        const bounds = this.map.getLayersBounds();
+        if (bounds) {
+            this.map.fitBounds(bounds);
+        }
     }
 }
 
