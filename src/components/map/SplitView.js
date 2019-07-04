@@ -64,7 +64,7 @@ class SplitView extends PureComponent {
 
     render() {
         const { basemap, layer, classes, openContextMenu } = this.props;
-        const { periods } = layer;
+        const { id, periods } = layer;
 
         return (
             <div ref={node => (this.node = node)} className={classes.root}>
@@ -74,6 +74,7 @@ class SplitView extends PureComponent {
                         key={period.id}
                         index={index}
                         count={periods.length}
+                        layerId={id}
                         onAdd={this.onMapAdd}
                         onRemove={this.onMapRemove}
                         setMapControls={this.setMapControls}

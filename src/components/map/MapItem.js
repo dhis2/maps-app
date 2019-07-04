@@ -21,6 +21,7 @@ class MapItem extends PureComponent {
     static propTypes = {
         index: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
+        layerId: PropTypes.string.isRequired,
         children: PropTypes.node.isRequired,
         classes: PropTypes.object.isRequired,
         setMapControls: PropTypes.func.isRequired,
@@ -40,13 +41,13 @@ class MapItem extends PureComponent {
     }
 
     componentDidMount() {
-        const { index, setMapControls } = this.props;
+        const { layerId, index, setMapControls } = this.props;
         const { map } = this;
 
         this.node.appendChild(map.getContainer());
         this.fitLayerBounds();
 
-        map.sync(123); // TODO
+        map.sync(layerId);
 
         // Add zoom and attribution if first map
         if (index == 0) {
@@ -67,7 +68,7 @@ class MapItem extends PureComponent {
     }
 
     componentWillUnmount() {
-        this.map.unsync(123); // TODO
+        this.map.unsync(this.props.layerId);
         this.map.remove();
         delete this.map;
     }
