@@ -30,29 +30,11 @@ const layerType = {
 const styles = {
     mapContainer: {
         height: '100%',
-        '& img': {
-            // Override from ui/core/UI'
-            maxWidth: 'none',
-        },
-        '& .leaflet-control-zoom a': {
-            // Override from ui/core/UI'
-            color: 'black!important',
-        },
-        '& .leaflet-control-measure a': {
-            fontSize: '12px!important',
-        },
-        '& .leaflet-popup-content th': {
-            fontWeight: 'bold',
-            paddingRight: 5,
-        },
     },
     mapDownload: {
         // Roboto font is not loaded by dom-to-image => switch to Arial
         '& div': {
             fontFamily: 'Arial,sans-serif!important',
-        },
-        '& .leaflet-control-zoom, & .leaflet-control-geocoder, & .leaflet-control-measure, & .leaflet-control-fit-bounds': {
-            display: 'none!important',
         },
     },
 };

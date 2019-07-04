@@ -83,7 +83,7 @@ class ThematicLayer extends Layer {
         const indicator = columns[0].items[0].name || '';
         const periodName = period ? period.name : legend.period;
         const content = `
-            <div class="leaflet-popup-orgunit">
+            <div class="dhis2-map-popup-orgunit">
                 <em>${name}</em><br>
                 ${indicator}<br>
                 ${periodName}<br>

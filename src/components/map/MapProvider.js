@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import mapApi from './MapApi';
 
-// Makes the Leaflet map instance available in all child components
+// Makes the map instance available in all child components
 class MapProvider extends Component {
     getChildContext() {
         return {

@@ -9,7 +9,6 @@ import Layer from './Layer';
 import ThematicLayer from './ThematicLayer';
 import { openContextMenu } from '../../actions/map';
 
-// TODO: These styles are leaflet specific - move to GIS API?
 const styles = {
     root: {
         height: '100%',

@@ -78,7 +78,7 @@ class FacilityLayer extends Layer {
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;
         const { name, dimensions, pn } = feature.properties;
-        let content = `<div class="leaflet-popup-orgunit"><em>${name}</em>`;
+        let content = `<div class="dhis2-map-popup-orgunit"><em>${name}</em>`;
 
         if (isPlainObject(dimensions)) {
             content += `<br/>${i18n.t('Groups')}: ${Object.keys(dimensions)

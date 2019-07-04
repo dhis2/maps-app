@@ -68,7 +68,7 @@ export default class BoundaryLayer extends Layer {
         const { feature, coordinates } = evt;
         const { name, level, parentName } = feature.properties;
 
-        let content = `<div class="leaflet-popup-orgunit"><em>${name}</em>`;
+        let content = `<div class="dhis2-map-popup-orgunit"><em>${name}</em>`;
 
         if (level) {
             content += `<br/>${i18n.t('Level')}: ${level}`;

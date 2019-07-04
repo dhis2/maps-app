@@ -16,9 +16,6 @@ const styles = () => ({
         '& div': {
             fontFamily: 'Arial,sans-serif!important',
         },
-        '& .leaflet-control-zoom, & .leaflet-control-geocoder, & .leaflet-control-measure, & .leaflet-control-fit-bounds': {
-            display: 'none!important',
-        },
     },
 });
 
@@ -38,9 +35,14 @@ const MapContainer = ({
         right: interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
     };
+    let className = '';
+
+    if (isDownload) {
+        className = `dhis2-map-download ${classes.mapDownload}`;
+    }
 
     return (
-        <div className={isDownload ? classes.mapDownload : null} style={style}>
+        <div className={className} style={style}>
             {splitViewLayer ? <SplitView layer={splitViewLayer} /> : <Map />}
         </div>
     );

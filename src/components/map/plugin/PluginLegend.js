@@ -30,7 +30,7 @@ class PluginLegend extends PureComponent {
         classes: PropTypes.object.isRequired,
     };
 
-    // Add Leaflet legend control on mount
+    // Add legend control on mount
     componentDidMount() {
         this.legend = this.context.map.addControl({
             type: 'legend',
@@ -45,7 +45,7 @@ class PluginLegend extends PureComponent {
         this.setLegendContent();
     }
 
-    // Remove Leaflet legend control on unmount
+    // Remove legend control on unmount
     componentWillUnmount() {
         if (this.legend) {
             this.legend.remove();
@@ -99,7 +99,7 @@ class PluginLegend extends PureComponent {
         );
     }
 
-    // Add contents from render function to Leaflet legend control (not react)
+    // Add contents from render function to legend control (not react)
     setLegendContent() {
         this.legend.setContent(this.container.cloneNode(true).innerHTML);
     }
