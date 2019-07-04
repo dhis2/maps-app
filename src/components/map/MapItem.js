@@ -13,6 +13,8 @@ const styles = () => ({
     },
 });
 
+const mapControls = ['zoom', 'fitBounds', 'search', 'attribution'];
+
 class MapItem extends PureComponent {
     static childContextTypes = {
         map: PropTypes.object.isRequired,
@@ -49,15 +51,16 @@ class MapItem extends PureComponent {
 
         map.sync(layerId);
 
-        // Add zoom and attribution if first map
+        // Add map controls if first map
         if (index == 0) {
-            map.addControl({ type: 'zoom' });
-            map.addControl({ type: 'attribution' });
+            const controls = {};
 
-            setMapControls({
-                attribution: map.getAttribution(),
-                zoom: map.getZoomControl(),
+            mapControls.forEach(type => {
+                map.addControl({ type });
+                controls[type] = map.getControlContainer(type);
             });
+
+            setMapControls(controls);
         }
     }
 

@@ -9,31 +9,13 @@ import Layer from './Layer';
 import ThematicLayer from './ThematicLayer';
 import { openContextMenu } from '../../actions/map';
 
+// TODO: These styles are leaflet specific - move to GIS API?
 const styles = {
     root: {
         height: '100%',
         display: 'flex',
         flexWrap: 'wrap',
         alignContent: 'stretch',
-        '& .leaflet-control-attribution': {
-            position: 'absolute',
-            right: 2,
-            bottom: 1,
-            padding: 2,
-            color: '#333',
-            background: 'rgba(255, 255, 255, 0.7)',
-            fontSize: 9,
-            '& a': {
-                color: '#333',
-                textDecoration: 'none',
-            },
-        },
-        '& .leaflet-control-zoom': {
-            position: 'absolute',
-            top: 10,
-            right: 10,
-            borderRadius: 0,
-        },
     },
 };
 
@@ -45,20 +27,12 @@ class SplitView extends PureComponent {
         openContextMenu: PropTypes.func.isRequired,
     };
 
-    state = {
-        attribution: null,
-        zoom: null,
-    };
-
+    // Add map controls to split view container
     componentDidUpdate(prevProps, prevState) {
-        const { attribution, zoom } = this.state;
+        const { state, node } = this;
 
-        if (attribution && attribution !== prevState.attribution) {
-            this.node.appendChild(attribution);
-        }
-
-        if (zoom && zoom !== prevState.zoom) {
-            this.node.appendChild(zoom);
+        if (state !== prevState) {
+            Object.values(state).forEach(control => node.append(control));
         }
     }
 
@@ -67,7 +41,10 @@ class SplitView extends PureComponent {
         const { id, periods } = layer;
 
         return (
-            <div ref={node => (this.node = node)} className={classes.root}>
+            <div
+                ref={node => (this.node = node)}
+                className={`dhis2-map-split-view ${classes.root}`}
+            >
                 <MapName />
                 {periods.map((period, index) => (
                     <MapItem
