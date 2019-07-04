@@ -17,8 +17,8 @@ const styles = {
         alignContent: 'stretch',
         '& .leaflet-control-attribution': {
             position: 'absolute',
-            right: 0,
-            bottom: 0,
+            right: 2,
+            bottom: 1,
             padding: 2,
             color: '#333',
             background: 'rgba(255, 255, 255, 0.7)',
@@ -27,6 +27,12 @@ const styles = {
                 color: '#333',
                 textDecoration: 'none',
             },
+        },
+        '& .leaflet-control-zoom': {
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            borderRadius: 0,
         },
     },
 };
@@ -41,13 +47,18 @@ class SplitView extends PureComponent {
 
     state = {
         attribution: null,
+        zoom: null,
     };
 
     componentDidUpdate(prevProps, prevState) {
-        const { attribution } = this.state;
+        const { attribution, zoom } = this.state;
 
-        if (attribution !== prevState.attribution) {
+        if (attribution && attribution !== prevState.attribution) {
             this.node.appendChild(attribution);
+        }
+
+        if (zoom && zoom !== prevState.zoom) {
+            this.node.appendChild(zoom);
         }
     }
 
@@ -65,7 +76,7 @@ class SplitView extends PureComponent {
                         count={periods.length}
                         onAdd={this.onMapAdd}
                         onRemove={this.onMapRemove}
-                        setAttribution={this.setAttribution}
+                        setMapControls={this.setMapControls}
                     >
                         <Layer {...basemap} />
                         <ThematicLayer
@@ -81,7 +92,7 @@ class SplitView extends PureComponent {
     }
 
     // Called from map child
-    setAttribution = attribution => this.setState({ attribution });
+    setMapControls = controls => this.setState(controls);
 }
 
 export default connect(

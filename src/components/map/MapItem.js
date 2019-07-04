@@ -23,13 +23,13 @@ class MapItem extends PureComponent {
         count: PropTypes.number.isRequired,
         children: PropTypes.node.isRequired,
         classes: PropTypes.object.isRequired,
-        setAttribution: PropTypes.func.isRequired,
+        setMapControls: PropTypes.func.isRequired,
     };
 
     constructor(props, context) {
         super(props, context);
         this.map = mapApi({
-            attributionControl: this.isLastMap() ? true : false,
+            attributionControl: false,
         });
     }
 
@@ -40,12 +40,23 @@ class MapItem extends PureComponent {
     }
 
     componentDidMount() {
-        this.node.appendChild(this.map.getContainer());
-        this.fitLayerBounds();
-        this.map.sync(123); // TODO
+        const { index, setMapControls } = this.props;
+        const { map } = this;
 
-        if (this.isLastMap()) {
-            this.props.setAttribution(this.map.getAttribution());
+        this.node.appendChild(map.getContainer());
+        this.fitLayerBounds();
+
+        map.sync(123); // TODO
+
+        // Add zoom and attribution if first map
+        if (index == 0) {
+            map.addControl({ type: 'zoom' });
+            map.addControl({ type: 'attribution' });
+
+            setMapControls({
+                attribution: map.getAttribution(),
+                zoom: map.getZoomControl(),
+            });
         }
     }
 
@@ -80,8 +91,6 @@ class MapItem extends PureComponent {
             this.map.fitBounds(bounds);
         }
     }
-
-    isLastMap = () => this.props.index === this.props.count - 1;
 }
 
 export default withStyles(styles)(MapItem);
