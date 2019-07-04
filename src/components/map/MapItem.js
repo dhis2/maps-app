@@ -13,7 +13,12 @@ const styles = () => ({
     },
 });
 
-const mapControls = ['zoom', 'fitBounds', 'search', 'attribution'];
+const mapControls = [
+    { type: 'zoom' },
+    { type: 'fitBounds' },
+    { type: 'search' },
+    { type: 'attribution', prefix: false },
+];
 
 class MapItem extends PureComponent {
     static childContextTypes = {
@@ -55,9 +60,9 @@ class MapItem extends PureComponent {
         if (index == 0) {
             const controls = {};
 
-            mapControls.forEach(type => {
-                map.addControl({ type });
-                controls[type] = map.getControlContainer(type);
+            mapControls.forEach(control => {
+                map.addControl(control);
+                controls[control.type] = map.getControlContainer(control.type);
             });
 
             setMapControls(controls);
