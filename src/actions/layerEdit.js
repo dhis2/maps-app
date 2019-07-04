@@ -342,7 +342,7 @@ export const setFollowUpStatus = checked => ({
 });
 
 // Set display mode for periods
-export const setPeriodDisplay = display => ({
-    type: types.LAYER_EDIT_PERIOD_DISPLAY_SET,
+export const setRenderingStrategy = display => ({
+    type: types.LAYER_EDIT_RENDERING_STRATEGY_SET,
     payload: display,
 });

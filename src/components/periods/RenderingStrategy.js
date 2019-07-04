@@ -20,7 +20,7 @@ const styles = () => ({
     },
 });
 
-class PeriodDisplay extends Component {
+class RenderingStrategy extends Component {
     static propTypes = {
         value: PropTypes.string,
         period: PropTypes.object,
@@ -29,7 +29,7 @@ class PeriodDisplay extends Component {
     };
 
     static defaultProps = {
-        value: 'aggregate',
+        value: 'SINGLE',
         period: {},
     };
 
@@ -37,14 +37,14 @@ class PeriodDisplay extends Component {
         const { value, period, onChange } = this.props;
 
         if (period !== prevProps.period) {
-            if (singleMapPeriods.includes(period.id) && value !== 'aggregate') {
-                onChange('aggregate');
+            if (singleMapPeriods.includes(period.id) && value !== 'SINGLE') {
+                onChange('SINGLE');
             } else if (
                 invalidSplitViewPeriods.includes(period.id) &&
-                value === 'split'
+                value === 'SPLIT_BY_PERIOD'
             ) {
                 // TODO: Switch to 'timeline' when we support it
-                onChange('aggregate');
+                onChange('SINGLE');
             }
         }
     }
@@ -64,24 +64,24 @@ class PeriodDisplay extends Component {
                 </FormLabel>
                 <RadioGroup
                     aria-label="Period display"
-                    name="periodd-display"
+                    name="period-display"
                     value={value}
                     onChange={this.onChange}
                 >
                     <FormControlLabel
-                        value="aggregate"
+                        value="SINGLE"
                         control={<Radio className={classes.radio} />}
-                        label="Aggregate"
+                        label="Single (aggregate)"
                     />
                     {/* Will be enabled in a later timeline PR
                     <FormControlLabel
-                        value="timeline"
+                        value="TIMELINE"
                         control={<Radio className={classes.radio} />}
                         label="Timeline"
                     />
                     */}
                     <FormControlLabel
-                        value="split"
+                        value="SPLIT_BY_PERIOD"
                         control={<Radio className={classes.radio} />}
                         label="Split map views"
                         disabled={invalidSplitViewPeriods.includes(period.id)}
@@ -92,4 +92,4 @@ class PeriodDisplay extends Component {
     }
 }
 
-export default withStyles(styles)(PeriodDisplay);
+export default withStyles(styles)(RenderingStrategy);

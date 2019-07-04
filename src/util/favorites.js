@@ -50,7 +50,7 @@ const validLayerProperties = [
     'organisationUnitSelectionMode',
     'params',
     'periodName',
-    'periodDisplay', // https://jira.dhis2.org/browse/DHIS2-7186
+    'renderingStrategy',
     'program',
     'programStage',
     'programStatus',

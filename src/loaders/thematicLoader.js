@@ -25,7 +25,7 @@ const thematicLoader = async config => {
 
     // TODO: remove
     // console.log('loader', config);
-    // config.periodDisplay = 'split';
+    // config.renderingStrategy = 'split';
 
     const response = await loadData(config).catch(err => {
         error = err;
@@ -223,7 +223,7 @@ const loadData = async config => {
         valueType,
         relativePeriodDate,
         aggregationType,
-        periodDisplay,
+        renderingStrategy,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
@@ -248,7 +248,7 @@ const loadData = async config => {
         .addDataDimension(dataDimension)
         .withDisplayProperty(displayPropertyUpper);
 
-    if (periodDisplay === 'split') {
+    if (renderingStrategy === 'SPLIT_BY_PERIOD') {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id);
     } else {
         analyticsRequest = period

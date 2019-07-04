@@ -60,7 +60,9 @@ MapContainer.propTypes = {
 
 export default connect(({ map, download, ui }) => ({
     mapViews: undefined,
-    splitViewLayer: map.mapViews.find(view => view.periodDisplay === 'split'),
+    splitViewLayer: map.mapViews.find(
+        view => view.renderingStrategy === 'SPLIT_BY_PERIOD'
+    ),
     isDownload: download.showDialog,
     ...ui,
 }))(withStyles(styles)(MapContainer));

@@ -114,10 +114,10 @@ const layerEdit = (state = null, action) => {
                         : [],
             };
 
-        case types.LAYER_EDIT_PERIOD_DISPLAY_SET:
+        case types.LAYER_EDIT_RENDERING_STRATEGY_SET:
             return {
                 ...state,
-                periodDisplay: action.payload,
+                renderingStrategy: action.payload,
             };
 
         case types.LAYER_EDIT_START_DATE_SET:
