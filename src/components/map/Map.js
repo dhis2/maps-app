@@ -14,6 +14,7 @@ import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
 import MapName from './MapName';
 import DownloadLegend from '../download/DownloadLegend';
+import { mapControls } from '../../constants/mapControls';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
 
 const layerType = {
@@ -57,12 +58,6 @@ const styles = {
 };
 
 class Map extends Component {
-    /*
-    static contextTypes = {
-        map: PropTypes.object,
-    };
-    */
-
     static childContextTypes = {
         map: PropTypes.object.isRequired,
     };
@@ -107,33 +102,8 @@ class Map extends Component {
         this.node.appendChild(map.getContainer()); // Append map container to DOM
         map.resize();
 
-        // Add zoom control
-        map.addControl({
-            type: 'zoom',
-            position: 'top-right',
-        });
-
-        // Add fit bounds control
-        map.addControl({
-            type: 'fitBounds',
-            position: 'top-right',
-        });
-
-        // Add scale control
-        map.addControl({
-            type: 'scale',
-            imperial: false,
-        });
-
-        // Add place search control (OSM Nominatim)
-        map.addControl({
-            type: 'search',
-        });
-
-        // Add measurement control
-        map.addControl({
-            type: 'measure',
-        });
+        // Add map controls
+        mapControls.forEach(control => map.addControl(control));
 
         const layerBounds = map.getLayersBounds();
 

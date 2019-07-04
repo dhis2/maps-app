@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import mapApi from './MapApi';
+import { splitViewControls } from '../../constants/mapControls';
 
 const styles = () => ({
     item: {
@@ -12,13 +13,6 @@ const styles = () => ({
         borderBottom: '1px solid #aaa',
     },
 });
-
-const mapControls = [
-    { type: 'zoom' },
-    { type: 'fitBounds' },
-    { type: 'search' },
-    { type: 'attribution', prefix: false },
-];
 
 class MapItem extends PureComponent {
     static childContextTypes = {
@@ -60,7 +54,7 @@ class MapItem extends PureComponent {
         if (index == 0) {
             const controls = {};
 
-            mapControls.forEach(control => {
+            splitViewControls.forEach(control => {
                 map.addControl(control);
                 controls[control.type] = map.getControlContainer(control.type);
             });

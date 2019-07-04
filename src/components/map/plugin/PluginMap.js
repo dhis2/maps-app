@@ -11,6 +11,7 @@ import ThematicLayer from '../ThematicLayer';
 import BoundaryLayer from '../BoundaryLayer';
 import EarthEngineLayer from '../EarthEngineLayer';
 import ExternalLayer from '../ExternalLayer';
+import { pluginControls } from '../../../constants/mapControls';
 import { drillUpDown } from '../../../util/map';
 import { fetchLayer } from '../../../loaders/layers';
 
@@ -54,15 +55,13 @@ class PluginMap extends Component {
 
     constructor(props, context) {
         super(props, context);
+
         this.map = mapApi({
             scrollWheelZoom: false,
         });
 
-        // Add zoom control
-        this.map.addControl({
-            type: 'zoom',
-            position: 'topright',
-        });
+        // Add plugin controls
+        pluginControls.forEach(control => this.map.addControl(control));
 
         this.state = {
             mapViews: props.mapViews, // Can be changed by drilling
