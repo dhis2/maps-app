@@ -5,7 +5,7 @@ import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
 import log from 'loglevel'; // TODO: Remove version logging
 import i18n from './locales';
-import PluginMap from './components/map/plugin/PluginMap';
+import Plugin from './components/plugin/Plugin';
 import {
     mapRequest,
     getExternalLayer,
@@ -16,11 +16,11 @@ import { translateConfig } from './util/favorites';
 import { defaultBasemaps } from './constants/basemaps';
 import { version } from '../package.json'; // TODO: Remove version logging
 
-const apiVersion = 32;
+const apiVersion = 33;
 
 log.info(`Maps plugin: ${version}`); // TODO: Remove version logging
 
-const Plugin = () => {
+const PluginContainer = () => {
     let _configs = [];
     let _components = {};
     let _isReady = false;
@@ -162,10 +162,7 @@ const Plugin = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                _components[config.el] = render(
-                    <PluginMap {...config} />,
-                    domEl
-                );
+                _components[config.el] = render(<Plugin {...config} />, domEl);
             }
         }
     }
@@ -196,7 +193,7 @@ const Plugin = () => {
                 if (mapComponent === 'loading') {
                     domEl.innerHTML = ''; // Remove spinner
                     return true;
-                } else if (mapComponent instanceof PluginMap) {
+                } else if (mapComponent instanceof Plugin) {
                     return unmountComponentAtNode(domEl);
                 }
             }
@@ -215,7 +212,7 @@ const Plugin = () => {
 
         if (
             mapComponent &&
-            mapComponent instanceof PluginMap &&
+            mapComponent instanceof Plugin &&
             mapComponent.map
         ) {
             mapComponent.map.resize();
@@ -239,7 +236,7 @@ const Plugin = () => {
     };
 };
 
-const mapPlugin = new Plugin();
+const mapPlugin = new PluginContainer();
 
 global.mapPlugin = mapPlugin;
 

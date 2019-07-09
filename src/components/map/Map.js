@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import isNumeric from 'd2-utilizr/lib/isNumeric';
 import mapApi from './MapApi';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
@@ -12,10 +10,6 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
-import MapName from './MapName';
-import DownloadLegend from '../download/DownloadLegend';
-import { mapControls } from '../../constants/mapControls';
-import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
 
 const layerType = {
     event: EventLayer,
@@ -28,41 +22,34 @@ const layerType = {
 };
 
 const styles = {
-    mapContainer: {
+    root: {
         height: '100%',
-    },
-    mapDownload: {
-        // Roboto font is not loaded by dom-to-image => switch to Arial
-        '& div': {
-            fontFamily: 'Arial,sans-serif!important',
-        },
     },
 };
 
 class Map extends Component {
-    static childContextTypes = {
-        map: PropTypes.object.isRequired,
-    };
-
     static propTypes = {
+        isPlugin: PropTypes.bool,
         basemap: PropTypes.object,
-        basemaps: PropTypes.array,
+        layers: PropTypes.array,
+        controls: PropTypes.array,
         bounds: PropTypes.array,
-        dataTableOpen: PropTypes.bool,
-        dataTableHeight: PropTypes.number,
-        isDownload: PropTypes.bool,
-        interpretationsPanelOpen: PropTypes.bool,
-        layersPanelOpen: PropTypes.bool,
-        legendPosition: PropTypes.string,
         latitude: PropTypes.number,
         longitude: PropTypes.number,
-        mapViews: PropTypes.array,
-        showName: PropTypes.bool,
         zoom: PropTypes.number,
         coordinatePopup: PropTypes.array,
-        closeCoordinatePopup: PropTypes.func.isRequired,
+        closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
+        onCloseContextMenu: PropTypes.func,
         classes: PropTypes.object.isRequired,
+    };
+
+    static defaultProps = {
+        isPlugin: false,
+    };
+
+    static childContextTypes = {
+        map: PropTypes.object.isRequired,
     };
 
     getChildContext() {
@@ -73,33 +60,45 @@ class Map extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.map = mapApi();
-        this.map.on('contextmenu', this.onRightClick, this);
+        const { isPlugin } = props;
+
+        const map = mapApi({
+            scrollWheelZoom: !isPlugin,
+        });
+
+        if (isPlugin) {
+            map.on('click', props.onCloseContextMenu);
+        } else {
+            map.on('contextmenu', this.onRightClick, this);
+        }
+
+        this.map = map;
     }
 
     componentDidMount() {
-        const { bounds, latitude, longitude, zoom } = this.props;
-        const map = this.map;
+        const { controls, bounds, latitude, longitude, zoom } = this.props;
+        const { map } = this;
 
-        this.node.appendChild(map.getContainer()); // Append map container to DOM
+        // Append map container to DOM
+        this.node.appendChild(map.getContainer());
+
         map.resize();
 
         // Add map controls
-        mapControls.forEach(control => map.addControl(control));
+        if (controls) {
+            controls.forEach(control => map.addControl(control));
+        }
 
         const layerBounds = map.getLayersBounds();
 
-        // If layers are created before the map
         if (Array.isArray(layerBounds)) {
             map.fitBounds(layerBounds);
-        } else if (Array.isArray(bounds)) {
+        } else if (bounds) {
             map.fitBounds(bounds);
-        } else if (
-            isNumeric(latitude) &&
-            isNumeric(longitude) &&
-            isNumeric(zoom)
-        ) {
-            map.setView([latitude, longitude], zoom);
+        } else if (latitude && longitude && zoom) {
+            map.setView([longitude, latitude], zoom);
+        } else {
+            map.fitWorld();
         }
     }
 
@@ -113,9 +112,39 @@ class Map extends Component {
         this.map.resize();
     }
 
+    // Remove map
     componentWillUnmount() {
-        this.map.remove();
-        delete this.map;
+        if (this.map) {
+            this.map.remove();
+            delete this.map;
+        }
+    }
+
+    render() {
+        const { basemap, layers, openContextMenu, classes } = this.props;
+        const overlays = [...layers.filter(layer => layer.isLoaded)].reverse();
+
+        return (
+            <div
+                id="dhis2-maps-container"
+                ref={node => (this.node = node)}
+                className={classes.root}
+            >
+                {overlays.map((config, index) => {
+                    const Overlay = layerType[config.layer] || Layer;
+
+                    return (
+                        <Overlay
+                            key={config.id}
+                            index={overlays.length - index}
+                            openContextMenu={openContextMenu}
+                            {...config}
+                        />
+                    );
+                })}
+                {basemap.isVisible !== false && <Layer {...basemap} />}
+            </div>
+        );
     }
 
     showCoordinate(coord) {
@@ -131,72 +160,6 @@ class Map extends Component {
     onRightClick = evt => {
         this.props.openContextMenu(evt);
     };
-
-    render() {
-        const {
-            basemap,
-            basemaps,
-            mapViews,
-            showName,
-            isDownload,
-            legendPosition,
-            openContextMenu,
-            classes,
-        } = this.props;
-
-        const basemapConfig = {
-            ...basemaps.filter(b => b.id === basemap.id)[0],
-            ...basemap,
-        };
-
-        const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
-
-        return (
-            <div
-                id="dhis2-maps-container"
-                ref={node => (this.node = node)}
-                className={classes.mapContainer}
-            >
-                <MapName />
-                {layers.map((config, index) => {
-                    const Overlay = layerType[config.layer] || Layer;
-
-                    return (
-                        <Overlay
-                            key={config.id}
-                            index={layers.length - index}
-                            openContextMenu={openContextMenu}
-                            {...config}
-                        />
-                    );
-                })}
-                <Layer key="basemap" {...basemapConfig} />
-                {isDownload && legendPosition && (
-                    <DownloadLegend
-                        position={legendPosition}
-                        layers={mapViews}
-                        showName={showName}
-                    />
-                )}
-            </div>
-        );
-    }
 }
 
-const mapStateToProps = state => ({
-    ...state.map,
-    basemaps: state.basemaps,
-    isDownload: state.download.showDialog,
-    showName: state.download.showDialog ? state.download.showName : true,
-    legendPosition: state.download.showLegend
-        ? state.download.legendPosition
-        : null,
-});
-
-export default connect(
-    mapStateToProps,
-    {
-        openContextMenu,
-        closeCoordinatePopup,
-    }
-)(withStyles(styles)(Map));
+export default withStyles(styles)(Map);

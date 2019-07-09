@@ -1,13 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import MapName from './MapName';
 import PeriodName from './PeriodName';
 import MapItem from './MapItem';
 import Layer from './Layer';
 import ThematicLayer from './ThematicLayer';
-import { openContextMenu } from '../../actions/map';
 
 const styles = {
     root: {
@@ -24,6 +21,11 @@ class SplitView extends PureComponent {
         basemap: PropTypes.object,
         classes: PropTypes.object.isRequired,
         openContextMenu: PropTypes.func.isRequired,
+    };
+
+    // TODO: Remove
+    static defaultProps = {
+        openContextMenu: () => {},
     };
 
     // Add map controls to split view container
@@ -44,7 +46,6 @@ class SplitView extends PureComponent {
                 ref={node => (this.node = node)}
                 className={`dhis2-map-split-view ${classes.root}`}
             >
-                <MapName />
                 {periods.map((period, index) => (
                     <MapItem
                         key={period.id}
@@ -72,14 +73,4 @@ class SplitView extends PureComponent {
     setMapControls = controls => this.setState(controls);
 }
 
-export default connect(
-    ({ map, basemaps }) => ({
-        basemap: {
-            ...basemaps.filter(b => b.id === map.basemap.id)[0],
-            ...map.basemap,
-        },
-    }),
-    {
-        openContextMenu,
-    }
-)(withStyles(styles)(SplitView));
+export default withStyles(styles)(SplitView);
