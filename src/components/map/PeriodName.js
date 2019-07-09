@@ -11,7 +11,7 @@ const styles = theme => ({
         bottom: 16,
         left: 10,
         right: 10,
-        zIndex: 999,
+        zIndex: 998,
         '& div': {
             backgroundColor: 'rgba(255,255,255,0.9)',
             boxShadow: theme.shadows[1],

@@ -9,7 +9,7 @@ const styles = theme => ({
         position: 'absolute',
         right: 10,
         top: 74,
-        zIndex: 801,
+        zIndex: 999,
         boxShadow: '0 1px 5px rgba(0, 0, 0, 0.65)',
         backgroundColor: '#fff',
         fontSize: 14,

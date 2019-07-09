@@ -19,6 +19,7 @@ class SplitView extends PureComponent {
     static propTypes = {
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
+        controls: PropTypes.array,
         classes: PropTypes.object.isRequired,
         openContextMenu: PropTypes.func.isRequired,
     };
@@ -38,7 +39,13 @@ class SplitView extends PureComponent {
     }
 
     render() {
-        const { basemap, layer, classes, openContextMenu } = this.props;
+        const {
+            basemap,
+            layer,
+            controls,
+            classes,
+            openContextMenu,
+        } = this.props;
         const { id, periods = [] } = layer;
 
         return (
@@ -52,6 +59,7 @@ class SplitView extends PureComponent {
                         index={index}
                         count={periods.length}
                         layerId={id}
+                        controls={controls}
                         onAdd={this.onMapAdd}
                         onRemove={this.onMapRemove}
                         setMapControls={this.setMapControls}
@@ -70,7 +78,16 @@ class SplitView extends PureComponent {
     }
 
     // Called from map child
-    setMapControls = controls => this.setState(controls);
+    setMapControls = map => {
+        const controls = {};
+
+        this.props.controls.forEach(control => {
+            map.addControl(control);
+            controls[control.type] = map.getControlContainer(control.type);
+        });
+
+        this.setState(controls);
+    };
 }
 
 export default withStyles(styles)(SplitView);

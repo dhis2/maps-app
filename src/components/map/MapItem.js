@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import mapApi from './MapApi';
-import { splitViewControls } from '../../constants/mapControls';
 
 const styles = () => ({
     item: {
@@ -52,14 +51,7 @@ class MapItem extends PureComponent {
 
         // Add map controls if first map
         if (index == 0) {
-            const controls = {};
-
-            splitViewControls.forEach(control => {
-                map.addControl(control);
-                controls[control.type] = map.getControlContainer(control.type);
-            });
-
-            setMapControls(controls);
+            setMapControls(map);
         }
     }
 

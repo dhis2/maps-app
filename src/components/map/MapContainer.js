@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Map from './Map';
-import SplitView from './SplitView';
+import MapView from './MapView';
 import MapName from './MapName';
 import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
-import { mapControls } from '../../constants/mapControls';
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,
@@ -15,7 +13,7 @@ import {
 } from '../../constants/layout';
 
 const styles = () => ({
-    mapDownload: {
+    download: {
         // Roboto font is not loaded by dom-to-image => switch to Arial
         '& div': {
             fontFamily: 'Arial,sans-serif!important',
@@ -47,35 +45,23 @@ const MapContainer = ({
     };
     let className = '';
 
-    const splitViewLayer = mapViews.find(
-        view => view.renderingStrategy === 'SPLIT_BY_PERIOD'
-    );
+    const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
 
     if (isDownload) {
-        className = `dhis2-map-download ${classes.mapDownload}`;
+        className = `dhis2-map-download ${classes.download}`;
     }
-
-    const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
 
     return (
         <div className={className} style={style}>
             <MapName />
-            {splitViewLayer ? (
-                <SplitView
-                    layer={splitViewLayer}
-                    basemap={basemap}
-                    openContextMenu={openContextMenu}
-                />
-            ) : (
-                <Map
-                    basemap={basemap}
-                    layers={layers}
-                    controls={mapControls}
-                    coordinatePopup={coordinatePopup}
-                    closeCoordinatePopup={closeCoordinatePopup}
-                    openContextMenu={openContextMenu}
-                />
-            )}
+            <MapView
+                isPlugin={false}
+                basemap={basemap}
+                layers={layers}
+                openContextMenu={openContextMenu}
+                coordinatePopup={coordinatePopup}
+                closeCoordinatePopup={closeCoordinatePopup}
+            />
             {isDownload && legendPosition && (
                 <DownloadLegend
                     position={legendPosition}

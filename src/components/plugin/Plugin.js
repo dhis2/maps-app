@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ContextMenu from './ContextMenu';
-import Map from '../map/Map';
-import SplitView from '../map/SplitView';
+import MapView from '../map/MapView';
 import Legend from './Legend';
 import { drillUpDown } from '../../util/map';
 import { fetchLayer } from '../../loaders/layers';
-import { pluginControls } from '../../constants/mapControls';
 
 const styles = {
     root: {
@@ -39,28 +37,16 @@ class Plugin extends Component {
     render() {
         const { basemap, classes } = this.props;
         const { position, feature, mapViews } = this.state;
-        const splitViewLayer = mapViews.find(
-            view => view.renderingStrategy === 'SPLIT_BY_PERIOD'
-        );
 
         return (
             <div className={classes.root}>
-                {splitViewLayer ? (
-                    <SplitView
-                        layer={splitViewLayer}
-                        basemap={basemap}
-                        openContextMenu={() => {}}
-                    />
-                ) : (
-                    <Map
-                        isPlugin={true}
-                        basemap={basemap}
-                        layers={mapViews}
-                        controls={pluginControls}
-                        openContextMenu={this.onOpenContextMenu}
-                        onCloseContextMenu={this.onCloseContextMenu}
-                    />
-                )}
+                <MapView
+                    isPlugin={true}
+                    basemap={basemap}
+                    layers={mapViews}
+                    openContextMenu={this.onOpenContextMenu}
+                    onCloseContextMenu={this.onCloseContextMenu}
+                />
                 <Legend layers={mapViews} />
                 <ContextMenu
                     position={position}
