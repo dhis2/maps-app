@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Map from './Map';
 import SplitView from './SplitView';
+import { getSplitViewLayer } from '../../util/helpers';
 import {
     mapControls,
     splitViewControls,
@@ -21,9 +22,7 @@ const MapView = props => {
         onCloseContextMenu,
     } = props;
 
-    const splitViewLayer = layers.find(
-        view => view.renderingStrategy === 'SPLIT_BY_PERIOD'
-    );
+    const splitViewLayer = getSplitViewLayer(layers);
 
     return (
         <Fragment>

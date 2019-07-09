@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
+import i18n from '@dhis2/d2-i18n';
 import {
     singleMapPeriods,
     invalidSplitViewPeriods,
@@ -18,12 +20,18 @@ const styles = () => ({
     radio: {
         padding: '4px 12px',
     },
+    message: {
+        paddingTop: 10,
+        fontStyle: 'italic',
+        fontSize: 14,
+    },
 });
 
 class RenderingStrategy extends Component {
     static propTypes = {
         value: PropTypes.string,
         period: PropTypes.object,
+        hasLayers: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
@@ -52,7 +60,7 @@ class RenderingStrategy extends Component {
     onChange = (evt, value) => this.props.onChange(value);
 
     render() {
-        const { value, period, classes } = this.props;
+        const { value, period, hasLayers, classes } = this.props;
 
         if (singleMapPeriods.includes(period.id)) {
             return null;
@@ -84,12 +92,24 @@ class RenderingStrategy extends Component {
                         value="SPLIT_BY_PERIOD"
                         control={<Radio className={classes.radio} />}
                         label="Split map views"
-                        disabled={invalidSplitViewPeriods.includes(period.id)}
+                        disabled={
+                            hasLayers ||
+                            invalidSplitViewPeriods.includes(period.id)
+                        }
                     />
                 </RadioGroup>
+                {hasLayers && (
+                    <div className={classes.message}>
+                        {i18n.t(
+                            'Remove other layers to enable split map view.'
+                        )}
+                    </div>
+                )}
             </FormControl>
         );
     }
 }
 
-export default withStyles(styles)(RenderingStrategy);
+export default connect(state => ({
+    hasLayers: !!state.map.mapViews.length,
+}))(withStyles(styles)(RenderingStrategy));
