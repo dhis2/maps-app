@@ -23,10 +23,6 @@ import { formatLocaleDate } from '../util/time';
 const thematicLoader = async config => {
     let error;
 
-    // TODO: remove
-    // console.log('loader', config);
-    // config.renderingStrategy = 'split';
-
     const response = await loadData(config).catch(err => {
         error = err;
     });
