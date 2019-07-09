@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import ContextMenu from './ContextMenu';
+import MapName from './MapName';
 import MapView from '../map/MapView';
 import Legend from './Legend';
+import ContextMenu from './ContextMenu';
 import { drillUpDown } from '../../util/map';
 import { fetchLayer } from '../../loaders/layers';
 
@@ -17,6 +18,7 @@ const styles = {
 
 class Plugin extends Component {
     static propTypes = {
+        name: PropTypes.string,
         basemap: PropTypes.object,
         mapViews: PropTypes.array,
         classes: PropTypes.object.isRequired,
@@ -35,11 +37,12 @@ class Plugin extends Component {
     }
 
     render() {
-        const { basemap, classes } = this.props;
+        const { name, basemap, classes } = this.props;
         const { position, feature, mapViews } = this.state;
 
         return (
             <div className={classes.root}>
+                <MapName name={name} />
                 <MapView
                     isPlugin={true}
                     basemap={basemap}
