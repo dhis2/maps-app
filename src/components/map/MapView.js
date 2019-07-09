@@ -14,6 +14,7 @@ const MapView = props => {
         isPlugin,
         basemap,
         layers,
+        bounds,
         coordinatePopup,
         closeCoordinatePopup,
         openContextMenu,
@@ -38,6 +39,7 @@ const MapView = props => {
                     isPlugin={isPlugin}
                     basemap={basemap}
                     layers={layers}
+                    bounds={bounds}
                     controls={isPlugin ? pluginControls : mapControls}
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
@@ -53,6 +55,7 @@ MapView.propTypes = {
     isPlugin: PropTypes.bool,
     basemap: PropTypes.object,
     layers: PropTypes.array,
+    bounds: PropTypes.array,
     coordinatePopup: PropTypes.array,
     closeCoordinatePopup: PropTypes.func,
     openContextMenu: PropTypes.func,

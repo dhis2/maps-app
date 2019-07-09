@@ -24,6 +24,7 @@ const styles = () => ({
 const MapContainer = ({
     basemap,
     mapViews,
+    bounds,
     showName,
     coordinatePopup,
     layersPanelOpen,
@@ -58,6 +59,7 @@ const MapContainer = ({
                 isPlugin={false}
                 basemap={basemap}
                 layers={layers}
+                bounds={bounds}
                 openContextMenu={openContextMenu}
                 coordinatePopup={coordinatePopup}
                 closeCoordinatePopup={closeCoordinatePopup}
@@ -76,6 +78,7 @@ const MapContainer = ({
 MapContainer.propTypes = {
     basemap: PropTypes.object,
     mapViews: PropTypes.array,
+    bounds: PropTypes.array,
     showName: PropTypes.bool,
     coordinatePopup: PropTypes.array,
     dataTableOpen: PropTypes.bool,
@@ -97,6 +100,7 @@ export default connect(
         },
         coordinatePopup: map.coordinatePopup,
         mapViews: map.mapViews,
+        bounds: map.bounds,
         isDownload: download.showDialog,
         showName: download.showDialog ? download.showName : true,
         legendPosition: download.showLegend ? download.legendPosition : null,
