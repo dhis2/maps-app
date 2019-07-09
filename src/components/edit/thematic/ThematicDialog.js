@@ -26,6 +26,7 @@ import PeriodTypeSelect from '../../periods/PeriodTypeSelect';
 import RenderingStrategy from '../../periods/RenderingStrategy';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
+// import PeriodDimension from '../../periods/PeriodDimension';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import DatePicker from '../../core/DatePicker';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';

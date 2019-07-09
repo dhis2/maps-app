@@ -37,7 +37,7 @@ class SplitView extends PureComponent {
 
     render() {
         const { basemap, layer, classes, openContextMenu } = this.props;
-        const { id, periods } = layer;
+        const { id, periods = [] } = layer;
 
         return (
             <div
