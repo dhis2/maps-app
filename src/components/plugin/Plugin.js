@@ -16,6 +16,8 @@ const styles = {
     },
 };
 
+const defaultBounds = [[-18.7, -34.9], [50.2, 35.9]];
+
 class Plugin extends Component {
     static propTypes = {
         name: PropTypes.string,
@@ -47,6 +49,7 @@ class Plugin extends Component {
                     isPlugin={true}
                     basemap={basemap}
                     layers={mapViews}
+                    bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
                     onCloseContextMenu={this.onCloseContextMenu}
                 />
