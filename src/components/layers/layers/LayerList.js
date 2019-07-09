@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 
 const styles = {
@@ -15,8 +16,8 @@ const styles = {
     },
     split: {
         width: 360,
-        padding: 50,
-        lineHeight: '24px',
+        padding: '40px 50px',
+        lineHeight: '25px',
         fontStyle: 'italic',
     },
 };
@@ -25,7 +26,9 @@ const LayerList = ({ classes, layers, isSplitView, onLayerSelect }) => (
     <div className={classes.root}>
         {isSplitView ? (
             <div className={classes.split}>
-                Split view can not be combined with other layer types.
+                {i18n.t(
+                    'Split view can not be combined with other layer types.'
+                )}
             </div>
         ) : (
             <div className={classes.list} data-test="addlayerlist">
