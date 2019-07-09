@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Popover from '@material-ui/core/Popover';
 import LayerList from './LayerList';
+import { isSplitViewMap } from '../../../util/helpers';
 import {
     addLayer,
     editLayer,
@@ -13,6 +14,7 @@ const AddLayerPopover = ({
     anchorEl,
     layersDialogOpen,
     layers,
+    isSplitView,
     addLayer,
     editLayer,
     closeLayersDialog,
@@ -40,7 +42,11 @@ const AddLayerPopover = ({
             open={layersDialogOpen}
             data-test="addlayerpopover"
         >
-            <LayerList layers={layers} onLayerSelect={onLayerSelect} />
+            <LayerList
+                layers={layers}
+                isSplitView={isSplitView}
+                onLayerSelect={onLayerSelect}
+            />
         </Popover>
     );
 };
@@ -49,6 +55,7 @@ AddLayerPopover.propTypes = {
     anchorEl: PropTypes.instanceOf(Element),
     layersDialogOpen: PropTypes.bool,
     layers: PropTypes.array,
+    isSplitView: PropTypes.bool,
     addLayer: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     closeLayersDialog: PropTypes.func.isRequired,
@@ -60,9 +67,10 @@ AddLayerPopover.defaultProps = {
 };
 
 export default connect(
-    ({ layers, ui }) => ({
+    ({ map, layers, ui }) => ({
         layers,
         layersDialogOpen: ui.layersDialogOpen,
+        isSplitView: isSplitViewMap(map.mapViews),
     }),
     { addLayer, editLayer, closeLayersDialog }
 )(AddLayerPopover);
