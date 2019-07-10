@@ -85,7 +85,7 @@ context('Facility Layers', () => {
             .should('have.length', 1)
             .click();
         cy.get('body').click(); // Close the modal menu
-        /*
+
         cy.get('[data-test="layeredit-addbtn"]').click();
 
         cy.get('[data-test="facilitydialog"]')
@@ -109,6 +109,5 @@ context('Facility Layers', () => {
             'have.length',
             1
         );
-        */
     });
 });
