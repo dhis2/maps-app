@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import LineSymbol from './LineSymbol';
+import LegendItemRange from './LegendItemRange';
 
 const LegendItem = ({
     image,
@@ -29,26 +31,18 @@ const LegendItem = ({
     return (
         <tr data-test="layerlegend-item">
             <th>
-                {!weight ? (
-                    // Show image or color
-                    <span style={symbol} />
+                {weight ? (
+                    <LineSymbol color={color} weight={weight} />
                 ) : (
-                    // Draw line
-                    <svg viewBox="0 0 24 24" style={{ width: 24, height: 24 }}>
-                        <path
-                            stroke={color}
-                            strokeWidth={weight}
-                            d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"
-                        />
-                    </svg>
+                    <span style={symbol} />
                 )}
             </th>
-            <td>
-                {name}{' '}
-                {isNaN(startValue)
-                    ? ''
-                    : `${startValue} - ${endValue} (${count})`}
-            </td>
+            <LegendItemRange
+                name={name}
+                startValue={startValue}
+                endValue={endValue}
+                count={count}
+            />
         </tr>
     );
 };

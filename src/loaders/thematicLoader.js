@@ -49,6 +49,7 @@ const thematicLoader = async config => {
         radiusHigh,
         classes,
         colorScale,
+        renderingStrategy,
     } = config;
 
     const period = getPeriodFromFilters(config.filters);
@@ -65,6 +66,7 @@ const thematicLoader = async config => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
+    const isSplitView = renderingStrategy === 'SPLIT_BY_PERIOD';
     let legendSet = config.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
     let alert;
@@ -99,7 +101,9 @@ const thematicLoader = async config => {
         );
     }
 
-    legend.items.forEach(item => (item.count = 0));
+    if (!isSplitView) {
+        legend.items.forEach(item => (item.count = 0));
+    }
 
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
@@ -118,12 +122,13 @@ const thematicLoader = async config => {
         }
     }
 
-    // TODO: Simplify
     if (valuesByPeriod) {
-        Object.keys(valuesByPeriod).forEach(period => {
-            Object.keys(valuesByPeriod[period]).forEach(orgunit => {
+        const periods = Object.keys(valuesByPeriod);
+        periods.forEach(period => {
+            const orgUnits = Object.keys(valuesByPeriod[period]);
+            orgUnits.forEach(orgunit => {
                 const item = valuesByPeriod[period][orgunit];
-                const legend = getLegendItem(item.value);
+                const legend = getLegendItem(Number(item.value));
                 item.color = legend ? legend.color : '#888';
             });
         });
@@ -135,7 +140,9 @@ const thematicLoader = async config => {
 
         // A predefined legend can have a shorter range
         if (item) {
-            item.count++;
+            if (!isSplitView) {
+                item.count++;
+            }
             properties.color = item.color;
             properties.legend = item.name; // Shown in data table
             properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
@@ -153,7 +160,7 @@ const thematicLoader = async config => {
         ...config,
         data: valueFeatures,
         periods,
-        valuesByPeriod: valuesByPeriod, // TODO
+        valuesByPeriod,
         name,
         legend,
         method,
@@ -226,6 +233,7 @@ const loadData = async config => {
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
+    const isSplitView = renderingStrategy === 'SPLIT_BY_PERIOD';
     const d2 = await getD2();
     const displayPropertyUpper = getDisplayProperty(
         d2,
@@ -244,7 +252,7 @@ const loadData = async config => {
         .addDataDimension(dataDimension)
         .withDisplayProperty(displayPropertyUpper);
 
-    if (renderingStrategy === 'SPLIT_BY_PERIOD') {
+    if (isSplitView) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id);
     } else {
         analyticsRequest = period
