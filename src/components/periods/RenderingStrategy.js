@@ -65,6 +65,9 @@ class RenderingStrategy extends Component {
         if (singleMapPeriods.includes(period.id)) {
             return null;
         }
+
+        const hasOtherLayers = hasLayers && value !== 'SPLIT_BY_PERIOD';
+
         return (
             <FormControl component="fieldset" className={classes.control}>
                 <FormLabel component="legend" className={classes.label}>
@@ -93,12 +96,12 @@ class RenderingStrategy extends Component {
                         control={<Radio className={classes.radio} />}
                         label="Split map views"
                         disabled={
-                            hasLayers ||
+                            hasOtherLayers ||
                             invalidSplitViewPeriods.includes(period.id)
                         }
                     />
                 </RadioGroup>
-                {hasLayers && (
+                {hasOtherLayers && (
                     <div className={classes.message}>
                         {i18n.t(
                             'Remove other layers to enable split map view.'
