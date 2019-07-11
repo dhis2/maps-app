@@ -31,6 +31,7 @@ class RenderingStrategy extends Component {
     static propTypes = {
         value: PropTypes.string,
         period: PropTypes.object,
+        layerId: PropTypes.string,
         hasOtherLayers: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
