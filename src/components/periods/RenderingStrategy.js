@@ -31,7 +31,7 @@ class RenderingStrategy extends Component {
     static propTypes = {
         value: PropTypes.string,
         period: PropTypes.object,
-        hasLayers: PropTypes.bool,
+        hasOtherLayers: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
@@ -60,13 +60,11 @@ class RenderingStrategy extends Component {
     onChange = (evt, value) => this.props.onChange(value);
 
     render() {
-        const { value, period, hasLayers, classes } = this.props;
+        const { value, period, hasOtherLayers, classes } = this.props;
 
         if (singleMapPeriods.includes(period.id)) {
             return null;
         }
-
-        const hasOtherLayers = hasLayers && value !== 'SPLIT_BY_PERIOD';
 
         return (
             <FormControl component="fieldset" className={classes.control}>
@@ -113,6 +111,10 @@ class RenderingStrategy extends Component {
     }
 }
 
-export default connect(state => ({
-    hasLayers: !!state.map.mapViews.length,
-}))(withStyles(styles)(RenderingStrategy));
+export default connect((state, props) => {
+    return {
+        hasOtherLayers: !!state.map.mapViews.filter(
+            ({ id }) => id !== props.layerId
+        ).length,
+    };
+})(withStyles(styles)(RenderingStrategy));

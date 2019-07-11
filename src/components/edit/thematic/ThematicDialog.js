@@ -496,6 +496,7 @@ export class ThematicDialog extends Component {
                                 <RenderingStrategy
                                     value={renderingStrategy}
                                     period={period}
+                                    layerId={id}
                                     onChange={setRenderingStrategy}
                                 />
                             )}
