@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const LegendItemRange = ({ name = '', startValue, endValue, count }) => (
     <td>
-        {isNaN(startValue) ? name : `${name} ${startValue} - ${endValue} `}
-        {count !== undefined ? `(${count})` : ''}
+        {isNaN(startValue) ? name : `${name} ${startValue} - ${endValue}`}
+        {count !== undefined ? ` (${count})` : ''}
     </td>
 );
 

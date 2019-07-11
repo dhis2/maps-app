@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
-import Legend from '../layers/legend/Legend';
+import LayerLegend from '../layers/legend/Legend';
 
 const styles = theme => ({
     root: {
@@ -47,7 +47,7 @@ const styles = theme => ({
     },
 });
 
-class PluginLegend extends PureComponent {
+class Legend extends PureComponent {
     static propTypes = {
         layers: PropTypes.array.isRequired,
         classes: PropTypes.object.isRequired,
@@ -102,7 +102,7 @@ class PluginLegend extends PureComponent {
                                 {legend.period}
                             </span>
                         </h2>
-                        {hasData && <Legend {...legend} />}
+                        {hasData && <LayerLegend {...legend} />}
                     </Fragment>
                 )}
                 {alerts.map(alert => (
@@ -119,4 +119,4 @@ class PluginLegend extends PureComponent {
     onMouseLeave = () => this.setState({ isOpen: false });
 }
 
-export default withStyles(styles)(PluginLegend);
+export default withStyles(styles)(Legend);

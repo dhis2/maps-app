@@ -22,7 +22,7 @@ class PeriodTypeSelect extends Component {
             if (relativePeriods.find(p => p.id === period.id)) {
                 onChange(
                     { id: 'relativePeriods', name: i18n.t('Relative') },
-                    false
+                    false // will not clear the period dropdown
                 );
             }
         }
