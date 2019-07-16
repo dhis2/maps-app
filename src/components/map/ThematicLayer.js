@@ -24,7 +24,7 @@ class ThematicLayer extends Layer {
             labelFontStyle,
             labelFontWeight,
             labelFontColor,
-            // editCounter,
+            editCounter,
             period,
             valuesByPeriod,
         } = this.props;
@@ -70,11 +70,9 @@ class ThematicLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        // Disabled due to issues when no geometries was found on first try
-        // if (!editCounter) {
-        this.fitBounds();
-        // }
+        if (!editCounter || map.getZoom() === undefined) {
+            this.fitBounds();
+        }
     }
 
     onFeatureClick(evt) {
