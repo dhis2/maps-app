@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import './PluginContextMenu.css';
+import './ContextMenu.css';
 
 class ContextMenu extends Component {
     componentDidUpdate() {
@@ -14,7 +14,7 @@ class ContextMenu extends Component {
     }
 
     render() {
-        const { position, feature, onDrillDown, onDrillUp } = this.props;
+        const { position, feature, onDrill } = this.props;
 
         if (!position || !feature) {
             return null;
@@ -25,12 +25,12 @@ class ContextMenu extends Component {
         return (
             <div className="MapContextMenu" ref={el => (this.el = el)}>
                 {hasCoordinatesUp && (
-                    <div onClick={onDrillUp}>
+                    <div onClick={() => onDrill('up')}>
                         {i18n.t('Drill up one level')}
                     </div>
                 )}
                 {hasCoordinatesDown && (
-                    <div onClick={onDrillDown}>
+                    <div onClick={() => onDrill('down')}>
                         {i18n.t('Drill down one level')}
                     </div>
                 )}
@@ -42,8 +42,7 @@ class ContextMenu extends Component {
 ContextMenu.propTypes = {
     feature: PropTypes.object,
     position: PropTypes.array,
-    onDrillDown: PropTypes.func.isRequired,
-    onDrillUp: PropTypes.func.isRequired,
+    onDrill: PropTypes.func.isRequired,
 };
 
 export default ContextMenu;

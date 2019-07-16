@@ -53,19 +53,33 @@
         mapPlugin.username = 'admin';
         mapPlugin.password = 'district';
 
+        const mapId = new URL(window.location.href).searchParams.get('id');
+
+        if (mapId) {
+            mapPlugin.load({
+                id: mapId,
+                el: 'map'
+            });
+            picker.style.display = 'none';
+            mapContainer.style.display = 'block';
+        }
+
         function onReloadBtnPress(e) {
             let config = {}
             try {
-                config = JSON.parse(document.getElementById('inputMapConfig').value);
+                const configJson = document.getElementById('inputMapConfig').value;
+
+                if (configJson) {
+                    config = JSON.parse(configJson);
+                }
             } catch (e) {
                 console.error(e)
             }
 
             const id = document.getElementById('inputMapID').value;
+
             if (id && id.length) {
-                config.id = {
-                    id
-                }
+                config.id = id;
             }
 
             config = Object.assign({

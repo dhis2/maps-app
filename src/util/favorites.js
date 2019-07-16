@@ -50,6 +50,7 @@ const validLayerProperties = [
     'organisationUnitSelectionMode',
     'params',
     'periodName',
+    'renderingStrategy',
     'program',
     'programStage',
     'programStatus',

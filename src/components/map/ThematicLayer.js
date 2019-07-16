@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
@@ -24,7 +25,20 @@ class ThematicLayer extends Layer {
             labelFontWeight,
             labelFontColor,
             editCounter,
+            period,
+            valuesByPeriod,
         } = this.props;
+
+        if (period) {
+            const values = valuesByPeriod[period.id];
+
+            data.forEach(feature => {
+                feature.properties = {
+                    ...feature.properties,
+                    ...values[feature.id],
+                };
+            });
+        }
 
         const map = this.context.map;
 
@@ -56,8 +70,7 @@ class ThematicLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
+        if (!editCounter || map.getZoom() === undefined) {
             this.fitBounds();
         }
     }
@@ -65,14 +78,15 @@ class ThematicLayer extends Layer {
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;
         const { name, value } = feature.properties;
-        const { columns, aggregationType, legend } = this.props;
+        const { period, columns, aggregationType, legend } = this.props;
         const indicator = columns[0].items[0].name || '';
-        const period = legend.period;
+        const periodName = period ? period.name : legend.period;
         const content = `
-            <div class="leaflet-popup-orgunit">
+            <div class="dhis2-map-popup-orgunit">
                 <em>${name}</em><br>
                 ${indicator}<br>
-                ${period}: ${value} ${
+                ${periodName}<br>
+                ${i18n.t('Value')}: ${value} ${
             aggregationType && aggregationType !== 'DEFAULT'
                 ? `(${aggregationType})`
                 : ''

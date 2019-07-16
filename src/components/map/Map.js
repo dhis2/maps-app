@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import isNumeric from 'd2-utilizr/lib/isNumeric';
+import mapApi from './MapApi';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
 import TrackedEntityLayer from './TrackedEntityLayer';
@@ -11,14 +10,6 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
-import MapName from './MapName';
-import DownloadLegend from '../download/DownloadLegend';
-import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
-import {
-    HEADER_HEIGHT,
-    LAYERS_PANEL_WIDTH,
-    INTERPRETATIONS_PANEL_WIDTH,
-} from '../../constants/layout';
 
 const layerType = {
     event: EventLayer,
@@ -31,107 +22,83 @@ const layerType = {
 };
 
 const styles = {
-    mapContainer: {
+    root: {
         height: '100%',
-        '& img': {
-            // Override from ui/core/UI'
-            maxWidth: 'none',
-        },
-        '& .leaflet-control-zoom a': {
-            // Override from ui/core/UI'
-            color: 'black!important',
-        },
-        '& .leaflet-control-measure a': {
-            fontSize: '12px!important',
-        },
-        '& .leaflet-popup-content th': {
-            fontWeight: 'bold',
-            paddingRight: 5,
-        },
-    },
-    mapDownload: {
-        // Roboto font is not loaded by dom-to-image => switch to Arial
-        '& div': {
-            fontFamily: 'Arial,sans-serif!important',
-        },
-        '& .leaflet-control-zoom, & .leaflet-control-geocoder, & .leaflet-control-measure, & .leaflet-control-fit-bounds': {
-            display: 'none!important',
-        },
     },
 };
 
 class Map extends Component {
-    static contextTypes = {
-        map: PropTypes.object,
-    };
-
     static propTypes = {
+        isPlugin: PropTypes.bool,
         basemap: PropTypes.object,
-        basemaps: PropTypes.array,
+        layers: PropTypes.array,
+        controls: PropTypes.array,
         bounds: PropTypes.array,
-        dataTableOpen: PropTypes.bool,
-        dataTableHeight: PropTypes.number,
-        isDownload: PropTypes.bool,
-        interpretationsPanelOpen: PropTypes.bool,
-        layersPanelOpen: PropTypes.bool,
-        legendPosition: PropTypes.string,
         latitude: PropTypes.number,
         longitude: PropTypes.number,
-        mapViews: PropTypes.array,
-        showName: PropTypes.bool,
         zoom: PropTypes.number,
         coordinatePopup: PropTypes.array,
-        closeCoordinatePopup: PropTypes.func.isRequired,
+        closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
+        onCloseContextMenu: PropTypes.func,
         classes: PropTypes.object.isRequired,
     };
 
-    componentWillMount() {
-        this.context.map.on('contextmenu', this.onRightClick, this);
+    static defaultProps = {
+        isPlugin: false,
+    };
+
+    static childContextTypes = {
+        map: PropTypes.object.isRequired,
+    };
+
+    getChildContext() {
+        return {
+            map: this.map,
+        };
+    }
+
+    constructor(props, context) {
+        super(props, context);
+        const { isPlugin } = props;
+
+        const map = mapApi({
+            scrollWheelZoom: !isPlugin,
+        });
+
+        if (isPlugin) {
+            map.on('click', props.onCloseContextMenu);
+        } else {
+            map.on('contextmenu', this.onRightClick, this);
+        }
+
+        this.map = map;
     }
 
     componentDidMount() {
-        const { bounds, latitude, longitude, zoom } = this.props;
-        const map = this.context.map;
+        const { controls, bounds, latitude, longitude, zoom } = this.props;
+        const { map } = this;
 
-        this.node.appendChild(map.getContainer()); // Append map container to DOM
+        // Append map container to DOM
+        this.node.appendChild(map.getContainer());
 
-        // Add zoom control
-        map.addControl({
-            type: 'zoom',
-            position: 'top-right',
-        });
+        map.resize();
 
-        // Add fit bounds control
-        map.addControl({
-            type: 'fitBounds',
-            position: 'top-right',
-        });
+        // Add map controls
+        if (controls) {
+            controls.forEach(control => map.addControl(control));
+        }
 
-        // Add scale control
-        map.addControl({
-            type: 'scale',
-            imperial: false,
-        });
+        const layerBounds = map.getLayersBounds();
 
-        // Add place search control (OSM Nominatim)
-        map.addControl({
-            type: 'search',
-        });
-
-        // Add measurement control
-        map.addControl({
-            type: 'measure',
-        });
-
-        if (Array.isArray(bounds)) {
+        if (Array.isArray(layerBounds)) {
+            map.fitBounds(layerBounds);
+        } else if (bounds) {
             map.fitBounds(bounds);
-        } else if (
-            isNumeric(latitude) &&
-            isNumeric(longitude) &&
-            isNumeric(zoom)
-        ) {
-            map.setView([latitude, longitude], zoom);
+        } else if (latitude && longitude && zoom) {
+            map.setView([longitude, latitude], zoom);
+        } else {
+            map.fitWorld();
         }
     }
 
@@ -142,114 +109,57 @@ class Map extends Component {
             this.showCoordinate(coordinatePopup);
         }
 
-        this.context.map.resize();
+        this.map.resize();
     }
 
+    // Remove map
     componentWillUnmount() {
-        this.context.map.remove();
+        if (this.map) {
+            this.map.remove();
+            delete this.map;
+        }
+    }
+
+    render() {
+        const { basemap, layers, openContextMenu, classes } = this.props;
+        const overlays = [...layers.filter(layer => layer.isLoaded)].reverse();
+
+        return (
+            <div
+                id="dhis2-maps-container"
+                ref={node => (this.node = node)}
+                className={classes.root}
+            >
+                {overlays.map((config, index) => {
+                    const Overlay = layerType[config.layer] || Layer;
+
+                    return (
+                        <Overlay
+                            key={config.id}
+                            index={overlays.length - index}
+                            openContextMenu={openContextMenu}
+                            {...config}
+                        />
+                    );
+                })}
+                {basemap.isVisible !== false && <Layer {...basemap} />}
+            </div>
+        );
     }
 
     showCoordinate(coord) {
-        const { map } = this.context;
         const content =
             'Longitude: ' +
             coord[0].toFixed(6) +
             '<br />Latitude: ' +
             coord[1].toFixed(6);
 
-        map.openPopup(content, coord, this.props.closeCoordinatePopup);
+        this.map.openPopup(content, coord, this.props.closeCoordinatePopup);
     }
 
     onRightClick = evt => {
         this.props.openContextMenu(evt);
     };
-
-    render() {
-        const {
-            basemap,
-            basemaps,
-            mapViews,
-            showName,
-            isDownload,
-            legendPosition,
-            layersPanelOpen,
-            interpretationsPanelOpen,
-            dataTableOpen,
-            dataTableHeight,
-            openContextMenu,
-            classes,
-        } = this.props;
-
-        const basemapConfig = {
-            ...basemaps.filter(b => b.id === basemap.id)[0],
-            ...basemap,
-        };
-
-        const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
-
-        const style = {
-            position: 'absolute',
-            top: HEADER_HEIGHT,
-            left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
-            right: interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0,
-            bottom: dataTableOpen ? dataTableHeight : 0,
-        };
-
-        return (
-            <div
-                className={isDownload ? classes.mapDownload : null}
-                style={style}
-            >
-                <div
-                    id="dhis2-maps-container"
-                    ref={node => (this.node = node)}
-                    className={classes.mapContainer}
-                >
-                    <MapName />
-                    {layers.map((config, index) => {
-                        const Overlay = layerType[config.layer] || Layer;
-
-                        return (
-                            <Overlay
-                                key={config.id}
-                                index={layers.length - index}
-                                openContextMenu={openContextMenu}
-                                {...config}
-                            />
-                        );
-                    })}
-                    <Layer key="basemap" {...basemapConfig} />
-                    {isDownload && legendPosition && (
-                        <DownloadLegend
-                            position={legendPosition}
-                            layers={mapViews}
-                            showName={showName}
-                        />
-                    )}
-                </div>
-            </div>
-        );
-    }
 }
 
-const mapStateToProps = state => ({
-    ...state.map,
-    basemaps: state.basemaps,
-    layersPanelOpen: state.ui.layersPanelOpen,
-    interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
-    dataTableOpen: state.dataTable ? true : false,
-    dataTableHeight: state.ui.dataTableHeight,
-    isDownload: state.download.showDialog,
-    showName: state.download.showDialog ? state.download.showName : true,
-    legendPosition: state.download.showLegend
-        ? state.download.legendPosition
-        : null,
-});
-
-export default connect(
-    mapStateToProps,
-    {
-        openContextMenu,
-        closeCoordinatePopup,
-    }
-)(withStyles(styles)(Map));
+export default withStyles(styles)(Map);

@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "33.0.2",
+    "version": "33.0.3",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -34,7 +34,7 @@
         "cy:e2e:open:update": "CYPRESS_GEN_FIXTURES=true cypress open",
         "prebuild": "yarn test && yarn localize && yarn manifest && rm -rf build && mkdir build && cp -r public/* ./build/",
         "build": "NODE_ENV=production webpack --progress",
-        "build:netlify": "yarn build && d2-manifest package.json build/manifest.webapp --manifest.activities.dhis.href=\"https://play.dhis2.org/dev\"",
+        "build:netlify": "yarn prebuild && NODE_ENV=production webpack && d2-manifest package.json build/manifest.webapp --manifest.activities.dhis.href=\"https://play.dhis2.org/dev\"",
         "manifest": "d2-manifest package.json public/manifest.webapp",
         "lint": "eslint ./src",
         "validate": "npm ls --depth 0 || yarn list",
@@ -52,7 +52,7 @@
         "@dhis2/d2-ui-interpretations": "6.1.0",
         "@dhis2/d2-ui-org-unit-dialog": "5.2.10",
         "@dhis2/d2-ui-org-unit-tree": "5.2.10",
-        "@dhis2/gis-api": "^32.0.22",
+        "@dhis2/gis-api": "^33.0.3",
         "@dhis2/ui": "^1.0.0-beta.15",
         "@material-ui/core": "^3.9.3",
         "@material-ui/icons": "^3.0.2",

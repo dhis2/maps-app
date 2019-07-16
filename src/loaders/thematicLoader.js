@@ -49,10 +49,14 @@ const thematicLoader = async config => {
         radiusHigh,
         classes,
         colorScale,
+        renderingStrategy,
     } = config;
+
     const period = getPeriodFromFilters(config.filters);
+    const periods = getPeriodsFromMetaData(data.metaData);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
+    const valuesByPeriod = getValuesByPeriod(data);
     const valueById = getValueById(data);
     const valueFeatures = features.filter(
         ({ id }) => valueById[id] !== undefined
@@ -62,6 +66,7 @@ const thematicLoader = async config => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
+    const isSplitView = renderingStrategy === 'SPLIT_BY_PERIOD';
     let legendSet = config.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
     let alert;
@@ -73,7 +78,7 @@ const thematicLoader = async config => {
     const legend = {
         title: name,
         period: period
-            ? getPeriodName(period, data.metaData.dimensions.pe, names)
+            ? names[period.id] || period.id
             : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
                   config.endDate
               )}`,
@@ -96,7 +101,9 @@ const thematicLoader = async config => {
         );
     }
 
-    legend.items.forEach(item => (item.count = 0));
+    if (!isSplitView) {
+        legend.items.forEach(item => (item.count = 0));
+    }
 
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
@@ -115,13 +122,27 @@ const thematicLoader = async config => {
         }
     }
 
+    if (valuesByPeriod) {
+        const periods = Object.keys(valuesByPeriod);
+        periods.forEach(period => {
+            const orgUnits = Object.keys(valuesByPeriod[period]);
+            orgUnits.forEach(orgunit => {
+                const item = valuesByPeriod[period][orgunit];
+                const legend = getLegendItem(Number(item.value));
+                item.color = legend ? legend.color : '#888';
+            });
+        });
+    }
+
     valueFeatures.forEach(({ id, geometry, properties }) => {
         const value = valueById[id];
         const item = getLegendItem(value);
 
         // A predefined legend can have a shorter range
         if (item) {
-            item.count++;
+            if (!isSplitView) {
+                item.count++;
+            }
             properties.color = item.color;
             properties.legend = item.name; // Shown in data table
             properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
@@ -138,6 +159,8 @@ const thematicLoader = async config => {
     return {
         ...config,
         data: valueFeatures,
+        periods,
+        valuesByPeriod,
         name,
         legend,
         method,
@@ -146,6 +169,28 @@ const thematicLoader = async config => {
         isExpanded: true,
         isVisible: true,
     };
+};
+
+const getPeriodsFromMetaData = ({ dimensions, items }) =>
+    dimensions.pe.map(id => ({
+        id,
+        name: items[id].name,
+    }));
+
+const getValuesByPeriod = data => {
+    const { headers, rows } = data;
+    const periodIndex = findIndex(['name', 'pe'], headers);
+    const ouIndex = findIndex(['name', 'ou'], headers);
+    const valueIndex = findIndex(['name', 'value'], headers);
+
+    return rows.reduce((obj, row) => {
+        const period = row[periodIndex];
+        const periodObj = (obj[period] = obj[period] || {});
+        periodObj[row[ouIndex]] = {
+            value: row[valueIndex],
+        };
+        return obj;
+    }, {});
 };
 
 // Returns an object mapping org. units and values
@@ -168,11 +213,6 @@ const getOrderedValues = data => {
     return rows.map(row => parseFloat(row[valueIndex])).sort((a, b) => a - b);
 };
 
-// Returns the period name
-// TODO: Period name should be returned in server response
-const getPeriodName = (period, periodDims, names) =>
-    periodDims.length > 1 ? i18n.t(period.name) : names[periodDims[0]];
-
 // Load features and data values from api
 const loadData = async config => {
     const {
@@ -186,12 +226,14 @@ const loadData = async config => {
         valueType,
         relativePeriodDate,
         aggregationType,
+        renderingStrategy,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
+    const isSplitView = renderingStrategy === 'SPLIT_BY_PERIOD';
     const d2 = await getD2();
     const displayPropertyUpper = getDisplayProperty(
         d2,
@@ -210,9 +252,13 @@ const loadData = async config => {
         .addDataDimension(dataDimension)
         .withDisplayProperty(displayPropertyUpper);
 
-    analyticsRequest = period
-        ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
+    if (isSplitView) {
+        analyticsRequest = analyticsRequest.addPeriodDimension(period.id);
+    } else {
+        analyticsRequest = period
+            ? analyticsRequest.addPeriodFilter(period.id)
+            : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
+    }
 
     if (dimensions) {
         dimensions.forEach(

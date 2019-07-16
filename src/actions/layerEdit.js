@@ -163,9 +163,10 @@ export const setPeriodName = periodName => ({
 });
 
 // Set period type (thematic)
-export const setPeriodType = periodType => ({
+export const setPeriodType = (periodType, clearPeriod = true) => ({
     type: types.LAYER_EDIT_PERIOD_TYPE_SET,
     periodType,
+    clearPeriod,
 });
 
 // Set period (event & thematic)
@@ -338,4 +339,10 @@ export const setProgramStatus = status => ({
 export const setFollowUpStatus = checked => ({
     type: types.LAYER_EDIT_FOLLOW_UP_SET,
     payload: checked,
+});
+
+// Set display mode for periods
+export const setRenderingStrategy = display => ({
+    type: types.LAYER_EDIT_RENDERING_STRATEGY_SET,
+    payload: display,
 });

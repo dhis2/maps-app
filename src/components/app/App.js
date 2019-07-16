@@ -4,11 +4,10 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import HeaderBar from '@dhis2/ui/widgets/HeaderBar';
 import mui3theme from '@dhis2/d2-ui-core/theme/mui3.theme';
-import MapProvider from '../map/MapProvider';
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
-import Map from '../map/Map';
+import MapContainer from '../map/MapContainer';
 import BottomPanel from '../datatable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
@@ -44,20 +43,18 @@ export class App extends Component {
             <FatalErrorBoundary>
                 <HeaderBar appName={i18n.t('Maps')} />
                 <MuiThemeProvider theme={theme}>
-                    <MapProvider>
-                        <AppMenu />
-                        <InterpretationsPanel />
-                        <LayersPanel />
-                        <LayersToggle />
-                        <Map />
-                        <BottomPanel />
-                        <LayerEdit />
-                        <ContextMenu />
-                        <AlertSnackbar />
-                        <Message />
-                        <DataDownloadDialog />
-                        <OpenAsMapDialog />
-                    </MapProvider>
+                    <AppMenu />
+                    <InterpretationsPanel />
+                    <LayersPanel />
+                    <LayersToggle />
+                    <MapContainer />
+                    <BottomPanel />
+                    <LayerEdit />
+                    <ContextMenu />
+                    <AlertSnackbar />
+                    <Message />
+                    <DataDownloadDialog />
+                    <OpenAsMapDialog />
                 </MuiThemeProvider>
             </FatalErrorBoundary>
         );

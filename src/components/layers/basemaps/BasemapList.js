@@ -11,13 +11,10 @@ const styles = {
     },
 };
 
-const BasemapList = (
-    { classes, selectedID, basemaps, selectBasemap },
-    { map }
-) => (
+const BasemapList = ({ classes, selectedID, basemaps, selectBasemap }) => (
     <div className={classes.container} data-test="basemaplist">
         {basemaps
-            .filter(basemap => map.hasLayerSupport(basemap.config.type))
+            // .filter(basemap => map.hasLayerSupport(basemap.config.type))
             .map((basemap, index) => (
                 <Basemap
                     key={`basemap-${index}`}
@@ -28,10 +25,6 @@ const BasemapList = (
             ))}
     </div>
 );
-
-BasemapList.contextTypes = {
-    map: PropTypes.object,
-};
 
 BasemapList.propTypes = {
     classes: PropTypes.object.isRequired,

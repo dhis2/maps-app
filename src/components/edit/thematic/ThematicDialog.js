@@ -23,6 +23,7 @@ import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import PeriodSelect from '../../periods/PeriodSelect';
 import PeriodTypeSelect from '../../periods/PeriodTypeSelect';
+import RenderingStrategy from '../../periods/RenderingStrategy';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
@@ -51,6 +52,7 @@ import {
     setOrgUnitGroups,
     setPeriod,
     setPeriodType,
+    setRenderingStrategy,
     setStartDate,
     setEndDate,
     setProgram,
@@ -115,6 +117,7 @@ export class ThematicDialog extends Component {
         startDate: PropTypes.string,
         endDate: PropTypes.string,
         periodType: PropTypes.string,
+        renderingStrategy: PropTypes.string,
         radiusHigh: PropTypes.number,
         radiusLow: PropTypes.number,
         valueType: PropTypes.string,
@@ -136,6 +139,7 @@ export class ThematicDialog extends Component {
         toggleOrgUnit: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         setPeriodType: PropTypes.func.isRequired,
+        setRenderingStrategy: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
         setRadiusHigh: PropTypes.func.isRequired,
@@ -226,6 +230,7 @@ export class ThematicDialog extends Component {
             labelFontWeight,
             operand,
             periodType,
+            renderingStrategy,
             startDate,
             endDate,
             program,
@@ -252,6 +257,7 @@ export class ThematicDialog extends Component {
             setStartDate,
             setEndDate,
             setPeriodType,
+            setRenderingStrategy,
             setProgram,
             setRadiusLow,
             setRadiusHigh,
@@ -440,7 +446,8 @@ export class ThematicDialog extends Component {
                         >
                             <PeriodTypeSelect
                                 value={periodType}
-                                onChange={type => setPeriodType(type.id)}
+                                period={period}
+                                onChange={setPeriodType}
                                 style={styles.select}
                                 errorText={periodTypeError}
                             />
@@ -485,6 +492,14 @@ export class ThematicDialog extends Component {
                                     </div>
                                 ) : null,
                             ]}
+                            {periodType === 'relativePeriods' && (
+                                <RenderingStrategy
+                                    value={renderingStrategy}
+                                    period={period}
+                                    layerId={id}
+                                    onChange={setRenderingStrategy}
+                                />
+                            )}
                         </div>
                     )}
                     {tab === 'orgunits' && (
@@ -768,6 +783,7 @@ export default connect(
         setOrgUnitGroups,
         setPeriod,
         setPeriodType,
+        setRenderingStrategy,
         setStartDate,
         setEndDate,
         setProgram,

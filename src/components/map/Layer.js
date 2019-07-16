@@ -99,8 +99,10 @@ class Layer extends PureComponent {
 
     // Fit map to layer bounds
     fitBounds() {
+        const { map } = this.context;
+
         if (this.layer.getBounds) {
-            this.context.map.fitBounds(this.layer.getBounds());
+            map.fitBounds(this.layer.getBounds());
         }
     }
 

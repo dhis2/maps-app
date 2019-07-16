@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-05-29T09:55:15.600Z\n"
-"PO-Revision-Date: 2019-05-29T09:55:15.600Z\n"
+"POT-Creation-Date: 2019-07-10T01:37:46.780Z\n"
+"PO-Revision-Date: 2019-07-10T01:37:46.780Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -415,6 +415,9 @@ msgstr ""
 msgid "deleted"
 msgstr ""
 
+msgid "Split view can not be combined with other layer types."
+msgstr ""
+
 msgid "Filters"
 msgstr ""
 
@@ -541,7 +544,13 @@ msgstr ""
 msgid "Next year"
 msgstr ""
 
+msgid "Relative"
+msgstr ""
+
 msgid "Period type"
+msgstr ""
+
+msgid "Remove other layers to enable split map view."
 msgstr ""
 
 msgid "Program indicator"
