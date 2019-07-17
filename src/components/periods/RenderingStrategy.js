@@ -83,13 +83,11 @@ class RenderingStrategy extends Component {
                         control={<Radio className={classes.radio} />}
                         label="Single (aggregate)"
                     />
-                    {/* Will be enabled in a later timeline PR
                     <FormControlLabel
                         value="TIMELINE"
                         control={<Radio className={classes.radio} />}
                         label="Timeline"
                     />
-                    */}
                     <FormControlLabel
                         value="SPLIT_BY_PERIOD"
                         control={<Radio className={classes.radio} />}

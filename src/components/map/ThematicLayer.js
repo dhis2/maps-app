@@ -1,5 +1,7 @@
+import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
+import Timeline from '../periods/Timeline';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
 import { removeLineBreaks } from '../../util/helpers';
@@ -25,9 +27,9 @@ class ThematicLayer extends Layer {
             labelFontWeight,
             labelFontColor,
             editCounter,
-            period,
             valuesByPeriod,
         } = this.props;
+        const { period } = this.state;
 
         if (period) {
             const values = valuesByPeriod[period.id];
@@ -68,12 +70,41 @@ class ThematicLayer extends Layer {
         }
 
         this.layer = map.createLayer(config);
+
         map.addLayer(this.layer);
 
         if (!editCounter || map.getZoom() === undefined) {
             this.fitBounds();
         }
     }
+
+    // Set initial period
+    setPeriod() {
+        const { period, periods } = this.props;
+
+        this.state = {
+            period: period || periods[0],
+        };
+    }
+
+    render() {
+        const { periods, renderingStrategy } = this.props;
+        const { period } = this.state;
+
+        if (renderingStrategy !== 'TIMELINE') {
+            return null;
+        }
+
+        return (
+            <Timeline
+                period={period}
+                periods={periods}
+                onChange={this.onPeriodChange}
+            />
+        );
+    }
+
+    onPeriodChange = period => this.setState({ period });
 
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;

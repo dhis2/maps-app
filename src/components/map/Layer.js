@@ -27,10 +27,11 @@ class Layer extends PureComponent {
 
     constructor(...args) {
         super(...args);
+        this.setPeriod();
         this.createLayer();
     }
 
-    componentDidUpdate(prev) {
+    componentDidUpdate(prevProps, prevState) {
         const {
             id,
             data,
@@ -41,26 +42,29 @@ class Layer extends PureComponent {
             dataFilters,
         } = this.props;
 
+        const { period } = this.state;
+
         // Create new map if new id of editCounter is increased
         if (
-            id !== prev.id ||
-            data !== prev.data ||
-            editCounter !== prev.editCounter ||
-            dataFilters !== prev.dataFilters
+            id !== prevProps.id ||
+            data !== prevProps.data ||
+            period !== prevState.period ||
+            editCounter !== prevProps.editCounter ||
+            dataFilters !== prevProps.dataFilters
         ) {
             this.removeLayer();
             this.createLayer();
         }
 
-        if (index !== undefined && index !== prev.index) {
+        if (index !== undefined && index !== prevProps.index) {
             this.setLayerOrder();
         }
 
-        if (opacity !== prev.opacity) {
+        if (opacity !== prevProps.opacity) {
             this.setLayerOpacity();
         }
 
-        if (isVisible !== prev.isVisible) {
+        if (isVisible !== prevProps.isVisible) {
             this.setLayerVisibility();
         }
     }
@@ -84,6 +88,9 @@ class Layer extends PureComponent {
 
         map.addLayer(this.layer);
     }
+
+    // Override in subclass if needed
+    setPeriod() {}
 
     setLayerVisibility() {
         this.layer.setVisibility(this.props.isVisible);
