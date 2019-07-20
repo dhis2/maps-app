@@ -16,6 +16,14 @@ const styles = theme => ({
         bottom: 28,
         height: 48,
         zIndex: 1000,
+        userSelect: 'none',
+    },
+    play: {
+        cursor: 'pointer',
+        fill: '#333',
+        '&:hover': {
+            fill: '#000',
+        },
     },
     period: {
         fill: '#333',
@@ -35,8 +43,12 @@ const styles = theme => ({
     },
 });
 
-const padding = 20;
+const paddingLeft = 40;
+const paddingRight = 20;
 const labelWidth = 80;
+const delay = 1500;
+const playBtn = <path d="M8 5v14l11-7z" />;
+const pauseBtn = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />;
 
 // https://github.com/d3/d3-scale
 // https://github.com/d3/d3-axis/
@@ -51,6 +63,7 @@ class Timeline extends Component {
 
     state = {
         width: null,
+        mode: 'start',
     };
 
     componentDidMount() {
@@ -68,14 +81,23 @@ class Timeline extends Component {
 
     render() {
         const { classes } = this.props;
+        const { mode } = this.state;
 
         return (
             <svg className={classes.root}>
-                <g transform={`translate(${padding},10)`}>
+                <g
+                    onClick={this.onPlayPause}
+                    transform="translate(7,5)"
+                    className={classes.play}
+                >
+                    <path d="M0 0h24v24H0z" fillOpacity="0.0" />
+                    {mode === 'play' ? pauseBtn : playBtn}
+                </g>
+                <g transform={`translate(${paddingLeft},10)`}>
                     {this.getPeriodRects()}
                 </g>
                 <g
-                    transform={`translate(${padding},25)`}
+                    transform={`translate(${paddingLeft},25)`}
                     ref={node => (this.node = node)}
                 />
             </svg>
@@ -83,7 +105,7 @@ class Timeline extends Component {
     }
 
     getPeriodRects = () => {
-        const { period, periods, onChange, classes } = this.props;
+        const { period, periods, classes } = this.props;
 
         if (!this.timeScale) {
             this.setTimeScale();
@@ -108,7 +130,7 @@ class Timeline extends Component {
                     y="0"
                     width={width}
                     height="16"
-                    onClick={isCurrent ? null : () => onChange(item)}
+                    onClick={() => this.onPeriodClick(item)}
                 />
             );
         });
@@ -138,8 +160,53 @@ class Timeline extends Component {
     };
 
     setWidth = () => {
-        const width = this.node.parentNode.clientWidth - padding * 2;
+        const width =
+            this.node.parentNode.clientWidth - paddingLeft - paddingRight;
         this.setState({ width });
+    };
+
+    onPeriodClick(period) {
+        if (period.id !== this.props.period.id) {
+            this.props.onChange(period);
+        }
+        this.stop();
+    }
+
+    onPlayPause = () => {
+        if (this.state.mode === 'play') {
+            this.stop();
+        } else {
+            this.play();
+        }
+    };
+
+    play = () => {
+        const { period, periods, onChange } = this.props;
+        const index = periods.findIndex(p => p.id === period.id);
+        const isLastPeriod = index === periods.length - 1;
+
+        if (this.timeout) {
+            if (isLastPeriod) {
+                this.stop();
+                return;
+            }
+
+            onChange(periods[index + 1]);
+        } else {
+            if (isLastPeriod) {
+                onChange(periods[0]);
+            }
+
+            this.setState({ mode: 'play' });
+        }
+
+        this.timeout = setTimeout(this.play, delay);
+    };
+
+    stop = () => {
+        this.setState({ mode: 'stop' });
+        clearTimeout(this.timeout);
+        delete this.timeout;
     };
 }
 
