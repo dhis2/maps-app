@@ -50,10 +50,7 @@ const delay = 1500;
 const playBtn = <path d="M8 5v14l11-7z" />;
 const pauseBtn = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />;
 
-// https://github.com/d3/d3-scale
-// https://github.com/d3/d3-axis/
-// https://observablehq.com/@d3/d3-scaletime
-class Timeline extends Component {
+export class Timeline extends Component {
     static propTypes = {
         period: PropTypes.object.isRequired,
         periods: PropTypes.array.isRequired,
@@ -72,6 +69,7 @@ class Timeline extends Component {
     }
 
     componentDidUpdate() {
+        // Update time axis
         this.setTimeAxis();
     }
 
@@ -104,6 +102,7 @@ class Timeline extends Component {
         );
     }
 
+    // Returns array of period rectangles
     getPeriodRects = () => {
         const { period, periods, classes } = this.props;
 
@@ -136,21 +135,30 @@ class Timeline extends Component {
         });
     };
 
+    // Set time scale
     setTimeScale = () => {
         const { periods } = this.props;
         const { width } = this.state;
+
+        if (!periods.length) {
+            return;
+        }
+
         const { startDate } = periods[0];
         const { endDate } = periods[periods.length - 1];
 
         // TODO: Support localized time
         // https://bl.ocks.org/mbostock/805115ebaa574e771db1875a6d828949
+        // Requires a backend API for different locales
 
+        // Link time domain to timeline width
         this.timeScale = scaleTime()
             .domain([startDate, endDate])
             .range([0, width])
             .nice();
     };
 
+    // Set timeline axis
     setTimeAxis = () => {
         const { width } = this.state;
         const ticks = Math.round(width / labelWidth);
@@ -159,19 +167,27 @@ class Timeline extends Component {
         select(this.node).call(timeAxis);
     };
 
+    // Set timeline width from DOM el
     setWidth = () => {
-        const width =
-            this.node.parentNode.clientWidth - paddingLeft - paddingRight;
-        this.setState({ width });
+        if (this.node) {
+            const width =
+                this.node.parentNode.clientWidth - paddingLeft - paddingRight;
+            this.setState({ width });
+        }
     };
 
+    // Handler for period click
     onPeriodClick(period) {
+        // Switch to period if different
         if (period.id !== this.props.period.id) {
             this.props.onChange(period);
         }
+
+        // Stop animation if running
         this.stop();
     }
 
+    // Handler for play/pause button
     onPlayPause = () => {
         if (this.state.mode === 'play') {
             this.stop();
@@ -180,29 +196,36 @@ class Timeline extends Component {
         }
     };
 
+    // Play animation
     play = () => {
         const { period, periods, onChange } = this.props;
         const index = periods.findIndex(p => p.id === period.id);
         const isLastPeriod = index === periods.length - 1;
 
-        if (this.timeout) {
-            if (isLastPeriod) {
-                this.stop();
-                return;
-            }
-
-            onChange(periods[index + 1]);
-        } else {
+        // If new animation
+        if (!this.timeout) {
+            // Switch to first period if last
             if (isLastPeriod) {
                 onChange(periods[0]);
             }
 
             this.setState({ mode: 'play' });
+        } else {
+            // Stop animation if last period
+            if (isLastPeriod) {
+                this.stop();
+                return;
+            }
+
+            // Switch to next period
+            onChange(periods[index + 1]);
         }
 
+        // Call itself after delay
         this.timeout = setTimeout(this.play, delay);
     };
 
+    // Stop animation
     stop = () => {
         this.setState({ mode: 'stop' });
         clearTimeout(this.timeout);
