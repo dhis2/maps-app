@@ -29,10 +29,11 @@ class ThematicLayer extends Layer {
             labelFontColor,
             editCounter,
             valuesByPeriod,
+            renderingStrategy,
         } = this.props;
         const { period } = this.state;
 
-        if (period) {
+        if (renderingStrategy !== 'SINGLE' && period) {
             const values = valuesByPeriod[period.id];
 
             data.forEach(feature => {
