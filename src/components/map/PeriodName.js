@@ -22,14 +22,15 @@ const styles = theme => ({
     },
 });
 
-const PeriodName = ({ period, classes }) => (
-    <div className={classes.period}>
+const PeriodName = ({ period, isTimeline, classes }) => (
+    <div className={classes.period} style={isTimeline ? { bottom: 86 } : null}>
         <div>{period}</div>
     </div>
 );
 
 PeriodName.propTypes = {
     period: PropTypes.string.isRequired,
+    isTimeline: PropTypes.bool,
     classes: PropTypes.object.isRequired,
 };
 

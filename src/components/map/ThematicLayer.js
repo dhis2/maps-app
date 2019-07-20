@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 import Timeline from '../periods/Timeline';
+import PeriodName from './PeriodName';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
 import { removeLineBreaks } from '../../util/helpers';
@@ -96,11 +97,14 @@ class ThematicLayer extends Layer {
         }
 
         return (
-            <Timeline
-                period={period}
-                periods={periods}
-                onChange={this.onPeriodChange}
-            />
+            <Fragment>
+                <PeriodName period={period.name} isTimeline={true} />
+                <Timeline
+                    period={period}
+                    periods={periods}
+                    onChange={this.onPeriodChange}
+                />
+            </Fragment>
         );
     }
 
