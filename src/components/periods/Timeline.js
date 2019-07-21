@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { select } from 'd3-selection';
-import { scaleTime } from 'd3-scale';
 import { axisBottom } from 'd3-axis';
+import { scaleTime } from '../../util/periods';
 
 const styles = theme => ({
     root: {
@@ -142,10 +142,6 @@ export class Timeline extends Component {
         const { startDate } = periods[0];
         const { endDate } = periods[periods.length - 1];
 
-        // TODO: Support localized time
-        // https://bl.ocks.org/mbostock/805115ebaa574e771db1875a6d828949
-        // Requires a backend API for different locales
-
         // Link time domain to timeline width
         this.timeScale = scaleTime()
             .domain([startDate, endDate])
@@ -157,9 +153,9 @@ export class Timeline extends Component {
         const numPeriods = this.props.periods.length;
         const { width } = this.state;
         const ticks = Math.round(width / labelWidth);
-        const timeAxis = axisBottom(this.timeScale).ticks(
-            ticks < numPeriods ? ticks : numPeriods
-        );
+        const timeAxis = axisBottom(this.timeScale);
+
+        timeAxis.ticks(ticks < numPeriods ? ticks : numPeriods);
 
         select(this.node).call(timeAxis);
     };
