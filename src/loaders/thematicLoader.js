@@ -174,10 +174,11 @@ const thematicLoader = async config => {
 const getPeriodsFromMetaData = ({ dimensions, items }) =>
     dimensions.pe.map(id => {
         const { name, startDate, endDate } = items[id];
+
         const newEndDate = new Date(endDate);
 
-        // Increment end date with 1 to include the last day
-        newEndDate.setDate(newEndDate.getDate() + 1);
+        // Set to midnight to include the last day
+        newEndDate.setHours(24);
 
         return {
             id,
