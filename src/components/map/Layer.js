@@ -43,17 +43,24 @@ class Layer extends PureComponent {
         } = this.props;
 
         const { period } = this.state;
+        const isEdited = editCounter !== prevProps.editCounter;
 
         // Create new map if new id of editCounter is increased
         if (
             id !== prevProps.id ||
             data !== prevProps.data ||
             period !== prevState.period ||
-            editCounter !== prevProps.editCounter ||
-            dataFilters !== prevProps.dataFilters
+            dataFilters !== prevProps.dataFilters ||
+            isEdited
         ) {
             this.removeLayer();
-            this.createLayer();
+
+            // Reset period if edited
+            if (isEdited) {
+                this.setPeriod(this.createLayer);
+            } else {
+                this.createLayer();
+            }
         }
 
         if (index !== undefined && index !== prevProps.index) {

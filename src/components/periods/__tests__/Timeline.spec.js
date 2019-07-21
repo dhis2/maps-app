@@ -16,9 +16,20 @@ describe('Timeline', () => {
         };
     });
 
-    it('should not render MUI Snackbar if no alert is passed', () => {
-        expect(renderWithProps(props).find(Timeline).length).toBe(0);
+    it('should render svg', () => {
+        const wrapper = renderWithProps(props);
+
+        console.log('############### wrapper', wrapper.debug());
+
+        expect(wrapper.type()).toBe('svg');
     });
+
+    /*
+    it('should not render MUI Snackbar if no alert is passed', () => {
+        const wrapper = renderWithProps(props);
+        expect(wrapper.find(Timeline).length).toBe(0);
+    });
+    */
 
     /*
     it('renders MUI Snackbar if alerts are passed', () => {

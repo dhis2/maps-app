@@ -58,11 +58,11 @@ class LayerEdit extends Component {
     };
 
     componentDidUpdate() {
-        const { layer, loadLayer } = this.props;
+        const { layer } = this.props;
 
         if (layer && layer.layer === 'external') {
             // External layers has no edit widget
-            loadLayer({ ...layer });
+            this.loadLayer();
         }
     }
 
@@ -79,7 +79,7 @@ class LayerEdit extends Component {
     onLayerValidation = isValid => {
         this.setState({ validateLayer: false });
         if (isValid) {
-            this.props.loadLayer(this.props.layer);
+            this.loadLayer();
             this.closeDialog();
         }
     };
@@ -134,6 +134,14 @@ class LayerEdit extends Component {
                 </DialogActions>
             </Dialog>
         );
+    }
+
+    loadLayer() {
+        const { editCounter = 0 } = this.props.layer;
+        this.props.loadLayer({
+            ...this.props.layer,
+            editCounter: editCounter + 1,
+        });
     }
 }
 

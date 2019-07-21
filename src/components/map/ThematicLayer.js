@@ -33,7 +33,7 @@ class ThematicLayer extends Layer {
         } = this.props;
         const { period } = this.state;
 
-        if (renderingStrategy !== 'SINGLE' && period) {
+        if (renderingStrategy !== 'SINGLE') {
             const values = valuesByPeriod[period.id];
 
             data.forEach(feature => {
@@ -81,12 +81,17 @@ class ThematicLayer extends Layer {
     }
 
     // Set initial period
-    setPeriod() {
+    setPeriod(callback) {
         const { period, periods } = this.props;
-
-        this.state = {
+        const initialPeriod = {
             period: period || periods[0],
         };
+
+        if (this.state) {
+            this.setState(initialPeriod, callback);
+        } else {
+            this.state = initialPeriod;
+        }
     }
 
     render() {

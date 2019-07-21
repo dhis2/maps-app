@@ -69,7 +69,6 @@ export class Timeline extends Component {
     }
 
     componentDidUpdate() {
-        // Update time axis
         this.setTimeAxis();
     }
 
@@ -80,6 +79,8 @@ export class Timeline extends Component {
     render() {
         const { classes } = this.props;
         const { mode } = this.state;
+
+        this.setTimeScale();
 
         return (
             <svg className={classes.root}>
@@ -105,12 +106,6 @@ export class Timeline extends Component {
     // Returns array of period rectangles
     getPeriodRects = () => {
         const { period, periods, classes } = this.props;
-
-        if (!this.timeScale) {
-            this.setTimeScale();
-        } else {
-            this.timeScale.range([0, this.state.width]);
-        }
 
         return periods.map(item => {
             const isCurrent = period.id === item.id;
@@ -154,15 +149,17 @@ export class Timeline extends Component {
         // Link time domain to timeline width
         this.timeScale = scaleTime()
             .domain([startDate, endDate])
-            .range([0, width])
-            .nice();
+            .range([0, width]);
     };
 
     // Set timeline axis
     setTimeAxis = () => {
+        const numPeriods = this.props.periods.length;
         const { width } = this.state;
         const ticks = Math.round(width / labelWidth);
-        const timeAxis = axisBottom(this.timeScale).ticks(ticks);
+        const timeAxis = axisBottom(this.timeScale).ticks(
+            ticks < numPeriods ? ticks : numPeriods
+        );
 
         select(this.node).call(timeAxis);
     };
