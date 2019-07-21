@@ -125,11 +125,7 @@ class Map extends Component {
         const overlays = [...layers.filter(layer => layer.isLoaded)].reverse();
 
         return (
-            <div
-                id="dhis2-maps-container"
-                ref={node => (this.node = node)}
-                className={classes.root}
-            >
+            <div ref={node => (this.node = node)} className={classes.root}>
                 {overlays.map((config, index) => {
                     const Overlay = layerType[config.layer] || Layer;
 

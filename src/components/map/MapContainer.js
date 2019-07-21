@@ -12,14 +12,23 @@ import {
     INTERPRETATIONS_PANEL_WIDTH,
 } from '../../constants/layout';
 
-const styles = () => ({
+const styles = {
+    container: {
+        height: '100%',
+    },
     download: {
         // Roboto font is not loaded by dom-to-image => switch to Arial
         '& div': {
             fontFamily: 'Arial,sans-serif!important',
         },
+        '& .dhis2-map-timeline': {
+            display: 'none',
+        },
+        '& .dhis2-map-period': {
+            bottom: '10px!important',
+        },
     },
-});
+};
 
 const MapContainer = ({
     basemap,
@@ -44,33 +53,35 @@ const MapContainer = ({
         right: interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
     };
-    let className = '';
+    let className = classes.container;
 
     const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
 
     if (isDownload) {
-        className = `dhis2-map-download ${classes.download}`;
+        className += ` ${classes.download} dhis2-map-download`;
     }
 
     return (
-        <div className={className} style={style}>
-            <MapName />
-            <MapView
-                isPlugin={false}
-                basemap={basemap}
-                layers={layers}
-                bounds={bounds}
-                openContextMenu={openContextMenu}
-                coordinatePopup={coordinatePopup}
-                closeCoordinatePopup={closeCoordinatePopup}
-            />
-            {isDownload && legendPosition && (
-                <DownloadLegend
-                    position={legendPosition}
+        <div style={style}>
+            <div id="dhis2-map-container" className={className}>
+                <MapName />
+                <MapView
+                    isPlugin={false}
+                    basemap={basemap}
                     layers={layers}
-                    showName={showName}
+                    bounds={bounds}
+                    openContextMenu={openContextMenu}
+                    coordinatePopup={coordinatePopup}
+                    closeCoordinatePopup={closeCoordinatePopup}
                 />
-            )}
+                {isDownload && legendPosition && (
+                    <DownloadLegend
+                        position={legendPosition}
+                        layers={layers}
+                        showName={showName}
+                    />
+                )}
+            </div>
         </div>
     );
 };

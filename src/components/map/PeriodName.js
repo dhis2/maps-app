@@ -23,7 +23,10 @@ const styles = theme => ({
 });
 
 const PeriodName = ({ period, isTimeline, classes }) => (
-    <div className={classes.period} style={isTimeline ? { bottom: 86 } : null}>
+    <div
+        className={`dhis2-map-period ${classes.period}`}
+        style={isTimeline ? { bottom: 86 } : null}
+    >
         <div>{period}</div>
     </div>
 );

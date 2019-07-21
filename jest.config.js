@@ -9,7 +9,7 @@ module.exports = {
     testEnvironment: 'node',
     globals: {
         window: true,
-        document: false,
+        document: true,
         navigator: true,
         Element: true,
     },

@@ -83,7 +83,7 @@ export class Timeline extends Component {
         this.setTimeScale();
 
         return (
-            <svg className={classes.root}>
+            <svg className={`dhis2-map-timeline ${classes.root}`}>
                 <g
                     onClick={this.onPlayPause}
                     transform="translate(7,5)"
