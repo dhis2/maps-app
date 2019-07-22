@@ -2,7 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Timeline } from '../Timeline';
 
-const context = { map: { on: jest.fn() } };
+const context = {
+    map: {
+        on: jest.fn(),
+        off: jest.fn(),
+    },
+};
 
 describe('Timeline', () => {
     const renderWithProps = props =>
