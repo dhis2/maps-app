@@ -27,7 +27,6 @@ class ThematicLayer extends Layer {
             labelFontStyle,
             labelFontWeight,
             labelFontColor,
-            editCounter,
             valuesByPeriod,
             renderingStrategy,
         } = this.props;
@@ -75,8 +74,10 @@ class ThematicLayer extends Layer {
 
         map.addLayer(this.layer);
 
-        if (!editCounter || map.getZoom() === undefined) {
+        // Only fit to layer bounds once
+        if (!this.isZoomed || map.getZoom() === undefined) {
             this.fitBounds();
+            this.isZoomed = true;
         }
     }
 
