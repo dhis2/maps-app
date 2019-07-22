@@ -100,7 +100,7 @@ class ThematicLayer extends Layer {
         const { periods, renderingStrategy } = this.props;
         const { period } = this.state;
 
-        if (renderingStrategy !== 'TIMELINE') {
+        if (renderingStrategy !== 'TIMELINE' || !period) {
             return null;
         }
 
