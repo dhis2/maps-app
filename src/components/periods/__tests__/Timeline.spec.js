@@ -2,8 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Timeline } from '../Timeline';
 
+const context = { map: { on: jest.fn() } };
+
 describe('Timeline', () => {
-    const renderWithProps = props => shallow(<Timeline {...props} />);
+    const renderWithProps = props =>
+        shallow(<Timeline {...props} />, { context });
     const period = { id: '201906', name: 'June 2019' };
     const periods = [
         {

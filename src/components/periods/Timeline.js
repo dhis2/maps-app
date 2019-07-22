@@ -51,6 +51,10 @@ const playBtn = <path d="M8 5v14l11-7z" />;
 const pauseBtn = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />;
 
 export class Timeline extends Component {
+    static contextTypes = {
+        map: PropTypes.object,
+    };
+
     static propTypes = {
         period: PropTypes.object.isRequired,
         periods: PropTypes.array.isRequired,
@@ -65,7 +69,7 @@ export class Timeline extends Component {
 
     componentDidMount() {
         this.setWidth();
-        window.addEventListener('resize', this.setWidth);
+        this.context.map.on('resize', this.setWidth);
     }
 
     componentDidUpdate() {
@@ -73,7 +77,7 @@ export class Timeline extends Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.setWidth);
+        this.context.map.off('resize', this.setWidth);
     }
 
     render() {

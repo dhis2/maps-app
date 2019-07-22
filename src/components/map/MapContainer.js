@@ -104,7 +104,7 @@ MapContainer.propTypes = {
 };
 
 export default connect(
-    ({ map, basemaps, download, ui }) => ({
+    ({ map, basemaps, download, dataTable, ui }) => ({
         basemap: {
             ...basemaps.filter(b => b.id === map.basemap.id)[0],
             ...map.basemap,
@@ -115,6 +115,7 @@ export default connect(
         isDownload: download.showDialog,
         showName: download.showDialog ? download.showName : true,
         legendPosition: download.showLegend ? download.legendPosition : null,
+        dataTableOpen: !!dataTable,
         ...ui,
     }),
     {

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class Layer extends PureComponent {
     static contextTypes = {
         map: PropTypes.object,
-        d2: PropTypes.object,
     };
 
     static propTypes = {
