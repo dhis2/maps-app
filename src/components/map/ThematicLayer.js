@@ -82,9 +82,10 @@ class ThematicLayer extends Layer {
 
     // Set initial period
     setPeriod(callback) {
-        const { period, periods } = this.props;
+        const { period, periods, renderingStrategy } = this.props;
         const initialPeriod = {
-            period: period || periods[0],
+            period:
+                renderingStrategy === 'SINGLE' ? null : period || periods[0],
         };
 
         if (this.state) {
@@ -119,7 +120,8 @@ class ThematicLayer extends Layer {
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;
         const { name, value } = feature.properties;
-        const { period, columns, aggregationType, legend } = this.props;
+        const { columns, aggregationType, legend } = this.props;
+        const { period } = this.state;
         const indicator = columns[0].items[0].name || '';
         const periodName = period ? period.name : legend.period;
         const content = `
