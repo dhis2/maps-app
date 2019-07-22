@@ -122,7 +122,7 @@ class Map extends Component {
 
     render() {
         const { basemap, layers, openContextMenu, classes } = this.props;
-        const overlays = [...layers.filter(layer => layer.isLoaded)].reverse();
+        const overlays = layers.filter(layer => layer.isLoaded);
 
         return (
             <div ref={node => (this.node = node)} className={classes.root}>

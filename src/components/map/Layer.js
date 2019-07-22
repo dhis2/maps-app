@@ -97,6 +97,7 @@ class Layer extends PureComponent {
     updateLayer() {
         this.removeLayer();
         this.createLayer();
+        this.setLayerOrder();
     }
 
     // Override in subclass if needed
