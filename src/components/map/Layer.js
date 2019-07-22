@@ -53,13 +53,11 @@ class Layer extends PureComponent {
             dataFilters !== prevProps.dataFilters ||
             isEdited
         ) {
-            this.removeLayer();
-
             // Reset period if edited
             if (isEdited) {
-                this.setPeriod(this.createLayer);
+                this.setPeriod(this.updateLayer);
             } else {
-                this.createLayer();
+                this.updateLayer();
             }
         }
 
@@ -94,6 +92,11 @@ class Layer extends PureComponent {
         });
 
         map.addLayer(this.layer);
+    }
+
+    updateLayer() {
+        this.removeLayer();
+        this.createLayer();
     }
 
     // Override in subclass if needed
