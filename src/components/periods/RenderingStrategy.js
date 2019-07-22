@@ -21,9 +21,10 @@ const styles = () => ({
         padding: '4px 12px',
     },
     message: {
-        paddingTop: 10,
+        paddingTop: 4,
         fontStyle: 'italic',
         fontSize: 14,
+        lineHeight: '18px',
     },
 });
 
@@ -33,6 +34,7 @@ class RenderingStrategy extends Component {
         period: PropTypes.object,
         layerId: PropTypes.string,
         hasOtherLayers: PropTypes.bool,
+        hasOtherTimelineLayers: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
@@ -61,7 +63,13 @@ class RenderingStrategy extends Component {
     onChange = (evt, value) => this.props.onChange(value);
 
     render() {
-        const { value, period, hasOtherLayers, classes } = this.props;
+        const {
+            value,
+            period,
+            hasOtherLayers,
+            hasOtherTimelineLayers,
+            classes,
+        } = this.props;
 
         if (singleMapPeriods.includes(period.id)) {
             return null;
@@ -87,6 +95,7 @@ class RenderingStrategy extends Component {
                         value="TIMELINE"
                         control={<Radio className={classes.radio} />}
                         label="Timeline"
+                        disabled={hasOtherTimelineLayers}
                     />
                     <FormControlLabel
                         value="SPLIT_BY_PERIOD"
@@ -98,22 +107,34 @@ class RenderingStrategy extends Component {
                         }
                     />
                 </RadioGroup>
-                {hasOtherLayers && (
-                    <div className={classes.message}>
-                        {i18n.t(
-                            'Remove other layers to enable split map view.'
-                        )}
-                    </div>
-                )}
+
+                <div className={classes.message}>
+                    {hasOtherTimelineLayers && (
+                        <div>{i18n.t('Only one timeline is allowed.')}</div>
+                    )}
+                    {hasOtherLayers && (
+                        <div>
+                            {i18n.t(
+                                'Remove other layers to enable split map views.'
+                            )}
+                        </div>
+                    )}
+                </div>
             </FormControl>
         );
     }
 }
 
 export default connect((state, props) => {
+    const { mapViews } = state.map;
+
     return {
-        hasOtherLayers: !!state.map.mapViews.filter(
-            ({ id }) => id !== props.layerId
-        ).length,
+        hasOtherLayers: !!mapViews.filter(({ id }) => id !== props.layerId)
+            .length,
+        hasOtherTimelineLayers: !!mapViews.find(
+            layer =>
+                layer.renderingStrategy === 'TIMELINE' &&
+                layer.id !== props.layerId
+        ),
     };
 })(withStyles(styles)(RenderingStrategy));
