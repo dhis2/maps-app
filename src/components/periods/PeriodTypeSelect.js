@@ -17,14 +17,19 @@ class PeriodTypeSelect extends Component {
 
     componentDidMount() {
         const { value, period, onChange } = this.props;
+        const relativePeriodType = {
+            id: 'relativePeriods',
+            name: i18n.t('Relative'),
+        };
 
         if (!value && period) {
             if (relativePeriods.find(p => p.id === period.id)) {
-                onChange(
-                    { id: 'relativePeriods', name: i18n.t('Relative') },
-                    false // will not clear the period dropdown
-                );
+                // false will not clear the period dropdown
+                onChange(relativePeriodType, false);
             }
+        } else if (!value) {
+            // set relativePeriods as default
+            onChange(relativePeriodType);
         }
     }
 
