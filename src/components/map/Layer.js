@@ -31,7 +31,7 @@ class Layer extends PureComponent {
         this.createLayer();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState = {}) {
         const {
             id,
             data,
@@ -41,15 +41,15 @@ class Layer extends PureComponent {
             editCounter,
             dataFilters,
         } = this.props;
-
-        const { period } = this.state;
+        const { period } = this.state || {};
+        const { period: prevPeriod } = prevState || {};
         const isEdited = editCounter !== prevProps.editCounter;
 
         // Create new map if new id of editCounter is increased
         if (
             id !== prevProps.id ||
             data !== prevProps.data ||
-            period !== prevState.period ||
+            period !== prevPeriod ||
             dataFilters !== prevProps.dataFilters ||
             isEdited
         ) {
