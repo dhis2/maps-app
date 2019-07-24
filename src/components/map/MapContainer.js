@@ -55,7 +55,7 @@ const MapContainer = ({
     };
     let className = classes.container;
 
-    const layers = [...mapViews.filter(layer => layer.isLoaded)].reverse();
+    const layers = mapViews.filter(layer => layer.isLoaded);
 
     if (isDownload) {
         className += ` ${classes.download} dhis2-map-download`;
