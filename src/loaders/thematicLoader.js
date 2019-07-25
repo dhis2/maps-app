@@ -66,7 +66,7 @@ const thematicLoader = async config => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
-    const isSplitView = renderingStrategy === 'SPLIT_BY_PERIOD';
+    const isSingle = renderingStrategy === 'SINGLE';
     let legendSet = config.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
     let alert;
@@ -101,7 +101,7 @@ const thematicLoader = async config => {
         );
     }
 
-    if (!isSplitView) {
+    if (isSingle) {
         legend.items.forEach(item => (item.count = 0));
     }
 
@@ -140,7 +140,7 @@ const thematicLoader = async config => {
 
         // A predefined legend can have a shorter range
         if (item) {
-            if (!isSplitView) {
+            if (isSingle) {
                 item.count++;
             }
             properties.color = item.color;
@@ -172,10 +172,21 @@ const thematicLoader = async config => {
 };
 
 const getPeriodsFromMetaData = ({ dimensions, items }) =>
-    dimensions.pe.map(id => ({
-        id,
-        name: items[id].name,
-    }));
+    dimensions.pe.map(id => {
+        const { name, startDate, endDate } = items[id];
+
+        const newEndDate = new Date(endDate);
+
+        // Set to midnight to include the last day
+        newEndDate.setHours(24);
+
+        return {
+            id,
+            name,
+            startDate: new Date(startDate),
+            endDate: newEndDate,
+        };
+    });
 
 const getValuesByPeriod = data => {
     const { headers, rows } = data;
@@ -233,7 +244,7 @@ const loadData = async config => {
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
-    const isSplitView = renderingStrategy === 'SPLIT_BY_PERIOD';
+    const isSingle = renderingStrategy === 'SINGLE';
     const d2 = await getD2();
     const displayPropertyUpper = getDisplayProperty(
         d2,
@@ -252,7 +263,7 @@ const loadData = async config => {
         .addDataDimension(dataDimension)
         .withDisplayProperty(displayPropertyUpper);
 
-    if (isSplitView) {
+    if (!isSingle) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id);
     } else {
         analyticsRequest = period

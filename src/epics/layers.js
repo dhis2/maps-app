@@ -1,6 +1,5 @@
 import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
-import { getInstance as getD2 } from 'd2';
 import * as types from '../constants/actionTypes';
 import { closeContextMenu } from '../actions/map';
 import { addLayer, updateLayer, loadLayer } from '../actions/layers';
@@ -12,17 +11,10 @@ import { relativePeriods } from '../constants/periods';
 
 const isNewLayer = config => config.id === undefined;
 
-// Increase edit counter to trigger redraw
-const increaseEditCounter = config => ({
-    ...config,
-    editCounter: config.editCounter === undefined ? 0 : ++config.editCounter,
-});
-
 // Load one layer
 export const loadLayerEpic = action$ =>
     action$.ofType(types.LAYER_LOAD).concatMap(action =>
         fetchLayer(action.payload)
-            .then(increaseEditCounter)
             .then(config =>
                 isNewLayer(config) ? addLayer(config) : updateLayer(config)
             )
@@ -32,19 +24,17 @@ export const loadLayerEpic = action$ =>
 export const drillLayer = (action$, store) =>
     action$
         .ofType(types.LAYER_DRILL)
-        .concatMap(({ layerId, parentId, parentGraph, level }) =>
-            getD2() // TODO: D2 is not needed, just included to return a promise
-                .then(() => {
+        .concatMap(
+            ({ layerId, parentId, parentGraph, level }) =>
+                new Promise(resolve => {
+                    // Must return a promise
                     const state = store.getState();
                     const layerConfig = state.map.mapViews.filter(
                         config => config.id === layerId
-                    )[0]; // TODO: Add check
+                    )[0];
 
-                    return drillUpDown(
-                        layerConfig,
-                        parentId,
-                        parentGraph,
-                        level
+                    resolve(
+                        drillUpDown(layerConfig, parentId, parentGraph, level)
                     );
                 })
         )

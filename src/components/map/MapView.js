@@ -37,7 +37,7 @@ const MapView = props => {
                 <Map
                     isPlugin={isPlugin}
                     basemap={basemap}
-                    layers={layers}
+                    layers={[...layers].reverse()}
                     bounds={bounds}
                     controls={isPlugin ? pluginControls : mapControls}
                     coordinatePopup={coordinatePopup}

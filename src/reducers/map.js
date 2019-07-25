@@ -116,7 +116,6 @@ const layer = (state, action) => {
                     ...state.dataFilters,
                     [action.fieldId]: action.filter,
                 },
-                // editCounter: ++state.editCounter, // Will trigger redraw
             };
 
         // Remove field from filter
@@ -131,7 +130,6 @@ const layer = (state, action) => {
             return {
                 ...state,
                 dataFilters: filters,
-                // editCounter: ++state.editCounter, // Will trigger redraw
             };
 
         case types.ALERTS_CLEAR:

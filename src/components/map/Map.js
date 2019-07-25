@@ -122,14 +122,10 @@ class Map extends Component {
 
     render() {
         const { basemap, layers, openContextMenu, classes } = this.props;
-        const overlays = [...layers.filter(layer => layer.isLoaded)].reverse();
+        const overlays = layers.filter(layer => layer.isLoaded);
 
         return (
-            <div
-                id="dhis2-maps-container"
-                ref={node => (this.node = node)}
-                className={classes.root}
-            >
+            <div ref={node => (this.node = node)} className={classes.root}>
                 {overlays.map((config, index) => {
                     const Overlay = layerType[config.layer] || Layer;
 

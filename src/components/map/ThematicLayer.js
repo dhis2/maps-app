@@ -1,5 +1,8 @@
+import React, { Fragment } from 'react';
 import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
+import Timeline from '../periods/Timeline';
+import PeriodName from './PeriodName';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
 import { removeLineBreaks } from '../../util/helpers';
@@ -24,12 +27,12 @@ class ThematicLayer extends Layer {
             labelFontStyle,
             labelFontWeight,
             labelFontColor,
-            editCounter,
-            period,
             valuesByPeriod,
+            renderingStrategy,
         } = this.props;
+        const { period } = this.state;
 
-        if (period) {
+        if (renderingStrategy !== 'SINGLE') {
             const values = valuesByPeriod[period.id];
 
             data.forEach(feature => {
@@ -68,17 +71,58 @@ class ThematicLayer extends Layer {
         }
 
         this.layer = map.createLayer(config);
+
         map.addLayer(this.layer);
 
-        if (!editCounter || map.getZoom() === undefined) {
+        // Only fit to layer bounds once
+        if (!this.isZoomed || map.getZoom() === undefined) {
             this.fitBounds();
+            this.isZoomed = true;
         }
     }
+
+    // Set initial period
+    setPeriod(callback) {
+        const { period, periods, renderingStrategy } = this.props;
+        const initialPeriod = {
+            period:
+                renderingStrategy === 'SINGLE' ? null : period || periods[0],
+        };
+
+        if (this.state) {
+            this.setState(initialPeriod, callback);
+        } else {
+            this.state = initialPeriod;
+        }
+    }
+
+    render() {
+        const { periods, renderingStrategy } = this.props;
+        const { period } = this.state;
+
+        if (renderingStrategy !== 'TIMELINE' || !period) {
+            return null;
+        }
+
+        return (
+            <Fragment>
+                <PeriodName period={period.name} isTimeline={true} />
+                <Timeline
+                    period={period}
+                    periods={periods}
+                    onChange={this.onPeriodChange}
+                />
+            </Fragment>
+        );
+    }
+
+    onPeriodChange = period => this.setState({ period });
 
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;
         const { name, value } = feature.properties;
-        const { period, columns, aggregationType, legend } = this.props;
+        const { columns, aggregationType, legend } = this.props;
+        const { period } = this.state;
         const indicator = columns[0].items[0].name || '';
         const periodName = period ? period.name : legend.period;
         const content = `

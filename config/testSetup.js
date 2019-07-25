@@ -17,9 +17,15 @@ configure({ adapter: new Adapter() });
 //     Object.defineProperties(target, props);
 // }
 
-global.window = {};
-// // global.document = window.document;
+global.window = {
+    addEventListener: () => {},
+};
+global.document = {
+    documentElement: {},
+};
+
 global.navigator = global.window.navigator = {
     userAgent: 'node.js',
 };
+
 // copyProps(window, global);

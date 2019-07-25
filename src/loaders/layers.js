@@ -20,7 +20,11 @@ export const fetchLayer = config => {
     const Loader = layerType[config.layer];
 
     if (Loader) {
-        return Loader(config);
+        return Loader({
+            ...config,
+            editCounter:
+                config.editCounter !== undefined ? config.editCounter + 1 : 0,
+        });
     } else {
         // eslint-disable-next-line
         console.log('Unknown layer type', config.layer, config);
