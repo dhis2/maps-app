@@ -736,13 +736,7 @@ export class ThematicDialog extends Component {
             }
         }
 
-        if (!periodType && !period) {
-            return this.setErrorState(
-                'periodTypeError',
-                i18n.t('Period type is required'),
-                'period'
-            );
-        } else if (!period && periodType !== 'StartEndDates') {
+        if (!period && periodType !== 'StartEndDates') {
             return this.setErrorState(
                 'periodError',
                 i18n.t('Period is required'),
