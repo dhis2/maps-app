@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 context('Event Layers', () => {
-    before(() => {});
+    before(() => { });
     beforeEach(() => {
         cy.startServer('eventlayer');
         cy.login('system', 'System123');
@@ -69,7 +69,7 @@ context('Event Layers', () => {
         cy.getReduxState(state => state.map.mapViews).should('have.length', 1);
         cy.getReduxState(state => state.map.mapViews[0].data).should(
             'have.length',
-            86
+            1324
         );
         const card = cy
             .get('[data-test="layercard"]')
