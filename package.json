@@ -33,7 +33,7 @@
         "cy:e2e:update": "CYPRESS_GEN_FIXTURES=true cypress run --config video=false",
         "cy:e2e:open:update": "CYPRESS_GEN_FIXTURES=true cypress open",
         "prebuild": "yarn test && yarn localize && yarn manifest && rm -rf build && mkdir build && cp -r public/* ./build/",
-        "build": "NODE_ENV=production webpack --progress",
+        "build": "NODE_ENV=production webpack",
         "build:netlify": "yarn prebuild && NODE_ENV=production webpack && d2-manifest package.json build/manifest.webapp --manifest.activities.dhis.href=\"https://play.dhis2.org/dev\"",
         "manifest": "d2-manifest package.json public/manifest.webapp",
         "lint": "eslint ./src",
