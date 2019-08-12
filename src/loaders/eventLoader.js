@@ -16,14 +16,42 @@ import {
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { formatLocaleDate } from '../util/time';
 import { cssColor } from '../util/colors';
+import { createAlert } from '../util/alerts';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
 
-//TODO: Refactor to share code with other loaders
+const accessDeniedAlert = createAlert(
+    i18n.t('Access denied'),
+    i18n.t('user is not allowed to read layer data')
+);
+const unknownErrorAlert = createAlert(
+    i18n.t('Failed'),
+    i18n.t('an unknown error occurred while reading layer data')
+);
+
+// TODO: Refactor to share code with other loaders
 // Returns a promise
 const eventLoader = async layerConfig => {
-    const config = { ...layerConfig };
+    let config = { ...layerConfig };
+    try {
+        await loadEventLayer(config);
+    } catch (e) {
+        if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
+            config.alerts = [accessDeniedAlert];
+        } else {
+            config.alerts = [unknownErrorAlert];
+        }
+    }
+
+    config.isLoaded = true;
+    config.isExpanded = true;
+    config.isVisible = true;
+
+    return config;
+};
+
+const loadEventLayer = async config => {
     const {
         columns,
         endDate,
@@ -96,12 +124,6 @@ const eventLoader = async layerConfig => {
                 ...(await getFilterOptionNames(dataFilters, response.headers)),
             });
     }
-
-    config.isLoaded = true;
-    config.isExpanded = true;
-    config.isVisible = true;
-
-    return config;
 };
 
 // Also used to query for server cluster in map/EventLayer.js
