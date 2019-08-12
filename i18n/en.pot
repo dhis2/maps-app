@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2018-12-05T09:55:15.234Z\n"
-"PO-Revision-Date: 2018-12-05T09:55:15.234Z\n"
+"POT-Creation-Date: 2019-08-12T13:12:48.527Z\n"
+"PO-Revision-Date: 2019-08-12T13:12:48.527Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -526,6 +526,18 @@ msgid "Error"
 msgstr ""
 
 msgid "Boundaries"
+msgstr ""
+
+msgid "Access denied"
+msgstr ""
+
+msgid "user is not allowed to read layer data"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"

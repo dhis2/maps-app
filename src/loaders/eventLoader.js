@@ -16,6 +16,7 @@ import {
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { formatLocaleDate } from '../util/time';
 import { cssColor } from '../util/colors';
+import { createAlert } from '../util/alerts';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
