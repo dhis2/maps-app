@@ -15,13 +15,43 @@ import {
 } from '../util/analytics';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { defaultClasses, defaultColorScale } from '../util/colorscale';
+import { createAlert } from '../util/alerts';
 
 // Look at: https://github.com/dhis2/maintenance-app/blob/master/src/App/appStateStore.js
 
 const formatTime = date => timeFormat('%Y-%m-%d')(new Date(date));
 
-const eventLoader = async config => {
-    // Returns a promise
+const accessDeniedAlert = createAlert(
+    i18n.t('Access denied'),
+    i18n.t('user is not allowed to read layer data')
+);
+const unknownErrorAlert = createAlert(
+    i18n.t('Failed'),
+    i18n.t('an unknown error occurred while reading layer data')
+);
+
+// TODO: Refactor to share code with other loaders
+// Returns a promise
+const eventLoader = async layerConfig => {
+    let config = { ...layerConfig };
+    try {
+        await loadEventLayer(config);
+    } catch (e) {
+        if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
+            config.alerts = [accessDeniedAlert];
+        } else {
+            config.alerts = [unknownErrorAlert];
+        }
+    }
+
+    config.isLoaded = true;
+    config.isExpanded = true;
+    config.isVisible = true;
+
+    return config;
+};
+
+const loadEventLayer = async config => {
     const {
         classes = defaultClasses,
         colorScale = defaultColorScale,
@@ -201,9 +231,6 @@ const eventLoader = async config => {
         data,
         bounds,
         serverCluster,
-        isLoaded: true,
-        isExpanded: true,
-        isVisible: true,
     };
 };
 
