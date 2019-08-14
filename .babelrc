@@ -6,7 +6,6 @@
     ],
     "plugins": [
         "transform-object-assign",
-        "transform-es2015-parameters"
     ],
     "env": {
         "test": {
