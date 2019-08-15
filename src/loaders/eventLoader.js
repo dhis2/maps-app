@@ -33,9 +33,12 @@ const unknownErrorAlert = createAlert(
 // TODO: Refactor to share code with other loaders
 // Returns a promise
 const eventLoader = async layerConfig => {
-    let config = { ...layerConfig };
+    let config = {
+        ...layerConfig,
+        name: layerConfig.programStage && layerConfig.programStage.name
+    };
     try {
-        await loadEventLayer(config);
+        config = await loadEventLayer(config);
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [accessDeniedAlert];
@@ -187,7 +190,7 @@ const loadEventLayer = async config => {
                     data.forEach(feature => {
                         feature.properties.color =
                             styleDataItem.optionSet.options[
-                                feature.properties.value
+                            feature.properties.value
                             ];
                     });
                     legend.items = getCategoryLegendItems(
@@ -226,7 +229,6 @@ const loadEventLayer = async config => {
 
     return {
         ...config,
-        name: programStage.name,
         legend,
         data,
         bounds,
@@ -304,12 +306,12 @@ export const getAnalyticsRequest = async (
 export const addStyleDataItem = (dataItems, styleDataItem) =>
     styleDataItem
         ? [
-              ...dataItems,
-              styleDataItem && {
-                  dimension: styleDataItem.id,
-                  name: styleDataItem.name,
-              },
-          ]
+            ...dataItems,
+            styleDataItem && {
+                dimension: styleDataItem.id,
+                name: styleDataItem.name,
+            },
+        ]
         : [...dataItems];
 
 const createEventFeature = (headers, names, event, eventCoordinateField) => {
