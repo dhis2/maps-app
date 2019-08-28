@@ -213,14 +213,15 @@ const earthEngineLoader = async config => {
         ...dataset,
     };
 
+    layer.legend = {
+        title: layer.name,
+        period: layer.periodName,
+        ...layer.legend,
+    };
+
     // Create legend items from params
-    if (layer.legend && !layer.legend.items && layer.params) {
-        layer.legend = {
-            title: layer.name,
-            period: layer.periodName,
-            items: createLegend(layer.params),
-            ...layer.legend,
-        };
+    if (!layer.legend.items && layer.params) {
+        layer.legend.items = createLegend(layer.params);
     }
 
     return {

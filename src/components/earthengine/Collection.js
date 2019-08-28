@@ -130,7 +130,9 @@ export class CollectionSelect extends Component {
     };
 
     onPeriodChange = period => {
+        const { id: periodId, name, year } = period;
         const { id, onChange } = this.props;
+        const periodName = name + (year ? ` ${year}` : '');
         const collectionFilter =
             collectionFilters[id] ||
             (index => [
@@ -140,7 +142,7 @@ export class CollectionSelect extends Component {
                 },
             ]);
 
-        onChange(period.name, collectionFilter(period.id));
+        onChange(periodName, collectionFilter(periodId));
     };
 }
 
