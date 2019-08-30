@@ -35,6 +35,7 @@ class Plugin extends Component {
 
         this.state = {
             mapViews: props.mapViews, // Can be changed by drilling
+            resizeCount: 0,
         };
     }
 
@@ -61,6 +62,14 @@ class Plugin extends Component {
                 />
             </div>
         );
+    }
+
+    // Call this method when plugin container is resized
+    resize() {
+        // Will trigger a redraw of the MapView component
+        this.setState({
+            resizeCount: this.state.resizeCount + 1,
+        });
     }
 
     onOpenContextMenu = state => this.setState(state);

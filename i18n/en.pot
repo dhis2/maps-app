@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
-"PO-Revision-Date: 2019-07-22T12:26:05.092Z\n"
+"POT-Creation-Date: 2019-08-30T10:33:42.458Z\n"
+"PO-Revision-Date: 2019-08-30T10:33:42.458Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -294,9 +294,6 @@ msgid "Event data item is required"
 msgstr ""
 
 msgid "Program indicator is required"
-msgstr ""
-
-msgid "Period type is required"
 msgstr ""
 
 msgid "Period is required"
