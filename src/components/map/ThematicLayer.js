@@ -31,16 +31,20 @@ class ThematicLayer extends Layer {
             renderingStrategy,
         } = this.props;
         const { period } = this.state;
+        let periodData = data;
 
         if (renderingStrategy !== 'SINGLE') {
-            const values = valuesByPeriod[period.id];
+            const values = valuesByPeriod[period.id] || {};
 
-            data.forEach(feature => {
-                feature.properties = {
+            periodData = data.map(feature => ({
+                ...feature,
+                properties: {
                     ...feature.properties,
-                    ...values[feature.id],
-                };
-            });
+                    ...(values[feature.id]
+                        ? values[feature.id]
+                        : { value: i18n.t('No data'), color: null }),
+                },
+            }));
         }
 
         const map = this.context.map;
@@ -51,7 +55,7 @@ class ThematicLayer extends Layer {
             index,
             opacity,
             isVisible,
-            data: filterData(data, dataFilters),
+            data: filterData(periodData, dataFilters),
             hoverLabel: '{name} ({value})',
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
