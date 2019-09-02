@@ -93,14 +93,18 @@ class Layer extends PureComponent {
         map.addLayer(this.layer);
     }
 
-    updateLayer() {
+    updateLayer = () => {
         this.removeLayer();
         this.createLayer();
         this.setLayerOrder();
-    }
+    };
 
     // Override in subclass if needed
-    setPeriod() {}
+    setPeriod(callback) {
+        if (callback) {
+            callback();
+        }
+    }
 
     setLayerVisibility() {
         this.layer.setVisibility(this.props.isVisible);
