@@ -63,6 +63,14 @@ const webpackConfig = {
                 },
             },
             {
+                test: /@dhis2\/.*\.(js|jsx|mjs)$/,
+                loader: require.resolve('babel-loader'),
+                options: {
+                    cacheDirectory: true,
+                    presets: ['es2015', 'stage-2'],
+                },
+            },
+            {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader',
             },
