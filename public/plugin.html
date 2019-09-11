@@ -62,12 +62,6 @@
             });
             picker.style.display = 'none';
             mapContainer.style.display = 'block';
-
-            setTimeout(() => { 
-                const el = document.getElementById('map');
-                el.style.width = '700px';
-                mapPlugin.resize('map'); 
-            }, 3000);
         }
 
         function onReloadBtnPress(e) {
