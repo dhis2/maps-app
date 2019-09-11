@@ -5,6 +5,7 @@ import Timeline from '../periods/Timeline';
 import PeriodName from './PeriodName';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
+import { getPeriodFromFilters } from '../../util/analytics';
 import { removeLineBreaks } from '../../util/helpers';
 import {
     LABEL_FONT_SIZE,
@@ -31,16 +32,20 @@ class ThematicLayer extends Layer {
             renderingStrategy,
         } = this.props;
         const { period } = this.state;
+        let periodData = data;
 
         if (renderingStrategy !== 'SINGLE') {
-            const values = valuesByPeriod[period.id];
+            const values = valuesByPeriod[period.id] || {};
 
-            data.forEach(feature => {
-                feature.properties = {
+            periodData = data.map(feature => ({
+                ...feature,
+                properties: {
                     ...feature.properties,
-                    ...values[feature.id],
-                };
-            });
+                    ...(values[feature.id]
+                        ? values[feature.id]
+                        : { value: i18n.t('No data'), color: null }),
+                },
+            }));
         }
 
         const map = this.context.map;
@@ -51,7 +56,7 @@ class ThematicLayer extends Layer {
             index,
             opacity,
             isVisible,
-            data: filterData(data, dataFilters),
+            data: filterData(periodData, dataFilters),
             hoverLabel: '{name} ({value})',
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
@@ -97,8 +102,9 @@ class ThematicLayer extends Layer {
     }
 
     render() {
-        const { periods, renderingStrategy } = this.props;
+        const { periods, renderingStrategy, filters } = this.props;
         const { period } = this.state;
+        const { id } = getPeriodFromFilters(filters);
 
         if (renderingStrategy !== 'TIMELINE' || !period) {
             return null;
@@ -108,6 +114,7 @@ class ThematicLayer extends Layer {
             <Fragment>
                 <PeriodName period={period.name} isTimeline={true} />
                 <Timeline
+                    periodId={id}
                     period={period}
                     periods={periods}
                     onChange={this.onPeriodChange}

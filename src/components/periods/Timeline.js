@@ -49,6 +49,7 @@ const labelWidth = 80;
 const delay = 1500;
 const playBtn = <path d="M8 5v14l11-7z" />;
 const pauseBtn = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />;
+const doubleTicksPeriods = ['LAST_6_BIMONTHS', 'BIMONTHS_THIS_YEAR'];
 
 export class Timeline extends Component {
     static contextTypes = {
@@ -56,6 +57,7 @@ export class Timeline extends Component {
     };
 
     static propTypes = {
+        periodId: PropTypes.string.isRequired,
         period: PropTypes.object.isRequired,
         periods: PropTypes.array.isRequired,
         onChange: PropTypes.func.isRequired,
@@ -154,7 +156,9 @@ export class Timeline extends Component {
 
     // Set timeline axis
     setTimeAxis = () => {
-        const numPeriods = this.props.periods.length;
+        const { periodId, periods } = this.props;
+        const numPeriods =
+            periods.length * (doubleTicksPeriods.includes(periodId) ? 2 : 1);
         const { width } = this.state;
         const ticks = Math.round(width / labelWidth);
         const timeAxis = axisBottom(this.timeScale);
@@ -167,8 +171,10 @@ export class Timeline extends Component {
     // Set timeline width from DOM el
     setWidth = () => {
         if (this.node) {
-            const width =
-                this.node.parentNode.clientWidth - paddingLeft - paddingRight;
+            // clientWith returns 0 for SVG elements in Firefox
+            const box = this.node.parentNode.getBoundingClientRect();
+            const width = box.right - box.left - paddingLeft - paddingRight;
+
             this.setState({ width });
         }
     };
