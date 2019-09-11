@@ -461,6 +461,9 @@ const layerEdit = (state = null, action) => {
                 trackedEntityType: {
                     ...action.trackedEntityType,
                 },
+                program: null,
+                programStage: null,
+                relationshipType: null,
             };
 
         // case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET:
