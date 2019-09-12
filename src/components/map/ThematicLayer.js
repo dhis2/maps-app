@@ -79,11 +79,8 @@ class ThematicLayer extends Layer {
 
         map.addLayer(this.layer);
 
-        // Only fit to layer bounds once
-        if (!this.isZoomed || map.getZoom() === undefined) {
-            this.fitBounds();
-            this.isZoomed = true;
-        }
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
     }
 
     // Set initial period

@@ -22,7 +22,6 @@ class EventLayer extends Layer {
             programStage,
             serverCluster,
             areaRadius,
-            editCounter,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -91,10 +90,8 @@ class EventLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
-            this.fitBounds();
-        }
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
 
         if (program && programStage) {
             this.loadDataElements();
