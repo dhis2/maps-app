@@ -67,9 +67,7 @@ class Plugin extends Component {
     // Call this method when plugin container is resized
     resize() {
         // Will trigger a redraw of the MapView component
-        this.setState({
-            resizeCount: this.state.resizeCount + 1,
-        });
+        this.setState(state => ({ resizeCount: state.resizeCount + 1 }));
     }
 
     onOpenContextMenu = state => this.setState(state);
