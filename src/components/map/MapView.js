@@ -59,6 +59,7 @@ MapView.propTypes = {
     closeCoordinatePopup: PropTypes.func,
     openContextMenu: PropTypes.func,
     onCloseContextMenu: PropTypes.func,
+    resizeCount: PropTypes.number,
 };
 
 export default MapView;
