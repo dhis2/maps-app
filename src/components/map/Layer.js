@@ -127,6 +127,14 @@ class Layer extends PureComponent {
         }
     }
 
+    // Fit map to layer bounds once (when first created)
+    fitBoundsOnce() {
+        if (!this.isZoomed || this.context.map.getZoom() === undefined) {
+            this.fitBounds();
+            this.isZoomed = true;
+        }
+    }
+
     removeLayer() {
         const map = this.context.map;
 

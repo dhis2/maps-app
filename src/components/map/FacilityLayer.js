@@ -25,7 +25,6 @@ class FacilityLayer extends Layer {
             labelFontSize,
             labelFontStyle,
             labelFontWeight,
-            editCounter,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
@@ -68,10 +67,8 @@ class FacilityLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
-            this.fitBounds();
-        }
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
     }
 
     // Show pupup on facility click

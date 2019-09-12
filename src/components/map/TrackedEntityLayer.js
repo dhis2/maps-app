@@ -80,7 +80,6 @@ class TrackedEntityLayer extends Layer {
             eventPointColor,
             eventPointRadius,
             areaRadius,
-            editCounter,
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
@@ -146,10 +145,8 @@ class TrackedEntityLayer extends Layer {
         this.layer = group;
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
-            this.fitBounds();
-        }
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
     }
 
     async onEntityClick({ feature, coordinates }) {
