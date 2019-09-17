@@ -79,3 +79,9 @@ export const drillLayer = (layerId, parentId, parentGraph, level) => ({
     parentGraph,
     level,
 });
+
+// Set that layer is loading
+export const setLayerLoading = id => ({
+    type: types.LAYER_LOADING_SET,
+    id,
+});

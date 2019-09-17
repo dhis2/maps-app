@@ -14,7 +14,7 @@ import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
 import BoundaryDialog from './BoundaryDialog';
 import EarthEngineDialog from './EarthEngineDialog';
-import { loadLayer, cancelLayer } from '../../actions/layers';
+import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
 
 const layerType = {
     event: EventDialog,
@@ -50,6 +50,7 @@ class LayerEdit extends Component {
         layer: PropTypes.object,
         loadLayer: PropTypes.func.isRequired,
         cancelLayer: PropTypes.func.isRequired,
+        setLayerLoading: PropTypes.func.isRequired,
         classes: PropTypes.object.isRequired,
     };
 
@@ -137,7 +138,10 @@ class LayerEdit extends Component {
     }
 
     loadLayer() {
-        const { editCounter = 0 } = this.props.layer;
+        const { id, editCounter = 0 } = this.props.layer;
+
+        this.props.setLayerLoading(id);
+
         this.props.loadLayer({
             ...this.props.layer,
             editCounter: editCounter + 1,
@@ -149,5 +153,5 @@ export default connect(
     state => ({
         layer: state.layerEdit,
     }),
-    { loadLayer, cancelLayer }
+    { loadLayer, cancelLayer, setLayerLoading }
 )(withStyles(styles)(LayerEdit));
