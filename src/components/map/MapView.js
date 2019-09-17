@@ -20,6 +20,7 @@ const MapView = props => {
         closeCoordinatePopup,
         openContextMenu,
         onCloseContextMenu,
+        resizeCount,
     } = props;
 
     const splitViewLayer = getSplitViewLayer(layers);
@@ -32,6 +33,7 @@ const MapView = props => {
                     basemap={basemap}
                     controls={isPlugin ? pluginControls : splitViewControls}
                     openContextMenu={openContextMenu}
+                    resizeCount={resizeCount}
                 />
             ) : (
                 <Map
@@ -44,6 +46,7 @@ const MapView = props => {
                     closeCoordinatePopup={closeCoordinatePopup}
                     openContextMenu={openContextMenu}
                     onCloseContextMenu={onCloseContextMenu}
+                    resizeCount={resizeCount}
                 />
             )}
         </Fragment>

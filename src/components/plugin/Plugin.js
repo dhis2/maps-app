@@ -41,7 +41,7 @@ class Plugin extends Component {
 
     render() {
         const { name, basemap, classes } = this.props;
-        const { position, feature, mapViews } = this.state;
+        const { position, feature, mapViews, resizeCount } = this.state;
 
         return (
             <div className={classes.root}>
@@ -53,6 +53,7 @@ class Plugin extends Component {
                     bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
                     onCloseContextMenu={this.onCloseContextMenu}
+                    resizeCount={resizeCount}
                 />
                 <Legend layers={mapViews} />
                 <ContextMenu
