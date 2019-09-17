@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = () => ({
     mask: {
         zIndex: 990,
-        backgroundColor: 'rgba(255,255,255,0.7)',
+        backgroundColor: 'rgba(255,255,255,0.8)',
         position: 'absolute',
         top: 0,
         bottom: 0,
