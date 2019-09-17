@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import MapView from './MapView';
 import MapName from './MapName';
+import MapLoadingMask from './MapLoadingMask';
 import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
 import {
@@ -56,6 +57,7 @@ const MapContainer = ({
     let className = classes.container;
 
     const layers = mapViews.filter(layer => layer.isLoaded);
+    const isLoading = layers.length !== mapViews.length;
 
     if (isDownload) {
         className += ` ${classes.download} dhis2-map-download`;
@@ -81,6 +83,7 @@ const MapContainer = ({
                         showName={showName}
                     />
                 )}
+                {isLoading && <MapLoadingMask />}
             </div>
         </div>
     );
