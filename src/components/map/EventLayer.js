@@ -105,7 +105,7 @@ class EventLayer extends Layer {
         const data = await d2.models.programStage.get(props.programStage.id, {
             fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
                 d2
-            )},optionSet]]`,
+            )},optionSet,valueType]]`,
             paging: false,
         });
 
@@ -169,13 +169,18 @@ class EventLayer extends Layer {
                     ];
 
                     if (displayEl) {
-                        let value = dataValue.value;
+                        const { valueType, optionSet, name } = displayEl;
+                        let { value } = dataValue;
 
-                        if (displayEl.optionSet) {
-                            value = displayEl.optionSet[value];
+                        if (valueType === 'COORDINATE' && value) {
+                            value = JSON.parse(value)
+                                .map(v => v.toFixed(6))
+                                .join(', ');
+                        } else if (optionSet) {
+                            value = optionSet[value];
                         }
 
-                        content += `<tr><th>${displayEl.name}</th><td>${value ||
+                        content += `<tr><th>${name}</th><td>${value ||
                             i18n.t('Not set')}</td></tr>`;
                     }
                 });
