@@ -4,7 +4,11 @@ import { apiFetch } from '../../util/api';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
-import { getDisplayPropertyUrl, removeLineBreaks } from '../../util/helpers';
+import {
+    getDisplayPropertyUrl,
+    removeLineBreaks,
+    formatCoordinate,
+} from '../../util/helpers';
 
 class EventLayer extends Layer {
     createLayer() {
@@ -173,9 +177,7 @@ class EventLayer extends Layer {
                         let { value } = dataValue;
 
                         if (valueType === 'COORDINATE' && value) {
-                            value = JSON.parse(value)
-                                .map(v => v.toFixed(6))
-                                .join(', ');
+                            value = formatCoordinate(value);
                         } else if (optionSet) {
                             value = optionSet[value];
                         }

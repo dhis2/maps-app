@@ -141,3 +141,13 @@ export const getSplitViewLayer = layers =>
 
 // Checks if split view map
 export const isSplitViewMap = layers => !!getSplitViewLayer(layers);
+
+export const formatCoordinate = value => {
+    try {
+        return JSON.parse(value)
+            .map(v => v.toFixed(6))
+            .join(', ');
+    } catch (e) {
+        return value;
+    }
+};
