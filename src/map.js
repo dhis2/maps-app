@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
@@ -162,7 +162,11 @@ const PluginContainer = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                _components[config.el] = render(<Plugin {...config} />, domEl);
+                const ref = createRef();
+
+                render(<Plugin innerRef={ref} {...config} />, domEl);
+
+                _components[config.el] = ref;
             }
         }
     }
@@ -210,12 +214,8 @@ const PluginContainer = () => {
     function resize(el) {
         const mapComponent = _components[el];
 
-        if (
-            mapComponent &&
-            mapComponent instanceof Plugin &&
-            mapComponent.map
-        ) {
-            mapComponent.map.resize();
+        if (mapComponent && mapComponent.current) {
+            mapComponent.current.resize();
             return true;
         }
 

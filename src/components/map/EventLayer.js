@@ -4,7 +4,11 @@ import { apiFetch } from '../../util/api';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
-import { getDisplayPropertyUrl, removeLineBreaks } from '../../util/helpers';
+import {
+    getDisplayPropertyUrl,
+    removeLineBreaks,
+    formatCoordinate,
+} from '../../util/helpers';
 
 class EventLayer extends Layer {
     createLayer() {
@@ -22,7 +26,6 @@ class EventLayer extends Layer {
             programStage,
             serverCluster,
             areaRadius,
-            editCounter,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -91,10 +94,8 @@ class EventLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
-            this.fitBounds();
-        }
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
 
         if (program && programStage) {
             this.loadDataElements();
@@ -108,7 +109,7 @@ class EventLayer extends Layer {
         const data = await d2.models.programStage.get(props.programStage.id, {
             fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
                 d2
-            )},optionSet]]`,
+            )},optionSet,valueType]]`,
             paging: false,
         });
 
@@ -156,7 +157,7 @@ class EventLayer extends Layer {
                 ' ' +
                 data.eventDate.substring(11, 16);
             const dataValues = data.dataValues;
-            let content = '<table><tbody>';
+            let content = '<div style="overflow-x:auto"><table><tbody>';
 
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
@@ -172,13 +173,16 @@ class EventLayer extends Layer {
                     ];
 
                     if (displayEl) {
-                        let value = dataValue.value;
+                        const { valueType, optionSet, name } = displayEl;
+                        let { value } = dataValue;
 
-                        if (displayEl.optionSet) {
-                            value = displayEl.optionSet[value];
+                        if (valueType === 'COORDINATE' && value) {
+                            value = formatCoordinate(value);
+                        } else if (optionSet) {
+                            value = optionSet[value];
                         }
 
-                        content += `<tr><th>${displayEl.name}</th><td>${value ||
+                        content += `<tr><th>${name}</th><td>${value ||
                             i18n.t('Not set')}</td></tr>`;
                     }
                 });
@@ -205,7 +209,7 @@ class EventLayer extends Layer {
                 <td>${time}</td>
               </tr>`;
 
-            content += '</tbody></table>';
+            content += '</tbody></table></div>';
 
             // Remove all line breaks as it's not working for map download
             this.context.map.openPopup(removeLineBreaks(content), coordinates);

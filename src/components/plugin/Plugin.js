@@ -35,12 +35,13 @@ class Plugin extends Component {
 
         this.state = {
             mapViews: props.mapViews, // Can be changed by drilling
+            resizeCount: 0,
         };
     }
 
     render() {
         const { name, basemap, classes } = this.props;
-        const { position, feature, mapViews } = this.state;
+        const { position, feature, mapViews, resizeCount } = this.state;
 
         return (
             <div className={classes.root}>
@@ -52,6 +53,7 @@ class Plugin extends Component {
                     bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
                     onCloseContextMenu={this.onCloseContextMenu}
+                    resizeCount={resizeCount}
                 />
                 <Legend layers={mapViews} />
                 <ContextMenu
@@ -61,6 +63,12 @@ class Plugin extends Component {
                 />
             </div>
         );
+    }
+
+    // Call this method when plugin container is resized
+    resize() {
+        // Will trigger a redraw of the MapView component
+        this.setState(state => ({ resizeCount: state.resizeCount + 1 }));
     }
 
     onOpenContextMenu = state => this.setState(state);

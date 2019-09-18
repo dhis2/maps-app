@@ -59,6 +59,7 @@ class MapItem extends PureComponent {
         if (this.props.count !== prevProps.count) {
             this.fitLayerBounds();
         }
+        this.map.resize();
     }
 
     componentWillUnmount() {
