@@ -4,6 +4,7 @@ body {
 /* Scrollbar width */
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 /* Scrollbar handle */

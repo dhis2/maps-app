@@ -157,7 +157,7 @@ class EventLayer extends Layer {
                 ' ' +
                 data.eventDate.substring(11, 16);
             const dataValues = data.dataValues;
-            let content = '<table><tbody>';
+            let content = '<div style="overflow-x:auto"><table><tbody>';
 
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
@@ -209,7 +209,7 @@ class EventLayer extends Layer {
                 <td>${time}</td>
               </tr>`;
 
-            content += '</tbody></table>';
+            content += '</tbody></table></div>';
 
             // Remove all line breaks as it's not working for map download
             this.context.map.openPopup(removeLineBreaks(content), coordinates);
