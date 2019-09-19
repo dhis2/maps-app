@@ -15,7 +15,7 @@ install:
 script:
     - yarn build
     - yarn start &> /dev/null &
-    - yarn cy:stub:run --record
+    - yarn cy:stub:run --record false
     - kill $(jobs -p) || true
 deploy:
     - provider: script

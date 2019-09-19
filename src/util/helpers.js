@@ -134,3 +134,14 @@ export const getValidDataItems = items =>
             isObject(item) &&
             mandatoryDataItemAttributes.every(prop => prop in item)
     );
+
+// Format coordinate value
+export const formatCoordinate = value => {
+    try {
+        return JSON.parse(value)
+            .map(v => v.toFixed(6))
+            .join(', ');
+    } catch (e) {
+        return value;
+    }
+};
