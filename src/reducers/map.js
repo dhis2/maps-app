@@ -312,6 +312,8 @@ const map = (state = defaultState, action) => {
                 mapViews: state.mapViews.map(l => layer(l, action)),
             };
 
+        // TODO: newLayerIsLoading will not cover an edge case where another layer is created while the first is still loading.
+        // The only concequence would be that the spinner is removed before both layers are loaded, which will rarly happen.
         case types.LAYER_LOADING_SET:
             return {
                 ...state,
