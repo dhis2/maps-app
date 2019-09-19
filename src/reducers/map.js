@@ -313,7 +313,7 @@ const map = (state = defaultState, action) => {
             };
 
         // TODO: newLayerIsLoading will not cover an edge case where another layer is created while the first is still loading.
-        // The only concequence would be that the spinner is removed before both layers are loaded, which will rarly happen.
+        // The only concequence would be that the spinner is removed before both layers are loaded, which will rarely happen.
         case types.LAYER_LOADING_SET:
             return {
                 ...state,
