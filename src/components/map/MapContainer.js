@@ -36,6 +36,7 @@ const MapContainer = ({
     mapViews,
     bounds,
     showName,
+    newLayerIsLoading,
     coordinatePopup,
     layersPanelOpen,
     interpretationsPanelOpen,
@@ -57,7 +58,7 @@ const MapContainer = ({
     let className = classes.container;
 
     const layers = mapViews.filter(layer => layer.isLoaded);
-    const isLoading = layers.length !== mapViews.length;
+    const isLoading = newLayerIsLoading || layers.length !== mapViews.length;
 
     if (isDownload) {
         className += ` ${classes.download} dhis2-map-download`;
@@ -94,6 +95,7 @@ MapContainer.propTypes = {
     mapViews: PropTypes.array,
     bounds: PropTypes.array,
     showName: PropTypes.bool,
+    newLayerIsLoading: PropTypes.bool,
     coordinatePopup: PropTypes.array,
     dataTableOpen: PropTypes.bool,
     dataTableHeight: PropTypes.number,
@@ -112,6 +114,7 @@ export default connect(
             ...basemaps.filter(b => b.id === map.basemap.id)[0],
             ...map.basemap,
         },
+        newLayerIsLoading: map.newLayerIsLoading,
         coordinatePopup: map.coordinatePopup,
         mapViews: map.mapViews,
         bounds: map.bounds,
