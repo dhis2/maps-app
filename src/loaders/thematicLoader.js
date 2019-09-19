@@ -52,11 +52,12 @@ const thematicLoader = async config => {
         renderingStrategy,
     } = config;
 
+    const isSingle = renderingStrategy === 'SINGLE';
     const period = getPeriodFromFilters(config.filters);
     const periods = getPeriodsFromMetaData(data.metaData);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
-    const valuesByPeriod = getValuesByPeriod(data);
+    const valuesByPeriod = !isSingle ? getValuesByPeriod(data) : null;
     const valueById = getValueById(data);
     const valueFeatures = features.filter(
         ({ id }) => valueById[id] !== undefined
@@ -66,7 +67,6 @@ const thematicLoader = async config => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
-    const isSingle = renderingStrategy === 'SINGLE';
     let legendSet = config.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
     let alert;
