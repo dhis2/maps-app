@@ -41,6 +41,27 @@ const getEventColumns = async (layer, format) => {
         }));
 };
 
+// Includes values for each period in feature properties
+const includeValuesByPeriod = ({ data, valuesByPeriod }) => {
+    const periods = Object.keys(valuesByPeriod);
+
+    return data.map(feature => ({
+        ...feature,
+        properties: {
+            ...feature.properties,
+            ...periods.reduce((values, periodId) => {
+                const periodValue = valuesByPeriod[periodId][feature.id];
+
+                values[`period_${periodId}`] = periodValue
+                    ? Number(periodValue.value)
+                    : null;
+
+                return values;
+            }, {}),
+        },
+    }));
+};
+
 const loadData = async (layer, format, humanReadableKeys) => {
     const layerType = layer.layer;
     if (layerType === 'event') {
@@ -60,6 +81,10 @@ const loadData = async (layer, format, humanReadableKeys) => {
         );
         return result.data;
     }
+    if (layer.valuesByPeriod) {
+        return includeValuesByPeriod(layer);
+    }
+
     return layer.data;
 };
 
@@ -68,6 +93,7 @@ const downloadData = action$ =>
         try {
             const { layer, format, humanReadableKeys } = action.payload;
             const data = await loadData(layer, format, humanReadableKeys);
+
             await downloadGeoJson({
                 name: layer.name,
                 data: data,
