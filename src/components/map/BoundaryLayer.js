@@ -16,7 +16,6 @@ export default class BoundaryLayer extends Layer {
             labelFontStyle,
             radiusLow,
             dataFilters,
-            editCounter,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
@@ -58,17 +57,15 @@ export default class BoundaryLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
-            this.fitBounds();
-        }
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
     }
 
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;
         const { name, level, parentName } = feature.properties;
 
-        let content = `<div class="leaflet-popup-orgunit"><em>${name}</em>`;
+        let content = `<div class="dhis2-map-popup-orgunit"><em>${name}</em>`;
 
         if (level) {
             content += `<br/>${i18n.t('Level')}: ${level}`;

@@ -8,6 +8,7 @@ import { formatLocaleDate } from '../../util/time';
 
 const styles = theme => ({
     root: {
+        pointerEvents: 'none',
         display: 'flex',
         justifyContent: 'center',
         position: 'absolute',

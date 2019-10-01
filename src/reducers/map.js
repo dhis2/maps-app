@@ -18,7 +18,6 @@ const basemap = (state, action) => {
     switch (action.type) {
         case types.BASEMAP_SELECTED:
             if (state.id === action.id) {
-                // No change
                 return state;
             }
 
@@ -73,6 +72,16 @@ const layer = (state, action) => {
                 opacity: action.opacity,
             };
 
+        case types.LAYER_LOADING_SET:
+            if (state.id !== action.id) {
+                return state;
+            }
+
+            return {
+                ...state,
+                isLoaded: false,
+            };
+
         case types.LAYER_TOGGLE_VISIBILITY:
             if (state.id !== action.id) {
                 return state;
@@ -117,7 +126,6 @@ const layer = (state, action) => {
                     ...state.dataFilters,
                     [action.fieldId]: action.filter,
                 },
-                // editCounter: ++state.editCounter, // Will trigger redraw
             };
 
         // Remove field from filter
@@ -132,7 +140,6 @@ const layer = (state, action) => {
             return {
                 ...state,
                 dataFilters: filters,
-                // editCounter: ++state.editCounter, // Will trigger redraw
             };
 
         case types.ALERTS_CLEAR:
@@ -258,6 +265,7 @@ const map = (state = defaultState, action) => {
                         ...action.payload,
                     },
                 ],
+                newLayerIsLoading: false,
             };
 
         case types.LAYER_ADD_DATA:
@@ -302,6 +310,15 @@ const map = (state = defaultState, action) => {
             return {
                 ...state,
                 mapViews: state.mapViews.map(l => layer(l, action)),
+            };
+
+        // TODO: newLayerIsLoading will not cover an edge case where another layer is created while the first is still loading.
+        // The only concequence would be that the spinner is removed before both layers are loaded, which will rarely happen.
+        case types.LAYER_LOADING_SET:
+            return {
+                ...state,
+                mapViews: state.mapViews.map(l => layer(l, action)),
+                newLayerIsLoading: action.id ? false : true,
             };
 
         case types.ALERTS_CLEAR:

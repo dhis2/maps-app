@@ -26,6 +26,10 @@
             <input type="text" id="inputMapID" value="smxK71C26QU" />
         </div>
         <div>
+            <label>Config JSON</label>
+            <textarea id="inputMapConfig"></textarea>
+        </div>
+        <div>
             <label>User Org Unit</label>
             <input type="text" id="inputUserOrgUnit" value="" />
             <small><strong>Bo</strong> district = <strong>O6uvpzGd5pu</strong></small>
@@ -48,12 +52,42 @@
         mapPlugin.url = '//localhost:8080';
         mapPlugin.username = 'admin';
         mapPlugin.password = 'district';
-        function onReloadBtnPress(e) {
+
+        const mapId = new URL(window.location.href).searchParams.get('id');
+
+        if (mapId) {
             mapPlugin.load({
-                id: document.getElementById('inputMapID').value,
+                id: mapId,
+                el: 'map'
+            });
+            picker.style.display = 'none';
+            mapContainer.style.display = 'block';
+        }
+
+        function onReloadBtnPress(e) {
+            let config = {}
+            try {
+                const configJson = document.getElementById('inputMapConfig').value;
+
+                if (configJson) {
+                    config = JSON.parse(configJson);
+                }
+            } catch (e) {
+                console.error(e)
+            }
+
+            const id = document.getElementById('inputMapID').value;
+
+            if (id && id.length) {
+                config.id = id;
+            }
+
+            config = Object.assign({
                 el: 'map',
-                userOrgUnit: [document.getElementById('inputUserOrgUnit').value],
-            })
+                userOrgUnit: [document.getElementById('inputUserOrgUnit').value]
+            }, config);
+
+            mapPlugin.load(config);
 
             picker.style.display = 'none';
             mapContainer.style.display = 'block';

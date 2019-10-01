@@ -133,7 +133,7 @@ export class DownloadDialog extends Component {
     onClose = () => this.props.toggleDownloadDialog(false);
 
     onDownload = () => {
-        const mapEl = document.getElementById('dhis2-maps-container');
+        const mapEl = document.getElementById('dhis2-map-container');
 
         const filename = `map-${Math.random()
             .toString(36)

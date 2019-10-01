@@ -99,8 +99,10 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_PERIOD_TYPE_SET:
             return {
                 ...state,
-                periodType: action.periodType,
-                filters: removePeriodFromFilters(state.filters),
+                periodType: action.periodType.id,
+                filters: action.clearPeriod
+                    ? removePeriodFromFilters(state.filters)
+                    : state.filters,
             };
 
         case types.LAYER_EDIT_PERIOD_SET:
@@ -110,6 +112,12 @@ const layerEdit = (state = null, action) => {
                     action.period.id !== 'START_END_DATES'
                         ? setFiltersFromPeriod(state.filters, action.period)
                         : [],
+            };
+
+        case types.LAYER_EDIT_RENDERING_STRATEGY_SET:
+            return {
+                ...state,
+                renderingStrategy: action.payload,
             };
 
         case types.LAYER_EDIT_START_DATE_SET:
@@ -453,6 +461,9 @@ const layerEdit = (state = null, action) => {
                 trackedEntityType: {
                     ...action.trackedEntityType,
                 },
+                program: null,
+                programStage: null,
+                relationshipType: null,
             };
 
         // case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET:

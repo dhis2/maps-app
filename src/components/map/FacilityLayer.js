@@ -25,7 +25,6 @@ class FacilityLayer extends Layer {
             labelFontSize,
             labelFontStyle,
             labelFontWeight,
-            editCounter,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
@@ -68,17 +67,15 @@ class FacilityLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
-            this.fitBounds();
-        }
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
     }
 
     // Show pupup on facility click
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;
         const { name, dimensions, pn } = feature.properties;
-        let content = `<div class="leaflet-popup-orgunit"><em>${name}</em>`;
+        let content = `<div class="dhis2-map-popup-orgunit"><em>${name}</em>`;
 
         if (isPlainObject(dimensions)) {
             content += `<br/>${i18n.t('Groups')}: ${Object.keys(dimensions)

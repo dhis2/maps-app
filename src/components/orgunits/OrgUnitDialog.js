@@ -21,7 +21,7 @@ const styles = {
     },
     heading: {
         margin: '10px 0 2px 0',
-        fontSize: 14,
+        fontWeight: 'bold',
     },
     data: {
         float: 'left',
@@ -40,15 +40,19 @@ const styles = {
         maxHeight: 240,
         overflowY: 'auto',
         marginTop: -24,
+        '& th': {
+            fontWeight: 'bold',
+        },
     },
     left: {
         textAlign: 'left',
-        width: 280,
+        width: 270,
     },
     right: {
         textAlign: 'right',
         verticalAlign: 'top',
-        width: 65,
+        width: 75,
+        paddingRight: 8,
     },
 };
 

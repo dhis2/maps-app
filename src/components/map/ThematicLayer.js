@@ -1,6 +1,11 @@
+import React, { Fragment } from 'react';
+import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
+import Timeline from '../periods/Timeline';
+import PeriodName from './PeriodName';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
+import { getPeriodFromFilters } from '../../util/analytics';
 import { removeLineBreaks } from '../../util/helpers';
 import {
     LABEL_FONT_SIZE,
@@ -23,8 +28,25 @@ class ThematicLayer extends Layer {
             labelFontStyle,
             labelFontWeight,
             labelFontColor,
-            editCounter,
+            valuesByPeriod,
+            renderingStrategy,
         } = this.props;
+        const { period } = this.state;
+        let periodData = data;
+
+        if (renderingStrategy !== 'SINGLE') {
+            const values = valuesByPeriod[period.id] || {};
+
+            periodData = data.map(feature => ({
+                ...feature,
+                properties: {
+                    ...feature.properties,
+                    ...(values[feature.id]
+                        ? values[feature.id]
+                        : { value: i18n.t('No data'), color: null }),
+                },
+            }));
+        }
 
         const map = this.context.map;
 
@@ -34,7 +56,7 @@ class ThematicLayer extends Layer {
             index,
             opacity,
             isVisible,
-            data: filterData(data, dataFilters),
+            data: filterData(periodData, dataFilters),
             hoverLabel: '{name} ({value})',
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
@@ -54,25 +76,65 @@ class ThematicLayer extends Layer {
         }
 
         this.layer = map.createLayer(config);
+
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
-            this.fitBounds();
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
+    }
+
+    // Set initial period
+    setPeriod(callback) {
+        const { period, periods, renderingStrategy } = this.props;
+        const initialPeriod = {
+            period:
+                renderingStrategy === 'SINGLE' ? null : period || periods[0],
+        };
+
+        if (this.state) {
+            this.setState(initialPeriod, callback);
+        } else {
+            this.state = initialPeriod;
         }
     }
+
+    render() {
+        const { periods, renderingStrategy, filters } = this.props;
+        const { period } = this.state;
+        const { id } = getPeriodFromFilters(filters);
+
+        if (renderingStrategy !== 'TIMELINE' || !period) {
+            return null;
+        }
+
+        return (
+            <Fragment>
+                <PeriodName period={period.name} isTimeline={true} />
+                <Timeline
+                    periodId={id}
+                    period={period}
+                    periods={periods}
+                    onChange={this.onPeriodChange}
+                />
+            </Fragment>
+        );
+    }
+
+    onPeriodChange = period => this.setState({ period });
 
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;
         const { name, value } = feature.properties;
         const { columns, aggregationType, legend } = this.props;
+        const { period } = this.state;
         const indicator = columns[0].items[0].name || '';
-        const period = legend.period;
+        const periodName = period ? period.name : legend.period;
         const content = `
-            <div class="leaflet-popup-orgunit">
+            <div class="dhis2-map-popup-orgunit">
                 <em>${name}</em><br>
                 ${indicator}<br>
-                ${period}: ${value} ${
+                ${periodName}<br>
+                ${i18n.t('Value')}: ${value} ${
             aggregationType && aggregationType !== 'DEFAULT'
                 ? `(${aggregationType})`
                 : ''

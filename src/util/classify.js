@@ -11,8 +11,7 @@ export const getLegendItemForValue = (legendItems, value) => {
     return legendItems.find(
         (item, index) =>
             value >= item.startValue &&
-            (value < item.endValue ||
-                (isLast(index) && value === item.endValue))
+            (value < item.endValue || (isLast(index) && value == item.endValue))
     );
 };
 

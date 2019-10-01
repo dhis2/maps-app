@@ -4,7 +4,11 @@ import { apiFetch } from '../../util/api';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
-import { getDisplayPropertyUrl, removeLineBreaks } from '../../util/helpers';
+import {
+    getDisplayPropertyUrl,
+    removeLineBreaks,
+    formatCoordinate,
+} from '../../util/helpers';
 
 class EventLayer extends Layer {
     createLayer() {
@@ -22,7 +26,6 @@ class EventLayer extends Layer {
             programStage,
             serverCluster,
             areaRadius,
-            editCounter,
             styleDataItem,
             legend,
         } = this.props;
@@ -94,10 +97,8 @@ class EventLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // Only fit map to layer bounds on first add
-        if (!editCounter) {
-            this.fitBounds();
-        }
+        // Fit map to layer bounds once (when first created)
+        this.fitBoundsOnce();
 
         if (program && programStage) {
             this.loadDataElements();
@@ -111,7 +112,7 @@ class EventLayer extends Layer {
         const data = await d2.models.programStage.get(props.programStage.id, {
             fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
                 d2
-            )},optionSet]]`,
+            )},optionSet,valueType]]`,
             paging: false,
         });
 
@@ -153,56 +154,56 @@ class EventLayer extends Layer {
         const { value } = feature.properties;
         const { styleDataItem } = this.props;
 
-        if (typeof feature.id === 'string' && !feature.properties.cluster) {
-            apiFetch('/events/' + feature.id).then(data => {
-                const time =
-                    data.eventDate.substring(0, 10) +
-                    ' ' +
-                    data.eventDate.substring(11, 16);
-                const dataValues = data.dataValues;
-                let content = '<table><tbody>';
+        apiFetch('/events/' + feature.id).then(data => {
+            const time =
+                data.eventDate.substring(0, 10) +
+                ' ' +
+                data.eventDate.substring(11, 16);
+            const dataValues = data.dataValues;
+            let content = '<div style="overflow-x:auto"><table><tbody>';
 
-                // Output value if styled by data item, and item is not included in display elements
-                if (styleDataItem && !this.displayElements[styleDataItem.id]) {
-                    content += `<tr><th>${styleDataItem.name}</th><td>${
-                        value !== undefined ? value : i18n.t('Not set')
-                    }</td></tr>`;
-                }
+            // Output value if styled by data item, and item is not included in display elements
+            if (styleDataItem && !this.displayElements[styleDataItem.id]) {
+                content += `<tr><th>${styleDataItem.name}</th><td>${
+                    value !== undefined ? value : i18n.t('Not set')
+                }</td></tr>`;
+            }
 
-                if (Array.isArray(dataValues)) {
-                    dataValues.forEach(dataValue => {
-                        const displayEl = this.displayElements[
-                            dataValue.dataElement
-                        ];
+            if (Array.isArray(dataValues)) {
+                dataValues.forEach(dataValue => {
+                    const displayEl = this.displayElements[
+                        dataValue.dataElement
+                    ];
 
-                        if (displayEl) {
-                            let value = dataValue.value;
+                    if (displayEl) {
+                        const { valueType, optionSet, name } = displayEl;
+                        let { value } = dataValue;
 
-                            if (displayEl.optionSet) {
-                                value = displayEl.optionSet[value];
-                            }
-
-                            content += `<tr><th>${
-                                displayEl.name
-                            }</th><td>${value || i18n.t('Not set')}</td></tr>`;
+                        if (valueType === 'COORDINATE' && value) {
+                            value = formatCoordinate(value);
+                        } else if (optionSet) {
+                            value = optionSet[value];
                         }
-                    });
 
-                    content +=
-                        '<tr style="height:5px;"><th></th><td></td></tr>';
-                }
+                        content += `<tr><th>${name}</th><td>${value ||
+                            i18n.t('Not set')}</td></tr>`;
+                    }
+                });
 
-                // Show event location for points
-                if (type === 'Point') {
-                    content += `
+                content += '<tr style="height:5px;"><th></th><td></td></tr>';
+            }
+
+            // Show event location for points
+            if (type === 'Point') {
+                content += `
                     <tr>
                       <th>${this.eventCoordinateFieldName ||
                           i18n.t('Event location')}</th>
                       <td>${coord[0]}, ${coord[1]}</td>
                     </tr>`;
-                }
+            }
 
-                content += `<tr>
+            content += `<tr>
                 <th>${i18n.t('Organisation unit')}</th>
                 <td>${data.orgUnitName}</td>
               </tr>
@@ -211,15 +212,11 @@ class EventLayer extends Layer {
                 <td>${time}</td>
               </tr>`;
 
-                content += '</tbody></table>';
+            content += '</tbody></table></div>';
 
-                // Remove all line breaks as it's not working for map download
-                this.context.map.openPopup(
-                    removeLineBreaks(content),
-                    coordinates
-                );
-            });
-        }
+            // Remove all line breaks as it's not working for map download
+            this.context.map.openPopup(removeLineBreaks(content), coordinates);
+        });
     }
 
     // Convert server cluster response to GeoJSON

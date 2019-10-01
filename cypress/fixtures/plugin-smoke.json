@@ -2,5 +2,12 @@
   "totalSize": 0,
   "duplicates": 0,
   "nonDeterministicResponses": 0,
-  "requests": []
+  "requests": [
+    {
+      "path": "/api/33/userSettings",
+      "method": "GET",
+      "count": 1,
+      "response": null
+    }
+  ]
 }

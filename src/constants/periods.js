@@ -51,6 +51,27 @@ export const relativePeriods = [
     { id: 'LAST_5_FINANCIAL_YEARS', name: 'Last 5 financial years' },
 ];
 
+// Periods that will only produce a single map (not for timeline/split view)
+export const singleMapPeriods = [
+    'TODAY',
+    'YESTERDAY',
+    'THIS_WEEK',
+    'LAST_WEEK',
+    'THIS_MONTH',
+    'LAST_MONTH',
+    'THIS_BIMONTH',
+    'LAST_BIMONTH',
+    'THIS_QUARTER',
+    'LAST_QUARTER',
+    'THIS_YEAR',
+    'LAST_YEAR',
+    'THIS_FINANCIAL_YEAR',
+    'LAST_FINANCIAL_YEAR',
+];
+
+// Periods not supported for split view (maximum 12 maps)
+export const invalidSplitViewPeriods = ['LAST_52_WEEKS', 'WEEKS_THIS_YEAR'];
+
 // All period names
 export const periodNames = {
     ...periodTypes.reduce((obj, { id, name }) => {
