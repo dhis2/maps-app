@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 class Popup extends PureComponent {
@@ -10,6 +11,11 @@ class Popup extends PureComponent {
         coordinates: PropTypes.array.isRequired,
         children: PropTypes.node,
     };
+
+    constructor() {
+        super();
+        this.container = document.createElement('div');
+    }
 
     componentDidMount() {
         this.setPopup();
@@ -24,20 +30,12 @@ class Popup extends PureComponent {
     }
 
     render() {
-        return (
-            <div ref={el => (this.container = el)} style={{ display: 'none' }}>
-                {this.props.children}
-            </div>
-        );
+        return createPortal(this.props.children, this.container);
     }
 
     setPopup = () => {
         const { coordinates } = this.props;
-        const container = this.container.cloneNode(true);
-
-        container.style.display = 'block';
-
-        this.context.map.openPopup(container, coordinates);
+        this.context.map.openPopup(this.container, coordinates);
     };
 }
 
