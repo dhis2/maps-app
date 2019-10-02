@@ -148,6 +148,8 @@ class Layer extends PureComponent {
     render() {
         return null;
     }
+
+    onPopupClose = () => this.setState({ popup: null });
 }
 
 export default Layer;

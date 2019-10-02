@@ -1,16 +1,18 @@
+import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { apiFetch } from '../../util/api';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
-import {
-    getDisplayPropertyUrl,
-    removeLineBreaks,
-    formatCoordinate,
-} from '../../util/helpers';
+import Popup from './Popup';
+import { getDisplayPropertyUrl, formatCoordinate } from '../../util/helpers';
 
 class EventLayer extends Layer {
+    state = {
+        popup: null,
+    };
+
     createLayer() {
         const {
             id,
@@ -102,6 +104,104 @@ class EventLayer extends Layer {
         }
     }
 
+    getPopup() {
+        // const { styleDataItem } = this.props;
+        const { coordinates, feature, data } = this.state.popup;
+        const { type, coordinates: coord } = feature.geometry;
+        // const { value } = feature.properties;
+        const { eventDate, dataValues, orgUnitName } = data;
+        const date = eventDate.substring(0, 10);
+        const time = eventDate.substring(11, 16);
+        // let styleDataRow;
+
+        // Output value if styled by data item, and item is not included in display elements
+        // if (styleDataItem && !this.displayElements[styleDataItem.id]) {
+        /*
+            styleDataRow = (
+                <tr>
+                    <th>{styleDataItem.name}</th>
+                    <td>{value !== undefined ? value : i18n.t('Not set')}</td>
+                </tr>
+            );
+            */
+        // }
+
+        // {styleDataRow && styleDataRow}
+
+        const dataValuesRows =
+            Array.isArray(dataValues) &&
+            dataValues.map(({ dataElement, value }) => {
+                const displayEl = this.displayElements[dataElement];
+
+                if (!displayEl) {
+                    return null;
+                }
+
+                const { valueType, optionSet, name } = displayEl;
+                let formattedValue = value;
+
+                if (valueType === 'COORDINATE' && value) {
+                    formattedValue = formatCoordinate(value);
+                } else if (optionSet) {
+                    formattedValue = optionSet[value];
+                } else if (value === null || value === undefined) {
+                    formattedValue = i18n.t('Not set');
+                }
+
+                return (
+                    <tr key={dataElement}>
+                        <th>{name}</th>
+                        <td>{formattedValue}</td>
+                    </tr>
+                );
+            });
+
+        // TODO: style="overflow-x:auto"
+        return (
+            <Popup
+                coordinates={coordinates}
+                onClose={this.onPopupClose}
+                className="dhis2-map-popup-event"
+            >
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>A</th>
+                            <td>B</td>
+                        </tr>
+                        {dataValuesRows}
+
+                        {type === 'Point' && (
+                            <tr>
+                                <th>
+                                    {this.eventCoordinateFieldName ||
+                                        i18n.t('Event location')}
+                                </th>
+                                <td>
+                                    {coord[0]} {coord[1]}
+                                </td>
+                            </tr>
+                        )}
+                        <tr>
+                            <th>{i18n.t('Organisation unit')}</th>
+                            <td>{orgUnitName}</td>
+                        </tr>
+                        <tr>
+                            <th>{i18n.t('Event time')}</th>
+                            <td>
+                                {date} {time}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </Popup>
+        );
+    }
+
+    render() {
+        return this.state.popup ? this.getPopup() : null;
+    }
+
     // Load data elements that should be displayed in popups
     async loadDataElements() {
         const props = this.props;
@@ -145,6 +245,13 @@ class EventLayer extends Layer {
         }
     }
 
+    onEventClick({ feature, coordinates }) {
+        apiFetch('/events/' + feature.id).then(data =>
+            this.setState({ popup: { feature, coordinates, data } })
+        );
+    }
+
+    /*
     onEventClick(evt) {
         const { feature, coordinates } = evt;
         const { type, coordinates: coord } = feature.geometry;
@@ -215,6 +322,7 @@ class EventLayer extends Layer {
             this.context.map.openPopup(removeLineBreaks(content), coordinates);
         });
     }
+    */
 
     // Convert surver cluster response to GeoJSON
     toGeoJson(data) {

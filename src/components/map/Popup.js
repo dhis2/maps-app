@@ -10,6 +10,7 @@ class Popup extends PureComponent {
     static propTypes = {
         coordinates: PropTypes.array.isRequired,
         onClose: PropTypes.func.isRequired,
+        className: PropTypes.string,
         children: PropTypes.node,
     };
 
@@ -35,7 +36,10 @@ class Popup extends PureComponent {
     }
 
     setPopup = () => {
-        const { coordinates, onClose } = this.props;
+        const { className, coordinates, onClose } = this.props;
+
+        this.container.className = className || '';
+
         this.context.map.openPopup(this.container, coordinates, onClose);
     };
 }

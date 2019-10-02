@@ -164,8 +164,6 @@ class ThematicLayer extends Layer {
             layerType: layer,
         });
     }
-
-    onPopupClose = () => this.setState({ popup: null });
 }
 
 export default ThematicLayer;
