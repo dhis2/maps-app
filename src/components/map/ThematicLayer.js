@@ -3,10 +3,10 @@ import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 import Timeline from '../periods/Timeline';
 import PeriodName from './PeriodName';
+import Popup from './Popup';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
 import { getPeriodFromFilters } from '../../util/analytics';
-import { removeLineBreaks } from '../../util/helpers';
 import {
     LABEL_FONT_SIZE,
     LABEL_FONT_STYLE,
@@ -15,6 +15,11 @@ import {
 } from '../../constants/layers';
 
 class ThematicLayer extends Layer {
+    state = {
+        period: null,
+        popup: null,
+    };
+
     createLayer() {
         const {
             id,
@@ -98,24 +103,50 @@ class ThematicLayer extends Layer {
         }
     }
 
+    getPopup() {
+        const { columns, aggregationType, legend } = this.props;
+        const { popup, period } = this.state;
+        const { coordinates, feature } = popup;
+        const { name, value } = feature.properties;
+        const indicator = columns[0].items[0].name || '';
+        const periodName = period ? period.name : legend.period;
+
+        return (
+            <Popup coordinates={coordinates}>
+                <div className="dhis2-map-popup-orgunit">
+                    <h3>{name}</h3>
+                    <div>{indicator}</div>
+                    <div>{periodName}</div>
+                    <div>
+                        {i18n.t('Value')}: {value}
+                    </div>
+                    {aggregationType && aggregationType !== 'DEFAULT' && (
+                        <div>{aggregationType}</div>
+                    )}
+                </div>
+            </Popup>
+        );
+    }
+
     render() {
         const { periods, renderingStrategy, filters } = this.props;
-        const { period } = this.state;
+        const { period, popup } = this.state;
         const { id } = getPeriodFromFilters(filters);
-
-        if (renderingStrategy !== 'TIMELINE' || !period) {
-            return null;
-        }
 
         return (
             <Fragment>
-                <PeriodName period={period.name} isTimeline={true} />
-                <Timeline
-                    periodId={id}
-                    period={period}
-                    periods={periods}
-                    onChange={this.onPeriodChange}
-                />
+                {period && (
+                    <PeriodName period={period.name} isTimeline={true} />
+                )}
+                {renderingStrategy === 'TIMELINE' && (
+                    <Timeline
+                        periodId={id}
+                        period={period}
+                        periods={periods}
+                        onChange={this.onPeriodChange}
+                    />
+                )}
+                {popup && this.getPopup()}
             </Fragment>
         );
     }
@@ -123,25 +154,7 @@ class ThematicLayer extends Layer {
     onPeriodChange = period => this.setState({ period });
 
     onFeatureClick(evt) {
-        const { feature, coordinates } = evt;
-        const { name, value } = feature.properties;
-        const { columns, aggregationType, legend } = this.props;
-        const { period } = this.state;
-        const indicator = columns[0].items[0].name || '';
-        const periodName = period ? period.name : legend.period;
-        const content = `
-            <div class="dhis2-map-popup-orgunit">
-                <em>${name}</em><br>
-                ${indicator}<br>
-                ${periodName}<br>
-                ${i18n.t('Value')}: ${value} ${
-            aggregationType && aggregationType !== 'DEFAULT'
-                ? `(${aggregationType})`
-                : ''
-        }
-            </div>`;
-
-        this.context.map.openPopup(removeLineBreaks(content), coordinates);
+        this.setState({ popup: evt });
     }
 
     onFeatureRightClick(evt) {
