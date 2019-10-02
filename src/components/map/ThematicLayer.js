@@ -112,18 +112,16 @@ class ThematicLayer extends Layer {
         const periodName = period ? period.name : legend.period;
 
         return (
-            <Popup coordinates={coordinates}>
-                <div className="dhis2-map-popup-orgunit">
-                    <h3>{name}</h3>
-                    <div>{indicator}</div>
-                    <div>{periodName}</div>
-                    <div>
-                        {i18n.t('Value')}: {value}
-                    </div>
-                    {aggregationType && aggregationType !== 'DEFAULT' && (
-                        <div>{aggregationType}</div>
-                    )}
+            <Popup coordinates={coordinates} onClose={this.onPopupClose}>
+                <h3>{name}</h3>
+                <div>{indicator}</div>
+                <div>{periodName}</div>
+                <div>
+                    {i18n.t('Value')}: {value}
                 </div>
+                {aggregationType && aggregationType !== 'DEFAULT' && (
+                    <div>{aggregationType}</div>
+                )}
             </Popup>
         );
     }
@@ -166,6 +164,8 @@ class ThematicLayer extends Layer {
             layerType: layer,
         });
     }
+
+    onPopupClose = () => this.setState({ popup: null });
 }
 
 export default ThematicLayer;
