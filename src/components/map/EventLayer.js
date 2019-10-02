@@ -1,12 +1,13 @@
 import React from 'react';
-import i18n from '@dhis2/d2-i18n';
+// import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { apiFetch } from '../../util/api';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
-import Popup from './Popup';
-import { getDisplayPropertyUrl, formatCoordinate } from '../../util/helpers';
+import EventPopup from './EventPopup';
+// import { getDisplayPropertyUrl, formatCoordinate } from '../../util/helpers';
+import { getDisplayPropertyUrl } from '../../util/helpers';
 
 class EventLayer extends Layer {
     state = {
@@ -106,14 +107,13 @@ class EventLayer extends Layer {
 
     getPopup() {
         // const { styleDataItem } = this.props;
-        const { coordinates, feature, data } = this.state.popup;
-        const { type, coordinates: coord } = feature.geometry;
+        // const { coordinates, feature, data } = this.state.popup;
+        // const { type, coordinates: coord } = feature.geometry;
         // const { value } = feature.properties;
-        const { eventDate, dataValues, orgUnitName } = data;
-        const date = eventDate.substring(0, 10);
-        const time = eventDate.substring(11, 16);
+        // const { eventDate, dataValues, orgUnitName } = data;
+        // const date = eventDate.substring(0, 10);
+        // const time = eventDate.substring(11, 16);
         // let styleDataRow;
-
         // Output value if styled by data item, and item is not included in display elements
         // if (styleDataItem && !this.displayElements[styleDataItem.id]) {
         /*
@@ -125,9 +125,8 @@ class EventLayer extends Layer {
             );
             */
         // }
-
         // {styleDataRow && styleDataRow}
-
+        /*
         const dataValuesRows =
             Array.isArray(dataValues) &&
             dataValues.map(({ dataElement, value }) => {
@@ -155,8 +154,9 @@ class EventLayer extends Layer {
                     </tr>
                 );
             });
-
+            */
         // TODO: style="overflow-x:auto"
+        /*
         return (
             <Popup
                 coordinates={coordinates}
@@ -196,10 +196,13 @@ class EventLayer extends Layer {
                 </table>
             </Popup>
         );
+        */
     }
 
     render() {
-        return this.state.popup ? this.getPopup() : null;
+        const { popup } = this.state;
+
+        return popup ? <EventPopup {...popup} /> : null;
     }
 
     // Load data elements that should be displayed in popups
