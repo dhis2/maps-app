@@ -1,6 +1,8 @@
+import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
+import Popup from './Popup';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
 import {
@@ -11,6 +13,10 @@ import {
 } from '../../constants/layers';
 
 class FacilityLayer extends Layer {
+    state = {
+        popup: null,
+    };
+
     createLayer() {
         const {
             id,
@@ -71,7 +77,44 @@ class FacilityLayer extends Layer {
         this.fitBoundsOnce();
     }
 
+    getPopup() {
+        const { coordinates, feature } = this.state.popup;
+        const { name, dimensions, pn } = feature.properties;
+
+        return (
+            <Popup
+                coordinates={coordinates}
+                onClose={this.onPopupClose}
+                className="dhis2-map-popup-orgunit"
+            >
+                <em>{name}</em>
+                {isPlainObject(dimensions) && (
+                    <div>
+                        {i18n.t('Groups')}:
+                        {Object.keys(dimensions)
+                            .map(id => dimensions[id])
+                            .join(', ')}
+                    </div>
+                )}
+                {pn && (
+                    <div>
+                        {i18n.t('Parent unit')}: {pn}
+                    </div>
+                )}
+            </Popup>
+        );
+    }
+
+    render() {
+        return this.state.popup ? this.getPopup() : null;
+    }
+
+    onFeatureClick(evt) {
+        this.setState({ popup: evt });
+    }
+
     // Show pupup on facility click
+    /*
     onFeatureClick(evt) {
         const { feature, coordinates } = evt;
         const { name, dimensions, pn } = feature.properties;
@@ -91,6 +134,7 @@ class FacilityLayer extends Layer {
 
         this.context.map.openPopup(content, coordinates);
     }
+    */
 
     onFeatureRightClick(evt) {
         const { id, layer } = this.props;
