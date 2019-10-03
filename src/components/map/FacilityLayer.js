@@ -113,29 +113,6 @@ class FacilityLayer extends Layer {
         this.setState({ popup: evt });
     }
 
-    // Show pupup on facility click
-    /*
-    onFeatureClick(evt) {
-        const { feature, coordinates } = evt;
-        const { name, dimensions, pn } = feature.properties;
-        let content = `<div class="dhis2-map-popup-orgunit"><em>${name}</em>`;
-
-        if (isPlainObject(dimensions)) {
-            content += `<br/>${i18n.t('Groups')}: ${Object.keys(dimensions)
-                .map(id => dimensions[id])
-                .join(', ')}`;
-        }
-
-        if (pn) {
-            content += `<br/>${i18n.t('Parent unit')}: ${pn}`;
-        }
-
-        content += '</div>';
-
-        this.context.map.openPopup(content, coordinates);
-    }
-    */
-
     onFeatureRightClick(evt) {
         const { id, layer } = this.props;
 
