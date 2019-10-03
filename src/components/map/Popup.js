@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+import './Popup.css';
 
 class Popup extends PureComponent {
     static contextTypes = {

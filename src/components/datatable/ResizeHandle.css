@@ -23,7 +23,7 @@
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
- }
+}
 
 .ResizeHandle svg {
     margin-left: 8px;
