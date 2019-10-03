@@ -1,9 +1,15 @@
+import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
+import Popup from './Popup';
 import { filterData } from '../../util/filter';
 import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../constants/layers';
 
 export default class BoundaryLayer extends Layer {
+    state = {
+        popup: null,
+    };
+
     createLayer() {
         const {
             id,
@@ -61,23 +67,37 @@ export default class BoundaryLayer extends Layer {
         this.fitBoundsOnce();
     }
 
-    onFeatureClick(evt) {
-        const { feature, coordinates } = evt;
+    getPopup() {
+        const { coordinates, feature } = this.state.popup;
         const { name, level, parentName } = feature.properties;
 
-        let content = `<div class="dhis2-map-popup-orgunit"><em>${name}</em>`;
+        return (
+            <Popup
+                coordinates={coordinates}
+                onClose={this.onPopupClose}
+                className="dhis2-map-popup-orgunit"
+            >
+                <em>{name}</em>
+                {level && (
+                    <div>
+                        {i18n.t('Level')}: {level}
+                    </div>
+                )}
+                {parentName && (
+                    <div>
+                        {i18n.t('Parent unit')}: {parentName}
+                    </div>
+                )}
+            </Popup>
+        );
+    }
 
-        if (level) {
-            content += `<br/>${i18n.t('Level')}: ${level}`;
-        }
+    render() {
+        return this.state.popup ? this.getPopup() : null;
+    }
 
-        if (parentName) {
-            content += `<br/>${i18n.t('Parent unit')}: ${parentName}`;
-        }
-
-        content += '</div>';
-
-        this.context.map.openPopup(content, coordinates);
+    onFeatureClick(evt) {
+        this.setState({ popup: evt });
     }
 
     onFeatureRightClick(evt) {

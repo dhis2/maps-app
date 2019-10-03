@@ -112,8 +112,12 @@ class ThematicLayer extends Layer {
         const periodName = period ? period.name : legend.period;
 
         return (
-            <Popup coordinates={coordinates} onClose={this.onPopupClose}>
-                <h3>{name}</h3>
+            <Popup
+                coordinates={coordinates}
+                onClose={this.onPopupClose}
+                className="dhis2-map-popup-orgunit"
+            >
+                <em>{name}</em>
                 <div>{indicator}</div>
                 <div>{periodName}</div>
                 <div>

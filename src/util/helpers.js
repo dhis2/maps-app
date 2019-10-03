@@ -151,3 +151,7 @@ export const formatCoordinate = value => {
         return value;
     }
 };
+
+// Formats a DHIS2 time string
+export const formatTime = time =>
+    `${time.substring(0, 10)} ${time.substring(11, 16)}`;

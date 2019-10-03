@@ -4,7 +4,11 @@ import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import Popup from './Popup';
 import { apiFetch } from '../../util/api';
-import { getDisplayPropertyUrl, formatCoordinate } from '../../util/helpers';
+import {
+    getDisplayPropertyUrl,
+    formatTime,
+    formatCoordinate,
+} from '../../util/helpers';
 
 class EventPopup extends PureComponent {
     static propTypes = {
@@ -49,8 +53,6 @@ class EventPopup extends PureComponent {
         const { type, coordinates: coord } = feature.geometry;
         const { value } = feature.properties;
         const { eventDate, dataValues = [], orgUnitName } = data;
-        const date = eventDate.substring(0, 10);
-        const time = eventDate.substring(11, 16);
 
         // Output value if styled by data item, and item is not included in dataRows below
         const styleDataRow = styleDataItem &&
@@ -115,9 +117,7 @@ class EventPopup extends PureComponent {
                         </tr>
                         <tr>
                             <th>{i18n.t('Event time')}</th>
-                            <td>
-                                {date} {time}
-                            </td>
+                            <td>{formatTime(eventDate)}</td>
                         </tr>
                     </tbody>
                 </table>
