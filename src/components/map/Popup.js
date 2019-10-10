@@ -1,48 +1,32 @@
-import { PureComponent } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import './Popup.css';
 
-class Popup extends PureComponent {
-    static contextTypes = {
-        map: PropTypes.object,
-    };
+const container = document.createElement('div');
 
-    static propTypes = {
-        coordinates: PropTypes.array.isRequired,
-        onClose: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        children: PropTypes.node,
-    };
+const Popup = (props, context) => {
+    const { className = '', coordinates, onClose, children } = props;
+    const { map } = context;
 
-    constructor() {
-        super();
-        this.container = document.createElement('div');
-    }
+    useEffect(() => {
+        container.className = className;
+        map.openPopup(container, coordinates, onClose);
+        return () => map.closePopup();
+    });
 
-    componentDidMount() {
-        this.setPopup();
-    }
+    return createPortal(children, container);
+};
 
-    componentDidUpdate() {
-        this.setPopup();
-    }
+Popup.contextTypes = {
+    map: PropTypes.object,
+};
 
-    componentWillUnmount() {
-        this.context.map.closePopup();
-    }
-
-    render() {
-        return createPortal(this.props.children, this.container);
-    }
-
-    setPopup = () => {
-        const { className, coordinates, onClose } = this.props;
-
-        this.container.className = className || '';
-
-        this.context.map.openPopup(this.container, coordinates, onClose);
-    };
-}
+Popup.propTypes = {
+    coordinates: PropTypes.array.isRequired,
+    onClose: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node,
+};
 
 export default Popup;

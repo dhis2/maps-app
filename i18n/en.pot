@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-09-03T08:55:52.263Z\n"
-"PO-Revision-Date: 2019-09-03T08:55:52.263Z\n"
+"POT-Creation-Date: 2019-10-10T17:23:15.515Z\n"
+"PO-Revision-Date: 2019-10-10T17:23:15.515Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -476,6 +476,12 @@ msgid "Event time"
 msgstr ""
 
 msgid "Groups"
+msgstr ""
+
+msgid "Longitude"
+msgstr ""
+
+msgid "Latitude"
 msgstr ""
 
 msgid "Viewing interpretation from {{interpretationDate}}"
