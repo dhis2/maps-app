@@ -99,6 +99,7 @@ const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
         );
     }
 
+    // Include rows for each displayInReport data elements
     displayElements.forEach(({ id, name, valueType, options }) => {
         const { value } = dataValues.find(d => d.dataElement === id) || {};
         let formattedValue = value;
@@ -126,6 +127,7 @@ const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
     return dataRows;
 };
 
+// Will display a popup for an event feature
 const EventPopup = props => {
     const {
         coordinates,
@@ -140,12 +142,14 @@ const EventPopup = props => {
     const [dataElements, setDataElements] = useState({});
     const { displayElements = [], eventCoordinateFieldName } = dataElements;
 
+    // Load data elements every time programStage is changed
     useEffect(() => {
         loadDataElements(programStage, eventCoordinateField).then(
             setDataElements
         );
     }, [programStage]);
 
+    // Load event data every time a new feature is clicked
     useEffect(() => {
         loadEventData(feature).then(setEventData);
     }, [feature]);
