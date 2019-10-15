@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
@@ -10,175 +10,203 @@ import {
     formatCoordinate,
 } from '../../util/helpers';
 
-class EventPopup extends PureComponent {
-    static propTypes = {
-        coordinates: PropTypes.array,
-        feature: PropTypes.object,
-        programStage: PropTypes.object,
-        eventCoordinateField: PropTypes.string,
-        styleDataItem: PropTypes.object,
-        onClose: PropTypes.func.isRequired,
-    };
+// Returns true if value is not undefined or null;
+const hasValue = value => value !== undefined || value !== null;
 
-    state = {
-        data: null,
-        displayElements: null,
-        eventCoordinateFieldName: null,
-    };
+// Loads an option set for an data element to get option names
+const loadOptionSet = async dataElement => {
+    const { optionSet } = dataElement;
 
-    componentDidMount() {
-        if (this.props.programStage) {
-            this.loadDataElements();
-        }
+    if (!optionSet || !optionSet.id) {
+        return dataElement;
     }
 
-    componentDidUpdate(prevProps) {
-        const { feature } = this.props;
+    const d2 = await getD2();
 
-        if (feature && feature !== prevProps.feature) {
-            apiFetch(`/events/${feature.id}`).then(data =>
-                this.setState({ data })
-            );
-        }
-    }
-
-    render() {
-        const { coordinates, feature, styleDataItem } = this.props;
-        const { data, displayElements = {} } = this.state;
-
-        if (!coordinates || !feature || !data) {
-            return null;
-        }
-
-        const { type, coordinates: coord } = feature.geometry;
-        const { value } = feature.properties;
-        const { eventDate, dataValues = [], orgUnitName } = data;
-
-        // Output value if styled by data item, and item is not included in dataRows below
-        const styleDataRow = styleDataItem &&
-            !displayElements[styleDataItem.id] && (
-                <tr>
-                    <th>{styleDataItem.name}</th>
-                    <td>{value !== undefined ? value : i18n.t('Not set')}</td>
-                </tr>
-            );
-
-        const dataRows = dataValues.map(({ dataElement, value }) => {
-            const displayEl = displayElements[dataElement];
-
-            if (!displayEl) {
-                return null;
-            }
-
-            const { valueType, optionSet, name } = displayEl;
-            let formattedValue = value;
-
-            if (valueType === 'COORDINATE' && value) {
-                formattedValue = formatCoordinate(value);
-            } else if (optionSet) {
-                formattedValue = optionSet[value];
-            } else if (value === null || value === undefined) {
-                formattedValue = i18n.t('Not set');
-            }
-
-            return (
-                <tr key={dataElement}>
-                    <th>{name}</th>
-                    <td>{formattedValue}</td>
-                </tr>
-            );
+    if (optionSet && optionSet.id) {
+        const fullOptionSet = await d2.models.optionSets.get(optionSet.id, {
+            fields:
+                'id,displayName~rename(name),options[code,displayName~rename(name)]',
+            paging: false,
         });
 
-        return (
-            <Popup
-                coordinates={coordinates}
-                onClose={this.onPopupClose}
-                className="dhis2-map-popup-event"
-            >
-                <table>
-                    <tbody>
-                        {styleDataRow}
-                        {dataRows}
-                        {dataRows.length && <tr style={{ height: 5 }} />}
-                        {type === 'Point' && (
-                            <tr>
-                                <th>
-                                    {this.eventCoordinateFieldName ||
-                                        i18n.t('Event location')}
-                                </th>
-                                <td>
-                                    {coord[0]} {coord[1]}
-                                </td>
-                            </tr>
-                        )}
-                        <tr>
-                            <th>{i18n.t('Organisation unit')}</th>
-                            <td>{orgUnitName}</td>
-                        </tr>
-                        <tr>
-                            <th>{i18n.t('Event time')}</th>
-                            <td>{formatTime(eventDate)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </Popup>
+        if (fullOptionSet && fullOptionSet.options) {
+            dataElement.options = fullOptionSet.options.reduce(
+                (byId, option) => {
+                    byId[option.code] = option.name;
+                    return byId;
+                },
+                {}
+            );
+        }
+    }
+};
+
+// Loads the data elements for a program stage to display in popup
+const loadDataElements = async (programStage, eventCoordinateField) => {
+    const d2 = await getD2();
+    const data = await d2.models.programStage.get(programStage.id, {
+        fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
+            d2
+        )},optionSet,valueType]]`,
+        paging: false,
+    });
+    const { programStageDataElements } = data;
+    let displayElements = [];
+    let eventCoordinateFieldName;
+
+    if (Array.isArray(programStageDataElements)) {
+        displayElements = programStageDataElements
+            .filter(d => d.displayInReports)
+            .map(d => d.dataElement);
+
+        for (let d of displayElements) {
+            await loadOptionSet(d);
+        }
+
+        if (eventCoordinateField) {
+            const coordElement = programStageDataElements.find(
+                d => d.dataElement.id === eventCoordinateField
+            );
+
+            if (coordElement) {
+                eventCoordinateFieldName = coordElement.dataElement.name;
+            }
+        }
+    }
+
+    return { displayElements, eventCoordinateFieldName };
+};
+
+// Loads event data for the selected feature
+const loadEventData = async feature =>
+    feature ? apiFetch(`/events/${feature.id}`) : null;
+
+// Returns table rows for all display elements
+const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
+    const dataRows = [];
+
+    // Include data element used for styling if not included below
+    if (
+        styleDataItem &&
+        !displayElements.find(d => d.id === styleDataItem.id)
+    ) {
+        dataRows.push(
+            <tr key={styleDataItem.id}>
+                <th>{styleDataItem.name}</th>
+                <td>{hasValue(value) ? value : i18n.t('Not set')}</td>
+            </tr>
         );
     }
 
-    // Load data elements that should be displayed in popups
-    // TODO: Possible to only load "displayInReports" data elements from api?
-    async loadDataElements() {
-        const { programStage, eventCoordinateField } = this.props;
-        const d2 = await getD2();
-        const data = await d2.models.programStage.get(programStage.id, {
-            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
-                d2
-            )},optionSet,valueType]]`,
-            paging: false,
-        });
-        const { programStageDataElements } = data;
+    displayElements.forEach(({ id, name, valueType, options }) => {
+        const { value } = dataValues.find(d => d.dataElement === id) || {};
+        let formattedValue = value;
 
-        if (programStageDataElements) {
-            const displayElements = {};
-            let eventCoordinateFieldName;
-
-            programStageDataElements.forEach(el => {
-                const dataElement = el.dataElement;
-
-                if (el.displayInReports) {
-                    displayElements[dataElement.id] = dataElement;
-
-                    if (dataElement.optionSet && dataElement.optionSet.id) {
-                        d2.models.optionSets
-                            .get(dataElement.optionSet.id, {
-                                fields:
-                                    'id,displayName~rename(name),options[code,displayName~rename(name)]',
-                                paging: false,
-                            })
-                            .then(optionSet => {
-                                optionSet.options.forEach(
-                                    option =>
-                                        (dataElement.optionSet[option.code] =
-                                            option.name)
-                                );
-                            });
-                    }
-                } else if (
-                    eventCoordinateField &&
-                    dataElement.id === eventCoordinateField
-                ) {
-                    eventCoordinateFieldName = dataElement.name;
-                }
-            });
-
-            this.setState({ displayElements, eventCoordinateFieldName });
+        if (valueType === 'COORDINATE' && value) {
+            formattedValue = formatCoordinate(value);
+        } else if (options) {
+            formattedValue = options[value];
+        } else if (!hasValue(value)) {
+            formattedValue = i18n.t('Not set');
         }
+
+        dataRows.push(
+            <tr key={id}>
+                <th>{name}</th>
+                <td>{formattedValue}</td>
+            </tr>
+        );
+    });
+
+    if (dataRows.length) {
+        dataRows.push(<tr key="divider" style={{ height: 5 }} />);
     }
 
-    onPopupClose = () => {
-        this.props.onClose();
-        this.setState({ data: null });
-    };
-}
+    return dataRows;
+};
+
+const EventPopup = props => {
+    const {
+        coordinates,
+        feature,
+        programStage,
+        eventCoordinateField,
+        styleDataItem,
+        onClose,
+    } = props;
+
+    const [eventData, setEventData] = useState();
+    const [dataElements, setDataElements] = useState({});
+    const { displayElements = [], eventCoordinateFieldName } = dataElements;
+
+    useEffect(() => {
+        loadDataElements(programStage, eventCoordinateField).then(
+            setDataElements
+        );
+    }, [programStage]);
+
+    useEffect(() => {
+        loadEventData(feature).then(setEventData);
+    }, [feature]);
+
+    if (!coordinates || !feature || !eventData) {
+        return null;
+    }
+
+    const { type, coordinates: coord } = feature.geometry;
+    const { value } = feature.properties;
+    const { eventDate, dataValues = [], orgUnitName } = eventData;
+
+    return (
+        <Popup
+            coordinates={coordinates}
+            onClose={() => {
+                onClose();
+                setEventData();
+            }}
+            className="dhis2-map-popup-event"
+        >
+            <table>
+                <tbody>
+                    {getDataRows(
+                        displayElements,
+                        dataValues,
+                        styleDataItem,
+                        value
+                    )}
+                    {type === 'Point' && (
+                        <tr>
+                            <th>
+                                {eventCoordinateFieldName ||
+                                    i18n.t('Event location')}
+                            </th>
+                            <td>
+                                {coord[0]} {coord[1]}
+                            </td>
+                        </tr>
+                    )}
+                    <tr>
+                        <th>{i18n.t('Organisation unit')}</th>
+                        <td>{orgUnitName}</td>
+                    </tr>
+                    <tr>
+                        <th>{i18n.t('Event time')}</th>
+                        <td>{formatTime(eventDate)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </Popup>
+    );
+};
+
+EventPopup.propTypes = {
+    coordinates: PropTypes.array,
+    feature: PropTypes.object,
+    programStage: PropTypes.object,
+    eventCoordinateField: PropTypes.string,
+    styleDataItem: PropTypes.object,
+    onClose: PropTypes.func.isRequired,
+};
 
 export default EventPopup;
