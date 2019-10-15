@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import './Popup.css';
 
-const container = document.createElement('div');
-
 const Popup = (props, context) => {
     const { className = '', coordinates, onClose, children } = props;
     const { map } = context;
+    const container = useMemo(() => document.createElement('div'), []);
 
     useEffect(() => {
         container.className = className;
