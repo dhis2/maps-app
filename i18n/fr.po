@@ -1,0 +1,589 @@
+# Translators:
+# mrwine <matthieu@pinard.no>, 2019
+# phil_dhis2, 2019
+# Viktor Varland <viktor@dhis2.org>, 2019
+# Bram Piot <bram.piot@gmail.com>, 2019
+# Austin McGee <austin@dhis2.org>, 2019
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-08-12T13:12:48.527Z\n"
+"PO-Revision-Date: 2019-09-02 08:01+0000\n"
+"Last-Translator: Austin McGee <austin@dhis2.org>, 2019\n"
+"Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Maps"
+msgstr "Cartes"
+
+msgid "Classification"
+msgstr ""
+
+msgid "Classes"
+msgstr "Classes"
+
+msgid "Legend set"
+msgstr "Jeu de légende"
+
+msgid "Automatic"
+msgstr "Automatique"
+
+msgid "Predefined"
+msgstr "Prédéfini"
+
+msgid "Data element group"
+msgstr "Groupe d'éléments de données"
+
+msgid "Data element operand"
+msgstr ""
+
+msgid "Data element"
+msgstr "Élément de données"
+
+msgid "Totals"
+msgstr "Totaux"
+
+msgid "Details"
+msgstr "Détails"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "Event location"
+msgstr "Lieu de l'évènement"
+
+msgid "Coordinate field"
+msgstr "Champ de coordonnées"
+
+msgid "None"
+msgstr "Aucun"
+
+msgid "Data item"
+msgstr ""
+
+msgid "Event data item"
+msgstr "Elément de données évènement"
+
+msgid "Style by data element"
+msgstr ""
+
+msgid "Data set"
+msgstr "Ensemble de données"
+
+msgid "Index"
+msgstr "Index"
+
+msgid "Value"
+msgstr "Valeur"
+
+msgid "Legend"
+msgstr "Légende"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Level"
+msgstr "Niveau"
+
+msgid "Parent"
+msgstr "Parent"
+
+msgid "Id"
+msgstr ""
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Color"
+msgstr "Couleur"
+
+msgid "Download"
+msgstr "Télécharger"
+
+msgid "Download map"
+msgstr "Télécharger la carte"
+
+msgid "Show name"
+msgstr ""
+
+msgid "Show legend"
+msgstr ""
+
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Legend position"
+msgstr ""
+
+msgid "Period"
+msgstr "Période"
+
+msgid "Organisation units"
+msgstr "Unités d'organisation"
+
+msgid "Style"
+msgstr "Style"
+
+msgid "Labels"
+msgstr ""
+
+msgid "Point radius"
+msgstr "Taille des points"
+
+msgid "No organisation units are selected"
+msgstr ""
+
+msgid "Steps"
+msgstr "Étapes"
+
+msgid "Legend preview"
+msgstr ""
+
+msgid "This field is required"
+msgstr "Ce champs est requis"
+
+msgid "Valid range is"
+msgstr ""
+
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Filter"
+msgstr "Filtrer"
+
+msgid "Org units"
+msgstr "OrgUnit"
+
+msgid "Start date"
+msgstr "Date de début"
+
+msgid "End date"
+msgstr "Date de fin"
+
+msgid "Events"
+msgstr "Événements"
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Group set"
+msgstr "Ensemble de groupes"
+
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
+
+msgid "Group set is required"
+msgstr ""
+
+msgid "Update layer"
+msgstr ""
+
+msgid "Add layer"
+msgstr ""
+
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "Program status"
+msgstr ""
+
+msgid "Follow up"
+msgstr "Suivi"
+
+msgid "Selection mode"
+msgstr "Sélectionner le mode"
+
+msgid "Tracked entities"
+msgstr "Entités suiviées "
+
+msgid "Point size"
+msgstr ""
+
+msgid "Aggregation type"
+msgstr "Type d'agrégation"
+
+msgid "Low size"
+msgstr "Taille min."
+
+msgid "High size"
+msgstr "Taille max."
+
+msgid "Indicator group is required"
+msgstr ""
+
+msgid "Indicator is required"
+msgstr ""
+
+msgid "Data element group is required"
+msgstr ""
+
+msgid "Data element is required"
+msgstr ""
+
+msgid "Data set is required"
+msgstr ""
+
+msgid "Event data item is required"
+msgstr ""
+
+msgid "Program indicator is required"
+msgstr ""
+
+msgid "Period type is required"
+msgstr ""
+
+msgid "Period is required"
+msgstr ""
+
+msgid "Indicator"
+msgstr "Indicateur"
+
+msgid "Reporting rates"
+msgstr "Taux de rapport"
+
+msgid "Event data items"
+msgstr "Eléments de données évènement"
+
+msgid "Program indicators"
+msgstr "Program indicators"
+
+msgid "Item type"
+msgstr "Type d'élément"
+
+msgid "An error occurred in the DHIS2 Maps application."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Refresh to try again"
+msgstr ""
+
+msgid "Hide technical details"
+msgstr ""
+
+msgid "Show technical details"
+msgstr ""
+
+msgid "The following information may be requested by technical support."
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr "Ajouter le filtre"
+
+msgid "Delete filter"
+msgstr ""
+
+msgid "Remove filter"
+msgstr ""
+
+msgid "Operator"
+msgstr "Opérateur"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "one of"
+msgstr ""
+
+msgid "not one of"
+msgstr ""
+
+msgid "contains"
+msgstr "contient"
+
+msgid "doesn't contains"
+msgstr "ne contient pas"
+
+msgid "is"
+msgstr "est"
+
+msgid "is not"
+msgstr "n'est pas"
+
+msgid "Indicator group"
+msgstr "Groupe d'indicateurs"
+
+msgid "Interpretations"
+msgstr "interprétations"
+
+msgid "Basemap"
+msgstr ""
+
+msgid "Collapse"
+msgstr "Plier"
+
+msgid "Expand"
+msgstr "Développer"
+
+msgid "Download Layer Data"
+msgstr ""
+
+msgid "Downloading GeoJSON data for \"{{layerName}}\""
+msgstr ""
+
+msgid ""
+"GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
+"Desktop."
+msgstr ""
+
+msgid "Data download failed."
+msgstr ""
+
+msgid "ID Format"
+msgstr ""
+
+msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Loading layer"
+msgstr ""
+
+msgid "deleted"
+msgstr "supprimé"
+
+msgid "Filters"
+msgstr "Filtres"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Toggle visibility"
+msgstr ""
+
+msgid "Set layer opacity"
+msgstr ""
+
+msgid "More actions"
+msgstr ""
+
+msgid "Data table"
+msgstr "Tableau de données"
+
+msgid "Download data"
+msgstr "Télécharger les données"
+
+msgid "Edit layer"
+msgstr "Modifier la couche"
+
+msgid "Remove layer"
+msgstr ""
+
+msgid "Open as"
+msgstr ""
+
+msgid "Pivot"
+msgstr "Pivoter"
+
+msgid "Chart"
+msgstr "Graphique"
+
+msgid "Parent unit"
+msgstr "Unité parente"
+
+msgid "Drill up one level"
+msgstr "Monter d'un niveau"
+
+msgid "Drill down one level"
+msgstr "Descendre d'un niveau"
+
+msgid "Show information"
+msgstr "Afficher la fiche d'information"
+
+msgid "Show longitude/latitude"
+msgstr "Afficher longitude/latitude"
+
+msgid "Swap longitude/latitude"
+msgstr "Inverser long/lat"
+
+msgid "Relocate"
+msgstr "Relocaliser"
+
+msgid "Not set"
+msgstr "Non défini"
+
+msgid "Organisation unit"
+msgstr "Unité d'organisation"
+
+msgid "Event time"
+msgstr "Date de l'évènement"
+
+msgid "Groups"
+msgstr "Groupes"
+
+msgid "Viewing interpretation from {{interpretationDate}}"
+msgstr ""
+
+msgid "Last updated"
+msgstr "Dernière mise à jour"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "No data found for this period."
+msgstr ""
+
+msgid "Select groups"
+msgstr "Sélectionner des groupes"
+
+msgid "Select levels"
+msgstr "Sélectionner les niveaux"
+
+msgid "Click the map where you want to relocate facility"
+msgstr ""
+
+msgid "user organisation unit"
+msgstr ""
+
+msgid "right below user organisation unit"
+msgstr ""
+
+msgid "two levels below user organisation unit"
+msgstr ""
+
+msgid "in"
+msgstr "dans"
+
+msgid "in and right below"
+msgstr ""
+
+msgid "in and all below"
+msgstr ""
+
+msgid "Previous year"
+msgstr "L'année dernière"
+
+msgid "Next year"
+msgstr "L'année prochaine"
+
+msgid "Period type"
+msgstr "Type de période"
+
+msgid "Program indicator"
+msgstr "Gestion des indicateurs de programme"
+
+msgid "No program"
+msgstr "Aucun programme"
+
+msgid "Program"
+msgstr "Programme"
+
+msgid "Stage"
+msgstr "Etape"
+
+msgid "Tracked Entity Type"
+msgstr ""
+
+msgid ""
+"To show this layer you must first sign up for the Earth Engine service at "
+"Google. Please check the DHIS 2 documentation."
+msgstr ""
+
+msgid "Favorite"
+msgstr ""
+
+msgid "is saved"
+msgstr ""
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "Boundaries"
+msgstr ""
+
+msgid "Access denied"
+msgstr "Accès refusé"
+
+msgid "user is not allowed to read layer data"
+msgstr ""
+
+msgid "Failed"
+msgstr "Echoué"
+
+msgid "an unknown error occurred while reading layer data"
+msgstr ""
+
+msgid "Event"
+msgstr "Evènement"
+
+msgid "Facilities"
+msgstr ""
+
+msgid "No data found"
+msgstr "Aucune valeur trouvée"
+
+msgid "Tracked entity"
+msgstr "Entité suivie"
+
+msgid "No tracked entities found"
+msgstr ""
+
+msgid "true"
+msgstr "vrai"
+
+msgid "false"
+msgstr "faux"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Map could not be created"
+msgstr ""
+
+msgid "Start date is invalid"
+msgstr "La date de début n'est pas valable"
+
+msgid "End date is invalid"
+msgstr "La date de fin n'est pas valable"
+
+msgid "End date cannot be earlier than start date"
+msgstr "La date de fin ne peut pas précéder la date début"
