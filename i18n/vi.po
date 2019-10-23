@@ -1,0 +1,586 @@
+# Translators:
+# phil_dhis2, 2019
+# Viktor Varland <viktor@dhis2.org>, 2019
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-08-12T13:12:48.527Z\n"
+"PO-Revision-Date: 2019-09-02 08:01+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2019\n"
+"Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Maps"
+msgstr "Bản đồ"
+
+msgid "Classification"
+msgstr ""
+
+msgid "Classes"
+msgstr ""
+
+msgid "Legend set"
+msgstr "Tập Chú Thích"
+
+msgid "Automatic"
+msgstr "Tự động"
+
+msgid "Predefined"
+msgstr "Định sẵn"
+
+msgid "Data element group"
+msgstr "Nhóm dữ liệu"
+
+msgid "Data element operand"
+msgstr ""
+
+msgid "Data element"
+msgstr "Phần tử dữ liệu"
+
+msgid "Totals"
+msgstr "Tổng"
+
+msgid "Details"
+msgstr "Chi tiết"
+
+msgid "Yes"
+msgstr "Có"
+
+msgid "Event location"
+msgstr "Địa điểm sự kiện"
+
+msgid "Coordinate field"
+msgstr "Vùng tọa độ"
+
+msgid "None"
+msgstr "Không"
+
+msgid "Data item"
+msgstr ""
+
+msgid "Event data item"
+msgstr "Mục dữ liệu sự kiện"
+
+msgid "Style by data element"
+msgstr ""
+
+msgid "Data set"
+msgstr "Tập dữ liệu"
+
+msgid "Index"
+msgstr ""
+
+msgid "Value"
+msgstr "Giá trị"
+
+msgid "Legend"
+msgstr "Chú Thích"
+
+msgid "Range"
+msgstr "Khoảng"
+
+msgid "Level"
+msgstr "Cấp"
+
+msgid "Parent"
+msgstr ""
+
+msgid "Id"
+msgstr "Ký hiệu nhận dạng (ID)"
+
+msgid "Type"
+msgstr "Loại"
+
+msgid "Color"
+msgstr "Màu"
+
+msgid "Download"
+msgstr "Tải về"
+
+msgid "Download map"
+msgstr ""
+
+msgid "Show name"
+msgstr ""
+
+msgid "Show legend"
+msgstr ""
+
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Hủy"
+
+msgid "Close"
+msgstr "Đóng lại"
+
+msgid "Legend position"
+msgstr ""
+
+msgid "Period"
+msgstr "Thời điểm"
+
+msgid "Organisation units"
+msgstr "Đơn vị"
+
+msgid "Style"
+msgstr "Kiểu dáng"
+
+msgid "Labels"
+msgstr "Nhãn"
+
+msgid "Point radius"
+msgstr "Tỉ lệ Điểm"
+
+msgid "No organisation units are selected"
+msgstr ""
+
+msgid "Steps"
+msgstr "Bước"
+
+msgid "Legend preview"
+msgstr ""
+
+msgid "This field is required"
+msgstr "Trường này yêu cầu"
+
+msgid "Valid range is"
+msgstr ""
+
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Filter"
+msgstr "Lọc"
+
+msgid "Org units"
+msgstr "Các đơn vị"
+
+msgid "Start date"
+msgstr "Ngày bắt đầu"
+
+msgid "End date"
+msgstr "Ngày kết thúc"
+
+msgid "Events"
+msgstr "Sự kiện"
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Group set"
+msgstr "Nhóm tập hợp"
+
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
+
+msgid "Group set is required"
+msgstr ""
+
+msgid "Update layer"
+msgstr ""
+
+msgid "Add layer"
+msgstr ""
+
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "Program status"
+msgstr ""
+
+msgid "Follow up"
+msgstr "Theo dõi"
+
+msgid "Selection mode"
+msgstr "Chọn Chế Độ"
+
+msgid "Tracked entities"
+msgstr "Các thực thể được theo dõi"
+
+msgid "Point size"
+msgstr ""
+
+msgid "Aggregation type"
+msgstr "Kiểu tổng hợp"
+
+msgid "Low size"
+msgstr "Cỡ vòng giá trị thấp"
+
+msgid "High size"
+msgstr "Cỡ vòng giá trị cao"
+
+msgid "Indicator group is required"
+msgstr ""
+
+msgid "Indicator is required"
+msgstr ""
+
+msgid "Data element group is required"
+msgstr ""
+
+msgid "Data element is required"
+msgstr ""
+
+msgid "Data set is required"
+msgstr ""
+
+msgid "Event data item is required"
+msgstr ""
+
+msgid "Program indicator is required"
+msgstr ""
+
+msgid "Period type is required"
+msgstr ""
+
+msgid "Period is required"
+msgstr ""
+
+msgid "Indicator"
+msgstr "Chỉ số"
+
+msgid "Reporting rates"
+msgstr "Tỷ lệ báo cáo"
+
+msgid "Event data items"
+msgstr "Mục dữ liệu sự kiện"
+
+msgid "Program indicators"
+msgstr "Chỉ Số Chương Trình"
+
+msgid "Item type"
+msgstr "Kiểu mục"
+
+msgid "An error occurred in the DHIS2 Maps application."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Refresh to try again"
+msgstr ""
+
+msgid "Hide technical details"
+msgstr ""
+
+msgid "Show technical details"
+msgstr ""
+
+msgid "The following information may be requested by technical support."
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Delete filter"
+msgstr ""
+
+msgid "Remove filter"
+msgstr ""
+
+msgid "Operator"
+msgstr "Toán tử"
+
+msgid "Date"
+msgstr "Ngày"
+
+msgid "one of"
+msgstr ""
+
+msgid "not one of"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "doesn't contains"
+msgstr ""
+
+msgid "is"
+msgstr "là"
+
+msgid "is not"
+msgstr ""
+
+msgid "Indicator group"
+msgstr "Nhóm chỉ số"
+
+msgid "Interpretations"
+msgstr "Diễn giải báo cáo"
+
+msgid "Basemap"
+msgstr ""
+
+msgid "Collapse"
+msgstr "Thu gọn"
+
+msgid "Expand"
+msgstr "Mở rộng"
+
+msgid "Download Layer Data"
+msgstr ""
+
+msgid "Downloading GeoJSON data for \"{{layerName}}\""
+msgstr ""
+
+msgid ""
+"GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
+"Desktop."
+msgstr ""
+
+msgid "Data download failed."
+msgstr ""
+
+msgid "ID Format"
+msgstr ""
+
+msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Loading layer"
+msgstr ""
+
+msgid "deleted"
+msgstr "đã xóa"
+
+msgid "Filters"
+msgstr "Bộ lọc"
+
+msgid "Edit"
+msgstr "Chỉnh sửa"
+
+msgid "Toggle visibility"
+msgstr ""
+
+msgid "Set layer opacity"
+msgstr ""
+
+msgid "More actions"
+msgstr ""
+
+msgid "Data table"
+msgstr "Bảng dữ liệu"
+
+msgid "Download data"
+msgstr "Tải dữ liệu xuống"
+
+msgid "Edit layer"
+msgstr "Sửa lớp"
+
+msgid "Remove layer"
+msgstr ""
+
+msgid "Open as"
+msgstr ""
+
+msgid "Pivot"
+msgstr "Bảng xoay"
+
+msgid "Chart"
+msgstr "Biểu đồ"
+
+msgid "Parent unit"
+msgstr "Đơn Vị Cha"
+
+msgid "Drill up one level"
+msgstr "Xem tuyến trên"
+
+msgid "Drill down one level"
+msgstr "Xem tuyến dưới"
+
+msgid "Show information"
+msgstr "Hiện thông tin"
+
+msgid "Show longitude/latitude"
+msgstr "Hiện kinh độ/vĩ độ"
+
+msgid "Swap longitude/latitude"
+msgstr "Tráo kinh độ/vĩ độ"
+
+msgid "Relocate"
+msgstr "Di dời"
+
+msgid "Not set"
+msgstr "Không cài"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Event time"
+msgstr "Thời điểm sự kiện"
+
+msgid "Groups"
+msgstr "Các nhóm"
+
+msgid "Viewing interpretation from {{interpretationDate}}"
+msgstr ""
+
+msgid "Last updated"
+msgstr "Lần cập nhật cuối"
+
+msgid "Options"
+msgstr "Tùy chọn"
+
+msgid "Code"
+msgstr "Mã"
+
+msgid "No data found for this period."
+msgstr ""
+
+msgid "Select groups"
+msgstr "Chọn nhóm"
+
+msgid "Select levels"
+msgstr "Chọn Tuyến Đơn Vị"
+
+msgid "Click the map where you want to relocate facility"
+msgstr ""
+
+msgid "user organisation unit"
+msgstr ""
+
+msgid "right below user organisation unit"
+msgstr ""
+
+msgid "two levels below user organisation unit"
+msgstr ""
+
+msgid "in"
+msgstr "trong"
+
+msgid "in and right below"
+msgstr ""
+
+msgid "in and all below"
+msgstr ""
+
+msgid "Previous year"
+msgstr ""
+
+msgid "Next year"
+msgstr "Năm sau"
+
+msgid "Period type"
+msgstr "Loại thời điểm"
+
+msgid "Program indicator"
+msgstr "Quản lý Chỉ số chương trình"
+
+msgid "No program"
+msgstr "Không có Chương trình"
+
+msgid "Program"
+msgstr "Chương trình"
+
+msgid "Stage"
+msgstr "Giai Đoạn Chương Trình"
+
+msgid "Tracked Entity Type"
+msgstr ""
+
+msgid ""
+"To show this layer you must first sign up for the Earth Engine service at "
+"Google. Please check the DHIS 2 documentation."
+msgstr ""
+
+msgid "Favorite"
+msgstr ""
+
+msgid "is saved"
+msgstr ""
+
+msgid "Error"
+msgstr "Lỗi"
+
+msgid "Boundaries"
+msgstr ""
+
+msgid "Access denied"
+msgstr "Truy cập bị từ chối"
+
+msgid "user is not allowed to read layer data"
+msgstr ""
+
+msgid "Failed"
+msgstr "KHÔNG THÀNH CÔNG"
+
+msgid "an unknown error occurred while reading layer data"
+msgstr ""
+
+msgid "Event"
+msgstr "Sự Kiện"
+
+msgid "Facilities"
+msgstr ""
+
+msgid "No data found"
+msgstr "Không tìm thấy dữ liệu"
+
+msgid "Tracked entity"
+msgstr "Đối Tượng Theo Dõi"
+
+msgid "No tracked entities found"
+msgstr ""
+
+msgid "true"
+msgstr ""
+
+msgid "false"
+msgstr ""
+
+msgid "No"
+msgstr "Sai"
+
+msgid "Map could not be created"
+msgstr ""
+
+msgid "Start date is invalid"
+msgstr ""
+
+msgid "End date is invalid"
+msgstr ""
+
+msgid "End date cannot be earlier than start date"
+msgstr ""
