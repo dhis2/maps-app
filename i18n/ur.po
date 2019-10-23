@@ -1,0 +1,586 @@
+# Translators:
+# phil_dhis2, 2019
+# Viktor Varland <viktor@dhis2.org>, 2019
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-08-12T13:12:48.527Z\n"
+"PO-Revision-Date: 2019-09-02 08:01+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2019\n"
+"Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ur\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Maps"
+msgstr "نقسے"
+
+msgid "Classification"
+msgstr ""
+
+msgid "Classes"
+msgstr ""
+
+msgid "Legend set"
+msgstr "علامات سیٹ"
+
+msgid "Automatic"
+msgstr "خود کار طریقے سے"
+
+msgid "Predefined"
+msgstr "پیش وضاحتی"
+
+msgid "Data element group"
+msgstr "ڈیٹا عناصر گروپ"
+
+msgid "Data element operand"
+msgstr ""
+
+msgid "Data element"
+msgstr "ڈیٹا عنصر"
+
+msgid "Totals"
+msgstr "مجموعی طور پر"
+
+msgid "Details"
+msgstr "تفصیلات"
+
+msgid "Yes"
+msgstr "ہاں"
+
+msgid "Event location"
+msgstr "واقعہ کا مقام"
+
+msgid "Coordinate field"
+msgstr "سماج فیلڈ"
+
+msgid "None"
+msgstr "کوئی نہں"
+
+msgid "Data item"
+msgstr ""
+
+msgid "Event data item"
+msgstr "واقعہ کے اعداد و شمار کے آئٹم"
+
+msgid "Style by data element"
+msgstr ""
+
+msgid "Data set"
+msgstr "ڈیٹا سیٹ"
+
+msgid "Index"
+msgstr ""
+
+msgid "Value"
+msgstr "قدر"
+
+msgid "Legend"
+msgstr "علامات"
+
+msgid "Range"
+msgstr "رینج"
+
+msgid "Level"
+msgstr "سطح"
+
+msgid "Parent"
+msgstr ""
+
+msgid "Id"
+msgstr "آئی ڈی"
+
+msgid "Type"
+msgstr "ٹائپ"
+
+msgid "Color"
+msgstr "رنگ"
+
+msgid "Download"
+msgstr "ڈاؤن لوڈ کریں"
+
+msgid "Download map"
+msgstr ""
+
+msgid "Show name"
+msgstr ""
+
+msgid "Show legend"
+msgstr ""
+
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgstr ""
+
+msgid "Cancel"
+msgstr "منسوخ"
+
+msgid "Close"
+msgstr "بند"
+
+msgid "Legend position"
+msgstr ""
+
+msgid "Period"
+msgstr "مدت"
+
+msgid "Organisation units"
+msgstr "تنظیمی یونٹس"
+
+msgid "Style"
+msgstr "سٹائل"
+
+msgid "Labels"
+msgstr "لیبل"
+
+msgid "Point radius"
+msgstr "پوائنٹ ریڈیو"
+
+msgid "No organisation units are selected"
+msgstr ""
+
+msgid "Steps"
+msgstr "مرحلے"
+
+msgid "Legend preview"
+msgstr ""
+
+msgid "This field is required"
+msgstr "اس کو پر کرنا ضروری ہے"
+
+msgid "Valid range is"
+msgstr ""
+
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Filter"
+msgstr "فلٹر"
+
+msgid "Org units"
+msgstr ""
+
+msgid "Start date"
+msgstr "تاریخ آغاز"
+
+msgid "End date"
+msgstr "آخری تاریخ"
+
+msgid "Events"
+msgstr "تقریبات"
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Group set"
+msgstr "گروپ سیٹ"
+
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
+
+msgid "Group set is required"
+msgstr ""
+
+msgid "Update layer"
+msgstr ""
+
+msgid "Add layer"
+msgstr ""
+
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "Program status"
+msgstr "پروگرام کی حیثیت"
+
+msgid "Follow up"
+msgstr ""
+
+msgid "Selection mode"
+msgstr "انتخاب کے موڈ"
+
+msgid "Tracked entities"
+msgstr ""
+
+msgid "Point size"
+msgstr ""
+
+msgid "Aggregation type"
+msgstr "مجموعی قسم"
+
+msgid "Low size"
+msgstr "کم سائز"
+
+msgid "High size"
+msgstr "اعلی سائز"
+
+msgid "Indicator group is required"
+msgstr ""
+
+msgid "Indicator is required"
+msgstr ""
+
+msgid "Data element group is required"
+msgstr ""
+
+msgid "Data element is required"
+msgstr ""
+
+msgid "Data set is required"
+msgstr ""
+
+msgid "Event data item is required"
+msgstr ""
+
+msgid "Program indicator is required"
+msgstr ""
+
+msgid "Period type is required"
+msgstr ""
+
+msgid "Period is required"
+msgstr ""
+
+msgid "Indicator"
+msgstr "اشارے"
+
+msgid "Reporting rates"
+msgstr "رپورٹنگ کی شرح"
+
+msgid "Event data items"
+msgstr "واقعہ کے اعداد و شمار کی اشیاء"
+
+msgid "Program indicators"
+msgstr "پروگرام اشارے"
+
+msgid "Item type"
+msgstr "چیز کی قسم"
+
+msgid "An error occurred in the DHIS2 Maps application."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Refresh to try again"
+msgstr ""
+
+msgid "Hide technical details"
+msgstr ""
+
+msgid "Show technical details"
+msgstr ""
+
+msgid "The following information may be requested by technical support."
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
+msgstr ""
+
+msgid "Delete filter"
+msgstr ""
+
+msgid "Remove filter"
+msgstr ""
+
+msgid "Operator"
+msgstr "آپریٹر"
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "one of"
+msgstr ""
+
+msgid "not one of"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "doesn't contains"
+msgstr ""
+
+msgid "is"
+msgstr "ہے"
+
+msgid "is not"
+msgstr ""
+
+msgid "Indicator group"
+msgstr "اشاروں کا گروپ"
+
+msgid "Interpretations"
+msgstr "تشریحات"
+
+msgid "Basemap"
+msgstr ""
+
+msgid "Collapse"
+msgstr "گرنے"
+
+msgid "Expand"
+msgstr "توسیع کریں"
+
+msgid "Download Layer Data"
+msgstr ""
+
+msgid "Downloading GeoJSON data for \"{{layerName}}\""
+msgstr ""
+
+msgid ""
+"GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
+"Desktop."
+msgstr ""
+
+msgid "Data download failed."
+msgstr ""
+
+msgid "ID Format"
+msgstr ""
+
+msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Loading layer"
+msgstr ""
+
+msgid "deleted"
+msgstr "حذف کر دیا گیا"
+
+msgid "Filters"
+msgstr "فلٹرز"
+
+msgid "Edit"
+msgstr "ترمیم"
+
+msgid "Toggle visibility"
+msgstr ""
+
+msgid "Set layer opacity"
+msgstr ""
+
+msgid "More actions"
+msgstr ""
+
+msgid "Data table"
+msgstr "ڈیٹا ٹیبل"
+
+msgid "Download data"
+msgstr "ڈیٹا ڈاؤن لوڈ کریں"
+
+msgid "Edit layer"
+msgstr "ترمیم پرت"
+
+msgid "Remove layer"
+msgstr ""
+
+msgid "Open as"
+msgstr ""
+
+msgid "Pivot"
+msgstr "محور"
+
+msgid "Chart"
+msgstr "چارٹ"
+
+msgid "Parent unit"
+msgstr "والدین یونٹ"
+
+msgid "Drill up one level"
+msgstr "ایک سطح کو ڈرائیں"
+
+msgid "Drill down one level"
+msgstr "ایک سطح کو نیچے ڈالو"
+
+msgid "Show information"
+msgstr "معلومات دکھائیں"
+
+msgid "Show longitude/latitude"
+msgstr "طول و عرض / طول و عرض دکھائیں"
+
+msgid "Swap longitude/latitude"
+msgstr "طول و عرض / طول و عرض کو تبدیل کریں"
+
+msgid "Relocate"
+msgstr "رہائشی"
+
+msgid "Not set"
+msgstr "سیٹ نہیں ہے"
+
+msgid "Organisation unit"
+msgstr "تنظیم یونٹ"
+
+msgid "Event time"
+msgstr "واقعہ کا وقت"
+
+msgid "Groups"
+msgstr "گروپ"
+
+msgid "Viewing interpretation from {{interpretationDate}}"
+msgstr ""
+
+msgid "Last updated"
+msgstr "آخری اپ ڈیٹ"
+
+msgid "Options"
+msgstr "اختیارات"
+
+msgid "Code"
+msgstr "کوڈ"
+
+msgid "No data found for this period."
+msgstr ""
+
+msgid "Select groups"
+msgstr "گروپ منتخب کریں"
+
+msgid "Select levels"
+msgstr "سطحوں کا انتخاب کریں"
+
+msgid "Click the map where you want to relocate facility"
+msgstr ""
+
+msgid "user organisation unit"
+msgstr ""
+
+msgid "right below user organisation unit"
+msgstr ""
+
+msgid "two levels below user organisation unit"
+msgstr ""
+
+msgid "in"
+msgstr "اندر"
+
+msgid "in and right below"
+msgstr ""
+
+msgid "in and all below"
+msgstr ""
+
+msgid "Previous year"
+msgstr ""
+
+msgid "Next year"
+msgstr "اگلے سال"
+
+msgid "Period type"
+msgstr "مدت کی قسم"
+
+msgid "Program indicator"
+msgstr "پروگرام کا اشارہ"
+
+msgid "No program"
+msgstr "کوئی پروگرام نہیں"
+
+msgid "Program"
+msgstr "پروگرام"
+
+msgid "Stage"
+msgstr "اسٹیج"
+
+msgid "Tracked Entity Type"
+msgstr ""
+
+msgid ""
+"To show this layer you must first sign up for the Earth Engine service at "
+"Google. Please check the DHIS 2 documentation."
+msgstr ""
+
+msgid "Favorite"
+msgstr ""
+
+msgid "is saved"
+msgstr ""
+
+msgid "Error"
+msgstr "غلطی"
+
+msgid "Boundaries"
+msgstr ""
+
+msgid "Access denied"
+msgstr "رسائی مسترد"
+
+msgid "user is not allowed to read layer data"
+msgstr ""
+
+msgid "Failed"
+msgstr "ناکام"
+
+msgid "an unknown error occurred while reading layer data"
+msgstr ""
+
+msgid "Event"
+msgstr "تقریب"
+
+msgid "Facilities"
+msgstr ""
+
+msgid "No data found"
+msgstr "کوئی ڈیٹا نہیں ملا"
+
+msgid "Tracked entity"
+msgstr "ٹریک شدہ ادارے"
+
+msgid "No tracked entities found"
+msgstr ""
+
+msgid "true"
+msgstr ""
+
+msgid "false"
+msgstr ""
+
+msgid "No"
+msgstr "نہیں"
+
+msgid "Map could not be created"
+msgstr ""
+
+msgid "Start date is invalid"
+msgstr ""
+
+msgid "End date is invalid"
+msgstr ""
+
+msgid "End date cannot be earlier than start date"
+msgstr ""
