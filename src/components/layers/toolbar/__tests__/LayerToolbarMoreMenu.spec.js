@@ -15,7 +15,9 @@ describe('LayerToolbarMoreMenu', () => {
 
         expect(wrapper.state('open')).toBe(false);
         expect(wrapper.state('anchorEl')).toBe(null);
-        wrapper.find('WithStyles(IconButton)').simulate('click', { currentTarget: 42 });
+        wrapper
+            .find('WithStyles(IconButton)')
+            .simulate('click', { currentTarget: 42 });
         expect(wrapper.state('open')).toBe(true);
         expect(wrapper.state('anchorEl')).toBe(42);
     });
@@ -33,7 +35,11 @@ describe('LayerToolbarMoreMenu', () => {
 
     it('Should render two MenuItems with no divider if only passed onEdit and onRemove', () => {
         const wrapper = shallow(
-            <LayerToolbarMoreMenu classes={{}} onEdit={() => null} onRemove={() => null} />
+            <LayerToolbarMoreMenu
+                classes={{}}
+                onEdit={() => null}
+                onRemove={() => null}
+            />
         );
 
         expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
@@ -55,7 +61,11 @@ describe('LayerToolbarMoreMenu', () => {
 
     it('Should render two MenuItems with no divider if only passed toggleDataTable and downloadData', () => {
         const wrapper = shallow(
-            <LayerToolbarMoreMenu classes={{}} toggleDataTable={() => null} downloadData={() => null} />
+            <LayerToolbarMoreMenu
+                classes={{}}
+                toggleDataTable={() => null}
+                downloadData={() => null}
+            />
         );
 
         expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
@@ -66,7 +76,12 @@ describe('LayerToolbarMoreMenu', () => {
 
     it('Should render three MenuItems WITH divider if passed toggleDataTable, onEdit, and onRemove', () => {
         const wrapper = shallow(
-            <LayerToolbarMoreMenu classes={{}} onEdit={() => null} onRemove={() => null} toggleDataTable={() => null} />
+            <LayerToolbarMoreMenu
+                classes={{}}
+                onEdit={() => null}
+                onRemove={() => null}
+                toggleDataTable={() => null}
+            />
         );
 
         expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
