@@ -45,7 +45,7 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/d2-i18n": "^1.0.4",
+        "@dhis2/d2-i18n": "^1.0.6",
         "@dhis2/d2-ui-analytics": "^0.0.3",
         "@dhis2/d2-ui-core": "5.2.10",
         "@dhis2/d2-ui-file-menu": "5.2.10",
@@ -90,7 +90,7 @@
     },
     "devDependencies": {
         "@dhis2/d2-i18n-extract": "^1.0.7",
-        "@dhis2/d2-i18n-generate": "^1.0.19",
+        "@dhis2/d2-i18n-generate": "^1.1.1",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.2",
