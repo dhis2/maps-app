@@ -248,7 +248,9 @@ export class TrackedEntityDialog extends Component {
                                         name: 'Selected and all below',
                                     },
                                 ]}
-                                value={organisationUnitSelectionMode || 'SELECTED'}
+                                value={
+                                    organisationUnitSelectionMode || 'SELECTED'
+                                }
                                 onChange={mode => setOrgUnitMode(mode.id)}
                                 style={{
                                     width: '100%',

@@ -6,12 +6,11 @@
 }
 
 .FilterMultiSelect-item > div > div {
-    padding-left: 32px!important;
-    padding-right: 8px!important;
+    padding-left: 32px !important;
+    padding-right: 8px !important;
 }
 
 .FilterMultiSelect-item svg {
-    left: 5px!important;
-    top: 0!important;
+    left: 5px !important;
+    top: 0 !important;
 }
-

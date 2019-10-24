@@ -63,6 +63,7 @@ const mapStateToProps = state => {
     return null;
 };
 
-export default connect(mapStateToProps, { setDataFilter, clearDataFilter })(
-    FilterInput
-);
+export default connect(
+    mapStateToProps,
+    { setDataFilter, clearDataFilter }
+)(FilterInput);

@@ -39,15 +39,13 @@ export const saveNewFavorite = (action$, store) =>
                 config.mapViews.forEach(view => delete view.id);
             }
 
-            return apiFetch('/maps/', 'POST', config).then(
-                async (res) => {
-                    const location = res.headers.get('Location');
-                    const id = location ? location.substring(6) : null;
-                    const response = await res.json();
-                    
-                    return (response.status === 'OK' ? { ...config, id } : response)
-                }
-            );
+            return apiFetch('/maps/', 'POST', config).then(async res => {
+                const location = res.headers.get('Location');
+                const id = location ? location.substring(6) : null;
+                const response = await res.json();
+
+                return response.status === 'OK' ? { ...config, id } : response;
+            });
         })
         .mergeMap(
             ({ id, name, description, message }) =>

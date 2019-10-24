@@ -38,5 +38,5 @@ export default combineEpics(
     orgUnitEpis,
     programEpics,
     favoritesEpics,
-    trackedEntitiesEpics,
+    trackedEntitiesEpics
 );

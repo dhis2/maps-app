@@ -57,4 +57,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddLayerPopover);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddLayerPopover);

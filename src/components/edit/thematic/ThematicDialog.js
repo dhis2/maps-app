@@ -390,9 +390,12 @@ export class ThematicDialog extends Component {
                                 selected={selectedUserOrgUnits}
                                 onChange={setUserOrgUnits}
                             />
-                            {!orgUnits.length && orgUnitsError && (
-                                <div style={styles.error}>{orgUnitsError}</div>
-                            )}
+                            {!orgUnits.length &&
+                                orgUnitsError && (
+                                    <div style={styles.error}>
+                                        {orgUnitsError}
+                                    </div>
+                                )}
                         </div>
                     </div>
                 </Tab>

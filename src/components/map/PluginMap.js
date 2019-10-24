@@ -197,7 +197,7 @@ class PluginMap extends Component {
 
         // Disabled alerts as one layer without data will result in no map
         // No data warning added to legend instead
-        const alerts = [] // getMapAlerts(this.props); 
+        const alerts = []; // getMapAlerts(this.props);
 
         return !alerts.length ? (
             <div ref={node => (this.node = node)} style={styles.map}>
