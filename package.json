@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "30.0.50",
+    "version": "30.0.51",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -32,9 +32,9 @@
         "localize": "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/"
     },
     "dependencies": {
-        "@dhis2/d2-i18n": "^1.0.3",
+        "@dhis2/d2-i18n": "1.0.6",
         "@dhis2/d2-i18n-extract": "^1.0.7",
-        "@dhis2/d2-i18n-generate": "^1.0.18",
+        "@dhis2/d2-i18n-generate": "1.1.1",
         "@dhis2/d2-ui-core": "^1.2.0",
         "@dhis2/d2-ui-file-menu": "1.0.11",
         "@dhis2/d2-ui-interpretations": "1.1.8",
