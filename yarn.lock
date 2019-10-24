@@ -325,10 +325,10 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/gis-api@^31.0.6":
-  version "31.0.6"
-  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-31.0.6.tgz#99abd41b5da14573d907aa227f9ebfa5a1dabe9d"
-  integrity sha512-KZiCzQBQmHB9m9WWhGtlnlonRfGGaLvFiFfrM2uO2nS/3r9J+fx0jdSR707mged1TJKo7E5qsCsgxs6zDSJwpw==
+"@dhis2/gis-api@^31.0.7":
+  version "31.0.7"
+  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-31.0.7.tgz#9c235d2177df858465b3762ea8a2313937339784"
+  integrity sha512-maFppb/txMPcPlMY1Fp9/cVyzg1Pd6CeCtQ76ua4A73cfvsBKYie6UkgF1y/H/7iHEWmV9Pe66i0UcPFLFs/qg==
   dependencies:
     "@turf/buffer" "^5.1.5"
     d3-color "^1.2.3"
