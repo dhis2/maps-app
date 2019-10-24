@@ -1,19 +1,19 @@
 .MapContextMenu {
-  position: absolute;
-  background: #fff;
-  z-index: 1500;
-  cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
-  font-family: Roboto, sans-serif;
-  font-size: 12px;
-  line-height: 24px;
-  padding: 3px 0;
+    position: absolute;
+    background: #fff;
+    z-index: 1500;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    font-family: Roboto, sans-serif;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 3px 0;
 }
 
 .MapContextMenu div {
-  padding: 0 10px;
+    padding: 0 10px;
 }
 
 .MapContextMenu div:hover {
-  background: #eee;
+    background: #eee;
 }
