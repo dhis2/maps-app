@@ -45,17 +45,17 @@ describe('DataDownloadDialogActions', () => {
             onStartClick: fn,
         });
 
-        wrapper.find('WithStyles(Button)[variant="contained"]').simulate('click');
+        wrapper
+            .find('WithStyles(Button)[variant="contained"]')
+            .simulate('click');
         expect(fn).toHaveBeenCalled();
-    })
+    });
 
     it('Should call onCancel', () => {
         const fn = jest.fn();
         const wrapper = renderComponent({ onCancelClick: fn });
 
-        wrapper
-            .find('WithStyles(Button)[variant="text"]')
-            .simulate('click');
+        wrapper.find('WithStyles(Button)[variant="text"]').simulate('click');
         expect(fn).toHaveBeenCalled();
     });
 });

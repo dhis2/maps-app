@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "32.0.28",
+    "version": "32.0.29",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -45,14 +45,14 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/d2-i18n": "^1.0.4",
+        "@dhis2/d2-i18n": "1.0.6",
         "@dhis2/d2-ui-analytics": "^0.0.3",
         "@dhis2/d2-ui-core": "5.2.10",
         "@dhis2/d2-ui-file-menu": "5.2.10",
         "@dhis2/d2-ui-interpretations": "^6.2.1",
         "@dhis2/d2-ui-org-unit-dialog": "5.2.10",
         "@dhis2/d2-ui-org-unit-tree": "5.2.10",
-        "@dhis2/gis-api": "^32.0.22",
+        "@dhis2/gis-api": "^32.0.25",
         "@dhis2/ui": "^1.0.0-beta.15",
         "@material-ui/core": "^3.9.3",
         "@material-ui/icons": "^3.0.2",
@@ -85,7 +85,7 @@
     },
     "devDependencies": {
         "@dhis2/d2-i18n-extract": "^1.0.7",
-        "@dhis2/d2-i18n-generate": "^1.0.19",
+        "@dhis2/d2-i18n-generate": "1.1.1",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.2",
