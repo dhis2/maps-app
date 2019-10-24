@@ -49,8 +49,6 @@ describe('DataDownloadDialogContent', () => {
             error: 'This is an error!',
         });
         expect(wrapper.children().length).toBe(4);
-        expect(wrapper
-                .html()
-                .indexOf('Data download failed.')).not.toBe(-1);
+        expect(wrapper.html().indexOf('Data download failed.')).not.toBe(-1);
     });
 });

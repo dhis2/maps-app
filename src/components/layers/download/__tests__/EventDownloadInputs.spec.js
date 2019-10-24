@@ -8,17 +8,18 @@ describe('EventDownloadInputs', () => {
         { id: 2, name: 'No Format' },
         { id: 3, name: 'Some Format' },
     ];
-    const renderComponent = props => shallow(
-        <EventDownloadInputs
-            classes={{}}
-            formatOptions={formatOptions}
-            selectedFormatOption={0}
-            humanReadableChecked={false}
-            onChangeFormatOption={() => null}
-            onCheckHumanReadable={() => null}
-            {...props}
-        />
-    );
+    const renderComponent = props =>
+        shallow(
+            <EventDownloadInputs
+                classes={{}}
+                formatOptions={formatOptions}
+                selectedFormatOption={0}
+                humanReadableChecked={false}
+                onChangeFormatOption={() => null}
+                onCheckHumanReadable={() => null}
+                {...props}
+            />
+        );
 
     it('Should render select box and checkbox when an Event layer', () => {
         const wrapper = renderComponent();
@@ -27,9 +28,9 @@ describe('EventDownloadInputs', () => {
         expect(wrapper.find('WithStyles(SelectField)').prop('value')).toBe(0);
 
         expect(wrapper.find('WithStyles(Checkbox)').length).toBe(1);
-        expect(wrapper
-            .find('WithStyles(Checkbox)')
-            .prop('checked')).toBe(false);
+        expect(wrapper.find('WithStyles(Checkbox)').prop('checked')).toBe(
+            false
+        );
     });
 
     it('Should respect controlled inputs', () => {
@@ -40,9 +41,7 @@ describe('EventDownloadInputs', () => {
         expect(wrapper.find('WithStyles(SelectField)').prop('value')).toBe(2);
 
         expect(wrapper.find('WithStyles(Checkbox)').length).toBe(1);
-        expect(wrapper
-            .find('WithStyles(Checkbox)')
-            .prop('checked')).toBe(true);
+        expect(wrapper.find('WithStyles(Checkbox)').prop('checked')).toBe(true);
     });
 
     // it('Should toggle checked in onCheckHumanReadable callback when clicking the checkbox', () => {
