@@ -33,7 +33,7 @@ class TrackedEntityLayer extends Layer {
                     popup: this.onEventClick,
                 })
                 .addTo(map);
-        } 
+        }
 
         this.layer = map
             .createLayer({
@@ -51,9 +51,10 @@ class TrackedEntityLayer extends Layer {
         this.layer.on('click', this.onEntityClick);
 
         // TODO: layer is not always added to map before this check
-        const layerBounds = this.buffers && this.buffers._map 
-            ? this.buffers.getBounds()
-            : this.layer.getBounds();
+        const layerBounds =
+            this.buffers && this.buffers._map
+                ? this.buffers.getBounds()
+                : this.layer.getBounds();
 
         if (layerBounds.isValid()) {
             map.fitBounds(layerBounds);

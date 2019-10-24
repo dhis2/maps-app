@@ -43,7 +43,9 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
             dragHeight =
                 height < minHeight
                     ? minHeight
-                    : height > maxHeight ? maxHeight : height;
+                    : height > maxHeight
+                        ? maxHeight
+                        : height;
         }
 
         return dragHeight;

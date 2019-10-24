@@ -129,6 +129,7 @@ const mapStateToProps = state => {
     return null;
 };
 
-export default connect(mapStateToProps, { setDataFilter, clearDataFilter })(
-    FilterMultiSelect
-);
+export default connect(
+    mapStateToProps,
+    { setDataFilter, clearDataFilter }
+)(FilterMultiSelect);

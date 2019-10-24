@@ -100,7 +100,7 @@ export class OrgUnitTreeMaps extends Component {
             this._isClicked = true;
             this.props.onClick(orgUnit);
         }
-    }
+    };
 }
 
 export default connect(

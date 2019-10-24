@@ -35,7 +35,7 @@ const unknownErrorAlert = createAlert(
 const eventLoader = async layerConfig => {
     let config = {
         ...layerConfig,
-        name: layerConfig.programStage && layerConfig.programStage.name
+        name: layerConfig.programStage && layerConfig.programStage.name,
     };
     try {
         config = await loadEventLayer(config);
@@ -190,7 +190,7 @@ const loadEventLayer = async config => {
                     data.forEach(feature => {
                         feature.properties.color =
                             styleDataItem.optionSet.options[
-                            feature.properties.value
+                                feature.properties.value
                             ];
                     });
                     legend.items = getCategoryLegendItems(
@@ -306,12 +306,12 @@ export const getAnalyticsRequest = async (
 export const addStyleDataItem = (dataItems, styleDataItem) =>
     styleDataItem
         ? [
-            ...dataItems,
-            styleDataItem && {
-                dimension: styleDataItem.id,
-                name: styleDataItem.name,
-            },
-        ]
+              ...dataItems,
+              styleDataItem && {
+                  dimension: styleDataItem.id,
+                  name: styleDataItem.name,
+              },
+          ]
         : [...dataItems];
 
 const createEventFeature = (headers, names, event, eventCoordinateField) => {

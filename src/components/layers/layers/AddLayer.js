@@ -66,4 +66,7 @@ export class AddLayer extends Component {
     }
 }
 
-export default connect(null, { openLayersDialog })(AddLayer);
+export default connect(
+    null,
+    { openLayersDialog }
+)(AddLayer);
