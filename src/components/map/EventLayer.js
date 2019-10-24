@@ -17,10 +17,12 @@ class EventLayer extends Layer {
             id,
             program,
             programStage,
-            serverCluster,
+            // serverCluster,
             areaRadius,
             editCounter,
         } = this.props;
+
+        const serverCluster = true;
 
         // Some older favorites don't have a valid color code
         const color =
