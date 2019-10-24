@@ -1,31 +1,31 @@
+# Translators:
+# Viktor Varland <viktor@dhis2.org>, 2019
+# phil_dhis2, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26T08:01:11.496Z\n"
-"PO-Revision-Date: 2016-05-19 08:03+0000\n"
-"Last-Translator: system user <>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: ru\n"
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"PO-Revision-Date: 2019-09-02 08:01+0000\n"
+"Last-Translator: phil_dhis2, 2019\n"
+"Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1463644989.000000\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Maps"
-msgstr "Карты"
+msgstr "Maps"
 
 msgid "Classification"
-msgstr "Классификация"
+msgstr ""
 
 msgid "Classes"
-msgstr "Классы"
+msgstr ""
 
 msgid "Legend set"
-msgstr "Набор условных обозначений"
+msgstr "Legend set"
 
 msgid "Automatic"
 msgstr "Автоматический"
@@ -34,10 +34,10 @@ msgid "Predefined"
 msgstr "Предопределенный"
 
 msgid "Data element group"
-msgstr "Группа элементов данных"
+msgstr "Группы элемента данных"
 
 msgid "Data element operand"
-msgstr "Операнд элемента данных"
+msgstr ""
 
 msgid "Data element"
 msgstr "Элемент данных"
@@ -58,28 +58,28 @@ msgid "Coordinate field"
 msgstr "Поле координат"
 
 msgid "None"
-msgstr "Отсутствует"
+msgstr "Не известное значение"
 
 msgid "Data item"
-msgstr "Элемент данных"
+msgstr ""
 
 msgid "Event data item"
 msgstr "Элемент данных событий"
 
 msgid "Style by data element"
-msgstr "Стиль по элементам данных"
+msgstr ""
 
 msgid "Data set"
 msgstr "Набор данных"
 
 msgid "Index"
-msgstr "Индекс"
+msgstr ""
 
 msgid "Value"
 msgstr "Значение"
 
 msgid "Legend"
-msgstr "Условные обозначения"
+msgstr "Легенда"
 
 msgid "Range"
 msgstr "Диапазон"
@@ -88,10 +88,10 @@ msgid "Level"
 msgstr "Уровень"
 
 msgid "Parent"
-msgstr "Родитель"
+msgstr ""
 
 msgid "Id"
-msgstr "Id"
+msgstr "ID"
 
 msgid "Type"
 msgstr "Тип"
@@ -99,32 +99,42 @@ msgstr "Тип"
 msgid "Color"
 msgstr "Цвет"
 
+msgid "Add filter"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Dimension"
+msgstr "Измерение"
+
 msgid "Download"
 msgstr "Загрузить"
 
 msgid "Download map"
-msgstr "Скачанная карта"
+msgstr ""
 
 msgid "Show name"
-msgstr "Показать имя"
+msgstr ""
 
 msgid "Show legend"
-msgstr "Показать легенду"
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
-"Загрузка карт не поддерживается вашим браузером. Попробуйте Google Chrome "
-"или Firefox."
 
 msgid "Cancel"
-msgstr "Отменить"
+msgstr "Отмена"
 
 msgid "Close"
 msgstr "Закрыть"
 
 msgid "Legend position"
-msgstr "Позиция легенды"
+msgstr ""
+
+msgid "Year"
+msgstr "Год"
 
 msgid "Period"
 msgstr "Период"
@@ -136,115 +146,136 @@ msgid "Style"
 msgstr "Стиль"
 
 msgid "Labels"
-msgstr "Ярлыки"
+msgstr "Метки"
 
 msgid "Point radius"
 msgstr "Радиус точки"
 
 msgid "No organisation units are selected"
-msgstr "Организационные единицы не выбраны"
+msgstr ""
 
 msgid "Steps"
 msgstr "Шаги"
 
 msgid "Legend preview"
-msgstr "Просмотр легенды"
+msgstr ""
 
 msgid "This field is required"
 msgstr "Это поле обязательно к заполнению"
 
 msgid "Valid range is"
-msgstr "Допустимый диапазон"
+msgstr ""
 
 msgid "data"
-msgstr "данные"
+msgstr ""
 
 msgid "period"
-msgstr "период"
+msgstr ""
+
+msgid "Org units"
+msgstr "Организации"
 
 msgid "Filter"
 msgstr "Фильтр"
-
-msgid "Org units"
-msgstr "Орг. единицы"
 
 msgid "Start date"
 msgstr "Дата начала"
 
 msgid "End date"
-msgstr "Дата конца"
+msgstr "Дата окончания"
 
 msgid "Events"
-msgstr "События"
+msgstr "Events"
 
 msgid "Group events"
-msgstr "Группировать события"
+msgstr ""
 
 msgid "View all events"
-msgstr "Просмотреть все события"
+msgstr ""
 
 msgid "Radius"
-msgstr "Радиус"
+msgstr ""
 
 msgid "Buffer"
-msgstr "Буфер"
+msgstr ""
 
 msgid "Radius in meters"
-msgstr "Радиус в метрах"
+msgstr ""
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
-"Вы можете применить стиль к событиям по элементам данных после выбора "
-"программы."
 
 msgid "Program is required"
-msgstr "Необходима Программа"
+msgstr ""
 
 msgid "Program stage is required"
-msgstr "Этап программы обязателен"
+msgstr ""
 
 msgid "No organisation units are selected."
-msgstr "Организационные единицы не выбраны"
+msgstr ""
 
 msgid "Group set"
-msgstr "Набор групп"
+msgstr "Набор группы"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
-"Не забудьте выбрать уровень организационной единицы, содержащие средства "
-"обслуживания."
 
 msgid "Group set is required"
-msgstr "Набор групп обязателен"
+msgstr ""
 
 msgid "Update layer"
-msgstr "Обновить слой"
+msgstr ""
 
 msgid "Add layer"
-msgstr "Добавить слой"
+msgstr ""
 
 msgid "Select program period"
-msgstr "Выбрать период программы"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
-"Выбрать период, когда отслеживаемые объекты были обновлены в последний раз"
+
+msgid "relationships"
+msgstr ""
 
 msgid "Program status"
 msgstr "Статус программы"
 
 msgid "Follow up"
-msgstr "Отслеживать"
+msgstr ""
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid "WARNING"
+msgstr ""
+
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
+msgstr ""
 
 msgid "Selection mode"
 msgstr "Режим выбора"
 
 msgid "Tracked entities"
-msgstr "Отслеживаемые объекты"
+msgstr ""
+
+msgid "Tracked entity style"
+msgstr ""
 
 msgid "Point size"
-msgstr "Размер точки"
+msgstr ""
+
+msgid "Related entity style"
+msgstr ""
+
+msgid "Line Color"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Тип агрегации"
@@ -256,31 +287,31 @@ msgid "High size"
 msgstr "Большой размер"
 
 msgid "Indicator group is required"
-msgstr "Группа индикаторов обязательна"
+msgstr ""
 
 msgid "Indicator is required"
-msgstr "Индикатор обязателен"
+msgstr ""
 
 msgid "Data element group is required"
-msgstr "Требуется группа элементов данных"
+msgstr ""
 
 msgid "Data element is required"
-msgstr "Требуется элемент данных"
+msgstr ""
 
 msgid "Data set is required"
-msgstr "Требуется набор данных"
+msgstr ""
 
 msgid "Event data item is required"
-msgstr "Требуется элемент данных события"
+msgstr ""
 
 msgid "Program indicator is required"
-msgstr "Требуется индикатор программы"
+msgstr ""
 
 msgid "Period type is required"
-msgstr "Тип периода обязателен"
+msgstr ""
 
 msgid "Period is required"
-msgstr "Требуется период"
+msgstr ""
 
 msgid "Indicator"
 msgstr "Индикатор"
@@ -297,59 +328,63 @@ msgstr "Программные показатели"
 msgid "Item type"
 msgstr "Тип элемента"
 
+msgid "Failed to load relationship types."
+msgstr ""
+
+msgid "No relationship types were found for tracked entity type {{type}}"
+msgstr ""
+
+msgid "Relationship type"
+msgstr "Relationship type"
+
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr "Произошла ошибка в приложении DHIS2 Maps."
+msgstr ""
 
 msgid "Something went wrong"
-msgstr "Произошла ошибка"
+msgstr "Что-то пошло не так"
 
 msgid "Refresh to try again"
-msgstr "Обновить и попробовать снова"
+msgstr "Обновить и повторить попытку"
 
 msgid "Hide technical details"
-msgstr "Скрыть технические детали"
+msgstr "Скрыть технические подробности"
 
 msgid "Show technical details"
-msgstr "Показать технические детали"
+msgstr "Показать технические подробности"
 
 msgid "The following information may be requested by technical support."
-msgstr "Следующая информация может быть запрошена технической поддержкой."
+msgstr ""
+"Следующая информация может быть запрошена службой технической поддержки."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr "Фильтрация доступна после выбора этапа программы."
-
-msgid "Add filter"
-msgstr "Добавить фильтр"
-
-msgid "Delete filter"
-msgstr "Удалить фильтр"
-
-msgid "Remove filter"
-msgstr "Убрать фильтр"
+msgstr ""
 
 msgid "Operator"
-msgstr "Оператор"
+msgstr "Операция"
 
 msgid "Date"
 msgstr "Дата"
 
 msgid "one of"
-msgstr "один из"
+msgstr ""
 
 msgid "not one of"
-msgstr "не один из"
+msgstr ""
 
 msgid "contains"
-msgstr "содержит"
+msgstr ""
 
 msgid "doesn't contains"
-msgstr "не содержит"
+msgstr ""
 
 msgid "is"
-msgstr "является"
+msgstr "есть"
 
 msgid "is not"
-msgstr "не является"
+msgstr ""
+
+msgid "Remove filter"
+msgstr ""
 
 msgid "Indicator group"
 msgstr "Группа индикаторов"
@@ -358,7 +393,7 @@ msgid "Interpretations"
 msgstr "Интерпретации"
 
 msgid "Basemap"
-msgstr "Базовая карта"
+msgstr ""
 
 msgid "Collapse"
 msgstr "Свернуть"
@@ -367,31 +402,33 @@ msgid "Expand"
 msgstr "Развернуть"
 
 msgid "Download Layer Data"
-msgstr "Скачать данные слоя"
+msgstr ""
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Загрузка данных GeoJSON для \"{{layerName}}\""
+msgstr ""
 
 msgid ""
-"GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop."
-msgstr ""
-"GeoJSON поддерживается большинством программ ГИС, включая QGIS и ArcGIS "
+"GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
+msgstr ""
 
 msgid "Data download failed."
-msgstr "Загрузка данных не удалась."
+msgstr ""
 
 msgid "ID Format"
-msgstr "ID Формат"
+msgstr ""
 
 msgid "Use human-readable keys"
-msgstr "Используйте удобные для восприятия ключи"
+msgstr ""
 
 msgid "Loading layer"
-msgstr "Загрузка слоя"
+msgstr ""
 
 msgid "deleted"
-msgstr "Удалено"
+msgstr "Удаленный"
+
+msgid "Split view can not be combined with other layer types."
+msgstr ""
 
 msgid "Filters"
 msgstr "Фильтры"
@@ -400,19 +437,19 @@ msgid "Edit"
 msgstr "Редактировать"
 
 msgid "Toggle visibility"
-msgstr "Переключить видимость"
+msgstr ""
 
 msgid "Set layer opacity"
-msgstr "Установка прозрачности слоя"
+msgstr ""
 
 msgid "More actions"
-msgstr "Еще"
+msgstr ""
 
 msgid "Data table"
-msgstr "Таблица данных"
+msgstr "таблица данных"
 
 msgid "Open as chart"
-msgstr "Открыть как диаграмму"
+msgstr ""
 
 msgid "Download data"
 msgstr "Скачать данные"
@@ -421,7 +458,7 @@ msgid "Edit layer"
 msgstr "Редактировать уровень"
 
 msgid "Remove layer"
-msgstr "Удалить слой"
+msgstr ""
 
 msgid "Parent unit"
 msgstr "Родительская"
@@ -445,7 +482,7 @@ msgid "Relocate"
 msgstr "Переместить"
 
 msgid "Not set"
-msgstr "Не установлен"
+msgstr "Не устнановлен"
 
 msgid "Organisation unit"
 msgstr "Организационная единица"
@@ -457,25 +494,22 @@ msgid "Groups"
 msgstr "Группы"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "Просмотр интерпретации с {{translationDate}}"
+msgstr "Просмотр интерпретации с {{interpretationDate}}"
 
 msgid "Last updated"
 msgstr "Последнее обновление"
 
 msgid "Open as map"
-msgstr "Открыть как карту"
+msgstr ""
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
-"Этот график / таблица содержит {{numItems}} элементов данных. Выберите "
-"элементы, которые вы хотите импортировать из списка ниже. Каждый элемент "
-"данных будет создан в виде слоя карты."
 
 msgid "Data items"
-msgstr "Элементы данных"
+msgstr ""
 
 msgid "Proceed"
 msgstr "Продолжить"
@@ -487,7 +521,7 @@ msgid "Code"
 msgstr "Код"
 
 msgid "No data found for this period."
-msgstr "Данные за этот период не найдены."
+msgstr ""
 
 msgid "Select groups"
 msgstr "Выбрать группы"
@@ -496,40 +530,49 @@ msgid "Select levels"
 msgstr "Выбрать уровни"
 
 msgid "Click the map where you want to relocate facility"
-msgstr "Нажмите на карту, куда вы хотите переместить объект"
+msgstr ""
 
 msgid "user organisation unit"
-msgstr "пользовательская организационная единица"
+msgstr ""
 
 msgid "right below user organisation unit"
-msgstr "ниже по уровню относительно пользовательской организационной единицы"
+msgstr ""
 
 msgid "two levels below user organisation unit"
-msgstr "на два уровня ниже пользовательской организационной единицы"
+msgstr ""
 
 msgid "in"
 msgstr "в"
 
 msgid "in and right below"
-msgstr "в и под"
+msgstr ""
 
 msgid "in and all below"
-msgstr "в и все нижние"
+msgstr ""
 
 msgid "Previous year"
-msgstr "Предыдущий год"
+msgstr ""
 
 msgid "Next year"
-msgstr "Следующий год"
+msgstr "След. Год"
+
+msgid "Relative"
+msgstr "Родственник"
 
 msgid "Period type"
 msgstr "Виды периода"
 
+msgid "Only one timeline is allowed."
+msgstr ""
+
+msgid "Remove other layers to enable split map views."
+msgstr ""
+
 msgid "Program indicator"
-msgstr "Индикатор программы"
+msgstr "Program indicator"
 
 msgid "No program"
-msgstr "Нет программы"
+msgstr "Программа отсутствует"
 
 msgid "Program"
 msgstr "Программа"
@@ -538,1291 +581,81 @@ msgid "Stage"
 msgstr "Этап"
 
 msgid "Tracked Entity Type"
-msgstr "Тип отслеживаемого объекта"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
-"Чтобы показать этот слой, вы должны сначала зарегистрироваться в Earth "
-"Engine в Google. Пожалуйста, обратитесь к документации DHIS 2."
 
 msgid "Error"
 msgstr "Ошибка"
 
 msgid "A connection to Google Earth Engine could not be established."
-msgstr "Не удалось установить соединение с Google Earth Engine."
+msgstr ""
 
 msgid "Favorite"
 msgstr "Избранное"
 
 msgid "is saved"
-msgstr "Сохранено"
+msgstr ""
 
 msgid "Boundaries"
-msgstr "Границы"
+msgstr ""
+
+msgid "Access denied"
+msgstr "Доступ запрещен"
+
+msgid "user is not allowed to read layer data"
+msgstr ""
+
+msgid "Failed"
+msgstr "Сбой"
+
+msgid "an unknown error occurred while reading layer data"
+msgstr ""
 
 msgid "Event"
 msgstr "Событие"
 
-msgid "Facilities"
-msgstr "Учреждения"
-
-msgid "Selected org units"
-msgstr "Выбранные организационные единицы"
-
-msgid "No coordinates found"
-msgstr "Координаты не найдены"
-
 msgid "No data found"
 msgstr "Данные не найдены"
+
+msgid "Facilities"
+msgstr ""
+
+msgid "Selected org units"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Отслеживаемый объект"
 
 msgid "No tracked entities found"
-msgstr "Отслеживаемые объекты не найдены"
+msgstr ""
+
+msgid "related"
+msgstr ""
 
 msgid "true"
-msgstr "Истина"
+msgstr ""
 
 msgid "false"
-msgstr "Ложь"
+msgstr ""
 
 msgid "No"
 msgstr "Нет"
 
 msgid "Map could not be created"
-msgstr "Невозможно создать карту"
+msgstr ""
 
 msgid "Start date is invalid"
-msgstr "Дата начала неверна"
+msgstr ""
 
 msgid "End date is invalid"
-msgstr "Дата окончания неверна"
+msgstr ""
 
 msgid "End date cannot be earlier than start date"
-msgstr "Дата окончания не может быть раньше даты начала"
-
-#~ msgid "About"
-#~ msgstr "О приложении"
-
-#~ msgid "Add legend"
-#~ msgstr "Добавить условное обозначение"
-
-#~ msgid "Add new"
-#~ msgstr "Добавить новый"
-
-#~ msgid "Address"
-#~ msgstr "Адрес"
-
-#~ msgid "Add to dashboard"
-#~ msgstr "Добавить к информационной панели"
-
-#~ msgid "Allow external access"
-#~ msgstr "Разрешить внешний доступ"
-
-#~ msgid "And/or lower than"
-#~ msgstr "И / или ниже чем"
-
-#~ msgid "Attribution"
-#~ msgstr "Присваивание атрибутов"
-
-#~ msgid "Average"
-#~ msgstr "Среднее"
-
-#~ msgid "Bi-monthly"
-#~ msgstr "Через каждые два месяца"
-
-#~ msgid "Boundary layer"
-#~ msgstr "Уровень границ"
-
-#~ msgid "Can edit and view"
-#~ msgstr "Можно редактировать и просматривать"
-
-#~ msgid "Can view"
-#~ msgstr "Можно просматривать"
-
-#~ msgid "Chart"
-#~ msgstr "Диаграмма"
-
-#~ msgid "Classes / method"
-#~ msgstr "Классы/метод"
-
-#~ msgid "Clear"
-#~ msgstr "Очистить"
-
-#~ msgid "Clear map"
-#~ msgstr "Очистить карту"
-
-#~ msgid "Clustering"
-#~ msgstr "Кластеризация"
-
-#~ msgid "Coordinates"
-#~ msgstr "Координаты"
-
-#~ msgid "Count"
-#~ msgstr "Количество"
-
-#~ msgid "Create"
-#~ msgstr "Создать"
-
-#~ msgid "Created by"
-#~ msgstr "Создано"
-
-#~ msgid "Current legends"
-#~ msgstr "Текущие условные обозначения"
-
-#~ msgid "Daily"
-#~ msgstr "Ежедневно"
-
-#~ msgid "Data"
-#~ msgstr "Данные"
-
-#~ msgid "Data and periods"
-#~ msgstr "Данные и периоды"
-
-#~ msgid "Delete"
-#~ msgstr "Удалить"
-
-#~ msgid "Duplicate"
-#~ msgstr "Дублировать"
-
-#~ msgid "Google Earth Engine"
-#~ msgstr "Движок Google Earth"
-
-#~ msgid "Google Earth Engine legend"
-#~ msgstr "Легенда движка Google Earth"
-
-#~ msgid "Elevation"
-#~ msgstr "Высота"
-
-#~ msgid "Edit legend"
-#~ msgstr "Редактировать легенду"
-
-#~ msgid "Email"
-#~ msgstr "адрес электронной почты"
-
-#~ msgid "Equal counts"
-#~ msgstr "Равный счет"
-
-#~ msgid "Equal intervals"
-#~ msgstr "Равные интервалы"
-
-#~ msgid "Event layer"
-#~ msgstr "Слой события"
-
-#~ msgid "External layer"
-#~ msgstr "Внешний слой"
-
-#~ msgid "External layer legend"
-#~ msgstr "Легенда внешнего слоя"
-
-#~ msgid "Facility layer export currently not supported"
-#~ msgstr "Экспорт уровня учреждения в настоящее время не поддерживается"
-
-#~ msgid "Facility layer legend"
-#~ msgstr "Легенда уровня учреждения"
-
-#~ msgid "Favorite name"
-#~ msgstr "Избранное название"
-
-#~ msgid "Favorite is outdated - please create a new one"
-#~ msgstr "Избранное устарело - пожалуйста, создайте новое"
-
-#~ msgid "Filter by value"
-#~ msgstr "Фильтровать по значению"
-
-#, fuzzy
-#~ msgid "Financial year (Start April)"
-#~ msgstr "Финансовый год - Апрель"
-
-#, fuzzy
-#~ msgid "Financial year (Start July)"
-#~ msgstr "Финансовый год - Июль"
-
-#, fuzzy
-#~ msgid "Financial year (Start October)"
-#~ msgstr "Финансовый год - Октябрь"
-
-#~ msgid "Google Hybrid"
-#~ msgstr "Google Hybrid"
-
-#~ msgid "Google Streets"
-#~ msgstr "Google Streets"
-
-#~ msgid "Go to charts"
-#~ msgstr "Перейти к диаграммам"
-
-#~ msgid "Go to pivot tables"
-#~ msgstr "Перейти к сводным таблицам"
-
-#~ msgid "Greater than"
-#~ msgstr "Больше чем"
-
-#~ msgid "Group"
-#~ msgstr "Группа"
-
-#~ msgid "has no organisation units"
-#~ msgstr "не имеет организациий"
-
-#~ msgid "High color / size"
-#~ msgstr "Интенсивная окраска/большой размер"
-
-#~ msgid "Highlight color"
-#~ msgstr "Цвет выделения"
-
-#~ msgid "Home"
-#~ msgstr "Домашняя страница"
-
-#~ msgid "Infrastructural data"
-#~ msgstr "Инфраструктурные данные"
-
-#~ msgid "Invalid parameter"
-#~ msgstr "Неверные параметры"
-
-#~ msgid "Landcover"
-#~ msgstr "Растительный покров"
-
-#~ msgid "Last 2 six-months"
-#~ msgstr "Последние 2 полугодия"
-
-#~ msgid "Last 3 months"
-#~ msgstr "Последние 3 месяца"
-
-#~ msgid "Last 4 quarters"
-#~ msgstr "Последние 4 квартала"
-
-#~ msgid "Last 4 weeks"
-#~ msgstr "Последние 4 недели"
-
-#~ msgid "Last 5 financial years"
-#~ msgstr "Последние 5 финансовых лет"
-
-#~ msgid "Last 6 bi-months"
-#~ msgstr "Последние 6 периодов по два месяца"
-
-#~ msgid "Last 6 months"
-#~ msgstr "Последние 6 месяцев"
-
-#~ msgid "Last 12 months"
-#~ msgstr "Последние 12 месяцев"
-
-#~ msgid "Last 12 weeks"
-#~ msgstr "Последние 12 недель"
-
-#~ msgid "Last 52 weeks"
-#~ msgstr "Последние 52 недели"
-
-#~ msgid "Last bi-month"
-#~ msgstr "Последний период по два месяца"
-
-#~ msgid "Last financial year"
-#~ msgstr "Последний финансовый год"
-
-#~ msgid "Last month"
-#~ msgstr "Прошлый месяц"
-
-#~ msgid "Last quarter"
-#~ msgstr "Прошлый квартал"
-
-#~ msgid "Last six-month"
-#~ msgstr "Последние шесть месяцев"
-
-#~ msgid "Last week"
-#~ msgstr "Прошлая неделя"
-
-#~ msgid "Last 5 years"
-#~ msgstr "Последние 5 лет"
-
-#~ msgid "Last year"
-#~ msgstr "Прошлый год"
-
-#~ msgid "Latitude"
-#~ msgstr "Широта"
-
-#~ msgid "Layer"
-#~ msgstr "Уровень/слой"
-
-#~ msgid "Layers"
-#~ msgstr "Уровни"
-
-#~ msgid "Legend name"
-#~ msgstr "Название условного обозначения"
-
-#~ msgid "Legends"
-#~ msgstr "Условные обозначения"
-
-#~ msgid "legend sets available"
-#~ msgstr "Доступны наборы легенд"
-
-#~ msgid "Legend set name"
-#~ msgstr "Название набора условных обозначений"
-
-#~ msgid "Legend sets"
-#~ msgstr "Наборы условных обозначений"
-
-#~ msgid "Symbolizer"
-#~ msgstr "Отображатель в символической форме"
-
-#~ msgid "Longitude"
-#~ msgstr "Долгота"
-
-#~ msgid "Low color / size"
-#~ msgstr "Неинтенсивная окраска/небольшой размер"
-
-#~ msgid "Manage favorites"
-#~ msgstr "Управлять избранным"
-
-#~ msgid "Map"
-#~ msgstr "Карты"
-
-#~ msgid "Max"
-#~ msgstr "Максимум"
-
-#~ msgid "Min/max Â°C"
-#~ msgstr "Мин./Макс. Â°C"
-
-#~ msgid "Min/max elevation"
-#~ msgstr "Минимальная / максимальная высота"
-
-#~ msgid "Min/max people"
-#~ msgstr "Минимальное / максимальное количество людей"
-
-#~ msgid "Min/max rainfall"
-#~ msgstr "Минимальный / максимальный уровень осадков"
-
-#~ msgid "Min/max value"
-#~ msgstr "Минимальное / максимальное значение"
-
-#~ msgid "Monthly"
-#~ msgstr "Ежемесячно"
-
-#~ msgid "Name"
-#~ msgstr "Имя"
-
-#~ msgid "Next"
-#~ msgstr "След"
-
-#~ msgid "Nighttime lights"
-#~ msgstr "Ночные огни"
-
-#~ msgid "No group set selected"
-#~ msgstr "Не выбран набор груп"
-
-#~ msgid "No map to save"
-#~ msgstr "Нет карт для сохранения"
-
-#~ msgid "No organisation unit levels"
-#~ msgstr "Нет уровней организационной единицы"
-
-#~ msgid "No period selected"
-#~ msgstr "Не выбран период"
-
-#~ msgid "No selected items"
-#~ msgstr "Нет выбранных элементов"
-
-#~ msgid "No system info found"
-#~ msgstr "Системная информация не найдена"
-
-#~ msgid "No valid coordinates found"
-#~ msgstr "не найдено действительных координат"
-
-#~ msgid "Open last table"
-#~ msgstr "Открыть последнюю таблицу"
-
-#~ msgid "OpenStreetMap"
-#~ msgstr "Открыть карту улиц"
-
-#~ msgid "Open this map as chart"
-#~ msgstr "Открыть эту карту в виде графика"
-
-#~ msgid "Open this map as table"
-#~ msgstr "Открыть эту карту в виде таблицы"
-
-#~ msgid "Organisation unit group icons"
-#~ msgstr "Значки групп организационных единиц"
-
-#~ msgid "Organisation unit group set"
-#~ msgstr "Набор групп организаций"
-
-#~ msgid "Organisation unit search"
-#~ msgstr "Поиск организации"
-
-#~ msgid "OSM Light"
-#~ msgstr "OSM Light"
-
-#~ msgid "Overwrite"
-#~ msgstr "Переписать"
-
-#~ msgid "Overwrite favorite"
-#~ msgstr "Перезаписать избранное"
-
-#~ msgid "Page"
-#~ msgstr "Страница"
-
-#~ msgid "Phone number"
-#~ msgstr "Номер мобильного телефона"
-
-#~ msgid "Placement"
-#~ msgstr "Размещение"
-
-#~ msgid "Please create a map first"
-#~ msgstr "Пожалуйста, сначала создайте карту"
-
-#~ msgid "Please enter a name"
-#~ msgstr "Пожалуйста, введите название"
-
-#~ msgid "Please enter a map title"
-#~ msgstr "Пожалуйста, введите название карты"
-
-#~ msgid "Point color"
-#~ msgstr "Цвет точки"
-
-#~ msgid "Population density"
-#~ msgstr "Плотность населения"
-
-#~ msgid "Precipitation"
-#~ msgstr "Осадки"
-
-#~ msgid "Public access"
-#~ msgstr "Общий доступ"
-
-#~ msgid "Quarterly"
-#~ msgstr "Квартальный"
-
-#~ msgid "Relative"
-#~ msgstr "Относительный"
-
-#~ msgid "Relocate facility"
-#~ msgstr "Переместить объект"
-
-#~ msgid "Remove"
-#~ msgstr "Удалить"
-
-#~ msgid "Rename"
-#~ msgstr "Переименовать"
-
-#~ msgid "Revision"
-#~ msgstr "Пересмотр"
-
-#~ msgid "Search"
-#~ msgstr "Поиск"
-
-#~ msgid "Search for favorites"
-#~ msgstr "Поиск избранного"
-
-#~ msgid "Search for user groups"
-#~ msgstr "Поиск групп пользователей"
-
-#~ msgid "Select"
-#~ msgstr "Выбор"
-
-#~ msgid "Select dataset"
-#~ msgstr "Выбрать набор данных"
-
-#~ msgid "Select layer"
-#~ msgstr "Выбрать слой"
-
-#~ msgid "Select layer from Google Earth Engine"
-#~ msgstr "Выбрать слой из Google Earth Engine"
-
-#~ msgid "Select organisation unit groups"
-#~ msgstr "Выбрать группы организационных единиц"
-
-#~ msgid "Select organisation unit levels"
-#~ msgstr "Выбрать уровни организационных единиц"
-
-#~ msgid "Select period"
-#~ msgstr "Выбрать период"
-
-#~ msgid "Select service"
-#~ msgstr "Выбрать службу"
-
-#~ msgid "Select stage"
-#~ msgstr "Выбрать этап"
-
-#~ msgid "Select sub-units"
-#~ msgstr "Выбрать подразделения"
-
-#~ msgid "Service URL"
-#~ msgstr "URL службы"
-
-#~ msgid "Share"
-#~ msgstr "Поделиться"
-
-#~ msgid "Share with others"
-#~ msgstr "Поделиться с другими"
-
-#~ msgid "Sharing settings"
-#~ msgstr "Настройки обмена"
-
-#~ msgid "Show circular area with radius (m)"
-#~ msgstr "Покажите площадь круга с радиусом (м)"
-
-#~ msgid "Six-monthly"
-#~ msgstr "Полугодично"
-
-#~ msgid "Six-monthly April"
-#~ msgstr "Полгода по Апрель"
-
-#~ msgid "Start/end dates"
-#~ msgstr "Дата начала / окончания"
-
-#~ msgid "Start/end value"
-#~ msgstr "Начальное/конечное значение"
-
-#~ msgid "Standard deviation"
-#~ msgstr "Стандартное отклонение"
-
-#~ msgid "Sub-units"
-#~ msgstr "Подразделения"
-
-#~ msgid "Sub-x2-units"
-#~ msgstr "Организационные единицы на два уровня ниже"
-
-#~ msgid "Sum"
-#~ msgstr "Сумма"
-
-#~ msgctxt "symbol_layer"
-#~ msgid "Facility layer"
-#~ msgstr "Уровень учреждения"
-
-#~ msgid "Table"
-#~ msgstr "Таблица"
-
-#~ msgid "Thematic layer"
-#~ msgstr "Тематический уровень"
-
-#~ msgid "Thematic layer 1 legend"
-#~ msgstr "Легенда тематического уровня 1"
-
-#~ msgid "Thematic layer 2 legend"
-#~ msgstr "Легенда тематического уровня 2"
-
-#~ msgid "Thematic layer 3 legend"
-#~ msgstr "Легенда тематического уровня 3"
-
-#~ msgid "Thematic layer 4 legend"
-#~ msgstr "Легенда тематического уровня 4"
-
-#~ msgid "This bi-month"
-#~ msgstr "Эти два-месяца"
-
-#~ msgid "This financial year"
-#~ msgstr "Этот финансовый год"
-
-#~ msgid "This month"
-#~ msgstr "Этот месяц"
-
-#~ msgid "This quarter"
-#~ msgstr "Этот квартал"
-
-#~ msgid "This six-month"
-#~ msgstr "Это полугодие"
-
-#~ msgid "This week"
-#~ msgstr "Эта неделя"
-
-#~ msgid "This year"
-#~ msgstr "Этот год"
-
-#~ msgid "Elapsed time since last data update"
-#~ msgstr "Время, прошедшее с момента последнего обновления данных"
-
-#~ msgid "Today"
-#~ msgstr "Сегодня"
-
-#~ msgid "Update"
-#~ msgstr "Обновить"
-
-#~ msgid "Username"
-#~ msgstr "Имя пользователя"
-
-#~ msgid "User is not assigned to any organisation units"
-#~ msgstr "Пользователь не назначен ни одной организационной единице"
-
-#~ msgid "User OU"
-#~ msgstr "Организационная единица пользователя"
-
-#~ msgid "User sub-units"
-#~ msgstr "Пользовательские подразделения"
-
-#~ msgid "User sub-x2-units"
-#~ msgstr "Пользовательские подразделения на два уровня ниже"
-
-#~ msgid "Value type"
-#~ msgstr "Тип значения"
-
-#~ msgid "Variance"
-#~ msgstr "Дисперсия"
-
-#~ msgid "Version"
-#~ msgstr "Версия"
-
-#~ msgid "Weekly"
-#~ msgstr "Еженедельно"
-
-#~ msgid "Write your interpretation"
-#~ msgstr "Написать комментарий, вопрос или интерпретацию"
-
-#~ msgid "Yearly"
-#~ msgstr "Ежегодно"
-
-#~ msgid "Yesterday"
-#~ msgstr "Вчера"
-
-#~ msgid "You cannot select organisation units below the selected level"
-#~ msgstr "Вы не можете выбрать организационные единицы ниже выбранного уровня"
-
-#~ msgid "You do not have access to all items in this favorite"
-#~ msgstr "У вас нет доступа ко всем элементам в избранном"
-
-#~ msgid "Prev"
-#~ msgstr "Пред"
-
-#~ msgid "updated"
-#~ msgstr "Обновлено"
-
-#~ msgid "Register"
-#~ msgstr "Регистрировать"
-
-#~ msgid "Add"
-#~ msgstr "Добавить"
-
-#~ msgid "added"
-#~ msgstr "Добавлено"
-
-#~ msgid "assigned"
-#~ msgstr "закреплено"
-
-#~ msgid "Refresh"
-#~ msgstr "Обновить"
-
-#~ msgid "refreshed"
-#~ msgstr "обновлено"
-
-#~ msgid "cancelled"
-#~ msgstr "отменено"
-
-#~ msgid "Apply"
-#~ msgstr "Применить"
-
-#~ msgid "applied"
-#~ msgstr "применено"
-
-#~ msgid "Hide"
-#~ msgstr "Скрыть"
-
-#~ msgid "Show / hide"
-#~ msgstr "Показать/скрыть"
-
-#~ msgid "Toggle"
-#~ msgstr "Переключить"
-
-#~ msgid "New"
-#~ msgstr "Новый"
-
-#~ msgid "Export"
-#~ msgstr "Экспорт"
-
-#~ msgid "Indicators"
-#~ msgstr "Индикаторы"
-
-#~ msgid "Thematic map"
-#~ msgstr "Тематические карты"
-
-#~ msgid "Polygon layer"
-#~ msgstr "Многоугольный уровень"
-
-#~ msgid "map"
-#~ msgstr "карта"
-
-#~ msgid "Method"
-#~ msgstr "Метод"
-
-#~ msgid "Low color"
-#~ msgstr "Неинтенсивная окраска"
-
-#~ msgid "High color"
-#~ msgstr "Интенсивная окраска"
-
-#~ msgid "Optional"
-#~ msgstr "Опционно"
-
-#~ msgid "Loading.."
-#~ msgstr "Загрузка"
-
-#~ msgid "Equal group count"
-#~ msgstr "Равный подсчет групп"
-
-#~ msgid "Fixed intervals"
-#~ msgstr "Фиксированные интервалы"
-
-#~ msgid "Administrator"
-#~ msgstr "Администратор"
-
-#~ msgid "Map source"
-#~ msgstr "Источник карты"
-
-#~ msgid "Base coordinate"
-#~ msgstr "Базовая координата"
-
-#~ msgid "Admin panels"
-#~ msgstr "Административные панели"
-
-#~ msgid "Longitude (x)"
-#~ msgstr "Долгота (х)"
-
-#~ msgid "Latitude (y)"
-#~ msgstr "Широта (у)"
-
-#~ msgid "Save coordinate"
-#~ msgstr "Созранить координату"
-
-#~ msgid "Error while retrieving data"
-#~ msgstr "Ошибка при извлечении данных"
-
-#~ msgid "Status"
-#~ msgstr "Состояние"
-
-#~ msgid "Bounds"
-#~ msgstr "Предельные значения"
-
-#~ msgid "Comma separated values"
-#~ msgstr "Значения, разделенные запятой"
-
-#~ msgid "Ajax request failed"
-#~ msgstr "Запрос Ajax неудался"
-
-#~ msgid "Component init not complete"
-#~ msgstr "Инициализация компонента незавершена"
-
-#~ msgid "Form is not complete"
-#~ msgstr "Форма незавершена"
-
-#~ msgid "Assign all"
-#~ msgstr "Закрепить все"
-
-#~ msgid "Auto-assign"
-#~ msgstr "Автозакрепление"
-
-#~ msgid "Please select a map"
-#~ msgstr "Пожалуйста, выберите карту"
-
-#~ msgid "Auto assignment"
-#~ msgstr "Автоматическое закрепление"
-
-#~ msgid "Remove all relations"
-#~ msgstr "Удалить все связи"
-
-#~ msgid "All relations for the map"
-#~ msgstr "Все связи для карты"
-
-#~ msgid "removed"
-#~ msgstr "удалено"
-
-#~ msgid "Error while deleting relation between map and organisation unit"
-#~ msgstr "Ошибка при удалении связей между картой и организацией"
-
-#~ msgid "Assign"
-#~ msgstr "Закрепить"
-
-#~ msgid "assigned to"
-#~ msgstr "закреплено за"
-
-#~ msgid "is already assigned"
-#~ msgstr "уже закреплено"
-
-#~ msgid "Min size"
-#~ msgstr "Мин размер"
-
-#~ msgid "Max size"
-#~ msgstr "Макс размер"
-
-#~ msgid "Applying organisation units relations"
-#~ msgstr "Применение связей организации"
-
-#~ msgid "Assigning"
-#~ msgstr "Закрепление"
-
-#~ msgid "Creating map.."
-#~ msgstr "Создание карты.."
-
-#~ msgid "The current selection returned no data"
-#~ msgstr "По текущему выбору нет данных"
-
-#~ msgid "Creating choropleth.."
-#~ msgstr "Создание картограммы.."
-
-#~ msgid "No feature selected"
-#~ msgstr "Не выбрано функции"
-
-#~ msgid "Cursor position"
-#~ msgstr "Положение курсора"
-
-#~ msgid "Overview map"
-#~ msgstr "Обзор карты"
-
-#~ msgid "Feature data"
-#~ msgstr "Данные функции"
-
-#~ msgid "Polygon legend"
-#~ msgstr "Легенда многоугольника"
-
-#~ msgid "Point legend"
-#~ msgstr "Легенда точки"
-
-#~ msgid "Return to DHIS2 dashboard"
-#~ msgstr "Вернуться к информационной панели DHIS2"
-
-#~ msgid "Exit GIS"
-#~ msgstr "Выйти из GIS"
-
-#~ msgid "Get help with GIS"
-#~ msgstr "Помощь"
-
-#~ msgid "Create predefined legend sets"
-#~ msgstr "Создать предопределенные наборы условных обозначений"
-
-#~ msgid "Export map as Excel spreadsheet"
-#~ msgstr "Экспортировать карту как таблицу Excel"
-
-#~ msgid "Export map as image"
-#~ msgstr "Экспортировать карту как изображение"
-
-#~ msgid "Favorite map views"
-#~ msgstr "Просмотры избранных карт"
-
-#~ msgid "Show/hide feature labels"
-#~ msgstr "Показать/скрыть ярлыки функций"
-
-#~ msgid "Zoom to visible extent"
-#~ msgstr "Увеличить масштаб до видимого размера"
-
-#~ msgid "Zoom out"
-#~ msgstr "Увеличить масштаб"
-
-#~ msgid "Zoom in"
-#~ msgstr "Уменьшить масштаб"
-
-#~ msgid "Assign organisation units to map"
-#~ msgstr "Закрепить организацию за картой"
-
-#~ msgid "Map layers"
-#~ msgstr "Уровни карт"
-
-#~ msgid "and"
-#~ msgstr "и"
-
-#~ msgid "was saved as base coordinate"
-#~ msgstr "была сохранена как базовая координата"
-
-#~ msgid "Error while saving data"
-#~ msgstr "Ошибка при сохранении данных"
-
-#~ msgid "is saved as map source"
-#~ msgstr "сохранено как источник карты"
-
-#~ msgid "is already selected"
-#~ msgstr "уже выбрано"
-
-#~ msgid "Overlays"
-#~ msgstr "Трафарет"
-
-#~ msgid "overlays"
-#~ msgstr "трафареты"
-
-#~ msgid "was registered"
-#~ msgstr "был зарегистрирован"
-
-#~ msgid "is already in use"
-#~ msgstr "уже находится в пользовании"
-
-#~ msgid "New overlay"
-#~ msgstr "Новый трафарет"
-
-#~ msgid "Overlay form is not complete"
-#~ msgstr "Форма трафарета не завершена"
-
-#~ msgid "Display name"
-#~ msgstr "Показать имя/название"
-
-#~ msgid "Map source file"
-#~ msgstr "Файл источника карты"
-
-#~ msgid "Fill color"
-#~ msgstr "Заполнить цвет"
-
-#~ msgid "Fill opacity"
-#~ msgstr "Заполнить прозрачность"
-
-#~ msgid "Stroke color"
-#~ msgstr "Цвет контура"
-
-#~ msgid "Stroke width"
-#~ msgstr "Ширина контура"
-
-#~ msgid "Delete overlay"
-#~ msgstr "Удалить трафарет"
-
-#~ msgid "overlay"
-#~ msgstr "трафарет"
-
-#~ msgid "was deleted"
-#~ msgstr "был удален"
-
-#~ msgid "Please select an overlay"
-#~ msgstr "Пожалуйста, выберите трафарет"
-
-#~ msgid "Title"
-#~ msgstr "Название"
-
-#~ msgid "Queryable"
-#~ msgstr "Запрашиваемый"
-
-#~ msgid "Register map"
-#~ msgstr "Регистрировать карту"
-
-#~ msgid "Register maps"
-#~ msgstr "Регистрировать карты"
-
-#~ msgid "Zoom"
-#~ msgstr "Увеличить масштаб"
-
-#~ msgid "Name column"
-#~ msgstr "Назвать столбец"
-
-#~ msgid "Please render the thematic map first"
-#~ msgstr "Пожалуйста, сначала предоставьте тематическую карту"
-
-#~ msgid "Include legend"
-#~ msgstr "Включить условное обозначение"
-
-#~ msgid "Include values"
-#~ msgstr "Включить значение"
-
-#~ msgid "Export spreadsheet"
-#~ msgstr "Экспортировать таблицу"
-
-#~ msgid "Image quality"
-#~ msgstr "Качество изображения"
-
-#~ msgid "Export image"
-#~ msgstr "Экспортировать изображение"
-
-#~ msgid "Image export"
-#~ msgstr "Импортировать изображение"
-
-#~ msgid "Setup"
-#~ msgstr "Настройка"
-
-#~ msgid "Medium"
-#~ msgstr "Средний"
-
-#~ msgid "Large"
-#~ msgstr "Большой"
-
-#~ msgid "DHIS dashboard"
-#~ msgstr "Информациолнная панель DHIS"
-
-#~ msgid "Dashboard map view"
-#~ msgstr "Просмотр карты информационной панели"
-
-#~ msgid "The view"
-#~ msgstr "Представление"
-
-#~ msgid "added to dashboard"
-#~ msgstr "добавлено к информационной панели"
-
-#~ msgid "Please select a map view"
-#~ msgstr "Пожалуйста, выберите просмотр карты"
-
-#~ msgid "View"
-#~ msgstr "Просмотр"
-
-#~ msgid "Delete map view"
-#~ msgstr "Удалить просмотр карты"
-
-#~ msgid "New map view"
-#~ msgstr "Новый просмотр карты"
-
-#~ msgid "There is already a map view called"
-#~ msgstr "Просмотр карты уже запрошен"
-
-#~ msgid "Thematic map form is not complete"
-#~ msgstr "Форма тематической карты не завершена"
-
-#~ msgid "Map view form is not complete"
-#~ msgstr "Форма просмотра карты не завершена"
-
-#~ msgid "Saving current thematic map selection."
-#~ msgstr "Сохранение текущего выбора тематической карты."
-
-#~ msgid "New legend set"
-#~ msgstr "Новый набор условных обозначений"
-
-#~ msgid "already exists"
-#~ msgstr "уже сущесвует"
-
-#~ msgid "Assign to indicators"
-#~ msgstr "Закрепить за индикаторами"
-
-#~ msgid "Assign to data elements"
-#~ msgstr "Закрепить за элементами данных"
-
-#~ msgid "Please select a legend set"
-#~ msgstr "Пожалуйста, выберите набор условных обозначений"
-
-#~ msgid "Link legend set to indicator"
-#~ msgstr "Связать набор условных обозначений с индикатором"
-
-#~ msgid "Please select at least one indicator"
-#~ msgstr "Пожалуйста, выберите не менее одного индикатора"
-
-#~ msgid "Automatic legend sets"
-#~ msgstr "Автоматические наборы условных обозначений"
-
-#~ msgid "Start value"
-#~ msgstr "Начальное значение"
-
-#~ msgid "Please select a legend"
-#~ msgstr "Пожалуйста, выберите условное обозначение"
-
-#~ msgid "Overlapping legends are not allowed"
-#~ msgstr "Перекрывающиеся условные обозначения не разрешены"
-
-#~ msgid "Please select at least one legend"
-#~ msgstr "Пожалуйста, выберите не менее одного условного обозначения"
-
-#~ msgid "Predefined legend sets"
-#~ msgstr "Предопределенные наборы условных обозначений"
-
-#~ msgid "Assignment"
-#~ msgstr "Закрепление"
-
-#~ msgid "Geoserver shapefiles"
-#~ msgstr "Географические файлы геосервера"
-
-#~ msgid "must be a number"
-#~ msgstr "должно быть число"
-
-#~ msgid "must be between -180 and 180"
-#~ msgstr "должно быть от -180 до 180"
-
-#~ msgid "must be between -90 and 90"
-#~ msgstr "должно быть от -90 до 90"
-
-#~ msgid "There is already a map called"
-#~ msgstr "Карта уже запрошена"
-
-#~ msgid "The source file"
-#~ msgstr "Файл-источник"
-
-#~ msgid "Selected relations removed"
-#~ msgstr "Выбранные связи удалены"
-
-#~ msgid "Please select a base layer"
-#~ msgstr "Пожалуйста, выберите базовый уровень"
-
-#~ msgid "Base layers"
-#~ msgstr "Базовые уровни"
-
-#~ msgid "URL"
-#~ msgstr "Url"
-
-#~ msgid "New base layer"
-#~ msgstr "Новый базовый уровень"
-
-#~ msgid "Base layer form is not complete"
-#~ msgstr "Форма базового уровня не завершена"
-
-#~ msgid "Map value type"
-#~ msgstr "Тип значения карты"
-
-#~ msgid "Parent org unit"
-#~ msgstr "Родительская организация"
-
-#~ msgid "Delete map"
-#~ msgstr "Удалить карту"
-
-#~ msgid "Loading GeoJSON.."
-#~ msgstr "Загружается geojson.."
-
-#~ msgid "saved as date type"
-#~ msgstr "сохранено как тип данных"
-
-#~ msgid "Fixed periods"
-#~ msgstr "Фиксированные периоды"
-
-#~ msgid "Please expand the layer panel you want to print"
-#~ msgstr ""
-#~ "Пожалуйста, расширьте уровневую панель, которую вы хотите распечатать"
-
-#~ msgid "Feature filter"
-#~ msgstr "Фильтр функции"
-
-#~ msgid "Locate features"
-#~ msgstr "Поместить функции"
-
-#~ msgid "Resolution"
-#~ msgstr "Разрешение"
-
-#~ msgid "max"
-#~ msgstr "Макс"
-
-#~ msgid "characters"
-#~ msgstr "символы"
-
-#~ msgid "GeoJSON file"
-#~ msgstr "файл GeoJSON"
-
-#~ msgid "History"
-#~ msgstr "История"
-
-#~ msgid "API key"
-#~ msgstr "Ключ ИПП"
-
-#~ msgid "Measure distance"
-#~ msgstr "Измерить расстояние"
-
-#~ msgid "Low point size"
-#~ msgstr "Размер нижней точки"
-
-#~ msgid "High point size"
-#~ msgstr "Размер верхней точки"
-
-#~ msgid "System"
-#~ msgstr "Система"
-
-#~ msgid "Width"
-#~ msgstr "Ширина"
-
-#~ msgid "Height"
-#~ msgstr "Высота"
-
-#~ msgid "Bold"
-#~ msgstr "Жирный шрифт"
-
-#~ msgid "Italic"
-#~ msgstr "Курсив"
-
-#~ msgid "Select outer boundary"
-#~ msgstr "Выбрать внешние границы"
-
-#~ msgid "Select organisation unit level"
-#~ msgstr "Выбрать уровень организации"
-
-#~ msgid "Contact person"
-#~ msgstr "Контактное лицо"
-
-#~ msgid "Level is higher than boundary level"
-#~ msgstr "Уровень выше уровня границы"
-
-#~ msgid "Please select the new location on the map.."
-#~ msgstr "Пожалуйста, выберите новое местоположение на карте.."
-
-#~ msgid "Administrator settings"
-#~ msgstr "Настройки администратора"
-
-#~ msgid "Register current map as a favorite"
-#~ msgstr "Регистрировать текущую карту как избранную"
-
-#~ msgid "Register new legend"
-#~ msgstr "Регистрировать новое условное обозначение"
-
-#~ msgid "Delete legend"
-#~ msgstr "Удалить условное обозначение"
-
-#~ msgid "Overlay"
-#~ msgstr "Трафарет"
-
-#~ msgid "Register new legend set"
-#~ msgstr "Регистрировать новый набор условных обозначений"
-
-#~ msgid "Delete legend set"
-#~ msgstr "Удалить набор условных обозначений"
-
-#~ msgid "Assign indicators to legend set"
-#~ msgstr "Закрепить индикатор за набором условных обозначений"
-
-#~ msgid "Assign data elements to legend set"
-#~ msgstr "Закрепить элементы данных за набором условных обозначений"
-
-#~ msgid "Export thematic map to PNG"
-#~ msgstr "Экспортировать тематическую карту в PNG"
-
-#~ msgid "Total distance"
-#~ msgstr "Итого расстояние"
-
-#~ msgid "Set thematic map date type"
-#~ msgstr "Установить тип даты тематической карты"
-
-#~ msgid "Tools"
-#~ msgstr "Инструменты"
-
-#~ msgid "Show / Hide feature labels"
-#~ msgstr "Показать/скрыть ярлыки функций"
-
-#~ msgid "Opacity"
-#~ msgstr "Прозрачность"
-
-#~ msgid "Data options"
-#~ msgstr "Опции данных"
-
-#~ msgid "Parent organisation unit"
-#~ msgstr "Родительская организация"
-
-#~ msgid "Resize"
-#~ msgstr "Изменить размер"
-
-#~ msgid "Open in which layer?"
-#~ msgstr "Открыть в каком уровне?"
-
-#~ msgid "No features rendered"
-#~ msgstr "Не представлено функций"
-
-#~ msgid "WMS overlays"
-#~ msgstr "Трафареты WMS"
-
-#~ msgid "File overlays"
-#~ msgstr "Файловый трафарет"
-
-#~ msgid "Symbol layer"
-#~ msgstr "Уровень символов"
-
-#~ msgid "Image"
-#~ msgstr "Изображение"
-
-#~ msgid "Register new WMS overlay"
-#~ msgstr "Регистрировать новый трафарет WMS"
-
-#~ msgid "Register new vector overlay"
-#~ msgstr "Регистрировать новый векторный трафарет"
-
-#~ msgid "No aggregated data found"
-#~ msgstr "Не найдено аггрегированных данных"
-
-#~ msgid "Share interpretation"
-#~ msgstr "Поделиться интерпретацией"
-
-#~ msgid "Organisation unit level / parent"
-#~ msgstr "Уровень/родитель организации"
-
-#~ msgid "No indicator selected"
-#~ msgstr "Не выбран индикатор"
-
-#~ msgid "No data element selected"
-#~ msgstr "Не выбран элемент данных"
-
-#~ msgid "No legend set selected"
-#~ msgstr "Не выбран набор условных обозначений"
-
-#~ msgid "Surrounding areas"
-#~ msgstr "Прилегающие территории"
-
-#~ msgid "Link"
-#~ msgstr "Связь"
-
-#~ msgid "Organisation unit level cannot not be higher than parent level"
-#~ msgstr "Уровень организации не может быть выше родительского уровня"
+msgstr ""
