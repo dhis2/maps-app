@@ -160,7 +160,8 @@ class EventLayer extends Layer {
                 ' ' +
                 data.eventDate.substring(11, 16);
             const dataValues = data.dataValues;
-            let content = '<div style="overflow-x:auto"><table><tbody>';
+            let content =
+                '<div style="max-height:300px;overflow:auto;"><table><tbody>';
 
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
