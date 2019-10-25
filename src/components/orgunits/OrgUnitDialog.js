@@ -80,6 +80,7 @@ export class OrgUnitDialog extends Component {
         } else if (
             id &&
             dataItems &&
+            dataItems.length &&
             period &&
             (id !== prevProps.id || period !== prevState.period)
         ) {

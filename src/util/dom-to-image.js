@@ -525,7 +525,9 @@ function newUtil() {
                         resolve(placeholder);
                     } else {
                         fail(
-                            `cannot fetch resource: ${url}, status: ${request.status}`
+                            `cannot fetch resource: ${url}, status: ${
+                                request.status
+                            }`
                         );
                     }
 
