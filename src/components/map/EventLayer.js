@@ -155,7 +155,8 @@ class EventLayer extends Layer {
                 ' ' +
                 data.eventDate.substring(11, 16);
             const dataValues = data.dataValues;
-            let content = '<table><tbody>';
+            let content =
+                '<div style="max-height:300px;overflow:auto;"><table><tbody>';
 
             // Output value if styled by data item, and item is not included in display elements
             if (styleDataItem && !this.displayElements[styleDataItem.id]) {
@@ -198,7 +199,7 @@ class EventLayer extends Layer {
                     i18n.t('Event location')}</th>
                 <td>${coord[0]}, ${coord[1]}</td>
               </tr> 
-              </tbody></table>`;
+              </tbody></table></div>`;
 
             // Remove all line breaks as it's not working for map download
             callback(removeLineBreaks(content));
