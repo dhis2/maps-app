@@ -24,9 +24,6 @@ const styles = {
         float: 'left',
         width: 'calc((100% - 48px) / 8 * 3)',
     },
-    datePicker: {
-        width: 164,
-    },
 };
 
 export class FilterSelect extends Component {
@@ -126,7 +123,7 @@ export class FilterSelect extends Component {
                     label={i18n.t('Date')}
                     value={value}
                     onChange={date => onChange(`${operator}:${date}`)}
-                    style={styles.datePicker}
+                    style={styles.textField}
                 />
             ) : null,
         ];
