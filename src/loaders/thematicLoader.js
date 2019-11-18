@@ -19,7 +19,11 @@ import {
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
-import { DEFAULT_RADIUS_LOW, DEFAULT_RADIUS_HIGH } from '../constants/layers';
+import {
+    DEFAULT_RADIUS_LOW,
+    DEFAULT_RADIUS_HIGH,
+    CLASSIFICATION_PREDEFINED,
+} from '../constants/layers';
 
 const thematicLoader = async config => {
     let error;
@@ -68,8 +72,8 @@ const thematicLoader = async config => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
-    let legendSet = config.legendSet || dataItem.legendSet;
-    let method = legendSet ? 1 : config.method; // Favorites often have wrong method
+    let legendSet = config.legendSet || (!config.method && dataItem.legendSet);
+    let method = legendSet ? CLASSIFICATION_PREDEFINED : config.method; // Favorites often have wrong method
     let alert;
 
     if (legendSet) {
