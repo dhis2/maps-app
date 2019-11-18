@@ -245,7 +245,7 @@ const loadData = async config => {
         valueType,
         relativePeriodDate,
         aggregationType,
-        renderingStrategy,
+        renderingStrategy = 'SINGLE',
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
