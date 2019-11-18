@@ -68,7 +68,7 @@ const thematicLoader = async config => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
-    let legendSet = config.legendSet;
+    let legendSet = config.legendSet || dataItem.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
     let alert;
 
