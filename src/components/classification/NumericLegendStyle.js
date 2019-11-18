@@ -15,16 +15,13 @@ export class NumericLegendStyle extends Component {
     static propTypes = {
         method: PropTypes.number,
         dataItem: PropTypes.object,
-        legendSet: PropTypes.object,
         setClassification: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,
         style: PropTypes.object,
     };
 
     componentDidMount() {
-        const { method, legendSet } = this.props;
-
-        if (!method || (method === CLASSIFICATION_PREDEFINED && !legendSet)) {
+        if (!this.props.method) {
             this.setDefaultLegendStyle();
         }
     }
@@ -81,7 +78,6 @@ export class NumericLegendStyle extends Component {
 export default connect(
     ({ layerEdit }) => ({
         method: layerEdit.method,
-        legendSet: layerEdit.legendSet,
     }),
     { setClassification, setLegendSet }
 )(NumericLegendStyle);
