@@ -50,7 +50,7 @@ const thematicLoader = async config => {
         radiusHigh = DEFAULT_RADIUS_HIGH,
         classes,
         colorScale,
-        renderingStrategy,
+        renderingStrategy = 'SINGLE',
     } = config;
 
     const isSingle = renderingStrategy === 'SINGLE';
