@@ -61,14 +61,18 @@ export class NumericLegendStyle extends Component {
 
         if (dataItem !== prevDataItem) {
             if (dataItem.legendSet) {
-                setClassification(Number(CLASSIFICATION_PREDEFINED));
+                setClassification(CLASSIFICATION_PREDEFINED);
                 setLegendSet(dataItem.legendSet);
             } else {
-                setClassification(Number(CLASSIFICATION_EQUAL_INTERVALS));
+                setClassification(CLASSIFICATION_EQUAL_INTERVALS);
             }
         }
 
-        if (method !== prevMethod && method === CLASSIFICATION_PREDEFINED) {
+        if (
+            method !== prevMethod &&
+            method === CLASSIFICATION_PREDEFINED &&
+            dataItem
+        ) {
             setLegendSet(dataItem.legendSet);
         }
     }

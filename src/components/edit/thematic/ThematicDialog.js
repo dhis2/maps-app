@@ -38,6 +38,7 @@ import {
     DEFAULT_ORG_UNIT_LEVEL,
     DEFAULT_RADIUS_LOW,
     DEFAULT_RADIUS_HIGH,
+    CLASSIFICATION_PREDEFINED,
 } from '../../../constants/layers';
 
 import {
@@ -62,6 +63,8 @@ import {
     setRadiusHigh,
     setUserOrgUnits,
     setValueType,
+    setClassification,
+    setLegendSet,
     toggleOrgUnit,
     loadOrgUnitPath,
 } from '../../../actions/layerEdit';
@@ -123,6 +126,8 @@ export class ThematicDialog extends Component {
         radiusHigh: PropTypes.number,
         radiusLow: PropTypes.number,
         valueType: PropTypes.string,
+        method: PropTypes.number,
+        legendSet: PropTypes.object,
         loadOrgUnitPath: PropTypes.func.isRequired,
         setDataItem: PropTypes.func.isRequired,
         setDataElementGroup: PropTypes.func.isRequired,
@@ -146,6 +151,8 @@ export class ThematicDialog extends Component {
         setRadiusLow: PropTypes.func.isRequired,
         setRadiusHigh: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
+        setClassification: PropTypes.func.isRequired,
+        setLegendSet: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -190,6 +197,7 @@ export class ThematicDialog extends Component {
             setEndDate(DEFAULT_END_DATE);
         }
 
+        // Set default org unit level
         if (!getOrgUnitLevelsFromRows(rows).length) {
             setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
         }
@@ -198,18 +206,41 @@ export class ThematicDialog extends Component {
     componentDidUpdate(prev) {
         const {
             rows,
+            columns,
+            method,
+            legendSet,
+            setClassification,
+            setLegendSet,
             loadOrgUnitPath,
             validateLayer,
             onLayerValidation,
         } = this.props;
 
-        if (rows) {
+        if (rows !== prev.rows) {
             const orgUnits = getOrgUnitNodesFromRows(rows);
 
             // Load organisation unit tree path (temporary solution, as favorites don't include paths)
             orgUnits
                 .filter(ou => !ou.path)
                 .forEach(ou => loadOrgUnitPath(ou.id));
+        }
+
+        // Set legend set from data item
+        if (columns !== prev.columns) {
+            const dataItem = getDataItemFromColumns(columns);
+
+            if (
+                dataItem &&
+                dataItem.legendSet &&
+                (method === CLASSIFICATION_PREDEFINED || method === undefined)
+            ) {
+                if (!method) {
+                    setClassification(CLASSIFICATION_PREDEFINED);
+                }
+                if (!legendSet || legendSet.id !== dataItem.legendSet.id) {
+                    setLegendSet(dataItem.legendSet);
+                }
+            }
         }
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
@@ -779,6 +810,8 @@ export default connect(
         setRadiusHigh,
         setUserOrgUnits,
         setValueType,
+        setClassification,
+        setLegendSet,
         toggleOrgUnit,
         loadOrgUnitPath,
     },
