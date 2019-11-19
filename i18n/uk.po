@@ -76,7 +76,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr "Value"
+msgstr "Значення"
 
 msgid "Legend"
 msgstr "Умовні позначення"
@@ -137,7 +137,7 @@ msgid "Year"
 msgstr "Рік"
 
 msgid "Period"
-msgstr "Period"
+msgstr "Період"
 
 msgid "Organisation units"
 msgstr "Організаційні підрозділи"
