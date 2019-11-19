@@ -490,7 +490,7 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Last updated"
+msgstr "上次更新"
 
 msgid "Open as map"
 msgstr ""
