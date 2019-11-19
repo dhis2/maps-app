@@ -25,7 +25,7 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Legend set"
+msgstr "Набор легенд"
 
 msgid "Automatic"
 msgstr "Автоматический"
@@ -173,7 +173,7 @@ msgid "End date"
 msgstr "Дата окончания"
 
 msgid "Events"
-msgstr "Events"
+msgstr "События"
 
 msgid "Group events"
 msgstr ""
@@ -507,7 +507,7 @@ msgid "Period type"
 msgstr "Виды периода"
 
 msgid "Program indicator"
-msgstr "Program indicator"
+msgstr "Управление индикатором программы"
 
 msgid "No program"
 msgstr "Программа отсутствует"
