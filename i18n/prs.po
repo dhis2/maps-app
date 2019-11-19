@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "نقشه ها"
 
 msgid "Classification"
 msgstr ""
@@ -27,13 +27,13 @@ msgid "Legend set"
 msgstr "سیت لیجند"
 
 msgid "Automatic"
-msgstr ""
+msgstr "اتومات"
 
 msgid "Predefined"
-msgstr ""
+msgstr "له وړانې مشخص شوی"
 
 msgid "Data element group"
-msgstr ""
+msgstr "د مالوماتو (ډاټا) د برخې ګروپ"
 
 msgid "Data element operand"
 msgstr ""
@@ -51,10 +51,10 @@ msgid "Yes"
 msgstr "بلی"
 
 msgid "Event location"
-msgstr ""
+msgstr "د پېښې طبقه"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "ځانګړتیاوې"
 
 msgid "None"
 msgstr "هیچ‌کدام"
@@ -63,13 +63,13 @@ msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "د پېښې طبقه"
 
 msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "د مالوماتو (ډاټا) ټولګه"
 
 msgid "Index"
 msgstr ""
@@ -84,19 +84,19 @@ msgid "Range"
 msgstr "وسعت"
 
 msgid "Level"
-msgstr ""
+msgstr "سطحه"
 
 msgid "Parent"
 msgstr ""
 
 msgid "Id"
-msgstr ""
+msgstr "آی دی"
 
 msgid "Type"
-msgstr ""
+msgstr "نمونه/ډول"
 
 msgid "Color"
-msgstr ""
+msgstr "رنگ"
 
 msgid "Download"
 msgstr "دانلود"
@@ -133,22 +133,22 @@ msgid "Style"
 msgstr "استایل"
 
 msgid "Labels"
-msgstr ""
+msgstr "برچسپ"
 
 msgid "Point radius"
-msgstr ""
+msgstr "د نکتې پوړ"
 
 msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Steps"
-msgstr ""
+msgstr "مرحله"
 
 msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "اسم هذا از قبل ثبت و راجستر شده است"
 
 msgid "Valid range is"
 msgstr ""
@@ -163,7 +163,7 @@ msgid "Filter"
 msgstr "فلتر"
 
 msgid "Org units"
-msgstr ""
+msgstr "واحد های سازمان"
 
 msgid "Start date"
 msgstr "تاریخ شروع"
@@ -172,7 +172,7 @@ msgid "End date"
 msgstr "تاریخ اتمام"
 
 msgid "Events"
-msgstr ""
+msgstr "پېښې"
 
 msgid "Group events"
 msgstr ""
@@ -202,7 +202,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr ""
+msgstr "د ګروپ ټولګه"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -230,7 +230,7 @@ msgid "Follow up"
 msgstr ""
 
 msgid "Selection mode"
-msgstr ""
+msgstr "انتخاب شوی اکر"
 
 msgid "Tracked entities"
 msgstr ""
@@ -242,10 +242,10 @@ msgid "Aggregation type"
 msgstr "نوع تجمع"
 
 msgid "Low size"
-msgstr ""
+msgstr "د ټیټې نکتې اندازه"
 
 msgid "High size"
-msgstr ""
+msgstr "د لوړې نکتې اندازه"
 
 msgid "Indicator group is required"
 msgstr ""
@@ -275,19 +275,19 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "شاخص"
 
 msgid "Reporting rates"
 msgstr "درجه راپور دهی"
 
 msgid "Event data items"
-msgstr ""
+msgstr "د پېښې د مالوماتو (ډاټا) موضوعات"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "د پروګرام شاخصونه"
 
 msgid "Item type"
-msgstr ""
+msgstr "د نېټې ډول"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -320,7 +320,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "اپریتر"
 
 msgid "Date"
 msgstr "تاریخ"
@@ -338,13 +338,13 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr ""
+msgstr "این"
 
 msgid "is not"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "د شاخص ګروپ"
 
 msgid "Interpretations"
 msgstr "تفسیر ها"
@@ -385,7 +385,7 @@ msgid "deleted"
 msgstr "حذف"
 
 msgid "Filters"
-msgstr ""
+msgstr "فیلټرونه"
 
 msgid "Edit"
 msgstr "تجدید"
@@ -400,13 +400,13 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr ""
+msgstr "د مالوماتو (ډاټا) جدول"
 
 msgid "Download data"
 msgstr "دانلود دیتا"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "طبقې تصحیح کړئ"
 
 msgid "Remove layer"
 msgstr ""
@@ -415,43 +415,43 @@ msgid "Open as"
 msgstr ""
 
 msgid "Pivot"
-msgstr ""
+msgstr "محوری"
 
 msgid "Chart"
 msgstr "چارت"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "لوی واحد"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "د نکتې سطحه غوره کړئ"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "یک ستحه پاین"
 
 msgid "Show information"
-msgstr ""
+msgstr "مالومات ښکاره کړئ"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "نمایش طولالبلد/عرضلبلد"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "تغیر دادن طولالبلد/عرضلبلد"
 
 msgid "Relocate"
-msgstr ""
+msgstr "موقعیت ته یې بدلون ورکړئ"
 
 msgid "Not set"
-msgstr ""
+msgstr "تعین نه گردیده است"
 
 msgid "Organisation unit"
 msgstr "واحد سازمان"
 
 msgid "Event time"
-msgstr ""
+msgstr "د پېښې طبقه"
 
 msgid "Groups"
-msgstr ""
+msgstr "ګروپونه"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
@@ -463,16 +463,16 @@ msgid "Options"
 msgstr "گزینه‌ها"
 
 msgid "Code"
-msgstr ""
+msgstr "کوډ یا شفر"
 
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
+msgstr "د ګروپ ټولګه غوره کړئ"
 
 msgid "Select levels"
-msgstr ""
+msgstr "د نکتې سطحه غوره کړئ"
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
@@ -487,7 +487,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "در"
 
 msgid "in and right below"
 msgstr ""
@@ -502,19 +502,19 @@ msgid "Next year"
 msgstr "سال بعدی"
 
 msgid "Period type"
-msgstr ""
+msgstr "د مودې ډول"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "شاخص پروگرام"
 
 msgid "No program"
-msgstr ""
+msgstr "هیچ پروگرام نیست"
 
 msgid "Program"
 msgstr "برنامه"
 
 msgid "Stage"
-msgstr ""
+msgstr "مرحله"
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -537,13 +537,13 @@ msgid "Boundaries"
 msgstr ""
 
 msgid "Access denied"
-msgstr ""
+msgstr "سیستم قابل دسترس نه میباشد"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "ناکام"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
