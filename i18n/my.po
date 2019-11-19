@@ -137,7 +137,7 @@ msgid "Period"
 msgstr "အချိန်ကာလ"
 
 msgid "Organisation units"
-msgstr "Organisation units"
+msgstr "အဖွဲ့အစည်းယူနစ်"
 
 msgid "Style"
 msgstr "ပုံစံ"
@@ -176,10 +176,10 @@ msgid "Filter"
 msgstr "ရှာဖွေထုတ်သည်"
 
 msgid "Start date"
-msgstr "Start date"
+msgstr "စတင်သည့်ရက်စွဲ"
 
 msgid "End date"
-msgstr "End date"
+msgstr "ပြီးဆုံးသည့်ရက်စွဲ"
 
 msgid "Events"
 msgstr "Events"
@@ -383,7 +383,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Indicator group"
+msgstr "indicator အုပ်စု"
 
 msgid "Interpretations"
 msgstr "Interpretations"
@@ -478,7 +478,7 @@ msgid "Not set"
 msgstr "မရှိပါ"
 
 msgid "Organisation unit"
-msgstr "Organisation unit"
+msgstr "အဖွဲ့အစည်းယူနစ်"
 
 msgid "Event time"
 msgstr ""
@@ -550,7 +550,7 @@ msgid "Next year"
 msgstr "နောက်နှစ်"
 
 msgid "Period type"
-msgstr "Period type"
+msgstr "ကာလအမျိုးအစား"
 
 msgid "Program indicator"
 msgstr ""
@@ -630,7 +630,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "No"
+msgstr "Nr"
 
 msgid "Map could not be created"
 msgstr ""
