@@ -25,7 +25,7 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Legend set"
+msgstr "Набор легенд"
 
 msgid "Automatic"
 msgstr "Автоматический"
@@ -185,7 +185,7 @@ msgid "End date"
 msgstr "Дата окончания"
 
 msgid "Events"
-msgstr "Events"
+msgstr "События"
 
 msgid "Group events"
 msgstr ""
@@ -335,7 +335,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr "Relationship type"
+msgstr "Тип связи"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -569,7 +569,7 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr "Program indicator"
+msgstr "Управление индикатором программы"
 
 msgid "No program"
 msgstr "Программа отсутствует"
