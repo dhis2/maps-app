@@ -90,17 +90,13 @@ const trackedEntityLoader = async config => {
     }
 
     if (program) {
-        url += `&program=${
-            program.id
-        }&programStatus=${programStatus}&programStartDate=${startDate}&programEndDate=${endDate}`;
+        url += `&program=${program.id}&programStatus=${programStatus}&programStartDate=${startDate}&programEndDate=${endDate}`;
 
         if (followUp !== undefined) {
             url += `&followUp=${followUp ? 'TRUE' : 'FALSE'}`;
         }
     } else {
-        url += `&trackedEntityType=${
-            trackedEntityType.id
-        }&lastUpdatedStartDate=${startDate}&lastUpdatedEndDate=${endDate}`;
+        url += `&trackedEntityType=${trackedEntityType.id}&lastUpdatedStartDate=${startDate}&lastUpdatedEndDate=${endDate}`;
     }
 
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
