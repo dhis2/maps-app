@@ -43,14 +43,9 @@ class PeriodSelect extends Component {
     };
 
     state = {
-        year: getYear(),
+        year: null,
         periods: null,
     };
-
-    constructor(props) {
-        super(props);
-        this.periodIndex = null;
-    }
 
     componentDidMount() {
         this.setPeriods();
@@ -63,11 +58,11 @@ class PeriodSelect extends Component {
         if (periodType !== prevProps.periodType) {
             this.setPeriods();
         } else if (periods && !period) {
-            onChange(filterFuturePeriods(periods)[0]); // Autoselect most recent period
+            onChange(filterFuturePeriods(periods)[0] || periods[0]); // Autoselect most recent period
         }
 
         // Change period if year is changed (but keep period index)
-        if (period && year !== prevState.year) {
+        if (period && prevState.periods && year !== prevState.year) {
             const periodIndex = prevState.periods.findIndex(
                 item => item.id === period.id
             );
@@ -129,15 +124,16 @@ class PeriodSelect extends Component {
 
     setPeriods() {
         const { periodType, period, locale } = this.props;
+        const year = this.state.year || getYear(period && period.startDate);
         let periods;
 
         if (periodType) {
-            periods = createPeriods(locale, periodType, this.state.year);
+            periods = createPeriods(locale, periodType, year);
         } else if (period) {
             periods = [period]; // If period is loaded in favorite
         }
 
-        this.setState({ periods });
+        this.setState({ periods, year });
     }
 
     nextYear = () => {
