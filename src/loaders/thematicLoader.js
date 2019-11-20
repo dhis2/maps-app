@@ -19,7 +19,11 @@ import {
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
-import { DEFAULT_RADIUS_LOW, DEFAULT_RADIUS_HIGH } from '../constants/layers';
+import {
+    DEFAULT_RADIUS_LOW,
+    DEFAULT_RADIUS_HIGH,
+    CLASSIFICATION_PREDEFINED,
+} from '../constants/layers';
 
 const thematicLoader = async config => {
     let error;
@@ -50,7 +54,7 @@ const thematicLoader = async config => {
         radiusHigh = DEFAULT_RADIUS_HIGH,
         classes,
         colorScale,
-        renderingStrategy,
+        renderingStrategy = 'SINGLE',
     } = config;
 
     const isSingle = renderingStrategy === 'SINGLE';
@@ -69,7 +73,7 @@ const thematicLoader = async config => {
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
     let legendSet = config.legendSet;
-    let method = legendSet ? 1 : config.method; // Favorites often have wrong method
+    let method = legendSet ? CLASSIFICATION_PREDEFINED : config.method; // Favorites often have wrong method
     let alert;
 
     if (legendSet) {
@@ -241,7 +245,7 @@ const loadData = async config => {
         valueType,
         relativePeriodDate,
         aggregationType,
-        renderingStrategy,
+        renderingStrategy = 'SINGLE',
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);

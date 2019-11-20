@@ -190,6 +190,7 @@ export class ThematicDialog extends Component {
             setEndDate(DEFAULT_END_DATE);
         }
 
+        // Set default org unit level
         if (!getOrgUnitLevelsFromRows(rows).length) {
             setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
         }
@@ -203,7 +204,7 @@ export class ThematicDialog extends Component {
             onLayerValidation,
         } = this.props;
 
-        if (rows) {
+        if (rows !== prev.rows) {
             const orgUnits = getOrgUnitNodesFromRows(rows);
 
             // Load organisation unit tree path (temporary solution, as favorites don't include paths)
