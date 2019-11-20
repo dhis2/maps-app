@@ -15,6 +15,10 @@ import {
 } from '../../constants/layers';
 
 class ThematicLayer extends Layer {
+    static defaultProps = {
+        renderingStrategy: 'SINGLE',
+    };
+
     createLayer() {
         const {
             id,
