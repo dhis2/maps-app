@@ -122,9 +122,7 @@ export const setCurrentAnalyticalObject = async ao => {
 // Sets analytical object to open it in another app
 export const setAnalyticalObjectAndSwitchApp = async (layer, openAs) => {
     const ao = getAnalyticalObjectFromThematicLayer(layer);
-    const url = `${config.appUrl}/${
-        APP_URLS[openAs]
-    }/#/currentAnalyticalObject`;
+    const url = `${config.appUrl}/${APP_URLS[openAs]}/#/currentAnalyticalObject`;
 
     await setCurrentAnalyticalObject(ao);
 

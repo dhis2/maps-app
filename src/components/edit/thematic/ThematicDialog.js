@@ -203,7 +203,7 @@ export class ThematicDialog extends Component {
             onLayerValidation,
         } = this.props;
 
-        if (rows) {
+        if (rows !== prev.rows) {
             const orgUnits = getOrgUnitNodesFromRows(rows);
 
             // Load organisation unit tree path (temporary solution, as favorites don't include paths)
