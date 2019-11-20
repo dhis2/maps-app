@@ -46,7 +46,9 @@ class DimensionFilterRow extends Component {
             <div className={classes.container}>
                 <DimensionSelect
                     dimension={dimension}
-                    onChange={dimension => this.onChange(dimension.id, items)}
+                    onChange={selectedDimension =>
+                        this.onChange(selectedDimension.id)
+                    }
                 />
                 <DimensionItemsSelect
                     dimension={dimension}
