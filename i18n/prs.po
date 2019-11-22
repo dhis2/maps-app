@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"POT-Creation-Date: 2019-11-20T11:07:38.479Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: phil_dhis2, 2019\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -306,9 +306,6 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
-msgid "Period type is required"
-msgstr ""
-
 msgid "Period is required"
 msgstr ""
 
@@ -494,6 +491,9 @@ msgstr "ګروپونه"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
+msgid "No data"
+msgstr "معلوماتی وجود ندارد"
+
 msgid "Last updated"
 msgstr "تجدید آخیر"
 
@@ -599,6 +599,12 @@ msgid "is saved"
 msgstr ""
 
 msgid "Boundaries"
+msgstr ""
+
+msgid "Alert"
+msgstr ""
+
+msgid "No boundaries found"
 msgstr ""
 
 msgid "Access denied"
