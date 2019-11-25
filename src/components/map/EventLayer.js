@@ -4,10 +4,13 @@ import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
 import EventPopup from './EventPopup';
+import { getDisplayPropertyUrl } from '../../util/helpers';
 
 class EventLayer extends Layer {
     state = {
         popup: null,
+        dataElements: null,
+        eventCoordinateFieldName: null,
     };
 
     createLayer() {
@@ -87,6 +90,8 @@ class EventLayer extends Layer {
             };
         }
 
+        this.loadDisplayElements();
+
         // Create and add event layer based on config object
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
@@ -96,21 +101,18 @@ class EventLayer extends Layer {
     }
 
     render() {
-        const {
-            styleDataItem,
-            programStage,
-            eventCoordinateField,
-        } = this.props;
+        const { styleDataItem } = this.props;
+        const { popup, displayElements, eventCoordinateFieldName } = this.state;
 
-        return (
+        return popup && displayElements ? (
             <EventPopup
-                {...this.state.popup}
+                {...popup}
                 styleDataItem={styleDataItem}
-                programStage={programStage}
-                eventCoordinateField={eventCoordinateField}
+                displayElements={displayElements}
+                eventCoordinateFieldName={eventCoordinateFieldName}
                 onClose={this.onPopupClose}
             />
-        );
+        ) : null;
     }
 
     onEventClick({ feature, coordinates }) {
@@ -147,6 +149,73 @@ class EventLayer extends Layer {
         }
 
         return features;
+    }
+
+    // Loads the data elements for a program stage to display in popup
+    async loadDisplayElements() {
+        const { programStage, eventCoordinateField } = this.props;
+
+        const d2 = await getD2();
+        const data = await d2.models.programStage.get(programStage.id, {
+            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
+                d2
+            )},optionSet,valueType]]`,
+            paging: false,
+        });
+        const { programStageDataElements } = data;
+        let displayElements = [];
+        let eventCoordinateFieldName;
+
+        if (Array.isArray(programStageDataElements)) {
+            displayElements = programStageDataElements
+                .filter(d => d.displayInReports)
+                .map(d => d.dataElement);
+
+            for (let d of displayElements) {
+                await this.loadOptionSet(d);
+            }
+
+            if (eventCoordinateField) {
+                const coordElement = programStageDataElements.find(
+                    d => d.dataElement.id === eventCoordinateField
+                );
+
+                if (coordElement) {
+                    eventCoordinateFieldName = coordElement.dataElement.name;
+                }
+            }
+        }
+
+        this.setState({ displayElements, eventCoordinateFieldName });
+    }
+
+    // Loads an option set for an data element to get option names
+    async loadOptionSet(dataElement) {
+        const { optionSet } = dataElement;
+
+        if (!optionSet || !optionSet.id) {
+            return dataElement;
+        }
+
+        const d2 = await getD2();
+
+        if (optionSet && optionSet.id) {
+            const fullOptionSet = await d2.models.optionSets.get(optionSet.id, {
+                fields:
+                    'id,displayName~rename(name),options[code,displayName~rename(name)]',
+                paging: false,
+            });
+
+            if (fullOptionSet && fullOptionSet.options) {
+                dataElement.options = fullOptionSet.options.reduce(
+                    (byId, option) => {
+                        byId[option.code] = option.name;
+                        return byId;
+                    },
+                    {}
+                );
+            }
+        }
     }
 }
 
