@@ -1,15 +1,21 @@
+# Translators:
+# Viktor Varland <viktor@dhis2.org>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2019\n"
+"Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-10-25T12:59:42.306Z\n"
-"PO-Revision-Date: 2019-10-25T12:59:42.306Z\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "الخرائط"
 
 msgid "Classification"
 msgstr ""
@@ -18,31 +24,31 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr ""
+msgstr "حزمة وسائل الإيضاح"
 
 msgid "Automatic"
-msgstr ""
+msgstr "تلقائي"
 
 msgid "Predefined"
-msgstr ""
+msgstr "سبق تحديده"
 
 msgid "Data element group"
-msgstr ""
+msgstr "مجموعة عناصر البيانات"
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "عنصر البيانات"
 
 msgid "Totals"
-msgstr ""
+msgstr "الإجمالي"
 
 msgid "Details"
-msgstr ""
+msgstr "التفاصيل"
 
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 msgid "Event location"
 msgstr ""
@@ -51,7 +57,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr ""
+msgstr "لا شيء"
 
 msgid "Data item"
 msgstr ""
@@ -63,34 +69,34 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "حزمة البيانات"
 
 msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "القيمة"
 
 msgid "Legend"
-msgstr ""
+msgstr "شروحات"
 
 msgid "Range"
-msgstr ""
+msgstr "نطاق"
 
 msgid "Level"
-msgstr ""
+msgstr "المستوى"
 
 msgid "Parent"
 msgstr ""
 
 msgid "Id"
-msgstr ""
+msgstr "المعرف"
 
 msgid "Type"
-msgstr ""
+msgstr "النوع"
 
 msgid "Color"
-msgstr ""
+msgstr "اللون"
 
 msgid "Add filter"
 msgstr ""
@@ -99,10 +105,10 @@ msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr ""
+msgstr "البُعد"
 
 msgid "Download"
-msgstr ""
+msgstr "تحميل"
 
 msgid "Download map"
 msgstr ""
@@ -113,32 +119,33 @@ msgstr ""
 msgid "Show legend"
 msgstr ""
 
-msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 msgid "Close"
-msgstr ""
+msgstr "إغلاق"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "السنة"
 
 msgid "Period"
-msgstr ""
+msgstr "الفترة الزمنية"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "الوحدات التنظيمية"
 
 msgid "Style"
-msgstr ""
+msgstr "المظهر"
 
 msgid "Labels"
-msgstr ""
+msgstr "التسميات"
 
 msgid "Point radius"
 msgstr ""
@@ -153,7 +160,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "هذا الحقل مطلوب"
 
 msgid "Valid range is"
 msgstr ""
@@ -165,19 +172,19 @@ msgid "period"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "الوحدات التنظيمية"
 
 msgid "Filter"
-msgstr ""
+msgstr "عامل التصفية"
 
 msgid "Start date"
-msgstr ""
+msgstr "تاريخ البداية"
 
 msgid "End date"
-msgstr ""
+msgstr "تاريخ النهاية"
 
 msgid "Events"
-msgstr ""
+msgstr "الأحداث"
 
 msgid "Group events"
 msgstr ""
@@ -207,9 +214,10 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr ""
+msgstr "حزمة المجموعات"
 
-msgid "Remember to select the organisation unit level containing the facilities."
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -231,18 +239,20 @@ msgid "relationships"
 msgstr ""
 
 msgid "Program status"
-msgstr ""
+msgstr "حالة البرنامج"
 
 msgid "Follow up"
 msgstr ""
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "WARNING"
 msgstr ""
 
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
@@ -267,7 +277,7 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "نوع التجميع"
 
 msgid "Low size"
 msgstr ""
@@ -296,20 +306,23 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Period type is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "المؤشر"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "معدلات إعداد التقارير"
 
 msgid "Event data items"
-msgstr ""
+msgstr "عناصر بيانات الحدث"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "مؤشرات البرنامج"
 
 msgid "Item type"
 msgstr ""
@@ -321,7 +334,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
+msgstr "نوع العلاقة"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -345,10 +358,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "العامل"
 
 msgid "Date"
-msgstr ""
+msgstr "التاريخ"
 
 msgid "one of"
 msgstr ""
@@ -363,7 +376,7 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr ""
+msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
 
 msgid "is not"
 msgstr ""
@@ -372,19 +385,19 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "مجموعة المؤشرات"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "التفسيرات"
 
 msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "انهيار"
 
 msgid "Expand"
-msgstr ""
+msgstr "وسِع\\مدِد"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -416,10 +429,10 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Filters"
-msgstr ""
+msgstr "‏‏عوامل التصفية"
 
 msgid "Edit"
-msgstr ""
+msgstr "تعديل"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -431,22 +444,22 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr ""
+msgstr "جدول البيانات"
 
 msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr ""
+msgstr "تنزيل البيانات"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "تحرير الطبقة"
 
 msgid "Remove layer"
 msgstr ""
 
 msgid "Parent unit"
-msgstr ""
+msgstr "الوحدة العليا"
 
 msgid "Drill up one level"
 msgstr ""
@@ -455,7 +468,7 @@ msgid "Drill down one level"
 msgstr ""
 
 msgid "Show information"
-msgstr ""
+msgstr "إظهار المعلومات"
 
 msgid "Show longitude/latitude"
 msgstr ""
@@ -464,34 +477,25 @@ msgid "Swap longitude/latitude"
 msgstr ""
 
 msgid "Relocate"
-msgstr ""
+msgstr "إعادة تحديد الموضع"
 
 msgid "Not set"
-msgstr ""
+msgstr "غير مضبوط"
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "الوحدة التنظيمية"
 
 msgid "Event time"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
-
-msgid "Longitude"
-msgstr ""
-
-msgid "Latitude"
-msgstr ""
+msgstr "المجموعات"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr ""
-
 msgid "Last updated"
-msgstr ""
+msgstr "آخر تحديث"
 
 msgid "Open as map"
 msgstr ""
@@ -506,13 +510,13 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "متابعة"
 
 msgid "Options"
-msgstr ""
+msgstr "الخيارات"
 
 msgid "Code"
-msgstr ""
+msgstr "الرمز"
 
 msgid "No data found for this period."
 msgstr ""
@@ -536,7 +540,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "في"
 
 msgid "in and right below"
 msgstr ""
@@ -548,13 +552,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "السنة التالية"
 
 msgid "Relative"
-msgstr ""
+msgstr "القريب"
 
 msgid "Period type"
-msgstr ""
+msgstr "نوع الفترة الزمنية"
 
 msgid "Only one timeline is allowed."
 msgstr ""
@@ -563,16 +567,16 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "مؤشر البرنامج"
 
 msgid "No program"
-msgstr ""
+msgstr "لا يوجد برنامج"
 
 msgid "Program"
-msgstr ""
+msgstr "البرنامج"
 
 msgid "Stage"
-msgstr ""
+msgstr "المرحلة"
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -583,7 +587,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "خطأ"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -597,29 +601,23 @@ msgstr ""
 msgid "Boundaries"
 msgstr ""
 
-msgid "Alert"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Access denied"
-msgstr ""
+msgstr "تم رفض الوصول"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "فشل"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "الحدث"
 
 msgid "No data found"
-msgstr ""
+msgstr "لم توجد بيانات"
 
 msgid "Facilities"
 msgstr ""
@@ -631,7 +629,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "الكيان المتتبع"
 
 msgid "No tracked entities found"
 msgstr ""
@@ -646,7 +644,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "لا"
 
 msgid "Map could not be created"
 msgstr ""

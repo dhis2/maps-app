@@ -1,15 +1,23 @@
+# Translators:
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2019
+# Viktor Varland <viktor@dhis2.org>, 2019
+# phil_dhis2, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: phil_dhis2, 2019\n"
+"Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-10-25T12:59:42.306Z\n"
-"PO-Revision-Date: 2019-10-25T12:59:42.306Z\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "Peta"
 
 msgid "Classification"
 msgstr ""
@@ -18,31 +26,31 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr ""
+msgstr "set legenda"
 
 msgid "Automatic"
-msgstr ""
+msgstr "Otomatis"
 
 msgid "Predefined"
-msgstr ""
+msgstr "Predefined"
 
 msgid "Data element group"
-msgstr ""
+msgstr "Grup elemen data"
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "Elemen data"
 
 msgid "Totals"
-msgstr ""
+msgstr "Total"
 
 msgid "Details"
-msgstr ""
+msgstr "Rincian"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ya"
 
 msgid "Event location"
 msgstr ""
@@ -51,7 +59,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr ""
+msgstr "Tidak ada"
 
 msgid "Data item"
 msgstr ""
@@ -63,22 +71,22 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "Data set"
 
 msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "Nilai"
 
 msgid "Legend"
-msgstr ""
+msgstr "Legenda"
 
 msgid "Range"
-msgstr ""
+msgstr "Rentang"
 
 msgid "Level"
-msgstr ""
+msgstr "Level"
 
 msgid "Parent"
 msgstr ""
@@ -87,13 +95,13 @@ msgid "Id"
 msgstr ""
 
 msgid "Type"
-msgstr ""
+msgstr "Jenis"
 
 msgid "Color"
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "Tambah penyaringan"
 
 msgid "Items"
 msgstr ""
@@ -102,7 +110,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr ""
+msgstr "Unduh"
 
 msgid "Download map"
 msgstr ""
@@ -113,14 +121,15 @@ msgstr ""
 msgid "Show legend"
 msgstr ""
 
-msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Batalkan"
 
 msgid "Close"
-msgstr ""
+msgstr "Tutup"
 
 msgid "Legend position"
 msgstr ""
@@ -129,13 +138,13 @@ msgid "Year"
 msgstr ""
 
 msgid "Period"
-msgstr ""
+msgstr "Periode"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "Unit organisasi"
 
 msgid "Style"
-msgstr ""
+msgstr "Gaya"
 
 msgid "Labels"
 msgstr ""
@@ -153,7 +162,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "Kolom ini sudah terisi"
 
 msgid "Valid range is"
 msgstr ""
@@ -168,16 +177,16 @@ msgid "Org units"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "Saring"
 
 msgid "Start date"
-msgstr ""
+msgstr "Tanggal mulai"
 
 msgid "End date"
-msgstr ""
+msgstr "Tanggal berakhir"
 
 msgid "Events"
-msgstr ""
+msgstr "Event"
 
 msgid "Group events"
 msgstr ""
@@ -207,9 +216,10 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr ""
+msgstr "set satu grup"
 
-msgid "Remember to select the organisation unit level containing the facilities."
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -236,13 +246,15 @@ msgstr ""
 msgid "Follow up"
 msgstr ""
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "WARNING"
 msgstr ""
 
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
@@ -267,7 +279,7 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Tipe agregasi"
 
 msgid "Low size"
 msgstr ""
@@ -296,20 +308,23 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Period type is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "indikator"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "Tingkat pelaporan"
 
 msgid "Event data items"
-msgstr ""
+msgstr "Item data event"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Indikator program"
 
 msgid "Item type"
 msgstr ""
@@ -321,34 +336,34 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Tipe hubungan"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Terjadi kesalahan"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Refresh untuk mencoba kembali"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Sembunyikan rincian teknis"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Tampilkan rincian teknis"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "Informasi berikut mungkin diperlukan untuk dukungan teknis."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Operator"
 
 msgid "Date"
-msgstr ""
+msgstr "Tanggal"
 
 msgid "one of"
 msgstr ""
@@ -363,7 +378,7 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr ""
+msgstr "adalah"
 
 msgid "is not"
 msgstr ""
@@ -372,19 +387,19 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "group indikator"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "Interpretasi"
 
 msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "Tutup"
 
 msgid "Expand"
-msgstr ""
+msgstr "Perlihatkan lebih detail"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -410,16 +425,16 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "dihapus"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Filters"
-msgstr ""
+msgstr "Penyaringan"
 
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -431,16 +446,16 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr ""
+msgstr "Tabel data"
 
 msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr ""
+msgstr "Unduh data"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "Edit layer"
 
 msgid "Remove layer"
 msgstr ""
@@ -455,7 +470,7 @@ msgid "Drill down one level"
 msgstr ""
 
 msgid "Show information"
-msgstr ""
+msgstr "Tampilkan lembar informasi"
 
 msgid "Show longitude/latitude"
 msgstr ""
@@ -464,34 +479,25 @@ msgid "Swap longitude/latitude"
 msgstr ""
 
 msgid "Relocate"
-msgstr ""
+msgstr "Pindahkan"
 
 msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Unit organisasi"
 
 msgid "Event time"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
-
-msgid "Longitude"
-msgstr ""
-
-msgid "Latitude"
-msgstr ""
+msgstr "banyak grup"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
-
-msgid "No data"
-msgstr ""
+msgstr "Melihat interpretasi dari {{interpretationDate}}"
 
 msgid "Last updated"
-msgstr ""
+msgstr "Terakhir diperbarui"
 
 msgid "Open as map"
 msgstr ""
@@ -506,13 +512,13 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "Lanjutkan"
 
 msgid "Options"
-msgstr ""
+msgstr "Opsi"
 
 msgid "Code"
-msgstr ""
+msgstr "Kode"
 
 msgid "No data found for this period."
 msgstr ""
@@ -536,7 +542,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "dalam"
 
 msgid "in and right below"
 msgstr ""
@@ -548,13 +554,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "Tahun berikut"
 
 msgid "Relative"
 msgstr ""
 
 msgid "Period type"
-msgstr ""
+msgstr "tipe periode"
 
 msgid "Only one timeline is allowed."
 msgstr ""
@@ -563,16 +569,16 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Manajemen indikator program"
 
 msgid "No program"
-msgstr ""
+msgstr "Tidak ada program"
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Stage"
-msgstr ""
+msgstr "Stage"
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -583,7 +589,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -595,12 +601,6 @@ msgid "is saved"
 msgstr ""
 
 msgid "Boundaries"
-msgstr ""
-
-msgid "Alert"
-msgstr ""
-
-msgid "No boundaries found"
 msgstr ""
 
 msgid "Access denied"
@@ -616,10 +616,10 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "Kejadian"
 
 msgid "No data found"
-msgstr ""
+msgstr "Tidak ada data yang ditemukan"
 
 msgid "Facilities"
 msgstr ""
@@ -631,7 +631,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Tracked Entity"
 
 msgid "No tracked entities found"
 msgstr ""
@@ -646,7 +646,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 msgid "Map could not be created"
 msgstr ""

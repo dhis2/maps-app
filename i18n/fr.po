@@ -1,111 +1,121 @@
+# Translators:
+# Austin McGee <austin@dhis2.org>, 2019
+# mrwine <matthieu@pinard.no>, 2019
+# Bram Piot <bram.piot@gmail.com>, 2019
+# Viktor Varland <viktor@dhis2.org>, 2019
+# phil_dhis2, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: phil_dhis2, 2019\n"
+"Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-10-25T12:59:42.306Z\n"
-"PO-Revision-Date: 2019-10-25T12:59:42.306Z\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "Cartes"
 
 msgid "Classification"
 msgstr ""
 
 msgid "Classes"
-msgstr ""
+msgstr "Classes"
 
 msgid "Legend set"
-msgstr ""
+msgstr "Jeu de légende"
 
 msgid "Automatic"
-msgstr ""
+msgstr "Automatique"
 
 msgid "Predefined"
-msgstr ""
+msgstr "Prédéfini"
 
 msgid "Data element group"
-msgstr ""
+msgstr "Groupe d'éléments de données"
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "Élément de données"
 
 msgid "Totals"
-msgstr ""
+msgstr "Totaux "
 
 msgid "Details"
-msgstr ""
+msgstr "Détails"
 
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 msgid "Event location"
-msgstr ""
+msgstr "Lieu de l'évènement"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Champ de coordonnées"
 
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "Elément de données évènement"
 
 msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "Ensemble de données"
 
 msgid "Index"
-msgstr ""
+msgstr "Index"
 
 msgid "Value"
-msgstr ""
+msgstr "Valeur"
 
 msgid "Legend"
-msgstr ""
+msgstr "Légende"
 
 msgid "Range"
-msgstr ""
+msgstr "Range"
 
 msgid "Level"
-msgstr ""
+msgstr "Niveau"
 
 msgid "Parent"
-msgstr ""
+msgstr "Parent"
 
 msgid "Id"
 msgstr ""
 
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 msgid "Color"
-msgstr ""
+msgstr "Couleur"
 
 msgid "Add filter"
-msgstr ""
+msgstr "Ajouter le filtre"
 
 msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr ""
+msgstr "Dimenssion"
 
 msgid "Download"
-msgstr ""
+msgstr "Télécharger"
 
 msgid "Download map"
-msgstr ""
+msgstr "Télécharger la carte"
 
 msgid "Show name"
 msgstr ""
@@ -113,47 +123,48 @@ msgstr ""
 msgid "Show legend"
 msgstr ""
 
-msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "Année"
 
 msgid "Period"
-msgstr ""
+msgstr "Période"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "Unités d'organisation"
 
 msgid "Style"
-msgstr ""
+msgstr "Style"
 
 msgid "Labels"
 msgstr ""
 
 msgid "Point radius"
-msgstr ""
+msgstr "Taille des points"
 
 msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Steps"
-msgstr ""
+msgstr "Étapes"
 
 msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "Ce champs est requis"
 
 msgid "Valid range is"
 msgstr ""
@@ -165,19 +176,19 @@ msgid "period"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "OrgUnit"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtrer"
 
 msgid "Start date"
-msgstr ""
+msgstr "Date de début"
 
 msgid "End date"
-msgstr ""
+msgstr "Date de fin"
 
 msgid "Events"
-msgstr ""
+msgstr "Événements"
 
 msgid "Group events"
 msgstr ""
@@ -207,9 +218,10 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr ""
+msgstr "Ensemble de groupes"
 
-msgid "Remember to select the organisation unit level containing the facilities."
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -228,31 +240,33 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "relationships"
-msgstr ""
+msgstr "Relation"
 
 msgid "Program status"
 msgstr ""
 
 msgid "Follow up"
-msgstr ""
+msgstr "Suivi"
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "WARNING"
 msgstr ""
 
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
 msgid "Selection mode"
-msgstr ""
+msgstr "Sélectionner le mode"
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Entités suiviées "
 
 msgid "Tracked entity style"
 msgstr ""
@@ -267,13 +281,13 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Type d'agrégation"
 
 msgid "Low size"
-msgstr ""
+msgstr "Taille min."
 
 msgid "High size"
-msgstr ""
+msgstr "Taille max."
 
 msgid "Indicator group is required"
 msgstr ""
@@ -296,23 +310,26 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Period type is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "Indicateur"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "Taux de rapport"
 
 msgid "Event data items"
-msgstr ""
+msgstr "Eléments de données évènement"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Program indicators"
 
 msgid "Item type"
-msgstr ""
+msgstr "Type d'élément"
 
 msgid "Failed to load relationship types."
 msgstr ""
@@ -321,7 +338,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Type de relation"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -345,10 +362,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Opérateur"
 
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 msgid "one of"
 msgstr ""
@@ -357,34 +374,34 @@ msgid "not one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "contient"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "ne contient pas"
 
 msgid "is"
-msgstr ""
+msgstr "est"
 
 msgid "is not"
-msgstr ""
+msgstr "n'est pas"
 
 msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Groupe d'indicateurs"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "interprétations"
 
 msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "Plier"
 
 msgid "Expand"
-msgstr ""
+msgstr "Développer"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -410,16 +427,16 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "supprimé"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Filters"
-msgstr ""
+msgstr "Filtres"
 
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -431,67 +448,58 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr ""
+msgstr "Tableau de données"
 
 msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr ""
+msgstr "Télécharger les données"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "Modifier la couche"
 
 msgid "Remove layer"
 msgstr ""
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Unité parente"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "Monter d'un niveau"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "Descendre d'un niveau"
 
 msgid "Show information"
-msgstr ""
+msgstr "Afficher la fiche d'information"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "Afficher longitude/latitude"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "Inverser long/lat"
 
 msgid "Relocate"
-msgstr ""
+msgstr "Relocaliser"
 
 msgid "Not set"
-msgstr ""
+msgstr "Non défini"
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Unité d'organisation"
 
 msgid "Event time"
-msgstr ""
+msgstr "Date de l'évènement"
 
 msgid "Groups"
-msgstr ""
-
-msgid "Longitude"
-msgstr ""
-
-msgid "Latitude"
-msgstr ""
+msgstr "Groupes"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr ""
-
 msgid "Last updated"
-msgstr ""
+msgstr "Dernière mise à jour"
 
 msgid "Open as map"
 msgstr ""
@@ -506,22 +514,22 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "Continuer"
 
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
+msgstr "Sélectionner des groupes"
 
 msgid "Select levels"
-msgstr ""
+msgstr "Sélectionner les niveaux"
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
@@ -536,7 +544,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "dans"
 
 msgid "in and right below"
 msgstr ""
@@ -545,16 +553,16 @@ msgid "in and all below"
 msgstr ""
 
 msgid "Previous year"
-msgstr ""
+msgstr "L'année dernière"
 
 msgid "Next year"
-msgstr ""
+msgstr "L'année prochaine"
 
 msgid "Relative"
-msgstr ""
+msgstr "Relatif"
 
 msgid "Period type"
-msgstr ""
+msgstr "Type de période"
 
 msgid "Only one timeline is allowed."
 msgstr ""
@@ -563,16 +571,16 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Gestion des indicateurs de programme"
 
 msgid "No program"
-msgstr ""
+msgstr "Aucun programme"
 
 msgid "Program"
-msgstr ""
+msgstr "Programme"
 
 msgid "Stage"
-msgstr ""
+msgstr "Etape"
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -583,7 +591,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -597,29 +605,23 @@ msgstr ""
 msgid "Boundaries"
 msgstr ""
 
-msgid "Alert"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Access denied"
-msgstr ""
+msgstr "Accès refusé"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "Echoué"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "Evènement"
 
 msgid "No data found"
-msgstr ""
+msgstr "Aucune valeur trouvée"
 
 msgid "Facilities"
 msgstr ""
@@ -631,7 +633,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Entité suivie"
 
 msgid "No tracked entities found"
 msgstr ""
@@ -640,22 +642,22 @@ msgid "related"
 msgstr ""
 
 msgid "true"
-msgstr ""
+msgstr "vrai"
 
 msgid "false"
-msgstr ""
+msgstr "faux"
 
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 msgid "Map could not be created"
 msgstr ""
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "La date de début n'est pas valable"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "La date de fin n'est pas valable"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "La date de fin ne peut pas précéder la date début"

@@ -1,12 +1,19 @@
+# Translators:
+# phil_dhis2, 2019
+# Viktor Varland <viktor@dhis2.org>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2019\n"
+"Language-Team: Tajik (https://www.transifex.com/hisp-uio/teams/100509/tg/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-10-25T12:59:42.306Z\n"
-"PO-Revision-Date: 2019-10-25T12:59:42.306Z\n"
+"Language: tg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Maps"
 msgstr ""
@@ -18,31 +25,31 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr ""
+msgstr "Маҷмӯи аломатҳои шартӣ"
 
 msgid "Automatic"
-msgstr ""
+msgstr "Худкор"
 
 msgid "Predefined"
-msgstr ""
+msgstr "Пешакӣ муайяншуда"
 
 msgid "Data element group"
-msgstr ""
+msgstr "Гурӯҳи унсурҳои иттилоот"
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "Унсури иттилоот"
 
 msgid "Totals"
-msgstr ""
+msgstr "Ҳамагӣ"
 
 msgid "Details"
-msgstr ""
+msgstr "Маълумоти муфассал"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ҳа"
 
 msgid "Event location"
 msgstr ""
@@ -51,7 +58,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr ""
+msgstr "Ягонто"
 
 msgid "Data item"
 msgstr ""
@@ -63,31 +70,31 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "Маҷмӯи иттилоот"
 
 msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "Қимат"
 
 msgid "Legend"
-msgstr ""
+msgstr "Маҷмӯи аломатҳои шартӣ"
 
 msgid "Range"
 msgstr ""
 
 msgid "Level"
-msgstr ""
+msgstr "Сатҳ"
 
 msgid "Parent"
 msgstr ""
 
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 msgid "Type"
-msgstr ""
+msgstr "Навъ"
 
 msgid "Color"
 msgstr ""
@@ -99,10 +106,10 @@ msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr ""
+msgstr "Андоза"
 
 msgid "Download"
-msgstr ""
+msgstr "Боргирӣ"
 
 msgid "Download map"
 msgstr ""
@@ -113,29 +120,30 @@ msgstr ""
 msgid "Show legend"
 msgstr ""
 
-msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Бекор кардан"
 
 msgid "Close"
-msgstr ""
+msgstr "Пӯшидан"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "Сол"
 
 msgid "Period"
-msgstr ""
+msgstr "Давра"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "воҳидҳои сохторӣ"
 
 msgid "Style"
-msgstr ""
+msgstr "Услуб"
 
 msgid "Labels"
 msgstr ""
@@ -153,7 +161,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "Ин майдон ҳатмист"
 
 msgid "Valid range is"
 msgstr ""
@@ -165,19 +173,19 @@ msgid "period"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "воҳидҳои сохторӣ"
 
 msgid "Filter"
-msgstr ""
+msgstr "Филтр"
 
 msgid "Start date"
-msgstr ""
+msgstr "Санаи оғоз"
 
 msgid "End date"
-msgstr ""
+msgstr "Санаи анҷом"
 
 msgid "Events"
-msgstr ""
+msgstr "Рӯйдодҳо"
 
 msgid "Group events"
 msgstr ""
@@ -207,9 +215,10 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr ""
+msgstr "Маҷмӯи гурӯҳҳо"
 
-msgid "Remember to select the organisation unit level containing the facilities."
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -236,13 +245,15 @@ msgstr ""
 msgid "Follow up"
 msgstr ""
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "WARNING"
 msgstr ""
 
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
@@ -296,14 +307,17 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Period type is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "Индикатор"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "Зудии ҳисоботдиҳӣ"
 
 msgid "Event data items"
 msgstr ""
@@ -321,7 +335,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Навъи муносибат"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -345,10 +359,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Оператор"
 
 msgid "Date"
-msgstr ""
+msgstr "Сана"
 
 msgid "one of"
 msgstr ""
@@ -363,7 +377,7 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr ""
+msgstr "мебошад"
 
 msgid "is not"
 msgstr ""
@@ -372,10 +386,10 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Гурӯҳи индикаторҳо"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "Тафсирҳо"
 
 msgid "Basemap"
 msgstr ""
@@ -416,10 +430,10 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Filters"
-msgstr ""
+msgstr "Филтрҳо"
 
 msgid "Edit"
-msgstr ""
+msgstr "Таҳрир"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -431,7 +445,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr ""
+msgstr "Ҷадвали иттилоот"
 
 msgid "Open as chart"
 msgstr ""
@@ -440,13 +454,13 @@ msgid "Download data"
 msgstr ""
 
 msgid "Edit layer"
-msgstr ""
+msgstr "Таҳрири қабат"
 
 msgid "Remove layer"
 msgstr ""
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Воҳиди болоӣ"
 
 msgid "Drill up one level"
 msgstr ""
@@ -455,7 +469,7 @@ msgid "Drill down one level"
 msgstr ""
 
 msgid "Show information"
-msgstr ""
+msgstr "Нишон додани маълумот"
 
 msgid "Show longitude/latitude"
 msgstr ""
@@ -464,34 +478,25 @@ msgid "Swap longitude/latitude"
 msgstr ""
 
 msgid "Relocate"
-msgstr ""
+msgstr "Кӯчонидан"
 
 msgid "Not set"
-msgstr ""
+msgstr "Таъин нашудааст"
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Воҳиди сохторӣ"
 
 msgid "Event time"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
-
-msgid "Longitude"
-msgstr ""
-
-msgid "Latitude"
-msgstr ""
+msgstr "Гурӯҳҳо"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr ""
-
 msgid "Last updated"
-msgstr ""
+msgstr "Навсозии охирин"
 
 msgid "Open as map"
 msgstr ""
@@ -509,10 +514,10 @@ msgid "Proceed"
 msgstr ""
 
 msgid "Options"
-msgstr ""
+msgstr "Имконот"
 
 msgid "Code"
-msgstr ""
+msgstr "Рамз"
 
 msgid "No data found for this period."
 msgstr ""
@@ -548,13 +553,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "Соли навбатӣ"
 
 msgid "Relative"
-msgstr ""
+msgstr "Нисбӣ"
 
 msgid "Period type"
-msgstr ""
+msgstr "Навъи давара"
 
 msgid "Only one timeline is allowed."
 msgstr ""
@@ -563,13 +568,13 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Идоракунии индикатори барнома"
 
 msgid "No program"
-msgstr ""
+msgstr "Ягон барнома нест"
 
 msgid "Program"
-msgstr ""
+msgstr "Барнома"
 
 msgid "Stage"
 msgstr ""
@@ -583,7 +588,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Хатогӣ"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -597,20 +602,14 @@ msgstr ""
 msgid "Boundaries"
 msgstr ""
 
-msgid "Alert"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Access denied"
-msgstr ""
+msgstr "Дастрасӣ рад шуд"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "Иҷро нашуд"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
@@ -619,7 +618,7 @@ msgid "Event"
 msgstr ""
 
 msgid "No data found"
-msgstr ""
+msgstr "Ягон иттилоот ёфт нашуд"
 
 msgid "Facilities"
 msgstr ""
@@ -646,7 +645,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "Не"
 
 msgid "Map could not be created"
 msgstr ""

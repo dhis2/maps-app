@@ -34,7 +34,7 @@ class ThematicLayer extends Layer {
             labelFontWeight,
             labelFontColor,
             valuesByPeriod,
-            renderingStrategy,
+            renderingStrategy = 'SINGLE',
         } = this.props;
         const { period } = this.state;
         let periodData = data;

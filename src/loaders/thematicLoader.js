@@ -19,6 +19,11 @@ import {
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
+import {
+    DEFAULT_RADIUS_LOW,
+    DEFAULT_RADIUS_HIGH,
+    CLASSIFICATION_PREDEFINED,
+} from '../constants/layers';
 
 const thematicLoader = async config => {
     let error;
@@ -45,11 +50,11 @@ const thematicLoader = async config => {
     const {
         columns,
         rows,
-        radiusLow,
-        radiusHigh,
+        radiusLow = DEFAULT_RADIUS_LOW,
+        radiusHigh = DEFAULT_RADIUS_HIGH,
         classes,
         colorScale,
-        renderingStrategy,
+        renderingStrategy = 'SINGLE',
     } = config;
 
     const isSingle = renderingStrategy === 'SINGLE';
@@ -68,7 +73,7 @@ const thematicLoader = async config => {
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
     let legendSet = config.legendSet;
-    let method = legendSet ? 1 : config.method; // Favorites often have wrong method
+    let method = legendSet ? CLASSIFICATION_PREDEFINED : config.method; // Favorites often have wrong method
     let alert;
 
     if (legendSet) {
@@ -107,6 +112,11 @@ const thematicLoader = async config => {
 
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
+    const getRadiusForValue = value =>
+        ((value - minValue) / (maxValue - minValue)) *
+            (radiusHigh - radiusLow) +
+        radiusLow;
+
     if (!valueFeatures.length) {
         if (!features.length) {
             const orgUnits = getOrgUnitsFromRows(rows);
@@ -128,33 +138,31 @@ const thematicLoader = async config => {
             const orgUnits = Object.keys(valuesByPeriod[period]);
             orgUnits.forEach(orgunit => {
                 const item = valuesByPeriod[period][orgunit];
-                const legend = getLegendItem(Number(item.value));
+                const value = Number(item.value);
+                const legend = getLegendItem(value);
+
                 item.color = legend ? legend.color : '#888';
+                item.radius = getRadiusForValue(value);
             });
         });
-    }
+    } else {
+        valueFeatures.forEach(({ id, geometry, properties }) => {
+            const value = valueById[id];
+            const item = getLegendItem(value);
 
-    valueFeatures.forEach(({ id, geometry, properties }) => {
-        const value = valueById[id];
-        const item = getLegendItem(value);
-
-        // A predefined legend can have a shorter range
-        if (item) {
-            if (isSingle) {
+            // A predefined legend can have a shorter range
+            if (item) {
                 item.count++;
+                properties.color = item.color;
+                properties.legend = item.name; // Shown in data table
+                properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
             }
-            properties.color = item.color;
-            properties.legend = item.name; // Shown in data table
-            properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
-        }
 
-        properties.value = value;
-        properties.radius =
-            ((value - minValue) / (maxValue - minValue)) *
-                (radiusHigh - radiusLow) +
-            radiusLow;
-        properties.type = geometry.type; // Shown in data table
-    });
+            properties.value = value;
+            properties.radius = getRadiusForValue(value);
+            properties.type = geometry.type; // Shown in data table
+        });
+    }
 
     return {
         ...config,
@@ -237,7 +245,7 @@ const loadData = async config => {
         valueType,
         relativePeriodDate,
         aggregationType,
-        renderingStrategy,
+        renderingStrategy = 'SINGLE',
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);

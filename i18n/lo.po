@@ -1,15 +1,22 @@
+# Translators:
+# Viktor Varland <viktor@dhis2.org>, 2019
+# phil_dhis2, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: phil_dhis2, 2019\n"
+"Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-10-25T12:59:42.306Z\n"
-"PO-Revision-Date: 2019-10-25T12:59:42.306Z\n"
+"Language: lo\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "ແຜນທີ່"
 
 msgid "Classification"
 msgstr ""
@@ -18,31 +25,31 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr ""
+msgstr "ກໍານົດຄວາມໝາຍ"
 
 msgid "Automatic"
-msgstr ""
+msgstr "ອັດຕະໂນມັດ"
 
 msgid "Predefined"
-msgstr ""
+msgstr "ແບບເລືອກ"
 
 msgid "Data element group"
-msgstr ""
+msgstr "ກຸ່ມຂອລອົງປະກອບຂໍ້ມູນ"
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "Data Element"
 
 msgid "Totals"
-msgstr ""
+msgstr "ລວມທັງໝົດ"
 
 msgid "Details"
-msgstr ""
+msgstr "ລາຍລະອຽດ"
 
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 msgid "Event location"
 msgstr ""
@@ -51,7 +58,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr ""
+msgstr "ບໍ່ມີ"
 
 msgid "Data item"
 msgstr ""
@@ -63,31 +70,31 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "ແບບຟອມ"
 
 msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "Value"
 
 msgid "Legend"
-msgstr ""
+msgstr "ຫວ່າງຂໍ້ມູນ"
 
 msgid "Range"
-msgstr ""
+msgstr "ຂອບເຂດ"
 
 msgid "Level"
-msgstr ""
+msgstr "ຂັ້ນ"
 
 msgid "Parent"
 msgstr ""
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 msgid "Color"
 msgstr ""
@@ -99,10 +106,10 @@ msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr ""
+msgstr "ມິຕິ"
 
 msgid "Download"
-msgstr ""
+msgstr "ດາວໂຫຼດ"
 
 msgid "Download map"
 msgstr ""
@@ -113,29 +120,30 @@ msgstr ""
 msgid "Show legend"
 msgstr ""
 
-msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 msgid "Close"
-msgstr ""
+msgstr "ປິດ"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "ປີ"
 
 msgid "Period"
-msgstr ""
+msgstr "ໄລຍະ ເວລາ"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "ໂຄງຮ່າງການຈັດຕັ້ງ"
 
 msgid "Style"
-msgstr ""
+msgstr "ແບບ"
 
 msgid "Labels"
 msgstr ""
@@ -153,7 +161,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "This field is required"
 
 msgid "Valid range is"
 msgstr ""
@@ -165,19 +173,19 @@ msgid "period"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 msgid "Start date"
-msgstr ""
+msgstr "ວັນທີເລີ່ມຕົ້ນ"
 
 msgid "End date"
-msgstr ""
+msgstr "ວັນທີສຸດທ້າຍ"
 
 msgid "Events"
-msgstr ""
+msgstr "ເຫດການ"
 
 msgid "Group events"
 msgstr ""
@@ -207,9 +215,10 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr ""
+msgstr "ກຸ່ມຂອງກຸ່ມ"
 
-msgid "Remember to select the organisation unit level containing the facilities."
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -228,31 +237,33 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "relationships"
-msgstr ""
+msgstr "ສາຍພົວພັນ"
 
 msgid "Program status"
-msgstr ""
+msgstr "ສະຖານະຂອງສາຍງານ"
 
 msgid "Follow up"
-msgstr ""
+msgstr "ຕິດຕາມ"
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "WARNING"
 msgstr ""
 
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
 msgid "Selection mode"
-msgstr ""
+msgstr "ເລືອກຮູບແບບ"
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "ຂໍ້ມູນບົ່ງບອກເອກະລັກທີ່ຖືກຕິດຕາມ"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -267,13 +278,13 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "ປະເພດຕົວເລກລວມ"
 
 msgid "Low size"
 msgstr ""
 
 msgid "High size"
-msgstr ""
+msgstr "ຂະໜາດໃຫ່ຍ"
 
 msgid "Indicator group is required"
 msgstr ""
@@ -296,20 +307,23 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Period type is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "ຕົວຊີ້ວັດ"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "ອັດຕາການລາຍງານ"
 
 msgid "Event data items"
-msgstr ""
+msgstr "ຂໍ້ມູນລາຍບຸກຄົນ"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "ຕົວຊີ້ວັດສະເພາະວຽກຂອງຂະແໜງ"
 
 msgid "Item type"
 msgstr ""
@@ -321,7 +335,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Relationship type"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -345,10 +359,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Operator"
 
 msgid "Date"
-msgstr ""
+msgstr "ວັນທີ່"
 
 msgid "one of"
 msgstr ""
@@ -363,7 +377,7 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr ""
+msgstr "is"
 
 msgid "is not"
 msgstr ""
@@ -372,19 +386,19 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "ກຸ່ມຂອງຕົວຊີ້ວັດ"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "ການແປຂໍ້ມູນ"
 
 msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "ຫຍໍ້"
 
 msgid "Expand"
-msgstr ""
+msgstr "ຂະຫຍາຍ"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -410,16 +424,16 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "ລົບແລ້ວ"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Filters"
-msgstr ""
+msgstr "ກັ່ນຕອງ"
 
 msgid "Edit"
-msgstr ""
+msgstr "ແກ້ໄຂ"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -431,16 +445,16 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr ""
+msgstr "ຂໍ້ມູນແບບຕາຕະລາງ"
 
 msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr ""
+msgstr "ດາວໂຫລດຂໍ້ມູນ"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "ເລືອກຂໍ້ມູນ"
 
 msgid "Remove layer"
 msgstr ""
@@ -449,13 +463,13 @@ msgid "Parent unit"
 msgstr ""
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "ຂື້ນໄປ 1 ຊັ້ນຂໍ້ມູນ"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "ລົງໄປ 1 ຊັ້ນຂໍ້ມູນ"
 
 msgid "Show information"
-msgstr ""
+msgstr "ສະແດງຂໍ້ມູນ"
 
 msgid "Show longitude/latitude"
 msgstr ""
@@ -467,31 +481,22 @@ msgid "Relocate"
 msgstr ""
 
 msgid "Not set"
-msgstr ""
+msgstr "Not set"
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
 msgid "Event time"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
-
-msgid "Longitude"
-msgstr ""
-
-msgid "Latitude"
-msgstr ""
+msgstr "ກຸ່ມ"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr ""
-
 msgid "Last updated"
-msgstr ""
+msgstr "ປັບປຸງ​ຄັ້ງຫລ້າສຸດ"
 
 msgid "Open as map"
 msgstr ""
@@ -506,22 +511,22 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "ດຳເນີນ"
 
 msgid "Options"
-msgstr ""
+msgstr "ຈັດການ"
 
 msgid "Code"
-msgstr ""
+msgstr "ລະຫັດ"
 
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
+msgstr "ເລືອກກຸ່ມ"
 
 msgid "Select levels"
-msgstr ""
+msgstr "ເລືອກລຳດັບ"
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
@@ -536,7 +541,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "in"
 
 msgid "in and right below"
 msgstr ""
@@ -548,13 +553,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "ປີຕໍ່ໄປ"
 
 msgid "Relative"
-msgstr ""
+msgstr "Relative"
 
 msgid "Period type"
-msgstr ""
+msgstr "ແບບຊ່ວງເວລາ"
 
 msgid "Only one timeline is allowed."
 msgstr ""
@@ -563,16 +568,16 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Program Indicator Management"
 
 msgid "No program"
-msgstr ""
+msgstr "No program"
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Stage"
-msgstr ""
+msgstr "ຍະຫວ່າງ"
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -583,7 +588,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "ເກີດການຜິດພາດ"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -597,29 +602,23 @@ msgstr ""
 msgid "Boundaries"
 msgstr ""
 
-msgid "Alert"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Access denied"
-msgstr ""
+msgstr "ການເຂົ້າສູ່ລະບົບຖືກປະຕິເສດ"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "Failed"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "ເຫດການ"
 
 msgid "No data found"
-msgstr ""
+msgstr "No data found"
 
 msgid "Facilities"
 msgstr ""
@@ -631,7 +630,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Tracked Entity"
 
 msgid "No tracked entities found"
 msgstr ""
@@ -646,7 +645,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "No"
 
 msgid "Map could not be created"
 msgstr ""

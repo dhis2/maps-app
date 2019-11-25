@@ -1,15 +1,22 @@
+# Translators:
+# phil_dhis2, 2019
+# Viktor Varland <viktor@dhis2.org>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2019\n"
+"Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-10-25T12:59:42.306Z\n"
-"PO-Revision-Date: 2019-10-25T12:59:42.306Z\n"
+"Language: ur\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "نقسے"
 
 msgid "Classification"
 msgstr ""
@@ -18,79 +25,79 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr ""
+msgstr "علامات سیٹ"
 
 msgid "Automatic"
-msgstr ""
+msgstr "خود کار طریقے سے"
 
 msgid "Predefined"
-msgstr ""
+msgstr "پیش وضاحتی"
 
 msgid "Data element group"
-msgstr ""
+msgstr "ڈیٹا عناصر گروپ"
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "ڈیٹا عنصر"
 
 msgid "Totals"
-msgstr ""
+msgstr "مجموعی طور پر"
 
 msgid "Details"
-msgstr ""
+msgstr "تفصیلات"
 
 msgid "Yes"
-msgstr ""
+msgstr "ہاں"
 
 msgid "Event location"
-msgstr ""
+msgstr "واقعہ کا مقام"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "سماج فیلڈ"
 
 msgid "None"
-msgstr ""
+msgstr "کوئی نہں"
 
 msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "واقعہ کے اعداد و شمار کے آئٹم"
 
 msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "ڈیٹا سیٹ"
 
 msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "قدر"
 
 msgid "Legend"
-msgstr ""
+msgstr "علامات"
 
 msgid "Range"
-msgstr ""
+msgstr "رینج"
 
 msgid "Level"
-msgstr ""
+msgstr "سطح"
 
 msgid "Parent"
 msgstr ""
 
 msgid "Id"
-msgstr ""
+msgstr "آئی ڈی"
 
 msgid "Type"
-msgstr ""
+msgstr "ٹائپ"
 
 msgid "Color"
-msgstr ""
+msgstr "رنگ"
 
 msgid "Add filter"
 msgstr ""
@@ -102,7 +109,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr ""
+msgstr "ڈاؤن لوڈ کریں"
 
 msgid "Download map"
 msgstr ""
@@ -113,47 +120,48 @@ msgstr ""
 msgid "Show legend"
 msgstr ""
 
-msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "منسوخ"
 
 msgid "Close"
-msgstr ""
+msgstr "بند"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "سال"
 
 msgid "Period"
-msgstr ""
+msgstr "مدت"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "تنظیمی یونٹس"
 
 msgid "Style"
-msgstr ""
+msgstr "سٹائل"
 
 msgid "Labels"
-msgstr ""
+msgstr "لیبل"
 
 msgid "Point radius"
-msgstr ""
+msgstr "پوائنٹ ریڈیو"
 
 msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Steps"
-msgstr ""
+msgstr "مرحلے"
 
 msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr ""
+msgstr "اس کو پر کرنا ضروری ہے"
 
 msgid "Valid range is"
 msgstr ""
@@ -168,16 +176,16 @@ msgid "Org units"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "فلٹر"
 
 msgid "Start date"
-msgstr ""
+msgstr "تاریخ آغاز"
 
 msgid "End date"
-msgstr ""
+msgstr "آخری تاریخ"
 
 msgid "Events"
-msgstr ""
+msgstr "تقریبات"
 
 msgid "Group events"
 msgstr ""
@@ -207,9 +215,10 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr ""
+msgstr "گروپ سیٹ"
 
-msgid "Remember to select the organisation unit level containing the facilities."
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -231,25 +240,27 @@ msgid "relationships"
 msgstr ""
 
 msgid "Program status"
-msgstr ""
+msgstr "پروگرام کی حیثیت"
 
 msgid "Follow up"
 msgstr ""
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "WARNING"
 msgstr ""
 
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
 msgid "Selection mode"
-msgstr ""
+msgstr "انتخاب کے موڈ"
 
 msgid "Tracked entities"
 msgstr ""
@@ -267,13 +278,13 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "مجموعی قسم"
 
 msgid "Low size"
-msgstr ""
+msgstr "کم سائز"
 
 msgid "High size"
-msgstr ""
+msgstr "اعلی سائز"
 
 msgid "Indicator group is required"
 msgstr ""
@@ -296,23 +307,26 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Period type is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "اشارے"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "رپورٹنگ کی شرح"
 
 msgid "Event data items"
-msgstr ""
+msgstr "واقعہ کے اعداد و شمار کی اشیاء"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "پروگرام اشارے"
 
 msgid "Item type"
-msgstr ""
+msgstr "چیز کی قسم"
 
 msgid "Failed to load relationship types."
 msgstr ""
@@ -321,7 +335,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
+msgstr "رشتہ کی قسم"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -345,10 +359,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "آپریٹر"
 
 msgid "Date"
-msgstr ""
+msgstr "تاریخ"
 
 msgid "one of"
 msgstr ""
@@ -363,7 +377,7 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr ""
+msgstr "ہے"
 
 msgid "is not"
 msgstr ""
@@ -372,19 +386,19 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "اشاروں کا گروپ"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "تشریحات"
 
 msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "گرنے"
 
 msgid "Expand"
-msgstr ""
+msgstr "توسیع کریں"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -410,16 +424,16 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "حذف کر دیا گیا"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Filters"
-msgstr ""
+msgstr "فلٹرز"
 
 msgid "Edit"
-msgstr ""
+msgstr "ترمیم"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -431,67 +445,58 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr ""
+msgstr "ڈیٹا ٹیبل"
 
 msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr ""
+msgstr "ڈیٹا ڈاؤن لوڈ کریں"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "ترمیم پرت"
 
 msgid "Remove layer"
 msgstr ""
 
 msgid "Parent unit"
-msgstr ""
+msgstr "والدین یونٹ"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "ایک سطح کو ڈرائیں"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "ایک سطح کو نیچے ڈالو"
 
 msgid "Show information"
-msgstr ""
+msgstr "معلومات دکھائیں"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "طول و عرض / طول و عرض دکھائیں"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "طول و عرض / طول و عرض کو تبدیل کریں"
 
 msgid "Relocate"
-msgstr ""
+msgstr "رہائشی"
 
 msgid "Not set"
-msgstr ""
+msgstr "سیٹ نہیں ہے"
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "تنظیم یونٹ"
 
 msgid "Event time"
-msgstr ""
+msgstr "واقعہ کا وقت"
 
 msgid "Groups"
-msgstr ""
-
-msgid "Longitude"
-msgstr ""
-
-msgid "Latitude"
-msgstr ""
+msgstr "گروپ"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr ""
-
 msgid "Last updated"
-msgstr ""
+msgstr "آخری اپ ڈیٹ"
 
 msgid "Open as map"
 msgstr ""
@@ -506,22 +511,22 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "آگے بڑھو"
 
 msgid "Options"
-msgstr ""
+msgstr "اختیارات"
 
 msgid "Code"
-msgstr ""
+msgstr "کوڈ"
 
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
+msgstr "گروپ منتخب کریں"
 
 msgid "Select levels"
-msgstr ""
+msgstr "سطحوں کا انتخاب کریں"
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
@@ -536,7 +541,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "اندر"
 
 msgid "in and right below"
 msgstr ""
@@ -548,13 +553,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "اگلے سال"
 
 msgid "Relative"
-msgstr ""
+msgstr "متابقت"
 
 msgid "Period type"
-msgstr ""
+msgstr "مدت کی قسم"
 
 msgid "Only one timeline is allowed."
 msgstr ""
@@ -563,16 +568,16 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "پروگرام کا اشارہ"
 
 msgid "No program"
-msgstr ""
+msgstr "کوئی پروگرام نہیں"
 
 msgid "Program"
-msgstr ""
+msgstr "پروگرام"
 
 msgid "Stage"
-msgstr ""
+msgstr "اسٹیج"
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -583,7 +588,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "غلطی"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -597,29 +602,23 @@ msgstr ""
 msgid "Boundaries"
 msgstr ""
 
-msgid "Alert"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Access denied"
-msgstr ""
+msgstr "رسائی مسترد"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "ناکام"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "تقریب"
 
 msgid "No data found"
-msgstr ""
+msgstr "کوئی ڈیٹا نہیں ملا"
 
 msgid "Facilities"
 msgstr ""
@@ -631,7 +630,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "ٹریک شدہ ادارے"
 
 msgid "No tracked entities found"
 msgstr ""
@@ -646,7 +645,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "نہیں"
 
 msgid "Map could not be created"
 msgstr ""

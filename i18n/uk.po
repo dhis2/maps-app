@@ -1,15 +1,22 @@
+# Translators:
+# Viktor Varland <viktor@dhis2.org>, 2019
+# phil_dhis2, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-07-22T12:26:05.092Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: phil_dhis2, 2019\n"
+"Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-10-25T12:59:42.306Z\n"
-"PO-Revision-Date: 2019-10-25T12:59:42.306Z\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "Maps"
 
 msgid "Classification"
 msgstr ""
@@ -18,7 +25,7 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr ""
+msgstr "Набір умовних позначень"
 
 msgid "Automatic"
 msgstr ""
@@ -27,22 +34,22 @@ msgid "Predefined"
 msgstr ""
 
 msgid "Data element group"
-msgstr ""
+msgstr "Група елементів даних"
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "Елемент даних"
 
 msgid "Totals"
-msgstr ""
+msgstr "Підсумки"
 
 msgid "Details"
-msgstr ""
+msgstr "Деталі"
 
 msgid "Yes"
-msgstr ""
+msgstr "Так"
 
 msgid "Event location"
 msgstr ""
@@ -51,7 +58,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr ""
+msgstr "Жодного"
 
 msgid "Data item"
 msgstr ""
@@ -63,19 +70,19 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "Набір даних"
 
 msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr ""
+msgstr "Значення"
 
 msgid "Legend"
-msgstr ""
+msgstr "Умовні позначення"
 
 msgid "Range"
-msgstr ""
+msgstr "Проміжок"
 
 msgid "Level"
 msgstr ""
@@ -87,7 +94,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 msgid "Color"
 msgstr ""
@@ -102,7 +109,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr ""
+msgstr "Завантажити"
 
 msgid "Download map"
 msgstr ""
@@ -113,29 +120,30 @@ msgstr ""
 msgid "Show legend"
 msgstr ""
 
-msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Скасувати"
 
 msgid "Close"
-msgstr ""
+msgstr "Закрити"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "Рік"
 
 msgid "Period"
-msgstr ""
+msgstr "Період"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "Організаційні підрозділи"
 
 msgid "Style"
-msgstr ""
+msgstr "Стиль"
 
 msgid "Labels"
 msgstr ""
@@ -168,16 +176,16 @@ msgid "Org units"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "Фільтр"
 
 msgid "Start date"
-msgstr ""
+msgstr "Початкова дата"
 
 msgid "End date"
-msgstr ""
+msgstr "Кінцева дата"
 
 msgid "Events"
-msgstr ""
+msgstr "Події"
 
 msgid "Group events"
 msgstr ""
@@ -209,7 +217,8 @@ msgstr ""
 msgid "Group set"
 msgstr ""
 
-msgid "Remember to select the organisation unit level containing the facilities."
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -231,18 +240,20 @@ msgid "relationships"
 msgstr ""
 
 msgid "Program status"
-msgstr ""
+msgstr "Статус програми"
 
 msgid "Follow up"
 msgstr ""
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "WARNING"
 msgstr ""
 
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
@@ -267,7 +278,7 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Тип агрегації"
 
 msgid "Low size"
 msgstr ""
@@ -296,20 +307,23 @@ msgstr ""
 msgid "Program indicator is required"
 msgstr ""
 
+msgid "Period type is required"
+msgstr ""
+
 msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "Показник"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "Частота повідомлень"
 
 msgid "Event data items"
-msgstr ""
+msgstr "Складові дані події"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Програмні показники"
 
 msgid "Item type"
 msgstr ""
@@ -321,7 +335,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Тип зв'язку"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -345,10 +359,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Оператор"
 
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 msgid "one of"
 msgstr ""
@@ -372,19 +386,19 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Група показників"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "Інтерпретації"
 
 msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "Згорнути"
 
 msgid "Expand"
-msgstr ""
+msgstr "Розгорнути"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -410,7 +424,7 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "видалено"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
@@ -419,7 +433,7 @@ msgid "Filters"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Редагувати"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -437,7 +451,7 @@ msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr ""
+msgstr "Завантажити дані"
 
 msgid "Edit layer"
 msgstr ""
@@ -467,10 +481,10 @@ msgid "Relocate"
 msgstr ""
 
 msgid "Not set"
-msgstr ""
+msgstr "Не встановлено"
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Організаційний підрозділ"
 
 msgid "Event time"
 msgstr ""
@@ -478,20 +492,11 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
-msgid "Longitude"
-msgstr ""
-
-msgid "Latitude"
-msgstr ""
-
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr ""
-
 msgid "Last updated"
-msgstr ""
+msgstr "Останнє оновлення"
 
 msgid "Open as map"
 msgstr ""
@@ -509,10 +514,10 @@ msgid "Proceed"
 msgstr ""
 
 msgid "Options"
-msgstr ""
+msgstr "Опції"
 
 msgid "Code"
-msgstr ""
+msgstr "Код"
 
 msgid "No data found for this period."
 msgstr ""
@@ -548,10 +553,10 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "Наступний рік"
 
 msgid "Relative"
-msgstr ""
+msgstr "Родич"
 
 msgid "Period type"
 msgstr ""
@@ -563,13 +568,13 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Program indicator"
 
 msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Stage"
 msgstr ""
@@ -583,7 +588,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Помилка"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -597,14 +602,8 @@ msgstr ""
 msgid "Boundaries"
 msgstr ""
 
-msgid "Alert"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Access denied"
-msgstr ""
+msgstr "У доступі відмовлено"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
@@ -616,10 +615,10 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "Подія"
 
 msgid "No data found"
-msgstr ""
+msgstr "Даних не знайдено"
 
 msgid "Facilities"
 msgstr ""
@@ -631,7 +630,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Відстежуване явище"
 
 msgid "No tracked entities found"
 msgstr ""
@@ -646,7 +645,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "Ні"
 
 msgid "Map could not be created"
 msgstr ""

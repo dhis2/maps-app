@@ -36,6 +36,8 @@ import {
     DEFAULT_START_DATE,
     DEFAULT_END_DATE,
     DEFAULT_ORG_UNIT_LEVEL,
+    DEFAULT_RADIUS_LOW,
+    DEFAULT_RADIUS_HIGH,
 } from '../../../constants/layers';
 
 import {
@@ -188,6 +190,7 @@ export class ThematicDialog extends Component {
             setEndDate(DEFAULT_END_DATE);
         }
 
+        // Set default org unit level
         if (!getOrgUnitLevelsFromRows(rows).length) {
             setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
         }
@@ -201,7 +204,7 @@ export class ThematicDialog extends Component {
             onLayerValidation,
         } = this.props;
 
-        if (rows) {
+        if (rows !== prev.rows) {
             const orgUnits = getOrgUnitNodesFromRows(rows);
 
             // Load organisation unit tree path (temporary solution, as favorites don't include paths)
@@ -234,8 +237,8 @@ export class ThematicDialog extends Component {
             startDate,
             endDate,
             program,
-            radiusHigh,
-            radiusLow,
+            radiusLow = DEFAULT_RADIUS_LOW,
+            radiusHigh = DEFAULT_RADIUS_HIGH,
             rows,
             valueType,
         } = this.props;
@@ -569,11 +572,7 @@ export class ThematicDialog extends Component {
                                         id="lowsize"
                                         type="number"
                                         label={i18n.t('Low size')}
-                                        value={
-                                            radiusLow !== undefined
-                                                ? radiusLow
-                                                : 5
-                                        }
+                                        value={radiusLow}
                                         onChange={radius =>
                                             setRadiusLow(radius)
                                         }
@@ -586,11 +585,7 @@ export class ThematicDialog extends Component {
                                         id="highsize"
                                         type="number"
                                         label={i18n.t('High size')}
-                                        value={
-                                            radiusHigh !== undefined
-                                                ? radiusHigh
-                                                : 15
-                                        }
+                                        value={radiusHigh}
                                         onChange={radius =>
                                             setRadiusHigh(radius)
                                         }
