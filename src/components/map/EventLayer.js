@@ -24,6 +24,8 @@ class EventLayer extends Layer {
             eventClustering,
             eventPointColor,
             eventPointRadius,
+            program,
+            programStage,
             serverCluster,
             areaRadius,
         } = this.props;
@@ -90,7 +92,9 @@ class EventLayer extends Layer {
             };
         }
 
-        this.loadDisplayElements();
+        if (program && programStage) {
+            this.loadDisplayElements();
+        }
 
         // Create and add event layer based on config object
         this.layer = map.createLayer(config);

@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import './Popup.css';
 
-// Displ
 const Popup = (props, context) => {
     const { className = '', coordinates, onClose, children } = props;
     const { map } = context;
