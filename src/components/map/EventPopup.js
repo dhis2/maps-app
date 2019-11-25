@@ -144,15 +144,33 @@ const EventPopup = props => {
 
     // Load data elements every time programStage is changed
     useEffect(() => {
-        loadDataElements(programStage, eventCoordinateField).then(
-            setDataElements
-        );
-    }, [programStage]);
+        let aborted = false;
+
+        loadDataElements(programStage, eventCoordinateField).then(data => {
+            if (!aborted) {
+                setDataElements(data);
+            }
+        });
+
+        return () => {
+            aborted = true;
+        };
+    }, [programStage, eventCoordinateField, setDataElements]);
 
     // Load event data every time a new feature is clicked
     useEffect(() => {
-        loadEventData(feature).then(setEventData);
-    }, [feature]);
+        let aborted = false;
+
+        loadEventData(feature).then(data => {
+            if (!aborted) {
+                setEventData(data);
+            }
+        });
+
+        return () => {
+            aborted = true;
+        };
+    }, [feature, setEventData]);
 
     if (!coordinates || !feature || !eventData) {
         return null;
