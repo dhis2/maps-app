@@ -12,7 +12,9 @@ const Popup = (props, context) => {
     useEffect(() => {
         container.className = className;
         map.openPopup(container, coordinates, onClose);
-        return () => map.closePopup();
+        return () => {
+            map.closePopup();
+        };
     }, [map, container, className, coordinates, onClose]);
 
     return createPortal(children, container);

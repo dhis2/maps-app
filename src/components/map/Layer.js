@@ -149,7 +149,13 @@ class Layer extends PureComponent {
         return null;
     }
 
-    onPopupClose = () => this.setState({ popup: null });
+    // Called when a map popup is closed
+    onPopupClose = popup => {
+        // Added check to avoid closing a new popup
+        if (!popup || this.state.popup === popup) {
+            this.setState({ popup: null });
+        }
+    };
 }
 
 export default Layer;

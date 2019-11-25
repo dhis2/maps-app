@@ -114,7 +114,7 @@ class ThematicLayer extends Layer {
         return (
             <Popup
                 coordinates={coordinates}
-                onClose={this.onPopupClose}
+                onClose={() => this.onPopupClose(popup)}
                 className="dhis2-map-popup-orgunit"
             >
                 <em>{name}</em>
