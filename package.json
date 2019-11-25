@@ -52,7 +52,7 @@
         "@dhis2/d2-ui-interpretations": "6.2.1",
         "@dhis2/d2-ui-org-unit-dialog": "5.2.10",
         "@dhis2/d2-ui-org-unit-tree": "5.2.10",
-        "@dhis2/gis-api": "^33.0.8",
+        "@dhis2/gis-api": "^34.0.1",
         "@dhis2/ui": "^1.0.0-beta.15",
         "@material-ui/core": "^3.9.3",
         "@material-ui/icons": "^3.0.2",
