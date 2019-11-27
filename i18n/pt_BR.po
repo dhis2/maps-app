@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2019-08-12T13:12:48.527Z\n"
+"POT-Creation-Date: 2019-11-20T13:55:02.205Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: phil_dhis2, 2019\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
@@ -535,6 +535,12 @@ msgid "Error"
 msgstr "Erro"
 
 msgid "Boundaries"
+msgstr ""
+
+msgid "Alert"
+msgstr ""
+
+msgid "No boundaries found"
 msgstr ""
 
 msgid "Access denied"
