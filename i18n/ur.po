@@ -489,6 +489,12 @@ msgstr "واقعہ کا وقت"
 msgid "Groups"
 msgstr "گروپ"
 
+msgid "Longitude"
+msgstr "لمبائی"
+
+msgid "Latitude"
+msgstr "طول"
+
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
