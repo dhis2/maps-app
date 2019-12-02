@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
@@ -54,11 +54,7 @@ class Map extends Component {
         map: PropTypes.object.isRequired,
     };
 
-    getChildContext() {
-        return {
-            map: this.map,
-        };
-    }
+    state = {};
 
     constructor(props, context) {
         super(props, context);
@@ -75,6 +71,14 @@ class Map extends Component {
         }
 
         this.map = map;
+
+        map.on('ready', this.onMapReady);
+    }
+
+    getChildContext() {
+        return {
+            map: this.map,
+        };
     }
 
     componentDidMount() {
@@ -107,6 +111,7 @@ class Map extends Component {
     // Remove map
     componentWillUnmount() {
         if (this.map) {
+            this.map.off('ready', this.onMapReady);
             this.map.remove();
             delete this.map;
         }
@@ -121,33 +126,40 @@ class Map extends Component {
             openContextMenu,
             classes,
         } = this.props;
+        const { map } = this.state;
 
         const overlays = layers.filter(layer => layer.isLoaded);
 
         return (
             <div ref={node => (this.node = node)} className={classes.root}>
-                {overlays.map((config, index) => {
-                    const Overlay = layerType[config.layer] || Layer;
+                {map && (
+                    <Fragment>
+                        {overlays.map((config, index) => {
+                            const Overlay = layerType[config.layer] || Layer;
 
-                    return (
-                        <Overlay
-                            key={config.id}
-                            index={overlays.length - index}
-                            openContextMenu={openContextMenu}
-                            {...config}
-                        />
-                    );
-                })}
-                {basemap.isVisible !== false && <Layer {...basemap} />}
-                {coordinates && (
-                    <Popup
-                        coordinates={coordinates}
-                        onClose={closeCoordinatePopup}
-                    >
-                        {i18n.t('Longitude')}: {coordinates[0].toFixed(6)}
-                        <br />
-                        {i18n.t('Latitude')}: {coordinates[1].toFixed(6)}
-                    </Popup>
+                            return (
+                                <Overlay
+                                    key={config.id}
+                                    index={overlays.length - index}
+                                    openContextMenu={openContextMenu}
+                                    {...config}
+                                />
+                            );
+                        })}
+                        {basemap.isVisible !== false && <Layer {...basemap} />}
+                        {coordinates && (
+                            <Popup
+                                coordinates={coordinates}
+                                onClose={closeCoordinatePopup}
+                            >
+                                {i18n.t('Longitude')}:{' '}
+                                {coordinates[0].toFixed(6)}
+                                <br />
+                                {i18n.t('Latitude')}:{' '}
+                                {coordinates[1].toFixed(6)}
+                            </Popup>
+                        )}
+                    </Fragment>
                 )}
             </div>
         );
@@ -156,6 +168,8 @@ class Map extends Component {
     onRightClick = evt => {
         this.props.openContextMenu(evt);
     };
+
+    onMapReady = map => this.setState({ map });
 }
 
 export default withStyles(styles)(Map);

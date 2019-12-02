@@ -27,11 +27,15 @@ class MapItem extends PureComponent {
         setMapControls: PropTypes.func.isRequired,
     };
 
+    state = {};
+
     constructor(props, context) {
         super(props, context);
         this.map = mapApi({
             attributionControl: false,
         });
+
+        this.map.on('ready', this.onMapReady);
     }
 
     getChildContext() {
@@ -63,6 +67,7 @@ class MapItem extends PureComponent {
     }
 
     componentWillUnmount() {
+        this.map.off('ready', this.onMapReady);
         this.map.unsync(this.props.layerId);
         this.map.remove();
         delete this.map;
@@ -70,10 +75,11 @@ class MapItem extends PureComponent {
 
     render() {
         const { children, classes } = this.props;
+        const { map } = this.state;
 
         return (
             <div ref={node => (this.node = node)} className={classes.item}>
-                {children}
+                {map && children}
             </div>
         );
     }
@@ -85,8 +91,12 @@ class MapItem extends PureComponent {
         const bounds = this.map.getLayersBounds();
         if (bounds) {
             this.map.fitBounds(bounds);
+        } else {
+            this.map.fitWorld();
         }
     }
+
+    onMapReady = map => this.setState({ map });
 }
 
 export default withStyles(styles)(MapItem);
