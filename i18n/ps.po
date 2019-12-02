@@ -489,6 +489,12 @@ msgstr "رویداد مهال"
 msgid "Groups"
 msgstr "ګروپونه"
 
+msgid "Longitude"
+msgstr "لانګېټيوډ"
+
+msgid "Latitude"
+msgstr "لېټېټيوډ"
+
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
