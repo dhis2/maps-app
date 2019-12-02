@@ -14,6 +14,9 @@ ID = "79053cdd-851c-479d-b6cd-1c6d77f679a3"
 
   # Default build command.
   command = "yarn install && yarn build:netlify"
+  
+  # TODO: Temporarily disable Netlify builds to get the build minutes under control
+  ignore = "exit 0"
 
 # /dhis-web-core-resource/react/16.2.0/umd/react.production.min.js            https://unpkg.com/react@16.5/umd/react.production.min.js
 # /dhis-web-core-resource/react-dom/16.2.0/umd/react-dom.production.min.js    https://unpkg.com/react-dom@16.5/umd/react-dom.production.min.js
