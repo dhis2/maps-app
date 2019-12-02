@@ -490,6 +490,12 @@ msgstr "Время события"
 msgid "Groups"
 msgstr "Группы"
 
+msgid "Longitude"
+msgstr "Долгота"
+
+msgid "Latitude"
+msgstr "Широта"
+
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Просмотр интерпретации с {{interpretationDate}}"
 
