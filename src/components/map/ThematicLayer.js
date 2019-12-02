@@ -15,11 +15,6 @@ import {
 } from '../../constants/layers';
 
 class ThematicLayer extends Layer {
-    state = {
-        period: null,
-        popup: null,
-    };
-
     createLayer() {
         const {
             id,
@@ -137,16 +132,16 @@ class ThematicLayer extends Layer {
 
         return (
             <Fragment>
-                {period && (
-                    <PeriodName period={period.name} isTimeline={true} />
-                )}
-                {renderingStrategy === 'TIMELINE' && (
-                    <Timeline
-                        periodId={id}
-                        period={period}
-                        periods={periods}
-                        onChange={this.onPeriodChange}
-                    />
+                {renderingStrategy === 'TIMELINE' && period && (
+                    <Fragment>
+                        <PeriodName period={period.name} isTimeline={true} />
+                        <Timeline
+                            periodId={id}
+                            period={period}
+                            periods={periods}
+                            onChange={this.onPeriodChange}
+                        />
+                    </Fragment>
                 )}
                 {popup && this.getPopup()}
             </Fragment>
