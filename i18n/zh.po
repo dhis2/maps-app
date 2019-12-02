@@ -489,6 +489,12 @@ msgstr ""
 msgid "Groups"
 msgstr "组"
 
+msgid "Longitude"
+msgstr "经度"
+
+msgid "Latitude"
+msgstr "纬度"
+
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
