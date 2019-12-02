@@ -1,16 +1,18 @@
-import i18n from '@dhis2/d2-i18n';
+import React from 'react';
 import { getInstance as getD2 } from 'd2';
-import { apiFetch } from '../../util/api';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
-import {
-    getDisplayPropertyUrl,
-    removeLineBreaks,
-    formatCoordinate,
-} from '../../util/helpers';
+import EventPopup from './EventPopup';
+import { getDisplayPropertyUrl } from '../../util/helpers';
 
 class EventLayer extends Layer {
+    state = {
+        popup: null,
+        dataElements: null,
+        eventCoordinateFieldName: null,
+    };
+
     createLayer() {
         const {
             id,
@@ -90,134 +92,40 @@ class EventLayer extends Layer {
             };
         }
 
+        if (program && programStage) {
+            this.loadDisplayElements();
+        }
+
         // Create and add event layer based on config object
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce();
-
-        if (program && programStage) {
-            this.loadDataElements();
-        }
     }
 
-    // Load data elements that should be displayed in popups
-    async loadDataElements() {
-        const props = this.props;
-        const d2 = await getD2();
-        const data = await d2.models.programStage.get(props.programStage.id, {
-            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
-                d2
-            )},optionSet,valueType]]`,
-            paging: false,
-        });
-
-        if (data.programStageDataElements) {
-            data.programStageDataElements.forEach(el => {
-                const dataElement = el.dataElement;
-
-                if (el.displayInReports) {
-                    this.displayElements[dataElement.id] = dataElement;
-
-                    if (dataElement.optionSet && dataElement.optionSet.id) {
-                        d2.models.optionSets
-                            .get(dataElement.optionSet.id, {
-                                fields:
-                                    'id,displayName~rename(name),options[code,displayName~rename(name)]',
-                                paging: false,
-                            })
-                            .then(optionSet => {
-                                optionSet.options.forEach(
-                                    option =>
-                                        (dataElement.optionSet[option.code] =
-                                            option.name)
-                                );
-                            });
-                    }
-                } else if (
-                    props.eventCoordinateField &&
-                    dataElement.id === props.eventCoordinateField
-                ) {
-                    this.eventCoordinateFieldName = dataElement.name;
-                }
-            });
-        }
-    }
-
-    onEventClick(evt) {
-        const { feature, coordinates } = evt;
-        const { type, coordinates: coord } = feature.geometry;
-        const { value } = feature.properties;
+    render() {
         const { styleDataItem } = this.props;
+        const { popup, displayElements, eventCoordinateFieldName } = this.state;
 
-        apiFetch('/events/' + feature.id).then(data => {
-            const time =
-                data.eventDate.substring(0, 10) +
-                ' ' +
-                data.eventDate.substring(11, 16);
-            const dataValues = data.dataValues;
-            let content =
-                '<div style="max-height:300px;overflow:auto;"><table><tbody>';
-
-            // Output value if styled by data item, and item is not included in display elements
-            if (styleDataItem && !this.displayElements[styleDataItem.id]) {
-                content += `<tr><th>${styleDataItem.name}</th><td>${
-                    value !== undefined ? value : i18n.t('Not set')
-                }</td></tr>`;
-            }
-
-            if (Array.isArray(dataValues)) {
-                dataValues.forEach(dataValue => {
-                    const displayEl = this.displayElements[
-                        dataValue.dataElement
-                    ];
-
-                    if (displayEl) {
-                        const { valueType, optionSet, name } = displayEl;
-                        let { value } = dataValue;
-
-                        if (valueType === 'COORDINATE' && value) {
-                            value = formatCoordinate(value);
-                        } else if (optionSet) {
-                            value = optionSet[value];
-                        }
-
-                        content += `<tr><th>${name}</th><td>${value ||
-                            i18n.t('Not set')}</td></tr>`;
-                    }
-                });
-
-                content += '<tr style="height:5px;"><th></th><td></td></tr>';
-            }
-
-            // Show event location for points
-            if (type === 'Point') {
-                content += `
-                    <tr>
-                      <th>${this.eventCoordinateFieldName ||
-                          i18n.t('Event location')}</th>
-                      <td>${coord[0]}, ${coord[1]}</td>
-                    </tr>`;
-            }
-
-            content += `<tr>
-                <th>${i18n.t('Organisation unit')}</th>
-                <td>${data.orgUnitName}</td>
-              </tr>
-              <tr>
-                <th>${i18n.t('Event time')}</th>
-                <td>${time}</td>
-              </tr>`;
-
-            content += '</tbody></table></div>';
-
-            // Remove all line breaks as it's not working for map download
-            this.context.map.openPopup(removeLineBreaks(content), coordinates);
-        });
+        return popup && displayElements ? (
+            <EventPopup
+                {...popup}
+                styleDataItem={styleDataItem}
+                displayElements={displayElements}
+                eventCoordinateFieldName={eventCoordinateFieldName}
+                onClose={this.onPopupClose}
+            />
+        ) : null;
     }
 
-    // Convert surver cluster response to GeoJSON
+    onEventClick({ feature, coordinates }) {
+        this.setState({ popup: { feature, coordinates } });
+    }
+
+    onPopupClose = () => this.setState({ popup: null });
+
+    // Convert server cluster response to GeoJSON
     toGeoJson(data) {
         const header = {};
         const features = [];
@@ -245,6 +153,73 @@ class EventLayer extends Layer {
         }
 
         return features;
+    }
+
+    // Loads the data elements for a program stage to display in popup
+    async loadDisplayElements() {
+        const { programStage, eventCoordinateField } = this.props;
+
+        const d2 = await getD2();
+        const data = await d2.models.programStage.get(programStage.id, {
+            fields: `programStageDataElements[displayInReports,dataElement[id,${getDisplayPropertyUrl(
+                d2
+            )},optionSet,valueType]]`,
+            paging: false,
+        });
+        const { programStageDataElements } = data;
+        let displayElements = [];
+        let eventCoordinateFieldName;
+
+        if (Array.isArray(programStageDataElements)) {
+            displayElements = programStageDataElements
+                .filter(d => d.displayInReports)
+                .map(d => d.dataElement);
+
+            for (let d of displayElements) {
+                await this.loadOptionSet(d);
+            }
+
+            if (eventCoordinateField) {
+                const coordElement = programStageDataElements.find(
+                    d => d.dataElement.id === eventCoordinateField
+                );
+
+                if (coordElement) {
+                    eventCoordinateFieldName = coordElement.dataElement.name;
+                }
+            }
+        }
+
+        this.setState({ displayElements, eventCoordinateFieldName });
+    }
+
+    // Loads an option set for an data element to get option names
+    async loadOptionSet(dataElement) {
+        const { optionSet } = dataElement;
+
+        if (!optionSet || !optionSet.id) {
+            return dataElement;
+        }
+
+        const d2 = await getD2();
+
+        if (optionSet && optionSet.id) {
+            const fullOptionSet = await d2.models.optionSets.get(optionSet.id, {
+                fields:
+                    'id,displayName~rename(name),options[code,displayName~rename(name)]',
+                paging: false,
+            });
+
+            if (fullOptionSet && fullOptionSet.options) {
+                dataElement.options = fullOptionSet.options.reduce(
+                    (byId, option) => {
+                        byId[option.code] = option.name;
+                        return byId;
+                    },
+                    {}
+                );
+            }
+        }
     }
 }
 

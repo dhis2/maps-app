@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import i18n from '@dhis2/d2-i18n';
 import mapApi from './MapApi';
 import Layer from './Layer';
 import EventLayer from './EventLayer';
@@ -10,6 +11,7 @@ import ThematicLayer from './ThematicLayer';
 import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
+import Popup from './Popup';
 
 const layerType = {
     event: EventLayer,
@@ -102,16 +104,6 @@ class Map extends Component {
         }
     }
 
-    componentDidUpdate() {
-        const { coordinatePopup } = this.props;
-
-        if (coordinatePopup) {
-            this.showCoordinate(coordinatePopup);
-        }
-
-        this.map.resize();
-    }
-
     // Remove map
     componentWillUnmount() {
         if (this.map) {
@@ -121,7 +113,15 @@ class Map extends Component {
     }
 
     render() {
-        const { basemap, layers, openContextMenu, classes } = this.props;
+        const {
+            basemap,
+            layers,
+            coordinatePopup: coordinates,
+            closeCoordinatePopup,
+            openContextMenu,
+            classes,
+        } = this.props;
+
         const overlays = layers.filter(layer => layer.isLoaded);
 
         return (
@@ -139,18 +139,18 @@ class Map extends Component {
                     );
                 })}
                 {basemap.isVisible !== false && <Layer {...basemap} />}
+                {coordinates && (
+                    <Popup
+                        coordinates={coordinates}
+                        onClose={closeCoordinatePopup}
+                    >
+                        {i18n.t('Longitude')}: {coordinates[0].toFixed(6)}
+                        <br />
+                        {i18n.t('Latitude')}: {coordinates[1].toFixed(6)}
+                    </Popup>
+                )}
             </div>
         );
-    }
-
-    showCoordinate(coord) {
-        const content =
-            'Longitude: ' +
-            coord[0].toFixed(6) +
-            '<br />Latitude: ' +
-            coord[1].toFixed(6);
-
-        this.map.openPopup(content, coord, this.props.closeCoordinatePopup);
     }
 
     onRightClick = evt => {

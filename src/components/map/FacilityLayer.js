@@ -1,6 +1,8 @@
+import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
+import Popup from './Popup';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
 import {
@@ -11,6 +13,10 @@ import {
 } from '../../constants/layers';
 
 class FacilityLayer extends Layer {
+    state = {
+        popup: null,
+    };
+
     createLayer() {
         const {
             id,
@@ -71,25 +77,40 @@ class FacilityLayer extends Layer {
         this.fitBoundsOnce();
     }
 
-    // Show pupup on facility click
-    onFeatureClick(evt) {
-        const { feature, coordinates } = evt;
+    getPopup() {
+        const { coordinates, feature } = this.state.popup;
         const { name, dimensions, pn } = feature.properties;
-        let content = `<div class="dhis2-map-popup-orgunit"><em>${name}</em>`;
 
-        if (isPlainObject(dimensions)) {
-            content += `<br/>${i18n.t('Groups')}: ${Object.keys(dimensions)
-                .map(id => dimensions[id])
-                .join(', ')}`;
-        }
+        return (
+            <Popup
+                coordinates={coordinates}
+                onClose={this.onPopupClose}
+                className="dhis2-map-popup-orgunit"
+            >
+                <em>{name}</em>
+                {isPlainObject(dimensions) && (
+                    <div>
+                        {i18n.t('Groups')}:
+                        {Object.keys(dimensions)
+                            .map(id => dimensions[id])
+                            .join(', ')}
+                    </div>
+                )}
+                {pn && (
+                    <div>
+                        {i18n.t('Parent unit')}: {pn}
+                    </div>
+                )}
+            </Popup>
+        );
+    }
 
-        if (pn) {
-            content += `<br/>${i18n.t('Parent unit')}: ${pn}`;
-        }
+    render() {
+        return this.state.popup ? this.getPopup() : null;
+    }
 
-        content += '</div>';
-
-        this.context.map.openPopup(content, coordinates);
+    onFeatureClick(evt) {
+        this.setState({ popup: evt });
     }
 
     onFeatureRightClick(evt) {

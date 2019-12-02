@@ -1,6 +1,9 @@
+import React from 'react';
 import i18n from '@dhis2/d2-i18n';
-import { apiFetch } from '../../util/api';
 import Layer from './Layer';
+import Popup from './Popup';
+import { apiFetch } from '../../util/api';
+import { formatTime } from '../../util/helpers';
 import {
     TEI_COLOR,
     TEI_RADIUS,
@@ -149,30 +152,40 @@ class TrackedEntityLayer extends Layer {
         this.fitBoundsOnce();
     }
 
-    async onEntityClick({ feature, coordinates }) {
+    getPopup() {
+        const { coordinates, data } = this.state.popup;
+        const { attributes = [], lastUpdated } = data;
+
+        return (
+            <Popup coordinates={coordinates} onClose={this.onPopupClose}>
+                <table>
+                    {attributes.map(({ name, value }) => (
+                        <tr key={name}>
+                            <th>{name}:</th>
+                            <td>{value}</td>
+                        </tr>
+                    ))}
+                    <tr>
+                        <th>{i18n.t('Last updated')}:</th>
+                        <td>{formatTime(lastUpdated)}</td>
+                    </tr>
+                </table>
+            </Popup>
+        );
+    }
+
+    render() {
+        return this.state.popup ? this.getPopup() : null;
+    }
+
+    async onEntityClick(evt) {
+        const { feature, coordinates } = evt;
         const data = await fetchTEI(
             feature.id,
             'lastUpdated,attributes[displayName~rename(name),value],relationships'
         );
 
-        const time =
-            data.lastUpdated.substring(0, 10) +
-            ' ' +
-            data.lastUpdated.substring(11, 16);
-
-        const content = data.attributes
-            .map(
-                ({ name, value }) =>
-                    `<tr><th>${name}:</th><td>${value}</td></tr>`
-            )
-            .join('');
-
-        this.context.map.openPopup(
-            `<table>${content}<tr><th>${i18n.t(
-                'Last updated'
-            )}:</th><td>${time}</td></tr></table>`,
-            coordinates
-        );
+        this.setState({ popup: { feature, coordinates, data } });
     }
 }
 
