@@ -488,6 +488,12 @@ msgstr "د پېښې طبقه"
 msgid "Groups"
 msgstr "ګروپونه"
 
+msgid "Longitude"
+msgstr "طول البلد"
+
+msgid "Latitude"
+msgstr "عرض البلد"
+
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
