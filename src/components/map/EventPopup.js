@@ -4,13 +4,26 @@ import i18n from '@dhis2/d2-i18n';
 import Popup from './Popup';
 import { apiFetch } from '../../util/api';
 import { formatTime, formatCoordinate } from '../../util/helpers';
+import { EVENT_ID_FIELD } from '../../util/geojson';
 
 // Returns true if value is not undefined or null;
 const hasValue = value => value !== undefined || value !== null;
 
 // Loads event data for the selected feature
-const loadEventData = async feature =>
-    feature ? apiFetch(`/events/${feature.id}`) : null;
+const loadEventData = async feature => {
+    if (!feature) {
+        return null;
+    }
+
+    // TODO: Mapbox GL JS is translating string ids to numbers
+    // https://github.com/mapbox/mapbox-gl-js/issues/2716
+    const id =
+        typeof feature.id === 'string'
+            ? feature.id
+            : feature.properties[EVENT_ID_FIELD];
+
+    return apiFetch(`/events/${id}`);
+};
 
 // Returns table rows for all display elements
 const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
@@ -115,7 +128,7 @@ const EventPopup = props => {
                                     i18n.t('Event location')}
                             </th>
                             <td>
-                                {coord[0]} {coord[1]}
+                                {coord[0].toFixed(6)} {coord[1].toFixed(6)}
                             </td>
                         </tr>
                     )}

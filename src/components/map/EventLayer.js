@@ -108,6 +108,8 @@ class EventLayer extends Layer {
         const { styleDataItem } = this.props;
         const { popup, displayElements, eventCoordinateFieldName } = this.state;
 
+        // console.log('event popuup', popup);
+
         return popup && displayElements ? (
             <EventPopup
                 {...popup}
@@ -115,6 +117,7 @@ class EventLayer extends Layer {
                 displayElements={displayElements}
                 eventCoordinateFieldName={eventCoordinateFieldName}
                 onClose={this.onPopupClose}
+                // onClose={console.log}
             />
         ) : null;
     }

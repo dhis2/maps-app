@@ -1,5 +1,5 @@
-import MapApi from '@dhis2/gis-api';
-// import MapApi from '@dhis2/maps-gl';
+// import MapApi from '@dhis2/gis-api';
+import MapApi from '@dhis2/maps-gl';
 
 // Returns a new map instance
 const map = options => {
