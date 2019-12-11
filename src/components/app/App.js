@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
-import HeaderBar from '@dhis2/ui/widgets/HeaderBar';
 import mui3theme from '@dhis2/d2-ui-core/theme/mui3.theme';
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
@@ -17,7 +16,10 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
-import '@dhis2/ui/css/reset.css';
+import { Provider } from '@dhis2/app-runtime';
+import { CssReset } from '@dhis2/ui-core';
+import { HeaderBar } from '@dhis2/ui-widgets';
+import 'typeface-roboto';
 import './App.css';
 
 const theme = createMuiTheme(mui3theme);
@@ -40,23 +42,31 @@ export class App extends Component {
 
     render() {
         return (
-            <FatalErrorBoundary>
-                <HeaderBar appName={i18n.t('Maps')} />
-                <MuiThemeProvider theme={theme}>
-                    <AppMenu />
-                    <InterpretationsPanel />
-                    <LayersPanel />
-                    <LayersToggle />
-                    <MapContainer />
-                    <BottomPanel />
-                    <LayerEdit />
-                    <ContextMenu />
-                    <AlertSnackbar />
-                    <Message />
-                    <DataDownloadDialog />
-                    <OpenAsMapDialog />
-                </MuiThemeProvider>
-            </FatalErrorBoundary>
+            <Provider
+                config={{
+                    baseUrl: DHIS_CONFIG.baseUrl,
+                    apiVersion: '33',
+                }}
+            >
+                <FatalErrorBoundary>
+                    <CssReset />
+                    <HeaderBar appName={i18n.t('Maps')} />
+                    <MuiThemeProvider theme={theme}>
+                        <AppMenu />
+                        <InterpretationsPanel />
+                        <LayersPanel />
+                        <LayersToggle />
+                        <MapContainer />
+                        <BottomPanel />
+                        <LayerEdit />
+                        <ContextMenu />
+                        <AlertSnackbar />
+                        <Message />
+                        <DataDownloadDialog />
+                        <OpenAsMapDialog />
+                    </MuiThemeProvider>
+                </FatalErrorBoundary>
+            </Provider>
         );
     }
 }
