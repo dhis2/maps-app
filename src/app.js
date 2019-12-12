@@ -1,3 +1,5 @@
+import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
+
 import React from 'react';
 import { render } from 'react-dom';
 import { JssProvider, jss, createGenerateClassName } from 'react-jss';
