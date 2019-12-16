@@ -1,10 +1,16 @@
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
+import 'typeface-roboto';
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import i18n from '@dhis2/d2-i18n';
 import mui3theme from '@dhis2/d2-ui-core/theme/mui3.theme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import i18n from '@dhis2/d2-i18n';
+import { Provider } from '@dhis2/app-runtime';
+import { CssReset } from '@dhis2/ui-core';
+import { HeaderBar } from '@dhis2/ui-widgets';
+
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
@@ -18,10 +24,7 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
-import { Provider } from '@dhis2/app-runtime';
-import { CssReset } from '@dhis2/ui-core';
-import { HeaderBar } from '@dhis2/ui-widgets';
-import 'typeface-roboto';
+
 import './App.css';
 
 const theme = createMuiTheme(mui3theme);
