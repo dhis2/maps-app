@@ -119,6 +119,10 @@ describe('DataDownloadDialogContent', () => {
             layer: dummyEventLayer,
             downloading: true,
         });
-        expect(wrapper.find('WithStyles(DataDownloadDialogActions)').prop('downloading')).toBe(true);
+        expect(
+            wrapper
+                .find('WithStyles(DataDownloadDialogActions)')
+                .prop('downloading')
+        ).toBe(true);
     });
 });
