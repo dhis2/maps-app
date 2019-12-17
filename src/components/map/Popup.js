@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import './Popup.css';
 
 const Popup = (props, context) => {
-    const { className = '', coordinates, onClose, children } = props;
+    const { className = '', coordinates, offset, onClose, children } = props;
     const { map } = context;
     const container = useMemo(() => document.createElement('div'), []);
 
     // Create and open popup on map
     useEffect(() => {
         container.className = className;
-        map.openPopup(container, coordinates, onClose);
+        map.openPopup(container, coordinates, onClose, offset);
         return () => {
             map.closePopup();
         };
@@ -26,6 +26,7 @@ Popup.contextTypes = {
 
 Popup.propTypes = {
     coordinates: PropTypes.array.isRequired,
+    offset: PropTypes.object,
     onClose: PropTypes.func.isRequired,
     className: PropTypes.string,
     children: PropTypes.node,

@@ -28,6 +28,8 @@ class EventLayer extends Layer {
             programStage,
             serverCluster,
             areaRadius,
+            styleDataItem,
+            legend,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -53,6 +55,7 @@ class EventLayer extends Layer {
             data,
             fillColor: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
+            groups: styleDataItem && legend ? legend.items : null,
             onClick: this.onEventClick.bind(this),
         };
 
@@ -108,8 +111,6 @@ class EventLayer extends Layer {
         const { styleDataItem } = this.props;
         const { popup, displayElements, eventCoordinateFieldName } = this.state;
 
-        // console.log('event popuup', popup);
-
         return popup && displayElements ? (
             <EventPopup
                 {...popup}
@@ -117,13 +118,12 @@ class EventLayer extends Layer {
                 displayElements={displayElements}
                 eventCoordinateFieldName={eventCoordinateFieldName}
                 onClose={this.onPopupClose}
-                // onClose={console.log}
             />
         ) : null;
     }
 
-    onEventClick({ feature, coordinates }) {
-        this.setState({ popup: { feature, coordinates } });
+    onEventClick({ feature, coordinates, offset }) {
+        this.setState({ popup: { feature, coordinates, offset } });
     }
 
     onPopupClose = () => this.setState({ popup: null });
