@@ -26,7 +26,7 @@ Popup.contextTypes = {
 
 Popup.propTypes = {
     coordinates: PropTypes.array.isRequired,
-    offset: PropTypes.object,
+    offset: PropTypes.array,
     onClose: PropTypes.func.isRequired,
     className: PropTypes.string,
     children: PropTypes.node,

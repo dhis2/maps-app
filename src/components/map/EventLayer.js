@@ -55,9 +55,10 @@ class EventLayer extends Layer {
             data,
             fillColor: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
-            groups: styleDataItem && legend ? legend.items : null,
             onClick: this.onEventClick.bind(this),
         };
+
+        config.radius = 17; // TODO: Remove
 
         if (eventClustering) {
             if (serverCluster) {
@@ -82,8 +83,14 @@ class EventLayer extends Layer {
                     callback(params.tileId, this.toGeoJson(clusterData));
                 };
             } else {
-                config.type = 'clientCluster';
                 config.clusterPane = id;
+
+                if (styleDataItem && legend) {
+                    config.type = 'donutCluster';
+                    config.groups = legend.items;
+                } else {
+                    config.type = 'clientCluster';
+                }
             }
         } else if (areaRadius) {
             config.buffer = areaRadius;

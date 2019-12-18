@@ -155,7 +155,7 @@ const EventPopup = props => {
 EventPopup.propTypes = {
     coordinates: PropTypes.array.isRequired,
     feature: PropTypes.object.isRequired,
-    offset: PropTypes.object,
+    offset: PropTypes.array,
     displayElements: PropTypes.array.isRequired,
     eventCoordinateFieldName: PropTypes.string,
     styleDataItem: PropTypes.object,
