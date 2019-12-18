@@ -58,8 +58,6 @@ class EventLayer extends Layer {
             onClick: this.onEventClick.bind(this),
         };
 
-        config.radius = 17; // TODO: Remove
-
         if (eventClustering) {
             if (serverCluster) {
                 config.type = 'serverCluster';
