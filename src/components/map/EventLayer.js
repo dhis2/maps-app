@@ -5,8 +5,11 @@ import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
 import EventPopup from './EventPopup';
 import { getDisplayPropertyUrl } from '../../util/helpers';
+import { formatCount } from '../../util/numbers';
 
 class EventLayer extends Layer {
+    clusterCount = 0;
+
     state = {
         popup: null,
         dataElements: null,
@@ -144,17 +147,21 @@ class EventLayer extends Layer {
         if (Array.isArray(data.rows)) {
             data.rows.forEach(row => {
                 const extent = row[header.extent].match(/([-\d.]+)/g);
+                const count = parseInt(row[header.count], 10);
 
                 features.push({
                     type: 'Feature',
-                    id: row[header.points],
+                    id: ++this.clusterCount,
                     geometry: JSON.parse(row[header.center]),
                     properties: {
-                        count: parseInt(row[header.count], 10),
+                        cluster: count > 1,
+                        point_count: count,
+                        point_count_abbreviated: formatCount(count),
                         bounds: [
                             [extent[1], extent[0]],
                             [extent[3], extent[2]],
                         ],
+                        points: row[header.points],
                     },
                 });
             });
