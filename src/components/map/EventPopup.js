@@ -100,13 +100,9 @@ const EventPopup = props => {
         };
     }, [feature, setEventData]);
 
-    if (!eventData) {
-        return null;
-    }
-
     const { type, coordinates: coord } = feature.geometry;
     const { value } = feature.properties;
-    const { eventDate, dataValues = [], orgUnitName } = eventData;
+    const { dataValues = [], eventDate, orgUnitName } = eventData || {};
 
     return (
         <Popup
@@ -117,12 +113,13 @@ const EventPopup = props => {
         >
             <table>
                 <tbody>
-                    {getDataRows(
-                        displayElements,
-                        dataValues,
-                        styleDataItem,
-                        value
-                    )}
+                    {eventData &&
+                        getDataRows(
+                            displayElements,
+                            dataValues,
+                            styleDataItem,
+                            value
+                        )}
                     {type === 'Point' && (
                         <tr>
                             <th>
