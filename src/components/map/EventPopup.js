@@ -15,12 +15,7 @@ const loadEventData = async feature => {
         return null;
     }
 
-    // TODO: Mapbox GL JS is translating string ids to numbers
-    // https://github.com/mapbox/mapbox-gl-js/issues/2716
-    const id =
-        typeof feature.id === 'string'
-            ? feature.id
-            : feature.properties[EVENT_ID_FIELD];
+    const id = feature.properties.id || feature.properties[EVENT_ID_FIELD];
 
     return apiFetch(`/events/${id}`);
 };
