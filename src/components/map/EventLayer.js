@@ -125,7 +125,7 @@ class EventLayer extends Layer {
                 styleDataItem={styleDataItem}
                 displayElements={displayElements}
                 eventCoordinateFieldName={eventCoordinateFieldName}
-                onClose={this.onPopupClose(popup)}
+                onClose={this.onPopupClose}
             />
         ) : null;
     }
@@ -134,11 +134,8 @@ class EventLayer extends Layer {
         this.setState({ popup: { feature, coordinates, offset } });
     }
 
-    onPopupClose = popup => () => {
-        // Make sure we don't clear a new popup
-        if (popup === this.state.popup) {
-            this.setState({ popup: null });
-        }
+    onPopupClose = () => {
+        this.setState({ popup: null });
     };
 
     // Convert server cluster response to GeoJSON
