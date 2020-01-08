@@ -165,8 +165,8 @@ class EventLayer extends Layer {
                         point_count: count,
                         point_count_abbreviated: formatCount(count),
                         bounds: [
-                            [extent[1], extent[0]],
-                            [extent[3], extent[2]],
+                            [extent[0], extent[1]],
+                            [extent[2], extent[3]],
                         ],
                         id: row[header.points],
                     },
