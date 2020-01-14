@@ -40,4 +40,22 @@ export const defaultBasemaps = [
             style: 'HYBRID',
         },
     },
+    {
+        id: 'bingRoad',
+        name: 'Bing Road',
+        img: 'images/googlestreets.png',
+        config: {
+            type: 'bingLayer',
+            style: 'Road',
+        },
+    },
+    {
+        id: 'bingAerial',
+        name: 'Bing Aerial',
+        img: 'images/googlehybrid.jpeg',
+        config: {
+            type: 'bingLayer',
+            style: 'AerialWithLabels',
+        },
+    },
 ];
