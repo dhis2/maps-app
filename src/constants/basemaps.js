@@ -22,6 +22,7 @@ export const defaultBasemaps = [
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         },
     },
+    /*
     {
         id: 'googleStreets',
         name: 'Google Streets',
@@ -40,22 +41,23 @@ export const defaultBasemaps = [
             style: 'HYBRID',
         },
     },
+    */
     {
         id: 'bingRoad',
         name: 'Bing Road',
         img: 'images/googlestreets.png',
         config: {
             type: 'bingLayer',
-            style: 'Road',
+            style: 'RoadOnDemand',
         },
     },
     {
-        id: 'bingAerial',
+        id: 'bingHybrid',
         name: 'Bing Aerial',
         img: 'images/googlehybrid.jpeg',
         config: {
             type: 'bingLayer',
-            style: 'AerialWithLabels',
+            style: 'AerialWithLabelsOnDemand',
         },
     },
 ];
