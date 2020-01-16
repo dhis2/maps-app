@@ -488,6 +488,12 @@ msgstr ""
 msgid "Groups"
 msgstr "المجموعات"
 
+msgid "Longitude"
+msgstr "خط الطول"
+
+msgid "Latitude"
+msgstr "خط العرض"
+
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 

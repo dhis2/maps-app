@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { LayerToolbar } from '../LayerToolbar';
 
 describe('LayerToolbar', () => {
-    const shallowRenderLayerToolbar = props => (
+    const shallowRenderLayerToolbar = props =>
         shallow(
             <LayerToolbar
                 classes={{}}
@@ -13,8 +13,7 @@ describe('LayerToolbar', () => {
                 onOpacityChange={() => null}
                 {...props}
             />
-        )
-    )
+        );
     it('Should render only a visibility toggle and opacity slider', () => {
         const wrapper = shallowRenderLayerToolbar();
         expect(wrapper.find('WithStyles(IconButton)').length).toBe(1); // Visibility toggle
@@ -64,7 +63,7 @@ describe('LayerToolbar', () => {
     it('Should match toolbar snapshot WITH Edit button', () => {
         const wrapper = shallowRenderLayerToolbar({
             onEdit: () => null,
-        })
+        });
         expect(wrapper).toMatchSnapshot();
     });
 

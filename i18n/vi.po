@@ -489,6 +489,12 @@ msgstr "Thời điểm sự kiện"
 msgid "Groups"
 msgstr "Các nhóm"
 
+msgid "Longitude"
+msgstr "Kinh độ"
+
+msgid "Latitude"
+msgstr "Vĩ độ"
+
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
