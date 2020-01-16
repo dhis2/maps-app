@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Basemap from './Basemap';
+import { layerTypes } from '../../map/MapApi';
 
 const styles = {
     container: {
@@ -14,7 +15,7 @@ const styles = {
 const BasemapList = ({ classes, selectedID, basemaps, selectBasemap }) => (
     <div className={classes.container} data-test="basemaplist">
         {basemaps
-            // .filter(basemap => map.hasLayerSupport(basemap.config.type))
+            .filter(basemap => layerTypes.includes(basemap.config.type))
             .map((basemap, index) => (
                 <Basemap
                     key={`basemap-${index}`}
