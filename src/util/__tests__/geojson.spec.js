@@ -9,12 +9,6 @@ import {
     createEventFeatures,
 } from '../geojson';
 
-// Since we're not in a browser environment we unfortunately have to mock FileSaver and Blob
-jest.mock('file-saver', () => ({ saveAs: jest.fn() }));
-global.Blob = function(content, options) {
-    return { content, options };
-};
-
 const sampleData = [
     {
         type: 'Feature',

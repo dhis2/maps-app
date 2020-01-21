@@ -1,3 +1,5 @@
+import 'whatwg-fetch'
+
 import React, { useEffect } from 'react';
 import log from 'loglevel';
 import { getUserSettings } from 'd2';

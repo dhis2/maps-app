@@ -13,7 +13,7 @@ context('Smoke Test', () => {
     });
 
     it('loads', () => {
-        cy.title().should('equal', 'DHIS2 Maps');
+        cy.title().should('equal', 'Maps | DHIS2');
     });
 
     it('shows basemap card and can switch basemaps', () => {

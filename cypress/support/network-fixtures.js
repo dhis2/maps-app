@@ -10,10 +10,22 @@ export const e2e = Cypress.env('E2E');
 export const generateFixtures = Cypress.env('GEN_FIXTURES');
 export const stubBackend = !e2e && !generateFixtures;
 
+let polyfill;
+before(() => {
+    console.info('Load fetch XHR polyfill')
+    cy.readFile('./cypress/support/unfetch.umd.js').then((content) => {
+      polyfill = content
+    })
+})
+
 export const stubFetch = win => {
     // From https://github.com/cypress-io/cypress-example-recipes/blob/master/examples/stubbing-spying__window-fetch/cypress/integration/polyfill-fetch-from-tests-spec.js
     // The application should polyfill window.fetch to use XHR, so we can inspect network requests and easily stub responses using cy.server
-    delete win.fetch;
+    delete win.fetch
+    // since the application code does not ship with a polyfill
+    // load a polyfilled "fetch" from the test
+    win.eval(polyfill)
+    win.fetch = win.unfetch
 };
 
 const xhrManager = {

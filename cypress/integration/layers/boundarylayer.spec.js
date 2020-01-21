@@ -60,7 +60,7 @@ context('Boundary Layers', () => {
         cy.get('[data-value="2"]') // District
             .should('have.length', 1)
             .click();
-        cy.get('body').click(); // Close the modal menu
+        cy.get('body').click('bottomRight'); // Close the modal menu
         cy.get('[data-test="layeredit-addbtn"]').click();
         cy.get('[data-test="boundarydialog"]')
             .should('have.length', 0)

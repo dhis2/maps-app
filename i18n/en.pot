@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-01-21T13:56:30.597Z\n"
-"PO-Revision-Date: 2020-01-21T13:56:30.597Z\n"
+"POT-Creation-Date: 2020-01-21T15:50:20.497Z\n"
+"PO-Revision-Date: 2020-01-21T15:50:20.497Z\n"
 
 msgid "Classification"
 msgstr ""
@@ -318,24 +318,6 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
-
-msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
-
-msgid "Something went wrong"
-msgstr ""
-
-msgid "Refresh to try again"
-msgstr ""
-
-msgid "Hide technical details"
-msgstr ""
-
-msgid "Show technical details"
-msgstr ""
-
-msgid "The following information may be requested by technical support."
 msgstr ""
 
 msgid "Filtering is available after selecting a program stage."

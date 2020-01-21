@@ -1,5 +1,5 @@
 module.exports = {
-    setupTestFrameworkScriptFile: '<rootDir>/config/testSetup.js',
+    setupFilesAfterEnv: [ '<rootDir>/config/testSetup.js' ],
     collectCoverageFrom: ['src/**/*.js'],
     testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
     transformIgnorePatterns: ['node_modules/(?!(d3-scale)/)'],

@@ -43,7 +43,7 @@ Cypress.Commands.add('persistLogin', () => {
 
 Cypress.Commands.add('loadPage', (path = '/') => {
     cy.visit(path, { onBeforeLoad: stubFetch });
-    cy.get('header', { log: false, timeout: 10000 }); // Waits for the page to fully load
+    cy.get('[data-test="maps-app-root"]', { log: false, timeout: 10000 }); // Waits for the page to fully load
     if (generateFixtures) {
         //Make sure all the delayed network requests get captured
         cy.wait(1000);

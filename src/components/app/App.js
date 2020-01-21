@@ -39,18 +39,20 @@ export class App extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
-                <AppMenu />
-                <InterpretationsPanel />
-                <LayersPanel />
-                <LayersToggle />
-                <MapContainer />
-                <BottomPanel />
-                <LayerEdit />
-                <ContextMenu />
-                <AlertSnackbar />
-                <Message />
-                <DataDownloadDialog />
-                <OpenAsMapDialog />
+                <div data-test="maps-app-root">
+                    <AppMenu />
+                    <InterpretationsPanel />
+                    <LayersPanel />
+                    <LayersToggle />
+                    <MapContainer />
+                    <BottomPanel />
+                    <LayerEdit />
+                    <ContextMenu />
+                    <AlertSnackbar />
+                    <Message />
+                    <DataDownloadDialog />
+                    <OpenAsMapDialog />
+                </div>
             </MuiThemeProvider>
         );
     }
