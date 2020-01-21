@@ -70,7 +70,6 @@ const EventPopup = props => {
     const {
         coordinates,
         feature,
-        offset,
         styleDataItem,
         displayElements,
         eventCoordinateFieldName,
@@ -102,7 +101,6 @@ const EventPopup = props => {
     return (
         <Popup
             coordinates={coordinates}
-            offset={offset}
             onClose={onClose}
             className="dhis2-map-popup-event"
         >
@@ -147,7 +145,6 @@ const EventPopup = props => {
 EventPopup.propTypes = {
     coordinates: PropTypes.array.isRequired,
     feature: PropTypes.object.isRequired,
-    offset: PropTypes.array,
     displayElements: PropTypes.array.isRequired,
     eventCoordinateFieldName: PropTypes.string,
     styleDataItem: PropTypes.object,

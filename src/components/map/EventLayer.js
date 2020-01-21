@@ -131,8 +131,8 @@ class EventLayer extends Layer {
         ) : null;
     }
 
-    onEventClick({ feature, coordinates, offset }) {
-        this.setState({ popup: { feature, coordinates, offset } });
+    onEventClick({ feature, coordinates }) {
+        this.setState({ popup: { feature, coordinates } });
     }
 
     onPopupClose = () => {
