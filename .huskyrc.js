@@ -7,8 +7,8 @@ module.exports = {
     hooks: {
         ...husky.hooks,
         'pre-commit': tasks([
-            'd2-style js check --staged',
-            'd2-style text check --staged',
+            // 'd2-style js check --staged',
+            // 'd2-style text check --staged',
         ]),
     },
 }
