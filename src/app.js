@@ -1,9 +1,6 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { JssProvider, jss, createGenerateClassName } from 'react-jss';
-import 'url-polyfill';
+import React, { useEffect } from 'react';
 import log from 'loglevel';
-import { init, config, getUserSettings, getManifest } from 'd2';
+import { getUserSettings } from 'd2';
 import { debounce } from 'lodash/fp';
 import store from './store';
 import Root from './components/Root';
@@ -16,6 +13,8 @@ import { loadFavorite } from './actions/favorites';
 import { getAnalyticalObject } from './actions/analyticalObject';
 import { setGoogleCloudApiKey } from './actions/basemap';
 import { getUrlParameter } from './util/requests';
+import { ScreenCover, CircularLoader } from '@dhis2/ui-core';
+import { D2Shim } from '@dhis2/app-runtime-d2-shim';
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
@@ -24,86 +23,80 @@ log.setLevel(
 store.dispatch(loadOrgUnitTree());
 store.dispatch(loadExternalLayers());
 
-getManifest('manifest.webapp')
-    .then(manifest => {
-        const baseUrl =
-            process.env.NODE_ENV === 'production'
-                ? manifest.getBaseUrl()
-                : DHIS_CONFIG.baseUrl;
+const onD2Initialized = async d2 => {
+    const userSettings = await getUserSettings();
 
-        config.appUrl = baseUrl; // Base url for switching between apps
-        config.baseUrl = `${baseUrl}/api/33`; // Base url for Web API requests
+    store.dispatch(setUserSettings(userSettings));
+    configI18n(userSettings);
+    
+    d2.system.settings
+        .get('keyGoogleCloudApiKey')
+        .then(key => store.dispatch(setGoogleCloudApiKey(key)));
 
-        config.context = manifest.activities.dhis; // Added temporarily for util/api.js
+    const mapId = getUrlParameter('id');
+    if (mapId) {
+        store.dispatch(loadFavorite(mapId));
+    }
 
-        log.info(`Loading: ${manifest.name} v${manifest.version}`);
-        log.info(`Built ${manifest.manifest_generated_at}`);
+    // If analytical object is passed from another app
+    const analyticalObject = getUrlParameter('currentAnalyticalObject');
+    if (analyticalObject === 'true') {
+        store.dispatch(getAnalyticalObject());
+    }
+}
 
-        // Include all API endpoints in use by this app
-        config.schemas = [
-            'dataElement',
-            'dataElementGroup',
-            'dataSet',
-            'externalMapLayer',
-            'indicator',
-            'indicatorGroup',
-            'legendSet',
-            'map',
-            'optionSet',
-            'organisationUnit',
-            'organisationUnitGroup',
-            'organisationUnitGroupSet',
-            'organisationUnitLevel',
-            'program',
-            'programStage',
-            'userGroup',
-        ];
-    })
-    .then(getUserSettings)
-    .then(userSettings => {
-        store.dispatch(setUserSettings(userSettings));
-        return userSettings;
-    })
-    .then(configI18n)
-    .then(init)
-    .then(
-        d2 => {
-            d2.system.settings
-                .get('keyGoogleCloudApiKey')
-                .then(key => store.dispatch(setGoogleCloudApiKey(key)));
+const d2Config = {
+    schemas : [
+        'dataElement',
+        'dataElementGroup',
+        'dataSet',
+        'externalMapLayer',
+        'indicator',
+        'indicatorGroup',
+        'legendSet',
+        'map',
+        'optionSet',
+        'organisationUnit',
+        'organisationUnitGroup',
+        'organisationUnitGroupSet',
+        'organisationUnitLevel',
+        'program',
+        'programStage',
+        'userGroup',
+    ]
+}
 
-            const mapId = getUrlParameter('id');
-            if (mapId) {
-                store.dispatch(loadFavorite(mapId));
-            }
-
-            // If analytical object is passed from another app
-            const analyticalObject = getUrlParameter('currentAnalyticalObject');
-            if (analyticalObject === 'true') {
-                store.dispatch(getAnalyticalObject());
-            }
-
-            // JSS initialization
-            const generateClassName = createGenerateClassName();
-            jss.options.insertionPoint = 'jss-insertion-point';
-
-            render(
-                <JssProvider jss={jss} generateClassName={generateClassName}>
-                    <Root d2={d2} store={store} />
-                </JssProvider>,
-                document.getElementById('app')
-            );
-        },
-        err => {
-            log.error('Failed to initialize D2:', JSON.stringify(err));
-            document.write(`D2 initialization error: ${err}`);
+const useWindowResizeListener = () => {
+    useEffect(() => {
+        // Window resize listener: http://stackoverflow.com/questions/35073669/window-resize-react-redux
+        const listener = debounce(150, () =>
+            store.dispatch(resizeScreen(window.innerWidth, window.innerHeight))
+        )
+        window.addEventListener('resize', listener)
+        return () => {
+            window.removeEventListener('resize', listener)
         }
-    );
+    }, [])
+}
 
-// Window resize listener: http://stackoverflow.com/questions/35073669/window-resize-react-redux
-window.addEventListener(
-    'resize',
-    debounce(150, () =>
-        store.dispatch(resizeScreen(window.innerWidth, window.innerHeight))
+const MapsApp = () => {
+    useWindowResizeListener()
+
+    return (
+        <D2Shim d2Config={d2Config} onInitialized={onD2Initialized}>
+            {({ d2, d2Error}) => (
+                <>
+                    {d2Error && <div style={{ display: 'flex', height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>{`D2 initialization error: ${d2Error}`}</div>}
+                    {!d2 && !d2Error && (
+                        <ScreenCover>
+                            <CircularLoader />
+                        </ScreenCover>
+                    )}
+                    {d2 && <Root d2={d2} store={store} />}
+                </>
+            )}
+        </D2Shim>
     )
-);
+}
+
+export default MapsApp;

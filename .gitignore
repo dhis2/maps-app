@@ -16,3 +16,7 @@ src/locales/
 .netlify
 cypress/videos/
 cypress/screenshots/
+
+# DHIS2 Platform
+.d2
+src/locales
