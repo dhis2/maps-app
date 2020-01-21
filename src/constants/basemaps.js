@@ -40,4 +40,48 @@ export const defaultBasemaps = [
             style: 'HYBRID',
         },
     },
+    {
+        id: 'bingLight',
+        name: 'Bing Road',
+        img: 'images/bingroad.png',
+        config: {
+            type: 'bingLayer',
+            style: 'CanvasLight',
+            apiKey:
+                'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
+        },
+    },
+    {
+        id: 'bingDark',
+        name: 'Bing Dark',
+        img: 'images/bingdark.png',
+        config: {
+            type: 'bingLayer',
+            style: 'CanvasDark',
+            apiKey:
+                'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
+        },
+    },
+    {
+        id: 'bingAerial',
+        name: 'Bing Aerial',
+        img: 'images/bingaerial.jpeg',
+        config: {
+            type: 'bingLayer',
+            style: 'Aerial',
+            apiKey:
+                'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
+        },
+    },
+    {
+        id: 'bingHybrid',
+        name: 'Bing Aerial Labels',
+        img: 'images/binghybrid.jpeg',
+        config: {
+            type: 'bingLayer',
+            style: 'AerialWithLabelsOnDemand',
+            apiKey:
+                'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
+        },
+    },
 ];

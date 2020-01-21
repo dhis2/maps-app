@@ -345,7 +345,7 @@ describe('geojson utils', () => {
         });
         it('Should correctly parse a simple bounding box', () => {
             const bbox = getBounds('[0][1][2][3]');
-            expect(bbox).toEqual([['1', '0'], ['3', '2']]);
+            expect(bbox).toEqual([['0', '1'], ['2', '3']]);
         });
     });
 });

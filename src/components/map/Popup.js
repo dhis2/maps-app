@@ -12,10 +12,12 @@ const Popup = (props, context) => {
     useEffect(() => {
         container.className = className;
         map.openPopup(container, coordinates, onClose);
-        return () => {
-            map.closePopup();
-        };
     }, [map, container, className, coordinates, onClose]);
+
+    // Close popup if component is unmounted
+    useEffect(() => {
+        return () => map.closePopup();
+    }, []);
 
     return createPortal(children, container);
 };

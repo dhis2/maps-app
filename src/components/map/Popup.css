@@ -1,3 +1,4 @@
 .dhis2-map-popup-event {
     overflow-x: auto;
+    width: 300px;
 }

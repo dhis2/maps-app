@@ -7,6 +7,8 @@ export const META_DATA_FORMAT_ID = 'ID';
 export const META_DATA_FORMAT_NAME = 'Name';
 export const META_DATA_FORMAT_CODE = 'Code';
 
+export const EVENT_ID_FIELD = 'psi';
+
 const standardizeFilename = rawName => rawName.replace(/\s+/g, '_');
 export const createGeoJsonBlob = data => {
     const geojson = {
@@ -90,7 +92,7 @@ export const createEventFeatures = (response, config = {}) => {
         ...config.columnNames, // TODO: Check if columnNames is still needed
     };
 
-    const idColName = config.idCol || 'psi';
+    const idColName = config.idCol || EVENT_ID_FIELD;
     const idCol = findIndex(response.headers, h => h.name === idColName);
     const getGeometry = buildEventGeometryGetter(
         response.headers,
@@ -131,7 +133,7 @@ export const getBounds = bbox => {
         return null;
     }
     const extent = bbox.match(/([-\d.]+)/g);
-    return [[extent[1], extent[0]], [extent[3], extent[2]]];
+    return [[extent[0], extent[1]], [extent[2], extent[3]]];
 };
 
 // export const downloadStyle = name => {

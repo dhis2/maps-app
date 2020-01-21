@@ -1,12 +1,15 @@
 import React from 'react';
 import { getInstance as getD2 } from 'd2';
 import { getAnalyticsRequest } from '../../loaders/eventLoader';
-import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 import Layer from './Layer';
 import EventPopup from './EventPopup';
 import { getDisplayPropertyUrl } from '../../util/helpers';
+import { formatCount } from '../../util/numbers';
+import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 
 class EventLayer extends Layer {
+    clusterCount = 0;
+
     state = {
         popup: null,
         dataElements: null,
@@ -28,6 +31,8 @@ class EventLayer extends Layer {
             programStage,
             serverCluster,
             areaRadius,
+            styleDataItem,
+            legend,
         } = this.props;
 
         // Some older favorites don't have a valid color code
@@ -79,8 +84,14 @@ class EventLayer extends Layer {
                     callback(params.tileId, this.toGeoJson(clusterData));
                 };
             } else {
-                config.type = 'clientCluster';
                 config.clusterPane = id;
+
+                if (styleDataItem && legend) {
+                    config.type = 'donutCluster';
+                    config.groups = legend.items;
+                } else {
+                    config.type = 'clientCluster';
+                }
             }
         } else if (areaRadius) {
             config.buffer = areaRadius;
@@ -98,6 +109,7 @@ class EventLayer extends Layer {
 
         // Create and add event layer based on config object
         this.layer = map.createLayer(config);
+
         map.addLayer(this.layer);
 
         // Fit map to layer bounds once (when first created)
@@ -123,7 +135,9 @@ class EventLayer extends Layer {
         this.setState({ popup: { feature, coordinates } });
     }
 
-    onPopupClose = () => this.setState({ popup: null });
+    onPopupClose = () => {
+        this.setState({ popup: null });
+    };
 
     // Convert server cluster response to GeoJSON
     toGeoJson(data) {
@@ -136,17 +150,23 @@ class EventLayer extends Layer {
         if (Array.isArray(data.rows)) {
             data.rows.forEach(row => {
                 const extent = row[header.extent].match(/([-\d.]+)/g);
+                const count = parseInt(row[header.count], 10);
+                const clusterId = ++this.clusterCount;
 
                 features.push({
                     type: 'Feature',
-                    id: row[header.points],
+                    id: clusterId,
                     geometry: JSON.parse(row[header.center]),
                     properties: {
-                        count: parseInt(row[header.count], 10),
+                        cluster: count > 1,
+                        cluster_id: clusterId,
+                        point_count: count,
+                        point_count_abbreviated: formatCount(count),
                         bounds: [
-                            [extent[1], extent[0]],
-                            [extent[3], extent[2]],
+                            [extent[0], extent[1]],
+                            [extent[2], extent[3]],
                         ],
+                        id: row[header.points],
                     },
                 });
             });

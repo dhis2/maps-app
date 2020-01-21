@@ -4,13 +4,21 @@ import i18n from '@dhis2/d2-i18n';
 import Popup from './Popup';
 import { apiFetch } from '../../util/api';
 import { formatTime, formatCoordinate } from '../../util/helpers';
+import { EVENT_ID_FIELD } from '../../util/geojson';
 
 // Returns true if value is not undefined or null;
 const hasValue = value => value !== undefined || value !== null;
 
 // Loads event data for the selected feature
-const loadEventData = async feature =>
-    feature ? apiFetch(`/events/${feature.id}`) : null;
+const loadEventData = async feature => {
+    if (!feature) {
+        return null;
+    }
+
+    const id = feature.properties.id || feature.properties[EVENT_ID_FIELD];
+
+    return apiFetch(`/events/${id}`);
+};
 
 // Returns table rows for all display elements
 const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
@@ -86,13 +94,9 @@ const EventPopup = props => {
         };
     }, [feature, setEventData]);
 
-    if (!eventData) {
-        return null;
-    }
-
     const { type, coordinates: coord } = feature.geometry;
     const { value } = feature.properties;
-    const { eventDate, dataValues = [], orgUnitName } = eventData;
+    const { dataValues = [], eventDate, orgUnitName } = eventData || {};
 
     return (
         <Popup
@@ -102,12 +106,13 @@ const EventPopup = props => {
         >
             <table>
                 <tbody>
-                    {getDataRows(
-                        displayElements,
-                        dataValues,
-                        styleDataItem,
-                        value
-                    )}
+                    {eventData &&
+                        getDataRows(
+                            displayElements,
+                            dataValues,
+                            styleDataItem,
+                            value
+                        )}
                     {type === 'Point' && (
                         <tr>
                             <th>
@@ -115,7 +120,7 @@ const EventPopup = props => {
                                     i18n.t('Event location')}
                             </th>
                             <td>
-                                {coord[0]} {coord[1]}
+                                {coord[0].toFixed(6)} {coord[1].toFixed(6)}
                             </td>
                         </tr>
                     )}
