@@ -12,6 +12,7 @@ import BoundaryLayer from './BoundaryLayer';
 import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
 import Popup from './Popup';
+import { controlTypes } from './MapApi';
 
 const layerType = {
     event: EventLayer,
@@ -92,7 +93,9 @@ class Map extends Component {
 
         // Add map controls
         if (controls) {
-            controls.forEach(control => map.addControl(control));
+            controls
+                .filter(control => controlTypes.includes(control.type))
+                .forEach(control => map.addControl(control));
         }
 
         const layerBounds = map.getLayersBounds();

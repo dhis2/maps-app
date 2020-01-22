@@ -4,6 +4,10 @@ export const mapControls = [
         position: 'top-right',
     },
     {
+        type: 'fullscreen',
+        position: 'top-right',
+    },
+    {
         type: 'fitBounds',
         position: 'top-right',
     },

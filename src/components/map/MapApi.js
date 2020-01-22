@@ -1,5 +1,5 @@
-import MapApi, { layerTypes } from '@dhis2/gis-api';
-// import MapApi, { layerTypes } from '@dhis2/maps-gl';
+import MapApi, { layerTypes, controlTypes } from '@dhis2/gis-api';
+// import MapApi, { layerTypes, controlTypes } from '@dhis2/maps-gl';
 
 // Returns a new map instance
 const map = options => {
@@ -9,6 +9,6 @@ const map = options => {
     return new MapApi(div, options);
 };
 
-export { layerTypes };
+export { layerTypes, controlTypes };
 
 export default map;
