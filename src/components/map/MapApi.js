@@ -1,6 +1,6 @@
 import MapApi, { layerTypes, controlTypes } from '@dhis2/gis-api';
-import i18n from '@dhis2/d2-i18n';
 // import MapApi, { layerTypes, controlTypes } from '@dhis2/maps-gl';
+import i18n from '@dhis2/d2-i18n';
 
 const mapLocale = [
     'Enter fullscreen',
