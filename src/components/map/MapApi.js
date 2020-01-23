@@ -2,14 +2,21 @@ import MapApi, { layerTypes, controlTypes } from '@dhis2/gis-api';
 import i18n from '@dhis2/d2-i18n';
 // import MapApi, { layerTypes, controlTypes } from '@dhis2/maps-gl';
 
-const getMapLocale = () => ({
-    'FullscreenControl.Enter': i18n.t('Enter fullscreen'),
-    'FullscreenControl.Exit': i18n.t('Exit fullscreen'),
-    'NavigationControl.ResetBearing': i18n.t('Reset bearing to north'),
-    'NavigationControl.ZoomIn': i18n.t('Zoom in'),
-    'NavigationControl.ZoomOut': i18n.t('Zoom out'),
-    'SearchControl.SearchForPlace': i18n.t('Search for place or address'),
-});
+const mapLocale = [
+    'Enter fullscreen',
+    'Exit fullscreen',
+    'Reset bearing to north',
+    'Zoom in',
+    'Zoom out',
+    'Search for place or address',
+    'Measure distances and areas',
+];
+
+const getMapLocale = () =>
+    mapLocale.reduce((loc, str) => {
+        loc[str] = i18n.t(str);
+        return loc;
+    }, {});
 
 // Returns a new map instance
 const map = options => {
