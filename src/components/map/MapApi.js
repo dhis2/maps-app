@@ -9,7 +9,7 @@ const mapLocale = [
     'Zoom in',
     'Zoom out',
     'Search for place or address',
-    'Measure distances and areas',
+    'Measure distance and area',
 ];
 
 const getMapLocale = () =>
