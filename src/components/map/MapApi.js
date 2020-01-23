@@ -8,6 +8,7 @@ const mapLocale = [
     'Reset bearing to north',
     'Zoom in',
     'Zoom out',
+    'Zoom to content',
     'Search for place or address',
     'Measure distance and area',
 ];
