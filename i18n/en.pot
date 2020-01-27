@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-01-27T16:03:18.570Z\n"
-"PO-Revision-Date: 2020-01-27T16:03:18.570Z\n"
+"POT-Creation-Date: 2020-01-27T17:04:18.402Z\n"
+"PO-Revision-Date: 2020-01-27T17:04:18.402Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -484,6 +484,15 @@ msgstr ""
 msgid "Latitude"
 msgstr ""
 
+msgid "Viewing interpretation from {{interpretationDate}}"
+msgstr ""
+
+msgid "No data"
+msgstr ""
+
+msgid "Last updated"
+msgstr ""
+
 msgid "acres"
 msgstr ""
 
@@ -500,6 +509,9 @@ msgid "Click the next position"
 msgstr ""
 
 msgid "Click where you want to start the measurement"
+msgstr ""
+
+msgid "Delete"
 msgstr ""
 
 msgid "Distance"
@@ -539,15 +551,6 @@ msgid "Zoom out"
 msgstr ""
 
 msgid "Zoom to content"
-msgstr ""
-
-msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
-
-msgid "No data"
-msgstr ""
-
-msgid "Last updated"
 msgstr ""
 
 msgid "Open as map"
