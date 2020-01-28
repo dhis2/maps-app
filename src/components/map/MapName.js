@@ -46,7 +46,7 @@ const styles = theme => ({
 const MapName = ({ showName, name, interpretationDate, uiLocale, classes }) =>
     showName && name ? (
         <div className={classes.root}>
-            <div className={classes.name}>{name}</div>
+            <div className={`${classes.name} dhis2-maps-title`}>{name}</div>
             {interpretationDate && (
                 <div className={classes.interpretation}>
                     <div className={classes.interpretationIcon}>

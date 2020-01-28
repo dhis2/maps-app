@@ -1,8 +1,6 @@
-import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
-import domtoimage from './dom-to-image';
+import FileSaver from 'file-saver';
+import domtoimage from 'dom-to-image';
 
-// Copied from kepler.gl on 31 Oct 2018:
-// https://github.com/uber/kepler.gl/blob/master/src/utils/export-image-utils.js
 export const dataURItoBlob = dataURI => {
     const binary = atob(dataURI.split(',')[1]);
 
@@ -25,8 +23,9 @@ export const dataURItoBlob = dataURI => {
     return new Blob([ab], { type: mimeString });
 };
 
-export const convertToPng = (sourceElem, options) =>
-    domtoimage.toPng(sourceElem, options);
+export const convertToPng = (sourceElem, options) => {
+    return domtoimage.toPng(sourceElem, options);
+};
 
 export const downloadFile = (fileBlob, filename) =>
     FileSaver.saveAs(fileBlob, filename);
