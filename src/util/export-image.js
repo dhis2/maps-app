@@ -23,9 +23,8 @@ export const dataURItoBlob = dataURI => {
     return new Blob([ab], { type: mimeString });
 };
 
-export const convertToPng = (sourceElem, options) => {
-    return domtoimage.toPng(sourceElem, options);
-};
+export const convertToPng = (sourceElem, options) =>
+    domtoimage.toPng(sourceElem, options);
 
 export const downloadFile = (fileBlob, filename) =>
     FileSaver.saveAs(fileBlob, filename);
