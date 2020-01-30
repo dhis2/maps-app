@@ -77,7 +77,7 @@ const MapContainer = ({
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
                 />
-                {isDownload && legendPosition && (
+                {isDownload && legendPosition && layers.length && (
                     <DownloadLegend
                         position={legendPosition}
                         layers={layers}

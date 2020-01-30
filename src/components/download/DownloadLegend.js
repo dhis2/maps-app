@@ -42,11 +42,11 @@ const styles = theme => ({
         right: theme.spacing.unit,
     },
     bottomleft: {
-        bottom: 30,
+        bottom: 40,
         left: theme.spacing.unit,
     },
     bottomright: {
-        bottom: 20,
+        bottom: 30,
         right: theme.spacing.unit,
     },
     name: {

@@ -1,8 +1,6 @@
-import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
-import domtoimage from './dom-to-image';
+import FileSaver from 'file-saver';
+import domtoimage from 'dom-to-image';
 
-// Copied from kepler.gl on 31 Oct 2018:
-// https://github.com/uber/kepler.gl/blob/master/src/utils/export-image-utils.js
 export const dataURItoBlob = dataURI => {
     const binary = atob(dataURI.split(',')[1]);
 
