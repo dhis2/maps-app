@@ -1,5 +1,5 @@
-// import MapApi, { layerTypes, controlTypes } from '@dhis2/gis-api';
-import MapApi, { layerTypes, controlTypes } from '@dhis2/maps-gl';
+import MapApi, { layerTypes, controlTypes } from '@dhis2/gis-api';
+// import MapApi, { layerTypes, controlTypes } from '@dhis2/maps-gl';
 import getMapLocale from './mapLocale';
 
 // Returns a new map instance
