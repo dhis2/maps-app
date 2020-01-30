@@ -53,7 +53,9 @@ const Plugin = () => {
         }
 
         if (username && password) {
-            config.context = { auth: `${username}:${password}` };
+            config.headers = {
+                Authorization: 'Basic ' + btoa(`${username}:${password}`),
+            };
         }
 
         config.schemas = union(config.schemas, [
