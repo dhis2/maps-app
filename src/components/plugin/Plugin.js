@@ -44,7 +44,7 @@ class Plugin extends Component {
         const { position, feature, mapViews, resizeCount } = this.state;
 
         return (
-            <div className={classes.root}>
+            <div className={`dhis2-map-plugin ${classes.root}`}>
                 <MapName name={name} />
                 <MapView
                     isPlugin={true}
