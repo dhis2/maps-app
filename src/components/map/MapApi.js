@@ -1,5 +1,8 @@
-import MapApi, { layerTypes, controlTypes } from '@dhis2/gis-api';
-// import MapApi, { layerTypes, controlTypes } from '@dhis2/maps-gl';
+import MapApi, {
+    layerTypes,
+    controlTypes,
+    loadEarthEngineApi,
+} from '@dhis2/gis-api';
 import getMapLocale from './mapLocale';
 
 // Returns a new map instance
@@ -15,6 +18,6 @@ const map = options => {
     });
 };
 
-export { layerTypes, controlTypes };
+export { layerTypes, controlTypes, loadEarthEngineApi };
 
 export default map;
