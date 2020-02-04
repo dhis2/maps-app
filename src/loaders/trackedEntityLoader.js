@@ -182,8 +182,9 @@ const toGeoJson = instances =>
             type: geometryTypesMap[featureType],
             coordinates: JSON.parse(coordinates),
         },
-        id,
-        properties: {},
+        properties: {
+            id,
+        },
     }));
 
 export default trackedEntityLoader;
