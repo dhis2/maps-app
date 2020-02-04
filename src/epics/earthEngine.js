@@ -158,7 +158,7 @@ export const loadCollection = action$ =>
                 );
             }
 
-            if (!window.ee) {
+            if (!window.ee && loadEarthEngineApi) {
                 await loadEarthEngineApi();
             }
 
