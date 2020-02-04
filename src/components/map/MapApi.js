@@ -2,7 +2,7 @@ import MapApi, {
     layerTypes,
     controlTypes,
     loadEarthEngineApi,
-} from '@dhis2/maps-gl';
+} from '@dhis2/gis-api';
 import getMapLocale from './mapLocale';
 
 // Returns a new map instance
