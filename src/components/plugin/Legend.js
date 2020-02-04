@@ -65,7 +65,7 @@ class Legend extends PureComponent {
             .reverse(); // Show top layer first
 
         return (
-            <div className={classes.root}>
+            <div className={`dhis2-map-legend ${classes.root}`}>
                 {isOpen ? (
                     <div
                         className={classes.content}

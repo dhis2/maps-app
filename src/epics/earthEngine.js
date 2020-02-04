@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n';
 import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
+import { loadEarthEngineApi } from '../components/map/MapApi';
 import { apiFetch } from '../util/api';
 import { createAlert } from '../util/alerts';
 import { getYear, formatStartEndDate } from '../util/time';
@@ -155,6 +156,10 @@ export const loadCollection = action$ =>
                         )
                     )
                 );
+            }
+
+            if (!window.ee && loadEarthEngineApi) {
+                await loadEarthEngineApi();
             }
 
             try {

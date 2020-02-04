@@ -71,6 +71,10 @@ const makeRelationshipLayer = (relationships, color, weight) => {
 };
 
 class TrackedEntityLayer extends Layer {
+    state = {
+        popup: null,
+    };
+
     createLayer() {
         const {
             id,
@@ -159,16 +163,18 @@ class TrackedEntityLayer extends Layer {
         return (
             <Popup coordinates={coordinates} onClose={this.onPopupClose}>
                 <table>
-                    {attributes.map(({ name, value }) => (
-                        <tr key={name}>
-                            <th>{name}:</th>
-                            <td>{value}</td>
+                    <tbody>
+                        {attributes.map(({ name, value }) => (
+                            <tr key={name}>
+                                <th>{name}:</th>
+                                <td>{value}</td>
+                            </tr>
+                        ))}
+                        <tr>
+                            <th>{i18n.t('Last updated')}:</th>
+                            <td>{formatTime(lastUpdated)}</td>
                         </tr>
-                    ))}
-                    <tr>
-                        <th>{i18n.t('Last updated')}:</th>
-                        <td>{formatTime(lastUpdated)}</td>
-                    </tr>
+                    </tbody>
                 </table>
             </Popup>
         );
@@ -180,8 +186,9 @@ class TrackedEntityLayer extends Layer {
 
     async onEntityClick(evt) {
         const { feature, coordinates } = evt;
+
         const data = await fetchTEI(
-            feature.id,
+            feature.properties.id,
             'lastUpdated,attributes[displayName~rename(name),value],relationships'
         );
 

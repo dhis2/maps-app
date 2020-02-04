@@ -35,4 +35,8 @@ export const pluginControls = [
         type: 'zoom',
         position: 'topright',
     },
+    {
+        type: 'fullscreen',
+        position: 'top-right',
+    },
 ];

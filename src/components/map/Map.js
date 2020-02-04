@@ -41,6 +41,7 @@ class Map extends Component {
         longitude: PropTypes.number,
         zoom: PropTypes.number,
         coordinatePopup: PropTypes.array,
+        resizeCount: PropTypes.number,
         closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
         onCloseContextMenu: PropTypes.func,
@@ -108,6 +109,12 @@ class Map extends Component {
             map.setView([longitude, latitude], zoom);
         } else {
             map.fitWorld();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.resizeCount !== prevProps.resizeCount) {
+            this.map.resize();
         }
     }
 

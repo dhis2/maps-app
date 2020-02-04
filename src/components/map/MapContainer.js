@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -31,23 +31,26 @@ const styles = {
     },
 };
 
-const MapContainer = ({
-    basemap,
-    mapViews,
-    bounds,
-    showName,
-    newLayerIsLoading,
-    coordinatePopup,
-    layersPanelOpen,
-    interpretationsPanelOpen,
-    dataTableOpen,
-    dataTableHeight,
-    isDownload,
-    legendPosition,
-    openContextMenu,
-    closeCoordinatePopup,
-    classes,
-}) => {
+const MapContainer = props => {
+    const {
+        basemap,
+        mapViews,
+        bounds,
+        showName,
+        newLayerIsLoading,
+        coordinatePopup,
+        layersPanelOpen,
+        interpretationsPanelOpen,
+        dataTableOpen,
+        dataTableHeight,
+        isDownload,
+        legendPosition,
+        openContextMenu,
+        closeCoordinatePopup,
+        classes,
+    } = props;
+    const [resizeCount, setResizeCount] = useState(0);
+
     const style = {
         position: 'absolute',
         top: HEADER_HEIGHT,
@@ -64,6 +67,11 @@ const MapContainer = ({
         className += ` ${classes.download} dhis2-map-download`;
     }
 
+    // Trigger map resize when panels are expanded or collapsed
+    useEffect(() => {
+        setResizeCount(resizeCount + 1);
+    }, [layersPanelOpen, interpretationsPanelOpen, dataTableOpen]);
+
     return (
         <div style={style}>
             <div id="dhis2-map-container" className={className}>
@@ -76,6 +84,7 @@ const MapContainer = ({
                     openContextMenu={openContextMenu}
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
+                    resizeCount={resizeCount}
                 />
                 {isDownload && legendPosition && layers.length && (
                     <DownloadLegend
