@@ -71,6 +71,10 @@ const makeRelationshipLayer = (relationships, color, weight) => {
 };
 
 class TrackedEntityLayer extends Layer {
+    state = {
+        popup: null,
+    };
+
     createLayer() {
         const {
             id,
