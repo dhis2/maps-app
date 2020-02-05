@@ -447,10 +447,10 @@
     leaflet.markercluster "^1.4.1"
     whatwg-fetch "^3.0.0"
 
-"@dhis2/maps-gl@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-0.0.1.tgz#e64b6bd0eb826b2bd10b946d11a01d4794c78927"
-  integrity sha512-lTZLrgA74aqyAkTU1ebgrBj/98tLeXoy9mnxKminSi+QuQPrQmupv5SgDaYWpF+ei3/ZOoQAp4+jXBjY5htPiQ==
+"@dhis2/maps-gl@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.0.tgz#e09b9cede7eaed74a9897f38d89a814083aa9609"
+  integrity sha512-HMkosfTuPMHz603ep+OyTvjyYGi/SHq87Lvj9rNrRbEvtkPp+0wkbBbYq/UNMNie5ntLBLSC3bnx62MsuByToA==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.0.1"

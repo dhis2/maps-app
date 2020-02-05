@@ -26,7 +26,7 @@ context('Smoke Test', () => {
         cy.get('[data-test="basemaplist"]')
             .should('have.length', 1)
             .children()
-            .should('have.length', 7);
+            .should('have.length', 9);
 
         const defaultBasemap = 'OSM Light';
         const secondBasemap = 'OSM Detailed';

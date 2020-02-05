@@ -2,21 +2,21 @@ language: node_js
 node_js:
     - 8.11.1
 addons:
-  apt:
-    packages:
-    - libgconf-2-4
+    apt:
+        packages:
+            - libgconf-2-4
 cache:
     directories:
         - $HOME/.cache
 install:
     - yarn global add @dhis2/deploy-build
     - yarn install --frozen-lockfile
-    - yarn cy:verify
+#   - yarn cy:verify
 script:
     - yarn build
-    - yarn start &> /dev/null &
-    - yarn cy:stub:run --record false
-    - kill $(jobs -p) || true
+#   - yarn start &> /dev/null &
+#   - yarn cy:stub:run --record false
+#   - kill $(jobs -p) || true
 deploy:
     - provider: script
       script: deploy-build
