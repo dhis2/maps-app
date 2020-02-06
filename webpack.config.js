@@ -129,7 +129,9 @@ if (!isDevBuild) {
         // Replace any occurance of process.env.NODE_ENV with the string 'production'
         new webpack.DefinePlugin({
             'process.env': { NODE_ENV: JSON.stringify('production') },
-            DHIS_CONFIG: JSON.stringify({}),
+            DHIS_CONFIG: JSON.stringify({
+                baseUrl: '../',
+            }),
         })
     );
     webpackConfig.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
