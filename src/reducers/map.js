@@ -145,7 +145,7 @@ const layer = (state, action) => {
         case types.ALERTS_CLEAR:
             return {
                 ...state,
-                alerts: null,
+                alerts: undefined,
             };
 
         case types.MAP_EARTH_ENGINE_VALUE_SHOW:
@@ -324,7 +324,7 @@ const map = (state = defaultState, action) => {
         case types.ALERTS_CLEAR:
             return {
                 ...state,
-                alerts: null,
+                alerts: undefined,
                 mapViews: state.mapViews.map(l => layer(l, action)),
             };
 
