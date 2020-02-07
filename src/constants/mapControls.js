@@ -38,5 +38,6 @@ export const pluginControls = [
     {
         type: 'fullscreen',
         position: 'top-right',
+        isPlugin: true,
     },
 ];

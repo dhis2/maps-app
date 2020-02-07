@@ -429,10 +429,10 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/gis-api@^34.0.10":
-  version "34.0.10"
-  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-34.0.10.tgz#9982bda935ecb7280d4323b9ead3b00f33aac65c"
-  integrity sha512-fODt9My+j7ef0PSHj+IsqpZp3G6j773fG3heMMLKeyIsp1y+I9H7iE0Ds0DHe65eul1dAcrOO6SsbxqzpiGCYw==
+"@dhis2/gis-api@^34.0.11":
+  version "34.0.11"
+  resolved "https://registry.yarnpkg.com/@dhis2/gis-api/-/gis-api-34.0.11.tgz#5583039ff71f266f0ac1cc2a2b61d0be82225b19"
+  integrity sha512-lVtiiiFP+Gcq9AE5IP6W8Kb8AO8veTuOi/xdleuzi8XBmPICV7G6a9xBm98fypKisrl+WSmqrKjLEGzpFVItKg==
   dependencies:
     "@google/earthengine" "^0.1.172"
     "@mapbox/geojson-area" "^0.2.2"
@@ -447,10 +447,10 @@
     leaflet.markercluster "^1.4.1"
     whatwg-fetch "^3.0.0"
 
-"@dhis2/maps-gl@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.0.tgz#e09b9cede7eaed74a9897f38d89a814083aa9609"
-  integrity sha512-HMkosfTuPMHz603ep+OyTvjyYGi/SHq87Lvj9rNrRbEvtkPp+0wkbBbYq/UNMNie5ntLBLSC3bnx62MsuByToA==
+"@dhis2/maps-gl@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.2.tgz#af49519d3e5ff96bbe478f7de545c108b85d4de6"
+  integrity sha512-9mQuYYvL5VD6tKVoUyE1lRmAO8om5aXHvau/nIA/aQt+XA6zoVJJ1OLyVRKUlQiLRxxXyvKym0x+LcW1F+QPUw==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.0.1"

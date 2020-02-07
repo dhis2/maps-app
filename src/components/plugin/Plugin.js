@@ -10,8 +10,8 @@ import { fetchLayer } from '../../loaders/layers';
 
 const styles = {
     root: {
-        height: '100%',
         position: 'relative',
+        height: '100%',
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
     },
 };
