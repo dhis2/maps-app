@@ -63,7 +63,7 @@ class Map extends Component {
         const { isPlugin } = props;
 
         const map = mapApi({
-            scrollWheelZoom: !isPlugin,
+            scrollZoom: !isPlugin,
         });
 
         if (isPlugin) {
