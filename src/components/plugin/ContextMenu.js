@@ -23,7 +23,7 @@ class ContextMenu extends Component {
         const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties;
 
         return (
-            <div className="MapContextMenu" ref={el => (this.el = el)}>
+            <div className="dhis2-map-context-menu" ref={el => (this.el = el)}>
                 {hasCoordinatesUp && (
                     <div onClick={() => onDrill('up')}>
                         {i18n.t('Drill up one level')}

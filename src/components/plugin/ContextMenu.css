@@ -1,4 +1,4 @@
-.MapContextMenu {
+.dhis2-map-context-menu {
     position: absolute;
     background: #fff;
     z-index: 1500;
@@ -10,10 +10,10 @@
     padding: 3px 0;
 }
 
-.MapContextMenu div {
+.dhis2-map-context-menu div {
     padding: 0 10px;
 }
 
-.MapContextMenu div:hover {
+.dhis2-map-context-menu div:hover {
     background: #eee;
 }
