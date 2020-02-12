@@ -66,7 +66,7 @@ const boundaryLoader = async config => {
         name: layerName,
         alerts: !features.length
             ? [createAlert(i18n.t('Alert'), i18n.t('No boundaries found'))]
-            : null,
+            : undefined,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
