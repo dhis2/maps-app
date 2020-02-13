@@ -393,10 +393,10 @@ msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "折叠"
 
 msgid "Expand"
-msgstr ""
+msgstr "展开"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -422,7 +422,7 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "删除的"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
@@ -688,7 +688,7 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "四级"
 
 msgid "No data found"
 msgstr "没有数据被找到"
@@ -703,7 +703,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "跟踪实体"
 
 msgid "No tracked entities found"
 msgstr ""
