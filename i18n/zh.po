@@ -83,7 +83,7 @@ msgid "Legend"
 msgstr "图例"
 
 msgid "Range"
-msgstr ""
+msgstr "范围"
 
 msgid "Level"
 msgstr "等级"
