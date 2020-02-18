@@ -4,12 +4,10 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import { Menu, MenuItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import {
-    ArrowUpward,
-    ArrowDownward,
-    InfoOutlined,
-    Room,
-} from '@material-ui/icons';
+import UpIcon from '@material-ui/icons/ArrowUpward';
+import DownIcon from '@material-ui/icons/ArrowDownward';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
+import PositionIcon from '@material-ui/icons/Room';
 import OrgUnitDialog from '../orgunits/OrgUnitDialog';
 import RelocateDialog from '../orgunits/RelocateDialog';
 import {
@@ -102,8 +100,8 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <ArrowUpward
-                            nativeColor={
+                        <UpIcon
+                            htmlColor={
                                 attr.hasCoordinatesUp
                                     ? iconColor
                                     : iconDisabledColor
@@ -133,8 +131,8 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <ArrowDownward
-                            nativeColor={
+                        <DownIcon
+                            htmlColor={
                                 attr.hasCoordinatesDown
                                     ? iconColor
                                     : iconDisabledColor
@@ -156,7 +154,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <InfoOutlined style={styles.icon} />
+                        <InfoIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t('Show information')}
@@ -172,7 +170,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <Room style={styles.icon} />
+                        <PositionIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t('Show longitude/latitude')}
@@ -194,7 +192,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <Room style={styles.icon} />
+                        <PositionIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t('Swap longitude/latitude')}
@@ -210,7 +208,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <Room style={styles.icon} />
+                        <PositionIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t('Relocate')}
@@ -227,7 +225,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <Room style={styles.icon} />
+                        <PositionIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t(layer.name)}

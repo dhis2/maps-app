@@ -5,7 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
 import { IconButton } from '@material-ui/core';
-import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import LeftIcon from '@material-ui/icons/ChevronLeft';
+import RightIcon from '@material-ui/icons/ChevronRight';
 import { filterFuturePeriods } from 'd2/period/helpers';
 import { createPeriods } from '../../util/periods';
 import { getYear } from '../../util/time';
@@ -106,7 +107,7 @@ class PeriodSelect extends Component {
                             className={classes.button}
                             disableTouchRipple={true}
                         >
-                            <ChevronLeft />
+                            <LeftIcon />
                         </IconButton>
                         <IconButton
                             tooltip={i18n.t('Next year')}
@@ -114,7 +115,7 @@ class PeriodSelect extends Component {
                             className={classes.button}
                             disableTouchRipple={true}
                         >
-                            <ChevronRight />
+                            <RightIcon />
                         </IconButton>
                     </div>
                 )}

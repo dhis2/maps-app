@@ -11,14 +11,12 @@ import {
     ListItemText,
     Divider,
 } from '@material-ui/core';
-import {
-    MoreHoriz,
-    Create,
-    ViewList,
-    Delete,
-    SaveAlt,
-    BarChart,
-} from '@material-ui/icons';
+import MoreIcon from '@material-ui/icons/MoreHoriz';
+import EditIcon from '@material-ui/icons/Create';
+import TableIcon from '@material-ui/icons/ViewList';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/SaveAlt';
+import ChartIcon from '@material-ui/icons/BarChart';
 
 const styles = theme => ({
     button: {
@@ -111,7 +109,7 @@ export class LayerToolbarMoreMenu extends Component {
                         className={classes.button}
                         onClick={this.handleBtnClick}
                     >
-                        <MoreHoriz />
+                        <MoreIcon />
                     </IconButton>
                 </Tooltip>
                 <Menu
@@ -125,7 +123,7 @@ export class LayerToolbarMoreMenu extends Component {
                     {toggleDataTable && (
                         <MenuItem onClick={this.handleDataTableBtnClick}>
                             <ListItemIcon>
-                                <ViewList />
+                                <TableIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Data table')} />
                         </MenuItem>
@@ -133,7 +131,7 @@ export class LayerToolbarMoreMenu extends Component {
                     {openAs && (
                         <MenuItem onClick={this.handleOpenAsChartBtnClick}>
                             <ListItemIcon>
-                                <BarChart />
+                                <ChartIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Open as chart')} />
                         </MenuItem>
@@ -141,7 +139,7 @@ export class LayerToolbarMoreMenu extends Component {
                     {downloadData && (
                         <MenuItem onClick={this.handleDownloadBtnClick}>
                             <ListItemIcon>
-                                <SaveAlt />
+                                <SaveIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Download data')} />
                         </MenuItem>
@@ -152,7 +150,7 @@ export class LayerToolbarMoreMenu extends Component {
                     {onEdit && (
                         <MenuItem onClick={this.handleEditBtnClick}>
                             <ListItemIcon>
-                                <Create />
+                                <EditIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Edit layer')} />
                         </MenuItem>
@@ -160,7 +158,7 @@ export class LayerToolbarMoreMenu extends Component {
                     {onRemove && (
                         <MenuItem onClick={this.handleRemoveBtnClick}>
                             <ListItemIcon>
-                                <Delete />
+                                <DeleteIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Remove layer')} />
                         </MenuItem>

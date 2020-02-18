@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { ErrorOutline, InfoOutlined } from '@material-ui/icons';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
 import i18n from '@dhis2/d2-i18n';
 import EventDownloadInputs from './EventDownloadInputs';
 
@@ -50,7 +51,7 @@ export const DataDownloadDialogContent = ({
             })}
         </div>
         <div className={classes.infoDiv}>
-            <InfoOutlined className={classes.icon} />
+            <InfoIcon className={classes.icon} />
             {i18n.t(
                 'GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop.'
             )}
@@ -68,7 +69,7 @@ export const DataDownloadDialogContent = ({
         )}
         {error && (
             <div className={classes.error}>
-                <ErrorOutline className={classes.icon} />
+                <ErrorIcon className={classes.icon} />
                 {i18n.t('Data download failed.')}
             </div>
         )}

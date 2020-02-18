@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Cancel } from '@material-ui/icons';
+import CancelIcon from '@material-ui/icons/Cancel';
 import ResizeHandle from './ResizeHandle';
 import DataTable from '../datatable/DataTable';
 import {
@@ -56,7 +56,7 @@ class BottomPanel extends Component {
                     style={style}
                 >
                     <span onClick={closeDataTable}>
-                        <Cancel
+                        <CancelIcon
                             className="BottomPanel-close"
                             style={styles.closeIcon}
                         />

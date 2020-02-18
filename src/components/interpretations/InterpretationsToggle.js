@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import LeftIcon from '@material-ui/icons/ChevronLeft';
+import RightIcon from '@material-ui/icons/ChevronRight';
 import {
     openInterpretationsPanel,
     closeInterpretationsPanel,
@@ -48,9 +49,9 @@ export const InterpretationsToggle = ({
         }}
     >
         {interpretationsOpen ? (
-            <ChevronRight className={classes.icon} />
+            <RightIcon className={classes.icon} />
         ) : (
-            <ChevronLeft className={classes.icon} />
+            <LeftIcon className={classes.icon} />
         )}
         {i18n.t('Interpretations')}
     </Button>

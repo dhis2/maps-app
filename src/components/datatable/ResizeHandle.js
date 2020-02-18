@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DragHandle } from '@material-ui/icons';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import './ResizeHandle.css';
 
 const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
@@ -59,7 +59,7 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
             // onDrag={(evt) => onDrag(evt)}
             onDragEnd={evt => onDragEnd(evt)}
         >
-            <DragHandle />
+            <DragHandleIcon />
         </div>
     );
 };

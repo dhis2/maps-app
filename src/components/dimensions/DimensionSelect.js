@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import { Popover, TextField } from '@material-ui/core';
-import { ArrowDropDown } from '@material-ui/icons';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown ';
 import { DimensionsPanel } from '@dhis2/d2-ui-analytics';
 import { loadDimensions } from '../../actions/dimensions';
 
@@ -101,7 +101,7 @@ export class DimensionSelect extends Component {
                             disabled: true,
                         }}
                     />
-                    <ArrowDropDown className={classes.icon} />
+                    <ArrowDropDownIcon className={classes.icon} />
                 </div>
                 <Popover
                     open={!!anchorEl}

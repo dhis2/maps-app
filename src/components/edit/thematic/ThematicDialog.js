@@ -602,7 +602,7 @@ export class ThematicDialog extends Component {
                                         onCheck={setLabels}
                                         style={{
                                             ...styles.flexInnerColumn,
-                                            marginLeft: -6,
+                                            marginLeft: -4,
                                             maxWidth: 150,
                                             paddingTop: 16,
                                             height: 42,

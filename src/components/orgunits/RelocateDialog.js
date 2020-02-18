@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Paper } from '@material-ui/core';
-import { Cancel } from '@material-ui/icons';
+import CancelIcon from '@material-ui/icons/Cancel';
 import {
     changeOrgUnitCoordinate,
     stopRelocateOrgUnit,
@@ -81,7 +81,7 @@ class RelocateDialog extends Component {
         return (
             <Paper style={styles.paper}>
                 <span onClick={stopRelocateOrgUnit}>
-                    <Cancel style={styles.close} />
+                    <CancelIcon style={styles.close} />
                 </span>
                 {i18n.t('Click the map where you want to relocate facility')}{' '}
                 <strong>{feature.properties.name}</strong>

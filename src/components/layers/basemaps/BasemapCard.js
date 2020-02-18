@@ -11,7 +11,8 @@ import {
     IconButton,
     Tooltip,
 } from '@material-ui/core';
-import { ExpandMore, ExpandLess } from '@material-ui/icons';
+import ExpandIcon from '@material-ui/icons/ExpandMore';
+import CollapseIcon from '@material-ui/icons/ExpandLess';
 import BasemapList from './BasemapList';
 import LayerToolbar from '../toolbar/LayerToolbar';
 import {
@@ -101,7 +102,7 @@ const BasemapCard = props => {
                             onClick={toggleBasemapExpand}
                             style={{ backgroundColor: 'transparent' }}
                         >
-                            {isExpanded ? <ExpandLess /> : <ExpandMore />}
+                            {isExpanded ? <CollapseIcon /> : <ExpandIcon />}
                         </IconButton>
                     </Tooltip>
                 }
