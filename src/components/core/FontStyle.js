@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
-import FormatBoldIcon from '@material-ui/icons/FormatBold';
-import FormatItalicIcon from '@material-ui/icons/FormatItalic';
+import BoldIcon from '@material-ui/icons/FormatBold';
+import ItalicIcon from '@material-ui/icons/FormatItalic';
 import TextField from './TextField';
 import ColorPicker from './ColorPicker';
 import { cssColor } from '../../util/colors';
@@ -59,9 +59,7 @@ const FontStyle = ({
                 className={classes.button}
                 disableTouchRipple={true}
             >
-                <FormatBoldIcon
-                    htmlColor={weight === 'bold' ? '#333' : '#aaa'}
-                />
+                <BoldIcon htmlColor={weight === 'bold' ? '#333' : '#aaa'} />
             </IconButton>
         )}
         {onStyleChange && (
@@ -72,7 +70,7 @@ const FontStyle = ({
                 className={classes.button}
                 disableTouchRipple={true}
             >
-                <FormatItalicIcon
+                <ItalicIcon
                     htmlColor={fontStyle === 'italic' ? '#333' : '#aaa'}
                 />
             </IconButton>

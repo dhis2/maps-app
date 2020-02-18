@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
 import styles from './styles/FatalErrorBoundary.style';
 
 const translatedErrorHeading = i18n.t(
@@ -43,7 +43,7 @@ export class FatalErrorBoundary extends Component {
             return (
                 <div className={classes.mask}>
                     <div className={classes.container}>
-                        <InfoOutlinedIcon className={classes.icon} />
+                        <InfoIcon className={classes.icon} />
                         <div className={classes.message}>
                             {i18n.t('Something went wrong')}
                         </div>
