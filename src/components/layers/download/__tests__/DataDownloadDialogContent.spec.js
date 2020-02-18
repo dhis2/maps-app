@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { shallow } from 'enzyme';
 import { DataDownloadDialogContent } from '../DataDownloadDialogContent';
 
