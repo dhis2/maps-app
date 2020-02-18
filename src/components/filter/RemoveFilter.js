@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { IconButton } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 import { Tooltip } from '@material-ui/core';
 
 const styles = theme => ({
@@ -35,7 +35,7 @@ const RemoveFilter = ({ onClick, classes }) => (
                 tooltip={i18n.t('Remove filter')}
                 className={classes.removeBtn}
             >
-                <DeleteIcon />
+                <Delete />
             </IconButton>
         </div>
     </Tooltip>

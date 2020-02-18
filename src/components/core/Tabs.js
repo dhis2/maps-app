@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MuiTabs from '@material-ui/core/Tabs';
+import { Tabs as MuiTabs } from '@material-ui/core';
 
 const styles = {
     root: {

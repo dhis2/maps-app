@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
+import { Toolbar } from '@material-ui/core';
 import AddLayer from '../layers/layers/AddLayer';
 import FileMenu from './FileMenu';
 import DownloadButton from '../download/DownloadButton';
@@ -24,7 +24,7 @@ const styles = theme => ({
         // TODO: make this a standalone component for re-use as a generic vertical divider
         height: '100%',
         borderRight: `1px solid ${theme.palette.divider}`,
-        marginRight: theme.spacing.unit,
+        marginRight: theme.spacing(1),
     },
 });
 

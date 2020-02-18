@@ -16,8 +16,10 @@ describe('DataDownloadDialogActions', () => {
 
     it('Should render two buttons and NO loading spinner', () => {
         const wrapper = renderComponent();
-        expect(wrapper.find('WithStyles(Button)').length).toBe(2);
-        expect(wrapper.find('WithStyles(CircularProgress)').length).toBe(0);
+        expect(wrapper.find('WithStyles(ForwardRef(Button))').length).toBe(2);
+        expect(
+            wrapper.find('WithStyles(ForwardRef(CircularProgress))').length
+        ).toBe(0);
     });
 
     it('Should disable buttons and show loading spinner when loading', () => {
@@ -26,17 +28,19 @@ describe('DataDownloadDialogActions', () => {
         });
         expect(
             wrapper
-                .find('WithStyles(Button)')
+                .find('WithStyles(ForwardRef(Button))')
                 .at(0)
                 .prop('disabled')
         ).toBe(true);
         expect(
             wrapper
-                .find('WithStyles(Button)')
+                .find('WithStyles(ForwardRef(Button))')
                 .at(1)
                 .prop('disabled')
         ).toBe(true);
-        expect(wrapper.find('WithStyles(CircularProgress)').length).toBe(1);
+        expect(
+            wrapper.find('WithStyles(ForwardRef(CircularProgress))').length
+        ).toBe(1);
     });
 
     it('Should call onStartClick', () => {
@@ -46,7 +50,7 @@ describe('DataDownloadDialogActions', () => {
         });
 
         wrapper
-            .find('WithStyles(Button)[variant="contained"]')
+            .find('WithStyles(ForwardRef(Button))[variant="contained"]')
             .simulate('click');
         expect(fn).toHaveBeenCalled();
     });
@@ -55,7 +59,9 @@ describe('DataDownloadDialogActions', () => {
         const fn = jest.fn();
         const wrapper = renderComponent({ onCancelClick: fn });
 
-        wrapper.find('WithStyles(Button)[variant="text"]').simulate('click');
+        wrapper
+            .find('WithStyles(ForwardRef(Button))[variant="text"]')
+            .simulate('click');
         expect(fn).toHaveBeenCalled();
     });
 });

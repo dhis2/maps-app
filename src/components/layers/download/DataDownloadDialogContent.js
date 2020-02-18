@@ -1,20 +1,19 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import ErrorIcon from '@material-ui/icons/ErrorOutline';
-import InfoIcon from '@material-ui/icons/InfoOutlined';
+import { ErrorOutline, InfoOutlined } from '@material-ui/icons';
 import i18n from '@dhis2/d2-i18n';
 import EventDownloadInputs from './EventDownloadInputs';
 
 const styles = theme => ({
     contentDiv: {
-        marginBottom: theme.spacing.unit * 1.5,
+        marginBottom: theme.spacing(1.5),
     },
     inputContainer: {
-        marginTop: theme.spacing.unit * 4,
+        marginTop: theme.spacing(4),
     },
     infoDiv: {
-        height: theme.spacing.unit * 2.5, // Ensure that we have enough buffer around the svg icon to prevent unnecessary scrollbars
+        height: theme.spacing(2.5), // Ensure that we have enough buffer around the svg icon to prevent unnecessary scrollbars
         display: 'flex',
         alignItems: 'center',
         fontSize: '0.85em',
@@ -22,10 +21,10 @@ const styles = theme => ({
     },
     icon: {
         fontSize: '1.125em',
-        marginRight: theme.spacing.unit,
+        marginRight: theme.spacing(1),
     },
     error: {
-        marginTop: theme.spacing.unit * 1.5,
+        marginTop: theme.spacing(1.5),
         color: theme.palette.error.main,
     },
 });
@@ -51,7 +50,7 @@ export const DataDownloadDialogContent = ({
             })}
         </div>
         <div className={classes.infoDiv}>
-            <InfoIcon className={classes.icon} />
+            <InfoOutlined className={classes.icon} />
             {i18n.t(
                 'GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop.'
             )}
@@ -69,7 +68,7 @@ export const DataDownloadDialogContent = ({
         )}
         {error && (
             <div className={classes.error}>
-                <ErrorIcon className={classes.icon} />
+                <ErrorOutline className={classes.icon} />
                 {i18n.t('Data download failed.')}
             </div>
         )}

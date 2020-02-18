@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Snackbar from '@material-ui/core/Snackbar';
+import { Snackbar } from '@material-ui/core';
 import i18n from '@dhis2/d2-i18n';
 import { AlertSnackbar } from '../AlertSnackbar';
 import { getStubContext } from '../../../../config/testContext';

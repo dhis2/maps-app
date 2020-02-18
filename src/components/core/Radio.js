@@ -1,6 +1,5 @@
 import React from 'react';
-import MuiRadio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Radio as MuiRadio, FormControlLabel } from '@material-ui/core';
 
 // Wrapper around MUI Radio with label support
 const Radio = props => (

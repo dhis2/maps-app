@@ -7,9 +7,9 @@ import { legendPositions } from './LegendPosition';
 const styles = theme => ({
     root: {
         position: 'absolute',
-        paddingTop: theme.spacing.unit,
-        paddingLeft: theme.spacing.unit,
-        paddingRight: theme.spacing.unit,
+        paddingTop: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
         zIndex: 998,
         backgroundColor: 'rgba(255,255,255,0.9)',
         boxShadow: theme.shadows[1],
@@ -34,23 +34,23 @@ const styles = theme => ({
         fontWeight: 'normal',
     },
     topleft: {
-        top: theme.spacing.unit,
-        left: theme.spacing.unit,
+        top: theme.spacing(1),
+        left: theme.spacing(1),
     },
     topright: {
-        top: theme.spacing.unit,
-        right: theme.spacing.unit,
+        top: theme.spacing(1),
+        right: theme.spacing(1),
     },
     bottomleft: {
         bottom: 40,
-        left: theme.spacing.unit,
+        left: theme.spacing(1),
     },
     bottomright: {
         bottom: 30,
-        right: theme.spacing.unit,
+        right: theme.spacing(1),
     },
     name: {
-        top: theme.spacing.unit * 6,
+        top: theme.spacing(6),
     },
 });
 

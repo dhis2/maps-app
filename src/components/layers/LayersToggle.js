@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import LeftIcon from '@material-ui/icons/ChevronLeft';
-import RightIcon from '@material-ui/icons/ChevronRight';
+import { IconButton } from '@material-ui/core';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { openLayersPanel, closeLayersPanel } from '../../actions/ui';
 import { HEADER_HEIGHT, LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
@@ -41,7 +40,7 @@ const LayersToggle = ({
             disableTouchRipple={true}
             style={isOpen ? {} : { left: 0 }}
         >
-            {isOpen ? <LeftIcon /> : <RightIcon />}
+            {isOpen ? <ChevronLeft /> : <ChevronRight />}
         </IconButton>
     );
 

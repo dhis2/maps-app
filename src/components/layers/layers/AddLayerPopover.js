@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Popover from '@material-ui/core/Popover';
+import { Popover } from '@material-ui/core';
 import LayerList from './LayerList';
 import { isSplitViewMap } from '../../../util/helpers';
 import {

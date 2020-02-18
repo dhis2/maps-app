@@ -1,31 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
-<WithStyles(Toolbar)
+<WithStyles(ForwardRef(Toolbar))
   data-test="layertoolbar"
 >
-  <WithStyles(Tooltip)
+  <WithStyles(ForwardRef(Tooltip))
     key="edit"
     title="Edit"
   >
-    <WithStyles(IconButton)
+    <WithStyles(ForwardRef(IconButton))
       onClick={[Function]}
     >
-      <pure(CreateIcon) />
-    </WithStyles(IconButton)>
-  </WithStyles(Tooltip)>
+      <Component
+        data-icon="CreateIcon"
+      />
+    </WithStyles(ForwardRef(IconButton))>
+  </WithStyles(ForwardRef(Tooltip))>
   <span />
-  <WithStyles(Tooltip)
+  <WithStyles(ForwardRef(Tooltip))
     title="Toggle visibility"
   >
-    <WithStyles(IconButton)
+    <WithStyles(ForwardRef(IconButton))
       onClick={[Function]}
     >
-      <pure(VisibilityIcon) />
-    </WithStyles(IconButton)>
-  </WithStyles(Tooltip)>
+      <Component
+        data-icon="VisibilityIcon"
+      />
+    </WithStyles(ForwardRef(IconButton))>
+  </WithStyles(ForwardRef(Tooltip))>
   <div>
-    <WithStyles(Tooltip)
+    <WithStyles(ForwardRef(Tooltip))
       title="Set layer opacity"
     >
       <div>
@@ -39,7 +43,7 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
           opacity={0}
         />
       </div>
-    </WithStyles(Tooltip)>
+    </WithStyles(ForwardRef(Tooltip))>
   </div>
   <WithStyles(LayerToolbarMoreMenu)
     classes={
@@ -49,24 +53,26 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
     }
     onEdit={[Function]}
   />
-</WithStyles(Toolbar)>
+</WithStyles(ForwardRef(Toolbar))>
 `;
 
 exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
-<WithStyles(Toolbar)
+<WithStyles(ForwardRef(Toolbar))
   data-test="layertoolbar"
 >
-  <WithStyles(Tooltip)
+  <WithStyles(ForwardRef(Tooltip))
     title="Toggle visibility"
   >
-    <WithStyles(IconButton)
+    <WithStyles(ForwardRef(IconButton))
       onClick={[Function]}
     >
-      <pure(VisibilityIcon) />
-    </WithStyles(IconButton)>
-  </WithStyles(Tooltip)>
+      <Component
+        data-icon="VisibilityIcon"
+      />
+    </WithStyles(ForwardRef(IconButton))>
+  </WithStyles(ForwardRef(Tooltip))>
   <div>
-    <WithStyles(Tooltip)
+    <WithStyles(ForwardRef(Tooltip))
       title="Set layer opacity"
     >
       <div>
@@ -80,7 +86,7 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
           opacity={0}
         />
       </div>
-    </WithStyles(Tooltip)>
+    </WithStyles(ForwardRef(Tooltip))>
   </div>
   <WithStyles(LayerToolbarMoreMenu)
     classes={
@@ -89,5 +95,5 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
       }
     }
   />
-</WithStyles(Toolbar)>
+</WithStyles(ForwardRef(Toolbar))>
 `;

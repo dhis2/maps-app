@@ -16,7 +16,7 @@ describe('LayerToolbarMoreMenu', () => {
         expect(wrapper.state('open')).toBe(false);
         expect(wrapper.state('anchorEl')).toBe(null);
         wrapper
-            .find('WithStyles(IconButton)')
+            .find('WithStyles(ForwardRef(IconButton))')
             .simulate('click', { currentTarget: 42 });
         expect(wrapper.state('open')).toBe(true);
         expect(wrapper.state('anchorEl')).toBe(42);
@@ -27,10 +27,12 @@ describe('LayerToolbarMoreMenu', () => {
             <LayerToolbarMoreMenu classes={{}} onRemove={() => null} />
         );
 
-        expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(IconButton))').length).toBe(
+            1
+        );
 
-        expect(wrapper.find('WithStyles(MenuItem)').length).toBe(1);
-        expect(wrapper.find('WithStyles(Divider)').length).toBe(0);
+        expect(wrapper.find('WithStyles(ForwardRef(MenuItem))').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(Divider))').length).toBe(0);
     });
 
     it('Should render two MenuItems with no divider if only passed onEdit and onRemove', () => {
@@ -42,10 +44,12 @@ describe('LayerToolbarMoreMenu', () => {
             />
         );
 
-        expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(IconButton))').length).toBe(
+            1
+        );
 
-        expect(wrapper.find('WithStyles(MenuItem)').length).toBe(2);
-        expect(wrapper.find('WithStyles(Divider)').length).toBe(0);
+        expect(wrapper.find('WithStyles(ForwardRef(MenuItem))').length).toBe(2);
+        expect(wrapper.find('WithStyles(ForwardRef(Divider))').length).toBe(0);
     });
 
     it('Should render two MenuItems with no divider if only passed toggleDataTable', () => {
@@ -53,10 +57,12 @@ describe('LayerToolbarMoreMenu', () => {
             <LayerToolbarMoreMenu classes={{}} toggleDataTable={() => null} />
         );
 
-        expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(IconButton))').length).toBe(
+            1
+        );
 
-        expect(wrapper.find('WithStyles(MenuItem)').length).toBe(1);
-        expect(wrapper.find('WithStyles(Divider)').length).toBe(0);
+        expect(wrapper.find('WithStyles(ForwardRef(MenuItem))').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(Divider))').length).toBe(0);
     });
 
     it('Should render two MenuItems with no divider if only passed toggleDataTable and downloadData', () => {
@@ -68,10 +74,12 @@ describe('LayerToolbarMoreMenu', () => {
             />
         );
 
-        expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(IconButton))').length).toBe(
+            1
+        );
 
-        expect(wrapper.find('WithStyles(MenuItem)').length).toBe(2);
-        expect(wrapper.find('WithStyles(Divider)').length).toBe(0);
+        expect(wrapper.find('WithStyles(ForwardRef(MenuItem))').length).toBe(2);
+        expect(wrapper.find('WithStyles(ForwardRef(Divider))').length).toBe(0);
     });
 
     it('Should render three MenuItems WITH divider if passed toggleDataTable, onEdit, and onRemove', () => {
@@ -84,10 +92,12 @@ describe('LayerToolbarMoreMenu', () => {
             />
         );
 
-        expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(IconButton))').length).toBe(
+            1
+        );
 
-        expect(wrapper.find('WithStyles(MenuItem)').length).toBe(3);
-        expect(wrapper.find('WithStyles(Divider)').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(MenuItem))').length).toBe(3);
+        expect(wrapper.find('WithStyles(ForwardRef(Divider))').length).toBe(1);
     });
 
     it('Should render four MenuItems WITH divider if passed toggleDataTable, downloadData, onEdit, and onRemove', () => {
@@ -101,10 +111,12 @@ describe('LayerToolbarMoreMenu', () => {
             />
         );
 
-        expect(wrapper.find('WithStyles(IconButton)').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(IconButton))').length).toBe(
+            1
+        );
 
-        expect(wrapper.find('WithStyles(MenuItem)').length).toBe(4);
-        expect(wrapper.find('WithStyles(Divider)').length).toBe(1);
+        expect(wrapper.find('WithStyles(ForwardRef(MenuItem))').length).toBe(4);
+        expect(wrapper.find('WithStyles(ForwardRef(Divider))').length).toBe(1);
     });
 
     it('Should match snapshot', () => {
@@ -138,7 +150,7 @@ describe('LayerToolbarMoreMenu', () => {
         );
 
         wrapper
-            .find('WithStyles(MenuItem)')
+            .find('WithStyles(ForwardRef(MenuItem))')
             .at(0)
             .simulate('click');
         expect(toggleDataTable).toHaveBeenCalledTimes(1);
@@ -147,7 +159,7 @@ describe('LayerToolbarMoreMenu', () => {
         expect(onRemove).toHaveBeenCalledTimes(0);
 
         wrapper
-            .find('WithStyles(MenuItem)')
+            .find('WithStyles(ForwardRef(MenuItem))')
             .at(1)
             .simulate('click');
         expect(toggleDataTable).toHaveBeenCalledTimes(1);
@@ -156,7 +168,7 @@ describe('LayerToolbarMoreMenu', () => {
         expect(onRemove).toHaveBeenCalledTimes(0);
 
         wrapper
-            .find('WithStyles(MenuItem)')
+            .find('WithStyles(ForwardRef(MenuItem))')
             .at(2)
             .simulate('click');
         expect(toggleDataTable).toHaveBeenCalledTimes(1);
@@ -165,7 +177,7 @@ describe('LayerToolbarMoreMenu', () => {
         expect(onRemove).toHaveBeenCalledTimes(0);
 
         wrapper
-            .find('WithStyles(MenuItem)')
+            .find('WithStyles(ForwardRef(MenuItem))')
             .at(3)
             .simulate('click');
         expect(toggleDataTable).toHaveBeenCalledTimes(1);

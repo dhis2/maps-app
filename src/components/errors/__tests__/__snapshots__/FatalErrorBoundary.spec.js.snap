@@ -3,7 +3,7 @@
 exports[`FatalErrorBoundary Should match the snapshot tree when error is manually invoked 1`] = `
 <div>
   <div>
-    <pure(InfoOutlinedIcon) />
+    <Component />
     <div>
       Something went wrong
     </div>

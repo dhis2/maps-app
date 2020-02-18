@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { unwrap } from '@material-ui/core/test-utils';
-import Dialog from '@material-ui/core/Dialog';
+import { Dialog } from '@material-ui/core';
 import OrgUnitDialog from '../OrgUnitDialog';
 
 // https://github.com/mui-org/material-ui/issues/11864

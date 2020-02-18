@@ -8,14 +8,14 @@ import Checkbox from '../../core/Checkbox';
 
 const styles = theme => ({
     headingDiv: {
-        marginBottom: theme.spacing.unit * 1,
+        marginBottom: theme.spacing(1),
     },
     selectField: {
         width: '50%',
     },
     checkboxRoot: {
-        margin: `${theme.spacing.unit / 2}px 0`,
-        marginLeft: -theme.spacing.unit * 1.5,
+        margin: `${theme.spacing(0.5)}px 0`,
+        marginLeft: -theme.spacing(1.5),
     },
 });
 

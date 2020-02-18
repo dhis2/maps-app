@@ -12,6 +12,8 @@ const context = {
 describe('Timeline', () => {
     const renderWithProps = props =>
         shallow(<Timeline {...props} />, { context });
+
+    const periodId = 'LAST_3_MONTHS';
     const period = { id: '201906', name: 'June 2019' };
     const periods = [
         {
@@ -38,6 +40,7 @@ describe('Timeline', () => {
 
     beforeEach(() => {
         props = {
+            periodId,
             period,
             periods,
             onChange: onChangeSpy,
