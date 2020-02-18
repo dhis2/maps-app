@@ -509,7 +509,7 @@ msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr ""
+msgstr "面积"
 
 msgid "Center map on area"
 msgstr ""
