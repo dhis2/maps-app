@@ -6,7 +6,7 @@ import { Slider } from '@material-ui/core';
 const styles = theme => ({
     root: {
         width: 100,
-        paddingLeft: 4,
+        marginTop: 4,
     },
     track: {
         backgroundColor: theme.palette.action.active,
