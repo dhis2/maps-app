@@ -12,11 +12,13 @@ class Layer extends PureComponent {
         dataFilters: PropTypes.object,
         id: PropTypes.string.isRequired,
         index: PropTypes.number,
+        layer: PropTypes.string,
         editCounter: PropTypes.number,
         opacity: PropTypes.number,
         isVisible: PropTypes.bool,
         config: PropTypes.object,
         labels: PropTypes.bool,
+        openContextMenu: PropTypes.func,
     };
 
     static defaultProps = {
@@ -138,6 +140,8 @@ class Layer extends PureComponent {
     removeLayer() {
         const map = this.context.map;
 
+        this.layer.off('contextmenu', this.onFeatureRightClick, this);
+
         if (map.hasLayer(this.layer)) {
             map.removeLayer(this.layer);
         }
@@ -147,6 +151,20 @@ class Layer extends PureComponent {
 
     render() {
         return null;
+    }
+
+    onFeatureRightClick(evt) {
+        const [x, y] = evt.position;
+        const { id, layer } = this.props;
+        const { map } = this.context;
+        const { left, top } = map.getContainer().getBoundingClientRect();
+
+        this.props.openContextMenu({
+            ...evt,
+            position: [left + x, top + y],
+            layerId: id,
+            layerType: layer,
+        });
     }
 
     // Called when a map popup is closed

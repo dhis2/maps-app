@@ -70,9 +70,11 @@ const ContextMenu = (props, context) => {
     let attr = {};
 
     if (position) {
+        const [x, y] = position;
+
         anchorEl.style.position = 'fixed';
-        anchorEl.style.left = position[0] + 'px';
-        anchorEl.style.top = position[1] + 'px';
+        anchorEl.style.left = `${x}px`;
+        anchorEl.style.top = `${y}px`;
     }
 
     if (feature) {

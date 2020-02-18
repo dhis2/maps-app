@@ -176,7 +176,13 @@ class Map extends Component {
     }
 
     onRightClick = evt => {
-        this.props.openContextMenu(evt);
+        const [x, y] = evt.position;
+        const { left, top } = this.map.getContainer().getBoundingClientRect();
+
+        this.props.openContextMenu({
+            ...evt,
+            position: [left + x, top + y],
+        });
     };
 
     onMapReady = map => this.setState({ map });

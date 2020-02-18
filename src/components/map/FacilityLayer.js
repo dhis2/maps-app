@@ -112,16 +112,6 @@ class FacilityLayer extends Layer {
     onFeatureClick(evt) {
         this.setState({ popup: evt });
     }
-
-    onFeatureRightClick(evt) {
-        const { id, layer } = this.props;
-
-        this.props.openContextMenu({
-            ...evt,
-            layerId: id,
-            layerType: layer,
-        });
-    }
 }
 
 export default FacilityLayer;

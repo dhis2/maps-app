@@ -100,20 +100,8 @@ export default class BoundaryLayer extends Layer {
         this.setState({ popup: evt });
     }
 
-    onFeatureRightClick(evt) {
-        const { id, layer } = this.props;
-
-        this.props.openContextMenu({
-            ...evt,
-            layerId: id,
-            layerType: layer,
-        });
-    }
-
     removeLayer() {
         this.layer.off('click', this.onFeatureClick, this);
-        this.layer.off('contextmenu', this.onFeatureRightClick, this);
-
         super.removeLayer();
     }
 }
