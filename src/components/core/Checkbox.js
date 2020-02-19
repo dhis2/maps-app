@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MuiCheckbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Checkbox as MuiCheckbox, FormControlLabel } from '@material-ui/core';
 
 const styles = {
     root: {

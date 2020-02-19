@@ -1,10 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import {
+    TextField,
+    MenuItem,
+    CircularProgress,
+    Checkbox,
+} from '@material-ui/core';
 import { SelectField } from '../SelectField';
-import Checkbox from '@material-ui/core/Checkbox';
 
 const items = [
     {

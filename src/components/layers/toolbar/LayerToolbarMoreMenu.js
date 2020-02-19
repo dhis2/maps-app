@@ -2,21 +2,21 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-
+import {
+    Menu,
+    MenuItem,
+    Tooltip,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+    Divider,
+} from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
-import CreateIcon from '@material-ui/icons/Create';
-import ViewListIcon from '@material-ui/icons/ViewList';
+import EditIcon from '@material-ui/icons/Create';
+import TableIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/SaveAlt';
-import OpenAsChartIcon from '@material-ui/icons/BarChart';
+import ChartIcon from '@material-ui/icons/BarChart';
 
 const styles = theme => ({
     button: {
@@ -26,7 +26,7 @@ const styles = theme => ({
         height: 32,
     },
     divider: {
-        margin: `${theme.spacing.unit}px 0`,
+        margin: `${theme.spacing(1)}px 0`,
     },
 });
 
@@ -123,7 +123,7 @@ export class LayerToolbarMoreMenu extends Component {
                     {toggleDataTable && (
                         <MenuItem onClick={this.handleDataTableBtnClick}>
                             <ListItemIcon>
-                                <ViewListIcon />
+                                <TableIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Data table')} />
                         </MenuItem>
@@ -131,7 +131,7 @@ export class LayerToolbarMoreMenu extends Component {
                     {openAs && (
                         <MenuItem onClick={this.handleOpenAsChartBtnClick}>
                             <ListItemIcon>
-                                <OpenAsChartIcon />
+                                <ChartIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Open as chart')} />
                         </MenuItem>
@@ -150,7 +150,7 @@ export class LayerToolbarMoreMenu extends Component {
                     {onEdit && (
                         <MenuItem onClick={this.handleEditBtnClick}>
                             <ListItemIcon>
-                                <CreateIcon />
+                                <EditIcon />
                             </ListItemIcon>
                             <ListItemText primary={i18n.t('Edit layer')} />
                         </MenuItem>

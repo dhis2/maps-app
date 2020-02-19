@@ -10,13 +10,13 @@ export const styles = theme => ({
         ...legendStyle,
     },
     description: {
-        paddingBottom: theme.spacing.unit * 1.5,
+        paddingBottom: theme.spacing(1.5),
     },
     period: {
-        paddingBottom: theme.spacing.unit * 1.5,
+        paddingBottom: theme.spacing(1.5),
     },
     filters: {
-        paddingTop: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
         fontSize: 12,
         '& > div:first-child': {
             fontWeight: 'bold',
@@ -27,10 +27,10 @@ export const styles = theme => ({
         fontWeight: 'bold',
     },
     explanation: {
-        paddingTop: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
     },
     source: {
-        paddingTop: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
         fontSize: 12,
     },
 });

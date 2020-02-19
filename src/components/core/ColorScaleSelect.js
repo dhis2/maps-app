@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Popover from '@material-ui/core/Popover';
+import { Popover } from '@material-ui/core';
 import ColorScale from './ColorScale';
 import { colorScales, getColorScale, getColorPalette } from '../../util/colors';
 

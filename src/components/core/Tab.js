@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import MuiTab from '@material-ui/core/Tab';
+import { Tab as MuiTab } from '@material-ui/core';
 
 const styles = {
     root: {

@@ -2,16 +2,16 @@
 
 exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
 <Fragment>
-  <WithStyles(Tooltip)
+  <WithStyles(ForwardRef(Tooltip))
     title="More actions"
   >
-    <WithStyles(IconButton)
+    <WithStyles(ForwardRef(IconButton))
       onClick={[Function]}
     >
-      <pure(MoreHorizIcon) />
-    </WithStyles(IconButton)>
-  </WithStyles(Tooltip)>
-  <WithStyles(Menu)
+      <Component />
+    </WithStyles(ForwardRef(IconButton))>
+  </WithStyles(ForwardRef(Tooltip))>
+  <WithStyles(ForwardRef(Menu))
     anchorEl={null}
     anchorOrigin={
       Object {
@@ -24,49 +24,49 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
     onClose={[Function]}
     open={false}
   >
-    <WithStyles(MenuItem)
+    <WithStyles(ForwardRef(MenuItem))
       onClick={[Function]}
     >
-      <WithStyles(ListItemIcon)>
-        <pure(ViewListIcon) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
+      <WithStyles(ForwardRef(ListItemIcon))>
+        <Component />
+      </WithStyles(ForwardRef(ListItemIcon))>
+      <WithStyles(ForwardRef(ListItemText))
         primary="Data table"
       />
-    </WithStyles(MenuItem)>
-    <WithStyles(MenuItem)
+    </WithStyles(ForwardRef(MenuItem))>
+    <WithStyles(ForwardRef(MenuItem))
       onClick={[Function]}
     >
-      <WithStyles(ListItemIcon)>
-        <pure(SaveAltIcon) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
+      <WithStyles(ForwardRef(ListItemIcon))>
+        <Component />
+      </WithStyles(ForwardRef(ListItemIcon))>
+      <WithStyles(ForwardRef(ListItemText))
         primary="Download data"
       />
-    </WithStyles(MenuItem)>
-    <WithStyles(Divider)
+    </WithStyles(ForwardRef(MenuItem))>
+    <WithStyles(ForwardRef(Divider))
       light={true}
     />
-    <WithStyles(MenuItem)
+    <WithStyles(ForwardRef(MenuItem))
       onClick={[Function]}
     >
-      <WithStyles(ListItemIcon)>
-        <pure(CreateIcon) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
+      <WithStyles(ForwardRef(ListItemIcon))>
+        <Component />
+      </WithStyles(ForwardRef(ListItemIcon))>
+      <WithStyles(ForwardRef(ListItemText))
         primary="Edit layer"
       />
-    </WithStyles(MenuItem)>
-    <WithStyles(MenuItem)
+    </WithStyles(ForwardRef(MenuItem))>
+    <WithStyles(ForwardRef(MenuItem))
       onClick={[Function]}
     >
-      <WithStyles(ListItemIcon)>
-        <pure(DeleteIcon) />
-      </WithStyles(ListItemIcon)>
-      <WithStyles(ListItemText)
+      <WithStyles(ForwardRef(ListItemIcon))>
+        <Component />
+      </WithStyles(ForwardRef(ListItemIcon))>
+      <WithStyles(ForwardRef(ListItemText))
         primary="Remove layer"
       />
-    </WithStyles(MenuItem)>
-  </WithStyles(Menu)>
+    </WithStyles(ForwardRef(MenuItem))>
+  </WithStyles(ForwardRef(Menu))>
 </Fragment>
 `;

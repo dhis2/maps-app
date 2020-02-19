@@ -23,7 +23,7 @@ const styles = theme => ({
             backgroundColor: 'rgba(255,255,255,0.9)',
             boxShadow: theme.shadows[1],
             borderRadius: theme.shape.borderRadius,
-            margin: theme.spacing.unit,
+            margin: theme.spacing(1),
         },
     },
     name: {
@@ -38,7 +38,7 @@ const styles = theme => ({
     },
     interpretationIcon: {
         position: 'absolute',
-        left: theme.spacing.unit,
+        left: theme.spacing(1),
         top: 7,
     },
 });

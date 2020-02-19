@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import { Drawer } from '@material-ui/core';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import BasemapCard from '../layers/basemaps/BasemapCard';
 import LayerCard from './layers/LayerCard';

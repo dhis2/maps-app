@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import RoomIcon from '@material-ui/icons/Room';
+import { Menu, MenuItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import UpIcon from '@material-ui/icons/ArrowUpward';
+import DownIcon from '@material-ui/icons/ArrowDownward';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
+import PositionIcon from '@material-ui/icons/Room';
 import OrgUnitDialog from '../orgunits/OrgUnitDialog';
 import RelocateDialog from '../orgunits/RelocateDialog';
 import {
@@ -103,8 +100,8 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <ArrowUpwardIcon
-                            nativeColor={
+                        <UpIcon
+                            htmlColor={
                                 attr.hasCoordinatesUp
                                     ? iconColor
                                     : iconDisabledColor
@@ -134,8 +131,8 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <ArrowDownwardIcon
-                            nativeColor={
+                        <DownIcon
+                            htmlColor={
                                 attr.hasCoordinatesDown
                                     ? iconColor
                                     : iconDisabledColor
@@ -157,7 +154,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <InfoOutlinedIcon style={styles.icon} />
+                        <InfoIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t('Show information')}
@@ -173,7 +170,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <RoomIcon style={styles.icon} />
+                        <PositionIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t('Show longitude/latitude')}
@@ -195,7 +192,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <RoomIcon style={styles.icon} />
+                        <PositionIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t('Swap longitude/latitude')}
@@ -211,7 +208,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <RoomIcon style={styles.icon} />
+                        <PositionIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t('Relocate')}
@@ -228,7 +225,7 @@ const ContextMenu = (props, context) => {
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
-                        <RoomIcon style={styles.icon} />
+                        <PositionIcon style={styles.icon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={i18n.t(layer.name)}

@@ -8,13 +8,13 @@ import EventDownloadInputs from './EventDownloadInputs';
 
 const styles = theme => ({
     contentDiv: {
-        marginBottom: theme.spacing.unit * 1.5,
+        marginBottom: theme.spacing(1.5),
     },
     inputContainer: {
-        marginTop: theme.spacing.unit * 4,
+        marginTop: theme.spacing(4),
     },
     infoDiv: {
-        height: theme.spacing.unit * 2.5, // Ensure that we have enough buffer around the svg icon to prevent unnecessary scrollbars
+        height: theme.spacing(2.5), // Ensure that we have enough buffer around the svg icon to prevent unnecessary scrollbars
         display: 'flex',
         alignItems: 'center',
         fontSize: '0.85em',
@@ -22,10 +22,10 @@ const styles = theme => ({
     },
     icon: {
         fontSize: '1.125em',
-        marginRight: theme.spacing.unit,
+        marginRight: theme.spacing(1),
     },
     error: {
-        marginTop: theme.spacing.unit * 1.5,
+        marginTop: theme.spacing(1.5),
         color: theme.palette.error.main,
     },
 });

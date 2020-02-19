@@ -39,7 +39,9 @@ describe('DownloadDialog', () => {
     it('Should render a dialog when showDialog is true', () => {
         const wrapper = renderComponent();
         expect(wrapper.isEmptyRender()).toBe(false);
-        expect(wrapper.find('WithStyles(Dialog)').exists()).toBe(true);
+        expect(wrapper.find('WithStyles(ForwardRef(Dialog))').exists()).toBe(
+            true
+        );
     });
 
     it('Should match snapshot when showDialog is true', () => {
@@ -63,7 +65,7 @@ describe('DownloadDialog', () => {
 
         expect(
             wrapper
-                .find('WithStyles(DialogContent)')
+                .find('WithStyles(ForwardRef(DialogContent))')
                 .render()
                 .text()
                 .substring(0, 29)
@@ -71,7 +73,7 @@ describe('DownloadDialog', () => {
 
         expect(
             wrapper
-                .find('WithStyles(Button)')
+                .find('WithStyles(ForwardRef(Button))')
                 .at(0)
                 .render()
                 .text()
@@ -82,10 +84,10 @@ describe('DownloadDialog', () => {
         const wrapper = renderComponent();
 
         expect(wrapper.find('WithStyles(Checkbox)').length).toBe(2);
-        expect(wrapper.find('WithStyles(Button)').length).toBe(2);
+        expect(wrapper.find('WithStyles(ForwardRef(Button))').length).toBe(2);
         expect(
             wrapper
-                .find('WithStyles(Button)')
+                .find('WithStyles(ForwardRef(Button))')
                 .at(0)
                 .render()
                 .text()
@@ -229,7 +231,7 @@ describe('DownloadDialog', () => {
 
         expect(
             wrapper
-                .find('WithStyles(DialogContent)')
+                .find('WithStyles(ForwardRef(DialogContent))')
                 .render()
                 .text()
                 .substring(0, 29)

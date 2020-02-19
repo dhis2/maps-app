@@ -2,7 +2,7 @@
 
 exports[`DownloadButton Should render a download button and a dialog component 1`] = `
 <Fragment>
-  <WithStyles(Button)
+  <WithStyles(ForwardRef(Button))
     classes={
       Object {
         "label": undefined,
@@ -12,7 +12,7 @@ exports[`DownloadButton Should render a download button and a dialog component 1
     onClick={[Function]}
   >
     Download
-  </WithStyles(Button)>
+  </WithStyles(ForwardRef(Button))>
   <Connect(WithStyles(DownloadDialog)) />
 </Fragment>
 `;

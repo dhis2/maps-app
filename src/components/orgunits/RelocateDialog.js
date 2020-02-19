@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Paper from '@material-ui/core/Paper';
+import { Paper } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {
     changeOrgUnitCoordinate,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import { Drawer } from '@material-ui/core';
 import InterpretationsComponent from '@dhis2/d2-ui-interpretations';
 import { openInterpretationsPanel } from '../../actions/ui';
 import { setRelativePeriodDate } from '../../actions/map';

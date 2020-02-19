@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import AddCircleIcon from '@material-ui/icons/AddCircleOutline';
+import { Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/AddCircleOutline';
 import AddLayerPopover from './AddLayerPopover';
 import { openLayersDialog } from '../../../actions/layers';
 import { LAYERS_PANEL_WIDTH } from '../../../constants/layout';
@@ -60,7 +60,7 @@ export class AddLayer extends Component {
                 }}
                 data-test="addlayerbutton"
             >
-                <AddCircleIcon className={classes.icon} /> {i18n.t('Add layer')}
+                <AddIcon className={classes.icon} /> {i18n.t('Add layer')}
             </Button>,
             <AddLayerPopover key="popover" anchorEl={this.state.anchorEl} />,
         ];

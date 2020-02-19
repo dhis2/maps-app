@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Popover from '@material-ui/core/Popover';
+import { IconButton, Popover } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ChromePicker from 'react-color/lib/components/chrome/Chrome';
 import { hcl } from 'd3-color';
@@ -83,7 +82,7 @@ export class ColorPicker extends Component {
                     disableTouchRipple={true}
                 >
                     <ArrowDropDownIcon
-                        nativeColor={hcl(color).l < 70 ? '#fff' : '#333'}
+                        htmlColor={hcl(color).l < 70 ? '#fff' : '#333'}
                         className={classes.icon}
                     />
                 </IconButton>

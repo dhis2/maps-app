@@ -2,12 +2,10 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
+import { Toolbar, IconButton, Tooltip } from '@material-ui/core';
+import CreateIcon from '@material-ui/icons/Create';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import OpacitySlider from './OpacitySlider';
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu';
 
@@ -16,12 +14,12 @@ const styles = theme => ({
         position: 'relative',
         height: 32,
         minHeight: 32,
-        padding: `0 ${theme.spacing.unit}px`,
+        padding: `0 ${theme.spacing(1)}px`,
         backgroundColor: theme.palette.background.paper,
         borderTop: `1px solid ${theme.palette.divider}`,
     },
     spacer: {
-        marginRight: theme.spacing.unit * 2,
+        marginRight: theme.spacing(2),
     },
     button: {
         float: 'left',
@@ -34,11 +32,11 @@ const styles = theme => ({
         height: 32,
         padding: 4,
         position: 'absolute',
-        right: theme.spacing.unit / 2,
+        right: theme.spacing(0.5),
         top: 0,
     },
     sliderContainer: {
-        marginLeft: theme.spacing.unit / 2,
+        marginLeft: theme.spacing(0.5),
     },
     sliderRoot: {
         paddingLeft: 0,
@@ -63,7 +61,7 @@ export const LayerToolbar = ({
                 <Fragment>
                     <Tooltip key="edit" title={i18n.t('Edit')}>
                         <IconButton className={classes.button} onClick={onEdit}>
-                            <CreateIcon />
+                            <CreateIcon data-icon="CreateIcon" />
                         </IconButton>
                     </Tooltip>
                     <span className={classes.spacer} />
@@ -74,7 +72,11 @@ export const LayerToolbar = ({
                     className={classes.button}
                     onClick={toggleLayerVisibility}
                 >
-                    {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    {isVisible ? (
+                        <VisibilityIcon data-icon="VisibilityIcon" />
+                    ) : (
+                        <VisibilityOffIcon data-icon="VisibilityOffIcon" />
+                    )}
                 </IconButton>
             </Tooltip>
             <div className={classes.sliderContainer}>
