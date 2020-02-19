@@ -464,10 +464,10 @@
     leaflet.markercluster "^1.4.1"
     whatwg-fetch "^3.0.0"
 
-"@dhis2/maps-gl@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.4.tgz#83cc0d91e1c1cbaa26c61616f0e09842a3c62f36"
-  integrity sha512-4JKH4jMiEJ5v8BOv3iftkLP6CkI5wQaEN7n1K8VlDKTKtMjmjGG6QeofeD7oCpoVUtGfvUiTVEb+n+6bsabYHQ==
+"@dhis2/maps-gl@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.5.tgz#2df0ff3b0cd85b62bd02e576ce1ebf28e13e29c3"
+  integrity sha512-fHdpEtepKlhAJ2iQGIP/8DgyTMZz/ceLQghGo2dPqewTkUnpxHmUavj5QU39F32pugmcMyhJZBGTH38uTdnkAQ==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.0.1"
@@ -6410,9 +6410,9 @@ gitbook-plugin-github@^2.0.0:
   integrity sha1-UWbnY8/MQC1DKIC3pshcHFS1ao0=
 
 gl-matrix@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/gl-matrix/-/gl-matrix-3.1.0.tgz#f5b2de17d8fed95a79e5025b10cded0ab9ccbed0"
-  integrity sha512-526NA+3EA+ztAQi0IZpSWiM0fyQXIp7IbRvfJ4wS/TjjQD0uv0fVybXwwqqSOlq33UckivI0yMDlVtboWm3k7A==
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/gl-matrix/-/gl-matrix-3.2.1.tgz#2d8e35125bf854f49abded8a0c8350b1a4907a26"
+  integrity sha512-YYVO8jUSf6+SakL4AJmx9Jc7zAZhkJQ+WhdtX3VQe5PJdCOX6/ybY4x1vk+h94ePnjRn6uml68+QxTAJneUpvA==
 
 glob-base@^0.3.0:
   version "0.3.0"

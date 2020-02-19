@@ -43,7 +43,7 @@ class ThematicLayer extends Layer {
                     ...feature.properties,
                     ...(values[feature.id]
                         ? values[feature.id]
-                        : { value: i18n.t('No data'), color: null }),
+                        : { value: i18n.t('No data'), color: '#CCC' }),
                 },
             }));
         }

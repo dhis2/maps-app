@@ -57,8 +57,9 @@ class SplitView extends PureComponent {
                         onRemove={this.onMapRemove}
                         setMapControls={this.setMapControls}
                     >
-                        <Layer {...basemap} />
+                        <Layer index={0} {...basemap} />
                         <ThematicLayer
+                            index={1}
                             period={period}
                             {...layer}
                             openContextMenu={openContextMenu}
