@@ -25,10 +25,10 @@ export const getExternalLayer = async id => {
     return d2.models.externalMapLayers.get(id);
 };
 
-// Fetch Google Maps key
-export const getGoogleCloudApiKey = async () => {
+// Fetch Bing Maps key
+export const getBingMapsApiKey = async () => {
     const d2 = await getD2();
-    return d2.system.settings.get('keyGoogleCloudApiKey');
+    return d2.system.settings.get('keyBingMapsApiKey');
 };
 
 // Different ways of specifying a basemap - TODO: simplify!

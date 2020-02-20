@@ -9,7 +9,7 @@ import Plugin from './components/plugin/Plugin';
 import {
     mapRequest,
     getExternalLayer,
-    getGoogleCloudApiKey,
+    getBingMapsApiKey,
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
@@ -132,8 +132,8 @@ const PluginContainer = () => {
                 basemap = defaultBasemaps.find(map => map.id === basemapId);
             }
 
-            if (basemapId.substring(0, 6) === 'google') {
-                basemap.config.apiKey = await getGoogleCloudApiKey();
+            if (basemapId.substring(0, 4) === 'bing') {
+                basemap.config.apiKey = await getBingMapsApiKey();
             }
 
             if (config.mapViews) {
