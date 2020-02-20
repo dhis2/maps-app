@@ -168,7 +168,9 @@ const PluginContainer = () => {
                 const ref = createRef();
 
                 // JSS initialization
-                const generateClassName = createGenerateClassName();
+                const generateClassName = createGenerateClassName({
+                    productionPrefix: 'maps-plugin-',
+                });
                 jss.options.insertionPoint = 'jss-insertion-point';
 
                 render(
