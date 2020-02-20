@@ -1,5 +1,6 @@
 import React, { createRef } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
+import { JssProvider, jss, createGenerateClassName } from 'react-jss';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
@@ -166,7 +167,19 @@ const PluginContainer = () => {
             if (domEl) {
                 const ref = createRef();
 
-                render(<Plugin innerRef={ref} {...config} />, domEl);
+                // JSS initialization
+                const generateClassName = createGenerateClassName();
+                jss.options.insertionPoint = 'jss-insertion-point';
+
+                render(
+                    <JssProvider
+                        jss={jss}
+                        generateClassName={generateClassName}
+                    >
+                        <Plugin innerRef={ref} {...config} />
+                    </JssProvider>,
+                    domEl
+                );
 
                 _components[config.el] = ref;
             }
