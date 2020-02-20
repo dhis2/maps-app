@@ -43,7 +43,6 @@ export class DownloadButton extends Component {
     onClick = () => this.props.toggleDownloadDialog(true);
 }
 
-export default connect(
-    null,
-    { toggleDownloadDialog }
-)(withStyles(styles)(DownloadButton));
+export default connect(null, { toggleDownloadDialog })(
+    withStyles(styles)(DownloadButton)
+);

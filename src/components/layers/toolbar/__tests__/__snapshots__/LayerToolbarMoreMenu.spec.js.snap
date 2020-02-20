@@ -8,7 +8,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
     <WithStyles(ForwardRef(IconButton))
       onClick={[Function]}
     >
-      <Component />
+      <MoreHorizIcon />
     </WithStyles(ForwardRef(IconButton))>
   </WithStyles(ForwardRef(Tooltip))>
   <WithStyles(ForwardRef(Menu))
@@ -28,7 +28,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ForwardRef(ListItemIcon))>
-        <Component />
+        <ViewListIcon />
       </WithStyles(ForwardRef(ListItemIcon))>
       <WithStyles(ForwardRef(ListItemText))
         primary="Data table"
@@ -38,7 +38,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ForwardRef(ListItemIcon))>
-        <Component />
+        <SaveAltIcon />
       </WithStyles(ForwardRef(ListItemIcon))>
       <WithStyles(ForwardRef(ListItemText))
         primary="Download data"
@@ -51,7 +51,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ForwardRef(ListItemIcon))>
-        <Component />
+        <CreateIcon />
       </WithStyles(ForwardRef(ListItemIcon))>
       <WithStyles(ForwardRef(ListItemText))
         primary="Edit layer"
@@ -61,7 +61,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
       onClick={[Function]}
     >
       <WithStyles(ForwardRef(ListItemIcon))>
-        <Component />
+        <DeleteIcon />
       </WithStyles(ForwardRef(ListItemIcon))>
       <WithStyles(ForwardRef(ListItemText))
         primary="Remove layer"

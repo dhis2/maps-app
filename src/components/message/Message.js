@@ -19,7 +19,6 @@ Message.propTypes = {
     message: PropTypes.string,
 };
 
-export default connect(
-    ({ message }) => ({ message }),
-    { clearMessage }
-)(Message);
+export default connect(({ message }) => ({ message }), { clearMessage })(
+    Message
+);

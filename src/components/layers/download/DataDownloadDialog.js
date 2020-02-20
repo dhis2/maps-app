@@ -129,10 +129,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    {
-        closeDialog: closeDataDownloadDialog,
-        startDownload: startDataDownload,
-    }
-)(DataDownloadDialog);
+export default connect(mapStateToProps, {
+    closeDialog: closeDataDownloadDialog,
+    startDownload: startDataDownload,
+})(DataDownloadDialog);

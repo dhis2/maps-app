@@ -53,7 +53,6 @@ LegendTypeSelect.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(
-    null,
-    { setClassification }
-)(withStyles(styles)(LegendTypeSelect));
+export default connect(null, { setClassification })(
+    withStyles(styles)(LegendTypeSelect)
+);

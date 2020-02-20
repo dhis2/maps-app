@@ -346,9 +346,6 @@ class EarthEngineDialog extends Component {
     }
 }
 
-export default connect(
-    null,
-    { setParams, setFilter, setPeriodName },
-    null,
-    { withRef: true }
-)(withStyles(styles)(EarthEngineDialog));
+export default connect(null, { setParams, setFilter, setPeriodName }, null, {
+    withRef: true,
+})(withStyles(styles)(EarthEngineDialog));

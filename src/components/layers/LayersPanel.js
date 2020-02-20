@@ -78,7 +78,6 @@ const mapStateToProps = state => ({
     layersPanelOpen: state.ui.layersPanelOpen,
 });
 
-export default connect(
-    mapStateToProps,
-    { sortLayers }
-)(withStyles(styles)(LayersPanel));
+export default connect(mapStateToProps, { sortLayers })(
+    withStyles(styles)(LayersPanel)
+);

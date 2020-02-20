@@ -69,9 +69,10 @@ export class OrgUnitLevelSelect extends Component {
         let sortedOrgUnitLevels;
 
         if (orgUnitLevels) {
-            sortedOrgUnitLevels = sortBy(item => item.level, orgUnitLevels).map(
-                ({ level, name }) => ({ id: level.toString(), name })
-            ); // TODO
+            sortedOrgUnitLevels = sortBy(
+                item => item.level,
+                orgUnitLevels
+            ).map(({ level, name }) => ({ id: level.toString(), name })); // TODO
         }
 
         return (

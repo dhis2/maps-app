@@ -206,16 +206,13 @@ LayerCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(
-    null,
-    {
-        editLayer,
-        removeLayer,
-        changeLayerOpacity,
-        toggleLayerExpand,
-        toggleLayerVisibility,
-        toggleDataTable,
-        setMessage,
-        openDataDownloadDialog,
-    }
-)(withStyles(styles)(LayerCard));
+export default connect(null, {
+    editLayer,
+    removeLayer,
+    changeLayerOpacity,
+    toggleLayerExpand,
+    toggleLayerVisibility,
+    toggleDataTable,
+    setMessage,
+    openDataDownloadDialog,
+})(withStyles(styles)(LayerCard));

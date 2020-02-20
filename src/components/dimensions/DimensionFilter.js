@@ -65,7 +65,8 @@ class DimensionFilter extends Component {
     }
 }
 
-export default connect(
-    null,
-    { addDimensionFilter, removeDimensionFilter, changeDimensionFilter }
-)(withStyles(styles)(DimensionFilter));
+export default connect(null, {
+    addDimensionFilter,
+    removeDimensionFilter,
+    changeDimensionFilter,
+})(withStyles(styles)(DimensionFilter));

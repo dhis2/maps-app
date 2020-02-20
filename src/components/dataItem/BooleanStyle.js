@@ -58,7 +58,4 @@ export class BooleanStyle extends Component {
     }
 }
 
-export default connect(
-    null,
-    { setBooleanStyle }
-)(BooleanStyle);
+export default connect(null, { setBooleanStyle })(BooleanStyle);
