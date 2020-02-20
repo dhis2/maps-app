@@ -58,8 +58,6 @@ export const defaultBasemaps = [
         config: {
             type: 'bingLayer',
             style: 'CanvasDark',
-            apiKey:
-                'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
         },
     },
     {
@@ -69,8 +67,6 @@ export const defaultBasemaps = [
         config: {
             type: 'bingLayer',
             style: 'Aerial',
-            apiKey:
-                'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
         },
     },
     {
@@ -80,8 +76,6 @@ export const defaultBasemaps = [
         config: {
             type: 'bingLayer',
             style: 'AerialWithLabelsOnDemand',
-            apiKey:
-                'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
         },
     },
 ];

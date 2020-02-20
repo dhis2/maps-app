@@ -14,7 +14,7 @@ import { setUserSettings } from './actions/user';
 import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
 import { getAnalyticalObject } from './actions/analyticalObject';
-import { setGoogleCloudApiKey } from './actions/basemap';
+import { setBingMapsApiKey } from './actions/basemap';
 import { getUrlParameter } from './util/requests';
 
 log.setLevel(
@@ -69,8 +69,8 @@ getManifest('manifest.webapp')
     .then(
         d2 => {
             d2.system.settings
-                .get('keyGoogleCloudApiKey')
-                .then(key => store.dispatch(setGoogleCloudApiKey(key)));
+                .get('keyBingMapsApiKey')
+                .then(key => store.dispatch(setBingMapsApiKey(key)));
 
             const mapId = getUrlParameter('id');
             if (mapId) {

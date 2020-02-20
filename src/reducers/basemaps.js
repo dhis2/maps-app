@@ -10,17 +10,15 @@ const basemaps = (state = defaultBasemaps, action) => {
         case types.BASEMAP_REMOVE:
             return state.filter(basemap => basemap.id !== action.id);
 
-        case types.BASEMAP_GOOGLE_KEY_SET:
-            // Remove Google basemaps is no key is provided
+        case types.BASEMAP_BING_KEY_SET:
+            // Remove Bing basemaps is no key is provided
             if (!action.key) {
-                return state.filter(
-                    layer => layer.config.type !== 'googleLayer'
-                );
+                return state.filter(layer => layer.config.type !== 'bingLayer');
             }
 
-            // Set key property on Google basemaps
+            // Set key property on Bing basemaps
             return state.map(layer => {
-                if (layer.config.type !== 'googleLayer') {
+                if (layer.config.type !== 'bingLayer') {
                     return layer;
                 }
 
