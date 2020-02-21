@@ -1,6 +1,9 @@
 import React, { createRef } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { JssProvider, jss, createGenerateClassName } from 'react-jss';
+import {
+    StylesProvider,
+    createGenerateClassName,
+} from '@material-ui/core/styles';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
@@ -167,18 +170,14 @@ const PluginContainer = () => {
             if (domEl) {
                 const ref = createRef();
 
-                // JSS initialization
                 const generateClassName = createGenerateClassName({
-                    productionPrefix: 'maps-plugin-',
+                    productionPrefix: 'map-plugin-',
                 });
 
                 render(
-                    <JssProvider
-                        jss={jss}
-                        generateClassName={generateClassName}
-                    >
+                    <StylesProvider generateClassName={generateClassName}>
                         <Plugin innerRef={ref} {...config} />
-                    </JssProvider>,
+                    </StylesProvider>,
                     domEl
                 );
 
