@@ -13,7 +13,7 @@ install:
     - yarn install --frozen-lockfile
 #   - yarn cy:verify
 before_script:
-    - export NODE_OPTIONS=–max_old_space_size=4096
+    - export NODE_OPTIONS=–-max_old_space_size=4096
 script:
     - yarn build
 #   - yarn start &> /dev/null &
