@@ -143,7 +143,11 @@ if (!isDevBuild) {
         })
     );
     */
-    webpackConfig.plugins.push(new TerserPlugin());
+    webpackConfig.plugins.push(
+        new TerserPlugin({
+            parallel: true,
+        })
+    );
 } else {
     webpackConfig.plugins.push(
         new webpack.DefinePlugin({
