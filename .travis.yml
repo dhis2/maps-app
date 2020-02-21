@@ -12,6 +12,8 @@ install:
     - yarn global add @dhis2/deploy-build
     - yarn install --frozen-lockfile
 #   - yarn cy:verify
+before_script:
+    - export NODE_OPTIONS=–max_old_space_size=8192
 script:
     - yarn build
 #   - yarn start &> /dev/null &
