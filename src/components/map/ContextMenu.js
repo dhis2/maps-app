@@ -30,10 +30,11 @@ const styles = {
         padding: '0 8px',
     },
     icon: {
-        margin: '0 3px',
+        margin: '0 3px 0 1px',
         left: 6,
-        width: 18,
+        width: 20,
         height: 18,
+        minWidth: 0,
     },
     text: {
         fontSize: 12,
