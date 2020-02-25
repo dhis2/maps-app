@@ -181,6 +181,10 @@ const PluginContainer = () => {
                     domEl
                 );
 
+                if (config.onReady) {
+                    config.onReady();
+                }
+
                 _components[config.el] = ref;
             }
         }
@@ -212,7 +216,7 @@ const PluginContainer = () => {
                 if (mapComponent === 'loading') {
                     domEl.innerHTML = ''; // Remove spinner
                     return true;
-                } else if (mapComponent instanceof Plugin) {
+                } else if (mapComponent.current) {
                     return unmountComponentAtNode(domEl);
                 }
             }
@@ -246,8 +250,9 @@ const PluginContainer = () => {
         getType,
         load,
         add,
-        unmount,
         resize,
+        unmount,
+        remove: unmount,
     };
 };
 
