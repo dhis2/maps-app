@@ -417,10 +417,10 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.8.tgz#90220791c4db977a362093390efbddf05d4a0ffc"
-  integrity sha512-5k31BpZ/0yRCbRt/ZEOBSorhtyQWJpsFYrR3UXawYBsby7EfkeR7oM0Kf33JOzppj5aPuqQzBrAAtcObl0Y42w==
+"@dhis2/maps-gl@1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.9.tgz#b892ac9b5265e97597e9d0d1ca1abe7845270883"
+  integrity sha512-bhyVVvDcbWbNN+rm+QWQW3XoibDoM08dCmRE77dm5gjCS9Rq+xj3cFYvDIMmBBhFxDs/n9DDRwaye5iaVHx5MQ==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.0.1"
@@ -431,7 +431,7 @@
     "@turf/length" "^6.0.2"
     fetch-jsonp "^1.1.3"
     lodash.throttle "^4.1.1"
-    mapbox-gl "^1.7.0"
+    mapbox-gl "^1.8.0"
     mapboxgl-spiderifier "^1.0.9"
     polylabel "^1.0.2"
     suggestions "^1.7.0"
@@ -9272,7 +9272,7 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapbox-gl@^1.7.0:
+mapbox-gl@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-1.8.0.tgz#77f8350c1600c588299420e1435ac642bd2cedef"
   integrity sha512-Uqg+2JdMKecmOmnfye06xrYx+Gg5iwhJcfkOv6p7MdlRspR0h02CwoDvM/ftOjTYp+Axi6+EWZHq8Um97JXcGQ==
