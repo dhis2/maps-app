@@ -154,14 +154,10 @@ class Layer extends PureComponent {
     }
 
     onFeatureRightClick(evt) {
-        const [x, y] = evt.position;
         const { id, layer } = this.props;
-        const { map } = this.context;
-        const { left, top } = map.getContainer().getBoundingClientRect();
 
         this.props.openContextMenu({
             ...evt,
-            position: [left + x, top + y],
             layerId: id,
             layerType: layer,
         });

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import MapView from './MapView';
 import MapName from './MapName';
+import ContextMenu from './ContextMenu';
 import MapLoadingMask from './MapLoadingMask';
 import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
@@ -93,6 +94,7 @@ const MapContainer = props => {
                         showName={showName}
                     />
                 )}
+                <ContextMenu />
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>

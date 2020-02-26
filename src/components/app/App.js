@@ -14,7 +14,6 @@ import LayersToggle from '../layers/LayersToggle';
 import MapContainer from '../map/MapContainer';
 import BottomPanel from '../datatable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
-import ContextMenu from '../map/ContextMenu';
 import AlertSnackbar from '../alerts/AlertSnackbar';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
@@ -61,7 +60,6 @@ export class App extends Component {
                         <MapContainer />
                         <BottomPanel />
                         <LayerEdit />
-                        <ContextMenu />
                         <AlertSnackbar />
                         <Message />
                         <DataDownloadDialog />

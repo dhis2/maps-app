@@ -69,7 +69,8 @@ class Map extends Component {
         if (isPlugin) {
             map.on('click', props.onCloseContextMenu);
         } else {
-            map.on('contextmenu', this.onRightClick, this);
+            // map.on('contextmenu', this.onRightClick, this);
+            map.on('contextmenu', props.openContextMenu, this);
         }
 
         this.map = map;
@@ -176,12 +177,15 @@ class Map extends Component {
     }
 
     onRightClick = evt => {
-        const [x, y] = evt.position;
-        const { left, top } = this.map.getContainer().getBoundingClientRect();
+        // const [x, y] = evt.position;
+        // const { left, top } = this.map.getContainer().getBoundingClientRect();
+
+        //console.log('x, y', x, y);
 
         this.props.openContextMenu({
             ...evt,
-            position: [left + x, top + y],
+            // position: [left + x, top + y],
+            // position: [x, y],
         });
     };
 
