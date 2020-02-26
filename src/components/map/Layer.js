@@ -19,6 +19,7 @@ class Layer extends PureComponent {
         config: PropTypes.object,
         labels: PropTypes.bool,
         openContextMenu: PropTypes.func,
+        renderingStrategy: PropTypes.string,
     };
 
     static defaultProps = {
@@ -155,15 +156,22 @@ class Layer extends PureComponent {
 
     onFeatureRightClick(evt) {
         const [x, y] = evt.position;
-        const { id, layer } = this.props;
+        const { id, layer, renderingStrategy } = this.props;
         const { map } = this.context;
-        const { left, top } = map.getContainer().getBoundingClientRect();
+        const container = map.getContainer();
+        const { left, top } = container.getBoundingClientRect();
+        const isSplitView = renderingStrategy === 'SPLIT_BY_PERIOD';
 
         this.props.openContextMenu({
             ...evt,
-            position: [left + x, top + y],
+            position: [x, y],
+            offset: [left, top],
             layerId: id,
             layerType: layer,
+            isSplitView,
+            container: isSplitView
+                ? container.parentNode.parentNode
+                : container,
         });
     }
 

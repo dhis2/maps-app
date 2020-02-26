@@ -1,15 +1,12 @@
 export const mapControls = [
     {
         type: 'zoom',
-        position: 'top-right',
     },
     {
         type: 'fullscreen',
-        position: 'top-right',
     },
     {
         type: 'fitBounds',
-        position: 'top-right',
     },
     {
         type: 'scale',
@@ -25,6 +22,7 @@ export const mapControls = [
 
 export const splitViewControls = [
     { type: 'zoom' },
+    { type: 'fullscreen', isSplitView: true },
     { type: 'fitBounds' },
     { type: 'search' },
     { type: 'attribution', prefix: false },
@@ -33,11 +31,9 @@ export const splitViewControls = [
 export const pluginControls = [
     {
         type: 'zoom',
-        position: 'topright',
     },
     {
         type: 'fullscreen',
-        position: 'top-right',
         isPlugin: true,
     },
 ];

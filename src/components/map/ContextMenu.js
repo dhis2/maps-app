@@ -50,6 +50,7 @@ const ContextMenu = (props, context) => {
         coordinates,
         earthEngineLayers,
         position,
+        offset,
         onClose,
         onDrill,
         onShowInformation,
@@ -68,11 +69,12 @@ const ContextMenu = (props, context) => {
     let attr = {};
 
     if (position) {
+        const [left, top] = offset;
         const [x, y] = position;
 
         anchorEl.style.position = 'fixed';
-        anchorEl.style.left = `${x}px`;
-        anchorEl.style.top = `${y}px`;
+        anchorEl.style.left = `${left + x}px`;
+        anchorEl.style.top = `${top + y}px`;
     }
 
     if (feature) {

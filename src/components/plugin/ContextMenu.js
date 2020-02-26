@@ -4,7 +4,14 @@ import i18n from '@dhis2/d2-i18n';
 import './ContextMenu.css';
 
 const ContextMenu = props => {
-    const { position, feature, onDrill } = props;
+    const {
+        position,
+        offset,
+        feature,
+        onDrill,
+        isSplitView,
+        container,
+    } = props;
     const menuEl = useRef();
 
     useEffect(() => {
@@ -12,10 +19,19 @@ const ContextMenu = props => {
             const { style } = menuEl.current;
             const [x, y] = position;
 
-            style.left = `${x}px`;
-            style.top = `${y}px`;
+            if (!isSplitView) {
+                style.left = `${x}px`;
+                style.top = `${y}px`;
+            } else {
+                // TODO: Simplify!
+                const [mapLeft, mapTop] = offset;
+                const { left, top } = container.getBoundingClientRect();
+
+                style.left = `${mapLeft - left + x}px`;
+                style.top = `${mapTop - top + y}px`;
+            }
         }
-    }, [menuEl, position]);
+    }, [menuEl, position, isSplitView]);
 
     if (!position || !feature) {
         return null;
@@ -42,7 +58,10 @@ const ContextMenu = props => {
 ContextMenu.propTypes = {
     feature: PropTypes.object,
     position: PropTypes.array,
+    offset: PropTypes.array,
     onDrill: PropTypes.func.isRequired,
+    isSplitView: PropTypes.bool,
+    container: PropTypes.instanceOf(Element),
 };
 
 export default ContextMenu;
