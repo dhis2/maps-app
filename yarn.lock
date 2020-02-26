@@ -417,10 +417,10 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.9.tgz#b892ac9b5265e97597e9d0d1ca1abe7845270883"
-  integrity sha512-bhyVVvDcbWbNN+rm+QWQW3XoibDoM08dCmRE77dm5gjCS9Rq+xj3cFYvDIMmBBhFxDs/n9DDRwaye5iaVHx5MQ==
+"@dhis2/maps-gl@1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.0.10.tgz#eb2b2ddaeb027c9205935ce01207e710ef46bf07"
+  integrity sha512-8UBAhiW4lRKe/pAVhIYPAeMf6xOIDMrJj4ZU4RVjJAc2bG4lMk/MOd7Mr+0vm+xKzm18TvyQ5pY7253zvRuDmg==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.0.1"
