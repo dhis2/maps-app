@@ -9,6 +9,7 @@ import getMapLocale from './mapLocale';
 const map = options => {
     const div = document.createElement('div');
 
+    div.className = 'dhis2-map';
     div.style.width = '100%';
     div.style.height = '100%';
 
