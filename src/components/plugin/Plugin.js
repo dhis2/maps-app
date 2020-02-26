@@ -44,7 +44,15 @@ class Plugin extends Component {
 
     render() {
         const { name, basemap, classes } = this.props;
-        const { position, feature, mapViews, resizeCount } = this.state;
+        const {
+            position,
+            offset,
+            feature,
+            mapViews,
+            resizeCount,
+            isSplitView,
+            container,
+        } = this.state;
 
         return (
             <div className={`dhis2-map-plugin ${classes.root}`}>
@@ -61,8 +69,11 @@ class Plugin extends Component {
                 <Legend layers={mapViews} />
                 <ContextMenu
                     position={position}
+                    offset={offset}
                     feature={feature}
                     onDrill={this.onDrill}
+                    isSplitView={isSplitView}
+                    container={container}
                 />
             </div>
         );

@@ -181,7 +181,8 @@ class Map extends Component {
 
         this.props.openContextMenu({
             ...evt,
-            position: [left + x, top + y],
+            position: [x, y],
+            offset: [left, top],
         });
     };
 

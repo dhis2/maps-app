@@ -31,7 +31,14 @@ const MapView = props => {
                 <SplitView
                     layer={splitViewLayer}
                     basemap={basemap}
-                    controls={isPlugin ? pluginControls : splitViewControls}
+                    controls={
+                        isPlugin
+                            ? pluginControls.map(c => ({
+                                  ...c,
+                                  isSplitView: true,
+                              }))
+                            : splitViewControls
+                    }
                     openContextMenu={openContextMenu}
                     resizeCount={resizeCount}
                 />
