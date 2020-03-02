@@ -20,7 +20,10 @@ const styles = {
         zIndex: 2500,
     },
     menuItem: {
-        paddingLeft: 0,
+        padding: '4px 0',
+    },
+    checkbox: {
+        padding: '0 9px',
     },
 };
 
@@ -65,6 +68,7 @@ export const SelectField = props => {
             className={classes.textField}
             SelectProps={{
                 MenuProps: {
+                    variant: 'menu',
                     className: classes.menu,
                 },
                 multiple,
@@ -82,12 +86,13 @@ export const SelectField = props => {
                 <MenuItem
                     key={id}
                     value={id}
-                    dense
+                    dense={true}
                     className={multiple && classes.menuItem}
                     data-test="selectfield-menuitem"
                 >
                     {multiple && (
                         <Checkbox
+                            className={classes.checkbox}
                             checked={
                                 Array.isArray(value) && value.indexOf(id) >= 0
                             }

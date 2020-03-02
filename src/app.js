@@ -67,8 +67,8 @@ getManifest('manifest.webapp')
     .then(configI18n)
     .then(init)
     .then(
-        d2 => {
-            d2.system.settings
+        async d2 => {
+            await d2.system.settings
                 .get('keyBingMapsApiKey')
                 .then(key => store.dispatch(setBingMapsApiKey(key)));
 
