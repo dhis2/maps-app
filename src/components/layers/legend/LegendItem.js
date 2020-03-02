@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import LineSymbol from './LineSymbol';
 import LegendItemRange from './LegendItemRange';
 
+const maxRadius = 15;
+
 const LegendItem = ({
     image,
     color,
@@ -23,9 +25,11 @@ const LegendItem = ({
     };
 
     if (radius) {
-        symbol.width = radius * 2 + 'px';
-        symbol.height = radius * 2 + 'px';
-        symbol.borderRadius = radius ? '50%' : '0';
+        const r = (radius < maxRadius ? radius : maxRadius) * 2;
+
+        symbol.width = `${r}px`;
+        symbol.height = `${r}px`;
+        symbol.borderRadius = '50%';
     }
 
     return (
