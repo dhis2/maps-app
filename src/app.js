@@ -66,12 +66,14 @@ getManifest('manifest.webapp')
     })
     .then(configI18n)
     .then(init)
+    .then(d2 =>
+        d2.system.settings.get('keyBingMapsApiKey').then(key => {
+            store.dispatch(setBingMapsApiKey(key));
+            return d2;
+        })
+    )
     .then(
-        async d2 => {
-            await d2.system.settings
-                .get('keyBingMapsApiKey')
-                .then(key => store.dispatch(setBingMapsApiKey(key)));
-
+        d2 => {
             const mapId = getUrlParameter('id');
             if (mapId) {
                 store.dispatch(loadFavorite(mapId));

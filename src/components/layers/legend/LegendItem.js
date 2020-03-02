@@ -25,7 +25,7 @@ const LegendItem = ({
     };
 
     if (radius) {
-        const r = (radius < maxRadius ? radius : maxRadius) * 2;
+        const r = Math.min(radius, maxRadius) * 2;
 
         symbol.width = `${r}px`;
         symbol.height = `${r}px`;
