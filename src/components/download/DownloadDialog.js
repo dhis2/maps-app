@@ -163,17 +163,22 @@ export class DownloadDialog extends Component {
         // Adding 1 to the computed width of the title element avoids text
         // wrapping outside the box in the generated image
         const titleEl = mapEl.getElementsByClassName('dhis2-maps-title')[0];
-        const width = window
-            .getComputedStyle(titleEl, null)
-            .getPropertyValue('width');
 
-        titleEl.style.width = parseInt(width, 10) + 1 + 'px';
+        if (titleEl) {
+            const width = window
+                .getComputedStyle(titleEl, null)
+                .getPropertyValue('width');
+
+            titleEl.style.width = parseInt(width, 10) + 1 + 'px';
+        }
 
         convertToPng(mapEl, options)
             .then(dataUri => {
                 downloadFile(dataURItoBlob(dataUri), filename);
 
-                titleEl.style.width = 'auto';
+                if (titleEl) {
+                    titleEl.style.width = 'auto';
+                }
 
                 this.onClose();
             })
