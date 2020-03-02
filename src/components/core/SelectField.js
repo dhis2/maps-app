@@ -86,7 +86,7 @@ export const SelectField = props => {
                 <MenuItem
                     key={id}
                     value={id}
-                    dense={true}
+                    dense
                     className={multiple && classes.menuItem}
                     data-test="selectfield-menuitem"
                 >
