@@ -144,32 +144,41 @@ export class DownloadDialog extends Component {
         // Skip map controls in download except attribution and scale
         // Mapbox map controls contains inline SVG for CSS background-image, which
         // is not accepted by dom-to-image
-        const skipControls = el =>
+        // Bing Maps logo is blocked by CORS policy
+        const skipElements = el =>
             !el.classList ||
             el.classList.contains('mapboxgl-ctrl-scale') ||
             el.classList.contains('mapboxgl-ctrl-attrib') ||
-            !el.classList.contains('mapboxgl-ctrl');
+            !(
+                el.classList.contains('mapboxgl-ctrl') ||
+                el.classList.contains('dhis2-map-bing-logo')
+            );
 
         const options = {
             width: mapEl.offsetWidth,
             height: mapEl.offsetHeight,
-            filter: skipControls,
+            filter: skipElements,
         };
 
         // Adding 1 to the computed width of the title element avoids text
         // wrapping outside the box in the generated image
         const titleEl = mapEl.getElementsByClassName('dhis2-maps-title')[0];
-        const width = window
-            .getComputedStyle(titleEl, null)
-            .getPropertyValue('width');
 
-        titleEl.style.width = parseInt(width, 10) + 1 + 'px';
+        if (titleEl) {
+            const width = window
+                .getComputedStyle(titleEl, null)
+                .getPropertyValue('width');
+
+            titleEl.style.width = parseInt(width, 10) + 1 + 'px';
+        }
 
         convertToPng(mapEl, options)
             .then(dataUri => {
                 downloadFile(dataURItoBlob(dataUri), filename);
 
-                titleEl.style.width = 'auto';
+                if (titleEl) {
+                    titleEl.style.width = 'auto';
+                }
 
                 this.onClose();
             })
