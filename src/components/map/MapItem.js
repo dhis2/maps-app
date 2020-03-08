@@ -4,13 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import mapApi from './MapApi';
 
 const styles = () => ({
-    item: {
+    item: ({ count }) => ({
         position: 'relative',
         boxSizing: 'border-box',
-        width: '33.3333%',
+        width: count === 4 ? '50%' : '33.3333%',
         borderRight: '1px solid #aaa',
         borderBottom: '1px solid #aaa',
-    },
+    }),
 });
 
 class MapItem extends PureComponent {
