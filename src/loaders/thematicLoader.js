@@ -72,7 +72,14 @@ const thematicLoader = async config => {
     const maxValue = orderedValues[orderedValues.length - 1];
     const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
+
     let legendSet = config.legendSet;
+
+    // Use legend set defined for data item if no classification method is selected
+    if (config.method === undefined && dataItem.legendSet) {
+        legendSet = dataItem.legendSet;
+    }
+
     let method = legendSet ? CLASSIFICATION_PREDEFINED : config.method; // Favorites often have wrong method
     let alert;
 
