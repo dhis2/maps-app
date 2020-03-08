@@ -25,6 +25,9 @@ const styles = theme => ({
         width: 32,
         height: 32,
     },
+    menuItem: {
+        padding: '4px 16px',
+    },
     divider: {
         margin: `${theme.spacing(1)}px 0`,
     },
@@ -121,7 +124,10 @@ export class LayerToolbarMoreMenu extends Component {
                     disableRestoreFocus={true} // Don't re-focus on the Tooltip after the dialog is closed
                 >
                     {toggleDataTable && (
-                        <MenuItem onClick={this.handleDataTableBtnClick}>
+                        <MenuItem
+                            onClick={this.handleDataTableBtnClick}
+                            className={classes.menuItem}
+                        >
                             <ListItemIcon>
                                 <TableIcon />
                             </ListItemIcon>
@@ -129,7 +135,10 @@ export class LayerToolbarMoreMenu extends Component {
                         </MenuItem>
                     )}
                     {openAs && (
-                        <MenuItem onClick={this.handleOpenAsChartBtnClick}>
+                        <MenuItem
+                            onClick={this.handleOpenAsChartBtnClick}
+                            className={classes.menuItem}
+                        >
                             <ListItemIcon>
                                 <ChartIcon />
                             </ListItemIcon>
@@ -137,7 +146,10 @@ export class LayerToolbarMoreMenu extends Component {
                         </MenuItem>
                     )}
                     {downloadData && (
-                        <MenuItem onClick={this.handleDownloadBtnClick}>
+                        <MenuItem
+                            onClick={this.handleDownloadBtnClick}
+                            className={classes.menuItem}
+                        >
                             <ListItemIcon>
                                 <SaveIcon />
                             </ListItemIcon>
@@ -148,7 +160,10 @@ export class LayerToolbarMoreMenu extends Component {
                         <Divider className={classes.divider} light />
                     )}
                     {onEdit && (
-                        <MenuItem onClick={this.handleEditBtnClick}>
+                        <MenuItem
+                            onClick={this.handleEditBtnClick}
+                            className={classes.menuItem}
+                        >
                             <ListItemIcon>
                                 <EditIcon />
                             </ListItemIcon>
@@ -156,7 +171,10 @@ export class LayerToolbarMoreMenu extends Component {
                         </MenuItem>
                     )}
                     {onRemove && (
-                        <MenuItem onClick={this.handleRemoveBtnClick}>
+                        <MenuItem
+                            onClick={this.handleRemoveBtnClick}
+                            className={classes.menuItem}
+                        >
                             <ListItemIcon>
                                 <DeleteIcon />
                             </ListItemIcon>
