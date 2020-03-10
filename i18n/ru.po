@@ -1,13 +1,13 @@
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2019
 # phil_dhis2, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-01-27T17:04:18.402Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2020\n"
+"PO-Revision-Date: 2020-02-28 15:07+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Maps"
-msgstr "Maps"
+msgstr "Карты"
 
 msgid "Classification"
 msgstr ""
@@ -109,7 +109,7 @@ msgid "Dimension"
 msgstr "Измерение"
 
 msgid "Download"
-msgstr "Загрузить"
+msgstr "Скачать"
 
 msgid "Download map"
 msgstr ""
@@ -125,7 +125,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Отменить"
+msgstr "Отмена"
 
 msgid "Close"
 msgstr "Закрыть"
@@ -140,7 +140,7 @@ msgid "Period"
 msgstr "Период"
 
 msgid "Organisation units"
-msgstr "Организация"
+msgstr "Организационные единицы"
 
 msgid "Style"
 msgstr "Стиль"
@@ -278,7 +278,7 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr "Тип агрегации"
+msgstr "Тип агрегирования"
 
 msgid "Low size"
 msgstr "Низкий размер"
@@ -320,7 +320,7 @@ msgid "Event data items"
 msgstr "Элементы данных событий"
 
 msgid "Program indicators"
-msgstr "Программные показатели"
+msgstr "Индикаторы программы"
 
 msgid "Item type"
 msgstr "Тип элемента"
@@ -482,7 +482,7 @@ msgid "Not set"
 msgstr "Не устнановлен"
 
 msgid "Organisation unit"
-msgstr "Организация"
+msgstr "Организационная единица"
 
 msgid "Event time"
 msgstr "Время события"
@@ -581,7 +581,7 @@ msgid "Proceed"
 msgstr "Продолжить"
 
 msgid "Options"
-msgstr "Опции"
+msgstr "Параметры"
 
 msgid "Code"
 msgstr "Код"
