@@ -53,7 +53,7 @@
         "@dhis2/d2-ui-interpretations": "6.2.1",
         "@dhis2/d2-ui-org-unit-dialog": "5.2.10",
         "@dhis2/d2-ui-org-unit-tree": "5.2.10",
-        "@dhis2/maps-gl": "1.0.12",
+        "@dhis2/maps-gl": "1.0.13",
         "@dhis2/ui-core": "^4.1.1",
         "@dhis2/ui-widgets": "^2.0.5",
         "@material-ui/core": "^4.9.3",
