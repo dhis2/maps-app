@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<head>
+  <title>DHIS2 Maps Plugin</title>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.8.3/polyfill.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="http://localhost:8080/dhis-web-maps/map.js"></script>
+  <style>
+    .map {
+      width: 450px;
+      height: 450px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map" class="map"></div>
+  <script>
+    mapPlugin.url = '//localhost:8080';
+    mapPlugin.username = 'admin';
+    mapPlugin.password = 'district';
+
+
+
+    mapPlugin.load({
+      el: "map",
+      basemap: "TAv6QjVCMjL",
+      mapViews: [{
+        layer: "thematic",
+        id: "custom",
+        opacity: 0.9,
+        method: 2,
+        columns: [{
+          dimension: "dx",
+          items: [{
+            id: "nkjlWUMIdHh",
+            name: "Slept under LLITN last night",
+            dimensionItemType: "INDICATOR"
+          }]
+        }],
+        filters: [{
+          dimension: "pe",
+          items: [{
+            id: "2019",
+            name: "2019",
+            dimensionItemType: "PERIOD"
+          }]
+        }],
+        rows: [{
+          dimension: "ou",
+          items: [{
+            id: "LEVEL-2",
+            name: "LEVEL-2"
+          }]
+        }]
+      }]
+    });
+
+    setTimeout(() => {
+      mapPlugin.unmount('map');
+
+      mapPlugin.load({
+        el: "map",
+        basemap: "TAv6QjVCMjL",
+        mapViews: [{
+          layer: "thematic",
+          id: "custom",
+          opacity: 0.9,
+          method: 2,
+          columns: [{
+            dimension: "dx",
+            items: [{
+              id: "nkjlWUMIdHh",
+              name: "Slept under LLITN last night",
+              dimensionItemType: "INDICATOR"
+            }]
+          }],
+          filters: [{
+            dimension: "pe",
+            items: [{
+              id: "2019",
+              name: "2019",
+              dimensionItemType: "PERIOD"
+            }]
+          }],
+          rows: [{
+            dimension: "ou",
+            items: [{
+              id: "LEVEL-2",
+              name: "LEVEL-2"
+            }]
+          }]
+        }]
+      });
+
+    }, 5000);
+
+  </script>
+</body>
+
+</html>
