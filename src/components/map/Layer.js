@@ -45,7 +45,7 @@ class Layer extends PureComponent {
             editCounter,
             dataFilters,
         } = this.props;
-        const { period } = this.state || {};
+        const { period } = this.state;
         const { period: prevPeriod } = prevState || {};
         const isEdited = editCounter !== prevProps.editCounter;
 
