@@ -31,6 +31,7 @@ class ThematicLayer extends Layer {
             valuesByPeriod,
             renderingStrategy = 'SINGLE',
         } = this.props;
+
         const { period } = this.state;
         let periodData = data;
 
@@ -86,6 +87,11 @@ class ThematicLayer extends Layer {
     // Set initial period
     setPeriod(callback) {
         const { period, periods, renderingStrategy } = this.props;
+
+        if (!period || !periods) {
+            return;
+        }
+
         const initialPeriod = {
             period:
                 renderingStrategy === 'SINGLE' ? null : period || periods[0],

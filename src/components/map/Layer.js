@@ -27,6 +27,8 @@ class Layer extends PureComponent {
         isVisible: true,
     };
 
+    state = {};
+
     constructor(...args) {
         super(...args);
         this.setPeriod();
