@@ -75,8 +75,13 @@ const thematicLoader = async config => {
 
     let legendSet = config.legendSet;
 
-    // Use legend set defined for data item if no classification method is selected
-    if (config.method === undefined && dataItem.legendSet) {
+    // Use legend set defined for data item as default
+    if (
+        !legendSet &&
+        dataItem.legendSet &&
+        (config.method === undefined ||
+            config.method === CLASSIFICATION_PREDEFINED)
+    ) {
         legendSet = dataItem.legendSet;
     }
 
@@ -179,7 +184,7 @@ const thematicLoader = async config => {
         name,
         legend,
         method,
-        ...(alert ? { alerts: [alert] } : {}),
+        alerts: alert ? [alert] : undefined,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
