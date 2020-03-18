@@ -38,9 +38,12 @@ import {
     DEFAULT_ORG_UNIT_LEVEL,
     DEFAULT_RADIUS_LOW,
     DEFAULT_RADIUS_HIGH,
+    CLASSIFICATION_PREDEFINED,
+    CLASSIFICATION_EQUAL_INTERVALS,
 } from '../../../constants/layers';
 
 import {
+    setClassification,
     setDataItem,
     setDataElementGroup,
     setIndicatorGroup,
@@ -49,6 +52,7 @@ import {
     setLabelFontSize,
     setLabelFontWeight,
     setLabelFontStyle,
+    setLegendSet,
     setOperand,
     setOrgUnitLevels,
     setOrgUnitGroups,
@@ -112,6 +116,7 @@ export class ThematicDialog extends Component {
         labelFontSize: PropTypes.string,
         labelFontStyle: PropTypes.string,
         labelFontWeight: PropTypes.string,
+        legendSet: PropTypes.object,
         indicatorGroup: PropTypes.object,
         dataElementGroup: PropTypes.object,
         program: PropTypes.object,
@@ -124,6 +129,7 @@ export class ThematicDialog extends Component {
         radiusLow: PropTypes.number,
         valueType: PropTypes.string,
         loadOrgUnitPath: PropTypes.func.isRequired,
+        setClassification: PropTypes.func.isRequired,
         setDataItem: PropTypes.func.isRequired,
         setDataElementGroup: PropTypes.func.isRequired,
         setIndicatorGroup: PropTypes.func.isRequired,
@@ -132,6 +138,7 @@ export class ThematicDialog extends Component {
         setLabelFontSize: PropTypes.func.isRequired,
         setLabelFontStyle: PropTypes.func.isRequired,
         setLabelFontWeight: PropTypes.func.isRequired,
+        setLegendSet: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setStartDate: PropTypes.func.isRequired,
@@ -199,6 +206,9 @@ export class ThematicDialog extends Component {
     componentDidUpdate(prev) {
         const {
             rows,
+            columns,
+            setClassification,
+            setLegendSet,
             loadOrgUnitPath,
             validateLayer,
             onLayerValidation,
@@ -211,6 +221,21 @@ export class ThematicDialog extends Component {
             orgUnits
                 .filter(ou => !ou.path)
                 .forEach(ou => loadOrgUnitPath(ou.id));
+        }
+
+        // Set the default classification/legend for selected data item without visiting the style tab
+        if (columns !== prev.columns) {
+            const dataItem = getDataItemFromColumns(columns);
+
+            if (dataItem) {
+                if (dataItem.legendSet) {
+                    setClassification(CLASSIFICATION_PREDEFINED);
+                    setLegendSet(dataItem.legendSet);
+                } else {
+                    setClassification(CLASSIFICATION_EQUAL_INTERVALS);
+                    setLegendSet();
+                }
+            }
         }
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
@@ -759,6 +784,7 @@ export class ThematicDialog extends Component {
 export default connect(
     null,
     {
+        setClassification,
         setDataItem,
         setDataElementGroup,
         setIndicatorGroup,
@@ -767,6 +793,7 @@ export default connect(
         setLabelFontSize,
         setLabelFontWeight,
         setLabelFontStyle,
+        setLegendSet,
         setOperand,
         setOrgUnitLevels,
         setOrgUnitGroups,
