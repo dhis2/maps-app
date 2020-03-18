@@ -33,6 +33,7 @@ const styles = {
         width: 400,
         marginTop: -13,
         marginLeft: -8,
+        overflowY: 'hidden',
     },
 };
 
