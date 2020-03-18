@@ -117,7 +117,6 @@ export class ThematicDialog extends Component {
         labelFontStyle: PropTypes.string,
         labelFontWeight: PropTypes.string,
         legendSet: PropTypes.object,
-        method: PropTypes.number,
         indicatorGroup: PropTypes.object,
         dataElementGroup: PropTypes.object,
         program: PropTypes.object,
