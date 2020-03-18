@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-01-27T17:04:18.402Z\n"
+"POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -694,6 +694,9 @@ msgstr "Không tìm thấy dữ liệu"
 
 msgid "Facilities"
 msgstr ""
+
+msgid "Thematic layer"
+msgstr "Lớp Chuyên Đề"
 
 msgid "Selected org units"
 msgstr ""
