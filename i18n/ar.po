@@ -696,7 +696,7 @@ msgid "Facilities"
 msgstr ""
 
 msgid "Thematic layer"
-msgstr ""
+msgstr "الطبقة المواضيعية"
 
 msgid "Selected org units"
 msgstr ""
