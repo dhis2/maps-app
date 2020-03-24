@@ -26,6 +26,18 @@ import {
 } from '../constants/layers';
 
 const thematicLoader = async config => {
+    const {
+        columns,
+        rows,
+        radiusLow = DEFAULT_RADIUS_LOW,
+        radiusHigh = DEFAULT_RADIUS_HIGH,
+        classes,
+        colorScale,
+        renderingStrategy = 'SINGLE',
+    } = config;
+
+    const dataItem = getDataItemFromColumns(columns);
+
     let error;
 
     const response = await loadData(config).catch(err => {
@@ -40,22 +52,13 @@ const thematicLoader = async config => {
                       alerts: [createAlert(i18n.t('Error'), error.message)],
                   }
                 : {}),
+            name: dataItem ? dataItem.name : i18n.t('Thematic layer'),
             isLoaded: true,
             isVisible: true,
         };
     }
 
     const [features, data] = response;
-
-    const {
-        columns,
-        rows,
-        radiusLow = DEFAULT_RADIUS_LOW,
-        radiusHigh = DEFAULT_RADIUS_HIGH,
-        classes,
-        colorScale,
-        renderingStrategy = 'SINGLE',
-    } = config;
 
     const isSingle = renderingStrategy === 'SINGLE';
     const period = getPeriodFromFilters(config.filters);
@@ -70,13 +73,17 @@ const thematicLoader = async config => {
     const orderedValues = getOrderedValues(data);
     const minValue = orderedValues[0];
     const maxValue = orderedValues[orderedValues.length - 1];
-    const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
 
     let legendSet = config.legendSet;
 
-    // Use legend set defined for data item if no classification method is selected
-    if (config.method === undefined && dataItem.legendSet) {
+    // Use legend set defined for data item as default
+    if (
+        !legendSet &&
+        dataItem.legendSet &&
+        (config.method === undefined ||
+            config.method === CLASSIFICATION_PREDEFINED)
+    ) {
         legendSet = dataItem.legendSet;
     }
 
@@ -179,7 +186,7 @@ const thematicLoader = async config => {
         name,
         legend,
         method,
-        ...(alert ? { alerts: [alert] } : {}),
+        alerts: alert ? [alert] : undefined,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

@@ -4,6 +4,7 @@ import { getInstance as getD2 } from 'd2';
 import { isValidCoordinate } from '../util/map';
 import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
+import { createAlert } from '../util/alerts';
 
 const facilityLoader = async config => {
     // Returns a promise
@@ -11,6 +12,9 @@ const facilityLoader = async config => {
     const groupSetId = organisationUnitGroupSet.id;
     const orgUnits = getOrgUnitsFromRows(rows);
     let orgUnitParams = orgUnits.map(item => item.id);
+    let alert;
+    let features;
+    let legend;
 
     const d2 = await getD2();
     const contextPath = d2.system.systemInfo.contextPath;
@@ -28,30 +32,37 @@ const facilityLoader = async config => {
         .getAll({
             includeGroupSets: true,
         })
-        .then(facilities => parseFacilities(facilities, groupSetId));
+        .then(facilities => parseFacilities(facilities, groupSetId))
+        .catch(error => {
+            if (error && error.message) {
+                alert = createAlert(i18n.t('Error'), error.message);
+            }
+        });
 
     const [groupSet, facilities] = await Promise.all([
         groupSetReq,
         facilitiesReq,
     ]);
 
-    // Convert API response to GeoJSON features
-    const features = facilities.map(facility => {
-        const id = facility.dimensions[groupSetId];
-        return toGeoJson(facility, groupSet[id], contextPath);
-    });
+    if (groupSet && facilities) {
+        // Convert API response to GeoJSON features
+        features = facilities.map(facility => {
+            const id = facility.dimensions[groupSetId];
+            return toGeoJson(facility, groupSet[id], contextPath);
+        });
 
-    const legend = {
-        title: name,
-        unit: organisationUnitGroupSet.name,
-        items: Object.keys(groupSet).map(id => ({
-            image: `${contextPath}/images/orgunitgroup/${groupSet[id].symbol}`,
-            name: groupSet[id].name,
-        })),
-    };
+        legend = {
+            title: name,
+            unit: organisationUnitGroupSet.name,
+            items: Object.keys(groupSet).map(id => ({
+                image: `${contextPath}/images/orgunitgroup/${groupSet[id].symbol}`,
+                name: groupSet[id].name,
+            })),
+        };
 
-    if (areaRadius) {
-        legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
+        if (areaRadius) {
+            legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
+        }
     }
 
     const name = i18n.t('Facilities');
@@ -61,6 +72,7 @@ const facilityLoader = async config => {
         data: features,
         name,
         legend,
+        alerts: alert ? [alert] : undefined,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
