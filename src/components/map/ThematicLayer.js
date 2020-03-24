@@ -150,11 +150,14 @@ class ThematicLayer extends Layer {
 
     onFeatureRightClick(evt) {
         const { id, layer } = this.props;
+        const container = this.context.map.getContainer();
+        const { x, y } = container.getBoundingClientRect();
 
         this.props.openContextMenu({
             ...evt,
             layerId: id,
             layerType: layer,
+            mapPosition: [x, window.scrollY + y],
         });
     }
 }

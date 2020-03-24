@@ -16,7 +16,10 @@ const styles = {
     },
 };
 
-const defaultBounds = [[-18.7, -34.9], [50.2, 35.9]];
+const defaultBounds = [
+    [-18.7, -34.9],
+    [50.2, 35.9],
+];
 
 class Plugin extends Component {
     static propTypes = {
@@ -41,7 +44,18 @@ class Plugin extends Component {
 
     render() {
         const { name, basemap, classes } = this.props;
-        const { position, feature, mapViews, resizeCount } = this.state;
+        const {
+            position,
+            mapPosition,
+            feature,
+            mapViews,
+            resizeCount,
+        } = this.state;
+
+        const pos =
+            position && mapPosition
+                ? [position[0] - mapPosition[0], position[1] - mapPosition[1]]
+                : null;
 
         return (
             <div className={classes.root}>
@@ -57,7 +71,7 @@ class Plugin extends Component {
                 />
                 <Legend layers={mapViews} />
                 <ContextMenu
-                    position={position}
+                    position={pos}
                     feature={feature}
                     onDrill={this.onDrill}
                 />
