@@ -1,13 +1,13 @@
 # Translators:
-# easylin <lin_xd@126.com>, 2020
 # phil_dhis2, 2020
+# easylin <lin_xd@126.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-01-27T17:04:18.402Z\n"
-"PO-Revision-Date: 2020-02-28 15:07+0000\n"
+"POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -688,13 +688,16 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr "事件"
+msgstr "四级"
 
 msgid "No data found"
 msgstr "没有数据被找到"
 
 msgid "Facilities"
 msgstr ""
+
+msgid "Thematic layer"
+msgstr "专题层"
 
 msgid "Selected org units"
 msgstr ""
