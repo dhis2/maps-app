@@ -295,16 +295,16 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "هناك خطأ ما"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "حدث للمحاولة مرة أخرى"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "إخفاء التفاصيل التقنية"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "إظهار التفاصيل التقنية"
 
 msgid "The following information may be requested by technical support."
 msgstr ""
@@ -384,7 +384,7 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "محذوف"
 
 msgid "Filters"
 msgstr "‏‏عوامل التصفية"
