@@ -97,9 +97,8 @@ class ThematicLayer extends Layer {
                 renderingStrategy === 'SINGLE' ? null : period || periods[0],
         };
 
-        // Can't call setState if component is unmounted
-        // setPeriod without callback is called from the constructor
-        if (!this.state || !callback) {
+        // setPeriod without callback is called from the constructor (unmounted)
+        if (!callback) {
             this.state = initialPeriod;
         } else {
             this.setState(initialPeriod, callback);
