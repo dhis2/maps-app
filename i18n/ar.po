@@ -1,13 +1,14 @@
 # Translators:
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Hamza Assada <7amza.it@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-01-27T17:04:18.402Z\n"
+"POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -100,7 +101,7 @@ msgid "Color"
 msgstr "اللون"
 
 msgid "Add filter"
-msgstr ""
+msgstr "إضافة عامل تصفية"
 
 msgid "Items"
 msgstr ""
@@ -508,7 +509,7 @@ msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr ""
+msgstr "مساحة"
 
 msgid "Center map on area"
 msgstr ""
@@ -694,6 +695,9 @@ msgstr "لم توجد بيانات"
 
 msgid "Facilities"
 msgstr ""
+
+msgid "Thematic layer"
+msgstr "الطبقة المواضيعية"
 
 msgid "Selected org units"
 msgstr ""
