@@ -34,6 +34,5 @@ export const pluginControls = [
     },
     {
         type: 'fullscreen',
-        isPlugin: true,
     },
 ];
