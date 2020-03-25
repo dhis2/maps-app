@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-01-27T17:04:18.402Z\n"
-"PO-Revision-Date: 2020-02-28 15:07+0000\n"
+"POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Phần tử dữ liệu"
+msgstr "Phần Tử Dữ Liệu"
 
 msgid "Totals"
 msgstr "Tổng"
@@ -94,7 +94,7 @@ msgid "Id"
 msgstr "Ký hiệu nhận dạng (ID)"
 
 msgid "Type"
-msgstr "Loại"
+msgstr "Type"
 
 msgid "Color"
 msgstr "Màu"
@@ -128,7 +128,7 @@ msgid "Cancel"
 msgstr "Hủy"
 
 msgid "Close"
-msgstr "Đóng lại"
+msgstr "Đóng"
 
 msgid "Legend position"
 msgstr ""
@@ -137,7 +137,7 @@ msgid "Year"
 msgstr "Năm"
 
 msgid "Period"
-msgstr "Thời điểm"
+msgstr "Thời gian"
 
 msgid "Organisation units"
 msgstr "Đơn vị"
@@ -176,7 +176,7 @@ msgid "Org units"
 msgstr "Các đơn vị"
 
 msgid "Filter"
-msgstr "Lọc"
+msgstr "Bộ lọc"
 
 msgid "Start date"
 msgstr "Ngày bắt đầu"
@@ -430,7 +430,7 @@ msgid "Filters"
 msgstr "Bộ lọc"
 
 msgid "Edit"
-msgstr "Chỉnh sửa"
+msgstr "Sửa"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -694,6 +694,9 @@ msgstr "Không tìm thấy dữ liệu"
 
 msgid "Facilities"
 msgstr ""
+
+msgid "Thematic layer"
+msgstr "Lớp Chuyên Đề"
 
 msgid "Selected org units"
 msgstr ""
