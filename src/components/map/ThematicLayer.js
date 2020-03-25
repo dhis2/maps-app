@@ -97,10 +97,11 @@ class ThematicLayer extends Layer {
                 renderingStrategy === 'SINGLE' ? null : period || periods[0],
         };
 
-        if (this.state) {
-            this.setState(initialPeriod, callback);
-        } else {
+        // setPeriod without callback is called from the constructor (unmounted)
+        if (!callback) {
             this.state = initialPeriod;
+        } else {
+            this.setState(initialPeriod, callback);
         }
     }
 
