@@ -6,11 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
-<<<<<<< HEAD
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-=======
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
->>>>>>> master
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Pushto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +49,7 @@ msgid "Details"
 msgstr "جزیات [ ژباړه ـ جزیات ]"
 
 msgid "Yes"
-msgstr "هو [ درست ]"
+msgstr "هو"
 
 msgid "Event location"
 msgstr "رویداد ځای"
@@ -83,7 +79,7 @@ msgid "Value"
 msgstr "ارزښت یا رقم"
 
 msgid "Legend"
-msgstr "Legend"
+msgstr "ليجنډ"
 
 msgid "Range"
 msgstr "پراختیا"
@@ -724,7 +720,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "نه [ نه ]"
+msgstr "نه"
 
 msgid "Map could not be created"
 msgstr ""
