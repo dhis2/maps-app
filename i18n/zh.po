@@ -1,6 +1,6 @@
 # Translators:
-# easylin <lin_xd@126.com>, 2020
 # phil_dhis2, 2020
+# easylin <lin_xd@126.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
@@ -688,7 +688,7 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr "事件"
+msgstr "四级"
 
 msgid "No data found"
 msgstr "没有数据被找到"
