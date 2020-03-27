@@ -83,6 +83,9 @@ const loadEventLayer = async config => {
         items: [],
     };
 
+    // Delete serverCluster option if previously set
+    delete config.serverCluster;
+
     if (spatialSupport && eventClustering) {
         const response = await getCount(analyticsRequest);
         config.bounds = getBounds(response.extent);
