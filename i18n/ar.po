@@ -53,7 +53,7 @@ msgid "Yes"
 msgstr "نعم"
 
 msgid "Event location"
-msgstr ""
+msgstr "موقع الحدث"
 
 msgid "Coordinate field"
 msgstr ""
@@ -113,10 +113,10 @@ msgid "Download"
 msgstr "تحميل"
 
 msgid "Download map"
-msgstr ""
+msgstr "تنزيل الخريطة"
 
 msgid "Show name"
-msgstr ""
+msgstr "عرض الإسم"
 
 msgid "Show legend"
 msgstr ""
@@ -150,13 +150,13 @@ msgid "Labels"
 msgstr "التسميات"
 
 msgid "Point radius"
-msgstr ""
+msgstr "قطر النقطة"
 
 msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Steps"
-msgstr ""
+msgstr "الخطوات"
 
 msgid "Legend preview"
 msgstr ""
@@ -168,10 +168,10 @@ msgid "Valid range is"
 msgstr ""
 
 msgid "data"
-msgstr ""
+msgstr "البيانات"
 
 msgid "period"
-msgstr ""
+msgstr "الفترة"
 
 msgid "Org units"
 msgstr "الوحدات التنظيمية"
@@ -192,16 +192,16 @@ msgid "Group events"
 msgstr ""
 
 msgid "View all events"
-msgstr ""
+msgstr "عرض كافة الأحداث"
 
 msgid "Radius"
-msgstr ""
+msgstr "القطر"
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "نصف القطر بالأمتار"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
@@ -213,7 +213,7 @@ msgid "Program stage is required"
 msgstr ""
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "لم يتم اختيار أي وحدات تنظيمية"
 
 msgid "Group set"
 msgstr "حزمة المجموعات"
@@ -238,13 +238,13 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "relationships"
-msgstr ""
+msgstr "العلاقات"
 
 msgid "Program status"
 msgstr "حالة البرنامج"
 
 msgid "Follow up"
-msgstr ""
+msgstr "متابعة"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -270,13 +270,13 @@ msgid "Tracked entity style"
 msgstr ""
 
 msgid "Point size"
-msgstr ""
+msgstr "حجم النقطة"
 
 msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
+msgstr "لون الخط"
 
 msgid "Aggregation type"
 msgstr "نوع التجميع"
@@ -339,16 +339,16 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "هناك خطأ ما"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "حدث للمحاولة مرة أخرى"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "إخفاء التفاصيل التقنية"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "إظهار التفاصيل التقنية"
 
 msgid "The following information may be requested by technical support."
 msgstr ""
@@ -422,7 +422,7 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "محذوف"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
