@@ -260,7 +260,7 @@ msgid "Selection mode"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "الكيانات المتعقبة"
 
 msgid "Tracked entity style"
 msgstr ""
