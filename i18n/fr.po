@@ -4,13 +4,14 @@
 # phil_dhis2, 2020
 # Bram Piot <bram.piot@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +65,7 @@ msgid "None"
 msgstr "Aucun"
 
 msgid "Data item"
-msgstr ""
+msgstr "Elément de données"
 
 msgid "Event data item"
 msgstr "Elément de données évènement"
@@ -155,7 +156,7 @@ msgid "Point radius"
 msgstr "Taille des points"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Aucune unité d'organisation choisie"
 
 msgid "Steps"
 msgstr "Étapes"
@@ -170,7 +171,7 @@ msgid "Valid range is"
 msgstr ""
 
 msgid "data"
-msgstr ""
+msgstr "données"
 
 msgid "period"
 msgstr ""
@@ -194,7 +195,7 @@ msgid "Group events"
 msgstr ""
 
 msgid "View all events"
-msgstr ""
+msgstr "Voir tout événements"
 
 msgid "Radius"
 msgstr ""
@@ -215,7 +216,7 @@ msgid "Program stage is required"
 msgstr ""
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Aucune unité d'organisation choisie"
 
 msgid "Group set"
 msgstr "Ensemble de groupes"
@@ -253,7 +254,7 @@ msgid ""
 msgstr ""
 
 msgid "WARNING"
-msgstr ""
+msgstr "ATTENTION"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
@@ -442,7 +443,7 @@ msgid "Set layer opacity"
 msgstr ""
 
 msgid "More actions"
-msgstr ""
+msgstr "Plus d'actions"
 
 msgid "Data table"
 msgstr "Tableau de données"
@@ -577,7 +578,7 @@ msgid ""
 msgstr ""
 
 msgid "Data items"
-msgstr ""
+msgstr "Eléments de données"
 
 msgid "Proceed"
 msgstr "Continuer"
@@ -601,7 +602,7 @@ msgid "Click the map where you want to relocate facility"
 msgstr ""
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "unités d'organisation de l'utilisateur"
 
 msgid "right below user organisation unit"
 msgstr ""
@@ -705,7 +706,7 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "Coordonnées non trouvées"
 
 msgid "Tracked entity"
 msgstr "Entité suivie"
