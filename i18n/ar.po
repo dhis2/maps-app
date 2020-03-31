@@ -7,11 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
-<<<<<<< HEAD
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-=======
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
->>>>>>> master
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -268,7 +264,7 @@ msgid "Selection mode"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "الكيانات المتعقبة"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -355,7 +351,7 @@ msgid "Show technical details"
 msgstr "إظهار التفاصيل التقنية"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "قد يتم طلب المعلومات التالية من قبل الدعم الفني."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -379,7 +375,7 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
+msgstr "confirm_delete_relationship_type\\=هل تريد بالتأكيد حذف نوع العلاقة؟"
 
 msgid "is not"
 msgstr ""
@@ -501,7 +497,7 @@ msgid "Latitude"
 msgstr "خط العرض"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "مشاهدة التفسير من  {{interpretationDate}}"
 
 msgid "No data"
 msgstr "لا توجد بيانات"
