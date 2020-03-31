@@ -260,7 +260,7 @@ msgid "Selection mode"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "الكيانات المتعقبة"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -350,7 +350,7 @@ msgid "Show technical details"
 msgstr "إظهار التفاصيل التقنية"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "قد يتم طلب المعلومات التالية من قبل الدعم الفني."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -487,7 +487,7 @@ msgid "Groups"
 msgstr "المجموعات"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "مشاهدة التفسير من  {{interpretationDate}}"
 
 msgid "Last updated"
 msgstr "آخر تحديث"
