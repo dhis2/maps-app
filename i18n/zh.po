@@ -2,13 +2,14 @@
 # easylin <lin_xd@126.com>, 2020
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# 晓东 林 <13981924470@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,7 +99,7 @@ msgid "Type"
 msgstr "类型"
 
 msgid "Color"
-msgstr ""
+msgstr "颜色"
 
 msgid "Add filter"
 msgstr ""
@@ -147,7 +148,7 @@ msgid "Style"
 msgstr "风格"
 
 msgid "Labels"
-msgstr ""
+msgstr "标签"
 
 msgid "Point radius"
 msgstr ""
@@ -186,7 +187,7 @@ msgid "End date"
 msgstr "结束日期"
 
 msgid "Events"
-msgstr ""
+msgstr "事件"
 
 msgid "Group events"
 msgstr ""
@@ -279,7 +280,7 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "汇总类型"
 
 msgid "Low size"
 msgstr ""
@@ -608,7 +609,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr " 在"
 
 msgid "in and right below"
 msgstr ""
@@ -635,10 +636,10 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "项目指标"
 
 msgid "No program"
-msgstr ""
+msgstr "无项目"
 
 msgid "Program"
 msgstr "项目"
