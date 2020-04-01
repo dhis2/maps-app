@@ -10,7 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
+<<<<<<< HEAD
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
+=======
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+>>>>>>> master
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -602,7 +606,11 @@ msgid "Click the map where you want to relocate facility"
 msgstr ""
 
 msgid "user organisation unit"
+<<<<<<< HEAD
 msgstr "Unités d'organisation de l'utilisateur"
+=======
+msgstr "unités d'organisation de l'utilisateur"
+>>>>>>> master
 
 msgid "right below user organisation unit"
 msgstr ""
