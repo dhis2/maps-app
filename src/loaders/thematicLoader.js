@@ -53,6 +53,8 @@ const thematicLoader = async config => {
                   }
                 : {}),
             name: dataItem ? dataItem.name : i18n.t('Thematic layer'),
+            data: null,
+            legend: null,
             isLoaded: true,
             isVisible: true,
         };
