@@ -8,11 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-03-18T10:45:53.204Z\n"
-<<<<<<< HEAD
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-=======
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
->>>>>>> master
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +18,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "地图"
 
 msgid "Classification"
-msgstr ""
+msgstr "分类"
 
 msgid "Classes"
-msgstr ""
+msgstr "分类"
 
 msgid "Legend set"
 msgstr "图例集"
@@ -43,7 +39,7 @@ msgid "Data element group"
 msgstr "数据元组"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "数据元操作符"
 
 msgid "Data element"
 msgstr "数据元"
@@ -58,28 +54,28 @@ msgid "Yes"
 msgstr "是"
 
 msgid "Event location"
-msgstr ""
+msgstr "事件位置"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "坐标字段"
 
 msgid "None"
 msgstr "无"
 
 msgid "Data item"
-msgstr ""
+msgstr "数据条目"
 
 msgid "Event data item"
-msgstr ""
+msgstr "事件数据条目"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "按数据元风格显示"
 
 msgid "Data set"
 msgstr "数据集"
 
 msgid "Index"
-msgstr ""
+msgstr "索引"
 
 msgid "Value"
 msgstr "值"
@@ -94,7 +90,7 @@ msgid "Level"
 msgstr "等级"
 
 msgid "Parent"
-msgstr ""
+msgstr "上级"
 
 msgid "Id"
 msgstr "Id"
@@ -106,10 +102,10 @@ msgid "Color"
 msgstr "颜色"
 
 msgid "Add filter"
-msgstr ""
+msgstr "添加过滤器"
 
 msgid "Items"
-msgstr ""
+msgstr "条目"
 
 msgid "Dimension"
 msgstr "维"
@@ -118,17 +114,17 @@ msgid "Download"
 msgstr "下载"
 
 msgid "Download map"
-msgstr ""
+msgstr "下载地图"
 
 msgid "Show name"
-msgstr ""
+msgstr "显示名称"
 
 msgid "Show legend"
-msgstr ""
+msgstr "显示图例"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
-msgstr ""
+msgstr "你的浏览器不支持地图下载，请使用Google浏览器或火狐狸浏览器"
 
 msgid "Cancel"
 msgstr "取消"
@@ -137,7 +133,7 @@ msgid "Close"
 msgstr "关闭"
 
 msgid "Legend position"
-msgstr ""
+msgstr "图例位置"
 
 msgid "Year"
 msgstr "年"
@@ -155,28 +151,28 @@ msgid "Labels"
 msgstr "标签"
 
 msgid "Point radius"
-msgstr ""
+msgstr "点半径"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "没有选择机构"
 
 msgid "Steps"
-msgstr ""
+msgstr "步"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "图例预览"
 
 msgid "This field is required"
 msgstr "这个字段是必填的"
 
 msgid "Valid range is"
-msgstr ""
+msgstr "有效范围"
 
 msgid "data"
-msgstr ""
+msgstr "数据"
 
 msgid "period"
-msgstr ""
+msgstr "期间"
 
 msgid "Org units"
 msgstr "组织机构"
@@ -194,127 +190,127 @@ msgid "Events"
 msgstr "事件"
 
 msgid "Group events"
-msgstr ""
+msgstr "事件组"
 
 msgid "View all events"
-msgstr ""
+msgstr "查看所有事件"
 
 msgid "Radius"
-msgstr ""
+msgstr "半径"
 
 msgid "Buffer"
-msgstr ""
+msgstr "缓冲"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "半径（米）"
 
 msgid "You can style events by data element after selecting a program."
-msgstr ""
+msgstr "选择一个项目后你可以按数据元风格化显示事件"
 
 msgid "Program is required"
-msgstr ""
+msgstr "需要项目"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "需要项目阶段"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "没有选择机构"
 
 msgid "Group set"
 msgstr "组集"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgstr "记住选择包括机构的等级"
 
 msgid "Group set is required"
-msgstr ""
+msgstr "需要组集"
 
 msgid "Update layer"
-msgstr ""
+msgstr "更新图层"
 
 msgid "Add layer"
-msgstr ""
+msgstr "添加图层"
 
 msgid "Select program period"
-msgstr ""
+msgstr "选择项目期间"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "当跟踪的实体最近被更新 后选择期间"
 
 msgid "relationships"
-msgstr ""
+msgstr "关系"
 
 msgid "Program status"
-msgstr ""
+msgstr "项目状态"
 
 msgid "Follow up"
-msgstr ""
+msgstr "后续跟进"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
+msgstr "选择关系类型前先选择跟踪实体类型"
 
 msgid "WARNING"
-msgstr ""
+msgstr "警告"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
+msgstr "在地图上显示实体恭喜是一个试验特征功能"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "显示跟踪实体关系"
 
 msgid "Selection mode"
-msgstr ""
+msgstr "选择模式"
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "跟踪的实体"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "跟踪的实体风格"
 
 msgid "Point size"
-msgstr ""
+msgstr "点大小"
 
 msgid "Related entity style"
-msgstr ""
+msgstr "相关实体风格"
 
 msgid "Line Color"
-msgstr ""
+msgstr "线颜色"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
 
 msgid "Low size"
-msgstr ""
+msgstr "下限"
 
 msgid "High size"
-msgstr ""
+msgstr " 上限"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "需要指标组"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "需要指标"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "需要数据元组"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "需要数据元"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "需要数据"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "需要事件数据项"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "需要项目指标"
 
 msgid "Period is required"
-msgstr ""
+msgstr "需要期间"
 
 msgid "Indicator"
 msgstr "指标"
@@ -323,43 +319,43 @@ msgid "Reporting rates"
 msgstr "上报率"
 
 msgid "Event data items"
-msgstr ""
+msgstr "事件数据项"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "项目指标"
 
 msgid "Item type"
-msgstr ""
+msgstr "条目类型"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "载入关系类型失败"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr ""
+msgstr "跟踪的实体类型没有发现关系类型"
 
 msgid "Relationship type"
 msgstr "关系类型"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "DHIS2地图应用发生错误"
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "出了些问题"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "刷新后再试"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "隐藏技术细节"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "显示技术细节"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "下列信息可能技术支持需要"
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "选择项目阶段后即可进行过滤。"
 
 msgid "Operator"
 msgstr "操作符"
@@ -368,34 +364,34 @@ msgid "Date"
 msgstr "日期"
 
 msgid "one of"
-msgstr ""
+msgstr "当中一个"
 
 msgid "not one of"
-msgstr ""
+msgstr "不是当中一个"
 
 msgid "contains"
-msgstr ""
+msgstr "包含"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "不包含"
 
 msgid "is"
 msgstr "是"
 
 msgid "is not"
-msgstr ""
+msgstr "不是"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "移除过滤器"
 
 msgid "Indicator group"
 msgstr "指标组"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "注释"
 
 msgid "Basemap"
-msgstr ""
+msgstr "背景图"
 
 msgid "Collapse"
 msgstr "折叠"
@@ -404,81 +400,81 @@ msgid "Expand"
 msgstr "展开"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "下载图层数据"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "下载 \"{{layerName}}\" 层的GeoJSON数据"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
-msgstr ""
+msgstr "大多数GIS软件（包括QGIS和ArcGIS Desktop）都支持GeoJSON。"
 
 msgid "Data download failed."
-msgstr ""
+msgstr "下载数据失败"
 
 msgid "ID Format"
-msgstr ""
+msgstr "ID格式"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "使用人机可读的键值"
 
 msgid "Loading layer"
-msgstr ""
+msgstr "载入图层"
 
 msgid "deleted"
 msgstr "删除的"
 
 msgid "Split view can not be combined with other layer types."
-msgstr ""
+msgstr "分离视图不能和其它图层混合"
 
 msgid "Filters"
-msgstr ""
+msgstr "过滤器"
 
 msgid "Edit"
 msgstr "编辑"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "切换可视性"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "设置图层透明性"
 
 msgid "More actions"
-msgstr ""
+msgstr "更多操作"
 
 msgid "Data table"
 msgstr "数据表"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "打开图表"
 
 msgid "Download data"
-msgstr ""
+msgstr "下载数据"
 
 msgid "Edit layer"
 msgstr "编辑图层"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "移除图层"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "上级机构"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "上钻一级"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "下钻一级"
 
 msgid "Show information"
 msgstr "显示信息表格"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "显示经纬度"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "切换经纬度"
 
 msgid "Relocate"
 msgstr "重新定位"
@@ -490,7 +486,7 @@ msgid "Organisation unit"
 msgstr "组织机构"
 
 msgid "Event time"
-msgstr ""
+msgstr "事件时间"
 
 msgid "Groups"
 msgstr "组"
@@ -502,7 +498,7 @@ msgid "Latitude"
 msgstr "纬度"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "查看自{{interpretationDate}}的注释"
 
 msgid "No data"
 msgstr "无数据"
@@ -511,55 +507,55 @@ msgid "Last updated"
 msgstr "Last updated"
 
 msgid "acres"
-msgstr ""
+msgstr " 英亩"
 
 msgid "Area"
 msgstr "面积"
 
 msgid "Center map on area"
-msgstr ""
+msgstr "地图居中"
 
 msgid "Center map on line"
-msgstr ""
+msgstr "地图线上居中"
 
 msgid "Click the next position"
-msgstr ""
+msgstr "点击下一个位置"
 
 msgid "Click where you want to start the measurement"
-msgstr ""
+msgstr "点击你要测量的开始位置"
 
 msgid "Delete"
 msgstr "删除"
 
 msgid "Distance"
-msgstr ""
+msgstr "距离"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "进入全屏"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "退出全屏"
 
 msgid "ha"
-msgstr ""
+msgstr "ha"
 
 msgid "km"
-msgstr ""
+msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr ""
+msgstr "测量距离和面积"
 
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 msgid "Perimeter"
-msgstr ""
+msgstr "直径"
 
 msgid "Reset bearing to north"
-msgstr ""
+msgstr "重置方位向北"
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "搜索地点或地址"
 
 msgid "Zoom in"
 msgstr "放大"
@@ -568,19 +564,19 @@ msgid "Zoom out"
 msgstr "缩小"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "缩放到当前内容"
 
 msgid "Open as map"
-msgstr ""
+msgstr "打开为地图"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
-msgstr ""
+msgstr "此图表/表格包含{{numItems}}个数据项。从下面的列表中选择要导入的项目。每个数据项将被创建为地图层."
 
 msgid "Data items"
-msgstr ""
+msgstr "数据项"
 
 msgid "Proceed"
 msgstr "处理"
@@ -592,37 +588,37 @@ msgid "Code"
 msgstr "代码"
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "在该期间没有找到数据"
 
 msgid "Select groups"
-msgstr ""
+msgstr "选择组"
 
 msgid "Select levels"
-msgstr ""
+msgstr "选择等级"
 
 msgid "Click the map where you want to relocate facility"
-msgstr ""
+msgstr "点击你要重新定位机构的位置"
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "用户所在的机构"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "用户所在机构的直接下属"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "用户所在机构的二级下属机构"
 
 msgid "in"
 msgstr " 在"
 
 msgid "in and right below"
-msgstr ""
+msgstr "右边或垂直下属"
 
 msgid "in and all below"
-msgstr ""
+msgstr "本身和所有下属"
 
 msgid "Previous year"
-msgstr ""
+msgstr "前年"
 
 msgid "Next year"
 msgstr "来年"
@@ -634,10 +630,10 @@ msgid "Period type"
 msgstr "周期类型"
 
 msgid "Only one timeline is allowed."
-msgstr ""
+msgstr "仅仅允许一个时限"
 
 msgid "Remove other layers to enable split map views."
-msgstr ""
+msgstr "移除其他图层使能分离视图功能"
 
 msgid "Program indicator"
 msgstr "项目指标"
@@ -649,48 +645,48 @@ msgid "Program"
 msgstr "项目"
 
 msgid "Stage"
-msgstr ""
+msgstr "阶段"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "跟踪实体类型"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
-msgstr ""
+msgstr "为了展示这个 层您必须先在Google上注册Earth Engine服务。请检查DHIS 2文档。"
 
 msgid "Error"
 msgstr "错误"
 
 msgid "A connection to Google Earth Engine could not be established."
-msgstr ""
+msgstr "无法建立与Google Earth Engine的连接。"
 
 msgid "Favorite"
-msgstr ""
+msgstr "偏好"
 
 msgid "is saved"
-msgstr ""
+msgstr "已保存"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "边界线"
 
 msgid "Alert"
-msgstr ""
+msgstr "警告"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "没有发现边界线"
 
 msgid "Access denied"
 msgstr "拒绝随访"
 
 msgid "user is not allowed to read layer data"
-msgstr ""
+msgstr "不允许用户读取图层数据"
 
 msgid "Failed"
-msgstr ""
+msgstr "失败"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr ""
+msgstr "读取图层数据时发生未知错误"
 
 msgid "Event"
 msgstr "事件"
@@ -699,43 +695,43 @@ msgid "No data found"
 msgstr "没有数据被找到"
 
 msgid "Facilities"
-msgstr ""
+msgstr "机构设施"
 
 msgid "Thematic layer"
 msgstr "专题层"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "选择的机构"
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "没有找到坐标"
 
 msgid "Tracked entity"
 msgstr "跟踪实体"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "没有找到跟踪实体"
 
 msgid "related"
-msgstr ""
+msgstr "相关的"
 
 msgid "true"
-msgstr ""
+msgstr "真"
 
 msgid "false"
-msgstr ""
+msgstr "假"
 
 msgid "No"
 msgstr "否"
 
 msgid "Map could not be created"
-msgstr ""
+msgstr "不能创建地图"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "开始日期无效"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "结束日期无效"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "结束日期不能早于开始日期"

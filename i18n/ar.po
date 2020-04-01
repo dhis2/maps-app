@@ -150,11 +150,7 @@ msgid "Labels"
 msgstr "التسميات"
 
 msgid "Point radius"
-<<<<<<< HEAD
 msgstr "قطر النقطة"
-=======
-msgstr "نصف قطر النقطة"
->>>>>>> master
 
 msgid "No organisation units are selected"
 msgstr ""
@@ -199,11 +195,7 @@ msgid "View all events"
 msgstr "عرض كافة الأحداث"
 
 msgid "Radius"
-<<<<<<< HEAD
 msgstr "القطر"
-=======
-msgstr "نصف القطر"
->>>>>>> master
 
 msgid "Buffer"
 msgstr ""
