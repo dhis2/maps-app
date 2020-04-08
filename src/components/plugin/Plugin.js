@@ -23,6 +23,7 @@ const defaultBounds = [
 
 class Plugin extends Component {
     static propTypes = {
+        hideTitle: PropTypes.bool,
         name: PropTypes.string,
         basemap: PropTypes.object,
         mapViews: PropTypes.array,
@@ -30,6 +31,7 @@ class Plugin extends Component {
     };
 
     static defaultProps = {
+        hideTitle: false,
         basemap: { id: 'osmLight' },
     };
 
@@ -43,7 +45,7 @@ class Plugin extends Component {
     }
 
     render() {
-        const { name, basemap, classes } = this.props;
+        const { name, basemap, hideTitle, classes } = this.props;
         const {
             position,
             offset,
@@ -56,7 +58,7 @@ class Plugin extends Component {
 
         return (
             <div className={`dhis2-map-plugin ${classes.root}`}>
-                <MapName name={name} />
+                {!hideTitle && <MapName name={name} />}
                 <MapView
                     isPlugin={true}
                     basemap={basemap}
