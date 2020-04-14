@@ -167,7 +167,7 @@ const models2objects = config => {
     return config;
 };
 
-const cleanDimension = dim => ({
+export const cleanDimension = dim => ({
     ...dim,
     items: dim.items.map(item => pick(validModelProperties, item)),
 });

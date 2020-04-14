@@ -1,6 +1,7 @@
 import { config, getInstance as getD2 } from 'd2';
 import { getPeriodNameFromId, getDimensionsFromFilters } from './analytics';
 import { loadDataItemLegendSet } from './legend';
+import { cleanDimension } from './favorites';
 
 export const NAMESPACE = 'analytics';
 export const CURRENT_AO_KEY = 'currentAnalyticalObject';
@@ -91,7 +92,7 @@ export const getAnalyticalObjectFromThematicLayer = (layer = {}) => {
 
     return {
         columns,
-        rows,
+        rows: rows.map(cleanDimension),
         filters,
         aggregationType,
     };
