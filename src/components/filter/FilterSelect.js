@@ -66,7 +66,7 @@ export class FilterSelect extends Component {
         }
 
         return [
-            operators && (
+            operators ? (
                 <SelectField
                     key="operator"
                     label={i18n.t('Operator')}
@@ -77,7 +77,7 @@ export class FilterSelect extends Component {
                     }
                     style={styles.operator}
                 />
-            ),
+            ) : null,
             optionSet && optionSets[optionSet.id] ? (
                 <OptionSetSelect
                     key="optionset"
