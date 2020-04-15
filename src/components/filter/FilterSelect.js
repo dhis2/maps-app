@@ -66,7 +66,7 @@ export class FilterSelect extends Component {
         }
 
         return [
-            operators ? (
+            operators && (
                 <SelectField
                     key="operator"
                     label={i18n.t('Operator')}
@@ -77,7 +77,7 @@ export class FilterSelect extends Component {
                     }
                     style={styles.operator}
                 />
-            ) : null,
+            ),
             optionSet && optionSets[optionSet.id] ? (
                 <OptionSetSelect
                     key="optionset"
@@ -129,6 +129,7 @@ export class FilterSelect extends Component {
         ];
     }
 
+    // Supported operators: https://docs.dhis2.org/master/en/dhis2_developer_manual/web-api.html#filtering_1
     getOperators(valueType, optionSet) {
         let operators;
 
@@ -146,16 +147,12 @@ export class FilterSelect extends Component {
                 { id: 'NE', name: '!=' },
             ];
         } else if (optionSet) {
-            operators = [
-                { id: 'IN', name: i18n.t('one of') },
-                { id: '!IN', name: i18n.t('not one of') },
-            ];
+            operators = [{ id: 'IN', name: i18n.t('one of') }];
         } else if (textValueTypes.indexOf(valueType) >= 0) {
             operators = [
                 { id: 'LIKE', name: i18n.t('contains') },
-                { id: '!LIKE', name: i18n.t("doesn't contains") },
                 { id: 'EQ', name: i18n.t('is') },
-                { id: '!EQ', name: i18n.t('is not') },
+                { id: 'NE', name: i18n.t('is not') },
             ];
         }
 
