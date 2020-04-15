@@ -129,7 +129,6 @@ export class FilterSelect extends Component {
         ];
     }
 
-    // Supported operators: https://docs.dhis2.org/master/en/dhis2_developer_manual/web-api.html#filtering_1
     getOperators(valueType, optionSet) {
         let operators;
 
