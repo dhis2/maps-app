@@ -1,5 +1,5 @@
 import { config, getInstance as getD2 } from 'd2';
-import { getPeriodNameFromId, getDimensionsFromFilters } from './analytics';
+import { getPeriodNameFromId } from './analytics';
 import { loadDataItemLegendSet } from './legend';
 
 export const NAMESPACE = 'analytics';
@@ -41,7 +41,6 @@ export const getThematicLayerFromAnalyticalObject = async (
     const dataDims = getDataDimensionsFromAnalyticalObject(ao);
     const dims = getDimensionsFromAnalyticalObject(ao);
     const orgUnits = dims.find(i => i.dimension === 'ou');
-    const filters = getDimensionsFromFilters(dims); // Dynamic dimension filters
     let period = dims.find(i => i.dimension === 'pe');
     let dataDim = dataDims[0];
 
@@ -73,7 +72,7 @@ export const getThematicLayerFromAnalyticalObject = async (
         layer: 'thematic',
         columns: [{ dimension: 'dx', items: [dataDim] }],
         rows: [orgUnits],
-        filters: [period, ...filters],
+        filters: [period],
         aggregationType,
         legendSet,
         isVisible,
