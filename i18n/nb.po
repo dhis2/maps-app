@@ -67,7 +67,7 @@ msgid "Event data item"
 msgstr "Hendelsesdatapunkt"
 
 msgid "Style by data element"
-msgstr "Stilisere etter dataelement"
+msgstr "Style etter dataelement"
 
 msgid "Data set"
 msgstr "Datasett"
