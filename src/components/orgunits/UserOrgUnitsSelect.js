@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import i18n from '@dhis2/d2-i18n';
 import FirstLevel from './UserOrgUnitsFirstLevel';
 import SecondLevel from './UserOrgUnitsSecondLevel';
 import ThirdLevel from './UserOrgUnitsThirdLevel';
@@ -50,7 +51,7 @@ const levels = [
 // TODO: Use ImageSelect.js component for selectable image?
 const UserOrgUnitSelect = ({ classes, selected, onChange, style }) => (
     <div className="UserOrgUnits" style={style}>
-        <div className={classes.title}>User organisation units</div>
+        <div className={classes.title}>{i18n.t('User organisation units')}</div>
         <div className={classes.container}>
             {levels.map(level => {
                 const isSelected = selected.indexOf(level.id) !== -1;
