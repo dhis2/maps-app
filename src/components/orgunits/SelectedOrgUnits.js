@@ -56,7 +56,7 @@ const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
                 <div style={styles.error}>{error}</div>
             ) : (
                 <div>
-                    <strong>Selected organisation units</strong>
+                    <strong>{i18n.t('Selected organisation units')}</strong>
                     <br />
                     {selected}
                 </div>
