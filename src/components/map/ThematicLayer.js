@@ -38,15 +38,15 @@ class ThematicLayer extends Layer {
         if (renderingStrategy !== 'SINGLE') {
             const values = valuesByPeriod[period.id] || {};
 
-            periodData = data.map(feature => ({
-                ...feature,
-                properties: {
-                    ...feature.properties,
-                    ...(values[feature.id]
-                        ? values[feature.id]
-                        : { value: i18n.t('No data'), color: '#CCC' }),
-                },
-            }));
+            periodData = data
+                .filter(feature => values[feature.id] !== undefined)
+                .map(feature => ({
+                    ...feature,
+                    properties: {
+                        ...feature.properties,
+                        ...values[feature.id],
+                    },
+                }));
         }
 
         const map = this.context.map;
