@@ -56,7 +56,7 @@ msgid "Event location"
 msgstr "موقع الحدث"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "حقل الإحداثية"
 
 msgid "None"
 msgstr "لا شيء"
@@ -244,10 +244,10 @@ msgid "Aggregation type"
 msgstr "نوع التجميع"
 
 msgid "Low size"
-msgstr ""
+msgstr "حجم صغير"
 
 msgid "High size"
-msgstr ""
+msgstr "حجم كبير"
 
 msgid "Indicator group is required"
 msgstr ""
@@ -289,7 +289,7 @@ msgid "Program indicators"
 msgstr "مؤشرات البرنامج"
 
 msgid "Item type"
-msgstr ""
+msgstr "نوع العنصر"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -426,19 +426,19 @@ msgid "Parent unit"
 msgstr "الوحدة العليا"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "الطلوع مستوى واحد"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "التعمق مستوى واحد"
 
 msgid "Show information"
 msgstr "إظهار المعلومات"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "إظهار خط الطول/خط العرض"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "تبديل خط الطول/خط العرض"
 
 msgid "Relocate"
 msgstr "إعادة تحديد الموضع"
@@ -450,7 +450,7 @@ msgid "Organisation unit"
 msgstr "الوحدة التنظيمية"
 
 msgid "Event time"
-msgstr ""
+msgstr "وقت الحدث"
 
 msgid "Groups"
 msgstr "المجموعات"
@@ -471,10 +471,10 @@ msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
+msgstr "اختر المجموعات"
 
 msgid "Select levels"
-msgstr ""
+msgstr "اختر المستويات"
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
