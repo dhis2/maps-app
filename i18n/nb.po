@@ -19,25 +19,25 @@ msgid "Maps"
 msgstr "Kart"
 
 msgid "Classification"
-msgstr ""
+msgstr "Klassifisering"
 
 msgid "Classes"
-msgstr ""
+msgstr "Klasser"
 
 msgid "Legend set"
 msgstr "Tegnforklaringssett"
 
 msgid "Automatic"
-msgstr ""
+msgstr "Automatisk"
 
 msgid "Predefined"
-msgstr ""
+msgstr "Forhåndsdefinert "
 
 msgid "Data element group"
-msgstr ""
+msgstr "Dataelementgruppe"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Dataelementoperand"
 
 msgid "Data element"
 msgstr "Dataelement"
@@ -52,34 +52,34 @@ msgid "Yes"
 msgstr "Ja"
 
 msgid "Event location"
-msgstr ""
+msgstr "Hendelsessted"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Koordinatfelt"
 
 msgid "None"
 msgstr "Ingen"
 
 msgid "Data item"
-msgstr ""
+msgstr "Datapunkt"
 
 msgid "Event data item"
-msgstr ""
+msgstr "Hendelsesdatapunkt"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Style etter dataelement"
 
 msgid "Data set"
-msgstr ""
+msgstr "Datasett"
 
 msgid "Index"
-msgstr ""
+msgstr "Indeks"
 
 msgid "Value"
 msgstr "Verdi"
 
 msgid "Legend"
-msgstr "Nøkkel"
+msgstr "Tegnforklaring"
 
 msgid "Range"
 msgstr "Område"
@@ -88,41 +88,43 @@ msgid "Level"
 msgstr "Nivå"
 
 msgid "Parent"
-msgstr ""
+msgstr "Overordnet"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Type"
 msgstr "Type"
 
 msgid "Color"
-msgstr ""
+msgstr "Farge"
 
 msgid "Add filter"
 msgstr "Legg til filter"
 
 msgid "Items"
-msgstr ""
+msgstr "Punkter"
 
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensjon"
 
 msgid "Download"
 msgstr "Last ned"
 
 msgid "Download map"
-msgstr ""
+msgstr "Last ned kart"
 
 msgid "Show name"
-msgstr ""
+msgstr "Vis navn"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Vis tegnforklaring"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"Kartnedlasting støttes ikke av nettleseren din. Prøv Google Chrome eller "
+"Firefox."
 
 msgid "Cancel"
 msgstr "Avbryt"
@@ -131,10 +133,10 @@ msgid "Close"
 msgstr "Lukk"
 
 msgid "Legend position"
-msgstr ""
+msgstr "Tegnforklaringsplassering"
 
 msgid "Year"
-msgstr ""
+msgstr "År"
 
 msgid "Period"
 msgstr "Periode"
@@ -146,34 +148,34 @@ msgid "Style"
 msgstr "Stil"
 
 msgid "Labels"
-msgstr ""
+msgstr "Etiketter"
 
 msgid "Point radius"
-msgstr ""
+msgstr "Punktradius"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Ingen organisasjonsenheter er valgt"
 
 msgid "Steps"
-msgstr ""
+msgstr "Trinn"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Forhåndsvisning av tegnforklaring"
 
 msgid "This field is required"
 msgstr "Dette er et påkrevd felt"
 
 msgid "Valid range is"
-msgstr ""
+msgstr "Gyldig rekkevidde er"
 
 msgid "data"
-msgstr ""
+msgstr "data"
 
 msgid "period"
-msgstr ""
+msgstr "periode"
 
 msgid "Org units"
-msgstr ""
+msgstr "Org enheter"
 
 msgid "Filter"
 msgstr "Filter"
@@ -185,157 +187,159 @@ msgid "End date"
 msgstr "Sluttdato"
 
 msgid "Events"
-msgstr ""
+msgstr "Hendelser"
 
 msgid "Group events"
-msgstr ""
+msgstr "Grupper hendelser"
 
 msgid "View all events"
-msgstr ""
+msgstr "Vis alle hendelser"
 
 msgid "Radius"
-msgstr ""
+msgstr "Radius"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Buffer"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Radius i meter"
 
 msgid "You can style events by data element after selecting a program."
-msgstr ""
+msgstr "Du kan style hendelser etter dataelement etter å ha valgt et program."
 
 msgid "Program is required"
-msgstr ""
+msgstr "Program er påkrevd"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Programfase er påkrevd"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Ingen organisasjonsenheter er valgt"
 
 msgid "Group set"
-msgstr ""
+msgstr "Gruppesett"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
 
 msgid "Group set is required"
-msgstr ""
+msgstr "Gruppesett er påkrevd"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Oppdater lag"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Legg til lag"
 
 msgid "Select program period"
-msgstr ""
+msgstr "Velg programperiode"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "Velg periode da sporede enheter sist ble oppdatert"
 
 msgid "relationships"
-msgstr ""
+msgstr "relasjoner"
 
 msgid "Program status"
 msgstr "Programstatus"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Oppfølging"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
+msgstr "Velg en sporet enhetstype før du velger en relasjonstype"
 
 msgid "WARNING"
-msgstr ""
+msgstr "ADVARSEL"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
+"Visning av relasjoner mellom sporede enheter i Kart en eksperimentell "
+"funksjon"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "Vis sporet enhetsrelasjoner"
 
 msgid "Selection mode"
-msgstr ""
+msgstr "Valgmodus"
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Sporede enheter"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "Sporet enhetstil"
 
 msgid "Point size"
-msgstr ""
+msgstr "Punktstørrelse"
 
 msgid "Related entity style"
-msgstr ""
+msgstr "Stil for relatert enhet"
 
 msgid "Line Color"
-msgstr ""
+msgstr "Linjefarge"
 
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"
 
 msgid "Low size"
-msgstr ""
+msgstr "Lav størrelse"
 
 msgid "High size"
-msgstr ""
+msgstr "Høy størrelse"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Indikatorgruppe er påkrevd"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Indikator er påkrevd"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "Dataelementgruppe er påkrevd"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Dataelement er påkrevd"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Datasett er påkrevd"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Hendelsesdatapunkt er påkrevd"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Programindikator er påkrevd"
 
 msgid "Period is required"
-msgstr ""
+msgstr "Periode er påkrevd"
 
 msgid "Indicator"
 msgstr "Indikator"
 
 msgid "Reporting rates"
-msgstr "Rapporteringsrater"
+msgstr "Rapporteringsfrekvens"
 
 msgid "Event data items"
-msgstr ""
+msgstr "Hendelsesdatapunkter"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Programindikatorer"
 
 msgid "Item type"
-msgstr ""
+msgstr "Elementtype"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "Kunne ikke laste inn relasjonstyper."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr ""
+msgstr "Ingen relasjonstyper ble funnet for sporet enhetstype {{type}}"
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Relasjonstype"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "Det oppstod en feil i DHIS2 Kart-applikasjonen."
 
 msgid "Something went wrong"
 msgstr "Noe gikk galt"
@@ -347,49 +351,49 @@ msgid "Hide technical details"
 msgstr "Skjul tekniske detaljer"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Vis tekniske detaljer"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "Følgende informasjon kan bli bedt om av teknisk support."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "Filtrering er tilgjengelig etter valg av programfase."
 
 msgid "Operator"
-msgstr ""
+msgstr "Operator"
 
 msgid "Date"
 msgstr "Dato"
 
 msgid "one of"
-msgstr ""
+msgstr "en av"
 
 msgid "not one of"
-msgstr ""
+msgstr "ikke en av"
 
 msgid "contains"
-msgstr ""
+msgstr "inneholder"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "inneholder ikke"
 
 msgid "is"
-msgstr ""
+msgstr "er"
 
 msgid "is not"
-msgstr ""
+msgstr "er ikke"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Fjern filter"
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Indikatorgruppe"
 
 msgid "Interpretations"
 msgstr "Tolkninger"
 
 msgid "Basemap"
-msgstr ""
+msgstr "Bakgrunnskart"
 
 msgid "Collapse"
 msgstr "Kollaps"
@@ -398,96 +402,98 @@ msgid "Expand"
 msgstr "Utvid"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Last ned lagdata"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "Laster ned GeoJSON-data for \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON støttes av de fleste GIS-programvare, inkludert QGIS og ArcGIS "
+"Desktop."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Nedlasting av data mislyktes."
 
 msgid "ID Format"
-msgstr ""
+msgstr "ID-format"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Bruk menneskelige lesbare nøkler"
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Laster lag"
 
 msgid "deleted"
 msgstr "slettet"
 
 msgid "Split view can not be combined with other layer types."
-msgstr ""
+msgstr "Delt visning kan ikke kombineres med andre lagtyper."
 
 msgid "Filters"
-msgstr ""
+msgstr "Filter"
 
 msgid "Edit"
 msgstr "Rediger"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Slå av/på synlighet"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Angi lagets gjennomsiktighet"
 
 msgid "More actions"
-msgstr ""
+msgstr "Flere handlinger"
 
 msgid "Data table"
-msgstr ""
+msgstr "Datatabell"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "Åpne som diagram"
 
 msgid "Download data"
 msgstr "Last ned data"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "Rediger lag"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Fjern lag"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Overordnet enhet"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "Drill opp ett nivå"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "Drill ned ett nivå"
 
 msgid "Show information"
-msgstr ""
+msgstr "Vis informasjon"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "Vis lengdegrad/breddegrad"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "Bytt lengdegrad/breddegrad"
 
 msgid "Relocate"
-msgstr ""
+msgstr "Omplasser"
 
 msgid "Not set"
-msgstr ""
+msgstr "Ikke satt"
 
 msgid "Organisation unit"
 msgstr "Organisasjonsenhet"
 
 msgid "Event time"
-msgstr ""
+msgstr "Hendelsestid"
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupper"
 
 msgid "Longitude"
 msgstr "Lengdegrad"
@@ -496,7 +502,7 @@ msgid "Latitude"
 msgstr "Breddegrad"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Viser tolkning fra {{interpretationDate}}"
 
 msgid "No data"
 msgstr "Ingen data"
@@ -505,55 +511,55 @@ msgid "Last updated"
 msgstr "Sist oppdatert"
 
 msgid "acres"
-msgstr ""
+msgstr "dekar"
 
 msgid "Area"
-msgstr ""
+msgstr "Areal"
 
 msgid "Center map on area"
-msgstr ""
+msgstr "Midtstill kart på området"
 
 msgid "Center map on line"
-msgstr ""
+msgstr "Midtstill kart på linje"
 
 msgid "Click the next position"
-msgstr ""
+msgstr "Klikk på neste posisjon"
 
 msgid "Click where you want to start the measurement"
-msgstr ""
+msgstr "Klikk der du ønsker å starte målingen"
 
 msgid "Delete"
 msgstr "Slett"
 
 msgid "Distance"
-msgstr ""
+msgstr "Avstand"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "Gå inn i fullskjerm"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Gå ut av fullskjerm"
 
 msgid "ha"
-msgstr ""
+msgstr "ha"
 
 msgid "km"
-msgstr ""
+msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr ""
+msgstr "Mål avstander og områder"
 
 msgid "mi"
-msgstr ""
+msgstr "internasjonal mil"
 
 msgid "Perimeter"
-msgstr ""
+msgstr "Omkrets"
 
 msgid "Reset bearing to north"
-msgstr ""
+msgstr "Tilbakestill peiling mot nord"
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "Søk etter sted eller adresse"
 
 msgid "Zoom in"
 msgstr "Zoom in"
@@ -562,22 +568,25 @@ msgid "Zoom out"
 msgstr "Zoom ut"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "Zoom til innhold"
 
 msgid "Open as map"
-msgstr ""
+msgstr "Åpne som kart"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"Dette diagrammet/tabellen inneholder {{numItems}} datapunkter. Velg hvilke "
+"punkter du vil importere fra listen nedenfor. Hvert datapunkt blir opprettet"
+" som et kartlag."
 
 msgid "Data items"
-msgstr ""
+msgstr "Datapunkter"
 
 msgid "Proceed"
-msgstr ""
+msgstr "Fortsett"
 
 msgid "Options"
 msgstr "Alternativer"
@@ -586,105 +595,107 @@ msgid "Code"
 msgstr "Kode"
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Ingen data funnet for denne perioden."
 
 msgid "Select groups"
-msgstr ""
+msgstr "Velg grupper"
 
 msgid "Select levels"
-msgstr ""
+msgstr "Velg nivåer"
 
 msgid "Click the map where you want to relocate facility"
-msgstr ""
+msgstr "Klikk på kartet der du vil flytte bygningen"
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "brukerorganisasjonsenhet"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "rett under brukerorganisasjonsenhet"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "to nivå under brukerorganisasjonsenhet"
 
 msgid "in"
-msgstr ""
+msgstr "i"
 
 msgid "in and right below"
-msgstr ""
+msgstr "inn og rett nedenfor"
 
 msgid "in and all below"
-msgstr ""
+msgstr "i og alle nedenfor"
 
 msgid "Previous year"
-msgstr ""
+msgstr "Forrige år"
 
 msgid "Next year"
 msgstr "Neste år"
 
 msgid "Relative"
-msgstr ""
+msgstr "Relativ"
 
 msgid "Period type"
-msgstr ""
+msgstr "Periodetype"
 
 msgid "Only one timeline is allowed."
-msgstr ""
+msgstr "Bare en tidslinje er tillatt."
 
 msgid "Remove other layers to enable split map views."
-msgstr ""
+msgstr "Fjern andre lag for å aktivere delt kartvisning."
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Programindikator"
 
 msgid "No program"
-msgstr ""
+msgstr "Ingen program"
 
 msgid "Program"
 msgstr "Program"
 
 msgid "Stage"
-msgstr ""
+msgstr "Fase"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Sporet enhetstype"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
+"For å vise dette laget må du først registrere deg på Earth Engine-tjenesten "
+"hos Google. Vennligst sjekk DHIS2-dokumentasjonen."
 
 msgid "Error"
 msgstr "Feil"
 
 msgid "A connection to Google Earth Engine could not be established."
-msgstr ""
+msgstr "Kunne ikke opprette tilkobling til Google Earth Engine."
 
 msgid "Favorite"
-msgstr ""
+msgstr "Favoritt"
 
 msgid "is saved"
-msgstr ""
+msgstr "er lagret"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Grenser"
 
 msgid "Alert"
-msgstr ""
+msgstr "Varsling"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "Ingen grenser funnet"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Ingen tilgang"
 
 msgid "user is not allowed to read layer data"
-msgstr ""
+msgstr "bruker har ikke lov til å lese lagdata"
 
 msgid "Failed"
-msgstr ""
+msgstr "Mislyktes"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr ""
+msgstr "en ukjent feil oppstod under lesing av lagdata"
 
 msgid "Event"
 msgstr "Hendelse"
@@ -693,43 +704,43 @@ msgid "No data found"
 msgstr "Ingen data funnet"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Bygninger"
 
 msgid "Thematic layer"
-msgstr ""
+msgstr "Tematisk lag"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "Valgte org enheter"
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "Ingen koordinater funnet"
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "Ingen sporede enheter funnet"
 
 msgid "related"
-msgstr ""
+msgstr "relatert"
 
 msgid "true"
-msgstr ""
+msgstr "sant"
 
 msgid "false"
-msgstr ""
+msgstr "usant"
 
 msgid "No"
 msgstr "Nei"
 
 msgid "Map could not be created"
-msgstr ""
+msgstr "Kartet kunne ikke opprettes"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "Startdato er ugyldig"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "Sluttdatoen er ugyldig"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "Sluttdato kan ikke være tidligere enn startdato"
