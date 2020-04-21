@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-04-21T10:07:10.891Z\n"
-"PO-Revision-Date: 2020-04-21T10:07:10.892Z\n"
+"POT-Creation-Date: 2020-04-21T10:49:58.534Z\n"
+"PO-Revision-Date: 2020-04-21T10:49:58.534Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -926,6 +926,112 @@ msgstr ""
 msgid "No boundaries found"
 msgstr ""
 
+msgid "Elevation"
+msgstr ""
+
+msgid "metres"
+msgstr ""
+
+msgid "Elevation above sea-level."
+msgstr ""
+
+msgid "Population density"
+msgstr ""
+
+msgid "people per km²"
+msgstr ""
+
+msgid ""
+"Population density estimates with national totals adjusted to match UN "
+"population division estimates."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr ""
+
+msgid "light intensity"
+msgstr ""
+
+msgid "Precipitation"
+msgstr ""
+
+msgid "millimeter"
+msgstr ""
+
+msgid "Precipitation collected from satellite and weather stations on the ground."
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Landcover"
+msgstr ""
+
+msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr ""
+
+msgid "Mixed forest"
+msgstr ""
+
+msgid "Closed shrublands"
+msgstr ""
+
+msgid "Open shrublands"
+msgstr ""
+
+msgid "Woody savannas"
+msgstr ""
+
+msgid "Savannas"
+msgstr ""
+
+msgid "Grasslands"
+msgstr ""
+
+msgid "Permanent wetlands"
+msgstr ""
+
+msgid "Croplands"
+msgstr ""
+
+msgid "Urban and built-up"
+msgstr ""
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr ""
+
+msgid "Snow and ice"
+msgstr ""
+
+msgid "Barren or sparsely vegetated"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
 msgid "Access denied"
 msgstr ""
 
@@ -966,24 +1072,6 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
-msgstr ""
-
-msgid "Population density"
-msgstr ""
-
-msgid "Elevation"
-msgstr ""
-
-msgid "Temperature"
-msgstr ""
-
-msgid "Precipitation"
-msgstr ""
-
-msgid "Landcover"
-msgstr ""
-
-msgid "Nighttime lights"
 msgstr ""
 
 msgid "not one of"

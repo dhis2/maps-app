@@ -1,18 +1,20 @@
-const datasets = {
+import i18n from '@dhis2/d2-i18n';
+
+const getDatasets = () => ({
     'USGS/SRTMGL1_003': {
-        name: 'Elevation',
+        name: i18n.t('Elevation'),
         band: 'elevation',
         mask: true,
         legend: {
-            unit: 'metres',
-            description: 'Elevation above sea-level.',
+            unit: i18n.t('metres'),
+            description: i18n.t('Elevation above sea-level.'),
             source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
             sourceUrl:
                 'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
         },
     },
     'WorldPop/POP': {
-        name: 'Population density',
+        name: i18n.t('Population density'),
         aggregation: 'mosaic',
         mask: true,
         methods: {
@@ -24,46 +26,49 @@ const datasets = {
             return Math.round(value);
         },
         legend: {
-            unit: 'people per km²',
-            description:
-                'Population density estimates with national totals adjusted to match UN population division estimates.',
+            unit: i18n.t('people per km²'),
+            description: i18n.t(
+                'Population density estimates with national totals adjusted to match UN population division estimates.'
+            ),
             source: 'WorldPop / Google Earth Engine',
             sourceUrl:
                 'https://explorer.earthengine.google.com/#detail/WorldPop%2FPOP',
         },
     },
     'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': {
-        name: 'Nighttime lights',
+        name: i18n.t('Nighttime lights'),
         band: 'stable_lights',
         mask: true,
         popup: '{name}: {value}',
         legend: {
-            unit: 'light intensity',
-            description:
-                'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.',
+            unit: i18n.t('light intensity'),
+            description: i18n.t(
+                'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.'
+            ),
             source: 'NOAA / Google Earth Engine',
             sourceUrl:
                 'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
         },
     },
     'UCSB-CHG/CHIRPS/PENTAD': {
-        name: 'Precipitation',
+        name: i18n.t('Precipitation'),
         band: 'precipitation',
         mask: true,
         value(value) {
             return value.toFixed(1);
         },
         legend: {
-            unit: 'millimeter',
-            description:
-                'Precipitation collected from satellite and weather stations on the ground.',
+            unit: i18n.t('millimeter'),
+            description: i18n.t(
+                'Precipitation collected from satellite and weather stations on the ground.'
+            ),
             source: 'UCSB / CHG / Google Earth Engine',
             sourceUrl:
                 'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
         },
     },
     'MODIS/006/MOD11A2': {
-        name: 'Temperature',
+        name: i18n.t('Temperature'),
         band: 'LST_Day_1km',
         mask: true,
         methods: {
@@ -76,16 +81,17 @@ const datasets = {
         },
         popup: '{name}: {value}{unit}',
         legend: {
-            unit: '°C during daytime',
-            description:
-                'Land surface temperatures collected from satellite. Blank spots will appear in areas with a persistent cloud cover.',
+            unit: i18n.t('°C during daytime'),
+            description: i18n.t(
+                'Land surface temperatures collected from satellite. Blank spots will appear in areas with a persistent cloud cover.'
+            ),
             source: 'NASA LP DAAC / Google Earth Engine',
             sourceUrl:
                 'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
         },
     },
     'MODIS/051/MCD12Q1': {
-        name: 'Landcover',
+        name: i18n.t('Landcover'),
         band: 'Land_Cover_Type_1',
         params: {
             min: 0,
@@ -95,91 +101,94 @@ const datasets = {
         },
         mask: false,
         legend: {
-            description: 'Distinct landcover types collected from satellites.',
+            description: i18n.t(
+                'Distinct landcover types collected from satellites.'
+            ),
             source: 'NASA LP DAAC / Google Earth Engine',
             sourceUrl:
                 'https://code.earthengine.google.com/dataset/MODIS/051/MCD12Q1',
             items: [
                 {
                     color: '#aec3d6',
-                    name: 'Water',
+                    name: i18n.t('Water'),
                 },
                 {
                     color: '#162103',
-                    name: 'Evergreen Needleleaf forest',
+                    name: i18n.t('Evergreen Needleleaf forest'),
                 },
                 {
                     color: '#235123',
-                    name: 'Evergreen Broadleaf forest',
+                    name: i18n.t('Evergreen Broadleaf forest'),
                 },
                 {
                     color: '#399b38',
-                    name: 'Deciduous Needleleaf forest',
+                    name: i18n.t('Deciduous Needleleaf forest'),
                 },
                 {
                     color: '#38eb38',
-                    name: 'Deciduous Broadleaf forest',
+                    name: i18n.t('Deciduous Broadleaf forest'),
                 },
                 {
                     color: '#39723b',
-                    name: 'Mixed forest',
+                    name: i18n.t('Mixed forest'),
                 },
                 {
                     color: '#6a2424',
-                    name: 'Closed shrublands',
+                    name: i18n.t('Closed shrublands'),
                 },
                 {
                     color: '#c3a55f',
-                    name: 'Open shrublands',
+                    name: i18n.t('Open shrublands'),
                 },
                 {
                     color: '#b76124',
-                    name: 'Woody savannas',
+                    name: i18n.t('Woody savannas'),
                 },
                 {
                     color: '#d99125',
-                    name: 'Savannas',
+                    name: i18n.t('Savannas'),
                 },
                 {
                     color: '#92af1f',
-                    name: 'Grasslands',
+                    name: i18n.t('Grasslands'),
                 },
                 {
                     color: '#10104c',
-                    name: 'Permanent wetlands',
+                    name: i18n.t('Permanent wetlands'),
                 },
                 {
                     color: '#cdb400',
-                    name: 'Croplands',
+                    name: i18n.t('Croplands'),
                 },
                 {
                     color: '#cc0202',
-                    name: 'Urban and built-up',
+                    name: i18n.t('Urban and built-up'),
                 },
                 {
                     color: '#332808',
-                    name: 'Cropland/Natural vegetation mosaic',
+                    name: i18n.t('Cropland/Natural vegetation mosaic'),
                 },
                 {
                     color: '#d7cdcc',
-                    name: 'Snow and ice',
+                    name: i18n.t('Snow and ice'),
                 },
                 {
                     color: '#f7e174',
-                    name: 'Barren or sparsely vegetated',
+                    name: i18n.t('Barren or sparsely vegetated'),
                 },
                 {
                     color: '#743411',
-                    name: 'Unclassified',
+                    name: i18n.t('Unclassified'),
                 },
             ],
         },
         popup: '{name}: {value}',
     },
-};
+});
 
 // Returns a promise
 const earthEngineLoader = async config => {
+    const datasets = getDatasets();
     let layerConfig = {};
     let dataset;
 
