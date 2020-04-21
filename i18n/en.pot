@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-04-21T08:26:42.865Z\n"
-"PO-Revision-Date: 2020-04-21T08:26:42.865Z\n"
+"POT-Creation-Date: 2020-04-21T10:07:10.891Z\n"
+"PO-Revision-Date: 2020-04-21T10:07:10.892Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -146,6 +146,69 @@ msgstr ""
 msgid "No organisation units are selected"
 msgstr ""
 
+msgid ""
+"Population density estimates with national totals adjusted to match UN "
+"population division estimates. Try a different year if you don't see data "
+"for your country."
+msgstr ""
+
+msgid "Select year"
+msgstr ""
+
+msgid "Min people"
+msgstr ""
+
+msgid "Max people"
+msgstr ""
+
+msgid ""
+"Elevation above sea-level. You can adjust the min and max values so it "
+"better representes the terrain in your region."
+msgstr ""
+
+msgid "Min meters"
+msgstr ""
+
+msgid "Max meters"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, "
+"during the 3rd week of the following month."
+msgstr ""
+
+msgid "Min mm"
+msgstr ""
+
+msgid "Max mm"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite in 8 days periods. Blank "
+"spots will appear in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Min °C"
+msgstr ""
+
+msgid "Max °C"
+msgstr ""
+
+msgid "17 distinct landcover types collected from satellites."
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+
+msgid "Min"
+msgstr ""
+
+msgid "Max"
+msgstr ""
+
 msgid "Steps"
 msgstr ""
 
@@ -213,6 +276,12 @@ msgid "Remember to select the organisation unit level containing the facilities.
 msgstr ""
 
 msgid "Group set is required"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr ""
+
+msgid "Add {{name}} layer"
 msgstr ""
 
 msgid "Update layer"
@@ -412,7 +481,7 @@ msgstr ""
 msgid "Loading layer"
 msgstr ""
 
-msgid "deleted"
+msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Split view can not be combined with other layer types."
@@ -615,6 +684,15 @@ msgstr ""
 msgid "Selected organisation units"
 msgstr ""
 
+msgid "Main"
+msgstr ""
+
+msgid "Below"
+msgstr ""
+
+msgid "2 x below"
+msgstr ""
+
 msgid "User organisation units"
 msgstr ""
 
@@ -628,6 +706,9 @@ msgid "Relative"
 msgstr ""
 
 msgid "Period type"
+msgstr ""
+
+msgid "Start/end dates"
 msgstr ""
 
 msgid "Display periods"
@@ -663,6 +744,30 @@ msgstr ""
 msgid "Tracked Entity Type"
 msgstr ""
 
+msgid "By data element"
+msgstr ""
+
+msgid "Count"
+msgstr ""
+
+msgid "Average"
+msgstr ""
+
+msgid "Sum"
+msgstr ""
+
+msgid "Standard deviation"
+msgstr ""
+
+msgid "Variance"
+msgstr ""
+
+msgid "Equal intervals"
+msgstr ""
+
+msgid "Equal counts"
+msgstr ""
+
 msgid "Daily"
 msgstr ""
 
@@ -670,6 +775,9 @@ msgid "Weekly"
 msgstr ""
 
 msgid "Monthly"
+msgstr ""
+
+msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
@@ -691,9 +799,6 @@ msgid "Financial year (Start July)"
 msgstr ""
 
 msgid "Financial year (Start April)"
-msgstr ""
-
-msgid "Start/end dates"
 msgstr ""
 
 msgid "Today"
@@ -809,10 +914,7 @@ msgstr ""
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
 
-msgid "Favorite"
-msgstr ""
-
-msgid "is saved"
+msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
 msgid "Boundaries"
@@ -861,6 +963,27 @@ msgid "No tracked entities found"
 msgstr ""
 
 msgid "related"
+msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "Population density"
+msgstr ""
+
+msgid "Elevation"
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "Precipitation"
+msgstr ""
+
+msgid "Landcover"
+msgstr ""
+
+msgid "Nighttime lights"
 msgstr ""
 
 msgid "not one of"
