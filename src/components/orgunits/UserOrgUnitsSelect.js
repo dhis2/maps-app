@@ -30,20 +30,20 @@ const styles = theme => ({
     },
 });
 
-const levels = [
+const getLevels = () => [
     {
         id: 'USER_ORGUNIT',
-        label: 'Main',
+        label: i18n.t('Main'),
         Icon: FirstLevel,
     },
     {
         id: 'USER_ORGUNIT_CHILDREN',
-        label: 'Below',
+        label: i18n.t('Below'),
         Icon: SecondLevel,
     },
     {
         id: 'USER_ORGUNIT_GRANDCHILDREN',
-        label: '2 x below',
+        label: i18n.t('2 x below'),
         Icon: ThirdLevel,
     },
 ];
@@ -53,7 +53,7 @@ const UserOrgUnitSelect = ({ classes, selected, onChange, style }) => (
     <div className="UserOrgUnits" style={style}>
         <div className={classes.title}>{i18n.t('User organisation units')}</div>
         <div className={classes.container}>
-            {levels.map(level => {
+            {getLevels().map(level => {
                 const isSelected = selected.indexOf(level.id) !== -1;
 
                 return (

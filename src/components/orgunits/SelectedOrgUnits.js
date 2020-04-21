@@ -16,19 +16,19 @@ const styles = {
     },
 };
 
-const levels = {
+const getLevels = () => ({
     USER_ORGUNIT: i18n.t('user organisation unit'),
     USER_ORGUNIT_CHILDREN: i18n.t('right below user organisation unit'),
     USER_ORGUNIT_GRANDCHILDREN: i18n.t(
         'two levels below user organisation unit'
     ),
-};
+});
 
-const modes = {
+const getModes = () => ({
     SELECTED: i18n.t('in'),
     CHILDREN: i18n.t('in and right below'),
     DESCENDANTS: i18n.t('in and all below'),
-};
+});
 
 const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
     const orgUnits = getOrgUnitNodesFromRows(rows)
@@ -36,12 +36,12 @@ const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
         .sort();
     const userOrgUnits = getUserOrgUnitsFromRows(rows)
         .sort()
-        .map(id => i18n.t(levels[id]));
+        .map(id => getLevels()[id]);
 
     let selected = i18n.t('No organisation units are selected');
 
     if (orgUnits.length || userOrgUnits.length) {
-        selected = `${units} ${modes[mode]} `;
+        selected = `${units} ${getModes()[mode]} `;
 
         if (userOrgUnits.length) {
             selected += userOrgUnits.join(', ');

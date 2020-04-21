@@ -22,12 +22,12 @@ export const saveFavorite = (action$, store) =>
             config
         ).then(() =>
             setMessage(
-                `${i18n.t('Favorite')} "${config.name}" ${i18n.t('is saved')}.`
+                i18n.t('Map "{{name}}" is saved.', { name: config.name })
             )
         );
     });
 
-// Save new favorite
+// Save new map
 export const saveNewFavorite = (action$, store) =>
     action$
         .ofType(types.FAVORITE_SAVE_NEW)
@@ -59,11 +59,7 @@ export const saveNewFavorite = (action$, store) =>
             name
                 ? [
                       setMapProps({ id, name, description }),
-                      setMessage(
-                          `${i18n.t('Favorite')} "${name}" ${i18n.t(
-                              'is saved'
-                          )}.`
-                      ),
+                      setMessage(i18n.t('Map "{{name}}" is saved.', { name })),
                   ]
                 : [setMessage(`${i18n.t('Error')}: ${message}`)]
         );
