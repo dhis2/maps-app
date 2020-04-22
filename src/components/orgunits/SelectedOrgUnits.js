@@ -24,10 +24,10 @@ const getLevels = () => ({
     ),
 });
 
-const getModes = () => ({
-    SELECTED: i18n.t('in'),
-    CHILDREN: i18n.t('in and right below'),
-    DESCENDANTS: i18n.t('in and all below'),
+const getModeString = props => ({
+    SELECTED: i18n.t('{{units}} in {{orgunits}}', props),
+    CHILDREN: i18n.t('{{units}} in and right below {{orgunits}}', props),
+    DESCENDANTS: i18n.t('{{units}} in and all below {{orgunits}}', props),
 });
 
 const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
@@ -41,13 +41,12 @@ const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
     let selected = i18n.t('No organisation units are selected');
 
     if (orgUnits.length || userOrgUnits.length) {
-        selected = `${units} ${getModes()[mode]} `;
-
-        if (userOrgUnits.length) {
-            selected += userOrgUnits.join(', ');
-        } else {
-            selected += orgUnits.join(', ');
-        }
+        selected = getModeString({
+            orgunits: userOrgUnits.length
+                ? userOrgUnits.join(', ')
+                : orgUnits.join(', '),
+            units,
+        })[mode];
     }
 
     return (
