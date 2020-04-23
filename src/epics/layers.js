@@ -7,7 +7,7 @@ import { errorActionCreator } from '../actions/helpers';
 import { fetchLayer } from '../loaders/layers';
 import { drillUpDown } from '../util/map';
 import { getPeriodFromFilters } from '../util/analytics';
-import { relativePeriods } from '../constants/periods';
+import { getRelativePeriods } from '../constants/periods';
 
 const isNewLayer = config => config.id === undefined;
 
@@ -50,7 +50,8 @@ export const setRelativePeriodDate = (action$, store) =>
                 .map.mapViews.filter(config => {
                     const period = getPeriodFromFilters(config.filters);
                     return (
-                        period && relativePeriods.find(p => p.id === period.id)
+                        period &&
+                        getRelativePeriods().find(p => p.id === period.id)
                     );
                 })
                 .map(config => ({

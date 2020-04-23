@@ -3,22 +3,15 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import SelectField from '../../core/SelectField';
-import { aggregationTypes } from '../../../constants/aggregationTypes';
+import { getAggregationTypes } from '../../../constants/aggregationTypes';
 import { setAggregationType } from '../../../actions/layerEdit';
-
-let types;
 
 export const AggregationTypeSelect = ({
     aggregationType,
     setAggregationType,
     style,
 }) => {
-    if (!types) {
-        types = aggregationTypes.map(type => ({
-            id: type.id,
-            name: i18n.t(type.name),
-        }));
-    }
+    const types = getAggregationTypes();
 
     return (
         <SelectField

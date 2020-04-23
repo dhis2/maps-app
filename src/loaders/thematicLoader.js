@@ -139,7 +139,7 @@ const thematicLoader = async config => {
 
             alert = createAlert(
                 orgUnits.length === 1
-                    ? names[orgUnits[0].id] || i18n.t(orgUnits[0].name)
+                    ? names[orgUnits[0].id] || orgUnits[0].name
                     : i18n.t('Selected org units'),
                 i18n.t('No coordinates found')
             );

@@ -6,6 +6,8 @@ import { setMessage } from '../actions/message';
 import { apiFetch } from '../util/api';
 import { cleanMapConfig } from '../util/favorites';
 
+const getSavedMessage = name => i18n.t('Map "{{name}}" is saved.', { name });
+
 // Save existing favorite
 export const saveFavorite = (action$, store) =>
     action$.ofType(types.FAVORITE_SAVE).concatMap(() => {
@@ -20,14 +22,10 @@ export const saveFavorite = (action$, store) =>
             `/maps/${config.id}?skipTranslations=true&skipSharing=true`,
             'PUT',
             config
-        ).then(() =>
-            setMessage(
-                `${i18n.t('Favorite')} "${config.name}" ${i18n.t('is saved')}.`
-            )
-        );
+        ).then(() => setMessage(getSavedMessage(config.name)));
     });
 
-// Save new favorite
+// Save new map
 export const saveNewFavorite = (action$, store) =>
     action$
         .ofType(types.FAVORITE_SAVE_NEW)
@@ -59,11 +57,7 @@ export const saveNewFavorite = (action$, store) =>
             name
                 ? [
                       setMapProps({ id, name, description }),
-                      setMessage(
-                          `${i18n.t('Favorite')} "${name}" ${i18n.t(
-                              'is saved'
-                          )}.`
-                      ),
+                      setMessage(getSavedMessage(name)),
                   ]
                 : [setMessage(`${i18n.t('Error')}: ${message}`)]
         );

@@ -148,7 +148,7 @@ export const removePeriodFromFilters = (filters = []) => [
     ...filters.filter(f => f.dimension !== 'pe'),
 ];
 
-export const getPeriodNameFromId = id => i18n.t(periodNames[id]);
+export const getPeriodNameFromId = id => periodNames()[id];
 
 export const setFiltersFromPeriod = (filters, period) => [
     ...removePeriodFromFilters(filters),
