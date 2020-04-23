@@ -80,7 +80,7 @@ class RenderingStrategy extends Component {
         return (
             <FormControl component="fieldset" className={classes.control}>
                 <FormLabel component="legend" className={classes.label}>
-                    Display periods
+                    {i18n.t('Display periods')}
                 </FormLabel>
                 <RadioGroup
                     aria-label="Period display"
@@ -91,18 +91,18 @@ class RenderingStrategy extends Component {
                     <FormControlLabel
                         value="SINGLE"
                         control={<Radio className={classes.radio} />}
-                        label="Single (aggregate)"
+                        label={i18n.t('Single (aggregate)')}
                     />
                     <FormControlLabel
                         value="TIMELINE"
                         control={<Radio className={classes.radio} />}
-                        label="Timeline"
+                        label={i18n.t('Timeline')}
                         disabled={hasOtherTimelineLayers}
                     />
                     <FormControlLabel
                         value="SPLIT_BY_PERIOD"
                         control={<Radio className={classes.radio} />}
-                        label="Split map views"
+                        label={i18n.t('Split map views')}
                         disabled={
                             hasOtherLayers ||
                             invalidSplitViewPeriods.includes(period.id)
