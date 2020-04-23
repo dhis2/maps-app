@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-04-21T10:49:58.534Z\n"
-"PO-Revision-Date: 2020-04-21T10:49:58.534Z\n"
+"POT-Creation-Date: 2020-04-23T09:07:39.614Z\n"
+"PO-Revision-Date: 2020-04-23T09:07:39.614Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -672,13 +672,13 @@ msgstr ""
 msgid "two levels below user organisation unit"
 msgstr ""
 
-msgid "in"
+msgid "{{units}} in {{orgunits}}"
 msgstr ""
 
-msgid "in and right below"
+msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
 
-msgid "in and all below"
+msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
