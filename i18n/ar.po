@@ -64,7 +64,7 @@ msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "عنصر بيانات حدث"
 
 msgid "Style by data element"
 msgstr ""
@@ -257,7 +257,7 @@ msgid "Display Tracked Entity relationships"
 msgstr ""
 
 msgid "Selection mode"
-msgstr ""
+msgstr "وضح التحديد"
 
 msgid "Tracked entities"
 msgstr "الكيانات المتعقبة"
