@@ -1,161 +1,159 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2020
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
-# 晓东 林 <13981924470@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-04-23T09:40:17.596Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
-"Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Language-Team: Tetum (Tetun) (https://www.transifex.com/hisp-uio/teams/100509/tet/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh\n"
+"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Maps"
-msgstr "地图"
+msgstr ""
 
 msgid "Classification"
-msgstr "分类"
+msgstr ""
 
 msgid "Classes"
-msgstr "分类"
+msgstr ""
 
 msgid "Legend set"
-msgstr "图例集"
+msgstr "Pakote lejendas"
 
 msgid "Automatic"
-msgstr "自动"
+msgstr ""
 
 msgid "Predefined"
-msgstr "已预定义"
+msgstr ""
 
 msgid "Data element group"
-msgstr "数据元组"
+msgstr ""
 
 msgid "Data element operand"
-msgstr "数据元操作符"
+msgstr ""
 
 msgid "Data element"
-msgstr "数据元"
+msgstr "Elementu dadus"
 
 msgid "Totals"
-msgstr "总共"
+msgstr "Totais"
 
 msgid "Details"
-msgstr "详情"
+msgstr "Detalles"
 
 msgid "Yes"
-msgstr "是"
+msgstr "Sim"
 
 msgid "Event location"
-msgstr "事件位置"
+msgstr ""
 
 msgid "Coordinate field"
-msgstr "坐标字段"
+msgstr ""
 
 msgid "None"
-msgstr "无"
+msgstr "Nein ida"
 
 msgid "Data item"
-msgstr "数据条目"
+msgstr ""
 
 msgid "Event data item"
-msgstr "事件数据条目"
+msgstr ""
 
 msgid "Style by data element"
-msgstr "按数据元风格显示"
+msgstr ""
 
 msgid "Data set"
-msgstr "数据集"
+msgstr "Pakote dadus"
 
 msgid "Index"
-msgstr "索引"
+msgstr ""
 
 msgid "Value"
-msgstr "值"
+msgstr "Valor"
 
 msgid "Legend"
-msgstr "图例"
+msgstr ""
 
 msgid "Range"
-msgstr "范围"
+msgstr ""
 
 msgid "Level"
-msgstr "等级"
+msgstr ""
 
 msgid "Parent"
-msgstr "上级"
+msgstr ""
 
 msgid "Id"
-msgstr "Id"
+msgstr ""
 
 msgid "Type"
-msgstr "类型"
+msgstr "Tipu"
 
 msgid "Color"
-msgstr "颜色"
+msgstr ""
 
 msgid "Add filter"
-msgstr "添加过滤器"
+msgstr ""
 
 msgid "Items"
-msgstr "条目"
+msgstr ""
 
 msgid "Dimension"
-msgstr "维"
+msgstr ""
 
 msgid "Download"
-msgstr "下载"
+msgstr "Hatun"
 
 msgid "Download map"
-msgstr "下载地图"
+msgstr ""
 
 msgid "Show name"
-msgstr "显示名称"
+msgstr ""
 
 msgid "Show legend"
-msgstr "显示图例"
+msgstr ""
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
-msgstr "你的浏览器不支持地图下载，请使用Google浏览器或火狐狸浏览器"
+msgstr ""
 
 msgid "Cancel"
-msgstr "取消"
+msgstr "Kansela"
 
 msgid "Close"
-msgstr "关闭"
+msgstr "Taka"
 
 msgid "Legend position"
-msgstr "图例位置"
+msgstr ""
 
 msgid "Year"
-msgstr "年"
+msgstr "Tinan"
 
 msgid "Period"
-msgstr "周期"
+msgstr "Períodu"
 
 msgid "Organisation units"
-msgstr "组织机构"
+msgstr "Unidade organizasional"
 
 msgid "Style"
-msgstr "风格"
+msgstr "Estilu"
 
 msgid "Labels"
-msgstr "标签"
+msgstr ""
 
 msgid "Point radius"
-msgstr "点半径"
+msgstr ""
 
 msgid "No organisation units are selected"
-msgstr "没有选择机构"
+msgstr ""
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
@@ -215,80 +213,80 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr "最小"
+msgstr "Min"
 
 msgid "Max"
-msgstr "最大"
+msgstr "Max"
 
 msgid "Steps"
-msgstr "步"
+msgstr ""
 
 msgid "Legend preview"
-msgstr "图例预览"
+msgstr ""
 
 msgid "This field is required"
-msgstr "这个字段是必填的"
+msgstr ""
 
 msgid "Valid range is"
-msgstr "有效范围"
+msgstr ""
 
 msgid "data"
-msgstr "数据"
+msgstr ""
 
 msgid "period"
-msgstr "期间"
+msgstr ""
 
 msgid "Org units"
-msgstr "组织机构"
+msgstr ""
 
 msgid "Filter"
-msgstr "过滤器"
+msgstr "Filtru"
 
 msgid "Start date"
-msgstr "开始日期"
+msgstr "Data hahú"
 
 msgid "End date"
-msgstr "结束日期"
+msgstr "Data remata"
 
 msgid "Events"
-msgstr "事件"
+msgstr ""
 
 msgid "Group events"
-msgstr "事件组"
+msgstr ""
 
 msgid "View all events"
-msgstr "查看所有事件"
+msgstr ""
 
 msgid "Radius"
-msgstr "半径"
+msgstr ""
 
 msgid "Buffer"
-msgstr "缓冲"
+msgstr ""
 
 msgid "Radius in meters"
-msgstr "半径（米）"
+msgstr ""
 
 msgid "You can style events by data element after selecting a program."
-msgstr "选择一个项目后你可以按数据元风格化显示事件"
+msgstr ""
 
 msgid "Program is required"
-msgstr "需要项目"
+msgstr ""
 
 msgid "Program stage is required"
-msgstr "需要项目阶段"
+msgstr ""
 
 msgid "No organisation units are selected."
-msgstr "没有选择机构"
+msgstr ""
 
 msgid "Group set"
-msgstr "组集"
+msgstr ""
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr "记住选择包括机构的等级"
+msgstr ""
 
 msgid "Group set is required"
-msgstr "需要组集"
+msgstr ""
 
 msgid "Edit {{name}} layer"
 msgstr ""
@@ -297,42 +295,42 @@ msgid "Add {{name}} layer"
 msgstr ""
 
 msgid "Update layer"
-msgstr "更新图层"
+msgstr ""
 
 msgid "Add layer"
-msgstr "添加图层"
+msgstr ""
 
 msgid "Select program period"
-msgstr "选择项目期间"
+msgstr ""
 
 msgid "Select period when tracked entities were last updated"
-msgstr "当跟踪的实体最近被更新 后选择期间"
+msgstr ""
 
 msgid "relationships"
-msgstr "关系"
+msgstr ""
 
 msgid "Program status"
-msgstr "项目状态"
+msgstr ""
 
 msgid "Follow up"
-msgstr "后续跟进"
+msgstr ""
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "选择关系类型前先选择跟踪实体类型"
+msgstr ""
 
 msgid "WARNING"
-msgstr "警告"
+msgstr ""
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr "在地图上显示实体恭喜是一个试验特征功能"
+msgstr ""
 
 msgid "Display Tracked Entity relationships"
-msgstr "显示跟踪实体关系"
+msgstr ""
 
 msgid "Selection mode"
-msgstr "选择模式"
+msgstr ""
 
 msgid "Selected only"
 msgstr ""
@@ -344,327 +342,327 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr "跟踪的实体"
+msgstr ""
 
 msgid "Tracked entity style"
-msgstr "跟踪的实体风格"
+msgstr ""
 
 msgid "Point size"
-msgstr "点大小"
+msgstr ""
 
 msgid "Related entity style"
-msgstr "相关实体风格"
+msgstr ""
 
 msgid "Line Color"
-msgstr "线颜色"
+msgstr ""
 
 msgid "Aggregation type"
-msgstr "汇总类型"
+msgstr "Tipu agregasaun"
 
 msgid "Low size"
-msgstr "下限"
+msgstr ""
 
 msgid "High size"
-msgstr " 上限"
+msgstr ""
 
 msgid "Indicator group is required"
-msgstr "需要指标组"
+msgstr ""
 
 msgid "Indicator is required"
-msgstr "需要指标"
+msgstr ""
 
 msgid "Data element group is required"
-msgstr "需要数据元组"
+msgstr ""
 
 msgid "Data element is required"
-msgstr "需要数据元"
+msgstr ""
 
 msgid "Data set is required"
-msgstr "需要数据"
+msgstr ""
 
 msgid "Event data item is required"
-msgstr "需要事件数据项"
+msgstr ""
 
 msgid "Program indicator is required"
-msgstr "需要项目指标"
+msgstr ""
 
 msgid "Period is required"
-msgstr "需要期间"
+msgstr ""
 
 msgid "Indicator"
-msgstr "指标"
+msgstr "Indikador"
 
 msgid "Reporting rates"
-msgstr "上报率"
+msgstr "Taxas relatóriu"
 
 msgid "Event data items"
-msgstr "事件数据项"
+msgstr ""
 
 msgid "Program indicators"
-msgstr "项目指标"
+msgstr ""
 
 msgid "Item type"
-msgstr "条目类型"
+msgstr ""
 
 msgid "Failed to load relationship types."
-msgstr "载入关系类型失败"
+msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr "跟踪的实体类型没有发现关系类型"
+msgstr ""
 
 msgid "Relationship type"
-msgstr "关系类型"
+msgstr ""
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr "DHIS2地图应用发生错误"
+msgstr ""
 
 msgid "Something went wrong"
-msgstr "出了些问题"
+msgstr ""
 
 msgid "Refresh to try again"
-msgstr "刷新后再试"
+msgstr ""
 
 msgid "Hide technical details"
-msgstr "隐藏技术细节"
+msgstr ""
 
 msgid "Show technical details"
-msgstr "显示技术细节"
+msgstr ""
 
 msgid "The following information may be requested by technical support."
-msgstr "下列信息可能技术支持需要"
+msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
-msgstr "选择项目阶段后即可进行过滤。"
+msgstr ""
 
 msgid "Operator"
-msgstr "操作符"
+msgstr "Operador"
 
 msgid "Date"
-msgstr "日期"
+msgstr "Data"
 
 msgid "one of"
-msgstr "当中一个"
+msgstr ""
 
 msgid "contains"
-msgstr "包含"
+msgstr ""
 
 msgid "is"
-msgstr "是"
+msgstr ""
 
 msgid "is not"
-msgstr "不是"
+msgstr ""
 
 msgid "Remove filter"
-msgstr "移除过滤器"
+msgstr ""
 
 msgid "Indicator group"
-msgstr "指标组"
+msgstr ""
 
 msgid "Interpretations"
-msgstr "注释"
+msgstr "Interpretasoens"
 
 msgid "Basemap"
-msgstr "背景图"
+msgstr ""
 
 msgid "Collapse"
-msgstr "折叠"
+msgstr ""
 
 msgid "Expand"
-msgstr "展开"
+msgstr ""
 
 msgid "Download Layer Data"
-msgstr "下载图层数据"
+msgstr ""
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "下载 \"{{layerName}}\" 层的GeoJSON数据"
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
-msgstr "大多数GIS软件（包括QGIS和ArcGIS Desktop）都支持GeoJSON。"
+msgstr ""
 
 msgid "Data download failed."
-msgstr "下载数据失败"
+msgstr ""
 
 msgid "ID Format"
-msgstr "ID格式"
+msgstr ""
 
 msgid "Use human-readable keys"
-msgstr "使用人机可读的键值"
+msgstr ""
 
 msgid "Loading layer"
-msgstr "载入图层"
+msgstr ""
 
 msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Split view can not be combined with other layer types."
-msgstr "分离视图不能和其它图层混合"
+msgstr ""
 
 msgid "Filters"
-msgstr "过滤器"
+msgstr "Filtrus"
 
 msgid "Edit"
-msgstr "编辑"
+msgstr "Edita"
 
 msgid "Toggle visibility"
-msgstr "切换可视性"
+msgstr ""
 
 msgid "Set layer opacity"
-msgstr "设置图层透明性"
+msgstr ""
 
 msgid "More actions"
-msgstr "更多操作"
+msgstr ""
 
 msgid "Data table"
-msgstr "数据表"
+msgstr "Tabela dadus"
 
 msgid "Open as chart"
-msgstr "打开图表"
+msgstr ""
 
 msgid "Download data"
-msgstr "下载数据"
+msgstr ""
 
 msgid "Edit layer"
-msgstr "编辑图层"
+msgstr ""
 
 msgid "Remove layer"
-msgstr "移除图层"
+msgstr ""
 
 msgid "Parent unit"
-msgstr "上级机构"
+msgstr ""
 
 msgid "Drill up one level"
-msgstr "上钻一级"
+msgstr ""
 
 msgid "Drill down one level"
-msgstr "下钻一级"
+msgstr ""
 
 msgid "Show information"
-msgstr "显示信息表格"
+msgstr ""
 
 msgid "Show longitude/latitude"
-msgstr "显示经纬度"
+msgstr ""
 
 msgid "Swap longitude/latitude"
-msgstr "切换经纬度"
+msgstr ""
 
 msgid "Relocate"
-msgstr "重新定位"
+msgstr ""
 
 msgid "Not set"
-msgstr "没有设置"
+msgstr "Seidauk define"
 
 msgid "Organisation unit"
-msgstr "组织机构"
+msgstr "Unidade organizasional"
 
 msgid "Event time"
-msgstr "事件时间"
+msgstr ""
 
 msgid "Groups"
-msgstr "组"
+msgstr ""
 
 msgid "Longitude"
-msgstr "经度"
+msgstr ""
 
 msgid "Latitude"
-msgstr "纬度"
+msgstr ""
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "查看自{{interpretationDate}}的注释"
+msgstr ""
 
 msgid "Last updated"
-msgstr "Last updated"
+msgstr "Atualizasaun ikus"
 
 msgid "acres"
-msgstr " 英亩"
+msgstr ""
 
 msgid "Area"
-msgstr "面积"
+msgstr ""
 
 msgid "Center map on area"
-msgstr "地图居中"
+msgstr ""
 
 msgid "Center map on line"
-msgstr "地图线上居中"
+msgstr ""
 
 msgid "Click the next position"
-msgstr "点击下一个位置"
+msgstr ""
 
 msgid "Click where you want to start the measurement"
-msgstr "点击你要测量的开始位置"
+msgstr ""
 
 msgid "Delete"
-msgstr "删除"
+msgstr "Soe"
 
 msgid "Distance"
-msgstr "距离"
+msgstr ""
 
 msgid "Enter fullscreen"
-msgstr "进入全屏"
+msgstr ""
 
 msgid "Exit fullscreen"
-msgstr "退出全屏"
+msgstr ""
 
 msgid "ha"
-msgstr "ha"
+msgstr ""
 
 msgid "km"
-msgstr "km"
+msgstr ""
 
 msgid "Measure distances and areas"
-msgstr "测量距离和面积"
+msgstr ""
 
 msgid "mi"
-msgstr "mi"
+msgstr ""
 
 msgid "Perimeter"
-msgstr "直径"
+msgstr ""
 
 msgid "Reset bearing to north"
-msgstr "重置方位向北"
+msgstr ""
 
 msgid "Search for place or address"
-msgstr "搜索地点或地址"
+msgstr ""
 
 msgid "Zoom in"
-msgstr "放大"
+msgstr ""
 
 msgid "Zoom out"
-msgstr "缩小"
+msgstr ""
 
 msgid "Zoom to content"
-msgstr "缩放到当前内容"
+msgstr ""
 
 msgid "Open as map"
-msgstr "打开为地图"
+msgstr ""
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
-msgstr "此图表/表格包含{{numItems}}个数据项。从下面的列表中选择要导入的项目。每个数据项将被创建为地图层."
+msgstr ""
 
 msgid "Data items"
-msgstr "数据项"
+msgstr ""
 
 msgid "Proceed"
-msgstr "处理"
+msgstr ""
 
 msgid "Options"
-msgstr "选项"
+msgstr "Opsoens"
 
 msgid "Code"
-msgstr "代码"
+msgstr "Kódigu"
 
 msgid "No data found for this period."
-msgstr "在该期间没有找到数据"
+msgstr ""
 
 msgid "Select groups"
-msgstr "选择组"
+msgstr ""
 
 msgid "Select levels"
-msgstr "选择等级"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -672,16 +670,16 @@ msgid ""
 msgstr ""
 
 msgid "Click the map where you want to relocate facility"
-msgstr "点击你要重新定位机构的位置"
+msgstr ""
 
 msgid "user organisation unit"
-msgstr "用户所在的机构"
+msgstr ""
 
 msgid "right below user organisation unit"
-msgstr "用户所在机构的直接下属"
+msgstr ""
 
 msgid "two levels below user organisation unit"
-msgstr "用户所在机构的二级下属机构"
+msgstr ""
 
 msgid "{{units}} in {{orgunits}}"
 msgstr ""
@@ -693,7 +691,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr "已选组织机构"
+msgstr ""
 
 msgid "Main"
 msgstr ""
@@ -708,19 +706,19 @@ msgid "User organisation units"
 msgstr ""
 
 msgid "Previous year"
-msgstr "前年"
+msgstr ""
 
 msgid "Next year"
-msgstr "来年"
+msgstr "Tinan oin"
 
 msgid "Relative"
-msgstr "关系"
+msgstr "Relativu"
 
 msgid "Period type"
-msgstr "周期类型"
+msgstr ""
 
 msgid "Start/end dates"
-msgstr "开始-结束日期"
+msgstr ""
 
 msgid "Display periods"
 msgstr ""
@@ -735,207 +733,207 @@ msgid "Split map views"
 msgstr ""
 
 msgid "Only one timeline is allowed."
-msgstr "仅仅允许一个时限"
+msgstr ""
 
 msgid "Remove other layers to enable split map views."
-msgstr "移除其他图层使能分离视图功能"
+msgstr ""
 
 msgid "Program indicator"
-msgstr "项目指标"
+msgstr ""
 
 msgid "No program"
-msgstr "无项目"
+msgstr ""
 
 msgid "Program"
-msgstr "项目"
+msgstr ""
 
 msgid "Stage"
-msgstr "阶段"
+msgstr ""
 
 msgid "Tracked Entity Type"
-msgstr "跟踪实体类型"
+msgstr ""
 
 msgid "By data element"
-msgstr "按数据元"
+msgstr "Tuir elementu dadus"
 
 msgid "Count"
-msgstr "计数"
+msgstr "Konta"
 
 msgid "Average"
-msgstr "平均"
+msgstr "Média"
 
 msgid "Sum"
-msgstr "求和"
+msgstr "Soma"
 
 msgid "Standard deviation"
-msgstr "标准差"
+msgstr "Dezviu padraun"
 
 msgid "Variance"
-msgstr "差异"
+msgstr "Variasaun"
 
 msgid "Equal intervals"
-msgstr "平等间隔"
+msgstr ""
 
 msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr "每日"
+msgstr "Diáriu"
 
 msgid "Weekly"
-msgstr "每周"
+msgstr "Semanal"
 
 msgid "Monthly"
-msgstr "每月"
+msgstr "Mensal"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr "季度"
+msgstr "Trimestral"
 
 msgid "Six-monthly"
-msgstr "六个月"
+msgstr "Semestral"
 
 msgid "Six-monthly April"
-msgstr "半年四月"
+msgstr "Abril semestral"
 
 msgid "Yearly"
-msgstr "每年"
+msgstr "Anual"
 
 msgid "Financial year (Start October)"
-msgstr "财务十月"
+msgstr "Outubru finanseiru"
 
 msgid "Financial year (Start July)"
-msgstr "财务七月"
+msgstr "Jullu finanseiru"
 
 msgid "Financial year (Start April)"
-msgstr "财务四月"
+msgstr "Abril finanseiru"
 
 msgid "Today"
-msgstr "今天"
+msgstr ""
 
 msgid "Yesterday"
-msgstr "昨天"
+msgstr ""
 
 msgid "Last 3 days"
-msgstr "Last 3 days"
+msgstr ""
 
 msgid "Last 7 days"
-msgstr "最近7天"
+msgstr ""
 
 msgid "Last 14 days"
-msgstr "Last 14 days"
+msgstr ""
 
 msgid "This week"
-msgstr "本年"
+msgstr ""
 
 msgid "Last week"
-msgstr "上周"
+msgstr "Semana kotuk"
 
 msgid "Last 4 weeks"
-msgstr "最近四周"
+msgstr "Semana 4 ikus"
 
 msgid "Last 12 weeks"
-msgstr "最近12周"
+msgstr "Semana 12 ikus"
 
 msgid "Last 52 weeks"
-msgstr "Last 52 weeks"
+msgstr "Semana 52 ikus"
 
 msgid "Weeks this year"
-msgstr "Weeks this year"
+msgstr ""
 
 msgid "This month"
-msgstr "本月"
+msgstr ""
 
 msgid "Last month"
-msgstr "上月"
+msgstr "Fulan kotuk"
 
 msgid "Last 3 months"
-msgstr "最近3个月"
+msgstr "Fulan 3 ikus"
 
 msgid "Last 6 months"
-msgstr "Last 6 months"
+msgstr "Fulan 6 ikus"
 
 msgid "Last 12 months"
-msgstr "最近12月"
+msgstr "Fulan 12 ikus"
 
 msgid "Months this year"
-msgstr "今年的月份"
+msgstr "Fulan sira tinan ida ne'e"
 
 msgid "This bi-month"
-msgstr "本双月"
+msgstr ""
 
 msgid "Last bi-month"
-msgstr "Last bi-month"
+msgstr "Bimensal kotuk"
 
 msgid "Last 6 bi-months"
-msgstr "Last 6 bi-months"
+msgstr "Bimensal 6 ikus liu"
 
 msgid "Bi-months this year"
-msgstr "Bi-months this year"
+msgstr ""
 
 msgid "This quarter"
-msgstr "本季度"
+msgstr ""
 
 msgid "Last quarter"
-msgstr "最近一季"
+msgstr "Trimestre kotuk"
 
 msgid "Last 4 quarters"
-msgstr "最近四个季度"
+msgstr "Trimestre 4 ikus liu"
 
 msgid "Quarters this year"
-msgstr "今年的季度"
+msgstr "Trimestres sira tinan ida ne'e"
 
 msgid "This six-month"
-msgstr "本六个月"
+msgstr ""
 
 msgid "Last six-month"
-msgstr "最近六个月"
+msgstr "Fulan-nén ikus"
 
 msgid "Last 2 six-months"
-msgstr "最近两个半年"
+msgstr "Fulan-nén 2 ikus"
 
 msgid "This year"
-msgstr "今年"
+msgstr "Tina ida ne'e"
 
 msgid "Last year"
-msgstr "去年"
+msgstr "Tinan kotuk"
 
 msgid "Last 5 years"
-msgstr "最近5年"
+msgstr "Tinan 5 kotuk"
 
 msgid "This financial year"
-msgstr "本财年"
+msgstr "Tinan finanseiru ida ne'e"
 
 msgid "Last financial year"
-msgstr "上一财政年"
+msgstr "Tinan finanseiru kotuk"
 
 msgid "Last 5 financial years"
-msgstr "最近五个财政年"
+msgstr "Tinan finanseiru 5 ikus"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
-msgstr "为了展示这个 层您必须先在Google上注册Earth Engine服务。请检查DHIS 2文档。"
+msgstr ""
 
 msgid "Error"
-msgstr "错误"
+msgstr "Erru"
 
 msgid "A connection to Google Earth Engine could not be established."
-msgstr "无法建立与Google Earth Engine的连接。"
+msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
 msgid "Boundaries"
-msgstr "边界线"
+msgstr ""
 
 msgid "Alert"
-msgstr "警告"
+msgstr ""
 
 msgid "No boundaries found"
-msgstr "没有发现边界线"
+msgstr ""
 
 msgid "Elevation"
 msgstr ""
@@ -1045,70 +1043,70 @@ msgid "Unclassified"
 msgstr ""
 
 msgid "Access denied"
-msgstr "拒绝随访"
+msgstr "Asesu negadu"
 
 msgid "user is not allowed to read layer data"
-msgstr "不允许用户读取图层数据"
+msgstr ""
 
 msgid "Failed"
-msgstr "失败"
+msgstr ""
 
 msgid "an unknown error occurred while reading layer data"
-msgstr "读取图层数据时发生未知错误"
+msgstr ""
 
 msgid "Event"
-msgstr "事件"
+msgstr ""
 
 msgid "No data found"
-msgstr "没有数据被找到"
+msgstr ""
 
 msgid "Facilities"
-msgstr "机构设施"
+msgstr ""
 
 msgid "Thematic layer"
-msgstr "专题层"
+msgstr ""
 
 msgid "Selected org units"
-msgstr "选择的机构"
+msgstr ""
 
 msgid "No coordinates found"
-msgstr "没有找到坐标"
+msgstr ""
 
 msgid "Tracked entity"
-msgstr "跟踪实体"
+msgstr ""
 
 msgid "No tracked entities found"
-msgstr "没有找到跟踪实体"
+msgstr ""
 
 msgid "related"
-msgstr "相关的"
+msgstr ""
 
 msgid "Thematic"
 msgstr ""
 
 msgid "not one of"
-msgstr "不是当中一个"
+msgstr ""
 
 msgid "doesn't contains"
-msgstr "不包含"
+msgstr ""
 
 msgid "true"
-msgstr "真"
+msgstr ""
 
 msgid "false"
-msgstr "假"
+msgstr ""
 
 msgid "No"
-msgstr "否"
+msgstr "Lae"
 
 msgid "Map could not be created"
-msgstr "不能创建地图"
+msgstr ""
 
 msgid "Start date is invalid"
-msgstr "开始日期无效"
+msgstr ""
 
 msgid "End date is invalid"
-msgstr "结束日期无效"
+msgstr ""
 
 msgid "End date cannot be earlier than start date"
-msgstr "结束日期不能早于开始日期"
+msgstr ""

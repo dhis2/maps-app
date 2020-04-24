@@ -1,3 +1,4 @@
+# 
 # Translators:
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
@@ -5,12 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-04-23T09:07:39.614Z\n"
-<<<<<<< HEAD
+"POT-Creation-Date: 2020-04-23T09:40:17.596Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-=======
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
->>>>>>> master
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Pushto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
@@ -165,7 +162,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "کال ټاکل"
 
 msgid "Min people"
 msgstr ""
@@ -216,10 +213,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "حداقل"
 
 msgid "Max"
-msgstr ""
+msgstr "حداعظم"
 
 msgid "Steps"
 msgstr "ګامونه"
@@ -574,9 +571,6 @@ msgstr "لېټېټيوډ"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr "د مالوماتو (ډاټا) نشتوالۍ"
-
 msgid "Last updated"
 msgstr "د وروستي ځل لپاره تجدید شوې"
 
@@ -697,7 +691,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "د سازمان غوره شوي واحدونه"
 
 msgid "Main"
 msgstr ""
@@ -724,7 +718,7 @@ msgid "Period type"
 msgstr "د مودې ډول"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "د شروع/ختم نیټه"
 
 msgid "Display periods"
 msgstr ""
@@ -760,163 +754,163 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "عنصر اطلاعات له خوا"
 
 msgid "Count"
-msgstr ""
+msgstr "شمېرل"
 
 msgid "Average"
-msgstr ""
+msgstr "منځنۍ"
 
 msgid "Sum"
-msgstr ""
+msgstr "جمع کول"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "معیاري انحراف"
 
 msgid "Variance"
-msgstr ""
+msgstr "توپیر"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "انتروال های مساوی"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "حساب مساوی"
 
 msgid "Daily"
-msgstr ""
+msgstr "ورځني [ د مودې ډول ]"
 
 msgid "Weekly"
-msgstr ""
+msgstr "اوونیز"
 
 msgid "Monthly"
-msgstr ""
+msgstr "میاشتنۍ"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "درې میاشتنۍ"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "شپږ- میاشتنۍ"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "شپږ - د اپرېل میاشتنۍ"
 
 msgid "Yearly"
-msgstr ""
+msgstr "کلنۍ"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "مالی کال- اکتوبر"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "مالی کال- جولای"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "مالی کال- آپریل"
 
 msgid "Today"
-msgstr ""
+msgstr "نن ورځ"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "پرونۍ ورځ"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "تېرې درې ورځې"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "تېرې اوه ورځې"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "تېرې څورلس ورځې"
 
 msgid "This week"
-msgstr ""
+msgstr "هفته هذا"
 
 msgid "Last week"
-msgstr ""
+msgstr "تېره اونۍ"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "تېرې 4 اونۍ"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "تېرو 12 اونۍ"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "تېرې دوه پنځوس اونۍ"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "په روان کال کې اونۍ"
 
 msgid "This month"
-msgstr ""
+msgstr "ماه هذا"
 
 msgid "Last month"
-msgstr ""
+msgstr "تېره میاشت"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "تېرې 3 میاشتې"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "تېرې شپږ میاشتې"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "تېرې 12 میاشتې"
 
 msgid "Months this year"
-msgstr ""
+msgstr "د روان کال میاشتې"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "این دوماهه"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "تېرې دوه میاشتې"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "په تېرو شپږو میاشتو کې ډوه ځلې"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "په روان کال کې دوه میاشتې"
 
 msgid "This quarter"
-msgstr ""
+msgstr "ربع هذا"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "تېره ربعه"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "تېرې 4ربعې"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "د سږ کال ربعې"
 
 msgid "This six-month"
-msgstr ""
+msgstr "شش ماه هذا"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "تېرې شپږ میاشتې [ تېرې ـ شپږ ـ میاشتې ]"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "تېرې دوه شپږ میاشتې"
 
 msgid "This year"
-msgstr ""
+msgstr "روان کال"
 
 msgid "Last year"
-msgstr ""
+msgstr "تېر کال"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "تېر 5 کلونه"
 
 msgid "This financial year"
-msgstr ""
+msgstr "سږنۍ مالي کال"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "تېر مالي کال"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "تېر 5 مالي کلونه"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -942,7 +936,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "لوړول"
 
 msgid "metres"
 msgstr ""
@@ -951,7 +945,7 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "Population density"
-msgstr ""
+msgstr "د نفوسو یا وګړیو ګڼوالۍ یا ډېروالۍ"
 
 msgid "people per km²"
 msgstr ""
@@ -962,13 +956,13 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "شپني څراغونه"
 
 msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
-msgstr ""
+msgstr "تفصیلات"
 
 msgid "millimeter"
 msgstr ""
@@ -978,7 +972,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "د حرارت درجه"
 
 msgid "°C during daytime"
 msgstr ""
@@ -989,7 +983,7 @@ msgid ""
 msgstr ""
 
 msgid "Landcover"
-msgstr ""
+msgstr "د ځمکې پوښ"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr ""
