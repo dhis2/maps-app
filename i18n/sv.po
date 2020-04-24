@@ -1,3 +1,4 @@
+# 
 # Translators:
 # Jason Pickering <jason@dhis2.org>, 2019
 # phil_dhis2, 2020
@@ -6,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-04-23T09:07:39.614Z\n"
+"POT-Creation-Date: 2020-04-23T09:40:17.596Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Swedish (https://www.transifex.com/hisp-uio/teams/100509/sv/)\n"
@@ -162,7 +163,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "Välj år"
 
 msgid "Min people"
 msgstr ""
@@ -213,10 +214,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "min"
 
 msgid "Max"
-msgstr ""
+msgstr "max"
 
 msgid "Steps"
 msgstr "Steg"
@@ -571,9 +572,6 @@ msgstr "Latitud"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr ""
-
 msgid "Last updated"
 msgstr ""
 
@@ -721,7 +719,7 @@ msgid "Period type"
 msgstr "Periodtyp"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Start/slutdatum"
 
 msgid "Display periods"
 msgstr ""
@@ -757,61 +755,61 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "Per dataelement"
 
 msgid "Count"
-msgstr ""
+msgstr "Räkna"
 
 msgid "Average"
-msgstr ""
+msgstr "Genomsnitt"
 
 msgid "Sum"
-msgstr ""
+msgstr "Belopp"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Standardavvikelse"
 
 msgid "Variance"
-msgstr ""
+msgstr "Variation"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "Jämnt intervall"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "lika räknas"
 
 msgid "Daily"
-msgstr ""
+msgstr "Dagligen"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Varje vecka"
 
 msgid "Monthly"
-msgstr ""
+msgstr "En gång i månaden"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Kvartals"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "Halvårs"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "Halvårs April"
 
 msgid "Yearly"
-msgstr ""
+msgstr "Årlig"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Budgetår - Oktober"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Budgetår - Juli"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Budgetår - April"
 
 msgid "Today"
 msgstr ""
@@ -829,91 +827,91 @@ msgid "Last 14 days"
 msgstr ""
 
 msgid "This week"
-msgstr ""
+msgstr "Denna vecka"
 
 msgid "Last week"
-msgstr ""
+msgstr "Förra veckan"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "Senaste 4 veckorna"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "Senast 12 veckor"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "Senast 52 veckor"
 
 msgid "Weeks this year"
 msgstr ""
 
 msgid "This month"
-msgstr ""
+msgstr "Den här månaden"
 
 msgid "Last month"
-msgstr ""
+msgstr "Förra månaden"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "Senaste 3 månaderna"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "Senaste 6 månaderna"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "Senaste 12 månaderna"
 
 msgid "Months this year"
-msgstr ""
+msgstr "Månader i år"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "Denna bi-månaders"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "Senast bi månad"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "Senaste 6 bi-månader"
 
 msgid "Bi-months this year"
 msgstr ""
 
 msgid "This quarter"
-msgstr ""
+msgstr "detta kvartal"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "Förra kvartalet"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "Senaste 4 kvartal"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Kvartalen i år"
 
 msgid "This six-month"
-msgstr ""
+msgstr "Denna sexmånaders"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "Senast sex månader"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "Senaste 2 sex månader"
 
 msgid "This year"
-msgstr ""
+msgstr "Det här året"
 
 msgid "Last year"
-msgstr ""
+msgstr "Förra året"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "Senaste 5 år"
 
 msgid "This financial year"
-msgstr ""
+msgstr "Detta räkenskapsår"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "Föregående räkenskapsår"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "Senaste 5 räkenskapsåren"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -939,7 +937,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "Höjd"
 
 msgid "metres"
 msgstr ""
@@ -948,7 +946,7 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "Population density"
-msgstr ""
+msgstr "Befolkningstäthet"
 
 msgid "people per km²"
 msgstr ""
@@ -959,13 +957,13 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Nattliga ljus"
 
 msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Nederbörd"
 
 msgid "millimeter"
 msgstr ""
@@ -975,7 +973,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatur"
 
 msgid "°C during daytime"
 msgstr ""
