@@ -12,6 +12,7 @@ const styles = {
     root: {
         position: 'relative',
         height: '100%',
+        width: '100%',
         fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
     },
 };
