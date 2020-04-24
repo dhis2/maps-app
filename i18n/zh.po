@@ -687,6 +687,7 @@ msgstr "用户所在机构的二级下属机构"
 
 msgid "{{units}} in {{orgunits}}"
 msgstr ""
+<<<<<<< HEAD
 
 msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
@@ -703,6 +704,24 @@ msgstr ""
 msgid "Below"
 msgstr ""
 
+=======
+
+msgid "{{units}} in and right below {{orgunits}}"
+msgstr ""
+
+msgid "{{units}} in and all below {{orgunits}}"
+msgstr ""
+
+msgid "Selected organisation units"
+msgstr ""
+
+msgid "Main"
+msgstr ""
+
+msgid "Below"
+msgstr ""
+
+>>>>>>> master
 msgid "2 x below"
 msgstr ""
 
