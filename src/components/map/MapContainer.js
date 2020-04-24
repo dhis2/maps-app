@@ -16,6 +16,7 @@ import {
 const styles = {
     container: {
         height: '100%',
+        width: '100%',
     },
     download: {
         // Roboto font is not loaded by dom-to-image => switch to Arial
