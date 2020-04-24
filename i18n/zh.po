@@ -1,13 +1,14 @@
+# 
 # Translators:
-# phil_dhis2, 2020
 # easylin <lin_xd@126.com>, 2020
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 晓东 林 <13981924470@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-04-23T09:07:39.614Z\n"
+"POT-Creation-Date: 2020-04-23T09:40:17.596Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -214,10 +215,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "最小"
 
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 msgid "Steps"
 msgstr "步"
@@ -572,9 +573,6 @@ msgstr "纬度"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
-msgid "No data"
-msgstr "无数据"
-
 msgid "Last updated"
 msgstr "Last updated"
 
@@ -695,7 +693,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "已选组织机构"
 
 msgid "Main"
 msgstr ""
@@ -722,7 +720,7 @@ msgid "Period type"
 msgstr "周期类型"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "开始-结束日期"
 
 msgid "Display periods"
 msgstr ""
@@ -758,163 +756,163 @@ msgid "Tracked Entity Type"
 msgstr "跟踪实体类型"
 
 msgid "By data element"
-msgstr ""
+msgstr "按数据元"
 
 msgid "Count"
-msgstr ""
+msgstr "计数"
 
 msgid "Average"
-msgstr ""
+msgstr "平均"
 
 msgid "Sum"
-msgstr ""
+msgstr "求和"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "标准差"
 
 msgid "Variance"
-msgstr ""
+msgstr "差异"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "平等间隔"
 
 msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "每日"
 
 msgid "Weekly"
-msgstr ""
+msgstr "每周"
 
 msgid "Monthly"
-msgstr ""
+msgstr "每月"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "季度"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "六个月"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "半年四月"
 
 msgid "Yearly"
-msgstr ""
+msgstr "每年"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "财务十月"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "财务七月"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "财务四月"
 
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "昨天"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "Last 3 days"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "最近7天"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "Last 14 days"
 
 msgid "This week"
-msgstr ""
+msgstr "本年"
 
 msgid "Last week"
-msgstr ""
+msgstr "上周"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "最近四周"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "最近12周"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "Last 52 weeks"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "Weeks this year"
 
 msgid "This month"
-msgstr ""
+msgstr "本月"
 
 msgid "Last month"
-msgstr ""
+msgstr "上月"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "最近3个月"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "Last 6 months"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "最近12月"
 
 msgid "Months this year"
-msgstr ""
+msgstr "今年的月份"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "本双月"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "Last bi-month"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "Last 6 bi-months"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Bi-months this year"
 
 msgid "This quarter"
-msgstr ""
+msgstr "本季度"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "最近一季"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "最近四个季度"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "今年的季度"
 
 msgid "This six-month"
-msgstr ""
+msgstr "本六个月"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "最近六个月"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "最近两个半年"
 
 msgid "This year"
-msgstr ""
+msgstr "今年"
 
 msgid "Last year"
-msgstr ""
+msgstr "去年"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "最近5年"
 
 msgid "This financial year"
-msgstr ""
+msgstr "本财年"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "上一财政年"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "最近五个财政年"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
