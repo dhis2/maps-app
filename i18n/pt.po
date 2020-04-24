@@ -1,18 +1,15 @@
+# 
 # Translators:
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-04-23T09:07:39.614Z\n"
-<<<<<<< HEAD
+"POT-Creation-Date: 2020-04-23T09:40:17.596Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-=======
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
->>>>>>> master
-"Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,7 +163,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "Selecionar ano"
 
 msgid "Min people"
 msgstr ""
@@ -217,10 +214,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "Mínimo"
 
 msgid "Max"
-msgstr ""
+msgstr "Máx"
 
 msgid "Steps"
 msgstr "Passos"
@@ -575,9 +572,6 @@ msgstr "Latitude"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr "Não ha dados"
-
 msgid "Last updated"
 msgstr "Última actualização"
 
@@ -698,7 +692,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Unidades organizacionais selecionadas"
 
 msgid "Main"
 msgstr ""
@@ -725,7 +719,7 @@ msgid "Period type"
 msgstr "Tipo de periodo"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Inicio/datas de término"
 
 msgid "Display periods"
 msgstr ""
@@ -761,163 +755,163 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "Por elemento de dado"
 
 msgid "Count"
-msgstr ""
+msgstr "Contagem"
 
 msgid "Average"
-msgstr ""
+msgstr "Média"
 
 msgid "Sum"
-msgstr ""
+msgstr "Soma"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Desvio padrão"
 
 msgid "Variance"
-msgstr ""
+msgstr "Variância"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "Intervalos iguais"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Contagem equivalente"
 
 msgid "Daily"
-msgstr ""
+msgstr "Diário"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Semanal"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Mensal"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Trimestral"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "Semestral"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "Semestral a partir de Abril"
 
 msgid "Yearly"
-msgstr ""
+msgstr "Anualmente"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Ano Financeiro - Outubro"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Ano Financeiro - Julho"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Ano Financeiro - Abril"
 
 msgid "Today"
-msgstr ""
+msgstr "Hoje"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Ontém"
 
 msgid "Last 3 days"
 msgstr ""
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "Últimos 7 dias"
 
 msgid "Last 14 days"
 msgstr ""
 
 msgid "This week"
-msgstr ""
+msgstr "Esta semana"
 
 msgid "Last week"
-msgstr ""
+msgstr "Última semana"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "Últimas quatro semanas"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "Últimas doze semanas"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "Últimas 52 semanas"
 
 msgid "Weeks this year"
 msgstr ""
 
 msgid "This month"
-msgstr ""
+msgstr "Este mês"
 
 msgid "Last month"
-msgstr ""
+msgstr "Último mês"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "Últimos três meses"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "Últimos seis meses"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "Últimos doze meses"
 
 msgid "Months this year"
-msgstr ""
+msgstr "Meses deste ano"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "Este bi-mês"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "Último bimestre"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "Últimos seis bi-meses"
 
 msgid "Bi-months this year"
 msgstr ""
 
 msgid "This quarter"
-msgstr ""
+msgstr "Este Trimestre"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "Último trimestre"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "Últimos quatro trimestres"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Trimestres deste ano"
 
 msgid "This six-month"
-msgstr ""
+msgstr "Estes seis meses"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "Último semestre"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "Dois últimos seis-meses"
 
 msgid "This year"
-msgstr ""
+msgstr "Este ano"
 
 msgid "Last year"
-msgstr ""
+msgstr "Último ano"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "Últimos cinco anos"
 
 msgid "This financial year"
-msgstr ""
+msgstr "Ano financeiro"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "Último ano fiscal"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "Últimos cinco anos fiscais"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -943,7 +937,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "Elevação"
 
 msgid "metres"
 msgstr ""
@@ -952,7 +946,7 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "Population density"
-msgstr ""
+msgstr "Densidade populacional"
 
 msgid "people per km²"
 msgstr ""
@@ -963,13 +957,13 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Luzes noturnas"
 
 msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Precipitação"
 
 msgid "millimeter"
 msgstr ""
@@ -979,7 +973,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatura"
 
 msgid "°C during daytime"
 msgstr ""
@@ -990,7 +984,7 @@ msgid ""
 msgstr ""
 
 msgid "Landcover"
-msgstr ""
+msgstr "Cobertura da terra"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr ""

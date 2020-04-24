@@ -1,3 +1,4 @@
+# 
 # Translators:
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
@@ -5,12 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-04-23T09:07:39.614Z\n"
-<<<<<<< HEAD
+"POT-Creation-Date: 2020-04-23T09:40:17.596Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-=======
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
->>>>>>> master
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -165,7 +162,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "Chọn năm"
 
 msgid "Min people"
 msgstr ""
@@ -216,10 +213,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "Nhỏ nhất"
 
 msgid "Max"
-msgstr ""
+msgstr "Lớn nhất"
 
 msgid "Steps"
 msgstr "Bước"
@@ -574,9 +571,6 @@ msgstr "Vĩ độ"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "No data"
-msgstr "Không có dữ liệu"
-
 msgid "Last updated"
 msgstr "Lần cập nhật cuối"
 
@@ -697,11 +691,10 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Các đơn vị đang được chọn"
 
 msgid "Main"
 msgstr ""
-<<<<<<< HEAD
 
 msgid "Below"
 msgstr ""
@@ -709,15 +702,6 @@ msgstr ""
 msgid "2 x below"
 msgstr ""
 
-=======
-
-msgid "Below"
-msgstr ""
-
-msgid "2 x below"
-msgstr ""
-
->>>>>>> master
 msgid "User organisation units"
 msgstr ""
 
@@ -734,7 +718,7 @@ msgid "Period type"
 msgstr "Loại thời điểm"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Ngày bắt đầu/kết thúc"
 
 msgid "Display periods"
 msgstr ""
@@ -770,163 +754,163 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "Theo Phần Tử Dữ Liệu"
 
 msgid "Count"
-msgstr ""
+msgstr "Đếm"
 
 msgid "Average"
-msgstr ""
+msgstr "Trung bình"
 
 msgid "Sum"
-msgstr ""
+msgstr "Tổng"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Độ lệch chuẩn"
 
 msgid "Variance"
-msgstr ""
+msgstr "Sự khác nhau"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "Chia đều tổng Giá trị dữ liệu"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Chia đều số Đơn Vị"
 
 msgid "Daily"
-msgstr ""
+msgstr "Hàng ngày"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Hàng tuần"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Hàng tháng"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Hàng quý"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "Hàng 6 tháng"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "Hàng 6 tháng - tháng 4"
 
 msgid "Yearly"
-msgstr ""
+msgstr "Một năm"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Năm Tài Chính - Tháng 10"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Năm Tài Chính - Tháng 7"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Năm Tài Chính - Tháng 4"
 
 msgid "Today"
-msgstr ""
+msgstr "Hôm Nay"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Hôm Qua"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "3 ngày trước"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "7 ngày trước"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "14 ngày trước"
 
 msgid "This week"
-msgstr ""
+msgstr "Tuần này"
 
 msgid "Last week"
-msgstr ""
+msgstr "Tuần trước"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "4 tuần trước"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "12 tuần trước"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "52 tuần trước"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "Các tuần trong năm nay"
 
 msgid "This month"
-msgstr ""
+msgstr "Tháng này"
 
 msgid "Last month"
-msgstr ""
+msgstr "Tháng trước"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "3 tháng trước"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "6 tháng trước"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "Trong 12 tháng trước"
 
 msgid "Months this year"
-msgstr ""
+msgstr "Tháng năm nay"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "Lần Hai-Tháng này"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "2 tháng trước"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "6 kỳ 2 tháng trước"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Các lần Hai-tháng năm nay"
 
 msgid "This quarter"
-msgstr ""
+msgstr "Quý này"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "Quý trước"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "Trong 4 quý vừa qua"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Quý năm nay"
 
 msgid "This six-month"
-msgstr ""
+msgstr "Lần Sáu-Tháng này"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "6 tháng trước"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "2 sáu-tháng trước"
 
 msgid "This year"
-msgstr ""
+msgstr "Năm nay"
 
 msgid "Last year"
-msgstr ""
+msgstr "Năm ngoái"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "Trong 5 năm vừa qua"
 
 msgid "This financial year"
-msgstr ""
+msgstr "Năm tài chính này"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "Năm tài chính trước đó"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "5 năm tài chính trước"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -952,7 +936,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "Độ cao"
 
 msgid "metres"
 msgstr ""
@@ -961,7 +945,7 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "Population density"
-msgstr ""
+msgstr "Mật độ dân số"
 
 msgid "people per km²"
 msgstr ""
@@ -972,13 +956,13 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Ánh sáng đêm"
 
 msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Lượng mưa"
 
 msgid "millimeter"
 msgstr ""
@@ -988,7 +972,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "Nhiệt độ"
 
 msgid "°C during daytime"
 msgstr ""
@@ -999,7 +983,7 @@ msgid ""
 msgstr ""
 
 msgid "Landcover"
-msgstr ""
+msgstr "Phủ đất"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr ""
