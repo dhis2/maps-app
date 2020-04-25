@@ -35,7 +35,7 @@ msgid "Predefined"
 msgstr ""
 
 msgid "Data element group"
-msgstr ""
+msgstr "数据元组"
 
 msgid "Data element operand"
 msgstr ""
@@ -44,7 +44,7 @@ msgid "Data element"
 msgstr "数据元"
 
 msgid "Totals"
-msgstr ""
+msgstr "总共"
 
 msgid "Details"
 msgstr "详情"
@@ -71,7 +71,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "数据集"
 
 msgid "Index"
 msgstr ""
@@ -92,13 +92,13 @@ msgid "Parent"
 msgstr ""
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Type"
 msgstr "类型"
 
 msgid "Color"
-msgstr ""
+msgstr "颜色"
 
 msgid "Download"
 msgstr "下载"
@@ -129,7 +129,7 @@ msgid "Period"
 msgstr "期间"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "组织机构"
 
 msgid "Style"
 msgstr "风格"
@@ -280,7 +280,7 @@ msgid "Indicator"
 msgstr "指标"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "上报率"
 
 msgid "Event data items"
 msgstr ""
@@ -322,7 +322,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "操作符"
 
 msgid "Date"
 msgstr "日期"
@@ -340,13 +340,13 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr ""
+msgstr "是"
 
 msgid "is not"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "指标组"
 
 msgid "Interpretations"
 msgstr "注释"
@@ -417,7 +417,7 @@ msgid "Open as"
 msgstr ""
 
 msgid "Pivot"
-msgstr ""
+msgstr "透视"
 
 msgid "Chart"
 msgstr "图表"
@@ -459,7 +459,7 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
 msgid "Last updated"
-msgstr ""
+msgstr "Last updated"
 
 msgid "Options"
 msgstr "选项"
@@ -489,7 +489,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "在"
 
 msgid "in and right below"
 msgstr ""
@@ -501,16 +501,16 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "来年"
 
 msgid "Period type"
-msgstr ""
+msgstr "周期类型"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "项目指标"
 
 msgid "No program"
-msgstr ""
+msgstr "无项目"
 
 msgid "Program"
 msgstr "项目"
@@ -527,7 +527,7 @@ msgid ""
 msgstr ""
 
 msgid "Favorite"
-msgstr ""
+msgstr "偏好"
 
 msgid "is saved"
 msgstr ""
