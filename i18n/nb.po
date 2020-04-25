@@ -162,38 +162,46 @@ msgid ""
 "population division estimates. Try a different year if you don't see data "
 "for your country."
 msgstr ""
+"Befolkningstetthetsestimater med nasjonale totaler justert for å matche FNs "
+"befolkningsdivisjon sine estimater. Prøv et annet år hvis du ikke ser data "
+"for landet ditt."
 
 msgid "Select year"
-msgstr ""
+msgstr "Velg år"
 
 msgid "Min people"
-msgstr ""
+msgstr "Min personer"
 
 msgid "Max people"
-msgstr ""
+msgstr "Maks personer"
 
 msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
 "better representes the terrain in your region."
 msgstr ""
+"Høyde over havet. Du kan justere min- og maksverdiene slik at det bedre "
+"representerer terrenget i regionen din."
 
 msgid "Min meters"
-msgstr ""
+msgstr "Min meter"
 
 msgid "Max meters"
-msgstr ""
+msgstr "Maks meter"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Nedbør samlet inn fra satellitt- og værstasjoner på bakken. Verdiene er i "
+"millimeter innen 5 dager. Oppdateres månedlig, i løpet av den tredje uken i "
+"den påfølgende måneden."
 
 msgid "Min mm"
-msgstr ""
+msgstr "Min mm"
 
 msgid "Max mm"
-msgstr ""
+msgstr "Maks mm"
 
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "

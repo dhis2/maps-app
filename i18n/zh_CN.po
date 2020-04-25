@@ -1,14 +1,14 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2020
 # 晓东 林 <13981924470@126.com>, 2020
+# easylin <lin_xd@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-04-23T09:40:17.596Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgid "Predefined"
 msgstr ""
 
 msgid "Data element group"
-msgstr ""
+msgstr "数据元组"
 
 msgid "Data element operand"
 msgstr ""
@@ -44,7 +44,7 @@ msgid "Data element"
 msgstr "数据元"
 
 msgid "Totals"
-msgstr ""
+msgstr "总共"
 
 msgid "Details"
 msgstr "详情"
@@ -71,7 +71,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "数据集"
 
 msgid "Index"
 msgstr ""
@@ -92,13 +92,13 @@ msgid "Parent"
 msgstr ""
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Type"
 msgstr "类型"
 
 msgid "Color"
-msgstr ""
+msgstr "颜色"
 
 msgid "Add filter"
 msgstr "添加过滤器"
@@ -141,7 +141,7 @@ msgid "Period"
 msgstr "期间"
 
 msgid "Organisation units"
-msgstr ""
+msgstr "组织机构"
 
 msgid "Style"
 msgstr "风格"
@@ -393,7 +393,7 @@ msgid "Indicator"
 msgstr "指标"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "上报率"
 
 msgid "Event data items"
 msgstr ""
@@ -411,7 +411,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr ""
+msgstr "关系类型"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -435,7 +435,7 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "操作符"
 
 msgid "Date"
 msgstr "日期"
@@ -447,7 +447,7 @@ msgid "contains"
 msgstr ""
 
 msgid "is"
-msgstr ""
+msgstr "是"
 
 msgid "is not"
 msgstr ""
@@ -456,7 +456,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "指标组"
 
 msgid "Interpretations"
 msgstr "注释"
@@ -572,7 +572,7 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
 msgid "Last updated"
-msgstr ""
+msgstr "Last updated"
 
 msgid "acres"
 msgstr ""
@@ -647,7 +647,7 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "处理"
 
 msgid "Options"
 msgstr "选项"
@@ -709,13 +709,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "来年"
 
 msgid "Relative"
 msgstr ""
 
 msgid "Period type"
-msgstr ""
+msgstr "周期类型"
 
 msgid "Start/end dates"
 msgstr ""
@@ -739,10 +739,10 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Program indicator"
-msgstr ""
+msgstr "项目指标"
 
 msgid "No program"
-msgstr ""
+msgstr "无项目"
 
 msgid "Program"
 msgstr "项目"
@@ -793,7 +793,7 @@ msgid "Quarterly"
 msgstr "季度"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "六个月"
 
 msgid "Six-monthly April"
 msgstr ""
