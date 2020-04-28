@@ -146,16 +146,12 @@ export class FilterSelect extends Component {
                 { id: 'NE', name: '!=' },
             ];
         } else if (optionSet) {
-            operators = [
-                { id: 'IN', name: i18n.t('one of') },
-                { id: '!IN', name: i18n.t('not one of') },
-            ];
+            operators = [{ id: 'IN', name: i18n.t('one of') }];
         } else if (textValueTypes.indexOf(valueType) >= 0) {
             operators = [
                 { id: 'LIKE', name: i18n.t('contains') },
-                { id: '!LIKE', name: i18n.t("doesn't contains") },
                 { id: 'EQ', name: i18n.t('is') },
-                { id: '!EQ', name: i18n.t('is not') },
+                { id: 'NE', name: i18n.t('is not') },
             ];
         }
 
