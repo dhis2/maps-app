@@ -16,10 +16,7 @@ const styles = {
     },
 };
 
-const defaultBounds = [
-    [-18.7, -34.9],
-    [50.2, 35.9],
-];
+const defaultBounds = [[-18.7, -34.9], [50.2, 35.9]];
 
 class Plugin extends Component {
     static propTypes = {

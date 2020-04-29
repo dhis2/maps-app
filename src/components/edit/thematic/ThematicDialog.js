@@ -190,7 +190,7 @@ export class ThematicDialog extends Component {
             setEndDate(DEFAULT_END_DATE);
         }
 
-        if (!getOrgUnitLevelsFromRows(rows).length) {
+        if (!getOrgUnitsFromRows(rows).length) {
             setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
         }
     }
