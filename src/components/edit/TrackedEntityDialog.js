@@ -405,15 +405,17 @@ export class TrackedEntityDialog extends Component {
                                     items={[
                                         {
                                             id: 'SELECTED',
-                                            name: 'Selected only',
+                                            name: i18n.t('Selected only'),
                                         },
                                         {
                                             id: 'CHILDREN',
-                                            name: 'Selected and below',
+                                            name: i18n.t('Selected and below'),
                                         },
                                         {
                                             id: 'DESCENDANTS',
-                                            name: 'Selected and all below',
+                                            name: i18n.t(
+                                                'Selected and all below'
+                                            ),
                                         },
                                     ]}
                                     value={
