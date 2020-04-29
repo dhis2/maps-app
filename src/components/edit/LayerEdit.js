@@ -102,7 +102,7 @@ class LayerEdit extends Component {
 
         const title = layer.id
             ? i18n.t('Edit {{name}} layer', { name })
-            : i18n.t('Add {{name}} layer', { name });
+            : i18n.t('Add new {{name}} layer', { name });
 
         return (
             <Dialog open={true} maxWidth="md" data-test="layeredit">
