@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2019-11-20T11:07:38.479Z\n"
+"POT-Creation-Date: 2020-04-29T15:19:40.591Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -628,6 +628,9 @@ msgid "No data found"
 msgstr "没有发现数据"
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Thematic layer"
 msgstr ""
 
 msgid "Selected org units"

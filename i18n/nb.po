@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2019-11-20T11:07:38.479Z\n"
+"POT-Creation-Date: 2020-04-29T15:19:40.591Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -640,6 +640,9 @@ msgstr "Ingen data funnet"
 
 msgid "Facilities"
 msgstr "Bygninger"
+
+msgid "Thematic layer"
+msgstr ""
 
 msgid "Selected org units"
 msgstr "Valgte org enheter"
