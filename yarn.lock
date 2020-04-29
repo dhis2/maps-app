@@ -236,6 +236,17 @@
     lodash "^4.17.10"
     material-ui "^0.20.0"
 
+"@dhis2/d2-ui-core@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-core/-/d2-ui-core-7.0.0.tgz#77ec2679b4500516ee2e228a19b1c69b50de3be7"
+  integrity sha512-0ZVNKbLfqkygzhmLDt35YjSL1s6JjzNa/fU0PV9dqNrtWvIWen47ZsXaEz3U3f2d1+KY0U+ZvnF1fSNsKir73Q==
+  dependencies:
+    babel-runtime "^6.26.0"
+    d2 "~31.7"
+    lodash "^4.17.10"
+    material-ui "^0.20.0"
+    rxjs "^5.5.7"
+
 "@dhis2/d2-ui-core@^5.2.10":
   version "5.3.11"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-core/-/d2-ui-core-5.3.11.tgz#68999560ceba95baad211cf0dd76bb195309fe8b"
@@ -349,6 +360,16 @@
     prop-types "^15.5.10"
     recompose "^0.26.0"
     rxjs "^5.5.7"
+
+"@dhis2/d2-ui-org-unit-tree@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-7.0.0.tgz#d838810f9b8808ae4ea1333c27f11a1452ff0404"
+  integrity sha512-dpN0DP4P/hsUfOBmJ/sIHGGIJJHe+A7NvRtQNEChXFbW/vOBqK846smdj6rC49upxGi0fIRT78WbLvB4SPvdzQ==
+  dependencies:
+    "@dhis2/d2-ui-core" "7.0.0"
+    "@material-ui/core" "^3.3.1"
+    babel-runtime "^6.26.0"
+    prop-types "^15.5.10"
 
 "@dhis2/d2-ui-period-selector-dialog@5.3.0":
   version "5.3.0"
