@@ -21,6 +21,17 @@ import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 
 const thematicLoader = async config => {
+    const {
+        columns,
+        rows,
+        radiusLow,
+        radiusHigh,
+        classes,
+        colorScale,
+    } = config;
+
+    const dataItem = getDataItemFromColumns(columns);
+
     let error;
 
     const response = await loadData(config).catch(err => {
@@ -35,21 +46,14 @@ const thematicLoader = async config => {
                       alerts: [createAlert(i18n.t('Error'), error.message)],
                   }
                 : {}),
+            name: dataItem ? dataItem.name : i18n.t('Thematic layer'),
+            isExpanded: true,
             isLoaded: true,
             isVisible: true,
         };
     }
 
     const [features, data] = response;
-
-    const {
-        columns,
-        rows,
-        radiusLow,
-        radiusHigh,
-        classes,
-        colorScale,
-    } = config;
     const period = getPeriodFromFilters(config.filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
@@ -60,7 +64,6 @@ const thematicLoader = async config => {
     const orderedValues = getOrderedValues(data);
     const minValue = orderedValues[0];
     const maxValue = orderedValues[orderedValues.length - 1];
-    const dataItem = getDataItemFromColumns(columns);
     const name = names[dataItem.id];
     let legendSet = config.legendSet;
     let method = legendSet ? 1 : config.method; // Favorites often have wrong method
