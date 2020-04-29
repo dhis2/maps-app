@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2019-11-20T13:26:46.609Z\n"
+"POT-Creation-Date: 2020-04-29T15:21:54.204Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2019\n"
 "Language-Team: Tajik (https://www.transifex.com/hisp-uio/teams/100509/tg/)\n"
@@ -613,6 +613,9 @@ msgid "No data found"
 msgstr "Ягон иттилоот ёфт нашуд"
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Thematic layer"
 msgstr ""
 
 msgid "Selected org units"
