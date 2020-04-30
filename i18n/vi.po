@@ -296,19 +296,19 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Có lỗi"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Thử lại"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Ẩn chi tiết kỹ thuật"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Hiện chi tiết kỹ thuật"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "Các thông tin sau có thể được yêu cầu bởi hỗ trợ kỹ thuật."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
