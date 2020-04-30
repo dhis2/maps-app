@@ -16,19 +16,19 @@ const styles = {
     },
 };
 
-const levels = {
+const getLevels = () => ({
     USER_ORGUNIT: i18n.t('user organisation unit'),
     USER_ORGUNIT_CHILDREN: i18n.t('right below user organisation unit'),
     USER_ORGUNIT_GRANDCHILDREN: i18n.t(
         'two levels below user organisation unit'
     ),
-};
+});
 
-const modes = {
-    SELECTED: i18n.t('in'),
-    CHILDREN: i18n.t('in and right below'),
-    DESCENDANTS: i18n.t('in and all below'),
-};
+const getModeString = props => ({
+    SELECTED: i18n.t('{{units}} in {{orgunits}}', props),
+    CHILDREN: i18n.t('{{units}} in and right below {{orgunits}}', props),
+    DESCENDANTS: i18n.t('{{units}} in and all below {{orgunits}}', props),
+});
 
 const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
     const orgUnits = getOrgUnitNodesFromRows(rows)
@@ -36,18 +36,17 @@ const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
         .sort();
     const userOrgUnits = getUserOrgUnitsFromRows(rows)
         .sort()
-        .map(id => i18n.t(levels[id]));
+        .map(id => getLevels()[id]);
 
     let selected = i18n.t('No organisation units are selected');
 
     if (orgUnits.length || userOrgUnits.length) {
-        selected = `${units} ${modes[mode]} `;
-
-        if (userOrgUnits.length) {
-            selected += userOrgUnits.join(', ');
-        } else {
-            selected += orgUnits.join(', ');
-        }
+        selected = getModeString({
+            orgunits: userOrgUnits.length
+                ? userOrgUnits.join(', ')
+                : orgUnits.join(', '),
+            units,
+        })[mode];
     }
 
     return (
@@ -56,7 +55,7 @@ const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
                 <div style={styles.error}>{error}</div>
             ) : (
                 <div>
-                    <strong>Selected organisation units</strong>
+                    <strong>{i18n.t('Selected organisation units')}</strong>
                     <br />
                     {selected}
                 </div>

@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n';
 import { formatDate } from '../util/time';
 
 export const DEFAULT_START_DATE = formatDate(
@@ -25,14 +26,14 @@ export const CLASSIFICATION_PREDEFINED = 1;
 export const CLASSIFICATION_EQUAL_INTERVALS = 2;
 export const CLASSIFICATION_EQUAL_COUNTS = 3;
 
-export const classificationTypes = [
+export const getClassificationTypes = () => [
     {
         id: CLASSIFICATION_EQUAL_INTERVALS,
-        name: 'Equal intervals',
+        name: i18n.t('Equal intervals'),
     },
     {
         id: CLASSIFICATION_EQUAL_COUNTS,
-        name: 'Equal counts',
+        name: i18n.t('Equal counts'),
     },
 ];
 

@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
-import { relativePeriods } from '../../constants/periods';
-
-let periods;
+import { getRelativePeriods } from '../../constants/periods';
 
 const RelativePeriodSelect = ({
     startEndDates,
@@ -15,24 +13,19 @@ const RelativePeriodSelect = ({
 }) => {
     const value = period ? period.id : null;
 
-    if (!periods) {
-        // Create periods array on first run
-        periods = (startEndDates
-            ? [
-                  {
-                      // Used in event layer dialog
-                      id: 'START_END_DATES',
-                      name: 'Start/end dates',
-                  },
-              ]
-            : []
-        )
-            .concat(relativePeriods)
-            .map(({ id, name }) => ({
-                id,
-                name: i18n.t(name), // Translate period names
-            }));
-    }
+    const periods = useMemo(
+        () =>
+            (startEndDates
+                ? [
+                      {
+                          id: 'START_END_DATES',
+                          name: i18n.t('Start/end dates'),
+                      },
+                  ]
+                : []
+            ).concat(getRelativePeriods()),
+        []
+    );
 
     return (
         <SelectField
