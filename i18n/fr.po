@@ -1,7 +1,7 @@
 # 
 # Translators:
 # Austin McGee <austin@dhis2.org>, 2019
-# mrwine <matthieu@pinard.no>, 2019
+# Matthieu Pinard <matthieu@pinard.no>, 2019
 # Bram Piot <bram.piot@gmail.com>, 2020
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
