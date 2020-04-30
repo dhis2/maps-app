@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { sortBy, negate } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
-import { periodNames } from '../constants/periods';
+import { getPeriodNames } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
 
 /* DIMENSIONS */
@@ -148,7 +148,7 @@ export const removePeriodFromFilters = (filters = []) => [
     ...filters.filter(f => f.dimension !== 'pe'),
 ];
 
-export const getPeriodNameFromId = id => i18n.t(periodNames[id]);
+export const getPeriodNameFromId = id => getPeriodNames()[id];
 
 export const setFiltersFromPeriod = (filters, period) => [
     ...removePeriodFromFilters(filters),

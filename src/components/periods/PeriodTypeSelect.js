@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
-import { periodTypes, relativePeriods } from '../../constants/periods';
-
-let periods;
+import { getPeriodTypes, getRelativePeriods } from '../../constants/periods';
 
 class PeriodTypeSelect extends Component {
     static propTypes = {
@@ -23,7 +21,7 @@ class PeriodTypeSelect extends Component {
         };
 
         if (!value && period) {
-            if (relativePeriods.find(p => p.id === period.id)) {
+            if (getRelativePeriods().find(p => p.id === period.id)) {
                 // false will not clear the period dropdown
                 onChange(relativePeriodType, false);
             }
@@ -36,18 +34,10 @@ class PeriodTypeSelect extends Component {
     render() {
         const { value, onChange, style, errorText } = this.props;
 
-        if (!periods) {
-            // Translate period names
-            periods = periodTypes.map(({ id, name }) => ({
-                id,
-                name: i18n.t(name),
-            }));
-        }
-
         return (
             <SelectField
                 label={i18n.t('Period type')}
-                items={periods}
+                items={getPeriodTypes()}
                 value={value}
                 onChange={onChange}
                 style={style}

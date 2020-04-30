@@ -172,7 +172,7 @@ const LayerCard = ({
                         }
                         onRemove={() => {
                             removeLayer(id);
-                            setMessage(`${name} ${i18n.t('deleted')}.`);
+                            setMessage(i18n.t('{{name}} deleted.', { name }));
                         }}
                         downloadData={
                             canDownload

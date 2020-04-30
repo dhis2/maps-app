@@ -1,41 +1,42 @@
+import i18n from '@dhis2/d2-i18n';
 import * as types from '../constants/actionTypes';
 
-const defaultLayers = [
+const defaultLayers = () => [
     {
         layer: 'thematic',
-        type: 'Thematic',
+        type: i18n.t('Thematic'),
         img: 'images/thematic.png',
         opacity: 0.9,
     },
     {
         layer: 'event',
-        type: 'Events',
+        type: i18n.t('Events'),
         img: 'images/events.png',
         opacity: 0.8,
         eventClustering: true,
     },
     {
         layer: 'trackedEntity',
-        type: 'Tracked entities',
+        type: i18n.t('Tracked entities'),
         img: 'images/trackedentities.png',
         opacity: 0.5,
     },
     {
         layer: 'facility',
-        type: 'Facilities',
+        type: i18n.t('Facilities'),
         img: 'images/facilities.png',
         opacity: 1,
     },
     {
         layer: 'boundary',
-        type: 'Boundaries',
+        type: i18n.t('Boundaries'),
         img: 'images/boundaries.png',
         opacity: 1,
     },
     {
         layer: 'earthEngine',
         datasetId: 'WorldPop/POP',
-        type: 'Population density',
+        type: i18n.t('Population density'),
         img: 'images/population.png',
         params: {
             min: 0,
@@ -47,7 +48,7 @@ const defaultLayers = [
     {
         layer: 'earthEngine',
         datasetId: 'USGS/SRTMGL1_003',
-        type: 'Elevation',
+        type: i18n.t('Elevation'),
         img: 'images/elevation.png',
         params: {
             min: 0,
@@ -59,7 +60,7 @@ const defaultLayers = [
     {
         layer: 'earthEngine',
         datasetId: 'MODIS/006/MOD11A2',
-        type: 'Temperature',
+        type: i18n.t('Temperature'),
         img: 'images/temperature.png',
         params: {
             min: 0,
@@ -71,7 +72,7 @@ const defaultLayers = [
     {
         layer: 'earthEngine',
         datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
-        type: 'Precipitation',
+        type: i18n.t('Precipitation'),
         img: 'images/precipitation.png',
         params: {
             min: 0,
@@ -83,14 +84,14 @@ const defaultLayers = [
     {
         layer: 'earthEngine',
         datasetId: 'MODIS/051/MCD12Q1',
-        type: 'Landcover',
+        type: i18n.t('Landcover'),
         img: 'images/landcover.png',
         opacity: 0.9,
     },
     {
         layer: 'earthEngine',
         datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
-        type: 'Nighttime lights',
+        type: i18n.t('Nighttime lights'),
         img: 'images/nighttime.png',
         params: {
             min: 0,
@@ -101,11 +102,13 @@ const defaultLayers = [
     },
 ];
 
-const layers = (state = defaultLayers, action) => {
+const layers = (state, action) => {
+    const prevState = state || defaultLayers();
+
     switch (action.type) {
         case types.EXTERNAL_LAYER_ADD:
             return [
-                ...state,
+                ...prevState,
                 {
                     ...action.payload,
                     isVisible: true,
@@ -113,10 +116,10 @@ const layers = (state = defaultLayers, action) => {
             ];
 
         case types.EXTERNAL_LAYER_REMOVE:
-            return state.filter(layer => layer.id !== action.id);
+            return prevState.filter(layer => layer.id !== action.id);
 
         default:
-            return state;
+            return prevState;
     }
 };
 
