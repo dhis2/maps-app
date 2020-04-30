@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import i18n from '@dhis2/d2-i18n';
 import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree';
 import orgUnitStyles from '@dhis2/d2-ui-org-unit-dialog/styles/OrgUnitSelector.style';
 import { loadOrgUnitTree } from '../../actions/orgUnits';
@@ -74,8 +75,9 @@ export class OrgUnitTreeMaps extends Component {
                 />
                 {disabled ? (
                     <div className={classes.disabled}>
-                        It’s not possible to combine user organisation units and
-                        select individual units.
+                        {i18n.t(
+                            'It’s not possible to combine user organisation units and select individual units.'
+                        )}
                     </div>
                 ) : null}
             </div>

@@ -6,7 +6,7 @@ import { range } from 'lodash/fp';
 import SelectField from '../core/SelectField';
 import ColorScaleSelect from '../core/ColorScaleSelect';
 import { setClassification, setColorScale } from '../../actions/layerEdit';
-import { classificationTypes } from '../../constants/layers';
+import { getClassificationTypes } from '../../constants/layers';
 import {
     defaultColorScaleName,
     defaultClasses,
@@ -49,10 +49,7 @@ const Classification = ({
             key="classification"
             label={i18n.t('Classification')}
             value={method || CLASSIFICATION_EQUAL_INTERVALS}
-            items={classificationTypes.map(({ id, name }) => ({
-                id,
-                name: i18n.t(name),
-            }))}
+            items={getClassificationTypes()}
             onChange={method => setClassification(method.id)}
             style={styles.select}
         />,
