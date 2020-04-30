@@ -1,16 +1,16 @@
 # 
 # Translators:
 # phil_dhis2, 2019
-# Viktor Varland <viktor@dhis2.org>, 2019
 # easylin <lin_xd@126.com>, 2020
 # 晓东 林 <13981924470@126.com>, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-04-29T15:19:40.591Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -157,6 +157,69 @@ msgstr "点半径"
 msgid "No organisation units are selected"
 msgstr "没有选择机构"
 
+msgid ""
+"Population density estimates with national totals adjusted to match UN "
+"population division estimates. Try a different year if you don't see data "
+"for your country."
+msgstr ""
+
+msgid "Select year"
+msgstr ""
+
+msgid "Min people"
+msgstr ""
+
+msgid "Max people"
+msgstr ""
+
+msgid ""
+"Elevation above sea-level. You can adjust the min and max values so it "
+"better representes the terrain in your region."
+msgstr ""
+
+msgid "Min meters"
+msgstr ""
+
+msgid "Max meters"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+
+msgid "Min mm"
+msgstr ""
+
+msgid "Max mm"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite in 8 days periods. Blank "
+"spots will appear in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Min °C"
+msgstr ""
+
+msgid "Max °C"
+msgstr ""
+
+msgid "17 distinct landcover types collected from satellites."
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+
+msgid "Min"
+msgstr ""
+
+msgid "Max"
+msgstr ""
+
 msgid "Steps"
 msgstr "步"
 
@@ -227,6 +290,12 @@ msgstr "记住选择包括机构的等级"
 msgid "Group set is required"
 msgstr "需要组集"
 
+msgid "Edit {{name}} layer"
+msgstr ""
+
+msgid "Add {{name}} layer"
+msgstr ""
+
 msgid "Update layer"
 msgstr "更新图层"
 
@@ -264,6 +333,15 @@ msgstr "显示跟踪实体关系"
 
 msgid "Selection mode"
 msgstr "选择模式"
+
+msgid "Selected only"
+msgstr ""
+
+msgid "Selected and below"
+msgstr ""
+
+msgid "Selected and all below"
+msgstr ""
 
 msgid "Tracked entities"
 msgstr "跟踪的实体"
@@ -367,14 +445,8 @@ msgstr "日期"
 msgid "one of"
 msgstr "当中一个"
 
-msgid "not one of"
-msgstr "不是当中一个"
-
 msgid "contains"
 msgstr "包含"
-
-msgid "doesn't contains"
-msgstr "不包含"
 
 msgid "is"
 msgstr "是"
@@ -423,8 +495,8 @@ msgstr "使用人机可读的键值"
 msgid "Loading layer"
 msgstr "载入图层"
 
-msgid "deleted"
-msgstr "删除的"
+msgid "{{name}} deleted."
+msgstr ""
 
 msgid "Split view can not be combined with other layer types."
 msgstr "分离视图不能和其它图层混合"
@@ -495,9 +567,6 @@ msgstr "组"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
-msgid "No data"
-msgstr "无数据"
-
 msgid "Last updated"
 msgstr "上次更新"
 
@@ -531,6 +600,11 @@ msgstr "选择组"
 msgid "Select levels"
 msgstr "选择等级"
 
+msgid ""
+"It’s not possible to combine user organisation units and select individual "
+"units."
+msgstr ""
+
 msgid "Click the map where you want to relocate facility"
 msgstr "点击你要重新定位机构的位置"
 
@@ -543,14 +617,29 @@ msgstr "用户所在机构的直接下属"
 msgid "two levels below user organisation unit"
 msgstr "用户所在机构的二级下属机构"
 
-msgid "in"
-msgstr " 在"
+msgid "{{units}} in {{orgunits}}"
+msgstr ""
 
-msgid "in and right below"
-msgstr "右边或垂直下属"
+msgid "{{units}} in and right below {{orgunits}}"
+msgstr ""
 
-msgid "in and all below"
-msgstr "本身和所有下属"
+msgid "{{units}} in and all below {{orgunits}}"
+msgstr ""
+
+msgid "Selected organisation units"
+msgstr ""
+
+msgid "Main"
+msgstr ""
+
+msgid "Below"
+msgstr ""
+
+msgid "2 x below"
+msgstr ""
+
+msgid "User organisation units"
+msgstr ""
 
 msgid "Previous year"
 msgstr "前年"
@@ -563,6 +652,21 @@ msgstr "关系"
 
 msgid "Period type"
 msgstr "周期类型"
+
+msgid "Start/end dates"
+msgstr ""
+
+msgid "Display periods"
+msgstr ""
+
+msgid "Single (aggregate)"
+msgstr ""
+
+msgid "Timeline"
+msgstr ""
+
+msgid "Split map views"
+msgstr ""
 
 msgid "Only one timeline is allowed."
 msgstr "仅仅允许一个时限"
@@ -585,6 +689,165 @@ msgstr "阶段"
 msgid "Tracked Entity Type"
 msgstr "跟踪实体类型"
 
+msgid "By data element"
+msgstr ""
+
+msgid "Count"
+msgstr ""
+
+msgid "Average"
+msgstr ""
+
+msgid "Sum"
+msgstr ""
+
+msgid "Standard deviation"
+msgstr ""
+
+msgid "Variance"
+msgstr ""
+
+msgid "Equal intervals"
+msgstr ""
+
+msgid "Equal counts"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
+
+msgid "Bi-monthly)"
+msgstr ""
+
+msgid "Quarterly"
+msgstr ""
+
+msgid "Six-monthly"
+msgstr ""
+
+msgid "Six-monthly April"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
+
+msgid "Financial year (Start October)"
+msgstr ""
+
+msgid "Financial year (Start July)"
+msgstr ""
+
+msgid "Financial year (Start April)"
+msgstr ""
+
+msgid "Today"
+msgstr ""
+
+msgid "Yesterday"
+msgstr ""
+
+msgid "Last 3 days"
+msgstr ""
+
+msgid "Last 7 days"
+msgstr ""
+
+msgid "Last 14 days"
+msgstr ""
+
+msgid "This week"
+msgstr ""
+
+msgid "Last week"
+msgstr ""
+
+msgid "Last 4 weeks"
+msgstr ""
+
+msgid "Last 12 weeks"
+msgstr ""
+
+msgid "Last 52 weeks"
+msgstr ""
+
+msgid "Weeks this year"
+msgstr ""
+
+msgid "This month"
+msgstr ""
+
+msgid "Last month"
+msgstr ""
+
+msgid "Last 3 months"
+msgstr ""
+
+msgid "Last 6 months"
+msgstr ""
+
+msgid "Last 12 months"
+msgstr ""
+
+msgid "Months this year"
+msgstr ""
+
+msgid "This bi-month"
+msgstr ""
+
+msgid "Last bi-month"
+msgstr ""
+
+msgid "Last 6 bi-months"
+msgstr ""
+
+msgid "Bi-months this year"
+msgstr ""
+
+msgid "This quarter"
+msgstr ""
+
+msgid "Last quarter"
+msgstr ""
+
+msgid "Last 4 quarters"
+msgstr ""
+
+msgid "Quarters this year"
+msgstr ""
+
+msgid "This six-month"
+msgstr ""
+
+msgid "Last six-month"
+msgstr ""
+
+msgid "Last 2 six-months"
+msgstr ""
+
+msgid "This year"
+msgstr ""
+
+msgid "Last year"
+msgstr ""
+
+msgid "Last 5 years"
+msgstr ""
+
+msgid "This financial year"
+msgstr ""
+
+msgid "Last financial year"
+msgstr ""
+
+msgid "Last 5 financial years"
+msgstr ""
+
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
@@ -596,11 +859,8 @@ msgstr "错误"
 msgid "A connection to Google Earth Engine could not be established."
 msgstr "无法建立与Google Earth Engine的连接。"
 
-msgid "Favorite"
-msgstr "偏好"
-
-msgid "is saved"
-msgstr "已保存"
+msgid "Map \"{{name}}\" is saved."
+msgstr ""
 
 msgid "Boundaries"
 msgstr "边界线"
@@ -610,6 +870,113 @@ msgstr "警告"
 
 msgid "No boundaries found"
 msgstr "没有发现边界线"
+
+msgid "Elevation"
+msgstr ""
+
+msgid "metres"
+msgstr ""
+
+msgid "Elevation above sea-level."
+msgstr ""
+
+msgid "Population density"
+msgstr ""
+
+msgid "people per km²"
+msgstr ""
+
+msgid ""
+"Population density estimates with national totals adjusted to match UN "
+"population division estimates."
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr ""
+
+msgid "light intensity"
+msgstr ""
+
+msgid "Precipitation"
+msgstr ""
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground."
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Landcover"
+msgstr ""
+
+msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr ""
+
+msgid "Mixed forest"
+msgstr ""
+
+msgid "Closed shrublands"
+msgstr ""
+
+msgid "Open shrublands"
+msgstr ""
+
+msgid "Woody savannas"
+msgstr ""
+
+msgid "Savannas"
+msgstr ""
+
+msgid "Grasslands"
+msgstr ""
+
+msgid "Permanent wetlands"
+msgstr ""
+
+msgid "Croplands"
+msgstr ""
+
+msgid "Urban and built-up"
+msgstr ""
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr ""
+
+msgid "Snow and ice"
+msgstr ""
+
+msgid "Barren or sparsely vegetated"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
 
 msgid "Access denied"
 msgstr "拒绝随访"
@@ -633,7 +1000,7 @@ msgid "Facilities"
 msgstr "机构设施"
 
 msgid "Thematic layer"
-msgstr ""
+msgstr "专题层"
 
 msgid "Selected org units"
 msgstr "选择的机构"
@@ -649,6 +1016,15 @@ msgstr "没有找到跟踪实体"
 
 msgid "related"
 msgstr "相关的"
+
+msgid "Thematic"
+msgstr ""
+
+msgid "not one of"
+msgstr "不是当中一个"
+
+msgid "doesn't contains"
+msgstr "不包含"
 
 msgid "true"
 msgstr "真"
