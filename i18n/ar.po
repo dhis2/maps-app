@@ -1,14 +1,15 @@
 # 
 # Translators:
-# Hamza Assada <7amza.it@gmail.com>, 2020
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Hamza Assada <7amza.it@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-04-30T09:43:47.473Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -159,7 +160,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "اختر السنة"
 
 msgid "Min people"
 msgstr ""
@@ -210,10 +211,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "الأدنى"
 
 msgid "Max"
-msgstr ""
+msgstr "الأعلى"
 
 msgid "Steps"
 msgstr "الخطوات"
@@ -622,7 +623,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "الوحدات التنظيمية المحددة"
 
 msgid "Main"
 msgstr ""
@@ -646,7 +647,7 @@ msgid "Period type"
 msgstr "نوع الفترة الزمنية"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "تواريخ- البدء-الانتهاء"
 
 msgid "Program indicator"
 msgstr "مؤشر البرنامج"
@@ -664,166 +665,166 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "بواسطة عنصر البيانات"
 
 msgid "Count"
-msgstr ""
+msgstr "العدد"
 
 msgid "Average"
-msgstr ""
+msgstr "المتوسط"
 
 msgid "Sum"
-msgstr ""
+msgstr "المجموع"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "الانحراف المعياري"
 
 msgid "Variance"
-msgstr ""
+msgstr "التباين"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "فترات متساوية"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "حسابات متساوية"
 
 msgid "Relative"
-msgstr ""
+msgstr "القريب"
 
 msgid "Daily"
-msgstr ""
+msgstr "يومي"
 
 msgid "Weekly"
-msgstr ""
+msgstr "أسبوعي"
 
 msgid "Monthly"
-msgstr ""
+msgstr "شهري"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "ربعي"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "كل ستة أشهر"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "نصف سنة (فترة من ستة أشهر) نيسان"
 
 msgid "Yearly"
-msgstr ""
+msgstr "سنوي"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "السنة المالية (بداية تشرين الأول)"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "مالي يوليو"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "السنة المالية (بداية نيسان)"
 
 msgid "Today"
-msgstr ""
+msgstr "اليوم"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "الأمس"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "آخر 3 أيام"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "آخر 7 أيام"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "آخر 14 يوم"
 
 msgid "This week"
-msgstr ""
+msgstr "الأسبوع الحالي"
 
 msgid "Last week"
-msgstr ""
+msgstr "الأسبوع الماضي"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "آخر 4 أسابيع"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "آخر 12 أسبوع"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "آخر 52 أسبوع"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "أسابيع السنة الحالية"
 
 msgid "This month"
-msgstr ""
+msgstr "الشهر الحالي"
 
 msgid "Last month"
-msgstr ""
+msgstr "الشهر الماضي"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "آخر 3 أشهر"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "آخر 6 أشهر"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "آخر 12 شهر"
 
 msgid "Months this year"
-msgstr ""
+msgstr "أشهر السنة الحالية"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "الشهران المزدوجان الحاليان"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "آخر شهرين مزدوجين"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "آخر 6 أشهر مزدوجة"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "الأشهر المزدوجة في السنة الحالية"
 
 msgid "This quarter"
-msgstr ""
+msgstr "ربع السنة الحالي"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "ربع السنة الماضي"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "آخر 4 أرباع السنة"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "أرباع السنة الحالية"
 
 msgid "This six-month"
-msgstr ""
+msgstr "الستة أشهر الحالية"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "آخر نصف السنة (فترة من ستة أشهر)"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "آخر نصفي السنة (كل فترة ستة أشهر)"
 
 msgid "This year"
-msgstr ""
+msgstr "السنة الحالية"
 
 msgid "Last year"
-msgstr ""
+msgstr "السنة الماضية"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "آخر 5 سنوات"
 
 msgid "This financial year"
-msgstr ""
+msgstr "السنة المالية الحالية"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "السنة المالية الماضية"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "آخر 5 سنوات مالية"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -849,7 +850,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "الارتفاع"
 
 msgid "metres"
 msgstr ""
@@ -858,7 +859,7 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "Population density"
-msgstr ""
+msgstr "الكثافة السكانية"
 
 msgid "people per km²"
 msgstr ""
@@ -869,13 +870,13 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "الأضواء الليلية"
 
 msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
-msgstr ""
+msgstr "هطول الأمطار"
 
 msgid "millimeter"
 msgstr ""
@@ -885,7 +886,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "الحرارة"
 
 msgid "°C during daytime"
 msgstr ""
@@ -896,7 +897,7 @@ msgid ""
 msgstr ""
 
 msgid "Landcover"
-msgstr ""
+msgstr "الغطاء الأرضي"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr ""

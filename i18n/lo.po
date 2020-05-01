@@ -1,6 +1,6 @@
 # 
 # Translators:
-# phil_dhis2, 2019
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
@@ -210,10 +210,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "ຄ່ານ້ອຍສຸດ"
 
 msgid "Max"
-msgstr ""
+msgstr "ຄ່າສູງສຸດ"
 
 msgid "Steps"
 msgstr ""
@@ -622,7 +622,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "ເລືອກ​ເອົາຫົວ​ໜ່ວຍການຈັດຕັ້ງ​"
 
 msgid "Main"
 msgstr ""
@@ -646,7 +646,7 @@ msgid "Period type"
 msgstr "ແບບຊ່ວງເວລາ"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "ວັນເລີ້ມຕົ້ນ/ວັນສິ້ນສຸດ"
 
 msgid "Program indicator"
 msgstr "Program Indicator Management"
@@ -664,22 +664,22 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "ໂດຍອົງປະກອບຂອງຂໍ້ມູນ"
 
 msgid "Count"
-msgstr ""
+msgstr "ນັບ"
 
 msgid "Average"
-msgstr ""
+msgstr "ສະເລ່ຍ"
 
 msgid "Sum"
-msgstr ""
+msgstr "ຜົນບວກ"
 
 msgid "Standard deviation"
 msgstr ""
 
 msgid "Variance"
-msgstr ""
+msgstr "ຄວາມແຕກຕ່າງ"
 
 msgid "Equal intervals"
 msgstr ""
@@ -688,142 +688,142 @@ msgid "Equal counts"
 msgstr ""
 
 msgid "Relative"
-msgstr ""
+msgstr "Relative"
 
 msgid "Daily"
-msgstr ""
+msgstr "ທຸກໆມື້"
 
 msgid "Weekly"
-msgstr ""
+msgstr "ເປັນອາທິດ"
 
 msgid "Monthly"
-msgstr ""
+msgstr "ລາຍເດືອນ"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "ໄຕມາດ"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "ແຕ່ລະ 6 ເດືອນ"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "ແຕ່ລະຫົກເດືອນ ແລະ ເດືອນເມສາ"
 
 msgid "Yearly"
-msgstr ""
+msgstr "ລາຍປີ"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນຕຸລາ)"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນມິຖຸນາ)"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນເມສາ)"
 
 msgid "Today"
-msgstr ""
+msgstr "ມື້ນີ້"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "ມື້ວານນີ"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "3 ມື້ກ່ອນ"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "7 ມື້ກ່ອນ"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "14 ມື້ກ່ອນ"
 
 msgid "This week"
-msgstr ""
+msgstr "ທິດນີ້"
 
 msgid "Last week"
-msgstr ""
+msgstr "ອາທິດທີ່ຜ່ານມາ"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "4 ອາທິດຍ້ອນຫຼັງ"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "12 ອາທິດຍ້ອນຫຼັງ"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "52 ອາທິດຜ່ານມາ"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "ອາທິດ ຂອງປີນີ້"
 
 msgid "This month"
-msgstr ""
+msgstr "ເດືອນນີ້"
 
 msgid "Last month"
-msgstr ""
+msgstr "ເດືອນຜ່ານມາ"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "3 ເດືອນຍ້ອນຫຼັງ"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "6 ເດືອນຜ່ານມາ"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "12 ເດືອນຍ້ອນຫຼັງ"
 
 msgid "Months this year"
-msgstr ""
+msgstr "​ເດືອນ​ໃນ​ປີ"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "ສອງເດືອນນີ້"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "ສອງເດືອນກ່ອນທ້າຍປີ"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "6 ຂອງສອງເດືອນສຸດທ້າຍ"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "ສອງເດືອນ ຂອງປີນີ້"
 
 msgid "This quarter"
-msgstr ""
+msgstr "ໄຕມານີ້"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "ໄຕມາດຜ່ານມາ"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "4 ໄຕມາດຍ້ອນຫຼັງ"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "​ໄຕຼມາດ​ໃນ​ປີ"
 
 msgid "This six-month"
-msgstr ""
+msgstr "6 ເດືອນນີ້"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "6 ເດືອນຜ່ານມາ"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "ລວມ 6 ເດືອນ 2 ຄັ້ງທີ່ຜ່ານມາ"
 
 msgid "This year"
-msgstr ""
+msgstr "ປີນີ້"
 
 msgid "Last year"
-msgstr ""
+msgstr "ປີກາຍ"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "5 ປີຍ້ອນຫຼັງ"
 
 msgid "This financial year"
-msgstr ""
+msgstr "ສົກປີງົບປະມານຂອງປິນີ້"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "​ສົກ​ປີ​ງົບ​ປະ​ມານ​ປີ​ກາຍ"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "​ສົກ​ປິ​ງົບ​ປະ​ມານ 5ປີ​ຜ່ານ​ມາ"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -885,7 +885,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "ອຸຫະພູມ"
 
 msgid "°C during daytime"
 msgstr ""
