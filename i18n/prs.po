@@ -161,7 +161,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "غوره کال"
 
 msgid "Min people"
 msgstr ""
@@ -212,10 +212,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "کوچکتر"
 
 msgid "Max"
-msgstr ""
+msgstr "بزرگتر"
 
 msgid "Steps"
 msgstr "مرحله"
@@ -624,7 +624,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "واحد های سازمان انتخاب شده"
 
 msgid "Main"
 msgstr ""
@@ -651,7 +651,7 @@ msgid "Period type"
 msgstr "د مودې ډول"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "د پیل او پای نېټې"
 
 msgid "Display periods"
 msgstr ""
@@ -687,163 +687,163 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "با دیتا ایلمنت"
 
 msgid "Count"
-msgstr ""
+msgstr "تعداد"
 
 msgid "Average"
-msgstr ""
+msgstr "اوسط"
 
 msgid "Sum"
-msgstr ""
+msgstr "جمع"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "معیاري انحراف"
 
 msgid "Variance"
-msgstr ""
+msgstr "مغییرات"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "مساوي انټروالونه"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "مساوي حسابونه"
 
 msgid "Daily"
-msgstr ""
+msgstr "روزنه"
 
 msgid "Weekly"
-msgstr ""
+msgstr "هفته وار"
 
 msgid "Monthly"
-msgstr ""
+msgstr "ماهانه"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "سه ماهه"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "شش-ماهه"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "شش-ماهه اپریل"
 
 msgid "Yearly"
-msgstr ""
+msgstr "سالانه"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "اکتوبر مالی"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "مالی جولای"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "مالی اپریل"
 
 msgid "Today"
-msgstr ""
+msgstr "امروز"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "دیروز"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "3 روز گذشته"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "7 روز گذشته"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "14 روز گذشته"
 
 msgid "This week"
-msgstr ""
+msgstr "هفته جاری"
 
 msgid "Last week"
-msgstr ""
+msgstr "هفته گذشته"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "4 هفته گذشته"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "12 هفته گذشته"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "52 هفته گذشته"
 
 msgid "Weeks this year"
 msgstr ""
 
 msgid "This month"
-msgstr ""
+msgstr "ماه جاری"
 
 msgid "Last month"
-msgstr ""
+msgstr "ماه گذشته"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "3 ماهه گذشته"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "6 ماه گذشته"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "12 ماهه گذشته"
 
 msgid "Months this year"
-msgstr ""
+msgstr "ماه های سال هذا"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "دوبار در ماه جاری"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "دوبار در ماه گذشته"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "دروبار در شش-ماه گذشته"
 
 msgid "Bi-months this year"
 msgstr ""
 
 msgid "This quarter"
-msgstr ""
+msgstr "سه ماهه جاری"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "سه ماهه آخیر"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "4 سه ماهه آخیر"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "ربع های سال هذا"
 
 msgid "This six-month"
-msgstr ""
+msgstr "شش-ماه جاری"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "شش-ماهه گذشته"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "2 شش-ماهه گذشته"
 
 msgid "This year"
-msgstr ""
+msgstr "سال جاری"
 
 msgid "Last year"
-msgstr ""
+msgstr "سال گذشته"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "5 سال گذشته"
 
 msgid "This financial year"
-msgstr ""
+msgstr "سال مالی جاری"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "سال گذشته مالی"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "5 سال گذشته مالی"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -869,7 +869,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "بلندی"
 
 msgid "metres"
 msgstr ""
@@ -878,7 +878,7 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "Population density"
-msgstr ""
+msgstr "تراکم جمعیت"
 
 msgid "people per km²"
 msgstr ""
@@ -889,13 +889,13 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "روشنی وقت شب"
 
 msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
-msgstr ""
+msgstr "تشریح"
 
 msgid "millimeter"
 msgstr ""
@@ -905,7 +905,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "درجه حرارت"
 
 msgid "°C during daytime"
 msgstr ""
@@ -916,7 +916,7 @@ msgid ""
 msgstr ""
 
 msgid "Landcover"
-msgstr ""
+msgstr "پوشش زمین"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr ""
