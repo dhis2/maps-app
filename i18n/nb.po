@@ -162,38 +162,46 @@ msgid ""
 "population division estimates. Try a different year if you don't see data "
 "for your country."
 msgstr ""
+"Befolkningstetthetsestimater med nasjonale totaler justert for å matche FNs "
+"befolkningsdivisjon sine estimater. Prøv et annet år hvis du ikke ser data "
+"for landet ditt."
 
 msgid "Select year"
-msgstr ""
+msgstr "Velg år"
 
 msgid "Min people"
-msgstr ""
+msgstr "Min personer"
 
 msgid "Max people"
-msgstr ""
+msgstr "Maks personer"
 
 msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
 "better representes the terrain in your region."
 msgstr ""
+"Høyde over havet. Du kan justere min- og maksverdiene slik at det bedre "
+"representerer terrenget i regionen din."
 
 msgid "Min meters"
-msgstr ""
+msgstr "Min meter"
 
 msgid "Max meters"
-msgstr ""
+msgstr "Maks meter"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Nedbør samlet inn fra satellitt- og værstasjoner på bakken. Verdiene er i "
+"millimeter innen 5 dager. Oppdateres månedlig, i løpet av den tredje uken i "
+"den påfølgende måneden."
 
 msgid "Min mm"
-msgstr ""
+msgstr "Min mm"
 
 msgid "Max mm"
-msgstr ""
+msgstr "Maks mm"
 
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
@@ -215,10 +223,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 msgid "Max"
-msgstr ""
+msgstr "Max"
 
 msgid "Steps"
 msgstr "Trinn"
@@ -697,22 +705,22 @@ msgid "Tracked Entity Type"
 msgstr "Sporet enhetstype"
 
 msgid "By data element"
-msgstr ""
+msgstr "Per datalement"
 
 msgid "Count"
-msgstr ""
+msgstr "Antall"
 
 msgid "Average"
-msgstr ""
+msgstr "Gjennomsnitt"
 
 msgid "Sum"
-msgstr ""
+msgstr "Sum"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Standardavvik"
 
 msgid "Variance"
-msgstr ""
+msgstr "Varians"
 
 msgid "Equal intervals"
 msgstr ""
@@ -721,139 +729,139 @@ msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "Daglig"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Ukentlig"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Månedlig"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Kvartalsvis"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "Halvårlig"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "Halvårig April"
 
 msgid "Yearly"
-msgstr ""
+msgstr "Årlig"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Regnskapsår (start oktober)"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Regnskapsår (start juli)"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Regnskapsår (start april)"
 
 msgid "Today"
-msgstr ""
+msgstr "I dag"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "I går"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "Siste 3 dager"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "Siste 7 dager"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "Siste 14 dager"
 
 msgid "This week"
-msgstr ""
+msgstr "Denne uken"
 
 msgid "Last week"
-msgstr ""
+msgstr "Forrige uke"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "Siste 4 uker"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "Siste 12 uker"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "Siste 52 uker"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "Uker inneværende år"
 
 msgid "This month"
-msgstr ""
+msgstr "Denne måneden"
 
 msgid "Last month"
-msgstr ""
+msgstr "Forrige måned"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "Siste 3 måneder"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "Siste 6 måneder"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "Siste 12 måneder"
 
 msgid "Months this year"
-msgstr ""
+msgstr "Måneder inneværende år"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "Denne tomåneden"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "Siste tomåned"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "Siste 6 tomåneder"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Tomåneder i år"
 
 msgid "This quarter"
-msgstr ""
+msgstr "Dette kvartalet"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "Siste kvartal"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "Siste 4 kvartaler"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Kvartaler inneværende år"
 
 msgid "This six-month"
-msgstr ""
+msgstr "Dette halvåret"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "Siste halvår"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "Siste 2 halvår"
 
 msgid "This year"
-msgstr ""
+msgstr "Dette året"
 
 msgid "Last year"
-msgstr ""
+msgstr "Forrige år"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "Siste 5 år"
 
 msgid "This financial year"
-msgstr ""
+msgstr "Dette regnskapsåret"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "Siste regnskapsår"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "Siste 5 regnskapsår"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

@@ -1,14 +1,14 @@
 # 
 # Translators:
-# 晓东 林 <13981924470@126.com>, 2020
 # easylin <lin_xd@126.com>, 2020
+# 晓东 林 <13981924470@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-04-29T15:19:40.591Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -213,10 +213,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "最小"
 
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 msgid "Steps"
 msgstr "步"
@@ -688,22 +688,22 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "按数据元"
 
 msgid "Count"
-msgstr ""
+msgstr "计数"
 
 msgid "Average"
-msgstr ""
+msgstr "平均"
 
 msgid "Sum"
-msgstr ""
+msgstr "求和"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "标准差"
 
 msgid "Variance"
-msgstr ""
+msgstr "方差"
 
 msgid "Equal intervals"
 msgstr ""
@@ -712,28 +712,28 @@ msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "每日"
 
 msgid "Weekly"
-msgstr ""
+msgstr "每周"
 
 msgid "Monthly"
-msgstr ""
+msgstr "每月"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "季度"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "六个月"
 
 msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr ""
+msgstr "每年"
 
 msgid "Financial year (Start October)"
 msgstr ""
@@ -745,58 +745,58 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "昨天"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "最近3天"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "最近7天"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "最近14天"
 
 msgid "This week"
-msgstr ""
+msgstr "本周"
 
 msgid "Last week"
-msgstr ""
+msgstr "上周"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "最近四周"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "最近12周"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "最近52周"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "今年的星期"
 
 msgid "This month"
-msgstr ""
+msgstr "本月"
 
 msgid "Last month"
-msgstr ""
+msgstr "上月"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "最近3个月"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "最近六个月<br>"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "最近12月"
 
 msgid "Months this year"
-msgstr ""
+msgstr "今年的月份"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "本两月"
 
 msgid "Last bi-month"
 msgstr ""
@@ -808,43 +808,43 @@ msgid "Bi-months this year"
 msgstr ""
 
 msgid "This quarter"
-msgstr ""
+msgstr "本季"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "最近一季"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "最近四个季度"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "今年的季度"
 
 msgid "This six-month"
-msgstr ""
+msgstr "本半年"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "最近六个月"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "最近两个半年"
 
 msgid "This year"
-msgstr ""
+msgstr "今年"
 
 msgid "Last year"
-msgstr ""
+msgstr "去年"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "最近5年"
 
 msgid "This financial year"
-msgstr ""
+msgstr "本财政年"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "上一财政年"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "最近五个财政年"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

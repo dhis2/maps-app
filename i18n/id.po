@@ -1,7 +1,7 @@
 # 
 # Translators:
-# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2019
 # phil_dhis2, 2019
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
@@ -214,10 +214,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 msgid "Max"
-msgstr ""
+msgstr "Maks"
 
 msgid "Steps"
 msgstr ""
@@ -653,7 +653,7 @@ msgid "Period type"
 msgstr "tipe periode"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Tanggal dimulai-berakhir"
 
 msgid "Display periods"
 msgstr ""
@@ -689,163 +689,163 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "Berdasarkan elemen data"
 
 msgid "Count"
-msgstr ""
+msgstr "Hitung"
 
 msgid "Average"
-msgstr ""
+msgstr "Rata-rata"
 
 msgid "Sum"
-msgstr ""
+msgstr "Jumlah"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Deviasi standar"
 
 msgid "Variance"
-msgstr ""
+msgstr "Varian"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "interval equal"
 
 msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "Harian"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Mingguan"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Bulanan"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Triwulanan"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "Semester"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "Semester April"
 
 msgid "Yearly"
-msgstr ""
+msgstr "Tahunan"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Financial October"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Financial July"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Financial April"
 
 msgid "Today"
-msgstr ""
+msgstr "Hari ini"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Kemarin"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "3 hari terakhir"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "7 hari terakhir"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "14 hari terakhir"
 
 msgid "This week"
-msgstr ""
+msgstr "Minggu ini"
 
 msgid "Last week"
-msgstr ""
+msgstr "Minggu lalu"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "4 minggu terakhir"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "12 minggu terakhir"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "52 minggu terakhir"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "Mingguan tahun ini"
 
 msgid "This month"
-msgstr ""
+msgstr "Bulan ini"
 
 msgid "Last month"
-msgstr ""
+msgstr "Bulan lalu"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "3 bulan terakhir"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "6 bulan terakhir"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "12 bulan terakhir"
 
 msgid "Months this year"
-msgstr ""
+msgstr "Bulanan tahun ini"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "2 bulan ini"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "Dwiwulan terakhir"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "6 dwiwulan terakhir"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Dwiwulanan tahun ini"
 
 msgid "This quarter"
-msgstr ""
+msgstr "Triwulan ini"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "Triwulan yang lalu"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "4 triwulan terakhir"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Triwulanan tahun ini"
 
 msgid "This six-month"
-msgstr ""
+msgstr "6 bulan ini"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "Semester lalu"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "2 semester terakhir"
 
 msgid "This year"
-msgstr ""
+msgstr "Tahun ini"
 
 msgid "Last year"
-msgstr ""
+msgstr "Tahun kemarin"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "5 tahun terakhir"
 
 msgid "This financial year"
-msgstr ""
+msgstr "Tahun finansial ini"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "Tahun finansial kemarin"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "5 tahun finansial terakhir"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
