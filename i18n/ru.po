@@ -1,6 +1,6 @@
 # 
 # Translators:
-# phil_dhis2, 2019
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
@@ -159,7 +159,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "Выбрать год"
 
 msgid "Min people"
 msgstr ""
@@ -210,10 +210,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "Минимум"
 
 msgid "Max"
-msgstr ""
+msgstr "Максимум"
 
 msgid "Steps"
 msgstr "Шаги"
@@ -623,7 +623,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Выбранные организации/отделы"
 
 msgid "Main"
 msgstr ""
@@ -647,7 +647,7 @@ msgid "Period type"
 msgstr "Виды периода"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Дата начала / окончания"
 
 msgid "Program indicator"
 msgstr "Управление индикатором программы"
@@ -665,166 +665,166 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr ""
+msgstr "По элементу данных"
 
 msgid "Count"
-msgstr ""
+msgstr "Количество"
 
 msgid "Average"
-msgstr ""
+msgstr "Среднее"
 
 msgid "Sum"
-msgstr ""
+msgstr "Сумма"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Стандартное отклонение"
 
 msgid "Variance"
-msgstr ""
+msgstr "Дисперсия"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "Равные интервалы"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Равный счет"
 
 msgid "Relative"
-msgstr ""
+msgstr "Родственник"
 
 msgid "Daily"
-msgstr ""
+msgstr "Ежедневно"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Еженедельно"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Ежемесячно"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Ежеквартально"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "Раз в полугодие"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "Полугодовой-Апрель"
 
 msgid "Yearly"
-msgstr ""
+msgstr "Ежегодно"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Финансовый год - Октябрь"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Финансовый год - Июль"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Финансовый год - Апрель"
 
 msgid "Today"
-msgstr ""
+msgstr "Сегодня"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Вчера"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "Последние 3 дня"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "Последние 7 дней"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "Последние 14 дней"
 
 msgid "This week"
-msgstr ""
+msgstr "Эта неделя"
 
 msgid "Last week"
-msgstr ""
+msgstr "Прошлая неделя"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "Прошлые 4 недели"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "Прошлые 12 недель"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "Последние 52 недели"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "Недели этого года"
 
 msgid "This month"
-msgstr ""
+msgstr "Этот месяц"
 
 msgid "Last month"
-msgstr ""
+msgstr "Последний месяц"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "Прошлые 3 месяца"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "Последние 6 месяцев"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "Прошлые 12 месяцев"
 
 msgid "Months this year"
-msgstr ""
+msgstr "Месяцы этого года"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "Этот период по два месяца"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "Прошлый двухмесячный период"
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "Последние 6 двухмесячных периодов"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Би-месяцы этого года"
 
 msgid "This quarter"
-msgstr ""
+msgstr "Этот квартал"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "Последний квартал"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "Прошлые 4 квартала"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Кварталы этого года"
 
 msgid "This six-month"
-msgstr ""
+msgstr "Это полугодие"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "Прошлое полугодие"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "Последние два полугодия"
 
 msgid "This year"
-msgstr ""
+msgstr "Этот год"
 
 msgid "Last year"
-msgstr ""
+msgstr "Прошлый год"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "Прошлые 5 лет"
 
 msgid "This financial year"
-msgstr ""
+msgstr "Этот финансовый год"
 
 msgid "Last financial year"
-msgstr ""
+msgstr "Прошлый финансовый год"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "Прошлые 5 финансовых лет"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -850,7 +850,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "Высота"
 
 msgid "metres"
 msgstr ""
@@ -859,7 +859,7 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "Population density"
-msgstr ""
+msgstr "Плотность населения"
 
 msgid "people per km²"
 msgstr ""
@@ -870,13 +870,13 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Ночные огни"
 
 msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Осадки"
 
 msgid "millimeter"
 msgstr ""
@@ -886,7 +886,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "Температура"
 
 msgid "°C during daytime"
 msgstr ""
@@ -897,7 +897,7 @@ msgid ""
 msgstr ""
 
 msgid "Landcover"
-msgstr ""
+msgstr "Растительный покров"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr ""
