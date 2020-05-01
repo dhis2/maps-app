@@ -579,7 +579,7 @@ msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr ""
+msgstr "Khu vực"
 
 msgid "Center map on area"
 msgstr ""
