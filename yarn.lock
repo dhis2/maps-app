@@ -437,10 +437,10 @@
     suggestions "^1.7.0"
     uuid "^3.3.2"
 
-"@dhis2/prop-types@^1.5", "@dhis2/prop-types@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-1.5.0.tgz#7e69919f66698be373dd21940a8a770234ded6a1"
-  integrity sha512-dueFkkAMOIMbXiU7Mhr3Y+DBRyOd/rHA+5/IDiYWN1xttlUTSuGZLQ5AnJ7osBicEhx+qElaGbTdRYQj3SMBtA==
+"@dhis2/prop-types@^1.5", "@dhis2/prop-types@^1.6.4":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-1.6.4.tgz#ec4d256c9440d4d00071524422a727c61ddaa6f6"
+  integrity sha512-qkVj8OuyjDmSxzYDlCWZllvC9hIbrIImMp79/U5CVsIRbjUF0zA/tfbv4rWnsWALmwEHOQFbzl5GnO5D8RNneA==
   dependencies:
     prop-types "^15"
 
@@ -452,13 +452,13 @@
     classnames "^2.2.6"
     styled-jsx "^3.2.1"
 
-"@dhis2/ui-core@^4.1.1":
-  version "4.11.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/ui-core/-/ui-core-4.11.1.tgz#251a3c225b78bd510dd6c81e8694066374f11751"
-  integrity sha512-/3wrpshhdheMl6Wc+sXJFIPjx9NAv14B6JAv8FTEmPuQa+jYklMo+1MHdYwW5sPTSyfEe2+ll983VglynaHF3A==
+"@dhis2/ui-core@^4.19.1":
+  version "4.19.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/ui-core/-/ui-core-4.19.1.tgz#3cf32b2a24f2435d527ebef1daa99b84396da4f8"
+  integrity sha512-jvX6h+lRhKaw18B46AQuwltDKIb06e1HxGaPpplFJS1vRrTs8Yvn1pP1BFUBhTgVD3/3zLlO+lD3IsUavJUqOg==
   dependencies:
-    "@dhis2/prop-types" "^1.5.0"
-    "@popperjs/core" "^2.0.6"
+    "@dhis2/prop-types" "^1.6.4"
+    "@popperjs/core" "^2.1.0"
     classnames "^2.2.6"
 
 "@dhis2/ui-widgets@^2.0.5":
@@ -763,10 +763,10 @@
     prop-types "^15.7.2"
     react-is "^16.8.0"
 
-"@popperjs/core@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.0.6.tgz#5a39ac118811ca844155b0ad5190b8c24f35e533"
-  integrity sha512-zj7Gw8QC4jmR92eKUvtrZUEpl2ypRbq+qlE4pwf9n2hnUO9BOAcWUs4/Ht+gNIbFt98xtqhLvccdCfD469MzpQ==
+"@popperjs/core@^2.1.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.0.tgz#0e1bdf8d021e7ea58affade33d9d607e11365915"
+  integrity sha512-NMrDy6EWh9TPdSRiHmHH2ye1v5U0gBD7pRYwSwJvomx7Bm4GG04vu63dYiVzebLOx2obPpJugew06xVP0Nk7hA==
 
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
