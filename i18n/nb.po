@@ -207,20 +207,24 @@ msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
 "spots will appear in areas with a persistent cloud cover."
 msgstr ""
+"Landoverflatetemperaturer samlet inn fra satellitt i løpet av 8 dager. "
+"Blanke flekker vil vises i områder med et vedvarende skydekke."
 
 msgid "Min °C"
-msgstr ""
+msgstr "Min °C"
 
 msgid "Max °C"
-msgstr ""
+msgstr "Maks °C"
 
 msgid "17 distinct landcover types collected from satellites."
-msgstr ""
+msgstr "17 forskjellige arealdekketyper samlet inn fra satellitter."
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
+"Lysintensitet fra byer, tettsteder og andre steder med vedvarende belysning,"
+" inkludert gassfakler."
 
 msgid "Min"
 msgstr "Min"
@@ -299,10 +303,10 @@ msgid "Group set is required"
 msgstr "Gruppesett er påkrevd"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "Rediger {{name}}-lag"
 
 msgid "Add {{name}} layer"
-msgstr ""
+msgstr "Legg til {{name}}-lag"
 
 msgid "Update layer"
 msgstr "Oppdater lag"
@@ -345,13 +349,13 @@ msgid "Selection mode"
 msgstr "Valgmodus"
 
 msgid "Selected only"
-msgstr ""
+msgstr "Bare valgt"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "Valgt og under"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "Valgt og alle under"
 
 msgid "Tracked entities"
 msgstr "Sporede enheter"
@@ -508,7 +512,7 @@ msgid "Loading layer"
 msgstr "Laster lag"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}} slettet."
 
 msgid "Split view can not be combined with other layer types."
 msgstr "Delt visning kan ikke kombineres med andre lagtyper."
@@ -619,6 +623,8 @@ msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
+"Det er ikke mulig å kombinere brukerorganisasjonsenheter og velge "
+"individuelle enheter."
 
 msgid "Click the map where you want to relocate facility"
 msgstr "Klikk på kartet der du vil flytte bygningen"
@@ -633,28 +639,28 @@ msgid "two levels below user organisation unit"
 msgstr "to nivå under brukerorganisasjonsenhet"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} i {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} i og rett under {{orgunits}}"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} i og alle under {{orgunits}}"
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Valgte organisasjonsenheter"
 
 msgid "Main"
-msgstr ""
+msgstr "Hoved"
 
 msgid "Below"
-msgstr ""
+msgstr "Under"
 
 msgid "2 x below"
-msgstr ""
+msgstr "2 x under"
 
 msgid "User organisation units"
-msgstr ""
+msgstr "Brukerorganisasjonsenheter"
 
 msgid "Previous year"
 msgstr "Forrige år"
@@ -669,19 +675,19 @@ msgid "Period type"
 msgstr "Periodetype"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Start/slutt datoer"
 
 msgid "Display periods"
-msgstr ""
+msgstr "Vis perioder"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "Enkel (aggregert)"
 
 msgid "Timeline"
-msgstr ""
+msgstr "Tidslinje"
 
 msgid "Split map views"
-msgstr ""
+msgstr "Delt kartvisninger"
 
 msgid "Only one timeline is allowed."
 msgstr "Bare en tidslinje er tillatt."
@@ -723,10 +729,10 @@ msgid "Variance"
 msgstr "Varians"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "Like intervaller"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Likt antall"
 
 msgid "Daily"
 msgstr "Daglig"
@@ -738,7 +744,7 @@ msgid "Monthly"
 msgstr "Månedlig"
 
 msgid "Bi-monthly)"
-msgstr ""
+msgstr "To-månedlig)"
 
 msgid "Quarterly"
 msgstr "Kvartalsvis"
@@ -877,7 +883,7 @@ msgid "A connection to Google Earth Engine could not be established."
 msgstr "Kunne ikke opprette tilkobling til Google Earth Engine."
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "Kart \"{{name}}\" er lagret."
 
 msgid "Boundaries"
 msgstr "Grenser"
@@ -889,111 +895,115 @@ msgid "No boundaries found"
 msgstr "Ingen grenser funnet"
 
 msgid "Elevation"
-msgstr ""
+msgstr "Høyde"
 
 msgid "metres"
-msgstr ""
+msgstr "meter"
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Høyde over havet."
 
 msgid "Population density"
-msgstr ""
+msgstr "Befolkningstetthet"
 
 msgid "people per km²"
-msgstr ""
+msgstr "befolkning per km²"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
 "population division estimates."
 msgstr ""
+"Befolkningstetthetsestimater med nasjonale totaler justert for å matche FNs "
+"befolkningsdivisjon sine estimater."
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Kveldslys"
 
 msgid "light intensity"
-msgstr ""
+msgstr "lysintensitet"
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Tolkning"
 
 msgid "millimeter"
-msgstr ""
+msgstr "millimeter"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground."
-msgstr ""
+msgstr "Nedbør samlet inn fra satellitt- og værstasjoner på bakken."
 
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatur"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "° C på dagtid"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"Landoverflatetemperaturer samlet inn fra satellitt. Blanke flekker vil vises"
+" i områder med et vedvarende skydekke."
 
 msgid "Landcover"
-msgstr ""
+msgstr "Arealdekke"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
 
 msgid "Water"
-msgstr ""
+msgstr "Vann"
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Eviggrønn nålskog"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Eviggrønn bredbladskog"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Lauvfellende nålskog"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Lauvfellende bredbladskog"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "Blandet skog"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "Lukket krattskog"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "Åpen krattskog"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "Skogete savanner"
 
 msgid "Savannas"
-msgstr ""
+msgstr "Savanner"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Gresslette"
 
 msgid "Permanent wetlands"
-msgstr ""
+msgstr "Permanent våtmark"
 
 msgid "Croplands"
-msgstr ""
+msgstr "Åkre"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Urbant og utbygd"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "Åkre/Naturlig vegetasjonmosaikk"
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "Snø og is"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "Impediment eller lite vegetasjon"
 
 msgid "Unclassified"
-msgstr ""
+msgstr "Uklassifisert"
 
 msgid "Access denied"
 msgstr "Ingen tilgang"
@@ -1035,7 +1045,7 @@ msgid "related"
 msgstr "relatert"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Tematisk"
 
 msgid "not one of"
 msgstr "ikke en av"
