@@ -496,10 +496,10 @@ msgid "in"
 msgstr "i"
 
 msgid "in and right below"
-msgstr "inn og rett nedenfor"
+msgstr "i og rett under"
 
 msgid "in and all below"
-msgstr "i og alle nedenfor"
+msgstr "i og alle under"
 
 msgid "Previous year"
 msgstr "Forrige år"
