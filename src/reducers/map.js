@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import { arrayMove } from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 import { generateUid } from 'd2/uid';
 
 const defaultState = {
