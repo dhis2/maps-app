@@ -251,7 +251,7 @@ msgid "period"
 msgstr "periode"
 
 msgid "Org units"
-msgstr "Org enheter"
+msgstr "Org enhet"
 
 msgid "Filter"
 msgstr "Filter"
