@@ -167,7 +167,7 @@ msgid "Filter"
 msgstr "Filter"
 
 msgid "Org units"
-msgstr "Org enheter"
+msgstr "Org enhet"
 
 msgid "Start date"
 msgstr "Startdato"
