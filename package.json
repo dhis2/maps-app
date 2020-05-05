@@ -41,7 +41,7 @@
         "profile": "yarn start --profile",
         "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
-        "localize": "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/",
+        "localize": "yarn extract-pot && d2-i18n-generate -n default -p ./i18n/ -o ./src/locales/",
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
