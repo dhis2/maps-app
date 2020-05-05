@@ -315,17 +315,6 @@
     lodash "^4.17.10"
     prop-types "^15.6.2"
 
-"@dhis2/d2-ui-org-unit-dialog@5.2.10":
-  version "5.2.10"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-dialog/-/d2-ui-org-unit-dialog-5.2.10.tgz#a9c9ea1dddcdc46f264af247753923c4551b6943"
-  integrity sha512-8Z+cHF8uSEhoQdmPg9VJw+UuVga3e2nn5ZzecK62vlmGUhSsYC9A5U7XUhzFL7MGeGgr5BpCltz6mzlCTp/juQ==
-  dependencies:
-    "@dhis2/d2-i18n" "^1.0.3"
-    "@dhis2/d2-ui-org-unit-tree" "5.2.10"
-    "@material-ui/core" "^3.3.1"
-    "@material-ui/icons" "^3.0.1"
-    prop-types "^15.5.10"
-
 "@dhis2/d2-ui-org-unit-dialog@5.3.0":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-dialog/-/d2-ui-org-unit-dialog-5.3.0.tgz#9a80901f6a1cf687dc15780a4c0382ee00e21548"
@@ -337,17 +326,15 @@
     "@material-ui/icons" "^3.0.1"
     prop-types "^15.5.10"
 
-"@dhis2/d2-ui-org-unit-tree@5.2.10":
-  version "5.2.10"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-5.2.10.tgz#0a7cd45c55715a617d92fd3a97e0ca499d9d5473"
-  integrity sha512-Ba0a6gMkwHClZwERe9QK+MwUXW6TDSdfUFsGRF9p6FYhIpBB5AEd1iRPaidEDJR7+63nPFIs4s50BDS647W9jw==
+"@dhis2/d2-ui-org-unit-dialog@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-dialog/-/d2-ui-org-unit-dialog-7.0.0.tgz#126480bca5d315ebb7de8714a9c8f454dd9179c1"
+  integrity sha512-MuwQjGReX6kRlok+Q+6Zemq1FTIvodYEYucbACFRA5/mToXGkLPsh+4PuZo+aeF4vN3/ajusct+Q1/OZT/9L6A==
   dependencies:
-    "@dhis2/d2-ui-core" "5.2.10"
+    "@dhis2/d2-ui-org-unit-tree" "7.0.0"
     "@material-ui/core" "^3.3.1"
-    babel-runtime "^6.26.0"
+    "@material-ui/icons" "^3.0.1"
     prop-types "^15.5.10"
-    recompose "^0.26.0"
-    rxjs "^5.5.7"
 
 "@dhis2/d2-ui-org-unit-tree@5.3.0":
   version "5.3.0"
