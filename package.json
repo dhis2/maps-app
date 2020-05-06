@@ -48,7 +48,7 @@
         "@dhis2/app-runtime": "^2.0.4",
         "@dhis2/d2-i18n": "^1.0.6",
         "@dhis2/d2-ui-analytics": "^0.0.3",
-        "@dhis2/d2-ui-core": "^5.2.10",
+        "@dhis2/d2-ui-core": "^7.0.1",
         "@dhis2/d2-ui-file-menu": "7.0.2",
         "@dhis2/d2-ui-interpretations": "7.0.2",
         "@dhis2/d2-ui-org-unit-dialog": "7.0.2",
