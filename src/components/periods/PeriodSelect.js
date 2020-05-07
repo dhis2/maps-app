@@ -37,6 +37,7 @@ class PeriodSelect extends Component {
         period: PropTypes.shape({
             id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
+            startDate: PropTypes.string,
         }),
         onChange: PropTypes.func.isRequired,
         style: PropTypes.object,

@@ -101,7 +101,7 @@ class FacilityDialog extends Component {
         };
     }
 
-    componentWillReceiveProps({ areaRadius }) {
+    UNSAFE_componentWillReceiveProps({ areaRadius }) {
         if (areaRadius !== this.props.areaRadius) {
             this.setState({
                 showBuffer: this.hasBuffer(areaRadius),
