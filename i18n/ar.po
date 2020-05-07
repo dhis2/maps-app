@@ -492,7 +492,7 @@ msgid "Use human-readable keys"
 msgstr ""
 
 msgid "External layer"
-msgstr ""
+msgstr "طبقة خارحية"
 
 msgid "Loading layer"
 msgstr ""

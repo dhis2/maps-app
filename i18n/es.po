@@ -493,7 +493,7 @@ msgid "Use human-readable keys"
 msgstr ""
 
 msgid "External layer"
-msgstr ""
+msgstr "Capa externa"
 
 msgid "Loading layer"
 msgstr ""
