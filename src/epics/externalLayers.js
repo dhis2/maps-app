@@ -5,7 +5,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatAll';
 import 'rxjs/add/operator/filter';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import * as types from '../constants/actionTypes';
 import { addBasemap } from '../actions/basemap';
 import { addExternalLayer } from '../actions/externalLayers';

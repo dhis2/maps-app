@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import i18n from '@dhis2/d2-i18n';
 
 const styles = theme => ({
     container: {
@@ -45,8 +46,8 @@ const styles = theme => ({
 
 const Layer = ({ classes, layer, onClick }) => {
     const { img, type, name } = layer;
+    const label = name || i18n.t(type);
 
-    const label = name || type;
     return (
         <div
             className={classes.container}
@@ -56,7 +57,9 @@ const Layer = ({ classes, layer, onClick }) => {
             {img ? (
                 <img src={img} className={classes.image} />
             ) : (
-                <div className={classes.noImage}>External layer</div>
+                <div className={classes.noImage}>
+                    {i18n.t('External layer')}
+                </div>
             )}
             <div className={classes.name}>{label}</div>
         </div>
