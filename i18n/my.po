@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-04-29T15:19:40.591Z\n"
+"POT-Creation-Date: 2020-05-07T11:28:34.771Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Burmese (https://www.transifex.com/hisp-uio/teams/100509/my/)\n"
@@ -291,7 +291,7 @@ msgstr ""
 msgid "Edit {{name}} layer"
 msgstr ""
 
-msgid "Add {{name}} layer"
+msgid "Add new {{name}} layer"
 msgstr ""
 
 msgid "Update layer"
@@ -488,6 +488,9 @@ msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
+msgstr ""
+
+msgid "External layer"
 msgstr ""
 
 msgid "Loading layer"

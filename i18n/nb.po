@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-04-29T15:19:40.591Z\n"
+"POT-Creation-Date: 2020-05-07T11:28:34.771Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -305,8 +305,8 @@ msgstr "Gruppesett er påkrevd"
 msgid "Edit {{name}} layer"
 msgstr "Rediger {{name}}-lag"
 
-msgid "Add {{name}} layer"
-msgstr "Legg til {{name}}-lag"
+msgid "Add new {{name}} layer"
+msgstr ""
 
 msgid "Update layer"
 msgstr "Oppdater lag"
@@ -507,6 +507,9 @@ msgstr "ID-format"
 
 msgid "Use human-readable keys"
 msgstr "Bruk menneskelige lesbare nøkler"
+
+msgid "External layer"
+msgstr ""
 
 msgid "Loading layer"
 msgstr "Laster lag"
