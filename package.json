@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "34.0.26",
+    "version": "34.0.27",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -41,7 +41,7 @@
         "profile": "yarn start --profile",
         "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
-        "localize": "yarn extract-pot && d2-i18n-generate -n NAMESPACE -p ./i18n/ -o ./src/locales/",
+        "localize": "yarn extract-pot && d2-i18n-generate -n default -p ./i18n/ -o ./src/locales/",
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
@@ -49,10 +49,10 @@
         "@dhis2/d2-i18n": "^1.0.6",
         "@dhis2/d2-ui-analytics": "^0.0.3",
         "@dhis2/d2-ui-core": "^5.2.10",
-        "@dhis2/d2-ui-file-menu": "5.2.10",
-        "@dhis2/d2-ui-interpretations": "6.2.1",
-        "@dhis2/d2-ui-org-unit-dialog": "5.2.10",
-        "@dhis2/d2-ui-org-unit-tree": "5.2.10",
+        "@dhis2/d2-ui-file-menu": "7.0.2",
+        "@dhis2/d2-ui-interpretations": "7.0.2",
+        "@dhis2/d2-ui-org-unit-dialog": "7.0.2",
+        "@dhis2/d2-ui-org-unit-tree": "7.0.2",
         "@dhis2/maps-gl": "1.0.18",
         "@dhis2/ui-core": "^4.1.1",
         "@dhis2/ui-widgets": "^2.0.5",
@@ -86,7 +86,7 @@
         "redux-logger": "^3.0.6",
         "redux-observable": "^0.18.0",
         "redux-thunk": "^2.3.0",
-        "rxjs": "5.5.6",
+        "rxjs": "5.5.7",
         "typeface-roboto": "^0.0.75",
         "uglifyjs-webpack-plugin": "^2.1.2",
         "url-polyfill": "^1.1.0",
