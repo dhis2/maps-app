@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "34.0.26",
+    "version": "34.0.27",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -86,7 +86,7 @@
         "redux-logger": "^3.0.6",
         "redux-observable": "^0.18.0",
         "redux-thunk": "^2.3.0",
-        "rxjs": "5.5.6",
+        "rxjs": "5.5.7",
         "typeface-roboto": "^0.0.75",
         "uglifyjs-webpack-plugin": "^2.1.2",
         "url-polyfill": "^1.1.0",
