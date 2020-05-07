@@ -17,6 +17,7 @@ const Message = ({ message, clearMessage }) =>
 
 Message.propTypes = {
     message: PropTypes.string,
+    clearMessage: PropTypes.func.isRequired,
 };
 
 export default connect(({ message }) => ({ message }), { clearMessage })(
