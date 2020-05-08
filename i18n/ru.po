@@ -492,7 +492,7 @@ msgid "Use human-readable keys"
 msgstr ""
 
 msgid "External layer"
-msgstr ""
+msgstr "Внешний слой"
 
 msgid "Loading layer"
 msgstr ""
