@@ -491,7 +491,7 @@ msgid "Use human-readable keys"
 msgstr ""
 
 msgid "External layer"
-msgstr ""
+msgstr "بهرنی لایه"
 
 msgid "Loading layer"
 msgstr ""
