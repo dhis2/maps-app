@@ -490,7 +490,7 @@ msgid "Use human-readable keys"
 msgstr ""
 
 msgid "External layer"
-msgstr ""
+msgstr "د پېښې طبقه"
 
 msgid "Loading layer"
 msgstr ""

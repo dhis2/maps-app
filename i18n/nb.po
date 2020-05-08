@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Caroline Hesthagen Holen <carolinehholen@gmail.com>, 2020
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
+# Caroline Hesthagen Holen <carolinehholen@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-07T10:36:59.782Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
+"Last-Translator: Caroline Hesthagen Holen <carolinehholen@gmail.com>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -306,7 +306,7 @@ msgid "Edit {{name}} layer"
 msgstr "Rediger {{name}}-lag"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Legg til nytt {{name}}-lag"
 
 msgid "Update layer"
 msgstr "Oppdater lag"
@@ -509,7 +509,7 @@ msgid "Use human-readable keys"
 msgstr "Bruk menneskelige lesbare nøkler"
 
 msgid "External layer"
-msgstr ""
+msgstr "Eksternt lag"
 
 msgid "Loading layer"
 msgstr "Laster lag"
