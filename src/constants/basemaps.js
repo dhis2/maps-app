@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 
-export const defaultBasemaps = [
+export const defaultBasemaps = () => [
     {
         id: 'osmLight',
         name: i18n.t('OSM Light'),
