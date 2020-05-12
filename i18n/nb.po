@@ -1,14 +1,14 @@
 # 
 # Translators:
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2020
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Caroline Hesthagen Holen <carolinehholen@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-07T10:36:59.782Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Caroline Hesthagen Holen <carolinehholen@gmail.com>, 2020\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -647,7 +647,7 @@ msgid "Search for place or address"
 msgstr "Søk etter sted eller adresse"
 
 msgid "Zoom in"
-msgstr "Zoom in"
+msgstr "Zoom inn"
 
 msgid "Zoom out"
 msgstr "Zoom ut"
@@ -744,7 +744,7 @@ msgid "Period type"
 msgstr "Periodetype"
 
 msgid "Start/end dates"
-msgstr "Start/slutt datoer"
+msgstr "Start/slutt-datoer"
 
 msgid "Display periods"
 msgstr "Vis perioder"
@@ -813,7 +813,7 @@ msgid "Monthly"
 msgstr "Månedlig"
 
 msgid "Bi-monthly)"
-msgstr "To-månedlig)"
+msgstr "To-månedlig"
 
 msgid "Quarterly"
 msgstr "Kvartalsvis"
@@ -992,7 +992,7 @@ msgid "light intensity"
 msgstr "lysintensitet"
 
 msgid "Precipitation"
-msgstr "Tolkning"
+msgstr "Nedbør"
 
 msgid "millimeter"
 msgstr "millimeter"
