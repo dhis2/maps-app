@@ -19,8 +19,6 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
@@ -78,6 +76,7 @@ export class EventDialog extends Component {
     static propTypes = {
         areaRadius: PropTypes.number,
         columns: PropTypes.array,
+        defaultPeriod: PropTypes.string,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
         eventCoordinateField: PropTypes.string,
@@ -118,15 +117,7 @@ export class EventDialog extends Component {
     }
 
     componentDidMount() {
-        const {
-            rows,
-            filters,
-            startDate,
-            endDate,
-            setStartDate,
-            setEndDate,
-            setOrgUnitRoot,
-        } = this.props;
+        const { rows, filters, defaultPeriod, setOrgUnitRoot } = this.props;
 
         const orgUnits = getOrgUnitNodesFromRows(rows);
         const period = getPeriodFromFilters(filters);
@@ -136,10 +127,11 @@ export class EventDialog extends Component {
             setOrgUnitRoot();
         }
 
-        if (!period && !startDate && !endDate) {
-            // Set default period (last year)
-            setStartDate(DEFAULT_START_DATE);
-            setEndDate(DEFAULT_END_DATE);
+        // Set default period from system settings
+        if (!period && defaultPeriod) {
+            setPeriod({
+                id: defaultPeriod,
+            });
         }
     }
 

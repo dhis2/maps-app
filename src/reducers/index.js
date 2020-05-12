@@ -34,7 +34,7 @@ import programStageDataElements from './programStageDataElements';
 import programTrackedEntityAttributes from './programTrackedEntityAttributes';
 import relocate from './relocate';
 import ui from './ui';
-import userSettings from './userSettings';
+import settings from './settings';
 import trackedEntityTypes from './trackedEntityTypes';
 import dataDownload from './dataDownload';
 
@@ -74,7 +74,7 @@ export default combineReducers({
     programTrackedEntityAttributes,
     relocate,
     ui,
-    userSettings,
+    settings,
     trackedEntityTypes,
     dataDownload,
 });
