@@ -129,7 +129,7 @@ const Plugin = () => {
                     },
                 };
             } else {
-                basemap = defaultBasemaps.find(map => map.id === basemapId);
+                basemap = defaultBasemaps().find(map => map.id === basemapId);
             }
 
             if (basemapId.substring(0, 6) === 'google') {
