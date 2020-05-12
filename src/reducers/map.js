@@ -3,10 +3,7 @@ import { arrayMove } from 'react-sortable-hoc';
 import { generateUid } from 'd2/uid';
 
 const defaultState = {
-    bounds: [
-        [-18.7, -34.9],
-        [50.2, 35.9],
-    ],
+    bounds: [[-18.7, -34.9], [50.2, 35.9]],
     basemap: {
         id: 'osmLight',
         isVisible: true,
