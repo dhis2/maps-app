@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -73,9 +72,7 @@ const Basemap = ({ classes, id, img, name, isSelected, onClick }) => {
                 {img ? (
                     <img src={img} className={classes.image} />
                 ) : (
-                    <div className={classes.noImage}>
-                        {i18n.t('External basemap')}
-                    </div>
+                    <div className={classes.noImage}>External basemap</div>
                 )}
             </div>
             <div
@@ -84,7 +81,7 @@ const Basemap = ({ classes, id, img, name, isSelected, onClick }) => {
                 }`}
                 data-test="basemaplistitem-name"
             >
-                {i18n.t(name)}
+                {name}
             </div>
         </div>
     );

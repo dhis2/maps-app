@@ -1,9 +1,7 @@
-import i18n from '@dhis2/d2-i18n';
-
 export const defaultBasemaps = [
     {
         id: 'osmLight',
-        name: i18n.t('OSM Light'),
+        name: 'OSM Light',
         img: 'images/osmlight.png',
         config: {
             type: 'tileLayer',
@@ -15,7 +13,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'openStreetMap',
-        name: i18n.t('OSM Detailed'),
+        name: 'OSM Detailed',
         img: 'images/osm.png',
         config: {
             type: 'tileLayer',
@@ -26,7 +24,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'googleStreets',
-        name: i18n.t('Google Streets'),
+        name: 'Google Streets',
         img: 'images/googlestreets.png',
         config: {
             type: 'googleLayer',
@@ -35,7 +33,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'googleHybrid',
-        name: i18n.t('Google Hybrid'),
+        name: 'Google Hybrid',
         img: 'images/googlehybrid.jpeg',
         config: {
             type: 'googleLayer',
