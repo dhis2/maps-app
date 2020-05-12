@@ -1,14 +1,14 @@
 # 
 # Translators:
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2020
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Caroline Hesthagen Holen <carolinehholen@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-07T11:28:34.771Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Caroline Hesthagen Holen <carolinehholen@gmail.com>, 2020\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -678,7 +678,7 @@ msgid "Period type"
 msgstr "Periodetype"
 
 msgid "Start/end dates"
-msgstr "Start/slutt datoer"
+msgstr "Start/slutt-datoer"
 
 msgid "Display periods"
 msgstr "Vis perioder"
@@ -926,7 +926,7 @@ msgid "light intensity"
 msgstr "lysintensitet"
 
 msgid "Precipitation"
-msgstr "Tolkning"
+msgstr "Nedbør"
 
 msgid "millimeter"
 msgstr "millimeter"
