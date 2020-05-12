@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-05-07T10:36:59.782Z\n"
-"PO-Revision-Date: 2020-05-07T10:36:59.782Z\n"
+"POT-Creation-Date: 2020-05-12T23:11:18.492Z\n"
+"PO-Revision-Date: 2020-05-12T23:11:18.492Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -24,6 +24,9 @@ msgid "Automatic"
 msgstr ""
 
 msgid "Predefined"
+msgstr ""
+
+msgid "Size"
 msgstr ""
 
 msgid "Data element group"
@@ -278,6 +281,24 @@ msgstr ""
 msgid "Group set is required"
 msgstr ""
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -449,6 +470,9 @@ msgstr ""
 msgid "Interpretations"
 msgstr ""
 
+msgid "External basemap"
+msgstr ""
+
 msgid "Basemap"
 msgstr ""
 
@@ -593,6 +617,9 @@ msgid "Enter fullscreen"
 msgstr ""
 
 msgid "Exit fullscreen"
+msgstr ""
+
+msgid "Finish measurement"
 msgstr ""
 
 msgid "ha"
@@ -760,6 +787,30 @@ msgid "Standard deviation"
 msgstr ""
 
 msgid "Variance"
+msgstr ""
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
+
+msgid "Bing Road"
+msgstr ""
+
+msgid "Bing Dark"
+msgstr ""
+
+msgid "Bing Aerial"
+msgstr ""
+
+msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "Equal intervals"
