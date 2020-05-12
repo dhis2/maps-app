@@ -14,6 +14,7 @@ const getMapLocale = () => ({
     Distance: i18n.t('Distance'),
     'Enter fullscreen': i18n.t('Enter fullscreen'),
     'Exit fullscreen': i18n.t('Exit fullscreen'),
+    'Finish measurement': i18n.t('Finish measurement'),
     ha: i18n.t('ha'),
     km: i18n.t('km'),
     'Measure distances and areas': i18n.t('Measure distances and areas'),

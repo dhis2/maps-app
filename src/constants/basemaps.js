@@ -1,7 +1,9 @@
-export const defaultBasemaps = [
+import i18n from '@dhis2/d2-i18n';
+
+export const defaultBasemaps = () => [
     {
         id: 'osmLight',
-        name: 'OSM Light',
+        name: i18n.t('OSM Light'),
         img: 'images/osmlight.png',
         config: {
             type: 'tileLayer',
@@ -13,7 +15,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'openStreetMap',
-        name: 'OSM Detailed',
+        name: i18n.t('OSM Detailed'),
         img: 'images/osm.png',
         config: {
             type: 'tileLayer',
@@ -24,7 +26,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'googleStreets',
-        name: 'Google Streets',
+        name: i18n.t('Google Streets'),
         img: 'images/googlestreets.png',
         config: {
             type: 'googleLayer',
@@ -33,7 +35,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'googleHybrid',
-        name: 'Google Hybrid',
+        name: i18n.t('Google Hybrid'),
         img: 'images/googlehybrid.jpeg',
         config: {
             type: 'googleLayer',
@@ -42,7 +44,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'bingLight',
-        name: 'Bing Road',
+        name: i18n.t('Bing Road'),
         img: 'images/bingroad.png',
         config: {
             type: 'bingLayer',
@@ -53,7 +55,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'bingDark',
-        name: 'Bing Dark',
+        name: i18n.t('Bing Dark'),
         img: 'images/bingdark.png',
         config: {
             type: 'bingLayer',
@@ -62,7 +64,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'bingAerial',
-        name: 'Bing Aerial',
+        name: i18n.t('Bing Aerial'),
         img: 'images/bingaerial.jpeg',
         config: {
             type: 'bingLayer',
@@ -71,7 +73,7 @@ export const defaultBasemaps = [
     },
     {
         id: 'bingHybrid',
-        name: 'Bing Aerial Labels',
+        name: i18n.t('Bing Aerial Labels'),
         img: 'images/binghybrid.jpeg',
         config: {
             type: 'bingLayer',

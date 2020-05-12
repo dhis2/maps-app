@@ -2,7 +2,7 @@ import { defaultBasemaps } from '../constants/basemaps';
 
 import * as types from '../constants/actionTypes';
 
-const basemaps = (state = defaultBasemaps, action) => {
+const basemaps = (state = defaultBasemaps(), action) => {
     switch (action.type) {
         case types.BASEMAP_ADD:
             return [...state, action.payload];
