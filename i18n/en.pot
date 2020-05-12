@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-05-12T20:38:15.293Z\n"
-"PO-Revision-Date: 2020-05-12T20:38:15.294Z\n"
+"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"PO-Revision-Date: 2020-05-12T20:48:33.602Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -468,6 +468,9 @@ msgid "Indicator group"
 msgstr ""
 
 msgid "Interpretations"
+msgstr ""
+
+msgid "External basemap"
 msgstr ""
 
 msgid "Basemap"

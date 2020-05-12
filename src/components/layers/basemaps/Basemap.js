@@ -55,35 +55,40 @@ const styles = theme => ({
     },
 });
 
-const Basemap = ({ classes, id, img, name, isSelected, onClick }) => (
-    <div
-        className={classes.container}
-        title={name}
-        onClick={() => onClick(id)}
-        data-test="basemaplistitem"
-    >
+// TODO: Use ImageSelect.js component for selectable image
+const Basemap = ({ classes, id, img, name, isSelected, onClick }) => {
+    return (
         <div
-            className={`${classes.imageContainer} ${
-                isSelected ? classes.selected : ''
-            }`}
-            data-test="basemaplistitem-img"
+            className={classes.container}
+            title={name}
+            onClick={() => onClick(id)}
+            data-test="basemaplistitem"
         >
-            {img ? (
-                <img src={img} className={classes.image} />
-            ) : (
-                <div className={classes.noImage}>External basemap</div>
-            )}
+            <div
+                className={`${classes.imageContainer} ${
+                    isSelected ? classes.selected : ''
+                }`}
+                data-test="basemaplistitem-img"
+            >
+                {img ? (
+                    <img src={img} className={classes.image} />
+                ) : (
+                    <div className={classes.noImage}>
+                        {i18n.t('External basemap')}
+                    </div>
+                )}
+            </div>
+            <div
+                className={`${classes.name} ${
+                    isSelected ? classes.nameSelected : ''
+                }`}
+                data-test="basemaplistitem-name"
+            >
+                {i18n.t(name)}
+            </div>
         </div>
-        <div
-            className={`${classes.name} ${
-                isSelected ? classes.nameSelected : ''
-            }`}
-            data-test="basemaplistitem-name"
-        >
-            {i18n.t(name)}
-        </div>
-    </div>
-);
+    );
+};
 
 Basemap.propTypes = {
     classes: PropTypes.object.isRequired,
