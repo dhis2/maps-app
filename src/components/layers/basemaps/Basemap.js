@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -54,38 +55,35 @@ const styles = theme => ({
     },
 });
 
-// TODO: Use ImageSelect.js component for selectable image
-const Basemap = ({ classes, id, img, name, isSelected, onClick }) => {
-    return (
+const Basemap = ({ classes, id, img, name, isSelected, onClick }) => (
+    <div
+        className={classes.container}
+        title={name}
+        onClick={() => onClick(id)}
+        data-test="basemaplistitem"
+    >
         <div
-            className={classes.container}
-            title={name}
-            onClick={() => onClick(id)}
-            data-test="basemaplistitem"
+            className={`${classes.imageContainer} ${
+                isSelected ? classes.selected : ''
+            }`}
+            data-test="basemaplistitem-img"
         >
-            <div
-                className={`${classes.imageContainer} ${
-                    isSelected ? classes.selected : ''
-                }`}
-                data-test="basemaplistitem-img"
-            >
-                {img ? (
-                    <img src={img} className={classes.image} />
-                ) : (
-                    <div className={classes.noImage}>External basemap</div>
-                )}
-            </div>
-            <div
-                className={`${classes.name} ${
-                    isSelected ? classes.nameSelected : ''
-                }`}
-                data-test="basemaplistitem-name"
-            >
-                {name}
-            </div>
+            {img ? (
+                <img src={img} className={classes.image} />
+            ) : (
+                <div className={classes.noImage}>External basemap</div>
+            )}
         </div>
-    );
-};
+        <div
+            className={`${classes.name} ${
+                isSelected ? classes.nameSelected : ''
+            }`}
+            data-test="basemaplistitem-name"
+        >
+            {i18n.t(name)}
+        </div>
+    </div>
+);
 
 Basemap.propTypes = {
     classes: PropTypes.object.isRequired,
