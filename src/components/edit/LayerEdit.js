@@ -25,14 +25,14 @@ const layerType = {
     earthEngine: EarthEngineDialog,
 };
 
-const layerName = {
-    event: 'event',
-    trackedEntity: 'tracked entity',
-    facility: 'facility',
-    thematic: 'thematic',
-    boundary: 'boundary',
-    earthEngine: 'Earth Engine',
-};
+const layerName = () => ({
+    event: i18n.t('event'),
+    trackedEntity: i18n.t('tracked entity'),
+    facility: i18n.t('facility'),
+    thematic: i18n.t('thematic'),
+    boundary: i18n.t('boundary'),
+    earthEngine: i18n.t('Earth Engine'),
+});
 
 const styles = {
     title: {
@@ -93,7 +93,7 @@ class LayerEdit extends Component {
         }
 
         const type = layer.layer;
-        const name = layerName[type];
+        const name = layerName()[type];
         const LayerDialog = layerType[type];
 
         if (!LayerDialog) {
