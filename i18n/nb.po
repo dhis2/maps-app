@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-05T09:18:51.686Z\n"
+"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -33,6 +33,9 @@ msgstr "Automatisk"
 
 msgid "Predefined"
 msgstr "Forhåndsdefinert "
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "Dataelementgruppe"
@@ -302,6 +305,24 @@ msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
 msgid "Group set is required"
 msgstr "Gruppesett er påkrevd"
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr "Rediger {{name}}-lag"
 
@@ -477,6 +498,9 @@ msgstr "Indikatorgruppe"
 msgid "Interpretations"
 msgstr "Tolkninger"
 
+msgid "External basemap"
+msgstr ""
+
 msgid "Basemap"
 msgstr "Bakgrunnskart"
 
@@ -624,6 +648,9 @@ msgstr "Gå inn i fullskjerm"
 
 msgid "Exit fullscreen"
 msgstr "Gå ut av fullskjerm"
+
+msgid "Finish measurement"
+msgstr ""
 
 msgid "ha"
 msgstr "ha"
@@ -796,6 +823,30 @@ msgstr "Standardavvik"
 
 msgid "Variance"
 msgstr "Varians"
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
+
+msgid "Bing Road"
+msgstr ""
+
+msgid "Bing Dark"
+msgstr ""
+
+msgid "Bing Aerial"
+msgstr ""
+
+msgid "Bing Aerial Labels"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "Like intervaller"
