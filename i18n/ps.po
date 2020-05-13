@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-07T13:18:11.610Z\n"
+"POT-Creation-Date: 2020-05-12T22:15:44.081Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Pushto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
@@ -33,6 +33,9 @@ msgstr "اتوماتیک"
 
 msgid "Predefined"
 msgstr "از قبل تعین شده"
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "د مالوماتو (ډاټا) د برخې ګروپ"
@@ -285,6 +288,24 @@ msgstr ""
 msgid "Group set is required"
 msgstr ""
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -460,6 +481,9 @@ msgstr "د شاخص ګروپ"
 
 msgid "Interpretations"
 msgstr "شفاهي ژباړې"
+
+msgid "External basemap"
+msgstr ""
 
 msgid "Basemap"
 msgstr ""
@@ -683,6 +707,18 @@ msgstr "معیاري انحراف"
 
 msgid "Variance"
 msgstr "توپیر"
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "انتروال های مساوی"
