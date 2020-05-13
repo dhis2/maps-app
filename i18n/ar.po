@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-05T09:18:51.686Z\n"
+"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -34,6 +34,9 @@ msgstr "تلقائي"
 
 msgid "Predefined"
 msgstr "سبق تحديده"
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "مجموعة عناصر البيانات"
@@ -289,6 +292,24 @@ msgstr ""
 msgid "Group set is required"
 msgstr ""
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -462,6 +483,9 @@ msgstr "مجموعة المؤشرات"
 msgid "Interpretations"
 msgstr "التفسيرات"
 
+msgid "External basemap"
+msgstr ""
+
 msgid "Basemap"
 msgstr ""
 
@@ -606,6 +630,9 @@ msgid "Enter fullscreen"
 msgstr ""
 
 msgid "Exit fullscreen"
+msgstr ""
+
+msgid "Finish measurement"
 msgstr ""
 
 msgid "ha"
@@ -774,6 +801,30 @@ msgstr "الانحراف المعياري"
 
 msgid "Variance"
 msgstr "التباين"
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
+
+msgid "Bing Road"
+msgstr ""
+
+msgid "Bing Dark"
+msgstr ""
+
+msgid "Bing Aerial"
+msgstr ""
+
+msgid "Bing Aerial Labels"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "فترات متساوية"

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-05T09:18:51.686Z\n"
+"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -35,6 +35,9 @@ msgstr "自动"
 
 msgid "Predefined"
 msgstr "已预定义"
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "数据元组"
@@ -290,6 +293,24 @@ msgstr "记住选择包括机构的等级"
 msgid "Group set is required"
 msgstr "需要组集"
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -463,6 +484,9 @@ msgstr "指标组"
 msgid "Interpretations"
 msgstr "注释"
 
+msgid "External basemap"
+msgstr ""
+
 msgid "Basemap"
 msgstr "背景图"
 
@@ -608,6 +632,9 @@ msgstr "进入全屏"
 
 msgid "Exit fullscreen"
 msgstr "退出全屏"
+
+msgid "Finish measurement"
+msgstr ""
 
 msgid "ha"
 msgstr "ha"
@@ -775,6 +802,30 @@ msgstr "标准差"
 
 msgid "Variance"
 msgstr "差异"
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
+
+msgid "Bing Road"
+msgstr ""
+
+msgid "Bing Dark"
+msgstr ""
+
+msgid "Bing Aerial"
+msgstr ""
+
+msgid "Bing Aerial Labels"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "平等间隔"
