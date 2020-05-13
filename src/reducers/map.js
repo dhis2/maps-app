@@ -9,7 +9,6 @@ const defaultState = {
         isVisible: true,
         isExpanded: true,
         opacity: 1,
-        subtitle: 'Basemap',
     },
     mapViews: [],
 };
