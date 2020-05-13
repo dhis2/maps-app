@@ -1,18 +1,18 @@
 # 
 # Translators:
 # Matthieu Pinard <matthieu@pinard.no>, 2019
-# Bram Piot <bram.piot@gmail.com>, 2019
 # Austin McGee <austin@dhis2.org>, 2019
 # phil_dhis2, 2020
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Bram Piot <bram.piot@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-07T11:28:34.771Z\n"
+"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: Bram Piot <bram.piot@gmail.com>, 2020\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,6 +37,9 @@ msgstr "Automatique"
 
 msgid "Predefined"
 msgstr "Prédéfini"
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "Groupe d'éléments de données"
@@ -292,6 +295,24 @@ msgstr ""
 msgid "Group set is required"
 msgstr ""
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -464,6 +485,9 @@ msgstr "Groupe d'indicateurs"
 
 msgid "Interpretations"
 msgstr "interprétations"
+
+msgid "External basemap"
+msgstr ""
 
 msgid "Basemap"
 msgstr ""
@@ -711,6 +735,18 @@ msgstr "Écart type"
 
 msgid "Variance"
 msgstr "Variance"
+
+msgid "OSM Light"
+msgstr "OSM Light"
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr "Google Streets"
+
+msgid "Google Hybrid"
+msgstr "Google Hybride"
 
 msgid "Equal intervals"
 msgstr "Intervalles égaux"

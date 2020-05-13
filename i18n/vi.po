@@ -1,15 +1,15 @@
 # 
 # Translators:
-# phil_dhis2, 2020
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# phil_dhis2, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-07T11:28:34.771Z\n"
+"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,6 +34,9 @@ msgstr "Tự động"
 
 msgid "Predefined"
 msgstr "Định sẵn"
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "Nhóm dữ liệu"
@@ -289,6 +292,24 @@ msgstr ""
 msgid "Group set is required"
 msgstr ""
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -461,6 +482,9 @@ msgstr "Nhóm chỉ số"
 
 msgid "Interpretations"
 msgstr "Diễn giải báo cáo"
+
+msgid "External basemap"
+msgstr ""
 
 msgid "Basemap"
 msgstr ""
@@ -708,6 +732,18 @@ msgstr "Độ lệch chuẩn"
 
 msgid "Variance"
 msgstr "Phương sai"
+
+msgid "OSM Light"
+msgstr "Bản đồ ánh sáng OSM"
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr "Bản đồ đường phố (Google Streets)"
+
+msgid "Google Hybrid"
+msgstr "Bản đồ thực (Google Hybrid)"
 
 msgid "Equal intervals"
 msgstr "Chia đều tổng Giá trị dữ liệu"
