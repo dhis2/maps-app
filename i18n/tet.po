@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-07T11:28:34.771Z\n"
+"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Tetum (Tetun) (https://www.transifex.com/hisp-uio/teams/100509/tet/)\n"
@@ -32,6 +32,9 @@ msgid "Automatic"
 msgstr ""
 
 msgid "Predefined"
+msgstr ""
+
+msgid "Size"
 msgstr ""
 
 msgid "Data element group"
@@ -288,6 +291,24 @@ msgstr ""
 msgid "Group set is required"
 msgstr ""
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -460,6 +481,9 @@ msgstr ""
 
 msgid "Interpretations"
 msgstr "Interpretasoens"
+
+msgid "External basemap"
+msgstr ""
 
 msgid "Basemap"
 msgstr ""
@@ -707,6 +731,18 @@ msgstr "Dezviu padraun"
 
 msgid "Variance"
 msgstr "Variasaun"
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr ""

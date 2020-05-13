@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-07T11:28:34.771Z\n"
+"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -32,6 +32,9 @@ msgstr "اتومات"
 
 msgid "Predefined"
 msgstr "له وړانې مشخص شوی"
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "د مالوماتو (ډاټا) د برخې ګروپ"
@@ -287,6 +290,24 @@ msgstr ""
 msgid "Group set is required"
 msgstr ""
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -459,6 +480,9 @@ msgstr "د شاخص ګروپ"
 
 msgid "Interpretations"
 msgstr "تفسیر ها"
+
+msgid "External basemap"
+msgstr ""
 
 msgid "Basemap"
 msgstr ""
@@ -706,6 +730,18 @@ msgstr "معیاري انحراف"
 
 msgid "Variance"
 msgstr "مغییرات"
+
+msgid "OSM Light"
+msgstr "روشنی OSM"
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr "د ګوګل واټونه"
+
+msgid "Google Hybrid"
+msgstr "د ګوګل هایبرېډ"
 
 msgid "Equal intervals"
 msgstr "مساوي انټروالونه"
