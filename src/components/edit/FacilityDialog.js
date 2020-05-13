@@ -13,7 +13,7 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import { layerDialogStyles } from './LayerDialogStyles';
+import layerDialogStyles from './LayerDialogStyles';
 
 import {
     setOrganisationUnitGroupSet,

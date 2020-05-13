@@ -12,7 +12,7 @@ import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import Checkbox from '../core/Checkbox';
 import FontStyle from '../core/FontStyle';
-import { layerDialogStyles } from './LayerDialogStyles';
+import layerDialogStyles from './LayerDialogStyles';
 
 import {
     setOrgUnitLevels,

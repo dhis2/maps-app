@@ -24,7 +24,7 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_RADIUS,
 } from '../../constants/layers';
-import { layerDialogStyles } from './LayerDialogStyles';
+import layerDialogStyles from './LayerDialogStyles';
 
 import {
     setTrackedEntityType,

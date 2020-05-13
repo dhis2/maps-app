@@ -1,7 +1,9 @@
 import * as types from '../constants/actionTypes';
 
 const defaultState = {
-    system: {},
+    system: {
+        keyAnalysisRelativePeriod: 'LAST_12_MONTHS',
+    },
     user: {},
 };
 

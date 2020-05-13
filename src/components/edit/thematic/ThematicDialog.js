@@ -30,7 +30,7 @@ import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import StartEndDates from '../../periods/StartEndDates';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
-import { layerDialogStyles } from '../LayerDialogStyles';
+import layerDialogStyles from '../LayerDialogStyles';
 import { dimConf } from '../../../constants/dimension';
 import {
     DEFAULT_ORG_UNIT_LEVEL,

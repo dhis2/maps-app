@@ -12,7 +12,7 @@ import LegendItem from '../layers/legend/LegendItem';
 import { setParams, setFilter, setPeriodName } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colors';
 import { createLegend } from '../../loaders/earthEngineLoader';
-import { layerDialogStyles } from './LayerDialogStyles';
+import layerDialogStyles from './LayerDialogStyles';
 import legendStyle from '../layers/legend/legendStyle';
 
 const getDatasets = () => ({

@@ -23,7 +23,7 @@ import {
     EVENT_RADIUS,
     EVENT_BUFFER,
 } from '../../constants/layers';
-import { layerDialogStyles } from './LayerDialogStyles';
+import layerDialogStyles from './LayerDialogStyles';
 
 import {
     setProgram,
