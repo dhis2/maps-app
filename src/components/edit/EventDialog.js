@@ -8,7 +8,7 @@ import TextField from '../core/TextField';
 import ProgramSelect from '../program/ProgramSelect';
 import ProgramStageSelect from '../program/ProgramStageSelect';
 import RelativePeriodSelect from '../periods/RelativePeriodSelect';
-import DatePicker from '../core/DatePicker';
+import StartEndDates from '../periods/StartEndDates';
 import Checkbox from '../core/Checkbox';
 import FilterGroup from '../filter/FilterGroup';
 import ImageSelect from '../core/ImageSelect';
@@ -36,8 +36,6 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setPeriod,
-    setStartDate,
-    setEndDate,
     setAreaRadius,
 } from '../../actions/layerEdit';
 
@@ -102,8 +100,6 @@ export class EventDialog extends Component {
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
-        setStartDate: PropTypes.func.isRequired,
-        setEndDate: PropTypes.func.isRequired,
         setAreaRadius: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -117,7 +113,13 @@ export class EventDialog extends Component {
     }
 
     componentDidMount() {
-        const { rows, filters, defaultPeriod, setOrgUnitRoot } = this.props;
+        const {
+            rows,
+            filters,
+            defaultPeriod,
+            setOrgUnitRoot,
+            setPeriod,
+        } = this.props;
 
         const orgUnits = getOrgUnitNodesFromRows(rows);
         const period = getPeriodFromFilters(filters);
@@ -177,8 +179,6 @@ export class EventDialog extends Component {
             setUserOrgUnits,
             toggleOrgUnit,
             setPeriod,
-            setStartDate,
-            setEndDate,
             setAreaRadius,
         } = this.props;
 
@@ -246,27 +246,13 @@ export class EventDialog extends Component {
                                 onChange={setPeriod}
                                 style={styles.select}
                             />
-                            {period.id === 'START_END_DATES' && [
-                                <DatePicker
-                                    key="startdate"
-                                    label={i18n.t('Start date')}
-                                    value={startDate}
-                                    onChange={setStartDate}
-                                    style={styles.select}
-                                />,
-                                <DatePicker
-                                    key="enddate"
-                                    label={i18n.t('End date')}
-                                    value={endDate}
-                                    onChange={setEndDate}
-                                    style={styles.select}
-                                />,
-                            ]}
-                            {periodError ? (
-                                <div key="error" style={styles.error}>
-                                    {periodError}
-                                </div>
-                            ) : null}
+                            {period && period.id === 'START_END_DATES' && (
+                                <StartEndDates
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    errorText={periodError}
+                                />
+                            )}
                         </div>
                     )}
                     {tab === 'orgunits' && (
@@ -483,8 +469,6 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setPeriod,
-        setStartDate,
-        setEndDate,
         setAreaRadius,
     },
     null,
