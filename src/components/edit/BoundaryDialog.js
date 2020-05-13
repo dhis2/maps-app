@@ -56,10 +56,6 @@ const styles = {
         marginLeft: 12,
         width: 127,
     },
-    error: {
-        marginTop: 10,
-        color: 'red',
-    },
 };
 
 class BoundaryDialog extends Component {

@@ -63,10 +63,6 @@ const styles = {
     indent: {
         marginLeft: 24,
     },
-    error: {
-        marginTop: 12,
-        color: 'red',
-    },
 };
 
 export class TrackedEntityDialog extends Component {

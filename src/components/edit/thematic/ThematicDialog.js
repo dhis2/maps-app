@@ -95,10 +95,6 @@ const styles = {
     font: {
         float: 'left',
     },
-    error: {
-        marginTop: 10,
-        color: 'red',
-    },
 };
 
 export class ThematicDialog extends Component {

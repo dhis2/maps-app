@@ -61,10 +61,6 @@ const styles = {
         marginTop: 10,
         fontSize: 14,
     },
-    error: {
-        marginTop: 10,
-        color: 'red',
-    },
 };
 
 class FacilityDialog extends Component {

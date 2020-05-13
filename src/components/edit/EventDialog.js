@@ -64,10 +64,6 @@ const styles = {
         paddingTop: 8,
         lineHeight: '22px',
     },
-    error: {
-        marginTop: 10,
-        color: 'red',
-    },
 };
 
 export class EventDialog extends Component {
