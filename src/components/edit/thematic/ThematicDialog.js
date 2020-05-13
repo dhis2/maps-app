@@ -28,7 +28,6 @@ import ProgramSelect from '../../program/ProgramSelect';
 import ProgramIndicatorSelect from '../../program/ProgramIndicatorSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import StartEndDates from '../../periods/StartEndDates';
-// import DatePicker from '../../core/DatePicker';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
 import { layerDialogStyles } from '../LayerDialogStyles';
@@ -58,8 +57,6 @@ import {
     setPeriod,
     setPeriodType,
     setRenderingStrategy,
-    setStartDate,
-    setEndDate,
     setProgram,
     setRadiusLow,
     setRadiusHigh,
@@ -141,8 +138,6 @@ export class ThematicDialog extends Component {
         setLegendSet: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
-        setStartDate: PropTypes.func.isRequired,
-        setEndDate: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
@@ -283,8 +278,6 @@ export class ThematicDialog extends Component {
             setOrgUnitLevels,
             setOrgUnitGroups,
             setPeriod,
-            setStartDate,
-            setEndDate,
             setPeriodType,
             setRenderingStrategy,
             setProgram,
@@ -751,6 +744,7 @@ export class ThematicDialog extends Component {
             );
         } else if (periodType === 'StartEndDates') {
             const error = getStartEndDateError(startDate, endDate);
+
             if (error) {
                 return this.setErrorState('periodError', error, 'period');
             }
@@ -787,8 +781,6 @@ export default connect(
         setPeriod,
         setPeriodType,
         setRenderingStrategy,
-        setStartDate,
-        setEndDate,
         setProgram,
         setRadiusLow,
         setRadiusHigh,
