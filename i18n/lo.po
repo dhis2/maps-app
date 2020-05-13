@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-07T13:18:11.610Z\n"
+"POT-Creation-Date: 2020-05-12T22:15:44.081Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -33,6 +33,9 @@ msgstr "ອັດຕະໂນມັດ"
 
 msgid "Predefined"
 msgstr "ແບບເລືອກ"
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "ກຸ່ມຂອລອົງປະກອບຂໍ້ມູນ"
@@ -285,6 +288,24 @@ msgstr ""
 msgid "Group set is required"
 msgstr ""
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr ""
 
@@ -460,6 +481,9 @@ msgstr "ກຸ່ມຂອງຕົວຊີ້ວັດ"
 
 msgid "Interpretations"
 msgstr "ການແປຂໍ້ມູນ"
+
+msgid "External basemap"
+msgstr ""
 
 msgid "Basemap"
 msgstr ""
@@ -683,6 +707,18 @@ msgstr ""
 
 msgid "Variance"
 msgstr "ຄວາມແຕກຕ່າງ"
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr ""

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-07T13:18:11.610Z\n"
+"POT-Creation-Date: 2020-05-12T22:15:44.081Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -33,6 +33,9 @@ msgstr "Automatisk"
 
 msgid "Predefined"
 msgstr "Forhåndsdefinert "
+
+msgid "Size"
+msgstr ""
 
 msgid "Data element group"
 msgstr "Dataelementgruppe"
@@ -299,6 +302,24 @@ msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
 msgid "Group set is required"
 msgstr "Gruppesett er påkrevd"
 
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
 msgid "Edit {{name}} layer"
 msgstr "Rediger {{name}}-lag"
 
@@ -476,6 +497,9 @@ msgstr "Indikatorgruppe"
 
 msgid "Interpretations"
 msgstr "Tolkninger"
+
+msgid "External basemap"
+msgstr ""
 
 msgid "Basemap"
 msgstr "Bakgrunnskart"
@@ -706,6 +730,18 @@ msgstr "Standardavvik"
 
 msgid "Variance"
 msgstr "Varians"
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "Like intervaller"
