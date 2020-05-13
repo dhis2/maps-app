@@ -86,7 +86,7 @@ const BasemapCard = props => {
                     title: classes.title,
                     subheader: classes.subheader,
                 }}
-                title={name}
+                title={i18n.t(name)}
                 subheader={subtitle}
                 action={
                     <Tooltip

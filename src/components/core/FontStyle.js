@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import BoldIcon from '@material-ui/icons/FormatBold';
@@ -42,7 +43,7 @@ const FontStyle = ({
             <TextField
                 id="size"
                 type="number"
-                label="Size"
+                label={i18n.t('Size')}
                 value={parseInt(
                     size !== undefined ? size : LABEL_FONT_SIZE,
                     10
