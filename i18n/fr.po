@@ -2,17 +2,17 @@
 # Translators:
 # Matthieu Pinard <matthieu@pinard.no>, 2019
 # Austin McGee <austin@dhis2.org>, 2019
-# Bram Piot <bram.piot@gmail.com>, 2019
 # phil_dhis2, 2020
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Bram Piot <bram.piot@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-12T22:15:44.081Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: Bram Piot <bram.piot@gmail.com>, 2020\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -713,16 +713,16 @@ msgid "Variance"
 msgstr "Variance"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Light"
 
 msgid "OSM Detailed"
 msgstr ""
 
 msgid "Google Streets"
-msgstr ""
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybride"
 
 msgid "Equal intervals"
 msgstr "Intervalles égaux"

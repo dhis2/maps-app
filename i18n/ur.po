@@ -709,7 +709,7 @@ msgid "Variance"
 msgstr "متغیر"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM لائٹ"
 
 msgid "OSM Detailed"
 msgstr ""
@@ -718,7 +718,7 @@ msgid "Google Streets"
 msgstr ""
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "گوگل ہائبرڈ"
 
 msgid "Equal intervals"
 msgstr "برابر وقفے"

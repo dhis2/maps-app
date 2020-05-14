@@ -709,16 +709,16 @@ msgid "Variance"
 msgstr "ຄວາມແຕກຕ່າງ"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "ແຜນທີ່ແບບ OSM"
 
 msgid "OSM Detailed"
 msgstr ""
 
 msgid "Google Streets"
-msgstr ""
+msgstr "ແຜນທີ່ຂອງ Google Streets"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "ແຜນທີ່ຂອງ Google Hybrid"
 
 msgid "Equal intervals"
 msgstr ""

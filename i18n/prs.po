@@ -708,16 +708,16 @@ msgid "Variance"
 msgstr "مغییرات"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "روشنی OSM"
 
 msgid "OSM Detailed"
 msgstr ""
 
 msgid "Google Streets"
-msgstr ""
+msgstr "د ګوګل واټونه"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "د ګوګل هایبرېډ"
 
 msgid "Equal intervals"
 msgstr "مساوي انټروالونه"
