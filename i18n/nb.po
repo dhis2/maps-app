@@ -35,7 +35,7 @@ msgid "Predefined"
 msgstr "Forhåndsdefinert "
 
 msgid "Size"
-msgstr ""
+msgstr "Størrelse"
 
 msgid "Data element group"
 msgstr "Dataelementgruppe"
@@ -303,22 +303,22 @@ msgid "Group set is required"
 msgstr "Gruppesett er påkrevd"
 
 msgid "event"
-msgstr ""
+msgstr "hendelse"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "sporet enhet"
 
 msgid "facility"
-msgstr ""
+msgstr "bygning"
 
 msgid "thematic"
-msgstr ""
+msgstr "tematisk"
 
 msgid "boundary"
-msgstr ""
+msgstr "grense"
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
 msgstr "Rediger {{name}}-lag"
@@ -499,7 +499,7 @@ msgid "Interpretations"
 msgstr "Tolkninger"
 
 msgid "External basemap"
-msgstr ""
+msgstr "Eksternt bakgrunnskart"
 
 msgid "Basemap"
 msgstr "Bakgrunnskart"
@@ -732,16 +732,16 @@ msgid "Variance"
 msgstr "Varians"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM tynn"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Detaljert"
 
 msgid "Google Streets"
-msgstr ""
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Equal intervals"
 msgstr "Like intervaller"
