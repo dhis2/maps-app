@@ -804,16 +804,16 @@ msgid "Variance"
 msgstr "Varianza"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Sencillo"
 
 msgid "OSM Detailed"
 msgstr ""
 
 msgid "Google Streets"
-msgstr ""
+msgstr "Google Calles"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Híbrido"
 
 msgid "Bing Road"
 msgstr ""
