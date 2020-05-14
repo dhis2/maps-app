@@ -2,15 +2,15 @@
 # Translators:
 # phil_dhis2, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
 # Sheila André <sandre@saudigitus.org>, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-12T23:11:18.492Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Sheila André <sandre@saudigitus.org>, 2020\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -804,7 +804,7 @@ msgid "Variance"
 msgstr "Variância"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "Open street map lite"
 
 msgid "OSM Detailed"
 msgstr ""

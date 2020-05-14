@@ -802,16 +802,16 @@ msgid "Variance"
 msgstr "توپیر"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "د OSM څراغ"
 
 msgid "OSM Detailed"
 msgstr ""
 
 msgid "Google Streets"
-msgstr ""
+msgstr "سرک  های گوگل"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "چندگانه گوگل"
 
 msgid "Bing Road"
 msgstr ""

@@ -803,7 +803,7 @@ msgid "Variance"
 msgstr "Variation"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Ljus"
 
 msgid "OSM Detailed"
 msgstr ""
