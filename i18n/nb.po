@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2020
+# Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgid "Predefined"
 msgstr "Forhåndsdefinert "
 
 msgid "Size"
-msgstr ""
+msgstr "Størrelse"
 
 msgid "Data element group"
 msgstr "Dataelementgruppe"
@@ -306,22 +306,22 @@ msgid "Group set is required"
 msgstr "Gruppesett er påkrevd"
 
 msgid "event"
-msgstr ""
+msgstr "hendelse"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "sporet enhet"
 
 msgid "facility"
-msgstr ""
+msgstr "bygning"
 
 msgid "thematic"
-msgstr ""
+msgstr "tematisk"
 
 msgid "boundary"
-msgstr ""
+msgstr "grense"
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
 msgstr "Rediger {{name}}-lag"
@@ -499,7 +499,7 @@ msgid "Interpretations"
 msgstr "Tolkninger"
 
 msgid "External basemap"
-msgstr ""
+msgstr "Eksternt bakgrunnskart"
 
 msgid "Basemap"
 msgstr "Bakgrunnskart"
@@ -759,7 +759,7 @@ msgid "OSM Light"
 msgstr "OSM tynn"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Detaljert"
 
 msgid "Google Streets"
 msgstr "Google Streets"
