@@ -111,11 +111,12 @@ msgid "Show name"
 msgstr "عرض الإسم"
 
 msgid "Show legend"
-msgstr ""
+msgstr "إظهار المفاتيح الإيضاحية"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"تنزيل الخريطة غير ممكن بإستخدام متصفحك. جرّب Google Chrome أو Firefox."
 
 msgid "Cancel"
 msgstr "إلغاء"
@@ -124,7 +125,7 @@ msgid "Close"
 msgstr "إغلاق"
 
 msgid "Legend position"
-msgstr ""
+msgstr "موقع المفاتيح الإيضاحية"
 
 msgid "Period"
 msgstr "الفترة الزمنية"
@@ -209,16 +210,16 @@ msgstr "حزمة المجموعات"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgstr "تذكر تحديد مستوى الوحدة التنظيمية الذي يحتوي على المرافق."
 
 msgid "Group set is required"
 msgstr ""
 
 msgid "Update layer"
-msgstr ""
+msgstr "تحديث الطبقة"
 
 msgid "Add layer"
-msgstr ""
+msgstr "إضافة طبقة"
 
 msgid "Select program period"
 msgstr ""
