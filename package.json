@@ -145,7 +145,7 @@
         "style-loader": "^0.20.2",
         "susy": "^3.0.3",
         "terser-webpack-plugin-legacy": "^1.2.3",
-        "url-loader": "^0.6.2",
+        "url-loader": "^1.1.2",
         "wait-on": "^3.3.0",
         "webpack": "^3.11.0",
         "webpack-bundle-analyzer": "^3.7.0",
