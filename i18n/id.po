@@ -3,13 +3,14 @@
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2019
 # Viktor Varland <viktor@dhis2.org>, 2019
 # phil_dhis2, 2019
+# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2019-11-20T13:55:02.205Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: phil_dhis2, 2019\n"
+"Last-Translator: Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +55,7 @@ msgid "Yes"
 msgstr "Ya"
 
 msgid "Event location"
-msgstr ""
+msgstr "Lokasi even"
 
 msgid "Coordinate field"
 msgstr ""
@@ -66,10 +67,10 @@ msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "Data item pada even"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Ragam berdasarkan elemen data"
 
 msgid "Data set"
 msgstr "Data set"
@@ -178,10 +179,10 @@ msgid "Events"
 msgstr "Event"
 
 msgid "Group events"
-msgstr ""
+msgstr "Grup even"
 
 msgid "View all events"
-msgstr ""
+msgstr "Lihat semua even"
 
 msgid "Radius"
 msgstr ""
@@ -194,6 +195,8 @@ msgstr ""
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"Anda dapat menganti corak even berdasarkan elemen data setelah memilih satu "
+"program"
 
 msgid "Program is required"
 msgstr ""
@@ -236,7 +239,7 @@ msgid "Selection mode"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Entitas dilacak"
 
 msgid "Point size"
 msgstr ""
@@ -520,7 +523,7 @@ msgid "Stage"
 msgstr "Stage"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Tipe entitas dilacak"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
