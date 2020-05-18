@@ -354,5 +354,5 @@ class EarthEngineDialog extends Component {
 }
 
 export default connect(null, { setParams, setFilter, setPeriodName }, null, {
-    withRef: true,
+    forwardRef: true,
 })(withStyles(styles)(EarthEngineDialog));
