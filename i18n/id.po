@@ -3,13 +3,14 @@
 # phil_dhis2, 2020
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-12T23:11:18.492Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,7 +58,7 @@ msgid "Yes"
 msgstr "Ya"
 
 msgid "Event location"
-msgstr ""
+msgstr "Lokasi even"
 
 msgid "Coordinate field"
 msgstr ""
@@ -69,10 +70,10 @@ msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "Data item pada even"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Ragam berdasarkan elemen data"
 
 msgid "Data set"
 msgstr "Data set"
@@ -256,10 +257,10 @@ msgid "Events"
 msgstr "Event"
 
 msgid "Group events"
-msgstr ""
+msgstr "Grup even"
 
 msgid "View all events"
-msgstr ""
+msgstr "Lihat semua even"
 
 msgid "Radius"
 msgstr ""
@@ -272,6 +273,8 @@ msgstr ""
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"Anda dapat menganti corak even berdasarkan elemen data setelah memilih satu "
+"program"
 
 msgid "Program is required"
 msgstr ""
@@ -296,7 +299,7 @@ msgid "event"
 msgstr ""
 
 msgid "tracked entity"
-msgstr ""
+msgstr "Entitas dilacak"
 
 msgid "facility"
 msgstr ""
@@ -340,16 +343,17 @@ msgstr ""
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
+"Silahkan pilih satu tipe entitas dilacak sebelum memilih satu tipe hubungan"
 
 msgid "WARNING"
 msgstr ""
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
+msgstr "Menampilkan hubungan entitas dilacak pada peta adalah fitur percobaan"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "Tampikan semua hubungan entitas dilacak"
 
 msgid "Selection mode"
 msgstr ""
@@ -364,16 +368,16 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Entitas dilacak"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "Ragam entitas terlacak"
 
 msgid "Point size"
 msgstr ""
 
 msgid "Related entity style"
-msgstr ""
+msgstr "Ragam entitas terkait"
 
 msgid "Line Color"
 msgstr ""
@@ -431,6 +435,7 @@ msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
+"Tidak ada tipe hubungan yang ditemukan untuk tipe entitas dilacak {{type}}"
 
 msgid "Relationship type"
 msgstr "Tipe hubungan"
@@ -782,7 +787,7 @@ msgid "Stage"
 msgstr "Stage"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Tipe entitas dilacak"
 
 msgid "By data element"
 msgstr "Berdasarkan elemen data"
