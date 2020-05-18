@@ -812,6 +812,6 @@ export default connect(
     },
     null,
     {
-        withRef: true,
+        forwardRef: true,
     }
 )(ThematicDialog);
