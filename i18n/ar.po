@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-05T09:18:51.686Z\n"
+"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -34,6 +34,9 @@ msgstr "تلقائي"
 
 msgid "Predefined"
 msgstr "سبق تحديده"
+
+msgid "Size"
+msgstr "الحجم"
 
 msgid "Data element group"
 msgstr "مجموعة عناصر البيانات"
@@ -120,11 +123,12 @@ msgid "Show name"
 msgstr "عرض الإسم"
 
 msgid "Show legend"
-msgstr ""
+msgstr "إظهار المفاتيح الإيضاحية"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"تنزيل الخريطة غير ممكن بإستخدام متصفحك. جرّب Google Chrome أو Firefox."
 
 msgid "Cancel"
 msgstr "إلغاء"
@@ -133,7 +137,7 @@ msgid "Close"
 msgstr "إغلاق"
 
 msgid "Legend position"
-msgstr ""
+msgstr "موقع المفاتيح الإيضاحية"
 
 msgid "Year"
 msgstr "السنة"
@@ -161,6 +165,8 @@ msgid ""
 "population division estimates. Try a different year if you don't see data "
 "for your country."
 msgstr ""
+"تم تعديل تقديرات الكثافة السكانية مع المجاميع الوطنية لتتناسب مع تقديرات "
+"تقسيم السكان في الأمم المتحدة. جرّب عاماً آخر إذا كنت لا ترى بيانات لبلدك."
 
 msgid "Select year"
 msgstr "اختر السنة"
@@ -175,6 +181,8 @@ msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
 "better representes the terrain in your region."
 msgstr ""
+"الارتفاع فوق مستوى سطح البحر. يمكنك ضبط القيمتين الدنيا والقصوى بحيث تمثل "
+"التضاريس بشكل أفضل في منطقتك."
 
 msgid "Min meters"
 msgstr ""
@@ -187,6 +195,9 @@ msgid ""
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"هطول الأمطار التي تم جمعها من محطات الأقمار الصناعية والطقس الأرضية. القيم "
+"بالملليمتر خلال 5 أيام. يتم تحديثه شهرياً خلال الأسبوع الثالث من الشهر "
+"التالي."
 
 msgid "Min mm"
 msgstr ""
@@ -198,6 +209,8 @@ msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
 "spots will appear in areas with a persistent cloud cover."
 msgstr ""
+"درجات حرارة سطح الأرض التي تم جمعها من القمر الصناعي في فترات 8 أيام. ستظهر "
+"بقع فارغة في المناطق ذات غطاء سحابي دائم."
 
 msgid "Min °C"
 msgstr ""
@@ -206,12 +219,14 @@ msgid "Max °C"
 msgstr ""
 
 msgid "17 distinct landcover types collected from satellites."
-msgstr ""
+msgstr "17 نوعاً مميزاً من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
+"شدة الضوء من المدن والبلدات والمواقع الأخرى ذات الإضاءة المستمرة ، بما في "
+"ذلك مشاعل الغاز."
 
 msgid "Min"
 msgstr "الأدنى"
@@ -284,22 +299,40 @@ msgstr "حزمة المجموعات"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgstr "تذكر تحديد مستوى الوحدة التنظيمية الذي يحتوي على المرافق."
 
 msgid "Group set is required"
 msgstr ""
 
-msgid "Edit {{name}} layer"
+msgid "event"
 msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr "الحدود"
+
+msgid "Earth Engine"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr "تعديل طبقة {{name}}"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "إضافة طبقة {{name}} جديدة"
 
 msgid "Update layer"
-msgstr ""
+msgstr "تحديث الطبقة"
 
 msgid "Add layer"
-msgstr ""
+msgstr "إضافة طبقة"
 
 msgid "Select program period"
 msgstr ""
@@ -462,6 +495,9 @@ msgstr "مجموعة المؤشرات"
 msgid "Interpretations"
 msgstr "التفسيرات"
 
+msgid "External basemap"
+msgstr ""
+
 msgid "Basemap"
 msgstr ""
 
@@ -469,7 +505,7 @@ msgid "Collapse"
 msgstr "انهيار"
 
 msgid "Expand"
-msgstr "وسِع\\مدِد"
+msgstr "توسيع"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -606,6 +642,9 @@ msgid "Enter fullscreen"
 msgstr ""
 
 msgid "Exit fullscreen"
+msgstr ""
+
+msgid "Finish measurement"
 msgstr ""
 
 msgid "ha"
@@ -758,7 +797,7 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr "بواسطة عنصر البيانات"
+msgstr "حسب عنصر البيانات"
 
 msgid "Count"
 msgstr "العدد"
@@ -774,6 +813,30 @@ msgstr "الانحراف المعياري"
 
 msgid "Variance"
 msgstr "التباين"
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
+
+msgid "Bing Road"
+msgstr ""
+
+msgid "Bing Dark"
+msgstr ""
+
+msgid "Bing Aerial"
+msgstr ""
+
+msgid "Bing Aerial Labels"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "فترات متساوية"
@@ -800,19 +863,19 @@ msgid "Six-monthly"
 msgstr "كل ستة أشهر"
 
 msgid "Six-monthly April"
-msgstr "نصف سنة (فترة من ستة أشهر) نيسان"
+msgstr "كل ستة أشهر، ابريل"
 
 msgid "Yearly"
 msgstr "سنوي"
 
 msgid "Financial year (Start October)"
-msgstr "السنة المالية (بداية تشرين الأول)"
+msgstr "السنة المالية (تبدأ في اكتوبر)"
 
 msgid "Financial year (Start July)"
-msgstr "مالي يوليو"
+msgstr "السنة المالية (تبدأ في يوليو)"
 
 msgid "Financial year (Start April)"
-msgstr "السنة المالية (بداية نيسان)"
+msgstr "السنة المالية (تبدأ في ابريل)"
 
 msgid "Today"
 msgstr "اليوم"
@@ -893,10 +956,10 @@ msgid "This six-month"
 msgstr "الستة أشهر الحالية"
 
 msgid "Last six-month"
-msgstr "آخر نصف السنة (فترة من ستة أشهر)"
+msgstr "آخر ستة أشهر"
 
 msgid "Last 2 six-months"
-msgstr "آخر نصفي السنة (كل فترة ستة أشهر)"
+msgstr "آخر نصفي سنة"
 
 msgid "This year"
 msgstr "السنة الحالية"

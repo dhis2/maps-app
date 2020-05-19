@@ -253,6 +253,6 @@ export default connect(
     },
     null,
     {
-        withRef: true,
+        forwardRef: true,
     }
 )(withStyles(styles)(BoundaryDialog));
