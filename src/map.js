@@ -15,6 +15,7 @@ import {
     getExternalLayer,
     getBingMapsApiKey,
 } from './util/requests';
+import { getRenderingStrategy } from './util/analytics';
 import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
 import { defaultBasemaps } from './constants/basemaps';
@@ -166,12 +167,13 @@ const PluginContainer = () => {
     function drawMap(config) {
         if (config.el && !isUnmounted(config.el)) {
             const domEl = document.getElementById(config.el);
+            const rendering = getRenderingStrategy(config);
 
             if (domEl) {
                 const ref = createRef();
 
                 const generateClassName = createGenerateClassName({
-                    productionPrefix: 'map-plugin-',
+                    productionPrefix: `map-plugin-${rendering}`,
                 });
 
                 render(
