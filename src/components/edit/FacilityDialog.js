@@ -13,7 +13,7 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import { layerDialogStyles } from './LayerDialogStyles';
+import layerDialogStyles from './LayerDialogStyles';
 
 import {
     setOrganisationUnitGroupSet,
@@ -60,10 +60,6 @@ const styles = {
     help: {
         marginTop: 10,
         fontSize: 14,
-    },
-    error: {
-        marginTop: 10,
-        color: 'red',
     },
 };
 

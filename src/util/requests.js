@@ -1,6 +1,8 @@
 import { getInstance as getD2 } from 'd2';
 import { mapFields } from './helpers';
 import { isString, isObject, sortBy } from 'lodash/fp';
+import { apiFetch } from './api';
+import { SYSTEM_SETTINGS } from '../constants/settings';
 
 // API requests
 
@@ -30,6 +32,10 @@ export const getBingMapsApiKey = async () => {
     const d2 = await getD2();
     return d2.system.settings.get('keyBingMapsApiKey');
 };
+
+// Returns system settings for keys (d2 returns one or all)
+export const getSystemSettings = () =>
+    apiFetch(`/systemSettings/?key=${SYSTEM_SETTINGS.join(',')}`);
 
 // Different ways of specifying a basemap - TODO: simplify!
 const getBasemap = config => {

@@ -12,7 +12,7 @@ import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import Checkbox from '../core/Checkbox';
 import FontStyle from '../core/FontStyle';
-import { layerDialogStyles } from './LayerDialogStyles';
+import layerDialogStyles from './LayerDialogStyles';
 
 import {
     setOrgUnitLevels,
@@ -55,10 +55,6 @@ const styles = {
     radius: {
         marginLeft: 12,
         width: 127,
-    },
-    error: {
-        marginTop: 10,
-        color: 'red',
     },
 };
 

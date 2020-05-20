@@ -7,10 +7,10 @@ import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import SelectField from '../core/SelectField';
-import DatePicker from '../core/DatePicker';
 import Checkbox from '../core/Checkbox';
 import TrackedEntityTypeSelect from '../trackedEntity/TrackedEntityTypeSelect';
 import ProgramSelect from '../program/ProgramSelect';
+import StartEndDates from '../periods/StartEndDates';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
 import ColorPicker from '../core/ColorPicker';
@@ -24,7 +24,7 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_RADIUS,
 } from '../../constants/layers';
-import { layerDialogStyles } from './LayerDialogStyles';
+import layerDialogStyles from './LayerDialogStyles';
 
 import {
     setTrackedEntityType,
@@ -62,10 +62,6 @@ const styles = {
     },
     indent: {
         marginLeft: 24,
-    },
-    error: {
-        marginTop: 12,
-        color: 'red',
     },
 };
 
@@ -194,8 +190,6 @@ export class TrackedEntityDialog extends Component {
             setProgramStatus,
             setFollowUpStatus,
             setTrackedEntityRelationshipType,
-            setStartDate,
-            setEndDate,
             toggleOrgUnit,
             setOrgUnitMode,
             setEventPointColor,
@@ -366,23 +360,11 @@ export class TrackedEntityDialog extends Component {
                             <div style={{ margin: '12px 0', fontSize: 14 }}>
                                 {periodHelp}:
                             </div>
-                            <DatePicker
-                                key="startdate"
-                                label={i18n.t('Start date')}
-                                value={startDate}
-                                onChange={setStartDate}
-                                style={styles.select}
+                            <StartEndDates
+                                startDate={startDate}
+                                endDate={endDate}
+                                errorText={periodError}
                             />
-                            <DatePicker
-                                key="enddate"
-                                label={i18n.t('End date')}
-                                value={endDate}
-                                onChange={setEndDate}
-                                style={styles.select}
-                            />
-                            {periodError ? (
-                                <div style={styles.error}>{periodError}</div>
-                            ) : null}
                         </div>
                     )}
 
