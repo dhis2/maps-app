@@ -14,6 +14,7 @@ const validMapProperties = [
     'name',
     'user',
     'zoom',
+    'publicAccess',
 ];
 
 const validLayerProperties = [
