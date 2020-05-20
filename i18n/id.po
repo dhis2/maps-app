@@ -4,13 +4,14 @@
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
+# Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-12T23:11:18.492Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020\n"
+"Last-Translator: Farida Sibuea <farida_sibuea@yahoo.com>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -152,7 +153,7 @@ msgid "Style"
 msgstr "Gaya"
 
 msgid "Labels"
-msgstr ""
+msgstr "label"
 
 msgid "Point radius"
 msgstr ""
@@ -224,7 +225,7 @@ msgid "Max"
 msgstr "Maks"
 
 msgid "Steps"
-msgstr ""
+msgstr "langkah"
 
 msgid "Legend preview"
 msgstr ""
