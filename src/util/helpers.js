@@ -34,6 +34,7 @@ const baseFields = [
     'latitude',
     'zoom',
     'basemap',
+    'publicAccess',
 ];
 
 const analysisFields = async () => {
@@ -51,10 +52,10 @@ const analysisFields = async () => {
         'legendSet[id,displayName~rename(name)]',
         'trackedEntityType[id,displayName~rename(name)]',
         'organisationUnitSelectionMode',
+        'publicAccess',
         '!lastUpdated',
         '!href',
         '!created',
-        '!publicAccess',
         '!rewindRelativePeriods',
         '!userOrganisationUnit',
         '!userOrganisationUnitChildren',
