@@ -34,6 +34,7 @@ const baseFields = [
     'latitude',
     'zoom',
     'basemap',
+    'publicAccess',
 ];
 
 const analysisFields = async () => {
