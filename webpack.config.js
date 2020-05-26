@@ -55,7 +55,10 @@ const webpackConfig = {
         rules: [
             {
                 test: /\.jsx?$/,
-                include: [path.resolve(__dirname, 'src/')],
+                include: [
+                    path.resolve(__dirname, 'src/'),
+                    /@dhis2\/prop-types/,
+                ],
                 loader: 'babel-loader',
                 query: {
                     cacheDirectory: true,
