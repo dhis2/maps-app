@@ -3,6 +3,7 @@
 # phil_dhis2, 2020
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
 # 
 msgid ""
@@ -152,7 +153,7 @@ msgid "Style"
 msgstr "Gaya"
 
 msgid "Labels"
-msgstr ""
+msgstr "label"
 
 msgid "Point radius"
 msgstr ""
@@ -224,7 +225,7 @@ msgid "Max"
 msgstr "Maks"
 
 msgid "Steps"
-msgstr ""
+msgstr "langkah"
 
 msgid "Legend preview"
 msgstr ""
@@ -338,7 +339,7 @@ msgid "Program status"
 msgstr ""
 
 msgid "Follow up"
-msgstr ""
+msgstr "Tindak lanjut"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"

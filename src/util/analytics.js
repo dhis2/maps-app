@@ -283,3 +283,17 @@ export const getApiResponseNames = ({ metaData, headers }) => ({
     true: i18n.t('Yes'),
     false: i18n.t('No'),
 });
+
+// Returns the rendering strategy used
+export const getRenderingStrategy = ({ mapViews }) => {
+    if (Array.isArray(mapViews)) {
+        if (mapViews.some(view => view.renderingStrategy === 'TIMELINE')) {
+            return 'timeline';
+        } else if (
+            mapViews.some(view => view.renderingStrategy === 'SPLIT_BY_PERIOD')
+        ) {
+            return 'split-by-period';
+        }
+    }
+    return 'single';
+};
