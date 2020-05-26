@@ -157,10 +157,23 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@dhis2/app-runtime@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-2.0.4.tgz#9ae202fef3313094aef33a3e38d2c6c5d799c808"
-  integrity sha512-w5+C/fHSsuF0am5Tpvz53+tigEZzfz9ahkjXH3BiWxGVxwZGtdHjWfso1T5bJRiKhDTgf76TxIsQiC11W20WyA==
+"@dhis2/app-runtime@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-2.2.1.tgz#9c2192c247bbca44e721c2ece1a0d6f8bcdf00d6"
+  integrity sha512-rX4+Dz31zov0OZNKxcOBbVdXwac5nxX0a4e6G0MKE2OCuHZtvASNbahl86IAasCjuNOclUSgLmIJpEhqlnUxpw==
+  dependencies:
+    "@dhis2/app-service-config" "2.2.1"
+    "@dhis2/app-service-data" "2.2.1"
+
+"@dhis2/app-service-config@2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-config/-/app-service-config-2.2.1.tgz#5417b6ec266fa0e3d84a9405010cee43ed6a0027"
+  integrity sha512-o841GSzjg/VaucWN/9Axo42Dv6CS4Wra3BAw+qFsMtZ7agFKbSssbxyloDiB0/TDv9moR8xivfAHn8kfcVwuNQ==
+
+"@dhis2/app-service-data@2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-data/-/app-service-data-2.2.1.tgz#b418a9624761cedded3ebddc3459db90bdaa3c16"
+  integrity sha512-XeAmjjt8sL1sbu8rsEEQDBQyc//cHww79kCGXpuFHR5tytzhT31cQ457/zNqU3DW61xKgv+bCWk845kuD26UbQ==
 
 "@dhis2/d2-i18n-extract@^1.0.8":
   version "1.0.8"
@@ -405,10 +418,10 @@
     suggestions "^1.7.0"
     uuid "^3.3.2"
 
-"@dhis2/prop-types@^1.5", "@dhis2/prop-types@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-1.5.0.tgz#7e69919f66698be373dd21940a8a770234ded6a1"
-  integrity sha512-dueFkkAMOIMbXiU7Mhr3Y+DBRyOd/rHA+5/IDiYWN1xttlUTSuGZLQ5AnJ7osBicEhx+qElaGbTdRYQj3SMBtA==
+"@dhis2/prop-types@^1.5.0", "@dhis2/prop-types@^1.6":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-1.6.4.tgz#ec4d256c9440d4d00071524422a727c61ddaa6f6"
+  integrity sha512-qkVj8OuyjDmSxzYDlCWZllvC9hIbrIImMp79/U5CVsIRbjUF0zA/tfbv4rWnsWALmwEHOQFbzl5GnO5D8RNneA==
   dependencies:
     prop-types "^15"
 
@@ -429,12 +442,12 @@
     "@popperjs/core" "^2.0.6"
     classnames "^2.2.6"
 
-"@dhis2/ui-widgets@^2.0.5":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/ui-widgets/-/ui-widgets-2.0.8.tgz#73c1230d8469bdd06fa6757a244890db2fd99f2f"
-  integrity sha512-wqK1tgz9yzZhwFJ4Cw9HIkwq0r8a01Nay/dvCpSSC/8oBUw7oraaCPLb3gB/UZGtzv44wQUHU/d42uEFBJgi8Q==
+"@dhis2/ui-widgets@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/ui-widgets/-/ui-widgets-2.1.1.tgz#23b1887c0190e83bb7a41e6b570dfd41ba99d838"
+  integrity sha512-tLLXgQ2x0IDVcCg2AdK4J8B0Zj6DHOimI/5xTtp/xoaLDYDwJN3VDIJU0TSh5YIEZPzUmh2nqmdmNHDUXereFw==
   dependencies:
-    "@dhis2/prop-types" "^1.5"
+    "@dhis2/prop-types" "^1.6"
     classnames "^2.2.6"
 
 "@emotion/babel-utils@^0.6.4":
