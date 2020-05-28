@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -80,6 +80,9 @@ msgid "Data set"
 msgstr "Data set"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -247,12 +250,6 @@ msgstr ""
 
 msgid "Filter"
 msgstr "Saring"
-
-msgid "Start date"
-msgstr "Tanggal mulai"
-
-msgid "End date"
-msgstr "Tanggal berakhir"
 
 msgid "Events"
 msgstr "Event"
@@ -536,6 +533,9 @@ msgstr ""
 msgid "Filters"
 msgstr "Penyaringan"
 
+msgid "Source"
+msgstr ""
+
 msgid "Edit"
 msgstr "Edit"
 
@@ -774,6 +774,12 @@ msgstr ""
 
 msgid "Remove other layers to enable split map views."
 msgstr ""
+
+msgid "Start date"
+msgstr "Tanggal mulai"
+
+msgid "End date"
+msgstr "Tanggal berakhir"
 
 msgid "Program indicator"
 msgstr "Manajemen indikator program"

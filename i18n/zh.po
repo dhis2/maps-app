@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -80,6 +80,9 @@ msgstr "数据集"
 
 msgid "Index"
 msgstr "索引"
+
+msgid "Name"
+msgstr ""
 
 msgid "Value"
 msgstr "值"
@@ -246,12 +249,6 @@ msgstr "组织机构"
 
 msgid "Filter"
 msgstr "过滤器"
-
-msgid "Start date"
-msgstr "开始日期"
-
-msgid "End date"
-msgstr "结束日期"
 
 msgid "Events"
 msgstr "事件"
@@ -531,6 +528,9 @@ msgstr "分离视图不能和其它图层混合"
 msgid "Filters"
 msgstr "过滤器"
 
+msgid "Source"
+msgstr ""
+
 msgid "Edit"
 msgstr "编辑"
 
@@ -769,6 +769,12 @@ msgstr "仅仅允许一个时限"
 
 msgid "Remove other layers to enable split map views."
 msgstr "移除其他图层使能分离视图功能"
+
+msgid "Start date"
+msgstr "开始日期"
+
+msgid "End date"
+msgstr "结束日期"
 
 msgid "Program indicator"
 msgstr "项目指标"
