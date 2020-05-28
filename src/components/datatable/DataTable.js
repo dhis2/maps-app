@@ -104,7 +104,7 @@ class DataTable extends Component {
                 />
                 <Column
                     dataKey="name"
-                    label="Name"
+                    label={i18n.t('Name')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
@@ -217,12 +217,9 @@ const mapStateToProps = state => {
     return null;
 };
 
-export default connect(
-    mapStateToProps,
-    {
-        selectOrgUnit,
-        unselectOrgUnit,
-        setDataFilter,
-        clearDataFilter,
-    }
-)(DataTable);
+export default connect(mapStateToProps, {
+    selectOrgUnit,
+    unselectOrgUnit,
+    setDataFilter,
+    clearDataFilter,
+})(DataTable);
