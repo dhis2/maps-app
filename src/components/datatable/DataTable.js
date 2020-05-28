@@ -104,7 +104,7 @@ class DataTable extends Component {
                 />
                 <Column
                     dataKey="name"
-                    label="Name"
+                    label={i18n.t('Name')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
