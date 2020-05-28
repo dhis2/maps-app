@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -78,6 +78,9 @@ msgid "Data set"
 msgstr "حزمة البيانات"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -257,12 +260,6 @@ msgstr "الوحدات التنظيمية"
 
 msgid "Filter"
 msgstr "عامل التصفية"
-
-msgid "Start date"
-msgstr "تاريخ البداية"
-
-msgid "End date"
-msgstr "تاريخ النهاية"
 
 msgid "Events"
 msgstr "الأحداث"
@@ -542,6 +539,9 @@ msgstr ""
 msgid "Filters"
 msgstr "‏‏عوامل التصفية"
 
+msgid "Source"
+msgstr ""
+
 msgid "Edit"
 msgstr "تعديل"
 
@@ -780,6 +780,12 @@ msgstr ""
 
 msgid "Remove other layers to enable split map views."
 msgstr ""
+
+msgid "Start date"
+msgstr "تاريخ البداية"
+
+msgid "End date"
+msgstr "تاريخ النهاية"
 
 msgid "Program indicator"
 msgstr "مؤشر البرنامج"

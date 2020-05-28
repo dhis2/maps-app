@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -77,6 +77,9 @@ msgid "Data set"
 msgstr "ແບບຟອມ"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -244,12 +247,6 @@ msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
 msgid "Filter"
 msgstr "Filter"
-
-msgid "Start date"
-msgstr "ວັນທີເລີ່ມຕົ້ນ"
-
-msgid "End date"
-msgstr "ວັນທີສຸດທ້າຍ"
 
 msgid "Events"
 msgstr "ເຫດການ"
@@ -529,6 +526,9 @@ msgstr ""
 msgid "Filters"
 msgstr "ກັ່ນຕອງ"
 
+msgid "Source"
+msgstr ""
+
 msgid "Edit"
 msgstr "ແກ້ໄຂ"
 
@@ -767,6 +767,12 @@ msgstr ""
 
 msgid "Remove other layers to enable split map views."
 msgstr ""
+
+msgid "Start date"
+msgstr "ວັນທີເລີ່ມຕົ້ນ"
+
+msgid "End date"
+msgstr "ວັນທີສຸດທ້າຍ"
 
 msgid "Program indicator"
 msgstr "Program Indicator Management"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Pushto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
@@ -77,6 +77,9 @@ msgid "Data set"
 msgstr "د مالوماتو (ډاټا) ټولګه"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -244,12 +247,6 @@ msgstr "د سازمان واحدونه"
 
 msgid "Filter"
 msgstr "فیلټر"
-
-msgid "Start date"
-msgstr "د پیل نېټه"
-
-msgid "End date"
-msgstr "د پای نېټه"
 
 msgid "Events"
 msgstr "پېښې"
@@ -529,6 +526,9 @@ msgstr ""
 msgid "Filters"
 msgstr "فیلټرونه"
 
+msgid "Source"
+msgstr ""
+
 msgid "Edit"
 msgstr "درست یې کړئ"
 
@@ -767,6 +767,12 @@ msgstr ""
 
 msgid "Remove other layers to enable split map views."
 msgstr ""
+
+msgid "Start date"
+msgstr "د پیل نېټه"
+
+msgid "End date"
+msgstr "د پای نېټه"
 
 msgid "Program indicator"
 msgstr ""

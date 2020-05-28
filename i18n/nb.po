@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -78,6 +78,9 @@ msgstr "Datasett"
 
 msgid "Index"
 msgstr "Indeks"
+
+msgid "Name"
+msgstr ""
 
 msgid "Value"
 msgstr "Verdi"
@@ -258,12 +261,6 @@ msgstr "Org enhet"
 
 msgid "Filter"
 msgstr "Filter"
-
-msgid "Start date"
-msgstr "Startdato"
-
-msgid "End date"
-msgstr "Sluttdato"
 
 msgid "Events"
 msgstr "Hendelser"
@@ -547,6 +544,9 @@ msgstr "Delt visning kan ikke kombineres med andre lagtyper."
 msgid "Filters"
 msgstr "Filter"
 
+msgid "Source"
+msgstr ""
+
 msgid "Edit"
 msgstr "Rediger"
 
@@ -790,6 +790,12 @@ msgstr "Bare en tidslinje er tillatt."
 
 msgid "Remove other layers to enable split map views."
 msgstr "Fjern andre lag for å aktivere delt kartvisning."
+
+msgid "Start date"
+msgstr "Startdato"
+
+msgid "End date"
+msgstr "Sluttdato"
 
 msgid "Program indicator"
 msgstr "Programindikator"
