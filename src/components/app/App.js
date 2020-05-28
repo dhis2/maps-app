@@ -6,6 +6,7 @@ import { Provider } from '@dhis2/app-runtime';
 import { HeaderBar } from '@dhis2/ui-widgets';
 import { CssReset } from '@dhis2/ui-core';
 import mui3theme from '@dhis2/d2-ui-core/theme/mui3.theme';
+import { config } from 'd2';
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
@@ -43,7 +44,7 @@ export class App extends Component {
         return (
             <Provider
                 config={{
-                    baseUrl: DHIS_CONFIG.baseUrl,
+                    baseUrl: config.appUrl,
                     apiVersion: '33',
                 }}
             >
