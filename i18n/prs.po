@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T23:11:18.492Z\n"
+"POT-Creation-Date: 2020-05-28T11:43:41.994Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -76,6 +76,9 @@ msgid "Data set"
 msgstr "د مالوماتو (ډاټا) ټولګه"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -527,6 +530,9 @@ msgstr ""
 
 msgid "Filters"
 msgstr "فیلټرونه"
+
+msgid "Source"
+msgstr ""
 
 msgid "Edit"
 msgstr "تجدید"
