@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T22:15:44.081Z\n"
+"POT-Creation-Date: 2020-05-28T11:58:20.945Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
 "Last-Translator: Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -80,6 +80,9 @@ msgid "Data set"
 msgstr "Data set"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -532,6 +535,9 @@ msgstr ""
 
 msgid "Filters"
 msgstr "Penyaringan"
+
+msgid "Source"
+msgstr ""
 
 msgid "Edit"
 msgstr "Edit"
