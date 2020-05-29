@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
+"POT-Creation-Date: 2020-05-28T11:52:05.487Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Burmese (https://www.transifex.com/hisp-uio/teams/100509/my/)\n"
@@ -77,6 +77,9 @@ msgid "Data set"
 msgstr "Data set"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -528,6 +531,9 @@ msgstr ""
 
 msgid "Filters"
 msgstr "စစ်ချပါ။"
+
+msgid "Source"
+msgstr ""
 
 msgid "Edit"
 msgstr "တည်းဖြတ်သည်"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
+"POT-Creation-Date: 2020-05-28T11:52:05.487Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -77,6 +77,9 @@ msgid "Data set"
 msgstr "数据集"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -527,6 +530,9 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Filters"
+msgstr ""
+
+msgid "Source"
 msgstr ""
 
 msgid "Edit"

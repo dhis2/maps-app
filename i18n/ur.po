@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
+"POT-Creation-Date: 2020-05-28T11:52:05.487Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
@@ -77,6 +77,9 @@ msgid "Data set"
 msgstr "ڈیٹا سیٹ"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -528,6 +531,9 @@ msgstr ""
 
 msgid "Filters"
 msgstr "فلٹرز"
+
+msgid "Source"
+msgstr ""
 
 msgid "Edit"
 msgstr "ترمیم"

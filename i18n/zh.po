@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
+"POT-Creation-Date: 2020-05-28T11:52:05.487Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -80,6 +80,9 @@ msgstr "数据集"
 
 msgid "Index"
 msgstr "索引"
+
+msgid "Name"
+msgstr ""
 
 msgid "Value"
 msgstr "值"
@@ -530,6 +533,9 @@ msgstr "分离视图不能和其它图层混合"
 
 msgid "Filters"
 msgstr "过滤器"
+
+msgid "Source"
+msgstr ""
 
 msgid "Edit"
 msgstr "编辑"
