@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
+"POT-Creation-Date: 2020-05-28T11:52:05.487Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: Bram Piot <bram.piot@gmail.com>, 2020\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -82,6 +82,9 @@ msgstr "Ensemble de données"
 
 msgid "Index"
 msgstr "Index"
+
+msgid "Name"
+msgstr ""
 
 msgid "Value"
 msgstr "Valeur"
@@ -532,6 +535,9 @@ msgstr ""
 
 msgid "Filters"
 msgstr "Filtres"
+
+msgid "Source"
+msgstr ""
 
 msgid "Edit"
 msgstr "Modifier"
