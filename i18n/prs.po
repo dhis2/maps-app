@@ -79,7 +79,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "نام"
 
 msgid "Value"
 msgstr "مقدار"
@@ -526,7 +526,7 @@ msgid "Filters"
 msgstr "فیلټرونه"
 
 msgid "Source"
-msgstr ""
+msgstr "منبع"
 
 msgid "Edit"
 msgstr "ویرایش"
