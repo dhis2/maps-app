@@ -73,7 +73,7 @@ const Legend = ({
         )}
         {source && (
             <div className={classes.source}>
-                Source:&nbsp;
+                {i18n.t('Source')}:&nbsp;
                 {sourceUrl ? (
                     <a href={sourceUrl}>{source}</a>
                 ) : (

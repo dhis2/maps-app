@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-05-12T21:43:42.790Z\n"
-"PO-Revision-Date: 2020-05-12T21:43:42.790Z\n"
+"POT-Creation-Date: 2020-05-28T11:52:05.487Z\n"
+"PO-Revision-Date: 2020-05-28T11:52:05.487Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -69,6 +69,9 @@ msgid "Data set"
 msgstr ""
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -515,6 +518,9 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Filters"
+msgstr ""
+
+msgid "Source"
 msgstr ""
 
 msgid "Edit"
