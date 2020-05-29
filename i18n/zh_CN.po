@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T22:15:44.081Z\n"
+"POT-Creation-Date: 2020-05-28T11:58:20.945Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -77,6 +77,9 @@ msgid "Data set"
 msgstr "数据集"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -524,6 +527,9 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Filters"
+msgstr ""
+
+msgid "Source"
 msgstr ""
 
 msgid "Edit"

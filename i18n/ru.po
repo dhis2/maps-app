@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T22:15:44.081Z\n"
+"POT-Creation-Date: 2020-05-28T11:58:20.945Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -77,6 +77,9 @@ msgid "Data set"
 msgstr "Набор данных"
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -526,6 +529,9 @@ msgstr ""
 
 msgid "Filters"
 msgstr "Фильтры"
+
+msgid "Source"
+msgstr ""
 
 msgid "Edit"
 msgstr "Редактировать"
