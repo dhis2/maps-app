@@ -80,7 +80,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "အမည်"
 
 msgid "Value"
 msgstr "တန်ဖိုး"
@@ -530,7 +530,7 @@ msgid "Filters"
 msgstr "စစ်ချပါ။"
 
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 msgid "Edit"
 msgstr "တည်းဖြတ်သည်"
