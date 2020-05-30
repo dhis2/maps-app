@@ -80,7 +80,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 msgid "Value"
 msgstr "Valor"
@@ -533,7 +533,7 @@ msgid "Filters"
 msgstr ""
 
 msgid "Source"
-msgstr ""
+msgstr "Fonte"
 
 msgid "Edit"
 msgstr "Editar"

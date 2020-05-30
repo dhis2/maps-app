@@ -81,7 +81,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "الإسم"
 
 msgid "Value"
 msgstr "القيمة"
@@ -546,7 +546,7 @@ msgid "Filters"
 msgstr "‏‏عوامل التصفية"
 
 msgid "Source"
-msgstr ""
+msgstr "المصدر"
 
 msgid "Edit"
 msgstr "تعديل"
