@@ -80,7 +80,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Ном"
 
 msgid "Value"
 msgstr "Қимат"
@@ -533,7 +533,7 @@ msgid "Filters"
 msgstr "Филтрҳо"
 
 msgid "Source"
-msgstr ""
+msgstr "Маъхаз"
 
 msgid "Edit"
 msgstr "Таҳрир"

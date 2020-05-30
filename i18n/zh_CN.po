@@ -80,7 +80,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 msgid "Value"
 msgstr "值"
@@ -533,7 +533,7 @@ msgid "Filters"
 msgstr ""
 
 msgid "Source"
-msgstr ""
+msgstr "资源"
 
 msgid "Edit"
 msgstr "编辑<br>"
