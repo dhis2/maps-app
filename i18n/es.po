@@ -1,8 +1,8 @@
 # 
 # Translators:
-# phil_dhis2, 2020
 # ericbp <ericbarredap@gmail.com>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
@@ -82,7 +82,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 msgid "Value"
 msgstr "Valor"
@@ -535,7 +535,7 @@ msgid "Filters"
 msgstr "Filtros"
 
 msgid "Source"
-msgstr ""
+msgstr "Fuente"
 
 msgid "Edit"
 msgstr "Editar"
