@@ -80,7 +80,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "ຊື່"
 
 msgid "Value"
 msgstr "ຄ່າ"
@@ -530,7 +530,7 @@ msgid "Filters"
 msgstr "ກັ່ນຕອງ"
 
 msgid "Source"
-msgstr ""
+msgstr "​ແຫ່​ລງ​ທີ່​ມາ"
 
 msgid "Edit"
 msgstr "ແກ້ໄຂ"

@@ -2,16 +2,16 @@
 # Translators:
 # phil_dhis2, 2019
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-28T11:58:20.945Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
-"Last-Translator: Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,7 +83,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 msgid "Value"
 msgstr "Nilai"
@@ -537,7 +537,7 @@ msgid "Filters"
 msgstr "Penyaringan"
 
 msgid "Source"
-msgstr ""
+msgstr "Sumber"
 
 msgid "Edit"
 msgstr "Edit"
