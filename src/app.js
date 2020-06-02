@@ -10,12 +10,11 @@ import Root from './components/Root';
 import { configI18n } from './util/i18n';
 import { loadOrgUnitTree } from './actions/orgUnits';
 import { loadExternalLayers } from './actions/externalLayers';
-import { setUserSettings } from './actions/user';
+import { setSystemSettings, setUserSettings } from './actions/settings';
 import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
 import { getAnalyticalObject } from './actions/analyticalObject';
-import { setBingMapsApiKey } from './actions/basemap';
-import { getUrlParameter } from './util/requests';
+import { getUrlParameter, getSystemSettings } from './util/requests';
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
@@ -65,13 +64,9 @@ getManifest('manifest.webapp')
         return userSettings;
     })
     .then(configI18n)
+    .then(getSystemSettings)
+    .then(systemSettings => store.dispatch(setSystemSettings(systemSettings)))
     .then(init)
-    .then(d2 =>
-        d2.system.settings.get('keyBingMapsApiKey').then(key => {
-            store.dispatch(setBingMapsApiKey(key));
-            return d2;
-        })
-    )
     .then(
         d2 => {
             const mapId = getUrlParameter('id');

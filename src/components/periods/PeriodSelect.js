@@ -157,6 +157,6 @@ class PeriodSelect extends Component {
     };
 }
 
-export default connect(state => ({
-    locale: state.userSettings.keyUiLocale,
+export default connect(({ settings }) => ({
+    locale: settings.user.keyUiLocale,
 }))(withStyles(styles)(PeriodSelect));

@@ -2,12 +2,14 @@
 # Translators:
 # phil_dhis2, 2019
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
+# Farida Sibuea <farida_sibuea@yahoo.com>, 2020
+# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -57,7 +59,7 @@ msgid "Yes"
 msgstr "Ya"
 
 msgid "Event location"
-msgstr ""
+msgstr "Lokasi even"
 
 msgid "Coordinate field"
 msgstr ""
@@ -69,16 +71,19 @@ msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "Data item pada even"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Ragam berdasarkan elemen data"
 
 msgid "Data set"
 msgstr "Data set"
 
 msgid "Index"
 msgstr ""
+
+msgid "Name"
+msgstr "Nama"
 
 msgid "Value"
 msgstr "Nilai"
@@ -151,7 +156,7 @@ msgid "Style"
 msgstr "Gaya"
 
 msgid "Labels"
-msgstr ""
+msgstr "label"
 
 msgid "Point radius"
 msgstr ""
@@ -223,7 +228,7 @@ msgid "Max"
 msgstr "Maks"
 
 msgid "Steps"
-msgstr ""
+msgstr "langkah"
 
 msgid "Legend preview"
 msgstr ""
@@ -246,20 +251,14 @@ msgstr ""
 msgid "Filter"
 msgstr "Saring"
 
-msgid "Start date"
-msgstr "Tanggal mulai"
-
-msgid "End date"
-msgstr "Tanggal berakhir"
-
 msgid "Events"
 msgstr "Event"
 
 msgid "Group events"
-msgstr ""
+msgstr "Grup even"
 
 msgid "View all events"
-msgstr ""
+msgstr "Lihat semua even"
 
 msgid "Radius"
 msgstr ""
@@ -272,6 +271,8 @@ msgstr ""
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"Anda dapat menganti corak even berdasarkan elemen data setelah memilih satu "
+"program"
 
 msgid "Program is required"
 msgstr ""
@@ -296,7 +297,7 @@ msgid "event"
 msgstr ""
 
 msgid "tracked entity"
-msgstr ""
+msgstr "Entitas dilacak"
 
 msgid "facility"
 msgstr ""
@@ -335,21 +336,22 @@ msgid "Program status"
 msgstr ""
 
 msgid "Follow up"
-msgstr ""
+msgstr "Tindak lanjut"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
+"Silahkan pilih satu tipe entitas dilacak sebelum memilih satu tipe hubungan"
 
 msgid "WARNING"
 msgstr ""
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
+msgstr "Menampilkan hubungan entitas dilacak pada peta adalah fitur percobaan"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "Tampikan semua hubungan entitas dilacak"
 
 msgid "Selection mode"
 msgstr ""
@@ -364,16 +366,16 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Entitas dilacak"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "Ragam entitas terlacak"
 
 msgid "Point size"
 msgstr ""
 
 msgid "Related entity style"
-msgstr ""
+msgstr "Ragam entitas terkait"
 
 msgid "Line Color"
 msgstr ""
@@ -431,6 +433,7 @@ msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
+"Tidak ada tipe hubungan yang ditemukan untuk tipe entitas dilacak {{type}}"
 
 msgid "Relationship type"
 msgstr "Tipe hubungan"
@@ -529,6 +532,9 @@ msgstr ""
 
 msgid "Filters"
 msgstr "Penyaringan"
+
+msgid "Source"
+msgstr "Sumber"
 
 msgid "Edit"
 msgstr "Edit"
@@ -769,6 +775,12 @@ msgstr ""
 msgid "Remove other layers to enable split map views."
 msgstr ""
 
+msgid "Start date"
+msgstr "Tanggal mulai"
+
+msgid "End date"
+msgstr "Tanggal berakhir"
+
 msgid "Program indicator"
 msgstr "Manajemen indikator program"
 
@@ -782,7 +794,7 @@ msgid "Stage"
 msgstr "Stage"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Tipe entitas dilacak"
 
 msgid "By data element"
 msgstr "Berdasarkan elemen data"

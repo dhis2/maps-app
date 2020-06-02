@@ -1,4 +1,4 @@
-export const layerDialogStyles = {
+const layerDialogStyles = {
     select: {
         width: 'auto',
         maxWidth: 300,
@@ -33,4 +33,10 @@ export const layerDialogStyles = {
         flex: 1,
         margin: 8,
     },
+    error: {
+        marginTop: 10,
+        color: 'red',
+    },
 };
+
+export default layerDialogStyles;

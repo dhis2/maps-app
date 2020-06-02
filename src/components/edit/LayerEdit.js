@@ -50,6 +50,7 @@ const styles = {
 class LayerEdit extends Component {
     static propTypes = {
         layer: PropTypes.object,
+        defaultPeriod: PropTypes.string,
         loadLayer: PropTypes.func.isRequired,
         cancelLayer: PropTypes.func.isRequired,
         setLayerLoading: PropTypes.func.isRequired,
@@ -88,7 +89,7 @@ class LayerEdit extends Component {
     };
 
     render() {
-        const { layer, cancelLayer, classes } = this.props;
+        const { layer, defaultPeriod, cancelLayer, classes } = this.props;
 
         if (!layer) {
             return null;
@@ -114,6 +115,7 @@ class LayerEdit extends Component {
                 <DialogContent className={classes.content}>
                     <LayerDialog
                         {...layer}
+                        defaultPeriod={defaultPeriod}
                         validateLayer={this.state.validateLayer}
                         onLayerValidation={this.onLayerValidation}
                     />
@@ -152,8 +154,9 @@ class LayerEdit extends Component {
 }
 
 export default connect(
-    state => ({
-        layer: state.layerEdit,
+    ({ layerEdit, settings }) => ({
+        layer: layerEdit,
+        defaultPeriod: settings.system.keyAnalysisRelativePeriod,
     }),
     { loadLayer, cancelLayer, setLayerLoading }
 )(withStyles(styles)(LayerEdit));

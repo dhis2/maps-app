@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
-"PO-Revision-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"PO-Revision-Date: 2020-05-28T11:49:25.547Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -69,6 +69,9 @@ msgid "Data set"
 msgstr ""
 
 msgid "Index"
+msgstr ""
+
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -234,12 +237,6 @@ msgid "Org units"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
-
-msgid "Start date"
-msgstr ""
-
-msgid "End date"
 msgstr ""
 
 msgid "Events"
@@ -517,6 +514,9 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
+msgid "Source"
+msgstr ""
+
 msgid "Edit"
 msgstr ""
 
@@ -754,6 +754,12 @@ msgid "Only one timeline is allowed."
 msgstr ""
 
 msgid "Remove other layers to enable split map views."
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "End date"
 msgstr ""
 
 msgid "Program indicator"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -77,6 +77,9 @@ msgstr "د مالوماتو (ډاټا) ټولګه"
 
 msgid "Index"
 msgstr ""
+
+msgid "Name"
+msgstr "نام"
 
 msgid "Value"
 msgstr "مقدار"
@@ -243,12 +246,6 @@ msgstr "واحد های سازمان"
 
 msgid "Filter"
 msgstr "فلتر"
-
-msgid "Start date"
-msgstr "تاریخ شروع"
-
-msgid "End date"
-msgstr "تاریخ اتمام"
 
 msgid "Events"
 msgstr "پېښې"
@@ -528,6 +525,9 @@ msgstr ""
 msgid "Filters"
 msgstr "فیلټرونه"
 
+msgid "Source"
+msgstr "منبع"
+
 msgid "Edit"
 msgstr "ویرایش"
 
@@ -766,6 +766,12 @@ msgstr ""
 
 msgid "Remove other layers to enable split map views."
 msgstr ""
+
+msgid "Start date"
+msgstr "تاریخ شروع"
+
+msgid "End date"
+msgstr "تاریخ اتمام"
 
 msgid "Program indicator"
 msgstr "شاخص پروگرام"

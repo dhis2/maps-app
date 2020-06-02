@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-12T20:48:33.602Z\n"
+"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
@@ -78,6 +78,9 @@ msgstr "Conjunto de dados"
 
 msgid "Index"
 msgstr ""
+
+msgid "Name"
+msgstr "Nome"
 
 msgid "Value"
 msgstr "Valor"
@@ -244,12 +247,6 @@ msgstr "Unidades organizacionais"
 
 msgid "Filter"
 msgstr "Filtro"
-
-msgid "Start date"
-msgstr "Data de início"
-
-msgid "End date"
-msgstr "Data de término"
 
 msgid "Events"
 msgstr ""
@@ -529,6 +526,9 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
+msgid "Source"
+msgstr "Fonte"
+
 msgid "Edit"
 msgstr "Editar"
 
@@ -767,6 +767,12 @@ msgstr ""
 
 msgid "Remove other layers to enable split map views."
 msgstr ""
+
+msgid "Start date"
+msgstr "Data de início"
+
+msgid "End date"
+msgstr "Data de término"
 
 msgid "Program indicator"
 msgstr ""

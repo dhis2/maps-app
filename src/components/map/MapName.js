@@ -74,9 +74,9 @@ MapName.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(({ map, download, userSettings }) => ({
+export default connect(({ map, download, settings }) => ({
     name: map.name,
     interpretationDate: map.interpretationDate,
     showName: download.showDialog ? download.showName : true,
-    uiLocale: userSettings.keyUiLocale,
+    uiLocale: settings.user.keyUiLocale,
 }))(withStyles(styles)(MapName));
