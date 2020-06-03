@@ -15,6 +15,8 @@ import {
     LABEL_FONT_COLOR,
 } from '../../constants/layers';
 
+// TODO: context menu support for proportional symbols
+
 class ThematicLayer extends Layer {
     createLayer() {
         const {
@@ -34,9 +36,13 @@ class ThematicLayer extends Layer {
         } = this.props;
 
         const { period } = this.state;
-        let periodData = data;
 
-        console.log('data', data, polygonsToPoints(data));
+        const proportionalSymbols = true; // TODO
+
+        // let periodData = data;
+        let periodData = proportionalSymbols ? polygonsToPoints(data) : data;
+
+        // console.log('data', renderingStrategy, data, polygonsToPoints(data));
 
         if (renderingStrategy !== 'SINGLE') {
             const values = valuesByPeriod[period.id] || {};
@@ -54,13 +60,15 @@ class ThematicLayer extends Layer {
 
         const map = this.context.map;
 
+        const filteredData = filterData(periodData, dataFilters);
+
         const config = {
             type: 'choropleth',
             id,
             index,
             opacity,
             isVisible,
-            data: filterData(periodData, dataFilters),
+            data: filteredData,
             hoverLabel: '{name} ({value})',
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
@@ -79,7 +87,36 @@ class ThematicLayer extends Layer {
             };
         }
 
-        this.layer = map.createLayer(config);
+        // Add boundaries as a separate layer
+        if (proportionalSymbols) {
+            this.layer = map.createLayer({
+                type: 'group',
+                id,
+                index,
+                opacity,
+                isVisible,
+            });
+
+            this.layer.addLayer({
+                type: 'boundary',
+                data: data.map(f => ({
+                    ...f,
+                    properties: {
+                        ...f.properties,
+                        style: {
+                            color: '#333', // TODO
+                            weight: 0.5,
+                        },
+                    },
+                })),
+                style: {}, // TODO
+            });
+
+            console.log('addLayer', config);
+            this.layer.addLayer(config);
+        } else {
+            this.layer = map.createLayer(config);
+        }
 
         map.addLayer(this.layer);
 
