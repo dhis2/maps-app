@@ -7,6 +7,7 @@ import Popup from './Popup';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
 import { getPeriodFromFilters } from '../../util/analytics';
+import { polygonsToPoints } from '../../util/geojson';
 import {
     LABEL_FONT_SIZE,
     LABEL_FONT_STYLE,
@@ -34,6 +35,8 @@ class ThematicLayer extends Layer {
 
         const { period } = this.state;
         let periodData = data;
+
+        console.log('data', data, polygonsToPoints(data));
 
         if (renderingStrategy !== 'SINGLE') {
             const values = valuesByPeriod[period.id] || {};

@@ -2,7 +2,6 @@ import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { findIndex, curry } from 'lodash/fp';
 import { toGeoJson } from '../util/map';
-import { poleOfInaccessibility } from '../components/map/MapApi';
 import { dimConf } from '../constants/dimension';
 import { getLegendItemForValue } from '../util/classify';
 import { getDisplayProperty } from '../util/helpers';
@@ -327,6 +326,7 @@ const loadData = async config => {
         analyticsRequest = analyticsRequest.addDimension('co');
     }
 
+    /*
     const proportionalSymbols = true;
 
     const polygonsToPoints = features => {
@@ -342,14 +342,15 @@ const loadData = async config => {
             },
         }));
     };
+    */
 
     // Features request
     const orgUnitReq = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayPropertyUpper)
         .getAll(geoFeaturesParams)
-        .then(toGeoJson)
-        .then(polygonsToPoints);
+        .then(toGeoJson);
+    // .then(polygonsToPoints);
 
     // Data request
     const dataReq = d2.analytics.aggregate.get(analyticsRequest);
