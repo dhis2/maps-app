@@ -42,6 +42,8 @@ const styles = {
     },
 };
 
+const polygonTypes = ['Polygon', 'MultiPolygon'];
+
 const ContextMenu = (props, context) => {
     const {
         feature,
@@ -78,8 +80,13 @@ const ContextMenu = (props, context) => {
     }
 
     if (feature) {
-        isPoint = feature.geometry.type === 'Point';
-        attr = feature.properties;
+        const { geometry, properties } = feature;
+
+        attr = properties || {};
+
+        // Treat proportional symbols as polygons if created from one
+        isPoint =
+            geometry.type === 'Point' && !polygonTypes.includes(attr.type);
     }
 
     return [

@@ -263,6 +263,12 @@ const layerEdit = (state = null, action) => {
 
             return newState;
 
+        case types.LAYER_EDIT_THEMATIC_METOD_SET:
+            return {
+                ...state,
+                thematicMethod: action.method,
+            };
+
         case types.LAYER_EDIT_CLASSIFICATION_SET:
             newState = {
                 ...state,

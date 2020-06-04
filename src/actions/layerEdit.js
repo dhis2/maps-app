@@ -87,6 +87,12 @@ export const setBooleanStyle = (value, color) => ({
     color,
 });
 
+// Set thematic method (choropleth, proportional)
+export const setThematicMethod = method => ({
+    type: types.LAYER_EDIT_THEMATIC_METOD_SET,
+    method,
+});
+
 // Set classification style (method, classes, colorScale)
 export const setClassification = method => ({
     type: types.LAYER_EDIT_CLASSIFICATION_SET,

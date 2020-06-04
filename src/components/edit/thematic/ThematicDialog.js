@@ -31,6 +31,7 @@ import StartEndDates from '../../periods/StartEndDates';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
 import layerDialogStyles from '../LayerDialogStyles';
+import ThematicMethodSelect from './ThematicMethodSelect';
 import { dimConf } from '../../../constants/dimension';
 import {
     DEFAULT_ORG_UNIT_LEVEL,
@@ -258,6 +259,7 @@ export class ThematicDialog extends Component {
             radiusHigh = DEFAULT_RADIUS_HIGH,
             rows,
             valueType,
+            thematicMethod,
         } = this.props;
 
         const {
@@ -564,6 +566,7 @@ export class ThematicDialog extends Component {
                             data-test="thematicdialog-styletab"
                         >
                             <div style={{ ...styles.flexColumn, marginTop: 0 }}>
+                                <ThematicMethodSelect method={thematicMethod} />
                                 <NumericLegendStyle
                                     dataItem={dataItem}
                                     style={styles.select}

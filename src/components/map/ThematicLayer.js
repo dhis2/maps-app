@@ -15,8 +15,6 @@ import {
     LABEL_FONT_COLOR,
 } from '../../constants/layers';
 
-// TODO: context menu support for proportional symbols
-
 class ThematicLayer extends Layer {
     createLayer() {
         const {
@@ -33,16 +31,15 @@ class ThematicLayer extends Layer {
             labelFontColor,
             valuesByPeriod,
             renderingStrategy = 'SINGLE',
+            thematicMethod = 'choropleth',
         } = this.props;
 
         const { period } = this.state;
 
-        const proportionalSymbols = true; // TODO
+        const proportionalSymbols = thematicMethod === 'proportional';
 
         // let periodData = data;
         let periodData = proportionalSymbols ? polygonsToPoints(data) : data;
-
-        // console.log('data', renderingStrategy, data, polygonsToPoints(data));
 
         if (renderingStrategy !== 'SINGLE') {
             const values = valuesByPeriod[period.id] || {};
@@ -112,7 +109,6 @@ class ThematicLayer extends Layer {
                 style: {}, // TODO
             });
 
-            console.log('addLayer', config);
             this.layer.addLayer(config);
         } else {
             this.layer = map.createLayer(config);
