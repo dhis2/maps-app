@@ -11,6 +11,7 @@ import {
 
 // Since we're not in a browser environment we unfortunately have to mock FileSaver and Blob
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }));
+
 global.Blob = function(content, options) {
     return { content, options };
 };
@@ -21,7 +22,14 @@ const sampleData = [
         id: '1234',
         geometry: {
             type: 'MultiPolygon',
-            coordinates: [[[0, 0], [1, 1], [2, 3], [0, 3]]],
+            coordinates: [
+                [
+                    [0, 0],
+                    [1, 1],
+                    [2, 3],
+                    [0, 3],
+                ],
+            ],
         },
         attributes: {
             testAttribute: 'someValue',
@@ -33,7 +41,14 @@ const sampleData = [
         id: '1234',
         geometry: {
             type: 'Point',
-            coordinates: [[[0, 0], [1, 1], [2, 3], [0, 3]]],
+            coordinates: [
+                [
+                    [0, 0],
+                    [1, 1],
+                    [2, 3],
+                    [0, 3],
+                ],
+            ],
         },
         attributes: {
             testAttribute: 'someValue',
@@ -345,7 +360,10 @@ describe('geojson utils', () => {
         });
         it('Should correctly parse a simple bounding box', () => {
             const bbox = getBounds('[0][1][2][3]');
-            expect(bbox).toEqual([['0', '1'], ['2', '3']]);
+            expect(bbox).toEqual([
+                ['0', '1'],
+                ['2', '3'],
+            ]);
         });
     });
 });

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
-"PO-Revision-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-06-06T14:37:14.743Z\n"
+"PO-Revision-Date: 2020-06-06T14:37:14.743Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -393,6 +393,12 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
+msgstr ""
+
+msgid "Choropleth"
+msgstr ""
+
+msgid "Proportional symbols"
 msgstr ""
 
 msgid "Indicator"
