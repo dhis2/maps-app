@@ -52,7 +52,7 @@
         "@dhis2/d2-ui-file-menu": "7.0.4",
         "@dhis2/d2-ui-interpretations": "7.0.3",
         "@dhis2/d2-ui-org-unit-dialog": "7.0.3",
-        "@dhis2/d2-ui-org-unit-tree": "7.0.3",
+        "@dhis2/d2-ui-org-unit-tree": "7.0.4",
         "@dhis2/maps-gl": "1.0.19",
         "@dhis2/ui-core": "^4.1.1",
         "@dhis2/ui-widgets": "^2.1.0",
