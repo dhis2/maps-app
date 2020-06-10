@@ -300,7 +300,7 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Quelque chose a mal tourné"
 
 msgid "Refresh to try again"
 msgstr "Actualiser pour réessayer"
