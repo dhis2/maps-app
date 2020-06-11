@@ -337,7 +337,7 @@ msgid "relationships"
 msgstr "Relacionamentos"
 
 msgid "Program status"
-msgstr ""
+msgstr "Status do programa"
 
 msgid "Follow up"
 msgstr "Acompanhamento"
@@ -447,16 +447,16 @@ msgid "Something went wrong"
 msgstr "Ocorreu algo de errado"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Actualize para tentar novamente"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Ocultar detalhes técnicos"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Mostrar detalhes tecnicos "
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "As informações a seguir podem ser solicitadas pelo suporte técnico."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -605,7 +605,7 @@ msgid "Latitude"
 msgstr "Latitude"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Visualizando interpretação de {{interpretaçãoDados}}"
 
 msgid "Last updated"
 msgstr "Última actualização"
