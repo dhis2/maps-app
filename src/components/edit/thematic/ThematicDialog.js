@@ -32,6 +32,7 @@ import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
 import layerDialogStyles from '../LayerDialogStyles';
 import ThematicMethodSelect from './ThematicMethodSelect';
+import ScaleModeSelect from './ScaleModeSelect';
 import { dimConf } from '../../../constants/dimension';
 import {
     DEFAULT_ORG_UNIT_LEVEL,
@@ -575,7 +576,7 @@ export class ThematicDialog extends Component {
                                     <TextField
                                         id="lowsize"
                                         type="number"
-                                        label={i18n.t('Low size')}
+                                        label={i18n.t('Low radius')}
                                         value={radiusLow}
                                         onChange={radius =>
                                             setRadiusLow(radius)
@@ -588,7 +589,7 @@ export class ThematicDialog extends Component {
                                     <TextField
                                         id="highsize"
                                         type="number"
-                                        label={i18n.t('High size')}
+                                        label={i18n.t('High radius')}
                                         value={radiusHigh}
                                         onChange={radius =>
                                             setRadiusHigh(radius)
@@ -599,6 +600,11 @@ export class ThematicDialog extends Component {
                                         }}
                                     />
                                 </div>
+                                <ScaleModeSelect
+                                    radiusLow={radiusLow}
+                                    radiusHigh={radiusHigh}
+                                    onChange={console.log}
+                                />
                                 <div style={styles.flexInnerColumnFlow}>
                                     <Checkbox
                                         label={i18n.t('Labels')}

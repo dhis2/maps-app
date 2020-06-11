@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-06-06T14:37:14.743Z\n"
-"PO-Revision-Date: 2020-06-06T14:37:14.743Z\n"
+"POT-Creation-Date: 2020-06-08T12:56:26.249Z\n"
+"PO-Revision-Date: 2020-06-08T12:56:26.249Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -365,10 +365,19 @@ msgstr ""
 msgid "Aggregation type"
 msgstr ""
 
-msgid "Low size"
+msgid "Linear"
 msgstr ""
 
-msgid "High size"
+msgid "Perceptual"
+msgstr ""
+
+msgid "Symbol scaling"
+msgstr ""
+
+msgid "Low radius"
+msgstr ""
+
+msgid "High radius"
 msgstr ""
 
 msgid "Indicator group is required"
@@ -548,6 +557,9 @@ msgid "Edit layer"
 msgstr ""
 
 msgid "Remove layer"
+msgstr ""
+
+msgid "Mid"
 msgstr ""
 
 msgid "Parent unit"

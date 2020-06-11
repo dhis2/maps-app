@@ -10,7 +10,7 @@ export const DEFAULT_ORG_UNIT_LEVEL = 2;
 
 /* THEMATIC LAYER */
 export const DEFAULT_RADIUS_LOW = 5;
-export const DEFAULT_RADIUS_HIGH = 15;
+export const DEFAULT_RADIUS_HIGH = 30;
 
 /* EVENT LAYER */
 export const EVENT_COLOR = '#333333';
