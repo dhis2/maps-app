@@ -12,6 +12,7 @@ import { scaleSqrt, scaleLinear } from 'd3-scale';
 // https://blog.mastermaps.com/2008/06/proportional-symbols-in-three.html
 const scaleModes = {
     linear: scaleSqrt(),
+    // linear: scaleLinear(), // scaleSqrt(),
     perceptual: scaleLinear().interpolate((min, max) => x => {
         const radius = min + (max - min) * x;
 
@@ -65,14 +66,13 @@ Symbol.propTypes = {
 
 const Bubbles = ({ radiusLow, radiusHigh }) => {
     const height = radiusHigh * 2 + 4;
-    const scale = scaleModes['linear'].range([radiusLow, radiusHigh]);
+    // const scale = scaleModes['linear'].range([radiusLow, radiusHigh]);
+    const scale = scaleModes['linear'].range([0, radiusHigh]);
     const radiusMid = scale(0.5);
 
     if (isNaN(radiusLow) || isNaN(radiusHigh)) {
         return null;
     }
-
-    console.log('radiusLow, radiusHigh', radiusLow, radiusHigh);
 
     return (
         <svg width="260" height={height + 20}>
