@@ -170,7 +170,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "选择年份"
 
 msgid "Min people"
 msgstr ""
@@ -520,7 +520,7 @@ msgid "Use human-readable keys"
 msgstr "使用人机可读的键值"
 
 msgid "External layer"
-msgstr ""
+msgstr "外部图层"
 
 msgid "Loading layer"
 msgstr "载入图层"
@@ -816,10 +816,10 @@ msgid "OSM Detailed"
 msgstr ""
 
 msgid "Google Streets"
-msgstr ""
+msgstr "谷歌街道"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "谷歌杂合"
 
 msgid "Bing Road"
 msgstr ""
@@ -837,7 +837,7 @@ msgid "Equal intervals"
 msgstr "平等间隔"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "等数量"
 
 msgid "Daily"
 msgstr "每日"
@@ -998,7 +998,7 @@ msgid "No boundaries found"
 msgstr "没有发现边界线"
 
 msgid "Elevation"
-msgstr ""
+msgstr "高程"
 
 msgid "metres"
 msgstr ""
@@ -1007,7 +1007,7 @@ msgid "Elevation above sea-level."
 msgstr ""
 
 msgid "Population density"
-msgstr ""
+msgstr "人口密度"
 
 msgid "people per km²"
 msgstr ""
@@ -1018,13 +1018,13 @@ msgid ""
 msgstr ""
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "夜间灯光"
 
 msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
-msgstr ""
+msgstr "降水"
 
 msgid "millimeter"
 msgstr ""
@@ -1034,7 +1034,7 @@ msgid ""
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "温度"
 
 msgid "°C during daytime"
 msgstr ""
@@ -1045,7 +1045,7 @@ msgid ""
 msgstr ""
 
 msgid "Landcover"
-msgstr ""
+msgstr "陆地覆盖"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr ""
