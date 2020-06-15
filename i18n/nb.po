@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2020
+# Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -309,7 +309,7 @@ msgid "tracked entity"
 msgstr "sporet enhet"
 
 msgid "facility"
-msgstr "bygning"
+msgstr "fasilitet"
 
 msgid "thematic"
 msgstr "tematisk"
@@ -723,7 +723,7 @@ msgstr ""
 "individuelle enheter."
 
 msgid "Click the map where you want to relocate facility"
-msgstr "Klikk på kartet der du vil flytte bygningen"
+msgstr "Klikk på kartet der du vil flytte fasiliteten"
 
 msgid "user organisation unit"
 msgstr "brukerorganisasjonsenhet"
