@@ -481,7 +481,7 @@ msgid "Select levels"
 msgstr "Velg nivåer"
 
 msgid "Click the map where you want to relocate facility"
-msgstr "Klikk på kartet der du vil flytte bygningen"
+msgstr "Klikk på kartet der du vil flytte fasiliteten"
 
 msgid "user organisation unit"
 msgstr "brukerorganisasjonsenhet"
