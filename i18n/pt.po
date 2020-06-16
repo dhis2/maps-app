@@ -138,7 +138,7 @@ msgid "Style"
 msgstr "Estilo"
 
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 msgid "Point radius"
 msgstr ""
