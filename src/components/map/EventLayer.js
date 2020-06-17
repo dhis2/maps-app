@@ -5,6 +5,7 @@ import Layer from './Layer';
 import EventPopup from './EventPopup';
 import { getDisplayPropertyUrl } from '../../util/helpers';
 import { formatCount } from '../../util/numbers';
+import { filterData } from '../../util/filter';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers';
 
 class EventLayer extends Layer {
@@ -33,7 +34,10 @@ class EventLayer extends Layer {
             areaRadius,
             styleDataItem,
             legend,
+            dataFilters,
         } = this.props;
+
+        const filteredData = filterData(data, dataFilters);
 
         // Some older favorites don't have a valid color code
         const color =
@@ -55,7 +59,7 @@ class EventLayer extends Layer {
             index,
             opacity,
             isVisible,
-            data,
+            data: filteredData,
             fillColor: color || EVENT_COLOR,
             radius: eventPointRadius || EVENT_RADIUS,
             onClick: this.onEventClick.bind(this),

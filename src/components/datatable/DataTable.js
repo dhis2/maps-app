@@ -73,9 +73,9 @@ class DataTable extends Component {
         // const fields = mapValues(() => true, data[0]);
         const { sortBy, sortDirection } = this.state;
         const sortedData = this.sort(data, sortBy, sortDirection);
-        // const isFacility = layerType === 'facility';
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
+        const isEvent = layerType === 'event';
 
         return (
             <Table
@@ -102,14 +102,16 @@ class DataTable extends Component {
                     className="right"
                     // headerRenderer={props => <ColumnHeader type='number' {...props}  />}
                 />
-                <Column
-                    dataKey="name"
-                    label={i18n.t('Name')}
-                    width={100}
-                    headerRenderer={props => (
-                        <ColumnHeader type="string" {...props} />
-                    )}
-                />
+                {!isEvent && (
+                    <Column
+                        dataKey="name"
+                        label={i18n.t('Name')}
+                        width={100}
+                        headerRenderer={props => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
+                    />
+                )}
                 {isThematic && (
                     <Column
                         dataKey="value"

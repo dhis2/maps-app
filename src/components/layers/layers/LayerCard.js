@@ -83,7 +83,7 @@ const styles = {
 };
 
 const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
-const dataTableLayerTypes = ['facility', 'thematic', 'boundary'];
+const dataTableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
 const openAsLayerTypes = ['thematic'];
 
 const LayerCard = ({
