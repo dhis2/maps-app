@@ -25,7 +25,7 @@ msgid "Maps"
 msgstr "Cartes"
 
 msgid "Classification"
-msgstr ""
+msgstr "Classification"
 
 msgid "Classes"
 msgstr "Classes"
@@ -43,7 +43,7 @@ msgid "Data element group"
 msgstr "Groupe d'éléments de données"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "élément de donnée opérande"
 
 msgid "Data element"
 msgstr "Élément de données"
@@ -73,7 +73,7 @@ msgid "Event data item"
 msgstr "Elément de données évènement"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Style par élément de donnée"
 
 msgid "Data set"
 msgstr "Ensemble de données"
