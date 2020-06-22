@@ -35,8 +35,6 @@ const baseFields = [
     'zoom',
     'basemap',
     'publicAccess',
-    'created',
-    'lastUpdated',
 ];
 
 const analysisFields = async () => {
@@ -54,7 +52,9 @@ const analysisFields = async () => {
         'legendSet[id,displayName~rename(name)]',
         'trackedEntityType[id,displayName~rename(name)]',
         'organisationUnitSelectionMode',
+        '!lastUpdated',
         '!href',
+        '!created',
         '!publicAccess',
         '!rewindRelativePeriods',
         '!userOrganisationUnit',
@@ -122,10 +122,6 @@ export const addOrgUnitPaths = mapViews =>
             : view
     );
 
-// Remove line breaks from text (not displayed corrently in map downloads)
-// https://stackoverflow.com/questions/10805125/how-to-remove-all-line-breaks-from-a-string/10805292#10805292
-export const removeLineBreaks = text => text.replace(/\r?\n|\r/g, ' ');
-
 const mandatoryDataItemAttributes = ['id', 'name', 'valueType'];
 
 // Checks if a data item is valid (program stage data elements and tracked entity attributes)
@@ -152,3 +148,7 @@ export const formatCoordinate = value => {
         return value;
     }
 };
+
+// Formats a DHIS2 time string
+export const formatTime = time =>
+    `${time.substring(0, 10)} ${time.substring(11, 16)}`;

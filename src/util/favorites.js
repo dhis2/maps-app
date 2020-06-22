@@ -15,8 +15,6 @@ const validMapProperties = [
     'user',
     'zoom',
     'publicAccess',
-    'created',
-    'lastUpdated',
 ];
 
 const validLayerProperties = [
@@ -28,7 +26,6 @@ const validLayerProperties = [
     'colorScale',
     'columns',
     'config',
-    'created',
     'datasetId',
     'displayName',
     'endDate',
@@ -45,7 +42,6 @@ const validLayerProperties = [
     'labelFontStyle',
     'labelFontWeight',
     'labelFontColor',
-    'lastUpdated',
     'layer',
     'legendSet',
     'method',
