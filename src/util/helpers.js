@@ -35,6 +35,8 @@ const baseFields = [
     'zoom',
     'basemap',
     'publicAccess',
+    'created',
+    'lastUpdated',
 ];
 
 const analysisFields = async () => {
@@ -52,9 +54,7 @@ const analysisFields = async () => {
         'legendSet[id,displayName~rename(name)]',
         'trackedEntityType[id,displayName~rename(name)]',
         'organisationUnitSelectionMode',
-        '!lastUpdated',
         '!href',
-        '!created',
         '!publicAccess',
         '!rewindRelativePeriods',
         '!userOrganisationUnit',
