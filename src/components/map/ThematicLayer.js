@@ -31,15 +31,15 @@ class ThematicLayer extends Layer {
             labelFontColor,
             valuesByPeriod,
             renderingStrategy = 'SINGLE',
-            thematicMethod = 'choropleth',
+            thematicMapType = 'CHOROPLETH',
         } = this.props;
 
         const { period } = this.state;
 
-        const proportionalSymbols = thematicMethod === 'proportional';
+        const bubbleMap = thematicMapType === 'BUBBLE';
 
         // let periodData = data;
-        let periodData = proportionalSymbols ? polygonsToPoints(data) : data;
+        let periodData = bubbleMap ? polygonsToPoints(data) : data;
 
         if (renderingStrategy !== 'SINGLE') {
             const values = valuesByPeriod[period.id] || {};
@@ -85,7 +85,7 @@ class ThematicLayer extends Layer {
         }
 
         // Add boundaries as a separate layer
-        if (proportionalSymbols) {
+        if (bubbleMap) {
             this.layer = map.createLayer({
                 type: 'group',
                 id,

@@ -61,6 +61,7 @@ const validLayerProperties = [
     'serverCluster',
     'startDate',
     'styleDataItem',
+    'thematicMapType',
     'trackedEntityType',
     'valueType',
     'relationshipType',

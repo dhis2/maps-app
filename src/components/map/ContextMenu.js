@@ -84,7 +84,7 @@ const ContextMenu = (props, context) => {
 
         attr = properties || {};
 
-        // Treat proportional symbols as polygons if created from one
+        // Treat bubbles as polygons if created from one
         isPoint =
             geometry.type === 'Point' && !polygonTypes.includes(attr.type);
     }

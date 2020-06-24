@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '../../core/Radio';
 import { RadioGroup } from '@material-ui/core';
-import { setThematicMethod } from '../../../actions/layerEdit';
+import { setThematicMapType } from '../../../actions/layerEdit';
 
 const styles = {
     radioGroup: {
@@ -20,37 +20,37 @@ const styles = {
     },
 };
 
-// Select between choropleth and proportional symbols for thematic layers
-export const ThematicMethodSelect = ({
-    method = 'choropleth',
-    setThematicMethod,
+// Select between choropleth and bubble map for thematic layers
+export const ThematicMapTypeSelect = ({
+    type = 'CHOROPLETH',
+    setThematicMapType,
     classes,
 }) => (
     <RadioGroup
-        name="method"
-        value={method}
-        onChange={(event, method) => setThematicMethod(method)}
+        name="type"
+        value={type}
+        onChange={(event, type) => setThematicMapType(type)}
         className={classes.radioGroup}
     >
         <Radio
-            value={'choropleth'}
+            value={'CHOROPLETH'}
             label={i18n.t('Choropleth')}
             className={classes.radio}
         />
         <Radio
-            value={'proportional'}
-            label={i18n.t('Proportional symbols')}
+            value={'BUBBLE'}
+            label={i18n.t('Bubble map')}
             className={classes.radio}
         />
     </RadioGroup>
 );
 
-ThematicMethodSelect.propTypes = {
-    method: PropTypes.string,
-    setThematicMethod: PropTypes.func.isRequired,
+ThematicMapTypeSelect.propTypes = {
+    type: PropTypes.string,
+    setThematicMapType: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(null, { setThematicMethod })(
-    withStyles(styles)(ThematicMethodSelect)
+export default connect(null, { setThematicMapType })(
+    withStyles(styles)(ThematicMapTypeSelect)
 );

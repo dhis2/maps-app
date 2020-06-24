@@ -263,10 +263,10 @@ const layerEdit = (state = null, action) => {
 
             return newState;
 
-        case types.LAYER_EDIT_THEMATIC_METOD_SET:
+        case types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET:
             return {
                 ...state,
-                thematicMethod: action.method,
+                thematicMapType: action.payload,
             };
 
         case types.LAYER_EDIT_CLASSIFICATION_SET:

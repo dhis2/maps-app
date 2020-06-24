@@ -327,10 +327,10 @@ const loadData = async config => {
     }
 
     /*
-    const proportionalSymbols = true;
+    const bubbleMap = true;
 
     const polygonsToPoints = features => {
-        if (!proportionalSymbols) {
+        if (!bubbleMap) {
             return features;
         }
 
