@@ -3,21 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Table, Column } from 'react-virtualized';
-// import { mapValues } from 'lodash/fp';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
+import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
 import './DataTable.css';
 
 // Using react component to keep sorting state, which is only used within the data table.
 class DataTable extends Component {
     static propTypes = {
-        layerType: PropTypes.string.isRequired,
-        data: PropTypes.array.isRequired,
+        layer: PropTypes.object.isRequired,
+        // layerType: PropTypes.string.isRequired,
+        // data: PropTypes.array.isRequired,
+        // isExtended: PropTypes.bool.isRequired,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
+        loadLayer: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
@@ -31,21 +34,50 @@ class DataTable extends Component {
         const sortBy = 'index';
         const sortDirection = 'ASC';
 
+        const data = this.sort(this.filter(), sortBy, sortDirection);
+
         this.state = {
-            sortBy: sortBy,
-            sortDirection: sortDirection,
-            data: this.sort(props.data, sortBy, sortDirection),
+            sortBy,
+            sortDirection,
+            data,
         };
     }
 
-    onSort(sortBy, sortDirection) {
-        const data = this.state.data;
+    componentDidMount() {
+        this.loadExtendedData();
+    }
 
-        this.setState({
-            sortBy,
-            sortDirection,
-            data: this.sort(data, sortBy, sortDirection),
-        });
+    componentDidUpdate(prevProps) {
+        if (this.props.layer.dataFilters !== prevProps.layer.dataFilters) {
+            const { sortBy, sortDirection } = this.state;
+
+            this.setState({
+                data: this.sort(this.filter(), sortBy, sortDirection),
+            });
+        }
+    }
+
+    loadExtendedData() {
+        const { layer, loadLayer } = this.props;
+
+        if (!layer.isExtended) {
+            loadLayer({
+                ...layer,
+                showDataTable: true,
+            });
+        }
+    }
+
+    filter() {
+        const { data, dataFilters } = this.props.layer;
+
+        return filterData(
+            data.map((d, i) => ({
+                ...d.properties,
+                index: i,
+            })),
+            dataFilters
+        );
     }
 
     // TODO: Make sure sorting works across different locales - use lib method
@@ -68,11 +100,22 @@ class DataTable extends Component {
         });
     }
 
+    onSort(sortBy, sortDirection) {
+        const data = this.state.data;
+
+        this.setState({
+            sortBy,
+            sortDirection,
+            data: this.sort(data, sortBy, sortDirection),
+        });
+    }
+
     render() {
-        const { width, height, data, layerType } = this.props;
+        const { width, height, layer } = this.props;
+        const { layer: layerType } = layer;
         // const fields = mapValues(() => true, data[0]);
-        const { sortBy, sortDirection } = this.state;
-        const sortedData = this.sort(data, sortBy, sortDirection);
+        const { data, sortBy, sortDirection } = this.state;
+        // const sortedData = this.sort(data, sortBy, sortDirection);
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
         const isEvent = layerType === 'event';
@@ -84,8 +127,10 @@ class DataTable extends Component {
                 height={height}
                 headerHeight={48}
                 rowHeight={32}
-                rowCount={sortedData.length}
-                rowGetter={({ index }) => sortedData[index]}
+                // rowCount={sortedData.length}
+                // rowGetter={({ index }) => sortedData[index]}
+                rowCount={data.length}
+                rowGetter={({ index }) => data[index]}
                 sort={({ sortBy, sortDirection }) =>
                     this.onSort(sortBy, sortDirection)
                 }
@@ -195,33 +240,47 @@ class DataTable extends Component {
         );
     }
 }
-
+/*
 const mapStateToProps = state => {
     const overlay = state.dataTable
         ? state.map.mapViews.filter(layer => layer.id === state.dataTable)[0]
         : null;
 
     if (overlay) {
-        const data = filterData(
-            overlay.data.map((d, i) => ({
+        const { data, dataFilters, layer, isExtended } = overlay;
+
+        const filteredData = filterData(
+            data.map((d, i) => ({
                 ...d.properties,
                 index: i,
             })),
-            overlay.dataFilters
+            dataFilters
         );
 
         return {
-            layerType: overlay.layer,
-            data,
+            layerType: layer,
+            data: filteredData,
+            isExtended: layer !== 'event' || isExtended,
         };
     }
 
     return null;
 };
+*/
 
-export default connect(mapStateToProps, {
-    selectOrgUnit,
-    unselectOrgUnit,
-    setDataFilter,
-    clearDataFilter,
-})(DataTable);
+export default connect(
+    ({ dataTable, map }) => {
+        const layer = dataTable
+            ? map.mapViews.filter(l => l.id === dataTable)[0]
+            : null;
+
+        return layer ? { layer } : null;
+    },
+    {
+        selectOrgUnit,
+        unselectOrgUnit,
+        setDataFilter,
+        clearDataFilter,
+        loadLayer,
+    }
+)(DataTable);

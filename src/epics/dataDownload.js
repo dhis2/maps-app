@@ -24,7 +24,10 @@ const formatEnum = {
     [META_DATA_FORMAT_CODE]: 'code',
 };
 
-const getEventColumns = async (layer, format) => {
+export const getEventColumns = async (
+    layer,
+    format = META_DATA_FORMAT_NAME
+) => {
     const d2 = await getD2();
     const result = await d2.models.programStage.get(layer.programStage.id, {
         fields: `programStageDataElements[displayInReports,dataElement[id,code,${getDisplayPropertyUrl(
