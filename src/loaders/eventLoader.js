@@ -134,6 +134,8 @@ const loadEventLayer = async config => {
                 ...names,
                 ...(await getFilterOptionNames(dataFilters, response.headers)),
             });
+
+        config.headers = response.headers;
     }
 
     if (alert) {

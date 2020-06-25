@@ -30,18 +30,30 @@ export const downloadGeoJson = ({ name, data }) => {
 };
 
 // TODO: Remove name mapping logic, use server params DataIDScheme / OuputIDScheme instead
-// TODO: Validate this logic - value might sometimes need to be mapped with names
-export const createEventFeature = (headers, names, event, id, getGeometry) => {
+export const createEventFeature = (
+    headers,
+    names,
+    options,
+    event,
+    id,
+    getGeometry
+) => {
     const geometry = getGeometry(event);
-    const properties = event.reduce(
-        (props, value, i) => ({
+    const properties = event.reduce((props, value, i) => {
+        const header = headers[i];
+        let option;
+
+        if (header.optionSet) {
+            option = options.find(option => option.code === value);
+        }
+
+        return {
             id,
             type: geometry.type,
             ...props,
-            [names[headers[i].name] || headers[i].name]: value, // TODO: Regression - values no longer translated
-        }),
-        {}
-    );
+            [names[header.name] || header.name]: option ? option.name : value,
+        };
+    }, {});
 
     return {
         type: 'Feature',
@@ -101,11 +113,13 @@ export const createEventFeatures = (response, config = {}) => {
         response.headers,
         config && config.eventCoordinateField
     );
+    const options = Object.values(response.metaData.items);
 
     const data = response.rows.map(row =>
         createEventFeature(
             response.headers,
             config.outputIdScheme !== 'ID' ? names : {},
+            options,
             row,
             row[idCol],
             getGeometry

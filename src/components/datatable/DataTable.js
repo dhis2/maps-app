@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Table, Column } from 'react-virtualized';
+import { isValidUid } from 'd2/uid';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
+import { numberValueTypes } from '../../constants/valueTypes';
 import './DataTable.css';
 
 // Using react component to keep sorting state, which is only used within the data table.
@@ -48,7 +50,10 @@ class DataTable extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.layer.dataFilters !== prevProps.layer.dataFilters) {
+        const { data, dataFilters } = this.props.layer;
+        const prev = prevProps.layer;
+
+        if (data !== prev.data || dataFilters !== prev.dataFilters) {
             const { sortBy, sortDirection } = this.state;
 
             this.setState({
@@ -110,28 +115,23 @@ class DataTable extends Component {
         });
     }
 
-    // Returne event data items used for styling, filters or "display in reports"
+    // Return event data items used for styling, filters or "display in reports"
     getEventDataItems() {
-        // const { layer } = this.props;
-        // const isLoaded = !isEvent || layer.isExtended === true;
-
-        return [
-            {
-                key: 'oZg33kd9taw',
-                label: 'Gender',
-                type: 'string',
-            },
-            {
-                key: 'qrur9Dvnyt5',
-                label: 'Age',
-                type: 'number',
-            },
-        ];
+        return this.props.layer.headers
+            .filter(({ name }) => isValidUid(name))
+            .map(({ name, column, valueType }) => ({
+                key: name,
+                label: column,
+                type:
+                    numberValueTypes.indexOf(valueType) >= 0
+                        ? 'number'
+                        : 'string',
+            }));
     }
 
     render() {
         const { width, height, layer } = this.props;
-        const { layer: layerType } = layer;
+        const { layer: layerType, styleDataItem } = layer;
         const { data, sortBy, sortDirection } = this.state;
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
@@ -260,17 +260,18 @@ class DataTable extends Component {
                         <ColumnHeader type="string" {...props} />
                     )}
                 />
-                {isThematic && (
-                    <Column
-                        dataKey="color"
-                        label={i18n.t('Color')}
-                        width={100}
-                        headerRenderer={props => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                        cellRenderer={ColorCell}
-                    />
-                )}
+                {isThematic ||
+                    (styleDataItem && (
+                        <Column
+                            dataKey="color"
+                            label={i18n.t('Color')}
+                            width={100}
+                            headerRenderer={props => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                            cellRenderer={ColorCell}
+                        />
+                    ))}
             </Table>
         );
     }

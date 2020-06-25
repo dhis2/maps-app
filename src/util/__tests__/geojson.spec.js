@@ -98,6 +98,7 @@ describe('geojson utils', () => {
                 createEventFeature(
                     headers,
                     {},
+                    [],
                     dummyEventRow,
                     dummyID,
                     dummyGetGeometry
@@ -123,6 +124,7 @@ describe('geojson utils', () => {
                 createEventFeature(
                     headers,
                     names,
+                    [],
                     dummyEventRow,
                     dummyID,
                     dummyGetGeometry
