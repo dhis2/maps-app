@@ -110,6 +110,25 @@ class DataTable extends Component {
         });
     }
 
+    // Returne event data items used for styling, filters or "display in reports"
+    getEventDataItems() {
+        // const { layer } = this.props;
+        // const isLoaded = !isEvent || layer.isExtended === true;
+
+        return [
+            {
+                key: 'oZg33kd9taw',
+                label: 'Gender',
+                type: 'string',
+            },
+            {
+                key: 'qrur9Dvnyt5',
+                label: 'Age',
+                type: 'number',
+            },
+        ];
+    }
+
     render() {
         const { width, height, layer } = this.props;
         const { layer: layerType } = layer;
@@ -141,18 +160,46 @@ class DataTable extends Component {
                     label={i18n.t('Index')}
                     width={72}
                     className="right"
-                    // headerRenderer={props => <ColumnHeader type='number' {...props}  />}
                 />
-                {!isEvent && (
+                <Column
+                    dataKey="id"
+                    label={i18n.t('Id')}
+                    width={100}
+                    headerRenderer={props => (
+                        <ColumnHeader type="string" {...props} />
+                    )}
+                />
+                <Column
+                    dataKey={isEvent ? 'ouname' : 'name'}
+                    label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
+                    width={100}
+                    headerRenderer={props => (
+                        <ColumnHeader type="string" {...props} />
+                    )}
+                />
+                {isEvent && (
                     <Column
-                        dataKey="name"
-                        label={i18n.t('Name')}
+                        dataKey="eventdate"
+                        label={i18n.t('Event time')}
                         width={100}
                         headerRenderer={props => (
-                            <ColumnHeader type="string" {...props} />
+                            <ColumnHeader type="date" {...props} />
                         )}
                     />
                 )}
+                {isEvent &&
+                    this.getEventDataItems().map(({ key, label, type }) => (
+                        <Column
+                            key={key}
+                            dataKey={key}
+                            label={label}
+                            width={100}
+                            className={type === 'number' ? 'right' : 'left'}
+                            headerRenderer={props => (
+                                <ColumnHeader type={type} {...props} />
+                            )}
+                        />
+                    ))}
                 {isThematic && (
                     <Column
                         dataKey="value"
@@ -205,14 +252,6 @@ class DataTable extends Component {
                         )}
                     />
                 )}
-                <Column
-                    dataKey="id"
-                    label={i18n.t('Id')}
-                    width={100}
-                    headerRenderer={props => (
-                        <ColumnHeader type="string" {...props} />
-                    )}
-                />
                 <Column
                     dataKey="type"
                     label={i18n.t('Type')}

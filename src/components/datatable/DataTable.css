@@ -13,6 +13,10 @@
     z-index: 10;
 }
 
+.ReactVirtualized__Table__headerRow .ColumnHeader-label {
+    white-space: nowrap;
+}
+
 .ReactVirtualized__Table__headerTruncatedText {
     display: inline-block;
     position: absolute;
