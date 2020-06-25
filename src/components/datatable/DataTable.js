@@ -113,9 +113,7 @@ class DataTable extends Component {
     render() {
         const { width, height, layer } = this.props;
         const { layer: layerType } = layer;
-        // const fields = mapValues(() => true, data[0]);
         const { data, sortBy, sortDirection } = this.state;
-        // const sortedData = this.sort(data, sortBy, sortDirection);
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
         const isEvent = layerType === 'event';
@@ -127,8 +125,6 @@ class DataTable extends Component {
                 height={height}
                 headerHeight={48}
                 rowHeight={32}
-                // rowCount={sortedData.length}
-                // rowGetter={({ index }) => sortedData[index]}
                 rowCount={data.length}
                 rowGetter={({ index }) => data[index]}
                 sort={({ sortBy, sortDirection }) =>
@@ -240,33 +236,6 @@ class DataTable extends Component {
         );
     }
 }
-/*
-const mapStateToProps = state => {
-    const overlay = state.dataTable
-        ? state.map.mapViews.filter(layer => layer.id === state.dataTable)[0]
-        : null;
-
-    if (overlay) {
-        const { data, dataFilters, layer, isExtended } = overlay;
-
-        const filteredData = filterData(
-            data.map((d, i) => ({
-                ...d.properties,
-                index: i,
-            })),
-            dataFilters
-        );
-
-        return {
-            layerType: layer,
-            data: filteredData,
-            isExtended: layer !== 'event' || isExtended,
-        };
-    }
-
-    return null;
-};
-*/
 
 export default connect(
     ({ dataTable, map }) => {
