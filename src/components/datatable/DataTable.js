@@ -17,9 +17,6 @@ import './DataTable.css';
 class DataTable extends Component {
     static propTypes = {
         layer: PropTypes.object.isRequired,
-        // layerType: PropTypes.string.isRequired,
-        // data: PropTypes.array.isRequired,
-        // isExtended: PropTypes.bool.isRequired,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         loadLayer: PropTypes.func.isRequired,
