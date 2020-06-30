@@ -65,7 +65,6 @@ const loadEventLayer = async config => {
         styleDataItem,
         areaRadius,
         showDataTable,
-        // isExtended,
     } = config;
 
     const period = getPeriodFromFilters(filters);
@@ -73,7 +72,7 @@ const loadEventLayer = async config => {
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
 
-    config.isExtended = showDataTable; //  && !isExtended;
+    config.isExtended = showDataTable;
 
     let analyticsRequest = await getAnalyticsRequest(config);
     let alert;
