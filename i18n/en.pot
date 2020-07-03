@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-06-28T09:36:03.923Z\n"
-"PO-Revision-Date: 2020-06-28T09:36:03.923Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
+"PO-Revision-Date: 2020-07-03T14:17:28.421Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -102,6 +102,9 @@ msgid "Type"
 msgstr ""
 
 msgid "Color"
+msgstr ""
+
+msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
