@@ -6,6 +6,16 @@
     overflow: hidden;
 }
 
+.DataTable-no-support {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    color: #333;
+    font-style: italic;
+    line-height: 30px;
+}
+
 .ReactVirtualized__Table__headerRow {
     position: relative;
     background-color: #eee;

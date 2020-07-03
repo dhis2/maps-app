@@ -10,6 +10,7 @@ import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
+import { formatTime } from '../../util/helpers';
 import { numberValueTypes } from '../../constants/valueTypes';
 import './DataTable.css';
 
@@ -61,8 +62,9 @@ class DataTable extends Component {
 
     loadExtendedData() {
         const { layer, loadLayer } = this.props;
+        const { layer: layerType, isExtended, serverCluster } = layer;
 
-        if (layer.layer === 'event' && !layer.isExtended) {
+        if (layerType === 'event' && !isExtended && !serverCluster) {
             loadLayer({
                 ...layer,
                 showDataTable: true,
@@ -71,7 +73,7 @@ class DataTable extends Component {
     }
 
     filter() {
-        const { data, dataFilters } = this.props.layer;
+        const { data = [], dataFilters } = this.props.layer;
 
         return filterData(
             data.map((d, i) => ({
@@ -114,7 +116,9 @@ class DataTable extends Component {
 
     // Return event data items used for styling, filters or "display in reports"
     getEventDataItems() {
-        return this.props.layer.headers
+        const { headers = [] } = this.props.layer;
+
+        return headers
             .filter(({ name }) => isValidUid(name))
             .map(({ name, column, valueType }) => ({
                 key: name,
@@ -128,13 +132,13 @@ class DataTable extends Component {
 
     render() {
         const { width, height, layer } = this.props;
-        const { layer: layerType, styleDataItem } = layer;
+        const { layer: layerType, styleDataItem, serverCluster } = layer;
         const { data, sortBy, sortDirection } = this.state;
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
         const isEvent = layerType === 'event';
 
-        return (
+        return !serverCluster ? (
             <Table
                 className="DataTable"
                 width={width}
@@ -182,6 +186,7 @@ class DataTable extends Component {
                         headerRenderer={props => (
                             <ColumnHeader type="date" {...props} />
                         )}
+                        cellRenderer={({ cellData }) => formatTime(cellData)}
                     />
                 )}
                 {isEvent &&
@@ -270,6 +275,12 @@ class DataTable extends Component {
                         />
                     ))}
             </Table>
+        ) : (
+            <div className="DataTable-no-support">
+                {i18n.t(
+                    'Data table is not supported when events are grouped on the server.'
+                )}
+            </div>
         );
     }
 }
