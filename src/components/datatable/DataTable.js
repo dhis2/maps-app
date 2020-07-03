@@ -62,7 +62,7 @@ class DataTable extends Component {
     loadExtendedData() {
         const { layer, loadLayer } = this.props;
 
-        if (!layer.isExtended) {
+        if (layer.layer === 'event' && !layer.isExtended) {
             loadLayer({
                 ...layer,
                 showDataTable: true,
