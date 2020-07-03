@@ -103,7 +103,7 @@ class DataTable extends Component {
     }
 
     onSort(sortBy, sortDirection) {
-        const data = this.state.data;
+        const { data } = this.state;
 
         this.setState({
             sortBy,
