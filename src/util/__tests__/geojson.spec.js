@@ -21,7 +21,14 @@ const sampleData = [
         id: '1234',
         geometry: {
             type: 'MultiPolygon',
-            coordinates: [[[0, 0], [1, 1], [2, 3], [0, 3]]],
+            coordinates: [
+                [
+                    [0, 0],
+                    [1, 1],
+                    [2, 3],
+                    [0, 3],
+                ],
+            ],
         },
         attributes: {
             testAttribute: 'someValue',
@@ -33,7 +40,14 @@ const sampleData = [
         id: '1234',
         geometry: {
             type: 'Point',
-            coordinates: [[[0, 0], [1, 1], [2, 3], [0, 3]]],
+            coordinates: [
+                [
+                    [0, 0],
+                    [1, 1],
+                    [2, 3],
+                    [0, 3],
+                ],
+            ],
         },
         attributes: {
             testAttribute: 'someValue',
@@ -84,6 +98,7 @@ describe('geojson utils', () => {
                 createEventFeature(
                     headers,
                     {},
+                    [],
                     dummyEventRow,
                     dummyID,
                     dummyGetGeometry
@@ -92,6 +107,8 @@ describe('geojson utils', () => {
                 type: 'Feature',
                 id: dummyID,
                 properties: {
+                    id: dummyID,
+                    type: dummyGeometry.type,
                     [headers[0].name]: dummyEventRow[0],
                     [headers[1].name]: dummyEventRow[1],
                 },
@@ -107,6 +124,7 @@ describe('geojson utils', () => {
                 createEventFeature(
                     headers,
                     names,
+                    [],
                     dummyEventRow,
                     dummyID,
                     dummyGetGeometry
@@ -115,6 +133,8 @@ describe('geojson utils', () => {
                 type: 'Feature',
                 id: dummyID,
                 properties: {
+                    id: dummyID,
+                    type: dummyGeometry.type,
                     [names[headers[0].name]]: dummyEventRow[0],
                     [headers[1].name]: dummyEventRow[1],
                 },
@@ -241,7 +261,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.column]: row[i],
                         }),
-                        {}
+                        { id: row[1], type: point.type }
                     ),
                     geometry: point,
                 }))
@@ -260,7 +280,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.column]: row[i],
                         }),
-                        {}
+                        { id: row[2], type: point.type }
                     ),
                     geometry: point,
                 }))
@@ -281,7 +301,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.name]: row[i],
                         }),
-                        {}
+                        { id: row[1], type: point.type }
                     ),
                     geometry: point,
                 }))
@@ -309,7 +329,7 @@ describe('geojson utils', () => {
                             ...out,
                             [`${header.name} CUSTOM`]: row[i],
                         }),
-                        {}
+                        { id: row[1], type: point.type }
                     ),
                     geometry: point,
                 }))
@@ -345,7 +365,10 @@ describe('geojson utils', () => {
         });
         it('Should correctly parse a simple bounding box', () => {
             const bbox = getBounds('[0][1][2][3]');
-            expect(bbox).toEqual([['0', '1'], ['2', '3']]);
+            expect(bbox).toEqual([
+                ['0', '1'],
+                ['2', '3'],
+            ]);
         });
     });
 });

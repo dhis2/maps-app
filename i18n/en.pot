@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
-"PO-Revision-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
+"PO-Revision-Date: 2020-07-03T14:17:28.421Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -71,7 +71,16 @@ msgstr ""
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr ""
+
+msgid "Org unit"
+msgstr ""
+
 msgid "Name"
+msgstr ""
+
+msgid "Event time"
 msgstr ""
 
 msgid "Value"
@@ -89,13 +98,13 @@ msgstr ""
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr ""
-
 msgid "Type"
 msgstr ""
 
 msgid "Color"
+msgstr ""
+
+msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
@@ -569,9 +578,6 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr ""
-
-msgid "Event time"
 msgstr ""
 
 msgid "Groups"
