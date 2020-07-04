@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -78,8 +78,17 @@ msgstr "د مالوماتو (ډاټا) ټولګه"
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr "آی دی"
+
+msgid "Org unit"
+msgstr ""
+
 msgid "Name"
 msgstr "نام"
+
+msgid "Event time"
+msgstr "د پېښې طبقه"
 
 msgid "Value"
 msgstr "مقدار"
@@ -96,14 +105,14 @@ msgstr "سطحه"
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr "آی دی"
-
 msgid "Type"
 msgstr "نمونه/ډول"
 
 msgid "Color"
 msgstr "رنگ"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
 
 msgid "Add filter"
 msgstr ""
@@ -581,9 +590,6 @@ msgstr "تعین نه گردیده است"
 
 msgid "Organisation unit"
 msgstr "بخش نهاد/سازمان"
-
-msgid "Event time"
-msgstr "د پېښې طبقه"
 
 msgid "Groups"
 msgstr "ګروپونه"

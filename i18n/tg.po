@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Tajik (https://www.transifex.com/hisp-uio/teams/100509/tg/)\n"
@@ -79,8 +79,17 @@ msgstr "Маҷмӯи иттилоот"
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr "ID"
+
+msgid "Org unit"
+msgstr ""
+
 msgid "Name"
 msgstr "Ном"
+
+msgid "Event time"
+msgstr ""
 
 msgid "Value"
 msgstr "Қимат"
@@ -97,13 +106,13 @@ msgstr "Сатҳ"
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr "ID"
-
 msgid "Type"
 msgstr "Навъ"
 
 msgid "Color"
+msgstr ""
+
+msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
@@ -582,9 +591,6 @@ msgstr "Таъин нашудааст"
 
 msgid "Organisation unit"
 msgstr "Воҳиди сохторӣ"
-
-msgid "Event time"
-msgstr ""
 
 msgid "Groups"
 msgstr "Гурӯҳҳо"

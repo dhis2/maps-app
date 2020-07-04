@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
@@ -79,8 +79,17 @@ msgstr "ڈیٹا سیٹ"
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr "آئی ڈی"
+
+msgid "Org unit"
+msgstr ""
+
 msgid "Name"
 msgstr "ÙØ§Ù"
+
+msgid "Event time"
+msgstr "واقعہ کا وقت"
 
 msgid "Value"
 msgstr "قدر"
@@ -97,14 +106,14 @@ msgstr "سطح"
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr "آئی ڈی"
-
 msgid "Type"
 msgstr "ٹائپ"
 
 msgid "Color"
 msgstr "رنگ"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
 
 msgid "Add filter"
 msgstr ""
@@ -582,9 +591,6 @@ msgstr "سیٹ نہیں ہے"
 
 msgid "Organisation unit"
 msgstr "تنظیم یونٹ"
-
-msgid "Event time"
-msgstr "واقعہ کا وقت"
 
 msgid "Groups"
 msgstr "گروپ"
