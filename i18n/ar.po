@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -80,8 +80,17 @@ msgstr "حزمة البيانات"
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr "المعرف"
+
+msgid "Org unit"
+msgstr "الوحدة التنظيمية"
+
 msgid "Name"
 msgstr "الإسم"
+
+msgid "Event time"
+msgstr "وقت الحدث"
 
 msgid "Value"
 msgstr "القيمة"
@@ -98,14 +107,14 @@ msgstr "المستوى"
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr "المعرف"
-
 msgid "Type"
 msgstr "النوع"
 
 msgid "Color"
 msgstr "اللون"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
 
 msgid "Add filter"
 msgstr "إضافة عامل تصفية"
@@ -595,9 +604,6 @@ msgstr "غير مضبوط"
 
 msgid "Organisation unit"
 msgstr "الوحدة التنظيمية"
-
-msgid "Event time"
-msgstr "وقت الحدث"
 
 msgid "Groups"
 msgstr "المجموعات"

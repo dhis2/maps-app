@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -79,8 +79,17 @@ msgstr "ແບບຟອມ"
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr "Id"
+
+msgid "Org unit"
+msgstr ""
+
 msgid "Name"
 msgstr "ຊື່"
+
+msgid "Event time"
+msgstr ""
 
 msgid "Value"
 msgstr "Value"
@@ -97,13 +106,13 @@ msgstr "ຂັ້ນ"
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr "Id"
-
 msgid "Type"
 msgstr "Type"
 
 msgid "Color"
+msgstr ""
+
+msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
@@ -582,9 +591,6 @@ msgstr "Not set"
 
 msgid "Organisation unit"
 msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
-
-msgid "Event time"
-msgstr ""
 
 msgid "Groups"
 msgstr "ກຸ່ມ"
