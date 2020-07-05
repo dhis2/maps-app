@@ -90,7 +90,11 @@ const trackedEntityLoader = async config => {
     }
 
     if (program) {
-        url += `&program=${program.id}&programStatus=${programStatus}&programStartDate=${startDate}&programEndDate=${endDate}`;
+        url += `&program=${program.id}&programStartDate=${startDate}&programEndDate=${endDate}`;
+
+        if (programStatus) {
+            url += `&programStatus=${programStatus}`;
+        }
 
         if (followUp !== undefined) {
             url += `&followUp=${followUp ? 'TRUE' : 'FALSE'}`;
