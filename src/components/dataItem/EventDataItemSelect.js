@@ -79,10 +79,7 @@ export class EventDataItemSelect extends Component {
             excludeValueTypes
         ).map(item => ({
             ...item,
-            id:
-                item.id.indexOf('.') === -1
-                    ? `${program.id}.${item.id}`
-                    : item.id, // Add program id to tracked entity attributes
+            id: !item.id.includes('.') ? `${program.id}.${item.id}` : item.id, // Add program id to tracked entity attributes
         }));
 
         return (

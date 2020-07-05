@@ -17,14 +17,14 @@ const DataItemStyle = ({ dataItem, style }) => {
 
     return (
         <div style={style}>
-            {numberValueTypes.indexOf(valueType) >= 0 ? (
+            {numberValueTypes.includes(valueType) ? (
                 <NumericLegendStyle
                     dataItem={dataItem}
                     style={{ width: '100%' }}
                 />
             ) : null}
 
-            {booleanValueTypes.indexOf(valueType) >= 0 ? (
+            {booleanValueTypes.includes(valueType) ? (
                 <BooleanStyle {...dataItem} />
             ) : null}
 

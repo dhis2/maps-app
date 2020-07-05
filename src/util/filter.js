@@ -28,7 +28,7 @@ export const filterData = (data, filters) => {
 
 // Simple check if string contains another string
 export const stringFilter = (string, filter) => {
-    return ('' + string).toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+    return ('' + string).toLowerCase().includes(filter.toLowerCase());
 };
 
 // Numeric filter supporting AND, OR, GREATER THAN, LESS THAN or equal number
@@ -42,12 +42,12 @@ export const numericFilter = (value, filter) => {
 
 // Returns true if the filter is true
 const isTrueFilter = (value, filter) => {
-    if (filter.indexOf('>') > -1) {
+    if (filter.includes('>')) {
         // GREATER THAN
         return value >= Number(filter.split('>')[1]);
     }
 
-    if (filter.indexOf('<') > -1) {
+    if (filter.includes('<')) {
         // LESS THAN
         return value <= Number(filter.split('<')[1]);
     }

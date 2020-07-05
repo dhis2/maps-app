@@ -104,8 +104,7 @@ const trackedEntityLoader = async config => {
 
     const instances = primaryData.trackedEntityInstances.filter(
         instance =>
-            geometryTypes.indexOf(instance.featureType) >= 0 &&
-            instance.coordinates
+            geometryTypes.includes(instance.featureType) && instance.coordinates
     );
 
     if (!instances.length) {

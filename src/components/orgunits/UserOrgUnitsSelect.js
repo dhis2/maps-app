@@ -54,7 +54,7 @@ const UserOrgUnitSelect = ({ classes, selected, onChange, style }) => (
         <div className={classes.title}>{i18n.t('User organisation units')}</div>
         <div className={classes.container}>
             {getLevels().map(level => {
-                const isSelected = selected.indexOf(level.id) !== -1;
+                const isSelected = selected.includes(level.id);
 
                 return (
                     <div

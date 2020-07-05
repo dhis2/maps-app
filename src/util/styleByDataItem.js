@@ -23,7 +23,7 @@ export const styleByDataItem = async config => {
 
     if (styleDataItem.optionSet) {
         await styleByOptionSet(config);
-    } else if (numberValueTypes.indexOf(styleDataItem.valueType) >= 0) {
+    } else if (numberValueTypes.includes(styleDataItem.valueType)) {
         await styleByNumeric(config);
     } else if (styleDataItem.valueType === 'BOOLEAN') {
         await styleByBoolean(config);
