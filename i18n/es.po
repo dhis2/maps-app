@@ -85,7 +85,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr ""
+msgstr "Unidad Organizativa"
 
 msgid "Name"
 msgstr "Nombre"

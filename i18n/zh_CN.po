@@ -83,7 +83,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr ""
+msgstr "机构"
 
 msgid "Name"
 msgstr "名称"

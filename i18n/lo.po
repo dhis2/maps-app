@@ -83,7 +83,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr ""
+msgstr "ສະຖານທີ່"
 
 msgid "Name"
 msgstr "ຊື່"
