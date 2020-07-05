@@ -110,9 +110,9 @@ const LayerCard = ({
     } = layer;
 
     const canEdit = layerType !== 'external';
-    const canToggleDataTable = dataTableLayerTypes.indexOf(layerType) >= 0;
-    const canDownload = downloadableLayerTypes.indexOf(layerType) >= 0;
-    const canOpenAs = openAsLayerTypes.indexOf(layerType) >= 0;
+    const canToggleDataTable = dataTableLayerTypes.includes(layerType);
+    const canDownload = downloadableLayerTypes.includes(layerType);
+    const canOpenAs = openAsLayerTypes.includes(layerType);
 
     return (
         <Card className={classes.card} data-test="layercard">
