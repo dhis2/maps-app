@@ -98,6 +98,12 @@ export const setColorScale = colorScale => ({
     colorScale,
 });
 
+// Set event status
+export const setEventStatus = status => ({
+    type: types.LAYER_EDIT_EVENT_STATUS_SET,
+    status,
+});
+
 // Set coordinate field
 export const setEventCoordinateField = fieldId => ({
     type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET,

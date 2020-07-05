@@ -14,6 +14,7 @@ import {
     addStyleDataItem,
     getBounds,
 } from '../util/geojson';
+import { getEventStatuses } from '../constants/eventStatuses';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
@@ -56,6 +57,7 @@ const loadEventLayer = async config => {
     const {
         columns,
         endDate,
+        eventStatus,
         eventClustering,
         eventPointColor,
         eventPointRadius,
@@ -106,6 +108,8 @@ const loadEventLayer = async config => {
         config.data = data;
 
         if (Array.isArray(config.data) && config.data.length) {
+            let explanation = [];
+
             if (styleDataItem) {
                 await styleByDataItem(config);
             } else {
@@ -118,8 +122,20 @@ const loadEventLayer = async config => {
                 ];
             }
 
+            if (eventStatus) {
+                explanation.push(
+                    `${i18n.t('Event status')}: ${
+                        getEventStatuses().find(s => s.id === eventStatus).name
+                    }`
+                );
+            }
+
             if (areaRadius) {
-                config.legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
+                explanation.push(`${i18n.t('Buffer')}: ${areaRadius} ${'m'}`);
+            }
+
+            if (explanation.length) {
+                config.legend.explanation = explanation;
             }
         } else {
             alert = createAlert(config.name, i18n.t('No data found'));
@@ -153,6 +169,7 @@ export const getAnalyticsRequest = async ({
     rows,
     columns,
     styleDataItem,
+    eventStatus,
     eventCoordinateField,
     relativePeriodDate,
     isExtended,
@@ -210,6 +227,10 @@ export const getAnalyticsRequest = async ({
         analyticsRequest = analyticsRequest
             .addDimension(eventCoordinateField) // Used by analytics/events/query/
             .withCoordinateField(eventCoordinateField); // Used by analytics/events/count and analytics/events/cluster
+    }
+
+    if (eventStatus && eventStatus !== 'ALL') {
+        analyticsRequest = analyticsRequest.withEventStatus(eventStatus);
     }
 
     return analyticsRequest;

@@ -69,7 +69,11 @@ const Legend = ({
             </div>
         )}
         {explanation && (
-            <div className={classes.explanation}>{explanation}</div>
+            <div className={classes.explanation}>
+                {explanation.map((expl, index) => (
+                    <div key={index}>{expl}</div>
+                ))}
+            </div>
         )}
         {source && (
             <div className={classes.source}>
