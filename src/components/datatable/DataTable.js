@@ -123,10 +123,9 @@ class DataTable extends Component {
             .map(({ name, column, valueType }) => ({
                 key: name,
                 label: column,
-                type:
-                    numberValueTypes.indexOf(valueType) >= 0
-                        ? 'number'
-                        : 'string',
+                type: numberValueTypes.includes(valueType)
+                    ? 'number'
+                    : 'string',
             }));
     }
 
