@@ -61,7 +61,7 @@ const facilityLoader = async config => {
         };
 
         if (areaRadius) {
-            legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
+            legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];
         }
     }
 
