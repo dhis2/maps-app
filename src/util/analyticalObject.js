@@ -138,7 +138,7 @@ export const clearAnalyticalObjectFromUrl = () => {
     if (params && history && history.pushState) {
         const leftParams = params
             .split('&')
-            .filter(p => p.includes('currentAnalyticalObject'));
+            .filter(p => !p.includes('currentAnalyticalObject'));
 
         const url =
             base + (leftParams.length ? `?${leftParams.join('&')}` : '');
