@@ -118,12 +118,10 @@ export class TrackedEntityDialog extends Component {
             rows,
             startDate,
             endDate,
-            // programStatus,
             relationshipType,
             setOrgUnitRoot,
             setStartDate,
             setEndDate,
-            // setProgramStatus,
         } = this.props;
 
         const orgUnits = getOrgUnitNodesFromRows(rows);
@@ -138,12 +136,6 @@ export class TrackedEntityDialog extends Component {
             setStartDate(DEFAULT_START_DATE);
             setEndDate(DEFAULT_END_DATE);
         }
-
-        /*
-        if (!programStatus) {
-            setProgramStatus('ACTIVE');
-        }
-        */
 
         if (relationshipType) {
             this.setState({
