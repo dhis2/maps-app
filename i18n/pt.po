@@ -23,10 +23,10 @@ msgid "Maps"
 msgstr "Mapas"
 
 msgid "Classification"
-msgstr ""
+msgstr "Classificação"
 
 msgid "Classes"
-msgstr ""
+msgstr "Classes"
 
 msgid "Legend set"
 msgstr "Conjunto da legenda"
@@ -41,7 +41,7 @@ msgid "Data element group"
 msgstr "Grupo de Elemento de Dados"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Operando do elemento de dados"
 
 msgid "Data element"
 msgstr "Elemento de dado"
@@ -56,28 +56,28 @@ msgid "Yes"
 msgstr "Sim"
 
 msgid "Event location"
-msgstr ""
+msgstr "Localização do evento "
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Campo de coordenadas"
 
 msgid "None"
 msgstr "Nenhum"
 
 msgid "Data item"
-msgstr ""
+msgstr "Item de dados"
 
 msgid "Event data item"
 msgstr "Item de dados do evento"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Estilo por elemento de dados"
 
 msgid "Data set"
 msgstr "Ficha"
 
 msgid "Index"
-msgstr ""
+msgstr "Indice "
 
 msgid "Value"
 msgstr "Valor"
@@ -92,7 +92,7 @@ msgid "Level"
 msgstr "Nível"
 
 msgid "Parent"
-msgstr ""
+msgstr "Parentes"
 
 msgid "Id"
 msgstr "Id"
@@ -101,23 +101,25 @@ msgid "Type"
 msgstr "Tipo"
 
 msgid "Color"
-msgstr ""
+msgstr "Cor"
 
 msgid "Download"
 msgstr "Descarregar"
 
 msgid "Download map"
-msgstr ""
+msgstr "Baixar mapas "
 
 msgid "Show name"
-msgstr ""
+msgstr "Mostrar nome "
 
 msgid "Show legend"
-msgstr ""
+msgstr "Mostrar legenda "
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"O transferência do mapa não é suportado pelo seu navegador. Experimente o "
+"Google Chrome ou Firefox."
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -126,7 +128,7 @@ msgid "Close"
 msgstr "Fechar"
 
 msgid "Legend position"
-msgstr ""
+msgstr "Posição da legenda"
 
 msgid "Period"
 msgstr "Período"
@@ -141,28 +143,28 @@ msgid "Labels"
 msgstr "Etiquetas"
 
 msgid "Point radius"
-msgstr ""
+msgstr "Raio do ponto"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Nenhuma unidade organizacional está selecionada"
 
 msgid "Steps"
 msgstr "Passos"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Visualização da legenda"
 
 msgid "This field is required"
 msgstr "Este campo é obrigatorio"
 
 msgid "Valid range is"
-msgstr ""
+msgstr "O intervalo válido é"
 
 msgid "data"
-msgstr ""
+msgstr "Data "
 
 msgid "period"
-msgstr ""
+msgstr "Periodo"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -180,31 +182,33 @@ msgid "Events"
 msgstr "Eventos"
 
 msgid "Group events"
-msgstr ""
+msgstr "Grupo de eventos "
 
 msgid "View all events"
-msgstr ""
+msgstr "Ver todos eventos "
 
 msgid "Radius"
-msgstr ""
+msgstr "Raio"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Buffer"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Raio em metros"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"Você pode criar estilos de  eventos por elemento de dados após selecionar um"
+" programa."
 
 msgid "Program is required"
-msgstr ""
+msgstr "Programa é obrigatório"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Etapa do programa é necessária"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Nenhuma unidade organizacional selecionada"
 
 msgid "Group set"
 msgstr "Conjunto do grupo"
@@ -212,21 +216,25 @@ msgstr "Conjunto do grupo"
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
+"Lembre-se de selecionar o nível da unidade organizacional que contém as "
+"instalações."
 
 msgid "Group set is required"
-msgstr ""
+msgstr "O conjunto de grupos é obrigatório"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Actualizar camada"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Adicionar camada"
 
 msgid "Select program period"
-msgstr ""
+msgstr "Selecionar período do programa"
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
+"Selecione o período em que as entidades rastreadas foram actualizadas pela "
+"última vez"
 
 msgid "Program status"
 msgstr "Status do programa"
@@ -241,7 +249,7 @@ msgid "Tracked entities"
 msgstr "Entidades rastreadas"
 
 msgid "Point size"
-msgstr ""
+msgstr "Tamanho do ponto"
 
 msgid "Aggregation type"
 msgstr "Tipo de agregacão"
@@ -253,31 +261,31 @@ msgid "High size"
 msgstr "Tamanho elevado"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "O grupo de indicadores é obrigatório"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Indicador é obrigatório"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "O grupo de elementos de dados é obrigatório"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "O elemento de dados é obrigatório"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Conjunto de dados é obrigatório"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "O item de dados do evento é obrigatório"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Indicador de programa é necessário"
 
 msgid "Period type is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "Período é obrigatório"
 
 msgid "Indicator"
 msgstr "Indicador"
@@ -292,10 +300,10 @@ msgid "Program indicators"
 msgstr "Indicador do programa"
 
 msgid "Item type"
-msgstr ""
+msgstr "Tipo de item"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "Ocorreu um erro no aplicativo DHIS2 Maps."
 
 msgid "Something went wrong"
 msgstr "Ocorreu algo de errado"
@@ -313,7 +321,7 @@ msgid "The following information may be requested by technical support."
 msgstr "As informações a seguir podem ser solicitadas pelo suporte técnico."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "A filtragem está disponível após a seleção de um estágio do programa."
 
 msgid "Add filter"
 msgstr "Adicionar filtros"
@@ -322,7 +330,7 @@ msgid "Delete filter"
 msgstr ""
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Remover filtro "
 
 msgid "Operator"
 msgstr "Operador"
@@ -331,13 +339,13 @@ msgid "Date"
 msgstr "Data"
 
 msgid "one of"
-msgstr ""
+msgstr "um de"
 
 msgid "not one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "contém"
 
 msgid "doesn't contains"
 msgstr ""
@@ -346,7 +354,7 @@ msgid "is"
 msgstr "é"
 
 msgid "is not"
-msgstr ""
+msgstr "não é"
 
 msgid "Indicator group"
 msgstr "Grupo de Indicador"
@@ -355,7 +363,7 @@ msgid "Interpretations"
 msgstr "Interpretações"
 
 msgid "Basemap"
-msgstr ""
+msgstr "Mapa base"
 
 msgid "Collapse"
 msgstr "colapsar"
@@ -364,27 +372,29 @@ msgid "Expand"
 msgstr "Expandir"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Baixar dados da camada"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "Fazendo download de dados GeoJSON para \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"O GeoJSON é suportado pela maioria dos softwares GIS, incluindo QGIS e "
+"ArcGIS Desktop."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Falha na transferência dos dados."
 
 msgid "ID Format"
-msgstr ""
+msgstr "Formato de identificação"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Use chaves legíveis por humanos"
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Camada de carregamento"
 
 msgid "deleted"
 msgstr "Eliminar"
@@ -396,13 +406,13 @@ msgid "Edit"
 msgstr "Editar"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Alternar visibilidade"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Definir opacidade da camada"
 
 msgid "More actions"
-msgstr ""
+msgstr "Mais acções"
 
 msgid "Data table"
 msgstr "Tabela de dados"
@@ -414,7 +424,7 @@ msgid "Edit layer"
 msgstr "Editar camadas"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Remover camada"
 
 msgid "Open as"
 msgstr ""
@@ -453,7 +463,7 @@ msgid "Organisation unit"
 msgstr "Unidade organizacional"
 
 msgid "Event time"
-msgstr ""
+msgstr "Hora do evento"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -471,7 +481,7 @@ msgid "Code"
 msgstr "Código"
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Não foram encontrados dados para este período."
 
 msgid "Select groups"
 msgstr "Selecionar grupos"
@@ -480,16 +490,16 @@ msgid "Select levels"
 msgstr "Selecionar Nível"
 
 msgid "Click the map where you want to relocate facility"
-msgstr ""
+msgstr "Clique no mapa onde você deseja realocar a instalação"
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "Unidades organizacionais do usuário"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "logo abaixo da unidade  organizacional do usuário"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "dois níveis abaixo da unidade organizacional do usuário"
 
 msgid "in"
 msgstr ""
@@ -501,7 +511,7 @@ msgid "in and all below"
 msgstr ""
 
 msgid "Previous year"
-msgstr ""
+msgstr "Ano anterior"
 
 msgid "Next year"
 msgstr "ano seguinte"
@@ -522,12 +532,14 @@ msgid "Stage"
 msgstr "Estagio"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Tipo de entidade rastreada"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
+"Para mostrar essa camada, você deve primeiro se inscrever no serviço Earth "
+"Engine no Google. Por favor, verifique a documentação do DHIS 2."
 
 msgid "Favorite"
 msgstr ""
@@ -539,13 +551,13 @@ msgid "Error"
 msgstr "Erro"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Limites"
 
 msgid "Alert"
-msgstr ""
+msgstr "Alerta"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "Nenhum limite encontrado"
 
 msgid "Access denied"
 msgstr "Acesso Negado"
