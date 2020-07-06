@@ -39,7 +39,7 @@ class ThematicLayer extends Layer {
             const values = valuesByPeriod[period.id] || {};
 
             periodData = data
-                .filter(feature => values[feature.id] !== undefined)
+                // .filter(feature => values[feature.id] !== undefined)
                 .map(feature => ({
                     ...feature,
                     properties: {
@@ -59,6 +59,7 @@ class ThematicLayer extends Layer {
             isVisible,
             data: filterData(periodData, dataFilters),
             hoverLabel: '{name} ({value})',
+            color: '#333333',
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
         };
