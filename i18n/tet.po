@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Tetum (Tetun) (https://www.transifex.com/hisp-uio/teams/100509/tet/)\n"
@@ -79,8 +79,17 @@ msgstr "Pakote dadus"
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr ""
+
+msgid "Org unit"
+msgstr ""
+
 msgid "Name"
 msgstr "Naran"
+
+msgid "Event time"
+msgstr ""
 
 msgid "Value"
 msgstr "Valor"
@@ -97,13 +106,13 @@ msgstr ""
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr ""
-
 msgid "Type"
 msgstr "Tipu"
 
 msgid "Color"
+msgstr ""
+
+msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
@@ -582,9 +591,6 @@ msgstr "Seidauk define"
 
 msgid "Organisation unit"
 msgstr "Unidade organizasional"
-
-msgid "Event time"
-msgstr ""
 
 msgid "Groups"
 msgstr ""

@@ -93,9 +93,7 @@ export const SelectField = props => {
                     {multiple && (
                         <Checkbox
                             className={classes.checkbox}
-                            checked={
-                                Array.isArray(value) && value.indexOf(id) >= 0
-                            }
+                            checked={Array.isArray(value) && value.includes(id)}
                         />
                     )}
                     {name}

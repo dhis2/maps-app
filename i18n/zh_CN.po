@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -79,8 +79,17 @@ msgstr "数据集"
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr "Id"
+
+msgid "Org unit"
+msgstr "机构"
+
 msgid "Name"
 msgstr "名称"
+
+msgid "Event time"
+msgstr ""
 
 msgid "Value"
 msgstr "值"
@@ -97,14 +106,14 @@ msgstr "等级"
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr "Id"
-
 msgid "Type"
 msgstr "类型"
 
 msgid "Color"
 msgstr "颜色"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
 
 msgid "Add filter"
 msgstr "添加过滤器"
@@ -582,9 +591,6 @@ msgstr ""
 
 msgid "Organisation unit"
 msgstr "机构"
-
-msgid "Event time"
-msgstr ""
 
 msgid "Groups"
 msgstr "组"

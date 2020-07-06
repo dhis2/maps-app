@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
+import { getEventColumns } from '../epics/dataDownload';
 import { styleByDataItem } from '../util/styleByDataItem';
 import {
     getOrgUnitsFromRows,
@@ -63,12 +64,15 @@ const loadEventLayer = async config => {
         startDate,
         styleDataItem,
         areaRadius,
+        showDataTable,
     } = config;
 
     const period = getPeriodFromFilters(filters);
     const dataFilters = getFiltersFromColumns(columns);
     const d2 = await getD2();
     const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
+
+    config.isExtended = showDataTable;
 
     let analyticsRequest = await getAnalyticsRequest(config);
     let alert;
@@ -115,7 +119,9 @@ const loadEventLayer = async config => {
             }
 
             if (areaRadius) {
-                config.legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
+                config.legend.explanation = [
+                    `${areaRadius} ${'m'} ${'buffer'}`,
+                ];
             }
         } else {
             alert = createAlert(config.name, i18n.t('No data found'));
@@ -129,6 +135,8 @@ const loadEventLayer = async config => {
                 ...names,
                 ...(await getFilterOptionNames(dataFilters, response.headers)),
             });
+
+        config.headers = response.headers;
     }
 
     if (alert) {
@@ -149,6 +157,7 @@ export const getAnalyticsRequest = async ({
     styleDataItem,
     eventCoordinateField,
     relativePeriodDate,
+    isExtended,
 }) => {
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
@@ -156,6 +165,17 @@ export const getAnalyticsRequest = async ({
         columns.filter(isValidDimension),
         styleDataItem
     );
+
+    // Add "display in reports" columns that are not already present
+    if (isExtended) {
+        const displayColumns = await getEventColumns({ programStage });
+
+        displayColumns.forEach(col => {
+            if (!dataItems.find(item => item.dimension === col.dimension)) {
+                dataItems.push(col);
+            }
+        });
+    }
 
     const d2 = await getD2();
 

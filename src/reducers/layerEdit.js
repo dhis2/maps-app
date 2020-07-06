@@ -485,10 +485,16 @@ const layerEdit = (state = null, action) => {
             };
 
         case types.LAYER_EDIT_PROGRAM_STATUS_SET:
-            return {
-                ...state,
-                programStatus: action.payload,
-            };
+            newState = { ...state };
+
+            // Default
+            if (action.payload === 'ALL') {
+                delete newState.programStatus;
+            } else {
+                newState.programStatus = action.payload;
+            }
+
+            return newState;
 
         case types.LAYER_EDIT_FOLLOW_UP_SET:
             return {

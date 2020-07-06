@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:49:25.547Z\n"
+"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -79,8 +79,17 @@ msgstr "Набор данных"
 msgid "Index"
 msgstr ""
 
+msgid "Id"
+msgstr "ID"
+
+msgid "Org unit"
+msgstr ""
+
 msgid "Name"
 msgstr "Название"
+
+msgid "Event time"
+msgstr "Время события"
 
 msgid "Value"
 msgstr "Значение"
@@ -97,14 +106,14 @@ msgstr "Уровень"
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr "ID"
-
 msgid "Type"
 msgstr "Тип"
 
 msgid "Color"
 msgstr "Цвет"
+
+msgid "Data table is not supported when events are grouped on the server."
+msgstr ""
 
 msgid "Add filter"
 msgstr ""
@@ -583,9 +592,6 @@ msgstr "Не устнановлен"
 
 msgid "Organisation unit"
 msgstr "Организация"
-
-msgid "Event time"
-msgstr "Время события"
 
 msgid "Groups"
 msgstr "Группы"

@@ -99,6 +99,7 @@ describe('geojson utils', () => {
                 createEventFeature(
                     headers,
                     {},
+                    [],
                     dummyEventRow,
                     dummyID,
                     dummyGetGeometry
@@ -107,6 +108,8 @@ describe('geojson utils', () => {
                 type: 'Feature',
                 id: dummyID,
                 properties: {
+                    id: dummyID,
+                    type: dummyGeometry.type,
                     [headers[0].name]: dummyEventRow[0],
                     [headers[1].name]: dummyEventRow[1],
                 },
@@ -122,6 +125,7 @@ describe('geojson utils', () => {
                 createEventFeature(
                     headers,
                     names,
+                    [],
                     dummyEventRow,
                     dummyID,
                     dummyGetGeometry
@@ -130,6 +134,8 @@ describe('geojson utils', () => {
                 type: 'Feature',
                 id: dummyID,
                 properties: {
+                    id: dummyID,
+                    type: dummyGeometry.type,
                     [names[headers[0].name]]: dummyEventRow[0],
                     [headers[1].name]: dummyEventRow[1],
                 },
@@ -256,7 +262,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.column]: row[i],
                         }),
-                        {}
+                        { id: row[1], type: point.type }
                     ),
                     geometry: point,
                 }))
@@ -275,7 +281,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.column]: row[i],
                         }),
-                        {}
+                        { id: row[2], type: point.type }
                     ),
                     geometry: point,
                 }))
@@ -296,7 +302,7 @@ describe('geojson utils', () => {
                             ...out,
                             [header.name]: row[i],
                         }),
-                        {}
+                        { id: row[1], type: point.type }
                     ),
                     geometry: point,
                 }))
@@ -324,7 +330,7 @@ describe('geojson utils', () => {
                             ...out,
                             [`${header.name} CUSTOM`]: row[i],
                         }),
-                        {}
+                        { id: row[1], type: point.type }
                     ),
                     geometry: point,
                 }))

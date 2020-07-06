@@ -23,7 +23,7 @@ import analyticalObjectEpics from './analyticalObject';
 
 const errorEpic = action$ =>
     action$
-        .filter(action => action.type.indexOf('ERROR') !== -1)
+        .filter(action => action.type.includes('ERROR'))
         .do(action => console.error(action.error)) // eslint-disable-line
         .concatMapTo(Observable.empty()); // Avoid infinite loop, same as .map(action => Observable.empty()).concatAll()
 
