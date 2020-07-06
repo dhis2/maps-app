@@ -51,7 +51,7 @@ const Legend = ({
             <div className={classes.description}>{description}</div>
         )}
         {unit && items && <div className={classes.unit}>{unit}</div>}
-        {items && (
+        {Array.isArray(items) && (
             <table>
                 <tbody>
                     {items.map((item, index) => (
@@ -60,7 +60,7 @@ const Legend = ({
                 </tbody>
             </table>
         )}
-        {filters && (
+        {Array.isArray(filters) && (
             <div className={classes.filters}>
                 <div>{i18n.t('Filters')}:</div>
                 {filters.map((filter, index) => (
@@ -68,8 +68,12 @@ const Legend = ({
                 ))}
             </div>
         )}
-        {explanation && (
-            <div className={classes.explanation}>{explanation}</div>
+        {Array.isArray(explanation) && (
+            <div className={classes.explanation}>
+                {explanation.map((expl, index) => (
+                    <div key={index}>{expl}</div>
+                ))}
+            </div>
         )}
         {source && (
             <div className={classes.source}>
@@ -90,7 +94,7 @@ Legend.propTypes = {
     filters: PropTypes.array,
     unit: PropTypes.string,
     items: PropTypes.array,
-    explanation: PropTypes.string,
+    explanation: PropTypes.array,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,
 };

@@ -8,6 +8,7 @@ import {
     TEI_RELATED_RADIUS,
     TEI_RELATIONSHIP_LINE_COLOR,
 } from '../constants/layers';
+import { getProgramStatuses } from '../constants/programStatuses';
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import { getDataWithRelationships } from '../util/teiRelationshipsParser';
@@ -84,13 +85,21 @@ const trackedEntityLoader = async config => {
     // https://docs.dhis2.org/2.29/en/developer/html/webapi_tracked_entity_instance_query.html
     let url = `/trackedEntityInstances?skipPaging=true&fields=${fieldsWithRelationships}&ou=${orgUnits}`;
     let alert;
+    let explanation;
 
     if (organisationUnitSelectionMode) {
         url += `&ouMode=${organisationUnitSelectionMode}`;
     }
 
     if (program) {
-        url += `&program=${program.id}&programStatus=${programStatus}&programStartDate=${startDate}&programEndDate=${endDate}`;
+        url += `&program=${program.id}&programStartDate=${startDate}&programEndDate=${endDate}`;
+
+        if (programStatus) {
+            url += `&programStatus=${programStatus}`;
+            explanation = `${i18n.t('Program status')}: ${
+                getProgramStatuses().find(s => s.id === programStatus).name
+            }`;
+        }
 
         if (followUp !== undefined) {
             url += `&followUp=${followUp ? 'TRUE' : 'FALSE'}`;
@@ -154,6 +163,10 @@ const trackedEntityLoader = async config => {
         secondaryData = toGeoJson(dataWithRels.secondary);
     } else {
         data = toGeoJson(instances);
+    }
+
+    if (explanation) {
+        legend.explanation = [explanation];
     }
 
     return {

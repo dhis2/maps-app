@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '../core/Tabs';
-import Tab from '../core/Tab';
-import TextField from '../core/TextField';
-import SelectField from '../core/SelectField';
-import Checkbox from '../core/Checkbox';
-import TrackedEntityTypeSelect from '../trackedEntity/TrackedEntityTypeSelect';
-import ProgramSelect from '../program/ProgramSelect';
-import StartEndDates from '../periods/StartEndDates';
-import OrgUnitTree from '../orgunits/OrgUnitTree';
-import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
-import ColorPicker from '../core/ColorPicker';
+import Tabs from '../../core/Tabs';
+import Tab from '../../core/Tab';
+import TextField from '../../core/TextField';
+import SelectField from '../../core/SelectField';
+import Checkbox from '../../core/Checkbox';
+import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect';
+import ProgramSelect from '../../program/ProgramSelect';
+import ProgramStatusSelect from './ProgramStatusSelect';
+import StartEndDates from '../../periods/StartEndDates';
+import OrgUnitTree from '../../orgunits/OrgUnitTree';
+import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
+import ColorPicker from '../../core/ColorPicker';
 import {
     DEFAULT_START_DATE,
     DEFAULT_END_DATE,
@@ -23,8 +24,8 @@ import {
     TEI_RELATED_COLOR,
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_RADIUS,
-} from '../../constants/layers';
-import layerDialogStyles from './LayerDialogStyles';
+} from '../../../constants/layers';
+import layerDialogStyles from '../LayerDialogStyles';
 
 import {
     setTrackedEntityType,
@@ -44,14 +45,14 @@ import {
     setRelatedPointRadius,
     setRelationshipLineColor,
     setStyleDataItem,
-} from '../../actions/layerEdit';
+} from '../../../actions/layerEdit';
 
 import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
-} from '../../util/analytics';
-import { getStartEndDateError } from '../../util/time';
-import TrackedEntityRelationshipTypeSelect from './trackedEntity/TrackedEntityRelationshipTypeSelect';
+} from '../../../util/analytics';
+import { getStartEndDateError } from '../../../util/time';
+import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect';
 
 const styles = {
     ...layerDialogStyles,
@@ -117,12 +118,12 @@ export class TrackedEntityDialog extends Component {
             rows,
             startDate,
             endDate,
-            programStatus,
+            // programStatus,
             relationshipType,
             setOrgUnitRoot,
             setStartDate,
             setEndDate,
-            setProgramStatus,
+            // setProgramStatus,
         } = this.props;
 
         const orgUnits = getOrgUnitNodesFromRows(rows);
@@ -138,9 +139,11 @@ export class TrackedEntityDialog extends Component {
             setEndDate(DEFAULT_END_DATE);
         }
 
+        /*
         if (!programStatus) {
             setProgramStatus('ACTIVE');
         }
+        */
 
         if (relationshipType) {
             this.setState({
@@ -245,27 +248,10 @@ export class TrackedEntityDialog extends Component {
                                 />
                             )}
                             {program && (
-                                <SelectField
-                                    label={i18n.t('Program status')}
-                                    items={[
-                                        {
-                                            id: 'ACTIVE',
-                                            name: 'Active',
-                                        },
-                                        {
-                                            id: 'COMPLETED',
-                                            name: 'Completed',
-                                        },
-                                    ]}
+                                <ProgramStatusSelect
                                     value={programStatus}
-                                    onChange={status =>
-                                        setProgramStatus(status.id)
-                                    }
-                                    style={{
-                                        ...styles.select,
-                                        width: 276,
-                                        marginLeft: 24,
-                                    }}
+                                    onChange={setProgramStatus}
+                                    style={styles.select}
                                 />
                             )}
                             {program && (
@@ -273,10 +259,7 @@ export class TrackedEntityDialog extends Component {
                                     label={i18n.t('Follow up')}
                                     checked={followUp}
                                     onCheck={setFollowUpStatus}
-                                    style={{
-                                        ...styles.checkbox,
-                                        marginLeft: 24,
-                                    }}
+                                    style={styles.checkbox}
                                 />
                             )}
                         </div>
