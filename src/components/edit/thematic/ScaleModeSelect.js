@@ -40,6 +40,8 @@ const ScaleModeSelect = props => {
 ScaleModeSelect.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    radiusLow: PropTypes.number.isRequired,
+    radiusHigh: PropTypes.number.isRequired,
 };
 
 export default ScaleModeSelect;

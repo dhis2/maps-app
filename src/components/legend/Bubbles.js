@@ -16,8 +16,8 @@ const scaleModes = {
         const radius = min + (max - min) * x;
 
         // https://gis.stackexchange.com/questions/97902/flannery-compensation-in-leaflet-js
-        const pRadius = 1.0083 * Math.pow(radius / min, 0.5716) * min;
-        console.log('x', x, radius, pRadius);
+        // const pRadius = 1.0083 * Math.pow(radius / min, 0.5716) * min;
+        // console.log('x', x, radius, pRadius);
         return radius;
     }),
 };

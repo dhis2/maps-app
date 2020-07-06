@@ -122,6 +122,7 @@ export class ThematicDialog extends Component {
         renderingStrategy: PropTypes.string,
         radiusHigh: PropTypes.number,
         radiusLow: PropTypes.number,
+        thematicMapType: PropTypes.string,
         valueType: PropTypes.string,
         loadOrgUnitPath: PropTypes.func.isRequired,
         setClassification: PropTypes.func.isRequired,
@@ -603,7 +604,7 @@ export class ThematicDialog extends Component {
                                 <ScaleModeSelect
                                     radiusLow={radiusLow}
                                     radiusHigh={radiusHigh}
-                                    onChange={console.log}
+                                    onChange={() => {}}
                                 />
                                 <div style={styles.flexInnerColumnFlow}>
                                     <Checkbox

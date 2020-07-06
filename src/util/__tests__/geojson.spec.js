@@ -9,6 +9,10 @@ import {
     createEventFeatures,
 } from '../geojson';
 
+jest.mock('../../components/map/MapApi', () => ({
+    poleOfInaccessibility: jest.fn(),
+}));
+
 // Since we're not in a browser environment we unfortunately have to mock FileSaver and Blob
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }));
 
