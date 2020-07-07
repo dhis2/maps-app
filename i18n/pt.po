@@ -342,13 +342,13 @@ msgid "one of"
 msgstr "um de"
 
 msgid "not one of"
-msgstr ""
+msgstr "não um dos"
 
 msgid "contains"
 msgstr "contém"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "não contém"
 
 msgid "is"
 msgstr "é"
@@ -563,19 +563,19 @@ msgid "Access denied"
 msgstr "Acesso Negado"
 
 msgid "user is not allowed to read layer data"
-msgstr ""
+msgstr "o usuário não tem permissão para ler dados da camada"
 
 msgid "Failed"
 msgstr "Falhou"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Ocorreu um erro desconhecido ao ler os dados da camada"
 
 msgid "Event"
 msgstr "Evento"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Instalações"
 
 msgid "No data found"
 msgstr "Dado não encontrado"
@@ -584,25 +584,25 @@ msgid "Tracked entity"
 msgstr "Entidade Rastreada"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "Nenhuma entidade rastreada encontrada"
 
 msgid "true"
-msgstr ""
+msgstr "Verdadeiro"
 
 msgid "false"
-msgstr ""
+msgstr "Falso "
 
 msgid "No"
 msgstr "Não"
 
 msgid "Map could not be created"
-msgstr ""
+msgstr "Não foi possível criar o mapa"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "A data de início é inválida"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "A data de término é inválida"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "A data de término não pode ser anterior à data de início"
