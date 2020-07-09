@@ -502,7 +502,7 @@ msgid "two levels below user organisation unit"
 msgstr "dois níveis abaixo da unidade organizacional do usuário"
 
 msgid "in"
-msgstr ""
+msgstr "no"
 
 msgid "in and right below"
 msgstr ""
