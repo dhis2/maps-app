@@ -7,6 +7,7 @@ import Tab from '../../core/Tab';
 import TextField from '../../core/TextField';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
+import NoDataColor from './NoDataColor';
 import Checkbox from '../../core/Checkbox';
 import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect from '../../dataElement/DataElementSelect';
@@ -626,6 +627,7 @@ export class ThematicDialog extends Component {
                                         />
                                     )}
                                 </div>
+                                <NoDataColor />
                             </div>
                         </div>
                     )}
