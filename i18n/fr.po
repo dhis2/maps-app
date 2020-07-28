@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
+"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -332,62 +332,6 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "Select program period"
-msgstr ""
-
-msgid "Select period when tracked entities were last updated"
-msgstr ""
-
-msgid "relationships"
-msgstr "Relation"
-
-msgid "Program status"
-msgstr ""
-
-msgid "Follow up"
-msgstr "Suivi"
-
-msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-
-msgid "WARNING"
-msgstr "ATTENTION"
-
-msgid ""
-"Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
-
-msgid "Display Tracked Entity relationships"
-msgstr ""
-
-msgid "Selection mode"
-msgstr "Sélectionner le mode"
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr "Entités suiviées "
-
-msgid "Tracked entity style"
-msgstr ""
-
-msgid "Point size"
-msgstr ""
-
-msgid "Related entity style"
-msgstr ""
-
-msgid "Line Color"
-msgstr ""
-
 msgid "Aggregation type"
 msgstr "Type d'agrégation"
 
@@ -435,6 +379,62 @@ msgstr "Program indicators"
 
 msgid "Item type"
 msgstr "Type d'élément"
+
+msgid "Program status"
+msgstr ""
+
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "relationships"
+msgstr "Relation"
+
+msgid "Follow up"
+msgstr "Suivi"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid "WARNING"
+msgstr "ATTENTION"
+
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid "Selection mode"
+msgstr "Sélectionner le mode"
+
+msgid "Selected only"
+msgstr ""
+
+msgid "Selected and below"
+msgstr ""
+
+msgid "Selected and all below"
+msgstr ""
+
+msgid "Tracked entities"
+msgstr "Entités suiviées "
+
+msgid "Tracked entity style"
+msgstr ""
+
+msgid "Point size"
+msgstr ""
+
+msgid "Related entity style"
+msgstr ""
+
+msgid "Line Color"
+msgstr ""
 
 msgid "Failed to load relationship types."
 msgstr ""
@@ -983,6 +983,18 @@ msgstr "Dernière année financière"
 
 msgid "Last 5 financial years"
 msgstr "5 dernières années financières"
+
+msgid "All"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "Cancelled"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
