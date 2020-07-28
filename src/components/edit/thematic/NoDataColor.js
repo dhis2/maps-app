@@ -1,20 +1,48 @@
-import React from 'react';
-/*
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import SelectField from '../../core/SelectField';
-import { dimConf } from '../../../constants/dimension';
-*/
+import Checkbox from '../../core/Checkbox';
+import ColorPicker from '../../core/ColorPicker';
 
-const NoDataColor = props => {
-    // const { value, onChange } = props;
+export const noDataColor = '#CCCCCC'; // default color
 
-    return <div>No data</div>;
+const NoDataColor = ({ value, onChange, style }) => {
+    const onCheck = useCallback(
+        val => onChange(val ? noDataColor : undefined),
+        []
+    );
+
+    return (
+        <div style={style}>
+            <Checkbox
+                label={i18n.t('Show no data')}
+                checked={!!value}
+                onCheck={onCheck}
+                style={{
+                    margin: '0 40px 0 -4px',
+                    height: 60,
+                }}
+            />
+            {value && (
+                <ColorPicker
+                    label={i18n.t('Color')}
+                    color={value}
+                    onChange={onChange}
+                    width={50}
+                    style={{
+                        display: 'inline-block',
+                        marginTop: -6,
+                    }}
+                />
+            )}
+        </div>
+    );
 };
 
 NoDataColor.propTypes = {
-    // value: PropTypes.string,
-    // onChange: PropTypes.func.isRequired,
+    value: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
 };
 
 export default NoDataColor;

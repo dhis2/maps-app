@@ -28,6 +28,7 @@ const styles = {
     },
     scale: {
         paddingTop: 16,
+        paddingLeft: 3,
     },
 };
 

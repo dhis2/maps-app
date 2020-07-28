@@ -496,6 +496,18 @@ const layerEdit = (state = null, action) => {
                 followUp: action.payload,
             };
 
+        case types.LAYER_EDIT_NO_DATA_COLOR_SET:
+            newState = { ...state };
+
+            // Default is to show no feature
+            if (!action.payload) {
+                delete newState.noDataColor;
+            } else {
+                newState.noDataColor = action.payload;
+            }
+
+            return newState;
+
         default:
             return state;
     }
