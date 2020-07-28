@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
+"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -351,6 +351,57 @@ msgstr "Actualizar camada"
 msgid "Add layer"
 msgstr "Adicionar camada"
 
+msgid "Aggregation type"
+msgstr "Tipo de agregacão"
+
+msgid "Low size"
+msgstr "Tamanho reduzido"
+
+msgid "High size"
+msgstr "Tamanho elevado"
+
+msgid "Indicator group is required"
+msgstr "O grupo de indicadores é obrigatório"
+
+msgid "Indicator is required"
+msgstr "Indicador é obrigatório"
+
+msgid "Data element group is required"
+msgstr "O grupo de elementos de dados é obrigatório"
+
+msgid "Data element is required"
+msgstr "O elemento de dados é obrigatório"
+
+msgid "Data set is required"
+msgstr "Conjunto de dados é obrigatório"
+
+msgid "Event data item is required"
+msgstr "O item de dados do evento é obrigatório"
+
+msgid "Program indicator is required"
+msgstr "Indicador de programa é necessário"
+
+msgid "Period is required"
+msgstr "Período é obrigatório"
+
+msgid "Indicator"
+msgstr "Indicador"
+
+msgid "Reporting rates"
+msgstr "Taxas de relatórios"
+
+msgid "Event data items"
+msgstr "Itens de dados do evento"
+
+msgid "Program indicators"
+msgstr "Indicador do programa"
+
+msgid "Item type"
+msgstr "Tipo de item"
+
+msgid "Program status"
+msgstr "Status do programa"
+
 msgid "Select program period"
 msgstr "Selecionar período do programa"
 
@@ -361,9 +412,6 @@ msgstr ""
 
 msgid "relationships"
 msgstr "Relacionamentos"
-
-msgid "Program status"
-msgstr "Status do programa"
 
 msgid "Follow up"
 msgstr "Acompanhamento"
@@ -412,54 +460,6 @@ msgstr "Estilo da entidade relacionada"
 
 msgid "Line Color"
 msgstr "Cor da linha "
-
-msgid "Aggregation type"
-msgstr "Tipo de agregacão"
-
-msgid "Low size"
-msgstr "Tamanho reduzido"
-
-msgid "High size"
-msgstr "Tamanho elevado"
-
-msgid "Indicator group is required"
-msgstr "O grupo de indicadores é obrigatório"
-
-msgid "Indicator is required"
-msgstr "Indicador é obrigatório"
-
-msgid "Data element group is required"
-msgstr "O grupo de elementos de dados é obrigatório"
-
-msgid "Data element is required"
-msgstr "O elemento de dados é obrigatório"
-
-msgid "Data set is required"
-msgstr "Conjunto de dados é obrigatório"
-
-msgid "Event data item is required"
-msgstr "O item de dados do evento é obrigatório"
-
-msgid "Program indicator is required"
-msgstr "Indicador de programa é necessário"
-
-msgid "Period is required"
-msgstr "Período é obrigatório"
-
-msgid "Indicator"
-msgstr "Indicador"
-
-msgid "Reporting rates"
-msgstr "Taxas de relatórios"
-
-msgid "Event data items"
-msgstr "Itens de dados do evento"
-
-msgid "Program indicators"
-msgstr "Indicador do programa"
-
-msgid "Item type"
-msgstr "Tipo de item"
 
 msgid "Failed to load relationship types."
 msgstr "Falha ao carregar os tipos de relacionamento."
@@ -1017,6 +1017,18 @@ msgstr "Último ano fiscal"
 
 msgid "Last 5 financial years"
 msgstr "Últimos cinco anos fiscais"
+
+msgid "All"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "Cancelled"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

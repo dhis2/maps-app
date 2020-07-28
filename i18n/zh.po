@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
+"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -329,62 +329,6 @@ msgstr "更新图层"
 msgid "Add layer"
 msgstr "添加图层"
 
-msgid "Select program period"
-msgstr "选择项目期间"
-
-msgid "Select period when tracked entities were last updated"
-msgstr "当跟踪的实体最近被更新 后选择期间"
-
-msgid "relationships"
-msgstr "关系"
-
-msgid "Program status"
-msgstr "项目状态"
-
-msgid "Follow up"
-msgstr "后续跟进"
-
-msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "选择关系类型前先选择跟踪实体类型"
-
-msgid "WARNING"
-msgstr "警告"
-
-msgid ""
-"Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr "在地图上显示实体恭喜是一个试验特征功能"
-
-msgid "Display Tracked Entity relationships"
-msgstr "显示跟踪实体关系"
-
-msgid "Selection mode"
-msgstr "选择模式"
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr "跟踪的实体"
-
-msgid "Tracked entity style"
-msgstr "跟踪的实体风格"
-
-msgid "Point size"
-msgstr "点大小"
-
-msgid "Related entity style"
-msgstr "相关实体风格"
-
-msgid "Line Color"
-msgstr "线颜色"
-
 msgid "Aggregation type"
 msgstr "汇总类型"
 
@@ -432,6 +376,62 @@ msgstr "项目指标"
 
 msgid "Item type"
 msgstr "条目类型"
+
+msgid "Program status"
+msgstr "项目状态"
+
+msgid "Select program period"
+msgstr "选择项目期间"
+
+msgid "Select period when tracked entities were last updated"
+msgstr "当跟踪的实体最近被更新 后选择期间"
+
+msgid "relationships"
+msgstr "关系"
+
+msgid "Follow up"
+msgstr "后续跟进"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "选择关系类型前先选择跟踪实体类型"
+
+msgid "WARNING"
+msgstr "警告"
+
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr "在地图上显示实体恭喜是一个试验特征功能"
+
+msgid "Display Tracked Entity relationships"
+msgstr "显示跟踪实体关系"
+
+msgid "Selection mode"
+msgstr "选择模式"
+
+msgid "Selected only"
+msgstr ""
+
+msgid "Selected and below"
+msgstr ""
+
+msgid "Selected and all below"
+msgstr ""
+
+msgid "Tracked entities"
+msgstr "跟踪的实体"
+
+msgid "Tracked entity style"
+msgstr "跟踪的实体风格"
+
+msgid "Point size"
+msgstr "点大小"
+
+msgid "Related entity style"
+msgstr "相关实体风格"
+
+msgid "Line Color"
+msgstr "线颜色"
 
 msgid "Failed to load relationship types."
 msgstr "载入关系类型失败"
@@ -979,6 +979,18 @@ msgstr "上一财政年"
 
 msgid "Last 5 financial years"
 msgstr "最近五个财政年"
+
+msgid "All"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "Cancelled"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
