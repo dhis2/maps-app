@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
-"PO-Revision-Date: 2020-07-03T14:17:28.421Z\n"
+"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"PO-Revision-Date: 2020-07-28T10:49:29.744Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -317,60 +317,6 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "Select program period"
-msgstr ""
-
-msgid "Select period when tracked entities were last updated"
-msgstr ""
-
-msgid "relationships"
-msgstr ""
-
-msgid "Program status"
-msgstr ""
-
-msgid "Follow up"
-msgstr ""
-
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-
-msgid "WARNING"
-msgstr ""
-
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
-
-msgid "Display Tracked Entity relationships"
-msgstr ""
-
-msgid "Selection mode"
-msgstr ""
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr ""
-
-msgid "Tracked entity style"
-msgstr ""
-
-msgid "Point size"
-msgstr ""
-
-msgid "Related entity style"
-msgstr ""
-
-msgid "Line Color"
-msgstr ""
-
 msgid "Aggregation type"
 msgstr ""
 
@@ -417,6 +363,60 @@ msgid "Program indicators"
 msgstr ""
 
 msgid "Item type"
+msgstr ""
+
+msgid "Program status"
+msgstr ""
+
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "relationships"
+msgstr ""
+
+msgid "Follow up"
+msgstr ""
+
+msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid "WARNING"
+msgstr ""
+
+msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid "Selection mode"
+msgstr ""
+
+msgid "Selected only"
+msgstr ""
+
+msgid "Selected and below"
+msgstr ""
+
+msgid "Selected and all below"
+msgstr ""
+
+msgid "Tracked entities"
+msgstr ""
+
+msgid "Tracked entity style"
+msgstr ""
+
+msgid "Point size"
+msgstr ""
+
+msgid "Related entity style"
+msgstr ""
+
+msgid "Line Color"
 msgstr ""
 
 msgid "Failed to load relationship types."
@@ -964,6 +964,18 @@ msgid "Last financial year"
 msgstr ""
 
 msgid "Last 5 financial years"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "Cancelled"
 msgstr ""
 
 msgid ""
