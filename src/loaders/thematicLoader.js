@@ -34,6 +34,7 @@ const thematicLoader = async config => {
         classes,
         colorScale,
         renderingStrategy = 'SINGLE',
+        noDataColor,
     } = config;
 
     const dataItem = getDataItemFromColumns(columns);
@@ -69,9 +70,9 @@ const thematicLoader = async config => {
     const names = getApiResponseNames(data);
     const valuesByPeriod = !isSingle ? getValuesByPeriod(data) : null;
     const valueById = getValueById(data);
-    const valueFeatures = features.filter(
-        ({ id }) => valueById[id] !== undefined
-    );
+    const valueFeatures = noDataColor
+        ? features
+        : features.filter(({ id }) => valueById[id] !== undefined);
     const orderedValues = getOrderedValues(data);
     const minValue = orderedValues[0];
     const maxValue = orderedValues[orderedValues.length - 1];
