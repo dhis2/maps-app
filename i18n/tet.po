@@ -979,10 +979,10 @@ msgid "Last 5 financial years"
 msgstr "Tinan finanseiru 5 ikus"
 
 msgid "All"
-msgstr ""
+msgstr "Hotu"
 
 msgid "Active"
-msgstr ""
+msgstr "Ativu"
 
 msgid "Completed"
 msgstr ""

@@ -979,16 +979,16 @@ msgid "Last 5 financial years"
 msgstr "​ສົກ​ປິ​ງົບ​ປະ​ມານ 5ປີ​ຜ່ານ​ມາ"
 
 msgid "All"
-msgstr ""
+msgstr "ທັງໝົດ"
 
 msgid "Active"
-msgstr ""
+msgstr "ທີ່ຍັງນໍາໃຊ້ຢູ່"
 
 msgid "Completed"
-msgstr ""
+msgstr "ສໍາເລັດແລ້ວ"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "ຍົກເລີກແລ້ວ"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

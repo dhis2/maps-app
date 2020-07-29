@@ -979,13 +979,13 @@ msgid "Last 5 financial years"
 msgstr "5 соли молиявии гузашта"
 
 msgid "All"
-msgstr ""
+msgstr "Ҳама"
 
 msgid "Active"
-msgstr ""
+msgstr "Фаъол"
 
 msgid "Completed"
-msgstr ""
+msgstr "Анҷомёфта"
 
 msgid "Cancelled"
 msgstr ""

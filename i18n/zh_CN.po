@@ -979,16 +979,16 @@ msgid "Last 5 financial years"
 msgstr "最近五个财政年"
 
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 msgid "Active"
-msgstr ""
+msgstr "活跃的"
 
 msgid "Completed"
-msgstr ""
+msgstr "完成"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "取消"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

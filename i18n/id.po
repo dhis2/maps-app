@@ -1,18 +1,18 @@
 # 
 # Translators:
-# phil_dhis2, 2019
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2020
+# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # Carwoto Sa'an <carwoto@gmail.com>, 2020
-# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020\n"
+"Last-Translator: Carwoto Sa'an <carwoto@gmail.com>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -987,16 +987,16 @@ msgid "Last 5 financial years"
 msgstr "5 tahun finansial terakhir"
 
 msgid "All"
-msgstr ""
+msgstr "Semua"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktif"
 
 msgid "Completed"
-msgstr ""
+msgstr "Selesai"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Dibatalkan"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

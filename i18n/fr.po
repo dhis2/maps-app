@@ -4,8 +4,8 @@
 # Matthieu Pinard <matthieu@pinard.no>, 2019
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # Bram Piot <bram.piot@gmail.com>, 2020
-# phil_dhis2, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
@@ -985,16 +985,16 @@ msgid "Last 5 financial years"
 msgstr "5 dernières années financières"
 
 msgid "All"
-msgstr ""
+msgstr "Tout"
 
 msgid "Active"
-msgstr ""
+msgstr "Actif"
 
 msgid "Completed"
-msgstr ""
+msgstr "Terminé"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulé"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
