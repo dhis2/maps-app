@@ -980,16 +980,16 @@ msgid "Last 5 financial years"
 msgstr "Senaste 5 räkenskapsåren"
 
 msgid "All"
-msgstr ""
+msgstr "Alla"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktiva"
 
 msgid "Completed"
-msgstr ""
+msgstr "Avklarad"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Avbruten"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

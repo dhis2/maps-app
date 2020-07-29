@@ -981,16 +981,16 @@ msgid "Last 5 financial years"
 msgstr "Últimos 5 ejercicios financieros"
 
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 msgid "Completed"
-msgstr ""
+msgstr "Completado"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelar"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

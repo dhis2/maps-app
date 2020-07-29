@@ -978,13 +978,13 @@ msgid "Last 5 financial years"
 msgstr "5 سال گذشته مالی"
 
 msgid "All"
-msgstr ""
+msgstr "همه"
 
 msgid "Active"
-msgstr ""
+msgstr "فعال"
 
 msgid "Completed"
-msgstr ""
+msgstr "تکمیل شد"
 
 msgid "Cancelled"
 msgstr ""

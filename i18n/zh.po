@@ -1,8 +1,8 @@
 # 
 # Translators:
 # easylin <lin_xd@126.com>, 2020
-# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# phil_dhis2, 2020
 # 晓东 林 <13981924470@126.com>, 2020
 # 
 msgid ""
@@ -981,16 +981,16 @@ msgid "Last 5 financial years"
 msgstr "最近五个财政年"
 
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 msgid "Active"
-msgstr ""
+msgstr "活跃的"
 
 msgid "Completed"
-msgstr ""
+msgstr "完成"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "已取消"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

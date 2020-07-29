@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Caroline Hesthagen Holen <caroline@devotta.no>, 2020
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
+"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1002,16 +1002,16 @@ msgid "Last 5 financial years"
 msgstr "Siste 5 regnskapsår"
 
 msgid "All"
-msgstr ""
+msgstr "Alt"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 msgid "Completed"
-msgstr ""
+msgstr "Fullført"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Kansellert"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
