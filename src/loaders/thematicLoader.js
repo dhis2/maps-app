@@ -181,6 +181,10 @@ const thematicLoader = async config => {
         });
     }
 
+    if (noDataColor && Array.isArray(legend.items)) {
+        legend.items.push({ color: noDataColor, name: i18n.t('No data') });
+    }
+
     return {
         ...config,
         data: valueFeatures,
