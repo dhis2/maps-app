@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -259,54 +259,18 @@ msgstr "Dette er et påkrevd felt"
 msgid "Valid range is"
 msgstr "Gyldig rekkevidde er"
 
-msgid "data"
-msgstr "data"
-
-msgid "period"
-msgstr "periode"
-
-msgid "Org units"
-msgstr "Org enhet"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Events"
-msgstr "Hendelser"
-
-msgid "Group events"
-msgstr "Grupper hendelser"
-
-msgid "View all events"
-msgstr "Vis alle hendelser"
-
-msgid "Radius"
-msgstr "Radius"
-
-msgid "Buffer"
-msgstr "Buffer"
-
-msgid "Radius in meters"
-msgstr "Radius i meter"
-
-msgid "You can style events by data element after selecting a program."
-msgstr "Du kan style hendelser etter dataelement etter å ha valgt et program."
-
-msgid "Program is required"
-msgstr "Program er påkrevd"
-
-msgid "Program stage is required"
-msgstr "Programfase er påkrevd"
-
-msgid "No organisation units are selected."
-msgstr "Ingen organisasjonsenheter er valgt"
-
 msgid "Group set"
 msgstr "Gruppesett"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
+
+msgid "Buffer"
+msgstr "Buffer"
+
+msgid "Radius in meters"
+msgstr "Radius i meter"
 
 msgid "Group set is required"
 msgstr "Gruppesett er påkrevd"
@@ -341,8 +305,50 @@ msgstr "Oppdater lag"
 msgid "Add layer"
 msgstr "Legg til lag"
 
+msgid "data"
+msgstr "data"
+
+msgid "period"
+msgstr "periode"
+
+msgid "Org units"
+msgstr "Org enhet"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Events"
+msgstr "Hendelser"
+
+msgid "Group events"
+msgstr "Grupper hendelser"
+
+msgid "View all events"
+msgstr "Vis alle hendelser"
+
+msgid "Radius"
+msgstr "Radius"
+
+msgid "You can style events by data element after selecting a program."
+msgstr "Du kan style hendelser etter dataelement etter å ha valgt et program."
+
+msgid "Program is required"
+msgstr "Program er påkrevd"
+
+msgid "Program stage is required"
+msgstr "Programfase er påkrevd"
+
+msgid "No organisation units are selected."
+msgstr "Ingen organisasjonsenheter er valgt"
+
+msgid "Event status"
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr "Lav størrelse"
@@ -860,6 +866,24 @@ msgstr "Bing Flyfoto"
 msgid "Bing Aerial Labels"
 msgstr "Bing Flyfoto Etiketter"
 
+msgid "All"
+msgstr "Alt"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Completed"
+msgstr "Fullført"
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Skipped"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Like intervaller"
 
@@ -1000,15 +1024,6 @@ msgstr "Siste regnskapsår"
 
 msgid "Last 5 financial years"
 msgstr "Siste 5 regnskapsår"
-
-msgid "All"
-msgstr "Alt"
-
-msgid "Active"
-msgstr "Aktiv"
-
-msgid "Completed"
-msgstr "Fullført"
 
 msgid "Cancelled"
 msgstr "Kansellert"
@@ -1178,6 +1193,9 @@ msgstr "Valgte org enheter"
 
 msgid "No coordinates found"
 msgstr "Ingen koordinater funnet"
+
+msgid "No data"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"

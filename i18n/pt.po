@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -265,50 +265,6 @@ msgstr "Este campo é obrigatorio"
 msgid "Valid range is"
 msgstr "O intervalo válido é"
 
-msgid "data"
-msgstr "Data "
-
-msgid "period"
-msgstr "Periodo"
-
-msgid "Org units"
-msgstr "Unidades organizacionais"
-
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Events"
-msgstr "Eventos"
-
-msgid "Group events"
-msgstr "Grupo de eventos "
-
-msgid "View all events"
-msgstr "Ver todos eventos "
-
-msgid "Radius"
-msgstr "Raio"
-
-msgid "Buffer"
-msgstr "Buffer"
-
-msgid "Radius in meters"
-msgstr "Raio em metros"
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-"Você pode criar estilos de  eventos por elemento de dados após selecionar um"
-" programa."
-
-msgid "Program is required"
-msgstr "Programa é obrigatório"
-
-msgid "Program stage is required"
-msgstr "Etapa do programa é necessária"
-
-msgid "No organisation units are selected."
-msgstr "Nenhuma unidade organizacional selecionada"
-
 msgid "Group set"
 msgstr "Conjunto do grupo"
 
@@ -317,6 +273,12 @@ msgid ""
 msgstr ""
 "Lembre-se de selecionar o nível da unidade organizacional que contém as "
 "instalações."
+
+msgid "Buffer"
+msgstr "Buffer"
+
+msgid "Radius in meters"
+msgstr "Raio em metros"
 
 msgid "Group set is required"
 msgstr "O conjunto de grupos é obrigatório"
@@ -351,8 +313,52 @@ msgstr "Actualizar camada"
 msgid "Add layer"
 msgstr "Adicionar camada"
 
+msgid "data"
+msgstr "Data "
+
+msgid "period"
+msgstr "Periodo"
+
+msgid "Org units"
+msgstr "Unidades organizacionais"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Events"
+msgstr "Eventos"
+
+msgid "Group events"
+msgstr "Grupo de eventos "
+
+msgid "View all events"
+msgstr "Ver todos eventos "
+
+msgid "Radius"
+msgstr "Raio"
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"Você pode criar estilos de  eventos por elemento de dados após selecionar um"
+" programa."
+
+msgid "Program is required"
+msgstr "Programa é obrigatório"
+
+msgid "Program stage is required"
+msgstr "Etapa do programa é necessária"
+
+msgid "No organisation units are selected."
+msgstr "Nenhuma unidade organizacional selecionada"
+
+msgid "Event status"
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "Tipo de agregacão"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr "Tamanho reduzido"
@@ -877,6 +883,24 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Etiquetas aéreas do Bing"
 
+msgid "All"
+msgstr "Tudo"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Completed"
+msgstr "Completo"
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Skipped"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Intervalos iguais"
 
@@ -1017,15 +1041,6 @@ msgstr "Último ano fiscal"
 
 msgid "Last 5 financial years"
 msgstr "Últimos cinco anos fiscais"
-
-msgid "All"
-msgstr "Tudo"
-
-msgid "Active"
-msgstr "Activo"
-
-msgid "Completed"
-msgstr "Completo"
 
 msgid "Cancelled"
 msgstr "Cancelado"
@@ -1196,6 +1211,9 @@ msgstr "Selecionar unidades organizacionais "
 
 msgid "No coordinates found"
 msgstr "Nenhuma coordenada encontrada"
+
+msgid "No data"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Entidade Rastreada"

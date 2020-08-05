@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -247,54 +247,18 @@ msgstr "这个字段是必填的"
 msgid "Valid range is"
 msgstr "有效范围"
 
-msgid "data"
-msgstr "数据"
-
-msgid "period"
-msgstr "期间"
-
-msgid "Org units"
-msgstr "组织机构"
-
-msgid "Filter"
-msgstr "过滤器"
-
-msgid "Events"
-msgstr "事件"
-
-msgid "Group events"
-msgstr "事件组"
-
-msgid "View all events"
-msgstr "查看所有事件"
-
-msgid "Radius"
-msgstr "半径"
-
-msgid "Buffer"
-msgstr "缓冲"
-
-msgid "Radius in meters"
-msgstr "半径（米）"
-
-msgid "You can style events by data element after selecting a program."
-msgstr "选择一个项目后你可以按数据元风格化显示事件"
-
-msgid "Program is required"
-msgstr "需要项目"
-
-msgid "Program stage is required"
-msgstr "需要项目阶段"
-
-msgid "No organisation units are selected."
-msgstr "没有选择机构"
-
 msgid "Group set"
 msgstr "组集"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "记住选择包括机构的等级"
+
+msgid "Buffer"
+msgstr "缓冲"
+
+msgid "Radius in meters"
+msgstr "半径（米）"
 
 msgid "Group set is required"
 msgstr "需要组集"
@@ -329,8 +293,50 @@ msgstr "更新图层"
 msgid "Add layer"
 msgstr "添加图层"
 
+msgid "data"
+msgstr "数据"
+
+msgid "period"
+msgstr "期间"
+
+msgid "Org units"
+msgstr "组织机构"
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Events"
+msgstr "事件"
+
+msgid "Group events"
+msgstr "事件组"
+
+msgid "View all events"
+msgstr "查看所有事件"
+
+msgid "Radius"
+msgstr "半径"
+
+msgid "You can style events by data element after selecting a program."
+msgstr "选择一个项目后你可以按数据元风格化显示事件"
+
+msgid "Program is required"
+msgstr "需要项目"
+
+msgid "Program stage is required"
+msgstr "需要项目阶段"
+
+msgid "No organisation units are selected."
+msgstr "没有选择机构"
+
+msgid "Event status"
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "汇总类型"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr "下限"
@@ -839,6 +845,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "全部"
+
+msgid "Active"
+msgstr "活跃的"
+
+msgid "Completed"
+msgstr "完成"
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Skipped"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "平等间隔"
 
@@ -979,15 +1003,6 @@ msgstr "上一财政年"
 
 msgid "Last 5 financial years"
 msgstr "最近五个财政年"
-
-msgid "All"
-msgstr "全部"
-
-msgid "Active"
-msgstr "活跃的"
-
-msgid "Completed"
-msgstr "完成"
 
 msgid "Cancelled"
 msgstr "已取消"
@@ -1151,6 +1166,9 @@ msgstr "选择的机构"
 
 msgid "No coordinates found"
 msgstr "没有找到坐标"
+
+msgid "No data"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "跟踪实体"
