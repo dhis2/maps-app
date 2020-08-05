@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-07-06T11:45:54.198Z\n"
-"PO-Revision-Date: 2020-07-06T11:45:54.198Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"PO-Revision-Date: 2020-08-05T13:51:52.167Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -321,6 +321,9 @@ msgid "Event status"
 msgstr ""
 
 msgid "Aggregation type"
+msgstr ""
+
+msgid "Show no data"
 msgstr ""
 
 msgid "Low size"
@@ -1147,6 +1150,9 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "No data"
 msgstr ""
 
 msgid "Tracked entity"
