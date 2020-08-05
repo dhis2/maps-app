@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
-"PO-Revision-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T08:35:53.580Z\n"
+"PO-Revision-Date: 2020-08-05T08:35:53.580Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -320,10 +320,22 @@ msgstr ""
 msgid "Aggregation type"
 msgstr ""
 
-msgid "Low size"
+msgid "Show no data"
 msgstr ""
 
-msgid "High size"
+msgid "Linear"
+msgstr ""
+
+msgid "Perceptual"
+msgstr ""
+
+msgid "Symbol scaling"
+msgstr ""
+
+msgid "Low radius"
+msgstr ""
+
+msgid "High radius"
 msgstr ""
 
 msgid "Indicator group is required"
@@ -350,6 +362,12 @@ msgstr ""
 msgid "Period is required"
 msgstr ""
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
 msgid "Indicator"
 msgstr ""
 
@@ -372,21 +390,6 @@ msgid "Select program period"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
-
-msgid "Linear"
-msgstr ""
-
-msgid "Perceptual"
-msgstr ""
-
-msgid "Symbol scaling"
-msgstr ""
-
-msgid "Low radius"
-msgstr ""
-
-msgid "High radius"
 msgstr ""
 
 msgid "relationships"
@@ -419,17 +422,7 @@ msgstr ""
 msgid "Selected and all below"
 msgstr ""
 
-<<<<<<< HEAD
-msgid "Choropleth"
-msgstr ""
-
-msgid "Proportional symbols"
-msgstr ""
-
-msgid "Indicator"
-=======
 msgid "Tracked entities"
->>>>>>> master
 msgstr ""
 
 msgid "Tracked entity style"
@@ -1163,6 +1156,9 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "No data"
 msgstr ""
 
 msgid "Tracked entity"
