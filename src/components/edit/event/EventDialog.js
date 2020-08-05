@@ -2,32 +2,34 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Tabs from '../core/Tabs';
-import Tab from '../core/Tab';
-import TextField from '../core/TextField';
-import ProgramSelect from '../program/ProgramSelect';
-import ProgramStageSelect from '../program/ProgramStageSelect';
-import RelativePeriodSelect from '../periods/RelativePeriodSelect';
-import StartEndDates from '../periods/StartEndDates';
-import Checkbox from '../core/Checkbox';
-import FilterGroup from '../filter/FilterGroup';
-import ImageSelect from '../core/ImageSelect';
-import StyleByDataItem from '../dataItem/StyleByDataItem';
-import CoordinateField from '../dataItem/CoordinateField';
-import ColorPicker from '../core/ColorPicker';
-import OrgUnitTree from '../orgunits/OrgUnitTree';
-import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import SelectedOrgUnits from '../orgunits/SelectedOrgUnits';
+import Tabs from '../../core/Tabs';
+import Tab from '../../core/Tab';
+import TextField from '../../core/TextField';
+import ProgramSelect from '../../program/ProgramSelect';
+import ProgramStageSelect from '../../program/ProgramStageSelect';
+import EventStatusSelect from './EventStatusSelect';
+import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
+import StartEndDates from '../../periods/StartEndDates';
+import Checkbox from '../../core/Checkbox';
+import FilterGroup from '../../filter/FilterGroup';
+import ImageSelect from '../../core/ImageSelect';
+import StyleByDataItem from '../../dataItem/StyleByDataItem';
+import CoordinateField from '../../dataItem/CoordinateField';
+import ColorPicker from '../../core/ColorPicker';
+import OrgUnitTree from '../../orgunits/OrgUnitTree';
+import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
-} from '../../constants/layers';
-import layerDialogStyles from './LayerDialogStyles';
+} from '../../../constants/layers';
+import layerDialogStyles from '../LayerDialogStyles';
 
 import {
     setProgram,
     setProgramStage,
+    setEventStatus,
     setEventCoordinateField,
     setEventClustering,
     setEventPointColor,
@@ -37,16 +39,16 @@ import {
     toggleOrgUnit,
     setPeriod,
     setAreaRadius,
-} from '../../actions/layerEdit';
+} from '../../../actions/layerEdit';
 
 import {
     getPeriodFromFilters,
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
-} from '../../util/analytics';
-import { getStartEndDateError } from '../../util/time';
-import { cssColor } from '../../util/colors';
+} from '../../../util/analytics';
+import { getStartEndDateError } from '../../../util/time';
+import { cssColor } from '../../../util/colors';
 
 // TODO: Don't use inline styles!
 const styles = {
@@ -73,6 +75,7 @@ export class EventDialog extends Component {
         defaultPeriod: PropTypes.string,
         endDate: PropTypes.string,
         eventClustering: PropTypes.bool,
+        eventStatus: PropTypes.string,
         eventCoordinateField: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
@@ -88,6 +91,7 @@ export class EventDialog extends Component {
         startDate: PropTypes.string,
         setProgram: PropTypes.func.isRequired,
         setProgramStage: PropTypes.func.isRequired,
+        setEventStatus: PropTypes.func.isRequired,
         setEventCoordinateField: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,
@@ -154,6 +158,7 @@ export class EventDialog extends Component {
             columns = [],
             endDate,
             eventClustering,
+            eventStatus,
             eventCoordinateField,
             eventPointColor,
             eventPointRadius,
@@ -168,6 +173,7 @@ export class EventDialog extends Component {
             // handlers
             setProgram,
             setProgramStage,
+            setEventStatus,
             setEventCoordinateField,
             setEventClustering,
             setEventPointColor,
@@ -227,6 +233,11 @@ export class EventDialog extends Component {
                                 programStage={programStage}
                                 value={eventCoordinateField}
                                 onChange={setEventCoordinateField}
+                                style={styles.select}
+                            />
+                            <EventStatusSelect
+                                value={eventStatus}
+                                onChange={setEventStatus}
                                 style={styles.select}
                             />
                         </div>
@@ -457,6 +468,7 @@ export default connect(
     {
         setProgram,
         setProgramStage,
+        setEventStatus,
         setEventCoordinateField,
         setEventClustering,
         setEventPointColor,

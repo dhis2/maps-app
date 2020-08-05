@@ -10,7 +10,7 @@ import {
     DialogActions,
     Button,
 } from '@material-ui/core';
-import EventDialog from './EventDialog';
+import EventDialog from './event/EventDialog';
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog';
 import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
-"PO-Revision-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"PO-Revision-Date: 2020-08-05T13:51:52.167Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -236,52 +236,16 @@ msgstr ""
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
+msgid "Group set"
 msgstr ""
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
-msgstr ""
-
-msgid "Filter"
-msgstr ""
-
-msgid "Events"
-msgstr ""
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
+msgid "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr ""
-
-msgid "Group set"
-msgstr ""
-
-msgid "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -317,7 +281,49 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Org units"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "Events"
+msgstr ""
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Event status"
+msgstr ""
+
 msgid "Aggregation type"
+msgstr ""
+
+msgid "Show no data"
 msgstr ""
 
 msgid "Low size"
@@ -825,6 +831,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Skipped"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr ""
 
@@ -964,15 +988,6 @@ msgid "Last financial year"
 msgstr ""
 
 msgid "Last 5 financial years"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "Active"
-msgstr ""
-
-msgid "Completed"
 msgstr ""
 
 msgid "Cancelled"
@@ -1135,6 +1150,9 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "No data"
 msgstr ""
 
 msgid "Tracked entity"
