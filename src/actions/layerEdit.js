@@ -346,3 +346,9 @@ export const setRenderingStrategy = display => ({
     type: types.LAYER_EDIT_RENDERING_STRATEGY_SET,
     payload: display,
 });
+
+// Set no data color
+export const setNoDataColor = color => ({
+    type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
+    payload: color,
+});

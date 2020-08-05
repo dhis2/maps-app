@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
+"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -85,7 +85,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr ""
+msgstr "Unidad Organizativa"
 
 msgid "Name"
 msgstr "Nombre"
@@ -329,62 +329,6 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "Select program period"
-msgstr ""
-
-msgid "Select period when tracked entities were last updated"
-msgstr ""
-
-msgid "relationships"
-msgstr "relaciones"
-
-msgid "Program status"
-msgstr "Estado del programa"
-
-msgid "Follow up"
-msgstr "Seguimiento"
-
-msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-
-msgid "WARNING"
-msgstr ""
-
-msgid ""
-"Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
-
-msgid "Display Tracked Entity relationships"
-msgstr ""
-
-msgid "Selection mode"
-msgstr "Modo de selección"
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr "Entidades monitoreadas"
-
-msgid "Tracked entity style"
-msgstr ""
-
-msgid "Point size"
-msgstr ""
-
-msgid "Related entity style"
-msgstr ""
-
-msgid "Line Color"
-msgstr ""
-
 msgid "Aggregation type"
 msgstr "Tipo de agregación"
 
@@ -432,6 +376,62 @@ msgstr "Indicadores de programa"
 
 msgid "Item type"
 msgstr "Item type"
+
+msgid "Program status"
+msgstr "Estado del programa"
+
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "relationships"
+msgstr "relaciones"
+
+msgid "Follow up"
+msgstr "Seguimiento"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid "WARNING"
+msgstr ""
+
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid "Selection mode"
+msgstr "Modo de selección"
+
+msgid "Selected only"
+msgstr ""
+
+msgid "Selected and below"
+msgstr ""
+
+msgid "Selected and all below"
+msgstr ""
+
+msgid "Tracked entities"
+msgstr "Entidades monitoreadas"
+
+msgid "Tracked entity style"
+msgstr ""
+
+msgid "Point size"
+msgstr ""
+
+msgid "Related entity style"
+msgstr ""
+
+msgid "Line Color"
+msgstr ""
 
 msgid "Failed to load relationship types."
 msgstr ""
@@ -979,6 +979,18 @@ msgstr "Último ejercicio financiero"
 
 msgid "Last 5 financial years"
 msgstr "Últimos 5 ejercicios financieros"
+
+msgid "All"
+msgstr "Todos"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Completed"
+msgstr "Completado"
+
+msgid "Cancelled"
+msgstr "Cancelar"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

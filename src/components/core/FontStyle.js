@@ -10,16 +10,19 @@ import ColorPicker from './ColorPicker';
 import { cssColor } from '../../util/colors';
 import { LABEL_FONT_SIZE, LABEL_FONT_COLOR } from '../../constants/layers';
 
+const itemSize = 30;
+
 const styles = {
     sizeField: {
-        width: 48,
-        margin: '0 5px 0 0',
-        verticalAlign: 'middle',
+        width: 40,
+        margin: '-6px 5px 0 0',
     },
     button: {
         background: '#fafafa',
         marginRight: 5,
         borderRadius: 0,
+        width: itemSize,
+        height: itemSize,
     },
     color: {
         display: 'inline-block',
@@ -79,8 +82,8 @@ const FontStyle = ({
         {onColorChange && (
             <ColorPicker
                 color={cssColor(color) || LABEL_FONT_COLOR}
-                width={48}
-                height={48}
+                width={itemSize}
+                height={itemSize}
                 onChange={onColorChange}
                 style={styles.color}
             />

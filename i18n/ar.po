@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
+"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -340,62 +340,6 @@ msgstr "تحديث الطبقة"
 msgid "Add layer"
 msgstr "إضافة طبقة"
 
-msgid "Select program period"
-msgstr ""
-
-msgid "Select period when tracked entities were last updated"
-msgstr ""
-
-msgid "relationships"
-msgstr "العلاقات"
-
-msgid "Program status"
-msgstr "حالة البرنامج"
-
-msgid "Follow up"
-msgstr "متابعة"
-
-msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-
-msgid "WARNING"
-msgstr ""
-
-msgid ""
-"Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
-
-msgid "Display Tracked Entity relationships"
-msgstr ""
-
-msgid "Selection mode"
-msgstr "وضح التحديد"
-
-msgid "Selected only"
-msgstr ""
-
-msgid "Selected and below"
-msgstr ""
-
-msgid "Selected and all below"
-msgstr ""
-
-msgid "Tracked entities"
-msgstr "الكيانات المتعقبة"
-
-msgid "Tracked entity style"
-msgstr ""
-
-msgid "Point size"
-msgstr "حجم النقطة"
-
-msgid "Related entity style"
-msgstr ""
-
-msgid "Line Color"
-msgstr "لون الخط"
-
 msgid "Aggregation type"
 msgstr "نوع التجميع"
 
@@ -443,6 +387,62 @@ msgstr "مؤشرات البرنامج"
 
 msgid "Item type"
 msgstr "نوع العنصر"
+
+msgid "Program status"
+msgstr "حالة البرنامج"
+
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "relationships"
+msgstr "العلاقات"
+
+msgid "Follow up"
+msgstr "متابعة"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+
+msgid "WARNING"
+msgstr ""
+
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+
+msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid "Selection mode"
+msgstr "وضح التحديد"
+
+msgid "Selected only"
+msgstr ""
+
+msgid "Selected and below"
+msgstr ""
+
+msgid "Selected and all below"
+msgstr ""
+
+msgid "Tracked entities"
+msgstr "الكيانات المتعقبة"
+
+msgid "Tracked entity style"
+msgstr ""
+
+msgid "Point size"
+msgstr "حجم النقطة"
+
+msgid "Related entity style"
+msgstr ""
+
+msgid "Line Color"
+msgstr "لون الخط"
 
 msgid "Failed to load relationship types."
 msgstr ""
@@ -990,6 +990,18 @@ msgstr "السنة المالية الماضية"
 
 msgid "Last 5 financial years"
 msgstr "آخر 5 سنوات مالية"
+
+msgid "All"
+msgstr "الجميع"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Completed"
+msgstr "المكتملة"
+
+msgid "Cancelled"
+msgstr "تم الإلغاء"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

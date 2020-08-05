@@ -119,7 +119,9 @@ const loadEventLayer = async config => {
             }
 
             if (areaRadius) {
-                config.legend.explanation = `${areaRadius} ${'m'} ${'buffer'}`;
+                config.legend.explanation = [
+                    `${areaRadius} ${'m'} ${'buffer'}`,
+                ];
             }
         } else {
             alert = createAlert(config.name, i18n.t('No data found'));
