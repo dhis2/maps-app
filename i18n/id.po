@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Carwoto Sa'an <carwoto@gmail.com>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -249,55 +249,17 @@ msgstr "Kolom ini sudah terisi"
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Group set"
+msgstr "set satu grup"
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
-msgstr ""
-
-msgid "Filter"
-msgstr "Saring"
-
-msgid "Events"
-msgstr "Event"
-
-msgid "Group events"
-msgstr "Grup even"
-
-msgid "View all events"
-msgstr "Lihat semua even"
-
-msgid "Radius"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-"Anda dapat menganti corak even berdasarkan elemen data setelah memilih satu "
-"program"
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr ""
-
-msgid "Group set"
-msgstr "set satu grup"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -333,8 +295,52 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Org units"
+msgstr ""
+
+msgid "Filter"
+msgstr "Saring"
+
+msgid "Events"
+msgstr "Event"
+
+msgid "Group events"
+msgstr "Grup even"
+
+msgid "View all events"
+msgstr "Lihat semua even"
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"Anda dapat menganti corak even berdasarkan elemen data setelah memilih satu "
+"program"
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Event status"
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "Tipe agregasi"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr ""
@@ -845,6 +851,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "Semua"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Completed"
+msgstr "Selesai"
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Skipped"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "interval equal"
 
@@ -985,15 +1009,6 @@ msgstr "Tahun finansial kemarin"
 
 msgid "Last 5 financial years"
 msgstr "5 tahun finansial terakhir"
-
-msgid "All"
-msgstr "Semua"
-
-msgid "Active"
-msgstr "Aktif"
-
-msgid "Completed"
-msgstr "Selesai"
 
 msgid "Cancelled"
 msgstr "Dibatalkan"
@@ -1156,6 +1171,9 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "No data"
 msgstr ""
 
 msgid "Tracked entity"

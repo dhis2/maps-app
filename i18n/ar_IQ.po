@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2020\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -244,53 +244,17 @@ msgstr ""
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
+msgid "Group set"
 msgstr ""
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
-msgstr ""
-
-msgid "Filter"
-msgstr ""
-
-msgid "Events"
-msgstr ""
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr ""
-
-msgid "Group set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -326,8 +290,50 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Org units"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "Events"
+msgstr ""
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Event status"
+msgstr "حالة الحدث"
+
 msgid "Aggregation type"
 msgstr "نوع التجميع"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr ""
@@ -836,6 +842,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "الجميع"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Completed"
+msgstr "مكتمل"
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Overdue"
+msgstr "متأخر"
+
+msgid "Skipped"
+msgstr "تم التخطي"
+
 msgid "Equal intervals"
 msgstr ""
 
@@ -976,15 +1000,6 @@ msgstr "السنة المالية الماضية"
 
 msgid "Last 5 financial years"
 msgstr "آخر 5 سنوات مالية"
-
-msgid "All"
-msgstr "الجميع"
-
-msgid "Active"
-msgstr "فعال"
-
-msgid "Completed"
-msgstr "مكتمل"
 
 msgid "Cancelled"
 msgstr "تم الإلغاء"
@@ -1147,6 +1162,9 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "No data"
 msgstr ""
 
 msgid "Tracked entity"

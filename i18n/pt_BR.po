@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2020
 # phil_dhis2, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2020\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -245,53 +245,17 @@ msgstr "Este campo é obrigatorio"
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Group set"
+msgstr "Conjunto do grupo"
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
-msgstr "Unidades organizacionais"
-
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Events"
-msgstr ""
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr ""
-
-msgid "Group set"
-msgstr "Conjunto do grupo"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -327,7 +291,49 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Org units"
+msgstr "Unidades organizacionais"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Events"
+msgstr ""
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Event status"
+msgstr ""
+
 msgid "Aggregation type"
+msgstr ""
+
+msgid "Show no data"
 msgstr ""
 
 msgid "Low size"
@@ -837,6 +843,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "Tudo"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Completed"
+msgstr ""
+
+msgid "Schedule"
+msgstr "Programar"
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Skipped"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Intervalos iguais"
 
@@ -977,15 +1001,6 @@ msgstr "último ano financeiro"
 
 msgid "Last 5 financial years"
 msgstr "Últimos 5 anos financeiros"
-
-msgid "All"
-msgstr "Tudo"
-
-msgid "Active"
-msgstr "Activo"
-
-msgid "Completed"
-msgstr ""
 
 msgid "Cancelled"
 msgstr ""
@@ -1149,6 +1164,9 @@ msgstr ""
 
 msgid "No coordinates found"
 msgstr ""
+
+msgid "No data"
+msgstr "Não ha dados"
 
 msgid "Tracked entity"
 msgstr ""

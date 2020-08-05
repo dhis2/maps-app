@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -245,53 +245,17 @@ msgstr "Это поле обязательно к заполнению"
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Group set"
+msgstr "Набор группы"
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
-msgstr "Организации"
-
-msgid "Filter"
-msgstr "Фильтр"
-
-msgid "Events"
-msgstr "Events"
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr ""
-
-msgid "Group set"
-msgstr "Набор группы"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -327,8 +291,50 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Org units"
+msgstr "Организации"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Event status"
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "Тип агрегации"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr "Низкий размер"
@@ -838,6 +844,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "Все"
+
+msgid "Active"
+msgstr "Действующий"
+
+msgid "Completed"
+msgstr "Завершенный"
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Skipped"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Равные интервалы"
 
@@ -978,15 +1002,6 @@ msgstr "Прошлый финансовый год"
 
 msgid "Last 5 financial years"
 msgstr "Прошлые 5 финансовых лет"
-
-msgid "All"
-msgstr "Все"
-
-msgid "Active"
-msgstr "Действующий"
-
-msgid "Completed"
-msgstr "Завершенный"
 
 msgid "Cancelled"
 msgstr "Отмененный"
@@ -1149,6 +1164,9 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "No data"
 msgstr ""
 
 msgid "Tracked entity"
