@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-03T14:17:28.421Z\n"
+"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -113,7 +113,7 @@ msgid "Color"
 msgstr "Farge"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
+msgstr "Datatabell støttes ikke når hendelser er gruppert på serveren."
 
 msgid "Add filter"
 msgstr "Legg til filter"
@@ -341,64 +341,6 @@ msgstr "Oppdater lag"
 msgid "Add layer"
 msgstr "Legg til lag"
 
-msgid "Select program period"
-msgstr "Velg programperiode"
-
-msgid "Select period when tracked entities were last updated"
-msgstr "Velg periode da sporede enheter sist ble oppdatert"
-
-msgid "relationships"
-msgstr "relasjoner"
-
-msgid "Program status"
-msgstr "Programstatus"
-
-msgid "Follow up"
-msgstr "Oppfølging"
-
-msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Velg en sporet enhetstype før du velger en relasjonstype"
-
-msgid "WARNING"
-msgstr "ADVARSEL"
-
-msgid ""
-"Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
-"Visning av relasjoner mellom sporede enheter i Kart er en eksperimentell "
-"funksjon"
-
-msgid "Display Tracked Entity relationships"
-msgstr "Vis sporet enhetsrelasjoner"
-
-msgid "Selection mode"
-msgstr "Valgmodus"
-
-msgid "Selected only"
-msgstr "Bare valgt"
-
-msgid "Selected and below"
-msgstr "Valgt og under"
-
-msgid "Selected and all below"
-msgstr "Valgt og alle under"
-
-msgid "Tracked entities"
-msgstr "Sporede enheter"
-
-msgid "Tracked entity style"
-msgstr "Sporet enhetstil"
-
-msgid "Point size"
-msgstr "Punktstørrelse"
-
-msgid "Related entity style"
-msgstr "Stil for relatert enhet"
-
-msgid "Line Color"
-msgstr "Linjefarge"
-
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"
 
@@ -446,6 +388,64 @@ msgstr "Programindikatorer"
 
 msgid "Item type"
 msgstr "Elementtype"
+
+msgid "Program status"
+msgstr "Programstatus"
+
+msgid "Select program period"
+msgstr "Velg programperiode"
+
+msgid "Select period when tracked entities were last updated"
+msgstr "Velg periode da sporede enheter sist ble oppdatert"
+
+msgid "relationships"
+msgstr "relasjoner"
+
+msgid "Follow up"
+msgstr "Oppfølging"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "Velg en sporet enhetstype før du velger en relasjonstype"
+
+msgid "WARNING"
+msgstr "ADVARSEL"
+
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
+msgstr ""
+"Visning av relasjoner mellom sporede enheter i Kart er en eksperimentell "
+"funksjon"
+
+msgid "Display Tracked Entity relationships"
+msgstr "Vis sporet enhetsrelasjoner"
+
+msgid "Selection mode"
+msgstr "Valgmodus"
+
+msgid "Selected only"
+msgstr "Bare valgt"
+
+msgid "Selected and below"
+msgstr "Valgt og under"
+
+msgid "Selected and all below"
+msgstr "Valgt og alle under"
+
+msgid "Tracked entities"
+msgstr "Sporede enheter"
+
+msgid "Tracked entity style"
+msgstr "Sporet enhetstil"
+
+msgid "Point size"
+msgstr "Punktstørrelse"
+
+msgid "Related entity style"
+msgstr "Stil for relatert enhet"
+
+msgid "Line Color"
+msgstr "Linjefarge"
 
 msgid "Failed to load relationship types."
 msgstr "Kunne ikke laste inn relasjonstyper."
@@ -1000,6 +1000,18 @@ msgstr "Siste regnskapsår"
 
 msgid "Last 5 financial years"
 msgstr "Siste 5 regnskapsår"
+
+msgid "All"
+msgstr "Alt"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Completed"
+msgstr "Fullført"
+
+msgid "Cancelled"
+msgstr "Kansellert"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

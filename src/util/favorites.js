@@ -50,6 +50,7 @@ const validLayerProperties = [
     'legendSet',
     'method',
     'name',
+    'noDataColor',
     'opacity',
     'organisationUnitGroupSet',
     'organisationUnitSelectionMode',

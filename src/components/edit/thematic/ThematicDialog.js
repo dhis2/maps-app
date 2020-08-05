@@ -7,6 +7,7 @@ import Tab from '../../core/Tab';
 import TextField from '../../core/TextField';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
+import NoDataColor from './NoDataColor';
 import Checkbox from '../../core/Checkbox';
 import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect from '../../dataElement/DataElementSelect';
@@ -53,6 +54,7 @@ import {
     setLabelFontWeight,
     setLabelFontStyle,
     setLegendSet,
+    setNoDataColor,
     setOperand,
     setOrgUnitLevels,
     setOrgUnitGroups,
@@ -96,6 +98,7 @@ const styles = {
     },
     font: {
         float: 'left',
+        whiteSpace: 'nowrap',
     },
 };
 
@@ -113,6 +116,7 @@ export class ThematicDialog extends Component {
         legendSet: PropTypes.object,
         indicatorGroup: PropTypes.object,
         dataElementGroup: PropTypes.object,
+        noDataColor: PropTypes.string,
         program: PropTypes.object,
         operand: PropTypes.string,
         defaultPeriod: PropTypes.string,
@@ -135,6 +139,7 @@ export class ThematicDialog extends Component {
         setLabelFontStyle: PropTypes.func.isRequired,
         setLabelFontWeight: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,
+        setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
@@ -251,6 +256,7 @@ export class ThematicDialog extends Component {
             labelFontSize,
             labelFontStyle,
             labelFontWeight,
+            noDataColor,
             operand,
             periodType,
             renderingStrategy,
@@ -274,6 +280,7 @@ export class ThematicDialog extends Component {
             setLabelFontSize,
             setLabelFontWeight,
             setLabelFontStyle,
+            setNoDataColor,
             setOperand,
             setOrgUnitLevels,
             setOrgUnitGroups,
@@ -573,6 +580,8 @@ export class ThematicDialog extends Component {
                                     dataItem={dataItem}
                                     style={styles.select}
                                 />
+                            </div>
+                            <div style={{ ...styles.flexColumn }}>
                                 <div style={styles.flexInnerColumnFlow}>
                                     <TextField
                                         id="lowsize"
@@ -615,8 +624,7 @@ export class ThematicDialog extends Component {
                                             ...styles.flexInnerColumn,
                                             marginLeft: -4,
                                             maxWidth: 150,
-                                            paddingTop: 16,
-                                            height: 42,
+                                            height: 64,
                                         }}
                                     />
                                     {labels && (
@@ -636,6 +644,11 @@ export class ThematicDialog extends Component {
                                         />
                                     )}
                                 </div>
+                                <NoDataColor
+                                    value={noDataColor}
+                                    onChange={setNoDataColor}
+                                    style={styles.flexInnerColumnFlow}
+                                />
                             </div>
                         </div>
                     )}
@@ -781,6 +794,7 @@ export default connect(
         setLabelFontWeight,
         setLabelFontStyle,
         setLegendSet,
+        setNoDataColor,
         setOperand,
         setOrgUnitLevels,
         setOrgUnitGroups,

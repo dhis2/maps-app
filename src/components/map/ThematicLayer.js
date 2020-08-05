@@ -32,6 +32,7 @@ class ThematicLayer extends Layer {
             valuesByPeriod,
             renderingStrategy = 'SINGLE',
             thematicMapType = 'CHOROPLETH',
+            noDataColor,
         } = this.props;
 
         const { period } = this.state;
@@ -44,15 +45,20 @@ class ThematicLayer extends Layer {
         if (renderingStrategy !== 'SINGLE') {
             const values = valuesByPeriod[period.id] || {};
 
-            periodData = data
-                .filter(feature => values[feature.id] !== undefined)
-                .map(feature => ({
-                    ...feature,
-                    properties: {
-                        ...feature.properties,
-                        ...values[feature.id],
-                    },
-                }));
+            periodData = data.map(feature => ({
+                ...feature,
+                properties: {
+                    ...feature.properties,
+                    ...values[feature.id],
+                },
+            }));
+
+            // Remove org unit features if noDataColor is missing
+            if (!noDataColor) {
+                periodData = periodData.filter(
+                    feature => values[feature.id] !== undefined
+                );
+            }
         }
 
         const map = this.context.map;
@@ -67,6 +73,7 @@ class ThematicLayer extends Layer {
             isVisible,
             data: filteredData,
             hoverLabel: '{name} ({value})',
+            color: noDataColor,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
         };
