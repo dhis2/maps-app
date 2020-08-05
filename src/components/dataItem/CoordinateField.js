@@ -7,7 +7,6 @@ import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
 } from '../../actions/programs';
-import { coordinateValueTypes } from '../../constants/valueTypes';
 
 export class CoordinateField extends Component {
     static propTypes = {
@@ -49,9 +48,7 @@ export class CoordinateField extends Component {
                 [
                     ...(programAttributes[program.id] || []),
                     ...(dataElements[programStage.id] || []),
-                ].filter(field =>
-                    coordinateValueTypes.includes(field.valueType)
-                )
+                ].filter(field => field.valueType === 'COORDINATE')
             );
         }
 

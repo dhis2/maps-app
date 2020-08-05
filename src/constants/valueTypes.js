@@ -26,6 +26,3 @@ export const textValueTypes = [
 
 // Boolean value types
 export const booleanValueTypes = ['BOOLEAN', 'TRUE_ONLY'];
-
-// Coordinate value types
-export const coordinateValueTypes = ['COORDINATE', 'ORGANISATION_UNIT'];

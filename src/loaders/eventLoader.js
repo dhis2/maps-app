@@ -105,6 +105,16 @@ const loadEventLayer = async config => {
         );
         config.data = data;
 
+        /*
+        const orgunits = [...new Set(data.map(e => e.properties.ou))];
+        const url = `organisationUnits?filter=id:in:[${orgunits.join(
+            ','
+        )}]&fields=id,geometry&paging=false`;
+
+        console.log(url);
+        console.log(orgunits.length);
+        */
+
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
                 await styleByDataItem(config);
