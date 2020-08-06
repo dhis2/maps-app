@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { scaleSqrt, scaleLinear } from 'd3-scale';
+import { scaleSqrt } from 'd3-scale';
+import Bubble from './Bubble';
 
 // https://github.com/d3/d3-scale
 // https://www.d3-graph-gallery.com/graph/bubble_legend.html
 // https://makingmaps.net/2007/08/28/perceptual-scaling-of-map-symbols/
 // https://codepen.io/mxfh/pen/pggXoW
 
-// https://blog.mastermaps.com/2008/06/proportional-symbols-in-three.html
+// https://blog.mastermaps.com/2008/06/proportional-symbols-in-three.htm
+/*
 const scaleModes = {
     linear: scaleSqrt(),
     // linear: scaleLinear(), // scaleSqrt(),
@@ -21,52 +23,11 @@ const scaleModes = {
         return radius;
     }),
 };
-
-const Symbol = ({ radius, maxRadius, text }) => {
-    const x = maxRadius;
-    const y = maxRadius * 2 - radius;
-    const x2 = maxRadius * 2 + 16;
-    const y2 = maxRadius * 2 - radius * 2;
-
-    return (
-        <g transform="translate(10 10)">
-            <circle
-                cx={x}
-                cy={y}
-                r={radius}
-                stroke="black"
-                style={{ fill: 'none' }}
-            />
-            <line
-                x1={x}
-                x2={x2}
-                y1={y2}
-                y2={y2}
-                stroke="black"
-                style={{ strokeDasharray: '2, 2' }}
-            />
-            <text
-                x={x2}
-                y={y2}
-                alignmentBaseline="middle"
-                style={{ fontSize: 12 }}
-            >
-                {text}
-            </text>
-        </g>
-    );
-};
-
-Symbol.propTypes = {
-    radius: PropTypes.number.isRequired,
-    maxRadius: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
-};
+*/
 
 const Bubbles = ({ radiusLow, radiusHigh }) => {
     const height = radiusHigh * 2 + 4;
-    // const scale = scaleModes['linear'].range([radiusLow, radiusHigh]);
-    const scale = scaleModes['linear'].range([0, radiusHigh]);
+    const scale = scaleSqrt().range([radiusLow, radiusHigh]);
     const radiusMid = scale(0.5);
 
     if (isNaN(radiusLow) || isNaN(radiusHigh)) {
@@ -75,17 +36,17 @@ const Bubbles = ({ radiusLow, radiusHigh }) => {
 
     return (
         <svg width="260" height={height + 20}>
-            <Symbol
+            <Bubble
                 radius={radiusLow}
                 maxRadius={radiusHigh}
                 text={i18n.t('Min')}
             />
-            <Symbol
+            <Bubble
                 radius={radiusMid}
                 maxRadius={radiusHigh}
                 text={i18n.t('Mid')}
             />
-            <Symbol
+            <Bubble
                 radius={radiusHigh}
                 maxRadius={radiusHigh}
                 text={i18n.t('Max')}
