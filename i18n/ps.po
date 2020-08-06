@@ -328,7 +328,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "د پېښې وضعیت او څرنګوالۍ"
 
 msgid "Aggregation type"
 msgstr "نوع مجموعه"
@@ -853,13 +853,13 @@ msgid "Completed"
 msgstr "بشپړ شوی"
 
 msgid "Schedule"
-msgstr ""
+msgstr "مهالوېش یې وټاکئ"
 
 msgid "Overdue"
-msgstr ""
+msgstr "ځنډول"
 
 msgid "Skipped"
-msgstr ""
+msgstr "له پامه غورځول شوی"
 
 msgid "Equal intervals"
 msgstr "انتروال های مساوی"
@@ -1166,7 +1166,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "د مالوماتو (ډاټا) نشتوالۍ"
 
 msgid "Tracked entity"
 msgstr "تعقیب شوی نهاد"
