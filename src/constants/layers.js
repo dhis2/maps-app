@@ -9,8 +9,22 @@ export const DEFAULT_END_DATE = formatDate(new Date());
 export const DEFAULT_ORG_UNIT_LEVEL = 2;
 
 /* THEMATIC LAYER */
-export const DEFAULT_RADIUS_LOW = 5;
-export const DEFAULT_RADIUS_HIGH = 30;
+export const THEMATIC_RADIUS_LOW = 5;
+export const THEMATIC_RADIUS_HIGH = 30;
+export const THEMATIC_COLOR = '#FF0000'; // TODO
+export const THEMATIC_CHOROPLETH = 'CHOROPLETH';
+export const THEMATIC_BUBBLE = 'BUBBLE';
+
+export const getThematicMapTypes = () => [
+    {
+        id: THEMATIC_CHOROPLETH,
+        name: i18n.t('Choropleth'),
+    },
+    {
+        id: THEMATIC_BUBBLE,
+        name: i18n.t('Bubble map'),
+    },
+];
 
 /* EVENT LAYER */
 export const EVENT_COLOR = '#333333';

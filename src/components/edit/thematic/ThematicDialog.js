@@ -33,12 +33,11 @@ import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
 import layerDialogStyles from '../LayerDialogStyles';
 import ThematicMapTypeSelect from './ThematicMapTypeSelect';
-import ScaleModeSelect from './ScaleModeSelect';
 import { dimConf } from '../../../constants/dimension';
 import {
     DEFAULT_ORG_UNIT_LEVEL,
-    DEFAULT_RADIUS_LOW,
-    DEFAULT_RADIUS_HIGH,
+    THEMATIC_RADIUS_LOW,
+    THEMATIC_RADIUS_HIGH,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
 } from '../../../constants/layers';
@@ -263,8 +262,8 @@ export class ThematicDialog extends Component {
             startDate,
             endDate,
             program,
-            radiusLow = DEFAULT_RADIUS_LOW,
-            radiusHigh = DEFAULT_RADIUS_HIGH,
+            radiusLow = THEMATIC_RADIUS_LOW,
+            radiusHigh = THEMATIC_RADIUS_HIGH,
             rows,
             valueType,
             thematicMapType,
@@ -577,6 +576,7 @@ export class ThematicDialog extends Component {
                             <div style={{ ...styles.flexColumn, marginTop: 0 }}>
                                 <ThematicMapTypeSelect type={thematicMapType} />
                                 <NumericLegendStyle
+                                    mapType={thematicMapType}
                                     dataItem={dataItem}
                                     style={styles.select}
                                 />
@@ -610,11 +610,6 @@ export class ThematicDialog extends Component {
                                         }}
                                     />
                                 </div>
-                                <ScaleModeSelect
-                                    radiusLow={radiusLow}
-                                    radiusHigh={radiusHigh}
-                                    onChange={() => {}}
-                                />
                                 <div style={styles.flexInnerColumnFlow}>
                                     <Checkbox
                                         label={i18n.t('Labels')}

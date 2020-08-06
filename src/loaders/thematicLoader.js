@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
+import { scaleSqrt } from 'd3-scale';
 import { findIndex, curry } from 'lodash/fp';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
@@ -20,8 +21,8 @@ import {
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import {
-    DEFAULT_RADIUS_LOW,
-    DEFAULT_RADIUS_HIGH,
+    THEMATIC_RADIUS_LOW,
+    THEMATIC_RADIUS_HIGH,
     CLASSIFICATION_PREDEFINED,
 } from '../constants/layers';
 
@@ -29,8 +30,8 @@ const thematicLoader = async config => {
     const {
         columns,
         rows,
-        radiusLow = DEFAULT_RADIUS_LOW,
-        radiusHigh = DEFAULT_RADIUS_HIGH,
+        radiusLow = THEMATIC_RADIUS_LOW,
+        radiusHigh = THEMATIC_RADIUS_HIGH,
         classes,
         colorScale,
         renderingStrategy = 'SINGLE',
@@ -129,10 +130,16 @@ const thematicLoader = async config => {
 
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
+    /*
     const getRadiusForValue = value =>
         ((value - minValue) / (maxValue - minValue)) *
             (radiusHigh - radiusLow) +
         radiusLow;
+    */
+
+    const getRadiusForValue = scaleSqrt()
+        .range([radiusLow, radiusHigh])
+        .domain([minValue, maxValue]);
 
     if (!valueFeatures.length) {
         if (!features.length) {
@@ -160,6 +167,7 @@ const thematicLoader = async config => {
 
                 item.color = legend ? legend.color : '#888';
                 item.radius = getRadiusForValue(value);
+                console.log(item.radius);
             });
         });
     } else {

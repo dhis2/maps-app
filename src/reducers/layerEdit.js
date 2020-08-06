@@ -11,10 +11,12 @@ import {
     changeDimensionInFilters,
     removeDimensionFromFilters,
 } from '../util/analytics';
+import { CLASSIFICATION_EQUAL_INTERVALS } from '../constants/layers';
 
 const layerEdit = (state = null, action) => {
     let columns;
     let newState;
+    let numColors;
     let program;
 
     switch (action.type) {
@@ -276,7 +278,6 @@ const layerEdit = (state = null, action) => {
             };
 
             if (action.method !== 1) {
-                // // TODO: Make constant
                 delete newState.legendSet;
             }
 
@@ -287,12 +288,25 @@ const layerEdit = (state = null, action) => {
             return newState;
 
         case types.LAYER_EDIT_COLOR_SCALE_SET:
+            numColors = action.colorScale.split(',').length;
+
             newState = {
                 ...state,
                 colorScale: action.colorScale,
-                classes: action.colorScale.split(',').length,
-                method: state.method || 2, // TODO: Make constant
             };
+
+            // If single color bubble map
+            if (numColors === 1) {
+                delete newState.classes;
+                delete newState.method;
+            } else {
+                newState.classes = numColors;
+
+                // Default classification method
+                if (!state.method) {
+                    newState.method = CLASSIFICATION_EQUAL_INTERVALS;
+                }
+            }
 
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet;

@@ -6,6 +6,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Radio from '../../core/Radio';
 import { RadioGroup } from '@material-ui/core';
 import { setThematicMapType } from '../../../actions/layerEdit';
+import {
+    THEMATIC_CHOROPLETH,
+    getThematicMapTypes,
+} from '../../../constants/layers';
 
 const styles = {
     radioGroup: {
@@ -22,7 +26,7 @@ const styles = {
 
 // Select between choropleth and bubble map for thematic layers
 export const ThematicMapTypeSelect = ({
-    type = 'CHOROPLETH',
+    type = THEMATIC_CHOROPLETH,
     setThematicMapType,
     classes,
 }) => (
@@ -32,16 +36,9 @@ export const ThematicMapTypeSelect = ({
         onChange={(event, type) => setThematicMapType(type)}
         className={classes.radioGroup}
     >
-        <Radio
-            value={'CHOROPLETH'}
-            label={i18n.t('Choropleth')}
-            className={classes.radio}
-        />
-        <Radio
-            value={'BUBBLE'}
-            label={i18n.t('Bubble map')}
-            className={classes.radio}
-        />
+        {getThematicMapTypes().map(({ id, name }) => (
+            <Radio key={id} value={id} label={name} className={classes.radio} />
+        ))}
     </RadioGroup>
 );
 

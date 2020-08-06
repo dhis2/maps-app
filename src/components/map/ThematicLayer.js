@@ -9,6 +9,8 @@ import { cssColor } from '../../util/colors';
 import { getPeriodFromFilters } from '../../util/analytics';
 import { polygonsToPoints } from '../../util/geojson';
 import {
+    THEMATIC_CHOROPLETH,
+    THEMATIC_BUBBLE,
     LABEL_FONT_SIZE,
     LABEL_FONT_STYLE,
     LABEL_FONT_WEIGHT,
@@ -31,13 +33,13 @@ class ThematicLayer extends Layer {
             labelFontColor,
             valuesByPeriod,
             renderingStrategy = 'SINGLE',
-            thematicMapType = 'CHOROPLETH',
+            thematicMapType = THEMATIC_CHOROPLETH,
             noDataColor,
         } = this.props;
 
         const { period } = this.state;
 
-        const bubbleMap = thematicMapType === 'BUBBLE';
+        const bubbleMap = thematicMapType === THEMATIC_BUBBLE;
 
         // let periodData = data;
         let periodData = bubbleMap ? polygonsToPoints(data) : data;
