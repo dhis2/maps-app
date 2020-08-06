@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -245,53 +245,17 @@ msgstr "这个字段是必填的"
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
+msgid "Group set"
 msgstr ""
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
-msgstr ""
-
-msgid "Filter"
-msgstr "过滤器"
-
-msgid "Events"
-msgstr "事件"
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr ""
-
-msgid "Group set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -327,8 +291,50 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Org units"
+msgstr ""
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Events"
+msgstr "事件"
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Event status"
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "汇总类型"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr ""
@@ -837,6 +843,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "全部"
+
+msgid "Active"
+msgstr "活跃的"
+
+msgid "Completed"
+msgstr "完成"
+
+msgid "Schedule"
+msgstr "调度"
+
+msgid "Overdue"
+msgstr "过期"
+
+msgid "Skipped"
+msgstr "跳过"
+
 msgid "Equal intervals"
 msgstr ""
 
@@ -977,15 +1001,6 @@ msgstr "上一财政年"
 
 msgid "Last 5 financial years"
 msgstr "最近五个财政年"
-
-msgid "All"
-msgstr "全部"
-
-msgid "Active"
-msgstr "活跃的"
-
-msgid "Completed"
-msgstr "完成"
 
 msgid "Cancelled"
 msgstr "取消"
@@ -1149,6 +1164,9 @@ msgstr ""
 
 msgid "No coordinates found"
 msgstr ""
+
+msgid "No data"
+msgstr "无数据"
 
 msgid "Tracked entity"
 msgstr "跟踪的实体"

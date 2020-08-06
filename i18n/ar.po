@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -258,54 +258,18 @@ msgstr "هذا الحقل مطلوب"
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
-msgstr "البيانات"
-
-msgid "period"
-msgstr "الفترة"
-
-msgid "Org units"
-msgstr "الوحدات التنظيمية"
-
-msgid "Filter"
-msgstr "عامل التصفية"
-
-msgid "Events"
-msgstr "الأحداث"
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr "عرض كافة الأحداث"
-
-msgid "Radius"
-msgstr "نصف القطر"
-
-msgid "Buffer"
-msgstr ""
-
-msgid "Radius in meters"
-msgstr "نصف القطر بالأمتار"
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr "لم يتم اختيار أي وحدات تنظيمية"
-
 msgid "Group set"
 msgstr "حزمة المجموعات"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "تذكر تحديد مستوى الوحدة التنظيمية الذي يحتوي على المرافق."
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
+msgstr "نصف القطر بالأمتار"
 
 msgid "Group set is required"
 msgstr ""
@@ -340,8 +304,50 @@ msgstr "تحديث الطبقة"
 msgid "Add layer"
 msgstr "إضافة طبقة"
 
+msgid "data"
+msgstr "البيانات"
+
+msgid "period"
+msgstr "الفترة"
+
+msgid "Org units"
+msgstr "الوحدات التنظيمية"
+
+msgid "Filter"
+msgstr "عامل التصفية"
+
+msgid "Events"
+msgstr "الأحداث"
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr "عرض كافة الأحداث"
+
+msgid "Radius"
+msgstr "نصف القطر"
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr "لم يتم اختيار أي وحدات تنظيمية"
+
+msgid "Event status"
+msgstr "حالة الحدث"
+
 msgid "Aggregation type"
 msgstr "نوع التجميع"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr "حجم صغير"
@@ -850,6 +856,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "الجميع"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Completed"
+msgstr "المكتملة"
+
+msgid "Schedule"
+msgstr "المجدولة زمنياً"
+
+msgid "Overdue"
+msgstr "المتأخرة"
+
+msgid "Skipped"
+msgstr "التي تم تخطيها"
+
 msgid "Equal intervals"
 msgstr "فترات متساوية"
 
@@ -990,15 +1014,6 @@ msgstr "السنة المالية الماضية"
 
 msgid "Last 5 financial years"
 msgstr "آخر 5 سنوات مالية"
-
-msgid "All"
-msgstr "الجميع"
-
-msgid "Active"
-msgstr "فعال"
-
-msgid "Completed"
-msgstr "المكتملة"
 
 msgid "Cancelled"
 msgstr "تم الإلغاء"
@@ -1162,6 +1177,9 @@ msgstr ""
 
 msgid "No coordinates found"
 msgstr ""
+
+msgid "No data"
+msgstr "لا توجد بيانات"
 
 msgid "Tracked entity"
 msgstr "الكيان المتتبع"

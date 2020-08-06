@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
@@ -245,53 +245,17 @@ msgstr "اس کو پر کرنا ضروری ہے"
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Group set"
+msgstr "گروپ سیٹ"
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
-msgstr ""
-
-msgid "Filter"
-msgstr "فلٹر"
-
-msgid "Events"
-msgstr "تقریبات"
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr ""
-
-msgid "Group set"
-msgstr "گروپ سیٹ"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -327,8 +291,50 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Org units"
+msgstr ""
+
+msgid "Filter"
+msgstr "فلٹر"
+
+msgid "Events"
+msgstr "تقریبات"
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Event status"
+msgstr "واقعہ کی حیثیت"
+
 msgid "Aggregation type"
 msgstr "مجموعی قسم"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr "کم سائز"
@@ -837,6 +843,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "تمام"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Completed"
+msgstr "مکمل"
+
+msgid "Schedule"
+msgstr "شیڈول"
+
+msgid "Overdue"
+msgstr "زیادہ سے زیادہ"
+
+msgid "Skipped"
+msgstr "کھڑا"
+
 msgid "Equal intervals"
 msgstr "برابر وقفے"
 
@@ -977,15 +1001,6 @@ msgstr "آخری مالیاتی سال"
 
 msgid "Last 5 financial years"
 msgstr "آخری ۵ مالیاتی سال"
-
-msgid "All"
-msgstr "تمام"
-
-msgid "Active"
-msgstr "فعال"
-
-msgid "Completed"
-msgstr "مکمل"
 
 msgid "Cancelled"
 msgstr "منسوخ"
@@ -1149,6 +1164,9 @@ msgstr ""
 
 msgid "No coordinates found"
 msgstr ""
+
+msgid "No data"
+msgstr "کوئی مواد نہیں"
 
 msgid "Tracked entity"
 msgstr "ٹریک شدہ ادارے"

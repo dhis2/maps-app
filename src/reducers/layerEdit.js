@@ -300,11 +300,23 @@ const layerEdit = (state = null, action) => {
 
             return newState;
 
+        case types.LAYER_EDIT_EVENT_STATUS_SET:
+            newState = { ...state };
+
+            // Default
+            if (action.status === 'ALL') {
+                delete newState.eventStatus;
+            } else {
+                newState.eventStatus = action.status;
+            }
+
+            return newState;
+
         case types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET:
             newState = { ...state };
 
+            // Default
             if (action.fieldId === 'event') {
-                // Default
                 delete newState.eventCoordinateField;
             } else {
                 newState.eventCoordinateField = action.fieldId;

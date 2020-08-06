@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-07-28T10:49:29.744Z\n"
+"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -245,53 +245,17 @@ msgstr "This field is required"
 msgid "Valid range is"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Group set"
+msgstr "ກຸ່ມຂອງກຸ່ມ"
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
-msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Events"
-msgstr "ເຫດການ"
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
-msgstr ""
-
-msgid "Program is required"
-msgstr ""
-
-msgid "Program stage is required"
-msgstr ""
-
-msgid "No organisation units are selected."
-msgstr ""
-
-msgid "Group set"
-msgstr "ກຸ່ມຂອງກຸ່ມ"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
@@ -327,8 +291,50 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Org units"
+msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Events"
+msgstr "ເຫດການ"
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+
+msgid "Program is required"
+msgstr ""
+
+msgid "Program stage is required"
+msgstr ""
+
+msgid "No organisation units are selected."
+msgstr ""
+
+msgid "Event status"
+msgstr "ສະຖານະເຫດການ"
+
 msgid "Aggregation type"
 msgstr "ປະເພດຕົວເລກລວມ"
+
+msgid "Show no data"
+msgstr ""
 
 msgid "Low size"
 msgstr ""
@@ -837,6 +843,24 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
+msgid "All"
+msgstr "ທັງໝົດ"
+
+msgid "Active"
+msgstr "ທີ່ຍັງນໍາໃຊ້ຢູ່"
+
+msgid "Completed"
+msgstr "ສໍາເລັດແລ້ວ"
+
+msgid "Schedule"
+msgstr "ກຳນົດເວລາ"
+
+msgid "Overdue"
+msgstr "ກາຍເວລາທີ່ກໍານົດ"
+
+msgid "Skipped"
+msgstr "ຂ້າມໄປ"
+
 msgid "Equal intervals"
 msgstr ""
 
@@ -977,15 +1001,6 @@ msgstr "​ສົກ​ປີ​ງົບ​ປະ​ມານ​ປີ​ກາ
 
 msgid "Last 5 financial years"
 msgstr "​ສົກ​ປິ​ງົບ​ປະ​ມານ 5ປີ​ຜ່ານ​ມາ"
-
-msgid "All"
-msgstr "ທັງໝົດ"
-
-msgid "Active"
-msgstr "ທີ່ຍັງນໍາໃຊ້ຢູ່"
-
-msgid "Completed"
-msgstr "ສໍາເລັດແລ້ວ"
 
 msgid "Cancelled"
 msgstr "ຍົກເລີກແລ້ວ"
@@ -1149,6 +1164,9 @@ msgstr ""
 
 msgid "No coordinates found"
 msgstr ""
+
+msgid "No data"
+msgstr "ບໍ່ມີຂໍ້ມູນ"
 
 msgid "Tracked entity"
 msgstr "Tracked Entity"
