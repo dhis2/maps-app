@@ -342,7 +342,7 @@ msgid "No organisation units are selected."
 msgstr "Ingen organisasjonsenheter er valgt"
 
 msgid "Event status"
-msgstr ""
+msgstr "Hendelsesstatus"
 
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"
@@ -876,13 +876,13 @@ msgid "Completed"
 msgstr "Fullført"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Planlegg"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Forfalt"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Hoppet over"
 
 msgid "Equal intervals"
 msgstr "Like intervaller"
@@ -1195,7 +1195,7 @@ msgid "No coordinates found"
 msgstr "Ingen koordinater funnet"
 
 msgid "No data"
-msgstr ""
+msgstr "Ingen data"
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"

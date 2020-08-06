@@ -1,8 +1,8 @@
 # 
 # Translators:
 # easylin <lin_xd@126.com>, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
 # phil_dhis2, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 晓东 林 <13981924470@126.com>, 2020
 # 
 msgid ""
@@ -330,7 +330,7 @@ msgid "No organisation units are selected."
 msgstr "没有选择机构"
 
 msgid "Event status"
-msgstr ""
+msgstr "事件状态"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
@@ -855,13 +855,13 @@ msgid "Completed"
 msgstr "完成"
 
 msgid "Schedule"
-msgstr ""
+msgstr "调度"
 
 msgid "Overdue"
-msgstr ""
+msgstr "逾期"
 
 msgid "Skipped"
-msgstr ""
+msgstr "跳过"
 
 msgid "Equal intervals"
 msgstr "平等间隔"
@@ -1168,7 +1168,7 @@ msgid "No coordinates found"
 msgstr "没有找到坐标"
 
 msgid "No data"
-msgstr ""
+msgstr "无数据"
 
 msgid "Tracked entity"
 msgstr "跟踪实体"

@@ -853,7 +853,7 @@ msgid "Completed"
 msgstr "Анҷомёфта"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Ҷадвал"
 
 msgid "Overdue"
 msgstr ""
@@ -1166,7 +1166,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "Ягон иттилоот нест"
 
 msgid "Tracked entity"
 msgstr ""

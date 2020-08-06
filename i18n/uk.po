@@ -328,7 +328,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "Статус події"
 
 msgid "Aggregation type"
 msgstr "Тип агрегації"
@@ -853,13 +853,13 @@ msgid "Completed"
 msgstr "Завершено"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Запланувати"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Прострочене"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Пропущене"
 
 msgid "Equal intervals"
 msgstr ""
@@ -1166,7 +1166,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "Немає даних"
 
 msgid "Tracked entity"
 msgstr "Відстежуване явище"

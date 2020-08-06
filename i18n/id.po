@@ -1,9 +1,9 @@
 # 
 # Translators:
-# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
 # phil_dhis2, 2020
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # Carwoto Sa'an <carwoto@gmail.com>, 2020
 # 
@@ -334,7 +334,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "Status Event"
 
 msgid "Aggregation type"
 msgstr "Tipe agregasi"
@@ -861,13 +861,13 @@ msgid "Completed"
 msgstr "Selesai"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Jadwal"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Lewat waktu"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Dilewati"
 
 msgid "Equal intervals"
 msgstr "interval equal"
@@ -1174,7 +1174,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "Tidak ada data"
 
 msgid "Tracked entity"
 msgstr "Tracked Entity"
