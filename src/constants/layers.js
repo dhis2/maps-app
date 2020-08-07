@@ -43,6 +43,26 @@ export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
 export const CLASSIFICATION_PREDEFINED = 1;
 export const CLASSIFICATION_EQUAL_INTERVALS = 2;
 export const CLASSIFICATION_EQUAL_COUNTS = 3;
+export const CLASSIFICATION_SINGLE_COLOR = 4;
+
+export const getLegendTypes = isBubble => [
+    {
+        id: CLASSIFICATION_EQUAL_INTERVALS,
+        name: i18n.t('Automatic classes'),
+    },
+    {
+        id: CLASSIFICATION_PREDEFINED,
+        name: i18n.t('Predefined classes'),
+    },
+    ...(isBubble
+        ? [
+              {
+                  id: CLASSIFICATION_SINGLE_COLOR,
+                  name: i18n.t('Single color'),
+              },
+          ]
+        : []),
+];
 
 export const getClassificationTypes = () => [
     {

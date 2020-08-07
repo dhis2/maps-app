@@ -575,13 +575,6 @@ export class ThematicDialog extends Component {
                         >
                             <div style={{ ...styles.flexColumn, marginTop: 0 }}>
                                 <ThematicMapTypeSelect type={thematicMapType} />
-                                <NumericLegendStyle
-                                    mapType={thematicMapType}
-                                    dataItem={dataItem}
-                                    style={styles.select}
-                                />
-                            </div>
-                            <div style={{ ...styles.flexColumn }}>
                                 <div style={styles.flexInnerColumnFlow}>
                                     <TextField
                                         id="lowsize"
@@ -643,6 +636,13 @@ export class ThematicDialog extends Component {
                                     value={noDataColor}
                                     onChange={setNoDataColor}
                                     style={styles.flexInnerColumnFlow}
+                                />
+                            </div>
+                            <div style={{ ...styles.flexColumn, marginTop: 0 }}>
+                                <NumericLegendStyle
+                                    mapType={thematicMapType}
+                                    dataItem={dataItem}
+                                    style={styles.select}
                                 />
                             </div>
                         </div>

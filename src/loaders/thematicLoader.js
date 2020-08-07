@@ -167,7 +167,6 @@ const thematicLoader = async config => {
 
                 item.color = legend ? legend.color : '#888';
                 item.radius = getRadiusForValue(value);
-                console.log(item.radius);
             });
         });
     } else {

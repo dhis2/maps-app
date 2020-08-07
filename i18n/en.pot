@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-06T10:10:05.712Z\n"
-"PO-Revision-Date: 2020-08-06T10:10:05.713Z\n"
+"POT-Creation-Date: 2020-08-07T11:06:48.396Z\n"
+"PO-Revision-Date: 2020-08-07T11:06:48.396Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -20,10 +20,7 @@ msgstr ""
 msgid "Legend set"
 msgstr ""
 
-msgid "Automatic"
-msgstr ""
-
-msgid "Predefined"
+msgid "Color"
 msgstr ""
 
 msgid "Size"
@@ -99,9 +96,6 @@ msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr ""
-
-msgid "Color"
 msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
@@ -326,15 +320,6 @@ msgstr ""
 msgid "Show no data"
 msgstr ""
 
-msgid "Linear"
-msgstr ""
-
-msgid "Perceptual"
-msgstr ""
-
-msgid "Symbol scaling"
-msgstr ""
-
 msgid "Low radius"
 msgstr ""
 
@@ -363,12 +348,6 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
-
-msgid "Choropleth"
-msgstr ""
-
-msgid "Bubble map"
 msgstr ""
 
 msgid "Indicator"
@@ -865,6 +844,21 @@ msgid "Overdue"
 msgstr ""
 
 msgid "Skipped"
+msgstr ""
+
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic classes"
+msgstr ""
+
+msgid "Predefined classes"
+msgstr ""
+
+msgid "Single color"
 msgstr ""
 
 msgid "Equal intervals"

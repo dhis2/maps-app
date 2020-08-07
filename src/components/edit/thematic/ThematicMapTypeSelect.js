@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '../../core/Radio';
 import { RadioGroup } from '@material-ui/core';
@@ -13,14 +12,7 @@ import {
 
 const styles = {
     radioGroup: {
-        display: 'flex',
-        flexDirection: 'row',
-        borderBottom: '1px solid #ccc',
-        paddingBottom: 10,
-        marginBottom: 10,
-    },
-    radio: {
-        flex: 1,
+        paddingBottom: 20,
     },
 };
 
@@ -37,7 +29,7 @@ export const ThematicMapTypeSelect = ({
         className={classes.radioGroup}
     >
         {getThematicMapTypes().map(({ id, name }) => (
-            <Radio key={id} value={id} label={name} className={classes.radio} />
+            <Radio key={id} value={id} label={name} />
         ))}
     </RadioGroup>
 );

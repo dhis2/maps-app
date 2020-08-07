@@ -11,12 +11,14 @@ import {
     changeDimensionInFilters,
     removeDimensionFromFilters,
 } from '../util/analytics';
-import { CLASSIFICATION_EQUAL_INTERVALS } from '../constants/layers';
+import {
+    CLASSIFICATION_SINGLE_COLOR,
+    THEMATIC_CHOROPLETH,
+} from '../constants/layers';
 
 const layerEdit = (state = null, action) => {
     let columns;
     let newState;
-    let numColors;
     let program;
 
     switch (action.type) {
@@ -266,16 +268,28 @@ const layerEdit = (state = null, action) => {
             return newState;
 
         case types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET:
-            return {
+            newState = {
                 ...state,
                 thematicMapType: action.payload,
             };
+
+            if (
+                action.payload === THEMATIC_CHOROPLETH &&
+                state.method === CLASSIFICATION_SINGLE_COLOR
+            ) {
+                delete newState.method;
+                delete newState.colorScale;
+            }
+
+            return newState;
 
         case types.LAYER_EDIT_CLASSIFICATION_SET:
             newState = {
                 ...state,
                 method: action.method,
             };
+
+            delete newState.colorScale;
 
             if (action.method !== 1) {
                 delete newState.legendSet;
@@ -288,25 +302,10 @@ const layerEdit = (state = null, action) => {
             return newState;
 
         case types.LAYER_EDIT_COLOR_SCALE_SET:
-            numColors = action.colorScale.split(',').length;
-
             newState = {
                 ...state,
                 colorScale: action.colorScale,
             };
-
-            // If single color bubble map
-            if (numColors === 1) {
-                delete newState.classes;
-                delete newState.method;
-            } else {
-                newState.classes = numColors;
-
-                // Default classification method
-                if (!state.method) {
-                    newState.method = CLASSIFICATION_EQUAL_INTERVALS;
-                }
-            }
 
             if (newState.styleDataItem) {
                 delete newState.styleDataItem.optionSet;
