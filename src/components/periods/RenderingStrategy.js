@@ -11,6 +11,11 @@ import {
 } from '@material-ui/core';
 import i18n from '@dhis2/d2-i18n';
 import {
+    RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+} from '../../constants/layers';
+import {
     singleMapPeriods,
     invalidSplitViewPeriods,
 } from '../../constants/periods';
@@ -42,7 +47,7 @@ class RenderingStrategy extends Component {
     };
 
     static defaultProps = {
-        value: 'SINGLE',
+        value: RENDERING_STRATEGY_SINGLE,
         period: {},
     };
 
@@ -50,14 +55,17 @@ class RenderingStrategy extends Component {
         const { value, period, onChange } = this.props;
 
         if (period !== prevProps.period) {
-            if (singleMapPeriods.includes(period.id) && value !== 'SINGLE') {
-                onChange('SINGLE');
+            if (
+                singleMapPeriods.includes(period.id) &&
+                value !== RENDERING_STRATEGY_SINGLE
+            ) {
+                onChange(RENDERING_STRATEGY_SINGLE);
             } else if (
                 invalidSplitViewPeriods.includes(period.id) &&
-                value === 'SPLIT_BY_PERIOD'
+                value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
             ) {
                 // TODO: Switch to 'timeline' when we support it
-                onChange('SINGLE');
+                onChange(RENDERING_STRATEGY_SINGLE);
             }
         }
     }
@@ -135,7 +143,7 @@ export default connect((state, props) => {
             .length,
         hasOtherTimelineLayers: !!mapViews.find(
             layer =>
-                layer.renderingStrategy === 'TIMELINE' &&
+                layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
                 layer.id !== props.layerId
         ),
     };

@@ -9,6 +9,8 @@ import { cssColor } from '../../util/colors';
 import { getPeriodFromFilters } from '../../util/analytics';
 import { polygonsToPoints } from '../../util/geojson';
 import {
+    RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
     LABEL_FONT_SIZE,
@@ -32,7 +34,7 @@ class ThematicLayer extends Layer {
             labelFontWeight,
             labelFontColor,
             valuesByPeriod,
-            renderingStrategy = 'SINGLE',
+            renderingStrategy = RENDERING_STRATEGY_SINGLE,
             thematicMapType = THEMATIC_CHOROPLETH,
             noDataColor,
         } = this.props;
@@ -44,7 +46,7 @@ class ThematicLayer extends Layer {
         // let periodData = data;
         let periodData = bubbleMap ? polygonsToPoints(data) : data;
 
-        if (renderingStrategy !== 'SINGLE') {
+        if (renderingStrategy !== RENDERING_STRATEGY_SINGLE) {
             const values = valuesByPeriod[period.id] || {};
 
             periodData = data.map(feature => ({
@@ -139,7 +141,9 @@ class ThematicLayer extends Layer {
 
         const initialPeriod = {
             period:
-                renderingStrategy === 'SINGLE' ? null : period || periods[0],
+                renderingStrategy === RENDERING_STRATEGY_SINGLE
+                    ? null
+                    : period || periods[0],
         };
 
         // setPeriod without callback is called from the constructor (unmounted)
@@ -184,7 +188,7 @@ class ThematicLayer extends Layer {
 
         return (
             <Fragment>
-                {renderingStrategy === 'TIMELINE' && period && (
+                {renderingStrategy === RENDERING_STRATEGY_TIMELINE && period && (
                     <Fragment>
                         <PeriodName period={period.name} isTimeline={true} />
                         <Timeline

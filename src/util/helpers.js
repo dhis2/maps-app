@@ -1,5 +1,6 @@
 import { getInstance as getD2 } from 'd2';
 import { isObject } from 'lodash/fp';
+import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../constants/layers';
 
 const propertyMap = {
     name: 'name',
@@ -134,7 +135,9 @@ export const getValidDataItems = items =>
 
 // Returns split view layer if exist
 export const getSplitViewLayer = layers =>
-    layers.find(layer => layer.renderingStrategy === 'SPLIT_BY_PERIOD');
+    layers.find(
+        layer => layer.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+    );
 
 // Checks if split view map
 export const isSplitViewMap = layers => !!getSplitViewLayer(layers);

@@ -21,9 +21,11 @@ import {
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import {
+    RENDERING_STRATEGY_SINGLE,
     THEMATIC_RADIUS_LOW,
     THEMATIC_RADIUS_HIGH,
     CLASSIFICATION_PREDEFINED,
+    CLASSIFICATION_SINGLE_COLOR,
 } from '../constants/layers';
 
 const thematicLoader = async config => {
@@ -34,7 +36,7 @@ const thematicLoader = async config => {
         radiusHigh = THEMATIC_RADIUS_HIGH,
         classes,
         colorScale,
-        renderingStrategy = 'SINGLE',
+        renderingStrategy = RENDERING_STRATEGY_SINGLE,
         noDataColor,
     } = config;
 
@@ -63,13 +65,13 @@ const thematicLoader = async config => {
     }
 
     const [features, data] = response;
-
-    const isSingle = renderingStrategy === 'SINGLE';
+    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
+    const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR;
     const period = getPeriodFromFilters(config.filters);
     const periods = getPeriodsFromMetaData(data.metaData);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
-    const valuesByPeriod = !isSingle ? getValuesByPeriod(data) : null;
+    const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null;
     const valueById = getValueById(data);
     const valueFeatures = noDataColor
         ? features
@@ -98,6 +100,21 @@ const thematicLoader = async config => {
         legendSet = await loadLegendSet(legendSet);
     }
 
+    let legendItems;
+
+    if (isSingleColor) {
+        legendItems = []; // TODO
+    } else {
+        legendItems = legendSet
+            ? getPredefinedLegendItems(legendSet)
+            : getAutomaticLegendItems(
+                  orderedValues,
+                  method,
+                  classes,
+                  colorScale
+              );
+    }
+
     const legend = {
         title: name,
         period: period
@@ -105,14 +122,7 @@ const thematicLoader = async config => {
             : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
                   config.endDate
               )}`,
-        items: legendSet
-            ? getPredefinedLegendItems(legendSet)
-            : getAutomaticLegendItems(
-                  orderedValues,
-                  method,
-                  classes,
-                  colorScale
-              ),
+        items: legendItems,
     };
 
     if (dimensions && dimensions.length) {
@@ -124,7 +134,7 @@ const thematicLoader = async config => {
         );
     }
 
-    if (isSingle) {
+    if (isSingleMap) {
         legend.items.forEach(item => (item.count = 0));
     }
 
@@ -165,7 +175,12 @@ const thematicLoader = async config => {
                 const value = Number(item.value);
                 const legend = getLegendItem(value);
 
-                item.color = legend ? legend.color : '#888';
+                if (isSingleColor) {
+                    item.color = colorScale;
+                } else {
+                    item.color = legend ? legend.color : '#888'; // TODO: Remove #888
+                }
+
                 item.radius = getRadiusForValue(value);
             });
         });
@@ -174,8 +189,9 @@ const thematicLoader = async config => {
             const value = valueById[id];
             const item = getLegendItem(value);
 
-            // A predefined legend can have a shorter range
-            if (item) {
+            if (isSingleColor) {
+                properties.color = colorScale;
+            } else if (item) {
                 item.count++;
                 properties.color = item.color;
                 properties.legend = item.name; // Shown in data table
@@ -273,14 +289,14 @@ const loadData = async config => {
         valueType,
         relativePeriodDate,
         aggregationType,
-        renderingStrategy = 'SINGLE',
+        renderingStrategy = RENDERING_STRATEGY_SINGLE,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
-    const isSingle = renderingStrategy === 'SINGLE';
+    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const d2 = await getD2();
     const displayPropertyUpper = getDisplayProperty(
         d2,
@@ -299,7 +315,7 @@ const loadData = async config => {
         .addDataDimension(dataDimension)
         .withDisplayProperty(displayPropertyUpper);
 
-    if (!isSingle) {
+    if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id);
     } else {
         analyticsRequest = period
