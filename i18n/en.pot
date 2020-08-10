@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-07T11:06:48.396Z\n"
-"PO-Revision-Date: 2020-08-07T11:06:48.396Z\n"
+"POT-Creation-Date: 2020-08-10T11:30:35.296Z\n"
+"PO-Revision-Date: 2020-08-10T11:30:35.296Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -520,12 +520,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr ""
-
-msgid "Source"
-msgstr ""
-
 msgid "Edit"
 msgstr ""
 
@@ -554,6 +548,12 @@ msgid "Remove layer"
 msgstr ""
 
 msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "Source"
 msgstr ""
 
 msgid "Parent unit"

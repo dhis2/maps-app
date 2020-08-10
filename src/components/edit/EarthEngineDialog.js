@@ -8,12 +8,12 @@ import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import ColorScaleSelect from '../core/ColorScaleSelect';
 import Collection from '../earthengine/Collection';
-import LegendItem from '../layers/legend/LegendItem';
+import LegendItem from '../legend/LegendItem';
 import { setParams, setFilter, setPeriodName } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colors';
 import { createLegend } from '../../loaders/earthEngineLoader';
 import layerDialogStyles from './LayerDialogStyles';
-import legendStyle from '../layers/legend/legendStyle';
+import legendStyle from '../legend/legendStyle';
 
 const getDatasets = () => ({
     'WorldPop/POP': {
