@@ -25,39 +25,62 @@ const scaleModes = {
 };
 */
 
-const Bubbles = ({ radiusLow, radiusHigh }) => {
+const style = {
+    paddingTop: 10,
+};
+
+const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
     const height = radiusHigh * 2 + 4;
-    const scale = scaleSqrt().range([radiusLow, radiusHigh]);
+    const scale = scaleSqrt().range([radiusLow, radiusHigh]); // TODO: Move to separate file
     const radiusMid = scale(0.5);
 
     if (isNaN(radiusLow) || isNaN(radiusHigh)) {
         return null;
     }
 
+    let bubbles = [];
+
+    if (Array.isArray(classes) && classes.length) {
+        // console.log('classes', classes);
+    } else {
+        bubbles = [
+            {
+                radius: radiusHigh,
+                maxRadius: radiusHigh,
+                color,
+                text: i18n.t('Max'),
+            },
+            {
+                radius: radiusMid,
+                maxRadius: radiusHigh,
+                color,
+                text: i18n.t('Mid'),
+            },
+            {
+                radius: radiusLow,
+                maxRadius: radiusHigh,
+                color,
+                text: i18n.t('Min'),
+            },
+        ];
+    }
+
     return (
-        <svg width="260" height={height + 20}>
-            <Bubble
-                radius={radiusLow}
-                maxRadius={radiusHigh}
-                text={i18n.t('Min')}
-            />
-            <Bubble
-                radius={radiusMid}
-                maxRadius={radiusHigh}
-                text={i18n.t('Mid')}
-            />
-            <Bubble
-                radius={radiusHigh}
-                maxRadius={radiusHigh}
-                text={i18n.t('Max')}
-            />
-        </svg>
+        <div style={style}>
+            <svg width="260" height={height + 20}>
+                {bubbles.map(bubble => (
+                    <Bubble key={bubble.radius} {...bubble} />
+                ))}
+            </svg>
+        </div>
     );
 };
 
 Bubbles.propTypes = {
     radiusLow: PropTypes.number.isRequired,
     radiusHigh: PropTypes.number.isRequired,
+    color: PropTypes.string,
+    classes: PropTypes.array,
 };
 
 export default Bubbles;

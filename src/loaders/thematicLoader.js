@@ -21,9 +21,10 @@ import {
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import {
-    RENDERING_STRATEGY_SINGLE,
+    THEMATIC_BUBBLE,
     THEMATIC_RADIUS_LOW,
     THEMATIC_RADIUS_HIGH,
+    RENDERING_STRATEGY_SINGLE,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_SINGLE_COLOR,
 } from '../constants/layers';
@@ -37,6 +38,7 @@ const thematicLoader = async config => {
         classes,
         colorScale,
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
+        thematicMapType,
         noDataColor,
     } = config;
 
@@ -66,6 +68,7 @@ const thematicLoader = async config => {
 
     const [features, data] = response;
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
+    const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR;
     const period = getPeriodFromFilters(config.filters);
     const periods = getPeriodsFromMetaData(data.metaData);
@@ -100,11 +103,9 @@ const thematicLoader = async config => {
         legendSet = await loadLegendSet(legendSet);
     }
 
-    let legendItems;
+    let legendItems = [];
 
-    if (isSingleColor) {
-        legendItems = []; // TODO
-    } else {
+    if (!isSingleColor) {
         legendItems = legendSet
             ? getPredefinedLegendItems(legendSet)
             : getAutomaticLegendItems(
@@ -138,15 +139,17 @@ const thematicLoader = async config => {
         legend.items.forEach(item => (item.count = 0));
     }
 
+    if (isBubbleMap) {
+        legend.bubbles = {
+            radiusLow: radiusLow,
+            radiusHigh: radiusHigh,
+            color: colorScale,
+        };
+    }
+
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
-    /*
-    const getRadiusForValue = value =>
-        ((value - minValue) / (maxValue - minValue)) *
-            (radiusHigh - radiusLow) +
-        radiusLow;
-    */
-
+    // TODO: Move to separate file
     const getRadiusForValue = scaleSqrt()
         .range([radiusLow, radiusHigh])
         .domain([minValue, maxValue]);
