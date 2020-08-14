@@ -15,14 +15,7 @@ const digitWidth = 6.8;
 export const guideLength = 16;
 export const textPadding = 4;
 
-const Bubbles = ({
-    radiusLow,
-    radiusHigh,
-    minValue,
-    maxValue,
-    color,
-    classes,
-}) => {
+const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
     const height = radiusHigh * 2 + 4;
     const scale = scaleSqrt().range([radiusLow, radiusHigh]); // TODO: Move to separate file
     const radiusMid = scale(0.5);
@@ -35,13 +28,12 @@ const Bubbles = ({
 
     // If color legend
     if (Array.isArray(classes) && classes.length) {
-        const itemScale = scale.domain([minValue, maxValue]);
         const startValue = classes[0].startValue;
+        const endValue = classes[classes.length - 1].endValue;
+        const itemScale = scale.domain([startValue, endValue]);
 
-        // console.log('classes', classes);
-
-        bubbles = classes
-            .filter(c => c.startValue >= minValue && c.endValue <= maxValue)
+        bubbles = [...classes]
+            //.filter(c => c.startValue >= minValue && c.endValue <= maxValue)
             .reverse()
             .map(c => ({
                 radius: itemScale(c.endValue),
@@ -176,8 +168,6 @@ const Bubbles = ({
 Bubbles.propTypes = {
     radiusLow: PropTypes.number.isRequired,
     radiusHigh: PropTypes.number.isRequired,
-    minValue: PropTypes.number,
-    maxValue: PropTypes.number,
     color: PropTypes.string,
     classes: PropTypes.array,
 };

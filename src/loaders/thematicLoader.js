@@ -80,8 +80,8 @@ const thematicLoader = async config => {
         ? features
         : features.filter(({ id }) => valueById[id] !== undefined);
     const orderedValues = getOrderedValues(data);
-    const minValue = orderedValues[0];
-    const maxValue = orderedValues[orderedValues.length - 1];
+    let minValue = orderedValues[0];
+    let maxValue = orderedValues[orderedValues.length - 1];
     const name = names[dataItem.id];
 
     let legendSet = config.legendSet;
@@ -143,18 +143,21 @@ const thematicLoader = async config => {
         legend.bubbles = {
             radiusLow,
             radiusHigh,
-            minValue,
-            maxValue,
             color: isSingleColor ? colorScale : null,
         };
     }
 
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
-    // TODO: Move to separate file
+    if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
+        minValue = legend.items[0].startValue;
+        maxValue = legend.items[legend.items.length - 1].endValue;
+    }
+
     const getRadiusForValue = scaleSqrt()
         .range([radiusLow, radiusHigh])
-        .domain([minValue, maxValue]);
+        .domain([minValue, maxValue])
+        .clamp(true);
 
     if (!valueFeatures.length) {
         if (!features.length) {

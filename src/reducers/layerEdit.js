@@ -296,6 +296,7 @@ const layerEdit = (state = null, action) => {
                 action.method !== CLASSIFICATION_EQUAL_COUNTS
             ) {
                 delete newState.colorScale;
+                delete newState.classes;
             }
 
             if (action.method !== 1) {
