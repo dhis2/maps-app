@@ -141,9 +141,11 @@ const thematicLoader = async config => {
 
     if (isBubbleMap) {
         legend.bubbles = {
-            radiusLow: radiusLow,
-            radiusHigh: radiusHigh,
-            color: colorScale,
+            radiusLow,
+            radiusHigh,
+            minValue,
+            maxValue,
+            color: isSingleColor ? colorScale : null,
         };
     }
 

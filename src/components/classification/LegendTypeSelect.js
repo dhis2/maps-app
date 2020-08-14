@@ -5,7 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { RadioGroup } from '@material-ui/core';
 import Radio from '../core/Radio';
 import { setClassification } from '../../actions/layerEdit';
-import { getLegendTypes } from '../../constants/layers';
+import {
+    getLegendTypes,
+    CLASSIFICATION_EQUAL_INTERVALS,
+    CLASSIFICATION_EQUAL_COUNTS,
+} from '../../constants/layers';
 
 const styles = {
     radioGroup: {
@@ -23,7 +27,11 @@ export const LegendTypeSelect = ({
     method ? (
         <RadioGroup
             name="method"
-            value={method}
+            value={
+                method === CLASSIFICATION_EQUAL_COUNTS
+                    ? CLASSIFICATION_EQUAL_INTERVALS
+                    : method
+            }
             onChange={(event, method) => setClassification(Number(method))}
             className={classes.radioGroup}
         >

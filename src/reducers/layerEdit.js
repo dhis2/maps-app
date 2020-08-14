@@ -13,6 +13,8 @@ import {
 } from '../util/analytics';
 import {
     CLASSIFICATION_SINGLE_COLOR,
+    CLASSIFICATION_EQUAL_INTERVALS,
+    CLASSIFICATION_EQUAL_COUNTS,
     THEMATIC_CHOROPLETH,
 } from '../constants/layers';
 
@@ -289,7 +291,12 @@ const layerEdit = (state = null, action) => {
                 method: action.method,
             };
 
-            delete newState.colorScale;
+            if (
+                action.method !== CLASSIFICATION_EQUAL_INTERVALS ||
+                action.method !== CLASSIFICATION_EQUAL_COUNTS
+            ) {
+                delete newState.colorScale;
+            }
 
             if (action.method !== 1) {
                 delete newState.legendSet;
@@ -305,6 +312,7 @@ const layerEdit = (state = null, action) => {
             newState = {
                 ...state,
                 colorScale: action.colorScale,
+                classes: action.colorScale.split(',').length,
             };
 
             if (newState.styleDataItem) {
