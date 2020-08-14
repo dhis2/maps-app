@@ -113,7 +113,7 @@
         "babel-runtime": "^6.26.0",
         "chai": "^4.1.2",
         "css-loader": "^0.28.10",
-        "cypress": "^3.4.1",
+        "cypress": "^4.12.1",
         "cypress-pipe": "^1.7.0",
         "d2-manifest": "^1.0.0",
         "enzyme": "^3.3.0",
