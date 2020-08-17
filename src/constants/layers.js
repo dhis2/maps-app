@@ -14,11 +14,13 @@ export const RENDERING_STRATEGY_TIMELINE = 'TIMELINE';
 export const RENDERING_STRATEGY_SPLIT_BY_PERIOD = 'SPLIT_BY_PERIOD';
 
 /* THEMATIC LAYER */
-export const THEMATIC_RADIUS_LOW = 5;
-export const THEMATIC_RADIUS_HIGH = 30;
-export const THEMATIC_COLOR = '#FF0000'; // TODO
 export const THEMATIC_CHOROPLETH = 'CHOROPLETH';
 export const THEMATIC_BUBBLE = 'BUBBLE';
+export const THEMATIC_RADIUS_LOW = 5;
+export const THEMATIC_RADIUS_HIGH = 30;
+export const THEMATIC_RADIUS_MIN = 0;
+export const THEMATIC_RADIUS_MAX = 50;
+export const THEMATIC_COLOR = '#558CC0';
 
 export const getThematicMapTypes = () => [
     {
@@ -85,3 +87,5 @@ export const LABEL_FONT_SIZE = '11px';
 export const LABEL_FONT_STYLE = 'normal';
 export const LABEL_FONT_WEIGHT = 'normal';
 export const LABEL_FONT_COLOR = '#333333';
+
+export const NO_DATA_COLOR = '#CCCCCC';

@@ -31,8 +31,8 @@ AggregationTypeSelect.propTypes = {
 };
 
 export default connect(
-    state => ({
-        aggregationType: state.layerEdit.aggregationType,
+    ({ layerEdit }) => ({
+        aggregationType: layerEdit.aggregationType,
     }),
     { setAggregationType }
 )(AggregationTypeSelect);
