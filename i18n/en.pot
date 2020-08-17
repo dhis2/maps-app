@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-10T11:30:35.296Z\n"
-"PO-Revision-Date: 2020-08-10T11:30:35.296Z\n"
+"POT-Creation-Date: 2020-08-17T12:37:23.906Z\n"
+"PO-Revision-Date: 2020-08-17T12:37:23.906Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -852,13 +852,13 @@ msgstr ""
 msgid "Bubble map"
 msgstr ""
 
-msgid "Automatic classes"
+msgid "Automatic color legend"
 msgstr ""
 
-msgid "Predefined classes"
+msgid "Predefined color legend"
 msgstr ""
 
-msgid "Single color"
+msgid "Single color legend"
 msgstr ""
 
 msgid "Equal intervals"
