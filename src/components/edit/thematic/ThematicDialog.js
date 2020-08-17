@@ -565,7 +565,10 @@ export class ThematicDialog extends Component {
                                 <ThematicMapTypeSelect type={thematicMapType} />
                                 <div style={styles.flexInnerColumnFlow}>
                                     <RadiusSelect
-                                        style={styles.flexInnerColumn}
+                                        style={{
+                                            ...styles.flexInnerColumn,
+                                            maxWidth: 140,
+                                        }}
                                     />
                                 </div>
                                 <div style={styles.flexInnerColumnFlow}>

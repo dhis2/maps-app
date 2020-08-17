@@ -49,7 +49,7 @@ class ThematicLayer extends Layer {
         if (renderingStrategy !== RENDERING_STRATEGY_SINGLE) {
             const values = valuesByPeriod[period.id] || {};
 
-            periodData = data.map(feature => ({
+            periodData = periodData.map(feature => ({
                 ...feature,
                 properties: {
                     ...feature.properties,

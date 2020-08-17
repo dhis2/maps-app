@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-
 import TextField from '../../core/TextField';
 import { setRadiusLow, setRadiusHigh } from '../../../actions/layerEdit';
 import {
@@ -33,10 +32,7 @@ const RadiusSelect = ({
                         max: radiusHigh,
                     },
                 }}
-                style={{
-                    ...style,
-                    maxWidth: 140,
-                }}
+                style={style}
             />
             <TextField
                 id="highsize"
@@ -50,10 +46,7 @@ const RadiusSelect = ({
                         max: THEMATIC_RADIUS_MAX,
                     },
                 }}
-                style={{
-                    ...style,
-                    maxWidth: 140,
-                }}
+                style={style}
             />
         </Fragment>
     );
