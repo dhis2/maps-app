@@ -17,40 +17,38 @@ const RadiusSelect = ({
     setRadiusLow,
     setRadiusHigh,
     style,
-}) => {
-    return (
-        <Fragment>
-            <TextField
-                id="lowsize"
-                type="number"
-                label={i18n.t('Low radius')}
-                value={radiusLow}
-                onChange={radius => setRadiusLow(radius)}
-                InputProps={{
-                    inputProps: {
-                        min: THEMATIC_RADIUS_MIN,
-                        max: radiusHigh,
-                    },
-                }}
-                style={style}
-            />
-            <TextField
-                id="highsize"
-                type="number"
-                label={i18n.t('High radius')}
-                value={radiusHigh}
-                onChange={radius => setRadiusHigh(radius)}
-                InputProps={{
-                    inputProps: {
-                        min: radiusLow,
-                        max: THEMATIC_RADIUS_MAX,
-                    },
-                }}
-                style={style}
-            />
-        </Fragment>
-    );
-};
+}) => (
+    <Fragment>
+        <TextField
+            id="lowsize"
+            type="number"
+            label={i18n.t('Low radius')}
+            value={isNaN(radiusLow) ? '' : radiusLow}
+            onChange={setRadiusLow}
+            InputProps={{
+                inputProps: {
+                    min: THEMATIC_RADIUS_MIN,
+                    max: isNaN(radiusHigh) ? THEMATIC_RADIUS_MAX : radiusHigh,
+                },
+            }}
+            style={style}
+        />
+        <TextField
+            id="highsize"
+            type="number"
+            label={i18n.t('High radius')}
+            value={isNaN(radiusHigh) ? '' : radiusHigh}
+            onChange={setRadiusHigh}
+            InputProps={{
+                inputProps: {
+                    min: isNaN(radiusLow) ? THEMATIC_RADIUS_LOW : radiusLow,
+                    max: THEMATIC_RADIUS_MAX,
+                },
+            }}
+            style={style}
+        />
+    </Fragment>
+);
 
 RadiusSelect.propTypes = {
     radiusLow: PropTypes.number,

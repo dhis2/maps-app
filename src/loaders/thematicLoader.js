@@ -212,7 +212,7 @@ const thematicLoader = async config => {
         });
     }
 
-    if (noDataColor && Array.isArray(legend.items)) {
+    if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
         legend.items.push({ color: noDataColor, name: i18n.t('No data') });
     }
 
@@ -362,31 +362,12 @@ const loadData = async config => {
         analyticsRequest = analyticsRequest.addDimension('co');
     }
 
-    /*
-    const bubbleMap = true;
-
-    const polygonsToPoints = features => {
-        if (!bubbleMap) {
-            return features;
-        }
-
-        return features.map(feature => ({
-            ...feature,
-            geometry: {
-                type: 'Point',
-                coordinates: poleOfInaccessibility(feature.geometry),
-            },
-        }));
-    };
-    */
-
     // Features request
     const orgUnitReq = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayPropertyUpper)
         .getAll(geoFeaturesParams)
         .then(toGeoJson);
-    // .then(polygonsToPoints);
 
     // Data request
     const dataReq = d2.analytics.aggregate.get(analyticsRequest);

@@ -43,7 +43,6 @@ class ThematicLayer extends Layer {
 
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE;
 
-        // let periodData = data;
         let periodData = bubbleMap ? polygonsToPoints(data) : data;
 
         if (renderingStrategy !== RENDERING_STRATEGY_SINGLE) {

@@ -33,7 +33,7 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
         const itemScale = scale.domain([startValue, endValue]);
 
         bubbles = [...classes]
-            //.filter(c => c.startValue >= minValue && c.endValue <= maxValue)
+            // .filter(c => c.startValue !== undefined)
             .reverse()
             .map(c => ({
                 radius: itemScale(c.endValue),
