@@ -111,12 +111,12 @@ class ThematicLayer extends Layer {
                     properties: {
                         ...f.properties,
                         style: {
-                            color: '#333', // TODO
+                            color: '#333',
                             weight: 0.5,
                         },
                     },
                 })),
-                style: {}, // TODO
+                style: {},
             });
 
             this.layer.addLayer(config);

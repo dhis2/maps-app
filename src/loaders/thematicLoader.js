@@ -27,6 +27,7 @@ import {
     RENDERING_STRATEGY_SINGLE,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_SINGLE_COLOR,
+    NO_DATA_COLOR,
 } from '../constants/layers';
 
 const thematicLoader = async config => {
@@ -186,7 +187,7 @@ const thematicLoader = async config => {
                 if (isSingleColor) {
                     item.color = colorScale;
                 } else {
-                    item.color = legend ? legend.color : '#888'; // TODO: Remove #888
+                    item.color = legend ? legend.color : NO_DATA_COLOR;
                 }
 
                 item.radius = getRadiusForValue(value);

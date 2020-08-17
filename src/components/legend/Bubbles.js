@@ -32,15 +32,12 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
         const endValue = classes[classes.length - 1].endValue;
         const itemScale = scale.domain([startValue, endValue]);
 
-        bubbles = [...classes]
-            // .filter(c => c.startValue !== undefined)
-            .reverse()
-            .map(c => ({
-                radius: itemScale(c.endValue),
-                maxRadius: radiusHigh,
-                color: c.color,
-                text: String(c.endValue),
-            }));
+        bubbles = [...classes].reverse().map(c => ({
+            radius: itemScale(c.endValue),
+            maxRadius: radiusHigh,
+            color: c.color,
+            text: String(c.endValue),
+        }));
 
         // Add the smallest bubble for the lowest value
         bubbles.push({
