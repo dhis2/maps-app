@@ -68,7 +68,7 @@
         "d3-format": "^1.4.4",
         "d3-scale": "^3.2.1",
         "d3-selection": "^1.4.2",
-        "d3-time": "^1.1.0",
+        "d3-time": "^v2.0.0",
         "d3-time-format": "^2.2.3",
         "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.2",
