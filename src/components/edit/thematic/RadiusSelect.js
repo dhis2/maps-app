@@ -11,6 +11,20 @@ import {
     THEMATIC_RADIUS_MAX,
 } from '../../../constants/layers';
 
+export const isValidRadius = (radiusLow, radiusHigh) =>
+    !isNaN(radiusLow) &&
+    !isNaN(radiusHigh) &&
+    radiusLow <= radiusHigh &&
+    radiusLow >= THEMATIC_RADIUS_MIN &&
+    radiusHigh <= THEMATIC_RADIUS_MAX;
+
+const errorStyle = {
+    width: '100%',
+    color: 'red',
+    paddingLeft: 8,
+    fontSize: 14,
+};
+
 const RadiusSelect = ({
     radiusLow = THEMATIC_RADIUS_LOW,
     radiusHigh = THEMATIC_RADIUS_HIGH,
@@ -47,6 +61,14 @@ const RadiusSelect = ({
             }}
             style={style}
         />
+        {!isValidRadius(radiusLow, radiusHigh) && (
+            <div style={errorStyle}>
+                {i18n.t('Radius should be between {{min}} and {{max}}', {
+                    min: THEMATIC_RADIUS_MIN,
+                    max: THEMATIC_RADIUS_MAX,
+                })}
+            </div>
+        )}
     </Fragment>
 );
 

@@ -32,7 +32,7 @@ import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
 import layerDialogStyles from '../LayerDialogStyles';
 import ThematicMapTypeSelect from './ThematicMapTypeSelect';
-import RadiusSelect from './RadiusSelect';
+import RadiusSelect, { isValidRadius } from './RadiusSelect';
 import { dimConf } from '../../../constants/dimension';
 import {
     DEFAULT_ORG_UNIT_LEVEL,
@@ -121,6 +121,8 @@ export class ThematicDialog extends Component {
         renderingStrategy: PropTypes.string,
         thematicMapType: PropTypes.string,
         valueType: PropTypes.string,
+        radiusLow: PropTypes.number,
+        radiusHigh: PropTypes.number,
         loadOrgUnitPath: PropTypes.func.isRequired,
         setClassification: PropTypes.func.isRequired,
         setDataItem: PropTypes.func.isRequired,
@@ -642,6 +644,8 @@ export class ThematicDialog extends Component {
             filters,
             startDate,
             endDate,
+            radiusLow,
+            radiusHigh,
         } = this.props;
         const dataItem = getDataItemFromColumns(columns);
         const period = getPeriodFromFilters(filters);
@@ -738,6 +742,11 @@ export class ThematicDialog extends Component {
                 i18n.t('No organisation units are selected'),
                 'orgunits'
             );
+        }
+
+        if (!isValidRadius(radiusLow, radiusHigh)) {
+            this.setState({ tab: 'style' });
+            return false;
         }
 
         return true;
