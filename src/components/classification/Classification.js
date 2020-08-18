@@ -27,8 +27,8 @@ const styles = {
         float: 'left',
     },
     scale: {
-        paddingTop: 16,
-        paddingLeft: 3,
+        paddingTop: 8,
+        // paddingLeft: 3,
     },
 };
 

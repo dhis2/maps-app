@@ -15,6 +15,9 @@ const styles = {
     radioGroup: {
         paddingBottom: 16,
     },
+    radio: {
+        height: 36,
+    },
 };
 
 // Select between user defined (automatic), predefined or single color
@@ -36,7 +39,12 @@ export const LegendTypeSelect = ({
             className={classes.radioGroup}
         >
             {getLegendTypes(mapType === 'BUBBLE').map(({ id, name }) => (
-                <Radio key={id} value={id} label={name} />
+                <Radio
+                    key={id}
+                    value={id}
+                    label={name}
+                    className={classes.radio}
+                />
             ))}
         </RadioGroup>
     ) : null;

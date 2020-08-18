@@ -14,6 +14,9 @@ const styles = {
     radioGroup: {
         paddingBottom: 20,
     },
+    radio: {
+        height: 36,
+    },
 };
 
 // Select between choropleth and bubble map for thematic layers
@@ -29,7 +32,7 @@ export const ThematicMapTypeSelect = ({
         className={classes.radioGroup}
     >
         {getThematicMapTypes().map(({ id, name }) => (
-            <Radio key={id} value={id} label={name} />
+            <Radio key={id} value={id} label={name} className={classes.radio} />
         ))}
     </RadioGroup>
 );
