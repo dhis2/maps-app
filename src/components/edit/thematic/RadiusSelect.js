@@ -11,7 +11,10 @@ import {
     THEMATIC_RADIUS_MAX,
 } from '../../../constants/layers';
 
-export const isValidRadius = (radiusLow, radiusHigh) =>
+export const isValidRadius = (
+    radiusLow = THEMATIC_RADIUS_LOW,
+    radiusHigh = THEMATIC_RADIUS_HIGH
+) =>
     !isNaN(radiusLow) &&
     !isNaN(radiusHigh) &&
     radiusLow <= radiusHigh &&
