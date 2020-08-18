@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-17T12:37:23.906Z\n"
-"PO-Revision-Date: 2020-08-17T12:37:23.906Z\n"
+"POT-Creation-Date: 2020-08-18T10:33:31.341Z\n"
+"PO-Revision-Date: 2020-08-18T10:33:31.341Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -324,6 +324,9 @@ msgid "Low radius"
 msgstr ""
 
 msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
 msgid "Indicator group is required"
