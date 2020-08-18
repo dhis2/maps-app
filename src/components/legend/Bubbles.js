@@ -17,7 +17,7 @@ export const textPadding = 4;
 
 const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
     const height = radiusHigh * 2 + 4;
-    const scale = scaleSqrt().range([radiusLow, radiusHigh]); // TODO: Move to separate file
+    const scale = scaleSqrt().range([radiusLow, radiusHigh]);
     const radiusMid = scale(0.5);
 
     if (isNaN(radiusLow) || isNaN(radiusHigh)) {

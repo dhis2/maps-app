@@ -16,7 +16,6 @@ const styles = {
         margin: '5px 12px 0 12px',
         overflow: 'visible',
         whiteSpace: 'nowrap',
-        background: 'yellow',
     },
 };
 

@@ -28,7 +28,6 @@ const styles = {
     },
     scale: {
         paddingTop: 8,
-        // paddingLeft: 3,
     },
 };
 
