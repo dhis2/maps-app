@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2020\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -27,10 +27,7 @@ msgstr ""
 msgid "Legend set"
 msgstr "حزمة وسائل الإيضاح"
 
-msgid "Automatic"
-msgstr ""
-
-msgid "Predefined"
+msgid "Color"
 msgstr ""
 
 msgid "Size"
@@ -106,9 +103,6 @@ msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr ""
-
-msgid "Color"
 msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
@@ -335,10 +329,13 @@ msgstr "نوع التجميع"
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
+msgid "Low radius"
 msgstr ""
 
-msgid "High size"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
 msgid "Indicator group is required"
@@ -537,12 +534,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr ""
-
-msgid "Source"
-msgstr ""
-
 msgid "Edit"
 msgstr "تعديل"
 
@@ -568,6 +559,15 @@ msgid "Edit layer"
 msgstr ""
 
 msgid "Remove layer"
+msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "Source"
 msgstr ""
 
 msgid "Parent unit"
@@ -860,6 +860,21 @@ msgstr "متأخر"
 msgid "Skipped"
 msgstr "تم التخطي"
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr ""
 
@@ -914,6 +929,18 @@ msgstr "آخر 7 أيام"
 msgid "Last 14 days"
 msgstr "آخر 14 يوم"
 
+msgid "Last 30 days"
+msgstr ""
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr "الأسبوع الحالي"
 
@@ -931,6 +958,15 @@ msgstr "آخر 52 أسبوع"
 
 msgid "Weeks this year"
 msgstr "أسابيع السنة الحالية"
+
+msgid "This bi-week"
+msgstr "الأسبوعين الحاليين"
+
+msgid "Last bi-week"
+msgstr "آخر اسبوعين"
+
+msgid "Last 4 bi-weeks"
+msgstr "آخر 4 زوج اسابيع"
 
 msgid "This month"
 msgstr "الشهر الحالي"

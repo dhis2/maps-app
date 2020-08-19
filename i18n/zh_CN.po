@@ -1,14 +1,14 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2020
 # 晓东 林 <13981924470@126.com>, 2020
+# easylin <lin_xd@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,11 +28,8 @@ msgstr ""
 msgid "Legend set"
 msgstr ""
 
-msgid "Automatic"
-msgstr "自动"
-
-msgid "Predefined"
-msgstr ""
+msgid "Color"
+msgstr "颜色"
 
 msgid "Size"
 msgstr ""
@@ -108,9 +105,6 @@ msgstr ""
 
 msgid "Type"
 msgstr "类型"
-
-msgid "Color"
-msgstr "颜色"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -336,10 +330,13 @@ msgstr "汇总类型"
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
+msgid "Low radius"
 msgstr ""
 
-msgid "High size"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
 msgid "Indicator group is required"
@@ -538,12 +535,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr ""
-
-msgid "Source"
-msgstr "资源"
-
 msgid "Edit"
 msgstr "编辑<br>"
 
@@ -570,6 +561,15 @@ msgstr ""
 
 msgid "Remove layer"
 msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "Source"
+msgstr "资源"
 
 msgid "Parent unit"
 msgstr ""
@@ -861,6 +861,21 @@ msgstr "过期"
 msgid "Skipped"
 msgstr "跳过"
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr ""
 
@@ -915,6 +930,18 @@ msgstr "最近7天"
 msgid "Last 14 days"
 msgstr "最近14天"
 
+msgid "Last 30 days"
+msgstr "最近30天"
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr "本周"
 
@@ -932,6 +959,15 @@ msgstr "最近52周"
 
 msgid "Weeks this year"
 msgstr "今年的星期"
+
+msgid "This bi-week"
+msgstr ""
+
+msgid "Last bi-week"
+msgstr ""
+
+msgid "Last 4 bi-weeks"
+msgstr ""
 
 msgid "This month"
 msgstr "本月"

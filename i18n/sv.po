@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Swedish (https://www.transifex.com/hisp-uio/teams/100509/sv/)\n"
@@ -29,11 +29,8 @@ msgstr "Kategorier"
 msgid "Legend set"
 msgstr "Symbolförklaring set"
 
-msgid "Automatic"
-msgstr "Automatisk"
-
-msgid "Predefined"
-msgstr "Fördefinierad"
+msgid "Color"
+msgstr "Färg"
 
 msgid "Size"
 msgstr ""
@@ -109,9 +106,6 @@ msgstr ""
 
 msgid "Type"
 msgstr "Typ"
-
-msgid "Color"
-msgstr "Färg"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -337,11 +331,14 @@ msgstr "Aggregationtyp"
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
-msgstr "liten storlek"
+msgid "Low radius"
+msgstr ""
 
-msgid "High size"
-msgstr "hög storlek"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr ""
@@ -539,12 +536,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr ""
-
-msgid "Source"
-msgstr ""
-
 msgid "Edit"
 msgstr "Redigera"
 
@@ -570,6 +561,15 @@ msgid "Edit layer"
 msgstr "Redigera skikt"
 
 msgid "Remove layer"
+msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "Source"
 msgstr ""
 
 msgid "Parent unit"
@@ -862,6 +862,21 @@ msgstr ""
 msgid "Skipped"
 msgstr ""
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Jämnt intervall"
 
@@ -916,6 +931,18 @@ msgstr ""
 msgid "Last 14 days"
 msgstr ""
 
+msgid "Last 30 days"
+msgstr ""
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr "Denna vecka"
 
@@ -932,6 +959,15 @@ msgid "Last 52 weeks"
 msgstr "Senast 52 veckor"
 
 msgid "Weeks this year"
+msgstr ""
+
+msgid "This bi-week"
+msgstr ""
+
+msgid "Last bi-week"
+msgstr ""
+
+msgid "Last 4 bi-weeks"
 msgstr ""
 
 msgid "This month"

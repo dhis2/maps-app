@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -31,11 +31,8 @@ msgstr "Classes"
 msgid "Legend set"
 msgstr "Conjunto da legenda"
 
-msgid "Automatic"
-msgstr "Automático"
-
-msgid "Predefined"
-msgstr "Predefinido"
+msgid "Color"
+msgstr "Cor"
 
 msgid "Size"
 msgstr "Tamanho"
@@ -111,9 +108,6 @@ msgstr "Parentes"
 
 msgid "Type"
 msgstr "Tipo"
-
-msgid "Color"
-msgstr "Cor"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -360,11 +354,14 @@ msgstr "Tipo de agregacão"
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
-msgstr "Tamanho reduzido"
+msgid "Low radius"
+msgstr ""
 
-msgid "High size"
-msgstr "Tamanho elevado"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr "O grupo de indicadores é obrigatório"
@@ -573,12 +570,6 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 "A exibição dividida não pode ser combinada com outros tipos de camada."
 
-msgid "Filters"
-msgstr "Filtros"
-
-msgid "Source"
-msgstr "Fonte"
-
 msgid "Edit"
 msgstr "Editar"
 
@@ -605,6 +596,15 @@ msgstr "Editar camadas"
 
 msgid "Remove layer"
 msgstr "Remover camada"
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr "Filtros"
+
+msgid "Source"
+msgstr "Fonte"
 
 msgid "Parent unit"
 msgstr "Unidade parental"
@@ -901,6 +901,21 @@ msgstr "Atrasado"
 msgid "Skipped"
 msgstr "Ignorado"
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Intervalos iguais"
 
@@ -955,6 +970,18 @@ msgstr "Últimos 7 dias"
 msgid "Last 14 days"
 msgstr "Últimos 14  dias"
 
+msgid "Last 30 days"
+msgstr "Últimos 30 dias"
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr "Esta semana"
 
@@ -972,6 +999,15 @@ msgstr "Últimas 52 semanas"
 
 msgid "Weeks this year"
 msgstr "Semanas deste ano "
+
+msgid "This bi-week"
+msgstr "Nesta bisemanal"
+
+msgid "Last bi-week"
+msgstr "Ultimo bimensal "
+
+msgid "Last 4 bi-weeks"
+msgstr "Nas últimas 4 semanas"
 
 msgid "This month"
 msgstr "Este mês"
