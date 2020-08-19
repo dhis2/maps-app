@@ -3,6 +3,10 @@ import { sortBy, negate } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
 import { getPeriodNames } from '../constants/periods';
 import { dimConf } from '../constants/dimension';
+import {
+    RENDERING_STRATEGY_TIMELINE,
+    RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+} from '../constants/layers';
 
 /* DIMENSIONS */
 
@@ -287,10 +291,18 @@ export const getApiResponseNames = ({ metaData, headers }) => ({
 // Returns the rendering strategy used
 export const getRenderingStrategy = ({ mapViews }) => {
     if (Array.isArray(mapViews)) {
-        if (mapViews.some(view => view.renderingStrategy === 'TIMELINE')) {
+        if (
+            mapViews.some(
+                view => view.renderingStrategy === RENDERING_STRATEGY_TIMELINE
+            )
+        ) {
             return 'timeline';
         } else if (
-            mapViews.some(view => view.renderingStrategy === 'SPLIT_BY_PERIOD')
+            mapViews.some(
+                view =>
+                    view.renderingStrategy ===
+                    RENDERING_STRATEGY_SPLIT_BY_PERIOD
+            )
         ) {
             return 'split-by-period';
         }

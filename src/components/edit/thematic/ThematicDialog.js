@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
-import TextField from '../../core/TextField';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
 import NoDataColor from './NoDataColor';
@@ -32,11 +31,11 @@ import StartEndDates from '../../periods/StartEndDates';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
 import layerDialogStyles from '../LayerDialogStyles';
+import ThematicMapTypeSelect from './ThematicMapTypeSelect';
+import RadiusSelect, { isValidRadius } from './RadiusSelect';
 import { dimConf } from '../../../constants/dimension';
 import {
     DEFAULT_ORG_UNIT_LEVEL,
-    DEFAULT_RADIUS_LOW,
-    DEFAULT_RADIUS_HIGH,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
 } from '../../../constants/layers';
@@ -60,8 +59,6 @@ import {
     setPeriodType,
     setRenderingStrategy,
     setProgram,
-    setRadiusLow,
-    setRadiusHigh,
     setUserOrgUnits,
     setValueType,
     toggleOrgUnit,
@@ -122,9 +119,10 @@ export class ThematicDialog extends Component {
         endDate: PropTypes.string,
         periodType: PropTypes.string,
         renderingStrategy: PropTypes.string,
-        radiusHigh: PropTypes.number,
-        radiusLow: PropTypes.number,
+        thematicMapType: PropTypes.string,
         valueType: PropTypes.string,
+        radiusLow: PropTypes.number,
+        radiusHigh: PropTypes.number,
         loadOrgUnitPath: PropTypes.func.isRequired,
         setClassification: PropTypes.func.isRequired,
         setDataItem: PropTypes.func.isRequired,
@@ -146,8 +144,6 @@ export class ThematicDialog extends Component {
         setPeriodType: PropTypes.func.isRequired,
         setRenderingStrategy: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
-        setRadiusLow: PropTypes.func.isRequired,
-        setRadiusHigh: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
@@ -260,10 +256,9 @@ export class ThematicDialog extends Component {
             startDate,
             endDate,
             program,
-            radiusLow = DEFAULT_RADIUS_LOW,
-            radiusHigh = DEFAULT_RADIUS_HIGH,
             rows,
             valueType,
+            thematicMapType,
         } = this.props;
 
         const {
@@ -284,8 +279,6 @@ export class ThematicDialog extends Component {
             setPeriodType,
             setRenderingStrategy,
             setProgram,
-            setRadiusLow,
-            setRadiusHigh,
             setUserOrgUnits,
             setValueType,
             toggleOrgUnit,
@@ -571,34 +564,9 @@ export class ThematicDialog extends Component {
                             data-test="thematicdialog-styletab"
                         >
                             <div style={{ ...styles.flexColumn, marginTop: 0 }}>
-                                <NumericLegendStyle
-                                    dataItem={dataItem}
-                                    style={styles.select}
-                                />
-                            </div>
-                            <div style={{ ...styles.flexColumn }}>
+                                <ThematicMapTypeSelect type={thematicMapType} />
                                 <div style={styles.flexInnerColumnFlow}>
-                                    <TextField
-                                        id="lowsize"
-                                        type="number"
-                                        label={i18n.t('Low size')}
-                                        value={radiusLow}
-                                        onChange={radius =>
-                                            setRadiusLow(radius)
-                                        }
-                                        style={{
-                                            ...styles.flexInnerColumn,
-                                            maxWidth: 140,
-                                        }}
-                                    />
-                                    <TextField
-                                        id="highsize"
-                                        type="number"
-                                        label={i18n.t('High size')}
-                                        value={radiusHigh}
-                                        onChange={radius =>
-                                            setRadiusHigh(radius)
-                                        }
+                                    <RadiusSelect
                                         style={{
                                             ...styles.flexInnerColumn,
                                             maxWidth: 140,
@@ -640,6 +608,13 @@ export class ThematicDialog extends Component {
                                     style={styles.flexInnerColumnFlow}
                                 />
                             </div>
+                            <div style={{ ...styles.flexColumn, marginTop: 0 }}>
+                                <NumericLegendStyle
+                                    mapType={thematicMapType}
+                                    dataItem={dataItem}
+                                    style={styles.select}
+                                />
+                            </div>
                         </div>
                     )}
                 </div>
@@ -669,6 +644,8 @@ export class ThematicDialog extends Component {
             filters,
             startDate,
             endDate,
+            radiusLow,
+            radiusHigh,
         } = this.props;
         const dataItem = getDataItemFromColumns(columns);
         const period = getPeriodFromFilters(filters);
@@ -767,6 +744,11 @@ export class ThematicDialog extends Component {
             );
         }
 
+        if (!isValidRadius(radiusLow, radiusHigh)) {
+            this.setState({ tab: 'style' });
+            return false;
+        }
+
         return true;
     }
 }
@@ -792,8 +774,6 @@ export default connect(
         setPeriodType,
         setRenderingStrategy,
         setProgram,
-        setRadiusLow,
-        setRadiusHigh,
         setUserOrgUnits,
         setValueType,
         toggleOrgUnit,

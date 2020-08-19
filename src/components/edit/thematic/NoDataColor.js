@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import Checkbox from '../../core/Checkbox';
 import ColorPicker from '../../core/ColorPicker';
-
-export const noDataColor = '#CCCCCC'; // default color
+import { NO_DATA_COLOR } from '../../../constants/layers';
 
 const NoDataColor = ({ value, onChange, style }) => {
     const onCheck = useCallback(
-        val => onChange(val ? noDataColor : undefined),
+        val => onChange(val ? NO_DATA_COLOR : undefined),
         []
     );
 

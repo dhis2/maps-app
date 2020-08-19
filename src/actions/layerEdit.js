@@ -87,6 +87,12 @@ export const setBooleanStyle = (value, color) => ({
     color,
 });
 
+// Set thematic map type (choropleth, bubble map)
+export const setThematicMapType = type => ({
+    type: types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET,
+    payload: type,
+});
+
 // Set classification style (method, classes, colorScale)
 export const setClassification = method => ({
     type: types.LAYER_EDIT_CLASSIFICATION_SET,

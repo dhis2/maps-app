@@ -7,7 +7,7 @@ import { colorScales, getColorScale, getColorPalette } from '../../util/colors';
 
 const styles = {
     scale: {
-        marginTop: 19,
+        marginTop: 8,
         overflow: 'visible',
         whiteSpace: 'nowrap',
     },

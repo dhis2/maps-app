@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
+import { scaleSqrt } from 'd3-scale';
 import { findIndex, curry } from 'lodash/fp';
 import { toGeoJson } from '../util/map';
 import { dimConf } from '../constants/dimension';
@@ -20,20 +21,25 @@ import {
 import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import {
-    DEFAULT_RADIUS_LOW,
-    DEFAULT_RADIUS_HIGH,
+    THEMATIC_BUBBLE,
+    THEMATIC_RADIUS_LOW,
+    THEMATIC_RADIUS_HIGH,
+    RENDERING_STRATEGY_SINGLE,
     CLASSIFICATION_PREDEFINED,
+    CLASSIFICATION_SINGLE_COLOR,
+    NO_DATA_COLOR,
 } from '../constants/layers';
 
 const thematicLoader = async config => {
     const {
         columns,
         rows,
-        radiusLow = DEFAULT_RADIUS_LOW,
-        radiusHigh = DEFAULT_RADIUS_HIGH,
+        radiusLow = THEMATIC_RADIUS_LOW,
+        radiusHigh = THEMATIC_RADIUS_HIGH,
         classes,
         colorScale,
-        renderingStrategy = 'SINGLE',
+        renderingStrategy = RENDERING_STRATEGY_SINGLE,
+        thematicMapType,
         noDataColor,
     } = config;
 
@@ -62,20 +68,21 @@ const thematicLoader = async config => {
     }
 
     const [features, data] = response;
-
-    const isSingle = renderingStrategy === 'SINGLE';
+    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
+    const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
+    const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR;
     const period = getPeriodFromFilters(config.filters);
     const periods = getPeriodsFromMetaData(data.metaData);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const names = getApiResponseNames(data);
-    const valuesByPeriod = !isSingle ? getValuesByPeriod(data) : null;
+    const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null;
     const valueById = getValueById(data);
     const valueFeatures = noDataColor
         ? features
         : features.filter(({ id }) => valueById[id] !== undefined);
     const orderedValues = getOrderedValues(data);
-    const minValue = orderedValues[0];
-    const maxValue = orderedValues[orderedValues.length - 1];
+    let minValue = orderedValues[0];
+    let maxValue = orderedValues[orderedValues.length - 1];
     const name = names[dataItem.id];
 
     let legendSet = config.legendSet;
@@ -97,6 +104,19 @@ const thematicLoader = async config => {
         legendSet = await loadLegendSet(legendSet);
     }
 
+    let legendItems = [];
+
+    if (!isSingleColor) {
+        legendItems = legendSet
+            ? getPredefinedLegendItems(legendSet)
+            : getAutomaticLegendItems(
+                  orderedValues,
+                  method,
+                  classes,
+                  colorScale
+              );
+    }
+
     const legend = {
         title: name,
         period: period
@@ -104,14 +124,7 @@ const thematicLoader = async config => {
             : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
                   config.endDate
               )}`,
-        items: legendSet
-            ? getPredefinedLegendItems(legendSet)
-            : getAutomaticLegendItems(
-                  orderedValues,
-                  method,
-                  classes,
-                  colorScale
-              ),
+        items: legendItems,
     };
 
     if (dimensions && dimensions.length) {
@@ -123,16 +136,29 @@ const thematicLoader = async config => {
         );
     }
 
-    if (isSingle) {
+    if (isSingleMap) {
         legend.items.forEach(item => (item.count = 0));
+    }
+
+    if (isBubbleMap) {
+        legend.bubbles = {
+            radiusLow,
+            radiusHigh,
+            color: isSingleColor ? colorScale : null,
+        };
     }
 
     const getLegendItem = curry(getLegendItemForValue)(legend.items);
 
-    const getRadiusForValue = value =>
-        ((value - minValue) / (maxValue - minValue)) *
-            (radiusHigh - radiusLow) +
-        radiusLow;
+    if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
+        minValue = legend.items[0].startValue;
+        maxValue = legend.items[legend.items.length - 1].endValue;
+    }
+
+    const getRadiusForValue = scaleSqrt()
+        .range([radiusLow, radiusHigh])
+        .domain([minValue, maxValue])
+        .clamp(true);
 
     if (!valueFeatures.length) {
         if (!features.length) {
@@ -158,7 +184,12 @@ const thematicLoader = async config => {
                 const value = Number(item.value);
                 const legend = getLegendItem(value);
 
-                item.color = legend ? legend.color : '#888';
+                if (isSingleColor) {
+                    item.color = colorScale;
+                } else {
+                    item.color = legend ? legend.color : NO_DATA_COLOR;
+                }
+
                 item.radius = getRadiusForValue(value);
             });
         });
@@ -167,8 +198,9 @@ const thematicLoader = async config => {
             const value = valueById[id];
             const item = getLegendItem(value);
 
-            // A predefined legend can have a shorter range
-            if (item) {
+            if (isSingleColor) {
+                properties.color = colorScale;
+            } else if (item) {
                 item.count++;
                 properties.color = item.color;
                 properties.legend = item.name; // Shown in data table
@@ -181,7 +213,7 @@ const thematicLoader = async config => {
         });
     }
 
-    if (noDataColor && Array.isArray(legend.items)) {
+    if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
         legend.items.push({ color: noDataColor, name: i18n.t('No data') });
     }
 
@@ -266,14 +298,14 @@ const loadData = async config => {
         valueType,
         relativePeriodDate,
         aggregationType,
-        renderingStrategy = 'SINGLE',
+        renderingStrategy = RENDERING_STRATEGY_SINGLE,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
-    const isSingle = renderingStrategy === 'SINGLE';
+    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const d2 = await getD2();
     const displayPropertyUpper = getDisplayProperty(
         d2,
@@ -292,7 +324,7 @@ const loadData = async config => {
         .addDataDimension(dataDimension)
         .withDisplayProperty(displayPropertyUpper);
 
-    if (!isSingle) {
+    if (!isSingleMap) {
         analyticsRequest = analyticsRequest.addPeriodDimension(period.id);
     } else {
         analyticsRequest = period

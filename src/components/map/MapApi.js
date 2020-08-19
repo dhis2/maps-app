@@ -2,6 +2,7 @@ import MapApi, {
     layerTypes,
     controlTypes,
     loadEarthEngineApi,
+    poleOfInaccessibility,
 } from '@dhis2/maps-gl';
 import getMapLocale from './mapLocale';
 
@@ -19,6 +20,6 @@ const map = options => {
     });
 };
 
-export { layerTypes, controlTypes, loadEarthEngineApi };
+export { layerTypes, controlTypes, loadEarthEngineApi, poleOfInaccessibility };
 
 export default map;

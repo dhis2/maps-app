@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Legend from '../layers/legend/Legend';
+import Legend from '../legend/Legend';
 import { legendPositions } from './LegendPosition';
 
 const styles = theme => ({

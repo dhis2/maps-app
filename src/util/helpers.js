@@ -1,5 +1,6 @@
 import { getInstance as getD2 } from 'd2';
 import { isObject } from 'lodash/fp';
+import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../constants/layers';
 
 const propertyMap = {
     name: 'name',
@@ -134,7 +135,9 @@ export const getValidDataItems = items =>
 
 // Returns split view layer if exist
 export const getSplitViewLayer = layers =>
-    layers.find(layer => layer.renderingStrategy === 'SPLIT_BY_PERIOD');
+    layers.find(
+        layer => layer.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+    );
 
 // Checks if split view map
 export const isSplitViewMap = layers => !!getSplitViewLayer(layers);
@@ -152,3 +155,13 @@ export const formatCoordinate = value => {
 // Formats a DHIS2 time string
 export const formatTime = time =>
     `${time.substring(0, 10)} ${time.substring(11, 16)}`;
+
+// Get the longest text length from an object property in an array
+export const getLongestTextLength = (array, key) =>
+    array.reduce(
+        (text, curr) =>
+            curr[key] && String(curr[key]).length > text.length
+                ? String(curr[key])
+                : text,
+        ''
+    ).length;

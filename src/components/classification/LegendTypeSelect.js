@@ -1,54 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Radio from '../core/Radio';
 import { RadioGroup } from '@material-ui/core';
+import Radio from '../core/Radio';
 import { setClassification } from '../../actions/layerEdit';
 import {
-    CLASSIFICATION_PREDEFINED,
+    getLegendTypes,
     CLASSIFICATION_EQUAL_INTERVALS,
+    CLASSIFICATION_EQUAL_COUNTS,
 } from '../../constants/layers';
 
 const styles = {
     radioGroup: {
-        display: 'flex',
-        flexDirection: 'row',
+        paddingBottom: 16,
     },
     radio: {
-        flex: 1,
+        height: 36,
     },
 };
 
-// Select between user defined (automatic) and predefined legends
-// MUI RadioGroup/Radio only accepts strings as value
-export const LegendTypeSelect = ({ method, setClassification, classes }) => (
-    <RadioGroup
-        name="method"
-        value={String(
-            method === CLASSIFICATION_PREDEFINED
-                ? CLASSIFICATION_PREDEFINED
-                : CLASSIFICATION_EQUAL_INTERVALS
-        )}
-        onChange={(event, method) => setClassification(Number(method))}
-        className={classes.radioGroup}
-    >
-        <Radio
-            value={String(CLASSIFICATION_EQUAL_INTERVALS)}
-            label={i18n.t('Automatic')}
-            className={classes.radio}
-        />
-        <Radio
-            value={String(CLASSIFICATION_PREDEFINED)}
-            label={i18n.t('Predefined')}
-            className={classes.radio}
-        />
-    </RadioGroup>
-);
+// Select between user defined (automatic), predefined or single color
+export const LegendTypeSelect = ({
+    mapType,
+    method,
+    setClassification,
+    classes,
+}) =>
+    method ? (
+        <RadioGroup
+            name="method"
+            value={
+                method === CLASSIFICATION_EQUAL_COUNTS
+                    ? CLASSIFICATION_EQUAL_INTERVALS
+                    : method
+            }
+            onChange={(event, method) => setClassification(Number(method))}
+            className={classes.radioGroup}
+        >
+            {getLegendTypes(mapType === 'BUBBLE').map(({ id, name }) => (
+                <Radio
+                    key={id}
+                    value={id}
+                    label={name}
+                    className={classes.radio}
+                />
+            ))}
+        </RadioGroup>
+    ) : null;
 
 LegendTypeSelect.propTypes = {
     method: PropTypes.number,
+    mapType: PropTypes.string,
     setClassification: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };

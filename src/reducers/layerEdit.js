@@ -11,6 +11,12 @@ import {
     changeDimensionInFilters,
     removeDimensionFromFilters,
 } from '../util/analytics';
+import {
+    CLASSIFICATION_SINGLE_COLOR,
+    CLASSIFICATION_EQUAL_INTERVALS,
+    CLASSIFICATION_EQUAL_COUNTS,
+    THEMATIC_CHOROPLETH,
+} from '../constants/layers';
 
 const layerEdit = (state = null, action) => {
     let columns;
@@ -263,14 +269,37 @@ const layerEdit = (state = null, action) => {
 
             return newState;
 
+        case types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET:
+            newState = {
+                ...state,
+                thematicMapType: action.payload,
+            };
+
+            if (
+                action.payload === THEMATIC_CHOROPLETH &&
+                state.method === CLASSIFICATION_SINGLE_COLOR
+            ) {
+                delete newState.method;
+                delete newState.colorScale;
+            }
+
+            return newState;
+
         case types.LAYER_EDIT_CLASSIFICATION_SET:
             newState = {
                 ...state,
                 method: action.method,
             };
 
+            if (
+                action.method !== CLASSIFICATION_EQUAL_INTERVALS ||
+                action.method !== CLASSIFICATION_EQUAL_COUNTS
+            ) {
+                delete newState.colorScale;
+                delete newState.classes;
+            }
+
             if (action.method !== 1) {
-                // // TODO: Make constant
                 delete newState.legendSet;
             }
 
@@ -285,7 +314,6 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 colorScale: action.colorScale,
                 classes: action.colorScale.split(',').length,
-                method: state.method || 2, // TODO: Make constant
             };
 
             if (newState.styleDataItem) {

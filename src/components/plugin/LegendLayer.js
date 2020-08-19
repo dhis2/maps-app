@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import LayerLegend from '../layers/legend/Legend';
+import LayerLegend from '../legend/Legend';
 
 // Renders a legend with alerts for one map layer
 const LegendLayer = props => {

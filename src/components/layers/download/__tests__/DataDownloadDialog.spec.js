@@ -2,6 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DataDownloadDialog } from '../DataDownloadDialog';
 
+// Requested by util/geojson dep
+jest.mock('../../../map/MapApi', () => ({
+    poleOfInaccessibility: jest.fn(),
+}));
+
 describe('DataDownloadDialogContent', () => {
     const formatOptions = [
         { id: 1, name: 'Test Format' },

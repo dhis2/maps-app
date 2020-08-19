@@ -20,10 +20,7 @@ msgstr ""
 msgid "Legend set"
 msgstr ""
 
-msgid "Automatic"
-msgstr ""
-
-msgid "Predefined"
+msgid "Color"
 msgstr ""
 
 msgid "Size"
@@ -99,9 +96,6 @@ msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr ""
-
-msgid "Color"
 msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
@@ -326,10 +320,13 @@ msgstr ""
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
+msgid "Low radius"
 msgstr ""
 
-msgid "High size"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
 msgid "Indicator group is required"
@@ -526,12 +523,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr ""
-
-msgid "Source"
-msgstr ""
-
 msgid "Edit"
 msgstr ""
 
@@ -557,6 +548,15 @@ msgid "Edit layer"
 msgstr ""
 
 msgid "Remove layer"
+msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "Source"
 msgstr ""
 
 msgid "Parent unit"
@@ -847,6 +847,21 @@ msgid "Overdue"
 msgstr ""
 
 msgid "Skipped"
+msgstr ""
+
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
 msgstr ""
 
 msgid "Equal intervals"

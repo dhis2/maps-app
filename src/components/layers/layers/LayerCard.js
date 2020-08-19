@@ -15,7 +15,7 @@ import ExpandIcon from '@material-ui/icons/ExpandMore';
 import CollapseIcon from '@material-ui/icons/ExpandLess';
 import SortableHandle from './SortableHandle';
 import LayerToolbar from '../toolbar/LayerToolbar';
-import Legend from '../legend/Legend';
+import Legend from '../../legend/Legend';
 import {
     editLayer,
     removeLayer,

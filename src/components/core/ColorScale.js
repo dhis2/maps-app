@@ -5,6 +5,7 @@ import colorbrewer from '../../constants/colorbrewer';
 
 const styles = {
     scale: {
+        margin: '8px 0 0 0',
         paddingLeft: 0,
         height: 36,
         cursor: 'pointer',

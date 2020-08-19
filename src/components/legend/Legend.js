@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
+import Bubbles from './Bubbles';
 import LegendItem from './LegendItem';
 import legendStyle from './legendStyle';
 
@@ -42,6 +43,7 @@ const Legend = ({
     filters,
     unit,
     items,
+    bubbles,
     explanation,
     source,
     sourceUrl,
@@ -51,14 +53,18 @@ const Legend = ({
             <div className={classes.description}>{description}</div>
         )}
         {unit && items && <div className={classes.unit}>{unit}</div>}
-        {Array.isArray(items) && (
-            <table>
-                <tbody>
-                    {items.map((item, index) => (
-                        <LegendItem {...item} key={`item-${index}`} />
-                    ))}
-                </tbody>
-            </table>
+        {bubbles ? (
+            <Bubbles {...bubbles} classes={items} />
+        ) : (
+            Array.isArray(items) && (
+                <table>
+                    <tbody>
+                        {items.map((item, index) => (
+                            <LegendItem {...item} key={`item-${index}`} />
+                        ))}
+                    </tbody>
+                </table>
+            )
         )}
         {Array.isArray(filters) && (
             <div className={classes.filters}>
@@ -94,6 +100,11 @@ Legend.propTypes = {
     filters: PropTypes.array,
     unit: PropTypes.string,
     items: PropTypes.array,
+    bubbles: PropTypes.shape({
+        radiusLow: PropTypes.number.isRequired,
+        radiusHigh: PropTypes.number.isRequired,
+        color: PropTypes.string,
+    }),
     explanation: PropTypes.array,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,

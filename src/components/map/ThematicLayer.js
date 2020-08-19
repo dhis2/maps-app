@@ -7,7 +7,12 @@ import Popup from './Popup';
 import { filterData } from '../../util/filter';
 import { cssColor } from '../../util/colors';
 import { getPeriodFromFilters } from '../../util/analytics';
+import { polygonsToPoints } from '../../util/geojson';
 import {
+    RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
+    THEMATIC_CHOROPLETH,
+    THEMATIC_BUBBLE,
     LABEL_FONT_SIZE,
     LABEL_FONT_STYLE,
     LABEL_FONT_WEIGHT,
@@ -29,17 +34,21 @@ class ThematicLayer extends Layer {
             labelFontWeight,
             labelFontColor,
             valuesByPeriod,
-            renderingStrategy = 'SINGLE',
+            renderingStrategy = RENDERING_STRATEGY_SINGLE,
+            thematicMapType = THEMATIC_CHOROPLETH,
             noDataColor,
         } = this.props;
 
         const { period } = this.state;
-        let periodData = data;
 
-        if (renderingStrategy !== 'SINGLE') {
+        const bubbleMap = thematicMapType === THEMATIC_BUBBLE;
+
+        let periodData = bubbleMap ? polygonsToPoints(data) : data;
+
+        if (renderingStrategy !== RENDERING_STRATEGY_SINGLE) {
             const values = valuesByPeriod[period.id] || {};
 
-            periodData = data.map(feature => ({
+            periodData = periodData.map(feature => ({
                 ...feature,
                 properties: {
                     ...feature.properties,
@@ -57,13 +66,15 @@ class ThematicLayer extends Layer {
 
         const map = this.context.map;
 
+        const filteredData = filterData(periodData, dataFilters);
+
         const config = {
             type: 'choropleth',
             id,
             index,
             opacity,
             isVisible,
-            data: filterData(periodData, dataFilters),
+            data: filteredData,
             hoverLabel: '{name} ({value})',
             color: noDataColor,
             onClick: this.onFeatureClick.bind(this),
@@ -83,7 +94,35 @@ class ThematicLayer extends Layer {
             };
         }
 
-        this.layer = map.createLayer(config);
+        // Add boundaries as a separate layer
+        if (bubbleMap) {
+            this.layer = map.createLayer({
+                type: 'group',
+                id,
+                index,
+                opacity,
+                isVisible,
+            });
+
+            this.layer.addLayer({
+                type: 'boundary',
+                data: data.map(f => ({
+                    ...f,
+                    properties: {
+                        ...f.properties,
+                        style: {
+                            color: '#333',
+                            weight: 0.5,
+                        },
+                    },
+                })),
+                style: {},
+            });
+
+            this.layer.addLayer(config);
+        } else {
+            this.layer = map.createLayer(config);
+        }
 
         map.addLayer(this.layer);
 
@@ -101,7 +140,9 @@ class ThematicLayer extends Layer {
 
         const initialPeriod = {
             period:
-                renderingStrategy === 'SINGLE' ? null : period || periods[0],
+                renderingStrategy === RENDERING_STRATEGY_SINGLE
+                    ? null
+                    : period || periods[0],
         };
 
         // setPeriod without callback is called from the constructor (unmounted)
@@ -146,7 +187,7 @@ class ThematicLayer extends Layer {
 
         return (
             <Fragment>
-                {renderingStrategy === 'TIMELINE' && period && (
+                {renderingStrategy === RENDERING_STRATEGY_TIMELINE && period && (
                     <Fragment>
                         <PeriodName period={period.name} isTimeline={true} />
                         <Timeline

@@ -1,5 +1,6 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../constants/layers';
 
 class Layer extends PureComponent {
     static contextTypes = {
@@ -162,7 +163,8 @@ class Layer extends PureComponent {
         const { map } = this.context;
         const container = map.getContainer();
         const { left, top } = container.getBoundingClientRect();
-        const isSplitView = renderingStrategy === 'SPLIT_BY_PERIOD';
+        const isSplitView =
+            renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD;
 
         this.props.openContextMenu({
             ...evt,
