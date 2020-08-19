@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-18T10:33:31.341Z\n"
-"PO-Revision-Date: 2020-08-18T10:33:31.341Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
+"PO-Revision-Date: 2020-08-19T09:07:57.308Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -918,6 +918,18 @@ msgstr ""
 msgid "Last 14 days"
 msgstr ""
 
+msgid "Last 30 days"
+msgstr ""
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr ""
 
@@ -934,6 +946,15 @@ msgid "Last 52 weeks"
 msgstr ""
 
 msgid "Weeks this year"
+msgstr ""
+
+msgid "This bi-week"
+msgstr ""
+
+msgid "Last bi-week"
+msgstr ""
+
+msgid "Last 4 bi-weeks"
 msgstr ""
 
 msgid "This month"

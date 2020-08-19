@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2020
 # phil_dhis2, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2020\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -328,7 +328,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "Статус события"
 
 msgid "Aggregation type"
 msgstr "Тип агрегации"
@@ -854,13 +854,13 @@ msgid "Completed"
 msgstr "Завершенный"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Расписание"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Просроченный"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Пропущенный"
 
 msgid "Equal intervals"
 msgstr "Равные интервалы"
@@ -1167,7 +1167,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "Нет данных"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"

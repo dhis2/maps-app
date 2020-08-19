@@ -854,13 +854,13 @@ msgid "Completed"
 msgstr "Hoàn tất"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Lịch biểu"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Quá hạn"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Đã bỏ qua"
 
 msgid "Equal intervals"
 msgstr "Chia đều tổng Giá trị dữ liệu"
@@ -1167,7 +1167,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "Không có dữ liệu"
 
 msgid "Tracked entity"
 msgstr "Đối Tượng Theo Dõi"

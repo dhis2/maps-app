@@ -852,13 +852,13 @@ msgid "Completed"
 msgstr "تکمیل شد"
 
 msgid "Schedule"
-msgstr ""
+msgstr "تقسیم اوقات"
 
 msgid "Overdue"
-msgstr ""
+msgstr "گذشته از موعد"
 
 msgid "Skipped"
-msgstr ""
+msgstr "اسکیپ شده"
 
 msgid "Equal intervals"
 msgstr "مساوي انټروالونه"
@@ -1165,7 +1165,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "معلوماتی وجود ندارد"
 
 msgid "Tracked entity"
 msgstr "ردیابی هویت"

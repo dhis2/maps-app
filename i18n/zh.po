@@ -1,16 +1,16 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
 # phil_dhis2, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 晓东 林 <13981924470@126.com>, 2020
+# easylin <lin_xd@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +37,7 @@ msgid "Predefined"
 msgstr "已预定义"
 
 msgid "Size"
-msgstr ""
+msgstr "大小"
 
 msgid "Data element group"
 msgstr "数据元组"
@@ -115,7 +115,7 @@ msgid "Color"
 msgstr "颜色"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
+msgstr "在服务器上对事件进行分组时，不支持数据表。"
 
 msgid "Add filter"
 msgstr "添加过滤器"
@@ -176,58 +176,58 @@ msgid ""
 "Population density estimates with national totals adjusted to match UN "
 "population division estimates. Try a different year if you don't see data "
 "for your country."
-msgstr ""
+msgstr "与国际总数对应的人口密度评估，如果你在的国际没有数据，尝试换不同的年度"
 
 msgid "Select year"
 msgstr "选择年份"
 
 msgid "Min people"
-msgstr ""
+msgstr "最小人口"
 
 msgid "Max people"
-msgstr ""
+msgstr "最大人口"
 
 msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
 "better representes the terrain in your region."
-msgstr ""
+msgstr "海平面以上的海拔，你可以调节最大最小值，以最好代表你的地区边界。"
 
 msgid "Min meters"
-msgstr ""
+msgstr "最小米数"
 
 msgid "Max meters"
-msgstr ""
+msgstr "最大米数"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
-msgstr ""
+msgstr "从地面上的卫星和气象站收集的降水。该值在5天内以毫米为单位。在下个月的第3周内每月更新一次。"
 
 msgid "Min mm"
-msgstr ""
+msgstr "最小毫米数"
 
 msgid "Max mm"
-msgstr ""
+msgstr "最大毫米数"
 
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
 "spots will appear in areas with a persistent cloud cover."
-msgstr ""
+msgstr "在8天内从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
 
 msgid "Min °C"
-msgstr ""
+msgstr "最低摄氏温度"
 
 msgid "Max °C"
-msgstr ""
+msgstr "最高摄氏温度"
 
 msgid "17 distinct landcover types collected from satellites."
-msgstr ""
+msgstr "从卫星采集的17个地区的陆地覆盖类型"
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
-msgstr ""
+msgstr "各个城市城镇的灯光亮度，包括烟雾"
 
 msgid "Min"
 msgstr "最小"
@@ -264,28 +264,28 @@ msgid "Group set is required"
 msgstr "需要组集"
 
 msgid "event"
-msgstr ""
+msgstr "事件"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "跟踪实体"
 
 msgid "facility"
-msgstr ""
+msgstr "机构"
 
 msgid "thematic"
-msgstr ""
+msgstr "主题"
 
 msgid "boundary"
-msgstr ""
+msgstr "边界"
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "地图引擎"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "编辑{{name}} 图层"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "添加新的 {{name}} 图层"
 
 msgid "Update layer"
 msgstr "更新图层"
@@ -330,13 +330,13 @@ msgid "No organisation units are selected."
 msgstr "没有选择机构"
 
 msgid "Event status"
-msgstr ""
+msgstr "事件状态"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
 
 msgid "Show no data"
-msgstr ""
+msgstr "不显示数据"
 
 msgid "Low size"
 msgstr "下限"
@@ -416,13 +416,13 @@ msgid "Selection mode"
 msgstr "选择模式"
 
 msgid "Selected only"
-msgstr ""
+msgstr "仅选择"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "选择的和下面的"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "选择的和所有下面的"
 
 msgid "Tracked entities"
 msgstr "跟踪的实体"
@@ -497,7 +497,7 @@ msgid "Interpretations"
 msgstr "注释"
 
 msgid "External basemap"
-msgstr ""
+msgstr "外部基础图层"
 
 msgid "Basemap"
 msgstr "背景图"
@@ -535,7 +535,7 @@ msgid "Loading layer"
 msgstr "载入图层"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}}已删除。"
 
 msgid "Split view can not be combined with other layer types."
 msgstr "分离视图不能和其它图层混合"
@@ -646,7 +646,7 @@ msgid "Exit fullscreen"
 msgstr "退出全屏"
 
 msgid "Finish measurement"
-msgstr ""
+msgstr "完成测量"
 
 msgid "ha"
 msgstr "ha"
@@ -711,7 +711,7 @@ msgstr "选择等级"
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
+msgstr "不能合并用户组织机构，选择单个单位。"
 
 msgid "Click the map where you want to relocate facility"
 msgstr "点击你要重新定位机构的位置"
@@ -726,28 +726,28 @@ msgid "two levels below user organisation unit"
 msgstr "用户所在机构的二级下属机构"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{orgunits}}中的{{units}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{orgunits}}中及其下方的{{units}}"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{orgunits}}及以下所有{{units}}"
 
 msgid "Selected organisation units"
 msgstr "已选组织机构"
 
 msgid "Main"
-msgstr ""
+msgstr "主要"
 
 msgid "Below"
-msgstr ""
+msgstr "下面"
 
 msgid "2 x below"
-msgstr ""
+msgstr "2 x以下"
 
 msgid "User organisation units"
-msgstr ""
+msgstr "用户机构"
 
 msgid "Previous year"
 msgstr "前年"
@@ -765,16 +765,16 @@ msgid "Start/end dates"
 msgstr "开始-结束日期"
 
 msgid "Display periods"
-msgstr ""
+msgstr "显示期间"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "单值（合计）"
 
 msgid "Timeline"
-msgstr ""
+msgstr "时间线"
 
 msgid "Split map views"
-msgstr ""
+msgstr "拆分地图视图"
 
 msgid "Only one timeline is allowed."
 msgstr "仅仅允许一个时限"
@@ -822,10 +822,10 @@ msgid "Variance"
 msgstr "差异"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM轻量"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM详细图"
 
 msgid "Google Streets"
 msgstr "谷歌街道"
@@ -834,16 +834,16 @@ msgid "Google Hybrid"
 msgstr "谷歌杂合"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing道路"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing夜图"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing空间图"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Bing空间标示图"
 
 msgid "All"
 msgstr "全部"
@@ -855,13 +855,13 @@ msgid "Completed"
 msgstr "完成"
 
 msgid "Schedule"
-msgstr ""
+msgstr "调度"
 
 msgid "Overdue"
-msgstr ""
+msgstr "逾期"
 
 msgid "Skipped"
-msgstr ""
+msgstr "跳过"
 
 msgid "Equal intervals"
 msgstr "平等间隔"
@@ -879,7 +879,7 @@ msgid "Monthly"
 msgstr "每月"
 
 msgid "Bi-monthly)"
-msgstr ""
+msgstr "两个月）"
 
 msgid "Quarterly"
 msgstr "季度"
@@ -1019,7 +1019,7 @@ msgid "A connection to Google Earth Engine could not be established."
 msgstr "无法建立与Google Earth Engine的连接。"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "地图“ {{name}}”已保存。"
 
 msgid "Boundaries"
 msgstr "边界线"
@@ -1034,108 +1034,108 @@ msgid "Elevation"
 msgstr "高程"
 
 msgid "metres"
-msgstr ""
+msgstr "米"
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "海拔高于海平面。"
 
 msgid "Population density"
 msgstr "人口密度"
 
 msgid "people per km²"
-msgstr ""
+msgstr "每平方公里的人数"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
 "population division estimates."
-msgstr ""
+msgstr "调整了人口密度的估计值，并调整了全国总数，以匹配联合国人口划分的估计值。"
 
 msgid "Nighttime lights"
 msgstr "夜间灯光"
 
 msgid "light intensity"
-msgstr ""
+msgstr "光强度"
 
 msgid "Precipitation"
 msgstr "降水"
 
 msgid "millimeter"
-msgstr ""
+msgstr "毫米"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground."
-msgstr ""
+msgstr "从地面上的卫星和气象站收集的降水。"
 
 msgid "Temperature"
 msgstr "温度"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "白天°C"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
-msgstr ""
+msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
 
 msgid "Landcover"
 msgstr "陆地覆盖"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "从卫星收集的独特的土地覆被类型。"
 
 msgid "Water"
-msgstr ""
+msgstr "水"
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "常绿针叶林"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "常绿阔叶林"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "落叶针叶林"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "落叶阔叶林"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "混交林"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "封闭灌木丛"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "开放灌木丛"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "伍迪大草原"
 
 msgid "Savannas"
-msgstr ""
+msgstr "稀树草原"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "草原"
 
 msgid "Permanent wetlands"
-msgstr ""
+msgstr "永久湿地"
 
 msgid "Croplands"
-msgstr ""
+msgstr "耕地"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "城市和建筑"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "农田/天然植被马赛克"
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "冰雪"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "贫瘠或稀疏的植被"
 
 msgid "Unclassified"
-msgstr ""
+msgstr "未分类"
 
 msgid "Access denied"
 msgstr "拒绝随访"
@@ -1168,7 +1168,7 @@ msgid "No coordinates found"
 msgstr "没有找到坐标"
 
 msgid "No data"
-msgstr ""
+msgstr "无数据"
 
 msgid "Tracked entity"
 msgstr "跟踪实体"
@@ -1180,7 +1180,7 @@ msgid "related"
 msgstr "相关的"
 
 msgid "Thematic"
-msgstr ""
+msgstr "专题图"
 
 msgid "not one of"
 msgstr "不是当中一个"
