@@ -2,17 +2,17 @@
 # Translators:
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # phil_dhis2, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
 # Marta Vila <marta@dhis2.org>, 2020
 # ericbp <ericbarredap@gmail.com>, 2020
 # Jaime Bosque <jaime.bosque@dhis2.org>, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2020\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,11 +32,8 @@ msgstr ""
 msgid "Legend set"
 msgstr "Legend set"
 
-msgid "Automatic"
-msgstr "Automático"
-
-msgid "Predefined"
-msgstr "Predefinido"
+msgid "Color"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -112,9 +109,6 @@ msgstr ""
 
 msgid "Type"
 msgstr "Tipo"
-
-msgid "Color"
-msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -340,11 +334,14 @@ msgstr "Tipo de agregación"
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
-msgstr "Tamaño pequeño"
+msgid "Low radius"
+msgstr ""
 
-msgid "High size"
-msgstr "Tamaño grande"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr ""
@@ -542,12 +539,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr "Filtros"
-
-msgid "Source"
-msgstr "Fuente"
-
 msgid "Edit"
 msgstr "Editar"
 
@@ -574,6 +565,15 @@ msgstr "Editar capa"
 
 msgid "Remove layer"
 msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr "Filtros"
+
+msgid "Source"
+msgstr "Fuente"
 
 msgid "Parent unit"
 msgstr "Unidad padre"
@@ -865,6 +865,21 @@ msgstr "Atrasado"
 msgid "Skipped"
 msgstr "Omitido"
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Intervalos iguales"
 
@@ -919,6 +934,18 @@ msgstr "Últimos 7 diass"
 msgid "Last 14 days"
 msgstr "Últimos 14 días"
 
+msgid "Last 30 days"
+msgstr "Últimos 30 días"
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr "Esta semana"
 
@@ -936,6 +963,15 @@ msgstr "Últimas 52 semanas"
 
 msgid "Weeks this year"
 msgstr "Semanas de este año"
+
+msgid "This bi-week"
+msgstr ""
+
+msgid "Last bi-week"
+msgstr ""
+
+msgid "Last 4 bi-weeks"
+msgstr ""
 
 msgid "This month"
 msgstr "Este mes"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -28,11 +28,8 @@ msgstr ""
 msgid "Legend set"
 msgstr "Legend set"
 
-msgid "Automatic"
-msgstr "Автоматический"
-
-msgid "Predefined"
-msgstr "Предопределенный"
+msgid "Color"
+msgstr "Цвет"
 
 msgid "Size"
 msgstr ""
@@ -108,9 +105,6 @@ msgstr ""
 
 msgid "Type"
 msgstr "Тип"
-
-msgid "Color"
-msgstr "Цвет"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -336,11 +330,14 @@ msgstr "Тип агрегации"
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
-msgstr "Низкий размер"
+msgid "Low radius"
+msgstr ""
 
-msgid "High size"
-msgstr "Большой размер"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr ""
@@ -539,12 +536,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr "Фильтры"
-
-msgid "Source"
-msgstr "Источник"
-
 msgid "Edit"
 msgstr "Редактировать"
 
@@ -571,6 +562,15 @@ msgstr "Редактировать уровень"
 
 msgid "Remove layer"
 msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr "Фильтры"
+
+msgid "Source"
+msgstr "Источник"
 
 msgid "Parent unit"
 msgstr "Родительская"
@@ -862,6 +862,21 @@ msgstr "Просроченный"
 msgid "Skipped"
 msgstr "Пропущенный"
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Равные интервалы"
 
@@ -916,6 +931,18 @@ msgstr "Последние 7 дней"
 msgid "Last 14 days"
 msgstr "Последние 14 дней"
 
+msgid "Last 30 days"
+msgstr "Последние 30 дней"
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr "Эта неделя"
 
@@ -933,6 +960,15 @@ msgstr "Последние 52 недели"
 
 msgid "Weeks this year"
 msgstr "Недели этого года"
+
+msgid "This bi-week"
+msgstr "Эта би-неделя"
+
+msgid "Last bi-week"
+msgstr "Последняя би-неделя"
+
+msgid "Last 4 bi-weeks"
+msgstr "Последние 4 би-недель"
 
 msgid "This month"
 msgstr "Этот месяц"

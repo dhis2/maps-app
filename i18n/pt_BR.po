@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
@@ -28,11 +28,8 @@ msgstr ""
 msgid "Legend set"
 msgstr "Conjunto da legenda"
 
-msgid "Automatic"
-msgstr "Automático"
-
-msgid "Predefined"
-msgstr "Predefinido"
+msgid "Color"
+msgstr ""
 
 msgid "Size"
 msgstr ""
@@ -108,9 +105,6 @@ msgstr ""
 
 msgid "Type"
 msgstr "Tipo"
-
-msgid "Color"
-msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -336,10 +330,13 @@ msgstr ""
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
+msgid "Low radius"
 msgstr ""
 
-msgid "High size"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
 msgid "Indicator group is required"
@@ -538,12 +535,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr ""
-
-msgid "Source"
-msgstr "Fonte"
-
 msgid "Edit"
 msgstr "Editar"
 
@@ -570,6 +561,15 @@ msgstr "Editar camadas"
 
 msgid "Remove layer"
 msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "Source"
+msgstr "Fonte"
 
 msgid "Parent unit"
 msgstr ""
@@ -861,6 +861,21 @@ msgstr ""
 msgid "Skipped"
 msgstr ""
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Intervalos iguais"
 
@@ -915,6 +930,18 @@ msgstr "Últimos 7 dias"
 msgid "Last 14 days"
 msgstr ""
 
+msgid "Last 30 days"
+msgstr "Últimos 30 dias"
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr ""
 
@@ -931,6 +958,15 @@ msgid "Last 52 weeks"
 msgstr ""
 
 msgid "Weeks this year"
+msgstr ""
+
+msgid "This bi-week"
+msgstr ""
+
+msgid "Last bi-week"
+msgstr ""
+
+msgid "Last 4 bi-weeks"
 msgstr ""
 
 msgid "This month"

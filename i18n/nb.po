@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -28,11 +28,8 @@ msgstr "Klasser"
 msgid "Legend set"
 msgstr "Tegnforklaringssett"
 
-msgid "Automatic"
-msgstr "Automatisk"
-
-msgid "Predefined"
-msgstr "Forhåndsdefinert "
+msgid "Color"
+msgstr "Farge"
 
 msgid "Size"
 msgstr "Størrelse"
@@ -108,9 +105,6 @@ msgstr "Overordnet"
 
 msgid "Type"
 msgstr "Type"
-
-msgid "Color"
-msgstr "Farge"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Datatabell støttes ikke når hendelser er gruppert på serveren."
@@ -350,11 +344,14 @@ msgstr "Aggregasjonstype"
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
-msgstr "Lav størrelse"
+msgid "Low radius"
+msgstr ""
 
-msgid "High size"
-msgstr "Høy størrelse"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr "Indikatorgruppe er påkrevd"
@@ -556,12 +553,6 @@ msgstr "{{name}} slettet."
 msgid "Split view can not be combined with other layer types."
 msgstr "Delt visning kan ikke kombineres med andre lagtyper."
 
-msgid "Filters"
-msgstr "Filter"
-
-msgid "Source"
-msgstr "Kilde"
-
 msgid "Edit"
 msgstr "Rediger"
 
@@ -588,6 +579,15 @@ msgstr "Rediger lag"
 
 msgid "Remove layer"
 msgstr "Fjern lag"
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr "Filter"
+
+msgid "Source"
+msgstr "Kilde"
 
 msgid "Parent unit"
 msgstr "Overordnet enhet"
@@ -884,6 +884,21 @@ msgstr "Forfalt"
 msgid "Skipped"
 msgstr "Hoppet over"
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Like intervaller"
 
@@ -938,6 +953,18 @@ msgstr "Siste 7 dager"
 msgid "Last 14 days"
 msgstr "Siste 14 dager"
 
+msgid "Last 30 days"
+msgstr "Siste 30 dager"
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr "Denne uken"
 
@@ -955,6 +982,15 @@ msgstr "Siste 52 uker"
 
 msgid "Weeks this year"
 msgstr "Uker inneværende år"
+
+msgid "This bi-week"
+msgstr "Denne touken"
+
+msgid "Last bi-week"
+msgstr "Sist touke"
+
+msgid "Last 4 bi-weeks"
+msgstr "Siste 4 touker"
 
 msgid "This month"
 msgstr "Denne måneden"

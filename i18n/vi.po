@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2020
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-05T13:51:52.167Z\n"
+"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2020\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,11 +29,8 @@ msgstr ""
 msgid "Legend set"
 msgstr "Tập Chú Thích"
 
-msgid "Automatic"
-msgstr "Tự động"
-
-msgid "Predefined"
-msgstr "Định sẵn"
+msgid "Color"
+msgstr "Màu"
 
 msgid "Size"
 msgstr ""
@@ -109,9 +106,6 @@ msgstr ""
 
 msgid "Type"
 msgstr "Type"
-
-msgid "Color"
-msgstr "Màu"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -337,11 +331,14 @@ msgstr "Kiểu tổng hợp"
 msgid "Show no data"
 msgstr ""
 
-msgid "Low size"
-msgstr "Cỡ vòng giá trị thấp"
+msgid "Low radius"
+msgstr ""
 
-msgid "High size"
-msgstr "Cỡ vòng giá trị cao"
+msgid "High radius"
+msgstr ""
+
+msgid "Radius should be between {{min}} and {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr ""
@@ -539,12 +536,6 @@ msgstr ""
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
-msgid "Filters"
-msgstr "Bộ lọc"
-
-msgid "Source"
-msgstr "Nguồn"
-
 msgid "Edit"
 msgstr "Sửa"
 
@@ -571,6 +562,15 @@ msgstr "Sửa lớp"
 
 msgid "Remove layer"
 msgstr ""
+
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr "Bộ lọc"
+
+msgid "Source"
+msgstr "Nguồn"
 
 msgid "Parent unit"
 msgstr "Đơn Vị Cha"
@@ -862,6 +862,21 @@ msgstr "Quá hạn"
 msgid "Skipped"
 msgstr "Đã bỏ qua"
 
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
 msgid "Equal intervals"
 msgstr "Chia đều tổng Giá trị dữ liệu"
 
@@ -916,6 +931,18 @@ msgstr "7 ngày trước"
 msgid "Last 14 days"
 msgstr "14 ngày trước"
 
+msgid "Last 30 days"
+msgstr "30 ngày trước"
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr "Tuần này"
 
@@ -933,6 +960,15 @@ msgstr "52 tuần trước"
 
 msgid "Weeks this year"
 msgstr "Các tuần trong năm nay"
+
+msgid "This bi-week"
+msgstr "Kỳ hiện tại, 1 kỳ = 2 tuần"
+
+msgid "Last bi-week"
+msgstr "Kỳ trước, 1 kỳ = 2 tuần"
+
+msgid "Last 4 bi-weeks"
+msgstr "4 kỳ trước, 1 kỳ = 2 tuần"
 
 msgid "This month"
 msgstr "Tháng này"
