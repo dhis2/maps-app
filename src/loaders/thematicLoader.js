@@ -301,7 +301,6 @@ const loadData = async config => {
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
-
     const period = getPeriodFromFilters(filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
