@@ -20,6 +20,7 @@ const NumericLegendStyle = props => {
         dataItem,
         setClassification,
         setLegendSet,
+        legendSetError,
         style,
     } = props;
 
@@ -49,7 +50,7 @@ const NumericLegendStyle = props => {
             {isSingleColor ? (
                 <SingleColor />
             ) : isPredefined ? (
-                <LegendSetSelect />
+                <LegendSetSelect legendSetError={legendSetError} />
             ) : (
                 <Classification />
             )}
@@ -62,6 +63,7 @@ NumericLegendStyle.propTypes = {
     method: PropTypes.number,
     colorScale: PropTypes.string,
     legendSet: PropTypes.object,
+    legendSetError: PropTypes.string,
     dataItem: PropTypes.object,
     setClassification: PropTypes.func.isRequired,
     setLegendSet: PropTypes.func.isRequired,
