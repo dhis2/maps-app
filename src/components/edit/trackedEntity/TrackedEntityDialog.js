@@ -9,8 +9,10 @@ import TextField from '../../core/TextField';
 import SelectField from '../../core/SelectField';
 import Checkbox from '../../core/Checkbox';
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect';
+import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramStatusSelect from './ProgramStatusSelect';
+import PeriodTypeSelect from './PeriodTypeSelect';
 import StartEndDates from '../../periods/StartEndDates';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
@@ -52,7 +54,6 @@ import {
     getOrgUnitNodesFromRows,
 } from '../../../util/analytics';
 import { getStartEndDateError } from '../../../util/time';
-import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect';
 
 const styles = {
     ...layerDialogStyles,
@@ -205,9 +206,11 @@ export class TrackedEntityDialog extends Component {
             periodError,
         } = this.state;
 
+        /*
         const periodHelp = program
             ? i18n.t('Select program period')
             : i18n.t('Select period when tracked entities were last updated');
+        */
 
         return (
             <div>
@@ -332,9 +335,7 @@ export class TrackedEntityDialog extends Component {
                         ))}
                     {tab === 'period' && (
                         <div style={styles.flexRowFlow}>
-                            <div style={{ margin: '12px 0', fontSize: 14 }}>
-                                {periodHelp}:
-                            </div>
+                            <PeriodTypeSelect program={program} />
                             <StartEndDates
                                 startDate={startDate}
                                 endDate={endDate}
