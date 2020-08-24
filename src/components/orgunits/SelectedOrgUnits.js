@@ -68,7 +68,7 @@ SelectedOrgUnits.propTypes = {
     mode: PropTypes.string,
     units: PropTypes.string,
     rows: PropTypes.array,
-    error: PropTypes.object,
+    error: PropTypes.string,
 };
 
 export default SelectedOrgUnits;
