@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
+"POT-Creation-Date: 2020-08-24T20:03:46.040Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -376,6 +376,9 @@ msgstr "Programindikator er påkrevd"
 
 msgid "Period is required"
 msgstr "Periode er påkrevd"
+
+msgid "No legend set is selected"
+msgstr ""
 
 msgid "Indicator"
 msgstr "Indikator"
