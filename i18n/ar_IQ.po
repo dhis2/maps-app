@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-19T09:07:57.308Z\n"
+"POT-Creation-Date: 2020-08-24T20:03:46.040Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2020\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -360,6 +360,9 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
+msgstr ""
+
+msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
