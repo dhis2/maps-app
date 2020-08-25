@@ -43,7 +43,7 @@ export const PeriodTypeSelect = ({
                 className={classes.radio}
             />
             <Radio
-                value="enrollment"
+                value="program"
                 label={i18n.t('Select program period')}
                 className={classes.radio}
             />

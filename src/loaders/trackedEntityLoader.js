@@ -50,6 +50,7 @@ const trackedEntityLoader = async config => {
         programStatus,
         followUp,
         relationshipType: relationshipTypeID,
+        periodType,
         startDate,
         endDate,
         rows,
@@ -92,7 +93,7 @@ const trackedEntityLoader = async config => {
     }
 
     if (program) {
-        url += `&program=${program.id}&programStartDate=${startDate}&programEndDate=${endDate}`;
+        url += `&program=${program.id}`;
 
         if (programStatus) {
             url += `&programStatus=${programStatus}`;
@@ -105,7 +106,13 @@ const trackedEntityLoader = async config => {
             url += `&followUp=${followUp ? 'TRUE' : 'FALSE'}`;
         }
     } else {
-        url += `&trackedEntityType=${trackedEntityType.id}&lastUpdatedStartDate=${startDate}&lastUpdatedEndDate=${endDate}`;
+        url += `&trackedEntityType=${trackedEntityType.id}`;
+    }
+
+    if (periodType === 'program') {
+        url += `&programStartDate=${startDate}&programEndDate=${endDate}`;
+    } else {
+        url += `&lastUpdatedStartDate=${startDate}&lastUpdatedEndDate=${endDate}`;
     }
 
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
