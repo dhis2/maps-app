@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-24T20:03:46.040Z\n"
+"POT-Creation-Date: 2020-08-25T19:35:36.976Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -383,14 +383,17 @@ msgstr "项目指标"
 msgid "Item type"
 msgstr "条目类型"
 
-msgid "Program status"
-msgstr "项目状态"
-
-msgid "Select program period"
-msgstr "选择项目期间"
-
 msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
+
+msgid "Program/Enrollment date"
+msgstr ""
+
+msgid "the date a tracked entity was registered or enrolled in a program"
+msgstr ""
+
+msgid "Program status"
+msgstr "项目状态"
 
 msgid "relationships"
 msgstr "关系"
@@ -411,6 +414,9 @@ msgstr "在地图上显示实体恭喜是一个试验特征功能"
 
 msgid "Display Tracked Entity relationships"
 msgstr "显示跟踪实体关系"
+
+msgid "Show relationships that connect entities outside \"{{program}}\" program"
+msgstr ""
 
 msgid "Selection mode"
 msgstr "选择模式"

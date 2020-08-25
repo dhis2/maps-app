@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-24T20:03:46.040Z\n"
+"POT-Creation-Date: 2020-08-25T19:35:36.976Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -405,16 +405,19 @@ msgstr "Indicador do programa"
 msgid "Item type"
 msgstr "Tipo de item"
 
-msgid "Program status"
-msgstr "Status do programa"
-
-msgid "Select program period"
-msgstr "Selecionar período do programa"
-
 msgid "Select period when tracked entities were last updated"
 msgstr ""
 "Selecione o período em que as entidades rastreadas foram actualizadas pela "
 "última vez"
+
+msgid "Program/Enrollment date"
+msgstr ""
+
+msgid "the date a tracked entity was registered or enrolled in a program"
+msgstr ""
+
+msgid "Program status"
+msgstr "Status do programa"
 
 msgid "relationships"
 msgstr "Relacionamentos"
@@ -439,6 +442,9 @@ msgstr ""
 
 msgid "Display Tracked Entity relationships"
 msgstr "Exibir relacionamentos de entidade rastreada"
+
+msgid "Show relationships that connect entities outside \"{{program}}\" program"
+msgstr ""
 
 msgid "Selection mode"
 msgstr "Modo de seleção"
