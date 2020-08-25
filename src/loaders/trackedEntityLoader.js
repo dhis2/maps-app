@@ -40,6 +40,7 @@ const trackedEntityLoader = async config => {
             config.relationshipLineColor = customConfig.relationships.lineColor;
             config.relationshipOutsideProgram =
                 customConfig.relationships.relationshipOutsideProgram;
+            config.periodType = customConfig.periodType;
         } catch (e) {
             // Failed to load JSON relationship config, assuming no relationships
         }
