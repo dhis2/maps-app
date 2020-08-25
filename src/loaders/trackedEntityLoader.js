@@ -61,6 +61,7 @@ const trackedEntityLoader = async config => {
         relatedPointColor,
         relatedPointRadius,
         relationshipLineColor,
+        relationshipOutsideProgram,
     } = config;
 
     const name = program ? program.name : i18n.t('Tracked entity');
@@ -159,6 +160,7 @@ const trackedEntityLoader = async config => {
         const dataWithRels = await getDataWithRelationships(
             instances,
             relationshipType,
+            relationshipOutsideProgram,
             {
                 orgUnits,
                 organisationUnitSelectionMode,

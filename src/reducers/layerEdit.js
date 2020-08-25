@@ -504,18 +504,19 @@ const layerEdit = (state = null, action) => {
                 program: null,
                 programStage: null,
                 relationshipType: null,
+                relationshipOutsideProgram: null,
             };
-
-        // case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET:
-        //     return {
-        //         ...state,
-        //         showRelationships: action.value,
-        //     };
 
         case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_TYPE_SET:
             return {
                 ...state,
                 relationshipType: action.relationshipType,
+            };
+
+        case types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_OUTSIDE_PROGRAM_SET:
+            return {
+                ...state,
+                relationshipOutsideProgram: action.payload,
             };
 
         case types.LAYER_EDIT_PROGRAM_STATUS_SET:

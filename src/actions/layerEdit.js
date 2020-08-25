@@ -329,16 +329,15 @@ export const setTrackedEntityType = trackedEntityType => ({
     trackedEntityType,
 });
 
-// // Set the type of tracked entity relationship to render
-// export const setTrackedEntityShowRelationships = value => ({
-//     type: types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIPS_SHOW_SET,
-//     value,
-// });
-
 // Set the type of tracked entity relationship to render
 export const setTrackedEntityRelationshipType = relationshipType => ({
     type: types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_TYPE_SET,
     relationshipType,
+});
+
+export const setTrackedEntityRelationshipOutsideProgram = checked => ({
+    type: types.LAYER_EDIT_TRACKED_ENTITY_RELATIONSHIP_OUTSIDE_PROGRAM_SET,
+    payload: checked,
 });
 
 // Set program status for a TEI
