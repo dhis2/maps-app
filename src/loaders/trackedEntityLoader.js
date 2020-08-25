@@ -38,6 +38,8 @@ const trackedEntityLoader = async config => {
             config.relatedPointColor = customConfig.relationships.pointColor;
             config.relatedPointRadius = customConfig.relationships.pointRadius;
             config.relationshipLineColor = customConfig.relationships.lineColor;
+            config.relationshipOutsideProgram =
+                customConfig.relationships.relationshipOutsideProgram;
         } catch (e) {
             // Failed to load JSON relationship config, assuming no relationships
         }

@@ -74,6 +74,7 @@ const validLayerProperties = [
     'relatedPointColor',
     'relatedPointRadius',
     'relationshipLineColor',
+    'relationshipOutsideProgram',
 ];
 
 const models = ['program', 'programStage', 'organisationUnitGroupSet'];
@@ -141,6 +142,7 @@ const models2objects = config => {
                 pointColor: config.relatedPointColor,
                 pointRadius: config.relatedPointRadius,
                 lineColor: config.relationshipLineColor,
+                relationshipOutsideProgram: config.relationshipOutsideProgram,
             },
         });
 
@@ -148,6 +150,7 @@ const models2objects = config => {
         delete config.relatedPointColor;
         delete config.relatedPointRadius;
         delete config.relationshipLineColor;
+        delete config.relationshipOutsideProgram;
     }
 
     if (isObject(config.config)) {
