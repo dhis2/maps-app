@@ -44,9 +44,9 @@ export const PeriodTypeSelect = ({
             />
             <Radio
                 value="program"
-                label={i18n.t(
-                    'Program/Enrollment date: the date a tracked entity was registered or enrolled in a program'
-                )}
+                label={`${i18n.t('Program/Enrollment date')}: ${i18n.t(
+                    'the date a tracked entity was registered or enrolled in a program'
+                )}`}
                 className={classes.radio}
             />
         </RadioGroup>

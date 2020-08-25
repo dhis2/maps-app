@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-25T19:25:36.407Z\n"
-"PO-Revision-Date: 2020-08-25T19:25:36.407Z\n"
+"POT-Creation-Date: 2020-08-25T19:35:36.976Z\n"
+"PO-Revision-Date: 2020-08-25T19:35:36.976Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -372,6 +372,12 @@ msgid "Item type"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "Program/Enrollment date"
+msgstr ""
+
+msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
