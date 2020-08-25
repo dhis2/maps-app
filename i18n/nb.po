@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-24T20:03:46.040Z\n"
+"POT-Creation-Date: 2020-08-25T19:35:36.976Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -395,14 +395,17 @@ msgstr "Programindikatorer"
 msgid "Item type"
 msgstr "Elementtype"
 
-msgid "Program status"
-msgstr "Programstatus"
-
-msgid "Select program period"
-msgstr "Velg programperiode"
-
 msgid "Select period when tracked entities were last updated"
 msgstr "Velg periode da sporede enheter sist ble oppdatert"
+
+msgid "Program/Enrollment date"
+msgstr ""
+
+msgid "the date a tracked entity was registered or enrolled in a program"
+msgstr ""
+
+msgid "Program status"
+msgstr "Programstatus"
 
 msgid "relationships"
 msgstr "relasjoner"
@@ -425,6 +428,9 @@ msgstr ""
 
 msgid "Display Tracked Entity relationships"
 msgstr "Vis sporet enhetsrelasjoner"
+
+msgid "Show relationships that connect entities outside \"{{program}}\" program"
+msgstr ""
 
 msgid "Selection mode"
 msgstr "Valgmodus"

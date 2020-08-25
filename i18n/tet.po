@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-24T20:03:46.040Z\n"
+"POT-Creation-Date: 2020-08-25T19:35:36.976Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Tetum (Tetun) (https://www.transifex.com/hisp-uio/teams/100509/tet/)\n"
@@ -381,13 +381,16 @@ msgstr ""
 msgid "Item type"
 msgstr ""
 
-msgid "Program status"
-msgstr ""
-
-msgid "Select program period"
-msgstr ""
-
 msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "Program/Enrollment date"
+msgstr ""
+
+msgid "the date a tracked entity was registered or enrolled in a program"
+msgstr ""
+
+msgid "Program status"
 msgstr ""
 
 msgid "relationships"
@@ -408,6 +411,9 @@ msgid ""
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid "Show relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
 
 msgid "Selection mode"
