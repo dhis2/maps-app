@@ -12,7 +12,7 @@ const styles = {
         paddingBottom: 20,
     },
     radio: {
-        height: 36,
+        height: 50,
     },
     label: {
         margin: '12px 0',
@@ -44,7 +44,9 @@ export const PeriodTypeSelect = ({
             />
             <Radio
                 value="program"
-                label={i18n.t('Select program period')}
+                label={i18n.t(
+                    'Program/Enrollment date: the date a tracked entity was registered or enrolled in a program'
+                )}
                 className={classes.radio}
             />
         </RadioGroup>
