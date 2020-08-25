@@ -57,8 +57,8 @@ const isIndexInstance = (instance, type) => {
     return hasChildren;
 };
 
-const getTargetInstances = soureInstances =>
-    soureInstances.reduce(
+const getTargetInstances = sourceInstances =>
+    sourceInstances.reduce(
         (ids, instance) => [
             ...ids,
             ...instance.relationships.map(rel => parseTEInstanceId(rel.to)),
