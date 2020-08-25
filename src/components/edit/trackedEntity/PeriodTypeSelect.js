@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import Radio from '../../core/Radio';
 import { RadioGroup } from '@material-ui/core';
-import { setThematicMapType } from '../../../actions/layerEdit';
+import { setPeriodType } from '../../../actions/layerEdit';
 
 const styles = {
     radioGroup: {
@@ -14,12 +14,16 @@ const styles = {
     radio: {
         height: 36,
     },
+    label: {
+        margin: '12px 0',
+        fontSize: 14,
+    },
 };
 
 export const PeriodTypeSelect = ({
     program,
     periodType = 'lastUpdated',
-    // setThematicMapType,
+    setPeriodType,
     classes,
 }) => {
     const label = i18n.t(
@@ -30,8 +34,7 @@ export const PeriodTypeSelect = ({
         <RadioGroup
             name="type"
             value={periodType}
-            // onChange={(event, type) => setThematicMapType(type)}
-            onChange={() => {}}
+            onChange={(event, type) => setPeriodType({ id: type })}
             className={classes.radioGroup}
         >
             <Radio
@@ -46,24 +49,21 @@ export const PeriodTypeSelect = ({
             />
         </RadioGroup>
     ) : (
-        <div
-            style={{
-                margin: '12px 0',
-                fontSize: 14,
-            }}
-        >
-            {label}:
-        </div>
+        <div className={classes.label}>{label}:</div>
     );
 };
 
 PeriodTypeSelect.propTypes = {
     periodType: PropTypes.string,
     program: PropTypes.object,
-    // setThematicMapType: PropTypes.func.isRequired,
+    setPeriodType: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(null, { setThematicMapType })(
-    withStyles(styles)(PeriodTypeSelect)
-);
+export default connect(
+    ({ layerEdit }) => ({
+        program: layerEdit.program,
+        periodType: layerEdit.periodType,
+    }),
+    { setPeriodType }
+)(withStyles(styles)(PeriodTypeSelect));
