@@ -57,6 +57,7 @@ const validLayerProperties = [
     'organisationUnitSelectionMode',
     'params',
     'periodName',
+    'periodType',
     'renderingStrategy',
     'program',
     'programStage',
@@ -74,6 +75,7 @@ const validLayerProperties = [
     'relatedPointColor',
     'relatedPointRadius',
     'relationshipLineColor',
+    'relationshipOutsideProgram',
 ];
 
 const models = ['program', 'programStage', 'organisationUnitGroupSet'];
@@ -134,20 +136,27 @@ const models2objects = config => {
         delete config.params;
         delete config.filter;
         delete config.periodName;
-    } else if (config.relationshipType) {
+    } else if (config.layer === 'trackedEntity') {
         config.config = JSON.stringify({
-            relationships: {
-                type: config.relationshipType,
-                pointColor: config.relatedPointColor,
-                pointRadius: config.relatedPointRadius,
-                lineColor: config.relationshipLineColor,
-            },
+            relationships: config.relationshipType
+                ? {
+                      type: config.relationshipType,
+                      pointColor: config.relatedPointColor,
+                      pointRadius: config.relatedPointRadius,
+                      lineColor: config.relationshipLineColor,
+                      relationshipOutsideProgram:
+                          config.relationshipOutsideProgram,
+                  }
+                : null,
+            periodType: config.periodType,
         });
 
         delete config.relationshipType;
         delete config.relatedPointColor;
         delete config.relatedPointRadius;
         delete config.relationshipLineColor;
+        delete config.relationshipOutsideProgram;
+        delete config.periodType;
     }
 
     if (isObject(config.config)) {

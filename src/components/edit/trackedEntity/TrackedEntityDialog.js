@@ -9,8 +9,10 @@ import TextField from '../../core/TextField';
 import SelectField from '../../core/SelectField';
 import Checkbox from '../../core/Checkbox';
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect';
+import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramStatusSelect from './ProgramStatusSelect';
+import PeriodTypeSelect from './PeriodTypeSelect';
 import StartEndDates from '../../periods/StartEndDates';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
@@ -33,6 +35,7 @@ import {
     setProgramStatus,
     setFollowUpStatus,
     setTrackedEntityRelationshipType,
+    setTrackedEntityRelationshipOutsideProgram,
     setStartDate,
     setEndDate,
     setOrgUnitRoot,
@@ -52,7 +55,6 @@ import {
     getOrgUnitNodesFromRows,
 } from '../../../util/analytics';
 import { getStartEndDateError } from '../../../util/time';
-import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect';
 
 const styles = {
     ...layerDialogStyles,
@@ -78,6 +80,7 @@ export class TrackedEntityDialog extends Component {
         relationshipLineColor: PropTypes.string,
         followUp: PropTypes.bool,
         relationshipType: PropTypes.string,
+        relationshipOutsideProgram: PropTypes.bool,
         organisationUnitSelectionMode: PropTypes.string,
         program: PropTypes.object,
         programStatus: PropTypes.string,
@@ -93,6 +96,7 @@ export class TrackedEntityDialog extends Component {
         setProgram: PropTypes.func.isRequired,
         setProgramStatus: PropTypes.func.isRequired,
         setTrackedEntityRelationshipType: PropTypes.func.isRequired,
+        setTrackedEntityRelationshipOutsideProgram: PropTypes.func.isRequired,
         setOrgUnitRoot: PropTypes.func.isRequired,
         setStartDate: PropTypes.func.isRequired,
         setEndDate: PropTypes.func.isRequired,
@@ -177,6 +181,7 @@ export class TrackedEntityDialog extends Component {
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
+            relationshipOutsideProgram,
         } = this.props;
 
         const {
@@ -185,6 +190,7 @@ export class TrackedEntityDialog extends Component {
             setProgramStatus,
             setFollowUpStatus,
             setTrackedEntityRelationshipType,
+            setTrackedEntityRelationshipOutsideProgram,
             toggleOrgUnit,
             setOrgUnitMode,
             setEventPointColor,
@@ -204,10 +210,6 @@ export class TrackedEntityDialog extends Component {
             showBuffer,
             periodError,
         } = this.state;
-
-        const periodHelp = program
-            ? i18n.t('Select program period')
-            : i18n.t('Select period when tracked entities were last updated');
 
         return (
             <div>
@@ -313,28 +315,48 @@ export class TrackedEntityDialog extends Component {
                                     }}
                                 />
                                 {this.state.showRelationshipsChecked && (
-                                    <TrackedEntityRelationshipTypeSelect
-                                        trackedEntityType={
-                                            this.props.trackedEntityType
-                                        }
-                                        value={relationshipType}
-                                        onChange={
-                                            setTrackedEntityRelationshipType
-                                        }
-                                        style={{
-                                            ...styles.select,
-                                            width: 276,
-                                            margin: '0 0 0 48px',
-                                        }}
-                                    />
+                                    <Fragment>
+                                        <TrackedEntityRelationshipTypeSelect
+                                            trackedEntityType={
+                                                this.props.trackedEntityType
+                                            }
+                                            value={relationshipType}
+                                            onChange={
+                                                setTrackedEntityRelationshipType
+                                            }
+                                            style={{
+                                                ...styles.select,
+                                                width: 276,
+                                                margin: '0 0 0 48px',
+                                            }}
+                                        />
+                                        {program && (
+                                            <Checkbox
+                                                label={i18n.t(
+                                                    'Show relationships that connect entities outside "{{program}}" program',
+                                                    {
+                                                        program: program.name,
+                                                    }
+                                                )}
+                                                checked={
+                                                    relationshipOutsideProgram ===
+                                                    true
+                                                }
+                                                onCheck={
+                                                    setTrackedEntityRelationshipOutsideProgram
+                                                }
+                                                style={{
+                                                    marginTop: 30,
+                                                }}
+                                            />
+                                        )}
+                                    </Fragment>
                                 )}
                             </div>
                         ))}
                     {tab === 'period' && (
                         <div style={styles.flexRowFlow}>
-                            <div style={{ margin: '12px 0', fontSize: 14 }}>
-                                {periodHelp}:
-                            </div>
+                            <PeriodTypeSelect />
                             <StartEndDates
                                 startDate={startDate}
                                 endDate={endDate}
@@ -342,7 +364,6 @@ export class TrackedEntityDialog extends Component {
                             />
                         </div>
                     )}
-
                     {tab === 'orgunits' && (
                         <div style={styles.flexColumnFlow}>
                             <div
@@ -552,6 +573,7 @@ export default connect(
         setProgramStatus,
         setFollowUpStatus,
         setTrackedEntityRelationshipType,
+        setTrackedEntityRelationshipOutsideProgram,
         setStartDate,
         setEndDate,
         setOrgUnitRoot,

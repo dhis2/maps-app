@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-24T20:03:46.040Z\n"
-"PO-Revision-Date: 2020-08-24T20:03:46.040Z\n"
+"POT-Creation-Date: 2020-08-25T19:35:36.976Z\n"
+"PO-Revision-Date: 2020-08-25T19:35:36.976Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -371,13 +371,16 @@ msgstr ""
 msgid "Item type"
 msgstr ""
 
-msgid "Program status"
-msgstr ""
-
-msgid "Select program period"
-msgstr ""
-
 msgid "Select period when tracked entities were last updated"
+msgstr ""
+
+msgid "Program/Enrollment date"
+msgstr ""
+
+msgid "the date a tracked entity was registered or enrolled in a program"
+msgstr ""
+
+msgid "Program status"
 msgstr ""
 
 msgid "relationships"
@@ -396,6 +399,9 @@ msgid "Displaying tracked entity relationships in Maps is an experimental featur
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid "Show relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
 
 msgid "Selection mode"

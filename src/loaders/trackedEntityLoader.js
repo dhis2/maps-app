@@ -38,6 +38,9 @@ const trackedEntityLoader = async config => {
             config.relatedPointColor = customConfig.relationships.pointColor;
             config.relatedPointRadius = customConfig.relationships.pointRadius;
             config.relationshipLineColor = customConfig.relationships.lineColor;
+            config.relationshipOutsideProgram =
+                customConfig.relationships.relationshipOutsideProgram;
+            config.periodType = customConfig.periodType;
         } catch (e) {
             // Failed to load JSON relationship config, assuming no relationships
         }
@@ -50,6 +53,7 @@ const trackedEntityLoader = async config => {
         programStatus,
         followUp,
         relationshipType: relationshipTypeID,
+        periodType,
         startDate,
         endDate,
         rows,
@@ -60,6 +64,7 @@ const trackedEntityLoader = async config => {
         relatedPointColor,
         relatedPointRadius,
         relationshipLineColor,
+        relationshipOutsideProgram,
     } = config;
 
     const name = program ? program.name : i18n.t('Tracked entity');
@@ -92,7 +97,7 @@ const trackedEntityLoader = async config => {
     }
 
     if (program) {
-        url += `&program=${program.id}&programStartDate=${startDate}&programEndDate=${endDate}`;
+        url += `&program=${program.id}`;
 
         if (programStatus) {
             url += `&programStatus=${programStatus}`;
@@ -105,7 +110,13 @@ const trackedEntityLoader = async config => {
             url += `&followUp=${followUp ? 'TRUE' : 'FALSE'}`;
         }
     } else {
-        url += `&trackedEntityType=${trackedEntityType.id}&lastUpdatedStartDate=${startDate}&lastUpdatedEndDate=${endDate}`;
+        url += `&trackedEntityType=${trackedEntityType.id}`;
+    }
+
+    if (periodType === 'program') {
+        url += `&programStartDate=${startDate}&programEndDate=${endDate}`;
+    } else {
+        url += `&lastUpdatedStartDate=${startDate}&lastUpdatedEndDate=${endDate}`;
     }
 
     // https://docs.dhis2.org/master/en/developer/html/webapi_tracker_api.html#webapi_tei_grid_query_request_syntax
@@ -152,6 +163,7 @@ const trackedEntityLoader = async config => {
         const dataWithRels = await getDataWithRelationships(
             instances,
             relationshipType,
+            relationshipOutsideProgram,
             {
                 orgUnits,
                 organisationUnitSelectionMode,
