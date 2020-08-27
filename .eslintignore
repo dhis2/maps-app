@@ -1,4 +1,5 @@
 node_modules/
 build/
 webpack.config.js
+src/locales/index.js
 *.spec.js
