@@ -173,7 +173,7 @@ const PluginContainer = () => {
                 const ref = createRef();
 
                 const generateClassName = createGenerateClassName({
-                    productionPrefix: `map-plugin-${rendering}`,
+                    productionPrefix: `map-plugin-${rendering}-`,
                 });
 
                 render(
