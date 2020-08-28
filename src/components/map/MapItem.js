@@ -4,13 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import mapApi from './MapApi';
 
 const styles = () => ({
-    item: ({ count }) => ({
+    item: {
         position: 'relative',
         boxSizing: 'border-box',
-        width: count === 4 ? '50%' : '33.3333%',
         borderRight: '1px solid #aaa',
         borderBottom: '1px solid #aaa',
-    }),
+    },
 });
 
 class MapItem extends PureComponent {
@@ -74,11 +73,17 @@ class MapItem extends PureComponent {
     }
 
     render() {
-        const { children, classes } = this.props;
+        const { count, children, classes } = this.props;
         const { map } = this.state;
 
         return (
-            <div ref={node => (this.node = node)} className={classes.item}>
+            <div
+                ref={node => (this.node = node)}
+                className={classes.item}
+                style={{
+                    width: count === 4 ? '50%' : '33.3333%',
+                }}
+            >
                 {map && children}
             </div>
         );
