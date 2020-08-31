@@ -15,6 +15,7 @@ export class NumericLegendStyle extends Component {
     static propTypes = {
         method: PropTypes.number,
         dataItem: PropTypes.object,
+        legendSetError: PropTypes.string,
         setClassification: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,
         style: PropTypes.object,
@@ -33,13 +34,13 @@ export class NumericLegendStyle extends Component {
     }
 
     render() {
-        const { method, style } = this.props;
+        const { method, legendSetError, style } = this.props;
 
         return (
             <div style={style}>
                 <LegendTypeSelect method={method} />
                 {method === CLASSIFICATION_PREDEFINED ? (
-                    <LegendSetSelect />
+                    <LegendSetSelect legendSetError={legendSetError} />
                 ) : (
                     <Classification />
                 )}
