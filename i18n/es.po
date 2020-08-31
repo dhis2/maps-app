@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:43:41.994Z\n"
+"POT-Creation-Date: 2020-08-31T12:05:53.260Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -413,6 +413,9 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
+msgstr ""
+
+msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
