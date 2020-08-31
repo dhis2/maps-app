@@ -14,6 +14,7 @@ export class LegendSetSelect extends Component {
     static propTypes = {
         legendSet: PropTypes.object,
         legendSets: PropTypes.array,
+        legendSetError: PropTypes.string,
         loadLegendSets: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,
     };
@@ -27,7 +28,12 @@ export class LegendSetSelect extends Component {
     }
 
     render() {
-        const { legendSet, legendSets, setLegendSet } = this.props;
+        const {
+            legendSet,
+            legendSets,
+            legendSetError,
+            setLegendSet,
+        } = this.props;
 
         return (
             <SelectField
@@ -35,6 +41,7 @@ export class LegendSetSelect extends Component {
                 loading={legendSets ? false : true}
                 items={legendSets}
                 value={legendSet ? legendSet.id : null}
+                errorText={legendSetError}
                 onChange={setLegendSet}
                 style={style}
             />

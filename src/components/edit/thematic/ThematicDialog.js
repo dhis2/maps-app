@@ -117,6 +117,7 @@ export class ThematicDialog extends Component {
         labelFontStyle: PropTypes.string,
         labelFontWeight: PropTypes.string,
         legendSet: PropTypes.object,
+        method: PropTypes.number,
         indicatorGroup: PropTypes.object,
         dataElementGroup: PropTypes.object,
         program: PropTypes.object,
@@ -307,6 +308,7 @@ export class ThematicDialog extends Component {
             periodTypeError,
             periodError,
             orgUnitsError,
+            legendSetError,
         } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
@@ -590,6 +592,7 @@ export class ThematicDialog extends Component {
                             <div style={{ ...styles.flexColumn, marginTop: 0 }}>
                                 <NumericLegendStyle
                                     dataItem={dataItem}
+                                    legendSetError={legendSetError}
                                     style={styles.select}
                                 />
                                 <div style={styles.flexInnerColumnFlow}>
@@ -680,6 +683,8 @@ export class ThematicDialog extends Component {
             filters,
             startDate,
             endDate,
+            method,
+            legendSet,
         } = this.props;
         const dataItem = getDataItemFromColumns(columns);
         const period = getPeriodFromFilters(filters);
@@ -774,6 +779,14 @@ export class ThematicDialog extends Component {
                 'orgUnitsError',
                 i18n.t('No organisation units are selected'),
                 'orgunits'
+            );
+        }
+
+        if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
+            return this.setErrorState(
+                'legendSetError',
+                i18n.t('No legend set is selected'),
+                'style'
             );
         }
 

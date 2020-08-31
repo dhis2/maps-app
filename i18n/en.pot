@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-05-28T11:43:41.994Z\n"
-"PO-Revision-Date: 2020-05-28T11:43:41.994Z\n"
+"POT-Creation-Date: 2020-08-31T12:05:53.260Z\n"
+"PO-Revision-Date: 2020-08-31T12:05:53.261Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -399,6 +399,9 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
+msgstr ""
+
+msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
