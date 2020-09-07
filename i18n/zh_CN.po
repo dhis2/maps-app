@@ -322,7 +322,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "事件状态"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
