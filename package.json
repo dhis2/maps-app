@@ -135,7 +135,7 @@
         "jest": "^22.4.2",
         "nyc": "^11.4.1",
         "optipng-bin": "^4.0.0",
-        "pngquant-bin": "^3.1.1",
+        "pngquant-bin": "^6.0.0",
         "precommit-hook": "3.0.0",
         "prettier": "^1.13.4",
         "react-addons-test-utils": "^15.6.0",
