@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-05-28T11:58:20.945Z\n"
+"POT-Creation-Date: 2020-08-31T15:15:10.665Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -414,6 +414,9 @@ msgstr "需要期间类型"
 
 msgid "Period is required"
 msgstr "需要期间"
+
+msgid "No legend set is selected"
+msgstr ""
 
 msgid "Indicator"
 msgstr "指标"
