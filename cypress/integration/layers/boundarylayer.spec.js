@@ -57,7 +57,7 @@ context('Boundary Layers', () => {
             1
         );
 
-        cy.get('[data-value="wjP19dkFeIk"]') // District
+        cy.get('[data-value="2"]') // District
             .should('have.length', 1)
             .click();
         cy.get('body').click(); // Close the modal menu

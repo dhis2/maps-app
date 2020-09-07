@@ -217,9 +217,12 @@ const mapStateToProps = state => {
     return null;
 };
 
-export default connect(mapStateToProps, {
-    selectOrgUnit,
-    unselectOrgUnit,
-    setDataFilter,
-    clearDataFilter,
-})(DataTable);
+export default connect(
+    mapStateToProps,
+    {
+        selectOrgUnit,
+        unselectOrgUnit,
+        setDataFilter,
+        clearDataFilter,
+    }
+)(DataTable);
