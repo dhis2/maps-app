@@ -73,7 +73,7 @@
         "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.2",
         "lodash": "^4.17.20",
-        "loglevel": "^1.6.8",
+        "loglevel": "^1.7.0",
         "promise-polyfill": "^8.1.0",
         "prop-types": "^15.6.2",
         "react": "16.13.1",
