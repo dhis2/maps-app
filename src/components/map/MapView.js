@@ -29,6 +29,7 @@ const MapView = props => {
         <Fragment>
             {splitViewLayer ? (
                 <SplitView
+                    isPlugin={isPlugin}
                     layer={splitViewLayer}
                     basemap={basemap}
                     controls={
