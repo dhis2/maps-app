@@ -436,7 +436,7 @@ msgid "Selected only"
 msgstr ""
 
 msgid "Selected and below"
-msgstr ""
+msgstr "المختارة وما أدناها"
 
 msgid "Selected and all below"
 msgstr ""
@@ -848,7 +848,7 @@ msgid "OSM Detailed"
 msgstr ""
 
 msgid "Google Streets"
-msgstr ""
+msgstr "الشوارع بحسب غوغل"
 
 msgid "Google Hybrid"
 msgstr ""
