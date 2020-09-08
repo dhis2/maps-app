@@ -68,6 +68,7 @@ class Map extends Component {
 
         if (isPlugin) {
             map.on('click', props.onCloseContextMenu);
+            map.on('fullscreenchange', this.onFullScreenChange);
         } else {
             map.on('contextmenu', this.onRightClick, this);
         }
@@ -187,6 +188,9 @@ class Map extends Component {
     };
 
     onMapReady = map => this.setState({ map });
+
+    onFullScreenChange = ({ isFullscreen }) =>
+        this.map.toggleScrollZoom(isFullscreen);
 }
 
 export default withStyles(styles)(Map);
