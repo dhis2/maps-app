@@ -99,7 +99,9 @@ class SplitView extends PureComponent {
             controls[control.type] = map.getControlContainer(control.type);
         });
 
-        map.on('fullscreenchange', this.onFullScreenChange);
+        if (this.props.isPlugin) {
+            map.on('fullscreenchange', this.onFullScreenChange);
+        }
 
         this.setState({ controls });
     };
