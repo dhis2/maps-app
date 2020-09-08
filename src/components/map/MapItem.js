@@ -18,6 +18,8 @@ class MapItem extends PureComponent {
     };
 
     static propTypes = {
+        isPlugin: PropTypes.bool,
+        isFullscreen: PropTypes.bool,
         index: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
         layerId: PropTypes.string.isRequired,
@@ -30,8 +32,12 @@ class MapItem extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
+
+        const { isPlugin = false } = props;
+
         this.map = mapApi({
             attributionControl: false,
+            scrollZoom: !isPlugin,
         });
 
         this.map.on('ready', this.onMapReady);
@@ -59,9 +65,16 @@ class MapItem extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.count !== prevProps.count) {
+        const { count, isPlugin, isFullscreen } = this.props;
+
+        if (count !== prevProps.count) {
             this.fitLayerBounds();
         }
+
+        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
+            this.map.toggleScrollZoom(isFullscreen);
+        }
+
         this.map.resize();
     }
 
