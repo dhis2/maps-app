@@ -416,7 +416,7 @@ msgid "Period is required"
 msgstr "需要期间"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "未选择图例集"
 
 msgid "Indicator"
 msgstr "指标"
