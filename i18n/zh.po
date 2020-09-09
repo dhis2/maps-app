@@ -333,13 +333,13 @@ msgid "Show no data"
 msgstr "不显示数据"
 
 msgid "Low radius"
-msgstr ""
+msgstr "低半径"
 
 msgid "High radius"
-msgstr ""
+msgstr "高半径"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "半径应介于{{min}}至{{max}}之间"
 
 msgid "Indicator group is required"
 msgstr "需要指标组"
@@ -366,7 +366,7 @@ msgid "Period is required"
 msgstr "需要期间"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "未选择图例集"
 
 msgid "Indicator"
 msgstr "指标"
@@ -387,10 +387,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "计划/注册日期"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr ""
+msgstr "被跟踪实体在项目中注册或登记的日期"
 
 msgid "Program status"
 msgstr "项目状态"
@@ -416,7 +416,7 @@ msgid "Display Tracked Entity relationships"
 msgstr "显示跟踪实体关系"
 
 msgid "Show relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
+msgstr "显示将“ {{program}}”项目外部的实体连接起来的关系"
 
 msgid "Selection mode"
 msgstr "选择模式"
@@ -574,7 +574,7 @@ msgid "Remove layer"
 msgstr "移除图层"
 
 msgid "Mid"
-msgstr ""
+msgstr "中"
 
 msgid "Filters"
 msgstr "过滤器"
@@ -873,19 +873,19 @@ msgid "Skipped"
 msgstr "跳过"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "胆管"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "气泡图"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "自动颜色图例"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "预定义的颜色图例"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "单色图例"
 
 msgid "Equal intervals"
 msgstr "平等间隔"
