@@ -71,7 +71,12 @@ const MapContainer = props => {
     // Trigger map resize when panels are expanded or collapsed
     useEffect(() => {
         setResizeCount(resizeCount + 1);
-    }, [layersPanelOpen, interpretationsPanelOpen, dataTableOpen]);
+    }, [
+        layersPanelOpen,
+        interpretationsPanelOpen,
+        dataTableOpen,
+        dataTableHeight,
+    ]);
 
     return (
         <div style={style}>
