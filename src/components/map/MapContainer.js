@@ -68,10 +68,15 @@ const MapContainer = props => {
         className += ` ${classes.download} dhis2-map-download`;
     }
 
-    // Trigger map resize when panels are expanded or collapsed
+    // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
         setResizeCount(resizeCount + 1);
-    }, [layersPanelOpen, interpretationsPanelOpen, dataTableOpen]);
+    }, [
+        layersPanelOpen,
+        interpretationsPanelOpen,
+        dataTableOpen,
+        dataTableHeight,
+    ]);
 
     return (
         <div style={style}>
