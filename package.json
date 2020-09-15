@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "35.0.6",
+    "version": "35.0.7",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -64,7 +64,7 @@
         "d2": "^31.8.2",
         "d2-utilizr": "^0.2.15",
         "d3-axis": "^2.0.0",
-        "d3-color": "^1.4.1",
+        "d3-color": "^2.0.0",
         "d3-format": "^2.0.0",
         "d3-scale": "^3.2.2",
         "d3-selection": "^2.0.0",
