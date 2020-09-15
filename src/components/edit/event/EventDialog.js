@@ -117,6 +117,8 @@ export class EventDialog extends Component {
             rows,
             filters,
             defaultPeriod,
+            startDate,
+            endDate,
             setOrgUnitRoot,
             setPeriod,
         } = this.props;
@@ -130,7 +132,7 @@ export class EventDialog extends Component {
         }
 
         // Set default period from system settings
-        if (!period && defaultPeriod) {
+        if (!period && !startDate && !endDate && defaultPeriod) {
             setPeriod({
                 id: defaultPeriod,
             });
@@ -424,9 +426,10 @@ export class EventDialog extends Component {
             startDate,
             endDate,
         } = this.props;
+
         const period = getPeriodFromFilters(filters) || {
             id: 'START_END_DATES',
-        }; // TODO: refactor
+        };
 
         if (!program) {
             return this.setErrorState(

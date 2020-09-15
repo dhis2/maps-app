@@ -183,7 +183,7 @@ class ThematicLayer extends Layer {
     render() {
         const { periods, renderingStrategy, filters } = this.props;
         const { period, popup } = this.state;
-        const { id } = getPeriodFromFilters(filters);
+        const { id } = getPeriodFromFilters(filters) || {};
 
         return (
             <Fragment>
