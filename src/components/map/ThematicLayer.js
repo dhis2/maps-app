@@ -132,7 +132,11 @@ class ThematicLayer extends Layer {
 
     // Set initial period
     setPeriod(callback) {
-        const { period, periods, renderingStrategy } = this.props;
+        const {
+            period,
+            periods,
+            renderingStrategy = RENDERING_STRATEGY_SINGLE,
+        } = this.props;
 
         if (!period && !periods) {
             return;
