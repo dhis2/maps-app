@@ -114,7 +114,7 @@ export class ThematicDialog extends Component {
         dataElementGroup: PropTypes.object,
         noDataColor: PropTypes.string,
         program: PropTypes.object,
-        operand: PropTypes.string,
+        operand: PropTypes.bool,
         defaultPeriod: PropTypes.string,
         startDate: PropTypes.string,
         endDate: PropTypes.string,
