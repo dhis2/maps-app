@@ -333,7 +333,7 @@ export class TrackedEntityDialog extends Component {
                                         {program && (
                                             <Checkbox
                                                 label={i18n.t(
-                                                    'Show relationships that connect entities outside "{{program}}" program',
+                                                    'Include relationships that connect entities outside "{{program}}" program',
                                                     {
                                                         program: program.name,
                                                     }
