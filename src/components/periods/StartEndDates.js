@@ -17,7 +17,7 @@ const StartEndDates = props => {
         }
     }, [startDate, endDate, setStartDate, setEndDate]);
 
-    return startDate && endDate ? (
+    return startDate !== undefined && endDate !== undefined ? (
         <Fragment>
             <DatePicker
                 label={i18n.t('Start date')}
