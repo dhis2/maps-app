@@ -9,15 +9,16 @@ import styles from '../edit/LayerDialogStyles';
 
 const StartEndDates = props => {
     const { startDate, endDate, setStartDate, setEndDate, errorText } = props;
+    const hasDate = startDate !== undefined && endDate !== undefined;
 
     useEffect(() => {
-        if (!startDate && !endDate) {
+        if (!hasDate) {
             setStartDate(DEFAULT_START_DATE);
             setEndDate(DEFAULT_END_DATE);
         }
-    }, [startDate, endDate, setStartDate, setEndDate]);
+    }, [hasDate, setStartDate, setEndDate]);
 
-    return startDate && endDate ? (
+    return hasDate ? (
         <Fragment>
             <DatePicker
                 label={i18n.t('Start date')}
