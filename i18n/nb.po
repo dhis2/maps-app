@@ -430,7 +430,7 @@ msgid "Period is required"
 msgstr "Periode er påkrevd"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Ingen tegnforklaringsett valgt"
 
 msgid "Indicator"
 msgstr "Indikator"
