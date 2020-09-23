@@ -342,16 +342,16 @@ msgid "Aggregation type"
 msgstr "Aggregasjonstype"
 
 msgid "Show no data"
-msgstr ""
+msgstr "Vis ingen data"
 
 msgid "Low radius"
-msgstr ""
+msgstr "Lav radius"
 
 msgid "High radius"
-msgstr ""
+msgstr "Høy radius"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "Radius bør være mellom {{min}} og {{max}}"
 
 msgid "Indicator group is required"
 msgstr "Indikatorgruppe er påkrevd"
@@ -378,7 +378,7 @@ msgid "Period is required"
 msgstr "Periode er påkrevd"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Ingen tegnforklaringsett valgt"
 
 msgid "Indicator"
 msgstr "Indikator"
@@ -399,10 +399,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "Velg periode da sporede enheter sist ble oppdatert"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Program/Registreringsdato"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr ""
+msgstr "datoen en sporet enhet ble registrert eller registrert i et program"
 
 msgid "Program status"
 msgstr "Programstatus"
@@ -432,6 +432,7 @@ msgstr "Vis sporet enhetsrelasjoner"
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
+"Inkluder relasjoner som linker enheter utenfor \"{{program}}\" - programmet"
 
 msgid "Selection mode"
 msgstr "Valgmodus"
@@ -591,7 +592,7 @@ msgid "Remove layer"
 msgstr "Fjern lag"
 
 msgid "Mid"
-msgstr ""
+msgstr "Midt"
 
 msgid "Filters"
 msgstr "Filter"
@@ -895,19 +896,19 @@ msgid "Skipped"
 msgstr "Hoppet over"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Koroplet"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Boblekart"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Automatisk fargetegnforklaring"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Forhåndsdefinert fargetegnforklaring"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Ensfarget tegnforklaring"
 
 msgid "Equal intervals"
 msgstr "Like intervaller"
