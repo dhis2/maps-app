@@ -170,7 +170,7 @@ const PluginContainer = () => {
             if (domEl) {
                 const ref = createRef();
 
-                // Used to avoid class names collisions when multiple maps on a dashboard
+                // Used to avoid class names collisions with multiple maps on a dashboard
                 const id = config.id || generateUid();
 
                 const generateClassName = createGenerateClassName({
