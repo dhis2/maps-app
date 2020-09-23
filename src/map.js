@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core/styles';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
-import { isValidUid } from 'd2/uid';
+import { isValidUid, generateUid } from 'd2/uid';
 import log from 'loglevel'; // TODO: Remove version logging
 import i18n from './locales';
 import Plugin from './components/plugin/Plugin';
@@ -15,7 +15,6 @@ import {
     getExternalLayer,
     getBingMapsApiKey,
 } from './util/requests';
-import { getRenderingStrategy } from './util/analytics';
 import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
 import { defaultBasemaps } from './constants/basemaps';
@@ -167,13 +166,15 @@ const PluginContainer = () => {
     function drawMap(config) {
         if (config.el && !isUnmounted(config.el)) {
             const domEl = document.getElementById(config.el);
-            const rendering = getRenderingStrategy(config);
 
             if (domEl) {
                 const ref = createRef();
 
+                // Used to avoid class names collisions when there are multiple maps on a dashboard
+                const id = config.id || generateUid();
+
                 const generateClassName = createGenerateClassName({
-                    productionPrefix: `map-plugin-${rendering}-`,
+                    productionPrefix: `map-plugin-${id}-`,
                 });
 
                 render(
