@@ -85,7 +85,7 @@ msgid "Value"
 msgstr "Қиймат"
 
 msgid "Legend"
-msgstr ""
+msgstr "Таъриф"
 
 msgid "Range"
 msgstr ""
@@ -254,7 +254,7 @@ msgid "End date"
 msgstr ""
 
 msgid "Events"
-msgstr ""
+msgstr "Ҳодисалар"
 
 msgid "Group events"
 msgstr ""
@@ -333,10 +333,10 @@ msgid "relationships"
 msgstr ""
 
 msgid "Program status"
-msgstr ""
+msgstr "дастур ҳолати"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Кузатиб бориш"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -365,7 +365,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Кузатувдаги объектлар"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -422,10 +422,10 @@ msgid "Reporting rates"
 msgstr "Ҳисобот таърифлари"
 
 msgid "Event data items"
-msgstr ""
+msgstr "Ҳодисалар ҳақида маълумот элементлари"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Дастур кўрсатгичлари"
 
 msgid "Item type"
 msgstr ""
@@ -443,7 +443,7 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Нимадир нотўғри бажарилди"
 
 msgid "Refresh to try again"
 msgstr ""
@@ -556,7 +556,7 @@ msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr ""
+msgstr "Маълумотни юклаб олинг"
 
 msgid "Edit layer"
 msgstr ""
@@ -598,16 +598,16 @@ msgid "Groups"
 msgstr ""
 
 msgid "Longitude"
-msgstr ""
+msgstr "Кенглик"
 
 msgid "Latitude"
-msgstr ""
+msgstr "Кенглик"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
+msgstr "Охирги янгиланган"
 
 msgid "acres"
 msgstr ""
@@ -873,7 +873,7 @@ msgid "Financial year (Start April)"
 msgstr "Молиявий йил (бошланиши Апрель)"
 
 msgid "Today"
-msgstr ""
+msgstr "бугун"
 
 msgid "Yesterday"
 msgstr "Кеча"
@@ -945,7 +945,7 @@ msgid "Last 4 quarters"
 msgstr "Охирги 4 квартал"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Ушбу йилдаги кварталлар"
 
 msgid "This six-month"
 msgstr "Ушбу ярим йиллик"
@@ -980,7 +980,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Хато"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -1117,7 +1117,7 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "Тадбир"
 
 msgid "No data found"
 msgstr ""
