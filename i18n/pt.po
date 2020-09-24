@@ -542,7 +542,7 @@ msgstr ""
 "Engine no Google. Por favor, verifique a documentação do DHIS 2."
 
 msgid "Favorite"
-msgstr ""
+msgstr "Favoritos "
 
 msgid "is saved"
 msgstr ""
