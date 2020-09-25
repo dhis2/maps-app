@@ -147,6 +147,7 @@ class TrackedEntityLayer extends Layer {
             group.addLayer(relationshipConfig);
             group.addLayer(secondaryConfig);
         }
+
         group.addLayer(config);
 
         this.layer = group;
