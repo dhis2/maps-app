@@ -134,8 +134,7 @@ const trackedEntityLoader = async config => {
         );
     }
 
-    const data = toGeoJson(instances);
-    let relationships, secondaryData;
+    let data, relationships, secondaryData;
 
     if (relationshipTypeID) {
         const relationshipType = await apiFetch(
@@ -171,8 +170,17 @@ const trackedEntityLoader = async config => {
             }
         );
 
+        // Show all TEIs expect those that are shown as secondary instances
+        data = toGeoJson(
+            instances.filter(
+                tei => !dataWithRels.secondary.find(s => s.id === tei.id)
+            )
+        );
+
         relationships = dataWithRels.relationships;
         secondaryData = toGeoJson(dataWithRels.secondary);
+    } else {
+        data = toGeoJson(instances);
     }
 
     if (explanation) {
