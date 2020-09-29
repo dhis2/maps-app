@@ -7,7 +7,6 @@ export const fetchTEIs = async ({
     orgUnits,
     fields,
     organisationUnitSelectionMode,
-    targetIds,
 }) => {
     let url = `/trackedEntityInstances?skipPaging=true&fields=${fields}&ou=${orgUnits}`;
     if (organisationUnitSelectionMode) {
@@ -16,13 +15,9 @@ export const fetchTEIs = async ({
 
     url += `&trackedEntityType=${type.id}`;
 
-    const { trackedEntityInstances } = await apiFetch(url);
+    const data = await apiFetch(url);
 
-    return targetIds
-        ? trackedEntityInstances.filter(instance =>
-              targetIds.includes(instance.id)
-          )
-        : trackedEntityInstances;
+    return data.trackedEntityInstances;
 };
 
 const normalizeInstances = instances => {
@@ -56,15 +51,6 @@ const isIndexInstance = (instance, type) => {
     }
     return hasChildren;
 };
-
-const getTargetInstances = sourceInstances =>
-    sourceInstances.reduce(
-        (ids, instance) => [
-            ...ids,
-            ...instance.relationships.map(rel => parseTEInstanceId(rel.to)),
-        ],
-        []
-    );
 
 const getInstanceRelationships = (
     relationshipsById,
@@ -111,7 +97,6 @@ const fields = [
 export const getDataWithRelationships = async (
     sourceInstances,
     relationshipType,
-    relationshipOutsideProgram,
     { orgUnits, organisationUnitSelectionMode }
 ) => {
     const from = relationshipType.fromConstraint;
@@ -126,27 +111,24 @@ export const getDataWithRelationships = async (
 
     const isRecursive = from.trackedEntityType.id === to.trackedEntityType.id;
 
-    const filteredSourceInstances = isRecursive
-        ? sourceInstances.filter(instance =>
-              isIndexInstance(instance, relationshipType.id)
-          )
-        : sourceInstances;
-
     const targetInstances = normalizeInstances(
-        isRecursive && !relationshipOutsideProgram
+        isRecursive
             ? sourceInstances
             : await fetchTEIs({
                   type: to.trackedEntityType,
                   fields,
                   orgUnits,
                   organisationUnitSelectionMode,
-                  targetIds:
-                      relationshipOutsideProgram &&
-                      getTargetInstances(filteredSourceInstances),
               })
     );
 
+    const filteredSourceInstances = isRecursive
+        ? sourceInstances.filter(instance =>
+              isIndexInstance(instance, relationshipType.id)
+          )
+        : sourceInstances;
     const relationshipsById = {};
+
     filteredSourceInstances.forEach(instance =>
         getInstanceRelationships(
             relationshipsById,
