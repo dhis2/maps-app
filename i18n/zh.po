@@ -417,7 +417,7 @@ msgstr "显示跟踪实体关系"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
+msgstr "包括将“ {{program}}”项目外部的实体连接起来的关系"
 
 msgid "Selection mode"
 msgstr "选择模式"
