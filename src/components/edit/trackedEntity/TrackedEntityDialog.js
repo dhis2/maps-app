@@ -181,7 +181,7 @@ export class TrackedEntityDialog extends Component {
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
-            relationshipOutsideProgram,
+            // relationshipOutsideProgram,
         } = this.props;
 
         const {
@@ -190,7 +190,7 @@ export class TrackedEntityDialog extends Component {
             setProgramStatus,
             setFollowUpStatus,
             setTrackedEntityRelationshipType,
-            setTrackedEntityRelationshipOutsideProgram,
+            // setTrackedEntityRelationshipOutsideProgram,
             toggleOrgUnit,
             setOrgUnitMode,
             setEventPointColor,
@@ -330,7 +330,7 @@ export class TrackedEntityDialog extends Component {
                                                 margin: '0 0 0 48px',
                                             }}
                                         />
-                                        {program && (
+                                        {/* program && (
                                             <Checkbox
                                                 label={i18n.t(
                                                     'Show relationships that connect entities outside "{{program}}" program',
@@ -349,7 +349,7 @@ export class TrackedEntityDialog extends Component {
                                                     marginTop: 30,
                                                 }}
                                             />
-                                        )}
+                                        ) */}
                                     </Fragment>
                                 )}
                             </div>
