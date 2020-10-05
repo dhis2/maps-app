@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { Checkbox } from '@dhis2/ui';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
+// import Checkbox from '../core/Checkbox';
 import TextField from '../core/TextField';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import Checkbox from '../core/Checkbox';
+
 import FontStyle from '../core/FontStyle';
 import layerDialogStyles from './LayerDialogStyles';
 
@@ -178,13 +180,15 @@ class BoundaryDialog extends Component {
                                 <div style={styles.flexInnerColumnFlow}>
                                     <Checkbox
                                         label={i18n.t('Labels')}
-                                        checked={labels}
                                         onCheck={setLabels}
-                                        style={{
-                                            ...styles.flexInnerColumn,
-                                            maxWidth: 150,
-                                            height: 48,
-                                        }}
+                                        // label={i18n.t('Labels')}
+                                        // checked={labels}
+                                        // onCheck={setLabels}
+                                        // style={{
+                                        //    ...styles.flexInnerColumn,
+                                        //    maxWidth: 150,
+                                        //    height: 48,
+                                        // }}
                                     />
                                     {labels && (
                                         <FontStyle
