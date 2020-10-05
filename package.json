@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "35.0.12",
+    "version": "36.0.0",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -76,9 +76,9 @@
         "loglevel": "^1.6.8",
         "promise-polyfill": "^8.1.0",
         "prop-types": "^15.6.2",
-        "react": "16.13.1",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
         "react-color": "^2.18.1",
-        "react-dom": "16.13.1",
         "react-jss": "^8.6.1",
         "react-redux": "^7.2.1",
         "react-sortable-hoc": "^1.11.0",
@@ -92,6 +92,11 @@
         "uglifyjs-webpack-plugin": "^2.1.2",
         "url-polyfill": "^1.1.10",
         "whatwg-fetch": "^3.4.0"
+    },
+    "peerDependencies": {
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "styled-jsx": "^3.3.0"
     },
     "devDependencies": {
         "@dhis2/d2-i18n-extract": "^1.0.8",
