@@ -178,18 +178,22 @@ class BoundaryDialog extends Component {
                         >
                             <div style={styles.flexColumn}>
                                 <div style={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Labels')}
-                                        onCheck={setLabels}
-                                        // label={i18n.t('Labels')}
-                                        // checked={labels}
-                                        // onCheck={setLabels}
-                                        // style={{
-                                        //    ...styles.flexInnerColumn,
-                                        //    maxWidth: 150,
-                                        //    height: 48,
-                                        // }}
-                                    />
+                                    <div
+                                        style={{
+                                            ...styles.flexInnerColumn,
+                                            maxWidth: 150,
+                                            height: 48,
+                                            padding: '10px 0 0 10px',
+                                        }}
+                                    >
+                                        <Checkbox
+                                            label={i18n.t('Labels')}
+                                            checked={labels}
+                                            onChange={({ checked }) =>
+                                                setLabels(checked)
+                                            }
+                                        />
+                                    </div>
                                     {labels && (
                                         <FontStyle
                                             size={labelFontSize}
