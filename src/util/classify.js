@@ -1,5 +1,6 @@
 // Utils for thematic mapping
-import { format, precisionRound } from 'd3-format';
+import { precisionRound } from 'd3-format';
+import { numberPrecision } from './numbers';
 import {
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
@@ -47,16 +48,15 @@ export const getEqualIntervals = (minValue, maxValue, numClasses) => {
     const bins = [];
     const binSize = (maxValue - minValue) / numClasses;
     const precision = precisionRound(binSize, maxValue);
-
-    const valueFormat = format(`.${precision}f`);
+    const valueFormat = numberPrecision(precision);
 
     for (let i = 0; i < numClasses; i++) {
         const startValue = minValue + i * binSize;
         const endValue = i < numClasses - 1 ? startValue + binSize : maxValue;
 
         bins.push({
-            startValue: Number(valueFormat(startValue)),
-            endValue: Number(valueFormat(endValue)),
+            startValue: valueFormat(startValue),
+            endValue: valueFormat(endValue),
         });
     }
 
@@ -72,7 +72,7 @@ export const getQuantiles = (values, numClasses) => {
         (maxValue - minValue) / numClasses,
         maxValue
     );
-    const valueFormat = format(`.${precision}f`);
+    const valueFormat = numberPrecision(precision);
 
     let binLastValPos = binCount === 0 ? 0 : binCount;
 
@@ -88,7 +88,7 @@ export const getQuantiles = (values, numClasses) => {
     return bins
         .filter(bin => bin !== undefined)
         .map((value, index) => ({
-            startValue: Number(valueFormat(value)),
-            endValue: Number(valueFormat(bins[index + 1] || maxValue)),
+            startValue: valueFormat(value),
+            endValue: valueFormat(bins[index + 1] || maxValue),
         }));
 };
