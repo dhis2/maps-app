@@ -11,22 +11,18 @@ exports[`DownloadDialog Should match snapshot when showDialog is true 1`] = `
     Download map
   </WithStyles(ForwardRef(DialogTitle))>
   <WithStyles(ForwardRef(DialogContent))>
-    <div>
-      <WithStyles(Checkbox)
-        checked={false}
-        disabled={true}
-        label="Show name"
-        onCheck={[Function]}
-      />
-    </div>
-    <div>
-      <WithStyles(Checkbox)
-        checked={false}
-        disabled={true}
-        label="Show legend"
-        onCheck={[Function]}
-      />
-    </div>
+    <Checkbox
+      checked={false}
+      disabled={true}
+      label="Show name"
+      onChange={[Function]}
+    />
+    <Checkbox
+      checked={false}
+      disabled={true}
+      label="Show legend"
+      onChange={[Function]}
+    />
   </WithStyles(ForwardRef(DialogContent))>
   <WithStyles(ForwardRef(DialogActions))>
     <WithStyles(ForwardRef(Button))

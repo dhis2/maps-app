@@ -6,12 +6,6 @@ module.exports = {
     moduleNameMapper: {
         '\\.(css)$': '<rootDir>/config/jest/styleMock.js',
     },
-    testEnvironment: 'node',
-    globals: {
-        window: true,
-        document: true,
-        navigator: true,
-        Element: true,
-    },
+    testURL: 'http://localhost/',
     snapshotSerializers: ['enzyme-to-json/serializer'],
 };

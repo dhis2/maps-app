@@ -83,7 +83,7 @@ describe('DownloadDialog', () => {
     it('Should show download options if browser support', () => {
         const wrapper = renderComponent();
 
-        expect(wrapper.find('WithStyles(Checkbox)').length).toBe(2);
+        expect(wrapper.find('Checkbox').length).toBe(2);
         expect(wrapper.find('WithStyles(ForwardRef(Button))').length).toBe(2);
         expect(
             wrapper
@@ -98,14 +98,14 @@ describe('DownloadDialog', () => {
         const wrapper = renderComponent();
         expect(
             wrapper
-                .find('WithStyles(Checkbox)')
+                .find('Checkbox')
                 .at(0)
                 .prop('disabled')
         ).toBe(true);
         wrapper.setProps({ hasName: true });
         expect(
             wrapper
-                .find('WithStyles(Checkbox)')
+                .find('Checkbox')
                 .at(0)
                 .prop('disabled')
         ).toBe(false);
@@ -118,14 +118,14 @@ describe('DownloadDialog', () => {
 
         expect(
             wrapper
-                .find('WithStyles(Checkbox)')
+                .find('Checkbox')
                 .at(0)
                 .prop('checked')
         ).toBe(false);
         wrapper.setProps({ showName: true });
         expect(
             wrapper
-                .find('WithStyles(Checkbox)')
+                .find('Checkbox')
                 .at(0)
                 .prop('checked')
         ).toBe(true);
@@ -137,12 +137,12 @@ describe('DownloadDialog', () => {
             hasName: true,
             toggleDownloadShowName: toggleDownloadShowNameSpy,
         });
-        const checkbox = wrapper.find('WithStyles(Checkbox)').at(0);
+        const checkbox = wrapper.find('Checkbox').at(0);
 
-        checkbox.simulate('check', true);
+        checkbox.simulate('change', true);
         expect(toggleDownloadShowNameSpy).toHaveBeenCalledWith(true);
 
-        checkbox.simulate('check', false);
+        checkbox.simulate('change', false);
         expect(toggleDownloadShowNameSpy).toHaveBeenCalledWith(false);
     });
 
@@ -150,14 +150,14 @@ describe('DownloadDialog', () => {
         const wrapper = renderComponent();
         expect(
             wrapper
-                .find('WithStyles(Checkbox)')
+                .find('Checkbox')
                 .at(1)
                 .prop('disabled')
         ).toBe(true);
         wrapper.setProps({ hasLegend: true });
         expect(
             wrapper
-                .find('WithStyles(Checkbox)')
+                .find('Checkbox')
                 .at(1)
                 .prop('disabled')
         ).toBe(false);
@@ -170,14 +170,14 @@ describe('DownloadDialog', () => {
 
         expect(
             wrapper
-                .find('WithStyles(Checkbox)')
+                .find('Checkbox')
                 .at(1)
                 .prop('checked')
         ).toBe(false);
         wrapper.setProps({ showLegend: true });
         expect(
             wrapper
-                .find('WithStyles(Checkbox)')
+                .find('Checkbox')
                 .at(1)
                 .prop('checked')
         ).toBe(true);
@@ -189,12 +189,12 @@ describe('DownloadDialog', () => {
             hasName: true,
             toggleDownloadShowLegend: toggleDownloadShowLegendSpy,
         });
-        const checkbox = wrapper.find('WithStyles(Checkbox)').at(1);
+        const checkbox = wrapper.find('Checkbox').at(1);
 
-        checkbox.simulate('check', true);
+        checkbox.simulate('change', true);
         expect(toggleDownloadShowLegendSpy).toHaveBeenCalledWith(true);
 
-        checkbox.simulate('check', false);
+        checkbox.simulate('change', false);
         expect(toggleDownloadShowLegendSpy).toHaveBeenCalledWith(false);
     });
 

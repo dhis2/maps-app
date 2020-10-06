@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Checkbox } from '@dhis2/ui';
+import Checkbox from '../core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
-// import Checkbox from '../core/Checkbox';
 import TextField from '../core/TextField';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
@@ -178,22 +177,16 @@ class BoundaryDialog extends Component {
                         >
                             <div style={styles.flexColumn}>
                                 <div style={styles.flexInnerColumnFlow}>
-                                    <div
+                                    <Checkbox
+                                        label={i18n.t('Labels')}
+                                        checked={labels}
+                                        onChange={setLabels}
                                         style={{
                                             ...styles.flexInnerColumn,
                                             maxWidth: 150,
                                             height: 48,
-                                            padding: '10px 0 0 10px',
                                         }}
-                                    >
-                                        <Checkbox
-                                            label={i18n.t('Labels')}
-                                            checked={labels}
-                                            onChange={({ checked }) =>
-                                                setLabels(checked)
-                                            }
-                                        />
-                                    </div>
+                                    />
                                     {labels && (
                                         <FontStyle
                                             size={labelFontSize}

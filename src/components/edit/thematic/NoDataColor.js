@@ -16,7 +16,7 @@ const NoDataColor = ({ value, onChange, style }) => {
             <Checkbox
                 label={i18n.t('Show no data')}
                 checked={!!value}
-                onCheck={onCheck}
+                onChange={onCheck}
                 style={{
                     margin: '0 40px 0 -4px',
                     height: 60,

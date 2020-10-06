@@ -30,12 +30,6 @@ const styles = {
         minHeight: 250,
         width: 250,
     },
-    checkbox: {
-        display: 'block',
-        marginLeft: -14,
-        marginTop: -16,
-        marginBottom: -8,
-    },
 };
 
 export class DownloadDialog extends Component {
@@ -85,22 +79,18 @@ export class DownloadDialog extends Component {
                 <DialogContent className={classes.content}>
                     {isSupported ? (
                         <Fragment>
-                            <div className={classes.checkbox}>
-                                <Checkbox
-                                    label={i18n.t('Show name')}
-                                    checked={showName}
-                                    disabled={!hasName}
-                                    onCheck={toggleDownloadShowName}
-                                />
-                            </div>
-                            <div className={classes.checkbox}>
-                                <Checkbox
-                                    label={i18n.t('Show legend')}
-                                    checked={showLegend}
-                                    disabled={!hasLegend}
-                                    onCheck={toggleDownloadShowLegend}
-                                />
-                            </div>
+                            <Checkbox
+                                label={i18n.t('Show name')}
+                                checked={showName}
+                                disabled={!hasName}
+                                onChange={toggleDownloadShowName}
+                            />
+                            <Checkbox
+                                label={i18n.t('Show legend')}
+                                checked={showLegend}
+                                disabled={!hasLegend}
+                                onChange={toggleDownloadShowLegend}
+                            />
                             {hasLegend && showLegend && (
                                 <LegendPosition
                                     position={legendPosition}

@@ -86,11 +86,6 @@ const styles = {
         clear: 'both',
         height: 64,
     },
-    checkbox: {
-        float: 'left',
-        margin: '24px 0 0 12px',
-        width: 180,
-    },
     font: {
         float: 'left',
         whiteSpace: 'nowrap',
@@ -579,7 +574,7 @@ export class ThematicDialog extends Component {
                                     <Checkbox
                                         label={i18n.t('Labels')}
                                         checked={labels}
-                                        onCheck={setLabels}
+                                        onChange={setLabels}
                                         style={{
                                             ...styles.flexInnerColumn,
                                             marginLeft: -4,

@@ -53,11 +53,6 @@ import { cssColor } from '../../../util/colors';
 // TODO: Don't use inline styles!
 const styles = {
     ...layerDialogStyles,
-    checkbox: {
-        float: 'left',
-        marginTop: 24,
-        width: 180,
-    },
     radius: {
         width: 110,
         marginTop: 12,
@@ -361,7 +356,7 @@ export class EventDialog extends Component {
                                     <Checkbox
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
-                                        onCheck={this.onShowBufferClick.bind(
+                                        onChange={this.onShowBufferClick.bind(
                                             this
                                         )}
                                         style={styles.flexInnerColumn}

@@ -47,7 +47,7 @@ export const EventDownloadInputs = ({
                 }}
                 label={i18n.t('Use human-readable keys')}
                 checked={humanReadableChecked}
-                onCheck={onCheckHumanReadable}
+                onChange={onCheckHumanReadable}
             />
         </div>
     </Fragment>

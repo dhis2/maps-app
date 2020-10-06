@@ -44,11 +44,6 @@ const styles = {
         clear: 'both',
         height: 80,
     },
-    checkbox: {
-        float: 'left',
-        margin: '40px 0 0 12px',
-        width: 180,
-    },
     font: {
         float: 'left',
         marginTop: 2,
@@ -239,11 +234,10 @@ class FacilityDialog extends Component {
                                 <Checkbox
                                     label={i18n.t('Labels')}
                                     checked={labels}
-                                    onCheck={setLabels}
+                                    onChange={setLabels}
                                     style={{
                                         ...styles.flexInnerColumn,
                                         maxWidth: 150,
-                                        height: 80,
                                     }}
                                 />
                                 {labels && (
@@ -267,7 +261,7 @@ class FacilityDialog extends Component {
                                 <Checkbox
                                     label={i18n.t('Buffer')}
                                     checked={showBuffer}
-                                    onCheck={this.onShowBufferClick.bind(this)}
+                                    onChange={this.onShowBufferClick.bind(this)}
                                     style={{
                                         ...styles.flexInnerColumn,
                                         maxWidth: 150,
