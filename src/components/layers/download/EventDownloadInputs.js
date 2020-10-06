@@ -13,10 +13,6 @@ const styles = theme => ({
     selectField: {
         width: '50%',
     },
-    checkboxRoot: {
-        margin: `${theme.spacing(0.5)}px 0`,
-        marginLeft: -theme.spacing(1.5),
-    },
 });
 
 export const EventDownloadInputs = ({
@@ -40,18 +36,17 @@ export const EventDownloadInputs = ({
                 onChange={onChangeFormatOption}
             />
         </div>
-        <div>
-            <Checkbox
-                classes={{
-                    root: classes.checkboxRoot,
-                }}
-                label={i18n.t('Use human-readable keys')}
-                checked={humanReadableChecked}
-                onChange={onCheckHumanReadable}
-            />
-        </div>
+        <Checkbox
+            label={i18n.t('Use human-readable keys')}
+            checked={humanReadableChecked}
+            onChange={onCheckHumanReadable}
+            style={{
+                marginLeft: -12,
+            }}
+        />
     </Fragment>
 );
+
 EventDownloadInputs.propTypes = {
     classes: PropTypes.object.isRequired,
 

@@ -27,9 +27,7 @@ describe('DownloadButton', () => {
 
     it('Should render a download dialog', () => {
         const wrapper = renderComponent();
-        expect(
-            wrapper.find('Connect(WithStyles(DownloadDialog))').exists()
-        ).toBe(true);
+        expect(wrapper.find('Connect(DownloadDialog)').exists()).toBe(true);
     });
 
     it('Should render a download button and a dialog component', () => {

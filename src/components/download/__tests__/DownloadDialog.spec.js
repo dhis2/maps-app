@@ -13,7 +13,6 @@ describe('DownloadDialog', () => {
 
         return shallow(
             <DownloadDialog
-                classes={{}}
                 showDialog={true}
                 showName={false}
                 showLegend={false}

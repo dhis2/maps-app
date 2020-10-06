@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import {
     Dialog,
     DialogTitle,
@@ -25,13 +24,6 @@ import {
     downloadSupport,
 } from '../../util/export-image';
 
-const styles = {
-    content: {
-        minHeight: 250,
-        width: 250,
-    },
-};
-
 export class DownloadDialog extends Component {
     static propTypes = {
         showDialog: PropTypes.bool.isRequired,
@@ -44,7 +36,6 @@ export class DownloadDialog extends Component {
         toggleDownloadShowName: PropTypes.func.isRequired,
         toggleDownloadShowLegend: PropTypes.func.isRequired,
         setDownloadLegendPosition: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -62,7 +53,6 @@ export class DownloadDialog extends Component {
             toggleDownloadShowName,
             toggleDownloadShowLegend,
             setDownloadLegendPosition,
-            classes,
         } = this.props;
 
         if (!showDialog) {
@@ -76,7 +66,7 @@ export class DownloadDialog extends Component {
                 <DialogTitle disableTypography={true}>
                     {i18n.t('Download map')}
                 </DialogTitle>
-                <DialogContent className={classes.content}>
+                <DialogContent>
                     {isSupported ? (
                         <Fragment>
                             <Checkbox
@@ -193,4 +183,4 @@ export default connect(
         toggleDownloadShowLegend,
         setDownloadLegendPosition,
     }
-)(withStyles(styles)(DownloadDialog));
+)(DownloadDialog);
