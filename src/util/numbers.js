@@ -13,3 +13,9 @@ export const formatCount = count => {
 
     return num || count;
 };
+
+// Rounds a number to d decimals
+export const numberPrecision = d => {
+    const m = Math.pow(10, d);
+    return n => Math.round(n * m) / m;
+};
