@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import Checkbox from '../core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '../core/Tabs';
+import TabBar from '../core/TabBar';
 import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
@@ -118,13 +118,10 @@ class BoundaryDialog extends Component {
 
         return (
             <div data-test="boundarydialog">
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab
-                        value="orgunits"
-                        label={i18n.t('Organisation units')}
-                    />
-                    <Tab value="style" label={i18n.t('Style')} />
-                </Tabs>
+                <TabBar value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="orgunits">{i18n.t('Organisation units')}</Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
+                </TabBar>
                 <div className={classes.tabContent}>
                     {tab === 'orgunits' && (
                         <div

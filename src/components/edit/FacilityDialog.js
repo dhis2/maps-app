@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '../core/Tabs';
+import TabBar from '../core/TabBar';
 import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import Checkbox from '../core/Checkbox';
@@ -152,15 +152,16 @@ class FacilityDialog extends Component {
 
         return (
             <div data-test="facilitydialog">
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="group" label={i18n.t('Group set')} />
+                <TabBar value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="group">{i18n.t('Group Set')}</Tab>
                     <Tab
                         value="orgunits"
-                        label={i18n.t('Organisation units')}
-                        data-test="facilitydialog-tabs-orgunits"
-                    />
-                    <Tab value="style" label={i18n.t('Style')} />
-                </Tabs>
+                        dataTest="facilitydialog-tabs-orgunits"
+                    >
+                        {i18n.t('Org Units')}
+                    </Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
+                </TabBar>
                 <div className={classes.tabContent}>
                     {tab === 'group' && (
                         <div

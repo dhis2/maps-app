@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Tabs from '../../core/Tabs';
+import TabBar from '../../core/TabBar';
 import Tab from '../../core/Tab';
 import TextField from '../../core/TextField';
 import ProgramSelect from '../../program/ProgramSelect';
@@ -198,13 +198,13 @@ export class EventDialog extends Component {
 
         return (
             <div data-test="eventdialog">
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="data" label={i18n.t('data')} />
-                    <Tab value="period" label={i18n.t('period')} />
-                    <Tab value="orgunits" label={i18n.t('Org units')} />
-                    <Tab value="filter" label={i18n.t('Filter')} />
-                    <Tab value="style" label={i18n.t('Style')} />
-                </Tabs>
+                <TabBar value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="data">{i18n.t('Data')}</Tab>
+                    <Tab value="period">{i18n.t('Period')}</Tab>
+                    <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
+                    <Tab value="filter">{i18n.t('Filter')}</Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
+                </TabBar>
                 <div style={styles.tabContent} data-test="eventdialog-content">
                     {tab === 'data' && (
                         <div

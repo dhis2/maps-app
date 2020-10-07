@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '../core/Tabs';
+import TabBar from '../core/TabBar';
 import Tab from '../core/Tab';
 import TextField from '../core/TextField';
 import ColorScaleSelect from '../core/ColorScaleSelect';
@@ -171,9 +171,9 @@ class EarthEngineDialog extends Component {
 
         return (
             <div>
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="style" label={i18n.t('Style')} />
-                </Tabs>
+                <TabBar value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
+                </TabBar>
                 <div className={classes.tabContent}>
                     <div className={classes.flexColumnFlow}>
                         <div className={classes.flexColumn}>

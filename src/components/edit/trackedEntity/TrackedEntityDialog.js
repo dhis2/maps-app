@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '../../core/Tabs';
+import TabBar from '../../core/TabBar';
 import Tab from '../../core/Tab';
 import TextField from '../../core/TextField';
 import SelectField from '../../core/SelectField';
@@ -213,16 +213,13 @@ export class TrackedEntityDialog extends Component {
 
         return (
             <div>
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="data" label={i18n.t('data')} />
-                    <Tab
-                        value="relationships"
-                        label={i18n.t('relationships')}
-                    />
-                    <Tab value="period" label={i18n.t('period')} />
-                    <Tab value="orgunits" label={i18n.t('Org units')} />
-                    <Tab value="style" label={i18n.t('Style')} />
-                </Tabs>
+                <TabBar value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="data">{i18n.t('Data')}</Tab>
+                    <Tab value="relationships">{i18n.t('Relationships')}</Tab>
+                    <Tab value="period">{i18n.t('Period')}</Tab>
+                    <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
+                </TabBar>
                 <div className={classes.tabContent}>
                     {tab === 'data' && (
                         <div style={styles.flexRowFlow}>

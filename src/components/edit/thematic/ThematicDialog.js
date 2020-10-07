@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Tabs from '../../core/Tabs';
+import TabBar from '../../core/TabBar';
 import Tab from '../../core/Tab';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
@@ -305,33 +305,26 @@ export class ThematicDialog extends Component {
 
         return (
             <div data-test="thematicdialog">
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab
-                        value="data"
-                        label={i18n.t('data')}
-                        data-test="thematicdialog-tabs-data"
-                    />
-                    <Tab
-                        value="period"
-                        label={i18n.t('period')}
-                        data-test="thematicdialog-tabs-period"
-                    />
+                <TabBar value={tab} onChange={tab => this.setState({ tab })}>
+                    <Tab value="data" dataTest="thematicdialog-tabs-data">
+                        {i18n.t('Data')}
+                    </Tab>
+                    <Tab value="period" dataTest="thematicdialog-tabs-period">
+                        {i18n.t('Period')}
+                    </Tab>
                     <Tab
                         value="orgunits"
-                        label={i18n.t('Org units')}
                         data-test="thematicdialog-tabs-orgunits"
-                    />
-                    <Tab
-                        value="filter"
-                        label={i18n.t('Filter')}
-                        data-test="thematicdialog-tabs-filter"
-                    />
-                    <Tab
-                        value="style"
-                        label={i18n.t('Style')}
-                        data-test="thematicdialog-tabs-style"
-                    />
-                </Tabs>
+                    >
+                        {i18n.t('Org Units')}
+                    </Tab>
+                    <Tab value="filter" dataTest="thematicdialog-tabs-filter">
+                        {i18n.t('Filter')}
+                    </Tab>
+                    <Tab value="style" dataTest="thematicdialog-tabs-style">
+                        {i18n.t('Style')}
+                    </Tab>
+                </TabBar>
                 <div style={styles.tabContent}>
                     {tab === 'data' && (
                         <div
