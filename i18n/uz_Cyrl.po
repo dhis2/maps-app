@@ -91,7 +91,7 @@ msgid "Range"
 msgstr ""
 
 msgid "Level"
-msgstr ""
+msgstr "Даража"
 
 msgid "Parent"
 msgstr ""
@@ -1024,7 +1024,7 @@ msgid "Unclassified"
 msgstr ""
 
 msgid "Access denied"
-msgstr ""
+msgstr "Фойдаланиш ҳуқуқи рад этилди"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
