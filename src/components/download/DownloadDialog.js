@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
     Button,
-} from '@material-ui/core';
+    ButtonStrip,
+} from '@dhis2/ui';
 import Checkbox from '../core/Checkbox';
 import LegendPosition from './LegendPosition';
 import {
@@ -62,11 +63,14 @@ export class DownloadDialog extends Component {
         const isSupported = downloadSupport() && !this.state.error;
 
         return (
-            <Dialog open={showDialog} onClose={this.onClose}>
-                <DialogTitle disableTypography={true}>
-                    {i18n.t('Download map')}
-                </DialogTitle>
-                <DialogContent>
+            <Modal
+                open={showDialog}
+                position="middle"
+                small
+                onClose={this.onClose}
+            >
+                <ModalTitle>{i18n.t('Download map')}</ModalTitle>
+                <ModalContent>
                     {isSupported ? (
                         <Fragment>
                             <Checkbox
@@ -93,22 +97,20 @@ export class DownloadDialog extends Component {
                             'Map download is not supported by your browser. Try Google Chrome or Firefox.'
                         )
                     )}
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={this.onClose}>
-                        {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
-                    </Button>
-                    {isSupported && (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={this.onDownload}
-                        >
-                            {i18n.t('Download')}
+                </ModalContent>
+                <ModalActions>
+                    <ButtonStrip end>
+                        <Button secondary onClick={this.onClose}>
+                            {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
                         </Button>
-                    )}
-                </DialogActions>
-            </Dialog>
+                        {isSupported && (
+                            <Button primary onClick={this.onDownload}>
+                                {i18n.t('Download')}
+                            </Button>
+                        )}
+                    </ButtonStrip>
+                </ModalActions>
+            </Modal>
         );
     }
 

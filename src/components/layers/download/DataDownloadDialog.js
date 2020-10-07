@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-} from '@material-ui/core';
+import { Modal, ModalTitle, ModalContent, ModalActions } from '@dhis2/ui';
 
 import {
     META_DATA_FORMAT_ID,
@@ -80,11 +75,9 @@ export class DataDownloadDialog extends Component {
             isEventLayer = layerType === 'event';
 
         return (
-            <Dialog open={open} onClose={closeDialog} maxWidth="md">
-                <DialogTitle disableTypography={true}>
-                    {i18n.t('Download Layer Data')}
-                </DialogTitle>
-                <DialogContent>
+            <Modal open={open} position="middle" onClose={closeDialog}>
+                <ModalTitle>{i18n.t('Download Layer Data')}</ModalTitle>
+                <ModalContent>
                     <DataDownloadDialogContent
                         isEventLayer={isEventLayer}
                         error={error}
@@ -97,15 +90,15 @@ export class DataDownloadDialog extends Component {
                         onChangeFormatOption={this.onChangeFormatOption}
                         onCheckHumanReadable={this.onCheckHumanReadable}
                     />
-                </DialogContent>
-                <DialogActions>
+                </ModalContent>
+                <ModalActions>
                     <DataDownloadDialogActions
                         downloading={downloading}
                         onStartClick={this.onStartDownload}
                         onCancelClick={closeDialog}
                     />
-                </DialogActions>
-            </Dialog>
+                </ModalActions>
+            </Modal>
         );
     }
 }

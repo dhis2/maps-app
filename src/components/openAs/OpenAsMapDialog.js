@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
     Button,
-} from '@material-ui/core';
+    ButtonStrip,
+} from '@dhis2/ui';
 import SelectField from '../core/SelectField';
 import { loadLayer } from '../../actions/layers';
 import { clearAnalyticalObject } from '../../actions/analyticalObject';
@@ -19,9 +20,6 @@ import {
 } from '../../util/analyticalObject';
 
 const styles = {
-    content: {
-        minHeight: 80,
-    },
     description: {
         fontSize: 14,
         lineHeight: '20px',
@@ -71,11 +69,14 @@ export class OpenAsMapDialog extends Component {
         const disableProceedBtn = !selectedDataDims.length;
 
         return (
-            <Dialog open={showDialog} onClose={this.onClose}>
-                <DialogTitle disableTypography={true}>
-                    {i18n.t('Open as map')}
-                </DialogTitle>
-                <DialogContent className={classes.content}>
+            <Modal
+                open={showDialog}
+                position="middle"
+                small
+                onClose={this.onClose}
+            >
+                <ModalTitle>{i18n.t('Open as map')}</ModalTitle>
+                <ModalContent>
                     {dataDims.length > 1 && (
                         <Fragment>
                             <div className={classes.description}>
@@ -95,20 +96,22 @@ export class OpenAsMapDialog extends Component {
                             />
                         </Fragment>
                     )}
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={clearAnalyticalObject}>
-                        {i18n.t('Cancel')}
-                    </Button>
-                    <Button
-                        disabled={disableProceedBtn}
-                        color="primary"
-                        onClick={this.onProceedClick}
-                    >
-                        {i18n.t('Proceed')}
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                </ModalContent>
+                <ModalActions>
+                    <ButtonStrip end>
+                        <Button secondary onClick={clearAnalyticalObject}>
+                            {i18n.t('Cancel')}
+                        </Button>
+                        <Button
+                            disabled={disableProceedBtn}
+                            primary
+                            onClick={this.onProceedClick}
+                        >
+                            {i18n.t('Proceed')}
+                        </Button>
+                    </ButtonStrip>
+                </ModalActions>
+            </Modal>
         );
     }
 

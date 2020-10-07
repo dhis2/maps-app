@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
     Button,
-} from '@material-ui/core';
+    ButtonStrip,
+} from '@dhis2/ui';
 import EventDialog from './event/EventDialog';
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog';
 import FacilityDialog from './FacilityDialog';
@@ -36,17 +36,6 @@ const layerName = () => ({
     earthEngine: i18n.t('Earth Engine'),
 });
 
-const styles = {
-    title: {
-        padding: '20px 24px 4px 24px',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    content: {
-        minHeight: 300,
-    },
-};
-
 class LayerEdit extends Component {
     static propTypes = {
         layer: PropTypes.object,
@@ -54,7 +43,6 @@ class LayerEdit extends Component {
         loadLayer: PropTypes.func.isRequired,
         cancelLayer: PropTypes.func.isRequired,
         setLayerLoading: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -89,7 +77,7 @@ class LayerEdit extends Component {
     };
 
     render() {
-        const { layer, defaultPeriod, cancelLayer, classes } = this.props;
+        const { layer, defaultPeriod, cancelLayer } = this.props;
 
         if (!layer) {
             return null;
@@ -108,36 +96,35 @@ class LayerEdit extends Component {
             : i18n.t('Add new {{name}} layer', { name });
 
         return (
-            <Dialog open={true} maxWidth="md" data-test="layeredit">
-                <DialogTitle disableTypography={true} className={classes.title}>
-                    {title}
-                </DialogTitle>
-                <DialogContent className={classes.content}>
+            <Modal open={true} position="middle" dataTest="layeredit">
+                <ModalTitle>{title}</ModalTitle>
+                <ModalContent>
                     <LayerDialog
                         {...layer}
                         defaultPeriod={defaultPeriod}
                         validateLayer={this.state.validateLayer}
                         onLayerValidation={this.onLayerValidation}
                     />
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={() => cancelLayer()}>
-                        {i18n.t('Cancel')}
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => this.validateLayer()}
-                        data-test="layeredit-addbtn"
-                    >
-                        {i18n.t(
-                            layer.id
-                                ? i18n.t('Update layer')
-                                : i18n.t('Add layer')
-                        )}
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                </ModalContent>
+                <ModalActions>
+                    <ButtonStrip end>
+                        <Button secondary onClick={() => cancelLayer()}>
+                            {i18n.t('Cancel')}
+                        </Button>
+                        <Button
+                            primary
+                            onClick={() => this.validateLayer()}
+                            dataTest="layeredit-addbtn"
+                        >
+                            {i18n.t(
+                                layer.id
+                                    ? i18n.t('Update layer')
+                                    : i18n.t('Add layer')
+                            )}
+                        </Button>
+                    </ButtonStrip>
+                </ModalActions>
+            </Modal>
         );
     }
 
@@ -159,4 +146,4 @@ export default connect(
         defaultPeriod: settings.system.keyAnalysisRelativePeriod,
     }),
     { loadLayer, cancelLayer, setLayerLoading }
-)(withStyles(styles)(LayerEdit));
+)(LayerEdit);

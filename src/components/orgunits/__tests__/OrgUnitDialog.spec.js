@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { unwrap } from '@material-ui/core/test-utils';
-import { Dialog } from '@material-ui/core';
+import { Modal } from '@dhis2/ui';
 import OrgUnitDialog from '../OrgUnitDialog';
 
 // https://github.com/mui-org/material-ui/issues/11864
@@ -29,8 +29,8 @@ describe('Org unit dialog (infrastuctural data)', () => {
         expect(renderWithProps({ closeOrgUnit: jest.fn() }).type()).toBe(null);
     });
 
-    it('renders a MUI Dialog if an org unit id is passed', () => {
-        expect(renderWithProps(props).find(Dialog).length).toBe(1);
+    it('renders a modal if an org unit id is passed', () => {
+        expect(renderWithProps(props).find(Modal).length).toBe(1);
     });
 
     // TODO: Check if loadConfigurations or loadData is called

@@ -16,10 +16,8 @@ describe('DataDownloadDialogActions', () => {
 
     it('Should render two buttons and NO loading spinner', () => {
         const wrapper = renderComponent();
-        expect(wrapper.find('WithStyles(ForwardRef(Button))').length).toBe(2);
-        expect(
-            wrapper.find('WithStyles(ForwardRef(CircularProgress))').length
-        ).toBe(0);
+        expect(wrapper.find('Button').length).toBe(2);
+        expect(wrapper.find('CircularLoader').length).toBe(0);
     });
 
     it('Should disable buttons and show loading spinner when loading', () => {
@@ -28,19 +26,17 @@ describe('DataDownloadDialogActions', () => {
         });
         expect(
             wrapper
-                .find('WithStyles(ForwardRef(Button))')
+                .find('Button')
                 .at(0)
                 .prop('disabled')
         ).toBe(true);
         expect(
             wrapper
-                .find('WithStyles(ForwardRef(Button))')
+                .find('Button')
                 .at(1)
                 .prop('disabled')
         ).toBe(true);
-        expect(
-            wrapper.find('WithStyles(ForwardRef(CircularProgress))').length
-        ).toBe(1);
+        expect(wrapper.find('CircularLoader').length).toBe(1);
     });
 
     it('Should call onStartClick', () => {
@@ -49,9 +45,7 @@ describe('DataDownloadDialogActions', () => {
             onStartClick: fn,
         });
 
-        wrapper
-            .find('WithStyles(ForwardRef(Button))[variant="contained"]')
-            .simulate('click');
+        wrapper.find('Button[primary=true]').simulate('click');
         expect(fn).toHaveBeenCalled();
     });
 
@@ -59,9 +53,7 @@ describe('DataDownloadDialogActions', () => {
         const fn = jest.fn();
         const wrapper = renderComponent({ onCancelClick: fn });
 
-        wrapper
-            .find('WithStyles(ForwardRef(Button))[variant="text"]')
-            .simulate('click');
+        wrapper.find('Button[secondary=true]').simulate('click');
         expect(fn).toHaveBeenCalled();
     });
 });

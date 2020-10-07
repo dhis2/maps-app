@@ -1,53 +1,34 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { Button, ButtonStrip, CircularLoader } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 
 const styles = {
-    wrapper: {
-        position: 'relative',
-    },
     btnProgress: {
         position: 'absolute',
-        top: '50%',
-        left: '50%',
-        marginTop: -12,
-        marginLeft: -12,
+        top: -10,
+        left: 'calc(50% - 25px)',
     },
 };
 
 export const DataDownloadDialogActions = ({
     classes,
-
     downloading,
     onStartClick,
     onCancelClick,
 }) => (
-    <Fragment>
-        <Button
-            variant="text"
-            color="primary"
-            onClick={onCancelClick}
-            disabled={downloading}
-        >
+    <ButtonStrip end>
+        <Button secondary onClick={onCancelClick} disabled={downloading}>
             {i18n.t('Cancel')}
         </Button>
-        <div className={classes.wrapper}>
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={onStartClick}
-                disabled={downloading}
-            >
-                {i18n.t('Download')}
-            </Button>
+        <Button primary onClick={onStartClick} disabled={downloading}>
+            {i18n.t('Download')}
             {downloading && (
-                <CircularProgress size={24} className={classes.btnProgress} />
+                <CircularLoader small className={classes.btnProgress} />
             )}
-        </div>
-    </Fragment>
+        </Button>
+    </ButtonStrip>
 );
 
 DataDownloadDialogActions.propTypes = {

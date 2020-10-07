@@ -47,8 +47,9 @@ describe('DataDownloadDialogContent', () => {
             open: true,
             layer: dummyEventLayer,
         });
+
         expect(wrapper.isEmptyRender()).toBe(false);
-        expect(wrapper.find('WithStyles(ForwardRef(Dialog))').length).toBe(1);
+        expect(wrapper.find('Modal').length).toBe(1);
         expect(
             wrapper.find('WithStyles(DataDownloadDialogContent)').length
         ).toBe(1);

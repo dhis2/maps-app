@@ -1,16 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DownloadDialog Should match snapshot when showDialog is true 1`] = `
-<WithStyles(ForwardRef(Dialog))
+<Modal
+  dataTest="dhis2-uicore-modal"
   onClose={[Function]}
   open={true}
+  position="middle"
+  small={true}
 >
-  <WithStyles(ForwardRef(DialogTitle))
-    disableTypography={true}
+  <ModalTitle
+    dataTest="dhis2-uicore-modaltitle"
   >
     Download map
-  </WithStyles(ForwardRef(DialogTitle))>
-  <WithStyles(ForwardRef(DialogContent))>
+  </ModalTitle>
+  <ModalContent
+    dataTest="dhis2-uicore-modalcontent"
+  >
     <Checkbox
       checked={false}
       disabled={true}
@@ -23,21 +28,31 @@ exports[`DownloadDialog Should match snapshot when showDialog is true 1`] = `
       label="Show legend"
       onChange={[Function]}
     />
-  </WithStyles(ForwardRef(DialogContent))>
-  <WithStyles(ForwardRef(DialogActions))>
-    <WithStyles(ForwardRef(Button))
-      color="primary"
-      onClick={[Function]}
+  </ModalContent>
+  <ModalActions
+    dataTest="dhis2-uicore-modalactions"
+  >
+    <ButtonStrip
+      dataTest="dhis2-uicore-buttonstrip"
+      end={true}
     >
-      Cancel
-    </WithStyles(ForwardRef(Button))>
-    <WithStyles(ForwardRef(Button))
-      color="primary"
-      onClick={[Function]}
-      variant="contained"
-    >
-      Download
-    </WithStyles(ForwardRef(Button))>
-  </WithStyles(ForwardRef(DialogActions))>
-</WithStyles(ForwardRef(Dialog))>
+      <Button
+        dataTest="dhis2-uicore-button"
+        onClick={[Function]}
+        secondary={true}
+        type="button"
+      >
+        Cancel
+      </Button>
+      <Button
+        dataTest="dhis2-uicore-button"
+        onClick={[Function]}
+        primary={true}
+        type="button"
+      >
+        Download
+      </Button>
+    </ButtonStrip>
+  </ModalActions>
+</Modal>
 `;

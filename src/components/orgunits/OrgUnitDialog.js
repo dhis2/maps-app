@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
     Button,
-} from '@material-ui/core';
+} from '@dhis2/ui';
 import PeriodSelect from '../periods/PeriodSelect';
 import { closeOrgUnit } from '../../actions/orgUnits';
 import { loadConfigurations, loadData } from '../../util/infrastructural';
@@ -130,14 +130,9 @@ export class OrgUnitDialog extends Component {
         const groups = organisationUnitGroups.toArray();
 
         return (
-            <Dialog
-                maxWidth="md"
-                title={name}
-                open={true}
-                onClose={this.onClose}
-            >
-                <DialogTitle>{name}</DialogTitle>
-                <DialogContent>
+            <Modal position="middle" open={true} onClose={this.onClose}>
+                <ModalTitle>{name}</ModalTitle>
+                <ModalContent>
                     <div className={classes.metadata}>
                         <h3 className={classes.heading}>
                             {i18n.t('Parent unit')}
@@ -185,13 +180,13 @@ export class OrgUnitDialog extends Component {
                             </div>
                         )}
                     </div>
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={this.onClose}>
+                </ModalContent>
+                <ModalActions>
+                    <Button secondary onClick={this.onClose}>
                         {i18n.t('Close')}
                     </Button>
-                </DialogActions>
-            </Dialog>
+                </ModalActions>
+            </Modal>
         );
     }
 }
