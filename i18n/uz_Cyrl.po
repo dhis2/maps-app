@@ -94,7 +94,7 @@ msgid "Legend"
 msgstr "Таъриф"
 
 msgid "Range"
-msgstr ""
+msgstr "Оралиқ"
 
 msgid "Level"
 msgstr "Даража"
@@ -143,7 +143,7 @@ msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "Йил"
 
 msgid "Period"
 msgstr ""
@@ -507,10 +507,10 @@ msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "Йиқилиш"
 
 msgid "Expand"
-msgstr ""
+msgstr "Кенгайтиринг"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -790,10 +790,10 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
-msgstr ""
+msgstr "Бошланиш санаси"
 
 msgid "End date"
-msgstr ""
+msgstr "Якунланиш санаси"
 
 msgid "Program indicator"
 msgstr ""
@@ -1196,7 +1196,7 @@ msgid "Event"
 msgstr "Тадбир"
 
 msgid "No data found"
-msgstr ""
+msgstr "Маълумотлар топилмади"
 
 msgid "Facilities"
 msgstr ""
@@ -1211,10 +1211,10 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "Маълумот йўқ"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Кузатув объекти"
 
 msgid "No tracked entities found"
 msgstr ""
