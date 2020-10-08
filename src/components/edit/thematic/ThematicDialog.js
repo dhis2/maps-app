@@ -162,6 +162,8 @@ export class ThematicDialog extends Component {
             filters,
             setValueType,
             defaultPeriod,
+            startDate,
+            endDate,
             setPeriod,
             setOrgUnitLevels,
         } = this.props;
@@ -185,7 +187,7 @@ export class ThematicDialog extends Component {
         }
 
         // Set default period from system settings
-        if (!period && defaultPeriod) {
+        if (!period && !startDate && !endDate && defaultPeriod) {
             setPeriod({
                 id: defaultPeriod,
             });
