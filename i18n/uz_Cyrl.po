@@ -97,7 +97,7 @@ msgid "Range"
 msgstr ""
 
 msgid "Level"
-msgstr ""
+msgstr "Даража"
 
 msgid "Parent"
 msgstr ""
@@ -149,7 +149,7 @@ msgid "Period"
 msgstr ""
 
 msgid "Organisation units"
-msgstr "Ташкилий бирликлар"
+msgstr "Ташкилий бўлимлар"
 
 msgid "Style"
 msgstr "Услуб"
@@ -498,7 +498,7 @@ msgid "Indicator group"
 msgstr ""
 
 msgid "Interpretations"
-msgstr "Шарҳлар"
+msgstr "Талқинлар"
 
 msgid "External basemap"
 msgstr ""
@@ -1181,7 +1181,7 @@ msgid "Unclassified"
 msgstr ""
 
 msgid "Access denied"
-msgstr ""
+msgstr "Фойдаланиш ҳуқуқи рад этилди"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
