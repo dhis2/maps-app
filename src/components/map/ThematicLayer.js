@@ -105,7 +105,7 @@ class ThematicLayer extends Layer {
     render() {
         const { periods, renderingStrategy, filters } = this.props;
         const { period } = this.state;
-        const { id } = getPeriodFromFilters(filters);
+        const { id } = getPeriodFromFilters(filters) || {};
 
         if (renderingStrategy !== 'TIMELINE' || !period) {
             return null;
