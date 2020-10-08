@@ -82,7 +82,7 @@ msgid "Legend"
 msgstr "Таъриф"
 
 msgid "Range"
-msgstr ""
+msgstr "Оралиқ"
 
 msgid "Level"
 msgstr "Даража"
@@ -167,10 +167,10 @@ msgid "Org units"
 msgstr ""
 
 msgid "Start date"
-msgstr ""
+msgstr "Бошланиш санаси"
 
 msgid "End date"
-msgstr ""
+msgstr "Якунланиш санаси"
 
 msgid "Events"
 msgstr "Ҳодисалар"
@@ -354,10 +354,10 @@ msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "Йиқилиш"
 
 msgid "Expand"
-msgstr ""
+msgstr "Кенгайтиринг"
 
 msgid "Download Layer Data"
 msgstr ""
@@ -383,7 +383,7 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "Ўчирилди"
 
 msgid "Filters"
 msgstr ""
@@ -562,10 +562,10 @@ msgid "Facilities"
 msgstr ""
 
 msgid "No data found"
-msgstr ""
+msgstr "Маълумотлар топилмади"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Кузатув объекти"
 
 msgid "No tracked entities found"
 msgstr ""
