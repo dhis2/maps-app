@@ -24,7 +24,7 @@ import {
     downloadFile,
     downloadSupport,
 } from '../../util/export-image';
-import classes from './styles/DownloadDialog.module.css';
+import styles from './styles/DownloadDialog.module.css';
 
 export class DownloadDialog extends Component {
     static propTypes = {
@@ -71,7 +71,7 @@ export class DownloadDialog extends Component {
                 onClose={this.onClose}
             >
                 <ModalTitle>{i18n.t('Download map')}</ModalTitle>
-                <ModalContent className={classes.modalContent}>
+                <ModalContent className={styles.modalContent}>
                     {isSupported ? (
                         <Fragment>
                             <Checkbox
@@ -81,7 +81,7 @@ export class DownloadDialog extends Component {
                                 onChange={({ checked }) =>
                                     toggleDownloadShowName(checked)
                                 }
-                                className={classes.checkbox}
+                                className={styles.checkbox}
                             />
                             <Checkbox
                                 label={i18n.t('Show legend')}
@@ -90,7 +90,7 @@ export class DownloadDialog extends Component {
                                 onChange={({ checked }) =>
                                     toggleDownloadShowLegend(checked)
                                 }
-                                className={classes.checkbox}
+                                className={styles.checkbox}
                             />
                             {hasLegend && showLegend && (
                                 <LegendPosition

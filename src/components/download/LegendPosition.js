@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import classes from './styles/LegendPosition.module.css';
+import styles from './styles/LegendPosition.module.css';
 
 export const legendPositions = [
     'topleft',
@@ -11,17 +11,17 @@ export const legendPositions = [
 ];
 
 export const LegendPosition = ({ position, onChange }) => (
-    <div className={classes.root}>
-        <div className={classes.label}>{i18n.t('Legend position')}</div>
+    <div className={styles.root}>
+        <div className={styles.label}>{i18n.t('Legend position')}</div>
         {legendPositions.map(pos => (
             <div
                 key={pos}
-                className={`${classes.position} ${
-                    pos === position ? classes.selected : ''
+                className={`${styles.position} ${
+                    pos === position ? styles.selected : ''
                 }`}
                 onClick={pos !== position ? () => onChange(pos) : null}
             >
-                <div className={`${classes.legend} ${classes[pos]}`} />
+                <div className={`${styles.legend} ${styles[pos]}`} />
             </div>
         ))}
     </div>
