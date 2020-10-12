@@ -1,28 +1,29 @@
 .root {
-    width: 150px;
-    padding-left: 30px;
+    width: 170px;
+    padding-left: var(--spacers-dp48);
 }
 
 .label {
     font-size: 14px;
-    padding: 5px;
+    padding-bottom: var(--spacers-dp8);
 }
 
 .position {
     position: relative;
     display: inline-block;
+    vertical-align: top;
     background-color: var(--colors-grey100);
-    width: 50px;
-    height: 50px;
-    margin: 1px 5px;
+    width: var(--spacers-dp48);
+    height: var(--spacers-dp48);
+    margin: 0 var(--spacers-dp12) var(--spacers-dp12) 0;
     outline: 1px solid var(--colors-grey400);
     cursor: pointer;
 }
 
 .legend {
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: var(--spacers-dp12);
+    height: var(--spacers-dp12);
     background-color: var(--colors-grey900);
 }
 
@@ -31,21 +32,21 @@
 }
 
 .topleft {
-    top: 8px;
-    left: 8px;
+    top: var(--spacers-dp8);
+    left: var(--spacers-dp8);
 }
 
 .topright {
-    top: 8px;
-    right: 8px;
+    top: var(--spacers-dp8);
+    right: var(--spacers-dp8);
 }
 
 .bottomleft {
-    bottom: 8px;
-    left: 8px;
+    bottom: var(--spacers-dp8);
+    left: var(--spacers-dp8);
 }
 
 .bottomright {
-    bottom: 8px;
-    right: 8px;
+    bottom: var(--spacers-dp8);
+    right: var(--spacers-dp8);
 }
