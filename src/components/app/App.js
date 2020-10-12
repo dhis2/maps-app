@@ -6,7 +6,7 @@ import mui3theme from '@dhis2/d2-ui-core/theme/mui3.theme';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import { Provider } from '@dhis2/app-runtime';
-import { CssReset, HeaderBar } from '@dhis2/ui';
+import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
 import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
@@ -51,6 +51,7 @@ export class App extends Component {
             >
                 <FatalErrorBoundary>
                     <CssReset />
+                    <CssVariables colors spacers />
                     <HeaderBar appName={i18n.t('Maps')} />
                     <MuiThemeProvider theme={theme}>
                         <AppMenu />
