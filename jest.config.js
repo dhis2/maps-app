@@ -4,7 +4,7 @@ module.exports = {
     testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
     transformIgnorePatterns: ['node_modules/(?!(d3-scale)/)'],
     moduleNameMapper: {
-        '\\.(css)$': '<rootDir>/config/jest/styleMock.js',
+        '\\.(css)$': 'identity-obj-proxy',
     },
     testURL: 'http://localhost/',
     snapshotSerializers: ['enzyme-to-json/serializer'],

@@ -13,6 +13,6 @@ exports[`DownloadButton Should render a download button and a dialog component 1
   >
     Download
   </WithStyles(ForwardRef(Button))>
-  <Connect(WithStyles(DownloadDialog)) />
+  <Connect(DownloadDialog) />
 </Fragment>
 `;
