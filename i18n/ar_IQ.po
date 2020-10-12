@@ -1,22 +1,22 @@
 # 
 # Translators:
-# Ibatov <ibatovk@who.int>, 2020
+# KRG HIS <antonia.bezenchek@informa.pro>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2019-11-20T13:55:02.205Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2020\n"
-"Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
+"Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2020\n"
+"Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uz@Cyrl\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ar_IQ\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Maps"
-msgstr "Хариталар"
+msgstr "الخرائط"
 
 msgid "Classification"
 msgstr ""
@@ -25,7 +25,7 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Таърифлар тўплами"
+msgstr "حزمة وسائل الإيضاح"
 
 msgid "Automatic"
 msgstr ""
@@ -40,16 +40,16 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Маълумотлар элементи"
+msgstr ""
 
 msgid "Totals"
-msgstr "Жами"
+msgstr "الإجماليات"
 
 msgid "Details"
-msgstr "Тафсилотлари"
+msgstr "التفاصيل"
 
 msgid "Yes"
-msgstr "Ҳа"
+msgstr "نعم"
 
 msgid "Event location"
 msgstr ""
@@ -58,7 +58,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr "Йўқ"
+msgstr "لا شيء"
 
 msgid "Data item"
 msgstr ""
@@ -70,22 +70,22 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "Маълумотлар тўплами"
+msgstr ""
 
 msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr "Қиймат"
+msgstr "القيمة"
 
 msgid "Legend"
-msgstr "Таъриф"
+msgstr ""
 
 msgid "Range"
-msgstr "Оралиқ"
+msgstr ""
 
 msgid "Level"
-msgstr "Даража"
+msgstr ""
 
 msgid "Parent"
 msgstr ""
@@ -94,13 +94,13 @@ msgid "Id"
 msgstr ""
 
 msgid "Type"
-msgstr "Тури"
+msgstr ""
 
 msgid "Color"
 msgstr ""
 
 msgid "Download"
-msgstr "Юклаш"
+msgstr "تنزيل"
 
 msgid "Download map"
 msgstr ""
@@ -116,22 +116,22 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Бекор қилиш"
+msgstr "إلغاء"
 
 msgid "Close"
-msgstr "Ёпиқ"
+msgstr "إغلاق"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Period"
-msgstr "давр"
+msgstr ""
 
 msgid "Organisation units"
-msgstr "Ташкилий бирликлар"
+msgstr "الوحدات التنظيمية"
 
 msgid "Style"
-msgstr "Услуб"
+msgstr "المظهر"
 
 msgid "Labels"
 msgstr ""
@@ -161,19 +161,19 @@ msgid "period"
 msgstr ""
 
 msgid "Filter"
-msgstr "Фильтр"
+msgstr ""
 
 msgid "Org units"
 msgstr ""
 
 msgid "Start date"
-msgstr "Бошланиш санаси"
+msgstr ""
 
 msgid "End date"
-msgstr "Якунланиш санаси"
+msgstr ""
 
 msgid "Events"
-msgstr "Ҳодисалар"
+msgstr ""
 
 msgid "Group events"
 msgstr ""
@@ -225,22 +225,22 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "Program status"
-msgstr "дастур ҳолати"
+msgstr "حالة البرنامج"
 
 msgid "Follow up"
-msgstr "Кузатиб бориш"
+msgstr ""
 
 msgid "Selection mode"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr "Кузатувдаги объектлар"
+msgstr ""
 
 msgid "Point size"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr "Бирлаштириш тури"
+msgstr "نوع التجميع"
 
 msgid "Low size"
 msgstr ""
@@ -276,16 +276,16 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr "Индикатор"
+msgstr ""
 
 msgid "Reporting rates"
-msgstr "Ҳисобот таърифлари"
+msgstr "معدلات إعداد التقارير"
 
 msgid "Event data items"
-msgstr "Ҳодисалар ҳақида маълумот элементлари"
+msgstr ""
 
 msgid "Program indicators"
-msgstr "Дастур кўрсатгичлари"
+msgstr ""
 
 msgid "Item type"
 msgstr ""
@@ -294,7 +294,7 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr "Нимадир нотўғри бажарилди"
+msgstr ""
 
 msgid "Refresh to try again"
 msgstr ""
@@ -312,7 +312,7 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "إضافة عامل تصفية"
 
 msgid "Delete filter"
 msgstr ""
@@ -324,7 +324,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr "Сана"
+msgstr "التاريخ"
 
 msgid "one of"
 msgstr ""
@@ -348,16 +348,16 @@ msgid "Indicator group"
 msgstr ""
 
 msgid "Interpretations"
-msgstr "Шарҳлар"
+msgstr "التفسيرات"
 
 msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr "Йиқилиш"
+msgstr ""
 
 msgid "Expand"
-msgstr "Кенгайтиринг"
+msgstr ""
 
 msgid "Download Layer Data"
 msgstr ""
@@ -383,13 +383,13 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr "Ўчирилди"
+msgstr ""
 
 msgid "Filters"
 msgstr ""
 
 msgid "Edit"
-msgstr "Таҳрирлаш"
+msgstr "تعديل"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -401,10 +401,10 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr "Маълумотлар жадвали"
+msgstr ""
 
 msgid "Download data"
-msgstr "Маълумотни юклаб олинг"
+msgstr "تنزيل البيانات"
 
 msgid "Edit layer"
 msgstr ""
@@ -419,7 +419,7 @@ msgid "Pivot"
 msgstr ""
 
 msgid "Chart"
-msgstr "Диаграмма"
+msgstr "المخطط البياني"
 
 msgid "Parent unit"
 msgstr ""
@@ -446,7 +446,7 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr "Ташкилий бирлик"
+msgstr "الوحدة التنظيمية"
 
 msgid "Event time"
 msgstr ""
@@ -458,13 +458,13 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Охирги янгиланган"
+msgstr "آخر تحديث"
 
 msgid "Options"
-msgstr "Вариант"
+msgstr "الخيارات"
 
 msgid "Code"
-msgstr "Код"
+msgstr ""
 
 msgid "No data found for this period."
 msgstr ""
@@ -488,7 +488,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "في"
 
 msgid "in and right below"
 msgstr ""
@@ -500,7 +500,7 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr "Кейнги йил"
+msgstr "السنة التالية"
 
 msgid "Period type"
 msgstr ""
@@ -512,10 +512,10 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr "Программа"
+msgstr "البرنامج"
 
 msgid "Stage"
-msgstr "Босқич"
+msgstr ""
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -532,7 +532,7 @@ msgid "is saved"
 msgstr ""
 
 msgid "Error"
-msgstr "Хато"
+msgstr "خطأ"
 
 msgid "Boundaries"
 msgstr ""
@@ -544,7 +544,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Access denied"
-msgstr "Фойдаланиш ҳуқуқи рад этилди"
+msgstr ""
 
 msgid "user is not allowed to read layer data"
 msgstr ""
@@ -556,16 +556,16 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr "Тадбир"
+msgstr "الحدث"
 
 msgid "Facilities"
 msgstr ""
 
 msgid "No data found"
-msgstr "Маълумотлар топилмади"
+msgstr ""
 
 msgid "Tracked entity"
-msgstr "Кузатув объекти"
+msgstr ""
 
 msgid "No tracked entities found"
 msgstr ""
@@ -577,7 +577,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "Йўқ"
+msgstr "لا"
 
 msgid "Map could not be created"
 msgstr ""
