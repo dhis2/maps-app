@@ -28,7 +28,7 @@
 }
 
 .selected {
-    outline: 3px solid var(--colors-blue600);
+    outline: 3px solid var(--colors-teal700);
 }
 
 .topleft {
