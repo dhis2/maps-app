@@ -1,22 +1,23 @@
 # 
 # Translators:
-# Ibatov <ibatovk@who.int>, 2020
+# phil_dhis2, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-09-07T12:04:18.927Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2020\n"
-"Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Language-Team: Khmer (https://www.transifex.com/hisp-uio/teams/100509/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uz@Cyrl\n"
+"Language: km\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Maps"
-msgstr "Хариталар"
+msgstr ""
 
 msgid "Classification"
 msgstr ""
@@ -25,7 +26,7 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Таърифлар тўплами"
+msgstr ""
 
 msgid "Automatic"
 msgstr ""
@@ -43,16 +44,16 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Маълумотлар элементи"
+msgstr "ទិន្នន័យធាតុដើម"
 
 msgid "Totals"
-msgstr "Жами"
+msgstr ""
 
 msgid "Details"
-msgstr "Тафсилотлари"
+msgstr "លម្អិត"
 
 msgid "Yes"
-msgstr "Ҳа"
+msgstr "បាទ/ចាស"
 
 msgid "Event location"
 msgstr ""
@@ -61,7 +62,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr "Йўқ"
+msgstr "គ្មាន"
 
 msgid "Data item"
 msgstr ""
@@ -73,25 +74,25 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "Маълумотлар тўплами"
+msgstr "Data set"
 
 msgid "Index"
 msgstr ""
 
 msgid "Name"
-msgstr "Исми"
+msgstr "ឈ្មោះ"
 
 msgid "Value"
-msgstr "Қиймат"
+msgstr "តម្លៃ"
 
 msgid "Legend"
-msgstr "Таъриф"
+msgstr ""
 
 msgid "Range"
-msgstr "Оралиқ"
+msgstr ""
 
 msgid "Level"
-msgstr "Даража"
+msgstr "Level"
 
 msgid "Parent"
 msgstr ""
@@ -100,7 +101,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Type"
-msgstr "Тури"
+msgstr ""
 
 msgid "Color"
 msgstr ""
@@ -115,7 +116,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr "Юклаш"
+msgstr ""
 
 msgid "Download map"
 msgstr ""
@@ -131,25 +132,25 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Бекор қилиш"
+msgstr "បោះបង់"
 
 msgid "Close"
-msgstr "Ёпиқ"
+msgstr "បិទ"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr "Йил"
+msgstr "ឆ្នាំ"
 
 msgid "Period"
-msgstr "давр"
+msgstr "កំឡុងពេល"
 
 msgid "Organisation units"
-msgstr "Ташкилий бирликлар"
+msgstr "Organisation units"
 
 msgid "Style"
-msgstr "Услуб"
+msgstr "​រចនាបទ"
 
 msgid "Labels"
 msgstr ""
@@ -218,10 +219,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr "Минимум"
+msgstr "អប្បបរមា"
 
 msgid "Max"
-msgstr "Максимум"
+msgstr "អតិបរមា"
 
 msgid "Steps"
 msgstr ""
@@ -245,16 +246,16 @@ msgid "Org units"
 msgstr ""
 
 msgid "Filter"
-msgstr "Фильтр"
+msgstr ""
 
 msgid "Start date"
-msgstr "Бошланиш санаси"
+msgstr "កាលបរិច្ឆេទ​ចាប់ផ្ដើម​"
 
 msgid "End date"
-msgstr "Якунланиш санаси"
+msgstr "កាល​បរិច្ឆេទ​បញ្ចប់​"
 
 msgid "Events"
-msgstr "Ҳодисалар"
+msgstr "ព្រឹត្តិការណ៏"
 
 msgid "Group events"
 msgstr ""
@@ -330,13 +331,13 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "relationships"
-msgstr ""
+msgstr "ទំនាក់ទំនង"
 
 msgid "Program status"
-msgstr "дастур ҳолати"
+msgstr ""
 
 msgid "Follow up"
-msgstr "Кузатиб бориш"
+msgstr "តាមដាន"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -365,7 +366,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr "Кузатувдаги объектлар"
+msgstr "ផ្នែកតាមដាន"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -380,7 +381,7 @@ msgid "Line Color"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr "Бирлаштириш тури"
+msgstr ""
 
 msgid "Low size"
 msgstr ""
@@ -416,16 +417,16 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
-msgstr "Индикатор"
+msgstr ""
 
 msgid "Reporting rates"
-msgstr "Ҳисобот таърифлари"
+msgstr ""
 
 msgid "Event data items"
-msgstr "Ҳодисалар ҳақида маълумот элементлари"
+msgstr ""
 
 msgid "Program indicators"
-msgstr "Дастур кўрсатгичлари"
+msgstr ""
 
 msgid "Item type"
 msgstr ""
@@ -443,7 +444,7 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr "Нимадир нотўғри бажарилди"
+msgstr ""
 
 msgid "Refresh to try again"
 msgstr ""
@@ -461,10 +462,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "សញ្ញា​​​ប្រមាណ​វិធី"
 
 msgid "Date"
-msgstr "Сана"
+msgstr "កាលបរិច្ឆេទ"
 
 msgid "one of"
 msgstr ""
@@ -482,10 +483,10 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Indicator group"
 
 msgid "Interpretations"
-msgstr "Шарҳлар"
+msgstr "កន្លែងសន្ទនារ"
 
 msgid "External basemap"
 msgstr ""
@@ -494,10 +495,10 @@ msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr "Йиқилиш"
+msgstr ""
 
 msgid "Expand"
-msgstr "Кенгайтиринг"
+msgstr ""
 
 msgid "Download Layer Data"
 msgstr ""
@@ -535,10 +536,10 @@ msgid "Filters"
 msgstr ""
 
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 msgid "Edit"
-msgstr "Таҳрирлаш"
+msgstr "កែសម្រួល​"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -550,13 +551,13 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr "Маълумотлар жадвали"
+msgstr ""
 
 msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr "Маълумотни юклаб олинг"
+msgstr ""
 
 msgid "Edit layer"
 msgstr ""
@@ -586,10 +587,10 @@ msgid "Relocate"
 msgstr ""
 
 msgid "Not set"
-msgstr ""
+msgstr "មិន​បាន​កំណត់"
 
 msgid "Organisation unit"
-msgstr "Ташкилий бирлик"
+msgstr "ផ្នែក​នៃ​អង្គការ"
 
 msgid "Event time"
 msgstr ""
@@ -601,7 +602,7 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Охирги янгиланган"
+msgstr "បាន​ធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយ"
 
 msgid "Open as map"
 msgstr ""
@@ -619,10 +620,10 @@ msgid "Proceed"
 msgstr ""
 
 msgid "Options"
-msgstr "Вариант"
+msgstr ""
 
 msgid "Code"
-msgstr "Код"
+msgstr ""
 
 msgid "No data found for this period."
 msgstr ""
@@ -678,13 +679,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr "Кейнги йил"
+msgstr "ឆ្នាំ​ក្រោយ"
 
 msgid "Relative"
-msgstr ""
+msgstr "ទំនាក់ទំនង"
 
 msgid "Period type"
-msgstr ""
+msgstr "Period type"
 
 msgid "Start/end dates"
 msgstr ""
@@ -714,31 +715,31 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr "Программа"
+msgstr ""
 
 msgid "Stage"
-msgstr "Босқич"
+msgstr ""
 
 msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr "Маълумотлар элементи бўйича"
+msgstr ""
 
 msgid "Count"
-msgstr "Ҳисоблаш"
+msgstr "ផលរាប់"
 
 msgid "Average"
-msgstr "Ўртача"
+msgstr "ផលមធ្យម"
 
 msgid "Sum"
-msgstr "Жамлаш"
+msgstr "ផល​បូក"
 
 msgid "Standard deviation"
-msgstr "Стандарт оғиш"
+msgstr ""
 
 msgid "Variance"
-msgstr "Номувофиқлик"
+msgstr ""
 
 msgid "OSM Light"
 msgstr ""
@@ -759,139 +760,139 @@ msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr "Кунлик"
+msgstr "រាល់​ថ្ងៃ"
 
 msgid "Weekly"
-msgstr "Ҳафталик"
+msgstr "រាល់​សប្ដាហ៍"
 
 msgid "Monthly"
-msgstr "Ойлик"
+msgstr "រាល់​ខែ"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr "Ҳар квартал"
+msgstr "រាល់ត្រីមាស"
 
 msgid "Six-monthly"
-msgstr "Ярим йиллик"
+msgstr "រាល់ឆមាស"
 
 msgid "Six-monthly April"
-msgstr "Ярим йиллик Апрель"
+msgstr "ប្រចាំឆមាស​ពីខែមេសា"
 
 msgid "Yearly"
-msgstr "Йиллик"
+msgstr "ប្រចាំឆ្នាំ"
 
 msgid "Financial year (Start October)"
-msgstr "Молиявий йил (бошланиши Октябрь)"
+msgstr ""
 
 msgid "Financial year (Start July)"
-msgstr "Молиявий йил (бошланиши Июль)"
+msgstr ""
 
 msgid "Financial year (Start April)"
-msgstr "Молиявий йил (бошланиши Апрель)"
+msgstr ""
 
 msgid "Today"
-msgstr "бугун"
+msgstr ""
 
 msgid "Yesterday"
-msgstr "Кеча"
+msgstr ""
 
 msgid "Last 3 days"
-msgstr "Охирги 3 кун"
+msgstr ""
 
 msgid "Last 7 days"
-msgstr "Охирги 7 кун"
+msgstr ""
 
 msgid "Last 14 days"
-msgstr "Охирги 14 кун"
+msgstr ""
 
 msgid "This week"
-msgstr "Ушбу ҳафта"
+msgstr ""
 
 msgid "Last week"
-msgstr "Охирги ҳафта"
+msgstr ""
 
 msgid "Last 4 weeks"
-msgstr "Охирги 4 ҳафта"
+msgstr ""
 
 msgid "Last 12 weeks"
-msgstr "Охирги 12 ҳафта"
+msgstr ""
 
 msgid "Last 52 weeks"
-msgstr "Охирги 52 ҳафта"
+msgstr ""
 
 msgid "Weeks this year"
-msgstr "Ҳафталар айни йилда "
+msgstr ""
 
 msgid "This month"
-msgstr "Ушбу ой"
+msgstr ""
 
 msgid "Last month"
-msgstr "Охирги ой"
+msgstr ""
 
 msgid "Last 3 months"
-msgstr "Охирги 3 ой"
+msgstr ""
 
 msgid "Last 6 months"
-msgstr "Охирги 6 ой"
+msgstr ""
 
 msgid "Last 12 months"
-msgstr "Охирги 12 ой"
+msgstr ""
 
 msgid "Months this year"
-msgstr "Ойлар айни йилда"
+msgstr ""
 
 msgid "This bi-month"
-msgstr "Ушбу жуфт ой"
+msgstr ""
 
 msgid "Last bi-month"
-msgstr "Охирги 2 ой"
+msgstr ""
 
 msgid "Last 6 bi-months"
-msgstr "Охирги 6 жуфт ойлар"
+msgstr ""
 
 msgid "Bi-months this year"
-msgstr "Айни йилдаги жуфт ойлар"
+msgstr ""
 
 msgid "This quarter"
-msgstr "Ушбу квартал"
+msgstr ""
 
 msgid "Last quarter"
-msgstr "Охирги квартал"
+msgstr ""
 
 msgid "Last 4 quarters"
-msgstr "Охирги 4 квартал"
+msgstr ""
 
 msgid "Quarters this year"
-msgstr "Ушбу йилдаги кварталлар"
+msgstr ""
 
 msgid "This six-month"
-msgstr "Ушбу ярим йиллик"
+msgstr ""
 
 msgid "Last six-month"
-msgstr "Охирги 6 ой"
+msgstr ""
 
 msgid "Last 2 six-months"
-msgstr "Охирги 2 та 6 ойлик"
+msgstr ""
 
 msgid "This year"
-msgstr "Ушбу йил"
+msgstr ""
 
 msgid "Last year"
-msgstr "Охирги йил"
+msgstr ""
 
 msgid "Last 5 years"
-msgstr "Охирги 5 йил"
+msgstr ""
 
 msgid "This financial year"
-msgstr "Ушбу молиявий йил"
+msgstr ""
 
 msgid "Last financial year"
-msgstr "Охирги молиявий йил"
+msgstr ""
 
 msgid "Last 5 financial years"
-msgstr "Охирги 5 молиявий йиллар"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -899,7 +900,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr "Хато"
+msgstr "កំហុសបច្ចេកទេស"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -1024,7 +1025,7 @@ msgid "Unclassified"
 msgstr ""
 
 msgid "Access denied"
-msgstr "Фойдаланиш ҳуқуқи рад этилди"
+msgstr "​ដំណើរការ​ត្រូវ​បាន​បដិសេធ"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
@@ -1036,10 +1037,10 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr "Тадбир"
+msgstr ""
 
 msgid "No data found"
-msgstr "Маълумотлар топилмади"
+msgstr ""
 
 msgid "Facilities"
 msgstr ""
@@ -1054,7 +1055,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr "Кузатув объекти"
+msgstr ""
 
 msgid "No tracked entities found"
 msgstr ""
@@ -1078,7 +1079,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "Йўқ"
+msgstr "ទេ"
 
 msgid "Map could not be created"
 msgstr ""
