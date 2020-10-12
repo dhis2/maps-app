@@ -1,0 +1,51 @@
+.root {
+    width: 150px;
+    padding-left: 30px;
+}
+
+.label {
+    font-size: 14px;
+    padding: 5px;
+}
+
+.position {
+    position: relative;
+    display: inline-block;
+    background-color: #f4f6f8;
+    width: 50px;
+    height: 50px;
+    margin: 1px 5px;
+    outline: #e0e0e0;
+    cursor: pointer;
+}
+
+.legend {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #494949;
+}
+
+.selected {
+    outline: 3px solid #1976d2;
+}
+
+.topleft {
+    top: 8px;
+    left: 8px;
+}
+
+.topright {
+    top: 8px;
+    right: 8px;
+}
+
+.bottomleft {
+    bottom: 8px;
+    left: 8px;
+}
+
+.bottomright {
+    bottom: 8px;
+    right: 8px;
+}
