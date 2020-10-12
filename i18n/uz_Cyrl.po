@@ -143,7 +143,7 @@ msgid "Year"
 msgstr "Йил"
 
 msgid "Period"
-msgstr ""
+msgstr "давр"
 
 msgid "Organisation units"
 msgstr "Ташкилий бирликлар"
@@ -416,7 +416,7 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "Индикатор"
 
 msgid "Reporting rates"
 msgstr "Ҳисобот таърифлари"
@@ -550,7 +550,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr ""
+msgstr "Маълумотлар жадвали"
 
 msgid "Open as chart"
 msgstr ""
@@ -786,7 +786,7 @@ msgid "Program"
 msgstr "Программа"
 
 msgid "Stage"
-msgstr ""
+msgstr "Босқич"
 
 msgid "Tracked Entity Type"
 msgstr ""
