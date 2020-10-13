@@ -1,0 +1,7 @@
+.modalContent {
+    min-height: 225px;
+}
+
+.checkbox {
+    padding-bottom: var(--spacers-dp16);
+}

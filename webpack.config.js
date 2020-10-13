@@ -55,7 +55,10 @@ const webpackConfig = {
         rules: [
             {
                 test: /\.jsx?$/,
-                include: [path.resolve(__dirname, 'src/')],
+                include: [
+                    path.resolve(__dirname, 'src/'),
+                    /@dhis2\/prop-types/,
+                ],
                 loader: 'babel-loader',
                 query: {
                     cacheDirectory: true,
@@ -64,11 +67,22 @@ const webpackConfig = {
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader',
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: true,
+                        },
+                    },
+                ],
+                include: /\.module\.css$/,
             },
             {
-                test: /\.scss$/,
-                loader: 'style-loader!css-loader!sass-loader',
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+                exclude: /\.module\.css$/,
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,

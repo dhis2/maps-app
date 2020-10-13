@@ -2,15 +2,15 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
+    Checkbox,
     Button,
-} from '@material-ui/core';
-import Checkbox from '../core/Checkbox';
+    ButtonStrip,
+} from '@dhis2/ui';
 import LegendPosition from './LegendPosition';
 import {
     toggleDownloadDialog,
@@ -24,19 +24,7 @@ import {
     downloadFile,
     downloadSupport,
 } from '../../util/export-image';
-
-const styles = {
-    content: {
-        minHeight: 250,
-        width: 250,
-    },
-    checkbox: {
-        display: 'block',
-        marginLeft: -14,
-        marginTop: -16,
-        marginBottom: -8,
-    },
-};
+import styles from './styles/DownloadDialog.module.css';
 
 export class DownloadDialog extends Component {
     static propTypes = {
@@ -50,7 +38,6 @@ export class DownloadDialog extends Component {
         toggleDownloadShowName: PropTypes.func.isRequired,
         toggleDownloadShowLegend: PropTypes.func.isRequired,
         setDownloadLegendPosition: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -68,7 +55,6 @@ export class DownloadDialog extends Component {
             toggleDownloadShowName,
             toggleDownloadShowLegend,
             setDownloadLegendPosition,
-            classes,
         } = this.props;
 
         if (!showDialog) {
@@ -78,57 +64,59 @@ export class DownloadDialog extends Component {
         const isSupported = downloadSupport() && !this.state.error;
 
         return (
-            <Dialog open={showDialog} onClose={this.onClose}>
-                <DialogTitle disableTypography={true}>
-                    {i18n.t('Download map')}
-                </DialogTitle>
-                <DialogContent className={classes.content}>
-                    {isSupported ? (
-                        <Fragment>
-                            <div className={classes.checkbox}>
-                                <Checkbox
-                                    label={i18n.t('Show name')}
-                                    checked={showName}
-                                    disabled={!hasName}
-                                    onCheck={toggleDownloadShowName}
-                                />
-                            </div>
-                            <div className={classes.checkbox}>
-                                <Checkbox
-                                    label={i18n.t('Show legend')}
-                                    checked={showLegend}
-                                    disabled={!hasLegend}
-                                    onCheck={toggleDownloadShowLegend}
-                                />
-                            </div>
-                            {hasLegend && showLegend && (
-                                <LegendPosition
-                                    position={legendPosition}
-                                    onChange={setDownloadLegendPosition}
-                                />
-                            )}
-                        </Fragment>
-                    ) : (
-                        i18n.t(
-                            'Map download is not supported by your browser. Try Google Chrome or Firefox.'
-                        )
-                    )}
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={this.onClose}>
-                        {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
-                    </Button>
-                    {isSupported && (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={this.onDownload}
-                        >
-                            {i18n.t('Download')}
+            <Modal position="middle" small onClose={this.onClose}>
+                <ModalTitle>{i18n.t('Download map')}</ModalTitle>
+                <ModalContent>
+                    <div className={styles.modalContent}>
+                        {isSupported ? (
+                            <Fragment>
+                                <div className={styles.checkbox}>
+                                    <Checkbox
+                                        label={i18n.t('Show name')}
+                                        checked={showName}
+                                        disabled={!hasName}
+                                        onChange={({ checked }) =>
+                                            toggleDownloadShowName(checked)
+                                        }
+                                    />
+                                </div>
+                                <div className={styles.checkbox}>
+                                    <Checkbox
+                                        label={i18n.t('Show legend')}
+                                        checked={showLegend}
+                                        disabled={!hasLegend}
+                                        onChange={({ checked }) =>
+                                            toggleDownloadShowLegend(checked)
+                                        }
+                                    />
+                                </div>
+                                {hasLegend && showLegend && (
+                                    <LegendPosition
+                                        position={legendPosition}
+                                        onChange={setDownloadLegendPosition}
+                                    />
+                                )}
+                            </Fragment>
+                        ) : (
+                            i18n.t(
+                                'Map download is not supported by your browser. Try Google Chrome or Firefox.'
+                            )
+                        )}
+                    </div>
+                </ModalContent>
+                <ModalActions>
+                    <ButtonStrip end>
+                        <Button secondary onClick={this.onClose}>
+                            {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
                         </Button>
-                    )}
-                </DialogActions>
-            </Dialog>
+                        {isSupported && (
+                            <Button primary onClick={this.onDownload}>
+                                {i18n.t('Download')}
+                            </Button>
+                        )}
+                    </ButtonStrip>
+                </ModalActions>
+            </Modal>
         );
     }
 
@@ -203,4 +191,4 @@ export default connect(
         toggleDownloadShowLegend,
         setDownloadLegendPosition,
     }
-)(withStyles(styles)(DownloadDialog));
+)(DownloadDialog);
