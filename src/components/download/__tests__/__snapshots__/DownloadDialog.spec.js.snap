@@ -4,7 +4,6 @@ exports[`DownloadDialog Should match snapshot when showDialog is true 1`] = `
 <Modal
   dataTest="dhis2-uicore-modal"
   onClose={[Function]}
-  open={true}
   position="middle"
   small={true}
 >

@@ -64,12 +64,7 @@ export class DownloadDialog extends Component {
         const isSupported = downloadSupport() && !this.state.error;
 
         return (
-            <Modal
-                open={showDialog}
-                position="middle"
-                small
-                onClose={this.onClose}
-            >
+            <Modal position="middle" small onClose={this.onClose}>
                 <ModalTitle>{i18n.t('Download map')}</ModalTitle>
                 <ModalContent>
                     <div className={styles.modalContent}>

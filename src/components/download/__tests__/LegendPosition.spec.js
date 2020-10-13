@@ -6,7 +6,6 @@ describe('LegendPosition', () => {
     const renderComponent = props =>
         shallow(
             <LegendPosition
-                // classes={classes}
                 position="bottomright"
                 onChange={() => null}
                 {...props}

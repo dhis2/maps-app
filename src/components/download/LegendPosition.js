@@ -13,7 +13,7 @@ export const legendPositions = [
 
 export const LegendPosition = ({ position, onChange }) => (
     <div className={styles.root}>
-        <div className={styles.label}>{i18n.t('Legend position')}</div>
+        <label className={styles.label}>{i18n.t('Legend position')}</label>
         {legendPositions.map(pos => (
             <div
                 key={pos}
