@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
+import cx from 'classnames';
 import styles from './styles/LegendPosition.module.css';
 
 export const legendPositions = [
@@ -16,12 +17,12 @@ export const LegendPosition = ({ position, onChange }) => (
         {legendPositions.map(pos => (
             <div
                 key={pos}
-                className={`${styles.position} ${
-                    pos === position ? styles.selected : ''
-                }`}
+                className={cx(styles.position, {
+                    [styles.selected]: pos === position,
+                })}
                 onClick={pos !== position ? () => onChange(pos) : null}
             >
-                <div className={`${styles.legend} ${styles[pos]}`} />
+                <div className={cx(styles.legend, styles[pos])} />
             </div>
         ))}
     </div>
