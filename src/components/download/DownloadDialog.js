@@ -71,39 +71,43 @@ export class DownloadDialog extends Component {
                 onClose={this.onClose}
             >
                 <ModalTitle>{i18n.t('Download map')}</ModalTitle>
-                <ModalContent className={styles.modalContent}>
-                    {isSupported ? (
-                        <Fragment>
-                            <Checkbox
-                                label={i18n.t('Show name')}
-                                checked={showName}
-                                disabled={!hasName}
-                                onChange={({ checked }) =>
-                                    toggleDownloadShowName(checked)
-                                }
-                                className={styles.checkbox}
-                            />
-                            <Checkbox
-                                label={i18n.t('Show legend')}
-                                checked={showLegend}
-                                disabled={!hasLegend}
-                                onChange={({ checked }) =>
-                                    toggleDownloadShowLegend(checked)
-                                }
-                                className={styles.checkbox}
-                            />
-                            {hasLegend && showLegend && (
-                                <LegendPosition
-                                    position={legendPosition}
-                                    onChange={setDownloadLegendPosition}
-                                />
-                            )}
-                        </Fragment>
-                    ) : (
-                        i18n.t(
-                            'Map download is not supported by your browser. Try Google Chrome or Firefox.'
-                        )
-                    )}
+                <ModalContent>
+                    <div className={styles.modalContent}>
+                        {isSupported ? (
+                            <Fragment>
+                                <div className={styles.checkbox}>
+                                    <Checkbox
+                                        label={i18n.t('Show name')}
+                                        checked={showName}
+                                        disabled={!hasName}
+                                        onChange={({ checked }) =>
+                                            toggleDownloadShowName(checked)
+                                        }
+                                    />
+                                </div>
+                                <div className={styles.checkbox}>
+                                    <Checkbox
+                                        label={i18n.t('Show legend')}
+                                        checked={showLegend}
+                                        disabled={!hasLegend}
+                                        onChange={({ checked }) =>
+                                            toggleDownloadShowLegend(checked)
+                                        }
+                                    />
+                                </div>
+                                {hasLegend && showLegend && (
+                                    <LegendPosition
+                                        position={legendPosition}
+                                        onChange={setDownloadLegendPosition}
+                                    />
+                                )}
+                            </Fragment>
+                        ) : (
+                            i18n.t(
+                                'Map download is not supported by your browser. Try Google Chrome or Firefox.'
+                            )
+                        )}
+                    </div>
                 </ModalContent>
                 <ModalActions>
                     <ButtonStrip end>

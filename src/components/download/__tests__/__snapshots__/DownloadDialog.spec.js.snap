@@ -14,25 +14,34 @@ exports[`DownloadDialog Should match snapshot when showDialog is true 1`] = `
     Download map
   </ModalTitle>
   <ModalContent
-    className="modalContent"
     dataTest="dhis2-uicore-modalcontent"
   >
-    <Checkbox
-      checked={false}
-      className="checkbox"
-      dataTest="dhis2-uicore-checkbox"
-      disabled={true}
-      label="Show name"
-      onChange={[Function]}
-    />
-    <Checkbox
-      checked={false}
-      className="checkbox"
-      dataTest="dhis2-uicore-checkbox"
-      disabled={true}
-      label="Show legend"
-      onChange={[Function]}
-    />
+    <div
+      className="modalContent"
+    >
+      <div
+        className="checkbox"
+      >
+        <Checkbox
+          checked={false}
+          dataTest="dhis2-uicore-checkbox"
+          disabled={true}
+          label="Show name"
+          onChange={[Function]}
+        />
+      </div>
+      <div
+        className="checkbox"
+      >
+        <Checkbox
+          checked={false}
+          dataTest="dhis2-uicore-checkbox"
+          disabled={true}
+          label="Show legend"
+          onChange={[Function]}
+        />
+      </div>
+    </div>
   </ModalContent>
   <ModalActions
     dataTest="dhis2-uicore-modalactions"
