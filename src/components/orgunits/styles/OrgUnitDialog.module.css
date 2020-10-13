@@ -22,7 +22,7 @@
 
 .nodata {
     font-style: italic;
-    padding: 5px;
+    padding: var(--spacers-dp4);
     font-size: 14px;
 }
 
