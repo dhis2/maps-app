@@ -19,13 +19,3 @@
     width: 345px;
     margin-top: -12px;
 }
-
-.nodata {
-    font-style: italic;
-    padding: var(--spacers-dp4);
-    font-size: 14px;
-}
-
-.right {
-    text-align: right;
-}
