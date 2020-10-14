@@ -7,16 +7,10 @@ import {
     ModalTitle,
     ModalContent,
     ModalActions,
-    Table,
-    TableHead,
-    TableRowHead,
-    TableCellHead,
-    TableBody,
-    TableRow,
-    TableCell,
     Button,
 } from '@dhis2/ui';
 import PeriodSelect from '../periods/PeriodSelect';
+import OrgUnitDialogTable from './OrgUnitDialogTable';
 import { closeOrgUnit } from '../../actions/orgUnits';
 import { loadConfigurations, loadData } from '../../util/infrastructural';
 import styles from './styles/OrgUnitDialog.module.css';
@@ -105,42 +99,7 @@ export class OrgUnitDialog extends Component {
                                 period={period}
                                 onChange={this.onPeriodChange}
                             />
-                            {data && data.length ? (
-                                <Table>
-                                    <TableHead>
-                                        <TableRowHead>
-                                            <TableCellHead dense>
-                                                {i18n.t('Data element')}
-                                            </TableCellHead>
-                                            <TableCellHead
-                                                dense
-                                                className={styles.right}
-                                            >
-                                                {i18n.t('Value')}
-                                            </TableCellHead>
-                                        </TableRowHead>
-                                    </TableHead>
-                                    <TableBody>
-                                        {data.map(({ id, name, value }) => (
-                                            <TableRow key={id}>
-                                                <TableCell dense>
-                                                    {name}
-                                                </TableCell>
-                                                <TableCell
-                                                    dense
-                                                    className={styles.right}
-                                                >
-                                                    {value}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            ) : (
-                                <div className={styles.nodata}>
-                                    {i18n.t('No data found for this period.')}
-                                </div>
-                            )}
+                            <OrgUnitDialogTable data={data} />
                         </div>
                     </div>
                 </ModalContent>
