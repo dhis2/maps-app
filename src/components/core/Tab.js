@@ -1,15 +1,29 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Tab as MuiTab } from '@material-ui/core';
+import React, { useContext, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { Tab as UiTab } from '@dhis2/ui';
+import { TabContext } from './Tabs';
 
-const styles = {
-    root: {
-        minWidth: 0,
-        fontSize: 14,
-    },
+const Tab = ({ value, dataTest, children }) => {
+    const { tab, onChange } = useContext(TabContext);
+
+    // onChange is from the parent component
+    const onClick = useCallback(() => {
+        if (value !== tab) {
+            onChange(value);
+        }
+    }, [value, tab, onChange]);
+
+    return (
+        <UiTab selected={value === tab} onClick={onClick} dataTest={dataTest}>
+            {children}
+        </UiTab>
+    );
 };
 
-// Styled wrapper around MUI Tab
-const Tab = props => <MuiTab {...props} />;
+Tab.propTypes = {
+    value: PropTypes.string.isRequired,
+    dataTest: PropTypes.string,
+    children: PropTypes.node.isRequired,
+};
 
-export default withStyles(styles)(Tab);
+export default Tab;

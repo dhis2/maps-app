@@ -204,11 +204,11 @@ export class EventDialog extends Component {
         return (
             <div data-test="eventdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="data" label={i18n.t('data')} />
-                    <Tab value="period" label={i18n.t('period')} />
-                    <Tab value="orgunits" label={i18n.t('Org units')} />
-                    <Tab value="filter" label={i18n.t('Filter')} />
-                    <Tab value="style" label={i18n.t('Style')} />
+                    <Tab value="data">{i18n.t('Data')}</Tab>
+                    <Tab value="period">{i18n.t('Period')}</Tab>
+                    <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
+                    <Tab value="filter">{i18n.t('Filter')}</Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
                 <div style={styles.tabContent} data-test="eventdialog-content">
                     {tab === 'data' && (

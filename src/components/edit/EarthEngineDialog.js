@@ -172,7 +172,7 @@ class EarthEngineDialog extends Component {
         return (
             <div>
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="style" label={i18n.t('Style')} />
+                    <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
                 <div className={classes.tabContent}>
                     <div className={classes.flexColumnFlow}>

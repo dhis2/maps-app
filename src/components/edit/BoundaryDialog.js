@@ -118,11 +118,8 @@ class BoundaryDialog extends Component {
         return (
             <div data-test="boundarydialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab
-                        value="orgunits"
-                        label={i18n.t('Organisation units')}
-                    />
-                    <Tab value="style" label={i18n.t('Style')} />
+                    <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
                 <div className={classes.tabContent}>
                     {tab === 'orgunits' && (
