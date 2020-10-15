@@ -158,13 +158,14 @@ class FacilityDialog extends Component {
         return (
             <div data-test="facilitydialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="group" label={i18n.t('Group set')} />
+                    <Tab value="group">{i18n.t('Group Set')}</Tab>
                     <Tab
                         value="orgunits"
-                        label={i18n.t('Organisation units')}
-                        data-test="facilitydialog-tabs-orgunits"
-                    />
-                    <Tab value="style" label={i18n.t('Style')} />
+                        dataTest="facilitydialog-tabs-orgunits"
+                    >
+                        {i18n.t('Organisation Units')}
+                    </Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
                 <div className={classes.tabContent}>
                     {tab === 'group' && (

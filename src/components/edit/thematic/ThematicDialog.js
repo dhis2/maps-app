@@ -313,31 +313,24 @@ export class ThematicDialog extends Component {
         return (
             <div data-test="thematicdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab
-                        value="data"
-                        label={i18n.t('data')}
-                        data-test="thematicdialog-tabs-data"
-                    />
-                    <Tab
-                        value="period"
-                        label={i18n.t('period')}
-                        data-test="thematicdialog-tabs-period"
-                    />
+                    <Tab value="data" dataTest="thematicdialog-tabs-data">
+                        {i18n.t('Data')}
+                    </Tab>
+                    <Tab value="period" dataTest="thematicdialog-tabs-period">
+                        {i18n.t('Period')}
+                    </Tab>
                     <Tab
                         value="orgunits"
-                        label={i18n.t('Org units')}
-                        data-test="thematicdialog-tabs-orgunits"
-                    />
-                    <Tab
-                        value="filter"
-                        label={i18n.t('Filter')}
-                        data-test="thematicdialog-tabs-filter"
-                    />
-                    <Tab
-                        value="style"
-                        label={i18n.t('Style')}
-                        data-test="thematicdialog-tabs-style"
-                    />
+                        dataTest="thematicdialog-tabs-orgunits"
+                    >
+                        {i18n.t('Org Units')}
+                    </Tab>
+                    <Tab value="filter" dataTest="thematicdialog-tabs-filter">
+                        {i18n.t('Filter')}
+                    </Tab>
+                    <Tab value="style" dataTest="thematicdialog-tabs-style">
+                        {i18n.t('Style')}
+                    </Tab>
                 </Tabs>
                 <div style={styles.tabContent}>
                     {tab === 'data' && (

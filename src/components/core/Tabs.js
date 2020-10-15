@@ -1,28 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Tabs as MuiTabs } from '@material-ui/core';
+import { TabBar } from '@dhis2/ui';
 
-const styles = {
-    root: {
-        borderBottom: '1px solid rgb(221, 221, 221)',
-    },
+export const TabContext = React.createContext();
+
+const Tabs = ({ value, onChange, children }) => {
+    const [tab, setTab] = useState(value);
+
+    useEffect(() => {
+        if (value !== tab) {
+            setTab(value);
+        }
+    }, [value, tab]);
+
+    return (
+        <TabContext.Provider value={{ tab, onChange }}>
+            <TabBar fixed>{children}</TabBar>
+        </TabContext.Provider>
+    );
 };
-
-// Wrapper around MUI Tabs
-const Tabs = props => (
-    <MuiTabs
-        indicatorColor="primary"
-        textColor="primary"
-        variant="fullWidth"
-        {...props}
-        onChange={(event, tab) => props.onChange(tab)}
-    />
-);
 
 Tabs.propTypes = {
+    value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ]).isRequired,
 };
 
-export default withStyles(styles)(Tabs);
+export default Tabs;

@@ -214,14 +214,11 @@ export class TrackedEntityDialog extends Component {
         return (
             <div>
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="data" label={i18n.t('data')} />
-                    <Tab
-                        value="relationships"
-                        label={i18n.t('relationships')}
-                    />
-                    <Tab value="period" label={i18n.t('period')} />
-                    <Tab value="orgunits" label={i18n.t('Org units')} />
-                    <Tab value="style" label={i18n.t('Style')} />
+                    <Tab value="data">{i18n.t('Data')}</Tab>
+                    <Tab value="relationships">{i18n.t('Relationships')}</Tab>
+                    <Tab value="period">{i18n.t('Period')}</Tab>
+                    <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
+                    <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
                 <div className={classes.tabContent}>
                     {tab === 'data' && (
