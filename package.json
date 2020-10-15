@@ -134,7 +134,7 @@
         "image-webpack-loader": "^4.1.0",
         "imports-loader": "^0.8.0",
         "isparta-loader": "^2.0.0",
-        "jest": "^22.4.2",
+        "jest": "^26.5.3",
         "nyc": "^11.4.1",
         "optipng-bin": "^4.0.0",
         "pngquant-bin": "^3.1.1",
