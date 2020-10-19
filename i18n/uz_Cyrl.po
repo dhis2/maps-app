@@ -164,7 +164,7 @@ msgid "Filter"
 msgstr "Фильтр"
 
 msgid "Org units"
-msgstr ""
+msgstr "Ташкилий бўлим"
 
 msgid "Start date"
 msgstr "Бошланиш санаси"
@@ -312,7 +312,7 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "Фильтр киритиш"
 
 msgid "Delete filter"
 msgstr ""
@@ -321,7 +321,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Оператор"
 
 msgid "Date"
 msgstr "Сана"
@@ -345,7 +345,7 @@ msgid "is not"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Кўрсатгич гуруҳи"
 
 msgid "Interpretations"
 msgstr "Шарҳлар"
@@ -416,7 +416,7 @@ msgid "Open as"
 msgstr ""
 
 msgid "Pivot"
-msgstr ""
+msgstr "Таянч"
 
 msgid "Chart"
 msgstr "Диаграмма"
@@ -503,7 +503,7 @@ msgid "Next year"
 msgstr "Кейнги йил"
 
 msgid "Period type"
-msgstr ""
+msgstr "Давр тури"
 
 msgid "Program indicator"
 msgstr ""
