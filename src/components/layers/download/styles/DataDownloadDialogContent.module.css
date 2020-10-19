@@ -8,12 +8,11 @@
 
 .infoDiv {
     height: var(
-        --spacers-dp20
+        --spacers-dp24
     ); /* Ensure that we have enough buffer around the svg icon to prevent unnecessary scrollbars */
     display: flex;
     align-items: center;
     font-size: 0.85em;
-    color: black; /* theme.palette.text.secondary; */
 }
 
 .icon {
@@ -23,5 +22,5 @@
 
 .error {
     margin-top: var(--spacers-dp12);
-    color: red; /* theme.palette.error.main, */
+    color: var(--warning);
 }
