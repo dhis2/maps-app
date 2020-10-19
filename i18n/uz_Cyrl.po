@@ -106,13 +106,13 @@ msgid "Color"
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "Фильтр киритиш"
 
 msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr ""
+msgstr "Ҳажм"
 
 msgid "Download"
 msgstr "Юклаш"
@@ -239,7 +239,7 @@ msgid "period"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "Ташкилий бўлим"
 
 msgid "Filter"
 msgstr "Фильтр"
@@ -461,7 +461,7 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Оператор"
 
 msgid "Date"
 msgstr "Сана"
@@ -482,7 +482,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Кўрсатгич гуруҳи"
 
 msgid "Interpretations"
 msgstr "Талқинлар"
@@ -657,7 +657,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Танланган ташкилий бўлимлар"
 
 msgid "Main"
 msgstr ""
@@ -678,7 +678,7 @@ msgid "Next year"
 msgstr "Кейнги йил"
 
 msgid "Period type"
-msgstr ""
+msgstr "Давр тури"
 
 msgid "Start/end dates"
 msgstr ""
