@@ -25,7 +25,7 @@ export const DataDownloadDialogContent = ({
             })}
         </div>
         <div className={styles.infoDiv}>
-            <InfoIcon className={styles.icon} />
+            <InfoIcon fontSize="small" className={styles.icon} />
             {i18n.t(
                 'GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop.'
             )}
@@ -43,7 +43,7 @@ export const DataDownloadDialogContent = ({
         )}
         {error && (
             <div className={styles.error}>
-                <ErrorIcon className={styles.icon} />
+                <ErrorIcon fontSize="small" className={styles.icon} />
                 {i18n.t('Data download failed.')}
             </div>
         )}

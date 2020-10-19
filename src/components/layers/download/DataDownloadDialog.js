@@ -58,14 +58,7 @@ export class DataDownloadDialog extends Component {
     };
 
     render() {
-        const {
-            open,
-            layer,
-            downloading,
-            error,
-
-            closeDialog,
-        } = this.props;
+        const { open, layer, downloading, error, closeDialog } = this.props;
 
         if (!open || !layer) {
             return null;
