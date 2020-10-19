@@ -44,7 +44,6 @@ class LayerEdit extends Component {
         loadLayer: PropTypes.func.isRequired,
         cancelLayer: PropTypes.func.isRequired,
         setLayerLoading: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
     };
 
     state = {
