@@ -19,10 +19,10 @@ msgid "Maps"
 msgstr "Хариталар"
 
 msgid "Classification"
-msgstr ""
+msgstr "Таснифи"
 
 msgid "Classes"
-msgstr ""
+msgstr "Синфлар"
 
 msgid "Legend set"
 msgstr "Таърифлар тўплами"
@@ -34,10 +34,10 @@ msgid "Predefined"
 msgstr ""
 
 msgid "Data element group"
-msgstr ""
+msgstr "Маълумотлар элементи гуруҳи"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Маълумотлар гуруҳи операнди"
 
 msgid "Data element"
 msgstr "Маълумотлар элементи"
@@ -52,28 +52,28 @@ msgid "Yes"
 msgstr "Ҳа"
 
 msgid "Event location"
-msgstr ""
+msgstr "Ҳодиса/Тадбир ўтказиладиган жой"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Координаталар майдони"
 
 msgid "None"
 msgstr "Йўқ"
 
 msgid "Data item"
-msgstr ""
+msgstr "Маълумот элементи"
 
 msgid "Event data item"
-msgstr ""
+msgstr "Ҳодиса/Тадбир маълумоти элементи"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Маълумот элементи бўйича услуб"
 
 msgid "Data set"
 msgstr "Маълумотлар тўплами"
 
 msgid "Index"
-msgstr ""
+msgstr "Инденкс"
 
 msgid "Value"
 msgstr "Қиймат"
@@ -88,28 +88,28 @@ msgid "Level"
 msgstr "Даража"
 
 msgid "Parent"
-msgstr ""
+msgstr "Аждод"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Type"
 msgstr "Тури"
 
 msgid "Color"
-msgstr ""
+msgstr "Ранг"
 
 msgid "Download"
 msgstr "Юклаш"
 
 msgid "Download map"
-msgstr ""
+msgstr "Харитани юклаш"
 
 msgid "Show name"
-msgstr ""
+msgstr "Исмини кўрсатиш"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Таърифни кўрсатиш"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -449,7 +449,7 @@ msgid "Organisation unit"
 msgstr "Ташкилий бирлик"
 
 msgid "Event time"
-msgstr ""
+msgstr "Ҳодиса/Тадбир вақти"
 
 msgid "Groups"
 msgstr ""
