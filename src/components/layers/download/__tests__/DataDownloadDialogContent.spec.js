@@ -11,7 +11,6 @@ describe('DataDownloadDialogContent', () => {
     const renderOuterComponent = props =>
         shallow(
             <DataDownloadDialogContent
-                classes={{}}
                 isEventLayer={false}
                 error={null}
                 layerName={'Test Layer'}

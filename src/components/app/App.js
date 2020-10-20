@@ -51,7 +51,7 @@ export class App extends Component {
             >
                 <FatalErrorBoundary>
                     <CssReset />
-                    <CssVariables colors spacers />
+                    <CssVariables colors spacers theme />
                     <HeaderBar appName={i18n.t('Maps')} />
                     <MuiThemeProvider theme={theme}>
                         <AppMenu />

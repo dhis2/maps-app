@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
-"PO-Revision-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-10-19T07:59:10.931Z\n"
+"PO-Revision-Date: 2020-10-19T07:59:10.931Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -140,7 +140,7 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-msgid "Organisation units"
+msgid "Organisation Units"
 msgstr ""
 
 msgid "Style"
@@ -230,7 +230,7 @@ msgstr ""
 msgid "Valid range is"
 msgstr ""
 
-msgid "Group set"
+msgid "Group Set"
 msgstr ""
 
 msgid "Remember to select the organisation unit level containing the facilities."
@@ -275,13 +275,10 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "data"
+msgid "Data"
 msgstr ""
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
+msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
@@ -383,7 +380,7 @@ msgstr ""
 msgid "Program status"
 msgstr ""
 
-msgid "relationships"
+msgid "Relationships"
 msgstr ""
 
 msgid "Follow up"
@@ -698,6 +695,9 @@ msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
+msgstr ""
+
+msgid "Group set"
 msgstr ""
 
 msgid "Select levels"
