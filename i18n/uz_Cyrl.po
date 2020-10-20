@@ -19,25 +19,25 @@ msgid "Maps"
 msgstr "Хариталар"
 
 msgid "Classification"
-msgstr ""
+msgstr "Таснифи"
 
 msgid "Classes"
-msgstr ""
+msgstr "Синфлар"
 
 msgid "Legend set"
 msgstr "Таърифлар тўплами"
 
 msgid "Color"
-msgstr ""
+msgstr "Ранг"
 
 msgid "Size"
-msgstr ""
+msgstr "Ўлчам/Ҳажм"
 
 msgid "Data element group"
-msgstr ""
+msgstr "Маълумотлар элементи гуруҳи"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Маълумотлар гуруҳи операнди"
 
 msgid "Data element"
 msgstr "Маълумотлар элементи"
@@ -52,40 +52,40 @@ msgid "Yes"
 msgstr "Ҳа"
 
 msgid "Event location"
-msgstr ""
+msgstr "Ҳодиса/Тадбир ўтказиладиган жой"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Координаталар майдони"
 
 msgid "None"
 msgstr "Йўқ"
 
 msgid "Data item"
-msgstr ""
+msgstr "Маълумот элементи"
 
 msgid "Event data item"
-msgstr ""
+msgstr "Ҳодиса/Тадбир маълумоти элементи"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Маълумот элементи бўйича услуб"
 
 msgid "Data set"
 msgstr "Маълумотлар тўплами"
 
 msgid "Index"
-msgstr ""
+msgstr "Инденкс/кўрсатгич"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Org unit"
-msgstr "Ташкилий бирлик"
+msgstr "Ташкилий бўлим"
 
 msgid "Name"
 msgstr "Исми"
 
 msgid "Event time"
-msgstr ""
+msgstr "Ҳодиса/Тадбир вақти"
 
 msgid "Value"
 msgstr "Қиймат"
@@ -100,19 +100,21 @@ msgid "Level"
 msgstr "Даража"
 
 msgid "Parent"
-msgstr ""
+msgstr "Аждод"
 
 msgid "Type"
 msgstr "Тури"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
+"Ҳодиса/Тадбирлар серверда гуруҳланаётганда, маълумотлар жадвали қўллаб-"
+"қувватланмайди"
 
 msgid "Add filter"
 msgstr "Фильтр киритиш"
 
 msgid "Items"
-msgstr ""
+msgstr "Элементлар"
 
 msgid "Dimension"
 msgstr "Ҳажм"
@@ -121,13 +123,13 @@ msgid "Download"
 msgstr "Юклаш"
 
 msgid "Download map"
-msgstr ""
+msgstr "Харитани юклаш"
 
 msgid "Show name"
-msgstr ""
+msgstr "Исмини кўрсатиш"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Таърифни кўрсатиш"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
