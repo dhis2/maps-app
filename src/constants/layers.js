@@ -47,10 +47,10 @@ export const TEI_RELATED_RADIUS = 3;
 export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
 
 /* CLASSIFICATION */
-export const CLASSIFICATION_PREDEFINED = 1;
-export const CLASSIFICATION_EQUAL_INTERVALS = 2;
-export const CLASSIFICATION_EQUAL_COUNTS = 3;
-export const CLASSIFICATION_SINGLE_COLOR = 10;
+export const CLASSIFICATION_PREDEFINED = '1';
+export const CLASSIFICATION_EQUAL_INTERVALS = '2';
+export const CLASSIFICATION_EQUAL_COUNTS = '3';
+export const CLASSIFICATION_SINGLE_COLOR = '10';
 
 export const getLegendTypes = isBubble => [
     {

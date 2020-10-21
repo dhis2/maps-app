@@ -4,9 +4,9 @@ import { DataDownloadDialogContent } from '../DataDownloadDialogContent';
 
 describe('DataDownloadDialogContent', () => {
     const formatOptions = [
-        { id: 1, name: 'Test Format' },
-        { id: 2, name: 'No Format' },
-        { id: 3, name: 'Some Format' },
+        { id: '1', name: 'Test Format' },
+        { id: '2', name: 'No Format' },
+        { id: '3', name: 'Some Format' },
     ];
     const renderOuterComponent = props =>
         shallow(

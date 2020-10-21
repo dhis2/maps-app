@@ -60,7 +60,7 @@ const NumericLegendStyle = props => {
 
 NumericLegendStyle.propTypes = {
     mapType: PropTypes.string,
-    method: PropTypes.number,
+    method: PropTypes.string,
     colorScale: PropTypes.string,
     legendSet: PropTypes.object,
     legendSetError: PropTypes.string,

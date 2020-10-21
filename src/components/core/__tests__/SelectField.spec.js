@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import {
-    TextField,
-    MenuItem,
-    CircularProgress,
-    Checkbox,
-} from '@material-ui/core';
+    SingleSelectField,
+    SingleSelectOption,
+    MultiSelectField,
+    MultiSelectOption,
+} from '@dhis2/ui';
 import { SelectField } from '../SelectField';
 
 const items = [
@@ -24,14 +24,18 @@ const items = [
 ];
 
 describe('SelectField', () => {
-    const renderWithProps = props =>
-        shallow(<SelectField classes={{}} {...props} />);
+    const renderWithProps = props => shallow(<SelectField {...props} />);
 
     it('should be a TextField', () => {
         const wrapper = renderWithProps();
-        expect(wrapper.type()).toBe(TextField);
+        // console.log(wrapper.find(SingleSelectField), wrapper.debug());
+
+        // expect(wrapper.type()).toBe(TextField);
+
+        expect(wrapper.find(SingleSelectField)).toHaveLength(1);
     });
 
+    /*
     it('should pass label to TextField', () => {
         const wrapper = renderWithProps({ label: 'My label' });
         expect(wrapper.props().label).toBe('My label');
@@ -118,4 +122,5 @@ describe('SelectField', () => {
         expect(wrapper.props().error).toBe(true);
         expect(wrapper.props().helperText).toBe('Error message');
     });
+    */
 });
