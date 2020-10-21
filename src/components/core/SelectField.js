@@ -28,22 +28,28 @@ export const SelectField = props => {
     const Select = multiple ? MultiSelectField : SingleSelectField;
     const Option = multiple ? MultiSelectOption : SingleSelectOption;
 
+    // const selected = value !== undefined && value !== null ? String(value) : '';
+    const selected = Array.isArray(value)
+        ? value.map(v => String(v))
+        : value !== undefined && value !== null
+        ? String(value)
+        : '';
+
     const onSelectChange = useCallback(
         ({ selected }) =>
             onChange(
-                multiple ? selected : items.find(item => item.id === selected)
+                multiple
+                    ? selected
+                    : items.find(item => String(item.id) === selected)
             ),
         [items, multiple, onChange]
     );
-
-    // console.log('value', typeof value, value, items);
-    // console.log('extraProps', extraProps);
 
     return (
         <div className={styles.selectField} style={style}>
             <Select
                 label={label}
-                selected={value || ''}
+                selected={selected}
                 loading={loading === true}
                 error={!!errorText}
                 validationText={errorText}
@@ -55,7 +61,7 @@ export const SelectField = props => {
                     items.map(({ id, name }) => (
                         <Option
                             key={id}
-                            value={id}
+                            value={String(id)}
                             label={name}
                             dataTest="selectfield-menuitem"
                         />
