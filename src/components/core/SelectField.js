@@ -10,6 +10,8 @@ import styles from './styles/SelectField.module.css';
 
 /**
  * Wrapper component around @dhis2/ui SingleSelectField and MultiSelectField
+ * Allows options to be created from an array of models (containing id and name properties)
+ * id can be numbers, although @dhis2/ui requires option values to be strings.
  */
 export const SelectField = props => {
     const {
@@ -30,12 +32,15 @@ export const SelectField = props => {
     const Select = multiple ? MultiSelectField : SingleSelectField;
     const Option = multiple ? MultiSelectOption : SingleSelectOption;
 
-    const selected = Array.isArray(value)
-        ? value.map(v => String(v))
-        : value !== undefined && value !== null
-        ? String(value)
-        : '';
+    let selected;
 
+    if (multiple) {
+        selected = Array.isArray(value) ? value.map(v => String(v)) : [];
+    } else {
+        selected = value !== undefined && value !== null ? String(value) : '';
+    }
+
+    // Returns selected items in the original format
     const onSelectChange = useCallback(
         ({ selected }) =>
             onChange(

@@ -26,63 +26,51 @@ const items = [
 describe('SelectField', () => {
     const renderWithProps = props => shallow(<SelectField {...props} />);
 
-    it('should be a TextField', () => {
+    it('should be a SingleSelectField by default', () => {
         const wrapper = renderWithProps();
-        // console.log(wrapper.find(SingleSelectField), wrapper.debug());
-
-        // expect(wrapper.type()).toBe(TextField);
-
         expect(wrapper.find(SingleSelectField)).toHaveLength(1);
     });
 
-    /*
-    it('should pass label to TextField', () => {
+    it('should be a MultipleSelectField if multiple is true', () => {
+        const wrapper = renderWithProps({ multiple: true });
+        expect(wrapper.find(MultiSelectField)).toHaveLength(1);
+    });
+
+    it('should pass label to SingleSelectField', () => {
         const wrapper = renderWithProps({ label: 'My label' });
-        expect(wrapper.props().label).toBe('My label');
+        expect(wrapper.find(SingleSelectField).props().label).toBe('My label');
     });
 
-    it('should pass value to TextField', () => {
+    it('should pass value to SingleSelectField as selected prop', () => {
         const wrapper = renderWithProps({ value: 'cat' });
-        expect(wrapper.props().value).toBe('cat');
+        expect(wrapper.find(SingleSelectField).props().selected).toBe('cat');
     });
 
-    it('should pass style to TextField', () => {
+    it('should pass style to select field wrapper', () => {
         const wrapper = renderWithProps({ style: { background: 'red' } });
         expect(wrapper.props().style).toEqual({ background: 'red' });
     });
 
-    it('should render items array as menu items', () => {
+    it('should render items array as SingleSelectOption', () => {
         const wrapper = renderWithProps({ items });
-        expect(wrapper.find(MenuItem)).toHaveLength(items.length);
+        expect(wrapper.find(SingleSelectOption)).toHaveLength(items.length);
     });
 
-    it('should render checkboxes for menu items if multiple select', () => {
+    it('should render items array as MultiSelectOption if multiple select', () => {
         const wrapper = renderWithProps({
             multiple: true,
             items,
         });
-        expect(wrapper.find(Checkbox)).toHaveLength(items.length);
-    });
-
-    it('should check item if value is passed to multiple select', () => {
-        const wrapper = renderWithProps({
-            multiple: true,
-            value: ['dog'],
-            items,
-        });
-        expect(
-            wrapper
-                .find({ value: 'dog' })
-                .find(Checkbox)
-                .props().checked
-        ).toBe(true);
+        expect(wrapper.find(MultiSelectOption)).toHaveLength(items.length);
     });
 
     it('should call onChange with item object when single select', () => {
         const onChangeSpy = jest.fn();
         renderWithProps({ items, onChange: onChangeSpy })
+            .find(SingleSelectField)
             .props()
-            .onChange({ target: { value: 'mouse' } });
+            .onChange({ selected: 'mouse' });
+
         expect(onChangeSpy).toHaveBeenCalledWith(items[1]);
     });
 
@@ -93,8 +81,9 @@ describe('SelectField', () => {
             items,
             onChange: onChangeSpy,
         })
+            .find(MultiSelectField)
             .props()
-            .onChange({ target: { value: ['cat'] } });
+            .onChange({ selected: ['cat'] });
 
         expect(onChangeSpy).toHaveBeenCalledWith(['cat']);
     });
@@ -106,21 +95,23 @@ describe('SelectField', () => {
             items,
             onChange: onChangeSpy,
         })
+            .find(MultiSelectField)
             .props()
-            .onChange({ target: { value: ['cat', 'mouse'] } });
+            .onChange({ selected: ['cat', 'mouse'] });
 
         expect(onChangeSpy).toHaveBeenCalledWith(['cat', 'mouse']);
     });
 
-    it('should show spinner when loading is set to true', () => {
+    it('should pass loading prop to SingleSelectField', () => {
         const wrapper = renderWithProps({ loading: true });
-        expect(wrapper.find(CircularProgress)).toHaveLength(1);
+        expect(wrapper.find(SingleSelectField).props().loading).toBe(true);
     });
 
-    it('should pass errorText as error with helperText to TextField', () => {
+    it('should pass errorText as error with validationText to SingleSelectField', () => {
         const wrapper = renderWithProps({ errorText: 'Error message' });
-        expect(wrapper.props().error).toBe(true);
-        expect(wrapper.props().helperText).toBe('Error message');
+        expect(wrapper.find(SingleSelectField).props().error).toBe(true);
+        expect(wrapper.find(SingleSelectField).props().validationText).toBe(
+            'Error message'
+        );
     });
-    */
 });
