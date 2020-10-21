@@ -13,7 +13,9 @@ const styles = {
     button: {
         boxSizing: 'border-box',
         width: LAYERS_PANEL_WIDTH + 1,
+        borderRight: '1px solid #e0e0e0',
         paddingLeft: 18,
+        marginRight: 'var(--spacers-dp8)',
         justifyContent: 'flex-start',
         borderRadius: 0,
     },

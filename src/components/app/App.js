@@ -21,7 +21,7 @@ import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 
-import './App.css';
+import './styles/App.css';
 
 const theme = createMuiTheme({ ...mui3theme, spacing: 8 }); // TODO: Changed syntax i MUI4
 
