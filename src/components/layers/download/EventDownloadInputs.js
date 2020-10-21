@@ -56,7 +56,7 @@ EventDownloadInputs.propTypes = {
     classes: PropTypes.object.isRequired,
 
     formatOptions: PropTypes.array.isRequired,
-    selectedFormatOption: PropTypes.number.isRequired,
+    selectedFormatOption: PropTypes.number,
     humanReadableChecked: PropTypes.bool.isRequired,
 
     onChangeFormatOption: PropTypes.func.isRequired,

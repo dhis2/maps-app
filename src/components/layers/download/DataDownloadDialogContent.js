@@ -63,8 +63,5 @@ DataDownloadDialogContent.propTypes = {
     onChangeFormatOption: PropTypes.func.isRequired,
     onCheckHumanReadable: PropTypes.func.isRequired,
 };
-DataDownloadDialogContent.defaultProps = {
-    selectedFormatOption: 0,
-};
 
 export default DataDownloadDialogContent;

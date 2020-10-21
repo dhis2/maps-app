@@ -25,10 +25,11 @@ export const SelectField = props => {
         ...extraProps
     } = props;
 
+    const isLoading = loading === true;
+
     const Select = multiple ? MultiSelectField : SingleSelectField;
     const Option = multiple ? MultiSelectOption : SingleSelectOption;
 
-    // const selected = value !== undefined && value !== null ? String(value) : '';
     const selected = Array.isArray(value)
         ? value.map(v => String(v))
         : value !== undefined && value !== null
@@ -39,7 +40,9 @@ export const SelectField = props => {
         ({ selected }) =>
             onChange(
                 multiple
-                    ? selected
+                    ? items
+                          .filter(item => selected.includes(String(item.id)))
+                          .map(item => item.id)
                     : items.find(item => String(item.id) === selected)
             ),
         [items, multiple, onChange]
@@ -49,8 +52,8 @@ export const SelectField = props => {
         <div className={styles.selectField} style={style}>
             <Select
                 label={label}
-                selected={selected}
-                loading={loading === true}
+                selected={!isLoading ? selected : undefined}
+                loading={isLoading}
                 error={!!errorText}
                 validationText={errorText}
                 onChange={onSelectChange}
