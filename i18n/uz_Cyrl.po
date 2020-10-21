@@ -28,10 +28,10 @@ msgid "Legend set"
 msgstr "Таърифлар тўплами"
 
 msgid "Automatic"
-msgstr ""
+msgstr "Автоматик"
 
 msgid "Predefined"
-msgstr ""
+msgstr "Олдиндан белгиланган"
 
 msgid "Data element group"
 msgstr "Маълумотлар элементи гуруҳи"
@@ -114,6 +114,8 @@ msgstr "Таърифни кўрсатиш"
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"Сизнинг браузерингиз харита юкланишини таъминлай олмайди. Google Chrome ёки "
+"Firefox орқали уриниб кўринг."
 
 msgid "Cancel"
 msgstr "Бекор қилиш"
@@ -122,7 +124,7 @@ msgid "Close"
 msgstr "Ёпиқ"
 
 msgid "Legend position"
-msgstr ""
+msgstr "Тавсиф ҳолати"
 
 msgid "Period"
 msgstr "давр"
@@ -134,31 +136,31 @@ msgid "Style"
 msgstr "Услуб"
 
 msgid "Labels"
-msgstr ""
+msgstr "Ёрлиқлар"
 
 msgid "Point radius"
-msgstr ""
+msgstr "Нуқта радиуси"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Ташкилий бўлимлар танланмаган"
 
 msgid "Steps"
-msgstr ""
+msgstr "Қадамлар"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Олдинги таъриф"
 
 msgid "This field is required"
-msgstr ""
+msgstr "Ушбу қатор тўлдирилиши шарт"
 
 msgid "Valid range is"
-msgstr ""
+msgstr "Яроқли оралиқ"
 
 msgid "data"
-msgstr ""
+msgstr "маълумот"
 
 msgid "period"
-msgstr ""
+msgstr "давр"
 
 msgid "Filter"
 msgstr "Фильтр"
@@ -176,53 +178,54 @@ msgid "Events"
 msgstr "Ҳодисалар"
 
 msgid "Group events"
-msgstr ""
+msgstr "Ҳодиса/Тадбирлар гуруҳлари"
 
 msgid "View all events"
-msgstr ""
+msgstr "Барча ҳодиса/тадбирларни кўриш"
 
 msgid "Radius"
-msgstr ""
+msgstr "Радиус"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Буфер"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Радиус метрларда"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"Ҳодиса/Тадбирларда  маълумотлар элементини услублаш учун дастурни танланг"
 
 msgid "Program is required"
-msgstr ""
+msgstr "Дастур талаб қилинади"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Дастур босқичи талаб қилинади"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Ташкилий бўлимлар танланмаган"
 
 msgid "Group set"
-msgstr ""
+msgstr "Гуруҳлар тўплами"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgstr "Имконияти мавжуд ташкилий бўлимни танлашни унутманг."
 
 msgid "Group set is required"
-msgstr ""
+msgstr "Гуруҳлар тўплами талаб қилинади"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Қатламни янгилаш"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Қатлам қўшиш"
 
 msgid "Select program period"
-msgstr ""
+msgstr "Дастур даврини танланг"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "Кузатувдаги объектлар маълумоти янгиланганлиги охирги даврини танланг"
 
 msgid "Program status"
 msgstr "дастур ҳолати"
@@ -231,49 +234,49 @@ msgid "Follow up"
 msgstr "Кузатиб бориш"
 
 msgid "Selection mode"
-msgstr ""
+msgstr "Режимни танлаш"
 
 msgid "Tracked entities"
 msgstr "Кузатувдаги объектлар"
 
 msgid "Point size"
-msgstr ""
+msgstr "Нуқта ўлчами"
 
 msgid "Aggregation type"
 msgstr "Бирлаштириш тури"
 
 msgid "Low size"
-msgstr ""
+msgstr "Кичик ўлчам"
 
 msgid "High size"
-msgstr ""
+msgstr "Катта ўлчам"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Кўрсатгичлар гуруҳи талаб қилинади"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Индикатор талаб қилинади"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "Маълумот элементи талаб қилинади"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Маълумот элементи талаб қилинган"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Маълумот тўплами талаб қилинган"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Ҳодиса/Тадбир маълумоти элементи талаб қилинади"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Дастур индикатори талаб қилинади"
 
 msgid "Period type is required"
-msgstr ""
+msgstr "Давр тури талаб қилинади"
 
 msgid "Period is required"
-msgstr ""
+msgstr "Давр талаб қилинади"
 
 msgid "Indicator"
 msgstr "Индикатор"
@@ -288,37 +291,37 @@ msgid "Program indicators"
 msgstr "Дастур кўрсатгичлари"
 
 msgid "Item type"
-msgstr ""
+msgstr "Элемент тури"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "DHIS2 Хариталарда хатолик юз берди"
 
 msgid "Something went wrong"
 msgstr "Нимадир нотўғри бажарилди"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Ыайтиб уриниб кщрин учун аввал янгиланг"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Техник деталларни яшириш"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Техник деталларни кўрсатиш"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "Қуйидаги ахборот техник ёрдамчилар томонидан сўралиши мумкин"
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "Дастур босқичи танлангандан сўнг Фильтрдан фойдаланиш мумкин"
 
 msgid "Add filter"
 msgstr "Фильтр киритиш"
 
 msgid "Delete filter"
-msgstr ""
+msgstr "Фильтрни ўчиринг"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Фильтрни олиб ташлаш"
 
 msgid "Operator"
 msgstr "Оператор"
@@ -327,31 +330,31 @@ msgid "Date"
 msgstr "Сана"
 
 msgid "one of"
-msgstr ""
+msgstr "биттаси"
 
 msgid "not one of"
-msgstr ""
+msgstr "биттаси ҳам эмас"
 
 msgid "contains"
-msgstr ""
+msgstr "ўз ичига олади"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "ўз ичига олмайди"
 
 msgid "is"
-msgstr ""
+msgstr "бор"
 
 msgid "is not"
-msgstr ""
+msgstr "эмас"
 
 msgid "Indicator group"
 msgstr "Кўрсатгич гуруҳи"
 
 msgid "Interpretations"
-msgstr "Шарҳлар"
+msgstr "Талқинлар"
 
 msgid "Basemap"
-msgstr ""
+msgstr "Асосий харита"
 
 msgid "Collapse"
 msgstr "Йиқилиш"
@@ -360,45 +363,47 @@ msgid "Expand"
 msgstr "Кенгайтиринг"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Қават маълумотларини юклаш"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "{{ҚаватИсми}} учун GeoJSON маълумотлари юкланмоқда"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON аксарият GIS  дастурлари томонидан қўллаб қувватланади, шу жумладан "
+"QGIS ва ArcGIS ҳам."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Маълумот юкланиши амалга ошмади"
 
 msgid "ID Format"
-msgstr ""
+msgstr "ID формат"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "ўқилиши қулай калитлардан фойдаланинг"
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Юкланадиган қават"
 
 msgid "deleted"
 msgstr "Ўчирилди"
 
 msgid "Filters"
-msgstr ""
+msgstr "Фильрлар"
 
 msgid "Edit"
 msgstr "Таҳрирлаш"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Кўринишни ёқинг"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Қатлам хиралигини таҳрирланг"
 
 msgid "More actions"
-msgstr ""
+msgstr "Бошқа ҳаракатлар"
 
 msgid "Data table"
 msgstr "Маълумотлар жадвали"
@@ -407,13 +412,13 @@ msgid "Download data"
 msgstr "Маълумотни юклаб олинг"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "Қатламни таҳрирлаш"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Қатламни ўчириш"
 
 msgid "Open as"
-msgstr ""
+msgstr "Сифатида очиш"
 
 msgid "Pivot"
 msgstr "Таянч"
@@ -422,28 +427,28 @@ msgid "Chart"
 msgstr "Диаграмма"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Аждод бўлими"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "Бир поғонага кўтарилинг"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "Бир даражага тушинг"
 
 msgid "Show information"
-msgstr ""
+msgstr "Ахборотни кўрсатинг"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "Кенглик/Узунликни кўрсатинг"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "Узунлик / Кенгликни алмаштиринг"
 
 msgid "Relocate"
-msgstr ""
+msgstr "Жойни қайта белгиланг"
 
 msgid "Not set"
-msgstr ""
+msgstr "Ўрнатилмаган"
 
 msgid "Organisation unit"
 msgstr "Ташкилий бирлик"
@@ -452,10 +457,10 @@ msgid "Event time"
 msgstr "Ҳодиса/Тадбир вақти"
 
 msgid "Groups"
-msgstr ""
+msgstr "Гуруҳлар"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr " {{ТалқинВақт}} дан талқинни кўриш"
 
 msgid "Last updated"
 msgstr "Охирги янгиланган"
@@ -467,37 +472,37 @@ msgid "Code"
 msgstr "Код"
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Ушбу давр учун маълумот топилмади"
 
 msgid "Select groups"
-msgstr ""
+msgstr "Гуруҳларни танланг"
 
 msgid "Select levels"
-msgstr ""
+msgstr "Босқичларни танланг"
 
 msgid "Click the map where you want to relocate facility"
-msgstr ""
+msgstr "Харитада объектни жойлаштирмоқчи бўлган нуқтани босинг"
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "Фойдаланувчининг ташкилий бўлими"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "Фойдаланувчининг ташкилий бўлими остида"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "Фойдаланувчининг ташкилий бўлимидан икки поғона пастда"
 
 msgid "in"
-msgstr ""
+msgstr "ичида"
 
 msgid "in and right below"
-msgstr ""
+msgstr "ичида ва қуйида"
 
 msgid "in and all below"
-msgstr ""
+msgstr "ичида ва барча қуйидаги"
 
 msgid "Previous year"
-msgstr ""
+msgstr "Олдинги йил"
 
 msgid "Next year"
 msgstr "Кейнги йил"
@@ -506,10 +511,10 @@ msgid "Period type"
 msgstr "Давр тури"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Дастур индикатори"
 
 msgid "No program"
-msgstr ""
+msgstr "Дастур мавжуд эмас"
 
 msgid "Program"
 msgstr "Программа"
@@ -518,48 +523,50 @@ msgid "Stage"
 msgstr "Босқич"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Кузатувдаги объект тури"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
+"Ушбу қатламни кўрсатиш учун, сиз аввал Google да Earth Engine дан рўйхатдан "
+"ўтган бўлишингиз керак. Илтимос, DHIS2 ҳужжатларини текширинг."
 
 msgid "Favorite"
-msgstr ""
+msgstr "Танланган"
 
 msgid "is saved"
-msgstr ""
+msgstr "сақланди"
 
 msgid "Error"
 msgstr "Хато"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Чегаралар"
 
 msgid "Alert"
-msgstr ""
+msgstr "Огоҳлантириш"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "Ҳеч қандай чегара топилмади"
 
 msgid "Access denied"
 msgstr "Фойдаланиш ҳуқуқи рад этилди"
 
 msgid "user is not allowed to read layer data"
-msgstr ""
+msgstr "Фойдаланувчи ушбу қатлам маълумотларини кўриш ваколатига эга эмас"
 
 msgid "Failed"
-msgstr ""
+msgstr "Амалга ошмади"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Қатлам маълумотларини ўқиш пайтида номаълум хатолик юз берди"
 
 msgid "Event"
 msgstr "Тадбир"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Имкониятлар"
 
 msgid "No data found"
 msgstr "Маълумотлар топилмади"
@@ -568,25 +575,25 @@ msgid "Tracked entity"
 msgstr "Кузатув объекти"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "Ҳеч қандай кузатувдаги объект топилмади"
 
 msgid "true"
-msgstr ""
+msgstr "тўғри"
 
 msgid "false"
-msgstr ""
+msgstr "нотўғри"
 
 msgid "No"
 msgstr "Йўқ"
 
 msgid "Map could not be created"
-msgstr ""
+msgstr "Харитани яратиб бўлмади"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "Бошланиш санаси нотўғри"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "Якунланиш санаси нотўғри"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "Якунланиш санаси бошланиш санасидан олдин бўлиши мумкин эмас"
