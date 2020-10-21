@@ -50,7 +50,7 @@ export const getColorScale = palette => {
 };
 
 export const defaultColorScaleName = 'YlOrBr';
-export const defaultClasses = '5';
+export const defaultClasses = 5;
 export const defaultColorScale = getColorPalette(
     defaultColorScaleName,
     defaultClasses

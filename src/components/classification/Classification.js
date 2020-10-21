@@ -32,7 +32,7 @@ const styles = {
 };
 
 const classRange = range(3, 10).map(num => ({
-    id: num.toString(),
+    id: num,
     name: num.toString(),
 })); // 3 - 9
 
@@ -78,8 +78,8 @@ const Classification = ({
 };
 
 Classification.propTypes = {
-    method: PropTypes.string,
-    classes: PropTypes.string,
+    method: PropTypes.number,
+    classes: PropTypes.number,
     colorScale: PropTypes.string,
     setClassification: PropTypes.func.isRequired,
     setColorScale: PropTypes.func.isRequired,

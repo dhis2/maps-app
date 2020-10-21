@@ -50,7 +50,7 @@ export const LegendTypeSelect = ({
     ) : null;
 
 LegendTypeSelect.propTypes = {
-    method: PropTypes.string,
+    method: PropTypes.number,
     mapType: PropTypes.string,
     setClassification: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
