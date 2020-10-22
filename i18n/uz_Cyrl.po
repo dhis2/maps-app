@@ -156,7 +156,7 @@ msgid "Style"
 msgstr "Услуб"
 
 msgid "Labels"
-msgstr "Ёрлиқлар"
+msgstr "Ёрлиқ/Белгилар"
 
 msgid "Point radius"
 msgstr "Нуқта радиуси"
@@ -850,16 +850,16 @@ msgid "Google Hybrid"
 msgstr "Google Hybrid"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Йўл"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Тўқ рангли мўйқалам"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Гибрид кўриниш"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Қатлам белгилари"
 
 msgid "Equal intervals"
 msgstr "тенг интерваллар"
