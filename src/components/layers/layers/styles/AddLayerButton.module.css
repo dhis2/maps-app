@@ -1,0 +1,20 @@
+.button {
+    box-sizing: border-box;
+    width: 300px;
+    border-right: 1px solid #e0e0e0;
+    padding-left: 18px;
+    margin-right: var(--spacers-dp8);
+    justify-content: flex-start;
+    border-radius: 0;
+}
+
+.label {
+    text-transform: none;
+    font-size: 15px;
+    font-weight: normal;
+    justify-content: initial;
+}
+
+.icon {
+    margin-right: 8px;
+}

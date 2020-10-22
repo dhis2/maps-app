@@ -14,12 +14,10 @@ describe('DownloadButton', () => {
 
     it('Should render a download button', () => {
         const wrapper = renderComponent();
-        expect(wrapper.find('WithStyles(ForwardRef(Button))').exists()).toBe(
-            true
-        );
+        expect(wrapper.find('MenuButton').exists()).toBe(true);
         expect(
             wrapper
-                .find('WithStyles(ForwardRef(Button))')
+                .find('MenuButton')
                 .render()
                 .text()
         ).toEqual('Download');
@@ -41,7 +39,7 @@ describe('DownloadButton', () => {
             toggleDownloadDialog: toggleDownloadDialogSpy,
         });
 
-        wrapper.find('WithStyles(ForwardRef(Button))').simulate('click', true);
+        wrapper.find('MenuButton').simulate('click', true);
         expect(toggleDownloadDialogSpy).toHaveBeenCalled();
     });
 });
