@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { SplitButton } from '@dhis2/ui';
+import { DropdownButton } from '@dhis2/ui';
+import AddIcon from '@material-ui/icons/AddCircleOutline';
 import AddLayerPopover from './AddLayerPopover';
 import { openLayersDialog } from '../../../actions/layers';
 
@@ -26,13 +27,14 @@ export class AddLayerButton extends Component {
 
     render() {
         return (
-            <SplitButton
+            <DropdownButton
                 secondary
                 component={<AddLayerPopover />}
+                icon={<AddIcon />}
                 dataTest="addlayerbutton"
             >
                 {i18n.t('Add layer')}
-            </SplitButton>
+            </DropdownButton>
         );
     }
 }
