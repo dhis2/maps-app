@@ -871,16 +871,16 @@ msgid "Google Hybrid"
 msgstr "Google Hybrid"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Йўл"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Тўқ рангли мўйқалам"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Гибрид кўриниш"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Белгилар"
 
 msgid "All"
 msgstr "Барчаси"
