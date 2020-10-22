@@ -1,46 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Popover } from '@material-ui/core';
+import { Popover } from '@dhis2/ui';
 import LayerList from './LayerList';
 import { isSplitViewMap } from '../../../util/helpers';
-import {
-    addLayer,
-    editLayer,
-    closeLayersDialog,
-} from '../../../actions/layers';
+import { addLayer, editLayer } from '../../../actions/layers';
 
 const AddLayerPopover = ({
     anchorEl,
-    layersDialogOpen,
-    layers,
+    layers = [],
     isSplitView,
     addLayer,
     editLayer,
-    closeLayersDialog,
+    onClose,
 }) => {
     const onLayerSelect = layer => {
         layer.layer === 'external'
             ? addLayer({ ...layer, isLoaded: true })
             : editLayer({ ...layer });
 
-        closeLayersDialog();
+        onClose();
     };
 
     return (
         <Popover
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-            }}
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-            }}
-            onClose={closeLayersDialog}
-            open={layersDialogOpen}
-            data-test="addlayerpopover"
+            arrow={false}
+            reference={anchorEl}
+            placement="bottom-start"
+            maxWidth={700}
+            onClickOutside={onClose}
+            dataTest="addlayerpopover"
         >
             <LayerList
                 layers={layers}
@@ -53,24 +42,18 @@ const AddLayerPopover = ({
 
 AddLayerPopover.propTypes = {
     anchorEl: PropTypes.instanceOf(Element),
-    layersDialogOpen: PropTypes.bool,
+    open: PropTypes.bool.isRequired,
     layers: PropTypes.array,
     isSplitView: PropTypes.bool,
     addLayer: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
-    closeLayersDialog: PropTypes.func.isRequired,
-};
-
-AddLayerPopover.defaultProps = {
-    layersDialogOpen: false,
-    layers: [],
+    onClose: PropTypes.func.isRequired,
 };
 
 export default connect(
-    ({ map, layers, ui }) => ({
+    ({ map, layers }) => ({
         layers,
-        layersDialogOpen: ui.layersDialogOpen,
         isSplitView: isSplitViewMap(map.mapViews),
     }),
-    { addLayer, editLayer, closeLayersDialog }
+    { addLayer, editLayer }
 )(AddLayerPopover);
