@@ -6,7 +6,6 @@ import { newMap, setMapProps } from '../../actions/map';
 import { loadFavorite } from '../../actions/favorites';
 import { saveFavorite, saveNewFavorite } from '../../actions/favorites';
 import { setError } from '../../actions/message';
-import './FileMenu.css';
 
 export const FileMenu = (
     {

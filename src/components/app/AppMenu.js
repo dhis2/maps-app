@@ -1,45 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Toolbar } from '@material-ui/core';
-import AddLayer from '../layers/layers/AddLayer';
+import AddLayerButton from '../layers/layers/AddLayerButton';
 import FileMenu from './FileMenu';
 import DownloadButton from '../download/DownloadButton';
 import InterpretationsToggle from '../interpretations/InterpretationsToggle';
+import styles from './styles/AppMenu.module.css';
 
-const styles = theme => ({
-    toolbar: {
-        position: 'absolute',
-        width: '100%',
-        height: 40,
-        minHeight: 40,
-        paddingLeft: 0,
-        paddingRight: 0,
-        zIndex: 1200,
-
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: `0 1px 1px 0 ${theme.palette.shadow}`,
-    },
-    divider: {
-        // TODO: make this a standalone component for re-use as a generic vertical divider
-        height: '100%',
-        borderRight: `1px solid ${theme.palette.divider}`,
-        marginRight: theme.spacing(1),
-    },
-});
-
-export const AppMenu = ({ classes }) => (
-    <Toolbar variant="dense" className={classes.toolbar}>
-        <AddLayer />
-        <span className={classes.divider} />
+export const AppMenu = () => (
+    <div className={styles.appMenu}>
+        <AddLayerButton />
         <FileMenu />
         <DownloadButton />
         <InterpretationsToggle />
-    </Toolbar>
+    </div>
 );
 
-AppMenu.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(AppMenu);
+export default AppMenu;

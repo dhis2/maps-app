@@ -6,7 +6,6 @@ const defaultState = {
     layersPanelOpen: true,
     interpretationsPanelOpen: false,
     dataTableHeight: 300,
-    layersDialogOpen: false,
     mapContextMenu: true,
 };
 
@@ -42,18 +41,6 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 interpretationsPanelOpen: false,
-            };
-
-        case types.LAYERS_DIALOG_OPEN:
-            return {
-                ...state,
-                layersDialogOpen: true,
-            };
-
-        case types.LAYERS_DIALOG_CLOSE:
-            return {
-                ...state,
-                layersDialogOpen: false,
             };
 
         case types.DATA_TABLE_RESIZE:
