@@ -5,6 +5,6 @@
 }
 
 .icon {
-    margin-right: 8px;
+    margin-right: var(--spacers-dp8);
     margin-top: 2px;
 }

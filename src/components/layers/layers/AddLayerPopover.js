@@ -41,8 +41,7 @@ const AddLayerPopover = ({
 };
 
 AddLayerPopover.propTypes = {
-    anchorEl: PropTypes.instanceOf(Element),
-    open: PropTypes.bool.isRequired,
+    anchorEl: PropTypes.object,
     layers: PropTypes.array,
     isSplitView: PropTypes.bool,
     addLayer: PropTypes.func.isRequired,
