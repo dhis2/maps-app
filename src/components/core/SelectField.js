@@ -1,113 +1,89 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import {
-    TextField,
-    MenuItem,
-    Checkbox,
-    CircularProgress,
-} from '@material-ui/core';
-
-const styles = {
-    loading: {
-        marginTop: 16,
-    },
-    textField: {
-        width: '100%',
-        margin: '12px 0',
-    },
-    menu: {
-        zIndex: 2500,
-    },
-    menuItem: {
-        padding: '4px 0',
-    },
-    checkbox: {
-        padding: '0 9px',
-    },
-};
+    SingleSelectField,
+    SingleSelectOption,
+    MultiSelectField,
+    MultiSelectOption,
+} from '@dhis2/ui';
+import styles from './styles/SelectField.module.css';
 
 /**
- * Wrapper component around MUI TextField supporting default styling, labels, error text,
- * multiple select, and rendering select items from an array of objects.
- * https://github.com/dhis2/d2-ui/blob/master/packages/core/src/select-field/SelectField.js
+ * Wrapper component around @dhis2/ui SingleSelectField and MultiSelectField
+ * Allows options to be created from an array of models (containing id and name properties)
+ * id can be numbers, although @dhis2/ui requires option values to be strings.
  */
-
 export const SelectField = props => {
     const {
-        classes,
         errorText,
-        items = [],
+        items,
         label,
         loading,
         multiple,
         onChange,
         style,
         value,
+        dataTest,
         ...extraProps
     } = props;
 
-    if (loading) {
-        return <CircularProgress className={classes.loading} size={32} />;
+    const isLoading = loading === true;
+
+    const Select = multiple ? MultiSelectField : SingleSelectField;
+    const Option = multiple ? MultiSelectOption : SingleSelectOption;
+
+    let selected;
+
+    if (multiple) {
+        selected = Array.isArray(value) ? value.map(v => String(v)) : [];
+    } else {
+        selected = value !== undefined && value !== null ? String(value) : '';
     }
 
+    // Returns selected items in the original format
+    const onSelectChange = useCallback(
+        ({ selected }) =>
+            onChange(
+                multiple
+                    ? items
+                          .filter(item => selected.includes(String(item.id)))
+                          .map(item => item.id)
+                    : items.find(item => String(item.id) === selected)
+            ),
+        [items, multiple, onChange]
+    );
+
     return (
-        <TextField
-            select
-            label={label}
-            value={value ? value : multiple ? [] : ''}
-            onChange={event =>
-                onChange(
-                    multiple
-                        ? event.target.value
-                        : items.find(item => item.id === event.target.value)
-                )
-            }
-            error={errorText ? true : false}
-            helperText={errorText}
-            className={classes.textField}
-            SelectProps={{
-                MenuProps: {
-                    variant: 'menu',
-                    className: classes.menu,
-                },
-                multiple,
-                renderValue:
-                    multiple &&
-                    (selected =>
-                        selected
-                            .map(id => items.find(item => item.id === id).name)
-                            .join(', ')),
-            }}
-            style={style}
-            {...extraProps}
-        >
-            {items.map(({ id, name }) => (
-                <MenuItem
-                    key={id}
-                    value={id}
-                    dense
-                    className={multiple && classes.menuItem}
-                    data-test="selectfield-menuitem"
-                >
-                    {multiple && (
-                        <Checkbox
-                            className={classes.checkbox}
-                            checked={Array.isArray(value) && value.includes(id)}
+        <div className={styles.selectField} style={style}>
+            <Select
+                label={label}
+                selected={!isLoading ? selected : undefined}
+                loading={isLoading}
+                error={!!errorText}
+                validationText={errorText}
+                onChange={onSelectChange}
+                dataTest={dataTest}
+                {...extraProps}
+            >
+                {items &&
+                    items.map(({ id, name }) => (
+                        <Option
+                            key={id}
+                            value={String(id)}
+                            label={name}
+                            dataTest="selectfield-menuitem"
                         />
-                    )}
-                    {name}
-                </MenuItem>
-            ))}
-        </TextField>
+                    ))}
+            </Select>
+        </div>
     );
 };
 
 SelectField.propTypes = {
     /**
-     * The styles applied to the component using withStyles.
+     * data-test attribute used for testing
      */
-    classes: PropTypes.object.isRequired,
+    dataTest: PropTypes.string,
 
     /**
      * If set, shows the error message below the SelectField
@@ -165,4 +141,4 @@ SelectField.propTypes = {
     ]),
 };
 
-export default withStyles(styles)(SelectField);
+export default SelectField;

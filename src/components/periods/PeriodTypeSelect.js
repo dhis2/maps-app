@@ -42,7 +42,7 @@ class PeriodTypeSelect extends Component {
                 onChange={onChange}
                 style={style}
                 errorText={!value && errorText ? errorText : null}
-                data-test="periodtypeselect"
+                dataTest="periodtypeselect"
             />
         );
     }
