@@ -62,7 +62,6 @@ export class DataItemSelect extends Component {
     render() {
         const {
             allowNone,
-            className,
             label,
             value,
             program,
@@ -90,9 +89,6 @@ export class DataItemSelect extends Component {
 
         return (
             <SelectField
-                classes={{
-                    textField: className,
-                }}
                 label={label || i18n.t('Data item')}
                 items={dataItems}
                 value={value}

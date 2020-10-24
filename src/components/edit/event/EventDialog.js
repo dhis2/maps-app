@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
-import TextField from '../../core/TextField';
+import NumberField from '../../core/NumberField';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramStageSelect from '../../program/ProgramStageSelect';
 import EventStatusSelect from './EventStatusSelect';
@@ -348,9 +348,7 @@ export class EventDialog extends Component {
                                         onChange={setEventPointColor}
                                         style={styles.flexInnerColumn}
                                     />
-                                    <TextField
-                                        id="radius"
-                                        type="number"
+                                    <NumberField
                                         label={i18n.t('Radius')}
                                         value={eventPointRadius || EVENT_RADIUS}
                                         onChange={setEventPointRadius}
@@ -368,9 +366,7 @@ export class EventDialog extends Component {
                                         disabled={eventClustering}
                                     />
                                     {showBuffer && (
-                                        <TextField
-                                            id="buffer"
-                                            type="number"
+                                        <NumberField
                                             label={i18n.t('Radius in meters')}
                                             value={areaRadius || ''}
                                             onChange={setAreaRadius}

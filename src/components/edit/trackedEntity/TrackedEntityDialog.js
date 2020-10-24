@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
-import TextField from '../../core/TextField';
+import NumberField from '../../core/NumberField';
 import SelectField from '../../core/SelectField';
 import Checkbox from '../../core/Checkbox';
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect';
@@ -432,9 +432,7 @@ export class TrackedEntityDialog extends Component {
                                         onChange={setEventPointColor}
                                         style={styles.flexInnerColumn}
                                     />
-                                    <TextField
-                                        id="radius"
-                                        type="number"
+                                    <NumberField
                                         label={i18n.t('Point size')}
                                         value={eventPointRadius || TEI_RADIUS}
                                         onChange={setEventPointRadius}
@@ -449,9 +447,7 @@ export class TrackedEntityDialog extends Component {
                                         style={styles.flexInnerColumn}
                                     />
                                     {showBuffer && (
-                                        <TextField
-                                            id="buffer"
-                                            type="number"
+                                        <NumberField
                                             label={i18n.t('Radius in meters')}
                                             value={areaRadius || ''}
                                             onChange={setAreaRadius}
@@ -481,9 +477,7 @@ export class TrackedEntityDialog extends Component {
                                                 onChange={setRelatedPointColor}
                                                 style={styles.flexInnerColumn}
                                             />
-                                            <TextField
-                                                id="buffer"
-                                                type="number"
+                                            <NumberField
                                                 label={i18n.t('Point size')}
                                                 value={
                                                     relatedPointRadius ||

@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
-import TextField from './TextField';
+import NumberField from './NumberField';
 import ColorPicker from './ColorPicker';
 import { cssColor } from '../../util/colors';
 import { LABEL_FONT_SIZE, LABEL_FONT_COLOR } from '../../constants/layers';
@@ -13,10 +13,6 @@ import { LABEL_FONT_SIZE, LABEL_FONT_COLOR } from '../../constants/layers';
 const itemSize = 30;
 
 const styles = {
-    sizeField: {
-        width: 40,
-        margin: '-6px 5px 0 0',
-    },
     button: {
         background: '#fafafa',
         marginRight: 5,
@@ -43,16 +39,17 @@ const FontStyle = ({
 }) => (
     <div style={style}>
         {onSizeChange && (
-            <TextField
-                id="size"
-                type="number"
+            <NumberField
                 label={i18n.t('Size')}
                 value={parseInt(
                     size !== undefined ? size : LABEL_FONT_SIZE,
                     10
                 )}
                 onChange={value => onSizeChange(value + 'px')}
-                className={classes.sizeField}
+                style={{
+                    width: 40,
+                    margin: '-6px 5px 0 0',
+                }}
             />
         )}
         {onWeightChange && (

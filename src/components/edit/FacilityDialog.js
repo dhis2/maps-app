@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
-import TextField from '../core/TextField';
+import NumberField from '../core/NumberField';
 import Checkbox from '../core/Checkbox';
 import FontStyle from '../core/FontStyle';
 import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
@@ -275,9 +275,7 @@ class FacilityDialog extends Component {
                                     }}
                                 />
                                 {showBuffer && (
-                                    <TextField
-                                        id="radius"
-                                        type="number"
+                                    <NumberField
                                         label={i18n.t('Radius in meters')}
                                         value={areaRadius || ''}
                                         onChange={setAreaRadius}

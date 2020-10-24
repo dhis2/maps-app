@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '../core/TextField';
+import NumberField from '../core/NumberField';
 import ColorScaleSelect from '../core/ColorScaleSelect';
 import Collection from '../earthengine/Collection';
 import LegendItem from '../legend/LegendItem';
@@ -191,8 +191,7 @@ class EarthEngineDialog extends Component {
                                     key="minmax"
                                     className={classes.flexInnerColumnFlow}
                                 >
-                                    <TextField
-                                        type="number"
+                                    <NumberField
                                         label={
                                             dataset.minLabel || i18n.t('Min')
                                         }
@@ -206,8 +205,7 @@ class EarthEngineDialog extends Component {
                                         }
                                         className={classes.flexInnerColumn}
                                     />
-                                    <TextField
-                                        type="number"
+                                    <NumberField
                                         label={
                                             dataset.maxLabel || i18n.t('Max')
                                         }
@@ -221,8 +219,7 @@ class EarthEngineDialog extends Component {
                                         }
                                         className={classes.flexInnerColumn}
                                     />
-                                    <TextField
-                                        type="number"
+                                    <NumberField
                                         label={i18n.t('Steps')}
                                         value={
                                             steps !== undefined

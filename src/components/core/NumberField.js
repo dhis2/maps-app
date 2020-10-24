@@ -4,17 +4,17 @@ import { InputField } from '@dhis2/ui';
 import styles from './styles/InputField.module.css';
 
 // Wrapper component around @dhis2/ui InputField
-const TextField = ({ type, label, onChange, style }) => (
+const NumberField = ({ label, onChange, style }) => (
     <div className={styles.inputField} style={style}>
         <InputField
-            type={type}
+            type="number"
             label={label}
             onChange={({ value }) => onChange(value)}
         />
     </div>
 );
 
-TextField.propTypes = {
+NumberField.propTypes = {
     type: PropTypes.string,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -22,4 +22,4 @@ TextField.propTypes = {
     style: PropTypes.object,
 };
 
-export default TextField;
+export default NumberField;

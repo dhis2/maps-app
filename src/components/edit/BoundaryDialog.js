@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
-import TextField from '../core/TextField';
+import NumberField from '../core/NumberField';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
@@ -193,9 +193,7 @@ class BoundaryDialog extends Component {
                                         />
                                     )}
                                 </div>
-                                <TextField
-                                    id="radius"
-                                    type="number"
+                                <NumberField
                                     label={i18n.t('Point radius')}
                                     value={
                                         radiusLow !== undefined ? radiusLow : 5

@@ -6,7 +6,7 @@ import {
     MultiSelectField,
     MultiSelectOption,
 } from '@dhis2/ui';
-import styles from './styles/SelectField.module.css';
+import styles from './styles/InputField.module.css';
 
 /**
  * Wrapper component around @dhis2/ui SingleSelectField and MultiSelectField
@@ -54,7 +54,7 @@ export const SelectField = props => {
     );
 
     return (
-        <div className={styles.selectField} style={style}>
+        <div className={styles.inputField} style={style}>
             <Select
                 label={label}
                 selected={!isLoading ? selected : undefined}

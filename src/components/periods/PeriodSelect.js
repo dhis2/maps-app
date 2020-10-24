@@ -95,9 +95,6 @@ class PeriodSelect extends Component {
                     items={periods}
                     value={value}
                     onChange={onChange}
-                    classes={{
-                        textField: classes.select,
-                    }}
                     errorText={!value && errorText ? errorText : null}
                 />
                 {periodType && (
