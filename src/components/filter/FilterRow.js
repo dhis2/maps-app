@@ -16,11 +16,6 @@ const styles = theme => ({
         borderRadius: 4,
         border: `1px solid ${theme.palette.divider}`,
     },
-    select: {
-        marginRight: 24,
-        float: 'left',
-        width: 'calc((100% - 48px) / 8 * 3)',
-    },
 });
 
 class FilterRow extends Component {
@@ -81,7 +76,6 @@ class FilterRow extends Component {
         return (
             <div className={classes.container}>
                 <DataItemSelect
-                    className={classes.select}
                     value={dimension || null}
                     program={program}
                     programStage={programStage}
@@ -91,6 +85,11 @@ class FilterRow extends Component {
                         'COORDINATE',
                     ]}
                     onChange={dataItem => this.onChange(dataItem.id, filter)}
+                    style={{
+                        marginRight: 24,
+                        float: 'left',
+                        width: 'calc((100% - 48px) / 8 * 3)',
+                    }}
                 />
                 {dimension ? (
                     <FilterSelect

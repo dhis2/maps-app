@@ -178,9 +178,8 @@ class BoundaryDialog extends Component {
                                         checked={labels}
                                         onCheck={setLabels}
                                         style={{
-                                            ...styles.flexInnerColumn,
-                                            maxWidth: 150,
-                                            height: 48,
+                                            height: 84,
+                                            margin: '0 40px 0 12px',
                                         }}
                                     />
                                     {labels && (
@@ -189,7 +188,9 @@ class BoundaryDialog extends Component {
                                             fontStyle={labelFontStyle}
                                             onSizeChange={setLabelFontSize}
                                             onStyleChange={setLabelFontStyle}
-                                            style={styles.flexInnerColumn}
+                                            style={{
+                                                margin: '-10px 0 10px',
+                                            }}
                                         />
                                     )}
                                 </div>

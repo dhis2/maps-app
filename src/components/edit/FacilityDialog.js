@@ -49,14 +49,6 @@ const styles = {
         margin: '40px 0 0 12px',
         width: 180,
     },
-    font: {
-        float: 'left',
-        marginTop: 2,
-    },
-    radius: {
-        maxWidth: 206,
-        marginTop: 2,
-    },
     help: {
         marginTop: 10,
         fontSize: 14,
@@ -258,8 +250,7 @@ class FacilityDialog extends Component {
                                         onWeightChange={setLabelFontWeight}
                                         onStyleChange={setLabelFontStyle}
                                         style={{
-                                            ...styles.flexInnerColumn,
-                                            ...styles.font,
+                                            margin: '-20px 0 20px',
                                         }}
                                     />
                                 )}
@@ -280,8 +271,8 @@ class FacilityDialog extends Component {
                                         value={areaRadius || ''}
                                         onChange={setAreaRadius}
                                         style={{
-                                            ...styles.flexInnerColumn,
-                                            ...styles.radius,
+                                            maxWidth: 150,
+                                            margin: '-14px 0',
                                         }}
                                     />
                                 )}

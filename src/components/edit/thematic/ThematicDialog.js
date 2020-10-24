@@ -578,7 +578,9 @@ export class ThematicDialog extends Component {
                                             marginLeft: -4,
                                         }}
                                     />
-                                    {labels && (
+                                </div>
+                                {labels && (
+                                    <div style={styles.flexInnerColumnFlow}>
                                         <FontStyle
                                             color={labelFontColor}
                                             size={labelFontSize}
@@ -590,8 +592,8 @@ export class ThematicDialog extends Component {
                                             onStyleChange={setLabelFontStyle}
                                             style={styles.font}
                                         />
-                                    )}
-                                </div>
+                                    </div>
+                                )}
                                 <NoDataColor
                                     value={noDataColor}
                                     onChange={setNoDataColor}

@@ -1,6 +1,7 @@
 .fontStyle {
     display: flex;
     align-items: flex-end;
+    max-width: 74px;
 }
 
 /* !important will be removed when we switch to ui-icons */
