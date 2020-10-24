@@ -8,7 +8,7 @@ import { hcl } from 'd3-color';
 
 const styles = {
     root: {
-        margin: '12px 0',
+        margin: '12px 8px',
     },
     button: {
         padding: 0,

@@ -92,8 +92,7 @@ const styles = {
         width: 180,
     },
     font: {
-        float: 'left',
-        whiteSpace: 'nowrap',
+        margin: '-24px 8px 0 38px',
     },
 };
 
@@ -576,10 +575,7 @@ export class ThematicDialog extends Component {
                                         checked={labels}
                                         onCheck={setLabels}
                                         style={{
-                                            ...styles.flexInnerColumn,
                                             marginLeft: -4,
-                                            maxWidth: 150,
-                                            height: 64,
                                         }}
                                     />
                                     {labels && (
@@ -592,10 +588,7 @@ export class ThematicDialog extends Component {
                                             onSizeChange={setLabelFontSize}
                                             onWeightChange={setLabelFontWeight}
                                             onStyleChange={setLabelFontStyle}
-                                            style={{
-                                                ...styles.flexInnerColumn,
-                                                ...styles.font,
-                                            }}
+                                            style={styles.font}
                                         />
                                     )}
                                 </div>

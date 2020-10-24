@@ -10,8 +10,6 @@ import { cssColor } from '../../util/colors';
 import { LABEL_FONT_SIZE, LABEL_FONT_COLOR } from '../../constants/layers';
 import styles from './styles/FontStyle.module.css';
 
-const itemSize = 30;
-
 const FontStyle = ({
     color,
     size,
@@ -23,7 +21,7 @@ const FontStyle = ({
     onStyleChange,
     style,
 }) => (
-    <div style={style}>
+    <div className={styles.fontStyle} style={style}>
         {onSizeChange && (
             <NumberField
                 label={i18n.t('Size')}
@@ -32,10 +30,6 @@ const FontStyle = ({
                     10
                 )}
                 onChange={value => onSizeChange(value + 'px')}
-                style={{
-                    width: 40,
-                    margin: '-6px 5px 0 0',
-                }}
             />
         )}
         {onWeightChange && (
@@ -65,10 +59,9 @@ const FontStyle = ({
         {onColorChange && (
             <ColorPicker
                 color={cssColor(color) || LABEL_FONT_COLOR}
-                width={itemSize}
-                height={itemSize}
+                width={32}
+                height={32}
                 onChange={onColorChange}
-                style={styles.color}
             />
         )}
     </div>
