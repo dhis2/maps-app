@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
@@ -9,21 +8,9 @@ import NumberField from './NumberField';
 import ColorPicker from './ColorPicker';
 import { cssColor } from '../../util/colors';
 import { LABEL_FONT_SIZE, LABEL_FONT_COLOR } from '../../constants/layers';
+import styles from './styles/FontStyle.module.css';
 
 const itemSize = 30;
-
-const styles = {
-    button: {
-        background: '#fafafa',
-        marginRight: 5,
-        borderRadius: 0,
-        width: itemSize,
-        height: itemSize,
-    },
-    color: {
-        display: 'inline-block',
-    },
-};
 
 const FontStyle = ({
     color,
@@ -35,7 +22,6 @@ const FontStyle = ({
     onWeightChange,
     onStyleChange,
     style,
-    classes,
 }) => (
     <div style={style}>
         {onSizeChange && (
@@ -57,7 +43,7 @@ const FontStyle = ({
                 onClick={() =>
                     onWeightChange(weight === 'bold' ? 'normal' : 'bold')
                 }
-                className={classes.button}
+                className={styles.button}
                 disableTouchRipple={true}
             >
                 <BoldIcon htmlColor={weight === 'bold' ? '#333' : '#aaa'} />
@@ -68,7 +54,7 @@ const FontStyle = ({
                 onClick={() =>
                     onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic')
                 }
-                className={classes.button}
+                className={styles.button}
                 disableTouchRipple={true}
             >
                 <ItalicIcon
@@ -98,7 +84,6 @@ FontStyle.propTypes = {
     onWeightChange: PropTypes.func,
     onStyleChange: PropTypes.func,
     style: PropTypes.object,
-    classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FontStyle);
+export default FontStyle;
