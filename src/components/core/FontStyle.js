@@ -62,6 +62,9 @@ const FontStyle = ({
                 width={32}
                 height={32}
                 onChange={onColorChange}
+                style={{
+                    margin: '12px 8px',
+                }}
             />
         )}
     </div>
