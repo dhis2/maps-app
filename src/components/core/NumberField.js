@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { InputField } from '@dhis2/ui';
+import cx from 'classnames';
 import styles from './styles/InputField.module.css';
 
 // Adds support for min/max values for @dhis2/ui InputField
-const NumberField = ({ label, value, min, max, onChange, style }) => {
+const NumberField = ({ label, value, min, max, onChange, className }) => {
     const onNumberChange = useCallback(
         ({ value }) => {
             if (
@@ -18,7 +19,7 @@ const NumberField = ({ label, value, min, max, onChange, style }) => {
     );
 
     return (
-        <div className={styles.inputField} style={style}>
+        <div className={cx(styles.inputField, className)}>
             <InputField
                 type="number"
                 label={label}
@@ -30,13 +31,12 @@ const NumberField = ({ label, value, min, max, onChange, style }) => {
 };
 
 NumberField.propTypes = {
-    type: PropTypes.string,
     label: PropTypes.string.isRequired,
     value: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
     onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default NumberField;

@@ -4,6 +4,7 @@ import i18n from '@dhis2/d2-i18n';
 import { IconButton } from '@material-ui/core';
 import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
+import cx from 'classnames';
 import NumberField from './NumberField';
 import ColorPicker from './ColorPicker';
 import { cssColor } from '../../util/colors';
@@ -19,9 +20,9 @@ const FontStyle = ({
     onSizeChange,
     onWeightChange,
     onStyleChange,
-    style,
+    className,
 }) => (
-    <div className={styles.fontStyle} style={style}>
+    <div className={cx(styles.fontStyle, className)}>
         {onSizeChange && (
             <NumberField
                 label={i18n.t('Size')}
@@ -62,9 +63,7 @@ const FontStyle = ({
                 width={32}
                 height={32}
                 onChange={onColorChange}
-                style={{
-                    margin: '12px 8px',
-                }}
+                className={styles.colorPicker}
             />
         )}
     </div>
@@ -79,7 +78,7 @@ FontStyle.propTypes = {
     onSizeChange: PropTypes.func,
     onWeightChange: PropTypes.func,
     onStyleChange: PropTypes.func,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default FontStyle;

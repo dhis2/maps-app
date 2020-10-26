@@ -1,0 +1,45 @@
+.select {
+    width: auto;
+    max-width: 300px;
+}
+
+.tabContent {
+    margin: var(--spacers-dp8) -16px 0;
+    height: 330px;
+    width: 100%;
+}
+
+.flexColumnFlow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexRowFlow {
+    display: flex;
+    flex-direction: column;
+    margin: 0 var(--spacers-dp8);
+}
+
+.flexColumn {
+    flex: 1 1 0px;
+    margin: var(--spacers-dp8) var(--spacers-dp16) 0;
+    box-sizing: border-box;
+    max-width: 260px;
+}
+
+.flexInnerColumnFlow {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+    clear: both;
+}
+
+.flexInnerColumn {
+    flex: 1;
+    margin: var(--spacers-dp8);
+}
+
+.error {
+    margin-top: var(--spacers-dp8);
+    color: red;
+}

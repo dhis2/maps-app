@@ -1,0 +1,20 @@
+.colorPicker {
+    margin: var(--spacers-dp12) 0;
+}
+
+.button {
+    padding: 0;
+    text-align: right;
+    border-radius: 0 !important;
+}
+
+.icon {
+    position: absolute;
+    right: var(--spacers-dp4);
+}
+
+.label {
+    color: #494949;
+    font-size: 14px;
+    padding-bottom: 6px;
+}

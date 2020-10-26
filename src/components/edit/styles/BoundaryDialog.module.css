@@ -1,0 +1,17 @@
+.orgUnitTree {
+    overflow: hidden;
+}
+
+.checkbox {
+    height: 84px;
+    margin: 0 40px 0 var(--spacers-dp12) !important;
+}
+
+.radius {
+    margin-left: var(--spacers-dp12);
+    width: 127px;
+}
+
+.font {
+    margin: -10px 0 10px 40px;
+}

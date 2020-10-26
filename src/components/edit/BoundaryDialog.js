@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
 import NumberField from '../core/NumberField';
@@ -12,7 +12,8 @@ import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import Checkbox from '../core/Checkbox';
 import FontStyle from '../core/FontStyle';
-import layerDialogStyles from './LayerDialogStyles';
+import layerStyles from './styles/LayerDialog.module.css';
+import boundaryStyles from './styles/BoundaryDialog.module.css';
 
 import {
     setOrgUnitLevels,
@@ -33,30 +34,7 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 
-const styles = {
-    ...layerDialogStyles,
-    tabs: {
-        height: 376,
-    },
-    wrapper: {
-        width: '100%',
-        clear: 'both',
-        height: 64,
-    },
-    checkbox: {
-        float: 'left',
-        margin: '24px 0 0 12px',
-        width: 180,
-    },
-    font: {
-        float: 'left',
-        marginTop: -8,
-    },
-    radius: {
-        marginLeft: 12,
-        width: 127,
-    },
-};
+const styles = { ...layerStyles, ...boundaryStyles };
 
 class BoundaryDialog extends Component {
     static propTypes = {
@@ -73,7 +51,6 @@ class BoundaryDialog extends Component {
         setRadiusLow: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -107,8 +84,6 @@ class BoundaryDialog extends Component {
             setRadiusLow,
         } = this.props;
 
-        const { classes } = this.props;
-
         const { tab, orgUnitsError } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
@@ -121,17 +96,17 @@ class BoundaryDialog extends Component {
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
-                <div className={classes.tabContent}>
+                <div className={styles.tabContent}>
                     {tab === 'orgunits' && (
                         <div
-                            style={styles.flexColumnFlow}
+                            className={styles.flexColumnFlow}
                             data-test="boundarydialog-orgunitstab"
                         >
                             <div
-                                style={{
-                                    ...styles.flexColumn,
-                                    overflow: 'hidden',
-                                }}
+                                className={cx(
+                                    styles.flexColumn,
+                                    styles.orgUnitTree
+                                )}
                             >
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
@@ -139,7 +114,7 @@ class BoundaryDialog extends Component {
                                     disabled={hasUserOrgUnits}
                                 />
                             </div>
-                            <div style={styles.flexColumn}>
+                            <div className={styles.flexColumn}>
                                 <OrgUnitLevelSelect
                                     orgUnitLevel={getOrgUnitLevelsFromRows(
                                         rows
@@ -159,7 +134,7 @@ class BoundaryDialog extends Component {
                                     onChange={setUserOrgUnits}
                                 />
                                 {!orgUnits.length && orgUnitsError && (
-                                    <div style={styles.error}>
+                                    <div className={styles.error}>
                                         {orgUnitsError}
                                     </div>
                                 )}
@@ -168,19 +143,16 @@ class BoundaryDialog extends Component {
                     )}
                     {tab === 'style' && (
                         <div
-                            style={styles.flexColumnFlow}
+                            className={styles.flexColumnFlow}
                             data-test="boundarydialog-styletab"
                         >
-                            <div style={styles.flexColumn}>
-                                <div style={styles.flexInnerColumnFlow}>
+                            <div className={styles.flexColumn}>
+                                <div className={styles.flexInnerColumnFlow}>
                                     <Checkbox
                                         label={i18n.t('Labels')}
                                         checked={labels}
                                         onCheck={setLabels}
-                                        style={{
-                                            height: 84,
-                                            margin: '0 40px 0 12px',
-                                        }}
+                                        className={styles.checkbox}
                                     />
                                     {labels && (
                                         <FontStyle
@@ -188,9 +160,7 @@ class BoundaryDialog extends Component {
                                             fontStyle={labelFontStyle}
                                             onSizeChange={setLabelFontSize}
                                             onStyleChange={setLabelFontStyle}
-                                            style={{
-                                                margin: '-10px 0 10px',
-                                            }}
+                                            className={styles.font}
                                         />
                                     )}
                                 </div>
@@ -200,7 +170,7 @@ class BoundaryDialog extends Component {
                                         radiusLow !== undefined ? radiusLow : 5
                                     }
                                     onChange={setRadiusLow}
-                                    style={styles.radius}
+                                    className={styles.radius}
                                 />
                             </div>
                         </div>
@@ -251,4 +221,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(withStyles(styles)(BoundaryDialog));
+)(BoundaryDialog);
