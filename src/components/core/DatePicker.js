@@ -1,37 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { TextField } from '@material-ui/core';
+import { InputField } from '@dhis2/ui';
 import { formatDate } from '../../util/time';
+import styles from './styles/DatePicker.module.css';
 
-const styles = {
-    root: {
-        margin: '12px 0',
-    },
-};
-
-// DatePicker not yet supported in Material-UI: https://github.com/mui-org/material-ui/issues/4787
+// DatePicker not yet supported in @dhis2/ui
 // Fallback on browser native
-const DatePicker = ({ label, value, onChange, classes, style }) => (
-    <TextField
-        type="date"
-        label={label}
-        defaultValue={formatDate(value)}
-        onChange={event => onChange(event.target.value)}
-        style={style}
-        classes={classes}
-        InputLabelProps={{
-            shrink: true,
-        }}
-    />
+const DatePicker = ({ label, value, onChange, style }) => (
+    <div className={styles.datePicker} style={style}>
+        <InputField
+            type="date"
+            label={label}
+            value={formatDate(value)}
+            onChange={({ value }) => onChange(value)}
+        />
+    </div>
 );
 
 DatePicker.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
     style: PropTypes.object,
 };
 
-export default withStyles(styles)(DatePicker);
+export default DatePicker;
