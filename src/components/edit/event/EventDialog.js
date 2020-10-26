@@ -24,7 +24,8 @@ import {
     EVENT_RADIUS,
     EVENT_BUFFER,
 } from '../../../constants/layers';
-import layerDialogStyles from '../LayerDialogStyles';
+import layerStyles from '../styles/LayerDialog.module.css';
+import boundaryStyles from './styles/EventDialog.module.css';
 
 import {
     setProgram,
@@ -50,23 +51,7 @@ import {
 import { getStartEndDateError } from '../../../util/time';
 import { cssColor } from '../../../util/colors';
 
-// TODO: Don't use inline styles!
-const styles = {
-    ...layerDialogStyles,
-    checkbox: {
-        float: 'left',
-        marginTop: 24,
-        width: 180,
-    },
-    radius: {
-        width: 110,
-        marginTop: 12,
-    },
-    text: {
-        paddingTop: 8,
-        lineHeight: '22px',
-    },
-};
+const styles = { ...layerStyles, ...boundaryStyles };
 
 export class EventDialog extends Component {
     static propTypes = {
@@ -210,16 +195,19 @@ export class EventDialog extends Component {
                     <Tab value="filter">{i18n.t('Filter')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
-                <div style={styles.tabContent} data-test="eventdialog-content">
+                <div
+                    className={styles.tabContent}
+                    data-test="eventdialog-content"
+                >
                     {tab === 'data' && (
                         <div
-                            style={styles.flexRowFlow}
+                            className={styles.flexRowFlow}
                             data-test="eventdialog-datatab"
                         >
                             <ProgramSelect
                                 program={program}
                                 onChange={setProgram}
-                                style={styles.select}
+                                className={styles.select}
                                 errorText={programError}
                                 data-test="eventdialog-programselect"
                             />
@@ -227,7 +215,7 @@ export class EventDialog extends Component {
                                 program={program}
                                 programStage={programStage}
                                 onChange={setProgramStage}
-                                style={styles.select}
+                                className={styles.select}
                                 errorText={programStageError}
                             />
                             <CoordinateField
@@ -235,25 +223,25 @@ export class EventDialog extends Component {
                                 programStage={programStage}
                                 value={eventCoordinateField}
                                 onChange={setEventCoordinateField}
-                                style={styles.select}
+                                className={styles.select}
                             />
                             <EventStatusSelect
                                 value={eventStatus}
                                 onChange={setEventStatus}
-                                style={styles.select}
+                                className={styles.select}
                             />
                         </div>
                     )}
                     {tab === 'period' && (
                         <div
-                            style={styles.flexRowFlow}
+                            className={styles.flexRowFlow}
                             data-test="eventdialog-periodtab"
                         >
                             <RelativePeriodSelect
                                 period={period}
                                 startEndDates={true}
                                 onChange={setPeriod}
-                                style={styles.select}
+                                className={styles.select}
                             />
                             {period && period.id === 'START_END_DATES' && (
                                 <StartEndDates
@@ -266,7 +254,7 @@ export class EventDialog extends Component {
                     )}
                     {tab === 'orgunits' && (
                         <div
-                            style={styles.flexColumnFlow}
+                            className={styles.flexColumnFlow}
                             data-test="eventdialog-orgunittab"
                         >
                             <div

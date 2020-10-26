@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import cx from 'classnames';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
 import NumberField from '../core/NumberField';
@@ -12,8 +11,7 @@ import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import Checkbox from '../core/Checkbox';
 import FontStyle from '../core/FontStyle';
-import layerStyles from './styles/LayerDialog.module.css';
-import boundaryStyles from './styles/BoundaryDialog.module.css';
+import styles from './styles/LayerDialog.module.css';
 
 import {
     setOrgUnitLevels,
@@ -33,8 +31,6 @@ import {
     getOrgUnitGroupsFromRows,
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
-
-const styles = { ...layerStyles, ...boundaryStyles };
 
 class BoundaryDialog extends Component {
     static propTypes = {
@@ -102,12 +98,7 @@ class BoundaryDialog extends Component {
                             className={styles.flexColumnFlow}
                             data-test="boundarydialog-orgunitstab"
                         >
-                            <div
-                                className={cx(
-                                    styles.flexColumn,
-                                    styles.orgUnitTree
-                                )}
-                            >
+                            <div className={styles.orgUnitTree}>
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
