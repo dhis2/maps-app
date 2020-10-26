@@ -6,6 +6,7 @@ import {
     MultiSelectField,
     MultiSelectOption,
 } from '@dhis2/ui';
+import cx from 'classnames';
 import styles from './styles/InputField.module.css';
 
 /**
@@ -21,7 +22,7 @@ export const SelectField = props => {
         loading,
         multiple,
         onChange,
-        style,
+        className,
         value,
         dataTest,
         ...extraProps
@@ -54,7 +55,7 @@ export const SelectField = props => {
     );
 
     return (
-        <div className={styles.inputField} style={style}>
+        <div className={cx(styles.inputField, className)}>
             <Select
                 label={label}
                 selected={!isLoading ? selected : undefined}
@@ -125,9 +126,9 @@ SelectField.propTypes = {
     onChange: PropTypes.func,
 
     /**
-     * Override the inline-styles of the root element
+     * Class name for the root element
      */
-    style: PropTypes.object,
+    className: PropTypes.string,
 
     /**
      * The value(s) of the select field

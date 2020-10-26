@@ -10,8 +10,8 @@ import LegendItem from '../legend/LegendItem';
 import { setParams, setFilter, setPeriodName } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colors';
 import { createLegend } from '../../loaders/earthEngineLoader';
-import layerDialogStyles from './LayerDialogStyles';
-import legendStyle from '../legend/legendStyle';
+// import layerDialogStyles from './LayerDialogStyles';
+// import legendStyle from '../legend/legendStyle';
 
 const getDatasets = () => ({
     'WorldPop/POP': {
@@ -74,13 +74,13 @@ const getDatasets = () => ({
 });
 
 const styles = {
-    ...layerDialogStyles,
+    // ...layerDialogStyles,
     flexFull: {
-        ...layerDialogStyles.flexFull,
+        // ...layerDialogStyles.flexFull,
         marginBottom: 12,
     },
     legend: {
-        ...legendStyle,
+        // ...legendStyle,
         marginLeft: 0,
     },
     legendTitle: {

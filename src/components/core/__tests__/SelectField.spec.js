@@ -46,9 +46,9 @@ describe('SelectField', () => {
         expect(wrapper.find(SingleSelectField).props().selected).toBe('cat');
     });
 
-    it('should pass style to select field wrapper', () => {
-        const wrapper = renderWithProps({ style: { background: 'red' } });
-        expect(wrapper.props().style).toEqual({ background: 'red' });
+    it('should pass className to select field wrapper', () => {
+        const wrapper = renderWithProps({ className: 'myClass' });
+        expect(wrapper.props().className).toContain('myClass');
     });
 
     it('should render items array as SingleSelectOption', () => {

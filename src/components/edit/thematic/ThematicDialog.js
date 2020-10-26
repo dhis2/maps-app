@@ -30,10 +30,11 @@ import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import StartEndDates from '../../periods/StartEndDates';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
-import layerDialogStyles from '../LayerDialogStyles';
 import ThematicMapTypeSelect from './ThematicMapTypeSelect';
 import RadiusSelect, { isValidRadius } from './RadiusSelect';
 import { dimConf } from '../../../constants/dimension';
+import styles from '../styles/LayerDialog.module.css';
+
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
@@ -79,6 +80,7 @@ import {
 import { getStartEndDateError } from '../../../util/time';
 
 // TODO: Don't use inline styles!
+/*
 const styles = {
     ...layerDialogStyles,
     wrapper: {
@@ -95,6 +97,7 @@ const styles = {
         margin: '-24px 8px 0 38px',
     },
 };
+*/
 
 export class ThematicDialog extends Component {
     static propTypes = {

@@ -257,12 +257,7 @@ export class EventDialog extends Component {
                             className={styles.flexColumnFlow}
                             data-test="eventdialog-orgunittab"
                         >
-                            <div
-                                style={{
-                                    ...styles.flexColumn,
-                                    overflow: 'hidden',
-                                }}
-                            >
+                            <div className={styles.orgUnitTree}>
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
@@ -273,7 +268,7 @@ export class EventDialog extends Component {
                                     }
                                 />
                             </div>
-                            <div style={styles.flexColumn}>
+                            <div className={styles.flexColumn}>
                                 <UserOrgUnitsSelect
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
@@ -288,7 +283,7 @@ export class EventDialog extends Component {
                     )}
                     {tab === 'filter' && (
                         <div
-                            style={styles.flexRowFlow}
+                            className={styles.flexRowFlow}
                             data-test="eventdialog-filtertab"
                         >
                             <FilterGroup
@@ -302,18 +297,18 @@ export class EventDialog extends Component {
                     )}
                     {tab === 'style' && (
                         <div
-                            style={styles.flexColumnFlow}
+                            className={styles.flexColumnFlow}
                             data-test="eventdialog-styletab"
                         >
-                            <div style={styles.flexColumn}>
-                                <div style={styles.flexInnerColumnFlow}>
+                            <div className={styles.flexColumn}>
+                                <div className={styles.flexInnerColumnFlow}>
                                     <ImageSelect
                                         id="cluster"
                                         img="images/cluster.png"
                                         title={i18n.t('Group events')}
                                         onClick={() => setEventClustering(true)}
                                         isSelected={eventClustering}
-                                        style={styles.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                     <ImageSelect
                                         id="nocluster"
@@ -323,10 +318,10 @@ export class EventDialog extends Component {
                                             setEventClustering(false)
                                         }
                                         isSelected={!eventClustering}
-                                        style={styles.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                 </div>
-                                <div style={styles.flexInnerColumnFlow}>
+                                <div className={styles.flexInnerColumnFlow}>
                                     <ColorPicker
                                         label={i18n.t('Color')}
                                         color={
@@ -334,23 +329,23 @@ export class EventDialog extends Component {
                                             EVENT_COLOR
                                         }
                                         onChange={setEventPointColor}
-                                        style={styles.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                     <NumberField
                                         label={i18n.t('Radius')}
                                         value={eventPointRadius || EVENT_RADIUS}
                                         onChange={setEventPointRadius}
-                                        style={styles.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                 </div>
-                                <div style={styles.flexInnerColumnFlow}>
+                                <div className={styles.flexInnerColumnFlow}>
                                     <Checkbox
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
                                         onCheck={this.onShowBufferClick.bind(
                                             this
                                         )}
-                                        style={styles.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                         disabled={eventClustering}
                                     />
                                     {showBuffer && (
@@ -358,17 +353,17 @@ export class EventDialog extends Component {
                                             label={i18n.t('Radius in meters')}
                                             value={areaRadius || ''}
                                             onChange={setAreaRadius}
-                                            style={styles.flexInnerColumn}
+                                            className={styles.flexInnerColumn}
                                             disabled={eventClustering}
                                         />
                                     )}
                                 </div>
                             </div>
-                            <div style={styles.flexColumn}>
+                            <div className={styles.flexColumn}>
                                 {program ? (
                                     <StyleByDataItem />
                                 ) : (
-                                    <div style={styles.text}>
+                                    <div className={styles.text}>
                                         {i18n.t(
                                             'You can style events by data element after selecting a program.'
                                         )}

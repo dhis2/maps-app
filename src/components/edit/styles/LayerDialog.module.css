@@ -49,7 +49,27 @@
     overflow: hidden;
 }
 
-.checkbox {
+/* Thematic */
+
+.wrapper {
+    width: 100%;
+    clear: both;
+    height: 64px;
+}
+
+.thematicCheckbox {
+    float: left;
+    margin: 24px 0 0 12px;
+    width: 180px;
+}
+
+.thematicFont {
+    margin: -24px 8px 0 38px;
+}
+
+/* Boundary */
+
+.labelsCheckbox {
     height: 84px;
     margin: 0 40px 0 var(--spacers-dp12) !important;
 }
@@ -59,6 +79,6 @@
     width: 127px;
 }
 
-.font {
+.boundaryFont {
     margin: -10px 0 10px 40px;
 }

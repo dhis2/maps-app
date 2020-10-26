@@ -5,7 +5,9 @@ import i18n from '@dhis2/d2-i18n';
 import DatePicker from '../core/DatePicker';
 import { setStartDate, setEndDate } from '../../actions/layerEdit';
 import { DEFAULT_START_DATE, DEFAULT_END_DATE } from '../../constants/layers';
-import styles from '../edit/LayerDialogStyles';
+// import styles from '../edit/LayerDialogStyles';
+
+const styles = {};
 
 const StartEndDates = props => {
     const { startDate, endDate, setStartDate, setEndDate, errorText } = props;

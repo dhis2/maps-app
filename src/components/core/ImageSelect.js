@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames';
 
 const styles = theme => ({
     container: {}, // For container class override
@@ -46,13 +47,12 @@ const ImageSelect = ({
     title,
     isSelected,
     onClick,
-    style,
+    className,
 }) => (
     <div
-        className={classes.container}
+        className={cx(classes.container, className)}
         title={title}
         onClick={() => onClick(id)}
-        style={style}
     >
         <div
             className={`${classes.imageContainer} ${
@@ -76,7 +76,7 @@ ImageSelect.propTypes = {
     title: PropTypes.string,
     isSelected: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default withStyles(styles)(ImageSelect);

@@ -27,7 +27,7 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_RADIUS,
 } from '../../../constants/layers';
-import layerDialogStyles from '../LayerDialogStyles';
+// import layerDialogStyles from '../LayerDialogStyles';
 
 import {
     setTrackedEntityType,
@@ -57,7 +57,7 @@ import {
 import { getStartEndDateError } from '../../../util/time';
 
 const styles = {
-    ...layerDialogStyles,
+    // ...layerDialogStyles,
     checkbox: {
         float: 'left',
         marginTop: 16,
