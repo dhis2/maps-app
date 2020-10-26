@@ -9,7 +9,7 @@ import { setAggregationType } from '../../../actions/layerEdit';
 export const AggregationTypeSelect = ({
     aggregationType,
     setAggregationType,
-    style,
+    className,
 }) => {
     const types = getAggregationTypes();
 
@@ -19,7 +19,7 @@ export const AggregationTypeSelect = ({
             items={types}
             value={aggregationType || types[0].id}
             onChange={type => setAggregationType(type.id)}
-            style={style}
+            className={className}
         />
     );
 };
@@ -27,7 +27,7 @@ export const AggregationTypeSelect = ({
 AggregationTypeSelect.propTypes = {
     aggregationType: PropTypes.string,
     setAggregationType: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default connect(

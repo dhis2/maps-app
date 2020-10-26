@@ -12,7 +12,7 @@ export class DataElementOperandSelect extends Component {
         dataElementOperands: PropTypes.object,
         loadDataElementOperands: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
         errorText: PropTypes.string,
     };
 
@@ -42,7 +42,7 @@ export class DataElementOperandSelect extends Component {
             dataElementOperands,
             dataElementGroup,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
 
@@ -63,7 +63,7 @@ export class DataElementOperandSelect extends Component {
                 items={items}
                 value={dataElement ? dataElement.id : null}
                 onChange={dataElement => onChange(dataElement, 'operand')}
-                style={style}
+                className={className}
                 errorText={!dataElement && errorText ? errorText : null}
             />
         );

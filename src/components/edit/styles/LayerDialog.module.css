@@ -57,14 +57,28 @@
     height: 64px;
 }
 
+.thematicColumn {
+    composes: flexColumn;
+    margin-top: 0;
+}
+
 .thematicCheckbox {
     float: left;
     margin: 24px 0 0 12px;
     width: 180px;
 }
 
+.thematicLabelsCheckbox {
+    margin-left: var(--spacers-dp4);
+}
+
 .thematicFont {
     margin: -24px 8px 0 38px;
+}
+
+.thematicRadius {
+    composes: flexInnerColumn;
+    max-width: 140px;
 }
 
 /* Boundary */

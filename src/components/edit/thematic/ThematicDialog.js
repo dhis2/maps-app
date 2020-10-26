@@ -334,15 +334,15 @@ export class ThematicDialog extends Component {
                         {i18n.t('Style')}
                     </Tab>
                 </Tabs>
-                <div style={styles.tabContent}>
+                <div className={styles.tabContent}>
                     {tab === 'data' && (
                         <div
-                            style={styles.flexRowFlow}
+                            className={styles.flexRowFlow}
                             data-test="thematicdialog-datatab"
                         >
                             <ValueTypeSelect
                                 value={valueType}
-                                style={styles.select}
+                                className={styles.select}
                                 onChange={setValueType}
                             />
                             {(!valueType ||
@@ -352,7 +352,7 @@ export class ThematicDialog extends Component {
                                     key="group"
                                     indicatorGroup={indicatorGroup}
                                     onChange={setIndicatorGroup}
-                                    style={styles.select}
+                                    className={styles.select}
                                     errorText={indicatorGroupError}
                                 />,
                                 <IndicatorSelect
@@ -360,7 +360,7 @@ export class ThematicDialog extends Component {
                                     indicatorGroup={indicatorGroup}
                                     indicator={dataItem}
                                     onChange={setDataItem}
-                                    style={styles.select}
+                                    className={styles.select}
                                     errorText={indicatorError}
                                 />,
                             ]}
@@ -371,7 +371,7 @@ export class ThematicDialog extends Component {
                                     key="group"
                                     dataElementGroup={dataElementGroup}
                                     onChange={setDataElementGroup}
-                                    style={styles.select}
+                                    className={styles.select}
                                     errorText={dataElementGroupError}
                                 />,
                                 dataElementGroup && (
@@ -379,7 +379,7 @@ export class ThematicDialog extends Component {
                                         key="totals"
                                         operand={operand}
                                         onChange={setOperand}
-                                        style={styles.select}
+                                        className={styles.select}
                                     />
                                 ),
                                 operand === true ||
@@ -389,7 +389,7 @@ export class ThematicDialog extends Component {
                                         dataElementGroup={dataElementGroup}
                                         dataElement={dataItem}
                                         onChange={setDataItem}
-                                        style={styles.select}
+                                        className={styles.select}
                                         errorText={dataElementError}
                                     />
                                 ) : (
@@ -398,7 +398,7 @@ export class ThematicDialog extends Component {
                                         dataElementGroup={dataElementGroup}
                                         dataElement={dataItem}
                                         onChange={setDataItem}
-                                        style={styles.select}
+                                        className={styles.select}
                                         errorText={dataElementError}
                                     />
                                 ),
@@ -408,7 +408,7 @@ export class ThematicDialog extends Component {
                                     key="item"
                                     dataSet={dataItem}
                                     onChange={setDataItem}
-                                    style={styles.select}
+                                    className={styles.select}
                                     errorText={dataSetError}
                                 />
                             )}
@@ -418,7 +418,7 @@ export class ThematicDialog extends Component {
                                     key="program"
                                     program={program}
                                     onChange={setProgram}
-                                    style={styles.select}
+                                    className={styles.select}
                                     errorText={programError}
                                 />,
                                 program && (
@@ -427,7 +427,7 @@ export class ThematicDialog extends Component {
                                         program={program}
                                         dataItem={dataItem}
                                         onChange={setDataItem}
-                                        style={styles.select}
+                                        className={styles.select}
                                         errorText={eventDataItemError}
                                     />
                                 ),
@@ -439,7 +439,7 @@ export class ThematicDialog extends Component {
                                     key="program"
                                     program={program}
                                     onChange={setProgram}
-                                    style={styles.select}
+                                    className={styles.select}
                                     errorText={programError}
                                 />,
                                 program && (
@@ -448,31 +448,31 @@ export class ThematicDialog extends Component {
                                         program={program}
                                         programIndicator={dataItem}
                                         onChange={setDataItem}
-                                        style={styles.select}
+                                        className={styles.select}
                                         errorText={programIndicatorError}
                                     />
                                 ),
                             ]}
-                            <AggregationTypeSelect style={styles.select} />
+                            <AggregationTypeSelect className={styles.select} />
                         </div>
                     )}
                     {tab === 'period' && (
                         <div
-                            style={styles.flexRowFlow}
+                            className={styles.flexRowFlow}
                             data-test="thematicdialog-periodtab"
                         >
                             <PeriodTypeSelect
                                 value={periodType}
                                 period={period}
                                 onChange={setPeriodType}
-                                style={styles.select}
+                                className={styles.select}
                                 errorText={periodTypeError}
                             />
                             {periodType === 'relativePeriods' && (
                                 <RelativePeriodSelect
                                     period={period}
                                     onChange={setPeriod}
-                                    style={styles.select}
+                                    className={styles.select}
                                     errorText={periodError}
                                 />
                             )}
@@ -484,7 +484,7 @@ export class ThematicDialog extends Component {
                                     periodType={periodType}
                                     period={period}
                                     onChange={setPeriod}
-                                    style={styles.select}
+                                    className={styles.select}
                                     errorText={periodError}
                                 />
                             )}
@@ -507,22 +507,17 @@ export class ThematicDialog extends Component {
                     )}
                     {tab === 'orgunits' && (
                         <div
-                            style={styles.flexColumnFlow}
+                            className={styles.flexColumnFlow}
                             data-test="thematicdialog-orgunitstab"
                         >
-                            <div
-                                style={{
-                                    ...styles.flexColumn,
-                                    overflow: 'hidden',
-                                }}
-                            >
+                            <div className={styles.orgUnitTree}>
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
                                     disabled={hasUserOrgUnits}
                                 />
                             </div>
-                            <div style={styles.flexColumn}>
+                            <div className={styles.flexColumn}>
                                 <OrgUnitLevelSelect
                                     orgUnitLevel={getOrgUnitLevelsFromRows(
                                         rows
@@ -542,7 +537,7 @@ export class ThematicDialog extends Component {
                                     onChange={setUserOrgUnits}
                                 />
                                 {!orgUnits.length && orgUnitsError && (
-                                    <div style={styles.error}>
+                                    <div className={styles.error}>
                                         {orgUnitsError}
                                     </div>
                                 )}
@@ -551,7 +546,7 @@ export class ThematicDialog extends Component {
                     )}
                     {tab === 'filter' && (
                         <div
-                            style={styles.flexRowFlow}
+                            className={styles.flexRowFlow}
                             data-test="thematicdialog-filtertab"
                         >
                             <DimensionFilter dimensions={dimensions} />
@@ -559,31 +554,28 @@ export class ThematicDialog extends Component {
                     )}
                     {tab === 'style' && (
                         <div
-                            style={styles.flexColumnFlow}
+                            className={styles.flexColumnFlow}
                             data-test="thematicdialog-styletab"
                         >
-                            <div style={{ ...styles.flexColumn, marginTop: 0 }}>
+                            <div className={styles.thematicColumn}>
                                 <ThematicMapTypeSelect type={thematicMapType} />
-                                <div style={styles.flexInnerColumnFlow}>
+                                <div className={styles.flexInnerColumnFlow}>
                                     <RadiusSelect
-                                        style={{
-                                            ...styles.flexInnerColumn,
-                                            maxWidth: 140,
-                                        }}
+                                        className={styles.thematicRadius}
                                     />
                                 </div>
-                                <div style={styles.flexInnerColumnFlow}>
+                                <div className={styles.flexInnerColumnFlow}>
                                     <Checkbox
                                         label={i18n.t('Labels')}
                                         checked={labels}
                                         onCheck={setLabels}
-                                        style={{
-                                            marginLeft: -4,
-                                        }}
+                                        className={
+                                            styles.thematicLabelsCheckbox
+                                        }
                                     />
                                 </div>
                                 {labels && (
-                                    <div style={styles.flexInnerColumnFlow}>
+                                    <div className={styles.flexInnerColumnFlow}>
                                         <FontStyle
                                             color={labelFontColor}
                                             size={labelFontSize}
@@ -593,22 +585,22 @@ export class ThematicDialog extends Component {
                                             onSizeChange={setLabelFontSize}
                                             onWeightChange={setLabelFontWeight}
                                             onStyleChange={setLabelFontStyle}
-                                            style={styles.font}
+                                            className={styles.font}
                                         />
                                     </div>
                                 )}
                                 <NoDataColor
                                     value={noDataColor}
                                     onChange={setNoDataColor}
-                                    style={styles.flexInnerColumnFlow}
+                                    className={styles.flexInnerColumnFlow}
                                 />
                             </div>
-                            <div style={{ ...styles.flexColumn, marginTop: 0 }}>
+                            <div className={styles.thematicColumn}>
                                 <NumericLegendStyle
                                     mapType={thematicMapType}
                                     dataItem={dataItem}
                                     legendSetError={legendSetError}
-                                    style={styles.select}
+                                    className={styles.select}
                                 />
                             </div>
                         </div>

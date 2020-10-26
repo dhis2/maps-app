@@ -9,7 +9,7 @@ class PeriodTypeSelect extends Component {
         value: PropTypes.string,
         period: PropTypes.object,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
         errorText: PropTypes.string,
     };
 
@@ -32,7 +32,7 @@ class PeriodTypeSelect extends Component {
     }
 
     render() {
-        const { value, onChange, style, errorText } = this.props;
+        const { value, onChange, className, errorText } = this.props;
 
         return (
             <SelectField
@@ -40,7 +40,7 @@ class PeriodTypeSelect extends Component {
                 items={getPeriodTypes()}
                 value={value}
                 onChange={onChange}
-                style={style}
+                className={className}
                 errorText={!value && errorText ? errorText : null}
                 dataTest="periodtypeselect"
             />

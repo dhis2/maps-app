@@ -12,8 +12,8 @@ const styles = {
     },
 };
 
-const TotalsDetailsSelect = ({ operand, onChange, style, classes }) => (
-    <div style={style}>
+const TotalsDetailsSelect = ({ operand, onChange, className, classes }) => (
+    <div style={className}>
         <RadioGroup
             name="operand"
             value={operand === true ? 'details' : 'totals'}
@@ -29,7 +29,7 @@ const TotalsDetailsSelect = ({ operand, onChange, style, classes }) => (
 TotalsDetailsSelect.propTypes = {
     operand: PropTypes.bool, // true = 'details'
     onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
     classes: PropTypes.object.isRequired,
 };
 

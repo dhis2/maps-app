@@ -30,7 +30,7 @@ export class EventDataItemSelect extends Component {
         loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
         loadProgramDataElements: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
         errorText: PropTypes.string,
     };
 
@@ -68,7 +68,7 @@ export class EventDataItemSelect extends Component {
             programAttributes,
             dataElements,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
 
@@ -88,7 +88,7 @@ export class EventDataItemSelect extends Component {
                 items={dataItems}
                 value={dataItem ? dataItem.id : null}
                 onChange={dataItem => onChange(dataItem, 'eventDataItem')}
-                style={style}
+                className={className}
                 errorText={!dataItem && errorText ? errorText : null}
             />
         );

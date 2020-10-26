@@ -11,7 +11,7 @@ export class DataElementGroupSelect extends Component {
         dataElementGroups: PropTypes.array,
         loadDataElementGroups: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
         errorText: PropTypes.string,
     };
 
@@ -28,7 +28,7 @@ export class DataElementGroupSelect extends Component {
             dataElementGroup,
             dataElementGroups,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
 
@@ -39,7 +39,7 @@ export class DataElementGroupSelect extends Component {
                 items={dataElementGroups}
                 value={dataElementGroup ? dataElementGroup.id : null}
                 onChange={onChange}
-                style={style}
+                className={className}
                 errorText={!dataElementGroup && errorText ? errorText : null}
             />
         );
