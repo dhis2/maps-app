@@ -12,7 +12,7 @@ export class TrackedEntityTypeSelect extends Component {
         errorText: PropTypes.string,
         onChange: PropTypes.func.isRequired,
         loadTrackedEntityTypes: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
     };
 
     componentDidMount() {
@@ -28,7 +28,7 @@ export class TrackedEntityTypeSelect extends Component {
             trackedEntityType,
             trackedEntityTypes,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
 
@@ -39,7 +39,7 @@ export class TrackedEntityTypeSelect extends Component {
                 items={trackedEntityTypes}
                 value={trackedEntityType ? trackedEntityType.id : null}
                 onChange={trackedEntityType => onChange(trackedEntityType)}
-                style={style}
+                className={className}
                 errorText={!trackedEntityType && errorText ? errorText : null}
             />
         );

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import NumberField from '../core/NumberField';
 import ColorScaleSelect from '../core/ColorScaleSelect';
 import Collection from '../earthengine/Collection';
@@ -10,8 +9,8 @@ import LegendItem from '../legend/LegendItem';
 import { setParams, setFilter, setPeriodName } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colors';
 import { createLegend } from '../../loaders/earthEngineLoader';
-// import layerDialogStyles from './LayerDialogStyles';
 // import legendStyle from '../legend/legendStyle';
+import styles from './styles/LayerDialog.module.css';
 
 const getDatasets = () => ({
     'WorldPop/POP': {
@@ -73,32 +72,6 @@ const getDatasets = () => ({
     },
 });
 
-const styles = {
-    // ...layerDialogStyles,
-    flexFull: {
-        // ...layerDialogStyles.flexFull,
-        marginBottom: 12,
-    },
-    legend: {
-        // ...legendStyle,
-        marginLeft: 0,
-    },
-    legendTitle: {
-        paddingBottom: 16,
-        fontWeight: 'bold',
-    },
-    scale: {
-        marginTop: 16,
-    },
-    error: {
-        width: '100%',
-        color: 'rgb(244, 67, 54)',
-        fontSize: 12,
-        lineHeight: '12px',
-        marginLeft: 12,
-    },
-};
-
 class EarthEngineDialog extends Component {
     static propTypes = {
         datasetId: PropTypes.string.isRequired,
@@ -111,7 +84,6 @@ class EarthEngineDialog extends Component {
         setFilter: PropTypes.func.isRequired,
         setParams: PropTypes.func.isRequired,
         setPeriodName: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -162,16 +134,15 @@ class EarthEngineDialog extends Component {
             setParams,
             setFilter,
             setPeriodName,
-            classes,
         } = this.props;
         const dataset = getDatasets()[datasetId];
         const { steps, filterError, rangeError, stepsError } = this.state;
 
         return (
             <div>
-                <div className={classes.tabContent}>
-                    <div className={classes.flexColumnFlow}>
-                        <div className={classes.flexColumn}>
+                <div className={styles.tabContent}>
+                    <div className={styles.flexColumnFlow}>
+                        <div className={styles.flexColumn}>
                             <div>{dataset.description}</div>
                             {datasetId !== 'USGS/SRTMGL1_003' && ( // If not elevation
                                 <Collection
@@ -182,14 +153,14 @@ class EarthEngineDialog extends Component {
                                         setPeriodName(periodName);
                                         setFilter(filter);
                                     }}
-                                    className={classes.flexFull}
+                                    className={styles.flexFull}
                                     errorText={filterError}
                                 />
                             )}
                             {params && [
                                 <div
                                     key="minmax"
-                                    className={classes.flexInnerColumnFlow}
+                                    className={styles.flexInnerColumnFlow}
                                 >
                                     <NumberField
                                         label={
@@ -203,7 +174,7 @@ class EarthEngineDialog extends Component {
                                                 params.palette
                                             )
                                         }
-                                        className={classes.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                     <NumberField
                                         label={
@@ -217,7 +188,7 @@ class EarthEngineDialog extends Component {
                                                 params.palette
                                             )
                                         }
-                                        className={classes.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                     <NumberField
                                         label={i18n.t('Steps')}
@@ -227,22 +198,16 @@ class EarthEngineDialog extends Component {
                                                 : this.getStepsFromParams()
                                         }
                                         onChange={this.onStepsChange}
-                                        className={classes.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                 </div>,
-                                <div
-                                    key="range_error"
-                                    className={classes.error}
-                                >
+                                <div key="range_error" className={styles.error}>
                                     {!this.isValidRange() && rangeError}
                                 </div>,
-                                <div
-                                    key="steps_error"
-                                    className={classes.error}
-                                >
+                                <div key="steps_error" className={styles.error}>
                                     {!this.isValidSteps() && stepsError}
                                 </div>,
-                                <div key="scale" className={classes.scale}>
+                                <div key="scale" className={styles.scale}>
                                     <ColorScaleSelect
                                         palette={params.palette}
                                         onChange={palette =>
@@ -259,11 +224,11 @@ class EarthEngineDialog extends Component {
                         </div>
 
                         {params && (
-                            <div className={classes.flexColumn}>
-                                <div className={classes.legendTitle}>
+                            <div className={styles.flexColumn}>
+                                <div className={styles.legendTitle}>
                                     {i18n.t('Legend preview')}
                                 </div>
-                                <div className={classes.legend}>
+                                <div className={styles.legend}>
                                     <table>
                                         <tbody>
                                             {createLegend(params).map(
@@ -347,4 +312,4 @@ class EarthEngineDialog extends Component {
 
 export default connect(null, { setParams, setFilter, setPeriodName }, null, {
     forwardRef: true,
-})(withStyles(styles)(EarthEngineDialog));
+})(EarthEngineDialog);

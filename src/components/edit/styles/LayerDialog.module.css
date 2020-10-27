@@ -44,6 +44,10 @@
     color: red;
 }
 
+indent {
+    margin-left: var(--spacers-dp24);
+}
+
 .orgUnitTree {
     composes: flexColumn;
     overflow: hidden;
@@ -81,6 +85,14 @@
     max-width: 140px;
 }
 
+/* Tracked entity */
+
+.teiCheckbox {
+    float: left;
+    margin-top: var(--spacers-dp16);
+    width: 180px;
+}
+
 /* Boundary */
 
 .labelsCheckbox {
@@ -95,4 +107,32 @@
 
 .boundaryFont {
     margin: -10px 0 10px 40px;
+}
+
+/* Earth Engine */
+
+.eeFlexFull {
+    margin-bottom: var(--spacers-dp12);
+}
+
+.eeLegend {
+    /* ...legendStyle, */
+    margin-left: 0;
+}
+
+.legendTitle {
+    padding-bottom: var(--spacers-dp16);
+    font-weight: bold;
+}
+
+.scale {
+    margin-top: var(--spacers-dp16);
+}
+
+.error {
+    width: 100%;
+    color: rgb(244, 67, 54);
+    font-size: 12px;
+    line-height: 12px;
+    margin-left: var(--spacers-dp12);
 }

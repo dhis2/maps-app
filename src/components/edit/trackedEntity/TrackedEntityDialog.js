@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
 import NumberField from '../../core/NumberField';
@@ -17,6 +16,8 @@ import StartEndDates from '../../periods/StartEndDates';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
 import ColorPicker from '../../core/ColorPicker';
+import styles from '../styles/LayerDialog.module.css';
+
 import {
     DEFAULT_START_DATE,
     DEFAULT_END_DATE,
@@ -27,7 +28,6 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_RADIUS,
 } from '../../../constants/layers';
-// import layerDialogStyles from '../LayerDialogStyles';
 
 import {
     setTrackedEntityType,
@@ -55,18 +55,6 @@ import {
     getOrgUnitNodesFromRows,
 } from '../../../util/analytics';
 import { getStartEndDateError } from '../../../util/time';
-
-const styles = {
-    // ...layerDialogStyles,
-    checkbox: {
-        float: 'left',
-        marginTop: 16,
-        width: 180,
-    },
-    indent: {
-        marginLeft: 24,
-    },
-};
 
 export class TrackedEntityDialog extends Component {
     static propTypes = {
@@ -103,7 +91,6 @@ export class TrackedEntityDialog extends Component {
         setOrgUnitMode: PropTypes.func.isRequired,
         setTrackedEntityType: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -201,8 +188,6 @@ export class TrackedEntityDialog extends Component {
             setRelationshipLineColor,
         } = this.props;
 
-        const { classes } = this.props;
-
         const {
             tab,
             trackedEntityTypeError,
@@ -220,13 +205,13 @@ export class TrackedEntityDialog extends Component {
                     <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
-                <div className={classes.tabContent}>
+                <div className={styles.tabContent}>
                     {tab === 'data' && (
-                        <div style={styles.flexRowFlow}>
+                        <div className={styles.flexRowFlow}>
                             <TrackedEntityTypeSelect
                                 trackedEntityType={trackedEntityType}
                                 onChange={setTrackedEntityType}
-                                style={styles.select}
+                                className={styles.select}
                                 errorText={trackedEntityTypeError}
                             />
                             {trackedEntityType && (
@@ -235,14 +220,14 @@ export class TrackedEntityDialog extends Component {
                                     program={program}
                                     trackedEntityType={trackedEntityType}
                                     onChange={setProgram}
-                                    style={styles.select}
+                                    className={styles.select}
                                 />
                             )}
                             {program && (
                                 <ProgramStatusSelect
                                     value={programStatus}
                                     onChange={setProgramStatus}
-                                    style={styles.select}
+                                    className={styles.select}
                                 />
                             )}
                             {program && (
@@ -250,7 +235,7 @@ export class TrackedEntityDialog extends Component {
                                     label={i18n.t('Follow up')}
                                     checked={followUp}
                                     onCheck={setFollowUpStatus}
-                                    style={styles.checkbox}
+                                    className={styles.checkbox}
                                 />
                             )}
                         </div>
@@ -269,7 +254,7 @@ export class TrackedEntityDialog extends Component {
                                 )}
                             </div>
                         ) : (
-                            <div style={styles.flexRowFlow}>
+                            <div className={styles.flexRowFlow}>
                                 <div
                                     style={{
                                         fontSize: 14,
@@ -352,7 +337,7 @@ export class TrackedEntityDialog extends Component {
                             </div>
                         ))}
                     {tab === 'period' && (
-                        <div style={styles.flexRowFlow}>
+                        <div className={styles.flexRowFlow}>
                             <PeriodTypeSelect />
                             <StartEndDates
                                 startDate={startDate}
@@ -362,19 +347,14 @@ export class TrackedEntityDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div style={styles.flexColumnFlow}>
-                            <div
-                                style={{
-                                    ...styles.flexColumn,
-                                    overflow: 'hidden',
-                                }}
-                            >
+                        <div className={styles.flexColumnFlow}>
+                            <div className={styles.orgUnitTree}>
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
                                 />
                             </div>
-                            <div style={styles.flexColumn}>
+                            <div className={styles.flexColumn}>
                                 <SelectField
                                     label={i18n.t('Selection mode')}
                                     items={[
@@ -413,8 +393,8 @@ export class TrackedEntityDialog extends Component {
                         </div>
                     )}
                     {tab === 'style' && (
-                        <div style={styles.flexColumnFlow}>
-                            <div style={styles.flexColumn}>
+                        <div className={styles.flexColumnFlow}>
+                            <div className={styles.flexColumn}>
                                 <div
                                     style={{
                                         ...styles.flexInnerColumnFlow,
@@ -425,33 +405,33 @@ export class TrackedEntityDialog extends Component {
                                 >
                                     {i18n.t('Tracked entity style')}:
                                 </div>
-                                <div style={styles.flexInnerColumnFlow}>
+                                <div className={styles.flexInnerColumnFlow}>
                                     <ColorPicker
                                         label={i18n.t('Color')}
                                         color={eventPointColor || TEI_COLOR}
                                         onChange={setEventPointColor}
-                                        style={styles.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                     <NumberField
                                         label={i18n.t('Point size')}
                                         value={eventPointRadius || TEI_RADIUS}
                                         onChange={setEventPointRadius}
-                                        style={styles.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                 </div>
-                                <div style={styles.flexInnerColumnFlow}>
+                                <div className={styles.flexInnerColumnFlow}>
                                     <Checkbox
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
                                         onCheck={this.onShowBufferClick}
-                                        style={styles.flexInnerColumn}
+                                        className={styles.flexInnerColumn}
                                     />
                                     {showBuffer && (
                                         <NumberField
                                             label={i18n.t('Radius in meters')}
                                             value={areaRadius || ''}
                                             onChange={setAreaRadius}
-                                            style={styles.flexInnerColumn}
+                                            className={styles.flexInnerColumn}
                                         />
                                     )}
                                 </div>
@@ -467,7 +447,11 @@ export class TrackedEntityDialog extends Component {
                                         >
                                             {i18n.t('Related entity style')}:
                                         </div>
-                                        <div style={styles.flexInnerColumnFlow}>
+                                        <div
+                                            className={
+                                                styles.flexInnerColumnFlow
+                                            }
+                                        >
                                             <ColorPicker
                                                 label={i18n.t('Color')}
                                                 color={
@@ -475,7 +459,9 @@ export class TrackedEntityDialog extends Component {
                                                     TEI_RELATED_COLOR
                                                 }
                                                 onChange={setRelatedPointColor}
-                                                style={styles.flexInnerColumn}
+                                                className={
+                                                    styles.flexInnerColumn
+                                                }
                                             />
                                             <NumberField
                                                 label={i18n.t('Point size')}
@@ -484,7 +470,9 @@ export class TrackedEntityDialog extends Component {
                                                     TEI_RELATED_RADIUS
                                                 }
                                                 onChange={setRelatedPointRadius}
-                                                style={styles.flexInnerColumn}
+                                                className={
+                                                    styles.flexInnerColumn
+                                                }
                                             />
                                             <ColorPicker
                                                 label={i18n.t('Line Color')}
@@ -495,13 +483,15 @@ export class TrackedEntityDialog extends Component {
                                                 onChange={
                                                     setRelationshipLineColor
                                                 }
-                                                style={styles.flexInnerColumn}
+                                                className={
+                                                    styles.flexInnerColumn
+                                                }
                                             />
                                         </div>
                                     </Fragment>
                                 ) : null}
                             </div>
-                            <div style={styles.flexColumn} />
+                            <div className={styles.flexColumn} />
                         </div>
                     )}
                 </div>
@@ -582,4 +572,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(withStyles(styles)(TrackedEntityDialog));
+)(TrackedEntityDialog);
