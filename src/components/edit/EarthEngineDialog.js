@@ -9,7 +9,6 @@ import LegendItem from '../legend/LegendItem';
 import { setParams, setFilter, setPeriodName } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colors';
 import { createLegend } from '../../loaders/earthEngineLoader';
-// import legendStyle from '../legend/legendStyle'; // Will be fixed in a later PR
 import styles from './styles/LayerDialog.module.css';
 
 const getDatasets = () => ({

@@ -71,7 +71,7 @@ describe('DownloadLegend', () => {
     it('Should only render layers with legends', () => {
         const wrapper = renderComponent({ layers });
         expect(wrapper.children().length).toEqual(2);
-        expect(wrapper.find('WithStyles(Legend)').length).toEqual(2);
+        expect(wrapper.find('Legend').length).toEqual(2);
     });
 
     it('Should render legend title and period', () => {
