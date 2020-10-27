@@ -79,26 +79,6 @@ import {
 
 import { getStartEndDateError } from '../../../util/time';
 
-// TODO: Don't use inline styles!
-/*
-const styles = {
-    ...layerDialogStyles,
-    wrapper: {
-        width: '100%',
-        clear: 'both',
-        height: 64,
-    },
-    checkbox: {
-        float: 'left',
-        margin: '24px 0 0 12px',
-        width: 180,
-    },
-    font: {
-        margin: '-24px 8px 0 38px',
-    },
-};
-*/
-
 export class ThematicDialog extends Component {
     static propTypes = {
         id: PropTypes.string,
@@ -585,7 +565,7 @@ export class ThematicDialog extends Component {
                                             onSizeChange={setLabelFontSize}
                                             onWeightChange={setLabelFontWeight}
                                             onStyleChange={setLabelFontStyle}
-                                            className={styles.font}
+                                            className={styles.thematicFont}
                                         />
                                     </div>
                                 )}

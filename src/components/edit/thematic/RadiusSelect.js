@@ -33,7 +33,7 @@ const RadiusSelect = ({
     radiusHigh = THEMATIC_RADIUS_HIGH,
     setRadiusLow,
     setRadiusHigh,
-    style,
+    className,
 }) => (
     <Fragment>
         <NumberField
@@ -42,7 +42,7 @@ const RadiusSelect = ({
             min={THEMATIC_RADIUS_MIN}
             max={isNaN(radiusHigh) ? THEMATIC_RADIUS_MAX : radiusHigh}
             onChange={setRadiusLow}
-            style={style}
+            className={className}
         />
         <NumberField
             label={i18n.t('High radius')}
@@ -50,7 +50,7 @@ const RadiusSelect = ({
             min={isNaN(radiusLow) ? THEMATIC_RADIUS_LOW : radiusLow}
             max={THEMATIC_RADIUS_MAX}
             onChange={setRadiusHigh}
-            style={style}
+            className={className}
         />
         {!isValidRadius(radiusLow, radiusHigh) && (
             <div style={errorStyle}>
@@ -68,7 +68,7 @@ RadiusSelect.propTypes = {
     radiusHigh: PropTypes.number,
     setRadiusLow: PropTypes.func.isRequired,
     setRadiusHigh: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default connect(
