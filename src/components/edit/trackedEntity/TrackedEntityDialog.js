@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import cx from 'classnames';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
 import NumberField from '../../core/NumberField';
@@ -306,11 +307,10 @@ export class TrackedEntityDialog extends Component {
                                             onChange={
                                                 setTrackedEntityRelationshipType
                                             }
-                                            style={{
-                                                ...styles.select,
-                                                width: 276,
-                                                margin: '0 0 0 48px',
-                                            }}
+                                            className={cx(
+                                                styles.select,
+                                                styles.indent
+                                            )}
                                         />
                                         {/*program && (
                                             <Checkbox
@@ -395,14 +395,7 @@ export class TrackedEntityDialog extends Component {
                     {tab === 'style' && (
                         <div className={styles.flexColumnFlow}>
                             <div className={styles.flexColumn}>
-                                <div
-                                    style={{
-                                        ...styles.flexInnerColumnFlow,
-                                        margin: '12px 0',
-                                        fontSize: 14,
-                                        fontWeight: 'bold',
-                                    }}
-                                >
+                                <div className={styles.header}>
                                     {i18n.t('Tracked entity style')}:
                                 </div>
                                 <div className={styles.flexInnerColumnFlow}>
@@ -437,14 +430,7 @@ export class TrackedEntityDialog extends Component {
                                 </div>
                                 {relationshipType ? (
                                     <Fragment>
-                                        <div
-                                            style={{
-                                                ...styles.flexInnerColumnFlow,
-                                                margin: '12px 0',
-                                                fontSize: 14,
-                                                fontWeight: 'bold',
-                                            }}
-                                        >
+                                        <div className={styles.header}>
                                             {i18n.t('Related entity style')}:
                                         </div>
                                         <div

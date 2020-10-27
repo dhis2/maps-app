@@ -1,5 +1,5 @@
 .colorPicker {
-    margin: var(--spacers-dp12) 0;
+    /* margin: var(--spacers-dp12) 0; */
 }
 
 .button {
@@ -14,7 +14,7 @@
 }
 
 .label {
-    color: #494949;
+    color: #000000;
     font-size: 14px;
-    padding-bottom: 6px;
+    padding: var(--spacers-dp4) 0 var(--spacers-dp8);
 }

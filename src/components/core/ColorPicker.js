@@ -57,7 +57,7 @@ export class ColorPicker extends Component {
                     style={{
                         background: color,
                         width: width || '100%',
-                        height: height || 28,
+                        height: height || 40,
                     }}
                     disableTouchRipple={true}
                 >

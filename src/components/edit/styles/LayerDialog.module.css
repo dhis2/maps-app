@@ -39,6 +39,13 @@
     margin: var(--spacers-dp8);
 }
 
+.header {
+    composes: flexInnerColumnFlow;
+    margin: var(--spacers-dp12) 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .help {
     margin-top: var(--spacers-dp8);
     font-size: 14px;
@@ -50,7 +57,7 @@
     color: red;
 }
 
-indent {
+.indent {
     margin-left: var(--spacers-dp24);
 }
 

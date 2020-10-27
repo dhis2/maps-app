@@ -74,7 +74,7 @@ class TrackedEntityRelationshipTypeSelect extends Component {
                 items={types}
                 value={this.props.value}
                 onChange={type => this.props.onChange(type.id)}
-                style={this.props.style}
+                className={this.props.className}
             />
         );
     }
@@ -87,7 +87,7 @@ TrackedEntityRelationshipTypeSelect.propTypes = {
         name: PropTypes.string.isRequired,
     }),
     onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default TrackedEntityRelationshipTypeSelect;
