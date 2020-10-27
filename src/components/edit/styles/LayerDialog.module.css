@@ -5,7 +5,7 @@
 
 .tabContent {
     margin: var(--spacers-dp8) -16px 0;
-    height: 330px;
+    height: 340px;
     width: 100%;
 }
 
@@ -17,7 +17,7 @@
 .flexRowFlow {
     display: flex;
     flex-direction: column;
-    margin: 0 var(--spacers-dp8);
+    margin: 0 var(--spacers-dp16);
 }
 
 .flexColumn {
@@ -39,6 +39,12 @@
     margin: var(--spacers-dp8);
 }
 
+.help {
+    margin-top: var(--spacers-dp8);
+    font-size: 14px;
+    line-height: 20px;
+}
+
 .error {
     margin-top: var(--spacers-dp8);
     color: red;
@@ -53,34 +59,20 @@ indent {
     overflow: hidden;
 }
 
-/* Thematic */
-
-.wrapper {
-    width: 100%;
-    clear: both;
-    height: 64px;
+.checkboxInline {
+    height: 70px;
+    padding-right: 40px;
 }
 
-.thematicColumn {
-    composes: flexColumn;
-    margin-top: 0;
+.fontInline {
+    margin: -20px 0 20px;
 }
 
-.thematicCheckbox {
-    float: left;
-    margin: 24px 0 0 12px;
-    width: 180px;
+.fontBlock {
+    margin: -24px 8px 0 42px;
 }
 
-.thematicLabelsCheckbox {
-    margin-left: var(--spacers-dp4);
-}
-
-.thematicFont {
-    margin: -24px 8px 0 38px;
-}
-
-.thematicRadius {
+.numberField {
     composes: flexInnerColumn;
     max-width: 140px;
 }
@@ -94,11 +86,6 @@ indent {
 }
 
 /* Boundary */
-
-.labelsCheckbox {
-    height: 84px;
-    margin: 0 40px 0 var(--spacers-dp12) !important;
-}
 
 .radius {
     margin-left: var(--spacers-dp12);

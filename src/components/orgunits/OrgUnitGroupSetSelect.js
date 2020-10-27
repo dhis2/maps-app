@@ -12,8 +12,8 @@ export class OrgUnitGroupSetSelect extends Component {
         orgUnitGroupSets: PropTypes.array,
         loadOrgUnitGroupSets: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
         errorText: PropTypes.string,
+        className: PropTypes.string,
     };
 
     componentDidMount() {
@@ -29,8 +29,8 @@ export class OrgUnitGroupSetSelect extends Component {
             orgUnitGroupSets,
             value,
             onChange,
-            style,
             errorText,
+            className,
         } = this.props;
 
         return (
@@ -40,8 +40,8 @@ export class OrgUnitGroupSetSelect extends Component {
                 items={orgUnitGroupSets}
                 value={value ? value.id : null}
                 onChange={onChange}
-                style={style}
                 errorText={!value && errorText ? errorText : null}
+                className={className}
                 data-test="orgunitgroupsetselect"
             />
         );

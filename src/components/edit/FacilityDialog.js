@@ -36,26 +36,6 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 
-/*
-const styles = {
-    // ...layerDialogStyles,
-    wrapper: {
-        width: '100%',
-        clear: 'both',
-        height: 80,
-    },
-    checkbox: {
-        float: 'left',
-        margin: '40px 0 0 12px',
-        width: 180,
-    },
-    help: {
-        marginTop: 10,
-        fontSize: 14,
-    },
-};
-*/
-
 class FacilityDialog extends Component {
     static propTypes = {
         areaRadius: PropTypes.number,
@@ -226,11 +206,7 @@ class FacilityDialog extends Component {
                                     label={i18n.t('Labels')}
                                     checked={labels}
                                     onCheck={setLabels}
-                                    style={{
-                                        ...styles.flexInnerColumn,
-                                        maxWidth: 150,
-                                        height: 80,
-                                    }}
+                                    className={styles.checkboxInline}
                                 />
                                 {labels && (
                                     <FontStyle
@@ -242,9 +218,7 @@ class FacilityDialog extends Component {
                                         onSizeChange={setLabelFontSize}
                                         onWeightChange={setLabelFontWeight}
                                         onStyleChange={setLabelFontStyle}
-                                        style={{
-                                            margin: '-20px 0 20px',
-                                        }}
+                                        className={styles.fontInline}
                                     />
                                 )}
                             </div>
@@ -253,10 +227,7 @@ class FacilityDialog extends Component {
                                     label={i18n.t('Buffer')}
                                     checked={showBuffer}
                                     onCheck={this.onShowBufferClick.bind(this)}
-                                    style={{
-                                        ...styles.flexInnerColumn,
-                                        maxWidth: 150,
-                                    }}
+                                    className={styles.checkboxInline}
                                 />
                                 {showBuffer && (
                                     <NumberField

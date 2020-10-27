@@ -537,11 +537,11 @@ export class ThematicDialog extends Component {
                             className={styles.flexColumnFlow}
                             data-test="thematicdialog-styletab"
                         >
-                            <div className={styles.thematicColumn}>
+                            <div className={styles.flexColumn}>
                                 <ThematicMapTypeSelect type={thematicMapType} />
                                 <div className={styles.flexInnerColumnFlow}>
                                     <RadiusSelect
-                                        className={styles.thematicRadius}
+                                        className={styles.numberField}
                                     />
                                 </div>
                                 <div className={styles.flexInnerColumnFlow}>
@@ -549,9 +549,6 @@ export class ThematicDialog extends Component {
                                         label={i18n.t('Labels')}
                                         checked={labels}
                                         onCheck={setLabels}
-                                        className={
-                                            styles.thematicLabelsCheckbox
-                                        }
                                     />
                                 </div>
                                 {labels && (
@@ -565,7 +562,7 @@ export class ThematicDialog extends Component {
                                             onSizeChange={setLabelFontSize}
                                             onWeightChange={setLabelFontWeight}
                                             onStyleChange={setLabelFontStyle}
-                                            className={styles.thematicFont}
+                                            className={styles.fontBlock}
                                         />
                                     </div>
                                 )}
@@ -575,7 +572,7 @@ export class ThematicDialog extends Component {
                                     className={styles.flexInnerColumnFlow}
                                 />
                             </div>
-                            <div className={styles.thematicColumn}>
+                            <div className={styles.flexColumn}>
                                 <NumericLegendStyle
                                     mapType={thematicMapType}
                                     dataItem={dataItem}

@@ -11,7 +11,6 @@ import {
 
 export class DataItemSelect extends Component {
     static propTypes = {
-        className: PropTypes.string,
         label: PropTypes.string,
         value: PropTypes.string,
         allowNone: PropTypes.bool,
@@ -28,7 +27,7 @@ export class DataItemSelect extends Component {
         loadProgramTrackedEntityAttributes: PropTypes.func,
         loadProgramStageDataElements: PropTypes.func,
         onChange: PropTypes.func,
-        style: PropTypes.object,
+        className: PropTypes.string,
     };
 
     componentDidMount() {
@@ -70,7 +69,7 @@ export class DataItemSelect extends Component {
             dataElements,
             includeTypes,
             excludeTypes,
-            style,
+            className,
         } = this.props;
 
         if (!program) {
@@ -93,7 +92,7 @@ export class DataItemSelect extends Component {
                 items={dataItems}
                 value={value}
                 onChange={this.onChange}
-                style={style}
+                className={className}
             />
         );
     }

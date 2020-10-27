@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputField } from '@dhis2/ui';
+import cx from 'classnames';
 import styles from './styles/InputField.module.css';
 
 // Wrapper component around @dhis2/ui InputField
-const TextField = ({ type, label, value, onChange, style }) => (
-    <div className={styles.inputField} style={style}>
+const TextField = ({ type, label, value, onChange, className }) => (
+    <div className={cx(styles.inputField, className)}>
         <InputField
             type={type}
             label={label}
@@ -20,7 +21,7 @@ TextField.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default TextField;
