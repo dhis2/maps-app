@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import DataItemSelect from '../dataItem/DataItemSelect';
 import FilterSelect from './FilterSelect';
 import RemoveFilter from './RemoveFilter';
-
-const styles = theme => ({
-    container: {
-        height: 68,
-        marginBottom: 8,
-        padding: '-0 56px 0 8px',
-        backgroundColor: theme.palette.background.grey,
-        position: 'relative',
-        clear: 'both',
-        borderRadius: 4,
-        border: `1px solid ${theme.palette.divider}`,
-    },
-});
+import styles from './styles/FilterRow.module.css';
 
 class FilterRow extends Component {
     static propTypes = {
-        classes: PropTypes.object.isRequired,
         index: PropTypes.number.isRequired,
         dataItems: PropTypes.array,
         dimension: PropTypes.string,
@@ -58,7 +44,6 @@ class FilterRow extends Component {
 
     render() {
         const {
-            classes,
             index,
             dimension,
             filter,
@@ -74,7 +59,7 @@ class FilterRow extends Component {
         }
 
         return (
-            <div className={classes.container}>
+            <div className={styles.filterRow}>
                 <DataItemSelect
                     value={dimension || null}
                     program={program}
@@ -85,11 +70,7 @@ class FilterRow extends Component {
                         'COORDINATE',
                     ]}
                     onChange={dataItem => this.onChange(dataItem.id, filter)}
-                    style={{
-                        marginRight: 24,
-                        float: 'left',
-                        width: 'calc((100% - 48px) / 8 * 3)',
-                    }}
+                    className={styles.dataItemSelect}
                 />
                 {dimension ? (
                     <FilterSelect
@@ -104,4 +85,4 @@ class FilterRow extends Component {
     }
 }
 
-export default withStyles(styles)(FilterRow);
+export default FilterRow;
