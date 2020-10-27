@@ -1,0 +1,16 @@
+.filterRow {
+    height: 68px;
+    margin-bottom: var(--spacers-dp8);
+    padding: -0 56px 0 var(--spacers-dp8);
+    background-color: var(--colors-grey050);
+    position: relative;
+    clear: both;
+    border-radius: var(--spacers-dp4);
+    border: 1px solid var(--colors-grey300);
+}
+
+.dataItemSelect {
+    float: left;
+    margin-right: var(--spacers-dp24);
+    width: calc((100% - 48px) / 8 * 3);
+}

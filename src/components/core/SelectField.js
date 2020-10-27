@@ -25,7 +25,6 @@ export const SelectField = props => {
         className,
         value,
         dataTest,
-        ...extraProps
     } = props;
 
     const isLoading = loading === true;
@@ -64,7 +63,6 @@ export const SelectField = props => {
                 validationText={errorText}
                 onChange={onSelectChange}
                 dataTest={dataTest}
-                {...extraProps}
             >
                 {items &&
                     items.map(({ id, name }) => (

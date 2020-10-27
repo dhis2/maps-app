@@ -234,10 +234,6 @@ class FacilityDialog extends Component {
                                         label={i18n.t('Radius in meters')}
                                         value={areaRadius || ''}
                                         onChange={setAreaRadius}
-                                        style={{
-                                            maxWidth: 150,
-                                            margin: '-14px 0',
-                                        }}
                                     />
                                 )}
                             </div>

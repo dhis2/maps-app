@@ -24,8 +24,7 @@ import {
     EVENT_RADIUS,
     EVENT_BUFFER,
 } from '../../../constants/layers';
-import layerStyles from '../styles/LayerDialog.module.css';
-import boundaryStyles from './styles/EventDialog.module.css';
+import styles from '../styles/LayerDialog.module.css';
 
 import {
     setProgram,
@@ -50,8 +49,6 @@ import {
 } from '../../../util/analytics';
 import { getStartEndDateError } from '../../../util/time';
 import { cssColor } from '../../../util/colors';
-
-const styles = { ...layerStyles, ...boundaryStyles };
 
 export class EventDialog extends Component {
     static propTypes = {
