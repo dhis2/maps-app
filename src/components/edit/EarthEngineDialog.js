@@ -200,10 +200,16 @@ class EarthEngineDialog extends Component {
                                         className={styles.flexInnerColumn}
                                     />
                                 </div>,
-                                <div key="range_error" className={styles.error}>
+                                <div
+                                    key="range_error"
+                                    className={styles.eeError}
+                                >
                                     {!this.isValidRange() && rangeError}
                                 </div>,
-                                <div key="steps_error" className={styles.error}>
+                                <div
+                                    key="steps_error"
+                                    className={styles.eeError}
+                                >
                                     {!this.isValidSteps() && stepsError}
                                 </div>,
                                 <div key="scale" className={styles.scale}>
