@@ -1,0 +1,18 @@
+.item {
+    white-space: nowrap;
+}
+
+.color {
+    display: inline-block;
+    width: var(--spacers-dp32);
+    height: var(--spacers-dp32);
+    margin: 0 var(--spacers-dp8) 0 0;
+}
+
+.label {
+    display: inline-block;
+    height: var(--spacers-dp24);
+    line-height: var(--spacers-dp32);
+    vertical-align: top;
+    overflow: hidden;
+}
