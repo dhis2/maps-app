@@ -16,6 +16,7 @@ const Checkbox = ({
     onCheck,
     disabled,
     classes,
+    className,
     style,
 }) => (
     <FormControlLabel
@@ -29,6 +30,7 @@ const Checkbox = ({
             />
         }
         classes={classes}
+        className={className}
         style={style}
     />
 );
@@ -41,6 +43,7 @@ Checkbox.propTypes = {
     labelStyle: PropTypes.object,
     iconStyle: PropTypes.object,
     disabled: PropTypes.bool,
+    className: PropTypes.string,
     classes: PropTypes.object.isRequired,
 };
 

@@ -1,0 +1,18 @@
+.fontStyle {
+    display: flex;
+    align-items: flex-end;
+    max-width: 74px;
+}
+
+/* !important will be removed when we switch to ui-icons */
+.button {
+    background: #fafafa;
+    margin: 0 var(--spacers-dp8) var(--spacers-dp8) 0 !important;
+    border-radius: 0 !important;
+    width: 40px;
+    height: 40px;
+}
+
+.colorPicker {
+    margin: var(--spacers-dp12) var(--spacers-dp8);
+}

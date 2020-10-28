@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
-import TextField from '../core/TextField';
+import NumberField from '../core/NumberField';
 import Checkbox from '../core/Checkbox';
 import FontStyle from '../core/FontStyle';
 import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
@@ -13,7 +12,7 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import layerDialogStyles from './LayerDialogStyles';
+import styles from './styles/LayerDialog.module.css';
 
 import {
     setOrganisationUnitGroupSet,
@@ -37,32 +36,6 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 
-const styles = {
-    ...layerDialogStyles,
-    wrapper: {
-        width: '100%',
-        clear: 'both',
-        height: 80,
-    },
-    checkbox: {
-        float: 'left',
-        margin: '40px 0 0 12px',
-        width: 180,
-    },
-    font: {
-        float: 'left',
-        marginTop: 2,
-    },
-    radius: {
-        maxWidth: 206,
-        marginTop: 2,
-    },
-    help: {
-        marginTop: 10,
-        fontSize: 14,
-    },
-};
-
 class FacilityDialog extends Component {
     static propTypes = {
         areaRadius: PropTypes.number,
@@ -84,7 +57,6 @@ class FacilityDialog extends Component {
         setOrganisationUnitGroupSet: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -142,8 +114,6 @@ class FacilityDialog extends Component {
             setAreaRadius,
         } = this.props;
 
-        const { classes } = this.props;
-
         const {
             tab,
             orgUnitGroupSetError,
@@ -167,38 +137,33 @@ class FacilityDialog extends Component {
                     </Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
-                <div className={classes.tabContent}>
+                <div className={styles.tabContent}>
                     {tab === 'group' && (
                         <div
-                            style={styles.flexRowFlow}
+                            className={styles.flexRowFlow}
                             data-test="facilitydialog-grouptab"
                         >
                             <OrgUnitGroupSetSelect
                                 value={organisationUnitGroupSet}
                                 onChange={setOrganisationUnitGroupSet}
-                                style={styles.select}
+                                className={styles.select}
                                 errorText={orgUnitGroupSetError}
                             />
                         </div>
                     )}
                     {tab === 'orgunits' && (
                         <div
-                            style={styles.flexColumnFlow}
+                            className={styles.flexColumnFlow}
                             data-test="facilitydialog-orgunitstab"
                         >
-                            <div
-                                style={{
-                                    ...styles.flexColumn,
-                                    overflow: 'hidden',
-                                }}
-                            >
+                            <div className={styles.orgUnitTree}>
                                 <OrgUnitTree
                                     selected={getOrgUnitNodesFromRows(rows)}
                                     onClick={toggleOrgUnit}
                                     disabled={hasUserOrgUnits}
                                 />
                             </div>
-                            <div style={styles.flexColumn}>
+                            <div className={styles.flexColumn}>
                                 <OrgUnitLevelSelect
                                     orgUnitLevel={getOrgUnitLevelsFromRows(
                                         rows
@@ -218,11 +183,11 @@ class FacilityDialog extends Component {
                                     onChange={setUserOrgUnits}
                                 />
                                 {!orgUnits.length && orgUnitsError ? (
-                                    <div style={styles.error}>
+                                    <div className={styles.error}>
                                         {orgUnitsError}
                                     </div>
                                 ) : (
-                                    <div style={styles.help}>
+                                    <div className={styles.help}>
                                         {i18n.t(
                                             'Remember to select the organisation unit level containing the facilities.'
                                         )}
@@ -233,19 +198,15 @@ class FacilityDialog extends Component {
                     )}
                     {tab === 'style' && (
                         <div
-                            style={styles.flexRowFlow}
+                            className={styles.flexRowFlow}
                             data-test="facilitydialog-styletab"
                         >
-                            <div style={styles.flexInnerColumnFlow}>
+                            <div className={styles.flexInnerColumnFlow}>
                                 <Checkbox
                                     label={i18n.t('Labels')}
                                     checked={labels}
                                     onCheck={setLabels}
-                                    style={{
-                                        ...styles.flexInnerColumn,
-                                        maxWidth: 150,
-                                        height: 80,
-                                    }}
+                                    className={styles.checkboxInline}
                                 />
                                 {labels && (
                                     <FontStyle
@@ -257,34 +218,22 @@ class FacilityDialog extends Component {
                                         onSizeChange={setLabelFontSize}
                                         onWeightChange={setLabelFontWeight}
                                         onStyleChange={setLabelFontStyle}
-                                        style={{
-                                            ...styles.flexInnerColumn,
-                                            ...styles.font,
-                                        }}
+                                        className={styles.fontInline}
                                     />
                                 )}
                             </div>
-                            <div style={styles.flexInnerColumnFlow}>
+                            <div className={styles.flexInnerColumnFlow}>
                                 <Checkbox
                                     label={i18n.t('Buffer')}
                                     checked={showBuffer}
                                     onCheck={this.onShowBufferClick.bind(this)}
-                                    style={{
-                                        ...styles.flexInnerColumn,
-                                        maxWidth: 150,
-                                    }}
+                                    className={styles.checkboxInline}
                                 />
                                 {showBuffer && (
-                                    <TextField
-                                        id="radius"
-                                        type="number"
+                                    <NumberField
                                         label={i18n.t('Radius in meters')}
                                         value={areaRadius || ''}
                                         onChange={setAreaRadius}
-                                        style={{
-                                            ...styles.flexInnerColumn,
-                                            ...styles.radius,
-                                        }}
                                     />
                                 )}
                             </div>
@@ -351,4 +300,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(withStyles(styles)(FacilityDialog));
+)(FacilityDialog);

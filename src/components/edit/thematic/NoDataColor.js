@@ -5,14 +5,14 @@ import Checkbox from '../../core/Checkbox';
 import ColorPicker from '../../core/ColorPicker';
 import { NO_DATA_COLOR } from '../../../constants/layers';
 
-const NoDataColor = ({ value, onChange, style }) => {
+const NoDataColor = ({ value, onChange, className }) => {
     const onCheck = useCallback(
         val => onChange(val ? NO_DATA_COLOR : undefined),
         []
     );
 
     return (
-        <div style={style}>
+        <div className={className}>
             <Checkbox
                 label={i18n.t('Show no data')}
                 checked={!!value}
@@ -41,7 +41,7 @@ const NoDataColor = ({ value, onChange, style }) => {
 NoDataColor.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default NoDataColor;

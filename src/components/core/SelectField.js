@@ -6,7 +6,8 @@ import {
     MultiSelectField,
     MultiSelectOption,
 } from '@dhis2/ui';
-import styles from './styles/SelectField.module.css';
+import cx from 'classnames';
+import styles from './styles/InputField.module.css';
 
 /**
  * Wrapper component around @dhis2/ui SingleSelectField and MultiSelectField
@@ -21,10 +22,9 @@ export const SelectField = props => {
         loading,
         multiple,
         onChange,
-        style,
+        className,
         value,
         dataTest,
-        ...extraProps
     } = props;
 
     const isLoading = loading === true;
@@ -54,7 +54,7 @@ export const SelectField = props => {
     );
 
     return (
-        <div className={styles.selectField} style={style}>
+        <div className={cx(styles.inputField, className)}>
             <Select
                 label={label}
                 selected={!isLoading ? selected : undefined}
@@ -63,7 +63,6 @@ export const SelectField = props => {
                 validationText={errorText}
                 onChange={onSelectChange}
                 dataTest={dataTest}
-                {...extraProps}
             >
                 {items &&
                     items.map(({ id, name }) => (
@@ -125,9 +124,9 @@ SelectField.propTypes = {
     onChange: PropTypes.func,
 
     /**
-     * Override the inline-styles of the root element
+     * Class name for the root element
      */
-    style: PropTypes.object,
+    className: PropTypes.string,
 
     /**
      * The value(s) of the select field

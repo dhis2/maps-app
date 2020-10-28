@@ -1,0 +1,132 @@
+.select {
+    width: auto;
+    max-width: 300px;
+}
+
+.tabContent {
+    margin: var(--spacers-dp8) -16px 0;
+    height: 340px;
+    width: 100%;
+}
+
+.flexColumnFlow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexRowFlow {
+    display: flex;
+    flex-direction: column;
+    margin: 0 var(--spacers-dp16);
+}
+
+.flexColumn {
+    flex: 1 1 0px;
+    margin: var(--spacers-dp8) var(--spacers-dp16) 0;
+    box-sizing: border-box;
+    max-width: 260px;
+}
+
+.flexInnerColumnFlow {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+    clear: both;
+}
+
+.flexInnerColumn {
+    flex: 1;
+    margin: var(--spacers-dp8);
+}
+
+.header {
+    composes: flexInnerColumnFlow;
+    margin: var(--spacers-dp12) 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.help {
+    margin-top: var(--spacers-dp8);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.error {
+    margin-top: var(--spacers-dp8);
+    color: red;
+}
+
+.indent {
+    margin-left: var(--spacers-dp24);
+}
+
+.orgUnitTree {
+    composes: flexColumn;
+    overflow: hidden;
+}
+
+.checkboxInline {
+    height: 70px;
+    padding-right: 40px;
+}
+
+.fontInline {
+    margin: -20px 0 20px;
+}
+
+.fontBlock {
+    margin: -24px 8px 0 42px;
+}
+
+.numberField {
+    composes: flexInnerColumn;
+    max-width: 140px;
+}
+
+/* Tracked entity */
+
+.teiCheckbox {
+    float: left;
+    margin-top: var(--spacers-dp16);
+    width: 180px;
+}
+
+/* Boundary */
+
+.radius {
+    margin-left: var(--spacers-dp12);
+    width: 127px;
+}
+
+.boundaryFont {
+    margin: -10px 0 10px 40px;
+}
+
+/* Earth Engine */
+
+.eeFlexFull {
+    margin-bottom: var(--spacers-dp12);
+}
+
+.legend {
+    composes: legend from '../../legend/styles/Legend.module.css';
+    margin-left: 0;
+}
+
+.legendTitle {
+    padding-bottom: var(--spacers-dp16);
+    font-weight: bold;
+}
+
+.scale {
+    margin-top: var(--spacers-dp16);
+}
+
+.eeError {
+    width: 100%;
+    color: rgb(244, 67, 54);
+    font-size: 12px;
+    line-height: 12px;
+    margin-left: var(--spacers-dp12);
+}

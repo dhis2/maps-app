@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import DatePicker from '../core/DatePicker';
 import { setStartDate, setEndDate } from '../../actions/layerEdit';
 import { DEFAULT_START_DATE, DEFAULT_END_DATE } from '../../constants/layers';
-import styles from '../edit/LayerDialogStyles';
+import styles from '../edit/styles/LayerDialog.module.css';
 
 const StartEndDates = props => {
     const { startDate, endDate, setStartDate, setEndDate, errorText } = props;
@@ -24,16 +24,16 @@ const StartEndDates = props => {
                 label={i18n.t('Start date')}
                 value={startDate}
                 onChange={setStartDate}
-                style={styles.select}
+                className={styles.select}
             />
             <DatePicker
                 label={i18n.t('End date')}
                 value={endDate}
                 onChange={setEndDate}
-                style={styles.select}
+                className={styles.select}
             />
             {errorText && (
-                <div key="error" style={styles.error}>
+                <div key="error" className={styles.error}>
                     {errorText}
                 </div>
             )}

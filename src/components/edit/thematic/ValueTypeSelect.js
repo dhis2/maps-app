@@ -5,7 +5,7 @@ import SelectField from '../../core/SelectField';
 import { dimConf } from '../../../constants/dimension';
 
 const ValueTypeSelect = props => {
-    const { value, onChange } = props;
+    const { value, onChange, className } = props;
 
     // If value type is data element operand, make it data element
     const type =
@@ -30,11 +30,11 @@ const ValueTypeSelect = props => {
 
     return (
         <SelectField
-            {...props}
             label={i18n.t('Item type')}
             items={items}
             value={type}
             onChange={valueType => onChange(valueType.id)}
+            className={className}
         />
     );
 };
@@ -42,6 +42,7 @@ const ValueTypeSelect = props => {
 ValueTypeSelect.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
 };
 
 export default ValueTypeSelect;

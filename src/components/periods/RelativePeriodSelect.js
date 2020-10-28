@@ -8,7 +8,7 @@ const RelativePeriodSelect = ({
     startEndDates,
     period,
     onChange,
-    style,
+    className,
     errorText,
 }) => {
     const value = period ? period.id : null;
@@ -33,7 +33,7 @@ const RelativePeriodSelect = ({
             items={periods}
             value={value}
             onChange={onChange}
-            style={style}
+            className={className}
             errorText={!value && errorText ? errorText : null}
         />
     );
@@ -46,7 +46,7 @@ RelativePeriodSelect.propTypes = {
         name: PropTypes.string,
     }),
     onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
     errorText: PropTypes.string,
 };
 

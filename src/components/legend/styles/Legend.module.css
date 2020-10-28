@@ -1,0 +1,65 @@
+.legend {
+    margin: 0 var(--spacers-dp8) var(--spacers-dp16) 0;
+    line-height: 18px;
+}
+
+.legend table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.legend tr {
+    height: var(--spacers-dp24);
+}
+
+.legend th {
+    min-width: var(--spacers-dp24);
+    height: var(--spacers-dp24);
+    padding: 0;
+    vertical-align: middle;
+}
+
+.legend th span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.legend td {
+    line-height: 24px;
+    padding-left: var(--spacers-dp8);
+    white-space: nowrap;
+}
+
+.description {
+    padding-bottom: var(--spacers-dp12);
+}
+
+.period {
+    padding-bottom: var(--spacers-dp12);
+}
+
+.filters {
+    padding-top: var(--spacers-dp16);
+    font-size: 12px;
+}
+
+.filters > div:first-child {
+    font-weight: bold;
+}
+
+.unit {
+    line-height: var(--spacers-dp24);
+    font-weight: bold;
+}
+
+.explanation {
+    padding-top: var(--spacers-dp16);
+}
+
+.source {
+    padding-top: var(--spacers-dp16);
+    font-size: 12px;
+}

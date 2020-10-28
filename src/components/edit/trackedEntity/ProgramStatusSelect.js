@@ -4,20 +4,20 @@ import i18n from '@dhis2/d2-i18n';
 import SelectField from '../../core/SelectField';
 import { getProgramStatuses } from '../../../constants/programStatuses';
 
-const ProgramStatusSelect = ({ value = 'ALL', onChange, style }) => (
+const ProgramStatusSelect = ({ value = 'ALL', onChange, className }) => (
     <SelectField
         label={i18n.t('Program status')}
         items={getProgramStatuses()}
         value={value}
         onChange={valueType => onChange(valueType.id)}
-        style={style}
+        className={className}
     />
 );
 
 ProgramStatusSelect.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default ProgramStatusSelect;

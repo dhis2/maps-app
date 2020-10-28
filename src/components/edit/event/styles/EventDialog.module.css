@@ -1,0 +1,4 @@
+.text {
+    padding-top: var(--spacers-dp8);
+    line-height: 22px;
+}

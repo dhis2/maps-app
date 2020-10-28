@@ -1,30 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { IconButton, Popover } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ChromePicker from 'react-color/lib/components/chrome/Chrome';
 import { hcl } from 'd3-color';
-
-const styles = {
-    root: {
-        margin: '12px 0',
-    },
-    button: {
-        padding: 0,
-        textAlign: 'right',
-        borderRadius: 0,
-    },
-    icon: {
-        position: 'absolute',
-        right: 4,
-    },
-    label: {
-        color: '#494949',
-        fontSize: 14,
-        paddingBottom: 6,
-    },
-};
+import cx from 'classnames';
+import styles from './styles/ColorPicker.module.css';
 
 export class ColorPicker extends Component {
     static propTypes = {
@@ -33,8 +14,7 @@ export class ColorPicker extends Component {
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
-        classes: PropTypes.object.isRequired,
+        className: PropTypes.string,
     };
 
     constructor(...args) {
@@ -65,25 +45,25 @@ export class ColorPicker extends Component {
     };
 
     render() {
-        const { label, width, height, style, classes } = this.props;
+        const { label, width, height, className } = this.props;
         const { color, isOpen, anchorEl } = this.state;
 
         return (
-            <div className={classes.root} style={style}>
-                {label && <div className={classes.label}>{label}</div>}
+            <div className={cx(styles.colorPicker, className)}>
+                {label && <div className={styles.label}>{label}</div>}
                 <IconButton
                     onClick={this.handleOpen}
-                    className={classes.button}
+                    className={styles.button}
                     style={{
                         background: color,
                         width: width || '100%',
-                        height: height || 28,
+                        height: height || 40,
                     }}
                     disableTouchRipple={true}
                 >
                     <ArrowDropDownIcon
                         htmlColor={hcl(color).l < 70 ? '#fff' : '#333'}
-                        className={classes.icon}
+                        className={styles.icon}
                     />
                 </IconButton>
                 <Popover
@@ -98,4 +78,4 @@ export class ColorPicker extends Component {
     }
 }
 
-export default withStyles(styles)(ColorPicker);
+export default ColorPicker;

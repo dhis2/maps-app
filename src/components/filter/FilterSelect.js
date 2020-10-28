@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
+import NumberField from '../core/NumberField';
 import TextField from '../core/TextField';
 import Checkbox from '../core/Checkbox';
 import DatePicker from '../core/DatePicker';
@@ -20,7 +21,7 @@ const styles = {
         marginRight: 24,
         width: 'calc((100% - 48px) / 8 * 2)',
     },
-    textField: {
+    inputField: {
         float: 'left',
         width: 'calc((100% - 48px) / 8 * 3)',
     },
@@ -86,18 +87,16 @@ export class FilterSelect extends Component {
                     onChange={newValue =>
                         onChange(`${operator}:${newValue.join(';')}`)
                     }
-                    style={styles.textField}
+                    style={styles.inputField}
                 />
             ) : null,
             numberValueTypes.includes(valueType) ? (
-                <TextField
-                    id="number"
+                <NumberField
                     key="number"
                     label={i18n.t('Value')}
-                    type="number"
                     value={value !== undefined ? value : ''}
                     onChange={newValue => onChange(`${operator}:${newValue}`)}
-                    style={styles.textField}
+                    style={styles.inputField}
                 />
             ) : null,
             textValueTypes.includes(valueType) && !optionSet ? (
@@ -106,7 +105,7 @@ export class FilterSelect extends Component {
                     label={i18n.t('Value')}
                     value={value || ''}
                     onChange={newValue => onChange(`${operator}:${newValue}`)}
-                    style={styles.textField}
+                    style={styles.inputField}
                 />
             ) : null,
             booleanValueTypes.includes(valueType) ? (
@@ -123,7 +122,7 @@ export class FilterSelect extends Component {
                     label={i18n.t('Date')}
                     value={value}
                     onChange={date => onChange(`${operator}:${date}`)}
-                    style={styles.textField}
+                    style={styles.inputField}
                 />
             ) : null,
         ];
