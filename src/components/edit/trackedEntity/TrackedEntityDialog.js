@@ -417,14 +417,14 @@ export class TrackedEntityDialog extends Component {
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
                                         onChange={this.onShowBufferClick}
-                                        className={styles.flexInnerColumn}
+                                        className={styles.checkboxInline}
                                     />
                                     {showBuffer && (
                                         <NumberField
                                             label={i18n.t('Radius in meters')}
                                             value={areaRadius || ''}
                                             onChange={setAreaRadius}
-                                            className={styles.flexInnerColumn}
+                                            className={styles.radius}
                                         />
                                     )}
                                 </div>
