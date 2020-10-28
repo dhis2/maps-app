@@ -142,7 +142,7 @@ class BoundaryDialog extends Component {
                                     <Checkbox
                                         label={i18n.t('Labels')}
                                         checked={labels}
-                                        onCheck={setLabels}
+                                        onChange={setLabels}
                                         className={styles.labelsCheckbox}
                                     />
                                     {labels && (

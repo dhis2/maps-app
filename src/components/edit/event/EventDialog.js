@@ -339,7 +339,7 @@ export class EventDialog extends Component {
                                     <Checkbox
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
-                                        onCheck={this.onShowBufferClick.bind(
+                                        onChange={this.onShowBufferClick.bind(
                                             this
                                         )}
                                         className={styles.flexInnerColumn}

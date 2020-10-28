@@ -1,0 +1,9 @@
+.checkbox {
+    margin: 0 40px 0 -4px;
+    height: 60px;
+}
+
+.colorPicker {
+    display: inline-block;
+    margin-top: -6px;
+}

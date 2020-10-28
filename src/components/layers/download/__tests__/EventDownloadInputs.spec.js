@@ -27,10 +27,8 @@ describe('EventDownloadInputs', () => {
         expect(wrapper.find('SelectField').length).toBe(1);
         expect(wrapper.find('SelectField').prop('value')).toBe(0);
 
-        expect(wrapper.find('WithStyles(Checkbox)').length).toBe(1);
-        expect(wrapper.find('WithStyles(Checkbox)').prop('checked')).toBe(
-            false
-        );
+        expect(wrapper.find('Checkbox').length).toBe(1);
+        expect(wrapper.find('Checkbox').prop('checked')).toBe(false);
     });
 
     it('Should respect controlled inputs', () => {
@@ -40,8 +38,8 @@ describe('EventDownloadInputs', () => {
         });
         expect(wrapper.find('SelectField').prop('value')).toBe(2);
 
-        expect(wrapper.find('WithStyles(Checkbox)').length).toBe(1);
-        expect(wrapper.find('WithStyles(Checkbox)').prop('checked')).toBe(true);
+        expect(wrapper.find('Checkbox').length).toBe(1);
+        expect(wrapper.find('Checkbox').prop('checked')).toBe(true);
     });
 
     // it('Should toggle checked in onCheckHumanReadable callback when clicking the checkbox', () => {

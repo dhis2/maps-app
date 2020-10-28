@@ -235,7 +235,7 @@ export class TrackedEntityDialog extends Component {
                                 <Checkbox
                                     label={i18n.t('Follow up')}
                                     checked={followUp}
-                                    onCheck={setFollowUpStatus}
+                                    onChange={setFollowUpStatus}
                                     className={styles.checkbox}
                                 />
                             )}
@@ -283,7 +283,7 @@ export class TrackedEntityDialog extends Component {
                                     checked={
                                         this.state.showRelationshipsChecked
                                     }
-                                    onCheck={checked => {
+                                    onChange={checked => {
                                         if (!checked) {
                                             setTrackedEntityRelationshipType(
                                                 null
@@ -324,7 +324,7 @@ export class TrackedEntityDialog extends Component {
                                                     relationshipOutsideProgram ===
                                                     true
                                                 }
-                                                onCheck={
+                                                onChange={
                                                     setTrackedEntityRelationshipOutsideProgram
                                                 }
                                                 style={{
@@ -416,7 +416,7 @@ export class TrackedEntityDialog extends Component {
                                     <Checkbox
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
-                                        onCheck={this.onShowBufferClick}
+                                        onChange={this.onShowBufferClick}
                                         className={styles.flexInnerColumn}
                                     />
                                     {showBuffer && (
