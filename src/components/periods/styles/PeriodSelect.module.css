@@ -4,9 +4,13 @@
 }
 
 .select {
-    width: calc(100% - 80px);
+    width: calc(100% - 84px);
 }
 
 .stepper {
     margin: 0 0 10px 4px;
+}
+
+.stepper > span:first-child {
+    margin-right: 4px;
 }

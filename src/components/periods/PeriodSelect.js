@@ -85,12 +85,14 @@ class PeriodSelect extends Component {
                     <div className={styles.stepper}>
                         <Tooltip content={i18n.t('Previous year')}>
                             <Button
+                                secondary
                                 icon={<LeftIcon />}
                                 onClick={this.previousYear}
                             />
                         </Tooltip>
                         <Tooltip content={i18n.t('Next year')}>
                             <Button
+                                secondary
                                 icon={<RightIcon />}
                                 onClick={this.nextYear}
                             />
