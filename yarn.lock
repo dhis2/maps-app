@@ -152,23 +152,23 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@dhis2/app-runtime@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-2.2.2.tgz#c2129c03d4ff3bca4eb3811d82f24d3acea07e5a"
-  integrity sha512-0890q1deNT/aJtjtxkDROViZBrA0EP00HVMht8YAfM+uJsnvADrtjizP53r68uamZWpCZmLQsi+2xiVAQZmvXA==
+"@dhis2/app-runtime@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-2.5.0.tgz#85b4faf1f63124a2f7a0a04ecbd117cca0e07c61"
+  integrity sha512-T4s77Fkwvn7GvEQPEvFQiE5vGCRwa+N+7hB/l969Ssf28vLy/eFcv6q6NcsZHIvORDU7Oqiz7Bi4x7MYc67+oQ==
   dependencies:
-    "@dhis2/app-service-config" "2.2.2"
-    "@dhis2/app-service-data" "2.2.2"
+    "@dhis2/app-service-config" "2.5.0"
+    "@dhis2/app-service-data" "2.5.0"
 
-"@dhis2/app-service-config@2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-service-config/-/app-service-config-2.2.2.tgz#9de0bc717ede669ee810fb7d4d84c0d35532a426"
-  integrity sha512-ohPCNX1hBMh/+0L5gxrSrfH/Bz787x60L4GMWODO0WEO73M6kGCjzaYZ0vjgmSCSUYJxZ6cBeybr0FBArxHjbw==
+"@dhis2/app-service-config@2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-config/-/app-service-config-2.5.0.tgz#fd137fe8052e8fe49596ed883f155d024d64dbf6"
+  integrity sha512-NFpD951Q3eGpsD3CYp+WwKX6vrByB3Hz/7dhLQV2D5TTuUvHbQ8ksJsEpC8efwXtSDs+kZPwkhLkI2FlLJP5FA==
 
-"@dhis2/app-service-data@2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-service-data/-/app-service-data-2.2.2.tgz#093d45b8bb71b5b1e81876281379cda52b6632a7"
-  integrity sha512-QJrYTFj+vINcqvr27yLIKunbNJTVmDPGr9fUliUdmTkCikTwlnK8fu6TPz3rhkOUYX0VrwzFJXp3ofKQajZ9mQ==
+"@dhis2/app-service-data@2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-data/-/app-service-data-2.5.0.tgz#95d37b172aee8c0285876df6aafeac4c9fb04dd9"
+  integrity sha512-nv/zyyeADoks5ilDNp8VbWNuzuSZ/VG/yQaKbuwvuMw/KOALWtxhHgi6ZMv8cQ/HmClof9Z4d88786mgvHZ5bA==
 
 "@dhis2/d2-i18n-extract@^1.0.8":
   version "1.0.8"
