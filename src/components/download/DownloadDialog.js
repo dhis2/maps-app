@@ -75,14 +75,12 @@ export class DownloadDialog extends Component {
                                     checked={showName}
                                     disabled={!hasName}
                                     onChange={toggleDownloadShowName}
-                                    // className={styles.checkbox}
                                 />
                                 <Checkbox
                                     label={i18n.t('Show legend')}
                                     checked={showLegend}
                                     disabled={!hasLegend}
                                     onChange={toggleDownloadShowLegend}
-                                    // className={styles.checkbox}
                                 />
                                 {hasLegend && showLegend && (
                                     <LegendPosition
