@@ -563,7 +563,7 @@ msgid "an unknown error occurred while reading layer data"
 msgstr "Қатлам маълумотларини ўқиш пайтида номаълум хатолик юз берди"
 
 msgid "Event"
-msgstr "Тадбир"
+msgstr "Ҳодиса/Тадбир"
 
 msgid "Facilities"
 msgstr "Имкониятлар"
