@@ -1,0 +1,12 @@
+.periodSelect {
+    display: flex;
+    align-items: flex-end;
+}
+
+.select {
+    width: calc(100% - 80px);
+}
+
+.stepper {
+    margin: 0 0 10px 4px;
+}
