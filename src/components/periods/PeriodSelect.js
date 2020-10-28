@@ -73,15 +73,14 @@ class PeriodSelect extends Component {
 
         return (
             <div className={cx(styles.periodSelect, className)}>
-                <div className={styles.select}>
-                    <SelectField
-                        label={i18n.t('Period')}
-                        items={periods}
-                        value={value}
-                        onChange={onChange}
-                        errorText={!value && errorText ? errorText : null}
-                    />
-                </div>
+                <SelectField
+                    label={i18n.t('Period')}
+                    items={periods}
+                    value={value}
+                    onChange={onChange}
+                    errorText={!value && errorText ? errorText : null}
+                    className={styles.select}
+                />
                 {periodType && (
                     <div className={styles.stepper}>
                         <Tooltip content={i18n.t('Previous year')}>
