@@ -131,7 +131,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 msgid "Close"
 msgstr ""
@@ -616,7 +616,7 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "Pokračovat"
 
 msgid "Options"
 msgstr ""
@@ -810,7 +810,7 @@ msgid "This week"
 msgstr ""
 
 msgid "Last week"
-msgstr ""
+msgstr "Minulý týden"
 
 msgid "Last 4 weeks"
 msgstr ""
@@ -828,7 +828,7 @@ msgid "This month"
 msgstr ""
 
 msgid "Last month"
-msgstr ""
+msgstr "Minulý měsíc"
 
 msgid "Last 3 months"
 msgstr ""
