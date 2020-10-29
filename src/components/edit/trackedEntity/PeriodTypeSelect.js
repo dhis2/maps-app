@@ -1,24 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
+import RadioGroup from '../../core/RadioGroup';
 import Radio from '../../core/Radio';
-import { RadioGroup } from '@material-ui/core';
 import { setPeriodType } from '../../../actions/layerEdit';
-
-const styles = {
-    radioGroup: {
-        paddingBottom: 20,
-    },
-    radio: {
-        height: 50,
-    },
-    label: {
-        margin: '12px 0',
-        fontSize: 14,
-    },
-};
 
 export const PeriodTypeSelect = ({
     program,
@@ -34,20 +20,14 @@ export const PeriodTypeSelect = ({
         <RadioGroup
             name="type"
             value={periodType}
-            onChange={(event, type) => setPeriodType({ id: type })}
-            className={classes.radioGroup}
+            onChange={type => setPeriodType({ id: type })}
         >
-            <Radio
-                value="lastUpdated"
-                label={label}
-                className={classes.radio}
-            />
+            <Radio value="lastUpdated" label={label} />
             <Radio
                 value="program"
                 label={`${i18n.t('Program/Enrollment date')}: ${i18n.t(
                     'the date a tracked entity was registered or enrolled in a program'
                 )}`}
-                className={classes.radio}
             />
         </RadioGroup>
     ) : (
@@ -68,4 +48,4 @@ export default connect(
         periodType: layerEdit.periodType,
     }),
     { setPeriodType }
-)(withStyles(styles)(PeriodTypeSelect));
+)(PeriodTypeSelect);
