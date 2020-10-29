@@ -351,6 +351,7 @@ export class EventDialog extends Component {
                                             value={areaRadius || ''}
                                             onChange={setAreaRadius}
                                             disabled={eventClustering}
+                                            className={styles.flexInnerColumn}
                                         />
                                     )}
                                 </div>
