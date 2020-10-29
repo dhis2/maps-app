@@ -9,6 +9,7 @@ const TotalsDetailsSelect = ({ operand, onChange }) => (
         name="operand"
         value={operand === true ? 'details' : 'totals'}
         onChange={value => onChange(value === 'details')}
+        display="row"
     >
         <Radio value="totals" label={i18n.t('Totals')} />
         <Radio value="details" label={i18n.t('Details')} />

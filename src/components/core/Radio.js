@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Radio as UiRadio } from '@dhis2/ui';
 import { RadioContext } from './RadioGroup';
 
-const Radio = ({ value, dataTest, label }) => {
+const Radio = ({ value, disabled, dataTest, label }) => {
     const { radio, onChange } = useContext(RadioContext);
 
     // onChange is from the parent component
@@ -16,6 +16,7 @@ const Radio = ({ value, dataTest, label }) => {
     return (
         <UiRadio
             label={label}
+            disabled={disabled}
             checked={value === radio}
             onChange={onClick}
             dataTest={dataTest}
@@ -25,6 +26,7 @@ const Radio = ({ value, dataTest, label }) => {
 
 Radio.propTypes = {
     label: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     dataTest: PropTypes.string,
 };
