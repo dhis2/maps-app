@@ -339,10 +339,10 @@ export class EventDialog extends Component {
                                     <Checkbox
                                         label={i18n.t('Buffer')}
                                         checked={showBuffer}
-                                        onCheck={this.onShowBufferClick.bind(
+                                        onChange={this.onShowBufferClick.bind(
                                             this
                                         )}
-                                        className={styles.flexInnerColumn}
+                                        className={styles.checkboxInline}
                                         disabled={eventClustering}
                                     />
                                     {showBuffer && (
@@ -350,8 +350,8 @@ export class EventDialog extends Component {
                                             label={i18n.t('Radius in meters')}
                                             value={areaRadius || ''}
                                             onChange={setAreaRadius}
-                                            className={styles.flexInnerColumn}
                                             disabled={eventClustering}
+                                            className={styles.flexInnerColumn}
                                         />
                                     )}
                                 </div>

@@ -548,7 +548,7 @@ export class ThematicDialog extends Component {
                                     <Checkbox
                                         label={i18n.t('Labels')}
                                         checked={labels}
-                                        onCheck={setLabels}
+                                        onChange={setLabels}
                                     />
                                 </div>
                                 {labels && (

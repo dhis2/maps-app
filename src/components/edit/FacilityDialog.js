@@ -205,7 +205,7 @@ class FacilityDialog extends Component {
                                 <Checkbox
                                     label={i18n.t('Labels')}
                                     checked={labels}
-                                    onCheck={setLabels}
+                                    onChange={setLabels}
                                     className={styles.checkboxInline}
                                 />
                                 {labels && (
@@ -226,7 +226,7 @@ class FacilityDialog extends Component {
                                 <Checkbox
                                     label={i18n.t('Buffer')}
                                     checked={showBuffer}
-                                    onCheck={this.onShowBufferClick.bind(this)}
+                                    onChange={this.onShowBufferClick.bind(this)}
                                     className={styles.checkboxInline}
                                 />
                                 {showBuffer && (

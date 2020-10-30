@@ -137,10 +137,10 @@ describe('DownloadDialog', () => {
         });
         const checkbox = wrapper.find('Checkbox').at(0);
 
-        checkbox.simulate('change', { checked: true });
+        checkbox.simulate('change', true);
         expect(toggleDownloadShowNameSpy).toHaveBeenCalledWith(true);
 
-        checkbox.simulate('change', { checked: false });
+        checkbox.simulate('change', false);
         expect(toggleDownloadShowNameSpy).toHaveBeenCalledWith(false);
     });
 
@@ -189,10 +189,10 @@ describe('DownloadDialog', () => {
         });
         const checkbox = wrapper.find('Checkbox').at(1);
 
-        checkbox.simulate('change', { checked: true });
+        checkbox.simulate('change', true);
         expect(toggleDownloadShowLegendSpy).toHaveBeenCalledWith(true);
 
-        checkbox.simulate('change', { checked: false });
+        checkbox.simulate('change', false);
         expect(toggleDownloadShowLegendSpy).toHaveBeenCalledWith(false);
     });
 

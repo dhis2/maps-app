@@ -68,20 +68,24 @@
 
 .checkboxInline {
     height: 70px;
-    padding-right: 40px;
+    margin: 24px 40px 0 0;
 }
 
 .fontInline {
-    margin: -20px 0 20px;
+    margin: -10px 0 10px;
 }
 
 .fontBlock {
-    margin: -24px 8px 0 42px;
+    margin: -12px 8px 8px 38px;
 }
 
 .numberField {
     composes: flexInnerColumn;
     max-width: 140px;
+}
+
+.checkbox {
+    margin: 8px 0 0 -8px;
 }
 
 /* Tracked entity */
@@ -95,8 +99,7 @@
 /* Boundary */
 
 .radius {
-    margin-left: var(--spacers-dp12);
-    width: 127px;
+    width: 120px;
 }
 
 .boundaryFont {

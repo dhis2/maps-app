@@ -1,50 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Checkbox as MuiCheckbox, FormControlLabel } from '@material-ui/core';
+import { Checkbox as UiCheckbox } from '@dhis2/ui';
+import cx from 'classnames';
+import styles from './styles/Checkbox.module.css';
 
-const styles = {
-    root: {
-        margin: '12px 0',
-    },
-};
-
-// Wrapper around MUI Checkbox with label support
+// Wrapper around @dhis2/ui checkbox for unified handling and styling
 const Checkbox = ({
     label,
     checked = false,
-    onCheck,
     disabled,
-    classes,
+    onChange,
     className,
-    style,
 }) => (
-    <FormControlLabel
-        label={label}
-        control={
-            <MuiCheckbox
-                color="primary"
-                checked={checked}
-                onChange={(event, isChecked) => onCheck(isChecked)}
-                disabled={disabled}
-            />
-        }
-        classes={classes}
-        className={className}
-        style={style}
-    />
+    <div className={cx(styles.checkbox, className)}>
+        <UiCheckbox
+            label={label}
+            checked={checked}
+            disabled={disabled}
+            onChange={({ checked }) => onChange(checked)}
+        />
+    </div>
 );
 
 Checkbox.propTypes = {
     label: PropTypes.string,
     checked: PropTypes.bool,
-    onCheck: PropTypes.func.isRequired,
-    style: PropTypes.object,
-    labelStyle: PropTypes.object,
-    iconStyle: PropTypes.object,
     disabled: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
-    classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Checkbox);
+export default Checkbox;

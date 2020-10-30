@@ -4,6 +4,7 @@ import i18n from '@dhis2/d2-i18n';
 import Checkbox from '../../core/Checkbox';
 import ColorPicker from '../../core/ColorPicker';
 import { NO_DATA_COLOR } from '../../../constants/layers';
+import styles from './styles/NoDataColor.module.css';
 
 const NoDataColor = ({ value, onChange, className }) => {
     const onCheck = useCallback(
@@ -16,11 +17,8 @@ const NoDataColor = ({ value, onChange, className }) => {
             <Checkbox
                 label={i18n.t('Show no data')}
                 checked={!!value}
-                onCheck={onCheck}
-                style={{
-                    margin: '0 40px 0 -4px',
-                    height: 60,
-                }}
+                onChange={onCheck}
+                className={styles.checkbox}
             />
             {value && (
                 <ColorPicker
@@ -28,10 +26,7 @@ const NoDataColor = ({ value, onChange, className }) => {
                     color={value}
                     onChange={onChange}
                     width={50}
-                    style={{
-                        display: 'inline-block',
-                        marginTop: -6,
-                    }}
+                    className={styles.colorPicker}
                 />
             )}
         </div>
