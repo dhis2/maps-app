@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import {
-    FormControl,
-    FormLabel,
-    FormControlLabel,
-    RadioGroup,
-    Radio,
-} from '@material-ui/core';
+import RadioGroup from '../core/RadioGroup';
+import Radio from '../core/Radio';
 import i18n from '@dhis2/d2-i18n';
 import {
     RENDERING_STRATEGY_SINGLE,
@@ -70,67 +65,49 @@ class RenderingStrategy extends Component {
         }
     }
 
-    onChange = (evt, value) => this.props.onChange(value);
-
     render() {
         const {
             value,
             period,
             hasOtherLayers,
             hasOtherTimelineLayers,
-            classes,
+            onChange,
         } = this.props;
 
         if (singleMapPeriods.includes(period.id)) {
             return null;
         }
 
-        return (
-            <FormControl component="fieldset" className={classes.control}>
-                <FormLabel component="legend" className={classes.label}>
-                    {i18n.t('Display periods')}
-                </FormLabel>
-                <RadioGroup
-                    aria-label="Period display"
-                    name="period-display"
-                    value={value}
-                    onChange={this.onChange}
-                >
-                    <FormControlLabel
-                        value="SINGLE"
-                        control={<Radio className={classes.radio} />}
-                        label={i18n.t('Single (aggregate)')}
-                    />
-                    <FormControlLabel
-                        value="TIMELINE"
-                        control={<Radio className={classes.radio} />}
-                        label={i18n.t('Timeline')}
-                        disabled={hasOtherTimelineLayers}
-                    />
-                    <FormControlLabel
-                        value="SPLIT_BY_PERIOD"
-                        control={<Radio className={classes.radio} />}
-                        label={i18n.t('Split map views')}
-                        disabled={
-                            hasOtherLayers ||
-                            invalidSplitViewPeriods.includes(period.id)
-                        }
-                    />
-                </RadioGroup>
+        let helpText;
 
-                <div className={classes.message}>
-                    {hasOtherTimelineLayers && (
-                        <div>{i18n.t('Only one timeline is allowed.')}</div>
-                    )}
-                    {hasOtherLayers && (
-                        <div>
-                            {i18n.t(
-                                'Remove other layers to enable split map views.'
-                            )}
-                        </div>
-                    )}
-                </div>
-            </FormControl>
+        if (hasOtherTimelineLayers) {
+            helpText = i18n.t('Only one timeline is allowed.');
+        } else if (hasOtherLayers) {
+            helpText = i18n.t('Remove other layers to enable split map views.');
+        }
+
+        return (
+            <RadioGroup
+                label={i18n.t('Display periods')}
+                value={value}
+                onChange={onChange}
+                helpText={helpText}
+            >
+                <Radio value="SINGLE" label={i18n.t('Single (aggregate)')} />
+                <Radio
+                    value="TIMELINE"
+                    label={i18n.t('Timeline')}
+                    disabled={hasOtherTimelineLayers}
+                />
+                <Radio
+                    value="SPLIT_BY_PERIOD"
+                    label={i18n.t('Split map views')}
+                    disabled={
+                        hasOtherLayers ||
+                        invalidSplitViewPeriods.includes(period.id)
+                    }
+                />
+            </RadioGroup>
         );
     }
 }
