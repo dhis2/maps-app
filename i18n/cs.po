@@ -116,7 +116,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 msgid "Close"
 msgstr ""
@@ -488,7 +488,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr ""
+msgstr "v"
 
 msgid "in and right below"
 msgstr ""
