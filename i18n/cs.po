@@ -46,10 +46,10 @@ msgid "Data element"
 msgstr ""
 
 msgid "Totals"
-msgstr ""
+msgstr "Součty"
 
 msgid "Details"
-msgstr ""
+msgstr "Detaily"
 
 msgid "Yes"
 msgstr "Ano"
@@ -140,10 +140,10 @@ msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "Rok"
 
 msgid "Period"
-msgstr ""
+msgstr "Období"
 
 msgid "Organisation units"
 msgstr "Organizační jednotky"
@@ -245,7 +245,7 @@ msgid "Org units"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtr"
 
 msgid "Start date"
 msgstr ""
@@ -714,7 +714,7 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Stage"
 msgstr ""
@@ -759,7 +759,7 @@ msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "Denně"
 
 msgid "Weekly"
 msgstr ""
@@ -780,7 +780,7 @@ msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr ""
+msgstr "Ročně"
 
 msgid "Financial year (Start October)"
 msgstr ""
@@ -849,7 +849,7 @@ msgid "Last bi-month"
 msgstr ""
 
 msgid "Last 6 bi-months"
-msgstr ""
+msgstr "Posledních 6 dvou-měsíců"
 
 msgid "Bi-months this year"
 msgstr ""
@@ -888,7 +888,7 @@ msgid "This financial year"
 msgstr ""
 
 msgid "Last financial year"
-msgstr ""
+msgstr "Poslední finanční rok"
 
 msgid "Last 5 financial years"
 msgstr ""
