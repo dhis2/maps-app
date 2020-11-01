@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Jiří Podhorecký, 2020
+# trendspotter, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-08-31T15:15:10.665Z\n"
 "PO-Revision-Date: 2019-08-05 20:46+0000\n"
-"Last-Translator: Jiří Podhorecký, 2020\n"
+"Last-Translator: trendspotter, 2020\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgid "Maps"
 msgstr ""
 
 msgid "Classification"
-msgstr ""
+msgstr "Klasifikace"
 
 msgid "Classes"
 msgstr ""
@@ -43,7 +43,7 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr ""
+msgstr "Datový prvek"
 
 msgid "Totals"
 msgstr "Součty"
@@ -58,13 +58,13 @@ msgid "Event location"
 msgstr ""
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Pole souřadnic"
 
 msgid "None"
 msgstr ""
 
 msgid "Data item"
-msgstr ""
+msgstr "Datová položka"
 
 msgid "Event data item"
 msgstr ""
@@ -76,22 +76,22 @@ msgid "Data set"
 msgstr ""
 
 msgid "Index"
-msgstr ""
+msgstr "Index"
 
 msgid "Name"
-msgstr ""
+msgstr "Název"
 
 msgid "Value"
 msgstr "Hodnota"
 
 msgid "Legend"
-msgstr ""
+msgstr "Legenda"
 
 msgid "Range"
-msgstr ""
+msgstr "Rozsah"
 
 msgid "Level"
-msgstr ""
+msgstr "Úroveň"
 
 msgid "Parent"
 msgstr ""
@@ -100,13 +100,13 @@ msgid "Id"
 msgstr ""
 
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 msgid "Color"
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "Přidat filtr"
 
 msgid "Items"
 msgstr ""
@@ -115,29 +115,31 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr ""
+msgstr "Stáhnout"
 
 msgid "Download map"
-msgstr ""
+msgstr "Stáhnout mapu"
 
 msgid "Show name"
-msgstr ""
+msgstr "Zobrazit název"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Zobrazit legendu"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"Váš prohlížeč nepodporuje stahování map. Vyzkoušejte Google Chrome nebo "
+"Firefox."
 
 msgid "Cancel"
 msgstr "Zrušit"
 
 msgid "Close"
-msgstr ""
+msgstr "Zavřít"
 
 msgid "Legend position"
-msgstr ""
+msgstr "Pozice legendy"
 
 msgid "Period"
 msgstr "Období"
@@ -149,13 +151,13 @@ msgid "Style"
 msgstr ""
 
 msgid "Labels"
-msgstr ""
+msgstr "Štítky"
 
 msgid "Point radius"
 msgstr ""
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Nejsou vybrány žádné organizační jednotky"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
@@ -164,7 +166,7 @@ msgid ""
 msgstr ""
 
 msgid "Select year"
-msgstr ""
+msgstr "Vybrat rok"
 
 msgid "Min people"
 msgstr ""
@@ -224,16 +226,16 @@ msgid "Steps"
 msgstr ""
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Náhled legendy"
 
 msgid "This field is required"
-msgstr ""
+msgstr "Toto pole je povinné"
 
 msgid "Valid range is"
-msgstr ""
+msgstr "Platný rozsah je"
 
 msgid "data"
-msgstr ""
+msgstr "data"
 
 msgid "period"
 msgstr ""
@@ -251,34 +253,34 @@ msgid "End date"
 msgstr ""
 
 msgid "Events"
-msgstr ""
+msgstr "Události"
 
 msgid "Group events"
 msgstr ""
 
 msgid "View all events"
-msgstr ""
+msgstr "Zobrazit všechny události"
 
 msgid "Radius"
-msgstr ""
+msgstr "Poloměr"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Vyrovnávací paměť"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Poloměr v metrech"
 
 msgid "You can style events by data element after selecting a program."
-msgstr ""
+msgstr "Události můžete stylovat podle datového prvku po výběru programu."
 
 msgid "Program is required"
 msgstr ""
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Vyžaduje se programová fáze"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Nejsou vybrány žádné organizační jednotky."
 
 msgid "Group set"
 msgstr ""
@@ -333,14 +335,14 @@ msgid "Program status"
 msgstr ""
 
 msgid "Follow up"
-msgstr ""
+msgstr "Následovat"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
+msgstr "Před výběrem typu vztahu vyberte typ sledované entity"
 
 msgid "WARNING"
-msgstr ""
+msgstr "VAROVÁNÍ"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
@@ -374,7 +376,7 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
+msgstr "Barva čáry"
 
 msgid "Aggregation type"
 msgstr ""
@@ -389,13 +391,13 @@ msgid "Indicator group is required"
 msgstr ""
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Indikátor je vyžadován"
 
 msgid "Data element group is required"
 msgstr ""
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Datový prvek je povinný"
 
 msgid "Data set is required"
 msgstr ""
@@ -404,13 +406,13 @@ msgid "Event data item is required"
 msgstr ""
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Je vyžadován indikátor programu"
 
 msgid "Period type is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "Období je vyžadováno"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -419,13 +421,13 @@ msgid "Indicator"
 msgstr ""
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "Míry vykazování"
 
 msgid "Event data items"
-msgstr ""
+msgstr "Položky dat události"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Ukazatele programu"
 
 msgid "Item type"
 msgstr ""
@@ -452,7 +454,7 @@ msgid "Hide technical details"
 msgstr ""
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Zobrazit technické podrobnosti"
 
 msgid "The following information may be requested by technical support."
 msgstr ""
@@ -470,22 +472,22 @@ msgid "one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "obsahuje"
 
 msgid "is"
-msgstr ""
+msgstr "je"
 
 msgid "is not"
-msgstr ""
+msgstr "není"
 
 msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Skupina indikátorů"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "Interpretace"
 
 msgid "External basemap"
 msgstr ""
@@ -494,7 +496,7 @@ msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr ""
+msgstr "Sbalit"
 
 msgid "Expand"
 msgstr ""
@@ -511,10 +513,10 @@ msgid ""
 msgstr ""
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Stažení dat se nezdařilo."
 
 msgid "ID Format"
-msgstr ""
+msgstr "ID Format"
 
 msgid "Use human-readable keys"
 msgstr ""
@@ -523,7 +525,7 @@ msgid "External layer"
 msgstr ""
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Načítání vrstvy"
 
 msgid "{{name}} deleted."
 msgstr ""
@@ -538,31 +540,31 @@ msgid "Edit"
 msgstr ""
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Přepnout viditelnost"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Nastavit neprůhlednost vrstvy"
 
 msgid "More actions"
-msgstr ""
+msgstr "Více akcí"
 
 msgid "Data table"
-msgstr ""
+msgstr "Datová tabulka"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "Otevřít jako graf"
 
 msgid "Download data"
 msgstr ""
 
 msgid "Edit layer"
-msgstr ""
+msgstr "Upravit vrstvu"
 
 msgid "Remove layer"
 msgstr ""
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Nadřazená jednotka"
 
 msgid "Drill up one level"
 msgstr ""
@@ -586,10 +588,10 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Organizační jednotka"
 
 msgid "Event time"
-msgstr ""
+msgstr "Čas události"
 
 msgid "Groups"
 msgstr ""
@@ -598,7 +600,7 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
+msgstr "Naposledy aktualizováno"
 
 msgid "Open as map"
 msgstr ""
@@ -610,7 +612,7 @@ msgid ""
 msgstr ""
 
 msgid "Data items"
-msgstr ""
+msgstr "Datové položky"
 
 msgid "Proceed"
 msgstr "Pokračovat"
@@ -622,7 +624,7 @@ msgid "Code"
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Pro toto období nenalezeny žádné údaje."
 
 msgid "Select groups"
 msgstr ""
@@ -636,13 +638,13 @@ msgid ""
 msgstr ""
 
 msgid "Click the map where you want to relocate facility"
-msgstr ""
+msgstr "Klikněte na mapu, kam chcete přemístit zařízení"
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "organizační jednotka uživatele"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "přímo pod organizační jednotkou uživatele"
 
 msgid "two levels below user organisation unit"
 msgstr ""
@@ -678,7 +680,7 @@ msgid "Next year"
 msgstr "Příští rok"
 
 msgid "Period type"
-msgstr ""
+msgstr "Typ období"
 
 msgid "Start/end dates"
 msgstr ""
@@ -693,7 +695,7 @@ msgid "Program"
 msgstr "Program"
 
 msgid "Stage"
-msgstr ""
+msgstr "Fáze"
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -741,136 +743,136 @@ msgid "Daily"
 msgstr "Denně"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Týdně"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Měsíčně"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Čtvrtletně"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "Šestiměsíční"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "Duben šest měsíců"
 
 msgid "Yearly"
 msgstr "Ročně"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Finanční rok (od října)"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Finanční rok (od července)"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Finanční rok (od dubna)"
 
 msgid "Today"
-msgstr ""
+msgstr "Dnes"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Včera"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "Poslední 3 dny"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "Posledních 7 dní"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "Posledních 14 dní"
 
 msgid "This week"
-msgstr ""
+msgstr "Tento týden"
 
 msgid "Last week"
 msgstr "Minulý týden"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "Poslední 4 týdny"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "Posledních 12 týdnů"
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "Posledních 52 týdnů"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "Týdny tohoto roku"
 
 msgid "This month"
-msgstr ""
+msgstr "Tento měsíc"
 
 msgid "Last month"
 msgstr "Minulý měsíc"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "Poslední 3 měsíce"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "Posledních 6 měsíců"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "Posledních 12 měsíců"
 
 msgid "Months this year"
-msgstr ""
+msgstr "Měsíce tohoto roku"
 
 msgid "This bi-month"
-msgstr ""
+msgstr "Těchto 14 dní"
 
 msgid "Last bi-month"
-msgstr ""
+msgstr "Poslední dva měsíce"
 
 msgid "Last 6 bi-months"
 msgstr "Posledních 6 dvou-měsíců"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Dvouměsíčně tento rok"
 
 msgid "This quarter"
-msgstr ""
+msgstr "Toto čtvrtletí"
 
 msgid "Last quarter"
-msgstr ""
+msgstr "Poslední čtvrtletí"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "Poslední 4 čtvrtletí "
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Čtvrtletí tohoto roku"
 
 msgid "This six-month"
-msgstr ""
+msgstr "Tento půlrok"
 
 msgid "Last six-month"
-msgstr ""
+msgstr "Poslední půlrok"
 
 msgid "Last 2 six-months"
 msgstr ""
 
 msgid "This year"
-msgstr ""
+msgstr "Tento rok"
 
 msgid "Last year"
-msgstr ""
+msgstr "Poslední rok"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "Posledních 5 let"
 
 msgid "This financial year"
-msgstr ""
+msgstr "Tento fiskální rok"
 
 msgid "Last financial year"
 msgstr "Poslední finanční rok"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "Posledních 5 fiskálních roků"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -878,7 +880,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Chyba"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -1003,19 +1005,19 @@ msgid "Unclassified"
 msgstr ""
 
 msgid "Access denied"
-msgstr ""
+msgstr "Přístup odepřen"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "Selhalo"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr ""
+msgstr "při čtení dat vrstvy došlo k neznámé chybě"
 
 msgid "Event"
-msgstr ""
+msgstr "Událost"
 
 msgid "No data found"
 msgstr ""
@@ -1030,13 +1032,13 @@ msgid "Selected org units"
 msgstr ""
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "Nenalezeny žádné souřadnice"
 
 msgid "Tracked entity"
 msgstr ""
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "Nenalezeny žádné sledované entity"
 
 msgid "related"
 msgstr ""
@@ -1048,7 +1050,7 @@ msgid "not one of"
 msgstr ""
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "neobsahuje"
 
 msgid "true"
 msgstr ""
@@ -1069,4 +1071,4 @@ msgid "End date is invalid"
 msgstr ""
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "Datum ukončení nemůže být dřívější než datum zahájení"
