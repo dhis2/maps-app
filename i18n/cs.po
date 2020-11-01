@@ -43,10 +43,10 @@ msgid "Data element"
 msgstr ""
 
 msgid "Totals"
-msgstr ""
+msgstr "Součty"
 
 msgid "Details"
-msgstr ""
+msgstr "Detaily"
 
 msgid "Yes"
 msgstr "Ano"
@@ -125,7 +125,7 @@ msgid "Legend position"
 msgstr ""
 
 msgid "Period"
-msgstr ""
+msgstr "Období"
 
 msgid "Organisation units"
 msgstr "Organizační jednotky"
@@ -161,7 +161,7 @@ msgid "period"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtr"
 
 msgid "Org units"
 msgstr ""
@@ -512,7 +512,7 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Stage"
 msgstr ""
