@@ -91,7 +91,7 @@
         "styled-jsx": "^3.3.0",
         "typeface-roboto": "^0.0.75",
         "uglifyjs-webpack-plugin": "^2.1.2",
-        "url-polyfill": "^1.1.11",
+        "url-polyfill": "^1.1.12",
         "whatwg-fetch": "^3.4.1"
     },
     "devDependencies": {
