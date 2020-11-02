@@ -7,8 +7,6 @@ import UpIcon from '@material-ui/icons/ArrowUpward';
 import DownIcon from '@material-ui/icons/ArrowDownward';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import PositionIcon from '@material-ui/icons/Room';
-import OrgUnitDialog from '../orgunits/OrgUnitDialog';
-import RelocateDialog from '../orgunits/RelocateDialog';
 import {
     closeContextMenu,
     openCoordinatePopup,
@@ -21,9 +19,6 @@ import {
     changeOrgUnitCoordinate,
 } from '../../actions/orgUnits';
 import styles from './styles/ContextMenu.module.css';
-
-// https://github.com/callemall/material-ui/issues/2866
-const anchorEl = document.getElementById('context-menu');
 
 const polygonTypes = ['Polygon', 'MultiPolygon'];
 
@@ -81,7 +76,7 @@ const ContextMenu = (props, context) => {
                 onClickOutside={onClose}
             >
                 <div className={styles.menu}>
-                    <Menu dense anchorEl={anchorEl}>
+                    <Menu dense>
                         {layerType !== 'facility' && feature && (
                             <MenuItem
                                 label={i18n.t('Drill up one level')}
@@ -169,8 +164,6 @@ const ContextMenu = (props, context) => {
                     </Menu>
                 </div>
             </Popover>
-            <OrgUnitDialog key="orgunit" />
-            <RelocateDialog key="relocate" />
         </Fragment>
     );
 };
