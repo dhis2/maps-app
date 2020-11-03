@@ -14,6 +14,8 @@ import MapContainer from '../map/MapContainer';
 import BottomPanel from '../datatable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
+import OrgUnitDialog from '../orgunits/OrgUnitDialog';
+import RelocateDialog from '../orgunits/RelocateDialog';
 import AlertSnackbar from '../alerts/AlertSnackbar';
 import Message from '../message/Message';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
@@ -66,6 +68,8 @@ export class App extends Component {
                         <Message />
                         <DataDownloadDialog />
                         <OpenAsMapDialog />
+                        <OrgUnitDialog />
+                        <RelocateDialog />
                     </MuiThemeProvider>
                 </FatalErrorBoundary>
             </Provider>
