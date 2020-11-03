@@ -17,5 +17,5 @@
 }
 
 .removeBtn {
-    color: red;
+    color: var(--theme-default);
 }
