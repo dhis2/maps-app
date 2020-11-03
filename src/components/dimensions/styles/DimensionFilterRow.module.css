@@ -1,8 +1,8 @@
 .filterRow {
+    display: flex;
     position: relative;
-    height: 68px;
     margin-bottom: 8px;
-    padding: -0 56px 0 8px;
+    padding: 4px 56px 0 12px;
     /* backgroundColor: theme.palette.background.grey, */
     clear: both;
     border-radius: 4px;

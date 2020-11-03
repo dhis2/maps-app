@@ -3,30 +3,43 @@
     width: 40%;
     position: relative;
     padding-right: 24px;
+    font-size: 14px;
+    cursor: pointer;
 }
 
-.textField {
-    margin: 12px 0;
+.dropdown label {
+    line-height: 24px;
 }
 
-/*
-.input: {
-    '& input': {
-        cursor: 'pointer',
-        color: '#000',
-    },
+.dropdown div {
+    position: relative;
+    margin-top: 4px;
+    line-height: 16px;
+    color: rgb(33, 41, 52);
+    border: 1px solid rgb(160, 173, 186);
+    border-radius: 3px;
+    box-shadow: rgba(48, 54, 60, 0.1) 0px 1px 2px 0px inset;
 }
-*/
 
-.icon {
+.dropdown span {
+    display: block;
+    width: calc(100% - 44px);
+    height: 40px;
+    line-height: 40px;
+    margin-left: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown div svg {
+    height: 40px;
     position: absolute;
-    top: 32px;
-    right: 24px;
+    right: 8px;
+    top: 0;
 }
 
 .dimensions {
     width: 400px;
-    margin-top: -13px;
-    margin-left: -8px;
     overflow-y: hidden;
 }
