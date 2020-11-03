@@ -2,41 +2,13 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
-import { Popover, TextField } from '@material-ui/core';
+import { Popover } from '@dhis2/ui';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { DimensionsPanel } from '@dhis2/d2-ui-analytics';
 import { loadDimensions } from '../../actions/dimensions';
+import styles from './styles/DimensionSelect.module.css';
 
-const styles = {
-    dropdown: {
-        display: 'inline-block',
-        width: '40%',
-        position: 'relative',
-        paddingRight: 24,
-    },
-    textField: {
-        margin: '12px 0',
-    },
-    input: {
-        '& input': {
-            cursor: 'pointer',
-            color: '#000',
-        },
-    },
-    icon: {
-        position: 'absolute',
-        top: 32,
-        right: 24,
-    },
-    dimensions: {
-        width: 400,
-        marginTop: -13,
-        marginLeft: -8,
-        overflowY: 'hidden',
-    },
-};
-
+// https://github.com/dhis2/dashboards-app/blob/master/src/components/ItemFilter/FilterSelector.js
 export class DimensionSelect extends Component {
     static propTypes = {
         dimension: PropTypes.string,
@@ -45,7 +17,6 @@ export class DimensionSelect extends Component {
         loadDimensions: PropTypes.func.isRequired,
         style: PropTypes.object,
         errorText: PropTypes.string,
-        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -79,7 +50,7 @@ export class DimensionSelect extends Component {
     };
 
     render() {
-        const { dimension, dimensions, classes } = this.props;
+        const { dimension, dimensions } = this.props;
         const { anchorEl } = this.state;
 
         if (!dimensions) {
@@ -90,33 +61,29 @@ export class DimensionSelect extends Component {
 
         return (
             <Fragment>
-                <div onClick={this.onOpen} className={classes.dropdown}>
-                    <TextField
-                        label={i18n.t('Dimension')}
-                        value={selected ? selected.name : ''}
-                        fullWidth={true}
-                        className={classes.textField}
-                        InputProps={{
-                            autoFocus: false,
-                            className: classes.input,
-                            disabled: true,
-                        }}
-                    />
-                    <ArrowDropDownIcon className={classes.icon} />
+                <div onClick={this.onOpen} className={styles.dropdown}>
+                    <label>{i18n.t('Dimension')}</label>
+                    <div>{selected ? selected.name : ''}</div>
+                    <ArrowDropDownIcon />
                 </div>
-                <Popover
-                    open={!!anchorEl}
-                    anchorEl={anchorEl}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                    onClose={this.onClose}
-                    classes={{ paper: classes.dimensions }}
-                >
-                    <DimensionsPanel
-                        dimensions={dimensions}
-                        onDimensionClick={this.onDimensionClick}
-                        selectedIds={[dimension]}
-                    />
-                </Popover>
+                {anchorEl && (
+                    <Popover
+                        open={!!anchorEl}
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        onClose={this.onClose}
+                        classes={{ paper: styles.dimensions }}
+                    >
+                        <DimensionsPanel
+                            dimensions={dimensions}
+                            onDimensionClick={this.onDimensionClick}
+                            selectedIds={[dimension]}
+                        />
+                    </Popover>
+                )}
             </Fragment>
         );
     }
@@ -132,4 +99,4 @@ export default connect(
             : null,
     }),
     { loadDimensions }
-)(withStyles(styles)(DimensionSelect));
+)(DimensionSelect);

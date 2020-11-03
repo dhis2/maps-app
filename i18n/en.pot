@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-19T07:59:10.931Z\n"
-"PO-Revision-Date: 2020-10-19T07:59:10.931Z\n"
+"POT-Creation-Date: 2020-11-03T10:28:07.406Z\n"
+"PO-Revision-Date: 2020-11-03T10:28:07.406Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -759,6 +759,12 @@ msgstr ""
 msgid "Start/end dates"
 msgstr ""
 
+msgid "Only one timeline is allowed."
+msgstr ""
+
+msgid "Remove other layers to enable split map views."
+msgstr ""
+
 msgid "Display periods"
 msgstr ""
 
@@ -769,12 +775,6 @@ msgid "Timeline"
 msgstr ""
 
 msgid "Split map views"
-msgstr ""
-
-msgid "Only one timeline is allowed."
-msgstr ""
-
-msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"

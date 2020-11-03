@@ -1,0 +1,32 @@
+.dropdown {
+    display: inline-block;
+    width: 40%;
+    position: relative;
+    padding-right: 24px;
+}
+
+.textField {
+    margin: 12px 0;
+}
+
+/*
+.input: {
+    '& input': {
+        cursor: 'pointer',
+        color: '#000',
+    },
+}
+*/
+
+.icon {
+    position: absolute;
+    top: 32px;
+    right: 24px;
+}
+
+.dimensions {
+    width: 400px;
+    margin-top: -13px;
+    margin-left: -8px;
+    overflow-y: hidden;
+}
