@@ -22,18 +22,18 @@ const FilterRow = ({
     }
 
     const onSelect = (dim, filter) => {
-        const name = dataItems.filter(d => d.id === dimension)[0].name;
+        const name = dataItems.filter(d => d.id === dim)[0].name;
 
         if (dim !== dimension) {
             // New dimension
             onChange(index, {
-                dim,
+                dimension: dim,
                 name,
                 filter: null,
             });
         } else {
             onChange(index, {
-                dim,
+                dimension: dim,
                 name,
                 filter,
             });
@@ -54,13 +54,13 @@ const FilterRow = ({
                 onChange={dataItem => onSelect(dataItem.id, filter)}
                 className={styles.dataItemSelect}
             />
-            {dimension ? (
+            {dimension && (
                 <FilterSelect
                     {...dataItem}
                     filter={filter}
                     onChange={filter => onSelect(dimension, filter)}
                 />
-            ) : null}
+            )}
             <RemoveFilter onClick={() => onRemove(index)} />
         </div>
     );

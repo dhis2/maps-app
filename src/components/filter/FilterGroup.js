@@ -28,6 +28,7 @@ const FilterGroup = ({
                     programStage={programStage}
                     onChange={changeFilter}
                     onRemove={removeFilter}
+                    // onRemove={console.log}
                     {...item}
                 />
             ))}
