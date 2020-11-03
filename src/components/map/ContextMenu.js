@@ -31,21 +31,21 @@ const ContextMenu = (props, context) => {
         earthEngineLayers,
         position,
         offset,
-        onClose,
-        onDrill,
-        onShowInformation,
-        showCoordinate,
-        onSwapCoordinate,
-        onRelocateStart,
+        closeContextMenu,
+        openCoordinatePopup,
         showEarthEngineValue,
+        drillLayer,
+        loadOrgUnit,
+        startRelocateOrgUnit,
+        changeOrgUnitCoordinate,
     } = props;
 
     if (!position) {
         return null;
     }
 
-    const anchorRef = useRef();
     const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
+    const anchorRef = useRef();
     const left = offset[0] + position[0];
     const top = offset[1] + position[1];
 
@@ -62,6 +62,50 @@ const ContextMenu = (props, context) => {
             geometry.type === 'Point' && !polygonTypes.includes(attr.type);
     }
 
+    const onClick = (item, id) => {
+        closeContextMenu();
+
+        switch (item) {
+            case 'drill_up':
+                drillLayer(
+                    layerId,
+                    attr.grandParentId,
+                    attr.grandParentParentGraph,
+                    parseInt(attr.level) - 1
+                );
+                break;
+            case 'drill_down':
+                drillLayer(
+                    layerId,
+                    attr.id,
+                    attr.parentGraph,
+                    parseInt(attr.level) + 1
+                );
+                break;
+            case 'show_info':
+                loadOrgUnit(attr);
+                break;
+            case 'show_coordinate':
+                openCoordinatePopup(coordinates);
+                break;
+            case 'swap_coordinate':
+                changeOrgUnitCoordinate(
+                    layerId,
+                    feature.id,
+                    feature.geometry.coordinates.slice(0).reverse()
+                );
+                break;
+            case 'relocate':
+                startRelocateOrgUnit(layerId, feature);
+                break;
+            case 'show_ee_value':
+                showEarthEngineValue(id, coordinates);
+                break;
+
+            default:
+        }
+    };
+
     return (
         <Fragment>
             <div
@@ -73,7 +117,7 @@ const ContextMenu = (props, context) => {
                 reference={anchorRef}
                 arrow={false}
                 placement="right"
-                onClickOutside={onClose}
+                onClickOutside={closeContextMenu}
             >
                 <div className={styles.menu}>
                     <Menu dense>
@@ -82,14 +126,7 @@ const ContextMenu = (props, context) => {
                                 label={i18n.t('Drill up one level')}
                                 icon={<UpIcon />}
                                 disabled={!attr.hasCoordinatesUp}
-                                onClick={() =>
-                                    onDrill(
-                                        layerId,
-                                        attr.grandParentId,
-                                        attr.grandParentParentGraph,
-                                        parseInt(attr.level) - 1
-                                    )
-                                }
+                                onClick={() => onClick('drill_up')}
                             />
                         )}
 
@@ -98,14 +135,7 @@ const ContextMenu = (props, context) => {
                                 label={i18n.t('Drill down one level')}
                                 icon={<DownIcon />}
                                 disabled={!attr.hasCoordinatesDown}
-                                onClick={() =>
-                                    onDrill(
-                                        layerId,
-                                        attr.id,
-                                        attr.parentGraph,
-                                        parseInt(attr.level) + 1
-                                    )
-                                }
+                                onClick={() => onClick('drill_down')}
                             />
                         )}
 
@@ -113,7 +143,7 @@ const ContextMenu = (props, context) => {
                             <MenuItem
                                 label={i18n.t('Show information')}
                                 icon={<InfoIcon />}
-                                onClick={() => onShowInformation(attr)}
+                                onClick={() => onClick('show_info')}
                             />
                         )}
 
@@ -121,7 +151,7 @@ const ContextMenu = (props, context) => {
                             <MenuItem
                                 label={i18n.t('Show longitude/latitude')}
                                 icon={<PositionIcon />}
-                                onClick={() => showCoordinate(coordinates)}
+                                onClick={() => onClick('show_coordinate')}
                             />
                         )}
 
@@ -129,15 +159,7 @@ const ContextMenu = (props, context) => {
                             <MenuItem
                                 label={i18n.t('Swap longitude/latitude')}
                                 icon={<PositionIcon />}
-                                onClick={() =>
-                                    onSwapCoordinate(
-                                        layerId,
-                                        feature.id,
-                                        feature.geometry.coordinates
-                                            .slice(0)
-                                            .reverse()
-                                    )
-                                }
+                                onClick={() => onClick('swap_coordinate')}
                             />
                         )}
 
@@ -145,9 +167,7 @@ const ContextMenu = (props, context) => {
                             <MenuItem
                                 label={i18n.t('Relocate')}
                                 icon={<PositionIcon />}
-                                onClick={() =>
-                                    onRelocateStart(layerId, feature)
-                                }
+                                onClick={() => onClick('relocate')}
                             />
                         )}
 
@@ -157,7 +177,7 @@ const ContextMenu = (props, context) => {
                                 label={i18n.t(layer.name)}
                                 icon={<PositionIcon />}
                                 onClick={() =>
-                                    showEarthEngineValue(layer.id, coordinates)
+                                    onClick('show_ee_value', layer.id)
                                 }
                             />
                         ))}
@@ -180,46 +200,29 @@ ContextMenu.propTypes = {
     position: PropTypes.array,
     offset: PropTypes.array,
     earthEngineLayers: PropTypes.array,
-    onClose: PropTypes.func.isRequired,
-    onDrill: PropTypes.func.isRequired,
-    onShowInformation: PropTypes.func.isRequired,
-    showCoordinate: PropTypes.func.isRequired,
-    onRelocateStart: PropTypes.func.isRequired,
-    onSwapCoordinate: PropTypes.func.isRequired,
+    closeContextMenu: PropTypes.func.isRequired,
+    openCoordinatePopup: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
+    drillLayer: PropTypes.func.isRequired,
+    loadOrgUnit: PropTypes.func.isRequired,
+    startRelocateOrgUnit: PropTypes.func.isRequired,
+    changeOrgUnitCoordinate: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-    ...state.contextMenu,
-    earthEngineLayers: state.map.mapViews.filter(
-        view => view.layer === 'earthEngine'
-    ),
-});
-
-const mapDispatchToProps = dispatch => ({
-    onClose: () => dispatch(closeContextMenu()),
-    onDrill: (layerId, parentId, parentGraph, level) =>
-        dispatch(drillLayer(layerId, parentId, parentGraph, level)),
-    onShowInformation: attr => {
-        dispatch(closeContextMenu());
-        dispatch(loadOrgUnit(attr));
-    },
-    showCoordinate: coord => {
-        dispatch(closeContextMenu());
-        dispatch(openCoordinatePopup(coord));
-    },
-    onRelocateStart: (layerId, feature) => {
-        dispatch(closeContextMenu());
-        dispatch(startRelocateOrgUnit(layerId, feature));
-    },
-    onSwapCoordinate: (layerId, featureId, coordinate) => {
-        dispatch(closeContextMenu());
-        dispatch(changeOrgUnitCoordinate(layerId, featureId, coordinate));
-    },
-    showEarthEngineValue: (layerId, coordinate) => {
-        dispatch(closeContextMenu());
-        dispatch(showEarthEngineValue(layerId, coordinate));
-    },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContextMenu);
+export default connect(
+    ({ contextMenu, map }) => ({
+        ...contextMenu,
+        earthEngineLayers: map.mapViews.filter(
+            view => view.layer === 'earthEngine'
+        ),
+    }),
+    {
+        closeContextMenu,
+        openCoordinatePopup,
+        showEarthEngineValue,
+        drillLayer,
+        loadOrgUnit,
+        startRelocateOrgUnit,
+        changeOrgUnitCoordinate,
+    }
+)(ContextMenu);
