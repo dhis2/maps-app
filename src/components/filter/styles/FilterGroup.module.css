@@ -1,0 +1,14 @@
+.filterGroup {
+    width: 100%;
+    height: 300px;
+    padding-top: 8px;
+    overflow-y: auto;
+}
+
+.button {
+    margin-top: 8px;
+}
+
+.note {
+    padding-top: 16px;
+}

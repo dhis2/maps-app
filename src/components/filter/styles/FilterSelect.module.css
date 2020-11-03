@@ -1,0 +1,10 @@
+.operator {
+    float: left;
+    margin-right: 24px;
+    width: calc((100% - 48px) / 8 * 2);
+}
+
+.inputField {
+    float: left;
+    width: calc((100% - 48px) / 8 * 3);
+}

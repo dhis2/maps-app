@@ -20,6 +20,7 @@
     border: 1px solid rgb(160, 173, 186);
     border-radius: 3px;
     box-shadow: rgba(48, 54, 60, 0.1) 0px 1px 2px 0px inset;
+    background-color: #fff;
 }
 
 .dropdown span {
