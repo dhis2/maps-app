@@ -3,8 +3,8 @@
     position: relative;
     margin-bottom: 8px;
     padding: 4px 56px 0 12px;
-    /* backgroundColor: theme.palette.background.grey, */
+    background-color: #fcfcfc;
     clear: both;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid #e0e0e0;
 }

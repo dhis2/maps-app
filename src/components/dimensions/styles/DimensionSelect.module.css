@@ -3,6 +3,7 @@
     width: 40%;
     position: relative;
     padding-right: 24px;
+    padding-bottom: 8px;
     font-size: 14px;
     cursor: pointer;
 }
