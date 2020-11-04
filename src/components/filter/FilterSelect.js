@@ -71,7 +71,6 @@ const FilterSelect = ({
         <Fragment>
             {operators && (
                 <SelectField
-                    key="operator"
                     label={i18n.t('Operator')}
                     items={operators}
                     value={operator}
@@ -83,7 +82,6 @@ const FilterSelect = ({
             )}
             {optionSet && optionSets[optionSet.id] && (
                 <OptionSetSelect
-                    key="optionset"
                     options={optionSets[optionSet.id].options}
                     value={value ? value.split(';') : null}
                     onChange={newValue =>
@@ -94,16 +92,14 @@ const FilterSelect = ({
             )}
             {numberValueTypes.includes(valueType) && (
                 <NumberField
-                    key="number"
                     label={i18n.t('Value')}
-                    value={value !== undefined ? value : ''}
+                    value={value !== undefined ? Number(value) : value}
                     onChange={newValue => onChange(`${operator}:${newValue}`)}
                     className={styles.inputField}
                 />
             )}
             {textValueTypes.includes(valueType) && !optionSet && (
                 <TextField
-                    key="text"
                     label={i18n.t('Value')}
                     value={value || ''}
                     onChange={newValue => onChange(`${operator}:${newValue}`)}
@@ -112,7 +108,6 @@ const FilterSelect = ({
             )}
             {booleanValueTypes.includes(valueType) && (
                 <Checkbox
-                    key="checkbox"
                     label={i18n.t('Yes')}
                     checked={value == 1 ? true : false}
                     onChange={isChecked =>
@@ -122,7 +117,6 @@ const FilterSelect = ({
             )}
             {valueType === 'DATE' && (
                 <DatePicker
-                    key="date"
                     label={i18n.t('Date')}
                     value={value}
                     onChange={date => onChange(`${operator}:${date}`)}

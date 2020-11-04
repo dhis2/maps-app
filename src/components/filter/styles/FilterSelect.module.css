@@ -1,10 +1,10 @@
 .operator {
     float: left;
-    margin-right: var(--spacers-dp24);
-    width: calc((100% - 48px) / 8 * 2);
+    margin-right: var(--spacers-dp12);
+    width: calc((100% - 24px) / 8 * 2);
 }
 
 .inputField {
     float: left;
-    width: calc((100% - 48px) / 8 * 3);
+    width: calc((100% - 24px) / 8 * 3);
 }
