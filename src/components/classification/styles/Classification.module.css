@@ -11,6 +11,7 @@
 
 .scale {
     padding-top: var(--spacers-dp8);
+    clear: both;
 }
 
 .clear {
