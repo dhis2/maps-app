@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import colorbrewer from '../../constants/colorbrewer';
 import styles from './styles/ColorScale.module.css';
 
 // Returns one color scale based on a code and number of classes
-const ColorScale = ({ scale, bins, width, className, onClick }) => {
+const ColorScale = ({ scale, bins, width, onClick }) => {
     const colors = colorbrewer[scale][bins];
     const itemWidth = width ? width / bins : 36;
 
     return (
         <ul
             onClick={() => onClick(scale)}
-            className={cx(styles.colorScale, className)}
+            className={styles.colorScale}
             style={{
                 ...(width && { width }),
             }}
@@ -33,7 +32,6 @@ ColorScale.propTypes = {
     scale: PropTypes.string.isRequired,
     width: PropTypes.number,
     onClick: PropTypes.func.isRequired,
-    className: PropTypes.string,
 };
 
 export default ColorScale;

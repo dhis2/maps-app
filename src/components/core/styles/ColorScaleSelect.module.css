@@ -10,10 +10,3 @@
     overflow-y: auto;
     max-height: 100vh;
 }
-
-.scaleItem {
-    display: block;
-    margin: 5px var(--spacers-dp12) 0;
-    overflow: visible;
-    white-space: nowrap;
-}

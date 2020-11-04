@@ -45,7 +45,6 @@ const ColorScaleSelect = ({ palette, width, onChange, className }) => {
                                 key={index}
                                 scale={scale}
                                 bins={bins}
-                                style={styles.scaleItem}
                                 onClick={onColorScaleSelect}
                                 width={width || 260}
                             />
