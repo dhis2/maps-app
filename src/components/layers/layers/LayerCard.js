@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import {
     Card,
     CardHeader,
@@ -27,60 +26,7 @@ import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
 import { openDataDownloadDialog } from '../../../actions/dataDownload';
 import { setAnalyticalObjectAndSwitchApp } from '../../../util/analyticalObject';
-
-const styles = {
-    card: {
-        position: 'relative',
-        margin: '8px 4px 0 4px',
-        paddingBottom: 0,
-        zIndex: 2000,
-    },
-    header: {
-        height: 54,
-        padding: '2px 8px 0 18px',
-        fontSize: 14,
-    },
-    title: {
-        width: 227,
-        paddingLeft: 15,
-        fontSize: 15,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        fontWeight: 500,
-        lineHeight: '17px',
-    },
-    subheader: {
-        width: 195,
-        paddingLeft: 15,
-        lineHeight: '17px',
-        fontSize: 14,
-    },
-    legend: {
-        paddingLeft: 32,
-    },
-    actions: {
-        backgroundColor: '#eee',
-        height: 32,
-    },
-    visibility: {
-        position: 'absolute',
-        right: 28,
-        top: 4,
-    },
-    expand: {
-        position: 'absolute',
-        right: -4,
-        top: 4,
-    },
-    content: {
-        fontSize: 14,
-        padding: 0, // TODO: Not working on :last-child
-    },
-    tooltip: {
-        marginTop: -8,
-    },
-};
+import styles from './styles/LayerCard.module.css';
 
 const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
 const dataTableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
@@ -96,7 +42,6 @@ const LayerCard = ({
     toggleDataTable,
     openDataDownloadDialog,
     setMessage,
-    classes,
 }) => {
     const {
         id,
@@ -115,12 +60,12 @@ const LayerCard = ({
     const canOpenAs = openAsLayerTypes.includes(layerType);
 
     return (
-        <Card className={classes.card} data-test="layercard">
+        <Card className={styles.card} data-test="layercard">
             <CardHeader
                 classes={{
-                    root: classes.header,
-                    title: classes.title,
-                    subheader: classes.subheader,
+                    root: styles.header,
+                    title: styles.title,
+                    subheader: styles.subheader,
                 }}
                 title={isLoaded ? name : i18n.t('Loading layer') + '...'}
                 subheader={
@@ -134,11 +79,11 @@ const LayerCard = ({
                             isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
                         }
                         classes={{
-                            tooltipPlacementBottom: classes.tooltip,
+                            tooltipPlacementBottom: styles.tooltip,
                         }}
                     >
                         <IconButton
-                            className={classes.expand}
+                            className={styles.expand}
                             onClick={() => toggleLayerExpand(id)}
                             style={{ backgroundColor: 'transparent' }}
                         >
@@ -149,9 +94,9 @@ const LayerCard = ({
             />
 
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                <CardContent className={classes.content} style={{ padding: 0 }}>
+                <CardContent className={styles.content} style={{ padding: 0 }}>
                     {legend && (
-                        <div className={classes.legend}>
+                        <div className={styles.legend}>
                             <Legend {...legend} />
                         </div>
                     )}
@@ -203,7 +148,6 @@ LayerCard.propTypes = {
     toggleLayerExpand: PropTypes.func.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
     toggleDataTable: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
 };
 
 export default connect(null, {
@@ -215,4 +159,4 @@ export default connect(null, {
     toggleDataTable,
     setMessage,
     openDataDownloadDialog,
-})(withStyles(styles)(LayerCard));
+})(LayerCard);

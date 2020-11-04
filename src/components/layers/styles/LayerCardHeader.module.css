@@ -1,0 +1,49 @@
+.cardHeader {
+    height: 54px;
+    padding: 2px 8px 0 18px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: var(--colors-grey900);
+}
+
+.content {
+    flex: 1 1 auto;
+}
+
+.content h2 {
+    width: 242px;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    line-height: 17px;
+    margin: 0;
+}
+
+.content h3 {
+    line-height: 17px;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    color: var(--colors-grey800);
+}
+
+.action {
+    flex: 0 0 auto;
+    align-self: flex-start;
+    margin-top: -8px;
+    margin-right: -8px;
+}
+
+.expand {
+    position: absolute;
+    top: 4px;
+    right: -4px;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    cursor: pointer;
+}
