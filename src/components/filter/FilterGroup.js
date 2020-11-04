@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Button from '@material-ui/core/Button';
+import { Button } from '@dhis2/ui';
 import FilterRow from './FilterRow';
 import { combineDataItems } from '../../util/analytics';
 import { addFilter, removeFilter, changeFilter } from '../../actions/layerEdit';
@@ -32,12 +32,8 @@ const FilterGroup = ({
                     {...item}
                 />
             ))}
-            <div className={styles.button}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => addFilter()}
-                >
+            <div className={styles.addFilter}>
+                <Button primary onClick={() => addFilter()}>
                     {i18n.t('Add filter')}
                 </Button>
             </div>

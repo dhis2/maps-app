@@ -5,7 +5,7 @@
     overflow-y: auto;
 }
 
-.button {
+.addFilter {
     margin-top: var(--spacers-dp16);
 }
 
