@@ -1,20 +1,25 @@
 .colorPicker {
-    /* margin: var(--spacers-dp12) 0; */
+    margin-bottom: var(--spacers-dp12);
+}
+
+.label {
+    font-size: 14px;
+    padding: var(--spacers-dp4) 0 var(--spacers-dp12);
 }
 
 .button {
-    padding: 0;
-    text-align: right;
-    border-radius: 0 !important;
+    position: relative;
+    border: 1px solid rgb(160, 173, 186);
+    border-radius: 3px;
+    box-shadow: rgba(48, 54, 60, 0.1) 0px 1px 2px 0px inset;
+    cursor: pointer;
 }
 
 .icon {
     position: absolute;
+    height: 24px;
     right: var(--spacers-dp4);
-}
-
-.label {
-    color: #000000;
-    font-size: 14px;
-    padding: var(--spacers-dp4) 0 var(--spacers-dp8);
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
