@@ -13,12 +13,12 @@ const ColorPicker = ({ color, label, width, height, onChange, className }) => {
 
     return (
         <Fragment>
-            <div className={styles.colorPicker}>
+            <div className={cx(styles.colorPicker, className)}>
                 {label && <div className={styles.label}>{label}</div>}
                 <div
                     ref={anchorRef}
                     onClick={() => setIsOpen(true)}
-                    className={cx(styles.button, className)}
+                    className={styles.button}
                     style={{
                         background: color,
                         width: width || '100%',

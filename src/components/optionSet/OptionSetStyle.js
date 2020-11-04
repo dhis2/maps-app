@@ -6,10 +6,7 @@ import OptionStyle from './OptionStyle';
 import { loadOptionSet } from '../../actions/optionSets';
 import { setOptionStyle } from '../../actions/layerEdit';
 import { qualitativeColors } from '../../constants/colors';
-
-const style = {
-    marginTop: 8,
-};
+import styles from './styles/OptionSetStyle.module.css';
 
 class OptionSetStyle extends Component {
     static propTypes = {
@@ -71,7 +68,7 @@ class OptionSetStyle extends Component {
         const { options } = this.props;
 
         return (
-            <div style={style}>
+            <div className={styles.optionSetStyle}>
                 {options ? (
                     options.map(({ id, name, style }) => (
                         <OptionStyle
