@@ -174,7 +174,9 @@ const ContextMenu = (props, context) => {
                         {earthEngineLayers.map(layer => (
                             <MenuItem
                                 key={layer.id}
-                                label={i18n.t(layer.name)}
+                                label={i18n.t('Show {{name}}', {
+                                    name: layer.name.toLowerCase(),
+                                })}
                                 icon={<PositionIcon />}
                                 onClick={() =>
                                     onClick('show_ee_value', layer.id)
