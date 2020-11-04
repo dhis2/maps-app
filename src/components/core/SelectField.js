@@ -16,6 +16,7 @@ import styles from './styles/InputField.module.css';
  */
 export const SelectField = props => {
     const {
+        dense,
         errorText,
         items,
         label,
@@ -56,6 +57,7 @@ export const SelectField = props => {
     return (
         <div className={cx(styles.inputField, className)}>
             <Select
+                dense={dense}
                 label={label}
                 selected={!isLoading ? selected : undefined}
                 loading={isLoading}
@@ -83,6 +85,11 @@ SelectField.propTypes = {
      * data-test attribute used for testing
      */
     dataTest: PropTypes.string,
+
+    /**
+     * Render a dense select field
+     */
+    dense: PropTypes.bool,
 
     /**
      * If set, shows the error message below the SelectField

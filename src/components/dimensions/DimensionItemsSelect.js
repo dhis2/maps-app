@@ -28,6 +28,7 @@ const DimensionItemsSelect = ({
 
     return (
         <SelectField
+            dense
             label={i18n.t('Items')}
             items={items}
             value={value}

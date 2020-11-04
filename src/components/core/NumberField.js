@@ -5,7 +5,15 @@ import cx from 'classnames';
 import styles from './styles/InputField.module.css';
 
 // Adds support for min/max values for @dhis2/ui InputField
-const NumberField = ({ label, value, min, max, onChange, className }) => {
+const NumberField = ({
+    label,
+    value,
+    min,
+    max,
+    dense,
+    onChange,
+    className,
+}) => {
     const onNumberChange = useCallback(
         ({ value }) => {
             if (
@@ -21,6 +29,7 @@ const NumberField = ({ label, value, min, max, onChange, className }) => {
     return (
         <div className={cx(styles.inputField, className)}>
             <InputField
+                dense={dense}
                 type="number"
                 label={label}
                 value={String(value)}
@@ -35,6 +44,7 @@ NumberField.propTypes = {
     value: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
+    dense: PropTypes.func,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
 };

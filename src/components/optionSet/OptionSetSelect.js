@@ -11,6 +11,7 @@ const OptionSetSelect = ({ options, value, onChange, className }) => {
 
     return (
         <SelectField
+            dense
             label={i18n.t('Options')}
             items={options.map(option => ({
                 id: option.code,

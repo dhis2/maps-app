@@ -88,6 +88,7 @@ export class DataItemSelect extends Component {
 
         return (
             <SelectField
+                dense
                 label={label || i18n.t('Data item')}
                 items={dataItems}
                 value={value}

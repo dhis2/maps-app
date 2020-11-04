@@ -28,12 +28,11 @@ const FilterGroup = ({
                     programStage={programStage}
                     onChange={changeFilter}
                     onRemove={removeFilter}
-                    // onRemove={console.log}
                     {...item}
                 />
             ))}
             <div className={styles.addFilter}>
-                <Button primary onClick={() => addFilter()}>
+                <Button basic onClick={() => addFilter()}>
                     {i18n.t('Add filter')}
                 </Button>
             </div>

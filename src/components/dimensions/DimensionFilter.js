@@ -28,7 +28,7 @@ const DimensionFilter = ({
             />
         ))}
         <div className={styles.addFilter}>
-            <Button primary onClick={() => addDimensionFilter()}>
+            <Button basic onClick={() => addDimensionFilter()}>
                 {i18n.t('Add filter')}
             </Button>
         </div>
