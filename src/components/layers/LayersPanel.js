@@ -5,11 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { Drawer } from '@material-ui/core';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import BasemapCard from '../layers/basemaps/BasemapCard';
-import LayerCard from './layers/LayerCard';
+import OverlayCard from './overlays/OverlayCard';
 import { sortLayers } from '../../actions/layers';
 import { HEADER_HEIGHT, LAYERS_PANEL_WIDTH } from '../../constants/layout';
 
-const SortableLayer = SortableElement(LayerCard);
+const SortableLayer = SortableElement(OverlayCard);
 
 // Draggable layers - last layer on top
 const SortableLayersList = SortableContainer(({ layers }) => (

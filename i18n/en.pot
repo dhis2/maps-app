@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-02T16:50:47.063Z\n"
-"PO-Revision-Date: 2020-11-02T16:50:47.063Z\n"
+"POT-Creation-Date: 2020-11-05T11:44:37.990Z\n"
+"PO-Revision-Date: 2020-11-05T11:44:37.990Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -485,16 +485,16 @@ msgstr ""
 msgid "Interpretations"
 msgstr ""
 
-msgid "External basemap"
-msgstr ""
-
-msgid "Basemap"
-msgstr ""
-
 msgid "Collapse"
 msgstr ""
 
 msgid "Expand"
+msgstr ""
+
+msgid "External basemap"
+msgstr ""
+
+msgid "Basemap"
 msgstr ""
 
 msgid "Download Layer Data"

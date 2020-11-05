@@ -2,18 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { CardContent, Collapse } from '@material-ui/core';
-import { Card } from '@dhis2/ui';
-import LayerCardHeader from '../LayerCardHeader';
+import LayerCard from '../LayerCard';
 import BasemapList from './BasemapList';
-import LayerToolbar from '../toolbar/LayerToolbar';
 import {
     changeBasemapOpacity,
     toggleBasemapExpand,
     toggleBasemapVisibility,
     selectBasemap,
 } from '../../../actions/basemap';
-import styles from './styles/BasemapCard.module.css';
 
 // Basemap card shown in left layers panel
 const BasemapCard = props => {
@@ -29,35 +25,22 @@ const BasemapCard = props => {
     } = props;
 
     return (
-        <div className={styles.card}>
-            <Card dataTest="basemapcard">
-                <LayerCardHeader
-                    title={i18n.t(name)}
-                    subtitle={subtitle}
-                    isExpanded={isExpanded}
-                    toggleExpand={toggleBasemapExpand}
-                />
-
-                <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                    <CardContent
-                        className={styles.content}
-                        style={{ padding: 0 }}
-                    >
-                        <BasemapList
-                            selectedID={props.basemap.id}
-                            basemaps={props.basemaps}
-                            selectBasemap={props.selectBasemap}
-                        />
-                        <LayerToolbar
-                            opacity={opacity}
-                            isVisible={isVisible}
-                            onOpacityChange={changeBasemapOpacity}
-                            toggleLayerVisibility={toggleBasemapVisibility}
-                        />
-                    </CardContent>
-                </Collapse>
-            </Card>
-        </div>
+        <LayerCard
+            title={i18n.t(name)}
+            subtitle={subtitle}
+            opacity={opacity}
+            isExpanded={isExpanded}
+            isVisible={isVisible}
+            onOpacityChange={changeBasemapOpacity}
+            toggleExpand={toggleBasemapExpand}
+            toggleLayerVisibility={toggleBasemapVisibility}
+        >
+            <BasemapList
+                selectedID={props.basemap.id}
+                basemaps={props.basemaps}
+                selectBasemap={props.selectBasemap}
+            />
+        </LayerCard>
     );
 };
 
