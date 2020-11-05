@@ -579,7 +579,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 msgid "Map could not be created"
 msgstr ""
