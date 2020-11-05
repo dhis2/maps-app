@@ -1,6 +1,6 @@
 .card {
     position: relative;
-    margin: 8px 4px 0 4px;
+    margin: var(--spacers-dp8) var(--spacers-dp4) 0 var(--spacers-dp4);
     padding-bottom: 0;
 }
 
@@ -39,7 +39,7 @@
 
 .sortable h2,
 .sortable h3 {
-    padding-left: 15px;
+    padding-left: var(--spacers-dp16);
 }
 
 .action {

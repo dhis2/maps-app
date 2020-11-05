@@ -10,7 +10,6 @@ import SortableHandle from './SortableHandle';
 import LayerToolbar from './toolbar/LayerToolbar';
 import styles from './styles/LayerCard.module.css';
 
-// Wrapper around @dhis2/ui checkbox for unified handling and styling
 const LayerCard = ({
     title,
     subtitle,
