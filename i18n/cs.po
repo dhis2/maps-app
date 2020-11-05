@@ -861,7 +861,7 @@ msgid "Active"
 msgstr ""
 
 msgid "Completed"
-msgstr ""
+msgstr "Dokončeno"
 
 msgid "Schedule"
 msgstr ""
@@ -1240,7 +1240,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 msgid "Map could not be created"
 msgstr ""
