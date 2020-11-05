@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { Card, Tooltip } from '@dhis2/ui';
 import cx from 'classnames';
-import { Collapse } from '@material-ui/core';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import CollapseIcon from '@material-ui/icons/ExpandLess';
 import SortableHandle from './SortableHandle';
@@ -14,7 +13,7 @@ const LayerCard = ({
     title,
     subtitle,
     opacity,
-    isSortable,
+    isOverlay,
     isExpanded,
     isVisible,
     onOpacityChange,
@@ -27,19 +26,23 @@ const LayerCard = ({
     toggleLayerVisibility,
     children,
 }) => (
-    <div className={styles.card}>
-        <Card dataTest="basemapcard">
+    <div
+        className={cx(styles.card, {
+            [styles.expanded]: isExpanded,
+        })}
+    >
+        <Card dataTest={isOverlay ? 'layercard' : 'basemapcard'}>
             <div className={styles.cardHeader}>
                 <div
                     className={cx(styles.title, {
-                        [styles.sortable]: isSortable,
+                        [styles.overlay]: isOverlay,
                     })}
                 >
                     <h2>{title}</h2>
                     {subtitle && <h3>{subtitle}</h3>}
                 </div>
                 <div className={styles.action}>
-                    {isSortable && <SortableHandle />}
+                    {isOverlay && <SortableHandle />}
                     <Tooltip
                         content={
                             isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
@@ -51,7 +54,7 @@ const LayerCard = ({
                     </Tooltip>
                 </div>
             </div>
-            <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+            <div className={styles.collapsibleContent}>
                 <div className={styles.content}>{children}</div>
                 <LayerToolbar
                     opacity={opacity}
@@ -64,7 +67,7 @@ const LayerCard = ({
                     toggleDataTable={toggleDataTable}
                     toggleLayerVisibility={toggleLayerVisibility}
                 />
-            </Collapse>
+            </div>
         </Card>
     </div>
 );
@@ -73,7 +76,7 @@ LayerCard.propTypes = {
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     opacity: PropTypes.number,
-    isSortable: PropTypes.bool,
+    isOverlay: PropTypes.bool,
     isExpanded: PropTypes.bool.isRequired,
     isVisible: PropTypes.bool,
     onOpacityChange: PropTypes.func.isRequired,

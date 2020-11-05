@@ -37,8 +37,8 @@
     color: var(--colors-grey800);
 }
 
-.sortable h2,
-.sortable h3 {
+.overlay h2,
+.overlay h3 {
     padding-left: var(--spacers-dp16);
 }
 
@@ -61,4 +61,14 @@
 
 .content {
     font-size: 14px;
+}
+
+.collapsibleContent {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.expanded .collapsibleContent {
+    max-height: 100vh;
 }

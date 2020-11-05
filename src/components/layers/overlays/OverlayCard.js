@@ -55,10 +55,10 @@ const OverlayCard = ({
                 isLoaded && legend && legend.period ? legend.period : null
             }
             opacity={opacity}
-            isSortable={true}
+            isOverlay={true}
             isExpanded={isExpanded}
             isVisible={isVisible}
-            toggleExpand={toggleLayerExpand}
+            toggleExpand={() => toggleLayerExpand(id)}
             onEdit={canEdit ? () => editLayer(layer) : undefined}
             toggleDataTable={
                 canToggleDataTable ? () => toggleDataTable(id) : undefined
