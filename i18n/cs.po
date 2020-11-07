@@ -58,7 +58,7 @@ msgid "Coordinate field"
 msgstr "Pole souřadnic"
 
 msgid "None"
-msgstr ""
+msgstr "Žádný"
 
 msgid "Data item"
 msgstr "Datová položka"
@@ -70,7 +70,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "Datová sada"
 
 msgid "Index"
 msgstr "Index"
@@ -242,7 +242,7 @@ msgid "Point size"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Typ agregace"
 
 msgid "Low size"
 msgstr ""
@@ -463,10 +463,10 @@ msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
 msgid "Options"
-msgstr ""
+msgstr "Možnosti"
 
 msgid "Code"
-msgstr ""
+msgstr "Kód"
 
 msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
