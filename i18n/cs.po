@@ -858,7 +858,7 @@ msgid "All"
 msgstr "Vše"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktivní"
 
 msgid "Completed"
 msgstr "Dokončeno"
