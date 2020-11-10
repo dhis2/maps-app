@@ -69,7 +69,7 @@ export const saveNewFavorite = (action$, store) =>
                   ]
                 : [
                       setAlert({
-                          warning: true,
+                          critical: true,
                           message: `${i18n.t('Error')}: ${message}`,
                       }),
                   ]

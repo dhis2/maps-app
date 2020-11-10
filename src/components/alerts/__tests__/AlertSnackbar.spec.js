@@ -24,11 +24,11 @@ describe('AlertSnackbar', () => {
         };
     });
 
-    it('should not render UI AlertStack if no alert is passed', () => {
+    it('should not render UI AlertBar if no alert is passed', () => {
         expect(renderWithProps(props).find(AlertBar).length).toBe(0);
     });
 
-    it('renders UI AlertStack if alerts are passed', () => {
+    it('renders UI AlertBar if alerts are passed', () => {
         expect(
             renderWithProps({ ...props, alerts }).find(AlertBar).length
         ).toBe(1);

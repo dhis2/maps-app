@@ -19,7 +19,7 @@ export const FileMenu = (
     },
     { d2 }
 ) => {
-    const setError = error => setAlert({ warning: true, message: error });
+    const setError = error => setAlert({ critical: true, message: error });
 
     return (
         <D2FileMenu
