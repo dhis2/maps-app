@@ -27,7 +27,11 @@ const ColorPicker = ({ color, label, width, height, onChange, className }) => {
                 >
                     <span
                         className={styles.icon}
-                        style={{ color: hcl(color).l < 70 ? '#fff' : '#333' }}
+                        style={{
+                            color: `var(--colors-${
+                                hcl(color).l < 70 ? 'white' : 'grey900'
+                            })`,
+                        }}
                     >
                         <ArrowDropDownIcon />
                     </span>
