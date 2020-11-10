@@ -26,7 +26,7 @@ const BasemapCard = props => {
 
     return (
         <LayerCard
-            title={i18n.t(name)}
+            title={name}
             subtitle={subtitle}
             opacity={opacity}
             isExpanded={isExpanded}
