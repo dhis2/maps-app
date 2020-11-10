@@ -15,11 +15,13 @@ import { setMessage } from '../../../actions/message';
 import { toggleDataTable } from '../../../actions/dataTable';
 import { openDataDownloadDialog } from '../../../actions/dataDownload';
 import { setAnalyticalObjectAndSwitchApp } from '../../../util/analyticalObject';
-import styles from './styles/OverlayCard.module.css';
+import {
+    DOWNLOADABLE_LAYER_TYPES,
+    DATA_TABLE_LAYER_TYPES,
+    OPEN_AS_LAYER_TYPES,
+} from '../../../constants/layers';
 
-const downloadableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
-const dataTableLayerTypes = ['facility', 'thematic', 'boundary', 'event'];
-const openAsLayerTypes = ['thematic'];
+import styles from './styles/OverlayCard.module.css';
 
 const OverlayCard = ({
     layer,
@@ -44,9 +46,9 @@ const OverlayCard = ({
     } = layer;
 
     const canEdit = layerType !== 'external';
-    const canToggleDataTable = dataTableLayerTypes.includes(layerType);
-    const canDownload = downloadableLayerTypes.includes(layerType);
-    const canOpenAs = openAsLayerTypes.includes(layerType);
+    const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType);
+    const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType);
+    const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType);
 
     return (
         <LayerCard
