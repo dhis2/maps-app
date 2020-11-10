@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-10T12:47:41.157Z\n"
-"PO-Revision-Date: 2020-11-10T12:47:41.157Z\n"
+"POT-Creation-Date: 2020-11-10T13:11:03.097Z\n"
+"PO-Revision-Date: 2020-11-10T13:11:03.097Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1165,6 +1165,9 @@ msgid "Barren or sparsely vegetated"
 msgstr ""
 
 msgid "Unclassified"
+msgstr ""
+
+msgid "Access denied - user is not allowed to read layer data"
 msgstr ""
 
 msgid "An unknown error occurred while reading layer data"
