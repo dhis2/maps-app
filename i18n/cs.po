@@ -16,31 +16,31 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "Mapy"
 
 msgid "Classification"
 msgstr "Klasifikace"
 
 msgid "Classes"
-msgstr ""
+msgstr "Třídy"
 
 msgid "Legend set"
-msgstr ""
+msgstr "Sada legend"
 
 msgid "Automatic"
-msgstr ""
+msgstr "Automatický"
 
 msgid "Predefined"
-msgstr ""
+msgstr "Předdefinováno"
 
 msgid "Size"
-msgstr ""
+msgstr "Velikost"
 
 msgid "Data element group"
-msgstr ""
+msgstr "Skupina datových prvků"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Operand datového prvku"
 
 msgid "Data element"
 msgstr "Datový prvek"
@@ -55,7 +55,7 @@ msgid "Yes"
 msgstr "Ano"
 
 msgid "Event location"
-msgstr ""
+msgstr "Místo konání akce"
 
 msgid "Coordinate field"
 msgstr "Pole souřadnic"
@@ -67,10 +67,10 @@ msgid "Data item"
 msgstr "Datová položka"
 
 msgid "Event data item"
-msgstr ""
+msgstr "Datová položka události"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Styl podle datového prvku"
 
 msgid "Data set"
 msgstr "Datová sada"
@@ -94,25 +94,25 @@ msgid "Level"
 msgstr "Úroveň"
 
 msgid "Parent"
-msgstr ""
+msgstr "Nadřazený"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Type"
 msgstr "Typ"
 
 msgid "Color"
-msgstr ""
+msgstr "Barva"
 
 msgid "Add filter"
 msgstr "Přidat filtr"
 
 msgid "Items"
-msgstr ""
+msgstr "Položky"
 
 msgid "Dimension"
-msgstr ""
+msgstr "Dimenze"
 
 msgid "Download"
 msgstr "Stáhnout"
@@ -148,13 +148,13 @@ msgid "Organisation units"
 msgstr "Organizační jednotky"
 
 msgid "Style"
-msgstr ""
+msgstr "Styl"
 
 msgid "Labels"
 msgstr "Štítky"
 
 msgid "Point radius"
-msgstr ""
+msgstr "Poloměr bodu"
 
 msgid "No organisation units are selected"
 msgstr "Nejsou vybrány žádné organizační jednotky"
@@ -164,57 +164,69 @@ msgid ""
 "population division estimates. Try a different year if you don't see data "
 "for your country."
 msgstr ""
+"Odhady hustoty obyvatelstva s národními součty upravenými tak, aby "
+"odpovídaly odhadům populačního rozdělení OSN. Pokud nevidíte údaje pro svou "
+"zemi, zkuste jiný rok."
 
 msgid "Select year"
 msgstr "Vybrat rok"
 
 msgid "Min people"
-msgstr ""
+msgstr "Min. lidí"
 
 msgid "Max people"
-msgstr ""
+msgstr "Max lidí"
 
 msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
 "better representes the terrain in your region."
 msgstr ""
+"Nadmořská výška. Můžete upravit minimální a maximální hodnoty, aby lépe "
+"reprezentovaly terén ve vaší oblasti."
 
 msgid "Min meters"
-msgstr ""
+msgstr "Min. metry"
 
 msgid "Max meters"
-msgstr ""
+msgstr "Max. metrů"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Srážky shromážděné ze satelitů a pozemních meteorologických stanic. Hodnoty "
+"jsou v milimetrech během 5 dnů. Aktualizováno měsíčně, během 3. týdne "
+"následujícího měsíce."
 
 msgid "Min mm"
-msgstr ""
+msgstr "Min mm"
 
 msgid "Max mm"
-msgstr ""
+msgstr "Max mm"
 
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
 "spots will appear in areas with a persistent cloud cover."
 msgstr ""
+"Teploty povrchu země shromážděné ze satelitu za období 8 dnů. V oblastech s "
+"přetrvávající oblačností se objeví prázdná místa."
 
 msgid "Min °C"
-msgstr ""
+msgstr "Min °C"
 
 msgid "Max °C"
-msgstr ""
+msgstr "Max °C"
 
 msgid "17 distinct landcover types collected from satellites."
-msgstr ""
+msgstr "17 různých typů krajinného pokryvu shromážděných ze satelitů."
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
+"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně "
+"plynových erupcí."
 
 msgid "Min"
 msgstr "Min"
@@ -223,7 +235,7 @@ msgid "Max"
 msgstr "Max"
 
 msgid "Steps"
-msgstr ""
+msgstr "Kroky"
 
 msgid "Legend preview"
 msgstr "Náhled legendy"
@@ -238,25 +250,25 @@ msgid "data"
 msgstr "data"
 
 msgid "period"
-msgstr ""
+msgstr "období"
 
 msgid "Org units"
-msgstr ""
+msgstr "Organizační jednotky"
 
 msgid "Filter"
 msgstr "Filtr"
 
 msgid "Start date"
-msgstr ""
+msgstr "Datum začátku"
 
 msgid "End date"
-msgstr ""
+msgstr "Datum ukončení"
 
 msgid "Events"
 msgstr "Události"
 
 msgid "Group events"
-msgstr ""
+msgstr "Skupinové akce"
 
 msgid "View all events"
 msgstr "Zobrazit všechny události"
@@ -274,7 +286,7 @@ msgid "You can style events by data element after selecting a program."
 msgstr "Události můžete stylovat podle datového prvku po výběru programu."
 
 msgid "Program is required"
-msgstr ""
+msgstr "Program je vyžadován"
 
 msgid "Program stage is required"
 msgstr "Vyžaduje se programová fáze"
@@ -283,56 +295,56 @@ msgid "No organisation units are selected."
 msgstr "Nejsou vybrány žádné organizační jednotky."
 
 msgid "Group set"
-msgstr ""
+msgstr "Skupinová sada"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgstr "Nezapomeňte vybrat úroveň organizační jednotky obsahující zařízení."
 
 msgid "Group set is required"
-msgstr ""
+msgstr "Skupinová sada je povinná"
 
 msgid "event"
-msgstr ""
+msgstr "událost"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "trasovaná entita"
 
 msgid "facility"
-msgstr ""
+msgstr "zařízení"
 
 msgid "thematic"
-msgstr ""
+msgstr "tematický"
 
 msgid "boundary"
-msgstr ""
+msgstr "hranice"
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "Upravit vrstvu {{name}}"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Přidat novou vrstvu {{name}}"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Aktualizovat vrstvu"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Přidat vrstvu"
 
 msgid "Select program period"
-msgstr ""
+msgstr "Vybrat období programu"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "Vyberte období, kdy byly sledované entity naposledy aktualizovány"
 
 msgid "relationships"
-msgstr ""
+msgstr "vztahy"
 
 msgid "Program status"
-msgstr ""
+msgstr "Stav programu"
 
 msgid "Follow up"
 msgstr "Následovat"
@@ -346,34 +358,34 @@ msgstr "VAROVÁNÍ"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
+msgstr "Zobrazení vztahů sledovaných entit v Mapách je experimentální funkce"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "Zobrazit vztahy sledované entity"
 
 msgid "Selection mode"
-msgstr ""
+msgstr "Režim výběru"
 
 msgid "Selected only"
-msgstr ""
+msgstr "Pouze vybrané"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "Vybrané a níže"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "Vybráno a vše níže"
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Trasované entity"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "Styl sledované entity"
 
 msgid "Point size"
-msgstr ""
+msgstr "Velikost bodu"
 
 msgid "Related entity style"
-msgstr ""
+msgstr "Styl související entity"
 
 msgid "Line Color"
 msgstr "Barva čáry"
@@ -382,43 +394,43 @@ msgid "Aggregation type"
 msgstr "Typ agregace"
 
 msgid "Low size"
-msgstr ""
+msgstr "Malá velikost"
 
 msgid "High size"
-msgstr ""
+msgstr "Velká velikost"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Je vyžadována skupina indikátorů"
 
 msgid "Indicator is required"
 msgstr "Indikátor je vyžadován"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "Skupina datových prvků je povinná"
 
 msgid "Data element is required"
 msgstr "Datový prvek je povinný"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Soubor dat je povinný"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Položka dat události je povinná"
 
 msgid "Program indicator is required"
 msgstr "Je vyžadován indikátor programu"
 
 msgid "Period type is required"
-msgstr ""
+msgstr "Je vyžadován typ období"
 
 msgid "Period is required"
 msgstr "Období je vyžadováno"
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Nevybrána žádná sada legend"
 
 msgid "Indicator"
-msgstr ""
+msgstr "Indikátor"
 
 msgid "Reporting rates"
 msgstr "Míry vykazování"
@@ -430,37 +442,37 @@ msgid "Program indicators"
 msgstr "Ukazatele programu"
 
 msgid "Item type"
-msgstr ""
+msgstr "Typ položky"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "Načtení typů vztahů se nezdařilo."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr ""
+msgstr "Pro sledovaný typ entity {{type}} nebyly nalezeny žádné typy vztahů"
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Typ vztahu"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "V aplikaci Mapy DHIS2 došlo k chybě."
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Něco se pokazilo"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Obnovte akci a zkuste to znovu"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Skrýt technické podrobnosti"
 
 msgid "Show technical details"
 msgstr "Zobrazit technické podrobnosti"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "Následující informace mohou být požadovány technickou podporou."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "Filtrování je k dispozici po výběru fáze programu."
 
 msgid "Operator"
 msgstr "Operátor"
@@ -469,7 +481,7 @@ msgid "Date"
 msgstr "datum"
 
 msgid "one of"
-msgstr ""
+msgstr "jeden z"
 
 msgid "contains"
 msgstr "obsahuje"
@@ -481,7 +493,7 @@ msgid "is not"
 msgstr "není"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Odebrat filtr"
 
 msgid "Indicator group"
 msgstr "Skupina indikátorů"
@@ -490,27 +502,28 @@ msgid "Interpretations"
 msgstr "Interpretace"
 
 msgid "External basemap"
-msgstr ""
+msgstr "Externí základní mapa"
 
 msgid "Basemap"
-msgstr ""
+msgstr "Základní mapa"
 
 msgid "Collapse"
 msgstr "Sbalit"
 
 msgid "Expand"
-msgstr ""
+msgstr "Rozbalit"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Stáhnout si data vrstvy"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "Stahování dat GeoJSON pro vrstvu \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON je podporován většinou softwaru GIS, včetně QGIS a ArcGIS Desktop."
 
 msgid "Data download failed."
 msgstr "Stažení dat se nezdařilo."
@@ -519,25 +532,25 @@ msgid "ID Format"
 msgstr "ID Format"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Používejte klávesy čitelné člověkem"
 
 msgid "External layer"
-msgstr ""
+msgstr "Vnější vrstva"
 
 msgid "Loading layer"
 msgstr "Načítání vrstvy"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}} smazáno."
 
 msgid "Filters"
-msgstr ""
+msgstr "Filtry"
 
 msgid "Source"
-msgstr ""
+msgstr "Zdroj"
 
 msgid "Edit"
-msgstr ""
+msgstr "Upravit"
 
 msgid "Toggle visibility"
 msgstr "Přepnout viditelnost"
@@ -555,37 +568,37 @@ msgid "Open as chart"
 msgstr "Otevřít jako graf"
 
 msgid "Download data"
-msgstr ""
+msgstr "Stáhnout data"
 
 msgid "Edit layer"
 msgstr "Upravit vrstvu"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Odstraňte vrstvu"
 
 msgid "Parent unit"
 msgstr "Nadřazená jednotka"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "Jděte o jednu úroveň výš"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "Přejít o jednu úroveň níže"
 
 msgid "Show information"
-msgstr ""
+msgstr "Zobrazit informace"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "Zobrazit zeměpisnou délku / šířku"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "Prohodit zeměpisnou délku / šířku"
 
 msgid "Relocate"
-msgstr ""
+msgstr "Přemístit"
 
 msgid "Not set"
-msgstr ""
+msgstr "Nenastaveno"
 
 msgid "Organisation unit"
 msgstr "Organizační jednotka"
@@ -594,22 +607,25 @@ msgid "Event time"
 msgstr "Čas události"
 
 msgid "Groups"
-msgstr ""
+msgstr "Skupiny"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Prohlížení interpretací od {{interpretDate}}"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
 msgid "Open as map"
-msgstr ""
+msgstr "Otevřít jako mapu"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"Tento graf / tabulka obsahuje datové položky ({{numItems}}). Ze seznamu níže"
+" vyberte, které položky chcete importovat. Každá datová položka bude "
+"vytvořena jako vrstva mapy."
 
 msgid "Data items"
 msgstr "Datové položky"
@@ -627,15 +643,17 @@ msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
 
 msgid "Select groups"
-msgstr ""
+msgstr "Vybrat skupiny"
 
 msgid "Select levels"
-msgstr ""
+msgstr "Vybrat úrovně"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
+"Není možné kombinovat uživatelské organizační jednotky a vybírat jednotlivé "
+"jednotky."
 
 msgid "Click the map where you want to relocate facility"
 msgstr "Klikněte na mapu, kam chcete přemístit zařízení"
@@ -647,34 +665,34 @@ msgid "right below user organisation unit"
 msgstr "přímo pod organizační jednotkou uživatele"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "dvě úrovně pod organizační jednotkou uživatele"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} v {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} a přímo pod {{orgunits}}"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} včetně a všechny pod {{orgunits}}"
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Vybrané organizační jednotky"
 
 msgid "Main"
-msgstr ""
+msgstr "Hlavní"
 
 msgid "Below"
-msgstr ""
+msgstr "Níže"
 
 msgid "2 x below"
-msgstr ""
+msgstr "2 x níže"
 
 msgid "User organisation units"
-msgstr ""
+msgstr "Organizační jednotky uživatelů"
 
 msgid "Previous year"
-msgstr ""
+msgstr "Minulý rok"
 
 msgid "Next year"
 msgstr "Příští rok"
@@ -683,13 +701,13 @@ msgid "Period type"
 msgstr "Typ období"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Datum zahájení / ukončení"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Indikátor programu"
 
 msgid "No program"
-msgstr ""
+msgstr "Žádný program"
 
 msgid "Program"
 msgstr "Program"
@@ -698,10 +716,10 @@ msgid "Stage"
 msgstr "Fáze"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Typ trasované entity"
 
 msgid "By data element"
-msgstr ""
+msgstr "Podle datového prvku"
 
 msgid "Count"
 msgstr "Počet"
@@ -719,22 +737,22 @@ msgid "Variance"
 msgstr "Rozptyl"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Light"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Detailed"
 
 msgid "Google Streets"
-msgstr ""
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "Stejné intervaly"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Stejné počty"
 
 msgid "Relative"
 msgstr "Relativní"
@@ -749,7 +767,7 @@ msgid "Monthly"
 msgstr "Měsíčně"
 
 msgid "Bi-monthly)"
-msgstr ""
+msgstr "Dvakrát za měsíc)"
 
 msgid "Quarterly"
 msgstr "Čtvrtletně"
@@ -854,7 +872,7 @@ msgid "Last six-month"
 msgstr "Poslední půlrok"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "Poslední 2 šestiměsíce"
 
 msgid "This year"
 msgstr "Tento rok"
@@ -878,137 +896,143 @@ msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
+"Chcete-li tuto vrstvu zobrazit, musíte se nejprve zaregistrovat do služby "
+"Earth Engine u Google. Zkontrolujte dokumentaci DHIS 2."
 
 msgid "Error"
 msgstr "Chyba"
 
 msgid "A connection to Google Earth Engine could not be established."
-msgstr ""
+msgstr "Nelze navázat spojení s Google Earth Engine."
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "Mapa \"{{name}}\" je uložena."
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Hranice"
 
 msgid "Alert"
-msgstr ""
+msgstr "Výstraha"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "Nenalezeny žádné hranice"
 
 msgid "Elevation"
-msgstr ""
+msgstr "Nadmořská výška"
 
 msgid "metres"
-msgstr ""
+msgstr "metrů"
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Nadmořská výška."
 
 msgid "Population density"
-msgstr ""
+msgstr "Hustota obyvatel"
 
 msgid "people per km²"
-msgstr ""
+msgstr "lidí na km²"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
 "population division estimates."
 msgstr ""
+"Odhady hustoty obyvatelstva s národními součty upravenými tak, aby "
+"odpovídaly odhadům populačního rozdělení OSN."
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Noční světla"
 
 msgid "light intensity"
-msgstr ""
+msgstr "intenzita světla"
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Srážky"
 
 msgid "millimeter"
-msgstr ""
+msgstr "milimetr"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground."
-msgstr ""
+msgstr "Srážky shromážděné ze satelitů a meteorologických stanic na zemi."
 
 msgid "Temperature"
-msgstr ""
+msgstr "Teplota"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "°C přes den"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"Teploty povrchu země získané ze satelitu. V oblastech s přetrvávající "
+"oblačností se objeví prázdná místa."
 
 msgid "Landcover"
-msgstr ""
+msgstr "krajinné pokrytí"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
 
 msgid "Water"
-msgstr ""
+msgstr "Voda"
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Jehličnatý les"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Stálezelený listnatý les"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Listnatý jehličnatý les"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Listnatý opadavý les"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "Smíšený les"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "Uzavřené křoviny"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "Otevřené křoviny"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "Porostlé savany"
 
 msgid "Savannas"
-msgstr ""
+msgstr "Savany"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Louky a pastviny"
 
 msgid "Permanent wetlands"
-msgstr ""
+msgstr "Trvalé mokřady"
 
 msgid "Croplands"
-msgstr ""
+msgstr "Orná půda"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Městské a zastavěné"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "orná půda / mozaika přírodní vegetace"
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "Sníh a led"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "Neplodná nebo řídce vegetovaná"
 
 msgid "Unclassified"
-msgstr ""
+msgstr "Nezařazeno"
 
 msgid "Access denied"
 msgstr "Přístup odepřen"
 
 msgid "user is not allowed to read layer data"
-msgstr ""
+msgstr "uživatel nemá povoleno číst data vrstvy"
 
 msgid "Failed"
 msgstr "Selhalo"
@@ -1020,55 +1044,55 @@ msgid "Event"
 msgstr "Událost"
 
 msgid "No data found"
-msgstr ""
+msgstr "Nenalezena žádná data"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Zařízení"
 
 msgid "Thematic layer"
-msgstr ""
+msgstr "Tematická vrstva"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "Vybrané organizační jednotky"
 
 msgid "No coordinates found"
 msgstr "Nenalezeny žádné souřadnice"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Trasovaná entita"
 
 msgid "No tracked entities found"
 msgstr "Nenalezeny žádné sledované entity"
 
 msgid "related"
-msgstr ""
+msgstr "příbuzný"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Tematický"
 
 msgid "not one of"
-msgstr ""
+msgstr "není jeden z"
 
 msgid "doesn't contains"
 msgstr "neobsahuje"
 
 msgid "true"
-msgstr ""
+msgstr "skutečný"
 
 msgid "false"
-msgstr ""
+msgstr "false"
 
 msgid "No"
 msgstr "Ne"
 
 msgid "Map could not be created"
-msgstr ""
+msgstr "Mapu nelze vytvořit"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "Datum zahájení je neplatné"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "Datum ukončení je neplatné"
 
 msgid "End date cannot be earlier than start date"
 msgstr "Datum ukončení nemůže být dřívější než datum zahájení"
