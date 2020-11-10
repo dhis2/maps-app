@@ -1,0 +1,9 @@
+.slider {
+    width: 100px;
+    height: var(--spacers-dp32);
+    padding-top: 2px;
+}
+
+.slider > span {
+    color: var(--colors-grey800);
+}
