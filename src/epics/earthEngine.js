@@ -150,7 +150,7 @@ export const loadCollection = action$ =>
                 return setAlert({
                     warning: true,
                     message: i18n.t(
-                        'To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.'
+                        'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
                     ),
                 });
             }
@@ -164,9 +164,7 @@ export const loadCollection = action$ =>
             } catch (e) {
                 return setAlert({
                     critical: true,
-                    message: i18n.t(
-                        'A connection to Google Earth Engine could not be established.'
-                    ),
+                    message: i18n.t('Cannot connect to Google Earth Engine.'),
                 });
             }
             return new Promise(collections[action.id]).then(data =>

@@ -24,7 +24,7 @@ const useServerCluster = count => count > 2000; // TODO: Use constant
 
 const accessDeniedAlert = {
     warning: true,
-    message: i18n.t('Access denied - user is not allowed to read layer data'),
+    message: i18n.t("You don't have access to this layer data"),
 };
 const unknownErrorAlert = {
     critical: true,
