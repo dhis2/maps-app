@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -14,159 +14,131 @@ import {
     textValueTypes,
     booleanValueTypes,
 } from '../../constants/valueTypes';
+import styles from './styles/FilterSelect.module.css';
 
-const styles = {
-    operator: {
-        float: 'left',
-        marginRight: 24,
-        width: 'calc((100% - 48px) / 8 * 2)',
-    },
-    inputField: {
-        float: 'left',
-        width: 'calc((100% - 48px) / 8 * 3)',
-    },
+const getOperators = (valueType, optionSet) => {
+    let operators;
+
+    if (['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(valueType)) {
+        operators = [
+            { id: 'EQ', name: '=' },
+            { id: 'GT', name: '>' },
+            { id: 'GE', name: '>=' },
+            { id: 'LT', name: '<' },
+            { id: 'LE', name: '<=' },
+            { id: 'NE', name: '!=' },
+        ];
+    } else if (optionSet) {
+        operators = [{ id: 'IN', name: i18n.t('one of') }];
+    } else if (textValueTypes.includes(valueType)) {
+        operators = [
+            { id: 'LIKE', name: i18n.t('contains') },
+            { id: 'EQ', name: i18n.t('is') },
+            { id: 'NE', name: i18n.t('is not') },
+        ];
+    }
+
+    return operators;
 };
 
-export class FilterSelect extends Component {
-    static propTypes = {
-        valueType: PropTypes.string,
-        filter: PropTypes.string,
-        optionSet: PropTypes.object,
-        optionSets: PropTypes.object,
-        loadOptionSet: PropTypes.func.isRequired,
-        onChange: PropTypes.func.isRequired,
-    };
+const FilterSelect = ({
+    valueType,
+    filter,
+    optionSet,
+    optionSets,
+    onChange,
+    loadOptionSet,
+}) => {
+    const operators = getOperators(valueType, optionSet);
+    let operator;
+    let value;
 
-    componentDidMount() {
-        this.loadOptionSet();
+    if (filter) {
+        const splitFilter = filter.split(':');
+        operator = splitFilter[0];
+        value = splitFilter[1];
+    } else if (operators) {
+        operator = operators[0].id;
     }
 
-    componentDidUpdate() {
-        this.loadOptionSet();
-    }
-
-    render() {
-        const {
-            valueType,
-            filter,
-            optionSet,
-            optionSets,
-            onChange,
-        } = this.props;
-
-        const operators = this.getOperators(valueType, optionSet);
-        let operator;
-        let value;
-
-        if (filter) {
-            const splitFilter = filter.split(':');
-            operator = splitFilter[0];
-            value = splitFilter[1];
-        } else if (operators) {
-            operator = operators[0].id;
+    useEffect(() => {
+        if (optionSet && !optionSets[optionSet.id]) {
+            loadOptionSet(optionSet.id);
         }
+    }, [optionSet, optionSets, loadOptionSet]);
 
-        return [
-            operators ? (
+    return (
+        <Fragment>
+            {operators && (
                 <SelectField
-                    key="operator"
+                    dense
                     label={i18n.t('Operator')}
                     items={operators}
                     value={operator}
                     onChange={newOperator =>
                         onChange(`${newOperator.id}:${value ? value : ''}`)
                     }
-                    style={styles.operator}
+                    className={styles.operator}
                 />
-            ) : null,
-            optionSet && optionSets[optionSet.id] ? (
+            )}
+            {optionSet && optionSets[optionSet.id] && (
                 <OptionSetSelect
-                    key="optionset"
                     options={optionSets[optionSet.id].options}
                     value={value ? value.split(';') : null}
                     onChange={newValue =>
                         onChange(`${operator}:${newValue.join(';')}`)
                     }
-                    style={styles.inputField}
+                    className={styles.inputField}
                 />
-            ) : null,
-            numberValueTypes.includes(valueType) ? (
+            )}
+            {numberValueTypes.includes(valueType) && (
                 <NumberField
-                    key="number"
+                    dense
                     label={i18n.t('Value')}
-                    value={value !== undefined ? value : ''}
+                    value={value !== undefined ? Number(value) : value}
                     onChange={newValue => onChange(`${operator}:${newValue}`)}
-                    style={styles.inputField}
+                    className={styles.inputField}
                 />
-            ) : null,
-            textValueTypes.includes(valueType) && !optionSet ? (
+            )}
+            {textValueTypes.includes(valueType) && !optionSet && (
                 <TextField
-                    key="text"
+                    dense
                     label={i18n.t('Value')}
                     value={value || ''}
                     onChange={newValue => onChange(`${operator}:${newValue}`)}
-                    style={styles.inputField}
+                    className={styles.inputField}
                 />
-            ) : null,
-            booleanValueTypes.includes(valueType) ? (
+            )}
+            {booleanValueTypes.includes(valueType) && (
                 <Checkbox
-                    key="checkbox"
                     label={i18n.t('Yes')}
                     checked={value == 1 ? true : false}
                     onChange={isChecked =>
                         onChange(isChecked ? 'IN:1' : 'IN:0')
                     }
                 />
-            ) : null,
-            valueType === 'DATE' ? (
+            )}
+            {valueType === 'DATE' && (
                 <DatePicker
-                    key="date"
+                    dense
                     label={i18n.t('Date')}
                     value={value}
                     onChange={date => onChange(`${operator}:${date}`)}
-                    style={styles.inputField}
+                    className={styles.inputField}
                 />
-            ) : null,
-        ];
-    }
+            )}
+        </Fragment>
+    );
+};
 
-    getOperators(valueType, optionSet) {
-        let operators;
-
-        if (
-            ['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(
-                valueType
-            )
-        ) {
-            operators = [
-                { id: 'EQ', name: '=' },
-                { id: 'GT', name: '>' },
-                { id: 'GE', name: '>=' },
-                { id: 'LT', name: '<' },
-                { id: 'LE', name: '<=' },
-                { id: 'NE', name: '!=' },
-            ];
-        } else if (optionSet) {
-            operators = [{ id: 'IN', name: i18n.t('one of') }];
-        } else if (textValueTypes.includes(valueType)) {
-            operators = [
-                { id: 'LIKE', name: i18n.t('contains') },
-                { id: 'EQ', name: i18n.t('is') },
-                { id: 'NE', name: i18n.t('is not') },
-            ];
-        }
-
-        return operators;
-    }
-
-    loadOptionSet() {
-        const { optionSet, optionSets, loadOptionSet } = this.props;
-
-        if (optionSet && !optionSets[optionSet.id]) {
-            loadOptionSet(optionSet.id);
-        }
-    }
-}
+FilterSelect.propTypes = {
+    valueType: PropTypes.string,
+    filter: PropTypes.string,
+    optionSet: PropTypes.object,
+    optionSets: PropTypes.object,
+    loadOptionSet: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+};
 
 export default connect(
     state => ({

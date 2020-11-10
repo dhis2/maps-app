@@ -2,15 +2,9 @@
     display: flex;
     position: relative;
     margin-bottom: var(--spacers-dp8);
-    padding: -0 62px 0 var(--spacers-dp12);
+    padding: 4px 56px 0 12px;
     background-color: var(--colors-grey050);
-    border-radius: var(--spacers-dp4);
+    border-radius: 4px;
     border: 1px solid var(--colors-grey300);
     clear: both;
-}
-
-.dataItemSelect {
-    float: left;
-    margin-right: var(--spacers-dp12);
-    width: calc((100% - 24px) / 8 * 3);
 }

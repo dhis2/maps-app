@@ -458,12 +458,6 @@ msgstr ""
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
-msgid "Operator"
-msgstr ""
-
-msgid "Date"
-msgstr ""
-
 msgid "one of"
 msgstr ""
 
@@ -474,6 +468,12 @@ msgid "is"
 msgstr ""
 
 msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr ""
+
+msgid "Date"
 msgstr ""
 
 msgid "Remove filter"

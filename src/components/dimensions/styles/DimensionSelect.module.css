@@ -1,0 +1,46 @@
+.dropdown {
+    display: inline-block;
+    width: 35%;
+    position: relative;
+    padding: 1px var(--spacers-dp12) var(--spacers-dp8) 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdown label {
+    line-height: 24px;
+}
+
+.dropdown div {
+    position: relative;
+    margin-top: var(--spacers-dp4);
+    line-height: 16px;
+    color: rgb(33, 41, 52);
+    border: 1px solid rgb(160, 173, 186);
+    border-radius: 3px;
+    box-shadow: rgba(48, 54, 60, 0.1) 0px 1px 2px 0px inset;
+    background-color: #fff;
+}
+
+.dropdown span {
+    display: block;
+    width: calc(100% - 44px);
+    height: 32px;
+    line-height: 32px;
+    margin-left: var(--spacers-dp12);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown div svg {
+    height: 32px;
+    position: absolute;
+    right: var(--spacers-dp8);
+    top: 0;
+}
+
+.dimensions {
+    width: 400px;
+    overflow-y: hidden;
+}

@@ -6,7 +6,6 @@
 .tabContent {
     margin: var(--spacers-dp8) -16px 0;
     height: 340px;
-    width: 100%;
 }
 
 .flexColumnFlow {
@@ -54,7 +53,7 @@
 
 .error {
     margin-top: var(--spacers-dp8);
-    color: red;
+    color: var(--theme-error);
 }
 
 .indent {

@@ -1,89 +1,61 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Button from '@material-ui/core/Button';
+import { Button } from '@dhis2/ui';
 import FilterRow from './FilterRow';
 import { combineDataItems } from '../../util/analytics';
 import { addFilter, removeFilter, changeFilter } from '../../actions/layerEdit';
+import styles from './styles/FilterGroup.module.css';
 
-const styles = {
-    container: {
-        width: '100%',
-        height: 300,
-        paddingTop: 8,
-        overflowY: 'auto',
-    },
-    button: {
-        marginTop: 8,
-    },
-    note: {
-        paddingTop: 16,
-    },
-};
-
-class FilterGroup extends Component {
-    static propTypes = {
-        filters: PropTypes.array,
-        dataItems: PropTypes.array,
-        program: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
-        programStage: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
-        addFilter: PropTypes.func.isRequired,
-        removeFilter: PropTypes.func.isRequired,
-        changeFilter: PropTypes.func.isRequired,
-    };
-
-    render() {
-        const {
-            filters = [],
-            dataItems,
-            program,
-            programStage,
-            addFilter,
-            removeFilter,
-            changeFilter,
-        } = this.props;
-
-        if (!programStage) {
-            return (
-                <div style={styles.note}>
-                    {i18n.t(
-                        'Filtering is available after selecting a program stage.'
-                    )}
-                </div>
-            );
-        }
-
-        return (
-            <div style={styles.container}>
-                {filters.map((item, index) => (
-                    <FilterRow
-                        key={index}
-                        index={index}
-                        dataItems={dataItems}
-                        program={program}
-                        programStage={programStage}
-                        onChange={changeFilter}
-                        onRemove={removeFilter}
-                        {...item}
-                    />
-                ))}
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => addFilter()}
-                    style={styles.button}
-                >
+const FilterGroup = ({
+    filters = [],
+    dataItems,
+    program,
+    programStage,
+    addFilter,
+    removeFilter,
+    changeFilter,
+}) =>
+    programStage ? (
+        <div className={styles.filterGroup}>
+            {filters.map((item, index) => (
+                <FilterRow
+                    key={index}
+                    index={index}
+                    dataItems={dataItems}
+                    program={program}
+                    programStage={programStage}
+                    onChange={changeFilter}
+                    onRemove={removeFilter}
+                    {...item}
+                />
+            ))}
+            <div className={styles.addFilter}>
+                <Button basic onClick={() => addFilter()}>
                     {i18n.t('Add filter')}
                 </Button>
             </div>
-        );
-    }
-}
+        </div>
+    ) : (
+        <div className={styles.note}>
+            {i18n.t('Filtering is available after selecting a program stage.')}
+        </div>
+    );
+
+FilterGroup.propTypes = {
+    filters: PropTypes.array,
+    dataItems: PropTypes.array,
+    program: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
+    programStage: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
+    addFilter: PropTypes.func.isRequired,
+    removeFilter: PropTypes.func.isRequired,
+    changeFilter: PropTypes.func.isRequired,
+};
 
 export default connect(
     (state, { program, programStage }) => ({
