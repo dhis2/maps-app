@@ -14,7 +14,7 @@ export const AlertStack = ({ alerts = [], clearAlerts }) =>
                     success={success}
                     warning={warning}
                     critical={critical}
-                    duration={5000}
+                    duration={10000}
                     onHidden={clearAlerts}
                 >
                     {message}
