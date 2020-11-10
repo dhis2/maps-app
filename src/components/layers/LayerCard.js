@@ -1,0 +1,96 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
+import { Card, Tooltip } from '@dhis2/ui';
+import cx from 'classnames';
+import ExpandIcon from '@material-ui/icons/ExpandMore';
+import CollapseIcon from '@material-ui/icons/ExpandLess';
+import SortableHandle from './SortableHandle';
+import LayerToolbar from './toolbar/LayerToolbar';
+import styles from './styles/LayerCard.module.css';
+
+const LayerCard = ({
+    title,
+    subtitle,
+    opacity,
+    isOverlay,
+    isExpanded,
+    isVisible,
+    onOpacityChange,
+    onEdit,
+    onRemove,
+    downloadData,
+    openAs,
+    toggleDataTable,
+    toggleExpand,
+    toggleLayerVisibility,
+    children,
+}) => (
+    <div
+        className={cx(styles.card, {
+            [styles.expanded]: isExpanded,
+        })}
+    >
+        <Card dataTest={isOverlay ? 'layercard' : 'basemapcard'}>
+            <div className={styles.cardHeader}>
+                <div
+                    className={cx(styles.title, {
+                        [styles.overlay]: isOverlay,
+                    })}
+                >
+                    <h2>{title}</h2>
+                    {subtitle && <h3>{subtitle}</h3>}
+                </div>
+                <div className={styles.action}>
+                    {isOverlay && <SortableHandle />}
+                    <Tooltip
+                        content={
+                            isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
+                        }
+                    >
+                        <span className={styles.expand} onClick={toggleExpand}>
+                            {isExpanded ? <CollapseIcon /> : <ExpandIcon />}
+                        </span>
+                    </Tooltip>
+                </div>
+            </div>
+            <div className={styles.collapsibleContent}>
+                <div className={styles.content}>{children}</div>
+                <LayerToolbar
+                    opacity={opacity}
+                    isVisible={isVisible}
+                    onEdit={onEdit}
+                    onRemove={onRemove}
+                    onOpacityChange={onOpacityChange}
+                    downloadData={downloadData}
+                    openAs={openAs}
+                    toggleDataTable={toggleDataTable}
+                    toggleLayerVisibility={toggleLayerVisibility}
+                />
+            </div>
+        </Card>
+    </div>
+);
+
+LayerCard.propTypes = {
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
+    opacity: PropTypes.number,
+    isOverlay: PropTypes.bool,
+    isExpanded: PropTypes.bool.isRequired,
+    isVisible: PropTypes.bool,
+    onOpacityChange: PropTypes.func.isRequired,
+    onEdit: PropTypes.func,
+    onRemove: PropTypes.func,
+    downloadData: PropTypes.func,
+    openAs: PropTypes.func,
+    toggleDataTable: PropTypes.func,
+    toggleExpand: PropTypes.func.isRequired,
+    toggleLayerVisibility: PropTypes.func.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ]),
+};
+
+export default LayerCard;

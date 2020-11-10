@@ -1,5 +1,5 @@
 import React from 'react';
-import AddLayerButton from '../layers/layers/AddLayerButton';
+import AddLayerButton from '../layers/overlays/AddLayerButton';
 import FileMenu from './FileMenu';
 import DownloadButton from '../download/DownloadButton';
 import InterpretationsToggle from '../interpretations/InterpretationsToggle';

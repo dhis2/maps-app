@@ -1,0 +1,113 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import i18n from '@dhis2/d2-i18n';
+import LayerCard from '../LayerCard';
+import Legend from '../../legend/Legend';
+import {
+    editLayer,
+    removeLayer,
+    changeLayerOpacity,
+    toggleLayerExpand,
+    toggleLayerVisibility,
+} from '../../../actions/layers';
+import { setMessage } from '../../../actions/message';
+import { toggleDataTable } from '../../../actions/dataTable';
+import { openDataDownloadDialog } from '../../../actions/dataDownload';
+import { setAnalyticalObjectAndSwitchApp } from '../../../util/analyticalObject';
+import {
+    DOWNLOADABLE_LAYER_TYPES,
+    DATA_TABLE_LAYER_TYPES,
+    OPEN_AS_LAYER_TYPES,
+} from '../../../constants/layers';
+
+import styles from './styles/OverlayCard.module.css';
+
+const OverlayCard = ({
+    layer,
+    editLayer,
+    removeLayer,
+    changeLayerOpacity,
+    toggleLayerExpand,
+    toggleLayerVisibility,
+    toggleDataTable,
+    openDataDownloadDialog,
+    setMessage,
+}) => {
+    const {
+        id,
+        name,
+        legend,
+        isExpanded = true,
+        opacity,
+        isVisible,
+        layer: layerType,
+        isLoaded,
+    } = layer;
+
+    const canEdit = layerType !== 'external';
+    const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType);
+    const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType);
+    const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType);
+
+    return (
+        <LayerCard
+            title={isLoaded ? name : i18n.t('Loading layer') + '...'}
+            subtitle={
+                isLoaded && legend && legend.period ? legend.period : null
+            }
+            opacity={opacity}
+            isOverlay={true}
+            isExpanded={isExpanded}
+            isVisible={isVisible}
+            toggleExpand={() => toggleLayerExpand(id)}
+            onEdit={canEdit ? () => editLayer(layer) : undefined}
+            toggleDataTable={
+                canToggleDataTable ? () => toggleDataTable(id) : undefined
+            }
+            toggleLayerVisibility={() => toggleLayerVisibility(id)}
+            onOpacityChange={newOpacity => changeLayerOpacity(id, newOpacity)}
+            onRemove={() => {
+                removeLayer(id);
+                setMessage(i18n.t('{{name}} deleted.', { name }));
+            }}
+            downloadData={
+                canDownload ? () => openDataDownloadDialog(id) : undefined
+            }
+            openAs={
+                canOpenAs
+                    ? type => setAnalyticalObjectAndSwitchApp(layer, type)
+                    : undefined
+            }
+        >
+            {legend && (
+                <div className={styles.legend}>
+                    <Legend {...legend} />
+                </div>
+            )}
+        </LayerCard>
+    );
+};
+
+OverlayCard.propTypes = {
+    layer: PropTypes.object.isRequired,
+    editLayer: PropTypes.func.isRequired,
+    removeLayer: PropTypes.func.isRequired,
+    changeLayerOpacity: PropTypes.func.isRequired,
+    openDataDownloadDialog: PropTypes.func.isRequired,
+    setMessage: PropTypes.func.isRequired,
+    toggleLayerExpand: PropTypes.func.isRequired,
+    toggleLayerVisibility: PropTypes.func.isRequired,
+    toggleDataTable: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+    editLayer,
+    removeLayer,
+    changeLayerOpacity,
+    toggleLayerExpand,
+    toggleLayerVisibility,
+    toggleDataTable,
+    setMessage,
+    openDataDownloadDialog,
+})(OverlayCard);

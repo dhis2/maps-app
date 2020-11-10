@@ -1,6 +1,22 @@
 import i18n from '@dhis2/d2-i18n';
 import { formatDate } from '../util/time';
 
+export const DOWNLOADABLE_LAYER_TYPES = [
+    'facility',
+    'thematic',
+    'boundary',
+    'event',
+];
+
+export const DATA_TABLE_LAYER_TYPES = [
+    'facility',
+    'thematic',
+    'boundary',
+    'event',
+];
+
+export const OPEN_AS_LAYER_TYPES = ['thematic'];
+
 export const DEFAULT_START_DATE = formatDate(
     new Date().setFullYear(new Date().getFullYear() - 1)
 );
