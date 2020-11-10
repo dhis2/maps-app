@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-06T08:06:34.209Z\n"
-"PO-Revision-Date: 2020-11-06T08:06:34.209Z\n"
+"POT-Creation-Date: 2020-11-10T12:47:41.157Z\n"
+"PO-Revision-Date: 2020-11-10T12:47:41.157Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -586,6 +586,9 @@ msgstr ""
 msgid "Relocate"
 msgstr ""
 
+msgid "Show {{name}}"
+msgstr ""
+
 msgid "Not set"
 msgstr ""
 
@@ -1043,19 +1046,16 @@ msgid ""
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
 
-msgid "Error"
-msgstr ""
-
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Boundaries"
+msgid "Error"
 msgstr ""
 
-msgid "Alert"
+msgid "Boundaries"
 msgstr ""
 
 msgid "No boundaries found"
@@ -1167,16 +1167,7 @@ msgstr ""
 msgid "Unclassified"
 msgstr ""
 
-msgid "Access denied"
-msgstr ""
-
-msgid "user is not allowed to read layer data"
-msgstr ""
-
-msgid "Failed"
-msgstr ""
-
-msgid "an unknown error occurred while reading layer data"
+msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"

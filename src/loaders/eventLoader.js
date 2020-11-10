@@ -16,21 +16,20 @@ import {
 } from '../util/geojson';
 import { getEventStatuses } from '../constants/eventStatuses';
 import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
-import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import { cssColor } from '../util/colors';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > 2000; // TODO: Use constant
 
-const accessDeniedAlert = createAlert(
-    i18n.t('Access denied'),
-    i18n.t('user is not allowed to read layer data')
-);
-const unknownErrorAlert = createAlert(
-    i18n.t('Failed'),
-    i18n.t('an unknown error occurred while reading layer data')
-);
+const accessDeniedAlert = {
+    warning: true,
+    message: i18n.t('Access denied: user is not allowed to read layer data'),
+};
+const unknownErrorAlert = {
+    critical: true,
+    message: i18n.t('An unknown error occurred while reading layer data'),
+};
 
 // TODO: Refactor to share code with other loaders
 // Returns a promise
@@ -138,7 +137,10 @@ const loadEventLayer = async config => {
                 config.legend.explanation = explanation;
             }
         } else {
-            alert = createAlert(config.name, i18n.t('No data found'));
+            alert = {
+                warning: true,
+                message: `${config.name}: ${i18n.t('No data found')}`,
+            };
         }
 
         // TODO: Add filters to legend when using server cluster

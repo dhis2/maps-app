@@ -4,7 +4,6 @@ import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
 import { loadEarthEngineApi } from '../components/map/MapApi';
 import { apiFetch } from '../util/api';
-import { createAlert } from '../util/alerts';
 import { getYear, formatStartEndDate } from '../util/time';
 import { setEarthEngineCollection } from '../actions/earthEngine';
 import { errorActionCreator } from '../actions/helpers';
@@ -148,14 +147,12 @@ export const loadCollection = action$ =>
             );
 
             if (token && token.status === 'ERROR') {
-                return setAlert(
-                    createAlert(
-                        i18n.t(token.message),
-                        i18n.t(
-                            'To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.'
-                        )
-                    )
-                );
+                return setAlert({
+                    warning: true,
+                    message: i18n.t(
+                        'To show this layer you must first sign up for the Earth Engine service at Google. Please check the DHIS 2 documentation.'
+                    ),
+                });
             }
 
             if (!window.ee && loadEarthEngineApi) {
@@ -165,14 +162,12 @@ export const loadCollection = action$ =>
             try {
                 await setAuthToken(token);
             } catch (e) {
-                return setAlert(
-                    createAlert(
-                        i18n.t('Error'),
-                        i18n.t(
-                            'A connection to Google Earth Engine could not be established.'
-                        )
-                    )
-                );
+                return setAlert({
+                    critical: true,
+                    message: i18n.t(
+                        'A connection to Google Earth Engine could not be established.'
+                    ),
+                });
             }
             return new Promise(collections[action.id]).then(data =>
                 setEarthEngineCollection(action.id, data)

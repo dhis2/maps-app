@@ -1,7 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { generateUid } from 'd2/uid';
-import { createAlert } from './alerts';
 import { upgradeGisAppLayers } from './requests';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
@@ -231,7 +230,14 @@ export const translateConfig = config => {
             return {
                 el,
                 name,
-                alerts: [createAlert(name, i18n.t('Map could not be created'))],
+                alerts: [
+                    {
+                        critical: true,
+                        message: `${name}: ${i18n.t(
+                            'Map could not be created'
+                        )}`,
+                    },
+                ],
             };
         }
 
