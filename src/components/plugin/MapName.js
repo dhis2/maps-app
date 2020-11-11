@@ -4,7 +4,7 @@ import styles from './styles/MapName.module.css';
 
 const MapName = ({ name }) => (
     <div className={styles.mapName}>
-        <div>{name}</div>
+        <div className={styles.name}>{name}</div>
     </div>
 );
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { JssProvider, jss, createGenerateClassName } from 'react-jss';
 import 'url-polyfill';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2';
@@ -80,14 +79,8 @@ getManifest('manifest.webapp')
                 store.dispatch(getAnalyticalObject());
             }
 
-            // JSS initialization
-            const generateClassName = createGenerateClassName();
-            jss.options.insertionPoint = 'jss-insertion-point';
-
             render(
-                <JssProvider jss={jss} generateClassName={generateClassName}>
-                    <Root d2={d2} store={store} />
-                </JssProvider>,
+                <Root d2={d2} store={store} />,
                 document.getElementById('app')
             );
         },

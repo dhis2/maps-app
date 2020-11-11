@@ -19,8 +19,7 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
-
-import './styles/App.css';
+import styles from './styles/App.module.css';
 
 // Makes d2 available in all child components
 export class App extends Component {
@@ -47,22 +46,24 @@ export class App extends Component {
                 }}
             >
                 <FatalErrorBoundary>
-                    <CssReset />
-                    <CssVariables colors spacers theme />
-                    <HeaderBar appName={i18n.t('Maps')} />
-                    <AppMenu />
-                    <InterpretationsPanel />
-                    <LayersPanel />
-                    <LayersToggle />
-                    <MapContainer />
-                    <BottomPanel />
-                    <LayerEdit />
-                    <ContextMenu />
-                    <AlertStack />
-                    <DataDownloadDialog />
-                    <OpenAsMapDialog />
-                    <OrgUnitDialog />
-                    <RelocateDialog />
+                    <div className={styles.app}>
+                        <CssReset />
+                        <CssVariables colors spacers theme />
+                        <HeaderBar appName={i18n.t('Maps')} />
+                        <AppMenu />
+                        <InterpretationsPanel />
+                        <LayersPanel />
+                        <LayersToggle />
+                        <MapContainer />
+                        <BottomPanel />
+                        <LayerEdit />
+                        <ContextMenu />
+                        <AlertStack />
+                        <DataDownloadDialog />
+                        <OpenAsMapDialog />
+                        <OrgUnitDialog />
+                        <RelocateDialog />
+                    </div>
                 </FatalErrorBoundary>
             </Provider>
         );

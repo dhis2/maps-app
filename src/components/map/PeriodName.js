@@ -4,10 +4,10 @@ import styles from './styles/PeriodName.module.css';
 
 const PeriodName = ({ period, isTimeline }) => (
     <div
-        className={`dhis2-map-period ${styles.period}`}
+        className={`dhis2-map-period ${styles.periodName}`}
         style={isTimeline ? { bottom: 86 } : null}
     >
-        <div>{period}</div>
+        <div className={styles.periodName}>{period}</div>
     </div>
 );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hcl } from 'd3-color';
-import './ColorCell.css';
+import styles from './styles/ColorCell.module.css';
 
 const ColorCell = ({ cellData = '' }) => {
     const style = {
@@ -10,7 +10,7 @@ const ColorCell = ({ cellData = '' }) => {
     };
 
     return (
-        <div className="ColorCell" style={style}>
+        <div className={styles.colorCell} style={style}>
             {cellData.toLowerCase()}
         </div>
     );
