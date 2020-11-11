@@ -1,27 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
-
 import SelectField from '../../core/SelectField';
 import Checkbox from '../../core/Checkbox';
-
-const styles = theme => ({
-    headingDiv: {
-        marginBottom: theme.spacing(1),
-    },
-    selectField: {
-        width: '50%',
-    },
-    checkboxRoot: {
-        margin: `${theme.spacing(0.5)}px 0`,
-        marginLeft: -theme.spacing(1.5),
-    },
-});
+import styles from './styles/EventDownloadInputs.module.css';
 
 export const EventDownloadInputs = ({
-    classes,
-
     formatOptions,
     selectedFormatOption,
     humanReadableChecked,
@@ -29,10 +13,8 @@ export const EventDownloadInputs = ({
     onCheckHumanReadable,
 }) => (
     <Fragment>
-        <div className={classes.headingDiv}>
-            {i18n.t('GeoJSON Properties:')}
-        </div>
-        <div className={classes.selectField}>
+        <div className={styles.headingDiv}>{i18n.t('GeoJSON Properties:')}</div>
+        <div className={styles.selectField}>
             <SelectField
                 label={i18n.t('ID Format')}
                 items={formatOptions}
@@ -40,27 +22,20 @@ export const EventDownloadInputs = ({
                 onChange={onChangeFormatOption}
             />
         </div>
-        <div>
-            <Checkbox
-                classes={{
-                    root: classes.checkboxRoot,
-                }}
-                label={i18n.t('Use human-readable keys')}
-                checked={humanReadableChecked}
-                onChange={onCheckHumanReadable}
-            />
-        </div>
+        <Checkbox
+            className={styles.checkboxRoot}
+            label={i18n.t('Use human-readable keys')}
+            checked={humanReadableChecked}
+            onChange={onCheckHumanReadable}
+        />
     </Fragment>
 );
 EventDownloadInputs.propTypes = {
-    classes: PropTypes.object.isRequired,
-
     formatOptions: PropTypes.array.isRequired,
     selectedFormatOption: PropTypes.number,
     humanReadableChecked: PropTypes.bool.isRequired,
-
     onChangeFormatOption: PropTypes.func.isRequired,
     onCheckHumanReadable: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(EventDownloadInputs);
+export default EventDownloadInputs;

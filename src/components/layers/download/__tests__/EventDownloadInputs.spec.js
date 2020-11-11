@@ -47,7 +47,7 @@ describe('EventDownloadInputs', () => {
     //     const wrapper = renderComponent({
     //         onCheckHumanReadable: fn,
     //     });
-    //     const checkbox = wrapper.find('WithStyles(Checkbox)');
+    //     const checkbox = wrapper.find('Checkbox');
     //     checkbox.simulate('change', { target: { checked: true } });
     //     expect(fn).toHaveBeenCalledWith(true);
     //     checkbox.simulate('change', { target: { checked: false } });

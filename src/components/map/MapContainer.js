@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames';
 import MapView from './MapView';
 import MapName from './MapName';
 import MapLoadingMask from './MapLoadingMask';
@@ -12,25 +12,7 @@ import {
     LAYERS_PANEL_WIDTH,
     INTERPRETATIONS_PANEL_WIDTH,
 } from '../../constants/layout';
-
-const styles = {
-    container: {
-        height: '100%',
-        width: '100%',
-    },
-    download: {
-        // Roboto font is not loaded by dom-to-image => switch to Arial
-        '& div': {
-            fontFamily: 'Arial,sans-serif!important',
-        },
-        '& .dhis2-map-timeline': {
-            display: 'none',
-        },
-        '& .dhis2-map-period': {
-            bottom: '10px!important',
-        },
-    },
-};
+import styles from './styles/MapContainer.module.css';
 
 const MapContainer = props => {
     const {
@@ -48,7 +30,6 @@ const MapContainer = props => {
         legendPosition,
         openContextMenu,
         closeCoordinatePopup,
-        classes,
     } = props;
     const [resizeCount, setResizeCount] = useState(0);
 
@@ -59,14 +40,9 @@ const MapContainer = props => {
         right: interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
     };
-    let className = classes.container;
 
     const layers = mapViews.filter(layer => layer.isLoaded);
     const isLoading = newLayerIsLoading || layers.length !== mapViews.length;
-
-    if (isDownload) {
-        className += ` ${classes.download} dhis2-map-download`;
-    }
 
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
@@ -80,7 +56,13 @@ const MapContainer = props => {
 
     return (
         <div style={style}>
-            <div id="dhis2-map-container" className={className}>
+            <div
+                id="dhis2-map-container"
+                className={cx(styles.container, {
+                    'dhis2-map-download': isDownload,
+                    [styles.download]: isDownload,
+                })}
+            >
                 <MapName />
                 <MapView
                     isPlugin={false}
@@ -120,7 +102,6 @@ MapContainer.propTypes = {
     layersPanelOpen: PropTypes.bool,
     openContextMenu: PropTypes.func.isRequired,
     closeCoordinatePopup: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
 };
 
 export default connect(
@@ -143,4 +124,4 @@ export default connect(
         openContextMenu,
         closeCoordinatePopup,
     }
-)(withStyles(styles)(MapContainer));
+)(MapContainer);
