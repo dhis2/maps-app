@@ -4,11 +4,10 @@
     max-width: 74px;
 }
 
-/* !important will be removed when we switch to ui-icons */
 .button {
     background: #fafafa;
-    margin: 0 var(--spacers-dp8) var(--spacers-dp8) 0 !important;
-    border-radius: 0 !important;
+    margin: 0 var(--spacers-dp8) var(--spacers-dp8) 0;
+    padding: var(--spacers-dp8);
     width: 40px;
     height: 40px;
 }

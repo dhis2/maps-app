@@ -1,0 +1,27 @@
+.toolbar {
+    position: relative;
+    height: var(--spacers-dp32);
+    min-height: var(--spacers-dp32);
+    padding: 0 var(--spacers-dp8);
+    border-top: 1px solid var(--colors-grey300);
+    color: var(--colors-grey800);
+}
+
+.spacer {
+    float: left;
+    height: var(--spacers-dp32);
+    width: var(--spacers-dp16);
+}
+
+.button {
+    float: left;
+    padding: var(--spacers-dp4);
+    width: var(--spacers-dp32);
+    height: var(--spacers-dp32);
+    cursor: pointer;
+}
+
+.sliderContainer {
+    float: left;
+    margin-left: var(--spacers-dp16);
+}
