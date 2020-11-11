@@ -1,19 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Basemap from './Basemap';
 import { layerTypes } from '../../map/MapApi';
+import styles from './styles/BasemapList.module.css';
 
-const styles = {
-    container: {
-        maxHeight: 270,
-        overflowY: 'auto',
-        marginLeft: 7,
-    },
-};
-
-const BasemapList = ({ classes, selectedID, basemaps, selectBasemap }) => (
-    <div className={classes.container} data-test="basemaplist">
+const BasemapList = ({ selectedID, basemaps, selectBasemap }) => (
+    <div className={styles.basemapList} data-test="basemaplist">
         {basemaps
             .filter(basemap => layerTypes.includes(basemap.config.type))
             .map((basemap, index) => (
@@ -28,10 +20,9 @@ const BasemapList = ({ classes, selectedID, basemaps, selectBasemap }) => (
 );
 
 BasemapList.propTypes = {
-    classes: PropTypes.object.isRequired,
     selectedID: PropTypes.string.isRequired,
     basemaps: PropTypes.array.isRequired,
     selectBasemap: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(BasemapList);
+export default BasemapList;

@@ -1,34 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import FirstLevel from './UserOrgUnitsFirstLevel';
 import SecondLevel from './UserOrgUnitsSecondLevel';
 import ThirdLevel from './UserOrgUnitsThirdLevel';
-import './UserOrgUnits.css';
-
-const styles = theme => ({
-    title: {
-        color: theme.palette.text.secondary,
-    },
-    container: {
-        display: 'flex',
-    },
-    level: {
-        flex: '33%',
-        cursor: 'pointer',
-        margin: 5,
-        textAlign: 'center',
-        outline: `1px solid var(--colors-grey300)`,
-    },
-    selectedLevel: {
-        outline: `3px solid ${theme.palette.primary.main}`,
-    },
-    icon: {
-        display: 'block',
-        margin: '10px auto',
-    },
-});
+import styles from './styles/UserOrgUnitSelect.module.css';
 
 const getLevels = () => [
     {
@@ -49,18 +25,18 @@ const getLevels = () => [
 ];
 
 // TODO: Use ImageSelect.js component for selectable image?
-const UserOrgUnitSelect = ({ classes, selected, onChange, style }) => (
-    <div className="UserOrgUnits" style={style}>
-        <div className={classes.title}>{i18n.t('User organisation units')}</div>
-        <div className={classes.container}>
+const UserOrgUnitSelect = ({ selected, onChange, style }) => (
+    <div className={styles.userOrgUnits} style={style}>
+        <div className={styles.title}>{i18n.t('User organisation units')}</div>
+        <div className={styles.container}>
             {getLevels().map(level => {
                 const isSelected = selected.includes(level.id);
 
                 return (
                     <div
                         key={level.id}
-                        className={`${classes.level} ${
-                            isSelected ? classes.selectedLevel : ''
+                        className={`${styles.level} ${
+                            isSelected ? styles.selectedLevel : ''
                         }`}
                         onClick={() =>
                             onChange(
@@ -70,7 +46,7 @@ const UserOrgUnitSelect = ({ classes, selected, onChange, style }) => (
                             )
                         }
                     >
-                        <div className={classes.icon}>
+                        <div className={styles.icon}>
                             <level.Icon />
                         </div>
                         {level.label}
@@ -82,10 +58,9 @@ const UserOrgUnitSelect = ({ classes, selected, onChange, style }) => (
 );
 
 UserOrgUnitSelect.propTypes = {
-    classes: PropTypes.object.isRequired,
     selected: PropTypes.array,
     onChange: PropTypes.func.isRequired,
     style: PropTypes.object,
 };
 
-export default withStyles(styles)(UserOrgUnitSelect);
+export default UserOrgUnitSelect;

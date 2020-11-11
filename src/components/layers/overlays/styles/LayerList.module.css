@@ -1,0 +1,17 @@
+.layerList {
+    position: relative;
+}
+
+.list {
+    max-width: 696px;
+    max-height: calc(100vh - 150px);
+    padding: 16px 0 0 16px;
+    overflow-y: auto;
+}
+
+.split {
+    width: 360px;
+    padding: 40px 50px;
+    line-height: 25px;
+    font-style: italic;
+}

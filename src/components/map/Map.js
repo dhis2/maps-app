@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import mapApi from './MapApi';
 import Layer from './Layer';
@@ -13,6 +12,7 @@ import EarthEngineLayer from './EarthEngineLayer';
 import ExternalLayer from './ExternalLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
+import styles from './styles/Map.module.css';
 
 const layerType = {
     event: EventLayer,
@@ -22,12 +22,6 @@ const layerType = {
     boundary: BoundaryLayer,
     earthEngine: EarthEngineLayer,
     external: ExternalLayer,
-};
-
-const styles = {
-    root: {
-        height: '100%',
-    },
 };
 
 class Map extends Component {
@@ -45,7 +39,6 @@ class Map extends Component {
         closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
         onCloseContextMenu: PropTypes.func,
-        classes: PropTypes.object.isRequired,
     };
 
     static defaultProps = {
@@ -135,14 +128,13 @@ class Map extends Component {
             coordinatePopup: coordinates,
             closeCoordinatePopup,
             openContextMenu,
-            classes,
         } = this.props;
         const { map } = this.state;
 
         const overlays = layers.filter(layer => layer.isLoaded);
 
         return (
-            <div ref={node => (this.node = node)} className={classes.root}>
+            <div ref={node => (this.node = node)} className={styles.map}>
                 {map && (
                     <Fragment>
                         {overlays.map((config, index) => {
@@ -193,4 +185,4 @@ class Map extends Component {
         this.map.toggleScrollZoom(isFullscreen);
 }
 
-export default withStyles(styles)(Map);
+export default Map;
