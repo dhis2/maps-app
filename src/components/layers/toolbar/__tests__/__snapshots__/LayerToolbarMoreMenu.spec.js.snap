@@ -40,7 +40,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
         <MenuItem
           dataTest="dhis2-uicore-menuitem"
           icon={<UNDEFINED />}
-          label="Data table"
+          label="Show data table"
           onClick={[Function]}
         />
         <MenuItem

@@ -51,7 +51,7 @@ export const LayerToolbarMoreMenu = ({
                         <Menu dense>
                             {toggleDataTable && (
                                 <MenuItem
-                                    label={i18n.t('Data table')}
+                                    label={i18n.t('Show data table')}
                                     icon={<TableIcon />}
                                     onClick={() => {
                                         setIsOpen(false);
