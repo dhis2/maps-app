@@ -11,7 +11,7 @@ import {
     toggleLayerExpand,
     toggleLayerVisibility,
 } from '../../../actions/layers';
-import { setMessage } from '../../../actions/message';
+import { setAlert } from '../../../actions/alerts';
 import { toggleDataTable } from '../../../actions/dataTable';
 import { openDataDownloadDialog } from '../../../actions/dataDownload';
 import { setAnalyticalObjectAndSwitchApp } from '../../../util/analyticalObject';
@@ -32,7 +32,7 @@ const OverlayCard = ({
     toggleLayerVisibility,
     toggleDataTable,
     openDataDownloadDialog,
-    setMessage,
+    setAlert,
 }) => {
     const {
         id,
@@ -69,7 +69,10 @@ const OverlayCard = ({
             onOpacityChange={newOpacity => changeLayerOpacity(id, newOpacity)}
             onRemove={() => {
                 removeLayer(id);
-                setMessage(i18n.t('{{name}} deleted.', { name }));
+                setAlert({
+                    success: true,
+                    message: i18n.t('{{name}} deleted.', { name }),
+                });
             }}
             downloadData={
                 canDownload ? () => openDataDownloadDialog(id) : undefined
@@ -95,7 +98,7 @@ OverlayCard.propTypes = {
     removeLayer: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
     openDataDownloadDialog: PropTypes.func.isRequired,
-    setMessage: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired,
     toggleLayerExpand: PropTypes.func.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
     toggleDataTable: PropTypes.func.isRequired,
@@ -108,6 +111,6 @@ export default connect(null, {
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
-    setMessage,
+    setAlert,
     openDataDownloadDialog,
 })(OverlayCard);

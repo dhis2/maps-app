@@ -4,7 +4,6 @@ import { getInstance as getD2 } from 'd2';
 import { isValidCoordinate } from '../util/map';
 import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
-import { createAlert } from '../util/alerts';
 
 const facilityLoader = async config => {
     // Returns a promise
@@ -35,7 +34,10 @@ const facilityLoader = async config => {
         .then(facilities => parseFacilities(facilities, groupSetId))
         .catch(error => {
             if (error && error.message) {
-                alert = createAlert(i18n.t('Error'), error.message);
+                alert = {
+                    critical: true,
+                    message: `${i18n.t('Error')}: ${error.message}`,
+                };
             }
         });
 
