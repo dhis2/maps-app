@@ -2,8 +2,6 @@ import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 import 'typeface-roboto';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import mui3theme from '@dhis2/d2-ui-core/theme/mui3.theme';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
 import { Provider } from '@dhis2/app-runtime';
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
@@ -24,8 +22,6 @@ import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 
 import './styles/App.css';
-
-const theme = createMuiTheme({ ...mui3theme, spacing: 8 }); // TODO: Changed syntax i MUI4
 
 // Makes d2 available in all child components
 export class App extends Component {
@@ -55,22 +51,20 @@ export class App extends Component {
                     <CssReset />
                     <CssVariables colors spacers theme />
                     <HeaderBar appName={i18n.t('Maps')} />
-                    <MuiThemeProvider theme={theme}>
-                        <AppMenu />
-                        <InterpretationsPanel />
-                        <LayersPanel />
-                        <LayersToggle />
-                        <MapContainer />
-                        <BottomPanel />
-                        <LayerEdit />
-                        <ContextMenu />
-                        <AlertSnackbar />
-                        <Message />
-                        <DataDownloadDialog />
-                        <OpenAsMapDialog />
-                        <OrgUnitDialog />
-                        <RelocateDialog />
-                    </MuiThemeProvider>
+                    <AppMenu />
+                    <InterpretationsPanel />
+                    <LayersPanel />
+                    <LayersToggle />
+                    <MapContainer />
+                    <BottomPanel />
+                    <LayerEdit />
+                    <ContextMenu />
+                    <AlertSnackbar />
+                    <Message />
+                    <DataDownloadDialog />
+                    <OpenAsMapDialog />
+                    <OrgUnitDialog />
+                    <RelocateDialog />
                 </FatalErrorBoundary>
             </Provider>
         );
