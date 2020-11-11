@@ -2,71 +2,71 @@
 
 exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
 <Fragment>
-  <WithStyles(ForwardRef(Tooltip))
-    title="More actions"
+  <Tooltip
+    content="More actions"
+    dataTest="dhis2-uicore-tooltip"
+    maxWidth={300}
+    placement="top"
+    tag="span"
   >
-    <WithStyles(ForwardRef(IconButton))
+    <div
+      className="moreMenuButton"
+      data-test="moremenubutton"
       onClick={[Function]}
     >
       <MoreHorizIcon />
-    </WithStyles(ForwardRef(IconButton))>
-  </WithStyles(ForwardRef(Tooltip))>
-  <WithStyles(ForwardRef(Menu))
-    anchorEl={null}
-    anchorOrigin={
+    </div>
+  </Tooltip>
+  <Popover
+    arrow={false}
+    dataTest="dhis2-uicore-popover"
+    elevation="0 0 1px 0 rgba(64,75,90,0.29), 0 3px 8px -2px rgba(64,75,90,0.30)"
+    maxWidth={360}
+    onClickOutside={[Function]}
+    placement="right"
+    reference={
       Object {
-        "horizontal": "left",
-        "vertical": "bottom",
+        "current": undefined,
       }
     }
-    disableRestoreFocus={true}
-    getContentAnchorEl={null}
-    onClose={[Function]}
-    open={false}
   >
-    <WithStyles(ForwardRef(MenuItem))
-      onClick={[Function]}
+    <div
+      className="menu"
     >
-      <WithStyles(ForwardRef(ListItemIcon))>
-        <ViewListIcon />
-      </WithStyles(ForwardRef(ListItemIcon))>
-      <WithStyles(ForwardRef(ListItemText))
-        primary="Data table"
-      />
-    </WithStyles(ForwardRef(MenuItem))>
-    <WithStyles(ForwardRef(MenuItem))
-      onClick={[Function]}
-    >
-      <WithStyles(ForwardRef(ListItemIcon))>
-        <SaveAltIcon />
-      </WithStyles(ForwardRef(ListItemIcon))>
-      <WithStyles(ForwardRef(ListItemText))
-        primary="Download data"
-      />
-    </WithStyles(ForwardRef(MenuItem))>
-    <WithStyles(ForwardRef(Divider))
-      light={true}
-    />
-    <WithStyles(ForwardRef(MenuItem))
-      onClick={[Function]}
-    >
-      <WithStyles(ForwardRef(ListItemIcon))>
-        <CreateIcon />
-      </WithStyles(ForwardRef(ListItemIcon))>
-      <WithStyles(ForwardRef(ListItemText))
-        primary="Edit layer"
-      />
-    </WithStyles(ForwardRef(MenuItem))>
-    <WithStyles(ForwardRef(MenuItem))
-      onClick={[Function]}
-    >
-      <WithStyles(ForwardRef(ListItemIcon))>
-        <DeleteIcon />
-      </WithStyles(ForwardRef(ListItemIcon))>
-      <WithStyles(ForwardRef(ListItemText))
-        primary="Remove layer"
-      />
-    </WithStyles(ForwardRef(MenuItem))>
-  </WithStyles(ForwardRef(Menu))>
+      <Menu
+        dataTest="dhis2-uicore-menulist"
+        dense={true}
+      >
+        <MenuItem
+          dataTest="dhis2-uicore-menuitem"
+          icon={<UNDEFINED />}
+          label="Show data table"
+          onClick={[Function]}
+        />
+        <MenuItem
+          dataTest="dhis2-uicore-menuitem"
+          icon={<UNDEFINED />}
+          label="Download data"
+          onClick={[Function]}
+        />
+        <Divider
+          dataTest="dhis2-uicore-divider"
+          margin="8px 0"
+        />
+        <MenuItem
+          dataTest="dhis2-uicore-menuitem"
+          icon={<UNDEFINED />}
+          label="Edit layer"
+          onClick={[Function]}
+        />
+        <MenuItem
+          dataTest="dhis2-uicore-menuitem"
+          icon={<UNDEFINED />}
+          label="Remove layer"
+          onClick={[Function]}
+        />
+      </Menu>
+    </div>
+  </Popover>
 </Fragment>
 `;

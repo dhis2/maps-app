@@ -6,7 +6,6 @@ describe('LayerToolbar', () => {
     const shallowRenderLayerToolbar = props =>
         shallow(
             <LayerToolbar
-                classes={{}}
                 opacity={0}
                 isVisible={true}
                 toggleLayerVisibility={() => null}
@@ -16,11 +15,9 @@ describe('LayerToolbar', () => {
         );
     it('Should render only a visibility toggle and opacity slider', () => {
         const wrapper = shallowRenderLayerToolbar();
-        expect(wrapper.find('WithStyles(ForwardRef(IconButton))').length).toBe(
-            1
-        ); // Visibility toggle
-        expect(wrapper.find('WithStyles(OpacitySlider)').length).toBe(1);
-        expect(wrapper.find('WithStyles(LayerToolbarMoreMenu)').length).toBe(1);
+        expect(wrapper.find('[data-test="visibilitybutton"]').length).toBe(1); // Visibility toggle
+        expect(wrapper.find('OpacitySlider').length).toBe(1);
+        expect(wrapper.find('LayerToolbarMoreMenu').length).toBe(1);
     });
 
     it('Should show VisibilityIcon when visible', () => {
@@ -48,7 +45,7 @@ describe('LayerToolbar', () => {
         const wrapper = shallowRenderLayerToolbar({
             toggleLayerVisibility: toggleVisibleFn,
         });
-        wrapper.find('WithStyles(ForwardRef(IconButton))').simulate('click');
+        wrapper.find('[data-test="visibilitybutton"]').simulate('click');
         expect(toggleVisibleFn).toHaveBeenCalled();
     });
 
@@ -61,11 +58,9 @@ describe('LayerToolbar', () => {
         const wrapper = shallowRenderLayerToolbar({
             onEdit: () => null,
         });
-        expect(wrapper.find('WithStyles(ForwardRef(IconButton))').length).toBe(
-            2
-        ); // Visibility toggle and Edit
-        expect(wrapper.find('WithStyles(OpacitySlider)').length).toBe(1);
-        expect(wrapper.find('WithStyles(LayerToolbarMoreMenu)').length).toBe(1);
+        expect(wrapper.find('[data-test="visibilitybutton"]').length).toBe(1);
+        expect(wrapper.find('OpacitySlider').length).toBe(1);
+        expect(wrapper.find('LayerToolbarMoreMenu').length).toBe(1);
     });
 
     it('Should match toolbar snapshot WITH Edit button', () => {
@@ -84,19 +79,11 @@ describe('LayerToolbar', () => {
             onEdit: editFn,
         });
 
-        // First button should be Edit
-        wrapper
-            .find('WithStyles(ForwardRef(IconButton))')
-            .first()
-            .simulate('click');
+        wrapper.find('[data-test="editbutton"]').simulate('click');
         expect(editFn).toHaveBeenCalled();
         expect(toggleVisibleFn).not.toHaveBeenCalled();
 
-        // Second button should be Visibility Toggle
-        wrapper
-            .find('WithStyles(ForwardRef(IconButton))')
-            .at(1)
-            .simulate('click');
+        wrapper.find('[data-test="visibilitybutton"]').simulate('click');
         expect(toggleVisibleFn).toHaveBeenCalled();
         expect(editFn).toHaveBeenCalledTimes(1);
     });

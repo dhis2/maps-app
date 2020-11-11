@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { IconButton } from '@material-ui/core';
 import BoldIcon from '@material-ui/icons/FormatBold';
 import ItalicIcon from '@material-ui/icons/FormatItalic';
 import cx from 'classnames';
@@ -34,28 +33,26 @@ const FontStyle = ({
             />
         )}
         {onWeightChange && (
-            <IconButton
+            <div
                 onClick={() =>
                     onWeightChange(weight === 'bold' ? 'normal' : 'bold')
                 }
                 className={styles.button}
-                disableTouchRipple={true}
             >
                 <BoldIcon htmlColor={weight === 'bold' ? '#333' : '#aaa'} />
-            </IconButton>
+            </div>
         )}
         {onStyleChange && (
-            <IconButton
+            <div
                 onClick={() =>
                     onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic')
                 }
                 className={styles.button}
-                disableTouchRipple={true}
             >
                 <ItalicIcon
                     htmlColor={fontStyle === 'italic' ? '#333' : '#aaa'}
                 />
-            </IconButton>
+            </div>
         )}
         {onColorChange && (
             <ColorPicker
