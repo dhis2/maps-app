@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { CircularLoader } from '@dhis2/ui';
 import SelectField from '../../core/SelectField';
 import memoize from 'lodash/memoize';
 import { apiFetch } from '../../../util/api';
@@ -43,7 +43,7 @@ class TrackedEntityRelationshipTypeSelect extends Component {
 
     render() {
         if (!this.state.allTypes) {
-            return <CircularProgress />;
+            return <CircularLoader small />;
         } else if (this.state.error) {
             return <span>{this.state.error}</span>;
         }
