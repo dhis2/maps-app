@@ -1,7 +1,7 @@
 .container {
     float: left;
     width: 120px;
-    margin-left: 12px;
+    margin-left: var(--spacers-dp12);
     cursor: pointer;
     box-sizing: border-box;
     height: 90px;
@@ -12,7 +12,7 @@
     position: relative;
     height: 56px;
     width: 100%;
-    margin-top: 4px;
+    margin-top: var(--spacers-dp4);
     overflow: hidden;
     outline: 1px solid var(--colors-grey300);
 }
@@ -40,7 +40,7 @@
 
 .name {
     color: var(--colors-grey800);
-    padding-top: 4px;
+    padding-top: var(--spacers-dp4);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

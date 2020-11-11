@@ -1,75 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
+import styles from './styles/Layer.module.css';
 
-const styles = theme => ({
-    container: {
-        float: 'left',
-        width: 120,
-        marginRight: 16,
-        cursor: 'pointer',
-        boxSizing: 'border-box',
-        height: 160,
-    },
-
-    image: {
-        boxSizing: 'border-box',
-        border: `1px solid var(--colors-grey300)`,
-        width: 120,
-        height: 120,
-    },
-
-    noImage: {
-        boxSizing: 'border-box',
-        border: `1px solid var(--colors-grey300)`,
-        width: 120,
-        height: 120,
-        lineHeight: '120px',
-        background: theme.palette.background.default,
-        color: theme.palette.text.hint,
-        fontSize: 12,
-        textAlign: 'center',
-        marginBottom: 4,
-    },
-
-    name: {
-        fontSize: 14,
-        color: theme.palette.text.secondary,
-        paddingBottom: 20,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        textAlign: 'center',
-    },
-});
-
-const Layer = ({ classes, layer, onClick }) => {
+const Layer = ({ layer, onClick }) => {
     const { img, type, name } = layer;
     const label = name || i18n.t(type);
 
     return (
         <div
-            className={classes.container}
+            className={styles.container}
             onClick={() => onClick(layer)}
             data-test={`addlayeritem-${label}`}
         >
             {img ? (
-                <img src={img} className={classes.image} />
+                <img src={img} className={styles.image} />
             ) : (
-                <div className={classes.noImage}>
-                    {i18n.t('External layer')}
-                </div>
+                <div className={styles.noImage}>{i18n.t('External layer')}</div>
             )}
-            <div className={classes.name}>{label}</div>
+            <div className={styles.name}>{label}</div>
         </div>
     );
 };
 
 Layer.propTypes = {
-    classes: PropTypes.object.isRequired,
     layer: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(Layer);
+export default Layer;
