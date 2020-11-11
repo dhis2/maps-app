@@ -1,0 +1,39 @@
+.timeline {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    width: calc(100% - 20px);
+    position: absolute;
+    left: 10px;
+    bottom: 28px;
+    height: 48px;
+    z-index: 1000px;
+    user-select: none;
+}
+
+.play {
+    cursor: pointer;
+    fill: #333;
+}
+
+.play:hover {
+    fill: #000;
+}
+
+.period {
+    fill: #333;
+    stroke: #555;
+    stroke-width: 1px;
+    fill-opacity: 0.1;
+    cursor: pointer;
+}
+
+.period.selected {
+    fill: #2b675c;
+    fill-opacity: 0.9;
+}
+
+.period:hover:not(.selected) {
+    fill-opacity: 0.2;
+}

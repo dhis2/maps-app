@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
+import cx from 'classnames';
 import FirstLevel from './UserOrgUnitsFirstLevel';
 import SecondLevel from './UserOrgUnitsSecondLevel';
 import ThirdLevel from './UserOrgUnitsThirdLevel';
@@ -35,9 +36,9 @@ const UserOrgUnitSelect = ({ selected, onChange, style }) => (
                 return (
                     <div
                         key={level.id}
-                        className={`${styles.level} ${
-                            isSelected ? styles.selectedLevel : ''
-                        }`}
+                        className={cx(styles.level, {
+                            [styles.selectedLevel]: isSelected,
+                        })}
                         onClick={() =>
                             onChange(
                                 !isSelected

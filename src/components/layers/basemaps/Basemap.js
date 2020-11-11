@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
+import cx from 'classnames';
 import styles from './styles/Basemap.module.css';
 
 // TODO: Use ImageSelect.js component for selectable image
@@ -13,9 +14,9 @@ const Basemap = ({ id, img, name, isSelected, onClick }) => {
             data-test="basemaplistitem"
         >
             <div
-                className={`${styles.imageContainer} ${
-                    isSelected ? styles.selected : ''
-                }`}
+                className={cx(styles.imageContainer, {
+                    [styles.selected]: isSelected,
+                })}
                 data-test="basemaplistitem-img"
             >
                 {img ? (
@@ -27,9 +28,9 @@ const Basemap = ({ id, img, name, isSelected, onClick }) => {
                 )}
             </div>
             <div
-                className={`${styles.name} ${
-                    isSelected ? styles.nameSelected : ''
-                }`}
+                className={cx(styles.name, {
+                    [styles.nameSelected]: isSelected,
+                })}
                 data-test="basemaplistitem-name"
             >
                 {i18n.t(name)}

@@ -10,9 +10,9 @@ const ImageSelect = ({ id, img, title, isSelected, onClick, className }) => (
         onClick={() => onClick(id)}
     >
         <div
-            className={`${styles.imageContainer} ${
-                isSelected ? styles.imageContainerSelected : ''
-            }`}
+            className={cx(styles.imageContainer, {
+                [styles.imageContainerSelected]: isSelected,
+            })}
         >
             {img ? (
                 <img src={img} className={styles.image} />
