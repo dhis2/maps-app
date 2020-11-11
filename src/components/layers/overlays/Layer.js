@@ -15,14 +15,14 @@ const styles = theme => ({
 
     image: {
         boxSizing: 'border-box',
-        border: `1px solid ${theme.palette.divider}`,
+        border: `1px solid var(--colors-grey300)`,
         width: 120,
         height: 120,
     },
 
     noImage: {
         boxSizing: 'border-box',
-        border: `1px solid ${theme.palette.divider}`,
+        border: `1px solid var(--colors-grey300)`,
         width: 120,
         height: 120,
         lineHeight: '120px',

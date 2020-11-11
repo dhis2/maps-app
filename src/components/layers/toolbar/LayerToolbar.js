@@ -16,7 +16,7 @@ const styles = theme => ({
         minHeight: 32,
         padding: `0 ${theme.spacing(1)}px`,
         backgroundColor: theme.palette.background.paper,
-        borderTop: `1px solid ${theme.palette.divider}`,
+        borderTop: `1px solid var(--colors-grey300)`,
     },
     spacer: {
         marginRight: theme.spacing(2),

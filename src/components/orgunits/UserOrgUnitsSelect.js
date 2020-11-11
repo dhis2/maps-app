@@ -19,7 +19,7 @@ const styles = theme => ({
         cursor: 'pointer',
         margin: 5,
         textAlign: 'center',
-        outline: `1px solid ${theme.palette.divider}`,
+        outline: `1px solid var(--colors-grey300)`,
     },
     selectedLevel: {
         outline: `3px solid ${theme.palette.primary.main}`,
