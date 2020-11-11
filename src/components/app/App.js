@@ -14,8 +14,7 @@ import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
 import OrgUnitDialog from '../orgunits/OrgUnitDialog';
 import RelocateDialog from '../orgunits/RelocateDialog';
-import AlertSnackbar from '../alerts/AlertSnackbar';
-import Message from '../message/Message';
+import AlertStack from '../alerts/AlertStack';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
@@ -59,8 +58,7 @@ export class App extends Component {
                     <BottomPanel />
                     <LayerEdit />
                     <ContextMenu />
-                    <AlertSnackbar />
-                    <Message />
+                    <AlertStack />
                     <DataDownloadDialog />
                     <OpenAsMapDialog />
                     <OrgUnitDialog />

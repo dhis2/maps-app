@@ -5,7 +5,7 @@ import D2FileMenu from '@dhis2/d2-ui-file-menu';
 import { newMap, setMapProps } from '../../actions/map';
 import { loadFavorite } from '../../actions/favorites';
 import { saveFavorite, saveNewFavorite } from '../../actions/favorites';
-import { setError } from '../../actions/message';
+import { setAlert } from '../../actions/alerts';
 
 export const FileMenu = (
     {
@@ -15,23 +15,27 @@ export const FileMenu = (
         loadFavorite,
         saveFavorite,
         saveNewFavorite,
-        setError,
+        setAlert,
     },
     { d2 }
-) => (
-    <D2FileMenu
-        d2={d2}
-        fileType="map"
-        fileId={id}
-        onNew={newMap}
-        onOpen={loadFavorite}
-        onSave={saveFavorite}
-        onSaveAs={saveNewFavorite}
-        onRename={setMapProps}
-        onDelete={newMap}
-        onError={setError}
-    />
-);
+) => {
+    const setError = error => setAlert({ critical: true, message: error });
+
+    return (
+        <D2FileMenu
+            d2={d2}
+            fileType="map"
+            fileId={id}
+            onNew={newMap}
+            onOpen={loadFavorite}
+            onSave={saveFavorite}
+            onSaveAs={saveNewFavorite}
+            onRename={setMapProps}
+            onDelete={newMap}
+            onError={setError}
+        />
+    );
+};
 
 FileMenu.propTypes = {
     id: PropTypes.string,
@@ -40,7 +44,7 @@ FileMenu.propTypes = {
     loadFavorite: PropTypes.func.isRequired,
     saveFavorite: PropTypes.func.isRequired,
     saveNewFavorite: PropTypes.func.isRequired,
-    setError: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired,
 };
 
 FileMenu.contextTypes = {
@@ -57,6 +61,6 @@ export default connect(
         loadFavorite,
         saveFavorite,
         saveNewFavorite,
-        setError,
+        setAlert,
     }
 )(FileMenu);

@@ -4,7 +4,6 @@ import { getInstance as getD2 } from 'd2';
 import { toGeoJson } from '../util/map';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty, getDisplayPropertyUrl } from '../util/helpers';
-import { createAlert } from '../util/alerts';
 
 const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
 const weights = [2, 1, 0.75, 0.5];
@@ -65,7 +64,7 @@ const boundaryLoader = async config => {
         data: features,
         name: layerName,
         alerts: !features.length
-            ? [createAlert(i18n.t('Alert'), i18n.t('No boundaries found'))]
+            ? [{ warning: true, message: i18n.t('No boundaries found') }]
             : undefined,
         isLoaded: true,
         isExpanded: true,

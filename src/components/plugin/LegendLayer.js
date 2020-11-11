@@ -26,7 +26,7 @@ const LegendLayer = props => {
             )}
             {alerts.map(alert => (
                 <div key={alert.id} className="dhis2-map-legend-alert">
-                    {alert.description}
+                    {alert.message}
                 </div>
             ))}
         </div>

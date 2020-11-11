@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-06T08:06:34.209Z\n"
-"PO-Revision-Date: 2020-11-06T08:06:34.209Z\n"
+"POT-Creation-Date: 2020-11-11T10:00:55.132Z\n"
+"PO-Revision-Date: 2020-11-11T10:00:55.132Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -586,6 +586,9 @@ msgstr ""
 msgid "Relocate"
 msgstr ""
 
+msgid "Show {{name}}"
+msgstr ""
+
 msgid "Not set"
 msgstr ""
 
@@ -1039,23 +1042,20 @@ msgid "Cancelled"
 msgstr ""
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
 
-msgid "Error"
-msgstr ""
-
-msgid "A connection to Google Earth Engine could not be established."
+msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Boundaries"
+msgid "Error"
 msgstr ""
 
-msgid "Alert"
+msgid "Boundaries"
 msgstr ""
 
 msgid "No boundaries found"
@@ -1167,16 +1167,10 @@ msgstr ""
 msgid "Unclassified"
 msgstr ""
 
-msgid "Access denied"
+msgid "You don't have access to this layer data"
 msgstr ""
 
-msgid "user is not allowed to read layer data"
-msgstr ""
-
-msgid "Failed"
-msgstr ""
-
-msgid "an unknown error occurred while reading layer data"
+msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
@@ -1227,7 +1221,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-msgid "Map could not be created"
+msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"
