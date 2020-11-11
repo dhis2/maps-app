@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-10T13:11:03.097Z\n"
-"PO-Revision-Date: 2020-11-10T13:11:03.097Z\n"
+"POT-Creation-Date: 2020-11-11T10:00:55.132Z\n"
+"PO-Revision-Date: 2020-11-11T10:00:55.132Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1042,11 +1042,11 @@ msgid "Cancelled"
 msgstr ""
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
 
-msgid "A connection to Google Earth Engine could not be established."
+msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
@@ -1167,7 +1167,7 @@ msgstr ""
 msgid "Unclassified"
 msgstr ""
 
-msgid "Access denied - user is not allowed to read layer data"
+msgid "You don't have access to this layer data"
 msgstr ""
 
 msgid "An unknown error occurred while reading layer data"
@@ -1221,7 +1221,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-msgid "Map could not be created"
+msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"

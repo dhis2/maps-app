@@ -234,7 +234,7 @@ export const translateConfig = config => {
                     {
                         critical: true,
                         message: `${name}: ${i18n.t(
-                            'Map could not be created'
+                            'There was a problem creating a map from the imported data.'
                         )}`,
                     },
                 ],
