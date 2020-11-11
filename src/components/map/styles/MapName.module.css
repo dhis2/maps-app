@@ -1,0 +1,39 @@
+.mapName {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    max-width: calc(100% - 100px);
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 999;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.mapName div {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    margin: var(--spacers-dp8);
+}
+
+.name {
+    padding: 6px 8px;
+    line-height: 17px;
+}
+
+.interpretation {
+    position: relative;
+    padding: 7px 8px 7px 28px;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.interpretationIcon {
+    position: absolute;
+    left: var(--spacers-dp8);
+    top: 7px;
+}
