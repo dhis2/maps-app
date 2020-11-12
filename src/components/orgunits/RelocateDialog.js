@@ -44,7 +44,7 @@ const RelocateDialog = props => {
                 <CancelIcon fontSize="inherit" />
             </span>
             <div className={styles.name}>{feature.properties.name}</div>
-            {i18n.t('Click the map where you want to relocate facility')}
+            {i18n.t('Click the map where you want to relocate the facility.')}
         </div>
     );
 };
