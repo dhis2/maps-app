@@ -173,6 +173,7 @@ class Layer extends PureComponent {
             layerId: id,
             layerType: layer,
             isSplitView,
+            map: map,
             container: isSplitView
                 ? container.parentNode.parentNode
                 : container,

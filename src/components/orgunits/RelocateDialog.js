@@ -1,98 +1,60 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Paper } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
-import {
-    changeOrgUnitCoordinate,
-    stopRelocateOrgUnit,
-} from '../../actions/orgUnits';
+import { changeOrgUnitCoordinate } from '../../actions/orgUnits';
+import styles from './styles/RelocateDialog.module.css';
 
-const styles = {
-    paper: {
-        position: 'absolute',
-        top: 96,
-        right: 48,
-        width: 150,
-        padding: 8,
-        zIndex: 1100,
-    },
-    close: {
-        width: 16,
-        height: 16,
-        float: 'right',
-        cursor: 'pointer',
-    },
+const RelocateDialog = props => {
+    const { feature, layerId, map, changeOrgUnitCoordinate, onClose } = props;
+
+    const onMapClick = ({ lngLat }) => {
+        changeOrgUnitCoordinate(
+            layerId,
+            feature.properties.id,
+            lngLat.toArray()
+        );
+
+        onClose();
+    };
+
+    useEffect(() => {
+        map.on('click', onMapClick);
+        return () => map.off('click', onMapClick);
+    }, [map]);
+
+    useEffect(() => {
+        const container = map
+            .getContainer()
+            .getElementsByClassName('mapboxgl-interactive')[0];
+
+        container.style.cursor = 'crosshair';
+        map.getMapGL().on('click', onMapClick);
+
+        return () => {
+            container.style.cursor = 'grab';
+            map.getMapGL().off('click', onMapClick);
+        };
+    }, [map]);
+
+    return (
+        <div className={styles.relocate}>
+            <span className={styles.close} onClick={onClose}>
+                <CancelIcon fontSize="inherit" />
+            </span>
+            <div className={styles.name}>{feature.properties.name}</div>
+            {i18n.t('Click the map where you want to relocate facility')}
+        </div>
+    );
 };
 
-class RelocateDialog extends Component {
-    static contextTypes = {
-        map: PropTypes.object,
-    };
+RelocateDialog.propTypes = {
+    feature: PropTypes.object.isRequired,
+    layerId: PropTypes.string.isRequired,
+    map: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
+    changeOrgUnitCoordinate: PropTypes.func.isRequired,
+};
 
-    static propTypes = {
-        feature: PropTypes.object,
-        layerId: PropTypes.string,
-        changeOrgUnitCoordinate: PropTypes.func.isRequired,
-        stopRelocateOrgUnit: PropTypes.func.isRequired,
-    };
-
-    componentDidUpdate() {
-        const feature = this.props.feature;
-        const map = this.context.map;
-        const mapContainer = map.getContainer();
-
-        if (feature) {
-            map.on('click', this.onMapClick, this);
-            mapContainer.style.cursor = 'crosshair';
-        } else {
-            map.off('click', this.onMapClick, this);
-            mapContainer.style.cursor = 'auto';
-            mapContainer.style.cursor = '-webkit-grab';
-            mapContainer.style.cursor = '-moz-grab';
-        }
-    }
-
-    onMapClick(evt) {
-        const {
-            layerId,
-            feature,
-            changeOrgUnitCoordinate,
-            stopRelocateOrgUnit,
-        } = this.props;
-        const latlng = evt.latlng;
-        const coordinate = [
-            parseFloat(latlng.lng.toFixed(6)),
-            parseFloat(latlng.lat.toFixed(6)),
-        ];
-
-        changeOrgUnitCoordinate(layerId, feature.id, coordinate);
-        stopRelocateOrgUnit();
-    }
-
-    render() {
-        const { feature, stopRelocateOrgUnit } = this.props;
-
-        if (!feature) {
-            return null;
-        }
-
-        return (
-            <Paper style={styles.paper}>
-                <span onClick={stopRelocateOrgUnit}>
-                    <CancelIcon style={styles.close} />
-                </span>
-                {i18n.t('Click the map where you want to relocate facility')}{' '}
-                <strong>{feature.properties.name}</strong>
-            </Paper>
-        );
-    }
-}
-
-export default connect(
-    state => ({
-        ...state.relocate,
-    }),
-    { changeOrgUnitCoordinate, stopRelocateOrgUnit }
-)(RelocateDialog);
+export default connect(null, { changeOrgUnitCoordinate })(RelocateDialog);

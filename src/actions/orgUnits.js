@@ -70,18 +70,6 @@ export const unselectOrgUnit = (layerId, featureId) => ({
     featureId,
 });
 
-export const startRelocateOrgUnit = (layerId, feature) => ({
-    type: types.ORGANISATION_UNIT_RELOCATE_START,
-    layerId,
-    feature,
-});
-
-export const stopRelocateOrgUnit = (layerId, feature) => ({
-    type: types.ORGANISATION_UNIT_RELOCATE_STOP,
-    layerId,
-    feature,
-});
-
 export const changeOrgUnitCoordinate = (layerId, featureId, coordinate) => ({
     type: types.ORGANISATION_UNIT_COORDINATE_CHANGE,
     layerId,
