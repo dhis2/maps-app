@@ -11,9 +11,16 @@
     -webkit-appearance: none;
     appearance: none;
     height: 2px;
-    background: var(--colors-grey800);
+    background: linear-gradient(
+        to right,
+        var(--colors-grey800) 0%,
+        var(--colors-grey800) 50%,
+        var(--colors-grey400) 50%,
+        var(--colors-grey400) 100%
+    );
+    transition: background 450ms ease-in;
     outline: none;
-    border-radius: 1px;
+    border-radius: 2px;
     cursor: pointer;
 }
 
@@ -30,5 +37,10 @@
     width: 12px;
     height: 12px;
     background: var(--colors-grey800);
+    border: 0;
     border-radius: 50%;
+}
+
+.slider::-moz-focus-outer {
+    border: 0;
 }
