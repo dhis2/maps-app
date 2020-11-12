@@ -94,12 +94,11 @@ const ContextMenu = (props, context) => {
             case 'swap_coordinate':
                 changeOrgUnitCoordinate(
                     layerId,
-                    feature.id,
+                    feature.properties.id,
                     feature.geometry.coordinates.slice(0).reverse()
                 );
                 break;
             case 'relocate':
-                // startRelocateOrgUnit(layerId, feature);
                 setRelocate({ layerId, feature, map });
                 break;
             case 'show_ee_value':
