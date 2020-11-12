@@ -38,13 +38,9 @@ const DimensionSelect = ({
 
     return (
         <Fragment>
-            <div
-                ref={dropdownRef}
-                onClick={() => setIsOpen(true)}
-                className={styles.dropdown}
-            >
+            <div onClick={() => setIsOpen(true)} className={styles.dropdown}>
                 <label>{i18n.t('Dimension')}</label>
-                <div>
+                <div ref={dropdownRef}>
                     <span>{selected ? selected.name : ''}</span>
                     <ExpandMore />
                 </div>

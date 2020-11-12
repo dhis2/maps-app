@@ -10,6 +10,7 @@
 }
 
 .scale {
+    display: block;
     padding-top: var(--spacers-dp8);
     clear: both;
 }

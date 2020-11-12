@@ -1,13 +1,14 @@
 import React, { Fragment, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Popover, Menu, MenuItem, Tooltip, Divider } from '@dhis2/ui';
+import { Popover, Menu, MenuItem, Divider } from '@dhis2/ui';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
 import EditIcon from '@material-ui/icons/Create';
 import TableIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/SaveAlt';
 import ChartIcon from '@material-ui/icons/BarChart';
+import IconButton from '../../core/IconButton';
 import styles from './styles/LayerToolbarMore.module.css';
 
 export const LayerToolbarMoreMenu = ({
@@ -30,21 +31,26 @@ export const LayerToolbarMoreMenu = ({
 
     return (
         <Fragment>
-            <Tooltip content={i18n.t('More actions')}>
-                <div
-                    ref={anchorRef}
-                    className={styles.moreMenuButton}
+            <div
+                ref={anchorRef}
+                className={styles.moreMenuButton}
+                onClick={() => setIsOpen(!isOpen)}
+                data-test="moremenubutton"
+            >
+                <IconButton
+                    tooltip={i18n.t('More actions')}
                     onClick={() => setIsOpen(!isOpen)}
-                    data-test="moremenubutton"
+                    dataTest="moremenubutton"
                 >
                     <MoreIcon />
-                </div>
-            </Tooltip>
+                </IconButton>
+            </div>
+
             {isOpen && (
                 <Popover
                     reference={anchorRef}
                     arrow={false}
-                    placement="right"
+                    placement="right-start"
                     onClickOutside={() => setIsOpen(false)}
                 >
                     <div className={styles.menu}>
