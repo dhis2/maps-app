@@ -184,7 +184,6 @@ class Map extends Component {
             ...evt,
             position: [x, y],
             offset: [left, top],
-            map: this.map,
         });
     };
 
