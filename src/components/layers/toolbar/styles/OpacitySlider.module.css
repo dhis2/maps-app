@@ -11,13 +11,6 @@
     -webkit-appearance: none;
     appearance: none;
     height: 2px;
-    background: linear-gradient(
-        to right,
-        var(--colors-grey800) 0%,
-        var(--colors-grey800) 50%,
-        var(--colors-grey400) 50%,
-        var(--colors-grey400) 100%
-    );
     transition: background 450ms ease-in;
     outline: none;
     border-radius: 2px;
