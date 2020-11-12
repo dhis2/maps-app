@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CssReset, CssVariables } from '@dhis2/ui';
 import MapName from './MapName';
 import MapView from '../map/MapView';
 import Legend from './Legend';
@@ -49,6 +50,8 @@ class Plugin extends Component {
 
         return (
             <div className={`dhis2-map-plugin ${styles.plugin}`}>
+                <CssReset />
+                <CssVariables colors spacers theme />
                 {!hideTitle && <MapName name={name} />}
                 <MapView
                     isPlugin={true}

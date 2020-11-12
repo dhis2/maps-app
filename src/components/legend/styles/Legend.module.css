@@ -8,31 +8,6 @@
     border-spacing: 0;
 }
 
-.legend tr {
-    height: var(--spacers-dp24);
-}
-
-.legend th {
-    min-width: var(--spacers-dp24);
-    height: var(--spacers-dp24);
-    padding: 0;
-    vertical-align: middle;
-}
-
-.legend th span {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-.legend td {
-    line-height: 24px;
-    padding-left: var(--spacers-dp8);
-    white-space: nowrap;
-}
-
 .description {
     padding-bottom: var(--spacers-dp12);
 }
