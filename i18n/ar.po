@@ -66,7 +66,7 @@ msgid "None"
 msgstr "لا شيء"
 
 msgid "Data item"
-msgstr ""
+msgstr "عنصر بيانات"
 
 msgid "Event data item"
 msgstr "عنصر بيانات حدث"
@@ -731,7 +731,7 @@ msgid "Variance"
 msgstr "التباين"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Light"
 
 msgid "OSM Detailed"
 msgstr ""
@@ -740,7 +740,7 @@ msgid "Google Streets"
 msgstr "الشوارع بحسب غوغل"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Equal intervals"
 msgstr "فترات متساوية"
