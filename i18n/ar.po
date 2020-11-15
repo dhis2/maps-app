@@ -63,7 +63,7 @@ msgid "None"
 msgstr "لا شيء"
 
 msgid "Data item"
-msgstr ""
+msgstr "عنصر بيانات"
 
 msgid "Event data item"
 msgstr "عنصر بيانات حدث"
