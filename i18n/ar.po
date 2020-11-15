@@ -63,7 +63,7 @@ msgid "None"
 msgstr "لا شيء"
 
 msgid "Data item"
-msgstr ""
+msgstr "عنصر بيانات"
 
 msgid "Event data item"
 msgstr "عنصر بيانات حدث"
@@ -843,7 +843,7 @@ msgid "Variance"
 msgstr "التباين"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Light"
 
 msgid "OSM Detailed"
 msgstr ""
@@ -852,7 +852,7 @@ msgid "Google Streets"
 msgstr "الشوارع بحسب غوغل"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Bing Road"
 msgstr ""
@@ -957,13 +957,13 @@ msgid "Last 30 days"
 msgstr "آخر 30 يوم"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "آخر 60 يومًا"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "آخر 90 يومًا"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "آخر 180 يوم"
 
 msgid "This week"
 msgstr "الأسبوع الحالي"
