@@ -21,7 +21,7 @@ msgid "Maps"
 msgstr "الخرائط"
 
 msgid "Classification"
-msgstr ""
+msgstr "تصنيف"
 
 msgid "Classes"
 msgstr ""
@@ -90,7 +90,7 @@ msgid "Level"
 msgstr "المستوى"
 
 msgid "Parent"
-msgstr ""
+msgstr "الأب"
 
 msgid "Id"
 msgstr "المعرف"
@@ -143,7 +143,7 @@ msgid "Point radius"
 msgstr "قطر النقطة"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "لم يتم تحديد أي وحدات تنظيمية"
 
 msgid "Steps"
 msgstr "الخطوات"
@@ -155,7 +155,7 @@ msgid "This field is required"
 msgstr "هذا الحقل مطلوب"
 
 msgid "Valid range is"
-msgstr ""
+msgstr "النطاق الصالح هو"
 
 msgid "data"
 msgstr "البيانات"
@@ -294,7 +294,7 @@ msgid "Item type"
 msgstr "نوع العنصر"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "حدث خطأ في تطبيق خرائط DHIS2."
 
 msgid "Something went wrong"
 msgstr "هناك خطأ ما"
@@ -321,7 +321,7 @@ msgid "Delete filter"
 msgstr ""
 
 msgid "Remove filter"
-msgstr ""
+msgstr "إزالة عامل التصفية"
 
 msgid "Operator"
 msgstr "العامل"
@@ -330,22 +330,22 @@ msgid "Date"
 msgstr "التاريخ"
 
 msgid "one of"
-msgstr ""
+msgstr "واحد من"
 
 msgid "not one of"
 msgstr ""
 
 msgid "contains"
-msgstr ""
+msgstr "يحتوي على"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "لا يحتوي"
 
 msgid "is"
 msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
 
 msgid "is not"
-msgstr ""
+msgstr "ليس"
 
 msgid "Indicator group"
 msgstr "مجموعة المؤشرات"
@@ -363,7 +363,7 @@ msgid "Expand"
 msgstr "وسِع\\مدِد"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "تنزيل بيانات الطبقة"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
 msgstr ""
@@ -374,16 +374,16 @@ msgid ""
 msgstr ""
 
 msgid "Data download failed."
-msgstr ""
+msgstr "فشل تنزيل البيانات."
 
 msgid "ID Format"
-msgstr ""
+msgstr "تنسيق ID"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "استخدم مفاتيح يمكن للبشر قراءتها"
 
 msgid "Loading layer"
-msgstr ""
+msgstr "تحميل الطبقة"
 
 msgid "deleted"
 msgstr "محذوف"
@@ -398,10 +398,10 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "اضبط عتامة الطبقة"
 
 msgid "More actions"
-msgstr ""
+msgstr "المزيد من الإجراءات"
 
 msgid "Data table"
 msgstr "جدول البيانات"
@@ -413,7 +413,7 @@ msgid "Edit layer"
 msgstr "تحرير الطبقة"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "أزل الطبقة"
 
 msgid "Open as"
 msgstr ""
@@ -470,7 +470,7 @@ msgid "Code"
 msgstr "الرمز"
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "لا توجد بيانات لهذه الفترة."
 
 msgid "Select groups"
 msgstr "اختر المجموعات"
@@ -500,7 +500,7 @@ msgid "in and all below"
 msgstr ""
 
 msgid "Previous year"
-msgstr ""
+msgstr "السنة الماضية"
 
 msgid "Next year"
 msgstr "السنة التالية"
@@ -527,6 +527,8 @@ msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
+"لإظهار هذه الطبقة ، يجب عليك أولاً الاشتراك في خدمة Earth Engine في Google. "
+"يرجى التحقق من وثائق DHIS 2."
 
 msgid "Favorite"
 msgstr ""
@@ -538,25 +540,25 @@ msgid "Error"
 msgstr "خطأ"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "الحدود"
 
 msgid "Alert"
-msgstr ""
+msgstr "إنذار"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "لم يتم العثور على حدود"
 
 msgid "Access denied"
 msgstr "تم رفض الوصول"
 
 msgid "user is not allowed to read layer data"
-msgstr ""
+msgstr "غير مسموح للمستخدم بقراءة بيانات الطبقة"
 
 msgid "Failed"
 msgstr "فشل"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr ""
+msgstr "حدث خطأ غير معروف أثناء قراءة بيانات الطبقة"
 
 msgid "Event"
 msgstr "الحدث"
@@ -583,13 +585,13 @@ msgid "No"
 msgstr "لا"
 
 msgid "Map could not be created"
-msgstr ""
+msgstr "لا يمكن إنشاء الخريطة"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "تاريخ البدء غير صالح"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "تاريخ الانتهاء غير صالح"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البدء"
