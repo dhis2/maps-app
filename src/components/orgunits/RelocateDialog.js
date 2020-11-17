@@ -20,11 +20,6 @@ const RelocateDialog = props => {
     };
 
     useEffect(() => {
-        map.on('click', onMapClick);
-        return () => map.off('click', onMapClick);
-    }, [map]);
-
-    useEffect(() => {
         const container = map
             .getContainer()
             .getElementsByClassName('mapboxgl-interactive')[0];
