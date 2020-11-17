@@ -2,7 +2,6 @@
     position: relative;
     margin: var(--spacers-dp8) var(--spacers-dp4) -4px var(--spacers-dp4);
     padding-bottom: 0;
-    z-index: 1200;
 }
 
 .cardHeader {
