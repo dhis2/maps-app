@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -7,22 +7,22 @@ import UpIcon from '@material-ui/icons/ArrowUpward';
 import DownIcon from '@material-ui/icons/ArrowDownward';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import PositionIcon from '@material-ui/icons/Room';
+import RelocateDialog from '../orgunits/RelocateDialog';
 import {
     closeContextMenu,
     openCoordinatePopup,
     showEarthEngineValue,
 } from '../../actions/map';
 import { drillLayer } from '../../actions/layers';
-import {
-    loadOrgUnit,
-    startRelocateOrgUnit,
-    changeOrgUnitCoordinate,
-} from '../../actions/orgUnits';
+import { loadOrgUnit, changeOrgUnitCoordinate } from '../../actions/orgUnits';
 import styles from './styles/ContextMenu.module.css';
 
 const polygonTypes = ['Polygon', 'MultiPolygon'];
 
 const ContextMenu = (props, context) => {
+    const [relocate, setRelocate] = useState();
+    const anchorRef = useRef();
+
     const {
         feature,
         layerId,
@@ -31,21 +31,24 @@ const ContextMenu = (props, context) => {
         earthEngineLayers,
         position,
         offset,
+        map,
         closeContextMenu,
         openCoordinatePopup,
         showEarthEngineValue,
         drillLayer,
         loadOrgUnit,
-        startRelocateOrgUnit,
         changeOrgUnitCoordinate,
     } = props;
+
+    if (relocate) {
+        return <RelocateDialog {...relocate} onClose={() => setRelocate()} />;
+    }
 
     if (!position) {
         return null;
     }
 
     const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
-    const anchorRef = useRef();
     const left = offset[0] + position[0];
     const top = offset[1] + position[1];
 
@@ -91,12 +94,12 @@ const ContextMenu = (props, context) => {
             case 'swap_coordinate':
                 changeOrgUnitCoordinate(
                     layerId,
-                    feature.id,
+                    feature.properties.id,
                     feature.geometry.coordinates.slice(0).reverse()
                 );
                 break;
             case 'relocate':
-                startRelocateOrgUnit(layerId, feature);
+                setRelocate({ layerId, feature, map });
                 break;
             case 'show_ee_value':
                 showEarthEngineValue(id, coordinates);
@@ -201,13 +204,13 @@ ContextMenu.propTypes = {
     coordinates: PropTypes.array,
     position: PropTypes.array,
     offset: PropTypes.array,
+    map: PropTypes.object,
     earthEngineLayers: PropTypes.array,
     closeContextMenu: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
     drillLayer: PropTypes.func.isRequired,
     loadOrgUnit: PropTypes.func.isRequired,
-    startRelocateOrgUnit: PropTypes.func.isRequired,
     changeOrgUnitCoordinate: PropTypes.func.isRequired,
 };
 
@@ -224,7 +227,6 @@ export default connect(
         showEarthEngineValue,
         drillLayer,
         loadOrgUnit,
-        startRelocateOrgUnit,
         changeOrgUnitCoordinate,
     }
 )(ContextMenu);
