@@ -1,0 +1,6 @@
+.mapItem {
+    position: relative;
+    box-sizing: border-box;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+}

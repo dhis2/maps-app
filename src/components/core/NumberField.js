@@ -44,7 +44,7 @@ NumberField.propTypes = {
     value: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
-    dense: PropTypes.func,
+    dense: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
 };

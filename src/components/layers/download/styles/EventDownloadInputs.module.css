@@ -1,0 +1,12 @@
+.headingDiv {
+    margin-bottom: var(--spacers-dp8);
+}
+
+.selectField {
+    width: 50%;
+}
+
+.checkboxRoot {
+    margin: var(--spacers-dp4) 0;
+    margin-left: -12px;
+}

@@ -1,11 +1,6 @@
 .moreMenuButton {
-    width: var(--spacers-dp32);
-    height: var(--spacers-dp32);
-    padding: var(--spacers-dp4);
     position: absolute;
     right: var(--spacers-dp4);
-    top: 0;
-    cursor: pointer;
 }
 
 .menu {

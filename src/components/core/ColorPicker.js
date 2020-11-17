@@ -41,7 +41,7 @@ const ColorPicker = ({ color, label, width, height, onChange, className }) => {
                 <Popover
                     reference={anchorRef}
                     arrow={false}
-                    placement="right"
+                    placement="right-start"
                     onClickOutside={() => setIsOpen(false)}
                 >
                     <ChromePicker

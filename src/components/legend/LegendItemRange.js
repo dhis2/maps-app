@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './styles/LegendItemRange.module.css';
 
 const LegendItemRange = ({ name = '', startValue, endValue, count }) => (
-    <td>
+    <td className={styles.legendItemRange}>
         {isNaN(startValue) ? name : `${name} ${startValue} - ${endValue}`}
         {count !== undefined ? ` (${count})` : ''}
     </td>

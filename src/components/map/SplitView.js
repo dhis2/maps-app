@@ -1,19 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames';
 import PeriodName from './PeriodName';
 import MapItem from './MapItem';
 import Layer from './Layer';
 import ThematicLayer from './ThematicLayer';
-
-const styles = {
-    root: {
-        height: '100%',
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignContent: 'stretch',
-    },
-};
+import styles from './styles/SplitView.module.css';
 
 class SplitView extends PureComponent {
     static propTypes = {
@@ -21,7 +13,6 @@ class SplitView extends PureComponent {
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
         controls: PropTypes.array,
-        classes: PropTypes.object.isRequired,
         openContextMenu: PropTypes.func.isRequired,
     };
 
@@ -47,13 +38,7 @@ class SplitView extends PureComponent {
     }
 
     render() {
-        const {
-            isPlugin,
-            basemap,
-            layer,
-            classes,
-            openContextMenu,
-        } = this.props;
+        const { isPlugin, basemap, layer, openContextMenu } = this.props;
 
         const { isFullscreen } = this.state;
 
@@ -62,7 +47,7 @@ class SplitView extends PureComponent {
         return (
             <div
                 ref={node => (this.node = node)}
-                className={`dhis2-map-split-view ${classes.root}`}
+                className={cx('dhis2-map-split-view', styles.splitView)}
             >
                 {periods.map((period, index) => (
                     <MapItem
@@ -109,4 +94,4 @@ class SplitView extends PureComponent {
     onFullScreenChange = ({ isFullscreen }) => this.setState({ isFullscreen });
 }
 
-export default withStyles(styles)(SplitView);
+export default SplitView;

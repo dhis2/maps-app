@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Card, Tooltip } from '@dhis2/ui';
+import { Card } from '@dhis2/ui';
 import cx from 'classnames';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import CollapseIcon from '@material-ui/icons/ExpandLess';
+import IconButton from '../core/IconButton';
 import SortableHandle from './SortableHandle';
 import LayerToolbar from './toolbar/LayerToolbar';
 import styles from './styles/LayerCard.module.css';
@@ -43,15 +44,16 @@ const LayerCard = ({
                 </div>
                 <div className={styles.action}>
                     {isOverlay && <SortableHandle />}
-                    <Tooltip
-                        content={
+                    <IconButton
+                        tooltip={
                             isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
                         }
+                        onClick={toggleExpand}
+                        className={styles.expand}
+                        dataTest="editbutton"
                     >
-                        <span className={styles.expand} onClick={toggleExpand}>
-                            {isExpanded ? <CollapseIcon /> : <ExpandIcon />}
-                        </span>
-                    </Tooltip>
+                        {isExpanded ? <CollapseIcon /> : <ExpandIcon />}
+                    </IconButton>
                 </div>
             </div>
             <div className={styles.collapsibleContent}>

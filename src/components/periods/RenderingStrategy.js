@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 import RadioGroup from '../core/RadioGroup';
 import Radio from '../core/Radio';
 import i18n from '@dhis2/d2-i18n';
@@ -15,21 +14,6 @@ import {
     invalidSplitViewPeriods,
 } from '../../constants/periods';
 
-const styles = () => ({
-    label: {
-        padding: '16px 0 8px',
-    },
-    radio: {
-        padding: '4px 12px',
-    },
-    message: {
-        paddingTop: 4,
-        fontStyle: 'italic',
-        fontSize: 14,
-        lineHeight: '18px',
-    },
-});
-
 class RenderingStrategy extends Component {
     static propTypes = {
         value: PropTypes.string,
@@ -38,7 +22,6 @@ class RenderingStrategy extends Component {
         hasOtherLayers: PropTypes.bool,
         hasOtherTimelineLayers: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
     };
 
     static defaultProps = {
@@ -124,4 +107,4 @@ export default connect((state, props) => {
                 layer.id !== props.layerId
         ),
     };
-})(withStyles(styles)(RenderingStrategy));
+})(RenderingStrategy);

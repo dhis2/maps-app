@@ -2,28 +2,26 @@
 
 exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
 <Fragment>
-  <Tooltip
-    content="More actions"
-    dataTest="dhis2-uicore-tooltip"
-    maxWidth={300}
-    placement="top"
-    tag="span"
+  <div
+    className="moreMenuButton"
+    data-test="moremenubutton"
+    onClick={[Function]}
   >
-    <div
-      className="moreMenuButton"
-      data-test="moremenubutton"
+    <IconButton
+      dataTest="moremenubutton"
       onClick={[Function]}
+      tooltip="More actions"
     >
       <MoreHorizIcon />
-    </div>
-  </Tooltip>
+    </IconButton>
+  </div>
   <Popover
     arrow={false}
     dataTest="dhis2-uicore-popover"
     elevation="0 0 1px 0 rgba(64,75,90,0.29), 0 3px 8px -2px rgba(64,75,90,0.30)"
     maxWidth={360}
     onClickOutside={[Function]}
-    placement="right"
+    placement="right-start"
     reference={
       Object {
         "current": undefined,

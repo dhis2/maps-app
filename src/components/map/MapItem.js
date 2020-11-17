@@ -1,16 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import mapApi from './MapApi';
-
-const styles = () => ({
-    item: {
-        position: 'relative',
-        boxSizing: 'border-box',
-        borderRight: '1px solid #aaa',
-        borderBottom: '1px solid #aaa',
-    },
-});
+import styles from './styles/MapItem.module.css';
 
 class MapItem extends PureComponent {
     static childContextTypes = {
@@ -24,7 +15,6 @@ class MapItem extends PureComponent {
         count: PropTypes.number.isRequired,
         layerId: PropTypes.string.isRequired,
         children: PropTypes.node.isRequired,
-        classes: PropTypes.object.isRequired,
         setMapControls: PropTypes.func.isRequired,
     };
 
@@ -86,13 +76,13 @@ class MapItem extends PureComponent {
     }
 
     render() {
-        const { count, children, classes } = this.props;
+        const { count, children } = this.props;
         const { map } = this.state;
 
         return (
             <div
                 ref={node => (this.node = node)}
-                className={classes.item}
+                className={styles.mapItem}
                 style={{
                     width: count === 4 ? '50%' : '33.3333%',
                 }}
@@ -117,4 +107,4 @@ class MapItem extends PureComponent {
     onMapReady = map => this.setState({ map });
 }
 
-export default withStyles(styles)(MapItem);
+export default MapItem;

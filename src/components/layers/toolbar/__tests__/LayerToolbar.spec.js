@@ -15,7 +15,7 @@ describe('LayerToolbar', () => {
         );
     it('Should render only a visibility toggle and opacity slider', () => {
         const wrapper = shallowRenderLayerToolbar();
-        expect(wrapper.find('[data-test="visibilitybutton"]').length).toBe(1); // Visibility toggle
+        expect(wrapper.find('[dataTest="visibilitybutton"]').length).toBe(1); // Visibility toggle
         expect(wrapper.find('OpacitySlider').length).toBe(1);
         expect(wrapper.find('LayerToolbarMoreMenu').length).toBe(1);
     });
@@ -45,7 +45,7 @@ describe('LayerToolbar', () => {
         const wrapper = shallowRenderLayerToolbar({
             toggleLayerVisibility: toggleVisibleFn,
         });
-        wrapper.find('[data-test="visibilitybutton"]').simulate('click');
+        wrapper.find('[dataTest="visibilitybutton"]').simulate('click');
         expect(toggleVisibleFn).toHaveBeenCalled();
     });
 
@@ -58,7 +58,7 @@ describe('LayerToolbar', () => {
         const wrapper = shallowRenderLayerToolbar({
             onEdit: () => null,
         });
-        expect(wrapper.find('[data-test="visibilitybutton"]').length).toBe(1);
+        expect(wrapper.find('[dataTest="visibilitybutton"]').length).toBe(1);
         expect(wrapper.find('OpacitySlider').length).toBe(1);
         expect(wrapper.find('LayerToolbarMoreMenu').length).toBe(1);
     });
@@ -79,11 +79,11 @@ describe('LayerToolbar', () => {
             onEdit: editFn,
         });
 
-        wrapper.find('[data-test="editbutton"]').simulate('click');
+        wrapper.find('[dataTest="editbutton"]').simulate('click');
         expect(editFn).toHaveBeenCalled();
         expect(toggleVisibleFn).not.toHaveBeenCalled();
 
-        wrapper.find('[data-test="visibilitybutton"]').simulate('click');
+        wrapper.find('[dataTest="visibilitybutton"]').simulate('click');
         expect(toggleVisibleFn).toHaveBeenCalled();
         expect(editFn).toHaveBeenCalledTimes(1);
     });

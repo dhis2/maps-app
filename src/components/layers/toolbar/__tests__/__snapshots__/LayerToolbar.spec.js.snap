@@ -5,43 +5,29 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
   className="toolbar"
   data-test="layertoolbar"
 >
-  <Tooltip
-    content="Edit"
-    dataTest="dhis2-uicore-tooltip"
-    maxWidth={300}
-    placement="top"
-    tag="span"
+  <IconButton
+    className="button"
+    dataTest="editbutton"
+    onClick={[Function]}
+    tooltip="Edit"
   >
-    <div
-      className="button"
-      data-test="editbutton"
-      onClick={[Function]}
-    >
-      <CreateIcon
-        data-icon="CreateIcon"
-      />
-    </div>
-  </Tooltip>
+    <CreateIcon
+      data-icon="CreateIcon"
+    />
+  </IconButton>
   <span
     className="spacer"
   />
-  <Tooltip
-    content="Toggle visibility"
-    dataTest="dhis2-uicore-tooltip"
-    maxWidth={300}
-    placement="top"
-    tag="span"
+  <IconButton
+    className="button"
+    dataTest="visibilitybutton"
+    onClick={[Function]}
+    tooltip="Toggle visibility"
   >
-    <div
-      className="button"
-      data-test="visibilitybutton"
-      onClick={[Function]}
-    >
-      <VisibilityIcon
-        data-icon="VisibilityIcon"
-      />
-    </div>
-  </Tooltip>
+    <VisibilityIcon
+      data-icon="VisibilityIcon"
+    />
+  </IconButton>
   <div
     className="sliderContainer"
   >
@@ -69,23 +55,16 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
   className="toolbar"
   data-test="layertoolbar"
 >
-  <Tooltip
-    content="Toggle visibility"
-    dataTest="dhis2-uicore-tooltip"
-    maxWidth={300}
-    placement="top"
-    tag="span"
+  <IconButton
+    className="button"
+    dataTest="visibilitybutton"
+    onClick={[Function]}
+    tooltip="Toggle visibility"
   >
-    <div
-      className="button"
-      data-test="visibilitybutton"
-      onClick={[Function]}
-    >
-      <VisibilityIcon
-        data-icon="VisibilityIcon"
-      />
-    </div>
-  </Tooltip>
+    <VisibilityIcon
+      data-icon="VisibilityIcon"
+    />
+  </IconButton>
   <div
     className="sliderContainer"
   >

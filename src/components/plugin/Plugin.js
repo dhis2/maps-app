@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { CssReset, CssVariables } from '@dhis2/ui';
 import MapName from './MapName';
 import MapView from '../map/MapView';
 import Legend from './Legend';
 import ContextMenu from './ContextMenu';
 import { drillUpDown } from '../../util/map';
 import { fetchLayer } from '../../loaders/layers';
-
-const styles = {
-    root: {
-        position: 'relative',
-        height: '100%',
-        width: '100%',
-        fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
-    },
-};
+import styles from './styles/Plugin.module.css';
 
 const defaultBounds = [
     [-18.7, -34.9],
@@ -28,7 +20,6 @@ class Plugin extends Component {
         name: PropTypes.string,
         basemap: PropTypes.object,
         mapViews: PropTypes.array,
-        classes: PropTypes.object.isRequired,
     };
 
     static defaultProps = {
@@ -46,7 +37,7 @@ class Plugin extends Component {
     }
 
     render() {
-        const { name, basemap, hideTitle, classes } = this.props;
+        const { name, basemap, hideTitle } = this.props;
         const {
             position,
             offset,
@@ -58,7 +49,9 @@ class Plugin extends Component {
         } = this.state;
 
         return (
-            <div className={`dhis2-map-plugin ${classes.root}`}>
+            <div className={`dhis2-map-plugin ${styles.plugin}`}>
+                <CssReset />
+                <CssVariables colors spacers theme />
                 {!hideTitle && <MapName name={name} />}
                 <MapView
                     isPlugin={true}
@@ -139,4 +132,4 @@ class Plugin extends Component {
     };
 }
 
-export default withStyles(styles)(Plugin);
+export default Plugin;

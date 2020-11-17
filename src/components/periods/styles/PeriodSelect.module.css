@@ -12,5 +12,5 @@
 }
 
 .stepper > span:first-child {
-    margin-right: 4px;
+    margin-right: var(--spacers-dp4);
 }
