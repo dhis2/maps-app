@@ -1,0 +1,38 @@
+.container {
+    float: left;
+    width: 120px;
+    margin-right: var(--spacers-dp16);
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 160px;
+}
+
+.image {
+    box-sizing: border-box;
+    border: 1px solid var(--colors-grey300);
+    width: 120px;
+    height: 120px;
+}
+
+.noImage {
+    box-sizing: border-box;
+    border: 1px solid var(--colors-grey300);
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    background: var(--colors-grey200);
+    color: var(--colors-grey500);
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: var(--spacers-dp4);
+}
+
+.name {
+    font-size: 14px;
+    color: var(--colors-grey800);
+    padding-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}

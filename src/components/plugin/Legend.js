@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import LegendLayer from './LegendLayer';
-import './Legend.css';
+import './styles/Legend.css';
 
 // Renders a legend for all map layers
 const Legend = ({ layers }) => {

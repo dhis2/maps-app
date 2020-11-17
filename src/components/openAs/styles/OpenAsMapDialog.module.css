@@ -1,0 +1,9 @@
+.content {
+    min-height: 80px;
+}
+
+.description {
+    font-size: 14px;
+    line-height: 20px;
+    padding-bottom: 8px;
+}

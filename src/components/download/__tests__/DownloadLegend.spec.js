@@ -3,14 +3,6 @@ import { shallow } from 'enzyme';
 import { DownloadLegend } from '../DownloadLegend';
 
 describe('DownloadLegend', () => {
-    const classes = {
-        root: 'root-class',
-        topleft: 'topleft-class',
-        topright: 'topright-class',
-        bottomright: 'bottomright-class',
-        name: 'name-class',
-    };
-
     const layers = [
         {
             id: 'layer-1',
@@ -34,7 +26,6 @@ describe('DownloadLegend', () => {
     const renderComponent = props =>
         shallow(
             <DownloadLegend
-                classes={classes}
                 position="bottomright"
                 layers={[]}
                 showName={false}
@@ -46,32 +37,10 @@ describe('DownloadLegend', () => {
         expect(renderComponent().exists()).toBe(true);
     });
 
-    it('Should set legend position class', () => {
-        const wrapper = renderComponent();
-        expect(wrapper.hasClass(classes.bottomright)).toBe(true);
-        wrapper.setProps({ position: 'topleft' });
-        expect(wrapper.hasClass(classes.topleft)).toBe(true);
-    });
-
-    it('Should set extra style class if top position and showName is true', () => {
-        const wrapper = renderComponent({
-            position: 'bottomright',
-            showName: false,
-        });
-
-        expect(wrapper.hasClass(classes.name)).toBe(false);
-        wrapper.setProps({ showName: true });
-        expect(wrapper.hasClass(classes.name)).toBe(false);
-        wrapper.setProps({ position: 'topleft' });
-        expect(wrapper.hasClass(classes.name)).toBe(true);
-        wrapper.setProps({ position: 'topright' });
-        expect(wrapper.hasClass(classes.name)).toBe(true);
-    });
-
     it('Should only render layers with legends', () => {
         const wrapper = renderComponent({ layers });
         expect(wrapper.children().length).toEqual(2);
-        expect(wrapper.find('WithStyles(Legend)').length).toEqual(2);
+        expect(wrapper.find('Legend').length).toEqual(2);
     });
 
     it('Should render legend title and period', () => {

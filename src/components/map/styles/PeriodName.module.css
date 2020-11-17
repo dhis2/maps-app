@@ -1,0 +1,16 @@
+.periodName {
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    position: absolute;
+    bottom: var(--spacers-dp16);
+    left: 10px;
+    right: 10px;
+    z-index: 998;
+}
+
+.period {
+    composes: box from '../../../styles/map.css';
+    padding: 3px 5px;
+    font-size: 12px;
+}

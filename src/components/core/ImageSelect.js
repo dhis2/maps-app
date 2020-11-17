@@ -1,82 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames';
+import styles from './styles/ImageSelect.module.css';
 
-const styles = theme => ({
-    container: {}, // For container class override
-    imageContainer: {
-        position: 'relative',
-        overflow: 'visible',
-        border: `1px solid ${theme.palette.divider}`,
-        boxSizing: 'border-box',
-        margin: 2,
-    },
-    imageContainerSelected: {
-        margin: 0,
-        border: `3px solid ${theme.palette.primary.main}`,
-    },
-    image: {
-        width: '100%',
-        display: 'block',
-    },
-    noImage: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        background: '#eee',
-        color: '#ccc',
-        fontSize: 12,
-        textAlign: 'center',
-        lineHeight: 56,
-    },
-    title: {
-        fontSize: 12,
-        color: '#333',
-        paddingTop: 6,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-    },
-});
-
-const ImageSelect = ({
-    classes,
-    id,
-    img,
-    title,
-    isSelected,
-    onClick,
-    style,
-}) => (
+const ImageSelect = ({ id, img, title, isSelected, onClick, className }) => (
     <div
-        className={classes.container}
+        className={cx(styles.imageSelect, className)}
         title={title}
         onClick={() => onClick(id)}
-        style={style}
     >
         <div
-            className={`${classes.imageContainer} ${
-                isSelected ? classes.imageContainerSelected : ''
-            }`}
+            className={cx(styles.imageContainer, {
+                [styles.imageContainerSelected]: isSelected,
+            })}
         >
             {img ? (
-                <img src={img} className={classes.image} />
+                <img src={img} className={styles.image} />
             ) : (
-                <div className={classes.noImage} />
+                <div className={styles.noImage} />
             )}
         </div>
-        {title ? <div className={classes.title}>{title}</div> : null}
+        {title ? <div className={styles.title}>{title}</div> : null}
     </div>
 );
 
 ImageSelect.propTypes = {
-    classes: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     img: PropTypes.string,
     title: PropTypes.string,
     isSelected: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
-export default withStyles(styles)(ImageSelect);
+export default ImageSelect;

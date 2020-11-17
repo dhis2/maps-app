@@ -1,0 +1,16 @@
+.layersToggle {
+    position: absolute;
+    top: 104px;
+    left: 300px;
+    width: 24px;
+    height: 40px;
+    padding: var(--spacers-dp8) 0;
+    background-color: var(--colors-white);
+    box-shadow: 3px 1px 5px -1px rgba(0, 0, 0, 0.2);
+    z-index: 1100;
+    cursor: pointer;
+}
+
+.layersToggle:hover {
+    background-color: var(--colors-grey300);
+}

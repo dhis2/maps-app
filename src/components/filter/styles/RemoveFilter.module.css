@@ -1,0 +1,21 @@
+.removeBtnContainer {
+    border-left: 1px solid #e0e0e0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.removeBtnContainer:hover {
+    background-color: #eaf4ff;
+}
+
+.removeBtn {
+    color: var(--theme-error);
+}

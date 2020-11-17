@@ -13,7 +13,7 @@ export class ProgramStageSelect extends Component {
         errorText: PropTypes.string,
         onChange: PropTypes.func.isRequired,
         loadProgramStages: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
     };
 
     componentDidUpdate() {
@@ -46,7 +46,7 @@ export class ProgramStageSelect extends Component {
             programStage,
             programStages,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
 
@@ -67,7 +67,7 @@ export class ProgramStageSelect extends Component {
                 items={items}
                 value={programStage ? programStage.id : null}
                 onChange={onChange}
-                style={style}
+                className={className}
                 errorText={!programStage && errorText ? errorText : null}
                 data-test="programstageselect"
             />

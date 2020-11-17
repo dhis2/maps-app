@@ -1,11 +1,3 @@
-import { generateUid } from 'd2/uid';
-
-export const createAlert = (title, description) => ({
-    id: generateUid(),
-    title,
-    description,
-});
-
 // Returns array of all alerts from map config and layers (mapViews)
 export const getMapAlerts = mapConfig =>
     []

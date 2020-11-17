@@ -1,99 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
-<WithStyles(ForwardRef(Toolbar))
+<div
+  className="toolbar"
   data-test="layertoolbar"
 >
-  <WithStyles(ForwardRef(Tooltip))
-    key="edit"
-    title="Edit"
+  <IconButton
+    className="button"
+    dataTest="editbutton"
+    onClick={[Function]}
+    tooltip="Edit"
   >
-    <WithStyles(ForwardRef(IconButton))
-      onClick={[Function]}
-    >
-      <CreateIcon
-        data-icon="CreateIcon"
-      />
-    </WithStyles(ForwardRef(IconButton))>
-  </WithStyles(ForwardRef(Tooltip))>
-  <span />
-  <WithStyles(ForwardRef(Tooltip))
-    title="Toggle visibility"
+    <CreateIcon
+      data-icon="CreateIcon"
+    />
+  </IconButton>
+  <span
+    className="spacer"
+  />
+  <IconButton
+    className="button"
+    dataTest="visibilitybutton"
+    onClick={[Function]}
+    tooltip="Toggle visibility"
   >
-    <WithStyles(ForwardRef(IconButton))
-      onClick={[Function]}
+    <VisibilityIcon
+      data-icon="VisibilityIcon"
+    />
+  </IconButton>
+  <div
+    className="sliderContainer"
+  >
+    <Tooltip
+      content="Set layer opacity"
+      dataTest="dhis2-uicore-tooltip"
+      maxWidth={300}
+      placement="top"
+      tag="span"
     >
-      <VisibilityIcon
-        data-icon="VisibilityIcon"
+      <OpacitySlider
+        onChange={[Function]}
+        opacity={0}
       />
-    </WithStyles(ForwardRef(IconButton))>
-  </WithStyles(ForwardRef(Tooltip))>
-  <div>
-    <WithStyles(ForwardRef(Tooltip))
-      title="Set layer opacity"
-    >
-      <div>
-        <WithStyles(OpacitySlider)
-          classes={
-            Object {
-              "root": undefined,
-            }
-          }
-          onChange={[Function]}
-          opacity={0}
-        />
-      </div>
-    </WithStyles(ForwardRef(Tooltip))>
+    </Tooltip>
   </div>
-  <WithStyles(LayerToolbarMoreMenu)
-    classes={
-      Object {
-        "button": undefined,
-      }
-    }
+  <LayerToolbarMoreMenu
     onEdit={[Function]}
   />
-</WithStyles(ForwardRef(Toolbar))>
+</div>
 `;
 
 exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
-<WithStyles(ForwardRef(Toolbar))
+<div
+  className="toolbar"
   data-test="layertoolbar"
 >
-  <WithStyles(ForwardRef(Tooltip))
-    title="Toggle visibility"
+  <IconButton
+    className="button"
+    dataTest="visibilitybutton"
+    onClick={[Function]}
+    tooltip="Toggle visibility"
   >
-    <WithStyles(ForwardRef(IconButton))
-      onClick={[Function]}
+    <VisibilityIcon
+      data-icon="VisibilityIcon"
+    />
+  </IconButton>
+  <div
+    className="sliderContainer"
+  >
+    <Tooltip
+      content="Set layer opacity"
+      dataTest="dhis2-uicore-tooltip"
+      maxWidth={300}
+      placement="top"
+      tag="span"
     >
-      <VisibilityIcon
-        data-icon="VisibilityIcon"
+      <OpacitySlider
+        onChange={[Function]}
+        opacity={0}
       />
-    </WithStyles(ForwardRef(IconButton))>
-  </WithStyles(ForwardRef(Tooltip))>
-  <div>
-    <WithStyles(ForwardRef(Tooltip))
-      title="Set layer opacity"
-    >
-      <div>
-        <WithStyles(OpacitySlider)
-          classes={
-            Object {
-              "root": undefined,
-            }
-          }
-          onChange={[Function]}
-          opacity={0}
-        />
-      </div>
-    </WithStyles(ForwardRef(Tooltip))>
+    </Tooltip>
   </div>
-  <WithStyles(LayerToolbarMoreMenu)
-    classes={
-      Object {
-        "button": undefined,
-      }
-    }
-  />
-</WithStyles(ForwardRef(Toolbar))>
+  <LayerToolbarMoreMenu />
+</div>
 `;

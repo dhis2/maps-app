@@ -17,8 +17,8 @@ export class ProgramSelect extends Component {
         trackedEntityType: PropTypes.object,
         onChange: PropTypes.func.isRequired,
         loadPrograms: PropTypes.func.isRequired,
-        style: PropTypes.object,
         errorText: PropTypes.string,
+        className: PropTypes.string,
     };
 
     componentDidMount() {
@@ -34,7 +34,7 @@ export class ProgramSelect extends Component {
             program,
             programs,
             trackedEntityType,
-            style,
+            className,
             errorText,
         } = this.props;
         let trackedEntityPrograms;
@@ -62,7 +62,7 @@ export class ProgramSelect extends Component {
                 items={trackedEntityPrograms || programs}
                 value={value}
                 onChange={this.onChange}
-                style={style}
+                className={className}
                 errorText={!program && errorText ? errorText : null}
                 data-test="programselect"
             />

@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { TextField as MuiTextField } from '@material-ui/core';
+import { InputField } from '@dhis2/ui';
+import cx from 'classnames';
+import styles from './styles/InputField.module.css';
 
-const styles = {
-    root: {
-        margin: '12px 0',
-        whiteSpace: 'nowrap',
-    },
-};
-
-// Wrapper component around MUI TextField
-const TextField = props => (
-    <MuiTextField
-        {...props}
-        onChange={evt => props.onChange(evt.target.value)}
-    />
+// Wrapper component around @dhis2/ui InputField
+const TextField = ({ type, label, value, dense, onChange, className }) => (
+    <div className={cx(styles.inputField, className)}>
+        <InputField
+            dense={dense}
+            type={type}
+            label={label}
+            value={value}
+            onChange={({ value }) => onChange(value)}
+        />
+    </div>
 );
 
 TextField.propTypes = {
+    type: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    dense: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
+    className: PropTypes.string,
 };
 
-export default withStyles(styles)(TextField);
+export default TextField;

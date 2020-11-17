@@ -13,7 +13,7 @@ export class IndicatorGroupSelect extends Component {
         }),
         loadIndicatorGroups: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
         errorText: PropTypes.string,
     };
 
@@ -30,7 +30,7 @@ export class IndicatorGroupSelect extends Component {
             indicatorGroups,
             indicatorGroup,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
 
@@ -41,9 +41,9 @@ export class IndicatorGroupSelect extends Component {
                 items={indicatorGroups}
                 value={indicatorGroup ? indicatorGroup.id : null}
                 onChange={onChange}
-                style={style}
+                className={className}
                 errorText={!indicatorGroup && errorText ? errorText : null}
-                data-test="indicatorgroupselect"
+                dataTest="indicatorgroupselect"
             />
         );
     }

@@ -24,13 +24,11 @@ describe('EventDownloadInputs', () => {
     it('Should render select box and checkbox when an Event layer', () => {
         const wrapper = renderComponent();
         expect(wrapper.children().length).toBe(3);
-        expect(wrapper.find('WithStyles(SelectField)').length).toBe(1);
-        expect(wrapper.find('WithStyles(SelectField)').prop('value')).toBe(0);
+        expect(wrapper.find('SelectField').length).toBe(1);
+        expect(wrapper.find('SelectField').prop('value')).toBe(0);
 
-        expect(wrapper.find('WithStyles(Checkbox)').length).toBe(1);
-        expect(wrapper.find('WithStyles(Checkbox)').prop('checked')).toBe(
-            false
-        );
+        expect(wrapper.find('Checkbox').length).toBe(1);
+        expect(wrapper.find('Checkbox').prop('checked')).toBe(false);
     });
 
     it('Should respect controlled inputs', () => {
@@ -38,10 +36,10 @@ describe('EventDownloadInputs', () => {
             selectedFormatOption: 2,
             humanReadableChecked: true,
         });
-        expect(wrapper.find('WithStyles(SelectField)').prop('value')).toBe(2);
+        expect(wrapper.find('SelectField').prop('value')).toBe(2);
 
-        expect(wrapper.find('WithStyles(Checkbox)').length).toBe(1);
-        expect(wrapper.find('WithStyles(Checkbox)').prop('checked')).toBe(true);
+        expect(wrapper.find('Checkbox').length).toBe(1);
+        expect(wrapper.find('Checkbox').prop('checked')).toBe(true);
     });
 
     // it('Should toggle checked in onCheckHumanReadable callback when clicking the checkbox', () => {
@@ -49,7 +47,7 @@ describe('EventDownloadInputs', () => {
     //     const wrapper = renderComponent({
     //         onCheckHumanReadable: fn,
     //     });
-    //     const checkbox = wrapper.find('WithStyles(Checkbox)');
+    //     const checkbox = wrapper.find('Checkbox');
     //     checkbox.simulate('change', { target: { checked: true } });
     //     expect(fn).toHaveBeenCalledWith(true);
     //     checkbox.simulate('change', { target: { checked: false } });

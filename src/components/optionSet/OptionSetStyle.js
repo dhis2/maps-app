@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CircularProgress } from '@material-ui/core';
+import { CircularLoader } from '@dhis2/ui';
 import OptionStyle from './OptionStyle';
 import { loadOptionSet } from '../../actions/optionSets';
 import { setOptionStyle } from '../../actions/layerEdit';
 import { qualitativeColors } from '../../constants/colors';
-
-const style = {
-    marginTop: 8,
-};
+import styles from './styles/OptionSetStyle.module.css';
 
 class OptionSetStyle extends Component {
     static propTypes = {
@@ -71,7 +68,7 @@ class OptionSetStyle extends Component {
         const { options } = this.props;
 
         return (
-            <div style={style}>
+            <div className={styles.optionSetStyle}>
                 {options ? (
                     options.map(({ id, name, style }) => (
                         <OptionStyle
@@ -82,7 +79,7 @@ class OptionSetStyle extends Component {
                         />
                     ))
                 ) : (
-                    <CircularProgress size={48} />
+                    <CircularLoader small />
                 )}
             </div>
         );

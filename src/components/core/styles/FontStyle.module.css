@@ -1,0 +1,17 @@
+.fontStyle {
+    display: flex;
+    align-items: flex-end;
+    max-width: 74px;
+}
+
+.button {
+    background: #fafafa;
+    margin: 0 var(--spacers-dp8) var(--spacers-dp8) 0;
+    padding: var(--spacers-dp8);
+    width: 40px;
+    height: 40px;
+}
+
+.colorPicker {
+    margin: var(--spacers-dp12) var(--spacers-dp8);
+}

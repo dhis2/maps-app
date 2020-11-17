@@ -15,23 +15,12 @@ import {
     getColorScale,
 } from '../../util/colors';
 import { CLASSIFICATION_EQUAL_INTERVALS } from '../../constants/layers';
+import styles from './styles/Classification.module.css';
 
-const styles = {
-    select: {
-        width: '100%',
-    },
-    classes: {
-        width: 50,
-        marginRight: 16,
-        top: -8,
-        float: 'left',
-    },
-    scale: {
-        paddingTop: 8,
-    },
-};
-
-const classRange = range(3, 10).map(num => ({ id: num, name: num.toString() })); // 3 - 9
+const classRange = range(3, 10).map(num => ({
+    id: num,
+    name: num.toString(),
+})); // 3 - 9
 
 const Classification = ({
     method,
@@ -51,7 +40,7 @@ const Classification = ({
             value={method || CLASSIFICATION_EQUAL_INTERVALS}
             items={getClassificationTypes()}
             onChange={method => setClassification(method.id)}
-            style={styles.select}
+            className={styles.select}
         />,
         <div key="scale">
             <SelectField
@@ -61,15 +50,15 @@ const Classification = ({
                 onChange={item =>
                     setColorScale(getColorPalette(colorScaleName, item.id))
                 }
-                style={styles.classes}
+                className={styles.classes}
             />
             <ColorScaleSelect
                 palette={colorScale ? colorScale : defaultColorScale}
                 onChange={setColorScale}
                 width={190}
-                style={styles.scale}
+                className={styles.scale}
             />
-            <div style={{ clear: 'both' }} />
+            <div className={styles.clear} />
         </div>,
     ];
 };

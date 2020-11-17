@@ -1,37 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 import i18n from '@dhis2/d2-i18n';
-import SelectField from '../core/SelectField';
-import { IconButton } from '@material-ui/core';
+import { Button, Tooltip } from '@dhis2/ui';
 import LeftIcon from '@material-ui/icons/ChevronLeft';
 import RightIcon from '@material-ui/icons/ChevronRight';
+import cx from 'classnames';
 import { filterFuturePeriods } from 'd2/period/helpers';
+import SelectField from '../core/SelectField';
 import { createPeriods } from '../../util/periods';
 import { getYear } from '../../util/time';
-
-const styles = () => ({
-    select: {
-        margin: '12px 0',
-        width: 'calc(100% - 60px)',
-    },
-    stepper: {
-        display: 'inline-block',
-        verticalAlign: 'top',
-        marginTop: 34,
-        marginLeft: 12,
-    },
-    button: {
-        width: 24,
-        height: 24,
-        padding: 0,
-    },
-});
+import styles from './styles/PeriodSelect.module.css';
 
 class PeriodSelect extends Component {
     static propTypes = {
-        classes: PropTypes.object.isRequired,
         locale: PropTypes.string,
         periodType: PropTypes.string,
         period: PropTypes.shape({
@@ -40,7 +22,7 @@ class PeriodSelect extends Component {
             startDate: PropTypes.string,
         }),
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
         errorText: PropTypes.string,
     };
 
@@ -74,50 +56,47 @@ class PeriodSelect extends Component {
 
     render() {
         const {
-            classes,
             periodType,
             period,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
         const { periods } = this.state;
-        const value = period ? period.id : null;
 
         if (!periods) {
             return null;
         }
 
+        const value =
+            period && periods.some(p => p.id === period.id) ? period.id : null;
+
         return (
-            <div style={{ height: 100, ...style }}>
+            <div className={cx(styles.periodSelect, className)}>
                 <SelectField
                     label={i18n.t('Period')}
                     items={periods}
                     value={value}
                     onChange={onChange}
-                    classes={{
-                        textField: classes.select,
-                    }}
                     errorText={!value && errorText ? errorText : null}
+                    className={styles.select}
                 />
                 {periodType && (
-                    <div className={classes.stepper}>
-                        <IconButton
-                            tooltip={i18n.t('Previous year')}
-                            onClick={this.previousYear}
-                            className={classes.button}
-                            disableTouchRipple={true}
-                        >
-                            <LeftIcon />
-                        </IconButton>
-                        <IconButton
-                            tooltip={i18n.t('Next year')}
-                            onClick={this.nextYear}
-                            className={classes.button}
-                            disableTouchRipple={true}
-                        >
-                            <RightIcon />
-                        </IconButton>
+                    <div className={styles.stepper}>
+                        <Tooltip content={i18n.t('Previous year')}>
+                            <Button
+                                secondary
+                                icon={<LeftIcon />}
+                                onClick={this.previousYear}
+                            />
+                        </Tooltip>
+                        <Tooltip content={i18n.t('Next year')}>
+                            <Button
+                                secondary
+                                icon={<RightIcon />}
+                                onClick={this.nextYear}
+                            />
+                        </Tooltip>
                     </div>
                 )}
             </div>
@@ -159,4 +138,4 @@ class PeriodSelect extends Component {
 
 export default connect(({ settings }) => ({
     locale: settings.user.keyUiLocale,
-}))(withStyles(styles)(PeriodSelect));
+}))(PeriodSelect);

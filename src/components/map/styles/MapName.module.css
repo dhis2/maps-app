@@ -1,0 +1,33 @@
+.mapName {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    max-width: calc(100% - 100px);
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 999;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.name {
+    composes: box from '../../../styles/map.css';
+    margin: var(--spacers-dp8);
+    padding: 6px 8px;
+    line-height: 17px;
+}
+
+.interpretation {
+    position: relative;
+    padding: 7px 8px 7px 28px;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.interpretationIcon {
+    position: absolute;
+    left: var(--spacers-dp8);
+    top: 7px;
+}

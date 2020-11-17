@@ -1,0 +1,25 @@
+.colorPicker {
+    margin-bottom: var(--spacers-dp12);
+}
+
+.label {
+    font-size: 14px;
+    padding: var(--spacers-dp4) 0 var(--spacers-dp8);
+}
+
+.button {
+    position: relative;
+    border: 1px solid var(--colors-grey500);
+    border-radius: 3px;
+    min-width: 40px;
+    cursor: pointer;
+}
+
+.icon {
+    position: absolute;
+    height: 24px;
+    right: var(--spacers-dp4);
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}

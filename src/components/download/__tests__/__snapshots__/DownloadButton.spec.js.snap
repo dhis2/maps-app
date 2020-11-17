@@ -2,17 +2,11 @@
 
 exports[`DownloadButton Should render a download button and a dialog component 1`] = `
 <Fragment>
-  <WithStyles(ForwardRef(Button))
-    classes={
-      Object {
-        "label": undefined,
-      }
-    }
-    key="button"
+  <MenuButton
     onClick={[Function]}
   >
     Download
-  </WithStyles(ForwardRef(Button))>
+  </MenuButton>
   <Connect(DownloadDialog) />
 </Fragment>
 `;

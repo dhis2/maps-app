@@ -16,7 +16,6 @@ describe('DataDownloadDialogContent', () => {
     const renderComponent = props =>
         shallow(
             <DataDownloadDialog
-                classes={{}}
                 open={false}
                 downloading={false}
                 error={null}
@@ -27,8 +26,8 @@ describe('DataDownloadDialogContent', () => {
             />
         );
 
-    const dummyEventLayer = { layer: 'event' };
-    const dummyThematicLayer = { layer: 'thematic' };
+    const dummyEventLayer = { layer: 'event', name: 'Event layer' };
+    const dummyThematicLayer = { layer: 'thematic', name: 'Thematic layer' };
 
     it('Should render null when not open', () => {
         const wrapper = renderComponent();
@@ -47,23 +46,16 @@ describe('DataDownloadDialogContent', () => {
             open: true,
             layer: dummyEventLayer,
         });
+
         expect(wrapper.isEmptyRender()).toBe(false);
-        expect(wrapper.find('WithStyles(ForwardRef(Dialog))').length).toBe(1);
+        expect(wrapper.find('Modal').length).toBe(1);
+        expect(wrapper.find('DataDownloadDialogContent').length).toBe(1);
+        expect(wrapper.find('DataDownloadDialogActions').length).toBe(1);
         expect(
-            wrapper.find('WithStyles(DataDownloadDialogContent)').length
-        ).toBe(1);
-        expect(
-            wrapper.find('WithStyles(DataDownloadDialogActions)').length
-        ).toBe(1);
-        expect(
-            wrapper
-                .find('WithStyles(DataDownloadDialogActions)')
-                .prop('downloading')
+            wrapper.find('DataDownloadDialogActions').prop('downloading')
         ).toBe(false);
         expect(
-            wrapper
-                .find('WithStyles(DataDownloadDialogContent)')
-                .prop('isEventLayer')
+            wrapper.find('DataDownloadDialogContent').prop('isEventLayer')
         ).toBe(true);
     });
 
@@ -74,9 +66,7 @@ describe('DataDownloadDialogContent', () => {
         });
         expect(wrapper.isEmptyRender()).toBe(false);
         expect(
-            wrapper
-                .find('WithStyles(DataDownloadDialogContent)')
-                .prop('isEventLayer')
+            wrapper.find('DataDownloadDialogContent').prop('isEventLayer')
         ).toBe(false);
     });
     it('Should default state to selectedFormatOption=2 and humanReadableChecked=true', () => {
@@ -88,13 +78,13 @@ describe('DataDownloadDialogContent', () => {
         expect(wrapper.state().selectedFormatOption).toBe(2);
         expect(
             wrapper
-                .find('WithStyles(DataDownloadDialogContent)')
+                .find('DataDownloadDialogContent')
                 .prop('selectedFormatOption')
         ).toBe(3); // 1-indexed
         expect(wrapper.state().humanReadableChecked).toBe(true);
         expect(
             wrapper
-                .find('WithStyles(DataDownloadDialogContent)')
+                .find('DataDownloadDialogContent')
                 .prop('humanReadableChecked')
         ).toBe(true);
     });
@@ -125,9 +115,7 @@ describe('DataDownloadDialogContent', () => {
             downloading: true,
         });
         expect(
-            wrapper
-                .find('WithStyles(DataDownloadDialogActions)')
-                .prop('downloading')
+            wrapper.find('DataDownloadDialogActions').prop('downloading')
         ).toBe(true);
     });
 });

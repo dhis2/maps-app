@@ -12,7 +12,7 @@ export class DataElementSelect extends PureComponent {
         dataElementGroup: PropTypes.object,
         loadDataElements: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
         errorText: PropTypes.string,
     };
 
@@ -30,7 +30,7 @@ export class DataElementSelect extends PureComponent {
             dataElements,
             dataElementGroup,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
 
@@ -50,7 +50,7 @@ export class DataElementSelect extends PureComponent {
                 items={items}
                 value={dataElement ? dataElement.id : null}
                 onChange={dataElement => onChange(dataElement, 'dataElement')}
-                style={style}
+                className={className}
                 errorText={!dataElement && errorText ? errorText : null}
             />
         );

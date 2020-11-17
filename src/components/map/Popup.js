@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import './Popup.css';
+import './styles/Popup.css';
 
 const Popup = (props, context) => {
     const { className = '', coordinates, onClose, children } = props;

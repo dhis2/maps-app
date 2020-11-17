@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import { Drawer } from '@material-ui/core';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import BasemapCard from '../layers/basemaps/BasemapCard';
-import LayerCard from './layers/LayerCard';
+import OverlayCard from './overlays/OverlayCard';
 import { sortLayers } from '../../actions/layers';
-import { HEADER_HEIGHT, LAYERS_PANEL_WIDTH } from '../../constants/layout';
+import styles from './styles/LayersPanel.module.css';
 
-const SortableLayer = SortableElement(LayerCard);
+const SortableLayer = SortableElement(OverlayCard);
 
 // Draggable layers - last layer on top
 const SortableLayersList = SortableContainer(({ layers }) => (
@@ -20,44 +18,25 @@ const SortableLayersList = SortableContainer(({ layers }) => (
     </div>
 ));
 
-const styles = theme => ({
-    panel: {
-        top: HEADER_HEIGHT,
-        backgroundColor: theme.palette.background.default,
-        boxShadow: `1px 0 1px 0 ${theme.palette.shadow}`,
-        height: 'auto',
-        maxHeight: '100%',
-        bottom: 0,
-        overflowX: 'hidden',
-        overflowY: 'auto',
-        zIndex: 1190,
-        width: LAYERS_PANEL_WIDTH,
-    },
-});
-
 const LayersPanel = ({
     layersPanelOpen,
     basemap,
     basemaps,
     layers,
     sortLayers,
-    classes,
-}) => (
-    <Drawer
-        open={layersPanelOpen}
-        variant="persistent"
-        classes={{ paper: classes.panel }}
-    >
-        <SortableLayersList
-            layers={layers}
-            onSortEnd={sortLayers}
-            useDragHandle={true}
-        />
-        <div>
-            <BasemapCard {...basemap} basemaps={basemaps} />
+}) =>
+    layersPanelOpen && (
+        <div className={styles.drawer}>
+            <SortableLayersList
+                layers={layers}
+                onSortEnd={sortLayers}
+                useDragHandle={true}
+            />
+            <div>
+                <BasemapCard {...basemap} basemaps={basemaps} />
+            </div>
         </div>
-    </Drawer>
-);
+    );
 
 LayersPanel.propTypes = {
     layersPanelOpen: PropTypes.bool.isRequired,
@@ -65,7 +44,6 @@ LayersPanel.propTypes = {
     basemaps: PropTypes.array.isRequired,
     layers: PropTypes.array.isRequired,
     sortLayers: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -78,6 +56,4 @@ const mapStateToProps = state => ({
     layersPanelOpen: state.ui.layersPanelOpen,
 });
 
-export default connect(mapStateToProps, { sortLayers })(
-    withStyles(styles)(LayersPanel)
-);
+export default connect(mapStateToProps, { sortLayers })(LayersPanel);

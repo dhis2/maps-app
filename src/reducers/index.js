@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import alert from './alert';
+import alerts from './alerts';
 import analyticalObject from './analyticalObject';
 import basemaps from './basemaps';
 import contextMenu from './contextMenu';
@@ -19,7 +19,6 @@ import layers from './layers';
 import legendSets from './legendSets';
 import loading from './loading';
 import map from './map';
-import message from './message';
 import optionSets from './optionSets';
 import orgUnit from './orgUnit';
 import orgUnitTree from './orgUnitTree';
@@ -32,14 +31,13 @@ import programIndicators from './programIndicators';
 import programStages from './programStages';
 import programStageDataElements from './programStageDataElements';
 import programTrackedEntityAttributes from './programTrackedEntityAttributes';
-import relocate from './relocate';
 import ui from './ui';
 import settings from './settings';
 import trackedEntityTypes from './trackedEntityTypes';
 import dataDownload from './dataDownload';
 
 export default combineReducers({
-    alert,
+    alerts,
     analyticalObject,
     basemaps,
     contextMenu,
@@ -59,7 +57,6 @@ export default combineReducers({
     legendSets,
     loading,
     map,
-    message,
     optionSets,
     orgUnit,
     orgUnitTree,
@@ -72,7 +69,6 @@ export default combineReducers({
     programStages,
     programStageDataElements,
     programTrackedEntityAttributes,
-    relocate,
     ui,
     settings,
     trackedEntityTypes,

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilterInput from './FilterInput';
-import './ColumnHeader.css';
 import { SortIndicator } from 'react-virtualized';
+import styles from './styles/ColumnHeader.module.css';
 
 // Replacement for https://github.com/bvaughn/react-virtualized/blob/master/source/Table/defaultHeaderRenderer.js
 
 const ColumnHeader = ({ dataKey, label, type, sortBy, sortDirection }) => (
-    <div className="ColumnHeader">
-        <span className="ColumnHeader-label" title={label}>
+    <div className={styles.columnHeader}>
+        <span className={styles.label} title={label}>
             {label}
         </span>
         {sortBy === dataKey ? (

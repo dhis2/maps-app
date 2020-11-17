@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
-import './FilterInput.css';
+import styles from './styles/FilterInput.module.css';
 
 // http://adazzle.github.io/react-data-grid/examples.html#/custom-filters
 // https://github.com/adazzle/react-data-grid/tree/master/packages/react-data-grid-addons/src/cells/headerCells/filters
@@ -29,7 +29,7 @@ const FilterInput = ({
 
     return (
         <input
-            className="FilterInput"
+            className={styles.filterInput}
             placeholder={type === 'number' ? '2,>3&<8' : 'Search'} // TODO: Support more field types
             value={filterValue}
             onClick={evt => evt.stopPropagation()}

@@ -1,0 +1,16 @@
+.app {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+}
+
+/* Scrollbar width */
+.app ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/* Scrollbar handle */
+.app ::-webkit-scrollbar-thumb {
+    background: #cbcdcf;
+    border-radius: 3px;
+}

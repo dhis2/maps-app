@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
 
-const OptionSetSelect = ({ options, value, onChange, style }) => {
+const OptionSetSelect = ({ options, value, onChange, className }) => {
     // TODO: Temporarily fix until we have a searchable SelectField handling hundreds of options
     if (options.length > 100) {
         options = options.slice(0, 100);
@@ -11,6 +11,7 @@ const OptionSetSelect = ({ options, value, onChange, style }) => {
 
     return (
         <SelectField
+            dense
             label={i18n.t('Options')}
             items={options.map(option => ({
                 id: option.code,
@@ -19,7 +20,7 @@ const OptionSetSelect = ({ options, value, onChange, style }) => {
             value={value}
             multiple={true}
             onChange={onChange}
-            style={style}
+            className={className}
         />
     );
 };
@@ -28,7 +29,7 @@ OptionSetSelect.propTypes = {
     options: PropTypes.array,
     value: PropTypes.array,
     onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default OptionSetSelect;

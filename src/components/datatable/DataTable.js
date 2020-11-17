@@ -12,7 +12,8 @@ import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
 import { formatTime } from '../../util/helpers';
 import { numberValueTypes } from '../../constants/valueTypes';
-import './DataTable.css';
+import styles from './styles/DataTable.module.css';
+import '../../../node_modules/react-virtualized/styles.css';
 
 // Using react component to keep sorting state, which is only used within the data table.
 class DataTable extends Component {
@@ -139,7 +140,7 @@ class DataTable extends Component {
 
         return !serverCluster ? (
             <Table
-                className="DataTable"
+                className={styles.dataTable}
                 width={width}
                 height={height}
                 headerHeight={48}
@@ -275,7 +276,7 @@ class DataTable extends Component {
                     ))}
             </Table>
         ) : (
-            <div className="DataTable-no-support">
+            <div className={styles.noSupport}>
                 {i18n.t(
                     'Data table is not supported when events are grouped on the server.'
                 )}

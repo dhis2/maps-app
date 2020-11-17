@@ -18,7 +18,7 @@ export class CoordinateField extends Component {
         loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
         loadProgramStageDataElements: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
     };
 
     componentDidMount() {
@@ -37,7 +37,7 @@ export class CoordinateField extends Component {
             programAttributes,
             dataElements,
             onChange,
-            style,
+            className,
         } = this.props;
         let fields = [
             { id: 'event', name: i18n.t('Event location') }, // Default coordinate field
@@ -58,7 +58,7 @@ export class CoordinateField extends Component {
                 items={fields}
                 value={value || 'event'}
                 onChange={field => onChange(field.id)}
-                style={style}
+                className={className}
             />
         );
     }

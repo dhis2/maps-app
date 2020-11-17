@@ -61,16 +61,6 @@ export const sortLayers = ({ oldIndex, newIndex }) => ({
     newIndex,
 });
 
-// Open overlay selection dialog
-export const openLayersDialog = () => ({
-    type: types.LAYERS_DIALOG_OPEN,
-});
-
-// Close overlay selection dialog
-export const closeLayersDialog = () => ({
-    type: types.LAYERS_DIALOG_CLOSE,
-});
-
 // Add new layer
 export const drillLayer = (layerId, parentId, parentGraph, level) => ({
     type: types.LAYER_DRILL,

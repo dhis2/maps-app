@@ -1,0 +1,17 @@
+.item {
+    white-space: nowrap;
+}
+
+.color {
+    display: inline-block;
+    width: var(--spacers-dp40);
+    height: var(--spacers-dp40);
+    margin: 0 var(--spacers-dp8) 0 0;
+}
+
+.label {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+}

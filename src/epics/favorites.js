@@ -2,7 +2,7 @@ import { combineEpics } from 'redux-observable';
 import i18n from '@dhis2/d2-i18n';
 import * as types from '../constants/actionTypes';
 import { setMapProps } from '../actions/map';
-import { setMessage } from '../actions/message';
+import { setAlert } from '../actions/alerts';
 import { apiFetch } from '../util/api';
 import { cleanMapConfig } from '../util/favorites';
 
@@ -22,7 +22,12 @@ export const saveFavorite = (action$, store) =>
             `/maps/${config.id}?skipTranslations=true&skipSharing=true`,
             'PUT',
             config
-        ).then(() => setMessage(getSavedMessage(config.name)));
+        ).then(() =>
+            setAlert({
+                success: true,
+                message: getSavedMessage(config.name),
+            })
+        );
     });
 
 // Save new map
@@ -57,9 +62,17 @@ export const saveNewFavorite = (action$, store) =>
             name
                 ? [
                       setMapProps({ id, name, description }),
-                      setMessage(getSavedMessage(name)),
+                      setAlert({
+                          success: true,
+                          message: getSavedMessage(name),
+                      }),
                   ]
-                : [setMessage(`${i18n.t('Error')}: ${message}`)]
+                : [
+                      setAlert({
+                          critical: true,
+                          message: `${i18n.t('Error')}: ${message}`,
+                      }),
+                  ]
         );
 
 export default combineEpics(saveFavorite, saveNewFavorite);

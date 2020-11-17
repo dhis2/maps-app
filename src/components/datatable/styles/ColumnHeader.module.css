@@ -1,0 +1,19 @@
+.columnHeader {
+    position: relative;
+}
+
+.label {
+    display: inline-block;
+    position: absolute;
+    top: 7px;
+    left: 0;
+    right: 15px;
+    user-select: none;
+    overflow: hidden;
+}
+
+.columnHeader svg {
+    position: absolute;
+    top: 5px;
+    right: 0;
+}

@@ -1,0 +1,16 @@
+.addLayerBtn {
+    margin-right: var(--spacers-dp8);
+    border-right: 1px solid #e0e0e0;
+}
+
+.btnContent {
+    width: 284px;
+    padding: 1px 0 0 12px;
+    text-align: left;
+    display: flex;
+}
+
+.addIcon {
+    margin-right: var(--spacers-dp8);
+    color: var(--colors-grey700);
+}

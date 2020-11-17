@@ -1,126 +1,75 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
-import { Popover, TextField } from '@material-ui/core';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { Popover } from '@dhis2/ui';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import { DimensionsPanel } from '@dhis2/d2-ui-analytics';
 import { loadDimensions } from '../../actions/dimensions';
+import styles from './styles/DimensionSelect.module.css';
 
-const styles = {
-    dropdown: {
-        display: 'inline-block',
-        width: '40%',
-        position: 'relative',
-        paddingRight: 24,
-    },
-    textField: {
-        margin: '12px 0',
-    },
-    input: {
-        '& input': {
-            cursor: 'pointer',
-            color: '#000',
-        },
-    },
-    icon: {
-        position: 'absolute',
-        top: 32,
-        right: 24,
-    },
-    dimensions: {
-        width: 400,
-        marginTop: -13,
-        marginLeft: -8,
-        overflowY: 'hidden',
-    },
-};
+const DimensionSelect = ({
+    dimension,
+    dimensions,
+    onChange,
+    loadDimensions,
+}) => {
+    const dropdownRef = useRef();
+    const [isOpen, setIsOpen] = useState(false);
 
-export class DimensionSelect extends Component {
-    static propTypes = {
-        dimension: PropTypes.string,
-        dimensions: PropTypes.object,
-        onChange: PropTypes.func.isRequired,
-        loadDimensions: PropTypes.func.isRequired,
-        style: PropTypes.object,
-        errorText: PropTypes.string,
-        classes: PropTypes.object.isRequired,
-    };
-
-    state = {
-        anchorEl: null,
-    };
-
-    componentDidMount() {
-        const { dimensions, loadDimensions } = this.props;
-
+    useEffect(() => {
         if (!dimensions) {
             loadDimensions();
         }
+    }, [dimensions, loadDimensions]);
+
+    if (!dimensions) {
+        return null;
     }
 
-    onOpen = evt => {
-        this.setState({ anchorEl: evt.currentTarget });
-    };
+    const selected = dimensions[dimension];
 
-    onClose = () => {
-        this.setState({ anchorEl: null });
-    };
-
-    onDimensionClick = dim => {
-        const { dimension, dimensions, onChange } = this.props;
-
+    const onDimensionClick = dim => {
         if (dim !== dimension) {
             onChange(dimensions[dim]);
         }
-
-        this.setState({ anchorEl: null });
+        setIsOpen(false);
     };
 
-    render() {
-        const { dimension, dimensions, classes } = this.props;
-        const { anchorEl } = this.state;
-
-        if (!dimensions) {
-            return null;
-        }
-
-        const selected = dimensions[dimension];
-
-        return (
-            <Fragment>
-                <div onClick={this.onOpen} className={classes.dropdown}>
-                    <TextField
-                        label={i18n.t('Dimension')}
-                        value={selected ? selected.name : ''}
-                        fullWidth={true}
-                        className={classes.textField}
-                        InputProps={{
-                            autoFocus: false,
-                            className: classes.input,
-                            disabled: true,
-                        }}
-                    />
-                    <ArrowDropDownIcon className={classes.icon} />
+    return (
+        <Fragment>
+            <div onClick={() => setIsOpen(true)} className={styles.dropdown}>
+                <label>{i18n.t('Dimension')}</label>
+                <div ref={dropdownRef}>
+                    <span>{selected ? selected.name : ''}</span>
+                    <ExpandMore />
                 </div>
+            </div>
+            {isOpen && (
                 <Popover
-                    open={!!anchorEl}
-                    anchorEl={anchorEl}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                    onClose={this.onClose}
-                    classes={{ paper: classes.dimensions }}
+                    reference={dropdownRef}
+                    placement="bottom-start"
+                    onClickOutside={() => setIsOpen(false)}
                 >
-                    <DimensionsPanel
-                        dimensions={dimensions}
-                        onDimensionClick={this.onDimensionClick}
-                        selectedIds={[dimension]}
-                    />
+                    <div className={styles.dimensions}>
+                        <DimensionsPanel
+                            dimensions={dimensions}
+                            onDimensionClick={onDimensionClick}
+                            selectedIds={[dimension]}
+                        />
+                    </div>
                 </Popover>
-            </Fragment>
-        );
-    }
-}
+            )}
+        </Fragment>
+    );
+};
+
+DimensionSelect.propTypes = {
+    dimension: PropTypes.string,
+    dimensions: PropTypes.object,
+    onChange: PropTypes.func.isRequired,
+    loadDimensions: PropTypes.func.isRequired,
+};
 
 export default connect(
     ({ dimensions }) => ({
@@ -132,4 +81,4 @@ export default connect(
             : null,
     }),
     { loadDimensions }
-)(withStyles(styles)(DimensionSelect));
+)(DimensionSelect);

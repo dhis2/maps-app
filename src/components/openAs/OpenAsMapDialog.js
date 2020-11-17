@@ -1,15 +1,15 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { withStyles } from '@material-ui/core/styles';
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
     Button,
-} from '@material-ui/core';
+    ButtonStrip,
+} from '@dhis2/ui';
 import SelectField from '../core/SelectField';
 import { loadLayer } from '../../actions/layers';
 import { clearAnalyticalObject } from '../../actions/analyticalObject';
@@ -17,17 +17,7 @@ import {
     getDataDimensionsFromAnalyticalObject,
     getThematicLayerFromAnalyticalObject,
 } from '../../util/analyticalObject';
-
-const styles = {
-    content: {
-        minHeight: 80,
-    },
-    description: {
-        fontSize: 14,
-        lineHeight: '20px',
-        paddingBottom: 8,
-    },
-};
+import styles from './styles/OpenAsMapDialog.module.css';
 
 export class OpenAsMapDialog extends Component {
     static propTypes = {
@@ -35,7 +25,6 @@ export class OpenAsMapDialog extends Component {
         ao: PropTypes.object,
         loadLayer: PropTypes.func.isRequired,
         clearAnalyticalObject: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -60,7 +49,7 @@ export class OpenAsMapDialog extends Component {
     }
 
     render() {
-        const { ao, showDialog, clearAnalyticalObject, classes } = this.props;
+        const { ao, showDialog, clearAnalyticalObject } = this.props;
         const { selectedDataDims } = this.state;
 
         if (!showDialog) {
@@ -71,14 +60,12 @@ export class OpenAsMapDialog extends Component {
         const disableProceedBtn = !selectedDataDims.length;
 
         return (
-            <Dialog open={showDialog} onClose={this.onClose}>
-                <DialogTitle disableTypography={true}>
-                    {i18n.t('Open as map')}
-                </DialogTitle>
-                <DialogContent className={classes.content}>
+            <Modal small position="middle" onClose={this.onClose}>
+                <ModalTitle>{i18n.t('Open as map')}</ModalTitle>
+                <ModalContent>
                     {dataDims.length > 1 && (
-                        <Fragment>
-                            <div className={classes.description}>
+                        <div className={styles.content}>
+                            <div className={styles.description}>
                                 {i18n.t(
                                     'This chart/table contains {{numItems}} data items. Choose which items you want to import from the list below. Each data item will be created as a map layer.',
                                     {
@@ -93,22 +80,24 @@ export class OpenAsMapDialog extends Component {
                                 multiple={true}
                                 onChange={this.onSelectDataDim}
                             />
-                        </Fragment>
+                        </div>
                     )}
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={clearAnalyticalObject}>
-                        {i18n.t('Cancel')}
-                    </Button>
-                    <Button
-                        disabled={disableProceedBtn}
-                        color="primary"
-                        onClick={this.onProceedClick}
-                    >
-                        {i18n.t('Proceed')}
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                </ModalContent>
+                <ModalActions>
+                    <ButtonStrip end>
+                        <Button secondary onClick={clearAnalyticalObject}>
+                            {i18n.t('Cancel')}
+                        </Button>
+                        <Button
+                            disabled={disableProceedBtn}
+                            primary
+                            onClick={this.onProceedClick}
+                        >
+                            {i18n.t('Proceed')}
+                        </Button>
+                    </ButtonStrip>
+                </ModalActions>
+            </Modal>
         );
     }
 
@@ -147,4 +136,4 @@ export default connect(
         loadLayer,
         clearAnalyticalObject,
     }
-)(withStyles(styles)(OpenAsMapDialog));
+)(OpenAsMapDialog);

@@ -1,0 +1,11 @@
+.dhis2-map-popup .mapboxgl-popup-content {
+    padding-top: var(--spacers-dp16);
+}
+
+.dhis2-map-popup-event {
+    overflow-x: auto;
+}
+
+.dhis2-map-popup-event th {
+    text-align: left;
+}

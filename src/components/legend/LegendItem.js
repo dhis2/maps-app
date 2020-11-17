@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LineSymbol from './LineSymbol';
 import LegendItemRange from './LegendItemRange';
+import styles from './styles/LegendItem.module.css';
 
 const maxRadius = 15;
 
@@ -33,7 +34,7 @@ const LegendItem = ({
     }
 
     return (
-        <tr data-test="layerlegend-item">
+        <tr className={styles.legendItem} data-test="layerlegend-item">
             <th>
                 {weight ? (
                     <LineSymbol color={color} weight={weight} />

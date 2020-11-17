@@ -18,7 +18,6 @@ import {
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
-import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import {
     THEMATIC_BUBBLE,
@@ -56,7 +55,12 @@ const thematicLoader = async config => {
             ...config,
             ...(error && error.message
                 ? {
-                      alerts: [createAlert(i18n.t('Error'), error.message)],
+                      alerts: [
+                          {
+                              critical: true,
+                              message: `${i18n.t('Error')}: ${error.message}`,
+                          },
+                      ],
                   }
                 : {}),
             name: dataItem ? dataItem.name : i18n.t('Thematic layer'),
@@ -164,14 +168,19 @@ const thematicLoader = async config => {
         if (!features.length) {
             const orgUnits = getOrgUnitsFromRows(rows);
 
-            alert = createAlert(
-                orgUnits.length === 1
-                    ? names[orgUnits[0].id] || orgUnits[0].name
-                    : i18n.t('Selected org units'),
-                i18n.t('No coordinates found')
-            );
+            alert = {
+                warning: true,
+                message: `${
+                    orgUnits.length === 1
+                        ? names[orgUnits[0].id] || orgUnits[0].name
+                        : i18n.t('Selected org units')
+                }: ${i18n.t('No coordinates found')}`,
+            };
         } else {
-            alert = createAlert(name, i18n.t('No data found'));
+            alert = {
+                warning: true,
+                message: `${name}: ${i18n.t('No data found')}`,
+            };
         }
     }
 

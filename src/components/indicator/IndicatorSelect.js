@@ -16,7 +16,7 @@ export class IndicatorSelect extends Component {
         indicators: PropTypes.array,
         loadIndicators: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
-        style: PropTypes.object,
+        className: PropTypes.string,
         errorText: PropTypes.string,
     };
 
@@ -34,7 +34,7 @@ export class IndicatorSelect extends Component {
             indicator,
             indicators,
             onChange,
-            style,
+            className,
             errorText,
         } = this.props;
 
@@ -54,7 +54,7 @@ export class IndicatorSelect extends Component {
                 items={items}
                 value={indicator ? indicator.id : null}
                 onChange={dataItem => onChange(dataItem, 'indicator')}
-                style={style}
+                className={className}
                 errorText={!indicator && errorText ? errorText : null}
                 data-test="indicatorselect"
             />

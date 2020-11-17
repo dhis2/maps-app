@@ -1,102 +1,66 @@
-import React, { Component } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Popover } from '@material-ui/core';
+import { Popover } from '@dhis2/ui';
+import cx from 'classnames';
 import ColorScale from './ColorScale';
 import { colorScales, getColorScale, getColorPalette } from '../../util/colors';
+import styles from './styles/ColorScaleSelect.module.css';
 
-const styles = {
-    scale: {
-        marginTop: 8,
-        overflow: 'visible',
-        whiteSpace: 'nowrap',
-    },
-    scaleItem: {
-        display: 'block',
-        margin: '5px 12px 0 12px',
-        overflow: 'visible',
-        whiteSpace: 'nowrap',
-    },
-};
+const ColorScaleSelect = ({ palette, width, onChange, className }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const anchorRef = useRef();
 
-class ColorScaleSelect extends Component {
-    static propTypes = {
-        palette: PropTypes.string.isRequired,
-        onChange: PropTypes.func.isRequired,
-        width: PropTypes.number,
-        style: PropTypes.object,
-        classes: PropTypes.object.isRequired,
-    };
+    const bins = palette.split(',').length;
+    const scale = getColorScale(palette);
 
-    constructor(...args) {
-        super(...args);
-
-        this.state = {
-            open: false,
-            anchorEl: null,
-        };
-    }
-
-    // Show popover with allowed color scales
-    showColorScales = event => {
-        this.setState({
-            open: true,
-            anchorEl: event.currentTarget,
-        });
-    };
-
-    hideColorScales() {
-        this.setState({
-            open: false,
-        });
-    }
-
-    // Called when a new color scale is selected in the popover
-    onColorScaleSelect = scale => {
-        const { palette, onChange } = this.props;
+    const onColorScaleSelect = scale => {
         const classes = palette.split(',').length;
-
         onChange(getColorPalette(scale, classes));
-        this.hideColorScales();
+        setIsOpen(false);
     };
 
-    render() {
-        const { palette, width, style, classes } = this.props;
-        const bins = palette.split(',').length;
-        const scale = getColorScale(palette);
-
-        return (
-            <div style={style}>
+    return (
+        <Fragment>
+            <div ref={anchorRef} className={cx(styles.colorScale, className)}>
                 <ColorScale
                     bins={bins}
                     scale={scale}
-                    onClick={this.showColorScales}
-                    className={classes.scale}
+                    onClick={() => setIsOpen(true)}
                     width={width || 260}
                 />
-                <Popover
-                    classes={{ paper: classes.popover }}
-                    open={this.state.open}
-                    anchorEl={this.state.anchorEl}
-                    anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                    onClose={() => this.hideColorScales()}
-                >
-                    {colorScales.map((scale, index) => (
-                        <ColorScale
-                            key={index}
-                            scale={scale}
-                            bins={bins}
-                            style={styles.scaleItem}
-                            onClick={(event, scale) =>
-                                this.onColorScaleSelect(scale)
-                            }
-                            width={width || 260}
-                        />
-                    ))}
-                </Popover>
             </div>
-        );
-    }
-}
+            {isOpen && (
+                <Popover
+                    reference={anchorRef}
+                    arrow={false}
+                    placement="right"
+                    onClickOutside={() => setIsOpen(false)}
+                >
+                    <div
+                        className={styles.popover}
+                        style={{ width: width + 24 || 260 }}
+                    >
+                        {colorScales.map((scale, index) => (
+                            <ColorScale
+                                key={index}
+                                scale={scale}
+                                bins={bins}
+                                onClick={onColorScaleSelect}
+                                width={width || 260}
+                            />
+                        ))}
+                    </div>
+                </Popover>
+            )}
+        </Fragment>
+    );
+};
 
-export default withStyles(styles)(ColorScaleSelect);
+ColorScaleSelect.propTypes = {
+    palette: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    width: PropTypes.number,
+    className: PropTypes.string,
+};
+
+export default ColorScaleSelect;

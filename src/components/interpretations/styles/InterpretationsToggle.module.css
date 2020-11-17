@@ -1,0 +1,10 @@
+.button {
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
+.icon {
+    margin-right: var(--spacers-dp8);
+    margin-top: 2px;
+}

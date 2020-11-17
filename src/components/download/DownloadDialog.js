@@ -7,10 +7,10 @@ import {
     ModalTitle,
     ModalContent,
     ModalActions,
-    Checkbox,
     Button,
     ButtonStrip,
 } from '@dhis2/ui';
+import Checkbox from '../core/Checkbox';
 import LegendPosition from './LegendPosition';
 import {
     toggleDownloadDialog,
@@ -70,26 +70,18 @@ export class DownloadDialog extends Component {
                     <div className={styles.modalContent}>
                         {isSupported ? (
                             <Fragment>
-                                <div className={styles.checkbox}>
-                                    <Checkbox
-                                        label={i18n.t('Show name')}
-                                        checked={showName}
-                                        disabled={!hasName}
-                                        onChange={({ checked }) =>
-                                            toggleDownloadShowName(checked)
-                                        }
-                                    />
-                                </div>
-                                <div className={styles.checkbox}>
-                                    <Checkbox
-                                        label={i18n.t('Show legend')}
-                                        checked={showLegend}
-                                        disabled={!hasLegend}
-                                        onChange={({ checked }) =>
-                                            toggleDownloadShowLegend(checked)
-                                        }
-                                    />
-                                </div>
+                                <Checkbox
+                                    label={i18n.t('Show name')}
+                                    checked={showName}
+                                    disabled={!hasName}
+                                    onChange={toggleDownloadShowName}
+                                />
+                                <Checkbox
+                                    label={i18n.t('Show legend')}
+                                    checked={showLegend}
+                                    disabled={!hasLegend}
+                                    onChange={toggleDownloadShowLegend}
+                                />
                                 {hasLegend && showLegend && (
                                     <LegendPosition
                                         position={legendPosition}

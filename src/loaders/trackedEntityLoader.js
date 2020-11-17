@@ -9,7 +9,6 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
 } from '../constants/layers';
 import { getProgramStatuses } from '../constants/programStatuses';
-import { createAlert } from '../util/alerts';
 import { formatLocaleDate } from '../util/time';
 import { getDataWithRelationships } from '../util/teiRelationshipsParser';
 
@@ -127,10 +126,12 @@ const trackedEntityLoader = async config => {
     );
 
     if (!instances.length) {
-        alert = createAlert(
-            trackedEntityType.name,
-            i18n.t('No tracked entities found')
-        );
+        alert = {
+            warning: true,
+            message: `${trackedEntityType.name}: ${i18n.t(
+                'No tracked entities found'
+            )}`,
+        };
     }
 
     let data, relationships, secondaryData;

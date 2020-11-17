@@ -1,60 +1,51 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
 import { loadDimensionItems } from '../../actions/dimensions';
+import styles from './styles/DimensionItemsSelect.module.css';
 
-const styles = {
-    select: {
-        width: '60%',
-    },
-};
-
-export class DimensionItemsSelect extends Component {
-    static propTypes = {
-        dimension: PropTypes.string,
-        items: PropTypes.array,
-        value: PropTypes.array,
-        onChange: PropTypes.func.isRequired,
-        loadDimensionItems: PropTypes.func.isRequired,
-        style: PropTypes.object,
-        errorText: PropTypes.string,
-    };
-
-    componentDidUpdate() {
-        const { dimension, items, loadDimensionItems } = this.props;
-
+const DimensionItemsSelect = ({
+    dimension,
+    items,
+    value,
+    onChange,
+    loadDimensionItems,
+}) => {
+    useEffect(() => {
         if (dimension && !items) {
             loadDimensionItems(dimension);
         }
+    }, [dimension, items, loadDimensionItems]);
+
+    if (!items) {
+        return null;
     }
 
-    onDimensionItemClick = ids => {
-        const { items, onChange } = this.props;
-
+    const onDimensionItemClick = ids =>
         onChange(ids.map(id => items.find(item => item.id === id)));
-    };
 
-    render() {
-        const { items, value } = this.props;
+    return (
+        <SelectField
+            dense
+            label={i18n.t('Items')}
+            items={items}
+            value={value}
+            multiple={true}
+            onChange={onDimensionItemClick}
+            className={styles.select}
+        />
+    );
+};
 
-        if (!items) {
-            return null;
-        }
-
-        return (
-            <SelectField
-                label={i18n.t('Items')}
-                items={items}
-                value={value}
-                multiple={true}
-                onChange={this.onDimensionItemClick}
-                style={styles.select}
-            />
-        );
-    }
-}
+DimensionItemsSelect.propTypes = {
+    dimension: PropTypes.string,
+    items: PropTypes.array,
+    value: PropTypes.array,
+    onChange: PropTypes.func.isRequired,
+    loadDimensionItems: PropTypes.func.isRequired,
+};
 
 export default connect(
     ({ dimensions }, { dimension }) => ({

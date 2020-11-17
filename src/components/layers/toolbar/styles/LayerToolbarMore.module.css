@@ -1,0 +1,8 @@
+.moreMenuButton {
+    position: absolute;
+    right: var(--spacers-dp4);
+}
+
+.menu {
+    padding: var(--spacers-dp8) 0;
+}

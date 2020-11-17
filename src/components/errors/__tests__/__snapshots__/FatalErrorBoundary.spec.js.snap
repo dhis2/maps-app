@@ -1,29 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FatalErrorBoundary Should match the snapshot tree when error is manually invoked 1`] = `
-<div>
-  <div>
-    <InfoOutlinedIcon />
-    <div>
+<div
+  className="mask"
+>
+  <div
+    className="container"
+  >
+    <InfoOutlinedIcon
+      className="icon"
+    />
+    <div
+      className="message"
+    >
       Something went wrong
     </div>
     <div
+      className="link"
       onClick={[Function]}
     >
       Refresh to try again
     </div>
     <div
+      className="drawerToggle"
       onClick={[Function]}
     >
       Show technical details
     </div>
-    <div>
-      <div>
+    <div
+      className="drawerHidden"
+    >
+      <div
+        className="errorIntro"
+      >
         An error occurred in the DHIS2 Maps application.
         <br />
         The following information may be requested by technical support.
       </div>
-      <div>
+      <div
+        className="errorDetails"
+      >
         This is the stack
         <br
           key="0"
