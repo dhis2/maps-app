@@ -1,12 +1,8 @@
 import React, { createRef } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import {
-    StylesProvider,
-    createGenerateClassName,
-} from '@material-ui/core/styles';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
-import { isValidUid, generateUid } from 'd2/uid';
+import { isValidUid } from 'd2/uid';
 import log from 'loglevel'; // TODO: Remove version logging
 import i18n from './locales';
 import Plugin from './components/plugin/Plugin';
@@ -170,19 +166,7 @@ const PluginContainer = () => {
             if (domEl) {
                 const ref = createRef();
 
-                // Used to avoid class names collisions with multiple maps on a dashboard
-                const id = config.id || generateUid();
-
-                const generateClassName = createGenerateClassName({
-                    productionPrefix: `map-plugin-${id}-`,
-                });
-
-                render(
-                    <StylesProvider generateClassName={generateClassName}>
-                        <Plugin innerRef={ref} {...config} />
-                    </StylesProvider>,
-                    domEl
-                );
+                render(<Plugin innerRef={ref} {...config} />, domEl);
 
                 if (config.onReady) {
                     config.onReady();

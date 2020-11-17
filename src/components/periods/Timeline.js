@@ -1,47 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { select } from 'd3-selection';
 import { axisBottom } from 'd3-axis';
+import cx from 'classnames';
 import { scaleTime } from '../../util/periods';
-
-const styles = theme => ({
-    root: {
-        backgroundColor: 'rgba(255,255,255,0.9)',
-        boxShadow: theme.shadows[1],
-        borderRadius: theme.shape.borderRadius,
-        width: 'calc(100% - 20px)',
-        position: 'absolute',
-        left: 10,
-        bottom: 28,
-        height: 48,
-        zIndex: 1000,
-        userSelect: 'none',
-    },
-    play: {
-        cursor: 'pointer',
-        fill: '#333',
-        '&:hover': {
-            fill: '#000',
-        },
-    },
-    period: {
-        fill: '#333',
-        stroke: '#555',
-        strokeWidth: 1,
-        fillOpacity: 0.1,
-        cursor: 'pointer',
-        '&.selected': {
-            fill: '#2b675c',
-            fillOpacity: 0.9,
-        },
-        '&:hover': {
-            '&:not(.selected)': {
-                fillOpacity: 0.2,
-            },
-        },
-    },
-});
+import styles from './styles/Timeline.module.css';
 
 const paddingLeft = 40;
 const paddingRight = 20;
@@ -61,7 +24,6 @@ export class Timeline extends Component {
         period: PropTypes.object.isRequired,
         periods: PropTypes.array.isRequired,
         onChange: PropTypes.func.isRequired,
-        classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -83,17 +45,16 @@ export class Timeline extends Component {
     }
 
     render() {
-        const { classes } = this.props;
         const { mode } = this.state;
 
         this.setTimeScale();
 
         return (
-            <svg className={`dhis2-map-timeline ${classes.root}`}>
+            <svg className={`dhis2-map-timeline ${styles.timeline}`}>
                 <g
                     onClick={this.onPlayPause}
                     transform="translate(7,5)"
-                    className={classes.play}
+                    className={styles.play}
                 >
                     <path d="M0 0h24v24H0z" fillOpacity="0.0" />
                     {mode === 'play' ? pauseBtn : playBtn}
@@ -111,21 +72,20 @@ export class Timeline extends Component {
 
     // Returns array of period rectangles
     getPeriodRects = () => {
-        const { period, periods, classes } = this.props;
+        const { period, periods } = this.props;
 
         return periods.map(item => {
             const isCurrent = period.id === item.id;
             const { id, startDate, endDate } = item;
             const x = this.timeScale(startDate);
             const width = this.timeScale(endDate) - x;
-            const className = `${classes.period}${
-                isCurrent ? ` selected` : ''
-            }`;
 
             return (
                 <rect
                     key={id}
-                    className={className}
+                    className={cx(styles.period, {
+                        [styles.selected]: isCurrent,
+                    })}
                     x={x}
                     y="0"
                     width={width}
@@ -236,4 +196,4 @@ export class Timeline extends Component {
     };
 }
 
-export default withStyles(styles)(Timeline);
+export default Timeline;

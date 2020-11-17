@@ -39,7 +39,7 @@ describe('DataDownloadDialogContent', () => {
     it('Should render inputs when isEventLayer', () => {
         const wrapper = renderOuterComponent({ isEventLayer: true });
         expect(wrapper.children().length).toBe(3);
-        expect(wrapper.find('WithStyles(EventDownloadInputs)').length).toBe(1);
+        expect(wrapper.find('EventDownloadInputs').length).toBe(1);
     });
 
     it('Should render error below format inputs', () => {

@@ -10,14 +10,7 @@ import {
     INTERPRETATIONS_PANEL_WIDTH,
 } from '../../constants/layout';
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable';
-import './BottomPanel.css';
-
-const styles = {
-    closeIcon: {
-        width: 16,
-        height: 16,
-    },
-};
+import styles from './styles/BottomPanel.module.css';
 
 // Container for DataTable
 class BottomPanel extends Component {
@@ -52,14 +45,11 @@ class BottomPanel extends Component {
             return (
                 <div
                     ref={node => (this.node = node)}
-                    className="BottomPanel"
+                    className={styles.bottomPanel}
                     style={style}
                 >
-                    <span onClick={closeDataTable}>
-                        <CancelIcon
-                            className="BottomPanel-close"
-                            style={styles.closeIcon}
-                        />
+                    <span className={styles.closeIcon} onClick={closeDataTable}>
+                        <CancelIcon fontSize="inherit" />
                     </span>
                     <ResizeHandle
                         maxHeight={maxHeight}

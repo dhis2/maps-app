@@ -1,0 +1,54 @@
+.container {
+    float: left;
+    width: 120px;
+    margin-left: var(--spacers-dp12);
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 90px;
+    font-size: 12px;
+}
+
+.imageContainer {
+    position: relative;
+    height: 56px;
+    width: 100%;
+    margin-top: var(--spacers-dp4);
+    overflow: hidden;
+    outline: 1px solid var(--colors-grey300);
+}
+
+.selected {
+    outline: 3px solid var(--theme-primary700);
+}
+
+.image {
+    position: absolute;
+    clip: rect(64px, 256px, 192px, 0);
+    width: 100%;
+    top: -64px;
+}
+
+.noImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--colors-grey200);
+    color: var(--colors-grey500);
+    text-align: center;
+    line-height: 56px;
+}
+
+.name {
+    color: var(--colors-grey800);
+    padding-top: var(--spacers-dp4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    line-height: 18px;
+}
+
+.nameSelected {
+    color: var(--theme-primary900);
+    font-weight: 500;
+}

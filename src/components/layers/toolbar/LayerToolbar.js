@@ -5,6 +5,7 @@ import { Tooltip } from '@dhis2/ui';
 import CreateIcon from '@material-ui/icons/Create';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import IconButton from '../../core/IconButton';
 import OpacitySlider from './OpacitySlider';
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu';
 import styles from './styles/LayerToolbar.module.css';
@@ -22,31 +23,31 @@ export const LayerToolbar = ({
         <div className={styles.toolbar} data-test="layertoolbar">
             {onEdit && (
                 <Fragment>
-                    <Tooltip content={i18n.t('Edit')}>
-                        <div
-                            className={styles.button}
-                            onClick={onEdit}
-                            data-test="editbutton"
-                        >
-                            <CreateIcon data-icon="CreateIcon" />
-                        </div>
-                    </Tooltip>
+                    <IconButton
+                        tooltip={i18n.t('Edit')}
+                        onClick={onEdit}
+                        className={styles.button}
+                        dataTest="editbutton"
+                    >
+                        <CreateIcon data-icon="CreateIcon" />
+                    </IconButton>
                     <span className={styles.spacer} />
                 </Fragment>
             )}
-            <Tooltip content={i18n.t('Toggle visibility')}>
-                <div
-                    className={styles.button}
-                    onClick={toggleLayerVisibility}
-                    data-test="visibilitybutton"
-                >
-                    {isVisible ? (
-                        <VisibilityIcon data-icon="VisibilityIcon" />
-                    ) : (
-                        <VisibilityOffIcon data-icon="VisibilityOffIcon" />
-                    )}
-                </div>
-            </Tooltip>
+
+            <IconButton
+                tooltip={i18n.t('Toggle visibility')}
+                onClick={toggleLayerVisibility}
+                className={styles.button}
+                dataTest="visibilitybutton"
+            >
+                {isVisible ? (
+                    <VisibilityIcon data-icon="VisibilityIcon" />
+                ) : (
+                    <VisibilityOffIcon data-icon="VisibilityOffIcon" />
+                )}
+            </IconButton>
+
             <div className={styles.sliderContainer}>
                 <Tooltip content={i18n.t('Set layer opacity')}>
                     <OpacitySlider

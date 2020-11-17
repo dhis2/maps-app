@@ -1,12 +1,10 @@
-@import '../../../node_modules/react-virtualized/styles.css';
-
-.DataTable {
+.dataTable {
     font-size: 11px;
     font-family: Roboto, sans-serif;
     overflow: hidden;
 }
 
-.DataTable-no-support {
+.noSupport {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -16,18 +14,18 @@
     line-height: 30px;
 }
 
-.ReactVirtualized__Table__headerRow {
+:global(.ReactVirtualized__Table__headerRow) {
     position: relative;
     background-color: #eee;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 2px;
     z-index: 10;
 }
 
-.ReactVirtualized__Table__headerRow .ColumnHeader-label {
+:global(.ReactVirtualized__Table__headerRow .ColumnHeader-label) {
     white-space: nowrap;
 }
 
-.ReactVirtualized__Table__headerTruncatedText {
+:global(.ReactVirtualized__Table__headerTruncatedText) {
     display: inline-block;
     position: absolute;
     top: 7px;
@@ -37,29 +35,29 @@
     overflow: hidden;
 }
 
-.ReactVirtualized__Table__sortableHeaderIcon {
+:global(.ReactVirtualized__Table__sortableHeaderIcon) {
     position: absolute;
     top: 5px;
     right: 0;
 }
 
-.ReactVirtualized__Table__headerColumn {
+:global(.ReactVirtualized__Table__headerColumn) {
     height: 48px;
     margin-bottom: 2px;
     position: relative;
 }
 
-.ReactVirtualized__Table__row {
+:global(.ReactVirtualized__Table__row) {
     position: relative;
     border-bottom: 1px solid #e0e0e0;
     cursor: pointer;
     z-index: 9;
 }
 
-.ReactVirtualized__Table__row:hover {
+:global(.ReactVirtualized__Table__row:hover) {
     background-color: #fafafa;
 }
 
-.ReactVirtualized__Table__rowColumn.right {
+:global(.ReactVirtualized__Table__rowColumn.right) {
     text-align: right;
 }

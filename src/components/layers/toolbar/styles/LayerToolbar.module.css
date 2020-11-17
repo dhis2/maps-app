@@ -15,13 +15,9 @@
 
 .button {
     float: left;
-    padding: var(--spacers-dp4);
-    width: var(--spacers-dp32);
-    height: var(--spacers-dp32);
-    cursor: pointer;
 }
 
 .sliderContainer {
     float: left;
-    margin-left: var(--spacers-dp16);
+    margin-left: var(--spacers-dp8);
 }

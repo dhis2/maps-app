@@ -1,4 +1,4 @@
-.FilterInput {
+.filterInput {
     position: absolute;
     left: 0;
     top: 22px;
@@ -9,6 +9,6 @@
     padding-left: 5px;
 }
 
-.FilterInput::placeholder {
+.filterInput::placeholder {
     color: #ddd;
 }

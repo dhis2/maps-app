@@ -1,4 +1,4 @@
-.ResizeHandle {
+.resizeHandle {
     position: absolute;
     left: 50%;
     top: -8px;
@@ -13,19 +13,19 @@
     cursor: -webkit-grab;
 }
 
-.ResizeHandle:hover,
-.ResizeHandle:active {
+.resizeHandle:hover,
+.resizeHandle:active {
     transform: scale(1.03);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
-.ResizeHandle:active {
+.resizeHandle:active {
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
 }
 
-.ResizeHandle svg {
+.resizeHandle svg {
     margin-left: 8px;
     margin-top: -6px;
 }

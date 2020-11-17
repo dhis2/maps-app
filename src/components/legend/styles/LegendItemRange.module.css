@@ -1,0 +1,5 @@
+.legendItemRange {
+    line-height: 24px;
+    padding-left: var(--spacers-dp8);
+    white-space: nowrap;
+}
