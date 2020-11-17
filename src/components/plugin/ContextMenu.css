@@ -1,8 +1,8 @@
 .dhis2-map-context-menu {
-    composes: box from '../../../styles/map.css';
     position: absolute;
     background: #fff;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
     font-family: Roboto, sans-serif;
     font-size: 12px;
     line-height: 24px;
