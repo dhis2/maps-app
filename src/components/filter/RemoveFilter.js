@@ -8,7 +8,7 @@ import styles from './styles/RemoveFilter.module.css';
 // Remove filter button used for both thematic and event filters
 const RemoveFilter = ({ onClick }) => (
     <div className={styles.removeBtnContainer} onClick={onClick}>
-        <Tooltip content={i18n.t('Remove Remove this filter')}>
+        <Tooltip content={i18n.t('Remove filter')}>
             <DeleteIcon />
         </Tooltip>
     </div>
