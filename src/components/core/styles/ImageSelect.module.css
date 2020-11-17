@@ -1,11 +1,20 @@
 .imageSelect {
-    font-size: 12px;
+    font-size: 14px;
+}
+
+.title {
+    color: var(--colors-grey900);
+    padding-bottom: 6px;
+    padding-left: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .imageContainer {
     position: relative;
     overflow: visible;
-    border: 1px solid var(--colors-grey300);
+    border: 1px solid var(--colors-grey500);
     box-sizing: border-box;
     margin: 2px;
     cursor: pointer;
@@ -29,12 +38,4 @@
     color: var(--colors-grey500);
     text-align: center;
     line-height: 56px;
-}
-
-.title {
-    color: var(--colors-grey800);
-    padding-top: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
