@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -153,8 +153,8 @@ msgstr ""
 msgid "Period"
 msgstr "Periode"
 
-msgid "Organisation units"
-msgstr "Unit organisasi"
+msgid "Organisation Units"
+msgstr ""
 
 msgid "Style"
 msgstr "Gaya"
@@ -243,8 +243,8 @@ msgstr "Kolom ini sudah terisi"
 msgid "Valid range is"
 msgstr ""
 
-msgid "Group set"
-msgstr "set satu grup"
+msgid "Group Set"
+msgstr ""
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -289,13 +289,10 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Data"
+msgstr "Data"
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
+msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
@@ -399,8 +396,8 @@ msgstr ""
 msgid "Program status"
 msgstr "Status program"
 
-msgid "relationships"
-msgstr ""
+msgid "Relationships"
+msgstr "Hubungan"
 
 msgid "Follow up"
 msgstr "Tindak lanjut"
@@ -482,12 +479,6 @@ msgstr "Informasi berikut mungkin diperlukan untuk dukungan teknis."
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
-msgid "Operator"
-msgstr "Operator"
-
-msgid "Date"
-msgstr "Tanggal"
-
 msgid "one of"
 msgstr ""
 
@@ -500,6 +491,12 @@ msgstr "adalah"
 msgid "is not"
 msgstr ""
 
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Date"
+msgstr "Tanggal"
+
 msgid "Remove filter"
 msgstr ""
 
@@ -509,17 +506,17 @@ msgstr "group indikator"
 msgid "Interpretations"
 msgstr "Interpretasi"
 
-msgid "External basemap"
-msgstr ""
-
-msgid "Basemap"
-msgstr ""
-
 msgid "Collapse"
 msgstr "Tutup"
 
 msgid "Expand"
 msgstr "Perlihatkan lebih detail"
+
+msgid "External basemap"
+msgstr ""
+
+msgid "Basemap"
+msgstr ""
 
 msgid "Download Layer Data"
 msgstr ""
@@ -544,13 +541,13 @@ msgstr ""
 msgid "External layer"
 msgstr ""
 
+msgid "Split view can not be combined with other layer types."
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
 msgid "{{name}} deleted."
-msgstr ""
-
-msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
@@ -565,8 +562,8 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-msgid "Data table"
-msgstr "Tabel data"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr ""
@@ -609,6 +606,9 @@ msgstr ""
 
 msgid "Relocate"
 msgstr "Pindahkan"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr ""
@@ -721,6 +721,9 @@ msgstr ""
 msgid "Select groups"
 msgstr ""
 
+msgid "Group set"
+msgstr "set satu grup"
+
 msgid "Select levels"
 msgstr ""
 
@@ -729,7 +732,7 @@ msgid ""
 "units."
 msgstr ""
 
-msgid "Click the map where you want to relocate facility"
+msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -780,6 +783,12 @@ msgstr "tipe periode"
 msgid "Start/end dates"
 msgstr "Tanggal dimulai-berakhir"
 
+msgid "Only one timeline is allowed."
+msgstr ""
+
+msgid "Remove other layers to enable split map views."
+msgstr ""
+
 msgid "Display periods"
 msgstr ""
 
@@ -790,12 +799,6 @@ msgid "Timeline"
 msgstr ""
 
 msgid "Split map views"
-msgstr ""
-
-msgid "Only one timeline is allowed."
-msgstr ""
-
-msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
@@ -1060,23 +1063,20 @@ msgid "Cancelled"
 msgstr "Dibatalkan"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
 
-msgid "Error"
-msgstr "Error"
-
-msgid "A connection to Google Earth Engine could not be established."
+msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Boundaries"
-msgstr ""
+msgid "Error"
+msgstr "Error"
 
-msgid "Alert"
+msgid "Boundaries"
 msgstr ""
 
 msgid "No boundaries found"
@@ -1189,16 +1189,10 @@ msgstr ""
 msgid "Unclassified"
 msgstr ""
 
-msgid "Access denied"
+msgid "You don't have access to this layer data"
 msgstr ""
 
-msgid "user is not allowed to read layer data"
-msgstr ""
-
-msgid "Failed"
-msgstr ""
-
-msgid "an unknown error occurred while reading layer data"
+msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
@@ -1249,7 +1243,7 @@ msgstr ""
 msgid "No"
 msgstr "Tidak"
 
-msgid "Map could not be created"
+msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"
