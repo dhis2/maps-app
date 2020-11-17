@@ -19,5 +19,5 @@
 
 .sliderContainer {
     float: left;
-    margin-left: var(--spacers-dp16);
+    margin-left: var(--spacers-dp8);
 }
