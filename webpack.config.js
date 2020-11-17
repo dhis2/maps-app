@@ -58,6 +58,9 @@ const webpackConfig = {
                 include: [
                     path.resolve(__dirname, 'src/'),
                     /@dhis2\/prop-types/,
+                    /@dhis2\/ui-core/,
+                    /@dhis2\/ui-forms/,
+                    /@dhis2\/ui-widgets/,
                 ],
                 loader: 'babel-loader',
                 query: {
