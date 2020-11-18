@@ -4,8 +4,9 @@
 }
 
 .tabContent {
-    margin: var(--spacers-dp8) -16px 0;
+    margin: var(--spacers-dp4) -16px 0;
     height: 340px;
+    overflow-y: auto;
 }
 
 .flexColumnFlow {
@@ -43,6 +44,10 @@
     margin: var(--spacers-dp12) 0;
     font-size: 14px;
     font-weight: bold;
+}
+
+.notice {
+    margin: var(--spacers-dp8) 0;
 }
 
 .help {

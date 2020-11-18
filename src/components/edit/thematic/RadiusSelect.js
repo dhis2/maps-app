@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { Help } from '@dhis2/ui';
 import NumberField from '../../core/NumberField';
 import { setRadiusLow, setRadiusHigh } from '../../../actions/layerEdit';
 import {
@@ -10,6 +11,7 @@ import {
     THEMATIC_RADIUS_MIN,
     THEMATIC_RADIUS_MAX,
 } from '../../../constants/layers';
+import styles from './styles/RadiusSelect.module.css';
 
 export const isValidRadius = (
     radiusLow = THEMATIC_RADIUS_LOW,
@@ -20,13 +22,6 @@ export const isValidRadius = (
     radiusLow <= radiusHigh &&
     radiusLow >= THEMATIC_RADIUS_MIN &&
     radiusHigh <= THEMATIC_RADIUS_MAX;
-
-const errorStyle = {
-    width: '100%',
-    color: 'red',
-    paddingLeft: 8,
-    fontSize: 14,
-};
 
 const RadiusSelect = ({
     radiusLow = THEMATIC_RADIUS_LOW,
@@ -49,11 +44,13 @@ const RadiusSelect = ({
             className={className}
         />
         {!isValidRadius(radiusLow, radiusHigh) && (
-            <div style={errorStyle}>
-                {i18n.t('Radius should be between {{min}} and {{max}}', {
-                    min: THEMATIC_RADIUS_MIN,
-                    max: THEMATIC_RADIUS_MAX,
-                })}
+            <div className={styles.error}>
+                <Help warning>
+                    {i18n.t('Radius should be between {{min}} and {{max}}', {
+                        min: THEMATIC_RADIUS_MIN,
+                        max: THEMATIC_RADIUS_MAX,
+                    })}
+                </Help>
             </div>
         )}
     </Fragment>
