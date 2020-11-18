@@ -10,7 +10,7 @@ const NumberField = ({
     value,
     min,
     max,
-    dense,
+    dense = true,
     onChange,
     className,
 }) => {

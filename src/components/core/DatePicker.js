@@ -7,7 +7,7 @@ import styles from './styles/DatePicker.module.css';
 
 // DatePicker not yet supported in @dhis2/ui
 // Fallback on browser native
-const DatePicker = ({ label, value, dense, onChange, className }) => (
+const DatePicker = ({ label, value, dense = true, onChange, className }) => (
     <div className={cx(styles.datePicker, className)}>
         <InputField
             dense={dense}
