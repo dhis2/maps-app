@@ -11,6 +11,10 @@
     margin: 0 0 10px 4px;
 }
 
+.stepper > span {
+    display: inline-block;
+}
+
 .stepper > span:first-child {
     margin-right: var(--spacers-dp4);
 }
