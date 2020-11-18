@@ -41,7 +41,7 @@ const NumberField = ({
 
 NumberField.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.number,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     min: PropTypes.number,
     max: PropTypes.number,
     dense: PropTypes.bool,

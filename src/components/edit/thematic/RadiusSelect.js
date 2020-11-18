@@ -39,16 +39,12 @@ const RadiusSelect = ({
         <NumberField
             label={i18n.t('Low radius')}
             value={isNaN(radiusLow) ? '' : radiusLow}
-            min={THEMATIC_RADIUS_MIN}
-            max={THEMATIC_RADIUS_MAX}
             onChange={setRadiusLow}
             className={className}
         />
         <NumberField
             label={i18n.t('High radius')}
             value={isNaN(radiusHigh) ? '' : radiusHigh}
-            min={THEMATIC_RADIUS_LOW}
-            max={THEMATIC_RADIUS_MAX}
             onChange={setRadiusHigh}
             className={className}
         />
