@@ -37,9 +37,11 @@ const FontStyle = ({
                 onClick={() =>
                     onWeightChange(weight === 'bold' ? 'normal' : 'bold')
                 }
-                className={styles.button}
+                className={cx(styles.button, {
+                    [styles.selected]: weight === 'bold',
+                })}
             >
-                <BoldIcon htmlColor={weight === 'bold' ? '#333' : '#aaa'} />
+                <BoldIcon />
             </div>
         )}
         {onStyleChange && (
@@ -47,11 +49,11 @@ const FontStyle = ({
                 onClick={() =>
                     onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic')
                 }
-                className={styles.button}
+                className={cx(styles.button, {
+                    [styles.selected]: fontStyle === 'italic',
+                })}
             >
-                <ItalicIcon
-                    htmlColor={fontStyle === 'italic' ? '#333' : '#aaa'}
-                />
+                <ItalicIcon />
             </div>
         )}
         {onColorChange && (
