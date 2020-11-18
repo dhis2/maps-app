@@ -14,7 +14,7 @@
 .imageContainer {
     position: relative;
     overflow: visible;
-    border: 1px solid var(--colors-grey500);
+    border: 1px solid var(--colors-grey400);
     box-sizing: border-box;
     margin: 2px;
     cursor: pointer;
