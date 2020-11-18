@@ -1,20 +1,20 @@
 # 
 # Translators:
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
-# phil_dhis2, 2020
 # Marta Vila <marta@dhis2.org>, 2020
 # ericbp <ericbarredap@gmail.com>, 2020
 # Jaime Bosque <jaime.bosque@dhis2.org>, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
+# phil_dhis2, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,8 +155,8 @@ msgstr "Año"
 msgid "Period"
 msgstr "Periodo"
 
-msgid "Organisation units"
-msgstr "Unidades orgenizativas"
+msgid "Organisation Units"
+msgstr "Unidades Organizativas"
 
 msgid "Style"
 msgstr "Estilo"
@@ -245,8 +245,8 @@ msgstr "Se requiere éste campo"
 msgid "Valid range is"
 msgstr ""
 
-msgid "Group set"
-msgstr "Set de grupos"
+msgid "Group Set"
+msgstr ""
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -291,14 +291,11 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Data"
+msgstr "Datos"
 
-msgid "period"
+msgid "Org Units"
 msgstr ""
-
-msgid "Org units"
-msgstr "Unidades organizativas"
 
 msgid "Filter"
 msgstr "filtro"
@@ -399,8 +396,8 @@ msgstr ""
 msgid "Program status"
 msgstr "Estado del programa"
 
-msgid "relationships"
-msgstr "relaciones"
+msgid "Relationships"
+msgstr "Relaciones"
 
 msgid "Follow up"
 msgstr "Seguimiento"
@@ -480,12 +477,6 @@ msgstr ""
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
-msgid "Operator"
-msgstr "Operador"
-
-msgid "Date"
-msgstr "Fecha"
-
 msgid "one of"
 msgstr ""
 
@@ -498,6 +489,12 @@ msgstr "es"
 msgid "is not"
 msgstr ""
 
+msgid "Operator"
+msgstr "Operador"
+
+msgid "Date"
+msgstr "Fecha"
+
 msgid "Remove filter"
 msgstr ""
 
@@ -507,17 +504,17 @@ msgstr "Grupo de indicadores"
 msgid "Interpretations"
 msgstr "Interpretaciones"
 
-msgid "External basemap"
-msgstr ""
-
-msgid "Basemap"
-msgstr ""
-
 msgid "Collapse"
 msgstr "Contraer"
 
 msgid "Expand"
 msgstr "Expandir"
+
+msgid "External basemap"
+msgstr ""
+
+msgid "Basemap"
+msgstr ""
 
 msgid "Download Layer Data"
 msgstr ""
@@ -542,13 +539,13 @@ msgstr ""
 msgid "External layer"
 msgstr "Capa externa"
 
+msgid "Split view can not be combined with other layer types."
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
 msgid "{{name}} deleted."
-msgstr ""
-
-msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
@@ -563,8 +560,8 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-msgid "Data table"
-msgstr "Tabla de datos"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr ""
@@ -607,6 +604,9 @@ msgstr "Intercambiar longitud/latitud"
 
 msgid "Relocate"
 msgstr "Reubicar"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "No configurado"
@@ -719,6 +719,9 @@ msgstr ""
 msgid "Select groups"
 msgstr "Seleccionar grupos"
 
+msgid "Group set"
+msgstr "Set de grupos"
+
 msgid "Select levels"
 msgstr "Seleccionar niveles"
 
@@ -727,7 +730,7 @@ msgid ""
 "units."
 msgstr ""
 
-msgid "Click the map where you want to relocate facility"
+msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -778,6 +781,12 @@ msgstr "Tipo de periodo"
 msgid "Start/end dates"
 msgstr "Fechas de inicio y fin"
 
+msgid "Only one timeline is allowed."
+msgstr ""
+
+msgid "Remove other layers to enable split map views."
+msgstr ""
+
 msgid "Display periods"
 msgstr ""
 
@@ -788,12 +797,6 @@ msgid "Timeline"
 msgstr ""
 
 msgid "Split map views"
-msgstr ""
-
-msgid "Only one timeline is allowed."
-msgstr ""
-
-msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
@@ -1058,23 +1061,20 @@ msgid "Cancelled"
 msgstr "Cancelar"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
 
-msgid "Error"
-msgstr "Error"
-
-msgid "A connection to Google Earth Engine could not be established."
+msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Boundaries"
-msgstr ""
+msgid "Error"
+msgstr "Error"
 
-msgid "Alert"
+msgid "Boundaries"
 msgstr ""
 
 msgid "No boundaries found"
@@ -1187,16 +1187,10 @@ msgstr ""
 msgid "Unclassified"
 msgstr ""
 
-msgid "Access denied"
-msgstr "Acceso denegado"
-
-msgid "user is not allowed to read layer data"
+msgid "You don't have access to this layer data"
 msgstr ""
 
-msgid "Failed"
-msgstr "Ha fallado"
-
-msgid "an unknown error occurred while reading layer data"
+msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
@@ -1247,7 +1241,7 @@ msgstr ""
 msgid "No"
 msgstr "No"
 
-msgid "Map could not be created"
+msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"

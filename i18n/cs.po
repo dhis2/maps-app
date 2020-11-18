@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter, 2020\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -151,7 +151,7 @@ msgstr "Rok"
 msgid "Period"
 msgstr "Období"
 
-msgid "Organisation units"
+msgid "Organisation Units"
 msgstr "Organizační jednotky"
 
 msgid "Style"
@@ -253,7 +253,7 @@ msgstr "Toto pole je povinné"
 msgid "Valid range is"
 msgstr "Platný rozsah je"
 
-msgid "Group set"
+msgid "Group Set"
 msgstr "Skupinová sada"
 
 msgid ""
@@ -299,14 +299,11 @@ msgstr "Aktualizovat vrstvu"
 msgid "Add layer"
 msgstr "Přidat vrstvu"
 
-msgid "data"
-msgstr "data"
+msgid "Data"
+msgstr "Data"
 
-msgid "period"
-msgstr "období"
-
-msgid "Org units"
-msgstr "Organizační jednotky"
+msgid "Org Units"
+msgstr ""
 
 msgid "Filter"
 msgstr "Filtr"
@@ -408,8 +405,8 @@ msgstr ""
 msgid "Program status"
 msgstr "Stav programu"
 
-msgid "relationships"
-msgstr "vztahy"
+msgid "Relationships"
+msgstr "Vztahy"
 
 msgid "Follow up"
 msgstr "Následovat"
@@ -489,12 +486,6 @@ msgstr "Následující informace mohou být požadovány technickou podporou."
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtrování je k dispozici po výběru fáze programu."
 
-msgid "Operator"
-msgstr "Operátor"
-
-msgid "Date"
-msgstr "datum"
-
 msgid "one of"
 msgstr "jeden z"
 
@@ -507,6 +498,12 @@ msgstr "je"
 msgid "is not"
 msgstr "není"
 
+msgid "Operator"
+msgstr "Operátor"
+
+msgid "Date"
+msgstr "datum"
+
 msgid "Remove filter"
 msgstr "Odebrat filtr"
 
@@ -516,17 +513,17 @@ msgstr "Skupina indikátorů"
 msgid "Interpretations"
 msgstr "Interpretace"
 
-msgid "External basemap"
-msgstr "Externí základní mapa"
-
-msgid "Basemap"
-msgstr "Základní mapa"
-
 msgid "Collapse"
 msgstr "Sbalit"
 
 msgid "Expand"
 msgstr "Rozbalit"
+
+msgid "External basemap"
+msgstr "Externí základní mapa"
+
+msgid "Basemap"
+msgstr "Základní mapa"
 
 msgid "Download Layer Data"
 msgstr "Stáhnout si data vrstvy"
@@ -552,14 +549,14 @@ msgstr "Používejte klávesy čitelné člověkem"
 msgid "External layer"
 msgstr "Vnější vrstva"
 
+msgid "Split view can not be combined with other layer types."
+msgstr "Rozdělené zobrazení nelze kombinovat s jinými typy vrstev."
+
 msgid "Loading layer"
 msgstr "Načítání vrstvy"
 
 msgid "{{name}} deleted."
 msgstr "{{name}} smazáno."
-
-msgid "Split view can not be combined with other layer types."
-msgstr "Rozdělené zobrazení nelze kombinovat s jinými typy vrstev."
 
 msgid "Edit"
 msgstr "Upravit"
@@ -573,8 +570,8 @@ msgstr "Nastavit neprůhlednost vrstvy"
 msgid "More actions"
 msgstr "Více akcí"
 
-msgid "Data table"
-msgstr "Datová tabulka"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr "Otevřít jako graf"
@@ -617,6 +614,9 @@ msgstr "Prohodit zeměpisnou délku / šířku"
 
 msgid "Relocate"
 msgstr "Přemístit"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "Nenastaveno"
@@ -732,6 +732,9 @@ msgstr "Pro toto období nenalezeny žádné údaje."
 msgid "Select groups"
 msgstr "Vyberte skupiny"
 
+msgid "Group set"
+msgstr "Skupinová sada"
+
 msgid "Select levels"
 msgstr "Vybrat úrovně"
 
@@ -742,8 +745,8 @@ msgstr ""
 "Není možné kombinovat uživatelské organizační jednotky a vybírat jednotlivé "
 "jednotky."
 
-msgid "Click the map where you want to relocate facility"
-msgstr "Klikněte na mapu, kam chcete přemístit zařízení"
+msgid "Click the map where you want to relocate the facility."
+msgstr ""
 
 msgid "user organisation unit"
 msgstr "organizační jednotka uživatele"
@@ -793,6 +796,12 @@ msgstr "Typ období"
 msgid "Start/end dates"
 msgstr "Datum zahájení / ukončení"
 
+msgid "Only one timeline is allowed."
+msgstr "Je povolena pouze jedna časová osa."
+
+msgid "Remove other layers to enable split map views."
+msgstr "Odebráním dalších vrstev povolíte rozdělená zobrazení mapy."
+
 msgid "Display periods"
 msgstr "Období zobrazení"
 
@@ -804,12 +813,6 @@ msgstr "Časová osa"
 
 msgid "Split map views"
 msgstr "Rozdělit zobrazení mapy"
-
-msgid "Only one timeline is allowed."
-msgstr "Je povolena pouze jedna časová osa."
-
-msgid "Remove other layers to enable split map views."
-msgstr "Odebráním dalších vrstev povolíte rozdělená zobrazení mapy."
 
 msgid "Start date"
 msgstr "Datum začátku"
@@ -1073,26 +1076,21 @@ msgid "Cancelled"
 msgstr "Zrušeno"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
-"Chcete-li tuto vrstvu zobrazit, musíte se nejprve zaregistrovat do služby "
-"Earth Engine u Google. Zkontrolujte dokumentaci DHIS 2."
 
-msgid "Error"
-msgstr "Chyba"
-
-msgid "A connection to Google Earth Engine could not be established."
-msgstr "Nelze navázat spojení s Google Earth Engine."
+msgid "Cannot connect to Google Earth Engine."
+msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "Mapa \"{{name}}\" je uložena."
 
+msgid "Error"
+msgstr "Chyba"
+
 msgid "Boundaries"
 msgstr "Hranice"
-
-msgid "Alert"
-msgstr "Výstraha"
 
 msgid "No boundaries found"
 msgstr "Nenalezeny žádné hranice"
@@ -1208,17 +1206,11 @@ msgstr "Neplodná nebo řídce vegetovaná"
 msgid "Unclassified"
 msgstr "Nezařazeno"
 
-msgid "Access denied"
-msgstr "Přístup odepřen"
+msgid "You don't have access to this layer data"
+msgstr ""
 
-msgid "user is not allowed to read layer data"
-msgstr "uživatel nemá povoleno číst data vrstvy"
-
-msgid "Failed"
-msgstr "Selhalo"
-
-msgid "an unknown error occurred while reading layer data"
-msgstr "při čtení dat vrstvy došlo k neznámé chybě"
+msgid "An unknown error occurred while reading layer data"
+msgstr ""
 
 msgid "Event"
 msgstr "Událost"
@@ -1268,8 +1260,8 @@ msgstr "false"
 msgid "No"
 msgstr "Ne"
 
-msgid "Map could not be created"
-msgstr "Mapu nelze vytvořit"
+msgid "There was a problem creating a map from the imported data."
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "Datum zahájení je neplatné"

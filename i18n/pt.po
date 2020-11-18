@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Sheila André <sandre@saudigitus.org>, 2020
-# phil_dhis2, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # Ge Joao <gsimango@saudigitus.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -156,8 +156,8 @@ msgstr "Ano"
 msgid "Period"
 msgstr "Período"
 
-msgid "Organisation units"
-msgstr "Unidades organizacionais"
+msgid "Organisation Units"
+msgstr "Unidades Organizacionais"
 
 msgid "Style"
 msgstr "Estilo"
@@ -259,8 +259,8 @@ msgstr "Este campo é obrigatorio"
 msgid "Valid range is"
 msgstr "O intervalo válido é"
 
-msgid "Group set"
-msgstr "Conjunto do grupo"
+msgid "Group Set"
+msgstr "Conjunto de grupo"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -307,14 +307,11 @@ msgstr "Actualizar camada"
 msgid "Add layer"
 msgstr "Adicionar camada"
 
-msgid "data"
-msgstr "Data "
+msgid "Data"
+msgstr "Dados"
 
-msgid "period"
-msgstr "Periodo"
-
-msgid "Org units"
-msgstr "Unidades organizacionais"
+msgid "Org Units"
+msgstr ""
 
 msgid "Filter"
 msgstr "Filtro"
@@ -419,7 +416,7 @@ msgstr ""
 msgid "Program status"
 msgstr "Status do programa"
 
-msgid "relationships"
+msgid "Relationships"
 msgstr "Relacionamentos"
 
 msgid "Follow up"
@@ -506,12 +503,6 @@ msgstr "As informações a seguir podem ser solicitadas pelo suporte técnico."
 msgid "Filtering is available after selecting a program stage."
 msgstr "A filtragem está disponível após a seleção de um estágio do programa."
 
-msgid "Operator"
-msgstr "Operador"
-
-msgid "Date"
-msgstr "Data"
-
 msgid "one of"
 msgstr "um de"
 
@@ -524,6 +515,12 @@ msgstr "é"
 msgid "is not"
 msgstr "não é"
 
+msgid "Operator"
+msgstr "Operador"
+
+msgid "Date"
+msgstr "Data"
+
 msgid "Remove filter"
 msgstr "Remover filtro "
 
@@ -533,17 +530,17 @@ msgstr "Grupo de Indicador"
 msgid "Interpretations"
 msgstr "Interpretações"
 
-msgid "External basemap"
-msgstr "Mapa base externo"
-
-msgid "Basemap"
-msgstr "Mapa base"
-
 msgid "Collapse"
 msgstr "colapsar"
 
 msgid "Expand"
 msgstr "Expandir"
+
+msgid "External basemap"
+msgstr "Mapa base externo"
+
+msgid "Basemap"
+msgstr "Mapa base"
 
 msgid "Download Layer Data"
 msgstr "Baixar dados da camada"
@@ -570,15 +567,15 @@ msgstr "Use chaves legíveis por humanos"
 msgid "External layer"
 msgstr "Camada externa"
 
+msgid "Split view can not be combined with other layer types."
+msgstr ""
+"A exibição dividida não pode ser combinada com outros tipos de camada."
+
 msgid "Loading layer"
 msgstr "Camada de carregamento"
 
 msgid "{{name}} deleted."
 msgstr "{{name}} excluído."
-
-msgid "Split view can not be combined with other layer types."
-msgstr ""
-"A exibição dividida não pode ser combinada com outros tipos de camada."
 
 msgid "Edit"
 msgstr "Editar"
@@ -592,8 +589,8 @@ msgstr "Definir opacidade da camada"
 msgid "More actions"
 msgstr "Mais acções"
 
-msgid "Data table"
-msgstr "Tabela de dados"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr "Abrir como gráfico"
@@ -636,6 +633,9 @@ msgstr "Trocar longitude/latitude"
 
 msgid "Relocate"
 msgstr "Realocar"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "Não definido"
@@ -751,6 +751,9 @@ msgstr "Não foram encontrados dados para este período."
 msgid "Select groups"
 msgstr "Selecionar grupos"
 
+msgid "Group set"
+msgstr "Conjunto do grupo"
+
 msgid "Select levels"
 msgstr "Selecionar Nível"
 
@@ -761,8 +764,8 @@ msgstr ""
 "Não é possível combinar unidades organizacionais do usuário e selecionar "
 "unidades individuais."
 
-msgid "Click the map where you want to relocate facility"
-msgstr "Clique no mapa onde você deseja realocar a instalação"
+msgid "Click the map where you want to relocate the facility."
+msgstr ""
 
 msgid "user organisation unit"
 msgstr "Unidades organizacionais do usuário"
@@ -812,6 +815,12 @@ msgstr "Tipo de periodo"
 msgid "Start/end dates"
 msgstr "Inicio/datas de término"
 
+msgid "Only one timeline is allowed."
+msgstr "Apenas uma linha do tempo é permitida."
+
+msgid "Remove other layers to enable split map views."
+msgstr "Remova outras camadas para ativar as visualizações de mapa dividido."
+
 msgid "Display periods"
 msgstr "Períodos de exibição"
 
@@ -823,12 +832,6 @@ msgstr "Linha do tempo"
 
 msgid "Split map views"
 msgstr "Dividir visualizações de mapa"
-
-msgid "Only one timeline is allowed."
-msgstr "Apenas uma linha do tempo é permitida."
-
-msgid "Remove other layers to enable split map views."
-msgstr "Remova outras camadas para ativar as visualizações de mapa dividido."
 
 msgid "Start date"
 msgstr "Data Início"
@@ -1092,26 +1095,21 @@ msgid "Cancelled"
 msgstr "Cancelado"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
-"Para mostrar essa camada, você deve primeiro se inscrever no serviço Earth "
-"Engine no Google. Por favor, verifique a documentação do DHIS 2."
 
-msgid "Error"
-msgstr "Erro"
-
-msgid "A connection to Google Earth Engine could not be established."
-msgstr "Não foi possível estabelecer uma conexão com o Google Earth Engine."
+msgid "Cannot connect to Google Earth Engine."
+msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "O mapa \"{{name}}\" é salvo."
 
+msgid "Error"
+msgstr "Erro"
+
 msgid "Boundaries"
 msgstr "Limites"
-
-msgid "Alert"
-msgstr "Alerta"
 
 msgid "No boundaries found"
 msgstr "Nenhum limite encontrado"
@@ -1228,17 +1226,11 @@ msgstr ""
 msgid "Unclassified"
 msgstr "Não classificadas "
 
-msgid "Access denied"
-msgstr "Acesso Negado"
+msgid "You don't have access to this layer data"
+msgstr ""
 
-msgid "user is not allowed to read layer data"
-msgstr "o usuário não tem permissão para ler dados da camada"
-
-msgid "Failed"
-msgstr "Falhou"
-
-msgid "an unknown error occurred while reading layer data"
-msgstr "Ocorreu um erro desconhecido ao ler os dados da camada"
+msgid "An unknown error occurred while reading layer data"
+msgstr ""
 
 msgid "Event"
 msgstr "Evento"
@@ -1288,8 +1280,8 @@ msgstr "Falso "
 msgid "No"
 msgstr "Não"
 
-msgid "Map could not be created"
-msgstr "Não foi possível criar o mapa"
+msgid "There was a problem creating a map from the imported data."
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "A data de início é inválida"
