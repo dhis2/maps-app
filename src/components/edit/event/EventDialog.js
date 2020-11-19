@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { NoticeBox } from '@dhis2/ui';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
 import NumberField from '../../core/NumberField';
@@ -360,10 +361,12 @@ export class EventDialog extends Component {
                                 {program ? (
                                     <StyleByDataItem />
                                 ) : (
-                                    <div className={styles.text}>
-                                        {i18n.t(
-                                            'You can style events by data element after selecting a program.'
-                                        )}
+                                    <div className={styles.notice}>
+                                        <NoticeBox>
+                                            {i18n.t(
+                                                'You can style events by data element after selecting a program.'
+                                            )}
+                                        </NoticeBox>
                                     </div>
                                 )}
                             </div>

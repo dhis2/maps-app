@@ -25,7 +25,6 @@ const FontStyle = ({
     <div className={cx(styles.fontStyle, className)}>
         {onSizeChange && (
             <NumberField
-                dense
                 label={i18n.t('Size')}
                 value={parseInt(
                     size !== undefined ? size : LABEL_FONT_SIZE,
