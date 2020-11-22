@@ -24,7 +24,7 @@ msgid "Classification"
 msgstr "تصنيف"
 
 msgid "Classes"
-msgstr ""
+msgstr "التصنيفات"
 
 msgid "Legend set"
 msgstr "حزمة المفاتيح الإيضاحية"
@@ -78,7 +78,7 @@ msgid "Data set"
 msgstr "حزمة البيانات"
 
 msgid "Index"
-msgstr ""
+msgstr "فهرس"
 
 msgid "Name"
 msgstr "الإسم"
@@ -175,10 +175,10 @@ msgid "Select year"
 msgstr "اختر السنة"
 
 msgid "Min people"
-msgstr ""
+msgstr "الحد الأدنى من الناس"
 
 msgid "Max people"
-msgstr ""
+msgstr "الحد الأعلى من الناس"
 
 msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
@@ -188,10 +188,10 @@ msgstr ""
 "التضاريس بشكل أفضل في منطقتك."
 
 msgid "Min meters"
-msgstr ""
+msgstr "القيمة الأدنى للأمتار"
 
 msgid "Max meters"
-msgstr ""
+msgstr "الحد الأعلى لعدد الأمتار"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
@@ -203,10 +203,10 @@ msgstr ""
 "التالي."
 
 msgid "Min mm"
-msgstr ""
+msgstr "الحد الأدنى لعدد المليمترات"
 
 msgid "Max mm"
-msgstr ""
+msgstr "الحد الأعلى لعدد المليمترات"
 
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
@@ -216,10 +216,10 @@ msgstr ""
 "بقع فارغة في المناطق ذات غطاء سحابي دائم."
 
 msgid "Min °C"
-msgstr ""
+msgstr "الحد الأدنى لدرجة الحرارة المئوية"
 
 msgid "Max °C"
-msgstr ""
+msgstr "الحد الأعلى لدرجة الحرارة المئوية"
 
 msgid "17 distinct landcover types collected from satellites."
 msgstr "17 نوعاً مميزاً من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
@@ -271,7 +271,7 @@ msgid "Events"
 msgstr "الأحداث"
 
 msgid "Group events"
-msgstr ""
+msgstr "تجميع الأحداث"
 
 msgid "View all events"
 msgstr "عرض كافة الأحداث"
@@ -289,10 +289,10 @@ msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Program is required"
-msgstr ""
+msgstr "البرنامج مطلوب"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "مرحلة البرنامج مطلوبة"
 
 msgid "No organisation units are selected."
 msgstr "لم يتم اختيار أي وحدات تنظيمية"
@@ -311,10 +311,10 @@ msgid "event"
 msgstr "حدث"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "الكيان المتعقب"
 
 msgid "facility"
-msgstr ""
+msgstr "المنشأة"
 
 msgid "thematic"
 msgstr ""
@@ -341,7 +341,7 @@ msgid "Select program period"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "حدد الفترة التي تم فيها آخر تحديث للكيانات المتعقبة"
 
 msgid "relationships"
 msgstr "العلاقات"
@@ -354,17 +354,17 @@ msgstr "متابعة"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
+msgstr "الرجاء تحديد نوع الكيان المتعقب قبل تحديد نوع العلاقة"
 
 msgid "WARNING"
 msgstr "تحذير"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
+msgstr "يعد عرض علاقات الكيانات المتعقبة في الخرائط ميزة تجريبية"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "عرض علاقات الكيانات المتعقبة"
 
 msgid "Selection mode"
 msgstr "وضح التحديد"
@@ -403,28 +403,28 @@ msgid "High size"
 msgstr "حجم كبير"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "مجموعة المؤشر مطلوبة"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "المؤشر مطلوب"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "مجموعة عناصر البيانات مطلوبة"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "عنصر البيانات مطلوب"
 
 msgid "Data set is required"
 msgstr ""
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "عنصر بيانات الحدث مطلوب"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "مؤشر البرنامج مطلوب"
 
 msgid "Period is required"
-msgstr ""
+msgstr "الفترة مطلوبة"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -448,7 +448,7 @@ msgid "Failed to load relationship types."
 msgstr "فشل تحميل أنواع العلاقات."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr ""
+msgstr "لم يتم العثور على أنواع العلاقات لنوع الكيان المتعقب {{type}}"
 
 msgid "Relationship type"
 msgstr "نوع العلاقة"
@@ -472,7 +472,7 @@ msgid "The following information may be requested by technical support."
 msgstr "قد يتم طلب المعلومات التالية من قبل الدعم الفني."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "التصفية متاحة بعد اختيار مرحلة البرنامج."
 
 msgid "Operator"
 msgstr "العامل"
@@ -502,10 +502,10 @@ msgid "Interpretations"
 msgstr "التفسيرات"
 
 msgid "External basemap"
-msgstr ""
+msgstr "خريطة أساس خارجية"
 
 msgid "Basemap"
-msgstr ""
+msgstr "الخريطة الأساسية"
 
 msgid "Collapse"
 msgstr "لم"
@@ -517,12 +517,13 @@ msgid "Download Layer Data"
 msgstr "تنزيل بيانات الطبقة"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "تنزيل بيانات GeoJSON لـ \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"يتم دعم GeoJSON بواسطة معظم برامج GIS ، بما في ذلك QGIS و ArcGIS Desktop."
 
 msgid "Data download failed."
 msgstr "فشل تنزيل البيانات."
@@ -543,7 +544,7 @@ msgid "{{name}} deleted."
 msgstr "تم حذف {{name}}."
 
 msgid "Split view can not be combined with other layer types."
-msgstr ""
+msgstr "لا يمكن دمج طريقة العرض المنقسمة مع أنواع الطبقات الأخرى."
 
 msgid "Filters"
 msgstr "‏‏عوامل التصفية"
@@ -624,7 +625,7 @@ msgid "Last updated"
 msgstr "آخر تحديث"
 
 msgid "acres"
-msgstr ""
+msgstr "فدان"
 
 msgid "Area"
 msgstr "مساحة"
@@ -727,28 +728,28 @@ msgid "Click the map where you want to relocate facility"
 msgstr ""
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "الوحدة التنظيمية للمستخدم"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "أسفل وحدة تنظيم المستخدم مباشرة"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "مستويين أسفل وحدة تنظيم المستخدم"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} في {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} في {{orgunits}} وأسفلها تمامًا"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} في وكل ما هو أسفل {{orgunits}}"
 
 msgid "Selected organisation units"
 msgstr "الوحدات التنظيمية المحددة"
 
 msgid "Main"
-msgstr ""
+msgstr "الأساسية"
 
 msgid "Below"
 msgstr ""
@@ -757,7 +758,7 @@ msgid "2 x below"
 msgstr ""
 
 msgid "User organisation units"
-msgstr ""
+msgstr "الوحدة التنظيمية للمستخدم"
 
 msgid "Previous year"
 msgstr "السنة الماضية"
@@ -784,13 +785,13 @@ msgid "Timeline"
 msgstr "الخط الزمني"
 
 msgid "Split map views"
-msgstr ""
+msgstr "عروض الخريطة المقسمة"
 
 msgid "Only one timeline is allowed."
 msgstr "مسموح بجدول زمني واحد فقط."
 
 msgid "Remove other layers to enable split map views."
-msgstr ""
+msgstr "قم بإزالة الطبقات الأخرى لتمكين عروض الخريطة المنقسمة."
 
 msgid "Program indicator"
 msgstr "مؤشر البرنامج"
@@ -805,7 +806,7 @@ msgid "Stage"
 msgstr "المرحلة"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "نوع الكيان المتعقب"
 
 msgid "By data element"
 msgstr "بواسطة عنصر البيانات"
@@ -829,7 +830,7 @@ msgid "OSM Light"
 msgstr "OSM Light"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM مفصل"
 
 msgid "Google Streets"
 msgstr "الشوارع بحسب غوغل"
@@ -838,13 +839,13 @@ msgid "Google Hybrid"
 msgstr "Google Hybrid"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing طرقات"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing داكن"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing جوي"
 
 msgid "Bing Aerial Labels"
 msgstr ""
@@ -1085,16 +1086,16 @@ msgid "Deciduous Needleleaf forest"
 msgstr ""
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "غابة عريضة الأوراق"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "غابة مختلطة"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "شجيرات مغلقة"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "الشجيرات المفتوحة"
 
 msgid "Woody savannas"
 msgstr "السافانا الخشبية"
@@ -1145,13 +1146,13 @@ msgid "No data found"
 msgstr "لم توجد بيانات"
 
 msgid "Facilities"
-msgstr ""
+msgstr "مرافق"
 
 msgid "Thematic layer"
 msgstr "الطبقة المواضيعية"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "وحدات تنظيمية مختارة"
 
 msgid "No coordinates found"
 msgstr "لم يتم العثور على إحداثيات"
@@ -1160,10 +1161,10 @@ msgid "Tracked entity"
 msgstr "الكيان المتتبع"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "لم يتم العثور على الكيانات المتعقبة"
 
 msgid "related"
-msgstr ""
+msgstr "ذات صلة"
 
 msgid "Thematic"
 msgstr ""
