@@ -24,7 +24,7 @@ msgid "Classification"
 msgstr "تصنيف"
 
 msgid "Classes"
-msgstr ""
+msgstr "التصنيفات"
 
 msgid "Legend set"
 msgstr "حزمة وسائل الإيضاح"
@@ -75,7 +75,7 @@ msgid "Data set"
 msgstr "حزمة البيانات"
 
 msgid "Index"
-msgstr ""
+msgstr "فهرس"
 
 msgid "Value"
 msgstr "القيمة"
@@ -179,7 +179,7 @@ msgid "Events"
 msgstr "الأحداث"
 
 msgid "Group events"
-msgstr ""
+msgstr "تجميع الأحداث"
 
 msgid "View all events"
 msgstr "عرض كافة الأحداث"
@@ -197,10 +197,10 @@ msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Program is required"
-msgstr ""
+msgstr "البرنامج مطلوب"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "مرحلة البرنامج مطلوبة"
 
 msgid "No organisation units are selected."
 msgstr "لم يتم اختيار أي وحدات تنظيمية"
@@ -225,7 +225,7 @@ msgid "Select program period"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "حدد الفترة التي تم فيها آخر تحديث للكيانات المتعقبة"
 
 msgid "Program status"
 msgstr "حالة البرنامج"
@@ -252,31 +252,31 @@ msgid "High size"
 msgstr "حجم كبير"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "مجموعة المؤشر مطلوبة"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "المؤشر مطلوب"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "مجموعة عناصر البيانات مطلوبة"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "عنصر البيانات مطلوب"
 
 msgid "Data set is required"
 msgstr ""
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "عنصر بيانات الحدث مطلوب"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "مؤشر البرنامج مطلوب"
 
 msgid "Period type is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "الفترة مطلوبة"
 
 msgid "Indicator"
 msgstr "المؤشر"
@@ -312,7 +312,7 @@ msgid "The following information may be requested by technical support."
 msgstr "قد يتم طلب المعلومات التالية من قبل الدعم الفني."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "التصفية متاحة بعد اختيار مرحلة البرنامج."
 
 msgid "Add filter"
 msgstr "إضافة عامل تصفية"
@@ -354,7 +354,7 @@ msgid "Interpretations"
 msgstr "التفسيرات"
 
 msgid "Basemap"
-msgstr ""
+msgstr "الخريطة الأساسية"
 
 msgid "Collapse"
 msgstr "انهيار"
@@ -366,12 +366,13 @@ msgid "Download Layer Data"
 msgstr "تنزيل بيانات الطبقة"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "تنزيل بيانات GeoJSON لـ \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"يتم دعم GeoJSON بواسطة معظم برامج GIS ، بما في ذلك QGIS و ArcGIS Desktop."
 
 msgid "Data download failed."
 msgstr "فشل تنزيل البيانات."
@@ -482,13 +483,13 @@ msgid "Click the map where you want to relocate facility"
 msgstr ""
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "الوحدة التنظيمية للمستخدم"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "أسفل وحدة تنظيم المستخدم مباشرة"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "مستويين أسفل وحدة تنظيم المستخدم"
 
 msgid "in"
 msgstr "في"
@@ -521,7 +522,7 @@ msgid "Stage"
 msgstr "المرحلة"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "نوع الكيان المتعقب"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -531,7 +532,7 @@ msgstr ""
 "يرجى التحقق من وثائق DHIS 2."
 
 msgid "Favorite"
-msgstr ""
+msgstr "مفضل"
 
 msgid "is saved"
 msgstr ""
@@ -564,7 +565,7 @@ msgid "Event"
 msgstr "الحدث"
 
 msgid "Facilities"
-msgstr ""
+msgstr "مرافق"
 
 msgid "No data found"
 msgstr "لم توجد بيانات"
@@ -573,7 +574,7 @@ msgid "Tracked entity"
 msgstr "الكيان المتتبع"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "لم يتم العثور على الكيانات المتعقبة"
 
 msgid "true"
 msgstr ""
