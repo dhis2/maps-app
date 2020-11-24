@@ -27,11 +27,8 @@ const styles = {
 };
 
 class RelocateDialog extends Component {
-    static contextTypes = {
-        map: PropTypes.object,
-    };
-
     static propTypes = {
+        map: PropTypes.object,
         feature: PropTypes.object,
         layerId: PropTypes.string,
         changeOrgUnitCoordinate: PropTypes.func.isRequired,
@@ -39,40 +36,55 @@ class RelocateDialog extends Component {
     };
 
     componentDidUpdate() {
-        const feature = this.props.feature;
-        const map = this.context.map;
-        const mapContainer = map.getContainer();
-
-        if (feature) {
-            map.on('click', this.onMapClick, this);
-            mapContainer.style.cursor = 'crosshair';
+        if (this.props.feature) {
+            this.startRelocate();
         } else {
-            map.off('click', this.onMapClick, this);
-            mapContainer.style.cursor = 'auto';
-            mapContainer.style.cursor = '-webkit-grab';
-            mapContainer.style.cursor = '-moz-grab';
+            this.stopRelocate();
         }
     }
 
-    onMapClick(evt) {
-        const {
-            layerId,
-            feature,
-            changeOrgUnitCoordinate,
-            stopRelocateOrgUnit,
-        } = this.props;
-        const latlng = evt.latlng;
-        const coordinate = [
-            parseFloat(latlng.lng.toFixed(6)),
-            parseFloat(latlng.lat.toFixed(6)),
-        ];
+    startRelocate = () => {
+        const { map } = this.props;
 
-        changeOrgUnitCoordinate(layerId, feature.id, coordinate);
+        if (map) {
+            const mapgl = map.getMapGL();
+            const container = map
+                .getContainer()
+                .getElementsByClassName('mapboxgl-interactive')[0];
+
+            container.style.cursor = 'crosshair';
+            mapgl.on('click', this.onMapClick);
+        }
+    };
+
+    stopRelocate = () => {
+        const { map, stopRelocateOrgUnit } = this.props;
+
+        if (map) {
+            const mapgl = map.getMapGL();
+            const container = map
+                .getContainer()
+                .getElementsByClassName('mapboxgl-interactive')[0];
+
+            container.style.cursor = '';
+            mapgl.off('click', this.onMapClick);
+        }
+
         stopRelocateOrgUnit();
-    }
+    };
+
+    onMapClick = evt => {
+        const { layerId, feature, changeOrgUnitCoordinate } = this.props;
+        const { lng, lat } = evt.lngLat;
+        const coordinate = [lng, lat];
+
+        changeOrgUnitCoordinate(layerId, feature.properties.id, coordinate);
+
+        this.stopRelocate();
+    };
 
     render() {
-        const { feature, stopRelocateOrgUnit } = this.props;
+        const { feature } = this.props;
 
         if (!feature) {
             return null;
@@ -80,7 +92,7 @@ class RelocateDialog extends Component {
 
         return (
             <Paper style={styles.paper}>
-                <span onClick={stopRelocateOrgUnit}>
+                <span onClick={this.stopRelocate}>
                     <CancelIcon style={styles.close} />
                 </span>
                 {i18n.t('Click the map where you want to relocate facility')}{' '}

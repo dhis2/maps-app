@@ -176,6 +176,7 @@ class Layer extends PureComponent {
             container: isSplitView
                 ? container.parentNode.parentNode
                 : container,
+            map,
         });
     }
 

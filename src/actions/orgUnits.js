@@ -70,10 +70,9 @@ export const unselectOrgUnit = (layerId, featureId) => ({
     featureId,
 });
 
-export const startRelocateOrgUnit = (layerId, feature) => ({
+export const startRelocateOrgUnit = payload => ({
     type: types.ORGANISATION_UNIT_RELOCATE_START,
-    layerId,
-    feature,
+    payload,
 });
 
 export const stopRelocateOrgUnit = (layerId, feature) => ({

@@ -46,6 +46,7 @@ const polygonTypes = ['Polygon', 'MultiPolygon'];
 
 const ContextMenu = (props, context) => {
     const {
+        map,
         feature,
         layerId,
         layerType,
@@ -195,7 +196,7 @@ const ContextMenu = (props, context) => {
                     onClick={() =>
                         onSwapCoordinate(
                             layerId,
-                            feature.id,
+                            feature.properties.id,
                             feature.geometry.coordinates.slice(0).reverse()
                         )
                     }
@@ -214,7 +215,7 @@ const ContextMenu = (props, context) => {
 
             {isAdmin && isPoint && (
                 <MenuItem
-                    onClick={() => onRelocateStart(layerId, feature)}
+                    onClick={() => onRelocateStart(layerId, feature, map)}
                     className={classes.menuItem}
                 >
                     <ListItemIcon className={classes.icon}>
@@ -289,9 +290,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(closeContextMenu());
         dispatch(openCoordinatePopup(coord));
     },
-    onRelocateStart: (layerId, feature) => {
+    onRelocateStart: (layerId, feature, map) => {
         dispatch(closeContextMenu());
-        dispatch(startRelocateOrgUnit(layerId, feature));
+        dispatch(startRelocateOrgUnit({ layerId, feature, map }));
     },
     onSwapCoordinate: (layerId, featureId, coordinate) => {
         dispatch(closeContextMenu());
