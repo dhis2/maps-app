@@ -42,10 +42,12 @@ export const getThematicMapTypes = () => [
     {
         id: THEMATIC_CHOROPLETH,
         name: i18n.t('Choropleth'),
+        image: 'images/choropleth.png',
     },
     {
         id: THEMATIC_BUBBLE,
         name: i18n.t('Bubble map'),
+        image: 'images/bubble.png',
     },
 ];
 

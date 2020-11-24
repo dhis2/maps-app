@@ -71,7 +71,6 @@ const FilterSelect = ({
         <Fragment>
             {operators && (
                 <SelectField
-                    dense
                     label={i18n.t('Operator')}
                     items={operators}
                     value={operator}
@@ -93,7 +92,6 @@ const FilterSelect = ({
             )}
             {numberValueTypes.includes(valueType) && (
                 <NumberField
-                    dense
                     label={i18n.t('Value')}
                     value={value !== undefined ? Number(value) : value}
                     onChange={newValue => onChange(`${operator}:${newValue}`)}
@@ -102,7 +100,6 @@ const FilterSelect = ({
             )}
             {textValueTypes.includes(valueType) && !optionSet && (
                 <TextField
-                    dense
                     label={i18n.t('Value')}
                     value={value || ''}
                     onChange={newValue => onChange(`${operator}:${newValue}`)}
@@ -120,7 +117,6 @@ const FilterSelect = ({
             )}
             {valueType === 'DATE' && (
                 <DatePicker
-                    dense
                     label={i18n.t('Date')}
                     value={value}
                     onChange={date => onChange(`${operator}:${date}`)}

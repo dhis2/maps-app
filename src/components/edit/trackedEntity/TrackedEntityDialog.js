@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { NoticeBox } from '@dhis2/ui';
 import cx from 'classnames';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
@@ -256,25 +257,12 @@ export class TrackedEntityDialog extends Component {
                             </div>
                         ) : (
                             <div className={styles.flexRowFlow}>
-                                <div
-                                    style={{
-                                        fontSize: 14,
-                                        padding: '12px 12px 0',
-                                    }}
-                                >
-                                    <h3
-                                        style={{
-                                            fontWeight: 'bold',
-                                            marginBottom: 8,
-                                        }}
-                                    >
-                                        {i18n.t('WARNING')}
-                                    </h3>
-                                    <p>
+                                <div className={styles.notice}>
+                                    <NoticeBox warning title="Warning">
                                         {i18n.t(
                                             'Displaying tracked entity relationships in Maps is an experimental feature'
                                         )}
-                                    </p>
+                                    </NoticeBox>
                                 </div>
                                 <Checkbox
                                     label={i18n.t(

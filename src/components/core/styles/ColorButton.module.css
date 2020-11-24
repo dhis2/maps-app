@@ -1,0 +1,13 @@
+.colorButton {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--colors-grey400);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.colorButton input {
+    visibility: hidden;
+    height: 100%;
+}

@@ -5,7 +5,14 @@ import cx from 'classnames';
 import styles from './styles/InputField.module.css';
 
 // Wrapper component around @dhis2/ui InputField
-const TextField = ({ type, label, value, dense, onChange, className }) => (
+const TextField = ({
+    type,
+    label,
+    value,
+    dense = true,
+    onChange,
+    className,
+}) => (
     <div className={cx(styles.inputField, className)}>
         <InputField
             dense={dense}

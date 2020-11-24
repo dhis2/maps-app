@@ -9,6 +9,7 @@ const ImageSelect = ({ id, img, title, isSelected, onClick, className }) => (
         title={title}
         onClick={() => onClick(id)}
     >
+        {title ? <div className={styles.title}>{title}</div> : null}
         <div
             className={cx(styles.imageContainer, {
                 [styles.imageContainerSelected]: isSelected,
@@ -20,7 +21,6 @@ const ImageSelect = ({ id, img, title, isSelected, onClick, className }) => (
                 <div className={styles.noImage} />
             )}
         </div>
-        {title ? <div className={styles.title}>{title}</div> : null}
     </div>
 );
 

@@ -9,9 +9,7 @@ import styles from './styles/RemoveFilter.module.css';
 const RemoveFilter = ({ onClick }) => (
     <div className={styles.removeBtnContainer} onClick={onClick}>
         <Tooltip content={i18n.t('Remove filter')}>
-            <div className={styles.removeBtn}>
-                <DeleteIcon />
-            </div>
+            <DeleteIcon />
         </Tooltip>
     </div>
 );

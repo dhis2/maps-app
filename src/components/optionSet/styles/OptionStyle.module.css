@@ -1,17 +1,21 @@
 .item {
     white-space: nowrap;
+    font-size: 14px;
+    margin-bottom: var(--spacers-dp4);
 }
 
 .color {
     display: inline-block;
-    width: var(--spacers-dp40);
-    height: var(--spacers-dp40);
+    vertical-align: top;
+    width: var(--spacers-dp32);
+    height: var(--spacers-dp32);
     margin: 0 var(--spacers-dp8) 0 0;
 }
 
 .label {
     display: inline-block;
-    height: 40px;
-    line-height: 40px;
+    vertical-align: top;
+    height: 32px;
+    line-height: 32px;
     overflow: hidden;
 }

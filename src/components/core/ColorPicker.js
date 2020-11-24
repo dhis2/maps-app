@@ -1,58 +1,37 @@
-import React, { Fragment, useState, useRef } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Popover } from '@dhis2/ui';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ChromePicker from 'react-color/lib/components/chrome/Chrome';
 import { hcl } from 'd3-color';
 import cx from 'classnames';
 import styles from './styles/ColorPicker.module.css';
 
-const ColorPicker = ({ color, label, width, height, onChange, className }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const anchorRef = useRef();
-
-    return (
-        <Fragment>
-            <div className={cx(styles.colorPicker, className)}>
-                {label && <div className={styles.label}>{label}</div>}
-                <div
-                    ref={anchorRef}
-                    onClick={() => setIsOpen(true)}
-                    className={styles.button}
-                    style={{
-                        background: color,
-                        width: width || '100%',
-                        height: height || 40,
-                    }}
+const ColorPicker = ({ color, label, width, height, onChange, className }) => (
+    <Fragment>
+        <div className={cx(styles.colorPicker, className)}>
+            {label && <div className={styles.label}>{label}</div>}
+            <label
+                style={{
+                    backgroundColor: color,
+                    width: width || '100%',
+                    height: height || 32,
+                }}
+            >
+                <span
+                    className={cx(styles.icon, {
+                        [styles.dark]: hcl(color).l > 70,
+                    })}
                 >
-                    <span
-                        className={styles.icon}
-                        style={{
-                            color: `var(--colors-${
-                                hcl(color).l < 70 ? 'white' : 'grey900'
-                            })`,
-                        }}
-                    >
-                        <ArrowDropDownIcon />
-                    </span>
-                </div>
-            </div>
-            {isOpen && (
-                <Popover
-                    reference={anchorRef}
-                    arrow={false}
-                    placement="right-start"
-                    onClickOutside={() => setIsOpen(false)}
-                >
-                    <ChromePicker
-                        color={color}
-                        onChange={color => onChange(color.hex.toUpperCase())}
-                    />
-                </Popover>
-            )}
-        </Fragment>
-    );
-};
+                    <ArrowDropDownIcon />
+                </span>
+                <input
+                    type="color"
+                    value={color}
+                    onChange={e => onChange(e.target.value.toUpperCase())}
+                />
+            </label>
+        </div>
+    </Fragment>
+);
 
 ColorPicker.propTypes = {
     color: PropTypes.string.isRequired,

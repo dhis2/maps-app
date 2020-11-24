@@ -4,13 +4,13 @@
 }
 
 /* Scrollbar width */
-.app ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 }
 
 /* Scrollbar handle */
-.app ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #cbcdcf;
     border-radius: 3px;
 }

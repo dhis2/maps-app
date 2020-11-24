@@ -14,7 +14,7 @@
     width: 100%;
     margin-top: var(--spacers-dp4);
     overflow: hidden;
-    outline: 1px solid var(--colors-grey300);
+    outline: 1px solid var(--colors-grey400);
 }
 
 .selected {

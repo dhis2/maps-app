@@ -16,7 +16,7 @@ import styles from './styles/InputField.module.css';
  */
 export const SelectField = props => {
     const {
-        dense,
+        dense = true,
         errorText,
         items,
         label,

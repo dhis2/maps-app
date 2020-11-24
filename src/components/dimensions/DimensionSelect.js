@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Popover } from '@dhis2/ui';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { DimensionsPanel } from '@dhis2/d2-ui-analytics';
+import { DimensionsPanel } from '@dhis2/analytics';
 import { loadDimensions } from '../../actions/dimensions';
 import styles from './styles/DimensionSelect.module.css';
 
@@ -27,11 +27,12 @@ const DimensionSelect = ({
         return null;
     }
 
-    const selected = dimensions[dimension];
+    const findDimension = id => dimensions.find(d => d.id === id);
+    const selected = findDimension(dimension);
 
     const onDimensionClick = dim => {
         if (dim !== dimension) {
-            onChange(dimensions[dim]);
+            onChange(findDimension(dim));
         }
         setIsOpen(false);
     };
@@ -66,19 +67,14 @@ const DimensionSelect = ({
 
 DimensionSelect.propTypes = {
     dimension: PropTypes.string,
-    dimensions: PropTypes.object,
+    dimensions: PropTypes.array,
     onChange: PropTypes.func.isRequired,
     loadDimensions: PropTypes.func.isRequired,
 };
 
 export default connect(
     ({ dimensions }) => ({
-        dimensions: dimensions
-            ? dimensions.reduce((obj, dim) => {
-                  obj[dim.id] = dim;
-                  return obj;
-              }, {})
-            : null,
+        dimensions,
     }),
     { loadDimensions }
 )(DimensionSelect);
