@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Caroline Hesthagen Holen <caroline@devotta.no>, 2020
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
+"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,7 +151,7 @@ msgstr "År"
 msgid "Period"
 msgstr "Periode"
 
-msgid "Organisation units"
+msgid "Organisation Units"
 msgstr "Organisasjonsenheter"
 
 msgid "Style"
@@ -253,7 +253,7 @@ msgstr "Dette er et påkrevd felt"
 msgid "Valid range is"
 msgstr "Gyldig rekkevidde er"
 
-msgid "Group set"
+msgid "Group Set"
 msgstr "Gruppesett"
 
 msgid ""
@@ -299,14 +299,11 @@ msgstr "Oppdater lag"
 msgid "Add layer"
 msgstr "Legg til lag"
 
-msgid "data"
-msgstr "data"
+msgid "Data"
+msgstr "Data"
 
-msgid "period"
-msgstr "periode"
-
-msgid "Org units"
-msgstr "Org enhet"
+msgid "Org Units"
+msgstr ""
 
 msgid "Filter"
 msgstr "Filter"
@@ -407,8 +404,8 @@ msgstr "datoen en sporet enhet ble registrert eller registrert i et program"
 msgid "Program status"
 msgstr "Programstatus"
 
-msgid "relationships"
-msgstr "relasjoner"
+msgid "Relationships"
+msgstr "Relasjoner"
 
 msgid "Follow up"
 msgstr "Oppfølging"
@@ -491,12 +488,6 @@ msgstr "Følgende informasjon kan bli bedt om av teknisk support."
 msgid "Filtering is available after selecting a program stage."
 msgstr "Filtrering er tilgjengelig etter valg av programfase."
 
-msgid "Operator"
-msgstr "Operator"
-
-msgid "Date"
-msgstr "Dato"
-
 msgid "one of"
 msgstr "en av"
 
@@ -509,6 +500,12 @@ msgstr "er"
 msgid "is not"
 msgstr "er ikke"
 
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Date"
+msgstr "Dato"
+
 msgid "Remove filter"
 msgstr "Fjern filter"
 
@@ -518,17 +515,17 @@ msgstr "Indikatorgruppe"
 msgid "Interpretations"
 msgstr "Tolkninger"
 
-msgid "External basemap"
-msgstr "Eksternt bakgrunnskart"
-
-msgid "Basemap"
-msgstr "Bakgrunnskart"
-
 msgid "Collapse"
 msgstr "Kollaps"
 
 msgid "Expand"
 msgstr "Utvid"
+
+msgid "External basemap"
+msgstr "Eksternt bakgrunnskart"
+
+msgid "Basemap"
+msgstr "Bakgrunnskart"
 
 msgid "Download Layer Data"
 msgstr "Last ned lagdata"
@@ -555,14 +552,14 @@ msgstr "Bruk menneskelige lesbare nøkler"
 msgid "External layer"
 msgstr "Eksternt lag"
 
+msgid "Split view can not be combined with other layer types."
+msgstr "Delt visning kan ikke kombineres med andre lagtyper."
+
 msgid "Loading layer"
 msgstr "Laster lag"
 
 msgid "{{name}} deleted."
 msgstr "{{name}} slettet."
-
-msgid "Split view can not be combined with other layer types."
-msgstr "Delt visning kan ikke kombineres med andre lagtyper."
 
 msgid "Edit"
 msgstr "Rediger"
@@ -576,8 +573,8 @@ msgstr "Angi lagets gjennomsiktighet"
 msgid "More actions"
 msgstr "Flere handlinger"
 
-msgid "Data table"
-msgstr "Datatabell"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr "Åpne som diagram"
@@ -620,6 +617,9 @@ msgstr "Bytt lengdegrad/breddegrad"
 
 msgid "Relocate"
 msgstr "Omplasser"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "Ikke satt"
@@ -735,6 +735,9 @@ msgstr "Ingen data funnet for denne perioden."
 msgid "Select groups"
 msgstr "Velg grupper"
 
+msgid "Group set"
+msgstr "Gruppesett"
+
 msgid "Select levels"
 msgstr "Velg nivåer"
 
@@ -745,8 +748,8 @@ msgstr ""
 "Det er ikke mulig å kombinere brukerorganisasjonsenheter og velge "
 "individuelle enheter."
 
-msgid "Click the map where you want to relocate facility"
-msgstr "Klikk på kartet der du vil flytte fasiliteten"
+msgid "Click the map where you want to relocate the facility."
+msgstr ""
 
 msgid "user organisation unit"
 msgstr "brukerorganisasjonsenhet"
@@ -796,6 +799,12 @@ msgstr "Periodetype"
 msgid "Start/end dates"
 msgstr "Start/slutt-datoer"
 
+msgid "Only one timeline is allowed."
+msgstr "Bare en tidslinje er tillatt."
+
+msgid "Remove other layers to enable split map views."
+msgstr "Fjern andre lag for å aktivere delt kartvisning."
+
 msgid "Display periods"
 msgstr "Vis perioder"
 
@@ -807,12 +816,6 @@ msgstr "Tidslinje"
 
 msgid "Split map views"
 msgstr "Delt kartvisninger"
-
-msgid "Only one timeline is allowed."
-msgstr "Bare en tidslinje er tillatt."
-
-msgid "Remove other layers to enable split map views."
-msgstr "Fjern andre lag for å aktivere delt kartvisning."
 
 msgid "Start date"
 msgstr "Startdato"
@@ -1076,26 +1079,21 @@ msgid "Cancelled"
 msgstr "Kansellert"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
-"For å vise dette laget må du først registrere deg på Earth Engine-tjenesten "
-"hos Google. Vennligst sjekk DHIS2-dokumentasjonen."
 
-msgid "Error"
-msgstr "Feil"
-
-msgid "A connection to Google Earth Engine could not be established."
-msgstr "Kunne ikke opprette tilkobling til Google Earth Engine."
+msgid "Cannot connect to Google Earth Engine."
+msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "Kart \"{{name}}\" er lagret."
 
+msgid "Error"
+msgstr "Feil"
+
 msgid "Boundaries"
 msgstr "Grenser"
-
-msgid "Alert"
-msgstr "Varsling"
 
 msgid "No boundaries found"
 msgstr "Ingen grenser funnet"
@@ -1211,17 +1209,11 @@ msgstr "Impediment eller lite vegetasjon"
 msgid "Unclassified"
 msgstr "Uklassifisert"
 
-msgid "Access denied"
-msgstr "Ingen tilgang"
+msgid "You don't have access to this layer data"
+msgstr ""
 
-msgid "user is not allowed to read layer data"
-msgstr "bruker har ikke lov til å lese lagdata"
-
-msgid "Failed"
-msgstr "Mislyktes"
-
-msgid "an unknown error occurred while reading layer data"
-msgstr "en ukjent feil oppstod under lesing av lagdata"
+msgid "An unknown error occurred while reading layer data"
+msgstr ""
 
 msgid "Event"
 msgstr "Hendelse"
@@ -1271,8 +1263,8 @@ msgstr "usant"
 msgid "No"
 msgstr "Nei"
 
-msgid "Map could not be created"
-msgstr "Kartet kunne ikke opprettes"
+msgid "There was a problem creating a map from the imported data."
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "Startdato er ugyldig"

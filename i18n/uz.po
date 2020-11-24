@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2020\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -152,8 +152,8 @@ msgstr "Йил"
 msgid "Period"
 msgstr "Давр"
 
-msgid "Organisation units"
-msgstr "Ташкилий бўлимлар"
+msgid "Organisation Units"
+msgstr "Ташкилий Бўлимлар"
 
 msgid "Style"
 msgstr "Услуб"
@@ -254,7 +254,7 @@ msgstr "Ушбу қатор тўлдирилиши шарт"
 msgid "Valid range is"
 msgstr "Яроқли оралиқ"
 
-msgid "Group set"
+msgid "Group Set"
 msgstr "Гуруҳлар тўплами"
 
 msgid ""
@@ -300,14 +300,11 @@ msgstr "Қатламни янгилаш"
 msgid "Add layer"
 msgstr "Қатлам қўшиш"
 
-msgid "data"
-msgstr "маълумот"
+msgid "Data"
+msgstr "Маълумот"
 
-msgid "period"
-msgstr "давр"
-
-msgid "Org units"
-msgstr "Ташкилий бўлим"
+msgid "Org Units"
+msgstr ""
 
 msgid "Filter"
 msgstr "Фильтр"
@@ -409,8 +406,8 @@ msgstr "сана, кузатувдаги шахс рўйхатга олинга�
 msgid "Program status"
 msgstr "дастур ҳолати"
 
-msgid "relationships"
-msgstr "ўзаро алоқалар"
+msgid "Relationships"
+msgstr "Ўзаро алоқалар"
 
 msgid "Follow up"
 msgstr "Кузатиб бориш"
@@ -495,12 +492,6 @@ msgstr "Қуйидаги ахборот техник ёрдамчилар том
 msgid "Filtering is available after selecting a program stage."
 msgstr "Дастур босқичи танлангандан сўнг Фильтрдан фойдаланиш мумкин"
 
-msgid "Operator"
-msgstr "Оператор"
-
-msgid "Date"
-msgstr "Сана"
-
 msgid "one of"
 msgstr "биттаси"
 
@@ -513,6 +504,12 @@ msgstr "бўлмоқ"
 msgid "is not"
 msgstr "эмас"
 
+msgid "Operator"
+msgstr "Оператор"
+
+msgid "Date"
+msgstr "Сана"
+
 msgid "Remove filter"
 msgstr "Фильтрни олиб ташлаш"
 
@@ -522,17 +519,17 @@ msgstr "Кўрсатгич гуруҳи"
 msgid "Interpretations"
 msgstr "Талқинлар"
 
-msgid "External basemap"
-msgstr "Ташқи асосий харита"
-
-msgid "Basemap"
-msgstr "Асосий харита"
-
 msgid "Collapse"
 msgstr "Йиқилиш"
 
 msgid "Expand"
 msgstr "Кенгайтиринг"
+
+msgid "External basemap"
+msgstr "Ташқи асосий харита"
+
+msgid "Basemap"
+msgstr "Асосий харита"
 
 msgid "Download Layer Data"
 msgstr "Қават маълумотларини юклаш"
@@ -559,15 +556,15 @@ msgstr "Ўқилиши қулай калитлардан фойдаланинг"
 msgid "External layer"
 msgstr "Ташқи қават"
 
+msgid "Split view can not be combined with other layer types."
+msgstr ""
+"Ажратилган кўринишларни бошқа қатлам турлари билан бирлаштириб бўлмайди."
+
 msgid "Loading layer"
 msgstr "Юкланадиган қават"
 
 msgid "{{name}} deleted."
 msgstr "{{исми}} ўчирилган"
-
-msgid "Split view can not be combined with other layer types."
-msgstr ""
-"Ажратилган кўринишларни бошқа қатлам турлари билан бирлаштириб бўлмайди."
 
 msgid "Edit"
 msgstr "Таҳрирлаш"
@@ -581,8 +578,8 @@ msgstr "Қатлам хиралигини таҳрирланг"
 msgid "More actions"
 msgstr "Бошқа ҳаракатлар"
 
-msgid "Data table"
-msgstr "Маълумотлар жадвали"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr "Диаграмма сифатида очинг"
@@ -625,6 +622,9 @@ msgstr "Кенглик/Узунликни алмаштиринг"
 
 msgid "Relocate"
 msgstr "Жойни қайта белгиланг"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "Ўрнатилмаган"
@@ -740,6 +740,9 @@ msgstr "Ушбу давр учун маълумот топилмади"
 msgid "Select groups"
 msgstr "Гуруҳларни танланг"
 
+msgid "Group set"
+msgstr "Гуруҳлар тўплами"
+
 msgid "Select levels"
 msgstr "Поғоналарни танланг"
 
@@ -750,8 +753,8 @@ msgstr ""
 "Алоҳида бирликларни танлаш ва фойдаланувчилар ташкилий бўлимини бирлаштириш "
 "мумкин эмас."
 
-msgid "Click the map where you want to relocate facility"
-msgstr "Харитада объектни қайта жойлаштирмоқчи бўлган нуқтангизни босинг"
+msgid "Click the map where you want to relocate the facility."
+msgstr ""
 
 msgid "user organisation unit"
 msgstr "Фойдаланувчининг ташкилий бўлими"
@@ -801,6 +804,12 @@ msgstr "Давр тури"
 msgid "Start/end dates"
 msgstr "Бошланиш/Тугаш вақтлари"
 
+msgid "Only one timeline is allowed."
+msgstr "Фақатгина битта вақт оралиғи бўлиши мумкин"
+
+msgid "Remove other layers to enable split map views."
+msgstr "Харитани кўздан кечириш режимини ёқиш учун, бошқа қаватларни ўчиринг "
+
 msgid "Display periods"
 msgstr "Кўриниш даврлари"
 
@@ -812,12 +821,6 @@ msgstr "Хронология"
 
 msgid "Split map views"
 msgstr "Харита кўринишларини ажратиш"
-
-msgid "Only one timeline is allowed."
-msgstr "Фақатгина битта вақт оралиғи бўлиши мумкин"
-
-msgid "Remove other layers to enable split map views."
-msgstr "Харитани кўздан кечириш режимини ёқиш учун, бошқа қаватларни ўчиринг "
 
 msgid "Start date"
 msgstr "Бошланиш санаси"
@@ -1081,26 +1084,21 @@ msgid "Cancelled"
 msgstr "Бекор қилинди"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
-"Ушбу қатламни кўрсатиш учун, сиз аввал Google да Earth Engine дан рўйхатдан "
-"ўтган бўлишингиз керак. Илтимос, DHIS2 ҳужжатларини текширинг."
 
-msgid "Error"
-msgstr "Хато"
-
-msgid "A connection to Google Earth Engine could not be established."
-msgstr "Google Earth Engine билан алоқа боғлаб бўлмади"
+msgid "Cannot connect to Google Earth Engine."
+msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "Харита \"{{исми}}\" сақланган"
 
+msgid "Error"
+msgstr "Хато"
+
 msgid "Boundaries"
 msgstr "Чегаралар"
-
-msgid "Alert"
-msgstr "Огоҳлантириш"
 
 msgid "No boundaries found"
 msgstr "Ҳеч қандай чегара топилмади"
@@ -1216,17 +1214,11 @@ msgstr "Ҳосилсиз ёки кам ўсимликлардан"
 msgid "Unclassified"
 msgstr "Классификация қилинмаган"
 
-msgid "Access denied"
-msgstr "Фойдаланиш ҳуқуқи рад этилди"
+msgid "You don't have access to this layer data"
+msgstr ""
 
-msgid "user is not allowed to read layer data"
-msgstr "Фойдаланувчи ушбу қатлам маълумотларини кўриш ваколатига эга эмас"
-
-msgid "Failed"
-msgstr "Амалга ошмади"
-
-msgid "an unknown error occurred while reading layer data"
-msgstr "Қатлам маълумотларини ўқиш пайтида номаълум хатолик юз берди"
+msgid "An unknown error occurred while reading layer data"
+msgstr ""
 
 msgid "Event"
 msgstr "Тадбир"
@@ -1276,8 +1268,8 @@ msgstr "ёлғон"
 msgid "No"
 msgstr "Йўқ"
 
-msgid "Map could not be created"
-msgstr "Харитани яратиб бўлмади"
+msgid "There was a problem creating a map from the imported data."
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "Бошланиш санаси нотўғри"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2020\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -150,8 +150,8 @@ msgstr "Năm"
 msgid "Period"
 msgstr "Thời gian"
 
-msgid "Organisation units"
-msgstr "Đơn vị"
+msgid "Organisation Units"
+msgstr "Quản trị đơn vị"
 
 msgid "Style"
 msgstr "Kiểu dáng"
@@ -240,8 +240,8 @@ msgstr "Trường này yêu cầu"
 msgid "Valid range is"
 msgstr ""
 
-msgid "Group set"
-msgstr "Nhóm tập hợp"
+msgid "Group Set"
+msgstr "Tập hợp nhóm"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -286,14 +286,11 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Data"
+msgstr "Dữ liệu"
 
-msgid "period"
+msgid "Org Units"
 msgstr ""
-
-msgid "Org units"
-msgstr "Các đơn vị"
 
 msgid "Filter"
 msgstr "Bộ lọc"
@@ -394,8 +391,8 @@ msgstr ""
 msgid "Program status"
 msgstr ""
 
-msgid "relationships"
-msgstr "mối quan hệ"
+msgid "Relationships"
+msgstr "Mối quan hệ"
 
 msgid "Follow up"
 msgstr "Theo dõi"
@@ -475,12 +472,6 @@ msgstr "Các thông tin sau có thể được yêu cầu bởi hỗ trợ kỹ 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
-msgid "Operator"
-msgstr "Toán tử"
-
-msgid "Date"
-msgstr "Ngày"
-
 msgid "one of"
 msgstr ""
 
@@ -493,6 +484,12 @@ msgstr "là"
 msgid "is not"
 msgstr ""
 
+msgid "Operator"
+msgstr "Toán tử"
+
+msgid "Date"
+msgstr "Ngày"
+
 msgid "Remove filter"
 msgstr ""
 
@@ -502,17 +499,17 @@ msgstr "Nhóm chỉ số"
 msgid "Interpretations"
 msgstr "Diễn giải báo cáo"
 
-msgid "External basemap"
-msgstr ""
-
-msgid "Basemap"
-msgstr ""
-
 msgid "Collapse"
 msgstr "Thu gọn"
 
 msgid "Expand"
 msgstr "Mở rộng"
+
+msgid "External basemap"
+msgstr ""
+
+msgid "Basemap"
+msgstr ""
 
 msgid "Download Layer Data"
 msgstr ""
@@ -537,13 +534,13 @@ msgstr ""
 msgid "External layer"
 msgstr "Lớp ngoại"
 
+msgid "Split view can not be combined with other layer types."
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
 msgid "{{name}} deleted."
-msgstr ""
-
-msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
@@ -558,8 +555,8 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-msgid "Data table"
-msgstr "Bảng dữ liệu"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr ""
@@ -602,6 +599,9 @@ msgstr "Tráo kinh độ/vĩ độ"
 
 msgid "Relocate"
 msgstr "Di dời"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "Không cài"
@@ -714,6 +714,9 @@ msgstr ""
 msgid "Select groups"
 msgstr "Chọn nhóm"
 
+msgid "Group set"
+msgstr "Nhóm tập hợp"
+
 msgid "Select levels"
 msgstr "Chọn Tuyến Đơn Vị"
 
@@ -722,7 +725,7 @@ msgid ""
 "units."
 msgstr ""
 
-msgid "Click the map where you want to relocate facility"
+msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -773,6 +776,12 @@ msgstr "Loại thời điểm"
 msgid "Start/end dates"
 msgstr "Ngày bắt đầu/kết thúc"
 
+msgid "Only one timeline is allowed."
+msgstr ""
+
+msgid "Remove other layers to enable split map views."
+msgstr ""
+
 msgid "Display periods"
 msgstr ""
 
@@ -783,12 +792,6 @@ msgid "Timeline"
 msgstr ""
 
 msgid "Split map views"
-msgstr ""
-
-msgid "Only one timeline is allowed."
-msgstr ""
-
-msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
@@ -1053,23 +1056,20 @@ msgid "Cancelled"
 msgstr "Đã hủy"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
 
-msgid "Error"
-msgstr "Lỗi"
-
-msgid "A connection to Google Earth Engine could not be established."
+msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Boundaries"
-msgstr ""
+msgid "Error"
+msgstr "Lỗi"
 
-msgid "Alert"
+msgid "Boundaries"
 msgstr ""
 
 msgid "No boundaries found"
@@ -1182,16 +1182,10 @@ msgstr ""
 msgid "Unclassified"
 msgstr ""
 
-msgid "Access denied"
-msgstr "Truy cập bị từ chối"
-
-msgid "user is not allowed to read layer data"
+msgid "You don't have access to this layer data"
 msgstr ""
 
-msgid "Failed"
-msgstr "KHÔNG THÀNH CÔNG"
-
-msgid "an unknown error occurred while reading layer data"
+msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
@@ -1242,7 +1236,7 @@ msgstr ""
 msgid "No"
 msgstr "Không"
 
-msgid "Map could not be created"
+msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"

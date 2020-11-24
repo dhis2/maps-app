@@ -1,16 +1,16 @@
 # 
 # Translators:
-# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
-# 晓东 林 <13981924470@126.com>, 2020
 # easylin <lin_xd@126.com>, 2020
+# phil_dhis2, 2020
+# 晓东 林 <13981924470@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,8 +151,8 @@ msgstr "年"
 msgid "Period"
 msgstr "周期"
 
-msgid "Organisation units"
-msgstr "组织机构"
+msgid "Organisation Units"
+msgstr "组织机构管理"
 
 msgid "Style"
 msgstr "风格"
@@ -241,7 +241,7 @@ msgstr "这个字段是必填的"
 msgid "Valid range is"
 msgstr "有效范围"
 
-msgid "Group set"
+msgid "Group Set"
 msgstr "组集"
 
 msgid ""
@@ -287,14 +287,11 @@ msgstr "更新图层"
 msgid "Add layer"
 msgstr "添加图层"
 
-msgid "data"
+msgid "Data"
 msgstr "数据"
 
-msgid "period"
-msgstr "期间"
-
-msgid "Org units"
-msgstr "组织机构"
+msgid "Org Units"
+msgstr ""
 
 msgid "Filter"
 msgstr "过滤器"
@@ -395,7 +392,7 @@ msgstr "被跟踪实体在项目中注册或登记的日期"
 msgid "Program status"
 msgstr "项目状态"
 
-msgid "relationships"
+msgid "Relationships"
 msgstr "关系"
 
 msgid "Follow up"
@@ -476,12 +473,6 @@ msgstr "下列信息可能技术支持需要"
 msgid "Filtering is available after selecting a program stage."
 msgstr "选择项目阶段后即可进行过滤。"
 
-msgid "Operator"
-msgstr "操作符"
-
-msgid "Date"
-msgstr "日期"
-
 msgid "one of"
 msgstr "当中一个"
 
@@ -494,6 +485,12 @@ msgstr "是"
 msgid "is not"
 msgstr "不是"
 
+msgid "Operator"
+msgstr "操作符"
+
+msgid "Date"
+msgstr "日期"
+
 msgid "Remove filter"
 msgstr "移除过滤器"
 
@@ -503,17 +500,17 @@ msgstr "指标组"
 msgid "Interpretations"
 msgstr "注释"
 
-msgid "External basemap"
-msgstr "外部基础图层"
-
-msgid "Basemap"
-msgstr "背景图"
-
 msgid "Collapse"
 msgstr "折叠"
 
 msgid "Expand"
 msgstr "展开"
+
+msgid "External basemap"
+msgstr "外部基础图层"
+
+msgid "Basemap"
+msgstr "背景图"
 
 msgid "Download Layer Data"
 msgstr "下载图层数据"
@@ -538,14 +535,14 @@ msgstr "使用人机可读的键值"
 msgid "External layer"
 msgstr "外部图层"
 
+msgid "Split view can not be combined with other layer types."
+msgstr "分离视图不能和其它图层混合"
+
 msgid "Loading layer"
 msgstr "载入图层"
 
 msgid "{{name}} deleted."
 msgstr "{{name}}已删除。"
-
-msgid "Split view can not be combined with other layer types."
-msgstr "分离视图不能和其它图层混合"
 
 msgid "Edit"
 msgstr "编辑"
@@ -559,8 +556,8 @@ msgstr "设置图层透明性"
 msgid "More actions"
 msgstr "更多操作"
 
-msgid "Data table"
-msgstr "数据表"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr "打开图表"
@@ -603,6 +600,9 @@ msgstr "切换经纬度"
 
 msgid "Relocate"
 msgstr "重新定位"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "没有设置"
@@ -715,6 +715,9 @@ msgstr "在该期间没有找到数据"
 msgid "Select groups"
 msgstr "选择组"
 
+msgid "Group set"
+msgstr "组集"
+
 msgid "Select levels"
 msgstr "选择等级"
 
@@ -723,8 +726,8 @@ msgid ""
 "units."
 msgstr "不能合并用户组织机构，选择单个单位。"
 
-msgid "Click the map where you want to relocate facility"
-msgstr "点击你要重新定位机构的位置"
+msgid "Click the map where you want to relocate the facility."
+msgstr ""
 
 msgid "user organisation unit"
 msgstr "用户所在的机构"
@@ -774,6 +777,12 @@ msgstr "周期类型"
 msgid "Start/end dates"
 msgstr "开始-结束日期"
 
+msgid "Only one timeline is allowed."
+msgstr "仅仅允许一个时限"
+
+msgid "Remove other layers to enable split map views."
+msgstr "移除其他图层使能分离视图功能"
+
 msgid "Display periods"
 msgstr "显示期间"
 
@@ -785,12 +794,6 @@ msgstr "时间线"
 
 msgid "Split map views"
 msgstr "拆分地图视图"
-
-msgid "Only one timeline is allowed."
-msgstr "仅仅允许一个时限"
-
-msgid "Remove other layers to enable split map views."
-msgstr "移除其他图层使能分离视图功能"
 
 msgid "Start date"
 msgstr "开始日期"
@@ -1054,24 +1057,21 @@ msgid "Cancelled"
 msgstr "已取消"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
-msgstr "为了展示这个 层您必须先在Google上注册Earth Engine服务。请检查DHIS 2文档。"
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr ""
 
-msgid "Error"
-msgstr "错误"
-
-msgid "A connection to Google Earth Engine could not be established."
-msgstr "无法建立与Google Earth Engine的连接。"
+msgid "Cannot connect to Google Earth Engine."
+msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "地图“ {{name}}”已保存。"
 
+msgid "Error"
+msgstr "错误"
+
 msgid "Boundaries"
 msgstr "边界线"
-
-msgid "Alert"
-msgstr "警告"
 
 msgid "No boundaries found"
 msgstr "没有发现边界线"
@@ -1183,17 +1183,11 @@ msgstr "贫瘠或稀疏的植被"
 msgid "Unclassified"
 msgstr "未分类"
 
-msgid "Access denied"
-msgstr "拒绝随访"
+msgid "You don't have access to this layer data"
+msgstr ""
 
-msgid "user is not allowed to read layer data"
-msgstr "不允许用户读取图层数据"
-
-msgid "Failed"
-msgstr "失败"
-
-msgid "an unknown error occurred while reading layer data"
-msgstr "读取图层数据时发生未知错误"
+msgid "An unknown error occurred while reading layer data"
+msgstr ""
 
 msgid "Event"
 msgstr "四级"
@@ -1243,8 +1237,8 @@ msgstr "假"
 msgid "No"
 msgstr "否"
 
-msgid "Map could not be created"
-msgstr "不能创建地图"
+msgid "There was a problem creating a map from the imported data."
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"

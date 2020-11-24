@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Khmer (https://www.transifex.com/hisp-uio/teams/100509/km/)\n"
@@ -149,8 +149,8 @@ msgstr "ឆ្នាំ"
 msgid "Period"
 msgstr "កំឡុងពេល"
 
-msgid "Organisation units"
-msgstr "Organisation units"
+msgid "Organisation Units"
+msgstr "ផ្នែក​នៃ​អង្គភាព"
 
 msgid "Style"
 msgstr "​រចនាបទ"
@@ -239,7 +239,7 @@ msgstr ""
 msgid "Valid range is"
 msgstr ""
 
-msgid "Group set"
+msgid "Group Set"
 msgstr ""
 
 msgid ""
@@ -285,13 +285,10 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Data"
+msgstr "Data"
 
-msgid "period"
-msgstr ""
-
-msgid "Org units"
+msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
@@ -393,7 +390,7 @@ msgstr ""
 msgid "Program status"
 msgstr ""
 
-msgid "relationships"
+msgid "Relationships"
 msgstr "ទំនាក់ទំនង"
 
 msgid "Follow up"
@@ -474,12 +471,6 @@ msgstr ""
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
-msgid "Operator"
-msgstr "សញ្ញា​​​ប្រមាណ​វិធី"
-
-msgid "Date"
-msgstr "កាលបរិច្ឆេទ"
-
 msgid "one of"
 msgstr ""
 
@@ -492,6 +483,12 @@ msgstr ""
 msgid "is not"
 msgstr ""
 
+msgid "Operator"
+msgstr "សញ្ញា​​​ប្រមាណ​វិធី"
+
+msgid "Date"
+msgstr "កាលបរិច្ឆេទ"
+
 msgid "Remove filter"
 msgstr ""
 
@@ -501,16 +498,16 @@ msgstr "Indicator group"
 msgid "Interpretations"
 msgstr "កន្លែងសន្ទនារ"
 
-msgid "External basemap"
-msgstr ""
-
-msgid "Basemap"
-msgstr ""
-
 msgid "Collapse"
 msgstr ""
 
 msgid "Expand"
+msgstr ""
+
+msgid "External basemap"
+msgstr ""
+
+msgid "Basemap"
 msgstr ""
 
 msgid "Download Layer Data"
@@ -536,13 +533,13 @@ msgstr ""
 msgid "External layer"
 msgstr ""
 
+msgid "Split view can not be combined with other layer types."
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
 msgid "{{name}} deleted."
-msgstr ""
-
-msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
@@ -557,7 +554,7 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-msgid "Data table"
+msgid "Show data table"
 msgstr ""
 
 msgid "Open as chart"
@@ -600,6 +597,9 @@ msgid "Swap longitude/latitude"
 msgstr ""
 
 msgid "Relocate"
+msgstr ""
+
+msgid "Show {{name}}"
 msgstr ""
 
 msgid "Not set"
@@ -713,6 +713,9 @@ msgstr ""
 msgid "Select groups"
 msgstr ""
 
+msgid "Group set"
+msgstr ""
+
 msgid "Select levels"
 msgstr ""
 
@@ -721,7 +724,7 @@ msgid ""
 "units."
 msgstr ""
 
-msgid "Click the map where you want to relocate facility"
+msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -772,6 +775,12 @@ msgstr "Period type"
 msgid "Start/end dates"
 msgstr ""
 
+msgid "Only one timeline is allowed."
+msgstr ""
+
+msgid "Remove other layers to enable split map views."
+msgstr ""
+
 msgid "Display periods"
 msgstr ""
 
@@ -782,12 +791,6 @@ msgid "Timeline"
 msgstr ""
 
 msgid "Split map views"
-msgstr ""
-
-msgid "Only one timeline is allowed."
-msgstr ""
-
-msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
@@ -1052,23 +1055,20 @@ msgid "Cancelled"
 msgstr "បានលុបចោល"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
 
-msgid "Error"
-msgstr "កំហុសបច្ចេកទេស"
-
-msgid "A connection to Google Earth Engine could not be established."
+msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Boundaries"
-msgstr ""
+msgid "Error"
+msgstr "កំហុសបច្ចេកទេស"
 
-msgid "Alert"
+msgid "Boundaries"
 msgstr ""
 
 msgid "No boundaries found"
@@ -1181,16 +1181,10 @@ msgstr ""
 msgid "Unclassified"
 msgstr ""
 
-msgid "Access denied"
-msgstr "​ដំណើរការ​ត្រូវ​បាន​បដិសេធ"
-
-msgid "user is not allowed to read layer data"
+msgid "You don't have access to this layer data"
 msgstr ""
 
-msgid "Failed"
-msgstr ""
-
-msgid "an unknown error occurred while reading layer data"
+msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
@@ -1241,7 +1235,7 @@ msgstr ""
 msgid "No"
 msgstr "ទេ"
 
-msgid "Map could not be created"
+msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"

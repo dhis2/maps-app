@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Pushto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
@@ -149,7 +149,7 @@ msgstr "کال"
 msgid "Period"
 msgstr "معیاد"
 
-msgid "Organisation units"
+msgid "Organisation Units"
 msgstr "د سازمان واحدونه"
 
 msgid "Style"
@@ -239,8 +239,8 @@ msgstr "دا ساحه اړینه ده"
 msgid "Valid range is"
 msgstr ""
 
-msgid "Group set"
-msgstr "د ګروپ ټولګه"
+msgid "Group Set"
+msgstr ""
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -285,14 +285,11 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "data"
-msgstr ""
+msgid "Data"
+msgstr "مالومات (ډاټا)"
 
-msgid "period"
+msgid "Org Units"
 msgstr ""
-
-msgid "Org units"
-msgstr "د سازمان واحدونه"
 
 msgid "Filter"
 msgstr "فیلټر"
@@ -393,8 +390,8 @@ msgstr ""
 msgid "Program status"
 msgstr "د پروګرام وضعیت او څرنګوالۍ"
 
-msgid "relationships"
-msgstr ""
+msgid "Relationships"
+msgstr "اړیکې"
 
 msgid "Follow up"
 msgstr ""
@@ -474,12 +471,6 @@ msgstr ""
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
-msgid "Operator"
-msgstr "آپرېټور"
-
-msgid "Date"
-msgstr "نېټه"
-
 msgid "one of"
 msgstr ""
 
@@ -492,6 +483,12 @@ msgstr ""
 msgid "is not"
 msgstr ""
 
+msgid "Operator"
+msgstr "آپرېټور"
+
+msgid "Date"
+msgstr "نېټه"
+
 msgid "Remove filter"
 msgstr ""
 
@@ -501,17 +498,17 @@ msgstr "د شاخص ګروپ"
 msgid "Interpretations"
 msgstr "شفاهي ژباړې"
 
-msgid "External basemap"
-msgstr ""
-
-msgid "Basemap"
-msgstr ""
-
 msgid "Collapse"
 msgstr "له منځه يې يوسئ"
 
 msgid "Expand"
 msgstr "پراخ شوي دي"
+
+msgid "External basemap"
+msgstr ""
+
+msgid "Basemap"
+msgstr ""
 
 msgid "Download Layer Data"
 msgstr ""
@@ -536,13 +533,13 @@ msgstr ""
 msgid "External layer"
 msgstr "بهرنی لایه"
 
+msgid "Split view can not be combined with other layer types."
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
 msgid "{{name}} deleted."
-msgstr ""
-
-msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
@@ -557,8 +554,8 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-msgid "Data table"
-msgstr "د مالوماتو (ډاټا) جدول"
+msgid "Show data table"
+msgstr ""
 
 msgid "Open as chart"
 msgstr ""
@@ -601,6 +598,9 @@ msgstr "د طول البلد / عرض البلد عوض کول"
 
 msgid "Relocate"
 msgstr "تغیر مکان"
+
+msgid "Show {{name}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "نه دی ترتیب شوی"
@@ -713,6 +713,9 @@ msgstr ""
 msgid "Select groups"
 msgstr "د ګروپ انتخاب"
 
+msgid "Group set"
+msgstr "د ګروپ ټولګه"
+
 msgid "Select levels"
 msgstr "سطح ټاکل"
 
@@ -721,7 +724,7 @@ msgid ""
 "units."
 msgstr ""
 
-msgid "Click the map where you want to relocate facility"
+msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -772,6 +775,12 @@ msgstr "د مودې ډول"
 msgid "Start/end dates"
 msgstr "د شروع/ختم نیټه"
 
+msgid "Only one timeline is allowed."
+msgstr ""
+
+msgid "Remove other layers to enable split map views."
+msgstr ""
+
 msgid "Display periods"
 msgstr ""
 
@@ -782,12 +791,6 @@ msgid "Timeline"
 msgstr ""
 
 msgid "Split map views"
-msgstr ""
-
-msgid "Only one timeline is allowed."
-msgstr ""
-
-msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
@@ -1052,23 +1055,20 @@ msgid "Cancelled"
 msgstr "لغوه شوی"
 
 msgid ""
-"To show this layer you must first sign up for the Earth Engine service at "
-"Google. Please check the DHIS 2 documentation."
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
 msgstr ""
 
-msgid "Error"
-msgstr "تېروته"
-
-msgid "A connection to Google Earth Engine could not be established."
+msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Boundaries"
-msgstr ""
+msgid "Error"
+msgstr "تېروته"
 
-msgid "Alert"
+msgid "Boundaries"
 msgstr ""
 
 msgid "No boundaries found"
@@ -1181,16 +1181,10 @@ msgstr ""
 msgid "Unclassified"
 msgstr ""
 
-msgid "Access denied"
-msgstr "سیسټم ته د ننوتو اجازه نشته"
-
-msgid "user is not allowed to read layer data"
+msgid "You don't have access to this layer data"
 msgstr ""
 
-msgid "Failed"
-msgstr "ناکام شوي"
-
-msgid "an unknown error occurred while reading layer data"
+msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
@@ -1241,7 +1235,7 @@ msgstr ""
 msgid "No"
 msgstr "نه [ نه ]"
 
-msgid "Map could not be created"
+msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"
