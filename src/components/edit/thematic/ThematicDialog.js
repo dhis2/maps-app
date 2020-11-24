@@ -566,11 +566,6 @@ export class ThematicDialog extends Component {
                                         />
                                     </div>
                                 )}
-                                <NoDataColor
-                                    value={noDataColor}
-                                    onChange={setNoDataColor}
-                                    className={styles.flexInnerColumnFlow}
-                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 <NumericLegendStyle
@@ -578,6 +573,11 @@ export class ThematicDialog extends Component {
                                     dataItem={dataItem}
                                     legendSetError={legendSetError}
                                     className={styles.select}
+                                />
+                                <NoDataColor
+                                    value={noDataColor}
+                                    onChange={setNoDataColor}
+                                    className={styles.flexInnerColumnFlow}
                                 />
                             </div>
                         </div>
