@@ -3,7 +3,7 @@ import MapApi, {
     controlTypes,
     loadEarthEngineApi,
     poleOfInaccessibility,
-} from '@dhis2/maps-gl';
+} from '@dhis2/maps-deck-gl';
 import getMapLocale from './mapLocale';
 
 // Returns a new map instance
