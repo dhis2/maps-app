@@ -1,16 +1,16 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2020
-# easylin <lin_xd@126.com>, 2020
 # phil_dhis2, 2020
 # 晓东 林 <13981924470@126.com>, 2020
+# easylin <lin_xd@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
+"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -291,7 +291,7 @@ msgid "Data"
 msgstr "数据"
 
 msgid "Org Units"
-msgstr ""
+msgstr "机构"
 
 msgid "Filter"
 msgstr "过滤器"
@@ -401,9 +401,6 @@ msgstr "后续跟进"
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr "选择关系类型前先选择跟踪实体类型"
-
-msgid "WARNING"
-msgstr "警告"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
@@ -557,7 +554,7 @@ msgid "More actions"
 msgstr "更多操作"
 
 msgid "Show data table"
-msgstr ""
+msgstr "显示数据表"
 
 msgid "Open as chart"
 msgstr "打开图表"
@@ -602,7 +599,7 @@ msgid "Relocate"
 msgstr "重新定位"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "显示{{name}}"
 
 msgid "Not set"
 msgstr "没有设置"
@@ -727,7 +724,7 @@ msgid ""
 msgstr "不能合并用户组织机构，选择单个单位。"
 
 msgid "Click the map where you want to relocate the facility."
-msgstr ""
+msgstr "单击您要在其中重新定位的机构的地图。"
 
 msgid "user organisation unit"
 msgstr "用户所在的机构"
@@ -1059,10 +1056,10 @@ msgstr "已取消"
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
-msgstr ""
+msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
 
 msgid "Cannot connect to Google Earth Engine."
-msgstr ""
+msgstr "无法连接到Google Earth Engine。"
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "地图“ {{name}}”已保存。"
@@ -1184,10 +1181,10 @@ msgid "Unclassified"
 msgstr "未分类"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "您无权访问此图层数据"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "读取图层数据时发生未知错误"
 
 msgid "Event"
 msgstr "四级"
@@ -1238,7 +1235,7 @@ msgid "No"
 msgstr "否"
 
 msgid "There was a problem creating a map from the imported data."
-msgstr ""
+msgstr "从导入的数据创建地图时出现问题。"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"

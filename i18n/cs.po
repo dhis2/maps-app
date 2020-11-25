@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
+"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter, 2020\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -414,9 +414,6 @@ msgstr "Následovat"
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr "Před výběrem typu vztahu vyberte typ trasované entity"
-
-msgid "WARNING"
-msgstr "VAROVÁNÍ"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"

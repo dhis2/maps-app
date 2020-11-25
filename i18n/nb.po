@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-12T22:18:38.123Z\n"
+"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -413,9 +413,6 @@ msgstr "Oppfølging"
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr "Velg en sporet enhetstype før du velger en relasjonstype"
-
-msgid "WARNING"
-msgstr "ADVARSEL"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
