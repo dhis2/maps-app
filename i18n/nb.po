@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2020
+# Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -303,7 +303,7 @@ msgid "Data"
 msgstr "Data"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Org Enheter"
 
 msgid "Filter"
 msgstr "Filter"
@@ -571,7 +571,7 @@ msgid "More actions"
 msgstr "Flere handlinger"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Vis datatabell"
 
 msgid "Open as chart"
 msgstr "Åpne som diagram"
@@ -616,7 +616,7 @@ msgid "Relocate"
 msgstr "Omplasser"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Vis {{name}}"
 
 msgid "Not set"
 msgstr "Ikke satt"
@@ -746,7 +746,7 @@ msgstr ""
 "individuelle enheter."
 
 msgid "Click the map where you want to relocate the facility."
-msgstr ""
+msgstr "Klikk på kartet der du vil flytte fasiliteten"
 
 msgid "user organisation unit"
 msgstr "brukerorganisasjonsenhet"
@@ -1079,9 +1079,11 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Dette kartlaget krever en Google Earth Engine-konto. Sjekk "
+"DHIS2-dokumentasjonen for mer informasjon."
 
 msgid "Cannot connect to Google Earth Engine."
-msgstr ""
+msgstr "Kan ikke koble til Google Earth Engine."
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "Kart \"{{name}}\" er lagret."
@@ -1207,10 +1209,10 @@ msgid "Unclassified"
 msgstr "Uklassifisert"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Du har ikke tilgang til disse lagdataene"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "En ukjent feil oppstod under lesing av lagdata"
 
 msgid "Event"
 msgstr "Hendelse"
@@ -1261,7 +1263,7 @@ msgid "No"
 msgstr "Nei"
 
 msgid "There was a problem creating a map from the imported data."
-msgstr ""
+msgstr "Det oppsto et problem med å lage et kart fra de importerte dataene."
 
 msgid "Start date is invalid"
 msgstr "Startdato er ugyldig"
