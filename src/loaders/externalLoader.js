@@ -1,8 +1,12 @@
-import { isString } from 'lodash/fp';
+// import { isString } from 'lodash/fp';
 // import { loadExternalLayer } from '../util/externalLayers';
 import { loadLegendSet, getPredefinedLegendItems } from '../util/legend';
 
-const externalLoader = async config => {
+const externalLoader = async layer => {
+    const { config } = layer;
+
+    // console.log('externalLoader', layer, config);
+
     // const { id } = config;
     // const layer = await loadExternalLayer(id);
 
@@ -10,12 +14,14 @@ const externalLoader = async config => {
 
     // console.log('externalLoader', id, layer);
 
+    // From database as favorite
+    /*
     if (isString(config.config)) {
-        // From database as favorite
         config.config = JSON.parse(config.config);
         config.name = config.config.name;
         config.legendSetUrl = config.config.legendSetUrl;
     }
+    */
 
     let { legendSet, legendSetUrl } = config;
 
@@ -32,10 +38,10 @@ const externalLoader = async config => {
         legend.url = config.legendSetUrl;
     }
 
-    delete config.id;
+    delete layer.id;
 
     return {
-        ...config,
+        ...layer,
         layer: 'external',
         legend,
         isLoaded: true,

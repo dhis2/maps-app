@@ -22,6 +22,8 @@ export const createExternalLayerConfig = layer => {
         url,
         layers,
         imageFormat,
+        legendSet,
+        legendSetUrl,
     } = layer;
 
     const type = mapService === 'WMS' ? 'wmsLayer' : 'tileLayer';
@@ -37,5 +39,7 @@ export const createExternalLayerConfig = layer => {
         layers,
         tms,
         format,
+        legendSet,
+        legendSetUrl,
     };
 };
