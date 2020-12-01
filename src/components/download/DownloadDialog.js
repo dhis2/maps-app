@@ -130,7 +130,7 @@ export class DownloadDialog extends Component {
             el.classList.contains('mapboxgl-ctrl-scale') ||
             el.classList.contains('mapboxgl-ctrl-attrib') ||
             !(
-                el.classList.contains('mapboxgl-ctrl') ||
+                el.classList.contains('dhis2-map-ctrl') ||
                 el.classList.contains('dhis2-map-bing-logo')
             );
 
