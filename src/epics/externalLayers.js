@@ -10,7 +10,7 @@ import * as types from '../constants/actionTypes';
 import { addBasemap } from '../actions/basemap';
 import { addExternalLayer } from '../actions/externalLayers';
 import { errorActionCreator } from '../actions/helpers';
-import { getExternalLayerConfig } from '../util/external';
+import { createExternalLayer } from '../util/external';
 
 // Load external layers from Web API
 export const loadExternalLayers = action$ =>
@@ -19,12 +19,12 @@ export const loadExternalLayers = action$ =>
             .mergeMap(collection => {
                 const externalBaseMapLayers = collection
                     .filter(isBaseMap)
-                    .map(createLayerConfig)
+                    .map(createExternalLayer)
                     .map(addBasemap);
 
                 const externalOverlayLayers = collection
                     .filter(isOverlay)
-                    .map(createLayerConfig)
+                    .map(createExternalLayer)
                     .map(addExternalLayer);
                 return [...externalBaseMapLayers, ...externalOverlayLayers];
             })
@@ -48,13 +48,5 @@ const loadExternalMapLayers = () =>
         .then(externalMapLayersCollection =>
             externalMapLayersCollection.toArray()
         );
-
-const createLayerConfig = layer => ({
-    layer: 'external',
-    id: layer.id,
-    name: layer.name,
-    opacity: 1,
-    config: getExternalLayerConfig(layer),
-});
 
 export default combineEpics(loadExternalLayers);
