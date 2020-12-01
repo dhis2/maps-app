@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import { Popover } from '@dhis2/ui';
 import LayerList from './LayerList';
 import { isSplitViewMap } from '../../../util/helpers';
-import { addLayer, editLayer } from '../../../actions/layers';
+import { loadLayer, editLayer } from '../../../actions/layers';
 
 const AddLayerPopover = ({
     anchorEl,
     layers = [],
     isSplitView,
-    addLayer,
+    loadLayer,
     editLayer,
     onClose,
 }) => {
     const onLayerSelect = layer => {
         layer.layer === 'external'
-            ? addLayer({ ...layer, isLoaded: true })
+            ? loadLayer({ ...layer, isLoaded: true })
             : editLayer({ ...layer });
 
         onClose();
@@ -44,7 +44,7 @@ AddLayerPopover.propTypes = {
     anchorEl: PropTypes.object,
     layers: PropTypes.array,
     isSplitView: PropTypes.bool,
-    addLayer: PropTypes.func.isRequired,
+    loadLayer: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
 };
@@ -54,5 +54,5 @@ export default connect(
         layers,
         isSplitView: isSplitViewMap(map.mapViews),
     }),
-    { addLayer, editLayer }
+    { loadLayer, editLayer }
 )(AddLayerPopover);

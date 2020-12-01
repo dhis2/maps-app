@@ -11,6 +11,11 @@ import { addBasemap } from '../actions/basemap';
 import { addExternalLayer } from '../actions/externalLayers';
 import { errorActionCreator } from '../actions/helpers';
 
+export const loadExternalLayer = async id => {
+    const d2 = await getD2();
+    return d2.models.externalMapLayers.get(id);
+};
+
 // Load external layers from Web API
 export const loadExternalLayers = action$ =>
     action$.ofType(types.EXTERNAL_LAYERS_LOAD).mergeMap(() => {
@@ -62,11 +67,14 @@ const createLayerConfig = () => layer => {
         legendSetUrl,
     } = layer;
 
+    // console.log('createLayerConfig', id, name);
+
     const config = {
         type: 'tileLayer',
         url,
         attribution,
         name,
+        legendSetUrl,
     };
 
     if (mapService === 'TMS') {
@@ -89,7 +97,6 @@ const createLayerConfig = () => layer => {
         name,
         opacity: 1,
         legendSet,
-        legendSetUrl,
         config,
     };
 };

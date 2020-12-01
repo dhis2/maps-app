@@ -51,12 +51,7 @@ class LayerEdit extends Component {
     };
 
     componentDidUpdate() {
-        const { layer } = this.props;
-
-        if (layer && layer.layer === 'external') {
-            // External layers has no edit widget
-            this.loadLayer();
-        }
+        this.loadLayer();
     }
 
     closeDialog() {

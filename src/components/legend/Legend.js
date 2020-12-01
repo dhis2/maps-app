@@ -13,6 +13,7 @@ const Legend = ({
     items,
     bubbles,
     explanation,
+    url,
     source,
     sourceUrl,
 }) => (
@@ -32,6 +33,7 @@ const Legend = ({
                 </table>
             )
         )}
+        {url && <img className={styles.legendImage} src={url} />}
         {Array.isArray(filters) && (
             <div className={styles.filters}>
                 <div>{i18n.t('Filters')}:</div>
@@ -70,6 +72,7 @@ Legend.propTypes = {
         radiusHigh: PropTypes.number.isRequired,
         color: PropTypes.string,
     }),
+    url: PropTypes.string,
     explanation: PropTypes.array,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,
