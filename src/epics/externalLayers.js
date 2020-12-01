@@ -50,34 +50,46 @@ const loadExternalMapLayers = () =>
 
 // Create external layer config object
 const createLayerConfig = () => layer => {
+    const {
+        id,
+        name,
+        attribution,
+        mapService,
+        url,
+        layers,
+        imageFormat,
+        legendSet,
+        legendSetUrl,
+    } = layer;
+
     const config = {
         type: 'tileLayer',
-        url: layer.url,
-        attribution: layer.attribution,
-        name: layer.name,
+        url,
+        attribution,
+        name,
     };
 
-    if (layer.mapService === 'TMS') {
+    if (mapService === 'TMS') {
         config.tms = true;
     }
 
-    if (layer.mapService === 'WMS') {
+    if (mapService === 'WMS') {
         config.type = 'wmsLayer';
-        config.layers = layer.layers;
+        config.layers = layers;
 
-        if (layer.imageFormat === 'JPG') {
+        if (imageFormat === 'JPG') {
             // PNG is default
             config.format = 'image/jpeg';
         }
     }
 
     return {
-        id: layer.id,
+        id,
         layer: 'external',
-        name: layer.name,
-        // subtitle: subTitle, // layer.mapLayerPosition === 'BASEMAP' ? 'External basemap' : 'External layer', // TODO: i18n
-        // img: layer.img, // TODO: Get from Web API
+        name,
         opacity: 1,
+        legendSet,
+        legendSetUrl,
         config,
     };
 };
