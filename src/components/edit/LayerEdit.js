@@ -51,7 +51,9 @@ class LayerEdit extends Component {
     };
 
     componentDidUpdate() {
-        this.loadLayer();
+        if (this.props.layer) {
+            this.loadLayer();
+        }
     }
 
     closeDialog() {

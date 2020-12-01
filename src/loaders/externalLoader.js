@@ -1,5 +1,5 @@
 import { isString } from 'lodash/fp';
-// import { loadExternalLayer } from '../epics/externalLayers';
+// import { loadExternalLayer } from '../util/externalLayers';
 import { loadLegendSet, getPredefinedLegendItems } from '../util/legend';
 
 const externalLoader = async config => {

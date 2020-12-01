@@ -10,11 +10,7 @@ import * as types from '../constants/actionTypes';
 import { addBasemap } from '../actions/basemap';
 import { addExternalLayer } from '../actions/externalLayers';
 import { errorActionCreator } from '../actions/helpers';
-
-export const loadExternalLayer = async id => {
-    const d2 = await getD2();
-    return d2.models.externalMapLayers.get(id);
-};
+import { getExternalLayerConfig } from '../util/external';
 
 // Load external layers from Web API
 export const loadExternalLayers = action$ =>
@@ -23,12 +19,12 @@ export const loadExternalLayers = action$ =>
             .mergeMap(collection => {
                 const externalBaseMapLayers = collection
                     .filter(isBaseMap)
-                    .map(createLayerConfig('External basemap'))
+                    .map(createLayerConfig)
                     .map(addBasemap);
 
                 const externalOverlayLayers = collection
                     .filter(isOverlay)
-                    .map(createLayerConfig('External layer'))
+                    .map(createLayerConfig)
                     .map(addExternalLayer);
                 return [...externalBaseMapLayers, ...externalOverlayLayers];
             })
@@ -53,52 +49,12 @@ const loadExternalMapLayers = () =>
             externalMapLayersCollection.toArray()
         );
 
-// Create external layer config object
-const createLayerConfig = () => layer => {
-    const {
-        id,
-        name,
-        attribution,
-        mapService,
-        url,
-        layers,
-        imageFormat,
-        legendSet,
-        legendSetUrl,
-    } = layer;
-
-    // console.log('createLayerConfig', id, name);
-
-    const config = {
-        type: 'tileLayer',
-        url,
-        attribution,
-        name,
-        legendSetUrl,
-    };
-
-    if (mapService === 'TMS') {
-        config.tms = true;
-    }
-
-    if (mapService === 'WMS') {
-        config.type = 'wmsLayer';
-        config.layers = layers;
-
-        if (imageFormat === 'JPG') {
-            // PNG is default
-            config.format = 'image/jpeg';
-        }
-    }
-
-    return {
-        id,
-        layer: 'external',
-        name,
-        opacity: 1,
-        legendSet,
-        config,
-    };
-};
+const createLayerConfig = layer => ({
+    layer: 'external',
+    id: layer.id,
+    name: layer.name,
+    opacity: 1,
+    config: getExternalLayerConfig(layer),
+});
 
 export default combineEpics(loadExternalLayers);
