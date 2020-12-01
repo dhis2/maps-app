@@ -50,12 +50,6 @@ class LayerEdit extends Component {
         validateLayer: false,
     };
 
-    componentDidUpdate() {
-        if (this.props.layer) {
-            this.loadLayer();
-        }
-    }
-
     closeDialog() {
         this.props.cancelLayer();
     }

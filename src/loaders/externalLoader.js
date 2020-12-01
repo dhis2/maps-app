@@ -1,41 +1,27 @@
-// import { isString } from 'lodash/fp';
-// import { loadExternalLayer } from '../util/externalLayers';
+import { parseLayerConfig } from '../util/external';
 import { loadLegendSet, getPredefinedLegendItems } from '../util/legend';
 
 const externalLoader = async layer => {
-    const { config } = layer;
+    let { config } = layer;
 
-    // console.log('externalLoader', layer, config);
-
-    // const { id } = config;
-    // const layer = await loadExternalLayer(id);
-
-    // id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl'
-
-    // console.log('externalLoader', id, layer);
-
-    // From database as favorite
-    /*
-    if (isString(config.config)) {
-        config.config = JSON.parse(config.config);
-        config.name = config.config.name;
-        config.legendSetUrl = config.config.legendSetUrl;
+    if (typeof config === 'string') {
+        // External layer is loaded in analytical object
+        config = parseLayerConfig(config);
     }
-    */
 
-    let { legendSet, legendSetUrl } = config;
+    const { name, legendSet, legendSetUrl } = config;
 
     const legend = {
         title: config.name,
     };
 
     if (legendSet) {
-        legendSet = await loadLegendSet(legendSet);
-        legend.items = getPredefinedLegendItems(legendSet);
+        const legendItems = await loadLegendSet(legendSet);
+        legend.items = getPredefinedLegendItems(legendItems);
     }
 
     if (legendSetUrl) {
-        legend.url = config.legendSetUrl;
+        legend.url = legendSetUrl;
     }
 
     delete layer.id;
@@ -43,7 +29,9 @@ const externalLoader = async layer => {
     return {
         ...layer,
         layer: 'external',
+        name,
         legend,
+        config,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

@@ -43,3 +43,8 @@ export const createExternalLayerConfig = layer => {
         legendSetUrl,
     };
 };
+
+export const parseLayerConfig = config => {
+    // console.log('parseLayerConfig', config);
+    return JSON.parse(config);
+};
