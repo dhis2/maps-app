@@ -1,19 +1,16 @@
-import { getInstance as getD2 } from 'd2';
+import { getExternalLayer } from './requests';
 
-export const loadExternalLayer = async id => {
-    const d2 = await getD2();
-    return d2.models.externalMapLayers.get(id);
-};
-
-export const createExternalLayer = layer => ({
+// Create external layer from a model
+export const createExternalLayer = model => ({
     layer: 'external',
-    id: layer.id,
-    name: layer.name,
+    id: model.id,
+    name: model.name,
     opacity: 1,
-    config: createExternalLayerConfig(layer),
+    config: createExternalLayerConfig(model),
 });
 
-export const createExternalLayerConfig = layer => {
+// Create external layer config
+export const createExternalLayerConfig = model => {
     const {
         id,
         name,
@@ -24,7 +21,7 @@ export const createExternalLayerConfig = layer => {
         imageFormat,
         legendSet,
         legendSetUrl,
-    } = layer;
+    } = model;
 
     const type = mapService === 'WMS' ? 'wmsLayer' : 'tileLayer';
     const format = imageFormat === 'JPG' ? 'image/jpeg' : 'image/png';
@@ -44,7 +41,26 @@ export const createExternalLayerConfig = layer => {
     };
 };
 
-export const parseLayerConfig = config => {
-    // console.log('parseLayerConfig', config);
-    return JSON.parse(config);
+// Parse external layer config returned as a string in ao
+export const parseLayerConfig = async layerConfig => {
+    let config;
+
+    try {
+        config = JSON.parse(layerConfig);
+    } catch (evt) {
+        return;
+    }
+
+    // We could use the config object as stored, but better to
+    // use a fresh layer config from the API
+    if (config.id) {
+        try {
+            const layer = await getExternalLayer(config.id);
+            return createExternalLayerConfig(layer);
+        } catch (evt) {
+            return config;
+        }
+    }
+
+    return config;
 };
