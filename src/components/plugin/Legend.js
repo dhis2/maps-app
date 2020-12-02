@@ -6,8 +6,7 @@ import './styles/Legend.css';
 
 // Renders a legend for all map layers
 const Legend = ({ layers }) => {
-    // const [isOpen, toggleOpen] = useState(false);
-    const [isOpen, toggleOpen] = useState(true);
+    const [isOpen, toggleOpen] = useState(false);
 
     const legendLayers = layers
         .filter(layer => layer.legend || layer.alerts)
@@ -18,8 +17,7 @@ const Legend = ({ layers }) => {
             {isOpen ? (
                 <div
                     className="dhis2-map-legend-content"
-                    // onMouseLeave={() => toggleOpen(false)}
-                    onMouseLeave={() => toggleOpen(true)}
+                    onMouseLeave={() => toggleOpen(false)}
                 >
                     {legendLayers.map(layer => (
                         <LegendLayer key={layer.id} {...layer} />
