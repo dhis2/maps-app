@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/dhis2/maps-app/compare/v1.0.0...v1.0.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* maps-gl upgrade to add map click event ([#1305](https://github.com/dhis2/maps-app/issues/1305)) ([fbfc89f](https://github.com/dhis2/maps-app/commit/fbfc89fa6f9ed95e615503526bd3ca6535194edc))
+
 # 1.0.0 (2020-12-02)
 
 
