@@ -128,6 +128,7 @@ const ContextMenu = props => {
                     />
                 </MenuItem>
             )}
+
             {layerType !== 'facility' && feature && (
                 <MenuItem
                     disabled={!attr.hasCoordinatesDown}
@@ -158,6 +159,7 @@ const ContextMenu = props => {
                     />
                 </MenuItem>
             )}
+
             {feature && (
                 <MenuItem
                     onClick={() => onShowInformation(attr)}
@@ -173,6 +175,7 @@ const ContextMenu = props => {
                     />
                 </MenuItem>
             )}
+
             {coordinates && (
                 <MenuItem
                     onClick={() => showCoordinate(coordinates)}
@@ -188,6 +191,7 @@ const ContextMenu = props => {
                     />
                 </MenuItem>
             )}
+
             {isAdmin && isPoint && (
                 <MenuItem
                     onClick={() =>
@@ -209,6 +213,7 @@ const ContextMenu = props => {
                     />
                 </MenuItem>
             )}
+
             {isAdmin && isPoint && (
                 <MenuItem
                     onClick={() => onRelocateStart(layerId, feature)}
@@ -224,6 +229,7 @@ const ContextMenu = props => {
                     />
                 </MenuItem>
             )}
+
             {earthEngineLayers.map(layer => (
                 <MenuItem
                     key={layer.id}
