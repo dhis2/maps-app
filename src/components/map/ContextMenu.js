@@ -42,11 +42,12 @@ const styles = {
     },
 };
 
-const polygonTypes = ['Polygon', 'MultiPolygon'];
+// const polygonTypes = ['Polygon', 'MultiPolygon'];
 
-const ContextMenu = (props, context) => {
+// const ContextMenu = (props, context) => {
+const ContextMenu = props => {
     const {
-        map,
+        // map,
         feature,
         layerId,
         layerType,
@@ -58,17 +59,17 @@ const ContextMenu = (props, context) => {
         onDrill,
         onShowInformation,
         showCoordinate,
-        onSwapCoordinate,
-        onRelocateStart,
+        // onSwapCoordinate,
+        // onRelocateStart,
         showEarthEngineValue,
         classes,
         theme,
     } = props;
 
-    const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
+    // const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const iconColor = theme.colors.greyBlack;
     const iconDisabledColor = theme.colors.greyLight;
-    let isPoint;
+    // let isPoint;
     let attr = {};
 
     if (position) {
@@ -81,13 +82,14 @@ const ContextMenu = (props, context) => {
     }
 
     if (feature) {
-        const { geometry, properties } = feature;
+        // const { geometry, properties } = feature;
+        const { properties } = feature;
 
         attr = properties || {};
 
         // Treat bubbles as polygons if created from one
-        isPoint =
-            geometry.type === 'Point' && !polygonTypes.includes(attr.type);
+        // isPoint =
+        //    geometry.type === 'Point' && !polygonTypes.includes(attr.type);
     }
 
     return [
@@ -191,7 +193,8 @@ const ContextMenu = (props, context) => {
                 </MenuItem>
             )}
 
-            {isAdmin && isPoint && (
+            {/* https://jira.dhis2.org/browse/DHIS2-9957 */}
+            {/* isAdmin && isPoint && (
                 <MenuItem
                     onClick={() =>
                         onSwapCoordinate(
@@ -211,9 +214,9 @@ const ContextMenu = (props, context) => {
                         disableTypography={true}
                     />
                 </MenuItem>
-            )}
+            ) *}
 
-            {isAdmin && isPoint && (
+            {/* isAdmin && isPoint && (
                 <MenuItem
                     onClick={() => onRelocateStart(layerId, feature, map)}
                     className={classes.menuItem}
@@ -227,7 +230,7 @@ const ContextMenu = (props, context) => {
                         disableTypography={true}
                     />
                 </MenuItem>
-            )}
+            )*/}
 
             {earthEngineLayers.map(layer => (
                 <MenuItem
