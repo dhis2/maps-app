@@ -304,7 +304,7 @@ msgid "Data"
 msgstr "Маълумот"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Ташкилий Бўлимлар"
 
 msgid "Filter"
 msgstr "Фильтр"
@@ -576,7 +576,7 @@ msgid "More actions"
 msgstr "Бошқа ҳаракатлар"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Маълумотлар жадвалини кўрсатиш"
 
 msgid "Open as chart"
 msgstr "Диаграмма сифатида очинг"
@@ -621,7 +621,7 @@ msgid "Relocate"
 msgstr "Жойни қайта белгиланг"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Кўрсатиш {{номи}}"
 
 msgid "Not set"
 msgstr "Ўрнатилмаган"
@@ -751,7 +751,7 @@ msgstr ""
 "мумкин эмас."
 
 msgid "Click the map where you want to relocate the facility."
-msgstr ""
+msgstr "Объектни кўчирмоқчи бўлган харитани босинг."
 
 msgid "user organisation unit"
 msgstr "Фойдаланувчининг ташкилий бўлими"
@@ -1084,9 +1084,11 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Ушбу қатлам учун Google Earth Engine аккаунти зарур. Қўшимча маълумот олиш "
+"учунDHIS2 ҳужжатларини текширинг."
 
 msgid "Cannot connect to Google Earth Engine."
-msgstr ""
+msgstr "Google Earth Engine га уланиб бўлмади."
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "Харита \"{{исми}}\" сақланган"
@@ -1212,10 +1214,10 @@ msgid "Unclassified"
 msgstr "Классификация қилинмаган"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Ушбу қатлам маълумотларига кириш ҳуқуқига эга эмассиз"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Қатлам маълумотларини ўқиш пайтида номаълум хатолик юз берди"
 
 msgid "Event"
 msgstr "Тадбир"
@@ -1266,7 +1268,7 @@ msgid "No"
 msgstr "Йўқ"
 
 msgid "There was a problem creating a map from the imported data."
-msgstr ""
+msgstr "Импорт қилинган маълумотларлан харита яратишда муаммо юз берди."
 
 msgid "Start date is invalid"
 msgstr "Бошланиш санаси нотўғри"

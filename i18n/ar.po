@@ -1075,7 +1075,7 @@ msgstr ""
 "المعلومات."
 
 msgid "Cannot connect to Google Earth Engine."
-msgstr ""
+msgstr "لم يتمكن من الاتصال بـ Google Earth Engine."
 
 msgid "Map \"{{name}}\" is saved."
 msgstr "تم حفظ الخريطة \"{{name}}\"."
@@ -1246,10 +1246,10 @@ msgid "doesn't contains"
 msgstr "لا يحتوي"
 
 msgid "true"
-msgstr ""
+msgstr "true"
 
 msgid "false"
-msgstr ""
+msgstr "false"
 
 msgid "No"
 msgstr "لا"
