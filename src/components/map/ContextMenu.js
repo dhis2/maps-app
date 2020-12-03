@@ -44,7 +44,7 @@ const styles = {
 
 const polygonTypes = ['Polygon', 'MultiPolygon'];
 
-const ContextMenu = (props, context) => {
+const ContextMenu = props => {
     const {
         feature,
         layerId,
@@ -64,7 +64,9 @@ const ContextMenu = (props, context) => {
         theme,
     } = props;
 
-    const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
+    // const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
+    const isAdmin = false; // https://jira.dhis2.org/browse/TECH-482
+
     const iconColor = theme.colors.greyBlack;
     const iconDisabledColor = theme.colors.greyLight;
     let isPoint;
@@ -126,7 +128,6 @@ const ContextMenu = (props, context) => {
                     />
                 </MenuItem>
             )}
-
             {layerType !== 'facility' && feature && (
                 <MenuItem
                     disabled={!attr.hasCoordinatesDown}
@@ -157,7 +158,6 @@ const ContextMenu = (props, context) => {
                     />
                 </MenuItem>
             )}
-
             {feature && (
                 <MenuItem
                     onClick={() => onShowInformation(attr)}
@@ -173,7 +173,6 @@ const ContextMenu = (props, context) => {
                     />
                 </MenuItem>
             )}
-
             {coordinates && (
                 <MenuItem
                     onClick={() => showCoordinate(coordinates)}
@@ -189,8 +188,7 @@ const ContextMenu = (props, context) => {
                     />
                 </MenuItem>
             )}
-
-            {/*isAdmin && isPoint && (
+            {isAdmin && isPoint && (
                 <MenuItem
                     onClick={() =>
                         onSwapCoordinate(
@@ -210,9 +208,8 @@ const ContextMenu = (props, context) => {
                         disableTypography={true}
                     />
                 </MenuItem>
-            )*/}
-
-            {/*isAdmin && isPoint && (
+            )}
+            {isAdmin && isPoint && (
                 <MenuItem
                     onClick={() => onRelocateStart(layerId, feature)}
                     className={classes.menuItem}
@@ -226,8 +223,7 @@ const ContextMenu = (props, context) => {
                         disableTypography={true}
                     />
                 </MenuItem>
-            )*/}
-
+            )}
             {earthEngineLayers.map(layer => (
                 <MenuItem
                     key={layer.id}
