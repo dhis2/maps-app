@@ -190,7 +190,7 @@ const ContextMenu = (props, context) => {
                 </MenuItem>
             )}
 
-            {isAdmin && isPoint && (
+            {/*isAdmin && isPoint && (
                 <MenuItem
                     onClick={() =>
                         onSwapCoordinate(
@@ -210,9 +210,9 @@ const ContextMenu = (props, context) => {
                         disableTypography={true}
                     />
                 </MenuItem>
-            )}
+            )*/}
 
-            {isAdmin && isPoint && (
+            {/*isAdmin && isPoint && (
                 <MenuItem
                     onClick={() => onRelocateStart(layerId, feature)}
                     className={classes.menuItem}
@@ -226,7 +226,7 @@ const ContextMenu = (props, context) => {
                         disableTypography={true}
                     />
                 </MenuItem>
-            )}
+            )*/}
 
             {earthEngineLayers.map(layer => (
                 <MenuItem
