@@ -577,10 +577,10 @@ msgid "No tracked entities found"
 msgstr "لم يتم العثور على الكيانات المتعقبة"
 
 msgid "true"
-msgstr ""
+msgstr "true"
 
 msgid "false"
-msgstr ""
+msgstr "false"
 
 msgid "No"
 msgstr "لا"
