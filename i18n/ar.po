@@ -1074,10 +1074,10 @@ msgid "doesn't contains"
 msgstr "لا يحتوي"
 
 msgid "true"
-msgstr ""
+msgstr "true"
 
 msgid "false"
-msgstr ""
+msgstr "false"
 
 msgid "No"
 msgstr "لا"
