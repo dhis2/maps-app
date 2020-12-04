@@ -44,7 +44,7 @@ const styles = {
 
 const polygonTypes = ['Polygon', 'MultiPolygon'];
 
-const ContextMenu = (props, context) => {
+const ContextMenu = props => {
     const {
         feature,
         layerId,
@@ -64,7 +64,9 @@ const ContextMenu = (props, context) => {
         theme,
     } = props;
 
-    const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
+    // const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
+    const isAdmin = false; // https://jira.dhis2.org/browse/TECH-482
+
     const iconColor = theme.colors.greyBlack;
     const iconDisabledColor = theme.colors.greyLight;
     let isPoint;
