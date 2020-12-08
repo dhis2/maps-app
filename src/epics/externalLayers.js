@@ -10,6 +10,7 @@ import * as types from '../constants/actionTypes';
 import { addBasemap } from '../actions/basemap';
 import { addExternalLayer } from '../actions/externalLayers';
 import { errorActionCreator } from '../actions/helpers';
+import { createExternalLayer } from '../util/external';
 
 // Load external layers from Web API
 export const loadExternalLayers = action$ =>
@@ -18,12 +19,12 @@ export const loadExternalLayers = action$ =>
             .mergeMap(collection => {
                 const externalBaseMapLayers = collection
                     .filter(isBaseMap)
-                    .map(createLayerConfig('External basemap'))
+                    .map(createExternalLayer)
                     .map(addBasemap);
 
                 const externalOverlayLayers = collection
                     .filter(isOverlay)
-                    .map(createLayerConfig('External layer'))
+                    .map(createExternalLayer)
                     .map(addExternalLayer);
                 return [...externalBaseMapLayers, ...externalOverlayLayers];
             })
@@ -47,39 +48,5 @@ const loadExternalMapLayers = () =>
         .then(externalMapLayersCollection =>
             externalMapLayersCollection.toArray()
         );
-
-// Create external layer config object
-const createLayerConfig = () => layer => {
-    const config = {
-        type: 'tileLayer',
-        url: layer.url,
-        attribution: layer.attribution,
-        name: layer.name,
-    };
-
-    if (layer.mapService === 'TMS') {
-        config.tms = true;
-    }
-
-    if (layer.mapService === 'WMS') {
-        config.type = 'wmsLayer';
-        config.layers = layer.layers;
-
-        if (layer.imageFormat === 'JPG') {
-            // PNG is default
-            config.format = 'image/jpeg';
-        }
-    }
-
-    return {
-        id: layer.id,
-        layer: 'external',
-        name: layer.name,
-        // subtitle: subTitle, // layer.mapLayerPosition === 'BASEMAP' ? 'External basemap' : 'External layer', // TODO: i18n
-        // img: layer.img, // TODO: Get from Web API
-        opacity: 1,
-        config,
-    };
-};
 
 export default combineEpics(loadExternalLayers);

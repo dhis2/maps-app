@@ -16,6 +16,10 @@
     padding-bottom: var(--spacers-dp12);
 }
 
+.legendImage {
+    max-width: 100%;
+}
+
 .filters {
     padding-top: var(--spacers-dp16);
     font-size: 12px;
