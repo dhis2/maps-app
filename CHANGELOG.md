@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/dhis2/maps-app/compare/v1.0.3...v1.1.0) (2020-12-08)
+
+
+### Features
+
+* legend support for external layers (DHIS2-3201) ([#1303](https://github.com/dhis2/maps-app/issues/1303)) ([2947dad](https://github.com/dhis2/maps-app/commit/2947dadc759d8a47f16ee8e9695ca346fb433e2e))
+
 ## [1.0.3](https://github.com/dhis2/maps-app/compare/v1.0.2...v1.0.3) (2020-12-06)
 
 
