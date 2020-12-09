@@ -9,67 +9,8 @@ import LegendItem from '../legend/LegendItem';
 import { setParams, setFilter, setPeriodName } from '../../actions/layerEdit';
 import { getColorScale, getColorPalette } from '../../util/colors';
 import { createLegend } from '../../loaders/earthEngineLoader';
+import { getEarthEngineLayer } from '../../util/earthEngine';
 import styles from './styles/LayerDialog.module.css';
-
-const getDatasets = () => ({
-    'WorldPop/POP': {
-        // Population density
-        description: i18n.t(
-            "Population density estimates with national totals adjusted to match UN population division estimates. Try a different year if you don't see data for your country."
-        ),
-        collectionLabel: i18n.t('Select year'),
-        minValue: 0,
-        maxValue: Number.MAX_VALUE,
-        minLabel: i18n.t('Min people'),
-        maxLabel: i18n.t('Max people'),
-    },
-    'USGS/SRTMGL1_003': {
-        // Elevation
-        description: i18n.t(
-            'Elevation above sea-level. You can adjust the min and max values so it better representes the terrain in your region.'
-        ),
-        minValue: 0,
-        maxValue: 8848,
-        minLabel: i18n.t('Min meters'),
-        maxLabel: i18n.t('Max meters'),
-    },
-    'UCSB-CHG/CHIRPS/PENTAD': {
-        // Precipitation
-        description: i18n.t(
-            'Precipitation collected from satellite and weather stations on the ground. The values are in millimeters within 5 days periods. Updated monthly, during the 3rd week of the following month.'
-        ),
-        minValue: 0,
-        maxValue: 100,
-        minLabel: i18n.t('Min mm'),
-        maxLabel: i18n.t('Max mm'),
-    },
-    'MODIS/006/MOD11A2': {
-        // Temperature
-        description: i18n.t(
-            'Land surface temperatures collected from satellite in 8 days periods. Blank spots will appear in areas with a persistent cloud cover.'
-        ),
-        minValue: -100,
-        maxValue: 100,
-        minLabel: i18n.t('Min °C'),
-        maxLabel: i18n.t('Max °C'),
-    },
-    'MODIS/051/MCD12Q1': {
-        // Landcover
-        description: i18n.t(
-            '17 distinct landcover types collected from satellites.'
-        ),
-        valueLabel: i18n.t('Select year'),
-    },
-    'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': {
-        // Nighttime lights
-        description: i18n.t(
-            'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.'
-        ),
-        valueLabel: i18n.t('Select year'),
-        minValue: 0,
-        maxValue: 63,
-    },
-});
 
 class EarthEngineDialog extends Component {
     static propTypes = {
@@ -134,7 +75,8 @@ class EarthEngineDialog extends Component {
             setFilter,
             setPeriodName,
         } = this.props;
-        const dataset = getDatasets()[datasetId];
+
+        const dataset = getEarthEngineLayer(datasetId);
         const { steps, filterError, rangeError, stepsError } = this.state;
 
         return (
@@ -267,7 +209,7 @@ class EarthEngineDialog extends Component {
 
     isValidRange() {
         const { datasetId, params } = this.props;
-        const dataset = getDatasets()[datasetId];
+        const dataset = getEarthEngineLayer(datasetId);
         const { min, max } = params;
         const { minValue, maxValue } = dataset;
 
@@ -288,7 +230,7 @@ class EarthEngineDialog extends Component {
 
     validate() {
         const { datasetId, filter, params } = this.props;
-        const dataset = getDatasets()[datasetId];
+        const dataset = getEarthEngineLayer(datasetId);
 
         if (datasetId !== 'USGS/SRTMGL1_003' && !filter) {
             return this.setErrorState(

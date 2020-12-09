@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
-"PO-Revision-Date: 2020-11-19T09:15:54.056Z\n"
+"POT-Creation-Date: 2020-12-09T18:20:33.659Z\n"
+"PO-Revision-Date: 2020-12-09T18:20:33.659Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -153,63 +153,6 @@ msgid "Point radius"
 msgstr ""
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr ""
-
-msgid "Select year"
-msgstr ""
-
-msgid "Min people"
-msgstr ""
-
-msgid "Max people"
-msgstr ""
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr ""
-
-msgid "Min meters"
-msgstr ""
-
-msgid "Max meters"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-msgstr ""
-
-msgid "Min mm"
-msgstr ""
-
-msgid "Max mm"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Min °C"
-msgstr ""
-
-msgid "Max °C"
-msgstr ""
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr ""
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
 msgstr ""
 
 msgid "Min"
@@ -1058,7 +1001,93 @@ msgstr ""
 msgid "No boundaries found"
 msgstr ""
 
+msgid "You don't have access to this layer data"
+msgstr ""
+
+msgid "An unknown error occurred while reading layer data"
+msgstr ""
+
+msgid "Event"
+msgstr ""
+
+msgid "No data found"
+msgstr ""
+
+msgid "Facilities"
+msgstr ""
+
+msgid "Thematic layer"
+msgstr ""
+
+msgid "Selected org units"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
+
+msgid "No data"
+msgstr ""
+
+msgid "Tracked entity"
+msgstr ""
+
+msgid "No tracked entities found"
+msgstr ""
+
+msgid "related"
+msgstr ""
+
+msgid "Thematic"
+msgstr ""
+
+msgid "not one of"
+msgstr ""
+
+msgid "doesn't contains"
+msgstr ""
+
+msgid "true"
+msgstr ""
+
+msgid "false"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Population"
+msgstr ""
+
+msgid "Estimated residential population per hectare."
+msgstr ""
+
+msgid "Select year"
+msgstr ""
+
+msgid "Min people"
+msgstr ""
+
+msgid "Max people"
+msgstr ""
+
+msgid "people per hectare"
+msgstr ""
+
+msgid "Estimated residential population."
+msgstr ""
+
 msgid "Elevation"
+msgstr ""
+
+msgid ""
+"Elevation above sea-level. You can adjust the min and max values so it "
+"better representes the terrain in your region."
+msgstr ""
+
+msgid "Min meters"
+msgstr ""
+
+msgid "Max meters"
 msgstr ""
 
 msgid "metres"
@@ -1067,7 +1096,59 @@ msgstr ""
 msgid "Elevation above sea-level."
 msgstr ""
 
+msgid "Population NEW!"
+msgstr ""
+
 msgid "Population density"
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "Precipitation"
+msgstr ""
+
+msgid "Landcover"
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr ""
+
+msgid ""
+"Population density estimates with national totals adjusted to match UN "
+"population division estimates. Try a different year if you don't see data "
+"for your country."
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, "
+"during the 3rd week of the following month."
+msgstr ""
+
+msgid "Min mm"
+msgstr ""
+
+msgid "Max mm"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite in 8 days periods. Blank "
+"spots will appear in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Min °C"
+msgstr ""
+
+msgid "Max °C"
+msgstr ""
+
+msgid "17 distinct landcover types collected from satellites."
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
 msgstr ""
 
 msgid "people per km²"
@@ -1078,13 +1159,7 @@ msgid ""
 "population division estimates."
 msgstr ""
 
-msgid "Nighttime lights"
-msgstr ""
-
 msgid "light intensity"
-msgstr ""
-
-msgid "Precipitation"
 msgstr ""
 
 msgid "millimeter"
@@ -1093,18 +1168,12 @@ msgstr ""
 msgid "Precipitation collected from satellite and weather stations on the ground."
 msgstr ""
 
-msgid "Temperature"
-msgstr ""
-
 msgid "°C during daytime"
 msgstr ""
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Landcover"
 msgstr ""
 
 msgid "Distinct landcover types collected from satellites."
@@ -1162,60 +1231,6 @@ msgid "Barren or sparsely vegetated"
 msgstr ""
 
 msgid "Unclassified"
-msgstr ""
-
-msgid "You don't have access to this layer data"
-msgstr ""
-
-msgid "An unknown error occurred while reading layer data"
-msgstr ""
-
-msgid "Event"
-msgstr ""
-
-msgid "No data found"
-msgstr ""
-
-msgid "Facilities"
-msgstr ""
-
-msgid "Thematic layer"
-msgstr ""
-
-msgid "Selected org units"
-msgstr ""
-
-msgid "No coordinates found"
-msgstr ""
-
-msgid "No data"
-msgstr ""
-
-msgid "Tracked entity"
-msgstr ""
-
-msgid "No tracked entities found"
-msgstr ""
-
-msgid "related"
-msgstr ""
-
-msgid "Thematic"
-msgstr ""
-
-msgid "not one of"
-msgstr ""
-
-msgid "doesn't contains"
-msgstr ""
-
-msgid "true"
-msgstr ""
-
-msgid "false"
-msgstr ""
-
-msgid "No"
 msgstr ""
 
 msgid "There was a problem creating a map from the imported data."

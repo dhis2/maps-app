@@ -4,19 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import SelectField from '../core/SelectField';
 import { loadEarthEngineCollection } from '../../actions/earthEngine';
-
-const collectionFilters = {
-    'WorldPop/POP': year => [
-        {
-            type: 'eq',
-            arguments: ['year', year],
-        },
-        {
-            type: 'eq',
-            arguments: ['UNadj', 'yes'],
-        },
-    ],
-};
+import { getEarthEngineLayer } from '../../util/earthEngine';
 
 const styles = {
     year: {
@@ -133,8 +121,10 @@ export class CollectionSelect extends Component {
         const { id: periodId, name, year } = period;
         const { id, onChange } = this.props;
         const periodName = name + (year ? ` ${year}` : '');
+        const dataset = getEarthEngineLayer(id);
+
         const collectionFilter =
-            collectionFilters[id] ||
+            dataset.collectionFilters ||
             (index => [
                 {
                     type: 'eq',
