@@ -6,7 +6,11 @@ export const earthEngineLayers = () => [
         layer: 'earthEngine',
         datasetId: 'WorldPop/GP/100m/pop',
         name: i18n.t('Population'),
+        unit: i18n.t('people per hectare'),
         description: i18n.t('Estimated residential population per hectare.'),
+        source: 'WorldPop / Google Earth Engine',
+        sourceUrl:
+            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
         collectionLabel: i18n.t('Select year'),
         collectionFilters: year => [
             {
@@ -26,13 +30,6 @@ export const earthEngineLayers = () => [
         // },
         mask: true,
         value: value => Math.round(value),
-        legend: {
-            unit: i18n.t('people per hectare'),
-            description: i18n.t('Estimated residential population.'),
-            source: 'WorldPop / Google Earth Engine',
-            sourceUrl:
-                'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
-        },
         img: 'images/population.png',
         params: {
             min: 0,
@@ -45,22 +42,18 @@ export const earthEngineLayers = () => [
         layer: 'earthEngine',
         datasetId: 'USGS/SRTMGL1_003',
         name: i18n.t('Elevation'),
-        description: i18n.t(
-            'Elevation above sea-level. You can adjust the min and max values so it better representes the terrain in your region.'
-        ),
+        unit: i18n.t('metres'),
+        description: i18n.t('Elevation above sea-level.'),
+        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
+        sourceUrl:
+            'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
+
         minValue: 0,
         maxValue: 8848,
         minLabel: i18n.t('Min meters'),
         maxLabel: i18n.t('Max meters'),
         band: 'elevation',
         mask: true,
-        legend: {
-            unit: i18n.t('metres'),
-            description: i18n.t('Elevation above sea-level.'),
-            source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
-            sourceUrl:
-                'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
-        },
         img: 'images/elevation.png',
         params: {
             min: 0,

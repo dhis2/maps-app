@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-09T18:20:33.659Z\n"
-"PO-Revision-Date: 2020-12-09T18:20:33.659Z\n"
+"POT-Creation-Date: 2020-12-09T18:35:50.264Z\n"
+"PO-Revision-Date: 2020-12-09T18:35:50.264Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1058,6 +1058,9 @@ msgstr ""
 msgid "Population"
 msgstr ""
 
+msgid "people per hectare"
+msgstr ""
+
 msgid "Estimated residential population per hectare."
 msgstr ""
 
@@ -1070,30 +1073,19 @@ msgstr ""
 msgid "Max people"
 msgstr ""
 
-msgid "people per hectare"
-msgstr ""
-
-msgid "Estimated residential population."
-msgstr ""
-
 msgid "Elevation"
-msgstr ""
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr ""
-
-msgid "Min meters"
-msgstr ""
-
-msgid "Max meters"
 msgstr ""
 
 msgid "metres"
 msgstr ""
 
 msgid "Elevation above sea-level."
+msgstr ""
+
+msgid "Min meters"
+msgstr ""
+
+msgid "Max meters"
 msgstr ""
 
 msgid "Population NEW!"
@@ -1118,6 +1110,11 @@ msgid ""
 "Population density estimates with national totals adjusted to match UN "
 "population division estimates. Try a different year if you don't see data "
 "for your country."
+msgstr ""
+
+msgid ""
+"Elevation above sea-level. You can adjust the min and max values so it "
+"better representes the terrain in your region."
 msgstr ""
 
 msgid ""
@@ -1149,6 +1146,9 @@ msgstr ""
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
+msgstr ""
+
+msgid "Estimated residential population."
 msgstr ""
 
 msgid "people per km²"

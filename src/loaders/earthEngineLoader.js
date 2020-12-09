@@ -35,9 +35,22 @@ const earthEngineLoader = async config => {
         ...dataset,
     };
 
+    const {
+        name: title,
+        periodName: period,
+        unit,
+        description,
+        source,
+        sourceUrl,
+    } = layer;
+
     layer.legend = {
-        title: layer.name,
-        period: layer.periodName,
+        title,
+        period,
+        unit,
+        description,
+        source,
+        sourceUrl,
         ...layer.legend,
     };
 
