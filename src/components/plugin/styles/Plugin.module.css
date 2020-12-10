@@ -11,3 +11,15 @@
     right: auto;
     max-height: calc(100% - 20px);
 }
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/* Scrollbar handle */
+::-webkit-scrollbar-thumb {
+    background: #cbcdcf;
+    border-radius: 3px;
+}
