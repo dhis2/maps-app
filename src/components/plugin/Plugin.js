@@ -20,6 +20,7 @@ class Plugin extends Component {
         name: PropTypes.string,
         basemap: PropTypes.object,
         mapViews: PropTypes.array,
+        controls: PropTypes.array,
     };
 
     static defaultProps = {
@@ -37,7 +38,7 @@ class Plugin extends Component {
     }
 
     render() {
-        const { name, basemap, hideTitle } = this.props;
+        const { name, basemap, hideTitle, controls } = this.props;
         const {
             position,
             offset,
@@ -57,6 +58,7 @@ class Plugin extends Component {
                     isPlugin={true}
                     basemap={basemap}
                     layers={mapViews}
+                    controls={controls}
                     bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
                     onCloseContextMenu={this.onCloseContextMenu}

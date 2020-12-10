@@ -58,7 +58,11 @@
         if (mapId) {
             mapPlugin.load({
                 id: mapId,
-                el: 'map'
+                el: 'map',
+                // controls: [{
+                //     type: 'scale',
+                //     imperial: false,
+                // }],
             });
             picker.style.display = 'none';
             mapContainer.style.display = 'block';
