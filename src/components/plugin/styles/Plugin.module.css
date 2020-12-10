@@ -9,4 +9,5 @@
     top: 10px;
     left: 10px;
     right: auto;
+    max-height: calc(100% - 20px);
 }
