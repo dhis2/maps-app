@@ -7,7 +7,7 @@ import { apiFetch } from '../util/api';
 import { setEarthEngineCollection } from '../actions/earthEngine';
 import { errorActionCreator } from '../actions/helpers';
 import { setAlert } from '../actions/alerts';
-import { collections } from '../util/earthEngine';
+import { getCollection } from '../util/earthEngine';
 
 const setAuthToken = async ({ client_id, access_token, expires_in }) =>
     new Promise((resolve, reject) => {
@@ -45,7 +45,8 @@ export const loadCollection = action$ =>
                     message: i18n.t('Cannot connect to Google Earth Engine.'),
                 });
             }
-            return new Promise(collections[action.id]).then(data =>
+
+            return getCollection(action.id).then(data =>
                 setEarthEngineCollection(action.id, data)
             );
         });

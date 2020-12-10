@@ -11,6 +11,7 @@ export const earthEngineLayers = () => [
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
+        period: 'year',
         collectionLabel: i18n.t('Select year'),
         collectionFilters: year => [
             {
@@ -62,10 +63,82 @@ export const earthEngineLayers = () => [
         },
         opacity: 0.9,
     },
+    {
+        layer: 'earthEngine',
+        datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
+        name: i18n.t('Precipitation'),
+        unit: i18n.t('millimeter'),
+        description: i18n.t(
+            'Precipitation collected from satellite and weather stations on the ground. The values are in millimeters within 5 days periods. Updated monthly, during the 3rd week of the following month.'
+        ),
+        source: 'UCSB / CHG / Google Earth Engine',
+        sourceUrl:
+            'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
+        period: 'date',
+        value(value) {
+            return value.toFixed(1);
+        },
+        minValue: 0,
+        maxValue: 100,
+        minLabel: i18n.t('Min mm'),
+        maxLabel: i18n.t('Max mm'),
+        band: 'precipitation',
+        mask: true,
+        img: 'images/precipitation.png',
+        params: {
+            min: 0,
+            max: 100,
+            palette: '#eff3ff,#c6dbef,#9ecae1,#6baed6,#4292c6,#2171b5,#084594', // Blues
+        },
+        opacity: 0.9,
+    },
 ];
 
 export const getEarthEngineLayer = id =>
     earthEngineLayers().find(l => l.datasetId === id);
+
+export const getCollection = id =>
+    new Promise((resolve, reject) => {
+        const { period } = getEarthEngineLayer(id);
+
+        // console.log('period', period);
+
+        let imageCollection = ee.ImageCollection(id);
+        let select;
+
+        // imageCollection.getInfo(console.log);
+
+        if (period === 'year') {
+            imageCollection = imageCollection
+                .distinct(period)
+                .sort(period, false);
+            select = [period];
+        } else if (period === 'date') {
+            imageCollection = imageCollection.sort('system:time_start', false);
+            select = ['year', 'system:time_start', 'system:time_end'];
+        }
+
+        // console.log('imageCollection', imageCollection);
+
+        // ee.FeatureCollection(imageCollection).getInfo(console.log);
+
+        const featureCollection = ee
+            .FeatureCollection(imageCollection)
+            .select(select, null, false);
+
+        // featureCollection.getInfo(console.log);
+
+        featureCollection.getInfo(
+            ({ features }) =>
+                resolve(
+                    features.map(({ properties }) => ({
+                        id: properties[period],
+                        name: String(properties[period]),
+                    }))
+                ),
+            reject
+        );
+    });
 
 export const collections = {
     'WorldPop/GP/100m/pop': resolve => {
