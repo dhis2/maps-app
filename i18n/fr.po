@@ -395,7 +395,7 @@ msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
-msgstr ""
+msgstr "Statut du programme"
 
 msgid "Relationships"
 msgstr "Relations"
@@ -952,13 +952,13 @@ msgid "Last 30 days"
 msgstr "Les 30 derniers jours"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "60 derniers jours"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "90 derniers jours"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "180 derniers jours"
 
 msgid "This week"
 msgstr "Cette semaine"
@@ -1015,7 +1015,7 @@ msgid "Last 6 bi-months"
 msgstr "6 derniers bimestres"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Bimensuels cette année"
 
 msgid "This quarter"
 msgstr "Ce trimestre"
