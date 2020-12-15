@@ -1,5 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { getYear, formatStartEndDate } from './time';
+import { loadEarthEngineApi } from '../components/map/MapApi';
+import { apiFetch } from './api';
 
 export const earthEngineLayers = () => [
     {
@@ -12,24 +14,24 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
         period: 'year',
-        collectionLabel: i18n.t('Select year'),
-        collectionFilters: year => [
+        collectionLabel: i18n.t('Select year'), // Remove?
+        filters: year => [
             {
                 type: 'eq',
                 arguments: ['year', year],
             },
         ],
-        minValue: 0,
-        maxValue: Number.MAX_VALUE,
-        minLabel: i18n.t('Min people'),
-        maxLabel: i18n.t('Max people'),
+        minValue: 0, // Remove?
+        maxValue: Number.MAX_VALUE, // Remove?
+        minLabel: i18n.t('Min people'), // Remove?
+        maxLabel: i18n.t('Max people'), // Remove?
         aggregation: 'mosaic',
-        resolution: 100,
-        projection: 'EPSG:4326',
+        resolution: 100, // Remove?
+        projection: 'EPSG:4326', // Remove?
         // methods: {
         //    multiply: [100], // Convert from people/hectare to people/km2
         // },
-        mask: true,
+        mask: true, // Remove?
         value: value => Math.round(value),
         img: 'images/population.png',
         params: {
@@ -663,3 +665,53 @@ const getDatasets = () => ({
     },
 });
 */
+
+const setAuthToken = async ({ client_id, access_token, expires_in }) =>
+    new Promise((resolve, reject) => {
+        ee.data.setAuthToken(client_id, 'Bearer', access_token, expires_in);
+        ee.initialize(null, null, resolve, reject);
+    });
+
+// Load collection (periods) for one EE dataset
+export const loadCollection = async id => {
+    const token = await apiFetch(
+        '/tokens/google'
+    ); /*.catch(
+        errorActionCreator(types.EARTH_ENGINE_COLLECTION_LOAD_ERROR)
+    );*/
+
+    if (token && token.status === 'ERROR') {
+        /*
+        return setAlert({
+            warning: true,
+            message: i18n.t(
+                'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
+            ),
+        });
+        */
+    }
+
+    if (!window.ee && loadEarthEngineApi) {
+        await loadEarthEngineApi();
+    }
+
+    try {
+        await setAuthToken(token);
+    } catch (e) {
+        /*
+        return setAlert({
+            critical: true,
+            message: i18n.t('Cannot connect to Google Earth Engine.'),
+        });
+        */
+    }
+
+    return getCollection(id);
+};
+
+export const defaultFilters = index => [
+    {
+        type: 'eq',
+        arguments: ['system:index', index],
+    },
+];

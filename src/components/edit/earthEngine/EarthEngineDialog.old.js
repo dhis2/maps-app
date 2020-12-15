@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import NumberField from '../core/NumberField';
-import ColorScaleSelect from '../core/ColorScaleSelect';
-import Collection from '../earthengine/Collection';
-import LegendItem from '../legend/LegendItem';
-import { setParams, setFilter, setPeriodName } from '../../actions/layerEdit';
-import { getColorScale, getColorPalette } from '../../util/colors';
-import { createLegend } from '../../loaders/earthEngineLoader';
-import { getEarthEngineLayer } from '../../util/earthEngine';
+import NumberField from '../../core/NumberField';
+import ColorScaleSelect from '../../core/ColorScaleSelect';
+import Collection from './Collection';
+import LegendItem from '../../legend/LegendItem';
+import {
+    setParams,
+    setFilter,
+    setPeriodName,
+} from '../../../actions/layerEdit';
+import { getColorScale, getColorPalette } from '../../../util/colors';
+import { createLegend } from '../../../loaders/earthEngineLoader';
+import { getEarthEngineLayer } from '../../../util/earthEngine';
 import styles from './styles/LayerDialog.module.css';
 
 class EarthEngineDialog extends Component {
@@ -99,14 +103,13 @@ class EarthEngineDialog extends Component {
                                 />
                             )}
                             {params && [
+                                <div key="label">Unit: {dataset.unit}</div>,
                                 <div
                                     key="minmax"
                                     className={styles.flexInnerColumnFlow}
                                 >
                                     <NumberField
-                                        label={
-                                            dataset.minLabel || i18n.t('Min')
-                                        }
+                                        label={i18n.t('Min')}
                                         value={params.min}
                                         onChange={min =>
                                             setParams(
@@ -118,9 +121,7 @@ class EarthEngineDialog extends Component {
                                         className={styles.flexInnerColumn}
                                     />
                                     <NumberField
-                                        label={
-                                            dataset.maxLabel || i18n.t('Max')
-                                        }
+                                        label={i18n.t('Max')}
                                         value={params.max}
                                         onChange={max =>
                                             setParams(

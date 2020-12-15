@@ -2,20 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import SelectField from '../core/SelectField';
-import { loadEarthEngineCollection } from '../../actions/earthEngine';
-import { getEarthEngineLayer } from '../../util/earthEngine';
-
-const styles = {
-    year: {
-        width: '35%',
-        paddingRight: 16,
-        boxSizing: 'border-box',
-    },
-    period: {
-        width: '65%',
-    },
-};
+import SelectField from '../../core/SelectField';
+import { loadEarthEngineCollection } from '../../../actions/earthEngine';
+import { getEarthEngineLayer } from '../../../util/earthEngine';
+import styles from './styles/Collection.module.css';
 
 export class CollectionSelect extends Component {
     static propTypes = {
@@ -123,8 +113,8 @@ export class CollectionSelect extends Component {
         const periodName = name + (year ? ` ${year}` : '');
         const dataset = getEarthEngineLayer(id);
 
-        const collectionFilter =
-            dataset.collectionFilters ||
+        const filter =
+            dataset.filters ||
             (index => [
                 {
                     type: 'eq',
@@ -132,7 +122,7 @@ export class CollectionSelect extends Component {
                 },
             ]);
 
-        onChange(periodName, collectionFilter(periodId));
+        onChange(periodName, filter(periodId));
     };
 }
 

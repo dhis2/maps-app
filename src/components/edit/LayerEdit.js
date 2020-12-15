@@ -15,7 +15,7 @@ import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog';
 import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
 import BoundaryDialog from './BoundaryDialog';
-import EarthEngineDialog from './EarthEngineDialog';
+import EarthEngineDialog from './earthEngine/EarthEngineDialog';
 import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
 import styles from './styles/LayerEdit.module.css';
 
