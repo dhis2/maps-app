@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-09T18:35:50.264Z\n"
-"PO-Revision-Date: 2020-12-09T18:35:50.264Z\n"
+"POT-Creation-Date: 2020-12-15T17:35:46.817Z\n"
+"PO-Revision-Date: 2020-12-15T17:35:46.817Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1088,6 +1088,24 @@ msgstr ""
 msgid "Max meters"
 msgstr ""
 
+msgid "Precipitation"
+msgstr ""
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, "
+"during the 3rd week of the following month."
+msgstr ""
+
+msgid "Min mm"
+msgstr ""
+
+msgid "Max mm"
+msgstr ""
+
 msgid "Population NEW!"
 msgstr ""
 
@@ -1095,9 +1113,6 @@ msgid "Population density"
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
-
-msgid "Precipitation"
 msgstr ""
 
 msgid "Landcover"
@@ -1115,18 +1130,6 @@ msgstr ""
 msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
 "better representes the terrain in your region."
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-msgstr ""
-
-msgid "Min mm"
-msgstr ""
-
-msgid "Max mm"
 msgstr ""
 
 msgid ""
@@ -1160,9 +1163,6 @@ msgid ""
 msgstr ""
 
 msgid "light intensity"
-msgstr ""
-
-msgid "millimeter"
 msgstr ""
 
 msgid "Precipitation collected from satellite and weather stations on the ground."
