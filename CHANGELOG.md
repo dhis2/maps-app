@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/dhis2/maps-app/compare/v1.1.3...v1.2.0) (2020-12-15)
+
+
+### Features
+
+* configurable map controls (DHIS2-10125) ([#1337](https://github.com/dhis2/maps-app/issues/1337)) ([8ff5dc9](https://github.com/dhis2/maps-app/commit/8ff5dc961135a7bd7d8e674b6364a294d80282e7))
+
 ## [1.1.3](https://github.com/dhis2/maps-app/compare/v1.1.2...v1.1.3) (2020-12-15)
 
 
