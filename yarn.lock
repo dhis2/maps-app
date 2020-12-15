@@ -247,6 +247,17 @@
     material-ui "^0.20.0"
     rxjs "^5.5.7"
 
+"@dhis2/d2-ui-core@7.1.3":
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-core/-/d2-ui-core-7.1.3.tgz#3c043a305b0225de153fe76dbfd417f6b17793e8"
+  integrity sha512-w5Me5bGc2/6j0WBng9gobqmS5X1yB9l3f0aeFfpzPiH+TQL+1N/n8TAP+hnHEE/DV3H+/IlKN8DJ1wlw3Jlu+g==
+  dependencies:
+    babel-runtime "^6.26.0"
+    d2 "~31.7"
+    lodash "^4.17.10"
+    material-ui "^0.20.0"
+    rxjs "^5.5.7"
+
 "@dhis2/d2-ui-favorites-dialog@7.0.8":
   version "7.0.8"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-favorites-dialog/-/d2-ui-favorites-dialog-7.0.8.tgz#24784aa68833517a5ba22d5f816c80a8a81bcdbc"
@@ -274,14 +285,14 @@
     "@material-ui/icons" "^3.0.1"
     prop-types "^15.6.0"
 
-"@dhis2/d2-ui-interpretations@^7.0.8":
-  version "7.0.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-7.0.8.tgz#290281cbb8ff4b4b8baa3d771f15028ee3e4b8f2"
-  integrity sha512-dYW419Q/qk4CYCMjzvqtFaqUdvfnSMFDM1XdcZOMLcKGJIcONZ3IMcKriYlmy9zPQb/OHaTTEBQ8vG5UoJ0AYw==
+"@dhis2/d2-ui-interpretations@^7.1.3":
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-7.1.3.tgz#4f365ffbfd65fcee5f2188d02bd6f403288a4fce"
+  integrity sha512-rgS70Wxufs9mlhQqwp9XyqAlmzk1mVEB5cd2D91ODqwzqVScmGHUhakjQpdO9cYtFMTKxNI3/B3S6HbfqXwG4Q==
   dependencies:
-    "@dhis2/d2-ui-mentions-wrapper" "7.0.8"
-    "@dhis2/d2-ui-rich-text" "7.0.8"
-    "@dhis2/d2-ui-sharing-dialog" "7.0.8"
+    "@dhis2/d2-ui-mentions-wrapper" "7.1.3"
+    "@dhis2/d2-ui-rich-text" "7.1.3"
+    "@dhis2/d2-ui-sharing-dialog" "7.1.3"
     "@material-ui/core" "^3.3.1"
     "@material-ui/icons" "^3.0.1"
     babel-runtime "^6.26.0"
@@ -291,10 +302,10 @@
     prop-types "^15.5.10"
     react-portal "^4.1.5"
 
-"@dhis2/d2-ui-mentions-wrapper@7.0.8":
-  version "7.0.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-mentions-wrapper/-/d2-ui-mentions-wrapper-7.0.8.tgz#e9a753e774ad7cc633bb539716fd6182a6ce4e8d"
-  integrity sha512-u21NoxJKC69rsDVaYkZUvR3Hja6Ie2XnZh0TTiVrnJlGW+s3tKcvHlcHfqDPrSyqfRQKCQB//LKGYKhE9U5pMA==
+"@dhis2/d2-ui-mentions-wrapper@7.1.3":
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-mentions-wrapper/-/d2-ui-mentions-wrapper-7.1.3.tgz#1dba7463db5a39b98524e6601568d3c6dc1e8b9c"
+  integrity sha512-HjnH6vBMvLpjNM8z5iSI3Z5fgJZ+zPpwT4yL7JZX/TqzQuFtSE5cX2MKp3+dlXw4/iNz9qgTgfCg7tT+eHpKzQ==
   dependencies:
     "@material-ui/core" "^3.3.1"
     lodash "^4.17.10"
@@ -320,10 +331,10 @@
     babel-runtime "^6.26.0"
     prop-types "^15.5.10"
 
-"@dhis2/d2-ui-rich-text@7.0.8":
-  version "7.0.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-rich-text/-/d2-ui-rich-text-7.0.8.tgz#9eaae380dca3b56df7d0a92940dbacebefcd8624"
-  integrity sha512-YLI1wjgZUCDBcMCOTNIqJwtwdpNjOq8CTFb9esm8wfyT2Mw/vAAy929Sj+tKT8cJ2+xMKJhx8pQaJ4XbPPIZJg==
+"@dhis2/d2-ui-rich-text@7.1.3":
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-rich-text/-/d2-ui-rich-text-7.1.3.tgz#79c0d374a240df0f39a0c1823784b3cd127d05f7"
+  integrity sha512-T2kqiDqdnIdpFNyEBo4iBt6NR23gfLZ92WHMwaJykT3NryvwgMrblg9bIUjj0T87i1URQOI4hyu1mw/PCeOXTw==
   dependencies:
     babel-runtime "^6.26.0"
     markdown-it "^8.4.2"
@@ -335,6 +346,20 @@
   integrity sha512-usXa4FotS90zZkQb2uqBEJOJHcZDbb7CM8GUMnkok8fryjsoeSIIRBEyt5GqVjBH4PHWja3V0BfkBW1w9gp+WQ==
   dependencies:
     "@dhis2/d2-ui-core" "7.0.8"
+    "@material-ui/core" "^3.3.1"
+    "@material-ui/icons" "^3.0.1"
+    babel-runtime "^6.26.0"
+    downshift "^2.2.2"
+    prop-types "^15.5.10"
+    recompose "^0.26.0"
+    rxjs "^5.5.7"
+
+"@dhis2/d2-ui-sharing-dialog@7.1.3":
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-sharing-dialog/-/d2-ui-sharing-dialog-7.1.3.tgz#27412a4e52dc636f167b0548ee5344f8957a3bb1"
+  integrity sha512-vTe1IuGRwgBt8jQeGQoa3pGSd4j0lOuY6q9oyblVvT7IQ7GyBecwHS4YT8sK/kM9LwTZ+xDc4VgHVAzoFESVng==
+  dependencies:
+    "@dhis2/d2-ui-core" "7.1.3"
     "@material-ui/core" "^3.3.1"
     "@material-ui/icons" "^3.0.1"
     babel-runtime "^6.26.0"
