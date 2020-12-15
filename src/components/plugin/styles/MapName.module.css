@@ -6,7 +6,7 @@
     top: var(--spacers-dp8);
     left: 50px;
     right: 50px;
-    z-index: 998px;
+    z-index: 998;
 }
 
 .name {

@@ -1,3 +1,31 @@
+# [1.2.0](https://github.com/dhis2/maps-app/compare/v1.1.3...v1.2.0) (2020-12-15)
+
+
+### Features
+
+* configurable map controls (DHIS2-10125) ([#1337](https://github.com/dhis2/maps-app/issues/1337)) ([8ff5dc9](https://github.com/dhis2/maps-app/commit/8ff5dc961135a7bd7d8e674b6364a294d80282e7))
+
+## [1.1.3](https://github.com/dhis2/maps-app/compare/v1.1.2...v1.1.3) (2020-12-15)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([40c58ca](https://github.com/dhis2/maps-app/commit/40c58cad53e45d93d25a0d2ccb333d4312cb638a))
+
+## [1.1.2](https://github.com/dhis2/maps-app/compare/v1.1.1...v1.1.2) (2020-12-14)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([9583799](https://github.com/dhis2/maps-app/commit/9583799c0d8cbb1957145ee8f2aa6e37791ae4a4))
+
+## [1.1.1](https://github.com/dhis2/maps-app/compare/v1.1.0...v1.1.1) (2020-12-12)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([376b72e](https://github.com/dhis2/maps-app/commit/376b72ea49cb939eae8733f1343f74d5cfb5df52))
+
 # [1.1.0](https://github.com/dhis2/maps-app/compare/v1.0.3...v1.1.0) (2020-12-08)
 
 

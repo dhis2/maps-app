@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import Map from './Map';
 import SplitView from './SplitView';
 import { getSplitViewLayer } from '../../util/helpers';
-import {
-    mapControls,
-    splitViewControls,
-    pluginControls,
-} from '../../constants/mapControls';
+import { getMapControls } from '../../util/mapControls';
 
 // Shared component between app and plugin
 const MapView = props => {
@@ -15,6 +11,7 @@ const MapView = props => {
         isPlugin,
         basemap,
         layers,
+        controls,
         bounds,
         coordinatePopup,
         closeCoordinatePopup,
@@ -24,22 +21,17 @@ const MapView = props => {
     } = props;
 
     const splitViewLayer = getSplitViewLayer(layers);
+    const isSplitView = !!splitViewLayer;
+    const mapControls = getMapControls(isPlugin, isSplitView, controls);
 
     return (
         <Fragment>
-            {splitViewLayer ? (
+            {isSplitView ? (
                 <SplitView
                     isPlugin={isPlugin}
                     basemap={basemap}
                     layer={splitViewLayer}
-                    controls={
-                        isPlugin
-                            ? pluginControls.map(c => ({
-                                  ...c,
-                                  isSplitView: true,
-                              }))
-                            : splitViewControls
-                    }
+                    controls={mapControls}
                     openContextMenu={openContextMenu}
                     resizeCount={resizeCount}
                 />
@@ -49,7 +41,7 @@ const MapView = props => {
                     basemap={basemap}
                     layers={[...layers].reverse()}
                     bounds={bounds}
-                    controls={isPlugin ? pluginControls : mapControls}
+                    controls={mapControls}
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
                     openContextMenu={openContextMenu}
@@ -65,6 +57,7 @@ MapView.propTypes = {
     isPlugin: PropTypes.bool,
     basemap: PropTypes.object,
     layers: PropTypes.array,
+    controls: PropTypes.array,
     bounds: PropTypes.array,
     coordinatePopup: PropTypes.array,
     closeCoordinatePopup: PropTypes.func,
