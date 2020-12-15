@@ -160,7 +160,7 @@ msgid "Style"
 msgstr "Style"
 
 msgid "Labels"
-msgstr ""
+msgstr "Étiquettes"
 
 msgid "Point radius"
 msgstr "Taille des points"
