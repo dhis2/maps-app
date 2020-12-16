@@ -13,12 +13,13 @@ export const earthEngineLayers = () => [
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
-        period: 'year',
+        periodType: 'year',
         collectionLabel: i18n.t('Select year'), // Remove?
-        filters: year => [
+        filters: ({ id, name }) => [
             {
+                name,
                 type: 'eq',
-                arguments: ['year', year],
+                arguments: ['year', id],
             },
         ],
         minValue: 0, // Remove?
@@ -76,7 +77,7 @@ export const earthEngineLayers = () => [
         source: 'UCSB / CHG / Google Earth Engine',
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
-        period: 'date',
+        periodType: 'date',
         value(value) {
             return value.toFixed(1);
         },
@@ -99,48 +100,115 @@ export const earthEngineLayers = () => [
 export const getEarthEngineLayer = id =>
     earthEngineLayers().find(l => l.datasetId === id);
 
-export const getCollection = id =>
+export const getStartEndDate = data =>
+    formatStartEndDate(
+        data['system:time_start'],
+        data['system:time_end'], // - 7200001, // Minus 2 hrs to end the day before
+        null,
+        false
+    );
+
+export const getPeriodFromFilter = (filter = []) =>
+    filter[0]
+        ? {
+              id: filter[0].arguments[1],
+              name: filter[0].name,
+          }
+        : null;
+
+const setAuthToken = async ({ client_id, access_token, expires_in }) =>
     new Promise((resolve, reject) => {
-        const { period } = getEarthEngineLayer(id);
+        ee.data.setAuthToken(client_id, 'Bearer', access_token, expires_in);
+        ee.initialize(null, null, resolve, reject);
+    });
 
-        // console.log('period', period);
+// Set token and load api
+const connectEarthEngine = () =>
+    new Promise(async (resolve, reject) => {
+        const token = await apiFetch('/tokens/google').catch(() =>
+            reject({
+                error: true,
+                message: i18n.t(
+                    'Cannot get authorization token for Google Earth Engine.'
+                ),
+            })
+        );
 
-        let imageCollection = ee.ImageCollection(id);
-        let select;
-
-        // imageCollection.getInfo(console.log);
-
-        if (period === 'year') {
-            imageCollection = imageCollection
-                .distinct(period)
-                .sort(period, false);
-            select = [period];
-        } else if (period === 'date') {
-            imageCollection = imageCollection.sort('system:time_start', false);
-            select = ['year', 'system:time_start', 'system:time_end'];
+        if (token && token.status === 'ERROR') {
+            reject({
+                warning: true,
+                message: i18n.t(
+                    'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
+                ),
+            });
         }
 
-        // console.log('imageCollection', imageCollection);
+        if (!window.ee && loadEarthEngineApi) {
+            await loadEarthEngineApi();
+        }
 
-        // ee.FeatureCollection(imageCollection).getInfo(console.log);
+        try {
+            await setAuthToken(token);
+        } catch (e) {
+            reject({
+                error: true,
+                message: i18n.t('Cannot connect to Google Earth Engine.'),
+            });
+        }
 
-        const featureCollection = ee
-            .FeatureCollection(imageCollection)
-            .select(select, null, false);
-
-        // featureCollection.getInfo(console.log);
-
-        featureCollection.getInfo(
-            ({ features }) =>
-                resolve(
-                    features.map(({ properties }) => ({
-                        id: properties[period],
-                        name: String(properties[period]),
-                    }))
-                ),
-            reject
-        );
+        resolve(window.ee);
     });
+
+export const loadCollection = async id => {
+    const { periodType } = getEarthEngineLayer(id);
+    const ee = await connectEarthEngine();
+    let imageCollection = ee.ImageCollection(id);
+    let select;
+
+    if (periodType === 'year') {
+        imageCollection = imageCollection
+            .distinct(periodType)
+            .sort(periodType, false);
+        select = [periodType];
+    } else if (periodType === 'date') {
+        imageCollection = imageCollection.sort('system:time_start', false);
+        select = ['year', 'system:time_start', 'system:time_end'];
+    }
+
+    const featureCollection = ee
+        .FeatureCollection(imageCollection)
+        .select(select, null, false);
+
+    const getPeriod = ({ properties }, index) => {
+        if (periodType === 'year') {
+            return {
+                id: properties[periodType],
+                name: String(properties[periodType]),
+            };
+        } else if (periodType === 'date') {
+            return {
+                id: index,
+                name: getStartEndDate(properties),
+                year: properties['year'],
+            };
+        } else {
+            // TODO
+        }
+    };
+
+    return new Promise(resolve =>
+        featureCollection.getInfo(({ features }) =>
+            resolve(features.map(getPeriod))
+        )
+    );
+};
+
+export const defaultFilters = index => [
+    {
+        type: 'eq',
+        arguments: ['system:index', index],
+    },
+];
 
 export const collections = {
     'WorldPop/GP/100m/pop': resolve => {
@@ -665,53 +733,3 @@ const getDatasets = () => ({
     },
 });
 */
-
-const setAuthToken = async ({ client_id, access_token, expires_in }) =>
-    new Promise((resolve, reject) => {
-        ee.data.setAuthToken(client_id, 'Bearer', access_token, expires_in);
-        ee.initialize(null, null, resolve, reject);
-    });
-
-// Load collection (periods) for one EE dataset
-export const loadCollection = async id => {
-    const token = await apiFetch(
-        '/tokens/google'
-    ); /*.catch(
-        errorActionCreator(types.EARTH_ENGINE_COLLECTION_LOAD_ERROR)
-    );*/
-
-    if (token && token.status === 'ERROR') {
-        /*
-        return setAlert({
-            warning: true,
-            message: i18n.t(
-                'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
-            ),
-        });
-        */
-    }
-
-    if (!window.ee && loadEarthEngineApi) {
-        await loadEarthEngineApi();
-    }
-
-    try {
-        await setAuthToken(token);
-    } catch (e) {
-        /*
-        return setAlert({
-            critical: true,
-            message: i18n.t('Cannot connect to Google Earth Engine.'),
-        });
-        */
-    }
-
-    return getCollection(id);
-};
-
-export const defaultFilters = index => [
-    {
-        type: 'eq',
-        arguments: ['system:index', index],
-    },
-];

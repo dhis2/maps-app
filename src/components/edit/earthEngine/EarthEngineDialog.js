@@ -1,46 +1,96 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import i18n from '@dhis2/d2-i18n';
+import { NoticeBox } from '@dhis2/ui';
+import Tabs from '../../core/Tabs';
+import Tab from '../../core/Tab';
 import PeriodSelect from './PeriodSelect';
-import { getEarthEngineLayer } from '../../../util/earthEngine';
-import { setParams } from '../../../actions/layerEdit';
+import OrgUnitsSelect from './OrgUnitsSelect';
+import StyleSelect from './StyleSelect';
+import {
+    getEarthEngineLayer,
+    getPeriodFromFilter,
+    loadCollection,
+    defaultFilters,
+} from '../../../util/earthEngine';
+import { setFilter, setParams } from '../../../actions/layerEdit';
 import styles from '../styles/LayerDialog.module.css';
 
 const EarthEngineDialog = props => {
-    const {
-        datasetId,
-        // params,
-        filter,
-        // setParams,
-    } = props;
+    const [tab, setTab] = useState('data');
+    const [periods, setPeriods] = useState();
+    const [error, setError] = useState();
+    // const [orgUnitsError, setOrgUnitsError] = useState();
+    const [orgUnitsError] = useState();
 
+    const { datasetId, rows, params, filter, setFilter } = props;
     const dataset = getEarthEngineLayer(datasetId);
+    const { name, description, periodType, filters = defaultFilters } = dataset;
+    const period = getPeriodFromFilter(filter);
 
-    // console.log('EarthEngineDialog', datasetId, filter);
+    const setPeriod = period => setFilter(filters(period));
+
+    // Load all available periods
+    // TODO: Cancel state update if dialog is closed
+    useEffect(() => {
+        if (periodType) {
+            loadCollection(datasetId)
+                .then(setPeriods)
+                .catch(setError);
+        }
+    }, [datasetId, periodType]);
+
+    // Set most recent period as default
+    useEffect(() => {
+        if (periods && !period) {
+            setPeriod(periods[0]);
+        }
+    }, [period, periods]);
+
+    if (error) {
+        return (
+            <div className={styles.flexRowFlow}>
+                <NoticeBox {...error}>{error.message}</NoticeBox>
+            </div>
+        );
+    }
 
     return (
         <div>
+            <Tabs value={tab} onChange={setTab}>
+                <Tab value="data">{i18n.t('Data')}</Tab>
+                {periodType && <Tab value="period">{i18n.t('Period')}</Tab>}
+                <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
+                {params && <Tab value="style">{i18n.t('Style')}</Tab>}
+            </Tabs>
             <div className={styles.tabContent}>
-                <div className={styles.flexColumnFlow}>
-                    <div className={styles.flexColumn}>
-                        <div>{dataset.description}</div>
-                        {datasetId !== 'USGS/SRTMGL1_003' && ( // If not elevation
-                            <PeriodSelect
-                                // label={dataset.collectionLabel}
-                                id={datasetId}
-                                filter={filter}
-                                // className={styles.flexFull}
-                                // errorText={filterError}
-                            />
-                        )}
+                {tab === 'data' && (
+                    <div className={styles.flexRowFlow}>
+                        <h3>{name}</h3>
+                        <div>{description}</div>
                     </div>
-                </div>
+                )}
+                {tab === 'period' && (
+                    <PeriodSelect
+                        period={period && period.id}
+                        periods={periods}
+                        filters={filters}
+                        onChange={setPeriod}
+                        className={styles.flexRowFlow}
+                    />
+                )}
+                {tab === 'orgunits' && (
+                    <OrgUnitsSelect rows={rows} error={orgUnitsError} />
+                )}
+                {tab === 'style' && <StyleSelect params={params} />}
             </div>
         </div>
     );
 };
 
 EarthEngineDialog.propTypes = {
+    rows: PropTypes.array,
     datasetId: PropTypes.string.isRequired,
     filter: PropTypes.array,
     params: PropTypes.shape({
@@ -48,9 +98,10 @@ EarthEngineDialog.propTypes = {
         max: PropTypes.number.isRequired,
         palette: PropTypes.string.isRequired,
     }),
+    setFilter: PropTypes.func.isRequired,
     setParams: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setParams }, null, {
+export default connect(null, { setFilter, setParams }, null, {
     forwardRef: true,
 })(EarthEngineDialog);
