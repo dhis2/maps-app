@@ -4,7 +4,14 @@ import i18n from '@dhis2/d2-i18n';
 import SelectField from '../../core/SelectField';
 import styles from './styles/PeriodSelect.module.css';
 
-const PeriodSelect = ({ periodType, period, periods, onChange, className }) => {
+const PeriodSelect = ({
+    periodType,
+    period,
+    periods,
+    onChange,
+    errorText,
+    className,
+}) => {
     const [year, setYear] = useState();
     const byYear = periodType === 'date';
 
@@ -64,6 +71,7 @@ const PeriodSelect = ({ periodType, period, periods, onChange, className }) => {
                 items={items}
                 value={items && period && period.id}
                 onChange={onChange}
+                errorText={!period && errorText ? errorText : null}
                 className={styles.period}
             />
         </div>
@@ -75,6 +83,7 @@ PeriodSelect.propTypes = {
     period: PropTypes.object,
     periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     onChange: PropTypes.func.isRequired,
+    errorText: PropTypes.string,
     className: PropTypes.string,
 };
 

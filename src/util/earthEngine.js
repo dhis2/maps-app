@@ -128,6 +128,7 @@ const connectEarthEngine = () =>
     new Promise(async (resolve, reject) => {
         const token = await apiFetch('/tokens/google').catch(() =>
             reject({
+                type: 'engine',
                 error: true,
                 message: i18n.t(
                     'Cannot get authorization token for Google Earth Engine.'
@@ -137,6 +138,7 @@ const connectEarthEngine = () =>
 
         if (token && token.status === 'ERROR') {
             reject({
+                type: 'engine',
                 warning: true,
                 message: i18n.t(
                     'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
@@ -152,6 +154,7 @@ const connectEarthEngine = () =>
             await setAuthToken(token);
         } catch (e) {
             reject({
+                type: 'engine',
                 error: true,
                 message: i18n.t('Cannot connect to Google Earth Engine.'),
             });
@@ -198,7 +201,6 @@ export const loadCollection = async id => {
 
     return new Promise(resolve =>
         featureCollection.getInfo(({ features }) =>
-            // resolve(groupByYear(features.map(getPeriod)))
             resolve(features.map(getPeriod))
         )
     );

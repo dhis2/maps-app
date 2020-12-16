@@ -24,7 +24,16 @@ const EarthEngineDialog = props => {
     // const [orgUnitsError, setOrgUnitsError] = useState();
     const [orgUnitsError] = useState();
 
-    const { datasetId, rows, params, filter, setFilter } = props;
+    const {
+        datasetId,
+        rows,
+        params,
+        filter,
+        setFilter,
+        validateLayer,
+        onLayerValidation,
+    } = props;
+
     const dataset = getEarthEngineLayer(datasetId);
     const { name, description, periodType, filters = defaultFilters } = dataset;
     const period = getPeriodFromFilter(filter);
@@ -41,7 +50,22 @@ const EarthEngineDialog = props => {
         }
     }, [datasetId, periodType]);
 
-    if (error) {
+    useEffect(() => {
+        if (validateLayer) {
+            if (!periodType || period) {
+                onLayerValidation(true);
+            } else {
+                setError({
+                    type: 'period',
+                    message: i18n.t('This field is required'),
+                });
+                setTab('period');
+                onLayerValidation(false);
+            }
+        }
+    }, [validateLayer, periodType, period, onLayerValidation]);
+
+    if (error && error.type === 'engine') {
         return (
             <div className={styles.flexRowFlow}>
                 <NoticeBox {...error}>{error.message}</NoticeBox>
@@ -71,6 +95,9 @@ const EarthEngineDialog = props => {
                         periods={periods}
                         filters={filters}
                         onChange={setPeriod}
+                        errorText={
+                            error && error.type === 'period' && error.message
+                        }
                         className={styles.flexRowFlow}
                     />
                 )}
@@ -92,8 +119,10 @@ EarthEngineDialog.propTypes = {
         max: PropTypes.number.isRequired,
         palette: PropTypes.string.isRequired,
     }),
+    validateLayer: PropTypes.bool.isRequired,
     setFilter: PropTypes.func.isRequired,
     setParams: PropTypes.func.isRequired,
+    onLayerValidation: PropTypes.func.isRequired,
 };
 
 export default connect(null, { setFilter, setParams }, null, {
