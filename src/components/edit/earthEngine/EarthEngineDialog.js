@@ -29,7 +29,7 @@ const EarthEngineDialog = props => {
     const { name, description, periodType, filters = defaultFilters } = dataset;
     const period = getPeriodFromFilter(filter);
 
-    const setPeriod = period => setFilter(filters(period));
+    const setPeriod = period => setFilter(period ? filters(period) : undefined);
 
     // Load all available periods
     // TODO: Cancel state update if dialog is closed
@@ -40,13 +40,6 @@ const EarthEngineDialog = props => {
                 .catch(setError);
         }
     }, [datasetId, periodType]);
-
-    // Set most recent period as default
-    useEffect(() => {
-        if (periods && !period) {
-            setPeriod(periods[0]);
-        }
-    }, [period, periods]);
 
     if (error) {
         return (
@@ -73,7 +66,8 @@ const EarthEngineDialog = props => {
                 )}
                 {tab === 'period' && (
                     <PeriodSelect
-                        period={period && period.id}
+                        periodType={periodType}
+                        period={period}
                         periods={periods}
                         filters={filters}
                         onChange={setPeriod}

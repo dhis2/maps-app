@@ -113,6 +113,7 @@ export const getPeriodFromFilter = (filter = []) =>
         ? {
               id: filter[0].arguments[1],
               name: filter[0].name,
+              year: filter[0].year,
           }
         : null;
 
@@ -179,18 +180,17 @@ export const loadCollection = async id => {
         .FeatureCollection(imageCollection)
         .select(select, null, false);
 
-    const getPeriod = ({ properties }, index) => {
+    const getPeriod = ({ id, properties }) => {
+        const year = properties['year'];
+
         if (periodType === 'year') {
             return {
-                id: properties[periodType],
-                name: String(properties[periodType]),
+                id: year,
+                name: String(year),
             };
         } else if (periodType === 'date') {
-            return {
-                id: index,
-                name: getStartEndDate(properties),
-                year: properties['year'],
-            };
+            const name = getStartEndDate(properties);
+            return { id, name, year };
         } else {
             // TODO
         }
@@ -198,15 +198,18 @@ export const loadCollection = async id => {
 
     return new Promise(resolve =>
         featureCollection.getInfo(({ features }) =>
+            // resolve(groupByYear(features.map(getPeriod)))
             resolve(features.map(getPeriod))
         )
     );
 };
 
-export const defaultFilters = index => [
+export const defaultFilters = ({ id, name, year }) => [
     {
         type: 'eq',
-        arguments: ['system:index', index],
+        arguments: ['system:index', id],
+        name,
+        year,
     },
 ];
 
