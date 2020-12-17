@@ -1,7 +1,14 @@
+import React from 'react';
 import Layer from './Layer';
+import Popup from './Popup';
 import { apiFetch } from '../../util/api';
 
 export default class EarthEngineLayer extends Layer {
+    state = {
+        popup: null,
+        aggregations: null,
+    };
+
     componentDidUpdate(prev) {
         super.componentDidUpdate(prev);
 
@@ -69,6 +76,8 @@ export default class EarthEngineLayer extends Layer {
             projection,
             data,
             aggregationTypes,
+            onClick: this.onFeatureClick.bind(this),
+            // onRightClick: console.log,
         };
 
         if (params) {
@@ -84,8 +93,49 @@ export default class EarthEngineLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // this.layer.aggregate().then(console.log);
+        this.layer.aggregate().then(this.addAggregationValues.bind(this));
 
         this.fitBoundsOnce();
+    }
+
+    addAggregationValues(aggregations) {
+        // Make aggregations available for data table
+        this.props.data.forEach(f => {
+            const values = aggregations[f.id];
+            if (values) {
+                Object.keys(values).forEach(
+                    key => (f.properties[key] = values[key])
+                );
+            }
+        });
+
+        // Make aggregations available for popup
+        this.setState({ aggregations });
+    }
+
+    getPopup() {
+        const { popup, aggregations = {} } = this.state;
+        const { coordinates, feature } = popup;
+        const { id, name } = feature.properties;
+        const values = aggregations[id];
+
+        return (
+            <Popup
+                coordinates={coordinates}
+                onClose={this.onPopupClose}
+                className="dhis2-map-popup-orgunit"
+            >
+                <em>{name}</em>
+                {values}
+            </Popup>
+        );
+    }
+
+    render() {
+        return this.state.popup ? this.getPopup() : null;
+    }
+
+    onFeatureClick(evt) {
+        this.setState({ popup: evt });
     }
 }
