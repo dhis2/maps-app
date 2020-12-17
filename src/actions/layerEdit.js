@@ -212,7 +212,7 @@ export const setIndicatorGroup = indicatorGroup => ({
     indicatorGroup,
 });
 
-// Set aggregation type (thematic)
+// Set aggregation type (thematic/earth engine)
 export const setAggregationType = aggregationType => ({
     type: types.LAYER_EDIT_AGGREGATION_TYPE_SET,
     aggregationType,

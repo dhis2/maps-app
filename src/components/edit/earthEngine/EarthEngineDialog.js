@@ -5,6 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { NoticeBox } from '@dhis2/ui';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
+import AggregationTypesSelect from './AggregationTypesSelect';
 import PeriodSelect from './PeriodSelect';
 import OrgUnitsSelect from './OrgUnitsSelect';
 import StyleSelect from './StyleSelect';
@@ -86,6 +87,7 @@ const EarthEngineDialog = props => {
                     <div className={styles.flexRowFlow}>
                         <h3>{name}</h3>
                         <div>{description}</div>
+                        <AggregationTypesSelect />
                     </div>
                 )}
                 {tab === 'period' && (

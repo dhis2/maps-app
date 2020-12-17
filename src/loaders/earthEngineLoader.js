@@ -1,9 +1,28 @@
+import { getInstance as getD2 } from 'd2';
+import { getOrgUnitsFromRows } from '../util/analytics';
 import { getEarthEngineLayer } from '../util/earthEngine';
+import { getDisplayProperty } from '../util/helpers';
+import { toGeoJson } from '../util/map';
 
 // Returns a promise
 const earthEngineLoader = async config => {
+    const { rows, aggregationType: aggregations } = config;
     let layerConfig = {};
     let dataset;
+    let features;
+
+    if (rows) {
+        const d2 = await getD2();
+        const displayProperty = getDisplayProperty(d2).toUpperCase();
+        const orgUnits = getOrgUnitsFromRows(rows);
+        const orgUnitParams = orgUnits.map(item => item.id);
+
+        features = await d2.geoFeatures
+            .byOrgUnit(orgUnitParams)
+            .displayProperty(displayProperty)
+            .getAll()
+            .then(toGeoJson);
+    }
 
     if (typeof config.config === 'string') {
         // From database as favorite
@@ -54,6 +73,8 @@ const earthEngineLoader = async config => {
 
     return {
         ...layer,
+        features,
+        aggregations,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
