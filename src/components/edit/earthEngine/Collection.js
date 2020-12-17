@@ -118,7 +118,7 @@ export class CollectionSelect extends Component {
             (index => [
                 {
                     type: 'eq',
-                    arguments: ['system:index', index],
+                    arguments: ['system:index', String(index)],
                 },
             ]);
 

@@ -13,6 +13,7 @@ export const DATA_TABLE_LAYER_TYPES = [
     'thematic',
     'boundary',
     'event',
+    'earthEngine',
 ];
 
 export const OPEN_AS_LAYER_TYPES = ['thematic'];

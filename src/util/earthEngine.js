@@ -209,7 +209,7 @@ export const loadCollection = async id => {
 export const defaultFilters = ({ id, name, year }) => [
     {
         type: 'eq',
-        arguments: ['system:index', id],
+        arguments: ['system:index', String(id)],
         name,
         year,
     },

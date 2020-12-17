@@ -137,6 +137,7 @@ class DataTable extends Component {
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
         const isEvent = layerType === 'event';
+        // const isEarthEngine = layerType === 'earthEngine';
 
         return !serverCluster ? (
             <Table

@@ -42,6 +42,8 @@ export default class EarthEngineLayer extends Layer {
             projection,
             params,
             popup,
+            data,
+            aggregationTypes,
         } = this.props;
 
         const { map } = this.context;
@@ -65,6 +67,8 @@ export default class EarthEngineLayer extends Layer {
             legend: legend && !legend.unit ? legend.items : null,
             resolution,
             projection,
+            data,
+            aggregationTypes,
         };
 
         if (params) {
@@ -79,5 +83,9 @@ export default class EarthEngineLayer extends Layer {
 
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
+
+        // this.layer.aggregate().then(console.log);
+
+        this.fitBoundsOnce();
     }
 }
