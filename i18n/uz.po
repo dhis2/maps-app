@@ -469,7 +469,7 @@ msgid "Refresh to try again"
 msgstr "Ыайтиб уриниб кщрин учун аввал янгиланг"
 
 msgid "Hide technical details"
-msgstr "Техник деталларни яшириш"
+msgstr "Техник деталларни беркитиш"
 
 msgid "Show technical details"
 msgstr "Техник деталларни кўрсатиш"
