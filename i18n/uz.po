@@ -651,7 +651,7 @@ msgid "Click where you want to start the measurement"
 msgstr "Ўлчовни бошланиш жойини босинг"
 
 msgid "Delete"
-msgstr "Ўчириш"
+msgstr "Ўчириб ташлаш"
 
 msgid "Distance"
 msgstr "Масофа"
