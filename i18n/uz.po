@@ -388,7 +388,7 @@ msgid "Loading layer"
 msgstr "Юкланадиган қават"
 
 msgid "deleted"
-msgstr "Ўчирилди"
+msgstr "Ўчириб ташланган"
 
 msgid "Filters"
 msgstr "Фильрлар"
