@@ -1,16 +1,16 @@
 # 
 # Translators:
+# easylin <lin_xd@126.com>, 2020
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 晓东 林 <13981924470@126.com>, 2020
-# easylin <lin_xd@126.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
+"PO-Revision-Date: 2020-12-22 22:18+0000\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +52,7 @@ msgid "Details"
 msgstr "详情"
 
 msgid "Yes"
-msgstr "是"
+msgstr "Yes"
 
 msgid "Event location"
 msgstr "事件位置"
@@ -61,7 +61,7 @@ msgid "Coordinate field"
 msgstr "坐标字段"
 
 msgid "None"
-msgstr "无"
+msgstr "没有"
 
 msgid "Data item"
 msgstr "数据条目"
@@ -97,7 +97,7 @@ msgid "Legend"
 msgstr "图例"
 
 msgid "Range"
-msgstr "范围"
+msgstr "Range"
 
 msgid "Level"
 msgstr "等级"
@@ -149,7 +149,7 @@ msgid "Year"
 msgstr "年"
 
 msgid "Period"
-msgstr "周期"
+msgstr "期间"
 
 msgid "Organisation units"
 msgstr "组织机构"
@@ -375,7 +375,7 @@ msgid "Reporting rates"
 msgstr "上报率"
 
 msgid "Event data items"
-msgstr "事件数据项"
+msgstr "事件数据条目"
 
 msgid "Program indicators"
 msgstr "项目指标"
@@ -387,7 +387,7 @@ msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
 
 msgid "Program/Enrollment date"
-msgstr "计划/注册日期"
+msgstr "项目/注册日期"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr "被跟踪实体在项目中注册或登记的日期"
@@ -399,7 +399,7 @@ msgid "relationships"
 msgstr "关系"
 
 msgid "Follow up"
-msgstr "后续跟进"
+msgstr "后续跟踪"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -450,7 +450,7 @@ msgid "Failed to load relationship types."
 msgstr "载入关系类型失败"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr "跟踪的实体类型没有发现关系类型"
+msgstr "跟踪的实体类型{{type}}没有发现关系类型"
 
 msgid "Relationship type"
 msgstr "关系类型"
@@ -501,7 +501,7 @@ msgid "Indicator group"
 msgstr "指标组"
 
 msgid "Interpretations"
-msgstr "注释"
+msgstr "解释"
 
 msgid "External basemap"
 msgstr "外部基础图层"
@@ -513,7 +513,7 @@ msgid "Collapse"
 msgstr "折叠"
 
 msgid "Expand"
-msgstr "展开"
+msgstr "打开"
 
 msgid "Download Layer Data"
 msgstr "下载图层数据"
@@ -548,7 +548,7 @@ msgid "Split view can not be combined with other layer types."
 msgstr "分离视图不能和其它图层混合"
 
 msgid "Edit"
-msgstr "编辑"
+msgstr "编辑<br>"
 
 msgid "Toggle visibility"
 msgstr "切换可视性"
@@ -608,7 +608,7 @@ msgid "Not set"
 msgstr "没有设置"
 
 msgid "Organisation unit"
-msgstr "组织机构"
+msgstr "机构"
 
 msgid "Groups"
 msgstr "组"
@@ -617,13 +617,13 @@ msgid "Longitude"
 msgstr "经度"
 
 msgid "Latitude"
-msgstr "纬度"
+msgstr "维度"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
 msgid "Last updated"
-msgstr "Last updated"
+msgstr "上次更新"
 
 msgid "acres"
 msgstr " 英亩"
@@ -763,10 +763,10 @@ msgid "Previous year"
 msgstr "前年"
 
 msgid "Next year"
-msgstr "来年"
+msgstr "下一年"
 
 msgid "Relative"
-msgstr "关系"
+msgstr "相对"
 
 msgid "Period type"
 msgstr "周期类型"
@@ -934,13 +934,13 @@ msgid "Yesterday"
 msgstr "昨天"
 
 msgid "Last 3 days"
-msgstr "Last 3 days"
+msgstr "最近三天"
 
 msgid "Last 7 days"
 msgstr "最近7天"
 
 msgid "Last 14 days"
-msgstr "Last 14 days"
+msgstr "最近14天"
 
 msgid "Last 30 days"
 msgstr "最近30天"
@@ -967,10 +967,10 @@ msgid "Last 12 weeks"
 msgstr "最近12周"
 
 msgid "Last 52 weeks"
-msgstr "Last 52 weeks"
+msgstr "最近52周"
 
 msgid "Weeks this year"
-msgstr "Weeks this year"
+msgstr "今年的几周"
 
 msgid "This bi-week"
 msgstr "本双周"
@@ -991,7 +991,7 @@ msgid "Last 3 months"
 msgstr "最近3个月"
 
 msgid "Last 6 months"
-msgstr "Last 6 months"
+msgstr "最近6个月"
 
 msgid "Last 12 months"
 msgstr "最近12月"
@@ -1003,13 +1003,13 @@ msgid "This bi-month"
 msgstr "本双月"
 
 msgid "Last bi-month"
-msgstr "Last bi-month"
+msgstr "最近两个月"
 
 msgid "Last 6 bi-months"
 msgstr "Last 6 bi-months"
 
 msgid "Bi-months this year"
-msgstr "Bi-months this year"
+msgstr "今年双月"
 
 msgid "This quarter"
 msgstr "本季度"
@@ -1018,7 +1018,7 @@ msgid "Last quarter"
 msgstr "最近一季"
 
 msgid "Last 4 quarters"
-msgstr "最近四个季度"
+msgstr "最近4个季度"
 
 msgid "Quarters this year"
 msgstr "今年的季度"
@@ -1030,7 +1030,7 @@ msgid "Last six-month"
 msgstr "最近六个月"
 
 msgid "Last 2 six-months"
-msgstr "最近两个半年"
+msgstr "最近2个半年"
 
 msgid "This year"
 msgstr "今年"
@@ -1190,16 +1190,16 @@ msgid "user is not allowed to read layer data"
 msgstr "不允许用户读取图层数据"
 
 msgid "Failed"
-msgstr "失败"
+msgstr "Failed"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr "读取图层数据时发生未知错误"
 
 msgid "Event"
-msgstr "四级"
+msgstr "事件"
 
 msgid "No data found"
-msgstr "没有数据被找到"
+msgstr "没有发现数据"
 
 msgid "Facilities"
 msgstr "机构设施"
@@ -1217,7 +1217,7 @@ msgid "No data"
 msgstr "无数据"
 
 msgid "Tracked entity"
-msgstr "跟踪实体"
+msgstr "跟踪的实体"
 
 msgid "No tracked entities found"
 msgstr "没有找到跟踪实体"
@@ -1241,7 +1241,7 @@ msgid "false"
 msgstr "假"
 
 msgid "No"
-msgstr "否"
+msgstr "No"
 
 msgid "Map could not be created"
 msgstr "不能创建地图"

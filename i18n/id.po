@@ -1,18 +1,18 @@
 # 
 # Translators:
-# Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
-# phil_dhis2, 2020
-# Carwoto Sa'an <carwoto@gmail.com>, 2020
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2020
+# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Farida Sibuea <farida_sibuea@yahoo.com>, 2020
+# Carwoto Sa'an <carwoto@gmail.com>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"PO-Revision-Date: 2020-12-22 22:18+0000\n"
+"Last-Translator: Carwoto Sa'an <carwoto@gmail.com>, 2020\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "set legenda"
+msgstr "Legenda"
 
 msgid "Color"
 msgstr ""
@@ -72,7 +72,7 @@ msgid "Event data item"
 msgstr "Data item pada even"
 
 msgid "Style by data element"
-msgstr "Ragam berdasarkan elemen data"
+msgstr "Gaya berdasarkan elemen data"
 
 msgid "Data set"
 msgstr "Data set"
@@ -108,7 +108,7 @@ msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "Jenis"
+msgstr "Tipe"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -139,7 +139,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Batalkan"
+msgstr "Batal"
 
 msgid "Close"
 msgstr "Tutup"
@@ -238,13 +238,13 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr "Kolom ini sudah terisi"
+msgstr "Kolom ini harus terisi"
 
 msgid "Valid range is"
 msgstr ""
 
 msgid "Group set"
-msgstr "set satu grup"
+msgstr "Set grup"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -263,7 +263,7 @@ msgid "event"
 msgstr ""
 
 msgid "tracked entity"
-msgstr "Entitas dilacak"
+msgstr "entitas dilacak"
 
 msgid "facility"
 msgstr ""
@@ -302,7 +302,7 @@ msgid "Filter"
 msgstr "Saring"
 
 msgid "Events"
-msgstr "Event"
+msgstr "Even"
 
 msgid "Group events"
 msgstr "Grup even"
@@ -315,7 +315,7 @@ msgstr ""
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
-"Anda dapat menganti corak even berdasarkan elemen data setelah memilih satu "
+"Anda dapat menganti gaya even berdasarkan elemen data setelah memilih satu "
 "program"
 
 msgid "Program is required"
@@ -373,13 +373,13 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
-msgstr "indikator"
+msgstr "Indikator"
 
 msgid "Reporting rates"
-msgstr "Tingkat pelaporan"
+msgstr "Angka pelaporan"
 
 msgid "Event data items"
-msgstr "Item data event"
+msgstr "Item data even"
 
 msgid "Program indicators"
 msgstr "Indikator program"
@@ -440,13 +440,13 @@ msgid "Tracked entities"
 msgstr "Entitas dilacak"
 
 msgid "Tracked entity style"
-msgstr "Ragam entitas terlacak"
+msgstr "Gaya entitas dilacak"
 
 msgid "Point size"
 msgstr ""
 
 msgid "Related entity style"
-msgstr "Ragam entitas terkait"
+msgstr "Gaya entitas terkait"
 
 msgid "Line Color"
 msgstr ""
@@ -504,7 +504,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "group indikator"
+msgstr "grup indikator"
 
 msgid "Interpretations"
 msgstr "Interpretasi"
@@ -554,7 +554,7 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
-msgstr "Edit"
+msgstr "Sunting"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -617,13 +617,13 @@ msgid "Organisation unit"
 msgstr "Unit organisasi"
 
 msgid "Groups"
-msgstr "banyak grup"
+msgstr "Banyak grup"
 
 msgid "Longitude"
-msgstr "Longitude"
+msgstr "Bujur"
 
 msgid "Latitude"
-msgstr "Latitude"
+msgstr "Lintang"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Melihat interpretasi dari {{interpretationDate}}"
@@ -650,7 +650,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr "hapus"
+msgstr "Hapus"
 
 msgid "Distance"
 msgstr ""
@@ -775,10 +775,10 @@ msgid "Relative"
 msgstr ""
 
 msgid "Period type"
-msgstr "tipe periode"
+msgstr "Tipe periode"
 
 msgid "Start/end dates"
-msgstr "Tanggal dimulai-berakhir"
+msgstr "Tanggal dimulai/berakhir"
 
 msgid "Display periods"
 msgstr ""
@@ -799,13 +799,13 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
-msgstr "Tanggal mulai"
+msgstr "Tanggal dimulai"
 
 msgid "End date"
 msgstr "Tanggal berakhir"
 
 msgid "Program indicator"
-msgstr "Manajemen indikator program"
+msgstr "Indikator program"
 
 msgid "No program"
 msgstr "Tidak ada program"
@@ -832,7 +832,7 @@ msgid "Sum"
 msgstr "Jumlah"
 
 msgid "Standard deviation"
-msgstr "Deviasi standar"
+msgstr "Standar deviasi"
 
 msgid "Variance"
 msgstr "Varian"
@@ -895,7 +895,7 @@ msgid "Single color legend"
 msgstr ""
 
 msgid "Equal intervals"
-msgstr "interval equal"
+msgstr "Interval yang sama"
 
 msgid "Equal counts"
 msgstr ""
@@ -925,13 +925,13 @@ msgid "Yearly"
 msgstr "Tahunan"
 
 msgid "Financial year (Start October)"
-msgstr "Financial October"
+msgstr "Tahun Fiskal (Mulai October)"
 
 msgid "Financial year (Start July)"
-msgstr "Financial July"
+msgstr "Tahun Fiskal (Mulai July)"
 
 msgid "Financial year (Start April)"
-msgstr "Financial April"
+msgstr "Tahun Fiskal (Mulai April)"
 
 msgid "Today"
 msgstr "Hari ini"
@@ -1202,7 +1202,7 @@ msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr "Kejadian"
+msgstr "Even"
 
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
@@ -1223,7 +1223,7 @@ msgid "No data"
 msgstr "Tidak ada data"
 
 msgid "Tracked entity"
-msgstr "Tracked Entity"
+msgstr "Entitas dilacak"
 
 msgid "No tracked entities found"
 msgstr ""

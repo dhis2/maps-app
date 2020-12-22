@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -21,13 +21,13 @@ msgid "Maps"
 msgstr "الخرائط"
 
 msgid "Classification"
-msgstr ""
+msgstr "تصنيف"
 
 msgid "Classes"
-msgstr ""
+msgstr "التصنيفات"
 
 msgid "Legend set"
-msgstr "حزمة وسائل الإيضاح"
+msgstr "حزمة المفاتيح الإيضاحية"
 
 msgid "Color"
 msgstr "اللون"
@@ -63,7 +63,7 @@ msgid "None"
 msgstr "لا شيء"
 
 msgid "Data item"
-msgstr ""
+msgstr "عنصر بيانات"
 
 msgid "Event data item"
 msgstr "عنصر بيانات حدث"
@@ -75,7 +75,7 @@ msgid "Data set"
 msgstr "حزمة البيانات"
 
 msgid "Index"
-msgstr ""
+msgstr "فهرس"
 
 msgid "Id"
 msgstr "المعرف"
@@ -93,7 +93,7 @@ msgid "Value"
 msgstr "القيمة"
 
 msgid "Legend"
-msgstr "شروحات"
+msgstr "مفاتيح إيضاحية"
 
 msgid "Range"
 msgstr "نطاق"
@@ -102,25 +102,25 @@ msgid "Level"
 msgstr "المستوى"
 
 msgid "Parent"
-msgstr ""
+msgstr "الأب"
 
 msgid "Type"
 msgstr "النوع"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
+msgstr "لا يتم دعم جدول البيانات عند تجميع الأحداث على الخادم."
 
 msgid "Add filter"
 msgstr "إضافة عامل تصفية"
 
 msgid "Items"
-msgstr ""
+msgstr "العناصر"
 
 msgid "Dimension"
 msgstr "البُعد"
 
 msgid "Download"
-msgstr "تحميل"
+msgstr "تنزيل"
 
 msgid "Download map"
 msgstr "تنزيل الخريطة"
@@ -146,7 +146,7 @@ msgid "Legend position"
 msgstr "موقع المفاتيح الإيضاحية"
 
 msgid "Year"
-msgstr "السنة"
+msgstr "سنة"
 
 msgid "Period"
 msgstr "الفترة الزمنية"
@@ -164,7 +164,7 @@ msgid "Point radius"
 msgstr "نصف قطر النقطة"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "لم يتم تحديد أي وحدات تنظيمية"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
@@ -178,10 +178,10 @@ msgid "Select year"
 msgstr "اختر السنة"
 
 msgid "Min people"
-msgstr ""
+msgstr "الحد الأدنى من الناس"
 
 msgid "Max people"
-msgstr ""
+msgstr "الحد الأعلى من الناس"
 
 msgid ""
 "Elevation above sea-level. You can adjust the min and max values so it "
@@ -191,10 +191,10 @@ msgstr ""
 "التضاريس بشكل أفضل في منطقتك."
 
 msgid "Min meters"
-msgstr ""
+msgstr "الحد الأدنى لعدد الأمتار"
 
 msgid "Max meters"
-msgstr ""
+msgstr "الحد الأعلى لعدد الأمتار"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
@@ -206,10 +206,10 @@ msgstr ""
 "التالي."
 
 msgid "Min mm"
-msgstr ""
+msgstr "الحد الأدنى لعدد المليمترات"
 
 msgid "Max mm"
-msgstr ""
+msgstr "الحد الأعلى لعدد المليمترات"
 
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
@@ -219,10 +219,10 @@ msgstr ""
 "بقع فارغة في المناطق ذات غطاء سحابي دائم."
 
 msgid "Min °C"
-msgstr ""
+msgstr "الحد الأدنى لدرجة الحرارة المئوية"
 
 msgid "Max °C"
-msgstr ""
+msgstr "الحد الأعلى لدرجة الحرارة المئوية"
 
 msgid "17 distinct landcover types collected from satellites."
 msgstr "17 نوعاً مميزاً من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
@@ -250,7 +250,7 @@ msgid "This field is required"
 msgstr "هذا الحقل مطلوب"
 
 msgid "Valid range is"
-msgstr ""
+msgstr "النطاق الصالح هو"
 
 msgid "Group set"
 msgstr "حزمة المجموعات"
@@ -269,13 +269,13 @@ msgid "Group set is required"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "حدث"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "الكيان المتعقب"
 
 msgid "facility"
-msgstr ""
+msgstr "المرفق"
 
 msgid "thematic"
 msgstr ""
@@ -314,7 +314,7 @@ msgid "Events"
 msgstr "الأحداث"
 
 msgid "Group events"
-msgstr ""
+msgstr "تجميع الأحداث"
 
 msgid "View all events"
 msgstr "عرض كافة الأحداث"
@@ -326,10 +326,10 @@ msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Program is required"
-msgstr ""
+msgstr "البرنامج مطلوب"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "مرحلة البرنامج مطلوبة"
 
 msgid "No organisation units are selected."
 msgstr "لم يتم اختيار أي وحدات تنظيمية"
@@ -341,40 +341,40 @@ msgid "Aggregation type"
 msgstr "نوع التجميع"
 
 msgid "Show no data"
-msgstr ""
+msgstr "لا تظهر أي بيانات"
 
 msgid "Low radius"
-msgstr ""
+msgstr "نصف قطر منخفض"
 
 msgid "High radius"
-msgstr ""
+msgstr "نصف قطر مرتفع"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "يجب أن يتراوح نصف القطر بين {{min}} و {{max}}"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "مجموعة المؤشر مطلوبة"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "المؤشر مطلوب"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "مجموعة عناصر البيانات مطلوبة"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "عنصر البيانات مطلوب"
 
 msgid "Data set is required"
 msgstr ""
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "عنصر بيانات الحدث مطلوب"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "مؤشر البرنامج مطلوب"
 
 msgid "Period is required"
-msgstr ""
+msgstr "الفترة مطلوبة"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -383,7 +383,7 @@ msgid "Indicator"
 msgstr "المؤشر"
 
 msgid "Reporting rates"
-msgstr "معدلات إعداد التقارير"
+msgstr "معدلات إرسال البلاغات"
 
 msgid "Event data items"
 msgstr "عناصر بيانات الحدث"
@@ -395,13 +395,13 @@ msgid "Item type"
 msgstr "نوع العنصر"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "حدد الفترة التي تم فيها آخر تحديث للكيانات المتعقبة"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "تاريخ البرنامج / التسجيل"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr ""
+msgstr "التاريخ الذي تم فيه تسجيل الكيان المتعقب أو ضمه في أحد البرامج"
 
 msgid "Program status"
 msgstr "حالة البرنامج"
@@ -414,33 +414,33 @@ msgstr "متابعة"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
+msgstr "الرجاء تحديد نوع الكيان المتعقب قبل تحديد نوع العلاقة"
 
 msgid "WARNING"
-msgstr ""
+msgstr "تحذير"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr ""
+msgstr "يعد عرض علاقات الكيانات المتعقبة في الخرائط ميزة تجريبية"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "عرض علاقات الكيانات المتعقبة"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
+msgstr "قم بتضمين العلاقات التي تربط الكيانات خارج برنامج \"{{program}}\""
 
 msgid "Selection mode"
 msgstr "وضح التحديد"
 
 msgid "Selected only"
-msgstr ""
+msgstr "المختارة فقط"
 
 msgid "Selected and below"
 msgstr "المختارة وما أدناها"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "المختارة وكل ماهو أدنى"
 
 msgid "Tracked entities"
 msgstr "الكيانات المتعقبة"
@@ -458,22 +458,22 @@ msgid "Line Color"
 msgstr "لون الخط"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "فشل تحميل أنواع العلاقات."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr ""
+msgstr "لم يتم العثور على أنواع العلاقات لنوع الكيان المتعقب {{type}}"
 
 msgid "Relationship type"
 msgstr "نوع العلاقة"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "حدث خطأ في تطبيق خرائط DHIS2."
 
 msgid "Something went wrong"
-msgstr "هناك خطأ ما"
+msgstr "حدث خطأ ما"
 
 msgid "Refresh to try again"
-msgstr "حدث للمحاولة مرة أخرى"
+msgstr "قم بالتحديث للمحاولة مرة أخرى"
 
 msgid "Hide technical details"
 msgstr "إخفاء التفاصيل التقنية"
@@ -485,7 +485,7 @@ msgid "The following information may be requested by technical support."
 msgstr "قد يتم طلب المعلومات التالية من قبل الدعم الفني."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "التصفية متاحة بعد اختيار مرحلة البرنامج."
 
 msgid "Operator"
 msgstr "العامل"
@@ -494,19 +494,19 @@ msgid "Date"
 msgstr "التاريخ"
 
 msgid "one of"
-msgstr ""
+msgstr "واحد من"
 
 msgid "contains"
-msgstr ""
+msgstr "يحتوي على"
 
 msgid "is"
-msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
+msgstr "confirm_delete_relationship_type\\=هل تريد بالتأكيد حذف نوع العلاقة؟"
 
 msgid "is not"
-msgstr ""
+msgstr "ليس"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "إزالة عامل التصفية"
 
 msgid "Indicator group"
 msgstr "مجموعة المؤشرات"
@@ -515,48 +515,49 @@ msgid "Interpretations"
 msgstr "التفسيرات"
 
 msgid "External basemap"
-msgstr ""
+msgstr "خريطة أساس خارجية"
 
 msgid "Basemap"
-msgstr ""
+msgstr "الخريطة الأساسية"
 
 msgid "Collapse"
-msgstr "انهيار"
+msgstr "لملمة"
 
 msgid "Expand"
 msgstr "توسيع"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "تنزيل بيانات الطبقة"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "تنزيل بيانات GeoJSON لـ \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"يتم دعم GeoJSON بواسطة معظم برامج GIS ، بما في ذلك QGIS و ArcGIS Desktop."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "فشل تنزيل البيانات."
 
 msgid "ID Format"
-msgstr ""
+msgstr "تنسيق ID"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "استخدم مفاتيح يمكن للبشر قراءتها"
 
 msgid "External layer"
 msgstr "طبقة خارحية"
 
 msgid "Loading layer"
-msgstr ""
+msgstr "تحميل الطبقة"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "تم حذف {{name}}."
 
 msgid "Split view can not be combined with other layer types."
-msgstr ""
+msgstr "لا يمكن دمج طريقة العرض المقسمة مع أنواع الطبقات الأخرى."
 
 msgid "Edit"
 msgstr "تعديل"
@@ -565,25 +566,25 @@ msgid "Toggle visibility"
 msgstr ""
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "اضبط عتامة الطبقة"
 
 msgid "More actions"
-msgstr ""
+msgstr "المزيد من الإجراءات"
 
 msgid "Data table"
 msgstr "جدول البيانات"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "افتح كمخطط"
 
 msgid "Download data"
 msgstr "تنزيل البيانات"
 
 msgid "Edit layer"
-msgstr "تحرير الطبقة"
+msgstr "تعديل الطبقة"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "أزل الطبقة"
 
 msgid "Mid"
 msgstr ""
@@ -637,7 +638,7 @@ msgid "Last updated"
 msgstr "آخر تحديث"
 
 msgid "acres"
-msgstr ""
+msgstr "فدان"
 
 msgid "Area"
 msgstr "مساحة"
@@ -649,22 +650,22 @@ msgid "Center map on line"
 msgstr ""
 
 msgid "Click the next position"
-msgstr ""
+msgstr "انقر فوق الموضع التالي"
 
 msgid "Click where you want to start the measurement"
-msgstr ""
+msgstr "انقر حيث تريد بدء القياس"
 
 msgid "Delete"
 msgstr "حذف"
 
 msgid "Distance"
-msgstr ""
+msgstr "مسافة"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "وضع ملء الشاشة"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "الخروج من وضع ملء الشاشة"
 
 msgid "Finish measurement"
 msgstr ""
@@ -673,22 +674,22 @@ msgid "ha"
 msgstr ""
 
 msgid "km"
-msgstr ""
+msgstr "كم"
 
 msgid "Measure distances and areas"
-msgstr ""
+msgstr "قياس المسافات والمساحات"
 
 msgid "mi"
-msgstr ""
+msgstr "ميل"
 
 msgid "Perimeter"
-msgstr ""
+msgstr "محيط"
 
 msgid "Reset bearing to north"
-msgstr ""
+msgstr "إعادة تعيين اتجاه الشمال"
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "ابحث عن مكان أو عنوان"
 
 msgid "Zoom in"
 msgstr "تكبير"
@@ -697,19 +698,21 @@ msgid "Zoom out"
 msgstr "تصغير"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "تكبير للمحتوى"
 
 msgid "Open as map"
-msgstr ""
+msgstr "افتح كخريطة"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"يحتوي هذا المخطط / الجدول على {{numItems}} عنصر بيانات. اختر العناصر التي "
+"تريد استيرادها من القائمة أدناه. سيتم إنشاء كل عنصر بيانات كطبقة خريطة."
 
 msgid "Data items"
-msgstr ""
+msgstr "عناصر البيانات"
 
 msgid "Proceed"
 msgstr "متابعة"
@@ -718,10 +721,10 @@ msgid "Options"
 msgstr "الخيارات"
 
 msgid "Code"
-msgstr "الرمز"
+msgstr "الكود"
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "لا توجد بيانات لهذه الفترة."
 
 msgid "Select groups"
 msgstr "اختر المجموعات"
@@ -732,34 +735,34 @@ msgstr "اختر المستويات"
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
+msgstr "لا يمكن الجمع بين الوحدات التنظيمية للمستخدم وتحديد الوحدات الفردية."
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "الوحدة التنظيمية للمستخدم"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "أسفل وحدة تنظيم المستخدم مباشرة"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "مستويين أسفل وحدة تنظيم المستخدم"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} في {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} في {{orgunits}} وأسفلها تمامًا"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} في وكل ما هو أسفل {{orgunits}}"
 
 msgid "Selected organisation units"
 msgstr "الوحدات التنظيمية المحددة"
 
 msgid "Main"
-msgstr ""
+msgstr "الأساسية"
 
 msgid "Below"
 msgstr ""
@@ -768,10 +771,10 @@ msgid "2 x below"
 msgstr ""
 
 msgid "User organisation units"
-msgstr ""
+msgstr "الوحدة التنظيمية للمستخدم"
 
 msgid "Previous year"
-msgstr ""
+msgstr "السنة الماضية"
 
 msgid "Next year"
 msgstr "السنة التالية"
@@ -786,22 +789,22 @@ msgid "Start/end dates"
 msgstr "تواريخ- البدء-الانتهاء"
 
 msgid "Display periods"
-msgstr ""
+msgstr "عرض الفترات"
 
 msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
-msgstr ""
+msgstr "الجدول الزمني"
 
 msgid "Split map views"
-msgstr ""
+msgstr "عروض الخريطة المقسمة"
 
 msgid "Only one timeline is allowed."
-msgstr ""
+msgstr "مسموح بجدول زمني واحد فقط."
 
 msgid "Remove other layers to enable split map views."
-msgstr ""
+msgstr "قم بإزالة الطبقات الأخرى لتمكين عروض الخريطة المقسمة."
 
 msgid "Start date"
 msgstr "تاريخ البداية"
@@ -810,7 +813,7 @@ msgid "End date"
 msgstr "تاريخ النهاية"
 
 msgid "Program indicator"
-msgstr "مؤشر البرنامج"
+msgstr "مؤشرات البرنامج"
 
 msgid "No program"
 msgstr "لا يوجد برنامج"
@@ -822,7 +825,7 @@ msgid "Stage"
 msgstr "المرحلة"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "نوع الكيان المتعقب"
 
 msgid "By data element"
 msgstr "حسب عنصر البيانات"
@@ -843,25 +846,25 @@ msgid "Variance"
 msgstr "التباين"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Light"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM مفصل"
 
 msgid "Google Streets"
 msgstr "الشوارع بحسب غوغل"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing طرقات"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing داكن"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing جوي"
 
 msgid "Bing Aerial Labels"
 msgstr ""
@@ -921,10 +924,10 @@ msgid "Quarterly"
 msgstr "ربعي"
 
 msgid "Six-monthly"
-msgstr "كل ستة أشهر"
+msgstr "كل ستة-أشهر"
 
 msgid "Six-monthly April"
-msgstr "كل ستة أشهر، ابريل"
+msgstr "نصف سنوي، كل ستة أشهر، ابريل"
 
 msgid "Yearly"
 msgstr "سنوي"
@@ -957,16 +960,16 @@ msgid "Last 30 days"
 msgstr "آخر 30 يوم"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "آخر 60 يومًا"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "آخر 90 يومًا"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "آخر 180 يوم"
 
 msgid "This week"
-msgstr "الأسبوع الحالي"
+msgstr "هذا الأسبوع"
 
 msgid "Last week"
 msgstr "الأسبوع الماضي"
@@ -1038,10 +1041,10 @@ msgid "This six-month"
 msgstr "الستة أشهر الحالية"
 
 msgid "Last six-month"
-msgstr "آخر ستة أشهر"
+msgstr "آخر ستة-أشهر"
 
 msgid "Last 2 six-months"
-msgstr "آخر نصفي سنة"
+msgstr "آخر فترتي ستة أشهر (نصفي سنة)"
 
 msgid "This year"
 msgstr "السنة الحالية"
@@ -1068,80 +1071,86 @@ msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
+"لإظهار هذه الطبقة ، يجب عليك أولاً الاشتراك في خدمة Earth Engine في Google. "
+"يرجى التحقق من وثائق DHIS 2."
 
 msgid "Error"
 msgstr "خطأ"
 
 msgid "A connection to Google Earth Engine could not be established."
-msgstr ""
+msgstr "تعذر إنشاء اتصال بـ Google Earth Engine."
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "تم حفظ الخريطة \"{{name}}\"."
 
 msgid "Boundaries"
-msgstr ""
+msgstr "الحدود"
 
 msgid "Alert"
-msgstr ""
+msgstr "إنذار"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "لم يتم العثور على حدود"
 
 msgid "Elevation"
 msgstr "الارتفاع"
 
 msgid "metres"
-msgstr ""
+msgstr "أمتار"
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "الارتفاع فوق مستوى سطح البحر."
 
 msgid "Population density"
 msgstr "الكثافة السكانية"
 
 msgid "people per km²"
-msgstr ""
+msgstr "شخص لكل كيلومتر مربع"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
 "population division estimates."
 msgstr ""
+"تقديرات الكثافة السكانية مع المجاميع الوطنية معدلة لتتناسب مع تقديرات قسم "
+"السكان في الأمم المتحدة."
 
 msgid "Nighttime lights"
 msgstr "الأضواء الليلية"
 
 msgid "light intensity"
-msgstr ""
+msgstr "شدة الضوء"
 
 msgid "Precipitation"
 msgstr "هطول الأمطار"
 
 msgid "millimeter"
-msgstr ""
+msgstr "ملليمتر"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground."
-msgstr ""
+msgstr "هطول الأمطار تم جمعة من الأقمار الصناعية ومحطات الطقس على الأرض."
 
 msgid "Temperature"
 msgstr "الحرارة"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "درجة مئوية خلال النهار"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"جمعت درجات حرارة سطح الأرض من الأقمار الصناعية. ستظهر بقع فارغة في المناطق "
+"ذات الغطاء السحابي الدائم."
 
 msgid "Landcover"
 msgstr "الغطاء الأرضي"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "أنواع مميزة من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
 
 msgid "Water"
-msgstr ""
+msgstr "ماء"
 
 msgid "Evergreen Needleleaf forest"
 msgstr ""
@@ -1153,76 +1162,76 @@ msgid "Deciduous Needleleaf forest"
 msgstr ""
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "غابة عريضة الأوراق"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "غابة مختلطة"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "شجيرات مغلقة"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "الشجيرات المفتوحة"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "السافانا الخشبية"
 
 msgid "Savannas"
-msgstr ""
+msgstr "سافانا"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "أراضي عشبية"
 
 msgid "Permanent wetlands"
-msgstr ""
+msgstr "الأراضي الرطبة الدائمة"
 
 msgid "Croplands"
-msgstr ""
+msgstr "الأراضي الزراعية"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "حضري وعمراني"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "فسيفساء الأراضي الزراعية / الغطاء النباتي الطبيعي"
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "الثلج والجليد"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "قاحل أو نباتات قليلة"
 
 msgid "Unclassified"
-msgstr ""
+msgstr "غير مصنف"
 
 msgid "Access denied"
 msgstr "تم رفض الوصول"
 
 msgid "user is not allowed to read layer data"
-msgstr ""
+msgstr "غير مسموح للمستخدم بقراءة بيانات الطبقة"
 
 msgid "Failed"
 msgstr "فشل"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr ""
+msgstr "حدث خطأ غير معروف أثناء قراءة بيانات الطبقة"
 
 msgid "Event"
-msgstr "الحدث"
+msgstr "حدث"
 
 msgid "No data found"
-msgstr "لم توجد بيانات"
+msgstr "لم يتم إيجاد بيانات"
 
 msgid "Facilities"
-msgstr ""
+msgstr "مرافق"
 
 msgid "Thematic layer"
 msgstr "الطبقة المواضيعية"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "وحدات تنظيمية مختارة"
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "لم يتم العثور على إحداثيات"
 
 msgid "No data"
 msgstr "لا توجد بيانات"
@@ -1231,10 +1240,10 @@ msgid "Tracked entity"
 msgstr "الكيان المتتبع"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "لم يتم العثور على الكيانات المتعقبة"
 
 msgid "related"
-msgstr ""
+msgstr "ذات صلة"
 
 msgid "Thematic"
 msgstr ""
@@ -1243,25 +1252,25 @@ msgid "not one of"
 msgstr ""
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "لا يحتوي"
 
 msgid "true"
-msgstr ""
+msgstr "true"
 
 msgid "false"
-msgstr ""
+msgstr "false"
 
 msgid "No"
 msgstr "لا"
 
 msgid "Map could not be created"
-msgstr ""
+msgstr "لا يمكن إنشاء الخريطة"
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "تاريخ البدء غير صالح"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "تاريخ الانتهاء غير صالح"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البدء"
