@@ -54,6 +54,11 @@ const PeriodSelect = ({
 
     const items = byYear ? byYearPeriods : periods;
 
+    // TODO: loading indicator
+    if (!items) {
+        return null;
+    }
+
     return (
         <div className={className}>
             {byYear && (

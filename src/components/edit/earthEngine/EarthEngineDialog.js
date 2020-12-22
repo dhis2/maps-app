@@ -29,6 +29,7 @@ const EarthEngineDialog = props => {
         datasetId,
         rows,
         params,
+        legend,
         filter,
         setFilter,
         validateLayer,
@@ -80,7 +81,7 @@ const EarthEngineDialog = props => {
                 <Tab value="data">{i18n.t('Data')}</Tab>
                 {periodType && <Tab value="period">{i18n.t('Period')}</Tab>}
                 <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
-                {params && <Tab value="style">{i18n.t('Style')}</Tab>}
+                {!legend && <Tab value="style">{i18n.t('Style')}</Tab>}
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === 'data' && (
@@ -121,6 +122,7 @@ EarthEngineDialog.propTypes = {
         max: PropTypes.number.isRequired,
         palette: PropTypes.string.isRequired,
     }),
+    legend: PropTypes.object,
     validateLayer: PropTypes.bool.isRequired,
     setFilter: PropTypes.func.isRequired,
     setParams: PropTypes.func.isRequired,

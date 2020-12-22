@@ -67,7 +67,7 @@ const earthEngineLoader = async config => {
     };
 
     // Create legend items from params
-    if (!layer.legend.items && layer.params) {
+    if (!layer.legend && layer.params) {
         layer.legend.items = createLegend(layer.params);
     }
 

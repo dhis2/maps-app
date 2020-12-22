@@ -43,6 +43,7 @@ export default class EarthEngineLayer extends Layer {
             methods,
             aggregation,
             name,
+            unit,
             legend,
             value,
             resolution,
@@ -69,9 +70,9 @@ export default class EarthEngineLayer extends Layer {
             methods,
             aggregation,
             name,
-            unit: legend.unit,
-            value: value,
-            legend: legend && !legend.unit ? legend.items : null,
+            unit,
+            value,
+            legend,
             resolution,
             projection,
             data,
@@ -110,14 +111,20 @@ export default class EarthEngineLayer extends Layer {
         });
 
         // Make aggregations available for popup
+        // console.log('aggregations', aggregations);
         this.setState({ aggregations });
     }
 
     getPopup() {
-        const { popup, aggregations = {} } = this.state;
+        const { popup, aggregations } = this.state;
         const { coordinates, feature } = popup;
         const { id, name } = feature.properties;
-        const values = aggregations[id];
+
+        let values;
+
+        if (aggregations) {
+            values = aggregations[id];
+        }
 
         return (
             <Popup
@@ -126,7 +133,7 @@ export default class EarthEngineLayer extends Layer {
                 className="dhis2-map-popup-orgunit"
             >
                 <em>{name}</em>
-                {values}
+                {values && JSON.stringify(values)}
             </Popup>
         );
     }

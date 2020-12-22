@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-12-16T13:29:06.448Z\n"
-"PO-Revision-Date: 2020-12-16T13:29:06.448Z\n"
+"POT-Creation-Date: 2020-12-18T09:37:29.105Z\n"
+"PO-Revision-Date: 2020-12-18T09:37:29.105Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -194,10 +194,19 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "Aggregation"
+msgstr ""
+
 msgid "Year"
 msgstr ""
 
 msgid "Period"
+msgstr ""
+
+msgid "This field is required"
+msgstr ""
+
+msgid "Data"
 msgstr ""
 
 msgid "Min"
@@ -212,13 +221,7 @@ msgstr ""
 msgid "Legend preview"
 msgstr ""
 
-msgid "This field is required"
-msgstr ""
-
 msgid "Valid range is"
-msgstr ""
-
-msgid "Data"
 msgstr ""
 
 msgid "Org Units"
@@ -757,6 +760,12 @@ msgid "Standard deviation"
 msgstr ""
 
 msgid "Variance"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
 msgstr ""
 
 msgid "OSM Light"
