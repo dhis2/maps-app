@@ -63,7 +63,7 @@ msgid "None"
 msgstr "Không"
 
 msgid "Data item"
-msgstr ""
+msgstr "Mục dữ liệu"
 
 msgid "Event data item"
 msgstr "Mục dữ liệu sự kiện"
@@ -227,7 +227,7 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "Program status"
-msgstr ""
+msgstr "Tình trạng chương trình"
 
 msgid "Follow up"
 msgstr "Theo dõi"
@@ -457,7 +457,7 @@ msgid "Groups"
 msgstr "Các nhóm"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Xem phần diễn giải từ {{interpretationDate}}"
 
 msgid "Last updated"
 msgstr "Lần cập nhật cuối"
