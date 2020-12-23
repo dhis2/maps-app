@@ -2,15 +2,15 @@
 # Translators:
 # Sheila André <sandre@saudigitus.org>, 2020
 # phil_dhis2, 2020
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Ge Joao <gsimango@saudigitus.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -184,7 +184,7 @@ msgid "Select year"
 msgstr "Selecionar ano"
 
 msgid "Min people"
-msgstr "Minumo da população "
+msgstr "Min da população "
 
 msgid "Max people"
 msgstr "Max da população "
@@ -212,7 +212,7 @@ msgstr ""
 "mensalmente, durante a 3ª semana do mês seguinte."
 
 msgid "Min mm"
-msgstr "Milimentros minimos "
+msgstr "Milímetros mínimos "
 
 msgid "Max mm"
 msgstr "Milímetros máximos "
@@ -417,7 +417,7 @@ msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
-msgstr "Status do programa"
+msgstr "Estado do programa"
 
 msgid "relationships"
 msgstr "Relacionamentos"
@@ -454,10 +454,10 @@ msgid "Selected only"
 msgstr "Apenas selecionados"
 
 msgid "Selected and below"
-msgstr "Selecionado e abaixo"
+msgstr "Selecione a baixo"
 
 msgid "Selected and all below"
-msgstr "Selecionado e tudo abaixo"
+msgstr "Selecione  tudo abaixo"
 
 msgid "Tracked entities"
 msgstr "Entidades rastreadas"
@@ -677,7 +677,7 @@ msgid "Click where you want to start the measurement"
 msgstr "Clique onde você deseja iniciar a medição"
 
 msgid "Delete"
-msgstr "Apagar"
+msgstr "Suprimir"
 
 msgid "Distance"
 msgstr "Distância"
@@ -698,7 +698,7 @@ msgid "km"
 msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr "Meça distâncias e áreas"
+msgstr "Medir  distâncias e  áreas"
 
 msgid "mi"
 msgstr "mi"

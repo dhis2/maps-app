@@ -1,6 +1,5 @@
 # 
 # Translators:
-# phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
@@ -9,12 +8,12 @@ msgstr ""
 "POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
+"Language-Team: Bengali (https://www.transifex.com/hisp-uio/teams/100509/bn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: bn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Maps"
 msgstr ""
@@ -26,7 +25,7 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Conjunto da legenda"
+msgstr ""
 
 msgid "Color"
 msgstr ""
@@ -35,22 +34,22 @@ msgid "Size"
 msgstr ""
 
 msgid "Data element group"
-msgstr "Grupo de elemento de dado"
+msgstr ""
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Elemento de dado"
+msgstr ""
 
 msgid "Totals"
-msgstr "Totais"
+msgstr ""
 
 msgid "Details"
-msgstr "Detalhes"
+msgstr ""
 
 msgid "Yes"
-msgstr "Sim"
+msgstr "হ্যাঁ"
 
 msgid "Event location"
 msgstr ""
@@ -59,7 +58,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr "Nenhum"
+msgstr ""
 
 msgid "Data item"
 msgstr ""
@@ -71,40 +70,40 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "Conjunto de dados"
+msgstr ""
 
 msgid "Index"
 msgstr ""
 
 msgid "Id"
-msgstr "Id"
+msgstr ""
 
 msgid "Org unit"
 msgstr ""
 
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 msgid "Event time"
 msgstr ""
 
 msgid "Value"
-msgstr "Valor"
+msgstr ""
 
 msgid "Legend"
-msgstr "Legenda"
+msgstr ""
 
 msgid "Range"
 msgstr ""
 
 msgid "Level"
-msgstr "Nível"
+msgstr ""
 
 msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "Tipo"
+msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -116,10 +115,10 @@ msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr "Dimensão"
+msgstr ""
 
 msgid "Download"
-msgstr "Baixar"
+msgstr ""
 
 msgid "Download map"
 msgstr ""
@@ -135,25 +134,25 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr ""
 
 msgid "Close"
-msgstr "Fechar"
+msgstr ""
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr "Ano"
+msgstr ""
 
 msgid "Period"
-msgstr "Período"
+msgstr ""
 
 msgid "Organisation units"
-msgstr "Unidades organizacionais"
+msgstr ""
 
 msgid "Style"
-msgstr "Estilo"
+msgstr ""
 
 msgid "Labels"
 msgstr ""
@@ -222,10 +221,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr "Min"
+msgstr ""
 
 msgid "Max"
-msgstr "Máx"
+msgstr ""
 
 msgid "Steps"
 msgstr ""
@@ -234,13 +233,13 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr "Este campo é obrigatorio"
+msgstr ""
 
 msgid "Valid range is"
 msgstr ""
 
 msgid "Group set"
-msgstr "Conjunto do grupo"
+msgstr ""
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -292,10 +291,10 @@ msgid "period"
 msgstr ""
 
 msgid "Org units"
-msgstr "Unidades organizacionais"
+msgstr ""
 
 msgid "Filter"
-msgstr "Filtro"
+msgstr ""
 
 msgid "Events"
 msgstr ""
@@ -367,10 +366,10 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
-msgstr "Indicador"
+msgstr ""
 
 msgid "Reporting rates"
-msgstr "Taxas de relatório"
+msgstr ""
 
 msgid "Event data items"
 msgstr ""
@@ -451,7 +450,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr "Tipo de Relação"
+msgstr ""
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -475,10 +474,10 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr "Operador"
+msgstr ""
 
 msgid "Date"
-msgstr "Data"
+msgstr "তারিখ"
 
 msgid "one of"
 msgstr ""
@@ -487,7 +486,7 @@ msgid "contains"
 msgstr ""
 
 msgid "is"
-msgstr "é"
+msgstr ""
 
 msgid "is not"
 msgstr ""
@@ -496,10 +495,10 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Grupo do indicador"
+msgstr ""
 
 msgid "Interpretations"
-msgstr "Interpretações"
+msgstr ""
 
 msgid "External basemap"
 msgstr ""
@@ -546,7 +545,7 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
-msgstr "Editar"
+msgstr ""
 
 msgid "Toggle visibility"
 msgstr ""
@@ -558,7 +557,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr "Tabela de dados"
+msgstr ""
 
 msgid "Open as chart"
 msgstr ""
@@ -567,7 +566,7 @@ msgid "Download data"
 msgstr ""
 
 msgid "Edit layer"
-msgstr "Editar camadas"
+msgstr ""
 
 msgid "Remove layer"
 msgstr ""
@@ -579,7 +578,7 @@ msgid "Filters"
 msgstr ""
 
 msgid "Source"
-msgstr "Fonte"
+msgstr ""
 
 msgid "Parent unit"
 msgstr ""
@@ -591,7 +590,7 @@ msgid "Drill down one level"
 msgstr ""
 
 msgid "Show information"
-msgstr "Mostrar folha de informação"
+msgstr ""
 
 msgid "Show longitude/latitude"
 msgstr ""
@@ -600,28 +599,28 @@ msgid "Swap longitude/latitude"
 msgstr ""
 
 msgid "Relocate"
-msgstr "Realocar"
+msgstr ""
 
 msgid "Not set"
-msgstr "Não definido"
+msgstr ""
 
 msgid "Organisation unit"
-msgstr "Unidade organizacional"
+msgstr ""
 
 msgid "Groups"
-msgstr "Grupos"
+msgstr ""
 
 msgid "Longitude"
-msgstr "Longitude"
+msgstr ""
 
 msgid "Latitude"
-msgstr "Latitude"
+msgstr ""
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Última actualização"
+msgstr ""
 
 msgid "acres"
 msgstr ""
@@ -642,7 +641,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr "Apagar"
+msgstr ""
 
 msgid "Distance"
 msgstr ""
@@ -702,10 +701,10 @@ msgid "Proceed"
 msgstr ""
 
 msgid "Options"
-msgstr "Opções"
+msgstr ""
 
 msgid "Code"
-msgstr "Código"
+msgstr ""
 
 msgid "No data found for this period."
 msgstr ""
@@ -743,7 +742,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr "Unidades organizacionais selecionadas"
+msgstr ""
 
 msgid "Main"
 msgstr ""
@@ -761,16 +760,16 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr "Próximo ano"
+msgstr ""
 
 msgid "Relative"
-msgstr "Relativo"
+msgstr ""
 
 msgid "Period type"
-msgstr "Tipo de período"
+msgstr ""
 
 msgid "Start/end dates"
-msgstr "Datas Iniciar-fim"
+msgstr ""
 
 msgid "Display periods"
 msgstr ""
@@ -791,10 +790,10 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
-msgstr "Data de início"
+msgstr ""
 
 msgid "End date"
-msgstr "Data de término"
+msgstr ""
 
 msgid "Program indicator"
 msgstr ""
@@ -803,7 +802,7 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr "Programa"
+msgstr "প্রোগ্রাম"
 
 msgid "Stage"
 msgstr ""
@@ -815,13 +814,13 @@ msgid "By data element"
 msgstr ""
 
 msgid "Count"
-msgstr "Contagem"
+msgstr ""
 
 msgid "Average"
-msgstr "Média"
+msgstr ""
 
 msgid "Sum"
-msgstr "Soma"
+msgstr ""
 
 msgid "Standard deviation"
 msgstr ""
@@ -854,16 +853,16 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Tudo"
-
-msgid "Active"
-msgstr "Activo"
-
-msgid "Completed"
 msgstr ""
 
+msgid "Active"
+msgstr ""
+
+msgid "Completed"
+msgstr "সম্পন্ন"
+
 msgid "Schedule"
-msgstr "Programar"
+msgstr ""
 
 msgid "Overdue"
 msgstr ""
@@ -887,34 +886,34 @@ msgid "Single color legend"
 msgstr ""
 
 msgid "Equal intervals"
-msgstr "Intervalos iguais"
+msgstr ""
 
 msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr "Diário"
+msgstr ""
 
 msgid "Weekly"
-msgstr "Semanal"
+msgstr ""
 
 msgid "Monthly"
-msgstr "Mensal"
+msgstr ""
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr "Trimestral"
+msgstr ""
 
 msgid "Six-monthly"
-msgstr "Semestral"
+msgstr ""
 
 msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr "Anual"
+msgstr ""
 
 msgid "Financial year (Start October)"
 msgstr ""
@@ -926,22 +925,22 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Today"
-msgstr "Hoje"
+msgstr ""
 
 msgid "Yesterday"
-msgstr "Ontém"
+msgstr ""
 
 msgid "Last 3 days"
 msgstr ""
 
 msgid "Last 7 days"
-msgstr "Últimos 7 dias"
+msgstr ""
 
 msgid "Last 14 days"
 msgstr ""
 
 msgid "Last 30 days"
-msgstr "Últimos 30 dias"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -956,13 +955,13 @@ msgid "This week"
 msgstr ""
 
 msgid "Last week"
-msgstr "Última semana"
+msgstr ""
 
 msgid "Last 4 weeks"
-msgstr "Últimas 4 semanas"
+msgstr ""
 
 msgid "Last 12 weeks"
-msgstr "Últimoas 12 semanas"
+msgstr ""
 
 msgid "Last 52 weeks"
 msgstr ""
@@ -983,19 +982,19 @@ msgid "This month"
 msgstr ""
 
 msgid "Last month"
-msgstr "Mês passado"
+msgstr ""
 
 msgid "Last 3 months"
-msgstr "Últimos 3 meses"
+msgstr ""
 
 msgid "Last 6 months"
-msgstr "Últimos 6 meses"
+msgstr ""
 
 msgid "Last 12 months"
-msgstr "Últimos 12 meses"
+msgstr ""
 
 msgid "Months this year"
-msgstr "Meses deste ano"
+msgstr ""
 
 msgid "This bi-month"
 msgstr ""
@@ -1004,7 +1003,7 @@ msgid "Last bi-month"
 msgstr ""
 
 msgid "Last 6 bi-months"
-msgstr "Últimos 6 bi-meses"
+msgstr ""
 
 msgid "Bi-months this year"
 msgstr ""
@@ -1013,40 +1012,40 @@ msgid "This quarter"
 msgstr ""
 
 msgid "Last quarter"
-msgstr "Último trimestre"
+msgstr ""
 
 msgid "Last 4 quarters"
-msgstr "Últimos 4 trimestresÚltimo 4 trimestre"
+msgstr ""
 
 msgid "Quarters this year"
-msgstr "Trimestres deste ano"
+msgstr ""
 
 msgid "This six-month"
 msgstr ""
 
 msgid "Last six-month"
-msgstr "Últimos 6 meses"
+msgstr ""
 
 msgid "Last 2 six-months"
-msgstr "Último 2 seis-meses"
+msgstr ""
 
 msgid "This year"
-msgstr "Este ano"
+msgstr ""
 
 msgid "Last year"
-msgstr "Ano passado"
+msgstr ""
 
 msgid "Last 5 years"
-msgstr "Últimos 5 anos"
+msgstr ""
 
 msgid "This financial year"
 msgstr ""
 
 msgid "Last financial year"
-msgstr "último ano financeiro"
+msgstr ""
 
 msgid "Last 5 financial years"
-msgstr "Últimos 5 anos financeiros"
+msgstr ""
 
 msgid "Cancelled"
 msgstr ""
@@ -1057,7 +1056,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr "Erro"
+msgstr ""
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -1182,7 +1181,7 @@ msgid "Unclassified"
 msgstr ""
 
 msgid "Access denied"
-msgstr "Acesso Negado"
+msgstr ""
 
 msgid "user is not allowed to read layer data"
 msgstr ""
@@ -1197,13 +1196,13 @@ msgid "Event"
 msgstr ""
 
 msgid "No data found"
-msgstr "Dado não encontrado"
+msgstr ""
 
 msgid "Facilities"
 msgstr ""
 
 msgid "Thematic layer"
-msgstr "Camada temática"
+msgstr ""
 
 msgid "Selected org units"
 msgstr ""
@@ -1212,7 +1211,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "Não ha dados"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr ""
@@ -1239,7 +1238,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "nenhum"
+msgstr "না"
 
 msgid "Map could not be created"
 msgstr ""

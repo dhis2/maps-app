@@ -1,14 +1,15 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2019
+# Aung Kyi Min <AungKyi.Min@savethechildren.org>, 2020
 # phil_dhis2, 2020
+# Viktor Varland <viktor@dhis2.org>, 2020
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-04-23T09:40:17.596Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2020\n"
+"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"PO-Revision-Date: 2020-12-22 22:18+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Burmese (https://www.transifex.com/hisp-uio/teams/100509/my/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,10 +29,10 @@ msgstr ""
 msgid "Legend set"
 msgstr "Legend set"
 
-msgid "Automatic"
+msgid "Color"
 msgstr ""
 
-msgid "Predefined"
+msgid "Size"
 msgstr ""
 
 msgid "Data element group"
@@ -50,7 +51,7 @@ msgid "Details"
 msgstr "အသေးစိတ်များ"
 
 msgid "Yes"
-msgstr "Yes"
+msgstr "မှန်"
 
 msgid "Event location"
 msgstr ""
@@ -71,9 +72,21 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "Data set"
+msgstr "Dataset"
 
 msgid "Index"
+msgstr ""
+
+msgid "Id"
+msgstr ""
+
+msgid "Org unit"
+msgstr "ဖွဲ့စည်းပုံယူနစ်"
+
+msgid "Name"
+msgstr "အမည်"
+
+msgid "Event time"
 msgstr ""
 
 msgid "Value"
@@ -91,13 +104,10 @@ msgstr "Level"
 msgid "Parent"
 msgstr ""
 
-msgid "Id"
-msgstr ""
-
 msgid "Type"
 msgstr "ပုံစံ"
 
-msgid "Color"
+msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
@@ -230,6 +240,52 @@ msgstr ""
 msgid "Valid range is"
 msgstr ""
 
+msgid "Group set"
+msgstr ""
+
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
+msgstr ""
+
+msgid "Group set is required"
+msgstr ""
+
+msgid "event"
+msgstr ""
+
+msgid "tracked entity"
+msgstr ""
+
+msgid "facility"
+msgstr ""
+
+msgid "thematic"
+msgstr ""
+
+msgid "boundary"
+msgstr ""
+
+msgid "Earth Engine"
+msgstr ""
+
+msgid "Edit {{name}} layer"
+msgstr ""
+
+msgid "Add new {{name}} layer"
+msgstr ""
+
+msgid "Update layer"
+msgstr ""
+
+msgid "Add layer"
+msgstr ""
+
 msgid "data"
 msgstr ""
 
@@ -242,12 +298,6 @@ msgstr "Org units"
 msgid "Filter"
 msgstr "ရှာဖွေထုတ်သည်"
 
-msgid "Start date"
-msgstr "Start date"
-
-msgid "End date"
-msgstr "End date"
-
 msgid "Events"
 msgstr "Events"
 
@@ -258,12 +308,6 @@ msgid "View all events"
 msgstr ""
 
 msgid "Radius"
-msgstr ""
-
-msgid "Buffer"
-msgstr ""
-
-msgid "Radius in meters"
 msgstr ""
 
 msgid "You can style events by data element after selecting a program."
@@ -278,38 +322,79 @@ msgstr ""
 msgid "No organisation units are selected."
 msgstr ""
 
-msgid "Group set"
+msgid "Event status"
 msgstr ""
 
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
+msgid "Aggregation type"
 msgstr ""
 
-msgid "Group set is required"
+msgid "Show no data"
 msgstr ""
 
-msgid "Edit {{name}} layer"
+msgid "Low radius"
 msgstr ""
 
-msgid "Add {{name}} layer"
+msgid "High radius"
 msgstr ""
 
-msgid "Update layer"
+msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
-msgid "Add layer"
+msgid "Indicator group is required"
 msgstr ""
 
-msgid "Select program period"
+msgid "Indicator is required"
+msgstr ""
+
+msgid "Data element group is required"
+msgstr ""
+
+msgid "Data element is required"
+msgstr ""
+
+msgid "Data set is required"
+msgstr ""
+
+msgid "Event data item is required"
+msgstr ""
+
+msgid "Program indicator is required"
+msgstr ""
+
+msgid "Period is required"
+msgstr ""
+
+msgid "No legend set is selected"
+msgstr ""
+
+msgid "Indicator"
+msgstr "indicator"
+
+msgid "Reporting rates"
+msgstr ""
+
+msgid "Event data items"
+msgstr ""
+
+msgid "Program indicators"
+msgstr ""
+
+msgid "Item type"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
 
-msgid "relationships"
+msgid "Program/Enrollment date"
+msgstr ""
+
+msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
+msgstr ""
+
+msgid "relationships"
 msgstr ""
 
 msgid "Follow up"
@@ -327,6 +412,10 @@ msgid ""
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid ""
+"Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
 
 msgid "Selection mode"
@@ -354,54 +443,6 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
-
-msgid "Aggregation type"
-msgstr ""
-
-msgid "Low size"
-msgstr ""
-
-msgid "High size"
-msgstr ""
-
-msgid "Indicator group is required"
-msgstr ""
-
-msgid "Indicator is required"
-msgstr ""
-
-msgid "Data element group is required"
-msgstr ""
-
-msgid "Data element is required"
-msgstr ""
-
-msgid "Data set is required"
-msgstr ""
-
-msgid "Event data item is required"
-msgstr ""
-
-msgid "Program indicator is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr ""
-
-msgid "Indicator"
-msgstr "indicator"
-
-msgid "Reporting rates"
-msgstr ""
-
-msgid "Event data items"
-msgstr ""
-
-msgid "Program indicators"
-msgstr ""
-
-msgid "Item type"
 msgstr ""
 
 msgid "Failed to load relationship types."
@@ -459,7 +500,10 @@ msgid "Indicator group"
 msgstr "Indicator group"
 
 msgid "Interpretations"
-msgstr "Interpretations"
+msgstr "ဘာသာပြန်ခြင်းများ"
+
+msgid "External basemap"
+msgstr ""
 
 msgid "Basemap"
 msgstr ""
@@ -490,6 +534,9 @@ msgstr ""
 msgid "Use human-readable keys"
 msgstr ""
 
+msgid "External layer"
+msgstr ""
+
 msgid "Loading layer"
 msgstr ""
 
@@ -498,9 +545,6 @@ msgstr ""
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
-
-msgid "Filters"
-msgstr "စစ်ချပါ။"
 
 msgid "Edit"
 msgstr "တည်းဖြတ်သည်"
@@ -529,6 +573,15 @@ msgstr ""
 msgid "Remove layer"
 msgstr ""
 
+msgid "Mid"
+msgstr ""
+
+msgid "Filters"
+msgstr "စစ်ချပါ။"
+
+msgid "Source"
+msgstr "Source"
+
 msgid "Parent unit"
 msgstr ""
 
@@ -555,9 +608,6 @@ msgstr "မရှိပါ"
 
 msgid "Organisation unit"
 msgstr "Organisation unit"
-
-msgid "Event time"
-msgstr ""
 
 msgid "Groups"
 msgstr ""
@@ -602,6 +652,9 @@ msgid "Enter fullscreen"
 msgstr ""
 
 msgid "Exit fullscreen"
+msgstr ""
+
+msgid "Finish measurement"
 msgstr ""
 
 msgid "ha"
@@ -738,6 +791,12 @@ msgstr ""
 msgid "Remove other layers to enable split map views."
 msgstr ""
 
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
+
 msgid "Program indicator"
 msgstr ""
 
@@ -769,6 +828,63 @@ msgid "Standard deviation"
 msgstr ""
 
 msgid "Variance"
+msgstr ""
+
+msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Detailed"
+msgstr ""
+
+msgid "Google Streets"
+msgstr ""
+
+msgid "Google Hybrid"
+msgstr ""
+
+msgid "Bing Road"
+msgstr ""
+
+msgid "Bing Dark"
+msgstr ""
+
+msgid "Bing Aerial"
+msgstr ""
+
+msgid "Bing Aerial Labels"
+msgstr ""
+
+msgid "All"
+msgstr "အားလုံး"
+
+msgid "Active"
+msgstr "လုပ်ဆောင်နိုင်သည်"
+
+msgid "Completed"
+msgstr ""
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Skipped"
+msgstr ""
+
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
 msgstr ""
 
 msgid "Equal intervals"
@@ -825,6 +941,18 @@ msgstr ""
 msgid "Last 14 days"
 msgstr ""
 
+msgid "Last 30 days"
+msgstr ""
+
+msgid "Last 60 days"
+msgstr ""
+
+msgid "Last 90 days"
+msgstr ""
+
+msgid "Last 180 days"
+msgstr ""
+
 msgid "This week"
 msgstr ""
 
@@ -841,6 +969,15 @@ msgid "Last 52 weeks"
 msgstr ""
 
 msgid "Weeks this year"
+msgstr ""
+
+msgid "This bi-week"
+msgstr ""
+
+msgid "Last bi-week"
+msgstr ""
+
+msgid "Last 4 bi-weeks"
 msgstr ""
 
 msgid "This month"
@@ -910,6 +1047,9 @@ msgid "Last financial year"
 msgstr ""
 
 msgid "Last 5 financial years"
+msgstr ""
+
+msgid "Cancelled"
 msgstr ""
 
 msgid ""
@@ -1071,6 +1211,9 @@ msgstr ""
 
 msgid "No coordinates found"
 msgstr ""
+
+msgid "No data"
+msgstr "အချက်အလက်မရှိပါ။"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"

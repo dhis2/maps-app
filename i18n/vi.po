@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2020\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Phần Tử Dữ Liệu"
+msgstr "Phần tử dữ liệu"
 
 msgid "Totals"
 msgstr "Tổng"
@@ -93,7 +93,7 @@ msgid "Value"
 msgstr "Giá trị"
 
 msgid "Legend"
-msgstr "Chú Thích"
+msgstr "Chú giải"
 
 msgid "Range"
 msgstr "Khoảng"
@@ -105,7 +105,7 @@ msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "Type"
+msgstr "Loại"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -139,7 +139,7 @@ msgid "Cancel"
 msgstr "Hủy"
 
 msgid "Close"
-msgstr "Đóng"
+msgstr "Đóng lại"
 
 msgid "Legend position"
 msgstr ""
@@ -148,7 +148,7 @@ msgid "Year"
 msgstr "Năm"
 
 msgid "Period"
-msgstr "Thời gian"
+msgstr "Thời điểm"
 
 msgid "Organisation units"
 msgstr "Đơn vị"
@@ -296,7 +296,7 @@ msgid "Org units"
 msgstr "Các đơn vị"
 
 msgid "Filter"
-msgstr "Bộ lọc"
+msgstr "Lọc"
 
 msgid "Events"
 msgstr "Sự kiện"
@@ -500,7 +500,7 @@ msgid "Indicator group"
 msgstr "Nhóm chỉ số"
 
 msgid "Interpretations"
-msgstr "Diễn giải báo cáo"
+msgstr "Diễn giải "
 
 msgid "External basemap"
 msgstr ""
@@ -547,7 +547,7 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
-msgstr "Sửa"
+msgstr "Chỉnh sửa"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -828,7 +828,7 @@ msgid "Standard deviation"
 msgstr "Độ lệch chuẩn"
 
 msgid "Variance"
-msgstr "Sự khác nhau"
+msgstr "Phương sai"
 
 msgid "OSM Light"
 msgstr "Bản đồ ánh sáng OSM"
@@ -927,10 +927,10 @@ msgid "Financial year (Start April)"
 msgstr "Năm Tài Chính - Tháng 4"
 
 msgid "Today"
-msgstr "Hôm Nay"
+msgstr "Hôm nay"
 
 msgid "Yesterday"
-msgstr "Hôm Qua"
+msgstr "Hôm qua"
 
 msgid "Last 3 days"
 msgstr "3 ngày trước"
@@ -1002,13 +1002,13 @@ msgid "This bi-month"
 msgstr "Lần Hai-Tháng này"
 
 msgid "Last bi-month"
-msgstr "2 tháng trước"
+msgstr "Kỳ 2 tháng trước"
 
 msgid "Last 6 bi-months"
 msgstr "6 kỳ 2 tháng trước"
 
 msgid "Bi-months this year"
-msgstr "Các lần Hai-tháng năm nay"
+msgstr "Các kỳ 2 tháng năm nay"
 
 msgid "This quarter"
 msgstr "Quý này"
@@ -1017,19 +1017,19 @@ msgid "Last quarter"
 msgstr "Quý trước"
 
 msgid "Last 4 quarters"
-msgstr "Trong 4 quý vừa qua"
+msgstr "4 quý trước"
 
 msgid "Quarters this year"
 msgstr "Quý năm nay"
 
 msgid "This six-month"
-msgstr "Lần Sáu-Tháng này"
+msgstr "6 tháng này"
 
 msgid "Last six-month"
 msgstr "6 tháng trước"
 
 msgid "Last 2 six-months"
-msgstr "2 sáu-tháng trước"
+msgstr "2 lần sáu-tháng trước"
 
 msgid "This year"
 msgstr "Năm nay"
@@ -1038,13 +1038,13 @@ msgid "Last year"
 msgstr "Năm ngoái"
 
 msgid "Last 5 years"
-msgstr "Trong 5 năm vừa qua"
+msgstr "5 năm trước"
 
 msgid "This financial year"
 msgstr "Năm tài chính này"
 
 msgid "Last financial year"
-msgstr "Năm tài chính trước đó"
+msgstr "Năm tài chính trước"
 
 msgid "Last 5 financial years"
 msgstr "5 năm tài chính trước"
