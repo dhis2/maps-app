@@ -81,7 +81,7 @@ const earthEngineLoader = async config => {
     };
 };
 
-// TODO: This function is currently duplicated from  GIS API
+// TODO: This function is currently duplicated from maps-gl
 export const createLegend = params => {
     const min = params.min;
     const max = params.max;

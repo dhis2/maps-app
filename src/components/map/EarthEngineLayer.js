@@ -1,10 +1,12 @@
 import React from 'react';
 import Layer from './Layer';
+import LayerLoading from './LayerLoading';
 import Popup from './Popup';
 import { apiFetch } from '../../util/api';
 
 export default class EarthEngineLayer extends Layer {
     state = {
+        isLoading: true,
         popup: null,
         aggregations: null,
     };
@@ -78,7 +80,7 @@ export default class EarthEngineLayer extends Layer {
             data,
             aggregationTypes,
             onClick: this.onFeatureClick.bind(this),
-            // onRightClick: console.log,
+            onLoad: this.onLoad.bind(this),
         };
 
         if (params) {
@@ -139,10 +141,20 @@ export default class EarthEngineLayer extends Layer {
     }
 
     render() {
-        return this.state.popup ? this.getPopup() : null;
+        const { isLoading, popup } = this.state;
+
+        if (isLoading) {
+            return <LayerLoading />;
+        }
+
+        return popup ? this.getPopup() : null;
     }
 
     onFeatureClick(evt) {
         this.setState({ popup: evt });
+    }
+
+    onLoad() {
+        this.setState({ isLoading: false });
     }
 }
