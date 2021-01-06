@@ -18,9 +18,10 @@ export const earthEngineLayers = () => [
                 arguments: ['year', id],
             },
         ],
+        defaultAggregations: ['sum'],
         minValue: 0, // Remove?
         maxValue: Number.MAX_VALUE, // Remove?
-        aggregation: 'mosaic',
+        aggregation: 'mosaic', // Rename?
         resolution: 100, // Remove?
         projection: 'EPSG:4326', // Remove?
         // methods: {

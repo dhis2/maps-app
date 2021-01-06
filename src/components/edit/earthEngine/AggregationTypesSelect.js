@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
@@ -6,8 +6,18 @@ import SelectField from '../../core/SelectField';
 import { getEarthEngineAggregationTypes } from '../../../constants/aggregationTypes';
 import { setAggregationType } from '../../../actions/layerEdit';
 
-const AggregationTypesSelect = ({ aggregationType, setAggregationType }) => {
+const AggregationTypesSelect = ({
+    aggregationType,
+    defaultAggregations,
+    setAggregationType,
+}) => {
     const types = getEarthEngineAggregationTypes();
+
+    useEffect(() => {
+        if (!aggregationType && defaultAggregations) {
+            setAggregationType(defaultAggregations);
+        }
+    }, [aggregationType, defaultAggregations]);
 
     return (
         <div>
@@ -24,12 +34,14 @@ const AggregationTypesSelect = ({ aggregationType, setAggregationType }) => {
 
 AggregationTypesSelect.propTypes = {
     aggregationType: PropTypes.array,
+    defaultAggregations: PropTypes.array,
     setAggregationType: PropTypes.func.isRequired,
 };
 
 export default connect(
     ({ layerEdit }) => ({
         aggregationType: layerEdit.aggregationType,
+        defaultAggregations: layerEdit.defaultAggregations,
     }),
     { setAggregationType }
 )(AggregationTypesSelect);
