@@ -18,7 +18,7 @@ export const earthEngineLayers = () => [
                 arguments: ['year', id],
             },
         ],
-        defaultAggregations: ['sum'],
+        defaultAggregations: ['sum', 'count', 'min', 'max'],
         minValue: 0, // Remove?
         maxValue: Number.MAX_VALUE, // Remove?
         aggregation: 'mosaic', // Rename?

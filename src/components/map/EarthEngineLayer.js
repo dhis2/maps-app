@@ -3,6 +3,7 @@ import Layer from './Layer';
 import LayerLoading from './LayerLoading';
 import Popup from './Popup';
 import { apiFetch } from '../../util/api';
+import { getEarthEngineAggregationType } from '../../constants/aggregationTypes';
 
 export default class EarthEngineLayer extends Layer {
     state = {
@@ -96,7 +97,7 @@ export default class EarthEngineLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // this.layer.aggregate().then(this.addAggregationValues.bind(this));
+        this.layer.aggregate().then(this.addAggregationValues.bind(this));
 
         this.fitBoundsOnce();
     }
@@ -119,6 +120,7 @@ export default class EarthEngineLayer extends Layer {
 
     getPopup() {
         const { popup, aggregations } = this.state;
+        const { aggregationType } = this.props;
         const { coordinates, feature } = popup;
         const { id, name } = feature.properties;
 
@@ -128,6 +130,8 @@ export default class EarthEngineLayer extends Layer {
             values = aggregations[id];
         }
 
+        // console.log('popup', aggregationType, values);
+
         return (
             <Popup
                 coordinates={coordinates}
@@ -135,7 +139,20 @@ export default class EarthEngineLayer extends Layer {
                 className="dhis2-map-popup-orgunit"
             >
                 <em>{name}</em>
-                {values && JSON.stringify(values)}
+                {Array.isArray(aggregationType) && values && (
+                    <table>
+                        <tbody>
+                            {aggregationType.map(type => (
+                                <tr key={type}>
+                                    <th>
+                                        {getEarthEngineAggregationType(type)}
+                                    </th>
+                                    <td>{values[type]}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
             </Popup>
         );
     }

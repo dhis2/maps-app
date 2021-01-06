@@ -24,3 +24,6 @@ export const getEarthEngineAggregationTypes = () => [
     { id: 'variance', name: i18n.t('Variance') },
     { id: 'count', name: i18n.t('Count') },
 ];
+
+export const getEarthEngineAggregationType = id =>
+    (getEarthEngineAggregationTypes().find(t => t.id === id) || {}).name;
