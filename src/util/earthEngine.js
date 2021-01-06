@@ -143,20 +143,31 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://code.earthengine.google.com/dataset/MODIS/051/MCD12Q1',
         periodType: 'year',
-        band: 'Land_Cover_Type_1',
+        band: 'LC_Type1',
+        filters: ({ id, name }) => [
+            {
+                name,
+                type: 'eq',
+                arguments: ['year', id],
+            },
+            /*
+            {
+                name,
+                type: 'eq',
+                arguments: ['system:index', `${id}_01_01`],
+            },
+            */
+        ],
         params: {
-            // TODO: Create from legend below - possible to read from metadata
-            min: 0,
+            // TODO: Create from legend below - possible to read from metadata?
+            min: 1,
             max: 17,
             palette:
-                'aec3d6,162103,235123,399b38,38eb38,39723b,6a2424,c3a55f,b76124,d99125,92af1f,10104c,cdb400,cc0202,332808,d7cdcc,f7e174,743411',
+                '162103,235123,399b38,38eb38,39723b,6a2424,c3a55f,b76124,d99125,92af1f,10104c,cdb400,cc0202,332808,d7cdcc,f7e174,aec3d6',
         },
         legend: {
             items: [
-                {
-                    color: '#aec3d6',
-                    name: i18n.t('Water'),
-                },
+                // http://www.eomf.ou.edu/static/IGBP.pdf
                 {
                     color: '#162103',
                     name: i18n.t('Evergreen Needleleaf forest'),
@@ -222,8 +233,8 @@ export const earthEngineLayers = () => [
                     name: i18n.t('Barren or sparsely vegetated'),
                 },
                 {
-                    color: '#743411',
-                    name: i18n.t('Unclassified'),
+                    color: '#aec3d6',
+                    name: i18n.t('Water'),
                 },
             ],
         },

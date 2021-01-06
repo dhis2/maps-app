@@ -72,7 +72,7 @@ export default class EarthEngineLayer extends Layer {
             name,
             unit,
             value,
-            legend,
+            legend: legend ? legend.items : null,
             resolution,
             projection,
             data,
@@ -94,7 +94,7 @@ export default class EarthEngineLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        this.layer.aggregate().then(this.addAggregationValues.bind(this));
+        // this.layer.aggregate().then(this.addAggregationValues.bind(this));
 
         this.fitBoundsOnce();
     }
