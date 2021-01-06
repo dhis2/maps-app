@@ -9,8 +9,8 @@ import AggregationTypesSelect from './AggregationTypesSelect';
 import PeriodSelect from './PeriodSelect';
 import OrgUnitsSelect from './OrgUnitsSelect';
 import StyleSelect from './StyleSelect';
+import { getEarthEngineLayer } from '../../../constants/earthEngine';
 import {
-    getEarthEngineLayer,
     getPeriodFromFilter,
     loadCollection,
     defaultFilters,

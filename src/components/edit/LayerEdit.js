@@ -76,11 +76,16 @@ class LayerEdit extends Component {
         }
 
         const type = layer.layer;
-        const name = layerName()[type];
         const LayerDialog = layerType[type];
 
         if (!LayerDialog) {
             return null;
+        }
+
+        let name = layerName()[type];
+
+        if (type === 'earthEngine') {
+            name = layer.name.toLowerCase();
         }
 
         const title = layer.id

@@ -1,6 +1,6 @@
 import { getInstance as getD2 } from 'd2';
 import { getOrgUnitsFromRows } from '../util/analytics';
-import { getEarthEngineLayer } from '../util/earthEngine';
+import { getEarthEngineLayer } from '../constants/earthEngine';
 import { getDisplayProperty } from '../util/helpers';
 import { toGeoJson } from '../util/map';
 

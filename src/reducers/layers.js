@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import * as types from '../constants/actionTypes';
-import { earthEngineLayers } from '../util/earthEngine';
+import { earthEngineLayers } from '../constants/earthEngine';
 
 const defaultLayers = () => [
     {
