@@ -1,0 +1,22 @@
+.name {
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 16px;
+}
+
+.table {
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table caption {
+    text-align: left;
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+.table th {
+    text-align: left;
+    font-weight: normal;
+    padding-right: 8px;
+}

@@ -4,6 +4,8 @@ import LayerLoading from './LayerLoading';
 import Popup from './Popup';
 import { apiFetch } from '../../util/api';
 import { getEarthEngineAggregationType } from '../../constants/aggregationTypes';
+import { formatNumber } from '../../util/earthEngine';
+import styles from './styles/EarthEngineLayer.module.css';
 
 export default class EarthEngineLayer extends Layer {
     state = {
@@ -120,7 +122,7 @@ export default class EarthEngineLayer extends Layer {
 
     getPopup() {
         const { popup, aggregations } = this.state;
-        const { aggregationType } = this.props;
+        const { name: layerName, aggregationType } = this.props;
         const { coordinates, feature } = popup;
         const { id, name } = feature.properties;
 
@@ -130,24 +132,25 @@ export default class EarthEngineLayer extends Layer {
             values = aggregations[id];
         }
 
-        // console.log('popup', aggregationType, values);
-
         return (
             <Popup
                 coordinates={coordinates}
                 onClose={this.onPopupClose}
                 className="dhis2-map-popup-orgunit"
             >
-                <em>{name}</em>
+                <div className={styles.name}>{name}</div>
                 {Array.isArray(aggregationType) && values && (
-                    <table>
+                    <table className={styles.table}>
+                        <caption>{layerName}</caption>
                         <tbody>
                             {aggregationType.map(type => (
                                 <tr key={type}>
                                     <th>
-                                        {getEarthEngineAggregationType(type)}
+                                        {getEarthEngineAggregationType(type)}:
                                     </th>
-                                    <td>{values[type]}</td>
+                                    <td>
+                                        {formatNumber(aggregations, id, type)}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
