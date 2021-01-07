@@ -15,8 +15,18 @@
     padding-bottom: 8px;
 }
 
+.table caption .unit {
+    font-size: 12px;
+    font-weight: normal;
+    white-space: nowrap;
+}
+
 .table th {
     text-align: left;
     font-weight: normal;
     padding-right: 8px;
+}
+
+.table td {
+    text-align: right;
 }

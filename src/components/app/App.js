@@ -9,7 +9,7 @@ import AppMenu from './AppMenu';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
 import MapContainer from '../map/MapContainer';
-import BottomPanel from '../datatable/BottomPanel';
+import BottomPanel from '../dataTable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
 import OrgUnitDialog from '../orgunits/OrgUnitDialog';

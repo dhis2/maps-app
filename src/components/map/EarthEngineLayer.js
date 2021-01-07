@@ -56,7 +56,7 @@ export default class EarthEngineLayer extends Layer {
             params,
             popup,
             data,
-            aggregationTypes,
+            aggregationType,
         } = this.props;
 
         const { map } = this.context;
@@ -81,7 +81,7 @@ export default class EarthEngineLayer extends Layer {
             resolution,
             projection,
             data,
-            aggregationTypes,
+            aggregationType,
             onClick: this.onFeatureClick.bind(this),
             onLoad: this.onLoad.bind(this),
         };
@@ -113,6 +113,7 @@ export default class EarthEngineLayer extends Layer {
                     key => (f.properties[key] = values[key])
                 );
             }
+            f.properties.type = f.geometry.type;
         });
 
         // Make aggregations available for popup
@@ -122,7 +123,7 @@ export default class EarthEngineLayer extends Layer {
 
     getPopup() {
         const { popup, aggregations } = this.state;
-        const { name: layerName, aggregationType } = this.props;
+        const { name: layerName, aggregationType, unit } = this.props;
         const { coordinates, feature } = popup;
         const { id, name } = feature.properties;
 
@@ -141,7 +142,10 @@ export default class EarthEngineLayer extends Layer {
                 <div className={styles.name}>{name}</div>
                 {Array.isArray(aggregationType) && values && (
                     <table className={styles.table}>
-                        <caption>{layerName}</caption>
+                        <caption>
+                            {layerName}
+                            <div className={styles.unit}>{unit}</div>
+                        </caption>
                         <tbody>
                             {aggregationType.map(type => (
                                 <tr key={type}>

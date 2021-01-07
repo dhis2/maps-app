@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ResizeHandle from './ResizeHandle';
-import DataTable from '../datatable/DataTable';
+import DataTable from './DataTable';
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,

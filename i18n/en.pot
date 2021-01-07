@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-01-06T08:31:49.907Z\n"
-"PO-Revision-Date: 2021-01-06T08:31:49.907Z\n"
+"POT-Creation-Date: 2021-01-07T19:48:58.672Z\n"
+"PO-Revision-Date: 2021-01-07T19:48:58.672Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -197,16 +197,16 @@ msgstr ""
 msgid "Aggregation"
 msgstr ""
 
-msgid "Year"
+msgid "This field is required"
+msgstr ""
+
+msgid "Data"
 msgstr ""
 
 msgid "Period"
 msgstr ""
 
-msgid "This field is required"
-msgstr ""
-
-msgid "Data"
+msgid "Year"
 msgstr ""
 
 msgid "Min"
@@ -219,9 +219,6 @@ msgid "Steps"
 msgstr ""
 
 msgid "Legend preview"
-msgstr ""
-
-msgid "Valid range is"
 msgstr ""
 
 msgid "Org Units"
@@ -541,6 +538,9 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
+msgid "Loading layer data"
+msgstr ""
+
 msgid "Longitude"
 msgstr ""
 
@@ -790,6 +790,118 @@ msgid "Bing Aerial"
 msgstr ""
 
 msgid "Bing Aerial Labels"
+msgstr ""
+
+msgid "Population"
+msgstr ""
+
+msgid "people per hectare"
+msgstr ""
+
+msgid "Estimated residential population per hectare."
+msgstr ""
+
+msgid "Elevation"
+msgstr ""
+
+msgid "metres"
+msgstr ""
+
+msgid "Elevation above sea-level."
+msgstr ""
+
+msgid "Precipitation"
+msgstr ""
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, "
+"during the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Landcover"
+msgstr ""
+
+msgid "Distinct landcover types collected from satellites."
+msgstr ""
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr ""
+
+msgid "Mixed forest"
+msgstr ""
+
+msgid "Closed shrublands"
+msgstr ""
+
+msgid "Open shrublands"
+msgstr ""
+
+msgid "Woody savannas"
+msgstr ""
+
+msgid "Savannas"
+msgstr ""
+
+msgid "Grasslands"
+msgstr ""
+
+msgid "Permanent wetlands"
+msgstr ""
+
+msgid "Croplands"
+msgstr ""
+
+msgid "Urban and built-up"
+msgstr ""
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr ""
+
+msgid "Snow and ice"
+msgstr ""
+
+msgid "Barren or sparsely vegetated"
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr ""
+
+msgid "light intensity"
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+
+msgid "Select year"
 msgstr ""
 
 msgid "All"
@@ -1056,142 +1168,6 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-msgid "Population"
-msgstr ""
-
-msgid "people per hectare"
-msgstr ""
-
-msgid "Estimated residential population per hectare."
-msgstr ""
-
-msgid "Select year"
-msgstr ""
-
-msgid "Min people"
-msgstr ""
-
-msgid "Max people"
-msgstr ""
-
-msgid "Elevation"
-msgstr ""
-
-msgid "metres"
-msgstr ""
-
-msgid "Elevation above sea-level."
-msgstr ""
-
-msgid "Min meters"
-msgstr ""
-
-msgid "Max meters"
-msgstr ""
-
-msgid "Precipitation"
-msgstr ""
-
-msgid "millimeter"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
-msgstr ""
-
-msgid "Min mm"
-msgstr ""
-
-msgid "Max mm"
-msgstr ""
-
-msgid "Temperature"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Min °C"
-msgstr ""
-
-msgid "Max °C"
-msgstr ""
-
-msgid "Landcover"
-msgstr ""
-
-msgid "Distinct landcover types collected from satellites."
-msgstr ""
-
-msgid "Evergreen Needleleaf forest"
-msgstr ""
-
-msgid "Evergreen Broadleaf forest"
-msgstr ""
-
-msgid "Deciduous Needleleaf forest"
-msgstr ""
-
-msgid "Deciduous Broadleaf forest"
-msgstr ""
-
-msgid "Mixed forest"
-msgstr ""
-
-msgid "Closed shrublands"
-msgstr ""
-
-msgid "Open shrublands"
-msgstr ""
-
-msgid "Woody savannas"
-msgstr ""
-
-msgid "Savannas"
-msgstr ""
-
-msgid "Grasslands"
-msgstr ""
-
-msgid "Permanent wetlands"
-msgstr ""
-
-msgid "Croplands"
-msgstr ""
-
-msgid "Urban and built-up"
-msgstr ""
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
-
-msgid "Snow and ice"
-msgstr ""
-
-msgid "Barren or sparsely vegetated"
-msgstr ""
-
-msgid "Water"
-msgstr ""
-
-msgid "Nighttime lights"
-msgstr ""
-
-msgid "light intensity"
-msgstr ""
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 
@@ -1209,6 +1185,12 @@ msgstr ""
 msgid "Population density"
 msgstr ""
 
+msgid "Min people"
+msgstr ""
+
+msgid "Max people"
+msgstr ""
+
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
 "population division estimates. Try a different year if you don't see data "
@@ -1220,9 +1202,27 @@ msgid ""
 "better representes the terrain in your region."
 msgstr ""
 
+msgid "Min meters"
+msgstr ""
+
+msgid "Max meters"
+msgstr ""
+
+msgid "Min mm"
+msgstr ""
+
+msgid "Max mm"
+msgstr ""
+
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
 "spots will appear in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Min °C"
+msgstr ""
+
+msgid "Max °C"
 msgstr ""
 
 msgid "17 distinct landcover types collected from satellites."

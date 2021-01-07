@@ -6,7 +6,7 @@ import { toGeoJson } from '../util/map';
 
 // Returns a promise
 const earthEngineLoader = async config => {
-    const { rows, aggregationType: aggregationTypes } = config;
+    const { rows, aggregationType } = config;
     let layerConfig = {};
     let dataset;
     let features;
@@ -74,7 +74,7 @@ const earthEngineLoader = async config => {
     return {
         ...layer,
         data: features,
-        aggregationTypes,
+        aggregationType,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

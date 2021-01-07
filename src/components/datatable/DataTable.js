@@ -131,13 +131,20 @@ class DataTable extends Component {
     }
 
     render() {
-        const { width, height, layer } = this.props;
-        const { layer: layerType, styleDataItem, serverCluster } = layer;
         const { data, sortBy, sortDirection } = this.state;
+        const { width, height, layer } = this.props;
+
+        const {
+            layer: layerType,
+            styleDataItem,
+            serverCluster,
+            aggregationType,
+        } = layer;
+
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
         const isEvent = layerType === 'event';
-        // const isEarthEngine = layerType === 'earthEngine';
+        const isEarthEngine = layerType === 'earthEngine';
 
         return !serverCluster ? (
             <Table
@@ -273,6 +280,25 @@ class DataTable extends Component {
                                 <ColumnHeader type="string" {...props} />
                             )}
                             cellRenderer={ColorCell}
+                        />
+                    ))}
+
+                {isEarthEngine &&
+                    Array.isArray(aggregationType) &&
+                    aggregationType.map(type => (
+                        <Column
+                            key={type}
+                            dataKey={type}
+                            label={i18n.t(type)}
+                            width={100}
+                            className="right"
+                            headerRenderer={props => (
+                                <ColumnHeader type="number" {...props} />
+                            )}
+                            cellRenderer={d => {
+                                // console.log('cellRenderer', d);
+                                return d.cellData;
+                            }}
                         />
                     ))}
             </Table>
