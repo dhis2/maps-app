@@ -121,7 +121,7 @@ msgid "Cancel"
 msgstr "Бекор қилиш"
 
 msgid "Close"
-msgstr "Ёпиқ"
+msgstr "Ёпмоқ"
 
 msgid "Legend position"
 msgstr "Тавсиф ҳолати"
