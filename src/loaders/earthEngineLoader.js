@@ -1,12 +1,13 @@
 import { getInstance as getD2 } from 'd2';
-import { getOrgUnitsFromRows } from '../util/analytics';
 import { getEarthEngineLayer } from '../constants/earthEngine';
+import { getPeriodFromFilter } from '../util/earthEngine';
+import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { toGeoJson } from '../util/map';
 
 // Returns a promise
 const earthEngineLoader = async config => {
-    const { rows, aggregationType } = config;
+    const { filter, rows, aggregationType } = config;
     let layerConfig = {};
     let dataset;
     let features;
@@ -54,11 +55,12 @@ const earthEngineLoader = async config => {
         ...dataset,
     };
 
-    const { name, periodName, unit, description, source, sourceUrl } = layer;
+    const { name, unit, description, source, sourceUrl } = layer;
+    const period = getPeriodFromFilter(filter);
 
     layer.legend = {
         title: name,
-        period: periodName,
+        period: period ? period.name : null,
         unit,
         description,
         source,

@@ -101,7 +101,7 @@ class Layer extends PureComponent {
 
     updateLayer = () => {
         this.removeLayer();
-        this.createLayer();
+        this.createLayer(true);
         this.setLayerOrder();
     };
 

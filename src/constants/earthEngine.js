@@ -10,6 +10,7 @@ export const earthEngineLayers = () => [
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
+        img: 'images/population.png',
         periodType: 'year',
         filters: ({ id, name }) => [
             {
@@ -19,17 +20,7 @@ export const earthEngineLayers = () => [
             },
         ],
         defaultAggregations: ['sum', 'count', 'min', 'max'],
-        minValue: 0, // Remove?
-        maxValue: Number.MAX_VALUE, // Remove?
-        aggregation: 'mosaic', // Rename?
-        resolution: 100, // Remove?
-        projection: 'EPSG:4326', // Remove?
-        // methods: {
-        //    multiply: [100], // Convert from people/hectare to people/km2
-        // },
-        mask: true, // Remove?
-        value: value => Math.round(value),
-        img: 'images/population.png',
+        mosaic: true,
         params: {
             min: 0,
             max: 10,

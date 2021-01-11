@@ -296,7 +296,6 @@ class DataTable extends Component {
                                 <ColumnHeader type="number" {...props} />
                             )}
                             cellRenderer={d => {
-                                // console.log('cellRenderer', d);
                                 return d.cellData;
                             }}
                         />

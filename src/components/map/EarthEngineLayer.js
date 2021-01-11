@@ -34,7 +34,7 @@ export default class EarthEngineLayer extends Layer {
         }
     }
 
-    createLayer() {
+    createLayer(isUpdate) {
         const {
             id,
             index,
@@ -46,7 +46,7 @@ export default class EarthEngineLayer extends Layer {
             attribution,
             filter,
             methods,
-            aggregation,
+            mosaic,
             name,
             unit,
             legend,
@@ -73,7 +73,7 @@ export default class EarthEngineLayer extends Layer {
             attribution,
             filter,
             methods,
-            aggregation,
+            mosaic,
             name,
             unit,
             value,
@@ -83,6 +83,7 @@ export default class EarthEngineLayer extends Layer {
             data,
             aggregationType,
             onClick: this.onFeatureClick.bind(this),
+            onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
         };
 
@@ -92,6 +93,10 @@ export default class EarthEngineLayer extends Layer {
 
         if (popup) {
             config.popup = popup;
+        }
+
+        if (isUpdate) {
+            this.setState({ isLoading: true });
         }
 
         config.accessToken = apiFetch('/tokens/google'); // returns promise
