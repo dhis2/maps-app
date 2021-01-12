@@ -52,6 +52,7 @@ const OverlayCard = ({
 
     return (
         <LayerCard
+            layer={layer}
             title={isLoaded ? name : i18n.t('Loading layer') + '...'}
             subtitle={
                 isLoaded && legend && legend.period ? legend.period : null

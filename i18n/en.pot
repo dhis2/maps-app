@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-01-07T19:48:58.672Z\n"
-"PO-Revision-Date: 2021-01-07T19:48:58.672Z\n"
+"POT-Creation-Date: 2021-01-12T08:52:01.956Z\n"
+"PO-Revision-Date: 2021-01-12T08:52:01.956Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -417,6 +417,12 @@ msgid "Date"
 msgstr ""
 
 msgid "Remove filter"
+msgstr ""
+
+msgid "Import data"
+msgstr ""
+
+msgid "Import"
 msgstr ""
 
 msgid "Indicator group"

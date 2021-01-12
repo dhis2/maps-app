@@ -6,7 +6,10 @@ export const DOWNLOADABLE_LAYER_TYPES = [
     'thematic',
     'boundary',
     'event',
+    'earthEngine',
 ];
+
+export const IMPORTABLE_LAYER_TYPES = ['earthEngine'];
 
 export const DATA_TABLE_LAYER_TYPES = [
     'facility',

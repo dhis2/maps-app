@@ -11,6 +11,7 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
         img: 'images/population.png',
+        defaultAggregations: ['sum', 'min', 'max', 'mean'],
         periodType: 'year',
         filters: ({ id, name }) => [
             {
@@ -19,7 +20,6 @@ export const earthEngineLayers = () => [
                 arguments: ['year', id],
             },
         ],
-        defaultAggregations: ['sum', 'count', 'min', 'max'],
         mosaic: true,
         params: {
             min: 0,
@@ -37,12 +37,9 @@ export const earthEngineLayers = () => [
         source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
-
-        band: 'elevation',
-        mask: true,
-        minValue: 0,
-        maxValue: 8848,
         img: 'images/elevation.png',
+        defaultAggregations: ['min', 'max', 'mean'],
+        band: 'elevation',
         params: {
             min: 0,
             max: 1500,
@@ -63,12 +60,8 @@ export const earthEngineLayers = () => [
             'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
         periodType: 'date',
         band: 'precipitation',
+        defaultAggregations: ['sum', 'min', 'max', 'mean'],
         mask: true,
-        value(value) {
-            return value.toFixed(1);
-        },
-        minValue: 0,
-        maxValue: 100,
         img: 'images/precipitation.png',
         params: {
             min: 0,
@@ -88,6 +81,8 @@ export const earthEngineLayers = () => [
         source: 'NASA LP DAAC / Google Earth Engine',
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
+        img: 'images/temperature.png',
+        defaultAggregations: ['min', 'max', 'mean'],
         periodType: 'date',
         band: 'LST_Day_1km',
         mask: true,
@@ -97,14 +92,13 @@ export const earthEngineLayers = () => [
             multiply: [0.02],
             subtract: [273.15],
         },
-        value(value) {
-            return Math.round(value);
-        },
-        minValue: -100,
-        maxValue: 100,
-        popup: '{name}: {value}{unit}',
-        type: i18n.t('Temperature'),
-        img: 'images/temperature.png',
+        // value(value) {
+        //     return Math.round(value);
+        // },
+        // minValue: -100,
+        // maxValue: 100,
+        // popup: '{name}: {value}{unit}',
+        // type: i18n.t('Temperature'),
         params: {
             min: 0,
             max: 50,
