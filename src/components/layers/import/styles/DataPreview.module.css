@@ -1,0 +1,13 @@
+.table th {
+    white-space: nowrap;
+}
+
+.right {
+    text-align: right;
+}
+
+.current {
+    color: #777;
+    text-decoration: line-through;
+    text-align: right;
+}
