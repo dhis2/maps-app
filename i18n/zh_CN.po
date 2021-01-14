@@ -1,14 +1,14 @@
 # 
 # Translators:
 # 晓东 林 <13981924470@126.com>, 2020
-# easylin <lin_xd@126.com>, 2020
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2019-11-20T13:55:02.205Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,13 +26,13 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr ""
+msgstr "图例集"
 
 msgid "Automatic"
 msgstr "自动"
 
 msgid "Predefined"
-msgstr ""
+msgstr "已预定义"
 
 msgid "Data element group"
 msgstr "数据元组"
@@ -53,10 +53,10 @@ msgid "Yes"
 msgstr "Yes"
 
 msgid "Event location"
-msgstr ""
+msgstr "事件位置"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "坐标字段"
 
 msgid "None"
 msgstr "没有"
@@ -65,7 +65,7 @@ msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr ""
+msgstr "事件数据条目"
 
 msgid "Style by data element"
 msgstr ""
@@ -138,7 +138,7 @@ msgid "Labels"
 msgstr "标签"
 
 msgid "Point radius"
-msgstr ""
+msgstr "点半径"
 
 msgid "No organisation units are selected"
 msgstr ""
@@ -204,7 +204,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr ""
+msgstr "组集"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -232,7 +232,7 @@ msgid "Follow up"
 msgstr "后续跟踪"
 
 msgid "Selection mode"
-msgstr ""
+msgstr "选择模式"
 
 msgid "Tracked entities"
 msgstr "跟踪的实体"
@@ -244,10 +244,10 @@ msgid "Aggregation type"
 msgstr "汇总类型"
 
 msgid "Low size"
-msgstr ""
+msgstr "下限"
 
 msgid "High size"
-msgstr ""
+msgstr "上限"
 
 msgid "Indicator group is required"
 msgstr ""
@@ -283,13 +283,13 @@ msgid "Reporting rates"
 msgstr "上报率"
 
 msgid "Event data items"
-msgstr ""
+msgstr "事件数据项"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "项目指标"
 
 msgid "Item type"
-msgstr ""
+msgstr "条目类型"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -408,7 +408,7 @@ msgid "Download data"
 msgstr ""
 
 msgid "Edit layer"
-msgstr ""
+msgstr "编辑图层"
 
 msgid "Remove layer"
 msgstr ""
@@ -423,34 +423,34 @@ msgid "Chart"
 msgstr "图表"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "上级机构"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "上钻一级"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "下钻一级"
 
 msgid "Show information"
-msgstr ""
+msgstr "显示信息表格"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "显示经纬度"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "切换经纬度"
 
 msgid "Relocate"
-msgstr ""
+msgstr "重新定位"
 
 msgid "Not set"
-msgstr ""
+msgstr "没有设置"
 
 msgid "Organisation unit"
 msgstr "机构"
 
 msgid "Event time"
-msgstr ""
+msgstr "事件时间"
 
 msgid "Groups"
 msgstr "组"
@@ -471,10 +471,10 @@ msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
+msgstr "选择组"
 
 msgid "Select levels"
-msgstr ""
+msgstr "选择等级"
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
@@ -516,7 +516,7 @@ msgid "Program"
 msgstr "项目"
 
 msgid "Stage"
-msgstr ""
+msgstr "阶段"
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -545,7 +545,7 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Access denied"
-msgstr ""
+msgstr "拒绝随访"
 
 msgid "user is not allowed to read layer data"
 msgstr ""
