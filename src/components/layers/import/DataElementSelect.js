@@ -10,12 +10,11 @@ const DataElementSelect = ({ dataSet, value, onChange }) => {
     useEffect(() => {
         const url = `/dataSets?fields=dataSetElements[dataElement[id,code,name]]&filter=id:eq:${dataSet.id}&paging=false`;
 
-        apiFetch(url)
-            .then(data => {
-                const { dataSetElements } = data.dataSets[0];
-                setDataElements(dataSetElements.map(d => d.dataElement));
-            })
-            .catch(console.error); // TODO
+        apiFetch(url).then(data => {
+            const { dataSetElements } = data.dataSets[0];
+            setDataElements(dataSetElements.map(d => d.dataElement));
+        });
+        // .catch(console.error); // TODO
     }, [dataSet]);
 
     return (

@@ -12,7 +12,7 @@ export const earthEngineLayers = () => [
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
         img: 'images/population.png',
         defaultAggregations: ['sum', 'min', 'max', 'mean'],
-        periodType: 'year',
+        periodType: 'Yearly',
         filters: ({ id, name }) => [
             {
                 name,
@@ -58,7 +58,7 @@ export const earthEngineLayers = () => [
         source: 'UCSB / CHG / Google Earth Engine',
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
-        periodType: 'date',
+        periodType: 'Custom',
         band: 'precipitation',
         defaultAggregations: ['sum', 'min', 'max', 'mean'],
         mask: true,
@@ -83,7 +83,7 @@ export const earthEngineLayers = () => [
             'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
         img: 'images/temperature.png',
         defaultAggregations: ['min', 'max', 'mean'],
-        periodType: 'date',
+        periodType: 'Custom',
         band: 'LST_Day_1km',
         mask: true,
         methods: {
@@ -116,7 +116,7 @@ export const earthEngineLayers = () => [
         source: 'NASA LP DAAC / Google Earth Engine',
         sourceUrl:
             'https://code.earthengine.google.com/dataset/MODIS/051/MCD12Q1',
-        periodType: 'year',
+        periodType: 'Yearly',
         band: 'LC_Type1',
         filters: ({ id, name }) => [
             {
@@ -228,7 +228,7 @@ export const earthEngineLayers = () => [
         source: 'NOAA / Google Earth Engine',
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
-        periodType: 'year',
+        periodType: 'Yearly',
         band: 'stable_lights',
         mask: true,
         popup: '{name}: {value}',

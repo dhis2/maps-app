@@ -37,7 +37,15 @@ const EarthEngineDialog = props => {
     } = props;
 
     const dataset = getEarthEngineLayer(datasetId);
-    const { name, description, periodType, filters = defaultFilters } = dataset;
+    const {
+        name,
+        description,
+        periodType,
+        filters = defaultFilters,
+        unit,
+        source,
+        sourceUrl,
+    } = dataset;
     const period = getPeriodFromFilter(filter);
 
     const setPeriod = period => setFilter(period ? filters(period) : undefined);
@@ -87,7 +95,20 @@ const EarthEngineDialog = props => {
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
                         <h3>{name}</h3>
-                        <div>{description}</div>
+                        <div className={styles.paragraph}>{description}</div>
+                        <div className={styles.paragraph}>
+                            {i18n.t('Unit')}: {unit}
+                        </div>
+                        <div className={styles.paragraph}>
+                            {i18n.t('Source')}:{' '}
+                            <a
+                                href={sourceUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {source}
+                            </a>
+                        </div>
                         <AggregationTypesSelect />
                     </div>
                 )}

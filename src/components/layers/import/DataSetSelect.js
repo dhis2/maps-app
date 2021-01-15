@@ -10,8 +10,8 @@ const DataSetSelect = ({ value, onChange }) => {
     useEffect(() => {
         apiFetch('/dataSets?fields=id,code,name,periodType&paging=false')
             .then(({ dataSets }) => dataSets)
-            .then(setDataSets)
-            .catch(console.error); // TODO
+            .then(setDataSets);
+        // .catch(console.error); // TODO
     }, []);
 
     return (

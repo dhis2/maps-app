@@ -2,6 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { LayerToolbarMoreMenu } from '../LayerToolbarMoreMenu';
 
+jest.mock('../../../map/MapApi', () => ({
+    loadEarthEngineApi: jest.fn(),
+}));
+
 describe('LayerToolbarMoreMenu', () => {
     it('Should render nothing when no props passed', () => {
         const wrapper = shallow(<LayerToolbarMoreMenu />);

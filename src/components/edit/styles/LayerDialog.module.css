@@ -46,6 +46,10 @@
     font-weight: bold;
 }
 
+.paragraph {
+    padding-bottom: var(--spacers-dp16);
+}
+
 .notice {
     margin: var(--spacers-dp8) 0;
 }

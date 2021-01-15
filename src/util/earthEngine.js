@@ -83,12 +83,12 @@ export const loadCollection = async id => {
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear();
 
-        if (periodType === 'year') {
+        if (periodType === 'Yearly') {
             return {
                 id: year,
                 name: String(year),
             };
-        } else if (periodType === 'date') {
+        } else if (periodType === 'Custom') {
             const name = getStartEndDate(properties);
             return { id, name, year };
         } else {

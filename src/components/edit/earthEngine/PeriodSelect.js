@@ -4,6 +4,7 @@ import i18n from '@dhis2/d2-i18n';
 import SelectField from '../../core/SelectField';
 import styles from './styles/PeriodSelect.module.css';
 
+// http://localhost:8080/api/periodTypes.json
 const PeriodSelect = ({
     periodType,
     period,

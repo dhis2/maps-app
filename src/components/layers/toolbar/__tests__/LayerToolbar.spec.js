@@ -2,6 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { LayerToolbar } from '../LayerToolbar';
 
+jest.mock('../../../map/MapApi', () => ({
+    loadEarthEngineApi: jest.fn(),
+}));
+
 describe('LayerToolbar', () => {
     const shallowRenderLayerToolbar = props =>
         shallow(
