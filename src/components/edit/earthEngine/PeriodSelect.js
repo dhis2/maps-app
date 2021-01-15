@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
+import { CircularLoader } from '@dhis2/ui';
 import SelectField from '../../core/SelectField';
 import styles from './styles/PeriodSelect.module.css';
 
@@ -55,12 +56,7 @@ const PeriodSelect = ({
 
     const items = byYear ? byYearPeriods : periods;
 
-    // TODO: loading indicator
-    if (!items) {
-        return null;
-    }
-
-    return (
+    return items ? (
         <div className={className}>
             {byYear && (
                 <SelectField
@@ -80,6 +76,11 @@ const PeriodSelect = ({
                 errorText={!period && errorText ? errorText : null}
                 className={styles.period}
             />
+        </div>
+    ) : (
+        <div className={styles.loading}>
+            <CircularLoader small />
+            {i18n.t('Loading periods')}
         </div>
     );
 };

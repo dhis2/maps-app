@@ -11,3 +11,15 @@
 .period {
     width: 65%;
 }
+
+.loading {
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    padding-left: var(--spacers-dp16);
+}
+
+.loading div {
+    display: inline-block;
+    margin-right: 24px;
+}
