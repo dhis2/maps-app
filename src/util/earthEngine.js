@@ -68,9 +68,10 @@ const connectEarthEngine = () =>
         resolve(window.ee);
     });
 
-export const loadCollection = async id => {
+export const getPeriods = async id => {
     const { periodType } = getEarthEngineLayer(id);
     const ee = await connectEarthEngine();
+
     const imageCollection = ee
         .ImageCollection(id)
         .distinct('system:time_start')
@@ -79,6 +80,20 @@ export const loadCollection = async id => {
     const featureCollection = ee
         .FeatureCollection(imageCollection)
         .select(['system:time_start', 'system:time_end'], null, false);
+
+    /*    
+    if (periodType === 'Daily') {
+        console.log('####');
+        featureCollection.first().getInfo(console.log);
+        console.log('A');
+        featureCollection.last().getInfo(console.log);
+        console.log('B');
+
+        console.log('first and last', last);
+
+        return [];
+    }
+    */
 
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear();

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-01-12T08:52:01.956Z\n"
-"PO-Revision-Date: 2021-01-12T08:52:01.956Z\n"
+"POT-Creation-Date: 2021-01-18T07:57:35.386Z\n"
+"PO-Revision-Date: 2021-01-18T07:57:35.386Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -206,7 +206,16 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
+msgid "Unit"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
 msgid "Year"
+msgstr ""
+
+msgid "Loading periods"
 msgstr ""
 
 msgid "Min"
@@ -419,12 +428,6 @@ msgstr ""
 msgid "Remove filter"
 msgstr ""
 
-msgid "Import data"
-msgstr ""
-
-msgid "Import"
-msgstr ""
-
 msgid "Indicator group"
 msgstr ""
 
@@ -461,6 +464,39 @@ msgid "ID Format"
 msgstr ""
 
 msgid "Use human-readable keys"
+msgstr ""
+
+msgid "Current value"
+msgstr ""
+
+msgid "New value"
+msgstr ""
+
+msgid "Import process completed successfully"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Import data"
+msgstr ""
+
+msgid "Value type"
+msgstr ""
+
+msgid "Import"
+msgstr ""
+
+msgid "Number precision"
+msgstr ""
+
+msgid "Use original value"
+msgstr ""
+
+msgid "Custom value"
+msgstr ""
+
+msgid "Decimals"
 msgstr ""
 
 msgid "External layer"
@@ -506,9 +542,6 @@ msgid "Mid"
 msgstr ""
 
 msgid "Filters"
-msgstr ""
-
-msgid "Source"
 msgstr ""
 
 msgid "Parent unit"
@@ -1109,9 +1142,6 @@ msgid "Cancelled"
 msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
-
-msgid "Error"
 msgstr ""
 
 msgid "Boundaries"

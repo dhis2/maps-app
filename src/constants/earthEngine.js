@@ -49,6 +49,31 @@ export const earthEngineLayers = () => [
     },
     {
         layer: 'earthEngine',
+        datasetId: 'ECMWF/ERA5/DAILY',
+        name: i18n.t('Precipitation NEW'),
+        // unit: i18n.t('millimeter'),
+        unit: i18n.t('meter'),
+        description: i18n.t(
+            'Total precipitation values. Data is available from 1979 to three months from real-time.'
+        ),
+        source:
+            'ECMWF / Copernicus Climate Change Service / Google Earth Engine',
+        sourceUrl:
+            'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_DAILY',
+        periodType: 'Daily',
+        band: 'total_precipitation',
+        defaultAggregations: ['sum', 'min', 'max', 'mean'],
+        mask: true,
+        img: 'images/precipitation.png',
+        params: {
+            min: 0,
+            max: 0.02,
+            palette: '#eff3ff,#c6dbef,#9ecae1,#6baed6,#4292c6,#2171b5,#084594', // Blues
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: 'earthEngine',
         datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
         name: i18n.t('Precipitation'),
         unit: i18n.t('millimeter'),

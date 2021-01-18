@@ -15,7 +15,7 @@ const PeriodSelect = ({
     className,
 }) => {
     const [year, setYear] = useState();
-    const byYear = periodType === 'date';
+    const byYear = periodType === 'Custom';
 
     const years = useMemo(
         () =>

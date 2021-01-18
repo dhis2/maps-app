@@ -12,7 +12,7 @@ import StyleSelect from './StyleSelect';
 import { getEarthEngineLayer } from '../../../constants/earthEngine';
 import {
     getPeriodFromFilter,
-    loadCollection,
+    getPeriods,
     defaultFilters,
 } from '../../../util/earthEngine';
 import { setFilter, setParams } from '../../../actions/layerEdit';
@@ -54,7 +54,7 @@ const EarthEngineDialog = props => {
     // TODO: Cancel state update if dialog is closed
     useEffect(() => {
         if (periodType) {
-            loadCollection(datasetId)
+            getPeriods(datasetId)
                 .then(setPeriods)
                 .catch(setError);
         }
