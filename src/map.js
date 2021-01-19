@@ -166,7 +166,7 @@ const PluginContainer = () => {
             if (domEl) {
                 const ref = createRef();
 
-                render(<Plugin innerRef={ref} {...config} />, domEl);
+                render(<Plugin ref={ref} {...config} />, domEl);
 
                 if (config.onReady) {
                     config.onReady();
@@ -217,11 +217,11 @@ const PluginContainer = () => {
     }
 
     // Should be called if the map container is resized
-    function resize(el) {
+    function resize(el, isFullscreen) {
         const mapComponent = _components[el];
 
         if (mapComponent && mapComponent.current) {
-            mapComponent.current.resize();
+            mapComponent.current.resize(isFullscreen);
             return true;
         }
 

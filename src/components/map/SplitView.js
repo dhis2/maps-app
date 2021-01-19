@@ -10,14 +10,15 @@ import styles from './styles/SplitView.module.css';
 class SplitView extends PureComponent {
     static propTypes = {
         isPlugin: PropTypes.bool,
+        isFullscreen: PropTypes.bool,
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
         controls: PropTypes.array,
         openContextMenu: PropTypes.func.isRequired,
     };
 
-    // TODO: Remove
     static defaultProps = {
+        isFullscreen: false,
         openContextMenu: () => {},
     };
 
@@ -28,18 +29,22 @@ class SplitView extends PureComponent {
 
     // Add map controls to split view container
     componentDidUpdate(prevProps, prevState) {
-        const { state, node } = this;
+        const { isFullscreen } = this.props;
+        const { controls } = this.state;
 
-        if (state.controls !== prevState.controls) {
-            Object.values(state.controls).forEach(control =>
-                node.append(control)
+        if (isFullscreen !== prevProps.isFullscreen) {
+            this.onFullScreenChange({ isFullscreen });
+        }
+
+        if (controls !== prevState.controls) {
+            Object.values(controls).forEach(control =>
+                this.node.append(control)
             );
         }
     }
 
     render() {
         const { isPlugin, basemap, layer, openContextMenu } = this.props;
-
         const { isFullscreen } = this.state;
 
         const { id, periods = [] } = layer;
