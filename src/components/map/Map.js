@@ -27,6 +27,7 @@ const layerType = {
 class Map extends Component {
     static propTypes = {
         isPlugin: PropTypes.bool,
+        isFullscreen: PropTypes.bool,
         basemap: PropTypes.object,
         layers: PropTypes.array,
         controls: PropTypes.array,
@@ -43,6 +44,7 @@ class Map extends Component {
 
     static defaultProps = {
         isPlugin: false,
+        isFullscreen: false,
     };
 
     static childContextTypes = {
@@ -78,13 +80,21 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        const { controls, bounds, latitude, longitude, zoom } = this.props;
+        const {
+            controls,
+            bounds,
+            latitude,
+            longitude,
+            zoom,
+            isFullscreen,
+        } = this.props;
         const { map } = this;
 
         // Append map container to DOM
         this.node.appendChild(map.getContainer());
 
         map.resize();
+        this.onFullScreenChange({ isFullscreen });
 
         // Add map controls
         if (controls) {
@@ -107,8 +117,14 @@ class Map extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.resizeCount !== prevProps.resizeCount) {
+        const { resizeCount, isFullscreen } = this.props;
+
+        if (resizeCount !== prevProps.resizeCount) {
             this.map.resize();
+        }
+
+        if (isFullscreen !== prevProps.isFullscreen) {
+            this.onFullScreenChange({ isFullscreen });
         }
     }
 
