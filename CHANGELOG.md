@@ -1,3 +1,10 @@
+## [1.2.6](https://github.com/dhis2/maps-app/compare/v1.2.5...v1.2.6) (2021-01-19)
+
+
+### Bug Fixes
+
+* allow mouse scroll in fullscreen (DHIS2-10252) ([#1420](https://github.com/dhis2/maps-app/issues/1420)) ([343690b](https://github.com/dhis2/maps-app/commit/343690b4eb9b3dde24de63788c2edb643645fdc5))
+
 ## [1.2.5](https://github.com/dhis2/maps-app/compare/v1.2.4...v1.2.5) (2021-01-18)
 
 
