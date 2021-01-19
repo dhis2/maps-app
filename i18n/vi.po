@@ -33,7 +33,7 @@ msgid "Color"
 msgstr "Màu"
 
 msgid "Size"
-msgstr ""
+msgstr "Kích thước"
 
 msgid "Data element group"
 msgstr "Nhóm dữ liệu"
@@ -63,7 +63,7 @@ msgid "None"
 msgstr "Không"
 
 msgid "Data item"
-msgstr ""
+msgstr "Mục dữ liệu"
 
 msgid "Event data item"
 msgstr "Mục dữ liệu sự kiện"
@@ -320,7 +320,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "Tình trạng sự kiện"
 
 msgid "Aggregation type"
 msgstr "Kiểu tổng hợp"
@@ -389,7 +389,7 @@ msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
-msgstr ""
+msgstr "Tình trạng chương trình"
 
 msgid "Relationships"
 msgstr "Mối quan hệ"
@@ -616,7 +616,7 @@ msgid "Latitude"
 msgstr "Vĩ độ"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Xem phần diễn giải từ {{interpretationDate}}"
 
 msgid "Last updated"
 msgstr "Lần cập nhật cuối"
@@ -945,13 +945,13 @@ msgid "Last 30 days"
 msgstr "30 ngày trước"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "60 ngày qua"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "90 ngày qua"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "180 ngày qua"
 
 msgid "This week"
 msgstr "Tuần này"

@@ -1,3 +1,38 @@
+## [1.2.5](https://github.com/dhis2/maps-app/compare/v1.2.4...v1.2.5) (2021-01-18)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([cb9b306](https://github.com/dhis2/maps-app/commit/cb9b306ff815721d657ec78e0a17096cdcbe4a1f))
+
+## [1.2.4](https://github.com/dhis2/maps-app/compare/v1.2.3...v1.2.4) (2021-01-14)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([14ed18d](https://github.com/dhis2/maps-app/commit/14ed18dcae0c7d2972681185b9ba11726ed4c304))
+
+## [1.2.3](https://github.com/dhis2/maps-app/compare/v1.2.2...v1.2.3) (2021-01-08)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([5599a5f](https://github.com/dhis2/maps-app/commit/5599a5fd5abcddba0de1e89064c0d30ad6189769))
+
+## [1.2.2](https://github.com/dhis2/maps-app/compare/v1.2.1...v1.2.2) (2020-12-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([2be7b2f](https://github.com/dhis2/maps-app/commit/2be7b2f39494d510b6dbae41a768d13fe2e22c46))
+
+## [1.2.1](https://github.com/dhis2/maps-app/compare/v1.2.0...v1.2.1) (2020-12-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([2b7a314](https://github.com/dhis2/maps-app/commit/2b7a314fef176ce73e1d9be334ceab871c3aa0ec))
+
 # [1.2.0](https://github.com/dhis2/maps-app/compare/v1.1.3...v1.2.0) (2020-12-15)
 
 
