@@ -55,7 +55,7 @@
         "@dhis2/d2-ui-org-unit-tree": "^7.1.3",
         "@dhis2/maps-gl": "^1.3.6",
         "@dhis2/ui": "^5.7.8",
-        "@material-ui/icons": "^4.9.1",
+        "@material-ui/icons": "^4.11.2",
         "abortcontroller-polyfill": "^1.5.0",
         "array-move": "^3.0.1",
         "babel-preset-stage-0": "^6.24.1",
