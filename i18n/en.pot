@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-01-18T07:57:35.386Z\n"
-"PO-Revision-Date: 2021-01-18T07:57:35.386Z\n"
+"POT-Creation-Date: 2021-01-19T13:32:46.964Z\n"
+"PO-Revision-Date: 2021-01-19T13:32:46.964Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -849,10 +849,21 @@ msgstr ""
 msgid "Elevation above sea-level."
 msgstr ""
 
-msgid "Precipitation"
+msgid "Precipitation NEW"
 msgstr ""
 
 msgid "millimeter"
+msgstr ""
+
+msgid "meter"
+msgstr ""
+
+msgid ""
+"Total precipitation values. Data is available from 1979 to three months "
+"from real-time."
+msgstr ""
+
+msgid "Precipitation"
 msgstr ""
 
 msgid ""

@@ -27,8 +27,17 @@ const ImportDialog = ({ layer, onClose, setAlert }) => {
     const [dataElement, setDataElement] = useState();
     const [precision, setPrecision] = useState();
 
-    const { name, periodType, filter, aggregationType = [], data } = layer;
-    const period = getPeriodFromFilter(filter);
+    const {
+        name,
+        periodType = 'Yearly',
+        filter,
+        aggregationType = [],
+        data,
+    } = layer;
+
+    const year = new Date().getFullYear();
+    const period = getPeriodFromFilter(filter) || { id: year, name: year };
+
     const valueTypes = getEarthEngineAggregationTypes().filter(t =>
         aggregationType.includes(t.id)
     );

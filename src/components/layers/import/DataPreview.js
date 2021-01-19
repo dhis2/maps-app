@@ -31,7 +31,7 @@ const DataPreview = ({
         // TODO: Possible to specify dataElement.id?
         const url = `/dataValueSets?dataSet=${dataSet.id}&period=${period.id}&${orgUnits}`;
 
-        apiFetch(url).then(({ dataValues }) =>
+        apiFetch(url).then(({ dataValues = [] }) =>
             setCurrentValues(
                 dataValues
                     .filter(d => d.dataElement === dataElement.id)
