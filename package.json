@@ -60,7 +60,7 @@
         "array-move": "^3.0.1",
         "babel-preset-stage-0": "^6.24.1",
         "classnames": "^2.2.6",
-        "d2": "^31.8.2",
+        "d2": "^31.9.0",
         "d2-utilizr": "^0.2.15",
         "d3-axis": "^2.0.0",
         "d3-color": "^2.0.0",
