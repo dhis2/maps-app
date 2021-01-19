@@ -7,7 +7,7 @@ const PeriodName = ({ period, isTimeline }) => (
         className={`dhis2-map-period ${styles.periodName}`}
         style={isTimeline ? { bottom: 86 } : null}
     >
-        <div className={styles.periodName}>{period}</div>
+        <div className={styles.period}>{period}</div>
     </div>
 );
 
