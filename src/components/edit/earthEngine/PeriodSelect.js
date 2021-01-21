@@ -2,11 +2,12 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { CircularLoader } from '@dhis2/ui';
+import PeriodSelect from '../../periods/PeriodSelect';
 import SelectField from '../../core/SelectField';
 import styles from './styles/PeriodSelect.module.css';
 
 // http://localhost:8080/api/periodTypes.json
-const PeriodSelect = ({
+const EarthEnginePeriodSelect = ({
     periodType,
     period,
     periods,
@@ -56,27 +57,40 @@ const PeriodSelect = ({
 
     const items = byYear ? byYearPeriods : periods;
 
+    // console.log('period', periodType, period, periods);
+
     return items ? (
-        <div className={className}>
-            {byYear && (
-                <SelectField
-                    label={i18n.t('Year')}
-                    items={years}
-                    value={year}
-                    onChange={onYearChange}
-                    className={styles.year}
-                />
-            )}
-            <SelectField
-                label={i18n.t('Period')}
-                loading={!periods}
-                items={items}
-                value={items && period && period.id}
-                onChange={onChange}
-                errorText={!period && errorText ? errorText : null}
-                className={styles.period}
+        periodType === 'Daily' ? (
+            <PeriodSelect
+                periodType={periodType}
+                // period={period}
+                onChange={() => {}}
+                // className={styles.select}
+                // errorText={periodError}
+                {...periods}
             />
-        </div>
+        ) : (
+            <div className={className}>
+                {byYear && (
+                    <SelectField
+                        label={i18n.t('Year')}
+                        items={years}
+                        value={year}
+                        onChange={onYearChange}
+                        className={styles.year}
+                    />
+                )}
+                <SelectField
+                    label={i18n.t('Period')}
+                    loading={!periods}
+                    items={items}
+                    value={items && period && period.id}
+                    onChange={onChange}
+                    errorText={!period && errorText ? errorText : null}
+                    className={styles.period}
+                />
+            </div>
+        )
     ) : (
         <div className={styles.loading}>
             <CircularLoader small />
@@ -85,7 +99,7 @@ const PeriodSelect = ({
     );
 };
 
-PeriodSelect.propTypes = {
+EarthEnginePeriodSelect.propTypes = {
     periodType: PropTypes.string.isRequired,
     period: PropTypes.object,
     periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
@@ -94,4 +108,4 @@ PeriodSelect.propTypes = {
     className: PropTypes.string,
 };
 
-export default PeriodSelect;
+export default EarthEnginePeriodSelect;

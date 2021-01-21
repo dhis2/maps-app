@@ -60,6 +60,22 @@ const EarthEngineDialog = props => {
         }
     }, [datasetId, periodType]);
 
+    // Set most recent period by default
+    useEffect(() => {
+        if (!period) {
+            if (Array.isArray(periods) && periods.length) {
+                setPeriod(periods[0]);
+            } else if (periods && periods.endPeriod) {
+                setPeriod({
+                    id: periods.endPeriod,
+                    name: periods.endPeriod, // TODO
+                    year: Number(periods.endPeriod.substring(0, 4)),
+                    startDate: '2020-07-09', // TODO
+                });
+            }
+        }
+    }, [periods, period]);
+
     useEffect(() => {
         if (validateLayer) {
             if (!periodType || period) {

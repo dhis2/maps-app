@@ -68,6 +68,8 @@ const connectEarthEngine = () =>
         resolve(window.ee);
     });
 
+const getInfoPromise = obj => new Promise(resolve => obj.getInfo(resolve));
+
 export const getPeriods = async id => {
     const { periodType } = getEarthEngineLayer(id);
     const ee = await connectEarthEngine();
@@ -81,19 +83,15 @@ export const getPeriods = async id => {
         .FeatureCollection(imageCollection)
         .select(['system:time_start', 'system:time_end'], null, false);
 
-    /*    
+    // Return first and last date for daily periods
     if (periodType === 'Daily') {
-        console.log('####');
-        featureCollection.first().getInfo(console.log);
-        console.log('A');
-        featureCollection.last().getInfo(console.log);
-        console.log('B');
+        const last = await getInfoPromise(featureCollection.first());
+        const first = await getInfoPromise(
+            featureCollection.sort('system:time_start', true).first()
+        );
 
-        console.log('first and last', last);
-
-        return [];
+        return { startPeriod: first.id, endPeriod: last.id };
     }
-    */
 
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear();
