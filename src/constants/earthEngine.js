@@ -159,7 +159,8 @@ export const earthEngineLayers = () => [
                 arguments: ['system:index', `${id}_01_01`], // TODO
             },
         ],
-        classes: true,
+        classes: true, // TODO: Best name?
+        defaultAggregations: ['PERCENTAGE'],
         params: {
             // TODO: Create from legend below - possible to read from metadata?
             min: 1,

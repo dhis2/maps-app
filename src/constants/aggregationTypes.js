@@ -13,6 +13,13 @@ export const getThematicAggregationTypes = () => [
 ];
 
 // Earth Engine layer
+export const getEarthEngineStatisticTypes = () => [
+    { id: 'PERCENTAGE', name: i18n.t('Percentage') },
+    { id: 'HECTARES', name: i18n.t('Hectares') },
+    { id: 'ACRES', name: i18n.t('Acres') },
+];
+
+// Earth Engine layer
 // TODO: Align names with thematic types
 export const getEarthEngineAggregationTypes = () => [
     { id: 'min', name: i18n.t('Min') },
@@ -24,6 +31,9 @@ export const getEarthEngineAggregationTypes = () => [
     { id: 'variance', name: i18n.t('Variance') },
     { id: 'count', name: i18n.t('Count') },
 ];
+
+export const getEarthEngineStatisticType = id =>
+    (getEarthEngineStatisticTypes().find(t => t.id === id) || {}).name;
 
 export const getEarthEngineAggregationType = id =>
     (getEarthEngineAggregationTypes().find(t => t.id === id) || {}).name;

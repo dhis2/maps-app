@@ -188,7 +188,7 @@ export default class EarthEngineLayer extends Layer {
                         </tbody>
                     </table>
                 )}
-                {Array.isArray(aggregationType) && values && (
+                {!classes && Array.isArray(aggregationType) && values && (
                     <table className={styles.table}>
                         <caption>
                             {layerName}
