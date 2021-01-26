@@ -65,6 +65,15 @@ export const earthEngineLayers = () => [
         defaultAggregations: ['sum', 'min', 'max', 'mean'],
         mask: true,
         img: 'images/precipitation.png',
+        filters: ({ id, name, startDate, endDate }) => [
+            {
+                id,
+                name,
+                type: 'date',
+                arguments: [startDate, endDate],
+            },
+        ],
+        reducer: 'sum',
         params: {
             min: 0,
             max: 0.02,
@@ -140,23 +149,17 @@ export const earthEngineLayers = () => [
         ),
         source: 'NASA LP DAAC / Google Earth Engine',
         sourceUrl:
-            'https://code.earthengine.google.com/dataset/MODIS/051/MCD12Q1',
+            'https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1',
         periodType: 'Yearly',
         band: 'LC_Type1',
         filters: ({ id, name }) => [
             {
                 name,
                 type: 'eq',
-                arguments: ['year', id],
+                arguments: ['system:index', `${id}_01_01`], // TODO
             },
-            /*
-            {
-                name,
-                type: 'eq',
-                arguments: ['system:index', `${id}_01_01`],
-            },
-            */
         ],
+        classes: true,
         params: {
             // TODO: Create from legend below - possible to read from metadata?
             min: 1,

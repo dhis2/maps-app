@@ -13,15 +13,17 @@ export const getStartEndDate = data =>
         false
     );
 
-export const getPeriodFromFilter = (filter = []) =>
-    filter[0]
+export const getPeriodFromFilter = (filter = []) => {
+    const f = filter[0];
+
+    return f
         ? {
-              id: filter[0].arguments[1],
-              name: filter[0].name,
-              year: filter[0].year,
+              id: f.id || f.arguments[1],
+              name: f.name,
+              year: f.year,
           }
         : null;
-
+};
 const setAuthToken = async ({ client_id, access_token, expires_in }) =>
     new Promise((resolve, reject) => {
         ee.data.setAuthToken(client_id, 'Bearer', access_token, expires_in);
@@ -89,6 +91,8 @@ export const getPeriods = async id => {
         const first = await getInfoPromise(
             featureCollection.sort('system:time_start', true).first()
         );
+
+        // console.log('start end', first, last);
 
         return { startPeriod: first.id, endPeriod: last.id };
     }

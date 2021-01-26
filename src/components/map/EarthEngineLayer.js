@@ -3,6 +3,7 @@ import Layer from './Layer';
 import LayerLoading from './LayerLoading';
 import Popup from './Popup';
 import { apiFetch } from '../../util/api';
+import { numberPrecision } from '../../util/numbers';
 import { getEarthEngineAggregationType } from '../../constants/aggregationTypes';
 import { formatNumber } from '../../util/earthEngine';
 import styles from './styles/EarthEngineLayer.module.css';
@@ -45,6 +46,8 @@ export default class EarthEngineLayer extends Layer {
             mask,
             attribution,
             filter,
+            classes,
+            reducer,
             methods,
             mosaic,
             name,
@@ -72,6 +75,8 @@ export default class EarthEngineLayer extends Layer {
             mask,
             attribution,
             filter,
+            classes,
+            reducer,
             methods,
             mosaic,
             name,
@@ -104,12 +109,16 @@ export default class EarthEngineLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
+        // if (Array.isArray(aggregationType) && aggregationType.length) {
         this.layer.aggregate().then(this.addAggregationValues.bind(this));
+        // }
 
         this.fitBoundsOnce();
     }
 
     addAggregationValues(aggregations) {
+        // console.log('aggregations', aggregations);
+
         // Make aggregations available for data table
         this.props.data.forEach(f => {
             const values = aggregations[f.id];
@@ -128,9 +137,17 @@ export default class EarthEngineLayer extends Layer {
 
     getPopup() {
         const { popup, aggregations } = this.state;
-        const { name: layerName, aggregationType, unit } = this.props;
+        const {
+            name: layerName,
+            aggregationType,
+            unit,
+            classes,
+            legend,
+            params,
+        } = this.props;
         const { coordinates, feature } = popup;
         const { id, name } = feature.properties;
+        const valueFormat = numberPrecision(2);
 
         let values;
 
@@ -144,7 +161,33 @@ export default class EarthEngineLayer extends Layer {
                 onClose={this.onPopupClose}
                 className="dhis2-map-popup-orgunit"
             >
-                <div className={styles.name}>{name}</div>
+                <div className={styles.title}>{name}</div>
+                {classes && values && (
+                    <table className={styles.table}>
+                        <caption>{layerName}</caption>
+                        <tbody>
+                            {Object.keys(values).map(key => {
+                                const index = Number(key) - params.min;
+                                const { color, name } = legend.items[index];
+                                const { area, percent } = values[key];
+
+                                return (
+                                    <tr key={key}>
+                                        <td
+                                            className={styles.color}
+                                            style={{
+                                                backgroundColor: color,
+                                            }}
+                                        ></td>
+                                        <td className={styles.name}>{name}</td>
+                                        <td>{valueFormat(area)}</td>
+                                        <td>{valueFormat(percent)}%</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                )}
                 {Array.isArray(aggregationType) && values && (
                     <table className={styles.table}>
                         <caption>

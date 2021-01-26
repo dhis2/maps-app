@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { CircularLoader } from '@dhis2/ui';
-import PeriodSelect from '../../periods/PeriodSelect';
+import { FixedPeriodSelect } from '@dhis2/analytics';
 import SelectField from '../../core/SelectField';
 import styles from './styles/PeriodSelect.module.css';
 
@@ -45,6 +45,24 @@ const EarthEnginePeriodSelect = ({
         [onChange]
     );
 
+    const onFixedPeriodChange = useCallback(
+        period => {
+            if (period) {
+                const { id, name, startDate, endDate } = period;
+                const startTimeStamp = +new Date(startDate);
+                const endTimeStamp = +new Date(endDate) + 86400000; // One day in milliseconds
+
+                onChange({
+                    id,
+                    name,
+                    startDate: startTimeStamp,
+                    endDate: endTimeStamp,
+                });
+            }
+        },
+        [onChange]
+    );
+
     useEffect(() => {
         if (byYear) {
             if (period) {
@@ -57,17 +75,13 @@ const EarthEnginePeriodSelect = ({
 
     const items = byYear ? byYearPeriods : periods;
 
-    // console.log('period', periodType, period, periods);
+    // console.log('period', periodType, period);
 
     return items ? (
         periodType === 'Daily' ? (
-            <PeriodSelect
-                periodType={periodType}
-                // period={period}
-                onChange={() => {}}
-                // className={styles.select}
-                // errorText={periodError}
-                {...periods}
+            <FixedPeriodSelect
+                allowedPeriodTypes={['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY']}
+                onChange={onFixedPeriodChange}
             />
         ) : (
             <div className={className}>
@@ -84,7 +98,7 @@ const EarthEnginePeriodSelect = ({
                     label={i18n.t('Period')}
                     loading={!periods}
                     items={items}
-                    value={items && period && period.id}
+                    // value={items && period && period.id}
                     onChange={onChange}
                     errorText={!period && errorText ? errorText : null}
                     className={styles.period}

@@ -50,6 +50,8 @@ const EarthEngineDialog = props => {
 
     const setPeriod = period => setFilter(period ? filters(period) : undefined);
 
+    // console.log('filter', filter, period);
+
     // Load all available periods
     // TODO: Cancel state update if dialog is closed
     useEffect(() => {
@@ -66,12 +68,14 @@ const EarthEngineDialog = props => {
             if (Array.isArray(periods) && periods.length) {
                 setPeriod(periods[0]);
             } else if (periods && periods.endPeriod) {
+                /*
                 setPeriod({
                     id: periods.endPeriod,
                     name: periods.endPeriod, // TODO
                     year: Number(periods.endPeriod.substring(0, 4)),
                     startDate: '2020-07-09', // TODO
                 });
+                */
             }
         }
     }, [periods, period]);
