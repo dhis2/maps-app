@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
+import { defaultFilters } from '../util/earthEngine';
 
 export const earthEngineLayers = () => [
     {
@@ -13,13 +14,7 @@ export const earthEngineLayers = () => [
         img: 'images/population.png',
         defaultAggregations: ['sum', 'min', 'max', 'mean'],
         periodType: 'Yearly',
-        filters: ({ id, name }) => [
-            {
-                name,
-                type: 'eq',
-                arguments: ['year', id],
-            },
-        ],
+        filters: defaultFilters,
         mosaic: true,
         params: {
             min: 0,
@@ -126,13 +121,6 @@ export const earthEngineLayers = () => [
             multiply: [0.02],
             subtract: [273.15],
         },
-        // value(value) {
-        //     return Math.round(value);
-        // },
-        // minValue: -100,
-        // maxValue: 100,
-        // popup: '{name}: {value}{unit}',
-        // type: i18n.t('Temperature'),
         params: {
             min: 0,
             max: 50,
@@ -152,13 +140,7 @@ export const earthEngineLayers = () => [
             'https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1',
         periodType: 'Yearly',
         band: 'LC_Type1',
-        filters: ({ id, name }) => [
-            {
-                name,
-                type: 'eq',
-                arguments: ['system:index', `${id}_01_01`], // TODO
-            },
-        ],
+        filters: defaultFilters,
         classes: true, // TODO: Best name?
         defaultAggregations: ['PERCENTAGE'],
         params: {
@@ -172,72 +154,89 @@ export const earthEngineLayers = () => [
             items: [
                 // http://www.eomf.ou.edu/static/IGBP.pdf
                 {
-                    color: '#162103',
+                    id: 1,
                     name: i18n.t('Evergreen Needleleaf forest'),
+                    color: '#162103',
                 },
                 {
-                    color: '#235123',
+                    id: 2,
                     name: i18n.t('Evergreen Broadleaf forest'),
+                    color: '#235123',
                 },
                 {
-                    color: '#399b38',
+                    id: 3,
                     name: i18n.t('Deciduous Needleleaf forest'),
+                    color: '#399b38',
                 },
                 {
-                    color: '#38eb38',
+                    id: 4,
                     name: i18n.t('Deciduous Broadleaf forest'),
+                    color: '#38eb38',
                 },
                 {
-                    color: '#39723b',
+                    id: 5,
                     name: i18n.t('Mixed forest'),
+                    color: '#39723b',
                 },
                 {
-                    color: '#6a2424',
+                    id: 6,
                     name: i18n.t('Closed shrublands'),
+                    color: '#6a2424',
                 },
                 {
-                    color: '#c3a55f',
+                    id: 7,
                     name: i18n.t('Open shrublands'),
+                    color: '#c3a55f',
                 },
                 {
-                    color: '#b76124',
+                    id: 8,
                     name: i18n.t('Woody savannas'),
+                    color: '#b76124',
                 },
                 {
-                    color: '#d99125',
+                    id: 9,
                     name: i18n.t('Savannas'),
+                    color: '#d99125',
                 },
                 {
-                    color: '#92af1f',
+                    id: 10,
                     name: i18n.t('Grasslands'),
+                    color: '#92af1f',
                 },
                 {
-                    color: '#10104c',
+                    id: 11,
                     name: i18n.t('Permanent wetlands'),
+                    color: '#10104c',
                 },
                 {
-                    color: '#cdb400',
+                    id: 12,
                     name: i18n.t('Croplands'),
+                    color: '#cdb400',
                 },
                 {
-                    color: '#cc0202',
+                    id: 13,
                     name: i18n.t('Urban and built-up'),
+                    color: '#cc0202',
                 },
                 {
-                    color: '#332808',
+                    id: 14,
                     name: i18n.t('Cropland/Natural vegetation mosaic'),
+                    color: '#332808',
                 },
                 {
-                    color: '#d7cdcc',
+                    id: 15,
                     name: i18n.t('Snow and ice'),
+                    color: '#d7cdcc',
                 },
                 {
-                    color: '#f7e174',
+                    id: 16,
                     name: i18n.t('Barren or sparsely vegetated'),
+                    color: '#f7e174',
                 },
                 {
-                    color: '#aec3d6',
+                    id: 17,
                     name: i18n.t('Water'),
+                    color: '#aec3d6',
                 },
             ],
         },

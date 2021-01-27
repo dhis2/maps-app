@@ -75,8 +75,6 @@ const EarthEnginePeriodSelect = ({
 
     const items = byYear ? byYearPeriods : periods;
 
-    // console.log('period', periodType, period);
-
     return items ? (
         periodType === 'Daily' ? (
             <FixedPeriodSelect
@@ -98,7 +96,7 @@ const EarthEnginePeriodSelect = ({
                     label={i18n.t('Period')}
                     loading={!periods}
                     items={items}
-                    // value={items && period && period.id}
+                    value={items && period && period.id}
                     onChange={onChange}
                     errorText={!period && errorText ? errorText : null}
                     className={styles.period}

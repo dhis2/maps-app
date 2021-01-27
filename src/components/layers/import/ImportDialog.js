@@ -10,7 +10,7 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui';
-import SelectField from '../../core/SelectField';
+import ValueTypeSelect from './ValueTypeSelect';
 import DataSetSelect from './DataSetSelect';
 import DataElementSelect from './DataElementSelect';
 import NumberPrecision from './NumberPrecision';
@@ -18,7 +18,6 @@ import DataPreview from './DataPreview';
 import { apiFetch } from '../../../util/api';
 import { getPeriodFromFilter } from '../../../util/earthEngine';
 import { numberPrecision } from '../../../util/numbers';
-import { getEarthEngineAggregationTypes } from '../../../constants/aggregationTypes';
 import { setAlert } from '../../../actions/alerts';
 
 const ImportDialog = ({ layer, onClose, setAlert }) => {
@@ -32,15 +31,14 @@ const ImportDialog = ({ layer, onClose, setAlert }) => {
         periodType = 'Yearly',
         filter,
         aggregationType = [],
+        classes,
         data,
+        legend,
     } = layer;
 
     const year = new Date().getFullYear();
     const period = getPeriodFromFilter(filter) || { id: year, name: year };
-
-    const valueTypes = getEarthEngineAggregationTypes().filter(t =>
-        aggregationType.includes(t.id)
-    );
+    const valueTypeItems = classes && legend ? legend.items : null;
 
     const setResponse = useCallback(
         response => {
@@ -80,6 +78,8 @@ const ImportDialog = ({ layer, onClose, setAlert }) => {
             .then(setResponse);
     }, [period, valueType, dataSet, dataElement, data, precision]);
 
+    // console.log('data', data);
+
     return (
         <Modal position="middle" small onClose={onClose}>
             <ModalTitle>{`${i18n.t('Import data')}: ${name}`}</ModalTitle>
@@ -89,10 +89,10 @@ const ImportDialog = ({ layer, onClose, setAlert }) => {
                         {i18n.t('Period')}: {period.name}
                     </div>
                 )}
-                <SelectField
-                    label={i18n.t('Value type')}
-                    items={valueTypes}
-                    value={valueType ? valueType.id : null}
+                <ValueTypeSelect
+                    value={valueType}
+                    valueTypes={valueTypeItems}
+                    defaultTypes={aggregationType}
                     onChange={setValueType}
                 />
                 <DataSetSelect

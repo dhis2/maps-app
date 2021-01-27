@@ -101,10 +101,8 @@ export const getPeriods = async id => {
         const year = new Date(properties['system:time_start']).getFullYear();
 
         if (periodType === 'Yearly') {
-            return {
-                id: year,
-                name: String(year),
-            };
+            const name = String(year);
+            return { id, name };
         } else if (periodType === 'Custom') {
             const name = getStartEndDate(properties);
             return { id, name, year };

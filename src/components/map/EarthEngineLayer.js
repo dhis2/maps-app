@@ -5,7 +5,7 @@ import Popup from './Popup';
 import { apiFetch } from '../../util/api';
 import { numberPrecision } from '../../util/numbers';
 import { getEarthEngineAggregationType } from '../../constants/aggregationTypes';
-import { formatNumber } from '../../util/earthEngine';
+import { getPeriodFromFilter, formatNumber } from '../../util/earthEngine';
 import styles from './styles/EarthEngineLayer.module.css';
 
 export default class EarthEngineLayer extends Layer {
@@ -141,6 +141,7 @@ export default class EarthEngineLayer extends Layer {
             name: layerName,
             aggregationType,
             unit,
+            filter,
             classes,
             legend,
             params,
@@ -148,6 +149,7 @@ export default class EarthEngineLayer extends Layer {
         const { coordinates, feature } = popup;
         const { id, name } = feature.properties;
         const valueFormat = numberPrecision(2);
+        const period = getPeriodFromFilter(filter);
 
         let values;
 
@@ -164,27 +166,35 @@ export default class EarthEngineLayer extends Layer {
                 <div className={styles.title}>{name}</div>
                 {classes && values && (
                     <table className={styles.table}>
-                        <caption>{layerName}</caption>
+                        <caption>
+                            {layerName} {period ? period.name : ''}
+                        </caption>
                         <tbody>
-                            {Object.keys(values).map(key => {
-                                const index = Number(key) - params.min;
-                                const { color, name } = legend.items[index];
-                                const { area, percent } = values[key];
+                            {Object.keys(values)
+                                .sort((a, b) => values[b].area - values[a].area)
+                                .map(key => {
+                                    const index = Number(key) - params.min;
+                                    const { color, name } = legend.items[index];
+                                    // const { area, percent } = values[key];
+                                    const { percent } = values[key];
 
-                                return (
-                                    <tr key={key}>
-                                        <td
-                                            className={styles.color}
-                                            style={{
-                                                backgroundColor: color,
-                                            }}
-                                        ></td>
-                                        <td className={styles.name}>{name}</td>
-                                        <td>{valueFormat(area)}</td>
-                                        <td>{valueFormat(percent)}%</td>
-                                    </tr>
-                                );
-                            })}
+                                    // <td>{valueFormat(area)}</td>
+                                    return (
+                                        <tr key={key}>
+                                            <td
+                                                className={styles.color}
+                                                style={{
+                                                    backgroundColor: color,
+                                                }}
+                                            ></td>
+                                            <td className={styles.name}>
+                                                {name}
+                                            </td>
+
+                                            <td>{valueFormat(percent)}%</td>
+                                        </tr>
+                                    );
+                                })}
                         </tbody>
                     </table>
                 )}
