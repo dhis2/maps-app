@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-01-19T13:32:46.964Z\n"
-"PO-Revision-Date: 2021-01-19T13:32:46.964Z\n"
+"POT-Creation-Date: 2021-01-27T20:54:54.264Z\n"
+"PO-Revision-Date: 2021-01-27T20:54:54.264Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -192,6 +192,9 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
+msgstr ""
+
+msgid "Statistics"
 msgstr ""
 
 msgid "Aggregation"
@@ -481,9 +484,6 @@ msgstr ""
 msgid "Import data"
 msgstr ""
 
-msgid "Value type"
-msgstr ""
-
 msgid "Import"
 msgstr ""
 
@@ -497,6 +497,9 @@ msgid "Custom value"
 msgstr ""
 
 msgid "Decimals"
+msgstr ""
+
+msgid "Value type"
 msgstr ""
 
 msgid "External layer"
@@ -544,9 +547,6 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-msgid "Parent unit"
-msgstr ""
-
 msgid "Drill up one level"
 msgstr ""
 
@@ -574,9 +574,6 @@ msgstr ""
 msgid "Organisation unit"
 msgstr ""
 
-msgid "Groups"
-msgstr ""
-
 msgid "Loading layer data"
 msgstr ""
 
@@ -587,6 +584,12 @@ msgid "Latitude"
 msgstr ""
 
 msgid "Viewing interpretation from {{interpretationDate}}"
+msgstr ""
+
+msgid "Parent unit"
+msgstr ""
+
+msgid "Groups"
 msgstr ""
 
 msgid "Last updated"
@@ -799,6 +802,15 @@ msgid "Standard deviation"
 msgstr ""
 
 msgid "Variance"
+msgstr ""
+
+msgid "Percentage"
+msgstr ""
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
 msgstr ""
 
 msgid "Mean"

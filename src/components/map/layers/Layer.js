@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../constants/layers';
+import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../../constants/layers';
 
 class Layer extends PureComponent {
     static contextTypes = {

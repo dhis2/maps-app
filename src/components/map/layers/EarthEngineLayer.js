@@ -1,11 +1,11 @@
 import React from 'react';
 import Layer from './Layer';
 import LayerLoading from './LayerLoading';
-import Popup from './Popup';
-import { apiFetch } from '../../util/api';
-import { numberPrecision } from '../../util/numbers';
-import { getEarthEngineAggregationType } from '../../constants/aggregationTypes';
-import { getPeriodFromFilter, formatNumber } from '../../util/earthEngine';
+import Popup from '../Popup';
+import { apiFetch } from '../../../util/api';
+import { numberPrecision } from '../../../util/numbers';
+import { getEarthEngineAggregationType } from '../../../constants/aggregationTypes';
+import { getPeriodFromFilter, formatNumber } from '../../../util/earthEngine';
 import styles from './styles/EarthEngineLayer.module.css';
 
 export default class EarthEngineLayer extends Layer {
@@ -171,14 +171,13 @@ export default class EarthEngineLayer extends Layer {
                         </caption>
                         <tbody>
                             {Object.keys(values)
-                                .sort((a, b) => values[b].area - values[a].area)
+                                .sort((a, b) => values[b] - values[a])
+                                .filter(key => values[key])
                                 .map(key => {
                                     const index = Number(key) - params.min;
                                     const { color, name } = legend.items[index];
-                                    // const { area, percent } = values[key];
-                                    const { percent } = values[key];
+                                    const value = valueFormat(values[key]);
 
-                                    // <td>{valueFormat(area)}</td>
                                     return (
                                         <tr key={key}>
                                             <td
@@ -190,8 +189,7 @@ export default class EarthEngineLayer extends Layer {
                                             <td className={styles.name}>
                                                 {name}
                                             </td>
-
-                                            <td>{valueFormat(percent)}%</td>
+                                            <td>{value}%</td>
                                         </tr>
                                     );
                                 })}
