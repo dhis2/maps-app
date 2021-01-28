@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-01-27T20:54:54.264Z\n"
-"PO-Revision-Date: 2021-01-27T20:54:54.264Z\n"
+"POT-Creation-Date: 2021-01-28T10:43:36.816Z\n"
+"PO-Revision-Date: 2021-01-28T10:43:36.816Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -568,15 +568,6 @@ msgstr ""
 msgid "Show {{name}}"
 msgstr ""
 
-msgid "Not set"
-msgstr ""
-
-msgid "Organisation unit"
-msgstr ""
-
-msgid "Loading layer data"
-msgstr ""
-
 msgid "Longitude"
 msgstr ""
 
@@ -589,7 +580,16 @@ msgstr ""
 msgid "Parent unit"
 msgstr ""
 
+msgid "Not set"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr ""
+
 msgid "Groups"
+msgstr ""
+
+msgid "Loading layer data"
 msgstr ""
 
 msgid "Last updated"

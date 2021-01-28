@@ -92,23 +92,17 @@ export const getPeriods = async id => {
             featureCollection.sort('system:time_start', true).first()
         );
 
-        // console.log('start end', first, last);
-
         return { startPeriod: first.id, endPeriod: last.id };
     }
 
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear();
+        const name =
+            periodType === 'Yearly'
+                ? String(year)
+                : getStartEndDate(properties);
 
-        if (periodType === 'Yearly') {
-            const name = String(year);
-            return { id, name };
-        } else if (periodType === 'Custom') {
-            const name = getStartEndDate(properties);
-            return { id, name, year };
-        } else {
-            // TODO
-        }
+        return { id, name, year };
     };
 
     return new Promise(resolve =>

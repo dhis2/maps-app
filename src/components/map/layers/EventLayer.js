@@ -2,7 +2,7 @@ import React from 'react';
 import { getInstance as getD2 } from 'd2';
 import { getAnalyticsRequest } from '../../../loaders/eventLoader';
 import Layer from './Layer';
-import EventPopup from '../EventPopup';
+import EventPopup from './EventPopup';
 import { getDisplayPropertyUrl } from '../../../util/helpers';
 import { formatCount } from '../../../util/numbers';
 import { filterData } from '../../../util/filter';

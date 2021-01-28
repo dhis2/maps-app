@@ -14,7 +14,14 @@ export const earthEngineLayers = () => [
         img: 'images/population.png',
         defaultAggregations: ['sum', 'min', 'max', 'mean'],
         periodType: 'Yearly',
-        filters: defaultFilters,
+        filters: ({ id, name, year }) => [
+            {
+                id,
+                name,
+                type: 'eq',
+                arguments: ['year', year],
+            },
+        ],
         mosaic: true,
         params: {
             min: 0,

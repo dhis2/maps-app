@@ -8,7 +8,7 @@ import TrackedEntityLayer from './layers/TrackedEntityLayer';
 import FacilityLayer from './layers/FacilityLayer';
 import ThematicLayer from './layers/ThematicLayer';
 import BoundaryLayer from './layers/BoundaryLayer';
-import EarthEngineLayer from './layers/EarthEngineLayer';
+import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
 import ExternalLayer from './layers/ExternalLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
