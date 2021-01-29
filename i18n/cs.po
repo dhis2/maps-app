@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Jiří Podhorecký, 2020
+# Jiří Podhorecký, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Jiří Podhorecký, 2020\n"
+"Last-Translator: Jiří Podhorecký, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -393,7 +393,7 @@ msgid "Item type"
 msgstr "Typ položky"
 
 msgid "Select period when tracked entities were last updated"
-msgstr "Vyberte období, kdy byly sledované entity naposledy aktualizovány"
+msgstr "Vyberte období, kdy byly trasované entity naposledy aktualizovány"
 
 msgid "Program/Enrollment date"
 msgstr "Program / datum zápisu"
@@ -417,10 +417,10 @@ msgstr "Před výběrem typu vztahu vyberte typ trasované entity"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr "Zobrazení vztahů sledovaných entit v Mapách je experimentální funkce"
+msgstr "Zobrazení vztahů trasovaných entit v Mapách je experimentální funkce"
 
 msgid "Display Tracked Entity relationships"
-msgstr "Zobrazit vztahy sledované entity"
+msgstr "Zobrazit vztahy trasované entity"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
@@ -442,7 +442,7 @@ msgid "Tracked entities"
 msgstr "Trasované entity"
 
 msgid "Tracked entity style"
-msgstr "Styl sledované entity"
+msgstr "Styl trasované entity"
 
 msgid "Point size"
 msgstr "Velikost bodu"
@@ -457,7 +457,7 @@ msgid "Failed to load relationship types."
 msgstr "Načtení typů vztahů se nezdařilo."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr "Pro sledovaný typ entity {{type}} nebyly nalezeny žádné typy vztahů"
+msgstr "Pro trasovaný typ entity {{type}} nebyly nalezeny žádné typy vztahů"
 
 msgid "Relationship type"
 msgstr "Typ vztahu"
@@ -1236,7 +1236,7 @@ msgid "Tracked entity"
 msgstr "Trasovaná entita"
 
 msgid "No tracked entities found"
-msgstr "Nenalezeny žádné sledované entity"
+msgstr "Nenalezeny žádné trasované entity"
 
 msgid "related"
 msgstr "příbuzný"
