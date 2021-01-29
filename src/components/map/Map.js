@@ -86,6 +86,7 @@ class Map extends Component {
             latitude,
             longitude,
             zoom,
+            isPlugin,
             isFullscreen,
         } = this.props;
         const { map } = this;
@@ -94,7 +95,6 @@ class Map extends Component {
         this.node.appendChild(map.getContainer());
 
         map.resize();
-        this.onFullScreenChange({ isFullscreen });
 
         // Add map controls
         if (controls) {
@@ -114,16 +114,20 @@ class Map extends Component {
         } else {
             map.fitWorld();
         }
+
+        if (isPlugin) {
+            this.onFullScreenChange({ isFullscreen });
+        }
     }
 
     componentDidUpdate(prevProps) {
-        const { resizeCount, isFullscreen } = this.props;
+        const { resizeCount, isFullscreen, isPlugin } = this.props;
 
         if (resizeCount !== prevProps.resizeCount) {
             this.map.resize();
         }
 
-        if (isFullscreen !== prevProps.isFullscreen) {
+        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
             this.onFullScreenChange({ isFullscreen });
         }
     }
