@@ -1,3 +1,10 @@
+## [1.2.9](https://github.com/dhis2/maps-app/compare/v1.2.8...v1.2.9) (2021-01-29)
+
+
+### Bug Fixes
+
+* allow map scroll zoom in app ([#1445](https://github.com/dhis2/maps-app/issues/1445)) ([bb61ffa](https://github.com/dhis2/maps-app/commit/bb61ffab35f108561e205ed128c1f3409cb26922))
+
 ## [1.2.8](https://github.com/dhis2/maps-app/compare/v1.2.7...v1.2.8) (2021-01-29)
 
 
