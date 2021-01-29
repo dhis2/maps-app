@@ -1,3 +1,24 @@
+## [1.2.9](https://github.com/dhis2/maps-app/compare/v1.2.8...v1.2.9) (2021-01-29)
+
+
+### Bug Fixes
+
+* allow map scroll zoom in app ([#1445](https://github.com/dhis2/maps-app/issues/1445)) ([bb61ffa](https://github.com/dhis2/maps-app/commit/bb61ffab35f108561e205ed128c1f3409cb26922))
+
+## [1.2.8](https://github.com/dhis2/maps-app/compare/v1.2.7...v1.2.8) (2021-01-29)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b9be776](https://github.com/dhis2/maps-app/commit/b9be77608ff3a366d777cb1482f38821dc3f8ca3))
+
+## [1.2.7](https://github.com/dhis2/maps-app/compare/v1.2.6...v1.2.7) (2021-01-26)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([80e1b22](https://github.com/dhis2/maps-app/commit/80e1b22964bddecdc384f6083637f5bf1a0569fe))
+
 ## [1.2.6](https://github.com/dhis2/maps-app/compare/v1.2.5...v1.2.6) (2021-01-19)
 
 
