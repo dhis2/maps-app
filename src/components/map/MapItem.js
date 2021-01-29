@@ -55,13 +55,13 @@ class MapItem extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        const { count, isFullscreen } = this.props;
+        const { count, isFullscreen, isPlugin } = this.props;
 
         if (count !== prevProps.count) {
             this.fitLayerBounds();
         }
 
-        if (isFullscreen !== prevProps.isFullscreen) {
+        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
             this.map.toggleScrollZoom(isFullscreen);
         }
 
