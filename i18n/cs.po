@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Jiří Podhorecký, 2020
+# Jiří Podhorecký, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2020-08-31T12:05:53.260Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Jiří Podhorecký, 2020\n"
+"Last-Translator: Jiří Podhorecký, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -341,7 +341,7 @@ msgid "Select program period"
 msgstr "Vybrat období programu"
 
 msgid "Select period when tracked entities were last updated"
-msgstr "Vyberte období, kdy byly sledované entity naposledy aktualizovány"
+msgstr "Vyberte období, kdy byly trasované entity naposledy aktualizovány"
 
 msgid "relationships"
 msgstr "vztahy"
@@ -354,17 +354,17 @@ msgstr "Následovat"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Před výběrem typu vztahu vyberte typ sledované entity"
+msgstr "Před výběrem typu vztahu vyberte typ trasované entity"
 
 msgid "WARNING"
 msgstr "VAROVÁNÍ"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr "Zobrazení vztahů sledovaných entit v Mapách je experimentální funkce"
+msgstr "Zobrazení vztahů trasovaných entit v Mapách je experimentální funkce"
 
 msgid "Display Tracked Entity relationships"
-msgstr "Zobrazit vztahy sledované entity"
+msgstr "Zobrazit vztahy trasované entity"
 
 msgid "Selection mode"
 msgstr "Režim výběru"
@@ -1164,7 +1164,7 @@ msgid "Tracked entity"
 msgstr "Trasovaná entita"
 
 msgid "No tracked entities found"
-msgstr "Nenalezeny žádné sledované entity"
+msgstr "Nenalezeny žádné trasované entity"
 
 msgid "related"
 msgstr "příbuzný"
