@@ -1,4 +1,3 @@
-import i18n from '@dhis2/d2-i18n';
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { generateUid } from 'd2/uid';
 import { upgradeGisAppLayers } from './requests';
@@ -219,29 +218,16 @@ export const translateConfig = async config => {
     if (!config.mapViews) {
         const { el, name } = config;
 
-        return getThematicLayerFromAnalyticalObject(config)
-            .then(mapView => ({
-                el,
-                name,
-                mapViews: [
-                    {
-                        id: generateUid(),
-                        ...mapView,
-                    },
-                ],
-            }))
-            .catch(() => ({
-                el,
-                name,
-                alerts: [
-                    {
-                        critical: true,
-                        message: `${name}: ${i18n.t(
-                            'There was a problem creating a map from the imported data.'
-                        )}`,
-                    },
-                ],
-            }));
+        return getThematicLayerFromAnalyticalObject(config).then(mapView => ({
+            el,
+            name,
+            mapViews: [
+                {
+                    id: generateUid(),
+                    ...mapView,
+                },
+            ],
+        }));
     }
 
     const newConfig = setExternalBasemap(config);
