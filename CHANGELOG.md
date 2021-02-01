@@ -1,3 +1,10 @@
+## [1.2.11](https://github.com/dhis2/maps-app/compare/v1.2.10...v1.2.11) (2021-02-01)
+
+
+### Bug Fixes
+
+* unify translations of analytical objects  ([#1444](https://github.com/dhis2/maps-app/issues/1444)) ([4cde025](https://github.com/dhis2/maps-app/commit/4cde0250f6dd375d11d54ca76c5821755e0c47d9))
+
 ## [1.2.10](https://github.com/dhis2/maps-app/compare/v1.2.9...v1.2.10) (2021-02-01)
 
 
