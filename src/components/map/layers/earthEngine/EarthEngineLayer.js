@@ -82,7 +82,9 @@ export default class EarthEngineLayer extends Layer {
             resolution,
             projection,
             data,
-            aggregationType,
+            aggregationType: Array.isArray(aggregationType)
+                ? aggregationType[0]
+                : null,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
@@ -132,8 +134,11 @@ export default class EarthEngineLayer extends Layer {
     }
 
     render() {
-        const { classes, legend } = this.props;
+        const { classes, legend, aggregationType } = this.props;
         const { isLoading, popup, aggregations } = this.state;
+        const valueType = Array.isArray(aggregationType)
+            ? aggregationType[0]
+            : null;
 
         if (isLoading) {
             return <LayerLoading />;
@@ -144,6 +149,7 @@ export default class EarthEngineLayer extends Layer {
                 data={aggregations || {}}
                 classes={classes}
                 legend={legend}
+                valueType={valueType}
                 onClose={this.onPopupClose}
                 {...popup}
             />

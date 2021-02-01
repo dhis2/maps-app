@@ -6,16 +6,38 @@ import { getEarthEngineAggregationType } from '../../../../constants/aggregation
 import styles from './styles/EarthEnginePopup.module.css';
 
 const EarthEnginePopup = props => {
-    const { coordinates, feature, data, classes, legend, onClose } = props;
+    const {
+        coordinates,
+        feature,
+        data,
+        classes,
+        legend,
+        valueType,
+        onClose,
+    } = props;
     const { id, name } = feature.properties;
     const { title, period = '', unit, items = [] } = legend;
     const values = data[id];
     const valueFormat = numberPrecision(2); // TODO configurable
-    const postfix = '%'; // TODO configurable
+    let postfix = '';
     let rows = [];
+    let header = null;
 
     if (values) {
         if (classes) {
+            if (valueType === 'percentage') {
+                postfix = '%';
+            }
+
+            header = (
+                <tr>
+                    <th colSpan="2">
+                        {title} {period}
+                    </th>
+                    <th>{valueType}</th>
+                </tr>
+            );
+
             rows = items
                 .filter(i => values[i.id])
                 .sort((a, b) => values[b.id] - values[a.id])
@@ -35,6 +57,15 @@ const EarthEnginePopup = props => {
                     </tr>
                 ));
         } else {
+            header = (
+                <tr>
+                    <th>
+                        {title} {period}
+                    </th>
+                    <th>{unit}</th>
+                </tr>
+            );
+
             rows = Object.keys(values).map(type => (
                 <tr key={type}>
                     <th>{getEarthEngineAggregationType(type)}:</th>
@@ -53,10 +84,7 @@ const EarthEnginePopup = props => {
             <div className={styles.title}>{name}</div>
             {values && (
                 <table className={styles.table}>
-                    <caption>
-                        {title} {period}
-                        {unit && <div className={styles.unit}>{unit}</div>}
-                    </caption>
+                    <thead>{header}</thead>
                     <tbody>{rows}</tbody>
                 </table>
             )}
@@ -70,6 +98,7 @@ EarthEnginePopup.propTypes = {
     data: PropTypes.object.isRequired,
     classes: PropTypes.bool,
     legend: PropTypes.object.isRequired,
+    valueType: PropTypes.string,
     onClose: PropTypes.func.isRequired,
 };
 

@@ -149,7 +149,7 @@ export const earthEngineLayers = () => [
         band: 'LC_Type1',
         filters: defaultFilters,
         classes: true, // TODO: Best name?
-        defaultAggregations: ['PERCENTAGE'],
+        defaultAggregations: ['percentage'],
         params: {
             // TODO: Create from legend below - possible to read from metadata?
             min: 1,

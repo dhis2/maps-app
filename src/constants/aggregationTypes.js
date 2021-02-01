@@ -14,9 +14,9 @@ export const getThematicAggregationTypes = () => [
 
 // Earth Engine layer
 export const getEarthEngineStatisticTypes = () => [
-    { id: 'PERCENTAGE', name: i18n.t('Percentage') },
-    { id: 'HECTARES', name: i18n.t('Hectares') },
-    { id: 'ACRES', name: i18n.t('Acres') },
+    { id: 'percentage', name: i18n.t('Percentage') },
+    { id: 'hectares', name: i18n.t('Hectares') },
+    { id: 'acres', name: i18n.t('Acres') },
 ];
 
 // Earth Engine layer
