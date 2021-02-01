@@ -1,7 +1,7 @@
-import i18n from '@dhis2/d2-i18n';
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { generateUid } from 'd2/uid';
 import { upgradeGisAppLayers } from './requests';
+import { getThematicLayerFromAnalyticalObject } from './analyticalObject';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -213,48 +213,21 @@ const setExternalBasemap = config => {
 };
 
 // Translate from chart/pivot config to map config, or from the old GIS app format
-export const translateConfig = config => {
+export const translateConfig = async config => {
     // If chart/pivot config
     if (!config.mapViews) {
         const { el, name } = config;
-        const dimensions = [
-            ...(config.columns || []),
-            ...(config.rows || []),
-            ...(config.filters || []),
-        ];
-        const columns = [dimensions.find(dim => dim.dimension === 'dx')]; // Data item
-        const rows = [dimensions.find(dim => dim.dimension === 'ou')]; // Org units
-        const filters = [dimensions.find(dim => dim.dimension === 'pe')]; // Period
 
-        if (!columns.length || !rows.length || !filters.length) {
-            return {
-                el,
-                name,
-                alerts: [
-                    {
-                        critical: true,
-                        message: `${name}: ${i18n.t(
-                            'There was a problem creating a map from the imported data.'
-                        )}`,
-                    },
-                ],
-            };
-        }
-
-        return {
+        return getThematicLayerFromAnalyticalObject(config).then(mapView => ({
             el,
             name,
             mapViews: [
                 {
-                    layer: 'thematic',
                     id: generateUid(),
-                    name,
-                    columns,
-                    rows,
-                    filters,
+                    ...mapView,
                 },
             ],
-        };
+        }));
     }
 
     const newConfig = setExternalBasemap(config);

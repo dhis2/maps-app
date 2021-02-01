@@ -104,7 +104,7 @@ const PluginContainer = () => {
                 })
             );
         } else {
-            loadLayers(translateConfig(config));
+            translateConfig(config).then(loadLayers);
         }
     }
 
