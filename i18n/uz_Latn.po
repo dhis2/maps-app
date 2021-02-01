@@ -1,0 +1,598 @@
+# 
+# Translators:
+# Yury Rogachev <yury@dhis2.org>, 2021
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2019-11-20T13:55:02.205Z\n"
+"PO-Revision-Date: 2019-09-02 08:01+0000\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
+"Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uz@Latn\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Maps"
+msgstr "Xaritalar"
+
+msgid "Classification"
+msgstr "Tasnifi"
+
+msgid "Classes"
+msgstr "Sinflar"
+
+msgid "Legend set"
+msgstr "Таърифлар тўплами"
+
+msgid "Automatic"
+msgstr "Аvtomatik"
+
+msgid "Predefined"
+msgstr "Олдиндан белгиланган"
+
+msgid "Data element group"
+msgstr "Maʼlumotlar elementi guruhi"
+
+msgid "Data element operand"
+msgstr "Maʼlumotlar guruhi operandi"
+
+msgid "Data element"
+msgstr "Maʼlumotlar elementi"
+
+msgid "Totals"
+msgstr "Жами"
+
+msgid "Details"
+msgstr "Тафсилотлари"
+
+msgid "Yes"
+msgstr "Ҳа"
+
+msgid "Event location"
+msgstr "Hodisa/Tadbir oʼtkaziladigan joy"
+
+msgid "Coordinate field"
+msgstr "Koordinatalar maydoni"
+
+msgid "None"
+msgstr "Йўқ"
+
+msgid "Data item"
+msgstr "Maʼlumot elementi"
+
+msgid "Event data item"
+msgstr "Hodisa/Tadbir maʼlumoti elementi"
+
+msgid "Style by data element"
+msgstr "Maʼlumot elementi boʼyicha uslub"
+
+msgid "Data set"
+msgstr "Maʼlumotlar toʼplami"
+
+msgid "Index"
+msgstr "Indenks"
+
+msgid "Value"
+msgstr "Қиймат"
+
+msgid "Legend"
+msgstr "Taʼrif"
+
+msgid "Range"
+msgstr "Oraliq"
+
+msgid "Level"
+msgstr "Daraja"
+
+msgid "Parent"
+msgstr "Аjdod"
+
+msgid "Id"
+msgstr ""
+
+msgid "Type"
+msgstr "Turi"
+
+msgid "Color"
+msgstr "Rang"
+
+msgid "Download"
+msgstr "Юклаш"
+
+msgid "Download map"
+msgstr "Xaritani yuklash"
+
+msgid "Show name"
+msgstr "Ismini koʼrsatish"
+
+msgid "Show legend"
+msgstr "Taʼrifni koʼrsatish"
+
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgstr ""
+"Sizning brauzeringiz xarita yuklanishini taʼminlay olmaydi. Google Chrome "
+"yoki Firefox orqali urinib koʼring."
+
+msgid "Cancel"
+msgstr "Бекор қилиш"
+
+msgid "Close"
+msgstr "Yopmoq"
+
+msgid "Legend position"
+msgstr "Tavsif holati"
+
+msgid "Period"
+msgstr "davr"
+
+msgid "Organisation units"
+msgstr "Tashkiliy birliklar"
+
+msgid "Style"
+msgstr "Услуб"
+
+msgid "Labels"
+msgstr "Yorliqlar"
+
+msgid "Point radius"
+msgstr "Nuqta radiusi"
+
+msgid "No organisation units are selected"
+msgstr "Tashkiliy boʼlimlar tanlanmagan"
+
+msgid "Steps"
+msgstr "Qadamlar"
+
+msgid "Legend preview"
+msgstr "Oldingi taʼrif"
+
+msgid "This field is required"
+msgstr "Ushbu qator toʼldirilishi shart"
+
+msgid "Valid range is"
+msgstr "Yaroqli oraliq"
+
+msgid "data"
+msgstr ""
+
+msgid "period"
+msgstr ""
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Org units"
+msgstr ""
+
+msgid "Start date"
+msgstr "Boshlanish sanasi"
+
+msgid "End date"
+msgstr "Yakunlanish sanasi"
+
+msgid "Events"
+msgstr "Hodisa/tadbirlar"
+
+msgid "Group events"
+msgstr "Hodisa/Tadbirlar guruhlari"
+
+msgid "View all events"
+msgstr "Barcha hodisa/tadbirlarni koʼrish"
+
+msgid "Radius"
+msgstr "Radius"
+
+msgid "Buffer"
+msgstr "Bufer"
+
+msgid "Radius in meters"
+msgstr "Radius metrlarda"
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"Hodisa/Tadbirlarda maʼlumotlar elementini uslublash uchun dasturni tanlang"
+
+msgid "Program is required"
+msgstr "Dastur talab qilinadi"
+
+msgid "Program stage is required"
+msgstr "Dastur bosqichi talab qilinadi"
+
+msgid "No organisation units are selected."
+msgstr "Tashkiliy boʼlimlar tanlanmagan"
+
+msgid "Group set"
+msgstr ""
+
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr "Oʼzida muassasani saqlagan tashkiliy boʼlimni tanlashni unutmang."
+
+msgid "Group set is required"
+msgstr "Guruhlar toʼplami talab qilinadi"
+
+msgid "Update layer"
+msgstr "Qatlamni yangilash"
+
+msgid "Add layer"
+msgstr "Qatlam qoʼshish"
+
+msgid "Select program period"
+msgstr ""
+
+msgid "Select period when tracked entities were last updated"
+msgstr ""
+"Kuzatuvdagi obʼektlar maʼlumoti yangilanganligi oxirgi davrini tanlang"
+
+msgid "Program status"
+msgstr "dastur holati"
+
+msgid "Follow up"
+msgstr "Kuzatib borish"
+
+msgid "Selection mode"
+msgstr "Rejimni tanlash"
+
+msgid "Tracked entities"
+msgstr "Kuzatuvdagi obʼektlar"
+
+msgid "Point size"
+msgstr "Nuqta oʼlchami"
+
+msgid "Aggregation type"
+msgstr "Бирлаштириш тури"
+
+msgid "Low size"
+msgstr "Кичик ўлчам"
+
+msgid "High size"
+msgstr "Катта ўлчам"
+
+msgid "Indicator group is required"
+msgstr "Koʼrsatgichlar guruhi talab qilinadi"
+
+msgid "Indicator is required"
+msgstr "Indikator talab qilinadi"
+
+msgid "Data element group is required"
+msgstr "Maʼlumot elementi talab qilinadi"
+
+msgid "Data element is required"
+msgstr "Maʼlumot elementi talab qilingan"
+
+msgid "Data set is required"
+msgstr "Maʼlumot toʼplami talab qilingan"
+
+msgid "Event data item is required"
+msgstr "Hodisa/Tadbir maʼlumoti elementi talab qilinadi"
+
+msgid "Program indicator is required"
+msgstr "Dastur indikatori talab qilinadi"
+
+msgid "Period type is required"
+msgstr ""
+
+msgid "Period is required"
+msgstr "Davr talab qilinadi"
+
+msgid "Indicator"
+msgstr "Indikator"
+
+msgid "Reporting rates"
+msgstr "Ҳисобот таърифлари"
+
+msgid "Event data items"
+msgstr "Hodisalar haqida maʼlumot elementlari"
+
+msgid "Program indicators"
+msgstr "Dastur koʼrsatgichlari"
+
+msgid "Item type"
+msgstr "Element turi"
+
+msgid "An error occurred in the DHIS2 Maps application."
+msgstr "DHIS2 Xaritalarda xatolik yuz berdi"
+
+msgid "Something went wrong"
+msgstr "Nimadir notoʼgʼri bajarildi"
+
+msgid "Refresh to try again"
+msgstr "Ыaytib urinib kщrin uchun avval yangilang"
+
+msgid "Hide technical details"
+msgstr "Texnik detallarni berkitish"
+
+msgid "Show technical details"
+msgstr "Texnik detallarni koʼrsatish"
+
+msgid "The following information may be requested by technical support."
+msgstr "Quyidagi axborot texnik yordamchilar tomonidan soʼralishi mumkin"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Dastur bosqichi tanlangandan soʼng Filtrdan foydalanish mumkin"
+
+msgid "Add filter"
+msgstr "Filtr kiritish"
+
+msgid "Delete filter"
+msgstr ""
+
+msgid "Remove filter"
+msgstr "Filtrni olib tashlash"
+
+msgid "Operator"
+msgstr "Operator"
+
+msgid "Date"
+msgstr "Sana"
+
+msgid "one of"
+msgstr "bittasi"
+
+msgid "not one of"
+msgstr "bittasi ham emas"
+
+msgid "contains"
+msgstr "oʼz ichiga oladi"
+
+msgid "doesn't contains"
+msgstr "oʼz ichiga olmaydi"
+
+msgid "is"
+msgstr "bor"
+
+msgid "is not"
+msgstr "emas"
+
+msgid "Indicator group"
+msgstr "Koʼrsatgich guruhi"
+
+msgid "Interpretations"
+msgstr "Talqinlar"
+
+msgid "Basemap"
+msgstr "Аsosiy xarita"
+
+msgid "Collapse"
+msgstr "Yiqilish"
+
+msgid "Expand"
+msgstr "Kengaytiring"
+
+msgid "Download Layer Data"
+msgstr "Qavat maʼlumotlarini yuklash"
+
+msgid "Downloading GeoJSON data for \"{{layerName}}\""
+msgstr "{{QavatIsmi}} uchun GeoJSON maʼlumotlari yuklanmoqda"
+
+msgid ""
+"GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
+"Desktop."
+msgstr ""
+"GeoJSON aksariyat GIS dasturlari tomonidan qoʼllab quvvatlanadi, shu "
+"jumladan QGIS va ArcGIS ham."
+
+msgid "Data download failed."
+msgstr "Maʼlumot yuklanishi amalga oshmadi"
+
+msgid "ID Format"
+msgstr "ID format"
+
+msgid "Use human-readable keys"
+msgstr "oʼqilishi qulay kalitlardan foydalaning"
+
+msgid "Loading layer"
+msgstr "Yuklanadigan qavat"
+
+msgid "deleted"
+msgstr "Oʼchirib tashlangan"
+
+msgid "Filters"
+msgstr "Filrlar"
+
+msgid "Edit"
+msgstr "Tahrirlash"
+
+msgid "Toggle visibility"
+msgstr "Koʼrinishni yoqing"
+
+msgid "Set layer opacity"
+msgstr "Qatlam xiraligini tahrirlang"
+
+msgid "More actions"
+msgstr "Boshqa harakatlar"
+
+msgid "Data table"
+msgstr "Maʼlumotlar jadvali"
+
+msgid "Download data"
+msgstr "Maʼlumotni yuklab oling"
+
+msgid "Edit layer"
+msgstr "Qatlamni tahrirlash"
+
+msgid "Remove layer"
+msgstr "Qatlamni oʼchirish"
+
+msgid "Open as"
+msgstr ""
+
+msgid "Pivot"
+msgstr ""
+
+msgid "Chart"
+msgstr "Диаграмма"
+
+msgid "Parent unit"
+msgstr "Аjdod boʼlimi"
+
+msgid "Drill up one level"
+msgstr "Bir pogʼonaga koʼtariling"
+
+msgid "Drill down one level"
+msgstr "Bir darajaga tushing"
+
+msgid "Show information"
+msgstr "Аxborotni koʼrsating"
+
+msgid "Show longitude/latitude"
+msgstr "Kenglik/Uzunlikni koʼrsating"
+
+msgid "Swap longitude/latitude"
+msgstr "Uzunlik / Kenglikni almashtiring"
+
+msgid "Relocate"
+msgstr "Joyni qayta belgilang"
+
+msgid "Not set"
+msgstr "Oʼrnatilmagan"
+
+msgid "Organisation unit"
+msgstr "Ташкилий бирлик"
+
+msgid "Event time"
+msgstr "Hodisa/Tadbir vaqti"
+
+msgid "Groups"
+msgstr "Гуруҳлар"
+
+msgid "Viewing interpretation from {{interpretationDate}}"
+msgstr "{{TalqinVaqt}} dan talqinni koʼrish"
+
+msgid "Last updated"
+msgstr "Oxirgi yangilangan"
+
+msgid "Options"
+msgstr "Вариант"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "No data found for this period."
+msgstr "Ushbu davr uchun maʼlumot topilmadi"
+
+msgid "Select groups"
+msgstr "Guruhlarni tanlang"
+
+msgid "Select levels"
+msgstr "Bosqichlarni tanlang"
+
+msgid "Click the map where you want to relocate facility"
+msgstr ""
+
+msgid "user organisation unit"
+msgstr "Foydalanuvchining tashkiliy boʼlimi"
+
+msgid "right below user organisation unit"
+msgstr "Foydalanuvchining tashkiliy boʼlimi ostida"
+
+msgid "two levels below user organisation unit"
+msgstr "Foydalanuvchining tashkiliy boʼlimidan ikki pogʼona pastda"
+
+msgid "in"
+msgstr "ichida"
+
+msgid "in and right below"
+msgstr ""
+
+msgid "in and all below"
+msgstr ""
+
+msgid "Previous year"
+msgstr "Oldingi yil"
+
+msgid "Next year"
+msgstr "Keyngi yil"
+
+msgid "Period type"
+msgstr "Davr turi"
+
+msgid "Program indicator"
+msgstr "Dastur indikatori"
+
+msgid "No program"
+msgstr "Dastur mavjud emas"
+
+msgid "Program"
+msgstr "Dastur"
+
+msgid "Stage"
+msgstr "Босқич"
+
+msgid "Tracked Entity Type"
+msgstr ""
+
+msgid ""
+"To show this layer you must first sign up for the Earth Engine service at "
+"Google. Please check the DHIS 2 documentation."
+msgstr ""
+
+msgid "Favorite"
+msgstr ""
+
+msgid "is saved"
+msgstr ""
+
+msgid "Error"
+msgstr "Xatolik"
+
+msgid "Boundaries"
+msgstr "Chegaralar"
+
+msgid "Alert"
+msgstr ""
+
+msgid "No boundaries found"
+msgstr "Hech qanday chegara topilmadi"
+
+msgid "Access denied"
+msgstr "Foydalanish huquqi rad etildi"
+
+msgid "user is not allowed to read layer data"
+msgstr ""
+
+msgid "Failed"
+msgstr "Аmalga oshmadi"
+
+msgid "an unknown error occurred while reading layer data"
+msgstr ""
+
+msgid "Event"
+msgstr "Hodisa/Tadbir"
+
+msgid "Facilities"
+msgstr "Muassasalar"
+
+msgid "No data found"
+msgstr "Maʼlumotlar topilmadi"
+
+msgid "Tracked entity"
+msgstr "Kuzatuv obʼekti"
+
+msgid "No tracked entities found"
+msgstr "Hech qanday kuzatuvdagi obʼekt topilmadi"
+
+msgid "true"
+msgstr "toʼgʼri"
+
+msgid "false"
+msgstr "yolgʼon"
+
+msgid "No"
+msgstr "Йўқ"
+
+msgid "Map could not be created"
+msgstr ""
+
+msgid "Start date is invalid"
+msgstr "Boshlanish sanasi notoʼgʼri"
+
+msgid "End date is invalid"
+msgstr "Yakunlanish sanasi notoʼgʼri"
+
+msgid "End date cannot be earlier than start date"
+msgstr "Yakunlanish sanasi boshlanish sanasidan oldin boʼlishi mumkin emas"
