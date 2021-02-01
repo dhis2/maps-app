@@ -78,6 +78,7 @@ export const getThematicLayerFromAnalyticalObject = async (
         aggregationType,
         legendSet,
         isVisible,
+        opacity: 0.9,
     };
 };
 
