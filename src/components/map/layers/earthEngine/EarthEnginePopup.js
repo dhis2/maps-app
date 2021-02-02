@@ -30,12 +30,14 @@ const EarthEnginePopup = props => {
             }
 
             header = (
-                <tr>
-                    <th colSpan="2">
-                        {title} {period}
-                    </th>
-                    <th>{valueType}</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th colSpan="2">
+                            {title} {period}
+                        </th>
+                        <th>{valueType}</th>
+                    </tr>
+                </thead>
             );
 
             rows = items
@@ -58,12 +60,10 @@ const EarthEnginePopup = props => {
                 ));
         } else {
             header = (
-                <tr>
-                    <th>
-                        {title} {period}
-                    </th>
-                    <th>{unit}</th>
-                </tr>
+                <caption>
+                    {title} {period}
+                    <div className={styles.unit}>{unit}</div>
+                </caption>
             );
 
             rows = Object.keys(values).map(type => (
@@ -84,7 +84,7 @@ const EarthEnginePopup = props => {
             <div className={styles.title}>{name}</div>
             {values && (
                 <table className={styles.table}>
-                    <thead>{header}</thead>
+                    {header}
                     <tbody>{rows}</tbody>
                 </table>
             )}

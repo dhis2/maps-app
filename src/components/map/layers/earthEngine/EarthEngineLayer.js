@@ -82,9 +82,7 @@ export default class EarthEngineLayer extends Layer {
             resolution,
             projection,
             data,
-            aggregationType: Array.isArray(aggregationType)
-                ? aggregationType[0]
-                : null,
+            aggregationType,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
@@ -115,21 +113,28 @@ export default class EarthEngineLayer extends Layer {
     }
 
     addAggregationValues(aggregations) {
-        // console.log('aggregations', aggregations);
+        const { data, classes, legend } = this.props;
+        const { items } = legend;
 
-        // Make aggregations available for data table
-        this.props.data.forEach(f => {
+        // Make aggregations available for data table/download
+        data.forEach(f => {
             const values = aggregations[f.id];
+
             if (values) {
-                Object.keys(values).forEach(
-                    key => (f.properties[key] = values[key])
-                );
+                if (classes && items) {
+                    items.forEach(({ id, name }) => {
+                        f.properties[name] = values[id];
+                    });
+                } else {
+                    Object.keys(values).forEach(
+                        key => (f.properties[key] = values[key])
+                    );
+                }
             }
             f.properties.type = f.geometry.type;
         });
 
         // Make aggregations available for popup
-        // console.log('aggregations', aggregations);
         this.setState({ aggregations });
     }
 

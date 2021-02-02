@@ -6,6 +6,7 @@ import { Table, Column } from 'react-virtualized';
 import { isValidUid } from 'd2/uid';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
+import EarthEngineColumns from './EarthEngineColumns';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
 import { loadLayer } from '../../actions/layers';
@@ -138,7 +139,9 @@ class DataTable extends Component {
             layer: layerType,
             styleDataItem,
             serverCluster,
+            classes,
             aggregationType,
+            legend,
         } = layer;
 
         const isThematic = layerType === 'thematic';
@@ -284,22 +287,7 @@ class DataTable extends Component {
                     ))}
 
                 {isEarthEngine &&
-                    Array.isArray(aggregationType) &&
-                    aggregationType.map(type => (
-                        <Column
-                            key={type}
-                            dataKey={type}
-                            label={i18n.t(type)}
-                            width={100}
-                            className="right"
-                            headerRenderer={props => (
-                                <ColumnHeader type="number" {...props} />
-                            )}
-                            cellRenderer={d => {
-                                return d.cellData;
-                            }}
-                        />
-                    ))}
+                    EarthEngineColumns({ classes, aggregationType, legend })}
             </Table>
         ) : (
             <div className={styles.noSupport}>
