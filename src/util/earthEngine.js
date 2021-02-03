@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n';
-import { format, precisionRound } from 'd3-format';
 import { formatStartEndDate } from './time';
 import { loadEarthEngineApi } from '../components/map/MapApi';
 import { apiFetch } from './api';
@@ -120,33 +119,6 @@ export const defaultFilters = ({ id, name, year }) => [
         year,
     },
 ];
-
-export const formatNumber = (values, id, type) => {
-    const value = values[id][type];
-
-    const typeValues = Object.keys(values)
-        .map(id => values[id][type])
-        .sort((a, b) => a - b);
-
-    let smallestDiff = Infinity;
-
-    typeValues.reduce((a, b) => {
-        const diff = b - a;
-        if (diff && diff < smallestDiff) {
-            smallestDiff = diff;
-        }
-        return b;
-    });
-
-    if (smallestDiff !== Infinity) {
-        // https://github.com/d3/d3-format#precisionRound
-        const p = precisionRound(smallestDiff, typeValues.pop());
-        const f = format('.' + p + 'r');
-        return f(value);
-    }
-
-    return value;
-};
 
 export const getPrecision = (values = []) => {
     if (values.length) {

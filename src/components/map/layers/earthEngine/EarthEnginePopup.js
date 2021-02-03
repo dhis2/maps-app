@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Popup from '../../Popup';
+import { getPrecision } from '../../../../util/earthEngine';
 import { numberPrecision } from '../../../../util/numbers';
 import { getEarthEngineAggregationType } from '../../../../constants/aggregationTypes';
 import styles from './styles/EarthEnginePopup.module.css';
@@ -18,16 +19,13 @@ const EarthEnginePopup = props => {
     const { id, name } = feature.properties;
     const { title, period = '', unit, items = [] } = legend;
     const values = data[id];
-    const valueFormat = numberPrecision(2); // TODO configurable
-    let postfix = '';
+    const isPercentage = valueType === 'percentage';
     let rows = [];
     let header = null;
 
     if (values) {
         if (classes) {
-            if (valueType === 'percentage') {
-                postfix = '%';
-            }
+            const valueFormat = numberPrecision(isPercentage ? 2 : 0);
 
             header = (
                 <thead>
@@ -54,7 +52,7 @@ const EarthEnginePopup = props => {
                         <td className={styles.name}>{name}</td>
                         <td>
                             {valueFormat(values[id])}
-                            {postfix}
+                            {isPercentage ? '%' : ''}
                         </td>
                     </tr>
                 ));
@@ -66,12 +64,19 @@ const EarthEnginePopup = props => {
                 </caption>
             );
 
-            rows = Object.keys(values).map(type => (
-                <tr key={type}>
-                    <th>{getEarthEngineAggregationType(type)}:</th>
-                    <td>{valueFormat(values[type])}</td>
-                </tr>
-            ));
+            rows = Object.keys(values).map(type => {
+                const precision = getPrecision(
+                    Object.values(data).map(d => d[type])
+                );
+                const valueFormat = numberPrecision(precision);
+
+                return (
+                    <tr key={type}>
+                        <th>{getEarthEngineAggregationType(type)}:</th>
+                        <td>{valueFormat(values[type])}</td>
+                    </tr>
+                );
+            });
         }
     }
 
