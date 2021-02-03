@@ -3,6 +3,7 @@ import Layer from '../Layer';
 import LayerLoading from '../LayerLoading';
 import EarthEnginePopup from './EarthEnginePopup';
 import { apiFetch } from '../../../../util/api';
+import { getPropName } from '../../../../util/earthEngine';
 
 export default class EarthEngineLayer extends Layer {
     state = {
@@ -114,7 +115,7 @@ export default class EarthEngineLayer extends Layer {
 
     addAggregationValues(aggregations) {
         const { data, classes, legend } = this.props;
-        const { items } = legend;
+        const { title = '', items } = legend;
 
         // Make aggregations available for data table/download
         data.forEach(f => {
@@ -127,7 +128,9 @@ export default class EarthEngineLayer extends Layer {
                     });
                 } else {
                     Object.keys(values).forEach(
-                        key => (f.properties[key] = values[key])
+                        key =>
+                            (f.properties[getPropName(key, title)] =
+                                values[key])
                     );
                 }
             }

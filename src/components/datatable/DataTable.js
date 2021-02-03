@@ -287,7 +287,12 @@ class DataTable extends Component {
                     ))}
 
                 {isEarthEngine &&
-                    EarthEngineColumns({ classes, aggregationType, legend })}
+                    EarthEngineColumns({
+                        classes,
+                        aggregationType,
+                        legend,
+                        data,
+                    })}
             </Table>
         ) : (
             <div className={styles.noSupport}>
