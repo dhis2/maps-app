@@ -16,7 +16,7 @@ import DataElementSelect from './DataElementSelect';
 import NumberPrecision from './NumberPrecision';
 import DataPreview from './DataPreview';
 import { apiFetch } from '../../../util/api';
-import { getPeriodFromFilter } from '../../../util/earthEngine';
+import { getPeriodFromFilter, getPropName } from '../../../util/earthEngine';
 import { numberPrecision } from '../../../util/numbers';
 import { setAlert } from '../../../actions/alerts';
 
@@ -61,12 +61,13 @@ const ImportDialog = ({ layer, onClose, setAlert }) => {
 
     const onImportClick = useCallback(() => {
         const valueFormat = numberPrecision(precision);
+        const propName = getPropName(valueType.id, name);
 
         const dataValues = data.map(d => ({
             dataElement: dataElement.id,
             period: period.id,
             orgUnit: d.id,
-            value: valueFormat(d.properties[valueType.id]),
+            value: valueFormat(d.properties[propName]),
         }));
 
         // https://docs.dhis2.org/2.35/en/dhis2_developer_manual/web-api.html#data-values
@@ -76,7 +77,7 @@ const ImportDialog = ({ layer, onClose, setAlert }) => {
         })
             .then(response => response.json())
             .then(setResponse);
-    }, [period, valueType, dataSet, dataElement, data, precision]);
+    }, [period, valueType, dataSet, dataElement, data, precision, name]);
 
     // console.log('data', data);
 
@@ -121,6 +122,7 @@ const ImportDialog = ({ layer, onClose, setAlert }) => {
                             dataElement={dataElement}
                             data={data}
                             precision={precision}
+                            name={name}
                         />
                     </Fragment>
                 )}

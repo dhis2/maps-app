@@ -1,9 +1,0 @@
-.year {
-    width: 35%;
-    padding-right: var(--spacers-dp16);
-    box-sizing: border-box;
-}
-
-.period {
-    width: 65%;
-}

@@ -4,6 +4,7 @@
 }
 
 .tabContent {
+    font-size: 14px;
     margin: var(--spacers-dp4) -16px 0;
     height: 340px;
     overflow-y: auto;
@@ -47,11 +48,25 @@
 }
 
 .paragraph {
-    padding-bottom: var(--spacers-dp16);
+    padding-top: var(--spacers-dp16);
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .notice {
     margin: var(--spacers-dp8) 0;
+}
+
+.notice {
+    margin: var(--spacers-dp8) 0;
+}
+
+.notice p {
+    margin: 0 0 var(--spacers-dp8);
+}
+
+.notice p:last-child {
+    margin-bottom: 0;
 }
 
 .help {
@@ -126,11 +141,12 @@
 }
 
 .legendTitle {
-    padding-bottom: var(--spacers-dp16);
-    font-weight: bold;
+    font-size: 14px;
+    padding: var(--spacers-dp12) 0;
 }
 
 .scale {
+    margin-left: var(--spacers-dp8);
     margin-top: var(--spacers-dp16);
 }
 

@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { NoticeBox } from '@dhis2/ui';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
-import AggregationTypesSelect from './AggregationTypesSelect';
+import AggregationSelect from './AggregationSelect';
 import PeriodSelect from './PeriodSelect';
 import OrgUnitsSelect from './OrgUnitsSelect';
 import StyleSelect from './StyleSelect';
@@ -38,7 +38,6 @@ const EarthEngineDialog = props => {
 
     const dataset = getEarthEngineLayer(datasetId);
     const {
-        name,
         description,
         periodType,
         filters = defaultFilters,
@@ -113,23 +112,54 @@ const EarthEngineDialog = props => {
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === 'data' && (
-                    <div className={styles.flexRowFlow}>
-                        <h3>{name}</h3>
-                        <div className={styles.paragraph}>{description}</div>
-                        <div className={styles.paragraph}>
-                            {i18n.t('Unit')}: {unit}
+                    <div className={styles.flexColumnFlow}>
+                        <div className={styles.flexColumn}>
+                            <div className={styles.paragraph}>
+                                {description}
+                            </div>
+                            {unit && (
+                                <div className={styles.paragraph}>
+                                    {i18n.t('Unit')}: {unit}
+                                </div>
+                            )}
+                            <AggregationSelect />
+                            <div className={styles.paragraph}>
+                                {i18n.t('Source')}:{' '}
+                                <a
+                                    href={sourceUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {source}
+                                </a>
+                            </div>
                         </div>
-                        <div className={styles.paragraph}>
-                            {i18n.t('Source')}:{' '}
-                            <a
-                                href={sourceUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {source}
-                            </a>
+                        <div className={styles.flexColumn}>
+                            <div className={styles.notice}>
+                                <NoticeBox>
+                                    <p>
+                                        {i18n.t(
+                                            'This layer can be combined with your organisaton units. '
+                                        )}
+                                    </p>
+                                    <p>
+                                        {i18n.t(
+                                            'Select how you want the data to be aggregated. '
+                                        )}
+                                    </p>
+                                    <p>
+                                        {i18n.t(
+                                            'Selected organisation units will be uploaded to Google Earth Engine where the values will be calculated.'
+                                        )}
+                                    </p>
+                                    <p>
+                                        {i18n.t(
+                                            'You can view the result by clicking the organisation units, opening the data table or by downloading or importing the data.'
+                                        )}
+                                    </p>
+                                </NoticeBox>
+                            </div>
                         </div>
-                        <AggregationTypesSelect />
                     </div>
                 )}
                 {tab === 'period' && (
@@ -148,7 +178,7 @@ const EarthEngineDialog = props => {
                 {tab === 'orgunits' && (
                     <OrgUnitsSelect rows={rows} error={orgUnitsError} />
                 )}
-                {tab === 'style' && <StyleSelect params={params} />}
+                {tab === 'style' && <StyleSelect unit={unit} params={params} />}
             </div>
         </div>
     );

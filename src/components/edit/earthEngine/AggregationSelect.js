@@ -8,8 +8,9 @@ import {
     getEarthEngineStatisticTypes,
 } from '../../../constants/aggregationTypes';
 import { setAggregationType } from '../../../actions/layerEdit';
+import styles from './styles/AggregationSelect.module.css';
 
-const AggregationTypesSelect = ({
+const AggregationSelect = ({
     classes = false,
     aggregationType,
     defaultAggregations,
@@ -26,9 +27,9 @@ const AggregationTypesSelect = ({
     }, [aggregationType, defaultAggregations]);
 
     return (
-        <div>
+        <div className={styles.root}>
             <SelectField
-                label={classes ? i18n.t('Statistics') : i18n.t('Aggregation')}
+                label={i18n.t('Aggregation')}
                 items={types}
                 multiple={!classes}
                 value={aggregationType}
@@ -40,7 +41,7 @@ const AggregationTypesSelect = ({
     );
 };
 
-AggregationTypesSelect.propTypes = {
+AggregationSelect.propTypes = {
     classes: PropTypes.bool,
     aggregationType: PropTypes.array,
     defaultAggregations: PropTypes.array,
@@ -54,4 +55,4 @@ export default connect(
         defaultAggregations: layerEdit.defaultAggregations,
     }),
     { setAggregationType }
-)(AggregationTypesSelect);
+)(AggregationSelect);

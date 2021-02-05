@@ -12,7 +12,7 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
         img: 'images/population.png',
-        defaultAggregations: ['sum', 'min', 'max', 'mean'],
+        defaultAggregations: ['sum', 'mean'],
         periodType: 'Yearly',
         filters: ({ id, name, year }) => [
             {

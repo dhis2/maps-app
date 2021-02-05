@@ -12,6 +12,7 @@ import {
 } from '@dhis2/ui';
 import { apiFetch } from '../../../util/api';
 import { numberPrecision } from '../../../util/numbers';
+import { getPropName } from '../../../util/earthEngine';
 import styles from './styles/DataPreview.module.css';
 
 const DataPreview = ({
@@ -21,6 +22,7 @@ const DataPreview = ({
     dataElement,
     data,
     precision,
+    name,
 }) => {
     const [currentValues, setCurrentValues] = useState({});
     const valueFormat = numberPrecision(precision);
@@ -62,13 +64,14 @@ const DataPreview = ({
             </TableHead>
             <TableBody>
                 {data.map(({ properties }) => {
-                    const { id, name } = properties;
+                    const { id, name: orgUnit } = properties;
                     const current = currentValues[id];
-                    const value = valueFormat(properties[valueType.id]);
+                    const propName = getPropName(valueType.id, name);
+                    const value = valueFormat(properties[propName]);
 
                     return (
                         <TableRow key={id}>
-                            <TableCell dense>{name}</TableCell>
+                            <TableCell dense>{orgUnit}</TableCell>
                             <TableCell dense className={styles.current}>
                                 {current !== undefined ? current : ''}
                             </TableCell>
@@ -90,6 +93,7 @@ DataPreview.propTypes = {
     dataElement: PropTypes.object.isRequired,
     data: PropTypes.array.isRequired,
     precision: PropTypes.number,
+    name: PropTypes.string,
 };
 
 export default DataPreview;

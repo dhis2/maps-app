@@ -19,7 +19,7 @@ const isValidSteps = (newSteps, params) => {
     return steps > 0 && steps < 8; // Valid steps: 1-7
 };
 
-const StyleSelect = ({ params, setParams }) => {
+const StyleSelect = ({ unit, params, setParams }) => {
     const [steps, setSteps] = useState();
     const { min, max, palette } = params;
 
@@ -47,6 +47,9 @@ const StyleSelect = ({ params, setParams }) => {
     return (
         <div className={styles.flexColumnFlow}>
             <div className={styles.flexColumn}>
+                <p>
+                    {i18n.t('Unit')}: {unit}
+                </p>
                 <div key="minmax" className={styles.flexInnerColumnFlow}>
                     <NumberField
                         label={i18n.t('Min')}
@@ -102,6 +105,7 @@ const StyleSelect = ({ params, setParams }) => {
 };
 
 StyleSelect.propTypes = {
+    unit: PropTypes.string.isRequired,
     params: PropTypes.shape({
         min: PropTypes.number.isRequired,
         max: PropTypes.number.isRequired,
