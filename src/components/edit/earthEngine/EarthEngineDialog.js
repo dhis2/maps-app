@@ -6,6 +6,7 @@ import { NoticeBox } from '@dhis2/ui';
 import Tabs from '../../core/Tabs';
 import Tab from '../../core/Tab';
 import AggregationSelect from './AggregationSelect';
+import BandSelect from './BandSelect';
 import PeriodSelect from './PeriodSelect';
 import OrgUnitsSelect from './OrgUnitsSelect';
 import StyleSelect from './StyleSelect';
@@ -40,6 +41,7 @@ const EarthEngineDialog = props => {
     const {
         description,
         periodType,
+        bands,
         filters = defaultFilters,
         unit,
         source,
@@ -122,6 +124,7 @@ const EarthEngineDialog = props => {
                                     {i18n.t('Unit')}: {unit}
                                 </div>
                             )}
+                            {bands && <BandSelect />}
                             <AggregationSelect />
                             <div className={styles.paragraph}>
                                 {i18n.t('Source')}:{' '}

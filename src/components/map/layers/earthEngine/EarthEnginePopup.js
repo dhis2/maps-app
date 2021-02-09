@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import i18n from '@dhis2/d2-i18n';
 import Popup from '../../Popup';
 import { getPrecision } from '../../../../util/earthEngine';
 import { numberPrecision } from '../../../../util/numbers';
@@ -17,7 +18,7 @@ const EarthEnginePopup = props => {
         onClose,
     } = props;
     const { id, name } = feature.properties;
-    const { title, period = '', unit, items = [] } = legend;
+    const { title, period = '', unit, items = [], groups } = legend;
     const values = data[id];
     const isPercentage = valueType === 'percentage';
     let rows = [];
@@ -60,6 +61,17 @@ const EarthEnginePopup = props => {
             header = (
                 <caption>
                     {title} {period}
+                    {groups && (
+                        <div className={styles.group}>
+                            {groups.length > 1
+                                ? i18n.t('Groups')
+                                : i18n.t('Group')}
+                            :
+                            {groups.map(group => (
+                                <div key={group}>{group}</div>
+                            ))}
+                        </div>
+                    )}
                     <div className={styles.unit}>{unit}</div>
                 </caption>
             );

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-01-28T10:43:36.816Z\n"
-"PO-Revision-Date: 2021-01-28T10:43:36.816Z\n"
+"POT-Creation-Date: 2021-02-08T16:47:30.289Z\n"
+"PO-Revision-Date: 2021-02-08T16:47:30.289Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -194,9 +194,6 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "Statistics"
-msgstr ""
-
 msgid "Aggregation"
 msgstr ""
 
@@ -213,6 +210,22 @@ msgid "Unit"
 msgstr ""
 
 msgid "Source"
+msgstr ""
+
+msgid "This layer can be combined with your organisaton units. "
+msgstr ""
+
+msgid "Select how you want the data to be aggregated. "
+msgstr ""
+
+msgid ""
+"Selected organisation units will be uploaded to Google Earth Engine where "
+"the values will be calculated."
+msgstr ""
+
+msgid ""
+"You can view the result by clicking the organisation units, opening the "
+"data table or by downloading or importing the data."
 msgstr ""
 
 msgid "Year"
@@ -852,6 +865,42 @@ msgstr ""
 msgid "Estimated residential population per hectare."
 msgstr ""
 
+msgid "Men 0 - 1 years"
+msgstr ""
+
+msgid "Men 1 - 4 years"
+msgstr ""
+
+msgid "Men 5 - 9 years"
+msgstr ""
+
+msgid "Men 10 - 14 years"
+msgstr ""
+
+msgid "Men 10 - 15 years"
+msgstr ""
+
+msgid "Men 80 years and above"
+msgstr ""
+
+msgid "Women 0 - 1 years"
+msgstr ""
+
+msgid "Women 1 - 4 years"
+msgstr ""
+
+msgid "Women 5 - 9 years"
+msgstr ""
+
+msgid "Women 10 - 14 years"
+msgstr ""
+
+msgid "Women 10 - 15 years"
+msgstr ""
+
+msgid "Women 80 years and above"
+msgstr ""
+
 msgid "Elevation"
 msgstr ""
 
@@ -1302,9 +1351,6 @@ msgid "Precipitation collected from satellite and weather stations on the ground
 msgstr ""
 
 msgid "Unclassified"
-msgstr ""
-
-msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"

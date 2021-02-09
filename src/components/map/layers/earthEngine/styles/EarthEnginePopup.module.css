@@ -16,7 +16,13 @@
     padding-bottom: 8px;
 }
 
+.table caption .group {
+    padding-top: 8px;
+    font-weight: normal;
+}
+
 .table caption .unit {
+    padding-top: 8px;
     font-weight: normal;
 }
 

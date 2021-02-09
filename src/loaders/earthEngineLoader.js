@@ -55,12 +55,22 @@ const earthEngineLoader = async config => {
         ...dataset,
     };
 
-    const { name, unit, description, source, sourceUrl } = layer;
+    const { name, unit, description, source, sourceUrl, band, bands } = layer;
     const period = getPeriodFromFilter(filter);
+
+    const groups =
+        band && Array.isArray(bands)
+            ? bands
+                  .filter(b =>
+                      Array.isArray(band) ? band.includes(b.id) : band === b.id
+                  )
+                  .map(b => b.name)
+            : null;
 
     layer.legend = {
         title: name,
         period: period ? period.name : null,
+        groups,
         unit,
         description,
         source,

@@ -256,6 +256,12 @@ export const setFilter = filter => ({
     filter,
 });
 
+// Set band (EE)
+export const setBand = band => ({
+    type: types.LAYER_EDIT_BAND_SET,
+    payload: band,
+});
+
 // Set label visibility
 export const setLabels = isChecked => ({
     type: types.LAYER_EDIT_LABELS_SET,
