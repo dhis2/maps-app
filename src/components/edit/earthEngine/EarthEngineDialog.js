@@ -28,6 +28,7 @@ const EarthEngineDialog = props => {
 
     const {
         datasetId,
+        band,
         rows,
         params,
         legend,
@@ -38,6 +39,7 @@ const EarthEngineDialog = props => {
     } = props;
 
     const dataset = getEarthEngineLayer(datasetId);
+
     const {
         description,
         periodType,
@@ -47,9 +49,12 @@ const EarthEngineDialog = props => {
         source,
         sourceUrl,
     } = dataset;
+
     const period = getPeriodFromFilter(filter);
 
     const setPeriod = period => setFilter(period ? filters(period) : undefined);
+
+    const noBandSelected = Array.isArray(bands) && (!band || !band.length);
 
     // console.log('filter', filter, period);
 
@@ -83,16 +88,25 @@ const EarthEngineDialog = props => {
 
     useEffect(() => {
         if (validateLayer) {
-            if (!periodType || period) {
-                onLayerValidation(true);
-            } else {
-                setError({
-                    type: 'period',
-                    message: i18n.t('This field is required'),
-                });
-                setTab('period');
-                onLayerValidation(false);
+            const isValid = !noBandSelected && (!periodType || period);
+
+            if (!isValid) {
+                if (noBandSelected) {
+                    setError({
+                        type: 'band',
+                        message: i18n.t('This field is required'),
+                    });
+                    setTab('data');
+                } else {
+                    setError({
+                        type: 'period',
+                        message: i18n.t('This field is required'),
+                    });
+                    setTab('period');
+                }
             }
+
+            onLayerValidation(isValid);
         }
     }, [validateLayer, periodType, period, onLayerValidation]);
 
@@ -124,7 +138,15 @@ const EarthEngineDialog = props => {
                                     {i18n.t('Unit')}: {unit}
                                 </div>
                             )}
-                            {bands && <BandSelect />}
+                            {bands && (
+                                <BandSelect
+                                    errorText={
+                                        error &&
+                                        error.type === 'band' &&
+                                        error.message
+                                    }
+                                />
+                            )}
                             <AggregationSelect />
                             <div className={styles.paragraph}>
                                 {i18n.t('Source')}:{' '}
@@ -190,6 +212,7 @@ const EarthEngineDialog = props => {
 EarthEngineDialog.propTypes = {
     rows: PropTypes.array,
     datasetId: PropTypes.string.isRequired,
+    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     filter: PropTypes.array,
     params: PropTypes.shape({
         min: PropTypes.number.isRequired,
