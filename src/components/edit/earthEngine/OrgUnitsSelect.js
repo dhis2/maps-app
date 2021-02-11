@@ -20,9 +20,8 @@ import {
 } from '../../../util/analytics';
 import styles from '../styles/LayerDialog.module.css';
 
-// TODO: Reuse for other layer types
 const OrgUnitsSelect = ({
-    rows = [],
+    rows,
     error,
     toggleOrgUnit,
     setOrgUnitLevels,

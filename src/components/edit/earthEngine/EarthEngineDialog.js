@@ -16,7 +16,12 @@ import {
     getPeriods,
     defaultFilters,
 } from '../../../util/earthEngine';
-import { setFilter, setParams } from '../../../actions/layerEdit';
+import {
+    setFilter,
+    setParams,
+    setOrgUnitLevels,
+} from '../../../actions/layerEdit';
+import { DEFAULT_ORG_UNIT_LEVEL } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
 const EarthEngineDialog = props => {
@@ -34,6 +39,7 @@ const EarthEngineDialog = props => {
         legend,
         filter,
         setFilter,
+        setOrgUnitLevels,
         validateLayer,
         onLayerValidation,
     } = props;
@@ -85,6 +91,12 @@ const EarthEngineDialog = props => {
             }
         }
     }, [periods, period]);
+
+    useEffect(() => {
+        if (!rows) {
+            setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
+        }
+    }, [rows, setOrgUnitLevels]);
 
     useEffect(() => {
         if (validateLayer) {
@@ -223,9 +235,10 @@ EarthEngineDialog.propTypes = {
     validateLayer: PropTypes.bool.isRequired,
     setFilter: PropTypes.func.isRequired,
     setParams: PropTypes.func.isRequired,
+    setOrgUnitLevels: PropTypes.func.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setFilter, setParams }, null, {
+export default connect(null, { setFilter, setParams, setOrgUnitLevels }, null, {
     forwardRef: true,
 })(EarthEngineDialog);
