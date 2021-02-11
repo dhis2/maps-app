@@ -423,6 +423,13 @@
   dependencies:
     "@dhis2/prop-types" "^1.6.4"
 
+"@dhis2/ui-constants@6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/ui-constants/-/ui-constants-6.2.2.tgz#8bfaeb237449e081fd087b5042a67f8e50614275"
+  integrity sha512-/g+QYafwli/raeEQj1io0wCE4SQa78Y05Cq6ZyJK6D/XPQGP9L97xY8Xgeibzb0brLEChoXn+w8tI3lj9bPqyw==
+  dependencies:
+    "@dhis2/prop-types" "^1.6.4"
+
 "@dhis2/ui-core@5.7.8":
   version "5.7.8"
   resolved "https://registry.yarnpkg.com/@dhis2/ui-core/-/ui-core-5.7.8.tgz#063f8a10e583803d8b85d168ddbfb52e1f72750b"
@@ -430,6 +437,17 @@
   dependencies:
     "@dhis2/prop-types" "^1.6.4"
     "@popperjs/core" "^2.5.3"
+    classnames "^2.2.6"
+    react-popper "^2.2.3"
+    resize-observer-polyfill "^1.5.1"
+
+"@dhis2/ui-core@6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/ui-core/-/ui-core-6.2.2.tgz#09e6f13f0500d3ce9a08b5d9ef4d33108166b33b"
+  integrity sha512-lcNy7vE6RlwU02Rp83sPceztndQ8RJthiQ/cD3SdPnlQWnw51G/g89cEmLxUxZ1xOOxUJ1QIxvsTJjtf4kWxtg==
+  dependencies:
+    "@dhis2/prop-types" "^1.6.4"
+    "@popperjs/core" "^2.6.0"
     classnames "^2.2.6"
     react-popper "^2.2.3"
     resize-observer-polyfill "^1.5.1"
@@ -444,10 +462,27 @@
     final-form "^4.20.1"
     react-final-form "^6.5.1"
 
+"@dhis2/ui-forms@6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/ui-forms/-/ui-forms-6.2.2.tgz#c1350e8973ce74f6eee6c231d36dee9245cf8964"
+  integrity sha512-V3t9bN+zIOk4IAsTqCzGhpKeCWdxXr/iB+yMxxX7eLXqqmHE1L684THqP4pncZ+fTg1+1eaFOAxnjUoI1gPevA==
+  dependencies:
+    "@dhis2/prop-types" "^1.6.4"
+    classnames "^2.2.6"
+    final-form "^4.20.1"
+    react-final-form "^6.5.1"
+
 "@dhis2/ui-icons@5.7.8":
   version "5.7.8"
   resolved "https://registry.yarnpkg.com/@dhis2/ui-icons/-/ui-icons-5.7.8.tgz#cb18c1bfbbcf49b2dae4c2b3ff7a3aeff46aa7f2"
   integrity sha512-3P/Ptsf6HEdi0q8q6ba4Hcr8yuK+Y29PJn1Z56IZNZ+sZmFYiU7vxk5aMwA+s1EnjcPWQjrdwLzqqBAJE2W3Qg==
+  dependencies:
+    "@dhis2/prop-types" "^1.6.4"
+
+"@dhis2/ui-icons@6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/ui-icons/-/ui-icons-6.2.2.tgz#21d9a495b4fcdc860b2dfeab5024fd8c619b957c"
+  integrity sha512-zjIo6I2muIgKJHgSp+p8WbCAJzqflVddeATb39vijt8H30ASyWq6ftMpeiC3uufFgnwAbmDyAaKMQuel6IRTDg==
   dependencies:
     "@dhis2/prop-types" "^1.6.4"
 
@@ -459,7 +494,15 @@
     "@dhis2/prop-types" "^1.6.4"
     classnames "^2.2.6"
 
-"@dhis2/ui@^5.7.7", "@dhis2/ui@^5.7.8":
+"@dhis2/ui-widgets@6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/ui-widgets/-/ui-widgets-6.2.2.tgz#981b40a649f4f21710dc95f7cd99792497cdd9eb"
+  integrity sha512-HiIBf/ThDEYZOQ9sPg0zMuJHdqPXF2kTBZ50K44RMOs3ZYbYO60WNKBgd3ZRnfuwtNsp9mToQr0i47JBEa+a/w==
+  dependencies:
+    "@dhis2/prop-types" "^1.6.4"
+    classnames "^2.2.6"
+
+"@dhis2/ui@^5.7.7":
   version "5.7.8"
   resolved "https://registry.yarnpkg.com/@dhis2/ui/-/ui-5.7.8.tgz#17604580d02cd4a7756552154a089e730a0fdf02"
   integrity sha512-FHyTP6geAkR/jwX1/xG8yl8PvGaNhms8zUmaNiBLQ0mUmD9oJb47U8YXhJ5nVd0SFJnmuckOWgAWMt3meZGJTA==
@@ -469,6 +512,17 @@
     "@dhis2/ui-forms" "5.7.8"
     "@dhis2/ui-icons" "5.7.8"
     "@dhis2/ui-widgets" "5.7.8"
+
+"@dhis2/ui@^6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/ui/-/ui-6.2.2.tgz#a7f3f4bde3283ef4dd739940aca0cdf16f16bec0"
+  integrity sha512-V8ldouBQxMPbNZRjgYpN0j31Cb19WoS02cy+CcRul9Lzb/U/HPRMbhAObzNqVqQLHjXCExmv4K2KjEqaW61OOw==
+  dependencies:
+    "@dhis2/ui-constants" "6.2.2"
+    "@dhis2/ui-core" "6.2.2"
+    "@dhis2/ui-forms" "6.2.2"
+    "@dhis2/ui-icons" "6.2.2"
+    "@dhis2/ui-widgets" "6.2.2"
 
 "@emotion/babel-utils@^0.6.4":
   version "0.6.10"
@@ -675,6 +729,11 @@
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.4.tgz#de25b5da9f727985a3757fd59b5d028aba75841a"
   integrity sha512-ZpKr+WTb8zsajqgDkvCEWgp6d5eJT6Q63Ng2neTbzBO76Lbe91vX/iVIW9dikq+Fs3yEo+ls4cxeXABD2LtcbQ==
+
+"@popperjs/core@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
+  integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
 
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
