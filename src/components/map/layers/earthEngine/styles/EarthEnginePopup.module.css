@@ -21,6 +21,10 @@
     font-weight: normal;
 }
 
+.table caption .group div {
+    white-space: nowrap;
+}
+
 .table caption .unit {
     padding-top: 8px;
     font-weight: normal;

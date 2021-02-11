@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-02-08T16:47:30.289Z\n"
-"PO-Revision-Date: 2021-02-08T16:47:30.289Z\n"
+"POT-Creation-Date: 2021-02-10T11:26:01.918Z\n"
+"PO-Revision-Date: 2021-02-10T11:26:01.918Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -195,6 +195,9 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation"
+msgstr ""
+
+msgid "Groups"
 msgstr ""
 
 msgid "This field is required"
@@ -557,6 +560,9 @@ msgstr ""
 msgid "Mid"
 msgstr ""
 
+msgid "Group"
+msgstr ""
+
 msgid "Filters"
 msgstr ""
 
@@ -597,9 +603,6 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr ""
-
-msgid "Groups"
 msgstr ""
 
 msgid "Loading layer data"
@@ -865,6 +868,9 @@ msgstr ""
 msgid "Estimated residential population per hectare."
 msgstr ""
 
+msgid "Population age groups"
+msgstr ""
+
 msgid "Men 0 - 1 years"
 msgstr ""
 
@@ -877,7 +883,43 @@ msgstr ""
 msgid "Men 10 - 14 years"
 msgstr ""
 
-msgid "Men 10 - 15 years"
+msgid "Men 15 - 19 years"
+msgstr ""
+
+msgid "Men 20 - 24 years"
+msgstr ""
+
+msgid "Men 25 - 29 years"
+msgstr ""
+
+msgid "Men 30 - 34 years"
+msgstr ""
+
+msgid "Men 35 - 39 years"
+msgstr ""
+
+msgid "Men 40 - 44 years"
+msgstr ""
+
+msgid "Men 45 - 49 years"
+msgstr ""
+
+msgid "Men 50 - 54 years"
+msgstr ""
+
+msgid "Men 55 - 59 years"
+msgstr ""
+
+msgid "Men 60 - 64 years"
+msgstr ""
+
+msgid "Men 65 - 69 years"
+msgstr ""
+
+msgid "Men 70 - 74 years"
+msgstr ""
+
+msgid "Men 75 - 79 years"
 msgstr ""
 
 msgid "Men 80 years and above"
@@ -895,7 +937,43 @@ msgstr ""
 msgid "Women 10 - 14 years"
 msgstr ""
 
-msgid "Women 10 - 15 years"
+msgid "Women 15 - 19 years"
+msgstr ""
+
+msgid "Women 20 - 24 years"
+msgstr ""
+
+msgid "Women 25 - 29 years"
+msgstr ""
+
+msgid "Women 30 - 34 years"
+msgstr ""
+
+msgid "Women 35 - 39 years"
+msgstr ""
+
+msgid "Women 40 - 44 years"
+msgstr ""
+
+msgid "Women 45 - 49 years"
+msgstr ""
+
+msgid "Women 50 - 54 years"
+msgstr ""
+
+msgid "Women 55 - 59 years"
+msgstr ""
+
+msgid "Women 60 - 64 years"
+msgstr ""
+
+msgid "Women 65 - 69 years"
+msgstr ""
+
+msgid "Women 70 - 74 years"
+msgstr ""
+
+msgid "Women 75 - 79 years"
 msgstr ""
 
 msgid "Women 80 years and above"

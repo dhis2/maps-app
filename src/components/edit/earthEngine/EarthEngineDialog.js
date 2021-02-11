@@ -179,7 +179,7 @@ const EarthEngineDialog = props => {
                                     </p>
                                     <p>
                                         {i18n.t(
-                                            'You can view the result by clicking the organisation units, opening the data table or by downloading or importing the data.'
+                                            'You can view the result by clicking the organisation units, opening the data table or by downloading the data.'
                                         )}
                                     </p>
                                 </NoticeBox>

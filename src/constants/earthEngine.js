@@ -35,13 +35,15 @@ export const earthEngineLayers = () => [
         datasetId: 'WorldPop/GP/100m/pop_age_sex',
         name: i18n.t('Population age groups'),
         unit: i18n.t('people per hectare'),
-        description: i18n.t('Estimated residential population per hectare.'),
+        description: i18n.t(
+            'Estimated residential population per hectare, grouped by age and gender.'
+        ),
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
+            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex',
         img: 'images/population.png',
-        defaultAggregations: ['sum', 'mean'],
         periodType: 'Yearly',
+        defaultAggregations: ['sum', 'mean'],
         bands: [
             {
                 id: 'M_0',
@@ -224,6 +226,7 @@ export const earthEngineLayers = () => [
         },
         opacity: 0.9,
     },
+    /*
     {
         layer: 'earthEngine',
         datasetId: 'ECMWF/ERA5/DAILY',
@@ -258,6 +261,7 @@ export const earthEngineLayers = () => [
         },
         opacity: 0.9,
     },
+    */
     {
         layer: 'earthEngine',
         datasetId: 'UCSB-CHG/CHIRPS/PENTAD',

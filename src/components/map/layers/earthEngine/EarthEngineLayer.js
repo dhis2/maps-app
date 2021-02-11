@@ -44,7 +44,6 @@ export default class EarthEngineLayer extends Layer {
             attribution,
             filter,
             classes,
-            reducer,
             methods,
             mosaic,
             name,
@@ -61,6 +60,9 @@ export default class EarthEngineLayer extends Layer {
 
         const { map } = this.context;
 
+        const aggregate =
+            data && Array.isArray(aggregationType) && aggregationType.length;
+
         const config = {
             type: 'earthEngine',
             id,
@@ -73,7 +75,6 @@ export default class EarthEngineLayer extends Layer {
             attribution,
             filter,
             classes,
-            reducer,
             methods,
             mosaic,
             name,
@@ -106,9 +107,9 @@ export default class EarthEngineLayer extends Layer {
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
-        // if (Array.isArray(aggregationType) && aggregationType.length) {
-        this.layer.aggregate().then(this.addAggregationValues.bind(this));
-        // }
+        if (aggregate) {
+            this.layer.aggregate().then(this.addAggregationValues.bind(this));
+        }
 
         this.fitBoundsOnce();
     }

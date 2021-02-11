@@ -174,16 +174,16 @@ class DataTable extends Component {
                     className="right"
                 />
                 <Column
-                    dataKey="id"
-                    label={i18n.t('Id')}
+                    dataKey={isEvent ? 'ouname' : 'name'}
+                    label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
                     )}
                 />
                 <Column
-                    dataKey={isEvent ? 'ouname' : 'name'}
-                    label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
+                    dataKey="id"
+                    label={i18n.t('Id')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
