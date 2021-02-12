@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-02-10T11:26:01.918Z\n"
-"PO-Revision-Date: 2021-02-10T11:26:01.918Z\n"
+"POT-Creation-Date: 2021-02-12T08:51:16.239Z\n"
+"PO-Revision-Date: 2021-02-12T08:51:16.239Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -68,13 +68,13 @@ msgstr ""
 msgid "Index"
 msgstr ""
 
-msgid "Id"
-msgstr ""
-
 msgid "Org unit"
 msgstr ""
 
 msgid "Name"
+msgstr ""
+
+msgid "Id"
 msgstr ""
 
 msgid "Event time"
@@ -228,7 +228,7 @@ msgstr ""
 
 msgid ""
 "You can view the result by clicking the organisation units, opening the "
-"data table or by downloading or importing the data."
+"data table or by downloading the data."
 msgstr ""
 
 msgid "Year"
@@ -869,6 +869,9 @@ msgid "Estimated residential population per hectare."
 msgstr ""
 
 msgid "Population age groups"
+msgstr ""
+
+msgid "Estimated residential population per hectare, grouped by age and gender."
 msgstr ""
 
 msgid "Men 0 - 1 years"

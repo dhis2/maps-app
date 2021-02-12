@@ -4,6 +4,10 @@ import { loadEarthEngineApi } from '../components/map/MapApi';
 import { apiFetch } from './api';
 import { getEarthEngineLayer } from '../constants/earthEngine';
 
+export const classAggregation = ['percentage', 'hectares', 'acres'];
+
+export const hasClasses = type => classAggregation.includes(type);
+
 export const getStartEndDate = data =>
     formatStartEndDate(
         data['system:time_start'],

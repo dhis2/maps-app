@@ -8,14 +8,14 @@ import { toGeoJson } from '../util/map';
 // Returns a promise
 const earthEngineLoader = async config => {
     const { filter, rows, aggregationType } = config;
+    const orgUnits = getOrgUnitsFromRows(rows);
     let layerConfig = {};
     let dataset;
     let features;
 
-    if (rows) {
+    if (orgUnits && orgUnits.length) {
         const d2 = await getD2();
         const displayProperty = getDisplayProperty(d2).toUpperCase();
-        const orgUnits = getOrgUnitsFromRows(rows);
         const orgUnitParams = orgUnits.map(item => item.id);
 
         features = await d2.geoFeatures

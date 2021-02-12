@@ -2,24 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import Popup from '../../Popup';
-import { getPrecision } from '../../../../util/earthEngine';
+import { hasClasses, getPrecision } from '../../../../util/earthEngine';
 import { numberPrecision } from '../../../../util/numbers';
 import { getEarthEngineAggregationType } from '../../../../constants/aggregationTypes';
 import styles from './styles/EarthEnginePopup.module.css';
 
 const EarthEnginePopup = props => {
-    const {
-        coordinates,
-        feature,
-        data,
-        classes,
-        legend,
-        valueType,
-        onClose,
-    } = props;
+    const { coordinates, feature, data, legend, valueType, onClose } = props;
     const { id, name } = feature.properties;
     const { title, period = '', unit, items = [], groups } = legend;
     const values = data[id];
+    const classes = hasClasses(valueType);
     const isPercentage = valueType === 'percentage';
     let rows = [];
     let header = null;
@@ -113,9 +106,8 @@ EarthEnginePopup.propTypes = {
     coordinates: PropTypes.array.isRequired,
     feature: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
-    classes: PropTypes.bool,
     legend: PropTypes.object.isRequired,
-    valueType: PropTypes.string,
+    valueType: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     onClose: PropTypes.func.isRequired,
 };
 

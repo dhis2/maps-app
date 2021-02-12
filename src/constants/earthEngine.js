@@ -12,7 +12,7 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
         img: 'images/population.png',
-        defaultAggregations: ['sum', 'mean'],
+        defaultAggregation: ['sum', 'mean'],
         periodType: 'Yearly',
         filters: ({ id, name, year }) => [
             {
@@ -43,7 +43,7 @@ export const earthEngineLayers = () => [
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex',
         img: 'images/population.png',
         periodType: 'Yearly',
-        defaultAggregations: ['sum', 'mean'],
+        defaultAggregation: ['sum', 'mean'],
         bands: [
             {
                 id: 'M_0',
@@ -217,7 +217,7 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
         img: 'images/elevation.png',
-        defaultAggregations: ['min', 'max', 'mean'],
+        defaultAggregation: ['min', 'max', 'mean'],
         band: 'elevation',
         params: {
             min: 0,
@@ -242,7 +242,7 @@ export const earthEngineLayers = () => [
             'https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_DAILY',
         periodType: 'Daily',
         band: 'total_precipitation',
-        defaultAggregations: ['sum', 'min', 'max', 'mean'],
+        defaultAggregation: ['sum', 'min', 'max', 'mean'],
         mask: true,
         img: 'images/precipitation.png',
         filters: ({ id, name, startDate, endDate }) => [
@@ -275,7 +275,7 @@ export const earthEngineLayers = () => [
             'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
         periodType: 'Custom',
         band: 'precipitation',
-        defaultAggregations: ['sum', 'min', 'max', 'mean'],
+        defaultAggregation: ['sum', 'min', 'max', 'mean'],
         mask: true,
         img: 'images/precipitation.png',
         params: {
@@ -297,7 +297,7 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
         img: 'images/temperature.png',
-        defaultAggregations: ['min', 'max', 'mean'],
+        defaultAggregation: ['min', 'max', 'mean'],
         periodType: 'Custom',
         band: 'LST_Day_1km',
         mask: true,
@@ -327,8 +327,7 @@ export const earthEngineLayers = () => [
         periodType: 'Yearly',
         band: 'LC_Type1',
         filters: defaultFilters,
-        classes: true, // TODO: Best name?
-        defaultAggregations: ['percentage'],
+        defaultAggregation: 'percentage',
         params: {
             // TODO: Create from legend below - possible to read from metadata?
             min: 1,

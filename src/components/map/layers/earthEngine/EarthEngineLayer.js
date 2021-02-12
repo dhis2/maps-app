@@ -3,7 +3,7 @@ import Layer from '../Layer';
 import LayerLoading from '../LayerLoading';
 import EarthEnginePopup from './EarthEnginePopup';
 import { apiFetch } from '../../../../util/api';
-import { getPropName } from '../../../../util/earthEngine';
+import { getPropName, hasClasses } from '../../../../util/earthEngine';
 
 export default class EarthEngineLayer extends Layer {
     state = {
@@ -43,7 +43,6 @@ export default class EarthEngineLayer extends Layer {
             mask,
             attribution,
             filter,
-            classes,
             methods,
             mosaic,
             name,
@@ -60,8 +59,7 @@ export default class EarthEngineLayer extends Layer {
 
         const { map } = this.context;
 
-        const aggregate =
-            data && Array.isArray(aggregationType) && aggregationType.length;
+        const aggregate = data && aggregationType && aggregationType.length;
 
         const config = {
             type: 'earthEngine',
@@ -74,7 +72,6 @@ export default class EarthEngineLayer extends Layer {
             mask,
             attribution,
             filter,
-            classes,
             methods,
             mosaic,
             name,
@@ -115,8 +112,9 @@ export default class EarthEngineLayer extends Layer {
     }
 
     addAggregationValues(aggregations) {
-        const { data, classes, legend } = this.props;
+        const { aggregationType, data, legend } = this.props;
         const { title = '', items } = legend;
+        const classes = hasClasses(aggregationType);
 
         // Make aggregations available for data table/download
         data.forEach(f => {
@@ -143,11 +141,8 @@ export default class EarthEngineLayer extends Layer {
     }
 
     render() {
-        const { classes, legend, aggregationType } = this.props;
+        const { legend, aggregationType } = this.props;
         const { isLoading, popup, aggregations } = this.state;
-        const valueType = Array.isArray(aggregationType)
-            ? aggregationType[0]
-            : null;
 
         if (isLoading) {
             return <LayerLoading />;
@@ -156,9 +151,8 @@ export default class EarthEngineLayer extends Layer {
         return popup ? (
             <EarthEnginePopup
                 data={aggregations || {}}
-                classes={classes}
                 legend={legend}
-                valueType={valueType}
+                valueType={aggregationType}
                 onClose={this.onPopupClose}
                 {...popup}
             />

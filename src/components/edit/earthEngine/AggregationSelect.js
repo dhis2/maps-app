@@ -8,23 +8,25 @@ import {
     getEarthEngineStatisticTypes,
 } from '../../../constants/aggregationTypes';
 import { setAggregationType } from '../../../actions/layerEdit';
+import { hasClasses } from '../../../util/earthEngine';
 import styles from './styles/AggregationSelect.module.css';
 
 const AggregationSelect = ({
-    classes = false,
     aggregationType,
-    defaultAggregations,
+    defaultAggregation,
     setAggregationType,
 }) => {
+    const classes = hasClasses(defaultAggregation);
+
     const types = classes
         ? getEarthEngineStatisticTypes()
         : getEarthEngineAggregationTypes();
 
     useEffect(() => {
-        if (!aggregationType && defaultAggregations) {
-            setAggregationType(defaultAggregations);
+        if (!aggregationType && defaultAggregation) {
+            setAggregationType(defaultAggregation);
         }
-    }, [aggregationType, defaultAggregations]);
+    }, [aggregationType, defaultAggregation]);
 
     return (
         <div className={styles.root}>
@@ -33,26 +35,25 @@ const AggregationSelect = ({
                 items={types}
                 multiple={!classes}
                 value={aggregationType}
-                onChange={type =>
-                    setAggregationType(Array.isArray(type) ? type : [type.id])
-                }
+                onChange={type => setAggregationType(classes ? type.id : type)}
             />
         </div>
     );
 };
 
 AggregationSelect.propTypes = {
-    classes: PropTypes.bool,
-    aggregationType: PropTypes.array,
-    defaultAggregations: PropTypes.array,
+    aggregationType: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    defaultAggregation: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+    ]),
     setAggregationType: PropTypes.func.isRequired,
 };
 
 export default connect(
     ({ layerEdit }) => ({
-        classes: layerEdit.classes,
         aggregationType: layerEdit.aggregationType,
-        defaultAggregations: layerEdit.defaultAggregations,
+        defaultAggregation: layerEdit.defaultAggregation,
     }),
     { setAggregationType }
 )(AggregationSelect);
