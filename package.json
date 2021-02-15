@@ -45,11 +45,10 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/analytics": "^11.2.9",
+        "@dhis2/analytics": "^14.1.9",
         "@dhis2/app-runtime": "^2.2.2",
         "@dhis2/d2-i18n": "^1.0.6",
         "@dhis2/d2-ui-core": "^7.1.3",
-        "@dhis2/d2-ui-file-menu": "^7.1.3",
         "@dhis2/d2-ui-interpretations": "^7.1.3",
         "@dhis2/d2-ui-org-unit-dialog": "^7.1.3",
         "@dhis2/d2-ui-org-unit-tree": "^7.1.3",
@@ -100,8 +99,10 @@
         "babel-loader": "^7.1.2",
         "babel-plugin-istanbul": "^4.1.4",
         "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+        "babel-plugin-transform-es2015-destructuring": "^6.23.0",
         "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
         "babel-plugin-transform-object-assign": "^6.22.0",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "babel-polyfill": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
@@ -145,7 +146,7 @@
         "terser-webpack-plugin-legacy": "^1.2.3",
         "url-loader": "^0.6.2",
         "wait-on": "^3.3.0",
-        "webpack": "^3.11.0",
+        "webpack": "^3.12.0",
         "webpack-bundle-analyzer": "^3.9.0",
         "webpack-dev-server": "^2.11.1"
     },

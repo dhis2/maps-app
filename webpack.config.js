@@ -61,11 +61,16 @@ const webpackConfig = {
                     /@dhis2\/ui-core/,
                     /@dhis2\/ui-forms/,
                     /@dhis2\/ui-widgets/,
+                    /@dhis2\/analytics/,
                 ],
                 loader: 'babel-loader',
                 query: {
                     cacheDirectory: true,
                     presets: ['es2015', 'stage-2'],
+                    plugins: [
+                        'transform-es2015-destructuring',
+                        'transform-object-rest-spread',
+                    ],
                 },
             },
             {

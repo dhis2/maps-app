@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import D2FileMenu from '@dhis2/d2-ui-file-menu';
+// import D2FileMenu from '@dhis2/d2-ui-file-menu';
+import { FileMenu as D2FileMenu } from '@dhis2/analytics';
 import { newMap, setMapProps } from '../../actions/map';
 import { loadFavorite } from '../../actions/favorites';
 import { saveFavorite, saveNewFavorite } from '../../actions/favorites';
