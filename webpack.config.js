@@ -67,10 +67,6 @@ const webpackConfig = {
                 query: {
                     cacheDirectory: true,
                     presets: ['es2015', 'stage-2'],
-                    plugins: [
-                        'transform-es2015-destructuring',
-                        'transform-object-rest-spread',
-                    ],
                 },
             },
             {
