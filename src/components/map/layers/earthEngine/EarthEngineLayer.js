@@ -81,7 +81,6 @@ export default class EarthEngineLayer extends Layer {
             resolution,
             projection,
             data,
-            aggregationType,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
@@ -105,7 +104,9 @@ export default class EarthEngineLayer extends Layer {
         map.addLayer(this.layer);
 
         if (aggregate) {
-            this.layer.aggregate().then(this.addAggregationValues.bind(this));
+            this.layer
+                .aggregate(aggregationType)
+                .then(this.addAggregationValues.bind(this));
         }
 
         this.fitBoundsOnce();
