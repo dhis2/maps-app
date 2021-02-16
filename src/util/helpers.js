@@ -42,6 +42,7 @@ const baseFields = [
     'update',
     'manage',
     'delete',
+    'href',
 ];
 
 const analysisFields = async () => {
