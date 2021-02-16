@@ -46,7 +46,7 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^14.1.9",
-        "@dhis2/app-runtime": "^2.2.2",
+        "@dhis2/app-runtime": "^2.7.0",
         "@dhis2/d2-i18n": "^1.0.6",
         "@dhis2/d2-ui-core": "^7.1.3",
         "@dhis2/d2-ui-interpretations": "^7.1.3",
