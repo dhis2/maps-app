@@ -9,7 +9,7 @@ import { setAlert } from '../../actions/alerts';
 
 export const FileMenu = (
     {
-        current,
+        map,
         newMap,
         setMapProps,
         loadFavorite,
@@ -25,7 +25,7 @@ export const FileMenu = (
         <D2FileMenu
             d2={d2}
             fileType="map"
-            fileObject={current}
+            fileObject={map}
             onNew={newMap}
             onOpen={loadFavorite}
             onSave={saveFavorite}
@@ -38,7 +38,7 @@ export const FileMenu = (
 };
 
 FileMenu.propTypes = {
-    current: PropTypes.object.isRequired,
+    map: PropTypes.object.isRequired,
     newMap: PropTypes.func.isRequired,
     setMapProps: PropTypes.func.isRequired,
     loadFavorite: PropTypes.func.isRequired,
@@ -51,17 +51,11 @@ FileMenu.contextTypes = {
     d2: PropTypes.object,
 };
 
-export default connect(
-    state => ({
-        id: state.map ? state.map.id : null,
-        current: state.map,
-    }),
-    {
-        newMap,
-        setMapProps,
-        loadFavorite,
-        saveFavorite,
-        saveNewFavorite,
-        setAlert,
-    }
-)(FileMenu);
+export default connect(({ map }) => ({ map }), {
+    newMap,
+    setMapProps,
+    loadFavorite,
+    saveFavorite,
+    saveNewFavorite,
+    setAlert,
+})(FileMenu);
