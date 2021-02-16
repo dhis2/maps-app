@@ -38,6 +38,10 @@ const baseFields = [
     'publicAccess',
     'created',
     'lastUpdated',
+    'access',
+    'update',
+    'manage',
+    'delete',
 ];
 
 const analysisFields = async () => {
