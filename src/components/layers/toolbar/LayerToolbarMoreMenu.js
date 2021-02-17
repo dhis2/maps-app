@@ -8,10 +8,14 @@ import TableIcon from '@material-ui/icons/ViewList';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/SaveAlt';
 import ChartIcon from '@material-ui/icons/BarChart';
+import ImportIcon from '@material-ui/icons/Input';
+import ImportDialog from '../import/ImportDialog';
 import IconButton from '../../core/IconButton';
+import { IMPORTABLE_LAYER_TYPES } from '../../../constants/layers';
 import styles from './styles/LayerToolbarMore.module.css';
 
 export const LayerToolbarMoreMenu = ({
+    layer = {},
     onEdit,
     onRemove,
     toggleDataTable,
@@ -19,7 +23,11 @@ export const LayerToolbarMoreMenu = ({
     downloadData,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [showImportDialog, setShowImportDialog] = useState(false);
     const anchorRef = useRef();
+
+    const { layer: layerType } = layer;
+    const canImport = IMPORTABLE_LAYER_TYPES.includes(layerType);
 
     const somethingAboveDivider = toggleDataTable || downloadData,
         somethingBelowDivider = onRemove || onEdit,
@@ -46,7 +54,7 @@ export const LayerToolbarMoreMenu = ({
                 </IconButton>
             </div>
 
-            {isOpen && (
+            {isOpen && layer && (
                 <Popover
                     reference={anchorRef}
                     arrow={false}
@@ -72,6 +80,16 @@ export const LayerToolbarMoreMenu = ({
                                     onClick={() => {
                                         setIsOpen(false);
                                         openAs('CHART');
+                                    }}
+                                />
+                            )}
+                            {canImport && (
+                                <MenuItem
+                                    label={i18n.t('Import data')}
+                                    icon={<ImportIcon />}
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        setShowImportDialog(true);
                                     }}
                                 />
                             )}
@@ -110,11 +128,18 @@ export const LayerToolbarMoreMenu = ({
                     </div>
                 </Popover>
             )}
+            {showImportDialog && (
+                <ImportDialog
+                    layer={layer}
+                    onClose={() => setShowImportDialog(false)}
+                />
+            )}
         </Fragment>
     );
 };
 
 LayerToolbarMoreMenu.propTypes = {
+    layer: PropTypes.object,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
     toggleDataTable: PropTypes.func,
