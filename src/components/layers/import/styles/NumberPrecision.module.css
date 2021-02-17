@@ -1,0 +1,9 @@
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.select {
+    width: 70%;
+}
