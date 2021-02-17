@@ -28,8 +28,6 @@ const EarthEngineDialog = props => {
     const [tab, setTab] = useState('data');
     const [periods, setPeriods] = useState();
     const [error, setError] = useState();
-    // const [orgUnitsError, setOrgUnitsError] = useState();
-    const [orgUnitsError] = useState();
 
     const {
         datasetId,
@@ -62,10 +60,7 @@ const EarthEngineDialog = props => {
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length);
 
-    // console.log('filter', filter, period);
-
     // Load all available periods
-    // TODO: Cancel state update if dialog is closed
     useEffect(() => {
         if (periodType) {
             getPeriods(datasetId)
@@ -79,15 +74,6 @@ const EarthEngineDialog = props => {
         if (!period) {
             if (Array.isArray(periods) && periods.length) {
                 setPeriod(periods[0]);
-            } else if (periods && periods.endPeriod) {
-                /*
-                setPeriod({
-                    id: periods.endPeriod,
-                    name: periods.endPeriod, // TODO
-                    year: Number(periods.endPeriod.substring(0, 4)),
-                    startDate: '2020-07-09', // TODO
-                });
-                */
             }
         }
     }, [periods, period]);
@@ -140,62 +126,45 @@ const EarthEngineDialog = props => {
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === 'data' && (
-                    <div className={styles.flexColumnFlow}>
-                        <div className={styles.flexColumn}>
-                            <div className={styles.paragraph}>
-                                {description}
-                            </div>
-                            {unit && (
-                                <div className={styles.paragraph}>
-                                    {i18n.t('Unit')}: {unit}
-                                </div>
-                            )}
-                            {bands && (
-                                <BandSelect
-                                    errorText={
-                                        error &&
-                                        error.type === 'band' &&
-                                        error.message
-                                    }
-                                />
-                            )}
-                            <AggregationSelect />
-                            <div className={styles.paragraph}>
-                                {i18n.t('Source')}:{' '}
-                                <a
-                                    href={sourceUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    {source}
-                                </a>
-                            </div>
+                    <div className={styles.flexRowFlow}>
+                        <div className={styles.notice}>
+                            <p>{description}</p>
+                            <p>
+                                {i18n.t(
+                                    'Data will be calculated on Google Earth Engine for the chosen organisation units.'
+                                )}
+                            </p>
+                            <p>
+                                {i18n.t(
+                                    'Multiple aggregation methods are available. See the aggrigation results by clicking map regions or viewing the data table. The results can also be downloaded.'
+                                )}
+                            </p>
                         </div>
-                        <div className={styles.flexColumn}>
-                            <div className={styles.notice}>
-                                <NoticeBox>
-                                    <p>
-                                        {i18n.t(
-                                            'This layer can be combined with your organisaton units. '
-                                        )}
-                                    </p>
-                                    <p>
-                                        {i18n.t(
-                                            'Select how you want the data to be aggregated. '
-                                        )}
-                                    </p>
-                                    <p>
-                                        {i18n.t(
-                                            'Selected organisation units will be uploaded to Google Earth Engine where the values will be calculated.'
-                                        )}
-                                    </p>
-                                    <p>
-                                        {i18n.t(
-                                            'You can view the result by clicking the organisation units, opening the data table or by downloading the data.'
-                                        )}
-                                    </p>
-                                </NoticeBox>
+
+                        {bands && (
+                            <BandSelect
+                                errorText={
+                                    error &&
+                                    error.type === 'band' &&
+                                    error.message
+                                }
+                            />
+                        )}
+                        <AggregationSelect />
+                        {unit && (
+                            <div className={styles.paragraph}>
+                                {i18n.t('Unit')}: {unit}
                             </div>
+                        )}
+                        <div className={styles.paragraph}>
+                            {i18n.t('Source')}:{' '}
+                            <a
+                                href={sourceUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {source}
+                            </a>
                         </div>
                     </div>
                 )}
@@ -212,9 +181,7 @@ const EarthEngineDialog = props => {
                         className={styles.flexRowFlow}
                     />
                 )}
-                {tab === 'orgunits' && (
-                    <OrgUnitsSelect rows={rows} error={orgUnitsError} />
-                )}
+                {tab === 'orgunits' && <OrgUnitsSelect rows={rows} />}
                 {tab === 'style' && <StyleSelect unit={unit} params={params} />}
             </div>
         </div>

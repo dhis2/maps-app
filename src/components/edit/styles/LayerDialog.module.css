@@ -54,11 +54,12 @@
 }
 
 .notice {
-    margin: var(--spacers-dp8) 0;
+    margin: var(--spacers-dp16) 0;
+    line-height: 22px;
 }
 
 .notice p {
-    margin: 0 0 var(--spacers-dp8);
+    margin: 0 0 var(--spacers-dp16);
 }
 
 .notice p:last-child {

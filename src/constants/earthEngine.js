@@ -7,7 +7,9 @@ export const earthEngineLayers = () => [
         datasetId: 'WorldPop/GP/100m/pop',
         name: i18n.t('Population'),
         unit: i18n.t('people per hectare'),
-        description: i18n.t('Estimated residential population per hectare.'),
+        description: i18n.t(
+            'The estimated number of people living in an area.'
+        ),
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
