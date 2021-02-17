@@ -325,7 +325,7 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Select program period"
-msgstr ""
+msgstr "选择项目时段"
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -334,7 +334,7 @@ msgid "relationships"
 msgstr "关系"
 
 msgid "Program status"
-msgstr ""
+msgstr "项目状态"
 
 msgid "Follow up"
 msgstr "后续跟踪"
@@ -372,13 +372,13 @@ msgid "Tracked entity style"
 msgstr ""
 
 msgid "Point size"
-msgstr ""
+msgstr "点大写"
 
 msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
+msgstr "线条颜色"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
@@ -405,13 +405,13 @@ msgid "Data set is required"
 msgstr ""
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "必须提供事件数据项"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "必须提供项目指标"
 
 msgid "Period is required"
-msgstr ""
+msgstr "需要时段"
 
 msgid "No legend set is selected"
 msgstr ""
@@ -459,7 +459,7 @@ msgid "The following information may be requested by technical support."
 msgstr "下列信息可能技术支持需要"
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "选择程项目时段后即可进行过滤。"
 
 msgid "Operator"
 msgstr "操作符"
@@ -509,7 +509,7 @@ msgstr ""
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
-msgstr ""
+msgstr "大多数GIS软件——包括QGIS和ArcGIS Desktop都支持GeoJSON。"
 
 msgid "Data download failed."
 msgstr ""
@@ -712,13 +712,13 @@ msgid "Click the map where you want to relocate facility"
 msgstr ""
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "用户组织机构"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "用户组织机构的直接下属"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "用户组织机构的第二级下属"
 
 msgid "{{units}} in {{orgunits}}"
 msgstr ""
@@ -1130,7 +1130,7 @@ msgid "Thematic layer"
 msgstr "专题层"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "选定的组织机构"
 
 msgid "No coordinates found"
 msgstr ""
