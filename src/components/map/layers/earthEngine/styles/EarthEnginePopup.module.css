@@ -1,0 +1,63 @@
+.title {
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 16px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table caption {
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 8px;
+}
+
+.table caption .group {
+    padding-top: 8px;
+    font-weight: normal;
+}
+
+.table caption .group div {
+    white-space: nowrap;
+}
+
+.table caption .unit {
+    padding-top: 8px;
+    font-weight: normal;
+}
+
+.table thead th {
+    text-align: left;
+    padding-bottom: 4px;
+}
+
+.table thead th:last-child {
+    text-align: right;
+}
+
+.table tbody th {
+    text-align: left;
+    font-weight: normal;
+    padding-right: 8px;
+}
+
+.table tbody td {
+    text-align: left;
+}
+
+.table tbody td:last-child {
+    text-align: right;
+}
+
+td.color {
+    width: 20px;
+}
+
+td.name {
+    padding-left: 8px;
+    padding-right: 8px;
+}

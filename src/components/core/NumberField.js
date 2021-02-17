@@ -11,6 +11,7 @@ const NumberField = ({
     min,
     max,
     dense = true,
+    disabled,
     onChange,
     className,
 }) => {
@@ -33,6 +34,7 @@ const NumberField = ({
                 type="number"
                 label={label}
                 value={String(value)}
+                disabled={disabled}
                 onChange={onNumberChange}
             />
         </div>
@@ -45,6 +47,7 @@ NumberField.propTypes = {
     min: PropTypes.number,
     max: PropTypes.number,
     dense: PropTypes.bool,
+    disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
 };
