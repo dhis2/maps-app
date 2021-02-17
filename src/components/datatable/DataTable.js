@@ -6,6 +6,7 @@ import { Table, Column } from 'react-virtualized';
 import { isValidUid } from 'd2/uid';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
+import EarthEngineColumns from './EarthEngineColumns';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
 import { loadLayer } from '../../actions/layers';
@@ -131,12 +132,22 @@ class DataTable extends Component {
     }
 
     render() {
-        const { width, height, layer } = this.props;
-        const { layer: layerType, styleDataItem, serverCluster } = layer;
         const { data, sortBy, sortDirection } = this.state;
+        const { width, height, layer } = this.props;
+
+        const {
+            layer: layerType,
+            styleDataItem,
+            serverCluster,
+            classes,
+            aggregationType,
+            legend,
+        } = layer;
+
         const isThematic = layerType === 'thematic';
         const isBoundary = layerType === 'boundary';
         const isEvent = layerType === 'event';
+        const isEarthEngine = layerType === 'earthEngine';
 
         return !serverCluster ? (
             <Table
@@ -163,16 +174,16 @@ class DataTable extends Component {
                     className="right"
                 />
                 <Column
-                    dataKey="id"
-                    label={i18n.t('Id')}
+                    dataKey={isEvent ? 'ouname' : 'name'}
+                    label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
                     )}
                 />
                 <Column
-                    dataKey={isEvent ? 'ouname' : 'name'}
-                    label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
+                    dataKey="id"
+                    label={i18n.t('Id')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
@@ -274,6 +285,14 @@ class DataTable extends Component {
                             cellRenderer={ColorCell}
                         />
                     ))}
+
+                {isEarthEngine &&
+                    EarthEngineColumns({
+                        classes,
+                        aggregationType,
+                        legend,
+                        data,
+                    })}
             </Table>
         ) : (
             <div className={styles.noSupport}>

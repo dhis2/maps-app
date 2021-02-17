@@ -29,6 +29,15 @@
     font-weight: bold;
 }
 
+.group {
+    padding-bottom: var(--spacers-dp8);
+    font-weight: bold;
+}
+
+.group div {
+    font-weight: normal;
+}
+
 .unit {
     line-height: var(--spacers-dp24);
     font-weight: bold;
