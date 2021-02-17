@@ -7,9 +7,7 @@ export const earthEngineLayers = () => [
         datasetId: 'WorldPop/GP/100m/pop',
         name: i18n.t('Population'),
         unit: i18n.t('people per hectare'),
-        description: i18n.t(
-            'The estimated number of people living in an area.'
-        ),
+        description: i18n.t('Estimated number of people living in an area.'),
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
@@ -38,7 +36,7 @@ export const earthEngineLayers = () => [
         name: i18n.t('Population age groups'),
         unit: i18n.t('people per hectare'),
         description: i18n.t(
-            'Estimated residential population per hectare, grouped by age and gender.'
+            'Estimated number of people living in an area, grouped by age and gender.'
         ),
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
@@ -394,32 +392,6 @@ export const earthEngineLayers = () => [
         mask: false,
         popup: '{name}: {value}',
         img: 'images/landcover.png',
-        opacity: 0.9,
-    },
-    {
-        layer: 'earthEngine',
-        datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
-        name: i18n.t('Nighttime lights'),
-        unit: i18n.t('light intensity'),
-        description: i18n.t(
-            'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.'
-        ),
-        source: 'NOAA / Google Earth Engine',
-        sourceUrl:
-            'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
-        periodType: 'Yearly',
-        band: 'stable_lights',
-        mask: true,
-        popup: '{name}: {value}',
-        valueLabel: i18n.t('Select year'),
-        minValue: 0,
-        maxValue: 63,
-        img: 'images/nighttime.png',
-        params: {
-            min: 0,
-            max: 63,
-            palette: '#ffffd4,#fee391,#fec44f,#fe9929,#ec7014,#cc4c02,#8c2d04', // YlOrBr
-        },
         opacity: 0.9,
     },
 ];

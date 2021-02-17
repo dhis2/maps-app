@@ -127,7 +127,7 @@ const EarthEngineDialog = props => {
             <div className={styles.tabContent}>
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
-                        <div className={styles.notice}>
+                        <div className={styles.help}>
                             <p>{description}</p>
                             <p>
                                 {i18n.t(
@@ -136,7 +136,7 @@ const EarthEngineDialog = props => {
                             </p>
                             <p>
                                 {i18n.t(
-                                    'Multiple aggregation methods are available. See the aggrigation results by clicking map regions or viewing the data table. The results can also be downloaded.'
+                                    'Multiple aggregation methods are available. See the aggregation results by clicking map regions or viewing the data table. The results can also be downloaded.'
                                 )}
                             </p>
                         </div>

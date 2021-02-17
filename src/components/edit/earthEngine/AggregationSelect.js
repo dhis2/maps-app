@@ -9,7 +9,7 @@ import {
 } from '../../../constants/aggregationTypes';
 import { setAggregationType } from '../../../actions/layerEdit';
 import { hasClasses } from '../../../util/earthEngine';
-import styles from './styles/AggregationSelect.module.css';
+import styles from './styles/SelectField.module.css';
 
 const AggregationSelect = ({
     aggregationType,
@@ -31,7 +31,7 @@ const AggregationSelect = ({
     return (
         <div className={styles.root}>
             <SelectField
-                label={i18n.t('Aggregation')}
+                label={i18n.t('Aggregation method')}
                 items={types}
                 multiple={!classes}
                 value={aggregationType}
