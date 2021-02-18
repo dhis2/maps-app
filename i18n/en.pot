@@ -5,8 +5,13 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2021-02-18T13:49:40.448Z\n"
 "PO-Revision-Date: 2021-02-18T13:49:40.448Z\n"
+=======
+"POT-Creation-Date: 2021-02-18T16:03:04.284Z\n"
+"PO-Revision-Date: 2021-02-18T16:03:04.284Z\n"
+>>>>>>> master
 
 msgid "Maps"
 msgstr ""
