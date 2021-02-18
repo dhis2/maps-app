@@ -266,7 +266,6 @@ export const earthEngineLayers = () => [
         band: 'LST_Day_1km',
         mask: true,
         methods: {
-            // TODO: Calculate from farenheit to celcius in app?
             toFloat: [],
             multiply: [0.02],
             subtract: [273.15],
@@ -292,13 +291,6 @@ export const earthEngineLayers = () => [
         band: 'LC_Type1',
         filters: defaultFilters,
         defaultAggregation: 'percentage',
-        params: {
-            // TODO: Create from legend below - possible to read from metadata?
-            min: 1,
-            max: 17,
-            palette:
-                '162103,235123,399b38,38eb38,39723b,6a2424,c3a55f,b76124,d99125,92af1f,10104c,cdb400,cc0202,332808,d7cdcc,f7e174,aec3d6',
-        },
         legend: {
             items: [
                 // http://www.eomf.ou.edu/static/IGBP.pdf

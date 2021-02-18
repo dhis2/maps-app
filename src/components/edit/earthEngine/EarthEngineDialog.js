@@ -16,11 +16,7 @@ import {
     getPeriods,
     defaultFilters,
 } from '../../../util/earthEngine';
-import {
-    setFilter,
-    setParams,
-    setOrgUnitLevels,
-} from '../../../actions/layerEdit';
+import { setFilter, setOrgUnitLevels } from '../../../actions/layerEdit';
 import { DEFAULT_ORG_UNIT_LEVEL } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -34,7 +30,6 @@ const EarthEngineDialog = props => {
         band,
         rows,
         params,
-        legend,
         filter,
         setFilter,
         setOrgUnitLevels,
@@ -122,7 +117,7 @@ const EarthEngineDialog = props => {
                 <Tab value="data">{i18n.t('Data')}</Tab>
                 {periodType && <Tab value="period">{i18n.t('Period')}</Tab>}
                 <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
-                {!legend && <Tab value="style">{i18n.t('Style')}</Tab>}
+                {params && <Tab value="style">{i18n.t('Style')}</Tab>}
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === 'data' && (
@@ -201,11 +196,10 @@ EarthEngineDialog.propTypes = {
     legend: PropTypes.object,
     validateLayer: PropTypes.bool.isRequired,
     setFilter: PropTypes.func.isRequired,
-    setParams: PropTypes.func.isRequired,
     setOrgUnitLevels: PropTypes.func.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setFilter, setParams, setOrgUnitLevels }, null, {
+export default connect(null, { setFilter, setOrgUnitLevels }, null, {
     forwardRef: true,
 })(EarthEngineDialog);

@@ -98,6 +98,9 @@ const EarthEnginePeriodSelect = ({
                     items={items}
                     value={items && period && period.id}
                     onChange={onChange}
+                    helpText={i18n.t(
+                        'Available periods are set by the source data'
+                    )}
                     errorText={!period && errorText ? errorText : null}
                     className={styles.period}
                 />

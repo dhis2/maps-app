@@ -18,6 +18,7 @@ export const SelectField = props => {
     const {
         dense = true,
         errorText,
+        helpText,
         items,
         label,
         loading,
@@ -63,6 +64,7 @@ export const SelectField = props => {
                 loading={isLoading}
                 error={!!errorText}
                 validationText={errorText}
+                helpText={helpText}
                 onChange={onSelectChange}
                 dataTest={dataTest}
             >
@@ -90,6 +92,11 @@ SelectField.propTypes = {
      * Render a dense select field
      */
     dense: PropTypes.bool,
+
+    /**
+     * If set, shows the help text below the SelectField
+     */
+    helpText: PropTypes.string,
 
     /**
      * If set, shows the error message below the SelectField
