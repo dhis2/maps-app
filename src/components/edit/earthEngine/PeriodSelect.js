@@ -2,7 +2,6 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { CircularLoader } from '@dhis2/ui';
-import { FixedPeriodSelect } from '@dhis2/analytics';
 import SelectField from '../../core/SelectField';
 import styles from './styles/PeriodSelect.module.css';
 
@@ -45,24 +44,6 @@ const EarthEnginePeriodSelect = ({
         [onChange]
     );
 
-    const onFixedPeriodChange = useCallback(
-        period => {
-            if (period) {
-                const { id, name, startDate, endDate } = period;
-                const startTimeStamp = +new Date(startDate);
-                const endTimeStamp = +new Date(endDate) + 86400000; // One day in milliseconds
-
-                onChange({
-                    id,
-                    name,
-                    startDate: startTimeStamp,
-                    endDate: endTimeStamp,
-                });
-            }
-        },
-        [onChange]
-    );
-
     useEffect(() => {
         if (byYear) {
             if (period) {
@@ -76,36 +57,29 @@ const EarthEnginePeriodSelect = ({
     const items = byYear ? byYearPeriods : periods;
 
     return items ? (
-        periodType === 'Daily' ? (
-            <FixedPeriodSelect
-                allowedPeriodTypes={['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY']}
-                onChange={onFixedPeriodChange}
-            />
-        ) : (
-            <div className={className}>
-                {byYear && (
-                    <SelectField
-                        label={i18n.t('Year')}
-                        items={years}
-                        value={year}
-                        onChange={onYearChange}
-                        className={styles.year}
-                    />
-                )}
+        <div className={className}>
+            {byYear && (
                 <SelectField
-                    label={i18n.t('Period')}
-                    loading={!periods}
-                    items={items}
-                    value={items && period && period.id}
-                    onChange={onChange}
-                    helpText={i18n.t(
-                        'Available periods are set by the source data'
-                    )}
-                    errorText={!period && errorText ? errorText : null}
-                    className={styles.period}
+                    label={i18n.t('Year')}
+                    items={years}
+                    value={year}
+                    onChange={onYearChange}
+                    className={styles.year}
                 />
-            </div>
-        )
+            )}
+            <SelectField
+                label={i18n.t('Period')}
+                loading={!periods}
+                items={items}
+                value={items && period && period.id}
+                onChange={onChange}
+                helpText={i18n.t(
+                    'Available periods are set by the source data'
+                )}
+                errorText={!period && errorText ? errorText : null}
+                className={styles.period}
+            />
+        </div>
     ) : (
         <div className={styles.loading}>
             <CircularLoader small />
