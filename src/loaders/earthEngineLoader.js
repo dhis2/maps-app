@@ -7,7 +7,7 @@ import { toGeoJson } from '../util/map';
 
 // Returns a promise
 const earthEngineLoader = async config => {
-    const { filter, rows, aggregationType } = config;
+    const { rows, aggregationType } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     let layerConfig = {};
     let dataset;
@@ -55,7 +55,17 @@ const earthEngineLoader = async config => {
         ...dataset,
     };
 
-    const { name, unit, description, source, sourceUrl, band, bands } = layer;
+    const {
+        name,
+        unit,
+        filter,
+        description,
+        source,
+        sourceUrl,
+        band,
+        bands,
+    } = layer;
+
     const period = getPeriodFromFilter(filter);
 
     const groups =

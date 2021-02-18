@@ -34,7 +34,7 @@ const defaultLayers = () => [
         img: 'images/boundaries.png',
         opacity: 1,
     },
-    ...earthEngineLayers(),
+    ...earthEngineLayers().filter(l => !l.legacy),
 ];
 
 const layers = (state, action) => {

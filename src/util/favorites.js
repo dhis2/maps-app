@@ -110,6 +110,8 @@ const cleanLayerConfig = config => ({
 
 // TODO: This feels hacky, find better way to clean map configs before saving
 const models2objects = config => {
+    const { layer } = config;
+
     Object.keys(config).forEach(key => {
         config[key] = models.includes(key)
             ? pick(validModelProperties, config[key])
@@ -120,22 +122,32 @@ const models2objects = config => {
         config.rows = config.rows.map(cleanDimension);
     }
 
-    if (config.params) {
-        const { datasetId, params, filter, periodName } = config;
+    if (layer === 'earthEngine') {
+        const { datasetId: id, band, params, aggregationType, filter } = config;
 
-        // EE layer config
-        config.config = JSON.stringify({
-            id: datasetId,
+        const eeConfig = {
+            id,
             params,
-            image: filter ? filter[0].arguments[1] : null,
+            band,
+            aggregationType,
             filter,
-            periodName,
-        });
+        };
+
+        // Removes undefined keys before stringify
+        config.config = JSON.stringify(
+            Object.keys(eeConfig).forEach(
+                key => eeConfig[key] === undefined && delete eeConfig[key]
+            )
+        );
+
         delete config.datasetId;
         delete config.params;
         delete config.filter;
+        delete config.filters;
+        delete config.periodType;
         delete config.periodName;
-    } else if (config.layer === 'trackedEntity') {
+        delete config.aggregationType;
+    } else if (layer === 'trackedEntity') {
         config.config = JSON.stringify({
             relationships: config.relationshipType
                 ? {

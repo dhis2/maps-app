@@ -386,6 +386,64 @@ export const earthEngineLayers = () => [
         img: 'images/landcover.png',
         opacity: 0.9,
     },
+    {
+        layer: 'earthEngine',
+        legacy: true, // Kept for backward compability
+        datasetId: 'WorldPop/POP',
+        name: i18n.t('Population'),
+        unit: i18n.t('people per km²'),
+        description: i18n.t('Estimated number of people living in an area.'),
+        source: 'WorldPop / Google Earth Engine',
+        sourceUrl:
+            'https://explorer.earthengine.google.com/#detail/WorldPop%2FPOP',
+        img: 'images/population.png',
+        periodType: 'Yearly',
+        filters: ({ id, name, year }) => [
+            {
+                id,
+                name,
+                type: 'eq',
+                arguments: ['year', year],
+            },
+            {
+                type: 'eq',
+                arguments: ['UNadj', 'yes'],
+            },
+        ],
+        mosaic: true,
+        params: {
+            min: 0,
+            max: 1000,
+            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15', // Reds
+        },
+        methods: {
+            multiply: [100], // Convert from people/hectare to people/km2
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: 'earthEngine',
+        legacy: true, // Kept for backward compability
+        datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
+        name: i18n.t('Nighttime lights'),
+        unit: i18n.t('light intensity'),
+        description: i18n.t(
+            'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.'
+        ),
+        source: 'NOAA / Google Earth Engine',
+        sourceUrl:
+            'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
+        periodType: 'Yearly',
+        band: 'stable_lights',
+        mask: true,
+        img: 'images/nighttime.png',
+        params: {
+            min: 0,
+            max: 63,
+            palette: '#ffffd4,#fee391,#fec44f,#fe9929,#ec7014,#cc4c02,#8c2d04', // YlOrBr
+        },
+        opacity: 0.9,
+    },
 ];
 
 export const getEarthEngineLayer = id =>
