@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
-"PO-Revision-Date: 2020-11-19T09:15:54.056Z\n"
+"POT-Creation-Date: 2021-02-18T13:49:40.448Z\n"
+"PO-Revision-Date: 2021-02-18T13:49:40.448Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -68,13 +68,13 @@ msgstr ""
 msgid "Index"
 msgstr ""
 
-msgid "Id"
-msgstr ""
-
 msgid "Org unit"
 msgstr ""
 
 msgid "Name"
+msgstr ""
+
+msgid "Id"
 msgstr ""
 
 msgid "Event time"
@@ -556,6 +556,12 @@ msgstr ""
 msgid "Mid"
 msgstr ""
 
+msgid "Groups"
+msgstr ""
+
+msgid "Group"
+msgstr ""
+
 msgid "Filters"
 msgstr ""
 
@@ -590,9 +596,6 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr ""
-
-msgid "Groups"
 msgstr ""
 
 msgid "Longitude"
@@ -1216,9 +1219,6 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
-
-msgid "There was a problem creating a map from the imported data."
 msgstr ""
 
 msgid "Start date is invalid"
