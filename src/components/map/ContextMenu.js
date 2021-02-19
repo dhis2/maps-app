@@ -15,6 +15,7 @@ import {
 } from '../../actions/map';
 import { drillLayer } from '../../actions/layers';
 import { loadOrgUnit, changeOrgUnitCoordinate } from '../../actions/orgUnits';
+import { FACILITY_LAYER, EARTH_ENGINE_LAYER } from '../../constants/layers';
 import styles from './styles/ContextMenu.module.css';
 
 const polygonTypes = ['Polygon', 'MultiPolygon'];
@@ -124,7 +125,7 @@ const ContextMenu = (props, context) => {
             >
                 <div className={styles.menu}>
                     <Menu dense>
-                        {layerType !== 'facility' && feature && (
+                        {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
                                 label={i18n.t('Drill up one level')}
                                 icon={<UpIcon />}
@@ -133,7 +134,7 @@ const ContextMenu = (props, context) => {
                             />
                         )}
 
-                        {layerType !== 'facility' && feature && (
+                        {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
                                 label={i18n.t('Drill down one level')}
                                 icon={<DownIcon />}
@@ -218,7 +219,7 @@ export default connect(
     ({ contextMenu, map }) => ({
         ...contextMenu,
         earthEngineLayers: map.mapViews.filter(
-            view => view.layer === 'earthEngine'
+            view => view.layer === EARTH_ENGINE_LAYER
         ),
     }),
     {

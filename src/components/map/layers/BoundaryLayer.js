@@ -4,6 +4,7 @@ import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../../constants/layers';
+import { BOUNDARY_LAYER } from '../../../constants/layers';
 
 export default class BoundaryLayer extends Layer {
     state = {
@@ -29,7 +30,7 @@ export default class BoundaryLayer extends Layer {
         const map = this.context.map;
 
         const config = {
-            type: 'boundary',
+            type: BOUNDARY_LAYER,
             id,
             index,
             opacity,

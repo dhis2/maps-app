@@ -2,6 +2,11 @@ import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { generateUid } from 'd2/uid';
 import { upgradeGisAppLayers } from './requests';
 import { getThematicLayerFromAnalyticalObject } from './analyticalObject';
+import {
+    EARTH_ENGINE_LAYER,
+    EXTERNAL_LAYER,
+    TRACKED_ENTITY_LAYER,
+} from '../constants/layers';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -122,7 +127,7 @@ const models2objects = config => {
         config.rows = config.rows.map(cleanDimension);
     }
 
-    if (layer === 'earthEngine') {
+    if (layer === EARTH_ENGINE_LAYER) {
         const { datasetId: id, band, params, aggregationType, filter } = config;
 
         const eeConfig = {
@@ -134,11 +139,11 @@ const models2objects = config => {
         };
 
         // Removes undefined keys before stringify
-        config.config = JSON.stringify(
-            Object.keys(eeConfig).forEach(
-                key => eeConfig[key] === undefined && delete eeConfig[key]
-            )
+        Object.keys(eeConfig).forEach(
+            key => eeConfig[key] === undefined && delete eeConfig[key]
         );
+
+        config.config = JSON.stringify(eeConfig);
 
         delete config.datasetId;
         delete config.params;
@@ -147,7 +152,7 @@ const models2objects = config => {
         delete config.periodType;
         delete config.periodName;
         delete config.aggregationType;
-    } else if (layer === 'trackedEntity') {
+    } else if (layer === TRACKED_ENTITY_LAYER) {
         config.config = JSON.stringify({
             relationships: config.relationshipType
                 ? {
@@ -203,7 +208,7 @@ export const cleanDimension = dim => ({
 const setExternalBasemap = config => {
     const { mapViews } = config;
     const externalBasemap = mapViews.find(view => {
-        if (view.layer === 'external') {
+        if (view.layer === EXTERNAL_LAYER) {
             if (typeof view.config === 'string') {
                 view.config = JSON.parse(view.config);
             }

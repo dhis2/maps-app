@@ -2,6 +2,7 @@ import { config, getInstance as getD2 } from 'd2';
 import { getPeriodNameFromId, getDimensionsFromFilters } from './analytics';
 import { loadDataItemLegendSet } from './legend';
 import { cleanDimension } from './favorites';
+import { THEMATIC_LAYER } from '../constants/layers';
 
 export const NAMESPACE = 'analytics';
 export const CURRENT_AO_KEY = 'currentAnalyticalObject';
@@ -71,7 +72,7 @@ export const getThematicLayerFromAnalyticalObject = async (
     }
 
     return {
-        layer: 'thematic',
+        layer: THEMATIC_LAYER,
         columns: [{ dimension: 'dx', items: [dataDim] }],
         rows: [orgUnits],
         filters: [period, ...filters],

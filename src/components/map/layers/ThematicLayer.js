@@ -17,6 +17,7 @@ import {
     LABEL_FONT_STYLE,
     LABEL_FONT_WEIGHT,
     LABEL_FONT_COLOR,
+    BOUNDARY_LAYER,
 } from '../../../constants/layers';
 
 class ThematicLayer extends Layer {
@@ -105,7 +106,7 @@ class ThematicLayer extends Layer {
             });
 
             this.layer.addLayer({
-                type: 'boundary',
+                type: BOUNDARY_LAYER,
                 data: data.map(f => ({
                     ...f,
                     properties: {

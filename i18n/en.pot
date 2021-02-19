@@ -68,13 +68,13 @@ msgstr ""
 msgid "Index"
 msgstr ""
 
-msgid "Id"
-msgstr ""
-
 msgid "Org unit"
 msgstr ""
 
 msgid "Name"
+msgstr ""
+
+msgid "Id"
 msgstr ""
 
 msgid "Event time"
@@ -523,6 +523,12 @@ msgid "Remove layer"
 msgstr ""
 
 msgid "Mid"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Group"
 msgstr ""
 
 msgid "Filters"
