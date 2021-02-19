@@ -2,15 +2,15 @@ import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
-import Popup from './Popup';
-import { filterData } from '../../util/filter';
-import { cssColor } from '../../util/colors';
+import Popup from '../Popup';
+import { filterData } from '../../../util/filter';
+import { cssColor } from '../../../util/colors';
 import {
     LABEL_FONT_SIZE,
     LABEL_FONT_STYLE,
     LABEL_FONT_WEIGHT,
     LABEL_FONT_COLOR,
-} from '../../constants/layers';
+} from '../../../constants/layers';
 
 class FacilityLayer extends Layer {
     state = {

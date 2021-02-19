@@ -1,16 +1,16 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
-import Popup from './Popup';
-import { apiFetch } from '../../util/api';
-import { formatTime } from '../../util/helpers';
+import Popup from '../Popup';
+import { apiFetch } from '../../../util/api';
+import { formatTime } from '../../../util/helpers';
 import {
     TEI_COLOR,
     TEI_RADIUS,
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_COLOR,
     TEI_RELATED_RADIUS,
-} from '../../constants/layers';
+} from '../../../constants/layers';
 
 const getCentroid = points => {
     const totals = points.reduce(

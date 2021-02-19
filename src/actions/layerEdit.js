@@ -212,7 +212,7 @@ export const setIndicatorGroup = indicatorGroup => ({
     indicatorGroup,
 });
 
-// Set aggregation type (thematic)
+// Set aggregation type (thematic/earth engine)
 export const setAggregationType = aggregationType => ({
     type: types.LAYER_EDIT_AGGREGATION_TYPE_SET,
     aggregationType,
@@ -254,6 +254,12 @@ export const setParams = (min, max, palette) => ({
 export const setFilter = filter => ({
     type: types.LAYER_EDIT_FILTER_SET,
     filter,
+});
+
+// Set band (EE)
+export const setBand = band => ({
+    type: types.LAYER_EDIT_BAND_SET,
+    payload: band,
 });
 
 // Set label visibility
