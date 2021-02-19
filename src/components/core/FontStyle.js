@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { Button } from '@dhis2/ui';
-import BoldIcon from '@material-ui/icons/FormatBold';
-import ItalicIcon from '@material-ui/icons/FormatItalic';
+import { IconTextBold24 } from '@dhis2/ui';
+import { IconTextItalic24 } from '@dhis2/ui';
 import cx from 'classnames';
 import NumberField from './NumberField';
 import ColorButton from './ColorButton';
@@ -44,7 +44,7 @@ const FontStyle = ({
         )}
         {onWeightChange && (
             <Button
-                icon={<BoldIcon />}
+                icon={<IconTextBold24 />}
                 onClick={() => {
                     onWeightChange(weight === 'bold' ? 'normal' : 'bold');
                 }}
@@ -54,7 +54,7 @@ const FontStyle = ({
         )}
         {onStyleChange && (
             <Button
-                icon={<ItalicIcon />}
+                icon={<IconTextItalic24 />}
                 onClick={() => {
                     onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic');
                 }}
