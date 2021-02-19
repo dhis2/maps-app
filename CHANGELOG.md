@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/dhis2/maps-app/compare/v1.3.0...v1.4.0) (2021-02-19)
+
+
+### Features
+
+* earth engine aggregations in data table and download (DHIS2-9530) ([#1477](https://github.com/dhis2/maps-app/issues/1477)) ([3795892](https://github.com/dhis2/maps-app/commit/37958922d726dfe15e8cf17b5071fa8889b4000e))
+
 # [1.3.0](https://github.com/dhis2/maps-app/compare/v1.2.14...v1.3.0) (2021-02-19)
 
 
