@@ -1,9 +1,9 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
-import Popup from './Popup';
-import { filterData } from '../../util/filter';
-import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../constants/layers';
+import Popup from '../Popup';
+import { filterData } from '../../../util/filter';
+import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../../constants/layers';
 
 export default class BoundaryLayer extends Layer {
     state = {

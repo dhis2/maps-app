@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import PeriodName from './PeriodName';
 import MapItem from './MapItem';
-import Layer from './Layer';
-import ThematicLayer from './ThematicLayer';
+import Layer from './layers/Layer';
+import ThematicLayer from './layers/ThematicLayer';
 import styles from './styles/SplitView.module.css';
 
 class SplitView extends PureComponent {
