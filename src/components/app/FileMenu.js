@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import D2FileMenu from '@dhis2/d2-ui-file-menu';
+import { FileMenu } from '@dhis2/analytics';
 import { newMap, setMapProps } from '../../actions/map';
 import { loadFavorite } from '../../actions/favorites';
 import { saveFavorite, saveNewFavorite } from '../../actions/favorites';
 import { setAlert } from '../../actions/alerts';
 
-export const FileMenu = (
+export const FileMenuContainer = (
     {
-        id,
+        map,
         newMap,
         setMapProps,
         loadFavorite,
@@ -22,10 +22,10 @@ export const FileMenu = (
     const setError = ({ message }) => setAlert({ critical: true, message });
 
     return (
-        <D2FileMenu
+        <FileMenu
             d2={d2}
             fileType="map"
-            fileId={id}
+            fileObject={map}
             onNew={newMap}
             onOpen={loadFavorite}
             onSave={saveFavorite}
@@ -37,8 +37,8 @@ export const FileMenu = (
     );
 };
 
-FileMenu.propTypes = {
-    id: PropTypes.string,
+FileMenuContainer.propTypes = {
+    map: PropTypes.object.isRequired,
     newMap: PropTypes.func.isRequired,
     setMapProps: PropTypes.func.isRequired,
     loadFavorite: PropTypes.func.isRequired,
@@ -47,20 +47,15 @@ FileMenu.propTypes = {
     setAlert: PropTypes.func.isRequired,
 };
 
-FileMenu.contextTypes = {
+FileMenuContainer.contextTypes = {
     d2: PropTypes.object,
 };
 
-export default connect(
-    state => ({
-        id: state.map ? state.map.id : null,
-    }),
-    {
-        newMap,
-        setMapProps,
-        loadFavorite,
-        saveFavorite,
-        saveNewFavorite,
-        setAlert,
-    }
-)(FileMenu);
+export default connect(({ map }) => ({ map }), {
+    newMap,
+    setMapProps,
+    loadFavorite,
+    saveFavorite,
+    saveNewFavorite,
+    setAlert,
+})(FileMenuContainer);
