@@ -138,12 +138,6 @@ const models2objects = config => {
             key => eeConfig[key] === undefined && delete eeConfig[key]
         );
 
-        config.config = JSON.stringify(
-            Object.keys(eeConfig).forEach(
-                key => eeConfig[key] === undefined && delete eeConfig[key]
-            )
-        );
-
         config.config = JSON.stringify(eeConfig);
 
         delete config.datasetId;
