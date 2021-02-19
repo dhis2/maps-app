@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FileMenu as D2FileMenu } from '@dhis2/analytics';
+import { FileMenu } from '@dhis2/analytics';
 import { newMap, setMapProps } from '../../actions/map';
 import { loadFavorite } from '../../actions/favorites';
 import { saveFavorite, saveNewFavorite } from '../../actions/favorites';
 import { setAlert } from '../../actions/alerts';
 
-export const FileMenu = (
+export const FileMenuContainer = (
     {
         map,
         newMap,
@@ -22,7 +22,7 @@ export const FileMenu = (
     const setError = ({ message }) => setAlert({ critical: true, message });
 
     return (
-        <D2FileMenu
+        <FileMenu
             d2={d2}
             fileType="map"
             fileObject={map}
@@ -37,7 +37,7 @@ export const FileMenu = (
     );
 };
 
-FileMenu.propTypes = {
+FileMenuContainer.propTypes = {
     map: PropTypes.object.isRequired,
     newMap: PropTypes.func.isRequired,
     setMapProps: PropTypes.func.isRequired,
@@ -47,7 +47,7 @@ FileMenu.propTypes = {
     setAlert: PropTypes.func.isRequired,
 };
 
-FileMenu.contextTypes = {
+FileMenuContainer.contextTypes = {
     d2: PropTypes.object,
 };
 
@@ -58,4 +58,4 @@ export default connect(({ map }) => ({ map }), {
     saveFavorite,
     saveNewFavorite,
     setAlert,
-})(FileMenu);
+})(FileMenuContainer);
