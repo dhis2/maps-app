@@ -561,14 +561,10 @@ msgstr ""
 msgid "Latitude"
 msgstr ""
 
-<<<<<<< HEAD
-msgid "Longitude"
-=======
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Parent unit"
->>>>>>> master
 msgstr ""
 
 msgid "Not set"

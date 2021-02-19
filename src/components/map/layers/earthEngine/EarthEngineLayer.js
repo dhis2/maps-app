@@ -4,6 +4,7 @@ import LayerLoading from '../LayerLoading';
 import EarthEnginePopup from './EarthEnginePopup';
 import { apiFetch } from '../../../../util/api';
 import { getPropName, hasClasses } from '../../../../util/earthEngine';
+import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
 
 export default class EarthEngineLayer extends Layer {
     state = {
@@ -62,7 +63,7 @@ export default class EarthEngineLayer extends Layer {
         const aggregate = data && aggregationType && aggregationType.length;
 
         const config = {
-            type: 'earthEngine',
+            type: EARTH_ENGINE_LAYER,
             id,
             index,
             opacity,

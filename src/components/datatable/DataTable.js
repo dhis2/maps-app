@@ -12,6 +12,12 @@ import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
 import { formatTime } from '../../util/helpers';
+import {
+    EVENT_LAYER,
+    THEMATIC_LAYER,
+    BOUNDARY_LAYER,
+    EARTH_ENGINE_LAYER,
+} from '../../constants/layers';
 import { numberValueTypes } from '../../constants/valueTypes';
 import styles from './styles/DataTable.module.css';
 import '../../../node_modules/react-virtualized/styles.css';
@@ -66,7 +72,7 @@ class DataTable extends Component {
         const { layer, loadLayer } = this.props;
         const { layer: layerType, isExtended, serverCluster } = layer;
 
-        if (layerType === 'event' && !isExtended && !serverCluster) {
+        if (layerType === EVENT_LAYER && !isExtended && !serverCluster) {
             loadLayer({
                 ...layer,
                 showDataTable: true,
@@ -144,10 +150,10 @@ class DataTable extends Component {
             legend,
         } = layer;
 
-        const isThematic = layerType === 'thematic';
-        const isBoundary = layerType === 'boundary';
-        const isEvent = layerType === 'event';
-        const isEarthEngine = layerType === 'earthEngine';
+        const isThematic = layerType === THEMATIC_LAYER;
+        const isBoundary = layerType === BOUNDARY_LAYER;
+        const isEvent = layerType === EVENT_LAYER;
+        const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
 
         return !serverCluster ? (
             <Table

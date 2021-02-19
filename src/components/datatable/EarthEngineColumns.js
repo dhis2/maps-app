@@ -26,7 +26,7 @@ const EarthEngineColumns = ({ classes, aggregationType, legend, data }) => {
                 }
             />
         ));
-    } else if (Array.isArray(aggregationType)) {
+    } else if (Array.isArray(aggregationType) && aggregationType.length) {
         return aggregationType.map(type => {
             const propName = getPropName(type, title);
             const precision = getPrecision(data.map(d => d[propName]));
