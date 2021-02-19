@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
+"POT-Creation-Date: 2021-02-18T16:03:04.284Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -1275,9 +1275,6 @@ msgstr "yolgʼon"
 
 msgid "No"
 msgstr "Йўқ"
-
-msgid "There was a problem creating a map from the imported data."
-msgstr "Import qilingan maʼlumotlarlan xarita yaratishda muammo yuz berdi."
 
 msgid "Start date is invalid"
 msgstr "Boshlanish sanasi notoʼgʼri"

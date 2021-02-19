@@ -1,105 +1,47 @@
 import i18n from '@dhis2/d2-i18n';
 import * as types from '../constants/actionTypes';
+import {
+    THEMATIC_LAYER,
+    EVENT_LAYER,
+    TRACKED_ENTITY_LAYER,
+    FACILITY_LAYER,
+    BOUNDARY_LAYER,
+} from '../constants/layers';
+import { earthEngineLayers } from '../constants/earthEngine';
 
 const defaultLayers = () => [
     {
-        layer: 'thematic',
+        layer: THEMATIC_LAYER,
         type: i18n.t('Thematic'),
         img: 'images/thematic.png',
         opacity: 0.9,
     },
     {
-        layer: 'event',
+        layer: EVENT_LAYER,
         type: i18n.t('Events'),
         img: 'images/events.png',
         opacity: 0.8,
         eventClustering: true,
     },
     {
-        layer: 'trackedEntity',
+        layer: TRACKED_ENTITY_LAYER,
         type: i18n.t('Tracked entities'),
         img: 'images/trackedentities.png',
         opacity: 0.5,
     },
     {
-        layer: 'facility',
+        layer: FACILITY_LAYER,
         type: i18n.t('Facilities'),
         img: 'images/facilities.png',
         opacity: 1,
     },
     {
-        layer: 'boundary',
+        layer: BOUNDARY_LAYER,
         type: i18n.t('Boundaries'),
         img: 'images/boundaries.png',
         opacity: 1,
     },
-    {
-        layer: 'earthEngine',
-        datasetId: 'WorldPop/POP',
-        type: i18n.t('Population density'),
-        img: 'images/population.png',
-        params: {
-            min: 0,
-            max: 1000,
-            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#de2d26,#a50f15', // Reds
-        },
-        opacity: 0.9,
-    },
-    {
-        layer: 'earthEngine',
-        datasetId: 'USGS/SRTMGL1_003',
-        type: i18n.t('Elevation'),
-        img: 'images/elevation.png',
-        params: {
-            min: 0,
-            max: 1500,
-            palette: '#ffffd4,#fee391,#fec44f,#fe9929,#d95f0e,#993404', // YlOrBr
-        },
-        opacity: 0.9,
-    },
-    {
-        layer: 'earthEngine',
-        datasetId: 'MODIS/006/MOD11A2',
-        type: i18n.t('Temperature'),
-        img: 'images/temperature.png',
-        params: {
-            min: 0,
-            max: 50,
-            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#ef3b2c,#cb181d,#99000d', // Reds
-        },
-        opacity: 0.9,
-    },
-    {
-        layer: 'earthEngine',
-        datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
-        type: i18n.t('Precipitation'),
-        img: 'images/precipitation.png',
-        params: {
-            min: 0,
-            max: 100,
-            palette: '#eff3ff,#c6dbef,#9ecae1,#6baed6,#4292c6,#2171b5,#084594', // Blues
-        },
-        opacity: 0.9,
-    },
-    {
-        layer: 'earthEngine',
-        datasetId: 'MODIS/051/MCD12Q1',
-        type: i18n.t('Landcover'),
-        img: 'images/landcover.png',
-        opacity: 0.9,
-    },
-    {
-        layer: 'earthEngine',
-        datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
-        type: i18n.t('Nighttime lights'),
-        img: 'images/nighttime.png',
-        params: {
-            min: 0,
-            max: 63,
-            palette: '#ffffd4,#fee391,#fec44f,#fe9929,#ec7014,#cc4c02,#8c2d04', // YlOrBr
-        },
-        opacity: 0.9,
-    },
+    ...earthEngineLayers().filter(l => !l.legacy),
 ];
 
 const layers = (state, action) => {

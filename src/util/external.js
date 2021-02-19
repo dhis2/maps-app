@@ -1,8 +1,9 @@
 import { getExternalLayer } from './requests';
+import { EXTERNAL_LAYER } from '../constants/layers';
 
 // Create external layer from a model
 export const createExternalLayer = model => ({
-    layer: 'external',
+    layer: EXTERNAL_LAYER,
     id: model.id,
     name: model.name,
     opacity: 1,

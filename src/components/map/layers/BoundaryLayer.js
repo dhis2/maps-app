@@ -1,18 +1,12 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
-import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
-import Popup from './Popup';
-import { filterData } from '../../util/filter';
-import { cssColor } from '../../util/colors';
-import {
-    LABEL_FONT_SIZE,
-    LABEL_FONT_STYLE,
-    LABEL_FONT_WEIGHT,
-    LABEL_FONT_COLOR,
-} from '../../constants/layers';
+import Popup from '../Popup';
+import { filterData } from '../../../util/filter';
+import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../../constants/layers';
+import { BOUNDARY_LAYER } from '../../../constants/layers';
 
-class FacilityLayer extends Layer {
+export default class BoundaryLayer extends Layer {
     state = {
         popup: null,
     };
@@ -24,33 +18,34 @@ class FacilityLayer extends Layer {
             opacity,
             isVisible,
             data,
-            dataFilters,
             labels,
-            areaRadius,
-            labelFontColor,
             labelFontSize,
             labelFontStyle,
-            labelFontWeight,
+            radiusLow,
+            dataFilters,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
 
         const map = this.context.map;
 
-        // Create layer config object
         const config = {
-            type: 'markers',
+            type: BOUNDARY_LAYER,
             id,
             index,
             opacity,
             isVisible,
             data: filteredData,
-            hoverLabel: '{label}',
+            hoverLabel: '{name}',
+            style: {
+                opacity: 1,
+                fillOpacity: 0,
+                fill: false,
+            },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
         };
 
-        // Labels and label style
         if (labels) {
             const fontSize = labelFontSize || LABEL_FONT_SIZE;
 
@@ -58,18 +53,14 @@ class FacilityLayer extends Layer {
             config.labelStyle = {
                 fontSize,
                 fontStyle: labelFontStyle || LABEL_FONT_STYLE,
-                fontWeight: labelFontWeight || LABEL_FONT_WEIGHT,
                 lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
-                color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
-                paddingTop: '10px',
             };
         }
 
-        if (areaRadius) {
-            config.buffer = areaRadius;
+        if (radiusLow) {
+            config.style.radius = radiusLow;
         }
 
-        // Create and add facility layer based on config object
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
@@ -79,7 +70,7 @@ class FacilityLayer extends Layer {
 
     getPopup() {
         const { coordinates, feature } = this.state.popup;
-        const { name, dimensions, pn } = feature.properties;
+        const { name, level, parentName } = feature.properties;
 
         return (
             <Popup
@@ -88,17 +79,14 @@ class FacilityLayer extends Layer {
                 className="dhis2-map-popup-orgunit"
             >
                 <em>{name}</em>
-                {isPlainObject(dimensions) && (
+                {level && (
                     <div>
-                        {i18n.t('Groups')}:
-                        {Object.keys(dimensions)
-                            .map(id => dimensions[id])
-                            .join(', ')}
+                        {i18n.t('Level')}: {level}
                     </div>
                 )}
-                {pn && (
+                {parentName && (
                     <div>
-                        {i18n.t('Parent unit')}: {pn}
+                        {i18n.t('Parent unit')}: {parentName}
                     </div>
                 )}
             </Popup>
@@ -112,6 +100,9 @@ class FacilityLayer extends Layer {
     onFeatureClick(evt) {
         this.setState({ popup: evt });
     }
-}
 
-export default FacilityLayer;
+    removeLayer() {
+        this.layer.off('click', this.onFeatureClick, this);
+        super.removeLayer();
+    }
+}

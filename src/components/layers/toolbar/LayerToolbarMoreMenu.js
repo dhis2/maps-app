@@ -12,6 +12,7 @@ import IconButton from '../../core/IconButton';
 import styles from './styles/LayerToolbarMore.module.css';
 
 export const LayerToolbarMoreMenu = ({
+    layer = {},
     onEdit,
     onRemove,
     toggleDataTable,
@@ -46,7 +47,7 @@ export const LayerToolbarMoreMenu = ({
                 </IconButton>
             </div>
 
-            {isOpen && (
+            {isOpen && layer && (
                 <Popover
                     reference={anchorRef}
                     arrow={false}
@@ -115,6 +116,7 @@ export const LayerToolbarMoreMenu = ({
 };
 
 LayerToolbarMoreMenu.propTypes = {
+    layer: PropTypes.object,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
     toggleDataTable: PropTypes.func,

@@ -10,7 +10,6 @@ import dataSets from './dataSets';
 import dataTable from './dataTable';
 import dimensions from './dimensions';
 import download from './download.js';
-import earthEngine from './earthEngine';
 import layerEdit from './layerEdit';
 import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
@@ -48,7 +47,6 @@ export default combineReducers({
     dataTable,
     dimensions,
     download,
-    earthEngine,
     indicators,
     indicatorGroups,
     interpretation,
