@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { IconChevronLeft24 } from '@dhis2/ui';
-import { IconChevronRight24 } from '@dhis2/ui';
+import { IconChevronLeft24, IconChevronRight24 } from '@dhis2/ui';
 import { openLayersPanel, closeLayersPanel } from '../../actions/ui';
 import styles from './styles/LayersToggle.module.css';
 

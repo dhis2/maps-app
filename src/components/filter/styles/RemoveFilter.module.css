@@ -16,3 +16,7 @@
 .removeBtnContainer:hover {
     background-color: #eaf4ff;
 }
+
+.removeBtnContainer svg {
+    color: var(--colors-red700);
+}

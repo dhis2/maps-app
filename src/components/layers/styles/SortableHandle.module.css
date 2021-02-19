@@ -1,9 +1,7 @@
 .handle {
-    width: 24px;
-    height: 24px;
     position: absolute;
-    left: 6px;
+    left: 4px;
     top: 16px;
+    color: var(--colors-grey600);
     cursor: ns-resize;
-    fill: #333;
 }

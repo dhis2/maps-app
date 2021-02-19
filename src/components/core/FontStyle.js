@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Button } from '@dhis2/ui';
-import { IconTextBold24 } from '@dhis2/ui';
-import { IconTextItalic24 } from '@dhis2/ui';
+import { Button, IconTextBold24, IconTextItalic24 } from '@dhis2/ui';
 import cx from 'classnames';
 import NumberField from './NumberField';
 import ColorButton from './ColorButton';

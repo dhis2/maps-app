@@ -56,7 +56,6 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
             className={styles.resizeHandle}
             draggable={true}
             onDragStart={evt => onDragStart(evt)}
-            // onDrag={(evt) => onDrag(evt)}
             onDragEnd={evt => onDragEnd(evt)}
         >
             <DragHandleIcon />

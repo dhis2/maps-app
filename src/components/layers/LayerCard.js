@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Card } from '@dhis2/ui';
+import { Card, IconChevronUp24, IconChevronDown24 } from '@dhis2/ui';
 import cx from 'classnames';
-import ExpandIcon from '@material-ui/icons/ExpandMore';
-import CollapseIcon from '@material-ui/icons/ExpandLess';
 import IconButton from '../core/IconButton';
 import SortableHandle from './SortableHandle';
 import LayerToolbar from './toolbar/LayerToolbar';
@@ -53,7 +51,11 @@ const LayerCard = ({
                         className={styles.expand}
                         dataTest="editbutton"
                     >
-                        {isExpanded ? <CollapseIcon /> : <ExpandIcon />}
+                        {isExpanded ? (
+                            <IconChevronUp24 />
+                        ) : (
+                            <IconChevronDown24 />
+                        )}
                     </IconButton>
                 </div>
             </div>
