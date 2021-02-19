@@ -1,9 +1,10 @@
 import i18n from '@dhis2/d2-i18n';
 import { defaultFilters } from '../util/earthEngine';
+import { EARTH_ENGINE_LAYER } from './layers';
 
 export const earthEngineLayers = () => [
     {
-        layer: 'earthEngine',
+        layer: EARTH_ENGINE_LAYER,
         datasetId: 'WorldPop/GP/100m/pop',
         name: i18n.t('Population'),
         unit: i18n.t('people per hectare'),
@@ -31,7 +32,7 @@ export const earthEngineLayers = () => [
         opacity: 0.9,
     },
     {
-        layer: 'earthEngine',
+        layer: EARTH_ENGINE_LAYER,
         datasetId: 'WorldPop/GP/100m/pop_age_sex',
         name: i18n.t('Population age groups'),
         unit: i18n.t('people per hectare'),
@@ -208,7 +209,7 @@ export const earthEngineLayers = () => [
         opacity: 0.9,
     },
     {
-        layer: 'earthEngine',
+        layer: EARTH_ENGINE_LAYER,
         datasetId: 'USGS/SRTMGL1_003',
         name: i18n.t('Elevation'),
         unit: i18n.t('metres'),
@@ -227,7 +228,7 @@ export const earthEngineLayers = () => [
         opacity: 0.9,
     },
     {
-        layer: 'earthEngine',
+        layer: EARTH_ENGINE_LAYER,
         datasetId: 'UCSB-CHG/CHIRPS/PENTAD',
         name: i18n.t('Precipitation'),
         unit: i18n.t('millimeter'),
@@ -250,7 +251,7 @@ export const earthEngineLayers = () => [
         opacity: 0.9,
     },
     {
-        layer: 'earthEngine',
+        layer: EARTH_ENGINE_LAYER,
         datasetId: 'MODIS/006/MOD11A2',
         name: i18n.t('Temperature'),
         unit: i18n.t('°C during daytime'),
@@ -278,7 +279,7 @@ export const earthEngineLayers = () => [
         opacity: 0.9,
     },
     {
-        layer: 'earthEngine',
+        layer: EARTH_ENGINE_LAYER,
         datasetId: 'MODIS/006/MCD12Q1', // No longer in use: 'MODIS/051/MCD12Q1',
         name: i18n.t('Landcover'),
         description: i18n.t(
@@ -387,7 +388,7 @@ export const earthEngineLayers = () => [
         opacity: 0.9,
     },
     {
-        layer: 'earthEngine',
+        layer: EARTH_ENGINE_LAYER,
         legacy: true, // Kept for backward compability
         datasetId: 'WorldPop/POP',
         name: i18n.t('Population'),
@@ -422,7 +423,7 @@ export const earthEngineLayers = () => [
         opacity: 0.9,
     },
     {
-        layer: 'earthEngine',
+        layer: EARTH_ENGINE_LAYER,
         legacy: true, // Kept for backward compability
         datasetId: 'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS',
         name: i18n.t('Nighttime lights'),

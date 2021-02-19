@@ -11,6 +11,7 @@ import LayerToolbar from './toolbar/LayerToolbar';
 import styles from './styles/LayerCard.module.css';
 
 const LayerCard = ({
+    layer,
     title,
     subtitle,
     opacity,
@@ -59,6 +60,7 @@ const LayerCard = ({
             <div className={styles.collapsibleContent}>
                 <div className={styles.content}>{children}</div>
                 <LayerToolbar
+                    layer={layer}
                     opacity={opacity}
                     isVisible={isVisible}
                     onEdit={onEdit}
@@ -75,6 +77,7 @@ const LayerCard = ({
 );
 
 LayerCard.propTypes = {
+    layer: PropTypes.object,
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     opacity: PropTypes.number,

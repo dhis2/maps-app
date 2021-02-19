@@ -47,6 +47,10 @@
     position: relative;
 }
 
+:global(.ReactVirtualized__Table__headerColumn:focus) {
+    outline: none;
+}
+
 :global(.ReactVirtualized__Table__row) {
     position: relative;
     border-bottom: 1px solid #e0e0e0;

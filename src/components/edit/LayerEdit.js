@@ -17,6 +17,7 @@ import ThematicDialog from './thematic/ThematicDialog';
 import BoundaryDialog from './BoundaryDialog';
 import EarthEngineDialog from './earthEngine/EarthEngineDialog';
 import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
+import { EARTH_ENGINE_LAYER } from '../../constants/layers';
 import styles from './styles/LayerEdit.module.css';
 
 const layerType = {
@@ -84,7 +85,7 @@ class LayerEdit extends Component {
 
         let name = layerName()[type];
 
-        if (type === 'earthEngine') {
+        if (type === EARTH_ENGINE_LAYER) {
             name = layer.name.toLowerCase();
         }
 
