@@ -10,7 +10,7 @@
     display: flex;
 }
 
-.addIcon {
+.btnContent svg {
     margin-right: var(--spacers-dp8);
     color: var(--colors-grey700);
 }
