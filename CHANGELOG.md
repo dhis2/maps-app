@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/dhis2/maps-app/compare/v1.2.14...v1.3.0) (2021-02-19)
+
+
+### Features
+
+* earth engine layers aggregation and refactor (DHIS2-9530) ([#1476](https://github.com/dhis2/maps-app/issues/1476)) ([59782dc](https://github.com/dhis2/maps-app/commit/59782dcb84eae24ded46e354ba532cdf04a8d3b5))
+
 ## [1.2.14](https://github.com/dhis2/maps-app/compare/v1.2.13...v1.2.14) (2021-02-19)
 
 
