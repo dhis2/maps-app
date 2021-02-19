@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import Popup from './Popup';
-import { apiFetch } from '../../util/api';
-import { formatTime, formatCoordinate } from '../../util/helpers';
-import { EVENT_ID_FIELD } from '../../util/geojson';
+import Popup from '../Popup';
+import { apiFetch } from '../../../util/api';
+import { formatTime, formatCoordinate } from '../../../util/helpers';
+import { EVENT_ID_FIELD } from '../../../util/geojson';
 
 // Returns true if value is not undefined or null;
 const hasValue = value => value !== undefined || value !== null;
