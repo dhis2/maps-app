@@ -51,7 +51,7 @@
 .paragraph {
     padding: var(--spacers-dp8) 0 var(--spacers-dp4);
     font-size: 13px;
-    line-height: 16px;
+    line-height: var(--spacers-dp16);
 }
 
 .notice {

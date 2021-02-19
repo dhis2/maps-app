@@ -69,7 +69,7 @@ const earthEngineLoader = async config => {
     const period = getPeriodFromFilter(filter);
 
     const groups =
-        band && Array.isArray(bands)
+        band && Array.isArray(bands) && bands.length
             ? bands
                   .filter(b =>
                       Array.isArray(band) ? band.includes(b.id) : band === b.id

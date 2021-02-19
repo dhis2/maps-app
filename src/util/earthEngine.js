@@ -27,7 +27,8 @@ export const getPeriodFromFilter = (filter = []) => {
           }
         : null;
 };
-const setAuthToken = async ({ client_id, access_token, expires_in }) =>
+
+const setAuthToken = ({ client_id, access_token, expires_in }) =>
     new Promise((resolve, reject) => {
         ee.data.setAuthToken(client_id, 'Bearer', access_token, expires_in);
         ee.initialize(null, null, resolve, reject);
@@ -73,8 +74,6 @@ const connectEarthEngine = () =>
         resolve(window.ee);
     });
 
-const getInfoPromise = obj => new Promise(resolve => obj.getInfo(resolve));
-
 export const getPeriods = async id => {
     const { periodType } = getEarthEngineLayer(id);
     const ee = await connectEarthEngine();
@@ -87,16 +86,6 @@ export const getPeriods = async id => {
     const featureCollection = ee
         .FeatureCollection(imageCollection)
         .select(['system:time_start', 'system:time_end'], null, false);
-
-    // Return first and last date for daily periods
-    if (periodType === 'Daily') {
-        const last = await getInfoPromise(featureCollection.first());
-        const first = await getInfoPromise(
-            featureCollection.sort('system:time_start', true).first()
-        );
-
-        return { startPeriod: first.id, endPeriod: last.id };
-    }
 
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear();

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-02-18T16:03:04.284Z\n"
-"PO-Revision-Date: 2021-02-18T16:03:04.284Z\n"
+"POT-Creation-Date: 2021-02-19T12:29:31.130Z\n"
+"PO-Revision-Date: 2021-02-19T12:29:31.130Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
-msgid "Aggregation"
+msgid "Aggregation method"
 msgstr ""
 
 msgid "Groups"
@@ -215,7 +215,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Multiple aggregation methods are available. See the aggrigation results by "
+"Multiple aggregation methods are available. See the aggregation results by "
 "clicking map regions or viewing the data table. The results can also be "
 "downloaded."
 msgstr ""
@@ -227,6 +227,9 @@ msgid "Source"
 msgstr ""
 
 msgid "Year"
+msgstr ""
+
+msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
@@ -827,13 +830,13 @@ msgstr ""
 msgid "people per hectare"
 msgstr ""
 
-msgid "The estimated number of people living in an area."
+msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "Population age groups"
 msgstr ""
 
-msgid "Estimated residential population per hectare, grouped by age and gender."
+msgid "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 
 msgid "Men 0 - 1 years"
@@ -1033,6 +1036,9 @@ msgstr ""
 msgid "Water"
 msgstr ""
 
+msgid "people per km²"
+msgstr ""
+
 msgid "Nighttime lights"
 msgstr ""
 
@@ -1042,9 +1048,6 @@ msgstr ""
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
-msgstr ""
-
-msgid "Select year"
 msgstr ""
 
 msgid "All"
@@ -1311,7 +1314,6 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-<<<<<<< HEAD
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
 
@@ -1323,8 +1325,6 @@ msgstr ""
 msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
-=======
->>>>>>> master
 msgid "Start date is invalid"
 msgstr ""
 

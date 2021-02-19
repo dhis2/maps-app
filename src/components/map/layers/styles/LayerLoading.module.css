@@ -1,7 +1,7 @@
 .layerLoading {
     display: flex;
     align-items: center;
-    padding-right: 16px;
+    padding-right: var(--spacers-dp16);
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.9);
@@ -9,5 +9,5 @@
 
 .layerLoading div {
     display: inline-block;
-    margin-right: 24px;
+    margin-right: var(--spacers-dp24);
 }

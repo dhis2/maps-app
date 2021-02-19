@@ -47,9 +47,7 @@ const StyleSelect = ({ unit, params, setParams }) => {
     return (
         <div className={styles.flexColumnFlow}>
             <div className={styles.flexColumn}>
-                <p>
-                    {i18n.t('Unit')}: {unit}
-                </p>
+                <p>{i18n.t('Unit: {{ unit }}', { unit })}</p>
                 <div key="minmax" className={styles.flexInnerColumnFlow}>
                     <NumberField
                         label={i18n.t('Min')}
