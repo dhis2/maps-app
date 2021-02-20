@@ -34,6 +34,7 @@ import ui from './ui';
 import settings from './settings';
 import trackedEntityTypes from './trackedEntityTypes';
 import dataDownload from './dataDownload';
+import feature from './feature';
 
 export default combineReducers({
     alerts,
@@ -71,4 +72,5 @@ export default combineReducers({
     settings,
     trackedEntityTypes,
     dataDownload,
+    feature,
 });
