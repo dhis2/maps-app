@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useRef } from 'react';
 import i18n from '@dhis2/d2-i18n';
-import MenuButton from '../../core/MenuButton';
+import { MenuButton } from '../../core';
 import { IconAddCircle24 } from '@dhis2/ui';
 import AddLayerPopover from './AddLayerPopover';
 import styles from './styles/AddLayerButton.module.css';

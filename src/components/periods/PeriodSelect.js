@@ -10,7 +10,7 @@ import {
 } from '@dhis2/ui';
 import cx from 'classnames';
 import { filterFuturePeriods } from 'd2/period/helpers';
-import SelectField from '../core/SelectField';
+import { SelectField } from '../core';
 import { createPeriods } from '../../util/periods';
 import { getYear } from '../../util/time';
 import styles from './styles/PeriodSelect.module.css';

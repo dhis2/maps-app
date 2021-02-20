@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import MenuButton from '../core/MenuButton';
+import { MenuButton } from '../core';
 import { IconChevronLeft24, IconChevronRight24 } from '@dhis2/ui';
 import {
     openInterpretationsPanel,

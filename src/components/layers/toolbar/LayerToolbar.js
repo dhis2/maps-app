@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui';
-import IconButton from '../../core/IconButton';
+import { IconButton } from '../../core';
 import OpacitySlider from './OpacitySlider';
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu';
 import styles from './styles/LayerToolbar.module.css';

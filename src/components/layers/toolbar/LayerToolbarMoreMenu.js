@@ -13,7 +13,7 @@ import {
     IconEdit16,
     IconDelete16,
 } from '@dhis2/ui';
-import IconButton from '../../core/IconButton';
+import { IconButton } from '../../core';
 import styles from './styles/LayerToolbarMore.module.css';
 
 export const LayerToolbarMoreMenu = ({

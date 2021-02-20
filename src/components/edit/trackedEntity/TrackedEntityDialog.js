@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { NoticeBox } from '@dhis2/ui';
 import cx from 'classnames';
-import Tabs from '../../core/Tabs';
-import Tab from '../../core/Tab';
-import NumberField from '../../core/NumberField';
-import SelectField from '../../core/SelectField';
-import Checkbox from '../../core/Checkbox';
+import {
+    Tab,
+    Tabs,
+    NumberField,
+    SelectField,
+    Checkbox,
+    ColorPicker,
+} from '../../core';
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect';
 import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect';
 import ProgramSelect from '../../program/ProgramSelect';
@@ -17,7 +20,6 @@ import PeriodTypeSelect from './PeriodTypeSelect';
 import StartEndDates from '../../periods/StartEndDates';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
-import ColorPicker from '../../core/ColorPicker';
 import styles from '../styles/LayerDialog.module.css';
 
 import {

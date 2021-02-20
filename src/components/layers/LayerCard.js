@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { Card, IconChevronUp24, IconChevronDown24 } from '@dhis2/ui';
 import cx from 'classnames';
-import IconButton from '../core/IconButton';
+import { IconButton } from '../core';
 import SortableHandle from './SortableHandle';
 import LayerToolbar from './toolbar/LayerToolbar';
 import styles from './styles/LayerCard.module.css';

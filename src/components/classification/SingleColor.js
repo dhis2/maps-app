@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import ColorPicker from '../core/ColorPicker';
+import { ColorPicker } from '../core';
 import { setColorScale } from '../../actions/layerEdit';
 import { THEMATIC_COLOR } from '../../constants/layers';
 
