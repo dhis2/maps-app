@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Button, Tooltip } from '@dhis2/ui';
-import LeftIcon from '@material-ui/icons/ChevronLeft';
-import RightIcon from '@material-ui/icons/ChevronRight';
+import {
+    Button,
+    Tooltip,
+    IconChevronLeft24,
+    IconChevronRight24,
+} from '@dhis2/ui';
 import cx from 'classnames';
 import { filterFuturePeriods } from 'd2/period/helpers';
 import SelectField from '../core/SelectField';
@@ -86,14 +89,14 @@ class PeriodSelect extends Component {
                         <Tooltip content={i18n.t('Previous year')}>
                             <Button
                                 secondary
-                                icon={<LeftIcon />}
+                                icon={<IconChevronLeft24 />}
                                 onClick={this.previousYear}
                             />
                         </Tooltip>
                         <Tooltip content={i18n.t('Next year')}>
                             <Button
                                 secondary
-                                icon={<RightIcon />}
+                                icon={<IconChevronRight24 />}
                                 onClick={this.nextYear}
                             />
                         </Tooltip>

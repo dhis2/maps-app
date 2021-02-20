@@ -2,8 +2,7 @@ import React, { Fragment, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Popover } from '@dhis2/ui';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import { Popover, IconChevronDown24 } from '@dhis2/ui';
 import { DimensionsPanel } from '@dhis2/analytics';
 import { loadDimensions } from '../../actions/dimensions';
 import styles from './styles/DimensionSelect.module.css';
@@ -43,7 +42,7 @@ const DimensionSelect = ({
                 <label>{i18n.t('Dimension')}</label>
                 <div ref={dropdownRef}>
                     <span>{selected ? selected.name : ''}</span>
-                    <ExpandMore />
+                    <IconChevronDown24 />
                 </div>
             </div>
             {isOpen && (
