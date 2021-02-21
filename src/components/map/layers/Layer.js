@@ -14,6 +14,7 @@ class Layer extends PureComponent {
         id: PropTypes.string.isRequired,
         index: PropTypes.number,
         layer: PropTypes.string,
+        feature: PropTypes.object,
         editCounter: PropTypes.number,
         opacity: PropTypes.number,
         isVisible: PropTypes.bool,
@@ -45,6 +46,7 @@ class Layer extends PureComponent {
             isVisible,
             editCounter,
             dataFilters,
+            feature,
         } = this.props;
         const { period } = this.state;
         const { period: prevPeriod } = prevState || {};
@@ -76,6 +78,10 @@ class Layer extends PureComponent {
 
         if (isVisible !== prevProps.isVisible) {
             this.setLayerVisibility();
+        }
+
+        if (feature !== prevProps.feature) {
+            this.highlightFeature(feature);
         }
     }
 
@@ -145,12 +151,19 @@ class Layer extends PureComponent {
         const map = this.context.map;
 
         this.layer.off('contextmenu', this.onFeatureRightClick, this);
+        this.layer.off('highlight', this.onHighlightFeature, this);
 
         if (map.hasLayer(this.layer)) {
             map.removeLayer(this.layer);
         }
 
         delete this.layer;
+    }
+
+    highlightFeature(feature) {
+        if (this.layer.highlight) {
+            this.layer.highlight(feature ? feature.id : null);
+        }
     }
 
     render() {
