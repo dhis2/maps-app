@@ -35,6 +35,7 @@ const MapView = props => {
                     basemap={basemap}
                     layer={splitViewLayer}
                     controls={mapControls}
+                    feature={feature}
                     openContextMenu={openContextMenu}
                     resizeCount={resizeCount}
                 />
