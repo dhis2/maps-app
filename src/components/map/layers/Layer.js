@@ -151,7 +151,6 @@ class Layer extends PureComponent {
         const map = this.context.map;
 
         this.layer.off('contextmenu', this.onFeatureRightClick, this);
-        this.layer.off('highlight', this.onHighlightFeature, this);
 
         if (map.hasLayer(this.layer)) {
             map.removeLayer(this.layer);

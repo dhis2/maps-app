@@ -161,16 +161,16 @@ class Map extends Component {
                     <Fragment>
                         {overlays.map((config, index) => {
                             const Overlay = layerType[config.layer] || Layer;
+                            const highlight =
+                                feature && feature.layerId === config.id
+                                    ? feature
+                                    : null;
 
                             return (
                                 <Overlay
                                     key={config.id}
                                     index={overlays.length - index}
-                                    feature={
-                                        feature && feature.layerId === config.id
-                                            ? feature
-                                            : null
-                                    }
+                                    feature={highlight}
                                     openContextMenu={openContextMenu}
                                     {...config}
                                 />

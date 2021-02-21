@@ -141,9 +141,11 @@ class DataTable extends Component {
             }));
     }
 
+    // Debounce needed as event is triggered multiple times for the same row
     highlightFeature = debounce(50, id => {
         const { feature, layer } = this.props;
 
+        // If not the same feature as already highlighted
         if (!id || !feature || id !== feature.id) {
             this.props.highlightFeature(
                 id
@@ -337,8 +339,6 @@ class DataTable extends Component {
 
 export default connect(
     ({ dataTable, map, feature }) => {
-        // console.log('feature', feature);
-
         const layer = dataTable
             ? map.mapViews.filter(l => l.id === dataTable)[0]
             : null;
