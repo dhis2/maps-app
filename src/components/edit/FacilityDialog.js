@@ -12,6 +12,7 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import AreaRadius from './shared/AreaRadius';
 import styles from './styles/LayerDialog.module.css';
 
 import {
@@ -237,6 +238,7 @@ class FacilityDialog extends Component {
                                     />
                                 )}
                             </div>
+                            <AreaRadius />
                         </div>
                     )}
                 </div>

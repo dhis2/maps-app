@@ -20,6 +20,7 @@ import ColorPicker from '../../core/ColorPicker';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
+import AreaRadius from '../shared/AreaRadius';
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
@@ -356,6 +357,7 @@ export class EventDialog extends Component {
                                         />
                                     )}
                                 </div>
+                                <AreaRadius />
                             </div>
                             <div className={styles.flexColumn}>
                                 {program ? (
