@@ -70,7 +70,7 @@
         "d3-time-format": "^3.0.0",
         "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.5",
-        "lodash": "^4.17.20",
+        "lodash": "^4.17.21",
         "loglevel": "^1.7.1",
         "promise-polyfill": "^8.1.0",
         "prop-types": "^15.6.2",
