@@ -56,6 +56,7 @@ export default class EarthEngineLayer extends Layer {
             popup,
             data,
             aggregationType,
+            areaRadius,
         } = this.props;
 
         const { map } = this.context;
@@ -89,6 +90,10 @@ export default class EarthEngineLayer extends Layer {
 
         if (params) {
             config.params = params;
+        }
+
+        if (areaRadius) {
+            config.buffer = areaRadius;
         }
 
         if (popup) {
