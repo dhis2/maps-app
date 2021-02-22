@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
+import i18n from '@dhis2/d2-i18n';
+import cx from 'classnames';
 import Checkbox from '../../core/Checkbox';
 import NumberField from '../../core/NumberField';
 import { setBufferRadius } from '../../../actions/layerEdit';
@@ -11,12 +12,13 @@ const BufferRadius = ({
     radius,
     defaultRadius = 1000,
     disabled,
+    className,
     setBufferRadius,
 }) => {
     const showBuffer = radius !== undefined && radius !== null;
 
     return (
-        <div className={styles.buffer}>
+        <div className={cx(styles.buffer, className)}>
             <Checkbox
                 label={i18n.t('Buffer')}
                 checked={showBuffer}
@@ -41,6 +43,7 @@ BufferRadius.propTypes = {
     radius: PropTypes.number,
     defaultRadius: PropTypes.number,
     disabled: PropTypes.bool,
+    className: PropTypes.string,
     setBufferRadius: PropTypes.func.isRequired,
 };
 

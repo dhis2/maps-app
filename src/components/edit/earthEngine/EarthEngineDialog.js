@@ -16,8 +16,12 @@ import {
     getPeriods,
     defaultFilters,
 } from '../../../util/earthEngine';
-import { setFilter, setOrgUnitLevels } from '../../../actions/layerEdit';
-import { DEFAULT_ORG_UNIT_LEVEL } from '../../../constants/layers';
+import {
+    setFilter,
+    setOrgUnitLevels,
+    setBufferRadius,
+} from '../../../actions/layerEdit';
+import { DEFAULT_ORG_UNIT_LEVEL, EE_BUFFER } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
 const EarthEngineDialog = props => {
@@ -31,8 +35,10 @@ const EarthEngineDialog = props => {
         rows,
         params,
         filter,
+        areaRadius,
         setFilter,
         setOrgUnitLevels,
+        setBufferRadius,
         validateLayer,
         onLayerValidation,
     } = props;
@@ -78,6 +84,12 @@ const EarthEngineDialog = props => {
             setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
         }
     }, [rows, setOrgUnitLevels]);
+
+    useEffect(() => {
+        if (!areaRadius) {
+            setBufferRadius(EE_BUFFER);
+        }
+    }, [areaRadius, setBufferRadius]);
 
     useEffect(() => {
         if (validateLayer) {
@@ -193,13 +205,20 @@ EarthEngineDialog.propTypes = {
         max: PropTypes.number.isRequired,
         palette: PropTypes.string.isRequired,
     }),
+    areaRadius: PropTypes.number,
     legend: PropTypes.object,
     validateLayer: PropTypes.bool.isRequired,
     setFilter: PropTypes.func.isRequired,
     setOrgUnitLevels: PropTypes.func.isRequired,
+    setBufferRadius: PropTypes.func.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setFilter, setOrgUnitLevels }, null, {
-    forwardRef: true,
-})(EarthEngineDialog);
+export default connect(
+    null,
+    { setFilter, setOrgUnitLevels, setBufferRadius },
+    null,
+    {
+        forwardRef: true,
+    }
+)(EarthEngineDialog);

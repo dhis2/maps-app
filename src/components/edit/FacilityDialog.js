@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import cx from 'classnames';
 import Tabs from '../core/Tabs';
 import Tab from '../core/Tab';
 import Checkbox from '../core/Checkbox';
@@ -177,7 +178,12 @@ class FacilityDialog extends Component {
                             className={styles.flexRowFlow}
                             data-test="facilitydialog-styletab"
                         >
-                            <div className={styles.flexInnerColumnFlow}>
+                            <div
+                                className={cx(
+                                    styles.flexInnerColumnFlow,
+                                    styles.singleColumn
+                                )}
+                            >
                                 <Checkbox
                                     label={i18n.t('Labels')}
                                     checked={labels}
@@ -198,7 +204,10 @@ class FacilityDialog extends Component {
                                     />
                                 )}
                             </div>
-                            <BufferRadius defaultRadius={FACILITY_BUFFER} />
+                            <BufferRadius
+                                defaultRadius={FACILITY_BUFFER}
+                                className={styles.singleColumn}
+                            />
                         </div>
                     )}
                 </div>

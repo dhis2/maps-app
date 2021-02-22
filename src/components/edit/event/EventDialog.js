@@ -320,7 +320,6 @@ export class EventDialog extends Component {
                                         label={i18n.t('Radius')}
                                         value={eventPointRadius || EVENT_RADIUS}
                                         onChange={setEventPointRadius}
-                                        // className={styles.flexInnerColumn}
                                     />
                                 </div>
                                 <BufferRadius

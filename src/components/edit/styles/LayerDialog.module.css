@@ -46,6 +46,10 @@
     margin: var(--spacers-dp8);
 }
 
+.singleColumn {
+    max-width: 400px;
+}
+
 .header {
     composes: flexInnerColumnFlow;
     margin: var(--spacers-dp12) 0;
