@@ -31,6 +31,7 @@ class Map extends Component {
         basemap: PropTypes.object,
         layers: PropTypes.array,
         controls: PropTypes.array,
+        feature: PropTypes.object,
         bounds: PropTypes.array,
         latitude: PropTypes.number,
         longitude: PropTypes.number,
@@ -145,6 +146,7 @@ class Map extends Component {
         const {
             basemap,
             layers,
+            feature,
             coordinatePopup: coordinates,
             closeCoordinatePopup,
             openContextMenu,
@@ -159,11 +161,16 @@ class Map extends Component {
                     <Fragment>
                         {overlays.map((config, index) => {
                             const Overlay = layerType[config.layer] || Layer;
+                            const highlight =
+                                feature && feature.layerId === config.id
+                                    ? feature
+                                    : null;
 
                             return (
                                 <Overlay
                                     key={config.id}
                                     index={overlays.length - index}
+                                    feature={highlight}
                                     openContextMenu={openContextMenu}
                                     {...config}
                                 />

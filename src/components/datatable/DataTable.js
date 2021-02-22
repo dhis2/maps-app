@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Table, Column } from 'react-virtualized';
 import { isValidUid } from 'd2/uid';
+import { debounce } from 'lodash/fp';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
+import { highlightFeature } from '../../actions/feature';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
 import { formatTime } from '../../util/helpers';
@@ -26,9 +28,11 @@ import '../../../node_modules/react-virtualized/styles.css';
 class DataTable extends Component {
     static propTypes = {
         layer: PropTypes.object.isRequired,
+        feature: PropTypes.object,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         loadLayer: PropTypes.func.isRequired,
+        highlightFeature: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
@@ -137,6 +141,27 @@ class DataTable extends Component {
             }));
     }
 
+    // Debounce needed as event is triggered multiple times for the same row
+    highlightFeature = debounce(50, id => {
+        const { feature, layer } = this.props;
+
+        // If not the same feature as already highlighted
+        if (!id || !feature || id !== feature.id) {
+            this.props.highlightFeature(
+                id
+                    ? {
+                          id,
+                          layerId: layer.id,
+                          origin: 'table',
+                      }
+                    : null
+            );
+        }
+    });
+
+    onRowMouseOver = evt => this.highlightFeature(evt.rowData.id);
+    onRowMouseOut = () => this.highlightFeature();
+
     render() {
         const { data, sortBy, sortDirection } = this.state;
         const { width, height, layer } = this.props;
@@ -171,6 +196,8 @@ class DataTable extends Component {
                 sortDirection={sortDirection}
                 useDynamicRowHeight={false}
                 hideIndexRow={false}
+                onRowMouseOver={this.onRowMouseOver}
+                onRowMouseOut={this.onRowMouseOut}
             >
                 <Column
                     cellDataGetter={({ rowData }) => rowData.index}
@@ -311,12 +338,12 @@ class DataTable extends Component {
 }
 
 export default connect(
-    ({ dataTable, map }) => {
+    ({ dataTable, map, feature }) => {
         const layer = dataTable
             ? map.mapViews.filter(l => l.id === dataTable)[0]
             : null;
 
-        return layer ? { layer } : null;
+        return layer ? { layer, feature } : null;
     },
     {
         selectOrgUnit,
@@ -324,5 +351,6 @@ export default connect(
         setDataFilter,
         clearDataFilter,
         loadLayer,
+        highlightFeature,
     }
 )(DataTable);
