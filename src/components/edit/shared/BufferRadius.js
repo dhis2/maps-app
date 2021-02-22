@@ -4,42 +4,49 @@ import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import Checkbox from '../../core/Checkbox';
 import NumberField from '../../core/NumberField';
-import { setAreaRadius } from '../../../actions/layerEdit';
+import { setBufferRadius } from '../../../actions/layerEdit';
+import styles from './styles/BufferRadius.module.css';
 
-const defaultRadius = 5000;
-
-const AreaRadius = ({ radius, setAreaRadius }) => {
+const BufferRadius = ({
+    radius,
+    defaultRadius = 1000,
+    disabled,
+    setBufferRadius,
+}) => {
     const showBuffer = radius !== undefined && radius !== null;
 
     return (
-        <div>
+        <div className={styles.buffer}>
             <Checkbox
                 label={i18n.t('Buffer')}
                 checked={showBuffer}
+                disabled={disabled}
                 onChange={isChecked =>
-                    setAreaRadius(isChecked ? radius || defaultRadius : null)
+                    setBufferRadius(isChecked ? radius || defaultRadius : null)
                 }
-                // className={styles.checkboxInline}
             />
             {showBuffer && (
                 <NumberField
                     label={i18n.t('Radius in meters')}
                     value={radius || ''}
-                    onChange={setAreaRadius}
+                    disabled={disabled}
+                    onChange={setBufferRadius}
                 />
             )}
         </div>
     );
 };
 
-AreaRadius.propTypes = {
+BufferRadius.propTypes = {
     radius: PropTypes.number,
-    setAreaRadius: PropTypes.func.isRequired,
+    defaultRadius: PropTypes.number,
+    disabled: PropTypes.bool,
+    setBufferRadius: PropTypes.func.isRequired,
 };
 
 export default connect(
     ({ layerEdit }) => ({
         radius: layerEdit.areaRadius,
     }),
-    { setAreaRadius }
-)(AreaRadius);
+    { setBufferRadius }
+)(BufferRadius);

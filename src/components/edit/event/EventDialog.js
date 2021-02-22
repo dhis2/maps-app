@@ -11,7 +11,6 @@ import ProgramStageSelect from '../../program/ProgramStageSelect';
 import EventStatusSelect from './EventStatusSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import StartEndDates from '../../periods/StartEndDates';
-import Checkbox from '../../core/Checkbox';
 import FilterGroup from '../../filter/FilterGroup';
 import ImageSelect from '../../core/ImageSelect';
 import StyleByDataItem from '../../dataItem/StyleByDataItem';
@@ -20,7 +19,7 @@ import ColorPicker from '../../core/ColorPicker';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
-import AreaRadius from '../shared/AreaRadius';
+import BufferRadius from '../shared/BufferRadius';
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
@@ -40,7 +39,6 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setPeriod,
-    setAreaRadius,
 } from '../../../actions/layerEdit';
 
 import {
@@ -54,7 +52,6 @@ import { cssColor } from '../../../util/colors';
 
 export class EventDialog extends Component {
     static propTypes = {
-        areaRadius: PropTypes.number,
         columns: PropTypes.array,
         defaultPeriod: PropTypes.string,
         endDate: PropTypes.string,
@@ -84,7 +81,6 @@ export class EventDialog extends Component {
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
-        setAreaRadius: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
 
@@ -92,7 +88,6 @@ export class EventDialog extends Component {
         super(props, context);
         this.state = {
             tab: 'data',
-            showBuffer: this.hasBuffer(props.areaRadius),
         };
     }
 
@@ -124,13 +119,7 @@ export class EventDialog extends Component {
     }
 
     componentDidUpdate(prev) {
-        const { areaRadius, validateLayer, onLayerValidation } = this.props;
-
-        if (areaRadius !== prev.areaRadius) {
-            this.setState({
-                showBuffer: this.hasBuffer(areaRadius),
-            });
-        }
+        const { validateLayer, onLayerValidation } = this.props;
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate());
@@ -140,7 +129,6 @@ export class EventDialog extends Component {
     render() {
         const {
             // layer options
-            areaRadius,
             columns = [],
             endDate,
             eventClustering,
@@ -167,7 +155,6 @@ export class EventDialog extends Component {
             setUserOrgUnits,
             toggleOrgUnit,
             setPeriod,
-            setAreaRadius,
         } = this.props;
 
         const {
@@ -176,7 +163,6 @@ export class EventDialog extends Component {
             programStageError,
             periodError,
             orgUnitsError,
-            showBuffer,
         } = this.state;
 
         const period = getPeriodFromFilters(filters) || {
@@ -334,30 +320,13 @@ export class EventDialog extends Component {
                                         label={i18n.t('Radius')}
                                         value={eventPointRadius || EVENT_RADIUS}
                                         onChange={setEventPointRadius}
-                                        className={styles.flexInnerColumn}
+                                        // className={styles.flexInnerColumn}
                                     />
                                 </div>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Buffer')}
-                                        checked={showBuffer}
-                                        onChange={this.onShowBufferClick.bind(
-                                            this
-                                        )}
-                                        className={styles.checkboxInline}
-                                        disabled={eventClustering}
-                                    />
-                                    {showBuffer && (
-                                        <NumberField
-                                            label={i18n.t('Radius in meters')}
-                                            value={areaRadius || ''}
-                                            onChange={setAreaRadius}
-                                            disabled={eventClustering}
-                                            className={styles.flexInnerColumn}
-                                        />
-                                    )}
-                                </div>
-                                <AreaRadius />
+                                <BufferRadius
+                                    disabled={eventClustering}
+                                    defaultRadius={EVENT_BUFFER}
+                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 {program ? (
@@ -377,15 +346,6 @@ export class EventDialog extends Component {
                 </div>
             </div>
         );
-    }
-
-    onShowBufferClick(isChecked) {
-        const { setAreaRadius, areaRadius } = this.props;
-        setAreaRadius(isChecked ? areaRadius || EVENT_BUFFER : null);
-    }
-
-    hasBuffer(areaRadius) {
-        return areaRadius !== undefined && areaRadius !== null;
     }
 
     // TODO: Add to parent class?
@@ -461,7 +421,6 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setPeriod,
-        setAreaRadius,
     },
     null,
     {
