@@ -13,6 +13,7 @@ const MapView = props => {
         basemap,
         layers,
         controls,
+        feature,
         bounds,
         coordinatePopup,
         closeCoordinatePopup,
@@ -34,6 +35,7 @@ const MapView = props => {
                     basemap={basemap}
                     layer={splitViewLayer}
                     controls={mapControls}
+                    feature={feature}
                     openContextMenu={openContextMenu}
                     resizeCount={resizeCount}
                 />
@@ -45,6 +47,7 @@ const MapView = props => {
                     layers={[...layers].reverse()}
                     bounds={bounds}
                     controls={mapControls}
+                    feature={feature}
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
                     openContextMenu={openContextMenu}
@@ -62,6 +65,7 @@ MapView.propTypes = {
     basemap: PropTypes.object,
     layers: PropTypes.array,
     controls: PropTypes.array,
+    feature: PropTypes.object,
     bounds: PropTypes.array,
     coordinatePopup: PropTypes.array,
     closeCoordinatePopup: PropTypes.func,
