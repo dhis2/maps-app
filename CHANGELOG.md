@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/dhis2/maps-app/compare/v1.4.0...v1.5.0) (2021-02-22)
+
+
+### Features
+
+* link data table rows to map features (DHIS2-10546) ([#1496](https://github.com/dhis2/maps-app/issues/1496)) ([ff8156a](https://github.com/dhis2/maps-app/commit/ff8156a56ee62873e14c3cf3c636f381b9220f0c))
+
 # [1.4.0](https://github.com/dhis2/maps-app/compare/v1.3.0...v1.4.0) (2021-02-19)
 
 

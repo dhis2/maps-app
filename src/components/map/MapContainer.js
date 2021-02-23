@@ -19,6 +19,7 @@ const MapContainer = props => {
         basemap,
         mapViews,
         bounds,
+        feature,
         showName,
         newLayerIsLoading,
         coordinatePopup,
@@ -69,6 +70,7 @@ const MapContainer = props => {
                     basemap={basemap}
                     layers={layers}
                     bounds={bounds}
+                    feature={feature}
                     openContextMenu={openContextMenu}
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
@@ -92,6 +94,7 @@ MapContainer.propTypes = {
     mapViews: PropTypes.array,
     bounds: PropTypes.array,
     showName: PropTypes.bool,
+    feature: PropTypes.object,
     newLayerIsLoading: PropTypes.bool,
     coordinatePopup: PropTypes.array,
     dataTableOpen: PropTypes.bool,
@@ -105,7 +108,7 @@ MapContainer.propTypes = {
 };
 
 export default connect(
-    ({ map, basemaps, download, dataTable, ui }) => ({
+    ({ map, basemaps, download, dataTable, ui, feature }) => ({
         basemap: {
             ...basemaps.filter(b => b.id === map.basemap.id)[0],
             ...map.basemap,
@@ -118,6 +121,7 @@ export default connect(
         showName: download.showDialog ? download.showName : true,
         legendPosition: download.showLegend ? download.legendPosition : null,
         dataTableOpen: !!dataTable,
+        feature,
         ...ui,
     }),
     {

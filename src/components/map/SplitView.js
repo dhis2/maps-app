@@ -13,6 +13,7 @@ class SplitView extends PureComponent {
         isFullscreen: PropTypes.bool,
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
+        feature: PropTypes.object,
         controls: PropTypes.array,
         openContextMenu: PropTypes.func.isRequired,
     };
@@ -44,7 +45,13 @@ class SplitView extends PureComponent {
     }
 
     render() {
-        const { isPlugin, basemap, layer, openContextMenu } = this.props;
+        const {
+            isPlugin,
+            basemap,
+            layer,
+            feature,
+            openContextMenu,
+        } = this.props;
         const { isFullscreen } = this.state;
 
         const { id, periods = [] } = layer;
@@ -70,6 +77,7 @@ class SplitView extends PureComponent {
                         <ThematicLayer
                             index={1}
                             period={period}
+                            feature={feature}
                             {...layer}
                             openContextMenu={openContextMenu}
                         />
