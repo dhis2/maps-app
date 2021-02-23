@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import LeftIcon from '@material-ui/icons/ChevronLeft';
-import RightIcon from '@material-ui/icons/ChevronRight';
+import { IconChevronLeft24, IconChevronRight24 } from '@dhis2/ui';
 import { openLayersPanel, closeLayersPanel } from '../../actions/ui';
 import styles from './styles/LayersToggle.module.css';
 
@@ -19,7 +18,7 @@ const LayersToggle = ({
             className={styles.layersToggle}
             style={isOpen ? {} : { left: 0 }}
         >
-            {isOpen ? <LeftIcon /> : <RightIcon />}
+            {isOpen ? <IconChevronLeft24 /> : <IconChevronRight24 />}
         </div>
     );
 

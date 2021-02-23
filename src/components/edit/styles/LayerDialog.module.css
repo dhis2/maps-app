@@ -67,27 +67,6 @@
     margin: var(--spacers-dp16) 0;
 }
 
-.help {
-    position: relative;
-    margin: var(--spacers-dp16) 0 var(--spacers-dp8) var(--spacers-dp24);
-    font-size: 14px;
-    line-height: 20px;
-}
-
-.help::before {
-    position: absolute;
-    left: -22px;
-    content: 'ⓘ';
-}
-
-.help p {
-    margin: 0 0 var(--spacers-dp8);
-}
-
-.help p:last-child {
-    margin-bottom: 0;
-}
-
 .error {
     margin-top: var(--spacers-dp8);
     color: var(--theme-error);

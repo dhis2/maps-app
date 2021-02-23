@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { CircularLoader } from '@dhis2/ui';
-import SelectField from '../../core/SelectField';
+import { SelectField } from '../../core';
 import memoize from 'lodash/memoize';
 import { apiFetch } from '../../../util/api';
 

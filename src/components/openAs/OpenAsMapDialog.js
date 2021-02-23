@@ -10,7 +10,7 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui';
-import SelectField from '../core/SelectField';
+import { SelectField } from '../core';
 import { loadLayer } from '../../actions/layers';
 import { clearAnalyticalObject } from '../../actions/analyticalObject';
 import {

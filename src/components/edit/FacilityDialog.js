@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import cx from 'classnames';
-import Tabs from '../core/Tabs';
-import Tab from '../core/Tab';
-import Checkbox from '../core/Checkbox';
-import FontStyle from '../core/FontStyle';
+import { Tab, Tabs, Checkbox, FontStyle, Help } from '../core';
 import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
@@ -164,11 +161,11 @@ class FacilityDialog extends Component {
                                         {orgUnitsError}
                                     </div>
                                 ) : (
-                                    <div className={styles.help}>
+                                    <Help>
                                         {i18n.t(
                                             'Remember to select the organisation unit level containing the facilities.'
                                         )}
-                                    </div>
+                                    </Help>
                                 )}
                             </div>
                         </div>

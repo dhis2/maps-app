@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { range } from 'lodash/fp';
-import SelectField from '../core/SelectField';
-import ColorScaleSelect from '../core/ColorScaleSelect';
+import { SelectField, ColorScaleSelect } from '../core';
 import { setClassification, setColorScale } from '../../actions/layerEdit';
 import { getClassificationTypes } from '../../constants/layers';
 import {

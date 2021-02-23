@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles/OpacitySlider.module.css';
 
-const lowerFill = 'var(--colors-grey800)';
-const upperFill = 'var(--colors-grey400)';
+const OpacitySlider = ({ opacity, disabled, onChange }) => {
+    const lowerFill = `var(--colors-grey${disabled ? 400 : 600})`;
+    const upperFill = `var(--colors-grey${disabled ? 300 : 400})`;
 
-const OpacitySlider = ({ opacity, onChange }) => {
     const onSliderChange = useCallback(
         evt => onChange(Number(evt.target.value)),
         [onChange]
@@ -19,6 +19,7 @@ const OpacitySlider = ({ opacity, onChange }) => {
                 max="1"
                 step="0.01"
                 value={opacity}
+                disabled={disabled}
                 onChange={onSliderChange}
                 className={styles.slider}
                 style={{
@@ -37,6 +38,7 @@ const OpacitySlider = ({ opacity, onChange }) => {
 
 OpacitySlider.propTypes = {
     opacity: PropTypes.number.isRequired,
+    disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
 };
 

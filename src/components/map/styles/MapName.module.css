@@ -1,6 +1,7 @@
 .mapName {
     display: flex;
     justify-content: center;
+    align-items: center;
     position: absolute;
     max-width: calc(100% - 100px);
     top: 0;
@@ -20,6 +21,7 @@
 }
 
 .interpretation {
+    composes: box from '../../../styles/map.css';
     position: relative;
     padding: 7px 8px 7px 28px;
     font-size: 12px;

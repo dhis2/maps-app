@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { NoticeBox } from '@dhis2/ui';
-import Tabs from '../../core/Tabs';
-import Tab from '../../core/Tab';
+import { Help, Tab, Tabs } from '../../core';
 import AggregationSelect from './AggregationSelect';
 import BandSelect from './BandSelect';
 import PeriodSelect from './PeriodSelect';
@@ -134,7 +133,7 @@ const EarthEngineDialog = props => {
             <div className={styles.tabContent}>
                 {tab === 'data' && (
                     <div className={styles.flexRowFlow}>
-                        <div className={styles.help}>
+                        <Help>
                             <p>{description}</p>
                             <p>
                                 {i18n.t(
@@ -146,8 +145,7 @@ const EarthEngineDialog = props => {
                                     'Multiple aggregation methods are available. See the aggregation results by clicking map regions or viewing the data table. The results can also be downloaded.'
                                 )}
                             </p>
-                        </div>
-
+                        </Help>
                         {bands && (
                             <BandSelect
                                 errorText={
