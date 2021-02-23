@@ -13,4 +13,5 @@
     right: 3px;
     z-index: 100;
     cursor: pointer;
+    color: var(--colors-grey800);
 }

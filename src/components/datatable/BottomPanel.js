@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import CancelIcon from '@material-ui/icons/Cancel';
+import { IconCross16 } from '@dhis2/ui';
 import ResizeHandle from './ResizeHandle';
 import DataTable from '../datatable/DataTable';
 import {
@@ -49,7 +49,7 @@ class BottomPanel extends Component {
                     style={style}
                 >
                     <span className={styles.closeIcon} onClick={closeDataTable}>
-                        <CancelIcon fontSize="inherit" />
+                        <IconCross16 />
                     </span>
                     <ResizeHandle
                         maxHeight={maxHeight}

@@ -2,11 +2,15 @@ import React, { Fragment, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Popover, Menu, MenuItem } from '@dhis2/ui';
-import UpIcon from '@material-ui/icons/ArrowUpward';
-import DownIcon from '@material-ui/icons/ArrowDownward';
-import InfoIcon from '@material-ui/icons/InfoOutlined';
-import PositionIcon from '@material-ui/icons/Room';
+import {
+    Popover,
+    Menu,
+    MenuItem,
+    IconArrowUp16,
+    IconArrowDown16,
+    IconInfo16,
+    IconLocation16,
+} from '@dhis2/ui';
 import RelocateDialog from '../orgunits/RelocateDialog';
 import {
     closeContextMenu,
@@ -128,7 +132,7 @@ const ContextMenu = (props, context) => {
                         {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
                                 label={i18n.t('Drill up one level')}
-                                icon={<UpIcon />}
+                                icon={<IconArrowUp16 />}
                                 disabled={!attr.hasCoordinatesUp}
                                 onClick={() => onClick('drill_up')}
                             />
@@ -137,7 +141,7 @@ const ContextMenu = (props, context) => {
                         {layerType !== FACILITY_LAYER && feature && (
                             <MenuItem
                                 label={i18n.t('Drill down one level')}
-                                icon={<DownIcon />}
+                                icon={<IconArrowDown16 />}
                                 disabled={!attr.hasCoordinatesDown}
                                 onClick={() => onClick('drill_down')}
                             />
@@ -146,7 +150,7 @@ const ContextMenu = (props, context) => {
                         {feature && (
                             <MenuItem
                                 label={i18n.t('Show information')}
-                                icon={<InfoIcon />}
+                                icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
                             />
                         )}
@@ -154,7 +158,7 @@ const ContextMenu = (props, context) => {
                         {coordinates && (
                             <MenuItem
                                 label={i18n.t('Show longitude/latitude')}
-                                icon={<PositionIcon />}
+                                icon={<IconLocation16 />}
                                 onClick={() => onClick('show_coordinate')}
                             />
                         )}
@@ -162,7 +166,7 @@ const ContextMenu = (props, context) => {
                         {isAdmin && isPoint && (
                             <MenuItem
                                 label={i18n.t('Swap longitude/latitude')}
-                                icon={<PositionIcon />}
+                                icon={<IconLocation16 />}
                                 onClick={() => onClick('swap_coordinate')}
                             />
                         )}
@@ -170,7 +174,7 @@ const ContextMenu = (props, context) => {
                         {isAdmin && isPoint && (
                             <MenuItem
                                 label={i18n.t('Relocate')}
-                                icon={<PositionIcon />}
+                                icon={<IconLocation16 />}
                                 onClick={() => onClick('relocate')}
                             />
                         )}
@@ -181,7 +185,7 @@ const ContextMenu = (props, context) => {
                                 label={i18n.t('Show {{name}}', {
                                     name: layer.name.toLowerCase(),
                                 })}
-                                icon={<PositionIcon />}
+                                icon={<IconLocation16 />}
                                 onClick={() =>
                                     onClick('show_ee_value', layer.id)
                                 }
