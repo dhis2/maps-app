@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { CircularLoader } from '@dhis2/ui';
-import SelectField from '../../core/SelectField';
+import { SelectField } from '../../core';
 import styles from './styles/PeriodSelect.module.css';
 
 // http://localhost:8080/api/periodTypes.json

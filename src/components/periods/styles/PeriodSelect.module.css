@@ -8,7 +8,7 @@
 }
 
 .stepper {
-    margin: 0 0 10px 4px;
+    margin: 0 0 6px 4px;
 }
 
 .stepper > span {
@@ -17,4 +17,8 @@
 
 .stepper > span:first-child {
     margin-right: var(--spacers-dp4);
+}
+
+.stepper svg {
+    color: var(--colors-grey600);
 }

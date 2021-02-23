@@ -4,7 +4,10 @@
     top: 1px;
 }
 
-.icon {
-    margin-right: var(--spacers-dp8);
-    margin-top: 2px;
+.button svg {
+    margin-right: var(--spacers-dp4);
+}
+
+.button :enabled svg {
+    color: var(--colors-grey600);
 }

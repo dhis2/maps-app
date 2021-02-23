@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import RadioGroup from '../core/RadioGroup';
-import Radio from '../core/Radio';
+import { Radio, RadioGroup } from '../core';
 import { setClassification } from '../../actions/layerEdit';
 import {
     getLegendTypes,

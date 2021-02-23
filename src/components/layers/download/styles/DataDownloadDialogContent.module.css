@@ -5,23 +5,3 @@
 .inputContainer {
     margin-top: var(--spacers-dp32);
 }
-
-.infoDiv {
-    height: var(
-        --spacers-dp24
-    ); /* Ensure that we have enough buffer around the svg icon to prevent unnecessary scrollbars */
-    display: flex;
-    align-items: center;
-    font-size: 0.85em;
-    color: var(--colors-grey800);
-}
-
-.icon {
-    margin-right: var(--spacers-dp8);
-    vertical-align: bottom;
-}
-
-.error {
-    margin-top: var(--spacers-dp12);
-    color: var(--theme-warning);
-}

@@ -1,17 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ErrorIcon from '@material-ui/icons/ErrorOutline';
-import InfoIcon from '@material-ui/icons/InfoOutlined';
 import i18n from '@dhis2/d2-i18n';
+import { NoticeBox } from '@dhis2/ui';
+import { Help } from '../../core';
 import EventDownloadInputs from './EventDownloadInputs';
 import styles from './styles/DataDownloadDialogContent.module.css';
 
 export const DataDownloadDialogContent = ({
     isEventLayer,
     error,
-
     layerName,
-
     formatOptions,
     selectedFormatOption,
     humanReadableChecked,
@@ -24,12 +22,11 @@ export const DataDownloadDialogContent = ({
                 layerName: layerName,
             })}
         </div>
-        <div className={styles.infoDiv}>
-            <InfoIcon fontSize="small" className={styles.icon} />
+        <Help>
             {i18n.t(
                 'GeoJSON is supported by most GIS software, including QGIS and ArcGIS Desktop.'
             )}
-        </div>
+        </Help>
         {isEventLayer && (
             <div className={styles.inputContainer}>
                 <EventDownloadInputs
@@ -42,10 +39,7 @@ export const DataDownloadDialogContent = ({
             </div>
         )}
         {error && (
-            <div className={styles.error}>
-                <ErrorIcon fontSize="small" className={styles.icon} />
-                {i18n.t('Data download failed.')}
-            </div>
+            <NoticeBox error>{i18n.t('Data download failed.')}</NoticeBox>
         )}
     </Fragment>
 );
@@ -53,13 +47,10 @@ export const DataDownloadDialogContent = ({
 DataDownloadDialogContent.propTypes = {
     isEventLayer: PropTypes.bool.isRequired,
     error: PropTypes.string,
-
     layerName: PropTypes.string.isRequired,
-
     formatOptions: PropTypes.array.isRequired,
     selectedFormatOption: PropTypes.number,
     humanReadableChecked: PropTypes.bool.isRequired,
-
     onChangeFormatOption: PropTypes.func.isRequired,
     onCheckHumanReadable: PropTypes.func.isRequired,
 };

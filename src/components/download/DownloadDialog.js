@@ -10,7 +10,7 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui';
-import Checkbox from '../core/Checkbox';
+import { Checkbox } from '../core';
 import LegendPosition from './LegendPosition';
 import {
     toggleDownloadDialog,

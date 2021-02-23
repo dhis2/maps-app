@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ImageSelect from '../../core/ImageSelect';
+import { ImageSelect } from '../../core';
 import { setThematicMapType } from '../../../actions/layerEdit';
 import {
     THEMATIC_CHOROPLETH,
