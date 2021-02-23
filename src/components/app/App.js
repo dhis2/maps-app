@@ -41,7 +41,7 @@ export class App extends Component {
             <Provider
                 config={{
                     baseUrl: DHIS_CONFIG.baseUrl,
-                    apiVersion: '35',
+                    apiVersion: '36',
                 }}
             >
                 <FatalErrorBoundary>

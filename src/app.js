@@ -30,7 +30,7 @@ getManifest('manifest.webapp')
                 : DHIS_CONFIG.baseUrl;
 
         config.appUrl = baseUrl; // Base url for switching between apps
-        config.baseUrl = `${baseUrl}/api/35`; // Base url for Web API requests
+        config.baseUrl = `${baseUrl}/api/36`; // Base url for Web API requests
 
         config.context = manifest.activities.dhis; // Added temporarily for util/api.js
 
