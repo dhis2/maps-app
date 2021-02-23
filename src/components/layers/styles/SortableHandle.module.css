@@ -1,7 +1,7 @@
 .handle {
     position: absolute;
-    left: 4px;
-    top: 16px;
+    left: var(--spacers-dp4);
+    top: var(--spacers-dp16);
     color: var(--colors-grey600);
     cursor: ns-resize;
 }
