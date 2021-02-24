@@ -10,11 +10,11 @@ import styles from './styles/SplitView.module.css';
 class SplitView extends PureComponent {
     static propTypes = {
         isPlugin: PropTypes.bool,
+        resizeOptions: PropTypes.object,
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
         feature: PropTypes.object,
         controls: PropTypes.array,
-        resizeOptions: PropTypes.object,
         openContextMenu: PropTypes.func.isRequired,
     };
 
@@ -28,11 +28,11 @@ class SplitView extends PureComponent {
 
     // Add map controls to split view container
     componentDidUpdate(prevProps, prevState) {
-        const { resizeOptions } = this.props;
+        const { resizeOptions, isPlugin } = this.props;
         const { controls } = this.state;
 
-        if (resizeOptions !== prevProps.resizeOptions) {
-            this.onFullScreenChange(resizeOptions);
+        if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
+            this.setState({ resizeOptions });
         }
 
         if (controls !== prevState.controls) {

@@ -129,7 +129,7 @@ class Map extends Component {
         }
 
         if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
-            onFullScreenChange(this.map.map, resizeOptions);
+            onFullScreenChange(this.map, resizeOptions);
         }
     }
 

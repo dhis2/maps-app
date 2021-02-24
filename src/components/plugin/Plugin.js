@@ -55,11 +55,11 @@ class Plugin extends Component {
                 {!hideTitle && <MapName name={name} />}
                 <MapView
                     isPlugin={true}
+                    resizeOptions={resizeOptions}
                     basemap={basemap}
                     layers={mapViews}
                     controls={controls}
                     bounds={defaultBounds}
-                    resizeOptions={resizeOptions}
                     openContextMenu={this.onOpenContextMenu}
                     onCloseContextMenu={this.onCloseContextMenu}
                 />
