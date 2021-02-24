@@ -47,6 +47,7 @@ export const THEMATIC_RADIUS_HIGH = 30;
 export const THEMATIC_RADIUS_MIN = 0;
 export const THEMATIC_RADIUS_MAX = 50;
 export const THEMATIC_COLOR = '#558CC0';
+export const THEMATIC_BUFFER = 5000;
 
 export const getThematicMapTypes = () => [
     {
@@ -73,6 +74,12 @@ export const TEI_BUFFER = 100;
 export const TEI_RELATED_COLOR = '#000000';
 export const TEI_RELATED_RADIUS = 3;
 export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
+
+/* FACILITY LAYER */
+export const FACILITY_BUFFER = 5000;
+
+/* EARTH ENGINE LAYER */
+export const EE_BUFFER = 5000;
 
 /* CLASSIFICATION */
 export const CLASSIFICATION_PREDEFINED = 1;

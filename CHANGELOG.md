@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/dhis2/maps-app/compare/v1.5.0...v1.6.0) (2021-02-24)
+
+
+### Features
+
+* circle buffer aggregations for EE layers (DHIS2-10549) ([#1504](https://github.com/dhis2/maps-app/issues/1504)) ([5df215b](https://github.com/dhis2/maps-app/commit/5df215bf9e1ffbe492761204cc96e17d97d82237))
+
 # [1.5.0](https://github.com/dhis2/maps-app/compare/v1.4.0...v1.5.0) (2021-02-22)
 
 

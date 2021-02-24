@@ -477,7 +477,7 @@ const layerEdit = (state = null, action) => {
                 labelFontStyle: action.style,
             };
 
-        case types.LAYER_EDIT_AREA_RADIUS_SET:
+        case types.LAYER_EDIT_BUFFER_RADIUS_SET:
             return {
                 ...state,
                 areaRadius: action.radius ? parseInt(action.radius, 10) : null,

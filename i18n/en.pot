@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-02-19T12:29:31.130Z\n"
-"PO-Revision-Date: 2021-02-19T12:29:31.130Z\n"
+"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
+"PO-Revision-Date: 2021-02-22T16:51:45.512Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -155,12 +155,6 @@ msgstr ""
 msgid "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
-msgid "Buffer"
-msgstr ""
-
-msgid "Radius in meters"
-msgstr ""
-
 msgid "Group set is required"
 msgstr ""
 
@@ -278,6 +272,12 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
+msgstr ""
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
 msgstr ""
 
 msgid "Aggregation type"
@@ -525,9 +525,6 @@ msgstr ""
 msgid "Mid"
 msgstr ""
 
-msgid "Groups"
-msgstr ""
-
 msgid "Group"
 msgstr ""
 
@@ -577,9 +574,6 @@ msgid "Loading layer data"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
-
-msgid "Group"
 msgstr ""
 
 msgid "acres"

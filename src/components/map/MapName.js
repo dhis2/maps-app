@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import InterpretationIcon from '../core/InterpretationIcon';
+import { IconClockHistory16 } from '@dhis2/ui';
 import { formatLocaleDate } from '../../util/time';
 import styles from './styles/MapName.module.css';
 
@@ -12,9 +12,7 @@ const MapName = ({ showName, name, interpretationDate, uiLocale }) =>
             <div className={`${styles.name} dhis2-maps-title`}>{name}</div>
             {interpretationDate && (
                 <div className={styles.interpretation}>
-                    <div className={styles.interpretationIcon}>
-                        <InterpretationIcon />
-                    </div>
+                    <IconClockHistory16 />
                     {i18n.t(
                         'Viewing interpretation from {{interpretationDate}}',
                         {

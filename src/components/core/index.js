@@ -17,8 +17,6 @@ import Tab from './Tab';
 import Tabs from './Tabs';
 import TextField from './TextField';
 
-// InterpretationIcon
-
 export {
     Checkbox,
     ColorButton,
