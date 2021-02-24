@@ -166,7 +166,7 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@dhis2/analytics@^15.0.5":
+"@dhis2/analytics@^15.0.6":
   version "15.0.6"
   resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-15.0.6.tgz#9ee0f0b1eb82aa2dc246f446d5241fde2ec484cb"
   integrity sha512-k8q2p5CJ9UzLfdI4GvXxJZztOz/cWDtRFB8haOYcp5Kga8+OvX4IE8j7V4vSGTuDK4v0SUK69OGCyeaIJO7s8Q==
