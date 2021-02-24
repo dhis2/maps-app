@@ -10,32 +10,29 @@ import styles from './styles/SplitView.module.css';
 class SplitView extends PureComponent {
     static propTypes = {
         isPlugin: PropTypes.bool,
-        isFullscreen: PropTypes.bool,
-        fitBounds: PropTypes.bool,
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
         feature: PropTypes.object,
         controls: PropTypes.array,
+        resizeOptions: PropTypes.object,
         openContextMenu: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
-        isFullscreen: false,
         openContextMenu: () => {},
     };
 
     state = {
-        isFullscreen: false,
         controls: null,
     };
 
     // Add map controls to split view container
     componentDidUpdate(prevProps, prevState) {
-        const { isFullscreen, fitBounds } = this.props;
+        const { resizeOptions } = this.props;
         const { controls } = this.state;
 
-        if (isFullscreen !== prevProps.isFullscreen) {
-            this.onFullScreenChange({ isFullscreen, fitBounds });
+        if (resizeOptions !== prevProps.resizeOptions) {
+            this.onFullScreenChange(resizeOptions);
         }
 
         if (controls !== prevState.controls) {
@@ -53,7 +50,7 @@ class SplitView extends PureComponent {
             feature,
             openContextMenu,
         } = this.props;
-        const { isFullscreen, fitBounds } = this.state;
+        const { resizeOptions } = this.state;
 
         const { id, periods = [] } = layer;
 
@@ -72,8 +69,7 @@ class SplitView extends PureComponent {
                         onRemove={this.onMapRemove}
                         setMapControls={this.setMapControls}
                         isPlugin={isPlugin}
-                        isFullscreen={isFullscreen}
-                        fitBounds={fitBounds}
+                        resizeOptions={resizeOptions}
                     >
                         <Layer index={0} {...basemap} />
                         <ThematicLayer
@@ -106,8 +102,8 @@ class SplitView extends PureComponent {
         this.setState({ controls });
     };
 
-    onFullScreenChange = ({ isFullscreen, fitBounds }) =>
-        this.setState({ isFullscreen, fitBounds });
+    onFullScreenChange = ({ scrollZoom, fitBounds }) =>
+        this.setState({ resizeOptions: { scrollZoom, fitBounds } });
 }
 
 export default SplitView;

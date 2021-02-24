@@ -27,8 +27,7 @@ const layerType = {
 class Map extends Component {
     static propTypes = {
         isPlugin: PropTypes.bool,
-        isFullscreen: PropTypes.bool,
-        fitBounds: PropTypes.bool,
+        resizeOptions: PropTypes.object,
         basemap: PropTypes.object,
         layers: PropTypes.array,
         controls: PropTypes.array,
@@ -46,7 +45,6 @@ class Map extends Component {
 
     static defaultProps = {
         isPlugin: false,
-        isFullscreen: false,
     };
 
     static childContextTypes = {
@@ -89,7 +87,7 @@ class Map extends Component {
             longitude,
             zoom,
             isPlugin,
-            isFullscreen,
+            resizeOptions,
         } = this.props;
         const { map } = this;
 
@@ -118,19 +116,15 @@ class Map extends Component {
         }
 
         if (isPlugin) {
-            this.onFullScreenChange({ isFullscreen });
+            this.onFullScreenChange(resizeOptions);
         }
     }
 
     componentDidUpdate(prevProps) {
-        const { resizeCount, isFullscreen, fitBounds, isPlugin } = this.props;
+        const { resizeOptions } = this.props;
 
-        if (resizeCount !== prevProps.resizeCount) {
-            this.map.resize();
-        }
-
-        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
-            this.onFullScreenChange({ isFullscreen, fitBounds });
+        if (resizeOptions !== prevProps.resizeOptions) {
+            this.onFullScreenChange(resizeOptions);
         }
     }
 
@@ -209,8 +203,14 @@ class Map extends Component {
 
     onMapReady = map => this.setState({ map });
 
-    onFullScreenChange = ({ isFullscreen, fitBounds }) => {
-        this.map.toggleScrollZoom(isFullscreen);
+    onFullScreenChange = (options = {}) => {
+        const { scrollZoom, fitBounds } = options;
+
+        this.map.resize();
+
+        if (scrollZoom !== undefined) {
+            this.map.toggleScrollZoom(scrollZoom);
+        }
 
         if (fitBounds) {
             const bounds = this.map.getLayersBounds();
