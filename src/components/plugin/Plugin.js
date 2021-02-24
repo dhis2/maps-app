@@ -33,7 +33,6 @@ class Plugin extends Component {
 
         this.state = {
             mapViews: props.mapViews, // Can be changed by drilling
-            resizeCount: 0,
         };
     }
 

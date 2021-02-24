@@ -37,7 +37,6 @@ class Map extends Component {
         longitude: PropTypes.number,
         zoom: PropTypes.number,
         coordinatePopup: PropTypes.array,
-        resizeCount: PropTypes.number,
         closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
         onCloseContextMenu: PropTypes.func,
