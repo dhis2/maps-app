@@ -46,6 +46,7 @@ class Map extends Component {
 
     static defaultProps = {
         isPlugin: false,
+        isFullscreen: false,
     };
 
     static childContextTypes = {

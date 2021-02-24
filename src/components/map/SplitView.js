@@ -19,6 +19,7 @@ class SplitView extends PureComponent {
     };
 
     static defaultProps = {
+        isFullscreen: false,
         openContextMenu: () => {},
     };
 

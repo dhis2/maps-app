@@ -79,7 +79,7 @@ export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
 });
 
 // Called when plugin maps enter or exit fullscreen
-export const onFullscreenChange = (map, isFullscreen) => {
+export const onFullscreenChange = (map, isFullscreen = false) => {
     map.resize();
 
     if (!isFullscreen) {
