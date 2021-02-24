@@ -20,6 +20,7 @@ import PeriodTypeSelect from './PeriodTypeSelect';
 import StartEndDates from '../../periods/StartEndDates';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
+import BufferRadius from '../shared/BufferRadius';
 import styles from '../styles/LayerDialog.module.css';
 
 import {
@@ -47,7 +48,6 @@ import {
     setOrgUnitMode,
     setEventPointColor,
     setEventPointRadius,
-    setAreaRadius,
     setRelatedPointColor,
     setRelatedPointRadius,
     setRelationshipLineColor,
@@ -78,7 +78,6 @@ export class TrackedEntityDialog extends Component {
         programStatus: PropTypes.string,
         rows: PropTypes.array,
         trackedEntityType: PropTypes.object,
-        setAreaRadius: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setRelatedPointColor: PropTypes.func.isRequired,
@@ -103,7 +102,6 @@ export class TrackedEntityDialog extends Component {
         super(props, context);
         this.state = {
             tab: 'data',
-            showBuffer: this.hasBuffer(props.areaRadius),
             showRelationshipsChecked: false,
         };
     }
@@ -139,14 +137,6 @@ export class TrackedEntityDialog extends Component {
         }
     }
 
-    UNSAFE_componentWillReceiveProps({ areaRadius }) {
-        if (areaRadius !== this.props.areaRadius) {
-            this.setState({
-                showBuffer: this.hasBuffer(areaRadius),
-            });
-        }
-    }
-
     componentDidUpdate(prev) {
         const { validateLayer, onLayerValidation } = this.props;
 
@@ -157,7 +147,6 @@ export class TrackedEntityDialog extends Component {
 
     render() {
         const {
-            areaRadius,
             endDate,
             eventPointColor,
             eventPointRadius,
@@ -186,7 +175,6 @@ export class TrackedEntityDialog extends Component {
             setOrgUnitMode,
             setEventPointColor,
             setEventPointRadius,
-            setAreaRadius,
             setRelatedPointColor,
             setRelatedPointRadius,
             setRelationshipLineColor,
@@ -196,7 +184,6 @@ export class TrackedEntityDialog extends Component {
             tab,
             trackedEntityTypeError,
             orgUnitsError,
-            showBuffer,
             periodError,
         } = this.state;
 
@@ -402,22 +389,8 @@ export class TrackedEntityDialog extends Component {
                                         className={styles.flexInnerColumn}
                                     />
                                 </div>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Buffer')}
-                                        checked={showBuffer}
-                                        onChange={this.onShowBufferClick}
-                                        className={styles.checkboxInline}
-                                    />
-                                    {showBuffer && (
-                                        <NumberField
-                                            label={i18n.t('Radius in meters')}
-                                            value={areaRadius || ''}
-                                            onChange={setAreaRadius}
-                                            className={styles.radius}
-                                        />
-                                    )}
-                                </div>
+                                <BufferRadius defaultRadius={TEI_BUFFER} />
+
                                 {relationshipType ? (
                                     <Fragment>
                                         <div className={styles.header}>
@@ -475,15 +448,6 @@ export class TrackedEntityDialog extends Component {
         );
     }
 
-    onShowBufferClick = isChecked => {
-        const { setAreaRadius, areaRadius } = this.props;
-        setAreaRadius(isChecked ? areaRadius || TEI_BUFFER : null);
-    };
-
-    hasBuffer(areaRadius) {
-        return areaRadius !== undefined && areaRadius !== null;
-    }
-
     // TODO: Add to parent class?
     setErrorState(key, message, tab) {
         this.setState({
@@ -538,7 +502,6 @@ export default connect(
         setOrgUnitMode,
         setEventPointColor,
         setEventPointRadius,
-        setAreaRadius,
         setRelatedPointColor,
         setRelatedPointRadius,
         setRelationshipLineColor,

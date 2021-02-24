@@ -36,9 +36,18 @@
     clear: both;
 }
 
+.flexInnerColumnFlow > div {
+    flex: 1;
+    margin: var(--spacers-dp8);
+}
+
 .flexInnerColumn {
     flex: 1;
     margin: var(--spacers-dp8);
+}
+
+.singleColumn {
+    max-width: 400px;
 }
 
 .header {
@@ -74,7 +83,7 @@
 
 .checkboxInline {
     height: 70px;
-    margin: 24px 40px 0 0;
+    padding-top: var(--spacers-dp24);
 }
 
 .fontInline {

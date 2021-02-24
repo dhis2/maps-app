@@ -293,8 +293,8 @@ export const setLabelFontColor = color => ({
 });
 
 // Set area radius (facility)
-export const setAreaRadius = radius => ({
-    type: types.LAYER_EDIT_AREA_RADIUS_SET,
+export const setBufferRadius = radius => ({
+    type: types.LAYER_EDIT_BUFFER_RADIUS_SET,
     radius,
 });
 

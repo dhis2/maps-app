@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { NumberField, ColorScaleSelect } from '../../core';
 import LegendItem from '../../legend/LegendItem';
+import BufferRadius from '../shared/BufferRadius';
 import { getColorScale, getColorPalette } from '../../../util/colors';
 import { createLegend } from '../../../loaders/earthEngineLoader';
 import { setParams } from '../../../actions/layerEdit';
+import { EE_BUFFER } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
 const getStepsFromParams = ({ palette, min }) =>
@@ -82,6 +84,7 @@ const StyleSelect = ({ unit, params, setParams }) => {
                         />
                     </div>
                 </div>
+                <BufferRadius defaultRadius={EE_BUFFER} />
             </div>
             <div className={styles.flexColumn}>
                 <div className={styles.legendTitle}>
