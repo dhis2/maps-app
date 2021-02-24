@@ -24,6 +24,7 @@ class SplitView extends PureComponent {
     };
 
     state = {
+        isFullscreen: false,
         controls: null,
     };
 
