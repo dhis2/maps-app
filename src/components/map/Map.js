@@ -46,7 +46,6 @@ class Map extends Component {
 
     static defaultProps = {
         isPlugin: false,
-        isFullscreen: false,
     };
 
     static childContextTypes = {
@@ -84,15 +83,7 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        const {
-            controls,
-            bounds,
-            latitude,
-            longitude,
-            zoom,
-            isPlugin,
-            isFullscreen,
-        } = this.props;
+        const { controls, bounds, latitude, longitude, zoom } = this.props;
         const { map } = this;
 
         // Append map container to DOM
@@ -118,10 +109,6 @@ class Map extends Component {
         } else {
             map.fitWorld();
         }
-
-        if (isPlugin) {
-            onFullscreenChange(map, isFullscreen);
-        }
     }
 
     componentDidUpdate(prevProps) {
@@ -131,6 +118,7 @@ class Map extends Component {
             this.map.resize();
         }
 
+        // From map plugin resize method
         if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
             onFullscreenChange(this.map, isFullscreen);
         }
@@ -211,6 +199,7 @@ class Map extends Component {
 
     onMapReady = map => this.setState({ map });
 
+    // From built-in fullscreen control
     onFullscreenChange = ({ isFullscreen }) => {
         onFullscreenChange(this.map, isFullscreen);
     };

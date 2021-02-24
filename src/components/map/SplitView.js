@@ -31,6 +31,7 @@ class SplitView extends PureComponent {
         const { isFullscreen, isPlugin } = this.props;
         const { controls } = this.state;
 
+        // From map plugin resize method
         if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
             this.setState({ isFullscreen });
         }
@@ -102,6 +103,7 @@ class SplitView extends PureComponent {
         this.setState({ controls });
     };
 
+    // From built-in fullscreen control
     onFullScreenChange = ({ isFullscreen }) => this.setState({ isFullscreen });
 }
 
