@@ -11,7 +11,7 @@ class MapItem extends PureComponent {
 
     static propTypes = {
         isPlugin: PropTypes.bool,
-        resizeOptions: PropTypes.object,
+        isFullscreen: PropTypes.bool,
         index: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
         layerId: PropTypes.string.isRequired,
@@ -60,14 +60,14 @@ class MapItem extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        const { count, resizeOptions, isPlugin } = this.props;
+        const { count, isFullscreen, isPlugin } = this.props;
 
         if (count !== prevProps.count) {
             this.fitLayerBounds();
         }
 
-        if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
-            onFullscreenChange(this.map, resizeOptions);
+        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
+            onFullscreenChange(this.map, isFullscreen);
         }
 
         this.map.resize();

@@ -12,7 +12,7 @@ import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
 import ExternalLayer from './layers/ExternalLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
-import { getFullscreenOptions, onFullscreenChange } from '../../util/map';
+import { onFullscreenChange } from '../../util/map';
 import styles from './styles/Map.module.css';
 
 const layerType = {
@@ -28,7 +28,7 @@ const layerType = {
 class Map extends Component {
     static propTypes = {
         isPlugin: PropTypes.bool,
-        resizeOptions: PropTypes.object,
+        isFullscreen: PropTypes.bool,
         basemap: PropTypes.object,
         layers: PropTypes.array,
         controls: PropTypes.array,
@@ -90,7 +90,7 @@ class Map extends Component {
             longitude,
             zoom,
             isPlugin,
-            resizeOptions,
+            isFullscreen,
         } = this.props;
         const { map } = this;
 
@@ -119,19 +119,19 @@ class Map extends Component {
         }
 
         if (isPlugin) {
-            onFullscreenChange(map, resizeOptions);
+            onFullscreenChange(map, isFullscreen);
         }
     }
 
     componentDidUpdate(prevProps) {
-        const { resizeCount, resizeOptions, isPlugin } = this.props;
+        const { resizeCount, isFullscreen, isPlugin } = this.props;
 
         if (resizeCount !== prevProps.resizeCount) {
             this.map.resize();
         }
 
-        if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
-            onFullscreenChange(this.map, resizeOptions);
+        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
+            onFullscreenChange(this.map, isFullscreen);
         }
     }
 
@@ -211,7 +211,7 @@ class Map extends Component {
     onMapReady = map => this.setState({ map });
 
     onFullscreenChange = ({ isFullscreen }) => {
-        onFullscreenChange(this.map, getFullscreenOptions(isFullscreen));
+        onFullscreenChange(this.map, isFullscreen);
     };
 }
 

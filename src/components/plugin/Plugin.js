@@ -33,6 +33,7 @@ class Plugin extends Component {
 
         this.state = {
             mapViews: props.mapViews, // Can be changed by drilling
+            resizeCount: 0,
         };
     }
 
@@ -43,8 +44,9 @@ class Plugin extends Component {
             offset,
             feature,
             mapViews,
-            resizeOptions,
+            resizeCount,
             isSplitView,
+            isFullscreen,
             container,
         } = this.state;
 
@@ -55,13 +57,14 @@ class Plugin extends Component {
                 {!hideTitle && <MapName name={name} />}
                 <MapView
                     isPlugin={true}
-                    resizeOptions={resizeOptions}
+                    isFullscreen={isFullscreen}
                     basemap={basemap}
                     layers={mapViews}
                     controls={controls}
                     bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
                     onCloseContextMenu={this.onCloseContextMenu}
+                    resizeCount={resizeCount}
                 />
                 <Legend layers={mapViews} />
                 <ContextMenu
@@ -77,11 +80,12 @@ class Plugin extends Component {
     }
 
     // Call this method when plugin container is resized
-    resize(resizeOptions) {
+    resize(isFullscreen) {
         // Will trigger a redraw of the MapView component
-        this.setState({
-            resizeOptions,
-        });
+        this.setState(state => ({
+            resizeCount: state.resizeCount + 1,
+            isFullscreen,
+        }));
     }
 
     onOpenContextMenu = state => this.setState(state);

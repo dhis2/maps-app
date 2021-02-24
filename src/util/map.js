@@ -78,19 +78,11 @@ export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
     parentGraphMap: {},
 });
 
-export const getFullscreenOptions = isFullscreen => ({
-    fitBounds: !isFullscreen,
-    scrollZoom: isFullscreen,
-    multiTouch: !isFullscreen,
-});
-
 // Called when plugin maps enter or exit fullscreen
-export const onFullscreenChange = (map, options = {}) => {
-    const { fitBounds, scrollZoom, multiTouch } = options;
-
+export const onFullscreenChange = (map, isFullscreen) => {
     map.resize();
 
-    if (fitBounds) {
+    if (!isFullscreen) {
         const bounds = map.getLayersBounds();
 
         if (Array.isArray(bounds)) {
@@ -98,11 +90,6 @@ export const onFullscreenChange = (map, options = {}) => {
         }
     }
 
-    if (scrollZoom !== undefined) {
-        map.toggleScrollZoom(scrollZoom);
-    }
-
-    if (multiTouch !== undefined) {
-        map.toggleMultiTouch(multiTouch);
-    }
+    map.toggleMultiTouch(!isFullscreen);
+    map.toggleScrollZoom(isFullscreen);
 };

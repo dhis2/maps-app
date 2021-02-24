@@ -6,12 +6,11 @@ import MapItem from './MapItem';
 import Layer from './layers/Layer';
 import ThematicLayer from './layers/ThematicLayer';
 import styles from './styles/SplitView.module.css';
-import { getFullscreenOptions } from '../../util/map';
 
 class SplitView extends PureComponent {
     static propTypes = {
         isPlugin: PropTypes.bool,
-        resizeOptions: PropTypes.object,
+        isFullscreen: PropTypes.bool,
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
         feature: PropTypes.object,
@@ -29,11 +28,11 @@ class SplitView extends PureComponent {
 
     // Add map controls to split view container
     componentDidUpdate(prevProps, prevState) {
-        const { resizeOptions, isPlugin } = this.props;
+        const { isFullscreen, isPlugin } = this.props;
         const { controls } = this.state;
 
-        if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
-            this.setState({ resizeOptions });
+        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
+            this.setState({ isFullscreen });
         }
 
         if (controls !== prevState.controls) {
@@ -51,7 +50,7 @@ class SplitView extends PureComponent {
             feature,
             openContextMenu,
         } = this.props;
-        const { resizeOptions } = this.state;
+        const { isFullscreen } = this.state;
 
         const { id, periods = [] } = layer;
 
@@ -70,7 +69,7 @@ class SplitView extends PureComponent {
                         onRemove={this.onMapRemove}
                         setMapControls={this.setMapControls}
                         isPlugin={isPlugin}
-                        resizeOptions={resizeOptions}
+                        isFullscreen={isFullscreen}
                     >
                         <Layer index={0} {...basemap} />
                         <ThematicLayer
@@ -103,10 +102,7 @@ class SplitView extends PureComponent {
         this.setState({ controls });
     };
 
-    onFullScreenChange = ({ isFullscreen }) =>
-        this.setState({
-            resizeOptions: getFullscreenOptions(isFullscreen),
-        });
+    onFullScreenChange = ({ isFullscreen }) => this.setState({ isFullscreen });
 }
 
 export default SplitView;

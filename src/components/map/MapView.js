@@ -9,12 +9,12 @@ import { getMapControls } from '../../util/mapControls';
 const MapView = props => {
     const {
         isPlugin,
+        isFullscreen,
         basemap,
         layers,
         controls,
         feature,
         bounds,
-        resizeOptions,
         coordinatePopup,
         closeCoordinatePopup,
         openContextMenu,
@@ -31,7 +31,7 @@ const MapView = props => {
             {isSplitView ? (
                 <SplitView
                     isPlugin={isPlugin}
-                    resizeOptions={resizeOptions}
+                    isFullscreen={isFullscreen}
                     basemap={basemap}
                     layer={splitViewLayer}
                     controls={mapControls}
@@ -42,7 +42,7 @@ const MapView = props => {
             ) : (
                 <Map
                     isPlugin={isPlugin}
-                    resizeOptions={resizeOptions}
+                    isFullscreen={isFullscreen}
                     basemap={basemap}
                     layers={[...layers].reverse()}
                     bounds={bounds}
@@ -61,7 +61,7 @@ const MapView = props => {
 
 MapView.propTypes = {
     isPlugin: PropTypes.bool,
-    resizeOptions: PropTypes.object,
+    isFullscreen: PropTypes.bool,
     basemap: PropTypes.object,
     layers: PropTypes.array,
     controls: PropTypes.array,
