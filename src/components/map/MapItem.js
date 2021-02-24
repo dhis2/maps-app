@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mapApi from './MapApi';
 import styles from './styles/MapItem.module.css';
-import { onFullScreenChange } from '../../util/map';
+import { onFullscreenChange } from '../../util/map';
 
 class MapItem extends PureComponent {
     static childContextTypes = {
@@ -63,7 +63,7 @@ class MapItem extends PureComponent {
         }
 
         if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
-            onFullScreenChange(this.map, resizeOptions);
+            onFullscreenChange(this.map, resizeOptions);
         }
 
         this.map.resize();

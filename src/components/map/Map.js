@@ -12,7 +12,7 @@ import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
 import ExternalLayer from './layers/ExternalLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
-import { onFullScreenChange } from '../../util/map';
+import { onFullscreenChange } from '../../util/map';
 import styles from './styles/Map.module.css';
 
 const layerType = {
@@ -64,7 +64,7 @@ class Map extends Component {
 
         if (isPlugin) {
             map.on('click', props.onCloseContextMenu);
-            map.on('fullscreenchange', this.onFullScreenChange);
+            map.on('fullscreenchange', this.onFullscreenChange);
         } else {
             map.on('contextmenu', this.onRightClick, this);
         }
@@ -117,7 +117,7 @@ class Map extends Component {
         }
 
         if (isPlugin) {
-            onFullScreenChange(map, resizeOptions);
+            onFullscreenChange(map, resizeOptions);
         }
     }
 
@@ -129,7 +129,7 @@ class Map extends Component {
         }
 
         if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
-            onFullScreenChange(this.map, resizeOptions);
+            onFullscreenChange(this.map, resizeOptions);
         }
     }
 
@@ -207,6 +207,10 @@ class Map extends Component {
     };
 
     onMapReady = map => this.setState({ map });
+
+    onFullscreenChange = resizeOptions => {
+        onFullscreenChange(this.map, resizeOptions);
+    };
 }
 
 export default Map;
