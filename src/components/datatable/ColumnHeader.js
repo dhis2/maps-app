@@ -7,10 +7,8 @@ import styles from './styles/ColumnHeader.module.css';
 // Replacement for https://github.com/bvaughn/react-virtualized/blob/master/source/Table/defaultHeaderRenderer.js
 
 const ColumnHeader = ({ dataKey, label, type, sortBy, sortDirection }) => (
-    <div className={styles.columnHeader}>
-        <span className={styles.label} title={label}>
-            {label}
-        </span>
+    <div title={label} className={styles.columnHeader}>
+        <span className={styles.label}>{label}</span>
         {sortBy === dataKey ? (
             <SortIndicator sortDirection={sortDirection} />
         ) : null}

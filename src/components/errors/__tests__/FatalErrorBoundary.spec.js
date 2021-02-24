@@ -32,7 +32,7 @@ describe('FatalErrorBoundary', () => {
         const testErrorText =
             'This is a test of the emergency alert system.  This is only a test.';
         wrapper.find(Something).simulateError(new Error(testErrorText));
-        expect(wrapper.contains('Something went wrong')).toBe(true);
+        expect(wrapper.contains('Show technical details')).toBe(true);
     });
 
     it('Should match the snapshot tree when error is manually invoked', () => {
@@ -50,8 +50,8 @@ describe('FatalErrorBoundary', () => {
         };
 
         wrapper.setState({ error, errorInfo });
-        expect(wrapper.contains('Something went wrong')).toBe(true);
 
+        expect(wrapper.contains('Show technical details')).toBe(true);
         expect(wrapper).toMatchSnapshot();
     });
 });

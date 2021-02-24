@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Modal, ModalTitle, ModalContent, ModalActions } from '@dhis2/ui';
+import { EVENT_LAYER } from '../../../constants/layers';
 
 import {
     META_DATA_FORMAT_ID,
@@ -65,7 +66,7 @@ export class DataDownloadDialog extends Component {
         }
 
         const layerType = layer.layer,
-            isEventLayer = layerType === 'event';
+            isEventLayer = layerType === EVENT_LAYER;
 
         return (
             <Modal position="middle" onClose={closeDialog}>

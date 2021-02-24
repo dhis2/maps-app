@@ -1,11 +1,18 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
+import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
-import Popup from './Popup';
-import { filterData } from '../../util/filter';
-import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../constants/layers';
+import Popup from '../Popup';
+import { filterData } from '../../../util/filter';
+import { cssColor } from '../../../util/colors';
+import {
+    LABEL_FONT_SIZE,
+    LABEL_FONT_STYLE,
+    LABEL_FONT_WEIGHT,
+    LABEL_FONT_COLOR,
+} from '../../../constants/layers';
 
-export default class BoundaryLayer extends Layer {
+class FacilityLayer extends Layer {
     state = {
         popup: null,
     };
@@ -17,34 +24,33 @@ export default class BoundaryLayer extends Layer {
             opacity,
             isVisible,
             data,
+            dataFilters,
             labels,
+            areaRadius,
+            labelFontColor,
             labelFontSize,
             labelFontStyle,
-            radiusLow,
-            dataFilters,
+            labelFontWeight,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
 
         const map = this.context.map;
 
+        // Create layer config object
         const config = {
-            type: 'boundary',
+            type: 'markers',
             id,
             index,
             opacity,
             isVisible,
             data: filteredData,
-            hoverLabel: '{name}',
-            style: {
-                opacity: 1,
-                fillOpacity: 0,
-                fill: false,
-            },
+            hoverLabel: '{label}',
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
         };
 
+        // Labels and label style
         if (labels) {
             const fontSize = labelFontSize || LABEL_FONT_SIZE;
 
@@ -52,14 +58,18 @@ export default class BoundaryLayer extends Layer {
             config.labelStyle = {
                 fontSize,
                 fontStyle: labelFontStyle || LABEL_FONT_STYLE,
+                fontWeight: labelFontWeight || LABEL_FONT_WEIGHT,
                 lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
+                color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
+                paddingTop: '10px',
             };
         }
 
-        if (radiusLow) {
-            config.style.radius = radiusLow;
+        if (areaRadius) {
+            config.buffer = areaRadius;
         }
 
+        // Create and add facility layer based on config object
         this.layer = map.createLayer(config);
         map.addLayer(this.layer);
 
@@ -69,7 +79,7 @@ export default class BoundaryLayer extends Layer {
 
     getPopup() {
         const { coordinates, feature } = this.state.popup;
-        const { name, level, parentName } = feature.properties;
+        const { name, dimensions, pn } = feature.properties;
 
         return (
             <Popup
@@ -78,14 +88,17 @@ export default class BoundaryLayer extends Layer {
                 className="dhis2-map-popup-orgunit"
             >
                 <em>{name}</em>
-                {level && (
+                {isPlainObject(dimensions) && (
                     <div>
-                        {i18n.t('Level')}: {level}
+                        {i18n.t('Groups')}:
+                        {Object.keys(dimensions)
+                            .map(id => dimensions[id])
+                            .join(', ')}
                     </div>
                 )}
-                {parentName && (
+                {pn && (
                     <div>
-                        {i18n.t('Parent unit')}: {parentName}
+                        {i18n.t('Parent unit')}: {pn}
                     </div>
                 )}
             </Popup>
@@ -99,9 +112,6 @@ export default class BoundaryLayer extends Layer {
     onFeatureClick(evt) {
         this.setState({ popup: evt });
     }
-
-    removeLayer() {
-        this.layer.off('click', this.onFeatureClick, this);
-        super.removeLayer();
-    }
 }
+
+export default FacilityLayer;

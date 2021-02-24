@@ -3,20 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { NoticeBox } from '@dhis2/ui';
-import Tabs from '../../core/Tabs';
-import Tab from '../../core/Tab';
-import NumberField from '../../core/NumberField';
+import {
+    Tab,
+    Tabs,
+    NumberField,
+    Checkbox,
+    ImageSelect,
+    ColorPicker,
+} from '../../core';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramStageSelect from '../../program/ProgramStageSelect';
 import EventStatusSelect from './EventStatusSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import StartEndDates from '../../periods/StartEndDates';
-import Checkbox from '../../core/Checkbox';
 import FilterGroup from '../../filter/FilterGroup';
-import ImageSelect from '../../core/ImageSelect';
 import StyleByDataItem from '../../dataItem/StyleByDataItem';
 import CoordinateField from '../../dataItem/CoordinateField';
-import ColorPicker from '../../core/ColorPicker';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';

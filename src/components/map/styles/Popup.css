@@ -4,6 +4,7 @@
 
 .dhis2-map-popup .mapboxgl-popup-content {
     padding-top: var(--spacers-dp16);
+    min-width: 150px;
 }
 
 .dhis2-map-popup-event {

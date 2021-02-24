@@ -425,6 +425,12 @@ const layerEdit = (state = null, action) => {
                 organisationUnitSelectionMode: action.payload,
             };
 
+        case types.LAYER_EDIT_BAND_SET:
+            return {
+                ...state,
+                band: action.payload,
+            };
+
         case types.LAYER_EDIT_PARAMS_SET:
             return {
                 ...state,

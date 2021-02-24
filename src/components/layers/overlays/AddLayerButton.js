@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useRef } from 'react';
 import i18n from '@dhis2/d2-i18n';
-import MenuButton from '../../core/MenuButton';
-import AddIcon from '@material-ui/icons/AddCircleOutline';
+import { MenuButton } from '../../core';
+import { IconAddCircle24 } from '@dhis2/ui';
 import AddLayerPopover from './AddLayerPopover';
 import styles from './styles/AddLayerButton.module.css';
 
@@ -15,7 +15,7 @@ const AddLayerButton = () => {
             <div className={styles.addLayerBtn} ref={buttonRef}>
                 <MenuButton onClick={toggleDialog} dataTest="addlayerbutton">
                     <span className={styles.btnContent}>
-                        <AddIcon className={styles.addIcon} />{' '}
+                        <IconAddCircle24 />
                         {i18n.t('Add layer')}
                     </span>
                 </MenuButton>

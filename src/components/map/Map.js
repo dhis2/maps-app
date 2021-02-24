@@ -2,14 +2,14 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import mapApi from './MapApi';
-import Layer from './Layer';
-import EventLayer from './EventLayer';
-import TrackedEntityLayer from './TrackedEntityLayer';
-import FacilityLayer from './FacilityLayer';
-import ThematicLayer from './ThematicLayer';
-import BoundaryLayer from './BoundaryLayer';
-import EarthEngineLayer from './EarthEngineLayer';
-import ExternalLayer from './ExternalLayer';
+import Layer from './layers/Layer';
+import EventLayer from './layers/EventLayer';
+import TrackedEntityLayer from './layers/TrackedEntityLayer';
+import FacilityLayer from './layers/FacilityLayer';
+import ThematicLayer from './layers/ThematicLayer';
+import BoundaryLayer from './layers/BoundaryLayer';
+import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
+import ExternalLayer from './layers/ExternalLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
 import styles from './styles/Map.module.css';
@@ -31,6 +31,7 @@ class Map extends Component {
         basemap: PropTypes.object,
         layers: PropTypes.array,
         controls: PropTypes.array,
+        feature: PropTypes.object,
         bounds: PropTypes.array,
         latitude: PropTypes.number,
         longitude: PropTypes.number,
@@ -145,6 +146,7 @@ class Map extends Component {
         const {
             basemap,
             layers,
+            feature,
             coordinatePopup: coordinates,
             closeCoordinatePopup,
             openContextMenu,
@@ -159,11 +161,16 @@ class Map extends Component {
                     <Fragment>
                         {overlays.map((config, index) => {
                             const Overlay = layerType[config.layer] || Layer;
+                            const highlight =
+                                feature && feature.layerId === config.id
+                                    ? feature
+                                    : null;
 
                             return (
                                 <Overlay
                                     key={config.id}
                                     index={overlays.length - index}
+                                    feature={highlight}
                                     openContextMenu={openContextMenu}
                                     {...config}
                                 />

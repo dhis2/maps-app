@@ -1,17 +1,23 @@
 import React, { Fragment, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Popover, Menu, MenuItem, Divider } from '@dhis2/ui';
-import MoreIcon from '@material-ui/icons/MoreHoriz';
-import EditIcon from '@material-ui/icons/Create';
-import TableIcon from '@material-ui/icons/ViewList';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/SaveAlt';
-import ChartIcon from '@material-ui/icons/BarChart';
-import IconButton from '../../core/IconButton';
+import {
+    Popover,
+    Menu,
+    MenuItem,
+    Divider,
+    IconMore24,
+    IconTable16,
+    IconVisualizationColumn16,
+    IconDownload16,
+    IconEdit16,
+    IconDelete16,
+} from '@dhis2/ui';
+import { IconButton } from '../../core';
 import styles from './styles/LayerToolbarMore.module.css';
 
 export const LayerToolbarMoreMenu = ({
+    layer = {},
     onEdit,
     onRemove,
     toggleDataTable,
@@ -42,11 +48,11 @@ export const LayerToolbarMoreMenu = ({
                     onClick={() => setIsOpen(!isOpen)}
                     dataTest="moremenubutton"
                 >
-                    <MoreIcon />
+                    <IconMore24 />
                 </IconButton>
             </div>
 
-            {isOpen && (
+            {isOpen && layer && (
                 <Popover
                     reference={anchorRef}
                     arrow={false}
@@ -58,7 +64,7 @@ export const LayerToolbarMoreMenu = ({
                             {toggleDataTable && (
                                 <MenuItem
                                     label={i18n.t('Show data table')}
-                                    icon={<TableIcon />}
+                                    icon={<IconTable16 />}
                                     onClick={() => {
                                         setIsOpen(false);
                                         toggleDataTable();
@@ -68,7 +74,7 @@ export const LayerToolbarMoreMenu = ({
                             {openAs && (
                                 <MenuItem
                                     label={i18n.t('Open as chart')}
-                                    icon={<ChartIcon />}
+                                    icon={<IconVisualizationColumn16 />}
                                     onClick={() => {
                                         setIsOpen(false);
                                         openAs('CHART');
@@ -78,7 +84,7 @@ export const LayerToolbarMoreMenu = ({
                             {downloadData && (
                                 <MenuItem
                                     label={i18n.t('Download data')}
-                                    icon={<SaveIcon />}
+                                    icon={<IconDownload16 />}
                                     onClick={() => {
                                         setIsOpen(false);
                                         downloadData();
@@ -89,7 +95,7 @@ export const LayerToolbarMoreMenu = ({
                             {onEdit && (
                                 <MenuItem
                                     label={i18n.t('Edit layer')}
-                                    icon={<EditIcon />}
+                                    icon={<IconEdit16 />}
                                     onClick={() => {
                                         setIsOpen(false);
                                         onEdit();
@@ -99,7 +105,8 @@ export const LayerToolbarMoreMenu = ({
                             {onRemove && (
                                 <MenuItem
                                     label={i18n.t('Remove layer')}
-                                    icon={<DeleteIcon />}
+                                    icon={<IconDelete16 />}
+                                    destructive
                                     onClick={() => {
                                         setIsOpen(false);
                                         onRemove();
@@ -115,6 +122,7 @@ export const LayerToolbarMoreMenu = ({
 };
 
 LayerToolbarMoreMenu.propTypes = {
+    layer: PropTypes.object,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
     toggleDataTable: PropTypes.func,

@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../constants/layers';
+import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../../constants/layers';
 
 class Layer extends PureComponent {
     static contextTypes = {
@@ -14,6 +14,7 @@ class Layer extends PureComponent {
         id: PropTypes.string.isRequired,
         index: PropTypes.number,
         layer: PropTypes.string,
+        feature: PropTypes.object,
         editCounter: PropTypes.number,
         opacity: PropTypes.number,
         isVisible: PropTypes.bool,
@@ -45,6 +46,7 @@ class Layer extends PureComponent {
             isVisible,
             editCounter,
             dataFilters,
+            feature,
         } = this.props;
         const { period } = this.state;
         const { period: prevPeriod } = prevState || {};
@@ -77,6 +79,10 @@ class Layer extends PureComponent {
         if (isVisible !== prevProps.isVisible) {
             this.setLayerVisibility();
         }
+
+        if (feature !== prevProps.feature) {
+            this.highlightFeature(feature);
+        }
     }
 
     componentWillUnmount() {
@@ -101,7 +107,7 @@ class Layer extends PureComponent {
 
     updateLayer = () => {
         this.removeLayer();
-        this.createLayer();
+        this.createLayer(true);
         this.setLayerOrder();
     };
 
@@ -151,6 +157,12 @@ class Layer extends PureComponent {
         }
 
         delete this.layer;
+    }
+
+    highlightFeature(feature) {
+        if (this.layer.highlight) {
+            this.layer.highlight(feature ? feature.id : null);
+        }
     }
 
     render() {

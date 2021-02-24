@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
+"POT-Creation-Date: 2021-02-18T16:03:04.284Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -1231,9 +1231,6 @@ msgstr ""
 
 msgid "No"
 msgstr "No"
-
-msgid "There was a problem creating a map from the imported data."
-msgstr ""
 
 msgid "Start date is invalid"
 msgstr ""

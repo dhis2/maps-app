@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ColorPicker from '../core/ColorPicker';
+import { ColorPicker } from '../core';
 import styles from './styles/OptionStyle.module.css';
 
 const OptionStyle = ({ name, color, onChange }) => (

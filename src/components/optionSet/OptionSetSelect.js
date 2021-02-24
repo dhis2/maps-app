@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import SelectField from '../core/SelectField';
+import { SelectField } from '../core';
 
 const OptionSetSelect = ({ options, value, onChange, className }) => {
     // TODO: Temporarily fix until we have a searchable SelectField handling hundreds of options

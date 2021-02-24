@@ -1,3 +1,45 @@
+# [1.5.0](https://github.com/dhis2/maps-app/compare/v1.4.0...v1.5.0) (2021-02-22)
+
+
+### Features
+
+* link data table rows to map features (DHIS2-10546) ([#1496](https://github.com/dhis2/maps-app/issues/1496)) ([ff8156a](https://github.com/dhis2/maps-app/commit/ff8156a56ee62873e14c3cf3c636f381b9220f0c))
+
+# [1.4.0](https://github.com/dhis2/maps-app/compare/v1.3.0...v1.4.0) (2021-02-19)
+
+
+### Features
+
+* earth engine aggregations in data table and download (DHIS2-9530) ([#1477](https://github.com/dhis2/maps-app/issues/1477)) ([3795892](https://github.com/dhis2/maps-app/commit/37958922d726dfe15e8cf17b5071fa8889b4000e))
+
+# [1.3.0](https://github.com/dhis2/maps-app/compare/v1.2.14...v1.3.0) (2021-02-19)
+
+
+### Features
+
+* earth engine layers aggregation and refactor (DHIS2-9530) ([#1476](https://github.com/dhis2/maps-app/issues/1476)) ([59782dc](https://github.com/dhis2/maps-app/commit/59782dcb84eae24ded46e354ba532cdf04a8d3b5))
+
+## [1.2.14](https://github.com/dhis2/maps-app/compare/v1.2.13...v1.2.14) (2021-02-19)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([4ee0955](https://github.com/dhis2/maps-app/commit/4ee0955124d8420934cb0faf3e90cf57fef1fecd))
+
+## [1.2.13](https://github.com/dhis2/maps-app/compare/v1.2.12...v1.2.13) (2021-02-18)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b92e9f4](https://github.com/dhis2/maps-app/commit/b92e9f436e194c2dee000a4b8b2d1e3541a9dd09))
+
+## [1.2.12](https://github.com/dhis2/maps-app/compare/v1.2.11...v1.2.12) (2021-02-15)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([839017b](https://github.com/dhis2/maps-app/commit/839017b3bec01f88b3c89c823a8325828eddda26))
+
 ## [1.2.11](https://github.com/dhis2/maps-app/compare/v1.2.10...v1.2.11) (2021-02-01)
 
 

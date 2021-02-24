@@ -4,9 +4,11 @@
 }
 
 .tabContent {
+    font-size: 14px;
     margin: var(--spacers-dp4) -16px 0;
     height: 340px;
     overflow-y: auto;
+    color: #333;
 }
 
 .flexColumnFlow {
@@ -46,14 +48,14 @@
     font-weight: bold;
 }
 
-.notice {
-    margin: var(--spacers-dp8) 0;
+.paragraph {
+    padding: var(--spacers-dp8) 0 var(--spacers-dp4);
+    font-size: 13px;
+    line-height: var(--spacers-dp16);
 }
 
-.help {
-    margin-top: var(--spacers-dp8);
-    font-size: 14px;
-    line-height: 20px;
+.notice {
+    margin: var(--spacers-dp16) 0;
 }
 
 .error {
@@ -122,11 +124,12 @@
 }
 
 .legendTitle {
-    padding-bottom: var(--spacers-dp16);
-    font-weight: bold;
+    font-size: 14px;
+    padding: var(--spacers-dp12) 0;
 }
 
 .scale {
+    margin-left: var(--spacers-dp8);
     margin-top: var(--spacers-dp16);
 }
 

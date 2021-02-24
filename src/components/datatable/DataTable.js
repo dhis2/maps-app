@@ -4,13 +4,22 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Table, Column } from 'react-virtualized';
 import { isValidUid } from 'd2/uid';
+import { debounce } from 'lodash/fp';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
+import EarthEngineColumns from './EarthEngineColumns';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
+import { highlightFeature } from '../../actions/feature';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
 import { formatTime } from '../../util/helpers';
+import {
+    EVENT_LAYER,
+    THEMATIC_LAYER,
+    BOUNDARY_LAYER,
+    EARTH_ENGINE_LAYER,
+} from '../../constants/layers';
 import { numberValueTypes } from '../../constants/valueTypes';
 import styles from './styles/DataTable.module.css';
 import '../../../node_modules/react-virtualized/styles.css';
@@ -19,9 +28,11 @@ import '../../../node_modules/react-virtualized/styles.css';
 class DataTable extends Component {
     static propTypes = {
         layer: PropTypes.object.isRequired,
+        feature: PropTypes.object,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         loadLayer: PropTypes.func.isRequired,
+        highlightFeature: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
@@ -65,7 +76,7 @@ class DataTable extends Component {
         const { layer, loadLayer } = this.props;
         const { layer: layerType, isExtended, serverCluster } = layer;
 
-        if (layerType === 'event' && !isExtended && !serverCluster) {
+        if (layerType === EVENT_LAYER && !isExtended && !serverCluster) {
             loadLayer({
                 ...layer,
                 showDataTable: true,
@@ -130,13 +141,44 @@ class DataTable extends Component {
             }));
     }
 
+    // Debounce needed as event is triggered multiple times for the same row
+    highlightFeature = debounce(50, id => {
+        const { feature, layer } = this.props;
+
+        // If not the same feature as already highlighted
+        if (!id || !feature || id !== feature.id) {
+            this.props.highlightFeature(
+                id
+                    ? {
+                          id,
+                          layerId: layer.id,
+                          origin: 'table',
+                      }
+                    : null
+            );
+        }
+    });
+
+    onRowMouseOver = evt => this.highlightFeature(evt.rowData.id);
+    onRowMouseOut = () => this.highlightFeature();
+
     render() {
-        const { width, height, layer } = this.props;
-        const { layer: layerType, styleDataItem, serverCluster } = layer;
         const { data, sortBy, sortDirection } = this.state;
-        const isThematic = layerType === 'thematic';
-        const isBoundary = layerType === 'boundary';
-        const isEvent = layerType === 'event';
+        const { width, height, layer } = this.props;
+
+        const {
+            layer: layerType,
+            styleDataItem,
+            serverCluster,
+            classes,
+            aggregationType,
+            legend,
+        } = layer;
+
+        const isThematic = layerType === THEMATIC_LAYER;
+        const isBoundary = layerType === BOUNDARY_LAYER;
+        const isEvent = layerType === EVENT_LAYER;
+        const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
 
         return !serverCluster ? (
             <Table
@@ -154,6 +196,8 @@ class DataTable extends Component {
                 sortDirection={sortDirection}
                 useDynamicRowHeight={false}
                 hideIndexRow={false}
+                onRowMouseOver={this.onRowMouseOver}
+                onRowMouseOut={this.onRowMouseOut}
             >
                 <Column
                     cellDataGetter={({ rowData }) => rowData.index}
@@ -163,16 +207,16 @@ class DataTable extends Component {
                     className="right"
                 />
                 <Column
-                    dataKey="id"
-                    label={i18n.t('Id')}
+                    dataKey={isEvent ? 'ouname' : 'name'}
+                    label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
                     )}
                 />
                 <Column
-                    dataKey={isEvent ? 'ouname' : 'name'}
-                    label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
+                    dataKey="id"
+                    label={i18n.t('Id')}
                     width={100}
                     headerRenderer={props => (
                         <ColumnHeader type="string" {...props} />
@@ -274,6 +318,14 @@ class DataTable extends Component {
                             cellRenderer={ColorCell}
                         />
                     ))}
+
+                {isEarthEngine &&
+                    EarthEngineColumns({
+                        classes,
+                        aggregationType,
+                        legend,
+                        data,
+                    })}
             </Table>
         ) : (
             <div className={styles.noSupport}>
@@ -286,12 +338,12 @@ class DataTable extends Component {
 }
 
 export default connect(
-    ({ dataTable, map }) => {
+    ({ dataTable, map, feature }) => {
         const layer = dataTable
             ? map.mapViews.filter(l => l.id === dataTable)[0]
             : null;
 
-        return layer ? { layer } : null;
+        return layer ? { layer, feature } : null;
     },
     {
         selectOrgUnit,
@@ -299,5 +351,6 @@ export default connect(
         setDataFilter,
         clearDataFilter,
         loadLayer,
+        highlightFeature,
     }
 )(DataTable);

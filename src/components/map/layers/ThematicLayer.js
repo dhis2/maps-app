@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
-import Timeline from '../periods/Timeline';
-import PeriodName from './PeriodName';
-import Popup from './Popup';
-import { filterData } from '../../util/filter';
-import { cssColor } from '../../util/colors';
-import { getPeriodFromFilters } from '../../util/analytics';
-import { polygonsToPoints } from '../../util/geojson';
+import Timeline from '../../periods/Timeline';
+import PeriodName from '../PeriodName';
+import Popup from '../Popup';
+import { filterData } from '../../../util/filter';
+import { cssColor } from '../../../util/colors';
+import { getPeriodFromFilters } from '../../../util/analytics';
+import { polygonsToPoints } from '../../../util/geojson';
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
@@ -17,7 +17,8 @@ import {
     LABEL_FONT_STYLE,
     LABEL_FONT_WEIGHT,
     LABEL_FONT_COLOR,
-} from '../../constants/layers';
+    BOUNDARY_LAYER,
+} from '../../../constants/layers';
 
 class ThematicLayer extends Layer {
     createLayer() {
@@ -105,7 +106,7 @@ class ThematicLayer extends Layer {
             });
 
             this.layer.addLayer({
-                type: 'boundary',
+                type: BOUNDARY_LAYER,
                 data: data.map(f => ({
                     ...f,
                     properties: {
