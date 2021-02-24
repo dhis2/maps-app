@@ -80,7 +80,7 @@ class Plugin extends Component {
     }
 
     // Call this method when plugin container is resized
-    resize(isFullscreen = false) {
+    resize(isFullscreen) {
         // Will trigger a redraw of the MapView component
         this.setState(state => ({
             resizeCount: state.resizeCount + 1,
