@@ -10,6 +10,7 @@ const MapView = props => {
     const {
         isPlugin,
         isFullscreen,
+        fitBounds,
         basemap,
         layers,
         controls,
@@ -32,6 +33,7 @@ const MapView = props => {
                 <SplitView
                     isPlugin={isPlugin}
                     isFullscreen={isFullscreen}
+                    fitBounds={fitBounds}
                     basemap={basemap}
                     layer={splitViewLayer}
                     controls={mapControls}
@@ -43,6 +45,7 @@ const MapView = props => {
                 <Map
                     isPlugin={isPlugin}
                     isFullscreen={isFullscreen}
+                    fitBounds={fitBounds}
                     basemap={basemap}
                     layers={[...layers].reverse()}
                     bounds={bounds}
@@ -62,6 +65,7 @@ const MapView = props => {
 MapView.propTypes = {
     isPlugin: PropTypes.bool,
     isFullscreen: PropTypes.bool,
+    fitBounds: PropTypes.bool,
     basemap: PropTypes.object,
     layers: PropTypes.array,
     controls: PropTypes.array,

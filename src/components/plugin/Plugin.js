@@ -47,6 +47,7 @@ class Plugin extends Component {
             resizeCount,
             isSplitView,
             isFullscreen,
+            fitBounds,
             container,
         } = this.state;
 
@@ -62,6 +63,7 @@ class Plugin extends Component {
                     layers={mapViews}
                     controls={controls}
                     bounds={defaultBounds}
+                    fitBounds={fitBounds}
                     openContextMenu={this.onOpenContextMenu}
                     onCloseContextMenu={this.onCloseContextMenu}
                     resizeCount={resizeCount}
@@ -80,11 +82,12 @@ class Plugin extends Component {
     }
 
     // Call this method when plugin container is resized
-    resize(isFullscreen = false) {
+    resize(isFullscreen = false, fitBounds = false) {
         // Will trigger a redraw of the MapView component
         this.setState(state => ({
             resizeCount: state.resizeCount + 1,
             isFullscreen,
+            fitBounds,
         }));
     }
 

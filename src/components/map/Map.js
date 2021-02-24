@@ -28,6 +28,7 @@ class Map extends Component {
     static propTypes = {
         isPlugin: PropTypes.bool,
         isFullscreen: PropTypes.bool,
+        fitBounds: PropTypes.bool,
         basemap: PropTypes.object,
         layers: PropTypes.array,
         controls: PropTypes.array,
@@ -122,14 +123,14 @@ class Map extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { resizeCount, isFullscreen, isPlugin } = this.props;
+        const { resizeCount, isFullscreen, fitBounds, isPlugin } = this.props;
 
         if (resizeCount !== prevProps.resizeCount) {
             this.map.resize();
         }
 
         if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
-            this.onFullScreenChange({ isFullscreen });
+            this.onFullScreenChange({ isFullscreen, fitBounds });
         }
     }
 
@@ -208,8 +209,17 @@ class Map extends Component {
 
     onMapReady = map => this.setState({ map });
 
-    onFullScreenChange = ({ isFullscreen }) =>
+    onFullScreenChange = ({ isFullscreen, fitBounds }) => {
         this.map.toggleScrollZoom(isFullscreen);
+
+        if (fitBounds) {
+            const bounds = this.map.getLayersBounds();
+
+            if (Array.isArray(bounds)) {
+                this.map.fitBounds(bounds);
+            }
+        }
+    };
 }
 
 export default Map;

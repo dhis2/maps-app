@@ -11,6 +11,7 @@ class SplitView extends PureComponent {
     static propTypes = {
         isPlugin: PropTypes.bool,
         isFullscreen: PropTypes.bool,
+        fitBounds: PropTypes.bool,
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
         feature: PropTypes.object,
@@ -30,11 +31,11 @@ class SplitView extends PureComponent {
 
     // Add map controls to split view container
     componentDidUpdate(prevProps, prevState) {
-        const { isFullscreen } = this.props;
+        const { isFullscreen, fitBounds } = this.props;
         const { controls } = this.state;
 
         if (isFullscreen !== prevProps.isFullscreen) {
-            this.onFullScreenChange({ isFullscreen });
+            this.onFullScreenChange({ isFullscreen, fitBounds });
         }
 
         if (controls !== prevState.controls) {
@@ -52,7 +53,7 @@ class SplitView extends PureComponent {
             feature,
             openContextMenu,
         } = this.props;
-        const { isFullscreen } = this.state;
+        const { isFullscreen, fitBounds } = this.state;
 
         const { id, periods = [] } = layer;
 
@@ -72,6 +73,7 @@ class SplitView extends PureComponent {
                         setMapControls={this.setMapControls}
                         isPlugin={isPlugin}
                         isFullscreen={isFullscreen}
+                        fitBounds={fitBounds}
                     >
                         <Layer index={0} {...basemap} />
                         <ThematicLayer
@@ -104,7 +106,8 @@ class SplitView extends PureComponent {
         this.setState({ controls });
     };
 
-    onFullScreenChange = ({ isFullscreen }) => this.setState({ isFullscreen });
+    onFullScreenChange = ({ isFullscreen, fitBounds }) =>
+        this.setState({ isFullscreen, fitBounds });
 }
 
 export default SplitView;
