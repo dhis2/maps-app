@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mapApi from './MapApi';
 import styles from './styles/MapItem.module.css';
+import { onFullScreenChange } from '../../util/map';
 
 class MapItem extends PureComponent {
     static childContextTypes = {
@@ -55,14 +56,14 @@ class MapItem extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        const { count, resizeOptions } = this.props;
+        const { count, resizeOptions, isPlugin } = this.props;
 
         if (count !== prevProps.count) {
             this.fitLayerBounds();
         }
 
-        if (resizeOptions !== prevProps.resizeOptions) {
-            this.onFullScreenChange(resizeOptions);
+        if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
+            onFullScreenChange(this.map, resizeOptions);
         }
 
         this.map.resize();
@@ -105,24 +106,6 @@ class MapItem extends PureComponent {
     }
 
     onMapReady = map => this.setState({ map });
-
-    onFullScreenChange = (options = {}) => {
-        const { scrollZoom, fitBounds } = options;
-
-        this.map.resize();
-
-        if (scrollZoom !== undefined) {
-            this.map.toggleScrollZoom(scrollZoom);
-        }
-
-        if (fitBounds) {
-            const bounds = this.map.getLayersBounds();
-
-            if (Array.isArray(bounds)) {
-                this.map.fitBounds(bounds);
-            }
-        }
-    };
 }
 
 export default MapItem;

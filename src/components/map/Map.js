@@ -12,6 +12,7 @@ import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
 import ExternalLayer from './layers/ExternalLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
+import { onFullScreenChange } from '../../util/map';
 import styles from './styles/Map.module.css';
 
 const layerType = {
@@ -37,6 +38,7 @@ class Map extends Component {
         longitude: PropTypes.number,
         zoom: PropTypes.number,
         coordinatePopup: PropTypes.array,
+        resizeCount: PropTypes.number,
         closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
         onCloseContextMenu: PropTypes.func,
@@ -115,15 +117,19 @@ class Map extends Component {
         }
 
         if (isPlugin) {
-            this.onFullScreenChange(resizeOptions);
+            onFullScreenChange(map, resizeOptions);
         }
     }
 
     componentDidUpdate(prevProps) {
-        const { resizeOptions } = this.props;
+        const { resizeCount, resizeOptions, isPlugin } = this.props;
 
-        if (resizeOptions !== prevProps.resizeOptions) {
-            this.onFullScreenChange(resizeOptions);
+        if (resizeCount !== prevProps.resizeCount) {
+            this.map.resize();
+        }
+
+        if (isPlugin && resizeOptions !== prevProps.resizeOptions) {
+            onFullScreenChange(this.map.map, resizeOptions);
         }
     }
 
@@ -201,24 +207,6 @@ class Map extends Component {
     };
 
     onMapReady = map => this.setState({ map });
-
-    onFullScreenChange = (options = {}) => {
-        const { scrollZoom, fitBounds } = options;
-
-        this.map.resize();
-
-        if (scrollZoom !== undefined) {
-            this.map.toggleScrollZoom(scrollZoom);
-        }
-
-        if (fitBounds) {
-            const bounds = this.map.getLayersBounds();
-
-            if (Array.isArray(bounds)) {
-                this.map.fitBounds(bounds);
-            }
-        }
-    };
 }
 
 export default Map;
