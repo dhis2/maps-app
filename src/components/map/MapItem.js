@@ -31,6 +31,10 @@ class MapItem extends PureComponent {
             scrollZoom: !isPlugin,
         });
 
+        if (isPlugin) {
+            this.map.toggleMultiTouch(true);
+        }
+
         this.map.on('ready', this.onMapReady);
     }
 

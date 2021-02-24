@@ -6,6 +6,7 @@ import MapItem from './MapItem';
 import Layer from './layers/Layer';
 import ThematicLayer from './layers/ThematicLayer';
 import styles from './styles/SplitView.module.css';
+import { getFullscreenOptions } from '../../util/map';
 
 class SplitView extends PureComponent {
     static propTypes = {
@@ -102,8 +103,10 @@ class SplitView extends PureComponent {
         this.setState({ controls });
     };
 
-    onFullScreenChange = ({ scrollZoom, fitBounds }) =>
-        this.setState({ resizeOptions: { scrollZoom, fitBounds } });
+    onFullScreenChange = ({ isFullscreen }) =>
+        this.setState({
+            resizeOptions: getFullscreenOptions(isFullscreen),
+        });
 }
 
 export default SplitView;
