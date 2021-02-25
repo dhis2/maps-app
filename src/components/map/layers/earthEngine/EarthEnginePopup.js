@@ -53,7 +53,8 @@ const EarthEnginePopup = props => {
         } else {
             header = (
                 <caption>
-                    {title} {period}
+                    {title}
+                    {period && <div>{period}</div>}
                     {groups && (
                         <div className={styles.group}>
                             {groups.length > 1
