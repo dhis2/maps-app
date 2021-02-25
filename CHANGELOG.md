@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/dhis2/maps-app/compare/v1.6.1...v1.6.2) (2021-02-25)
+
+
+### Bug Fixes
+
+* improved mobile handling (DHIS2-10413) ([#1459](https://github.com/dhis2/maps-app/issues/1459)) ([e9f5995](https://github.com/dhis2/maps-app/commit/e9f59953eccf8a9920ee7c0dcdbc92ea4de318ae))
+
 ## [1.6.1](https://github.com/dhis2/maps-app/compare/v1.6.0...v1.6.1) (2021-02-25)
 
 
