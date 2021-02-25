@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-18T16:03:04.284Z\n"
+"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -77,14 +77,14 @@ msgstr "حزمة البيانات"
 msgid "Index"
 msgstr "فهرس"
 
-msgid "Id"
-msgstr "المعرف"
-
 msgid "Org unit"
 msgstr "الوحدة التنظيمية"
 
 msgid "Name"
 msgstr "الإسم"
+
+msgid "Id"
+msgstr "المعرف"
 
 msgid "Event time"
 msgstr "وقت الحدث"
@@ -145,12 +145,6 @@ msgstr "إغلاق"
 msgid "Legend position"
 msgstr "موقع المفاتيح الإيضاحية"
 
-msgid "Year"
-msgstr "السنة"
-
-msgid "Period"
-msgstr "الفترة الزمنية"
-
 msgid "Organisation Units"
 msgstr "وحدات التنظيم"
 
@@ -166,104 +160,12 @@ msgstr "نصف قطر النقطة"
 msgid "No organisation units are selected"
 msgstr "لم يتم تحديد أي وحدات تنظيمية"
 
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr ""
-"تم تعديل تقديرات الكثافة السكانية مع المجاميع الوطنية لتتناسب مع تقديرات "
-"تقسيم السكان في الأمم المتحدة. جرّب عاماً آخر إذا كنت لا ترى بيانات لبلدك."
-
-msgid "Select year"
-msgstr "اختر السنة"
-
-msgid "Min people"
-msgstr "الحد الأدنى من الناس"
-
-msgid "Max people"
-msgstr "الحد الأعلى من الناس"
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr ""
-"الارتفاع فوق مستوى سطح البحر. يمكنك ضبط القيمتين الدنيا والقصوى بحيث تمثل "
-"التضاريس بشكل أفضل في منطقتك."
-
-msgid "Min meters"
-msgstr "الحد الأدنى لعدد الأمتار"
-
-msgid "Max meters"
-msgstr "الحد الأعلى لعدد الأمتار"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"هطول الأمطار التي تم جمعها من محطات الأقمار الصناعية والطقس الأرضية. القيم "
-"بالملليمتر خلال 5 أيام. يتم تحديثه شهرياً خلال الأسبوع الثالث من الشهر "
-"التالي."
-
-msgid "Min mm"
-msgstr "الحد الأدنى لعدد المليمترات"
-
-msgid "Max mm"
-msgstr "الحد الأعلى لعدد المليمترات"
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr ""
-"درجات حرارة سطح الأرض التي تم جمعها من القمر الصناعي في فترات 8 أيام. ستظهر "
-"بقع فارغة في المناطق ذات غطاء سحابي دائم."
-
-msgid "Min °C"
-msgstr "الحد الأدنى لدرجة الحرارة المئوية"
-
-msgid "Max °C"
-msgstr "الحد الأعلى لدرجة الحرارة المئوية"
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr "17 نوعاً مميزاً من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"شدة الضوء من المدن والبلدات والمواقع الأخرى ذات الإضاءة المستمرة ، بما في "
-"ذلك مشاعل الغاز."
-
-msgid "Min"
-msgstr "الأدنى"
-
-msgid "Max"
-msgstr "الأعلى"
-
-msgid "Steps"
-msgstr "الخطوات"
-
-msgid "Legend preview"
-msgstr ""
-
-msgid "This field is required"
-msgstr "هذا الحقل مطلوب"
-
-msgid "Valid range is"
-msgstr "النطاق الصالح هو"
-
 msgid "Group Set"
 msgstr ""
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "تذكر تحديد مستوى الوحدة التنظيمية الذي يحتوي على المرافق."
-
-msgid "Buffer"
-msgstr ""
-
-msgid "Radius in meters"
-msgstr "نصف القطر بالأمتار"
 
 msgid "Group set is required"
 msgstr ""
@@ -298,8 +200,58 @@ msgstr "تحديث الطبقة"
 msgid "Add layer"
 msgstr "إضافة طبقة"
 
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Groups"
+msgstr "المجموعات"
+
+msgid "This field is required"
+msgstr "هذا الحقل مطلوب"
+
 msgid "Data"
 msgstr "بيانات"
+
+msgid "Period"
+msgstr "الفترة الزمنية"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr ""
+
+msgid ""
+"Multiple aggregation methods are available. See the aggregation results by "
+"clicking map regions or viewing the data table. The results can also be "
+"downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Source"
+msgstr "المصدر"
+
+msgid "Year"
+msgstr "السنة"
+
+msgid "Available periods are set by the source data"
+msgstr ""
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min"
+msgstr "الأدنى"
+
+msgid "Max"
+msgstr "الأعلى"
+
+msgid "Steps"
+msgstr "الخطوات"
+
+msgid "Legend preview"
+msgstr ""
 
 msgid "Org Units"
 msgstr "الوحدات التنظيمية"
@@ -333,6 +285,12 @@ msgstr "لم يتم اختيار أي وحدات تنظيمية"
 
 msgid "Event status"
 msgstr "حالة الحدث"
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
+msgstr "نصف القطر بالأمتار"
 
 msgid "Aggregation type"
 msgstr "نوع التجميع"
@@ -583,14 +541,11 @@ msgstr "أزل الطبقة"
 msgid "Mid"
 msgstr ""
 
+msgid "Group"
+msgstr ""
+
 msgid "Filters"
 msgstr "‏‏عوامل التصفية"
-
-msgid "Source"
-msgstr "المصدر"
-
-msgid "Parent unit"
-msgstr "الوحدة العليا"
 
 msgid "Drill up one level"
 msgstr "الطلوع مستوى واحد"
@@ -613,15 +568,6 @@ msgstr "إعادة تحديد الموضع"
 msgid "Show {{name}}"
 msgstr "أضهار {{name}}"
 
-msgid "Not set"
-msgstr "غير مضبوط"
-
-msgid "Organisation unit"
-msgstr "الوحدة التنظيمية"
-
-msgid "Groups"
-msgstr "المجموعات"
-
 msgid "Longitude"
 msgstr "خط الطول"
 
@@ -630,6 +576,18 @@ msgstr "خط العرض"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "مشاهدة التفسير من  {{interpretationDate}}"
+
+msgid "Parent unit"
+msgstr "الوحدة العليا"
+
+msgid "Not set"
+msgstr "غير مضبوط"
+
+msgid "Organisation unit"
+msgstr "الوحدة التنظيمية"
+
+msgid "Loading layer data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "آخر تحديث"
@@ -845,6 +803,21 @@ msgstr "الانحراف المعياري"
 msgid "Variance"
 msgstr "التباين"
 
+msgid "Percentage"
+msgstr ""
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
+msgstr ""
+
 msgid "OSM Light"
 msgstr "OSM Light"
 
@@ -868,6 +841,240 @@ msgstr "Bing جوي"
 
 msgid "Bing Aerial Labels"
 msgstr ""
+
+msgid "Population"
+msgstr ""
+
+msgid "people per hectare"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
+msgstr ""
+
+msgid "Population age groups"
+msgstr ""
+
+msgid ""
+"Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "Men 0 - 1 years"
+msgstr ""
+
+msgid "Men 1 - 4 years"
+msgstr ""
+
+msgid "Men 5 - 9 years"
+msgstr ""
+
+msgid "Men 10 - 14 years"
+msgstr ""
+
+msgid "Men 15 - 19 years"
+msgstr ""
+
+msgid "Men 20 - 24 years"
+msgstr ""
+
+msgid "Men 25 - 29 years"
+msgstr ""
+
+msgid "Men 30 - 34 years"
+msgstr ""
+
+msgid "Men 35 - 39 years"
+msgstr ""
+
+msgid "Men 40 - 44 years"
+msgstr ""
+
+msgid "Men 45 - 49 years"
+msgstr ""
+
+msgid "Men 50 - 54 years"
+msgstr ""
+
+msgid "Men 55 - 59 years"
+msgstr ""
+
+msgid "Men 60 - 64 years"
+msgstr ""
+
+msgid "Men 65 - 69 years"
+msgstr ""
+
+msgid "Men 70 - 74 years"
+msgstr ""
+
+msgid "Men 75 - 79 years"
+msgstr ""
+
+msgid "Men 80 years and above"
+msgstr ""
+
+msgid "Women 0 - 1 years"
+msgstr ""
+
+msgid "Women 1 - 4 years"
+msgstr ""
+
+msgid "Women 5 - 9 years"
+msgstr ""
+
+msgid "Women 10 - 14 years"
+msgstr ""
+
+msgid "Women 15 - 19 years"
+msgstr ""
+
+msgid "Women 20 - 24 years"
+msgstr ""
+
+msgid "Women 25 - 29 years"
+msgstr ""
+
+msgid "Women 30 - 34 years"
+msgstr ""
+
+msgid "Women 35 - 39 years"
+msgstr ""
+
+msgid "Women 40 - 44 years"
+msgstr ""
+
+msgid "Women 45 - 49 years"
+msgstr ""
+
+msgid "Women 50 - 54 years"
+msgstr ""
+
+msgid "Women 55 - 59 years"
+msgstr ""
+
+msgid "Women 60 - 64 years"
+msgstr ""
+
+msgid "Women 65 - 69 years"
+msgstr ""
+
+msgid "Women 70 - 74 years"
+msgstr ""
+
+msgid "Women 75 - 79 years"
+msgstr ""
+
+msgid "Women 80 years and above"
+msgstr ""
+
+msgid "Elevation"
+msgstr "الارتفاع"
+
+msgid "metres"
+msgstr "أمتار"
+
+msgid "Elevation above sea-level."
+msgstr "الارتفاع فوق مستوى سطح البحر."
+
+msgid "Precipitation"
+msgstr "هطول الأمطار"
+
+msgid "millimeter"
+msgstr "ملليمتر"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"هطول الأمطار التي تم جمعها من محطات الأقمار الصناعية والطقس الأرضية. القيم "
+"بالملليمتر خلال 5 أيام. يتم تحديثه شهرياً خلال الأسبوع الثالث من الشهر "
+"التالي."
+
+msgid "Temperature"
+msgstr "الحرارة"
+
+msgid "°C during daytime"
+msgstr "درجة مئوية خلال النهار"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"جمعت درجات حرارة سطح الأرض من الأقمار الصناعية. ستظهر بقع فارغة في المناطق "
+"ذات الغطاء السحابي الدائم."
+
+msgid "Landcover"
+msgstr "الغطاء الأرضي"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "أنواع مميزة من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
+
+msgid "Evergreen Needleleaf forest"
+msgstr ""
+
+msgid "Evergreen Broadleaf forest"
+msgstr ""
+
+msgid "Deciduous Needleleaf forest"
+msgstr ""
+
+msgid "Deciduous Broadleaf forest"
+msgstr "غابة عريضة الأوراق"
+
+msgid "Mixed forest"
+msgstr "غابة مختلطة"
+
+msgid "Closed shrublands"
+msgstr "شجيرات مغلقة"
+
+msgid "Open shrublands"
+msgstr "الشجيرات المفتوحة"
+
+msgid "Woody savannas"
+msgstr "السافانا الخشبية"
+
+msgid "Savannas"
+msgstr "سافانا"
+
+msgid "Grasslands"
+msgstr "أراضي عشبية"
+
+msgid "Permanent wetlands"
+msgstr "الأراضي الرطبة الدائمة"
+
+msgid "Croplands"
+msgstr "الأراضي الزراعية"
+
+msgid "Urban and built-up"
+msgstr "حضري وعمراني"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "فسيفساء الأراضي الزراعية / الغطاء النباتي الطبيعي"
+
+msgid "Snow and ice"
+msgstr "الثلج والجليد"
+
+msgid "Barren or sparsely vegetated"
+msgstr "قاحل أو نباتات قليلة"
+
+msgid "Water"
+msgstr "ماء"
+
+msgid "people per km²"
+msgstr "شخص لكل كيلومتر مربع"
+
+msgid "Nighttime lights"
+msgstr "الأضواء الليلية"
+
+msgid "light intensity"
+msgstr "شدة الضوء"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"شدة الضوء من المدن والبلدات والمواقع الأخرى ذات الإضاءة المستمرة ، بما في "
+"ذلك مشاعل الغاز."
 
 msgid "All"
 msgstr "الجميع"
@@ -1067,16 +1274,6 @@ msgstr "آخر 5 سنوات مالية"
 msgid "Cancelled"
 msgstr "تم الإلغاء"
 
-msgid ""
-"This layer requires a Google Earth Engine account. Check the DHIS2 "
-"documentation for more information."
-msgstr ""
-"تتطلب هذه الطبقة حساب Google Earth Engine. تحقق من وثائق DHIS2 لمزيد من "
-"المعلومات."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "لم يتمكن من الاتصال بـ Google Earth Engine."
-
 msgid "Map \"{{name}}\" is saved."
 msgstr "تم حفظ الخريطة \"{{name}}\"."
 
@@ -1088,117 +1285,6 @@ msgstr "الحدود"
 
 msgid "No boundaries found"
 msgstr "لم يتم العثور على حدود"
-
-msgid "Elevation"
-msgstr "الارتفاع"
-
-msgid "metres"
-msgstr "أمتار"
-
-msgid "Elevation above sea-level."
-msgstr "الارتفاع فوق مستوى سطح البحر."
-
-msgid "Population density"
-msgstr "الكثافة السكانية"
-
-msgid "people per km²"
-msgstr "شخص لكل كيلومتر مربع"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates."
-msgstr ""
-"تقديرات الكثافة السكانية مع المجاميع الوطنية معدلة لتتناسب مع تقديرات قسم "
-"السكان في الأمم المتحدة."
-
-msgid "Nighttime lights"
-msgstr "الأضواء الليلية"
-
-msgid "light intensity"
-msgstr "شدة الضوء"
-
-msgid "Precipitation"
-msgstr "هطول الأمطار"
-
-msgid "millimeter"
-msgstr "ملليمتر"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground."
-msgstr "هطول الأمطار تم جمعة من الأقمار الصناعية ومحطات الطقس على الأرض."
-
-msgid "Temperature"
-msgstr "الحرارة"
-
-msgid "°C during daytime"
-msgstr "درجة مئوية خلال النهار"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"جمعت درجات حرارة سطح الأرض من الأقمار الصناعية. ستظهر بقع فارغة في المناطق "
-"ذات الغطاء السحابي الدائم."
-
-msgid "Landcover"
-msgstr "الغطاء الأرضي"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "أنواع مميزة من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
-
-msgid "Water"
-msgstr "ماء"
-
-msgid "Evergreen Needleleaf forest"
-msgstr ""
-
-msgid "Evergreen Broadleaf forest"
-msgstr ""
-
-msgid "Deciduous Needleleaf forest"
-msgstr ""
-
-msgid "Deciduous Broadleaf forest"
-msgstr "غابة عريضة الأوراق"
-
-msgid "Mixed forest"
-msgstr "غابة مختلطة"
-
-msgid "Closed shrublands"
-msgstr "شجيرات مغلقة"
-
-msgid "Open shrublands"
-msgstr "الشجيرات المفتوحة"
-
-msgid "Woody savannas"
-msgstr "السافانا الخشبية"
-
-msgid "Savannas"
-msgstr "سافانا"
-
-msgid "Grasslands"
-msgstr "أراضي عشبية"
-
-msgid "Permanent wetlands"
-msgstr "الأراضي الرطبة الدائمة"
-
-msgid "Croplands"
-msgstr "الأراضي الزراعية"
-
-msgid "Urban and built-up"
-msgstr "حضري وعمراني"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "فسيفساء الأراضي الزراعية / الغطاء النباتي الطبيعي"
-
-msgid "Snow and ice"
-msgstr "الثلج والجليد"
-
-msgid "Barren or sparsely vegetated"
-msgstr "قاحل أو نباتات قليلة"
-
-msgid "Unclassified"
-msgstr "غير مصنف"
 
 msgid "You don't have access to this layer data"
 msgstr "ليس لديك حق الوصول إلى بيانات الطبقة هذه"
@@ -1253,6 +1339,19 @@ msgstr "false"
 
 msgid "No"
 msgstr "لا"
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr ""
+"تتطلب هذه الطبقة حساب Google Earth Engine. تحقق من وثائق DHIS2 لمزيد من "
+"المعلومات."
+
+msgid "Cannot connect to Google Earth Engine."
+msgstr "لم يتمكن من الاتصال بـ Google Earth Engine."
 
 msgid "Start date is invalid"
 msgstr "تاريخ البدء غير صالح"

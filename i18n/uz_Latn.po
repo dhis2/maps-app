@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-18T16:03:04.284Z\n"
+"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -75,14 +75,14 @@ msgstr "Maʼlumotlar toʼplami"
 msgid "Index"
 msgstr "Indenks"
 
-msgid "Id"
-msgstr ""
-
 msgid "Org unit"
 msgstr "Tashkiliy birlik"
 
 msgid "Name"
 msgstr "Исми"
+
+msgid "Id"
+msgstr ""
 
 msgid "Event time"
 msgstr "Hodisa/Tadbir vaqti"
@@ -148,12 +148,6 @@ msgstr "Yopmoq"
 msgid "Legend position"
 msgstr "Tavsif holati"
 
-msgid "Year"
-msgstr "Yil"
-
-msgid "Period"
-msgstr "davr"
-
 msgid "Organisation Units"
 msgstr "Tashkiliy Boʼlimlar"
 
@@ -169,105 +163,12 @@ msgstr "Nuqta radiusi"
 msgid "No organisation units are selected"
 msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr ""
-"BMTning aholi sonini taqsimlanish koʼrsatgichlariga mos ravishda tuzilgan "
-"Аholi zichligining Milliy baholangani. Аgar mamlakatingiz boʼyicha maʼlumot "
-"mavjud boʼlmasa, boshqa yilni tanlab koʼring."
-
-msgid "Select year"
-msgstr "Yilni tanlang"
-
-msgid "Min people"
-msgstr "Minimal aholi"
-
-msgid "Max people"
-msgstr "Maksimal aholi"
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr ""
-"Dengiz sathidan balandlik. Minimal va maksimal qiymatlarni sozlashingiz "
-"mumkin, shundda xarita mintaqangiz relefini yaxshiroq aks etadi."
-
-msgid "Min meters"
-msgstr "Minimal metrlar"
-
-msgid "Max meters"
-msgstr "Maksimal metrlar"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Sunʼiy yoʼldosh va yerdagi stantsiyalardan yigʼilgan yogʼingarchilik "
-"maʼlumotlari. Qiymatlar 5 kunlik yigʼilgan maʼlumotlar asosida mm larda aks "
-"ettiriladi. Doimo oyning 3chi haftasida yangilanadi."
-
-msgid "Min mm"
-msgstr "Minimal mm"
-
-msgid "Max mm"
-msgstr "Maksimal mm"
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr ""
-"Sunʼiy yoʼldoshdan olingan 8 kunlik davriy yer usti harorati maʼlumotlari. "
-"Doimiy bulutlar bilan qoplangan joylarda boʼsh qiymatlar paydo boʼladi."
-
-msgid "Min °C"
-msgstr "Minimal °C"
-
-msgid "Max °C"
-msgstr "Maksimal °C"
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr "Sunʼiy yoʼldoshlardan yigʼilgan 17 xil quruqlik maʼlumotlari."
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Yorugʼlik intensivligi maʼlumotlari shaharlar, qishloqlar va shu jumladan "
-"yoqilgan gaz fakellaridan."
-
-msgid "Min"
-msgstr "Минимум"
-
-msgid "Max"
-msgstr "Максимум"
-
-msgid "Steps"
-msgstr "Qadamlar"
-
-msgid "Legend preview"
-msgstr "Oldingi taʼrif"
-
-msgid "This field is required"
-msgstr "Ushbu qator toʼldirilishi shart"
-
-msgid "Valid range is"
-msgstr "Yaroqli oraliq"
-
 msgid "Group Set"
 msgstr "Guruhlar toʼplami"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Oʼzida muassasani saqlagan tashkiliy boʼlimni tanlashni unutmang."
-
-msgid "Buffer"
-msgstr "Bufer"
-
-msgid "Radius in meters"
-msgstr "Radius metrlarda"
 
 msgid "Group set is required"
 msgstr "Guruhlar toʼplami talab qilinadi"
@@ -302,8 +203,58 @@ msgstr "Qatlamni yangilash"
 msgid "Add layer"
 msgstr "Qatlam qoʼshish"
 
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Groups"
+msgstr "Гуруҳлар"
+
+msgid "This field is required"
+msgstr "Ushbu qator toʼldirilishi shart"
+
 msgid "Data"
 msgstr "Маълумот"
+
+msgid "Period"
+msgstr "davr"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr ""
+
+msgid ""
+"Multiple aggregation methods are available. See the aggregation results by "
+"clicking map regions or viewing the data table. The results can also be "
+"downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Source"
+msgstr "Manba/Izlash"
+
+msgid "Year"
+msgstr "Yil"
+
+msgid "Available periods are set by the source data"
+msgstr ""
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min"
+msgstr "Минимум"
+
+msgid "Max"
+msgstr "Максимум"
+
+msgid "Steps"
+msgstr "Qadamlar"
+
+msgid "Legend preview"
+msgstr "Oldingi taʼrif"
 
 msgid "Org Units"
 msgstr "Tashkiliy Boʼlimlar"
@@ -338,6 +289,12 @@ msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
 msgid "Event status"
 msgstr "Hodisa/Tadbir holati"
+
+msgid "Buffer"
+msgstr "Bufer"
+
+msgid "Radius in meters"
+msgstr "Radius metrlarda"
 
 msgid "Aggregation type"
 msgstr "Бирлаштириш тури"
@@ -599,14 +556,11 @@ msgstr "Qatlamni oʼchirish"
 msgid "Mid"
 msgstr "Oʼrta"
 
+msgid "Group"
+msgstr ""
+
 msgid "Filters"
 msgstr "Filrlar"
-
-msgid "Source"
-msgstr "Manba/Izlash"
-
-msgid "Parent unit"
-msgstr "Аjdod boʼlimi"
 
 msgid "Drill up one level"
 msgstr "Bir pogʼonaga koʼtariling"
@@ -629,15 +583,6 @@ msgstr "Joyni qayta belgilang"
 msgid "Show {{name}}"
 msgstr "Koʼrsatish {{nomi}}"
 
-msgid "Not set"
-msgstr "Oʼrnatilmagan"
-
-msgid "Organisation unit"
-msgstr "Ташкилий бирлик"
-
-msgid "Groups"
-msgstr "Гуруҳлар"
-
 msgid "Longitude"
 msgstr "Kenglik"
 
@@ -646,6 +591,18 @@ msgstr "Kenglik"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "{{TalqinVaqt}} dan talqinni koʼrish"
+
+msgid "Parent unit"
+msgstr "Аjdod boʼlimi"
+
+msgid "Not set"
+msgstr "Oʼrnatilmagan"
+
+msgid "Organisation unit"
+msgstr "Ташкилий бирлик"
+
+msgid "Loading layer data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "Oxirgi yangilangan"
@@ -866,6 +823,21 @@ msgstr "Standart ogʼish"
 msgid "Variance"
 msgstr "Номувофиқлик"
 
+msgid "Percentage"
+msgstr ""
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
+msgstr ""
+
 msgid "OSM Light"
 msgstr "OSM manba"
 
@@ -889,6 +861,240 @@ msgstr "Gibrid koʼrinish"
 
 msgid "Bing Aerial Labels"
 msgstr "Belgilar"
+
+msgid "Population"
+msgstr ""
+
+msgid "people per hectare"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
+msgstr ""
+
+msgid "Population age groups"
+msgstr ""
+
+msgid ""
+"Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "Men 0 - 1 years"
+msgstr ""
+
+msgid "Men 1 - 4 years"
+msgstr ""
+
+msgid "Men 5 - 9 years"
+msgstr ""
+
+msgid "Men 10 - 14 years"
+msgstr ""
+
+msgid "Men 15 - 19 years"
+msgstr ""
+
+msgid "Men 20 - 24 years"
+msgstr ""
+
+msgid "Men 25 - 29 years"
+msgstr ""
+
+msgid "Men 30 - 34 years"
+msgstr ""
+
+msgid "Men 35 - 39 years"
+msgstr ""
+
+msgid "Men 40 - 44 years"
+msgstr ""
+
+msgid "Men 45 - 49 years"
+msgstr ""
+
+msgid "Men 50 - 54 years"
+msgstr ""
+
+msgid "Men 55 - 59 years"
+msgstr ""
+
+msgid "Men 60 - 64 years"
+msgstr ""
+
+msgid "Men 65 - 69 years"
+msgstr ""
+
+msgid "Men 70 - 74 years"
+msgstr ""
+
+msgid "Men 75 - 79 years"
+msgstr ""
+
+msgid "Men 80 years and above"
+msgstr ""
+
+msgid "Women 0 - 1 years"
+msgstr ""
+
+msgid "Women 1 - 4 years"
+msgstr ""
+
+msgid "Women 5 - 9 years"
+msgstr ""
+
+msgid "Women 10 - 14 years"
+msgstr ""
+
+msgid "Women 15 - 19 years"
+msgstr ""
+
+msgid "Women 20 - 24 years"
+msgstr ""
+
+msgid "Women 25 - 29 years"
+msgstr ""
+
+msgid "Women 30 - 34 years"
+msgstr ""
+
+msgid "Women 35 - 39 years"
+msgstr ""
+
+msgid "Women 40 - 44 years"
+msgstr ""
+
+msgid "Women 45 - 49 years"
+msgstr ""
+
+msgid "Women 50 - 54 years"
+msgstr ""
+
+msgid "Women 55 - 59 years"
+msgstr ""
+
+msgid "Women 60 - 64 years"
+msgstr ""
+
+msgid "Women 65 - 69 years"
+msgstr ""
+
+msgid "Women 70 - 74 years"
+msgstr ""
+
+msgid "Women 75 - 79 years"
+msgstr ""
+
+msgid "Women 80 years and above"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Balandlik"
+
+msgid "metres"
+msgstr "metrlar"
+
+msgid "Elevation above sea-level."
+msgstr "Dengiz sathidan balandlik"
+
+msgid "Precipitation"
+msgstr "Yogʼingarchilik"
+
+msgid "millimeter"
+msgstr "millimetr"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"Sunʼiy yoʼldosh va yerdagi stantsiyalardan yigʼilgan yogʼingarchilik "
+"maʼlumotlari. Qiymatlar 5 kunlik yigʼilgan maʼlumotlar asosida mm larda aks "
+"ettiriladi. Doimo oyning 3chi haftasida yangilanadi."
+
+msgid "Temperature"
+msgstr "Temperatura"
+
+msgid "°C during daytime"
+msgstr "Kunduzgi °C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Yer usti harorati sunʼiy yoʼldosh orqali aniqlashtirilgan. Doimiy bulutlar "
+"bilan qoplangan maydonlarda boʼsh dogʼlar paydo boʼladi"
+
+msgid "Landcover"
+msgstr "Oʼsimliklar qavati"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Sputnik yordamida yer qatlamining turi aniqlangan"
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Yashil igna bargli doimiy oʼrmonlar"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Doimiy yashil yapaloq bargli oʼrmonlar"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Nina bargli oʼrmonlar"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Yapaloq bargli oʼrmonlar"
+
+msgid "Mixed forest"
+msgstr "Аralash oʼrmonlar"
+
+msgid "Closed shrublands"
+msgstr "Zich butazorlar"
+
+msgid "Open shrublands"
+msgstr "Siyrak butazorlar"
+
+msgid "Woody savannas"
+msgstr "Savannalar (yogʼochli)"
+
+msgid "Savannas"
+msgstr "Savanna"
+
+msgid "Grasslands"
+msgstr "Oʼtloqlar"
+
+msgid "Permanent wetlands"
+msgstr "Doimiy botqoq yerlar"
+
+msgid "Croplands"
+msgstr "Oʼsimliklar"
+
+msgid "Urban and built-up"
+msgstr "Urbanizatsiya va shaharsozlik"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Oʼsimliklar/Tabiiy oʼsimliklar dunyosi"
+
+msgid "Snow and ice"
+msgstr "Qor va muz"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Hosilsiz yoki kam oʼsimliklardan"
+
+msgid "Water"
+msgstr "Suv"
+
+msgid "people per km²"
+msgstr "1 km² da odamlar"
+
+msgid "Nighttime lights"
+msgstr "Tungi chiroqlar"
+
+msgid "light intensity"
+msgstr "Yorugʼlik intensivligi"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Yorugʼlik intensivligi maʼlumotlari shaharlar, qishloqlar va shu jumladan "
+"yoqilgan gaz fakellaridan."
 
 msgid "All"
 msgstr "Barchasi"
@@ -1088,16 +1294,6 @@ msgstr "Охирги 5 молиявий йиллар"
 msgid "Cancelled"
 msgstr "Bekor qilindi"
 
-msgid ""
-"This layer requires a Google Earth Engine account. Check the DHIS2 "
-"documentation for more information."
-msgstr ""
-"Ushbu qatlam uchun Google Earth Engine akkaunti zarur. Qoʼshimcha maʼlumot "
-"olish uchunDHIS2 hujjatlarini tekshiring."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "Google Earth Engine ga ulanib boʼlmadi."
-
 msgid "Map \"{{name}}\" is saved."
 msgstr "Xarita \"{{ismi}}\" saqlangan"
 
@@ -1109,118 +1305,6 @@ msgstr "Chegaralar"
 
 msgid "No boundaries found"
 msgstr "Hech qanday chegara topilmadi"
-
-msgid "Elevation"
-msgstr "Balandlik"
-
-msgid "metres"
-msgstr "metrlar"
-
-msgid "Elevation above sea-level."
-msgstr "Dengiz sathidan balandlik"
-
-msgid "Population density"
-msgstr "Аholi zichligi"
-
-msgid "people per km²"
-msgstr "1 km² da odamlar"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates."
-msgstr ""
-"BMT aholi joylashuvi baholanishiga mos ravishda toʼgʼrilangan, aholi "
-"zichligi umummilliy maʼlumotlar bazasi"
-
-msgid "Nighttime lights"
-msgstr "Tungi chiroqlar"
-
-msgid "light intensity"
-msgstr "Yorugʼlik intensivligi"
-
-msgid "Precipitation"
-msgstr "Yogʼingarchilik"
-
-msgid "millimeter"
-msgstr "millimetr"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground."
-msgstr ""
-"Yogʼingarchilik axboroti sputnik va yerdagi stantsiyalardan yoigʼiladi"
-
-msgid "Temperature"
-msgstr "Temperatura"
-
-msgid "°C during daytime"
-msgstr "Kunduzgi °C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Yer usti harorati sunʼiy yoʼldosh orqali aniqlashtirilgan. Doimiy bulutlar "
-"bilan qoplangan maydonlarda boʼsh dogʼlar paydo boʼladi"
-
-msgid "Landcover"
-msgstr "Oʼsimliklar qavati"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Sputnik yordamida yer qatlamining turi aniqlangan"
-
-msgid "Water"
-msgstr "Suv"
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Yashil igna bargli doimiy oʼrmonlar"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Doimiy yashil yapaloq bargli oʼrmonlar"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Nina bargli oʼrmonlar"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Yapaloq bargli oʼrmonlar"
-
-msgid "Mixed forest"
-msgstr "Аralash oʼrmonlar"
-
-msgid "Closed shrublands"
-msgstr "Zich butazorlar"
-
-msgid "Open shrublands"
-msgstr "Siyrak butazorlar"
-
-msgid "Woody savannas"
-msgstr "Savannalar (yogʼochli)"
-
-msgid "Savannas"
-msgstr "Savanna"
-
-msgid "Grasslands"
-msgstr "Oʼtloqlar"
-
-msgid "Permanent wetlands"
-msgstr "Doimiy botqoq yerlar"
-
-msgid "Croplands"
-msgstr "Oʼsimliklar"
-
-msgid "Urban and built-up"
-msgstr "Urbanizatsiya va shaharsozlik"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Oʼsimliklar/Tabiiy oʼsimliklar dunyosi"
-
-msgid "Snow and ice"
-msgstr "Qor va muz"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Hosilsiz yoki kam oʼsimliklardan"
-
-msgid "Unclassified"
-msgstr "Klassifikatsiya qilinmagan"
 
 msgid "You don't have access to this layer data"
 msgstr "Ushbu qatlam maʼlumotlariga kirish huquqiga ega emassiz"
@@ -1275,6 +1359,19 @@ msgstr "yolgʼon"
 
 msgid "No"
 msgstr "Йўқ"
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr ""
+"Ushbu qatlam uchun Google Earth Engine akkaunti zarur. Qoʼshimcha maʼlumot "
+"olish uchunDHIS2 hujjatlarini tekshiring."
+
+msgid "Cannot connect to Google Earth Engine."
+msgstr "Google Earth Engine ga ulanib boʼlmadi."
 
 msgid "Start date is invalid"
 msgstr "Boshlanish sanasi notoʼgʼri"

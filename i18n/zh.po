@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-18T16:03:04.284Z\n"
+"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -78,14 +78,14 @@ msgstr "数据集"
 msgid "Index"
 msgstr "索引"
 
-msgid "Id"
-msgstr "Id"
-
 msgid "Org unit"
 msgstr "机构"
 
 msgid "Name"
 msgstr "名称"
+
+msgid "Id"
+msgstr "Id"
 
 msgid "Event time"
 msgstr "事件时间"
@@ -145,12 +145,6 @@ msgstr "关闭"
 msgid "Legend position"
 msgstr "图例位置"
 
-msgid "Year"
-msgstr "年"
-
-msgid "Period"
-msgstr "周期"
-
 msgid "Organisation Units"
 msgstr "组织机构管理"
 
@@ -166,93 +160,12 @@ msgstr "点半径"
 msgid "No organisation units are selected"
 msgstr "没有选择机构"
 
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr "与国际总数对应的人口密度评估，如果你在的国际没有数据，尝试换不同的年度"
-
-msgid "Select year"
-msgstr "选择年份"
-
-msgid "Min people"
-msgstr "最小人口"
-
-msgid "Max people"
-msgstr "最大人口"
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr "海平面以上的海拔，你可以调节最大最小值，以最好代表你的地区边界。"
-
-msgid "Min meters"
-msgstr "最小米数"
-
-msgid "Max meters"
-msgstr "最大米数"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr "从地面上的卫星和气象站收集的降水。该值在5天内以毫米为单位。在下个月的第3周内每月更新一次。"
-
-msgid "Min mm"
-msgstr "最小毫米数"
-
-msgid "Max mm"
-msgstr "最大毫米数"
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr "在8天内从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
-
-msgid "Min °C"
-msgstr "最低摄氏温度"
-
-msgid "Max °C"
-msgstr "最高摄氏温度"
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr "从卫星采集的17个地区的陆地覆盖类型"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr "各个城市城镇的灯光亮度，包括烟雾"
-
-msgid "Min"
-msgstr "最小"
-
-msgid "Max"
-msgstr "最大"
-
-msgid "Steps"
-msgstr "步"
-
-msgid "Legend preview"
-msgstr "图例预览"
-
-msgid "This field is required"
-msgstr "这个字段是必填的"
-
-msgid "Valid range is"
-msgstr "有效范围"
-
 msgid "Group Set"
 msgstr "组集"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "记住选择包括机构的等级"
-
-msgid "Buffer"
-msgstr "缓冲"
-
-msgid "Radius in meters"
-msgstr "半径（米）"
 
 msgid "Group set is required"
 msgstr "需要组集"
@@ -287,8 +200,58 @@ msgstr "更新图层"
 msgid "Add layer"
 msgstr "添加图层"
 
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Groups"
+msgstr "组"
+
+msgid "This field is required"
+msgstr "这个字段是必填的"
+
 msgid "Data"
 msgstr "数据"
+
+msgid "Period"
+msgstr "周期"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr ""
+
+msgid ""
+"Multiple aggregation methods are available. See the aggregation results by "
+"clicking map regions or viewing the data table. The results can also be "
+"downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Source"
+msgstr "资源"
+
+msgid "Year"
+msgstr "年"
+
+msgid "Available periods are set by the source data"
+msgstr ""
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min"
+msgstr "最小"
+
+msgid "Max"
+msgstr "最大"
+
+msgid "Steps"
+msgstr "步"
+
+msgid "Legend preview"
+msgstr "图例预览"
 
 msgid "Org Units"
 msgstr "机构"
@@ -322,6 +285,12 @@ msgstr "没有选择机构"
 
 msgid "Event status"
 msgstr "事件状态"
+
+msgid "Buffer"
+msgstr "缓冲"
+
+msgid "Radius in meters"
+msgstr "半径（米）"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
@@ -571,14 +540,11 @@ msgstr "移除图层"
 msgid "Mid"
 msgstr "中"
 
+msgid "Group"
+msgstr ""
+
 msgid "Filters"
 msgstr "过滤器"
-
-msgid "Source"
-msgstr "资源"
-
-msgid "Parent unit"
-msgstr "上级机构"
 
 msgid "Drill up one level"
 msgstr "上钻一级"
@@ -601,15 +567,6 @@ msgstr "重新定位"
 msgid "Show {{name}}"
 msgstr "显示{{name}}"
 
-msgid "Not set"
-msgstr "没有设置"
-
-msgid "Organisation unit"
-msgstr "组织机构"
-
-msgid "Groups"
-msgstr "组"
-
 msgid "Longitude"
 msgstr "经度"
 
@@ -618,6 +575,18 @@ msgstr "纬度"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
+
+msgid "Parent unit"
+msgstr "上级机构"
+
+msgid "Not set"
+msgstr "没有设置"
+
+msgid "Organisation unit"
+msgstr "组织机构"
+
+msgid "Loading layer data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -831,6 +800,21 @@ msgstr "标准差"
 msgid "Variance"
 msgstr "差异"
 
+msgid "Percentage"
+msgstr ""
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
+msgstr ""
+
 msgid "OSM Light"
 msgstr "OSM轻量"
 
@@ -854,6 +838,233 @@ msgstr "Bing空间图"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
+
+msgid "Population"
+msgstr ""
+
+msgid "people per hectare"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
+msgstr ""
+
+msgid "Population age groups"
+msgstr ""
+
+msgid ""
+"Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "Men 0 - 1 years"
+msgstr ""
+
+msgid "Men 1 - 4 years"
+msgstr ""
+
+msgid "Men 5 - 9 years"
+msgstr ""
+
+msgid "Men 10 - 14 years"
+msgstr ""
+
+msgid "Men 15 - 19 years"
+msgstr ""
+
+msgid "Men 20 - 24 years"
+msgstr ""
+
+msgid "Men 25 - 29 years"
+msgstr ""
+
+msgid "Men 30 - 34 years"
+msgstr ""
+
+msgid "Men 35 - 39 years"
+msgstr ""
+
+msgid "Men 40 - 44 years"
+msgstr ""
+
+msgid "Men 45 - 49 years"
+msgstr ""
+
+msgid "Men 50 - 54 years"
+msgstr ""
+
+msgid "Men 55 - 59 years"
+msgstr ""
+
+msgid "Men 60 - 64 years"
+msgstr ""
+
+msgid "Men 65 - 69 years"
+msgstr ""
+
+msgid "Men 70 - 74 years"
+msgstr ""
+
+msgid "Men 75 - 79 years"
+msgstr ""
+
+msgid "Men 80 years and above"
+msgstr ""
+
+msgid "Women 0 - 1 years"
+msgstr ""
+
+msgid "Women 1 - 4 years"
+msgstr ""
+
+msgid "Women 5 - 9 years"
+msgstr ""
+
+msgid "Women 10 - 14 years"
+msgstr ""
+
+msgid "Women 15 - 19 years"
+msgstr ""
+
+msgid "Women 20 - 24 years"
+msgstr ""
+
+msgid "Women 25 - 29 years"
+msgstr ""
+
+msgid "Women 30 - 34 years"
+msgstr ""
+
+msgid "Women 35 - 39 years"
+msgstr ""
+
+msgid "Women 40 - 44 years"
+msgstr ""
+
+msgid "Women 45 - 49 years"
+msgstr ""
+
+msgid "Women 50 - 54 years"
+msgstr ""
+
+msgid "Women 55 - 59 years"
+msgstr ""
+
+msgid "Women 60 - 64 years"
+msgstr ""
+
+msgid "Women 65 - 69 years"
+msgstr ""
+
+msgid "Women 70 - 74 years"
+msgstr ""
+
+msgid "Women 75 - 79 years"
+msgstr ""
+
+msgid "Women 80 years and above"
+msgstr ""
+
+msgid "Elevation"
+msgstr "高程"
+
+msgid "metres"
+msgstr "米"
+
+msgid "Elevation above sea-level."
+msgstr "海拔高于海平面。"
+
+msgid "Precipitation"
+msgstr "降水"
+
+msgid "millimeter"
+msgstr "毫米"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr "从地面上的卫星和气象站收集的降水。该值在5天内以毫米为单位。在下个月的第3周内每月更新一次。"
+
+msgid "Temperature"
+msgstr "温度"
+
+msgid "°C during daytime"
+msgstr "白天°C"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
+
+msgid "Landcover"
+msgstr "陆地覆盖"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "从卫星收集的独特的土地覆被类型。"
+
+msgid "Evergreen Needleleaf forest"
+msgstr "常绿针叶林"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "常绿阔叶林"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "落叶针叶林"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "落叶阔叶林"
+
+msgid "Mixed forest"
+msgstr "混交林"
+
+msgid "Closed shrublands"
+msgstr "封闭灌木丛"
+
+msgid "Open shrublands"
+msgstr "开放灌木丛"
+
+msgid "Woody savannas"
+msgstr "伍迪大草原"
+
+msgid "Savannas"
+msgstr "稀树草原"
+
+msgid "Grasslands"
+msgstr "草原"
+
+msgid "Permanent wetlands"
+msgstr "永久湿地"
+
+msgid "Croplands"
+msgstr "耕地"
+
+msgid "Urban and built-up"
+msgstr "城市和建筑"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "农田/天然植被马赛克"
+
+msgid "Snow and ice"
+msgstr "冰雪"
+
+msgid "Barren or sparsely vegetated"
+msgstr "贫瘠或稀疏的植被"
+
+msgid "Water"
+msgstr "水"
+
+msgid "people per km²"
+msgstr "每平方公里的人数"
+
+msgid "Nighttime lights"
+msgstr "夜间灯光"
+
+msgid "light intensity"
+msgstr "光强度"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr "各个城市城镇的灯光亮度，包括烟雾"
 
 msgid "All"
 msgstr "全部"
@@ -1053,14 +1264,6 @@ msgstr "最近五个财政年"
 msgid "Cancelled"
 msgstr "已取消"
 
-msgid ""
-"This layer requires a Google Earth Engine account. Check the DHIS2 "
-"documentation for more information."
-msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "无法连接到Google Earth Engine。"
-
 msgid "Map \"{{name}}\" is saved."
 msgstr "地图“ {{name}}”已保存。"
 
@@ -1072,113 +1275,6 @@ msgstr "边界线"
 
 msgid "No boundaries found"
 msgstr "没有发现边界线"
-
-msgid "Elevation"
-msgstr "高程"
-
-msgid "metres"
-msgstr "米"
-
-msgid "Elevation above sea-level."
-msgstr "海拔高于海平面。"
-
-msgid "Population density"
-msgstr "人口密度"
-
-msgid "people per km²"
-msgstr "每平方公里的人数"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates."
-msgstr "调整了人口密度的估计值，并调整了全国总数，以匹配联合国人口划分的估计值。"
-
-msgid "Nighttime lights"
-msgstr "夜间灯光"
-
-msgid "light intensity"
-msgstr "光强度"
-
-msgid "Precipitation"
-msgstr "降水"
-
-msgid "millimeter"
-msgstr "毫米"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground."
-msgstr "从地面上的卫星和气象站收集的降水。"
-
-msgid "Temperature"
-msgstr "温度"
-
-msgid "°C during daytime"
-msgstr "白天°C"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
-
-msgid "Landcover"
-msgstr "陆地覆盖"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "从卫星收集的独特的土地覆被类型。"
-
-msgid "Water"
-msgstr "水"
-
-msgid "Evergreen Needleleaf forest"
-msgstr "常绿针叶林"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "常绿阔叶林"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "落叶针叶林"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "落叶阔叶林"
-
-msgid "Mixed forest"
-msgstr "混交林"
-
-msgid "Closed shrublands"
-msgstr "封闭灌木丛"
-
-msgid "Open shrublands"
-msgstr "开放灌木丛"
-
-msgid "Woody savannas"
-msgstr "伍迪大草原"
-
-msgid "Savannas"
-msgstr "稀树草原"
-
-msgid "Grasslands"
-msgstr "草原"
-
-msgid "Permanent wetlands"
-msgstr "永久湿地"
-
-msgid "Croplands"
-msgstr "耕地"
-
-msgid "Urban and built-up"
-msgstr "城市和建筑"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "农田/天然植被马赛克"
-
-msgid "Snow and ice"
-msgstr "冰雪"
-
-msgid "Barren or sparsely vegetated"
-msgstr "贫瘠或稀疏的植被"
-
-msgid "Unclassified"
-msgstr "未分类"
 
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
@@ -1233,6 +1329,17 @@ msgstr "假"
 
 msgid "No"
 msgstr "否"
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
+
+msgid "Cannot connect to Google Earth Engine."
+msgstr "无法连接到Google Earth Engine。"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"

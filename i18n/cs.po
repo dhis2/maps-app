@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-18T16:03:04.284Z\n"
+"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -75,14 +75,14 @@ msgstr "Datová sada"
 msgid "Index"
 msgstr "Index"
 
-msgid "Id"
-msgstr "Id"
-
 msgid "Org unit"
 msgstr "Organizační jednotka"
 
 msgid "Name"
 msgstr "Název"
+
+msgid "Id"
+msgstr "Id"
 
 msgid "Event time"
 msgstr "Čas události"
@@ -145,12 +145,6 @@ msgstr "Zavřít"
 msgid "Legend position"
 msgstr "Pozice legendy"
 
-msgid "Year"
-msgstr "Rok"
-
-msgid "Period"
-msgstr "Období"
-
 msgid "Organisation Units"
 msgstr "Organizační jednotky"
 
@@ -166,105 +160,12 @@ msgstr "Poloměr bodu"
 msgid "No organisation units are selected"
 msgstr "Nejsou vybrány žádné organizační jednotky"
 
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr ""
-"Odhady hustoty obyvatelstva s národními součty upravenými tak, aby "
-"odpovídaly odhadům populačního rozdělení OSN. Pokud nevidíte údaje pro svou "
-"zemi, zkuste jiný rok."
-
-msgid "Select year"
-msgstr "Vybrat rok"
-
-msgid "Min people"
-msgstr "Min. lidí"
-
-msgid "Max people"
-msgstr "Max lidí"
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr ""
-"Nadmořská výška. Můžete upravit minimální a maximální hodnoty, aby lépe "
-"reprezentovaly terén ve vaší oblasti."
-
-msgid "Min meters"
-msgstr "Min. metry"
-
-msgid "Max meters"
-msgstr "Max. metrů"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Srážky shromážděné ze satelitů a pozemních meteorologických stanic. Hodnoty "
-"jsou v milimetrech během 5 dnů. Aktualizováno měsíčně, během 3. týdne "
-"následujícího měsíce."
-
-msgid "Min mm"
-msgstr "Min mm"
-
-msgid "Max mm"
-msgstr "Max mm"
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr ""
-"Teploty povrchu země shromážděné ze satelitu za období 8 dnů. V oblastech s "
-"přetrvávající oblačností se objeví prázdná místa."
-
-msgid "Min °C"
-msgstr "Min °C"
-
-msgid "Max °C"
-msgstr "Max °C"
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr "17 různých typů krajinného pokryvu shromážděných ze satelitů."
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně "
-"plynových erupcí."
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "Steps"
-msgstr "Kroky"
-
-msgid "Legend preview"
-msgstr "Náhled legendy"
-
-msgid "This field is required"
-msgstr "Toto pole je povinné"
-
-msgid "Valid range is"
-msgstr "Platný rozsah je"
-
 msgid "Group Set"
 msgstr "Skupinová sada"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Nezapomeňte vybrat úroveň organizační jednotky obsahující zařízení."
-
-msgid "Buffer"
-msgstr "Vyrovnávací paměť"
-
-msgid "Radius in meters"
-msgstr "Poloměr v metrech"
 
 msgid "Group set is required"
 msgstr "Skupinová sada je povinná"
@@ -299,8 +200,58 @@ msgstr "Aktualizovat vrstvu"
 msgid "Add layer"
 msgstr "Přidat vrstvu"
 
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Groups"
+msgstr "Skupiny"
+
+msgid "This field is required"
+msgstr "Toto pole je povinné"
+
 msgid "Data"
 msgstr "Data"
+
+msgid "Period"
+msgstr "Období"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr ""
+
+msgid ""
+"Multiple aggregation methods are available. See the aggregation results by "
+"clicking map regions or viewing the data table. The results can also be "
+"downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Source"
+msgstr "Zdroj"
+
+msgid "Year"
+msgstr "Rok"
+
+msgid "Available periods are set by the source data"
+msgstr ""
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Steps"
+msgstr "Kroky"
+
+msgid "Legend preview"
+msgstr "Náhled legendy"
 
 msgid "Org Units"
 msgstr "Org. Jednotky"
@@ -334,6 +285,12 @@ msgstr "Nejsou vybrány žádné organizační jednotky."
 
 msgid "Event status"
 msgstr "Stav události"
+
+msgid "Buffer"
+msgstr "Vyrovnávací paměť"
+
+msgid "Radius in meters"
+msgstr "Poloměr v metrech"
 
 msgid "Aggregation type"
 msgstr "Typ agregace"
@@ -585,14 +542,11 @@ msgstr "Odstraňte vrstvu"
 msgid "Mid"
 msgstr "Střední"
 
+msgid "Group"
+msgstr ""
+
 msgid "Filters"
 msgstr "Filtry"
-
-msgid "Source"
-msgstr "Zdroj"
-
-msgid "Parent unit"
-msgstr "Nadřazená jednotka"
 
 msgid "Drill up one level"
 msgstr "Jděte o jednu úroveň výš"
@@ -615,15 +569,6 @@ msgstr "Přemístit"
 msgid "Show {{name}}"
 msgstr "Zobrazit {{name}}"
 
-msgid "Not set"
-msgstr "Nenastaveno"
-
-msgid "Organisation unit"
-msgstr "Organizační jednotka"
-
-msgid "Groups"
-msgstr "Skupiny"
-
 msgid "Longitude"
 msgstr "Zeměpisná délka"
 
@@ -632,6 +577,18 @@ msgstr "Zeměpisná šířka"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Prohlížení interpretací od {{interpretDate}}"
+
+msgid "Parent unit"
+msgstr "Nadřazená jednotka"
+
+msgid "Not set"
+msgstr "Nenastaveno"
+
+msgid "Organisation unit"
+msgstr "Organizační jednotka"
+
+msgid "Loading layer data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
@@ -850,6 +807,21 @@ msgstr "Standardní odchylka"
 msgid "Variance"
 msgstr "Rozptyl"
 
+msgid "Percentage"
+msgstr ""
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
+msgstr ""
+
 msgid "OSM Light"
 msgstr "OSM Light"
 
@@ -873,6 +845,240 @@ msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
+
+msgid "Population"
+msgstr ""
+
+msgid "people per hectare"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
+msgstr ""
+
+msgid "Population age groups"
+msgstr ""
+
+msgid ""
+"Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "Men 0 - 1 years"
+msgstr ""
+
+msgid "Men 1 - 4 years"
+msgstr ""
+
+msgid "Men 5 - 9 years"
+msgstr ""
+
+msgid "Men 10 - 14 years"
+msgstr ""
+
+msgid "Men 15 - 19 years"
+msgstr ""
+
+msgid "Men 20 - 24 years"
+msgstr ""
+
+msgid "Men 25 - 29 years"
+msgstr ""
+
+msgid "Men 30 - 34 years"
+msgstr ""
+
+msgid "Men 35 - 39 years"
+msgstr ""
+
+msgid "Men 40 - 44 years"
+msgstr ""
+
+msgid "Men 45 - 49 years"
+msgstr ""
+
+msgid "Men 50 - 54 years"
+msgstr ""
+
+msgid "Men 55 - 59 years"
+msgstr ""
+
+msgid "Men 60 - 64 years"
+msgstr ""
+
+msgid "Men 65 - 69 years"
+msgstr ""
+
+msgid "Men 70 - 74 years"
+msgstr ""
+
+msgid "Men 75 - 79 years"
+msgstr ""
+
+msgid "Men 80 years and above"
+msgstr ""
+
+msgid "Women 0 - 1 years"
+msgstr ""
+
+msgid "Women 1 - 4 years"
+msgstr ""
+
+msgid "Women 5 - 9 years"
+msgstr ""
+
+msgid "Women 10 - 14 years"
+msgstr ""
+
+msgid "Women 15 - 19 years"
+msgstr ""
+
+msgid "Women 20 - 24 years"
+msgstr ""
+
+msgid "Women 25 - 29 years"
+msgstr ""
+
+msgid "Women 30 - 34 years"
+msgstr ""
+
+msgid "Women 35 - 39 years"
+msgstr ""
+
+msgid "Women 40 - 44 years"
+msgstr ""
+
+msgid "Women 45 - 49 years"
+msgstr ""
+
+msgid "Women 50 - 54 years"
+msgstr ""
+
+msgid "Women 55 - 59 years"
+msgstr ""
+
+msgid "Women 60 - 64 years"
+msgstr ""
+
+msgid "Women 65 - 69 years"
+msgstr ""
+
+msgid "Women 70 - 74 years"
+msgstr ""
+
+msgid "Women 75 - 79 years"
+msgstr ""
+
+msgid "Women 80 years and above"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Nadmořská výška"
+
+msgid "metres"
+msgstr "metrů"
+
+msgid "Elevation above sea-level."
+msgstr "Nadmořská výška."
+
+msgid "Precipitation"
+msgstr "Srážky"
+
+msgid "millimeter"
+msgstr "milimetr"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"Srážky shromážděné ze satelitů a pozemních meteorologických stanic. Hodnoty "
+"jsou v milimetrech během 5 dnů. Aktualizováno měsíčně, během 3. týdne "
+"následujícího měsíce."
+
+msgid "Temperature"
+msgstr "Teplota"
+
+msgid "°C during daytime"
+msgstr "°C přes den"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Teploty povrchu země získané ze satelitu. V oblastech s přetrvávající "
+"oblačností se objeví prázdná místa."
+
+msgid "Landcover"
+msgstr "krajinné pokrytí"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Jehličnatý les"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Stálezelený listnatý les"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Listnatý jehličnatý les"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Listnatý opadavý les"
+
+msgid "Mixed forest"
+msgstr "Smíšený les"
+
+msgid "Closed shrublands"
+msgstr "Uzavřené křoviny"
+
+msgid "Open shrublands"
+msgstr "Otevřené křoviny"
+
+msgid "Woody savannas"
+msgstr "Porostlé savany"
+
+msgid "Savannas"
+msgstr "Savany"
+
+msgid "Grasslands"
+msgstr "Louky a pastviny"
+
+msgid "Permanent wetlands"
+msgstr "Trvalé mokřady"
+
+msgid "Croplands"
+msgstr "Orná půda"
+
+msgid "Urban and built-up"
+msgstr "Městské a zastavěné"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "orná půda / mozaika přírodní vegetace"
+
+msgid "Snow and ice"
+msgstr "Sníh a led"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Neplodná nebo řídce vegetovaná"
+
+msgid "Water"
+msgstr "Voda"
+
+msgid "people per km²"
+msgstr "lidí na km²"
+
+msgid "Nighttime lights"
+msgstr "Noční světla"
+
+msgid "light intensity"
+msgstr "intenzita světla"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně "
+"plynových erupcí."
 
 msgid "All"
 msgstr "Vše"
@@ -1072,16 +1278,6 @@ msgstr "Posledních 5 fiskálních roků"
 msgid "Cancelled"
 msgstr "Zrušeno"
 
-msgid ""
-"This layer requires a Google Earth Engine account. Check the DHIS2 "
-"documentation for more information."
-msgstr ""
-"Tato vrstva vyžaduje účet Google Earth Engine. Další informace najdete v "
-"dokumentaci DHIS2."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "Nelze se připojit k Google Earth Engine."
-
 msgid "Map \"{{name}}\" is saved."
 msgstr "Mapa \"{{name}}\" je uložena."
 
@@ -1093,117 +1289,6 @@ msgstr "Hranice"
 
 msgid "No boundaries found"
 msgstr "Nenalezeny žádné hranice"
-
-msgid "Elevation"
-msgstr "Nadmořská výška"
-
-msgid "metres"
-msgstr "metrů"
-
-msgid "Elevation above sea-level."
-msgstr "Nadmořská výška."
-
-msgid "Population density"
-msgstr "Hustota obyvatel"
-
-msgid "people per km²"
-msgstr "lidí na km²"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates."
-msgstr ""
-"Odhady hustoty obyvatelstva s národními součty upravenými tak, aby "
-"odpovídaly odhadům populačního rozdělení OSN."
-
-msgid "Nighttime lights"
-msgstr "Noční světla"
-
-msgid "light intensity"
-msgstr "intenzita světla"
-
-msgid "Precipitation"
-msgstr "Srážky"
-
-msgid "millimeter"
-msgstr "milimetr"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground."
-msgstr "Srážky shromážděné ze satelitů a meteorologických stanic na zemi."
-
-msgid "Temperature"
-msgstr "Teplota"
-
-msgid "°C during daytime"
-msgstr "°C přes den"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Teploty povrchu země získané ze satelitu. V oblastech s přetrvávající "
-"oblačností se objeví prázdná místa."
-
-msgid "Landcover"
-msgstr "krajinné pokrytí"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
-
-msgid "Water"
-msgstr "Voda"
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Jehličnatý les"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Stálezelený listnatý les"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Listnatý jehličnatý les"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Listnatý opadavý les"
-
-msgid "Mixed forest"
-msgstr "Smíšený les"
-
-msgid "Closed shrublands"
-msgstr "Uzavřené křoviny"
-
-msgid "Open shrublands"
-msgstr "Otevřené křoviny"
-
-msgid "Woody savannas"
-msgstr "Porostlé savany"
-
-msgid "Savannas"
-msgstr "Savany"
-
-msgid "Grasslands"
-msgstr "Louky a pastviny"
-
-msgid "Permanent wetlands"
-msgstr "Trvalé mokřady"
-
-msgid "Croplands"
-msgstr "Orná půda"
-
-msgid "Urban and built-up"
-msgstr "Městské a zastavěné"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "orná půda / mozaika přírodní vegetace"
-
-msgid "Snow and ice"
-msgstr "Sníh a led"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Neplodná nebo řídce vegetovaná"
-
-msgid "Unclassified"
-msgstr "Nezařazeno"
 
 msgid "You don't have access to this layer data"
 msgstr "K datům této vrstvy nemáte přístup"
@@ -1258,6 +1343,19 @@ msgstr "false"
 
 msgid "No"
 msgstr "Ne"
+
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr ""
+"Tato vrstva vyžaduje účet Google Earth Engine. Další informace najdete v "
+"dokumentaci DHIS2."
+
+msgid "Cannot connect to Google Earth Engine."
+msgstr "Nelze se připojit k Google Earth Engine."
 
 msgid "Start date is invalid"
 msgstr "Datum zahájení je neplatné"
