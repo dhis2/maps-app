@@ -551,7 +551,7 @@ msgid "Mid"
 msgstr "Ўрта"
 
 msgid "Group"
-msgstr ""
+msgstr "Гуруҳ"
 
 msgid "Filters"
 msgstr "Фильрлар"
@@ -816,7 +816,7 @@ msgid "Variance"
 msgstr "Номувофиқлик"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Фоиз"
 
 msgid "Hectares"
 msgstr ""

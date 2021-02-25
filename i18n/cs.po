@@ -543,7 +543,7 @@ msgid "Mid"
 msgstr "Střední"
 
 msgid "Group"
-msgstr ""
+msgstr "Skupina"
 
 msgid "Filters"
 msgstr "Filtry"
@@ -808,7 +808,7 @@ msgid "Variance"
 msgstr "Rozptyl"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Procento"
 
 msgid "Hectares"
 msgstr ""
@@ -817,7 +817,7 @@ msgid "Acres"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "Střední"
 
 msgid "Median"
 msgstr ""
