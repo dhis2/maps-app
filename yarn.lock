@@ -383,10 +383,10 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.3.5.tgz#1df0555bfa1019c671acf852733b5d8da3091bf4"
-  integrity sha512-sogjIR2JLGisDf6cIY2wAYx2nGNwS690RpkmGvzrGPIUGN3BK2sIag+CFe6OmonDX+kEdfY3HUnnK7168W0MkA==
+"@dhis2/maps-gl@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.3.6.tgz#7442bc96cb361d110ecdd6c8812cbcdd8fc8bcc7"
+  integrity sha512-7+DmkxCpztfvG38/BA4FZI5bSlIcA85m21BL/9BT1Eso2Id1hCq8gi3p8XloxJc1a/2gmIkpumYVrA1Dam5e/Q==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.0.1"
@@ -398,6 +398,7 @@
     fetch-jsonp "^1.1.3"
     lodash.throttle "^4.1.1"
     mapbox-gl "^1.11.0"
+    mapbox-gl-multitouch "^1.0.3"
     mapboxgl-spiderifier "^1.0.9"
     polylabel "^1.1.0"
     suggestions "^1.7.0"
@@ -9204,6 +9205,11 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+mapbox-gl-multitouch@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/mapbox-gl-multitouch/-/mapbox-gl-multitouch-1.0.3.tgz#db8bbe86a15d8398e3315d97305c9edde3f0f0d7"
+  integrity sha512-lpTFL2Sp7hK867mkMOZe2DvdS5eEHxWfMc7aSWCRDMgSq9IjPubsiix3FPs+IqcbkYmR+IUrzvH9RWBOXVs2cg==
 
 mapbox-gl@^1.11.0:
   version "1.11.0"
