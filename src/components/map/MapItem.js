@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mapApi from './MapApi';
 import styles from './styles/MapItem.module.css';
+import { onFullscreenChange } from '../../util/map';
 
 class MapItem extends PureComponent {
     static childContextTypes = {
@@ -29,6 +30,10 @@ class MapItem extends PureComponent {
             attributionControl: false,
             scrollZoom: !isPlugin,
         });
+
+        if (isPlugin) {
+            this.map.toggleMultiTouch(true);
+        }
 
         this.map.on('ready', this.onMapReady);
     }
@@ -62,7 +67,7 @@ class MapItem extends PureComponent {
         }
 
         if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
-            this.map.toggleScrollZoom(isFullscreen);
+            onFullscreenChange(this.map, isFullscreen);
         }
 
         this.map.resize();

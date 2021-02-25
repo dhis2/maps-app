@@ -216,7 +216,7 @@ const PluginContainer = () => {
     }
 
     // Should be called if the map container is resized
-    function resize(el, isFullscreen = false) {
+    function resize(el, isFullscreen) {
         const mapComponent = _components[el];
 
         if (mapComponent && mapComponent.current) {

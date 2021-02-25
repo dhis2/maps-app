@@ -19,22 +19,21 @@ class SplitView extends PureComponent {
     };
 
     static defaultProps = {
-        isFullscreen: false,
         openContextMenu: () => {},
     };
 
     state = {
-        isFullscreen: false,
         controls: null,
     };
 
     // Add map controls to split view container
     componentDidUpdate(prevProps, prevState) {
-        const { isFullscreen } = this.props;
+        const { isFullscreen, isPlugin } = this.props;
         const { controls } = this.state;
 
-        if (isFullscreen !== prevProps.isFullscreen) {
-            this.onFullScreenChange({ isFullscreen });
+        // From map plugin resize method
+        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
+            this.setState({ isFullscreen });
         }
 
         if (controls !== prevState.controls) {
@@ -104,6 +103,7 @@ class SplitView extends PureComponent {
         this.setState({ controls });
     };
 
+    // From built-in fullscreen control
     onFullScreenChange = ({ isFullscreen }) => this.setState({ isFullscreen });
 }
 

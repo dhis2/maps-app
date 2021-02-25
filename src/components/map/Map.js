@@ -12,6 +12,7 @@ import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
 import ExternalLayer from './layers/ExternalLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
+import { onFullscreenChange } from '../../util/map';
 import styles from './styles/Map.module.css';
 
 const layerType = {
@@ -45,7 +46,6 @@ class Map extends Component {
 
     static defaultProps = {
         isPlugin: false,
-        isFullscreen: false,
     };
 
     static childContextTypes = {
@@ -63,8 +63,10 @@ class Map extends Component {
         });
 
         if (isPlugin) {
+            map.toggleMultiTouch(true);
+
             map.on('click', props.onCloseContextMenu);
-            map.on('fullscreenchange', this.onFullScreenChange);
+            map.on('fullscreenchange', this.onFullscreenChange);
         } else {
             map.on('contextmenu', this.onRightClick, this);
         }
@@ -81,15 +83,7 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        const {
-            controls,
-            bounds,
-            latitude,
-            longitude,
-            zoom,
-            isPlugin,
-            isFullscreen,
-        } = this.props;
+        const { controls, bounds, latitude, longitude, zoom } = this.props;
         const { map } = this;
 
         // Append map container to DOM
@@ -115,10 +109,6 @@ class Map extends Component {
         } else {
             map.fitWorld();
         }
-
-        if (isPlugin) {
-            this.onFullScreenChange({ isFullscreen });
-        }
     }
 
     componentDidUpdate(prevProps) {
@@ -128,8 +118,9 @@ class Map extends Component {
             this.map.resize();
         }
 
+        // From map plugin resize method
         if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
-            this.onFullScreenChange({ isFullscreen });
+            onFullscreenChange(this.map, isFullscreen);
         }
     }
 
@@ -208,8 +199,10 @@ class Map extends Component {
 
     onMapReady = map => this.setState({ map });
 
-    onFullScreenChange = ({ isFullscreen }) =>
-        this.map.toggleScrollZoom(isFullscreen);
+    // From built-in fullscreen control
+    onFullscreenChange = ({ isFullscreen }) => {
+        onFullscreenChange(this.map, isFullscreen);
+    };
 }
 
 export default Map;
