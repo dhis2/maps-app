@@ -800,7 +800,7 @@ msgid "Variance"
 msgstr "Variation"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Procentsats"
 
 msgid "Hectares"
 msgstr ""

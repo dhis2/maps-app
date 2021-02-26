@@ -3,15 +3,15 @@
 # Sheila André <sandre@saudigitus.org>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # phil_dhis2, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
-# Ge Joao <gsimango@saudigitus.org>, 2020
+# Viktor Varland <viktor@dhis2.org>, 2021
+# Ge Joao <gsimango@saudigitus.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2020\n"
+"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -561,7 +561,7 @@ msgid "Mid"
 msgstr ""
 
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 msgid "Filters"
 msgstr "Filtros"
@@ -826,7 +826,7 @@ msgid "Variance"
 msgstr "Variância"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Percentagem "
 
 msgid "Hectares"
 msgstr ""

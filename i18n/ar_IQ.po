@@ -1,13 +1,13 @@
 # 
 # Translators:
-# KRG HIS <antonia.bezenchek@informa.pro>, 2020
+# KRG HIS <antonia.bezenchek@informa.pro>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2020\n"
+"Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2021\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -538,7 +538,7 @@ msgid "Mid"
 msgstr ""
 
 msgid "Group"
-msgstr ""
+msgstr "المجموعة"
 
 msgid "Filters"
 msgstr ""
