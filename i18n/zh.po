@@ -1,16 +1,16 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2020
-# easylin <lin_xd@126.com>, 2021
 # phil_dhis2, 2021
 # 晓东 林 <13981924470@126.com>, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -201,7 +201,7 @@ msgid "Add layer"
 msgstr "添加图层"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "汇总方法"
 
 msgid "Groups"
 msgstr "组"
@@ -218,16 +218,16 @@ msgstr "周期"
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
-msgstr ""
+msgstr "数据将在Google Earth Engine上针对所选组织单位进行计算。"
 
 msgid ""
 "Multiple aggregation methods are available. See the aggregation results by "
 "clicking map regions or viewing the data table. The results can also be "
 "downloaded."
-msgstr ""
+msgstr "有多种汇总统计方法可用。通过单击地图区域或查看数据表来查看聚合结果。结果也可以下载。"
 
 msgid "Unit"
-msgstr ""
+msgstr "单元"
 
 msgid "Source"
 msgstr "资源"
@@ -236,10 +236,10 @@ msgid "Year"
 msgstr "年"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "可用期间由源数据设置"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "加载期"
 
 msgid "Min"
 msgstr "最小"
@@ -586,7 +586,7 @@ msgid "Organisation unit"
 msgstr "组织机构"
 
 msgid "Loading layer data"
-msgstr ""
+msgstr "加载图层数据"
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -804,16 +804,16 @@ msgid "Percentage"
 msgstr "百分比"
 
 msgid "Hectares"
-msgstr ""
+msgstr "公顷"
 
 msgid "Acres"
-msgstr ""
+msgstr "英亩"
 
 msgid "Mean"
 msgstr "平均 "
 
 msgid "Median"
-msgstr ""
+msgstr "中位数"
 
 msgid "OSM Light"
 msgstr "OSM轻量"
@@ -840,128 +840,128 @@ msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
 
 msgid "Population"
-msgstr ""
+msgstr "人口"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "每公顷人数"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "居住在一个地区的估计人数。"
 
 msgid "Population age groups"
-msgstr ""
+msgstr "人口年龄组"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
-msgstr ""
+msgstr "按年龄和性别分组的估计居住在该地区的人数。"
 
 msgid "Men 0 - 1 years"
-msgstr ""
+msgstr "0-1岁男性"
 
 msgid "Men 1 - 4 years"
-msgstr ""
+msgstr "1-4岁男性"
 
 msgid "Men 5 - 9 years"
-msgstr ""
+msgstr "5-9岁男性"
 
 msgid "Men 10 - 14 years"
-msgstr ""
+msgstr "10-14岁男性"
 
 msgid "Men 15 - 19 years"
-msgstr ""
+msgstr "15-19岁的男性"
 
 msgid "Men 20 - 24 years"
-msgstr ""
+msgstr "20至24岁男性"
 
 msgid "Men 25 - 29 years"
-msgstr ""
+msgstr "25-29岁的男性"
 
 msgid "Men 30 - 34 years"
-msgstr ""
+msgstr "30-34岁的男性"
 
 msgid "Men 35 - 39 years"
-msgstr ""
+msgstr "35-39岁的男性"
 
 msgid "Men 40 - 44 years"
-msgstr ""
+msgstr "40-44岁的男性"
 
 msgid "Men 45 - 49 years"
-msgstr ""
+msgstr "45至49岁的男性"
 
 msgid "Men 50 - 54 years"
-msgstr ""
+msgstr "50-54岁的男性"
 
 msgid "Men 55 - 59 years"
-msgstr ""
+msgstr "55-59岁的男性"
 
 msgid "Men 60 - 64 years"
-msgstr ""
+msgstr "60-64岁的男性"
 
 msgid "Men 65 - 69 years"
-msgstr ""
+msgstr "65-69岁的男性"
 
 msgid "Men 70 - 74 years"
-msgstr ""
+msgstr "70-74岁的男性"
 
 msgid "Men 75 - 79 years"
-msgstr ""
+msgstr "75-79岁的男性"
 
 msgid "Men 80 years and above"
-msgstr ""
+msgstr "80岁以上的男性"
 
 msgid "Women 0 - 1 years"
-msgstr ""
+msgstr "0-1岁女性"
 
 msgid "Women 1 - 4 years"
-msgstr ""
+msgstr "1-4岁女性"
 
 msgid "Women 5 - 9 years"
-msgstr ""
+msgstr "5至9岁的女性"
 
 msgid "Women 10 - 14 years"
-msgstr ""
+msgstr "10至14岁的女性"
 
 msgid "Women 15 - 19 years"
-msgstr ""
+msgstr "15-19岁的女性"
 
 msgid "Women 20 - 24 years"
-msgstr ""
+msgstr "20至24岁的女性"
 
 msgid "Women 25 - 29 years"
-msgstr ""
+msgstr "25-29岁的女性"
 
 msgid "Women 30 - 34 years"
-msgstr ""
+msgstr "30-34岁的女性"
 
 msgid "Women 35 - 39 years"
-msgstr ""
+msgstr "35至39岁的女性"
 
 msgid "Women 40 - 44 years"
-msgstr ""
+msgstr "40-44岁的女性"
 
 msgid "Women 45 - 49 years"
-msgstr ""
+msgstr "45-49岁的女性"
 
 msgid "Women 50 - 54 years"
-msgstr ""
+msgstr "50-54岁的女性"
 
 msgid "Women 55 - 59 years"
-msgstr ""
+msgstr "55至59岁的女性"
 
 msgid "Women 60 - 64 years"
-msgstr ""
+msgstr "60-64岁的女性"
 
 msgid "Women 65 - 69 years"
-msgstr ""
+msgstr "65-69岁的女性"
 
 msgid "Women 70 - 74 years"
-msgstr ""
+msgstr "70-74岁的女性"
 
 msgid "Women 75 - 79 years"
-msgstr ""
+msgstr "75至79岁的女性"
 
 msgid "Women 80 years and above"
-msgstr ""
+msgstr "80岁及以上的女性"
 
 msgid "Elevation"
 msgstr "高程"
@@ -1331,7 +1331,7 @@ msgid "No"
 msgstr "否"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "无法获取Google Earth Engine的授权令牌。"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
