@@ -1,8 +1,10 @@
 import { getInstance as getD2 } from 'd2';
+import { precisionRound } from 'd3-format';
 import { getEarthEngineLayer } from '../constants/earthEngine';
 import { getPeriodFromFilter } from '../util/earthEngine';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
+import { numberPrecision } from '../util/numbers';
 import { toGeoJson } from '../util/map';
 
 // Returns a promise
@@ -106,6 +108,8 @@ const earthEngineLoader = async config => {
 export const createLegend = ({ min, max, palette }) => {
     const colors = palette.split(',');
     const step = (max - min) / (colors.length - (min > 0 ? 2 : 1));
+    const precision = precisionRound(step, max);
+    const valueFormat = numberPrecision(precision);
 
     let from = min;
     let to = Math.round(min + step);
@@ -130,7 +134,7 @@ export const createLegend = ({ min, max, palette }) => {
         }
 
         from = to;
-        to = Math.round(min + step * (index + (min > 0 ? 1 : 2)));
+        to = valueFormat(min + step * (index + (min > 0 ? 1 : 2)));
 
         return item;
     });
