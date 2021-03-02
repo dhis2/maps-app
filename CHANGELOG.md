@@ -1,3 +1,10 @@
+## [1.6.8](https://github.com/dhis2/maps-app/compare/v1.6.7...v1.6.8) (2021-03-02)
+
+
+### Bug Fixes
+
+* wider select fields ([#1527](https://github.com/dhis2/maps-app/issues/1527)) ([d09d789](https://github.com/dhis2/maps-app/commit/d09d789ce8b8bf126b84285335039483606ffbc2))
+
 ## [1.6.7](https://github.com/dhis2/maps-app/compare/v1.6.6...v1.6.7) (2021-03-02)
 
 
