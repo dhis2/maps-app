@@ -6,6 +6,7 @@ import { newMap, setMapProps } from '../../actions/map';
 import { loadFavorite } from '../../actions/favorites';
 import { saveFavorite, saveNewFavorite } from '../../actions/favorites';
 import { setAlert } from '../../actions/alerts';
+import styles from './styles/FileMenu.module.css';
 
 export const FileMenuContainer = (
     {
@@ -22,18 +23,20 @@ export const FileMenuContainer = (
     const setError = ({ message }) => setAlert({ critical: true, message });
 
     return (
-        <FileMenu
-            d2={d2}
-            fileType="map"
-            fileObject={map}
-            onNew={newMap}
-            onOpen={loadFavorite}
-            onSave={saveFavorite}
-            onSaveAs={saveNewFavorite}
-            onRename={setMapProps}
-            onDelete={newMap}
-            onError={setError}
-        />
+        <div className={styles.fileMenu}>
+            <FileMenu
+                d2={d2}
+                fileType="map"
+                fileObject={map}
+                onNew={newMap}
+                onOpen={loadFavorite}
+                onSave={saveFavorite}
+                onSaveAs={saveNewFavorite}
+                onRename={setMapProps}
+                onDelete={newMap}
+                onError={setError}
+            />
+        </div>
     );
 };
 
