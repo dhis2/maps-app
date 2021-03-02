@@ -85,7 +85,7 @@ const EarthEngineDialog = props => {
     }, [rows, setOrgUnitLevels]);
 
     useEffect(() => {
-        if (!areaRadius) {
+        if (areaRadius === undefined) {
             setBufferRadius(EE_BUFFER);
         }
     }, [areaRadius, setBufferRadius]);
@@ -203,7 +203,7 @@ EarthEngineDialog.propTypes = {
         max: PropTypes.number.isRequired,
         palette: PropTypes.string.isRequired,
     }),
-    areaRadius: PropTypes.number,
+    areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     legend: PropTypes.object,
     validateLayer: PropTypes.bool.isRequired,
     setFilter: PropTypes.func.isRequired,

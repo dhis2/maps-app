@@ -32,7 +32,9 @@ const BufferRadius = ({
                     label={i18n.t('Radius in meters')}
                     value={radius || ''}
                     disabled={disabled}
-                    onChange={setBufferRadius}
+                    onChange={value =>
+                        setBufferRadius(value !== '' ? parseInt(value, 10) : '')
+                    }
                 />
             )}
         </div>
@@ -40,7 +42,7 @@ const BufferRadius = ({
 };
 
 BufferRadius.propTypes = {
-    radius: PropTypes.number,
+    radius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     defaultRadius: PropTypes.number,
     disabled: PropTypes.bool,
     className: PropTypes.string,
