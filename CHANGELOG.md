@@ -1,3 +1,10 @@
+## [1.6.9](https://github.com/dhis2/maps-app/compare/v1.6.8...v1.6.9) (2021-03-02)
+
+
+### Bug Fixes
+
+* map download support and avoid legend overflow ([#1528](https://github.com/dhis2/maps-app/issues/1528)) ([d30b36f](https://github.com/dhis2/maps-app/commit/d30b36fb8965f96d6a3bd2f71f97ec19cf73da5a))
+
 ## [1.6.8](https://github.com/dhis2/maps-app/compare/v1.6.7...v1.6.8) (2021-03-02)
 
 
