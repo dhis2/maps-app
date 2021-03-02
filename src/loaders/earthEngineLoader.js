@@ -85,7 +85,6 @@ const earthEngineLoader = async config => {
         description,
         source,
         sourceUrl,
-        ...layer.legend,
     };
 
     // Create legend items from params
