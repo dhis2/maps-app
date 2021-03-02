@@ -5,6 +5,7 @@
     z-index: 998;
     font-size: 14px;
     max-width: 220px;
+    overflow: hidden;
 }
 
 .downloadLegend div a:link,

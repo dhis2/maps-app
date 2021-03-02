@@ -1,3 +1,31 @@
+## [1.6.8](https://github.com/dhis2/maps-app/compare/v1.6.7...v1.6.8) (2021-03-02)
+
+
+### Bug Fixes
+
+* wider select fields ([#1527](https://github.com/dhis2/maps-app/issues/1527)) ([d09d789](https://github.com/dhis2/maps-app/commit/d09d789ce8b8bf126b84285335039483606ffbc2))
+
+## [1.6.7](https://github.com/dhis2/maps-app/compare/v1.6.6...v1.6.7) (2021-03-02)
+
+
+### Bug Fixes
+
+* app menu style ([#1526](https://github.com/dhis2/maps-app/issues/1526)) ([ed36665](https://github.com/dhis2/maps-app/commit/ed3666562d94bb7e65f65b8145adace9ee2b5f2e))
+
+## [1.6.6](https://github.com/dhis2/maps-app/compare/v1.6.5...v1.6.6) (2021-03-01)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([1836a91](https://github.com/dhis2/maps-app/commit/1836a91bc466fd9570abe4279d1a67e0b994a357))
+
+## [1.6.5](https://github.com/dhis2/maps-app/compare/v1.6.4...v1.6.5) (2021-02-28)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([237931f](https://github.com/dhis2/maps-app/commit/237931f8b2725f87756e3f4893ad178c1e56851e))
+
 ## [1.6.4](https://github.com/dhis2/maps-app/compare/v1.6.3...v1.6.4) (2021-02-26)
 
 

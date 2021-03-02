@@ -76,13 +76,13 @@ const MapContainer = props => {
                     closeCoordinatePopup={closeCoordinatePopup}
                     resizeCount={resizeCount}
                 />
-                {isDownload && legendPosition && layers.length && (
+                {isDownload && legendPosition && layers.length ? (
                     <DownloadLegend
                         position={legendPosition}
                         layers={layers}
                         showName={showName}
                     />
-                )}
+                ) : null}
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>

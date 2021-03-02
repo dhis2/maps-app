@@ -201,7 +201,7 @@ msgid "Add layer"
 msgstr "Přidat vrstvu"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Metoda agregace"
 
 msgid "Groups"
 msgstr "Skupiny"
@@ -219,15 +219,20 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Data budou vypočítána na Google Earth Engine pro vybrané organizační "
+"jednotky."
 
 msgid ""
 "Multiple aggregation methods are available. See the aggregation results by "
 "clicking map regions or viewing the data table. The results can also be "
 "downloaded."
 msgstr ""
+"K dispozici je několik metod agregace. Výsledky agregace zobrazíte kliknutím"
+" na mapové oblasti nebo zobrazením datové tabulky. Výsledky lze také "
+"stáhnout."
 
 msgid "Unit"
-msgstr ""
+msgstr "Jednotka"
 
 msgid "Source"
 msgstr "Zdroj"
@@ -236,10 +241,10 @@ msgid "Year"
 msgstr "Rok"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Dostupné období jsou nastaveny podle zdrojových dat"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Načítání období"
 
 msgid "Min"
 msgstr "Min"
@@ -588,7 +593,7 @@ msgid "Organisation unit"
 msgstr "Organizační jednotka"
 
 msgid "Loading layer data"
-msgstr ""
+msgstr "Načítání dat vrstvy"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
@@ -811,16 +816,16 @@ msgid "Percentage"
 msgstr "Procento"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Hektary"
 
 msgid "Acres"
-msgstr ""
+msgstr "Akry"
 
 msgid "Mean"
 msgstr "Střední"
 
 msgid "Median"
-msgstr ""
+msgstr "Medián"
 
 msgid "OSM Light"
 msgstr "OSM Light"
@@ -847,128 +852,129 @@ msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
 
 msgid "Population"
-msgstr ""
+msgstr "Obyvatelstvo"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "lidí na hektar"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Odhadovaný počet lidí žijících v oblasti."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Populační věkové skupiny"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Odhadovaný počet lidí žijících v oblasti seskupených podle věku a pohlaví."
 
 msgid "Men 0 - 1 years"
-msgstr ""
+msgstr "Muži 0 - 1 rok"
 
 msgid "Men 1 - 4 years"
-msgstr ""
+msgstr "Muži 1 - 4 roky"
 
 msgid "Men 5 - 9 years"
-msgstr ""
+msgstr "Muži 5 - 9 let"
 
 msgid "Men 10 - 14 years"
-msgstr ""
+msgstr "Muži 10 - 14 let"
 
 msgid "Men 15 - 19 years"
-msgstr ""
+msgstr "Muži 15 - 19 let"
 
 msgid "Men 20 - 24 years"
-msgstr ""
+msgstr "Muži 20 - 24 let"
 
 msgid "Men 25 - 29 years"
-msgstr ""
+msgstr "Muži 25 - 29 let"
 
 msgid "Men 30 - 34 years"
-msgstr ""
+msgstr "Muži 30 - 34 let"
 
 msgid "Men 35 - 39 years"
-msgstr ""
+msgstr "Muži 35 - 39 let"
 
 msgid "Men 40 - 44 years"
-msgstr ""
+msgstr "Muži 40 - 44 let"
 
 msgid "Men 45 - 49 years"
-msgstr ""
+msgstr "Muži 45 - 49 let"
 
 msgid "Men 50 - 54 years"
-msgstr ""
+msgstr "Muži 50 - 54 let"
 
 msgid "Men 55 - 59 years"
-msgstr ""
+msgstr "Muži od 55 do 59 let"
 
 msgid "Men 60 - 64 years"
-msgstr ""
+msgstr "Muži 60 - 64 let"
 
 msgid "Men 65 - 69 years"
-msgstr ""
+msgstr "Muži od 65 do 69 let"
 
 msgid "Men 70 - 74 years"
-msgstr ""
+msgstr "Muži 70 - 74 let"
 
 msgid "Men 75 - 79 years"
-msgstr ""
+msgstr "Muži 75 - 79 let"
 
 msgid "Men 80 years and above"
-msgstr ""
+msgstr "Muži od 80 let"
 
 msgid "Women 0 - 1 years"
-msgstr ""
+msgstr "Ženy 0 - 1 rok"
 
 msgid "Women 1 - 4 years"
-msgstr ""
+msgstr "Ženy 1 - 4 roky"
 
 msgid "Women 5 - 9 years"
-msgstr ""
+msgstr "Ženy 5 - 9 let"
 
 msgid "Women 10 - 14 years"
-msgstr ""
+msgstr "Ženy 10 - 14 let"
 
 msgid "Women 15 - 19 years"
-msgstr ""
+msgstr "Ženy 15 - 19 let"
 
 msgid "Women 20 - 24 years"
-msgstr ""
+msgstr "Ženy 20 - 24 let"
 
 msgid "Women 25 - 29 years"
-msgstr ""
+msgstr "Ženy 25 - 29 let"
 
 msgid "Women 30 - 34 years"
-msgstr ""
+msgstr "Ženy 30 - 34 let"
 
 msgid "Women 35 - 39 years"
-msgstr ""
+msgstr "Ženy 35 - 39 let"
 
 msgid "Women 40 - 44 years"
-msgstr ""
+msgstr "Ženy 40 - 44 let"
 
 msgid "Women 45 - 49 years"
-msgstr ""
+msgstr "Ženy 45 - 49 let"
 
 msgid "Women 50 - 54 years"
-msgstr ""
+msgstr "Ženy 50 - 54 let"
 
 msgid "Women 55 - 59 years"
-msgstr ""
+msgstr "Ženy 55 - 59 let"
 
 msgid "Women 60 - 64 years"
-msgstr ""
+msgstr "Ženy 60 - 64 let"
 
 msgid "Women 65 - 69 years"
-msgstr ""
+msgstr "Ženy 65 - 69 let"
 
 msgid "Women 70 - 74 years"
-msgstr ""
+msgstr "Ženy 70 - 74 let"
 
 msgid "Women 75 - 79 years"
-msgstr ""
+msgstr "Ženy 75 - 79 let"
 
 msgid "Women 80 years and above"
-msgstr ""
+msgstr "Ženy starší 80 let"
 
 msgid "Elevation"
 msgstr "Nadmořská výška"
@@ -1345,7 +1351,7 @@ msgid "No"
 msgstr "Ne"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "Nelze získat autorizační token pro Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
