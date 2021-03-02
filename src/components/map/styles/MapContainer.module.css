@@ -1,6 +1,8 @@
 .container {
     height: 100%;
     width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Roboto font is not loaded by dom-to-image => switch to Arial */
