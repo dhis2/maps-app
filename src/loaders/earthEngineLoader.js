@@ -112,7 +112,7 @@ export const createLegend = ({ min, max, palette }) => {
     const valueFormat = numberPrecision(precision);
 
     let from = min;
-    let to = Math.round(min + step);
+    let to = valueFormat(min + step);
 
     return colors.map((color, index) => {
         const item = { color };
