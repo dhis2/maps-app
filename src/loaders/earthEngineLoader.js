@@ -1,6 +1,6 @@
 import { getInstance as getD2 } from 'd2';
 import { getEarthEngineLayer } from '../constants/earthEngine';
-import { getPeriodFromFilter } from '../util/earthEngine';
+import { getPeriodNameFromFilter } from '../util/earthEngine';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { toGeoJson } from '../util/map';
@@ -66,7 +66,7 @@ const earthEngineLoader = async config => {
         bands,
     } = layer;
 
-    const period = getPeriodFromFilter(filter);
+    const period = getPeriodNameFromFilter(filter);
 
     const groups =
         band && Array.isArray(bands) && bands.length
@@ -79,7 +79,7 @@ const earthEngineLoader = async config => {
 
     layer.legend = {
         title: name,
-        period: period ? period.name : null,
+        period,
         groups,
         unit,
         description,

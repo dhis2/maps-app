@@ -28,6 +28,18 @@ export const getPeriodFromFilter = (filter = []) => {
         : null;
 };
 
+// Returns period name from filter
+export const getPeriodNameFromFilter = filter => {
+    const period = getPeriodFromFilter(filter);
+
+    if (!period) {
+        return null;
+    }
+
+    const { name, year = '' } = period;
+    return `${name} ${year}`;
+};
+
 const setAuthToken = ({ client_id, access_token, expires_in }) =>
     new Promise((resolve, reject) => {
         ee.data.setAuthToken(client_id, 'Bearer', access_token, expires_in);
