@@ -4,7 +4,6 @@ import { InputField } from '@dhis2/ui';
 import cx from 'classnames';
 import styles from './styles/InputField.module.css';
 
-// Adds support for min/max values for @dhis2/ui InputField
 const NumberField = ({
     label,
     value,
@@ -24,7 +23,7 @@ const NumberField = ({
             max={String(max)}
             step={String(step)}
             label={label}
-            value={String(value)}
+            value={Number.isNaN(value) ? '' : String(value)}
             disabled={disabled}
             onChange={({ value }) => onChange(value)}
         />

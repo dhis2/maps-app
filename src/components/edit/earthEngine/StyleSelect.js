@@ -11,97 +11,104 @@ import { setParams } from '../../../actions/layerEdit';
 import { EE_BUFFER } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
-const getStepsFromParams = ({ palette, min }) =>
-    palette.split(',').length - (min === 0 ? 1 : 2);
+const minSteps = 3;
+const maxSteps = 9;
 
-const isValidSteps = (newSteps, params) => {
-    const steps =
-        newSteps !== undefined ? newSteps : getStepsFromParams(params);
-    return steps > 0 && steps < 8; // Valid steps: 1-7
-};
+const isValidParams = ({ min, max }) =>
+    !Number.isNaN(min) && !Number.isNaN(max) && max > min;
 
 const StyleSelect = ({ unit, params, setParams }) => {
-    const [steps, setSteps] = useState();
     const { min, max, palette } = params;
+    const [steps, setSteps] = useState(palette.split(',').length);
+    const legend = isValidParams(params) && createLegend(params);
 
     const onStepsChange = useCallback(
-        newSteps => {
-            const steps = newSteps === '' ? '' : parseInt(newSteps, 10);
-
-            if (isValidSteps(steps, params)) {
-                const { min, max, palette } = params;
+        steps => {
+            if (steps >= minSteps && steps <= maxSteps) {
                 const scale = getColorScale(palette);
-                const classes =
-                    (steps == 1 && min == 0 ? 2 : steps) + (min == 0 ? 1 : 2);
-                const newPalette = getColorPalette(scale, classes);
+                const newPalette = getColorPalette(scale, steps);
 
                 if (newPalette) {
-                    setParams(min, max, newPalette);
+                    setParams({ palette: newPalette });
                 }
-
-                setSteps(steps);
             }
+
+            setSteps(steps);
         },
-        [params, setParams]
+        [palette, setParams]
     );
+
+    let help;
+
+    if (Number.isNaN(min)) {
+        help = i18n.t('Min value is required');
+    } else if (Number.isNaN(max)) {
+        help = i18n.t('Max value is required');
+    } else if (max <= min) {
+        help = i18n.t('Max should be higher than min');
+    } else if (steps < minSteps || steps > maxSteps) {
+        help = i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
+            minSteps,
+            maxSteps,
+        });
+    }
 
     return (
         <div className={styles.flexColumnFlow}>
             <div className={styles.flexColumn}>
-                <p>
-                    {i18n.t('Unit')}: {unit}
-                </p>
+                <p>{i18n.t('Unit: {{ unit }}', { unit })}</p>
                 <div key="minmax" className={styles.flexInnerColumnFlow}>
                     <NumberField
                         label={i18n.t('Min')}
                         value={min}
-                        onChange={min =>
-                            setParams(parseInt(min), parseInt(max), palette)
-                        }
+                        onChange={min => setParams({ min: parseInt(min) })}
                         className={styles.flexInnerColumn}
-                    />{' '}
+                    />
                     <NumberField
                         label={i18n.t('Max')}
-                        value={params.max}
-                        onChange={max =>
-                            setParams(parseInt(min), parseInt(max), palette)
-                        }
+                        value={max}
+                        onChange={max => setParams({ max: parseInt(max) })}
                         className={styles.flexInnerColumn}
-                    />{' '}
+                    />
                     <NumberField
                         label={i18n.t('Steps')}
-                        value={
-                            steps !== undefined
-                                ? steps
-                                : getStepsFromParams(params)
-                        }
+                        value={steps}
+                        min={minSteps}
+                        max={maxSteps}
                         onChange={onStepsChange}
                         className={styles.flexInnerColumn}
                     />
+                    {help && <div className={styles.eeError}>{help}</div>}
                     <div className={styles.scale}>
                         <ColorScaleSelect
                             palette={params.palette}
-                            onChange={palette => setParams(min, max, palette)}
+                            onChange={palette => setParams({ palette })}
                             width={260}
                         />
                     </div>
                 </div>
                 <BufferRadius defaultRadius={EE_BUFFER} />
             </div>
-            <div className={styles.flexColumn}>
-                <div className={styles.legendTitle}>
-                    {i18n.t('Legend preview')}
+            {legend && (
+                <div className={styles.flexColumn}>
+                    <div className={styles.legendTitle}>
+                        {i18n.t('Legend preview')}
+                    </div>
+
+                    <div className={styles.legend}>
+                        <table>
+                            <tbody>
+                                {legend.map((item, index) => (
+                                    <LegendItem
+                                        {...item}
+                                        key={`item-${index}`}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div className={styles.legend}>
-                    <table>
-                        <tbody>
-                            {createLegend(params).map((item, index) => (
-                                <LegendItem {...item} key={`item-${index}`} />
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            )}
         </div>
     );
 };
