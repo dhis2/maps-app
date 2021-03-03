@@ -8,6 +8,11 @@ import NumberField from '../../core/NumberField';
 import { setBufferRadius } from '../../../actions/layerEdit';
 import styles from './styles/BufferRadius.module.css';
 
+// Component to set buffer radius (checkbox toggle and number field)
+// radius will be undefined when a layer dialog is opened (can be used to set default value)
+// it will be null when the checkbox is unchecked
+// it will be empty string when the value is deleted
+// it will have a number value when a buffer is typed, or a default set
 const BufferRadius = ({
     radius,
     defaultRadius = 1000,
@@ -32,7 +37,9 @@ const BufferRadius = ({
                     label={i18n.t('Radius in meters')}
                     value={radius || ''}
                     disabled={disabled}
-                    onChange={setBufferRadius}
+                    onChange={value =>
+                        setBufferRadius(value !== '' ? parseInt(value, 10) : '')
+                    }
                 />
             )}
         </div>
@@ -40,7 +47,7 @@ const BufferRadius = ({
 };
 
 BufferRadius.propTypes = {
-    radius: PropTypes.number,
+    radius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     defaultRadius: PropTypes.number,
     disabled: PropTypes.bool,
     className: PropTypes.string,

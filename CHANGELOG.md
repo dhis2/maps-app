@@ -1,3 +1,24 @@
+## [1.6.11](https://github.com/dhis2/maps-app/compare/v1.6.10...v1.6.11) (2021-03-03)
+
+
+### Bug Fixes
+
+* allow buffer to be unchecked and empty value field ([#1530](https://github.com/dhis2/maps-app/issues/1530)) ([49e6d1e](https://github.com/dhis2/maps-app/commit/49e6d1e667b69f7724253373c2252cabc7c238a3))
+
+## [1.6.10](https://github.com/dhis2/maps-app/compare/v1.6.9...v1.6.10) (2021-03-03)
+
+
+### Bug Fixes
+
+* update period in legend and include year ([#1529](https://github.com/dhis2/maps-app/issues/1529)) ([fdbe5f2](https://github.com/dhis2/maps-app/commit/fdbe5f20c568837853d3b3277c64979f9388b3b4))
+
+## [1.6.9](https://github.com/dhis2/maps-app/compare/v1.6.8...v1.6.9) (2021-03-02)
+
+
+### Bug Fixes
+
+* map download support and avoid legend overflow ([#1528](https://github.com/dhis2/maps-app/issues/1528)) ([d30b36f](https://github.com/dhis2/maps-app/commit/d30b36fb8965f96d6a3bd2f71f97ec19cf73da5a))
+
 ## [1.6.8](https://github.com/dhis2/maps-app/compare/v1.6.7...v1.6.8) (2021-03-02)
 
 
