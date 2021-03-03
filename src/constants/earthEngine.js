@@ -241,7 +241,8 @@ export const earthEngineLayers = () => [
             'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
         periodType: 'Custom',
         band: 'precipitation',
-        defaultAggregation: ['sum', 'min', 'max', 'mean'],
+        aggregation: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregation: ['min', 'max', 'mean'],
         mask: true,
         img: 'images/precipitation.png',
         params: {
@@ -263,6 +264,7 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
         img: 'images/temperature.png',
+        aggregation: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregation: ['min', 'max', 'mean'],
         periodType: 'Custom',
         band: 'LST_Day_1km',

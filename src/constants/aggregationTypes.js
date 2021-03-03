@@ -20,8 +20,8 @@ export const getEarthEngineStatisticTypes = () => [
 ];
 
 // Earth Engine layer
-export const getEarthEngineAggregationTypes = (types = []) =>
-    [
+export const getEarthEngineAggregationTypes = filter => {
+    const types = [
         { id: 'min', name: i18n.t('Min') },
         { id: 'max', name: i18n.t('Max') },
         { id: 'mean', name: i18n.t('Mean') },
@@ -29,7 +29,10 @@ export const getEarthEngineAggregationTypes = (types = []) =>
         { id: 'sum', name: i18n.t('Sum') },
         { id: 'stdDev', name: i18n.t('Standard deviation') },
         { id: 'variance', name: i18n.t('Variance') },
-    ].filter(({ id }) => types.includes(id));
+    ];
+
+    return filter ? types.filter(({ id }) => filter.includes(id)) : types;
+};
 
 export const getEarthEngineStatisticType = id =>
     (getEarthEngineStatisticTypes().find(t => t.id === id) || {}).name;
