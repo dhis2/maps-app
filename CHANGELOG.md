@@ -1,3 +1,10 @@
+## [1.6.11](https://github.com/dhis2/maps-app/compare/v1.6.10...v1.6.11) (2021-03-03)
+
+
+### Bug Fixes
+
+* allow buffer to be unchecked and empty value field ([#1530](https://github.com/dhis2/maps-app/issues/1530)) ([49e6d1e](https://github.com/dhis2/maps-app/commit/49e6d1e667b69f7724253373c2252cabc7c238a3))
+
 ## [1.6.10](https://github.com/dhis2/maps-app/compare/v1.6.9...v1.6.10) (2021-03-03)
 
 
