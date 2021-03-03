@@ -41,7 +41,7 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
       />
     </Tooltip>
   </div>
-  <LayerToolbarMoreMenu
+  <Connect(LayerToolbarMoreMenu)
     onEdit={[Function]}
   />
 </div>
@@ -77,6 +77,6 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
       />
     </Tooltip>
   </div>
-  <LayerToolbarMoreMenu />
+  <Connect(LayerToolbarMoreMenu) />
 </div>
 `;
