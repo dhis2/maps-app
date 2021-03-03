@@ -20,17 +20,16 @@ export const getEarthEngineStatisticTypes = () => [
 ];
 
 // Earth Engine layer
-// TODO: Align names with thematic types
-export const getEarthEngineAggregationTypes = () => [
-    { id: 'min', name: i18n.t('Min') },
-    { id: 'max', name: i18n.t('Max') },
-    { id: 'mean', name: i18n.t('Mean') },
-    { id: 'median', name: i18n.t('Median') },
-    { id: 'sum', name: i18n.t('Sum') },
-    { id: 'stdDev', name: i18n.t('Standard deviation') },
-    { id: 'variance', name: i18n.t('Variance') },
-    { id: 'count', name: i18n.t('Count') },
-];
+export const getEarthEngineAggregationTypes = (types = []) =>
+    [
+        { id: 'min', name: i18n.t('Min') },
+        { id: 'max', name: i18n.t('Max') },
+        { id: 'mean', name: i18n.t('Mean') },
+        { id: 'median', name: i18n.t('Median') },
+        { id: 'sum', name: i18n.t('Sum') },
+        { id: 'stdDev', name: i18n.t('Standard deviation') },
+        { id: 'variance', name: i18n.t('Variance') },
+    ].filter(({ id }) => types.includes(id));
 
 export const getEarthEngineStatisticType = id =>
     (getEarthEngineStatisticTypes().find(t => t.id === id) || {}).name;

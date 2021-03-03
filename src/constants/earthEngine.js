@@ -218,6 +218,7 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
         img: 'images/elevation.png',
+        aggregation: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
         defaultAggregation: ['min', 'max', 'mean'],
         band: 'elevation',
         params: {
