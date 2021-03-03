@@ -36,8 +36,8 @@ export const getPeriodNameFromFilter = filter => {
         return null;
     }
 
-    const { name, year = '' } = period;
-    return `${name} ${year}`;
+    const { name, year } = period;
+    return `${name}${year ? ` ${year}` : ''}`;
 };
 
 const setAuthToken = ({ client_id, access_token, expires_in }) =>
