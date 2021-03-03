@@ -1,3 +1,10 @@
+## [1.6.10](https://github.com/dhis2/maps-app/compare/v1.6.9...v1.6.10) (2021-03-03)
+
+
+### Bug Fixes
+
+* update period in legend and include year ([#1529](https://github.com/dhis2/maps-app/issues/1529)) ([fdbe5f2](https://github.com/dhis2/maps-app/commit/fdbe5f20c568837853d3b3277c64979f9388b3b4))
+
 ## [1.6.9](https://github.com/dhis2/maps-app/compare/v1.6.8...v1.6.9) (2021-03-02)
 
 
