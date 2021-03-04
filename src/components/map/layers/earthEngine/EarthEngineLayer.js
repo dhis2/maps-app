@@ -4,6 +4,7 @@ import LayerLoading from '../LayerLoading';
 import EarthEnginePopup from './EarthEnginePopup';
 import { apiFetch } from '../../../../util/api';
 import { getPropName, hasClasses } from '../../../../util/earthEngine';
+import { filterData } from '../../../../util/filter';
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
 
 export default class EarthEngineLayer extends Layer {
@@ -57,11 +58,13 @@ export default class EarthEngineLayer extends Layer {
             data,
             aggregationType,
             areaRadius,
+            dataFilters,
         } = this.props;
 
         const { map } = this.context;
 
         const aggregate = data && aggregationType && aggregationType.length;
+        const filteredData = filterData(data, dataFilters);
 
         const config = {
             type: EARTH_ENGINE_LAYER,
@@ -82,7 +85,7 @@ export default class EarthEngineLayer extends Layer {
             legend: legend ? legend.items : null,
             resolution,
             projection,
-            data,
+            data: filteredData,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
