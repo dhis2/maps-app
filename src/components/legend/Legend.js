@@ -62,7 +62,9 @@ const Legend = ({
             <div className={styles.source}>
                 {i18n.t('Source')}:&nbsp;
                 {sourceUrl ? (
-                    <a href={sourceUrl}>{source}</a>
+                    <a href={sourceUrl} target="_blank" rel="noreferrer">
+                        {source}
+                    </a>
                 ) : (
                     <span>{source}</span>
                 )}

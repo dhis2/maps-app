@@ -519,6 +519,9 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
+msgid "Hide data table"
+msgstr ""
+
 msgid "Show data table"
 msgstr ""
 

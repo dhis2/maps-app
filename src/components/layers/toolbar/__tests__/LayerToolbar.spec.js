@@ -17,7 +17,6 @@ describe('LayerToolbar', () => {
         const wrapper = shallowRenderLayerToolbar();
         expect(wrapper.find('[dataTest="visibilitybutton"]').length).toBe(1); // Visibility toggle
         expect(wrapper.find('OpacitySlider').length).toBe(1);
-        expect(wrapper.find('LayerToolbarMoreMenu').length).toBe(1);
     });
 
     it('Should show SvgView24 when visible', () => {
@@ -58,7 +57,6 @@ describe('LayerToolbar', () => {
         });
         expect(wrapper.find('[dataTest="visibilitybutton"]').length).toBe(1);
         expect(wrapper.find('OpacitySlider').length).toBe(1);
-        expect(wrapper.find('LayerToolbarMoreMenu').length).toBe(1);
     });
 
     it('Should match toolbar snapshot WITH Edit button', () => {
