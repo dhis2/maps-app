@@ -1,3 +1,10 @@
+## [1.6.14](https://github.com/dhis2/maps-app/compare/v1.6.13...v1.6.14) (2021-03-04)
+
+
+### Bug Fixes
+
+* restrict aggregation types shown ([#1535](https://github.com/dhis2/maps-app/issues/1535)) ([b2d7be5](https://github.com/dhis2/maps-app/commit/b2d7be54a0bfed00b4fc46499bf4d191402aed49))
+
 ## [1.6.13](https://github.com/dhis2/maps-app/compare/v1.6.12...v1.6.13) (2021-03-04)
 
 
