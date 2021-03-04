@@ -7,6 +7,7 @@ import MapName from './MapName';
 import MapLoadingMask from './MapLoadingMask';
 import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
+import { setTableData } from '../../actions/dataTable';
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,
@@ -31,6 +32,7 @@ const MapContainer = props => {
         legendPosition,
         openContextMenu,
         closeCoordinatePopup,
+        setTableData,
     } = props;
     const [resizeCount, setResizeCount] = useState(0);
 
@@ -74,6 +76,7 @@ const MapContainer = props => {
                     openContextMenu={openContextMenu}
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
+                    setTableData={setTableData}
                     resizeCount={resizeCount}
                 />
                 {isDownload && legendPosition && layers.length ? (
@@ -105,6 +108,7 @@ MapContainer.propTypes = {
     layersPanelOpen: PropTypes.bool,
     openContextMenu: PropTypes.func.isRequired,
     closeCoordinatePopup: PropTypes.func.isRequired,
+    setTableData: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -127,5 +131,6 @@ export default connect(
     {
         openContextMenu,
         closeCoordinatePopup,
+        setTableData,
     }
 )(MapContainer);

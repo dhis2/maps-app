@@ -3,7 +3,7 @@ import Layer from '../Layer';
 import LayerLoading from '../LayerLoading';
 import EarthEnginePopup from './EarthEnginePopup';
 import { apiFetch } from '../../../../util/api';
-import { getPropName, hasClasses } from '../../../../util/earthEngine';
+// import { getPropName, hasClasses } from '../../../../util/earthEngine';
 import { filterData } from '../../../../util/filter';
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
 
@@ -122,7 +122,18 @@ export default class EarthEngineLayer extends Layer {
     }
 
     addAggregationValues(aggregations) {
-        const { aggregationType, data, legend } = this.props;
+        const { setTableData } = this.props;
+
+        // Not available in plugin
+        if (setTableData) {
+            setTableData(aggregations);
+        }
+
+        // Make aggregations available for popup
+        this.setState({ aggregations });
+
+        /*
+        const { aggregationType, data, legend, setTableData } = this.props;
         const { title = '', items } = legend;
         const classes = hasClasses(aggregationType);
 
@@ -145,9 +156,7 @@ export default class EarthEngineLayer extends Layer {
             }
             f.properties.type = f.geometry.type;
         });
-
-        // Make aggregations available for popup
-        this.setState({ aggregations });
+        */
     }
 
     render() {

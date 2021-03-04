@@ -18,3 +18,8 @@ export const resizeDataTable = height => ({
     type: types.DATA_TABLE_RESIZE,
     height,
 });
+
+export const setTableData = payload => ({
+    type: types.TABLE_DATA_SET,
+    payload,
+});

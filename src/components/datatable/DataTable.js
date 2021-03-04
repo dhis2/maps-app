@@ -28,6 +28,7 @@ import '../../../node_modules/react-virtualized/styles.css';
 class DataTable extends Component {
     static propTypes = {
         layer: PropTypes.object.isRequired,
+        data: PropTypes.object,
         feature: PropTypes.object,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
@@ -174,6 +175,8 @@ class DataTable extends Component {
             aggregationType,
             legend,
         } = layer;
+
+        // console.log('data', this.props.data);
 
         const isThematic = layerType === THEMATIC_LAYER;
         const isBoundary = layerType === BOUNDARY_LAYER;
@@ -339,11 +342,11 @@ class DataTable extends Component {
 
 export default connect(
     ({ dataTable, map, feature }) => {
-        const layer = dataTable.id
-            ? map.mapViews.filter(l => l.id === dataTable.id)[0]
-            : null;
+        const { id, data } = dataTable;
 
-        return layer ? { layer, feature } : null;
+        const layer = id ? map.mapViews.filter(l => l.id === id)[0] : null;
+
+        return layer ? { layer, data, feature } : null;
     },
     {
         selectOrgUnit,

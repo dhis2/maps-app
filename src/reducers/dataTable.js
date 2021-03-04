@@ -27,6 +27,12 @@ const dataTable = (state = defaultState, action) => {
         case types.LAYER_REMOVE:
             return state === action.id ? defaultState : state;
 
+        case types.TABLE_DATA_SET:
+            return {
+                ...state,
+                data: action.payload,
+            };
+
         default:
             return state;
     }
