@@ -14,13 +14,13 @@ import styles from '../styles/LayerDialog.module.css';
 const minSteps = 3;
 const maxSteps = 9;
 
-const isValidParams = ({ min, max }) =>
+const paramsAreValid = ({ min, max }) =>
     !Number.isNaN(min) && !Number.isNaN(max) && max > min;
 
 const StyleSelect = ({ unit, params, setParams }) => {
     const { min, max, palette } = params;
     const [steps, setSteps] = useState(palette.split(',').length);
-    const legend = isValidParams(params) && createLegend(params);
+    const legend = paramsAreValid(params) && createLegend(params);
 
     const onStepsChange = useCallback(
         steps => {
@@ -45,7 +45,7 @@ const StyleSelect = ({ unit, params, setParams }) => {
     } else if (Number.isNaN(max)) {
         warningText = i18n.t('Max value is required');
     } else if (max <= min) {
-        warningText = i18n.t('Max should be higher than min');
+        warningText = i18n.t('Max should be greater than min');
     } else if (steps < minSteps || steps > maxSteps) {
         warningText = i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
             minSteps,
