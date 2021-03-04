@@ -38,16 +38,16 @@ const StyleSelect = ({ unit, params, setParams }) => {
         [palette, setParams]
     );
 
-    let help;
+    let warningText;
 
     if (Number.isNaN(min)) {
-        help = i18n.t('Min value is required');
+        warningText = i18n.t('Min value is required');
     } else if (Number.isNaN(max)) {
-        help = i18n.t('Max value is required');
+        warningText = i18n.t('Max value is required');
     } else if (max <= min) {
-        help = i18n.t('Max should be higher than min');
+        warningText = i18n.t('Max should be higher than min');
     } else if (steps < minSteps || steps > maxSteps) {
-        help = i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
+        warningText = i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
             minSteps,
             maxSteps,
         });
@@ -78,7 +78,9 @@ const StyleSelect = ({ unit, params, setParams }) => {
                         onChange={onStepsChange}
                         className={styles.flexInnerColumn}
                     />
-                    {help && <div className={styles.eeError}>{help}</div>}
+                    {warningText && (
+                        <div className={styles.eeError}>{warningText}</div>
+                    )}
                     <div className={styles.scale}>
                         <ColorScaleSelect
                             palette={params.palette}
