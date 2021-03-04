@@ -243,11 +243,9 @@ export const setOrgUnitMode = mode => ({
 });
 
 // Set layer params (EE)
-export const setParams = (min, max, palette) => ({
+export const setParams = params => ({
     type: types.LAYER_EDIT_PARAMS_SET,
-    min,
-    max,
-    palette,
+    payload: params,
 });
 
 // Set collection filter (EE)

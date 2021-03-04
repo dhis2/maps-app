@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2021-02-22T16:51:45.512Z\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2021-03-04T09:19:28.040Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -227,6 +227,18 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
@@ -505,6 +517,9 @@ msgid "Set layer opacity"
 msgstr ""
 
 msgid "More actions"
+msgstr ""
+
+msgid "Hide data table"
 msgstr ""
 
 msgid "Show data table"
@@ -950,7 +965,7 @@ msgstr ""
 msgid "Elevation"
 msgstr ""
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."

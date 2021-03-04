@@ -212,7 +212,7 @@ export const earthEngineLayers = () => [
         layer: EARTH_ENGINE_LAYER,
         datasetId: 'USGS/SRTMGL1_003',
         name: i18n.t('Elevation'),
-        unit: i18n.t('metres'),
+        unit: i18n.t('meters'),
         description: i18n.t('Elevation above sea-level.'),
         source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
         sourceUrl:

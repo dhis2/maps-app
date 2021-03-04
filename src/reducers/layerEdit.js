@@ -435,9 +435,8 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 params: {
-                    min: action.min,
-                    max: action.max,
-                    palette: action.palette,
+                    ...state.params,
+                    ...action.payload,
                 },
             };
 

@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import {
     Popover,
@@ -23,6 +24,7 @@ export const LayerToolbarMoreMenu = ({
     toggleDataTable,
     openAs,
     downloadData,
+    dataTableOpen,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const anchorRef = useRef();
@@ -63,7 +65,11 @@ export const LayerToolbarMoreMenu = ({
                         <Menu dense>
                             {toggleDataTable && (
                                 <MenuItem
-                                    label={i18n.t('Show data table')}
+                                    label={
+                                        dataTableOpen
+                                            ? i18n.t('Hide data table')
+                                            : i18n.t('Show data table')
+                                    }
                                     icon={<IconTable16 />}
                                     onClick={() => {
                                         setIsOpen(false);
@@ -128,6 +134,9 @@ LayerToolbarMoreMenu.propTypes = {
     toggleDataTable: PropTypes.func,
     openAs: PropTypes.func,
     downloadData: PropTypes.func,
+    dataTableOpen: PropTypes.bool,
 };
 
-export default LayerToolbarMoreMenu;
+export default connect(({ dataTable }) => ({
+    dataTableOpen: !!dataTable,
+}))(LayerToolbarMoreMenu);

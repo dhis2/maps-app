@@ -1,3 +1,10 @@
+## [1.6.12](https://github.com/dhis2/maps-app/compare/v1.6.11...v1.6.12) (2021-03-04)
+
+
+### Bug Fixes
+
+* show "hide data tabel" i layer menu when table is open ([#1532](https://github.com/dhis2/maps-app/issues/1532)) ([e190846](https://github.com/dhis2/maps-app/commit/e190846a42760fa882bfbfe6feb559252850d4bc))
+
 ## [1.6.11](https://github.com/dhis2/maps-app/compare/v1.6.10...v1.6.11) (2021-03-03)
 
 
