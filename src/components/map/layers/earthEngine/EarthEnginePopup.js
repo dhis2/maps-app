@@ -18,6 +18,9 @@ const EarthEnginePopup = props => {
     let header = null;
 
     if (values) {
+        const types = Object.keys(values);
+        const onlySum = types.length === 1 && types[0] === 'sum';
+
         if (classes) {
             const valueFormat = numberPrecision(isPercentage ? 2 : 0);
 
@@ -66,11 +69,11 @@ const EarthEnginePopup = props => {
                             ))}
                         </div>
                     )}
-                    <div className={styles.unit}>{unit}</div>
+                    {!onlySum && <div className={styles.unit}>{unit}</div>}
                 </caption>
             );
 
-            rows = Object.keys(values).map(type => {
+            rows = types.map(type => {
                 const precision = getPrecision(
                     Object.values(data).map(d => d[type])
                 );

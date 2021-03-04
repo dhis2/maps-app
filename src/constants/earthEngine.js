@@ -13,7 +13,7 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop',
         img: 'images/population.png',
-        defaultAggregation: ['sum', 'mean'],
+        defaultAggregations: ['sum', 'mean'],
         periodType: 'Yearly',
         filters: ({ id, name, year }) => [
             {
@@ -44,7 +44,7 @@ export const earthEngineLayers = () => [
             'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex',
         img: 'images/population.png',
         periodType: 'Yearly',
-        defaultAggregation: ['sum', 'mean'],
+        defaultAggregations: ['sum', 'mean'],
         bands: [
             {
                 id: 'M_0',
@@ -218,7 +218,8 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
         img: 'images/elevation.png',
-        defaultAggregation: ['min', 'max', 'mean'],
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['min', 'max', 'mean'],
         band: 'elevation',
         params: {
             min: 0,
@@ -240,7 +241,8 @@ export const earthEngineLayers = () => [
             'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
         periodType: 'Custom',
         band: 'precipitation',
-        defaultAggregation: ['sum', 'min', 'max', 'mean'],
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['min', 'max', 'mean'],
         mask: true,
         img: 'images/precipitation.png',
         params: {
@@ -262,7 +264,8 @@ export const earthEngineLayers = () => [
         sourceUrl:
             'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
         img: 'images/temperature.png',
-        defaultAggregation: ['min', 'max', 'mean'],
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['min', 'max', 'mean'],
         periodType: 'Custom',
         band: 'LST_Day_1km',
         mask: true,
@@ -291,7 +294,7 @@ export const earthEngineLayers = () => [
         periodType: 'Yearly',
         band: 'LC_Type1',
         filters: defaultFilters,
-        defaultAggregation: 'percentage',
+        defaultAggregations: 'percentage',
         legend: {
             items: [
                 // http://www.eomf.ou.edu/static/IGBP.pdf
