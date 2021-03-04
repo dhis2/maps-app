@@ -1,3 +1,10 @@
+## [1.6.13](https://github.com/dhis2/maps-app/compare/v1.6.12...v1.6.13) (2021-03-04)
+
+
+### Bug Fixes
+
+* keep palette and support decimals for EE layers (DHIS2-10582) ([#1520](https://github.com/dhis2/maps-app/issues/1520)) ([1f5fd7e](https://github.com/dhis2/maps-app/commit/1f5fd7e829d4522c7d515fe5b5d8a0b8623b3696))
+
 ## [1.6.12](https://github.com/dhis2/maps-app/compare/v1.6.11...v1.6.12) (2021-03-04)
 
 
