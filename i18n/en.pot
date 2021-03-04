@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-03-04T08:35:18.741Z\n"
-"PO-Revision-Date: 2021-03-04T08:35:18.741Z\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2021-03-04T09:19:28.040Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Max value is required"
 msgstr ""
 
-msgid "Max should be higher than min"
+msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
@@ -962,7 +962,7 @@ msgstr ""
 msgid "Elevation"
 msgstr ""
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
