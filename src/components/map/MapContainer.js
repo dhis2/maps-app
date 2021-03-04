@@ -120,7 +120,7 @@ export default connect(
         isDownload: download.showDialog,
         showName: download.showDialog ? download.showName : true,
         legendPosition: download.showLegend ? download.legendPosition : null,
-        dataTableOpen: !!dataTable,
+        dataTableOpen: !!dataTable.id,
         feature,
         ...ui,
     }),

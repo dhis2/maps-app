@@ -339,8 +339,8 @@ class DataTable extends Component {
 
 export default connect(
     ({ dataTable, map, feature }) => {
-        const layer = dataTable
-            ? map.mapViews.filter(l => l.id === dataTable)[0]
+        const layer = dataTable.id
+            ? map.mapViews.filter(l => l.id === dataTable.id)[0]
             : null;
 
         return layer ? { layer, feature } : null;

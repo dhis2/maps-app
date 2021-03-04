@@ -1,20 +1,31 @@
 import * as types from '../constants/actionTypes';
 
-const dataTable = (state = null, action) => {
+const defaultState = {
+    id: null,
+    data: null,
+};
+
+const dataTable = (state = defaultState, action) => {
     switch (action.type) {
         case types.DATA_TABLE_OPEN:
-            return action.id;
+            return {
+                ...state,
+                id: action.id,
+            };
 
         case types.DATA_TABLE_CLOSE:
         case types.MAP_NEW:
         case types.FAVORITE_LOAD:
-            return null;
+            return defaultState;
 
         case types.DATA_TABLE_TOGGLE:
-            return state === action.id ? null : action.id;
+            return {
+                ...state,
+                id: state.id === action.id ? null : action.id,
+            };
 
         case types.LAYER_REMOVE:
-            return state === action.id ? null : state;
+            return state === action.id ? defaultState : state;
 
         default:
             return state;

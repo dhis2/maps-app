@@ -138,5 +138,5 @@ LayerToolbarMoreMenu.propTypes = {
 };
 
 export default connect(({ dataTable }) => ({
-    dataTableOpen: !!dataTable,
+    dataTableOpen: !!dataTable.id,
 }))(LayerToolbarMoreMenu);
