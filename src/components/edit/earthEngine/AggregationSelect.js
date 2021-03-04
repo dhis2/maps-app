@@ -11,22 +11,22 @@ import { setAggregationType } from '../../../actions/layerEdit';
 import { hasClasses } from '../../../util/earthEngine';
 
 const AggregationSelect = ({
-    aggregation,
-    defaultAggregation,
+    aggregations,
+    defaultAggregations,
     aggregationType,
     setAggregationType,
 }) => {
-    const classes = hasClasses(defaultAggregation);
+    const classes = hasClasses(defaultAggregations);
 
     const types = classes
         ? getEarthEngineStatisticTypes()
-        : getEarthEngineAggregationTypes(aggregation);
+        : getEarthEngineAggregationTypes(aggregations);
 
     useEffect(() => {
-        if (!aggregationType && defaultAggregation) {
-            setAggregationType(defaultAggregation);
+        if (!aggregationType && defaultAggregations) {
+            setAggregationType(defaultAggregations);
         }
-    }, [aggregationType, defaultAggregation]);
+    }, [aggregationType, defaultAggregations]);
 
     return (
         <SelectField
@@ -40,8 +40,8 @@ const AggregationSelect = ({
 };
 
 AggregationSelect.propTypes = {
-    aggregation: PropTypes.array,
-    defaultAggregation: PropTypes.oneOfType([
+    aggregations: PropTypes.array,
+    defaultAggregations: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,
     ]),
@@ -51,8 +51,8 @@ AggregationSelect.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        aggregation: layerEdit.aggregation,
-        defaultAggregation: layerEdit.defaultAggregation,
+        aggregations: layerEdit.aggregations,
+        defaultAggregations: layerEdit.defaultAggregations,
         aggregationType: layerEdit.aggregationType,
     }),
     { setAggregationType }
