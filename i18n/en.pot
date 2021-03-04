@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-03-01T10:04:26.422Z\n"
-"PO-Revision-Date: 2021-03-01T10:04:26.422Z\n"
+"POT-Creation-Date: 2021-03-04T08:35:18.741Z\n"
+"PO-Revision-Date: 2021-03-04T08:35:18.741Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -227,6 +227,18 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be higher than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
