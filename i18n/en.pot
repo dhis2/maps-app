@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2021-02-22T16:51:45.512Z\n"
+"POT-Creation-Date: 2021-03-04T08:41:44.683Z\n"
+"PO-Revision-Date: 2021-03-04T08:41:44.683Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -505,6 +505,9 @@ msgid "Set layer opacity"
 msgstr ""
 
 msgid "More actions"
+msgstr ""
+
+msgid "Hide data table"
 msgstr ""
 
 msgid "Show data table"
