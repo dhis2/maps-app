@@ -28,9 +28,11 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
     className="sliderContainer"
   >
     <Tooltip
+      closeDelay={400}
       content="Set layer opacity"
       dataTest="dhis2-uicore-tooltip"
       maxWidth={300}
+      openDelay={200}
       placement="top"
       tag="span"
     >
@@ -64,9 +66,11 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
     className="sliderContainer"
   >
     <Tooltip
+      closeDelay={400}
       content="Set layer opacity"
       dataTest="dhis2-uicore-tooltip"
       maxWidth={300}
+      openDelay={200}
       placement="top"
       tag="span"
     >
