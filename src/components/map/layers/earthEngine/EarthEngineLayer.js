@@ -81,7 +81,7 @@ export default class EarthEngineLayer extends Layer {
             name,
             unit,
             value,
-            legend: legend ? legend.items : null,
+            legend: legend.items,
             resolution,
             projection,
             data: filteredData,
@@ -124,7 +124,7 @@ export default class EarthEngineLayer extends Layer {
         const { setTableData } = this.props;
 
         // Make aggregations available for data table and download
-        // Not available in plugin
+        // setTableData is not available in map plugin
         if (setTableData) {
             setTableData(aggregations);
         }

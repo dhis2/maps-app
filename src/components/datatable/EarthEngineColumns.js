@@ -13,6 +13,8 @@ const EarthEngineColumns = ({
 }) => {
     const { title, items } = legend;
 
+    // console.log('aggregations', aggregations);
+
     if (classes && items) {
         const valueFormat = numberPrecision(2);
 
