@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n';
 import { formatStartEndDate } from './time';
 import { loadEarthEngineApi } from '../components/map/MapApi';
 import { apiFetch } from './api';
+import { numberPrecision } from './numbers';
 import { getEarthEngineLayer } from '../constants/earthEngine';
 
 export const classAggregation = ['percentage', 'hectares', 'acres'];
@@ -159,7 +160,16 @@ export const getPrecision = (values = []) => {
     return 0;
 };
 
-export const getPropName = (valueType = '', layerName = '') => {
-    const firstWord = layerName.replace(/ .*/, '');
-    return `${valueType}${firstWord}`;
+// Returns aggregation value for tabel cell
+export const getCellData = (type, aggregations) => {
+    // Get number precision based all values of type
+    const precision = getPrecision(
+        aggregations
+            ? Object.keys(aggregations).map(id => aggregations[id][type])
+            : []
+    );
+    const valueFormat = numberPrecision(precision);
+
+    return cell =>
+        aggregations ? valueFormat(aggregations[cell.rowData.id][type]) : '';
 };

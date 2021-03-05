@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import { Column } from 'react-virtualized';
 import ColumnHeader from './ColumnHeader';
 import { numberPrecision } from '../../util/numbers';
-import { getPropName, getPrecision } from '../../util/earthEngine';
+import { getCellData } from '../../util/earthEngine';
 
-const EarthEngineColumns = ({ classes, aggregationType, legend, data }) => {
+const EarthEngineColumns = ({
+    classes,
+    aggregationType,
+    legend,
+    aggregations,
+}) => {
     const { title, items } = legend;
 
     if (classes && items) {
@@ -28,23 +33,19 @@ const EarthEngineColumns = ({ classes, aggregationType, legend, data }) => {
         ));
     } else if (Array.isArray(aggregationType) && aggregationType.length) {
         return aggregationType.map(type => {
-            const propName = getPropName(type, title);
-            const precision = getPrecision(data.map(d => d[propName]));
-            const valueFormat = numberPrecision(precision);
+            const cellData = getCellData(type, aggregations);
 
             return (
                 <Column
                     key={type}
-                    dataKey={propName}
-                    label={`${type} ${title}`}
+                    dataKey={type}
+                    label={`${type} ${title}`.toUpperCase()}
                     width={100}
                     className="right"
                     headerRenderer={props => (
                         <ColumnHeader type="number" {...props} />
                     )}
-                    cellRenderer={d =>
-                        d.cellData !== undefined ? valueFormat(d.cellData) : ''
-                    }
+                    cellRenderer={cellData}
                 />
             );
         });
@@ -58,6 +59,7 @@ EarthEngineColumns.propTypes = {
     aggregationType: PropTypes.array,
     legend: PropTypes.object,
     data: PropTypes.array,
+    aggregations: PropTypes.object,
 };
 
 export default EarthEngineColumns;

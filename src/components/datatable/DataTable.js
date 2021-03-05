@@ -165,7 +165,7 @@ class DataTable extends Component {
 
     render() {
         const { data, sortBy, sortDirection } = this.state;
-        const { width, height, layer } = this.props;
+        const { width, height, layer, data: aggregations } = this.props;
 
         const {
             layer: layerType,
@@ -175,8 +175,6 @@ class DataTable extends Component {
             aggregationType,
             legend,
         } = layer;
-
-        // console.log('data', this.props.data);
 
         const isThematic = layerType === THEMATIC_LAYER;
         const isBoundary = layerType === BOUNDARY_LAYER;
@@ -328,6 +326,7 @@ class DataTable extends Component {
                         aggregationType,
                         legend,
                         data,
+                        aggregations,
                     })}
             </Table>
         ) : (

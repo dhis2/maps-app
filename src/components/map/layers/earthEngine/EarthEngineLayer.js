@@ -3,7 +3,6 @@ import Layer from '../Layer';
 import LayerLoading from '../LayerLoading';
 import EarthEnginePopup from './EarthEnginePopup';
 import { apiFetch } from '../../../../util/api';
-// import { getPropName, hasClasses } from '../../../../util/earthEngine';
 import { filterData } from '../../../../util/filter';
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
 
@@ -124,6 +123,7 @@ export default class EarthEngineLayer extends Layer {
     addAggregationValues(aggregations) {
         const { setTableData } = this.props;
 
+        // Make aggregations available for data table and download
         // Not available in plugin
         if (setTableData) {
             setTableData(aggregations);
@@ -131,32 +131,6 @@ export default class EarthEngineLayer extends Layer {
 
         // Make aggregations available for popup
         this.setState({ aggregations });
-
-        /*
-        const { aggregationType, data, legend, setTableData } = this.props;
-        const { title = '', items } = legend;
-        const classes = hasClasses(aggregationType);
-
-        // Make aggregations available for data table/download
-        data.forEach(f => {
-            const values = aggregations[f.id];
-
-            if (values) {
-                if (classes && items) {
-                    items.forEach(({ id, name }) => {
-                        f.properties[name] = values[id];
-                    });
-                } else {
-                    Object.keys(values).forEach(
-                        key =>
-                            (f.properties[getPropName(key, title)] =
-                                values[key])
-                    );
-                }
-            }
-            f.properties.type = f.geometry.type;
-        });
-        */
     }
 
     render() {
