@@ -3,25 +3,18 @@ import PropTypes from 'prop-types';
 import { Column } from 'react-virtualized';
 import ColumnHeader from './ColumnHeader';
 import { numberPrecision } from '../../util/numbers';
-import { getCellData } from '../../util/earthEngine';
+import { getPrecision, hasClasses } from '../../util/earthEngine';
 
-const EarthEngineColumns = ({
-    classes,
-    aggregationType,
-    legend,
-    aggregations,
-}) => {
+const EarthEngineColumns = ({ aggregationType, legend, data }) => {
     const { title, items } = legend;
 
-    // console.log('aggregations', aggregations);
-
-    if (classes && items) {
+    if (hasClasses(aggregationType) && items) {
         const valueFormat = numberPrecision(2);
 
         return items.map(({ id, name }) => (
             <Column
                 key={id}
-                dataKey={name}
+                dataKey={String(id)}
                 label={name}
                 width={100}
                 className="right"
@@ -35,7 +28,8 @@ const EarthEngineColumns = ({
         ));
     } else if (Array.isArray(aggregationType) && aggregationType.length) {
         return aggregationType.map(type => {
-            const cellData = getCellData(type, aggregations);
+            const precision = getPrecision(data.map(d => d[type]));
+            const valueFormat = numberPrecision(precision);
 
             return (
                 <Column
@@ -47,7 +41,9 @@ const EarthEngineColumns = ({
                     headerRenderer={props => (
                         <ColumnHeader type="number" {...props} />
                     )}
-                    cellRenderer={cellData}
+                    cellRenderer={d =>
+                        d.cellData !== undefined ? valueFormat(d.cellData) : ''
+                    }
                 />
             );
         });

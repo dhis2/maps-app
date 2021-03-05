@@ -28,7 +28,7 @@ import '../../../node_modules/react-virtualized/styles.css';
 class DataTable extends Component {
     static propTypes = {
         layer: PropTypes.object.isRequired,
-        data: PropTypes.object,
+        aggregations: PropTypes.object,
         feature: PropTypes.object,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
@@ -58,10 +58,12 @@ class DataTable extends Component {
 
     componentDidMount() {
         this.loadExtendedData();
+        this.addEarthEngineData();
     }
 
     componentDidUpdate(prevProps) {
-        const { data, dataFilters } = this.props.layer;
+        const { layer, aggregations } = this.props;
+        const { data, dataFilters } = layer;
         const prev = prevProps.layer;
 
         if (data !== prev.data || dataFilters !== prev.dataFilters) {
@@ -70,6 +72,10 @@ class DataTable extends Component {
             this.setState({
                 data: this.sort(this.filter(), sortBy, sortDirection),
             });
+        }
+
+        if (aggregations !== prevProps.aggregations) {
+            this.addEarthEngineData;
         }
     }
 
@@ -81,6 +87,20 @@ class DataTable extends Component {
             loadLayer({
                 ...layer,
                 showDataTable: true,
+            });
+        }
+    }
+
+    addEarthEngineData() {
+        const { data } = this.state;
+        const { aggregations } = this.props;
+
+        if (data && aggregations) {
+            this.setState({
+                data: data.map(d => ({
+                    ...d,
+                    ...aggregations[d.id],
+                })),
             });
         }
     }
@@ -165,13 +185,12 @@ class DataTable extends Component {
 
     render() {
         const { data, sortBy, sortDirection } = this.state;
-        const { width, height, layer, data: aggregations } = this.props;
+        const { width, height, layer } = this.props;
 
         const {
             layer: layerType,
             styleDataItem,
             serverCluster,
-            classes,
             aggregationType,
             legend,
         } = layer;
@@ -321,13 +340,7 @@ class DataTable extends Component {
                     ))}
 
                 {isEarthEngine &&
-                    EarthEngineColumns({
-                        classes,
-                        aggregationType,
-                        legend,
-                        data,
-                        aggregations,
-                    })}
+                    EarthEngineColumns({ aggregationType, legend, data })}
             </Table>
         ) : (
             <div className={styles.noSupport}>
@@ -341,11 +354,11 @@ class DataTable extends Component {
 
 export default connect(
     ({ dataTable, map, feature }) => {
-        const { id, data } = dataTable;
+        const { id, data: aggregations } = dataTable;
 
         const layer = id ? map.mapViews.filter(l => l.id === id)[0] : null;
 
-        return layer ? { layer, data, feature } : null;
+        return layer ? { layer, aggregations, feature } : null;
     },
     {
         selectOrgUnit,
