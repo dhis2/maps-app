@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -245,6 +245,18 @@ msgstr "Dostupné období jsou nastaveny podle zdrojových dat"
 
 msgid "Loading periods"
 msgstr "Načítání období"
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
 
 msgid "Min"
 msgstr "Min"
@@ -528,6 +540,9 @@ msgstr "Nastavit neprůhlednost vrstvy"
 
 msgid "More actions"
 msgstr "Více akcí"
+
+msgid "Hide data table"
+msgstr ""
 
 msgid "Show data table"
 msgstr "Zobrazit tabulku dat"
@@ -979,8 +994,8 @@ msgstr "Ženy starší 80 let"
 msgid "Elevation"
 msgstr "Nadmořská výška"
 
-msgid "metres"
-msgstr "metrů"
+msgid "meters"
+msgstr ""
 
 msgid "Elevation above sea-level."
 msgstr "Nadmořská výška."
