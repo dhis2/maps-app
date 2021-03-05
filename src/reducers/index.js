@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import aggregations from './aggregations';
 import alerts from './alerts';
 import analyticalObject from './analyticalObject';
 import basemaps from './basemaps';
@@ -37,6 +38,7 @@ import dataDownload from './dataDownload';
 import feature from './feature';
 
 export default combineReducers({
+    aggregations,
     alerts,
     analyticalObject,
     basemaps,

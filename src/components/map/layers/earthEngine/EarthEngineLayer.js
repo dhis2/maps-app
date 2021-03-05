@@ -121,12 +121,12 @@ export default class EarthEngineLayer extends Layer {
     }
 
     addAggregationValues(aggregations) {
-        const { setTableData } = this.props;
+        const { id, setAggregations } = this.props;
 
         // Make aggregations available for data table and download
-        // setTableData is not available in map plugin
-        if (setTableData) {
-            setTableData(aggregations);
+        // setAggregations is not available in map plugin
+        if (setAggregations) {
+            setAggregations({ [id]: aggregations });
         }
 
         // Make aggregations available for popup

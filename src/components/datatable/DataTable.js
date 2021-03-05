@@ -353,12 +353,16 @@ class DataTable extends Component {
 }
 
 export default connect(
-    ({ dataTable, map, feature }) => {
-        const { id, data: aggregations } = dataTable;
+    ({ dataTable, map, aggregations = {}, feature }) => {
+        const layer = map.mapViews.find(l => l.id === dataTable);
 
-        const layer = id ? map.mapViews.filter(l => l.id === id)[0] : null;
-
-        return layer ? { layer, aggregations, feature } : null;
+        return layer
+            ? {
+                  layer,
+                  aggregations: aggregations[layer.id],
+                  feature,
+              }
+            : {};
     },
     {
         selectOrgUnit,

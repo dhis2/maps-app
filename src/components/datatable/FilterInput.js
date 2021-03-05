@@ -49,8 +49,8 @@ FilterInput.propTypes = {
 
 // Avoid needing to pass filter and actions to every input field
 const mapStateToProps = ({ dataTable, map }) => {
-    const overlay = dataTable.id
-        ? map.mapViews.filter(layer => layer.id === dataTable.id)[0]
+    const overlay = dataTable
+        ? map.mapViews.filter(layer => layer.id === dataTable)[0]
         : null;
 
     if (overlay) {

@@ -83,7 +83,7 @@ BottomPanel.propTypes = {
 
 export default connect(
     ({ dataTable, ui }) => ({
-        dataTableOpen: dataTable.id ? true : false,
+        dataTableOpen: !!dataTable,
         dataTableHeight: ui.dataTableHeight,
         layersPanelOpen: ui.layersPanelOpen,
         interpretationsPanelOpen: ui.interpretationsPanelOpen,
