@@ -533,7 +533,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Hide data table"
-msgstr ""
+msgstr "ເຊື່ອງຂໍ້ມູນ"
 
 msgid "Show data table"
 msgstr ""

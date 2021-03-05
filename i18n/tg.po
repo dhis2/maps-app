@@ -533,7 +533,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Hide data table"
-msgstr ""
+msgstr "Пинҳон кардани ҷадвали иттилоот"
 
 msgid "Show data table"
 msgstr ""

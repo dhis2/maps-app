@@ -551,7 +551,7 @@ msgid "More actions"
 msgstr "Boshqa harakatlar"
 
 msgid "Hide data table"
-msgstr ""
+msgstr "Maʼlumotlar jadvali berkitilsin"
 
 msgid "Show data table"
 msgstr "Maʼlumotlar jadvalini koʼrsatish"
