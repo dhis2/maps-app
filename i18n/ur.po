@@ -533,7 +533,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Hide data table"
-msgstr ""
+msgstr "ڈیٹا ٹیبل چھپائیں"
 
 msgid "Show data table"
 msgstr ""

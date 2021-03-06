@@ -534,7 +534,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Hide data table"
-msgstr ""
+msgstr "data ဇယားကို ဝှက်ထားပါ။"
 
 msgid "Show data table"
 msgstr ""

@@ -542,7 +542,7 @@ msgid "More actions"
 msgstr "Více akcí"
 
 msgid "Hide data table"
-msgstr ""
+msgstr "Skrýt tabulku dat"
 
 msgid "Show data table"
 msgstr "Zobrazit tabulku dat"

@@ -536,7 +536,7 @@ msgid "More actions"
 msgstr "المزيد من الإجراءات"
 
 msgid "Hide data table"
-msgstr ""
+msgstr "إخفاء جدول البيانات"
 
 msgid "Show data table"
 msgstr "إظهار جدول البيانات"

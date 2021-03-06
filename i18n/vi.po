@@ -534,7 +534,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Hide data table"
-msgstr ""
+msgstr "Ẩn bảng dữ liệu"
 
 msgid "Show data table"
 msgstr ""
