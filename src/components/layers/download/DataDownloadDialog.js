@@ -107,10 +107,10 @@ export class DataDownloadDialog extends Component {
 }
 
 const mapStateToProps = ({ dataDownload, map, aggregations = {} }) => {
-    const { layerId: id, dialogOpen: open, downloading, error } = dataDownload;
-    const layer = map.mapViews.find(l => l.id === id);
+    const { layerid, dialogOpen: open, downloading, error } = dataDownload;
+    const layer = map.mapViews.find(l => l.id === layerid);
 
-    if (dataDownload.dialogOpen && !layer) {
+    if (open && !layer) {
         // eslint-disable-next-line
         console.error(
             'Tried to open data download dialog without specifying a source layer!'
@@ -122,7 +122,7 @@ const mapStateToProps = ({ dataDownload, map, aggregations = {} }) => {
         layer,
         downloading,
         error,
-        aggregations: aggregations[id],
+        aggregations: aggregations[layerid],
     };
 };
 
