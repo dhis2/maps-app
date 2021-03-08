@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
-"PO-Revision-Date: 2021-03-04T09:19:28.040Z\n"
+"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
+"PO-Revision-Date: 2021-03-08T17:11:22.603Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -673,6 +673,9 @@ msgid "Options"
 msgstr ""
 
 msgid "Code"
+msgstr ""
+
+msgid "Loading data"
 msgstr ""
 
 msgid "No data found for this period."

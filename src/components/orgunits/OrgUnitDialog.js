@@ -8,6 +8,7 @@ import {
     ModalContent,
     ModalActions,
     Button,
+    CircularLoader,
 } from '@dhis2/ui';
 import PeriodSelect from '../periods/PeriodSelect';
 import OrgUnitDialogTable from './OrgUnitDialogTable';
@@ -46,6 +47,7 @@ export class OrgUnitDialog extends Component {
             period &&
             (id !== prevProps.id || period !== prevState.period)
         ) {
+            this.setState({ data: null });
             loadData(id, period.id, dataItems).then(data =>
                 this.setState({ data })
             );
@@ -99,7 +101,14 @@ export class OrgUnitDialog extends Component {
                                 period={period}
                                 onChange={this.onPeriodChange}
                             />
-                            <OrgUnitDialogTable data={data} />
+                            {data ? (
+                                <OrgUnitDialogTable data={data} />
+                            ) : (
+                                <div className={styles.loading}>
+                                    <CircularLoader small />
+                                    {i18n.t('Loading data')}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </ModalContent>
