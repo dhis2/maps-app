@@ -1,3 +1,10 @@
+## [1.6.19](https://github.com/dhis2/maps-app/compare/v1.6.18...v1.6.19) (2021-03-08)
+
+
+### Bug Fixes
+
+* close popup on right click ([45ceb0f](https://github.com/dhis2/maps-app/commit/45ceb0fff3ed8ba76a6f9e9e62302169ef39e7a4))
+
 ## [1.6.18](https://github.com/dhis2/maps-app/compare/v1.6.17...v1.6.18) (2021-03-08)
 
 
