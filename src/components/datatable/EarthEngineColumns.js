@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Column } from 'react-virtualized';
 import ColumnHeader from './ColumnHeader';
 import { numberPrecision } from '../../util/numbers';
-import { getPrecision, hasClasses } from '../../util/earthEngine';
+import { hasClasses, getPrecision } from '../../util/earthEngine';
 
 const EarthEngineColumns = ({ aggregationType, legend, data }) => {
     const { title, items } = legend;
@@ -28,6 +28,7 @@ const EarthEngineColumns = ({ aggregationType, legend, data }) => {
         ));
     } else if (Array.isArray(aggregationType) && aggregationType.length) {
         return aggregationType.map(type => {
+            const label = `${type} ${title}`.toUpperCase(); // Already translated
             const precision = getPrecision(data.map(d => d[type]));
             const valueFormat = numberPrecision(precision);
 
@@ -35,7 +36,7 @@ const EarthEngineColumns = ({ aggregationType, legend, data }) => {
                 <Column
                     key={type}
                     dataKey={type}
-                    label={`${type} ${title}`.toUpperCase()}
+                    label={label}
                     width={100}
                     className="right"
                     headerRenderer={props => (

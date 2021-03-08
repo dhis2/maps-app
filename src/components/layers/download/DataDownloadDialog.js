@@ -107,7 +107,7 @@ export class DataDownloadDialog extends Component {
 }
 
 const mapStateToProps = ({ dataDownload, map, aggregations = {} }) => {
-    const id = dataDownload.layerid;
+    const { layerId: id, dialogOpen: open, downloading, error } = dataDownload;
     const layer = map.mapViews.find(l => l.id === id);
 
     if (dataDownload.dialogOpen && !layer) {
@@ -118,11 +118,11 @@ const mapStateToProps = ({ dataDownload, map, aggregations = {} }) => {
     }
 
     return {
-        open: dataDownload.dialogOpen,
+        open,
         layer,
+        downloading,
+        error,
         aggregations: aggregations[id],
-        downloading: dataDownload.downloading,
-        error: dataDownload.error,
     };
 };
 

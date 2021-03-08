@@ -58,7 +58,7 @@ class DataTable extends Component {
 
     componentDidMount() {
         this.loadExtendedData();
-        this.addEarthEngineData();
+        this.addAggregations();
     }
 
     componentDidUpdate(prevProps) {
@@ -75,7 +75,7 @@ class DataTable extends Component {
         }
 
         if (aggregations !== prevProps.aggregations) {
-            this.addEarthEngineData;
+            this.addAggregations();
         }
     }
 
@@ -91,7 +91,8 @@ class DataTable extends Component {
         }
     }
 
-    addEarthEngineData() {
+    // Add EE aggregations (other layers might be supported in the future)
+    addAggregations() {
         const { data } = this.state;
         const { aggregations } = this.props;
 
@@ -359,8 +360,8 @@ export default connect(
         return layer
             ? {
                   layer,
-                  aggregations: aggregations[layer.id],
                   feature,
+                  aggregations: aggregations[layer.id],
               }
             : {};
     },
