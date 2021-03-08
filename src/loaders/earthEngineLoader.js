@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { precisionRound } from 'd3-format';
 import { getEarthEngineLayer } from '../constants/earthEngine';
@@ -14,17 +15,27 @@ const earthEngineLoader = async config => {
     let layerConfig = {};
     let dataset;
     let features;
+    let alerts;
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2();
         const displayProperty = getDisplayProperty(d2).toUpperCase();
         const orgUnitParams = orgUnits.map(item => item.id);
 
-        features = await d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
-            .getAll()
-            .then(toGeoJson);
+        try {
+            features = await d2.geoFeatures
+                .byOrgUnit(orgUnitParams)
+                .displayProperty(displayProperty)
+                .getAll()
+                .then(toGeoJson);
+        } catch (error) {
+            alerts = [
+                {
+                    critical: true,
+                    message: `${i18n.t('Error')}: ${error.message}`,
+                },
+            ];
+        }
     }
 
     if (typeof config.config === 'string') {
@@ -100,6 +111,7 @@ const earthEngineLoader = async config => {
         legend,
         aggregationType,
         data: features,
+        alerts,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

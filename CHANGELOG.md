@@ -1,3 +1,24 @@
+## [1.6.18](https://github.com/dhis2/maps-app/compare/v1.6.17...v1.6.18) (2021-03-08)
+
+
+### Bug Fixes
+
+* catch ee api errors ([#1543](https://github.com/dhis2/maps-app/issues/1543)) ([791455d](https://github.com/dhis2/maps-app/commit/791455d1d823391b403c0637c324a8ec2b8ed32b))
+
+## [1.6.17](https://github.com/dhis2/maps-app/compare/v1.6.16...v1.6.17) (2021-03-08)
+
+
+### Bug Fixes
+
+* load map on save ([#1540](https://github.com/dhis2/maps-app/issues/1540)) ([dbff56c](https://github.com/dhis2/maps-app/commit/dbff56c2255ed1d6b66eb879ff7a99e10c84f3d7))
+
+## [1.6.16](https://github.com/dhis2/maps-app/compare/v1.6.15...v1.6.16) (2021-03-06)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b2d69f5](https://github.com/dhis2/maps-app/commit/b2d69f5d850433d3b623eef70b63fdc50fe1d329))
+
 ## [1.6.15](https://github.com/dhis2/maps-app/compare/v1.6.14...v1.6.15) (2021-03-05)
 
 

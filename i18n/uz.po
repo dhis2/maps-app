@@ -545,7 +545,7 @@ msgid "More actions"
 msgstr "Бошқа ҳаракатлар"
 
 msgid "Hide data table"
-msgstr ""
+msgstr "Маълумотлар жадвали беркитилсин"
 
 msgid "Show data table"
 msgstr "Маълумотлар жадвалини кўрсатиш"

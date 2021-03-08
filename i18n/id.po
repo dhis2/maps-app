@@ -541,7 +541,7 @@ msgid "More actions"
 msgstr ""
 
 msgid "Hide data table"
-msgstr ""
+msgstr "Sembunyikan tabel data"
 
 msgid "Show data table"
 msgstr ""

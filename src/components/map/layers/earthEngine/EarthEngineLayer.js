@@ -2,6 +2,7 @@ import React from 'react';
 import Layer from '../Layer';
 import LayerLoading from '../LayerLoading';
 import EarthEnginePopup from './EarthEnginePopup';
+import Alert from '../Alert';
 import { apiFetch } from '../../../../util/api';
 import { filterData } from '../../../../util/filter';
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
@@ -11,6 +12,7 @@ export default class EarthEngineLayer extends Layer {
         isLoading: true,
         popup: null,
         aggregations: null,
+        error: null,
     };
 
     componentDidUpdate(prev) {
@@ -24,11 +26,11 @@ export default class EarthEngineLayer extends Layer {
                     lng: coordinate[0],
                     lat: coordinate[1],
                 });
-            } catch (err) {
-                // eslint-disable-next-line
-                console.error(
-                    'Google Earth Engine failed. Is the service configured for this DHIS2 instance?'
-                );
+            } catch (error) {
+                this.setState({
+                    error:
+                        'Google Earth Engine failed. Is the service configured for this DHIS2 instance?',
+                });
             }
         }
     }
@@ -108,13 +110,18 @@ export default class EarthEngineLayer extends Layer {
 
         config.accessToken = apiFetch('/tokens/google'); // returns promise
 
-        this.layer = map.createLayer(config);
-        map.addLayer(this.layer);
+        try {
+            this.layer = map.createLayer(config);
+            map.addLayer(this.layer);
+        } catch (error) {
+            this.onError(error);
+        }
 
         if (aggregate) {
             this.layer
                 .aggregate(aggregationType)
-                .then(this.addAggregationValues.bind(this));
+                .then(this.addAggregationValues.bind(this))
+                .catch(this.onError.bind(this));
         }
 
         this.fitBoundsOnce();
@@ -135,7 +142,16 @@ export default class EarthEngineLayer extends Layer {
 
     render() {
         const { legend, aggregationType } = this.props;
-        const { isLoading, popup, aggregations } = this.state;
+        const { isLoading, popup, aggregations, error } = this.state;
+
+        if (error) {
+            return (
+                <Alert
+                    message={error}
+                    onHidden={() => this.setState({ error: null })}
+                />
+            );
+        }
 
         if (isLoading) {
             return <LayerLoading />;
@@ -158,5 +174,9 @@ export default class EarthEngineLayer extends Layer {
 
     onLoad() {
         this.setState({ isLoading: false });
+    }
+
+    onError(error) {
+        this.setState({ error, isLoading: false });
     }
 }
