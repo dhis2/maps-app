@@ -1,3 +1,10 @@
+## [1.6.18](https://github.com/dhis2/maps-app/compare/v1.6.17...v1.6.18) (2021-03-08)
+
+
+### Bug Fixes
+
+* catch ee api errors ([#1543](https://github.com/dhis2/maps-app/issues/1543)) ([791455d](https://github.com/dhis2/maps-app/commit/791455d1d823391b403c0637c324a8ec2b8ed32b))
+
 ## [1.6.17](https://github.com/dhis2/maps-app/compare/v1.6.16...v1.6.17) (2021-03-08)
 
 
