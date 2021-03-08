@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -690,6 +690,9 @@ msgstr "Опции"
 
 msgid "Code"
 msgstr "Код"
+
+msgid "Loading data"
+msgstr ""
 
 msgid "No data found for this period."
 msgstr ""
