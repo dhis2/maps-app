@@ -170,11 +170,6 @@ export default class EarthEngineLayer extends Layer {
         this.setState({ popup: evt });
     }
 
-    onFeatureRightClick(evt) {
-        this.setState({ popup: null });
-        super.onFeatureRightClick(evt);
-    }
-
     onLoad() {
         this.setState({ isLoading: false });
     }
