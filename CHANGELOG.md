@@ -1,3 +1,10 @@
+## [1.6.20](https://github.com/dhis2/maps-app/compare/v1.6.19...v1.6.20) (2021-03-08)
+
+
+### Bug Fixes
+
+* loading indicator in org unit dialog ([172bd95](https://github.com/dhis2/maps-app/commit/172bd95a5e89237c7068b2f74839a97ff7c288b2))
+
 ## [1.6.19](https://github.com/dhis2/maps-app/compare/v1.6.18...v1.6.19) (2021-03-08)
 
 
