@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgid "Details"
 msgstr "تفصیلات"
 
 msgid "Yes"
-msgstr "ہاں"
+msgstr "Ø¬Û ÛØ§Úº"
 
 msgid "Event location"
 msgstr "واقعہ کا مقام"
@@ -147,7 +147,7 @@ msgid "Organisation Units"
 msgstr "تنظیمی یونٹس"
 
 msgid "Style"
-msgstr "سٹائل"
+msgstr "Ø§ÙØ¯Ø§Ø²"
 
 msgid "Labels"
 msgstr "لیبل"
@@ -237,6 +237,18 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
@@ -519,6 +531,9 @@ msgstr ""
 
 msgid "More actions"
 msgstr ""
+
+msgid "Hide data table"
+msgstr "ڈیٹا ٹیبل چھپائیں"
 
 msgid "Show data table"
 msgstr ""
@@ -964,7 +979,7 @@ msgstr ""
 msgid "Elevation"
 msgstr "اونچائی"
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
@@ -1326,7 +1341,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "نہیں"
+msgstr "ÙÛÛÚº"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""

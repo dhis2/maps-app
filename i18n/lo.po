@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "ແບບຟອມ"
+msgstr "Data set\\:"
 
 msgid "Index"
 msgstr ""
@@ -147,7 +147,7 @@ msgid "Organisation Units"
 msgstr "ຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid "Style"
-msgstr "ແບບ"
+msgstr "ລັກສະນະ"
 
 msgid "Labels"
 msgstr ""
@@ -211,7 +211,7 @@ msgid "Data"
 msgstr "ຂໍ້ມູນ"
 
 msgid "Period"
-msgstr "ໄລຍະ ເວລາ"
+msgstr "ຊ່ວງເວລາ"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -237,6 +237,18 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
@@ -450,7 +462,7 @@ msgid "is not"
 msgstr ""
 
 msgid "Operator"
-msgstr "Operator"
+msgstr "ເຄື່ອງໝາຍເລກ"
 
 msgid "Date"
 msgstr "ວັນທີ່"
@@ -519,6 +531,9 @@ msgstr ""
 
 msgid "More actions"
 msgstr ""
+
+msgid "Hide data table"
+msgstr "ເຊື່ອງຂໍ້ມູນ"
 
 msgid "Show data table"
 msgstr ""
@@ -964,7 +979,7 @@ msgstr ""
 msgid "Elevation"
 msgstr ""
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
@@ -1284,7 +1299,7 @@ msgid "Event"
 msgstr "ເຫດການ"
 
 msgid "No data found"
-msgstr "No data found"
+msgstr "ບໍ່ພົບຂໍ້ມູນ"
 
 msgid "Facilities"
 msgstr ""

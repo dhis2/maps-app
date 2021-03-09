@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgid "Details"
 msgstr "جزئیات"
 
 msgid "Yes"
-msgstr "بله"
+msgstr "بلی"
 
 msgid "Event location"
 msgstr "د پېښې طبقه"
@@ -134,7 +134,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "لغو کردن"
+msgstr "انصراف"
 
 msgid "Close"
 msgstr "بستن"
@@ -204,7 +204,7 @@ msgid "Groups"
 msgstr "ګروپونه"
 
 msgid "This field is required"
-msgstr "اسم هذا از قبل ثبت و راجستر شده است"
+msgstr "این بخش لازمی میباشد"
 
 msgid "Data"
 msgstr "دیتا"
@@ -236,6 +236,18 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
@@ -508,7 +520,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "ویرایش"
+msgstr "تجدید"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -518,6 +530,9 @@ msgstr ""
 
 msgid "More actions"
 msgstr ""
+
+msgid "Hide data table"
+msgstr "د مالوماتو (ډاټا) جدول پټ کړئ"
 
 msgid "Show data table"
 msgstr ""
@@ -580,7 +595,7 @@ msgid "Not set"
 msgstr "تعین نه گردیده است"
 
 msgid "Organisation unit"
-msgstr "بخش نهاد/سازمان"
+msgstr "واحد سازمان"
 
 msgid "Loading layer data"
 msgstr ""
@@ -765,7 +780,7 @@ msgid "End date"
 msgstr "تاریخ اتمام"
 
 msgid "Program indicator"
-msgstr "شاخص پروگرام"
+msgstr "ایجاد پروگرام شاخص"
 
 msgid "No program"
 msgstr "هیچ پروگرام نیست"
@@ -963,7 +978,7 @@ msgstr ""
 msgid "Elevation"
 msgstr "بلندی"
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."

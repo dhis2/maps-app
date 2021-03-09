@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Burmese (https://www.transifex.com/hisp-uio/teams/100509/my/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgid "Details"
 msgstr "အသေးစိတ်များ"
 
 msgid "Yes"
-msgstr "Yes"
+msgstr "မှန်"
 
 msgid "Event location"
 msgstr ""
@@ -72,7 +72,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "Data set"
+msgstr "Dataset"
 
 msgid "Index"
 msgstr ""
@@ -238,6 +238,18 @@ msgid "Available periods are set by the source data"
 msgstr ""
 
 msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
 msgid "Min"
@@ -463,7 +475,7 @@ msgid "Indicator group"
 msgstr "Indicator group"
 
 msgid "Interpretations"
-msgstr "Interpretations"
+msgstr "ဘာသာပြန်ခြင်းများ"
 
 msgid "Collapse"
 msgstr ""
@@ -520,6 +532,9 @@ msgstr ""
 
 msgid "More actions"
 msgstr ""
+
+msgid "Hide data table"
+msgstr "data ဇယားကို ဝှက်ထားပါ။"
 
 msgid "Show data table"
 msgstr ""
@@ -965,7 +980,7 @@ msgstr ""
 msgid "Elevation"
 msgstr ""
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
