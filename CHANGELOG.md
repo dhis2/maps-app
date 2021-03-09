@@ -1,3 +1,24 @@
+## [1.6.21](https://github.com/dhis2/maps-app/compare/v1.6.20...v1.6.21) (2021-03-09)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([8bb0080](https://github.com/dhis2/maps-app/commit/8bb008032f970159a1ee33b32525749855ae3d28))
+
+## [1.6.20](https://github.com/dhis2/maps-app/compare/v1.6.19...v1.6.20) (2021-03-08)
+
+
+### Bug Fixes
+
+* loading indicator in org unit dialog ([172bd95](https://github.com/dhis2/maps-app/commit/172bd95a5e89237c7068b2f74839a97ff7c288b2))
+
+## [1.6.19](https://github.com/dhis2/maps-app/compare/v1.6.18...v1.6.19) (2021-03-08)
+
+
+### Bug Fixes
+
+* close popup on right click ([45ceb0f](https://github.com/dhis2/maps-app/commit/45ceb0fff3ed8ba76a6f9e9e62302169ef39e7a4))
+
 ## [1.6.18](https://github.com/dhis2/maps-app/compare/v1.6.17...v1.6.18) (2021-03-08)
 
 
