@@ -63,9 +63,20 @@ export default class EarthEngineLayer extends Layer {
         } = this.props;
 
         const { map } = this.context;
+        const { aggregations } = this.state;
 
-        const aggregate = data && aggregationType && aggregationType.length;
-        const filteredData = filterData(data, dataFilters);
+        const filteredData = filterData(dataFilters, data, aggregations);
+
+        if (Array.isArray(filteredData) && !filteredData.length) {
+            return;
+        }
+
+        const aggregate =
+            data &&
+            aggregationType &&
+            aggregationType.length &&
+            filteredData &&
+            filteredData.length;
 
         const config = {
             type: EARTH_ENGINE_LAYER,

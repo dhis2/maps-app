@@ -37,7 +37,7 @@ class EventLayer extends Layer {
             dataFilters,
         } = this.props;
 
-        const filteredData = filterData(data, dataFilters);
+        const filteredData = filterData(dataFilters, data);
 
         // Some older favorites don't have a valid color code
         const color =

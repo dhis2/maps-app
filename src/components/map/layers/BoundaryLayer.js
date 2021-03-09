@@ -25,7 +25,7 @@ export default class BoundaryLayer extends Layer {
             dataFilters,
         } = this.props;
 
-        const filteredData = filterData(data, dataFilters);
+        const filteredData = filterData(dataFilters, data);
 
         const map = this.context.map;
 

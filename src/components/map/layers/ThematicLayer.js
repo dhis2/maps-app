@@ -67,7 +67,7 @@ class ThematicLayer extends Layer {
 
         const map = this.context.map;
 
-        const filteredData = filterData(periodData, dataFilters);
+        const filteredData = filterData(dataFilters, periodData);
 
         const config = {
             type: 'choropleth',
