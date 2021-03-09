@@ -118,28 +118,22 @@ class Layer extends PureComponent {
     }
 
     setLayerVisibility() {
-        if (this.layer) {
-            this.layer.setVisibility(this.props.isVisible);
-        }
+        this.layer.setVisibility(this.props.isVisible);
     }
 
     setLayerOpacity() {
-        if (this.layer) {
-            this.layer.setOpacity(this.props.opacity);
-        }
+        this.layer.setOpacity(this.props.opacity);
     }
 
     setLayerOrder() {
-        if (this.layer) {
-            this.layer.setIndex(this.props.index);
-        }
+        this.layer.setIndex(this.props.index);
     }
 
     // Fit map to layer bounds
     fitBounds() {
         const { map } = this.context;
 
-        if (this.layer && this.layer.getBounds) {
+        if (this.layer.getBounds) {
             map.fitBounds(this.layer.getBounds());
         }
     }
@@ -155,19 +149,17 @@ class Layer extends PureComponent {
     removeLayer() {
         const map = this.context.map;
 
-        if (this.layer) {
-            this.layer.off('contextmenu', this.onFeatureRightClick, this);
+        this.layer.off('contextmenu', this.onFeatureRightClick, this);
 
-            if (map.hasLayer(this.layer)) {
-                map.removeLayer(this.layer);
-            }
-
-            delete this.layer;
+        if (map.hasLayer(this.layer)) {
+            map.removeLayer(this.layer);
         }
+
+        delete this.layer;
     }
 
     highlightFeature(feature) {
-        if (this.layer && this.layer.highlight) {
+        if (this.layer.highlight) {
             this.layer.highlight(feature ? feature.id : null);
         }
     }
