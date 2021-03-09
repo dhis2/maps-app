@@ -1,7 +1,7 @@
 import isNumeric from 'd2-utilizr/lib/isNumeric';
 
 // Filters an array of object with a set of filters
-export const filterData = (filters, data, aggregations = {}) => {
+export const filterData = (data, filters) => {
     if (!filters) {
         return data;
     }
@@ -15,16 +15,7 @@ export const filterData = (filters, data, aggregations = {}) => {
         filteredData = filteredData.filter(d => {
             // Loop through all data items
             const props = d.properties || d; // GeoJSON or plain object
-            let value = props[field];
-
-            // Look for value in aggregations if not in properties
-            if (value === undefined && aggregations[d.id]) {
-                value = aggregations[d.id][field];
-            }
-
-            if (value === undefined) {
-                return false;
-            }
+            const value = props[field];
 
             return isNumeric(value)
                 ? numericFilter(value, filter)

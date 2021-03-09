@@ -33,7 +33,7 @@ class FacilityLayer extends Layer {
             labelFontWeight,
         } = this.props;
 
-        const filteredData = filterData(dataFilters, data);
+        const filteredData = filterData(data, dataFilters);
 
         const map = this.context.map;
 

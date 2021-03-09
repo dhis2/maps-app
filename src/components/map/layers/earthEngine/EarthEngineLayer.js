@@ -69,24 +69,11 @@ export default class EarthEngineLayer extends Layer {
             data,
             aggregationType,
             areaRadius,
-            dataFilters,
         } = this.props;
 
         const { map } = this.context;
-        const { aggregations } = this.state;
 
-        const filteredData = filterData(dataFilters, data, aggregations);
-
-        if (Array.isArray(filteredData) && !filteredData.length) {
-            return;
-        }
-
-        const aggregate =
-            data &&
-            aggregationType &&
-            aggregationType.length &&
-            filteredData &&
-            filteredData.length;
+        const aggregate = data && aggregationType && aggregationType.length;
 
         const config = {
             type: EARTH_ENGINE_LAYER,
@@ -107,7 +94,7 @@ export default class EarthEngineLayer extends Layer {
             legend: legend.items,
             resolution,
             projection,
-            data: filteredData,
+            data,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
@@ -149,7 +136,7 @@ export default class EarthEngineLayer extends Layer {
     }
 
     addAggregationValues(aggregations) {
-        const { id, setAggregations } = this.props;
+        const { id, data, setAggregations } = this.props;
 
         // Make aggregations available for data table and download
         // setAggregations is not available in map plugin
@@ -157,16 +144,26 @@ export default class EarthEngineLayer extends Layer {
             setAggregations({ [id]: aggregations });
         }
 
-        // Make aggregations available for popup
-        this.setState({ aggregations });
+        // Make aggregations available for filtering and popup
+        this.setState({
+            data: data.map(f => ({
+                ...f,
+                properties: {
+                    ...f.properties,
+                    ...aggregations[f.id],
+                },
+            })),
+            aggregations,
+        });
     }
 
     applyFilter() {
         const { data, dataFilters } = this.props;
-        const { aggregations } = this.state;
-        const filteredData = filterData(dataFilters, data, aggregations).map(
-            ({ id }) => id
-        );
+
+        const filteredData = filterData(
+            this.state.data || data,
+            dataFilters
+        ).map(f => f.id);
 
         if (this.layer && this.layer.filter) {
             this.layer.filter(filteredData);
