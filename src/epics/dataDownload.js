@@ -102,6 +102,7 @@ const downloadData = action$ =>
                 format,
                 humanReadableKeys,
             } = action.payload;
+            const { name } = layer;
             const layerData = await loadData(layer, format, humanReadableKeys);
 
             const data = aggregations
@@ -114,10 +115,7 @@ const downloadData = action$ =>
                   }))
                 : layerData;
 
-            await downloadGeoJson({
-                name: layer.name,
-                data,
-            });
+            await downloadGeoJson({ name, data });
 
             return dataDownloadSuccess();
         } catch (e) {
