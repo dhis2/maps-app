@@ -9,7 +9,6 @@ import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
-import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
 import { highlightFeature } from '../../actions/feature';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
@@ -370,8 +369,6 @@ export default connect(
     {
         selectOrgUnit,
         unselectOrgUnit,
-        setDataFilter,
-        clearDataFilter,
         loadLayer,
         highlightFeature,
     }

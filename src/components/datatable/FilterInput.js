@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { debounce } from 'lodash/fp';
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
 import styles from './styles/FilterInput.module.css';
 
@@ -14,17 +15,18 @@ const FilterInput = ({
     setDataFilter,
     clearDataFilter,
 }) => {
-    const filterValue = filters[dataKey] || '';
+    const [filterValue, setFilterValue] = useState(filters[dataKey] || '');
 
-    // https://stackoverflow.com/questions/36683770/react-how-to-get-the-value-of-an-input-field
+    const setFilter = debounce(500, value =>
+        value !== ''
+            ? setDataFilter(layerId, dataKey, value)
+            : clearDataFilter(layerId, dataKey, value)
+    );
+
     const onChange = evt => {
-        const value = evt.target.value;
-
-        if (value !== '') {
-            setDataFilter(layerId, dataKey, value);
-        } else {
-            clearDataFilter(layerId, dataKey, value);
-        }
+        const { value } = evt.target;
+        setFilterValue(value); // Local state
+        setFilter(value); // Debounced update of redux state
     };
 
     return (
