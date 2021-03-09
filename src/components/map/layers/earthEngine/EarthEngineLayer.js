@@ -184,7 +184,7 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onLoad() {
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false, popup: null });
     }
 
     onError(error) {
