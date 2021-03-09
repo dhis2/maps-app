@@ -247,16 +247,16 @@ msgid "Loading periods"
 msgstr "Načítání období"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "Vyžaduje se minimální hodnota"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "Je požadována maximální hodnota"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "Max by měl být větší než min"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "Platné kroky jsou {{minSteps}} až {{maxSteps}}"
 
 msgid "Min"
 msgstr "Min"
@@ -701,7 +701,7 @@ msgid "Code"
 msgstr "Kód"
 
 msgid "Loading data"
-msgstr ""
+msgstr "Načítání dat"
 
 msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
@@ -998,7 +998,7 @@ msgid "Elevation"
 msgstr "Nadmořská výška"
 
 msgid "meters"
-msgstr ""
+msgstr "metrů"
 
 msgid "Elevation above sea-level."
 msgstr "Nadmořská výška."
