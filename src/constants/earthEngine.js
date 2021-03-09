@@ -248,7 +248,7 @@ export const earthEngineLayers = () => [
         params: {
             min: 0,
             max: 100,
-            palette: '#eff3ff,#c6dbef,#9ecae1,#6baed6,#4292c6,#2171b5,#084594', // Blues
+            palette: '#eff3ff,#c6dbef,#9ecae1,#6baed6,#3182bd,#08519c', // Blues
         },
         opacity: 0.9,
     },
@@ -276,8 +276,9 @@ export const earthEngineLayers = () => [
         },
         params: {
             min: 0,
-            max: 50,
-            palette: '#fee5d9,#fcbba1,#fc9272,#fb6a4a,#ef3b2c,#cb181d,#99000d', // Reds
+            max: 40,
+            palette:
+                '#fff5f0,#fee0d2,#fcbba1,#fc9272,#fb6a4a,#ef3b2c,#cb181d,#a50f15,#67000d', // Reds
         },
         opacity: 0.9,
     },
