@@ -107,16 +107,16 @@ class DataTable extends Component {
     }
 
     filter() {
-        const { layer, aggregations } = this.props;
-        const { data = [], dataFilters } = layer;
+        const { layer, aggregations = {} } = this.props;
+        const { data, dataFilters } = layer;
 
         return filterData(
             dataFilters,
             data.map((d, i) => ({
                 ...d.properties,
+                ...(aggregations[d.id] && aggregations[d.id]),
                 index: i,
-            })),
-            aggregations
+            }))
         );
     }
 
