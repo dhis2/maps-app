@@ -35,6 +35,16 @@ export default class EarthEngineLayer extends Layer {
         }
     }
 
+    updateLayer = filterChange => {
+        if (filterChange) {
+            this.applyFilter();
+        } else {
+            this.removeLayer();
+            this.createLayer(true);
+            this.setLayerOrder();
+        }
+    };
+
     createLayer(isUpdate) {
         const {
             id,
@@ -149,6 +159,18 @@ export default class EarthEngineLayer extends Layer {
 
         // Make aggregations available for popup
         this.setState({ aggregations });
+    }
+
+    applyFilter() {
+        const { data, dataFilters } = this.props;
+        const { aggregations } = this.state;
+        const filteredData = filterData(dataFilters, data, aggregations).map(
+            ({ id }) => id
+        );
+
+        if (this.layer && this.layer.filter) {
+            this.layer.filter(filteredData);
+        }
     }
 
     render() {

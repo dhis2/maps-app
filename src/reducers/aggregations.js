@@ -12,6 +12,14 @@ const dataTable = (state = {}, action) => {
         case types.FAVORITE_LOAD:
             return {};
 
+        case types.LAYER_REMOVE:
+            return state[action.id]
+                ? {
+                      ...state,
+                      [action.id]: null,
+                  }
+                : state;
+
         default:
             return state;
     }
