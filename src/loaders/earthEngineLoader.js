@@ -13,7 +13,7 @@ const earthEngineLoader = async config => {
     const { rows, aggregationType } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     let layerConfig = {};
-    let dataset = {};
+    let dataset;
     let features;
     let alerts;
 
