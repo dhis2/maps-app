@@ -1,3 +1,10 @@
+## [1.6.23](https://github.com/dhis2/maps-app/compare/v1.6.22...v1.6.23) (2021-03-10)
+
+
+### Bug Fixes
+
+* show updated EE aggregations in data table and download ([#1537](https://github.com/dhis2/maps-app/issues/1537)) ([168c66c](https://github.com/dhis2/maps-app/commit/168c66cef94d26ca038ac5c62a7e91eae889bed7))
+
 ## [1.6.22](https://github.com/dhis2/maps-app/compare/v1.6.21...v1.6.22) (2021-03-10)
 
 
