@@ -75,8 +75,8 @@ const earthEngineLoader = async config => {
 
     const layer = {
         ...dataset,
-        ...layerConfig,
         ...config,
+        ...layerConfig,
     };
 
     const { unit, filter, description, source, sourceUrl, band, bands } = layer;
