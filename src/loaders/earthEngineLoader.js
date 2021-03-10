@@ -112,10 +112,10 @@ const earthEngineLoader = async config => {
 
     return {
         ...layer,
+        legend,
         name,
         data,
         alerts,
-        legend,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
