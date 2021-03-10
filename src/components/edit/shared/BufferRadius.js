@@ -35,11 +35,12 @@ const BufferRadius = ({
             {showBuffer && (
                 <NumberField
                     label={i18n.t('Radius in meters')}
-                    value={radius || ''}
+                    value={Number.isInteger(radius) ? radius : ''}
                     disabled={disabled}
                     onChange={value =>
                         setBufferRadius(value !== '' ? parseInt(value, 10) : '')
                     }
+                    min={0}
                 />
             )}
         </div>
