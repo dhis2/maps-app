@@ -38,7 +38,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
         <MenuItem
           dataTest="dhis2-uicore-menuitem"
           icon={<SvgTable16 />}
-          label="Show data table"
+          label="Hide data table"
           onClick={[Function]}
         />
         <MenuItem

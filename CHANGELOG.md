@@ -1,3 +1,10 @@
+## [1.6.24](https://github.com/dhis2/maps-app/compare/v1.6.23...v1.6.24) (2021-03-10)
+
+
+### Bug Fixes
+
+* hide data table only if table belongs to layer ([#1549](https://github.com/dhis2/maps-app/issues/1549)) ([96d1613](https://github.com/dhis2/maps-app/commit/96d161364b115da38710a3917195953f746fa18a))
+
 ## [1.6.23](https://github.com/dhis2/maps-app/compare/v1.6.22...v1.6.23) (2021-03-10)
 
 
