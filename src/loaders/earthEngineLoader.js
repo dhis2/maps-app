@@ -36,6 +36,17 @@ const earthEngineLoader = async config => {
                 },
             ];
         }
+
+        if (!features.length) {
+            alerts = [
+                {
+                    warning: true,
+                    message: `${i18n.t('Selected org units')}: ${i18n.t(
+                        'No coordinates found'
+                    )}`,
+                },
+            ];
+        }
     }
 
     if (typeof config.config === 'string') {
@@ -80,6 +91,8 @@ const earthEngineLoader = async config => {
     } = layer;
 
     const period = getPeriodNameFromFilter(filter);
+    const data =
+        Array.isArray(features) && features.length ? features : undefined;
 
     const groups =
         band && Array.isArray(bands) && bands.length
@@ -110,7 +123,7 @@ const earthEngineLoader = async config => {
         ...layer,
         legend,
         aggregationType,
-        data: features,
+        data,
         alerts,
         isLoaded: true,
         isExpanded: true,
