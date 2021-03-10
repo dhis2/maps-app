@@ -3,15 +3,15 @@
 # Sheila André <sandre@saudigitus.org>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # phil_dhis2, 2020
-# Viktor Varland <viktor@dhis2.org>, 2021
 # Ge Joao <gsimango@saudigitus.org>, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2021\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -248,6 +248,18 @@ msgstr ""
 msgid "Loading periods"
 msgstr ""
 
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
 msgid "Min"
 msgstr "Mínimo"
 
@@ -404,10 +416,10 @@ msgid "Selected only"
 msgstr "Apenas selecionados"
 
 msgid "Selected and below"
-msgstr "Selecionado e abaixo"
+msgstr "Selecione a baixo"
 
 msgid "Selected and all below"
-msgstr "Selecionado e tudo abaixo"
+msgstr "Selecione  tudo abaixo"
 
 msgid "Tracked entities"
 msgstr "Entidades rastreadas"
@@ -542,6 +554,9 @@ msgstr "Definir opacidade da camada"
 msgid "More actions"
 msgstr "Mais acções"
 
+msgid "Hide data table"
+msgstr "Ocultar tabela de dados"
+
 msgid "Show data table"
 msgstr ""
 
@@ -651,7 +666,7 @@ msgid "km"
 msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr "Meça distâncias e áreas"
+msgstr "Medir  distâncias e  áreas"
 
 msgid "mi"
 msgstr "mi"
@@ -991,8 +1006,8 @@ msgstr ""
 msgid "Elevation"
 msgstr "Elevação"
 
-msgid "metres"
-msgstr "metros"
+msgid "meters"
+msgstr ""
 
 msgid "Elevation above sea-level."
 msgstr "Elevação acima do nível do mar."

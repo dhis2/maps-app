@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Phần Tử Dữ Liệu"
+msgstr "Phần tử dữ liệu"
 
 msgid "Totals"
 msgstr "Tổng"
@@ -105,7 +105,7 @@ msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "Type"
+msgstr "Loại"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -139,7 +139,7 @@ msgid "Cancel"
 msgstr "Hủy"
 
 msgid "Close"
-msgstr "Đóng"
+msgstr "Đóng lại"
 
 msgid "Legend position"
 msgstr ""
@@ -212,7 +212,7 @@ msgid "Data"
 msgstr "Dữ liệu"
 
 msgid "Period"
-msgstr "Thời gian"
+msgstr "Thời điểm"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -240,6 +240,18 @@ msgstr ""
 msgid "Loading periods"
 msgstr ""
 
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
 msgid "Min"
 msgstr "Nhỏ nhất"
 
@@ -256,7 +268,7 @@ msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr "Bộ lọc"
+msgstr "Lọc"
 
 msgid "Events"
 msgstr "Sự kiện"
@@ -510,7 +522,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "Sửa"
+msgstr "Chỉnh sửa"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -520,6 +532,9 @@ msgstr ""
 
 msgid "More actions"
 msgstr ""
+
+msgid "Hide data table"
+msgstr "Ẩn bảng dữ liệu"
 
 msgid "Show data table"
 msgstr ""
@@ -965,7 +980,7 @@ msgstr ""
 msgid "Elevation"
 msgstr "Độ cao"
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."

@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgid "Classes"
 msgstr "التصنيفات"
 
 msgid "Legend set"
-msgstr "حزمة وسائل الإيضاح"
+msgstr "حزمة المفاتيح الإيضاحية"
 
 msgid "Color"
 msgstr "اللون"
@@ -93,7 +93,7 @@ msgid "Value"
 msgstr "القيمة"
 
 msgid "Legend"
-msgstr "شروحات"
+msgstr "مفاتيح إيضاحية"
 
 msgid "Range"
 msgstr "نطاق"
@@ -120,7 +120,7 @@ msgid "Dimension"
 msgstr "البُعد"
 
 msgid "Download"
-msgstr "تحميل"
+msgstr "تنزيل"
 
 msgid "Download map"
 msgstr "تنزيل الخريطة"
@@ -155,7 +155,7 @@ msgid "Labels"
 msgstr "التسميات"
 
 msgid "Point radius"
-msgstr "نصف قطر النقطة"
+msgstr "قطر النقطة"
 
 msgid "No organisation units are selected"
 msgstr "لم يتم تحديد أي وحدات تنظيمية"
@@ -177,7 +177,7 @@ msgid "tracked entity"
 msgstr "الكيان المتعقب"
 
 msgid "facility"
-msgstr "المرفق"
+msgstr "المنشأة"
 
 msgid "thematic"
 msgstr ""
@@ -189,7 +189,7 @@ msgid "Earth Engine"
 msgstr ""
 
 msgid "Edit {{name}} layer"
-msgstr "تعديل طبقة {{name}}"
+msgstr "تعديل طبقة {{name}} جديدة"
 
 msgid "Add new {{name}} layer"
 msgstr "إضافة طبقة {{name}} جديدة"
@@ -241,6 +241,18 @@ msgstr ""
 msgid "Loading periods"
 msgstr ""
 
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
 msgid "Min"
 msgstr "الأدنى"
 
@@ -269,7 +281,7 @@ msgid "View all events"
 msgstr "عرض كافة الأحداث"
 
 msgid "Radius"
-msgstr "نصف القطر"
+msgstr "القطر"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
@@ -338,7 +350,7 @@ msgid "Indicator"
 msgstr "المؤشر"
 
 msgid "Reporting rates"
-msgstr "معدلات إعداد التقارير"
+msgstr "معدلات إرسال البلاغات"
 
 msgid "Event data items"
 msgstr "عناصر بيانات الحدث"
@@ -392,7 +404,7 @@ msgid "Selected and below"
 msgstr "المختارة وما أدناها"
 
 msgid "Selected and all below"
-msgstr "المختارة وكل ماهو أدنى"
+msgstr "المختارة و أدناه"
 
 msgid "Tracked entities"
 msgstr "الكيانات المتعقبة"
@@ -446,7 +458,7 @@ msgid "contains"
 msgstr "يحتوي على"
 
 msgid "is"
-msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
+msgstr "confirm_delete_relationship_type\\=هل تريد بالتأكيد حذف نوع العلاقة؟"
 
 msgid "is not"
 msgstr "ليس"
@@ -467,7 +479,7 @@ msgid "Interpretations"
 msgstr "التفسيرات"
 
 msgid "Collapse"
-msgstr "انهيار"
+msgstr "لملمة"
 
 msgid "Expand"
 msgstr "توسيع"
@@ -503,7 +515,7 @@ msgid "External layer"
 msgstr "طبقة خارحية"
 
 msgid "Split view can not be combined with other layer types."
-msgstr "لا يمكن دمج طريقة العرض المقسمة مع أنواع الطبقات الأخرى."
+msgstr "لا يمكن دمج طريقة العرض المنقسمة مع أنواع الطبقات الأخرى."
 
 msgid "Loading layer"
 msgstr "تحميل الطبقة"
@@ -523,6 +535,9 @@ msgstr "اضبط عتامة الطبقة"
 msgid "More actions"
 msgstr "المزيد من الإجراءات"
 
+msgid "Hide data table"
+msgstr "إخفاء جدول البيانات"
+
 msgid "Show data table"
 msgstr "إظهار جدول البيانات"
 
@@ -533,7 +548,7 @@ msgid "Download data"
 msgstr "تنزيل البيانات"
 
 msgid "Edit layer"
-msgstr "تحرير الطبقة"
+msgstr "تعديل الطبقة"
 
 msgid "Remove layer"
 msgstr "أزل الطبقة"
@@ -617,10 +632,10 @@ msgid "Distance"
 msgstr "مسافة"
 
 msgid "Enter fullscreen"
-msgstr "وضع ملء الشاشة"
+msgstr "أدخل وضع ملء الشاشة"
 
 msgid "Exit fullscreen"
-msgstr "الخروج من وضع ملء الشاشة"
+msgstr "الخروج من الشاشة الكاملة"
 
 msgid "Finish measurement"
 msgstr ""
@@ -696,7 +711,7 @@ msgid ""
 msgstr "لا يمكن الجمع بين الوحدات التنظيمية للمستخدم وتحديد الوحدات الفردية."
 
 msgid "Click the map where you want to relocate the facility."
-msgstr "انقر على الخريطة حيث تريد نقل المرفق."
+msgstr "انقر على الخريطة حيث تريد نقل المنشأة."
 
 msgid "user organisation unit"
 msgstr "الوحدة التنظيمية للمستخدم"
@@ -750,7 +765,7 @@ msgid "Only one timeline is allowed."
 msgstr "مسموح بجدول زمني واحد فقط."
 
 msgid "Remove other layers to enable split map views."
-msgstr "قم بإزالة الطبقات الأخرى لتمكين عروض الخريطة المقسمة."
+msgstr "قم بإزالة الطبقات الأخرى لتمكين عروض الخريطة المنقسمة."
 
 msgid "Display periods"
 msgstr "عرض الفترات"
@@ -759,7 +774,7 @@ msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
-msgstr "الجدول الزمني"
+msgstr "الخط الزمني"
 
 msgid "Split map views"
 msgstr "عروض الخريطة المقسمة"
@@ -786,7 +801,7 @@ msgid "Tracked Entity Type"
 msgstr "نوع الكيان المتعقب"
 
 msgid "By data element"
-msgstr "حسب عنصر البيانات"
+msgstr "بواسطة عنصر البيانات"
 
 msgid "Count"
 msgstr "العدد"
@@ -969,8 +984,8 @@ msgstr ""
 msgid "Elevation"
 msgstr "الارتفاع"
 
-msgid "metres"
-msgstr "أمتار"
+msgid "meters"
+msgstr ""
 
 msgid "Elevation above sea-level."
 msgstr "الارتفاع فوق مستوى سطح البحر."
@@ -1251,7 +1266,7 @@ msgid "Last six-month"
 msgstr "آخر ستة أشهر"
 
 msgid "Last 2 six-months"
-msgstr "آخر نصفي سنة"
+msgstr "آخر فترتي ستة أشهر (نصفي سنة)"
 
 msgid "This year"
 msgstr "السنة الحالية"
@@ -1296,7 +1311,7 @@ msgid "Event"
 msgstr "الحدث"
 
 msgid "No data found"
-msgstr "لم توجد بيانات"
+msgstr "لم يتم إيجاد بيانات"
 
 msgid "Facilities"
 msgstr "مرافق"

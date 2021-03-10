@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgid "Yes"
 msgstr "Ano"
 
 msgid "Event location"
-msgstr "Místo konání události"
+msgstr "Místo konání akce"
 
 msgid "Coordinate field"
 msgstr "Pole souřadnic"
@@ -246,6 +246,18 @@ msgstr "Dostupné období jsou nastaveny podle zdrojových dat"
 msgid "Loading periods"
 msgstr "Načítání období"
 
+msgid "Min value is required"
+msgstr "Vyžaduje se minimální hodnota"
+
+msgid "Max value is required"
+msgstr "Je požadována maximální hodnota"
+
+msgid "Max should be greater than min"
+msgstr "Max by měl být větší než min"
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr "Platné kroky jsou {{minSteps}} až {{maxSteps}}"
+
 msgid "Min"
 msgstr "Min"
 
@@ -268,7 +280,7 @@ msgid "Events"
 msgstr "Události"
 
 msgid "Group events"
-msgstr "Skupinové události"
+msgstr "Skupinové akce"
 
 msgid "View all events"
 msgstr "Zobrazit všechny události"
@@ -431,7 +443,7 @@ msgid "Something went wrong"
 msgstr "Něco se pokazilo"
 
 msgid "Refresh to try again"
-msgstr "Obnovte a zkuste to znovu"
+msgstr "Obnovte akci a zkuste to znovu"
 
 msgid "Hide technical details"
 msgstr "Skrýt technické podrobnosti"
@@ -528,6 +540,9 @@ msgstr "Nastavit neprůhlednost vrstvy"
 
 msgid "More actions"
 msgstr "Více akcí"
+
+msgid "Hide data table"
+msgstr "Skrýt tabulku dat"
 
 msgid "Show data table"
 msgstr "Zobrazit tabulku dat"
@@ -638,7 +653,7 @@ msgid "km"
 msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr "Změřte vzdálenosti a oblasti"
+msgstr "Změřit vzdálenosti a plohy"
 
 msgid "mi"
 msgstr "mi"
@@ -647,7 +662,7 @@ msgid "Perimeter"
 msgstr "Obvod"
 
 msgid "Reset bearing to north"
-msgstr "Resetujte natočení k severu"
+msgstr "Resetovat natočení k severu"
 
 msgid "Search for place or address"
 msgstr "Vyhledat místo nebo adresu"
@@ -669,8 +684,8 @@ msgid ""
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
-"Tento graf / tabulka obsahuje datové položky {{numItems}}. Ze seznamu níže "
-"vyberte, které položky chcete importovat. Každá datová položka bude "
+"Tento graf / tabulka obsahuje datové položky ({{numItems}}). Ze seznamu níže"
+" vyberte, které položky chcete importovat. Každá datová položka bude "
 "vytvořena jako vrstva mapy."
 
 msgid "Data items"
@@ -979,7 +994,7 @@ msgstr "Ženy starší 80 let"
 msgid "Elevation"
 msgstr "Nadmořská výška"
 
-msgid "metres"
+msgid "meters"
 msgstr "metrů"
 
 msgid "Elevation above sea-level."
@@ -1020,13 +1035,13 @@ msgid "Distinct landcover types collected from satellites."
 msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
 
 msgid "Evergreen Needleleaf forest"
-msgstr "Jehličnatý les"
+msgstr "Stálezelený jehličnatý les"
 
 msgid "Evergreen Broadleaf forest"
 msgstr "Stálezelený listnatý les"
 
 msgid "Deciduous Needleleaf forest"
-msgstr "Listnatý jehličnatý les"
+msgstr "Opadavý jehličnatý les"
 
 msgid "Deciduous Broadleaf forest"
 msgstr "Listnatý opadavý les"
@@ -1083,8 +1098,8 @@ msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
-"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně "
-"plynových erupcí."
+"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně hořících"
+" plynových úniků."
 
 msgid "All"
 msgstr "Vše"
@@ -1342,7 +1357,7 @@ msgid "doesn't contains"
 msgstr "neobsahuje"
 
 msgid "true"
-msgstr "true"
+msgstr "skutečný"
 
 msgid "false"
 msgstr "false"

@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-02-22T16:51:45.512Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Swedish (https://www.transifex.com/hisp-uio/teams/100509/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Annullera"
+msgstr "Avbryt"
 
 msgid "Close"
 msgstr "Stänga"
@@ -240,6 +240,18 @@ msgstr ""
 msgid "Loading periods"
 msgstr ""
 
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
 msgid "Min"
 msgstr "min"
 
@@ -337,7 +349,7 @@ msgid "Indicator"
 msgstr "Indikator"
 
 msgid "Reporting rates"
-msgstr "rapporterings~~POS=TRUNC priser"
+msgstr "rapporterings~~POS\\=TRUNC priser"
 
 msgid "Event data items"
 msgstr "Händelsedataposter"
@@ -521,6 +533,9 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
+msgid "Hide data table"
+msgstr ""
+
 msgid "Show data table"
 msgstr ""
 
@@ -582,7 +597,7 @@ msgid "Not set"
 msgstr "Inte inställd"
 
 msgid "Organisation unit"
-msgstr "Organisation enhet"
+msgstr "Organisationsenhet"
 
 msgid "Loading layer data"
 msgstr ""
@@ -965,7 +980,7 @@ msgstr ""
 msgid "Elevation"
 msgstr "Höjd"
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
