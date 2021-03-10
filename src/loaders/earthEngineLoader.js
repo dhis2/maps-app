@@ -74,9 +74,9 @@ const earthEngineLoader = async config => {
     }
 
     const layer = {
-        ...config,
-        ...layerConfig,
         ...dataset,
+        ...layerConfig,
+        ...config,
     };
 
     const {
@@ -121,10 +121,9 @@ const earthEngineLoader = async config => {
 
     return {
         ...layer,
-        legend,
-        aggregationType,
         data,
         alerts,
+        legend,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
