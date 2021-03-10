@@ -92,7 +92,7 @@ class DataTable extends Component {
     }
 
     filter() {
-        const { layer, aggregations } = this.props;
+        const { layer, aggregations = {} } = this.props;
         const { dataFilters } = layer;
         const data = layer.data;
 
