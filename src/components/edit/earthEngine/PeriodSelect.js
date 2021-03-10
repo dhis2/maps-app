@@ -45,14 +45,10 @@ const EarthEnginePeriodSelect = ({
     );
 
     useEffect(() => {
-        if (byYear) {
-            if (period) {
-                setYear(period.year);
-            } else if (years) {
-                setYear(years[0].id);
-            }
+        if (byYear && period) {
+            setYear(period.year);
         }
-    }, [byYear, period, years]);
+    }, [byYear, period]);
 
     const items = byYear ? byYearPeriods : periods;
 

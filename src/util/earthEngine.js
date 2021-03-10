@@ -16,16 +16,18 @@ export const getStartEndDate = data =>
         false
     );
 
-export const getPeriodFromFilter = (filter = []) => {
-    const f = filter[0];
+export const getPeriodFromFilter = filter => {
+    if (!Array.isArray(filter) || !filter.length) {
+        return null;
+    }
 
-    return f
-        ? {
-              id: f.id || f.arguments[1],
-              name: f.name,
-              year: f.year,
-          }
-        : null;
+    const { id, name, year, arguments: args } = filter[0];
+
+    return {
+        id: id || args[1],
+        name,
+        year,
+    };
 };
 
 // Returns period name from filter
@@ -37,7 +39,9 @@ export const getPeriodNameFromFilter = filter => {
     }
 
     const { name, year } = period;
-    return `${name}${year ? ` ${year}` : ''}`;
+    const showYear = year && String(year) !== name;
+
+    return `${name}${showYear ? ` ${year}` : ''}`;
 };
 
 const setAuthToken = ({ client_id, access_token, expires_in }) =>
