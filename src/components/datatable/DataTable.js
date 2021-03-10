@@ -239,7 +239,9 @@ class DataTable extends Component {
                         headerRenderer={props => (
                             <ColumnHeader type="date" {...props} />
                         )}
-                        cellRenderer={({ cellData }) => formatTime(cellData)}
+                        cellRenderer={({ cellData }) =>
+                            cellData ? formatTime(cellData) : ''
+                        }
                     />
                 )}
                 {isEvent &&
