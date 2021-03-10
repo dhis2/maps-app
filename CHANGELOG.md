@@ -1,3 +1,10 @@
+## [1.6.26](https://github.com/dhis2/maps-app/compare/v1.6.25...v1.6.26) (2021-03-10)
+
+
+### Bug Fixes
+
+* don't pass empty feature array for ee layers ([#1553](https://github.com/dhis2/maps-app/issues/1553)) ([9ca5f30](https://github.com/dhis2/maps-app/commit/9ca5f3017bfec646f5ff1750045232f72508e867))
+
 ## [1.6.25](https://github.com/dhis2/maps-app/compare/v1.6.24...v1.6.25) (2021-03-10)
 
 
