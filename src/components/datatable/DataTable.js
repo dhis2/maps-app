@@ -39,6 +39,8 @@ class DataTable extends Component {
         data: [],
     };
 
+    state = {};
+
     constructor(props, context) {
         super(props, context);
 
@@ -57,7 +59,6 @@ class DataTable extends Component {
 
     componentDidMount() {
         this.loadExtendedData();
-        this.addAggregations();
     }
 
     componentDidUpdate(prevProps) {
@@ -65,16 +66,16 @@ class DataTable extends Component {
         const { data, dataFilters } = layer;
         const prev = prevProps.layer;
 
-        if (data !== prev.data || dataFilters !== prev.dataFilters) {
+        if (
+            data !== prev.data ||
+            dataFilters !== prev.dataFilters ||
+            aggregations !== prevProps.aggregations
+        ) {
             const { sortBy, sortDirection } = this.state;
 
             this.setState({
                 data: this.sort(this.filter(), sortBy, sortDirection),
             });
-        }
-
-        if (aggregations !== prevProps.aggregations) {
-            this.addAggregations();
         }
     }
 
@@ -90,29 +91,15 @@ class DataTable extends Component {
         }
     }
 
-    // Add EE aggregations (other layers might be supported in the future)
-    addAggregations() {
-        const { data } = this.state;
-        const { aggregations } = this.props;
-
-        if (data && aggregations) {
-            this.setState({
-                data: data.map(d => ({
-                    ...d,
-                    ...aggregations[d.id],
-                })),
-            });
-        }
-    }
-
     filter() {
-        const { layer } = this.props;
+        const { layer, aggregations } = this.props;
         const { dataFilters } = layer;
-        const data = this.state.data || layer.data;
+        const data = layer.data;
 
         return filterData(
             data.map((d, index) => ({
-                ...d.properties,
+                ...(d.properties || d),
+                ...aggregations[d.id],
                 index,
             })),
             dataFilters
