@@ -4,7 +4,7 @@ import LayerLoading from '../LayerLoading';
 import EarthEnginePopup from './EarthEnginePopup';
 import Alert from '../Alert';
 import { apiFetch } from '../../../../util/api';
-import { getPropName, hasClasses } from '../../../../util/earthEngine';
+import { filterData } from '../../../../util/filter';
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
 
 export default class EarthEngineLayer extends Layer {
@@ -34,6 +34,16 @@ export default class EarthEngineLayer extends Layer {
             }
         }
     }
+
+    updateLayer = filterChange => {
+        if (filterChange) {
+            this.applyFilter();
+        } else {
+            this.removeLayer();
+            this.createLayer(true);
+            this.setLayerOrder();
+        }
+    };
 
     createLayer(isUpdate) {
         const {
@@ -81,7 +91,7 @@ export default class EarthEngineLayer extends Layer {
             name,
             unit,
             value,
-            legend: legend ? legend.items : null,
+            legend: legend.items,
             resolution,
             projection,
             data,
@@ -126,32 +136,38 @@ export default class EarthEngineLayer extends Layer {
     }
 
     addAggregationValues(aggregations) {
-        const { aggregationType, data, legend } = this.props;
-        const { title = '', items } = legend;
-        const classes = hasClasses(aggregationType);
+        const { id, data, setAggregations } = this.props;
 
-        // Make aggregations available for data table/download
-        data.forEach(f => {
-            const values = aggregations[f.id];
+        // Make aggregations available for data table and download
+        // setAggregations is not available in map plugin
+        if (setAggregations) {
+            setAggregations({ [id]: aggregations });
+        }
 
-            if (values) {
-                if (classes && items) {
-                    items.forEach(({ id, name }) => {
-                        f.properties[name] = values[id];
-                    });
-                } else {
-                    Object.keys(values).forEach(
-                        key =>
-                            (f.properties[getPropName(key, title)] =
-                                values[key])
-                    );
-                }
-            }
-            f.properties.type = f.geometry.type;
+        // Make aggregations available for filtering and popup
+        this.setState({
+            data: data.map(f => ({
+                ...f,
+                properties: {
+                    ...f.properties,
+                    ...aggregations[f.id],
+                },
+            })),
+            aggregations,
         });
+    }
 
-        // Make aggregations available for popup
-        this.setState({ aggregations });
+    applyFilter() {
+        const { data, dataFilters } = this.props;
+
+        const filteredData = filterData(
+            this.state.data || data,
+            dataFilters
+        ).map(f => f.id);
+
+        if (this.layer && this.layer.filter) {
+            this.layer.filter(filteredData);
+        }
     }
 
     render() {
@@ -187,7 +203,7 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onLoad() {
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false, popup: null });
     }
 
     onError(error) {

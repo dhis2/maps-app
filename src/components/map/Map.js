@@ -42,6 +42,7 @@ class Map extends Component {
         closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
         onCloseContextMenu: PropTypes.func,
+        setAggregations: PropTypes.func,
     };
 
     static defaultProps = {
@@ -141,6 +142,7 @@ class Map extends Component {
             coordinatePopup: coordinates,
             closeCoordinatePopup,
             openContextMenu,
+            setAggregations,
         } = this.props;
         const { map } = this.state;
 
@@ -163,6 +165,7 @@ class Map extends Component {
                                     index={overlays.length - index}
                                     feature={highlight}
                                     openContextMenu={openContextMenu}
+                                    setAggregations={setAggregations}
                                     {...config}
                                 />
                             );

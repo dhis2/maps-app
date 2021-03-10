@@ -90,7 +90,8 @@ const earthEngineLoader = async config => {
                   .map(b => b.name)
             : null;
 
-    layer.legend = {
+    const legend = {
+        ...layer.legend,
         title: name,
         period,
         groups,
@@ -101,14 +102,15 @@ const earthEngineLoader = async config => {
     };
 
     // Create legend items from params
-    if (!layer.legend.items && layer.params) {
-        layer.legend.items = createLegend(layer.params);
+    if (!legend.items && layer.params) {
+        legend.items = createLegend(layer.params);
     }
 
     return {
         ...layer,
-        data: features,
+        legend,
         aggregationType,
+        data: features,
         alerts,
         isLoaded: true,
         isExpanded: true,

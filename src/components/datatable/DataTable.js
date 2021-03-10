@@ -9,7 +9,6 @@ import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
 import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
-import { setDataFilter, clearDataFilter } from '../../actions/dataFilters';
 import { highlightFeature } from '../../actions/feature';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
@@ -28,6 +27,7 @@ import '../../../node_modules/react-virtualized/styles.css';
 class DataTable extends Component {
     static propTypes = {
         layer: PropTypes.object.isRequired,
+        aggregations: PropTypes.object,
         feature: PropTypes.object,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
@@ -38,6 +38,8 @@ class DataTable extends Component {
     static defaultProps = {
         data: [],
     };
+
+    state = {};
 
     constructor(props, context) {
         super(props, context);
@@ -60,10 +62,15 @@ class DataTable extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { data, dataFilters } = this.props.layer;
+        const { layer, aggregations } = this.props;
+        const { data, dataFilters } = layer;
         const prev = prevProps.layer;
 
-        if (data !== prev.data || dataFilters !== prev.dataFilters) {
+        if (
+            data !== prev.data ||
+            dataFilters !== prev.dataFilters ||
+            aggregations !== prevProps.aggregations
+        ) {
             const { sortBy, sortDirection } = this.state;
 
             this.setState({
@@ -85,12 +92,15 @@ class DataTable extends Component {
     }
 
     filter() {
-        const { data = [], dataFilters } = this.props.layer;
+        const { layer, aggregations = {} } = this.props;
+        const { dataFilters } = layer;
+        const data = layer.data;
 
         return filterData(
-            data.map((d, i) => ({
-                ...d.properties,
-                index: i,
+            data.map((d, index) => ({
+                ...(d.properties || d),
+                ...aggregations[d.id],
+                index,
             })),
             dataFilters
         );
@@ -170,7 +180,6 @@ class DataTable extends Component {
             layer: layerType,
             styleDataItem,
             serverCluster,
-            classes,
             aggregationType,
             legend,
         } = layer;
@@ -320,12 +329,7 @@ class DataTable extends Component {
                     ))}
 
                 {isEarthEngine &&
-                    EarthEngineColumns({
-                        classes,
-                        aggregationType,
-                        legend,
-                        data,
-                    })}
+                    EarthEngineColumns({ aggregationType, legend, data })}
             </Table>
         ) : (
             <div className={styles.noSupport}>
@@ -338,18 +342,20 @@ class DataTable extends Component {
 }
 
 export default connect(
-    ({ dataTable, map, feature }) => {
-        const layer = dataTable
-            ? map.mapViews.filter(l => l.id === dataTable)[0]
-            : null;
+    ({ dataTable, map, aggregations = {}, feature }) => {
+        const layer = map.mapViews.find(l => l.id === dataTable);
 
-        return layer ? { layer, feature } : null;
+        return layer
+            ? {
+                  layer,
+                  feature,
+                  aggregations: aggregations[layer.id],
+              }
+            : {};
     },
     {
         selectOrgUnit,
         unselectOrgUnit,
-        setDataFilter,
-        clearDataFilter,
         loadLayer,
         highlightFeature,
     }
