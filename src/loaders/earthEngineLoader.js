@@ -80,6 +80,8 @@ const earthEngineLoader = async config => {
     } = layer;
 
     const period = getPeriodNameFromFilter(filter);
+    const data =
+        Array.isArray(features) && features.length ? features : undefined;
 
     const groups =
         band && Array.isArray(bands) && bands.length
@@ -110,7 +112,7 @@ const earthEngineLoader = async config => {
         ...layer,
         legend,
         aggregationType,
-        data: features,
+        data,
         alerts,
         isLoaded: true,
         isExpanded: true,
