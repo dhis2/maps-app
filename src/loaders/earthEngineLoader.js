@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { precisionRound } from 'd3-format';
 import { getEarthEngineLayer } from '../constants/earthEngine';
-import { getPeriodNameFromFilter } from '../util/earthEngine';
+import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { numberPrecision } from '../util/numbers';
@@ -101,8 +101,8 @@ const earthEngineLoader = async config => {
         sourceUrl,
     };
 
-    // Create legend items from params
-    if (!legend.items && layer.params) {
+    // Create/update legend items from params
+    if (!hasClasses(aggregationType) && layer.params) {
         legend.items = createLegend(layer.params);
     }
 
