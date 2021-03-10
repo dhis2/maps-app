@@ -80,7 +80,7 @@ const earthEngineLoader = async config => {
     };
 
     const { unit, filter, description, source, sourceUrl, band, bands } = layer;
-    const { name } = dataset;
+    const { name } = dataset || config;
     const period = getPeriodNameFromFilter(filter);
     const data =
         Array.isArray(features) && features.length ? features : undefined;
