@@ -36,6 +36,17 @@ const earthEngineLoader = async config => {
                 },
             ];
         }
+
+        if (!features.length) {
+            alerts = [
+                {
+                    warning: true,
+                    message: `${i18n.t('Selected org units')}: ${i18n.t(
+                        'No coordinates found'
+                    )}`,
+                },
+            ];
+        }
     }
 
     if (typeof config.config === 'string') {
