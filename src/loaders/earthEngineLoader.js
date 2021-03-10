@@ -13,7 +13,7 @@ const earthEngineLoader = async config => {
     const { rows, aggregationType } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     let layerConfig = {};
-    let dataset;
+    let dataset = {};
     let features;
     let alerts;
 
@@ -79,17 +79,8 @@ const earthEngineLoader = async config => {
         ...config,
     };
 
-    const {
-        name,
-        unit,
-        filter,
-        description,
-        source,
-        sourceUrl,
-        band,
-        bands,
-    } = layer;
-
+    const { unit, filter, description, source, sourceUrl, band, bands } = layer;
+    const { name } = dataset;
     const period = getPeriodNameFromFilter(filter);
     const data =
         Array.isArray(features) && features.length ? features : undefined;
@@ -121,6 +112,7 @@ const earthEngineLoader = async config => {
 
     return {
         ...layer,
+        name,
         data,
         alerts,
         legend,
