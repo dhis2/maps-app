@@ -1,3 +1,12 @@
+## [1.6.25](https://github.com/dhis2/maps-app/compare/v1.6.24...v1.6.25) (2021-03-10)
+
+
+### Bug Fixes
+
+* don't reset year selection for ee layers ([#1550](https://github.com/dhis2/maps-app/issues/1550)) ([b5bf079](https://github.com/dhis2/maps-app/commit/b5bf079974d5be6b1c200eacfd979aa2a770e7a8))
+* set buffer min to 0 ([#1551](https://github.com/dhis2/maps-app/issues/1551)) ([a8b1a18](https://github.com/dhis2/maps-app/commit/a8b1a1805fc6f8e2d7e60f57d2bb382a9bfd7af3))
+* update legend items when legend params is changed ([#1552](https://github.com/dhis2/maps-app/issues/1552)) ([dd2f47b](https://github.com/dhis2/maps-app/commit/dd2f47b121109dd5ab388e4ef6a15363bf9ffea0))
+
 ## [1.6.24](https://github.com/dhis2/maps-app/compare/v1.6.23...v1.6.24) (2021-03-10)
 
 
