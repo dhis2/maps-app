@@ -66,7 +66,7 @@ export const LayerToolbarMoreMenu = ({
                             {toggleDataTable && (
                                 <MenuItem
                                     label={
-                                        dataTableOpen
+                                        dataTableOpen === layer.id
                                             ? i18n.t('Hide data table')
                                             : i18n.t('Show data table')
                                     }
@@ -134,9 +134,9 @@ LayerToolbarMoreMenu.propTypes = {
     toggleDataTable: PropTypes.func,
     openAs: PropTypes.func,
     downloadData: PropTypes.func,
-    dataTableOpen: PropTypes.bool,
+    dataTableOpen: PropTypes.string,
 };
 
 export default connect(({ dataTable }) => ({
-    dataTableOpen: !!dataTable,
+    dataTableOpen: dataTable,
 }))(LayerToolbarMoreMenu);
