@@ -71,7 +71,7 @@ const EarthEngineDialog = props => {
 
     // Set most recent period by default
     useEffect(() => {
-        if (!period) {
+        if (period === undefined) {
             if (Array.isArray(periods) && periods.length) {
                 setPeriod(periods[0]);
             }
