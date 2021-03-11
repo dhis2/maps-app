@@ -1,3 +1,10 @@
+## [1.6.30](https://github.com/dhis2/maps-app/compare/v1.6.29...v1.6.30) (2021-03-11)
+
+
+### Bug Fixes
+
+* improved radius checks and style ([#1560](https://github.com/dhis2/maps-app/issues/1560)) ([96b535e](https://github.com/dhis2/maps-app/commit/96b535e675a9b6f08e3f42ccc7035c3e9477471f))
+
 ## [1.6.29](https://github.com/dhis2/maps-app/compare/v1.6.28...v1.6.29) (2021-03-11)
 
 
