@@ -74,22 +74,13 @@ const earthEngineLoader = async config => {
     }
 
     const layer = {
+        ...dataset,
         ...config,
         ...layerConfig,
-        ...dataset,
     };
 
-    const {
-        name,
-        unit,
-        filter,
-        description,
-        source,
-        sourceUrl,
-        band,
-        bands,
-    } = layer;
-
+    const { unit, filter, description, source, sourceUrl, band, bands } = layer;
+    const { name } = dataset || config;
     const period = getPeriodNameFromFilter(filter);
     const data =
         Array.isArray(features) && features.length ? features : undefined;
@@ -122,7 +113,7 @@ const earthEngineLoader = async config => {
     return {
         ...layer,
         legend,
-        aggregationType,
+        name,
         data,
         alerts,
         isLoaded: true,
