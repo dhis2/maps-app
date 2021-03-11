@@ -3,7 +3,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
-import log from 'loglevel'; // TODO: Remove version logging
 import i18n from './locales';
 import Plugin from './components/plugin/Plugin';
 import {
@@ -15,9 +14,6 @@ import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
 import { apiVersion } from './constants/settings';
 import { defaultBasemaps } from './constants/basemaps';
-import { version } from '../package.json'; // TODO: Remove version logging
-
-log.info(`Maps plugin: ${version}`); // TODO: Remove version logging
 
 const PluginContainer = () => {
     let _configs = [];
