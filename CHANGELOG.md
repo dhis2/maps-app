@@ -1,3 +1,32 @@
+## [1.6.32](https://github.com/dhis2/maps-app/compare/v1.6.31...v1.6.32) (2021-03-11)
+
+
+### Bug Fixes
+
+* include org unit path on drill down/up ([#1561](https://github.com/dhis2/maps-app/issues/1561)) ([a565be8](https://github.com/dhis2/maps-app/commit/a565be86297c43ac6a0fb041e8f0694655bc5052))
+* various minor bugs ([#1564](https://github.com/dhis2/maps-app/issues/1564)) ([7de6aa3](https://github.com/dhis2/maps-app/commit/7de6aa31d038cf66ec2bb69696966c5dcdfc6dab))
+
+## [1.6.32](https://github.com/dhis2/maps-app/compare/v1.6.31...v1.6.32) (2021-03-11)
+
+
+### Bug Fixes
+
+* include org unit path on drill down/up ([#1561](https://github.com/dhis2/maps-app/issues/1561)) ([a565be8](https://github.com/dhis2/maps-app/commit/a565be86297c43ac6a0fb041e8f0694655bc5052))
+
+## [1.6.31](https://github.com/dhis2/maps-app/compare/v1.6.30...v1.6.31) (2021-03-11)
+
+
+### Bug Fixes
+
+* maps-gl dependecy upgrade to fix opacity crash bug ([#1562](https://github.com/dhis2/maps-app/issues/1562)) ([9db69a3](https://github.com/dhis2/maps-app/commit/9db69a313b9025065ae23f84a3f3b03ad1e14598))
+
+## [1.6.30](https://github.com/dhis2/maps-app/compare/v1.6.29...v1.6.30) (2021-03-11)
+
+
+### Bug Fixes
+
+* improved radius checks and style ([#1560](https://github.com/dhis2/maps-app/issues/1560)) ([96b535e](https://github.com/dhis2/maps-app/commit/96b535e675a9b6f08e3f42ccc7035c3e9477471f))
+
 ## [1.6.29](https://github.com/dhis2/maps-app/compare/v1.6.28...v1.6.29) (2021-03-11)
 
 
