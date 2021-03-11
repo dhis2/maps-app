@@ -56,7 +56,7 @@ const EarthEngineDialog = props => {
 
     const period = getPeriodFromFilter(filter);
 
-    const setPeriod = period => setFilter(period ? filters(period) : undefined);
+    const setPeriod = period => setFilter(period ? filters(period) : null);
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length);
 
@@ -71,12 +71,12 @@ const EarthEngineDialog = props => {
 
     // Set most recent period by default
     useEffect(() => {
-        if (!period) {
+        if (filter === undefined) {
             if (Array.isArray(periods) && periods.length) {
                 setPeriod(periods[0]);
             }
         }
-    }, [periods, period]);
+    }, [periods, filter]);
 
     useEffect(() => {
         if (!rows) {

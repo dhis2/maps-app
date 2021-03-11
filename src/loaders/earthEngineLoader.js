@@ -1,7 +1,8 @@
+import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { precisionRound } from 'd3-format';
 import { getEarthEngineLayer } from '../constants/earthEngine';
-import { getPeriodNameFromFilter } from '../util/earthEngine';
+import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { numberPrecision } from '../util/numbers';
@@ -14,17 +15,38 @@ const earthEngineLoader = async config => {
     let layerConfig = {};
     let dataset;
     let features;
+    let alerts;
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2();
         const displayProperty = getDisplayProperty(d2).toUpperCase();
         const orgUnitParams = orgUnits.map(item => item.id);
 
-        features = await d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
-            .getAll()
-            .then(toGeoJson);
+        try {
+            features = await d2.geoFeatures
+                .byOrgUnit(orgUnitParams)
+                .displayProperty(displayProperty)
+                .getAll()
+                .then(toGeoJson);
+        } catch (error) {
+            alerts = [
+                {
+                    critical: true,
+                    message: `${i18n.t('Error')}: ${error.message}`,
+                },
+            ];
+        }
+
+        if (!features.length) {
+            alerts = [
+                {
+                    warning: true,
+                    message: `${i18n.t('Selected org units')}: ${i18n.t(
+                        'No coordinates found'
+                    )}`,
+                },
+            ];
+        }
     }
 
     if (typeof config.config === 'string') {
@@ -52,23 +74,16 @@ const earthEngineLoader = async config => {
     }
 
     const layer = {
+        ...dataset,
         ...config,
         ...layerConfig,
-        ...dataset,
     };
 
-    const {
-        name,
-        unit,
-        filter,
-        description,
-        source,
-        sourceUrl,
-        band,
-        bands,
-    } = layer;
-
+    const { unit, filter, description, source, sourceUrl, band, bands } = layer;
+    const { name } = dataset || config;
     const period = getPeriodNameFromFilter(filter);
+    const data =
+        Array.isArray(features) && features.length ? features : undefined;
 
     const groups =
         band && Array.isArray(bands) && bands.length
@@ -79,7 +94,8 @@ const earthEngineLoader = async config => {
                   .map(b => b.name)
             : null;
 
-    layer.legend = {
+    const legend = {
+        ...layer.legend,
         title: name,
         period,
         groups,
@@ -89,15 +105,17 @@ const earthEngineLoader = async config => {
         sourceUrl,
     };
 
-    // Create legend items from params
-    if (!layer.legend.items && layer.params) {
-        layer.legend.items = createLegend(layer.params);
+    // Create/update legend items from params
+    if (!hasClasses(aggregationType) && layer.params) {
+        legend.items = createLegend(layer.params);
     }
 
     return {
         ...layer,
-        data: features,
-        aggregationType,
+        legend,
+        name,
+        data,
+        alerts,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

@@ -82,13 +82,13 @@ BottomPanel.propTypes = {
 };
 
 export default connect(
-    state => ({
-        dataTableOpen: state.dataTable ? true : false,
-        dataTableHeight: state.ui.dataTableHeight,
-        layersPanelOpen: state.ui.layersPanelOpen,
-        interpretationsPanelOpen: state.ui.interpretationsPanelOpen,
-        width: state.ui.width,
-        height: state.ui.height,
+    ({ dataTable, ui }) => ({
+        dataTableOpen: !!dataTable,
+        dataTableHeight: ui.dataTableHeight,
+        layersPanelOpen: ui.layersPanelOpen,
+        interpretationsPanelOpen: ui.interpretationsPanelOpen,
+        width: ui.width,
+        height: ui.height,
     }),
     { closeDataTable, resizeDataTable }
 )(BottomPanel);

@@ -63,7 +63,7 @@ class Layer extends PureComponent {
             if (isEdited) {
                 this.setPeriod(this.updateLayer);
             } else {
-                this.updateLayer();
+                this.updateLayer(dataFilters !== prevProps.dataFilters);
             }
         }
 
@@ -189,6 +189,8 @@ class Layer extends PureComponent {
                 ? container.parentNode.parentNode
                 : container,
         });
+
+        this.setState({ popup: null });
     }
 
     // Called when a map popup is closed

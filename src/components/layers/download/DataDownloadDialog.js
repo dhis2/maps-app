@@ -34,6 +34,7 @@ export class DataDownloadDialog extends Component {
         downloading: PropTypes.bool.isRequired,
         error: PropTypes.string,
         layer: PropTypes.object,
+        aggregations: PropTypes.object,
         startDownload: PropTypes.func.isRequired,
         closeDialog: PropTypes.func.isRequired,
     };
@@ -51,11 +52,19 @@ export class DataDownloadDialog extends Component {
     };
 
     onStartDownload = () => {
-        this.props.startDownload(
-            this.props.layer,
-            formatOptionsFlat[this.state.selectedFormatOption],
-            this.state.humanReadableChecked
-        );
+        const { layer, aggregations } = this.props;
+        const {
+            selectedFormatOption,
+            humanReadableChecked: humanReadableKeys,
+        } = this.state;
+        const format = formatOptionsFlat[selectedFormatOption];
+
+        this.props.startDownload({
+            layer,
+            aggregations,
+            format,
+            humanReadableKeys,
+        });
     };
 
     render() {
@@ -97,22 +106,23 @@ export class DataDownloadDialog extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    const id = state.dataDownload.layerid;
-    const layer =
-        id !== null ? state.map.mapViews.filter(l => l.id === id)[0] : null;
+const mapStateToProps = ({ dataDownload, map, aggregations = {} }) => {
+    const { layerid, dialogOpen: open, downloading, error } = dataDownload;
+    const layer = map.mapViews.find(l => l.id === layerid);
 
-    if (state.dataDownload.dialogOpen && !layer) {
+    if (open && !layer) {
         // eslint-disable-next-line
         console.error(
             'Tried to open data download dialog without specifying a source layer!'
         );
     }
+
     return {
-        open: state.dataDownload.dialogOpen,
-        layer: layer,
-        downloading: state.dataDownload.downloading,
-        error: state.dataDownload.error,
+        open,
+        layer,
+        downloading,
+        error,
+        aggregations: aggregations[layerid],
     };
 };
 

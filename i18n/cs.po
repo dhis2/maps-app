@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
-"PO-Revision-Date: 2019-11-26 23:27+0000\n"
+"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -699,6 +699,9 @@ msgstr "Možnosti"
 
 msgid "Code"
 msgstr "Kód"
+
+msgid "Loading data"
+msgstr "Načítání dat"
 
 msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."

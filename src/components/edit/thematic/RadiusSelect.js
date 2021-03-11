@@ -34,22 +34,33 @@ const RadiusSelect = ({
         <NumberField
             label={i18n.t('Low radius')}
             value={isNaN(radiusLow) ? '' : radiusLow}
+            min={THEMATIC_RADIUS_MIN}
+            max={THEMATIC_RADIUS_MAX}
             onChange={setRadiusLow}
             className={className}
         />
         <NumberField
             label={i18n.t('High radius')}
             value={isNaN(radiusHigh) ? '' : radiusHigh}
+            min={THEMATIC_RADIUS_MIN}
+            max={THEMATIC_RADIUS_MAX}
             onChange={setRadiusHigh}
             className={className}
         />
         {!isValidRadius(radiusLow, radiusHigh) && (
             <div className={styles.error}>
                 <Help warning>
-                    {i18n.t('Radius should be between {{min}} and {{max}}', {
-                        min: THEMATIC_RADIUS_MIN,
-                        max: THEMATIC_RADIUS_MAX,
-                    })}
+                    {radiusHigh < radiusLow
+                        ? i18n.t(
+                              'High radius should be greater than low radius'
+                          )
+                        : i18n.t(
+                              'Radius should be between {{min}} and {{max}}',
+                              {
+                                  min: THEMATIC_RADIUS_MIN,
+                                  max: THEMATIC_RADIUS_MAX,
+                              }
+                          )}
                 </Help>
             </div>
         )}

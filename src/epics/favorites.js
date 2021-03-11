@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable';
 import i18n from '@dhis2/d2-i18n';
 import * as types from '../constants/actionTypes';
-import { setMapProps } from '../actions/map';
+import { updateFavorite } from '../actions/favorites';
 import { setAlert } from '../actions/alerts';
 import { apiFetch } from '../util/api';
 import { cleanMapConfig } from '../util/favorites';
@@ -58,10 +58,10 @@ export const saveNewFavorite = (action$, store) =>
                         : response
                 );
         })
-        .mergeMap(({ id, name, description, message }) =>
+        .mergeMap(({ id, name, message }) =>
             name
                 ? [
-                      setMapProps({ id, name, description }),
+                      updateFavorite(id),
                       setAlert({
                           success: true,
                           message: getSavedMessage(name),

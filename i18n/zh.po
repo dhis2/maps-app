@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-04T09:19:28.040Z\n"
-"PO-Revision-Date: 2019-11-26 23:27+0000\n"
+"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -690,6 +690,9 @@ msgstr "选项"
 msgid "Code"
 msgstr "代码"
 
+msgid "Loading data"
+msgstr "加载数据中"
+
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
 
@@ -982,7 +985,11 @@ msgid "Elevation"
 msgstr "高程"
 
 msgid "meters"
+<<<<<<< HEAD
 msgstr "米"
+=======
+msgstr "米数"
+>>>>>>> master
 
 msgid "Elevation above sea-level."
 msgstr "海拔高于海平面。"
