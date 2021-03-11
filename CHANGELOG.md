@@ -1,3 +1,10 @@
+## [1.6.32](https://github.com/dhis2/maps-app/compare/v1.6.31...v1.6.32) (2021-03-11)
+
+
+### Bug Fixes
+
+* include org unit path on drill down/up ([#1561](https://github.com/dhis2/maps-app/issues/1561)) ([a565be8](https://github.com/dhis2/maps-app/commit/a565be86297c43ac6a0fb041e8f0694655bc5052))
+
 ## [1.6.31](https://github.com/dhis2/maps-app/compare/v1.6.30...v1.6.31) (2021-03-11)
 
 
