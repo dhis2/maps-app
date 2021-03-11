@@ -2,7 +2,6 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const colors = require('colors');
 
 const isDevBuild = process.argv[1].indexOf('webpack-dev-server') !== -1;
 const dhisConfigPath =
@@ -25,19 +24,6 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 // Replacement for UglifyJsPlugin not working with d2-ui-anlaytics and ui-core
 const TerserPlugin = require('terser-webpack-plugin-legacy');
 
-const scriptPrefix = isDevBuild ? dhisConfig.baseUrl : '..';
-
-function log(req, res, opt) {
-    req.headers.Authorization = dhisConfig.authorization;
-    console.log(
-        '[PROXY]'.cyan.bold,
-        req.method.green.bold,
-        req.url.magenta,
-        '=>'.dim,
-        opt.target.dim
-    );
-}
-
 const webpackConfig = {
     context: __dirname,
     entry: {
@@ -57,6 +43,8 @@ const webpackConfig = {
                 test: /\.jsx?$/,
                 include: [
                     path.resolve(__dirname, 'src/'),
+                    /@dhis2\/app-runtime/,
+                    /@dhis2\/app-service-/,
                     /@dhis2\/prop-types/,
                     /@dhis2\/ui-core/,
                     /@dhis2\/ui-forms/,
