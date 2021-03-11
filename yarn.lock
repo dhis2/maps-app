@@ -391,10 +391,10 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^1.8.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.8.3.tgz#6e7b31056f9bdf78110f3e672729601161c9d796"
-  integrity sha512-X+5RcpWZkf7kMQ+0al2PAVHlNw36nItOcsdO/oBbHY2VLkbqojwj49gI25IusSsGs8jcU44amgdX4OiGKecENg==
+"@dhis2/maps-gl@^1.8.4":
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.8.4.tgz#03958a9ac9f9215c1322b3467a81e8af50bfc823"
+  integrity sha512-jhM9l6+knuRTd2i1IdI7oxUiaNiUwY5EQBatso94CFhwdyFb204b0k83KBnyvW6f3wqxNtLLoiPQae4DpccEEQ==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.3.0"
