@@ -15,6 +15,7 @@ import {
     CLASSIFICATION_SINGLE_COLOR,
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
+    CLASSIFICATION_PREDEFINED,
     THEMATIC_CHOROPLETH,
 } from '../constants/layers';
 
@@ -292,14 +293,14 @@ const layerEdit = (state = null, action) => {
             };
 
             if (
-                action.method !== CLASSIFICATION_EQUAL_INTERVALS ||
+                action.method !== CLASSIFICATION_EQUAL_INTERVALS &&
                 action.method !== CLASSIFICATION_EQUAL_COUNTS
             ) {
                 delete newState.colorScale;
                 delete newState.classes;
             }
 
-            if (action.method !== 1) {
+            if (action.method !== CLASSIFICATION_PREDEFINED) {
                 delete newState.legendSet;
             }
 
