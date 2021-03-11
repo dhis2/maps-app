@@ -1,3 +1,11 @@
+## [1.6.29](https://github.com/dhis2/maps-app/compare/v1.6.28...v1.6.29) (2021-03-11)
+
+
+### Bug Fixes
+
+* dependency upgrades ([#1559](https://github.com/dhis2/maps-app/issues/1559)) ([a53c06f](https://github.com/dhis2/maps-app/commit/a53c06f0077b4a1776373f9544392e4e2c30091d))
+* keep layers on map save ([#1555](https://github.com/dhis2/maps-app/issues/1555)) ([a494010](https://github.com/dhis2/maps-app/commit/a494010a32854cfcfcb96deb1d3f3130911048d7))
+
 ## [1.6.28](https://github.com/dhis2/maps-app/compare/v1.6.27...v1.6.28) (2021-03-11)
 
 
