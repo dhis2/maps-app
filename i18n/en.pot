@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
-"PO-Revision-Date: 2021-03-08T17:11:22.603Z\n"
+"POT-Creation-Date: 2021-03-11T08:06:19.776Z\n"
+"PO-Revision-Date: 2021-03-11T08:06:19.776Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1278,6 +1278,12 @@ msgstr ""
 msgid "No boundaries found"
 msgstr ""
 
+msgid "Selected org units"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr ""
+
 msgid "You don't have access to this layer data"
 msgstr ""
 
@@ -1294,12 +1300,6 @@ msgid "Facilities"
 msgstr ""
 
 msgid "Thematic layer"
-msgstr ""
-
-msgid "Selected org units"
-msgstr ""
-
-msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"

@@ -26,6 +26,7 @@ const validMapProperties = [
 const validLayerProperties = [
     'aggregationType',
     'areaRadius',
+    'band',
     'classes',
     'colorHigh', // Deprecated
     'colorLow', // Deprecated
@@ -152,6 +153,7 @@ const models2objects = config => {
         delete config.periodType;
         delete config.periodName;
         delete config.aggregationType;
+        delete config.band;
     } else if (layer === TRACKED_ENTITY_LAYER) {
         config.config = JSON.stringify({
             relationships: config.relationshipType
