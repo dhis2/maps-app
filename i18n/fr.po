@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-11T09:23:04.866Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -319,6 +319,9 @@ msgid "Low radius"
 msgstr ""
 
 msgid "High radius"
+msgstr ""
+
+msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
@@ -1300,6 +1303,12 @@ msgstr ""
 msgid "No boundaries found"
 msgstr ""
 
+msgid "Selected org units"
+msgstr ""
+
+msgid "No coordinates found"
+msgstr "Coordonnées non trouvées"
+
 msgid "You don't have access to this layer data"
 msgstr ""
 
@@ -1317,12 +1326,6 @@ msgstr ""
 
 msgid "Thematic layer"
 msgstr "Thématique"
-
-msgid "Selected org units"
-msgstr ""
-
-msgid "No coordinates found"
-msgstr "Coordonnées non trouvées"
 
 msgid "No data"
 msgstr "Aucune donnée"

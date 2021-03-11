@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-11T09:23:04.866Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -315,6 +315,9 @@ msgstr "低半径"
 
 msgid "High radius"
 msgstr "高半径"
+
+msgid "High radius should be greater than low radius"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "半径应介于{{min}}至{{max}}之间"
@@ -691,7 +694,7 @@ msgid "Code"
 msgstr "代码"
 
 msgid "Loading data"
-msgstr "加载数据中"
+msgstr ""
 
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
@@ -985,11 +988,7 @@ msgid "Elevation"
 msgstr "高程"
 
 msgid "meters"
-<<<<<<< HEAD
 msgstr "米"
-=======
-msgstr "米数"
->>>>>>> master
 
 msgid "Elevation above sea-level."
 msgstr "海拔高于海平面。"
@@ -1298,6 +1297,12 @@ msgstr "边界线"
 msgid "No boundaries found"
 msgstr "没有发现边界线"
 
+msgid "Selected org units"
+msgstr "选择的机构"
+
+msgid "No coordinates found"
+msgstr "没有找到坐标"
+
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
 
@@ -1315,12 +1320,6 @@ msgstr "机构设施"
 
 msgid "Thematic layer"
 msgstr "专题层"
-
-msgid "Selected org units"
-msgstr "选择的机构"
-
-msgid "No coordinates found"
-msgstr "没有找到坐标"
 
 msgid "No data"
 msgstr "无数据"

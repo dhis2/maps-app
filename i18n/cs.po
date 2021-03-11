@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2021-03-11T09:23:04.866Z\n"
+"PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -320,6 +320,9 @@ msgstr "Malý poloměr"
 
 msgid "High radius"
 msgstr "Velký poloměr"
+
+msgid "High radius should be greater than low radius"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Poloměr by měl být mezi {{min}} a {{max}}"
@@ -701,7 +704,7 @@ msgid "Code"
 msgstr "Kód"
 
 msgid "Loading data"
-msgstr "Načítání dat"
+msgstr ""
 
 msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
@@ -1314,6 +1317,12 @@ msgstr "Hranice"
 msgid "No boundaries found"
 msgstr "Nenalezeny žádné hranice"
 
+msgid "Selected org units"
+msgstr "Vybrané organizační jednotky"
+
+msgid "No coordinates found"
+msgstr "Nenalezeny žádné souřadnice"
+
 msgid "You don't have access to this layer data"
 msgstr "K datům této vrstvy nemáte přístup"
 
@@ -1331,12 +1340,6 @@ msgstr "Zařízení"
 
 msgid "Thematic layer"
 msgstr "Tematická vrstva"
-
-msgid "Selected org units"
-msgstr "Vybrané organizační jednotky"
-
-msgid "No coordinates found"
-msgstr "Nenalezeny žádné souřadnice"
 
 msgid "No data"
 msgstr "Nejsou data"
