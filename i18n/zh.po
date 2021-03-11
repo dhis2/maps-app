@@ -2,15 +2,15 @@
 # Translators:
 # phil_dhis2, 2021
 # 晓东 林 <13981924470@126.com>, 2021
-# easylin <lin_xd@126.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -242,16 +242,16 @@ msgid "Loading periods"
 msgstr "加载期"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "要求最小值"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "最大值为必填项"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "最大值应大于最小值"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
 
 msgid "Min"
 msgstr "最小"
@@ -691,7 +691,7 @@ msgid "Code"
 msgstr "代码"
 
 msgid "Loading data"
-msgstr ""
+msgstr "加载数据中"
 
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
@@ -985,7 +985,7 @@ msgid "Elevation"
 msgstr "高程"
 
 msgid "meters"
-msgstr ""
+msgstr "米数"
 
 msgid "Elevation above sea-level."
 msgstr "海拔高于海平面。"
