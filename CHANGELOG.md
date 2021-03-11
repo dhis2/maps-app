@@ -1,3 +1,10 @@
+## [1.6.31](https://github.com/dhis2/maps-app/compare/v1.6.30...v1.6.31) (2021-03-11)
+
+
+### Bug Fixes
+
+* maps-gl dependecy upgrade to fix opacity crash bug ([#1562](https://github.com/dhis2/maps-app/issues/1562)) ([9db69a3](https://github.com/dhis2/maps-app/commit/9db69a313b9025065ae23f84a3f3b03ad1e14598))
+
 ## [1.6.30](https://github.com/dhis2/maps-app/compare/v1.6.29...v1.6.30) (2021-03-11)
 
 
