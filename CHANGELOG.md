@@ -1,3 +1,10 @@
+## [1.6.28](https://github.com/dhis2/maps-app/compare/v1.6.27...v1.6.28) (2021-03-11)
+
+
+### Bug Fixes
+
+* persist ee layer options on save ([#1554](https://github.com/dhis2/maps-app/issues/1554)) ([673660e](https://github.com/dhis2/maps-app/commit/673660e51ece9f8b995cce3680d378ab57bdbf11))
+
 ## [1.6.27](https://github.com/dhis2/maps-app/compare/v1.6.26...v1.6.27) (2021-03-11)
 
 
