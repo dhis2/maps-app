@@ -67,16 +67,17 @@ export const toGeoJson = organisationUnits =>
                 geometry.coordinates.length
         );
 
-// TODO: parentGraph is not used
 export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
     ...layerConfig,
     rows: [
         {
             dimension: dimConf.organisationUnit.objectName,
-            items: [{ id: parentId }, { id: 'LEVEL-' + level }],
+            items: [
+                { id: parentId, path: `${parentGraph}/${parentId}` },
+                { id: 'LEVEL-' + level },
+            ],
         },
     ],
-    parentGraphMap: {},
 });
 
 // Called when plugin maps enter or exit fullscreen
