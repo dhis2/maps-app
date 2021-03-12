@@ -56,7 +56,7 @@ export const LayerToolbar = ({
 };
 
 LayerToolbar.propTypes = {
-    opacity: PropTypes.number.isRequired,
+    opacity: PropTypes.number,
     isVisible: PropTypes.bool,
     toggleLayerVisibility: PropTypes.func.isRequired,
     onOpacityChange: PropTypes.func.isRequired,
