@@ -41,7 +41,7 @@ export class App extends Component {
         return (
             <Provider
                 config={{
-                    baseUrl: DHIS_CONFIG.baseUrl,
+                    baseUrl: process.env.DHIS2_BASE_URL,
                     apiVersion,
                 }}
             >
