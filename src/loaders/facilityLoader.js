@@ -46,6 +46,8 @@ const facilityLoader = async config => {
         facilitiesReq,
     ]);
 
+    const name = i18n.t('Facilities');
+
     if (groupSet && facilities) {
         // Convert API response to GeoJSON features
         features = facilities.map(facility => {
@@ -66,8 +68,6 @@ const facilityLoader = async config => {
             legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];
         }
     }
-
-    const name = i18n.t('Facilities');
 
     return {
         ...config,
