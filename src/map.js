@@ -15,7 +15,7 @@ import { translateConfig } from './util/favorites';
 import { apiVersion } from './constants/settings';
 import { defaultBasemaps } from './constants/basemaps';
 
-const PluginContainer = () => {
+function PluginContainer() {
     let _configs = [];
     let _components = {};
     let _isReady = false;
@@ -236,7 +236,7 @@ const PluginContainer = () => {
         unmount,
         remove: unmount,
     };
-};
+}
 
 const mapPlugin = new PluginContainer();
 
