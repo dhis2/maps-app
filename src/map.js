@@ -238,7 +238,7 @@ const PluginContainer = () => {
     };
 };
 
-const mapPlugin = new PluginContainer();
+const mapPlugin = PluginContainer();
 
 global.mapPlugin = mapPlugin;
 
