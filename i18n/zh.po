@@ -317,7 +317,7 @@ msgid "High radius"
 msgstr "高半径"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "高半径应大于低半径"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "半径应介于{{min}}至{{max}}之间"
