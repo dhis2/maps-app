@@ -12958,10 +12958,10 @@ supports-color@^4.2.1:
   dependencies:
     has-flag "^2.0.0"
 
-susy@^3.0.3:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/susy/-/susy-3.0.6.tgz#1aa81dff219eb4385ae2a3688874cfef51fb854f"
-  integrity sha512-uf2rx5VvynBwa53eqOsis6iDmyQZOm1ydkuaMfSUo5tkp1190+BPcE/YpwFxhLHYkS/ZiiQVIJ+sKyRYl4dtiw==
+susy@^3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/susy/-/susy-3.0.7.tgz#134f6fd1491476812942b608b991262e763f9166"
+  integrity sha512-pY2Kw9nev63xJ0LsU7Dz2s+bHcUFBgYx/DThheuRYhSYSsZSpR9YBNlREzGCDxSJR4BRRzvgeD8iPkEoCu4ZgQ==
 
 svgo@^0.7.0:
   version "0.7.2"
