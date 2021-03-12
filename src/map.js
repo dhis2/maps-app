@@ -15,7 +15,7 @@ import { translateConfig } from './util/favorites';
 import { apiVersion } from './constants/settings';
 import { defaultBasemaps } from './constants/basemaps';
 
-const PluginContainer = () => {
+const pluginContainer = () => {
     let _configs = [];
     let _components = {};
     let _isReady = false;
@@ -238,7 +238,7 @@ const PluginContainer = () => {
     };
 };
 
-const mapPlugin = PluginContainer();
+const mapPlugin = pluginContainer();
 
 global.mapPlugin = mapPlugin;
 
