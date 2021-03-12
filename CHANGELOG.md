@@ -1,3 +1,10 @@
+## [1.6.34](https://github.com/dhis2/maps-app/compare/v1.6.33...v1.6.34) (2021-03-12)
+
+
+### Bug Fixes
+
+* upgrade dhis2 library dependencies and webpack to support tree-shaking (DHIS2-9893) ([#1565](https://github.com/dhis2/maps-app/issues/1565)) ([4edb986](https://github.com/dhis2/maps-app/commit/4edb986f3a645d769a1100e884faccd7f4a61f90))
+
 ## [1.6.33](https://github.com/dhis2/maps-app/compare/v1.6.32...v1.6.33) (2021-03-12)
 
 
