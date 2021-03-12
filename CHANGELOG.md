@@ -1,3 +1,10 @@
+## [1.6.36](https://github.com/dhis2/maps-app/compare/v1.6.35...v1.6.36) (2021-03-12)
+
+
+### Bug Fixes
+
+* don't use const with arrow function for maps plugin ([#1575](https://github.com/dhis2/maps-app/issues/1575)) ([3a6f5a5](https://github.com/dhis2/maps-app/commit/3a6f5a5d203192a7868d18dd9be9d3b06e1b7ac9))
+
 ## [1.6.35](https://github.com/dhis2/maps-app/compare/v1.6.34...v1.6.35) (2021-03-12)
 
 
