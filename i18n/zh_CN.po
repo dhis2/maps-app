@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
+"POT-Creation-Date: 2021-03-11T09:23:04.866Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -312,6 +312,9 @@ msgid "Low radius"
 msgstr ""
 
 msgid "High radius"
+msgstr ""
+
+msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
@@ -1292,6 +1295,12 @@ msgstr ""
 msgid "No boundaries found"
 msgstr ""
 
+msgid "Selected org units"
+msgstr "选定的组织机构"
+
+msgid "No coordinates found"
+msgstr ""
+
 msgid "You don't have access to this layer data"
 msgstr ""
 
@@ -1309,12 +1318,6 @@ msgstr ""
 
 msgid "Thematic layer"
 msgstr "专题层"
-
-msgid "Selected org units"
-msgstr "选定的组织机构"
-
-msgid "No coordinates found"
-msgstr ""
 
 msgid "No data"
 msgstr "无数据"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-08T17:11:22.603Z\n"
+"POT-Creation-Date: 2021-03-11T09:23:04.866Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -315,6 +315,9 @@ msgstr "Lav radius"
 
 msgid "High radius"
 msgstr "Høy radius"
+
+msgid "High radius should be greater than low radius"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius bør være mellom {{min}} og {{max}}"
@@ -1311,6 +1314,12 @@ msgstr "Grenser"
 msgid "No boundaries found"
 msgstr "Ingen grenser funnet"
 
+msgid "Selected org units"
+msgstr "Valgte org enheter"
+
+msgid "No coordinates found"
+msgstr "Ingen koordinater funnet"
+
 msgid "You don't have access to this layer data"
 msgstr "Du har ikke tilgang til disse lagdataene"
 
@@ -1328,12 +1337,6 @@ msgstr "Bygninger"
 
 msgid "Thematic layer"
 msgstr "Tematisk lag"
-
-msgid "Selected org units"
-msgstr "Valgte org enheter"
-
-msgid "No coordinates found"
-msgstr "Ingen koordinater funnet"
 
 msgid "No data"
 msgstr "Ingen data"
