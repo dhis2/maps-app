@@ -25,10 +25,7 @@ store.dispatch(loadExternalLayers());
 
 getManifest('manifest.webapp')
     .then(manifest => {
-        const baseUrl =
-            process.env.NODE_ENV === 'production'
-                ? manifest.getBaseUrl()
-                : DHIS_CONFIG.baseUrl;
+        const baseUrl = process.env.DHIS2_BASE_URL;
 
         config.appUrl = baseUrl; // Base url for switching between apps
         config.baseUrl = `${baseUrl}/api/${apiVersion}`; // Base url for Web API requests
