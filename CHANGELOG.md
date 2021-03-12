@@ -1,3 +1,10 @@
+## [1.6.35](https://github.com/dhis2/maps-app/compare/v1.6.34...v1.6.35) (2021-03-12)
+
+
+### Bug Fixes
+
+* define name before it's used ([58508b8](https://github.com/dhis2/maps-app/commit/58508b8fa17d7fbb94f91203cd6372dcb6d67804))
+
 ## [1.6.34](https://github.com/dhis2/maps-app/compare/v1.6.33...v1.6.34) (2021-03-12)
 
 
