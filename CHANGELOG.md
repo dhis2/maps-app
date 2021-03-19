@@ -1,3 +1,10 @@
+## [1.6.38](https://github.com/dhis2/maps-app/compare/v1.6.37...v1.6.38) (2021-03-19)
+
+
+### Bug Fixes
+
+* new circular loader to map plugin ([#1590](https://github.com/dhis2/maps-app/issues/1590)) ([d4e7eb0](https://github.com/dhis2/maps-app/commit/d4e7eb03cae9be330ca3f313fbcbc8ccf40cdc2e))
+
 ## [1.6.37](https://github.com/dhis2/maps-app/compare/v1.6.36...v1.6.37) (2021-03-13)
 
 
