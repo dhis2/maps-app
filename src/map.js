@@ -3,6 +3,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
+import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import i18n from './locales';
 import Plugin from './components/plugin/Plugin';
 import {
@@ -177,10 +178,13 @@ function PluginContainer() {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                domEl.innerHTML = '';
-                const div = document.createElement('div');
-                div.className = 'spinner';
-                domEl.appendChild(div);
+                render(
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>,
+                    domEl
+                );
+
                 _components[config.el] = 'loading';
             }
         }
