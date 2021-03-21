@@ -163,6 +163,8 @@ export const styleByOptionSet = async config => {
     };
 
     // For easier and faster lookup below
+    // TODO: There might be options with duplicate name, so code/id would be safer
+    // If we use code/id we also need to retrive name to show in popup/data table/download
     const optionsByName = optionSet.options.reduce((obj, option) => {
         obj[option.name.toLowerCase()] = option;
         return obj;
