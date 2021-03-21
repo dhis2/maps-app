@@ -1,3 +1,10 @@
+## [1.6.41](https://github.com/dhis2/maps-app/compare/v1.6.40...v1.6.41) (2021-03-21)
+
+
+### Bug Fixes
+
+* use name to identify style by data item ([#1591](https://github.com/dhis2/maps-app/issues/1591)) ([0f1b3b1](https://github.com/dhis2/maps-app/commit/0f1b3b1f2d045a23e21afc24db7ef408a8d06fc8))
+
 ## [1.6.40](https://github.com/dhis2/maps-app/compare/v1.6.39...v1.6.40) (2021-03-21)
 
 
