@@ -1,3 +1,10 @@
+## [1.6.39](https://github.com/dhis2/maps-app/compare/v1.6.38...v1.6.39) (2021-03-21)
+
+
+### Bug Fixes
+
+* reset coordinate field on program change ([#1588](https://github.com/dhis2/maps-app/issues/1588)) ([973c07b](https://github.com/dhis2/maps-app/commit/973c07b8a61958bddfd7486fc7c6847192c8773c))
+
 ## [1.6.38](https://github.com/dhis2/maps-app/compare/v1.6.37...v1.6.38) (2021-03-19)
 
 
