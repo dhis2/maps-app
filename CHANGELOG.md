@@ -1,3 +1,10 @@
+## [1.6.40](https://github.com/dhis2/maps-app/compare/v1.6.39...v1.6.40) (2021-03-21)
+
+
+### Bug Fixes
+
+* maps-gl upgrade to support icon label opacity ([b2d78bb](https://github.com/dhis2/maps-app/commit/b2d78bb16275547bd2e5b862c762ab83b92ab689))
+
 ## [1.6.39](https://github.com/dhis2/maps-app/compare/v1.6.38...v1.6.39) (2021-03-21)
 
 
