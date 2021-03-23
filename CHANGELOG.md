@@ -1,3 +1,10 @@
+## [1.6.42](https://github.com/dhis2/maps-app/compare/v1.6.41...v1.6.42) (2021-03-23)
+
+
+### Bug Fixes
+
+* upgrade d2 dep to fix filter bug ([8305e8d](https://github.com/dhis2/maps-app/commit/8305e8d516a9499a1813a6ebd868c9b0876fac4e))
+
 ## [1.6.41](https://github.com/dhis2/maps-app/compare/v1.6.40...v1.6.41) (2021-03-21)
 
 
