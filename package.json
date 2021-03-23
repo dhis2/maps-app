@@ -57,7 +57,7 @@
         "abortcontroller-polyfill": "^1.5.0",
         "array-move": "^3.0.1",
         "classnames": "^2.2.6",
-        "d2": "^31.9.1",
+        "d2": "^31.9.2",
         "d2-utilizr": "^0.2.15",
         "d3-axis": "^2.0.0",
         "d3-color": "^2.0.0",
