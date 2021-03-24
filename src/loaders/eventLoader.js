@@ -101,7 +101,7 @@ const loadEventLayer = async config => {
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID'; // Required for StyleByDataItem to work
         const { names, data, response } = await loadData(
-            analyticsRequest,
+            analyticsRequest.withPageSize(999999999), // DHIS2-10742,
             config
         );
         config.data = data;
