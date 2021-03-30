@@ -1,3 +1,10 @@
+## [1.6.47](https://github.com/dhis2/maps-app/compare/v1.6.46...v1.6.47) (2021-03-30)
+
+
+### Bug Fixes
+
+* set max page size for events analytics ([#1619](https://github.com/dhis2/maps-app/issues/1619)) ([be88395](https://github.com/dhis2/maps-app/commit/be88395a5207ed64194bb2bb559b1d6082083cf5))
+
 ## [1.6.46](https://github.com/dhis2/maps-app/compare/v1.6.45...v1.6.46) (2021-03-30)
 
 
