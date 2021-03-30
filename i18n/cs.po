@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-11T09:23:04.866Z\n"
+"POT-Creation-Date: 2021-03-30T11:15:14.675Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -1331,6 +1331,9 @@ msgstr "Při čtení dat vrstvy došlo k neznámé chybě"
 
 msgid "Event"
 msgstr "Událost"
+
+msgid "Displaying first {{pageSize}} events out of {{total}}"
+msgstr ""
 
 msgid "No data found"
 msgstr "Nenalezena žádná data"
