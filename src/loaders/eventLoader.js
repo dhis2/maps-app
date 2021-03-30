@@ -148,7 +148,7 @@ const loadEventLayer = async config => {
                 alert = {
                     warning: true,
                     message: `${config.name}: ${i18n.t(
-                        'Showing maximum number of events ({{pageSize}} of {{total}})',
+                        'Displaying first {{pageSize}} events out of {{total}}',
                         {
                             pageSize: EVENT_CLIENT_PAGE_SIZE,
                             total,
