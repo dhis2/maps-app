@@ -1,3 +1,10 @@
+## [1.6.46](https://github.com/dhis2/maps-app/compare/v1.6.45...v1.6.46) (2021-03-30)
+
+
+### Bug Fixes
+
+* place map loading mask below favorites dialog ([#1609](https://github.com/dhis2/maps-app/issues/1609)) ([3de641a](https://github.com/dhis2/maps-app/commit/3de641a56d70c91bee63a6b1e44c0e67b29cad14))
+
 ## [1.6.45](https://github.com/dhis2/maps-app/compare/v1.6.44...v1.6.45) (2021-03-29)
 
 
