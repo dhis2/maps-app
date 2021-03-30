@@ -1,3 +1,38 @@
+## [1.6.46](https://github.com/dhis2/maps-app/compare/v1.6.45...v1.6.46) (2021-03-30)
+
+
+### Bug Fixes
+
+* place map loading mask below favorites dialog ([#1609](https://github.com/dhis2/maps-app/issues/1609)) ([3de641a](https://github.com/dhis2/maps-app/commit/3de641a56d70c91bee63a6b1e44c0e67b29cad14))
+
+## [1.6.45](https://github.com/dhis2/maps-app/compare/v1.6.44...v1.6.45) (2021-03-29)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f9a8d8f](https://github.com/dhis2/maps-app/commit/f9a8d8ffa73fcdda2edc8a01d35b8a9e60fd7ac6))
+
+## [1.6.44](https://github.com/dhis2/maps-app/compare/v1.6.43...v1.6.44) (2021-03-28)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([7dd568c](https://github.com/dhis2/maps-app/commit/7dd568c11c5fb56c26f7a7aa66331b16d030d6df))
+
+## [1.6.43](https://github.com/dhis2/maps-app/compare/v1.6.42...v1.6.43) (2021-03-27)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([fd2ca84](https://github.com/dhis2/maps-app/commit/fd2ca84670d1a5ce9e3ed17d20ddfb5f67501701))
+
+## [1.6.42](https://github.com/dhis2/maps-app/compare/v1.6.41...v1.6.42) (2021-03-23)
+
+
+### Bug Fixes
+
+* upgrade d2 dep to fix filter bug ([8305e8d](https://github.com/dhis2/maps-app/commit/8305e8d516a9499a1813a6ebd868c9b0876fac4e))
+
 ## [1.6.41](https://github.com/dhis2/maps-app/compare/v1.6.40...v1.6.41) (2021-03-21)
 
 
