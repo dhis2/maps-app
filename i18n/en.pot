@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-03-11T09:23:04.866Z\n"
-"PO-Revision-Date: 2021-03-11T09:23:04.866Z\n"
+"POT-Creation-Date: 2021-03-30T09:06:13.251Z\n"
+"PO-Revision-Date: 2021-03-30T09:06:13.251Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1294,6 +1294,9 @@ msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
+msgstr ""
+
+msgid "Showing maximum number of events ({{pageSize}} of {{total}})"
 msgstr ""
 
 msgid "No data found"
