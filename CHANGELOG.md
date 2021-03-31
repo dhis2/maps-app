@@ -1,3 +1,10 @@
+## [1.6.49](https://github.com/dhis2/maps-app/compare/v1.6.48...v1.6.49) (2021-03-31)
+
+
+### Bug Fixes
+
+* ee-dataset-upgrade ([#1622](https://github.com/dhis2/maps-app/issues/1622)) ([18b1551](https://github.com/dhis2/maps-app/commit/18b15513a35fe5b32d233eec15291bc470b3ddcc))
+
 ## [1.6.48](https://github.com/dhis2/maps-app/compare/v1.6.47...v1.6.48) (2021-03-30)
 
 
