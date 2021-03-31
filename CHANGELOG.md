@@ -1,3 +1,10 @@
+## [1.6.50](https://github.com/dhis2/maps-app/compare/v1.6.49...v1.6.50) (2021-03-31)
+
+
+### Bug Fixes
+
+* reduce event page size to 100k ([#1623](https://github.com/dhis2/maps-app/issues/1623)) ([c1e9fa9](https://github.com/dhis2/maps-app/commit/c1e9fa93cd9f44c88e3f67d8976a5626b16126d4))
+
 ## [1.6.49](https://github.com/dhis2/maps-app/compare/v1.6.48...v1.6.49) (2021-03-31)
 
 
