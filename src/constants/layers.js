@@ -63,7 +63,7 @@ export const getThematicMapTypes = () => [
 ];
 
 /* EVENT LAYER */
-export const EVENT_CLIENT_PAGE_SIZE = 500000;
+export const EVENT_CLIENT_PAGE_SIZE = 100000;
 export const EVENT_SERVER_CLUSTER_COUNT = 2000;
 export const EVENT_COLOR = '#333333';
 export const EVENT_RADIUS = 6;
