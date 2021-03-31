@@ -33,7 +33,7 @@ export const earthEngineLayers = () => [
     },
     {
         layer: EARTH_ENGINE_LAYER,
-        datasetId: 'WorldPop/GP/100m/pop_age_sex',
+        datasetId: 'WorldPop/GP/100m/pop_age_sex_cons_unadj',
         name: i18n.t('Population age groups'),
         unit: i18n.t('people per hectare'),
         description: i18n.t(
@@ -41,7 +41,7 @@ export const earthEngineLayers = () => [
         ),
         source: 'WorldPop / Google Earth Engine',
         sourceUrl:
-            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex',
+            'https://developers.google.com/earth-engine/datasets/catalog/WorldPop_GP_100m_pop_age_sex_cons_unadj',
         img: 'images/population.png',
         periodType: 'Yearly',
         defaultAggregations: ['sum', 'mean'],

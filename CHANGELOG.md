@@ -1,3 +1,24 @@
+## [1.6.49](https://github.com/dhis2/maps-app/compare/v1.6.48...v1.6.49) (2021-03-31)
+
+
+### Bug Fixes
+
+* ee-dataset-upgrade ([#1622](https://github.com/dhis2/maps-app/issues/1622)) ([18b1551](https://github.com/dhis2/maps-app/commit/18b15513a35fe5b32d233eec15291bc470b3ddcc))
+
+## [1.6.48](https://github.com/dhis2/maps-app/compare/v1.6.47...v1.6.48) (2021-03-30)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([6a9f58f](https://github.com/dhis2/maps-app/commit/6a9f58f0cd21062cae1ae1c5c998e1e213b91ff2))
+
+## [1.6.47](https://github.com/dhis2/maps-app/compare/v1.6.46...v1.6.47) (2021-03-30)
+
+
+### Bug Fixes
+
+* set max page size for events analytics ([#1619](https://github.com/dhis2/maps-app/issues/1619)) ([be88395](https://github.com/dhis2/maps-app/commit/be88395a5207ed64194bb2bb559b1d6082083cf5))
+
 ## [1.6.46](https://github.com/dhis2/maps-app/compare/v1.6.45...v1.6.46) (2021-03-30)
 
 
