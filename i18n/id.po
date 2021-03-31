@@ -1321,9 +1321,6 @@ msgstr "Even"
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
-msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
-
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
 
