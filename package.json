@@ -45,9 +45,9 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/analytics": "^16.0.13",
+        "@dhis2/analytics": "^16.0.18",
         "@dhis2/app-runtime": "^2.8.0",
-        "@dhis2/d2-i18n": "^1.1.0",
+        "@dhis2/d2-i18n": "<1.1.0",
         "@dhis2/d2-ui-core": "^7.1.6",
         "@dhis2/d2-ui-interpretations": "^7.1.6",
         "@dhis2/d2-ui-org-unit-dialog": "^7.1.6",
@@ -74,7 +74,7 @@
         "prop-types": "^15.6.2",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "react-redux": "^5.0.7",
+        "react-redux": "^7.2.3",
         "react-sortable-hoc": "^1.11.0",
         "react-virtualized": "^9.22.3",
         "redux": "^4.0.0",
