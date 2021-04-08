@@ -92,11 +92,10 @@ const loadEventLayer = async config => {
     // Delete serverCluster option if previously set
     delete config.serverCluster;
 
-    if (spatialSupport && eventClustering) {
+    if (spatialSupport && eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest);
         config.bounds = getBounds(response.extent);
-        config.serverCluster =
-            useServerCluster(response.count) && !styleDataItem;
+        config.serverCluster = useServerCluster(response.count);
     }
 
     if (!config.serverCluster) {
