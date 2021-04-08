@@ -317,18 +317,17 @@ class DataTable extends Component {
                         <ColumnHeader type="string" {...props} />
                     )}
                 />
-                {isThematic ||
-                    (styleDataItem && (
-                        <Column
-                            dataKey="color"
-                            label={i18n.t('Color')}
-                            width={100}
-                            headerRenderer={props => (
-                                <ColumnHeader type="string" {...props} />
-                            )}
-                            cellRenderer={ColorCell}
-                        />
-                    ))}
+                {(isThematic || styleDataItem) && (
+                    <Column
+                        dataKey="color"
+                        label={i18n.t('Color')}
+                        width={100}
+                        headerRenderer={props => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
+                        cellRenderer={ColorCell}
+                    />
+                )}
 
                 {isEarthEngine &&
                     EarthEngineColumns({ aggregationType, legend, data })}
