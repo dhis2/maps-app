@@ -1,3 +1,17 @@
+## [1.6.52](https://github.com/dhis2/maps-app/compare/v1.6.51...v1.6.52) (2021-04-08)
+
+
+### Bug Fixes
+
+* don't check event count when styling by data item ([#1634](https://github.com/dhis2/maps-app/issues/1634)) ([16d88d6](https://github.com/dhis2/maps-app/commit/16d88d671212e6b6a93c0102b5e6a11a4569db86))
+
+## [1.6.51](https://github.com/dhis2/maps-app/compare/v1.6.50...v1.6.51) (2021-04-06)
+
+
+### Bug Fixes
+
+* load all translations by preventing d2-i18n dual package hazard and upgrading dhis2/analytics ([#1628](https://github.com/dhis2/maps-app/issues/1628)) ([8ecaaac](https://github.com/dhis2/maps-app/commit/8ecaaac01210daf7f80ffe9de11588ab796a6d8c))
+
 ## [1.6.50](https://github.com/dhis2/maps-app/compare/v1.6.49...v1.6.50) (2021-03-31)
 
 
