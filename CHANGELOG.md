@@ -1,3 +1,10 @@
+## [1.6.52](https://github.com/dhis2/maps-app/compare/v1.6.51...v1.6.52) (2021-04-08)
+
+
+### Bug Fixes
+
+* don't check event count when styling by data item ([#1634](https://github.com/dhis2/maps-app/issues/1634)) ([16d88d6](https://github.com/dhis2/maps-app/commit/16d88d671212e6b6a93c0102b5e6a11a4569db86))
+
 ## [1.6.51](https://github.com/dhis2/maps-app/compare/v1.6.50...v1.6.51) (2021-04-06)
 
 
