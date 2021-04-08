@@ -96,11 +96,12 @@ const loadEventLayer = async config => {
     // Delete serverCluster option if previously set
     delete config.serverCluster;
 
-    if (spatialSupport && eventClustering) {
+    // Check if events should be clustered on the server or the client
+    // Style by data item is only supported in the client (donuts)
+    if (spatialSupport && eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest);
         config.bounds = getBounds(response.extent);
-        config.serverCluster =
-            useServerCluster(response.count) && !styleDataItem;
+        config.serverCluster = useServerCluster(response.count);
     }
 
     if (!config.serverCluster) {
