@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CircularLoader } from '@dhis2/ui';
@@ -8,83 +8,79 @@ import { setOptionStyle } from '../../actions/layerEdit';
 import { qualitativeColors } from '../../constants/colors';
 import styles from './styles/OptionSetStyle.module.css';
 
-class OptionSetStyle extends Component {
-    static propTypes = {
-        id: PropTypes.string.isRequired,
-        options: PropTypes.array,
-        optionSet: PropTypes.object,
-        loadOptionSet: PropTypes.func.isRequired,
-        setOptionStyle: PropTypes.func.isRequired,
-    };
+const OptionSetStyle = ({
+    id,
+    options,
+    optionSet,
+    loadOptionSet,
+    setOptionStyle,
+}) => {
+    const onChange = useCallback(
+        (id, color) => {
+            setOptionStyle(
+                options.map(option =>
+                    option.id === id
+                        ? {
+                              ...option,
+                              style: {
+                                  color,
+                              },
+                          }
+                        : option
+                )
+            );
+        },
+        [options, setOptionStyle]
+    );
 
-    componentDidMount() {
-        if (!this.props.options) {
-            this.setOptions();
-        }
-    }
-
-    componentDidUpdate() {
-        if (!this.props.options) {
-            this.setOptions();
-        }
-    }
-
-    setOptions() {
-        const { id, optionSet, loadOptionSet, setOptionStyle } = this.props;
-
+    useEffect(() => {
         if (!optionSet) {
             loadOptionSet(id);
         } else {
-            setOptionStyle(
-                optionSet.options.map((option, index) => ({
-                    ...option,
-                    style: {
-                        color: option.style
-                            ? option.style.color
-                            : qualitativeColors[index] || '#ffffff',
-                    },
-                }))
-            );
-        }
-    }
+            const { options } = optionSet;
 
-    onChange(id, color) {
-        this.props.setOptionStyle(
-            this.props.options.map(option => {
-                if (option.id === id) {
-                    return {
+            if (options.length <= 50) {
+                setOptionStyle(
+                    options.map((option, index) => ({
                         ...option,
                         style: {
-                            color,
+                            color: option.style
+                                ? option.style.color
+                                : qualitativeColors[index] || '#ffffff',
                         },
-                    };
-                }
-                return option;
-            })
-        );
-    }
+                    }))
+                );
+            } else {
+                // console.log('TOO MANY OPTIONS!', options.length);
+            }
+        }
+    }, [id, optionSet, loadOptionSet, setOptionStyle]);
 
-    render() {
-        const { options } = this.props;
+    return (
+        <div className={styles.optionSetStyle}>
+            {options ? (
+                options.map(({ id, name, style }) => (
+                    <OptionStyle
+                        key={id}
+                        name={name}
+                        color={style.color}
+                        onChange={color => onChange(id, color)}
+                    />
+                ))
+            ) : (
+                <CircularLoader small />
+            )}
+        </div>
+    );
+};
 
-        return (
-            <div className={styles.optionSetStyle}>
-                {options ? (
-                    options.map(({ id, name, style }) => (
-                        <OptionStyle
-                            key={id}
-                            name={name}
-                            color={style.color}
-                            onChange={color => this.onChange(id, color)}
-                        />
-                    ))
-                ) : (
-                    <CircularLoader small />
-                )}
-            </div>
-        );
-    }
-}
+OptionSetStyle.propTypes = {
+    id: PropTypes.string.isRequired,
+    options: PropTypes.array,
+    optionSet: PropTypes.object,
+    loadOptionSet: PropTypes.func.isRequired,
+    setOptionStyle: PropTypes.func.isRequired,
+};
 
 export default connect(
     (state, props) => ({
