@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-03-30T11:15:14.675Z\n"
-"PO-Revision-Date: 2021-03-30T11:15:14.675Z\n"
+"POT-Creation-Date: 2021-04-09T13:07:47.994Z\n"
+"PO-Revision-Date: 2021-04-09T13:07:47.994Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -283,6 +283,9 @@ msgstr ""
 msgid "No organisation units are selected."
 msgstr ""
 
+msgid "No legend set is selected"
+msgstr ""
+
 msgid "Event status"
 msgstr ""
 
@@ -332,9 +335,6 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
-
-msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"

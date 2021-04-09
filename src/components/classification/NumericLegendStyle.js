@@ -18,6 +18,7 @@ const NumericLegendStyle = props => {
         mapType,
         method,
         dataItem,
+        legendSet,
         setClassification,
         setLegendSet,
         legendSetError,
@@ -31,14 +32,20 @@ const NumericLegendStyle = props => {
         // Set default classification method
         if (!method) {
             // Use predefined legend if defined for data item
-            if (dataItem && dataItem.legendSet) {
-                setClassification(CLASSIFICATION_PREDEFINED);
-                setLegendSet(dataItem.legendSet);
-            } else {
-                setClassification(CLASSIFICATION_EQUAL_INTERVALS);
-            }
+            setClassification(
+                dataItem && dataItem.legendSet
+                    ? CLASSIFICATION_PREDEFINED
+                    : CLASSIFICATION_EQUAL_INTERVALS
+            );
         }
-    }, [method, dataItem, setClassification, setLegendSet]);
+    }, [method, dataItem, setClassification]);
+
+    useEffect(() => {
+        // Set legend set defined for data item in use by default
+        if (isPredefined && !legendSet && dataItem.legendSet) {
+            setLegendSet(dataItem.legendSet);
+        }
+    }, [isPredefined, legendSet, dataItem, setLegendSet]);
 
     return (
         <div style={style}>

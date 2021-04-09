@@ -20,6 +20,7 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
+    CLASSIFICATION_PREDEFINED,
 } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -57,6 +58,8 @@ export class EventDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         filters: PropTypes.array,
+        legendSet: PropTypes.object,
+        method: PropTypes.number,
         onLayerValidation: PropTypes.func.isRequired,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -137,6 +140,7 @@ export class EventDialog extends Component {
             programStage,
             rows = [],
             startDate,
+            legendSet,
         } = this.props;
 
         const {
@@ -159,6 +163,7 @@ export class EventDialog extends Component {
             programStageError,
             periodError,
             orgUnitsError,
+            legendSetError,
         } = this.state;
 
         const period = getPeriodFromFilters(filters) || {
@@ -325,7 +330,9 @@ export class EventDialog extends Component {
                             </div>
                             <div className={styles.flexColumn}>
                                 {program ? (
-                                    <StyleByDataItem />
+                                    <StyleByDataItem
+                                        error={!legendSet && legendSetError}
+                                    />
                                 ) : (
                                     <div className={styles.notice}>
                                         <NoticeBox>
@@ -361,6 +368,8 @@ export class EventDialog extends Component {
             filters,
             startDate,
             endDate,
+            method,
+            legendSet,
         } = this.props;
 
         const period = getPeriodFromFilters(filters) || {
@@ -395,6 +404,14 @@ export class EventDialog extends Component {
                 'orgUnitsError',
                 i18n.t('No organisation units are selected.'),
                 'orgunits'
+            );
+        }
+
+        if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
+            return this.setErrorState(
+                'legendSetError',
+                i18n.t('No legend set is selected'),
+                'style'
             );
         }
 
