@@ -1,3 +1,10 @@
+## [1.6.53](https://github.com/dhis2/maps-app/compare/v1.6.52...v1.6.53) (2021-04-09)
+
+
+### Bug Fixes
+
+* show color in data table for thematic layers ([#1635](https://github.com/dhis2/maps-app/issues/1635)) ([9da432f](https://github.com/dhis2/maps-app/commit/9da432faa2fdb95003f1f44abcf278d2c1e52fa9))
+
 ## [1.6.52](https://github.com/dhis2/maps-app/compare/v1.6.51...v1.6.52) (2021-04-08)
 
 

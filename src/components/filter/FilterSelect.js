@@ -115,6 +115,7 @@ const FilterSelect = ({
                     onChange={isChecked =>
                         onChange(isChecked ? 'IN:1' : 'IN:0')
                     }
+                    className={styles.checkbox}
                 />
             )}
             {valueType === 'DATE' && (
