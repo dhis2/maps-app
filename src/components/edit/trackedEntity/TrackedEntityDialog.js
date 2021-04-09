@@ -226,7 +226,6 @@ export class TrackedEntityDialog extends Component {
                                     label={i18n.t('Follow up')}
                                     checked={followUp}
                                     onChange={setFollowUpStatus}
-                                    className={styles.checkbox}
                                 />
                             )}
                         </div>

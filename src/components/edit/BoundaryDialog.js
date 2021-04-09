@@ -139,7 +139,7 @@ class BoundaryDialog extends Component {
                                         label={i18n.t('Labels')}
                                         checked={labels}
                                         onChange={setLabels}
-                                        className={styles.labelsCheckbox}
+                                        className={styles.checkboxInline}
                                     />
                                     {labels && (
                                         <FontStyle
@@ -147,7 +147,7 @@ class BoundaryDialog extends Component {
                                             fontStyle={labelFontStyle}
                                             onSizeChange={setLabelFontSize}
                                             onStyleChange={setLabelFontStyle}
-                                            className={styles.boundaryFont}
+                                            className={styles.fontInline}
                                         />
                                     )}
                                 </div>
