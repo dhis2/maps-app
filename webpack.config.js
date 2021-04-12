@@ -2,27 +2,33 @@
 
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const makeBabelConfig = require('@dhis2/cli-app-scripts/config/makeBabelConfig.js')
+const makeBabelConfig = require('@dhis2/cli-app-scripts/config/makeBabelConfig.js');
 
-const defaultBaseUrl = process.env.NODE_ENV === 'production' ? '../' : 'http://localhost:8080'
+const defaultBaseUrl =
+    process.env.NODE_ENV === 'production' ? '..' : 'http://localhost:8080';
 if (!process.env.DHIS2_BASE_URL) {
-    console.warn(`WARNING: environment variable DHIS2_BASE_URL has not been set, using ${defaultBaseUrl}`)
+    console.warn(
+        `WARNING: environment variable DHIS2_BASE_URL has not been set, using ${defaultBaseUrl}`
+    );
 }
 
 const env = Object.keys(process.env)
     .filter(key => key.startsWith('DHIS2_'))
-    .reduce((out, key) => {
-        out[key] = process.env[key]
-        return out
-    }, {
-        PUBLIC_URL: process.env.PUBLIC_URL || 'auto',
-        NODE_ENV: process.env.NODE_ENV || 'development',
-        DHIS2_BASE_URL: process.env.DHIS2_BASE_URL || defaultBaseUrl
-    })
+    .reduce(
+        (out, key) => {
+            out[key] = process.env[key];
+            return out;
+        },
+        {
+            PUBLIC_URL: process.env.PUBLIC_URL || 'auto',
+            NODE_ENV: process.env.NODE_ENV || 'development',
+            DHIS2_BASE_URL: process.env.DHIS2_BASE_URL || defaultBaseUrl,
+        }
+    );
 
-console.log('Building with environment:', env)
+console.log('Building with environment:', env);
 
-const isProduction = env.NODE_ENV === 'production'
+const isProduction = env.NODE_ENV === 'production';
 
 const webpackConfig = {
     mode: env.NODE_ENV,
@@ -46,7 +52,7 @@ const webpackConfig = {
                 test: /\.[jt]sx?$/,
                 use: {
                     loader: 'babel-loader',
-                    options: makeBabelConfig('es', env.NODE_ENV)
+                    options: makeBabelConfig('es', env.NODE_ENV),
                 },
             },
             {
@@ -111,11 +117,11 @@ const webpackConfig = {
         }),
         new webpack.DefinePlugin({
             ...Object.keys(env).reduce((replacements, key) => {
-                replacements[`process.env.${key}`] = JSON.stringify(env[key])
-                return replacements
+                replacements[`process.env.${key}`] = JSON.stringify(env[key]);
+                return replacements;
             }, {}),
             'process.env': JSON.stringify(env),
-        })
+        }),
     ],
     devServer: {
         contentBase: './public',
