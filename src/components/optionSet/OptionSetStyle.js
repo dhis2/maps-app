@@ -1,12 +1,25 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CircularLoader } from '@dhis2/ui';
+import i18n from '@dhis2/d2-i18n';
+import { Help, CircularLoader } from '@dhis2/ui';
 import OptionStyle from './OptionStyle';
 import { loadOptionSet } from '../../actions/optionSets';
 import { setOptionStyle } from '../../actions/layerEdit';
 import { qualitativeColors } from '../../constants/colors';
 import styles from './styles/OptionSetStyle.module.css';
+
+const MAX_OPTIONS = 50;
+const DEFAULT_COLOR = '#FFFFFF';
+
+const addOptionStyle = (option, index) => ({
+    ...option,
+    style: {
+        color: option.style
+            ? option.style.color
+            : qualitativeColors[index] || DEFAULT_COLOR,
+    },
+});
 
 const OptionSetStyle = ({
     id,
@@ -15,6 +28,8 @@ const OptionSetStyle = ({
     loadOptionSet,
     setOptionStyle,
 }) => {
+    const [warning, setWarning] = useState();
+
     const onChange = useCallback(
         (id, color) => {
             setOptionStyle(
@@ -37,21 +52,24 @@ const OptionSetStyle = ({
         if (!optionSet) {
             loadOptionSet(id);
         } else {
-            const { options } = optionSet;
+            // const { options } = optionSet;
+            let { options } = optionSet;
+            // options = options.slice(0, 50);
 
-            if (options.length <= 50) {
-                setOptionStyle(
-                    options.map((option, index) => ({
-                        ...option,
-                        style: {
-                            color: option.style
-                                ? option.style.color
-                                : qualitativeColors[index] || '#ffffff',
-                        },
-                    }))
-                );
+            // console.log('options', options);
+
+            if (options.length <= MAX_OPTIONS) {
+                setOptionStyle(options.map(addOptionStyle));
             } else {
-                // console.log('TOO MANY OPTIONS!', options.length);
+                setWarning(
+                    i18n.t(
+                        'This data element has too many options ({{length}}). Max options for styling is {{max}}.',
+                        {
+                            length: options.length,
+                            max: MAX_OPTIONS,
+                        }
+                    )
+                );
             }
         }
     }, [id, optionSet, loadOptionSet, setOptionStyle]);
@@ -67,6 +85,8 @@ const OptionSetStyle = ({
                         onChange={color => onChange(id, color)}
                     />
                 ))
+            ) : warning ? (
+                <Help warning>{warning}</Help>
             ) : (
                 <CircularLoader small />
             )}

@@ -111,6 +111,8 @@ class EventLayer extends Layer {
             this.loadDisplayElements();
         }
 
+        // console.log('layer config', config);
+
         // Create and add event layer based on config object
         this.layer = map.createLayer(config);
 
