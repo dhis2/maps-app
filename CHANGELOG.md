@@ -1,3 +1,10 @@
+## [1.6.54](https://github.com/dhis2/maps-app/compare/v1.6.53...v1.6.54) (2021-04-09)
+
+
+### Bug Fixes
+
+* style issues after upgrading from Material UI to DHIS2 UI (DHIS2-10873) ([#1637](https://github.com/dhis2/maps-app/issues/1637)) ([eeaa077](https://github.com/dhis2/maps-app/commit/eeaa07759706d364804c7c903dc9561c7f0793c2))
+
 ## [1.6.53](https://github.com/dhis2/maps-app/compare/v1.6.52...v1.6.53) (2021-04-09)
 
 
