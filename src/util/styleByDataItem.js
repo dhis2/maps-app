@@ -166,8 +166,7 @@ export const styleByOptionSet = async config => {
     // TODO: There might be options with duplicate name, so code/id would be safer
     // If we use code/id we also need to retrive name to show in popup/data table/download
     const optionsByName = optionSet.options.reduce((obj, option) => {
-        // obj[option.name.toLowerCase()] = option;
-        obj[option.code] = option;
+        obj[option.name.toLowerCase()] = option;
         return obj;
     }, {});
 
@@ -183,7 +182,7 @@ export const styleByOptionSet = async config => {
                     ...feature,
                     properties: {
                         ...feature.properties,
-                        value: option.code, // option.name,
+                        value: option.name,
                         color: option.style.color,
                     },
                 };
