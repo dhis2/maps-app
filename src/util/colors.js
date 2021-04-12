@@ -66,3 +66,25 @@ export const cssColor = color => {
     }
     return (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(color) ? '#' : '') + color;
 };
+
+// Returns an unique color (first from an array, then random but still unique)
+export const getUniqueColor = defaultColors => {
+    const colors = [...defaultColors];
+
+    function randomColor() {
+        const color = '#000000'.replace(/0/g, () =>
+            (~~(Math.random() * 16)).toString(16)
+        );
+
+        // Recursive until color is unique
+        if (colors.includes(color)) {
+            randomColor();
+        }
+
+        colors.push(color);
+
+        return color;
+    }
+
+    return index => colors[index] || randomColor();
+};

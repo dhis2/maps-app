@@ -7,17 +7,17 @@ import OptionStyle from './OptionStyle';
 import { loadOptionSet } from '../../actions/optionSets';
 import { setOptionStyle } from '../../actions/layerEdit';
 import { qualitativeColors } from '../../constants/colors';
+import { getUniqueColor } from '../../util/colors';
 import styles from './styles/OptionSetStyle.module.css';
 
-const MAX_OPTIONS = 50;
-const DEFAULT_COLOR = '#FFFFFF';
+const MAX_OPTIONS = 14240;
+
+const getColor = getUniqueColor(qualitativeColors);
 
 const addOptionStyle = (option, index) => ({
     ...option,
     style: {
-        color: option.style
-            ? option.style.color
-            : qualitativeColors[index] || DEFAULT_COLOR,
+        color: option.style ? option.style.color : getColor(index),
     },
 });
 
@@ -52,8 +52,8 @@ const OptionSetStyle = ({
         if (!optionSet) {
             loadOptionSet(id);
         } else {
-            // const { options } = optionSet;
-            let { options } = optionSet;
+            const { options } = optionSet;
+            // let { options } = optionSet;
             // options = options.slice(0, 50);
 
             // console.log('options', options);
