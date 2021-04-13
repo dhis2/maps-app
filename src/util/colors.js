@@ -78,7 +78,7 @@ export const getUniqueColor = defaultColors => {
 
         // Recursive until color is unique
         if (colors.includes(color)) {
-            randomColor();
+            return randomColor();
         }
 
         colors.push(color);
