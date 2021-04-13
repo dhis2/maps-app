@@ -1,3 +1,4 @@
 .optionSetStyle {
     margin-top: var(--spacers-dp12);
+    overflow-x: hidden;
 }

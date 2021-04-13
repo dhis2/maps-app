@@ -10,7 +10,7 @@ import { qualitativeColors } from '../../constants/colors';
 import { getUniqueColor } from '../../util/colors';
 import styles from './styles/OptionSetStyle.module.css';
 
-const MAX_OPTIONS = 14240;
+const MAX_OPTIONS = 50;
 
 const getColor = getUniqueColor(qualitativeColors);
 
@@ -53,10 +53,6 @@ const OptionSetStyle = ({
             loadOptionSet(id);
         } else {
             const { options } = optionSet;
-            // let { options } = optionSet;
-            // options = options.slice(0, 50);
-
-            // console.log('options', options);
 
             if (options.length <= MAX_OPTIONS) {
                 setOptionStyle(options.map(addOptionStyle));
