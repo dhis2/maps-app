@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const makeBabelConfig = require('@dhis2/cli-app-scripts/config/makeBabelConfig.js')
 
-const defaultBaseUrl = process.env.NODE_ENV === 'production' ? '../' : 'http://localhost:8080'
+const defaultBaseUrl = process.env.NODE_ENV === 'production' ? '..' : 'http://localhost:8080'
 if (!process.env.DHIS2_BASE_URL) {
     console.warn(`WARNING: environment variable DHIS2_BASE_URL has not been set, using ${defaultBaseUrl}`)
 }
