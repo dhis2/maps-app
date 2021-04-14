@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-03-30T11:15:14.675Z\n"
+"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2020\n"
 "Language-Team: Danish (https://www.transifex.com/hisp-uio/teams/100509/da/)\n"
@@ -685,6 +685,11 @@ msgid "Proceed"
 msgstr ""
 
 msgid "Options"
+msgstr ""
+
+msgid ""
+"This data element has too many options ({{length}}). Max options for styling"
+" is {{max}}."
 msgstr ""
 
 msgid "Code"
