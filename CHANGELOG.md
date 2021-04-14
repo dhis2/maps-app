@@ -1,3 +1,10 @@
+## [1.6.56](https://github.com/dhis2/maps-app/compare/v1.6.55...v1.6.56) (2021-04-14)
+
+
+### Bug Fixes
+
+* handle large option sets in style by data element (DHIS2-10820) ([#1643](https://github.com/dhis2/maps-app/issues/1643)) ([6445e76](https://github.com/dhis2/maps-app/commit/6445e762e2cb50a5d34b620ad08b3987cca4ca03))
+
 ## [1.6.55](https://github.com/dhis2/maps-app/compare/v1.6.54...v1.6.55) (2021-04-12)
 
 
