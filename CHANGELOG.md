@@ -1,3 +1,10 @@
+## [1.6.57](https://github.com/dhis2/maps-app/compare/v1.6.56...v1.6.57) (2021-04-14)
+
+
+### Bug Fixes
+
+* upgrade maps-gl with improved donut cluster ([#1647](https://github.com/dhis2/maps-app/issues/1647)) ([d8dfc43](https://github.com/dhis2/maps-app/commit/d8dfc439a4ea9796ffd1c1570a694efab239e9a4))
+
 ## [1.6.56](https://github.com/dhis2/maps-app/compare/v1.6.55...v1.6.56) (2021-04-14)
 
 
