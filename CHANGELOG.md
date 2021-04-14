@@ -1,3 +1,10 @@
+## [1.6.55](https://github.com/dhis2/maps-app/compare/v1.6.54...v1.6.55) (2021-04-12)
+
+
+### Bug Fixes
+
+* remove slash from base url ([#1642](https://github.com/dhis2/maps-app/issues/1642)) ([c7348c9](https://github.com/dhis2/maps-app/commit/c7348c9808dd87844c53f5bfb4694463ba8b67f2))
+
 ## [1.6.54](https://github.com/dhis2/maps-app/compare/v1.6.53...v1.6.54) (2021-04-09)
 
 

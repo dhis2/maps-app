@@ -69,6 +69,12 @@ export class EventDialog extends Component {
         }),
         rows: PropTypes.array,
         startDate: PropTypes.string,
+        styleDataItem: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            optionSet: PropTypes.shape({
+                options: PropTypes.array,
+            }),
+        }),
         setProgram: PropTypes.func.isRequired,
         setProgramStage: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
@@ -370,6 +376,7 @@ export class EventDialog extends Component {
             endDate,
             method,
             legendSet,
+            styleDataItem,
         } = this.props;
 
         const period = getPeriodFromFilters(filters) || {
@@ -413,6 +420,15 @@ export class EventDialog extends Component {
                 i18n.t('No legend set is selected'),
                 'style'
             );
+        }
+
+        if (
+            styleDataItem &&
+            styleDataItem.optionSet &&
+            !styleDataItem.optionSet.options
+        ) {
+            // Occurs when there are too many options
+            return this.setErrorState('styleDataItemError', '', 'style');
         }
 
         return true;
