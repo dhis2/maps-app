@@ -83,7 +83,7 @@ const defaultLayers = () => [
     },
     {
         layer: 'earthEngine',
-        datasetId: 'MODIS/051/MCD12Q1',
+        datasetId: 'MODIS/006/MCD12Q1',
         type: i18n.t('Landcover'),
         img: 'images/landcover.png',
         opacity: 0.9,
