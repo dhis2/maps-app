@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-08-31T15:15:10.665Z\n"
-"PO-Revision-Date: 2020-08-31T15:15:10.665Z\n"
+"POT-Creation-Date: 2021-04-15T19:39:46.996Z\n"
+"PO-Revision-Date: 2021-04-15T19:39:46.996Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -198,7 +198,7 @@ msgstr ""
 msgid "Max °C"
 msgstr ""
 
-msgid "17 distinct landcover types collected from satellites."
+msgid "Distinct landcover types collected from satellites."
 msgstr ""
 
 msgid ""
@@ -933,12 +933,6 @@ msgstr ""
 msgid "Landcover"
 msgstr ""
 
-msgid "Distinct landcover types collected from satellites."
-msgstr ""
-
-msgid "Water"
-msgstr ""
-
 msgid "Evergreen Needleleaf forest"
 msgstr ""
 
@@ -987,7 +981,7 @@ msgstr ""
 msgid "Barren or sparsely vegetated"
 msgstr ""
 
-msgid "Unclassified"
+msgid "Water"
 msgstr ""
 
 msgid "Access denied"
