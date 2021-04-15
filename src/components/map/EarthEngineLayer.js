@@ -45,6 +45,7 @@ export default class EarthEngineLayer extends Layer {
         } = this.props;
 
         const { map } = this.context;
+        const mosaic = aggregation === 'mosaic';
 
         const config = {
             type: 'earthEngine',
@@ -58,11 +59,11 @@ export default class EarthEngineLayer extends Layer {
             attribution,
             filter,
             methods,
-            aggregation,
+            mosaic,
             name,
             unit: legend.unit,
             value: value,
-            legend: legend && !legend.unit ? legend.items : null,
+            legend: legend ? legend.items : null,
             resolution,
             projection,
         };
