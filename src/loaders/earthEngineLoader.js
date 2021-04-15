@@ -90,14 +90,14 @@ const getDatasets = () => ({
                 'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
         },
     },
-    'MODIS/051/MCD12Q1': {
+    'MODIS/006/MCD12Q1': {
         name: i18n.t('Landcover'),
-        band: 'Land_Cover_Type_1',
+        band: 'LC_Type1',
         params: {
-            min: 0,
+            min: 1,
             max: 17,
             palette:
-                'aec3d6,162103,235123,399b38,38eb38,39723b,6a2424,c3a55f,b76124,d99125,92af1f,10104c,cdb400,cc0202,332808,d7cdcc,f7e174,743411',
+                '162103,235123,399b38,38eb38,39723b,6a2424,c3a55f,b76124,d99125,92af1f,10104c,cdb400,cc0202,332808,d7cdcc,f7e174,aec3d6',
         },
         mask: false,
         legend: {
@@ -106,79 +106,76 @@ const getDatasets = () => ({
             ),
             source: 'NASA LP DAAC / Google Earth Engine',
             sourceUrl:
-                'https://code.earthengine.google.com/dataset/MODIS/051/MCD12Q1',
+                'https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1',
             items: [
+                // http://www.eomf.ou.edu/static/IGBP.pdf
                 {
-                    color: '#aec3d6',
-                    name: i18n.t('Water'),
-                },
-                {
-                    color: '#162103',
                     name: i18n.t('Evergreen Needleleaf forest'),
+                    color: '#162103',
                 },
                 {
-                    color: '#235123',
                     name: i18n.t('Evergreen Broadleaf forest'),
+                    color: '#235123',
                 },
                 {
-                    color: '#399b38',
                     name: i18n.t('Deciduous Needleleaf forest'),
+                    color: '#399b38',
                 },
                 {
-                    color: '#38eb38',
                     name: i18n.t('Deciduous Broadleaf forest'),
+                    color: '#38eb38',
                 },
                 {
-                    color: '#39723b',
                     name: i18n.t('Mixed forest'),
+                    color: '#39723b',
                 },
                 {
-                    color: '#6a2424',
                     name: i18n.t('Closed shrublands'),
+                    color: '#6a2424',
                 },
                 {
-                    color: '#c3a55f',
                     name: i18n.t('Open shrublands'),
+                    color: '#c3a55f',
                 },
                 {
-                    color: '#b76124',
                     name: i18n.t('Woody savannas'),
+                    color: '#b76124',
                 },
                 {
-                    color: '#d99125',
                     name: i18n.t('Savannas'),
+                    color: '#d99125',
                 },
                 {
-                    color: '#92af1f',
                     name: i18n.t('Grasslands'),
+                    color: '#92af1f',
                 },
                 {
-                    color: '#10104c',
                     name: i18n.t('Permanent wetlands'),
+                    color: '#10104c',
                 },
                 {
-                    color: '#cdb400',
                     name: i18n.t('Croplands'),
+                    color: '#cdb400',
                 },
                 {
-                    color: '#cc0202',
                     name: i18n.t('Urban and built-up'),
+                    color: '#cc0202',
                 },
                 {
-                    color: '#332808',
                     name: i18n.t('Cropland/Natural vegetation mosaic'),
+                    color: '#332808',
                 },
                 {
-                    color: '#d7cdcc',
                     name: i18n.t('Snow and ice'),
+                    color: '#d7cdcc',
                 },
                 {
-                    color: '#f7e174',
                     name: i18n.t('Barren or sparsely vegetated'),
+                    color: '#f7e174',
                 },
                 {
-                    color: '#743411',
-                    name: i18n.t('Unclassified'),
+                    name: i18n.t('Water'),
+                    color: '#aec3d6',
                 },
             ],
         },
