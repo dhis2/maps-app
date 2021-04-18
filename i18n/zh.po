@@ -693,7 +693,7 @@ msgstr "选项"
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
-msgstr ""
+msgstr "该数据元素的选项太多（{{length}}）。样式的最大选项为{{max}}。"
 
 msgid "Code"
 msgstr "代码"
@@ -1318,7 +1318,7 @@ msgid "Event"
 msgstr "四级"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
+msgstr "显示{{total}}中的前{{pageSize}}个事件"
 
 msgid "No data found"
 msgstr "没有数据被找到"
