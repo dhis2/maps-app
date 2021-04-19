@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-07T12:04:18.927Z\n"
+"POT-Creation-Date: 2021-04-15T19:10:59.934Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: Yao Selom SAKA <ysaka@hispwca.org>, 2020\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Max °C"
 msgstr ""
 
-msgid "17 distinct landcover types collected from satellites."
+msgid "Distinct landcover types collected from satellites."
 msgstr ""
 
 msgid ""
@@ -975,12 +975,6 @@ msgstr ""
 msgid "Landcover"
 msgstr "Couverture du sol"
 
-msgid "Distinct landcover types collected from satellites."
-msgstr ""
-
-msgid "Water"
-msgstr ""
-
 msgid "Evergreen Needleleaf forest"
 msgstr ""
 
@@ -1029,7 +1023,7 @@ msgstr ""
 msgid "Barren or sparsely vegetated"
 msgstr ""
 
-msgid "Unclassified"
+msgid "Water"
 msgstr ""
 
 msgid "Access denied"

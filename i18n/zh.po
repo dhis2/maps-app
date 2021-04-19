@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-07T12:04:18.927Z\n"
+"POT-Creation-Date: 2021-04-15T19:10:59.934Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2020\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -212,8 +212,8 @@ msgstr "最低摄氏温度"
 msgid "Max °C"
 msgstr "最高摄氏温度"
 
-msgid "17 distinct landcover types collected from satellites."
-msgstr "从卫星采集的17个地区的陆地覆盖类型"
+msgid "Distinct landcover types collected from satellites."
+msgstr "从卫星收集的独特的土地覆被类型。"
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -969,12 +969,6 @@ msgstr "从卫星收集的地表温度。在云层持续覆盖的区域中将出
 msgid "Landcover"
 msgstr "陆地覆盖"
 
-msgid "Distinct landcover types collected from satellites."
-msgstr "从卫星收集的独特的土地覆被类型。"
-
-msgid "Water"
-msgstr "水"
-
 msgid "Evergreen Needleleaf forest"
 msgstr "常绿针叶林"
 
@@ -1023,8 +1017,8 @@ msgstr "冰雪"
 msgid "Barren or sparsely vegetated"
 msgstr "贫瘠或稀疏的植被"
 
-msgid "Unclassified"
-msgstr "未分类"
+msgid "Water"
+msgstr "水"
 
 msgid "Access denied"
 msgstr "拒绝随访"

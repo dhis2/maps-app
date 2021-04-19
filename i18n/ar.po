@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-07T12:04:18.927Z\n"
+"POT-Creation-Date: 2021-04-15T19:10:59.934Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -221,8 +221,8 @@ msgstr "الحد الأدنى لدرجة الحرارة المئوية"
 msgid "Max °C"
 msgstr "الحد الأعلى لدرجة الحرارة المئوية"
 
-msgid "17 distinct landcover types collected from satellites."
-msgstr "17 نوعاً مميزاً من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
+msgid "Distinct landcover types collected from satellites."
+msgstr "أنواع مميزة من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -989,12 +989,6 @@ msgstr ""
 msgid "Landcover"
 msgstr "الغطاء الأرضي"
 
-msgid "Distinct landcover types collected from satellites."
-msgstr "أنواع مميزة من الغطاء الأرضي تم جمعها من الأقمار الصناعية."
-
-msgid "Water"
-msgstr "ماء"
-
 msgid "Evergreen Needleleaf forest"
 msgstr ""
 
@@ -1043,8 +1037,8 @@ msgstr "الثلج والجليد"
 msgid "Barren or sparsely vegetated"
 msgstr "قاحل أو نباتات قليلة"
 
-msgid "Unclassified"
-msgstr "غير مصنف"
+msgid "Water"
+msgstr "ماء"
 
 msgid "Access denied"
 msgstr "تم رفض الوصول"

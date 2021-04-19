@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-07T12:04:18.927Z\n"
+"POT-Creation-Date: 2021-04-15T19:10:59.934Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -223,8 +223,8 @@ msgstr "Минимал °C"
 msgid "Max °C"
 msgstr "Максимал °C"
 
-msgid "17 distinct landcover types collected from satellites."
-msgstr "Сунъий йўлдошлардан йиғилган 17 хил қуруқлик маълумотлари. "
+msgid "Distinct landcover types collected from satellites."
+msgstr "Спутник ёрдамида ер қатламининг тури аниқланган "
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -1000,12 +1000,6 @@ msgstr ""
 msgid "Landcover"
 msgstr "Ўсимликлар қавати"
 
-msgid "Distinct landcover types collected from satellites."
-msgstr "Спутник ёрдамида ер қатламининг тури аниқланган "
-
-msgid "Water"
-msgstr "Сув"
-
 msgid "Evergreen Needleleaf forest"
 msgstr "Яшил игна баргли доимий ўрмонлар"
 
@@ -1054,8 +1048,8 @@ msgstr "Қор ва муз"
 msgid "Barren or sparsely vegetated"
 msgstr "Ҳосилсиз ёки кам ўсимликлардан"
 
-msgid "Unclassified"
-msgstr "Классификация қилинмаган"
+msgid "Water"
+msgstr "Сув"
 
 msgid "Access denied"
 msgstr "Фойдаланиш ҳуқуқи рад этилди"
