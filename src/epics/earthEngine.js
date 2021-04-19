@@ -98,10 +98,10 @@ const collections = {
             )
         );
     },
-    'MODIS/051/MCD12Q1': resolve => {
+    'MODIS/006/MCD12Q1': resolve => {
         // Landcover
         const imageCollection = ee
-            .ImageCollection('MODIS/051/MCD12Q1')
+            .ImageCollection('MODIS/006/MCD12Q1')
             .sort('system:time_start', false);
 
         const featureCollection = ee
