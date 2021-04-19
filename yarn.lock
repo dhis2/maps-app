@@ -383,26 +383,25 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@1.3.6":
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.3.6.tgz#7442bc96cb361d110ecdd6c8812cbcdd8fc8bcc7"
-  integrity sha512-7+DmkxCpztfvG38/BA4FZI5bSlIcA85m21BL/9BT1Eso2Id1hCq8gi3p8XloxJc1a/2gmIkpumYVrA1Dam5e/Q==
+"@dhis2/maps-gl@^1.8.6":
+  version "1.8.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.8.6.tgz#f3509f01b4de5d1a6caae5af06f9bb3af792f7cf"
+  integrity sha512-5mDPvu4aIB3+YGW+ZabI/VG6qgef/iPR2nBbyogDXzmZZnQfJpMTfzcORP4TunwjGhGvvSSXn7KN6HNx8ue3tw==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
-    "@turf/area" "^6.0.1"
-    "@turf/bbox" "^6.0.1"
-    "@turf/buffer" "^5.1.5"
-    "@turf/center-of-mass" "^6.0.1"
-    "@turf/circle" "^6.0.1"
-    "@turf/length" "^6.0.2"
+    "@turf/area" "^6.3.0"
+    "@turf/bbox" "^6.3.0"
+    "@turf/buffer" "^6.3.0"
+    "@turf/center-of-mass" "^6.3.0"
+    "@turf/circle" "^6.3.0"
+    "@turf/length" "^6.3.0"
     fetch-jsonp "^1.1.3"
     lodash.throttle "^4.1.1"
-    mapbox-gl "^1.11.0"
-    mapbox-gl-multitouch "^1.0.3"
+    mapbox-gl "^1.13.1"
     mapboxgl-spiderifier "^1.0.9"
     polylabel "^1.1.0"
-    suggestions "^1.7.0"
-    uuid "^8.2.0"
+    suggestions "^1.7.1"
+    uuid "^8.3.2"
 
 "@dhis2/prop-types@^1.5", "@dhis2/prop-types@^1.5.0":
   version "1.5.0"
@@ -721,158 +720,138 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
 
-"@turf/area@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@turf/area/-/area-6.0.1.tgz#50ed63c70ef2bdb72952384f1594319d94f3b051"
-  integrity sha512-Zv+3N1ep9P5JvR0YOYagLANyapGWQBh8atdeR3bKpWcigVXFsEKNUw03U/5xnh+cKzm7yozHD6MFJkqQv55y0g==
+"@turf/area@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/area/-/area-6.3.0.tgz#cdd02f8ca51da2889dfc90a3c9e8fef5d1e04dca"
+  integrity sha512-Y1cYyAQ2fk94npdgOeMF4msc2uabHY1m7A7ntixf1I8rkyDd6/iHh1IMy1QsM+VZXAEwDwsXhu+ZFYd3Jkeg4A==
   dependencies:
-    "@turf/helpers" "6.x"
-    "@turf/meta" "6.x"
+    "@turf/helpers" "^6.3.0"
+    "@turf/meta" "^6.3.0"
 
-"@turf/bbox@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-5.1.5.tgz#3051df514ad4c50f4a4f9b8a2d15fd8b6840eda3"
-  integrity sha1-MFHfUUrUxQ9KT5uKLRX9i2hA7aM=
+"@turf/bbox@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-6.3.0.tgz#0e1a9b59f32d6a2a40c806f54cbaa73575bead25"
+  integrity sha512-N4ue5Xopu1qieSHP2MA/CJGWHPKaTrVXQJjzHRNcY1vtsO126xbSaJhWUrFc5x5vVkXp0dcucGryO0r5m4o/KA==
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.3.0"
+    "@turf/meta" "^6.3.0"
 
-"@turf/bbox@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-6.0.1.tgz#b966075771475940ee1c16be2a12cf389e6e923a"
-  integrity sha512-EGgaRLettBG25Iyx7VyUINsPpVj1x3nFQFiGS3ER8KCI1MximzNLsam3eXRabqQDjyAKyAE1bJ4EZEpGvspQxw==
+"@turf/buffer@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/buffer/-/buffer-6.3.0.tgz#cf1df21bb60c551aa48d75e71ae16fe9700dd1de"
+  integrity sha512-B0GWgJzmTaaw1GvTd+Df+ToKSYphz9d6hPCOwXbE2vS5DdZryoxBfxQ32LSX/hW/vx7TLf7E4M0VJBb+Sn1DKA==
   dependencies:
-    "@turf/helpers" "6.x"
-    "@turf/meta" "6.x"
-
-"@turf/buffer@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@turf/buffer/-/buffer-5.1.5.tgz#841c9627cfb974b122ac4e1a956f0466bc0231c4"
-  integrity sha1-hByWJ8+5dLEirE4alW8EZrwCMcQ=
-  dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/center" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/projection" "^5.1.5"
+    "@turf/bbox" "^6.3.0"
+    "@turf/center" "^6.3.0"
+    "@turf/helpers" "^6.3.0"
+    "@turf/meta" "^6.3.0"
+    "@turf/projection" "^6.3.0"
     d3-geo "1.7.1"
     turf-jsts "*"
 
-"@turf/center-of-mass@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@turf/center-of-mass/-/center-of-mass-6.0.1.tgz#be8904edfd6523683706429ea2f4adf5badd5b26"
-  integrity sha512-cY+RndzVzDBMlEShRmvLko0CSG1+iC+WdeMAtauCGL61e23LTYHxFSjVOOo4gF+aKqKia1veZPol8ENJoOU4ow==
+"@turf/center-of-mass@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/center-of-mass/-/center-of-mass-6.3.0.tgz#303fa27f991f1a5ab3d1e25d96ce2059e9c70bce"
+  integrity sha512-dbiNo4VjNOskK/9hlifmb+cIsFgLqru3m/U1b+btDrliLzrFw3BEeLquZf3IZkOGMpVdIi5/F7IbkrPPz7HgWw==
   dependencies:
-    "@turf/centroid" "6.x"
-    "@turf/convex" "6.x"
-    "@turf/helpers" "6.x"
-    "@turf/invariant" "6.x"
-    "@turf/meta" "6.x"
+    "@turf/centroid" "^6.3.0"
+    "@turf/convex" "^6.3.0"
+    "@turf/helpers" "^6.3.0"
+    "@turf/invariant" "^6.3.0"
+    "@turf/meta" "^6.3.0"
 
-"@turf/center@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@turf/center/-/center-5.1.5.tgz#44ab2cd954f63c0d37757f7158a99c3ef5114b80"
-  integrity sha1-RKss2VT2PA03dX9xWKmcPvURS4A=
+"@turf/center@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/center/-/center-6.3.0.tgz#dc46b94e77dc19f2822af8786a0e6d5d68deba0d"
+  integrity sha512-41g/ZYwoBs2PK7tpAHhf4D6llHdRvY827HLXCld5D0IOnzsWPqDk7WnV8P5uq4g/gyH1/WfKQYn5SgfSj4sSfw==
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/bbox" "^6.3.0"
+    "@turf/helpers" "^6.3.0"
 
-"@turf/centroid@6.x":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@turf/centroid/-/centroid-6.0.2.tgz#c4eb16b4bc60b692f74e1809cf9a7c4a4f5ba1cc"
-  integrity sha512-auyDauOtC4eddH7GC3CHFTDu2PKhpSeKCRhwhHhXtJqn2dWCJQNIoCeJRmfXRIbzCWhWvgvQafvvhq8HNvmvWw==
+"@turf/centroid@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/centroid/-/centroid-6.3.0.tgz#e86611e1e171fb0a38ade30453351a00e04956a3"
+  integrity sha512-7KTyqhUEqXDoyR/nf/jAXiW8ZVszEnrp5XZkgYyrf2GWdSovSO0iCN1J3bE2jkJv7IWyeDmGYL61GGzuTSZS2Q==
   dependencies:
-    "@turf/helpers" "6.x"
-    "@turf/meta" "6.x"
+    "@turf/helpers" "^6.3.0"
+    "@turf/meta" "^6.3.0"
 
-"@turf/circle@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@turf/circle/-/circle-6.0.1.tgz#0ab72083373ae3c76b700c17a504ab1b5c0910b9"
-  integrity sha512-pF9XsYtCvY9ZyNqJ3hFYem9VaiGdVNQb0SFq/zzDMwH3iWZPPJQHnnDB/3e8RD1VDtBBov9p5uO2k7otsfezjw==
+"@turf/circle@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/circle/-/circle-6.3.0.tgz#4cee9a2a412bda08bd433c15ea75cef09cce1e54"
+  integrity sha512-5N3J4YQr1efidvPgvtIQYpxb7gBVEoo00IFC0JNH6KqIVBMttFZw3Wsqor34ya91m58A5m6HTiz9Cdm1ktrEdw==
   dependencies:
-    "@turf/destination" "6.x"
-    "@turf/helpers" "6.x"
+    "@turf/destination" "^6.3.0"
+    "@turf/helpers" "^6.3.0"
 
-"@turf/clone@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@turf/clone/-/clone-5.1.5.tgz#253e8d35477181976e33adfab50a0f02a7f0e367"
-  integrity sha1-JT6NNUdxgZduM636tQoPAqfw42c=
+"@turf/clone@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/clone/-/clone-6.3.0.tgz#2703557024f3222185d3c54ce926c57bdbe6d628"
+  integrity sha512-GAgN89/9GCqUKECB1oY2hcTs0K2rZj+a2tY6VfM0ef9wwckuQZCKi+kKGUzhKVrmHee15jKV8n6DY0er8OndKg==
   dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.3.0"
 
-"@turf/convex@6.x":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@turf/convex/-/convex-6.0.3.tgz#d7e9912b96483f1504cdd2f60b4b1bbdbf77416c"
-  integrity sha512-S9zvcKiqkIiQ/fhnEP5ftDrsVY3Sh0XeLDVZY761nlvuvzLVzz26Gq7H3NMsCJlmIcQS9jPARFBVpRZi6eTV8Q==
+"@turf/convex@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/convex/-/convex-6.3.0.tgz#d3eb866cf6863c075c85039edc89db7c595eee44"
+  integrity sha512-YpiLKRu1suwbI/knCOd7Fg7LojV6Beonu8gQjCoaPdkBEz0/W3XqNpfWQhcqp+XR10a2g4RK5mi6bUUejToFBw==
   dependencies:
-    "@turf/helpers" "6.x"
-    "@turf/meta" "6.x"
+    "@turf/helpers" "^6.3.0"
+    "@turf/meta" "^6.3.0"
     concaveman "*"
 
-"@turf/destination@6.x":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@turf/destination/-/destination-6.0.1.tgz#5275887fa96ec463f44864a2c17f0b712361794a"
-  integrity sha512-MroK4nRdp7as174miCAugp8Uvorhe6rZ7MJiC9Hb4+hZR7gNFJyVKmkdDDXIoCYs6MJQsx0buI+gsCpKwgww0Q==
+"@turf/destination@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/destination/-/destination-6.3.0.tgz#7032eeb0ec5d1a035d98faaddac039eea96abb04"
+  integrity sha512-aLt3U/XkJWyZW08Ln1qZwBNAGh27yhmYLu892+dBj3gKP6UUiR6ZopXxrBwjBVe00A6k2ktftKDn79qe0hptuw==
   dependencies:
-    "@turf/helpers" "6.x"
-    "@turf/invariant" "6.x"
+    "@turf/helpers" "^6.3.0"
+    "@turf/invariant" "^6.3.0"
 
-"@turf/distance@6.x":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@turf/distance/-/distance-6.0.1.tgz#0761f28784286e7865a427c4e7e3593569c2dea8"
-  integrity sha512-q7t7rWIWfkg7MP1Vt4uLjSEhe5rPfCO2JjpKmk7JC+QZKEQkuvHEqy3ejW1iC7Kw5ZcZNR3qdMGGz+6HnVwqvg==
+"@turf/distance@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/distance/-/distance-6.3.0.tgz#4bd084af7fe369e921476e52b597a638dae4ed95"
+  integrity sha512-basi24ssNFnH3iXPFjp/aNUrukjObiFWoIyDRqKyBJxVwVOwAWvfk4d38QQyBj5nDo5IahYRq/Q+T47/5hSs9w==
   dependencies:
-    "@turf/helpers" "6.x"
-    "@turf/invariant" "6.x"
+    "@turf/helpers" "^6.3.0"
+    "@turf/invariant" "^6.3.0"
 
-"@turf/helpers@6.x":
-  version "6.1.4"
-  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-6.1.4.tgz#d6fd7ebe6782dd9c87dca5559bda5c48ae4c3836"
-  integrity sha512-vJvrdOZy1ngC7r3MDA7zIGSoIgyrkWcGnNIEaqn/APmw+bVLF2gAW7HIsdTxd12s5wQMqEpqIQrmrbRRZ0xC7g==
+"@turf/helpers@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-6.3.0.tgz#87f90f806c3f8ad6385ef8d2041d3662bf3c9fb1"
+  integrity sha512-kr6KuD4Z0GZ30tblTEvi90rvvVNlKieXuMC8CTzE/rVQb0/f/Cb29zCXxTD7giQTEQY/P2nRW23wEqqyNHulCg==
 
-"@turf/helpers@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-5.1.5.tgz#153405227ab933d004a5bb9641a9ed999fcbe0cf"
-  integrity sha1-FTQFInq5M9AEpbuWQantmZ/L4M8=
-
-"@turf/invariant@6.x":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-6.1.2.tgz#6013ed6219f9ac2edada9b31e1dfa5918eb0a2f7"
-  integrity sha512-WU08Ph8j0J2jVGlQCKChXoCtI50BB3yEH21V++V0T4cR1T27HKCxkehV2sYMwTierfMBgjwSwDIsxnR4/2mWXg==
+"@turf/invariant@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-6.3.0.tgz#04a22b26c5503146c03fa6198176b72bd591eadf"
+  integrity sha512-2OFOi9p+QOrcIMySEnr+WlOiKaFZ1bY56jA98YyECewJHfhPFWUBZEhc4nWGRT0ahK08Vus9+gcuBX8QIpCIIw==
   dependencies:
-    "@turf/helpers" "6.x"
+    "@turf/helpers" "^6.3.0"
 
-"@turf/length@^6.0.2":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@turf/length/-/length-6.0.2.tgz#22d91a6d0174e862a3614865613f1aceb1162dac"
-  integrity sha512-nyfXMowVtX2dICEG7u7EGC2SMaauVUWIMc9eWQrEauNA/9aw+7wbiuip4GPBoyeXEUUekF0EOjJn5aB9Zc8CzA==
+"@turf/length@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/length/-/length-6.3.0.tgz#7d6b61bf870d6f056eb34ec7a787ce49f7dbe292"
+  integrity sha512-91MHtigpV7mbrMW3xyaPVtLWQU3p487t3YHU4vdxih03p+dFI512dX/FtWbd9LNgrtBt4PM1uo1WmafGvfStKA==
   dependencies:
-    "@turf/distance" "6.x"
-    "@turf/helpers" "6.x"
-    "@turf/meta" "6.x"
+    "@turf/distance" "^6.3.0"
+    "@turf/helpers" "^6.3.0"
+    "@turf/meta" "^6.3.0"
 
-"@turf/meta@6.x":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-6.0.2.tgz#eb92951126d24a613ac1b7b99d733fcc20fd30cf"
-  integrity sha512-VA7HJkx7qF1l3+GNGkDVn2oXy4+QoLP6LktXAaZKjuT1JI0YESat7quUkbCMy4zP9lAUuvS4YMslLyTtr919FA==
+"@turf/meta@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-6.3.0.tgz#f3e280ab29641f21e4f99310ce77f9c8394ae394"
+  integrity sha512-qBJjaAJS9H3ap0HlGXyF/Bzfl0qkA9suafX/jnDsZvWMfVLt+s+o6twKrXOGk5t7nnNON2NFRC8+czxpu104EQ==
   dependencies:
-    "@turf/helpers" "6.x"
+    "@turf/helpers" "^6.3.0"
 
-"@turf/meta@^5.1.5":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-5.2.0.tgz#3b1ad485ee0c3b0b1775132a32c384d53e4ba53d"
-  integrity sha1-OxrUhe4MOwsXdRMqMsOE1T5LpT0=
+"@turf/projection@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@turf/projection/-/projection-6.3.0.tgz#4ec279670330164750cace9cdf8cbad73755f3eb"
+  integrity sha512-IpSs7Q6G6xi47ynVlYYVegPLy6Jc0yo3/DcIm83jaJa4NnzPFXIFZT0v9Fe1N8MraHZqiqaSPbVnJXCGwR12lg==
   dependencies:
-    "@turf/helpers" "^5.1.5"
-
-"@turf/projection@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@turf/projection/-/projection-5.1.5.tgz#24517eeeb2f36816ba9f712e7ae6d6a368edf757"
-  integrity sha1-JFF+7rLzaBa6n3EueubWo2jt91c=
-  dependencies:
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/clone" "^6.3.0"
+    "@turf/helpers" "^6.3.0"
+    "@turf/meta" "^6.3.0"
 
 "@types/jss@^9.5.6":
   version "9.5.8"
@@ -9206,15 +9185,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapbox-gl-multitouch@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/mapbox-gl-multitouch/-/mapbox-gl-multitouch-1.0.3.tgz#db8bbe86a15d8398e3315d97305c9edde3f0f0d7"
-  integrity sha512-lpTFL2Sp7hK867mkMOZe2DvdS5eEHxWfMc7aSWCRDMgSq9IjPubsiix3FPs+IqcbkYmR+IUrzvH9RWBOXVs2cg==
-
-mapbox-gl@^1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-1.11.0.tgz#7056d7cc1693e157eb5c2beb1476d620670d65e9"
-  integrity sha512-opIQf3C5RoKU5r9bHttTMhGAPcJet1/Cj2mdP7Ma2ylrAHjNPRc1i7KPyq8wjEZdJBMhd5qkIDlzUPM0TSncCQ==
+mapbox-gl@^1.13.1:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-1.13.1.tgz#322efe75ab4c764fc4c776da1506aad58d5a5b9d"
+  integrity sha512-GSyubcoSF5MyaP8z+DasLu5v7KmDK2pp4S5+VQ5WdVQUOaAqQY4jwl4JpcdNho3uWm2bIKs7x1l7q3ynGmW60g==
   dependencies:
     "@mapbox/geojson-rewind" "^0.5.0"
     "@mapbox/geojson-types" "^1.0.2"
@@ -13066,10 +13040,10 @@ stylis@3.5.4, stylis@^3.5.0:
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.4.tgz#f665f25f5e299cf3d64654ab949a57c768b73fbe"
   integrity sha512-8/3pSmthWM7lsPBKv7NXkzn2Uc9W7NotcwGNpJaa3k7WMM1XDCA4MgT5k/8BIexd5ydZdboXtU90XH9Ec4Bv/Q==
 
-suggestions@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/suggestions/-/suggestions-1.7.0.tgz#63965229c8082e72cfeb08ad426a6f725ab036ba"
-  integrity sha512-Px+gellrEQUkgM3Lc0Umnz4JIammE0CLcp+7lbNQH/wqnD0u/N1bOXytNOR3Ap1dIZDHE8lYMuwd60jMO6BPDw==
+suggestions@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/suggestions/-/suggestions-1.7.1.tgz#2fefcbde8967353056d1d6eaed891b46d98a7e5c"
+  integrity sha512-gl5YPAhPYl07JZ5obiD9nTZsg4SyZswAQU/NNtnYiSnFkI3+ZHuXAiEsYm7AaZ71E0LXSFaGVaulGSWN3Gd71A==
   dependencies:
     fuzzy "^0.1.1"
     xtend "^4.0.0"
@@ -13909,10 +13883,10 @@ uuid@^3.0.1, uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.2.0.tgz#cb10dd6b118e2dada7d0cd9730ba7417c93d920e"
-  integrity sha512-CYpGiFTUrmI6OBMkAdjSDM0k5h8SkkiTP4WAjQgDgNB1S3Ou9VBEvr6q0Kv2H1mMk7IWfxYGpMH5sd5AvcIV2Q==
+uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 v8flags@^2.1.1:
   version "2.1.1"
