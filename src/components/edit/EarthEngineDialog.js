@@ -57,10 +57,10 @@ const getDatasets = () => ({
         minLabel: i18n.t('Min °C'),
         maxLabel: i18n.t('Max °C'),
     },
-    'MODIS/051/MCD12Q1': {
+    'MODIS/006/MCD12Q1': {
         // Landcover
         description: i18n.t(
-            '17 distinct landcover types collected from satellites.'
+            'Distinct landcover types collected from satellites.'
         ),
         valueLabel: i18n.t('Select year'),
     },
