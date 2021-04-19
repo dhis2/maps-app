@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -225,8 +225,8 @@ msgstr "Min °C"
 msgid "Max °C"
 msgstr "Maks °C"
 
-msgid "17 distinct landcover types collected from satellites."
-msgstr "17 forskjellige arealdekketyper samlet inn fra satellitter."
+msgid "Distinct landcover types collected from satellites."
+msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -1154,12 +1154,6 @@ msgstr ""
 msgid "Landcover"
 msgstr "Arealdekke"
 
-msgid "Distinct landcover types collected from satellites."
-msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
-
-msgid "Water"
-msgstr "Vann"
-
 msgid "Evergreen Needleleaf forest"
 msgstr "Eviggrønn nålskog"
 
@@ -1208,8 +1202,8 @@ msgstr "Snø og is"
 msgid "Barren or sparsely vegetated"
 msgstr "Impediment eller lite vegetasjon"
 
-msgid "Unclassified"
-msgstr "Uklassifisert"
+msgid "Water"
+msgstr "Vann"
 
 msgid "Access denied"
 msgstr "Ingen tilgang"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: trendspotter, 2020\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -225,8 +225,8 @@ msgstr "Min °C"
 msgid "Max °C"
 msgstr "Max °C"
 
-msgid "17 distinct landcover types collected from satellites."
-msgstr "17 různých typů krajinného pokryvu shromážděných ze satelitů."
+msgid "Distinct landcover types collected from satellites."
+msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -1151,12 +1151,6 @@ msgstr ""
 msgid "Landcover"
 msgstr "krajinné pokrytí"
 
-msgid "Distinct landcover types collected from satellites."
-msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
-
-msgid "Water"
-msgstr "Voda"
-
 msgid "Evergreen Needleleaf forest"
 msgstr "Stálezelený jehličnatý les"
 
@@ -1205,8 +1199,8 @@ msgstr "Sníh a led"
 msgid "Barren or sparsely vegetated"
 msgstr "Neplodná nebo řídce porostlá"
 
-msgid "Unclassified"
-msgstr "Nezařazeno"
+msgid "Water"
+msgstr "Voda"
 
 msgid "Access denied"
 msgstr "Přístup odepřen"
