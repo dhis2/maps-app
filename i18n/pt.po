@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-09-21T08:07:40.821Z\n"
+"POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -231,8 +231,8 @@ msgstr "Minimo °C"
 msgid "Max °C"
 msgstr "Maximo °C"
 
-msgid "17 distinct landcover types collected from satellites."
-msgstr "17 tipos de coberturas terrestres distintas, colectados de satélites."
+msgid "Distinct landcover types collected from satellites."
+msgstr "Tipos de cobertura terrestre distintos colectados de satélites."
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -1171,12 +1171,6 @@ msgstr ""
 msgid "Landcover"
 msgstr "Cobertura da terra"
 
-msgid "Distinct landcover types collected from satellites."
-msgstr "Tipos de cobertura terrestre distintos colectados de satélites."
-
-msgid "Water"
-msgstr "Água"
-
 msgid "Evergreen Needleleaf forest"
 msgstr "Floresta de folhas de agulhas sempre-verdes"
 
@@ -1225,8 +1219,8 @@ msgstr "Neve e gelo"
 msgid "Barren or sparsely vegetated"
 msgstr ""
 
-msgid "Unclassified"
-msgstr "Não classificadas "
+msgid "Water"
+msgstr "Água"
 
 msgid "Access denied"
 msgstr "Acesso Negado"
