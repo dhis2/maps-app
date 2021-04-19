@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-08-31T12:05:53.260Z\n"
+"POT-Creation-Date: 2021-04-15T18:29:36.377Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -223,8 +223,8 @@ msgstr "Minimal °C"
 msgid "Max °C"
 msgstr "Maksimal °C"
 
-msgid "17 distinct landcover types collected from satellites."
-msgstr "Sunʼiy yoʼldoshlardan yigʼilgan 17 xil quruqlik maʼlumotlari."
+msgid "Distinct landcover types collected from satellites."
+msgstr "Sputnik yordamida yer qatlamining turi aniqlangan"
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -1085,12 +1085,6 @@ msgstr ""
 msgid "Landcover"
 msgstr "Oʼsimliklar qavati"
 
-msgid "Distinct landcover types collected from satellites."
-msgstr "Sputnik yordamida yer qatlamining turi aniqlangan"
-
-msgid "Water"
-msgstr "Suv"
-
 msgid "Evergreen Needleleaf forest"
 msgstr "Yashil igna bargli doimiy oʼrmonlar"
 
@@ -1139,8 +1133,8 @@ msgstr "Qor va muz"
 msgid "Barren or sparsely vegetated"
 msgstr "Hosilsiz yoki kam oʼsimliklardan"
 
-msgid "Unclassified"
-msgstr "Klassifikatsiya qilinmagan"
+msgid "Water"
+msgstr "Suv"
 
 msgid "Access denied"
 msgstr "Foydalanish huquqi rad etildi"
