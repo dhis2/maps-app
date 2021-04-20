@@ -7,7 +7,7 @@
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
 # Bram Piot <bram.piot@gmail.com>, 2020
 # Austin McGee <austin@dhis2.org>, 2020
-# Yao Selom SAKA <ysaka@hispwca.org>, 2020
+# Yao Selom Saka <ysaka@hispwca.org>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # 
 msgid ""
