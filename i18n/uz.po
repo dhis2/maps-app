@@ -297,6 +297,9 @@ msgstr "Дастур босқичи талаб қилинади"
 msgid "No organisation units are selected."
 msgstr "Ташкилий бўлимлар танланмаган"
 
+msgid "No legend set is selected"
+msgstr "Таърифлар тўплами танланмаган"
+
 msgid "Event status"
 msgstr "Ҳодиса/Тадбир ҳолати"
 
@@ -347,9 +350,6 @@ msgstr "Дастур индикатори талаб қилинади"
 
 msgid "Period is required"
 msgstr "Давр талаб қилинади"
-
-msgid "No legend set is selected"
-msgstr "Таърифлар тўплами танланмаган"
 
 msgid "Indicator"
 msgstr "Индикатор"

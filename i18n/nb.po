@@ -295,6 +295,9 @@ msgstr "Programfase er påkrevd"
 msgid "No organisation units are selected."
 msgstr "Ingen organisasjonsenheter er valgt"
 
+msgid "No legend set is selected"
+msgstr "Ingen tegnforklaringsett valgt"
+
 msgid "Event status"
 msgstr "Hendelsesstatus"
 
@@ -345,9 +348,6 @@ msgstr "Programindikator er påkrevd"
 
 msgid "Period is required"
 msgstr "Periode er påkrevd"
-
-msgid "No legend set is selected"
-msgstr "Ingen tegnforklaringsett valgt"
 
 msgid "Indicator"
 msgstr "Indikator"

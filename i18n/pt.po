@@ -304,6 +304,9 @@ msgstr "Etapa do programa é necessária"
 msgid "No organisation units are selected."
 msgstr "Nenhuma unidade organizacional selecionada"
 
+msgid "No legend set is selected"
+msgstr ""
+
 msgid "Event status"
 msgstr "Estado do evento "
 
@@ -354,9 +357,6 @@ msgstr "Indicador de programa é necessário"
 
 msgid "Period is required"
 msgstr "Período é obrigatório"
-
-msgid "No legend set is selected"
-msgstr ""
 
 msgid "Indicator"
 msgstr "Indicador"

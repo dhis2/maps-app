@@ -300,6 +300,9 @@ msgstr "Vyžaduje se programová fáze"
 msgid "No organisation units are selected."
 msgstr "Nejsou vybrány žádné organizační jednotky."
 
+msgid "No legend set is selected"
+msgstr "Nevybrána žádná sada legend"
+
 msgid "Event status"
 msgstr "Stav události"
 
@@ -350,9 +353,6 @@ msgstr "Je vyžadován indikátor programu"
 
 msgid "Period is required"
 msgstr "Období je vyžadováno"
-
-msgid "No legend set is selected"
-msgstr "Nevybrána žádná sada legend"
 
 msgid "Indicator"
 msgstr "Indikátor"
