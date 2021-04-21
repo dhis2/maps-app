@@ -1,3 +1,45 @@
+## [1.6.62](https://github.com/dhis2/maps-app/compare/v1.6.61...v1.6.62) (2021-04-21)
+
+
+### Bug Fixes
+
+* set default legend set for event layers ([#1638](https://github.com/dhis2/maps-app/issues/1638)) ([07d9801](https://github.com/dhis2/maps-app/commit/07d9801030059a4950c02aca4bdc80fda39f756d))
+
+## [1.6.61](https://github.com/dhis2/maps-app/compare/v1.6.60...v1.6.61) (2021-04-20)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b2a1d86](https://github.com/dhis2/maps-app/commit/b2a1d8625ba6ec6e5806721622801dc171533610))
+
+## [1.6.60](https://github.com/dhis2/maps-app/compare/v1.6.59...v1.6.60) (2021-04-18)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([52a42d4](https://github.com/dhis2/maps-app/commit/52a42d4431f0c2e615e1b6415ebc51d9fa62afa3))
+
+## [1.6.59](https://github.com/dhis2/maps-app/compare/v1.6.58...v1.6.59) (2021-04-16)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([126f2c1](https://github.com/dhis2/maps-app/commit/126f2c1211fef31296da06ca7d2f543b1490e410))
+
+## [1.6.58](https://github.com/dhis2/maps-app/compare/v1.6.57...v1.6.58) (2021-04-14)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([17758b2](https://github.com/dhis2/maps-app/commit/17758b297a0dd2167b360745b64024531cf56675))
+
+## [1.6.57](https://github.com/dhis2/maps-app/compare/v1.6.56...v1.6.57) (2021-04-14)
+
+
+### Bug Fixes
+
+* upgrade maps-gl with improved donut cluster ([#1647](https://github.com/dhis2/maps-app/issues/1647)) ([d8dfc43](https://github.com/dhis2/maps-app/commit/d8dfc439a4ea9796ffd1c1570a694efab239e9a4))
+
 ## [1.6.56](https://github.com/dhis2/maps-app/compare/v1.6.55...v1.6.56) (2021-04-14)
 
 

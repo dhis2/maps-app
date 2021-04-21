@@ -696,6 +696,11 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
+msgid ""
+"This data element has too many options ({{length}}). Max options for styling"
+" is {{max}}."
+msgstr ""
+
 msgid "Code"
 msgstr "Код"
 
