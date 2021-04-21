@@ -299,6 +299,9 @@ msgstr "Dastur bosqichi talab qilinadi"
 msgid "No organisation units are selected."
 msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
+msgid "No legend set is selected"
+msgstr "Taʼrif toʼplami tanlanmagan"
+
 msgid "Event status"
 msgstr "Hodisa/Tadbir holati"
 
@@ -349,9 +352,6 @@ msgstr "Dastur indikatori talab qilinadi"
 
 msgid "Period is required"
 msgstr "Davr talab qilinadi"
-
-msgid "No legend set is selected"
-msgstr "Taʼrif toʼplami tanlanmagan"
 
 msgid "Indicator"
 msgstr "Indikator"

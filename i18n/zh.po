@@ -295,6 +295,9 @@ msgstr "需要项目阶段"
 msgid "No organisation units are selected."
 msgstr "没有选择机构"
 
+msgid "No legend set is selected"
+msgstr "未选择图例集"
+
 msgid "Event status"
 msgstr "事件状态"
 
@@ -345,9 +348,6 @@ msgstr "需要项目指标"
 
 msgid "Period is required"
 msgstr "需要期间"
-
-msgid "No legend set is selected"
-msgstr "未选择图例集"
 
 msgid "Indicator"
 msgstr "指标"

@@ -301,6 +301,9 @@ msgstr ""
 msgid "No organisation units are selected."
 msgstr "Aucune unité d'organisation choisie"
 
+msgid "No legend set is selected"
+msgstr ""
+
 msgid "Event status"
 msgstr "Statut de l'événement"
 
@@ -350,9 +353,6 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
-
-msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
