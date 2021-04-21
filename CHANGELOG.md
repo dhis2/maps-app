@@ -1,3 +1,10 @@
+## [1.6.62](https://github.com/dhis2/maps-app/compare/v1.6.61...v1.6.62) (2021-04-21)
+
+
+### Bug Fixes
+
+* set default legend set for event layers ([#1638](https://github.com/dhis2/maps-app/issues/1638)) ([07d9801](https://github.com/dhis2/maps-app/commit/07d9801030059a4950c02aca4bdc80fda39f756d))
+
 ## [1.6.61](https://github.com/dhis2/maps-app/compare/v1.6.60...v1.6.61) (2021-04-20)
 
 
