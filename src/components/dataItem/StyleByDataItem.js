@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { Help } from '@dhis2/ui';
 import DataItemSelect from './DataItemSelect';
 import DataItemStyle from './DataItemStyle';
 import { setStyleDataItem } from '../../actions/layerEdit';
@@ -14,6 +15,7 @@ export const StyleByDataItem = ({
     programStage,
     styleDataItem,
     setStyleDataItem,
+    error,
 }) => (
     <div>
         <DataItemSelect
@@ -34,6 +36,7 @@ export const StyleByDataItem = ({
         {styleDataItem && (
             <DataItemStyle key="style" dataItem={styleDataItem} />
         )}
+        {error && <Help error>{error}</Help>}
     </div>
 );
 
@@ -48,6 +51,7 @@ StyleByDataItem.propTypes = {
         id: PropTypes.string.isRequired,
     }),
     setStyleDataItem: PropTypes.func.isRequired,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
 export default connect(
