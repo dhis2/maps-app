@@ -295,6 +295,9 @@ msgstr ""
 msgid "No organisation units are selected."
 msgstr ""
 
+msgid "No legend set is selected"
+msgstr ""
+
 msgid "Event status"
 msgstr "Статус события"
 
@@ -344,9 +347,6 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
-
-msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
@@ -690,11 +690,6 @@ msgstr "Продолжить"
 
 msgid "Options"
 msgstr "Параметры"
-
-msgid ""
-"This data element has too many options ({{length}}). Max options for styling"
-" is {{max}}."
-msgstr ""
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"

@@ -293,6 +293,9 @@ msgstr ""
 msgid "No organisation units are selected."
 msgstr ""
 
+msgid "No legend set is selected"
+msgstr ""
+
 msgid "Event status"
 msgstr "事件状态"
 
@@ -343,9 +346,6 @@ msgstr "必须提供项目指标"
 
 msgid "Period is required"
 msgstr "需要时段"
-
-msgid "No legend set is selected"
-msgstr ""
 
 msgid "Indicator"
 msgstr "指标"

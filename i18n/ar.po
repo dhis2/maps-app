@@ -295,6 +295,9 @@ msgstr "مرحلة البرنامج مطلوبة"
 msgid "No organisation units are selected."
 msgstr "لم يتم اختيار أي وحدات تنظيمية"
 
+msgid "No legend set is selected"
+msgstr ""
+
 msgid "Event status"
 msgstr "حالة الحدث"
 
@@ -345,9 +348,6 @@ msgstr "مؤشر البرنامج مطلوب"
 
 msgid "Period is required"
 msgstr "الفترة مطلوبة"
-
-msgid "No legend set is selected"
-msgstr ""
 
 msgid "Indicator"
 msgstr "المؤشر"
