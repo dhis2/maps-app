@@ -251,7 +251,7 @@
     redux-logger "^3.0.6"
     redux-thunk "^2.2.0"
 
-"@dhis2/d2-ui-file-menu@^7.1.6":
+"@dhis2/d2-ui-file-menu@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-file-menu/-/d2-ui-file-menu-7.2.0.tgz#6d8910f9bb56051eeac797a8276f686c466b2f76"
   integrity sha512-PayoFF6FKEAhT3Rida5nIrqmVz8c2thPD66WvBkgnNMho4bpxc1ZnrtXISHL99A7SJH8eohKb945HObMJy2u8A==

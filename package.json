@@ -49,7 +49,7 @@
         "@dhis2/d2-i18n": "^1.0.6",
         "@dhis2/d2-ui-analytics": "^0.0.3",
         "@dhis2/d2-ui-core": "^7.2.0",
-        "@dhis2/d2-ui-file-menu": "^7.1.6",
+        "@dhis2/d2-ui-file-menu": "^7.2.0",
         "@dhis2/d2-ui-interpretations": "^7.2.0",
         "@dhis2/d2-ui-org-unit-dialog": "^7.2.0",
         "@dhis2/d2-ui-org-unit-tree": "^7.2.0",
