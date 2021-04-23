@@ -224,7 +224,7 @@
     lodash "^4.17.10"
     material-ui "^0.20.0"
 
-"@dhis2/d2-ui-core@7.2.0", "@dhis2/d2-ui-core@^7.1.6":
+"@dhis2/d2-ui-core@7.2.0", "@dhis2/d2-ui-core@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-core/-/d2-ui-core-7.2.0.tgz#932c9b2f439dc730ccb28a69129cfeeba15527ad"
   integrity sha512-ox3//w5/sVwlEpOwp/h3NwMufd0bf653ZZmw4sWpH8t8oosuvt0F4bDGB7Vz0f8tidB09oLGiAsHmtvKTXpLpA==
@@ -251,7 +251,7 @@
     redux-logger "^3.0.6"
     redux-thunk "^2.2.0"
 
-"@dhis2/d2-ui-file-menu@^7.1.6":
+"@dhis2/d2-ui-file-menu@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-file-menu/-/d2-ui-file-menu-7.2.0.tgz#6d8910f9bb56051eeac797a8276f686c466b2f76"
   integrity sha512-PayoFF6FKEAhT3Rida5nIrqmVz8c2thPD66WvBkgnNMho4bpxc1ZnrtXISHL99A7SJH8eohKb945HObMJy2u8A==
@@ -263,7 +263,7 @@
     "@material-ui/icons" "^3.0.1"
     prop-types "^15.6.0"
 
-"@dhis2/d2-ui-interpretations@^7.1.6":
+"@dhis2/d2-ui-interpretations@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-7.2.0.tgz#9be8e8270a1a5bbb8d857dadb3f67314bb6a0172"
   integrity sha512-VC+SSp8t3WKizWhq0HzwN2lZb/AS3N7HHz99KRXVTx4diG/1TZg2s+rkBSqUfvXislpntjxpzWvHA9z7GMDlOA==
@@ -300,7 +300,7 @@
     "@material-ui/icons" "^3.0.1"
     prop-types "^15.5.10"
 
-"@dhis2/d2-ui-org-unit-dialog@^7.1.6":
+"@dhis2/d2-ui-org-unit-dialog@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-dialog/-/d2-ui-org-unit-dialog-7.2.0.tgz#24182b874148080976a52adc3983e8e40249cd14"
   integrity sha512-P9SZL8EfJy4pvJlMz671IbYG5KhdVPUs7ID/cKZcDOr8keQ8JNOMkT1vMM1PVFJKt8qFKJ1wg5FJ26uXDkA2TQ==
@@ -322,7 +322,7 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-org-unit-tree@7.2.0", "@dhis2/d2-ui-org-unit-tree@^7.1.6":
+"@dhis2/d2-ui-org-unit-tree@7.2.0", "@dhis2/d2-ui-org-unit-tree@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-7.2.0.tgz#039fcff0c056064aea054e9f41305277b8b0c1c4"
   integrity sha512-0wgLyitzL1qxiarB6vYpMmhhDnVdjAYWQnTSxbVJhKpY4WnkoZY4Qfp4q9IjDFmpYrP2MPF3m1WTo3woshGpCA==
@@ -4072,7 +4072,7 @@ d2-utilizr@^0.2.15:
     lodash.isset "^4.3.0"
     lodash.isstring "^4.0.1"
 
-d2@^31.9.2:
+d2@^31.10.0:
   version "31.10.0"
   resolved "https://registry.yarnpkg.com/d2/-/d2-31.10.0.tgz#0b7e14d0c33edfe4b1cd77bc8fee3edb293d7a04"
   integrity sha512-H1g0qXYAmAoHi57I4wBvKcuNjz4XEakSpt4Dpau0ubUee9Zmk0SlbzFQA47s43F09iQRY1Cw189TzAfkC4YK+Q==
