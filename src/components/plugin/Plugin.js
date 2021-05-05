@@ -32,6 +32,7 @@ class Plugin extends Component {
         super(props, context);
 
         this.state = {
+            isOnline: true,
             mapViews: props.mapViews, // Can be changed by drilling
             resizeCount: 0,
         };
@@ -88,7 +89,15 @@ class Plugin extends Component {
         }));
     }
 
-    onOpenContextMenu = state => this.setState(state);
+    setOnlineStatus(isOnline) {
+        this.setState({ isOnline });
+    }
+
+    onOpenContextMenu = state => {
+        if (this.state.isOnline) {
+            this.setState(state);
+        }
+    };
 
     onCloseContextMenu = () =>
         this.setState({
