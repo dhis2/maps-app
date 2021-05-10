@@ -41,7 +41,6 @@ class Map extends Component {
         resizeCount: PropTypes.number,
         closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
-        onCloseContextMenu: PropTypes.func,
         setAggregations: PropTypes.func,
     };
 
@@ -65,8 +64,6 @@ class Map extends Component {
 
         if (isPlugin) {
             map.toggleMultiTouch(true);
-
-            map.on('click', props.onCloseContextMenu);
             map.on('fullscreenchange', this.onFullscreenChange);
         } else {
             map.on('contextmenu', this.onRightClick, this);

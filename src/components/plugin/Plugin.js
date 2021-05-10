@@ -46,9 +46,8 @@ class Plugin extends Component {
             feature,
             mapViews,
             resizeCount,
-            isSplitView,
             isFullscreen,
-            container,
+            isOnline,
         } = this.state;
 
         return (
@@ -64,17 +63,16 @@ class Plugin extends Component {
                     controls={controls}
                     bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
-                    onCloseContextMenu={this.onCloseContextMenu}
                     resizeCount={resizeCount}
                 />
                 <Legend layers={mapViews} />
                 <ContextMenu
+                    feature={feature}
                     position={position}
                     offset={offset}
-                    feature={feature}
                     onDrill={this.onDrill}
-                    isSplitView={isSplitView}
-                    container={container}
+                    onClose={this.onCloseContextMenu}
+                    isOnline={isOnline}
                 />
             </div>
         );

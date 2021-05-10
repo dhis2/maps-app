@@ -18,7 +18,6 @@ const MapView = props => {
         coordinatePopup,
         closeCoordinatePopup,
         openContextMenu,
-        onCloseContextMenu,
         setAggregations,
         resizeCount,
     } = props;
@@ -52,7 +51,6 @@ const MapView = props => {
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
                     openContextMenu={openContextMenu}
-                    onCloseContextMenu={onCloseContextMenu}
                     setAggregations={setAggregations}
                     resizeCount={resizeCount}
                 />
@@ -72,7 +70,6 @@ MapView.propTypes = {
     coordinatePopup: PropTypes.array,
     closeCoordinatePopup: PropTypes.func,
     openContextMenu: PropTypes.func,
-    onCloseContextMenu: PropTypes.func,
     setAggregations: PropTypes.func,
     resizeCount: PropTypes.number,
 };
