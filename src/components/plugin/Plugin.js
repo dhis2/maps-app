@@ -91,11 +91,7 @@ class Plugin extends Component {
         this.setState({ isOnline });
     }
 
-    onOpenContextMenu = state => {
-        if (this.state.isOnline) {
-            this.setState(state);
-        }
-    };
+    onOpenContextMenu = state => this.setState(state);
 
     onCloseContextMenu = () =>
         this.setState({
