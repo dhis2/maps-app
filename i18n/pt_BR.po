@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-05-10T17:36:34.685Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
@@ -790,6 +790,9 @@ msgstr "Data de início"
 
 msgid "End date"
 msgstr "Data de término"
+
+msgid "Not available offline"
+msgstr ""
 
 msgid "Program indicator"
 msgstr ""

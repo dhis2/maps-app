@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-05-10T17:36:34.685Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2021\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -788,6 +788,9 @@ msgid "Start date"
 msgstr ""
 
 msgid "End date"
+msgstr ""
+
+msgid "Not available offline"
 msgstr ""
 
 msgid "Program indicator"
