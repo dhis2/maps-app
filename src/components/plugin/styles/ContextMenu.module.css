@@ -1,0 +1,7 @@
+.anchor {
+    position: fixed;
+}
+
+.menu {
+    padding: var(--spacers-dp8) 0;
+}

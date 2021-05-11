@@ -3,6 +3,7 @@ import ColorButton from './ColorButton';
 import ColorPicker from './ColorPicker';
 import ColorScale from './ColorScale';
 import ColorScaleSelect from './ColorScaleSelect';
+import ConditionalWrapper from './ConditionalWrapper';
 import DatePicker from './DatePicker';
 import FontStyle from './FontStyle';
 import Help from './Help';
@@ -23,6 +24,7 @@ export {
     ColorPicker,
     ColorScale,
     ColorScaleSelect,
+    ConditionalWrapper,
     DatePicker,
     FontStyle,
     Help,

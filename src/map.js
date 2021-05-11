@@ -227,6 +227,17 @@ function PluginContainer() {
         return false;
     }
 
+    function setOnlineStatus(el, isOnline) {
+        const mapComponent = _components[el];
+
+        if (mapComponent && mapComponent.current) {
+            mapComponent.current.setOnlineStatus(isOnline);
+            return true;
+        }
+
+        return false;
+    }
+
     return {
         // Public properties
         url: null,
@@ -239,6 +250,7 @@ function PluginContainer() {
         resize,
         unmount,
         remove: unmount,
+        setOnlineStatus,
     };
 }
 
