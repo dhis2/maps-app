@@ -7,6 +7,7 @@ import MapName from './MapName';
 import MapLoadingMask from './MapLoadingMask';
 import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
+import { setAggregations } from '../../actions/aggregations';
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,
@@ -19,6 +20,7 @@ const MapContainer = props => {
         basemap,
         mapViews,
         bounds,
+        feature,
         showName,
         newLayerIsLoading,
         coordinatePopup,
@@ -30,6 +32,7 @@ const MapContainer = props => {
         legendPosition,
         openContextMenu,
         closeCoordinatePopup,
+        setAggregations,
     } = props;
     const [resizeCount, setResizeCount] = useState(0);
 
@@ -69,18 +72,20 @@ const MapContainer = props => {
                     basemap={basemap}
                     layers={layers}
                     bounds={bounds}
+                    feature={feature}
                     openContextMenu={openContextMenu}
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
+                    setAggregations={setAggregations}
                     resizeCount={resizeCount}
                 />
-                {isDownload && legendPosition && layers.length && (
+                {isDownload && legendPosition && layers.length ? (
                     <DownloadLegend
                         position={legendPosition}
                         layers={layers}
                         showName={showName}
                     />
-                )}
+                ) : null}
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>
@@ -92,6 +97,7 @@ MapContainer.propTypes = {
     mapViews: PropTypes.array,
     bounds: PropTypes.array,
     showName: PropTypes.bool,
+    feature: PropTypes.object,
     newLayerIsLoading: PropTypes.bool,
     coordinatePopup: PropTypes.array,
     dataTableOpen: PropTypes.bool,
@@ -102,10 +108,11 @@ MapContainer.propTypes = {
     layersPanelOpen: PropTypes.bool,
     openContextMenu: PropTypes.func.isRequired,
     closeCoordinatePopup: PropTypes.func.isRequired,
+    setAggregations: PropTypes.func.isRequired,
 };
 
 export default connect(
-    ({ map, basemaps, download, dataTable, ui }) => ({
+    ({ map, basemaps, download, dataTable, ui, feature }) => ({
         basemap: {
             ...basemaps.filter(b => b.id === map.basemap.id)[0],
             ...map.basemap,
@@ -118,10 +125,12 @@ export default connect(
         showName: download.showDialog ? download.showName : true,
         legendPosition: download.showLegend ? download.legendPosition : null,
         dataTableOpen: !!dataTable,
+        feature,
         ...ui,
     }),
     {
         openContextMenu,
         closeCoordinatePopup,
+        setAggregations,
     }
 )(MapContainer);

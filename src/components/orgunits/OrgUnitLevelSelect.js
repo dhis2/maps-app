@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { once, sortBy } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
-import SelectField from '../core/SelectField';
+import { SelectField } from '../core';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
 
 const style = {

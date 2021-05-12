@@ -6,7 +6,6 @@ import 'rxjs/add/operator/concatMapTo';
 import 'rxjs/add/observable/empty';
 import dataElementEpics from './dataElements';
 import dataSetEpics from './dataSets';
-import earthEngineEpics from './earthEngine';
 import externalLayerEpics from './externalLayers';
 import favoriteEpics from './maps';
 import indicatorEpics from './indicators';
@@ -30,7 +29,6 @@ const errorEpic = action$ =>
 export default combineEpics(
     dataElementEpics,
     dataSetEpics,
-    earthEngineEpics,
     errorEpic,
     externalLayerEpics,
     favoriteEpics,

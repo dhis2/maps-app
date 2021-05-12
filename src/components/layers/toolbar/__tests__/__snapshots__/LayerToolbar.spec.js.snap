@@ -11,9 +11,7 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
     onClick={[Function]}
     tooltip="Edit"
   >
-    <CreateIcon
-      data-icon="CreateIcon"
-    />
+    <SvgEdit24 />
   </IconButton>
   <span
     className="spacer"
@@ -24,27 +22,28 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
     onClick={[Function]}
     tooltip="Toggle visibility"
   >
-    <VisibilityIcon
-      data-icon="VisibilityIcon"
-    />
+    <SvgView24 />
   </IconButton>
   <div
     className="sliderContainer"
   >
     <Tooltip
+      closeDelay={400}
       content="Set layer opacity"
       dataTest="dhis2-uicore-tooltip"
       maxWidth={300}
+      openDelay={200}
       placement="top"
       tag="span"
     >
       <OpacitySlider
+        disabled={false}
         onChange={[Function]}
         opacity={0}
       />
     </Tooltip>
   </div>
-  <LayerToolbarMoreMenu
+  <Connect(LayerToolbarMoreMenu)
     onEdit={[Function]}
   />
 </div>
@@ -61,26 +60,27 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
     onClick={[Function]}
     tooltip="Toggle visibility"
   >
-    <VisibilityIcon
-      data-icon="VisibilityIcon"
-    />
+    <SvgView24 />
   </IconButton>
   <div
     className="sliderContainer"
   >
     <Tooltip
+      closeDelay={400}
       content="Set layer opacity"
       dataTest="dhis2-uicore-tooltip"
       maxWidth={300}
+      openDelay={200}
       placement="top"
       tag="span"
     >
       <OpacitySlider
+        disabled={false}
         onChange={[Function]}
         opacity={0}
       />
     </Tooltip>
   </div>
-  <LayerToolbarMoreMenu />
+  <Connect(LayerToolbarMoreMenu) />
 </div>
 `;

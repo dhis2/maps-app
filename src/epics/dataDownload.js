@@ -1,6 +1,8 @@
 import * as types from '../constants/actionTypes';
 import { errorActionCreator } from '../actions/helpers';
 import { dataDownloadSuccess } from '../actions/dataDownload';
+import { addPropNames } from '../util/earthEngine';
+import { EVENT_LAYER } from '../constants/layers';
 
 import { getInstance as getD2 } from 'd2';
 import {
@@ -67,7 +69,7 @@ const includeValuesByPeriod = ({ data, valuesByPeriod }) => {
 
 const loadData = async (layer, format, humanReadableKeys) => {
     const layerType = layer.layer;
-    if (layerType === 'event') {
+    if (layerType === EVENT_LAYER) {
         const columns = await getEventColumns(layer, format);
         const config = {
             ...layer,
@@ -94,13 +96,27 @@ const loadData = async (layer, format, humanReadableKeys) => {
 const downloadData = action$ =>
     action$.ofType(types.DATA_DOWNLOAD_START).concatMap(async action => {
         try {
-            const { layer, format, humanReadableKeys } = action.payload;
-            const data = await loadData(layer, format, humanReadableKeys);
+            const {
+                layer,
+                aggregations,
+                format,
+                humanReadableKeys,
+            } = action.payload;
+            const { name } = layer;
+            const layerData = await loadData(layer, format, humanReadableKeys);
 
-            await downloadGeoJson({
-                name: layer.name,
-                data: data,
-            });
+            const data = aggregations
+                ? layerData.map(d => ({
+                      ...d,
+                      properties: {
+                          ...d.properties,
+                          ...addPropNames(layer, aggregations[d.id]),
+                      },
+                  }))
+                : layerData;
+
+            await downloadGeoJson({ name, data });
+
             return dataDownloadSuccess();
         } catch (e) {
             return errorActionCreator(types.DATA_DOWNLOAD_FAILURE)(e);

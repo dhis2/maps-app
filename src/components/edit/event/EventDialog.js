@@ -3,27 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { NoticeBox } from '@dhis2/ui';
-import Tabs from '../../core/Tabs';
-import Tab from '../../core/Tab';
-import NumberField from '../../core/NumberField';
+import { Tab, Tabs, NumberField, ImageSelect, ColorPicker } from '../../core';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramStageSelect from '../../program/ProgramStageSelect';
 import EventStatusSelect from './EventStatusSelect';
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect';
 import StartEndDates from '../../periods/StartEndDates';
-import Checkbox from '../../core/Checkbox';
 import FilterGroup from '../../filter/FilterGroup';
-import ImageSelect from '../../core/ImageSelect';
 import StyleByDataItem from '../../dataItem/StyleByDataItem';
 import CoordinateField from '../../dataItem/CoordinateField';
-import ColorPicker from '../../core/ColorPicker';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
+import BufferRadius from '../shared/BufferRadius';
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
+    CLASSIFICATION_PREDEFINED,
 } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -39,7 +36,6 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setPeriod,
-    setAreaRadius,
 } from '../../../actions/layerEdit';
 
 import {
@@ -53,7 +49,6 @@ import { cssColor } from '../../../util/colors';
 
 export class EventDialog extends Component {
     static propTypes = {
-        areaRadius: PropTypes.number,
         columns: PropTypes.array,
         defaultPeriod: PropTypes.string,
         endDate: PropTypes.string,
@@ -63,6 +58,8 @@ export class EventDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         filters: PropTypes.array,
+        legendSet: PropTypes.object,
+        method: PropTypes.number,
         onLayerValidation: PropTypes.func.isRequired,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -72,6 +69,12 @@ export class EventDialog extends Component {
         }),
         rows: PropTypes.array,
         startDate: PropTypes.string,
+        styleDataItem: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            optionSet: PropTypes.shape({
+                options: PropTypes.array,
+            }),
+        }),
         setProgram: PropTypes.func.isRequired,
         setProgramStage: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
@@ -83,7 +86,6 @@ export class EventDialog extends Component {
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
-        setAreaRadius: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
 
@@ -91,7 +93,6 @@ export class EventDialog extends Component {
         super(props, context);
         this.state = {
             tab: 'data',
-            showBuffer: this.hasBuffer(props.areaRadius),
         };
     }
 
@@ -123,13 +124,7 @@ export class EventDialog extends Component {
     }
 
     componentDidUpdate(prev) {
-        const { areaRadius, validateLayer, onLayerValidation } = this.props;
-
-        if (areaRadius !== prev.areaRadius) {
-            this.setState({
-                showBuffer: this.hasBuffer(areaRadius),
-            });
-        }
+        const { validateLayer, onLayerValidation } = this.props;
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate());
@@ -139,7 +134,6 @@ export class EventDialog extends Component {
     render() {
         const {
             // layer options
-            areaRadius,
             columns = [],
             endDate,
             eventClustering,
@@ -152,6 +146,7 @@ export class EventDialog extends Component {
             programStage,
             rows = [],
             startDate,
+            legendSet,
         } = this.props;
 
         const {
@@ -166,7 +161,6 @@ export class EventDialog extends Component {
             setUserOrgUnits,
             toggleOrgUnit,
             setPeriod,
-            setAreaRadius,
         } = this.props;
 
         const {
@@ -175,7 +169,7 @@ export class EventDialog extends Component {
             programStageError,
             periodError,
             orgUnitsError,
-            showBuffer,
+            legendSetError,
         } = this.state;
 
         const period = getPeriodFromFilters(filters) || {
@@ -333,33 +327,18 @@ export class EventDialog extends Component {
                                         label={i18n.t('Radius')}
                                         value={eventPointRadius || EVENT_RADIUS}
                                         onChange={setEventPointRadius}
-                                        className={styles.flexInnerColumn}
                                     />
                                 </div>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Buffer')}
-                                        checked={showBuffer}
-                                        onChange={this.onShowBufferClick.bind(
-                                            this
-                                        )}
-                                        className={styles.checkboxInline}
-                                        disabled={eventClustering}
-                                    />
-                                    {showBuffer && (
-                                        <NumberField
-                                            label={i18n.t('Radius in meters')}
-                                            value={areaRadius || ''}
-                                            onChange={setAreaRadius}
-                                            disabled={eventClustering}
-                                            className={styles.flexInnerColumn}
-                                        />
-                                    )}
-                                </div>
+                                <BufferRadius
+                                    disabled={eventClustering}
+                                    defaultRadius={EVENT_BUFFER}
+                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 {program ? (
-                                    <StyleByDataItem />
+                                    <StyleByDataItem
+                                        error={!legendSet && legendSetError}
+                                    />
                                 ) : (
                                     <div className={styles.notice}>
                                         <NoticeBox>
@@ -375,15 +354,6 @@ export class EventDialog extends Component {
                 </div>
             </div>
         );
-    }
-
-    onShowBufferClick(isChecked) {
-        const { setAreaRadius, areaRadius } = this.props;
-        setAreaRadius(isChecked ? areaRadius || EVENT_BUFFER : null);
-    }
-
-    hasBuffer(areaRadius) {
-        return areaRadius !== undefined && areaRadius !== null;
     }
 
     // TODO: Add to parent class?
@@ -404,6 +374,9 @@ export class EventDialog extends Component {
             filters,
             startDate,
             endDate,
+            method,
+            legendSet,
+            styleDataItem,
         } = this.props;
 
         const period = getPeriodFromFilters(filters) || {
@@ -441,6 +414,23 @@ export class EventDialog extends Component {
             );
         }
 
+        if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
+            return this.setErrorState(
+                'legendSetError',
+                i18n.t('No legend set is selected'),
+                'style'
+            );
+        }
+
+        if (
+            styleDataItem &&
+            styleDataItem.optionSet &&
+            !styleDataItem.optionSet.options
+        ) {
+            // Occurs when there are too many options
+            return this.setErrorState('styleDataItemError', '', 'style');
+        }
+
         return true;
     }
 }
@@ -459,7 +449,6 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setPeriod,
-        setAreaRadius,
     },
     null,
     {

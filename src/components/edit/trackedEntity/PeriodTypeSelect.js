@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import RadioGroup from '../../core/RadioGroup';
-import Radio from '../../core/Radio';
+import { Radio, RadioGroup } from '../../core';
 import { setPeriodType } from '../../../actions/layerEdit';
+import styles from './styles/PeriodTypeSelect.module.css';
 
 export const PeriodTypeSelect = ({
     program,
     periodType = 'lastUpdated',
     setPeriodType,
-    classes,
 }) => {
     const label = i18n.t(
         'Select period when tracked entities were last updated'
@@ -31,7 +30,7 @@ export const PeriodTypeSelect = ({
             />
         </RadioGroup>
     ) : (
-        <div className={classes.label}>{label}:</div>
+        <div className={styles.label}>{label}:</div>
     );
 };
 
@@ -39,7 +38,6 @@ PeriodTypeSelect.propTypes = {
     periodType: PropTypes.string,
     program: PropTypes.object,
     setPeriodType: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired,
 };
 
 export default connect(

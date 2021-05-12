@@ -38,6 +38,7 @@
     position: absolute;
     right: var(--spacers-dp8);
     top: 0;
+    color: var(--colors-grey600);
 }
 
 .dimensions {

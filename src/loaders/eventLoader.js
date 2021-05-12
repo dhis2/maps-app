@@ -15,12 +15,17 @@ import {
     getBounds,
 } from '../util/geojson';
 import { getEventStatuses } from '../constants/eventStatuses';
-import { EVENT_COLOR, EVENT_RADIUS } from '../constants/layers';
+import {
+    EVENT_CLIENT_PAGE_SIZE,
+    EVENT_SERVER_CLUSTER_COUNT,
+    EVENT_COLOR,
+    EVENT_RADIUS,
+} from '../constants/layers';
 import { formatLocaleDate } from '../util/time';
 import { cssColor } from '../util/colors';
 
 // Server clustering if more than 2000 events
-const useServerCluster = count => count > 2000; // TODO: Use constant
+const useServerCluster = count => count > EVENT_SERVER_CLUSTER_COUNT;
 
 const accessDeniedAlert = {
     warning: true,
@@ -91,19 +96,22 @@ const loadEventLayer = async config => {
     // Delete serverCluster option if previously set
     delete config.serverCluster;
 
-    if (spatialSupport && eventClustering) {
+    // Check if events should be clustered on the server or the client
+    // Style by data item is only supported in the client (donuts)
+    if (spatialSupport && eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest);
         config.bounds = getBounds(response.extent);
-        config.serverCluster =
-            useServerCluster(response.count) && !styleDataItem;
+        config.serverCluster = useServerCluster(response.count);
     }
 
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID'; // Required for StyleByDataItem to work
         const { names, data, response } = await loadData(
-            analyticsRequest,
+            analyticsRequest.withPageSize(EVENT_CLIENT_PAGE_SIZE), // DHIS2-10742,
             config
         );
+        const { total } = response.metaData.pager;
+
         config.data = data;
 
         if (Array.isArray(config.data) && config.data.length) {
@@ -135,6 +143,19 @@ const loadEventLayer = async config => {
 
             if (explanation.length) {
                 config.legend.explanation = explanation;
+            }
+
+            if (total > EVENT_CLIENT_PAGE_SIZE) {
+                alert = {
+                    warning: true,
+                    message: `${config.name}: ${i18n.t(
+                        'Displaying first {{pageSize}} events out of {{total}}',
+                        {
+                            pageSize: EVENT_CLIENT_PAGE_SIZE,
+                            total,
+                        }
+                    )}`,
+                };
             }
         } else {
             alert = {

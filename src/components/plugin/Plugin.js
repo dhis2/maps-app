@@ -20,6 +20,7 @@ class Plugin extends Component {
         name: PropTypes.string,
         basemap: PropTypes.object,
         mapViews: PropTypes.array,
+        controls: PropTypes.array,
     };
 
     static defaultProps = {
@@ -31,21 +32,22 @@ class Plugin extends Component {
         super(props, context);
 
         this.state = {
+            isOnline: true,
             mapViews: props.mapViews, // Can be changed by drilling
             resizeCount: 0,
         };
     }
 
     render() {
-        const { name, basemap, hideTitle } = this.props;
+        const { name, basemap, hideTitle, controls } = this.props;
         const {
             position,
             offset,
             feature,
             mapViews,
             resizeCount,
-            isSplitView,
-            container,
+            isFullscreen,
+            isOnline,
         } = this.state;
 
         return (
@@ -55,30 +57,38 @@ class Plugin extends Component {
                 {!hideTitle && <MapName name={name} />}
                 <MapView
                     isPlugin={true}
+                    isFullscreen={isFullscreen}
                     basemap={basemap}
                     layers={mapViews}
+                    controls={controls}
                     bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
-                    onCloseContextMenu={this.onCloseContextMenu}
                     resizeCount={resizeCount}
                 />
                 <Legend layers={mapViews} />
                 <ContextMenu
+                    feature={feature}
                     position={position}
                     offset={offset}
-                    feature={feature}
                     onDrill={this.onDrill}
-                    isSplitView={isSplitView}
-                    container={container}
+                    onClose={this.onCloseContextMenu}
+                    isOnline={isOnline}
                 />
             </div>
         );
     }
 
     // Call this method when plugin container is resized
-    resize() {
+    resize(isFullscreen) {
         // Will trigger a redraw of the MapView component
-        this.setState(state => ({ resizeCount: state.resizeCount + 1 }));
+        this.setState(state => ({
+            resizeCount: state.resizeCount + 1,
+            isFullscreen,
+        }));
+    }
+
+    setOnlineStatus(isOnline) {
+        this.setState({ isOnline });
     }
 
     onOpenContextMenu = state => this.setState(state);

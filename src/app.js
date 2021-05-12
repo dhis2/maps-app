@@ -14,6 +14,7 @@ import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
 import { getAnalyticalObject } from './actions/analyticalObject';
 import { getUrlParameter, getSystemSettings } from './util/requests';
+import { apiVersion } from './constants/settings';
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
@@ -24,13 +25,10 @@ store.dispatch(loadExternalLayers());
 
 getManifest('manifest.webapp')
     .then(manifest => {
-        const baseUrl =
-            process.env.NODE_ENV === 'production'
-                ? manifest.getBaseUrl()
-                : DHIS_CONFIG.baseUrl;
+        const baseUrl = process.env.DHIS2_BASE_URL;
 
         config.appUrl = baseUrl; // Base url for switching between apps
-        config.baseUrl = `${baseUrl}/api/35`; // Base url for Web API requests
+        config.baseUrl = `${baseUrl}/api/${apiVersion}`; // Base url for Web API requests
 
         config.context = manifest.activities.dhis; // Added temporarily for util/api.js
 

@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Tabs from '../core/Tabs';
-import Tab from '../core/Tab';
-import NumberField from '../core/NumberField';
-import Checkbox from '../core/Checkbox';
-import FontStyle from '../core/FontStyle';
+import cx from 'classnames';
+import { Tab, Tabs, Checkbox, FontStyle, Help } from '../core';
 import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import BufferRadius from './shared/BufferRadius';
+import { FACILITY_BUFFER } from '../../constants/layers';
 import styles from './styles/LayerDialog.module.css';
 
 import {
@@ -25,7 +24,6 @@ import {
     setLabelFontSize,
     setLabelFontWeight,
     setLabelFontStyle,
-    setAreaRadius,
 } from '../../actions/layerEdit';
 
 import {
@@ -38,7 +36,6 @@ import {
 
 class FacilityDialog extends Component {
     static propTypes = {
-        areaRadius: PropTypes.number,
         labels: PropTypes.bool,
         labelFontColor: PropTypes.string,
         labelFontSize: PropTypes.string,
@@ -46,7 +43,6 @@ class FacilityDialog extends Component {
         labelFontWeight: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
         rows: PropTypes.array,
-        setAreaRadius: PropTypes.func.isRequired,
         setLabels: PropTypes.func.isRequired,
         setLabelFontColor: PropTypes.func.isRequired,
         setLabelFontSize: PropTypes.func.isRequired,
@@ -65,16 +61,7 @@ class FacilityDialog extends Component {
         super(props, context);
         this.state = {
             tab: 'group',
-            showBuffer: this.hasBuffer(props.areaRadius),
         };
-    }
-
-    UNSAFE_componentWillReceiveProps({ areaRadius }) {
-        if (areaRadius !== this.props.areaRadius) {
-            this.setState({
-                showBuffer: this.hasBuffer(areaRadius),
-            });
-        }
     }
 
     componentDidUpdate(prev) {
@@ -83,12 +70,6 @@ class FacilityDialog extends Component {
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate());
         }
-    }
-
-    onShowBufferClick(isChecked) {
-        const { setAreaRadius, areaRadius } = this.props;
-
-        setAreaRadius(isChecked ? areaRadius || 5000 : null);
     }
 
     render() {
@@ -100,7 +81,6 @@ class FacilityDialog extends Component {
             labelFontSize,
             labelFontWeight,
             labelFontStyle,
-            areaRadius,
             setOrganisationUnitGroupSet,
             setOrgUnitLevels,
             setOrgUnitGroups,
@@ -111,15 +91,9 @@ class FacilityDialog extends Component {
             setLabelFontSize,
             setLabelFontWeight,
             setLabelFontStyle,
-            setAreaRadius,
         } = this.props;
 
-        const {
-            tab,
-            orgUnitGroupSetError,
-            orgUnitsError,
-            showBuffer,
-        } = this.state;
+        const { tab, orgUnitGroupSetError, orgUnitsError } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
@@ -187,11 +161,11 @@ class FacilityDialog extends Component {
                                         {orgUnitsError}
                                     </div>
                                 ) : (
-                                    <div className={styles.help}>
+                                    <Help>
                                         {i18n.t(
                                             'Remember to select the organisation unit level containing the facilities.'
                                         )}
-                                    </div>
+                                    </Help>
                                 )}
                             </div>
                         </div>
@@ -201,7 +175,12 @@ class FacilityDialog extends Component {
                             className={styles.flexRowFlow}
                             data-test="facilitydialog-styletab"
                         >
-                            <div className={styles.flexInnerColumnFlow}>
+                            <div
+                                className={cx(
+                                    styles.flexInnerColumnFlow,
+                                    styles.singleColumn
+                                )}
+                            >
                                 <Checkbox
                                     label={i18n.t('Labels')}
                                     checked={labels}
@@ -222,30 +201,15 @@ class FacilityDialog extends Component {
                                     />
                                 )}
                             </div>
-                            <div className={styles.flexInnerColumnFlow}>
-                                <Checkbox
-                                    label={i18n.t('Buffer')}
-                                    checked={showBuffer}
-                                    onChange={this.onShowBufferClick.bind(this)}
-                                    className={styles.checkboxInline}
-                                />
-                                {showBuffer && (
-                                    <NumberField
-                                        label={i18n.t('Radius in meters')}
-                                        value={areaRadius || ''}
-                                        onChange={setAreaRadius}
-                                    />
-                                )}
-                            </div>
+                            <BufferRadius
+                                defaultRadius={FACILITY_BUFFER}
+                                className={styles.singleColumn}
+                            />
                         </div>
                     )}
                 </div>
             </div>
         );
-    }
-
-    hasBuffer(areaRadius) {
-        return areaRadius !== undefined && areaRadius !== null;
     }
 
     // TODO: Add to parent class?
@@ -294,7 +258,6 @@ export default connect(
         setLabelFontSize,
         setLabelFontWeight,
         setLabelFontStyle,
-        setAreaRadius,
     },
     null,
     {

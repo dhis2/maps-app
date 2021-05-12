@@ -1,17 +1,19 @@
 .container {
     height: 100%;
     width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Roboto font is not loaded by dom-to-image => switch to Arial */
-.download div {
+.download :global(div) {
     font-family: Arial, sans-serif !important;
 }
 
-.download .dhis2-map-timeline {
+.download :global(.dhis2-map-timeline) {
     display: none;
 }
 
-.download .dhis2-map-period {
+.download :global(.dhis2-map-period) {
     bottom: 10px !important;
 }

@@ -3,6 +3,7 @@ import { mapFields } from './helpers';
 import { isString, isObject, sortBy } from 'lodash/fp';
 import { apiFetch } from './api';
 import { SYSTEM_SETTINGS } from '../constants/settings';
+import { EXTERNAL_LAYER } from '../constants/layers';
 
 // API requests
 
@@ -41,7 +42,7 @@ export const getSystemSettings = () =>
 const getBasemap = config => {
     const externalBasemap = config.mapViews.find(
         view =>
-            view.layer === 'external' &&
+            view.layer === EXTERNAL_LAYER &&
             JSON.parse(view.config || {}).mapLayerPosition === 'BASEMAP'
     );
     let basemap = { id: 'osmLight' }; // Default basemap

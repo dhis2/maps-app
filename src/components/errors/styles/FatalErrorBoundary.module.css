@@ -1,42 +1,14 @@
-.mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: auto;
-    overflow-y: auto;
-    color: #000000;
-    background-color: #f4f6f8;
-    display: flex;
-    min-width: 640px;
-    min-height: 480px;
-    align-items: center;
-    justify-content: center;
-}
-
-.container {
-    text-align: center;
-    color: black;
-}
-
-.icon {
-    width: 96px;
-    height: 96px;
-    color: iconColor;
-    margin-bottom: var(--spacers-dp24);
-}
-
-.message {
-    font-size: 24px;
-    margin-bottom: var(--spacers-dp24);
+.notice {
+    font-family: Roboto, sans-serif;
+    color: rgb(33, 41, 52);
+    line-height: 20px;
+    width: 500px;
 }
 
 .link {
-    font-size: 18px;
     text-decoration: underline;
     cursor: pointer;
-    margin-bottom: var(--spacers-dp24);
+    margin-bottom: 24px;
 }
 
 .drawerToggle {
@@ -44,18 +16,19 @@
     color: #494949;
     text-decoration: underline;
     cursor: pointer;
-    margin-bottom: var(--spacers-dp12);
+    margin-bottom: 12px;
 }
 
 .drawerVisible {
-    padding: var(--spacers-dp8);
+    padding: 8px;
     display: block;
-    height: 150;
-    width: 500;
+    height: 150px;
+    width: 410px;
+    margin-bottom: 10px;
     overflow: auto;
     overflow-y: auto;
     border: 1px solid #494949;
-    text-align: left;
+    background-color: #fff;
 }
 
 .drawerHidden {

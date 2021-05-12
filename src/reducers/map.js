@@ -270,11 +270,6 @@ const map = (state = defaultState, action) => {
                 newLayerIsLoading: false,
             };
 
-        case types.LAYER_ADD_DATA:
-            return {
-                ...state,
-            };
-
         case types.LAYER_REMOVE:
             return {
                 ...state,
@@ -305,7 +300,6 @@ const map = (state = defaultState, action) => {
         case types.ORGANISATION_UNIT_SELECT:
         case types.ORGANISATION_UNIT_UNSELECT:
         case types.ORGANISATION_UNIT_COORDINATE_CHANGE:
-        case types.ORGANISATION_UNITS_FILTER:
         case types.DATA_FILTER_SET:
         case types.DATA_FILTER_CLEAR:
         case types.MAP_EARTH_ENGINE_VALUE_SHOW:

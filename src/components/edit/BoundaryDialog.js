@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import Tabs from '../core/Tabs';
-import Tab from '../core/Tab';
-import NumberField from '../core/NumberField';
+import { Tab, Tabs, NumberField, Checkbox, FontStyle } from '../core';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import Checkbox from '../core/Checkbox';
-import FontStyle from '../core/FontStyle';
 import styles from './styles/LayerDialog.module.css';
 
 import {
@@ -143,7 +139,7 @@ class BoundaryDialog extends Component {
                                         label={i18n.t('Labels')}
                                         checked={labels}
                                         onChange={setLabels}
-                                        className={styles.labelsCheckbox}
+                                        className={styles.checkboxInline}
                                     />
                                     {labels && (
                                         <FontStyle
@@ -151,7 +147,7 @@ class BoundaryDialog extends Component {
                                             fontStyle={labelFontStyle}
                                             onSizeChange={setLabelFontSize}
                                             onStyleChange={setLabelFontStyle}
-                                            className={styles.boundaryFont}
+                                            className={styles.fontInline}
                                         />
                                     )}
                                 </div>

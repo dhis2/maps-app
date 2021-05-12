@@ -1,5 +1,6 @@
 module.exports = {
-    setupTestFrameworkScriptFile: '<rootDir>/config/testSetup.js',
+    ...require('@dhis2/cli-app-scripts/config/jest.config.js'),
+    setupFilesAfterEnv: ['<rootDir>/config/testSetup.js'],
     collectCoverageFrom: ['src/**/*.js'],
     testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
     transformIgnorePatterns: ['node_modules/(?!(d3-scale)/)'],

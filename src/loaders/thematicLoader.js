@@ -203,7 +203,7 @@ const thematicLoader = async config => {
             });
         });
     } else {
-        valueFeatures.forEach(({ id, geometry, properties }) => {
+        valueFeatures.forEach(({ id, properties }) => {
             const value = valueById[id];
             const item = getLegendItem(value);
 
@@ -218,7 +218,6 @@ const thematicLoader = async config => {
 
             properties.value = value;
             properties.radius = getRadiusForValue(value);
-            properties.type = geometry.type; // Shown in data table
         });
     }
 

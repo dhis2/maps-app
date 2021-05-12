@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import SelectField from '../core/SelectField';
+import { SelectField } from '../core';
 import { loadTrackedEntityTypes } from '../../actions/trackedEntities';
 
 export class TrackedEntityTypeSelect extends Component {

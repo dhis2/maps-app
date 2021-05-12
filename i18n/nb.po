@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Caroline Hesthagen Holen <caroline@devotta.no>, 2020
+# Karoline Tufte Lien <karoline@dhis2.org>, 2021
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
+"POT-Creation-Date: 2021-05-10T17:36:34.685Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2020\n"
+"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,14 +76,14 @@ msgstr "Datasett"
 msgid "Index"
 msgstr "Indeks"
 
-msgid "Id"
-msgstr "Id"
-
 msgid "Org unit"
 msgstr "Org enhet"
 
 msgid "Name"
 msgstr "Navn"
+
+msgid "Id"
+msgstr "Id"
 
 msgid "Event time"
 msgstr "Hendelsestid"
@@ -145,12 +145,6 @@ msgstr "Lukk"
 msgid "Legend position"
 msgstr "Tegnforklaringsplassering"
 
-msgid "Year"
-msgstr "År"
-
-msgid "Period"
-msgstr "Periode"
-
 msgid "Organisation Units"
 msgstr "Organisasjonsenheter"
 
@@ -166,105 +160,12 @@ msgstr "Punktradius"
 msgid "No organisation units are selected"
 msgstr "Ingen organisasjonsenheter er valgt"
 
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr ""
-"Befolkningstetthetsestimater med nasjonale totaler justert for å matche FNs "
-"befolkningsdivisjon sine estimater. Prøv et annet år hvis du ikke ser data "
-"for landet ditt."
-
-msgid "Select year"
-msgstr "Velg år"
-
-msgid "Min people"
-msgstr "Min befolkning"
-
-msgid "Max people"
-msgstr "Maks befolkning"
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr ""
-"Høyde over havet. Du kan justere min- og maksverdiene slik at det bedre "
-"representerer terrenget i regionen din."
-
-msgid "Min meters"
-msgstr "Min meter"
-
-msgid "Max meters"
-msgstr "Maks meter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Nedbør samlet inn fra satellitt- og værstasjoner på bakken. Verdiene er i "
-"millimeter innen 5 dager. Oppdateres månedlig, i løpet av den tredje uken i "
-"den påfølgende måneden."
-
-msgid "Min mm"
-msgstr "Min mm"
-
-msgid "Max mm"
-msgstr "Maks mm"
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr ""
-"Landoverflatetemperaturer samlet inn fra satellitt i løpet av 8 dager. "
-"Blanke flekker vil vises i områder med et vedvarende skydekke."
-
-msgid "Min °C"
-msgstr "Min °C"
-
-msgid "Max °C"
-msgstr "Maks °C"
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr "17 forskjellige arealdekketyper samlet inn fra satellitter."
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Lysintensitet fra byer, tettsteder og andre steder med vedvarende belysning,"
-" inkludert gassfakler."
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "Steps"
-msgstr "Trinn"
-
-msgid "Legend preview"
-msgstr "Forhåndsvisning av tegnforklaring"
-
-msgid "This field is required"
-msgstr "Dette er et påkrevd felt"
-
-msgid "Valid range is"
-msgstr "Gyldig rekkevidde er"
-
 msgid "Group Set"
 msgstr "Gruppesett"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
-
-msgid "Buffer"
-msgstr "Buffer"
-
-msgid "Radius in meters"
-msgstr "Radius i meter"
 
 msgid "Group set is required"
 msgstr "Gruppesett er påkrevd"
@@ -299,11 +200,73 @@ msgstr "Oppdater lag"
 msgid "Add layer"
 msgstr "Legg til lag"
 
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "This field is required"
+msgstr "Dette er et påkrevd felt"
+
 msgid "Data"
 msgstr "Data"
 
-msgid "Org Units"
+msgid "Period"
+msgstr "Periode"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
 msgstr ""
+
+msgid ""
+"Multiple aggregation methods are available. See the aggregation results by "
+"clicking map regions or viewing the data table. The results can also be "
+"downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Source"
+msgstr "Kilde"
+
+msgid "Year"
+msgstr "År"
+
+msgid "Available periods are set by the source data"
+msgstr ""
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Steps"
+msgstr "Trinn"
+
+msgid "Legend preview"
+msgstr "Forhåndsvisning av tegnforklaring"
+
+msgid "Org Units"
+msgstr "Org Enheter"
 
 msgid "Filter"
 msgstr "Filter"
@@ -332,8 +295,17 @@ msgstr "Programfase er påkrevd"
 msgid "No organisation units are selected."
 msgstr "Ingen organisasjonsenheter er valgt"
 
+msgid "No legend set is selected"
+msgstr "Ingen tegnforklaringsett valgt"
+
 msgid "Event status"
 msgstr "Hendelsesstatus"
+
+msgid "Buffer"
+msgstr "Buffer"
+
+msgid "Radius in meters"
+msgstr "Radius i meter"
 
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"
@@ -346,6 +318,9 @@ msgstr "Lav radius"
 
 msgid "High radius"
 msgstr "Høy radius"
+
+msgid "High radius should be greater than low radius"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius bør være mellom {{min}} og {{max}}"
@@ -373,9 +348,6 @@ msgstr "Programindikator er påkrevd"
 
 msgid "Period is required"
 msgstr "Periode er påkrevd"
-
-msgid "No legend set is selected"
-msgstr "Ingen tegnforklaringsett valgt"
 
 msgid "Indicator"
 msgstr "Indikator"
@@ -570,8 +542,11 @@ msgstr "Angi lagets gjennomsiktighet"
 msgid "More actions"
 msgstr "Flere handlinger"
 
+msgid "Hide data table"
+msgstr "Skjul datatabell"
+
 msgid "Show data table"
-msgstr ""
+msgstr "Vis datatabell"
 
 msgid "Open as chart"
 msgstr "Åpne som diagram"
@@ -588,14 +563,11 @@ msgstr "Fjern lag"
 msgid "Mid"
 msgstr "Midt"
 
+msgid "Group"
+msgstr "Gruppe"
+
 msgid "Filters"
 msgstr "Filter"
-
-msgid "Source"
-msgstr "Kilde"
-
-msgid "Parent unit"
-msgstr "Overordnet enhet"
 
 msgid "Drill up one level"
 msgstr "Drill opp ett nivå"
@@ -616,16 +588,7 @@ msgid "Relocate"
 msgstr "Omplasser"
 
 msgid "Show {{name}}"
-msgstr ""
-
-msgid "Not set"
-msgstr "Ikke satt"
-
-msgid "Organisation unit"
-msgstr "Organisasjonsenhet"
-
-msgid "Groups"
-msgstr "Grupper"
+msgstr "Vis {{name}}"
 
 msgid "Longitude"
 msgstr "Lengdegrad"
@@ -635,6 +598,18 @@ msgstr "Breddegrad"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Viser tolkning fra {{interpretationDate}}"
+
+msgid "Parent unit"
+msgstr "Overordnet enhet"
+
+msgid "Not set"
+msgstr "Ikke satt"
+
+msgid "Organisation unit"
+msgstr "Organisasjonsenhet"
+
+msgid "Loading layer data"
+msgstr ""
 
 msgid "Last updated"
 msgstr "Sist oppdatert"
@@ -723,8 +698,16 @@ msgstr "Fortsett"
 msgid "Options"
 msgstr "Alternativer"
 
+msgid ""
+"This data element has too many options ({{length}}). Max options for styling"
+" is {{max}}."
+msgstr ""
+
 msgid "Code"
 msgstr "Kode"
+
+msgid "Loading data"
+msgstr ""
 
 msgid "No data found for this period."
 msgstr "Ingen data funnet for denne perioden."
@@ -746,7 +729,7 @@ msgstr ""
 "individuelle enheter."
 
 msgid "Click the map where you want to relocate the facility."
-msgstr ""
+msgstr "Klikk på kartet der du vil flytte fasiliteten"
 
 msgid "user organisation unit"
 msgstr "brukerorganisasjonsenhet"
@@ -820,6 +803,9 @@ msgstr "Startdato"
 msgid "End date"
 msgstr "Sluttdato"
 
+msgid "Not available offline"
+msgstr ""
+
 msgid "Program indicator"
 msgstr "Programindikator"
 
@@ -853,6 +839,21 @@ msgstr "Standardavvik"
 msgid "Variance"
 msgstr "Varians"
 
+msgid "Percentage"
+msgstr "Prosent"
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
+msgstr ""
+
+msgid "Mean"
+msgstr "Gjennomsnitt"
+
+msgid "Median"
+msgstr ""
+
 msgid "OSM Light"
 msgstr "OSM tynn"
 
@@ -876,6 +877,240 @@ msgstr "Bing Flyfoto"
 
 msgid "Bing Aerial Labels"
 msgstr "Bing Flyfoto Etiketter"
+
+msgid "Population"
+msgstr ""
+
+msgid "people per hectare"
+msgstr ""
+
+msgid "Estimated number of people living in an area."
+msgstr ""
+
+msgid "Population age groups"
+msgstr ""
+
+msgid ""
+"Estimated number of people living in an area, grouped by age and gender."
+msgstr ""
+
+msgid "Men 0 - 1 years"
+msgstr ""
+
+msgid "Men 1 - 4 years"
+msgstr ""
+
+msgid "Men 5 - 9 years"
+msgstr ""
+
+msgid "Men 10 - 14 years"
+msgstr ""
+
+msgid "Men 15 - 19 years"
+msgstr ""
+
+msgid "Men 20 - 24 years"
+msgstr ""
+
+msgid "Men 25 - 29 years"
+msgstr ""
+
+msgid "Men 30 - 34 years"
+msgstr ""
+
+msgid "Men 35 - 39 years"
+msgstr ""
+
+msgid "Men 40 - 44 years"
+msgstr ""
+
+msgid "Men 45 - 49 years"
+msgstr ""
+
+msgid "Men 50 - 54 years"
+msgstr ""
+
+msgid "Men 55 - 59 years"
+msgstr ""
+
+msgid "Men 60 - 64 years"
+msgstr ""
+
+msgid "Men 65 - 69 years"
+msgstr ""
+
+msgid "Men 70 - 74 years"
+msgstr ""
+
+msgid "Men 75 - 79 years"
+msgstr ""
+
+msgid "Men 80 years and above"
+msgstr ""
+
+msgid "Women 0 - 1 years"
+msgstr ""
+
+msgid "Women 1 - 4 years"
+msgstr ""
+
+msgid "Women 5 - 9 years"
+msgstr ""
+
+msgid "Women 10 - 14 years"
+msgstr ""
+
+msgid "Women 15 - 19 years"
+msgstr ""
+
+msgid "Women 20 - 24 years"
+msgstr ""
+
+msgid "Women 25 - 29 years"
+msgstr ""
+
+msgid "Women 30 - 34 years"
+msgstr ""
+
+msgid "Women 35 - 39 years"
+msgstr ""
+
+msgid "Women 40 - 44 years"
+msgstr ""
+
+msgid "Women 45 - 49 years"
+msgstr ""
+
+msgid "Women 50 - 54 years"
+msgstr ""
+
+msgid "Women 55 - 59 years"
+msgstr ""
+
+msgid "Women 60 - 64 years"
+msgstr ""
+
+msgid "Women 65 - 69 years"
+msgstr ""
+
+msgid "Women 70 - 74 years"
+msgstr ""
+
+msgid "Women 75 - 79 years"
+msgstr ""
+
+msgid "Women 80 years and above"
+msgstr ""
+
+msgid "Elevation"
+msgstr "Høyde"
+
+msgid "meters"
+msgstr ""
+
+msgid "Elevation above sea-level."
+msgstr "Høyde over havet."
+
+msgid "Precipitation"
+msgstr "Nedbør"
+
+msgid "millimeter"
+msgstr "millimeter"
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr ""
+"Nedbør samlet inn fra satellitt- og værstasjoner på bakken. Verdiene er i "
+"millimeter innen 5 dager. Oppdateres månedlig, i løpet av den tredje uken i "
+"den påfølgende måneden."
+
+msgid "Temperature"
+msgstr "Temperatur"
+
+msgid "°C during daytime"
+msgstr "° C på dagtid"
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+"Landoverflatetemperaturer samlet inn fra satellitt. Blanke flekker vil vises"
+" i områder med et vedvarende skydekke."
+
+msgid "Landcover"
+msgstr "Arealdekke"
+
+msgid "Distinct landcover types collected from satellites."
+msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
+
+msgid "Evergreen Needleleaf forest"
+msgstr "Eviggrønn nålskog"
+
+msgid "Evergreen Broadleaf forest"
+msgstr "Eviggrønn bredbladskog"
+
+msgid "Deciduous Needleleaf forest"
+msgstr "Lauvfellende nålskog"
+
+msgid "Deciduous Broadleaf forest"
+msgstr "Lauvfellende bredbladskog"
+
+msgid "Mixed forest"
+msgstr "Blandet skog"
+
+msgid "Closed shrublands"
+msgstr "Lukket krattskog"
+
+msgid "Open shrublands"
+msgstr "Åpen krattskog"
+
+msgid "Woody savannas"
+msgstr "Skogete savanner"
+
+msgid "Savannas"
+msgstr "Savanner"
+
+msgid "Grasslands"
+msgstr "Gresslette"
+
+msgid "Permanent wetlands"
+msgstr "Permanent våtmark"
+
+msgid "Croplands"
+msgstr "Åkre"
+
+msgid "Urban and built-up"
+msgstr "Urbant og utbygd"
+
+msgid "Cropland/Natural vegetation mosaic"
+msgstr "Åkre/Naturlig vegetasjonmosaikk"
+
+msgid "Snow and ice"
+msgstr "Snø og is"
+
+msgid "Barren or sparsely vegetated"
+msgstr "Impediment eller lite vegetasjon"
+
+msgid "Water"
+msgstr "Vann"
+
+msgid "people per km²"
+msgstr "befolkning per km²"
+
+msgid "Nighttime lights"
+msgstr "Kveldslys"
+
+msgid "light intensity"
+msgstr "lysintensitet"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Lysintensitet fra byer, tettsteder og andre steder med vedvarende belysning,"
+" inkludert gassfakler."
 
 msgid "All"
 msgstr "Alt"
@@ -1075,14 +1310,6 @@ msgstr "Siste 5 regnskapsår"
 msgid "Cancelled"
 msgstr "Kansellert"
 
-msgid ""
-"This layer requires a Google Earth Engine account. Check the DHIS2 "
-"documentation for more information."
-msgstr ""
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr ""
-
 msgid "Map \"{{name}}\" is saved."
 msgstr "Kart \"{{name}}\" er lagret."
 
@@ -1095,125 +1322,23 @@ msgstr "Grenser"
 msgid "No boundaries found"
 msgstr "Ingen grenser funnet"
 
-msgid "Elevation"
-msgstr "Høyde"
+msgid "Selected org units"
+msgstr "Valgte org enheter"
 
-msgid "metres"
-msgstr "meter"
-
-msgid "Elevation above sea-level."
-msgstr "Høyde over havet."
-
-msgid "Population density"
-msgstr "Befolkningstetthet"
-
-msgid "people per km²"
-msgstr "befolkning per km²"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates."
-msgstr ""
-"Befolkningstetthetsestimater med nasjonale totaler justert for å matche FNs "
-"befolkningsdivisjon sine estimater."
-
-msgid "Nighttime lights"
-msgstr "Kveldslys"
-
-msgid "light intensity"
-msgstr "lysintensitet"
-
-msgid "Precipitation"
-msgstr "Nedbør"
-
-msgid "millimeter"
-msgstr "millimeter"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground."
-msgstr "Nedbør samlet inn fra satellitt- og værstasjoner på bakken."
-
-msgid "Temperature"
-msgstr "Temperatur"
-
-msgid "°C during daytime"
-msgstr "° C på dagtid"
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-"Landoverflatetemperaturer samlet inn fra satellitt. Blanke flekker vil vises"
-" i områder med et vedvarende skydekke."
-
-msgid "Landcover"
-msgstr "Arealdekke"
-
-msgid "Distinct landcover types collected from satellites."
-msgstr "Forskjellige arealdekketyper samlet inn fra satellitter."
-
-msgid "Water"
-msgstr "Vann"
-
-msgid "Evergreen Needleleaf forest"
-msgstr "Eviggrønn nålskog"
-
-msgid "Evergreen Broadleaf forest"
-msgstr "Eviggrønn bredbladskog"
-
-msgid "Deciduous Needleleaf forest"
-msgstr "Lauvfellende nålskog"
-
-msgid "Deciduous Broadleaf forest"
-msgstr "Lauvfellende bredbladskog"
-
-msgid "Mixed forest"
-msgstr "Blandet skog"
-
-msgid "Closed shrublands"
-msgstr "Lukket krattskog"
-
-msgid "Open shrublands"
-msgstr "Åpen krattskog"
-
-msgid "Woody savannas"
-msgstr "Skogete savanner"
-
-msgid "Savannas"
-msgstr "Savanner"
-
-msgid "Grasslands"
-msgstr "Gresslette"
-
-msgid "Permanent wetlands"
-msgstr "Permanent våtmark"
-
-msgid "Croplands"
-msgstr "Åkre"
-
-msgid "Urban and built-up"
-msgstr "Urbant og utbygd"
-
-msgid "Cropland/Natural vegetation mosaic"
-msgstr "Åkre/Naturlig vegetasjonmosaikk"
-
-msgid "Snow and ice"
-msgstr "Snø og is"
-
-msgid "Barren or sparsely vegetated"
-msgstr "Impediment eller lite vegetasjon"
-
-msgid "Unclassified"
-msgstr "Uklassifisert"
+msgid "No coordinates found"
+msgstr "Ingen koordinater funnet"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Du har ikke tilgang til disse lagdataene"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "En ukjent feil oppstod under lesing av lagdata"
 
 msgid "Event"
 msgstr "Hendelse"
+
+msgid "Displaying first {{pageSize}} events out of {{total}}"
+msgstr ""
 
 msgid "No data found"
 msgstr "Ingen data funnet"
@@ -1223,12 +1348,6 @@ msgstr "Bygninger"
 
 msgid "Thematic layer"
 msgstr "Tematisk lag"
-
-msgid "Selected org units"
-msgstr "Valgte org enheter"
-
-msgid "No coordinates found"
-msgstr "Ingen koordinater funnet"
 
 msgid "No data"
 msgstr "Ingen data"
@@ -1260,8 +1379,18 @@ msgstr "usant"
 msgid "No"
 msgstr "Nei"
 
-msgid "There was a problem creating a map from the imported data."
+msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr ""
+"Dette kartlaget krever en Google Earth Engine-konto. Sjekk "
+"DHIS2-dokumentasjonen for mer informasjon."
+
+msgid "Cannot connect to Google Earth Engine."
+msgstr "Kan ikke koble til Google Earth Engine."
 
 msgid "Start date is invalid"
 msgstr "Startdato er ugyldig"

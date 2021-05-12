@@ -9,6 +9,7 @@
     left: 0;
     right: 15px;
     user-select: none;
+    white-space: nowrap;
     overflow: hidden;
 }
 
@@ -16,4 +17,8 @@
     position: absolute;
     top: 5px;
     right: 0;
+}
+
+.columnHeader input:focus {
+    outline-color: #333;
 }

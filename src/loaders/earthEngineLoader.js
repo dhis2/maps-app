@@ -1,196 +1,53 @@
 import i18n from '@dhis2/d2-i18n';
-
-const getDatasets = () => ({
-    'USGS/SRTMGL1_003': {
-        name: i18n.t('Elevation'),
-        band: 'elevation',
-        mask: true,
-        legend: {
-            unit: i18n.t('metres'),
-            description: i18n.t('Elevation above sea-level.'),
-            source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
-            sourceUrl:
-                'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
-        },
-    },
-    'WorldPop/POP': {
-        name: i18n.t('Population density'),
-        aggregation: 'mosaic',
-        mask: true,
-        methods: {
-            multiply: [100], // Convert from people/hectare to people/km2
-        },
-        resolution: 100,
-        projection: 'EPSG:4326',
-        value(value) {
-            return Math.round(value);
-        },
-        legend: {
-            unit: i18n.t('people per km²'),
-            description: i18n.t(
-                'Population density estimates with national totals adjusted to match UN population division estimates.'
-            ),
-            source: 'WorldPop / Google Earth Engine',
-            sourceUrl:
-                'https://explorer.earthengine.google.com/#detail/WorldPop%2FPOP',
-        },
-    },
-    'NOAA/DMSP-OLS/NIGHTTIME_LIGHTS': {
-        name: i18n.t('Nighttime lights'),
-        band: 'stable_lights',
-        mask: true,
-        popup: '{name}: {value}',
-        legend: {
-            unit: i18n.t('light intensity'),
-            description: i18n.t(
-                'Light intensity from cities, towns, and other sites with persistent lighting, including gas flares.'
-            ),
-            source: 'NOAA / Google Earth Engine',
-            sourceUrl:
-                'https://explorer.earthengine.google.com/#detail/NOAA%2FDMSP-OLS%2FNIGHTTIME_LIGHTS',
-        },
-    },
-    'UCSB-CHG/CHIRPS/PENTAD': {
-        name: i18n.t('Precipitation'),
-        band: 'precipitation',
-        mask: true,
-        value(value) {
-            return value.toFixed(1);
-        },
-        legend: {
-            unit: i18n.t('millimeter'),
-            description: i18n.t(
-                'Precipitation collected from satellite and weather stations on the ground.'
-            ),
-            source: 'UCSB / CHG / Google Earth Engine',
-            sourceUrl:
-                'https://explorer.earthengine.google.com/#detail/UCSB-CHG%2FCHIRPS%2FPENTAD',
-        },
-    },
-    'MODIS/006/MOD11A2': {
-        name: i18n.t('Temperature'),
-        band: 'LST_Day_1km',
-        mask: true,
-        methods: {
-            toFloat: [],
-            multiply: [0.02],
-            subtract: [273.15],
-        },
-        value(value) {
-            return Math.round(value);
-        },
-        popup: '{name}: {value}{unit}',
-        legend: {
-            unit: i18n.t('°C during daytime'),
-            description: i18n.t(
-                'Land surface temperatures collected from satellite. Blank spots will appear in areas with a persistent cloud cover.'
-            ),
-            source: 'NASA LP DAAC / Google Earth Engine',
-            sourceUrl:
-                'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
-        },
-    },
-    'MODIS/051/MCD12Q1': {
-        name: i18n.t('Landcover'),
-        band: 'Land_Cover_Type_1',
-        params: {
-            min: 0,
-            max: 17,
-            palette:
-                'aec3d6,162103,235123,399b38,38eb38,39723b,6a2424,c3a55f,b76124,d99125,92af1f,10104c,cdb400,cc0202,332808,d7cdcc,f7e174,743411',
-        },
-        mask: false,
-        legend: {
-            description: i18n.t(
-                'Distinct landcover types collected from satellites.'
-            ),
-            source: 'NASA LP DAAC / Google Earth Engine',
-            sourceUrl:
-                'https://code.earthengine.google.com/dataset/MODIS/051/MCD12Q1',
-            items: [
-                {
-                    color: '#aec3d6',
-                    name: i18n.t('Water'),
-                },
-                {
-                    color: '#162103',
-                    name: i18n.t('Evergreen Needleleaf forest'),
-                },
-                {
-                    color: '#235123',
-                    name: i18n.t('Evergreen Broadleaf forest'),
-                },
-                {
-                    color: '#399b38',
-                    name: i18n.t('Deciduous Needleleaf forest'),
-                },
-                {
-                    color: '#38eb38',
-                    name: i18n.t('Deciduous Broadleaf forest'),
-                },
-                {
-                    color: '#39723b',
-                    name: i18n.t('Mixed forest'),
-                },
-                {
-                    color: '#6a2424',
-                    name: i18n.t('Closed shrublands'),
-                },
-                {
-                    color: '#c3a55f',
-                    name: i18n.t('Open shrublands'),
-                },
-                {
-                    color: '#b76124',
-                    name: i18n.t('Woody savannas'),
-                },
-                {
-                    color: '#d99125',
-                    name: i18n.t('Savannas'),
-                },
-                {
-                    color: '#92af1f',
-                    name: i18n.t('Grasslands'),
-                },
-                {
-                    color: '#10104c',
-                    name: i18n.t('Permanent wetlands'),
-                },
-                {
-                    color: '#cdb400',
-                    name: i18n.t('Croplands'),
-                },
-                {
-                    color: '#cc0202',
-                    name: i18n.t('Urban and built-up'),
-                },
-                {
-                    color: '#332808',
-                    name: i18n.t('Cropland/Natural vegetation mosaic'),
-                },
-                {
-                    color: '#d7cdcc',
-                    name: i18n.t('Snow and ice'),
-                },
-                {
-                    color: '#f7e174',
-                    name: i18n.t('Barren or sparsely vegetated'),
-                },
-                {
-                    color: '#743411',
-                    name: i18n.t('Unclassified'),
-                },
-            ],
-        },
-        popup: '{name}: {value}',
-    },
-});
+import { getInstance as getD2 } from 'd2';
+import { precisionRound } from 'd3-format';
+import { getEarthEngineLayer } from '../constants/earthEngine';
+import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine';
+import { getOrgUnitsFromRows } from '../util/analytics';
+import { getDisplayProperty } from '../util/helpers';
+import { numberPrecision } from '../util/numbers';
+import { toGeoJson } from '../util/map';
 
 // Returns a promise
 const earthEngineLoader = async config => {
-    const datasets = getDatasets();
+    const { rows, aggregationType } = config;
+    const orgUnits = getOrgUnitsFromRows(rows);
     let layerConfig = {};
     let dataset;
+    let features;
+    let alerts;
+
+    if (orgUnits && orgUnits.length) {
+        const d2 = await getD2();
+        const displayProperty = getDisplayProperty(d2).toUpperCase();
+        const orgUnitParams = orgUnits.map(item => item.id);
+
+        try {
+            features = await d2.geoFeatures
+                .byOrgUnit(orgUnitParams)
+                .displayProperty(displayProperty)
+                .getAll()
+                .then(toGeoJson);
+        } catch (error) {
+            alerts = [
+                {
+                    critical: true,
+                    message: `${i18n.t('Error')}: ${error.message}`,
+                },
+            ];
+        }
+
+        if (!features.length) {
+            alerts = [
+                {
+                    warning: true,
+                    message: `${i18n.t('Selected org units')}: ${i18n.t(
+                        'No coordinates found'
+                    )}`,
+                },
+            ];
+        }
+    }
 
     if (typeof config.config === 'string') {
         // From database as favorite
@@ -204,7 +61,7 @@ const earthEngineLoader = async config => {
             layerConfig.filter[0].arguments[1] = period;
         }
 
-        dataset = datasets[layerConfig.id];
+        dataset = getEarthEngineLayer(layerConfig.id);
 
         if (dataset) {
             dataset.datasetId = layerConfig.id;
@@ -213,62 +70,88 @@ const earthEngineLoader = async config => {
 
         delete config.config;
     } else {
-        dataset = datasets[config.datasetId];
+        dataset = getEarthEngineLayer(layerConfig.id);
     }
 
     const layer = {
+        ...dataset,
         ...config,
         ...layerConfig,
-        ...dataset,
     };
 
-    layer.legend = {
-        title: layer.name,
-        period: layer.periodName,
+    const { unit, filter, description, source, sourceUrl, band, bands } = layer;
+    const { name } = dataset || config;
+    const period = getPeriodNameFromFilter(filter);
+    const data =
+        Array.isArray(features) && features.length ? features : undefined;
+
+    const groups =
+        band && Array.isArray(bands) && bands.length
+            ? bands
+                  .filter(b =>
+                      Array.isArray(band) ? band.includes(b.id) : band === b.id
+                  )
+                  .map(b => b.name)
+            : null;
+
+    const legend = {
         ...layer.legend,
+        title: name,
+        period,
+        groups,
+        unit,
+        description,
+        source,
+        sourceUrl,
     };
 
-    // Create legend items from params
-    if (!layer.legend.items && layer.params) {
-        layer.legend.items = createLegend(layer.params);
+    // Create/update legend items from params
+    if (!hasClasses(aggregationType) && layer.params) {
+        legend.items = createLegend(layer.params);
     }
 
     return {
         ...layer,
+        legend,
+        name,
+        data,
+        alerts,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
     };
 };
 
-// TODO: This function is currently duplicated from  GIS API
-export const createLegend = params => {
-    const min = params.min;
-    const max = params.max;
-    const palette = params.palette.split(',');
-    const step = (params.max - min) / (palette.length - (min > 0 ? 2 : 1));
+export const createLegend = ({ min, max, palette }) => {
+    const colors = palette.split(',');
+    const step = (max - min) / (colors.length - (min > 0 ? 2 : 1));
+    const precision = precisionRound(step, max);
+    const valueFormat = numberPrecision(precision);
 
     let from = min;
-    let to = Math.round(min + step);
+    let to = valueFormat(min + step);
 
-    return palette.map((color, index) => {
-        const item = {
-            color: color,
-        };
+    return colors.map((color, index) => {
+        const item = { color };
 
         if (index === 0 && min > 0) {
             // Less than min
+            item.from = 0;
+            item.to = min;
             item.name = '< ' + min;
             to = min;
         } else if (from < max) {
+            item.from = from;
+            item.to = to;
             item.name = from + ' - ' + to;
         } else {
             // Higher than max
+            item.from = from;
             item.name = '> ' + from;
         }
 
         from = to;
-        to = Math.round(min + step * (index + (min > 0 ? 1 : 2)));
+        to = valueFormat(min + step * (index + (min > 0 ? 1 : 2)));
 
         return item;
     });

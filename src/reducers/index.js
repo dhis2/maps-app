@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import aggregations from './aggregations';
 import alerts from './alerts';
 import analyticalObject from './analyticalObject';
 import basemaps from './basemaps';
@@ -10,7 +11,6 @@ import dataSets from './dataSets';
 import dataTable from './dataTable';
 import dimensions from './dimensions';
 import download from './download.js';
-import earthEngine from './earthEngine';
 import layerEdit from './layerEdit';
 import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
@@ -35,8 +35,10 @@ import ui from './ui';
 import settings from './settings';
 import trackedEntityTypes from './trackedEntityTypes';
 import dataDownload from './dataDownload';
+import feature from './feature';
 
 export default combineReducers({
+    aggregations,
     alerts,
     analyticalObject,
     basemaps,
@@ -48,7 +50,6 @@ export default combineReducers({
     dataTable,
     dimensions,
     download,
-    earthEngine,
     indicators,
     indicatorGroups,
     interpretation,
@@ -73,4 +74,5 @@ export default combineReducers({
     settings,
     trackedEntityTypes,
     dataDownload,
+    feature,
 });

@@ -19,6 +19,7 @@ import {
     DOWNLOADABLE_LAYER_TYPES,
     DATA_TABLE_LAYER_TYPES,
     OPEN_AS_LAYER_TYPES,
+    EXTERNAL_LAYER,
 } from '../../../constants/layers';
 
 import styles from './styles/OverlayCard.module.css';
@@ -45,13 +46,14 @@ const OverlayCard = ({
         isLoaded,
     } = layer;
 
-    const canEdit = layerType !== 'external';
+    const canEdit = layerType !== EXTERNAL_LAYER;
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType);
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType);
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType);
 
     return (
         <LayerCard
+            layer={layer}
             title={isLoaded ? name : i18n.t('Loading layer') + '...'}
             subtitle={
                 isLoaded && legend && legend.period ? legend.period : null

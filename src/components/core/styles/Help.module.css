@@ -1,0 +1,28 @@
+.help {
+    position: relative;
+    margin-top: var(--spacers-dp12);
+    padding-left: var(--spacers-dp24);
+    padding-bottom: var(--spacers-dp8);
+    min-height: var(--spacers-dp24);
+    color: var(--colors-grey800);
+}
+
+.help svg {
+    position: absolute;
+    left: 0;
+    top: 0px;
+}
+
+.content {
+    margin: 0;
+    font-size: 13px;
+    line-height: 17px;
+    cursor: help;
+}
+
+.content p {
+    margin: 0 0 var(--spacers-dp8);
+    font-size: 13px;
+    line-height: 17px;
+    cursor: help;
+}

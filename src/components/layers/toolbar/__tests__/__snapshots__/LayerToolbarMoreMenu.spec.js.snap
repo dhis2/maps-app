@@ -12,7 +12,7 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
       onClick={[Function]}
       tooltip="More actions"
     >
-      <MoreHorizIcon />
+      <SvgMore24 />
     </IconButton>
   </div>
   <Popover
@@ -37,13 +37,13 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
       >
         <MenuItem
           dataTest="dhis2-uicore-menuitem"
-          icon={<UNDEFINED />}
-          label="Show data table"
+          icon={<SvgTable16 />}
+          label="Hide data table"
           onClick={[Function]}
         />
         <MenuItem
           dataTest="dhis2-uicore-menuitem"
-          icon={<UNDEFINED />}
+          icon={<SvgDownload16 />}
           label="Download data"
           onClick={[Function]}
         />
@@ -53,13 +53,14 @@ exports[`LayerToolbarMoreMenu Should match snapshot 1`] = `
         />
         <MenuItem
           dataTest="dhis2-uicore-menuitem"
-          icon={<UNDEFINED />}
+          icon={<SvgEdit16 />}
           label="Edit layer"
           onClick={[Function]}
         />
         <MenuItem
           dataTest="dhis2-uicore-menuitem"
-          icon={<UNDEFINED />}
+          destructive={true}
+          icon={<SvgDelete16 />}
           label="Remove layer"
           onClick={[Function]}
         />

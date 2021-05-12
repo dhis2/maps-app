@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { IconChevronDown24 } from '@dhis2/ui';
 import { hcl } from 'd3-color';
 import cx from 'classnames';
 import styles from './styles/ColorPicker.module.css';
@@ -21,7 +21,7 @@ const ColorPicker = ({ color, label, width, height, onChange, className }) => (
                         [styles.dark]: hcl(color).l > 70,
                     })}
                 >
-                    <ArrowDropDownIcon />
+                    <IconChevronDown24 />
                 </span>
                 <input
                     type="color"

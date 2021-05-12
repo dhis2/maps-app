@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Card } from '@dhis2/ui';
+import { Card, IconChevronUp24, IconChevronDown24 } from '@dhis2/ui';
 import cx from 'classnames';
-import ExpandIcon from '@material-ui/icons/ExpandMore';
-import CollapseIcon from '@material-ui/icons/ExpandLess';
-import IconButton from '../core/IconButton';
+import { IconButton } from '../core';
 import SortableHandle from './SortableHandle';
 import LayerToolbar from './toolbar/LayerToolbar';
 import styles from './styles/LayerCard.module.css';
 
 const LayerCard = ({
+    layer,
     title,
     subtitle,
     opacity,
@@ -52,13 +51,18 @@ const LayerCard = ({
                         className={styles.expand}
                         dataTest="editbutton"
                     >
-                        {isExpanded ? <CollapseIcon /> : <ExpandIcon />}
+                        {isExpanded ? (
+                            <IconChevronUp24 />
+                        ) : (
+                            <IconChevronDown24 />
+                        )}
                     </IconButton>
                 </div>
             </div>
             <div className={styles.collapsibleContent}>
                 <div className={styles.content}>{children}</div>
                 <LayerToolbar
+                    layer={layer}
                     opacity={opacity}
                     isVisible={isVisible}
                     onEdit={onEdit}
@@ -75,6 +79,7 @@ const LayerCard = ({
 );
 
 LayerCard.propTypes = {
+    layer: PropTypes.object,
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     opacity: PropTypes.number,

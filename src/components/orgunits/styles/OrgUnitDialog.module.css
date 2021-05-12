@@ -18,3 +18,8 @@
     float: left;
     width: 345px;
 }
+
+.loading {
+    display: flex;
+    align-items: center;
+}

@@ -9,15 +9,25 @@ import styles from './styles/Legend.module.css';
 const Legend = ({
     description,
     filters,
+    groups,
     unit,
     items,
     bubbles,
     explanation,
+    url,
     source,
     sourceUrl,
 }) => (
     <dl className={styles.legend} data-test="layerlegend">
         {description && <div className={styles.description}>{description}</div>}
+        {groups && (
+            <div className={styles.group}>
+                {groups.length > 1 ? i18n.t('Groups') : i18n.t('Group')}:
+                {groups.map(group => (
+                    <div key={group}>{group}</div>
+                ))}
+            </div>
+        )}
         {unit && items && <div className={styles.unit}>{unit}</div>}
         {bubbles ? (
             <Bubbles {...bubbles} classes={items} />
@@ -32,6 +42,7 @@ const Legend = ({
                 </table>
             )
         )}
+        {url && <img className={styles.legendImage} src={url} />}
         {Array.isArray(filters) && (
             <div className={styles.filters}>
                 <div>{i18n.t('Filters')}:</div>
@@ -51,7 +62,9 @@ const Legend = ({
             <div className={styles.source}>
                 {i18n.t('Source')}:&nbsp;
                 {sourceUrl ? (
-                    <a href={sourceUrl}>{source}</a>
+                    <a href={sourceUrl} target="_blank" rel="noreferrer">
+                        {source}
+                    </a>
                 ) : (
                     <span>{source}</span>
                 )}
@@ -63,6 +76,7 @@ const Legend = ({
 Legend.propTypes = {
     description: PropTypes.string,
     filters: PropTypes.array,
+    groups: PropTypes.array,
     unit: PropTypes.string,
     items: PropTypes.array,
     bubbles: PropTypes.shape({
@@ -70,6 +84,7 @@ Legend.propTypes = {
         radiusHigh: PropTypes.number.isRequired,
         color: PropTypes.string,
     }),
+    url: PropTypes.string,
     explanation: PropTypes.array,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,

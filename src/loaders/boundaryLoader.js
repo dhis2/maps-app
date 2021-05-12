@@ -48,7 +48,6 @@ const boundaryLoader = async config => {
                     ? 5 + (radiusLow || 5) + 'px'
                     : '0',
         };
-        feature.properties.type = feature.geometry.type;
     });
 
     config.legend = {

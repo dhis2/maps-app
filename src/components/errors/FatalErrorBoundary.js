@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import InfoIcon from '@material-ui/icons/InfoOutlined';
+import { Layer, CenteredContent, NoticeBox } from '@dhis2/ui';
 import styles from './styles/FatalErrorBoundary.module.css';
 
 const translatedErrorHeading = i18n.t(
@@ -40,52 +40,56 @@ export class FatalErrorBoundary extends Component {
         const { children } = this.props;
         if (this.state.error) {
             return (
-                <div className={styles.mask}>
-                    <div className={styles.container}>
-                        <InfoIcon className={styles.icon} />
-                        <div className={styles.message}>
-                            {i18n.t('Something went wrong')}
+                <Layer level={2000} position="fixed">
+                    <CenteredContent position="middle">
+                        <div className={styles.notice}>
+                            <NoticeBox
+                                error
+                                title={i18n.t('Something went wrong')}
+                            >
+                                <div
+                                    className={styles.link}
+                                    onClick={() => window.location.reload()}
+                                >
+                                    {i18n.t('Refresh to try again')}
+                                </div>
+                                <div
+                                    className={styles.drawerToggle}
+                                    onClick={this.toggleTechInfoDrawer}
+                                >
+                                    {this.state.drawerOpen
+                                        ? i18n.t('Hide technical details')
+                                        : i18n.t('Show technical details')}
+                                </div>
+                                <div
+                                    className={
+                                        this.state.drawerOpen
+                                            ? styles.drawerVisible
+                                            : styles.drawerHidden
+                                    }
+                                >
+                                    <div className={styles.errorIntro}>
+                                        {translatedErrorHeading}
+                                        <br />
+                                        {i18n.t(
+                                            'The following information may be requested by technical support.'
+                                        )}
+                                    </div>
+                                    <div className={styles.errorDetails}>
+                                        {[
+                                            replaceNewlinesWithBreaks(
+                                                this.state.error.stack +
+                                                    '\n---' +
+                                                    this.state.errorInfo
+                                                        .componentStack
+                                            ),
+                                        ]}
+                                    </div>
+                                </div>
+                            </NoticeBox>
                         </div>
-                        <div
-                            className={styles.link}
-                            onClick={() => window.location.reload()}
-                        >
-                            {i18n.t('Refresh to try again')}
-                        </div>
-                        <div
-                            className={styles.drawerToggle}
-                            onClick={this.toggleTechInfoDrawer}
-                        >
-                            {this.state.drawerOpen
-                                ? i18n.t('Hide technical details')
-                                : i18n.t('Show technical details')}
-                        </div>
-                        <div
-                            className={
-                                this.state.drawerOpen
-                                    ? styles.drawerVisible
-                                    : styles.drawerHidden
-                            }
-                        >
-                            <div className={styles.errorIntro}>
-                                {translatedErrorHeading}
-                                <br />
-                                {i18n.t(
-                                    'The following information may be requested by technical support.'
-                                )}
-                            </div>
-                            <div className={styles.errorDetails}>
-                                {[
-                                    replaceNewlinesWithBreaks(
-                                        this.state.error.stack +
-                                            '\n---' +
-                                            this.state.errorInfo.componentStack
-                                    ),
-                                ]}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </CenteredContent>
+                </Layer>
             );
         }
 

@@ -3,43 +3,54 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import PeriodName from './PeriodName';
 import MapItem from './MapItem';
-import Layer from './Layer';
-import ThematicLayer from './ThematicLayer';
+import Layer from './layers/Layer';
+import ThematicLayer from './layers/ThematicLayer';
 import styles from './styles/SplitView.module.css';
 
 class SplitView extends PureComponent {
     static propTypes = {
         isPlugin: PropTypes.bool,
+        isFullscreen: PropTypes.bool,
         layer: PropTypes.object.isRequired,
         basemap: PropTypes.object,
+        feature: PropTypes.object,
         controls: PropTypes.array,
         openContextMenu: PropTypes.func.isRequired,
     };
 
-    // TODO: Remove
     static defaultProps = {
         openContextMenu: () => {},
     };
 
     state = {
-        isFullscreen: false,
         controls: null,
     };
 
     // Add map controls to split view container
     componentDidUpdate(prevProps, prevState) {
-        const { state, node } = this;
+        const { isFullscreen, isPlugin } = this.props;
+        const { controls } = this.state;
 
-        if (state.controls !== prevState.controls) {
-            Object.values(state.controls).forEach(control =>
-                node.append(control)
+        // From map plugin resize method
+        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
+            this.setState({ isFullscreen });
+        }
+
+        if (controls !== prevState.controls) {
+            Object.values(controls).forEach(control =>
+                this.node.append(control)
             );
         }
     }
 
     render() {
-        const { isPlugin, basemap, layer, openContextMenu } = this.props;
-
+        const {
+            isPlugin,
+            basemap,
+            layer,
+            feature,
+            openContextMenu,
+        } = this.props;
         const { isFullscreen } = this.state;
 
         const { id, periods = [] } = layer;
@@ -65,6 +76,7 @@ class SplitView extends PureComponent {
                         <ThematicLayer
                             index={1}
                             period={period}
+                            feature={feature}
                             {...layer}
                             openContextMenu={openContextMenu}
                         />
@@ -91,6 +103,7 @@ class SplitView extends PureComponent {
         this.setState({ controls });
     };
 
+    // From built-in fullscreen control
     onFullScreenChange = ({ isFullscreen }) => this.setState({ isFullscreen });
 }
 

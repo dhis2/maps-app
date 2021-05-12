@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import DatePicker from '../core/DatePicker';
+import { DatePicker } from '../core';
 import { setStartDate, setEndDate } from '../../actions/layerEdit';
 import { DEFAULT_START_DATE, DEFAULT_END_DATE } from '../../constants/layers';
 import styles from '../edit/styles/LayerDialog.module.css';

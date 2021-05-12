@@ -18,6 +18,7 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
+import { apiVersion } from '../../constants/settings';
 import styles from './styles/App.module.css';
 
 // Makes d2 available in all child components
@@ -40,8 +41,8 @@ export class App extends Component {
         return (
             <Provider
                 config={{
-                    baseUrl: DHIS_CONFIG.baseUrl,
-                    apiVersion: '35',
+                    baseUrl: process.env.DHIS2_BASE_URL,
+                    apiVersion,
                 }}
             >
                 <FatalErrorBoundary>

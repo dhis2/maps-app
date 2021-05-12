@@ -3,7 +3,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
-import log from 'loglevel'; // TODO: Remove version logging
+import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import i18n from './locales';
 import Plugin from './components/plugin/Plugin';
 import {
@@ -13,14 +13,10 @@ import {
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
+import { apiVersion } from './constants/settings';
 import { defaultBasemaps } from './constants/basemaps';
-import { version } from '../package.json'; // TODO: Remove version logging
 
-const apiVersion = 35;
-
-log.info(`Maps plugin: ${version}`); // TODO: Remove version logging
-
-const PluginContainer = () => {
+function PluginContainer() {
     let _configs = [];
     let _components = {};
     let _isReady = false;
@@ -104,7 +100,7 @@ const PluginContainer = () => {
                 })
             );
         } else {
-            loadLayers(translateConfig(config));
+            translateConfig(config).then(loadLayers);
         }
     }
 
@@ -166,7 +162,7 @@ const PluginContainer = () => {
             if (domEl) {
                 const ref = createRef();
 
-                render(<Plugin innerRef={ref} {...config} />, domEl);
+                render(<Plugin ref={ref} {...config} />, domEl);
 
                 if (config.onReady) {
                     config.onReady();
@@ -182,10 +178,13 @@ const PluginContainer = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                domEl.innerHTML = '';
-                const div = document.createElement('div');
-                div.className = 'spinner';
-                domEl.appendChild(div);
+                render(
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>,
+                    domEl
+                );
+
                 _components[config.el] = 'loading';
             }
         }
@@ -217,11 +216,22 @@ const PluginContainer = () => {
     }
 
     // Should be called if the map container is resized
-    function resize(el) {
+    function resize(el, isFullscreen) {
         const mapComponent = _components[el];
 
         if (mapComponent && mapComponent.current) {
-            mapComponent.current.resize();
+            mapComponent.current.resize(isFullscreen);
+            return true;
+        }
+
+        return false;
+    }
+
+    function setOnlineStatus(el, isOnline) {
+        const mapComponent = _components[el];
+
+        if (mapComponent && mapComponent.current) {
+            mapComponent.current.setOnlineStatus(isOnline);
             return true;
         }
 
@@ -240,8 +250,9 @@ const PluginContainer = () => {
         resize,
         unmount,
         remove: unmount,
+        setOnlineStatus,
     };
-};
+}
 
 const mapPlugin = new PluginContainer();
 

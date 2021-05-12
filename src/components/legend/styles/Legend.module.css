@@ -16,6 +16,10 @@
     padding-bottom: var(--spacers-dp12);
 }
 
+.legendImage {
+    max-width: 100%;
+}
+
 .filters {
     padding-top: var(--spacers-dp16);
     font-size: 12px;
@@ -23,6 +27,15 @@
 
 .filters > div:first-child {
     font-weight: bold;
+}
+
+.group {
+    padding-bottom: var(--spacers-dp8);
+    font-weight: bold;
+}
+
+.group div {
+    font-weight: normal;
 }
 
 .unit {

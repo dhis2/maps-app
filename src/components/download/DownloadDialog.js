@@ -10,7 +10,7 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui';
-import Checkbox from '../core/Checkbox';
+import { Checkbox } from '../core';
 import LegendPosition from './LegendPosition';
 import {
     toggleDownloadDialog,
@@ -128,7 +128,7 @@ export class DownloadDialog extends Component {
         const skipElements = el =>
             !el.classList ||
             el.classList.contains('mapboxgl-ctrl-scale') ||
-            el.classList.contains('mapboxgl-ctrl-attrib') ||
+            el.classList.contains('mapboxgl-ctrl-attrib-button') ||
             !(
                 el.classList.contains('dhis2-map-ctrl') ||
                 el.classList.contains('dhis2-map-bing-logo')
@@ -149,7 +149,7 @@ export class DownloadDialog extends Component {
                 .getComputedStyle(titleEl, null)
                 .getPropertyValue('width');
 
-            titleEl.style.width = parseInt(width, 10) + 1 + 'px';
+            titleEl.style.width = parseFloat(width) + 1 + 'px';
         }
 
         convertToPng(mapEl, options)

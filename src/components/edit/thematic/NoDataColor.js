@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import Checkbox from '../../core/Checkbox';
-import ColorPicker from '../../core/ColorPicker';
+import { Checkbox, ColorPicker } from '../../core';
 import { NO_DATA_COLOR } from '../../../constants/layers';
 import styles from './styles/NoDataColor.module.css';
 

@@ -12,7 +12,13 @@ import {
     timeMillisecond,
 } from 'd3-time';
 
-export const createPeriods = (locale, periodType, year) => {
+export const createPeriods = (
+    locale,
+    periodType,
+    year,
+    startPeriod,
+    endPeriod
+) => {
     const localePeriodGenerator = createPeriodGeneratorsForLocale(locale);
 
     const periodGenerator =
@@ -23,7 +29,17 @@ export const createPeriods = (locale, periodType, year) => {
         return null;
     }
 
-    return periodGenerator(year).reverse();
+    let periods = periodGenerator(year).reverse();
+
+    if (startPeriod) {
+        periods = periods.filter(p => p.id >= startPeriod);
+    }
+
+    if (endPeriod) {
+        periods = periods.filter(p => p.id <= endPeriod);
+    }
+
+    return periods;
 };
 
 // Changed from default time scale to have weeks starting on monday

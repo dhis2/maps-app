@@ -48,6 +48,7 @@
     align-self: flex-start;
     margin-top: -8px;
     margin-right: -8px;
+    color: var(--colors-grey600);
 }
 
 .expand {

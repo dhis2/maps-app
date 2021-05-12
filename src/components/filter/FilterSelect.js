@@ -2,11 +2,13 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import SelectField from '../core/SelectField';
-import NumberField from '../core/NumberField';
-import TextField from '../core/TextField';
-import Checkbox from '../core/Checkbox';
-import DatePicker from '../core/DatePicker';
+import {
+    SelectField,
+    NumberField,
+    TextField,
+    Checkbox,
+    DatePicker,
+} from '../core';
 import OptionSetSelect from '../optionSet/OptionSetSelect';
 import { loadOptionSet } from '../../actions/optionSets';
 import {
@@ -113,6 +115,7 @@ const FilterSelect = ({
                     onChange={isChecked =>
                         onChange(isChecked ? 'IN:1' : 'IN:0')
                     }
+                    className={styles.checkbox}
                 />
             )}
             {valueType === 'DATE' && (

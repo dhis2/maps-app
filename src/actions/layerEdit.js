@@ -212,7 +212,7 @@ export const setIndicatorGroup = indicatorGroup => ({
     indicatorGroup,
 });
 
-// Set aggregation type (thematic)
+// Set aggregation type (thematic/earth engine)
 export const setAggregationType = aggregationType => ({
     type: types.LAYER_EDIT_AGGREGATION_TYPE_SET,
     aggregationType,
@@ -243,17 +243,21 @@ export const setOrgUnitMode = mode => ({
 });
 
 // Set layer params (EE)
-export const setParams = (min, max, palette) => ({
+export const setParams = params => ({
     type: types.LAYER_EDIT_PARAMS_SET,
-    min,
-    max,
-    palette,
+    payload: params,
 });
 
 // Set collection filter (EE)
 export const setFilter = filter => ({
     type: types.LAYER_EDIT_FILTER_SET,
     filter,
+});
+
+// Set band (EE)
+export const setBand = band => ({
+    type: types.LAYER_EDIT_BAND_SET,
+    payload: band,
 });
 
 // Set label visibility
@@ -287,8 +291,8 @@ export const setLabelFontColor = color => ({
 });
 
 // Set area radius (facility)
-export const setAreaRadius = radius => ({
-    type: types.LAYER_EDIT_AREA_RADIUS_SET,
+export const setBufferRadius = radius => ({
+    type: types.LAYER_EDIT_BUFFER_RADIUS_SET,
     radius,
 });
 

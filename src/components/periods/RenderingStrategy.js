@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import RadioGroup from '../core/RadioGroup';
-import Radio from '../core/Radio';
+import { Radio, RadioGroup } from '../core';
 import i18n from '@dhis2/d2-i18n';
 import {
     RENDERING_STRATEGY_SINGLE,

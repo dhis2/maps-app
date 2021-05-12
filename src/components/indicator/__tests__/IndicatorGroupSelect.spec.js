@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import SelectField from '../../core/SelectField';
+import { SelectField } from '../../core';
 import { IndicatorGroupSelect } from '../IndicatorGroupSelect';
 
 // TODO:

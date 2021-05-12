@@ -5,4 +5,5 @@
 
 .menu {
     padding: var(--spacers-dp8) 0;
+    color: var(--colors-grey600);
 }

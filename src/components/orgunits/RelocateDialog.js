@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import CancelIcon from '@material-ui/icons/Cancel';
+import { IconCross16 } from '@dhis2/ui';
 import { changeOrgUnitCoordinate } from '../../actions/orgUnits';
 import styles from './styles/RelocateDialog.module.css';
 
@@ -36,7 +36,7 @@ const RelocateDialog = props => {
     return (
         <div className={styles.relocate}>
             <span className={styles.close} onClick={onClose}>
-                <CancelIcon fontSize="inherit" />
+                <IconCross16 />
             </span>
             <div className={styles.name}>{feature.properties.name}</div>
             {i18n.t('Click the map where you want to relocate the facility.')}
