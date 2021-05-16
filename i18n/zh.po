@@ -794,7 +794,7 @@ msgid "End date"
 msgstr "结束日期"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "离线不可用"
 
 msgid "Program indicator"
 msgstr "项目指标"
