@@ -13,7 +13,7 @@ import { ConditionalWrapper } from '../core';
 import styles from './styles/ContextMenu.module.css';
 
 const ContextMenu = props => {
-    const { position, offset, feature, isOnline, onDrill, onClose } = props;
+    const { position, offset, feature, isOffline, onDrill, onClose } = props;
     const anchorRef = useRef();
 
     if (!position || !feature) {
@@ -21,7 +21,6 @@ const ContextMenu = props => {
     }
 
     const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties;
-    const isOffline = isOnline === false;
     const left = offset[0] + position[0];
     const top = offset[1] + position[1];
 
@@ -72,7 +71,7 @@ ContextMenu.propTypes = {
     feature: PropTypes.object,
     position: PropTypes.array,
     offset: PropTypes.array,
-    isOnline: PropTypes.bool,
+    isOffline: PropTypes.bool,
     onDrill: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
 };

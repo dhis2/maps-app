@@ -227,15 +227,19 @@ function PluginContainer() {
         return false;
     }
 
-    function setOnlineStatus(el, isOnline) {
-        const mapComponent = _components[el];
+    function setOfflineStatus(isOffline) {
+        return Object.keys(_components)
+            .map(el => {
+                const mapComponent = _components[el];
 
-        if (mapComponent && mapComponent.current) {
-            mapComponent.current.setOnlineStatus(isOnline);
-            return true;
-        }
+                if (mapComponent && mapComponent.current) {
+                    mapComponent.current.setOfflineStatus(isOffline);
+                    return true;
+                }
 
-        return false;
+                return false;
+            })
+            .some(isSet => isSet); // Return true if set for at least one map
     }
 
     return {
@@ -250,7 +254,7 @@ function PluginContainer() {
         resize,
         unmount,
         remove: unmount,
-        setOnlineStatus,
+        setOfflineStatus,
     };
 }
 
