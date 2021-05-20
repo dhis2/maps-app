@@ -32,7 +32,7 @@ class Plugin extends Component {
         super(props, context);
 
         this.state = {
-            isOffline: true,
+            isOffline: false,
             mapViews: props.mapViews, // Can be changed by drilling
             resizeCount: 0,
         };
