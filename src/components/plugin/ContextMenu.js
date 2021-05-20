@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import {
@@ -13,23 +13,49 @@ import { ConditionalWrapper } from '../core';
 import styles from './styles/ContextMenu.module.css';
 
 const ContextMenu = props => {
-    const { position, offset, feature, isOffline, onDrill, onClose } = props;
+    const {
+        position,
+        offset,
+        feature,
+        container,
+        isSplitView,
+        isOffline,
+        onDrill,
+        onClose,
+    } = props;
     const anchorRef = useRef();
+    const [anchorPosition, setAnchorPosition] = useState();
+
+    useEffect(() => {
+        if (position) {
+            const [x, y] = position;
+
+            if (!isSplitView) {
+                setAnchorPosition({ left: x, top: y });
+            } else {
+                const [mapLeft, mapTop] = offset;
+                const { left, top } = container.getBoundingClientRect();
+
+                setAnchorPosition({
+                    left: mapLeft - left + x,
+                    top: mapTop - top + y,
+                });
+            }
+        }
+    }, [position, isSplitView, container]);
 
     if (!position || !feature) {
         return null;
     }
 
     const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties;
-    const left = offset[0] + position[0];
-    const top = offset[1] + position[1];
 
     return (
         <>
             <div
                 ref={anchorRef}
                 className={styles.anchor}
-                style={{ left, top }}
+                style={anchorPosition}
             />
             <Popover
                 reference={anchorRef}
@@ -71,6 +97,8 @@ ContextMenu.propTypes = {
     feature: PropTypes.object,
     position: PropTypes.array,
     offset: PropTypes.array,
+    container: PropTypes.instanceOf(Element),
+    isSplitView: PropTypes.bool,
     isOffline: PropTypes.bool,
     onDrill: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,

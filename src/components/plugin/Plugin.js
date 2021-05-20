@@ -47,7 +47,9 @@ class Plugin extends Component {
             mapViews,
             resizeCount,
             isFullscreen,
+            isSplitView,
             isOffline,
+            container,
         } = this.state;
 
         return (
@@ -73,6 +75,8 @@ class Plugin extends Component {
                     onDrill={this.onDrill}
                     onClose={this.onCloseContextMenu}
                     isOffline={isOffline}
+                    isSplitView={isSplitView}
+                    container={container}
                 />
             </div>
         );
