@@ -42,7 +42,7 @@ const ContextMenu = props => {
                 });
             }
         }
-    }, [position, isSplitView, container]);
+    }, [position, offset, container, isSplitView]);
 
     if (!position || !feature) {
         return null;
