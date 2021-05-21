@@ -32,7 +32,7 @@ class Plugin extends Component {
         super(props, context);
 
         this.state = {
-            isOnline: true,
+            isOffline: false,
             mapViews: props.mapViews, // Can be changed by drilling
             resizeCount: 0,
         };
@@ -47,7 +47,9 @@ class Plugin extends Component {
             mapViews,
             resizeCount,
             isFullscreen,
-            isOnline,
+            isSplitView,
+            isOffline,
+            container,
         } = this.state;
 
         return (
@@ -72,7 +74,9 @@ class Plugin extends Component {
                     offset={offset}
                     onDrill={this.onDrill}
                     onClose={this.onCloseContextMenu}
-                    isOnline={isOnline}
+                    isOffline={isOffline}
+                    isSplitView={isSplitView}
+                    container={container}
                 />
             </div>
         );
@@ -87,8 +91,8 @@ class Plugin extends Component {
         }));
     }
 
-    setOnlineStatus(isOnline) {
-        this.setState({ isOnline });
+    setOfflineStatus(isOffline) {
+        this.setState({ isOffline });
     }
 
     onOpenContextMenu = state => this.setState(state);
