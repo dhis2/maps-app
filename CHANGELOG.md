@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/dhis2/maps-app/compare/v1.7.2...v1.7.3) (2021-05-21)
+
+
+### Bug Fixes
+
+* setOfflineStatus method for map plugin to control context menu visibility (DHIS2-11053) ([#1715](https://github.com/dhis2/maps-app/issues/1715)) ([b970431](https://github.com/dhis2/maps-app/commit/b970431b41be47495862c2f9bdeb21e590bc72af))
+
 ## [1.7.2](https://github.com/dhis2/maps-app/compare/v1.7.1...v1.7.2) (2021-05-16)
 
 
