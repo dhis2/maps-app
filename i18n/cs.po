@@ -1164,7 +1164,7 @@ msgid "Monthly"
 msgstr "Měsíčně"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "Dva měsíce"
 
 msgid "Quarterly"
 msgstr "Čtvrtletně"

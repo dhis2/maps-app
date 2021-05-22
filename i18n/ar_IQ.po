@@ -1141,7 +1141,7 @@ msgid "Monthly"
 msgstr "شهري"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "أشهر مزدوجة"
 
 msgid "Quarterly"
 msgstr "ربع سنوي"

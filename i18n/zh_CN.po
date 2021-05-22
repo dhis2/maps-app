@@ -1142,7 +1142,7 @@ msgid "Monthly"
 msgstr "每月"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "每两月"
 
 msgid "Quarterly"
 msgstr "季度"
