@@ -809,7 +809,7 @@ msgid "End date"
 msgstr "Якунланиш санаси"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Оффлайн режимда мавжуд эмас"
 
 msgid "Program indicator"
 msgstr "Дастур индикатори"
