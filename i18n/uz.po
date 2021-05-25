@@ -79,7 +79,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr "Ташкилий бўлим"
+msgstr ""
 
 msgid "Name"
 msgstr "Исми"
@@ -107,8 +107,6 @@ msgstr "Тури"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
-"Ҳодиса/Тадбирлар серверда гуруҳланаётганда, маълумотлар жадвали қўллаб-"
-"қувватланмайди"
 
 msgid "Add filter"
 msgstr "Фильтр киритиш"
@@ -338,22 +336,22 @@ msgid "No organisation units are selected."
 msgstr "Ташкилий бўлимлар танланмаган"
 
 msgid "Event status"
-msgstr "Ҳодиса/тадбир ҳолати"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Бирлаштириш тури"
 
 msgid "Show no data"
-msgstr "Маълумот йўқ"
+msgstr ""
 
 msgid "Low radius"
-msgstr "Кичик радиус"
+msgstr ""
 
 msgid "High radius"
-msgstr "Катта радиус"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr "Радиус {{минимум}} ва {{максимум}} оралиғида бўлиши лозим"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr "Индикатор гуруҳи талаб қилинади"
@@ -401,10 +399,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "Кузатувдаги объектлар маълумоти янгиланганлиги охирги даврини танланг"
 
 msgid "Program/Enrollment date"
-msgstr "Дастур/қайд қилиш санаси"
+msgstr ""
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr "сана, кузатувдаги шахс рўйхатга олинган ёки дастурда рўйхатга олинган"
+msgstr ""
 
 msgid "Program status"
 msgstr "дастур ҳолати"
@@ -435,8 +433,6 @@ msgstr "Хариталарда объектларнинг ўзаро алоқа�
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
-"Дастурдан {{дастур}} ташқарида алоқалар боғлайдиган ўзаро алоқаларни "
-"киритинг "
 
 msgid "Selection mode"
 msgstr "Режимни танлаш"
@@ -597,7 +593,7 @@ msgid "Remove layer"
 msgstr "Қатламни ўчириш"
 
 msgid "Mid"
-msgstr "Ўрта"
+msgstr ""
 
 msgid "Filters"
 msgstr "Фильрлар"
@@ -883,37 +879,37 @@ msgid "Bing Aerial Labels"
 msgstr "Қатлам белгилари"
 
 msgid "All"
-msgstr "Барчаси"
+msgstr ""
 
 msgid "Active"
-msgstr "Фаол"
+msgstr ""
 
 msgid "Completed"
-msgstr "Тўлдирилди"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Режа"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Муддат ўтган"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Ўтказиб юборилди"
+msgstr ""
 
 msgid "Choropleth"
-msgstr "Хороплет"
+msgstr ""
 
 msgid "Bubble map"
-msgstr "Қийматлар кўрсатилган харита"
+msgstr ""
 
 msgid "Automatic color legend"
-msgstr "Автоматик рангли таъриф"
+msgstr ""
 
 msgid "Predefined color legend"
-msgstr "Олдиндан белгиланган рангли таъриф"
+msgstr ""
 
 msgid "Single color legend"
-msgstr "Бир рангли таъриф"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "Тенг интерваллар"
@@ -970,16 +966,16 @@ msgid "Last 14 days"
 msgstr "Охирги 14 кун"
 
 msgid "Last 30 days"
-msgstr "Охирги 30 кун"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "Охирги 60 кун"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "Охирги 90 кун"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "Охирги 180 кун"
+msgstr ""
 
 msgid "This week"
 msgstr "Ушбу ҳафта"
@@ -1000,13 +996,13 @@ msgid "Weeks this year"
 msgstr "Ҳафталар айни йилда "
 
 msgid "This bi-week"
-msgstr "Ушбу жуфт ҳафта"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Охирги жуфт ҳафта"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "Охирги 4 жуфт ҳафталар"
+msgstr ""
 
 msgid "This month"
 msgstr "Ушбу ой"
@@ -1078,7 +1074,7 @@ msgid "Last 5 financial years"
 msgstr "Охирги 5 молиявий йиллар"
 
 msgid "Cancelled"
-msgstr "Бекор қилинди"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1241,7 +1237,7 @@ msgid "No coordinates found"
 msgstr "Координаталар топилмади"
 
 msgid "No data"
-msgstr "Маълумот йўқ"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Кузатув объекти"

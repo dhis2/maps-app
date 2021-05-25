@@ -80,7 +80,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr "Org enhet"
+msgstr ""
 
 msgid "Name"
 msgstr "Navn"
@@ -107,7 +107,7 @@ msgid "Type"
 msgstr "Type"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr "Datatabell støttes ikke når hendelser er gruppert på serveren."
+msgstr ""
 
 msgid "Add filter"
 msgstr "Legg til filter"
@@ -336,22 +336,22 @@ msgid "No organisation units are selected."
 msgstr "Ingen organisasjonsenheter er valgt"
 
 msgid "Event status"
-msgstr "Hendelsesstatus"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"
 
 msgid "Show no data"
-msgstr "Vis ingen data"
+msgstr ""
 
 msgid "Low radius"
-msgstr "Lav radius"
+msgstr ""
 
 msgid "High radius"
-msgstr "Høy radius"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr "Radius bør være mellom {{min}} og {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr "Indikatorgruppe er påkrevd"
@@ -399,10 +399,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "Velg periode da sporede enheter sist ble oppdatert"
 
 msgid "Program/Enrollment date"
-msgstr "Program/Registreringsdato"
+msgstr ""
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr "datoen en sporet enhet ble registrert eller registrert i et program"
+msgstr ""
 
 msgid "Program status"
 msgstr "Programstatus"
@@ -432,7 +432,6 @@ msgstr "Vis sporet enhetsrelasjoner"
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
-"Inkluder relasjoner som linker enheter utenfor \"{{program}}\" - programmet"
 
 msgid "Selection mode"
 msgstr "Valgmodus"
@@ -592,7 +591,7 @@ msgid "Remove layer"
 msgstr "Fjern lag"
 
 msgid "Mid"
-msgstr "Midt"
+msgstr ""
 
 msgid "Filters"
 msgstr "Filter"
@@ -878,37 +877,37 @@ msgid "Bing Aerial Labels"
 msgstr "Bing Flyfoto Etiketter"
 
 msgid "All"
-msgstr "Alt"
+msgstr ""
 
 msgid "Active"
-msgstr "Aktiv"
+msgstr ""
 
 msgid "Completed"
-msgstr "Fullført"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Planlegg"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Forfalt"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Hoppet over"
+msgstr ""
 
 msgid "Choropleth"
-msgstr "Koroplet"
+msgstr ""
 
 msgid "Bubble map"
-msgstr "Boblekart"
+msgstr ""
 
 msgid "Automatic color legend"
-msgstr "Automatisk fargetegnforklaring"
+msgstr ""
 
 msgid "Predefined color legend"
-msgstr "Forhåndsdefinert fargetegnforklaring"
+msgstr ""
 
 msgid "Single color legend"
-msgstr "Ensfarget tegnforklaring"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "Like intervaller"
@@ -965,16 +964,16 @@ msgid "Last 14 days"
 msgstr "Siste 14 dager"
 
 msgid "Last 30 days"
-msgstr "Siste 30 dager"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "Siste 60 dager"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "Siste 90 dager"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "Siste 180 dager"
+msgstr ""
 
 msgid "This week"
 msgstr "Denne uken"
@@ -995,13 +994,13 @@ msgid "Weeks this year"
 msgstr "Uker inneværende år"
 
 msgid "This bi-week"
-msgstr "Denne touken"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Sist touke"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "Siste 4 touker"
+msgstr ""
 
 msgid "This month"
 msgstr "Denne måneden"
@@ -1073,7 +1072,7 @@ msgid "Last 5 financial years"
 msgstr "Siste 5 regnskapsår"
 
 msgid "Cancelled"
-msgstr "Kansellert"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1236,7 +1235,7 @@ msgid "No coordinates found"
 msgstr "Ingen koordinater funnet"
 
 msgid "No data"
-msgstr "Ingen data"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"

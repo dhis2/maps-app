@@ -81,7 +81,7 @@ msgid "Id"
 msgstr "المعرف"
 
 msgid "Org unit"
-msgstr "الوحدة التنظيمية"
+msgstr ""
 
 msgid "Name"
 msgstr "الإسم"
@@ -108,7 +108,7 @@ msgid "Type"
 msgstr "النوع"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr "لا يتم دعم جدول البيانات عند تجميع الأحداث على الخادم."
+msgstr ""
 
 msgid "Add filter"
 msgstr "إضافة عامل تصفية"
@@ -335,22 +335,22 @@ msgid "No organisation units are selected."
 msgstr "لم يتم اختيار أي وحدات تنظيمية"
 
 msgid "Event status"
-msgstr "حالة الحدث"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "نوع التجميع"
 
 msgid "Show no data"
-msgstr "لا تظهر أي بيانات"
+msgstr ""
 
 msgid "Low radius"
-msgstr "نصف قطر منخفض"
+msgstr ""
 
 msgid "High radius"
-msgstr "نصف قطر مرتفع"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr "يجب أن يتراوح نصف القطر بين {{min}} و {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr "مجموعة المؤشر مطلوبة"
@@ -398,10 +398,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "حدد الفترة التي تم فيها آخر تحديث للكيانات المتعقبة"
 
 msgid "Program/Enrollment date"
-msgstr "تاريخ البرنامج / التسجيل"
+msgstr ""
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr "التاريخ الذي تم فيه تسجيل الكيان المتعقب أو ضمه في أحد البرامج"
+msgstr ""
 
 msgid "Program status"
 msgstr "حالة البرنامج"
@@ -428,7 +428,7 @@ msgstr "عرض علاقات الكيانات المتعقبة"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr "قم بتضمين العلاقات التي تربط الكيانات خارج برنامج \"{{program}}\""
+msgstr ""
 
 msgid "Selection mode"
 msgstr "وضح التحديد"
@@ -870,22 +870,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "الجميع"
+msgstr ""
 
 msgid "Active"
-msgstr "فعال"
+msgstr ""
 
 msgid "Completed"
-msgstr "المكتملة"
+msgstr ""
 
 msgid "Schedule"
-msgstr "المجدولة زمنياً"
+msgstr ""
 
 msgid "Overdue"
-msgstr "المتأخرة"
+msgstr ""
 
 msgid "Skipped"
-msgstr "التي تم تخطيها"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -957,16 +957,16 @@ msgid "Last 14 days"
 msgstr "آخر 14 يوم"
 
 msgid "Last 30 days"
-msgstr "آخر 30 يوم"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "آخر 60 يومًا"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "آخر 90 يومًا"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "آخر 180 يوم"
+msgstr ""
 
 msgid "This week"
 msgstr "هذا الأسبوع"
@@ -987,13 +987,13 @@ msgid "Weeks this year"
 msgstr "أسابيع السنة الحالية"
 
 msgid "This bi-week"
-msgstr "الأسبوعين الحاليين"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "آخر اسبوعين"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "آخر 4 ثنائي اسابيع"
+msgstr ""
 
 msgid "This month"
 msgstr "الشهر الحالي"
@@ -1065,7 +1065,7 @@ msgid "Last 5 financial years"
 msgstr "آخر 5 سنوات مالية"
 
 msgid "Cancelled"
-msgstr "تم الإلغاء"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1228,7 +1228,7 @@ msgid "No coordinates found"
 msgstr "لم يتم العثور على إحداثيات"
 
 msgid "No data"
-msgstr "لا توجد بيانات"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "الكيان المتتبع"

@@ -80,7 +80,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr "អង្គភាព"
+msgstr ""
 
 msgid "Name"
 msgstr "ឈ្មោះ"
@@ -854,13 +854,13 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "ទាំងអស់"
+msgstr ""
 
 msgid "Active"
 msgstr ""
 
 msgid "Completed"
-msgstr "បានបញ្ចប់"
+msgstr ""
 
 msgid "Schedule"
 msgstr ""
@@ -1049,7 +1049,7 @@ msgid "Last 5 financial years"
 msgstr ""
 
 msgid "Cancelled"
-msgstr "បានលុបចោល"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

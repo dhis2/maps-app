@@ -81,7 +81,7 @@ msgid "Id"
 msgstr "Ký hiệu nhận dạng (ID)"
 
 msgid "Org unit"
-msgstr "Đơn vị"
+msgstr ""
 
 msgid "Name"
 msgstr "Tên"
@@ -323,7 +323,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "Tình trạng sự kiện"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Kiểu tổng hợp"
@@ -855,22 +855,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Tất cả"
+msgstr ""
 
 msgid "Active"
-msgstr "Hoạt động"
+msgstr ""
 
 msgid "Completed"
-msgstr "Hoàn tất"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Lịch biểu"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Quá hạn"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Đã bỏ qua"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -942,16 +942,16 @@ msgid "Last 14 days"
 msgstr "14 ngày trước"
 
 msgid "Last 30 days"
-msgstr "30 ngày trước"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "60 ngày qua"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "90 ngày qua"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "180 ngày qua"
+msgstr ""
 
 msgid "This week"
 msgstr "Tuần này"
@@ -972,13 +972,13 @@ msgid "Weeks this year"
 msgstr "Các tuần trong năm nay"
 
 msgid "This bi-week"
-msgstr "Kỳ hiện tại, 1 kỳ = 2 tuần"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Kỳ trước, 1 kỳ = 2 tuần"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "4 kỳ trước, 1 kỳ = 2 tuần"
+msgstr ""
 
 msgid "This month"
 msgstr "Tháng này"
@@ -1050,7 +1050,7 @@ msgid "Last 5 financial years"
 msgstr "5 năm tài chính trước"
 
 msgid "Cancelled"
-msgstr "Đã hủy"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1207,7 +1207,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "Không có dữ liệu"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Đối Tượng Theo Dõi"

@@ -321,7 +321,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "حالة الحدث"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "نوع التجميع"
@@ -853,22 +853,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "الجميع"
+msgstr ""
 
 msgid "Active"
-msgstr "فعال"
+msgstr ""
 
 msgid "Completed"
-msgstr "مكتمل"
+msgstr ""
 
 msgid "Schedule"
 msgstr ""
 
 msgid "Overdue"
-msgstr "متأخر"
+msgstr ""
 
 msgid "Skipped"
-msgstr "تم التخطي"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -970,13 +970,13 @@ msgid "Weeks this year"
 msgstr "أسابيع السنة الحالية"
 
 msgid "This bi-week"
-msgstr "الأسبوعين الحاليين"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "آخر اسبوعين"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "آخر 4 زوج اسابيع"
+msgstr ""
 
 msgid "This month"
 msgstr "الشهر الحالي"
@@ -1048,7 +1048,7 @@ msgid "Last 5 financial years"
 msgstr "آخر 5 سنوات مالية"
 
 msgid "Cancelled"
-msgstr "تم الإلغاء"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

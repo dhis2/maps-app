@@ -322,7 +322,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "واقعہ کی حیثیت"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "مجموعی قسم"
@@ -854,22 +854,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "تمام"
+msgstr ""
 
 msgid "Active"
-msgstr "فعال"
+msgstr ""
 
 msgid "Completed"
-msgstr "مکمل"
+msgstr ""
 
 msgid "Schedule"
-msgstr "شیڈول"
+msgstr ""
 
 msgid "Overdue"
-msgstr "زیادہ سے زیادہ"
+msgstr ""
 
 msgid "Skipped"
-msgstr "کھڑا"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -941,7 +941,7 @@ msgid "Last 14 days"
 msgstr "آخری 14 دن"
 
 msgid "Last 30 days"
-msgstr "آخری 30 دن"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -1049,7 +1049,7 @@ msgid "Last 5 financial years"
 msgstr "آخری ۵ مالیاتی سال"
 
 msgid "Cancelled"
-msgstr "منسوخ"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1206,7 +1206,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "کوئی مواد نہیں"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "ٹریک شدہ ادارے"

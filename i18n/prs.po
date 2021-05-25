@@ -853,22 +853,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "همه"
+msgstr ""
 
 msgid "Active"
-msgstr "فعال"
+msgstr ""
 
 msgid "Completed"
-msgstr "تکمیل شد"
+msgstr ""
 
 msgid "Schedule"
-msgstr "تقسیم اوقات"
+msgstr ""
 
 msgid "Overdue"
-msgstr "گذشته از موعد"
+msgstr ""
 
 msgid "Skipped"
-msgstr "اسکیپ شده"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -940,7 +940,7 @@ msgid "Last 14 days"
 msgstr "14 روز گذشته"
 
 msgid "Last 30 days"
-msgstr "30 روز گذشته"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -1205,7 +1205,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "معلوماتی وجود ندارد"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "ردیابی هویت"

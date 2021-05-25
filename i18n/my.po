@@ -1,6 +1,5 @@
 # 
 # Translators:
-# Aung Kyi Min <AungKyi.Min@savethechildren.org>, 2020
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # 
@@ -81,7 +80,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr "ဖွဲ့စည်းပုံယူနစ်"
+msgstr ""
 
 msgid "Name"
 msgstr "အမည်"
@@ -855,10 +854,10 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "အားလုံး"
+msgstr ""
 
 msgid "Active"
-msgstr "လုပ်ဆောင်နိုင်သည်"
+msgstr ""
 
 msgid "Completed"
 msgstr ""
@@ -1207,7 +1206,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "အချက်အလက်မရှိပါ။"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Tracked entity"

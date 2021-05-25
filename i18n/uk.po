@@ -2,7 +2,6 @@
 # Translators:
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
-# Wanda <wanda@frontlineaids.org>, 2020
 # Nadiia <semchuk@aph.org.ua>, 2021
 # 
 msgid ""
@@ -324,7 +323,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "Статус події"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Тип агрегації"
@@ -856,22 +855,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Всі"
+msgstr ""
 
 msgid "Active"
-msgstr "Активне"
+msgstr ""
 
 msgid "Completed"
-msgstr "Завершено"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Запланувати"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Прострочене"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Пропущене"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -973,13 +972,13 @@ msgid "Weeks this year"
 msgstr "Тижні поточного року"
 
 msgid "This bi-week"
-msgstr "Теперішній двотижневий проміжок"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Попередній двотижневий проміжок"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "Попередні 4 двотижневі проміжки"
+msgstr ""
 
 msgid "This month"
 msgstr "Поточний місяць"
@@ -1051,7 +1050,7 @@ msgid "Last 5 financial years"
 msgstr "Останні 5 фінансових років"
 
 msgid "Cancelled"
-msgstr "Скасовано"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1208,7 +1207,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "Немає даних"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Відстежуване явище"

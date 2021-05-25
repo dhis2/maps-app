@@ -81,7 +81,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr "Organisationsenhet"
+msgstr ""
 
 msgid "Name"
 msgstr "Namn"
@@ -855,13 +855,13 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Alla"
+msgstr ""
 
 msgid "Active"
-msgstr "Aktiva"
+msgstr ""
 
 msgid "Completed"
-msgstr "Avklarad"
+msgstr ""
 
 msgid "Schedule"
 msgstr ""
@@ -1050,7 +1050,7 @@ msgid "Last 5 financial years"
 msgstr "Senaste 5 räkenskapsåren"
 
 msgid "Cancelled"
-msgstr "Avbruten"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

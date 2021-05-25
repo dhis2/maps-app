@@ -80,7 +80,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr "ສະຖານທີ່"
+msgstr ""
 
 msgid "Name"
 msgstr "ຊື່"
@@ -322,7 +322,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "ສະຖານະເຫດການ"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "ປະເພດຕົວເລກລວມ"
@@ -854,22 +854,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "ທັງໝົດ"
+msgstr ""
 
 msgid "Active"
-msgstr "ທີ່ຍັງນໍາໃຊ້ຢູ່"
+msgstr ""
 
 msgid "Completed"
-msgstr "ສໍາເລັດແລ້ວ"
+msgstr ""
 
 msgid "Schedule"
-msgstr "ກຳນົດເວລາ"
+msgstr ""
 
 msgid "Overdue"
-msgstr "ກາຍເວລາທີ່ກໍານົດ"
+msgstr ""
 
 msgid "Skipped"
-msgstr "ຂ້າມໄປ"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -941,7 +941,7 @@ msgid "Last 14 days"
 msgstr "14 ມື້ກ່ອນ"
 
 msgid "Last 30 days"
-msgstr "Last 30 days"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -1049,7 +1049,7 @@ msgid "Last 5 financial years"
 msgstr "​ສົກ​ປິ​ງົບ​ປະ​ມານ 5ປີ​ຜ່ານ​ມາ"
 
 msgid "Cancelled"
-msgstr "ຍົກເລີກແລ້ວ"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1206,7 +1206,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "ບໍ່ມີຂໍ້ມູນ"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Tracked Entity"

@@ -854,16 +854,16 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Tudo"
+msgstr ""
 
 msgid "Active"
-msgstr "Activo"
+msgstr ""
 
 msgid "Completed"
 msgstr ""
 
 msgid "Schedule"
-msgstr "Programar"
+msgstr ""
 
 msgid "Overdue"
 msgstr ""
@@ -941,7 +941,7 @@ msgid "Last 14 days"
 msgstr ""
 
 msgid "Last 30 days"
-msgstr "Últimos 30 dias"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -1206,7 +1206,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "Não ha dados"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr ""
