@@ -860,10 +860,10 @@ msgid "All"
 msgstr ""
 
 msgid "Active"
-msgstr "چاڵاک"
+msgstr ""
 
 msgid "Completed"
-msgstr "تەواوبوو"
+msgstr ""
 
 msgid "Schedule"
 msgstr ""

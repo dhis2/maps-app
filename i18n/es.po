@@ -1,12 +1,10 @@
 # 
 # Translators:
-# Marta Vila <marta@dhis2.org>, 2020
 # Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # phil_dhis2, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # ericbp <ericbarredap@gmail.com>, 2020
-# Jaime Bosque <jaime.bosque@dhis2.org>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
 # 
@@ -87,7 +85,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr "Unidad Organizativa"
+msgstr ""
 
 msgid "Name"
 msgstr "Nombre"
@@ -329,7 +327,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "Estado del evento"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Tipo de agregación"
@@ -861,22 +859,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Todos"
+msgstr ""
 
 msgid "Active"
-msgstr "Activo"
+msgstr ""
 
 msgid "Completed"
-msgstr "Completado"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Programado"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Atrasado"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Omitido"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -948,7 +946,7 @@ msgid "Last 14 days"
 msgstr "Últimos 14 días"
 
 msgid "Last 30 days"
-msgstr "Últimos 30 días"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -1056,7 +1054,7 @@ msgid "Last 5 financial years"
 msgstr "Últimos 5 ejercicios financieros"
 
 msgid "Cancelled"
-msgstr "Cancelar"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1213,7 +1211,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "No hay datos"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Entidad de seguimiento"

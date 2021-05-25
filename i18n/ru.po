@@ -323,7 +323,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "Статус события"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Тип агрегирования"
@@ -856,22 +856,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Все"
+msgstr ""
 
 msgid "Active"
-msgstr "Действующий"
+msgstr ""
 
 msgid "Completed"
-msgstr "Завершенный"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Расписание"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Просроченный"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Пропущенный"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -943,16 +943,16 @@ msgid "Last 14 days"
 msgstr "Последние 14 дней"
 
 msgid "Last 30 days"
-msgstr "Последние 30 дней"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "Последние 60 дней"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "Последние 90 дней"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "Последние 180 дней"
+msgstr ""
 
 msgid "This week"
 msgstr "Эта неделя"
@@ -973,13 +973,13 @@ msgid "Weeks this year"
 msgstr "Недели этого года"
 
 msgid "This bi-week"
-msgstr "Эта би-неделя"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Последняя би-неделя"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "Последние 4 би-недель"
+msgstr ""
 
 msgid "This month"
 msgstr "Этот месяц"
@@ -1051,7 +1051,7 @@ msgid "Last 5 financial years"
 msgstr "Прошлые 5 финансовых лет"
 
 msgid "Cancelled"
-msgstr "Отмененный"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1208,7 +1208,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "Нет данных"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Tracked entity"

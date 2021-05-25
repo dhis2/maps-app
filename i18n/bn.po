@@ -860,7 +860,7 @@ msgid "Active"
 msgstr ""
 
 msgid "Completed"
-msgstr "সম্পন্ন"
+msgstr ""
 
 msgid "Schedule"
 msgstr ""

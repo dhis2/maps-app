@@ -87,7 +87,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr "Unités d´Organisation"
+msgstr ""
 
 msgid "Name"
 msgstr "Nom"
@@ -329,7 +329,7 @@ msgid "No organisation units are selected."
 msgstr "Aucune unité d'organisation choisie"
 
 msgid "Event status"
-msgstr "Statut de l'événement"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Type d'agrégation"
@@ -862,22 +862,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Tout"
+msgstr ""
 
 msgid "Active"
-msgstr "Actif"
+msgstr ""
 
 msgid "Completed"
-msgstr "Terminé"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Planning"
+msgstr ""
 
 msgid "Overdue"
-msgstr "En retard"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Sauté"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -949,16 +949,16 @@ msgid "Last 14 days"
 msgstr "14 dernier jours"
 
 msgid "Last 30 days"
-msgstr "Les 30 derniers jours"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "60 derniers jours"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "90 derniers jours"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "180 derniers jours"
+msgstr ""
 
 msgid "This week"
 msgstr "Cette semaine"
@@ -979,13 +979,13 @@ msgid "Weeks this year"
 msgstr "Semaines cette année"
 
 msgid "This bi-week"
-msgstr "Cette quinzaine"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Dernière quinzaine"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "4 dernières quinzaines"
+msgstr ""
 
 msgid "This month"
 msgstr "Ce mois-ci"
@@ -1057,7 +1057,7 @@ msgid "Last 5 financial years"
 msgstr "5 dernières années financières"
 
 msgid "Cancelled"
-msgstr "Annulé"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1214,7 +1214,7 @@ msgid "No coordinates found"
 msgstr "Coordonnées non trouvées"
 
 msgid "No data"
-msgstr "Aucune donnée"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Entité suivie"

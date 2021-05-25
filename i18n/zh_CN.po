@@ -80,7 +80,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr "机构"
+msgstr ""
 
 msgid "Name"
 msgstr "名称"
@@ -322,7 +322,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "事件状态"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "汇总类型"
@@ -854,22 +854,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "全部"
+msgstr ""
 
 msgid "Active"
-msgstr "活跃的"
+msgstr ""
 
 msgid "Completed"
-msgstr "完成"
+msgstr ""
 
 msgid "Schedule"
-msgstr "调度"
+msgstr ""
 
 msgid "Overdue"
-msgstr "过期"
+msgstr ""
 
 msgid "Skipped"
-msgstr "跳过"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -941,16 +941,16 @@ msgid "Last 14 days"
 msgstr "最近14天"
 
 msgid "Last 30 days"
-msgstr "最近30天"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "最近60天"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "最近90天"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "最近180天"
+msgstr ""
 
 msgid "This week"
 msgstr "本周"
@@ -971,13 +971,13 @@ msgid "Weeks this year"
 msgstr "今年的星期"
 
 msgid "This bi-week"
-msgstr "这两周"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "最近双周"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "最近四个双周"
+msgstr ""
 
 msgid "This month"
 msgstr "本月"
@@ -1049,7 +1049,7 @@ msgid "Last 5 financial years"
 msgstr "最近五个财政年"
 
 msgid "Cancelled"
-msgstr "已取消"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1206,7 +1206,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "无数据"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "跟踪实体"

@@ -854,16 +854,16 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Ҳама"
+msgstr ""
 
 msgid "Active"
-msgstr "Фаъол"
+msgstr ""
 
 msgid "Completed"
-msgstr "Анҷомёфта"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Ҷадвал"
+msgstr ""
 
 msgid "Overdue"
 msgstr ""
@@ -941,7 +941,7 @@ msgid "Last 14 days"
 msgstr ""
 
 msgid "Last 30 days"
-msgstr "30 рӯзи охир"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -1206,7 +1206,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "Ягон иттилоот нест"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr ""

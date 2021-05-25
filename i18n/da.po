@@ -853,10 +853,10 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "All"
+msgstr ""
 
 msgid "Active"
-msgstr "Active"
+msgstr ""
 
 msgid "Completed"
 msgstr ""

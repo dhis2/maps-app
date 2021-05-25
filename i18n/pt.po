@@ -83,7 +83,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr "Unidade organizacional"
+msgstr ""
 
 msgid "Name"
 msgstr "Nome"
@@ -111,8 +111,6 @@ msgstr "Tipo"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
-"A tabela de dados não é suportada quando os eventos são agrupados no "
-"servidor."
 
 msgid "Add filter"
 msgstr "Adicionar filtros"
@@ -346,7 +344,7 @@ msgid "No organisation units are selected."
 msgstr "Nenhuma unidade organizacional selecionada"
 
 msgid "Event status"
-msgstr "Estado do evento "
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Tipo de agregacão"
@@ -894,22 +892,22 @@ msgid "Bing Aerial Labels"
 msgstr "Etiquetas aéreas do Bing"
 
 msgid "All"
-msgstr "Tudo"
+msgstr ""
 
 msgid "Active"
-msgstr "Activo"
+msgstr ""
 
 msgid "Completed"
-msgstr "Completo"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Programar"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Atrasado"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Ignorado"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -981,7 +979,7 @@ msgid "Last 14 days"
 msgstr "Últimos 14  dias"
 
 msgid "Last 30 days"
-msgstr "Últimos 30 dias"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -1011,13 +1009,13 @@ msgid "Weeks this year"
 msgstr "Semanas deste ano "
 
 msgid "This bi-week"
-msgstr "Nesta bisemanal"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Ultimo bimensal "
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "Nas últimas 4 semanas"
+msgstr ""
 
 msgid "This month"
 msgstr "Este mês"
@@ -1089,7 +1087,7 @@ msgid "Last 5 financial years"
 msgstr "Últimos cinco anos fiscais"
 
 msgid "Cancelled"
-msgstr "Cancelado"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1253,7 +1251,7 @@ msgid "No coordinates found"
 msgstr "Nenhuma coordenada encontrada"
 
 msgid "No data"
-msgstr "Não ha dados"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Entidade Rastreada"

@@ -82,7 +82,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr "机构"
+msgstr ""
 
 msgid "Name"
 msgstr "名称"
@@ -109,7 +109,7 @@ msgid "Type"
 msgstr "类型"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr "在服务器上对事件进行分组时，不支持数据表。"
+msgstr ""
 
 msgid "Add filter"
 msgstr "添加过滤器"
@@ -324,22 +324,22 @@ msgid "No organisation units are selected."
 msgstr "没有选择机构"
 
 msgid "Event status"
-msgstr "事件状态"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "汇总类型"
 
 msgid "Show no data"
-msgstr "不显示数据"
+msgstr ""
 
 msgid "Low radius"
-msgstr "低半径"
+msgstr ""
 
 msgid "High radius"
-msgstr "高半径"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr "半径应介于{{min}}至{{max}}之间"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr "需要指标组"
@@ -387,10 +387,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
 
 msgid "Program/Enrollment date"
-msgstr "项目/注册日期"
+msgstr ""
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr "被跟踪实体在项目中注册或登记的日期"
+msgstr ""
 
 msgid "Program status"
 msgstr "项目状态"
@@ -417,7 +417,7 @@ msgstr "显示跟踪实体关系"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr "包括将“ {{program}}”项目外部的实体连接起来的关系"
+msgstr ""
 
 msgid "Selection mode"
 msgstr "选择模式"
@@ -575,7 +575,7 @@ msgid "Remove layer"
 msgstr "移除图层"
 
 msgid "Mid"
-msgstr "中"
+msgstr ""
 
 msgid "Filters"
 msgstr "过滤器"
@@ -856,37 +856,37 @@ msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
 
 msgid "All"
-msgstr "全部"
+msgstr ""
 
 msgid "Active"
-msgstr "活跃的"
+msgstr ""
 
 msgid "Completed"
-msgstr "完成"
+msgstr ""
 
 msgid "Schedule"
-msgstr "调度"
+msgstr ""
 
 msgid "Overdue"
-msgstr "逾期"
+msgstr ""
 
 msgid "Skipped"
-msgstr "跳过"
+msgstr ""
 
 msgid "Choropleth"
-msgstr "胆管"
+msgstr ""
 
 msgid "Bubble map"
-msgstr "气泡图"
+msgstr ""
 
 msgid "Automatic color legend"
-msgstr "自动颜色图例"
+msgstr ""
 
 msgid "Predefined color legend"
-msgstr "预定义的颜色图例"
+msgstr ""
 
 msgid "Single color legend"
-msgstr "单色图例"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "平等间隔"
@@ -943,16 +943,16 @@ msgid "Last 14 days"
 msgstr "最近14天"
 
 msgid "Last 30 days"
-msgstr "最近30天"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "最近60天"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "最近90天"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "最近180天"
+msgstr ""
 
 msgid "This week"
 msgstr "本年"
@@ -973,13 +973,13 @@ msgid "Weeks this year"
 msgstr "今年的几周"
 
 msgid "This bi-week"
-msgstr "本双周"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "最近两周"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "最近4个两周"
+msgstr ""
 
 msgid "This month"
 msgstr "本月"
@@ -1051,7 +1051,7 @@ msgid "Last 5 financial years"
 msgstr "最近五个财政年"
 
 msgid "Cancelled"
-msgstr "已取消"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1208,7 +1208,7 @@ msgid "No coordinates found"
 msgstr "没有找到坐标"
 
 msgid "No data"
-msgstr "无数据"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "跟踪的实体"

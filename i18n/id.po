@@ -84,7 +84,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr "Unit Organisasi"
+msgstr ""
 
 msgid "Name"
 msgstr "Nama"
@@ -328,7 +328,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr "Status Event"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Tipe agregasi"
@@ -862,22 +862,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Semua"
+msgstr ""
 
 msgid "Active"
-msgstr "Aktif"
+msgstr ""
 
 msgid "Completed"
-msgstr "Selesai"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Jadwal"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Lewat waktu"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Dilewati"
+msgstr ""
 
 msgid "Choropleth"
 msgstr ""
@@ -949,7 +949,7 @@ msgid "Last 14 days"
 msgstr "14 hari terakhir"
 
 msgid "Last 30 days"
-msgstr "30 hari terakhir"
+msgstr ""
 
 msgid "Last 60 days"
 msgstr ""
@@ -979,13 +979,13 @@ msgid "Weeks this year"
 msgstr "Mingguan tahun ini"
 
 msgid "This bi-week"
-msgstr "Dwiwulan ini"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Dwiwulan terakhir"
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "4 dwiwulan terakhir"
+msgstr ""
 
 msgid "This month"
 msgstr "Bulan ini"
@@ -1057,7 +1057,7 @@ msgid "Last 5 financial years"
 msgstr "5 tahun finansial terakhir"
 
 msgid "Cancelled"
-msgstr "Dibatalkan"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1214,7 +1214,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "Tidak ada data"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Entitas dilacak"

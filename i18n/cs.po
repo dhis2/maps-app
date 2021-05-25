@@ -79,7 +79,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr "Organizační jednotka"
+msgstr ""
 
 msgid "Name"
 msgstr "Název"
@@ -107,7 +107,6 @@ msgstr "Typ"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
-"Tabulka dat není podporována, pokud jsou události seskupeny na serveru."
 
 msgid "Add filter"
 msgstr "Přidat filtr"
@@ -336,22 +335,22 @@ msgid "No organisation units are selected."
 msgstr "Nejsou vybrány žádné organizační jednotky."
 
 msgid "Event status"
-msgstr "Stav události"
+msgstr ""
 
 msgid "Aggregation type"
 msgstr "Typ agregace"
 
 msgid "Show no data"
-msgstr "Zobrazit žádná data"
+msgstr ""
 
 msgid "Low radius"
-msgstr "Malý poloměr"
+msgstr ""
 
 msgid "High radius"
-msgstr "Velký poloměr"
+msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr "Poloměr by měl být mezi {{min}} a {{max}}"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr "Je vyžadována skupina indikátorů"
@@ -399,11 +398,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "Vyberte období, kdy byly sledované entity naposledy aktualizovány"
 
 msgid "Program/Enrollment date"
-msgstr "Program / datum zápisu"
+msgstr ""
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
-"datum, kdy byla trasovaná entita zaregistrována nebo zapsána do programu"
 
 msgid "Program status"
 msgstr "Stav programu"
@@ -430,7 +428,7 @@ msgstr "Zobrazit vztahy sledované entity"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr "Zahrnout vztahy, které spojují entity mimo program \"{{program}}\""
+msgstr ""
 
 msgid "Selection mode"
 msgstr "Režim výběru"
@@ -589,7 +587,7 @@ msgid "Remove layer"
 msgstr "Odstraňte vrstvu"
 
 msgid "Mid"
-msgstr "Střední"
+msgstr ""
 
 msgid "Filters"
 msgstr "Filtry"
@@ -875,37 +873,37 @@ msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
 
 msgid "All"
-msgstr "Vše"
+msgstr ""
 
 msgid "Active"
-msgstr "Aktivní"
+msgstr ""
 
 msgid "Completed"
-msgstr "Dokončeno"
+msgstr ""
 
 msgid "Schedule"
-msgstr "Plán"
+msgstr ""
 
 msgid "Overdue"
-msgstr "Po termínu"
+msgstr ""
 
 msgid "Skipped"
-msgstr "Přeskočeno"
+msgstr ""
 
 msgid "Choropleth"
-msgstr "Choropleth"
+msgstr ""
 
 msgid "Bubble map"
-msgstr "Bublinová mapa"
+msgstr ""
 
 msgid "Automatic color legend"
-msgstr "Automatická barevná legenda"
+msgstr ""
 
 msgid "Predefined color legend"
-msgstr "Předdefinovaná barevná legenda"
+msgstr ""
 
 msgid "Single color legend"
-msgstr "Jednobarevná legenda"
+msgstr ""
 
 msgid "Equal intervals"
 msgstr "Stejné intervaly"
@@ -962,16 +960,16 @@ msgid "Last 14 days"
 msgstr "Posledních 14 dní"
 
 msgid "Last 30 days"
-msgstr "Poledních 30 dní"
+msgstr ""
 
 msgid "Last 60 days"
-msgstr "Posledních 60 dní"
+msgstr ""
 
 msgid "Last 90 days"
-msgstr "Posledních 90 dní"
+msgstr ""
 
 msgid "Last 180 days"
-msgstr "Posledních 180 dní"
+msgstr ""
 
 msgid "This week"
 msgstr "Tento týden"
@@ -992,13 +990,13 @@ msgid "Weeks this year"
 msgstr "Týdny tohoto roku"
 
 msgid "This bi-week"
-msgstr "Těchto 14 dní"
+msgstr ""
 
 msgid "Last bi-week"
-msgstr "Posledních dní "
+msgstr ""
 
 msgid "Last 4 bi-weeks"
-msgstr "4 poslední dvoutýdny"
+msgstr ""
 
 msgid "This month"
 msgstr "Tento měsíc"
@@ -1070,7 +1068,7 @@ msgid "Last 5 financial years"
 msgstr "Posledních 5 fiskálních roků"
 
 msgid "Cancelled"
-msgstr "Zrušeno"
+msgstr ""
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1233,7 +1231,7 @@ msgid "No coordinates found"
 msgstr "Nenalezeny žádné souřadnice"
 
 msgid "No data"
-msgstr "Nejsou data"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Trasovaná entita"

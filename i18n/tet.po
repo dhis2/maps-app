@@ -854,10 +854,10 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "Hotu"
+msgstr ""
 
 msgid "Active"
-msgstr "Ativu"
+msgstr ""
 
 msgid "Completed"
 msgstr ""
@@ -1206,7 +1206,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr "Laiha dadus"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr ""
