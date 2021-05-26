@@ -3,28 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import OrgUnitGroupSetSelect from '../../orgunits/OrgUnitGroupSetSelect';
+import GroupSetStyle from './GroupSetStyle';
 import { setOrganisationUnitGroupSet } from '../../../actions/layerEdit';
 import styles from '../styles/LayerDialog.module.css';
 
-export const StyleByGroupSet = ({
-    organisationUnitGroupSet,
-    setOrganisationUnitGroupSet,
-}) => {
+export const StyleByGroupSet = ({ groupSet, setOrganisationUnitGroupSet }) => {
     return (
         <div>
             <OrgUnitGroupSetSelect
                 label={i18n.t('Style by group set')}
-                value={organisationUnitGroupSet}
+                value={groupSet}
                 allowNone={true}
                 onChange={setOrganisationUnitGroupSet}
                 className={styles.select}
             />
+            {groupSet && <GroupSetStyle groupSet={groupSet} />}
         </div>
     );
 };
 
 StyleByGroupSet.propTypes = {
-    organisationUnitGroupSet: PropTypes.shape({
+    groupSet: PropTypes.shape({
         id: PropTypes.string.isRequired,
     }),
     setOrganisationUnitGroupSet: PropTypes.func.isRequired,
@@ -32,7 +31,7 @@ StyleByGroupSet.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        organisationUnitGroupSet: layerEdit.organisationUnitGroupSet,
+        groupSet: layerEdit.organisationUnitGroupSet,
     }),
     { setOrganisationUnitGroupSet }
 )(StyleByGroupSet);
