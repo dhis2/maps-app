@@ -1,13 +1,13 @@
 # 
 # Translators:
-# trendspotter, 2020
+# trendspotter, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: trendspotter, 2020\n"
+"Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +79,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr ""
+msgstr "Organizační jednotka"
 
 msgid "Name"
 msgstr "Název"
@@ -107,6 +107,7 @@ msgstr "Typ"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
+"Tabulka dat není podporována, pokud jsou události seskupeny na serveru."
 
 msgid "Add filter"
 msgstr "Přidat filtr"
@@ -335,22 +336,22 @@ msgid "No organisation units are selected."
 msgstr "Nejsou vybrány žádné organizační jednotky."
 
 msgid "Event status"
-msgstr ""
+msgstr "Stav události"
 
 msgid "Aggregation type"
 msgstr "Typ agregace"
 
 msgid "Show no data"
-msgstr ""
+msgstr "Zobrazit žádná data"
 
 msgid "Low radius"
-msgstr ""
+msgstr "Malý poloměr"
 
 msgid "High radius"
-msgstr ""
+msgstr "Velký poloměr"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "Poloměr by měl být mezi {{min}} a {{max}}"
 
 msgid "Indicator group is required"
 msgstr "Je vyžadována skupina indikátorů"
@@ -398,10 +399,11 @@ msgid "Select period when tracked entities were last updated"
 msgstr "Vyberte období, kdy byly sledované entity naposledy aktualizovány"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Program / datum zápisu"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
+"datum, kdy byla trasovaná entita zaregistrována nebo zapsána do programu"
 
 msgid "Program status"
 msgstr "Stav programu"
@@ -428,7 +430,7 @@ msgstr "Zobrazit vztahy sledované entity"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
+msgstr "Zahrnout vztahy, které spojují entity mimo program \"{{program}}\""
 
 msgid "Selection mode"
 msgstr "Režim výběru"
@@ -587,7 +589,7 @@ msgid "Remove layer"
 msgstr "Odstraňte vrstvu"
 
 msgid "Mid"
-msgstr ""
+msgstr "Střední"
 
 msgid "Filters"
 msgstr "Filtry"
@@ -873,37 +875,37 @@ msgid "Bing Aerial Labels"
 msgstr "Bing Aerial Labels"
 
 msgid "All"
-msgstr ""
+msgstr "Vše"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktivní"
 
 msgid "Completed"
-msgstr ""
+msgstr "Dokončeno"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Plán"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Po termínu"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Přeskočeno"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Choropleth"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Bublinová mapa"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Automatická barevná legenda"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Předdefinovaná barevná legenda"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Jednobarevná legenda"
 
 msgid "Equal intervals"
 msgstr "Stejné intervaly"
@@ -960,16 +962,16 @@ msgid "Last 14 days"
 msgstr "Posledních 14 dní"
 
 msgid "Last 30 days"
-msgstr ""
+msgstr "Poledních 30 dní"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "Posledních 60 dní"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "Posledních 90 dní"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "Posledních 180 dní"
 
 msgid "This week"
 msgstr "Tento týden"
@@ -990,13 +992,13 @@ msgid "Weeks this year"
 msgstr "Týdny tohoto roku"
 
 msgid "This bi-week"
-msgstr ""
+msgstr "Těchto 14 dní"
 
 msgid "Last bi-week"
-msgstr ""
+msgstr "Posledních dní "
 
 msgid "Last 4 bi-weeks"
-msgstr ""
+msgstr "4 poslední dvoutýdny"
 
 msgid "This month"
 msgstr "Tento měsíc"
@@ -1068,7 +1070,7 @@ msgid "Last 5 financial years"
 msgstr "Posledních 5 fiskálních roků"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Zrušeno"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1231,7 +1233,7 @@ msgid "No coordinates found"
 msgstr "Nenalezeny žádné souřadnice"
 
 msgid "No data"
-msgstr ""
+msgstr "Nejsou data"
 
 msgid "Tracked entity"
 msgstr "Trasovaná entita"

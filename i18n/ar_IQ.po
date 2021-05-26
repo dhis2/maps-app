@@ -1,13 +1,13 @@
 # 
 # Translators:
-# KRG HIS <antonia.bezenchek@informa.pro>, 2020
+# KRG HIS <antonia.bezenchek@informa.pro>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2020\n"
+"Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2021\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -321,7 +321,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "حالة الحدث"
 
 msgid "Aggregation type"
 msgstr "نوع التجميع"
@@ -853,22 +853,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "الجميع"
 
 msgid "Active"
-msgstr ""
+msgstr "فعال"
 
 msgid "Completed"
-msgstr ""
+msgstr "مكتمل"
 
 msgid "Schedule"
 msgstr ""
 
 msgid "Overdue"
-msgstr ""
+msgstr "متأخر"
 
 msgid "Skipped"
-msgstr ""
+msgstr "تم التخطي"
 
 msgid "Choropleth"
 msgstr ""
@@ -970,13 +970,13 @@ msgid "Weeks this year"
 msgstr "أسابيع السنة الحالية"
 
 msgid "This bi-week"
-msgstr ""
+msgstr "الأسبوعين الحاليين"
 
 msgid "Last bi-week"
-msgstr ""
+msgstr "آخر اسبوعين"
 
 msgid "Last 4 bi-weeks"
-msgstr ""
+msgstr "آخر 4 زوج اسابيع"
 
 msgid "This month"
 msgstr "الشهر الحالي"
@@ -1048,7 +1048,7 @@ msgid "Last 5 financial years"
 msgstr "آخر 5 سنوات مالية"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "تم الإلغاء"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "

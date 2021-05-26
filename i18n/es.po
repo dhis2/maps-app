@@ -2,18 +2,20 @@
 # Translators:
 # Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
-# phil_dhis2, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
-# ericbp <ericbarredap@gmail.com>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
+# phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
+# Marta Vila <marta@dhis2.org>, 2021
+# ericbp <ericbarredap@gmail.com>, 2021
+# Jaime Bosque <jaime.bosque@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021\n"
+"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,7 +87,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr ""
+msgstr "Unidad Organizativa"
 
 msgid "Name"
 msgstr "Nombre"
@@ -327,7 +329,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "Estado del evento"
 
 msgid "Aggregation type"
 msgstr "Tipo de agregación"
@@ -859,22 +861,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 msgid "Completed"
-msgstr ""
+msgstr "Completado"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Programado"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Atrasado"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Omitido"
 
 msgid "Choropleth"
 msgstr ""
@@ -946,7 +948,7 @@ msgid "Last 14 days"
 msgstr "Últimos 14 días"
 
 msgid "Last 30 days"
-msgstr ""
+msgstr "Últimos 30 días"
 
 msgid "Last 60 days"
 msgstr ""
@@ -1054,7 +1056,7 @@ msgid "Last 5 financial years"
 msgstr "Últimos 5 ejercicios financieros"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelar"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1211,7 +1213,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "No hay datos"
 
 msgid "Tracked entity"
 msgstr "Entidad de seguimiento"

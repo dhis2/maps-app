@@ -1,15 +1,15 @@
 # 
 # Translators:
-# phil_dhis2, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
-# Hamza Assada <7amza.it@gmail.com>, 2020
+# phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
+# Hamza Assada <7amza.it@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2020\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +81,7 @@ msgid "Id"
 msgstr "المعرف"
 
 msgid "Org unit"
-msgstr ""
+msgstr "الوحدة التنظيمية"
 
 msgid "Name"
 msgstr "الإسم"
@@ -108,7 +108,7 @@ msgid "Type"
 msgstr "النوع"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
+msgstr "لا يتم دعم جدول البيانات عند تجميع الأحداث على الخادم."
 
 msgid "Add filter"
 msgstr "إضافة عامل تصفية"
@@ -335,22 +335,22 @@ msgid "No organisation units are selected."
 msgstr "لم يتم اختيار أي وحدات تنظيمية"
 
 msgid "Event status"
-msgstr ""
+msgstr "حالة الحدث"
 
 msgid "Aggregation type"
 msgstr "نوع التجميع"
 
 msgid "Show no data"
-msgstr ""
+msgstr "لا تظهر أي بيانات"
 
 msgid "Low radius"
-msgstr ""
+msgstr "نصف قطر منخفض"
 
 msgid "High radius"
-msgstr ""
+msgstr "نصف قطر مرتفع"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "يجب أن يتراوح نصف القطر بين {{min}} و {{max}}"
 
 msgid "Indicator group is required"
 msgstr "مجموعة المؤشر مطلوبة"
@@ -398,10 +398,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "حدد الفترة التي تم فيها آخر تحديث للكيانات المتعقبة"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "تاريخ البرنامج / التسجيل"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr ""
+msgstr "التاريخ الذي تم فيه تسجيل الكيان المتعقب أو ضمه في أحد البرامج"
 
 msgid "Program status"
 msgstr "حالة البرنامج"
@@ -428,7 +428,7 @@ msgstr "عرض علاقات الكيانات المتعقبة"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
-msgstr ""
+msgstr "قم بتضمين العلاقات التي تربط الكيانات خارج برنامج \"{{program}}\""
 
 msgid "Selection mode"
 msgstr "وضح التحديد"
@@ -870,22 +870,22 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "الجميع"
 
 msgid "Active"
-msgstr ""
+msgstr "فعال"
 
 msgid "Completed"
-msgstr ""
+msgstr "المكتملة"
 
 msgid "Schedule"
-msgstr ""
+msgstr "المجدولة زمنياً"
 
 msgid "Overdue"
-msgstr ""
+msgstr "المتأخرة"
 
 msgid "Skipped"
-msgstr ""
+msgstr "التي تم تخطيها"
 
 msgid "Choropleth"
 msgstr ""
@@ -957,16 +957,16 @@ msgid "Last 14 days"
 msgstr "آخر 14 يوم"
 
 msgid "Last 30 days"
-msgstr ""
+msgstr "آخر 30 يوم"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "آخر 60 يومًا"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "آخر 90 يومًا"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "آخر 180 يوم"
 
 msgid "This week"
 msgstr "هذا الأسبوع"
@@ -987,13 +987,13 @@ msgid "Weeks this year"
 msgstr "أسابيع السنة الحالية"
 
 msgid "This bi-week"
-msgstr ""
+msgstr "الأسبوعين الحاليين"
 
 msgid "Last bi-week"
-msgstr ""
+msgstr "آخر اسبوعين"
 
 msgid "Last 4 bi-weeks"
-msgstr ""
+msgstr "آخر 4 ثنائي اسابيع"
 
 msgid "This month"
 msgstr "الشهر الحالي"
@@ -1065,7 +1065,7 @@ msgid "Last 5 financial years"
 msgstr "آخر 5 سنوات مالية"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "تم الإلغاء"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1228,7 +1228,7 @@ msgid "No coordinates found"
 msgstr "لم يتم العثور على إحداثيات"
 
 msgid "No data"
-msgstr ""
+msgstr "لا توجد بيانات"
 
 msgid "Tracked entity"
 msgstr "الكيان المتتبع"
