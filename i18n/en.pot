@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-05-20T15:24:32.855Z\n"
-"PO-Revision-Date: 2021-05-20T15:24:32.855Z\n"
+"POT-Creation-Date: 2021-05-26T10:14:08.081Z\n"
+"PO-Revision-Date: 2021-05-26T10:14:08.081Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -134,28 +134,25 @@ msgstr ""
 msgid "Legend position"
 msgstr ""
 
+msgid "Group Set"
+msgstr ""
+
 msgid "Organisation Units"
 msgstr ""
 
 msgid "Style"
 msgstr ""
 
-msgid "Labels"
-msgstr ""
-
-msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
 msgid "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
+msgid "Labels"
+msgstr ""
+
 msgid "Group set is required"
+msgstr ""
+
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -170,7 +167,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -186,6 +183,9 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
+msgstr ""
+
+msgid "Point radius"
 msgstr ""
 
 msgid "Aggregation method"
@@ -579,13 +579,13 @@ msgstr ""
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "Parent unit"
-msgstr ""
-
 msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
+msgstr ""
+
+msgid "Parent unit"
 msgstr ""
 
 msgid "Loading layer data"
@@ -1283,12 +1283,6 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Selected org units"
 msgstr ""
 
@@ -1311,6 +1305,12 @@ msgid "No data found"
 msgstr ""
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Org units"
+msgstr ""
+
+msgid "No org units found"
 msgstr ""
 
 msgid "Thematic layer"

@@ -5,6 +5,7 @@ export const EVENT_LAYER = 'event';
 export const THEMATIC_LAYER = 'thematic';
 export const FACILITY_LAYER = 'facility';
 export const BOUNDARY_LAYER = 'boundary';
+export const ORG_UNIT_LAYER = 'orgUnit';
 export const EXTERNAL_LAYER = 'external';
 export const EARTH_ENGINE_LAYER = 'earthEngine';
 export const TRACKED_ENTITY_LAYER = 'trackedEntity';
@@ -12,7 +13,7 @@ export const TRACKED_ENTITY_LAYER = 'trackedEntity';
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
     THEMATIC_LAYER,
-    BOUNDARY_LAYER,
+    ORG_UNIT_LAYER,
     EVENT_LAYER,
     EARTH_ENGINE_LAYER,
 ];
@@ -20,7 +21,7 @@ export const DOWNLOADABLE_LAYER_TYPES = [
 export const DATA_TABLE_LAYER_TYPES = [
     FACILITY_LAYER,
     THEMATIC_LAYER,
-    BOUNDARY_LAYER,
+    ORG_UNIT_LAYER,
     EVENT_LAYER,
     EARTH_ENGINE_LAYER,
 ];

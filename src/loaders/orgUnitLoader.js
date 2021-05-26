@@ -9,14 +9,14 @@ const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
 const weights = [2, 1, 0.75, 0.5];
 
 // Returns a promise
-const boundaryLoader = async config => {
+const orgUnitLoader = async config => {
     const { rows, radiusLow } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
-    const layerName = i18n.t('Boundaries');
+    const layerName = i18n.t('Org units');
     const orgUnitLevelNames = await getOrgUnitLevelNames(d2);
 
     const features = await d2.geoFeatures
@@ -63,7 +63,7 @@ const boundaryLoader = async config => {
         data: features,
         name: layerName,
         alerts: !features.length
-            ? [{ warning: true, message: i18n.t('No boundaries found') }]
+            ? [{ warning: true, message: i18n.t('No org units found') }]
             : undefined,
         isLoaded: true,
         isExpanded: true,
@@ -91,4 +91,4 @@ const getOrgUnitLevelNames = async d2 => {
         : {};
 };
 
-export default boundaryLoader;
+export default orgUnitLoader;
