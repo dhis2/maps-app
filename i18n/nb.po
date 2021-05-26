@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Caroline Hesthagen Holen <caroline@devotta.no>, 2020
-# Karoline Tufte Lien <karoline@dhis2.org>, 2020
+# Karoline Tufte Lien <karoline@dhis2.org>, 2021
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2020\n"
+"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,7 +80,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Org unit"
-msgstr ""
+msgstr "Org enhet"
 
 msgid "Name"
 msgstr "Navn"
@@ -107,7 +107,7 @@ msgid "Type"
 msgstr "Type"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
+msgstr "Datatabell støttes ikke når hendelser er gruppert på serveren."
 
 msgid "Add filter"
 msgstr "Legg til filter"
@@ -336,22 +336,22 @@ msgid "No organisation units are selected."
 msgstr "Ingen organisasjonsenheter er valgt"
 
 msgid "Event status"
-msgstr ""
+msgstr "Hendelsesstatus"
 
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"
 
 msgid "Show no data"
-msgstr ""
+msgstr "Vis ingen data"
 
 msgid "Low radius"
-msgstr ""
+msgstr "Lav radius"
 
 msgid "High radius"
-msgstr ""
+msgstr "Høy radius"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "Radius bør være mellom {{min}} og {{max}}"
 
 msgid "Indicator group is required"
 msgstr "Indikatorgruppe er påkrevd"
@@ -399,10 +399,10 @@ msgid "Select period when tracked entities were last updated"
 msgstr "Velg periode da sporede enheter sist ble oppdatert"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Program/Registreringsdato"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
-msgstr ""
+msgstr "datoen en sporet enhet ble registrert eller registrert i et program"
 
 msgid "Program status"
 msgstr "Programstatus"
@@ -432,6 +432,7 @@ msgstr "Vis sporet enhetsrelasjoner"
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
+"Inkluder relasjoner som linker enheter utenfor \"{{program}}\" - programmet"
 
 msgid "Selection mode"
 msgstr "Valgmodus"
@@ -591,7 +592,7 @@ msgid "Remove layer"
 msgstr "Fjern lag"
 
 msgid "Mid"
-msgstr ""
+msgstr "Midt"
 
 msgid "Filters"
 msgstr "Filter"
@@ -877,37 +878,37 @@ msgid "Bing Aerial Labels"
 msgstr "Bing Flyfoto Etiketter"
 
 msgid "All"
-msgstr ""
+msgstr "Alt"
 
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 msgid "Completed"
-msgstr ""
+msgstr "Fullført"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Planlegg"
 
 msgid "Overdue"
-msgstr ""
+msgstr "Forfalt"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Hoppet over"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Koroplet"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Boblekart"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Automatisk fargetegnforklaring"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Forhåndsdefinert fargetegnforklaring"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Ensfarget tegnforklaring"
 
 msgid "Equal intervals"
 msgstr "Like intervaller"
@@ -964,16 +965,16 @@ msgid "Last 14 days"
 msgstr "Siste 14 dager"
 
 msgid "Last 30 days"
-msgstr ""
+msgstr "Siste 30 dager"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "Siste 60 dager"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "Siste 90 dager"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "Siste 180 dager"
 
 msgid "This week"
 msgstr "Denne uken"
@@ -994,13 +995,13 @@ msgid "Weeks this year"
 msgstr "Uker inneværende år"
 
 msgid "This bi-week"
-msgstr ""
+msgstr "Denne touken"
 
 msgid "Last bi-week"
-msgstr ""
+msgstr "Sist touke"
 
 msgid "Last 4 bi-weeks"
-msgstr ""
+msgstr "Siste 4 touker"
 
 msgid "This month"
 msgstr "Denne måneden"
@@ -1072,7 +1073,7 @@ msgid "Last 5 financial years"
 msgstr "Siste 5 regnskapsår"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Kansellert"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1235,7 +1236,7 @@ msgid "No coordinates found"
 msgstr "Ingen koordinater funnet"
 
 msgid "No data"
-msgstr ""
+msgstr "Ingen data"
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"

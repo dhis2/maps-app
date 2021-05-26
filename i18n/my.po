@@ -1,14 +1,15 @@
 # 
 # Translators:
-# phil_dhis2, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
+# phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
+# Aung Kyi Min <AungKyi.Min@savethechildren.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: Aung Kyi Min <AungKyi.Min@savethechildren.org>, 2021\n"
 "Language-Team: Burmese (https://www.transifex.com/hisp-uio/teams/100509/my/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,7 +81,7 @@ msgid "Id"
 msgstr ""
 
 msgid "Org unit"
-msgstr ""
+msgstr "ဖွဲ့စည်းပုံယူနစ်"
 
 msgid "Name"
 msgstr "အမည်"
@@ -854,10 +855,10 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "အားလုံး"
 
 msgid "Active"
-msgstr ""
+msgstr "လုပ်ဆောင်နိုင်သည်"
 
 msgid "Completed"
 msgstr ""
@@ -1206,7 +1207,7 @@ msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "အချက်အလက်မရှိပါ။"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
