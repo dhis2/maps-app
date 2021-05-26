@@ -136,8 +136,8 @@ class OrgUnitDialog extends Component {
                             data-test="orgunitdialog-styletab"
                         >
                             <div className={styles.flexColumn}>
+                                <StyleByGroupSet />
                                 <div className={styles.flexInnerColumnFlow}>
-                                    <StyleByGroupSet />
                                     <Checkbox
                                         label={i18n.t('Labels')}
                                         checked={labels}

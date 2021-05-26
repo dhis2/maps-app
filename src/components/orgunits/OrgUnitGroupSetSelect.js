@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -9,11 +9,25 @@ export const OrgUnitGroupSetSelect = ({
     label = i18n.t('Group set'),
     orgUnitGroupSets,
     value,
+    allowNone,
     onChange,
     loadOrgUnitGroupSets,
     errorText,
     className,
 }) => {
+    const groupSets = useMemo(
+        () => [
+            ...(allowNone ? [{ id: 'none', name: i18n.t('None') }] : []),
+            ...(orgUnitGroupSets || []),
+        ],
+        [orgUnitGroupSets, allowNone]
+    );
+
+    const onGroupSetChange = useCallback(
+        item => onChange(item.id !== 'none' ? item : null),
+        [onChange]
+    );
+
     useEffect(() => {
         if (!orgUnitGroupSets) {
             loadOrgUnitGroupSets();
@@ -24,9 +38,9 @@ export const OrgUnitGroupSetSelect = ({
         <SelectField
             label={label}
             loading={orgUnitGroupSets ? false : true}
-            items={orgUnitGroupSets}
+            items={groupSets}
             value={value ? value.id : null}
-            onChange={onChange}
+            onChange={onGroupSetChange}
             errorText={!value && errorText ? errorText : null}
             className={className}
             data-test="orgunitgroupsetselect"
@@ -37,6 +51,7 @@ export const OrgUnitGroupSetSelect = ({
 OrgUnitGroupSetSelect.propTypes = {
     label: PropTypes.string,
     value: PropTypes.object,
+    allowNone: PropTypes.bool,
     orgUnitGroupSets: PropTypes.array,
     loadOrgUnitGroupSets: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,

@@ -15,6 +15,7 @@ export const StyleByGroupSet = ({
             <OrgUnitGroupSetSelect
                 label={i18n.t('Style by group set')}
                 value={organisationUnitGroupSet}
+                allowNone={true}
                 onChange={setOrganisationUnitGroupSet}
                 className={styles.select}
             />
