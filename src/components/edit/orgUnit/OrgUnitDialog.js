@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField, Checkbox, FontStyle } from '../core';
-import OrgUnitTree from '../orgunits/OrgUnitTree';
-import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
-import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
-import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import styles from './styles/LayerDialog.module.css';
+import { Tab, Tabs, NumberField, Checkbox, FontStyle } from '../../core';
+import OrgUnitTree from '../../orgunits/OrgUnitTree';
+import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
+import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
+import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import StyleByGroupSet from './StyleByGroupSet';
+
+import styles from '../styles/LayerDialog.module.css';
 
 import {
     setOrgUnitLevels,
@@ -18,7 +20,7 @@ import {
     setLabelFontSize,
     setLabelFontStyle,
     setRadiusLow,
-} from '../../actions/layerEdit';
+} from '../../../actions/layerEdit';
 
 import {
     getOrgUnitsFromRows,
@@ -26,7 +28,7 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitGroupsFromRows,
     getUserOrgUnitsFromRows,
-} from '../../util/analytics';
+} from '../../../util/analytics';
 
 class OrgUnitDialog extends Component {
     static propTypes = {
@@ -135,6 +137,7 @@ class OrgUnitDialog extends Component {
                         >
                             <div className={styles.flexColumn}>
                                 <div className={styles.flexInnerColumnFlow}>
+                                    <StyleByGroupSet />
                                     <Checkbox
                                         label={i18n.t('Labels')}
                                         checked={labels}
