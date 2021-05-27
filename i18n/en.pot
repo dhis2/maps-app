@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-05-26T12:46:20.570Z\n"
-"PO-Revision-Date: 2021-05-26T12:46:20.570Z\n"
+"POT-Creation-Date: 2021-05-27T11:34:46.462Z\n"
+"PO-Revision-Date: 2021-05-27T11:34:46.462Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -284,6 +284,9 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Event status"
+msgstr ""
+
+msgid "Failed to load organisation unit groups."
 msgstr ""
 
 msgid "Point radius"
@@ -1119,6 +1122,9 @@ msgid "Equal intervals"
 msgstr ""
 
 msgid "Equal counts"
+msgstr ""
+
+msgid "Symbol"
 msgstr ""
 
 msgid "Daily"

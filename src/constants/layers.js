@@ -120,6 +120,17 @@ export const getClassificationTypes = () => [
     },
 ];
 
+export const getGroupSetStyleTypes = () => [
+    {
+        id: 'color',
+        name: i18n.t('Color'),
+    },
+    {
+        id: 'symbol',
+        name: i18n.t('Symbol'),
+    },
+];
+
 /* LABEL STYLES */
 export const LABEL_FONT_SIZE = '11px';
 export const LABEL_FONT_STYLE = 'normal';
