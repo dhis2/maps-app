@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/dhis2/maps-app/compare/v1.7.6...v1.8.0) (2021-05-28)
+
+
+### Features
+
+* add last 10 years relative period ([#1722](https://github.com/dhis2/maps-app/issues/1722)) ([7775f58](https://github.com/dhis2/maps-app/commit/7775f58e44bf60e055ab426419b33cb54319b6a3))
+
 ## [1.7.6](https://github.com/dhis2/maps-app/compare/v1.7.5...v1.7.6) (2021-05-24)
 
 
