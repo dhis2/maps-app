@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-20T15:24:32.855Z\n"
+"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rahman Monjur <simran.monjur@gmail.com>, 2021\n"
 "Language-Team: Bengali (https://www.transifex.com/hisp-uio/teams/100509/bn/)\n"
@@ -1277,6 +1277,9 @@ msgid "Last year"
 msgstr ""
 
 msgid "Last 5 years"
+msgstr ""
+
+msgid "Last 10 years"
 msgstr ""
 
 msgid "This financial year"

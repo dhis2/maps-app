@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-20T15:24:32.855Z\n"
+"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -1300,6 +1300,9 @@ msgstr "Poslední rok"
 
 msgid "Last 5 years"
 msgstr "Posledních 5 let"
+
+msgid "Last 10 years"
+msgstr ""
 
 msgid "This financial year"
 msgstr "Tento fiskální rok"
