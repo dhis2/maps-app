@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-05-20T15:24:32.855Z\n"
-"PO-Revision-Date: 2021-05-20T15:24:32.855Z\n"
+"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"PO-Revision-Date: 2021-05-28T09:10:51.965Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1263,6 +1263,9 @@ msgid "Last year"
 msgstr ""
 
 msgid "Last 5 years"
+msgstr ""
+
+msgid "Last 10 years"
 msgstr ""
 
 msgid "This financial year"
