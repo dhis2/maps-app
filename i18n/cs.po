@@ -1302,7 +1302,7 @@ msgid "Last 5 years"
 msgstr "Posledních 5 let"
 
 msgid "Last 10 years"
-msgstr ""
+msgstr "Posledních 10 let"
 
 msgid "This financial year"
 msgstr "Tento fiskální rok"

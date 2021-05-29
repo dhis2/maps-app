@@ -1,16 +1,16 @@
 # 
 # Translators:
-# 晓东 林 <13981924470@126.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # easylin <lin_xd@126.com>, 2021
 # phil_dhis2, 2021
+# 晓东 林 <13981924470@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1282,7 +1282,7 @@ msgid "Last 5 years"
 msgstr "最近5年"
 
 msgid "Last 10 years"
-msgstr ""
+msgstr "最近10年"
 
 msgid "This financial year"
 msgstr "本财年"
