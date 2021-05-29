@@ -1279,7 +1279,7 @@ msgid "Last 5 years"
 msgstr "5 سال گذشته"
 
 msgid "Last 10 years"
-msgstr ""
+msgstr "10 سال آخیر"
 
 msgid "This financial year"
 msgstr "سال مالی جاری"

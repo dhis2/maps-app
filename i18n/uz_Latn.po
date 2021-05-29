@@ -1312,7 +1312,7 @@ msgid "Last 5 years"
 msgstr "Охирги 5 йил"
 
 msgid "Last 10 years"
-msgstr ""
+msgstr "Oxirgi 10 yil"
 
 msgid "This financial year"
 msgstr "Ушбу молиявий йил"
