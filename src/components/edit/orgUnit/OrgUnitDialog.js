@@ -7,7 +7,7 @@ import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
-import StyleByGroupSet from './StyleByGroupSet';
+import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
 
 import styles from '../styles/LayerDialog.module.css';
 

@@ -270,6 +270,19 @@ const layerEdit = (state = null, action) => {
 
             return newState;
 
+        // Set group set style
+        case types.LAYER_EDIT_STYLE_DATA_ITEM_GROUPS_SET:
+            return {
+                ...state,
+                styleDataItem: {
+                    ...state.styleDataItem,
+                    groupSet: {
+                        ...state.styleDataItem.groupSet,
+                        groups: action.groups,
+                    },
+                },
+            };
+
         case types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET:
             newState = {
                 ...state,

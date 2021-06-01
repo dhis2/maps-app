@@ -8,22 +8,51 @@ import { getDisplayProperty, getDisplayPropertyUrl } from '../util/helpers';
 const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
 const weights = [2, 1, 0.75, 0.5];
 
+// TODO: Move to util and share with facility layuer
+const parseGroupSet = groupSet =>
+    groupSet.organisationUnitGroups
+        .toArray()
+        .reduce((style, { id, color }, index) => {
+            style[id] = color || colors[index]; // TODO
+            return style;
+        }, {});
+
 // Returns a promise
 const orgUnitLoader = async config => {
-    const { rows, radiusLow } = config;
+    const { rows, organisationUnitGroupSet, radiusLow } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
+    const includeGroupSets = !!organisationUnitGroupSet;
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const layerName = i18n.t('Org units');
     const orgUnitLevelNames = await getOrgUnitLevelNames(d2);
 
-    const features = await d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty)
-        .getAll()
-        .then(toGeoJson);
+    const requests = [
+        d2.geoFeatures
+            .byOrgUnit(orgUnitParams)
+            .displayProperty(displayProperty)
+            .getAll({ includeGroupSets })
+            .then(toGeoJson),
+    ];
+
+    if (organisationUnitGroupSet) {
+        // console.log('includeGroupSets', organisationUnitGroupSet.id);
+        requests.push(
+            d2.models.organisationUnitGroupSet
+                .get(organisationUnitGroupSet.id, {
+                    fields: `organisationUnitGroups[id,${displayProperty}~rename(name),color,symbol]`,
+                })
+                .then(parseGroupSet)
+        );
+    }
+
+    const [features, groupSet] = await Promise.all(requests);
+
+    if (groupSet) {
+        // console.log('groupSet', groupSet);
+    }
 
     const levels = uniqBy(f => f.properties.level, features)
         .map(f => f.properties.level)

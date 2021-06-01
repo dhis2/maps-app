@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getInstance as getD2 } from 'd2';
-import { ColorPicker } from '../../core';
+import { ColorPicker } from '../core';
 import styles from './styles/GroupStyle.module.css';
 
-export const GroupStyle = ({ /* id,*/ name, color, symbol, styleType }) => {
+export const GroupStyle = ({ name, color, symbol, styleType, onChange }) => {
     const [imagePath, setImagePath] = useState();
     const useColor = styleType !== 'symbol';
-    // console.log('GroupStyle', imagePath, styleType, id, name, color, symbol);
 
     useEffect(() => {
         getD2().then(d2 =>
@@ -22,7 +21,7 @@ export const GroupStyle = ({ /* id,*/ name, color, symbol, styleType }) => {
             {useColor ? (
                 <ColorPicker
                     color={color}
-                    onChange={() => {}}
+                    onChange={onChange}
                     className={styles.color}
                 />
             ) : (
@@ -47,6 +46,7 @@ GroupStyle.propTypes = {
     styleType: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
     symbol: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
 };
 
 export default GroupStyle;

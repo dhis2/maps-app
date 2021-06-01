@@ -87,6 +87,12 @@ export const setBooleanStyle = (value, color) => ({
     color,
 });
 
+// Style by group set (org unit and facility layer)
+export const setGroupSetStyle = groups => ({
+    type: types.LAYER_EDIT_STYLE_DATA_ITEM_GROUPS_SET,
+    groups,
+});
+
 // Set thematic map type (choropleth, bubble map)
 export const setThematicMapType = type => ({
     type: types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET,

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-05-27T11:34:46.462Z\n"
-"PO-Revision-Date: 2021-05-27T11:34:46.462Z\n"
+"POT-Creation-Date: 2021-06-01T08:31:57.721Z\n"
+"PO-Revision-Date: 2021-06-01T08:31:57.721Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -286,13 +286,7 @@ msgstr ""
 msgid "Event status"
 msgstr ""
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Point radius"
-msgstr ""
-
-msgid "Style by group set"
 msgstr ""
 
 msgid "Buffer"
@@ -464,6 +458,12 @@ msgid "Date"
 msgstr ""
 
 msgid "Remove filter"
+msgstr ""
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
