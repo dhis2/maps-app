@@ -1,3 +1,11 @@
+## [1.8.3](https://github.com/dhis2/maps-app/compare/v1.8.2...v1.8.3) (2021-06-02)
+
+
+### Bug Fixes
+
+* cleanup ([a1998be](https://github.com/dhis2/maps-app/commit/a1998bea611b8f7f9d6781bf327f66ca09496d0e))
+* enable cypress tests against live instance ([92fe334](https://github.com/dhis2/maps-app/commit/92fe334d1d24908cffc560b4c3e56494be5146ce))
+
 ## [1.8.2](https://github.com/dhis2/maps-app/compare/v1.8.1...v1.8.2) (2021-05-29)
 
 
