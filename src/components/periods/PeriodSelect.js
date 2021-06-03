@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import {
     Button,
@@ -9,15 +8,13 @@ import {
     IconChevronRight24,
 } from '@dhis2/ui';
 import cx from 'classnames';
-import { filterFuturePeriods } from 'd2/period/helpers';
 import { SelectField } from '../core';
-import { createPeriods } from '../../util/periods';
+import { createPeriods, filterFuturePeriods } from '../../util/periods';
 import { getYear } from '../../util/time';
 import styles from './styles/PeriodSelect.module.css';
 
 class PeriodSelect extends Component {
     static propTypes = {
-        locale: PropTypes.string,
         periodType: PropTypes.string,
         period: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -106,12 +103,12 @@ class PeriodSelect extends Component {
     }
 
     setPeriods() {
-        const { periodType, period, locale } = this.props;
+        const { periodType, period } = this.props;
         const year = this.state.year || getYear(period && period.startDate);
         let periods;
 
         if (periodType) {
-            periods = createPeriods(locale, periodType, year);
+            periods = createPeriods(periodType, year);
         } else if (period) {
             periods = [period]; // If period is loaded in favorite
         }
@@ -128,16 +125,14 @@ class PeriodSelect extends Component {
     };
 
     changeYear = change => {
-        const { locale, periodType } = this.props;
+        const { periodType } = this.props;
         const year = this.state.year + change;
 
         this.setState({
             year,
-            periods: createPeriods(locale, periodType, year),
+            periods: createPeriods(periodType, year),
         });
     };
 }
 
-export default connect(({ settings }) => ({
-    locale: settings.user.keyUiLocale,
-}))(PeriodSelect);
+export default PeriodSelect;
