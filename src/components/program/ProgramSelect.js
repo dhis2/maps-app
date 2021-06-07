@@ -64,7 +64,7 @@ export class ProgramSelect extends Component {
                 onChange={this.onChange}
                 className={className}
                 errorText={!program && errorText ? errorText : null}
-                data-test="programselect"
+                dataTest="programselect"
             />
         );
     }

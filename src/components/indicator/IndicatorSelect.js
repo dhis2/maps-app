@@ -56,7 +56,7 @@ export class IndicatorSelect extends Component {
                 onChange={dataItem => onChange(dataItem, 'indicator')}
                 className={className}
                 errorText={!indicator && errorText ? errorText : null}
-                data-test="indicatorselect"
+                dataTest="indicatorselect"
             />
         );
     }
