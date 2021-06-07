@@ -1,4 +1,4 @@
-import { createPeriodGeneratorsForLocale } from 'd2/period/generators';
+import { getFixedPeriodsOptionsById as getPeriodById } from '@dhis2/analytics';
 import { calendar } from 'd3-scale/src/time';
 import { timeFormat } from 'd3-time-format';
 import {
@@ -12,34 +12,19 @@ import {
     timeMillisecond,
 } from 'd3-time';
 
-export const createPeriods = (
-    locale,
-    periodType,
-    year,
-    startPeriod,
-    endPeriod
-) => {
-    const localePeriodGenerator = createPeriodGeneratorsForLocale(locale);
+const getYearOffsetFromNow = year => year - new Date(Date.now()).getFullYear();
 
-    const periodGenerator =
-        localePeriodGenerator[`generate${periodType}PeriodsForYear`] ||
-        localePeriodGenerator[`generate${periodType}PeriodsUpToYear`];
+export const filterFuturePeriods = periods => {
+    const now = new Date(Date.now());
+    return periods.filter(({ startDate }) => new Date(startDate) < now);
+};
 
-    if (!periodGenerator) {
-        return null;
-    }
+export const createPeriods = (periodType, year) => {
+    const period = getPeriodById(periodType);
+    const offset = getYearOffsetFromNow(year);
+    const reversePeriods = true;
 
-    let periods = periodGenerator(year).reverse();
-
-    if (startPeriod) {
-        periods = periods.filter(p => p.id >= startPeriod);
-    }
-
-    if (endPeriod) {
-        periods = periods.filter(p => p.id <= endPeriod);
-    }
-
-    return periods;
+    return period ? period.getPeriods({ offset, reversePeriods }) : null;
 };
 
 // Changed from default time scale to have weeks starting on monday
