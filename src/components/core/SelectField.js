@@ -70,12 +70,7 @@ export const SelectField = props => {
             >
                 {items &&
                     items.map(({ id, name }) => (
-                        <Option
-                            key={id}
-                            value={String(id)}
-                            label={name}
-                            dataTest="selectfield-menuitem"
-                        />
+                        <Option key={id} value={String(id)} label={name} />
                     ))}
             </Select>
         </div>

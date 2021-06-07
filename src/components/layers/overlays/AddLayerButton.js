@@ -13,7 +13,7 @@ const AddLayerButton = () => {
     return (
         <Fragment>
             <div className={styles.addLayerBtn} ref={buttonRef}>
-                <MenuButton onClick={toggleDialog} dataTest="addlayerbutton">
+                <MenuButton onClick={toggleDialog}>
                     <span className={styles.btnContent}>
                         <IconAddCircle24 />
                         {i18n.t('Add layer')}
