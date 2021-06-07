@@ -36,7 +36,8 @@ context('Thematic Layers', () => {
 
         // TODO: use visual snapshot testing to check the rendering of the map
 
-        Layer.validateCard('VCCT post-test counselling rate', [
+        Layer.validateCardTitle('VCCT post-test counselling rate');
+        Layer.validateCardItems([
             '70.2 - 76.72 (1)',
             '76.72 - 83.24 (1)',
             '83.24 - 89.76 (2)',

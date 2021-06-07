@@ -7,4 +7,19 @@ export class EventLayer extends Layer {
 
         return this;
     }
+
+    selectStage(stage) {
+        cy.get('[data-test="programstageselect"]').click();
+        cy.contains(stage).click();
+
+        return this;
+    }
+
+    validateStage(stage) {
+        cy.get('[data-test="programstageselect"]')
+            .contains(stage)
+            .should('be.visible');
+
+        return this;
+    }
 }

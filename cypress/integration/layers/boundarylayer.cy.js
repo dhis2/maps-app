@@ -24,6 +24,7 @@ context('Boundary Layers', () => {
 
         // TODO: use visual snapshot testing to check the rendering of the map
 
-        Layer.validateCard('Boundaries', ['District']);
+        Layer.validateCardTitle('Boundaries');
+        Layer.validateCardItems(['District']);
     });
 });

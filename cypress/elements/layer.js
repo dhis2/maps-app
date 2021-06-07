@@ -31,16 +31,22 @@ export class Layer {
         }
     }
 
-    validateCard(title, items) {
+    validateCardTitle(title) {
         cy.get('[data-test="layercard"]')
             .contains(title)
             .should('be.visible');
 
+        return this;
+    }
+
+    validateCardItems(items) {
         items.forEach(item => {
             cy.get('[data-test="layercard"]')
                 .find('[data-test="layerlegend-item"]')
                 .contains(item)
                 .should('be.visible');
         });
+
+        return this;
     }
 }

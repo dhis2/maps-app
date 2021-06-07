@@ -36,12 +36,7 @@ context('Facility Layers', () => {
 
         // TODO: use visual snapshot testing to check the rendering of the map
 
-        Layer.validateCard('Facilities', [
-            'Hospital',
-            'Clinic',
-            'CHP',
-            'CHC',
-            'MCHP',
-        ]);
+        Layer.validateCardTitle('Facilities');
+        Layer.validateCardItems(['Hospital', 'Clinic', 'CHP', 'CHC', 'MCHP']);
     });
 });

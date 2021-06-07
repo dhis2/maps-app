@@ -1,8 +1,9 @@
 import { EventLayer } from '../../elements/event_layer';
+import { EXTENDED_TIMEOUT } from '../../support/extendedTimeout';
 
 context('Event Layers', () => {
     beforeEach(() => {
-        cy.visit('/');
+        cy.visit('/', EXTENDED_TIMEOUT);
     });
 
     const Layer = new EventLayer();
@@ -18,10 +19,12 @@ context('Event Layers', () => {
     it('adds an event layer', () => {
         Layer.openDialog('Events')
             .selectProgram('Inpatient morbidity and mortality')
+            .validateStage('Inpatient morbidity and mortality')
             .addToMap();
 
         Layer.validateDialogClosed(true);
 
-        Layer.validateCard('Inpatient morbidity and mortality', ['Event']);
+        Layer.validateCardTitle('Inpatient morbidity and mortality');
+        Layer.validateCardItems(['Event']);
     });
 });
