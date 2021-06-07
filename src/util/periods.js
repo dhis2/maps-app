@@ -20,7 +20,7 @@ export const filterFuturePeriods = periods => {
 };
 
 export const createPeriods = (periodType, year) => {
-    const period = getPeriodById(periodType.toUpperCase()); // TODO
+    const period = getPeriodById(periodType);
     const offset = getYearOffsetFromNow(year);
     const reversePeriods = true;
 
