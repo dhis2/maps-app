@@ -42,7 +42,7 @@ export class OrgUnitGroupSetSelect extends Component {
                 onChange={onChange}
                 errorText={!value && errorText ? errorText : null}
                 className={className}
-                data-test="orgunitgroupsetselect"
+                dataTest="orgunitgroupsetselect"
             />
         );
     }
