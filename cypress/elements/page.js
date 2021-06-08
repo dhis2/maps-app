@@ -25,6 +25,10 @@ export class Page {
         //         createDiffImage: true,
         //     },
         // });
-        cy.get('canvas').matchImageSnapshot();
+        cy.get('canvas').matchImageSnapshot({
+            failureThreshold: 0.1, // threshold for entire image
+            // failureThresholdType: 'percent', // percent of image or number of pixels
+            // customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
+        });
     }
 }
