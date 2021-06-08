@@ -5,7 +5,7 @@ import styles from './styles/MapLoadingMask.module.css';
 const MapLoadingMask = () => (
     <ComponentCover translucent className={styles.cover}>
         <CenteredContent>
-            <CircularLoader />
+            <CircularLoader dataTest="map-loading-indicator" />
         </CenteredContent>
     </ComponentCover>
 );
