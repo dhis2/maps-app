@@ -23,7 +23,6 @@ export class Page {
         cy.get('canvas').toMatchImageSnapshot({
             imageConfig: {
                 createDiffImage: true,
-                threshold: 0.005,
             },
         });
     }
