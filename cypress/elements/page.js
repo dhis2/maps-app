@@ -10,7 +10,7 @@ export class Page {
             .contains('Open')
             .click();
 
-        cy.get(' input[type="search"]').type(name);
+        cy.get('input[type="search"]').type(name);
 
         cy.contains(name, EXTENDED_TIMEOUT).click();
 
