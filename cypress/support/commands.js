@@ -1,3 +1,16 @@
+/**
+ * This command will periodically check window for loaded resources.
+ * The check will occur every 2 seconds.
+ * When the number of loaded resources hasn't changed after 3 checks,
+ * then resources loading is considered complete.
+ *
+ * A list of resources of interest can be supplied. This is an array of objects:
+ * [{name: 'resourcename', number: integer}]
+ *
+ * Credit to https://www.artmann.co/articles/waiting-for-network-resources-in-cypress
+ * and https://github.com/cypress-io/cypress/issues/1773#issuecomment-813812612
+ */
+
 Cypress.Commands.add('waitForResources', function(resources = []) {
     const globalTimeout = 20000;
     const resourceCheckInterval = 2000;
