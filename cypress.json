@@ -2,5 +2,6 @@
     "baseUrl": "http://localhost:8082",
     "projectId": "r5jduj",
     "testFiles": "**/*.cy.js",
-    "video": true
+    "video": true,
+    "screenshotOnRunFailure": false
 }
