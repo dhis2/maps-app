@@ -20,10 +20,11 @@ export class Page {
     validateMapMatchesSnapshot() {
         cy.waitForResources();
         cy.get('[data-test="map-loading-indicator"]').should('not.exist');
-        cy.get('canvas').toMatchImageSnapshot({
-            imageConfig: {
-                createDiffImage: true,
-            },
-        });
+        // cy.get('canvas').toMatchImageSnapshot({
+        //     imageConfig: {
+        //         createDiffImage: true,
+        //     },
+        // });
+        cy.get('canvas').matchImageSnapshot();
     }
 }

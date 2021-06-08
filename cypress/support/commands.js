@@ -1,3 +1,12 @@
+import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
+
+addMatchImageSnapshotCommand({
+    failureThreshold: 0.0,
+    failureThresholdType: 'percent',
+    customDiffConfig: { threshold: 0.0 },
+    capture: 'viewport',
+});
+
 /**
  * This command will periodically check window for loaded resources.
  * The check will occur every 2 seconds.
@@ -60,4 +69,12 @@ Cypress.Commands.add('waitForResources', function(resources = []) {
             clearTimeout(timeout);
         }, globalTimeout);
     });
+});
+
+Cypress.Commands.add('setResolution', size => {
+    if (Cypress._.isArray(size)) {
+        cy.viewport(size[0], size[1]);
+    } else {
+        cy.viewport(size);
+    }
 });
