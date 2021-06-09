@@ -44,6 +44,8 @@ import {
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
+
+import { isPeriodAvailable } from '../../../util/periods';
 import { getStartEndDateError } from '../../../util/time';
 import { cssColor } from '../../../util/colors';
 
@@ -58,6 +60,7 @@ export class EventDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         filters: PropTypes.array,
+        hiddenPeriods: PropTypes.array,
         legendSet: PropTypes.object,
         method: PropTypes.number,
         onLayerValidation: PropTypes.func.isRequired,
@@ -101,6 +104,7 @@ export class EventDialog extends Component {
             rows,
             filters,
             defaultPeriod,
+            hiddenPeriods,
             startDate,
             endDate,
             setOrgUnitRoot,
@@ -116,7 +120,13 @@ export class EventDialog extends Component {
         }
 
         // Set default period from system settings
-        if (!period && !startDate && !endDate && defaultPeriod) {
+        if (
+            !period &&
+            !startDate &&
+            !endDate &&
+            defaultPeriod &&
+            isPeriodAvailable(defaultPeriod, hiddenPeriods)
+        ) {
             setPeriod({
                 id: defaultPeriod,
             });
@@ -142,6 +152,7 @@ export class EventDialog extends Component {
             eventPointColor,
             eventPointRadius,
             filters = [],
+            hiddenPeriods,
             program,
             programStage,
             rows = [],
@@ -232,6 +243,7 @@ export class EventDialog extends Component {
                             <RelativePeriodSelect
                                 period={period}
                                 startEndDates={true}
+                                hiddenPeriods={hiddenPeriods}
                                 onChange={setPeriod}
                                 className={styles.select}
                             />
@@ -436,7 +448,9 @@ export class EventDialog extends Component {
 }
 
 export default connect(
-    null,
+    ({ settings }) => ({
+        hiddenPeriods: settings.hiddenPeriods,
+    }),
     {
         setProgram,
         setProgramStage,

@@ -32,48 +32,30 @@ export const periodGroups = [
     FINANCIAL,
 ];
 
-export const TODAY = 'TODAY';
-export const YESTERDAY = 'YESTERDAY';
-export const LAST_3_DAYS = 'LAST_3_DAYS';
-export const LAST_7_DAYS = 'LAST_7_DAYS';
-export const LAST_14_DAYS = 'LAST_14_DAYS';
-export const LAST_30_DAYS = 'LAST_30_DAYS';
-export const LAST_60_DAYS = 'LAST_60_DAYS';
-export const LAST_90_DAYS = 'LAST_90_DAYS';
-export const LAST_180_DAYS = 'LAST_180_DAYS';
-export const THIS_WEEK = 'THIS_WEEK';
-export const LAST_WEEK = 'LAST_WEEK';
-export const LAST_4_WEEKS = 'LAST_4_WEEKS';
-export const LAST_12_WEEKS = 'LAST_12_WEEKS';
-export const LAST_52_WEEKS = 'LAST_52_WEEKS';
-export const WEEKS_THIS_YEAR = 'WEEKS_THIS_YEAR';
-export const THIS_BIWEEK = 'THIS_BIWEEK';
-export const LAST_BIWEEK = 'LAST_BIWEEK';
-export const LAST_4_BIWEEKS = 'LAST_4_BIWEEKS';
-export const THIS_MONTH = 'THIS_MONTH';
-export const LAST_MONTH = 'LAST_MONTH';
-export const LAST_3_MONTHS = 'LAST_3_MONTHS';
-export const LAST_6_MONTHS = 'LAST_6_MONTHS';
-export const LAST_12_MONTHS = 'LAST_12_MONTHS';
-export const MONTHS_THIS_YEAR = 'MONTHS_THIS_YEAR';
-export const THIS_BIMONTH = 'THIS_BIMONTH';
-export const LAST_BIMONTH = 'LAST_BIMONTH';
-export const LAST_6_BIMONTHS = 'LAST_6_BIMONTHS';
-export const BIMONTHS_THIS_YEAR = 'BIMONTHS_THIS_YEAR';
-export const THIS_QUARTER = 'THIS_QUARTER';
-export const LAST_QUARTER = 'LAST_QUARTER';
-export const LAST_4_QUARTERS = 'LAST_4_QUARTERS';
-export const QUARTERS_THIS_YEAR = 'QUARTERS_THIS_YEAR';
-export const THIS_SIX_MONTH = 'THIS_SIX_MONTH';
-export const LAST_SIX_MONTH = 'LAST_SIX_MONTH';
-export const LAST_2_SIXMONTHS = 'LAST_2_SIXMONTHS';
-export const THIS_YEAR = 'THIS_YEAR';
-export const LAST_YEAR = 'LAST_YEAR';
-export const LAST_5_YEARS = 'LAST_5_YEARS';
-export const LAST_10_YEARS = 'LAST_10_YEARS';
-export const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR';
-export const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR';
-export const LAST_5_FINANCIAL_YEARS = 'LAST_5_FINANCIAL_YEARS';
+// TODO: import from @dhis2/analytics (needs to be defined)
+const TODAY = 'TODAY';
+const YESTERDAY = 'YESTERDAY';
+const LAST_14_DAYS = 'LAST_14_DAYS';
+const LAST_30_DAYS = 'LAST_30_DAYS';
+const LAST_60_DAYS = 'LAST_60_DAYS';
+const LAST_90_DAYS = 'LAST_90_DAYS';
+const LAST_180_DAYS = 'LAST_180_DAYS';
+const THIS_WEEK = 'THIS_WEEK';
+const LAST_WEEK = 'LAST_WEEK';
+const LAST_52_WEEKS = 'LAST_52_WEEKS';
+const WEEKS_THIS_YEAR = 'WEEKS_THIS_YEAR';
+const THIS_BIWEEK = 'THIS_BIWEEK';
+const LAST_BIWEEK = 'LAST_BIWEEK';
+const THIS_MONTH = 'THIS_MONTH';
+const LAST_MONTH = 'LAST_MONTH';
+const THIS_BIMONTH = 'THIS_BIMONTH';
+const LAST_BIMONTH = 'LAST_BIMONTH';
+const THIS_QUARTER = 'THIS_QUARTER';
+const LAST_QUARTER = 'LAST_QUARTER';
+const THIS_YEAR = 'THIS_YEAR';
+const LAST_YEAR = 'LAST_YEAR';
+const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR';
+const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR';
 
 export const periodTypes = () => [
     {

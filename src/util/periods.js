@@ -35,6 +35,9 @@ export const getRelativePeriods = (hiddenPeriods = []) =>
         .map(id => getRelativePeriodsOptionsById(id).getPeriods())
         .flat();
 
+export const isPeriodAvailable = (id, hiddenPeriods) =>
+    !!getRelativePeriods(hiddenPeriods).find(p => p.id === id);
+
 // All period names
 export const getPeriodNames = () => ({
     ...getPeriodTypes().reduce((obj, { id, name }) => {
@@ -46,9 +49,6 @@ export const getPeriodNames = () => ({
         return obj;
     }, {}),
 });
-
-export const hidePeriods = (periods, hidden = []) =>
-    periods.filter(({ group }) => !hidden.includes(group));
 
 export const filterFuturePeriods = periods => {
     const now = new Date(Date.now());

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
 import { getPeriodTypes, getRelativePeriods } from '../../util/periods';
@@ -56,6 +55,4 @@ class PeriodTypeSelect extends Component {
     }
 }
 
-export default connect(({ settings }) => ({
-    hiddenPeriods: settings.hiddenPeriods,
-}))(PeriodTypeSelect);
+export default PeriodTypeSelect;
