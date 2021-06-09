@@ -1,4 +1,7 @@
-import { getFixedPeriodsOptionsById as getPeriodById } from '@dhis2/analytics';
+import {
+    getFixedPeriodsOptionsById,
+    /* getRelativePeriodsOptionsById, */
+} from '@dhis2/analytics';
 import { calendar } from 'd3-scale/src/time';
 import { timeFormat } from 'd3-time-format';
 import {
@@ -19,8 +22,8 @@ export const filterFuturePeriods = periods => {
     return periods.filter(({ startDate }) => new Date(startDate) < now);
 };
 
-export const createPeriods = (periodType, year) => {
-    const period = getPeriodById(periodType);
+export const getFixedPeriods = (periodType, year) => {
+    const period = getFixedPeriodsOptionsById(periodType);
     const offset = getYearOffsetFromNow(year);
     const reversePeriods = true;
 
@@ -28,7 +31,7 @@ export const createPeriods = (periodType, year) => {
 };
 
 export const hidePeriods = (periods, hidden = []) =>
-    periods.filter(({ type }) => !hidden.includes(type));
+    periods.filter(({ group }) => !hidden.includes(group));
 
 // Changed from default time scale to have weeks starting on monday
 // https://github.com/d3/d3-scale/blob/master/src/time.js#L133
