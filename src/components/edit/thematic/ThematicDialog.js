@@ -442,14 +442,14 @@ export class ThematicDialog extends Component {
                                 value={periodType}
                                 period={period}
                                 onChange={setPeriodType}
-                                className={styles.select}
+                                className={styles.periodSelect}
                                 errorText={periodTypeError}
                             />
                             {periodType === 'relativePeriods' && (
                                 <RelativePeriodSelect
                                     period={period}
                                     onChange={setPeriod}
-                                    className={styles.select}
+                                    className={styles.periodSelect}
                                     errorText={periodError}
                                 />
                             )}
@@ -461,7 +461,7 @@ export class ThematicDialog extends Component {
                                     periodType={periodType}
                                     period={period}
                                     onChange={setPeriod}
-                                    className={styles.select}
+                                    className={styles.periodSelect}
                                     errorText={periodError}
                                 />
                             )}
@@ -469,6 +469,7 @@ export class ThematicDialog extends Component {
                                 <StartEndDates
                                     startDate={startDate}
                                     endDate={endDate}
+                                    className={styles.periodSelect}
                                     errorText={periodError}
                                 />
                             )}
