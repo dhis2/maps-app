@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
-import { getPeriodTypes, getRelativePeriods } from '../../constants/periods';
-import { hidePeriods } from '../../util/periods';
+import { getPeriodTypes, getRelativePeriods } from '../../util/periods';
 
 class PeriodTypeSelect extends Component {
     static propTypes = {
@@ -46,7 +45,7 @@ class PeriodTypeSelect extends Component {
         return (
             <SelectField
                 label={i18n.t('Period type')}
-                items={hidePeriods(getPeriodTypes(), hiddenPeriods)}
+                items={getPeriodTypes(hiddenPeriods)}
                 value={value}
                 onChange={onChange}
                 className={className}

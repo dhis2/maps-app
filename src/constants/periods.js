@@ -20,8 +20,7 @@ import {
     FYAPR,
 } from '@dhis2/analytics';
 
-/*
-const periodGroups = [
+export const periodGroups = [
     DAILY,
     WEEKLY,
     BIWEEKLY,
@@ -32,7 +31,6 @@ const periodGroups = [
     YEARLY,
     FINANCIAL,
 ];
-*/
 
 export const TODAY = 'TODAY';
 export const YESTERDAY = 'YESTERDAY';
@@ -77,7 +75,7 @@ export const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR';
 export const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR';
 export const LAST_5_FINANCIAL_YEARS = 'LAST_5_FINANCIAL_YEARS';
 
-export const getPeriodTypes = () => [
+export const periodTypes = () => [
     {
         id: 'relativePeriods',
         name: i18n.t('Relative'),
@@ -173,219 +171,6 @@ export const getPeriodTypes = () => [
     },
 ];
 
-export const getRelativePeriods = () => [
-    {
-        id: TODAY,
-        name: i18n.t('Today'),
-        group: 'DAILY',
-    },
-    {
-        id: 'YESTERDAY',
-        name: i18n.t('Yesterday'),
-        group: 'DAILY',
-    },
-    {
-        id: 'LAST_3_DAYS',
-        name: i18n.t('Last 3 days'),
-        group: 'DAILY',
-    },
-    {
-        id: 'LAST_7_DAYS',
-        name: i18n.t('Last 7 days'),
-        group: 'DAILY',
-    },
-    {
-        id: 'LAST_14_DAYS',
-        name: i18n.t('Last 14 days'),
-        group: 'DAILY',
-    },
-    {
-        id: 'LAST_30_DAYS',
-        name: i18n.t('Last 30 days'),
-        group: 'DAILY',
-    },
-    {
-        id: 'LAST_60_DAYS',
-        name: i18n.t('Last 60 days'),
-        group: 'DAILY',
-    },
-    {
-        id: 'LAST_90_DAYS',
-        name: i18n.t('Last 90 days'),
-        group: 'DAILY',
-    },
-    {
-        id: 'LAST_180_DAYS',
-        name: i18n.t('Last 180 days'),
-        group: 'DAILY',
-    },
-    {
-        id: 'THIS_WEEK',
-        name: i18n.t('This week'),
-        group: 'WEEKLY',
-    },
-    {
-        id: 'LAST_WEEK',
-        name: i18n.t('Last week'),
-        group: 'WEEKLY',
-    },
-    {
-        id: 'LAST_4_WEEKS',
-        name: i18n.t('Last 4 weeks'),
-        group: 'WEEKLY',
-    },
-    {
-        id: 'LAST_12_WEEKS',
-        name: i18n.t('Last 12 weeks'),
-        group: 'WEEKLY',
-    },
-    {
-        id: 'LAST_52_WEEKS',
-        name: i18n.t('Last 52 weeks'),
-        group: 'WEEKLY',
-    },
-    {
-        id: 'WEEKS_THIS_YEAR',
-        name: i18n.t('Weeks this year'),
-        group: 'WEEKLY',
-    },
-    {
-        id: 'THIS_BIWEEK',
-        name: i18n.t('This bi-week'),
-        group: 'BIWEEKLY',
-    },
-    {
-        id: 'LAST_BIWEEK',
-        name: i18n.t('Last bi-week'),
-        group: 'BIWEEKLY',
-    },
-    {
-        id: 'LAST_4_BIWEEKS',
-        name: i18n.t('Last 4 bi-weeks'),
-        group: 'BIWEEKLY',
-    },
-    {
-        id: 'THIS_MONTH',
-        name: i18n.t('This month'),
-        group: 'MONTHLY',
-    },
-    {
-        id: 'LAST_MONTH',
-        name: i18n.t('Last month'),
-        group: 'MONTHLY',
-    },
-    {
-        id: 'LAST_3_MONTHS',
-        name: i18n.t('Last 3 months'),
-        group: 'MONTHLY',
-    },
-    {
-        id: 'LAST_6_MONTHS',
-        name: i18n.t('Last 6 months'),
-        group: 'MONTHLY',
-    },
-    {
-        id: 'LAST_12_MONTHS',
-        name: i18n.t('Last 12 months'),
-        group: 'MONTHLY',
-    },
-    {
-        id: 'MONTHS_THIS_YEAR',
-        name: i18n.t('Months this year'),
-        group: 'MONTHLY',
-    },
-    {
-        id: 'THIS_BIMONTH',
-        name: i18n.t('This bi-month'),
-        group: 'BIMONTHLY',
-    },
-    {
-        id: 'LAST_BIMONTH',
-        name: i18n.t('Last bi-month'),
-        group: 'BIMONTHLY',
-    },
-    {
-        id: 'LAST_6_BIMONTHS',
-        name: i18n.t('Last 6 bi-months'),
-        group: 'BIMONTHLY',
-    },
-    {
-        id: 'BIMONTHS_THIS_YEAR',
-        name: i18n.t('Bi-months this year'),
-        group: 'BIMONTHLY',
-    },
-    {
-        id: 'THIS_QUARTER',
-        name: i18n.t('This quarter'),
-        group: 'QUARTERLY',
-    },
-    {
-        id: 'LAST_QUARTER',
-        name: i18n.t('Last quarter'),
-        group: 'QUARTERLY',
-    },
-    {
-        id: 'LAST_4_QUARTERS',
-        name: i18n.t('Last 4 quarters'),
-        group: 'QUARTERLY',
-    },
-    {
-        id: 'QUARTERS_THIS_YEAR',
-        name: i18n.t('Quarters this year'),
-        group: 'QUARTERLY',
-    },
-    {
-        id: 'THIS_SIX_MONTH',
-        name: i18n.t('This six-month'),
-        group: 'SIXMONTHLY',
-    },
-    {
-        id: 'LAST_SIX_MONTH',
-        name: i18n.t('Last six-month'),
-        group: 'SIXMONTHLY',
-    },
-    {
-        id: 'LAST_2_SIXMONTHS',
-        name: i18n.t('Last 2 six-months'),
-        group: 'SIXMONTHLY',
-    },
-    {
-        id: 'THIS_YEAR',
-        name: i18n.t('This year'),
-        group: 'YEARLY',
-    },
-    {
-        id: 'LAST_YEAR',
-        name: i18n.t('Last year'),
-        group: 'YEARLY',
-    },
-    {
-        id: 'LAST_5_YEARS',
-        name: i18n.t('Last 5 years'),
-        group: 'YEARLY',
-    },
-    {
-        id: 'LAST_10_YEARS',
-        name: i18n.t('Last 10 years'),
-        group: 'YEARLY',
-    },
-    {
-        id: 'THIS_FINANCIAL_YEAR',
-        name: i18n.t('This financial year'),
-        group: 'YEARLY',
-    },
-    {
-        id: 'LAST_FINANCIAL_YEAR',
-        name: i18n.t('Last financial year'),
-        group: 'YEARLY',
-    },
-    {
-        id: 'LAST_5_FINANCIAL_YEARS',
-        name: i18n.t('Last 5 financial years'),
-        group: 'YEARLY',
-    },
-];
-
 // Periods that will only produce a single map (not for timeline/split view)
 export const singleMapPeriods = [
     TODAY,
@@ -416,15 +201,3 @@ export const invalidSplitViewPeriods = [
     LAST_52_WEEKS,
     WEEKS_THIS_YEAR,
 ];
-
-// All period names
-export const getPeriodNames = () => ({
-    ...getPeriodTypes().reduce((obj, { id, name }) => {
-        obj[id] = name;
-        return obj;
-    }, {}),
-    ...getRelativePeriods().reduce((obj, { id, name }) => {
-        obj[id] = name;
-        return obj;
-    }, {}),
-});

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
-import { getRelativePeriods } from '../../constants/periods';
-import { hidePeriods } from '../../util/periods';
+// import { getRelativePeriods } from '../../constants/periods';
+import { getRelativePeriods } from '../../util/periods';
 
 const RelativePeriodSelect = ({
     startEndDates,
@@ -24,7 +24,7 @@ const RelativePeriodSelect = ({
                       },
                   ]
                 : []
-            ).concat(hidePeriods(getRelativePeriods(), hiddenPeriods)),
+            ).concat(getRelativePeriods(hiddenPeriods)),
         []
     );
 
