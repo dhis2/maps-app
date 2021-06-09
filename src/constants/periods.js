@@ -1,4 +1,23 @@
 import i18n from '@dhis2/d2-i18n';
+import {
+    DAILY,
+    WEEKLY,
+    WEEKLYWED,
+    WEEKLYTHU,
+    WEEKLYSAT,
+    WEEKLYSUN,
+    BIWEEKLY,
+    MONTHLY,
+    BIMONTHLY,
+    QUARTERLY,
+    SIXMONTHLY,
+    SIXMONTHLYAPR,
+    YEARLY,
+    FYNOV,
+    FYOCT,
+    FYJUL,
+    FYAPR,
+} from '@dhis2/analytics';
 
 export const getPeriodTypes = () => [
     {
@@ -6,87 +25,87 @@ export const getPeriodTypes = () => [
         name: i18n.t('Relative'),
     },
     {
-        id: 'DAILY',
+        id: DAILY,
         name: i18n.t('Daily'),
         type: 'DAILY',
     },
     {
-        id: 'WEEKLY',
+        id: WEEKLY,
         name: i18n.t('Weekly'),
         type: 'WEEKLY',
     },
     {
-        id: 'WEEKLYWED',
+        id: WEEKLYWED,
         name: i18n.t('Weekly (Start Wednesday)'),
         type: 'WEEKLY',
     },
     {
-        id: 'WEEKLYTHU',
+        id: WEEKLYTHU,
         name: i18n.t('Weekly (Start Thursday)'),
         type: 'WEEKLY',
     },
     {
-        id: 'WEEKLYSAT',
+        id: WEEKLYSAT,
         name: i18n.t('Weekly (Start Saturday)'),
         type: 'WEEKLY',
     },
     {
-        id: 'WEEKLYSUN',
+        id: WEEKLYSUN,
         name: i18n.t('Weekly (Start Sunday)'),
         type: 'WEEKLY',
     },
     {
-        id: 'BIWEEKLY',
+        id: BIWEEKLY,
         name: i18n.t('Bi-weekly'),
         type: 'BIWEEKLY',
     },
     {
-        id: 'MONTHLY',
+        id: MONTHLY,
         name: i18n.t('Monthly'),
         type: 'MONTHLY',
     },
     {
-        id: 'BIMONTHLY',
+        id: BIMONTHLY,
         name: i18n.t('Bi-monthly'),
         type: 'BIMONTHLY',
     },
     {
-        id: 'QUARTERLY',
+        id: QUARTERLY,
         name: i18n.t('Quarterly'),
         type: 'QUARTERLY',
     },
     {
-        id: 'SIXMONTHLY',
+        id: SIXMONTHLY,
         name: i18n.t('Six-monthly'),
         type: 'SIXMONTHLY',
     },
     {
-        id: 'SIXMONTHLYAPR',
+        id: SIXMONTHLYAPR,
         name: i18n.t('Six-monthly April'),
         type: 'SIXMONTHLY',
     },
     {
-        id: 'YEARLY',
+        id: YEARLY,
         name: i18n.t('Yearly'),
         type: 'YEARLY',
     },
     {
-        id: 'FYNOV',
+        id: FYNOV,
         name: i18n.t('Financial year (Start November)'),
         type: 'YEARLY',
     },
     {
-        id: 'FYOCT',
+        id: FYOCT,
         name: i18n.t('Financial year (Start October)'),
         type: 'YEARLY',
     },
     {
-        id: 'FYJUL',
+        id: FYJUL,
         name: i18n.t('Financial year (Start July)'),
         type: 'YEARLY',
     },
     {
-        id: 'FYAPR',
+        id: FYAPR,
         name: i18n.t('Financial year (Start April)'),
         type: 'YEARLY',
     },
