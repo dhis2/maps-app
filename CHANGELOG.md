@@ -1,3 +1,10 @@
+## [1.8.5](https://github.com/dhis2/maps-app/compare/v1.8.4...v1.8.5) (2021-06-09)
+
+
+### Bug Fixes
+
+* use period generators from dhis2/analytics (DHIS2-11266)  ([#1734](https://github.com/dhis2/maps-app/issues/1734)) ([3debaaf](https://github.com/dhis2/maps-app/commit/3debaafbda5e92d43f6b477bd38ed4304f946c15))
+
 ## [1.8.4](https://github.com/dhis2/maps-app/compare/v1.8.3...v1.8.4) (2021-06-08)
 
 
