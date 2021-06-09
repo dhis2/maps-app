@@ -27,6 +27,9 @@ export const createPeriods = (periodType, year) => {
     return period ? period.getPeriods({ offset, reversePeriods }) : null;
 };
 
+export const hidePeriods = (periods, hidden = []) =>
+    periods.filter(({ type }) => !hidden.includes(type));
+
 // Changed from default time scale to have weeks starting on monday
 // https://github.com/d3/d3-scale/blob/master/src/time.js#L133
 export const scaleTime = () =>

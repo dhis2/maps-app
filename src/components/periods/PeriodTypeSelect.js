@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
 import { getPeriodTypes, getRelativePeriods } from '../../constants/periods';
+import { hidePeriods } from '../../util/periods';
 
 class PeriodTypeSelect extends Component {
     static propTypes = {
         value: PropTypes.string,
         period: PropTypes.object,
+        hiddenPeriods: PropTypes.array,
         onChange: PropTypes.func.isRequired,
         className: PropTypes.string,
         errorText: PropTypes.string,
@@ -32,12 +35,18 @@ class PeriodTypeSelect extends Component {
     }
 
     render() {
-        const { value, onChange, className, errorText } = this.props;
+        const {
+            value,
+            hiddenPeriods,
+            onChange,
+            className,
+            errorText,
+        } = this.props;
 
         return (
             <SelectField
                 label={i18n.t('Period type')}
-                items={getPeriodTypes()}
+                items={hidePeriods(getPeriodTypes(), hiddenPeriods)}
                 value={value}
                 onChange={onChange}
                 className={className}
@@ -48,4 +57,6 @@ class PeriodTypeSelect extends Component {
     }
 }
 
-export default PeriodTypeSelect;
+export default connect(({ settings }) => ({
+    hiddenPeriods: settings.hiddenPeriods,
+}))(PeriodTypeSelect);

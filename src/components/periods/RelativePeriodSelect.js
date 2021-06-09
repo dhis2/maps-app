@@ -1,18 +1,19 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
 import { getRelativePeriods } from '../../constants/periods';
+import { hidePeriods } from '../../util/periods';
 
 const RelativePeriodSelect = ({
     startEndDates,
     period,
+    hiddenPeriods,
     onChange,
     className,
     errorText,
 }) => {
-    const value = period ? period.id : null;
-
     const periods = useMemo(
         () =>
             (startEndDates
@@ -23,9 +24,12 @@ const RelativePeriodSelect = ({
                       },
                   ]
                 : []
-            ).concat(getRelativePeriods()),
+            ).concat(hidePeriods(getRelativePeriods(), hiddenPeriods)),
         []
     );
+
+    const value =
+        period && periods.find(p => p.id === period.id) ? period.id : null;
 
     return (
         <SelectField
@@ -45,9 +49,12 @@ RelativePeriodSelect.propTypes = {
         id: PropTypes.string.isRequired,
         name: PropTypes.string,
     }),
+    hiddenPeriods: PropTypes.array,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
 };
 
-export default RelativePeriodSelect;
+export default connect(({ settings }) => ({
+    hiddenPeriods: settings.hiddenPeriods,
+}))(RelativePeriodSelect);
