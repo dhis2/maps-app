@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -1162,6 +1162,21 @@ msgstr "Кунлик"
 msgid "Weekly"
 msgstr "Ҳафталик"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "Ойлик"
 
@@ -1179,6 +1194,9 @@ msgstr "Ярим йиллик Апрель"
 
 msgid "Yearly"
 msgstr "Йиллик"
+
+msgid "Financial year (Start November)"
+msgstr ""
 
 msgid "Financial year (Start October)"
 msgstr "Молиявий йил (бошланиши Октябрь)"

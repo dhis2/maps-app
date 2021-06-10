@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Khmer (https://www.transifex.com/hisp-uio/teams/100509/km/)\n"
@@ -1138,6 +1138,21 @@ msgstr "រាល់​ថ្ងៃ"
 msgid "Weekly"
 msgstr "រាល់​សប្ដាហ៍"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "រាល់​ខែ"
 
@@ -1155,6 +1170,9 @@ msgstr "ប្រចាំឆមាស​ពីខែមេសា"
 
 msgid "Yearly"
 msgstr "ប្រចាំឆ្នាំ"
+
+msgid "Financial year (Start November)"
+msgstr ""
 
 msgid "Financial year (Start October)"
 msgstr ""
