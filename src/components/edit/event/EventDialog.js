@@ -17,11 +17,15 @@ import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
 import BufferRadius from '../shared/BufferRadius';
 import {
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
     CLASSIFICATION_PREDEFINED,
 } from '../../../constants/layers';
+import { START_END_DATES } from '../../../constants/periods';
+
 import styles from '../styles/LayerDialog.module.css';
 
 import {
@@ -36,6 +40,8 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setPeriod,
+    setStartDate,
+    setEndDate,
 } from '../../../actions/layerEdit';
 
 import {
@@ -89,6 +95,8 @@ export class EventDialog extends Component {
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
+        setStartDate: PropTypes.func.isRequired,
+        setEndDate: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
 
@@ -109,6 +117,8 @@ export class EventDialog extends Component {
             endDate,
             setOrgUnitRoot,
             setPeriod,
+            setStartDate,
+            setEndDate,
         } = this.props;
 
         const orgUnits = getOrgUnitNodesFromRows(rows);
@@ -120,16 +130,24 @@ export class EventDialog extends Component {
         }
 
         // Set default period from system settings
-        if (
-            !period &&
-            !startDate &&
-            !endDate &&
-            defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, hiddenPeriods)
-        ) {
-            setPeriod({
-                id: defaultPeriod,
-            });
+        if (!period) {
+            if (
+                !startDate &&
+                !endDate &&
+                defaultPeriod &&
+                isPeriodAvailable(defaultPeriod, hiddenPeriods)
+            ) {
+                setPeriod({
+                    id: defaultPeriod,
+                });
+            } else {
+                if (!startDate) {
+                    setStartDate(DEFAULT_START_DATE);
+                }
+                if (!endDate) {
+                    setEndDate(DEFAULT_END_DATE);
+                }
+            }
         }
     }
 
@@ -184,7 +202,7 @@ export class EventDialog extends Component {
         } = this.state;
 
         const period = getPeriodFromFilters(filters) || {
-            id: 'START_END_DATES',
+            id: START_END_DATES,
         };
 
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
@@ -247,7 +265,7 @@ export class EventDialog extends Component {
                                 onChange={setPeriod}
                                 className={styles.select}
                             />
-                            {period && period.id === 'START_END_DATES' && (
+                            {period && period.id === START_END_DATES && (
                                 <StartEndDates
                                     startDate={startDate}
                                     endDate={endDate}
@@ -392,7 +410,7 @@ export class EventDialog extends Component {
         } = this.props;
 
         const period = getPeriodFromFilters(filters) || {
-            id: 'START_END_DATES',
+            id: START_END_DATES,
         };
 
         if (!program) {
@@ -411,7 +429,7 @@ export class EventDialog extends Component {
             );
         }
 
-        if (period.id === 'START_END_DATES') {
+        if (period.id === START_END_DATES) {
             const error = getStartEndDateError(startDate, endDate);
             if (error) {
                 return this.setErrorState('periodError', error, 'period');
@@ -463,6 +481,8 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setPeriod,
+        setStartDate,
+        setEndDate,
     },
     null,
     {

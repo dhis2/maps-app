@@ -38,6 +38,8 @@ import {
     CLASSIFICATION_EQUAL_INTERVALS,
 } from '../../../constants/layers';
 
+import { RELATIVE_PERIODS, START_END_DATES } from '../../../constants/periods';
+
 import {
     setClassification,
     setDataItem,
@@ -456,7 +458,7 @@ export class ThematicDialog extends Component {
                                 className={styles.periodSelect}
                                 errorText={periodTypeError}
                             />
-                            {periodType === 'relativePeriods' && (
+                            {periodType === RELATIVE_PERIODS && (
                                 <RelativePeriodSelect
                                     period={period}
                                     hiddenPeriods={hiddenPeriods}
@@ -466,8 +468,8 @@ export class ThematicDialog extends Component {
                                 />
                             )}
                             {((periodType &&
-                                periodType !== 'relativePeriods' &&
-                                periodType !== 'StartEndDates') ||
+                                periodType !== RELATIVE_PERIODS &&
+                                periodType !== START_END_DATES) ||
                                 (!periodType && id)) && (
                                 <PeriodSelect
                                     periodType={periodType}
@@ -477,7 +479,7 @@ export class ThematicDialog extends Component {
                                     errorText={periodError}
                                 />
                             )}
-                            {periodType === 'StartEndDates' && (
+                            {periodType === START_END_DATES && (
                                 <StartEndDates
                                     startDate={startDate}
                                     endDate={endDate}
@@ -485,7 +487,7 @@ export class ThematicDialog extends Component {
                                     errorText={periodError}
                                 />
                             )}
-                            {periodType === 'relativePeriods' && (
+                            {periodType === RELATIVE_PERIODS && (
                                 <RenderingStrategy
                                     value={renderingStrategy}
                                     period={period}
@@ -699,13 +701,13 @@ export class ThematicDialog extends Component {
             }
         }
 
-        if (!period && periodType !== 'StartEndDates') {
+        if (!period && periodType !== START_END_DATES) {
             return this.setErrorState(
                 'periodError',
                 i18n.t('Period is required'),
                 'period'
             );
-        } else if (periodType === 'StartEndDates') {
+        } else if (periodType === START_END_DATES) {
             const error = getStartEndDateError(startDate, endDate);
 
             if (error) {

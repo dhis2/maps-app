@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
 import { getRelativePeriods } from '../../util/periods';
+import { START_END_DATES } from '../../constants/periods';
 
 const RelativePeriodSelect = ({
     startEndDates,
@@ -17,7 +18,7 @@ const RelativePeriodSelect = ({
             (startEndDates
                 ? [
                       {
-                          id: 'START_END_DATES',
+                          id: START_END_DATES,
                           name: i18n.t('Start/end dates'),
                       },
                   ]

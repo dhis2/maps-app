@@ -57,9 +57,12 @@ const LAST_YEAR = 'LAST_YEAR';
 const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR';
 const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR';
 
+export const RELATIVE_PERIODS = 'RELATIVE_PERIODS';
+export const START_END_DATES = 'START_END_DATES';
+
 export const periodTypes = () => [
     {
-        id: 'relativePeriods',
+        id: RELATIVE_PERIODS,
         name: i18n.t('Relative'),
     },
     {
@@ -148,7 +151,7 @@ export const periodTypes = () => [
         group: FINANCIAL,
     },
     {
-        id: 'StartEndDates',
+        id: START_END_DATES,
         name: i18n.t('Start/end dates'),
     },
 ];

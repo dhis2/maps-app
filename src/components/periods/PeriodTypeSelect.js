@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
 import { getPeriodTypes, getRelativePeriods } from '../../util/periods';
+import { RELATIVE_PERIODS } from '../../constants/periods';
 
 class PeriodTypeSelect extends Component {
     static propTypes = {
@@ -17,7 +18,7 @@ class PeriodTypeSelect extends Component {
     componentDidMount() {
         const { value, period, onChange } = this.props;
         const relativePeriodType = {
-            id: 'relativePeriods',
+            id: RELATIVE_PERIODS,
             name: i18n.t('Relative'),
         };
 
