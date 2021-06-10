@@ -130,24 +130,20 @@ export class EventDialog extends Component {
         }
 
         // Set default period from system settings
-        if (!period) {
-            if (
-                !startDate &&
-                !endDate &&
-                defaultPeriod &&
-                isPeriodAvailable(defaultPeriod, hiddenPeriods)
-            ) {
-                setPeriod({
-                    id: defaultPeriod,
-                });
-            } else {
-                if (!startDate) {
-                    setStartDate(DEFAULT_START_DATE);
-                }
-                if (!endDate) {
-                    setEndDate(DEFAULT_END_DATE);
-                }
-            }
+        if (
+            !period &&
+            !startDate &&
+            !endDate &&
+            defaultPeriod &&
+            isPeriodAvailable(defaultPeriod, hiddenPeriods)
+        ) {
+            setPeriod({
+                id: defaultPeriod,
+            });
+        } else {
+            // Fallback to default start/end dates
+            setStartDate(DEFAULT_START_DATE);
+            setEndDate(DEFAULT_END_DATE);
         }
     }
 

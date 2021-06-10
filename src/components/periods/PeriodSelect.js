@@ -102,17 +102,13 @@ class PeriodSelect extends Component {
         );
     }
 
-    getPeriods(periodType, year) {
-        return getFixedPeriodsByType(periodType, year);
-    }
-
     setPeriods() {
         const { periodType, period } = this.props;
         const year = this.state.year || getYear(period && period.startDate);
         let periods;
 
         if (periodType) {
-            periods = this.getPeriods(periodType, year);
+            periods = getFixedPeriodsByType(periodType, year);
         } else if (period) {
             periods = [period]; // If period is loaded in favorite
         }
@@ -134,7 +130,7 @@ class PeriodSelect extends Component {
 
         this.setState({
             year,
-            periods: this.getPeriods(periodType, year),
+            periods: getFixedPeriodsByType(periodType, year),
         });
     };
 }

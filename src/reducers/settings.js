@@ -1,15 +1,8 @@
 import * as types from '../constants/actionTypes';
 
-const defaultState = {
-    system: {
-        // keyAnalysisRelativePeriod: 'LAST_12_MONTHS',
-    },
-    user: {},
-};
-
 const periodSetting = /keyHide(.*)Periods/;
 
-const userSettings = (state = defaultState, { type, payload }) => {
+const userSettings = (state = {}, { type, payload }) => {
     switch (type) {
         case types.SYSTEM_SETTINGS_SET:
             return {
