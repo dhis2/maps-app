@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -1140,6 +1140,21 @@ msgstr "每日"
 msgid "Weekly"
 msgstr "每周"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "每月"
 
@@ -1157,6 +1172,9 @@ msgstr "半年四月"
 
 msgid "Yearly"
 msgstr "每年"
+
+msgid "Financial year (Start November)"
+msgstr ""
 
 msgid "Financial year (Start October)"
 msgstr "财务十月"

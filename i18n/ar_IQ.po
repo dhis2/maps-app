@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2021\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -1137,6 +1137,21 @@ msgstr "يومي"
 msgid "Weekly"
 msgstr "أسبوعي"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "شهري"
 
@@ -1154,6 +1169,9 @@ msgstr "ستة أشهر نيسان"
 
 msgid "Yearly"
 msgstr "سنوي"
+
+msgid "Financial year (Start November)"
+msgstr ""
 
 msgid "Financial year (Start October)"
 msgstr "السنة المالية (بداية تشرين الأول)"
