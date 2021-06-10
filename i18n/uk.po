@@ -552,7 +552,7 @@ msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "Помилка"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
