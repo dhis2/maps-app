@@ -1,5 +1,5 @@
 import { BoundaryLayer } from '../../elements/boundary_layer';
-import { Page } from '../elements/page';
+import { Page } from '../../elements/page';
 
 context('Boundary Layers', () => {
     beforeEach(() => {
