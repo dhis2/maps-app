@@ -1,4 +1,5 @@
 import { BoundaryLayer } from '../../elements/boundary_layer';
+import { Page } from '../elements/page';
 
 context('Boundary Layers', () => {
     beforeEach(() => {
@@ -6,6 +7,7 @@ context('Boundary Layers', () => {
     });
 
     const Layer = new BoundaryLayer();
+    const MapPage = new Page();
 
     it('shows error if no orgunit selected', () => {
         Layer.openDialog('Boundaries').addToMap();
@@ -26,5 +28,7 @@ context('Boundary Layers', () => {
 
         Layer.validateCardTitle('Boundaries');
         Layer.validateCardItems(['District']);
+
+        MapPage.validateMapMatchesSnapshot();
     });
 });
