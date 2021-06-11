@@ -701,7 +701,7 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "Продовжити"
 
 msgid "Options"
 msgstr "Опції"
