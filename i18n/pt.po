@@ -1185,7 +1185,7 @@ msgid "Weekly (Start Sunday)"
 msgstr ""
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "Quinzenal"
 
 msgid "Monthly"
 msgstr "Mensal"

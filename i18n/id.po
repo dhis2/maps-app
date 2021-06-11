@@ -1159,7 +1159,7 @@ msgid "Weekly (Start Sunday)"
 msgstr ""
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "Dwiwulanan"
 
 msgid "Monthly"
 msgstr "Bulanan"

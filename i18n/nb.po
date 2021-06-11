@@ -1158,19 +1158,19 @@ msgid "Weekly"
 msgstr "Ukentlig"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Ukentlig (start onsdag)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Ukentlig (start torsdag)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Ukentlig (start lørdag)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Ukentlig (start søndag)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "Toukentlig"
 
 msgid "Monthly"
 msgstr "Månedlig"
@@ -1191,7 +1191,7 @@ msgid "Yearly"
 msgstr "Årlig"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Regnskapsår (start november)"
 
 msgid "Financial year (Start October)"
 msgstr "Regnskapsår (start oktober)"

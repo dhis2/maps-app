@@ -1,14 +1,14 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2021
 # 晓东 林 <13981924470@126.com>, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1139,19 +1139,19 @@ msgid "Weekly"
 msgstr "每周"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "每周（始于周二）"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "每周（始于周四）"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "每周（始于周六）"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "每周（始于周日）"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "双周"
 
 msgid "Monthly"
 msgstr "每月"

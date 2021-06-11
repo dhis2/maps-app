@@ -1171,19 +1171,19 @@ msgid "Weekly"
 msgstr "Ҳафталик"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Ҳафталик (Бошланиши Чоршанба)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Ҳафталик (Бошланиши Пайшанба)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Ҳафталик (Бошланиши Шанба)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Ҳафталик (Бошланиши Якшанба)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "Juft hafta"
 
 msgid "Monthly"
 msgstr "Ойлик"
@@ -1204,7 +1204,7 @@ msgid "Yearly"
 msgstr "Йиллик"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Moliyaviy yil (Boshlanishi Noyabr)"
 
 msgid "Financial year (Start October)"
 msgstr "Молиявий йил (бошланиши Октябр)"
