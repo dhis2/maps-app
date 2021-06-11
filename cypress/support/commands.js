@@ -1,11 +1,6 @@
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 
-addMatchImageSnapshotCommand({
-    failureThreshold: 0.5,
-    // failureThresholdType: 'percent',
-    customDiffConfig: { threshold: 0.5 },
-    // capture: 'viewport',
-});
+addMatchImageSnapshotCommand();
 
 /**
  * This command will periodically check window for loaded resources.

@@ -25,6 +25,12 @@ export class Page {
         //         createDiffImage: true,
         //     },
         // });
-        cy.get('canvas').matchImageSnapshot();
+        cy.get('canvas').matchImageSnapshot({
+            comparisonMethod: 'ssim',
+            failureThreshold: 0.01,
+            failureThresholdType: 'percent',
+            // blur: 1,
+            // allowSizeMismatch: true,
+        });
     }
 }

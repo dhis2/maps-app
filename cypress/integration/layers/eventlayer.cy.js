@@ -1,7 +1,7 @@
 import { EventLayer } from '../../elements/event_layer';
 import { EXTENDED_TIMEOUT } from '../../support/extendedTimeout';
 
-context('Event Layers', () => {
+context.skip('Event Layers', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT);
     });
