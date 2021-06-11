@@ -9,7 +9,7 @@ context('Open a map', () => {
         cy.visit('/');
 
         MapPage.openMap(
-            'Inpatient: BMI female under 5 at chiefdom level this year'
+            'Inpatient: BMI at facility level this year'
         ).validateMapMatchesSnapshot();
 
         MapLayer.validateCardTitle('BMI');

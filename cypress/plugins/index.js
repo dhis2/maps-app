@@ -1,6 +1,6 @@
 /* eslint-disable-next-line no-unused-vars */
 const plugins = require('@dhis2/cli-utils-cypress/plugins');
-const { initPlugin } = require('cypress-plugin-snapshots/plugin');
+// const { initPlugin } = require('cypress-plugin-snapshots/plugin');
 const {
     addMatchImageSnapshotPlugin,
 } = require('cypress-image-snapshot/plugin');
@@ -21,7 +21,7 @@ module.exports = (on, config) => {
         return launchOptions;
     });
 
-    initPlugin(on, config);
+    // initPlugin(on, config);
     addMatchImageSnapshotPlugin(on, config);
 
     plugins(on, config);

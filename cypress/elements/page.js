@@ -20,17 +20,7 @@ export class Page {
     validateMapMatchesSnapshot() {
         cy.waitForResources();
         cy.get('[data-test="map-loading-indicator"]').should('not.exist');
-        // cy.get('canvas').toMatchImageSnapshot({
-        //     imageConfig: {
-        //         createDiffImage: true,
-        //     },
-        // });
-        cy.get('canvas').matchImageSnapshot({
-            comparisonMethod: 'ssim',
-            failureThreshold: 0.01,
-            failureThresholdType: 'percent',
-            // blur: 1,
-            // allowSizeMismatch: true,
-        });
+
+        cy.get('canvas').matchImageSnapshot();
     }
 }
