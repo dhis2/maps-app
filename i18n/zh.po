@@ -1141,19 +1141,19 @@ msgid "Weekly"
 msgstr "每周"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "每周（始于周二）"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "每周（始于周四）"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "每周（始于周六）"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "每周（始于周日）"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "两周"
 
 msgid "Monthly"
 msgstr "每月"
@@ -1174,7 +1174,7 @@ msgid "Yearly"
 msgstr "每年"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "财政年（11月始）"
 
 msgid "Financial year (Start October)"
 msgstr "财务十月"

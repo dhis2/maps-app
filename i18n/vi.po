@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2020
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1140,19 +1140,19 @@ msgid "Weekly"
 msgstr "Hàng tuần"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Hàng tuần (Bắt đầu từ Thứ Tư)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Hàng tuần (Bắt đầu từ Thứ Năm)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Hàng tuần (Bắt đầu từ Thứ Bảy)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Hàng tuần (Bắt đầu từ Chủ nhật)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "Hai-tuần"
 
 msgid "Monthly"
 msgstr "Hàng tháng"
@@ -1173,7 +1173,7 @@ msgid "Yearly"
 msgstr "Một năm"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Năm tài chính (Bắt đầu từ tháng 11)"
 
 msgid "Financial year (Start October)"
 msgstr "Năm Tài Chính - Tháng 10"

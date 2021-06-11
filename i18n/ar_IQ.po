@@ -1150,7 +1150,7 @@ msgid "Weekly (Start Sunday)"
 msgstr ""
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "كل اسبوعين"
 
 msgid "Monthly"
 msgstr "شهري"

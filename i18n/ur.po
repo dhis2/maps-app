@@ -1139,16 +1139,16 @@ msgid "Weekly"
 msgstr "ہفتہ وار"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "ہفتہ وار (بدھ شروع کریں)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "ہفتہ وار (جمعرات شروع کریں)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "ہفتہ وار (ہفتہ شروع کریں)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "ہفتہ (اتوار شروع کریں)"
 
 msgid "Bi-weekly"
 msgstr ""
