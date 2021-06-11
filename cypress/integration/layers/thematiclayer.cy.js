@@ -1,6 +1,6 @@
 import { ThematicLayer } from '../../elements/thematic_layer';
 
-context.skip('Thematic Layers', () => {
+context('Thematic Layers', () => {
     beforeEach(() => {
         cy.visit('/');
     });

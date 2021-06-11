@@ -1,6 +1,6 @@
 import { FacilityLayer } from '../../elements/facility_layer';
 
-context.skip('Facility Layers', () => {
+context('Facility Layers', () => {
     beforeEach(() => {
         cy.visit('/');
     });

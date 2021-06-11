@@ -1,6 +1,6 @@
 import { BoundaryLayer } from '../../elements/boundary_layer';
 
-context.skip('Boundary Layers', () => {
+context('Boundary Layers', () => {
     beforeEach(() => {
         cy.visit('/');
     });
