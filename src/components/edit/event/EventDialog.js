@@ -17,11 +17,15 @@ import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits';
 import BufferRadius from '../shared/BufferRadius';
 import {
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
     CLASSIFICATION_PREDEFINED,
 } from '../../../constants/layers';
+import { START_END_DATES } from '../../../constants/periods';
+
 import styles from '../styles/LayerDialog.module.css';
 
 import {
@@ -36,6 +40,8 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setPeriod,
+    setStartDate,
+    setEndDate,
 } from '../../../actions/layerEdit';
 
 import {
@@ -44,6 +50,8 @@ import {
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
+
+import { isPeriodAvailable } from '../../../util/periods';
 import { getStartEndDateError } from '../../../util/time';
 import { cssColor } from '../../../util/colors';
 
@@ -58,6 +66,7 @@ export class EventDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         filters: PropTypes.array,
+        hiddenPeriods: PropTypes.array,
         legendSet: PropTypes.object,
         method: PropTypes.number,
         onLayerValidation: PropTypes.func.isRequired,
@@ -86,6 +95,8 @@ export class EventDialog extends Component {
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
+        setStartDate: PropTypes.func.isRequired,
+        setEndDate: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
 
@@ -101,10 +112,13 @@ export class EventDialog extends Component {
             rows,
             filters,
             defaultPeriod,
+            hiddenPeriods,
             startDate,
             endDate,
             setOrgUnitRoot,
             setPeriod,
+            setStartDate,
+            setEndDate,
         } = this.props;
 
         const orgUnits = getOrgUnitNodesFromRows(rows);
@@ -116,10 +130,20 @@ export class EventDialog extends Component {
         }
 
         // Set default period from system settings
-        if (!period && !startDate && !endDate && defaultPeriod) {
+        if (
+            !period &&
+            !startDate &&
+            !endDate &&
+            defaultPeriod &&
+            isPeriodAvailable(defaultPeriod, hiddenPeriods)
+        ) {
             setPeriod({
                 id: defaultPeriod,
             });
+        } else {
+            // Fallback to default start/end dates
+            setStartDate(DEFAULT_START_DATE);
+            setEndDate(DEFAULT_END_DATE);
         }
     }
 
@@ -142,6 +166,7 @@ export class EventDialog extends Component {
             eventPointColor,
             eventPointRadius,
             filters = [],
+            hiddenPeriods,
             program,
             programStage,
             rows = [],
@@ -173,7 +198,7 @@ export class EventDialog extends Component {
         } = this.state;
 
         const period = getPeriodFromFilters(filters) || {
-            id: 'START_END_DATES',
+            id: START_END_DATES,
         };
 
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
@@ -232,10 +257,11 @@ export class EventDialog extends Component {
                             <RelativePeriodSelect
                                 period={period}
                                 startEndDates={true}
+                                hiddenPeriods={hiddenPeriods}
                                 onChange={setPeriod}
                                 className={styles.select}
                             />
-                            {period && period.id === 'START_END_DATES' && (
+                            {period && period.id === START_END_DATES && (
                                 <StartEndDates
                                     startDate={startDate}
                                     endDate={endDate}
@@ -380,7 +406,7 @@ export class EventDialog extends Component {
         } = this.props;
 
         const period = getPeriodFromFilters(filters) || {
-            id: 'START_END_DATES',
+            id: START_END_DATES,
         };
 
         if (!program) {
@@ -399,7 +425,7 @@ export class EventDialog extends Component {
             );
         }
 
-        if (period.id === 'START_END_DATES') {
+        if (period.id === START_END_DATES) {
             const error = getStartEndDateError(startDate, endDate);
             if (error) {
                 return this.setErrorState('periodError', error, 'period');
@@ -436,7 +462,9 @@ export class EventDialog extends Component {
 }
 
 export default connect(
-    null,
+    ({ settings }) => ({
+        hiddenPeriods: settings.hiddenPeriods,
+    }),
     {
         setProgram,
         setProgramStage,
@@ -449,6 +477,8 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setPeriod,
+        setStartDate,
+        setEndDate,
     },
     null,
     {

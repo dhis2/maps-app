@@ -18,6 +18,7 @@ import {
     CLASSIFICATION_PREDEFINED,
     THEMATIC_CHOROPLETH,
 } from '../constants/layers';
+import { START_END_DATES } from '../constants/periods';
 
 const layerEdit = (state = null, action) => {
     let columns;
@@ -116,7 +117,7 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 filters:
-                    action.period.id !== 'START_END_DATES'
+                    action.period.id !== START_END_DATES
                         ? setFiltersFromPeriod(state.filters, action.period)
                         : [],
             };
