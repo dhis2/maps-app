@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -1142,10 +1142,25 @@ msgstr "Diario"
 msgid "Weekly"
 msgstr "Semanal"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "Mensual"
 
-msgid "Bi-monthly)"
+msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
@@ -1160,6 +1175,9 @@ msgstr "Semestral Abril"
 msgid "Yearly"
 msgstr "Anual"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "Año fiscal - Octubre"
 
@@ -1168,129 +1186,6 @@ msgstr "Año fiscal - Julio"
 
 msgid "Financial year (Start April)"
 msgstr "Año fiscal - Abril"
-
-msgid "Today"
-msgstr "Hoy"
-
-msgid "Yesterday"
-msgstr "Ayer"
-
-msgid "Last 3 days"
-msgstr "Últimos 3 días"
-
-msgid "Last 7 days"
-msgstr "Últimos 7 diass"
-
-msgid "Last 14 days"
-msgstr "Últimos 14 días"
-
-msgid "Last 30 days"
-msgstr "Últimos 30 días"
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "Esta semana"
-
-msgid "Last week"
-msgstr "Última semana"
-
-msgid "Last 4 weeks"
-msgstr "Últimas 4 semanas"
-
-msgid "Last 12 weeks"
-msgstr "Últimas 12 semanas"
-
-msgid "Last 52 weeks"
-msgstr "Últimas 52 semanas"
-
-msgid "Weeks this year"
-msgstr "Semanas de este año"
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr "Este mes"
-
-msgid "Last month"
-msgstr "Mes anterior"
-
-msgid "Last 3 months"
-msgstr "Últimos 3 meses"
-
-msgid "Last 6 months"
-msgstr "Últimos 6 meses"
-
-msgid "Last 12 months"
-msgstr "Ultimos 12 meses"
-
-msgid "Months this year"
-msgstr "Meses este año"
-
-msgid "This bi-month"
-msgstr "Este bimestre"
-
-msgid "Last bi-month"
-msgstr "Bimestre anterior"
-
-msgid "Last 6 bi-months"
-msgstr "Últimos 6 bimestres"
-
-msgid "Bi-months this year"
-msgstr ""
-
-msgid "This quarter"
-msgstr "Este trimestre"
-
-msgid "Last quarter"
-msgstr "El trimestre pasado"
-
-msgid "Last 4 quarters"
-msgstr "Últimos 4 trimestres"
-
-msgid "Quarters this year"
-msgstr "Trimestres de este año"
-
-msgid "This six-month"
-msgstr "Este semestre"
-
-msgid "Last six-month"
-msgstr "Último semestre"
-
-msgid "Last 2 six-months"
-msgstr "Últimos 2 semestres"
-
-msgid "This year"
-msgstr "Este año"
-
-msgid "Last year"
-msgstr "El año pasado"
-
-msgid "Last 5 years"
-msgstr "Últimos 5 años"
-
-msgid "This financial year"
-msgstr "Este año fiscal"
-
-msgid "Last financial year"
-msgstr "Último ejercicio financiero"
-
-msgid "Last 5 financial years"
-msgstr "Últimos 5 ejercicios financieros"
 
 msgid "Cancelled"
 msgstr "Cancelar"

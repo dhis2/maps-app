@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: trendspotter, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -1159,11 +1159,26 @@ msgstr "Denně"
 msgid "Weekly"
 msgstr "Týdně"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "Měsíčně"
 
-msgid "Bi-monthly)"
-msgstr "Dvakrát za měsíc)"
+msgid "Bi-monthly"
+msgstr ""
 
 msgid "Quarterly"
 msgstr "Čtvrtletně"
@@ -1177,6 +1192,9 @@ msgstr "Duben šest měsíců"
 msgid "Yearly"
 msgstr "Ročně"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "Finanční rok (od října)"
 
@@ -1185,129 +1203,6 @@ msgstr "Finanční rok (od července)"
 
 msgid "Financial year (Start April)"
 msgstr "Finanční rok (od dubna)"
-
-msgid "Today"
-msgstr "Dnes"
-
-msgid "Yesterday"
-msgstr "Včera"
-
-msgid "Last 3 days"
-msgstr "Poslední 3 dny"
-
-msgid "Last 7 days"
-msgstr "Posledních 7 dní"
-
-msgid "Last 14 days"
-msgstr "Posledních 14 dní"
-
-msgid "Last 30 days"
-msgstr "Poledních 30 dní"
-
-msgid "Last 60 days"
-msgstr "Posledních 60 dní"
-
-msgid "Last 90 days"
-msgstr "Posledních 90 dní"
-
-msgid "Last 180 days"
-msgstr "Posledních 180 dní"
-
-msgid "This week"
-msgstr "Tento týden"
-
-msgid "Last week"
-msgstr "Minulý týden"
-
-msgid "Last 4 weeks"
-msgstr "Poslední 4 týdny"
-
-msgid "Last 12 weeks"
-msgstr "Posledních 12 týdnů"
-
-msgid "Last 52 weeks"
-msgstr "Posledních 52 týdnů"
-
-msgid "Weeks this year"
-msgstr "Týdny tohoto roku"
-
-msgid "This bi-week"
-msgstr "Těchto 14 dní"
-
-msgid "Last bi-week"
-msgstr "Posledních dní "
-
-msgid "Last 4 bi-weeks"
-msgstr "4 poslední dvoutýdny"
-
-msgid "This month"
-msgstr "Tento měsíc"
-
-msgid "Last month"
-msgstr "Minulý měsíc"
-
-msgid "Last 3 months"
-msgstr "Poslední 3 měsíce"
-
-msgid "Last 6 months"
-msgstr "Posledních 6 měsíců"
-
-msgid "Last 12 months"
-msgstr "Posledních 12 měsíců"
-
-msgid "Months this year"
-msgstr "Měsíce tohoto roku"
-
-msgid "This bi-month"
-msgstr "Těchto 14 dní"
-
-msgid "Last bi-month"
-msgstr "Poslední dva měsíce"
-
-msgid "Last 6 bi-months"
-msgstr "Posledních 6 dvou-měsíců"
-
-msgid "Bi-months this year"
-msgstr "Dvouměsíčně tento rok"
-
-msgid "This quarter"
-msgstr "Toto čtvrtletí"
-
-msgid "Last quarter"
-msgstr "Poslední čtvrtletí"
-
-msgid "Last 4 quarters"
-msgstr "Poslední 4 čtvrtletí "
-
-msgid "Quarters this year"
-msgstr "Čtvrtletí tohoto roku"
-
-msgid "This six-month"
-msgstr "Tento půlrok"
-
-msgid "Last six-month"
-msgstr "Poslední půlrok"
-
-msgid "Last 2 six-months"
-msgstr "Poslední 2 šestiměsíce"
-
-msgid "This year"
-msgstr "Tento rok"
-
-msgid "Last year"
-msgstr "Poslední rok"
-
-msgid "Last 5 years"
-msgstr "Posledních 5 let"
-
-msgid "This financial year"
-msgstr "Tento fiskální rok"
-
-msgid "Last financial year"
-msgstr "Poslední finanční rok"
-
-msgid "Last 5 financial years"
-msgstr "Posledních 5 fiskálních roků"
 
 msgid "Cancelled"
 msgstr "Zrušeno"

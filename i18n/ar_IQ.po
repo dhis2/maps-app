@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2021\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -1134,10 +1134,25 @@ msgstr "يومي"
 msgid "Weekly"
 msgstr "أسبوعي"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "شهري"
 
-msgid "Bi-monthly)"
+msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
@@ -1152,6 +1167,9 @@ msgstr "ستة أشهر نيسان"
 msgid "Yearly"
 msgstr "سنوي"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "السنة المالية (بداية تشرين الأول)"
 
@@ -1160,129 +1178,6 @@ msgstr "السنة المالية (بداية تموز)"
 
 msgid "Financial year (Start April)"
 msgstr "السنة المالية (بداية نيسان)"
-
-msgid "Today"
-msgstr "اليوم"
-
-msgid "Yesterday"
-msgstr "الأمس"
-
-msgid "Last 3 days"
-msgstr "آخر 3 أيام"
-
-msgid "Last 7 days"
-msgstr "آخر 7 أيام"
-
-msgid "Last 14 days"
-msgstr "آخر 14 يوم"
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "الأسبوع الحالي"
-
-msgid "Last week"
-msgstr "الأسبوع الماضي"
-
-msgid "Last 4 weeks"
-msgstr "آخر 4 أسابيع"
-
-msgid "Last 12 weeks"
-msgstr "آخر 12 أسبوع"
-
-msgid "Last 52 weeks"
-msgstr "آخر 52 أسبوع"
-
-msgid "Weeks this year"
-msgstr "أسابيع السنة الحالية"
-
-msgid "This bi-week"
-msgstr "الأسبوعين الحاليين"
-
-msgid "Last bi-week"
-msgstr "آخر اسبوعين"
-
-msgid "Last 4 bi-weeks"
-msgstr "آخر 4 زوج اسابيع"
-
-msgid "This month"
-msgstr "الشهر الحالي"
-
-msgid "Last month"
-msgstr "الشهر الماضي"
-
-msgid "Last 3 months"
-msgstr "آخر 3 أشهر"
-
-msgid "Last 6 months"
-msgstr "آخر 6 أشهر"
-
-msgid "Last 12 months"
-msgstr "آخر 12 شهر"
-
-msgid "Months this year"
-msgstr "أشهر السنة الحالية"
-
-msgid "This bi-month"
-msgstr "الشهران المزدوجان الحاليان"
-
-msgid "Last bi-month"
-msgstr "آخر شهرين مزدوجين"
-
-msgid "Last 6 bi-months"
-msgstr "آخر 6 أشهر مزدوجة"
-
-msgid "Bi-months this year"
-msgstr "الأشهر المزدوجة في السنة الحالية"
-
-msgid "This quarter"
-msgstr "ربع السنة الحالي"
-
-msgid "Last quarter"
-msgstr "ربع السنة الماضي"
-
-msgid "Last 4 quarters"
-msgstr "آخر 4 أرباع السنة"
-
-msgid "Quarters this year"
-msgstr "أرباع السنة الحالية"
-
-msgid "This six-month"
-msgstr "نصف السنة الحالي (فترة من ستة أشهر)"
-
-msgid "Last six-month"
-msgstr "آخر ستة أشهر"
-
-msgid "Last 2 six-months"
-msgstr "آخر 2 ستة أشهر"
-
-msgid "This year"
-msgstr "السنة الحالية"
-
-msgid "Last year"
-msgstr "السنة الماضية"
-
-msgid "Last 5 years"
-msgstr "آخر 5 سنوات"
-
-msgid "This financial year"
-msgstr "السنة المالية الحالية"
-
-msgid "Last financial year"
-msgstr "السنة المالية الماضية"
-
-msgid "Last 5 financial years"
-msgstr "آخر 5 سنوات مالية"
 
 msgid "Cancelled"
 msgstr "تم الإلغاء"
