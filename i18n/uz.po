@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -1206,132 +1206,6 @@ msgstr "Молиявий йил (бошланиши Июль)"
 
 msgid "Financial year (Start April)"
 msgstr "Молиявий йил (бошланиши Апрель)"
-
-msgid "Today"
-msgstr "бугун"
-
-msgid "Yesterday"
-msgstr "Кеча"
-
-msgid "Last 3 days"
-msgstr "Охирги 3 кун"
-
-msgid "Last 7 days"
-msgstr "Охирги 7 кун"
-
-msgid "Last 14 days"
-msgstr "Охирги 14 кун"
-
-msgid "Last 30 days"
-msgstr "Охирги 30 кун"
-
-msgid "Last 60 days"
-msgstr "Охирги 60 кун"
-
-msgid "Last 90 days"
-msgstr "Охирги 90 кун"
-
-msgid "Last 180 days"
-msgstr "Охирги 180 кун"
-
-msgid "This week"
-msgstr "Ушбу ҳафта"
-
-msgid "Last week"
-msgstr "Охирги ҳафта"
-
-msgid "Last 4 weeks"
-msgstr "Охирги 4 ҳафта"
-
-msgid "Last 12 weeks"
-msgstr "Охирги 12 ҳафта"
-
-msgid "Last 52 weeks"
-msgstr "Охирги 52 ҳафта"
-
-msgid "Weeks this year"
-msgstr "Ҳафталар айни йилда "
-
-msgid "This bi-week"
-msgstr "Ушбу жуфт ҳафта"
-
-msgid "Last bi-week"
-msgstr "Охирги жуфт ҳафта"
-
-msgid "Last 4 bi-weeks"
-msgstr "Охирги 4 жуфт ҳафталар"
-
-msgid "This month"
-msgstr "Ушбу ой"
-
-msgid "Last month"
-msgstr "Охирги ой"
-
-msgid "Last 3 months"
-msgstr "Охирги 3 ой"
-
-msgid "Last 6 months"
-msgstr "Охирги 6 ой"
-
-msgid "Last 12 months"
-msgstr "Охирги 12 ой"
-
-msgid "Months this year"
-msgstr "Ойлар айни йилда"
-
-msgid "This bi-month"
-msgstr "Ушбу жуфт ой"
-
-msgid "Last bi-month"
-msgstr "Охирги 2 ой"
-
-msgid "Last 6 bi-months"
-msgstr "Охирги 6 жуфт ойлар"
-
-msgid "Bi-months this year"
-msgstr "Айни йилдаги жуфт ойлар"
-
-msgid "This quarter"
-msgstr "Ушбу квартал"
-
-msgid "Last quarter"
-msgstr "Охирги квартал"
-
-msgid "Last 4 quarters"
-msgstr "Охирги 4 квартал"
-
-msgid "Quarters this year"
-msgstr "Ушбу йилдаги кварталлар"
-
-msgid "This six-month"
-msgstr "Ушбу ярим йиллик"
-
-msgid "Last six-month"
-msgstr "Охирги 6 ой"
-
-msgid "Last 2 six-months"
-msgstr "Охирги 2 та 6 ойлик"
-
-msgid "This year"
-msgstr "Ушбу йил"
-
-msgid "Last year"
-msgstr "Охирги йил"
-
-msgid "Last 5 years"
-msgstr "Охирги 5 йил"
-
-msgid "Last 10 years"
-msgstr "Охирги 10 йил"
-
-msgid "This financial year"
-msgstr "Ушбу молиявий йил"
-
-msgid "Last financial year"
-msgstr "Охирги молиявий йил"
-
-msgid "Last 5 financial years"
-msgstr "Охирги 5 молиявий йиллар"
 
 msgid "Cancelled"
 msgstr "Бекор қилинди"
