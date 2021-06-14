@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
-"PO-Revision-Date: 2021-06-03T14:56:07.831Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"PO-Revision-Date: 2021-06-09T13:13:02.238Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1164,129 +1164,6 @@ msgid "Financial year (Start July)"
 msgstr ""
 
 msgid "Financial year (Start April)"
-msgstr ""
-
-msgid "Today"
-msgstr ""
-
-msgid "Yesterday"
-msgstr ""
-
-msgid "Last 3 days"
-msgstr ""
-
-msgid "Last 7 days"
-msgstr ""
-
-msgid "Last 14 days"
-msgstr ""
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr ""
-
-msgid "Last week"
-msgstr ""
-
-msgid "Last 4 weeks"
-msgstr ""
-
-msgid "Last 12 weeks"
-msgstr ""
-
-msgid "Last 52 weeks"
-msgstr ""
-
-msgid "Weeks this year"
-msgstr ""
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr ""
-
-msgid "Last month"
-msgstr ""
-
-msgid "Last 3 months"
-msgstr ""
-
-msgid "Last 6 months"
-msgstr ""
-
-msgid "Last 12 months"
-msgstr ""
-
-msgid "Months this year"
-msgstr ""
-
-msgid "This bi-month"
-msgstr ""
-
-msgid "Last bi-month"
-msgstr ""
-
-msgid "Last 6 bi-months"
-msgstr ""
-
-msgid "Bi-months this year"
-msgstr ""
-
-msgid "This quarter"
-msgstr ""
-
-msgid "Last quarter"
-msgstr ""
-
-msgid "Last 4 quarters"
-msgstr ""
-
-msgid "Quarters this year"
-msgstr ""
-
-msgid "This six-month"
-msgstr ""
-
-msgid "Last six-month"
-msgstr ""
-
-msgid "Last 2 six-months"
-msgstr ""
-
-msgid "This year"
-msgstr ""
-
-msgid "Last year"
-msgstr ""
-
-msgid "Last 5 years"
-msgstr ""
-
-msgid "This financial year"
-msgstr ""
-
-msgid "Last financial year"
-msgstr ""
-
-msgid "Last 5 financial years"
 msgstr ""
 
 msgid "Cancelled"
