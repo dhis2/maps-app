@@ -1,14 +1,14 @@
 # 
 # Translators:
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Pushto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1182,132 +1182,6 @@ msgstr "مالی کال- جولای"
 
 msgid "Financial year (Start April)"
 msgstr "مالی کال- آپریل"
-
-msgid "Today"
-msgstr "نن ورځ"
-
-msgid "Yesterday"
-msgstr "پرونۍ ورځ"
-
-msgid "Last 3 days"
-msgstr "تېرې درې ورځې"
-
-msgid "Last 7 days"
-msgstr "تېرې اوه ورځې"
-
-msgid "Last 14 days"
-msgstr "تېرې څورلس ورځې"
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "هفته هذا"
-
-msgid "Last week"
-msgstr "تېره اونۍ"
-
-msgid "Last 4 weeks"
-msgstr "تېرې 4 اونۍ"
-
-msgid "Last 12 weeks"
-msgstr "تېرو 12 اونۍ"
-
-msgid "Last 52 weeks"
-msgstr "تېرې دوه پنځوس اونۍ"
-
-msgid "Weeks this year"
-msgstr "په روان کال کې اونۍ"
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr "ماه هذا"
-
-msgid "Last month"
-msgstr "تېره میاشت"
-
-msgid "Last 3 months"
-msgstr "تېرې 3 میاشتې"
-
-msgid "Last 6 months"
-msgstr "تېرې شپږ میاشتې"
-
-msgid "Last 12 months"
-msgstr "تېرې 12 میاشتې"
-
-msgid "Months this year"
-msgstr "د روان کال میاشتې"
-
-msgid "This bi-month"
-msgstr "این دوماهه"
-
-msgid "Last bi-month"
-msgstr "تېرې دوه میاشتې"
-
-msgid "Last 6 bi-months"
-msgstr "په تېرو شپږو میاشتو کې ډوه ځلې"
-
-msgid "Bi-months this year"
-msgstr "په روان کال کې دوه میاشتې"
-
-msgid "This quarter"
-msgstr "ربع هذا"
-
-msgid "Last quarter"
-msgstr "تېره ربعه"
-
-msgid "Last 4 quarters"
-msgstr "تېرې 4ربعې"
-
-msgid "Quarters this year"
-msgstr "د سږ کال ربعې"
-
-msgid "This six-month"
-msgstr "شش ماه هذا"
-
-msgid "Last six-month"
-msgstr "تېرې شپږ میاشتې [ تېرې ـ شپږ ـ میاشتې ]"
-
-msgid "Last 2 six-months"
-msgstr "تېرې دوه شپږ میاشتې"
-
-msgid "This year"
-msgstr "روان کال"
-
-msgid "Last year"
-msgstr "تېر کال"
-
-msgid "Last 5 years"
-msgstr "تېر 5 کلونه"
-
-msgid "Last 10 years"
-msgstr "لس کلونه"
-
-msgid "This financial year"
-msgstr "سږنۍ مالي کال"
-
-msgid "Last financial year"
-msgstr "تېر مالي کال"
-
-msgid "Last 5 financial years"
-msgstr "تېر 5 مالي کلونه"
 
 msgid "Cancelled"
 msgstr "لغوه شوی"

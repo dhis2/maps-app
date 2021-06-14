@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -1201,132 +1201,6 @@ msgstr "Regnskapsår (start juli)"
 
 msgid "Financial year (Start April)"
 msgstr "Regnskapsår (start april)"
-
-msgid "Today"
-msgstr "I dag"
-
-msgid "Yesterday"
-msgstr "I går"
-
-msgid "Last 3 days"
-msgstr "Siste 3 dager"
-
-msgid "Last 7 days"
-msgstr "Siste 7 dager"
-
-msgid "Last 14 days"
-msgstr "Siste 14 dager"
-
-msgid "Last 30 days"
-msgstr "Siste 30 dager"
-
-msgid "Last 60 days"
-msgstr "Siste 60 dager"
-
-msgid "Last 90 days"
-msgstr "Siste 90 dager"
-
-msgid "Last 180 days"
-msgstr "Siste 180 dager"
-
-msgid "This week"
-msgstr "Denne uken"
-
-msgid "Last week"
-msgstr "Forrige uke"
-
-msgid "Last 4 weeks"
-msgstr "Siste 4 uker"
-
-msgid "Last 12 weeks"
-msgstr "Siste 12 uker"
-
-msgid "Last 52 weeks"
-msgstr "Siste 52 uker"
-
-msgid "Weeks this year"
-msgstr "Uker inneværende år"
-
-msgid "This bi-week"
-msgstr "Denne touken"
-
-msgid "Last bi-week"
-msgstr "Sist touke"
-
-msgid "Last 4 bi-weeks"
-msgstr "Siste 4 touker"
-
-msgid "This month"
-msgstr "Denne måneden"
-
-msgid "Last month"
-msgstr "Forrige måned"
-
-msgid "Last 3 months"
-msgstr "Siste 3 måneder"
-
-msgid "Last 6 months"
-msgstr "Siste 6 måneder"
-
-msgid "Last 12 months"
-msgstr "Siste 12 måneder"
-
-msgid "Months this year"
-msgstr "Måneder inneværende år"
-
-msgid "This bi-month"
-msgstr "Denne tomåneden"
-
-msgid "Last bi-month"
-msgstr "Siste tomåned"
-
-msgid "Last 6 bi-months"
-msgstr "Siste 6 tomåneder"
-
-msgid "Bi-months this year"
-msgstr "Tomåneder i år"
-
-msgid "This quarter"
-msgstr "Dette kvartalet"
-
-msgid "Last quarter"
-msgstr "Siste kvartal"
-
-msgid "Last 4 quarters"
-msgstr "Siste 4 kvartaler"
-
-msgid "Quarters this year"
-msgstr "Kvartaler inneværende år"
-
-msgid "This six-month"
-msgstr "Dette halvåret"
-
-msgid "Last six-month"
-msgstr "Siste halvår"
-
-msgid "Last 2 six-months"
-msgstr "Siste 2 halvår"
-
-msgid "This year"
-msgstr "Dette året"
-
-msgid "Last year"
-msgstr "Forrige år"
-
-msgid "Last 5 years"
-msgstr "Siste 5 år"
-
-msgid "Last 10 years"
-msgstr "Siste 10 år"
-
-msgid "This financial year"
-msgstr "Dette regnskapsåret"
-
-msgid "Last financial year"
-msgstr "Siste regnskapsår"
-
-msgid "Last 5 financial years"
-msgstr "Siste 5 regnskapsår"
 
 msgid "Cancelled"
 msgstr "Kansellert"

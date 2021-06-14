@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Tetum (Tetun) (https://www.transifex.com/hisp-uio/teams/100509/tet/)\n"
@@ -1182,132 +1182,6 @@ msgstr "Jullu finanseiru"
 
 msgid "Financial year (Start April)"
 msgstr "Abril finanseiru"
-
-msgid "Today"
-msgstr ""
-
-msgid "Yesterday"
-msgstr ""
-
-msgid "Last 3 days"
-msgstr ""
-
-msgid "Last 7 days"
-msgstr ""
-
-msgid "Last 14 days"
-msgstr ""
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr ""
-
-msgid "Last week"
-msgstr "Semana kotuk"
-
-msgid "Last 4 weeks"
-msgstr "Semana 4 ikus"
-
-msgid "Last 12 weeks"
-msgstr "Semana 12 ikus"
-
-msgid "Last 52 weeks"
-msgstr "Semana 52 ikus"
-
-msgid "Weeks this year"
-msgstr ""
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr ""
-
-msgid "Last month"
-msgstr "Fulan kotuk"
-
-msgid "Last 3 months"
-msgstr "Fulan 3 ikus"
-
-msgid "Last 6 months"
-msgstr "Fulan 6 ikus"
-
-msgid "Last 12 months"
-msgstr "Fulan 12 ikus"
-
-msgid "Months this year"
-msgstr "Fulan sira tinan ida ne'e"
-
-msgid "This bi-month"
-msgstr ""
-
-msgid "Last bi-month"
-msgstr "Bimensal kotuk"
-
-msgid "Last 6 bi-months"
-msgstr "Bimensal 6 ikus liu"
-
-msgid "Bi-months this year"
-msgstr ""
-
-msgid "This quarter"
-msgstr ""
-
-msgid "Last quarter"
-msgstr "Trimestre kotuk"
-
-msgid "Last 4 quarters"
-msgstr "Trimestre 4 ikus liu"
-
-msgid "Quarters this year"
-msgstr "Trimestres sira tinan ida ne'e"
-
-msgid "This six-month"
-msgstr ""
-
-msgid "Last six-month"
-msgstr "Fulan-nén ikus"
-
-msgid "Last 2 six-months"
-msgstr "Fulan-nén 2 ikus"
-
-msgid "This year"
-msgstr "Tina ida ne'e"
-
-msgid "Last year"
-msgstr "Tinan kotuk"
-
-msgid "Last 5 years"
-msgstr "Tinan 5 kotuk"
-
-msgid "Last 10 years"
-msgstr ""
-
-msgid "This financial year"
-msgstr "Tinan finanseiru ida ne'e"
-
-msgid "Last financial year"
-msgstr "Tinan finanseiru kotuk"
-
-msgid "Last 5 financial years"
-msgstr "Tinan finanseiru 5 ikus"
 
 msgid "Cancelled"
 msgstr ""

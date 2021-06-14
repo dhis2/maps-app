@@ -1,13 +1,13 @@
 # 
 # Translators:
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# phil_dhis2, 2021
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-03T14:56:07.831Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -1183,132 +1183,6 @@ msgstr "Năm Tài Chính - Tháng 7"
 
 msgid "Financial year (Start April)"
 msgstr "Năm Tài Chính - Tháng 4"
-
-msgid "Today"
-msgstr "Hôm Nay"
-
-msgid "Yesterday"
-msgstr "Hôm Qua"
-
-msgid "Last 3 days"
-msgstr "3 ngày trước"
-
-msgid "Last 7 days"
-msgstr "7 ngày trước"
-
-msgid "Last 14 days"
-msgstr "14 ngày trước"
-
-msgid "Last 30 days"
-msgstr "30 ngày trước"
-
-msgid "Last 60 days"
-msgstr "60 ngày qua"
-
-msgid "Last 90 days"
-msgstr "90 ngày qua"
-
-msgid "Last 180 days"
-msgstr "180 ngày qua"
-
-msgid "This week"
-msgstr "Tuần này"
-
-msgid "Last week"
-msgstr "Tuần trước"
-
-msgid "Last 4 weeks"
-msgstr "4 tuần trước"
-
-msgid "Last 12 weeks"
-msgstr "12 tuần trước"
-
-msgid "Last 52 weeks"
-msgstr "52 tuần trước"
-
-msgid "Weeks this year"
-msgstr "Các tuần trong năm nay"
-
-msgid "This bi-week"
-msgstr "Kỳ hiện tại, 1 kỳ = 2 tuần"
-
-msgid "Last bi-week"
-msgstr "Kỳ trước, 1 kỳ = 2 tuần"
-
-msgid "Last 4 bi-weeks"
-msgstr "4 kỳ trước, 1 kỳ = 2 tuần"
-
-msgid "This month"
-msgstr "Tháng này"
-
-msgid "Last month"
-msgstr "Tháng trước"
-
-msgid "Last 3 months"
-msgstr "3 tháng trước"
-
-msgid "Last 6 months"
-msgstr "6 tháng trước"
-
-msgid "Last 12 months"
-msgstr "Trong 12 tháng trước"
-
-msgid "Months this year"
-msgstr "Tháng năm nay"
-
-msgid "This bi-month"
-msgstr "Lần Hai-Tháng này"
-
-msgid "Last bi-month"
-msgstr "2 tháng trước"
-
-msgid "Last 6 bi-months"
-msgstr "6 kỳ 2 tháng trước"
-
-msgid "Bi-months this year"
-msgstr "Các lần Hai-tháng năm nay"
-
-msgid "This quarter"
-msgstr "Quý này"
-
-msgid "Last quarter"
-msgstr "Quý trước"
-
-msgid "Last 4 quarters"
-msgstr "Trong 4 quý vừa qua"
-
-msgid "Quarters this year"
-msgstr "Quý năm nay"
-
-msgid "This six-month"
-msgstr "Lần Sáu-Tháng này"
-
-msgid "Last six-month"
-msgstr "6 tháng trước"
-
-msgid "Last 2 six-months"
-msgstr "2 sáu-tháng trước"
-
-msgid "This year"
-msgstr "Năm nay"
-
-msgid "Last year"
-msgstr "Năm ngoái"
-
-msgid "Last 5 years"
-msgstr "Trong 5 năm vừa qua"
-
-msgid "Last 10 years"
-msgstr "10 năm trước"
-
-msgid "This financial year"
-msgstr "Năm tài chính này"
-
-msgid "Last financial year"
-msgstr "Năm tài chính trước đó"
-
-msgid "Last 5 financial years"
-msgstr "5 năm tài chính trước"
 
 msgid "Cancelled"
 msgstr "Đã hủy"
