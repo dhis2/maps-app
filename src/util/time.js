@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
+import { browserLocale } from './i18n';
 
 const DEFAULT_LOCALE = 'en';
 
@@ -56,11 +57,14 @@ export const hasIntlSupport =
  */
 export const formatLocaleDate = (dateString, locale, showYear = true) =>
     hasIntlSupport
-        ? new Intl.DateTimeFormat(locale || i18n.language || DEFAULT_LOCALE, {
-              year: showYear ? 'numeric' : undefined,
-              month: 'short',
-              day: 'numeric',
-          }).format(toDate(dateString))
+        ? new Intl.DateTimeFormat(
+              browserLocale(locale || i18n.language || DEFAULT_LOCALE),
+              {
+                  year: showYear ? 'numeric' : undefined,
+                  month: 'short',
+                  day: 'numeric',
+              }
+          ).format(toDate(dateString))
         : fallbackDateFormat(dateString);
 
 /**

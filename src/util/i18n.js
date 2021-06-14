@@ -13,3 +13,6 @@ export const configI18n = userSettings => {
 
     i18n.changeLanguage(uiLocale);
 };
+
+export const browserLocale = locale =>
+    locale && locale.includes('_') ? locale.replace('_', '-') : locale;
