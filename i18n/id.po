@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -1143,10 +1143,25 @@ msgstr "Harian"
 msgid "Weekly"
 msgstr "Mingguan"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "Bulanan"
 
-msgid "Bi-monthly)"
+msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
@@ -1161,6 +1176,9 @@ msgstr "Semester April"
 msgid "Yearly"
 msgstr "Tahunan"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "Financial October"
 
@@ -1169,129 +1187,6 @@ msgstr "Financial July"
 
 msgid "Financial year (Start April)"
 msgstr "Financial April"
-
-msgid "Today"
-msgstr "Hari ini"
-
-msgid "Yesterday"
-msgstr "Kemarin"
-
-msgid "Last 3 days"
-msgstr "3 hari terakhir"
-
-msgid "Last 7 days"
-msgstr "7 hari terakhir"
-
-msgid "Last 14 days"
-msgstr "14 hari terakhir"
-
-msgid "Last 30 days"
-msgstr "30 hari terakhir"
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "Minggu ini"
-
-msgid "Last week"
-msgstr "Minggu lalu"
-
-msgid "Last 4 weeks"
-msgstr "4 minggu terakhir"
-
-msgid "Last 12 weeks"
-msgstr "12 minggu terakhir"
-
-msgid "Last 52 weeks"
-msgstr "52 minggu terakhir"
-
-msgid "Weeks this year"
-msgstr "Mingguan tahun ini"
-
-msgid "This bi-week"
-msgstr "Dwiwulan ini"
-
-msgid "Last bi-week"
-msgstr "Dwiwulan terakhir"
-
-msgid "Last 4 bi-weeks"
-msgstr "4 dwiwulan terakhir"
-
-msgid "This month"
-msgstr "Bulan ini"
-
-msgid "Last month"
-msgstr "Bulan lalu"
-
-msgid "Last 3 months"
-msgstr "3 bulan terakhir"
-
-msgid "Last 6 months"
-msgstr "6 bulan terakhir"
-
-msgid "Last 12 months"
-msgstr "12 bulan terakhir"
-
-msgid "Months this year"
-msgstr "Bulanan tahun ini"
-
-msgid "This bi-month"
-msgstr "2 bulan ini"
-
-msgid "Last bi-month"
-msgstr "Dwiwulan terakhir"
-
-msgid "Last 6 bi-months"
-msgstr "6 dwiwulan terakhir"
-
-msgid "Bi-months this year"
-msgstr "Dwiwulanan tahun ini"
-
-msgid "This quarter"
-msgstr "Triwulan ini"
-
-msgid "Last quarter"
-msgstr "Triwulan yang lalu"
-
-msgid "Last 4 quarters"
-msgstr "4 triwulan terakhir"
-
-msgid "Quarters this year"
-msgstr "Triwulanan tahun ini"
-
-msgid "This six-month"
-msgstr "6 bulan ini"
-
-msgid "Last six-month"
-msgstr "Semester lalu"
-
-msgid "Last 2 six-months"
-msgstr "2 semester terakhir"
-
-msgid "This year"
-msgstr "Tahun ini"
-
-msgid "Last year"
-msgstr "Tahun kemarin"
-
-msgid "Last 5 years"
-msgstr "5 tahun terakhir"
-
-msgid "This financial year"
-msgstr "Tahun finansial ini"
-
-msgid "Last financial year"
-msgstr "Tahun finansial kemarin"
-
-msgid "Last 5 financial years"
-msgstr "5 tahun finansial terakhir"
 
 msgid "Cancelled"
 msgstr "Dibatalkan"

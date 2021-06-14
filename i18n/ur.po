@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
@@ -1135,10 +1135,25 @@ msgstr "روزانہ"
 msgid "Weekly"
 msgstr "ہفتہ وار"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "ماہانہ"
 
-msgid "Bi-monthly)"
+msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
@@ -1153,6 +1168,9 @@ msgstr "چھ ماہی اپریل"
 msgid "Yearly"
 msgstr "سالانہ"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "مالی سال (اکتوبر شروع کریں)"
 
@@ -1161,129 +1179,6 @@ msgstr "مالی سال (جولائی شروع کریں)"
 
 msgid "Financial year (Start April)"
 msgstr "مالی سال (اپریل شروع کریں)"
-
-msgid "Today"
-msgstr "آج"
-
-msgid "Yesterday"
-msgstr "کل"
-
-msgid "Last 3 days"
-msgstr "آخری 3 دن"
-
-msgid "Last 7 days"
-msgstr "آخری 7 دن"
-
-msgid "Last 14 days"
-msgstr "آخری 14 دن"
-
-msgid "Last 30 days"
-msgstr "آخری 30 دن"
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "اس ہفتے"
-
-msgid "Last week"
-msgstr "آخری ہفتہ"
-
-msgid "Last 4 weeks"
-msgstr "آخری ۴ ہفتے"
-
-msgid "Last 12 weeks"
-msgstr "آخری ۱۲ ہفتے"
-
-msgid "Last 52 weeks"
-msgstr "آخری ۵۲ ہفتے"
-
-msgid "Weeks this year"
-msgstr "اس سال ہفتہ"
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr "اس مہینے"
-
-msgid "Last month"
-msgstr "آخری ماہ"
-
-msgid "Last 3 months"
-msgstr "آخری ۳ ماہ"
-
-msgid "Last 6 months"
-msgstr "آخری ۶ ماہ"
-
-msgid "Last 12 months"
-msgstr "آخری ۱۲ ماہ"
-
-msgid "Months this year"
-msgstr "ماہ اس سال"
-
-msgid "This bi-month"
-msgstr "یہ دو ماہ"
-
-msgid "Last bi-month"
-msgstr "آخری دو ماہ"
-
-msgid "Last 6 bi-months"
-msgstr "آخری ۶ دو ماہانہ"
-
-msgid "Bi-months this year"
-msgstr "اس مہینے میں مہینے"
-
-msgid "This quarter"
-msgstr "اس سہ ماہی"
-
-msgid "Last quarter"
-msgstr "آخری سہ ماہ"
-
-msgid "Last 4 quarters"
-msgstr "آخری ۴ سہ ماہی"
-
-msgid "Quarters this year"
-msgstr "سہ ماہی اس سال"
-
-msgid "This six-month"
-msgstr "یہ چھ ماہ"
-
-msgid "Last six-month"
-msgstr "آخری ۶ ماہ"
-
-msgid "Last 2 six-months"
-msgstr "آخری ۲ چھ ماہ"
-
-msgid "This year"
-msgstr "اس سال"
-
-msgid "Last year"
-msgstr "آخری سال"
-
-msgid "Last 5 years"
-msgstr "آخری ۵ سال"
-
-msgid "This financial year"
-msgstr "اس مالیاتی سال"
-
-msgid "Last financial year"
-msgstr "آخری مالیاتی سال"
-
-msgid "Last 5 financial years"
-msgstr "آخری ۵ مالیاتی سال"
 
 msgid "Cancelled"
 msgstr "منسوخ"

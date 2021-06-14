@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Tajik (https://www.transifex.com/hisp-uio/teams/100509/tg/)\n"
@@ -1135,10 +1135,25 @@ msgstr "Ҳаррӯза"
 msgid "Weekly"
 msgstr "Ҳафтаина"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "Моҳона"
 
-msgid "Bi-monthly)"
+msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
@@ -1153,6 +1168,9 @@ msgstr ""
 msgid "Yearly"
 msgstr "Солона"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr ""
 
@@ -1161,129 +1179,6 @@ msgstr ""
 
 msgid "Financial year (Start April)"
 msgstr ""
-
-msgid "Today"
-msgstr "Имрӯз"
-
-msgid "Yesterday"
-msgstr "Дирӯз"
-
-msgid "Last 3 days"
-msgstr ""
-
-msgid "Last 7 days"
-msgstr "7 рӯзи охир"
-
-msgid "Last 14 days"
-msgstr ""
-
-msgid "Last 30 days"
-msgstr "30 рӯзи охир"
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr ""
-
-msgid "Last week"
-msgstr "Ҳафтаи гузашта"
-
-msgid "Last 4 weeks"
-msgstr "4 ҳафтаи охир"
-
-msgid "Last 12 weeks"
-msgstr "12 ҳафтаи охир"
-
-msgid "Last 52 weeks"
-msgstr ""
-
-msgid "Weeks this year"
-msgstr ""
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr ""
-
-msgid "Last month"
-msgstr "Моҳи гузашта"
-
-msgid "Last 3 months"
-msgstr "3 моҳи охир"
-
-msgid "Last 6 months"
-msgstr "6 моҳи охир"
-
-msgid "Last 12 months"
-msgstr "12 моҳи охир"
-
-msgid "Months this year"
-msgstr "Моҳҳо дар ин сол"
-
-msgid "This bi-month"
-msgstr ""
-
-msgid "Last bi-month"
-msgstr "Думоҳаи охир"
-
-msgid "Last 6 bi-months"
-msgstr "6 думоҳаи охир"
-
-msgid "Bi-months this year"
-msgstr ""
-
-msgid "This quarter"
-msgstr ""
-
-msgid "Last quarter"
-msgstr "Семоҳаи охир"
-
-msgid "Last 4 quarters"
-msgstr "4 семоҳаи охир"
-
-msgid "Quarters this year"
-msgstr "Семоҳаҳои ин сол"
-
-msgid "This six-month"
-msgstr ""
-
-msgid "Last six-month"
-msgstr "Шашмоҳаи охир"
-
-msgid "Last 2 six-months"
-msgstr "2 шашмоҳаи охир"
-
-msgid "This year"
-msgstr "Имсол"
-
-msgid "Last year"
-msgstr "Соли гузашта"
-
-msgid "Last 5 years"
-msgstr "5 соли охир"
-
-msgid "This financial year"
-msgstr ""
-
-msgid "Last financial year"
-msgstr "Соли молиявии гузашта"
-
-msgid "Last 5 financial years"
-msgstr "5 соли молиявии гузашта"
 
 msgid "Cancelled"
 msgstr ""

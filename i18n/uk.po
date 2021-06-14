@@ -1,6 +1,5 @@
 # 
 # Translators:
-# Wanda <wanda@frontlineaids.org>, 2020
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Nadiia <semchuk@aph.org.ua>, 2021
@@ -8,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-12T10:09:30.419Z\n"
+"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Nadiia <semchuk@aph.org.ua>, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -1137,10 +1136,25 @@ msgstr "Щодня"
 msgid "Weekly"
 msgstr "Щотижня"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "Щомісячно"
 
-msgid "Bi-monthly)"
+msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
@@ -1155,6 +1169,9 @@ msgstr "Раз на півріччя квітень"
 msgid "Yearly"
 msgstr "Щорічно"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "Фінансовий рік (Початок у жовтні)"
 
@@ -1163,129 +1180,6 @@ msgstr "Фінансовий рік (Початок у липні)"
 
 msgid "Financial year (Start April)"
 msgstr "Фінансовий рік (Початок у квітні)"
-
-msgid "Today"
-msgstr "Сьогодні"
-
-msgid "Yesterday"
-msgstr "Вчора"
-
-msgid "Last 3 days"
-msgstr "Минулі 3 дні"
-
-msgid "Last 7 days"
-msgstr "Минулі 7 днів"
-
-msgid "Last 14 days"
-msgstr "Минулі 14 днів"
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "Поточний тиждень"
-
-msgid "Last week"
-msgstr "Минулий тиждень"
-
-msgid "Last 4 weeks"
-msgstr "Останні 4 тижні"
-
-msgid "Last 12 weeks"
-msgstr "Останні 12 тижнів"
-
-msgid "Last 52 weeks"
-msgstr "Останні 52 тижні"
-
-msgid "Weeks this year"
-msgstr "Тижні поточного року"
-
-msgid "This bi-week"
-msgstr "Теперішній двотижневий проміжок"
-
-msgid "Last bi-week"
-msgstr "Попередній двотижневий проміжок"
-
-msgid "Last 4 bi-weeks"
-msgstr "Попередні 4 двотижневі проміжки"
-
-msgid "This month"
-msgstr "Поточний місяць"
-
-msgid "Last month"
-msgstr "Останній місяць"
-
-msgid "Last 3 months"
-msgstr "Останні 3 місяці"
-
-msgid "Last 6 months"
-msgstr "Останні 6 місяців"
-
-msgid "Last 12 months"
-msgstr "Останні 12 місяців"
-
-msgid "Months this year"
-msgstr "Місяців поточного року"
-
-msgid "This bi-month"
-msgstr "Поточний двомісячний період"
-
-msgid "Last bi-month"
-msgstr "Останні два місяці"
-
-msgid "Last 6 bi-months"
-msgstr "Останні 6 двомісячних періоди"
-
-msgid "Bi-months this year"
-msgstr "Щодва місяці поточного року"
-
-msgid "This quarter"
-msgstr "Поточний квартал"
-
-msgid "Last quarter"
-msgstr "Минулий квартал"
-
-msgid "Last 4 quarters"
-msgstr "Останні 4 квартали"
-
-msgid "Quarters this year"
-msgstr "Квартали поточного року"
-
-msgid "This six-month"
-msgstr "Поточне півріччя"
-
-msgid "Last six-month"
-msgstr "Останнє півріччя"
-
-msgid "Last 2 six-months"
-msgstr "Останні 2 півріччя"
-
-msgid "This year"
-msgstr "Поточний рік"
-
-msgid "Last year"
-msgstr "Минулий рік"
-
-msgid "Last 5 years"
-msgstr "Останні 5 років"
-
-msgid "This financial year"
-msgstr "Поточний фінансовий рік"
-
-msgid "Last financial year"
-msgstr "Минулий фінансовий рік"
-
-msgid "Last 5 financial years"
-msgstr "Останні 5 фінансових років"
 
 msgid "Cancelled"
 msgstr "Скасовано"
