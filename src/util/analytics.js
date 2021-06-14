@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { sortBy, negate } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
-import { getPeriodNames } from '../constants/periods';
+import { getPeriodNames } from './periods';
 import { dimConf } from '../constants/dimension';
 import {
     RENDERING_STRATEGY_TIMELINE,

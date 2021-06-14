@@ -9,7 +9,7 @@ import {
 } from '@dhis2/ui';
 import cx from 'classnames';
 import { SelectField } from '../core';
-import { createPeriods, filterFuturePeriods } from '../../util/periods';
+import { getFixedPeriodsByType, filterFuturePeriods } from '../../util/periods';
 import { getYear } from '../../util/time';
 import styles from './styles/PeriodSelect.module.css';
 
@@ -108,7 +108,7 @@ class PeriodSelect extends Component {
         let periods;
 
         if (periodType) {
-            periods = createPeriods(periodType, year);
+            periods = getFixedPeriodsByType(periodType, year);
         } else if (period) {
             periods = [period]; // If period is loaded in favorite
         }
@@ -130,7 +130,7 @@ class PeriodSelect extends Component {
 
         this.setState({
             year,
-            periods: createPeriods(periodType, year),
+            periods: getFixedPeriodsByType(periodType, year),
         });
     };
 }

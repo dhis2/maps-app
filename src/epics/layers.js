@@ -7,7 +7,7 @@ import { errorActionCreator } from '../actions/helpers';
 import { fetchLayer } from '../loaders/layers';
 import { drillUpDown } from '../util/map';
 import { getPeriodFromFilters } from '../util/analytics';
-import { getRelativePeriods } from '../constants/periods';
+import { getRelativePeriods } from '../util/periods';
 
 const isNewLayer = config => config.id === undefined;
 
