@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/dhis2/maps-app/compare/v1.8.7...v1.9.0) (2021-06-14)
+
+
+### Features
+
+* hide periods based on system settings (DHIS2-11245) ([#1745](https://github.com/dhis2/maps-app/issues/1745)) ([abcd5ae](https://github.com/dhis2/maps-app/commit/abcd5ae853983a5f09b04ecb7796a98e3c386387))
+
 ## [1.8.7](https://github.com/dhis2/maps-app/compare/v1.8.6...v1.8.7) (2021-06-11)
 
 
