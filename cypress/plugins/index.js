@@ -1,5 +1,9 @@
 /* eslint-disable-next-line no-unused-vars */
 const plugins = require('@dhis2/cli-utils-cypress/plugins');
+const { initPlugin } = require('cypress-plugin-snapshots/plugin');
+const {
+    addMatchImageSnapshotPlugin,
+} = require('cypress-image-snapshot/plugin');
 
 module.exports = (on, config) => {
     on('before:browser:launch', (browser, launchOptions) => {
@@ -8,7 +12,7 @@ module.exports = (on, config) => {
                 'SameSiteByDefaultCookies',
                 'CookiesWithoutSameSiteMustBeSecure',
                 'SameSiteDefaultChecksMethodRigorously',
-            ]
+            ];
             launchOptions.args.push(
                 `--disable-features=${disabledChromiumFeatures.join(',')}`
             );
@@ -16,6 +20,9 @@ module.exports = (on, config) => {
 
         return launchOptions;
     });
+
+    initPlugin(on, config);
+    addMatchImageSnapshotPlugin(on, config);
 
     plugins(on, config);
 

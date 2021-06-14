@@ -28,8 +28,6 @@ context('Thematic Layers', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
             .selectIndicator('VCCT post-test counselling rate')
-            .selectTab('Period')
-            .selectPeriodType('Yearly')
             .addToMap();
 
         Layer.validateDialogClosed(true);
@@ -38,11 +36,11 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle('VCCT post-test counselling rate');
         Layer.validateCardItems([
-            '70.2 - 76.72 (1)',
-            '76.72 - 83.24 (1)',
-            '83.24 - 89.76 (2)',
-            '89.76 - 96.28 (3)',
-            '96.28 - 102.8 (4)',
+            '80.4 - 84.88 (1)',
+            '84.88 - 89.36 (2)',
+            '89.36 - 93.84 (3)',
+            '93.84 - 98.32 (1)',
+            '98.32 - 102.8 (3)',
         ]);
     });
 });
