@@ -1155,7 +1155,7 @@ msgid "Monthly"
 msgstr "En gång i månaden"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "varannan månad"
 
 msgid "Quarterly"
 msgstr "Kvartals"

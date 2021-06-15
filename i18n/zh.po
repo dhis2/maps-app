@@ -1,16 +1,16 @@
 # 
 # Translators:
-# phil_dhis2, 2021
-# 晓东 林 <13981924470@126.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # easylin <lin_xd@126.com>, 2021
+# phil_dhis2, 2021
+# 晓东 林 <13981924470@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1138,25 +1138,25 @@ msgid "Weekly"
 msgstr "每周"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "每周（始于周二）"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "每周（始于周四）"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "每周（始于周六）"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "每周（始于周日）"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "两周"
 
 msgid "Monthly"
 msgstr "每月"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "每两月"
 
 msgid "Quarterly"
 msgstr "季度"
@@ -1171,7 +1171,7 @@ msgid "Yearly"
 msgstr "每年"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "财政年（11月始）"
 
 msgid "Financial year (Start October)"
 msgstr "财政年度（十月开始）"

@@ -3,11 +3,11 @@
 # Matthieu Pinard <matthieu@pinard.no>, 2019
 # Austin McGee <austin@dhis2.org>, 2019
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Bram Piot <bram.piot@gmail.com>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Edem Kossi <ekossi@hispwca.org>, 2020
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# phil_dhis2, 2021
+# Bram Piot <bram.piot@gmail.com>, 2021
 # Yao Selom Saka <ysaka@hispwca.org>, 2021
 # Yayra Gomado <ygomado@hispwca.org>, 2021
 # 
@@ -1145,25 +1145,25 @@ msgid "Weekly"
 msgstr "Hebdomadaire"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Hebdomadaire (début mercredi)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Hebdomadaire (début jeudi)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Hebdomadaire (début samedi)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Hebdomadaire (début dimanche)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "Bi-hebdomadaire"
 
 msgid "Monthly"
 msgstr "Mensuel"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "Bimensuel"
 
 msgid "Quarterly"
 msgstr "Trimestriel"
@@ -1178,7 +1178,7 @@ msgid "Yearly"
 msgstr "Annuel"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Fiscale (Novembre)"
 
 msgid "Financial year (Start October)"
 msgstr "Financière Octobre"

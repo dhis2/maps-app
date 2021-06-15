@@ -1153,7 +1153,7 @@ msgid "Monthly"
 msgstr "ماهانه"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "دوبار در- ماه"
 
 msgid "Quarterly"
 msgstr "سه ماهه"
