@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Hamza Assada <7amza.it@gmail.com>, 2020
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# Hamza Assada <7amza.it@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1148,25 +1148,25 @@ msgid "Weekly"
 msgstr "أسبوعي"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "اسبوعياً (يبدأ الأربعاء)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "اسبوعياً (يبدأ الخميس)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "اسبوعياً (يبدأ السبت)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "اسبوعياً (يبدأ الأحد)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "كل اسبوعين"
 
 msgid "Monthly"
 msgstr "شهري"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "كل شهرين"
 
 msgid "Quarterly"
 msgstr "ربعي"
@@ -1181,7 +1181,7 @@ msgid "Yearly"
 msgstr "سنوي"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "السنة المالية (تبدأ في نوفمبر)"
 
 msgid "Financial year (Start October)"
 msgstr "السنة المالية (تبدأ في اكتوبر)"

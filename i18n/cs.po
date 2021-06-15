@@ -1160,25 +1160,25 @@ msgid "Weekly"
 msgstr "Týdně"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Týdně (od středy)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Týdně (od čtvrtka)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Týdně (od soboty)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Týdně (začíná nedělí)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "po 14ti dnech"
 
 msgid "Monthly"
 msgstr "Měsíčně"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "Dva měsíce"
 
 msgid "Quarterly"
 msgstr "Čtvrtletně"
@@ -1193,7 +1193,7 @@ msgid "Yearly"
 msgstr "Ročně"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Finanční rok (od listopadu)"
 
 msgid "Financial year (Start October)"
 msgstr "Finanční rok (od října)"

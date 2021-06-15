@@ -1136,25 +1136,25 @@ msgid "Weekly"
 msgstr "每周"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "每周（始于周二）"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "每周（始于周四）"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "每周（始于周六）"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "每周（始于周日）"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "双周"
 
 msgid "Monthly"
 msgstr "每月"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "每两月"
 
 msgid "Quarterly"
 msgstr "季度"
