@@ -163,17 +163,20 @@ export const styleByOptionSet = async config => {
     };
 
     // For easier and faster lookup below
-    const optionsByCode = optionSet.options.reduce((obj, option) => {
-        obj[option.code.toLowerCase()] = option;
+    // TODO: There might be options with duplicate name, so code/id would be safer
+    // If we use code/id we also need to retrive name to show in popup/data table/download
+    const optionsByName = optionSet.options.reduce((obj, option) => {
+        obj[option.name.toLowerCase()] = option;
         return obj;
     }, {});
 
     // Add style data value and color to each feature
     config.data = config.data.map(feature => {
-        const code = feature.properties[id];
+        const name = feature.properties[id];
 
-        if (code) {
-            const option = optionsByCode[code.toLowerCase()];
+        if (name) {
+            const option = optionsByName[name.toLowerCase()];
+
             if (option) {
                 return {
                     ...feature,
