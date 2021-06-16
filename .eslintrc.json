@@ -1,5 +1,5 @@
 {
-    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier", "plugin:cypress/recommended"],
     "env": {
         "browser": true,
         "node": true,
@@ -13,7 +13,7 @@
             "jsx": true
         }
     },
-    "plugins": ["prettier"],
+    "plugins": ["prettier", "cypress"],
     "rules": {
         "prettier/prettier": "error"
     },

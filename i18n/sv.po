@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-20T15:24:32.855Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Swedish (https://www.transifex.com/hisp-uio/teams/100509/sv/)\n"
@@ -1139,6 +1139,21 @@ msgstr "Dagligen"
 msgid "Weekly"
 msgstr "Varje vecka"
 
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
+
 msgid "Monthly"
 msgstr "En gång i månaden"
 
@@ -1157,6 +1172,9 @@ msgstr "Halvårs April"
 msgid "Yearly"
 msgstr "Årlig"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "Budgetår - Oktober"
 
@@ -1165,129 +1183,6 @@ msgstr "Budgetår - Juli"
 
 msgid "Financial year (Start April)"
 msgstr "Budgetår - April"
-
-msgid "Today"
-msgstr ""
-
-msgid "Yesterday"
-msgstr ""
-
-msgid "Last 3 days"
-msgstr ""
-
-msgid "Last 7 days"
-msgstr ""
-
-msgid "Last 14 days"
-msgstr ""
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "Denna vecka"
-
-msgid "Last week"
-msgstr "Förra veckan"
-
-msgid "Last 4 weeks"
-msgstr "Senaste 4 veckorna"
-
-msgid "Last 12 weeks"
-msgstr "Senast 12 veckor"
-
-msgid "Last 52 weeks"
-msgstr "Senast 52 veckor"
-
-msgid "Weeks this year"
-msgstr ""
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr "Den här månaden"
-
-msgid "Last month"
-msgstr "Förra månaden"
-
-msgid "Last 3 months"
-msgstr "Senaste 3 månaderna"
-
-msgid "Last 6 months"
-msgstr "Senaste 6 månaderna"
-
-msgid "Last 12 months"
-msgstr "Senaste 12 månaderna"
-
-msgid "Months this year"
-msgstr "Månader i år"
-
-msgid "This bi-month"
-msgstr "Denna bi-månaders"
-
-msgid "Last bi-month"
-msgstr "Senast bi månad"
-
-msgid "Last 6 bi-months"
-msgstr "Senaste 6 bi-månader"
-
-msgid "Bi-months this year"
-msgstr ""
-
-msgid "This quarter"
-msgstr "detta kvartal"
-
-msgid "Last quarter"
-msgstr "Förra kvartalet"
-
-msgid "Last 4 quarters"
-msgstr "Senaste 4 kvartal"
-
-msgid "Quarters this year"
-msgstr "Kvartalen i år"
-
-msgid "This six-month"
-msgstr "Denna sexmånaders"
-
-msgid "Last six-month"
-msgstr "Senast sex månader"
-
-msgid "Last 2 six-months"
-msgstr "Senaste 2 sex månader"
-
-msgid "This year"
-msgstr "Det här året"
-
-msgid "Last year"
-msgstr "Förra året"
-
-msgid "Last 5 years"
-msgstr "Senaste 5 år"
-
-msgid "This financial year"
-msgstr "Detta räkenskapsår"
-
-msgid "Last financial year"
-msgstr "Föregående räkenskapsår"
-
-msgid "Last 5 financial years"
-msgstr "Senaste 5 räkenskapsåren"
 
 msgid "Cancelled"
 msgstr "Avbruten"

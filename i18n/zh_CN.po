@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-20T15:24:32.855Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -1138,6 +1138,21 @@ msgstr "每日"
 msgid "Weekly"
 msgstr "每周"
 
+msgid "Weekly (Start Wednesday)"
+msgstr "每周（始于周二）"
+
+msgid "Weekly (Start Thursday)"
+msgstr "每周（始于周四）"
+
+msgid "Weekly (Start Saturday)"
+msgstr "每周（始于周六）"
+
+msgid "Weekly (Start Sunday)"
+msgstr "每周（始于周日）"
+
+msgid "Bi-weekly"
+msgstr "双周"
+
 msgid "Monthly"
 msgstr "每月"
 
@@ -1156,6 +1171,9 @@ msgstr "半年的四月"
 msgid "Yearly"
 msgstr "每年"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "财务十月"
 
@@ -1164,129 +1182,6 @@ msgstr "财务七月"
 
 msgid "Financial year (Start April)"
 msgstr "财务四月"
-
-msgid "Today"
-msgstr "今天"
-
-msgid "Yesterday"
-msgstr "昨天"
-
-msgid "Last 3 days"
-msgstr "最近3天"
-
-msgid "Last 7 days"
-msgstr "最近7天"
-
-msgid "Last 14 days"
-msgstr "最近14天"
-
-msgid "Last 30 days"
-msgstr "最近30天"
-
-msgid "Last 60 days"
-msgstr "最近60天"
-
-msgid "Last 90 days"
-msgstr "最近90天"
-
-msgid "Last 180 days"
-msgstr "最近180天"
-
-msgid "This week"
-msgstr "本周"
-
-msgid "Last week"
-msgstr "上周"
-
-msgid "Last 4 weeks"
-msgstr "最近四周"
-
-msgid "Last 12 weeks"
-msgstr "最近12周"
-
-msgid "Last 52 weeks"
-msgstr "最近52周"
-
-msgid "Weeks this year"
-msgstr "今年的星期"
-
-msgid "This bi-week"
-msgstr "这两周"
-
-msgid "Last bi-week"
-msgstr "最近双周"
-
-msgid "Last 4 bi-weeks"
-msgstr "最近四个双周"
-
-msgid "This month"
-msgstr "本月"
-
-msgid "Last month"
-msgstr "上月"
-
-msgid "Last 3 months"
-msgstr "最近3个月"
-
-msgid "Last 6 months"
-msgstr "最近六个月<br>"
-
-msgid "Last 12 months"
-msgstr "最近12月"
-
-msgid "Months this year"
-msgstr "今年的月份"
-
-msgid "This bi-month"
-msgstr "本两月"
-
-msgid "Last bi-month"
-msgstr "最近双月"
-
-msgid "Last 6 bi-months"
-msgstr "最近六个双月"
-
-msgid "Bi-months this year"
-msgstr "今年的双月"
-
-msgid "This quarter"
-msgstr "本季"
-
-msgid "Last quarter"
-msgstr "最近一季"
-
-msgid "Last 4 quarters"
-msgstr "最近四个季度"
-
-msgid "Quarters this year"
-msgstr "今年的季度"
-
-msgid "This six-month"
-msgstr "本半年"
-
-msgid "Last six-month"
-msgstr "最近六个月"
-
-msgid "Last 2 six-months"
-msgstr "最近两个半年"
-
-msgid "This year"
-msgstr "今年"
-
-msgid "Last year"
-msgstr "去年"
-
-msgid "Last 5 years"
-msgstr "最近5年"
-
-msgid "This financial year"
-msgstr "本财政年"
-
-msgid "Last financial year"
-msgstr "上一财政年"
-
-msgid "Last 5 financial years"
-msgstr "最近五个财政年"
 
 msgid "Cancelled"
 msgstr "取消"

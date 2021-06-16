@@ -1,16 +1,17 @@
 # 
 # Translators:
-# Ulanbek Abakirov <ulans@mail.ru>, 2020
 # Yury Rogachev <yury@dhis2.org>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# Saurabh Leekha <saurabh.leekha@hispindia.org>, 2021
 # phil_dhis2, 2021
+# Ulanbek Abakirov <ulans@mail.ru>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-20T15:24:32.855Z\n"
+"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"Last-Translator: Ulanbek Abakirov <ulans@mail.ru>, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -198,7 +199,7 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
-msgstr ""
+msgstr "Добавить слой"
 
 msgid "Aggregation method"
 msgstr ""
@@ -410,7 +411,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Отслеживаемые объекты"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -1141,6 +1142,21 @@ msgstr "Ежедневно"
 msgid "Weekly"
 msgstr "Еженедельно"
 
+msgid "Weekly (Start Wednesday)"
+msgstr "Еженедельно(Начало Среда)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "Еженедельно(Начало Четверг)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "Еженедельно(Начало Суббота)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "Еженедельно(Начало Воскресенье)"
+
+msgid "Bi-weekly"
+msgstr "Каждые две недели"
+
 msgid "Monthly"
 msgstr "Ежемесячно"
 
@@ -1159,6 +1175,9 @@ msgstr "Полугодовой-Апрель"
 msgid "Yearly"
 msgstr "Ежегодно"
 
+msgid "Financial year (Start November)"
+msgstr "Финансовый год (начало Ноябрь)"
+
 msgid "Financial year (Start October)"
 msgstr "Финансовый год - Октябрь"
 
@@ -1167,129 +1186,6 @@ msgstr "Финансовый год - Июль"
 
 msgid "Financial year (Start April)"
 msgstr "Финансовый год - Апрель"
-
-msgid "Today"
-msgstr "Сегодня"
-
-msgid "Yesterday"
-msgstr "Вчера"
-
-msgid "Last 3 days"
-msgstr "Последние 3 дня"
-
-msgid "Last 7 days"
-msgstr "Последние 7 дней"
-
-msgid "Last 14 days"
-msgstr "Последние 14 дней"
-
-msgid "Last 30 days"
-msgstr "Последние 30 дней"
-
-msgid "Last 60 days"
-msgstr "Последние 60 дней"
-
-msgid "Last 90 days"
-msgstr "Последние 90 дней"
-
-msgid "Last 180 days"
-msgstr "Последние 180 дней"
-
-msgid "This week"
-msgstr "Эта неделя"
-
-msgid "Last week"
-msgstr "Прошлая неделя"
-
-msgid "Last 4 weeks"
-msgstr "Прошлые 4 недели"
-
-msgid "Last 12 weeks"
-msgstr "Прошлые 12 недель"
-
-msgid "Last 52 weeks"
-msgstr "Последние 52 недели"
-
-msgid "Weeks this year"
-msgstr "Недели этого года"
-
-msgid "This bi-week"
-msgstr "Эта би-неделя"
-
-msgid "Last bi-week"
-msgstr "Последняя би-неделя"
-
-msgid "Last 4 bi-weeks"
-msgstr "Последние 4 би-недель"
-
-msgid "This month"
-msgstr "Этот месяц"
-
-msgid "Last month"
-msgstr "Последний месяц"
-
-msgid "Last 3 months"
-msgstr "Прошлые 3 месяца"
-
-msgid "Last 6 months"
-msgstr "Последние 6 месяцев"
-
-msgid "Last 12 months"
-msgstr "Прошлые 12 месяцев"
-
-msgid "Months this year"
-msgstr "Месяцы этого года"
-
-msgid "This bi-month"
-msgstr "Этот период по два месяца"
-
-msgid "Last bi-month"
-msgstr "Прошлый двухмесячный период"
-
-msgid "Last 6 bi-months"
-msgstr "Последние 6 двухмесячных периодов"
-
-msgid "Bi-months this year"
-msgstr "Би-месяцы этого года"
-
-msgid "This quarter"
-msgstr "Этот квартал"
-
-msgid "Last quarter"
-msgstr "Последний квартал"
-
-msgid "Last 4 quarters"
-msgstr "Прошлые 4 квартала"
-
-msgid "Quarters this year"
-msgstr "Кварталы этого года"
-
-msgid "This six-month"
-msgstr "Это полугодие"
-
-msgid "Last six-month"
-msgstr "Прошлое полугодие"
-
-msgid "Last 2 six-months"
-msgstr "Последние два полугодия"
-
-msgid "This year"
-msgstr "Этот год"
-
-msgid "Last year"
-msgstr "Прошлый год"
-
-msgid "Last 5 years"
-msgstr "Прошлые 5 лет"
-
-msgid "This financial year"
-msgstr "Этот финансовый год"
-
-msgid "Last financial year"
-msgstr "Прошлый финансовый год"
-
-msgid "Last 5 financial years"
-msgstr "Прошлые 5 финансовых лет"
 
 msgid "Cancelled"
 msgstr "Отмененный"
@@ -1301,7 +1197,7 @@ msgid "Error"
 msgstr "Ошибка"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Границы"
 
 msgid "No boundaries found"
 msgstr ""
@@ -1328,7 +1224,7 @@ msgid "No data found"
 msgstr "Данные не найдены"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Удобства"
 
 msgid "Thematic layer"
 msgstr "Тематический уровень"
@@ -1346,7 +1242,7 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
-msgstr ""
+msgstr "Тематический"
 
 msgid "not one of"
 msgstr ""
