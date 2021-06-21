@@ -29,6 +29,19 @@ const styles = {
         '& .dhis2-map-period': {
             bottom: '10px!important',
         },
+        '& .mapboxgl-compact': {
+            padding: '0 5px',
+            backgroundColor: 'hsla(0,0%,100%,.5)',
+            margin: '0!important',
+            minHeight: 0,
+            borderRadius: 0,
+        },
+        '& .mapboxgl-ctrl-attrib-button': {
+            display: 'none!important',
+        },
+        '& .mapboxgl-ctrl-attrib-inner': {
+            display: 'block!important',
+        },
     },
 };
 
