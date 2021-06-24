@@ -11,9 +11,12 @@ import {
     timeSecond,
     timeMillisecond,
 } from 'd3-time';
+import { dateLocale } from './time';
 
 export const createPeriods = (locale, periodType, year) => {
-    const localePeriodGenerator = createPeriodGeneratorsForLocale(locale);
+    const localePeriodGenerator = createPeriodGeneratorsForLocale(
+        dateLocale(locale)
+    );
 
     const periodGenerator =
         localePeriodGenerator[`generate${periodType}PeriodsForYear`] ||

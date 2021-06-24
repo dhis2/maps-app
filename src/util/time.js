@@ -2,6 +2,10 @@ import i18n from '@dhis2/d2-i18n';
 
 const DEFAULT_LOCALE = 'en';
 
+// BCP 47 locale format
+export const dateLocale = locale =>
+    locale && locale.includes('_') ? locale.replace('_', '-') : locale;
+
 /**
  * Converts a date string or timestamp to a date object
  * @param {String|Number|Date} date
@@ -56,11 +60,14 @@ export const hasIntlSupport =
  */
 export const formatLocaleDate = (dateString, locale, showYear = true) =>
     hasIntlSupport
-        ? new Intl.DateTimeFormat(locale || i18n.language || DEFAULT_LOCALE, {
-              year: showYear ? 'numeric' : undefined,
-              month: 'short',
-              day: 'numeric',
-          }).format(toDate(dateString))
+        ? new Intl.DateTimeFormat(
+              dateLocale(locale || i18n.language || DEFAULT_LOCALE),
+              {
+                  year: showYear ? 'numeric' : undefined,
+                  month: 'short',
+                  day: 'numeric',
+              }
+          ).format(toDate(dateString))
         : fallbackDateFormat(dateString);
 
 /**
