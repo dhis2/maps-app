@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "34.0.48",
+    "version": "34.0.49",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -50,7 +50,7 @@
         "@dhis2/d2-ui-analytics": "^0.0.3",
         "@dhis2/d2-ui-core": "^7.2.0",
         "@dhis2/d2-ui-file-menu": "^7.2.0",
-        "@dhis2/d2-ui-interpretations": "^7.2.0",
+        "@dhis2/d2-ui-interpretations": "^7.3.1",
         "@dhis2/d2-ui-org-unit-dialog": "^7.2.0",
         "@dhis2/d2-ui-org-unit-tree": "^7.2.0",
         "@dhis2/maps-gl": "^1.8.6",

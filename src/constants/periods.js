@@ -5,7 +5,7 @@ export const getPeriodTypes = () => [
     { id: 'Daily', name: i18n.t('Daily') },
     { id: 'Weekly', name: i18n.t('Weekly') },
     { id: 'Monthly', name: i18n.t('Monthly') },
-    { id: 'BiMonthly', name: i18n.t('Bi-monthly)') },
+    { id: 'BiMonthly', name: i18n.t('Bi-monthly') },
     { id: 'Quarterly', name: i18n.t('Quarterly') },
     { id: 'SixMonthly', name: i18n.t('Six-monthly') },
     { id: 'SixMonthlyApril', name: i18n.t('Six-monthly April') },
