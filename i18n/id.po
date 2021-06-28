@@ -7,13 +7,14 @@
 # Viktor Varland <viktor@dhis2.org>, 2020
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2021
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
+# Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021\n"
+"Last-Translator: Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,7 +68,7 @@ msgid "None"
 msgstr "Tidak ada"
 
 msgid "Data item"
-msgstr "barang data"
+msgstr "Data item"
 
 msgid "Event data item"
 msgstr "Data item pada even"
@@ -91,7 +92,7 @@ msgid "Id"
 msgstr "Id"
 
 msgid "Event time"
-msgstr "Waktu acara"
+msgstr "Waktu even"
 
 msgid "Value"
 msgstr "Nilai"
@@ -160,7 +161,7 @@ msgid "Labels"
 msgstr "label"
 
 msgid "Point radius"
-msgstr "Jari-jari titik"
+msgstr "Radius titik"
 
 msgid "No organisation units are selected"
 msgstr "Tidak ada unit organisasi yang dipilih"
@@ -191,19 +192,19 @@ msgid "boundary"
 msgstr "batas"
 
 msgid "Earth Engine"
-msgstr "Mesin Bumi"
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr "Edit {{name}} lapisan"
+msgstr "Edit {{name}} layer"
 
 msgid "Add new {{name}} layer"
-msgstr "Tambahkan lapisan {{name}} baru"
+msgstr "Tambahkan layer {{name}} baru"
 
 msgid "Update layer"
-msgstr "Perbarui lapisan"
+msgstr "Perbarui layer"
 
 msgid "Add layer"
-msgstr "Tambahkan lapisan"
+msgstr "Tambahkan layer"
 
 msgid "Aggregation method"
 msgstr "Metode agregasi"
@@ -257,16 +258,16 @@ msgid "Max value is required"
 msgstr "Nilai maksimum diperlukan"
 
 msgid "Max should be greater than min"
-msgstr "Maks harus lebih besar dari min"
+msgstr "Maksimal harus lebih besar dari minimal"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Langkah yang valid adalah {{minSteps}} hingga {{maxSteps}}"
 
 msgid "Min"
-msgstr "Min"
+msgstr "Minimal"
 
 msgid "Max"
-msgstr "Maks"
+msgstr "Maksimal"
 
 msgid "Steps"
 msgstr "langkah"
@@ -313,10 +314,10 @@ msgid "Event status"
 msgstr "Status Event"
 
 msgid "Buffer"
-msgstr "Penyangga"
+msgstr "Buffer"
 
 msgid "Radius in meters"
-msgstr "Jari-jari dalam meter"
+msgstr "Radius dalam meter"
 
 msgid "Aggregation type"
 msgstr "Tipe agregasi"
@@ -325,10 +326,10 @@ msgid "Show no data"
 msgstr "Tidak ada data"
 
 msgid "Low radius"
-msgstr "radius rendah Low"
+msgstr "radius rendah"
 
 msgid "High radius"
-msgstr "radius tinggi High"
+msgstr "radius tinggi"
 
 msgid "High radius should be greater than low radius"
 msgstr "Radius tinggi harus lebih besar dari radius rendah"
@@ -352,7 +353,7 @@ msgid "Data set is required"
 msgstr "Kumpulan data diperlukan"
 
 msgid "Event data item is required"
-msgstr "Item data acara diperlukan"
+msgstr "Item data event diperlukan"
 
 msgid "Program indicator is required"
 msgstr "Indikator program diperlukan"
@@ -373,7 +374,7 @@ msgid "Program indicators"
 msgstr "Indikator program"
 
 msgid "Item type"
-msgstr "Tipe barang"
+msgstr "Tipe item"
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Pilih periode saat entitas yang dilacak terakhir diperbarui"
@@ -510,7 +511,7 @@ msgid "Basemap"
 msgstr "peta dasar"
 
 msgid "Download Layer Data"
-msgstr "Unduh Data Lapisan"
+msgstr "Unduh Data Layer"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
 msgstr "Mengunduh data GeoJSON untuk \"{{layerName}}\""
@@ -532,13 +533,13 @@ msgid "Use human-readable keys"
 msgstr "Gunakan kunci yang dapat dibaca manusia"
 
 msgid "External layer"
-msgstr "Lapisan luar"
+msgstr "External layer"
 
 msgid "Split view can not be combined with other layer types."
-msgstr "Tampilan split tidak dapat digabungkan dengan jenis lapisan lainnya."
+msgstr "Tampilan split tidak dapat digabungkan dengan jenis layer lainnya."
 
 msgid "Loading layer"
-msgstr "Memuat lapisan"
+msgstr "Memuat layer"
 
 msgid "{{name}} deleted."
 msgstr "{{nama}} dihapus."
@@ -550,7 +551,7 @@ msgid "Toggle visibility"
 msgstr "Alihkan visibilitas"
 
 msgid "Set layer opacity"
-msgstr "Setel opasitas lapisan"
+msgstr "Setel opasitas layer"
 
 msgid "More actions"
 msgstr "Lebih banyak tindakan"
@@ -571,7 +572,7 @@ msgid "Edit layer"
 msgstr "Edit layer"
 
 msgid "Remove layer"
-msgstr "Hapus lapisan"
+msgstr "Hapus layer"
 
 msgid "Mid"
 msgstr "Pertengahan"
@@ -622,7 +623,7 @@ msgid "Organisation unit"
 msgstr "Unit organisasi"
 
 msgid "Loading layer data"
-msgstr "Memuat data lapisan"
+msgstr "Memuat data layer"
 
 msgid "Last updated"
 msgstr "Terakhir diperbarui"
@@ -699,11 +700,11 @@ msgid ""
 "layer."
 msgstr ""
 "Bagan/tabel ini berisi {{numItems}} item data. Pilih item mana yang ingin "
-"Anda impor dari daftar di bawah. Setiap item data akan dibuat sebagai "
-"lapisan peta."
+"Anda impor dari daftar di bawah. Setiap item data akan dibuat sebagai layer "
+"peta."
 
 msgid "Data items"
-msgstr "Item data"
+msgstr "Data item"
 
 msgid "Proceed"
 msgstr "Lanjutkan"
@@ -798,7 +799,7 @@ msgid "Only one timeline is allowed."
 msgstr "Hanya satu garis waktu yang diizinkan."
 
 msgid "Remove other layers to enable split map views."
-msgstr "Hapus lapisan lain untuk mengaktifkan tampilan peta terpisah."
+msgstr "Hapus layer lain untuk mengaktifkan tampilan peta terpisah."
 
 msgid "Display periods"
 msgstr "Tampilkan periode"
@@ -861,7 +862,7 @@ msgid "Acres"
 msgstr "hektar"
 
 msgid "Mean"
-msgstr "Berarti"
+msgstr "Rata-rata"
 
 msgid "Median"
 msgstr "median"
@@ -873,10 +874,10 @@ msgid "OSM Detailed"
 msgstr "Detail OSM"
 
 msgid "Google Streets"
-msgstr "Jalan Google"
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr "Google Hibrida"
+msgstr "Google Hybrid"
 
 msgid "Bing Road"
 msgstr "Jalan Bing"
@@ -1078,7 +1079,7 @@ msgid "Closed shrublands"
 msgstr "Lahan semak tertutup"
 
 msgid "Open shrublands"
-msgstr "Buka semak belukar Open"
+msgstr "Buka semak belukar"
 
 msgid "Woody savannas"
 msgstr "sabana berkayu"
@@ -1148,7 +1149,7 @@ msgid "Choropleth"
 msgstr "Choropleth"
 
 msgid "Bubble map"
-msgstr "Peta gelembung"
+msgstr "Bubble map"
 
 msgid "Automatic color legend"
 msgstr "Legenda warna otomatis"
@@ -1205,7 +1206,7 @@ msgid "Yearly"
 msgstr "Tahunan"
 
 msgid "Financial year (Start November)"
-msgstr "Keuangan tahunan (Mulai November)"
+msgstr "Financial November"
 
 msgid "Financial year (Start October)"
 msgstr "Financial October"
@@ -1238,16 +1239,16 @@ msgid "No coordinates found"
 msgstr "Tidak ditemukan koordinat"
 
 msgid "You don't have access to this layer data"
-msgstr "Anda tidak memiliki akses ke data lapisan ini"
+msgstr "Anda tidak memiliki akses ke data layer ini"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr "Terjadi kesalahan yang tidak diketahui saat membaca data lapisan"
+msgstr "Terjadi kesalahan yang tidak diketahui saat membaca data layer"
 
 msgid "Event"
 msgstr "Even"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr "Menampilkan {{pageSize}} acara pertama dari {{total}}"
+msgstr "Menampilkan {{pageSize}} even pertama dari {{total}}"
 
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
@@ -1295,7 +1296,7 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
-"Lapisan ini memerlukan akun Google Earth Engine. Periksa dokumentasi DHIS2 "
+"Layer ini memerlukan akun Google Earth Engine. Periksa dokumentasi DHIS2 "
 "untuk informasi lebih lanjut."
 
 msgid "Cannot connect to Google Earth Engine."
