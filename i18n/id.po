@@ -7,13 +7,14 @@
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Carwoto Sa'an <carwoto@gmail.com>, 2021
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
+# Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021\n"
+"Last-Translator: Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,7 +68,7 @@ msgid "None"
 msgstr "Tidak ada"
 
 msgid "Data item"
-msgstr "barang data"
+msgstr "Data item"
 
 msgid "Event data item"
 msgstr "Data item pada even"
@@ -91,7 +92,7 @@ msgid "Name"
 msgstr "Nama"
 
 msgid "Event time"
-msgstr "Waktu acara"
+msgstr "Waktu even"
 
 msgid "Value"
 msgstr "Nilai"
@@ -166,7 +167,7 @@ msgid "Labels"
 msgstr "label"
 
 msgid "Point radius"
-msgstr "Jari-jari titik"
+msgstr "Radius titik"
 
 msgid "No organisation units are selected"
 msgstr "Tidak ada unit organisasi yang dipilih"
@@ -184,7 +185,7 @@ msgid "Select year"
 msgstr "Pilih tahun"
 
 msgid "Min people"
-msgstr "Min orang"
+msgstr "Minimal orang"
 
 msgid "Max people"
 msgstr "Maks orang"
@@ -197,7 +198,7 @@ msgstr ""
 " sehingga lebih mewakili medan di wilayah Anda."
 
 msgid "Min meters"
-msgstr "Min meter Min"
+msgstr "Minimal meter Minimal"
 
 msgid "Max meters"
 msgstr "meter maks"
@@ -212,10 +213,10 @@ msgstr ""
 " bulan berikutnya."
 
 msgid "Min mm"
-msgstr "min mm"
+msgstr "minimal mm"
 
 msgid "Max mm"
-msgstr "Maks mm"
+msgstr "Maksimal mm"
 
 msgid ""
 "Land surface temperatures collected from satellite in 8 days periods. Blank "
@@ -225,10 +226,10 @@ msgstr ""
 "bintik kosong akan muncul di area dengan tutupan awan yang persisten."
 
 msgid "Min °C"
-msgstr "Min °C"
+msgstr "Minimal °C"
 
 msgid "Max °C"
-msgstr "Maks °C"
+msgstr "Maksimal °C"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Jenis tutupan lahan yang berbeda dikumpulkan dari satelit."
@@ -241,10 +242,10 @@ msgstr ""
 "pencahayaan terus-menerus, termasuk suar gas."
 
 msgid "Min"
-msgstr "Min"
+msgstr "Minimal"
 
 msgid "Max"
-msgstr "Maks"
+msgstr "Maksimal"
 
 msgid "Steps"
 msgstr "langkah"
@@ -266,10 +267,10 @@ msgid ""
 msgstr "Ingatlah untuk memilih tingkat unit organisasi yang berisi fasilitas."
 
 msgid "Buffer"
-msgstr "Penyangga"
+msgstr "Buffer"
 
 msgid "Radius in meters"
-msgstr "Jari-jari dalam meter"
+msgstr "Radius dalam meter"
 
 msgid "Group set is required"
 msgstr "Kumpulan grup wajib diisi"
@@ -290,19 +291,19 @@ msgid "boundary"
 msgstr "batas"
 
 msgid "Earth Engine"
-msgstr "Mesin Bumi"
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr "Edit {{name}} lapisan"
+msgstr "Edit {{name}} layer"
 
 msgid "Add new {{name}} layer"
-msgstr "Tambahkan lapisan {{name}} baru"
+msgstr "Tambahkan layer {{name}} baru"
 
 msgid "Update layer"
-msgstr "Perbarui lapisan"
+msgstr "Perbarui layer"
 
 msgid "Add layer"
-msgstr "Tambahkan lapisan"
+msgstr "Tambahkan layer"
 
 msgid "data"
 msgstr "data"
@@ -330,7 +331,7 @@ msgstr "Radius"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
-"Anda dapat menganti gaya even berdasarkan elemen data setelah memilih satu "
+"Anda dapat menganti style even berdasarkan elemen data setelah memilih satu "
 "program"
 
 msgid "Program is required"
@@ -352,10 +353,10 @@ msgid "Show no data"
 msgstr "Tidak ada data"
 
 msgid "Low radius"
-msgstr "radius rendah Low"
+msgstr "radius rendah"
 
 msgid "High radius"
-msgstr "radius tinggi High"
+msgstr "radius tinggi"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius harus antara {{min}} dan {{max}}"
@@ -376,7 +377,7 @@ msgid "Data set is required"
 msgstr "Kumpulan data diperlukan"
 
 msgid "Event data item is required"
-msgstr "Item data acara diperlukan"
+msgstr "Item data event diperlukan"
 
 msgid "Program indicator is required"
 msgstr "Indikator program diperlukan"
@@ -400,7 +401,7 @@ msgid "Program indicators"
 msgstr "Indikator program"
 
 msgid "Item type"
-msgstr "Tipe barang"
+msgstr "Tipe item"
 
 msgid "Select period when tracked entities were last updated"
 msgstr "Pilih periode saat entitas yang dilacak terakhir diperbarui"
@@ -540,7 +541,7 @@ msgid "Expand"
 msgstr "Perlihatkan lebih detail"
 
 msgid "Download Layer Data"
-msgstr "Unduh Data Lapisan"
+msgstr "Unduh Data Layer"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
 msgstr "Mengunduh data GeoJSON untuk \"{{layerName}}\""
@@ -562,16 +563,16 @@ msgid "Use human-readable keys"
 msgstr "Gunakan kunci yang dapat dibaca manusia"
 
 msgid "External layer"
-msgstr "Lapisan luar"
+msgstr "External layer"
 
 msgid "Loading layer"
-msgstr "Memuat lapisan"
+msgstr "Memuat layer"
 
 msgid "{{name}} deleted."
 msgstr "{{nama}} dihapus."
 
 msgid "Split view can not be combined with other layer types."
-msgstr "Tampilan split tidak dapat digabungkan dengan jenis lapisan lainnya."
+msgstr "Tampilan split tidak dapat digabungkan dengan jenis layer lainnya."
 
 msgid "Edit"
 msgstr "Sunting"
@@ -580,7 +581,7 @@ msgid "Toggle visibility"
 msgstr "Alihkan visibilitas"
 
 msgid "Set layer opacity"
-msgstr "Setel opasitas lapisan"
+msgstr "Setel opasitas layer"
 
 msgid "More actions"
 msgstr "Lebih banyak tindakan"
@@ -598,7 +599,7 @@ msgid "Edit layer"
 msgstr "Edit layer"
 
 msgid "Remove layer"
-msgstr "Hapus lapisan"
+msgstr "Hapus layer"
 
 msgid "Mid"
 msgstr "Pertengahan"
@@ -723,11 +724,11 @@ msgid ""
 "layer."
 msgstr ""
 "Bagan/tabel ini berisi {{numItems}} item data. Pilih item mana yang ingin "
-"Anda impor dari daftar di bawah. Setiap item data akan dibuat sebagai "
-"lapisan peta."
+"Anda impor dari daftar di bawah. Setiap item data akan dibuat sebagai layer "
+"peta."
 
 msgid "Data items"
-msgstr "Item data"
+msgstr "Data item"
 
 msgid "Proceed"
 msgstr "Lanjutkan"
@@ -821,7 +822,7 @@ msgid "Only one timeline is allowed."
 msgstr "Hanya satu garis waktu yang diizinkan."
 
 msgid "Remove other layers to enable split map views."
-msgstr "Hapus lapisan lain untuk mengaktifkan tampilan peta terpisah."
+msgstr "Hapus layer lain untuk mengaktifkan tampilan peta terpisah."
 
 msgid "Start date"
 msgstr "Tanggal dimulai"
@@ -869,16 +870,16 @@ msgid "OSM Detailed"
 msgstr "Detail OSM"
 
 msgid "Google Streets"
-msgstr "Jalan Google"
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr "Google Hibrida"
+msgstr "Google Hybrid"
 
 msgid "Bing Road"
 msgstr "Jalan Bing"
 
 msgid "Bing Dark"
-msgstr "Bing Gelap"
+msgstr "Bing Dark"
 
 msgid "Bing Aerial"
 msgstr "Bing Aerial"
@@ -908,7 +909,7 @@ msgid "Choropleth"
 msgstr "Choropleth"
 
 msgid "Bubble map"
-msgstr "Peta gelembung"
+msgstr "Bubble map"
 
 msgid "Automatic color legend"
 msgstr "Legenda warna otomatis"
@@ -950,13 +951,13 @@ msgid "Yearly"
 msgstr "Tahunan"
 
 msgid "Financial year (Start October)"
-msgstr "Tahun Fiskal (Mulai October)"
+msgstr "Financial October"
 
 msgid "Financial year (Start July)"
-msgstr "Tahun Fiskal (Mulai July)"
+msgstr "Financial July"
 
 msgid "Financial year (Start April)"
-msgstr "Tahun Fiskal (Mulai April)"
+msgstr "Financial April"
 
 msgid "Today"
 msgstr "Hari ini"
@@ -1088,8 +1089,8 @@ msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
-"Untuk menampilkan lapisan ini, Anda harus terlebih dahulu mendaftar ke "
-"layanan Earth Engine di Google. Silakan periksa dokumentasi DHIS 2."
+"Untuk menampilkan layer ini, Anda harus terlebih dahulu mendaftar ke layanan"
+" Earth Engine di Google. Silakan periksa dokumentasi DHIS 2."
 
 msgid "Error"
 msgstr "Error"
@@ -1182,7 +1183,7 @@ msgid "Closed shrublands"
 msgstr "Lahan semak tertutup"
 
 msgid "Open shrublands"
-msgstr "Buka semak belukar Open"
+msgstr "Buka semak belukar"
 
 msgid "Woody savannas"
 msgstr "sabana berkayu"
@@ -1218,13 +1219,13 @@ msgid "Access denied"
 msgstr "Akses ditolak"
 
 msgid "user is not allowed to read layer data"
-msgstr "pengguna tidak diizinkan membaca data lapisan"
+msgstr "pengguna tidak diizinkan membaca data layer"
 
 msgid "Failed"
 msgstr "Gagal"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr "kesalahan yang tidak diketahui terjadi saat membaca data lapisan"
+msgstr "kesalahan yang tidak diketahui terjadi saat membaca data layer"
 
 msgid "Event"
 msgstr "Even"
