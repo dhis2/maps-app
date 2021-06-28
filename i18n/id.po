@@ -7,13 +7,14 @@
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2020
 # Carwoto Sa'an <carwoto@gmail.com>, 2020
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
+# Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2019-11-20T13:55:02.205Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021\n"
+"Last-Translator: Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,7 +68,7 @@ msgid "None"
 msgstr "Tidak ada"
 
 msgid "Data item"
-msgstr "barang data"
+msgstr "Data item"
 
 msgid "Event data item"
 msgstr "Data item pada even"
@@ -97,7 +98,7 @@ msgid "Parent"
 msgstr "Induk"
 
 msgid "Id"
-msgstr "Indo"
+msgstr "Id"
 
 msgid "Type"
 msgstr "Tipe"
@@ -145,7 +146,7 @@ msgid "Labels"
 msgstr "label"
 
 msgid "Point radius"
-msgstr "Jari-jari titik"
+msgstr "Radius titik"
 
 msgid "No organisation units are selected"
 msgstr "Tidak ada unit organisasi yang dipilih"
@@ -193,10 +194,10 @@ msgid "Radius"
 msgstr "Radius"
 
 msgid "Buffer"
-msgstr "Penyangga"
+msgstr "Buffer"
 
 msgid "Radius in meters"
-msgstr "Jari-jari dalam meter"
+msgstr "Radius dalam meter"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
@@ -223,10 +224,10 @@ msgid "Group set is required"
 msgstr "Kumpulan grup wajib diisi"
 
 msgid "Update layer"
-msgstr "Perbarui lapisan"
+msgstr "Perbarui layer"
 
 msgid "Add layer"
-msgstr "Tambahkan lapisan"
+msgstr "Tambahkan layer"
 
 msgid "Select program period"
 msgstr "Pilih periode program"
@@ -274,7 +275,7 @@ msgid "Data set is required"
 msgstr "Kumpulan data diperlukan"
 
 msgid "Event data item is required"
-msgstr "Item data acara diperlukan"
+msgstr "Item data even diperlukan"
 
 msgid "Program indicator is required"
 msgstr "Indikator program diperlukan"
@@ -298,7 +299,7 @@ msgid "Program indicators"
 msgstr "Indikator program"
 
 msgid "Item type"
-msgstr "Tipe barang"
+msgstr "Tipe Item"
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr "Terjadi kesalahan pada aplikasi DHIS2 Maps."
@@ -370,7 +371,7 @@ msgid "Expand"
 msgstr "Perlihatkan lebih detail"
 
 msgid "Download Layer Data"
-msgstr "Unduh Data Lapisan"
+msgstr "Unduh Data Layer"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
 msgstr "Mengunduh data GeoJSON untuk \"{{layerName}}\""
@@ -392,7 +393,7 @@ msgid "Use human-readable keys"
 msgstr "Gunakan kunci yang dapat dibaca manusia"
 
 msgid "Loading layer"
-msgstr "Memuat lapisan"
+msgstr "Memuat layer"
 
 msgid "deleted"
 msgstr "dihapus"
@@ -407,7 +408,7 @@ msgid "Toggle visibility"
 msgstr "Alihkan visibilitas"
 
 msgid "Set layer opacity"
-msgstr "Setel opasitas lapisan"
+msgstr "Setel opasitas layer"
 
 msgid "More actions"
 msgstr "Lebih banyak tindakan"
@@ -422,7 +423,7 @@ msgid "Edit layer"
 msgstr "Edit layer"
 
 msgid "Remove layer"
-msgstr "Hapus lapisan"
+msgstr "Hapus layer"
 
 msgid "Open as"
 msgstr "Buka sebagai"
@@ -461,7 +462,7 @@ msgid "Organisation unit"
 msgstr "Unit organisasi"
 
 msgid "Event time"
-msgstr "Waktu acara"
+msgstr "Waktu even"
 
 msgid "Groups"
 msgstr "banyak grup"
@@ -536,8 +537,8 @@ msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
-"Untuk menampilkan lapisan ini, Anda harus terlebih dahulu mendaftar ke "
-"layanan Earth Engine di Google. Silakan periksa dokumentasi DHIS 2."
+"Untuk menampilkan layer ini, Anda harus terlebih dahulu mendaftar ke layanan"
+" Earth Engine di Google. Silakan periksa dokumentasi DHIS 2."
 
 msgid "Favorite"
 msgstr "Favorit"
@@ -561,13 +562,13 @@ msgid "Access denied"
 msgstr "Akses ditolak"
 
 msgid "user is not allowed to read layer data"
-msgstr "pengguna tidak diizinkan membaca data lapisan"
+msgstr "pengguna tidak diizinkan membaca data layer"
 
 msgid "Failed"
 msgstr "Gagal"
 
 msgid "an unknown error occurred while reading layer data"
-msgstr "kesalahan yang tidak diketahui terjadi saat membaca data lapisan"
+msgstr "kesalahan yang tidak diketahui terjadi saat membaca data layer"
 
 msgid "Event"
 msgstr "Kejadian"
