@@ -1,3 +1,17 @@
+## [1.9.5](https://github.com/dhis2/maps-app/compare/v1.9.4...v1.9.5) (2021-06-29)
+
+
+### Bug Fixes
+
+* use hyphen in locale strings passed to the browser ([#1771](https://github.com/dhis2/maps-app/issues/1771)) ([8c2def1](https://github.com/dhis2/maps-app/commit/8c2def1966e396257a586848b10b28b040431957))
+
+## [1.9.4](https://github.com/dhis2/maps-app/compare/v1.9.3...v1.9.4) (2021-06-29)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([cac00c1](https://github.com/dhis2/maps-app/commit/cac00c12aa60e3cf0a6010abfdb2903bab529474))
+
 ## [1.9.3](https://github.com/dhis2/maps-app/compare/v1.9.2...v1.9.3) (2021-06-25)
 
 
