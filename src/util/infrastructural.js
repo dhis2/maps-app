@@ -1,5 +1,4 @@
 import { getInstance as getD2 } from 'd2';
-import i18n from '@dhis2/d2-i18n';
 
 // Loads settings and data for the infrastuctural dialog for org units
 export const loadConfigurations = async () => {
@@ -15,13 +14,12 @@ export const loadConfigurations = async () => {
         api.get('configuration/infrastructuralDataElements'),
     ]);
 
-    const periodType =
-        (infraPeriodType && infraPeriodType.id) || i18n.t('Yearly');
+    const periodType = (infraPeriodType && infraPeriodType.id) || 'Yearly';
     const { indicators = [] } = infraIndicators || {};
     const { dataElements = [] } = infraDataElements || {};
 
     return {
-        periodType,
+        periodType: periodType.toUpperCase(),
         dataItems: [].concat(indicators, dataElements),
     };
 };
