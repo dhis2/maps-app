@@ -4,7 +4,7 @@ const defaultState = {
     width: typeof window === 'object' ? window.innerWidth : null,
     height: typeof window === 'object' ? window.innerHeight : null,
     layersPanelOpen: true,
-    interpretationsPanelOpen: false,
+    rightPanelOpen: false,
     dataTableHeight: 300,
     mapContextMenu: true,
 };
@@ -31,16 +31,18 @@ const ui = (state = defaultState, action) => {
             };
 
         case types.INTERPRETATIONS_PANEL_OPEN:
+        case types.ORGANISATION_UNIT_SET:
             return {
                 ...state,
-                interpretationsPanelOpen: true,
+                rightPanelOpen: true,
             };
 
         case types.INTERPRETATIONS_PANEL_CLOSE:
+        case types.ORGANISATION_UNIT_CLOSE:
         case types.MAP_NEW:
             return {
                 ...state,
-                interpretationsPanelOpen: false,
+                rightPanelOpen: false,
             };
 
         case types.DATA_TABLE_RESIZE:

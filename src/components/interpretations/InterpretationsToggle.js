@@ -26,9 +26,9 @@ export const InterpretationsToggle = ({
             disabled={!interpretationsEnabled}
         >
             {interpretationsOpen ? (
-                <IconChevronLeft24 />
-            ) : (
                 <IconChevronRight24 />
+            ) : (
+                <IconChevronLeft24 />
             )}
             {i18n.t('Interpretations')}
         </MenuButton>
@@ -44,7 +44,7 @@ InterpretationsToggle.propTypes = {
 
 export default connect(
     state => ({
-        interpretationsOpen: state.ui.interpretationsPanelOpen,
+        interpretationsOpen: state.ui.rightPanelOpen && !state.orgUnit,
         interpretationsEnabled: Boolean(state.map.id),
     }),
     {

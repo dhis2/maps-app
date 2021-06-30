@@ -11,7 +11,7 @@ import { setAggregations } from '../../actions/aggregations';
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,
-    INTERPRETATIONS_PANEL_WIDTH,
+    RIGHT_PANEL_WIDTH,
 } from '../../constants/layout';
 import styles from './styles/MapContainer.module.css';
 
@@ -25,7 +25,7 @@ const MapContainer = props => {
         newLayerIsLoading,
         coordinatePopup,
         layersPanelOpen,
-        interpretationsPanelOpen,
+        rightPanelOpen,
         dataTableOpen,
         dataTableHeight,
         isDownload,
@@ -40,7 +40,7 @@ const MapContainer = props => {
         position: 'absolute',
         top: HEADER_HEIGHT,
         left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
-        right: interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0,
+        right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
     };
 
@@ -50,12 +50,7 @@ const MapContainer = props => {
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
         setResizeCount(resizeCount + 1);
-    }, [
-        layersPanelOpen,
-        interpretationsPanelOpen,
-        dataTableOpen,
-        dataTableHeight,
-    ]);
+    }, [layersPanelOpen, rightPanelOpen, dataTableOpen, dataTableHeight]);
 
     return (
         <div style={style}>
@@ -104,7 +99,7 @@ MapContainer.propTypes = {
     dataTableHeight: PropTypes.number,
     isDownload: PropTypes.bool,
     legendPosition: PropTypes.string,
-    interpretationsPanelOpen: PropTypes.bool,
+    rightPanelOpen: PropTypes.bool,
     layersPanelOpen: PropTypes.bool,
     openContextMenu: PropTypes.func.isRequired,
     closeCoordinatePopup: PropTypes.func.isRequired,

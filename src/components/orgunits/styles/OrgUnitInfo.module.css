@@ -1,0 +1,8 @@
+.info {
+    padding: var(--spacers-dp12);
+}
+
+.info h3 {
+    margin: 0;
+    font-weight: 450;
+}

@@ -12,7 +12,7 @@ import MapContainer from '../map/MapContainer';
 import BottomPanel from '../datatable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
-import OrgUnitDialog from '../orgunits/OrgUnitDialog';
+import OrgUnitProfile from '../orgunits/OrgUnitProfile';
 import AlertStack from '../alerts/AlertStack';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
@@ -61,7 +61,7 @@ export class App extends Component {
                         <AlertStack />
                         <DataDownloadDialog />
                         <OpenAsMapDialog />
-                        <OrgUnitDialog />
+                        <OrgUnitProfile />
                     </div>
                 </FatalErrorBoundary>
             </Provider>
