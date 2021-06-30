@@ -1,8 +1,17 @@
 .info {
-    padding: var(--spacers-dp12);
+    padding: var(--spacers-dp16);
+    color: var(--colors-grey700);
+    font-size: 14px;
 }
 
 .info h3 {
-    margin: 0;
+    margin: var(--spacers-dp8) 0;
+    font-size: 18px;
     font-weight: 450;
+    color: var(--colors-grey900);
+}
+
+.desc {
+    line-height: 20px;
+    margin: var(--spacers-dp8) 0;
 }

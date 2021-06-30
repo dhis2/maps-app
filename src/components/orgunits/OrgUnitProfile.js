@@ -9,6 +9,8 @@ import { apiFetchTemp } from '../../util/api';
 import { closeOrgUnit } from '../../actions/orgUnits';
 import styles from './styles/OrgUnitProfile.module.css';
 
+// https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/organisationunit-profile.html
+// https://www.sketch.com/s/bbd5189d-b84d-4ecb-9c54-9c34d3070c59/a/3OD01Dm#Inspector
 const OrgUnitProfile = ({ id, closeOrgUnit }) => {
     const [profile, setProfile] = useState();
 
@@ -31,7 +33,9 @@ const OrgUnitProfile = ({ id, closeOrgUnit }) => {
                     <IconCross24 />
                 </span>
             </div>
-            {profile && <OrgUnitInfo {...profile.info} />}
+            <div className={styles.content}>
+                {profile && <OrgUnitInfo {...profile.info} />}
+            </div>
         </Drawer>
     );
 };
