@@ -1,3 +1,10 @@
+## [1.9.6](https://github.com/dhis2/maps-app/compare/v1.9.5...v1.9.6) (2021-07-01)
+
+
+### Bug Fixes
+
+* period type in uppercase ([#1788](https://github.com/dhis2/maps-app/issues/1788)) ([9ea0073](https://github.com/dhis2/maps-app/commit/9ea00730a7b5c2fe2c33f2c07594e0906d3998aa))
+
 ## [1.9.5](https://github.com/dhis2/maps-app/compare/v1.9.4...v1.9.5) (2021-06-29)
 
 
