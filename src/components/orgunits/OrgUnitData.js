@@ -9,7 +9,7 @@ import styles from './styles/OrgUnitData.module.css';
 const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
     const [period, setPeriod] = useState(defaultPeriod);
     const [items, setItems] = useState(data);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (period.id === defaultPeriod.id) {
