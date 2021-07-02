@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes';
 
-// const orgUnit = (state = null, action) => {
-const orgUnit = (state = 'DiszpKrYNg8', action) => {
+// const orgUnit = (state = null, action) => {     // 'DiszpKrYNg8'
+const orgUnit = (state = 'g8upMTyEZGZ', action) => {
     switch (action.type) {
         case types.ORGANISATION_UNIT_SET:
             return action.payload;

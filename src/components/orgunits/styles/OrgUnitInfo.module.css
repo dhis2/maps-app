@@ -1,17 +1,29 @@
 .info {
-    padding: var(--spacers-dp16);
     color: var(--colors-grey700);
     font-size: 14px;
 }
 
 .info h3 {
-    margin: var(--spacers-dp8) 0;
+    margin: 0 0 var(--spacers-dp8);
     font-size: 18px;
     font-weight: 450;
     color: var(--colors-grey900);
 }
 
+.level {
+    line-height: 24px;
+}
+
+.level svg {
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
+
 .desc {
     line-height: 20px;
+    margin: var(--spacers-dp8) 0;
+}
+
+.list {
     margin: var(--spacers-dp8) 0;
 }
