@@ -16,7 +16,7 @@ import { formatTime } from '../../util/helpers';
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
-    BOUNDARY_LAYER,
+    ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
 } from '../../constants/layers';
 import { numberValueTypes } from '../../constants/valueTypes';
@@ -185,7 +185,7 @@ class DataTable extends Component {
         } = layer;
 
         const isThematic = layerType === THEMATIC_LAYER;
-        const isBoundary = layerType === BOUNDARY_LAYER;
+        const isOrgUnit = layerType === ORG_UNIT_LAYER;
         const isEvent = layerType === EVENT_LAYER;
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
 
@@ -288,7 +288,7 @@ class DataTable extends Component {
                         )}
                     />
                 )}
-                {(isThematic || isBoundary) && (
+                {(isThematic || isOrgUnit) && (
                     <Column
                         dataKey="level"
                         label={i18n.t('Level')}
@@ -299,7 +299,7 @@ class DataTable extends Component {
                         )}
                     />
                 )}
-                {(isThematic || isBoundary) && (
+                {(isThematic || isOrgUnit) && (
                     <Column
                         dataKey="parentName"
                         label={i18n.t('Parent')}

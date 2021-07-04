@@ -134,28 +134,25 @@ msgstr ""
 msgid "Legend position"
 msgstr ""
 
+msgid "Group Set"
+msgstr ""
+
 msgid "Organisation Units"
 msgstr ""
 
 msgid "Style"
 msgstr ""
 
-msgid "Labels"
-msgstr ""
-
-msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
 msgid "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
+msgid "Labels"
+msgstr ""
+
 msgid "Group set is required"
+msgstr ""
+
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -170,7 +167,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -287,6 +284,9 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Event status"
+msgstr ""
+
+msgid "Point radius"
 msgstr ""
 
 msgid "Buffer"
@@ -460,6 +460,12 @@ msgstr ""
 msgid "Remove filter"
 msgstr ""
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr ""
 
@@ -579,13 +585,13 @@ msgstr ""
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "Parent unit"
-msgstr ""
-
 msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
+msgstr ""
+
+msgid "Parent unit"
 msgstr ""
 
 msgid "Loading layer data"
@@ -1118,6 +1124,9 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr ""
 
@@ -1178,12 +1187,6 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Selected org units"
 msgstr ""
 
@@ -1206,6 +1209,12 @@ msgid "No data found"
 msgstr ""
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Org units"
+msgstr ""
+
+msgid "No org units found"
 msgstr ""
 
 msgid "Thematic layer"

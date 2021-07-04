@@ -87,6 +87,12 @@ export const setBooleanStyle = (value, color) => ({
     color,
 });
 
+// Style by group set (org unit and facility layer)
+export const setGroupSetStyle = groups => ({
+    type: types.LAYER_EDIT_STYLE_DATA_ITEM_GROUPS_SET,
+    groups,
+});
+
 // Set thematic map type (choropleth, bubble map)
 export const setThematicMapType = type => ({
     type: types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET,
@@ -218,25 +224,25 @@ export const setAggregationType = aggregationType => ({
     aggregationType,
 });
 
-// Set org. unit levels (facility, thematic, boundary)
+// Set org. unit levels (facility, thematic, org unit)
 export const setOrgUnitLevels = levels => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET,
     levels,
 });
 
-// Set org. unit levels (facility, thematic, boundary)
+// Set org. unit levels (facility, thematic, org unit)
 export const setOrgUnitGroups = groups => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_GROUPS_SET,
     groups,
 });
 
-// Set user org. unit levels (event, facility, thematic, boundary)
+// Set user org. unit levels (event, facility, thematic, org unit)
 export const setUserOrgUnits = userOrgUnits => ({
     type: types.LAYER_EDIT_USER_ORGANISATION_UNITS_SET,
     userOrgUnits,
 });
 
-// Set org. unit levels (facility, thematic, boundary)
+// Set org. unit levels (facility, thematic, org unit)
 export const setOrgUnitMode = mode => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_MODE_SET,
     payload: mode,
@@ -296,7 +302,7 @@ export const setBufferRadius = radius => ({
     radius,
 });
 
-// Set point radius low (thematic, boundary)
+// Set point radius low (thematic, org unit)
 export const setRadiusLow = radius => ({
     type: types.LAYER_EDIT_RADIUS_LOW_SET,
     radius,

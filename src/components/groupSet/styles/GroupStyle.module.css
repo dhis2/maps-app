@@ -1,0 +1,27 @@
+.item {
+    white-space: nowrap;
+    font-size: 14px;
+    margin-bottom: var(--spacers-dp2);
+}
+
+.color,
+.symbol {
+    display: inline-block;
+    vertical-align: top;
+    width: var(--spacers-dp32);
+    height: var(--spacers-dp32);
+    margin: 0 var(--spacers-dp8) 0 0;
+}
+
+.symbol {
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.label {
+    display: inline-block;
+    vertical-align: top;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+}

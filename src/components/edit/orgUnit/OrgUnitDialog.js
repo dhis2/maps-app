@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField, Checkbox, FontStyle } from '../core';
-import OrgUnitTree from '../orgunits/OrgUnitTree';
-import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
-import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
-import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import styles from './styles/LayerDialog.module.css';
+import { Tab, Tabs, NumberField, Checkbox, FontStyle } from '../../core';
+import OrgUnitTree from '../../orgunits/OrgUnitTree';
+import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
+import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
+import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
+
+import styles from '../styles/LayerDialog.module.css';
 
 import {
     setOrgUnitLevels,
@@ -18,7 +20,7 @@ import {
     setLabelFontSize,
     setLabelFontStyle,
     setRadiusLow,
-} from '../../actions/layerEdit';
+} from '../../../actions/layerEdit';
 
 import {
     getOrgUnitsFromRows,
@@ -26,9 +28,9 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitGroupsFromRows,
     getUserOrgUnitsFromRows,
-} from '../../util/analytics';
+} from '../../../util/analytics';
 
-class BoundaryDialog extends Component {
+class OrgUnitDialog extends Component {
     static propTypes = {
         labels: PropTypes.bool,
         labelFontSize: PropTypes.string,
@@ -83,7 +85,7 @@ class BoundaryDialog extends Component {
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
-            <div data-test="boundarydialog">
+            <div data-test="orgunitdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
@@ -92,7 +94,7 @@ class BoundaryDialog extends Component {
                     {tab === 'orgunits' && (
                         <div
                             className={styles.flexColumnFlow}
-                            data-test="boundarydialog-orgunitstab"
+                            data-test="orgunitdialog-orgunitstab"
                         >
                             <div className={styles.orgUnitTree}>
                                 <OrgUnitTree
@@ -131,7 +133,7 @@ class BoundaryDialog extends Component {
                     {tab === 'style' && (
                         <div
                             className={styles.flexColumnFlow}
-                            data-test="boundarydialog-styletab"
+                            data-test="orgunitdialog-styletab"
                         >
                             <div className={styles.flexColumn}>
                                 <div className={styles.flexInnerColumnFlow}>
@@ -159,6 +161,9 @@ class BoundaryDialog extends Component {
                                     onChange={setRadiusLow}
                                     className={styles.radius}
                                 />
+                            </div>
+                            <div className={styles.flexColumn}>
+                                <StyleByGroupSet />
                             </div>
                         </div>
                     )}
@@ -208,4 +213,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(BoundaryDialog);
+)(OrgUnitDialog);
