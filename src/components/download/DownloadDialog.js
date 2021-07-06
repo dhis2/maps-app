@@ -122,15 +122,15 @@ export class DownloadDialog extends Component {
             .substring(7)}.png`;
 
         // Skip map controls in download except attribution and scale
-        // Mapbox map controls contains inline SVG for CSS background-image, which
+        // MapLibre map controls contains inline SVG for CSS background-image, which
         // is not accepted by dom-to-image
         // Bing Maps logo is blocked by CORS policy
         const skipElements = el =>
             !el.classList ||
-            el.classList.contains('mapboxgl-ctrl-scale') ||
-            el.classList.contains('mapboxgl-ctrl-attrib-button') ||
+            el.classList.contains('maplibregl-ctrl-scale') ||
+            el.classList.contains('maplibregl-ctrl-attrib-button') ||
             !(
-                el.classList.contains('mapboxgl-ctrl') ||
+                el.classList.contains('maplibregl-ctrl') ||
                 el.classList.contains('dhis2-map-bing-logo')
             );
 
