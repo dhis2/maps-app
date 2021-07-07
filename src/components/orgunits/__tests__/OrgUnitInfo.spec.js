@@ -159,16 +159,16 @@ describe('Org unit profile (location details)', () => {
     it('should render org unit group memberships', () => {
         const wrapper = renderWithProps({ groupSets });
 
-        groupSets.forEach(({ label, value }) => {
-            expect(getListItem(wrapper, label)).toEqual(value);
-        });
+        groupSets.forEach(({ label, value }) =>
+            expect(getListItem(wrapper, label)).toEqual(value)
+        );
     });
 
     it('should render metadata attributes', () => {
         const wrapper = renderWithProps({ attributes });
 
-        attributes.forEach(({ label, value }) => {
-            expect(getListItem(wrapper, label)).toEqual(value);
-        });
+        attributes.forEach(({ label, value }) =>
+            expect(getListItem(wrapper, label)).toEqual(value)
+        );
     });
 });
