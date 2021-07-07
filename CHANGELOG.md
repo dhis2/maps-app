@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/dhis2/maps-app/compare/v1.9.6...v1.10.0) (2021-07-07)
+
+
+### Features
+
+* switch from mapbox-gl to maplibre-gl ([#1790](https://github.com/dhis2/maps-app/issues/1790)) ([3705d6a](https://github.com/dhis2/maps-app/commit/3705d6ae3cca2acd73c97d8029fa4aace0e56f70))
+
 ## [1.9.6](https://github.com/dhis2/maps-app/compare/v1.9.5...v1.9.6) (2021-07-01)
 
 
