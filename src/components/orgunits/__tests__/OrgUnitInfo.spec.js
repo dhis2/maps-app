@@ -9,6 +9,27 @@ const defaultProps = {
     attributes: [],
 };
 
+const groupSets = [
+    {
+        id: 'Bpx0589u8y0',
+        label: 'Facility Ownership',
+        value: 'Public facilities',
+    },
+    {
+        id: 'J5jldMd8OHv',
+        label: 'Facility Type',
+        value: 'CHC',
+    },
+];
+
+const attributes = [
+    {
+        id: 'n2xYlNbsfko',
+        label: 'NGO ID',
+        value: 'ddASDd2312',
+    },
+];
+
 // Helper function to get list item value
 const getListItem = (wrapper, label) =>
     wrapper
@@ -133,5 +154,13 @@ describe('Org unit profile (location details)', () => {
                 .find('a')
                 .prop('href')
         ).toEqual(url);
+    });
+
+    it('should render org unit group memberships', () => {
+        const wrapper = renderWithProps({ groupSets });
+
+        groupSets.forEach(({ label, value }) => {
+            expect(getListItem(wrapper, label)).toEqual(value);
+        });
     });
 });
