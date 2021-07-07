@@ -13,13 +13,13 @@ describe('Drawer', () => {
         const wrapper = shallow(<ListItem label="My label">123</ListItem>);
 
         expect(wrapper.type()).toEqual('table');
-        expect(wrapper.find('td').text()).toEqual('123');
+        expect(wrapper.find('td').prop('children')).toEqual('123');
     });
 
     it('should display a label', () => {
         const wrapper = shallow(<ListItem label="My label">123</ListItem>);
 
-        expect(wrapper.find('th').text()).toEqual('My label');
+        expect(wrapper.find('th').prop('children')).toEqual('My label');
     });
 
     it('should change value if formatter is passed', () => {
@@ -31,6 +31,6 @@ describe('Drawer', () => {
         );
 
         expect(formatter).toHaveBeenCalledWith('123');
-        expect(wrapper.find('td').text()).toEqual('124');
+        expect(wrapper.find('td').prop('children')).toEqual(124);
     });
 });

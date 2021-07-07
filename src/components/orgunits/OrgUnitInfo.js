@@ -7,7 +7,7 @@ import { formatDate } from '../../util/time';
 import { numberPrecision } from '../../util/numbers';
 import styles from './styles/OrgUnitInfo.module.css';
 
-const coordFormat = numberPrecision(6); // Meter precision for longitude an latitude
+export const coordFormat = numberPrecision(6); // Meter precision for longitude an latitude
 
 /*
  * Displays the fixed information for an org unit together with org unit groups (above) and metadata attributes (below)
@@ -38,11 +38,14 @@ const OrgUnitInfo = ({
     attributes,
 }) => (
     <div className={styles.info}>
-        <h3>{name}</h3>
+        {name && <h3>{name}</h3>}
         {(level || levelName) && (
             <div className={styles.level}>
                 <IconDimensionOrgUnit16 />
-                {i18n.t('Level')}: {levelName || level}
+                {i18n.t('Level')}:{' '}
+                {levelName
+                    ? `${levelName}${level ? ` (${level})` : ''}`
+                    : level}
             </div>
         )}
         {parentName && (
