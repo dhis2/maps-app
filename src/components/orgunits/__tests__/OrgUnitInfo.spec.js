@@ -163,4 +163,12 @@ describe('Org unit profile (location details)', () => {
             expect(getListItem(wrapper, label)).toEqual(value);
         });
     });
+
+    it('should render metadata attributes', () => {
+        const wrapper = renderWithProps({ attributes });
+
+        attributes.forEach(({ label, value }) => {
+            expect(getListItem(wrapper, label)).toEqual(value);
+        });
+    });
 });
