@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-07-02T11:08:19.962Z\n"
-"PO-Revision-Date: 2021-07-02T11:08:19.962Z\n"
+"POT-Creation-Date: 2021-07-07T08:14:13.651Z\n"
+"PO-Revision-Date: 2021-07-07T08:14:13.651Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -680,18 +680,6 @@ msgid ""
 "styling is {{max}}."
 msgstr ""
 
-msgid "Data from this location"
-msgstr ""
-
-msgid "No data found."
-msgstr ""
-
-msgid "Code"
-msgstr ""
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
@@ -699,6 +687,9 @@ msgid "Select groups"
 msgstr ""
 
 msgid "Group set"
+msgstr ""
+
+msgid "Code"
 msgstr ""
 
 msgid "Short name"

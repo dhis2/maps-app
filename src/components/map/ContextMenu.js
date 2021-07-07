@@ -90,7 +90,7 @@ const ContextMenu = (props, context) => {
                     parseInt(attr.level) + 1
                 );
                 break;
-            case 'show_info':
+            case 'location_details':
                 setOrgUnit(attr.id);
                 break;
             case 'show_coordinate':
@@ -149,9 +149,9 @@ const ContextMenu = (props, context) => {
 
                         {feature && (
                             <MenuItem
-                                label={i18n.t('Show information')}
+                                label={i18n.t('Location details')}
                                 icon={<IconInfo16 />}
-                                onClick={() => onClick('show_info')}
+                                onClick={() => onClick('location_details')}
                             />
                         )}
 

@@ -29,7 +29,6 @@ const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
 
     return (
         <div className={styles.orgUnitData}>
-            <h4>{i18n.t('Data from this location')}</h4>
             <PeriodSelect
                 label={null}
                 periodType={periodType}

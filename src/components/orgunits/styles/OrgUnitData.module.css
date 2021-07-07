@@ -1,8 +1,5 @@
-.orgUnitData h4 {
-    margin: var(--spacers-dp24) 0 0;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--colors-grey900);
+.orgUnitData {
+    margin-top: var(--spacers-dp16);
 }
 
 .periodSelect label span {
