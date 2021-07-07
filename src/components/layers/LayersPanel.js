@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import Drawer from '../core/Drawer';
 import BasemapCard from '../layers/basemaps/BasemapCard';
 import OverlayCard from './overlays/OverlayCard';
 import { sortLayers } from '../../actions/layers';
-import styles from './styles/LayersPanel.module.css';
 
 const SortableLayer = SortableElement(OverlayCard);
 
@@ -26,7 +26,7 @@ const LayersPanel = ({
     sortLayers,
 }) =>
     layersPanelOpen && (
-        <div className={styles.drawer}>
+        <Drawer position="left">
             <SortableLayersList
                 layers={layers}
                 onSortEnd={sortLayers}
@@ -35,7 +35,7 @@ const LayersPanel = ({
             <div>
                 <BasemapCard {...basemap} basemaps={basemaps} />
             </div>
-        </div>
+        </Drawer>
     );
 
 LayersPanel.propTypes = {

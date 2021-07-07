@@ -1,9 +1,0 @@
-.right {
-    text-align: right;
-}
-
-.nodata {
-    font-style: italic;
-    padding: var(--spacers-dp4);
-    font-size: 14px;
-}

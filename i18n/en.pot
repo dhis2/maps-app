@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
-"PO-Revision-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-07-07T09:08:57.763Z\n"
+"PO-Revision-Date: 2021-07-07T09:08:57.763Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -555,7 +555,7 @@ msgstr ""
 msgid "Drill down one level"
 msgstr ""
 
-msgid "Show information"
+msgid "Location details"
 msgstr ""
 
 msgid "Show longitude/latitude"
@@ -680,12 +680,6 @@ msgid ""
 "styling is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr ""
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
@@ -693,6 +687,42 @@ msgid "Select groups"
 msgstr ""
 
 msgid "Group set"
+msgstr ""
+
+msgid "Code"
+msgstr ""
+
+msgid "Short name"
+msgstr ""
+
+msgid "Opening date"
+msgstr ""
+
+msgid "Closed date"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Comment"
 msgstr ""
 
 msgid "Select levels"

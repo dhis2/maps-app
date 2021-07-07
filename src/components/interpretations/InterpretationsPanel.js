@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InterpretationsComponent from '@dhis2/d2-ui-interpretations';
+import Drawer from '../core/Drawer';
 import { openInterpretationsPanel } from '../../actions/ui';
 import { setRelativePeriodDate } from '../../actions/map';
 import { setInterpretation } from '../../actions/interpretations';
 import { getUrlParameter } from '../../util/requests';
-import styles from './styles/InterpretationsPanel.module.css';
 
 class InterpretationsPanel extends Component {
     static contextTypes = {
@@ -40,7 +40,7 @@ class InterpretationsPanel extends Component {
 
         return (
             Boolean(isOpen && mapId) && (
-                <div className={styles.drawer}>
+                <Drawer>
                     <InterpretationsComponent
                         d2={this.context.d2}
                         id={mapId}
@@ -50,7 +50,7 @@ class InterpretationsPanel extends Component {
                             this.onCurrentInterpretationChange
                         }
                     />
-                </div>
+                </Drawer>
             )
         );
     }
@@ -64,7 +64,7 @@ class InterpretationsPanel extends Component {
 
 export default connect(
     state => ({
-        isOpen: state.ui.interpretationsPanelOpen,
+        isOpen: state.ui.rightPanelOpen && !state.orgUnit,
         mapId: state.map.id,
         interpretationId: state.interpretation.id,
     }),

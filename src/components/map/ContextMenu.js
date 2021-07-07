@@ -18,7 +18,7 @@ import {
     showEarthEngineValue,
 } from '../../actions/map';
 import { drillLayer } from '../../actions/layers';
-import { loadOrgUnit, changeOrgUnitCoordinate } from '../../actions/orgUnits';
+import { setOrgUnit, changeOrgUnitCoordinate } from '../../actions/orgUnits';
 import { FACILITY_LAYER, EARTH_ENGINE_LAYER } from '../../constants/layers';
 import styles from './styles/ContextMenu.module.css';
 
@@ -41,7 +41,7 @@ const ContextMenu = (props, context) => {
         openCoordinatePopup,
         showEarthEngineValue,
         drillLayer,
-        loadOrgUnit,
+        setOrgUnit,
         changeOrgUnitCoordinate,
     } = props;
 
@@ -91,7 +91,7 @@ const ContextMenu = (props, context) => {
                 );
                 break;
             case 'show_info':
-                loadOrgUnit(attr);
+                setOrgUnit(attr.id);
                 break;
             case 'show_coordinate':
                 openCoordinatePopup(coordinates);
@@ -215,7 +215,7 @@ ContextMenu.propTypes = {
     openCoordinatePopup: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
     drillLayer: PropTypes.func.isRequired,
-    loadOrgUnit: PropTypes.func.isRequired,
+    setOrgUnit: PropTypes.func.isRequired,
     changeOrgUnitCoordinate: PropTypes.func.isRequired,
 };
 
@@ -231,7 +231,7 @@ export default connect(
         openCoordinatePopup,
         showEarthEngineValue,
         drillLayer,
-        loadOrgUnit,
+        setOrgUnit,
         changeOrgUnitCoordinate,
     }
 )(ContextMenu);

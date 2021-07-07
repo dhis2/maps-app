@@ -1,0 +1,26 @@
+.listItem {
+    border-collapse: collapse;
+    width: 100%;
+    border-bottom: 1px solid var(--colors-grey400);
+    color: var(--colors-grey900);
+}
+
+.listItem th {
+    text-align: left;
+    vertical-align: top;
+    color: var(--colors-grey600);
+    font-weight: normal;
+    white-space: nowrap;
+    padding: 10px 8px 9px 0;
+}
+
+.listItem td {
+    text-align: right;
+    vertical-align: top;
+    padding: 10px 0 9px;
+}
+
+.listItem td a {
+    text-decoration: none;
+    color: var(--colors-blue700);
+}
