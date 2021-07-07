@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-07-07T08:14:13.651Z\n"
-"PO-Revision-Date: 2021-07-07T08:14:13.651Z\n"
+"POT-Creation-Date: 2021-07-07T09:08:57.763Z\n"
+"PO-Revision-Date: 2021-07-07T09:08:57.763Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -555,7 +555,7 @@ msgstr ""
 msgid "Drill down one level"
 msgstr ""
 
-msgid "Show information"
+msgid "Location details"
 msgstr ""
 
 msgid "Show longitude/latitude"
@@ -726,9 +726,6 @@ msgid "Comment"
 msgstr ""
 
 msgid "Select levels"
-msgstr ""
-
-msgid "Location details"
 msgstr ""
 
 msgid ""
