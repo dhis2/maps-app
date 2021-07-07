@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { OrgUnitProfile } from '../OrgUnitProfile';
-import Drawer from '../../core/Drawer';
 
 describe('Org unit profile (location details)', () => {
     const renderWithProps = props => shallow(<OrgUnitProfile {...props} />);

@@ -7,10 +7,14 @@ import { formatDate } from '../../util/time';
 import { numberPrecision } from '../../util/numbers';
 import styles from './styles/OrgUnitInfo.module.css';
 
-const coordFormat = numberPrecision(6);
+const coordFormat = numberPrecision(6); // Meter precision for longitude an latitude
 
-// https://github.com/dhis2/dhis2-core/blob/master/dhis-2/dhis-services/dhis-service-reporting/src/main/java/org/hisp/dhis/orgunitprofile/OrgUnitInfo.java
-// https://www.sketch.com/s/bbd5189d-b84d-4ecb-9c54-9c34d3070c59/a/3OD01Dm#Inspector
+/*
+ * Displays the fixed information for an org unit together with org unit groups (above) and metadata attributes (below)
+ *
+ * Available org unit info fields:
+ * https://github.com/dhis2/dhis2-core/blob/master/dhis-2/dhis-services/dhis-service-reporting/src/main/java/org/hisp/dhis/orgunitprofile/OrgUnitInfo.java
+ */
 const OrgUnitInfo = ({
     id,
     code,

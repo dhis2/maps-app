@@ -17,11 +17,14 @@ const currentYear = String(new Date().getFullYear());
 const periods = getFixedPeriodsByType(periodType, currentYear);
 const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0];
 
-// https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/org-unit-profile.html
-// https://www.sketch.com/s/bbd5189d-b84d-4ecb-9c54-9c34d3070c59/a/3OD01Dm#Inspector
+/*
+ *  Loads an org unit profile and displays it in a right drawer component
+ */
 export const OrgUnitProfile = ({ id, closeOrgUnit }) => {
     const [profile, setProfile] = useState();
 
+    // Load org unit profile when id is changed
+    // https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/org-unit-profile.html
     useEffect(() => {
         if (id) {
             apiFetchTemp(

@@ -6,11 +6,15 @@ import PeriodSelect from '../periods/PeriodSelect';
 import { apiFetchTemp } from '../../util/api';
 import styles from './styles/OrgUnitData.module.css';
 
+/*
+ *  Displays a period selector and org unit data items (data elements, indicators, reporting rates, program indicators)
+ */
 const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
     const [period, setPeriod] = useState(defaultPeriod);
     const [items, setItems] = useState(data);
     const [isLoading, setIsLoading] = useState(false);
 
+    // Load data items if period is changed
     useEffect(() => {
         if (period.id === defaultPeriod.id) {
             setItems(data);
