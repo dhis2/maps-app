@@ -9,11 +9,11 @@ import styles from './styles/OrgUnitButton.module.css';
 /*
  *  Displays a button to open the org unit profile
  */
-const OrgUnitButton = ({ id, orgUnit, setOrgUnitProfile }) => (
+const OrgUnitButton = ({ id, orgUnitProfile, setOrgUnitProfile }) => (
     <div className={styles.orgUnitButton}>
         <Button
             small={true}
-            disabled={id === orgUnit}
+            disabled={id === orgUnitProfile}
             onClick={() => setOrgUnitProfile(id)}
         >
             {i18n.t('See more info')}
@@ -23,13 +23,13 @@ const OrgUnitButton = ({ id, orgUnit, setOrgUnitProfile }) => (
 
 OrgUnitButton.propTypes = {
     id: PropTypes.string.isRequired,
-    orgUnit: PropTypes.string,
+    orgUnitProfile: PropTypes.string,
     setOrgUnitProfile: PropTypes.func.isRequired,
 };
 
 export default connect(
-    ({ orgUnit }) => ({
-        orgUnit,
+    ({ orgUnitProfile }) => ({
+        orgUnitProfile,
     }),
     {
         setOrgUnitProfile,

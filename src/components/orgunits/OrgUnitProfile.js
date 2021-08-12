@@ -72,8 +72,8 @@ OrgUnitProfile.propTypes = {
 };
 
 export default connect(
-    ({ orgUnit }) => ({
-        id: orgUnit,
+    ({ orgUnitProfile }) => ({
+        id: orgUnitProfile,
     }),
     { closeOrgUnitProfile }
 )(OrgUnitProfile);

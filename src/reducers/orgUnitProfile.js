@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-const orgUnit = (state = null, action) => {
+const orgUnitProfile = (state = null, action) => {
     switch (action.type) {
         case types.ORGANISATION_UNIT_PROFILE_SET:
             return action.payload;
@@ -15,4 +15,4 @@ const orgUnit = (state = null, action) => {
     }
 };
 
-export default orgUnit;
+export default orgUnitProfile;
