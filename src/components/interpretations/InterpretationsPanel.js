@@ -64,7 +64,7 @@ class InterpretationsPanel extends Component {
 
 export default connect(
     state => ({
-        isOpen: state.ui.rightPanelOpen && !state.orgUnit,
+        isOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
         mapId: state.map.id,
         interpretationId: state.interpretation.id,
     }),
