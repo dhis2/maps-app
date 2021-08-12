@@ -3,6 +3,11 @@
     font-size: 14px;
 }
 
+.info img {
+    width: 100%;
+    margin-bottom: var(--spacers-dp16);
+}
+
 .info h3 {
     margin: 0 0 var(--spacers-dp8);
     font-size: 18px;

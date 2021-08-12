@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
+import { config } from 'd2';
 import { IconDimensionOrgUnit16 } from '@dhis2/ui';
 import ListItem from '../core/ListItem';
 import { formatDate } from '../../util/time';
@@ -16,28 +17,35 @@ export const coordFormat = numberPrecision(6); // Meter precision for longitude 
  * https://github.com/dhis2/dhis2-core/blob/master/dhis-2/dhis-services/dhis-service-reporting/src/main/java/org/hisp/dhis/orgunitprofile/OrgUnitInfo.java
  */
 const OrgUnitInfo = ({
-    id,
-    code,
-    name,
-    shortName,
-    description,
-    parentName,
-    levelName,
-    level,
-    openingDate,
-    closedDate,
-    comment,
-    url,
-    contactPerson,
     address,
-    email,
-    phoneNumber,
-    longitude,
-    latitude,
-    groupSets,
     attributes,
+    closedDate,
+    code,
+    comment,
+    contactPerson,
+    description,
+    email,
+    groupSets,
+    id,
+    imageId,
+    latitude,
+    level,
+    levelName,
+    longitude,
+    name,
+    openingDate,
+    parentName,
+    phoneNumber,
+    shortName,
+    url,
 }) => (
     <div className={styles.info}>
+        {imageId && (
+            <img
+                src={`${config.baseUrl}/fileResources/${imageId}/data`}
+                alt={i18n.t('Image of the organisation unit')}
+            />
+        )}
         {name && <h3>{name}</h3>}
         {(level || levelName) && (
             <div className={styles.level}>
@@ -98,26 +106,27 @@ const OrgUnitInfo = ({
 );
 
 OrgUnitInfo.propTypes = {
-    id: PropTypes.string.isRequired,
-    code: PropTypes.string,
-    name: PropTypes.string,
-    shortName: PropTypes.string,
-    description: PropTypes.string,
-    parentName: PropTypes.string,
-    levelName: PropTypes.string,
-    level: PropTypes.number,
-    openingDate: PropTypes.string,
-    closedDate: PropTypes.string,
-    comment: PropTypes.string,
-    url: PropTypes.string,
-    contactPerson: PropTypes.string,
     address: PropTypes.string,
-    email: PropTypes.string,
-    phoneNumber: PropTypes.string,
-    longitude: PropTypes.number,
-    latitude: PropTypes.number,
-    groupSets: PropTypes.array.isRequired,
     attributes: PropTypes.array.isRequired,
+    closedDate: PropTypes.string,
+    code: PropTypes.string,
+    comment: PropTypes.string,
+    contactPerson: PropTypes.string,
+    description: PropTypes.string,
+    email: PropTypes.string,
+    groupSets: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired,
+    imageId: PropTypes.string,
+    latitude: PropTypes.number,
+    level: PropTypes.number,
+    levelName: PropTypes.string,
+    longitude: PropTypes.number,
+    name: PropTypes.string,
+    openingDate: PropTypes.string,
+    parentName: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    shortName: PropTypes.string,
+    url: PropTypes.string,
 };
 
 export default OrgUnitInfo;

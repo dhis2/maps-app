@@ -6,7 +6,7 @@ import { IconCross24 } from '@dhis2/ui';
 import Drawer from '../core/Drawer';
 import OrgUnitInfo from './OrgUnitInfo';
 import OrgUnitData from './OrgUnitData';
-import { apiFetchTemp } from '../../util/api';
+import { apiFetch } from '../../util/api';
 import { getFixedPeriodsByType, filterFuturePeriods } from '../../util/periods';
 import { closeOrgUnit } from '../../actions/orgUnits';
 import styles from './styles/OrgUnitProfile.module.css';
@@ -27,7 +27,7 @@ export const OrgUnitProfile = ({ id, closeOrgUnit }) => {
     // https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/org-unit-profile.html
     useEffect(() => {
         if (id) {
-            apiFetchTemp(
+            apiFetch(
                 `/organisationUnitProfile/${id}/data?period=${defaultPeriod.id}`
             ).then(setProfile);
         }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { CircularLoader } from '@dhis2/ui';
 import PeriodSelect from '../periods/PeriodSelect';
-import { apiFetchTemp } from '../../util/api';
+import { apiFetch } from '../../util/api';
 import styles from './styles/OrgUnitData.module.css';
 
 /*
@@ -20,9 +20,7 @@ const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
             setItems(data);
         } else {
             setIsLoading(true);
-            apiFetchTemp(
-                `/organisationUnitProfile/${id}/data?period=${period.id}`
-            )
+            apiFetch(`/organisationUnitProfile/${id}/data?period=${period.id}`)
                 .then(data => {
                     setItems(data.dataItems);
                     setIsLoading(false);
