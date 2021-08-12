@@ -8,7 +8,7 @@ import OrgUnitInfo from './OrgUnitInfo';
 import OrgUnitData from './OrgUnitData';
 import { apiFetch } from '../../util/api';
 import { getFixedPeriodsByType, filterFuturePeriods } from '../../util/periods';
-import { closeOrgUnit } from '../../actions/orgUnits';
+import { closeOrgUnitProfile } from '../../actions/orgUnits';
 import styles from './styles/OrgUnitProfile.module.css';
 
 // Only YEARLY period type is supported in first version
@@ -20,7 +20,7 @@ const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0];
 /*
  *  Loads an org unit profile and displays it in a right drawer component
  */
-export const OrgUnitProfile = ({ id, closeOrgUnit }) => {
+export const OrgUnitProfile = ({ id, closeOrgUnitProfile }) => {
     const [profile, setProfile] = useState();
 
     // Load org unit profile when id is changed
@@ -41,7 +41,7 @@ export const OrgUnitProfile = ({ id, closeOrgUnit }) => {
         <Drawer className={styles.drawer}>
             <div className={styles.header}>
                 {i18n.t('Location details')}
-                <span className={styles.close} onClick={closeOrgUnit}>
+                <span className={styles.close} onClick={closeOrgUnitProfile}>
                     <IconCross24 />
                 </span>
             </div>
@@ -68,12 +68,12 @@ export const OrgUnitProfile = ({ id, closeOrgUnit }) => {
 
 OrgUnitProfile.propTypes = {
     id: PropTypes.string,
-    closeOrgUnit: PropTypes.func.isRequired,
+    closeOrgUnitProfile: PropTypes.func.isRequired,
 };
 
 export default connect(
     ({ orgUnit }) => ({
         id: orgUnit,
     }),
-    { closeOrgUnit }
+    { closeOrgUnitProfile }
 )(OrgUnitProfile);

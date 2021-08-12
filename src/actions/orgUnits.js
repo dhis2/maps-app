@@ -44,13 +44,13 @@ export const setOrgUnitGroupSets = data => ({
     payload: data,
 });
 
-export const setOrgUnit = id => ({
-    type: types.ORGANISATION_UNIT_SET,
+export const setOrgUnitProfile = id => ({
+    type: types.ORGANISATION_UNIT_PROFILE_SET,
     payload: id,
 });
 
-export const closeOrgUnit = () => ({
-    type: types.ORGANISATION_UNIT_CLOSE,
+export const closeOrgUnitProfile = () => ({
+    type: types.ORGANISATION_UNIT_PROFILE_CLOSE,
 });
 
 export const selectOrgUnit = (layerId, featureId) => ({

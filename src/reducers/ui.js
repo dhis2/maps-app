@@ -31,14 +31,14 @@ const ui = (state = defaultState, action) => {
             };
 
         case types.INTERPRETATIONS_PANEL_OPEN:
-        case types.ORGANISATION_UNIT_SET:
+        case types.ORGANISATION_UNIT_PROFILE_SET:
             return {
                 ...state,
                 rightPanelOpen: true,
             };
 
         case types.INTERPRETATIONS_PANEL_CLOSE:
-        case types.ORGANISATION_UNIT_CLOSE:
+        case types.ORGANISATION_UNIT_PROFILE_CLOSE:
         case types.MAP_NEW:
             return {
                 ...state,

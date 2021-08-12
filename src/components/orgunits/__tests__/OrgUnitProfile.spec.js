@@ -7,23 +7,26 @@ describe('Org unit profile (location details)', () => {
     const renderWithProps = props => shallow(<OrgUnitProfile {...props} />);
 
     it('do not render if no org unit id is passed', () => {
-        const wrapper = renderWithProps({ closeOrgUnit: jest.fn() });
+        const wrapper = renderWithProps({ closeOrgUnitProfile: jest.fn() });
 
         expect(wrapper.type()).toBe(null);
     });
 
     it('should render a drawer if org unit id is passed', () => {
-        const wrapper = renderWithProps({ id: '123', closeOrgUnit: jest.fn() });
+        const wrapper = renderWithProps({
+            id: '123',
+            closeOrgUnitProfile: jest.fn(),
+        });
 
         expect(wrapper.type()).toEqual(Drawer);
     });
 
-    it('should call closeOrgUnit when drawer is closed', () => {
-        const closeOrgUnit = jest.fn();
-        const wrapper = renderWithProps({ id: '123', closeOrgUnit });
+    it('should call closeOrgUnitProfile when drawer is closed', () => {
+        const closeOrgUnitProfile = jest.fn();
+        const wrapper = renderWithProps({ id: '123', closeOrgUnitProfile });
 
         wrapper.find('.close').simulate('click');
 
-        expect(closeOrgUnit).toHaveBeenCalled();
+        expect(closeOrgUnitProfile).toHaveBeenCalled();
     });
 });
