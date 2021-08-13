@@ -21,8 +21,8 @@ const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
         } else {
             setIsLoading(true);
             apiFetch(`/organisationUnitProfile/${id}/data?period=${period.id}`)
-                .then(data => {
-                    setItems(data.dataItems);
+                .then(({ dataItems }) => {
+                    setItems(dataItems);
                     setIsLoading(false);
                 })
                 .then(setItems);
