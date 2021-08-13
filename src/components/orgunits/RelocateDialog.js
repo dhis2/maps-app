@@ -22,7 +22,7 @@ const RelocateDialog = props => {
     useEffect(() => {
         const container = map
             .getContainer()
-            .getElementsByClassName('mapboxgl-interactive')[0];
+            .getElementsByClassName('maplibregl-interactive')[0];
 
         container.style.cursor = 'crosshair';
         map.getMapGL().on('click', onMapClick);

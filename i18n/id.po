@@ -6,13 +6,15 @@
 # Carwoto Sa'an <carwoto@gmail.com>, 2020
 # Viktor Varland <viktor@dhis2.org>, 2020
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2021
+# Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
+# Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2021\n"
+"Last-Translator: Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,25 +26,25 @@ msgid "Maps"
 msgstr "Peta"
 
 msgid "Classification"
-msgstr ""
+msgstr "Klasifikasi"
 
 msgid "Classes"
-msgstr ""
+msgstr "Kelas"
 
 msgid "Legend set"
 msgstr "set legenda"
 
 msgid "Color"
-msgstr ""
+msgstr "Warna"
 
 msgid "Size"
-msgstr ""
+msgstr "Ukuran"
 
 msgid "Data element group"
 msgstr "Grup elemen data"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Operan elemen data"
 
 msgid "Data element"
 msgstr "Elemen data"
@@ -60,13 +62,13 @@ msgid "Event location"
 msgstr "Lokasi even"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Bidang koordinat"
 
 msgid "None"
 msgstr "Tidak ada"
 
 msgid "Data item"
-msgstr ""
+msgstr "Data item"
 
 msgid "Event data item"
 msgstr "Data item pada even"
@@ -78,7 +80,7 @@ msgid "Data set"
 msgstr "Data set"
 
 msgid "Index"
-msgstr ""
+msgstr "Indeks"
 
 msgid "Org unit"
 msgstr "Unit Organisasi"
@@ -87,10 +89,10 @@ msgid "Name"
 msgstr "Nama"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Event time"
-msgstr ""
+msgstr "Waktu even"
 
 msgid "Value"
 msgstr "Nilai"
@@ -105,38 +107,40 @@ msgid "Level"
 msgstr "Level"
 
 msgid "Parent"
-msgstr ""
+msgstr "Induk"
 
 msgid "Type"
 msgstr "Jenis"
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
+msgstr "Tabel data tidak didukung saat peristiwa dikelompokkan di server."
 
 msgid "Add filter"
 msgstr "Tambah penyaringan"
 
 msgid "Items"
-msgstr ""
+msgstr "item"
 
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensi"
 
 msgid "Download"
 msgstr "Unduh"
 
 msgid "Download map"
-msgstr ""
+msgstr "Unduh peta"
 
 msgid "Show name"
-msgstr ""
+msgstr "Tampilkan nama"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Tampilkan legenda"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"Unduhan peta tidak didukung oleh browser Anda. Coba Google Chrome atau "
+"Firefox."
 
 msgid "Cancel"
 msgstr "Batalkan"
@@ -145,10 +149,10 @@ msgid "Close"
 msgstr "Tutup"
 
 msgid "Legend position"
-msgstr ""
+msgstr "Posisi legenda"
 
 msgid "Organisation Units"
-msgstr ""
+msgstr "Unit Organisasi"
 
 msgid "Style"
 msgstr "Gaya"
@@ -157,53 +161,53 @@ msgid "Labels"
 msgstr "label"
 
 msgid "Point radius"
-msgstr ""
+msgstr "Radius titik"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Tidak ada unit organisasi yang dipilih"
 
 msgid "Group Set"
-msgstr ""
+msgstr "Kumpulan Grup"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgstr "Ingatlah untuk memilih tingkat unit organisasi yang berisi fasilitas."
 
 msgid "Group set is required"
-msgstr ""
+msgstr "Kumpulan grup wajib diisi"
 
 msgid "event"
-msgstr ""
+msgstr "peristiwa"
 
 msgid "tracked entity"
 msgstr "Entitas dilacak"
 
 msgid "facility"
-msgstr ""
+msgstr "fasilitas"
 
 msgid "thematic"
-msgstr ""
+msgstr "tematik"
 
 msgid "boundary"
-msgstr ""
+msgstr "batas"
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "Edit {{name}} layer"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Tambahkan layer {{name}} baru"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Update layer"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Tambahkan layer"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Metode agregasi"
 
 msgid "Groups"
 msgstr "banyak grup"
@@ -221,54 +225,58 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Data akan dihitung di Google Earth Engine untuk unit organisasi yang "
+"dipilih."
 
 msgid ""
 "Multiple aggregation methods are available. See the aggregation results by "
 "clicking map regions or viewing the data table. The results can also be "
 "downloaded."
 msgstr ""
+"Beberapa metode agregasi tersedia. Lihat hasil agregasi dengan mengklik "
+"wilayah peta atau melihat tabel data. Hasilnya juga bisa diunduh."
 
 msgid "Unit"
-msgstr ""
+msgstr "Satuan"
 
 msgid "Source"
 msgstr "Sumber"
 
 msgid "Year"
-msgstr ""
+msgstr "Tahun"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Periode yang tersedia diatur oleh data sumber"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Memuat periode"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "Nilai minimal wajib diisi"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "Nilai maksimum diperlukan"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "Maksimal harus lebih besar dari minimal"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "Langkah yang valid adalah {{minSteps}} hingga {{maxSteps}}"
 
 msgid "Min"
-msgstr "Min"
+msgstr "Minimal"
 
 msgid "Max"
-msgstr "Maks"
+msgstr "Maksimal"
 
 msgid "Steps"
 msgstr "langkah"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Pratinjau legenda"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Unit Organisasi"
 
 msgid "Filter"
 msgstr "Saring"
@@ -283,7 +291,7 @@ msgid "View all events"
 msgstr "Lihat semua even"
 
 msgid "Radius"
-msgstr ""
+msgstr "Radius"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
@@ -291,67 +299,67 @@ msgstr ""
 "program"
 
 msgid "Program is required"
-msgstr ""
+msgstr "Program diperlukan"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Tahap program diperlukan"
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Tidak ada unit organisasi yang dipilih."
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Tidak ada kumpulan legenda yang dipilih"
 
 msgid "Event status"
 msgstr "Status Event"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Buffer"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Radius dalam meter"
 
 msgid "Aggregation type"
 msgstr "Tipe agregasi"
 
 msgid "Show no data"
-msgstr ""
+msgstr "Tidak ada data"
 
 msgid "Low radius"
-msgstr ""
+msgstr "radius rendah "
 
 msgid "High radius"
-msgstr ""
+msgstr "radius tinggi"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "Radius tinggi harus lebih besar dari radius rendah"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "Radius harus antara {{min}} dan {{max}}"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Grup indikator wajib diisi"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Indikator diperlukan"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "Grup elemen data wajib diisi"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Elemen data diperlukan"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Kumpulan data diperlukan"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Item data event diperlukan"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Indikator program diperlukan"
 
 msgid "Period is required"
-msgstr ""
+msgstr "Periode diperlukan"
 
 msgid "Indicator"
 msgstr "indikator"
@@ -366,16 +374,18 @@ msgid "Program indicators"
 msgstr "Indikator program"
 
 msgid "Item type"
-msgstr ""
+msgstr "Tipe item"
 
 msgid "Select period when tracked entities were last updated"
-msgstr ""
+msgstr "Pilih periode saat entitas yang dilacak terakhir diperbarui"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Tanggal Program/Pendaftaran"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
+"tanggal entitas yang dilacak didaftarkan atau didaftarkan dalam suatu "
+"program"
 
 msgid "Program status"
 msgstr "Status program"
@@ -401,18 +411,19 @@ msgstr "Tampikan semua hubungan entitas dilacak"
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
+"Sertakan hubungan yang menghubungkan entitas di luar program \"{{program}}\""
 
 msgid "Selection mode"
-msgstr ""
+msgstr "Mode pemilihan Selection"
 
 msgid "Selected only"
-msgstr ""
+msgstr "Hanya dipilih"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "Dipilih dan di bawah"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "Dipilih dan semuanya di bawah"
 
 msgid "Tracked entities"
 msgstr "Entitas dilacak"
@@ -421,16 +432,16 @@ msgid "Tracked entity style"
 msgstr "Ragam entitas terlacak"
 
 msgid "Point size"
-msgstr ""
+msgstr "Ukuran titik"
 
 msgid "Related entity style"
 msgstr "Ragam entitas terkait"
 
 msgid "Line Color"
-msgstr ""
+msgstr "Warna garis"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "Gagal memuat jenis hubungan."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -440,7 +451,7 @@ msgid "Relationship type"
 msgstr "Tipe hubungan"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "Terjadi kesalahan pada aplikasi DHIS2 Maps."
 
 msgid "Something went wrong"
 msgstr "Terjadi kesalahan"
@@ -458,19 +469,19 @@ msgid "The following information may be requested by technical support."
 msgstr "Informasi berikut mungkin diperlukan untuk dukungan teknis."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "Pemfilteran tersedia setelah memilih tahapan program."
 
 msgid "one of"
-msgstr ""
+msgstr "satu dari"
 
 msgid "contains"
-msgstr ""
+msgstr "mengandung"
 
 msgid "is"
 msgstr "adalah"
 
 msgid "is not"
-msgstr ""
+msgstr "tidak"
 
 msgid "Operator"
 msgstr "Operator"
@@ -479,7 +490,7 @@ msgid "Date"
 msgstr "Tanggal"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Hapus filter"
 
 msgid "Indicator group"
 msgstr "group indikator"
@@ -494,63 +505,65 @@ msgid "Expand"
 msgstr "Perlihatkan lebih detail"
 
 msgid "External basemap"
-msgstr ""
+msgstr "Peta dasar eksternal"
 
 msgid "Basemap"
-msgstr ""
+msgstr "peta dasar"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Unduh Data Layer"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "Mengunduh data GeoJSON untuk \"{{layerName}}\""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON didukung oleh sebagian besar perangkat lunak GIS, termasuk QGIS dan "
+"ArcGIS Desktop."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Unduhan data gagal."
 
 msgid "ID Format"
-msgstr ""
+msgstr "Format ID"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Gunakan kunci yang dapat dibaca manusia"
 
 msgid "External layer"
-msgstr ""
+msgstr "External layer"
 
 msgid "Split view can not be combined with other layer types."
-msgstr ""
+msgstr "Tampilan split tidak dapat digabungkan dengan jenis layer lainnya."
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Memuat layer"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{nama}} dihapus."
 
 msgid "Edit"
 msgstr "Edit"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Alihkan visibilitas"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Setel opasitas layer"
 
 msgid "More actions"
-msgstr ""
+msgstr "Lebih banyak tindakan"
 
 msgid "Hide data table"
 msgstr "Sembunyikan tabel data"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Tampilkan tabel data"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "Buka sebagai bagan"
 
 msgid "Download data"
 msgstr "Unduh data"
@@ -559,10 +572,10 @@ msgid "Edit layer"
 msgstr "Edit layer"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Hapus layer"
 
 msgid "Mid"
-msgstr ""
+msgstr "Pertengahan"
 
 msgid "Group"
 msgstr "Grup"
@@ -571,25 +584,25 @@ msgid "Filters"
 msgstr "Penyaringan"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "Telusuri satu tingkat"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "Telusuri satu tingkat"
 
 msgid "Show information"
 msgstr "Tampilkan lembar informasi"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "Tampilkan garis bujur/lintang"
 
 msgid "Swap longitude/latitude"
-msgstr ""
+msgstr "Tukar bujur/lintang"
 
 msgid "Relocate"
 msgstr "Pindahkan"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Tampilkan {{nama}}"
 
 msgid "Longitude"
 msgstr "Longitude"
@@ -601,73 +614,73 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Melihat interpretasi dari {{interpretationDate}}"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Unit induk"
 
 msgid "Not set"
-msgstr ""
+msgstr "Tidak diatur"
 
 msgid "Organisation unit"
 msgstr "Unit organisasi"
 
 msgid "Loading layer data"
-msgstr ""
+msgstr "Memuat data layer"
 
 msgid "Last updated"
 msgstr "Terakhir diperbarui"
 
 msgid "acres"
-msgstr ""
+msgstr "hektar"
 
 msgid "Area"
 msgstr "Area"
 
 msgid "Center map on area"
-msgstr ""
+msgstr "Peta pusat di area"
 
 msgid "Center map on line"
-msgstr ""
+msgstr "Peta tengah online"
 
 msgid "Click the next position"
-msgstr ""
+msgstr "Klik posisi berikutnya"
 
 msgid "Click where you want to start the measurement"
-msgstr ""
+msgstr "Klik di mana Anda ingin memulai pengukuran"
 
 msgid "Delete"
 msgstr "hapus"
 
 msgid "Distance"
-msgstr ""
+msgstr "Jarak"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "Memasuki layar penuh"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Keluar dari layar penuh"
 
 msgid "Finish measurement"
-msgstr ""
+msgstr "Selesaikan pengukuran"
 
 msgid "ha"
-msgstr ""
+msgstr "Ha"
 
 msgid "km"
-msgstr ""
+msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr ""
+msgstr "Mengukur jarak dan area"
 
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 msgid "Perimeter"
-msgstr ""
+msgstr "keliling"
 
 msgid "Reset bearing to north"
-msgstr ""
+msgstr "Setel ulang bantalan ke utara"
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "Cari tempat atau alamat"
 
 msgid "Zoom in"
 msgstr "Perbesar"
@@ -676,19 +689,22 @@ msgid "Zoom out"
 msgstr "Perkecil"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "Perbesar ke konten"
 
 msgid "Open as map"
-msgstr ""
+msgstr "Buka sebagai peta"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"Bagan/tabel ini berisi {{numItems}} item data. Pilih item mana yang ingin "
+"Anda impor dari daftar di bawah. Setiap item data akan dibuat sebagai layer "
+"peta."
 
 msgid "Data items"
-msgstr ""
+msgstr "Data item"
 
 msgid "Proceed"
 msgstr "Lanjutkan"
@@ -700,74 +716,78 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
+"Elemen data ini memiliki terlalu banyak opsi ({{length}}). Opsi maksimal "
+"untuk penataan gaya adalah {{max}}."
 
 msgid "Code"
 msgstr "Kode"
 
 msgid "Loading data"
-msgstr ""
+msgstr "Memuat data"
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Tidak ada data yang ditemukan untuk periode ini."
 
 msgid "Select groups"
-msgstr ""
+msgstr "Pilih grup"
 
 msgid "Group set"
 msgstr "set satu grup"
 
 msgid "Select levels"
-msgstr ""
+msgstr "Pilih level"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
+"Tidak mungkin menggabungkan unit organisasi pengguna dan memilih unit "
+"individual."
 
 msgid "Click the map where you want to relocate the facility."
-msgstr ""
+msgstr "Klik peta tempat Anda ingin memindahkan fasilitas."
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "unit organisasi pengguna"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "tepat di bawah unit organisasi pengguna"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "dua tingkat di bawah unit organisasi pengguna"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{unit}} di {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} di dalam dan tepat di bawah {{orgunits}}"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} di dalam dan semua di bawah {{orgunits}}"
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Unit organisasi yang dipilih"
 
 msgid "Main"
-msgstr ""
+msgstr "Utama"
 
 msgid "Below"
-msgstr ""
+msgstr "Di bawah"
 
 msgid "2 x below"
-msgstr ""
+msgstr "2x di bawah"
 
 msgid "User organisation units"
-msgstr ""
+msgstr "Unit organisasi pengguna"
 
 msgid "Previous year"
-msgstr ""
+msgstr "Tahun sebelumnya"
 
 msgid "Next year"
 msgstr "Tahun berikut"
 
 msgid "Relative"
-msgstr ""
+msgstr "Relatif"
 
 msgid "Period type"
 msgstr "tipe periode"
@@ -776,22 +796,22 @@ msgid "Start/end dates"
 msgstr "Tanggal dimulai-berakhir"
 
 msgid "Only one timeline is allowed."
-msgstr ""
+msgstr "Hanya satu garis waktu yang diizinkan."
 
 msgid "Remove other layers to enable split map views."
-msgstr ""
+msgstr "Hapus layer lain untuk mengaktifkan tampilan peta terpisah."
 
 msgid "Display periods"
-msgstr ""
+msgstr "Tampilkan periode"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "Tunggal (agregat)"
 
 msgid "Timeline"
-msgstr ""
+msgstr "Linimasa"
 
 msgid "Split map views"
-msgstr ""
+msgstr "Membagi tampilan peta"
 
 msgid "Start date"
 msgstr "Tanggal mulai"
@@ -800,7 +820,7 @@ msgid "End date"
 msgstr "Tanggal berakhir"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Tidak tersedia offline"
 
 msgid "Program indicator"
 msgstr "Manajemen indikator program"
@@ -836,270 +856,279 @@ msgid "Variance"
 msgstr "Varian"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Persentase"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Hektar"
 
 msgid "Acres"
-msgstr ""
+msgstr "hektar"
 
 msgid "Mean"
-msgstr ""
+msgstr "Rata rata"
 
 msgid "Median"
-msgstr ""
+msgstr "median"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "Cahaya OSM"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "Detail OSM"
 
 msgid "Google Streets"
-msgstr ""
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Jalan Bing"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing Gelap"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Label Udara Bing"
 
 msgid "Population"
-msgstr ""
+msgstr "Populasi"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "orang per hektar"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Perkiraan jumlah orang yang tinggal di suatu daerah."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Kelompok usia penduduk"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Perkiraan jumlah orang yang tinggal di suatu daerah, dikelompokkan "
+"berdasarkan usia dan jenis kelamin."
 
 msgid "Men 0 - 1 years"
-msgstr ""
+msgstr "Pria 0 - 1 tahun"
 
 msgid "Men 1 - 4 years"
-msgstr ""
+msgstr "Pria 1 - 4 tahun"
 
 msgid "Men 5 - 9 years"
-msgstr ""
+msgstr "Pria 5 - 9 tahun"
 
 msgid "Men 10 - 14 years"
-msgstr ""
+msgstr "Pria 10 - 14 tahun"
 
 msgid "Men 15 - 19 years"
-msgstr ""
+msgstr "Pria 15 - 19 tahun"
 
 msgid "Men 20 - 24 years"
-msgstr ""
+msgstr "Pria 20 - 24 tahun"
 
 msgid "Men 25 - 29 years"
-msgstr ""
+msgstr "Pria 25 - 29 tahun"
 
 msgid "Men 30 - 34 years"
-msgstr ""
+msgstr "Pria 30 - 34 tahun"
 
 msgid "Men 35 - 39 years"
-msgstr ""
+msgstr "Pria 35 - 39 tahun"
 
 msgid "Men 40 - 44 years"
-msgstr ""
+msgstr "Pria 40 - 44 tahun"
 
 msgid "Men 45 - 49 years"
-msgstr ""
+msgstr "Pria 45 - 49 tahun"
 
 msgid "Men 50 - 54 years"
-msgstr ""
+msgstr "Pria 50 - 54 tahun"
 
 msgid "Men 55 - 59 years"
-msgstr ""
+msgstr "Pria 55 - 59 tahun"
 
 msgid "Men 60 - 64 years"
-msgstr ""
+msgstr "Pria 60 - 64 tahun"
 
 msgid "Men 65 - 69 years"
-msgstr ""
+msgstr "Pria 65 - 69 tahun"
 
 msgid "Men 70 - 74 years"
-msgstr ""
+msgstr "Pria 70 - 74 tahun"
 
 msgid "Men 75 - 79 years"
-msgstr ""
+msgstr "Pria 75 - 79 tahun"
 
 msgid "Men 80 years and above"
-msgstr ""
+msgstr "Pria 80 tahun ke atas"
 
 msgid "Women 0 - 1 years"
-msgstr ""
+msgstr "Wanita 0 - 1 tahun"
 
 msgid "Women 1 - 4 years"
-msgstr ""
+msgstr "Wanita 1 - 4 tahun"
 
 msgid "Women 5 - 9 years"
-msgstr ""
+msgstr "Wanita 5 - 9 tahun"
 
 msgid "Women 10 - 14 years"
-msgstr ""
+msgstr "Wanita 10 - 14 tahun"
 
 msgid "Women 15 - 19 years"
-msgstr ""
+msgstr "Wanita 15 - 19 tahun"
 
 msgid "Women 20 - 24 years"
-msgstr ""
+msgstr "Wanita 20 - 24 tahun"
 
 msgid "Women 25 - 29 years"
-msgstr ""
+msgstr "Wanita 25 - 29 tahun"
 
 msgid "Women 30 - 34 years"
-msgstr ""
+msgstr "Wanita 30 - 34 tahun"
 
 msgid "Women 35 - 39 years"
-msgstr ""
+msgstr "Wanita 35 - 39 tahun"
 
 msgid "Women 40 - 44 years"
-msgstr ""
+msgstr "Wanita 40 - 44 tahun"
 
 msgid "Women 45 - 49 years"
-msgstr ""
+msgstr "Wanita 45 - 49 tahun"
 
 msgid "Women 50 - 54 years"
-msgstr ""
+msgstr "Wanita 50 - 54 tahun"
 
 msgid "Women 55 - 59 years"
-msgstr ""
+msgstr "Wanita 55 - 59 tahun"
 
 msgid "Women 60 - 64 years"
-msgstr ""
+msgstr "Wanita 60 - 64 tahun"
 
 msgid "Women 65 - 69 years"
-msgstr ""
+msgstr "Wanita 65 - 69 tahun"
 
 msgid "Women 70 - 74 years"
-msgstr ""
+msgstr "Wanita 70 - 74 tahun"
 
 msgid "Women 75 - 79 years"
-msgstr ""
+msgstr "Wanita 75 - 79 tahun"
 
 msgid "Women 80 years and above"
-msgstr ""
+msgstr "Wanita 80 tahun ke atas"
 
 msgid "Elevation"
-msgstr ""
+msgstr "Ketinggian"
 
 msgid "meters"
-msgstr ""
+msgstr "meter"
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Ketinggian di atas permukaan laut."
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Pengendapan"
 
 msgid "millimeter"
-msgstr ""
+msgstr "milimeter"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Curah hujan dikumpulkan dari satelit dan stasiun cuaca di tanah. Nilai dalam"
+" milimeter dalam periode 5 hari. Diperbarui setiap bulan, selama minggu ke-3"
+" bulan berikutnya."
 
 msgid "Temperature"
-msgstr ""
+msgstr "Suhu"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "°C pada siang hari"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"Suhu permukaan tanah dikumpulkan dari satelit. Bintik-bintik kosong akan "
+"muncul di area dengan tutupan awan yang persisten."
 
 msgid "Landcover"
-msgstr ""
+msgstr "tutupan lahan"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "Jenis tutupan lahan yang berbeda dikumpulkan dari satelit."
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Hutan Daun Jarum Evergreen"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Hutan berdaun lebar yang selalu hijau"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Hutan Daun Jarum Gugur"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Hutan Daun Lebar Gugur"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "Hutan campuran"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "Lahan semak tertutup"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "Buka semak belukar"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "sabana berkayu"
 
 msgid "Savannas"
-msgstr ""
+msgstr "sabana"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Padang rumput"
 
 msgid "Permanent wetlands"
-msgstr ""
+msgstr "Lahan basah permanen"
 
 msgid "Croplands"
-msgstr ""
+msgstr "Lahan pertanian"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Perkotaan dan terbangun"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "Lahan pertanian/Mosaik vegetasi alami"
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "Salju dan es"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "Tandus atau jarang bervegetasi"
 
 msgid "Water"
-msgstr ""
+msgstr "air"
 
 msgid "people per km²"
-msgstr ""
+msgstr "orang per km²"
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Lampu malam hari"
 
 msgid "light intensity"
-msgstr ""
+msgstr "Intensitas cahaya"
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
+"Intensitas cahaya dari kota besar, kota kecil, dan situs lain dengan "
+"pencahayaan terus-menerus, termasuk suar gas."
 
 msgid "All"
 msgstr "Semua"
@@ -1120,25 +1149,25 @@ msgid "Skipped"
 msgstr "Dilewati"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Choropleth"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Bubble map"
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Legenda warna otomatis"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Legenda warna yang telah ditentukan sebelumnya"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Legenda warna tunggal"
 
 msgid "Equal intervals"
 msgstr "interval equal"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Jumlah yang sama"
 
 msgid "Daily"
 msgstr "Harian"
@@ -1147,16 +1176,16 @@ msgid "Weekly"
 msgstr "Mingguan"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Mingguan (Mulai Rabu)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Mingguan (Mulai Kamis)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Mingguan (Mulai Sabtu)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Mingguan (Mulai Minggu)"
 
 msgid "Bi-weekly"
 msgstr "Dwiwulanan"
@@ -1180,7 +1209,7 @@ msgid "Yearly"
 msgstr "Tahunan"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Financial November"
 
 msgid "Financial year (Start October)"
 msgstr "Financial October"
@@ -1195,40 +1224,40 @@ msgid "Cancelled"
 msgstr "Dibatalkan"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "Peta \"{{name}}\" disimpan."
 
 msgid "Error"
 msgstr "Error"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Batas"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "Tidak ada batasan yang ditemukan"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "Unit organisasi yang dipilih"
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "Tidak ditemukan koordinat"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Anda tidak memiliki akses ke data layer ini"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr ""
+msgstr "Terjadi kesalahan yang tidak diketahui saat membaca data layer"
 
 msgid "Event"
 msgstr "Kejadian"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
+msgstr "Menampilkan {{pageSize}} even pertama dari {{total}}"
 
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Fasilitas"
 
 msgid "Thematic layer"
 msgstr "Layer tematik"
@@ -1240,45 +1269,47 @@ msgid "Tracked entity"
 msgstr "Tracked Entity"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "Tidak ada entitas yang dilacak ditemukan"
 
 msgid "related"
-msgstr ""
+msgstr "terkait"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Tematik"
 
 msgid "not one of"
-msgstr ""
+msgstr "bukan salah satu dari"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "tidak mengandung"
 
 msgid "true"
-msgstr ""
+msgstr "benar"
 
 msgid "false"
-msgstr ""
+msgstr "Salah"
 
 msgid "No"
 msgstr "Tidak"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "Tidak bisa mendapatkan token otorisasi untuk Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Layer ini memerlukan akun Google Earth Engine. Periksa dokumentasi DHIS2 "
+"untuk informasi lebih lanjut."
 
 msgid "Cannot connect to Google Earth Engine."
-msgstr ""
+msgstr "Tidak dapat terhubung ke Google Earth Engine."
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "Tanggal mulai tidak valid"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "Tanggal akhir tidak valid"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "Tanggal akhir tidak boleh lebih awal dari tanggal mulai"

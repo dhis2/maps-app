@@ -1,3 +1,52 @@
+## [1.10.1](https://github.com/dhis2/maps-app/compare/v1.10.0...v1.10.1) (2021-08-10)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([7b2b573](https://github.com/dhis2/maps-app/commit/7b2b573f9bb06071d1362a62cfe1ea1de9be74db))
+
+# [1.10.0](https://github.com/dhis2/maps-app/compare/v1.9.6...v1.10.0) (2021-07-07)
+
+
+### Features
+
+* switch from mapbox-gl to maplibre-gl ([#1790](https://github.com/dhis2/maps-app/issues/1790)) ([3705d6a](https://github.com/dhis2/maps-app/commit/3705d6ae3cca2acd73c97d8029fa4aace0e56f70))
+
+## [1.9.6](https://github.com/dhis2/maps-app/compare/v1.9.5...v1.9.6) (2021-07-01)
+
+
+### Bug Fixes
+
+* period type in uppercase ([#1788](https://github.com/dhis2/maps-app/issues/1788)) ([9ea0073](https://github.com/dhis2/maps-app/commit/9ea00730a7b5c2fe2c33f2c07594e0906d3998aa))
+
+## [1.9.5](https://github.com/dhis2/maps-app/compare/v1.9.4...v1.9.5) (2021-06-29)
+
+
+### Bug Fixes
+
+* use hyphen in locale strings passed to the browser ([#1771](https://github.com/dhis2/maps-app/issues/1771)) ([8c2def1](https://github.com/dhis2/maps-app/commit/8c2def1966e396257a586848b10b28b040431957))
+
+## [1.9.4](https://github.com/dhis2/maps-app/compare/v1.9.3...v1.9.4) (2021-06-29)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([cac00c1](https://github.com/dhis2/maps-app/commit/cac00c12aa60e3cf0a6010abfdb2903bab529474))
+
+## [1.9.3](https://github.com/dhis2/maps-app/compare/v1.9.2...v1.9.3) (2021-06-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([fdccfde](https://github.com/dhis2/maps-app/commit/fdccfdec0842504b29a6d4c19b6a713e13091c65))
+
+## [1.9.2](https://github.com/dhis2/maps-app/compare/v1.9.1...v1.9.2) (2021-06-22)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f6a082c](https://github.com/dhis2/maps-app/commit/f6a082ce108d708990396c33a9c3d1ee02ed08ff))
+
 ## [1.9.1](https://github.com/dhis2/maps-app/compare/v1.9.0...v1.9.1) (2021-06-14)
 
 
