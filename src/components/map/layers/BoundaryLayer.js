@@ -70,11 +70,12 @@ export default class BoundaryLayer extends Layer {
 
     getPopup() {
         const { coordinates, feature } = this.state.popup;
-        const { name, level, parentName } = feature.properties;
+        const { id, name, level, parentName } = feature.properties;
 
         return (
             <Popup
                 coordinates={coordinates}
+                orgUnitId={id}
                 onClose={this.onPopupClose}
                 className="dhis2-map-popup-orgunit"
             >

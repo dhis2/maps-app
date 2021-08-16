@@ -20,7 +20,7 @@ import legendSets from './legendSets';
 import loading from './loading';
 import map from './map';
 import optionSets from './optionSets';
-import orgUnit from './orgUnit';
+import orgUnitProfile from './orgUnitProfile';
 import orgUnitTree from './orgUnitTree';
 import orgUnitGroups from './orgUnitGroups';
 import orgUnitGroupSets from './orgUnitGroupSets';
@@ -59,7 +59,7 @@ export default combineReducers({
     loading,
     map,
     optionSets,
-    orgUnit,
+    orgUnitProfile,
     orgUnitTree,
     orgUnitGroupSets,
     orgUnitGroups,

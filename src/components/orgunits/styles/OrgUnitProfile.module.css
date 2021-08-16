@@ -1,0 +1,32 @@
+.drawer {
+    background-color: #fff;
+    overflow-y: hidden;
+}
+
+.header {
+    position: relative;
+    background-color: var(--colors-grey300);
+    line-height: 44px;
+    padding-left: var(--spacers-dp16);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+}
+
+.close {
+    position: absolute;
+    top: var(--spacers-dp4);
+    right: var(--spacers-dp4);
+    cursor: pointer;
+}
+
+.close svg {
+    margin: auto;
+    color: var(--colors-grey700);
+}
+
+.content {
+    height: calc(100% - 44px);
+    overflow-y: auto;
+    padding: var(--spacers-dp16);
+}

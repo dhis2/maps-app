@@ -1,7 +1,6 @@
 import { isString, isObject } from 'lodash/fp';
 import { config } from 'd2';
 
-// TODO: Channel all api request through d2
 export const apiFetch = async (url, method, body) => {
     const options = {
         headers: {

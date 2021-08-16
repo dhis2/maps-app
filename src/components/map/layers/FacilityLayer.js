@@ -79,11 +79,12 @@ class FacilityLayer extends Layer {
 
     getPopup() {
         const { coordinates, feature } = this.state.popup;
-        const { name, dimensions, pn } = feature.properties;
+        const { id, name, dimensions, pn } = feature.properties;
 
         return (
             <Popup
                 coordinates={coordinates}
+                orgUnitId={id}
                 onClose={this.onPopupClose}
                 className="dhis2-map-popup-orgunit"
             >

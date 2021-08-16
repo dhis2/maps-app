@@ -92,6 +92,7 @@ const EarthEnginePopup = props => {
     return (
         <Popup
             coordinates={coordinates}
+            orgUnitId={id}
             onClose={onClose}
             className="dhis2-map-popup-orgunit"
         >
