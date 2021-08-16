@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/dhis2/maps-app/compare/v1.10.1...v1.11.0) (2021-08-16)
+
+
+### Features
+
+* organisation unit profile (DHIS2-11178) ([#1787](https://github.com/dhis2/maps-app/issues/1787)) ([17d6e8a](https://github.com/dhis2/maps-app/commit/17d6e8a9613d7219ab6877e71f1dcbaa498a1720))
+
 ## [1.10.1](https://github.com/dhis2/maps-app/compare/v1.10.0...v1.10.1) (2021-08-10)
 
 

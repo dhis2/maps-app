@@ -162,13 +162,14 @@ class ThematicLayer extends Layer {
         const { columns, aggregationType, legend } = this.props;
         const { popup, period } = this.state;
         const { coordinates, feature } = popup;
-        const { name, value } = feature.properties;
+        const { id, name, value } = feature.properties;
         const indicator = columns[0].items[0].name || '';
         const periodName = period ? period.name : legend.period;
 
         return (
             <Popup
                 coordinates={coordinates}
+                orgUnitId={id}
                 onClose={() => this.onPopupClose(popup)}
                 className="dhis2-map-popup-orgunit"
             >

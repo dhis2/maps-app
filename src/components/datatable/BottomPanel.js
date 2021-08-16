@@ -7,7 +7,7 @@ import DataTable from '../datatable/DataTable';
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,
-    INTERPRETATIONS_PANEL_WIDTH,
+    RIGHT_PANEL_WIDTH,
 } from '../../constants/layout';
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable';
 import styles from './styles/BottomPanel.module.css';
@@ -17,7 +17,7 @@ class BottomPanel extends Component {
     render() {
         const {
             layersPanelOpen,
-            interpretationsPanelOpen,
+            rightPanelOpen,
             dataTableOpen,
             dataTableHeight,
             width,
@@ -31,15 +31,13 @@ class BottomPanel extends Component {
             const tableHeight =
                 dataTableHeight < maxHeight ? dataTableHeight : maxHeight;
             const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0;
-            const interpretationsWidth = interpretationsPanelOpen
-                ? INTERPRETATIONS_PANEL_WIDTH
-                : 0;
-            const tableWidth = width - layersWidth - interpretationsWidth;
+            const rightPanelWidth = rightPanelOpen ? RIGHT_PANEL_WIDTH : 0;
+            const tableWidth = width - layersWidth - rightPanelWidth;
 
             const style = {
                 height: tableHeight,
                 left: layersWidth,
-                right: interpretationsWidth,
+                right: rightPanelWidth,
             };
 
             return (
@@ -72,7 +70,7 @@ class BottomPanel extends Component {
 
 BottomPanel.propTypes = {
     layersPanelOpen: PropTypes.bool.isRequired,
-    interpretationsPanelOpen: PropTypes.bool.isRequired,
+    rightPanelOpen: PropTypes.bool.isRequired,
     dataTableOpen: PropTypes.bool.isRequired,
     dataTableHeight: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
@@ -86,7 +84,7 @@ export default connect(
         dataTableOpen: !!dataTable,
         dataTableHeight: ui.dataTableHeight,
         layersPanelOpen: ui.layersPanelOpen,
-        interpretationsPanelOpen: ui.interpretationsPanelOpen,
+        rightPanelOpen: ui.rightPanelOpen,
         width: ui.width,
         height: ui.height,
     }),
