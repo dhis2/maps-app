@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Jason Pickering <jason@dhis2.org>, 2019
-# Viktor Varland <viktor@dhis2.org>, 2020
 # phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Swedish (https://www.transifex.com/hisp-uio/teams/100509/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -694,10 +694,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Koda"
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -709,8 +706,50 @@ msgstr "Välj grupper"
 msgid "Group set"
 msgstr "Grupp set"
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Koda"
+
+msgid "Short name"
+msgstr "Kort namn"
+
+msgid "Opening date"
+msgstr "öppningsdatum"
+
+msgid "Closed date"
+msgstr "sluten datum"
+
+msgid "URL"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Address"
+msgstr "Adress"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "id"
+
+msgid "Comment"
+msgstr "Kommentar"
+
 msgid "Select levels"
 msgstr "väljer nivåer"
+
+msgid "Location details"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "

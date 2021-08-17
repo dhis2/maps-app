@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rahman Monjur <simran.monjur@gmail.com>, 2021\n"
 "Language-Team: Bengali (https://www.transifex.com/hisp-uio/teams/100509/bn/)\n"
@@ -693,10 +693,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr ""
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -708,7 +705,49 @@ msgstr ""
 msgid "Group set"
 msgstr ""
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr ""
+
+msgid "Short name"
+msgstr ""
+
+msgid "Opening date"
+msgstr ""
+
+msgid "Closed date"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
 msgid "Select levels"
+msgstr ""
+
+msgid "Location details"
 msgstr ""
 
 msgid ""

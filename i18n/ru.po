@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Yury Rogachev <yury@dhis2.org>, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
 # Saurabh Leekha <saurabh.leekha@hispindia.org>, 2021
 # phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
 # Ulanbek Abakirov <ulans@mail.ru>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ulanbek Abakirov <ulans@mail.ru>, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -697,10 +697,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Код"
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -712,8 +709,50 @@ msgstr "Выбрать группы"
 msgid "Group set"
 msgstr "Набор группы"
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Short name"
+msgstr "Короткое название"
+
+msgid "Opening date"
+msgstr "Дата открытия"
+
+msgid "Closed date"
+msgstr "Дата закрытия"
+
+msgid "URL"
+msgstr "Url"
+
+msgid "Link"
+msgstr "Ссылка"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "адрес электронной почты"
+
+msgid "Address"
+msgstr "Адрес"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "Ид"
+
+msgid "Comment"
+msgstr "Комментарий"
+
 msgid "Select levels"
 msgstr "Выбрать уровни"
+
+msgid "Location details"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "

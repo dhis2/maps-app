@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -698,10 +698,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "الرمز"
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -713,8 +710,50 @@ msgstr "اختر المجموعات"
 msgid "Group set"
 msgstr "حزمة المجموعات"
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "الرمز"
+
+msgid "Short name"
+msgstr "الاسم المختصر"
+
+msgid "Opening date"
+msgstr "تاريخ الافتتاح"
+
+msgid "Closed date"
+msgstr "تاريخ الإغلاق"
+
+msgid "URL"
+msgstr "عنوان URL"
+
+msgid "Link"
+msgstr "ربط"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Address"
+msgstr "العنوان"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "تعليق"
+
 msgid "Select levels"
 msgstr "اختر المستويات"
+
+msgid "Location details"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
