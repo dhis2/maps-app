@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -708,10 +708,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Код"
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -723,8 +720,50 @@ msgstr "Гуруҳларни танланг"
 msgid "Group set"
 msgstr "Гуруҳлар тўплами"
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Short name"
+msgstr "Қисқача номи"
+
+msgid "Opening date"
+msgstr "Очилиш санаси"
+
+msgid "Closed date"
+msgstr "Ёпилган сана"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr "Ҳавола"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "е-Почта"
+
+msgid "Address"
+msgstr "Манзил"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "Изоҳ"
+
 msgid "Select levels"
 msgstr "Поғоналарни танланг"
+
+msgid "Location details"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "

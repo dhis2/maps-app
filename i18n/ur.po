@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
@@ -693,10 +693,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "کوڈ"
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -708,8 +705,50 @@ msgstr "گروپ منتخب کریں"
 msgid "Group set"
 msgstr "گروپ سیٹ"
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "کوڈ"
+
+msgid "Short name"
+msgstr "Ù"
+
+msgid "Opening date"
+msgstr "تاریخ آغاز"
+
+msgid "Closed date"
+msgstr "آخری تاریخ"
+
+msgid "URL"
+msgstr "یو آر ایل"
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "ای میل"
+
+msgid "Address"
+msgstr "پتا"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "شناخت"
+
+msgid "Comment"
+msgstr "تبصرا"
+
 msgid "Select levels"
 msgstr "سطحوں کا انتخاب کریں"
+
+msgid "Location details"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
