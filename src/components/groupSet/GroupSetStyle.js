@@ -32,8 +32,8 @@ export const GroupSetStyle = ({
     const [error, setError] = useState();
 
     const onGroupStyleChange = useCallback(
-        (/*id, color*/) => {
-            // console.log('onGroupStyleChange', id, color, groupSetStyle);
+        (id, color) => {
+            console.log('onGroupStyleChange', id, color, groupSetStyle);
         },
         [groupSetStyle, setGroupSetStyle]
     );

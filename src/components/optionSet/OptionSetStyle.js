@@ -32,6 +32,20 @@ const OptionSetStyle = ({
 
     const onChange = useCallback(
         (id, color) => {
+            console.log(
+                'setOptionStyle',
+                options.map(option =>
+                    option.id === id
+                        ? {
+                              ...option,
+                              style: {
+                                  color,
+                              },
+                          }
+                        : option
+                )
+            );
+
             setOptionStyle(
                 options.map(option =>
                     option.id === id
@@ -55,6 +69,7 @@ const OptionSetStyle = ({
             const { options } = optionSet;
 
             if (options.length <= MAX_OPTIONS) {
+                console.log('initial', options.map(addOptionStyle));
                 setOptionStyle(options.map(addOptionStyle));
             } else {
                 setWarning(

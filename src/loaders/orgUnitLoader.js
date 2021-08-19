@@ -6,103 +6,24 @@ import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty, getDisplayPropertyUrl } from '../util/helpers';
 
 const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
-const weights = [2, 1, 0.75, 0.5];
 
 // TODO: Move to util and share with facility layuer
-const parseGroupSet = groupSet =>
-    groupSet.organisationUnitGroups
+const parseGroupSet = ({ id, name, organisationUnitGroups }) => ({
+    id,
+    name,
+    groups: organisationUnitGroups
         .toArray()
-        .reduce((style, { id, color }, index) => {
-            style[id] = color || colors[index]; // TODO
+        .reduce((style, { id, name, color, symbol }, index) => {
+            style[id] = {
+                name,
+                symbol,
+                color: color || colors[index], // TODO
+            };
             return style;
-        }, {});
-
-// Returns a promise
-const orgUnitLoader = async config => {
-    const { rows, organisationUnitGroupSet, radiusLow } = config;
-    const orgUnits = getOrgUnitsFromRows(rows);
-    const orgUnitParams = orgUnits.map(item => item.id);
-    const includeGroupSets = !!organisationUnitGroupSet;
-
-    const d2 = await getD2();
-    const displayProperty = getDisplayProperty(d2).toUpperCase();
-    const layerName = i18n.t('Org units');
-    const orgUnitLevelNames = await getOrgUnitLevelNames(d2);
-
-    const requests = [
-        d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
-            .getAll({ includeGroupSets })
-            .then(toGeoJson),
-    ];
-
-    if (organisationUnitGroupSet) {
-        // console.log('includeGroupSets', organisationUnitGroupSet.id);
-        requests.push(
-            d2.models.organisationUnitGroupSet
-                .get(organisationUnitGroupSet.id, {
-                    fields: `organisationUnitGroups[id,${displayProperty}~rename(name),color,symbol]`,
-                })
-                .then(parseGroupSet)
-        );
-    }
-
-    const [features, groupSet] = await Promise.all(requests);
-
-    if (groupSet) {
-        // console.log('groupSet', groupSet);
-    }
-
-    const levels = uniqBy(f => f.properties.level, features)
-        .map(f => f.properties.level)
-        .sort();
-
-    const levelStyle = levels.reduce(
-        (obj, level, index) => ({
-            ...obj,
-            [level]: {
-                color: colors[index] || '#333',
-                weight: levels.length === 1 ? 1 : weights[index] || 0.5,
-            },
-        }),
-        {}
-    );
-
-    features.forEach(feature => {
-        feature.properties.style = levelStyle[feature.properties.level];
-        feature.properties.labelStyle = {
-            paddingTop:
-                feature.geometry.type === 'Point'
-                    ? 5 + (radiusLow || 5) + 'px'
-                    : '0',
-        };
-    });
-
-    config.legend = {
-        title: layerName,
-        items: levels.map(level => ({
-            name: orgUnitLevelNames[level],
-            ...levelStyle[level],
-        })),
-    };
-
-    return {
-        ...config,
-        data: features,
-        name: layerName,
-        alerts: !features.length
-            ? [{ warning: true, message: i18n.t('No org units found') }]
-            : undefined,
-        isLoaded: true,
-        isExpanded: true,
-        isVisible: true,
-    };
-};
+        }, {}),
+});
 
 // This function returns the org unit level names used in the legend
-// TODO: Refacotor when org unit level names are included in the metadata section
-// of the analytics requests
 const getOrgUnitLevelNames = async d2 => {
     const orgUnitLevels = await d2.models.organisationUnitLevels.list({
         fields: `id,${getDisplayPropertyUrl(d2)},level`,
@@ -118,6 +39,132 @@ const getOrgUnitLevelNames = async d2 => {
               {}
           )
         : {};
+};
+
+const getFeatureStyle = (dimensions, groupSet) =>
+    dimensions && groupSet && dimensions[groupSet.id]
+        ? groupSet.groups[dimensions[groupSet.id]]
+        : {};
+
+const styleFeatures = (
+    features,
+    groupSet,
+    orgUnitLevelNames,
+    { radiusLow }
+) => {
+    const levels = uniqBy(f => f.properties.level, features)
+        .map(f => f.properties.level)
+        .sort();
+
+    const levelWeight = level =>
+        Math.pow(levels.length - levels.indexOf(level), 1.2);
+
+    const levelStyle = levels.reduce(
+        (obj, level) => ({
+            ...obj,
+            [level]: {
+                // color: colors[index] || '#333',
+                color: '#333',
+                weight: levelWeight(level),
+            },
+        }),
+        {}
+    );
+
+    const styledFeatures = features.map(f => ({
+        ...f,
+        properties: {
+            ...f.properties,
+            // style: levelStyle[f.properties.level],
+            labelStyle: {
+                paddingTop:
+                    f.geometry.type === 'Point'
+                        ? 5 + (radiusLow || 5) + 'px'
+                        : '0',
+            },
+            weight: levelWeight(f.properties.level),
+            color: getFeatureStyle(f.properties.dimensions, groupSet).color,
+            // strokeColor: levelStyle[f.properties.level].color,
+        },
+    }));
+
+    const levelItems = levels.map(level => ({
+        name: orgUnitLevelNames[level],
+        ...levelStyle[level],
+    }));
+
+    const groupItems =
+        groupSet && groupSet.groups
+            ? Object.keys(groupSet.groups).map(id => ({
+                  name: groupSet.groups[id].name,
+                  color: groupSet.groups[id].color,
+              }))
+            : [];
+
+    // console.log('groupItems', groupItems);
+
+    return {
+        styledFeatures,
+        legend: {
+            items: [...levelItems, ...groupItems],
+        },
+    };
+};
+
+// Returns a promise
+const orgUnitLoader = async config => {
+    const { rows, organisationUnitGroupSet } = config;
+    const orgUnits = getOrgUnitsFromRows(rows);
+    const orgUnitParams = orgUnits.map(item => item.id);
+    const includeGroupSets = !!organisationUnitGroupSet;
+
+    const d2 = await getD2();
+    const displayProperty = getDisplayProperty(d2).toUpperCase();
+
+    const requests = [
+        d2.geoFeatures
+            .byOrgUnit(orgUnitParams)
+            .displayProperty(displayProperty)
+            .getAll({ includeGroupSets })
+            .then(toGeoJson),
+        getOrgUnitLevelNames(d2),
+    ];
+
+    if (organisationUnitGroupSet) {
+        requests.push(
+            d2.models.organisationUnitGroupSet
+                .get(organisationUnitGroupSet.id, {
+                    fields: `id,name,organisationUnitGroups[id,name,color,symbol]`,
+                })
+                .then(parseGroupSet)
+        );
+    }
+
+    const [features, orgUnitLevelNames, groupSet] = await Promise.all(requests);
+
+    const { styledFeatures, legend } = styleFeatures(
+        features,
+        groupSet,
+        orgUnitLevelNames,
+        config
+    );
+
+    const alerts = !features.length
+        ? [{ warning: true, message: i18n.t('No org units found') }]
+        : undefined;
+
+    // console.log('styledFeatures', styledFeatures);
+
+    return {
+        ...config,
+        data: styledFeatures,
+        name: i18n.t('Org units'),
+        legend,
+        alerts,
+        isLoaded: true,
+        isExpanded: true,
+        isVisible: true,
+    };
 };
 
 export default orgUnitLoader;

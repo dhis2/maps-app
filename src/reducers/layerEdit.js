@@ -403,6 +403,15 @@ const layerEdit = (state = null, action) => {
                 organisationUnitGroupSet: action.organisationUnitGroupSet,
             };
 
+        case types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_STYLE_SET:
+            return {
+                ...state,
+                organisationUnitGroupSet: {
+                    ...state.organisationUnitGroupSet,
+                    organisationUnitGroups: action.organisationUnitGroups,
+                },
+            };
+
         case types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET:
             return {
                 ...state,

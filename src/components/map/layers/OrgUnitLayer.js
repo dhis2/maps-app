@@ -30,7 +30,8 @@ export default class OrgUnitLayer extends Layer {
         const map = this.context.map;
 
         const config = {
-            type: BOUNDARY_LAYER,
+            // type: BOUNDARY_LAYER,
+            type: 'geoJson',
             id,
             index,
             opacity,
@@ -38,9 +39,11 @@ export default class OrgUnitLayer extends Layer {
             data: filteredData,
             hoverLabel: '{name}',
             style: {
+                color: 'transparent',
+                strokeColor: '#333',
                 opacity: 1,
-                fillOpacity: 0,
-                fill: false,
+                // fillOpacity: 0,
+                // fill: false,
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
