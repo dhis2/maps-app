@@ -8,6 +8,7 @@ const orgUnitProfile = (state = null, action) => {
         case types.ORGANISATION_UNIT_PROFILE_CLOSE:
         case types.INTERPRETATIONS_PANEL_OPEN:
         case types.MAP_NEW:
+        case types.MAP_SET:
             return null;
 
         default:

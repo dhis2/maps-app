@@ -40,6 +40,7 @@ const ui = (state = defaultState, action) => {
         case types.INTERPRETATIONS_PANEL_CLOSE:
         case types.ORGANISATION_UNIT_PROFILE_CLOSE:
         case types.MAP_NEW:
+        case types.MAP_SET:
             return {
                 ...state,
                 rightPanelOpen: false,
