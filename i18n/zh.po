@@ -1,16 +1,16 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2021
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # 晓东 林 <13981924470@126.com>, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -696,7 +696,7 @@ msgid ""
 msgstr "该数据元素的选项太多（{{length}}）。样式的最大选项为{{max}}。"
 
 msgid "See more info"
-msgstr ""
+msgstr "查看更多信息"
 
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
@@ -708,7 +708,7 @@ msgid "Group set"
 msgstr "组集"
 
 msgid "Image of the organisation unit"
-msgstr ""
+msgstr "组织机构图像"
 
 msgid "Code"
 msgstr "代码"
@@ -729,7 +729,7 @@ msgid "Link"
 msgstr "链接"
 
 msgid "Contact"
-msgstr ""
+msgstr "联系人"
 
 msgid "Email"
 msgstr "邮件"
@@ -738,7 +738,7 @@ msgid "Address"
 msgstr "地址"
 
 msgid "Phone"
-msgstr ""
+msgstr "电话"
 
 msgid "ID"
 msgstr "ID"
@@ -750,7 +750,7 @@ msgid "Select levels"
 msgstr "选择等级"
 
 msgid "Location details"
-msgstr ""
+msgstr "位置详情"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
