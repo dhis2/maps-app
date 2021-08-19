@@ -152,7 +152,7 @@ const ContextMenu = (props, context) => {
 
                         {feature && (
                             <MenuItem
-                                label={i18n.t('Show information')}
+                                label={i18n.t('Show location details')}
                                 icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
                             />
