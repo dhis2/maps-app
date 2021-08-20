@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2021
-# phil_dhis2, 2021
 # Wanda <wanda@frontlineaids.org>, 2021
+# phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
 # Nadiia <semchuk@aph.org.ua>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Nadiia <semchuk@aph.org.ua>, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -695,10 +695,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Код"
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -710,7 +707,49 @@ msgstr ""
 msgid "Group set"
 msgstr ""
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Short name"
+msgstr "Коротке ім'я"
+
+msgid "Opening date"
+msgstr "Дата відкриття"
+
+msgid "Closed date"
+msgstr "Дата закриття"
+
+msgid "URL"
+msgstr "URL (Інтернет-адреса)"
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "Електронна пошта"
+
+msgid "Address"
+msgstr "Адреса"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ID (ідентифікатор)"
+
+msgid "Comment"
+msgstr "Коментар"
+
 msgid "Select levels"
+msgstr ""
+
+msgid "Location details"
 msgstr ""
 
 msgid ""

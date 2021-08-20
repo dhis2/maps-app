@@ -15,7 +15,7 @@
 
 .close {
     position: absolute;
-    top: var(--spacers-dp4);
+    top: 6px;
     right: var(--spacers-dp4);
     cursor: pointer;
 }

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -703,10 +703,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Kode"
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -718,8 +715,50 @@ msgstr "Velg grupper"
 msgid "Group set"
 msgstr "Gruppesett"
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Kode"
+
+msgid "Short name"
+msgstr "Kort navn"
+
+msgid "Opening date"
+msgstr "Åpningsdato"
+
+msgid "Closed date"
+msgstr "Stengt dato"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "Kommentar"
+
 msgid "Select levels"
 msgstr "Velg nivåer"
+
+msgid "Location details"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "

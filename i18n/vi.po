@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-09T13:13:02.238Z\n"
+"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -694,10 +694,7 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Mã"
-
-msgid "Loading data"
+msgid "See more info"
 msgstr ""
 
 msgid "No data found for this period."
@@ -709,8 +706,50 @@ msgstr "Chọn nhóm"
 msgid "Group set"
 msgstr "Nhóm tập hợp"
 
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Mã"
+
+msgid "Short name"
+msgstr "Tên rút gọn"
+
+msgid "Opening date"
+msgstr "Ngày mở"
+
+msgid "Closed date"
+msgstr "Ngày đóng"
+
+msgid "URL"
+msgstr "Đường dẫn URL"
+
+msgid "Link"
+msgstr "Liên kết"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "Thư điện tử (Email)"
+
+msgid "Address"
+msgstr "Địa chỉ"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "Định danh"
+
+msgid "Comment"
+msgstr "Bình luận"
+
 msgid "Select levels"
 msgstr "Chọn Tuyến Đơn Vị"
+
+msgid "Location details"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
