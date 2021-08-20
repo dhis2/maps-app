@@ -16,7 +16,7 @@ const OrgUnitButton = ({ id, orgUnitProfile, setOrgUnitProfile }) => (
             disabled={id === orgUnitProfile}
             onClick={() => setOrgUnitProfile(id)}
         >
-            {i18n.t('Show location details')}
+            {i18n.t('View profile')}
         </Button>
     </div>
 );
