@@ -6,7 +6,7 @@ import './styles/Popup.css';
 
 const Popup = (props, context) => {
     const { className = '', coordinates, orgUnitId, onClose, children } = props;
-    const { map } = context;
+    const { map, isPlugin } = context;
     const container = useMemo(() => document.createElement('div'), []);
 
     // Create and open popup on map
@@ -23,7 +23,9 @@ const Popup = (props, context) => {
     return createPortal(
         <>
             {children}
-            {orgUnitId && <OrgUnitButton id={orgUnitId} />}
+            {isPlugin === false && orgUnitId && (
+                <OrgUnitButton id={orgUnitId} />
+            )}
         </>,
         container
     );
@@ -31,6 +33,7 @@ const Popup = (props, context) => {
 
 Popup.contextTypes = {
     map: PropTypes.object,
+    isPlugin: PropTypes.bool,
 };
 
 Popup.propTypes = {

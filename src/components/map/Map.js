@@ -50,6 +50,7 @@ class Map extends Component {
 
     static childContextTypes = {
         map: PropTypes.object.isRequired,
+        isPlugin: PropTypes.bool.isRequired,
     };
 
     state = {};
@@ -77,6 +78,7 @@ class Map extends Component {
     getChildContext() {
         return {
             map: this.map,
+            isPlugin: this.props.isPlugin,
         };
     }
 

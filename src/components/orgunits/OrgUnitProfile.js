@@ -40,7 +40,7 @@ export const OrgUnitProfile = ({ id, closeOrgUnitProfile }) => {
     return (
         <Drawer className={styles.drawer}>
             <div className={styles.header}>
-                {i18n.t('Location details')}
+                {i18n.t('Organisation unit profile')}
                 <span className={styles.close} onClick={closeOrgUnitProfile}>
                     <IconCross24 />
                 </span>
