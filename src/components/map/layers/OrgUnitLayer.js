@@ -4,7 +4,7 @@ import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../../constants/layers';
-import { BOUNDARY_LAYER } from '../../../constants/layers';
+import { GEOJSON_LAYER } from '../../../constants/layers';
 
 export default class OrgUnitLayer extends Layer {
     state = {
@@ -30,8 +30,7 @@ export default class OrgUnitLayer extends Layer {
         const map = this.context.map;
 
         const config = {
-            // type: BOUNDARY_LAYER,
-            type: 'geoJson',
+            type: GEOJSON_LAYER,
             id,
             index,
             opacity,

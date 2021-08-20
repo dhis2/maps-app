@@ -33,8 +33,6 @@ const LegendItem = ({
         symbol.borderRadius = '50%';
     }
 
-    console.log('weight', weight);
-
     return (
         <tr className={styles.legendItem} data-test="layerlegend-item">
             <th>

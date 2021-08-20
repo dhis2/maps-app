@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { Help } from '@dhis2/ui';
 import ColorSymbolSelect from './ColorSymbolSelect';
 import GroupStyle from './GroupStyle';
-import { setGroupSetStyle } from '../../actions/layerEdit';
+import { setOrganisationUnitGroupSetStyle } from '../../actions/layerEdit';
 import { qualitativeColors } from '../../constants/colors';
 import { getUniqueColor } from '../../util/colors';
 import { apiFetch } from '../../util/api';
@@ -24,35 +24,45 @@ const parseGroupSet = response => {
 
 export const GroupSetStyle = ({
     groupSet,
-    groupSetStyle,
-    setGroupSetStyle,
+    setOrganisationUnitGroupSetStyle,
 }) => {
-    const [groups, setGroups] = useState([]);
     const [styleType, setStyleType] = useState('color');
     const [error, setError] = useState();
+    const { organisationUnitGroups: groups } = groupSet;
 
     const onGroupStyleChange = useCallback(
-        (id, color) => {
-            console.log('onGroupStyleChange', id, color, groupSetStyle);
-        },
-        [groupSetStyle, setGroupSetStyle]
+        (id, color) =>
+            setOrganisationUnitGroupSetStyle(
+                groups.map(group =>
+                    group.id === id
+                        ? {
+                              ...group,
+                              color,
+                          }
+                        : group
+                )
+            ),
+        [groups, setOrganisationUnitGroupSetStyle]
     );
 
     useEffect(() => {
-        const url = `/organisationUnitGroupSets/${groupSet.id}?fields=organisationUnitGroups[id,name,color,symbol]`;
+        if (!groupSet.organisationUnitGroups) {
+            const url = `/organisationUnitGroupSets/${groupSet.id}?fields=organisationUnitGroups[id,name,color,symbol]`;
 
-        apiFetch(url)
-            .then(response => setGroups(parseGroupSet(response)))
-            .catch(() =>
-                setError(i18n.t('Failed to load organisation unit groups.'))
-            );
-    }, [groupSet]);
+            apiFetch(url)
+                .then(parseGroupSet)
+                .then(setOrganisationUnitGroupSetStyle)
+                .catch(() =>
+                    setError(i18n.t('Failed to load organisation unit groups.'))
+                );
+        }
+    }, [groupSet, setOrganisationUnitGroupSetStyle]);
 
     if (error) {
         return <Help error>{error}</Help>;
     }
 
-    return (
+    return groups ? (
         <>
             <ColorSymbolSelect styleType={styleType} onChange={setStyleType} />
             {groups.map(group => (
@@ -64,20 +74,17 @@ export const GroupSetStyle = ({
                 />
             ))}
         </>
-    );
+    ) : null;
 };
 
 GroupSetStyle.propTypes = {
     groupSet: PropTypes.shape({
         id: PropTypes.string.isRequired,
+        organisationUnitGroups: PropTypes.array,
     }),
-    groupSetStyle: PropTypes.object, // TODO
-    setGroupSetStyle: PropTypes.func.isRequired,
+    setOrganisationUnitGroupSetStyle: PropTypes.func.isRequired,
 };
 
-export default connect(
-    ({ layerEdit }) => ({
-        groupSetStyle: layerEdit.styleDataItem,
-    }),
-    { setGroupSetStyle }
-)(GroupSetStyle);
+export default connect(null, { setOrganisationUnitGroupSetStyle })(
+    GroupSetStyle
+);
