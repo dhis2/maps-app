@@ -1,3 +1,10 @@
+## [1.11.4](https://github.com/dhis2/maps-app/compare/v1.11.3...v1.11.4) (2021-08-20)
+
+
+### Bug Fixes
+
+* improvements to org unit profile (DHIS2-11178) ([#1809](https://github.com/dhis2/maps-app/issues/1809)) ([24b8d3f](https://github.com/dhis2/maps-app/commit/24b8d3fa106df2016589f7770c3bad5761d5d455))
+
 ## [1.11.3](https://github.com/dhis2/maps-app/compare/v1.11.2...v1.11.3) (2021-08-19)
 
 
