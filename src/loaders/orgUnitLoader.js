@@ -5,9 +5,10 @@ import { toGeoJson } from '../util/map';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty, getDisplayPropertyUrl } from '../util/helpers';
 
-const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
+// const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
 
-// TODO: Move to util and share with facility layuer
+// TODO: Move to util and share with facility layer
+/*
 const parseGroupSet = ({ id, name, organisationUnitGroups }) => ({
     id,
     name,
@@ -22,6 +23,7 @@ const parseGroupSet = ({ id, name, organisationUnitGroups }) => ({
             return style;
         }, {}),
 });
+*/
 
 // This function returns the org unit level names used in the legend
 const getOrgUnitLevelNames = async d2 => {
@@ -42,8 +44,13 @@ const getOrgUnitLevelNames = async d2 => {
 };
 
 const getFeatureStyle = (dimensions, groupSet) =>
-    dimensions && groupSet && dimensions[groupSet.id]
-        ? groupSet.groups[dimensions[groupSet.id]]
+    groupSet &&
+    groupSet.organisationUnitGroups &&
+    dimensions &&
+    dimensions[groupSet.id]
+        ? groupSet.organisationUnitGroups.find(
+              g => g.id === dimensions[groupSet.id]
+          )
         : {};
 
 const styleFeatures = (
@@ -84,6 +91,7 @@ const styleFeatures = (
             },
             weight: levelWeight(f.properties.level),
             color: getFeatureStyle(f.properties.dimensions, groupSet).color,
+            // color: '#ff0000',
             // strokeColor: levelStyle[f.properties.level].color,
         },
     }));
@@ -94,10 +102,10 @@ const styleFeatures = (
     }));
 
     const groupItems =
-        groupSet && groupSet.groups
-            ? Object.keys(groupSet.groups).map(id => ({
-                  name: groupSet.groups[id].name,
-                  color: groupSet.groups[id].color,
+        groupSet && groupSet.organisationUnitGroups
+            ? groupSet.organisationUnitGroups.map(({ name, color }) => ({
+                  name,
+                  color,
               }))
             : [];
 
@@ -113,10 +121,10 @@ const styleFeatures = (
 
 // Returns a promise
 const orgUnitLoader = async config => {
-    const { rows, organisationUnitGroupSet } = config;
+    const { rows, organisationUnitGroupSet: groupSet } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
-    const includeGroupSets = !!organisationUnitGroupSet;
+    const includeGroupSets = !!groupSet;
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
@@ -130,6 +138,7 @@ const orgUnitLoader = async config => {
         getOrgUnitLevelNames(d2),
     ];
 
+    /*
     if (organisationUnitGroupSet) {
         requests.push(
             d2.models.organisationUnitGroupSet
@@ -139,8 +148,9 @@ const orgUnitLoader = async config => {
                 .then(parseGroupSet)
         );
     }
+    */
 
-    const [features, orgUnitLevelNames, groupSet] = await Promise.all(requests);
+    const [features, orgUnitLevelNames] = await Promise.all(requests);
 
     const { styledFeatures, legend } = styleFeatures(
         features,
