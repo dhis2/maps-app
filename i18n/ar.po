@@ -1,15 +1,15 @@
 # 
 # Translators:
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Hamza Assada <7amza.it@gmail.com>, 2021
+# phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
+"POT-Creation-Date: 2021-08-20T07:13:49.483Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
+"Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -571,8 +571,8 @@ msgstr "الطلوع مستوى واحد"
 msgid "Drill down one level"
 msgstr "التعمق مستوى واحد"
 
-msgid "Show information"
-msgstr "إظهار المعلومات"
+msgid "View profile"
+msgstr "عرض ملف التعريف"
 
 msgid "Show longitude/latitude"
 msgstr "إظهار خط الطول/خط العرض"
@@ -698,9 +698,6 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "See more info"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr "لا توجد بيانات لهذه الفترة."
 
@@ -752,7 +749,7 @@ msgstr "تعليق"
 msgid "Select levels"
 msgstr "اختر المستويات"
 
-msgid "Location details"
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""

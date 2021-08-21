@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
+"POT-Creation-Date: 2021-08-20T07:13:49.483Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2021\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -567,7 +567,7 @@ msgstr ""
 msgid "Drill down one level"
 msgstr ""
 
-msgid "Show information"
+msgid "View profile"
 msgstr ""
 
 msgid "Show longitude/latitude"
@@ -692,9 +692,6 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "See more info"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
@@ -746,7 +743,7 @@ msgstr "تعليق"
 msgid "Select levels"
 msgstr ""
 
-msgid "Location details"
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""
