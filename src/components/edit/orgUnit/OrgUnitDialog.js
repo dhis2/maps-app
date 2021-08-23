@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField, Checkbox, FontStyle } from '../../core';
+import {
+    Tab,
+    Tabs,
+    NumberField,
+    Checkbox,
+    FontStyle,
+    ColorPicker,
+} from '../../core';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
-
+import { ORG_UNIT_COLOR } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
 import {
@@ -20,6 +27,7 @@ import {
     setLabelFontSize,
     setLabelFontStyle,
     setRadiusLow,
+    setEventPointColor, // TODO: Reuse or change?
 } from '../../../actions/layerEdit';
 
 import {
@@ -36,6 +44,7 @@ class OrgUnitDialog extends Component {
         labelFontSize: PropTypes.string,
         labelFontStyle: PropTypes.string,
         radiusLow: PropTypes.number,
+        eventPointColor: PropTypes.string,
         rows: PropTypes.array,
         setLabels: PropTypes.func.isRequired,
         setLabelFontSize: PropTypes.func.isRequired,
@@ -43,6 +52,7 @@ class OrgUnitDialog extends Component {
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
+        setEventPointColor: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
@@ -68,6 +78,7 @@ class OrgUnitDialog extends Component {
             labelFontSize,
             labelFontStyle,
             radiusLow,
+            eventPointColor,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
@@ -76,6 +87,7 @@ class OrgUnitDialog extends Component {
             setLabelFontSize,
             setLabelFontStyle,
             setRadiusLow,
+            setEventPointColor,
         } = this.props;
 
         const { tab, orgUnitsError } = this.state;
@@ -153,6 +165,12 @@ class OrgUnitDialog extends Component {
                                         />
                                     )}
                                 </div>
+                                <ColorPicker
+                                    label={i18n.t('Color')}
+                                    color={eventPointColor || ORG_UNIT_COLOR}
+                                    onChange={setEventPointColor}
+                                    className={styles.radius}
+                                />
                                 <NumberField
                                     label={i18n.t('Point radius')}
                                     value={
@@ -208,6 +226,7 @@ export default connect(
         setLabelFontSize,
         setLabelFontStyle,
         setRadiusLow,
+        setEventPointColor,
     },
     null,
     {

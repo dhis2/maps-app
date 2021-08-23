@@ -4,7 +4,7 @@ import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../../constants/layers';
-import { GEOJSON_LAYER } from '../../../constants/layers';
+import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
 
 export default class OrgUnitLayer extends Layer {
     state = {
@@ -23,6 +23,7 @@ export default class OrgUnitLayer extends Layer {
             labelFontStyle,
             radiusLow,
             dataFilters,
+            eventPointColor: orgUnitColor = ORG_UNIT_COLOR,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
@@ -39,10 +40,7 @@ export default class OrgUnitLayer extends Layer {
             hoverLabel: '{name}',
             style: {
                 color: 'transparent',
-                strokeColor: '#333',
-                opacity: 1,
-                // fillOpacity: 0,
-                // fill: false,
+                strokeColor: orgUnitColor,
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),

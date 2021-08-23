@@ -82,6 +82,9 @@ export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
 /* FACILITY LAYER */
 export const FACILITY_BUFFER = 5000;
 
+/* ORG UNIT LAYER */
+export const ORG_UNIT_COLOR = '#333333';
+
 /* EARTH ENGINE LAYER */
 export const EE_BUFFER = 5000;
 

@@ -5,26 +5,6 @@ import { toGeoJson } from '../util/map';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty, getDisplayPropertyUrl } from '../util/helpers';
 
-// const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
-
-// TODO: Move to util and share with facility layer
-/*
-const parseGroupSet = ({ id, name, organisationUnitGroups }) => ({
-    id,
-    name,
-    groups: organisationUnitGroups
-        .toArray()
-        .reduce((style, { id, name, color, symbol }, index) => {
-            style[id] = {
-                name,
-                symbol,
-                color: color || colors[index], // TODO
-            };
-            return style;
-        }, {}),
-});
-*/
-
 // This function returns the org unit level names used in the legend
 const getOrgUnitLevelNames = async d2 => {
     const orgUnitLevels = await d2.models.organisationUnitLevels.list({
@@ -91,8 +71,6 @@ const styleFeatures = (
             },
             weight: levelWeight(f.properties.level),
             color: getFeatureStyle(f.properties.dimensions, groupSet).color,
-            // color: '#ff0000',
-            // strokeColor: levelStyle[f.properties.level].color,
         },
     }));
 
@@ -108,8 +86,6 @@ const styleFeatures = (
                   color,
               }))
             : [];
-
-    // console.log('groupItems', groupItems);
 
     return {
         styledFeatures,
@@ -138,18 +114,6 @@ const orgUnitLoader = async config => {
         getOrgUnitLevelNames(d2),
     ];
 
-    /*
-    if (organisationUnitGroupSet) {
-        requests.push(
-            d2.models.organisationUnitGroupSet
-                .get(organisationUnitGroupSet.id, {
-                    fields: `id,name,organisationUnitGroups[id,name,color,symbol]`,
-                })
-                .then(parseGroupSet)
-        );
-    }
-    */
-
     const [features, orgUnitLevelNames] = await Promise.all(requests);
 
     const { styledFeatures, legend } = styleFeatures(
@@ -162,8 +126,6 @@ const orgUnitLoader = async config => {
     const alerts = !features.length
         ? [{ warning: true, message: i18n.t('No org units found') }]
         : undefined;
-
-    // console.log('styledFeatures', styledFeatures);
 
     return {
         ...config,
