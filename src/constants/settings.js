@@ -1,4 +1,4 @@
-export const apiVersion = 36;
+export const apiVersion = 37;
 
 export const SYSTEM_SETTINGS = [
     'keyAnalysisRelativePeriod',

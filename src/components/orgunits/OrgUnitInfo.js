@@ -25,6 +25,7 @@ const OrgUnitInfo = ({
     contactPerson,
     description,
     email,
+    featureType,
     groupSets,
     id,
     imageId,
@@ -71,12 +72,22 @@ const OrgUnitInfo = ({
             ))}
             <ListItem label={i18n.t('Code')}>{code}</ListItem>
             <ListItem label={i18n.t('Short name')}>{shortName}</ListItem>
-            <ListItem label={i18n.t('Opening date')} formatter={formatDate}>
-                {openingDate}
-            </ListItem>
-            <ListItem label={i18n.t('Closed date')} formatter={formatDate}>
-                {closedDate}
-            </ListItem>
+            {featureType === 'POINT' && (
+                <>
+                    <ListItem
+                        label={i18n.t('Opening date')}
+                        formatter={formatDate}
+                    >
+                        {openingDate}
+                    </ListItem>
+                    <ListItem
+                        label={i18n.t('Closed date')}
+                        formatter={formatDate}
+                    >
+                        {closedDate}
+                    </ListItem>
+                </>
+            )}
             {url && (
                 <ListItem label={i18n.t('URL')}>
                     <a href={url} target="_blank" rel="noreferrer">
@@ -114,6 +125,7 @@ OrgUnitInfo.propTypes = {
     contactPerson: PropTypes.string,
     description: PropTypes.string,
     email: PropTypes.string,
+    featureType: PropTypes.string,
     groupSets: PropTypes.array.isRequired,
     id: PropTypes.string.isRequired,
     imageId: PropTypes.string,
