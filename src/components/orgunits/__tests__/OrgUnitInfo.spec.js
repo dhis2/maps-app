@@ -117,10 +117,15 @@ describe('Org unit profile (location details)', () => {
         expect(getListItem(wrapper, 'Phone')).toEqual(phoneNumber);
     });
 
-    it('should render formatted dates', () => {
+    it('should render formatted dates if featureType is POINT', () => {
         const openingDate = '1970-01-01T00:00:00.000';
         const closedDate = '2021-06-09T00:00:00.000';
-        const wrapper = renderWithProps({ openingDate, closedDate });
+        let featureType = 'POINT';
+        let wrapper = renderWithProps({
+            openingDate,
+            closedDate,
+            featureType,
+        });
         const opening = getListItem(wrapper, 'Opening date');
         const closed = getListItem(wrapper, 'Closed date');
 
@@ -128,6 +133,19 @@ describe('Org unit profile (location details)', () => {
         expect(opening).toEqual(formatDate(openingDate));
         expect(closed).not.toEqual(closedDate);
         expect(closed).toEqual(formatDate(closedDate));
+
+        expect(wrapper.find('[label="Opening date"]').isEmpty()).toEqual(false);
+        expect(wrapper.find('[label="Closed date"]').isEmpty()).toEqual(false);
+
+        featureType = 'POLYGON';
+        wrapper = renderWithProps({
+            openingDate,
+            closedDate,
+            featureType,
+        });
+
+        expect(wrapper.find('[label="Opening date"]').isEmpty()).toEqual(true);
+        expect(wrapper.find('[label="Closed date"]').isEmpty()).toEqual(true);
     });
 
     it('should render formatted longitude and latitude', () => {
