@@ -1,3 +1,11 @@
+## [1.11.5](https://github.com/dhis2/maps-app/compare/v1.11.4...v1.11.5) (2021-08-23)
+
+
+### Bug Fixes
+
+* hide dates if feature type is not a point ([#1813](https://github.com/dhis2/maps-app/issues/1813)) ([553d619](https://github.com/dhis2/maps-app/commit/553d61930287eb11a481cf0b4c6d2630841487b8))
+* upgrade web api version to 37 ([#1814](https://github.com/dhis2/maps-app/issues/1814)) ([3c38200](https://github.com/dhis2/maps-app/commit/3c38200996515e3b61d480d0842f40faf45d460f))
+
 ## [1.11.4](https://github.com/dhis2/maps-app/compare/v1.11.3...v1.11.4) (2021-08-20)
 
 
