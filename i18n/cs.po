@@ -717,7 +717,7 @@ msgid "Group set"
 msgstr "Skupinová sada"
 
 msgid "Image of the organisation unit"
-msgstr ""
+msgstr "Obrázek organizační jednotky"
 
 msgid "Code"
 msgstr "Kód"
@@ -738,7 +738,7 @@ msgid "Link"
 msgstr "Odkaz"
 
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 msgid "Email"
 msgstr "E-mail"
@@ -747,7 +747,7 @@ msgid "Address"
 msgstr "Adresa"
 
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 msgid "ID"
 msgstr "ID"
@@ -759,7 +759,7 @@ msgid "Select levels"
 msgstr "Vybrat úrovně"
 
 msgid "Organisation unit profile"
-msgstr ""
+msgstr "Profil organizační jednotky"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
