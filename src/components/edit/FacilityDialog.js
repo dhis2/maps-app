@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import cx from 'classnames';
-import { Tab, Tabs, Checkbox, FontStyle, Help } from '../core';
+import { Tab, Tabs, Help } from '../core';
 import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import Labels from './shared/Labels';
 import BufferRadius from './shared/BufferRadius';
 import { FACILITY_BUFFER } from '../../constants/layers';
 import styles from './styles/LayerDialog.module.css';
@@ -19,11 +20,6 @@ import {
     setOrgUnitGroups,
     setUserOrgUnits,
     toggleOrgUnit,
-    setLabels,
-    setLabelFontColor,
-    setLabelFontSize,
-    setLabelFontWeight,
-    setLabelFontStyle,
 } from '../../actions/layerEdit';
 
 import {
@@ -36,18 +32,8 @@ import {
 
 class FacilityDialog extends Component {
     static propTypes = {
-        labels: PropTypes.bool,
-        labelFontColor: PropTypes.string,
-        labelFontSize: PropTypes.string,
-        labelFontStyle: PropTypes.string,
-        labelFontWeight: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
         rows: PropTypes.array,
-        setLabels: PropTypes.func.isRequired,
-        setLabelFontColor: PropTypes.func.isRequired,
-        setLabelFontSize: PropTypes.func.isRequired,
-        setLabelFontStyle: PropTypes.func.isRequired,
-        setLabelFontWeight: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrganisationUnitGroupSet: PropTypes.func.isRequired,
@@ -76,21 +62,11 @@ class FacilityDialog extends Component {
         const {
             rows = [],
             organisationUnitGroupSet,
-            labels,
-            labelFontColor,
-            labelFontSize,
-            labelFontWeight,
-            labelFontStyle,
             setOrganisationUnitGroupSet,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
-            setLabels,
-            setLabelFontColor,
-            setLabelFontSize,
-            setLabelFontWeight,
-            setLabelFontStyle,
         } = this.props;
 
         const { tab, orgUnitGroupSetError, orgUnitsError } = this.state;
@@ -167,39 +143,13 @@ class FacilityDialog extends Component {
                     )}
                     {tab === 'style' && (
                         <div
-                            className={styles.flexRowFlow}
+                            className={styles.flexColumnFlow}
                             data-test="facilitydialog-styletab"
                         >
-                            <div
-                                className={cx(
-                                    styles.flexInnerColumnFlow,
-                                    styles.singleColumn
-                                )}
-                            >
-                                <Checkbox
-                                    label={i18n.t('Labels')}
-                                    checked={labels}
-                                    onChange={setLabels}
-                                    className={styles.checkboxInline}
-                                />
-                                {labels && (
-                                    <FontStyle
-                                        color={labelFontColor}
-                                        size={labelFontSize}
-                                        weight={labelFontWeight}
-                                        fontStyle={labelFontStyle}
-                                        onColorChange={setLabelFontColor}
-                                        onSizeChange={setLabelFontSize}
-                                        onWeightChange={setLabelFontWeight}
-                                        onStyleChange={setLabelFontStyle}
-                                        className={styles.fontInline}
-                                    />
-                                )}
+                            <div className={cx(styles.flexColumn)}>
+                                <Labels />
+                                <BufferRadius defaultRadius={FACILITY_BUFFER} />
                             </div>
-                            <BufferRadius
-                                defaultRadius={FACILITY_BUFFER}
-                                className={styles.singleColumn}
-                            />
                         </div>
                     )}
                 </div>
@@ -248,11 +198,6 @@ export default connect(
         setOrgUnitGroups,
         setUserOrgUnits,
         toggleOrgUnit,
-        setLabels,
-        setLabelFontColor,
-        setLabelFontSize,
-        setLabelFontWeight,
-        setLabelFontStyle,
     },
     null,
     {

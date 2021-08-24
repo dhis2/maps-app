@@ -3,8 +3,8 @@ import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
-import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../../constants/layers';
 import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
+import { getLabelStyle } from '../../../util/labels';
 
 export default class OrgUnitLayer extends Layer {
     state = {
@@ -19,8 +19,6 @@ export default class OrgUnitLayer extends Layer {
             isVisible,
             data,
             labels,
-            labelFontSize,
-            labelFontStyle,
             radiusLow,
             dataFilters,
             eventPointColor: orgUnitColor = ORG_UNIT_COLOR,
@@ -47,14 +45,8 @@ export default class OrgUnitLayer extends Layer {
         };
 
         if (labels) {
-            const fontSize = labelFontSize || LABEL_FONT_SIZE;
-
             config.label = '{name}';
-            config.labelStyle = {
-                fontSize,
-                fontStyle: labelFontStyle || LABEL_FONT_STYLE,
-                lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
-            };
+            config.labelStyle = getLabelStyle(this.props);
         }
 
         if (radiusLow) {

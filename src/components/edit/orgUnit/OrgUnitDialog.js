@@ -2,19 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import {
-    Tab,
-    Tabs,
-    NumberField,
-    Checkbox,
-    FontStyle,
-    ColorPicker,
-} from '../../core';
+import { Tab, Tabs, NumberField, ColorPicker } from '../../core';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
+import Labels from './shared/Labels';
 import { ORG_UNIT_COLOR } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -23,9 +17,6 @@ import {
     setOrgUnitGroups,
     setUserOrgUnits,
     toggleOrgUnit,
-    setLabels,
-    setLabelFontSize,
-    setLabelFontStyle,
     setRadiusLow,
     setEventPointColor, // TODO: Reuse or change?
 } from '../../../actions/layerEdit';
@@ -40,15 +31,9 @@ import {
 
 class OrgUnitDialog extends Component {
     static propTypes = {
-        labels: PropTypes.bool,
-        labelFontSize: PropTypes.string,
-        labelFontStyle: PropTypes.string,
         radiusLow: PropTypes.number,
         eventPointColor: PropTypes.string,
         rows: PropTypes.array,
-        setLabels: PropTypes.func.isRequired,
-        setLabelFontSize: PropTypes.func.isRequired,
-        setLabelFontStyle: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
@@ -74,18 +59,12 @@ class OrgUnitDialog extends Component {
     render() {
         const {
             rows = [],
-            labels,
-            labelFontSize,
-            labelFontStyle,
             radiusLow,
             eventPointColor,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
-            setLabels,
-            setLabelFontSize,
-            setLabelFontStyle,
             setRadiusLow,
             setEventPointColor,
         } = this.props;
@@ -148,23 +127,7 @@ class OrgUnitDialog extends Component {
                             data-test="orgunitdialog-styletab"
                         >
                             <div className={styles.flexColumn}>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Labels')}
-                                        checked={labels}
-                                        onChange={setLabels}
-                                        className={styles.checkboxInline}
-                                    />
-                                    {labels && (
-                                        <FontStyle
-                                            size={labelFontSize}
-                                            fontStyle={labelFontStyle}
-                                            onSizeChange={setLabelFontSize}
-                                            onStyleChange={setLabelFontStyle}
-                                            className={styles.fontInline}
-                                        />
-                                    )}
-                                </div>
+                                <Labels />
                                 <ColorPicker
                                     label={i18n.t('Color')}
                                     color={eventPointColor || ORG_UNIT_COLOR}
@@ -222,9 +185,6 @@ export default connect(
         setOrgUnitGroups,
         setUserOrgUnits,
         toggleOrgUnit,
-        setLabels,
-        setLabelFontSize,
-        setLabelFontStyle,
         setRadiusLow,
         setEventPointColor,
     },
