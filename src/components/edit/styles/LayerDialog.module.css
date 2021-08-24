@@ -118,8 +118,16 @@
 
 /* Org unit */
 
-.radius {
+.marginBottom {
+    margin-bottom: var(--spacers-dp16);
+}
+
+.narrowField {
     width: 120px;
+}
+
+.narrowFieldIcon {
+    width: 124px;
 }
 
 /* Earth Engine */

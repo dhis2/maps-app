@@ -8,7 +8,7 @@ import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
-import Labels from './shared/Labels';
+import Labels from '../shared/Labels';
 import { ORG_UNIT_COLOR } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -132,7 +132,7 @@ class OrgUnitDialog extends Component {
                                     label={i18n.t('Color')}
                                     color={eventPointColor || ORG_UNIT_COLOR}
                                     onChange={setEventPointColor}
-                                    className={styles.radius}
+                                    className={styles.narrowField}
                                 />
                                 <NumberField
                                     label={i18n.t('Point radius')}
@@ -140,7 +140,7 @@ class OrgUnitDialog extends Component {
                                         radiusLow !== undefined ? radiusLow : 5
                                     }
                                     onChange={setRadiusLow}
-                                    className={styles.radius}
+                                    className={styles.narrowFieldIcon}
                                 />
                             </div>
                             <div className={styles.flexColumn}>
