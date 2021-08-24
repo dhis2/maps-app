@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, Checkbox, FontStyle } from '../../core';
+import { Tab, Tabs } from '../../core';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
 import NoDataColor from './NoDataColor';
@@ -29,6 +29,7 @@ import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
 import ThematicMapTypeSelect from './ThematicMapTypeSelect';
 import RadiusSelect, { isValidRadius } from './RadiusSelect';
+import Labels from '../shared/Labels';
 import { dimConf } from '../../../constants/dimension';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -45,11 +46,6 @@ import {
     setDataItem,
     setDataElementGroup,
     setIndicatorGroup,
-    setLabels,
-    setLabelFontColor,
-    setLabelFontSize,
-    setLabelFontWeight,
-    setLabelFontStyle,
     setLegendSet,
     setNoDataColor,
     setOperand,
@@ -85,11 +81,6 @@ export class ThematicDialog extends Component {
         columns: PropTypes.array,
         rows: PropTypes.array,
         filters: PropTypes.array,
-        labels: PropTypes.bool,
-        labelFontColor: PropTypes.string,
-        labelFontSize: PropTypes.string,
-        labelFontStyle: PropTypes.string,
-        labelFontWeight: PropTypes.string,
         legendSet: PropTypes.object,
         method: PropTypes.number,
         indicatorGroup: PropTypes.object,
@@ -112,11 +103,6 @@ export class ThematicDialog extends Component {
         setDataItem: PropTypes.func.isRequired,
         setDataElementGroup: PropTypes.func.isRequired,
         setIndicatorGroup: PropTypes.func.isRequired,
-        setLabels: PropTypes.func.isRequired,
-        setLabelFontColor: PropTypes.func.isRequired,
-        setLabelFontSize: PropTypes.func.isRequired,
-        setLabelFontStyle: PropTypes.func.isRequired,
-        setLabelFontWeight: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
@@ -237,11 +223,6 @@ export class ThematicDialog extends Component {
             filters,
             id,
             indicatorGroup,
-            labels,
-            labelFontColor,
-            labelFontSize,
-            labelFontStyle,
-            labelFontWeight,
             noDataColor,
             operand,
             periodType,
@@ -260,11 +241,6 @@ export class ThematicDialog extends Component {
             setDataItem,
             setDataElementGroup,
             setIndicatorGroup,
-            setLabels,
-            setLabelFontColor,
-            setLabelFontSize,
-            setLabelFontWeight,
-            setLabelFontStyle,
             setNoDataColor,
             setOperand,
             setOrgUnitLevels,
@@ -556,28 +532,7 @@ export class ThematicDialog extends Component {
                                         className={styles.numberField}
                                     />
                                 </div>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Labels')}
-                                        checked={labels}
-                                        onChange={setLabels}
-                                    />
-                                </div>
-                                {labels && (
-                                    <div className={styles.flexInnerColumnFlow}>
-                                        <FontStyle
-                                            color={labelFontColor}
-                                            size={labelFontSize}
-                                            weight={labelFontWeight}
-                                            fontStyle={labelFontStyle}
-                                            onColorChange={setLabelFontColor}
-                                            onSizeChange={setLabelFontSize}
-                                            onWeightChange={setLabelFontWeight}
-                                            onStyleChange={setLabelFontStyle}
-                                            className={styles.fontBlock}
-                                        />
-                                    </div>
-                                )}
+                                <Labels />
                             </div>
                             <div className={styles.flexColumn}>
                                 <NumericLegendStyle
@@ -749,11 +704,6 @@ export default connect(
         setDataItem,
         setDataElementGroup,
         setIndicatorGroup,
-        setLabels,
-        setLabelFontColor,
-        setLabelFontSize,
-        setLabelFontWeight,
-        setLabelFontStyle,
         setLegendSet,
         setNoDataColor,
         setOperand,

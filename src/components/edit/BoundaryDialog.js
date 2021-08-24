@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField, Checkbox, FontStyle } from '../core';
+import { Tab, Tabs, NumberField } from '../core';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import Labels from './shared/Labels';
 import styles from './styles/LayerDialog.module.css';
 
 import {
@@ -14,9 +15,6 @@ import {
     setOrgUnitGroups,
     setUserOrgUnits,
     toggleOrgUnit,
-    setLabels,
-    setLabelFontSize,
-    setLabelFontStyle,
     setRadiusLow,
 } from '../../actions/layerEdit';
 
@@ -30,14 +28,8 @@ import {
 
 class BoundaryDialog extends Component {
     static propTypes = {
-        labels: PropTypes.bool,
-        labelFontSize: PropTypes.string,
-        labelFontStyle: PropTypes.string,
         radiusLow: PropTypes.number,
         rows: PropTypes.array,
-        setLabels: PropTypes.func.isRequired,
-        setLabelFontSize: PropTypes.func.isRequired,
-        setLabelFontStyle: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
@@ -62,17 +54,11 @@ class BoundaryDialog extends Component {
     render() {
         const {
             rows = [],
-            labels,
-            labelFontSize,
-            labelFontStyle,
             radiusLow,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
-            setLabels,
-            setLabelFontSize,
-            setLabelFontStyle,
             setRadiusLow,
         } = this.props;
 
@@ -134,23 +120,7 @@ class BoundaryDialog extends Component {
                             data-test="boundarydialog-styletab"
                         >
                             <div className={styles.flexColumn}>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Labels')}
-                                        checked={labels}
-                                        onChange={setLabels}
-                                        className={styles.checkboxInline}
-                                    />
-                                    {labels && (
-                                        <FontStyle
-                                            size={labelFontSize}
-                                            fontStyle={labelFontStyle}
-                                            onSizeChange={setLabelFontSize}
-                                            onStyleChange={setLabelFontStyle}
-                                            className={styles.fontInline}
-                                        />
-                                    )}
-                                </div>
+                                <Labels />
                                 <NumberField
                                     label={i18n.t('Point radius')}
                                     value={
@@ -199,9 +169,6 @@ export default connect(
         setOrgUnitGroups,
         setUserOrgUnits,
         toggleOrgUnit,
-        setLabels,
-        setLabelFontSize,
-        setLabelFontStyle,
         setRadiusLow,
     },
     null,
