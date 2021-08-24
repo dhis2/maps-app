@@ -124,13 +124,16 @@ export const getClassificationTypes = () => [
     },
 ];
 
+export const STYLE_TYPE_COLOR = 'COLOR';
+export const STYLE_TYPE_SYMBOL = 'SYMBOL';
+
 export const getGroupSetStyleTypes = () => [
     {
-        id: 'color',
+        id: STYLE_TYPE_COLOR,
         name: i18n.t('Color'),
     },
     {
-        id: 'symbol',
+        id: STYLE_TYPE_SYMBOL,
         name: i18n.t('Symbol'),
     },
 ];

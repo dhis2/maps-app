@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Radio, RadioGroup } from '../core';
-import { getGroupSetStyleTypes } from '../../constants/layers';
+import {
+    STYLE_TYPE_COLOR,
+    getGroupSetStyleTypes,
+} from '../../constants/layers';
 
 // Radio buttons to switch between color and symbol for org unit group set
-export const ColorSymbolSelect = ({ styleType = 'color', onChange }) => (
+export const StyleTypeSelect = ({ styleType = STYLE_TYPE_COLOR, onChange }) => (
     <RadioGroup value={styleType} display="row" onChange={onChange}>
         {getGroupSetStyleTypes().map(({ id, name }) => (
             <Radio key={id} value={id} label={name} />
@@ -12,9 +15,9 @@ export const ColorSymbolSelect = ({ styleType = 'color', onChange }) => (
     </RadioGroup>
 );
 
-ColorSymbolSelect.propTypes = {
+StyleTypeSelect.propTypes = {
     styleType: PropTypes.string,
     onChange: PropTypes.func.isRequired,
 };
 
-export default ColorSymbolSelect;
+export default StyleTypeSelect;

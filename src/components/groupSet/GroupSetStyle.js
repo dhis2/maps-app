@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { Help } from '@dhis2/ui';
-import ColorSymbolSelect from './ColorSymbolSelect';
+import StyleTypeSelect from './StyleTypeSelect';
 import GroupStyle from './GroupStyle';
-import { setOrganisationUnitGroupSetStyle } from '../../actions/layerEdit';
+import {
+    setOrganisationUnitGroupSetStyleType,
+    setOrganisationUnitGroupSetStyle,
+} from '../../actions/layerEdit';
 import { qualitativeColors } from '../../constants/colors';
 import { getUniqueColor } from '../../util/colors';
+import { STYLE_TYPE_COLOR } from '../../constants/layers';
 import { apiFetch } from '../../util/api';
 
 const getColor = getUniqueColor(qualitativeColors);
@@ -24,11 +28,14 @@ const parseGroupSet = response => {
 
 export const GroupSetStyle = ({
     groupSet,
+    setOrganisationUnitGroupSetStyleType,
     setOrganisationUnitGroupSetStyle,
 }) => {
-    const [styleType, setStyleType] = useState('color');
     const [error, setError] = useState();
-    const { organisationUnitGroups: groups } = groupSet;
+    const {
+        styleType = STYLE_TYPE_COLOR,
+        organisationUnitGroups: groups,
+    } = groupSet;
 
     const onGroupStyleChange = useCallback(
         (id, color) =>
@@ -64,7 +71,10 @@ export const GroupSetStyle = ({
 
     return groups ? (
         <>
-            <ColorSymbolSelect styleType={styleType} onChange={setStyleType} />
+            <StyleTypeSelect
+                styleType={styleType}
+                onChange={setOrganisationUnitGroupSetStyleType}
+            />
             {groups.map(group => (
                 <GroupStyle
                     key={group.id}
@@ -80,11 +90,14 @@ export const GroupSetStyle = ({
 GroupSetStyle.propTypes = {
     groupSet: PropTypes.shape({
         id: PropTypes.string.isRequired,
+        styleType: PropTypes.string,
         organisationUnitGroups: PropTypes.array,
     }),
+    setOrganisationUnitGroupSetStyleType: PropTypes.func.isRequired,
     setOrganisationUnitGroupSetStyle: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setOrganisationUnitGroupSetStyle })(
-    GroupSetStyle
-);
+export default connect(null, {
+    setOrganisationUnitGroupSetStyleType,
+    setOrganisationUnitGroupSetStyle,
+})(GroupSetStyle);

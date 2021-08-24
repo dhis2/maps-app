@@ -6,7 +6,7 @@ import styles from './styles/GroupStyle.module.css';
 
 export const GroupStyle = ({ name, color, symbol, styleType, onChange }) => {
     const [imagePath, setImagePath] = useState();
-    const useColor = styleType !== 'symbol';
+    const useColor = styleType !== 'SYMBOL';
 
     useEffect(() => {
         getD2().then(d2 =>

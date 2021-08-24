@@ -397,10 +397,25 @@ const layerEdit = (state = null, action) => {
                 relatedPointRadius: parseInt(action.radius, 10),
             };
 
+        case types.LAYER_EDIT_ORGANISATION_UNIT_COLOR_SET:
+            return {
+                ...state,
+                organisationUnitColor: action.color,
+            };
+
         case types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_SET:
             return {
                 ...state,
                 organisationUnitGroupSet: action.organisationUnitGroupSet,
+            };
+
+        case types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_STYLE_TYPE_SET:
+            return {
+                ...state,
+                organisationUnitGroupSet: {
+                    ...state.organisationUnitGroupSet,
+                    styleType: action.styleType,
+                },
             };
 
         case types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_STYLE_SET:
