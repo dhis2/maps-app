@@ -2,16 +2,16 @@
 # Translators:
 # Sheila André <sandre@saudigitus.org>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Ge Joao <gsimango@saudigitus.org>, 2021
+# phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
+"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2021\n"
+"Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,9 +155,6 @@ msgstr "Unidades Organizacionais"
 
 msgid "Style"
 msgstr "Estilo"
-
-msgid "Labels"
-msgstr "Etiquetas"
 
 msgid "Point radius"
 msgstr "Raio do ponto"
@@ -315,6 +312,9 @@ msgstr "Buffer"
 
 msgid "Radius in meters"
 msgstr "Raio em metros"
+
+msgid "Labels"
+msgstr "Etiquetas"
 
 msgid "Aggregation type"
 msgstr "Tipo de agregacão"
@@ -590,8 +590,8 @@ msgstr "Perfurar um nivel"
 msgid "Drill down one level"
 msgstr "Perfurar um nivel"
 
-msgid "Show information"
-msgstr "Mostrar folha de informação"
+msgid "View profile"
+msgstr "Ver Perfil"
 
 msgid "Show longitude/latitude"
 msgstr "Mostrar longitude/latitude"
@@ -718,9 +718,6 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "See more info"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr "Não foram encontrados dados para este período."
 
@@ -772,7 +769,7 @@ msgstr "Comentário"
 msgid "Select levels"
 msgstr "Selecionar Nível"
 
-msgid "Location details"
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""

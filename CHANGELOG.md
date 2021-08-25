@@ -1,3 +1,17 @@
+## [1.11.7](https://github.com/dhis2/maps-app/compare/v1.11.6...v1.11.7) (2021-08-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([77e73e4](https://github.com/dhis2/maps-app/commit/77e73e45061788acdabf696b00c37126e3cd4f66))
+
+## [1.11.6](https://github.com/dhis2/maps-app/compare/v1.11.5...v1.11.6) (2021-08-24)
+
+
+### Bug Fixes
+
+* unify map label handling ([#1815](https://github.com/dhis2/maps-app/issues/1815)) ([4555b84](https://github.com/dhis2/maps-app/commit/4555b848c670718cb497a5a7d3ddf2604f6087a6))
+
 ## [1.11.5](https://github.com/dhis2/maps-app/compare/v1.11.4...v1.11.5) (2021-08-23)
 
 
