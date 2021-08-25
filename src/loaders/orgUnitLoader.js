@@ -38,7 +38,7 @@ const styleFeatures = (
     features,
     groupSet,
     orgUnitLevelNames,
-    { organisationUnitColor = ORG_UNIT_COLOR }
+    { organisationUnitColor = ORG_UNIT_COLOR, radiusLow }
 ) => {
     const levels = uniqBy(f => f.properties.level, features)
         .map(f => f.properties.level)
@@ -64,6 +64,7 @@ const styleFeatures = (
             ...f.properties,
             weight: levelWeight(f.properties.level),
             color: getFeatureStyle(f.properties.dimensions, groupSet).color,
+            radius: f.geometry.type === 'Point' ? radiusLow : undefined,
         },
     }));
 

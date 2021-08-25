@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LineSymbol from './LineSymbol';
+import OutlineSymbol from './OutlineSymbol';
 import LegendItemRange from './LegendItemRange';
 import styles from './styles/LegendItem.module.css';
 
 const maxRadius = 15;
 
 const LegendItem = ({
+    type,
     image,
     color,
     radius,
@@ -37,7 +39,11 @@ const LegendItem = ({
         <tr className={styles.legendItem} data-test="layerlegend-item">
             <th>
                 {weight ? (
-                    <LineSymbol color={color} weight={weight} />
+                    type === 'LineString' ? (
+                        <LineSymbol color={color} weight={weight} />
+                    ) : (
+                        <OutlineSymbol color={color} weight={weight} />
+                    )
                 ) : (
                     <span style={symbol} />
                 )}
@@ -53,6 +59,7 @@ const LegendItem = ({
 };
 
 LegendItem.propTypes = {
+    type: PropTypes.string,
     image: PropTypes.string,
     color: PropTypes.string,
     radius: PropTypes.number,
