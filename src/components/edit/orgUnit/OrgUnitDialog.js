@@ -18,7 +18,7 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setRadiusLow,
-    setEventPointColor, // TODO: Reuse or change?
+    setOrganisationUnitColor,
 } from '../../../actions/layerEdit';
 
 import {
@@ -32,12 +32,12 @@ import {
 class OrgUnitDialog extends Component {
     static propTypes = {
         radiusLow: PropTypes.number,
-        eventPointColor: PropTypes.string,
+        organisationUnitColor: PropTypes.string,
         rows: PropTypes.array,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
-        setEventPointColor: PropTypes.func.isRequired,
+        setOrganisationUnitColor: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
@@ -60,13 +60,13 @@ class OrgUnitDialog extends Component {
         const {
             rows = [],
             radiusLow,
-            eventPointColor,
+            organisationUnitColor,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
             setRadiusLow,
-            setEventPointColor,
+            setOrganisationUnitColor,
         } = this.props;
 
         const { tab, orgUnitsError } = this.state;
@@ -130,8 +130,10 @@ class OrgUnitDialog extends Component {
                                 <Labels />
                                 <ColorPicker
                                     label={i18n.t('Color')}
-                                    color={eventPointColor || ORG_UNIT_COLOR}
-                                    onChange={setEventPointColor}
+                                    color={
+                                        organisationUnitColor || ORG_UNIT_COLOR
+                                    }
+                                    onChange={setOrganisationUnitColor}
                                     className={styles.narrowField}
                                 />
                                 <NumberField
@@ -186,7 +188,7 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setRadiusLow,
-        setEventPointColor,
+        setOrganisationUnitColor,
     },
     null,
     {

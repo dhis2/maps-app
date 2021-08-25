@@ -4,6 +4,7 @@ import { getInstance as getD2 } from 'd2';
 import { toGeoJson } from '../util/map';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty, getDisplayPropertyUrl } from '../util/helpers';
+import { ORG_UNIT_COLOR } from '../constants/layers';
 
 // This function returns the org unit level names used in the legend
 const getOrgUnitLevelNames = async d2 => {
@@ -37,7 +38,7 @@ const styleFeatures = (
     features,
     groupSet,
     orgUnitLevelNames,
-    { radiusLow }
+    { organisationUnitColor = ORG_UNIT_COLOR }
 ) => {
     const levels = uniqBy(f => f.properties.level, features)
         .map(f => f.properties.level)
@@ -50,8 +51,7 @@ const styleFeatures = (
         (obj, level) => ({
             ...obj,
             [level]: {
-                // color: colors[index] || '#333',
-                color: '#333',
+                color: organisationUnitColor,
                 weight: levelWeight(level),
             },
         }),
@@ -62,13 +62,6 @@ const styleFeatures = (
         ...f,
         properties: {
             ...f.properties,
-            // style: levelStyle[f.properties.level],
-            labelStyle: {
-                paddingTop:
-                    f.geometry.type === 'Point'
-                        ? 5 + (radiusLow || 5) + 'px'
-                        : '0',
-            },
             weight: levelWeight(f.properties.level),
             color: getFeatureStyle(f.properties.dimensions, groupSet).color,
         },
