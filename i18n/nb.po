@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-20T07:13:49.483Z\n"
+"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -150,9 +150,6 @@ msgstr "Organisasjonsenheter"
 
 msgid "Style"
 msgstr "Stil"
-
-msgid "Labels"
-msgstr "Etiketter"
 
 msgid "Point radius"
 msgstr "Punktradius"
@@ -306,6 +303,9 @@ msgstr "Buffer"
 
 msgid "Radius in meters"
 msgstr "Radius i meter"
+
+msgid "Labels"
+msgstr "Etiketter"
 
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"

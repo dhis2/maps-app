@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-20T07:13:49.483Z\n"
+"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -156,9 +156,6 @@ msgstr "Unit Organisasi"
 
 msgid "Style"
 msgstr "Gaya"
-
-msgid "Labels"
-msgstr "label"
 
 msgid "Point radius"
 msgstr "Radius titik"
@@ -318,6 +315,9 @@ msgstr "Buffer"
 
 msgid "Radius in meters"
 msgstr "Radius dalam meter"
+
+msgid "Labels"
+msgstr "label"
 
 msgid "Aggregation type"
 msgstr "Tipe agregasi"
