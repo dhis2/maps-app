@@ -1,14 +1,14 @@
 # 
 # Translators:
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
+"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Pushto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -148,9 +148,6 @@ msgstr "د سازمان واحدونه"
 
 msgid "Style"
 msgstr "طرز یا ډول"
-
-msgid "Labels"
-msgstr ""
 
 msgid "Point radius"
 msgstr "ټکی تر وړانګې"
@@ -303,6 +300,9 @@ msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "Labels"
 msgstr ""
 
 msgid "Aggregation type"
@@ -568,8 +568,8 @@ msgstr "یو سطح بره تلل"
 msgid "Drill down one level"
 msgstr "یوه سطحه لاندې لوري ته کش کړئ"
 
-msgid "Show information"
-msgstr "نمایش معلومات"
+msgid "View profile"
+msgstr "د مالوماتو لیدل"
 
 msgid "Show longitude/latitude"
 msgstr "د طول البلد / عرض البلد ښودل"
@@ -693,9 +693,6 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "See more info"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
@@ -747,7 +744,7 @@ msgstr "تبصره [ ژباړه ـ نښه ـ تبصره ]"
 msgid "Select levels"
 msgstr "سطح ټاکل"
 
-msgid "Location details"
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""

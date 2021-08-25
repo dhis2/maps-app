@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
+"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -147,9 +147,6 @@ msgstr "واحد های سازمان"
 
 msgid "Style"
 msgstr "استایل"
-
-msgid "Labels"
-msgstr "برچسپ"
 
 msgid "Point radius"
 msgstr "د نکتې پوړ"
@@ -303,6 +300,9 @@ msgstr ""
 
 msgid "Radius in meters"
 msgstr ""
+
+msgid "Labels"
+msgstr "برچسپ"
 
 msgid "Aggregation type"
 msgstr "نوع تجمع"
@@ -567,8 +567,8 @@ msgstr "د نکتې سطحه غوره کړئ"
 msgid "Drill down one level"
 msgstr "یک ستحه پاین"
 
-msgid "Show information"
-msgstr "مالومات ښکاره کړئ"
+msgid "View profile"
+msgstr "نمایش پروفایل"
 
 msgid "Show longitude/latitude"
 msgstr "نمایش طولالبلد/عرضلبلد"
@@ -692,9 +692,6 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "See more info"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
@@ -746,7 +743,7 @@ msgstr "نظر"
 msgid "Select levels"
 msgstr "د نکتې سطحه غوره کړئ"
 
-msgid "Location details"
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""

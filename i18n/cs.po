@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
+"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -150,9 +150,6 @@ msgstr "Organizační jednotky"
 
 msgid "Style"
 msgstr "Styl"
-
-msgid "Labels"
-msgstr "Štítky"
 
 msgid "Point radius"
 msgstr "Poloměr bodu"
@@ -311,6 +308,9 @@ msgstr "Vyrovnávací paměť"
 
 msgid "Radius in meters"
 msgstr "Poloměr v metrech"
+
+msgid "Labels"
+msgstr "Štítky"
 
 msgid "Aggregation type"
 msgstr "Typ agregace"
@@ -577,8 +577,8 @@ msgstr "Jděte o jednu úroveň výš"
 msgid "Drill down one level"
 msgstr "Přejít o jednu úroveň níže"
 
-msgid "Show information"
-msgstr "Zobrazit informace"
+msgid "View profile"
+msgstr "Zobrazit profil"
 
 msgid "Show longitude/latitude"
 msgstr "Zobrazit zeměpisnou délku / šířku"
@@ -707,9 +707,6 @@ msgstr ""
 "Tento datový prvek má příliš mnoho možností ({{length}}). Maximální počet "
 "možností pro styling je {{max}}."
 
-msgid "See more info"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
 
@@ -720,7 +717,7 @@ msgid "Group set"
 msgstr "Skupinová sada"
 
 msgid "Image of the organisation unit"
-msgstr ""
+msgstr "Obrázek organizační jednotky"
 
 msgid "Code"
 msgstr "Kód"
@@ -741,7 +738,7 @@ msgid "Link"
 msgstr "Odkaz"
 
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 msgid "Email"
 msgstr "E-mail"
@@ -750,7 +747,7 @@ msgid "Address"
 msgstr "Adresa"
 
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 msgid "ID"
 msgstr "ID"
@@ -761,8 +758,8 @@ msgstr "Komentář"
 msgid "Select levels"
 msgstr "Vybrat úrovně"
 
-msgid "Location details"
-msgstr ""
+msgid "Organisation unit profile"
+msgstr "Profil organizační jednotky"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "

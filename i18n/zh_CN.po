@@ -1,14 +1,14 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2021
 # 晓东 林 <13981924470@126.com>, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
+"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -148,9 +148,6 @@ msgstr "机构"
 
 msgid "Style"
 msgstr "风格"
-
-msgid "Labels"
-msgstr "标签"
 
 msgid "Point radius"
 msgstr "点半径"
@@ -304,6 +301,9 @@ msgstr ""
 
 msgid "Radius in meters"
 msgstr ""
+
+msgid "Labels"
+msgstr "标签"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
@@ -568,8 +568,8 @@ msgstr "上钻一级"
 msgid "Drill down one level"
 msgstr "下钻一级"
 
-msgid "Show information"
-msgstr "显示信息表格"
+msgid "View profile"
+msgstr "查看用户"
 
 msgid "Show longitude/latitude"
 msgstr "显示经纬度"
@@ -693,9 +693,6 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "See more info"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
@@ -747,7 +744,7 @@ msgstr "意见"
 msgid "Select levels"
 msgstr "选择等级"
 
-msgid "Location details"
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-12T15:32:04.444Z\n"
+"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -150,9 +150,6 @@ msgstr "组织机构管理"
 
 msgid "Style"
 msgstr "风格"
-
-msgid "Labels"
-msgstr "标签"
 
 msgid "Point radius"
 msgstr "点半径"
@@ -307,11 +304,14 @@ msgstr "缓冲"
 msgid "Radius in meters"
 msgstr "半径（米）"
 
+msgid "Labels"
+msgstr "标签"
+
 msgid "Aggregation type"
 msgstr "汇总类型"
 
 msgid "Show no data"
-msgstr "不显示数据"
+msgstr "显示无数据"
 
 msgid "Low radius"
 msgstr "低半径"
@@ -570,8 +570,8 @@ msgstr "上钻一级"
 msgid "Drill down one level"
 msgstr "下钻一级"
 
-msgid "Show information"
-msgstr "显示信息表格"
+msgid "View profile"
+msgstr "查看用户"
 
 msgid "Show longitude/latitude"
 msgstr "显示经纬度"
@@ -695,9 +695,6 @@ msgid ""
 " is {{max}}."
 msgstr "该数据元素的选项太多（{{length}}）。样式的最大选项为{{max}}。"
 
-msgid "See more info"
-msgstr "查看更多信息"
-
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
 
@@ -749,8 +746,8 @@ msgstr "评论"
 msgid "Select levels"
 msgstr "选择等级"
 
-msgid "Location details"
-msgstr "位置详情"
+msgid "Organisation unit profile"
+msgstr "组织机构简介"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
