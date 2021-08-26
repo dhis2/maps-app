@@ -7,7 +7,11 @@ import GroupSetStyle from './GroupSetStyle';
 import { setOrganisationUnitGroupSet } from '../../actions/layerEdit';
 import styles from '../edit/styles/LayerDialog.module.css';
 
-export const StyleByGroupSet = ({ groupSet, setOrganisationUnitGroupSet }) => {
+export const StyleByGroupSet = ({
+    defaultStyleType,
+    groupSet,
+    setOrganisationUnitGroupSet,
+}) => {
     return (
         <div>
             <OrgUnitGroupSetSelect
@@ -17,12 +21,18 @@ export const StyleByGroupSet = ({ groupSet, setOrganisationUnitGroupSet }) => {
                 onChange={setOrganisationUnitGroupSet}
                 className={styles.select}
             />
-            {groupSet && <GroupSetStyle groupSet={groupSet} />}
+            {groupSet && (
+                <GroupSetStyle
+                    defaultStyleType={defaultStyleType}
+                    groupSet={groupSet}
+                />
+            )}
         </div>
     );
 };
 
 StyleByGroupSet.propTypes = {
+    defaultStyleType: PropTypes.string,
     groupSet: PropTypes.shape({
         id: PropTypes.string.isRequired,
     }),

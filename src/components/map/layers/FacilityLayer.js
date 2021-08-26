@@ -5,6 +5,7 @@ import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { getLabelStyle } from '../../../util/labels';
+import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
 
 class FacilityLayer extends Layer {
     state = {
@@ -21,6 +22,7 @@ class FacilityLayer extends Layer {
             dataFilters,
             labels,
             areaRadius,
+            organisationUnitColor = ORG_UNIT_COLOR,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
@@ -29,13 +31,17 @@ class FacilityLayer extends Layer {
 
         // Create layer config object
         const config = {
-            type: 'markers',
+            type: GEOJSON_LAYER,
             id,
             index,
             opacity,
             isVisible,
             data: filteredData,
             hoverLabel: '{label}',
+            style: {
+                color: organisationUnitColor,
+                strokeColor: organisationUnitColor,
+            },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
         };

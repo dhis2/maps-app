@@ -27,13 +27,14 @@ const parseGroupSet = response => {
 };
 
 export const GroupSetStyle = ({
+    defaultStyleType = STYLE_TYPE_COLOR,
     groupSet,
     setOrganisationUnitGroupSetStyleType,
     setOrganisationUnitGroupSetStyle,
 }) => {
     const [error, setError] = useState();
     const {
-        styleType = STYLE_TYPE_COLOR,
+        styleType = defaultStyleType,
         organisationUnitGroups: groups,
     } = groupSet;
 
@@ -88,6 +89,7 @@ export const GroupSetStyle = ({
 };
 
 GroupSetStyle.propTypes = {
+    defaultStyleType: PropTypes.string,
     groupSet: PropTypes.shape({
         id: PropTypes.string.isRequired,
         styleType: PropTypes.string,

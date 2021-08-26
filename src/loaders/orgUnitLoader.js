@@ -4,7 +4,7 @@ import { getInstance as getD2 } from 'd2';
 import { toGeoJson } from '../util/map';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty, getDisplayPropertyUrl } from '../util/helpers';
-import { ORG_UNIT_COLOR } from '../constants/layers';
+import { ORG_UNIT_COLOR, STYLE_TYPE_COLOR } from '../constants/layers';
 
 // This function returns the org unit level names used in the legend
 const getOrgUnitLevelNames = async d2 => {
@@ -24,6 +24,7 @@ const getOrgUnitLevelNames = async d2 => {
         : {};
 };
 
+// TODO: share with facility layer
 const getFeatureStyle = (dimensions, groupSet) =>
     groupSet &&
     groupSet.organisationUnitGroups &&
@@ -36,10 +37,20 @@ const getFeatureStyle = (dimensions, groupSet) =>
 
 const styleFeatures = (
     features,
-    groupSet,
+    groupSet = {},
     orgUnitLevelNames,
-    { organisationUnitColor = ORG_UNIT_COLOR, radiusLow }
+    { organisationUnitColor = ORG_UNIT_COLOR, radiusLow },
+    contextPath
 ) => {
+    const {
+        styleType = STYLE_TYPE_COLOR,
+        organisationUnitGroups = [],
+    } = groupSet;
+
+    // TODO: Load organisationUnitGroups if not present
+
+    const useColor = styleType === STYLE_TYPE_COLOR;
+
     const levels = uniqBy(f => f.properties.level, features)
         .map(f => f.properties.level)
         .sort();
@@ -58,28 +69,47 @@ const styleFeatures = (
         {}
     );
 
-    const styledFeatures = features.map(f => ({
-        ...f,
-        properties: {
+    const styledFeatures = features.map(f => {
+        const weight = levelWeight(f.properties.level);
+        const { color, symbol } = getFeatureStyle(
+            f.properties.dimensions,
+            groupSet
+        );
+        const radius = f.geometry.type === 'Point' ? radiusLow : undefined;
+        const properties = {
             ...f.properties,
-            weight: levelWeight(f.properties.level),
-            color: getFeatureStyle(f.properties.dimensions, groupSet).color,
-            radius: f.geometry.type === 'Point' ? radiusLow : undefined,
-        },
-    }));
+            weight,
+            radius,
+        };
+
+        if (useColor && color) {
+            properties.color = color;
+        } else if (symbol) {
+            properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`;
+        }
+
+        return {
+            ...f,
+            properties,
+        };
+    });
 
     const levelItems = levels.map(level => ({
         name: orgUnitLevelNames[level],
         ...levelStyle[level],
     }));
 
-    const groupItems =
-        groupSet && groupSet.organisationUnitGroups
-            ? groupSet.organisationUnitGroups.map(({ name, color }) => ({
+    const groupItems = organisationUnitGroups.map(({ name, color, symbol }) =>
+        useColor
+            ? {
                   name,
                   color,
-              }))
-            : [];
+              }
+            : {
+                  name,
+                  image: `${contextPath}/images/orgunitgroup/${symbol}`,
+              }
+    );
 
     return {
         styledFeatures,
@@ -98,6 +128,7 @@ const orgUnitLoader = async config => {
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
+    const { contextPath } = d2.system.systemInfo;
 
     const requests = [
         d2.geoFeatures
@@ -114,7 +145,8 @@ const orgUnitLoader = async config => {
         features,
         groupSet,
         orgUnitLevelNames,
-        config
+        config,
+        contextPath
     );
 
     const alerts = !features.length
@@ -124,7 +156,7 @@ const orgUnitLoader = async config => {
     return {
         ...config,
         data: styledFeatures,
-        name: i18n.t('Org units'),
+        name: i18n.t('Organisation units'),
         legend,
         alerts,
         isLoaded: true,

@@ -84,6 +84,7 @@ export const FACILITY_BUFFER = 5000;
 
 /* ORG UNIT LAYER */
 export const ORG_UNIT_COLOR = '#333333';
+export const ORG_UNIT_RADIUS = 5;
 
 /* EARTH ENGINE LAYER */
 export const EE_BUFFER = 5000;

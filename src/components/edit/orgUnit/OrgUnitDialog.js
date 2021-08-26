@@ -9,7 +9,11 @@ import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
 import Labels from '../shared/Labels';
-import { ORG_UNIT_COLOR } from '../../../constants/layers';
+import {
+    ORG_UNIT_COLOR,
+    ORG_UNIT_RADIUS,
+    STYLE_TYPE_COLOR,
+} from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
 import {
@@ -31,9 +35,9 @@ import {
 
 class OrgUnitDialog extends Component {
     static propTypes = {
+        rows: PropTypes.array,
         radiusLow: PropTypes.number,
         organisationUnitColor: PropTypes.string,
-        rows: PropTypes.array,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
@@ -65,8 +69,8 @@ class OrgUnitDialog extends Component {
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
-            setRadiusLow,
             setOrganisationUnitColor,
+            setRadiusLow,
         } = this.props;
 
         const { tab, orgUnitsError } = this.state;
@@ -139,14 +143,18 @@ class OrgUnitDialog extends Component {
                                 <NumberField
                                     label={i18n.t('Point radius')}
                                     value={
-                                        radiusLow !== undefined ? radiusLow : 5
+                                        radiusLow !== undefined
+                                            ? radiusLow
+                                            : ORG_UNIT_RADIUS
                                     }
                                     onChange={setRadiusLow}
                                     className={styles.narrowFieldIcon}
                                 />
                             </div>
                             <div className={styles.flexColumn}>
-                                <StyleByGroupSet />
+                                <StyleByGroupSet
+                                    defaultStyleType={STYLE_TYPE_COLOR}
+                                />
                             </div>
                         </div>
                     )}
