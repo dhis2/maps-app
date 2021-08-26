@@ -9,8 +9,8 @@ const facilityLoader = async config => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const includeGroupSets = !!groupSet;
+    const alerts = [];
     let orgUnitParams = orgUnits.map(item => item.id);
-    let alert;
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
@@ -27,10 +27,10 @@ const facilityLoader = async config => {
             .then(toGeoJson)
             .catch(error => {
                 if (error && error.message) {
-                    alert = {
+                    alerts.push({
                         critical: true,
                         message: `${i18n.t('Error')}: ${error.message}`,
-                    };
+                    });
                 }
             }),
     ];
@@ -45,6 +45,10 @@ const facilityLoader = async config => {
     */
 
     const [features] = await Promise.all(requests);
+
+    if (!features.length) {
+        alerts.push({ warning: true, message: i18n.t('No facilities found') });
+    }
 
     const { styledFeatures, legend } = getStyledOrgUnits(
         features,
@@ -62,7 +66,7 @@ const facilityLoader = async config => {
         data: styledFeatures,
         name: i18n.t('Facilities'),
         legend,
-        alerts: alert ? [alert] : undefined,
+        alerts,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
