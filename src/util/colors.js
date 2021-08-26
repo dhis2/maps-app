@@ -1,3 +1,4 @@
+import { hcl } from 'd3-color';
 import { isString } from 'lodash/fp';
 import colorbrewer from '../constants/colorbrewer';
 
@@ -88,3 +89,6 @@ export const getUniqueColor = defaultColors => {
 
     return index => colors[index] || randomColor();
 };
+
+// Returns constrasting outline color
+export const getOutlineColor = color => (hcl(color).l < 70 ? '#fff' : '#000');

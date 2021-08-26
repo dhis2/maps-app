@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-26T09:10:21.287Z\n"
-"PO-Revision-Date: 2021-08-26T09:10:21.287Z\n"
+"POT-Creation-Date: 2021-08-26T13:32:06.550Z\n"
+"PO-Revision-Date: 2021-08-26T13:32:06.550Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1247,7 +1247,7 @@ msgstr ""
 msgid "No org units found"
 msgstr ""
 
-msgid "Org units"
+msgid "Organisation units"
 msgstr ""
 
 msgid "Thematic layer"
@@ -1266,6 +1266,9 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "not one of"
