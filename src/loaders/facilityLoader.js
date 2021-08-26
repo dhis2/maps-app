@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { toGeoJson } from '../util/map';
+import { fetchOrgUnitGroupSet } from '../util/orgUnits';
 import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { filterPointFacilities, getStyledOrgUnits } from '../util/orgUnits';
@@ -35,16 +36,16 @@ const facilityLoader = async config => {
             }),
     ];
 
-    // TODO: Load organisationUnitGroups if not passed
-    /*
-    const groupSetReq = d2.models.organisationUnitGroupSet
-        .get(groupSetId, {
-            fields: `organisationUnitGroups[id,${displayProperty}~rename(name),symbol]`,
-        })
-        .then(parseGroupSet);
-    */
+    // Load organisationUnitGroups if not passed
+    if (includeGroupSets && !groupSet.organisationUnitGroups) {
+        requests.push(fetchOrgUnitGroupSet(groupSet.id));
+    }
 
-    const [features] = await Promise.all(requests);
+    const [features, organisationUnitGroups] = await Promise.all(requests);
+
+    if (organisationUnitGroups) {
+        groupSet.organisationUnitGroups = organisationUnitGroups;
+    }
 
     if (!features.length) {
         alerts.push({ warning: true, message: i18n.t('No facilities found') });
@@ -72,17 +73,5 @@ const facilityLoader = async config => {
         isVisible: true,
     };
 };
-
-/*
-const parseGroupSet = groupSet =>
-    groupSet.organisationUnitGroups
-        .toArray()
-        .reduce((symbols, group, index) => {
-            // Easier lookup of unit group symbols
-            group.symbol = group.symbol || 21 + index + '.png'; // Default symbol 21-25 are coloured circles
-            symbols[group.id] = group;
-            return symbols;
-        }, {});
-*/
 
 export default facilityLoader;

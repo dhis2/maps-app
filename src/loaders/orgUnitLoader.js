@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { toGeoJson } from '../util/map';
+import { fetchOrgUnitGroupSet } from '../util/orgUnits';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitLevels, getStyledOrgUnits } from '../util/orgUnits';
@@ -24,7 +25,18 @@ const orgUnitLoader = async config => {
         getOrgUnitLevels(d2),
     ];
 
-    const [features, orgUnitLevels] = await Promise.all(requests);
+    // Load organisationUnitGroups if not passed
+    if (includeGroupSets && !groupSet.organisationUnitGroups) {
+        requests.push(fetchOrgUnitGroupSet(groupSet.id));
+    }
+
+    const [features, orgUnitLevels, organisationUnitGroups] = await Promise.all(
+        requests
+    );
+
+    if (organisationUnitGroups) {
+        groupSet.organisationUnitGroups = organisationUnitGroups;
+    }
 
     const { styledFeatures, legend } = getStyledOrgUnits(
         features,

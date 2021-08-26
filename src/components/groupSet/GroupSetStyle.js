@@ -9,22 +9,8 @@ import {
     setOrganisationUnitGroupSetStyleType,
     setOrganisationUnitGroupSetStyle,
 } from '../../actions/layerEdit';
-import { qualitativeColors } from '../../constants/colors';
-import { getUniqueColor } from '../../util/colors';
+import { fetchOrgUnitGroupSet } from '../../util/orgUnits';
 import { STYLE_TYPE_COLOR } from '../../constants/layers';
-import { apiFetch } from '../../util/api';
-
-const getColor = getUniqueColor(qualitativeColors);
-
-const parseGroupSet = response => {
-    const groups = response.organisationUnitGroups;
-
-    groups.sort((a, b) => a.name.localeCompare(b.name));
-
-    return groups.map((group, index) =>
-        group.color ? group : { ...group, color: getColor(index) }
-    );
-};
 
 export const GroupSetStyle = ({
     defaultStyleType = STYLE_TYPE_COLOR,
@@ -55,10 +41,7 @@ export const GroupSetStyle = ({
 
     useEffect(() => {
         if (!groupSet.organisationUnitGroups) {
-            const url = `/organisationUnitGroupSets/${groupSet.id}?fields=organisationUnitGroups[id,name,color,symbol]`;
-
-            apiFetch(url)
-                .then(parseGroupSet)
+            fetchOrgUnitGroupSet(groupSet.id)
                 .then(setOrganisationUnitGroupSetStyle)
                 .catch(() =>
                     setError(i18n.t('Failed to load organisation unit groups.'))

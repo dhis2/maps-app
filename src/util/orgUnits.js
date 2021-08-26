@@ -1,10 +1,29 @@
 import { uniqBy } from 'lodash/fp';
-import { getDisplayPropertyUrl } from '../util/helpers';
+import { apiFetch } from './api';
+import { getDisplayPropertyUrl } from './helpers';
+import { getUniqueColor } from './colors';
+import { qualitativeColors } from '../constants/colors';
 import {
     ORG_UNIT_COLOR,
     STYLE_TYPE_COLOR,
     STYLE_TYPE_SYMBOL,
 } from '../constants/layers';
+
+const getColor = getUniqueColor(qualitativeColors);
+
+const parseGroupSet = ({ organisationUnitGroups: groups }) => {
+    groups.sort((a, b) => a.name.localeCompare(b.name));
+    return groups.map((group, index) => ({
+        ...group,
+        color: group.color || getColor(index),
+        symbol: group.symbol || 21 + index + '.png', // Default symbol 21-25 are coloured circles
+    }));
+};
+
+export const fetchOrgUnitGroupSet = id =>
+    apiFetch(
+        `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
+    ).then(parseGroupSet);
 
 export const filterPointFacilities = data => data.filter(d => d.ty === 1);
 
@@ -44,7 +63,7 @@ export const getStyledOrgUnits = (
 ) => {
     const {
         name,
-        styleType = STYLE_TYPE_SYMBOL,
+        styleType = orgUnitLevels ? STYLE_TYPE_COLOR : STYLE_TYPE_SYMBOL,
         organisationUnitGroups = [],
     } = groupSet;
     let levelWeight;
