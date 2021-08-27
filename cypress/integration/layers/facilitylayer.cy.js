@@ -7,14 +7,6 @@ context('Facility Layers', () => {
 
     const Layer = new FacilityLayer();
 
-    it('shows error if no group selected', () => {
-        Layer.openDialog('Facilities').addToMap();
-
-        Layer.validateDialogClosed(false);
-
-        cy.contains('Group set is required').should('be.visible');
-    });
-
     it('shows error if no orgunit level selected', () => {
         Layer.openDialog('Facilities')
             .selectGroupSet('Facility Type')

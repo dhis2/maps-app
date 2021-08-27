@@ -8,7 +8,7 @@ context('Org Unit Layers', () => {
     const Layer = new OrgUnitLayer();
 
     it('shows error if no orgunit selected', () => {
-        Layer.openDialog('Boundaries').addToMap();
+        Layer.openDialog('Org units').addToMap();
 
         Layer.validateDialogClosed(false);
 
@@ -16,7 +16,7 @@ context('Org Unit Layers', () => {
     });
 
     it('adds a org unit layer', () => {
-        Layer.openDialog('Boundaries')
+        Layer.openDialog('Org unitss')
             .selectOuLevel('District')
             .addToMap();
 
@@ -24,7 +24,7 @@ context('Org Unit Layers', () => {
 
         // TODO: use visual snapshot testing to check the rendering of the map
 
-        Layer.validateCardTitle('Boundaries');
+        Layer.validateCardTitle('Org units');
         Layer.validateCardItems(['District']);
     });
 });
