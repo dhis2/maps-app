@@ -1,3 +1,10 @@
+## [1.11.9](https://github.com/dhis2/maps-app/compare/v1.11.8...v1.11.9) (2021-08-27)
+
+
+### Bug Fixes
+
+* only include icon url in feature properties ([#1818](https://github.com/dhis2/maps-app/issues/1818)) ([68c5bda](https://github.com/dhis2/maps-app/commit/68c5bda69578d3c388466b651f55984c4b2e0679))
+
 ## [1.11.8](https://github.com/dhis2/maps-app/compare/v1.11.7...v1.11.8) (2021-08-27)
 
 
