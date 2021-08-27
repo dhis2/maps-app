@@ -11,7 +11,6 @@ const layerType = {
     trackedEntity: trackedEntityLoader,
     facility: facilityLoader,
     thematic: thematicLoader,
-    boundary: orgUnitLoader, // backward compability
     orgUnit: orgUnitLoader,
     earthEngine: earthEngineLoader,
     external: externalLoader,

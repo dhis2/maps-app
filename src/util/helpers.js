@@ -107,6 +107,20 @@ export const legendSetFields = [
     'id,displayName~rename(name),legends[' + legendFields.join(',') + ']',
 ];
 
+// Change layer name from boundary to orgUnit when loading an old map
+// TODO: Change in db with an upgrade script
+export const cleanMapObject = ao => ({
+    ...ao,
+    mapViews: ao.mapViews.map(v =>
+        v.layer === 'boundary'
+            ? {
+                  ...v,
+                  layer: 'orgUnit',
+              }
+            : v
+    ),
+});
+
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
 export const addOrgUnitPaths = mapViews =>
     mapViews.map(view =>
