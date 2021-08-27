@@ -1,3 +1,10 @@
+## [1.11.8](https://github.com/dhis2/maps-app/compare/v1.11.7...v1.11.8) (2021-08-27)
+
+
+### Bug Fixes
+
+* i18n, contrasting color, legend outline symbol ([#1816](https://github.com/dhis2/maps-app/issues/1816)) ([2842b55](https://github.com/dhis2/maps-app/commit/2842b5583565304468f77b96e2ea82351a1afd24))
+
 ## [1.11.7](https://github.com/dhis2/maps-app/compare/v1.11.6...v1.11.7) (2021-08-25)
 
 
