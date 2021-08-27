@@ -37,7 +37,7 @@ const defaultLayers = () => [
     },
     {
         layer: ORG_UNIT_LAYER,
-        type: i18n.t('Org units'),
+        type: i18n.t('Boundaries'),
         img: 'images/orgunits.png',
         opacity: 1,
     },
