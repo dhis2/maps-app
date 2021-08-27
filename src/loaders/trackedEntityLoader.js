@@ -149,6 +149,7 @@ const trackedEntityLoader = async config => {
 
         legend.items.push(
             {
+                type: 'LineString',
                 name: relationshipType.displayName,
                 color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
                 weight: 1,

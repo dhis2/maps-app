@@ -56,7 +56,12 @@ const StyleSelect = ({ unit, params, setParams }) => {
     return (
         <div className={styles.flexColumnFlow}>
             <div className={styles.flexColumn}>
-                <p>{i18n.t('Unit: {{ unit }}', { unit })}</p>
+                <p>
+                    {i18n.t('Unit: {{ unit }}', {
+                        unit,
+                        nsSeparator: '|', // https://github.com/i18next/i18next/issues/361
+                    })}
+                </p>
                 <div key="minmax" className={styles.flexInnerColumnFlow}>
                     <NumberField
                         label={i18n.t('Min')}
