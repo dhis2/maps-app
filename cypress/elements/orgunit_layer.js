@@ -1,6 +1,6 @@
 import { Layer } from './layer';
 
-export class BoundaryLayer extends Layer {
+export class OrgUnitLayer extends Layer {
     selectOuLevel(level) {
         cy.get('[data-test="orgunitlevelselect"]').click();
 

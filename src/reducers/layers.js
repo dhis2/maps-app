@@ -5,7 +5,7 @@ import {
     EVENT_LAYER,
     TRACKED_ENTITY_LAYER,
     FACILITY_LAYER,
-    BOUNDARY_LAYER,
+    ORG_UNIT_LAYER,
 } from '../constants/layers';
 import { earthEngineLayers } from '../constants/earthEngine';
 
@@ -36,9 +36,9 @@ const defaultLayers = () => [
         opacity: 1,
     },
     {
-        layer: BOUNDARY_LAYER,
+        layer: ORG_UNIT_LAYER,
         type: i18n.t('Boundaries'),
-        img: 'images/boundaries.png',
+        img: 'images/orgunits.png',
         opacity: 1,
     },
     ...earthEngineLayers().filter(l => !l.legacy),

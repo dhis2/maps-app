@@ -26,7 +26,7 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 
-class BoundaryDialog extends Component {
+class OrgUnitDialog extends Component {
     static propTypes = {
         radiusLow: PropTypes.number,
         rows: PropTypes.array,
@@ -69,7 +69,7 @@ class BoundaryDialog extends Component {
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
-            <div data-test="boundarydialog">
+            <div data-test="orgunitdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
@@ -78,7 +78,7 @@ class BoundaryDialog extends Component {
                     {tab === 'orgunits' && (
                         <div
                             className={styles.flexColumnFlow}
-                            data-test="boundarydialog-orgunitstab"
+                            data-test="orgunitdialog-orgunitstab"
                         >
                             <div className={styles.orgUnitTree}>
                                 <OrgUnitTree
@@ -117,7 +117,7 @@ class BoundaryDialog extends Component {
                     {tab === 'style' && (
                         <div
                             className={styles.flexColumnFlow}
-                            data-test="boundarydialog-styletab"
+                            data-test="orgunitdialog-styletab"
                         >
                             <div className={styles.flexColumn}>
                                 <Labels />
@@ -175,4 +175,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(BoundaryDialog);
+)(OrgUnitDialog);
