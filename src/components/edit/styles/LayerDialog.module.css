@@ -95,10 +95,6 @@
     margin: -10px 0 10px;
 }
 
-.fontBlock {
-    margin: -12px 8px 8px 38px;
-}
-
 .numberField {
     composes: flexInnerColumn;
     max-width: 140px;
@@ -149,4 +145,8 @@
     font-size: 12px;
     line-height: 12px;
     margin-left: var(--spacers-dp12);
+}
+
+.marginBottom {
+    margin-bottom: var(--spacers-dp16);
 }
