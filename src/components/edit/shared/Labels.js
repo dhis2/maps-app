@@ -43,7 +43,6 @@ const Labels = ({
                     onSizeChange={setLabelFontSize}
                     onWeightChange={setLabelFontWeight}
                     onStyleChange={setLabelFontStyle}
-                    className={styles.fontBlock}
                 />
             )}
         </div>

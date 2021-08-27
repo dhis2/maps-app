@@ -5,7 +5,7 @@ import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { getLabelStyle } from '../../../util/labels';
-import { getOutlineColor } from '../../../util/colors';
+import { getContrastColor } from '../../../util/colors';
 import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
 
 class FacilityLayer extends Layer {
@@ -33,7 +33,7 @@ class FacilityLayer extends Layer {
 
         const strokeColor = organisationUnitGroupSet
             ? color
-            : getOutlineColor(color);
+            : getContrastColor(color);
 
         // Create layer config object
         const config = {

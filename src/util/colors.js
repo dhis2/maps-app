@@ -90,5 +90,8 @@ export const getUniqueColor = defaultColors => {
     return index => colors[index] || randomColor();
 };
 
-// Returns constrasting outline color
-export const getOutlineColor = color => (hcl(color).l < 70 ? '#fff' : '#000');
+// Returns true if a color is dark
+export const isDarkColor = color => hcl(color).l < 70;
+
+// Returns constrasting color
+export const getContrastColor = color => (isDarkColor(color) ? '#fff' : '#000');

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hcl } from 'd3-color';
+import { getContrastColor } from '../../util/colors';
 import styles from './styles/ColorCell.module.css';
 
 const ColorCell = ({ cellData = '' }) => {
     const style = {
         backgroundColor: cellData,
-        color: hcl(cellData).l < 70 ? '#fff' : '#000',
+        color: getContrastColor(cellData),
     };
 
     return (
