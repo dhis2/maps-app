@@ -34,7 +34,7 @@ const layerName = () => ({
     trackedEntity: i18n.t('tracked entity'),
     facility: i18n.t('facility'),
     thematic: i18n.t('thematic'),
-    orgUnit: i18n.t('org unit'),
+    orgUnit: i18n.t('boundary'),
     earthEngine: i18n.t('Earth Engine'),
 });
 
