@@ -9,7 +9,7 @@ const colors = ['#111111', '#377eb8', '#a65628', '#984ea3', '#4daf4a'];
 const weights = [2, 1, 0.75, 0.5];
 
 // Returns a promise
-const boundaryLoader = async config => {
+const orgUnitLoader = async config => {
     const { rows, radiusLow } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
@@ -91,4 +91,4 @@ const getOrgUnitLevelNames = async d2 => {
         : {};
 };
 
-export default boundaryLoader;
+export default orgUnitLoader;

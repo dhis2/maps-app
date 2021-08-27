@@ -6,7 +6,7 @@ import { filterData } from '../../../util/filter';
 import { getLabelStyle } from '../../../util/labels';
 import { BOUNDARY_LAYER } from '../../../constants/layers';
 
-export default class BoundaryLayer extends Layer {
+export default class OrgUnitLayer extends Layer {
     state = {
         popup: null,
     };
