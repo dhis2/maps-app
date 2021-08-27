@@ -16,7 +16,7 @@ context('Org Unit Layers', () => {
     });
 
     it('adds a org unit layer', () => {
-        Layer.openDialog('Org unitss')
+        Layer.openDialog('Org units')
             .selectOuLevel('District')
             .addToMap();
 
