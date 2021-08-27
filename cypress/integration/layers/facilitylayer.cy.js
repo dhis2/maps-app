@@ -8,9 +8,7 @@ context('Facility Layers', () => {
     const Layer = new FacilityLayer();
 
     it('shows error if no orgunit level selected', () => {
-        Layer.openDialog('Facilities')
-            .selectGroupSet('Facility Type')
-            .addToMap();
+        Layer.openDialog('Facilities').addToMap();
 
         Layer.validateDialogClosed(false);
 
@@ -19,7 +17,6 @@ context('Facility Layers', () => {
 
     it('adds a facilities layer', () => {
         Layer.openDialog('Facilities')
-            .selectGroupSet('Facility Type')
             .selectTab('Organisation Units')
             .selectOuLevel('District')
             .addToMap();
@@ -29,6 +26,6 @@ context('Facility Layers', () => {
         // TODO: use visual snapshot testing to check the rendering of the map
 
         Layer.validateCardTitle('Facilities');
-        Layer.validateCardItems(['Hospital', 'Clinic', 'CHP', 'CHC', 'MCHP']);
+        // Layer.validateCardItems(['Hospital', 'Clinic', 'CHP', 'CHC', 'MCHP']);
     });
 });
