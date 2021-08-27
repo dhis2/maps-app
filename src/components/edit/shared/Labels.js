@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import cx from 'classnames';
 import { Checkbox, FontStyle } from '../../core';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -26,30 +27,26 @@ const Labels = ({
     setLabelFontStyle,
 }) => {
     return (
-        <>
-            <div className={styles.flexInnerColumnFlow}>
-                <Checkbox
-                    label={i18n.t('Labels')}
-                    checked={labels}
-                    onChange={setLabels}
-                />
-            </div>
+        <div className={cx(styles.flexInnerColumnFlow, styles.marginBottom)}>
+            <Checkbox
+                label={i18n.t('Labels')}
+                checked={labels}
+                onChange={setLabels}
+            />
             {labels && (
-                <div className={styles.flexInnerColumnFlow}>
-                    <FontStyle
-                        color={labelFontColor}
-                        size={labelFontSize}
-                        weight={labelFontWeight}
-                        fontStyle={labelFontStyle}
-                        onColorChange={setLabelFontColor}
-                        onSizeChange={setLabelFontSize}
-                        onWeightChange={setLabelFontWeight}
-                        onStyleChange={setLabelFontStyle}
-                        className={styles.fontBlock}
-                    />
-                </div>
+                <FontStyle
+                    color={labelFontColor}
+                    size={labelFontSize}
+                    weight={labelFontWeight}
+                    fontStyle={labelFontStyle}
+                    onColorChange={setLabelFontColor}
+                    onSizeChange={setLabelFontSize}
+                    onWeightChange={setLabelFontWeight}
+                    onStyleChange={setLabelFontStyle}
+                    className={styles.fontBlock}
+                />
             )}
-        </>
+        </div>
     );
 };
 

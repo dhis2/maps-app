@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
-"PO-Revision-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T08:35:01.500Z\n"
+"PO-Revision-Date: 2021-08-27T08:35:01.501Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -236,6 +236,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"

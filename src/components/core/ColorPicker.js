@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { IconChevronDown24 } from '@dhis2/ui';
-import { hcl } from 'd3-color';
 import cx from 'classnames';
+import { isDarkColor } from '../../util/colors';
 import styles from './styles/ColorPicker.module.css';
 
 const ColorPicker = ({ color, label, width, height, onChange, className }) => (
@@ -18,7 +18,7 @@ const ColorPicker = ({ color, label, width, height, onChange, className }) => (
             >
                 <span
                     className={cx(styles.icon, {
-                        [styles.dark]: hcl(color).l > 70,
+                        [styles.dark]: !isDarkColor(color),
                     })}
                 >
                     <IconChevronDown24 />
