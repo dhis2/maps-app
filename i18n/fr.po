@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -151,20 +151,14 @@ msgstr "Fermer"
 msgid "Legend position"
 msgstr ""
 
+msgid "Group Set"
+msgstr "Ensemble de groupes"
+
 msgid "Organisation Units"
 msgstr "Unités d'organisation"
 
 msgid "Style"
 msgstr "Style"
-
-msgid "Point radius"
-msgstr "Taille des points"
-
-msgid "No organisation units are selected"
-msgstr "Aucune unité d'organisation choisie"
-
-msgid "Group Set"
-msgstr "Ensemble de groupes"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -172,6 +166,9 @@ msgstr ""
 
 msgid "Group set is required"
 msgstr ""
+
+msgid "No organisation units are selected"
+msgstr "Aucune unité d'organisation choisie"
 
 msgid "event"
 msgstr ""
@@ -202,6 +199,9 @@ msgstr ""
 
 msgid "Add layer"
 msgstr ""
+
+msgid "Point radius"
+msgstr "Taille des points"
 
 msgid "Aggregation method"
 msgstr ""
@@ -254,6 +254,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
@@ -601,14 +604,14 @@ msgstr "Latitude"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Affichage de l'interprétation de {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "Unité parente"
-
 msgid "Not set"
 msgstr "Non défini"
 
 msgid "Organisation unit"
 msgstr "Unité d'organisation"
+
+msgid "Parent unit"
+msgstr "Unité parente"
 
 msgid "Loading layer data"
 msgstr ""
@@ -1237,12 +1240,6 @@ msgstr ""
 msgid "Error"
 msgstr "Erreur"
 
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Selected org units"
 msgstr ""
 
@@ -1265,6 +1262,12 @@ msgid "No data found"
 msgstr "Aucune valeur trouvée"
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Boundaries"
+msgstr ""
+
+msgid "No boundaries found"
 msgstr ""
 
 msgid "Thematic layer"

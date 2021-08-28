@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -145,20 +145,14 @@ msgstr "Zavřít"
 msgid "Legend position"
 msgstr "Pozice legendy"
 
+msgid "Group Set"
+msgstr "Skupinová sada"
+
 msgid "Organisation Units"
 msgstr "Organizační jednotky"
 
 msgid "Style"
 msgstr "Styl"
-
-msgid "Point radius"
-msgstr "Poloměr bodu"
-
-msgid "No organisation units are selected"
-msgstr "Nejsou vybrány žádné organizační jednotky"
-
-msgid "Group Set"
-msgstr "Skupinová sada"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -166,6 +160,9 @@ msgstr "Nezapomeňte vybrat úroveň organizační jednotky obsahující zaříz
 
 msgid "Group set is required"
 msgstr "Skupinová sada je povinná"
+
+msgid "No organisation units are selected"
+msgstr "Nejsou vybrány žádné organizační jednotky"
 
 msgid "event"
 msgstr "událost"
@@ -196,6 +193,9 @@ msgstr "Aktualizovat vrstvu"
 
 msgid "Add layer"
 msgstr "Přidat vrstvu"
+
+msgid "Point radius"
+msgstr "Poloměr bodu"
 
 msgid "Aggregation method"
 msgstr "Metoda agregace"
@@ -254,6 +254,9 @@ msgstr "Max by měl být větší než min"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Platné kroky jsou {{minSteps}} až {{maxSteps}}"
+
+msgid "Unit: {{ unit }}"
+msgstr ""
 
 msgid "Min"
 msgstr "Min"
@@ -601,14 +604,14 @@ msgstr "Zeměpisná šířka"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Prohlížení interpretací od {{interpretDate}}"
 
-msgid "Parent unit"
-msgstr "Nadřazená jednotka"
-
 msgid "Not set"
 msgstr "Nenastaveno"
 
 msgid "Organisation unit"
 msgstr "Organizační jednotka"
+
+msgid "Parent unit"
+msgstr "Nadřazená jednotka"
 
 msgid "Loading layer data"
 msgstr "Načítání dat vrstvy"
@@ -1252,12 +1255,6 @@ msgstr "Mapa \"{{name}}\" je uložena."
 msgid "Error"
 msgstr "Chyba"
 
-msgid "Boundaries"
-msgstr "Hranice"
-
-msgid "No boundaries found"
-msgstr "Nenalezeny žádné hranice"
-
 msgid "Selected org units"
 msgstr "Vybrané organizační jednotky"
 
@@ -1281,6 +1278,12 @@ msgstr "Nenalezena žádná data"
 
 msgid "Facilities"
 msgstr "Zařízení"
+
+msgid "Boundaries"
+msgstr "Hranice"
+
+msgid "No boundaries found"
+msgstr "Nenalezeny žádné hranice"
 
 msgid "Thematic layer"
 msgstr "Tematická vrstva"

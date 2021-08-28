@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -145,20 +145,14 @@ msgstr "Lukk"
 msgid "Legend position"
 msgstr "Tegnforklaringsplassering"
 
+msgid "Group Set"
+msgstr "Gruppesett"
+
 msgid "Organisation Units"
 msgstr "Organisasjonsenheter"
 
 msgid "Style"
 msgstr "Stil"
-
-msgid "Point radius"
-msgstr "Punktradius"
-
-msgid "No organisation units are selected"
-msgstr "Ingen organisasjonsenheter er valgt"
-
-msgid "Group Set"
-msgstr "Gruppesett"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -166,6 +160,9 @@ msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
 
 msgid "Group set is required"
 msgstr "Gruppesett er påkrevd"
+
+msgid "No organisation units are selected"
+msgstr "Ingen organisasjonsenheter er valgt"
 
 msgid "event"
 msgstr "hendelse"
@@ -196,6 +193,9 @@ msgstr "Oppdater lag"
 
 msgid "Add layer"
 msgstr "Legg til lag"
+
+msgid "Point radius"
+msgstr "Punktradius"
 
 msgid "Aggregation method"
 msgstr ""
@@ -248,6 +248,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
@@ -599,14 +602,14 @@ msgstr "Breddegrad"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Viser tolkning fra {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "Overordnet enhet"
-
 msgid "Not set"
 msgstr "Ikke satt"
 
 msgid "Organisation unit"
 msgstr "Organisasjonsenhet"
+
+msgid "Parent unit"
+msgstr "Overordnet enhet"
 
 msgid "Loading layer data"
 msgstr ""
@@ -1247,12 +1250,6 @@ msgstr "Kart \"{{name}}\" er lagret."
 msgid "Error"
 msgstr "Feil"
 
-msgid "Boundaries"
-msgstr "Grenser"
-
-msgid "No boundaries found"
-msgstr "Ingen grenser funnet"
-
 msgid "Selected org units"
 msgstr "Valgte org enheter"
 
@@ -1276,6 +1273,12 @@ msgstr "Ingen data funnet"
 
 msgid "Facilities"
 msgstr "Bygninger"
+
+msgid "Boundaries"
+msgstr "Grenser"
+
+msgid "No boundaries found"
+msgstr "Ingen grenser funnet"
 
 msgid "Thematic layer"
 msgstr "Tematisk lag"

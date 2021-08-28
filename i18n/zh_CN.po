@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -143,26 +143,23 @@ msgstr "关闭"
 msgid "Legend position"
 msgstr ""
 
+msgid "Group Set"
+msgstr ""
+
 msgid "Organisation Units"
 msgstr "机构"
 
 msgid "Style"
 msgstr "风格"
 
-msgid "Point radius"
-msgstr "点半径"
-
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
+msgstr ""
+
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -194,6 +191,9 @@ msgstr ""
 
 msgid "Add layer"
 msgstr ""
+
+msgid "Point radius"
+msgstr "点半径"
 
 msgid "Aggregation method"
 msgstr ""
@@ -246,6 +246,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
@@ -592,14 +595,14 @@ msgstr "维度"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
-msgid "Parent unit"
-msgstr "上级机构"
-
 msgid "Not set"
 msgstr "没有设置"
 
 msgid "Organisation unit"
 msgstr "机构"
+
+msgid "Parent unit"
+msgstr "上级机构"
 
 msgid "Loading layer data"
 msgstr ""
@@ -1228,12 +1231,6 @@ msgstr ""
 msgid "Error"
 msgstr "错误"
 
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Selected org units"
 msgstr "选定的组织机构"
 
@@ -1256,6 +1253,12 @@ msgid "No data found"
 msgstr "没有发现数据"
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Boundaries"
+msgstr ""
+
+msgid "No boundaries found"
 msgstr ""
 
 msgid "Thematic layer"
