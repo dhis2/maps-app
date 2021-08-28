@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -142,26 +142,23 @@ msgstr "بستن"
 msgid "Legend position"
 msgstr ""
 
+msgid "Group Set"
+msgstr ""
+
 msgid "Organisation Units"
 msgstr "واحد های سازمان"
 
 msgid "Style"
 msgstr "استایل"
 
-msgid "Point radius"
-msgstr "د نکتې پوړ"
-
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
+msgstr ""
+
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -193,6 +190,9 @@ msgstr ""
 
 msgid "Add layer"
 msgstr ""
+
+msgid "Point radius"
+msgstr "د نکتې پوړ"
 
 msgid "Aggregation method"
 msgstr ""
@@ -245,6 +245,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
@@ -591,14 +594,14 @@ msgstr "عرض البلد"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "Parent unit"
-msgstr "لوی واحد"
-
 msgid "Not set"
 msgstr "تعین نه گردیده است"
 
 msgid "Organisation unit"
 msgstr "بخش نهاد/سازمان"
+
+msgid "Parent unit"
+msgstr "لوی واحد"
 
 msgid "Loading layer data"
 msgstr ""
@@ -1227,12 +1230,6 @@ msgstr ""
 msgid "Error"
 msgstr "خطا"
 
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Selected org units"
 msgstr ""
 
@@ -1255,6 +1252,12 @@ msgid "No data found"
 msgstr "هیچ معلوماتی یافت نشد"
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Boundaries"
+msgstr ""
+
+msgid "No boundaries found"
 msgstr ""
 
 msgid "Thematic layer"

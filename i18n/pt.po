@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -150,20 +150,14 @@ msgstr "Fechar"
 msgid "Legend position"
 msgstr "Posição da legenda"
 
+msgid "Group Set"
+msgstr "Conjunto de grupo"
+
 msgid "Organisation Units"
 msgstr "Unidades Organizacionais"
 
 msgid "Style"
 msgstr "Estilo"
-
-msgid "Point radius"
-msgstr "Raio do ponto"
-
-msgid "No organisation units are selected"
-msgstr "Nenhuma unidade organizacional está selecionada"
-
-msgid "Group Set"
-msgstr "Conjunto de grupo"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -173,6 +167,9 @@ msgstr ""
 
 msgid "Group set is required"
 msgstr "O conjunto de grupos é obrigatório"
+
+msgid "No organisation units are selected"
+msgstr "Nenhuma unidade organizacional está selecionada"
 
 msgid "event"
 msgstr "Evento"
@@ -203,6 +200,9 @@ msgstr "Actualizar camada"
 
 msgid "Add layer"
 msgstr "Adicionar camada"
+
+msgid "Point radius"
+msgstr "Raio do ponto"
 
 msgid "Aggregation method"
 msgstr ""
@@ -255,6 +255,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
@@ -614,14 +617,14 @@ msgstr "Latitude"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Visualizando interpretação de {{interpretaçãoDados}}"
 
-msgid "Parent unit"
-msgstr "Unidade parental"
-
 msgid "Not set"
 msgstr "Não definido"
 
 msgid "Organisation unit"
 msgstr "Unidade organizacional"
+
+msgid "Parent unit"
+msgstr "Unidade parental"
 
 msgid "Loading layer data"
 msgstr ""
@@ -1262,12 +1265,6 @@ msgstr "O mapa \"{{name}}\" é salvo."
 msgid "Error"
 msgstr "Erro"
 
-msgid "Boundaries"
-msgstr "Limites"
-
-msgid "No boundaries found"
-msgstr "Nenhum limite encontrado"
-
 msgid "Selected org units"
 msgstr "Selecionar unidades organizacionais "
 
@@ -1291,6 +1288,12 @@ msgstr "Dado não encontrado"
 
 msgid "Facilities"
 msgstr "Instalações"
+
+msgid "Boundaries"
+msgstr "Limites"
+
+msgid "No boundaries found"
+msgstr "Nenhum limite encontrado"
 
 msgid "Thematic layer"
 msgstr "Camada temática"

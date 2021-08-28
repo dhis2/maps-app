@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -151,20 +151,14 @@ msgstr "Tutup"
 msgid "Legend position"
 msgstr "Posisi legenda"
 
+msgid "Group Set"
+msgstr "Kumpulan Grup"
+
 msgid "Organisation Units"
 msgstr "Unit Organisasi"
 
 msgid "Style"
 msgstr "Gaya"
-
-msgid "Point radius"
-msgstr "Radius titik"
-
-msgid "No organisation units are selected"
-msgstr "Tidak ada unit organisasi yang dipilih"
-
-msgid "Group Set"
-msgstr "Kumpulan Grup"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -172,6 +166,9 @@ msgstr "Ingatlah untuk memilih tingkat unit organisasi yang berisi fasilitas."
 
 msgid "Group set is required"
 msgstr "Kumpulan grup wajib diisi"
+
+msgid "No organisation units are selected"
+msgstr "Tidak ada unit organisasi yang dipilih"
 
 msgid "event"
 msgstr "peristiwa"
@@ -202,6 +199,9 @@ msgstr "Update layer"
 
 msgid "Add layer"
 msgstr "Tambahkan layer"
+
+msgid "Point radius"
+msgstr "Radius titik"
 
 msgid "Aggregation method"
 msgstr "Metode agregasi"
@@ -259,6 +259,9 @@ msgstr "Maksimal harus lebih besar dari minimal"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Langkah yang valid adalah {{minSteps}} hingga {{maxSteps}}"
+
+msgid "Unit: {{ unit }}"
+msgstr ""
 
 msgid "Min"
 msgstr "Minimal"
@@ -613,14 +616,14 @@ msgstr "Latitude"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Melihat interpretasi dari {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "Unit induk"
-
 msgid "Not set"
 msgstr "Tidak diatur"
 
 msgid "Organisation unit"
 msgstr "Unit organisasi"
+
+msgid "Parent unit"
+msgstr "Unit induk"
 
 msgid "Loading layer data"
 msgstr "Memuat data layer"
@@ -1265,12 +1268,6 @@ msgstr "Peta \"{{name}}\" disimpan."
 msgid "Error"
 msgstr "Error"
 
-msgid "Boundaries"
-msgstr "Batas"
-
-msgid "No boundaries found"
-msgstr "Tidak ada batasan yang ditemukan"
-
 msgid "Selected org units"
 msgstr "Unit organisasi yang dipilih"
 
@@ -1294,6 +1291,12 @@ msgstr "Tidak ada data yang ditemukan"
 
 msgid "Facilities"
 msgstr "Fasilitas"
+
+msgid "Boundaries"
+msgstr "Batas"
+
+msgid "No boundaries found"
+msgstr "Tidak ada batasan yang ditemukan"
 
 msgid "Thematic layer"
 msgstr "Layer tematik"

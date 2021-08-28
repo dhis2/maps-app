@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Swedish (https://www.transifex.com/hisp-uio/teams/100509/sv/)\n"
@@ -144,26 +144,23 @@ msgstr "Stänga"
 msgid "Legend position"
 msgstr ""
 
+msgid "Group Set"
+msgstr ""
+
 msgid "Organisation Units"
 msgstr "Organisation enheter"
 
 msgid "Style"
 msgstr "Stil"
 
-msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
+msgstr ""
+
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -194,6 +191,9 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
+msgstr ""
+
+msgid "Point radius"
 msgstr ""
 
 msgid "Aggregation method"
@@ -247,6 +247,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
@@ -593,14 +596,14 @@ msgstr "Latitud"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "Parent unit"
-msgstr "föräldraenheten"
-
 msgid "Not set"
 msgstr "Inte inställd"
 
 msgid "Organisation unit"
 msgstr "Organisation enhet"
+
+msgid "Parent unit"
+msgstr "föräldraenheten"
 
 msgid "Loading layer data"
 msgstr ""
@@ -1229,12 +1232,6 @@ msgstr ""
 msgid "Error"
 msgstr "Fel"
 
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Selected org units"
 msgstr ""
 
@@ -1257,6 +1254,12 @@ msgid "No data found"
 msgstr ""
 
 msgid "Facilities"
+msgstr ""
+
+msgid "Boundaries"
+msgstr ""
+
+msgid "No boundaries found"
 msgstr ""
 
 msgid "Thematic layer"

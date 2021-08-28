@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -148,20 +148,14 @@ msgstr "Yopmoq"
 msgid "Legend position"
 msgstr "Tavsif holati"
 
+msgid "Group Set"
+msgstr "Guruhlar toʼplami"
+
 msgid "Organisation Units"
 msgstr "Tashkiliy Boʼlimlar"
 
 msgid "Style"
 msgstr "Услуб"
-
-msgid "Point radius"
-msgstr "Nuqta radiusi"
-
-msgid "No organisation units are selected"
-msgstr "Tashkiliy boʼlimlar tanlanmagan"
-
-msgid "Group Set"
-msgstr "Guruhlar toʼplami"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -169,6 +163,9 @@ msgstr "Oʼzida muassasani saqlagan tashkiliy boʼlimni tanlashni unutmang."
 
 msgid "Group set is required"
 msgstr "Guruhlar toʼplami talab qilinadi"
+
+msgid "No organisation units are selected"
+msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
 msgid "event"
 msgstr ""
@@ -199,6 +196,9 @@ msgstr "Qatlamni yangilash"
 
 msgid "Add layer"
 msgstr "Qatlam qoʼshish"
+
+msgid "Point radius"
+msgstr "Nuqta radiusi"
 
 msgid "Aggregation method"
 msgstr ""
@@ -251,6 +251,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
@@ -610,14 +613,14 @@ msgstr "Kenglik"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "{{TalqinVaqt}} dan talqinni koʼrish"
 
-msgid "Parent unit"
-msgstr "Аjdod boʼlimi"
-
 msgid "Not set"
 msgstr "Oʼrnatilmagan"
 
 msgid "Organisation unit"
 msgstr "Ташкилий бирлик"
+
+msgid "Parent unit"
+msgstr "Аjdod boʼlimi"
 
 msgid "Loading layer data"
 msgstr ""
@@ -1260,12 +1263,6 @@ msgstr "Xarita \"{{ismi}}\" saqlangan"
 msgid "Error"
 msgstr "Xatolik"
 
-msgid "Boundaries"
-msgstr "Chegaralar"
-
-msgid "No boundaries found"
-msgstr "Hech qanday chegara topilmadi"
-
 msgid "Selected org units"
 msgstr "Tanlangan tanlangan boʼlimlar"
 
@@ -1289,6 +1286,12 @@ msgstr "Maʼlumotlar topilmadi"
 
 msgid "Facilities"
 msgstr "Muassasalar"
+
+msgid "Boundaries"
+msgstr "Chegaralar"
+
+msgid "No boundaries found"
+msgstr "Hech qanday chegara topilmadi"
 
 msgid "Thematic layer"
 msgstr "Tematik qavat"

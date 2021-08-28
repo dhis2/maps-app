@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -145,20 +145,14 @@ msgstr "关闭"
 msgid "Legend position"
 msgstr "图例位置"
 
+msgid "Group Set"
+msgstr "组集"
+
 msgid "Organisation Units"
 msgstr "组织机构管理"
 
 msgid "Style"
 msgstr "风格"
-
-msgid "Point radius"
-msgstr "点半径"
-
-msgid "No organisation units are selected"
-msgstr "没有选择机构"
-
-msgid "Group Set"
-msgstr "组集"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -166,6 +160,9 @@ msgstr "记住选择包括机构的等级"
 
 msgid "Group set is required"
 msgstr "需要组集"
+
+msgid "No organisation units are selected"
+msgstr "没有选择机构"
 
 msgid "event"
 msgstr "事件"
@@ -196,6 +193,9 @@ msgstr "更新图层"
 
 msgid "Add layer"
 msgstr "添加图层"
+
+msgid "Point radius"
+msgstr "点半径"
 
 msgid "Aggregation method"
 msgstr "汇总方法"
@@ -249,6 +249,9 @@ msgstr "最大值应大于最小值"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
+
+msgid "Unit: {{ unit }}"
+msgstr ""
 
 msgid "Min"
 msgstr "最小"
@@ -594,14 +597,14 @@ msgstr "纬度"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
-msgid "Parent unit"
-msgstr "上级机构"
-
 msgid "Not set"
 msgstr "没有设置"
 
 msgid "Organisation unit"
 msgstr "组织机构"
+
+msgid "Parent unit"
+msgstr "上级机构"
 
 msgid "Loading layer data"
 msgstr "加载图层数据"
@@ -1230,12 +1233,6 @@ msgstr "地图“ {{name}}”已保存。"
 msgid "Error"
 msgstr "错误"
 
-msgid "Boundaries"
-msgstr "边界线"
-
-msgid "No boundaries found"
-msgstr "没有发现边界线"
-
 msgid "Selected org units"
 msgstr "选择的机构"
 
@@ -1259,6 +1256,12 @@ msgstr "没有数据被找到"
 
 msgid "Facilities"
 msgstr "机构设施"
+
+msgid "Boundaries"
+msgstr "边界线"
+
+msgid "No boundaries found"
+msgstr "没有发现边界线"
 
 msgid "Thematic layer"
 msgstr "专题层"

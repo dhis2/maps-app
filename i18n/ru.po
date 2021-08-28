@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-24T13:11:12.280Z\n"
+"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -146,26 +146,23 @@ msgstr "Закрыть"
 msgid "Legend position"
 msgstr ""
 
+msgid "Group Set"
+msgstr "Набор групп"
+
 msgid "Organisation Units"
 msgstr "Организации"
 
 msgid "Style"
 msgstr "Стиль"
 
-msgid "Point radius"
-msgstr "Радиус точки"
-
-msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr "Набор групп"
-
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Group set is required"
+msgstr ""
+
+msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -197,6 +194,9 @@ msgstr ""
 
 msgid "Add layer"
 msgstr "Добавить слой"
+
+msgid "Point radius"
+msgstr "Радиус точки"
 
 msgid "Aggregation method"
 msgstr ""
@@ -249,6 +249,9 @@ msgid "Max should be greater than min"
 msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
@@ -596,14 +599,14 @@ msgstr "Широта"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Просмотр интерпретации с {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "Родительская"
-
 msgid "Not set"
 msgstr "Не устнановлен"
 
 msgid "Organisation unit"
 msgstr "Организация"
+
+msgid "Parent unit"
+msgstr "Родительская"
 
 msgid "Loading layer data"
 msgstr ""
@@ -1232,12 +1235,6 @@ msgstr ""
 msgid "Error"
 msgstr "Ошибка"
 
-msgid "Boundaries"
-msgstr "Границы"
-
-msgid "No boundaries found"
-msgstr ""
-
 msgid "Selected org units"
 msgstr ""
 
@@ -1261,6 +1258,12 @@ msgstr "Данные не найдены"
 
 msgid "Facilities"
 msgstr "Удобства"
+
+msgid "Boundaries"
+msgstr "Границы"
+
+msgid "No boundaries found"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Тематический уровень"
