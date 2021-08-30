@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
-"PO-Revision-Date: 2021-08-30T11:20:13.485Z\n"
+"POT-Creation-Date: 2021-08-30T20:16:32.864Z\n"
+"PO-Revision-Date: 2021-08-30T20:16:32.864Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -457,17 +457,10 @@ msgstr ""
 msgid "Remove filter"
 msgstr ""
 
-<<<<<<< HEAD
 msgid "Group set"
 msgstr ""
 
 msgid "Failed to load organisation unit groups."
-=======
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
-msgid "Group set"
->>>>>>> master
 msgstr ""
 
 msgid "Style by group set"
