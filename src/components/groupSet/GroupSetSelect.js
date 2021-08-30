@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
 import { loadOrgUnitGroupSets } from '../../actions/orgUnits';
 
-export const OrgUnitGroupSetSelect = ({
+export const GroupSetSelect = ({
     label = i18n.t('Group set'),
     orgUnitGroupSets,
     value,
@@ -24,7 +24,7 @@ export const OrgUnitGroupSetSelect = ({
     );
 
     const onGroupSetChange = useCallback(
-        item => onChange(item.id !== 'none' ? item : null),
+        item => onChange(item.id !== 'none' ? item : undefined),
         [onChange]
     );
 
@@ -48,7 +48,7 @@ export const OrgUnitGroupSetSelect = ({
     );
 };
 
-OrgUnitGroupSetSelect.propTypes = {
+GroupSetSelect.propTypes = {
     label: PropTypes.string,
     value: PropTypes.object,
     allowNone: PropTypes.bool,
@@ -64,4 +64,4 @@ export default connect(
         orgUnitGroupSets: state.orgUnitGroupSets,
     }),
     { loadOrgUnitGroupSets }
-)(OrgUnitGroupSetSelect);
+)(GroupSetSelect);
