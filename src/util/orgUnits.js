@@ -1,10 +1,12 @@
 import { uniqBy } from 'lodash/fp';
+import i18n from '@dhis2/d2-i18n';
 import { apiFetch } from './api';
 import { getDisplayPropertyUrl } from './helpers';
 import { getUniqueColor } from './colors';
 import { qualitativeColors } from '../constants/colors';
 import {
     ORG_UNIT_COLOR,
+    ORG_UNIT_RADIUS,
     STYLE_TYPE_COLOR,
     STYLE_TYPE_SYMBOL,
 } from '../constants/layers';
@@ -57,7 +59,7 @@ export const getOrgUnitGroupLegendItems = (
 export const getStyledOrgUnits = (
     features,
     groupSet = {},
-    { organisationUnitColor = ORG_UNIT_COLOR, radiusLow },
+    { organisationUnitColor = ORG_UNIT_COLOR, radiusLow = ORG_UNIT_RADIUS },
     contextPath,
     orgUnitLevels
 ) => {
@@ -115,7 +117,7 @@ export const getStyledOrgUnits = (
     });
 
     // Only include facilities having a group membership
-    if (isFacilityLayer && !useColor) {
+    if (isFacilityLayer && groupSet.id && !useColor) {
         styledFeatures = styledFeatures.filter(f => f.properties.iconUrl);
     }
 
@@ -125,11 +127,22 @@ export const getStyledOrgUnits = (
         contextPath
     );
 
+    const facilityItems =
+        isFacilityLayer && !groupSet.id
+            ? [
+                  {
+                      name: i18n.t('Facility'),
+                      color: organisationUnitColor,
+                      radius: radiusLow,
+                  },
+              ]
+            : [];
+
     return {
         styledFeatures,
         legend: {
             unit: name,
-            items: [...levelItems, ...groupItems],
+            items: [...levelItems, ...groupItems, ...facilityItems],
         },
     };
 };

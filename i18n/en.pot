@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-30T09:25:57.910Z\n"
-"PO-Revision-Date: 2021-08-30T09:25:57.910Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
+"PO-Revision-Date: 2021-08-30T11:20:13.485Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -143,9 +143,6 @@ msgstr ""
 msgid "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
-msgid "Point radius"
-msgstr ""
-
 msgid "No organisation units are selected"
 msgstr ""
 
@@ -177,6 +174,9 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
+msgstr ""
+
+msgid "Point radius"
 msgstr ""
 
 msgid "Aggregation method"
@@ -460,6 +460,9 @@ msgstr ""
 msgid "Failed to load organisation unit groups."
 msgstr ""
 
+msgid "Group set"
+msgstr ""
+
 msgid "Style by group set"
 msgstr ""
 
@@ -687,9 +690,6 @@ msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
-
-msgid "Group set"
 msgstr ""
 
 msgid "Image of the organisation unit"
@@ -1295,6 +1295,9 @@ msgid ""
 msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"

@@ -47,10 +47,6 @@ const facilityLoader = async config => {
         groupSet.organisationUnitGroups = organisationUnitGroups;
     }
 
-    if (!features.length) {
-        alerts.push({ warning: true, message: i18n.t('No facilities found') });
-    }
-
     const { styledFeatures, legend } = getStyledOrgUnits(
         features,
         groupSet,
@@ -60,6 +56,10 @@ const facilityLoader = async config => {
 
     if (areaRadius) {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];
+    }
+
+    if (!styledFeatures.length) {
+        alerts.push({ warning: true, message: i18n.t('No facilities found') });
     }
 
     return {
