@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
+import OrgUnitGroupSetSelect from './OrgUnitGroupSetSelect';
 import GroupSetStyle from './GroupSetStyle';
 import { setOrganisationUnitGroupSet } from '../../actions/layerEdit';
 import styles from '../edit/styles/LayerDialog.module.css';

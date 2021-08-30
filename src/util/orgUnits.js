@@ -66,10 +66,11 @@ export const getStyledOrgUnits = (
         styleType = orgUnitLevels ? STYLE_TYPE_COLOR : STYLE_TYPE_SYMBOL,
         organisationUnitGroups = [],
     } = groupSet;
+    const isFacilityLayer = !orgUnitLevels;
     let levelWeight;
     let levelItems = [];
 
-    if (orgUnitLevels) {
+    if (!isFacilityLayer) {
         const levels = uniqBy(f => f.properties.level, features)
             .map(f => f.properties.level)
             .sort();
@@ -86,7 +87,7 @@ export const getStyledOrgUnits = (
 
     const useColor = styleType === STYLE_TYPE_COLOR;
 
-    const styledFeatures = features.map(f => {
+    let styledFeatures = features.map(f => {
         const { color, symbol } = getOrgUnitStyle(
             f.properties.dimensions,
             groupSet
@@ -112,6 +113,11 @@ export const getStyledOrgUnits = (
             properties,
         };
     });
+
+    // Only include facilities having a group membership
+    if (isFacilityLayer && !useColor) {
+        styledFeatures = styledFeatures.filter(f => f.properties.iconUrl);
+    }
 
     const groupItems = getOrgUnitGroupLegendItems(
         organisationUnitGroups,
