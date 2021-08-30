@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
-"PO-Revision-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T09:25:57.910Z\n"
+"PO-Revision-Date: 2021-08-30T09:25:57.910Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -134,9 +134,6 @@ msgstr ""
 msgid "Legend position"
 msgstr ""
 
-msgid "Group Set"
-msgstr ""
-
 msgid "Organisation Units"
 msgstr ""
 
@@ -146,7 +143,7 @@ msgstr ""
 msgid "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
-msgid "Group set is required"
+msgid "Point radius"
 msgstr ""
 
 msgid "No organisation units are selected"
@@ -180,9 +177,6 @@ msgid "Update layer"
 msgstr ""
 
 msgid "Add layer"
-msgstr ""
-
-msgid "Point radius"
 msgstr ""
 
 msgid "Aggregation method"
@@ -461,6 +455,12 @@ msgid "Date"
 msgstr ""
 
 msgid "Remove filter"
+msgstr ""
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
@@ -1157,6 +1157,9 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr ""
 
@@ -1236,6 +1239,9 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
+msgstr ""
+
+msgid "No facilities found"
 msgstr ""
 
 msgid "Facilities"

@@ -68,7 +68,10 @@ export const loadOrgUnitGroupSets = action$ =>
                     paging: false,
                 })
             )
-            .then(groupSets => setOrgUnitGroupSets(groupSets.toArray()))
+            .then(groupSets =>
+                groupSets.toArray().map(({ id, name }) => ({ id, name }))
+            )
+            .then(setOrgUnitGroupSets)
             .catch(
                 errorActionCreator(
                     types.ORGANISATION_UNIT_GROUP_SETS_LOAD_ERROR
