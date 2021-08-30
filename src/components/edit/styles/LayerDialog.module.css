@@ -118,6 +118,14 @@
     width: 120px;
 }
 
+.narrowField {
+    width: 120px;
+}
+
+.narrowFieldIcon {
+    width: 124px;
+}
+
 /* Earth Engine */
 
 .eeFlexFull {
