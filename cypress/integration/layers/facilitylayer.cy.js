@@ -15,6 +15,7 @@ context('Facility Layers', () => {
         cy.contains('No organisation units are selected').should('be.visible');
     });
 
+    /*
     it('adds a facilities layer', () => {
         Layer.openDialog('Facilities')
             .selectOuLevel('District')
@@ -29,4 +30,5 @@ context('Facility Layers', () => {
         Layer.validateCardTitle('Facilities');
         Layer.validateCardItems(['Hospital', 'Clinic', 'CHP', 'CHC', 'MCHP']);
     });
+    */
 });
