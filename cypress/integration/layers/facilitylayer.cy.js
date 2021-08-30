@@ -18,6 +18,8 @@ context('Facility Layers', () => {
     it('adds a facilities layer', () => {
         Layer.openDialog('Facilities')
             .selectOuLevel('District')
+            .selectTab('Style')
+            .selectGroupSet('Facility Type')
             .addToMap();
 
         Layer.validateDialogClosed(true);
