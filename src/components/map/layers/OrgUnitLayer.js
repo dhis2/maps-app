@@ -4,7 +4,7 @@ import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { getLabelStyle } from '../../../util/labels';
-import { BOUNDARY_LAYER } from '../../../constants/layers';
+import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
 
 export default class OrgUnitLayer extends Layer {
     state = {
@@ -28,7 +28,7 @@ export default class OrgUnitLayer extends Layer {
         const map = this.context.map;
 
         const config = {
-            type: BOUNDARY_LAYER,
+            type: GEOJSON_LAYER,
             id,
             index,
             opacity,
@@ -36,9 +36,8 @@ export default class OrgUnitLayer extends Layer {
             data: filteredData,
             hoverLabel: '{name}',
             style: {
-                opacity: 1,
-                fillOpacity: 0,
-                fill: false,
+                color: 'transparent',
+                strokeColor: ORG_UNIT_COLOR,
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),

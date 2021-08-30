@@ -162,7 +162,7 @@ export const setOrgUnitRoot = () => (dispatch, getState) => {
     }
 };
 
-// Set organisation unit group set (facility layer)
+// Set organisation unit group set (facility and org unit layer)
 export const setOrganisationUnitGroupSet = organisationUnitGroupSet => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_SET,
     organisationUnitGroupSet,
