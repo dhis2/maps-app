@@ -3,23 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import cx from 'classnames';
-import { Tab, Tabs, Help } from '../core';
-import OrgUnitGroupSetSelect from '../orgunits/OrgUnitGroupSetSelect';
+import { Tab, Tabs, Help, NumberField } from '../core';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
 import Labels from './shared/Labels';
 import BufferRadius from './shared/BufferRadius';
-import { FACILITY_BUFFER } from '../../constants/layers';
+import StyleByGroupSet from '../groupSet/StyleByGroupSet';
+import {
+    ORG_UNIT_RADIUS,
+    FACILITY_BUFFER,
+    STYLE_TYPE_SYMBOL,
+} from '../../constants/layers';
 import styles from './styles/LayerDialog.module.css';
 
 import {
-    setOrganisationUnitGroupSet,
     setOrgUnitLevels,
     setOrgUnitGroups,
     setUserOrgUnits,
     toggleOrgUnit,
+    setRadiusLow,
 } from '../../actions/layerEdit';
 
 import {
@@ -32,13 +36,14 @@ import {
 
 class FacilityDialog extends Component {
     static propTypes = {
-        organisationUnitGroupSet: PropTypes.object,
         rows: PropTypes.array,
+        radiusLow: PropTypes.number,
+        organisationUnitGroupSet: PropTypes.object,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
-        setOrganisationUnitGroupSet: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
+        setRadiusLow: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -46,7 +51,7 @@ class FacilityDialog extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab: 'group',
+            tab: 'orgunits',
         };
     }
 
@@ -61,15 +66,16 @@ class FacilityDialog extends Component {
     render() {
         const {
             rows = [],
+            radiusLow,
             organisationUnitGroupSet,
-            setOrganisationUnitGroupSet,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
+            setRadiusLow,
         } = this.props;
 
-        const { tab, orgUnitGroupSetError, orgUnitsError } = this.state;
+        const { tab, orgUnitsError } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
@@ -78,24 +84,10 @@ class FacilityDialog extends Component {
         return (
             <div data-test="facilitydialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
-                    <Tab value="group">{i18n.t('Group Set')}</Tab>
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
                 <div className={styles.tabContent}>
-                    {tab === 'group' && (
-                        <div
-                            className={styles.flexRowFlow}
-                            data-test="facilitydialog-grouptab"
-                        >
-                            <OrgUnitGroupSetSelect
-                                value={organisationUnitGroupSet}
-                                onChange={setOrganisationUnitGroupSet}
-                                className={styles.select}
-                                errorText={orgUnitGroupSetError}
-                            />
-                        </div>
-                    )}
                     {tab === 'orgunits' && (
                         <div
                             className={styles.flexColumnFlow}
@@ -148,7 +140,23 @@ class FacilityDialog extends Component {
                         >
                             <div className={cx(styles.flexColumn)}>
                                 <Labels />
+                                <NumberField
+                                    label={i18n.t('Point radius')}
+                                    value={
+                                        radiusLow !== undefined
+                                            ? radiusLow
+                                            : ORG_UNIT_RADIUS
+                                    }
+                                    onChange={setRadiusLow}
+                                    disabled={!!organisationUnitGroupSet}
+                                    className={styles.narrowFieldIcon}
+                                />
                                 <BufferRadius defaultRadius={FACILITY_BUFFER} />
+                            </div>
+                            <div className={styles.flexColumn}>
+                                <StyleByGroupSet
+                                    defaultStyleType={STYLE_TYPE_SYMBOL}
+                                />
                             </div>
                         </div>
                     )}
@@ -168,15 +176,7 @@ class FacilityDialog extends Component {
     }
 
     validate() {
-        const { organisationUnitGroupSet, rows } = this.props;
-
-        if (!organisationUnitGroupSet) {
-            return this.setErrorState(
-                'orgUnitGroupSetError',
-                i18n.t('Group set is required'),
-                'group'
-            );
-        }
+        const { rows } = this.props;
 
         if (!getOrgUnitsFromRows(rows).length) {
             return this.setErrorState(
@@ -193,11 +193,11 @@ class FacilityDialog extends Component {
 export default connect(
     null,
     {
-        setOrganisationUnitGroupSet,
         setOrgUnitLevels,
         setOrgUnitGroups,
         setUserOrgUnits,
         toggleOrgUnit,
+        setRadiusLow,
     },
     null,
     {

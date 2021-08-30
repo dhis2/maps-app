@@ -47,6 +47,7 @@ export const toGeoJson = organisationUnits =>
                     coordinates: coord,
                 },
                 properties: {
+                    type,
                     id: ou.id,
                     name: ou.na,
                     hasCoordinatesDown: ou.hcd,
@@ -57,7 +58,7 @@ export const toGeoJson = organisationUnits =>
                     parentGraph: ou.pg,
                     parentId: ou.pi,
                     parentName: ou.pn,
-                    type,
+                    dimensions: ou.dimensions,
                 },
             };
         })

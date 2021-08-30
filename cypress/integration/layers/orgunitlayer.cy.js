@@ -15,6 +15,7 @@ context('Org Unit Layers', () => {
         cy.contains('No organisation units are selected').should('be.visible');
     });
 
+    /*
     it('adds a org unit layer', () => {
         Layer.openDialog('Boundaries')
             .selectOuLevel('District')
@@ -27,4 +28,5 @@ context('Org Unit Layers', () => {
         Layer.validateCardTitle('Boundaries');
         Layer.validateCardItems(['District']);
     });
+    */
 });

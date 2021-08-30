@@ -9,6 +9,7 @@ export const ORG_UNIT_LAYER = 'orgUnit';
 export const EXTERNAL_LAYER = 'external';
 export const EARTH_ENGINE_LAYER = 'earthEngine';
 export const TRACKED_ENTITY_LAYER = 'trackedEntity';
+export const GEOJSON_LAYER = 'geoJson';
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
@@ -81,6 +82,10 @@ export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
 /* FACILITY LAYER */
 export const FACILITY_BUFFER = 5000;
 
+/* ORG UNIT LAYER */
+export const ORG_UNIT_COLOR = '#333333';
+export const ORG_UNIT_RADIUS = 7;
+
 /* EARTH ENGINE LAYER */
 export const EE_BUFFER = 5000;
 
@@ -117,6 +122,20 @@ export const getClassificationTypes = () => [
     {
         id: CLASSIFICATION_EQUAL_COUNTS,
         name: i18n.t('Equal counts'),
+    },
+];
+
+export const STYLE_TYPE_COLOR = 'COLOR';
+export const STYLE_TYPE_SYMBOL = 'SYMBOL';
+
+export const getGroupSetStyleTypes = () => [
+    {
+        id: STYLE_TYPE_COLOR,
+        name: i18n.t('Color'),
+    },
+    {
+        id: STYLE_TYPE_SYMBOL,
+        name: i18n.t('Symbol'),
     },
 ];
 

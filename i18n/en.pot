@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
-"PO-Revision-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
+"PO-Revision-Date: 2021-08-30T11:20:13.485Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -134,9 +134,6 @@ msgstr ""
 msgid "Legend position"
 msgstr ""
 
-msgid "Group Set"
-msgstr ""
-
 msgid "Organisation Units"
 msgstr ""
 
@@ -144,9 +141,6 @@ msgid "Style"
 msgstr ""
 
 msgid "Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "No organisation units are selected"
@@ -463,6 +457,15 @@ msgstr ""
 msgid "Remove filter"
 msgstr ""
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr ""
 
@@ -687,9 +690,6 @@ msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
-
-msgid "Group set"
 msgstr ""
 
 msgid "Image of the organisation unit"
@@ -1157,6 +1157,9 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr ""
 
@@ -1238,6 +1241,9 @@ msgstr ""
 msgid "No data found"
 msgstr ""
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr ""
 
@@ -1289,6 +1295,9 @@ msgid ""
 msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"
