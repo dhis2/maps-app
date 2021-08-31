@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -146,9 +146,6 @@ msgstr "Ёпиш"
 msgid "Legend position"
 msgstr "Таъриф ҳолати"
 
-msgid "Group Set"
-msgstr "Гуруҳлар тўплами"
-
 msgid "Organisation Units"
 msgstr "Ташкилий Бўлимлар"
 
@@ -158,9 +155,6 @@ msgstr "Услуб"
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Имконияти мавжуд ташкилий бўлим поғонасини танлашни унутманг."
-
-msgid "Group set is required"
-msgstr "Гуруҳлар тўплами талаб қилинади"
 
 msgid "No organisation units are selected"
 msgstr "Ташкилий бўлимлар танланмаган"
@@ -485,6 +479,15 @@ msgstr "Сана"
 msgid "Remove filter"
 msgstr "Фильтрни олиб ташлаш"
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr "Гуруҳлар тўплами"
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Кўрсатгич гуруҳи"
 
@@ -716,9 +719,6 @@ msgstr "Ушбу давр учун маълумот топилмади"
 
 msgid "Select groups"
 msgstr "Гуруҳларни танланг"
-
-msgid "Group set"
-msgstr "Гуруҳлар тўплами"
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -1195,6 +1195,9 @@ msgstr "Тенг интерваллар"
 msgid "Equal counts"
 msgstr "Тенг миқдорда"
 
+msgid "Symbol"
+msgstr "Белгилар"
+
 msgid "Daily"
 msgstr "Кунлик"
 
@@ -1276,6 +1279,9 @@ msgstr ""
 msgid "No data found"
 msgstr "Маълумотлар топилмади"
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Муассасалар"
 
@@ -1330,6 +1336,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "Google Earth Engine га уланиб бўлмади."
+
+msgid "Facility"
+msgstr "Объект"
 
 msgid "Start date is invalid"
 msgstr "Бошланиш санаси нотўғри"

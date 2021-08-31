@@ -1,3 +1,17 @@
+## [1.12.1](https://github.com/dhis2/maps-app/compare/v1.12.0...v1.12.1) (2021-08-31)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([7567f5a](https://github.com/dhis2/maps-app/commit/7567f5abfd992cb4927f8f3fd591e172360c563c))
+
+# [1.12.0](https://github.com/dhis2/maps-app/compare/v1.11.10...v1.12.0) (2021-08-30)
+
+
+### Features
+
+* redesigned facility layer ([#1821](https://github.com/dhis2/maps-app/issues/1821)) ([ec5d85d](https://github.com/dhis2/maps-app/commit/ec5d85d12b619789bff087fb8aef14174cf9432e))
+
 ## [1.11.10](https://github.com/dhis2/maps-app/compare/v1.11.9...v1.11.10) (2021-08-28)
 
 
