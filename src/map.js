@@ -13,6 +13,7 @@ import {
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
+import { cleanMapObject } from './util/helpers';
 import { apiVersion } from './constants/settings';
 import { defaultBasemaps } from './constants/basemaps';
 
@@ -93,14 +94,18 @@ function PluginContainer() {
     function loadMap(config) {
         if (config.id && !isUnmounted(config.el)) {
             // Load favorite
-            mapRequest(config.id).then(favorite =>
-                loadLayers({
-                    ...config,
-                    ...favorite,
-                })
-            );
+            mapRequest(config.id)
+                .then(cleanMapObject)
+                .then(favorite =>
+                    loadLayers({
+                        ...config,
+                        ...favorite,
+                    })
+                );
         } else {
-            translateConfig(config).then(loadLayers);
+            translateConfig(config)
+                .then(cleanMapObject)
+                .then(loadLayers);
         }
     }
 
