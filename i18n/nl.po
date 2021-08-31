@@ -474,7 +474,7 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Operator"
 
 msgid "Date"
 msgstr "Datum\n"
