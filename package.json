@@ -42,7 +42,7 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^18.2.1",
-        "@dhis2/app-runtime": "^2.8.0",
+        "@dhis2/app-runtime": "^2.11.0",
         "@dhis2/d2-i18n": "<1.1.0",
         "@dhis2/d2-ui-core": "^7.3.2",
         "@dhis2/d2-ui-interpretations": "^7.3.2",
