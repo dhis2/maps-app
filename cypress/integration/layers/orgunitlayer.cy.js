@@ -8,7 +8,7 @@ context('Org Unit Layers', () => {
     const Layer = new OrgUnitLayer();
 
     it('shows error if no orgunit selected', () => {
-        Layer.openDialog('Boundaries').addToMap();
+        Layer.openDialog('Org units').addToMap();
 
         Layer.validateDialogClosed(false);
 

@@ -114,8 +114,8 @@
 
 /* Org unit */
 
-.radius {
-    width: 120px;
+.marginBottom {
+    margin-bottom: var(--spacers-dp16);
 }
 
 .narrowField {

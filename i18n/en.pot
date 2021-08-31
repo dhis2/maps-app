@@ -161,7 +161,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -1247,10 +1247,10 @@ msgstr ""
 msgid "Facilities"
 msgstr ""
 
-msgid "Boundaries"
+msgid "No org units found"
 msgstr ""
 
-msgid "No boundaries found"
+msgid "Organisation units"
 msgstr ""
 
 msgid "Thematic layer"
@@ -1269,6 +1269,9 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "not one of"

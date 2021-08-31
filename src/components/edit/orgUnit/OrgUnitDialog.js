@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField } from '../core';
-import OrgUnitTree from '../orgunits/OrgUnitTree';
-import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
-import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
-import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import Labels from './shared/Labels';
-import styles from './styles/LayerDialog.module.css';
+import { Tab, Tabs, NumberField } from '../../core';
+import OrgUnitTree from '../../orgunits/OrgUnitTree';
+import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
+import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
+import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
+import Labels from '../shared/Labels';
+import { ORG_UNIT_RADIUS, STYLE_TYPE_COLOR } from '../../../constants/layers';
+import styles from '../styles/LayerDialog.module.css';
 
 import {
     setOrgUnitLevels,
@@ -16,7 +18,7 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setRadiusLow,
-} from '../../actions/layerEdit';
+} from '../../../actions/layerEdit';
 
 import {
     getOrgUnitsFromRows,
@@ -24,12 +26,12 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitGroupsFromRows,
     getUserOrgUnitsFromRows,
-} from '../../util/analytics';
+} from '../../../util/analytics';
 
 class OrgUnitDialog extends Component {
     static propTypes = {
-        radiusLow: PropTypes.number,
         rows: PropTypes.array,
+        radiusLow: PropTypes.number,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
@@ -124,10 +126,17 @@ class OrgUnitDialog extends Component {
                                 <NumberField
                                     label={i18n.t('Point radius')}
                                     value={
-                                        radiusLow !== undefined ? radiusLow : 5
+                                        radiusLow !== undefined
+                                            ? radiusLow
+                                            : ORG_UNIT_RADIUS
                                     }
                                     onChange={setRadiusLow}
-                                    className={styles.radius}
+                                    className={styles.narrowFieldIcon}
+                                />
+                            </div>
+                            <div className={styles.flexColumn}>
+                                <StyleByGroupSet
+                                    defaultStyleType={STYLE_TYPE_COLOR}
                                 />
                             </div>
                         </div>

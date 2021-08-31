@@ -14,7 +14,7 @@ import EventDialog from './event/EventDialog';
 import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog';
 import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
-import OrgUnitDialog from './OrgUnitDialog';
+import OrgUnitDialog from './orgUnit/OrgUnitDialog';
 import EarthEngineDialog from './earthEngine/EarthEngineDialog';
 import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
 import { EARTH_ENGINE_LAYER } from '../../constants/layers';
@@ -34,7 +34,7 @@ const layerName = () => ({
     trackedEntity: i18n.t('tracked entity'),
     facility: i18n.t('facility'),
     thematic: i18n.t('thematic'),
-    orgUnit: i18n.t('boundary'),
+    orgUnit: i18n.t('org unit'),
     earthEngine: i18n.t('Earth Engine'),
 });
 

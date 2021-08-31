@@ -1,9 +1,13 @@
 export class Layer {
     openDialog(layer) {
+        const dataTest = `addlayeritem-${layer
+            .toLowerCase()
+            .replace(/\s/g, '_')}`;
+
         cy.get('button')
             .contains('Add layer')
             .click();
-        cy.get(`[data-test="addlayeritem-${layer}"]`).click();
+        cy.get(`[data-test="${dataTest}"]`).click();
 
         return this;
     }
