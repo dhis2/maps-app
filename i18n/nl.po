@@ -464,7 +464,7 @@ msgid "is not"
 msgstr ""
 
 msgid "Operator"
-msgstr ""
+msgstr "Operator"
 
 msgid "Date"
 msgstr "Datum\n"
