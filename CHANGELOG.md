@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/dhis2/maps-app/compare/v1.12.1...v1.13.0) (2021-08-31)
+
+
+### Features
+
+* org unit layer (DHIS2-11071) ([#1822](https://github.com/dhis2/maps-app/issues/1822)) ([599dda2](https://github.com/dhis2/maps-app/commit/599dda2659b1afe0e27dfc049e808f89bb1b72d2))
+
 ## [1.12.1](https://github.com/dhis2/maps-app/compare/v1.12.0...v1.12.1) (2021-08-31)
 
 
