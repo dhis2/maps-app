@@ -1,16 +1,16 @@
 # 
 # Translators:
 # phil_dhis2, 2021
+# easylin <lin_xd@126.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # 晓东 林 <13981924470@126.com>, 2021
-# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -145,9 +145,6 @@ msgstr "关闭"
 msgid "Legend position"
 msgstr "图例位置"
 
-msgid "Group Set"
-msgstr "组集"
-
 msgid "Organisation Units"
 msgstr "组织机构管理"
 
@@ -157,9 +154,6 @@ msgstr "风格"
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "记住选择包括机构的等级"
-
-msgid "Group set is required"
-msgstr "需要组集"
 
 msgid "No organisation units are selected"
 msgstr "没有选择机构"
@@ -478,6 +472,15 @@ msgstr "日期"
 msgid "Remove filter"
 msgstr "移除过滤器"
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr "组集"
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "指标组"
 
@@ -703,9 +706,6 @@ msgstr "在该期间没有找到数据"
 
 msgid "Select groups"
 msgstr "选择组"
-
-msgid "Group set"
-msgstr "组集"
 
 msgid "Image of the organisation unit"
 msgstr "组织机构图像"
@@ -1173,6 +1173,9 @@ msgstr "平等间隔"
 msgid "Equal counts"
 msgstr "等数量"
 
+msgid "Symbol"
+msgstr "符号"
+
 msgid "Daily"
 msgstr "每日"
 
@@ -1254,6 +1257,9 @@ msgstr "显示{{total}}中的前{{pageSize}}个事件"
 msgid "No data found"
 msgstr "没有数据被找到"
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr "机构设施"
 
@@ -1306,6 +1312,9 @@ msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请�
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "无法连接到Google Earth Engine。"
+
+msgid "Facility"
+msgstr "功能"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"
