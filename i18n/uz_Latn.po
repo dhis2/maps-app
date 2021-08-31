@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -148,9 +148,6 @@ msgstr "Yopmoq"
 msgid "Legend position"
 msgstr "Tavsif holati"
 
-msgid "Group Set"
-msgstr "Guruhlar toʼplami"
-
 msgid "Organisation Units"
 msgstr "Tashkiliy Boʼlimlar"
 
@@ -160,9 +157,6 @@ msgstr "Услуб"
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Oʼzida muassasani saqlagan tashkiliy boʼlimni tanlashni unutmang."
-
-msgid "Group set is required"
-msgstr "Guruhlar toʼplami talab qilinadi"
 
 msgid "No organisation units are selected"
 msgstr "Tashkiliy boʼlimlar tanlanmagan"
@@ -490,6 +484,15 @@ msgstr "Sana"
 msgid "Remove filter"
 msgstr "Filtrni olib tashlash"
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Koʼrsatgich guruhi"
 
@@ -722,9 +725,6 @@ msgstr "Ushbu davr uchun maʼlumot topilmadi"
 
 msgid "Select groups"
 msgstr "Guruhlarni tanlang"
-
-msgid "Group set"
-msgstr ""
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -1203,6 +1203,9 @@ msgstr "teng intervallar"
 msgid "Equal counts"
 msgstr "Teng miqdorda"
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr "Кунлик"
 
@@ -1284,6 +1287,9 @@ msgstr ""
 msgid "No data found"
 msgstr "Maʼlumotlar topilmadi"
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Muassasalar"
 
@@ -1338,6 +1344,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "Google Earth Engine ga ulanib boʼlmadi."
+
+msgid "Facility"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "Boshlanish sanasi notoʼgʼri"

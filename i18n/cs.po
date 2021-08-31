@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -145,9 +145,6 @@ msgstr "Zavřít"
 msgid "Legend position"
 msgstr "Pozice legendy"
 
-msgid "Group Set"
-msgstr "Skupinová sada"
-
 msgid "Organisation Units"
 msgstr "Organizační jednotky"
 
@@ -157,9 +154,6 @@ msgstr "Styl"
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Nezapomeňte vybrat úroveň organizační jednotky obsahující zařízení."
-
-msgid "Group set is required"
-msgstr "Skupinová sada je povinná"
 
 msgid "No organisation units are selected"
 msgstr "Nejsou vybrány žádné organizační jednotky"
@@ -484,6 +478,15 @@ msgstr "datum"
 msgid "Remove filter"
 msgstr "Odebrat filtr"
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr "Skupinová sada"
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Skupina indikátorů"
 
@@ -715,9 +718,6 @@ msgstr "Pro toto období nenalezeny žádné údaje."
 
 msgid "Select groups"
 msgstr "Vyberte skupiny"
-
-msgid "Group set"
-msgstr "Skupinová sada"
 
 msgid "Image of the organisation unit"
 msgstr "Obrázek organizační jednotky"
@@ -1195,6 +1195,9 @@ msgstr "Stejné intervaly"
 msgid "Equal counts"
 msgstr "Stejné počty"
 
+msgid "Symbol"
+msgstr "Symbol"
+
 msgid "Daily"
 msgstr "Denně"
 
@@ -1276,6 +1279,9 @@ msgstr "Zobrazeno prvních {{pageSize}} událostí z {{total}}"
 msgid "No data found"
 msgstr "Nenalezena žádná data"
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Zařízení"
 
@@ -1330,6 +1336,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "Nelze se připojit k Google Earth Engine."
+
+msgid "Facility"
+msgstr "Zařízení"
 
 msgid "Start date is invalid"
 msgstr "Datum zahájení je neplatné"

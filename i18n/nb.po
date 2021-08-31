@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -145,9 +145,6 @@ msgstr "Lukk"
 msgid "Legend position"
 msgstr "Tegnforklaringsplassering"
 
-msgid "Group Set"
-msgstr "Gruppesett"
-
 msgid "Organisation Units"
 msgstr "Organisasjonsenheter"
 
@@ -157,9 +154,6 @@ msgstr "Stil"
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
-
-msgid "Group set is required"
-msgstr "Gruppesett er påkrevd"
 
 msgid "No organisation units are selected"
 msgstr "Ingen organisasjonsenheter er valgt"
@@ -481,6 +475,15 @@ msgstr "Dato"
 msgid "Remove filter"
 msgstr "Fjern filter"
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr "Gruppesett"
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Indikatorgruppe"
 
@@ -711,9 +714,6 @@ msgstr "Ingen data funnet for denne perioden."
 
 msgid "Select groups"
 msgstr "Velg grupper"
-
-msgid "Group set"
-msgstr "Gruppesett"
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -1190,6 +1190,9 @@ msgstr "Like intervaller"
 msgid "Equal counts"
 msgstr "Likt antall"
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr "Daglig"
 
@@ -1271,6 +1274,9 @@ msgstr ""
 msgid "No data found"
 msgstr "Ingen data funnet"
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Bygninger"
 
@@ -1325,6 +1331,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "Kan ikke koble til Google Earth Engine."
+
+msgid "Facility"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "Startdato er ugyldig"
