@@ -7,16 +7,16 @@
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
 # Alison Andrade <aandrade@ippfwhr.org>, 2021
 # phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,9 +151,6 @@ msgstr "Cerrar"
 msgid "Legend position"
 msgstr ""
 
-msgid "Group Set"
-msgstr ""
-
 msgid "Organisation Units"
 msgstr "Unidades Organizativas"
 
@@ -162,9 +159,6 @@ msgstr "Estilo"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "No organisation units are selected"
@@ -484,6 +478,15 @@ msgstr "Fecha"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr "Set de grupos"
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Grupo de indicadores"
 
@@ -709,9 +712,6 @@ msgstr ""
 
 msgid "Select groups"
 msgstr "Seleccionar grupos"
-
-msgid "Group set"
-msgstr "Set de grupos"
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -1179,6 +1179,9 @@ msgstr "Intervalos iguales"
 msgid "Equal counts"
 msgstr "Cuentas iguales"
 
+msgid "Symbol"
+msgstr "Símbolo"
+
 msgid "Daily"
 msgstr "Diario"
 
@@ -1260,6 +1263,9 @@ msgstr ""
 msgid "No data found"
 msgstr "Dato no encontrado"
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr ""
 
@@ -1312,6 +1318,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr ""
+
+msgid "Facility"
+msgstr "Establecimiento"
 
 msgid "Start date is invalid"
 msgstr ""

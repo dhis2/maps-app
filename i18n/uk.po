@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -145,9 +145,6 @@ msgstr "Закрити"
 msgid "Legend position"
 msgstr ""
 
-msgid "Group Set"
-msgstr ""
-
 msgid "Organisation Units"
 msgstr ""
 
@@ -156,9 +153,6 @@ msgstr "Стиль"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "No organisation units are selected"
@@ -478,6 +472,15 @@ msgstr "Дата"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Група показників"
 
@@ -702,9 +705,6 @@ msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr ""
-
-msgid "Group set"
 msgstr ""
 
 msgid "Image of the organisation unit"
@@ -1173,6 +1173,9 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr "Щодня"
 
@@ -1254,6 +1257,9 @@ msgstr ""
 msgid "No data found"
 msgstr "Даних не знайдено"
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr ""
 
@@ -1305,6 +1311,9 @@ msgid ""
 msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"

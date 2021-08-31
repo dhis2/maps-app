@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-27T10:50:55.598Z\n"
+"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -143,9 +143,6 @@ msgstr "关闭"
 msgid "Legend position"
 msgstr ""
 
-msgid "Group Set"
-msgstr ""
-
 msgid "Organisation Units"
 msgstr "机构"
 
@@ -154,9 +151,6 @@ msgstr "风格"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "No organisation units are selected"
@@ -476,6 +470,15 @@ msgstr "日期"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Group set"
+msgstr "组集"
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "指标组"
 
@@ -701,9 +704,6 @@ msgstr ""
 
 msgid "Select groups"
 msgstr "选择组"
-
-msgid "Group set"
-msgstr "组集"
 
 msgid "Image of the organisation unit"
 msgstr ""
@@ -1171,6 +1171,9 @@ msgstr "平等间隔"
 msgid "Equal counts"
 msgstr "等数量"
 
+msgid "Symbol"
+msgstr "符号"
+
 msgid "Daily"
 msgstr "每日"
 
@@ -1252,6 +1255,9 @@ msgstr ""
 msgid "No data found"
 msgstr "没有发现数据"
 
+msgid "No facilities found"
+msgstr ""
+
 msgid "Facilities"
 msgstr ""
 
@@ -1303,6 +1309,9 @@ msgid ""
 msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"
