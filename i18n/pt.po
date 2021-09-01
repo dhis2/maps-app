@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
+"POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -162,6 +162,9 @@ msgstr ""
 "Lembre-se de selecionar o nível da unidade organizacional que contém as "
 "instalações."
 
+msgid "Point radius"
+msgstr "Raio do ponto"
+
 msgid "No organisation units are selected"
 msgstr "Nenhuma unidade organizacional está selecionada"
 
@@ -177,8 +180,8 @@ msgstr "Instalação"
 msgid "thematic"
 msgstr "temática"
 
-msgid "boundary"
-msgstr "fronteira"
+msgid "org unit"
+msgstr ""
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -194,9 +197,6 @@ msgstr "Actualizar camada"
 
 msgid "Add layer"
 msgstr "Adicionar camada"
-
-msgid "Point radius"
-msgstr "Raio do ponto"
 
 msgid "Aggregation method"
 msgstr ""
@@ -489,11 +489,11 @@ msgstr "Data"
 msgid "Remove filter"
 msgstr "Remover filtro "
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Group set"
 msgstr "Conjunto do grupo"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
 
 msgid "Style by group set"
 msgstr ""
@@ -1295,11 +1295,11 @@ msgstr ""
 msgid "Facilities"
 msgstr "Instalações"
 
-msgid "Boundaries"
-msgstr "Limites"
+msgid "No org units found"
+msgstr ""
 
-msgid "No boundaries found"
-msgstr "Nenhum limite encontrado"
+msgid "Organisation units"
+msgstr "Unidades organizacionais"
 
 msgid "Thematic layer"
 msgstr "Camada temática"
@@ -1318,6 +1318,9 @@ msgstr "Relacionado "
 
 msgid "Thematic"
 msgstr "Temático"
+
+msgid "Org units"
+msgstr "Unidades organizacionais"
 
 msgid "not one of"
 msgstr "não um dos"

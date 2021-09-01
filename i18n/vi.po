@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
+"POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -154,6 +154,9 @@ msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
+msgid "Point radius"
+msgstr "Tỉ lệ Điểm"
+
 msgid "No organisation units are selected"
 msgstr ""
 
@@ -169,7 +172,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -186,9 +189,6 @@ msgstr ""
 
 msgid "Add layer"
 msgstr ""
-
-msgid "Point radius"
-msgstr "Tỉ lệ Điểm"
 
 msgid "Aggregation method"
 msgstr ""
@@ -471,11 +471,11 @@ msgstr "Ngày"
 msgid "Remove filter"
 msgstr ""
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Group set"
 msgstr "Nhóm tập hợp"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
 
 msgid "Style by group set"
 msgstr ""
@@ -1262,11 +1262,11 @@ msgstr ""
 msgid "Facilities"
 msgstr ""
 
-msgid "Boundaries"
+msgid "No org units found"
 msgstr ""
 
-msgid "No boundaries found"
-msgstr ""
+msgid "Organisation units"
+msgstr "Đơn vị"
 
 msgid "Thematic layer"
 msgstr "Lớp Chuyên Đề"
@@ -1285,6 +1285,9 @@ msgstr ""
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Org units"
+msgstr "Các đơn vị"
 
 msgid "not one of"
 msgstr ""
