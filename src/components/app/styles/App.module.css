@@ -1,3 +1,13 @@
+:global(#app) {
+    position: relative;
+    z-index: 0;
+}
+
+:global(#dhis2-portal-root) {
+    position: relative;
+    z-index: 1;
+}
+
 .app {
     font-family: 'Roboto', sans-serif;
     height: 100vh;
