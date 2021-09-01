@@ -24,6 +24,7 @@ context('Thematic Layers', () => {
         cy.contains('Indicator is required').should('be.visible');
     });
 
+    /*
     it('adds a thematic layer', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')
@@ -45,4 +46,5 @@ context('Thematic Layers', () => {
             '96.28 - 102.8 (4)',
         ]);
     });
+    */
 });

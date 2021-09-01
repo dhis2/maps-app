@@ -1,3 +1,13 @@
+:global(#dhis2-app-root) {
+    /* establish a stacking context for the application */
+    isolation: isolate;
+}
+
+:global(#dhis2-portal-root) {
+    /* establish a stacking context for portals */
+    isolation: isolate;
+}
+
 .app {
     font-family: 'Roboto', sans-serif;
     height: 100vh;
