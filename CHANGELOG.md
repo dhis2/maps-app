@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/dhis2/maps-app/compare/v1.13.0...v1.13.1) (2021-09-01)
+
+
+### Bug Fixes
+
+* use debug/dev for now until test instance is fixed ([#1835](https://github.com/dhis2/maps-app/issues/1835)) ([d270358](https://github.com/dhis2/maps-app/commit/d270358567b082a92510c25dd43cc89726c16cb1))
+
 # [1.13.0](https://github.com/dhis2/maps-app/compare/v1.12.1...v1.13.0) (2021-08-31)
 
 
