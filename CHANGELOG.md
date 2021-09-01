@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/dhis2/maps-app/compare/v1.13.1...v1.13.2) (2021-09-01)
+
+
+### Bug Fixes
+
+* dhis2 dependencies upgrade ([#1833](https://github.com/dhis2/maps-app/issues/1833)) ([4c63861](https://github.com/dhis2/maps-app/commit/4c6386124c0e33665651fef62d322c10bbc44a2a))
+
 ## [1.13.1](https://github.com/dhis2/maps-app/compare/v1.13.0...v1.13.1) (2021-09-01)
 
 
