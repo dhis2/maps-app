@@ -8,15 +8,15 @@
 # Yao Selom Saka <ysaka@hispwca.org>, 2021
 # Yayra Gomado <ygomado@hispwca.org>, 2021
 # Bram Piot <bram.piot@gmail.com>, 2021
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
+"POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -161,6 +161,9 @@ msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
+msgid "Point radius"
+msgstr "Taille des points"
+
 msgid "No organisation units are selected"
 msgstr "Aucune unité d'organisation choisie"
 
@@ -176,7 +179,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -193,9 +196,6 @@ msgstr ""
 
 msgid "Add layer"
 msgstr ""
-
-msgid "Point radius"
-msgstr "Taille des points"
 
 msgid "Aggregation method"
 msgstr ""
@@ -479,11 +479,11 @@ msgstr "Date"
 msgid "Remove filter"
 msgstr ""
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Group set"
 msgstr "Ensemble de groupes"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
 
 msgid "Style by group set"
 msgstr ""
@@ -1270,11 +1270,11 @@ msgstr ""
 msgid "Facilities"
 msgstr ""
 
-msgid "Boundaries"
+msgid "No org units found"
 msgstr ""
 
-msgid "No boundaries found"
-msgstr ""
+msgid "Organisation units"
+msgstr "Unités d'organisation"
 
 msgid "Thematic layer"
 msgstr "Thématique"
@@ -1293,6 +1293,9 @@ msgstr ""
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Org units"
+msgstr "OrgUnit"
 
 msgid "not one of"
 msgstr ""

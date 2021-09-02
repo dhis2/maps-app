@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
+"POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -158,6 +158,9 @@ msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Oʼzida muassasani saqlagan tashkiliy boʼlimni tanlashni unutmang."
 
+msgid "Point radius"
+msgstr "Nuqta radiusi"
+
 msgid "No organisation units are selected"
 msgstr "Tashkiliy boʼlimlar tanlanmagan"
 
@@ -173,8 +176,8 @@ msgstr "imkoniyat"
 msgid "thematic"
 msgstr "tematik"
 
-msgid "boundary"
-msgstr "chegara"
+msgid "org unit"
+msgstr ""
 
 msgid "Earth Engine"
 msgstr "Uydagi mexanizm"
@@ -190,9 +193,6 @@ msgstr "Qatlamni yangilash"
 
 msgid "Add layer"
 msgstr "Qatlam qoʼshish"
-
-msgid "Point radius"
-msgstr "Nuqta radiusi"
 
 msgid "Aggregation method"
 msgstr ""
@@ -484,10 +484,10 @@ msgstr "Sana"
 msgid "Remove filter"
 msgstr "Filtrni olib tashlash"
 
-msgid "Failed to load organisation unit groups."
+msgid "Group set"
 msgstr ""
 
-msgid "Group set"
+msgid "Failed to load organisation unit groups."
 msgstr ""
 
 msgid "Style by group set"
@@ -1293,11 +1293,11 @@ msgstr ""
 msgid "Facilities"
 msgstr "Muassasalar"
 
-msgid "Boundaries"
-msgstr "Chegaralar"
+msgid "No org units found"
+msgstr ""
 
-msgid "No boundaries found"
-msgstr "Hech qanday chegara topilmadi"
+msgid "Organisation units"
+msgstr "Tashkiliy birliklar"
 
 msgid "Thematic layer"
 msgstr "Tematik qavat"
@@ -1315,6 +1315,9 @@ msgid "related"
 msgstr "bogʼliqlik"
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "not one of"
