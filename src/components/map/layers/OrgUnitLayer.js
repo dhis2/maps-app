@@ -21,6 +21,7 @@ export default class OrgUnitLayer extends Layer {
             labels,
             radiusLow,
             dataFilters,
+            organisationUnitColor = ORG_UNIT_COLOR,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
@@ -37,7 +38,7 @@ export default class OrgUnitLayer extends Layer {
             hoverLabel: '{name}',
             style: {
                 color: 'transparent',
-                strokeColor: ORG_UNIT_COLOR,
+                strokeColor: organisationUnitColor,
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),

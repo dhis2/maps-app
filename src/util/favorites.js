@@ -58,6 +58,7 @@ const validLayerProperties = [
     'name',
     'noDataColor',
     'opacity',
+    'organisationUnitColor',
     'organisationUnitGroupSet',
     'organisationUnitSelectionMode',
     'params',
