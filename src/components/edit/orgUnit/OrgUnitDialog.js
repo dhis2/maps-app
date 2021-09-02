@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField } from '../../core';
+import { Tab, Tabs, NumberField, ColorPicker } from '../../core';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
 import Labels from '../shared/Labels';
-import { ORG_UNIT_RADIUS, STYLE_TYPE_COLOR } from '../../../constants/layers';
+import {
+    ORG_UNIT_COLOR,
+    ORG_UNIT_RADIUS,
+    STYLE_TYPE_COLOR,
+} from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
 import {
@@ -18,6 +22,7 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setRadiusLow,
+    setOrganisationUnitColor,
 } from '../../../actions/layerEdit';
 
 import {
@@ -32,9 +37,11 @@ class OrgUnitDialog extends Component {
     static propTypes = {
         rows: PropTypes.array,
         radiusLow: PropTypes.number,
+        organisationUnitColor: PropTypes.string,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
+        setOrganisationUnitColor: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
@@ -57,10 +64,12 @@ class OrgUnitDialog extends Component {
         const {
             rows = [],
             radiusLow,
+            organisationUnitColor,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
+            setOrganisationUnitColor,
             setRadiusLow,
         } = this.props;
 
@@ -123,6 +132,14 @@ class OrgUnitDialog extends Component {
                         >
                             <div className={styles.flexColumn}>
                                 <Labels />
+                                <ColorPicker
+                                    label={i18n.t('Color')}
+                                    color={
+                                        organisationUnitColor || ORG_UNIT_COLOR
+                                    }
+                                    onChange={setOrganisationUnitColor}
+                                    className={styles.narrowField}
+                                />
                                 <NumberField
                                     label={i18n.t('Point radius')}
                                     value={
@@ -179,6 +196,7 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setRadiusLow,
+        setOrganisationUnitColor,
     },
     null,
     {
