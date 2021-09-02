@@ -1289,7 +1289,7 @@ msgid "No org units found"
 msgstr ""
 
 msgid "Organisation units"
-msgstr ""
+msgstr "Organizační jednotky"
 
 msgid "Thematic layer"
 msgstr "Tematická vrstva"
@@ -1310,7 +1310,7 @@ msgid "Thematic"
 msgstr "Tematický"
 
 msgid "Org units"
-msgstr ""
+msgstr "Organizační jednotky"
 
 msgid "not one of"
 msgstr "není jeden z"

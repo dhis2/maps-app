@@ -1265,7 +1265,7 @@ msgid "No org units found"
 msgstr ""
 
 msgid "Organisation units"
-msgstr ""
+msgstr "воҳидҳои сохторӣ"
 
 msgid "Thematic layer"
 msgstr "Қабати мавзӯӣ"
@@ -1286,7 +1286,7 @@ msgid "Thematic"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "воҳидҳои сохторӣ"
 
 msgid "not one of"
 msgstr ""

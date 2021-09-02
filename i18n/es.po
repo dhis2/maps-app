@@ -6,9 +6,9 @@
 # Jaime Bosque <jaime.bosque@dhis2.org>, 2020
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
-# Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
 # Alison Andrade <aandrade@ippfwhr.org>, 2021
 # phil_dhis2, 2021
+# Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # 
 msgid ""
@@ -1273,7 +1273,7 @@ msgid "No org units found"
 msgstr ""
 
 msgid "Organisation units"
-msgstr ""
+msgstr "Unidades organizativas"
 
 msgid "Thematic layer"
 msgstr "Capa temática"
@@ -1294,7 +1294,7 @@ msgid "Thematic"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "Unidades organizativas"
 
 msgid "not one of"
 msgstr ""
