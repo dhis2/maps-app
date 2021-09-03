@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
+"POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -161,6 +161,9 @@ msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Ingatlah untuk memilih tingkat unit organisasi yang berisi fasilitas."
 
+msgid "Point radius"
+msgstr "Radius titik"
+
 msgid "No organisation units are selected"
 msgstr "Tidak ada unit organisasi yang dipilih"
 
@@ -176,8 +179,8 @@ msgstr "fasilitas"
 msgid "thematic"
 msgstr "tematik"
 
-msgid "boundary"
-msgstr "batas"
+msgid "org unit"
+msgstr ""
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -193,9 +196,6 @@ msgstr "Update layer"
 
 msgid "Add layer"
 msgstr "Tambahkan layer"
-
-msgid "Point radius"
-msgstr "Radius titik"
 
 msgid "Aggregation method"
 msgstr "Metode agregasi"
@@ -489,11 +489,11 @@ msgstr "Tanggal"
 msgid "Remove filter"
 msgstr "Hapus filter"
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Group set"
 msgstr "set satu grup"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
 
 msgid "Style by group set"
 msgstr ""
@@ -1298,11 +1298,11 @@ msgstr ""
 msgid "Facilities"
 msgstr "Fasilitas"
 
-msgid "Boundaries"
-msgstr "Batas"
+msgid "No org units found"
+msgstr ""
 
-msgid "No boundaries found"
-msgstr "Tidak ada batasan yang ditemukan"
+msgid "Organisation units"
+msgstr "Unit organisasi"
 
 msgid "Thematic layer"
 msgstr "Layer tematik"
@@ -1321,6 +1321,9 @@ msgstr "terkait"
 
 msgid "Thematic"
 msgstr "Tematik"
+
+msgid "Org units"
+msgstr ""
 
 msgid "not one of"
 msgstr "bukan salah satu dari"

@@ -168,6 +168,12 @@ export const setOrganisationUnitGroupSet = organisationUnitGroupSet => ({
     organisationUnitGroupSet,
 });
 
+// Set organisation unit color (org unit and facility layer)
+export const setOrganisationUnitColor = color => ({
+    type: types.LAYER_EDIT_ORGANISATION_UNIT_COLOR_SET,
+    color,
+});
+
 // Set period label (earth engine)
 export const setPeriodName = periodName => ({
     type: types.LAYER_EDIT_PERIOD_NAME_SET,

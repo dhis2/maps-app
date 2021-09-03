@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-30T11:20:13.485Z\n"
+"POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -156,6 +156,9 @@ msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr "Имконияти мавжуд ташкилий бўлим поғонасини танлашни унутманг."
 
+msgid "Point radius"
+msgstr "Нуқта радиуси"
+
 msgid "No organisation units are selected"
 msgstr "Ташкилий бўлимлар танланмаган"
 
@@ -171,8 +174,8 @@ msgstr "муассаса"
 msgid "thematic"
 msgstr "тематик"
 
-msgid "boundary"
-msgstr "чегара"
+msgid "org unit"
+msgstr ""
 
 msgid "Earth Engine"
 msgstr "Уйдаги механизм"
@@ -188,9 +191,6 @@ msgstr "Қатламни янгилаш"
 
 msgid "Add layer"
 msgstr "Қатлам қўшиш"
-
-msgid "Point radius"
-msgstr "Нуқта радиуси"
 
 msgid "Aggregation method"
 msgstr ""
@@ -479,11 +479,11 @@ msgstr "Сана"
 msgid "Remove filter"
 msgstr "Фильтрни олиб ташлаш"
 
-msgid "Failed to load organisation unit groups."
-msgstr ""
-
 msgid "Group set"
 msgstr "Гуруҳлар тўплами"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
 
 msgid "Style by group set"
 msgstr ""
@@ -1285,11 +1285,11 @@ msgstr ""
 msgid "Facilities"
 msgstr "Муассасалар"
 
-msgid "Boundaries"
-msgstr "Чегаралар"
+msgid "No org units found"
+msgstr ""
 
-msgid "No boundaries found"
-msgstr "Ҳеч қандай чегара топилмади"
+msgid "Organisation units"
+msgstr "Ташкилий бўлимлар"
 
 msgid "Thematic layer"
 msgstr "Тематик қават"
@@ -1308,6 +1308,9 @@ msgstr "боғлиқлик"
 
 msgid "Thematic"
 msgstr "Тематик"
+
+msgid "Org units"
+msgstr "Ташкилий бўлим"
 
 msgid "not one of"
 msgstr "биттаси ҳам эмас"

@@ -23,10 +23,10 @@ class FacilityLayer extends Layer {
             dataFilters,
             labels,
             areaRadius,
+            organisationUnitColor: color = ORG_UNIT_COLOR,
             organisationUnitGroupSet,
         } = this.props;
 
-        const color = ORG_UNIT_COLOR;
         const filteredData = filterData(data, dataFilters);
 
         const map = this.context.map;
