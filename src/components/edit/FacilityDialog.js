@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import cx from 'classnames';
-import { Tab, Tabs, Help, NumberField } from '../core';
+import { Tab, Tabs, Help, NumberField, ColorPicker } from '../core';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
@@ -12,6 +12,7 @@ import Labels from './shared/Labels';
 import BufferRadius from './shared/BufferRadius';
 import StyleByGroupSet from '../groupSet/StyleByGroupSet';
 import {
+    ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS,
     FACILITY_BUFFER,
     STYLE_TYPE_SYMBOL,
@@ -24,6 +25,7 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setRadiusLow,
+    setOrganisationUnitColor,
 } from '../../actions/layerEdit';
 
 import {
@@ -38,12 +40,14 @@ class FacilityDialog extends Component {
     static propTypes = {
         rows: PropTypes.array,
         radiusLow: PropTypes.number,
+        organisationUnitColor: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
+        setOrganisationUnitColor: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -67,12 +71,14 @@ class FacilityDialog extends Component {
         const {
             rows = [],
             radiusLow,
+            organisationUnitColor,
             organisationUnitGroupSet,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
             setRadiusLow,
+            setOrganisationUnitColor,
         } = this.props;
 
         const { tab, orgUnitsError } = this.state;
@@ -140,6 +146,14 @@ class FacilityDialog extends Component {
                         >
                             <div className={cx(styles.flexColumn)}>
                                 <Labels />
+                                <ColorPicker
+                                    label={i18n.t('Color')}
+                                    color={
+                                        organisationUnitColor || ORG_UNIT_COLOR
+                                    }
+                                    onChange={setOrganisationUnitColor}
+                                    className={styles.narrowField}
+                                />
                                 <NumberField
                                     label={i18n.t('Point radius')}
                                     value={
@@ -198,6 +212,7 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setRadiusLow,
+        setOrganisationUnitColor,
     },
     null,
     {
