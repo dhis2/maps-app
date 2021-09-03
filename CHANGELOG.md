@@ -1,3 +1,10 @@
+## [1.13.4](https://github.com/dhis2/maps-app/compare/v1.13.3...v1.13.4) (2021-09-03)
+
+
+### Bug Fixes
+
+* organisation unit color ([#1837](https://github.com/dhis2/maps-app/issues/1837)) ([eadf030](https://github.com/dhis2/maps-app/commit/eadf030442b7600f1b751bf6a2c33e6dc4912765))
+
 ## [1.13.3](https://github.com/dhis2/maps-app/compare/v1.13.2...v1.13.3) (2021-09-02)
 
 
