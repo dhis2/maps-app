@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2021
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"PO-Revision-Date: 2021-09-04 00:11+0000\n"
+"Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Phần Tử Dữ Liệu"
+msgstr "Phần tử dữ liệu"
 
 msgid "Totals"
 msgstr "Tổng"
@@ -93,7 +93,7 @@ msgid "Value"
 msgstr "Giá trị"
 
 msgid "Legend"
-msgstr "Chú Thích"
+msgstr "Chú giải"
 
 msgid "Range"
 msgstr "Khoảng"
@@ -105,7 +105,7 @@ msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "Type"
+msgstr "Loại"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -139,7 +139,7 @@ msgid "Cancel"
 msgstr "Hủy"
 
 msgid "Close"
-msgstr "Đóng"
+msgstr "Đóng lại"
 
 msgid "Legend position"
 msgstr ""
@@ -203,7 +203,7 @@ msgid "Data"
 msgstr "Dữ liệu"
 
 msgid "Period"
-msgstr "Thời gian"
+msgstr "Thời điểm"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -262,7 +262,7 @@ msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr "Bộ lọc"
+msgstr "Lọc"
 
 msgid "Events"
 msgstr "Sự kiện"
@@ -484,7 +484,7 @@ msgid "Indicator group"
 msgstr "Nhóm chỉ số"
 
 msgid "Interpretations"
-msgstr "Diễn giải báo cáo"
+msgstr "Diễn giải "
 
 msgid "Collapse"
 msgstr "Thu gọn"
@@ -531,7 +531,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "Sửa"
+msgstr "Chỉnh sửa"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -865,7 +865,7 @@ msgid "Standard deviation"
 msgstr "Độ lệch chuẩn"
 
 msgid "Variance"
-msgstr "Sự khác nhau"
+msgstr "Phương sai"
 
 msgid "Percentage"
 msgstr "Phần trăm"
