@@ -1,22 +1,23 @@
 # 
 # Translators:
-# Austin McGee <austin@dhis2.org>, 2019
-# Matthieu Pinard <matthieu@pinard.no>, 2019
-# Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
-# Edem Kossi <ekossi@hispwca.org>, 2020
-# Yao Selom Saka <ysaka@hispwca.org>, 2021
-# Yayra Gomado <ygomado@hispwca.org>, 2021
+# Alice Aké <aliceal@ifi.uio.no>, 2021
+# Matthieu Pinard <matthieu@pinard.no>, 2021
+# Edem Kossi <ekossi@hispwca.org>, 2021
+# Karoline Tufte Lien <karoline@dhis2.org>, 2021
 # Bram Piot <bram.piot@gmail.com>, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2021
+# Yayra Gomado <ygomado@hispwca.org>, 2021
 # phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
+# Austin McGee <austin@dhis2.org>, 2021
+# Yao Selom Saka <ysaka@hispwca.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"PO-Revision-Date: 2021-09-04 00:11+0000\n"
+"Last-Translator: Yao Selom Saka <ysaka@hispwca.org>, 2021\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,13 +50,13 @@ msgid "Data element operand"
 msgstr "élément de donnée opérande"
 
 msgid "Data element"
-msgstr "Élément de données"
+msgstr "Élément de donnée"
 
 msgid "Totals"
-msgstr "Totaux "
+msgstr "Totaux"
 
 msgid "Details"
-msgstr "Détails"
+msgstr "Details"
 
 msgid "Yes"
 msgstr "Oui"
@@ -269,7 +270,7 @@ msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr "Filtrer"
+msgstr "Filtre"
 
 msgid "Events"
 msgstr "Événements"
@@ -413,7 +414,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr "Entités suiviées "
+msgstr "Entités suivies "
 
 msgid "Tracked entity style"
 msgstr ""
@@ -446,14 +447,14 @@ msgid "Refresh to try again"
 msgstr "Actualiser pour réessayer"
 
 msgid "Hide technical details"
-msgstr "Cacher les détails techniques"
+msgstr "Masquer les détails techniques"
 
 msgid "Show technical details"
 msgstr "Afficher les détails techniques"
 
 msgid "The following information may be requested by technical support."
 msgstr ""
-"Les informations suivantes peuvent être demandées par support technique."
+"Les informations suivantes peuvent être demandées par le support technique."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -605,7 +606,7 @@ msgid "Latitude"
 msgstr "Latitude"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "Affichage de l'interprétation de {{interpretationDate}}"
+msgstr "Affichage de l'interprétation à partir de {{interpretationDate}}"
 
 msgid "Not set"
 msgstr "Non défini"

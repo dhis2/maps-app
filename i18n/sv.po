@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Jason Pickering <jason@dhis2.org>, 2019
-# Viktor Varland <viktor@dhis2.org>, 2021
+# Jason Pickering <jason@dhis2.org>, 2021
 # phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"PO-Revision-Date: 2021-09-04 00:11+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Swedish (https://www.transifex.com/hisp-uio/teams/100509/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,7 +136,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Annullera"
+msgstr "Avbryt"
 
 msgid "Close"
 msgstr "Stänga"
@@ -349,7 +349,7 @@ msgid "Indicator"
 msgstr "Indikator"
 
 msgid "Reporting rates"
-msgstr "rapporterings~~POS=TRUNC priser"
+msgstr "rapporterings~~POS\\=TRUNC priser"
 
 msgid "Event data items"
 msgstr "Händelsedataposter"
@@ -603,7 +603,7 @@ msgid "Not set"
 msgstr "Inte inställd"
 
 msgid "Organisation unit"
-msgstr "Organisation enhet"
+msgstr "Organisationsenhet"
 
 msgid "Parent unit"
 msgstr "föräldraenheten"

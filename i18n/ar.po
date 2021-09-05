@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Hamza Assada <7amza.it@gmail.com>, 2021
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# Hamza Assada <7amza.it@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"PO-Revision-Date: 2021-09-04 00:11+0000\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgid "Classes"
 msgstr "التصنيفات"
 
 msgid "Legend set"
-msgstr "حزمة وسائل الإيضاح"
+msgstr "حزمة المفاتيح الإيضاحية"
 
 msgid "Color"
 msgstr "اللون"
@@ -93,7 +93,7 @@ msgid "Value"
 msgstr "القيمة"
 
 msgid "Legend"
-msgstr "شروحات"
+msgstr "مفاتيح إيضاحية"
 
 msgid "Range"
 msgstr "نطاق"
@@ -120,7 +120,7 @@ msgid "Dimension"
 msgstr "البُعد"
 
 msgid "Download"
-msgstr "تحميل"
+msgstr "تنزيل"
 
 msgid "Download map"
 msgstr "تنزيل الخريطة"
@@ -224,7 +224,7 @@ msgid "Source"
 msgstr "المصدر"
 
 msgid "Year"
-msgstr "السنة"
+msgstr "سنة"
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -350,7 +350,7 @@ msgid "Indicator"
 msgstr "المؤشر"
 
 msgid "Reporting rates"
-msgstr "معدلات إعداد التقارير"
+msgstr "معدلات إرسال البلاغات"
 
 msgid "Event data items"
 msgstr "عناصر بيانات الحدث"
@@ -434,10 +434,10 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr "حدث خطأ في تطبيق خرائط DHIS2."
 
 msgid "Something went wrong"
-msgstr "هناك خطأ ما"
+msgstr "حدث خطأ ما"
 
 msgid "Refresh to try again"
-msgstr "حدث للمحاولة مرة أخرى"
+msgstr "قم بالتحديث للمحاولة مرة أخرى"
 
 msgid "Hide technical details"
 msgstr "إخفاء التفاصيل التقنية"
@@ -458,7 +458,7 @@ msgid "contains"
 msgstr "يحتوي على"
 
 msgid "is"
-msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
+msgstr "confirm_delete_relationship_type\\=هل تريد بالتأكيد حذف نوع العلاقة؟"
 
 msgid "is not"
 msgstr "ليس"
@@ -488,7 +488,7 @@ msgid "Interpretations"
 msgstr "التفسيرات"
 
 msgid "Collapse"
-msgstr "انهيار"
+msgstr "لملمة"
 
 msgid "Expand"
 msgstr "توسيع"
@@ -557,7 +557,7 @@ msgid "Download data"
 msgstr "تنزيل البيانات"
 
 msgid "Edit layer"
-msgstr "تحرير الطبقة"
+msgstr "تعديل الطبقة"
 
 msgid "Remove layer"
 msgstr "أزل الطبقة"
@@ -714,7 +714,7 @@ msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr "الرمز"
+msgstr "الكود"
 
 msgid "Short name"
 msgstr "الاسم المختصر"
@@ -839,7 +839,7 @@ msgid "Not available offline"
 msgstr ""
 
 msgid "Program indicator"
-msgstr "مؤشر البرنامج"
+msgstr "مؤشرات البرنامج"
 
 msgid "No program"
 msgstr "لا يوجد برنامج"
@@ -1217,10 +1217,10 @@ msgid "Quarterly"
 msgstr "ربعي"
 
 msgid "Six-monthly"
-msgstr "كل ستة أشهر"
+msgstr "كل ستة-أشهر"
 
 msgid "Six-monthly April"
-msgstr "كل ستة أشهر، ابريل"
+msgstr "نصف سنوي، كل ستة أشهر، ابريل"
 
 msgid "Yearly"
 msgstr "سنوي"
@@ -1259,13 +1259,13 @@ msgid "An unknown error occurred while reading layer data"
 msgstr "حدث خطأ غير معروف أثناء قراءة بيانات الطبقة"
 
 msgid "Event"
-msgstr "الحدث"
+msgstr "حدث"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
-msgstr "لم توجد بيانات"
+msgstr "لم يتم إيجاد بيانات"
 
 msgid "No facilities found"
 msgstr ""

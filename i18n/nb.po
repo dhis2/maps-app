@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Caroline Hesthagen Holen <caroline@devotta.no>, 2021
 # Karoline Tufte Lien <karoline@dhis2.org>, 2021
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2021\n"
+"PO-Revision-Date: 2021-09-04 00:11+0000\n"
+"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -350,7 +350,7 @@ msgid "Indicator"
 msgstr "Indikator"
 
 msgid "Reporting rates"
-msgstr "Rapporteringsrater"
+msgstr "Rapporteringsfrekvens"
 
 msgid "Event data items"
 msgstr "Hendelsesdatapunkter"
@@ -702,7 +702,7 @@ msgid "Proceed"
 msgstr "Fortsett"
 
 msgid "Options"
-msgstr "Alternativer"
+msgstr "Alternativ"
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -1260,10 +1260,10 @@ msgid "No coordinates found"
 msgstr "Ingen koordinater funnet"
 
 msgid "You don't have access to this layer data"
-msgstr "Du har ikke tilgang til disse lagdataene"
+msgstr "Du har ikke tilgang til disse kartlagdataene"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr "En ukjent feil oppstod under lesing av lagdata"
+msgstr "En ukjent feil oppstod under lesing av kartlagdata"
 
 msgid "Event"
 msgstr "Hendelse"

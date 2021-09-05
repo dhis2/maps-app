@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,7 @@ msgid "thematic"
 msgstr "tematický"
 
 msgid "org unit"
-msgstr ""
+msgstr "org. jednotka"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -250,7 +250,7 @@ msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Platné kroky jsou {{minSteps}} až {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
-msgstr ""
+msgstr "Jednotka: {{ unit }}"
 
 msgid "Min"
 msgstr "Min"
@@ -361,7 +361,7 @@ msgid "Event data items"
 msgstr "Položky dat události"
 
 msgid "Program indicators"
-msgstr "Ukazatele programu"
+msgstr "Indikátory programu"
 
 msgid "Item type"
 msgstr "Typ položky"
@@ -482,10 +482,10 @@ msgid "Group set"
 msgstr "Skupinová sada"
 
 msgid "Failed to load organisation unit groups."
-msgstr ""
+msgstr "Skupiny organizačních jednotek se nepodařilo načíst."
 
 msgid "Style by group set"
-msgstr ""
+msgstr "Styl podle sady skupiny"
 
 msgid "Indicator group"
 msgstr "Skupina indikátorů"
@@ -662,7 +662,7 @@ msgid "km"
 msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr "Změřte vzdálenosti a oblasti"
+msgstr "Změřit vzdálenosti a plohy"
 
 msgid "mi"
 msgstr "mi"
@@ -671,7 +671,7 @@ msgid "Perimeter"
 msgstr "Obvod"
 
 msgid "Reset bearing to north"
-msgstr "Resetujte natočení k severu"
+msgstr "Resetovat natočení k severu"
 
 msgid "Search for place or address"
 msgstr "Vyhledat místo nebo adresu"
@@ -717,7 +717,7 @@ msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
 
 msgid "Select groups"
-msgstr "Vyberte skupiny"
+msgstr "Vybrat skupiny"
 
 msgid "Image of the organisation unit"
 msgstr "Obrázek organizační jednotky"
@@ -1090,13 +1090,13 @@ msgid "Distinct landcover types collected from satellites."
 msgstr "Zřetelné typy krajinného pokrytí shromážděné ze satelitů."
 
 msgid "Evergreen Needleleaf forest"
-msgstr "Jehličnatý les"
+msgstr "Stálezelený jehličnatý les"
 
 msgid "Evergreen Broadleaf forest"
 msgstr "Stálezelený listnatý les"
 
 msgid "Deciduous Needleleaf forest"
-msgstr "Listnatý jehličnatý les"
+msgstr "Opadavý jehličnatý les"
 
 msgid "Deciduous Broadleaf forest"
 msgstr "Listnatý opadavý les"
@@ -1135,7 +1135,7 @@ msgid "Snow and ice"
 msgstr "Sníh a led"
 
 msgid "Barren or sparsely vegetated"
-msgstr "Neplodná nebo řídce vegetovaná"
+msgstr "Neplodná nebo řídce porostlá"
 
 msgid "Water"
 msgstr "Voda"
@@ -1153,8 +1153,8 @@ msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
-"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně "
-"plynových erupcí."
+"Intenzita světla z měst a dalších míst s trvalým osvětlením, včetně hořících"
+" plynových úniků."
 
 msgid "All"
 msgstr "Vše"
@@ -1280,13 +1280,13 @@ msgid "No data found"
 msgstr "Nenalezena žádná data"
 
 msgid "No facilities found"
-msgstr ""
+msgstr "Nebylo nalezeno žádné zařízení"
 
 msgid "Facilities"
 msgstr "Zařízení"
 
 msgid "No org units found"
-msgstr ""
+msgstr "Nebyly nalezeny žádné organizační jednotky"
 
 msgid "Organisation units"
 msgstr "Organizační jednotky"

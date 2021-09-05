@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
@@ -169,7 +169,7 @@ msgid "tracked entity"
 msgstr "кузатувдаги объект"
 
 msgid "facility"
-msgstr "муассаса"
+msgstr "имконият"
 
 msgid "thematic"
 msgstr "тематик"
@@ -267,7 +267,7 @@ msgid "Filter"
 msgstr "Фильтр"
 
 msgid "Events"
-msgstr "Ҳодисалар"
+msgstr "Ҳодиса/Тадбирлар"
 
 msgid "Group events"
 msgstr "Ҳодиса/Тадбирлар гуруҳлари"
@@ -295,7 +295,7 @@ msgid "No legend set is selected"
 msgstr "Таърифлар тўплами танланмаган"
 
 msgid "Event status"
-msgstr "Ҳодиса/Тадбир ҳолати"
+msgstr "Ҳодиса/тадбир ҳолати"
 
 msgid "Buffer"
 msgstr "Буфер"
@@ -304,7 +304,7 @@ msgid "Radius in meters"
 msgstr "Радиус метрларда"
 
 msgid "Labels"
-msgstr "Ёрлиқлар"
+msgstr "Ёрлиқ/Белгилар"
 
 msgid "Aggregation type"
 msgstr "Бирлаштириш тури"
@@ -358,7 +358,7 @@ msgid "Event data items"
 msgstr "Ҳодиса/Тадбирлар ҳақида маълумот элементлари"
 
 msgid "Program indicators"
-msgstr "Дастур кўрсатгичлари"
+msgstr "Дастур индикаторлари"
 
 msgid "Item type"
 msgstr "Элемент тури"
@@ -367,7 +367,7 @@ msgid "Select period when tracked entities were last updated"
 msgstr "Кузатувдаги объектлар маълумоти янгиланганлиги охирги даврини танланг"
 
 msgid "Program/Enrollment date"
-msgstr "Дастур/рўйхатга олинган сана"
+msgstr "Дастур/қайд қилиш санаси"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr "сана, кузатувдаги шахс рўйхатга олинган ёки дастурда рўйхатга олинган"
@@ -489,7 +489,7 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Кўрсатгич гуруҳи"
+msgstr "Индикатор гуруҳи"
 
 msgid "Interpretations"
 msgstr "Талқинлар"
@@ -614,7 +614,7 @@ msgid "Not set"
 msgstr "Ўрнатилмаган"
 
 msgid "Organisation unit"
-msgstr "Ташкилий бирлик"
+msgstr "Ташкилий бўлим"
 
 msgid "Parent unit"
 msgstr "Аждод бўлими"
@@ -779,7 +779,7 @@ msgid "user organisation unit"
 msgstr "Фойдаланувчининг ташкилий бўлими"
 
 msgid "right below user organisation unit"
-msgstr "Фойдаланувчининг ташкилий бўлими остида"
+msgstr "Фойдаланувчининг ташкилий бўлимидан қуйида"
 
 msgid "two levels below user organisation unit"
 msgstr "Фойдаланувчининг ташкилий бўлимидан икки поғона қуйи"
@@ -857,7 +857,7 @@ msgid "No program"
 msgstr "Дастур мавжуд эмас"
 
 msgid "Program"
-msgstr "Программа"
+msgstr "Дастур"
 
 msgid "Stage"
 msgstr "Босқич"
@@ -920,7 +920,7 @@ msgid "Bing Aerial"
 msgstr "Гибрид кўриниш"
 
 msgid "Bing Aerial Labels"
-msgstr "Белгилар"
+msgstr "Қатлам белгилари"
 
 msgid "Population"
 msgstr ""
@@ -1166,7 +1166,7 @@ msgid "Completed"
 msgstr "Тўлдирилди"
 
 msgid "Schedule"
-msgstr "Режа жадвали"
+msgstr "Режа"
 
 msgid "Overdue"
 msgstr "Муддат ўтган"
@@ -1256,7 +1256,7 @@ msgid "Map \"{{name}}\" is saved."
 msgstr "Харита \"{{исми}}\" сақланган"
 
 msgid "Error"
-msgstr "Хато"
+msgstr "Хатолик"
 
 msgid "Selected org units"
 msgstr "Танланган танланган бўлимлар"
@@ -1271,7 +1271,7 @@ msgid "An unknown error occurred while reading layer data"
 msgstr "Қатлам маълумотларини ўқиш пайтида номаълум хатолик юз берди"
 
 msgid "Event"
-msgstr "Тадбир"
+msgstr "Ҳодиса/Тадбир"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
@@ -1283,7 +1283,7 @@ msgid "No facilities found"
 msgstr ""
 
 msgid "Facilities"
-msgstr "Муассасалар"
+msgstr "Имкониятлар"
 
 msgid "No org units found"
 msgstr ""
@@ -1304,7 +1304,7 @@ msgid "No tracked entities found"
 msgstr "Ҳеч қандай кузатувдаги объект топилмади"
 
 msgid "related"
-msgstr "боғлиқлик"
+msgstr "боғланган"
 
 msgid "Thematic"
 msgstr "Тематик"
@@ -1322,7 +1322,7 @@ msgid "true"
 msgstr "тўғри"
 
 msgid "false"
-msgstr "ёлғон"
+msgstr "нотўғри"
 
 msgid "No"
 msgstr "Йўқ"
