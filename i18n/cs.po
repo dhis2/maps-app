@@ -174,7 +174,7 @@ msgid "thematic"
 msgstr "tematický"
 
 msgid "org unit"
-msgstr ""
+msgstr "org. jednotka"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -250,7 +250,7 @@ msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Platné kroky jsou {{minSteps}} až {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
-msgstr ""
+msgstr "Jednotka: {{ unit }}"
 
 msgid "Min"
 msgstr "Min"
@@ -482,10 +482,10 @@ msgid "Group set"
 msgstr "Skupinová sada"
 
 msgid "Failed to load organisation unit groups."
-msgstr ""
+msgstr "Skupiny organizačních jednotek se nepodařilo načíst."
 
 msgid "Style by group set"
-msgstr ""
+msgstr "Styl podle sady skupiny"
 
 msgid "Indicator group"
 msgstr "Skupina indikátorů"
@@ -1280,13 +1280,13 @@ msgid "No data found"
 msgstr "Nenalezena žádná data"
 
 msgid "No facilities found"
-msgstr ""
+msgstr "Nebylo nalezeno žádné zařízení"
 
 msgid "Facilities"
 msgstr "Zařízení"
 
 msgid "No org units found"
-msgstr ""
+msgstr "Nebyly nalezeny žádné organizační jednotky"
 
 msgid "Organisation units"
 msgstr "Organizační jednotky"
