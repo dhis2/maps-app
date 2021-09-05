@@ -1,16 +1,16 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # 晓东 林 <13981924470@126.com>, 2021
 # phil_dhis2, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -174,7 +174,7 @@ msgid "thematic"
 msgstr "主题"
 
 msgid "org unit"
-msgstr ""
+msgstr "组织单位"
 
 msgid "Earth Engine"
 msgstr "地图引擎"
@@ -245,7 +245,7 @@ msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
-msgstr ""
+msgstr "机构: {{ unit }}"
 
 msgid "Min"
 msgstr "最小"
@@ -476,10 +476,10 @@ msgid "Group set"
 msgstr "组集"
 
 msgid "Failed to load organisation unit groups."
-msgstr ""
+msgstr "未能加载组织机构组。"
 
 msgid "Style by group set"
-msgstr ""
+msgstr "按组集设置样式"
 
 msgid "Indicator group"
 msgstr "指标组"
@@ -1258,13 +1258,13 @@ msgid "No data found"
 msgstr "没有数据被找到"
 
 msgid "No facilities found"
-msgstr ""
+msgstr "没有找到机构设施"
 
 msgid "Facilities"
 msgstr "机构设施"
 
 msgid "No org units found"
-msgstr ""
+msgstr "未找到组织机构"
 
 msgid "Organisation units"
 msgstr "组织机构"
