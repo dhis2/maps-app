@@ -36,6 +36,8 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 
+import { fetchFacilityConfigurations } from '../../util/orgUnits';
+
 class FacilityDialog extends Component {
     static propTypes = {
         rows: PropTypes.array,
@@ -57,6 +59,10 @@ class FacilityDialog extends Component {
         this.state = {
             tab: 'orgunits',
         };
+    }
+
+    componentDidMount() {
+        fetchFacilityConfigurations().then(config => this.setState(config));
     }
 
     componentDidUpdate(prev) {
@@ -81,11 +87,18 @@ class FacilityDialog extends Component {
             setOrganisationUnitColor,
         } = this.props;
 
-        const { tab, orgUnitsError } = this.state;
+        const {
+            tab,
+            facilityOrgUnitLevel,
+            facilityOrgUnitGroupSet,
+            orgUnitsError,
+        } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
+
+        // console.log('#', facilityOrgUnitLevel, facilityOrgUnitGroupSet);
 
         return (
             <div data-test="facilitydialog">
@@ -111,6 +124,7 @@ class FacilityDialog extends Component {
                                     orgUnitLevel={getOrgUnitLevelsFromRows(
                                         rows
                                     )}
+                                    defaultLevel={facilityOrgUnitLevel}
                                     onChange={setOrgUnitLevels}
                                     disabled={hasUserOrgUnits}
                                 />
@@ -170,6 +184,7 @@ class FacilityDialog extends Component {
                             <div className={styles.flexColumn}>
                                 <StyleByGroupSet
                                     defaultStyleType={STYLE_TYPE_SYMBOL}
+                                    defaultGroupSet={facilityOrgUnitGroupSet}
                                 />
                             </div>
                         </div>

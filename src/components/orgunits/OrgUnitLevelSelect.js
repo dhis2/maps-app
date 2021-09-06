@@ -14,7 +14,9 @@ const style = {
 
 export class OrgUnitLevelSelect extends Component {
     static propTypes = {
-        defaultLevel: PropTypes.number,
+        defaultLevel: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
         orgUnitLevel: PropTypes.array,
         orgUnitLevels: PropTypes.array,
         loadOrgUnitLevels: PropTypes.func.isRequired,
@@ -56,7 +58,7 @@ export class OrgUnitLevelSelect extends Component {
             orgUnitLevels
         ) {
             const levelItem = orgUnitLevels.find(
-                item => item.level === defaultLevel
+                item => item.id === defaultLevel.id
             );
 
             if (levelItem) {

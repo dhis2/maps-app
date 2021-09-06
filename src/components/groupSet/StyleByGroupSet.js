@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -9,9 +9,18 @@ import styles from '../edit/styles/LayerDialog.module.css';
 
 export const StyleByGroupSet = ({
     defaultStyleType,
+    defaultGroupSet,
     groupSet,
     setOrganisationUnitGroupSet,
 }) => {
+    // console.log('#', defaultGroupSet, groupSet);
+
+    useEffect(() => {
+        if (defaultGroupSet && groupSet === undefined) {
+            setOrganisationUnitGroupSet(defaultGroupSet);
+        }
+    }, [groupSet, defaultGroupSet, setOrganisationUnitGroupSet]);
+
     return (
         <div>
             <GroupSetSelect
@@ -33,6 +42,9 @@ export const StyleByGroupSet = ({
 
 StyleByGroupSet.propTypes = {
     defaultStyleType: PropTypes.string,
+    defaultGroupSet: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
     groupSet: PropTypes.shape({
         id: PropTypes.string.isRequired,
     }),
