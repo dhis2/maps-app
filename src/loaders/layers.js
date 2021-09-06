@@ -5,6 +5,7 @@ import thematicLoader from './thematicLoader';
 import orgUnitLoader from './orgUnitLoader';
 import earthEngineLoader from './earthEngineLoader';
 import externalLoader from './externalLoader';
+import flowLoader from './flowLoader';
 
 const layerType = {
     event: eventLoader,
@@ -14,6 +15,7 @@ const layerType = {
     orgUnit: orgUnitLoader,
     earthEngine: earthEngineLoader,
     external: externalLoader,
+    flow: flowLoader,
 };
 
 export const fetchLayer = config => {

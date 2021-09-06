@@ -10,6 +10,7 @@ export const EXTERNAL_LAYER = 'external';
 export const EARTH_ENGINE_LAYER = 'earthEngine';
 export const TRACKED_ENTITY_LAYER = 'trackedEntity';
 export const GEOJSON_LAYER = 'geoJson';
+export const FLOW_LAYER = 'flow';
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,

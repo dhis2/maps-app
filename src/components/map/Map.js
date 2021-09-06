@@ -10,6 +10,7 @@ import ThematicLayer from './layers/ThematicLayer';
 import OrgUnitLayer from './layers/OrgUnitLayer';
 import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
 import ExternalLayer from './layers/ExternalLayer';
+import FlowLayer from './layers/FlowLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
 import { onFullscreenChange } from '../../util/map';
@@ -23,6 +24,7 @@ const layerType = {
     orgUnit: OrgUnitLayer,
     earthEngine: EarthEngineLayer,
     external: ExternalLayer,
+    flow: FlowLayer,
 };
 
 class Map extends Component {

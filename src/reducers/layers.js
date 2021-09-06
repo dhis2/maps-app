@@ -6,6 +6,7 @@ import {
     TRACKED_ENTITY_LAYER,
     FACILITY_LAYER,
     ORG_UNIT_LAYER,
+    FLOW_LAYER,
 } from '../constants/layers';
 import { earthEngineLayers } from '../constants/earthEngine';
 
@@ -38,6 +39,12 @@ const defaultLayers = () => [
     {
         layer: ORG_UNIT_LAYER,
         type: i18n.t('Org units'),
+        img: 'images/orgunits.png',
+        opacity: 1,
+    },
+    {
+        layer: FLOW_LAYER,
+        type: i18n.t('Flows'),
         img: 'images/orgunits.png',
         opacity: 1,
     },

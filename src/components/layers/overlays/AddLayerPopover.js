@@ -5,7 +5,7 @@ import { Popover } from '@dhis2/ui';
 import LayerList from './LayerList';
 import { isSplitViewMap } from '../../../util/helpers';
 import { loadLayer, editLayer } from '../../../actions/layers';
-import { EXTERNAL_LAYER } from '../../../constants/layers';
+import { EXTERNAL_LAYER, FLOW_LAYER } from '../../../constants/layers';
 
 const AddLayerPopover = ({
     anchorEl,
@@ -17,7 +17,9 @@ const AddLayerPopover = ({
 }) => {
     const onLayerSelect = layer => {
         const config = { ...layer };
-        layer.layer === EXTERNAL_LAYER ? loadLayer(config) : editLayer(config);
+        layer.layer === EXTERNAL_LAYER || layer.layer === FLOW_LAYER
+            ? loadLayer(config)
+            : editLayer(config);
         onClose();
     };
 
