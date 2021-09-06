@@ -1,29 +1,5 @@
 import { getInstance as getD2 } from 'd2';
 
-// Loads settings and data for the infrastuctural dialog for org units
-export const loadConfigurations = async () => {
-    const d2 = await getD2();
-    const api = d2.Api.getApi();
-    const [
-        infraPeriodType,
-        infraIndicators,
-        infraDataElements,
-    ] = await Promise.all([
-        api.get('configuration/infrastructuralPeriodType'),
-        api.get('configuration/infrastructuralIndicators'),
-        api.get('configuration/infrastructuralDataElements'),
-    ]);
-
-    const periodType = (infraPeriodType && infraPeriodType.id) || 'Yearly';
-    const { indicators = [] } = infraIndicators || {};
-    const { dataElements = [] } = infraDataElements || {};
-
-    return {
-        periodType: periodType.toUpperCase(),
-        dataItems: [].concat(indicators, dataElements),
-    };
-};
-
 export const loadData = async (id, period, dataItems) => {
     const d2 = await getD2();
 
