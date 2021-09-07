@@ -79,6 +79,7 @@ class FacilityDialog extends Component {
 
         const { facilityOrgUnitLevel, facilityOrgUnitGroupSet } = this.state;
 
+        // Set default org unit level
         if (
             !getOrgUnitsFromRows(rows).length &&
             facilityOrgUnitLevel &&
@@ -87,6 +88,7 @@ class FacilityDialog extends Component {
             setOrgUnitLevels([facilityOrgUnitLevel.id]);
         }
 
+        // Set default org unit group set
         if (
             !organisationUnitGroupSet &&
             facilityOrgUnitGroupSet &&
