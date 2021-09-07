@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { once, sortBy } from 'lodash/fp';
+import { sortBy } from 'lodash/fp';
 import { isValidUid } from 'd2/uid';
 import { SelectField } from '../core';
 import { loadOrgUnitLevels } from '../../actions/orgUnits';
@@ -14,7 +14,6 @@ const style = {
 
 export class OrgUnitLevelSelect extends Component {
     static propTypes = {
-        defaultLevel: PropTypes.number,
         orgUnitLevel: PropTypes.array,
         orgUnitLevels: PropTypes.array,
         loadOrgUnitLevels: PropTypes.func.isRequired,
@@ -27,41 +26,11 @@ export class OrgUnitLevelSelect extends Component {
         disabled: false,
     };
 
-    constructor(props, context) {
-        super(props, context);
-
-        this.selectDefault = once(level => props.onChange(level)); // only select default level once
-    }
-
     componentDidMount() {
         const { orgUnitLevels, loadOrgUnitLevels } = this.props;
 
         if (!orgUnitLevels) {
             loadOrgUnitLevels();
-        }
-    }
-
-    componentDidUpdate() {
-        const {
-            defaultLevel,
-            orgUnitLevel,
-            orgUnitLevels,
-            disabled,
-        } = this.props;
-
-        if (
-            !disabled &&
-            !orgUnitLevel.length &&
-            defaultLevel &&
-            orgUnitLevels
-        ) {
-            const levelItem = orgUnitLevels.find(
-                item => item.level === defaultLevel
-            );
-
-            if (levelItem) {
-                this.selectDefault([levelItem.level.toString()]);
-            }
         }
     }
 
