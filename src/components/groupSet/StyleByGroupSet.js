@@ -11,23 +11,25 @@ export const StyleByGroupSet = ({
     defaultStyleType,
     groupSet,
     setOrganisationUnitGroupSet,
-}) => (
-    <div>
-        <GroupSetSelect
-            label={i18n.t('Style by group set')}
-            value={groupSet}
-            allowNone={true}
-            onChange={setOrganisationUnitGroupSet}
-            className={styles.select}
-        />
-        {groupSet && (
-            <GroupSetStyle
-                defaultStyleType={defaultStyleType}
-                groupSet={groupSet}
+}) => {
+    return (
+        <div>
+            <GroupSetSelect
+                label={i18n.t('Style by group set')}
+                value={groupSet}
+                allowNone={true}
+                onChange={setOrganisationUnitGroupSet}
+                className={styles.select}
             />
-        )}
-    </div>
-);
+            {groupSet && (
+                <GroupSetStyle
+                    defaultStyleType={defaultStyleType}
+                    groupSet={groupSet}
+                />
+            )}
+        </div>
+    );
+};
 
 StyleByGroupSet.propTypes = {
     defaultStyleType: PropTypes.string,

@@ -24,7 +24,7 @@ export const GroupSetSelect = ({
     );
 
     const onGroupSetChange = useCallback(
-        item => onChange(item.id !== 'none' ? item : null),
+        item => onChange(item.id !== 'none' ? item : undefined),
         [onChange]
     );
 
