@@ -25,6 +25,7 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setRadiusLow,
+    setOrganisationUnitGroupSet,
     setOrganisationUnitColor,
 } from '../../actions/layerEdit';
 
@@ -36,8 +37,11 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../util/analytics';
 
+import { fetchFacilityConfigurations } from '../../util/orgUnits';
+
 class FacilityDialog extends Component {
     static propTypes = {
+        id: PropTypes.string,
         rows: PropTypes.array,
         radiusLow: PropTypes.number,
         organisationUnitColor: PropTypes.string,
@@ -47,6 +51,7 @@ class FacilityDialog extends Component {
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
+        setOrganisationUnitGroupSet: PropTypes.func.isRequired,
         setOrganisationUnitColor: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
@@ -59,10 +64,45 @@ class FacilityDialog extends Component {
         };
     }
 
-    componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props;
+    componentDidMount() {
+        fetchFacilityConfigurations().then(config => this.setState(config));
+    }
 
-        if (validateLayer && validateLayer !== prev.validateLayer) {
+    componentDidUpdate(prevProps, prevState) {
+        const {
+            id,
+            rows,
+            setOrgUnitLevels,
+            organisationUnitGroupSet,
+            setOrganisationUnitGroupSet,
+            validateLayer,
+            onLayerValidation,
+        } = this.props;
+
+        const { facilityOrgUnitLevel, facilityOrgUnitGroupSet } = this.state;
+
+        // If new layer
+        if (!id) {
+            // Set default org unit level
+            if (
+                !getOrgUnitsFromRows(rows).length &&
+                facilityOrgUnitLevel &&
+                !prevState.facilityOrgUnitLevel
+            ) {
+                setOrgUnitLevels([facilityOrgUnitLevel.id]);
+            }
+
+            // Set default org unit group set
+            if (
+                !organisationUnitGroupSet &&
+                facilityOrgUnitGroupSet &&
+                !prevState.facilityOrgUnitGroupSet
+            ) {
+                setOrganisationUnitGroupSet(facilityOrgUnitGroupSet);
+            }
+        }
+
+        if (validateLayer && validateLayer !== prevProps.validateLayer) {
             onLayerValidation(this.validate());
         }
     }
@@ -212,6 +252,7 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setRadiusLow,
+        setOrganisationUnitGroupSet,
         setOrganisationUnitColor,
     },
     null,
