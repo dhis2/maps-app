@@ -25,6 +25,7 @@ import {
     setUserOrgUnits,
     toggleOrgUnit,
     setRadiusLow,
+    setOrganisationUnitGroupSet,
     setOrganisationUnitColor,
 } from '../../actions/layerEdit';
 
@@ -49,6 +50,7 @@ class FacilityDialog extends Component {
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
+        setOrganisationUnitGroupSet: PropTypes.func.isRequired,
         setOrganisationUnitColor: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
@@ -65,10 +67,35 @@ class FacilityDialog extends Component {
         fetchFacilityConfigurations().then(config => this.setState(config));
     }
 
-    componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props;
+    componentDidUpdate(prevProps, prevState) {
+        const {
+            rows,
+            setOrgUnitLevels,
+            organisationUnitGroupSet,
+            setOrganisationUnitGroupSet,
+            validateLayer,
+            onLayerValidation,
+        } = this.props;
 
-        if (validateLayer && validateLayer !== prev.validateLayer) {
+        const { facilityOrgUnitLevel, facilityOrgUnitGroupSet } = this.state;
+
+        if (
+            !getOrgUnitsFromRows(rows).length &&
+            facilityOrgUnitLevel &&
+            !prevState.facilityOrgUnitLevel
+        ) {
+            setOrgUnitLevels([facilityOrgUnitLevel.id]);
+        }
+
+        if (
+            !organisationUnitGroupSet &&
+            facilityOrgUnitGroupSet &&
+            !prevState.facilityOrgUnitGroupSet
+        ) {
+            setOrganisationUnitGroupSet(facilityOrgUnitGroupSet);
+        }
+
+        if (validateLayer && validateLayer !== prevProps.validateLayer) {
             onLayerValidation(this.validate());
         }
     }
@@ -87,18 +114,11 @@ class FacilityDialog extends Component {
             setOrganisationUnitColor,
         } = this.props;
 
-        const {
-            tab,
-            facilityOrgUnitLevel,
-            facilityOrgUnitGroupSet,
-            orgUnitsError,
-        } = this.state;
+        const { tab, orgUnitsError } = this.state;
 
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
-
-        // console.log('#', facilityOrgUnitLevel, facilityOrgUnitGroupSet);
 
         return (
             <div data-test="facilitydialog">
@@ -124,7 +144,6 @@ class FacilityDialog extends Component {
                                     orgUnitLevel={getOrgUnitLevelsFromRows(
                                         rows
                                     )}
-                                    defaultLevel={facilityOrgUnitLevel}
                                     onChange={setOrgUnitLevels}
                                     disabled={hasUserOrgUnits}
                                 />
@@ -184,7 +203,6 @@ class FacilityDialog extends Component {
                             <div className={styles.flexColumn}>
                                 <StyleByGroupSet
                                     defaultStyleType={STYLE_TYPE_SYMBOL}
-                                    defaultGroupSet={facilityOrgUnitGroupSet}
                                 />
                             </div>
                         </div>
@@ -227,6 +245,7 @@ export default connect(
         setUserOrgUnits,
         toggleOrgUnit,
         setRadiusLow,
+        setOrganisationUnitGroupSet,
         setOrganisationUnitColor,
     },
     null,

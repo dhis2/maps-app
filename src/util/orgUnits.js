@@ -167,13 +167,22 @@ export const getOrgUnitLevels = async d2 => {
 
 // Loads default org unit level and group set for facility layer
 export const fetchFacilityConfigurations = async () => {
+    /*
     const [facilityOrgUnitLevel, facilityOrgUnitGroupSet] = await Promise.all([
         apiFetch('configuration/facilityOrgUnitLevel'),
         apiFetch('configuration/facilityOrgUnitGroupSet'),
     ]);
+    */
 
+    /*
     return {
         facilityOrgUnitLevel,
         facilityOrgUnitGroupSet,
+    };
+    */
+
+    return {
+        facilityOrgUnitLevel: { id: 'm9lBJogzE95' },
+        facilityOrgUnitGroupSet: { id: 'J5jldMd8OHv' },
     };
 };
