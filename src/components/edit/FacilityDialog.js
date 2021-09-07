@@ -41,6 +41,7 @@ import { fetchFacilityConfigurations } from '../../util/orgUnits';
 
 class FacilityDialog extends Component {
     static propTypes = {
+        id: PropTypes.string,
         rows: PropTypes.array,
         radiusLow: PropTypes.number,
         organisationUnitColor: PropTypes.string,
@@ -69,6 +70,7 @@ class FacilityDialog extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const {
+            id,
             rows,
             setOrgUnitLevels,
             organisationUnitGroupSet,
@@ -79,22 +81,25 @@ class FacilityDialog extends Component {
 
         const { facilityOrgUnitLevel, facilityOrgUnitGroupSet } = this.state;
 
-        // Set default org unit level
-        if (
-            !getOrgUnitsFromRows(rows).length &&
-            facilityOrgUnitLevel &&
-            !prevState.facilityOrgUnitLevel
-        ) {
-            setOrgUnitLevels([facilityOrgUnitLevel.id]);
-        }
+        // If new layer
+        if (!id) {
+            // Set default org unit level
+            if (
+                !getOrgUnitsFromRows(rows).length &&
+                facilityOrgUnitLevel &&
+                !prevState.facilityOrgUnitLevel
+            ) {
+                setOrgUnitLevels([facilityOrgUnitLevel.id]);
+            }
 
-        // Set default org unit group set
-        if (
-            !organisationUnitGroupSet &&
-            facilityOrgUnitGroupSet &&
-            !prevState.facilityOrgUnitGroupSet
-        ) {
-            setOrganisationUnitGroupSet(facilityOrgUnitGroupSet);
+            // Set default org unit group set
+            if (
+                !organisationUnitGroupSet &&
+                facilityOrgUnitGroupSet &&
+                !prevState.facilityOrgUnitGroupSet
+            ) {
+                setOrganisationUnitGroupSet(facilityOrgUnitGroupSet);
+            }
         }
 
         if (validateLayer && validateLayer !== prevProps.validateLayer) {
