@@ -1,3 +1,10 @@
+## [1.13.7](https://github.com/dhis2/maps-app/compare/v1.13.6...v1.13.7) (2021-09-07)
+
+
+### Bug Fixes
+
+* default org unit level and group set for facility layer (DHIS2-11071) ([#1841](https://github.com/dhis2/maps-app/issues/1841)) ([c2be952](https://github.com/dhis2/maps-app/commit/c2be9527e786e38d81cc2d43f59af9b9a44f62ee))
+
 ## [1.13.6](https://github.com/dhis2/maps-app/compare/v1.13.5...v1.13.6) (2021-09-05)
 
 
