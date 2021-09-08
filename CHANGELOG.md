@@ -1,3 +1,10 @@
+## [1.13.9](https://github.com/dhis2/maps-app/compare/v1.13.8...v1.13.9) (2021-09-08)
+
+
+### Bug Fixes
+
+* extra slash in URL to fetch facility layer configurations ([e2fb6c7](https://github.com/dhis2/maps-app/commit/e2fb6c7265ef2b9ea3b13ce0c654c30d036e4bad))
+
 ## [1.13.8](https://github.com/dhis2/maps-app/compare/v1.13.7...v1.13.8) (2021-09-08)
 
 
