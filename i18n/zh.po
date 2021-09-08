@@ -577,7 +577,7 @@ msgid "Drill down one level"
 msgstr "下钻一级"
 
 msgid "View profile"
-msgstr "查看用户"
+msgstr "查看简介"
 
 msgid "Show longitude/latitude"
 msgstr "显示经纬度"
