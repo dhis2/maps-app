@@ -1,3 +1,10 @@
+## [1.13.12](https://github.com/dhis2/maps-app/compare/v1.13.11...v1.13.12) (2021-09-09)
+
+
+### Bug Fixes
+
+* backward compatibility for EE layers  ([#1848](https://github.com/dhis2/maps-app/issues/1848)) ([d5ab8b9](https://github.com/dhis2/maps-app/commit/d5ab8b9ac218e72300a82ed01491ff097280b7eb))
+
 ## [1.13.11](https://github.com/dhis2/maps-app/compare/v1.13.10...v1.13.11) (2021-09-09)
 
 
