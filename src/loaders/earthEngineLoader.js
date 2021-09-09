@@ -68,12 +68,18 @@ const earthEngineLoader = async config => {
 
             if (filter) {
                 const period = filter.arguments?.[1];
+                let name = String(layerConfig.image);
 
                 if (typeof period === 'string' && period.length > 4) {
-                    filter.year = parseInt(period.substring(0, 4), 10);
+                    const year = period.substring(0, 4);
+                    filter.year = parseInt(year, 10);
+
+                    if (name.slice(-4) === year) {
+                        name = name.slice(0, -4);
+                    }
                 }
 
-                filter.name = String(layerConfig.image);
+                filter.name = name;
             }
         }
 
