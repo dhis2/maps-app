@@ -1,3 +1,10 @@
+## [1.13.10](https://github.com/dhis2/maps-app/compare/v1.13.9...v1.13.10) (2021-09-09)
+
+
+### Bug Fixes
+
+* avoid overlapping loading spinners ([#1845](https://github.com/dhis2/maps-app/issues/1845)) ([1a05893](https://github.com/dhis2/maps-app/commit/1a05893e37b4997c8e680d8cf09338b20c802eda))
+
 ## [1.13.9](https://github.com/dhis2/maps-app/compare/v1.13.8...v1.13.9) (2021-09-08)
 
 
