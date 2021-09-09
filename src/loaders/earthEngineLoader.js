@@ -61,6 +61,22 @@ const earthEngineLoader = async config => {
             layerConfig.filter[0].arguments[1] = period;
         }
 
+        // Backward compability for layers with periods saved before 2.36
+        // (could also be fixed in a db update script)
+        if (layerConfig.image) {
+            const filter = layerConfig.filter?.[0];
+
+            if (filter) {
+                const period = filter.arguments?.[1];
+
+                if (typeof period === 'string' && period.length > 4) {
+                    filter.year = parseInt(period.substring(0, 4), 10);
+                }
+
+                filter.name = String(layerConfig.image);
+            }
+        }
+
         dataset = getEarthEngineLayer(layerConfig.id);
 
         if (dataset) {
