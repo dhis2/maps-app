@@ -1,12 +1,12 @@
 import { isString, isObject } from 'lodash/fp';
 import { config } from 'd2';
 
-// The api/configurations/xx endpoints returns an empty string if no config is set
+// The api/configuration/xx endpoints returns an empty body if the config is not set
 // This is a replacement for response.json() which gives error if body is empty
 // https://stackoverflow.com/a/51320025
 const getJsonResponse = async response => {
     const string = await response.text();
-    const json = string === '' ? {} : JSON.parse(string);
+    const json = string === '' ? undefined : JSON.parse(string);
     return json;
 };
 
