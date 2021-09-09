@@ -90,12 +90,12 @@ const connectEarthEngine = () =>
         resolve(window.ee);
     });
 
-export const getPeriods = async id => {
-    const { periodType } = getEarthEngineLayer(id);
+export const getPeriods = async eeId => {
+    const { periodType } = getEarthEngineLayer(eeId);
     const ee = await connectEarthEngine();
 
     const imageCollection = ee
-        .ImageCollection(id)
+        .ImageCollection(eeId)
         .distinct('system:time_start')
         .sort('system:time_start', false);
 
@@ -109,6 +109,11 @@ export const getPeriods = async id => {
             periodType === 'Yearly'
                 ? String(year)
                 : getStartEndDate(properties);
+
+        // Remove when old population should not be supported
+        if (eeId === 'WorldPop/POP') {
+            return { id: name, name, year };
+        }
 
         return { id, name, year };
     };
