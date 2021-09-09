@@ -1,3 +1,10 @@
+## [1.13.11](https://github.com/dhis2/maps-app/compare/v1.13.10...v1.13.11) (2021-09-09)
+
+
+### Bug Fixes
+
+* check if response body is empty ([#1847](https://github.com/dhis2/maps-app/issues/1847)) ([bd67f2b](https://github.com/dhis2/maps-app/commit/bd67f2b929d806c2b6eb1031e8692075315b0d80))
+
 ## [1.13.10](https://github.com/dhis2/maps-app/compare/v1.13.9...v1.13.10) (2021-09-09)
 
 
