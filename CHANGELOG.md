@@ -1,3 +1,11 @@
+## [1.13.15](https://github.com/dhis2/maps-app/compare/v1.13.14...v1.13.15) (2021-09-10)
+
+
+### Bug Fixes
+
+* align input fields ([8b78512](https://github.com/dhis2/maps-app/commit/8b78512a7062488b7ae3a7bf0de2c9be88692d86))
+* style adjustments ([94c24b1](https://github.com/dhis2/maps-app/commit/94c24b1b59d2653416a9d9239237598139d04dde))
+
 ## [1.13.14](https://github.com/dhis2/maps-app/compare/v1.13.13...v1.13.14) (2021-09-10)
 
 
