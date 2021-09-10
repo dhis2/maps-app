@@ -1,3 +1,10 @@
+## [1.13.14](https://github.com/dhis2/maps-app/compare/v1.13.13...v1.13.14) (2021-09-10)
+
+
+### Bug Fixes
+
+* hide color and radius when styling by group set ([0ce7f0a](https://github.com/dhis2/maps-app/commit/0ce7f0ad589a14bf9a4c8867d822a109392876d1))
+
 ## [1.13.13](https://github.com/dhis2/maps-app/compare/v1.13.12...v1.13.13) (2021-09-10)
 
 
