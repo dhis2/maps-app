@@ -5,6 +5,7 @@ import { Help } from '@dhis2/ui';
 import GroupStyle from './GroupStyle';
 import { fetchOrgUnitGroupSet } from '../../util/orgUnits';
 import { STYLE_TYPE_COLOR } from '../../constants/layers';
+import styles from './styles/GroupSetStyle.module.css';
 
 export const GroupSetStyle = ({
     defaultStyleType = STYLE_TYPE_COLOR,
@@ -25,9 +26,17 @@ export const GroupSetStyle = ({
         return <Help error>{error}</Help>;
     }
 
-    return groups.map(group => (
-        <GroupStyle key={group.id} styleType={defaultStyleType} {...group} />
-    ));
+    return (
+        <div className={styles.groupSetStyle}>
+            {groups.map(group => (
+                <GroupStyle
+                    key={group.id}
+                    styleType={defaultStyleType}
+                    {...group}
+                />
+            ))}
+        </div>
+    );
 };
 
 GroupSetStyle.propTypes = {
