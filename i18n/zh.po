@@ -385,7 +385,7 @@ msgstr "选择关系类型前先选择跟踪实体类型"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr "在地图上显示实体恭喜是一个试验特征功能"
+msgstr "在地图中显示跟踪实体关系是一项实验性功能"
 
 msgid "Display Tracked Entity relationships"
 msgstr "显示跟踪实体关系"
