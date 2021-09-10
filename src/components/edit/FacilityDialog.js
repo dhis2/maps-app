@@ -185,7 +185,6 @@ class FacilityDialog extends Component {
                             data-test="facilitydialog-styletab"
                         >
                             <div className={cx(styles.flexColumn)}>
-                                <Labels />
                                 {!organisationUnitGroupSet && (
                                     <>
                                         <ColorPicker
@@ -210,8 +209,10 @@ class FacilityDialog extends Component {
                                             }
                                             className={styles.narrowFieldIcon}
                                         />
+                                        <div className={styles.gap} />
                                     </>
                                 )}
+                                <Labels />
                                 <BufferRadius defaultRadius={FACILITY_BUFFER} />
                             </div>
                             <div className={styles.flexColumn}>

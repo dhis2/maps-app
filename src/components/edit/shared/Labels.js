@@ -27,7 +27,7 @@ const Labels = ({
     setLabelFontStyle,
 }) => {
     return (
-        <div className={cx(styles.flexInnerColumnFlow, styles.marginBottom)}>
+        <div className={cx(styles.flexInnerColumnFlow)}>
             <Checkbox
                 label={i18n.t('Labels')}
                 checked={labels}
