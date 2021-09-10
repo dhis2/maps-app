@@ -15,11 +15,14 @@ const getColor = getUniqueColor(qualitativeColors);
 
 const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     groups.sort((a, b) => a.name.localeCompare(b.name));
-    return groups.map((group, index) => ({
-        ...group,
-        color: group.color || getColor(index),
-        symbol: group.symbol || 21 + index + '.png', // Default symbol 21-25 are coloured circles
-    }));
+    return groups.map((group, index) => {
+        const {
+            color = getColor(index),
+            symbol = index < 5 ? 21 + index + '.png' : '25.png', // Symbol 21-25 are coloured circles
+        } = group;
+
+        return { ...group, color, symbol };
+    });
 };
 
 export const fetchOrgUnitGroupSet = id =>
