@@ -1,3 +1,10 @@
+## [1.13.17](https://github.com/dhis2/maps-app/compare/v1.13.16...v1.13.17) (2021-09-10)
+
+
+### Bug Fixes
+
+* improved predefined colors ([#1857](https://github.com/dhis2/maps-app/issues/1857)) ([b744712](https://github.com/dhis2/maps-app/commit/b744712a4d57dac7c374e9f02e51eedd4ef69ecd))
+
 ## [1.13.16](https://github.com/dhis2/maps-app/compare/v1.13.15...v1.13.16) (2021-09-10)
 
 
