@@ -1,3 +1,10 @@
+## [1.13.16](https://github.com/dhis2/maps-app/compare/v1.13.15...v1.13.16) (2021-09-10)
+
+
+### Bug Fixes
+
+* facility layer and group set styling improvements ([#1856](https://github.com/dhis2/maps-app/issues/1856)) ([4b4c46a](https://github.com/dhis2/maps-app/commit/4b4c46aceff1a7526df5bdbdaca4d77219188a56))
+
 ## [1.13.15](https://github.com/dhis2/maps-app/compare/v1.13.14...v1.13.15) (2021-09-10)
 
 
