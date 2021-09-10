@@ -185,26 +185,34 @@ class FacilityDialog extends Component {
                             data-test="facilitydialog-styletab"
                         >
                             <div className={cx(styles.flexColumn)}>
+                                {!organisationUnitGroupSet && (
+                                    <>
+                                        <ColorPicker
+                                            label={i18n.t('Color')}
+                                            color={
+                                                organisationUnitColor ||
+                                                ORG_UNIT_COLOR
+                                            }
+                                            onChange={setOrganisationUnitColor}
+                                            className={styles.narrowField}
+                                        />
+                                        <NumberField
+                                            label={i18n.t('Point radius')}
+                                            value={
+                                                radiusLow !== undefined
+                                                    ? radiusLow
+                                                    : ORG_UNIT_RADIUS
+                                            }
+                                            onChange={setRadiusLow}
+                                            disabled={
+                                                !!organisationUnitGroupSet
+                                            }
+                                            className={styles.narrowFieldIcon}
+                                        />
+                                        <div className={styles.gap} />
+                                    </>
+                                )}
                                 <Labels />
-                                <ColorPicker
-                                    label={i18n.t('Color')}
-                                    color={
-                                        organisationUnitColor || ORG_UNIT_COLOR
-                                    }
-                                    onChange={setOrganisationUnitColor}
-                                    className={styles.narrowField}
-                                />
-                                <NumberField
-                                    label={i18n.t('Point radius')}
-                                    value={
-                                        radiusLow !== undefined
-                                            ? radiusLow
-                                            : ORG_UNIT_RADIUS
-                                    }
-                                    onChange={setRadiusLow}
-                                    disabled={!!organisationUnitGroupSet}
-                                    className={styles.narrowFieldIcon}
-                                />
                                 <BufferRadius defaultRadius={FACILITY_BUFFER} />
                             </div>
                             <div className={styles.flexColumn}>

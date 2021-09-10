@@ -1,3 +1,32 @@
+## [1.13.17](https://github.com/dhis2/maps-app/compare/v1.13.16...v1.13.17) (2021-09-10)
+
+
+### Bug Fixes
+
+* improved predefined colors ([#1857](https://github.com/dhis2/maps-app/issues/1857)) ([b744712](https://github.com/dhis2/maps-app/commit/b744712a4d57dac7c374e9f02e51eedd4ef69ecd))
+
+## [1.13.16](https://github.com/dhis2/maps-app/compare/v1.13.15...v1.13.16) (2021-09-10)
+
+
+### Bug Fixes
+
+* facility layer and group set styling improvements ([#1856](https://github.com/dhis2/maps-app/issues/1856)) ([4b4c46a](https://github.com/dhis2/maps-app/commit/4b4c46aceff1a7526df5bdbdaca4d77219188a56))
+
+## [1.13.15](https://github.com/dhis2/maps-app/compare/v1.13.14...v1.13.15) (2021-09-10)
+
+
+### Bug Fixes
+
+* align input fields ([8b78512](https://github.com/dhis2/maps-app/commit/8b78512a7062488b7ae3a7bf0de2c9be88692d86))
+* style adjustments ([94c24b1](https://github.com/dhis2/maps-app/commit/94c24b1b59d2653416a9d9239237598139d04dde))
+
+## [1.13.14](https://github.com/dhis2/maps-app/compare/v1.13.13...v1.13.14) (2021-09-10)
+
+
+### Bug Fixes
+
+* hide color and radius when styling by group set ([0ce7f0a](https://github.com/dhis2/maps-app/commit/0ce7f0ad589a14bf9a4c8867d822a109392876d1))
+
 ## [1.13.13](https://github.com/dhis2/maps-app/compare/v1.13.12...v1.13.13) (2021-09-10)
 
 

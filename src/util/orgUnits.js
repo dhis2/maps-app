@@ -11,14 +11,34 @@ import {
     STYLE_TYPE_SYMBOL,
 } from '../constants/layers';
 
-const getColor = getUniqueColor(qualitativeColors);
+const getGroupColor = groups => {
+    const groupsWithoutColors = groups.filter(g => !g.color);
+    const colors = getUniqueColor(qualitativeColors);
+    return group => {
+        const index = groupsWithoutColors.findIndex(g => g.id === group.id);
+        return colors(index);
+    };
+};
+
+// Default symbol 21-25 are coloured circles
+const getGroupSymbol = groups => {
+    const groupsWithoutSymbols = groups.filter(g => !g.symbol);
+    return group => {
+        const index = groupsWithoutSymbols.findIndex(g => g.id === group.id);
+        return index < 5 ? `${21 + index}.png` : '25.png';
+    };
+};
 
 const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     groups.sort((a, b) => a.name.localeCompare(b.name));
-    return groups.map((group, index) => ({
+
+    const getColor = getGroupColor(groups);
+    const getSymbol = getGroupSymbol(groups);
+
+    return groups.map(group => ({
         ...group,
-        color: group.color || getColor(index),
-        symbol: group.symbol || 21 + index + '.png', // Default symbol 21-25 are coloured circles
+        color: group.color || getColor(group),
+        symbol: group.symbol || getSymbol(group),
     }));
 };
 
