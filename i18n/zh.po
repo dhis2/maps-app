@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
+"POT-Creation-Date: 2021-09-10T07:57:53.804Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -608,9 +608,6 @@ msgstr "组织机构"
 
 msgid "Parent unit"
 msgstr "上级机构"
-
-msgid "Loading layer data"
-msgstr "加载图层数据"
 
 msgid "Last updated"
 msgstr "Last updated"
