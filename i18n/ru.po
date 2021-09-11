@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-08-31T08:30:27.150Z\n"
+"POT-Creation-Date: 2021-09-10T07:57:53.804Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Ulanbek Abakirov <ulans@mail.ru>, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
@@ -609,9 +609,6 @@ msgstr "Организационная единица"
 
 msgid "Parent unit"
 msgstr "Родительская"
-
-msgid "Loading layer data"
-msgstr ""
 
 msgid "Last updated"
 msgstr "Последнее обновление"
