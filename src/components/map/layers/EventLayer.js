@@ -6,6 +6,7 @@ import EventPopup from './EventPopup';
 import { getDisplayPropertyUrl } from '../../../util/helpers';
 import { formatCount } from '../../../util/numbers';
 import { filterData } from '../../../util/filter';
+import { getContrastColor } from '../../../util/colors';
 import { EVENT_COLOR, EVENT_RADIUS } from '../../../constants/layers';
 
 class EventLayer extends Layer {
@@ -45,6 +46,12 @@ class EventLayer extends Layer {
                 ? '#' + eventPointColor
                 : eventPointColor;
 
+        const fillColor = color || EVENT_COLOR;
+        const strokeColor = !styleDataItem
+            ? getContrastColor(fillColor)
+            : undefined;
+        const radius = eventPointRadius || EVENT_RADIUS;
+
         const map = this.context.map;
         let d2;
         let eventRequest;
@@ -60,8 +67,9 @@ class EventLayer extends Layer {
             opacity,
             isVisible,
             data: filteredData,
-            fillColor: color || EVENT_COLOR,
-            radius: eventPointRadius || EVENT_RADIUS,
+            fillColor,
+            strokeColor,
+            radius,
             onClick: this.onEventClick.bind(this),
         };
 
