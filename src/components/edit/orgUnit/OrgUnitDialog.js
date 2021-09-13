@@ -135,7 +135,7 @@ class OrgUnitDialog extends Component {
                             <div className={styles.flexColumn}>
                                 <Labels />
                                 <ColorPicker
-                                    label={i18n.t('Color')}
+                                    label={i18n.t('Boundary color')}
                                     color={
                                         organisationUnitColor || ORG_UNIT_COLOR
                                     }
