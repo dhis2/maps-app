@@ -28,23 +28,25 @@ const Labels = ({
 }) => {
     return (
         <div className={cx(styles.flexInnerColumnFlow)}>
-            <Checkbox
-                label={i18n.t('Labels')}
-                checked={labels}
-                onChange={setLabels}
-            />
-            {labels && (
-                <FontStyle
-                    color={labelFontColor}
-                    size={labelFontSize}
-                    weight={labelFontWeight}
-                    fontStyle={labelFontStyle}
-                    onColorChange={setLabelFontColor}
-                    onSizeChange={setLabelFontSize}
-                    onWeightChange={setLabelFontWeight}
-                    onStyleChange={setLabelFontStyle}
+            <div>
+                <Checkbox
+                    label={i18n.t('Labels')}
+                    checked={labels}
+                    onChange={setLabels}
                 />
-            )}
+                {labels && (
+                    <FontStyle
+                        color={labelFontColor}
+                        size={labelFontSize}
+                        weight={labelFontWeight}
+                        fontStyle={labelFontStyle}
+                        onColorChange={setLabelFontColor}
+                        onSizeChange={setLabelFontSize}
+                        onWeightChange={setLabelFontWeight}
+                        onStyleChange={setLabelFontStyle}
+                    />
+                )}
+            </div>
         </div>
     );
 };
