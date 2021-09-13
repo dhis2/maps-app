@@ -47,7 +47,7 @@ const orgUnitLoader = async config => {
     );
 
     const alerts = !features.length
-        ? [{ warning: true, message: i18n.t('No org units found') }]
+        ? [{ warning: true, message: i18n.t('No coordinates found') }]
         : undefined;
 
     return {
