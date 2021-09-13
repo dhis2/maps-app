@@ -146,3 +146,7 @@ export const LABEL_FONT_WEIGHT = 'normal';
 export const LABEL_FONT_COLOR = '#333333';
 
 export const NO_DATA_COLOR = '#CCCCCC';
+
+/* POINT RADIUS */
+export const MIN_RADIUS = 1;
+export const MAX_RADIUS = 100;

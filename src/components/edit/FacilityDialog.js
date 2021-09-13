@@ -16,6 +16,8 @@ import {
     ORG_UNIT_RADIUS,
     FACILITY_BUFFER,
     STYLE_TYPE_SYMBOL,
+    MIN_RADIUS,
+    MAX_RADIUS,
 } from '../../constants/layers';
 import styles from './styles/LayerDialog.module.css';
 
@@ -210,6 +212,8 @@ class FacilityDialog extends Component {
                                                     ? radiusLow
                                                     : ORG_UNIT_RADIUS
                                             }
+                                            min={MIN_RADIUS}
+                                            max={MAX_RADIUS}
                                             onChange={setRadiusLow}
                                             disabled={
                                                 !!organisationUnitGroupSet

@@ -32,6 +32,8 @@ import {
     TEI_RELATED_COLOR,
     TEI_RELATIONSHIP_LINE_COLOR,
     TEI_RELATED_RADIUS,
+    MIN_RADIUS,
+    MAX_RADIUS,
 } from '../../../constants/layers';
 
 import {
@@ -413,6 +415,8 @@ export class TrackedEntityDialog extends Component {
                                             />
                                             <NumberField
                                                 label={i18n.t('Point size')}
+                                                min={MIN_RADIUS}
+                                                max={MAX_RADIUS}
                                                 value={
                                                     relatedPointRadius ||
                                                     TEI_RELATED_RADIUS
