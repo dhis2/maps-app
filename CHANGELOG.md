@@ -1,3 +1,10 @@
+## [1.13.19](https://github.com/dhis2/maps-app/compare/v1.13.18...v1.13.19) (2021-09-13)
+
+
+### Bug Fixes
+
+* always open popup with single click ([#1860](https://github.com/dhis2/maps-app/issues/1860)) ([61f7f8e](https://github.com/dhis2/maps-app/commit/61f7f8e4e225c06a9ad69b2c2774d54584dc0527))
+
 ## [1.13.18](https://github.com/dhis2/maps-app/compare/v1.13.17...v1.13.18) (2021-09-11)
 
 
