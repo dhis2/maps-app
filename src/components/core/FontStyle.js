@@ -6,7 +6,12 @@ import cx from 'classnames';
 import NumberField from './NumberField';
 import ColorButton from './ColorButton';
 import { cssColor } from '../../util/colors';
-import { LABEL_FONT_SIZE, LABEL_FONT_COLOR } from '../../constants/layers';
+import {
+    LABEL_FONT_SIZE,
+    LABEL_FONT_SIZE_MIN,
+    LABEL_FONT_SIZE_MAX,
+    LABEL_FONT_COLOR,
+} from '../../constants/layers';
 import styles from './styles/FontStyle.module.css';
 
 const FontStyle = ({
@@ -25,6 +30,8 @@ const FontStyle = ({
             <NumberField
                 dense
                 label={i18n.t('Size')}
+                min={LABEL_FONT_SIZE_MIN}
+                max={LABEL_FONT_SIZE_MAX}
                 value={parseInt(
                     size !== undefined ? size : LABEL_FONT_SIZE,
                     10
