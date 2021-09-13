@@ -1,3 +1,10 @@
+## [1.13.21](https://github.com/dhis2/maps-app/compare/v1.13.20...v1.13.21) (2021-09-13)
+
+
+### Bug Fixes
+
+* constrasting event stroke and cluster count color ([#1861](https://github.com/dhis2/maps-app/issues/1861)) ([65173b5](https://github.com/dhis2/maps-app/commit/65173b5d98c764953bfc15723344f4c88e32feb0))
+
 ## [1.13.20](https://github.com/dhis2/maps-app/compare/v1.13.19...v1.13.20) (2021-09-13)
 
 

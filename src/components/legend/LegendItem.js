@@ -11,6 +11,7 @@ const LegendItem = ({
     type,
     image,
     color,
+    strokeColor,
     radius,
     weight,
     name,
@@ -26,6 +27,10 @@ const LegendItem = ({
         backgroundImage: image ? `url(${image})` : 'none',
         backgroundColor: color ? color : 'transparent',
     };
+
+    if (strokeColor) {
+        symbol.border = `1px solid ${strokeColor}`;
+    }
 
     if (radius) {
         const r = Math.min(radius, maxRadius) * 2;
@@ -62,6 +67,7 @@ LegendItem.propTypes = {
     type: PropTypes.string,
     image: PropTypes.string,
     color: PropTypes.string,
+    strokeColor: PropTypes.string,
     radius: PropTypes.number,
     weight: PropTypes.number,
     name: PropTypes.string,

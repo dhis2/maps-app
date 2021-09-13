@@ -22,7 +22,7 @@ import {
     EVENT_RADIUS,
 } from '../constants/layers';
 import { formatLocaleDate } from '../util/time';
-import { cssColor } from '../util/colors';
+import { cssColor, getContrastColor } from '../util/colors';
 
 // Server clustering if more than 2000 events
 const useServerCluster = count => count > EVENT_SERVER_CLUSTER_COUNT;
@@ -115,34 +115,8 @@ const loadEventLayer = async config => {
         config.data = data;
 
         if (Array.isArray(config.data) && config.data.length) {
-            let explanation = [];
-
             if (styleDataItem) {
                 await styleByDataItem(config);
-            } else {
-                config.legend.items = [
-                    {
-                        name: i18n.t('Event'),
-                        color: cssColor(eventPointColor) || EVENT_COLOR,
-                        radius: eventPointRadius || EVENT_RADIUS,
-                    },
-                ];
-            }
-
-            if (eventStatus) {
-                explanation.push(
-                    `${i18n.t('Event status')}: ${
-                        getEventStatuses().find(s => s.id === eventStatus).name
-                    }`
-                );
-            }
-
-            if (areaRadius) {
-                explanation.push(`${i18n.t('Buffer')}: ${areaRadius} ${'m'}`);
-            }
-
-            if (explanation.length) {
-                config.legend.explanation = explanation;
             }
 
             if (total > EVENT_CLIENT_PAGE_SIZE) {
@@ -174,6 +148,38 @@ const loadEventLayer = async config => {
             });
 
         config.headers = response.headers;
+    }
+
+    if (!styleDataItem) {
+        const color = cssColor(eventPointColor) || EVENT_COLOR;
+        const strokeColor = getContrastColor(color);
+
+        config.legend.items = [
+            {
+                name: i18n.t('Event'),
+                color,
+                strokeColor,
+                radius: eventPointRadius || EVENT_RADIUS,
+            },
+        ];
+    }
+
+    let explanation = [];
+
+    if (eventStatus) {
+        explanation.push(
+            `${i18n.t('Event status')}: ${
+                getEventStatuses().find(s => s.id === eventStatus).name
+            }`
+        );
+    }
+
+    if (areaRadius) {
+        explanation.push(`${i18n.t('Buffer')}: ${areaRadius} ${'m'}`);
+    }
+
+    if (explanation.length) {
+        config.legend.explanation = explanation;
     }
 
     if (alert) {
