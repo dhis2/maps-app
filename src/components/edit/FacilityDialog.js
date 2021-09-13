@@ -185,6 +185,13 @@ class FacilityDialog extends Component {
                             data-test="facilitydialog-styletab"
                         >
                             <div className={cx(styles.flexColumn)}>
+                                <Labels />
+                                <BufferRadius defaultRadius={FACILITY_BUFFER} />
+                            </div>
+                            <div className={styles.flexColumn}>
+                                <StyleByGroupSet
+                                    defaultStyleType={STYLE_TYPE_SYMBOL}
+                                />
                                 {!organisationUnitGroupSet && (
                                     <>
                                         <ColorPicker
@@ -209,16 +216,8 @@ class FacilityDialog extends Component {
                                             }
                                             className={styles.narrowFieldIcon}
                                         />
-                                        <div className={styles.gap} />
                                     </>
                                 )}
-                                <Labels />
-                                <BufferRadius defaultRadius={FACILITY_BUFFER} />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <StyleByGroupSet
-                                    defaultStyleType={STYLE_TYPE_SYMBOL}
-                                />
                             </div>
                         </div>
                     )}
