@@ -23,6 +23,8 @@ import {
     EVENT_RADIUS,
     EVENT_BUFFER,
     CLASSIFICATION_PREDEFINED,
+    MIN_RADIUS,
+    MAX_RADIUS,
 } from '../../../constants/layers';
 import { START_END_DATES } from '../../../constants/periods';
 
@@ -351,6 +353,8 @@ export class EventDialog extends Component {
                                     />
                                     <NumberField
                                         label={i18n.t('Radius')}
+                                        min={MIN_RADIUS}
+                                        max={MAX_RADIUS}
                                         value={eventPointRadius || EVENT_RADIUS}
                                         onChange={setEventPointRadius}
                                     />
