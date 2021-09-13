@@ -13,6 +13,8 @@ import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS,
     STYLE_TYPE_COLOR,
+    MIN_RADIUS,
+    MAX_RADIUS,
 } from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -133,7 +135,7 @@ class OrgUnitDialog extends Component {
                             <div className={styles.flexColumn}>
                                 <Labels />
                                 <ColorPicker
-                                    label={i18n.t('Color')}
+                                    label={i18n.t('Boundary color')}
                                     color={
                                         organisationUnitColor || ORG_UNIT_COLOR
                                     }
@@ -142,6 +144,8 @@ class OrgUnitDialog extends Component {
                                 />
                                 <NumberField
                                     label={i18n.t('Point radius')}
+                                    min={MIN_RADIUS}
+                                    max={MAX_RADIUS}
                                     value={
                                         radiusLow !== undefined
                                             ? radiusLow

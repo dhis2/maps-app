@@ -615,7 +615,11 @@ msgid "Organisation unit"
 msgstr "Unit organisasi"
 
 msgid "Parent unit"
+<<<<<<< HEAD
 msgstr ""
+=======
+msgstr "Unit induk"
+>>>>>>> master
 
 msgid "Last updated"
 msgstr "Terakhir diperbarui"
