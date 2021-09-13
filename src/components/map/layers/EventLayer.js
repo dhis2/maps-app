@@ -50,6 +50,7 @@ class EventLayer extends Layer {
         const strokeColor = !styleDataItem
             ? getContrastColor(fillColor)
             : undefined;
+        const countColor = strokeColor;
         const radius = eventPointRadius || EVENT_RADIUS;
 
         const map = this.context.map;
@@ -69,6 +70,7 @@ class EventLayer extends Layer {
             data: filteredData,
             fillColor,
             strokeColor,
+            countColor,
             radius,
             onClick: this.onEventClick.bind(this),
         };
