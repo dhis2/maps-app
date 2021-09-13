@@ -1,6 +1,4 @@
 .buffer {
-    display: flex;
-    flex-wrap: wrap;
     margin: 0 -8px;
     clear: both;
     align-items: center;
@@ -8,11 +6,9 @@
 }
 
 .buffer > div {
-    flex: 1;
     margin: var(--spacers-dp8);
 }
 
-.buffer > div:first-child {
-    max-width: 155px;
-    padding-top: var(--spacers-dp8);
+.numberField {
+    padding-left: 23px;
 }
