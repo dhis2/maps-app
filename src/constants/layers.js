@@ -141,8 +141,14 @@ export const getGroupSetStyleTypes = () => [
 
 /* LABEL STYLES */
 export const LABEL_FONT_SIZE = '11px';
+export const LABEL_FONT_SIZE_MIN = 6;
+export const LABEL_FONT_SIZE_MAX = 100;
 export const LABEL_FONT_STYLE = 'normal';
 export const LABEL_FONT_WEIGHT = 'normal';
 export const LABEL_FONT_COLOR = '#333333';
 
 export const NO_DATA_COLOR = '#CCCCCC';
+
+/* POINT RADIUS */
+export const MIN_RADIUS = 1;
+export const MAX_RADIUS = 100;

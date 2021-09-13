@@ -1,3 +1,18 @@
+## [1.13.20](https://github.com/dhis2/maps-app/compare/v1.13.19...v1.13.20) (2021-09-13)
+
+
+### Bug Fixes
+
+* align tracked entity legend ([#1863](https://github.com/dhis2/maps-app/issues/1863)) ([ab72e95](https://github.com/dhis2/maps-app/commit/ab72e95b88d7674a54bc88a73808758f8335b4fd))
+* improvements to facility and org unit layers ([#1862](https://github.com/dhis2/maps-app/issues/1862)) ([5b5e524](https://github.com/dhis2/maps-app/commit/5b5e5246ebc6bc48c1236d4e8be4cf48b19eac92))
+
+## [1.13.19](https://github.com/dhis2/maps-app/compare/v1.13.18...v1.13.19) (2021-09-13)
+
+
+### Bug Fixes
+
+* always open popup with single click ([#1860](https://github.com/dhis2/maps-app/issues/1860)) ([61f7f8e](https://github.com/dhis2/maps-app/commit/61f7f8e4e225c06a9ad69b2c2774d54584dc0527))
+
 ## [1.13.18](https://github.com/dhis2/maps-app/compare/v1.13.17...v1.13.18) (2021-09-11)
 
 

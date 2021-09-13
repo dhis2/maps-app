@@ -154,7 +154,3 @@
     line-height: 12px;
     margin-left: var(--spacers-dp12);
 }
-
-.gap {
-    margin-bottom: var(--spacers-dp16);
-}

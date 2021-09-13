@@ -9,6 +9,7 @@ const Checkbox = ({
     label,
     checked = false,
     disabled,
+    dense = true,
     onChange,
     className,
 }) => (
@@ -16,6 +17,7 @@ const Checkbox = ({
         <UiCheckbox
             label={label}
             checked={checked}
+            dense={dense}
             disabled={disabled}
             onChange={({ checked }) => onChange(checked)}
         />
@@ -25,6 +27,7 @@ const Checkbox = ({
 Checkbox.propTypes = {
     label: PropTypes.string,
     checked: PropTypes.bool,
+    dense: PropTypes.bool,
     disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
