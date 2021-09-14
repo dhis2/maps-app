@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { IconCross24 } from '@dhis2/ui';
+import { CenteredContent, CircularLoader, IconCross24 } from '@dhis2/ui';
 import Drawer from '../core/Drawer';
 import OrgUnitInfo from './OrgUnitInfo';
 import OrgUnitData from './OrgUnitData';
@@ -46,7 +46,7 @@ export const OrgUnitProfile = ({ id, closeOrgUnitProfile }) => {
                 </span>
             </div>
             <div className={styles.content}>
-                {profile && (
+                {profile ? (
                     <>
                         <OrgUnitInfo
                             {...profile.info}
@@ -60,6 +60,10 @@ export const OrgUnitProfile = ({ id, closeOrgUnitProfile }) => {
                             data={profile.dataItems}
                         />
                     </>
+                ) : (
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
                 )}
             </div>
         </Drawer>
