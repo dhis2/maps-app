@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-10T07:57:53.804Z\n"
+"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -300,6 +300,9 @@ msgstr ""
 
 msgid "Event status"
 msgstr "Status Even"
+
+msgid "Boundary color"
+msgstr ""
 
 msgid "Buffer"
 msgstr "Buffer"
@@ -615,11 +618,7 @@ msgid "Organisation unit"
 msgstr "Unit organisasi"
 
 msgid "Parent unit"
-<<<<<<< HEAD
 msgstr ""
-=======
-msgstr "Unit induk"
->>>>>>> master
 
 msgid "Last updated"
 msgstr "Terakhir diperbarui"
@@ -1273,9 +1272,6 @@ msgid "No facilities found"
 msgstr ""
 
 msgid "Facilities"
-msgstr ""
-
-msgid "No org units found"
 msgstr ""
 
 msgid "Organisation units"

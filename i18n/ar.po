@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-10T07:57:53.804Z\n"
+"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -294,6 +294,9 @@ msgstr ""
 
 msgid "Event status"
 msgstr "حالة الحدث"
+
+msgid "Boundary color"
+msgstr ""
 
 msgid "Buffer"
 msgstr ""
@@ -1269,9 +1272,6 @@ msgstr ""
 
 msgid "Facilities"
 msgstr "مرافق"
-
-msgid "No org units found"
-msgstr ""
 
 msgid "Organisation units"
 msgstr "الوحدات التنظيمية"

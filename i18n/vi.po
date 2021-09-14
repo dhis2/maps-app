@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-10T07:57:53.804Z\n"
+"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -293,6 +293,9 @@ msgstr ""
 
 msgid "Event status"
 msgstr "Tình trạng sự kiện"
+
+msgid "Boundary color"
+msgstr ""
 
 msgid "Buffer"
 msgstr ""
@@ -1257,9 +1260,6 @@ msgid "No facilities found"
 msgstr ""
 
 msgid "Facilities"
-msgstr ""
-
-msgid "No org units found"
 msgstr ""
 
 msgid "Organisation units"

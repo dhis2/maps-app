@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-10T07:57:53.804Z\n"
+"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -303,6 +303,9 @@ msgstr ""
 
 msgid "Event status"
 msgstr "Estado do evento "
+
+msgid "Boundary color"
+msgstr ""
 
 msgid "Buffer"
 msgstr "Buffer"
@@ -1291,9 +1294,6 @@ msgstr ""
 
 msgid "Facilities"
 msgstr "Instalações"
-
-msgid "No org units found"
-msgstr ""
 
 msgid "Organisation units"
 msgstr "Unidades organizacionais"
