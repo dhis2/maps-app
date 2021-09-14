@@ -68,6 +68,7 @@ const trackedEntityLoader = async config => {
     const name = program ? program.name : i18n.t('Tracked entity');
 
     const legend = {
+        title: name,
         period: `${formatLocaleDate(startDate)} - ${formatLocaleDate(endDate)}`,
         items: [
             {
