@@ -27,6 +27,7 @@ export const OrgUnitProfile = ({ id, closeOrgUnitProfile }) => {
     // https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/org-unit-profile.html
     useEffect(() => {
         if (id) {
+            setProfile(); // Clear profile
             apiFetch(
                 `/organisationUnitProfile/${id}/data?period=${defaultPeriod.id}`
             ).then(setProfile);
