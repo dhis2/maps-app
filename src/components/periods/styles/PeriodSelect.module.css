@@ -5,10 +5,12 @@
 
 .select {
     width: calc(100% - 80px);
+    height: 37px;
 }
 
 .stepper {
     margin: 0 0 6px 4px;
+    white-space: nowrap;
 }
 
 .stepper > span {

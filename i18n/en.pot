@@ -283,6 +283,9 @@ msgstr ""
 msgid "Event status"
 msgstr ""
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
@@ -1233,9 +1236,6 @@ msgid "No facilities found"
 msgstr ""
 
 msgid "Facilities"
-msgstr ""
-
-msgid "No org units found"
 msgstr ""
 
 msgid "Organisation units"

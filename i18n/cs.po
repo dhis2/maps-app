@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-10T07:57:53.804Z\n"
+"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -299,6 +299,9 @@ msgstr "Nevybrána žádná sada legend"
 
 msgid "Event status"
 msgstr "Stav události"
+
+msgid "Boundary color"
+msgstr ""
 
 msgid "Buffer"
 msgstr "Vyrovnávací paměť"
@@ -1281,9 +1284,6 @@ msgstr "Nebylo nalezeno žádné zařízení"
 
 msgid "Facilities"
 msgstr "Zařízení"
-
-msgid "No org units found"
-msgstr "Nebyly nalezeny žádné organizační jednotky"
 
 msgid "Organisation units"
 msgstr "Organizační jednotky"

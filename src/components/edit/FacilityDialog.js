@@ -16,6 +16,8 @@ import {
     ORG_UNIT_RADIUS,
     FACILITY_BUFFER,
     STYLE_TYPE_SYMBOL,
+    MIN_RADIUS,
+    MAX_RADIUS,
 } from '../../constants/layers';
 import styles from './styles/LayerDialog.module.css';
 
@@ -185,6 +187,13 @@ class FacilityDialog extends Component {
                             data-test="facilitydialog-styletab"
                         >
                             <div className={cx(styles.flexColumn)}>
+                                <Labels />
+                                <BufferRadius defaultRadius={FACILITY_BUFFER} />
+                            </div>
+                            <div className={styles.flexColumn}>
+                                <StyleByGroupSet
+                                    defaultStyleType={STYLE_TYPE_SYMBOL}
+                                />
                                 {!organisationUnitGroupSet && (
                                     <>
                                         <ColorPicker
@@ -203,22 +212,16 @@ class FacilityDialog extends Component {
                                                     ? radiusLow
                                                     : ORG_UNIT_RADIUS
                                             }
+                                            min={MIN_RADIUS}
+                                            max={MAX_RADIUS}
                                             onChange={setRadiusLow}
                                             disabled={
                                                 !!organisationUnitGroupSet
                                             }
                                             className={styles.narrowFieldIcon}
                                         />
-                                        <div className={styles.gap} />
                                     </>
                                 )}
-                                <Labels />
-                                <BufferRadius defaultRadius={FACILITY_BUFFER} />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <StyleByGroupSet
-                                    defaultStyleType={STYLE_TYPE_SYMBOL}
-                                />
                             </div>
                         </div>
                     )}

@@ -41,6 +41,7 @@ const BufferRadius = ({
                         setBufferRadius(value !== '' ? parseInt(value, 10) : '')
                     }
                     min={0}
+                    className={styles.numberField}
                 />
             )}
         </div>
