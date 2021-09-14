@@ -1,3 +1,10 @@
+## [1.13.26](https://github.com/dhis2/maps-app/compare/v1.13.25...v1.13.26) (2021-09-14)
+
+
+### Bug Fixes
+
+* improved map download legend ([#1870](https://github.com/dhis2/maps-app/issues/1870)) ([6a690a5](https://github.com/dhis2/maps-app/commit/6a690a521c7d782e526d8dc3d615e149855008fe))
+
 ## [1.13.25](https://github.com/dhis2/maps-app/compare/v1.13.24...v1.13.25) (2021-09-14)
 
 
