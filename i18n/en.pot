@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
-"PO-Revision-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T08:31:39.346Z\n"
+"PO-Revision-Date: 2021-09-14T08:31:39.346Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -570,12 +570,6 @@ msgstr ""
 msgid "Show longitude/latitude"
 msgstr ""
 
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
-msgstr ""
-
 msgid "Show {{name}}"
 msgstr ""
 
@@ -740,9 +734,6 @@ msgstr ""
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"

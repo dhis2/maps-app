@@ -1,3 +1,24 @@
+## [1.13.24](https://github.com/dhis2/maps-app/compare/v1.13.23...v1.13.24) (2021-09-14)
+
+
+### Bug Fixes
+
+* remove relocate facility options from context menu (DHIS2-9957) ([#1864](https://github.com/dhis2/maps-app/issues/1864)) ([7b12a0e](https://github.com/dhis2/maps-app/commit/7b12a0ea4a45d6f919be443e7d4f310165937655))
+
+## [1.13.23](https://github.com/dhis2/maps-app/compare/v1.13.22...v1.13.23) (2021-09-14)
+
+
+### Bug Fixes
+
+* higher layer dialog ([#1865](https://github.com/dhis2/maps-app/issues/1865)) ([55c0df7](https://github.com/dhis2/maps-app/commit/55c0df74a93b618cad0a0d8f04e056ba12eca122))
+
+## [1.13.22](https://github.com/dhis2/maps-app/compare/v1.13.21...v1.13.22) (2021-09-14)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([13d5f6e](https://github.com/dhis2/maps-app/commit/13d5f6e5ff0d2c8f7ded4ccefc2b9cbdf3d15031))
+
 ## [1.13.21](https://github.com/dhis2/maps-app/compare/v1.13.20...v1.13.21) (2021-09-13)
 
 

@@ -297,6 +297,9 @@ msgstr "ສະຖານະຂອງເຫດການ"
 msgid "Boundary color"
 msgstr ""
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 

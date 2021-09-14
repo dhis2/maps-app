@@ -300,6 +300,9 @@ msgstr "Ҳодиса/тадбир ҳолати"
 msgid "Boundary color"
 msgstr ""
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr "Буфер"
 
@@ -1283,7 +1286,11 @@ msgid "No facilities found"
 msgstr ""
 
 msgid "Facilities"
+<<<<<<< HEAD
 msgstr "Имкониятлар"
+=======
+msgstr "Муассасалар"
+>>>>>>> master
 
 msgid "Organisation units"
 msgstr "Ташкилий бўлимлар"
