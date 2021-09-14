@@ -46,7 +46,7 @@ const ContextMenu = props => {
     const left = offset[0] + position[0];
     const top = offset[1] + position[1];
 
-    const attr = feature ? feature.properties : {};
+    const attr = feature?.properties || {};
 
     const onClick = (item, id) => {
         closeContextMenu();
