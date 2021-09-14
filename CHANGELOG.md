@@ -1,3 +1,10 @@
+## [1.13.25](https://github.com/dhis2/maps-app/compare/v1.13.24...v1.13.25) (2021-09-14)
+
+
+### Bug Fixes
+
+* add loading spinner to org unit profile ([#1869](https://github.com/dhis2/maps-app/issues/1869)) ([c96c4b8](https://github.com/dhis2/maps-app/commit/c96c4b8b59e4d507a111aee294420fa2a1e12824))
+
 ## [1.13.24](https://github.com/dhis2/maps-app/compare/v1.13.23...v1.13.24) (2021-09-14)
 
 
