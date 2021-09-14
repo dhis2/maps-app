@@ -64,17 +64,3 @@ export const unselectOrgUnit = (layerId, featureId) => ({
     layerId,
     featureId,
 });
-
-export const changeOrgUnitCoordinate = (layerId, featureId, coordinate) => ({
-    type: types.ORGANISATION_UNIT_COORDINATE_CHANGE,
-    layerId,
-    featureId,
-    coordinate,
-});
-
-export const setOrgUnitCoordinate = (layerId, featureId, coordinate) => ({
-    type: types.ORGANISATION_UNIT_COORDINATE_SET,
-    layerId,
-    featureId,
-    coordinate,
-});
