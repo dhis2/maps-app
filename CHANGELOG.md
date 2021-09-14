@@ -1,3 +1,10 @@
+## [1.13.24](https://github.com/dhis2/maps-app/compare/v1.13.23...v1.13.24) (2021-09-14)
+
+
+### Bug Fixes
+
+* remove relocate facility options from context menu (DHIS2-9957) ([#1864](https://github.com/dhis2/maps-app/issues/1864)) ([7b12a0e](https://github.com/dhis2/maps-app/commit/7b12a0ea4a45d6f919be443e7d4f310165937655))
+
 ## [1.13.23](https://github.com/dhis2/maps-app/compare/v1.13.22...v1.13.23) (2021-09-14)
 
 
