@@ -1,3 +1,10 @@
+## [1.13.23](https://github.com/dhis2/maps-app/compare/v1.13.22...v1.13.23) (2021-09-14)
+
+
+### Bug Fixes
+
+* higher layer dialog ([#1865](https://github.com/dhis2/maps-app/issues/1865)) ([55c0df7](https://github.com/dhis2/maps-app/commit/55c0df74a93b618cad0a0d8f04e056ba12eca122))
+
 ## [1.13.22](https://github.com/dhis2/maps-app/compare/v1.13.21...v1.13.22) (2021-09-14)
 
 
