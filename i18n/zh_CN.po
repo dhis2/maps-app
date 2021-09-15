@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -583,12 +583,6 @@ msgstr "查看用户"
 msgid "Show longitude/latitude"
 msgstr "显示经纬度"
 
-msgid "Swap longitude/latitude"
-msgstr "切换经纬度"
-
-msgid "Relocate"
-msgstr "重新定位"
-
 msgid "Show {{name}}"
 msgstr ""
 
@@ -753,9 +747,6 @@ msgstr ""
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1246,14 +1237,14 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "事件"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "没有发现数据"
+
+msgid "Event"
+msgstr "事件"
 
 msgid "No facilities found"
 msgstr ""

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -586,12 +586,6 @@ msgstr "عرض ملف التعريف"
 msgid "Show longitude/latitude"
 msgstr "إظهار خط الطول/خط العرض"
 
-msgid "Swap longitude/latitude"
-msgstr "تبديل خط الطول/خط العرض"
-
-msgid "Relocate"
-msgstr "إعادة تحديد الموضع"
-
 msgid "Show {{name}}"
 msgstr "أضهار {{name}}"
 
@@ -759,9 +753,6 @@ msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr "لا يمكن الجمع بين الوحدات التنظيمية للمستخدم وتحديد الوحدات الفردية."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "انقر على الخريطة حيث تريد نقل المرفق."
 
 msgid "user organisation unit"
 msgstr "الوحدة التنظيمية للمستخدم"
@@ -1258,14 +1249,14 @@ msgstr "ليس لديك حق الوصول إلى بيانات الطبقة هذ�
 msgid "An unknown error occurred while reading layer data"
 msgstr "حدث خطأ غير معروف أثناء قراءة بيانات الطبقة"
 
-msgid "Event"
-msgstr "الحدث"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "لم توجد بيانات"
+
+msgid "Event"
+msgstr "الحدث"
 
 msgid "No facilities found"
 msgstr ""

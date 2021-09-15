@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -592,12 +592,6 @@ msgstr "Zobrazit profil"
 msgid "Show longitude/latitude"
 msgstr "Zobrazit zeměpisnou délku / šířku"
 
-msgid "Swap longitude/latitude"
-msgstr "Prohodit zeměpisnou délku / šířku"
-
-msgid "Relocate"
-msgstr "Přemístit"
-
 msgid "Show {{name}}"
 msgstr "Zobrazit {{name}}"
 
@@ -770,9 +764,6 @@ msgid ""
 msgstr ""
 "Není možné kombinovat uživatelské organizační jednotky a vybírat jednotlivé "
 "jednotky."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "Klikněte do mapy, kam chcete zařízení přemístit."
 
 msgid "user organisation unit"
 msgstr "organizační jednotka uživatele"
@@ -1270,14 +1261,14 @@ msgstr "K datům této vrstvy nemáte přístup"
 msgid "An unknown error occurred while reading layer data"
 msgstr "Při čtení dat vrstvy došlo k neznámé chybě"
 
-msgid "Event"
-msgstr "Událost"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Zobrazeno prvních {{pageSize}} událostí z {{total}}"
 
 msgid "No data found"
 msgstr "Nenalezena žádná data"
+
+msgid "Event"
+msgstr "Událost"
 
 msgid "No facilities found"
 msgstr "Nebylo nalezeno žádné zařízení"

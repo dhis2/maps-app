@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -604,12 +604,6 @@ msgstr ""
 msgid "Show longitude/latitude"
 msgstr "Tampilkan garis bujur/lintang"
 
-msgid "Swap longitude/latitude"
-msgstr "Tukar bujur/lintang"
-
-msgid "Relocate"
-msgstr "Pindahkan"
-
 msgid "Show {{name}}"
 msgstr "Tampilkan {{nama}}"
 
@@ -782,9 +776,6 @@ msgid ""
 msgstr ""
 "Tidak mungkin menggabungkan unit organisasi pengguna dan memilih unit "
 "individual."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "Klik peta tempat Anda ingin memindahkan fasilitas."
 
 msgid "user organisation unit"
 msgstr "unit organisasi pengguna"
@@ -1283,14 +1274,14 @@ msgstr "Anda tidak memiliki akses ke data layer ini"
 msgid "An unknown error occurred while reading layer data"
 msgstr "Terjadi kesalahan yang tidak diketahui saat membaca data layer"
 
-msgid "Event"
-msgstr "Kejadian"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Menampilkan {{pageSize}} even pertama dari {{total}}"
 
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
+
+msgid "Event"
+msgstr "Kejadian"
 
 msgid "No facilities found"
 msgstr ""
