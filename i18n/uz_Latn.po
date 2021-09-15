@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -601,12 +601,6 @@ msgstr "Profilni koʼrish"
 msgid "Show longitude/latitude"
 msgstr "Kenglik/Uzunlikni koʼrsating"
 
-msgid "Swap longitude/latitude"
-msgstr "Uzunlik / Kenglikni almashtiring"
-
-msgid "Relocate"
-msgstr "Joyni qayta belgilang"
-
 msgid "Show {{name}}"
 msgstr "Koʼrsatish {{nomi}}"
 
@@ -777,9 +771,6 @@ msgid ""
 msgstr ""
 "Аlohida birliklarni tanlash va foydalanuvchilar tashkiliy boʼlimini "
 "birlashtirish mumkin emas."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "Obʼektni koʼchirmoqchi boʼlgan xaritani bosing."
 
 msgid "user organisation unit"
 msgstr "Foydalanuvchining tashkiliy boʼlimi"
@@ -1278,14 +1269,14 @@ msgstr "Ushbu qatlam maʼlumotlariga kirish huquqiga ega emassiz"
 msgid "An unknown error occurred while reading layer data"
 msgstr "Qatlam maʼlumotlarini oʼqish paytida nomaʼlum xatolik yuz berdi"
 
-msgid "Event"
-msgstr "Hodisa/Tadbir"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Maʼlumotlar topilmadi"
+
+msgid "Event"
+msgstr "Hodisa/Tadbir"
 
 msgid "No facilities found"
 msgstr ""

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -584,12 +584,6 @@ msgstr "Xem hồ sơ"
 msgid "Show longitude/latitude"
 msgstr "Hiện kinh độ/vĩ độ"
 
-msgid "Swap longitude/latitude"
-msgstr "Tráo kinh độ/vĩ độ"
-
-msgid "Relocate"
-msgstr "Di dời"
-
 msgid "Show {{name}}"
 msgstr ""
 
@@ -754,9 +748,6 @@ msgstr ""
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1247,14 +1238,14 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "Sự Kiện"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Không tìm thấy dữ liệu"
+
+msgid "Event"
+msgstr "Sự Kiện"
 
 msgid "No facilities found"
 msgstr ""

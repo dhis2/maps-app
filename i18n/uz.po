@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -296,9 +296,6 @@ msgstr "Таърифлар тўплами танланмаган"
 
 msgid "Event status"
 msgstr "Ҳодиса/тадбир ҳолати"
-
-msgid "Boundary color"
-msgstr ""
 
 msgid "Boundary color"
 msgstr ""
@@ -598,12 +595,6 @@ msgstr "Профилни кўриш"
 msgid "Show longitude/latitude"
 msgstr "Узунлик/Кенгликни кўрсатинг"
 
-msgid "Swap longitude/latitude"
-msgstr "Кенглик/Узунликни алмаштиринг"
-
-msgid "Relocate"
-msgstr "Жойни қайта белгиланг"
-
 msgid "Show {{name}}"
 msgstr "Кўрсатиш {{номи}}"
 
@@ -774,9 +765,6 @@ msgid ""
 msgstr ""
 "Алоҳида бирликларни танлаш ва фойдаланувчилар ташкилий бўлимини бирлаштириш "
 "мумкин эмас."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "Объектни кўчирмоқчи бўлган харитани босинг."
 
 msgid "user organisation unit"
 msgstr "Фойдаланувчининг ташкилий бўлими"
@@ -1273,24 +1261,20 @@ msgstr "Ушбу қатлам маълумотларига кириш ҳуқуқ
 msgid "An unknown error occurred while reading layer data"
 msgstr "Қатлам маълумотларини ўқиш пайтида номаълум хатолик юз берди"
 
-msgid "Event"
-msgstr "Ҳодиса/Тадбир"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Маълумотлар топилмади"
 
+msgid "Event"
+msgstr "Ҳодиса/Тадбир"
+
 msgid "No facilities found"
 msgstr ""
 
 msgid "Facilities"
-<<<<<<< HEAD
 msgstr "Имкониятлар"
-=======
-msgstr "Муассасалар"
->>>>>>> master
 
 msgid "Organisation units"
 msgstr "Ташкилий бўлимлар"

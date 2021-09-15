@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Thuy Nguyen <thuynguyen@hispvietnam.org>, 2021\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -293,9 +293,6 @@ msgstr ""
 
 msgid "Event status"
 msgstr "ສະຖານະຂອງເຫດການ"
-
-msgid "Boundary color"
-msgstr ""
 
 msgid "Boundary color"
 msgstr ""
@@ -587,12 +584,6 @@ msgstr "ເບີ່ງຂໍ້ມູນ"
 msgid "Show longitude/latitude"
 msgstr ""
 
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
-msgstr ""
-
 msgid "Show {{name}}"
 msgstr ""
 
@@ -757,9 +748,6 @@ msgstr ""
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1250,14 +1238,14 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "ເຫດການ"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "ບໍ່ພົບຂໍ້ມູນ"
+
+msgid "Event"
+msgstr "ເຫດການ"
 
 msgid "No facilities found"
 msgstr ""
