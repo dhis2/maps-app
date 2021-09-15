@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -590,12 +590,6 @@ msgstr "Vis profil"
 msgid "Show longitude/latitude"
 msgstr "Vis lengdegrad/breddegrad"
 
-msgid "Swap longitude/latitude"
-msgstr "Bytt lengdegrad/breddegrad"
-
-msgid "Relocate"
-msgstr "Omplasser"
-
 msgid "Show {{name}}"
 msgstr "Vis {{name}}"
 
@@ -766,9 +760,6 @@ msgid ""
 msgstr ""
 "Det er ikke mulig å kombinere brukerorganisasjonsenheter og velge "
 "individuelle enheter."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "Klikk på kartet der du vil flytte fasiliteten"
 
 msgid "user organisation unit"
 msgstr "brukerorganisasjonsenhet"
@@ -1265,14 +1256,14 @@ msgstr "Du har ikke tilgang til disse kartlagdataene"
 msgid "An unknown error occurred while reading layer data"
 msgstr "En ukjent feil oppstod under lesing av kartlagdata"
 
-msgid "Event"
-msgstr "Hendelse"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Ingen data funnet"
+
+msgid "Event"
+msgstr "Hendelse"
 
 msgid "No facilities found"
 msgstr ""

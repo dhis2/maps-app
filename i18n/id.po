@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-13T10:56:35.161Z\n"
+"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -300,9 +300,6 @@ msgstr ""
 
 msgid "Event status"
 msgstr "Status Even"
-
-msgid "Boundary color"
-msgstr ""
 
 msgid "Boundary color"
 msgstr ""
@@ -596,12 +593,6 @@ msgstr ""
 msgid "Show longitude/latitude"
 msgstr ""
 
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
-msgstr "Pindahkan"
-
 msgid "Show {{name}}"
 msgstr ""
 
@@ -769,9 +760,6 @@ msgstr ""
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1262,24 +1250,20 @@ msgstr "Anda tidak memiliki akses ke data layer ini"
 msgid "An unknown error occurred while reading layer data"
 msgstr "Terjadi kesalahan yang tidak diketahui saat membaca data layer"
 
-msgid "Event"
-msgstr "Even"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Menampilkan {{pageSize}} even pertama dari {{total}}"
 
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
 
+msgid "Event"
+msgstr "Even"
+
 msgid "No facilities found"
 msgstr ""
 
 msgid "Facilities"
-<<<<<<< HEAD
 msgstr ""
-=======
-msgstr "Fasilitas"
->>>>>>> master
 
 msgid "Organisation units"
 msgstr "Unit organisasi"
