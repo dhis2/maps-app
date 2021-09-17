@@ -789,13 +789,13 @@ msgid "Last 14 days"
 msgstr "Last 14 days"
 
 msgid "This week"
-msgstr "本年"
+msgstr "本周"
 
 msgid "Last week"
 msgstr "上周"
 
 msgid "Last 4 weeks"
-msgstr "最近四周"
+msgstr "最近4 周"
 
 msgid "Last 12 weeks"
 msgstr "最近12周"
@@ -804,7 +804,7 @@ msgid "Last 52 weeks"
 msgstr "Last 52 weeks"
 
 msgid "Weeks this year"
-msgstr "Weeks this year"
+msgstr "今年的周"
 
 msgid "This month"
 msgstr "本月"
