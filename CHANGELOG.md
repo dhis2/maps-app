@@ -1,3 +1,10 @@
+## [1.13.28](https://github.com/dhis2/maps-app/compare/v1.13.27...v1.13.28) (2021-09-20)
+
+
+### Bug Fixes
+
+* period stepper buttons alignment ([#1881](https://github.com/dhis2/maps-app/issues/1881)) ([7b33aa9](https://github.com/dhis2/maps-app/commit/7b33aa9e4d9c8a811644a42d55784fb38ae45e25))
+
 ## [1.13.27](https://github.com/dhis2/maps-app/compare/v1.13.26...v1.13.27) (2021-09-15)
 
 
