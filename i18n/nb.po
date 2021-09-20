@@ -1254,7 +1254,11 @@ msgid "You don't have access to this layer data"
 msgstr "Du har ikke tilgang til disse kartlagdataene"
 
 msgid "An unknown error occurred while reading layer data"
+<<<<<<< HEAD
 msgstr "En ukjent feil oppstod under lesing av kartlagdata"
+=======
+msgstr "En ukjent feil oppstod under lesing av lagdata"
+>>>>>>> master
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""

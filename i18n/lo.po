@@ -1247,6 +1247,9 @@ msgstr "ບໍ່ພົບຂໍ້ມູນ"
 msgid "Event"
 msgstr "ເຫດການ"
 
+msgid "Event"
+msgstr "ເຫດການ"
+
 msgid "No facilities found"
 msgstr ""
 

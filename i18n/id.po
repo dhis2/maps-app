@@ -591,7 +591,11 @@ msgid "View profile"
 msgstr ""
 
 msgid "Show longitude/latitude"
+<<<<<<< HEAD
 msgstr ""
+=======
+msgstr "Tampilkan garis bujur/lintang"
+>>>>>>> master
 
 msgid "Show {{name}}"
 msgstr ""
@@ -761,6 +765,11 @@ msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
+<<<<<<< HEAD
+=======
+"Tidak mungkin menggabungkan unit organisasi pengguna dan memilih unit "
+"individual."
+>>>>>>> master
 
 msgid "user organisation unit"
 msgstr ""
@@ -1257,7 +1266,11 @@ msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
 
 msgid "Event"
+<<<<<<< HEAD
 msgstr "Even"
+=======
+msgstr "Kejadian"
+>>>>>>> master
 
 msgid "No facilities found"
 msgstr ""
