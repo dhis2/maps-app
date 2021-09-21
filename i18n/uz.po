@@ -1268,11 +1268,7 @@ msgid "No data found"
 msgstr "Маълумотлар топилмади"
 
 msgid "Event"
-<<<<<<< HEAD
 msgstr "Ҳодиса/Тадбир"
-=======
-msgstr "Тадбир"
->>>>>>> master
 
 msgid "No facilities found"
 msgstr ""

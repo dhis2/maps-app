@@ -1255,9 +1255,6 @@ msgstr "Datos no encontrados"
 msgid "Event"
 msgstr "Evento"
 
-msgid "Event"
-msgstr "Evento"
-
 msgid "No facilities found"
 msgstr ""
 

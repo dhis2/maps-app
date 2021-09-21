@@ -1246,9 +1246,6 @@ msgstr "没有数据被找到"
 msgid "Event"
 msgstr "事件"
 
-msgid "Event"
-msgstr "事件"
-
 msgid "No facilities found"
 msgstr ""
 
