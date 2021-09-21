@@ -207,7 +207,7 @@ class DataTable extends Component {
                 sortDirection={sortDirection}
                 useDynamicRowHeight={false}
                 hideIndexRow={false}
-                onRowClick={this.onRowClick}
+                onRowClick={!isEvent ? this.onRowClick : undefined}
                 onRowMouseOver={this.onRowMouseOver}
                 onRowMouseOut={this.onRowMouseOut}
             >
