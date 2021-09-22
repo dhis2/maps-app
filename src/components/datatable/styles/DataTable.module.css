@@ -54,12 +54,12 @@
 :global(.ReactVirtualized__Table__row) {
     position: relative;
     border-bottom: 1px solid #e0e0e0;
-    cursor: pointer;
     z-index: 9;
 }
 
 :global(.ReactVirtualized__Table__row:hover) {
     background-color: #fafafa;
+    cursor: pointer;
 }
 
 :global(.ReactVirtualized__Table__rowColumn.right) {

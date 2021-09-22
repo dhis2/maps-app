@@ -52,15 +52,3 @@ export const setOrgUnitProfile = id => ({
 export const closeOrgUnitProfile = () => ({
     type: types.ORGANISATION_UNIT_PROFILE_CLOSE,
 });
-
-export const selectOrgUnit = (layerId, featureId) => ({
-    type: types.ORGANISATION_UNIT_SELECT,
-    layerId,
-    featureId,
-});
-
-export const unselectOrgUnit = (layerId, featureId) => ({
-    type: types.ORGANISATION_UNIT_UNSELECT,
-    layerId,
-    featureId,
-});

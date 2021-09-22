@@ -8,7 +8,7 @@ import { debounce } from 'lodash/fp';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
-import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
+import { setOrgUnitProfile } from '../../actions/orgUnits';
 import { highlightFeature } from '../../actions/feature';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
@@ -32,6 +32,7 @@ class DataTable extends Component {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         loadLayer: PropTypes.func.isRequired,
+        setOrgUnitProfile: PropTypes.func.isRequired,
         highlightFeature: PropTypes.func.isRequired,
     };
 
@@ -169,6 +170,7 @@ class DataTable extends Component {
         }
     });
 
+    onRowClick = evt => this.props.setOrgUnitProfile(evt.rowData.id);
     onRowMouseOver = evt => this.highlightFeature(evt.rowData.id);
     onRowMouseOut = () => this.highlightFeature();
 
@@ -205,6 +207,7 @@ class DataTable extends Component {
                 sortDirection={sortDirection}
                 useDynamicRowHeight={false}
                 hideIndexRow={false}
+                onRowClick={!isEvent ? this.onRowClick : undefined}
                 onRowMouseOver={this.onRowMouseOver}
                 onRowMouseOut={this.onRowMouseOut}
             >
@@ -355,9 +358,8 @@ export default connect(
             : {};
     },
     {
-        selectOrgUnit,
-        unselectOrgUnit,
         loadLayer,
+        setOrgUnitProfile,
         highlightFeature,
     }
 )(DataTable);
