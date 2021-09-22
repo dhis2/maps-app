@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/dhis2/maps-app/compare/v1.13.28...v1.14.0) (2021-09-22)
+
+
+### Features
+
+* allow org unit profile to be opened from the data table (DHIS2-11823) ([#1884](https://github.com/dhis2/maps-app/issues/1884)) ([107e75f](https://github.com/dhis2/maps-app/commit/107e75f401786e4ebe938f2e45ee17d7584c2364))
+
 ## [1.13.28](https://github.com/dhis2/maps-app/compare/v1.13.27...v1.13.28) (2021-09-20)
 
 
