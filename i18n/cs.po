@@ -301,7 +301,7 @@ msgid "Event status"
 msgstr "Stav události"
 
 msgid "Boundary color"
-msgstr ""
+msgstr "Barva hraničních okrajů"
 
 msgid "Buffer"
 msgstr "Vyrovnávací paměť"
