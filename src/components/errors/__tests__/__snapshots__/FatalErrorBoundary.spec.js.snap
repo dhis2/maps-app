@@ -6,7 +6,7 @@ exports[`FatalErrorBoundary Should match the snapshot tree when error is manuall
   level={2000}
   position="fixed"
 >
-  <CenteredContent
+  <Center
     dataTest="dhis2-uicore-centeredcontent"
     position="middle"
   >
@@ -55,6 +55,6 @@ exports[`FatalErrorBoundary Should match the snapshot tree when error is manuall
         </div>
       </NoticeBox>
     </div>
-  </CenteredContent>
+  </Center>
 </Layer>
 `;
