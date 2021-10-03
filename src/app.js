@@ -79,7 +79,7 @@ getManifest('manifest.webapp')
 
             render(
                 <Root d2={d2} store={store} />,
-                document.getElementById('app')
+                document.getElementById('dhis2-app-root')
             );
         },
         err => {
