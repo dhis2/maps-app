@@ -1,3 +1,26 @@
+## [1.14.3](https://github.com/dhis2/maps-app/compare/v1.14.2...v1.14.3) (2021-10-04)
+
+
+### Bug Fixes
+
+* include legend title for facility and org unit layers (DHIS2-11922) ([#1898](https://github.com/dhis2/maps-app/issues/1898)) ([65ce5cd](https://github.com/dhis2/maps-app/commit/65ce5cd066c25a5669d4bf787b72b5f8ebca4541))
+* keep start/end dates ([#1896](https://github.com/dhis2/maps-app/issues/1896)) ([6f6ab01](https://github.com/dhis2/maps-app/commit/6f6ab011f704f61801cfa14f0e65bce236c79a0a))
+* remove style data item on program change ([#1897](https://github.com/dhis2/maps-app/issues/1897)) ([83e14d3](https://github.com/dhis2/maps-app/commit/83e14d32931d5be6cee2ec114e12ba5ca99f1bbe))
+
+## [1.14.2](https://github.com/dhis2/maps-app/compare/v1.14.1...v1.14.2) (2021-10-02)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([1687b84](https://github.com/dhis2/maps-app/commit/1687b84b21e7330f2a1c9ed3898380fe117dbb8b))
+
+## [1.14.1](https://github.com/dhis2/maps-app/compare/v1.14.0...v1.14.1) (2021-09-29)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([533db71](https://github.com/dhis2/maps-app/commit/533db717e06412568039b5dd1a753a0101f91e50))
+
 # [1.14.0](https://github.com/dhis2/maps-app/compare/v1.13.28...v1.14.0) (2021-09-22)
 
 

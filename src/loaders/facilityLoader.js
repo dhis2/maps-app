@@ -16,6 +16,7 @@ const facilityLoader = async config => {
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const { contextPath } = d2.system.systemInfo;
+    const name = i18n.t('Facilities');
 
     const requests = [
         d2.geoFeatures
@@ -54,6 +55,8 @@ const facilityLoader = async config => {
         contextPath
     );
 
+    legend.title = name;
+
     if (areaRadius) {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];
     }
@@ -65,7 +68,7 @@ const facilityLoader = async config => {
     return {
         ...config,
         data: styledFeatures,
-        name: i18n.t('Facilities'),
+        name,
         legend,
         alerts,
         isLoaded: true,
