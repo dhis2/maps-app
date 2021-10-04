@@ -41,7 +41,7 @@ const layerEdit = (state = null, action) => {
                 program: program ? { ...program } : null,
                 columns: [],
                 programStage: null,
-                styleDataElement: null,
+                styleDataItem: null,
             };
 
         case types.LAYER_EDIT_PROGRAM_STAGE_SET:
@@ -51,7 +51,7 @@ const layerEdit = (state = null, action) => {
                     ...action.programStage,
                 },
                 columns: [],
-                styleDataElement: null,
+                styleDataItem: null,
             };
 
         case types.LAYER_EDIT_VALUE_TYPE_SET:
