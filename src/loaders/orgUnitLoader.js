@@ -15,6 +15,7 @@ const orgUnitLoader = async config => {
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const { contextPath } = d2.system.systemInfo;
+    const name = i18n.t('Organisation units');
 
     const requests = [
         d2.geoFeatures
@@ -46,6 +47,8 @@ const orgUnitLoader = async config => {
         orgUnitLevels
     );
 
+    legend.title = name;
+
     const alerts = !features.length
         ? [{ warning: true, message: i18n.t('No coordinates found') }]
         : undefined;
@@ -53,7 +56,7 @@ const orgUnitLoader = async config => {
     return {
         ...config,
         data: styledFeatures,
-        name: i18n.t('Organisation units'),
+        name,
         legend,
         alerts,
         isLoaded: true,
