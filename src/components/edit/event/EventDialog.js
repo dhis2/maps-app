@@ -142,8 +142,7 @@ export class EventDialog extends Component {
             setPeriod({
                 id: defaultPeriod,
             });
-        } else {
-            // Fallback to default start/end dates
+        } else if (!startDate && !endDate) {
             setStartDate(DEFAULT_START_DATE);
             setEndDate(DEFAULT_END_DATE);
         }
