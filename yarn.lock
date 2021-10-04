@@ -2299,10 +2299,10 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-2.1.3.tgz#840620d5174d719352002be6e9a75e6097727144"
-  integrity sha512-xF43LnFDejpP+1wZuspTJzGGZiBFmDfG7brgT/l5sdrhJGBP5rBRE+s3ozdXplst45epaI2/V+5WShYmGYcY4w==
+"@dhis2/maps-gl@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-2.1.4.tgz#0ba2c041d63af199ffa26917f83b2348b1f7664c"
+  integrity sha512-cQ+HVcqsnYBMrpmh70ZiTHegbhaR0kR3r+P/AYRC8MnL3c7GyodrYiMlulYY9uoSZ/w9XAcoiBiqJi1X4L3xYw==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.3.0"
@@ -2313,7 +2313,7 @@
     "@turf/length" "^6.3.0"
     fetch-jsonp "^1.1.3"
     lodash.throttle "^4.1.1"
-    maplibre-gl "^1.15.0"
+    maplibre-gl "^1.15.2"
     polylabel "^1.1.0"
     suggestions "^1.7.1"
     uuid "^8.3.2"
@@ -14157,10 +14157,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maplibre-gl@^1.15.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-1.15.0.tgz#6efa96b5fdda218390cb9db3eb1e901dc6ca9f51"
-  integrity sha512-C3Mq7HDTndvAs8w+Ai1QzvVdN7xG2+2iHjtp3Pkmk7tJeSMcqZzQYHKyOCBkpTs7g2P/aFqMU8Tg853RIZxIZg==
+maplibre-gl@^1.15.2:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-1.15.2.tgz#7fb47868b62455af916c090903f2154394450f9c"
+  integrity sha512-uPeV530apb4JfX3cRFfE+awFnbcJTOnCv2QvY4mw4huiInbybElWYkNzTs324YLSADq0f4bidRoYcR81ho3aLA==
   dependencies:
     "@mapbox/geojson-rewind" "^0.5.0"
     "@mapbox/geojson-types" "^1.0.2"
