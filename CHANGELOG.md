@@ -1,3 +1,10 @@
+## [1.14.4](https://github.com/dhis2/maps-app/compare/v1.14.3...v1.14.4) (2021-10-04)
+
+
+### Bug Fixes
+
+* donut cluster rendering ([#1902](https://github.com/dhis2/maps-app/issues/1902)) ([1e66869](https://github.com/dhis2/maps-app/commit/1e66869e4a890ca93166b949c43652a5047fd7a3))
+
 ## [1.14.3](https://github.com/dhis2/maps-app/compare/v1.14.2...v1.14.3) (2021-10-04)
 
 
