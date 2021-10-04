@@ -34,7 +34,6 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
       maxWidth={300}
       openDelay={200}
       placement="top"
-      tag="span"
     >
       <OpacitySlider
         disabled={false}
@@ -72,7 +71,6 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
       maxWidth={300}
       openDelay={200}
       placement="top"
-      tag="span"
     >
       <OpacitySlider
         disabled={false}

@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "36.0.2",
+    "version": "36.0.3",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -45,15 +45,15 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/analytics": "^18.2.1",
-        "@dhis2/app-runtime": "^2.8.0",
+        "@dhis2/analytics": "^20.5.2",
+        "@dhis2/app-runtime": "^2.12.2",
         "@dhis2/d2-i18n": "<1.1.0",
-        "@dhis2/d2-ui-core": "^7.3.1",
-        "@dhis2/d2-ui-interpretations": "^7.3.1",
-        "@dhis2/d2-ui-org-unit-dialog": "^7.3.1",
-        "@dhis2/d2-ui-org-unit-tree": "^7.3.1",
+        "@dhis2/d2-ui-core": "^7.3.3",
+        "@dhis2/d2-ui-interpretations": "^7.3.3",
+        "@dhis2/d2-ui-org-unit-dialog": "^7.3.3",
+        "@dhis2/d2-ui-org-unit-tree": "^7.3.3",
         "@dhis2/maps-gl": "^1.8.6",
-        "@dhis2/ui": "^6.5.5",
+        "@dhis2/ui": "^6.25.2",
         "abortcontroller-polyfill": "^1.5.0",
         "array-move": "^3.0.1",
         "classnames": "^2.2.6",
@@ -88,7 +88,7 @@
         "whatwg-fetch": "^3.4.1"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^5.7.4",
+        "@dhis2/cli-app-scripts": "^7.7.1",
         "@dhis2/d2-i18n-extract": "^1.0.8",
         "@dhis2/d2-i18n-generate": "^1.2.0",
         "babel-eslint": "^10.1.0",
