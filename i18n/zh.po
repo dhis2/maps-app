@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
+"POT-Creation-Date: 2021-10-03T11:49:34.873Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -1248,11 +1248,11 @@ msgstr "没有数据被找到"
 msgid "Event"
 msgstr "四级"
 
-msgid "No facilities found"
-msgstr "没有找到机构设施"
-
 msgid "Facilities"
 msgstr "机构设施"
+
+msgid "No facilities found"
+msgstr "没有找到机构设施"
 
 msgid "Organisation units"
 msgstr "组织机构"
