@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
+"POT-Creation-Date: 2021-10-03T11:49:34.873Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -1259,10 +1259,10 @@ msgstr "Tidak ada data yang ditemukan"
 msgid "Event"
 msgstr "Even"
 
-msgid "No facilities found"
+msgid "Facilities"
 msgstr ""
 
-msgid "Facilities"
+msgid "No facilities found"
 msgstr ""
 
 msgid "Organisation units"
