@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-09-14T11:41:24.358Z\n"
+"POT-Creation-Date: 2021-10-03T11:49:34.873Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -1265,11 +1265,11 @@ msgstr "Ingen data funnet"
 msgid "Event"
 msgstr "Hendelse"
 
-msgid "No facilities found"
-msgstr ""
-
 msgid "Facilities"
 msgstr "Bygninger"
+
+msgid "No facilities found"
+msgstr ""
 
 msgid "Organisation units"
 msgstr "Organisasjonsenheter"
