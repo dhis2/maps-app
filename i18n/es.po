@@ -6,13 +6,14 @@
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
+# Prabhjot Singh, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T19:10:59.934Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021\n"
+"Last-Translator: Prabhjot Singh, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -857,7 +858,7 @@ msgid "Last 6 bi-months"
 msgstr "Últimos 6 bimestres"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Bimestres de este año"
 
 msgid "This quarter"
 msgstr "Este trimestre"
