@@ -9,13 +9,14 @@
 # Marta Vila <marta@dhis2.org>, 2021
 # ericbp <ericbarredap@gmail.com>, 2021
 # Jaime Bosque <jaime.bosque@dhis2.org>, 2021
+# Prabhjot Singh, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2021\n"
+"Last-Translator: Prabhjot Singh, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -978,13 +979,13 @@ msgid "Weeks this year"
 msgstr "Semanas de este año"
 
 msgid "This bi-week"
-msgstr ""
+msgstr "Esta quincena"
 
 msgid "Last bi-week"
-msgstr ""
+msgstr "Última quincena"
 
 msgid "Last 4 bi-weeks"
-msgstr ""
+msgstr "Últimas 4 quincenas"
 
 msgid "This month"
 msgstr "Este mes"
@@ -1014,7 +1015,7 @@ msgid "Last 6 bi-months"
 msgstr "Últimos 6 bimestres"
 
 msgid "Bi-months this year"
-msgstr ""
+msgstr "Bimestres de este año"
 
 msgid "This quarter"
 msgstr "Este trimestre"
