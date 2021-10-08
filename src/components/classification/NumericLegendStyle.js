@@ -42,7 +42,7 @@ const NumericLegendStyle = props => {
 
     useEffect(() => {
         // Set legend set defined for data item in use by default
-        if (isPredefined && !legendSet && dataItem && dataItem.legendSet) {
+        if (isPredefined && !legendSet && dataItem?.legendSet) {
             setLegendSet(dataItem.legendSet);
         }
     }, [isPredefined, legendSet, dataItem, setLegendSet]);

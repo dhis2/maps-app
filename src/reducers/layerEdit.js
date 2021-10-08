@@ -296,8 +296,10 @@ const layerEdit = (state = null, action) => {
 
             if (
                 state.method === CLASSIFICATION_SINGLE_COLOR ||
-                (action.method !== CLASSIFICATION_EQUAL_INTERVALS &&
-                    action.method !== CLASSIFICATION_EQUAL_COUNTS)
+                ![
+                    CLASSIFICATION_EQUAL_INTERVALS,
+                    CLASSIFICATION_EQUAL_COUNTS,
+                ].includes(action.method)
             ) {
                 delete newState.colorScale;
                 delete newState.classes;
