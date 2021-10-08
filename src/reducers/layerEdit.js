@@ -283,6 +283,7 @@ const layerEdit = (state = null, action) => {
             ) {
                 delete newState.method;
                 delete newState.colorScale;
+                delete newState.classes;
             }
 
             return newState;
@@ -294,8 +295,9 @@ const layerEdit = (state = null, action) => {
             };
 
             if (
-                action.method !== CLASSIFICATION_EQUAL_INTERVALS &&
-                action.method !== CLASSIFICATION_EQUAL_COUNTS
+                state.method === CLASSIFICATION_SINGLE_COLOR ||
+                (action.method !== CLASSIFICATION_EQUAL_INTERVALS &&
+                    action.method !== CLASSIFICATION_EQUAL_COUNTS)
             ) {
                 delete newState.colorScale;
                 delete newState.classes;
