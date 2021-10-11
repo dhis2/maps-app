@@ -1246,7 +1246,11 @@ msgid "No data found"
 msgstr "没有发现数据"
 
 msgid "Event"
+<<<<<<< HEAD
 msgstr "事件"
+=======
+msgstr "四级"
+>>>>>>> master
 
 msgid "Facilities"
 msgstr "机构设施"

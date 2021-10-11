@@ -1,3 +1,24 @@
+## [1.14.7](https://github.com/dhis2/maps-app/compare/v1.14.6...v1.14.7) (2021-10-11)
+
+
+### Bug Fixes
+
+* avoid app crash in style tab for thematic layer (DHIS2-11970) ([#1914](https://github.com/dhis2/maps-app/issues/1914)) ([98176db](https://github.com/dhis2/maps-app/commit/98176dba3a467f7895940247254275ba54056b87))
+
+## [1.14.6](https://github.com/dhis2/maps-app/compare/v1.14.5...v1.14.6) (2021-10-07)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([22878bd](https://github.com/dhis2/maps-app/commit/22878bdc6a835546502b2ea30ef651d221d83baa))
+
+## [1.14.5](https://github.com/dhis2/maps-app/compare/v1.14.4...v1.14.5) (2021-10-05)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([24502e5](https://github.com/dhis2/maps-app/commit/24502e5958f96c10b5301287448d53f2ac9356cf))
+
 ## [1.14.4](https://github.com/dhis2/maps-app/compare/v1.14.3...v1.14.4) (2021-10-04)
 
 

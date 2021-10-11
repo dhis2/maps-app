@@ -1273,6 +1273,12 @@ msgstr "Ҳодиса/Тадбир"
 msgid "Facilities"
 msgstr "Имкониятлар"
 
+<<<<<<< HEAD
+=======
+msgid "Facilities"
+msgstr "Муассасалар"
+
+>>>>>>> master
 msgid "No facilities found"
 msgstr ""
 
