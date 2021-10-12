@@ -1260,14 +1260,7 @@ msgid "Event"
 msgstr "Even"
 
 msgid "Facilities"
-<<<<<<< HEAD
 msgstr ""
-
-msgid "No facilities found"
-msgstr ""
-=======
-msgstr "Fasilitas"
->>>>>>> master
 
 msgid "No facilities found"
 msgstr ""

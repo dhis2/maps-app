@@ -1256,11 +1256,7 @@ msgid "No data found"
 msgstr "لم يتم إيجاد بيانات"
 
 msgid "Event"
-<<<<<<< HEAD
 msgstr "حدث"
-=======
-msgstr "الحدث"
->>>>>>> master
 
 msgid "Facilities"
 msgstr "مرافق"
