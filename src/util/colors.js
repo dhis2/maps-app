@@ -1,3 +1,4 @@
+import { hcl } from 'd3-color';
 import { isString } from 'lodash/fp';
 import colorbrewer from '../constants/colorbrewer';
 
@@ -88,3 +89,9 @@ export const getUniqueColor = defaultColors => {
 
     return index => colors[index] || randomColor();
 };
+
+// Returns true if a color is dark
+export const isDarkColor = color => hcl(color).l < 70;
+
+// Returns constrasting color
+export const getContrastColor = color => (isDarkColor(color) ? '#fff' : '#000');

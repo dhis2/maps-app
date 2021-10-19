@@ -2042,10 +2042,10 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^1.8.6":
-  version "1.8.6"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-1.8.6.tgz#f3509f01b4de5d1a6caae5af06f9bb3af792f7cf"
-  integrity sha512-5mDPvu4aIB3+YGW+ZabI/VG6qgef/iPR2nBbyogDXzmZZnQfJpMTfzcORP4TunwjGhGvvSSXn7KN6HNx8ue3tw==
+"@dhis2/maps-gl@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-2.1.4.tgz#0ba2c041d63af199ffa26917f83b2348b1f7664c"
+  integrity sha512-cQ+HVcqsnYBMrpmh70ZiTHegbhaR0kR3r+P/AYRC8MnL3c7GyodrYiMlulYY9uoSZ/w9XAcoiBiqJi1X4L3xYw==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.3.0"
@@ -2056,8 +2056,7 @@
     "@turf/length" "^6.3.0"
     fetch-jsonp "^1.1.3"
     lodash.throttle "^4.1.1"
-    mapbox-gl "^1.13.1"
-    mapboxgl-spiderifier "^1.0.9"
+    maplibre-gl "^1.15.2"
     polylabel "^1.1.0"
     suggestions "^1.7.1"
     uuid "^8.3.2"
@@ -13276,10 +13275,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapbox-gl@^1.13.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-1.13.1.tgz#322efe75ab4c764fc4c776da1506aad58d5a5b9d"
-  integrity sha512-GSyubcoSF5MyaP8z+DasLu5v7KmDK2pp4S5+VQ5WdVQUOaAqQY4jwl4JpcdNho3uWm2bIKs7x1l7q3ynGmW60g==
+maplibre-gl@^1.15.2:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-1.15.2.tgz#7fb47868b62455af916c090903f2154394450f9c"
+  integrity sha512-uPeV530apb4JfX3cRFfE+awFnbcJTOnCv2QvY4mw4huiInbybElWYkNzTs324YLSADq0f4bidRoYcR81ho3aLA==
   dependencies:
     "@mapbox/geojson-rewind" "^0.5.0"
     "@mapbox/geojson-types" "^1.0.2"
@@ -13304,11 +13303,6 @@ mapbox-gl@^1.13.1:
     supercluster "^7.1.0"
     tinyqueue "^2.0.3"
     vt-pbf "^3.1.1"
-
-mapboxgl-spiderifier@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/mapboxgl-spiderifier/-/mapboxgl-spiderifier-1.0.9.tgz#332d3f53eff9b4a0ea9e062dc480ddaae581f244"
-  integrity sha512-qox8WOWU9MGdH4IL8wtUO/inEyivCi44e4lYStJ9BXuTGU0t2TVdu6SsnStRNqnE67n0423FfCDXycGUj9XROA==
 
 markdown-it@^8.4.2:
   version "8.4.2"
