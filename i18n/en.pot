@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
-"PO-Revision-Date: 2021-06-14T11:15:31.536Z\n"
+"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
+"PO-Revision-Date: 2021-10-19T10:03:29.943Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -559,12 +559,6 @@ msgid "Show information"
 msgstr ""
 
 msgid "Show longitude/latitude"
-msgstr ""
-
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
 msgstr ""
 
 msgid "Show {{name}}"

@@ -22,9 +22,7 @@ import { loadOrgUnit, changeOrgUnitCoordinate } from '../../actions/orgUnits';
 import { FACILITY_LAYER, EARTH_ENGINE_LAYER } from '../../constants/layers';
 import styles from './styles/ContextMenu.module.css';
 
-const polygonTypes = ['Polygon', 'MultiPolygon'];
-
-const ContextMenu = (props, context) => {
+const ContextMenu = props => {
     const [relocate, setRelocate] = useState();
     const anchorRef = useRef();
 
@@ -53,22 +51,10 @@ const ContextMenu = (props, context) => {
         return null;
     }
 
-    const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const left = offset[0] + position[0];
     const top = offset[1] + position[1];
 
-    let isPoint;
-    let attr = {};
-
-    if (feature) {
-        const { geometry, properties } = feature;
-
-        attr = properties || {};
-
-        // Treat bubbles as polygons if created from one
-        isPoint =
-            geometry.type === 'Point' && !polygonTypes.includes(attr.type);
-    }
+    const attr = feature?.properties || {};
 
     const onClick = (item, id) => {
         closeContextMenu();
@@ -160,22 +146,6 @@ const ContextMenu = (props, context) => {
                                 label={i18n.t('Show longitude/latitude')}
                                 icon={<IconLocation16 />}
                                 onClick={() => onClick('show_coordinate')}
-                            />
-                        )}
-
-                        {isAdmin && isPoint && (
-                            <MenuItem
-                                label={i18n.t('Swap longitude/latitude')}
-                                icon={<IconLocation16 />}
-                                onClick={() => onClick('swap_coordinate')}
-                            />
-                        )}
-
-                        {isAdmin && isPoint && (
-                            <MenuItem
-                                label={i18n.t('Relocate')}
-                                icon={<IconLocation16 />}
-                                onClick={() => onClick('relocate')}
                             />
                         )}
 
