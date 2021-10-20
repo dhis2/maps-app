@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
+"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -572,12 +572,6 @@ msgstr "مالومات ښکاره کړئ"
 
 msgid "Show longitude/latitude"
 msgstr "نمایش طولالبلد/عرضلبلد"
-
-msgid "Swap longitude/latitude"
-msgstr "تغیر دادن طولالبلد/عرضلبلد"
-
-msgid "Relocate"
-msgstr "موقعیت ته یې بدلون ورکړئ"
 
 msgid "Show {{name}}"
 msgstr ""

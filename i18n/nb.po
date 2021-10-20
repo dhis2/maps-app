@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
+"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -580,12 +580,6 @@ msgstr "Vis informasjon"
 
 msgid "Show longitude/latitude"
 msgstr "Vis lengdegrad/breddegrad"
-
-msgid "Swap longitude/latitude"
-msgstr "Bytt lengdegrad/breddegrad"
-
-msgid "Relocate"
-msgstr "Omplasser"
 
 msgid "Show {{name}}"
 msgstr "Vis {{name}}"
