@@ -89,7 +89,7 @@ class Layer extends PureComponent {
     }
 
     // Create new layer from config object (override in subclasses)
-    createLayer() {
+    async createLayer() {
         const { id, index = 0, config, opacity, isVisible } = this.props;
         const { map } = this.context;
 
@@ -101,14 +101,14 @@ class Layer extends PureComponent {
             isVisible,
         });
 
-        map.addLayer(this.layer);
+        await map.addLayer(this.layer);
     }
 
-    updateLayer = () => {
-        this.removeLayer();
-        this.createLayer(true);
+    async updateLayer() {
+        await this.removeLayer();
+        await this.createLayer(true);
         this.setLayerOrder();
-    };
+    }
 
     // Override in subclass if needed
     setPeriod(callback) {
@@ -146,13 +146,13 @@ class Layer extends PureComponent {
         }
     }
 
-    removeLayer() {
+    async removeLayer() {
         const map = this.context.map;
 
         this.layer.off('contextmenu', this.onFeatureRightClick, this);
 
         if (map.hasLayer(this.layer)) {
-            map.removeLayer(this.layer);
+            await map.removeLayer(this.layer);
         }
 
         delete this.layer;
