@@ -9,22 +9,13 @@ import LayerToolbar from './toolbar/LayerToolbar';
 import styles from './styles/LayerCard.module.css';
 
 const LayerCard = ({
-    layer,
     title,
     subtitle,
-    opacity,
     isOverlay,
     isExpanded,
-    isVisible,
-    onOpacityChange,
-    onEdit,
-    onRemove,
-    downloadData,
-    openAs,
-    toggleDataTable,
     toggleExpand,
-    toggleLayerVisibility,
     children,
+    ...layerToolbarProps
 }) => (
     <div
         className={cx(styles.card, {
@@ -61,39 +52,18 @@ const LayerCard = ({
             </div>
             <div className={styles.collapsibleContent}>
                 <div className={styles.content}>{children}</div>
-                <LayerToolbar
-                    layer={layer}
-                    opacity={opacity}
-                    isVisible={isVisible}
-                    onEdit={onEdit}
-                    onRemove={onRemove}
-                    onOpacityChange={onOpacityChange}
-                    downloadData={downloadData}
-                    openAs={openAs}
-                    toggleDataTable={toggleDataTable}
-                    toggleLayerVisibility={toggleLayerVisibility}
-                />
+                <LayerToolbar {...layerToolbarProps} />
             </div>
         </Card>
     </div>
 );
 
 LayerCard.propTypes = {
-    layer: PropTypes.object,
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
-    opacity: PropTypes.number,
     isOverlay: PropTypes.bool,
     isExpanded: PropTypes.bool.isRequired,
-    isVisible: PropTypes.bool,
-    onOpacityChange: PropTypes.func.isRequired,
-    onEdit: PropTypes.func,
-    onRemove: PropTypes.func,
-    downloadData: PropTypes.func,
-    openAs: PropTypes.func,
-    toggleDataTable: PropTypes.func,
     toggleExpand: PropTypes.func.isRequired,
-    toggleLayerVisibility: PropTypes.func.isRequired,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,

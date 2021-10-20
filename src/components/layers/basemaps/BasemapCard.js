@@ -24,8 +24,12 @@ const BasemapCard = props => {
         changeBasemapOpacity,
     } = props;
 
+    const adjustableOpacity =
+        props.config?.type === 'vectorStyle' ? false : true;
+
     return (
         <LayerCard
+            adjustableOpacity={adjustableOpacity}
             title={name}
             subtitle={subtitle}
             opacity={opacity}
@@ -45,6 +49,7 @@ const BasemapCard = props => {
 };
 
 BasemapCard.propTypes = {
+    config: PropTypes.object,
     name: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     opacity: PropTypes.number,
