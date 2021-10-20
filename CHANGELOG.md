@@ -1,3 +1,10 @@
+## [1.14.8](https://github.com/dhis2/maps-app/compare/v1.14.7...v1.14.8) (2021-10-20)
+
+
+### Bug Fixes
+
+* upgrade maps-gl dependency ([#1922](https://github.com/dhis2/maps-app/issues/1922)) ([279f81c](https://github.com/dhis2/maps-app/commit/279f81c9e5c19aa5c602ac3458655831f3a1aefb))
+
 ## [1.14.7](https://github.com/dhis2/maps-app/compare/v1.14.6...v1.14.7) (2021-10-11)
 
 
