@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
+"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -575,12 +575,6 @@ msgstr "显示信息表格"
 
 msgid "Show longitude/latitude"
 msgstr "显示经纬度"
-
-msgid "Swap longitude/latitude"
-msgstr "切换经纬度"
-
-msgid "Relocate"
-msgstr "重新定位"
 
 msgid "Show {{name}}"
 msgstr "显示{{name}}"

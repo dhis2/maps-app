@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
+"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Rahman Monjur <simran.monjur@gmail.com>, 2021\n"
 "Language-Team: Bengali (https://www.transifex.com/hisp-uio/teams/100509/bn/)\n"
@@ -572,12 +572,6 @@ msgid "Show information"
 msgstr ""
 
 msgid "Show longitude/latitude"
-msgstr ""
-
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
 msgstr ""
 
 msgid "Show {{name}}"

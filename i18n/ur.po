@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
+"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
@@ -573,12 +573,6 @@ msgstr "معلومات دکھائیں"
 
 msgid "Show longitude/latitude"
 msgstr "طول و عرض / طول و عرض دکھائیں"
-
-msgid "Swap longitude/latitude"
-msgstr "طول و عرض / طول و عرض کو تبدیل کریں"
-
-msgid "Relocate"
-msgstr "رہائشی"
 
 msgid "Show {{name}}"
 msgstr ""

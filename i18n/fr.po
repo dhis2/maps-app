@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
+"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Yayra Gomado <ygomado@hispwca.org>, 2021\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -582,12 +582,6 @@ msgstr "Afficher la fiche d'information"
 
 msgid "Show longitude/latitude"
 msgstr "Afficher longitude/latitude"
-
-msgid "Swap longitude/latitude"
-msgstr "Inverser long/lat"
-
-msgid "Relocate"
-msgstr "Relocaliser"
 
 msgid "Show {{name}}"
 msgstr ""

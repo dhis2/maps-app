@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-06-14T11:15:31.536Z\n"
+"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Pashto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
@@ -573,12 +573,6 @@ msgstr "نمایش معلومات"
 
 msgid "Show longitude/latitude"
 msgstr "د طول البلد / عرض البلد ښودل"
-
-msgid "Swap longitude/latitude"
-msgstr "د طول البلد / عرض البلد عوض کول"
-
-msgid "Relocate"
-msgstr "تغیر مکان"
 
 msgid "Show {{name}}"
 msgstr ""
