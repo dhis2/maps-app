@@ -67,6 +67,7 @@ BasemapCard.propTypes = {
 };
 
 BasemapCard.defaultProps = {
+    config: {},
     opacity: 1,
     isVisible: true,
     isExpanded: true,
