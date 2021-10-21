@@ -26,7 +26,7 @@ const BasemapCard = props => {
     } = props;
 
     const hasOpacity =
-        props.config?.type === BASEMAP_TYPE_VECTOR_STYLE ? false : true;
+        props.config.type === BASEMAP_TYPE_VECTOR_STYLE ? false : true;
 
     return (
         <LayerCard
