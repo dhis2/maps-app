@@ -15,7 +15,7 @@ import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
 import { cleanMapObject } from './util/helpers';
 import { apiVersion } from './constants/settings';
-import { defaultBasemaps } from './constants/basemaps';
+import { defaultBasemaps, BASEMAP_TYPE_TILE_LAYER } from './constants/basemaps';
 
 function PluginContainer() {
     let _configs = [];
@@ -125,7 +125,7 @@ function PluginContainer() {
                 basemap = {
                     id: basemapId,
                     config: {
-                        type: 'tileLayer',
+                        type: BASEMAP_TYPE_TILE_LAYER,
                         ...externalLayer,
                     },
                 };

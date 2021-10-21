@@ -8,7 +8,7 @@ import LayerToolbarMoreMenu from './LayerToolbarMoreMenu';
 import styles from './styles/LayerToolbar.module.css';
 
 export const LayerToolbar = ({
-    adjustableOpacity,
+    hasOpacity,
     opacity = 1,
     isVisible,
     onOpacityChange,
@@ -46,7 +46,7 @@ export const LayerToolbar = ({
                 <Tooltip content={i18n.t('Set layer opacity')}>
                     <OpacitySlider
                         opacity={opacity}
-                        disabled={!isVisible || !adjustableOpacity}
+                        disabled={!isVisible || !hasOpacity}
                         onChange={onOpacityChange}
                     />
                 </Tooltip>
@@ -57,7 +57,7 @@ export const LayerToolbar = ({
 };
 
 LayerToolbar.propTypes = {
-    adjustableOpacity: PropTypes.bool,
+    hasOpacity: PropTypes.bool,
     opacity: PropTypes.number,
     isVisible: PropTypes.bool,
     toggleLayerVisibility: PropTypes.func.isRequired,
@@ -66,7 +66,7 @@ LayerToolbar.propTypes = {
 };
 
 LayerToolbar.defaultProps = {
-    adjustableOpacity: true,
+    hasOpacity: true,
 };
 
 export default LayerToolbar;
