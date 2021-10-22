@@ -1,7 +1,5 @@
-import {
-    defaultBasemaps,
-    BASEMAP_TYPE_BING_LAYER,
-} from '../constants/basemaps';
+import { defaultBasemaps } from '../constants/basemaps';
+import { BING_LAYER } from '../constants/basemaps';
 
 import * as types from '../constants/actionTypes';
 
@@ -20,14 +18,12 @@ const basemaps = (state = defaultBasemaps(), action) => {
 
             // Remove Bing basemaps is no key is provided
             if (!bingMapsKey) {
-                return state.filter(
-                    layer => layer.config.type !== BASEMAP_TYPE_BING_LAYER
-                );
+                return state.filter(layer => layer.config.type !== BING_LAYER);
             }
 
             // Set key property on Bing basemaps
             return state.map(layer => {
-                if (layer.config.type !== BASEMAP_TYPE_BING_LAYER) {
+                if (layer.config.type !== BING_LAYER) {
                     return layer;
                 }
 
