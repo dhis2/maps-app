@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/dhis2/maps-app/compare/v1.14.8...v1.15.0) (2021-10-22)
+
+
+### Features
+
+* add vector tiles as a choice of basemaps ([#1913](https://github.com/dhis2/maps-app/issues/1913)) ([c93ee4e](https://github.com/dhis2/maps-app/commit/c93ee4ec4615bbd164a12f8e0320bd1a9d434a68))
+
 ## [1.14.8](https://github.com/dhis2/maps-app/compare/v1.14.7...v1.14.8) (2021-10-20)
 
 
