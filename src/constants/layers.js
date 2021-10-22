@@ -1,6 +1,10 @@
 import i18n from '@dhis2/d2-i18n';
 import { formatDate } from '../util/time';
 
+export const VECTOR_STYLE = 'vectorStyle';
+export const TILE_LAYER = 'tileLayer';
+export const GOOGLE_LAYER = 'googleLayer';
+export const BING_LAYER = 'bingLayer';
 export const EVENT_LAYER = 'event';
 export const THEMATIC_LAYER = 'thematic';
 export const FACILITY_LAYER = 'facility';
@@ -10,12 +14,6 @@ export const EXTERNAL_LAYER = 'external';
 export const EARTH_ENGINE_LAYER = 'earthEngine';
 export const TRACKED_ENTITY_LAYER = 'trackedEntity';
 export const GEOJSON_LAYER = 'geoJson';
-
-// layer formats
-export const VECTOR_STYLE = 'vectorStyle';
-export const TILE_LAYER = 'tileLayer';
-export const GOOGLE_LAYER = 'googleLayer';
-export const BING_LAYER = 'bingLayer';
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
