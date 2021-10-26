@@ -1,5 +1,5 @@
 import { defaultBasemaps } from '../constants/basemaps';
-import { BING_LAYER } from '../constants/basemaps';
+import { BING_LAYER } from '../constants/layers';
 
 import * as types from '../constants/actionTypes';
 
