@@ -1,29 +1,44 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { InputField } from '@dhis2/ui';
 import cx from 'classnames';
-import { formatDate } from '../../util/time';
 import styles from './styles/DatePicker.module.css';
 
-// DatePicker not yet supported in @dhis2/ui
-// Fallback on browser native
-const DatePicker = ({ label, value, dense = true, onChange, className }) => (
-    <div className={cx(styles.datePicker, className)}>
-        <InputField
-            dense={dense}
-            type="date"
-            label={label}
-            value={formatDate(value)}
-            onChange={({ value }) => onChange(value)}
-        />
-    </div>
-);
+// Fallback on browser native until full DatePicker support in @dhis2/ui
+const DatePicker = ({ label, name, defaultVal, onBlur, className }) => {
+    const inputEl = useRef(null);
+
+    useEffect(() => {
+        if (inputEl.current) {
+            inputEl.current.defaultValue = defaultVal;
+        }
+    }, [defaultVal]);
+
+    return (
+        <div className={cx(styles.datePicker, className)}>
+            <label className={styles.label}>{label}</label>
+            <div className={styles.content}>
+                <div className={styles.box}>
+                    <div className={styles.inputDiv}>
+                        <input
+                            className={styles.input}
+                            ref={inputEl}
+                            type="date"
+                            name={name}
+                            onBlur={e => onBlur(e.target.value)}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 DatePicker.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    defaultVal: PropTypes.string,
     dense: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
+    name: PropTypes.string,
+    onBlur: PropTypes.func.isRequired,
     className: PropTypes.string,
 };
 
