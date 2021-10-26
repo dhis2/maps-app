@@ -1,3 +1,10 @@
+## [1.15.2](https://github.com/dhis2/maps-app/compare/v1.15.1...v1.15.2) (2021-10-26)
+
+
+### Bug Fixes
+
+* bing layer constant ([#1924](https://github.com/dhis2/maps-app/issues/1924)) ([306b60d](https://github.com/dhis2/maps-app/commit/306b60dae362675a8d3a2141efd7081e7ab7cb27))
+
 ## [1.15.1](https://github.com/dhis2/maps-app/compare/v1.15.0...v1.15.1) (2021-10-23)
 
 
