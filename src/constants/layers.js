@@ -3,6 +3,7 @@ import { formatDate } from '../util/time';
 
 export const VECTOR_STYLE = 'vectorStyle';
 export const TILE_LAYER = 'tileLayer';
+export const WMS_LAYER = 'wmsLayer';
 export const GOOGLE_LAYER = 'googleLayer';
 export const BING_LAYER = 'bingLayer';
 export const EVENT_LAYER = 'event';
