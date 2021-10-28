@@ -8,5 +8,5 @@
         "networkMode": "live",
         "dhis2ApiVersion": "38"
     },
-    "testFiles": "**/*.feature"
+    "testFiles": "**/*.cy.js"
 }
