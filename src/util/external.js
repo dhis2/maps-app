@@ -28,7 +28,7 @@ export const createExternalLayer = model => ({
 });
 
 // Create external layer config
-export const createExternalLayerConfig = model => {
+const createExternalLayerConfig = model => {
     const {
         id,
         name,
