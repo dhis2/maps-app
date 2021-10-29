@@ -1,3 +1,10 @@
+## [1.15.3](https://github.com/dhis2/maps-app/compare/v1.15.2...v1.15.3) (2021-10-29)
+
+
+### Bug Fixes
+
+* handle external basemaps of type Vector Style ([#1926](https://github.com/dhis2/maps-app/issues/1926)) ([b48348c](https://github.com/dhis2/maps-app/commit/b48348ce4006edff48c42796857878204fd3621e))
+
 ## [1.15.2](https://github.com/dhis2/maps-app/compare/v1.15.1...v1.15.2) (2021-10-26)
 
 
