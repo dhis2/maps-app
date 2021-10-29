@@ -1,3 +1,24 @@
+## [1.15.2](https://github.com/dhis2/maps-app/compare/v1.15.1...v1.15.2) (2021-10-26)
+
+
+### Bug Fixes
+
+* bing layer constant ([#1924](https://github.com/dhis2/maps-app/issues/1924)) ([306b60d](https://github.com/dhis2/maps-app/commit/306b60dae362675a8d3a2141efd7081e7ab7cb27))
+
+## [1.15.1](https://github.com/dhis2/maps-app/compare/v1.15.0...v1.15.1) (2021-10-23)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([42353b8](https://github.com/dhis2/maps-app/commit/42353b8cdd13250117f3f40686483953c5bfecbb))
+
+# [1.15.0](https://github.com/dhis2/maps-app/compare/v1.14.8...v1.15.0) (2021-10-22)
+
+
+### Features
+
+* add vector tiles as a choice of basemaps ([#1913](https://github.com/dhis2/maps-app/issues/1913)) ([c93ee4e](https://github.com/dhis2/maps-app/commit/c93ee4ec4615bbd164a12f8e0320bd1a9d434a68))
+
 ## [1.14.8](https://github.com/dhis2/maps-app/compare/v1.14.7...v1.14.8) (2021-10-20)
 
 

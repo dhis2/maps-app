@@ -1,6 +1,11 @@
 import i18n from '@dhis2/d2-i18n';
 import { formatDate } from '../util/time';
 
+export const VECTOR_STYLE = 'vectorStyle';
+export const TILE_LAYER = 'tileLayer';
+export const WMS_LAYER = 'wmsLayer';
+export const GOOGLE_LAYER = 'googleLayer';
+export const BING_LAYER = 'bingLayer';
 export const EVENT_LAYER = 'event';
 export const THEMATIC_LAYER = 'thematic';
 export const FACILITY_LAYER = 'facility';
