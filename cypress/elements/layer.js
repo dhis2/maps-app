@@ -21,6 +21,25 @@ export class Layer {
         return this;
     }
 
+    typeStartDate(dateString) {
+        cy.get('label')
+            .contains('Start date')
+            .next()
+            .find('input')
+            .type(dateString);
+
+        return this;
+    }
+
+    typeEndDate(dateString) {
+        cy.get('label')
+            .contains('End date')
+            .next()
+            .find('input')
+            .type(dateString);
+        return this;
+    }
+
     addToMap() {
         cy.get('[data-test="dhis2-uicore-modalactions"]')
             .contains('Add layer')
@@ -29,15 +48,23 @@ export class Layer {
 
     validateDialogClosed(closed) {
         if (closed) {
-            cy.get('[data-test="dhis2-uicore-card"]').should('not.exist');
+            cy.get('[data-test="layeredit"]').should('not.exist');
         } else {
-            cy.get('[data-test="dhis2-uicore-card"]').should('be.visible');
+            cy.get('[data-test="layeredit"]').should('be.visible');
         }
     }
 
     validateCardTitle(title) {
         cy.get('[data-test="layercard"]')
             .contains(title)
+            .should('be.visible');
+
+        return this;
+    }
+
+    validateCardPeriod(period) {
+        cy.get('[data-test="layercard"]')
+            .contains(period)
             .should('be.visible');
 
         return this;

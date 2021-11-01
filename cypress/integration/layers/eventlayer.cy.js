@@ -1,5 +1,5 @@
 import { EventLayer } from '../../elements/event_layer';
-import { EXTENDED_TIMEOUT } from '../../support/extendedTimeout';
+import { EXTENDED_TIMEOUT } from '../../support/util';
 
 context('Event Layers', () => {
     beforeEach(() => {
