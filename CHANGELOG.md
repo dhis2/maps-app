@@ -1,3 +1,10 @@
+## [1.15.4](https://github.com/dhis2/maps-app/compare/v1.15.3...v1.15.4) (2021-11-01)
+
+
+### Bug Fixes
+
+* use native input instead of dhis2/ui input in order to correctly validate manually entered dates ([#1925](https://github.com/dhis2/maps-app/issues/1925)) ([b21fe38](https://github.com/dhis2/maps-app/commit/b21fe387324b6116d6b76f3f1e56bed20df81e09))
+
 ## [1.15.3](https://github.com/dhis2/maps-app/compare/v1.15.2...v1.15.3) (2021-10-29)
 
 
