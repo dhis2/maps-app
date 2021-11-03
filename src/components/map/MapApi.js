@@ -1,7 +1,6 @@
 import MapApi, {
     layerTypes,
     controlTypes,
-    loadEarthEngineApi,
     loadEarthEngineWorker,
     poleOfInaccessibility,
 } from '@dhis2/maps-gl';
@@ -24,7 +23,6 @@ const map = options => {
 export {
     layerTypes,
     controlTypes,
-    loadEarthEngineApi,
     loadEarthEngineWorker,
     poleOfInaccessibility,
 };

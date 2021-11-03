@@ -1,9 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { formatStartEndDate } from './time';
-import {
-    loadEarthEngineApi,
-    loadEarthEngineWorker,
-} from '../components/map/MapApi';
+import { loadEarthEngineWorker } from '../components/map/MapApi';
 import { apiFetch } from './api';
 import { getEarthEngineLayer } from '../constants/earthEngine';
 
