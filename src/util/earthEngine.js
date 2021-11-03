@@ -1,8 +1,13 @@
 import i18n from '@dhis2/d2-i18n';
 import { formatStartEndDate } from './time';
-import { loadEarthEngineApi } from '../components/map/MapApi';
+import {
+    loadEarthEngineApi,
+    loadEarthEngineWorker,
+} from '../components/map/MapApi';
 import { apiFetch } from './api';
 import { getEarthEngineLayer } from '../constants/earthEngine';
+
+let eeWorker;
 
 export const classAggregation = ['percentage', 'hectares', 'acres'];
 
@@ -44,12 +49,6 @@ export const getPeriodNameFromFilter = filter => {
     return `${name}${showYear ? ` ${year}` : ''}`;
 };
 
-const setAuthToken = ({ client_id, access_token, expires_in }) =>
-    new Promise((resolve, reject) => {
-        ee.data.setAuthToken(client_id, 'Bearer', access_token, expires_in);
-        ee.initialize(null, null, resolve, reject);
-    });
-
 // Set token and load api
 const connectEarthEngine = () =>
     new Promise(async (resolve, reject) => {
@@ -73,35 +72,19 @@ const connectEarthEngine = () =>
             });
         }
 
-        if (!window.ee && loadEarthEngineApi) {
-            await loadEarthEngineApi();
+        if (!eeWorker) {
+            const EarthEngineWorker = loadEarthEngineWorker();
+            eeWorker = await new EarthEngineWorker();
         }
 
-        try {
-            await setAuthToken(token);
-        } catch (e) {
-            reject({
-                type: 'engine',
-                error: true,
-                message: i18n.t('Cannot connect to Google Earth Engine.'),
-            });
-        }
+        await eeWorker.setAuthToken(token);
+        await eeWorker.initialize();
 
-        resolve(window.ee);
+        resolve();
     });
 
 export const getPeriods = async eeId => {
     const { periodType } = getEarthEngineLayer(eeId);
-    const ee = await connectEarthEngine();
-
-    const imageCollection = ee
-        .ImageCollection(eeId)
-        .distinct('system:time_start')
-        .sort('system:time_start', false);
-
-    const featureCollection = ee
-        .FeatureCollection(imageCollection)
-        .select(['system:time_start', 'system:time_end'], null, false);
 
     const getPeriod = ({ id, properties }) => {
         const year = new Date(properties['system:time_start']).getFullYear();
@@ -118,11 +101,11 @@ export const getPeriods = async eeId => {
         return { id, name, year };
     };
 
-    return new Promise(resolve =>
-        featureCollection.getInfo(({ features }) =>
-            resolve(features.map(getPeriod))
-        )
-    );
+    await connectEarthEngine();
+
+    const { features } = await eeWorker.getPeriods(eeId);
+
+    return features.map(getPeriod);
 };
 
 export const defaultFilters = ({ id, name, year }) => [
