@@ -95,6 +95,7 @@ export default class EarthEngineLayer extends Layer {
             resolution,
             projection,
             data,
+            aggregationType,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
