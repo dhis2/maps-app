@@ -71,9 +71,7 @@ export default class EarthEngineLayer extends Layer {
             areaRadius,
         } = this.props;
 
-        const { map } = this.context;
-
-        const aggregate = data && aggregationType && aggregationType.length;
+        const { map, isPlugin } = this.context;
 
         const config = {
             type: EARTH_ENGINE_LAYER,
@@ -96,6 +94,7 @@ export default class EarthEngineLayer extends Layer {
             projection,
             data,
             aggregationType,
+            preload: !isPlugin,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
@@ -126,14 +125,21 @@ export default class EarthEngineLayer extends Layer {
             this.onError(error);
         }
 
-        if (aggregate) {
-            this.layer
-                .aggregate(aggregationType)
-                .then(this.addAggregationValues.bind(this))
-                .catch(this.onError.bind(this));
-        }
-
         this.fitBoundsOnce();
+    }
+
+    hasAggregations = () => this.props.data && this.props.aggregationType;
+
+    getAggregations() {
+        if (this.hasAggregations()) {
+            if (!this.state.aggregations) {
+                this.setState({ aggregations: 'loading' });
+                this.layer
+                    .getAggregations()
+                    .then(this.addAggregationValues.bind(this))
+                    .catch(this.onError.bind(this));
+            }
+        }
     }
 
     addAggregationValues(aggregations) {
@@ -200,6 +206,7 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onFeatureClick(evt) {
+        this.getAggregations();
         this.setState({ popup: evt });
     }
 

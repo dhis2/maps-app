@@ -74,8 +74,7 @@ const connectEarthEngine = () =>
             eeWorker = await new EarthEngineWorker();
         }
 
-        await eeWorker.setAuthToken(token);
-        await eeWorker.initialize();
+        await eeWorker.initialize(token);
 
         resolve();
     });

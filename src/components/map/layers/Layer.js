@@ -5,6 +5,7 @@ import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../../constants/layers';
 class Layer extends PureComponent {
     static contextTypes = {
         map: PropTypes.object,
+        isPlugin: PropTypes.bool,
     };
 
     static propTypes = {

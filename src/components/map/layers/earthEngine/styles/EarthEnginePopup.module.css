@@ -61,3 +61,16 @@ td.name {
     padding-left: var(--spacers-dp8);
     padding-right: var(--spacers-dp8);
 }
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    margin-bottom: var(--spacers-dp16);
+}
+
+.loading div {
+    display: inline-block;
+    margin-right: var(--spacers-dp12);
+}

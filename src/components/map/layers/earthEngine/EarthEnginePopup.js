@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
+import { CircularLoader } from '@dhis2/ui';
 import Popup from '../../Popup';
 import { hasClasses, getPrecision } from '../../../../util/earthEngine';
 import { numberPrecision } from '../../../../util/numbers';
@@ -11,7 +12,7 @@ const EarthEnginePopup = props => {
     const { coordinates, feature, data, legend, valueType, onClose } = props;
     const { id, name } = feature.properties;
     const { title, period = '', unit, items = [], groups } = legend;
-    const values = data[id];
+    const values = typeof data === 'object' ? data[id] : null;
     const classes = hasClasses(valueType);
     const isPercentage = valueType === 'percentage';
     let rows = [];
@@ -103,6 +104,12 @@ const EarthEnginePopup = props => {
                     <tbody>{rows}</tbody>
                 </table>
             )}
+            {data === 'loading' && (
+                <div className={styles.loading}>
+                    <CircularLoader small />
+                    {i18n.t('Loading data')}
+                </div>
+            )}
         </Popup>
     );
 };
@@ -110,7 +117,7 @@ const EarthEnginePopup = props => {
 EarthEnginePopup.propTypes = {
     coordinates: PropTypes.array.isRequired,
     feature: PropTypes.object.isRequired,
-    data: PropTypes.object.isRequired,
+    data: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     legend: PropTypes.object.isRequired,
     valueType: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     onClose: PropTypes.func.isRequired,
