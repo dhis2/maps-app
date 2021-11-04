@@ -131,14 +131,12 @@ export default class EarthEngineLayer extends Layer {
     hasAggregations = () => this.props.data && this.props.aggregationType;
 
     getAggregations() {
-        if (this.hasAggregations()) {
-            if (!this.state.aggregations) {
-                this.setState({ aggregations: 'loading' });
-                this.layer
-                    .getAggregations()
-                    .then(this.addAggregationValues.bind(this))
-                    .catch(this.onError.bind(this));
-            }
+        if (this.hasAggregations() && !this.state.aggregations) {
+            this.setState({ aggregations: 'loading' });
+            this.layer
+                .getAggregations()
+                .then(this.addAggregationValues.bind(this))
+                .catch(this.onError.bind(this));
         }
     }
 
