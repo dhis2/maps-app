@@ -3,7 +3,7 @@ import Layer from '../Layer';
 import MapLoadingMask from '../../MapLoadingMask';
 import EarthEnginePopup from './EarthEnginePopup';
 import Alert from '../Alert';
-import { apiFetch } from '../../../../util/api';
+import { getAuthToken } from '../../../../util/earthEngine';
 import { filterData } from '../../../../util/filter';
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
 
@@ -116,7 +116,7 @@ export default class EarthEngineLayer extends Layer {
             this.setState({ isLoading: true });
         }
 
-        config.accessToken = apiFetch('/tokens/google'); // returns promise
+        config.getAuthToken = getAuthToken;
 
         try {
             this.layer = map.createLayer(config);

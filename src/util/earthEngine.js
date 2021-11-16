@@ -46,39 +46,44 @@ export const getPeriodNameFromFilter = filter => {
     return `${name}${showYear ? ` ${year}` : ''}`;
 };
 
-// Set token and load api
-const connectEarthEngine = () =>
+// Returns auth token for EE API as a promise
+export const getAuthToken = () =>
     new Promise(async (resolve, reject) => {
-        if (!eeWorker) {
-            const token = await apiFetch('/tokens/google').catch(() =>
-                reject({
-                    type: 'engine',
-                    error: true,
-                    message: i18n.t(
-                        'Cannot get authorization token for Google Earth Engine.'
-                    ),
-                })
-            );
+        const token = await apiFetch('/tokens/google').catch(() =>
+            reject({
+                type: 'engine',
+                error: true,
+                message: i18n.t(
+                    'Cannot get authorization token for Google Earth Engine.'
+                ),
+            })
+        );
 
-            if (token && token.status === 'ERROR') {
-                reject({
-                    type: 'engine',
-                    warning: true,
-                    message: i18n.t(
-                        'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
-                    ),
-                });
-            }
-
-            const EarthEngineWorker = loadEarthEngineWorker();
-
-            eeWorker = await new EarthEngineWorker();
-
-            await eeWorker.initialize(token);
+        if (token && token.status === 'ERROR') {
+            reject({
+                type: 'engine',
+                warning: true,
+                message: i18n.t(
+                    'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
+                ),
+            });
         }
 
-        resolve(eeWorker);
+        resolve({
+            token_type: 'Bearer',
+            ...token,
+        });
     });
+
+// Load EE worker and set token
+const connectEarthEngine = async () => {
+    if (!eeWorker) {
+        const EarthEngineWorker = await loadEarthEngineWorker(getAuthToken);
+        eeWorker = await new EarthEngineWorker();
+        await eeWorker.initialize();
+    }
+    return eeWorker;
+};
 
 export const getPeriods = async eeId => {
     const { periodType } = getEarthEngineLayer(eeId);
@@ -98,10 +103,8 @@ export const getPeriods = async eeId => {
         return { id, name, year };
     };
 
-    await connectEarthEngine();
-
+    const eeWorker = await connectEarthEngine();
     const { features } = await eeWorker.getPeriods(eeId);
-
     return features.map(getPeriod);
 };
 
