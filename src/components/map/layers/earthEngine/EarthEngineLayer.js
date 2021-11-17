@@ -35,11 +35,12 @@ export default class EarthEngineLayer extends Layer {
         }
     }
 
-    updateLayer = filterChange => {
+    updateLayer = async filterChange => {
         if (filterChange) {
             this.applyFilter();
         } else {
-            this.removeLayer();
+            this.clearAggregations();
+            await this.removeLayer();
             this.createLayer(true);
             this.setLayerOrder();
         }
@@ -162,6 +163,17 @@ export default class EarthEngineLayer extends Layer {
             })),
             aggregations,
         });
+    }
+
+    clearAggregations() {
+        if (this.hasAggregations()) {
+            const { id, setAggregations } = this.props;
+            this.setState({ aggregations: undefined });
+
+            if (setAggregations) {
+                setAggregations({ [id]: undefined });
+            }
+        }
     }
 
     applyFilter() {
