@@ -77,11 +77,11 @@ exports[`EventDialog displays the dialog with the Data tab open 1`] = `
         >
           <div
             class="jsx-1141087211 "
-            data-test="dhis2-uiwidgets-singleselectfield"
+            data-test="programselect"
           >
             <label
               class="jsx-2718078600 "
-              data-test="dhis2-uiwidgets-singleselectfield-label"
+              data-test="programselect-label"
             >
               <span
                 class="jsx-2718078600"
@@ -91,7 +91,7 @@ exports[`EventDialog displays the dialog with the Data tab open 1`] = `
             </label>
             <div
               class="jsx-3111771310 "
-              data-test="dhis2-uiwidgets-singleselectfield-content"
+              data-test="programselect-content"
             >
               <div
                 class="jsx-3415779570 "
