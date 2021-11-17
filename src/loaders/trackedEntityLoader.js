@@ -68,6 +68,7 @@ const trackedEntityLoader = async config => {
     const name = program ? program.name : i18n.t('Tracked entity');
 
     const legend = {
+        title: name,
         period: `${formatLocaleDate(startDate)} - ${formatLocaleDate(endDate)}`,
         items: [
             {
@@ -144,11 +145,13 @@ const trackedEntityLoader = async config => {
         const relatedTypeId =
             relationshipType.toConstraint.trackedEntityType.id;
         const relatedEntityType = await apiFetch(
-            `/trackedEntityTypes/${relatedTypeId}?fields=displayName`
+            `/trackedEntityTypes/${relatedTypeId}?fields=displayName,featureType`
         );
+        const isPoint = relatedEntityType.featureType === 'POINT';
 
         legend.items.push(
             {
+                type: 'LineString',
                 name: relationshipType.displayName,
                 color: relationshipLineColor || TEI_RELATIONSHIP_LINE_COLOR,
                 weight: 1,
@@ -156,7 +159,10 @@ const trackedEntityLoader = async config => {
             {
                 name: `${relatedEntityType.displayName} (${i18n.t('related')})`,
                 color: relatedPointColor || TEI_RELATED_COLOR,
-                radius: relatedPointRadius || TEI_RELATED_RADIUS,
+                radius: isPoint
+                    ? relatedPointRadius || TEI_RELATED_RADIUS
+                    : undefined,
+                weight: !isPoint ? 1 : undefined,
             }
         );
 

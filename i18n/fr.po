@@ -3,18 +3,18 @@
 # Austin McGee <austin@dhis2.org>, 2019
 # Matthieu Pinard <matthieu@pinard.no>, 2019
 # Karoline Tufte Lien <karoline@dhis2.org>, 2020
-# Bram Piot <bram.piot@gmail.com>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Edem Kossi <ekossi@hispwca.org>, 2020
-# Viktor Varland <viktor@dhis2.org>, 2021
 # Yao Selom Saka <ysaka@hispwca.org>, 2021
 # Yayra Gomado <ygomado@hispwca.org>, 2021
+# Bram Piot <bram.piot@gmail.com>, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
 # phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -157,24 +157,15 @@ msgstr "Unités d'organisation"
 msgid "Style"
 msgstr "Style"
 
-msgid "Labels"
-msgstr "Étiquettes"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
 
 msgid "Point radius"
 msgstr "Taille des points"
 
 msgid "No organisation units are selected"
 msgstr "Aucune unité d'organisation choisie"
-
-msgid "Group Set"
-msgstr "Ensemble de groupes"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
-msgstr ""
 
 msgid "event"
 msgstr ""
@@ -188,7 +179,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -259,6 +250,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "Min"
 
@@ -307,11 +301,17 @@ msgstr ""
 msgid "Event status"
 msgstr "Statut de l'événement"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
 msgstr ""
+
+msgid "Labels"
+msgstr "Étiquettes"
 
 msgid "Aggregation type"
 msgstr "Type d'agrégation"
@@ -482,6 +482,15 @@ msgstr "Date"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr "Ensemble de groupes"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Groupe d'indicateurs"
 
@@ -577,17 +586,11 @@ msgstr "Monter d'un niveau"
 msgid "Drill down one level"
 msgstr "Descendre d'un niveau"
 
-msgid "Show information"
-msgstr "Afficher la fiche d'information"
+msgid "View profile"
+msgstr "Voir profile"
 
 msgid "Show longitude/latitude"
 msgstr "Afficher longitude/latitude"
-
-msgid "Swap longitude/latitude"
-msgstr "Inverser long/lat"
-
-msgid "Relocate"
-msgstr "Relocaliser"
 
 msgid "Show {{name}}"
 msgstr ""
@@ -601,17 +604,14 @@ msgstr "Latitude"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Affichage de l'interprétation de {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "Unité parente"
-
 msgid "Not set"
 msgstr "Non défini"
 
 msgid "Organisation unit"
 msgstr "Unité d'organisation"
 
-msgid "Loading layer data"
-msgstr ""
+msgid "Parent unit"
+msgstr "Unité parente"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"
@@ -702,30 +702,60 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Code"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
 msgstr "Sélectionner des groupes"
 
-msgid "Group set"
-msgstr "Ensemble de groupes"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Short name"
+msgstr "Nom court"
+
+msgid "Opening date"
+msgstr "Date d'ouverture"
+
+msgid "Closed date"
+msgstr "Date de fermeture"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr "Lien"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "Adresse e-mail"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "Id"
+
+msgid "Comment"
+msgstr "Commentaire"
 
 msgid "Select levels"
 msgstr "Sélectionner les niveaux"
 
+msgid "Organisation unit profile"
+msgstr ""
+
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1141,11 +1171,29 @@ msgstr "Intervalles égaux"
 msgid "Equal counts"
 msgstr "Nombres égaux"
 
+msgid "Symbol"
+msgstr "Symbole"
+
 msgid "Daily"
 msgstr "Quotidien"
 
 msgid "Weekly"
 msgstr "Hebdomadaire"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "Hebdomadaire (début mercredi)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "Hebdomadaire (début jeudi)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "Hebdomadaire (début samedi)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "Hebdomadaire (début dimanche)"
+
+msgid "Bi-weekly"
+msgstr "Bi-hebdomadaire"
 
 msgid "Monthly"
 msgstr "Mensuel"
@@ -1165,6 +1213,9 @@ msgstr "Six-mois avril"
 msgid "Yearly"
 msgstr "Annuel"
 
+msgid "Financial year (Start November)"
+msgstr "Fiscale (Novembre)"
+
 msgid "Financial year (Start October)"
 msgstr "Financière Octobre"
 
@@ -1174,132 +1225,6 @@ msgstr "Financière Juillet"
 msgid "Financial year (Start April)"
 msgstr "Financière Avril"
 
-msgid "Today"
-msgstr "Aujourd'hui"
-
-msgid "Yesterday"
-msgstr "Hier"
-
-msgid "Last 3 days"
-msgstr "3 derniers jours"
-
-msgid "Last 7 days"
-msgstr "7 derniers jours"
-
-msgid "Last 14 days"
-msgstr "14 dernier jours"
-
-msgid "Last 30 days"
-msgstr "Les 30 derniers jours"
-
-msgid "Last 60 days"
-msgstr "60 derniers jours"
-
-msgid "Last 90 days"
-msgstr "90 derniers jours"
-
-msgid "Last 180 days"
-msgstr "180 derniers jours"
-
-msgid "This week"
-msgstr "Cette semaine"
-
-msgid "Last week"
-msgstr "Semaine passée"
-
-msgid "Last 4 weeks"
-msgstr "4 dernières semaines"
-
-msgid "Last 12 weeks"
-msgstr "12 dernières semaines"
-
-msgid "Last 52 weeks"
-msgstr "52 dernières semaines"
-
-msgid "Weeks this year"
-msgstr "Semaines cette année"
-
-msgid "This bi-week"
-msgstr "Cette quinzaine"
-
-msgid "Last bi-week"
-msgstr "Dernière quinzaine"
-
-msgid "Last 4 bi-weeks"
-msgstr "4 dernières quinzaines"
-
-msgid "This month"
-msgstr "Ce mois-ci"
-
-msgid "Last month"
-msgstr "Le mois dernier"
-
-msgid "Last 3 months"
-msgstr "3 derniers mois"
-
-msgid "Last 6 months"
-msgstr "6 derniers mois"
-
-msgid "Last 12 months"
-msgstr "12 derniers mois"
-
-msgid "Months this year"
-msgstr "Mois cette année"
-
-msgid "This bi-month"
-msgstr "Ces 2 dernières semaines"
-
-msgid "Last bi-month"
-msgstr "Dernier bi-mestre"
-
-msgid "Last 6 bi-months"
-msgstr "6 derniers bimestres"
-
-msgid "Bi-months this year"
-msgstr "Bimensuels cette année"
-
-msgid "This quarter"
-msgstr "Ce trimestre"
-
-msgid "Last quarter"
-msgstr "Trimestre précédent"
-
-msgid "Last 4 quarters"
-msgstr "4 derniers trimestres"
-
-msgid "Quarters this year"
-msgstr "Trimestres cette année"
-
-msgid "This six-month"
-msgstr "Ce semestre"
-
-msgid "Last six-month"
-msgstr "Dernier semestre"
-
-msgid "Last 2 six-months"
-msgstr "2 derniers semestres"
-
-msgid "This year"
-msgstr "Année en cours"
-
-msgid "Last year"
-msgstr "L'année passée"
-
-msgid "Last 5 years"
-msgstr "5 dernières années"
-
-msgid "Last 10 years"
-msgstr ""
-
-msgid "This financial year"
-msgstr "Année fiscale en cours"
-
-msgid "Last financial year"
-msgstr "Dernière année financière"
-
-msgid "Last 5 financial years"
-msgstr "5 dernières années financières"
-
 msgid "Cancelled"
 msgstr "Annulé"
 
@@ -1308,12 +1233,6 @@ msgstr ""
 
 msgid "Error"
 msgstr "Erreur"
-
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
 
 msgid "Selected org units"
 msgstr ""
@@ -1327,17 +1246,23 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "Evènement"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Aucune valeur trouvée"
 
+msgid "Event"
+msgstr "Evènement"
+
 msgid "Facilities"
 msgstr ""
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "Unités d'organisation"
 
 msgid "Thematic layer"
 msgstr "Thématique"
@@ -1356,6 +1281,9 @@ msgstr ""
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Org units"
+msgstr "OrgUnit"
 
 msgid "not one of"
 msgstr ""
@@ -1382,6 +1310,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr ""
+
+msgid "Facility"
+msgstr "Etablissement"
 
 msgid "Start date is invalid"
 msgstr "La date de début n'est pas valable"

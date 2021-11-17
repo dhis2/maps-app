@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Wanda <wanda@frontlineaids.org>, 2020
+# Wanda <wanda@frontlineaids.org>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Nadiia <semchuk@aph.org.ua>, 2021
 # phil_dhis2, 2021
@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -151,23 +151,14 @@ msgstr ""
 msgid "Style"
 msgstr "Стиль"
 
-msgid "Labels"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Point radius"
 msgstr ""
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "event"
@@ -182,7 +173,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -253,6 +244,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "Мін"
 
@@ -301,10 +295,16 @@ msgstr ""
 msgid "Event status"
 msgstr "Статус події"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "Labels"
 msgstr ""
 
 msgid "Aggregation type"
@@ -475,6 +475,15 @@ msgstr "Дата"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr ""
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Група показників"
 
@@ -570,16 +579,10 @@ msgstr ""
 msgid "Drill down one level"
 msgstr ""
 
-msgid "Show information"
-msgstr ""
+msgid "View profile"
+msgstr "Переглянути профіль"
 
 msgid "Show longitude/latitude"
-msgstr ""
-
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
 msgstr ""
 
 msgid "Show {{name}}"
@@ -594,16 +597,13 @@ msgstr "Широта"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "Parent unit"
-msgstr ""
-
 msgid "Not set"
 msgstr "Не встановлено"
 
 msgid "Organisation unit"
 msgstr "Організаційний підрозділ"
 
-msgid "Loading layer data"
+msgid "Parent unit"
 msgstr ""
 
 msgid "Last updated"
@@ -685,7 +685,7 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr ""
+msgstr "Продовжити"
 
 msgid "Options"
 msgstr "Опції"
@@ -695,30 +695,60 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Код"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
 msgstr ""
 
-msgid "Group set"
+msgid "Image of the organisation unit"
 msgstr ""
 
+msgid "Code"
+msgstr "Код"
+
+msgid "Short name"
+msgstr "Коротке ім'я"
+
+msgid "Opening date"
+msgstr "Дата відкриття"
+
+msgid "Closed date"
+msgstr "Дата закриття"
+
+msgid "URL"
+msgstr "URL (Інтернет-адреса)"
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "Електронна пошта"
+
+msgid "Address"
+msgstr "Адреса"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ID (ідентифікатор)"
+
+msgid "Comment"
+msgstr "Коментар"
+
 msgid "Select levels"
+msgstr ""
+
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1134,11 +1164,29 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr "Щодня"
 
 msgid "Weekly"
 msgstr "Щотижня"
+
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr "Щодвотижневий"
 
 msgid "Monthly"
 msgstr "Щомісячно"
@@ -1158,6 +1206,9 @@ msgstr "Раз на півріччя квітень"
 msgid "Yearly"
 msgstr "Щорічно"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "Фінансовий рік (Початок у жовтні)"
 
@@ -1167,132 +1218,6 @@ msgstr "Фінансовий рік (Початок у липні)"
 msgid "Financial year (Start April)"
 msgstr "Фінансовий рік (Початок у квітні)"
 
-msgid "Today"
-msgstr "Сьогодні"
-
-msgid "Yesterday"
-msgstr "Вчора"
-
-msgid "Last 3 days"
-msgstr "Минулі 3 дні"
-
-msgid "Last 7 days"
-msgstr "Минулі 7 днів"
-
-msgid "Last 14 days"
-msgstr "Минулі 14 днів"
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "Поточний тиждень"
-
-msgid "Last week"
-msgstr "Минулий тиждень"
-
-msgid "Last 4 weeks"
-msgstr "Останні 4 тижні"
-
-msgid "Last 12 weeks"
-msgstr "Останні 12 тижнів"
-
-msgid "Last 52 weeks"
-msgstr "Останні 52 тижні"
-
-msgid "Weeks this year"
-msgstr "Тижні поточного року"
-
-msgid "This bi-week"
-msgstr "Теперішній двотижневий проміжок"
-
-msgid "Last bi-week"
-msgstr "Попередній двотижневий проміжок"
-
-msgid "Last 4 bi-weeks"
-msgstr "Попередні 4 двотижневі проміжки"
-
-msgid "This month"
-msgstr "Поточний місяць"
-
-msgid "Last month"
-msgstr "Останній місяць"
-
-msgid "Last 3 months"
-msgstr "Останні 3 місяці"
-
-msgid "Last 6 months"
-msgstr "Останні 6 місяців"
-
-msgid "Last 12 months"
-msgstr "Останні 12 місяців"
-
-msgid "Months this year"
-msgstr "Місяців поточного року"
-
-msgid "This bi-month"
-msgstr "Поточний двомісячний період"
-
-msgid "Last bi-month"
-msgstr "Останні два місяці"
-
-msgid "Last 6 bi-months"
-msgstr "Останні 6 двомісячних періоди"
-
-msgid "Bi-months this year"
-msgstr "Щодва місяці поточного року"
-
-msgid "This quarter"
-msgstr "Поточний квартал"
-
-msgid "Last quarter"
-msgstr "Минулий квартал"
-
-msgid "Last 4 quarters"
-msgstr "Останні 4 квартали"
-
-msgid "Quarters this year"
-msgstr "Квартали поточного року"
-
-msgid "This six-month"
-msgstr "Поточне півріччя"
-
-msgid "Last six-month"
-msgstr "Останнє півріччя"
-
-msgid "Last 2 six-months"
-msgstr "Останні 2 півріччя"
-
-msgid "This year"
-msgstr "Поточний рік"
-
-msgid "Last year"
-msgstr "Минулий рік"
-
-msgid "Last 5 years"
-msgstr "Останні 5 років"
-
-msgid "Last 10 years"
-msgstr ""
-
-msgid "This financial year"
-msgstr "Поточний фінансовий рік"
-
-msgid "Last financial year"
-msgstr "Минулий фінансовий рік"
-
-msgid "Last 5 financial years"
-msgstr "Останні 5 фінансових років"
-
 msgid "Cancelled"
 msgstr "Скасовано"
 
@@ -1301,12 +1226,6 @@ msgstr ""
 
 msgid "Error"
 msgstr "Помилка"
-
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
 
 msgid "Selected org units"
 msgstr ""
@@ -1320,17 +1239,23 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "Подія"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Даних не знайдено"
 
+msgid "Event"
+msgstr "Подія"
+
 msgid "Facilities"
 msgstr ""
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "Організаційні підрозділи"
 
 msgid "Thematic layer"
 msgstr ""
@@ -1348,6 +1273,9 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "not one of"
@@ -1374,6 +1302,9 @@ msgid ""
 msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"

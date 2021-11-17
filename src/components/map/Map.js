@@ -7,7 +7,7 @@ import EventLayer from './layers/EventLayer';
 import TrackedEntityLayer from './layers/TrackedEntityLayer';
 import FacilityLayer from './layers/FacilityLayer';
 import ThematicLayer from './layers/ThematicLayer';
-import BoundaryLayer from './layers/BoundaryLayer';
+import OrgUnitLayer from './layers/OrgUnitLayer';
 import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
 import ExternalLayer from './layers/ExternalLayer';
 import Popup from './Popup';
@@ -20,7 +20,7 @@ const layerType = {
     trackedEntity: TrackedEntityLayer,
     facility: FacilityLayer,
     thematic: ThematicLayer,
-    boundary: BoundaryLayer,
+    orgUnit: OrgUnitLayer,
     earthEngine: EarthEngineLayer,
     external: ExternalLayer,
 };
@@ -50,6 +50,7 @@ class Map extends Component {
 
     static childContextTypes = {
         map: PropTypes.object.isRequired,
+        isPlugin: PropTypes.bool.isRequired,
     };
 
     state = {};
@@ -77,6 +78,7 @@ class Map extends Component {
     getChildContext() {
         return {
             map: this.map,
+            isPlugin: this.props.isPlugin,
         };
     }
 

@@ -1,13 +1,13 @@
 # 
 # Translators:
-# phil_dhis2, 2021
 # Hamza Assada <7amza.it@gmail.com>, 2021
+# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -151,24 +151,15 @@ msgstr "وحدات التنظيم"
 msgid "Style"
 msgstr "المظهر"
 
-msgid "Labels"
-msgstr "التسميات"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr "تذكر تحديد مستوى الوحدة التنظيمية الذي يحتوي على المرافق."
 
 msgid "Point radius"
 msgstr "نصف قطر النقطة"
 
 msgid "No organisation units are selected"
 msgstr "لم يتم تحديد أي وحدات تنظيمية"
-
-msgid "Group Set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr "تذكر تحديد مستوى الوحدة التنظيمية الذي يحتوي على المرافق."
-
-msgid "Group set is required"
-msgstr ""
 
 msgid "event"
 msgstr "حدث"
@@ -182,8 +173,8 @@ msgstr "المرفق"
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
-msgstr "الحدود"
+msgid "org unit"
+msgstr ""
 
 msgid "Earth Engine"
 msgstr ""
@@ -253,6 +244,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "الأدنى"
 
@@ -301,11 +295,17 @@ msgstr ""
 msgid "Event status"
 msgstr "حالة الحدث"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
 msgstr "نصف القطر بالأمتار"
+
+msgid "Labels"
+msgstr "التسميات"
 
 msgid "Aggregation type"
 msgstr "نوع التجميع"
@@ -475,6 +475,15 @@ msgstr "التاريخ"
 msgid "Remove filter"
 msgstr "إزالة عامل التصفية"
 
+msgid "Group set"
+msgstr "حزمة المجموعات"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "مجموعة المؤشرات"
 
@@ -571,17 +580,11 @@ msgstr "الطلوع مستوى واحد"
 msgid "Drill down one level"
 msgstr "التعمق مستوى واحد"
 
-msgid "Show information"
-msgstr "إظهار المعلومات"
+msgid "View profile"
+msgstr "عرض ملف التعريف"
 
 msgid "Show longitude/latitude"
 msgstr "إظهار خط الطول/خط العرض"
-
-msgid "Swap longitude/latitude"
-msgstr "تبديل خط الطول/خط العرض"
-
-msgid "Relocate"
-msgstr "إعادة تحديد الموضع"
 
 msgid "Show {{name}}"
 msgstr "أضهار {{name}}"
@@ -595,17 +598,14 @@ msgstr "خط العرض"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "مشاهدة التفسير من  {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "الوحدة العليا"
-
 msgid "Not set"
 msgstr "غير مضبوط"
 
 msgid "Organisation unit"
 msgstr "الوحدة التنظيمية"
 
-msgid "Loading layer data"
-msgstr ""
+msgid "Parent unit"
+msgstr "الوحدة العليا"
 
 msgid "Last updated"
 msgstr "آخر تحديث"
@@ -698,31 +698,61 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "الرمز"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr "لا توجد بيانات لهذه الفترة."
 
 msgid "Select groups"
 msgstr "اختر المجموعات"
 
-msgid "Group set"
-msgstr "حزمة المجموعات"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "الرمز"
+
+msgid "Short name"
+msgstr "الاسم المختصر"
+
+msgid "Opening date"
+msgstr "تاريخ الافتتاح"
+
+msgid "Closed date"
+msgstr "تاريخ الإغلاق"
+
+msgid "URL"
+msgstr "عنوان URL"
+
+msgid "Link"
+msgstr "ربط"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Address"
+msgstr "العنوان"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "تعليق"
 
 msgid "Select levels"
 msgstr "اختر المستويات"
+
+msgid "Organisation unit profile"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr "لا يمكن الجمع بين الوحدات التنظيمية للمستخدم وتحديد الوحدات الفردية."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "انقر على الخريطة حيث تريد نقل المرفق."
 
 msgid "user organisation unit"
 msgstr "الوحدة التنظيمية للمستخدم"
@@ -1144,11 +1174,29 @@ msgstr "فترات متساوية"
 msgid "Equal counts"
 msgstr "حسابات متساوية"
 
+msgid "Symbol"
+msgstr "الرمز"
+
 msgid "Daily"
 msgstr "يومي"
 
 msgid "Weekly"
 msgstr "أسبوعي"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "اسبوعياً (يبدأ الأربعاء)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "اسبوعياً (يبدأ الخميس)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "اسبوعياً (يبدأ السبت)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "اسبوعياً (يبدأ الأحد)"
+
+msgid "Bi-weekly"
+msgstr "كل اسبوعين"
 
 msgid "Monthly"
 msgstr "شهري"
@@ -1168,6 +1216,9 @@ msgstr "كل ستة أشهر، ابريل"
 msgid "Yearly"
 msgstr "سنوي"
 
+msgid "Financial year (Start November)"
+msgstr "السنة المالية (تبدأ في نوفمبر)"
+
 msgid "Financial year (Start October)"
 msgstr "السنة المالية (تبدأ في اكتوبر)"
 
@@ -1177,132 +1228,6 @@ msgstr "السنة المالية (تبدأ في يوليو)"
 msgid "Financial year (Start April)"
 msgstr "السنة المالية (تبدأ في ابريل)"
 
-msgid "Today"
-msgstr "اليوم"
-
-msgid "Yesterday"
-msgstr "الأمس"
-
-msgid "Last 3 days"
-msgstr "آخر 3 أيام"
-
-msgid "Last 7 days"
-msgstr "آخر 7 أيام"
-
-msgid "Last 14 days"
-msgstr "آخر 14 يوم"
-
-msgid "Last 30 days"
-msgstr "آخر 30 يوم"
-
-msgid "Last 60 days"
-msgstr "آخر 60 يومًا"
-
-msgid "Last 90 days"
-msgstr "آخر 90 يومًا"
-
-msgid "Last 180 days"
-msgstr "آخر 180 يوم"
-
-msgid "This week"
-msgstr "الأسبوع الحالي"
-
-msgid "Last week"
-msgstr "الأسبوع الماضي"
-
-msgid "Last 4 weeks"
-msgstr "آخر 4 أسابيع"
-
-msgid "Last 12 weeks"
-msgstr "آخر 12 أسبوع"
-
-msgid "Last 52 weeks"
-msgstr "آخر 52 أسبوع"
-
-msgid "Weeks this year"
-msgstr "أسابيع السنة الحالية"
-
-msgid "This bi-week"
-msgstr "الأسبوعين الحاليين"
-
-msgid "Last bi-week"
-msgstr "آخر اسبوعين"
-
-msgid "Last 4 bi-weeks"
-msgstr "آخر 4 ثنائي اسابيع"
-
-msgid "This month"
-msgstr "الشهر الحالي"
-
-msgid "Last month"
-msgstr "الشهر الماضي"
-
-msgid "Last 3 months"
-msgstr "آخر 3 أشهر"
-
-msgid "Last 6 months"
-msgstr "آخر 6 أشهر"
-
-msgid "Last 12 months"
-msgstr "آخر 12 شهر"
-
-msgid "Months this year"
-msgstr "أشهر السنة الحالية"
-
-msgid "This bi-month"
-msgstr "الشهران المزدوجان الحاليان"
-
-msgid "Last bi-month"
-msgstr "آخر شهرين مزدوجين"
-
-msgid "Last 6 bi-months"
-msgstr "آخر 6 أشهر مزدوجة"
-
-msgid "Bi-months this year"
-msgstr "الأشهر المزدوجة في السنة الحالية"
-
-msgid "This quarter"
-msgstr "ربع السنة الحالي"
-
-msgid "Last quarter"
-msgstr "ربع السنة الماضي"
-
-msgid "Last 4 quarters"
-msgstr "آخر 4 أرباع السنة"
-
-msgid "Quarters this year"
-msgstr "أرباع السنة الحالية"
-
-msgid "This six-month"
-msgstr "الستة أشهر الحالية"
-
-msgid "Last six-month"
-msgstr "آخر ستة أشهر"
-
-msgid "Last 2 six-months"
-msgstr "آخر نصفي سنة"
-
-msgid "This year"
-msgstr "السنة الحالية"
-
-msgid "Last year"
-msgstr "السنة الماضية"
-
-msgid "Last 5 years"
-msgstr "آخر 5 سنوات"
-
-msgid "Last 10 years"
-msgstr "آخر 10 سنوات"
-
-msgid "This financial year"
-msgstr "السنة المالية الحالية"
-
-msgid "Last financial year"
-msgstr "السنة المالية الماضية"
-
-msgid "Last 5 financial years"
-msgstr "آخر 5 سنوات مالية"
-
 msgid "Cancelled"
 msgstr "تم الإلغاء"
 
@@ -1311,12 +1236,6 @@ msgstr "تم حفظ الخريطة \"{{name}}\"."
 
 msgid "Error"
 msgstr "خطأ"
-
-msgid "Boundaries"
-msgstr "الحدود"
-
-msgid "No boundaries found"
-msgstr "لم يتم العثور على حدود"
 
 msgid "Selected org units"
 msgstr "وحدات تنظيمية مختارة"
@@ -1330,17 +1249,23 @@ msgstr "ليس لديك حق الوصول إلى بيانات الطبقة هذ�
 msgid "An unknown error occurred while reading layer data"
 msgstr "حدث خطأ غير معروف أثناء قراءة بيانات الطبقة"
 
-msgid "Event"
-msgstr "الحدث"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "لم توجد بيانات"
 
+msgid "Event"
+msgstr "الحدث"
+
 msgid "Facilities"
 msgstr "مرافق"
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "الوحدات التنظيمية"
 
 msgid "Thematic layer"
 msgstr "الطبقة المواضيعية"
@@ -1359,6 +1284,9 @@ msgstr "ذات صلة"
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Org units"
+msgstr "الوحدات التنظيمية"
 
 msgid "not one of"
 msgstr ""
@@ -1387,6 +1315,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "لم يتمكن من الاتصال بـ Google Earth Engine."
+
+msgid "Facility"
+msgstr "المنشأة"
 
 msgid "Start date is invalid"
 msgstr "تاريخ البدء غير صالح"

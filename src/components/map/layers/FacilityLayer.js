@@ -4,13 +4,9 @@ import { isPlainObject } from 'lodash/fp';
 import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
-import { cssColor } from '../../../util/colors';
-import {
-    LABEL_FONT_SIZE,
-    LABEL_FONT_STYLE,
-    LABEL_FONT_WEIGHT,
-    LABEL_FONT_COLOR,
-} from '../../../constants/layers';
+import { getLabelStyle } from '../../../util/labels';
+import { getContrastColor } from '../../../util/colors';
+import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
 
 class FacilityLayer extends Layer {
     state = {
@@ -27,40 +23,40 @@ class FacilityLayer extends Layer {
             dataFilters,
             labels,
             areaRadius,
-            labelFontColor,
-            labelFontSize,
-            labelFontStyle,
-            labelFontWeight,
+            organisationUnitColor: color = ORG_UNIT_COLOR,
+            organisationUnitGroupSet,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
 
         const map = this.context.map;
 
+        const strokeColor = organisationUnitGroupSet
+            ? color
+            : getContrastColor(color);
+
         // Create layer config object
         const config = {
-            type: 'markers',
+            type: GEOJSON_LAYER,
             id,
             index,
             opacity,
             isVisible,
             data: filteredData,
-            hoverLabel: '{label}',
+            hoverLabel: '{name}',
+            style: {
+                color,
+                strokeColor,
+            },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
         };
 
         // Labels and label style
         if (labels) {
-            const fontSize = labelFontSize || LABEL_FONT_SIZE;
-
             config.label = '{name}';
             config.labelStyle = {
-                fontSize,
-                fontStyle: labelFontStyle || LABEL_FONT_STYLE,
-                fontWeight: labelFontWeight || LABEL_FONT_WEIGHT,
-                lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
-                color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
+                ...getLabelStyle(this.props),
                 paddingTop: '10px',
             };
         }
@@ -79,11 +75,12 @@ class FacilityLayer extends Layer {
 
     getPopup() {
         const { coordinates, feature } = this.state.popup;
-        const { name, dimensions, pn } = feature.properties;
+        const { id, name, dimensions, pn } = feature.properties;
 
         return (
             <Popup
                 coordinates={coordinates}
+                orgUnitId={id}
                 onClose={this.onPopupClose}
                 className="dhis2-map-popup-orgunit"
             >

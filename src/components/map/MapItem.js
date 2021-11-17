@@ -7,6 +7,7 @@ import { onFullscreenChange } from '../../util/map';
 class MapItem extends PureComponent {
     static childContextTypes = {
         map: PropTypes.object.isRequired,
+        isPlugin: PropTypes.bool.isRequired,
     };
 
     static propTypes = {
@@ -19,12 +20,16 @@ class MapItem extends PureComponent {
         setMapControls: PropTypes.func.isRequired,
     };
 
+    static defaultProps = {
+        isPlugin: false,
+    };
+
     state = {};
 
     constructor(props, context) {
         super(props, context);
 
-        const { isPlugin = false } = props;
+        const { isPlugin } = props;
 
         this.map = mapApi({
             attributionControl: false,
@@ -41,6 +46,7 @@ class MapItem extends PureComponent {
     getChildContext() {
         return {
             map: this.map,
+            isPlugin: this.props.isPlugin,
         };
     }
 

@@ -2,30 +2,33 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
-import { getRelativePeriods } from '../../constants/periods';
+import { getRelativePeriods } from '../../util/periods';
+import { START_END_DATES } from '../../constants/periods';
 
 const RelativePeriodSelect = ({
     startEndDates,
     period,
+    hiddenPeriods,
     onChange,
     className,
     errorText,
 }) => {
-    const value = period ? period.id : null;
-
     const periods = useMemo(
         () =>
             (startEndDates
                 ? [
                       {
-                          id: 'START_END_DATES',
+                          id: START_END_DATES,
                           name: i18n.t('Start/end dates'),
                       },
                   ]
                 : []
-            ).concat(getRelativePeriods()),
+            ).concat(getRelativePeriods(hiddenPeriods)),
         []
     );
+
+    const value =
+        period && periods.find(p => p.id === period.id) ? period.id : null;
 
     return (
         <SelectField
@@ -45,6 +48,7 @@ RelativePeriodSelect.propTypes = {
         id: PropTypes.string.isRequired,
         name: PropTypes.string,
     }),
+    hiddenPeriods: PropTypes.array,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,

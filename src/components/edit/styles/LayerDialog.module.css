@@ -3,10 +3,15 @@
     max-width: 340px;
 }
 
+.periodSelect {
+    width: auto;
+    max-width: 360px;
+}
+
 .tabContent {
     font-size: 14px;
     margin: var(--spacers-dp4) -16px 0;
-    height: 340px;
+    height: 360px;
     overflow-y: auto;
     color: #333;
 }
@@ -90,10 +95,6 @@
     margin: -10px 0 10px;
 }
 
-.fontBlock {
-    margin: -12px 8px 8px 38px;
-}
-
 .numberField {
     composes: flexInnerColumn;
     max-width: 140px;
@@ -111,10 +112,18 @@
     width: 180px;
 }
 
-/* Boundary */
+/* Org unit */
 
-.radius {
+.marginBottom {
+    margin-bottom: var(--spacers-dp16);
+}
+
+.narrowField {
     width: 120px;
+}
+
+.narrowFieldIcon {
+    width: 128px;
 }
 
 /* Earth Engine */

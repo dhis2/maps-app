@@ -8,7 +8,7 @@ import { debounce } from 'lodash/fp';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
-import { selectOrgUnit, unselectOrgUnit } from '../../actions/orgUnits';
+import { setOrgUnitProfile } from '../../actions/orgUnits';
 import { highlightFeature } from '../../actions/feature';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
@@ -16,7 +16,7 @@ import { formatTime } from '../../util/helpers';
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
-    BOUNDARY_LAYER,
+    ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
 } from '../../constants/layers';
 import { numberValueTypes } from '../../constants/valueTypes';
@@ -32,6 +32,7 @@ class DataTable extends Component {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         loadLayer: PropTypes.func.isRequired,
+        setOrgUnitProfile: PropTypes.func.isRequired,
         highlightFeature: PropTypes.func.isRequired,
     };
 
@@ -169,6 +170,7 @@ class DataTable extends Component {
         }
     });
 
+    onRowClick = evt => this.props.setOrgUnitProfile(evt.rowData.id);
     onRowMouseOver = evt => this.highlightFeature(evt.rowData.id);
     onRowMouseOut = () => this.highlightFeature();
 
@@ -185,7 +187,7 @@ class DataTable extends Component {
         } = layer;
 
         const isThematic = layerType === THEMATIC_LAYER;
-        const isBoundary = layerType === BOUNDARY_LAYER;
+        const isOrgUnit = layerType === ORG_UNIT_LAYER;
         const isEvent = layerType === EVENT_LAYER;
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
 
@@ -205,6 +207,7 @@ class DataTable extends Component {
                 sortDirection={sortDirection}
                 useDynamicRowHeight={false}
                 hideIndexRow={false}
+                onRowClick={!isEvent ? this.onRowClick : undefined}
                 onRowMouseOver={this.onRowMouseOver}
                 onRowMouseOut={this.onRowMouseOut}
             >
@@ -288,7 +291,7 @@ class DataTable extends Component {
                         )}
                     />
                 )}
-                {(isThematic || isBoundary) && (
+                {(isThematic || isOrgUnit) && (
                     <Column
                         dataKey="level"
                         label={i18n.t('Level')}
@@ -299,7 +302,7 @@ class DataTable extends Component {
                         )}
                     />
                 )}
-                {(isThematic || isBoundary) && (
+                {(isThematic || isOrgUnit) && (
                     <Column
                         dataKey="parentName"
                         label={i18n.t('Parent')}
@@ -355,9 +358,8 @@ export default connect(
             : {};
     },
     {
-        selectOrgUnit,
-        unselectOrgUnit,
         loadLayer,
+        setOrgUnitProfile,
         highlightFeature,
     }
 )(DataTable);

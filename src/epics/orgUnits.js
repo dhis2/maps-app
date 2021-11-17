@@ -4,33 +4,13 @@ import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
 import { errorActionCreator } from '../actions/helpers';
 import { getDisplayPropertyUrl } from '../util/helpers';
-import { apiFetch } from '../util/api';
 import {
-    setOrgUnit,
     setOrgUnitTree,
     setOrgUnitLevels,
     setOrgUnitGroups,
     setOrgUnitGroupSets,
-    setOrgUnitCoordinate,
 } from '../actions/orgUnits';
 import { setOrgUnitPath } from '../actions/layerEdit';
-
-export const loadOrgUnit = action$ =>
-    action$.ofType(types.ORGANISATION_UNIT_LOAD).concatMap(action =>
-        getD2()
-            .then(d2 =>
-                d2.models.organisationUnit.get(action.payload.id, {
-                    fields: `id,${getDisplayPropertyUrl(
-                        d2
-                    )},code,address,email,phoneNumber,coordinates,parent[id,${getDisplayPropertyUrl(
-                        d2
-                    )}],organisationUnitGroups[id,${getDisplayPropertyUrl(
-                        d2
-                    )}]`,
-                })
-            )
-            .then(setOrgUnit)
-    );
 
 export const loadOrgUnitTree = action$ =>
     action$.ofType(types.ORGANISATION_UNIT_TREE_LOAD).concatMap(() =>
@@ -86,30 +66,16 @@ export const loadOrgUnitGroupSets = action$ =>
                     paging: false,
                 })
             )
-            .then(groupSets => setOrgUnitGroupSets(groupSets.toArray()))
+            .then(groupSets =>
+                groupSets.toArray().map(({ id, name }) => ({ id, name }))
+            )
+            .then(setOrgUnitGroupSets)
             .catch(
                 errorActionCreator(
                     types.ORGANISATION_UNIT_GROUP_SETS_LOAD_ERROR
                 )
             )
     );
-
-export const changeOrgUnitCoordinate = action$ =>
-    action$
-        .ofType(types.ORGANISATION_UNIT_COORDINATE_CHANGE)
-        .concatMap(({ layerId, featureId, coordinate }) =>
-            apiFetch(`/organisationUnits/${featureId}`, 'PATCH', {
-                coordinates: JSON.stringify(coordinate),
-            }).then(response => {
-                if (response.ok) {
-                    return setOrgUnitCoordinate(layerId, featureId, coordinate); // Update org. unit in redux store
-                } else {
-                    return errorActionCreator(
-                        types.ORGANISATION_UNIT_COORDINATE_CHANGE_ERROR
-                    );
-                }
-            })
-        );
 
 // Load organisation unit tree path (temporary solution, as favorites don't include paths)
 export const loadOrgUnitPath = action$ =>
@@ -131,11 +97,9 @@ export const loadOrgUnitPath = action$ =>
         );
 
 export default combineEpics(
-    loadOrgUnit,
     loadOrgUnitTree,
     loadOrgUnitLevels,
     loadOrgUnitGroups,
     loadOrgUnitGroupSets,
-    changeOrgUnitCoordinate,
     loadOrgUnitPath
 );

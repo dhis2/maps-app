@@ -1,21 +1,22 @@
-import { BoundaryLayer } from '../../elements/boundary_layer';
+import { OrgUnitLayer } from '../../elements/orgunit_layer';
 
-context('Boundary Layers', () => {
+context('Org Unit Layers', () => {
     beforeEach(() => {
         cy.visit('/');
     });
 
-    const Layer = new BoundaryLayer();
+    const Layer = new OrgUnitLayer();
 
     it('shows error if no orgunit selected', () => {
-        Layer.openDialog('Boundaries').addToMap();
+        Layer.openDialog('Org units').addToMap();
 
         Layer.validateDialogClosed(false);
 
         cy.contains('No organisation units are selected').should('be.visible');
     });
 
-    it('adds a boundary layer', () => {
+    /*
+    it('adds a org unit layer', () => {
         Layer.openDialog('Boundaries')
             .selectOuLevel('District')
             .addToMap();
@@ -27,4 +28,5 @@ context('Boundary Layers', () => {
         Layer.validateCardTitle('Boundaries');
         Layer.validateCardItems(['District']);
     });
+    */
 });

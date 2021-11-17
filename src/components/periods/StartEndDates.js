@@ -8,7 +8,14 @@ import { DEFAULT_START_DATE, DEFAULT_END_DATE } from '../../constants/layers';
 import styles from '../edit/styles/LayerDialog.module.css';
 
 const StartEndDates = props => {
-    const { startDate, endDate, setStartDate, setEndDate, errorText } = props;
+    const {
+        startDate,
+        endDate,
+        setStartDate,
+        setEndDate,
+        errorText,
+        className,
+    } = props;
     const hasDate = startDate !== undefined && endDate !== undefined;
 
     useEffect(() => {
@@ -22,15 +29,15 @@ const StartEndDates = props => {
         <Fragment>
             <DatePicker
                 label={i18n.t('Start date')}
-                value={startDate}
-                onChange={setStartDate}
-                className={styles.select}
+                defaultVal={startDate}
+                onBlur={setStartDate}
+                className={className || styles.select}
             />
             <DatePicker
                 label={i18n.t('End date')}
-                value={endDate}
-                onChange={setEndDate}
-                className={styles.select}
+                defaultVal={endDate}
+                onBlur={setEndDate}
+                className={className || styles.select}
             />
             {errorText && (
                 <div key="error" className={styles.error}>
@@ -47,6 +54,7 @@ StartEndDates.propTypes = {
     errorText: PropTypes.string,
     setStartDate: PropTypes.func.isRequired,
     setEndDate: PropTypes.func.isRequired,
+    className: PropTypes.string,
 };
 
 export default connect(null, { setStartDate, setEndDate })(StartEndDates);

@@ -1,13 +1,13 @@
 # 
 # Translators:
-# trendspotter, 2021
+# trendspotter <jirka.p@volny.cz>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: trendspotter, 2021\n"
+"Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,24 +151,15 @@ msgstr "Organizační jednotky"
 msgid "Style"
 msgstr "Styl"
 
-msgid "Labels"
-msgstr "Štítky"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr "Nezapomeňte vybrat úroveň organizační jednotky obsahující zařízení."
 
 msgid "Point radius"
 msgstr "Poloměr bodu"
 
 msgid "No organisation units are selected"
 msgstr "Nejsou vybrány žádné organizační jednotky"
-
-msgid "Group Set"
-msgstr "Skupinová sada"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr "Nezapomeňte vybrat úroveň organizační jednotky obsahující zařízení."
-
-msgid "Group set is required"
-msgstr "Skupinová sada je povinná"
 
 msgid "event"
 msgstr "událost"
@@ -182,8 +173,8 @@ msgstr "zařízení"
 msgid "thematic"
 msgstr "tematický"
 
-msgid "boundary"
-msgstr "hranice"
+msgid "org unit"
+msgstr "org. jednotka"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -258,6 +249,9 @@ msgstr "Max by měl být větší než min"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "Platné kroky jsou {{minSteps}} až {{maxSteps}}"
 
+msgid "Unit: {{ unit }}"
+msgstr "Jednotka: {{ unit }}"
+
 msgid "Min"
 msgstr "Min"
 
@@ -306,11 +300,17 @@ msgstr "Nevybrána žádná sada legend"
 msgid "Event status"
 msgstr "Stav události"
 
+msgid "Boundary color"
+msgstr "Barva hraničních okrajů"
+
 msgid "Buffer"
 msgstr "Vyrovnávací paměť"
 
 msgid "Radius in meters"
 msgstr "Poloměr v metrech"
+
+msgid "Labels"
+msgstr "Štítky"
 
 msgid "Aggregation type"
 msgstr "Typ agregace"
@@ -325,7 +325,7 @@ msgid "High radius"
 msgstr "Velký poloměr"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "Vysoký poloměr by měl být větší než nízký poloměr"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Poloměr by měl být mezi {{min}} a {{max}}"
@@ -481,6 +481,15 @@ msgstr "datum"
 msgid "Remove filter"
 msgstr "Odebrat filtr"
 
+msgid "Group set"
+msgstr "Skupinová sada"
+
+msgid "Failed to load organisation unit groups."
+msgstr "Skupiny organizačních jednotek se nepodařilo načíst."
+
+msgid "Style by group set"
+msgstr "Styl podle sady skupiny"
+
 msgid "Indicator group"
 msgstr "Skupina indikátorů"
 
@@ -577,17 +586,11 @@ msgstr "Jděte o jednu úroveň výš"
 msgid "Drill down one level"
 msgstr "Přejít o jednu úroveň níže"
 
-msgid "Show information"
-msgstr "Zobrazit informace"
+msgid "View profile"
+msgstr "Zobrazit profil"
 
 msgid "Show longitude/latitude"
 msgstr "Zobrazit zeměpisnou délku / šířku"
-
-msgid "Swap longitude/latitude"
-msgstr "Prohodit zeměpisnou délku / šířku"
-
-msgid "Relocate"
-msgstr "Přemístit"
 
 msgid "Show {{name}}"
 msgstr "Zobrazit {{name}}"
@@ -601,17 +604,14 @@ msgstr "Zeměpisná šířka"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Prohlížení interpretací od {{interpretDate}}"
 
-msgid "Parent unit"
-msgstr "Nadřazená jednotka"
-
 msgid "Not set"
 msgstr "Nenastaveno"
 
 msgid "Organisation unit"
 msgstr "Organizační jednotka"
 
-msgid "Loading layer data"
-msgstr "Načítání dat vrstvy"
+msgid "Parent unit"
+msgstr "Nadřazená jednotka"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
@@ -704,12 +704,8 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
-
-msgid "Code"
-msgstr "Kód"
-
-msgid "Loading data"
-msgstr "Načítání dat"
+"Tento datový prvek má příliš mnoho možností ({{length}}). Maximální počet "
+"možností pro styling je {{max}}."
 
 msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
@@ -717,11 +713,50 @@ msgstr "Pro toto období nenalezeny žádné údaje."
 msgid "Select groups"
 msgstr "Vyberte skupiny"
 
-msgid "Group set"
-msgstr "Skupinová sada"
+msgid "Image of the organisation unit"
+msgstr "Obrázek organizační jednotky"
+
+msgid "Code"
+msgstr "Kód"
+
+msgid "Short name"
+msgstr "Krátký název"
+
+msgid "Opening date"
+msgstr "Datum otevření"
+
+msgid "Closed date"
+msgstr "Uzavřené datum"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr "Odkaz"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Address"
+msgstr "Adresa"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "Komentář"
 
 msgid "Select levels"
 msgstr "Vybrat úrovně"
+
+msgid "Organisation unit profile"
+msgstr "Profil organizační jednotky"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -729,9 +764,6 @@ msgid ""
 msgstr ""
 "Není možné kombinovat uživatelské organizační jednotky a vybírat jednotlivé "
 "jednotky."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "Klikněte do mapy, kam chcete zařízení přemístit."
 
 msgid "user organisation unit"
 msgstr "organizační jednotka uživatele"
@@ -806,7 +838,7 @@ msgid "End date"
 msgstr "Datum ukončení"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Není k dispozici offline"
 
 msgid "Program indicator"
 msgstr "Indikátor programu"
@@ -1154,11 +1186,29 @@ msgstr "Stejné intervaly"
 msgid "Equal counts"
 msgstr "Stejné počty"
 
+msgid "Symbol"
+msgstr "Symbol"
+
 msgid "Daily"
 msgstr "Denně"
 
 msgid "Weekly"
 msgstr "Týdně"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "Týdně (od středy)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "Týdně (od čtvrtka)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "Týdně (od soboty)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "Týdně (začíná nedělí)"
+
+msgid "Bi-weekly"
+msgstr "po 14ti dnech"
 
 msgid "Monthly"
 msgstr "Měsíčně"
@@ -1178,6 +1228,9 @@ msgstr "Duben šest měsíců"
 msgid "Yearly"
 msgstr "Ročně"
 
+msgid "Financial year (Start November)"
+msgstr "Finanční rok (od listopadu)"
+
 msgid "Financial year (Start October)"
 msgstr "Finanční rok (od října)"
 
@@ -1187,132 +1240,6 @@ msgstr "Finanční rok (od července)"
 msgid "Financial year (Start April)"
 msgstr "Finanční rok (od dubna)"
 
-msgid "Today"
-msgstr "Dnes"
-
-msgid "Yesterday"
-msgstr "Včera"
-
-msgid "Last 3 days"
-msgstr "Poslední 3 dny"
-
-msgid "Last 7 days"
-msgstr "Posledních 7 dní"
-
-msgid "Last 14 days"
-msgstr "Posledních 14 dní"
-
-msgid "Last 30 days"
-msgstr "Poledních 30 dní"
-
-msgid "Last 60 days"
-msgstr "Posledních 60 dní"
-
-msgid "Last 90 days"
-msgstr "Posledních 90 dní"
-
-msgid "Last 180 days"
-msgstr "Posledních 180 dní"
-
-msgid "This week"
-msgstr "Tento týden"
-
-msgid "Last week"
-msgstr "Minulý týden"
-
-msgid "Last 4 weeks"
-msgstr "Poslední 4 týdny"
-
-msgid "Last 12 weeks"
-msgstr "Posledních 12 týdnů"
-
-msgid "Last 52 weeks"
-msgstr "Posledních 52 týdnů"
-
-msgid "Weeks this year"
-msgstr "Týdny tohoto roku"
-
-msgid "This bi-week"
-msgstr "Těchto 14 dní"
-
-msgid "Last bi-week"
-msgstr "Posledních dní "
-
-msgid "Last 4 bi-weeks"
-msgstr "4 poslední dvoutýdny"
-
-msgid "This month"
-msgstr "Tento měsíc"
-
-msgid "Last month"
-msgstr "Minulý měsíc"
-
-msgid "Last 3 months"
-msgstr "Poslední 3 měsíce"
-
-msgid "Last 6 months"
-msgstr "Posledních 6 měsíců"
-
-msgid "Last 12 months"
-msgstr "Posledních 12 měsíců"
-
-msgid "Months this year"
-msgstr "Měsíce tohoto roku"
-
-msgid "This bi-month"
-msgstr "Těchto 14 dní"
-
-msgid "Last bi-month"
-msgstr "Poslední dva měsíce"
-
-msgid "Last 6 bi-months"
-msgstr "Posledních 6 dvou-měsíců"
-
-msgid "Bi-months this year"
-msgstr "Dvouměsíčně tento rok"
-
-msgid "This quarter"
-msgstr "Toto čtvrtletí"
-
-msgid "Last quarter"
-msgstr "Poslední čtvrtletí"
-
-msgid "Last 4 quarters"
-msgstr "Poslední 4 čtvrtletí "
-
-msgid "Quarters this year"
-msgstr "Čtvrtletí tohoto roku"
-
-msgid "This six-month"
-msgstr "Tento půlrok"
-
-msgid "Last six-month"
-msgstr "Poslední půlrok"
-
-msgid "Last 2 six-months"
-msgstr "Poslední 2 šestiměsíce"
-
-msgid "This year"
-msgstr "Tento rok"
-
-msgid "Last year"
-msgstr "Poslední rok"
-
-msgid "Last 5 years"
-msgstr "Posledních 5 let"
-
-msgid "Last 10 years"
-msgstr "Posledních 10 let"
-
-msgid "This financial year"
-msgstr "Tento fiskální rok"
-
-msgid "Last financial year"
-msgstr "Poslední finanční rok"
-
-msgid "Last 5 financial years"
-msgstr "Posledních 5 fiskálních roků"
-
 msgid "Cancelled"
 msgstr "Zrušeno"
 
@@ -1321,12 +1248,6 @@ msgstr "Mapa \"{{name}}\" je uložena."
 
 msgid "Error"
 msgstr "Chyba"
-
-msgid "Boundaries"
-msgstr "Hranice"
-
-msgid "No boundaries found"
-msgstr "Nenalezeny žádné hranice"
 
 msgid "Selected org units"
 msgstr "Vybrané organizační jednotky"
@@ -1340,17 +1261,23 @@ msgstr "K datům této vrstvy nemáte přístup"
 msgid "An unknown error occurred while reading layer data"
 msgstr "Při čtení dat vrstvy došlo k neznámé chybě"
 
-msgid "Event"
-msgstr "Událost"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
+msgstr "Zobrazeno prvních {{pageSize}} událostí z {{total}}"
 
 msgid "No data found"
 msgstr "Nenalezena žádná data"
 
+msgid "Event"
+msgstr "Událost"
+
 msgid "Facilities"
 msgstr "Zařízení"
+
+msgid "No facilities found"
+msgstr "Nebylo nalezeno žádné zařízení"
+
+msgid "Organisation units"
+msgstr "Organizační jednotky"
 
 msgid "Thematic layer"
 msgstr "Tematická vrstva"
@@ -1369,6 +1296,9 @@ msgstr "příbuzný"
 
 msgid "Thematic"
 msgstr "Tematický"
+
+msgid "Org units"
+msgstr "Organizační jednotky"
 
 msgid "not one of"
 msgstr "není jeden z"
@@ -1397,6 +1327,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "Nelze se připojit k Google Earth Engine."
+
+msgid "Facility"
+msgstr "Zařízení"
 
 msgid "Start date is invalid"
 msgstr "Datum zahájení je neplatné"

@@ -1,16 +1,16 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2021
-# easylin <lin_xd@126.com>, 2021
-# phil_dhis2, 2021
 # 晓东 林 <13981924470@126.com>, 2021
+# phil_dhis2, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,24 +151,15 @@ msgstr "组织机构管理"
 msgid "Style"
 msgstr "风格"
 
-msgid "Labels"
-msgstr "标签"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr "记住选择包括机构的等级"
 
 msgid "Point radius"
 msgstr "点半径"
 
 msgid "No organisation units are selected"
 msgstr "没有选择机构"
-
-msgid "Group Set"
-msgstr "组集"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr "记住选择包括机构的等级"
-
-msgid "Group set is required"
-msgstr "需要组集"
 
 msgid "event"
 msgstr "事件"
@@ -182,8 +173,8 @@ msgstr "机构"
 msgid "thematic"
 msgstr "主题"
 
-msgid "boundary"
-msgstr "边界"
+msgid "org unit"
+msgstr "组织单位"
 
 msgid "Earth Engine"
 msgstr "地图引擎"
@@ -253,6 +244,9 @@ msgstr "最大值应大于最小值"
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
 
+msgid "Unit: {{ unit }}"
+msgstr "机构: {{ unit }}"
+
 msgid "Min"
 msgstr "最小"
 
@@ -301,17 +295,23 @@ msgstr "未选择图例集"
 msgid "Event status"
 msgstr "事件状态"
 
+msgid "Boundary color"
+msgstr "边界颜色"
+
 msgid "Buffer"
 msgstr "缓冲"
 
 msgid "Radius in meters"
 msgstr "半径（米）"
 
+msgid "Labels"
+msgstr "标签"
+
 msgid "Aggregation type"
 msgstr "汇总类型"
 
 msgid "Show no data"
-msgstr "不显示数据"
+msgstr "显示无数据"
 
 msgid "Low radius"
 msgstr "低半径"
@@ -388,7 +388,7 @@ msgstr "选择关系类型前先选择跟踪实体类型"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr "在地图上显示实体恭喜是一个试验特征功能"
+msgstr "在地图中显示跟踪实体关系是一项实验性功能"
 
 msgid "Display Tracked Entity relationships"
 msgstr "显示跟踪实体关系"
@@ -474,6 +474,15 @@ msgstr "日期"
 
 msgid "Remove filter"
 msgstr "移除过滤器"
+
+msgid "Group set"
+msgstr "组集"
+
+msgid "Failed to load organisation unit groups."
+msgstr "未能加载组织机构组。"
+
+msgid "Style by group set"
+msgstr "按组集设置样式"
 
 msgid "Indicator group"
 msgstr "指标组"
@@ -570,17 +579,11 @@ msgstr "上钻一级"
 msgid "Drill down one level"
 msgstr "下钻一级"
 
-msgid "Show information"
-msgstr "显示信息表格"
+msgid "View profile"
+msgstr "查看简介"
 
 msgid "Show longitude/latitude"
 msgstr "显示经纬度"
-
-msgid "Swap longitude/latitude"
-msgstr "切换经纬度"
-
-msgid "Relocate"
-msgstr "重新定位"
 
 msgid "Show {{name}}"
 msgstr "显示{{name}}"
@@ -594,17 +597,14 @@ msgstr "纬度"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
-msgid "Parent unit"
-msgstr "上级机构"
-
 msgid "Not set"
 msgstr "没有设置"
 
 msgid "Organisation unit"
 msgstr "组织机构"
 
-msgid "Loading layer data"
-msgstr "加载图层数据"
+msgid "Parent unit"
+msgstr "上级机构"
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -695,31 +695,61 @@ msgid ""
 " is {{max}}."
 msgstr "该数据元素的选项太多（{{length}}）。样式的最大选项为{{max}}。"
 
-msgid "Code"
-msgstr "代码"
-
-msgid "Loading data"
-msgstr "加载数据中"
-
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
 
 msgid "Select groups"
 msgstr "选择组"
 
-msgid "Group set"
-msgstr "组集"
+msgid "Image of the organisation unit"
+msgstr "组织机构图像"
+
+msgid "Code"
+msgstr "代码"
+
+msgid "Short name"
+msgstr "缩写名"
+
+msgid "Opening date"
+msgstr "生效日期"
+
+msgid "Closed date"
+msgstr "截止日"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr "链接"
+
+msgid "Contact"
+msgstr "联系人"
+
+msgid "Email"
+msgstr "邮件"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "Phone"
+msgstr "电话"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "评论"
 
 msgid "Select levels"
 msgstr "选择等级"
+
+msgid "Organisation unit profile"
+msgstr "组织机构简介"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr "不能合并用户组织机构，选择单个单位。"
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "单击您要在其中重新定位的机构的地图。"
 
 msgid "user organisation unit"
 msgstr "用户所在的机构"
@@ -1134,11 +1164,29 @@ msgstr "平等间隔"
 msgid "Equal counts"
 msgstr "等数量"
 
+msgid "Symbol"
+msgstr "符号"
+
 msgid "Daily"
 msgstr "每日"
 
 msgid "Weekly"
 msgstr "每周"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "每周（始于周二）"
+
+msgid "Weekly (Start Thursday)"
+msgstr "每周（始于周四）"
+
+msgid "Weekly (Start Saturday)"
+msgstr "每周（始于周六）"
+
+msgid "Weekly (Start Sunday)"
+msgstr "每周（始于周日）"
+
+msgid "Bi-weekly"
+msgstr "两周"
 
 msgid "Monthly"
 msgstr "每月"
@@ -1158,6 +1206,9 @@ msgstr "半年四月"
 msgid "Yearly"
 msgstr "每年"
 
+msgid "Financial year (Start November)"
+msgstr "财政年（11月始）"
+
 msgid "Financial year (Start October)"
 msgstr "财务十月"
 
@@ -1167,132 +1218,6 @@ msgstr "财务七月"
 msgid "Financial year (Start April)"
 msgstr "财务四月"
 
-msgid "Today"
-msgstr "今天"
-
-msgid "Yesterday"
-msgstr "昨天"
-
-msgid "Last 3 days"
-msgstr "Last 3 days"
-
-msgid "Last 7 days"
-msgstr "最近7天"
-
-msgid "Last 14 days"
-msgstr "Last 14 days"
-
-msgid "Last 30 days"
-msgstr "最近30天"
-
-msgid "Last 60 days"
-msgstr "最近60天"
-
-msgid "Last 90 days"
-msgstr "最近90天"
-
-msgid "Last 180 days"
-msgstr "最近180天"
-
-msgid "This week"
-msgstr "本年"
-
-msgid "Last week"
-msgstr "上周"
-
-msgid "Last 4 weeks"
-msgstr "最近四周"
-
-msgid "Last 12 weeks"
-msgstr "最近12周"
-
-msgid "Last 52 weeks"
-msgstr "Last 52 weeks"
-
-msgid "Weeks this year"
-msgstr "Weeks this year"
-
-msgid "This bi-week"
-msgstr "本双周"
-
-msgid "Last bi-week"
-msgstr "最近两周"
-
-msgid "Last 4 bi-weeks"
-msgstr "最近4个两周"
-
-msgid "This month"
-msgstr "本月"
-
-msgid "Last month"
-msgstr "上月"
-
-msgid "Last 3 months"
-msgstr "最近3个月"
-
-msgid "Last 6 months"
-msgstr "Last 6 months"
-
-msgid "Last 12 months"
-msgstr "最近12月"
-
-msgid "Months this year"
-msgstr "今年的月份"
-
-msgid "This bi-month"
-msgstr "本双月"
-
-msgid "Last bi-month"
-msgstr "Last bi-month"
-
-msgid "Last 6 bi-months"
-msgstr "Last 6 bi-months"
-
-msgid "Bi-months this year"
-msgstr "Bi-months this year"
-
-msgid "This quarter"
-msgstr "本季度"
-
-msgid "Last quarter"
-msgstr "最近一季"
-
-msgid "Last 4 quarters"
-msgstr "最近四个季度"
-
-msgid "Quarters this year"
-msgstr "今年的季度"
-
-msgid "This six-month"
-msgstr "本六个月"
-
-msgid "Last six-month"
-msgstr "最近六个月"
-
-msgid "Last 2 six-months"
-msgstr "最近两个半年"
-
-msgid "This year"
-msgstr "今年"
-
-msgid "Last year"
-msgstr "去年"
-
-msgid "Last 5 years"
-msgstr "最近5年"
-
-msgid "Last 10 years"
-msgstr "最近10年"
-
-msgid "This financial year"
-msgstr "本财年"
-
-msgid "Last financial year"
-msgstr "上一财政年"
-
-msgid "Last 5 financial years"
-msgstr "最近五个财政年"
-
 msgid "Cancelled"
 msgstr "已取消"
 
@@ -1301,12 +1226,6 @@ msgstr "地图“ {{name}}”已保存。"
 
 msgid "Error"
 msgstr "错误"
-
-msgid "Boundaries"
-msgstr "边界线"
-
-msgid "No boundaries found"
-msgstr "没有发现边界线"
 
 msgid "Selected org units"
 msgstr "选择的机构"
@@ -1320,17 +1239,23 @@ msgstr "您无权访问此图层数据"
 msgid "An unknown error occurred while reading layer data"
 msgstr "读取图层数据时发生未知错误"
 
-msgid "Event"
-msgstr "四级"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "显示{{total}}中的前{{pageSize}}个事件"
 
 msgid "No data found"
 msgstr "没有数据被找到"
 
+msgid "Event"
+msgstr "四级"
+
 msgid "Facilities"
 msgstr "机构设施"
+
+msgid "No facilities found"
+msgstr "没有找到机构设施"
+
+msgid "Organisation units"
+msgstr "组织机构"
 
 msgid "Thematic layer"
 msgstr "专题层"
@@ -1349,6 +1274,9 @@ msgstr "相关的"
 
 msgid "Thematic"
 msgstr "专题图"
+
+msgid "Org units"
+msgstr "组织机构"
 
 msgid "not one of"
 msgstr "不是当中一个"
@@ -1375,6 +1303,9 @@ msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请�
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "无法连接到Google Earth Engine。"
+
+msgid "Facility"
+msgstr "功能"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"

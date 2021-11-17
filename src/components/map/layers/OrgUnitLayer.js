@@ -3,10 +3,10 @@ import i18n from '@dhis2/d2-i18n';
 import Layer from './Layer';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
-import { LABEL_FONT_SIZE, LABEL_FONT_STYLE } from '../../../constants/layers';
-import { BOUNDARY_LAYER } from '../../../constants/layers';
+import { getLabelStyle } from '../../../util/labels';
+import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
 
-export default class BoundaryLayer extends Layer {
+export default class OrgUnitLayer extends Layer {
     state = {
         popup: null,
     };
@@ -19,10 +19,9 @@ export default class BoundaryLayer extends Layer {
             isVisible,
             data,
             labels,
-            labelFontSize,
-            labelFontStyle,
             radiusLow,
             dataFilters,
+            organisationUnitColor = ORG_UNIT_COLOR,
         } = this.props;
 
         const filteredData = filterData(data, dataFilters);
@@ -30,7 +29,7 @@ export default class BoundaryLayer extends Layer {
         const map = this.context.map;
 
         const config = {
-            type: BOUNDARY_LAYER,
+            type: GEOJSON_LAYER,
             id,
             index,
             opacity,
@@ -38,23 +37,16 @@ export default class BoundaryLayer extends Layer {
             data: filteredData,
             hoverLabel: '{name}',
             style: {
-                opacity: 1,
-                fillOpacity: 0,
-                fill: false,
+                color: 'transparent',
+                strokeColor: organisationUnitColor,
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
         };
 
         if (labels) {
-            const fontSize = labelFontSize || LABEL_FONT_SIZE;
-
             config.label = '{name}';
-            config.labelStyle = {
-                fontSize,
-                fontStyle: labelFontStyle || LABEL_FONT_STYLE,
-                lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
-            };
+            config.labelStyle = getLabelStyle(this.props);
         }
 
         if (radiusLow) {
@@ -70,11 +62,12 @@ export default class BoundaryLayer extends Layer {
 
     getPopup() {
         const { coordinates, feature } = this.state.popup;
-        const { name, level, parentName } = feature.properties;
+        const { id, name, level, parentName } = feature.properties;
 
         return (
             <Popup
                 coordinates={coordinates}
+                orgUnitId={id}
                 onClose={this.onPopupClose}
                 className="dhis2-map-popup-orgunit"
             >

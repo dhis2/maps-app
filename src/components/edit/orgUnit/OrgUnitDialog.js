@@ -2,23 +2,30 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField, Checkbox, FontStyle } from '../core';
-import OrgUnitTree from '../orgunits/OrgUnitTree';
-import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
-import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
-import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import styles from './styles/LayerDialog.module.css';
+import { Tab, Tabs, NumberField, ColorPicker } from '../../core';
+import OrgUnitTree from '../../orgunits/OrgUnitTree';
+import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
+import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
+import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
+import Labels from '../shared/Labels';
+import {
+    ORG_UNIT_COLOR,
+    ORG_UNIT_RADIUS,
+    STYLE_TYPE_COLOR,
+    MIN_RADIUS,
+    MAX_RADIUS,
+} from '../../../constants/layers';
+import styles from '../styles/LayerDialog.module.css';
 
 import {
     setOrgUnitLevels,
     setOrgUnitGroups,
     setUserOrgUnits,
     toggleOrgUnit,
-    setLabels,
-    setLabelFontSize,
-    setLabelFontStyle,
     setRadiusLow,
-} from '../../actions/layerEdit';
+    setOrganisationUnitColor,
+} from '../../../actions/layerEdit';
 
 import {
     getOrgUnitsFromRows,
@@ -26,21 +33,17 @@ import {
     getOrgUnitLevelsFromRows,
     getOrgUnitGroupsFromRows,
     getUserOrgUnitsFromRows,
-} from '../../util/analytics';
+} from '../../../util/analytics';
 
-class BoundaryDialog extends Component {
+class OrgUnitDialog extends Component {
     static propTypes = {
-        labels: PropTypes.bool,
-        labelFontSize: PropTypes.string,
-        labelFontStyle: PropTypes.string,
-        radiusLow: PropTypes.number,
         rows: PropTypes.array,
-        setLabels: PropTypes.func.isRequired,
-        setLabelFontSize: PropTypes.func.isRequired,
-        setLabelFontStyle: PropTypes.func.isRequired,
+        radiusLow: PropTypes.number,
+        organisationUnitColor: PropTypes.string,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
+        setOrganisationUnitColor: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
@@ -62,17 +65,13 @@ class BoundaryDialog extends Component {
     render() {
         const {
             rows = [],
-            labels,
-            labelFontSize,
-            labelFontStyle,
             radiusLow,
+            organisationUnitColor,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
             toggleOrgUnit,
-            setLabels,
-            setLabelFontSize,
-            setLabelFontStyle,
+            setOrganisationUnitColor,
             setRadiusLow,
         } = this.props;
 
@@ -83,7 +82,7 @@ class BoundaryDialog extends Component {
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
-            <div data-test="boundarydialog">
+            <div data-test="orgunitdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
@@ -92,7 +91,7 @@ class BoundaryDialog extends Component {
                     {tab === 'orgunits' && (
                         <div
                             className={styles.flexColumnFlow}
-                            data-test="boundarydialog-orgunitstab"
+                            data-test="orgunitdialog-orgunitstab"
                         >
                             <div className={styles.orgUnitTree}>
                                 <OrgUnitTree
@@ -131,33 +130,34 @@ class BoundaryDialog extends Component {
                     {tab === 'style' && (
                         <div
                             className={styles.flexColumnFlow}
-                            data-test="boundarydialog-styletab"
+                            data-test="orgunitdialog-styletab"
                         >
                             <div className={styles.flexColumn}>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Labels')}
-                                        checked={labels}
-                                        onChange={setLabels}
-                                        className={styles.checkboxInline}
-                                    />
-                                    {labels && (
-                                        <FontStyle
-                                            size={labelFontSize}
-                                            fontStyle={labelFontStyle}
-                                            onSizeChange={setLabelFontSize}
-                                            onStyleChange={setLabelFontStyle}
-                                            className={styles.fontInline}
-                                        />
-                                    )}
-                                </div>
+                                <Labels />
+                                <ColorPicker
+                                    label={i18n.t('Boundary color')}
+                                    color={
+                                        organisationUnitColor || ORG_UNIT_COLOR
+                                    }
+                                    onChange={setOrganisationUnitColor}
+                                    className={styles.narrowField}
+                                />
                                 <NumberField
                                     label={i18n.t('Point radius')}
+                                    min={MIN_RADIUS}
+                                    max={MAX_RADIUS}
                                     value={
-                                        radiusLow !== undefined ? radiusLow : 5
+                                        radiusLow !== undefined
+                                            ? radiusLow
+                                            : ORG_UNIT_RADIUS
                                     }
                                     onChange={setRadiusLow}
-                                    className={styles.radius}
+                                    className={styles.narrowFieldIcon}
+                                />
+                            </div>
+                            <div className={styles.flexColumn}>
+                                <StyleByGroupSet
+                                    defaultStyleType={STYLE_TYPE_COLOR}
                                 />
                             </div>
                         </div>
@@ -199,13 +199,11 @@ export default connect(
         setOrgUnitGroups,
         setUserOrgUnits,
         toggleOrgUnit,
-        setLabels,
-        setLabelFontSize,
-        setLabelFontStyle,
         setRadiusLow,
+        setOrganisationUnitColor,
     },
     null,
     {
         forwardRef: true,
     }
-)(BoundaryDialog);
+)(OrgUnitDialog);

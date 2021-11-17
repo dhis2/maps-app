@@ -5,18 +5,14 @@ import Timeline from '../../periods/Timeline';
 import PeriodName from '../PeriodName';
 import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
-import { cssColor } from '../../../util/colors';
 import { getPeriodFromFilters } from '../../../util/analytics';
 import { polygonsToPoints } from '../../../util/geojson';
+import { getLabelStyle } from '../../../util/labels';
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
-    LABEL_FONT_SIZE,
-    LABEL_FONT_STYLE,
-    LABEL_FONT_WEIGHT,
-    LABEL_FONT_COLOR,
     BOUNDARY_LAYER,
 } from '../../../constants/layers';
 
@@ -30,10 +26,6 @@ class ThematicLayer extends Layer {
             data,
             dataFilters,
             labels,
-            labelFontSize,
-            labelFontStyle,
-            labelFontWeight,
-            labelFontColor,
             valuesByPeriod,
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
             thematicMapType = THEMATIC_CHOROPLETH,
@@ -83,16 +75,8 @@ class ThematicLayer extends Layer {
         };
 
         if (labels) {
-            const fontSize = labelFontSize || LABEL_FONT_SIZE;
-
             config.label = '{name}';
-            config.labelStyle = {
-                fontSize,
-                fontStyle: labelFontStyle || LABEL_FONT_STYLE,
-                fontWeight: labelFontWeight || LABEL_FONT_WEIGHT,
-                color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
-                lineHeight: parseInt(fontSize, 10) * 1.2 + 'px',
-            };
+            config.labelStyle = getLabelStyle(this.props);
         }
 
         // Add boundaries as a separate layer
@@ -162,14 +146,15 @@ class ThematicLayer extends Layer {
         const { columns, aggregationType, legend } = this.props;
         const { popup, period } = this.state;
         const { coordinates, feature } = popup;
-        const { name, value } = feature.properties;
+        const { id, name, value } = feature.properties;
         const indicator = columns[0].items[0].name || '';
         const periodName = period ? period.name : legend.period;
 
         return (
             <Popup
                 coordinates={coordinates}
-                onClose={() => this.onPopupClose(popup)}
+                orgUnitId={id}
+                onClose={this.onPopupClose}
                 className="dhis2-map-popup-orgunit"
             >
                 <em>{name}</em>

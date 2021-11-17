@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2021\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -148,23 +148,14 @@ msgstr ""
 msgid "Style"
 msgstr "المظهر"
 
-msgid "Labels"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Point radius"
 msgstr ""
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "event"
@@ -179,7 +170,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -250,6 +241,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "الأدنى"
 
@@ -298,10 +292,16 @@ msgstr ""
 msgid "Event status"
 msgstr "حالة الحدث"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "Labels"
 msgstr ""
 
 msgid "Aggregation type"
@@ -472,6 +472,15 @@ msgstr "التاريخ"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr ""
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr ""
 
@@ -567,16 +576,10 @@ msgstr ""
 msgid "Drill down one level"
 msgstr ""
 
-msgid "Show information"
+msgid "View profile"
 msgstr ""
 
 msgid "Show longitude/latitude"
-msgstr ""
-
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
 msgstr ""
 
 msgid "Show {{name}}"
@@ -591,16 +594,13 @@ msgstr ""
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "Parent unit"
-msgstr ""
-
 msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
 msgstr "الوحدة التنظيمية"
 
-msgid "Loading layer data"
+msgid "Parent unit"
 msgstr ""
 
 msgid "Last updated"
@@ -692,30 +692,60 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr ""
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
 msgstr ""
 
-msgid "Group set"
+msgid "Image of the organisation unit"
 msgstr ""
 
+msgid "Code"
+msgstr ""
+
+msgid "Short name"
+msgstr ""
+
+msgid "Opening date"
+msgstr ""
+
+msgid "Closed date"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Link"
+msgstr "ربط"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Comment"
+msgstr "تعليق"
+
 msgid "Select levels"
+msgstr ""
+
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1131,11 +1161,29 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr "يومي"
 
 msgid "Weekly"
 msgstr "أسبوعي"
+
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr "كل اسبوعين"
 
 msgid "Monthly"
 msgstr "شهري"
@@ -1155,6 +1203,9 @@ msgstr "ستة أشهر نيسان"
 msgid "Yearly"
 msgstr "سنوي"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "السنة المالية (بداية تشرين الأول)"
 
@@ -1164,132 +1215,6 @@ msgstr "السنة المالية (بداية تموز)"
 msgid "Financial year (Start April)"
 msgstr "السنة المالية (بداية نيسان)"
 
-msgid "Today"
-msgstr "اليوم"
-
-msgid "Yesterday"
-msgstr "الأمس"
-
-msgid "Last 3 days"
-msgstr "آخر 3 أيام"
-
-msgid "Last 7 days"
-msgstr "آخر 7 أيام"
-
-msgid "Last 14 days"
-msgstr "آخر 14 يوم"
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "الأسبوع الحالي"
-
-msgid "Last week"
-msgstr "الأسبوع الماضي"
-
-msgid "Last 4 weeks"
-msgstr "آخر 4 أسابيع"
-
-msgid "Last 12 weeks"
-msgstr "آخر 12 أسبوع"
-
-msgid "Last 52 weeks"
-msgstr "آخر 52 أسبوع"
-
-msgid "Weeks this year"
-msgstr "أسابيع السنة الحالية"
-
-msgid "This bi-week"
-msgstr "الأسبوعين الحاليين"
-
-msgid "Last bi-week"
-msgstr "آخر اسبوعين"
-
-msgid "Last 4 bi-weeks"
-msgstr "آخر 4 زوج اسابيع"
-
-msgid "This month"
-msgstr "الشهر الحالي"
-
-msgid "Last month"
-msgstr "الشهر الماضي"
-
-msgid "Last 3 months"
-msgstr "آخر 3 أشهر"
-
-msgid "Last 6 months"
-msgstr "آخر 6 أشهر"
-
-msgid "Last 12 months"
-msgstr "آخر 12 شهر"
-
-msgid "Months this year"
-msgstr "أشهر السنة الحالية"
-
-msgid "This bi-month"
-msgstr "الشهران المزدوجان الحاليان"
-
-msgid "Last bi-month"
-msgstr "آخر شهرين مزدوجين"
-
-msgid "Last 6 bi-months"
-msgstr "آخر 6 أشهر مزدوجة"
-
-msgid "Bi-months this year"
-msgstr "الأشهر المزدوجة في السنة الحالية"
-
-msgid "This quarter"
-msgstr "ربع السنة الحالي"
-
-msgid "Last quarter"
-msgstr "ربع السنة الماضي"
-
-msgid "Last 4 quarters"
-msgstr "آخر 4 أرباع السنة"
-
-msgid "Quarters this year"
-msgstr "أرباع السنة الحالية"
-
-msgid "This six-month"
-msgstr "نصف السنة الحالي (فترة من ستة أشهر)"
-
-msgid "Last six-month"
-msgstr "آخر ستة أشهر"
-
-msgid "Last 2 six-months"
-msgstr "آخر 2 ستة أشهر"
-
-msgid "This year"
-msgstr "السنة الحالية"
-
-msgid "Last year"
-msgstr "السنة الماضية"
-
-msgid "Last 5 years"
-msgstr "آخر 5 سنوات"
-
-msgid "Last 10 years"
-msgstr ""
-
-msgid "This financial year"
-msgstr "السنة المالية الحالية"
-
-msgid "Last financial year"
-msgstr "السنة المالية الماضية"
-
-msgid "Last 5 financial years"
-msgstr "آخر 5 سنوات مالية"
-
 msgid "Cancelled"
 msgstr "تم الإلغاء"
 
@@ -1298,12 +1223,6 @@ msgstr ""
 
 msgid "Error"
 msgstr "خطأ"
-
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
 
 msgid "Selected org units"
 msgstr ""
@@ -1317,17 +1236,23 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "الحدث"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr ""
 
+msgid "Event"
+msgstr "الحدث"
+
 msgid "Facilities"
 msgstr ""
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "الوحدات التنظيمية"
 
 msgid "Thematic layer"
 msgstr ""
@@ -1345,6 +1270,9 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "not one of"
@@ -1371,6 +1299,9 @@ msgid ""
 msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"

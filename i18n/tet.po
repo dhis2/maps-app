@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Tetum (Tetun) (https://www.transifex.com/hisp-uio/teams/100509/tet/)\n"
@@ -149,23 +149,14 @@ msgstr "Unidades Organizasionais"
 msgid "Style"
 msgstr "Estilu"
 
-msgid "Labels"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Point radius"
 msgstr ""
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "event"
@@ -180,7 +171,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -251,6 +242,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "Min"
 
@@ -299,10 +293,16 @@ msgstr ""
 msgid "Event status"
 msgstr ""
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "Labels"
 msgstr ""
 
 msgid "Aggregation type"
@@ -473,6 +473,15 @@ msgstr "Data"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr ""
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr ""
 
@@ -568,16 +577,10 @@ msgstr ""
 msgid "Drill down one level"
 msgstr ""
 
-msgid "Show information"
-msgstr ""
+msgid "View profile"
+msgstr "Haré perfil"
 
 msgid "Show longitude/latitude"
-msgstr ""
-
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
 msgstr ""
 
 msgid "Show {{name}}"
@@ -592,16 +595,13 @@ msgstr ""
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "Parent unit"
-msgstr ""
-
 msgid "Not set"
 msgstr "Seidauk define"
 
 msgid "Organisation unit"
 msgstr "Unidade organizasional"
 
-msgid "Loading layer data"
+msgid "Parent unit"
 msgstr ""
 
 msgid "Last updated"
@@ -693,30 +693,60 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Kódigu"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
 msgstr ""
 
-msgid "Group set"
+msgid "Image of the organisation unit"
 msgstr ""
 
+msgid "Code"
+msgstr "Kódigu"
+
+msgid "Short name"
+msgstr "Naran badak"
+
+msgid "Opening date"
+msgstr "Data loke"
+
+msgid "Closed date"
+msgstr "Data taka"
+
+msgid "URL"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Address"
+msgstr "Enderesu"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "Id"
+
+msgid "Comment"
+msgstr "Komentáriu"
+
 msgid "Select levels"
+msgstr ""
+
+msgid "Organisation unit profile"
 msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1132,11 +1162,29 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Symbol"
+msgstr ""
+
 msgid "Daily"
 msgstr "Diáriu"
 
 msgid "Weekly"
 msgstr "Semanal"
+
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
 
 msgid "Monthly"
 msgstr "Mensal"
@@ -1156,6 +1204,9 @@ msgstr "Abril semestral"
 msgid "Yearly"
 msgstr "Anual"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "Outubru finanseiru"
 
@@ -1165,132 +1216,6 @@ msgstr "Jullu finanseiru"
 msgid "Financial year (Start April)"
 msgstr "Abril finanseiru"
 
-msgid "Today"
-msgstr ""
-
-msgid "Yesterday"
-msgstr ""
-
-msgid "Last 3 days"
-msgstr ""
-
-msgid "Last 7 days"
-msgstr ""
-
-msgid "Last 14 days"
-msgstr ""
-
-msgid "Last 30 days"
-msgstr ""
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr ""
-
-msgid "Last week"
-msgstr "Semana kotuk"
-
-msgid "Last 4 weeks"
-msgstr "Semana 4 ikus"
-
-msgid "Last 12 weeks"
-msgstr "Semana 12 ikus"
-
-msgid "Last 52 weeks"
-msgstr "Semana 52 ikus"
-
-msgid "Weeks this year"
-msgstr ""
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr ""
-
-msgid "Last month"
-msgstr "Fulan kotuk"
-
-msgid "Last 3 months"
-msgstr "Fulan 3 ikus"
-
-msgid "Last 6 months"
-msgstr "Fulan 6 ikus"
-
-msgid "Last 12 months"
-msgstr "Fulan 12 ikus"
-
-msgid "Months this year"
-msgstr "Fulan sira tinan ida ne'e"
-
-msgid "This bi-month"
-msgstr ""
-
-msgid "Last bi-month"
-msgstr "Bimensal kotuk"
-
-msgid "Last 6 bi-months"
-msgstr "Bimensal 6 ikus liu"
-
-msgid "Bi-months this year"
-msgstr ""
-
-msgid "This quarter"
-msgstr ""
-
-msgid "Last quarter"
-msgstr "Trimestre kotuk"
-
-msgid "Last 4 quarters"
-msgstr "Trimestre 4 ikus liu"
-
-msgid "Quarters this year"
-msgstr "Trimestres sira tinan ida ne'e"
-
-msgid "This six-month"
-msgstr ""
-
-msgid "Last six-month"
-msgstr "Fulan-nén ikus"
-
-msgid "Last 2 six-months"
-msgstr "Fulan-nén 2 ikus"
-
-msgid "This year"
-msgstr "Tina ida ne'e"
-
-msgid "Last year"
-msgstr "Tinan kotuk"
-
-msgid "Last 5 years"
-msgstr "Tinan 5 kotuk"
-
-msgid "Last 10 years"
-msgstr ""
-
-msgid "This financial year"
-msgstr "Tinan finanseiru ida ne'e"
-
-msgid "Last financial year"
-msgstr "Tinan finanseiru kotuk"
-
-msgid "Last 5 financial years"
-msgstr "Tinan finanseiru 5 ikus"
-
 msgid "Cancelled"
 msgstr ""
 
@@ -1299,12 +1224,6 @@ msgstr ""
 
 msgid "Error"
 msgstr "Erru"
-
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
 
 msgid "Selected org units"
 msgstr ""
@@ -1318,17 +1237,23 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr ""
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr ""
 
+msgid "Event"
+msgstr ""
+
 msgid "Facilities"
 msgstr ""
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "Unidade organizasional"
 
 msgid "Thematic layer"
 msgstr ""
@@ -1346,6 +1271,9 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "not one of"
@@ -1372,6 +1300,9 @@ msgid ""
 msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"

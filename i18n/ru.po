@@ -1,17 +1,16 @@
 # 
 # Translators:
-# Ulanbek Abakirov <ulans@mail.ru>, 2020
-# Yury Rogachev <yury@dhis2.org>, 2021
-# phil_dhis2, 2021
 # Saurabh Leekha <saurabh.leekha@hispindia.org>, 2021
+# Ulanbek Abakirov <ulans@mail.ru>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -152,23 +151,14 @@ msgstr "Организации"
 msgid "Style"
 msgstr "Стиль"
 
-msgid "Labels"
-msgstr "Метки"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
 
 msgid "Point radius"
 msgstr "Радиус точки"
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr "Набор групп"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "event"
@@ -183,7 +173,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -254,6 +244,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "Минимум"
 
@@ -302,11 +295,17 @@ msgstr ""
 msgid "Event status"
 msgstr "Статус события"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
 msgstr ""
+
+msgid "Labels"
+msgstr "Метки"
 
 msgid "Aggregation type"
 msgstr "Тип агрегации"
@@ -477,6 +476,15 @@ msgstr "Дата"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr "Набор группы"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Группа индикаторов"
 
@@ -572,17 +580,11 @@ msgstr "Свернуть на один уровень"
 msgid "Drill down one level"
 msgstr "Развернуть на один уровень"
 
-msgid "Show information"
-msgstr "Показать информацию"
+msgid "View profile"
+msgstr "Просмотреть профиль"
 
 msgid "Show longitude/latitude"
 msgstr "Показать долготу / широту"
-
-msgid "Swap longitude/latitude"
-msgstr "Поменять долготу / широту"
-
-msgid "Relocate"
-msgstr "Переместить"
 
 msgid "Show {{name}}"
 msgstr ""
@@ -596,17 +598,14 @@ msgstr "Широта"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Просмотр интерпретации с {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "Родительская"
-
 msgid "Not set"
 msgstr "Не устнановлен"
 
 msgid "Organisation unit"
 msgstr "Организация"
 
-msgid "Loading layer data"
-msgstr ""
+msgid "Parent unit"
+msgstr "Родительская"
 
 msgid "Last updated"
 msgstr "Последнее обновление"
@@ -697,30 +696,60 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Код"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
 msgstr "Выбрать группы"
 
-msgid "Group set"
-msgstr "Набор группы"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Short name"
+msgstr "Короткое название"
+
+msgid "Opening date"
+msgstr "Дата открытия"
+
+msgid "Closed date"
+msgstr "Дата закрытия"
+
+msgid "URL"
+msgstr "Url"
+
+msgid "Link"
+msgstr "Ссылка"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "адрес электронной почты"
+
+msgid "Address"
+msgstr "Адрес"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "Ид"
+
+msgid "Comment"
+msgstr "Комментарий"
 
 msgid "Select levels"
 msgstr "Выбрать уровни"
 
+msgid "Organisation unit profile"
+msgstr ""
+
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1136,11 +1165,29 @@ msgstr "Равные интервалы"
 msgid "Equal counts"
 msgstr "Равный счет"
 
+msgid "Symbol"
+msgstr "Символ"
+
 msgid "Daily"
 msgstr "Ежедневно"
 
 msgid "Weekly"
 msgstr "Еженедельно"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "Еженедельно(Начало Среда)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "Еженедельно(Начало Четверг)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "Еженедельно(Начало Суббота)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "Еженедельно(Начало Воскресенье)"
+
+msgid "Bi-weekly"
+msgstr "Каждые две недели"
 
 msgid "Monthly"
 msgstr "Ежемесячно"
@@ -1160,6 +1207,9 @@ msgstr "Полугодовой-Апрель"
 msgid "Yearly"
 msgstr "Ежегодно"
 
+msgid "Financial year (Start November)"
+msgstr "Финансовый год (начало Ноябрь)"
+
 msgid "Financial year (Start October)"
 msgstr "Финансовый год - Октябрь"
 
@@ -1169,132 +1219,6 @@ msgstr "Финансовый год - Июль"
 msgid "Financial year (Start April)"
 msgstr "Финансовый год - Апрель"
 
-msgid "Today"
-msgstr "Сегодня"
-
-msgid "Yesterday"
-msgstr "Вчера"
-
-msgid "Last 3 days"
-msgstr "Последние 3 дня"
-
-msgid "Last 7 days"
-msgstr "Последние 7 дней"
-
-msgid "Last 14 days"
-msgstr "Последние 14 дней"
-
-msgid "Last 30 days"
-msgstr "Последние 30 дней"
-
-msgid "Last 60 days"
-msgstr "Последние 60 дней"
-
-msgid "Last 90 days"
-msgstr "Последние 90 дней"
-
-msgid "Last 180 days"
-msgstr "Последние 180 дней"
-
-msgid "This week"
-msgstr "Эта неделя"
-
-msgid "Last week"
-msgstr "Прошлая неделя"
-
-msgid "Last 4 weeks"
-msgstr "Прошлые 4 недели"
-
-msgid "Last 12 weeks"
-msgstr "Прошлые 12 недель"
-
-msgid "Last 52 weeks"
-msgstr "Последние 52 недели"
-
-msgid "Weeks this year"
-msgstr "Недели этого года"
-
-msgid "This bi-week"
-msgstr "Эта би-неделя"
-
-msgid "Last bi-week"
-msgstr "Последняя би-неделя"
-
-msgid "Last 4 bi-weeks"
-msgstr "Последние 4 би-недель"
-
-msgid "This month"
-msgstr "Этот месяц"
-
-msgid "Last month"
-msgstr "Последний месяц"
-
-msgid "Last 3 months"
-msgstr "Прошлые 3 месяца"
-
-msgid "Last 6 months"
-msgstr "Последние 6 месяцев"
-
-msgid "Last 12 months"
-msgstr "Прошлые 12 месяцев"
-
-msgid "Months this year"
-msgstr "Месяцы этого года"
-
-msgid "This bi-month"
-msgstr "Этот период по два месяца"
-
-msgid "Last bi-month"
-msgstr "Прошлый двухмесячный период"
-
-msgid "Last 6 bi-months"
-msgstr "Последние 6 двухмесячных периодов"
-
-msgid "Bi-months this year"
-msgstr "Би-месяцы этого года"
-
-msgid "This quarter"
-msgstr "Этот квартал"
-
-msgid "Last quarter"
-msgstr "Последний квартал"
-
-msgid "Last 4 quarters"
-msgstr "Прошлые 4 квартала"
-
-msgid "Quarters this year"
-msgstr "Кварталы этого года"
-
-msgid "This six-month"
-msgstr "Это полугодие"
-
-msgid "Last six-month"
-msgstr "Прошлое полугодие"
-
-msgid "Last 2 six-months"
-msgstr "Последние два полугодия"
-
-msgid "This year"
-msgstr "Этот год"
-
-msgid "Last year"
-msgstr "Прошлый год"
-
-msgid "Last 5 years"
-msgstr "Прошлые 5 лет"
-
-msgid "Last 10 years"
-msgstr "Последние 10 лет"
-
-msgid "This financial year"
-msgstr "Этот финансовый год"
-
-msgid "Last financial year"
-msgstr "Прошлый финансовый год"
-
-msgid "Last 5 financial years"
-msgstr "Прошлые 5 финансовых лет"
-
 msgid "Cancelled"
 msgstr "Отмененный"
 
@@ -1303,12 +1227,6 @@ msgstr ""
 
 msgid "Error"
 msgstr "Ошибка"
-
-msgid "Boundaries"
-msgstr "Границы"
-
-msgid "No boundaries found"
-msgstr ""
 
 msgid "Selected org units"
 msgstr ""
@@ -1322,17 +1240,23 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "Событие"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Данные не найдены"
 
+msgid "Event"
+msgstr "Событие"
+
 msgid "Facilities"
 msgstr "Удобства"
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "Организационные единицы"
 
 msgid "Thematic layer"
 msgstr "Тематический уровень"
@@ -1351,6 +1275,9 @@ msgstr ""
 
 msgid "Thematic"
 msgstr "Тематический"
+
+msgid "Org units"
+msgstr "Организации"
 
 msgid "not one of"
 msgstr ""
@@ -1377,6 +1304,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr ""
+
+msgid "Facility"
+msgstr "Учреждение"
 
 msgid "Start date is invalid"
 msgstr ""

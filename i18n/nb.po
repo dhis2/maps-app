@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Karoline Tufte Lien <karoline@dhis2.org>, 2021
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2021
+# Karoline Tufte Lien <karoline@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2021\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,24 +151,15 @@ msgstr "Organisasjonsenheter"
 msgid "Style"
 msgstr "Stil"
 
-msgid "Labels"
-msgstr "Etiketter"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
 
 msgid "Point radius"
 msgstr "Punktradius"
 
 msgid "No organisation units are selected"
 msgstr "Ingen organisasjonsenheter er valgt"
-
-msgid "Group Set"
-msgstr "Gruppesett"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr "Husk å velge organisasjonsenhetsnivå som inneholder bygningene."
-
-msgid "Group set is required"
-msgstr "Gruppesett er påkrevd"
 
 msgid "event"
 msgstr "hendelse"
@@ -182,8 +173,8 @@ msgstr "fasilitet"
 msgid "thematic"
 msgstr "tematisk"
 
-msgid "boundary"
-msgstr "grense"
+msgid "org unit"
+msgstr ""
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -253,6 +244,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "Min"
 
@@ -301,11 +295,17 @@ msgstr "Ingen tegnforklaringsett valgt"
 msgid "Event status"
 msgstr "Hendelsesstatus"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr "Buffer"
 
 msgid "Radius in meters"
 msgstr "Radius i meter"
+
+msgid "Labels"
+msgstr "Etiketter"
 
 msgid "Aggregation type"
 msgstr "Aggregasjonstype"
@@ -478,6 +478,15 @@ msgstr "Dato"
 msgid "Remove filter"
 msgstr "Fjern filter"
 
+msgid "Group set"
+msgstr "Gruppesett"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Indikatorgruppe"
 
@@ -575,17 +584,11 @@ msgstr "Drill opp ett nivå"
 msgid "Drill down one level"
 msgstr "Drill ned ett nivå"
 
-msgid "Show information"
-msgstr "Vis informasjon"
+msgid "View profile"
+msgstr "Vis profil"
 
 msgid "Show longitude/latitude"
 msgstr "Vis lengdegrad/breddegrad"
-
-msgid "Swap longitude/latitude"
-msgstr "Bytt lengdegrad/breddegrad"
-
-msgid "Relocate"
-msgstr "Omplasser"
 
 msgid "Show {{name}}"
 msgstr "Vis {{name}}"
@@ -599,17 +602,14 @@ msgstr "Breddegrad"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Viser tolkning fra {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "Overordnet enhet"
-
 msgid "Not set"
 msgstr "Ikke satt"
 
 msgid "Organisation unit"
 msgstr "Organisasjonsenhet"
 
-msgid "Loading layer data"
-msgstr ""
+msgid "Parent unit"
+msgstr "Overordnet enhet"
 
 msgid "Last updated"
 msgstr "Sist oppdatert"
@@ -703,23 +703,56 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Kode"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr "Ingen data funnet for denne perioden."
 
 msgid "Select groups"
 msgstr "Velg grupper"
 
-msgid "Group set"
-msgstr "Gruppesett"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Kode"
+
+msgid "Short name"
+msgstr "Kort navn"
+
+msgid "Opening date"
+msgstr "Åpningsdato"
+
+msgid "Closed date"
+msgstr "Stengt dato"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "Kommentar"
 
 msgid "Select levels"
 msgstr "Velg nivåer"
+
+msgid "Organisation unit profile"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -727,9 +760,6 @@ msgid ""
 msgstr ""
 "Det er ikke mulig å kombinere brukerorganisasjonsenheter og velge "
 "individuelle enheter."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "Klikk på kartet der du vil flytte fasiliteten"
 
 msgid "user organisation unit"
 msgstr "brukerorganisasjonsenhet"
@@ -1151,11 +1181,29 @@ msgstr "Like intervaller"
 msgid "Equal counts"
 msgstr "Likt antall"
 
+msgid "Symbol"
+msgstr "Symbol"
+
 msgid "Daily"
 msgstr "Daglig"
 
 msgid "Weekly"
 msgstr "Ukentlig"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "Ukentlig (start onsdag)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "Ukentlig (start torsdag)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "Ukentlig (start lørdag)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "Ukentlig (start søndag)"
+
+msgid "Bi-weekly"
+msgstr "Toukentlig"
 
 msgid "Monthly"
 msgstr "Månedlig"
@@ -1175,6 +1223,9 @@ msgstr "Halvårig April"
 msgid "Yearly"
 msgstr "Årlig"
 
+msgid "Financial year (Start November)"
+msgstr "Regnskapsår (start november)"
+
 msgid "Financial year (Start October)"
 msgstr "Regnskapsår (start oktober)"
 
@@ -1184,132 +1235,6 @@ msgstr "Regnskapsår (start juli)"
 msgid "Financial year (Start April)"
 msgstr "Regnskapsår (start april)"
 
-msgid "Today"
-msgstr "I dag"
-
-msgid "Yesterday"
-msgstr "I går"
-
-msgid "Last 3 days"
-msgstr "Siste 3 dager"
-
-msgid "Last 7 days"
-msgstr "Siste 7 dager"
-
-msgid "Last 14 days"
-msgstr "Siste 14 dager"
-
-msgid "Last 30 days"
-msgstr "Siste 30 dager"
-
-msgid "Last 60 days"
-msgstr "Siste 60 dager"
-
-msgid "Last 90 days"
-msgstr "Siste 90 dager"
-
-msgid "Last 180 days"
-msgstr "Siste 180 dager"
-
-msgid "This week"
-msgstr "Denne uken"
-
-msgid "Last week"
-msgstr "Forrige uke"
-
-msgid "Last 4 weeks"
-msgstr "Siste 4 uker"
-
-msgid "Last 12 weeks"
-msgstr "Siste 12 uker"
-
-msgid "Last 52 weeks"
-msgstr "Siste 52 uker"
-
-msgid "Weeks this year"
-msgstr "Uker inneværende år"
-
-msgid "This bi-week"
-msgstr "Denne touken"
-
-msgid "Last bi-week"
-msgstr "Sist touke"
-
-msgid "Last 4 bi-weeks"
-msgstr "Siste 4 touker"
-
-msgid "This month"
-msgstr "Denne måneden"
-
-msgid "Last month"
-msgstr "Forrige måned"
-
-msgid "Last 3 months"
-msgstr "Siste 3 måneder"
-
-msgid "Last 6 months"
-msgstr "Siste 6 måneder"
-
-msgid "Last 12 months"
-msgstr "Siste 12 måneder"
-
-msgid "Months this year"
-msgstr "Måneder inneværende år"
-
-msgid "This bi-month"
-msgstr "Denne tomåneden"
-
-msgid "Last bi-month"
-msgstr "Siste tomåned"
-
-msgid "Last 6 bi-months"
-msgstr "Siste 6 tomåneder"
-
-msgid "Bi-months this year"
-msgstr "Tomåneder i år"
-
-msgid "This quarter"
-msgstr "Dette kvartalet"
-
-msgid "Last quarter"
-msgstr "Siste kvartal"
-
-msgid "Last 4 quarters"
-msgstr "Siste 4 kvartaler"
-
-msgid "Quarters this year"
-msgstr "Kvartaler inneværende år"
-
-msgid "This six-month"
-msgstr "Dette halvåret"
-
-msgid "Last six-month"
-msgstr "Siste halvår"
-
-msgid "Last 2 six-months"
-msgstr "Siste 2 halvår"
-
-msgid "This year"
-msgstr "Dette året"
-
-msgid "Last year"
-msgstr "Forrige år"
-
-msgid "Last 5 years"
-msgstr "Siste 5 år"
-
-msgid "Last 10 years"
-msgstr "Siste 10 år"
-
-msgid "This financial year"
-msgstr "Dette regnskapsåret"
-
-msgid "Last financial year"
-msgstr "Siste regnskapsår"
-
-msgid "Last 5 financial years"
-msgstr "Siste 5 regnskapsår"
-
 msgid "Cancelled"
 msgstr "Kansellert"
 
@@ -1318,12 +1243,6 @@ msgstr "Kart \"{{name}}\" er lagret."
 
 msgid "Error"
 msgstr "Feil"
-
-msgid "Boundaries"
-msgstr "Grenser"
-
-msgid "No boundaries found"
-msgstr "Ingen grenser funnet"
 
 msgid "Selected org units"
 msgstr "Valgte org enheter"
@@ -1337,17 +1256,23 @@ msgstr "Du har ikke tilgang til disse lagdataene"
 msgid "An unknown error occurred while reading layer data"
 msgstr "En ukjent feil oppstod under lesing av lagdata"
 
-msgid "Event"
-msgstr "Hendelse"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Ingen data funnet"
 
+msgid "Event"
+msgstr "Hendelse"
+
 msgid "Facilities"
 msgstr "Bygninger"
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "Organisasjonsenheter"
 
 msgid "Thematic layer"
 msgstr "Tematisk lag"
@@ -1366,6 +1291,9 @@ msgstr "relatert"
 
 msgid "Thematic"
 msgstr "Tematisk"
+
+msgid "Org units"
+msgstr "Org enhet"
 
 msgid "not one of"
 msgstr "ikke en av"
@@ -1394,6 +1322,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr "Kan ikke koble til Google Earth Engine."
+
+msgid "Facility"
+msgstr "Fasilitet"
 
 msgid "Start date is invalid"
 msgstr "Startdato er ugyldig"

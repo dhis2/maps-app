@@ -1,6 +1,6 @@
 import React from 'react';
 import Layer from '../Layer';
-import LayerLoading from '../LayerLoading';
+import MapLoadingMask from '../../MapLoadingMask';
 import EarthEnginePopup from './EarthEnginePopup';
 import Alert from '../Alert';
 import { apiFetch } from '../../../../util/api';
@@ -184,7 +184,7 @@ export default class EarthEngineLayer extends Layer {
         }
 
         if (isLoading) {
-            return <LayerLoading />;
+            return <MapLoadingMask />;
         }
 
         return popup ? (

@@ -2,7 +2,7 @@
     max-width: 80%;
 }
 
-.dhis2-map-popup .mapboxgl-popup-content {
+.dhis2-map-popup .maplibregl-popup-content {
     padding-top: var(--spacers-dp16);
     min-width: 150px;
 }

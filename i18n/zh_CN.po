@@ -1,14 +1,14 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2021
 # 晓东 林 <13981924470@126.com>, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2021\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,23 +149,14 @@ msgstr "机构"
 msgid "Style"
 msgstr "风格"
 
-msgid "Labels"
-msgstr "标签"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
 
 msgid "Point radius"
 msgstr "点半径"
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "event"
@@ -180,7 +171,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -251,6 +242,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "最小"
 
@@ -299,11 +293,17 @@ msgstr ""
 msgid "Event status"
 msgstr "事件状态"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
 msgstr ""
+
+msgid "Labels"
+msgstr "标签"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
@@ -473,6 +473,15 @@ msgstr "日期"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr "组集"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "指标组"
 
@@ -568,17 +577,11 @@ msgstr "上钻一级"
 msgid "Drill down one level"
 msgstr "下钻一级"
 
-msgid "Show information"
-msgstr "显示信息表格"
+msgid "View profile"
+msgstr "查看用户"
 
 msgid "Show longitude/latitude"
 msgstr "显示经纬度"
-
-msgid "Swap longitude/latitude"
-msgstr "切换经纬度"
-
-msgid "Relocate"
-msgstr "重新定位"
 
 msgid "Show {{name}}"
 msgstr ""
@@ -592,17 +595,14 @@ msgstr "维度"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
-msgid "Parent unit"
-msgstr "上级机构"
-
 msgid "Not set"
 msgstr "没有设置"
 
 msgid "Organisation unit"
 msgstr "机构"
 
-msgid "Loading layer data"
-msgstr ""
+msgid "Parent unit"
+msgstr "上级机构"
 
 msgid "Last updated"
 msgstr "Last updated"
@@ -693,30 +693,60 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "代码"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
 msgstr "选择组"
 
-msgid "Group set"
-msgstr "组集"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "代码"
+
+msgid "Short name"
+msgstr "缩写"
+
+msgid "Opening date"
+msgstr "生效日期"
+
+msgid "Closed date"
+msgstr "截止日"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr "链接"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "邮件"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "Id"
+
+msgid "Comment"
+msgstr "意见"
 
 msgid "Select levels"
 msgstr "选择等级"
 
+msgid "Organisation unit profile"
+msgstr ""
+
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1132,11 +1162,29 @@ msgstr "平等间隔"
 msgid "Equal counts"
 msgstr "等数量"
 
+msgid "Symbol"
+msgstr "符号"
+
 msgid "Daily"
 msgstr "每日"
 
 msgid "Weekly"
 msgstr "每周"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "每周（始于周二）"
+
+msgid "Weekly (Start Thursday)"
+msgstr "每周（始于周四）"
+
+msgid "Weekly (Start Saturday)"
+msgstr "每周（始于周六）"
+
+msgid "Weekly (Start Sunday)"
+msgstr "每周（始于周日）"
+
+msgid "Bi-weekly"
+msgstr "双周"
 
 msgid "Monthly"
 msgstr "每月"
@@ -1156,6 +1204,9 @@ msgstr "半年的四月"
 msgid "Yearly"
 msgstr "每年"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "财务十月"
 
@@ -1165,132 +1216,6 @@ msgstr "财务七月"
 msgid "Financial year (Start April)"
 msgstr "财务四月"
 
-msgid "Today"
-msgstr "今天"
-
-msgid "Yesterday"
-msgstr "昨天"
-
-msgid "Last 3 days"
-msgstr "最近3天"
-
-msgid "Last 7 days"
-msgstr "最近7天"
-
-msgid "Last 14 days"
-msgstr "最近14天"
-
-msgid "Last 30 days"
-msgstr "最近30天"
-
-msgid "Last 60 days"
-msgstr "最近60天"
-
-msgid "Last 90 days"
-msgstr "最近90天"
-
-msgid "Last 180 days"
-msgstr "最近180天"
-
-msgid "This week"
-msgstr "本周"
-
-msgid "Last week"
-msgstr "上周"
-
-msgid "Last 4 weeks"
-msgstr "最近四周"
-
-msgid "Last 12 weeks"
-msgstr "最近12周"
-
-msgid "Last 52 weeks"
-msgstr "最近52周"
-
-msgid "Weeks this year"
-msgstr "今年的星期"
-
-msgid "This bi-week"
-msgstr "这两周"
-
-msgid "Last bi-week"
-msgstr "最近双周"
-
-msgid "Last 4 bi-weeks"
-msgstr "最近四个双周"
-
-msgid "This month"
-msgstr "本月"
-
-msgid "Last month"
-msgstr "上月"
-
-msgid "Last 3 months"
-msgstr "最近3个月"
-
-msgid "Last 6 months"
-msgstr "最近六个月<br>"
-
-msgid "Last 12 months"
-msgstr "最近12月"
-
-msgid "Months this year"
-msgstr "今年的月份"
-
-msgid "This bi-month"
-msgstr "本两月"
-
-msgid "Last bi-month"
-msgstr "最近双月"
-
-msgid "Last 6 bi-months"
-msgstr "最近六个双月"
-
-msgid "Bi-months this year"
-msgstr "今年的双月"
-
-msgid "This quarter"
-msgstr "本季"
-
-msgid "Last quarter"
-msgstr "最近一季"
-
-msgid "Last 4 quarters"
-msgstr "最近四个季度"
-
-msgid "Quarters this year"
-msgstr "今年的季度"
-
-msgid "This six-month"
-msgstr "本半年"
-
-msgid "Last six-month"
-msgstr "最近六个月"
-
-msgid "Last 2 six-months"
-msgstr "最近两个半年"
-
-msgid "This year"
-msgstr "今年"
-
-msgid "Last year"
-msgstr "去年"
-
-msgid "Last 5 years"
-msgstr "最近5年"
-
-msgid "Last 10 years"
-msgstr "最近10年"
-
-msgid "This financial year"
-msgstr "本财政年"
-
-msgid "Last financial year"
-msgstr "上一财政年"
-
-msgid "Last 5 financial years"
-msgstr "最近五个财政年"
-
 msgid "Cancelled"
 msgstr "取消"
 
@@ -1299,12 +1224,6 @@ msgstr ""
 
 msgid "Error"
 msgstr "错误"
-
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
 
 msgid "Selected org units"
 msgstr "选定的组织机构"
@@ -1318,17 +1237,23 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "事件"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "没有发现数据"
 
+msgid "Event"
+msgstr "事件"
+
 msgid "Facilities"
 msgstr ""
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "组织机构"
 
 msgid "Thematic layer"
 msgstr "专题层"
@@ -1346,6 +1271,9 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "not one of"
@@ -1372,6 +1300,9 @@ msgid ""
 msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"

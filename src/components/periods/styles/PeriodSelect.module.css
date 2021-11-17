@@ -4,15 +4,20 @@
 }
 
 .select {
-    width: calc(100% - 84px);
+    width: calc(100% - 80px);
 }
 
 .stepper {
-    margin: 0 0 6px 4px;
+    margin: 0 0 7px var(--spacers-dp4);
+    white-space: nowrap;
 }
 
 .stepper > span {
     display: inline-block;
+}
+
+.stepper span button {
+    height: 35px;
 }
 
 .stepper > span:first-child {

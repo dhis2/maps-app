@@ -1,18 +1,25 @@
 import i18n from '@dhis2/d2-i18n';
 import { formatDate } from '../util/time';
 
+export const VECTOR_STYLE = 'vectorStyle';
+export const TILE_LAYER = 'tileLayer';
+export const WMS_LAYER = 'wmsLayer';
+export const GOOGLE_LAYER = 'googleLayer';
+export const BING_LAYER = 'bingLayer';
 export const EVENT_LAYER = 'event';
 export const THEMATIC_LAYER = 'thematic';
 export const FACILITY_LAYER = 'facility';
 export const BOUNDARY_LAYER = 'boundary';
+export const ORG_UNIT_LAYER = 'orgUnit';
 export const EXTERNAL_LAYER = 'external';
 export const EARTH_ENGINE_LAYER = 'earthEngine';
 export const TRACKED_ENTITY_LAYER = 'trackedEntity';
+export const GEOJSON_LAYER = 'geoJson';
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
     THEMATIC_LAYER,
-    BOUNDARY_LAYER,
+    ORG_UNIT_LAYER,
     EVENT_LAYER,
     EARTH_ENGINE_LAYER,
 ];
@@ -20,7 +27,7 @@ export const DOWNLOADABLE_LAYER_TYPES = [
 export const DATA_TABLE_LAYER_TYPES = [
     FACILITY_LAYER,
     THEMATIC_LAYER,
-    BOUNDARY_LAYER,
+    ORG_UNIT_LAYER,
     EVENT_LAYER,
     EARTH_ENGINE_LAYER,
 ];
@@ -80,6 +87,10 @@ export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
 /* FACILITY LAYER */
 export const FACILITY_BUFFER = 5000;
 
+/* ORG UNIT LAYER */
+export const ORG_UNIT_COLOR = '#333333';
+export const ORG_UNIT_RADIUS = 6;
+
 /* EARTH ENGINE LAYER */
 export const EE_BUFFER = 5000;
 
@@ -119,10 +130,30 @@ export const getClassificationTypes = () => [
     },
 ];
 
+export const STYLE_TYPE_COLOR = 'COLOR';
+export const STYLE_TYPE_SYMBOL = 'SYMBOL';
+
+export const getGroupSetStyleTypes = () => [
+    {
+        id: STYLE_TYPE_COLOR,
+        name: i18n.t('Color'),
+    },
+    {
+        id: STYLE_TYPE_SYMBOL,
+        name: i18n.t('Symbol'),
+    },
+];
+
 /* LABEL STYLES */
 export const LABEL_FONT_SIZE = '11px';
+export const LABEL_FONT_SIZE_MIN = 6;
+export const LABEL_FONT_SIZE_MAX = 100;
 export const LABEL_FONT_STYLE = 'normal';
 export const LABEL_FONT_WEIGHT = 'normal';
 export const LABEL_FONT_COLOR = '#333333';
 
 export const NO_DATA_COLOR = '#CCCCCC';
+
+/* POINT RADIUS */
+export const MIN_RADIUS = 1;
+export const MAX_RADIUS = 100;

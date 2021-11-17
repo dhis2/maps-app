@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
@@ -11,21 +11,17 @@ import {
     IconInfo16,
     IconLocation16,
 } from '@dhis2/ui';
-import RelocateDialog from '../orgunits/RelocateDialog';
 import {
     closeContextMenu,
     openCoordinatePopup,
     showEarthEngineValue,
 } from '../../actions/map';
 import { drillLayer } from '../../actions/layers';
-import { loadOrgUnit, changeOrgUnitCoordinate } from '../../actions/orgUnits';
+import { setOrgUnitProfile } from '../../actions/orgUnits';
 import { FACILITY_LAYER, EARTH_ENGINE_LAYER } from '../../constants/layers';
 import styles from './styles/ContextMenu.module.css';
 
-const polygonTypes = ['Polygon', 'MultiPolygon'];
-
-const ContextMenu = (props, context) => {
-    const [relocate, setRelocate] = useState();
+const ContextMenu = props => {
     const anchorRef = useRef();
 
     const {
@@ -36,39 +32,21 @@ const ContextMenu = (props, context) => {
         earthEngineLayers,
         position,
         offset,
-        map,
         closeContextMenu,
         openCoordinatePopup,
         showEarthEngineValue,
         drillLayer,
-        loadOrgUnit,
-        changeOrgUnitCoordinate,
+        setOrgUnitProfile,
     } = props;
-
-    if (relocate) {
-        return <RelocateDialog {...relocate} onClose={() => setRelocate()} />;
-    }
 
     if (!position) {
         return null;
     }
 
-    const isAdmin = context.d2.currentUser.authorities.has('F_GIS_ADMIN');
     const left = offset[0] + position[0];
     const top = offset[1] + position[1];
 
-    let isPoint;
-    let attr = {};
-
-    if (feature) {
-        const { geometry, properties } = feature;
-
-        attr = properties || {};
-
-        // Treat bubbles as polygons if created from one
-        isPoint =
-            geometry.type === 'Point' && !polygonTypes.includes(attr.type);
-    }
+    const attr = feature?.properties || {};
 
     const onClick = (item, id) => {
         closeContextMenu();
@@ -91,20 +69,10 @@ const ContextMenu = (props, context) => {
                 );
                 break;
             case 'show_info':
-                loadOrgUnit(attr);
+                setOrgUnitProfile(attr.id);
                 break;
             case 'show_coordinate':
                 openCoordinatePopup(coordinates);
-                break;
-            case 'swap_coordinate':
-                changeOrgUnitCoordinate(
-                    layerId,
-                    feature.properties.id,
-                    feature.geometry.coordinates.slice(0).reverse()
-                );
-                break;
-            case 'relocate':
-                setRelocate({ layerId, feature, map });
                 break;
             case 'show_ee_value':
                 showEarthEngineValue(id, coordinates);
@@ -149,7 +117,7 @@ const ContextMenu = (props, context) => {
 
                         {feature && (
                             <MenuItem
-                                label={i18n.t('Show information')}
+                                label={i18n.t('View profile')}
                                 icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
                             />
@@ -160,22 +128,6 @@ const ContextMenu = (props, context) => {
                                 label={i18n.t('Show longitude/latitude')}
                                 icon={<IconLocation16 />}
                                 onClick={() => onClick('show_coordinate')}
-                            />
-                        )}
-
-                        {isAdmin && isPoint && (
-                            <MenuItem
-                                label={i18n.t('Swap longitude/latitude')}
-                                icon={<IconLocation16 />}
-                                onClick={() => onClick('swap_coordinate')}
-                            />
-                        )}
-
-                        {isAdmin && isPoint && (
-                            <MenuItem
-                                label={i18n.t('Relocate')}
-                                icon={<IconLocation16 />}
-                                onClick={() => onClick('relocate')}
                             />
                         )}
 
@@ -215,8 +167,7 @@ ContextMenu.propTypes = {
     openCoordinatePopup: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
     drillLayer: PropTypes.func.isRequired,
-    loadOrgUnit: PropTypes.func.isRequired,
-    changeOrgUnitCoordinate: PropTypes.func.isRequired,
+    setOrgUnitProfile: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -231,7 +182,6 @@ export default connect(
         openCoordinatePopup,
         showEarthEngineValue,
         drillLayer,
-        loadOrgUnit,
-        changeOrgUnitCoordinate,
+        setOrgUnitProfile,
     }
 )(ContextMenu);

@@ -10,6 +10,7 @@ import {
     toggleBasemapVisibility,
     selectBasemap,
 } from '../../../actions/basemap';
+import { VECTOR_STYLE } from '../../../constants/layers';
 
 // Basemap card shown in left layers panel
 const BasemapCard = props => {
@@ -24,8 +25,11 @@ const BasemapCard = props => {
         changeBasemapOpacity,
     } = props;
 
+    const hasOpacity = props.config.type === VECTOR_STYLE ? false : true;
+
     return (
         <LayerCard
+            hasOpacity={hasOpacity}
             title={name}
             subtitle={subtitle}
             opacity={opacity}
@@ -45,6 +49,7 @@ const BasemapCard = props => {
 };
 
 BasemapCard.propTypes = {
+    config: PropTypes.object,
     name: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     opacity: PropTypes.number,
@@ -61,6 +66,7 @@ BasemapCard.propTypes = {
 };
 
 BasemapCard.defaultProps = {
+    config: {},
     opacity: 1,
     isVisible: true,
     isExpanded: true,

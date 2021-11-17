@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2021
 # phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,23 +149,14 @@ msgstr "ຫົວໜ່ວຍການຈັດຕັ້ງ"
 msgid "Style"
 msgstr "ແບບ"
 
-msgid "Labels"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
 msgstr ""
 
 msgid "Point radius"
 msgstr ""
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "event"
@@ -180,7 +171,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -251,6 +242,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "ຄ່ານ້ອຍສຸດ"
 
@@ -299,10 +293,16 @@ msgstr ""
 msgid "Event status"
 msgstr "ສະຖານະເຫດການ"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "Labels"
 msgstr ""
 
 msgid "Aggregation type"
@@ -473,6 +473,15 @@ msgstr "ວັນທີ່"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr "ກຸ່ມຂອງກຸ່ມ"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "ກຸ່ມຂອງຕົວຊີ້ວັດ"
 
@@ -568,16 +577,10 @@ msgstr "ຂື້ນໄປ 1 ຊັ້ນຂໍ້ມູນ"
 msgid "Drill down one level"
 msgstr "ລົງໄປ 1 ຊັ້ນຂໍ້ມູນ"
 
-msgid "Show information"
-msgstr "ສະແດງຂໍ້ມູນ"
+msgid "View profile"
+msgstr "ເບີ່ງຂໍ້ມູນ"
 
 msgid "Show longitude/latitude"
-msgstr ""
-
-msgid "Swap longitude/latitude"
-msgstr ""
-
-msgid "Relocate"
 msgstr ""
 
 msgid "Show {{name}}"
@@ -592,16 +595,13 @@ msgstr "ເສັ້ນແວ້ງ"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
-msgid "Parent unit"
-msgstr ""
-
 msgid "Not set"
 msgstr "Not set"
 
 msgid "Organisation unit"
 msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
-msgid "Loading layer data"
+msgid "Parent unit"
 msgstr ""
 
 msgid "Last updated"
@@ -693,30 +693,60 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "ລະຫັດ"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
 msgstr "ເລືອກກຸ່ມ"
 
-msgid "Group set"
-msgstr "ກຸ່ມຂອງກຸ່ມ"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "ລະຫັດ"
+
+msgid "Short name"
+msgstr "ຊື່ສັ້ນ"
+
+msgid "Opening date"
+msgstr "ເປີດວັນທີ່"
+
+msgid "Closed date"
+msgstr "Closed date"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "ອີເມວ"
+
+msgid "Address"
+msgstr "ທີ່ຢູ່"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ລະຫັດ"
+
+msgid "Comment"
+msgstr "​ຄຳ​ເຫັນ​ຕ່າງໆ"
 
 msgid "Select levels"
 msgstr "ເລືອກລຳດັບ"
 
+msgid "Organisation unit profile"
+msgstr ""
+
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1132,11 +1162,29 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Symbol"
+msgstr "Symbol"
+
 msgid "Daily"
 msgstr "ທຸກໆມື້"
 
 msgid "Weekly"
 msgstr "ເປັນອາທິດ"
+
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr ""
 
 msgid "Monthly"
 msgstr "ລາຍເດືອນ"
@@ -1156,6 +1204,9 @@ msgstr "ແຕ່ລະຫົກເດືອນ ແລະ ເດືອນເມ�
 msgid "Yearly"
 msgstr "ລາຍປີ"
 
+msgid "Financial year (Start November)"
+msgstr ""
+
 msgid "Financial year (Start October)"
 msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນຕຸລາ)"
 
@@ -1165,132 +1216,6 @@ msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດ�
 msgid "Financial year (Start April)"
 msgstr "ສົກປີງົບປະມານ (ເລີ່ມແຕ່ເດືອນເມສາ)"
 
-msgid "Today"
-msgstr "ມື້ນີ້"
-
-msgid "Yesterday"
-msgstr "ມື້ວານນີ"
-
-msgid "Last 3 days"
-msgstr "3 ມື້ກ່ອນ"
-
-msgid "Last 7 days"
-msgstr "7 ມື້ກ່ອນ"
-
-msgid "Last 14 days"
-msgstr "14 ມື້ກ່ອນ"
-
-msgid "Last 30 days"
-msgstr "Last 30 days"
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "ທິດນີ້"
-
-msgid "Last week"
-msgstr "ອາທິດທີ່ຜ່ານມາ"
-
-msgid "Last 4 weeks"
-msgstr "4 ອາທິດຍ້ອນຫຼັງ"
-
-msgid "Last 12 weeks"
-msgstr "12 ອາທິດຍ້ອນຫຼັງ"
-
-msgid "Last 52 weeks"
-msgstr "52 ອາທິດຜ່ານມາ"
-
-msgid "Weeks this year"
-msgstr "ອາທິດ ຂອງປີນີ້"
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr "ເດືອນນີ້"
-
-msgid "Last month"
-msgstr "ເດືອນຜ່ານມາ"
-
-msgid "Last 3 months"
-msgstr "3 ເດືອນຍ້ອນຫຼັງ"
-
-msgid "Last 6 months"
-msgstr "6 ເດືອນຜ່ານມາ"
-
-msgid "Last 12 months"
-msgstr "12 ເດືອນຍ້ອນຫຼັງ"
-
-msgid "Months this year"
-msgstr "​ເດືອນ​ໃນ​ປີ"
-
-msgid "This bi-month"
-msgstr "ສອງເດືອນນີ້"
-
-msgid "Last bi-month"
-msgstr "ສອງເດືອນກ່ອນທ້າຍປີ"
-
-msgid "Last 6 bi-months"
-msgstr "6 ຂອງສອງເດືອນສຸດທ້າຍ"
-
-msgid "Bi-months this year"
-msgstr "ສອງເດືອນ ຂອງປີນີ້"
-
-msgid "This quarter"
-msgstr "ໄຕມານີ້"
-
-msgid "Last quarter"
-msgstr "ໄຕມາດຜ່ານມາ"
-
-msgid "Last 4 quarters"
-msgstr "4 ໄຕມາດຍ້ອນຫຼັງ"
-
-msgid "Quarters this year"
-msgstr "​ໄຕຼມາດ​ໃນ​ປີ"
-
-msgid "This six-month"
-msgstr "6 ເດືອນນີ້"
-
-msgid "Last six-month"
-msgstr "6 ເດືອນຜ່ານມາ"
-
-msgid "Last 2 six-months"
-msgstr "ລວມ 6 ເດືອນ 2 ຄັ້ງທີ່ຜ່ານມາ"
-
-msgid "This year"
-msgstr "ປີນີ້"
-
-msgid "Last year"
-msgstr "ປີກາຍ"
-
-msgid "Last 5 years"
-msgstr "5 ປີຍ້ອນຫຼັງ"
-
-msgid "Last 10 years"
-msgstr ""
-
-msgid "This financial year"
-msgstr "ສົກປີງົບປະມານຂອງປິນີ້"
-
-msgid "Last financial year"
-msgstr "​ສົກ​ປີ​ງົບ​ປະ​ມານ​ປີ​ກາຍ"
-
-msgid "Last 5 financial years"
-msgstr "​ສົກ​ປິ​ງົບ​ປະ​ມານ 5ປີ​ຜ່ານ​ມາ"
-
 msgid "Cancelled"
 msgstr "ຍົກເລີກແລ້ວ"
 
@@ -1299,12 +1224,6 @@ msgstr ""
 
 msgid "Error"
 msgstr "ເກີດການຜິດພາດ"
-
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
 
 msgid "Selected org units"
 msgstr ""
@@ -1318,17 +1237,23 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "ເຫດການ"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "No data found"
 
+msgid "Event"
+msgstr "ເຫດການ"
+
 msgid "Facilities"
 msgstr ""
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "ໂຄງຮ່າງການຈັດຕັ້ງ"
 
 msgid "Thematic layer"
 msgstr "ໂຕສະແດງຂໍ້ມູນ"
@@ -1347,6 +1272,9 @@ msgstr ""
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Org units"
+msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
 
 msgid "not one of"
 msgstr ""
@@ -1373,6 +1301,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr ""
+
+msgid "Facility"
+msgstr "ສະຖານທີ່ບໍລິການ"
 
 msgid "Start date is invalid"
 msgstr ""

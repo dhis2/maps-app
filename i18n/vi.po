@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2020
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2021
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-05-28T09:10:51.965Z\n"
+"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -150,23 +150,14 @@ msgstr "Quản trị đơn vị"
 msgid "Style"
 msgstr "Kiểu dáng"
 
-msgid "Labels"
-msgstr "Nhãn"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
 
 msgid "Point radius"
 msgstr "Tỉ lệ Điểm"
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid "Group Set"
-msgstr "Tập hợp nhóm"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "event"
@@ -181,7 +172,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -252,6 +243,9 @@ msgstr ""
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
+msgid "Unit: {{ unit }}"
+msgstr ""
+
 msgid "Min"
 msgstr "Nhỏ nhất"
 
@@ -300,11 +294,17 @@ msgstr ""
 msgid "Event status"
 msgstr "Tình trạng sự kiện"
 
+msgid "Boundary color"
+msgstr ""
+
 msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
 msgstr ""
+
+msgid "Labels"
+msgstr "Nhãn"
 
 msgid "Aggregation type"
 msgstr "Kiểu tổng hợp"
@@ -474,6 +474,15 @@ msgstr "Ngày"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr "Nhóm tập hợp"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Nhóm chỉ số"
 
@@ -569,17 +578,11 @@ msgstr "Xem tuyến trên"
 msgid "Drill down one level"
 msgstr "Xem tuyến dưới"
 
-msgid "Show information"
-msgstr "Hiện thông tin"
+msgid "View profile"
+msgstr "Xem hồ sơ"
 
 msgid "Show longitude/latitude"
 msgstr "Hiện kinh độ/vĩ độ"
-
-msgid "Swap longitude/latitude"
-msgstr "Tráo kinh độ/vĩ độ"
-
-msgid "Relocate"
-msgstr "Di dời"
 
 msgid "Show {{name}}"
 msgstr ""
@@ -593,17 +596,14 @@ msgstr "Vĩ độ"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Xem phần diễn giải từ {{interpretationDate}}"
 
-msgid "Parent unit"
-msgstr "Đơn Vị Cha"
-
 msgid "Not set"
 msgstr "Không cài"
 
 msgid "Organisation unit"
 msgstr "Đơn vị"
 
-msgid "Loading layer data"
-msgstr ""
+msgid "Parent unit"
+msgstr "Đơn Vị Cha"
 
 msgid "Last updated"
 msgstr "Lần cập nhật cuối"
@@ -694,30 +694,60 @@ msgid ""
 " is {{max}}."
 msgstr ""
 
-msgid "Code"
-msgstr "Mã"
-
-msgid "Loading data"
-msgstr ""
-
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
 msgstr "Chọn nhóm"
 
-msgid "Group set"
-msgstr "Nhóm tập hợp"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Mã"
+
+msgid "Short name"
+msgstr "Tên rút gọn"
+
+msgid "Opening date"
+msgstr "Ngày mở"
+
+msgid "Closed date"
+msgstr "Ngày đóng"
+
+msgid "URL"
+msgstr "Đường dẫn URL"
+
+msgid "Link"
+msgstr "Liên kết"
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "Thư điện tử (Email)"
+
+msgid "Address"
+msgstr "Địa chỉ"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "Định danh"
+
+msgid "Comment"
+msgstr "Bình luận"
 
 msgid "Select levels"
 msgstr "Chọn Tuyến Đơn Vị"
 
+msgid "Organisation unit profile"
+msgstr ""
+
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -1133,11 +1163,29 @@ msgstr "Chia đều tổng Giá trị dữ liệu"
 msgid "Equal counts"
 msgstr "Chia đều số Đơn Vị"
 
+msgid "Symbol"
+msgstr "Ký hiệu"
+
 msgid "Daily"
 msgstr "Hàng ngày"
 
 msgid "Weekly"
 msgstr "Hàng tuần"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "Hàng tuần (Bắt đầu từ Thứ Tư)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "Hàng tuần (Bắt đầu từ Thứ Năm)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "Hàng tuần (Bắt đầu từ Thứ Bảy)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "Hàng tuần (Bắt đầu từ Chủ nhật)"
+
+msgid "Bi-weekly"
+msgstr "Hai-tuần"
 
 msgid "Monthly"
 msgstr "Hàng tháng"
@@ -1157,6 +1205,9 @@ msgstr "Hàng 6 tháng - tháng 4"
 msgid "Yearly"
 msgstr "Một năm"
 
+msgid "Financial year (Start November)"
+msgstr "Năm tài chính (Bắt đầu từ tháng 11)"
+
 msgid "Financial year (Start October)"
 msgstr "Năm Tài Chính - Tháng 10"
 
@@ -1166,132 +1217,6 @@ msgstr "Năm Tài Chính - Tháng 7"
 msgid "Financial year (Start April)"
 msgstr "Năm Tài Chính - Tháng 4"
 
-msgid "Today"
-msgstr "Hôm Nay"
-
-msgid "Yesterday"
-msgstr "Hôm Qua"
-
-msgid "Last 3 days"
-msgstr "3 ngày trước"
-
-msgid "Last 7 days"
-msgstr "7 ngày trước"
-
-msgid "Last 14 days"
-msgstr "14 ngày trước"
-
-msgid "Last 30 days"
-msgstr "30 ngày trước"
-
-msgid "Last 60 days"
-msgstr "60 ngày qua"
-
-msgid "Last 90 days"
-msgstr "90 ngày qua"
-
-msgid "Last 180 days"
-msgstr "180 ngày qua"
-
-msgid "This week"
-msgstr "Tuần này"
-
-msgid "Last week"
-msgstr "Tuần trước"
-
-msgid "Last 4 weeks"
-msgstr "4 tuần trước"
-
-msgid "Last 12 weeks"
-msgstr "12 tuần trước"
-
-msgid "Last 52 weeks"
-msgstr "52 tuần trước"
-
-msgid "Weeks this year"
-msgstr "Các tuần trong năm nay"
-
-msgid "This bi-week"
-msgstr "Kỳ hiện tại, 1 kỳ = 2 tuần"
-
-msgid "Last bi-week"
-msgstr "Kỳ trước, 1 kỳ = 2 tuần"
-
-msgid "Last 4 bi-weeks"
-msgstr "4 kỳ trước, 1 kỳ = 2 tuần"
-
-msgid "This month"
-msgstr "Tháng này"
-
-msgid "Last month"
-msgstr "Tháng trước"
-
-msgid "Last 3 months"
-msgstr "3 tháng trước"
-
-msgid "Last 6 months"
-msgstr "6 tháng trước"
-
-msgid "Last 12 months"
-msgstr "Trong 12 tháng trước"
-
-msgid "Months this year"
-msgstr "Tháng năm nay"
-
-msgid "This bi-month"
-msgstr "Lần Hai-Tháng này"
-
-msgid "Last bi-month"
-msgstr "2 tháng trước"
-
-msgid "Last 6 bi-months"
-msgstr "6 kỳ 2 tháng trước"
-
-msgid "Bi-months this year"
-msgstr "Các lần Hai-tháng năm nay"
-
-msgid "This quarter"
-msgstr "Quý này"
-
-msgid "Last quarter"
-msgstr "Quý trước"
-
-msgid "Last 4 quarters"
-msgstr "Trong 4 quý vừa qua"
-
-msgid "Quarters this year"
-msgstr "Quý năm nay"
-
-msgid "This six-month"
-msgstr "Lần Sáu-Tháng này"
-
-msgid "Last six-month"
-msgstr "6 tháng trước"
-
-msgid "Last 2 six-months"
-msgstr "2 sáu-tháng trước"
-
-msgid "This year"
-msgstr "Năm nay"
-
-msgid "Last year"
-msgstr "Năm ngoái"
-
-msgid "Last 5 years"
-msgstr "Trong 5 năm vừa qua"
-
-msgid "Last 10 years"
-msgstr "10 năm trước"
-
-msgid "This financial year"
-msgstr "Năm tài chính này"
-
-msgid "Last financial year"
-msgstr "Năm tài chính trước đó"
-
-msgid "Last 5 financial years"
-msgstr "5 năm tài chính trước"
-
 msgid "Cancelled"
 msgstr "Đã hủy"
 
@@ -1300,12 +1225,6 @@ msgstr ""
 
 msgid "Error"
 msgstr "Lỗi"
-
-msgid "Boundaries"
-msgstr ""
-
-msgid "No boundaries found"
-msgstr ""
 
 msgid "Selected org units"
 msgstr ""
@@ -1319,17 +1238,23 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "Sự Kiện"
-
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
 msgstr "Không tìm thấy dữ liệu"
 
+msgid "Event"
+msgstr "Sự Kiện"
+
 msgid "Facilities"
 msgstr ""
+
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "Đơn vị"
 
 msgid "Thematic layer"
 msgstr "Lớp Chuyên Đề"
@@ -1348,6 +1273,9 @@ msgstr ""
 
 msgid "Thematic"
 msgstr ""
+
+msgid "Org units"
+msgstr "Các đơn vị"
 
 msgid "not one of"
 msgstr ""
@@ -1374,6 +1302,9 @@ msgstr ""
 
 msgid "Cannot connect to Google Earth Engine."
 msgstr ""
+
+msgid "Facility"
+msgstr "Trạm Y tế"
 
 msgid "Start date is invalid"
 msgstr ""

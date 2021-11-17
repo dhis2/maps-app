@@ -6,12 +6,13 @@ import styles from './styles/Layer.module.css';
 const Layer = ({ layer, onClick }) => {
     const { img, type, name } = layer;
     const label = name || i18n.t(type);
+    const dataTest = `addlayeritem-${label.toLowerCase().replace(/\s/g, '_')}`;
 
     return (
         <div
             className={styles.container}
             onClick={() => onClick(layer)}
-            data-test={`addlayeritem-${label}`}
+            data-test={dataTest}
         >
             {img ? (
                 <img src={img} className={styles.image} />

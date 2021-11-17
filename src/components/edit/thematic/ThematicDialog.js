@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, Checkbox, FontStyle } from '../../core';
+import { Tab, Tabs } from '../../core';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
 import NoDataColor from './NoDataColor';
@@ -29,6 +29,7 @@ import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
 import DimensionFilter from '../../dimensions/DimensionFilter';
 import ThematicMapTypeSelect from './ThematicMapTypeSelect';
 import RadiusSelect, { isValidRadius } from './RadiusSelect';
+import Labels from '../shared/Labels';
 import { dimConf } from '../../../constants/dimension';
 import styles from '../styles/LayerDialog.module.css';
 
@@ -38,16 +39,13 @@ import {
     CLASSIFICATION_EQUAL_INTERVALS,
 } from '../../../constants/layers';
 
+import { RELATIVE_PERIODS, START_END_DATES } from '../../../constants/periods';
+
 import {
     setClassification,
     setDataItem,
     setDataElementGroup,
     setIndicatorGroup,
-    setLabels,
-    setLabelFontColor,
-    setLabelFontSize,
-    setLabelFontWeight,
-    setLabelFontStyle,
     setLegendSet,
     setNoDataColor,
     setOperand,
@@ -74,6 +72,7 @@ import {
     getUserOrgUnitsFromRows,
 } from '../../../util/analytics';
 
+import { isPeriodAvailable } from '../../../util/periods';
 import { getStartEndDateError } from '../../../util/time';
 
 export class ThematicDialog extends Component {
@@ -82,11 +81,6 @@ export class ThematicDialog extends Component {
         columns: PropTypes.array,
         rows: PropTypes.array,
         filters: PropTypes.array,
-        labels: PropTypes.bool,
-        labelFontColor: PropTypes.string,
-        labelFontSize: PropTypes.string,
-        labelFontStyle: PropTypes.string,
-        labelFontWeight: PropTypes.string,
         legendSet: PropTypes.object,
         method: PropTypes.number,
         indicatorGroup: PropTypes.object,
@@ -94,6 +88,7 @@ export class ThematicDialog extends Component {
         noDataColor: PropTypes.string,
         program: PropTypes.object,
         operand: PropTypes.bool,
+        hiddenPeriods: PropTypes.array,
         defaultPeriod: PropTypes.string,
         startDate: PropTypes.string,
         endDate: PropTypes.string,
@@ -108,11 +103,6 @@ export class ThematicDialog extends Component {
         setDataItem: PropTypes.func.isRequired,
         setDataElementGroup: PropTypes.func.isRequired,
         setIndicatorGroup: PropTypes.func.isRequired,
-        setLabels: PropTypes.func.isRequired,
-        setLabelFontColor: PropTypes.func.isRequired,
-        setLabelFontSize: PropTypes.func.isRequired,
-        setLabelFontStyle: PropTypes.func.isRequired,
-        setLabelFontWeight: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,
         setNoDataColor: PropTypes.func.isRequired,
         setOperand: PropTypes.func.isRequired,
@@ -139,8 +129,9 @@ export class ThematicDialog extends Component {
             columns,
             rows,
             filters,
-            setValueType,
             defaultPeriod,
+            hiddenPeriods,
+            setValueType,
             startDate,
             endDate,
             setPeriod,
@@ -166,7 +157,13 @@ export class ThematicDialog extends Component {
         }
 
         // Set default period from system settings
-        if (!period && !startDate && !endDate && defaultPeriod) {
+        if (
+            !period &&
+            !startDate &&
+            !endDate &&
+            defaultPeriod &&
+            isPeriodAvailable(defaultPeriod, hiddenPeriods)
+        ) {
             setPeriod({
                 id: defaultPeriod,
             });
@@ -226,14 +223,10 @@ export class ThematicDialog extends Component {
             filters,
             id,
             indicatorGroup,
-            labels,
-            labelFontColor,
-            labelFontSize,
-            labelFontStyle,
-            labelFontWeight,
             noDataColor,
             operand,
             periodType,
+            hiddenPeriods,
             renderingStrategy,
             startDate,
             endDate,
@@ -248,11 +241,6 @@ export class ThematicDialog extends Component {
             setDataItem,
             setDataElementGroup,
             setIndicatorGroup,
-            setLabels,
-            setLabelFontColor,
-            setLabelFontSize,
-            setLabelFontWeight,
-            setLabelFontStyle,
             setNoDataColor,
             setOperand,
             setOrgUnitLevels,
@@ -441,38 +429,41 @@ export class ThematicDialog extends Component {
                             <PeriodTypeSelect
                                 value={periodType}
                                 period={period}
+                                hiddenPeriods={hiddenPeriods}
                                 onChange={setPeriodType}
-                                className={styles.select}
+                                className={styles.periodSelect}
                                 errorText={periodTypeError}
                             />
-                            {periodType === 'relativePeriods' && (
+                            {periodType === RELATIVE_PERIODS && (
                                 <RelativePeriodSelect
                                     period={period}
+                                    hiddenPeriods={hiddenPeriods}
                                     onChange={setPeriod}
-                                    className={styles.select}
+                                    className={styles.periodSelect}
                                     errorText={periodError}
                                 />
                             )}
                             {((periodType &&
-                                periodType !== 'relativePeriods' &&
-                                periodType !== 'StartEndDates') ||
+                                periodType !== RELATIVE_PERIODS &&
+                                periodType !== START_END_DATES) ||
                                 (!periodType && id)) && (
                                 <PeriodSelect
                                     periodType={periodType}
                                     period={period}
                                     onChange={setPeriod}
-                                    className={styles.select}
+                                    className={styles.periodSelect}
                                     errorText={periodError}
                                 />
                             )}
-                            {periodType === 'StartEndDates' && (
+                            {periodType === START_END_DATES && (
                                 <StartEndDates
                                     startDate={startDate}
                                     endDate={endDate}
+                                    className={styles.periodSelect}
                                     errorText={periodError}
                                 />
                             )}
-                            {periodType === 'relativePeriods' && (
+                            {periodType === RELATIVE_PERIODS && (
                                 <RenderingStrategy
                                     value={renderingStrategy}
                                     period={period}
@@ -541,28 +532,7 @@ export class ThematicDialog extends Component {
                                         className={styles.numberField}
                                     />
                                 </div>
-                                <div className={styles.flexInnerColumnFlow}>
-                                    <Checkbox
-                                        label={i18n.t('Labels')}
-                                        checked={labels}
-                                        onChange={setLabels}
-                                    />
-                                </div>
-                                {labels && (
-                                    <div className={styles.flexInnerColumnFlow}>
-                                        <FontStyle
-                                            color={labelFontColor}
-                                            size={labelFontSize}
-                                            weight={labelFontWeight}
-                                            fontStyle={labelFontStyle}
-                                            onColorChange={setLabelFontColor}
-                                            onSizeChange={setLabelFontSize}
-                                            onWeightChange={setLabelFontWeight}
-                                            onStyleChange={setLabelFontStyle}
-                                            className={styles.fontBlock}
-                                        />
-                                    </div>
-                                )}
+                                <Labels />
                             </div>
                             <div className={styles.flexColumn}>
                                 <NumericLegendStyle
@@ -686,13 +656,13 @@ export class ThematicDialog extends Component {
             }
         }
 
-        if (!period && periodType !== 'StartEndDates') {
+        if (!period && periodType !== START_END_DATES) {
             return this.setErrorState(
                 'periodError',
                 i18n.t('Period is required'),
                 'period'
             );
-        } else if (periodType === 'StartEndDates') {
+        } else if (periodType === START_END_DATES) {
             const error = getStartEndDateError(startDate, endDate);
 
             if (error) {
@@ -726,17 +696,14 @@ export class ThematicDialog extends Component {
 }
 
 export default connect(
-    null,
+    ({ settings }) => ({
+        hiddenPeriods: settings.hiddenPeriods,
+    }),
     {
         setClassification,
         setDataItem,
         setDataElementGroup,
         setIndicatorGroup,
-        setLabels,
-        setLabelFontColor,
-        setLabelFontSize,
-        setLabelFontWeight,
-        setLabelFontStyle,
         setLegendSet,
         setNoDataColor,
         setOperand,

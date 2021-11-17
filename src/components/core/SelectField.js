@@ -23,6 +23,7 @@ export const SelectField = props => {
         label,
         loading,
         multiple,
+        disabled,
         onChange,
         className,
         value,
@@ -61,6 +62,7 @@ export const SelectField = props => {
                 dense={dense}
                 label={label}
                 selected={!isLoading ? selected : undefined}
+                disabled={disabled}
                 loading={isLoading}
                 error={!!errorText}
                 validationText={errorText}
@@ -87,6 +89,11 @@ SelectField.propTypes = {
      * Render a dense select field
      */
     dense: PropTypes.bool,
+
+    /**
+     * Disable the select field
+     */
+    disabled: PropTypes.bool,
 
     /**
      * If set, shows the help text below the SelectField
