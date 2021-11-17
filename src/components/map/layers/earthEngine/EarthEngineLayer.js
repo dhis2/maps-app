@@ -128,7 +128,9 @@ export default class EarthEngineLayer extends Layer {
         this.fitBoundsOnce();
     }
 
-    hasAggregations = () => this.props.data && this.props.aggregationType;
+    hasAggregations() {
+        return this.props.data && this.props.aggregationType;
+    }
 
     getAggregations() {
         if (this.hasAggregations() && !this.state.aggregations) {
@@ -210,6 +212,10 @@ export default class EarthEngineLayer extends Layer {
 
     onLoad() {
         this.setState({ isLoading: false, popup: null });
+
+        if (!this.context.isPlugin) {
+            this.getAggregations();
+        }
     }
 
     onError(error) {
