@@ -28,22 +28,22 @@ exports[`EventStatusSelect displays a Select element 1`] = `
           data-test="dhis2-uicore-box"
         >
           <div
-            class="jsx-2510973279 root"
+            class="jsx-2451184972 root"
             data-test="dhis2-uicore-singleselect"
           >
             <div
-              class="jsx-2510973279 root-input"
+              class="jsx-2451184972 root-input"
             >
               <div
                 data-test="dhis2-uicore-select"
               >
                 <div
-                  class="jsx-297747822 root dense"
+                  class="jsx-1100278094 root dense"
                   data-test="dhis2-uicore-select-input"
                   tabindex="0"
                 >
                   <div
-                    class="jsx-297747822 root-children"
+                    class="jsx-1100278094 root-children"
                   >
                     <div
                       class="jsx-2240447017 jsx-4123978364 root"
@@ -60,29 +60,18 @@ exports[`EventStatusSelect displays a Select element 1`] = `
                     </div>
                   </div>
                   <div
-                    class="jsx-297747822 root-right"
+                    class="jsx-1100278094 root-right"
                   >
                     <svg
-                      class="jsx-595155045 "
-                      version="1.1"
+                      height="16"
                       viewBox="0 0 16 16"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g
-                        class="jsx-595155045"
-                        fill="none"
-                        fill-rule="evenodd"
-                        id="icon/16/arrow-down"
-                        stroke="none"
-                        stroke-width="1"
-                      >
-                        <path
-                          class="jsx-595155045"
-                          d="M7.29289,11.7071 C7.68342,12.0976 8.31658,12.0976 8.70711,11.7071 L13.7071,6.70711 C14.0976,6.31658 14.0976,5.68342 13.7071,5.29289 C13.3166,4.90237 12.6834,4.90237 12.2929,5.29289 L8,9.58579 L3.70711,5.29289 C3.31658,4.90237 2.68342,4.90237 2.29289,5.29289 C1.90237,5.68342 1.90237,6.31658 2.29289,6.70711 L7.29289,11.7071 Z"
-                          fill="#4A5768"
-                          id="arrow-down"
-                        />
-                      </g>
+                      <path
+                        d="M4.146 6.146a.5.5 0 01.638-.057l.07.057L8 9.293l3.146-3.147a.5.5 0 01.638-.057l.07.057a.5.5 0 01.057.638l-.057.07-3.5 3.5a.5.5 0 01-.638.057l-.07-.057-3.5-3.5a.5.5 0 010-.708z"
+                        fill="currentColor"
+                      />
                     </svg>
                   </div>
                 </div>
