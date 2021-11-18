@@ -4,8 +4,6 @@ import { loadEarthEngineWorker } from '../components/map/MapApi';
 import { apiFetch } from './api';
 import { getEarthEngineLayer } from '../constants/earthEngine';
 
-let eeWorker;
-
 export const classAggregation = ['percentage', 'hectares', 'acres'];
 
 export const hasClasses = type => classAggregation.includes(type);
@@ -50,23 +48,23 @@ export const getPeriodNameFromFilter = filter => {
 export const getAuthToken = () =>
     new Promise(async (resolve, reject) => {
         const token = await apiFetch('/tokens/google').catch(() =>
-            reject({
-                type: 'engine',
-                error: true,
-                message: i18n.t(
-                    'Cannot get authorization token for Google Earth Engine.'
-                ),
-            })
+            reject(
+                new Error(
+                    i18n.t(
+                        'Cannot get authorization token for Google Earth Engine.'
+                    )
+                )
+            )
         );
 
         if (token && token.status === 'ERROR') {
-            reject({
-                type: 'engine',
-                warning: true,
-                message: i18n.t(
-                    'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
-                ),
-            });
+            reject(
+                new Error(
+                    i18n.t(
+                        'This layer requires a Google Earth Engine account. Check the DHIS2 documentation for more information.'
+                    )
+                )
+            );
         }
 
         resolve({
@@ -75,14 +73,18 @@ export const getAuthToken = () =>
         });
     });
 
+let workerPromise;
+
 // Load EE worker and set token
-const connectEarthEngine = async () => {
-    if (!eeWorker) {
-        const EarthEngineWorker = await loadEarthEngineWorker(getAuthToken);
-        eeWorker = await new EarthEngineWorker();
-        await eeWorker.initialize();
-    }
-    return eeWorker;
+const getWorkerInstance = async () => {
+    workerPromise =
+        workerPromise ||
+        (async () => {
+            const EarthEngineWorker = await loadEarthEngineWorker(getAuthToken);
+            return await new EarthEngineWorker();
+        })();
+
+    return workerPromise;
 };
 
 export const getPeriods = async eeId => {
@@ -103,7 +105,8 @@ export const getPeriods = async eeId => {
         return { id, name, year };
     };
 
-    const eeWorker = await connectEarthEngine();
+    const eeWorker = await getWorkerInstance();
+
     const { features } = await eeWorker.getPeriods(eeId);
     return features.map(getPeriod);
 };
