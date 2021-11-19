@@ -1,3 +1,10 @@
+## [1.15.5](https://github.com/dhis2/maps-app/compare/v1.15.4...v1.15.5) (2021-11-17)
+
+
+### Bug Fixes
+
+* maps-gl upgrade with earth engine fixes ([#1930](https://github.com/dhis2/maps-app/issues/1930)) ([7878a91](https://github.com/dhis2/maps-app/commit/7878a912d6bde281be25c0c04b3ab56382d96c02)), closes [dhis2/maps-gl#414](https://github.com/dhis2/maps-gl/issues/414) [dhis2/maps-gl#416](https://github.com/dhis2/maps-gl/issues/416)
+
 ## [1.15.4](https://github.com/dhis2/maps-app/compare/v1.15.3...v1.15.4) (2021-11-01)
 
 
