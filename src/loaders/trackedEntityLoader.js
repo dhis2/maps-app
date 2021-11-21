@@ -9,7 +9,7 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
 } from '../constants/layers';
 import { getProgramStatuses } from '../constants/programStatuses';
-import { formatLocaleDate } from '../util/time';
+import { formatStartEndDate, getDateArray } from '../util/time';
 import { getDataWithRelationships } from '../util/teiRelationshipsParser';
 
 const fields = [
@@ -69,7 +69,10 @@ const trackedEntityLoader = async config => {
 
     const legend = {
         title: name,
-        period: `${formatLocaleDate(startDate)} - ${formatLocaleDate(endDate)}`,
+        period: formatStartEndDate(
+            getDateArray(startDate),
+            getDateArray(endDate)
+        ),
         items: [
             {
                 name:

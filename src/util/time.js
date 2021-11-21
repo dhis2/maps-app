@@ -11,7 +11,12 @@ export const dateLocale = locale =>
  * @param {String|Number|Date} date
  * @returns {String}
  */
-export const toDate = date => new Date(date);
+const toDate = date => {
+    if (Array.isArray(date)) {
+        return new Date(date[0], date[1], date[2]);
+    }
+    return new Date(date);
+};
 
 // Simple check if the date part is correctly formatted
 const shortDateRegexp = /^\d{4}-\d{2}-\d{2}$/;
@@ -87,18 +92,30 @@ export const formatStartEndDate = (startDate, endDate, locale, showYear) => {
     )}`;
 };
 
+export const getDateArray = dateString => {
+    const year = parseInt(dateString.substring(0, 4));
+    const month = parseInt(dateString.substring(5, 7)) - 1;
+    const day = parseInt(dateString.substring(8, 10));
+    return [year, month, day];
+};
+
 /**
  * Checks for errors for start and end date strings or timestamps
  * @param {String} startDate
  * @param {String} endDate
  * @returns {String|null}
  */
-export const getStartEndDateError = (startDate, endDate) => {
-    if (!isValidDateFormat(startDate)) {
+export const getStartEndDateError = (startDateStr, endDateStr) => {
+    if (!isValidDateFormat(startDateStr)) {
         return i18n.t('Start date is invalid');
-    } else if (!isValidDateFormat(endDate)) {
+    } else if (!isValidDateFormat(endDateStr)) {
         return i18n.t('End date is invalid');
-    } else if (toDate(endDate) < toDate(startDate)) {
+    }
+
+    const startDateArr = getDateArray(startDateStr);
+    const endDateArr = getDateArray(endDateStr);
+
+    if (toDate(endDateArr) < toDate(startDateArr)) {
         return i18n.t('End date cannot be earlier than start date');
     }
     return null;
