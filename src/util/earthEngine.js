@@ -80,7 +80,9 @@ const getWorkerInstance = async () => {
     workerPromise =
         workerPromise ||
         (async () => {
-            const EarthEngineWorker = await loadEarthEngineWorker(getAuthToken);
+            const { EarthEngineWorker } = await loadEarthEngineWorker(
+                getAuthToken
+            );
             return await new EarthEngineWorker();
         })();
 

@@ -153,9 +153,7 @@ class Layer extends PureComponent {
 
             this.layer.off('contextmenu', this.onFeatureRightClick, this);
 
-            if (map.hasLayer(this.layer)) {
-                await map.removeLayer(this.layer);
-            }
+            await map.removeLayer(this.layer);
 
             delete this.layer;
         }
