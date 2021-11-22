@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n';
 const DEFAULT_LOCALE = 'en';
 
 // BCP 47 locale format
-export const dateLocale = locale =>
+const dateLocale = locale =>
     locale && locale.includes('_') ? locale.replace('_', '-') : locale;
 
 /**
@@ -26,11 +26,11 @@ const shortDateRegexp = /^\d{4}-\d{2}-\d{2}$/;
  * @param {String} dateString
  * @returns {String}
  */
-export const isValidDateFormat = dateString =>
+const isValidDateFormat = dateString =>
     shortDateRegexp.test(dateString.substr(0, 10));
 
 /**
- * Formats a date string or timestamp into format used by DHIS2 and <input> date
+ * Formats a date string, timestamp or date array into format used by DHIS2 and <input> date
  * @param {String|Number|Date} date
  * @returns {String}
  */
@@ -53,7 +53,7 @@ const fallbackDateFormat = dateString => dateString.substr(0, 10);
  * Returns true if the Internationalization API is supported
  * @returns {Boolean}
  */
-export const hasIntlSupport =
+const hasIntlSupport =
     typeof global.Intl !== 'undefined' && Intl.DateTimeFormat;
 
 /**
