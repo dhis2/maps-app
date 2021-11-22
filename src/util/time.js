@@ -8,7 +8,7 @@ const dateLocale = locale =>
 
 /**
  * Converts a date string or timestamp to a date object
- * @param {String|Number|Date} date
+ * @param {String|Number|Array|Date} date
  * @returns {String}
  */
 const toDate = date => {
@@ -31,7 +31,7 @@ const isValidDateFormat = dateString =>
 
 /**
  * Formats a date string, timestamp or date array into format used by DHIS2 and <input> date
- * @param {String|Number|Date} date
+ * @param {String|Number|Array|Date} date
  * @returns {String}
  */
 export const formatDate = date => {
@@ -77,8 +77,8 @@ export const formatLocaleDate = (dateString, locale, showYear = true) =>
 
 /**
  * Formats a date range
- * @param {String|Number} startDate
- * @param {String|Number} endDate
+ * @param {String|Array|Number} startDate
+ * @param {String|Array|Number} endDate
  * @param {String} locale
  * @param {Boolean} showYear
  * @returns {String}
@@ -92,6 +92,10 @@ export const formatStartEndDate = (startDate, endDate, locale, showYear) => {
     )}`;
 };
 
+/**
+ * @param {String} dateString
+ * @returns {Array}
+ */
 export const getDateArray = dateString => {
     const year = parseInt(dateString.substring(0, 4));
     const month = parseInt(dateString.substring(5, 7)) - 1;
@@ -101,8 +105,8 @@ export const getDateArray = dateString => {
 
 /**
  * Checks for errors for start and end date strings or timestamps
- * @param {String} startDate
- * @param {String} endDate
+ * @param {String} startDateStr
+ * @param {String} endDateStr
  * @returns {String|null}
  */
 export const getStartEndDateError = (startDateStr, endDateStr) => {
@@ -123,7 +127,7 @@ export const getStartEndDateError = (startDateStr, endDateStr) => {
 
 /**
  * Returns the year of the date, or the current year of no date is passed
- * @param {String|Number|Date} startDate
+ * @param {String|Number|Array|Date} startDate
  * @returns {Number}
  */
 export const getYear = date => toDate(date || new Date()).getFullYear();
