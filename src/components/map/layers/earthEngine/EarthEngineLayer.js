@@ -129,12 +129,6 @@ export default class EarthEngineLayer extends Layer {
         this.fitBoundsOnce();
     }
 
-    /*
-    removeLayer() {
-
-    }
-    */
-
     hasAggregations() {
         return this.props.data && this.props.aggregationType;
     }
