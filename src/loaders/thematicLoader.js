@@ -19,7 +19,7 @@ import {
     getApiResponseNames,
 } from '../util/analytics';
 import { createAlert } from '../util/alerts';
-import { formatLocaleDate } from '../util/time';
+import { formatStartEndDate, getDateArray } from '../util/time';
 import {
     THEMATIC_BUBBLE,
     THEMATIC_RADIUS_LOW,
@@ -121,9 +121,10 @@ const thematicLoader = async config => {
         title: name,
         period: period
             ? names[period.id] || period.id
-            : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
-                  config.endDate
-              )}`,
+            : formatStartEndDate(
+                  getDateArray(config.startDate),
+                  getDateArray(config.endDate)
+              ),
         items: legendItems,
     };
 
