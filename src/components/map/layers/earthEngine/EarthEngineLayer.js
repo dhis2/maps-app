@@ -46,7 +46,7 @@ export default class EarthEngineLayer extends Layer {
         }
     };
 
-    createLayer(isUpdate) {
+    async createLayer(isUpdate) {
         const {
             id,
             index,
@@ -121,7 +121,7 @@ export default class EarthEngineLayer extends Layer {
 
         try {
             this.layer = map.createLayer(config);
-            map.addLayer(this.layer);
+            await map.addLayer(this.layer);
         } catch (error) {
             this.onError(error);
         }
@@ -231,6 +231,6 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onError(error) {
-        this.setState({ error, isLoading: false });
+        this.setState({ error: error.message, isLoading: false });
     }
 }
