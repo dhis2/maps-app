@@ -41,7 +41,7 @@ export default class EarthEngineLayer extends Layer {
         } else {
             this.clearAggregations();
             await this.removeLayer();
-            this.createLayer(true);
+            await this.createLayer(true);
             this.setLayerOrder();
         }
     };

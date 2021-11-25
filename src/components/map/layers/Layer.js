@@ -127,7 +127,9 @@ class Layer extends PureComponent {
     }
 
     setLayerOrder() {
-        this.layer.setIndex(this.props.index);
+        if (this.layer) {
+            this.layer.setIndex(this.props.index);
+        }
     }
 
     // Fit map to layer bounds
@@ -149,7 +151,7 @@ class Layer extends PureComponent {
 
     async removeLayer() {
         if (this.layer) {
-            const map = this.context.map;
+            const { map } = this.context;
 
             this.layer.off('contextmenu', this.onFeatureRightClick, this);
 
