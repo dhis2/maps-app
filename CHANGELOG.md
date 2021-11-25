@@ -1,3 +1,10 @@
+## [1.15.7](https://github.com/dhis2/maps-app/compare/v1.15.6...v1.15.7) (2021-11-25)
+
+
+### Bug Fixes
+
+* parse date string to array to get correct date in all timezones ([#1937](https://github.com/dhis2/maps-app/issues/1937)) ([92e96fd](https://github.com/dhis2/maps-app/commit/92e96fd74f5ca9741eb96a5604486fb4704d5dff))
+
 ## [1.15.6](https://github.com/dhis2/maps-app/compare/v1.15.5...v1.15.6) (2021-11-25)
 
 
