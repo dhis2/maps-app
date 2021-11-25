@@ -21,7 +21,7 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
 } from '../constants/layers';
-import { formatLocaleDate } from '../util/time';
+import { formatStartEndDate, getDateArray } from '../util/time';
 import { cssColor, getContrastColor } from '../util/colors';
 
 // Server clustering if more than 2000 events
@@ -89,7 +89,10 @@ const loadEventLayer = async config => {
         title: config.name,
         period: period
             ? getPeriodNameFromId(period.id)
-            : `${formatLocaleDate(startDate)} - ${formatLocaleDate(endDate)}`,
+            : formatStartEndDate(
+                  getDateArray(startDate),
+                  getDateArray(endDate)
+              ),
         items: [],
     };
 
