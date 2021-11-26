@@ -9,13 +9,14 @@
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
 # Yao Selom Saka <ysaka@hispwca.org>, 2020
 # Edem Kossi <ekossi@hispwca.org>, 2021
+# tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2019-11-20T13:55:02.205Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Edem Kossi <ekossi@hispwca.org>, 2021\n"
+"Last-Translator: tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,14 +115,16 @@ msgid "Download map"
 msgstr "Télécharger la carte"
 
 msgid "Show name"
-msgstr ""
+msgstr "Afficher le nom"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Afficher la légende"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"Le téléchargement de la carte n'est pas pris en charge par votre navigateur."
+" Essayez Google Chrome ou Firefox."
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -130,7 +133,7 @@ msgid "Close"
 msgstr "Fermer"
 
 msgid "Legend position"
-msgstr ""
+msgstr "Position de la légende"
 
 msgid "Period"
 msgstr "Période"
@@ -154,19 +157,19 @@ msgid "Steps"
 msgstr "Étapes"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Aperçu de la légende"
 
 msgid "This field is required"
 msgstr "Ce champs est requis"
 
 msgid "Valid range is"
-msgstr ""
+msgstr "La plage valide est"
 
 msgid "data"
 msgstr "données"
 
 msgid "period"
-msgstr ""
+msgstr "période"
 
 msgid "Filter"
 msgstr "Filtrer"
@@ -184,28 +187,30 @@ msgid "Events"
 msgstr "Événements"
 
 msgid "Group events"
-msgstr ""
+msgstr "Événements de groupe"
 
 msgid "View all events"
 msgstr "Voir tout événements"
 
 msgid "Radius"
-msgstr ""
+msgstr "Rayon"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Mémoire tampon"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Rayon en mètres"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"Vous pouvez personnaliser les événements par élément de données après la "
+"sélection d'un programme."
 
 msgid "Program is required"
-msgstr ""
+msgstr "Le programme est requis"
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "L'étape de programme est requise"
 
 msgid "No organisation units are selected."
 msgstr "Aucune unité d'organisation choisie"
@@ -216,21 +221,25 @@ msgstr "Ensemble de groupes"
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
+"Pensez à sélectionner le niveau de l'unité d'organisation contenant les "
+"établissements."
 
 msgid "Group set is required"
-msgstr ""
+msgstr "L'ensemble de groupes est requis"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Mettre à jour la couche"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Ajouter une couche"
 
 msgid "Select program period"
 msgstr ""
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
+"Sélectionner la période au cours de laquelle la dernière mise à jour des "
+"entités suivies a été réalisée"
 
 msgid "Program status"
 msgstr "Statut du programme"
@@ -245,7 +254,7 @@ msgid "Tracked entities"
 msgstr "Entités suiviées "
 
 msgid "Point size"
-msgstr ""
+msgstr "Taille du point"
 
 msgid "Aggregation type"
 msgstr "Type d'agrégation"
@@ -257,31 +266,31 @@ msgid "High size"
 msgstr "Taille max."
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Le groupes d'indicateurs est requis"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "L'indicateur est requis"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "Le groupe d'éléments de données est requis"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "L'élément de donnée est requis"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "L'ensemble de données est requis"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "L'élément de données évènement est requis"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "L'indicateur de programme est requis"
 
 msgid "Period type is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
+msgstr "La période est requise"
 
 msgid "Indicator"
 msgstr "Indicateur"
@@ -299,7 +308,7 @@ msgid "Item type"
 msgstr "Type d'élément"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "Une erreur s'est produite dans l'application Cartes de DHIS2."
 
 msgid "Something went wrong"
 msgstr "Quelque chose a mal tourné"
@@ -319,6 +328,7 @@ msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
+"Le filtrage est disponible après la sélection d'une étape de programme."
 
 msgid "Add filter"
 msgstr "Ajouter le filtre"
@@ -327,7 +337,7 @@ msgid "Delete filter"
 msgstr ""
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Supprimer le filtre"
 
 msgid "Operator"
 msgstr "Opérateur"
@@ -336,10 +346,10 @@ msgid "Date"
 msgstr "Date"
 
 msgid "one of"
-msgstr ""
+msgstr "un sur"
 
 msgid "not one of"
-msgstr ""
+msgstr "ne fait pas partie de"
 
 msgid "contains"
 msgstr "contient"
@@ -360,7 +370,7 @@ msgid "Interpretations"
 msgstr "interprétations"
 
 msgid "Basemap"
-msgstr ""
+msgstr "Fond de carte"
 
 msgid "Collapse"
 msgstr "Plier"
@@ -369,27 +379,29 @@ msgid "Expand"
 msgstr "Développer"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Télécharger les données de couche"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "Téléchargement des données GeoJSON pour « {{layerName}} »"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON est pris en charge par la plupart des logiciels de SIG, notamment "
+"QGIS et ArcGIS Desktop."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Échec du téléchargement des données."
 
 msgid "ID Format"
-msgstr ""
+msgstr "Format de l'identifiant"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Utiliser des clés directement lisibles"
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Chargement de la couche"
 
 msgid "deleted"
 msgstr "supprimé"
@@ -401,10 +413,10 @@ msgid "Edit"
 msgstr "Modifier"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Activer/désactiver la visibilité"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Définir l'opacité de la couche"
 
 msgid "More actions"
 msgstr "Plus d'actions"
@@ -419,7 +431,7 @@ msgid "Edit layer"
 msgstr "Modifier la couche"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Supprimer la couche"
 
 msgid "Open as"
 msgstr ""
@@ -476,7 +488,7 @@ msgid "Code"
 msgstr "Code"
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Aucune donnée trouvée pour cette période."
 
 msgid "Select groups"
 msgstr "Sélectionner des groupes"
@@ -486,15 +498,16 @@ msgstr "Sélectionner les niveaux"
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
+"Cliquez sur la carte à l'endroit où vous souhaitez déplacer l'établissement"
 
 msgid "user organisation unit"
 msgstr "Unités d'organisation de l'utilisateur"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "juste en dessous de l'unité d'organisation de l'utilisateur"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "deux niveaux en dessous de l'unité d'organisation de l'utilisateur"
 
 msgid "in"
 msgstr "dans"
@@ -527,12 +540,15 @@ msgid "Stage"
 msgstr "Etape"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Type d'entité suivie"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
 "Google. Please check the DHIS 2 documentation."
 msgstr ""
+"Pour afficher cette couche, vous devez commencer par vous enregistrer auprès"
+" du service Earth Engine de Google. Veuillez consulter la documentation DHIS"
+" 2."
 
 msgid "Favorite"
 msgstr "Favori"
@@ -544,31 +560,32 @@ msgid "Error"
 msgstr "Erreur"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Limites"
 
 msgid "Alert"
-msgstr ""
+msgstr "Alerte"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "Aucune limite trouvée"
 
 msgid "Access denied"
 msgstr "Accès refusé"
 
 msgid "user is not allowed to read layer data"
-msgstr ""
+msgstr "l'utilisateur n'est pas autorisé à lire les données de la couche"
 
 msgid "Failed"
 msgstr "Echoué"
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
+"une erreur inconnue est survenue lors de la lecture des données de la couche"
 
 msgid "Event"
 msgstr "Evènement"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Établissements"
 
 msgid "No data found"
 msgstr "Aucune valeur trouvée"
@@ -577,7 +594,7 @@ msgid "Tracked entity"
 msgstr "Entité suivie"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "Aucune entité suivie trouvée"
 
 msgid "true"
 msgstr "vrai"
@@ -589,7 +606,7 @@ msgid "No"
 msgstr "Non"
 
 msgid "Map could not be created"
-msgstr ""
+msgstr "La carte n'a pas pu être créée"
 
 msgid "Start date is invalid"
 msgstr "La date de début n'est pas valable"
