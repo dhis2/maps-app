@@ -115,7 +115,7 @@
         "optipng-bin": "^4.0.0",
         "pngquant-bin": "^3.1.1",
         "precommit-hook": "3.0.0",
-        "prettier": "^1.13.4",
+        "prettier": "^2.5.0",
         "react-addons-test-utils": "^15.6.0",
         "redux-devtools": "^3.6.1",
         "start-server-and-test": "^1.14.0",
