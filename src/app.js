@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { DataProvider } from '@dhis2/app-runtime';
 import 'url-polyfill';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2';
@@ -78,7 +79,9 @@ getManifest('manifest.webapp')
             }
 
             render(
-                <Root d2={d2} store={store} />,
+                <DataProvider baseUrl={process.env.DHIS2_BASE_URL}>
+                    <Root d2={d2} store={store} />
+                </DataProvider>,
                 document.getElementById('dhis2-app-root')
             );
         },

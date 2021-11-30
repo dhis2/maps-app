@@ -1,5 +1,9 @@
 export const apiVersion = 37;
 
+export const DEFAULT_SETTINGS = {
+    keyDefaultBaseMap: 'osmLight',
+};
+
 export const SYSTEM_SETTINGS = [
     'keyAnalysisRelativePeriod',
     'keyBingMapsApiKey',
@@ -8,4 +12,5 @@ export const SYSTEM_SETTINGS = [
     'keyHideBiWeeklyPeriods',
     'keyHideMonthlyPeriods',
     'keyHideBiMonthlyPeriods',
+    'keyDefaultBaseMap',
 ];
