@@ -2104,10 +2104,10 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-2.2.1.tgz#d72684f87b02daf2350f62f8b24e4fc7af046b35"
-  integrity sha512-XV1j9l70cBlcQH0yeu+9EdWQen2M0d4c0PUgjhb8yPQnlLoU5YAdsst+c/miiJI0E9DE9BZVgLkkLgQZjTJ1Ow==
+"@dhis2/maps-gl@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-2.2.3.tgz#f785e8474d8285bf3afb4dbf7a1d90c05946958d"
+  integrity sha512-Pa1dD6FJtYXQ6qGp5a0K+CQG65gKmwU1s7BpNkAWUKEYU0qMotxDC3MPhBdu+i0CLFpfeJE2KRQ+1BlQIqYmZQ==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.3.0"
@@ -20389,9 +20389,9 @@ write@^0.2.1:
     mkdirp "^0.5.1"
 
 ws@^5.2.0:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.2.tgz#dffef14866b8e8dc9133582514d1befaf96e980f"
-  integrity sha512-jaHFD6PFv6UgoIVda6qZllptQsMlDEJkTQcybzzXDYM1XO9Y8em691FGMPmM46WGyLU4z9KMgQN+qrux/nhlHA==
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.3.tgz#05541053414921bc29c63bee14b8b0dd50b07b3d"
+  integrity sha512-jZArVERrMsKUatIdnLzqvcfydI85dvd/Fp1u/VOpfdDWQ4c9qWXe+VIeAbQ5FrDwciAkr+lzofXLz3Kuf26AOA==
   dependencies:
     async-limiter "~1.0.0"
 

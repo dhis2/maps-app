@@ -1,3 +1,24 @@
+## [1.15.7](https://github.com/dhis2/maps-app/compare/v1.15.6...v1.15.7) (2021-11-25)
+
+
+### Bug Fixes
+
+* parse date string to array to get correct date in all timezones ([#1937](https://github.com/dhis2/maps-app/issues/1937)) ([92e96fd](https://github.com/dhis2/maps-app/commit/92e96fd74f5ca9741eb96a5604486fb4704d5dff))
+
+## [1.15.6](https://github.com/dhis2/maps-app/compare/v1.15.5...v1.15.6) (2021-11-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([51c924e](https://github.com/dhis2/maps-app/commit/51c924ed5c4198cdf3083a6e1d1cc0ccae77386f))
+
+## [1.15.5](https://github.com/dhis2/maps-app/compare/v1.15.4...v1.15.5) (2021-11-17)
+
+
+### Bug Fixes
+
+* maps-gl upgrade with earth engine fixes ([#1930](https://github.com/dhis2/maps-app/issues/1930)) ([7878a91](https://github.com/dhis2/maps-app/commit/7878a912d6bde281be25c0c04b3ab56382d96c02)), closes [dhis2/maps-gl#414](https://github.com/dhis2/maps-gl/issues/414) [dhis2/maps-gl#416](https://github.com/dhis2/maps-gl/issues/416)
+
 ## [1.15.4](https://github.com/dhis2/maps-app/compare/v1.15.3...v1.15.4) (2021-11-01)
 
 
