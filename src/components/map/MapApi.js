@@ -8,6 +8,8 @@ import getMapLocale from './mapLocale';
 
 // Returns a new map instance
 const map = options => {
+    const baseUrl = process.env.DHIS2_BASE_URL;
+    const glyphs = `${baseUrl}/dhis-web-maps/fonts/{fontstack}/{range}.pbf`;
     const div = document.createElement('div');
 
     div.className = 'dhis2-map';
@@ -17,6 +19,7 @@ const map = options => {
     return new MapApi(div, {
         ...options,
         locale: getMapLocale(),
+        glyphs,
     });
 };
 

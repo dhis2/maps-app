@@ -2042,10 +2042,10 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^2.1.4":
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-2.1.4.tgz#0ba2c041d63af199ffa26917f83b2348b1f7664c"
-  integrity sha512-cQ+HVcqsnYBMrpmh70ZiTHegbhaR0kR3r+P/AYRC8MnL3c7GyodrYiMlulYY9uoSZ/w9XAcoiBiqJi1X4L3xYw==
+"@dhis2/maps-gl@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-2.2.4.tgz#8c6efb5e241abda65f20a568531597dde646ccf9"
+  integrity sha512-WEXPpt5CmMcPvHUFM8NlQamIny3ddQkg+P+gbkupGi5FhlypI+aIAP2utWIQIOdmrA1tPRtd/J7qQb/ZQUxk7g==
   dependencies:
     "@mapbox/sphericalmercator" "^1.1.0"
     "@turf/area" "^6.3.0"
