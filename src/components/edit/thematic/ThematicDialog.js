@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { SystemSettingsCtx } from '../../../hooks/SystemSettingsProvider';
 import { Tab, Tabs } from '../../core';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
@@ -88,7 +89,6 @@ export class ThematicDialog extends Component {
         noDataColor: PropTypes.string,
         program: PropTypes.object,
         operand: PropTypes.bool,
-        hiddenPeriods: PropTypes.array,
         defaultPeriod: PropTypes.string,
         startDate: PropTypes.string,
         endDate: PropTypes.string,
@@ -115,6 +115,7 @@ export class ThematicDialog extends Component {
         setRenderingStrategy: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
+        settings: PropTypes.object.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
     };
@@ -130,9 +131,9 @@ export class ThematicDialog extends Component {
             rows,
             filters,
             defaultPeriod,
-            hiddenPeriods,
             setValueType,
             startDate,
+            settings,
             endDate,
             setPeriod,
             setOrgUnitLevels,
@@ -157,12 +158,13 @@ export class ThematicDialog extends Component {
         }
 
         // Set default period from system settings
+
         if (
             !period &&
             !startDate &&
             !endDate &&
             defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, hiddenPeriods)
+            isPeriodAvailable(defaultPeriod, settings.hiddenPeriods)
         ) {
             setPeriod({
                 id: defaultPeriod,
@@ -226,7 +228,7 @@ export class ThematicDialog extends Component {
             noDataColor,
             operand,
             periodType,
-            hiddenPeriods,
+            settings,
             renderingStrategy,
             startDate,
             endDate,
@@ -429,7 +431,7 @@ export class ThematicDialog extends Component {
                             <PeriodTypeSelect
                                 value={periodType}
                                 period={period}
-                                hiddenPeriods={hiddenPeriods}
+                                hiddenPeriods={settings.hiddenPeriods}
                                 onChange={setPeriodType}
                                 className={styles.periodSelect}
                                 errorText={periodTypeError}
@@ -437,7 +439,7 @@ export class ThematicDialog extends Component {
                             {periodType === RELATIVE_PERIODS && (
                                 <RelativePeriodSelect
                                     period={period}
-                                    hiddenPeriods={hiddenPeriods}
+                                    hiddenPeriods={settings.hiddenPeriods}
                                     onChange={setPeriod}
                                     className={styles.periodSelect}
                                     errorText={periodError}
@@ -695,10 +697,16 @@ export class ThematicDialog extends Component {
     }
 }
 
+const ThematicDialogWithSettings = props => (
+    <SystemSettingsCtx.Consumer>
+        {({ systemSettings }) => (
+            <ThematicDialog settings={systemSettings} {...props} />
+        )}
+    </SystemSettingsCtx.Consumer>
+);
+
 export default connect(
-    ({ settings }) => ({
-        hiddenPeriods: settings.hiddenPeriods,
-    }),
+    null,
     {
         setClassification,
         setDataItem,
@@ -722,4 +730,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(ThematicDialog);
+)(ThematicDialogWithSettings);

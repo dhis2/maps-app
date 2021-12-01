@@ -13,6 +13,16 @@ export const systemSettingsQuery = {
 
 export const SystemSettingsCtx = createContext({});
 
+const periodSetting = /keyHide(.*)Periods/;
+
+const getHiddenPeriods = systemSettings => {
+    return Object.keys(systemSettings)
+        .filter(
+            setting => periodSetting.test(setting) && systemSettings[setting]
+        )
+        .map(setting => setting.match(periodSetting)[1].toUpperCase());
+};
+
 const SystemSettingsProvider = ({ children }) => {
     const [settings, setSettings] = useState([]);
     const engine = useDataEngine();
@@ -24,7 +34,9 @@ const SystemSettingsProvider = ({ children }) => {
             });
 
             setSettings(
-                Object.assign({}, DEFAULT_SYSTEM_SETTINGS, systemSettings)
+                Object.assign({}, DEFAULT_SYSTEM_SETTINGS, systemSettings, {
+                    hiddenPeriods: getHiddenPeriods(systemSettings),
+                })
             );
         }
         fetchData();
