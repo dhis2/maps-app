@@ -16,13 +16,11 @@ const map = options => {
     div.style.width = '100%';
     div.style.height = '100%';
 
-    const mapInstance = new MapApi(div, {
+    return new MapApi(div, {
         ...options,
         locale: getMapLocale(),
         glyphs,
     });
-
-    return mapInstance;
 };
 
 export { layerTypes, controlTypes, loadEarthEngineApi, poleOfInaccessibility };
