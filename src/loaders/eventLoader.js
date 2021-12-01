@@ -277,6 +277,20 @@ export const loadData = async (request, config = {}) => {
     const d2 = await getD2();
     const response = await d2.analytics.events.getQuery(request);
 
+    response.rows.push([
+        'oqTQbV5oAJb',
+        'Zj7UnCAulEk',
+        '2020-12-23 00:00:00.0',
+        '',
+        '2017-09-08 21:40:22.0',
+        '{"type":"Point","coordinates":[-11.253014,9.904013]}',
+        '-11.253014',
+        '9.904013',
+        'Falaba CHC 2',
+        'OU_226230',
+        'kuqKh33SPgg',
+    ]);
+
     const { data, names } = createEventFeatures(response, config);
 
     return {
