@@ -1,3 +1,10 @@
+## [1.15.9](https://github.com/dhis2/maps-app/compare/v1.15.8...v1.15.9) (2021-12-02)
+
+
+### Bug Fixes
+
+* include font glyphs in apps bundle ([#1955](https://github.com/dhis2/maps-app/issues/1955)) ([b764ecb](https://github.com/dhis2/maps-app/commit/b764ecba0bd7232db7e65740a84e4d0079224150))
+
 ## [1.15.8](https://github.com/dhis2/maps-app/compare/v1.15.7...v1.15.8) (2021-11-26)
 
 
