@@ -132,6 +132,9 @@
         "icons": {
             "48": "icon.png"
         },
+        "appType": "APP",
+        "core_app": true,
+        "short_name": "maps",
         "developer": {
             "url": "",
             "name": "Bjørn Sandvik"
