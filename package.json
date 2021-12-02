@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "35.0.20",
+    "version": "35.0.21",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -45,10 +45,11 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/app-runtime": "^2.2.2",
+        "@dhis2/analytics": "^20.7.0",
+        "@dhis2/app-runtime": "^2.12.3",
         "@dhis2/d2-i18n": "^1.0.6",
         "@dhis2/d2-ui-analytics": "^0.0.3",
-        "@dhis2/d2-ui-core": "^7.1.6",
+        "@dhis2/d2-ui-core": "^7.3.3",
         "@dhis2/d2-ui-file-menu": "^7.1.6",
         "@dhis2/d2-ui-interpretations": "^7.3.1",
         "@dhis2/d2-ui-org-unit-dialog": "^7.1.6",
