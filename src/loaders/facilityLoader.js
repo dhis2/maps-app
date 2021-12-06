@@ -107,10 +107,7 @@ const toGeoJson = (facility, group, contextPath) => ({
         id: facility.id,
         name: facility.na,
         label: `${facility.na} (${group.name})`,
-        icon: {
-            iconUrl: `${contextPath}/images/orgunitgroup/${group.symbol}`,
-            iconSize: [16, 16],
-        },
+        iconUrl: `${contextPath}/images/orgunitgroup/${group.symbol}`,
         type: 'Point', // Accessible in data table
     },
     geometry: {

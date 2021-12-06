@@ -1,3 +1,4 @@
+import { hcl } from 'd3-color';
 import { isString } from 'lodash/fp';
 import colorbrewer from '../constants/colorbrewer';
 
@@ -66,3 +67,9 @@ export const cssColor = color => {
     }
     return (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(color) ? '#' : '') + color;
 };
+
+// Returns true if a color is dark
+export const isDarkColor = color => hcl(color).l < 70;
+
+// Returns constrasting color
+export const getContrastColor = color => (isDarkColor(color) ? '#fff' : '#000');
