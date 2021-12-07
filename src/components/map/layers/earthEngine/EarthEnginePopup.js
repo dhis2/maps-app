@@ -15,11 +15,32 @@ const EarthEnginePopup = props => {
     const values = typeof data === 'object' ? data[id] : null;
     const classes = hasClasses(valueType);
     const isPercentage = valueType === 'percentage';
+    const isLoading = data === 'loading';
     let rows = [];
+    let groupsTable = null;
     let header = null;
 
     if (values) {
-        const types = Object.keys(values);
+        const types = valueType;
+
+        const getValueFormat = type =>
+            numberPrecision(
+                getPrecision(
+                    Object.values(data)
+                        .map(ou =>
+                            Object.keys(ou)
+                                .filter(key => key.includes(type))
+                                .map(key => ou[key])
+                        )
+                        .flat()
+                )
+            );
+
+        const typeValueFormat = valueType.reduce((types, type) => {
+            types[type] = getValueFormat(type);
+            return types;
+        }, {});
+
         const onlySum = types.length === 1 && types[0] === 'sum';
 
         if (classes) {
@@ -59,20 +80,51 @@ const EarthEnginePopup = props => {
                 <caption>
                     {title}
                     {period && <div>{period}</div>}
-                    {groups && (
-                        <div className={styles.group}>
-                            {groups.length > 1
-                                ? i18n.t('Groups')
-                                : i18n.t('Group')}
-                            :
-                            {groups.map(group => (
-                                <div key={group}>{group}</div>
-                            ))}
-                        </div>
-                    )}
                     {!onlySum && <div className={styles.unit}>{unit}</div>}
                 </caption>
             );
+
+            if (groups) {
+                groupsTable = (
+                    <table className={styles.table}>
+                        {header}
+                        <thead>
+                            <tr>
+                                <th>Group</th>
+                                {types.map(type => (
+                                    <th key={type}>
+                                        {getEarthEngineAggregationType(type)}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {groups.map(({ id, name }) => (
+                                <tr key={id}>
+                                    <th>{name}</th>
+                                    {types.map(type => (
+                                        <td key={type}>
+                                            {typeValueFormat[type](
+                                                values[`${id}_${type}`]
+                                            )}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>{i18n.t('All groups')}</th>
+                                {types.map(type => (
+                                    <td key={type}>
+                                        {typeValueFormat[type](values[type])}
+                                    </td>
+                                ))}
+                            </tr>
+                        </tfoot>
+                    </table>
+                );
+            }
 
             rows = types.map(type => {
                 const precision = getPrecision(
@@ -98,13 +150,14 @@ const EarthEnginePopup = props => {
             className="dhis2-map-popup-orgunit"
         >
             <div className={styles.title}>{name}</div>
-            {values && (
-                <table className={styles.table}>
-                    {header}
-                    <tbody>{rows}</tbody>
-                </table>
-            )}
-            {data === 'loading' && (
+            {groupsTable ||
+                (values && (
+                    <table className={styles.table}>
+                        {header}
+                        <tbody>{rows}</tbody>
+                    </table>
+                ))}
+            {isLoading && (
                 <div className={styles.loading}>
                     <CircularLoader small />
                     {i18n.t('Loading data')}
