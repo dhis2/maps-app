@@ -7,15 +7,42 @@ import { EXTERNAL_LAYER } from '../constants/layers';
 
 // API requests
 
+const fetchMapQuery = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: mapFields(),
+    },
+};
+
 // Fetch one favorite
 export const mapRequest = async id => {
     const d2 = await getD2();
 
     return d2.models.map
         .get(id, {
-            fields: await mapFields(),
+            fields: mapFields(),
         })
         .then(getBasemap)
+        .then(config => ({
+            ...config,
+            mapViews: upgradeGisAppLayers(config.mapViews),
+        }));
+};
+
+export const fetchMap = async (id, engine, defaultBasemap) => {
+    return engine
+        .query(
+            { map: fetchMapQuery },
+            {
+                variables: {
+                    id,
+                },
+            }
+        )
+        .then(map =>
+            getBasemap(Object.assign({}, { basemap: defaultBasemap }, map.map))
+        )
         .then(config => ({
             ...config,
             mapViews: upgradeGisAppLayers(config.mapViews),
@@ -45,7 +72,7 @@ const getBasemap = config => {
             view.layer === EXTERNAL_LAYER &&
             JSON.parse(view.config || {}).mapLayerPosition === 'BASEMAP'
     );
-    let basemap = { id: 'osmLight' }; // Default basemap
+    let basemap;
     let mapViews = config.mapViews;
 
     if (externalBasemap) {
@@ -60,6 +87,8 @@ const getBasemap = config => {
                 : { id: config.basemap };
     } else if (isObject(config.basemap)) {
         basemap = config.basemap;
+    } else {
+        basemap = { id: 'osmLight' }; // Default basemap
     }
 
     return {

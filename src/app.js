@@ -62,8 +62,6 @@ getManifest('manifest.webapp')
         return userSettings;
     })
     .then(configI18n)
-    .then(getSystemSettings)
-    .then(systemSettings => store.dispatch(setSystemSettings(systemSettings)))
     .then(init)
     .then(
         d2 => {

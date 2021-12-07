@@ -45,9 +45,8 @@ const baseFields = [
     'href',
 ];
 
-const analysisFields = async () => {
-    const d2 = await getD2();
-    const namePropertyUrl = await getDisplayPropertyUrl(d2);
+const analysisFields = () => {
+    const namePropertyUrl = getDisplayPropertyUrl();
     return [
         '*',
         `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
@@ -88,10 +87,8 @@ const analysisFields = async () => {
     ];
 };
 
-export const mapFields = async () => {
-    const fields = await analysisFields();
-    return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`;
-};
+export const mapFields = () =>
+    `${baseFields.join(',')}, mapViews[${analysisFields().join(',')}]`;
 
 export const legendFields = [
     '*',

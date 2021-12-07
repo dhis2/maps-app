@@ -5,10 +5,16 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
-"PO-Revision-Date: 2021-10-20T11:58:28.882Z\n"
+"POT-Creation-Date: 2021-12-04T00:43:21.738Z\n"
+"PO-Revision-Date: 2021-12-04T00:43:21.738Z\n"
 
 msgid "Maps"
+msgstr ""
+
+msgid "Map \"{{name}}\" is saved."
+msgstr ""
+
+msgid "Error"
 msgstr ""
 
 msgid "Classification"
@@ -1203,12 +1209,6 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Cancelled"
-msgstr ""
-
-msgid "Map \"{{name}}\" is saved."
-msgstr ""
-
-msgid "Error"
 msgstr ""
 
 msgid "Selected org units"

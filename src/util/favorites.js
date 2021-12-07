@@ -93,9 +93,9 @@ const validModelProperties = [
     'dimensionItemType',
 ];
 
-export const cleanMapConfig = config => ({
+export const cleanMapConfig = ({ config, defaultBasemap }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
-    basemap: getBasemapString(config.basemap),
+    basemap: getBasemapString(config.basemap || defaultBasemap),
     mapViews: config.mapViews.map(cleanLayerConfig),
 });
 
