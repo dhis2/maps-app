@@ -57,6 +57,7 @@ const PluginContainer = () => {
 
     function initialize(url, username, password) {
         if (url) {
+            config.appUrl = url;
             config.baseUrl = `${url}/api/${apiVersion}`;
         }
 
