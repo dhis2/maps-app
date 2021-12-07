@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
+"POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: Prabhjot Singh, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -909,7 +909,7 @@ msgstr "Semanal"
 msgid "Monthly"
 msgstr "Mensual"
 
-msgid "Bi-monthly)"
+msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"

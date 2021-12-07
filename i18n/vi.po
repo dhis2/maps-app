@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-04-15T12:12:07.702Z\n"
+"POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
 "Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -902,7 +902,7 @@ msgstr "Hàng tuần"
 msgid "Monthly"
 msgstr "Hàng tháng"
 
-msgid "Bi-monthly)"
+msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
