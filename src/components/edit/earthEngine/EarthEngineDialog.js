@@ -5,7 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { NoticeBox } from '@dhis2/ui';
 import { Help, Tab, Tabs } from '../../core';
 import AggregationSelect from './AggregationSelect';
-import BandSelect from './BandSelect';
+import BandSelect, { MAX_BANDS } from './BandSelect';
 import PeriodSelect from './PeriodSelect';
 import OrgUnitsSelect from './OrgUnitsSelect';
 import StyleSelect from './StyleSelect';
@@ -59,6 +59,7 @@ const EarthEngineDialog = props => {
     const setPeriod = period => setFilter(period ? filters(period) : null);
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length);
+    const hasMaxBands = Array.isArray(bands) && band && band.length > MAX_BANDS;
 
     // Load all available periods
     useEffect(() => {
@@ -97,7 +98,8 @@ const EarthEngineDialog = props => {
 
     useEffect(() => {
         if (validateLayer) {
-            const isValid = !noBandSelected && (!periodType || period);
+            const isValid =
+                !noBandSelected && !hasMaxBands && (!periodType || period);
 
             if (!isValid) {
                 if (noBandSelected) {
@@ -106,6 +108,8 @@ const EarthEngineDialog = props => {
                         message: i18n.t('This field is required'),
                     });
                     setTab('data');
+                } else if (hasMaxBands) {
+                    setTab('data'); // Error message is already showing
                 } else {
                     setError({
                         type: 'period',
