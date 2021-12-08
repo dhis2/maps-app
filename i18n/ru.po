@@ -1,16 +1,16 @@
 # 
 # Translators:
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Ulanbek Abakirov <ulans@mail.ru>, 2021
 # Saurabh Leekha <saurabh.leekha@hispindia.org>, 2021
+# phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: Saurabh Leekha <saurabh.leekha@hispindia.org>, 2021\n"
+"Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -905,7 +905,7 @@ msgid "Monthly"
 msgstr "Ежемесячно"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "Раз в два месяца"
 
 msgid "Quarterly"
 msgstr "Ежеквартально"

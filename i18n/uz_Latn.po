@@ -939,7 +939,7 @@ msgid "Monthly"
 msgstr "Ойлик"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "Жуфт ойлик"
 
 msgid "Quarterly"
 msgstr "Ҳар квартал"
