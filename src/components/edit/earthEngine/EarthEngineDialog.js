@@ -59,7 +59,8 @@ const EarthEngineDialog = props => {
     const setPeriod = period => setFilter(period ? filters(period) : null);
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length);
-    const hasMaxBands = Array.isArray(bands) && band && band.length > MAX_BANDS;
+    const aboveMaxBands =
+        Array.isArray(bands) && band && band.length > MAX_BANDS;
 
     // Load all available periods
     useEffect(() => {
@@ -99,7 +100,7 @@ const EarthEngineDialog = props => {
     useEffect(() => {
         if (validateLayer) {
             const isValid =
-                !noBandSelected && !hasMaxBands && (!periodType || period);
+                !noBandSelected && !aboveMaxBands && (!periodType || period);
 
             if (!isValid) {
                 if (noBandSelected) {
@@ -108,7 +109,7 @@ const EarthEngineDialog = props => {
                         message: i18n.t('This field is required'),
                     });
                     setTab('data');
-                } else if (hasMaxBands) {
+                } else if (aboveMaxBands) {
                     setTab('data'); // Error message is already showing
                 } else {
                     setError({
