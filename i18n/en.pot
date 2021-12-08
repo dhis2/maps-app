@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-16T09:45:00.428Z\n"
-"PO-Revision-Date: 2021-11-16T09:45:00.428Z\n"
+"POT-Creation-Date: 2021-12-08T15:04:35.136Z\n"
+"PO-Revision-Date: 2021-12-08T15:04:35.136Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -594,6 +594,9 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
+msgid "All groups"
+msgstr ""
+
 msgid "Loading data"
 msgstr ""
 
@@ -860,6 +863,9 @@ msgid "Mean"
 msgstr ""
 
 msgid "Median"
+msgstr ""
+
+msgid "Std dev"
 msgstr ""
 
 msgid "OSM Light"
@@ -1298,4 +1304,8 @@ msgid "End date is invalid"
 msgstr ""
 
 msgid "End date cannot be earlier than start date"
+msgstr ""
+
+msgctxt "BANDS}}"
+msgid "Maximum number of groups are {{MAX"
 msgstr ""
