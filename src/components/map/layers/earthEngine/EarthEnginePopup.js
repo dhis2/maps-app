@@ -21,7 +21,15 @@ const EarthEnginePopup = props => {
     let header = null;
 
     if (values) {
-        const types = valueType;
+        const onlySum = valueType.length === 1 && valueType[0] === 'sum';
+
+        // Returns the value
+        const getValueProp = (type, group) =>
+            groups.length === 1
+                ? type
+                : valueType.length === 1
+                ? group
+                : `${group}_${type}`;
 
         const getValueFormat = type =>
             numberPrecision(
@@ -40,8 +48,6 @@ const EarthEnginePopup = props => {
             types[type] = getValueFormat(type);
             return types;
         }, {});
-
-        const onlySum = types.length === 1 && types[0] === 'sum';
 
         if (classes) {
             const valueFormat = numberPrecision(isPercentage ? 2 : 0);
@@ -91,7 +97,7 @@ const EarthEnginePopup = props => {
                         <thead>
                             <tr>
                                 <th>Group</th>
-                                {types.map(type => (
+                                {valueType.map(type => (
                                     <th key={type}>
                                         {getEarthEngineAggregationType(type)}
                                     </th>
@@ -102,31 +108,35 @@ const EarthEnginePopup = props => {
                             {groups.map(({ id, name }) => (
                                 <tr key={id}>
                                     <th>{name}</th>
-                                    {types.map(type => (
+                                    {valueType.map(type => (
                                         <td key={type}>
                                             {typeValueFormat[type](
-                                                values[`${id}_${type}`]
+                                                values[getValueProp(type, id)]
                                             )}
                                         </td>
                                     ))}
                                 </tr>
                             ))}
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>{i18n.t('All groups')}</th>
-                                {types.map(type => (
-                                    <td key={type}>
-                                        {typeValueFormat[type](values[type])}
-                                    </td>
-                                ))}
-                            </tr>
-                        </tfoot>
+                        {groups.length > 1 && (
+                            <tfoot>
+                                <tr>
+                                    <th>{i18n.t('All groups')}</th>
+                                    {valueType.map(type => (
+                                        <td key={type}>
+                                            {typeValueFormat[type](
+                                                values[type]
+                                            )}
+                                        </td>
+                                    ))}
+                                </tr>
+                            </tfoot>
+                        )}
                     </table>
                 );
             }
 
-            rows = types.map(type => {
+            rows = valueType.map(type => {
                 const precision = getPrecision(
                     Object.values(data).map(d => d[type])
                 );
