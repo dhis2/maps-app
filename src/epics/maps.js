@@ -5,7 +5,7 @@ import * as types from '../constants/actionTypes';
 import { errorActionCreator } from '../actions/helpers';
 import { mapRequest } from '../util/requests';
 import { cleanMapObject, addOrgUnitPaths } from '../util/helpers';
-import { setMap, setMapProps } from '../actions/map';
+import { setMap } from '../actions/map';
 import { loadLayer } from '../actions/layers';
 
 // Load one favorite
@@ -22,18 +22,4 @@ export const loadFavorite = action$ =>
             ...addOrgUnitPaths(config.mapViews).map(loadLayer),
         ]);
 
-// Update favorite except layers on map save
-export const updateFavorite = action$ =>
-    action$
-        .ofType(types.FAVORITE_UPDATE)
-        .concatMap(action =>
-            mapRequest(action.id).catch(
-                errorActionCreator(types.FAVORITE_UPDATE_ERROR)
-            )
-        )
-        .mergeMap(config => {
-            delete config.mapViews;
-            return [setMapProps(config)];
-        });
-
-export default combineEpics(loadFavorite, updateFavorite);
+export default combineEpics(loadFavorite);
