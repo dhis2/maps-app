@@ -19,8 +19,6 @@ const EarthEnginePopup = props => {
     let table = null;
 
     if (values) {
-        const onlySum = valueType.length === 1 && valueType[0] === 'sum';
-
         if (classes) {
             const valueFormat = numberPrecision(isPercentage ? 2 : 0);
 
@@ -56,13 +54,17 @@ const EarthEnginePopup = props => {
                 </table>
             );
         } else {
-            const getValueProp = (type, group) =>
+            const onlySum = valueType.length === 1 && valueType[0] === 'sum';
+
+            // Returns the value key for a type/group
+            const getValueKey = (type, group) =>
                 groups.length === 1
                     ? type
                     : valueType.length === 1
                     ? group
                     : `${group}_${type}`;
 
+            // Returns the value format (precision) for an aggregation type
             const getValueFormat = type =>
                 numberPrecision(
                     getPrecision(
@@ -76,6 +78,7 @@ const EarthEnginePopup = props => {
                     )
                 );
 
+            // Create value format function for each aggregation type
             const typeValueFormat = valueType.reduce((types, type) => {
                 types[type] = getValueFormat(type);
                 return types;
@@ -109,7 +112,7 @@ const EarthEnginePopup = props => {
                                     {valueType.map(type => (
                                         <td key={type}>
                                             {typeValueFormat[type](
-                                                values[getValueProp(type, id)]
+                                                values[getValueKey(type, id)]
                                             )}
                                         </td>
                                     ))}
