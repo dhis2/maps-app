@@ -24,7 +24,7 @@ const getHiddenPeriods = systemSettings => {
 };
 
 const SystemSettingsProvider = ({ children }) => {
-    const [settings, setSettings] = useState([]);
+    const [settings, setSettings] = useState({});
     const engine = useDataEngine();
 
     useEffect(() => {

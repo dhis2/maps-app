@@ -7,6 +7,7 @@ import {
     EXTERNAL_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers';
+import { DEFAULT_BASEMAP_ID } from '../constants/basemaps';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -101,7 +102,7 @@ export const cleanMapConfig = ({ config, defaultBasemap }) => ({
 
 const getBasemapString = basemap => {
     if (!basemap) {
-        return 'osmLight';
+        return DEFAULT_BASEMAP_ID;
     }
 
     if (basemap.isVisible === false) {

@@ -4,6 +4,7 @@ import { isString, isObject, sortBy } from 'lodash/fp';
 import { apiFetch } from './api';
 import { SYSTEM_SETTINGS } from '../constants/settings';
 import { EXTERNAL_LAYER } from '../constants/layers';
+import { DEFAULT_BASEMAP_ID } from '../constants/basemaps';
 
 // API requests
 
@@ -83,12 +84,12 @@ const getBasemap = config => {
     } else if (isString(config.basemap)) {
         basemap =
             config.basemap === 'none'
-                ? { id: 'osmLight', isVisible: false }
+                ? { id: DEFAULT_BASEMAP_ID, isVisible: false }
                 : { id: config.basemap };
     } else if (isObject(config.basemap)) {
         basemap = config.basemap;
     } else {
-        basemap = { id: 'osmLight' }; // Default basemap
+        basemap = { id: DEFAULT_BASEMAP_ID }; // Default basemap
     }
 
     return {

@@ -6,6 +6,8 @@ import {
     BING_LAYER,
 } from '../constants/layers';
 
+export const DEFAULT_BASEMAP_ID = 'osmLight';
+
 export const defaultBasemaps = () => [
     {
         id: 'osmLight',
