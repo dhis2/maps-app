@@ -106,7 +106,7 @@ export const legendSetFields = [
 
 // Change layer name from boundary to orgUnit when loading an old map
 // TODO: Change in db with an upgrade script
-export const cleanMapObject = ao => ({
+export const renameBoundaryLayerToOrgUnitLayer = ao => ({
     ...ao,
     mapViews: ao.mapViews.map(v =>
         v.layer === 'boundary'

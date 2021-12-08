@@ -13,7 +13,7 @@ import {
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
-import { cleanMapObject } from './util/helpers';
+import { renameBoundaryLayerToOrgUnitLayer } from './util/helpers';
 import { apiVersion } from './constants/settings';
 import { DEFAULT_BASEMAP_ID } from './constants/basemaps';
 import { defaultBasemaps } from './constants/basemaps';
@@ -97,7 +97,7 @@ function PluginContainer() {
         if (config.id && !isUnmounted(config.el)) {
             // Load favorite
             mapRequest(config.id)
-                .then(cleanMapObject)
+                .then(renameBoundaryLayerToOrgUnitLayer)
                 .then(favorite =>
                     loadLayers({
                         ...config,
@@ -106,7 +106,7 @@ function PluginContainer() {
                 );
         } else {
             translateConfig(config)
-                .then(cleanMapObject)
+                .then(renameBoundaryLayerToOrgUnitLayer)
                 .then(loadLayers);
         }
     }

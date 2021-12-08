@@ -10,11 +10,11 @@ import Root from './components/Root';
 import { configI18n } from './util/i18n';
 import { loadOrgUnitTree } from './actions/orgUnits';
 import { loadExternalLayers } from './actions/externalLayers';
-import { setSystemSettings, setUserSettings } from './actions/settings';
+import { setUserSettings } from './actions/settings';
 import { resizeScreen } from './actions/ui';
 import { loadFavorite } from './actions/favorites';
 import { getAnalyticalObject } from './actions/analyticalObject';
-import { getUrlParameter, getSystemSettings } from './util/requests';
+import { getUrlParameter } from './util/requests';
 import { apiVersion } from './constants/settings';
 
 log.setLevel(

@@ -5,11 +5,16 @@ import { connect } from 'react-redux';
 import { FileMenu as UiFileMenu } from '@dhis2/analytics';
 import { useDataMutation, useDataEngine } from '@dhis2/app-runtime';
 import { newMap, setMapProps } from '../../actions/map';
-import { loadFavorite } from '../../actions/favorites';
 import { setAlert } from '../../actions/alerts';
+import { setMap } from '../../actions/map';
+import { loadLayer } from '../../actions/layers';
 import { fetchMap } from '../../util/requests';
 import { useSystemSettings } from '../../hooks/SystemSettingsProvider';
 import { cleanMapConfig } from '../../util/favorites';
+import {
+    renameBoundaryLayerToOrgUnitLayer,
+    addOrgUnitPaths,
+} from '../../util/helpers';
 import styles from './styles/FileMenu.module.css';
 
 const saveMapMutation = {
@@ -36,7 +41,7 @@ const saveAsNewMapMutation = {
 const getSavedMessage = name => i18n.t('Map "{{name}}" is saved.', { name });
 
 export const FileMenu = (
-    { map, newMap, setMapProps, loadFavorite, setAlert },
+    { map, newMap, setMap, loadLayer, setMapProps, setAlert },
     { d2 }
 ) => {
     const [saveMapMutate] = useDataMutation(saveMapMutation);
@@ -65,6 +70,16 @@ export const FileMenu = (
             success: true,
             message: getSavedMessage(config.name),
         });
+    };
+
+    const openMap = async id => {
+        const config = await fetchMap(id, engine, keyDefaultBaseMap);
+        const cleanedConfig = renameBoundaryLayerToOrgUnitLayer(config);
+
+        // .catch(errorActionCreator(types.FAVORITE_LOAD_ERROR))
+
+        setMap(cleanedConfig);
+        addOrgUnitPaths(cleanedConfig.mapViews).map(loadLayer);
     };
 
     const saveAsNewMap = async ({ name, description }) => {
@@ -126,7 +141,7 @@ export const FileMenu = (
                 fileType="map"
                 fileObject={map}
                 onNew={newMap}
-                onOpen={loadFavorite}
+                onOpen={openMap}
                 onSave={saveMap}
                 onSaveAs={saveAsNewMap}
                 onRename={setMapProps}
@@ -140,8 +155,9 @@ export const FileMenu = (
 FileMenu.propTypes = {
     map: PropTypes.object.isRequired,
     newMap: PropTypes.func.isRequired,
+    setMap: PropTypes.func.isRequired,
+    loadLayer: PropTypes.func.isRequired,
     setMapProps: PropTypes.func.isRequired,
-    loadFavorite: PropTypes.func.isRequired,
     setAlert: PropTypes.func.isRequired,
 };
 
@@ -151,7 +167,8 @@ FileMenu.contextTypes = {
 
 export default connect(({ map }) => ({ map }), {
     newMap,
+    setMap,
     setMapProps,
-    loadFavorite,
     setAlert,
+    loadLayer,
 })(FileMenu);

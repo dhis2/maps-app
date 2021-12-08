@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { Layer, CenteredContent, CircularLoader } from '@dhis2/ui';
 import LayerCard from '../LayerCard';
 import BasemapList from './BasemapList';
+import { useSystemSettings } from '../../../hooks/SystemSettingsProvider';
 import {
     changeBasemapOpacity,
     toggleBasemapExpand,
@@ -15,32 +17,43 @@ import { VECTOR_STYLE } from '../../../constants/layers';
 // Basemap card shown in left layers panel
 const BasemapCard = props => {
     const {
-        name,
         subtitle = i18n.t('Basemap'),
-        opacity,
-        isExpanded,
-        isVisible,
         toggleBasemapExpand,
         toggleBasemapVisibility,
         changeBasemapOpacity,
     } = props;
+    const [basemap, setBasemap] = useState({});
+    const { systemSettings } = useSystemSettings();
 
-    const hasOpacity = props.config.type === VECTOR_STYLE ? false : true;
+    useEffect(() => {
+        const mybasemap = Object.assign(
+            {},
+            { id: systemSettings.keyDefaultBaseMap },
+            props.basemap
+        );
+
+        const thebasemap = props.basemaps.find(({ id }) => id === mybasemap.id);
+        setBasemap(Object.assign({}, thebasemap, mybasemap));
+    }, [systemSettings.keyDefaultBaseMap, props.basemap, props.basemaps]);
+
+    if (!basemap.id) {
+        return null;
+    }
 
     return (
         <LayerCard
-            hasOpacity={hasOpacity}
-            title={name}
+            hasOpacity={basemap.config.type === VECTOR_STYLE ? false : true}
+            title={basemap.name}
             subtitle={subtitle}
-            opacity={opacity}
-            isExpanded={isExpanded}
-            isVisible={isVisible}
+            opacity={basemap.opacity}
+            isExpanded={basemap.isExpanded}
+            isVisible={basemap.isVisible}
             onOpacityChange={changeBasemapOpacity}
             toggleExpand={toggleBasemapExpand}
             toggleLayerVisibility={toggleBasemapVisibility}
         >
             <BasemapList
-                selectedID={props.basemap.id}
+                selectedID={basemap.id}
                 basemaps={props.basemaps}
                 selectBasemap={props.selectBasemap}
             />
@@ -49,12 +62,12 @@ const BasemapCard = props => {
 };
 
 BasemapCard.propTypes = {
-    config: PropTypes.object,
-    name: PropTypes.string.isRequired,
+    // config: PropTypes.object,
+    // name: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
-    opacity: PropTypes.number,
-    isVisible: PropTypes.bool,
-    isExpanded: PropTypes.bool,
+    // opacity: PropTypes.number,
+    // isVisible: PropTypes.bool,
+    // isExpanded: PropTypes.bool,
 
     basemap: PropTypes.object.isRequired,
     basemaps: PropTypes.array.isRequired,
@@ -63,13 +76,6 @@ BasemapCard.propTypes = {
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
     selectBasemap: PropTypes.func.isRequired,
-};
-
-BasemapCard.defaultProps = {
-    config: {},
-    opacity: 1,
-    isVisible: true,
-    isExpanded: true,
 };
 
 export default connect(
