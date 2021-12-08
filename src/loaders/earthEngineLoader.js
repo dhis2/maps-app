@@ -232,7 +232,7 @@ const earthEngineLoader = async config => {
 
     layer.legend = {
         title: layer.name,
-        period: layer.periodName,
+        period: layer.periodName || layer.image,
         ...layer.legend,
     };
 
