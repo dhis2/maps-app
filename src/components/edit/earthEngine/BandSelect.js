@@ -11,8 +11,8 @@ const BandSelect = ({ band = [], bands, setBand, errorText }) => {
     let error;
 
     if (band.length > MAX_BANDS) {
-        error = i18n.t('Maximum number of groups are {{MAX_BANDS}}', {
-            MAX_BANDS,
+        error = i18n.t('Maximum number of groups are {{maxBands}}', {
+            maxBands: MAX_BANDS,
         });
     } else if (errorText && !band.length) {
         error = errorText;

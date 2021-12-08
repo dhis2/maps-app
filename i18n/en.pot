@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-12-08T15:04:35.136Z\n"
-"PO-Revision-Date: 2021-12-08T15:04:35.136Z\n"
+"POT-Creation-Date: 2021-12-08T15:23:58.705Z\n"
+"PO-Revision-Date: 2021-12-08T15:23:58.705Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -180,6 +180,9 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
+msgstr ""
+
+msgid "Maximum number of groups are {{maxBands}}"
 msgstr ""
 
 msgid "Groups"
@@ -1304,8 +1307,4 @@ msgid "End date is invalid"
 msgstr ""
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
-
-msgctxt "BANDS}}"
-msgid "Maximum number of groups are {{MAX"
 msgstr ""
