@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { Layer, CenteredContent, CircularLoader } from '@dhis2/ui';
@@ -6,7 +6,7 @@ import Map from './Map';
 import SplitView from './SplitView';
 import { getSplitViewLayer } from '../../util/helpers';
 import { getMapControls } from '../../util/mapControls';
-import { useSystemSettings } from '../../hooks/SystemSettingsProvider';
+import useBasemapConfig from '../../hooks/useBasemapConfig';
 
 // Shared component between app and plugin
 const MapView = props => {
@@ -24,19 +24,7 @@ const MapView = props => {
         resizeCount,
     } = props;
 
-    const [basemap, setBasemap] = useState({});
-    const { systemSettings } = useSystemSettings();
-
-    useEffect(() => {
-        const mybasemap = Object.assign(
-            {},
-            { id: systemSettings.keyDefaultBaseMap },
-            props.basemap
-        );
-
-        const thebasemap = props.basemaps.find(({ id }) => id === mybasemap.id);
-        setBasemap(Object.assign({}, thebasemap, mybasemap));
-    }, [systemSettings.keyDefaultBaseMap, props.basemap, props.basemaps]);
+    const basemap = useBasemapConfig(props.basemap, props.basemaps);
 
     if (!basemap.id) {
         return null;

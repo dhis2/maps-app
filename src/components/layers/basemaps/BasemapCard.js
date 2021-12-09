@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { Layer, CenteredContent, CircularLoader } from '@dhis2/ui';
+// import { Layer, CenteredContent, CircularLoader } from '@dhis2/ui';
 import LayerCard from '../LayerCard';
 import BasemapList from './BasemapList';
-import { useSystemSettings } from '../../../hooks/SystemSettingsProvider';
+import useBasemapConfig from '../../../hooks/useBasemapConfig';
 import {
     changeBasemapOpacity,
     toggleBasemapExpand,
@@ -22,19 +22,8 @@ const BasemapCard = props => {
         toggleBasemapVisibility,
         changeBasemapOpacity,
     } = props;
-    const [basemap, setBasemap] = useState({});
-    const { systemSettings } = useSystemSettings();
 
-    useEffect(() => {
-        const mybasemap = Object.assign(
-            {},
-            { id: systemSettings.keyDefaultBaseMap },
-            props.basemap
-        );
-
-        const thebasemap = props.basemaps.find(({ id }) => id === mybasemap.id);
-        setBasemap(Object.assign({}, thebasemap, mybasemap));
-    }, [systemSettings.keyDefaultBaseMap, props.basemap, props.basemaps]);
+    const basemap = useBasemapConfig(props.basemap, props.basemaps);
 
     if (!basemap.id) {
         return null;
