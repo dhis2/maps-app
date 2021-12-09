@@ -67,6 +67,7 @@ export const getSystemSettings = () =>
     apiFetch(`/systemSettings/?key=${SYSTEM_SETTINGS.join(',')}`);
 
 // Different ways of specifying a basemap - TODO: simplify!
+//TODO - DEFAULT_BASEMAP_ID is not correct. We need the keyDefaultBaseMap sys setting
 const getBasemap = config => {
     const externalBasemap = config.mapViews.find(
         view =>

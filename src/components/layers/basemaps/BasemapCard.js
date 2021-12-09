@@ -62,16 +62,9 @@ const BasemapCard = props => {
 };
 
 BasemapCard.propTypes = {
-    // config: PropTypes.object,
-    // name: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
-    // opacity: PropTypes.number,
-    // isVisible: PropTypes.bool,
-    // isExpanded: PropTypes.bool,
-
     basemap: PropTypes.object.isRequired,
     basemaps: PropTypes.array.isRequired,
-
     changeBasemapOpacity: PropTypes.func.isRequired,
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
