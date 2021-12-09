@@ -17,7 +17,6 @@ import styles from './styles/MapContainer.module.css';
 
 const MapContainer = props => {
     const {
-        basemap,
         mapViews,
         bounds,
         feature,
@@ -64,7 +63,6 @@ const MapContainer = props => {
                 <MapName />
                 <MapView
                     isPlugin={false}
-                    basemap={basemap}
                     layers={layers}
                     bounds={bounds}
                     feature={feature}
@@ -88,7 +86,6 @@ const MapContainer = props => {
 };
 
 MapContainer.propTypes = {
-    basemap: PropTypes.object,
     mapViews: PropTypes.array,
     bounds: PropTypes.array,
     showName: PropTypes.bool,
@@ -107,11 +104,7 @@ MapContainer.propTypes = {
 };
 
 export default connect(
-    ({ map, basemaps, download, dataTable, ui, feature }) => ({
-        basemap: {
-            ...basemaps.filter(b => b.id === map.basemap.id)[0],
-            ...map.basemap,
-        },
+    ({ map, download, dataTable, ui, feature }) => ({
         newLayerIsLoading: map.newLayerIsLoading,
         coordinatePopup: map.coordinatePopup,
         mapViews: map.mapViews,
