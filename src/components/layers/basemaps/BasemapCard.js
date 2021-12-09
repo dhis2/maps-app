@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-// import { Layer, CenteredContent, CircularLoader } from '@dhis2/ui';
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
 import LayerCard from '../LayerCard';
 import BasemapList from './BasemapList';
 import useBasemapConfig from '../../../hooks/useBasemapConfig';
@@ -25,28 +25,39 @@ const BasemapCard = props => {
 
     const basemap = useBasemapConfig(props.basemap, props.basemaps);
 
-    if (!basemap.id) {
-        return null;
-    }
-
     return (
-        <LayerCard
-            hasOpacity={basemap.config.type === VECTOR_STYLE ? false : true}
-            title={basemap.name}
-            subtitle={subtitle}
-            opacity={basemap.opacity}
-            isExpanded={basemap.isExpanded}
-            isVisible={basemap.isVisible}
-            onOpacityChange={changeBasemapOpacity}
-            toggleExpand={toggleBasemapExpand}
-            toggleLayerVisibility={toggleBasemapVisibility}
-        >
-            <BasemapList
-                selectedID={basemap.id}
-                basemaps={props.basemaps}
-                selectBasemap={props.selectBasemap}
-            />
-        </LayerCard>
+        <>
+            {basemap.id === undefined ? (
+                <>
+                    <ComponentCover translucent>
+                        <CenteredContent>
+                            <CircularLoader />
+                        </CenteredContent>
+                    </ComponentCover>
+                    <div />
+                </>
+            ) : (
+                <LayerCard
+                    hasOpacity={
+                        basemap.config.type === VECTOR_STYLE ? false : true
+                    }
+                    title={basemap.name}
+                    subtitle={subtitle}
+                    opacity={basemap.opacity}
+                    isExpanded={basemap.isExpanded}
+                    isVisible={basemap.isVisible}
+                    onOpacityChange={changeBasemapOpacity}
+                    toggleExpand={toggleBasemapExpand}
+                    toggleLayerVisibility={toggleBasemapVisibility}
+                >
+                    <BasemapList
+                        selectedID={basemap.id}
+                        basemaps={props.basemaps}
+                        selectBasemap={props.selectBasemap}
+                    />
+                </LayerCard>
+            )}
+        </>
     );
 };
 

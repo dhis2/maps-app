@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Layer, CenteredContent, CircularLoader } from '@dhis2/ui';
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
 import Map from './Map';
 import SplitView from './SplitView';
 import { getSplitViewLayer } from '../../util/helpers';
@@ -26,42 +26,51 @@ const MapView = props => {
 
     const basemap = useBasemapConfig(props.basemap, props.basemaps);
 
-    if (!basemap.id) {
-        return null;
-    }
-
     const splitViewLayer = getSplitViewLayer(layers);
     const isSplitView = !!splitViewLayer;
     const mapControls = getMapControls(isPlugin, isSplitView, controls);
 
     return (
         <>
-            {isSplitView ? (
-                <SplitView
-                    isPlugin={isPlugin}
-                    isFullscreen={isFullscreen}
-                    basemap={basemap}
-                    layer={splitViewLayer}
-                    controls={mapControls}
-                    feature={feature}
-                    openContextMenu={openContextMenu}
-                    resizeCount={resizeCount}
-                />
+            {basemap.id === undefined ? (
+                <>
+                    <ComponentCover translucent>
+                        <CenteredContent>
+                            <CircularLoader />
+                        </CenteredContent>
+                    </ComponentCover>
+                    <div />
+                </>
             ) : (
-                <Map
-                    isPlugin={isPlugin}
-                    isFullscreen={isFullscreen}
-                    basemap={basemap}
-                    layers={[...layers].reverse()}
-                    bounds={bounds}
-                    controls={mapControls}
-                    feature={feature}
-                    coordinatePopup={coordinatePopup}
-                    closeCoordinatePopup={closeCoordinatePopup}
-                    openContextMenu={openContextMenu}
-                    setAggregations={setAggregations}
-                    resizeCount={resizeCount}
-                />
+                <>
+                    {isSplitView ? (
+                        <SplitView
+                            isPlugin={isPlugin}
+                            isFullscreen={isFullscreen}
+                            basemap={basemap}
+                            layer={splitViewLayer}
+                            controls={mapControls}
+                            feature={feature}
+                            openContextMenu={openContextMenu}
+                            resizeCount={resizeCount}
+                        />
+                    ) : (
+                        <Map
+                            isPlugin={isPlugin}
+                            isFullscreen={isFullscreen}
+                            basemap={basemap}
+                            layers={[...layers].reverse()}
+                            bounds={bounds}
+                            controls={mapControls}
+                            feature={feature}
+                            coordinatePopup={coordinatePopup}
+                            closeCoordinatePopup={closeCoordinatePopup}
+                            openContextMenu={openContextMenu}
+                            setAggregations={setAggregations}
+                            resizeCount={resizeCount}
+                        />
+                    )}
+                </>
             )}
         </>
     );
