@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { NoticeBox } from '@dhis2/ui';
+import { SystemSettingsCtx } from '../../SystemSettingsProvider';
 import { Tab, Tabs, NumberField, ImageSelect, ColorPicker } from '../../core';
 import ProgramSelect from '../../program/ProgramSelect';
 import ProgramStageSelect from '../../program/ProgramStageSelect';
@@ -68,7 +69,7 @@ export class EventDialog extends Component {
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
         filters: PropTypes.array,
-        hiddenPeriods: PropTypes.array,
+        settings: PropTypes.object,
         legendSet: PropTypes.object,
         method: PropTypes.number,
         onLayerValidation: PropTypes.func.isRequired,
@@ -114,7 +115,7 @@ export class EventDialog extends Component {
             rows,
             filters,
             defaultPeriod,
-            hiddenPeriods,
+            settings,
             startDate,
             endDate,
             setOrgUnitRoot,
@@ -137,7 +138,7 @@ export class EventDialog extends Component {
             !startDate &&
             !endDate &&
             defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, hiddenPeriods)
+            isPeriodAvailable(defaultPeriod, settings.hiddenPeriods)
         ) {
             setPeriod({
                 id: defaultPeriod,
@@ -167,7 +168,7 @@ export class EventDialog extends Component {
             eventPointColor,
             eventPointRadius,
             filters = [],
-            hiddenPeriods,
+            settings,
             program,
             programStage,
             rows = [],
@@ -258,7 +259,7 @@ export class EventDialog extends Component {
                             <RelativePeriodSelect
                                 period={period}
                                 startEndDates={true}
-                                hiddenPeriods={hiddenPeriods}
+                                hiddenPeriods={settings.hiddenPeriods}
                                 onChange={setPeriod}
                                 className={styles.select}
                             />
@@ -464,10 +465,16 @@ export class EventDialog extends Component {
     }
 }
 
+const EventDialogWithSettings = props => (
+    <SystemSettingsCtx.Consumer>
+        {({ systemSettings }) => (
+            <EventDialog settings={systemSettings} {...props} />
+        )}
+    </SystemSettingsCtx.Consumer>
+);
+
 export default connect(
-    ({ settings }) => ({
-        hiddenPeriods: settings.hiddenPeriods,
-    }),
+    null,
     {
         setProgram,
         setProgramStage,
@@ -487,4 +494,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(EventDialog);
+)(EventDialogWithSettings);
