@@ -4,17 +4,16 @@ import { Provider } from 'react-redux';
 import App from './app/App';
 import SystemSettingsProvider from '../hooks/SystemSettingsProvider';
 
-const Root = ({ d2, store }) => (
+const Root = ({ store, ...appProps }) => (
     <Provider store={store}>
         <SystemSettingsProvider>
-            <App d2={d2} />
+            <App {...appProps} />
         </SystemSettingsProvider>
     </Provider>
 );
 
 Root.propTypes = {
     store: PropTypes.object.isRequired,
-    d2: PropTypes.object.isRequired,
 };
 
 export default Root;
