@@ -25,6 +25,8 @@ import styles from './styles/App.module.css';
 export class App extends Component {
     static propTypes = {
         d2: PropTypes.object,
+        mapId: PropTypes.string,
+        analyticalObject: PropTypes.string,
     };
 
     static childContextTypes = {
@@ -38,6 +40,12 @@ export class App extends Component {
     }
 
     render() {
+        // if (mapId) {
+        //         store.dispatch(loadFavorite(mapId));
+        //     }
+        // if (analyticalObject === 'true') {
+        //         store.dispatch(getAnalyticalObject());
+        //     }
         return (
             <Provider
                 config={{

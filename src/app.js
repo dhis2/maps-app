@@ -12,8 +12,6 @@ import { loadOrgUnitTree } from './actions/orgUnits';
 import { loadExternalLayers } from './actions/externalLayers';
 import { setUserSettings } from './actions/settings';
 import { resizeScreen } from './actions/ui';
-import { loadFavorite } from './actions/favorites';
-import { getAnalyticalObject } from './actions/analyticalObject';
 import { getUrlParameter } from './util/requests';
 import { apiVersion } from './constants/settings';
 
@@ -66,19 +64,16 @@ getManifest('manifest.webapp')
     .then(
         d2 => {
             const mapId = getUrlParameter('id');
-            if (mapId) {
-                store.dispatch(loadFavorite(mapId));
-            }
-
-            // If analytical object is passed from another app
             const analyticalObject = getUrlParameter('currentAnalyticalObject');
-            if (analyticalObject === 'true') {
-                store.dispatch(getAnalyticalObject());
-            }
 
             render(
                 <DataProvider baseUrl={process.env.DHIS2_BASE_URL}>
-                    <Root d2={d2} store={store} />
+                    <Root
+                        d2={d2}
+                        store={store}
+                        mapId={mapId}
+                        analyticalObject={analyticalObject}
+                    />
                 </DataProvider>,
                 document.getElementById('dhis2-app-root')
             );
