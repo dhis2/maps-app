@@ -2,24 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FileMenu } from '@dhis2/analytics';
+import { useD2 } from '@dhis2/app-runtime-adapter-d2';
 import { newMap, setMapProps } from '../../actions/map';
 import { loadFavorite } from '../../actions/favorites';
 import { saveFavorite, saveNewFavorite } from '../../actions/favorites';
 import { setAlert } from '../../actions/alerts';
 import styles from './styles/FileMenu.module.css';
 
-export const FileMenuContainer = (
-    {
-        map,
-        newMap,
-        setMapProps,
-        loadFavorite,
-        saveFavorite,
-        saveNewFavorite,
-        setAlert,
-    },
-    { d2 }
-) => {
+export const FileMenuContainer = ({
+    map,
+    newMap,
+    setMapProps,
+    loadFavorite,
+    saveFavorite,
+    saveNewFavorite,
+    setAlert,
+}) => {
+    const { d2 } = useD2();
     const setError = ({ message }) => setAlert({ critical: true, message });
 
     return (
@@ -48,10 +47,6 @@ FileMenuContainer.propTypes = {
     saveFavorite: PropTypes.func.isRequired,
     saveNewFavorite: PropTypes.func.isRequired,
     setAlert: PropTypes.func.isRequired,
-};
-
-FileMenuContainer.contextTypes = {
-    d2: PropTypes.object,
 };
 
 export default connect(({ map }) => ({ map }), {

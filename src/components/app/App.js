@@ -1,6 +1,7 @@
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 import 'typeface-roboto';
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { Provider } from '@dhis2/app-runtime';
@@ -19,54 +20,59 @@ import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 import { apiVersion } from '../../constants/settings';
+import { loadFavorite } from '../../actions/favorites';
+import { getAnalyticalObject } from '../../actions/analyticalObject';
+
 import styles from './styles/App.module.css';
 
-// Makes d2 available in all child components
-export class App extends Component {
-    static propTypes = {
-        d2: PropTypes.object,
-    };
+const App = ({ mapId, analyticalObject }) => {
+    useEffect(() => {
+        if (mapId) {
+            loadFavorite(mapId);
+        }
 
-    static childContextTypes = {
-        d2: PropTypes.object.isRequired,
-    };
+        // If analytical object is passed from another app
+        if (analyticalObject === 'true') {
+            getAnalyticalObject();
+        }
+    }, []);
 
-    getChildContext() {
-        return {
-            d2: this.props.d2,
-        };
-    }
+    return (
+        <Provider
+            config={{
+                baseUrl: process.env.DHIS2_BASE_URL,
+                apiVersion,
+            }}
+        >
+            <FatalErrorBoundary>
+                <div className={styles.app}>
+                    <CssReset />
+                    <CssVariables colors spacers theme />
+                    <HeaderBar appName={i18n.t('Maps')} />
+                    <AppMenu />
+                    <InterpretationsPanel />
+                    <LayersPanel />
+                    <LayersToggle />
+                    <MapContainer />
+                    <BottomPanel />
+                    <LayerEdit />
+                    <ContextMenu />
+                    <AlertStack />
+                    <DataDownloadDialog />
+                    <OpenAsMapDialog />
+                    <OrgUnitProfile />
+                </div>
+            </FatalErrorBoundary>
+        </Provider>
+    );
+};
 
-    render() {
-        return (
-            <Provider
-                config={{
-                    baseUrl: process.env.DHIS2_BASE_URL,
-                    apiVersion,
-                }}
-            >
-                <FatalErrorBoundary>
-                    <div className={styles.app}>
-                        <CssReset />
-                        <CssVariables colors spacers theme />
-                        <HeaderBar appName={i18n.t('Maps')} />
-                        <AppMenu />
-                        <InterpretationsPanel />
-                        <LayersPanel />
-                        <LayersToggle />
-                        <MapContainer />
-                        <BottomPanel />
-                        <LayerEdit />
-                        <ContextMenu />
-                        <AlertStack />
-                        <DataDownloadDialog />
-                        <OpenAsMapDialog />
-                        <OrgUnitProfile />
-                    </div>
-                </FatalErrorBoundary>
-            </Provider>
-        );
-    }
-}
+App.propTypes = {
+    mapId: PropTypes.string,
+    analyticalObject: PropTypes.string,
+};
 
-export default App;
+export default connect(null, {
+    loadFavorite,
+    getAnalyticalObject,
+})(App);

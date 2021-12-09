@@ -2,24 +2,10 @@ import { combineEpics } from 'redux-observable';
 import 'rxjs/add/operator/concatMap';
 import * as types from '../constants/actionTypes';
 import { closeContextMenu } from '../actions/map';
-import { addLayer, updateLayer, loadLayer } from '../actions/layers';
-import { errorActionCreator } from '../actions/helpers';
-import { fetchLayer } from '../loaders/layers';
+import { loadLayer } from '../actions/layers';
 import { drillUpDown } from '../util/map';
 import { getPeriodFromFilters } from '../util/analytics';
 import { getRelativePeriods } from '../util/periods';
-
-const isNewLayer = config => config.id === undefined;
-
-// Load one layer
-export const loadLayerEpic = action$ =>
-    action$.ofType(types.LAYER_LOAD).concatMap(action =>
-        fetchLayer(action.payload)
-            .then(config =>
-                isNewLayer(config) ? addLayer(config) : updateLayer(config)
-            )
-            .catch(errorActionCreator(types.LAYER_LOAD_ERROR))
-    );
 
 export const drillLayer = (action$, store) =>
     action$
@@ -61,4 +47,4 @@ export const setRelativePeriodDate = (action$, store) =>
         )
         .map(loadLayer);
 
-export default combineEpics(loadLayerEpic, drillLayer, setRelativePeriodDate);
+export default combineEpics(drillLayer, setRelativePeriodDate);
