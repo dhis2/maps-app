@@ -8,6 +8,8 @@ import SystemSettingsProvider from './SystemSettingsProvider';
 import { apiVersion } from '../constants/settings';
 import App from './app/App';
 
+import i18n from '../locales';
+
 const d2Config = {
     schemas: [
         'dataElement',
@@ -47,7 +49,17 @@ const Root = ({ store, ...appProps }) => {
                         return (
                             <SystemSettingsProvider>
                                 <UserSettingsProvider>
-                                    <App {...appProps} />
+                                    {({ userSettings }) => {
+                                        if (!userSettings?.keyUiLocale) {
+                                            return null;
+                                        }
+                                        //TODO - this does not set the lang for the FileMenu
+                                        i18n.changeLanguage(
+                                            userSettings.keyUiLocale
+                                        );
+                                        console.log('i18n', i18n);
+                                        return <App {...appProps} />;
+                                    }}
                                 </UserSettingsProvider>
                             </SystemSettingsProvider>
                         );
