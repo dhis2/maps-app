@@ -19,6 +19,7 @@ export const SelectField = props => {
         dense = true,
         errorText,
         helpText,
+        warning,
         items,
         label,
         loading,
@@ -65,7 +66,8 @@ export const SelectField = props => {
                 disabled={disabled}
                 loading={isLoading}
                 error={!!errorText}
-                validationText={errorText}
+                warning={!!warning}
+                validationText={warning ? warning : errorText}
                 helpText={helpText}
                 onChange={onSelectChange}
                 dataTest={dataTest}
@@ -104,6 +106,11 @@ SelectField.propTypes = {
      * If set, shows the error message below the SelectField
      */
     errorText: PropTypes.string,
+
+    /**
+     * If set, shows the warning message below the SelectField
+     */
+    warning: PropTypes.string,
 
     /**
      * The select field items (rendered as MenuItems)

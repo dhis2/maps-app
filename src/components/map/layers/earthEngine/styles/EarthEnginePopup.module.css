@@ -1,3 +1,10 @@
+.popup {
+    color: var(--colors-grey900);
+    max-height: 240px;
+    overflow-y: auto;
+    padding-right: var(--spacers-dp8);
+}
+
 .title {
     font-weight: bold;
     font-size: 16px;
@@ -7,7 +14,7 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 22px;
     margin-bottom: var(--spacers-dp16);
 }
@@ -33,15 +40,13 @@
 }
 
 .table thead {
-    border-bottom: 1px solid #eee;
+    color: var(--colors-grey600);
+    font-weight: 500;
+    border-bottom: 1px solid var(--colors-grey300);
 }
 
 .table tfoot {
-    border-top: 1px solid #eee;
-}
-
-.table tfoot {
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--colors-grey300);
 }
 
 .table th,
@@ -58,7 +63,7 @@
 
 .table thead th,
 .table tfoot th {
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .table thead th:not(:first-child),

@@ -164,14 +164,16 @@ const EarthEnginePopup = props => {
             onClose={onClose}
             className="dhis2-map-popup-orgunit"
         >
-            <div className={styles.title}>{name}</div>
-            {table}
-            {isLoading && (
-                <div className={styles.loading}>
-                    <CircularLoader small />
-                    {i18n.t('Loading data')}
-                </div>
-            )}
+            <div className={styles.popup}>
+                <div className={styles.title}>{name}</div>
+                {table}
+                {isLoading && (
+                    <div className={styles.loading}>
+                        <CircularLoader small />
+                        {i18n.t('Loading data')}
+                    </div>
+                )}
+            </div>
         </Popup>
     );
 };
