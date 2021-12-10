@@ -5,17 +5,14 @@ import { connect } from 'react-redux';
 import { SelectField } from '../../core';
 import { setBand } from '../../../actions/layerEdit';
 
-const MAX_BANDS = 3;
+const MAX_BANDS = 10;
 
 const BandSelect = ({ band = [], bands, setBand, errorText }) => {
     let warning;
 
     if (band.length > MAX_BANDS) {
         warning = i18n.t(
-            'Warning: It takes longer time to calculate data for many groups.',
-            {
-                maxBands: MAX_BANDS,
-            }
+            'Warning: It takes longer time to calculate data for many groups.'
         );
     }
 

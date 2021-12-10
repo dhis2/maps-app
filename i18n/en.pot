@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-12-08T15:23:58.705Z\n"
-"PO-Revision-Date: 2021-12-08T15:23:58.705Z\n"
+"POT-Creation-Date: 2021-12-10T16:33:24.098Z\n"
+"PO-Revision-Date: 2021-12-10T16:33:24.098Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -180,9 +180,6 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Maximum number of groups are {{maxBands}}"
 msgstr ""
 
 msgid "Groups"
