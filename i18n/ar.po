@@ -827,7 +827,7 @@ msgid "End date"
 msgstr "تاريخ النهاية"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "غير متوفر في وضع عدم الإتصال"
 
 msgid "Program indicator"
 msgstr "مؤشرات البرنامج"
