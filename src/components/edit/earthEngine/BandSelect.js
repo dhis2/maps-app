@@ -12,7 +12,7 @@ const BandSelect = ({ band = [], bands, setBand, errorText }) => {
 
     if (band.length > MAX_BANDS) {
         warning = i18n.t(
-            'Warning: It takes longer time to calculate data for many groups.'
+            'Choosing many groups takes a long time to calculate and display.'
         );
     }
 
