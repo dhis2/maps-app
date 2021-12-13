@@ -210,6 +210,27 @@ export const earthEngineLayers = () => [
     },
     {
         layer: EARTH_ENGINE_LAYER,
+        datasetId: 'GOOGLE/Research/open-buildings/v1/polygons',
+        format: 'FeatureCollection',
+        name: i18n.t('Building footprints'),
+        unit: i18n.t('meters'),
+        description: i18n.t(
+            'The outlines of buildings derived from high-resolution satellite imagery. Only for the continent of Africa.'
+        ),
+        source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
+        sourceUrl: 'https://sites.research.google/open-buildings/',
+        img: '',
+        aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
+        defaultAggregations: ['min', 'max', 'mean'],
+        params: {
+            min: 0,
+            max: 1500,
+            palette: '#ffffd4,#fee391,#fec44f,#fe9929,#d95f0e,#993404', // YlOrBr
+        },
+        opacity: 0.9,
+    },
+    {
+        layer: EARTH_ENGINE_LAYER,
         datasetId: 'USGS/SRTMGL1_003',
         name: i18n.t('Elevation'),
         unit: i18n.t('meters'),

@@ -50,6 +50,7 @@ export default class EarthEngineLayer extends Layer {
         const {
             id,
             index,
+            format,
             opacity,
             isVisible,
             datasetId,
@@ -78,6 +79,7 @@ export default class EarthEngineLayer extends Layer {
             type: EARTH_ENGINE_LAYER,
             id,
             index,
+            format,
             opacity,
             isVisible,
             datasetId,
