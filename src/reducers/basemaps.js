@@ -4,8 +4,6 @@ import { BING_LAYER } from '../constants/layers';
 import * as types from '../constants/actionTypes';
 
 const basemaps = (state = defaultBasemaps(), action) => {
-    let bingMapsKey;
-
     switch (action.type) {
         case types.BASEMAP_ADD:
             return [...state, action.payload];

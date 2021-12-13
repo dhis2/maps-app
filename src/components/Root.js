@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Provider as DataProvider } from '@dhis2/app-runtime';
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2';
-import UserSettingsProvider from './UserSettingsProvider';
+import UserSettingsProvider, { UserSettingsCtx } from './UserSettingsProvider';
 import SystemSettingsProvider from './SystemSettingsProvider';
 import { apiVersion } from '../constants/settings';
 import App from './app/App';
@@ -49,17 +49,17 @@ const Root = ({ store, ...appProps }) => {
                         return (
                             <SystemSettingsProvider>
                                 <UserSettingsProvider>
-                                    {({ userSettings }) => {
-                                        if (!userSettings?.keyUiLocale) {
-                                            return null;
-                                        }
-                                        //TODO - this does not set the lang for the FileMenu
-                                        i18n.changeLanguage(
-                                            userSettings.keyUiLocale
-                                        );
-                                        console.log('i18n', i18n);
-                                        return <App {...appProps} />;
-                                    }}
+                                    <UserSettingsCtx.Consumer>
+                                        {({ userSettings }) => {
+                                            if (!userSettings?.keyUiLocale) {
+                                                return null;
+                                            }
+                                            i18n.changeLanguage(
+                                                userSettings.keyUiLocale
+                                            );
+                                            return <App {...appProps} />;
+                                        }}
+                                    </UserSettingsCtx.Consumer>
                                 </UserSettingsProvider>
                             </SystemSettingsProvider>
                         );
@@ -69,7 +69,6 @@ const Root = ({ store, ...appProps }) => {
         </DataProvider>
     );
 };
-
 Root.propTypes = {
     store: PropTypes.object.isRequired,
 };

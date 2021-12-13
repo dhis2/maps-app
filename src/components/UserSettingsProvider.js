@@ -35,13 +35,13 @@ const UserSettingsProvider = ({ children }) => {
                 userSettings: settings,
             }}
         >
-            {children({ userSettings: settings })}
+            {children}
         </UserSettingsCtx.Provider>
     );
 };
 
 UserSettingsProvider.propTypes = {
-    children: PropTypes.func,
+    children: PropTypes.node,
 };
 
 export default UserSettingsProvider;

@@ -8,8 +8,6 @@ import Root from './components/Root';
 import { resizeScreen } from './actions/ui';
 import { getUrlParameter } from './util/requests';
 
-import './locales';
-
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
 );
