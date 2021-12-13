@@ -5,17 +5,15 @@ import log from 'loglevel';
 import { debounce } from 'lodash/fp';
 import store from './store';
 import Root from './components/Root';
-import { loadOrgUnitTree } from './actions/orgUnits';
-import { loadExternalLayers } from './actions/externalLayers';
 import { resizeScreen } from './actions/ui';
 import { getUrlParameter } from './util/requests';
+
+import './locales';
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
 );
 
-store.dispatch(loadOrgUnitTree());
-store.dispatch(loadExternalLayers());
 const mapId = getUrlParameter('id');
 const analyticalObject = getUrlParameter('currentAnalyticalObject');
 

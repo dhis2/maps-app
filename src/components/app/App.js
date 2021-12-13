@@ -4,9 +4,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Provider } from '@dhis2/app-runtime';
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
+import isEmpty from 'lodash/isEmpty';
 import AppMenu from './AppMenu';
+import { useSystemSettings } from '../SystemSettingsProvider';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
 import MapContainer from '../map/MapContainer';
@@ -19,14 +20,28 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
-import { apiVersion } from '../../constants/settings';
 import { loadFavorite } from '../../actions/favorites';
 import { getAnalyticalObject } from '../../actions/analyticalObject';
+import { loadOrgUnitTree } from '../../actions/orgUnits';
+import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap';
+import { loadExternalLayers } from '../../actions/externalLayers';
 
 import styles from './styles/App.module.css';
 
-const App = ({ mapId, analyticalObject }) => {
+const App = ({
+    mapId,
+    analyticalObject,
+    loadOrgUnitTree,
+    loadExternalLayers,
+    removeBingBasemaps,
+    setBingMapsApiKey,
+}) => {
+    const { systemSettings } = useSystemSettings();
+
     useEffect(() => {
+        loadOrgUnitTree();
+        loadExternalLayers();
+
         if (mapId) {
             loadFavorite(mapId);
         }
@@ -37,42 +52,53 @@ const App = ({ mapId, analyticalObject }) => {
         }
     }, []);
 
+    useEffect(() => {
+        if (!isEmpty(systemSettings)) {
+            if (!systemSettings.keyBingMapsApiKey) {
+                removeBingBasemaps();
+            } else {
+                setBingMapsApiKey(systemSettings.keyBingMapsApiKey);
+            }
+        }
+    }, [systemSettings]);
+
     return (
-        <Provider
-            config={{
-                baseUrl: process.env.DHIS2_BASE_URL,
-                apiVersion,
-            }}
-        >
-            <FatalErrorBoundary>
-                <div className={styles.app}>
-                    <CssReset />
-                    <CssVariables colors spacers theme />
-                    <HeaderBar appName={i18n.t('Maps')} />
-                    <AppMenu />
-                    <InterpretationsPanel />
-                    <LayersPanel />
-                    <LayersToggle />
-                    <MapContainer />
-                    <BottomPanel />
-                    <LayerEdit />
-                    <ContextMenu />
-                    <AlertStack />
-                    <DataDownloadDialog />
-                    <OpenAsMapDialog />
-                    <OrgUnitProfile />
-                </div>
-            </FatalErrorBoundary>
-        </Provider>
+        <FatalErrorBoundary>
+            <div className={styles.app}>
+                <CssReset />
+                <CssVariables colors spacers theme />
+                <HeaderBar appName={i18n.t('Maps')} />
+                <AppMenu />
+                <InterpretationsPanel />
+                <LayersPanel />
+                <LayersToggle />
+                <MapContainer />
+                <BottomPanel />
+                <LayerEdit />
+                <ContextMenu />
+                <AlertStack />
+                <DataDownloadDialog />
+                <OpenAsMapDialog />
+                <OrgUnitProfile />
+            </div>
+        </FatalErrorBoundary>
     );
 };
 
 App.propTypes = {
     mapId: PropTypes.string,
     analyticalObject: PropTypes.string,
+    loadOrgUnitTree: PropTypes.func,
+    loadExternalLayers: PropTypes.func,
+    removeBingBasemaps: PropTypes.func,
+    setBingMapsApiKey: PropTypes.func,
 };
 
 export default connect(null, {
+    loadOrgUnitTree,
+    loadExternalLayers,
     loadFavorite,
     getAnalyticalObject,
+    removeBingBasemaps,
+    setBingMapsApiKey,
 })(App);

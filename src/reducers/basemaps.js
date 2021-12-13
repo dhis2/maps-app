@@ -13,15 +13,10 @@ const basemaps = (state = defaultBasemaps(), action) => {
         case types.BASEMAP_REMOVE:
             return state.filter(basemap => basemap.id !== action.id);
 
-        case types.SYSTEM_SETTINGS_SET:
-            bingMapsKey = action.payload && action.payload.keyBingMapsApiKey;
+        case types.BASEMAP_REMOVE_BING_MAPS:
+            return state.filter(layer => layer.config.type !== BING_LAYER);
 
-            // Remove Bing basemaps is no key is provided
-            if (!bingMapsKey) {
-                return state.filter(layer => layer.config.type !== BING_LAYER);
-            }
-
-            // Set key property on Bing basemaps
+        case types.BASEMAP_BING_KEY_SET:
             return state.map(layer => {
                 if (layer.config.type !== BING_LAYER) {
                     return layer;
@@ -31,7 +26,7 @@ const basemaps = (state = defaultBasemaps(), action) => {
                     ...layer,
                     config: {
                         ...layer.config,
-                        apiKey: bingMapsKey,
+                        apiKey: action.key,
                     },
                 };
             });
