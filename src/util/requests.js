@@ -13,7 +13,7 @@ export const mapRequest = async id => {
 
     return d2.models.map
         .get(id, {
-            fields: await mapFields(),
+            fields: mapFields(),
         })
         .then(getBasemap)
         .then(config => ({
@@ -40,7 +40,7 @@ export const fetchMap = async (id, engine) => {
                 },
             }
         )
-        .then(getBasemap)
+        .then(map => getBasemap(map.map))
         .then(config => ({
             ...config,
             mapViews: upgradeGisAppLayers(config.mapViews),

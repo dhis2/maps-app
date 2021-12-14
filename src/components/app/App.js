@@ -22,7 +22,7 @@ import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 import { loadFavorite } from '../../actions/favorites';
-import { getAnalyticalObject } from '../../actions/analyticalObject';
+import { setAnalyticalObject } from '../../actions/analyticalObject';
 import { setOrgUnitTree } from '../../actions/orgUnits';
 import { setMap } from '../../actions/map';
 import { loadLayer } from '../../actions/layers';
@@ -38,6 +38,12 @@ import {
     fetchMap,
 } from '../../util/requests';
 import { createExternalLayer } from '../../util/external';
+import {
+    getCurrentAnalyticalObject,
+    clearAnalyticalObjectFromUrl,
+    hasSingleDataDimension,
+    getThematicLayerFromAnalyticalObject,
+} from '../../util/analyticalObject';
 import {
     renameBoundaryLayerToOrgUnitLayer,
     addOrgUnitPaths,
@@ -57,6 +63,7 @@ const App = ({
     setBingMapsApiKey,
     setOrgUnitTree,
     setMap,
+    loadLayer,
 }) => {
     const { systemSettings } = useSystemSettings();
     const engine = useDataEngine();
@@ -84,10 +91,16 @@ const App = ({
                 addOrgUnitPaths(cleanedConfig.mapViews).map(loadLayer);
             }
 
-            //     // If analytical object is passed from another app
-            //     if (analyticalObject === 'true') {
-            //         getAnalyticalObject();
-            //     }
+            if (analyticalObject === 'true') {
+                getCurrentAnalyticalObject().then(ao => {
+                    clearAnalyticalObjectFromUrl();
+                    return hasSingleDataDimension(ao)
+                        ? getThematicLayerFromAnalyticalObject(ao).then(
+                              loadLayer
+                          )
+                        : setAnalyticalObject(ao);
+                });
+            }
         }
         fetchData();
     }, []);
@@ -133,16 +146,19 @@ App.propTypes = {
     removeBingBasemaps: PropTypes.func,
     setBingMapsApiKey: PropTypes.func,
     setOrgUnitTree: PropTypes.func,
-    setMap,
+    setMap: PropTypes.func,
+    setAnalyticalObject: PropTypes.func,
+    loadLayer: PropTypes.func,
 };
 
 export default connect(null, {
     addBasemap,
     addExternalLayer,
     loadFavorite,
-    getAnalyticalObject,
     removeBingBasemaps,
     setBingMapsApiKey,
     setOrgUnitTree,
     setMap,
+    setAnalyticalObject,
+    loadLayer,
 })(App);
