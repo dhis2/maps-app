@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
+import { useDataEngine } from '@dhis2/app-runtime';
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
 import isEmpty from 'lodash/isEmpty';
 import AppMenu from './AppMenu';
@@ -22,34 +23,73 @@ import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 import { loadFavorite } from '../../actions/favorites';
 import { getAnalyticalObject } from '../../actions/analyticalObject';
-import { loadOrgUnitTree } from '../../actions/orgUnits';
-import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap';
-import { loadExternalLayers } from '../../actions/externalLayers';
+import { setOrgUnitTree } from '../../actions/orgUnits';
+import { setMap } from '../../actions/map';
+import { loadLayer } from '../../actions/layers';
+import {
+    removeBingBasemaps,
+    setBingMapsApiKey,
+    addBasemap,
+} from '../../actions/basemap';
+import { addExternalLayer } from '../../actions/externalLayers';
+import {
+    fetchOrgUnits,
+    fetchExternalLayers,
+    fetchMap,
+} from '../../util/requests';
+import { createExternalLayer } from '../../util/external';
+import {
+    renameBoundaryLayerToOrgUnitLayer,
+    addOrgUnitPaths,
+} from '../../util/helpers';
 
 import styles from './styles/App.module.css';
+
+const isBaseMap = layer => layer.mapLayerPosition === 'BASEMAP';
+const isOverlay = layer => !isBaseMap(layer);
 
 const App = ({
     mapId,
     analyticalObject,
-    loadOrgUnitTree,
-    loadExternalLayers,
+    addBasemap,
+    addExternalLayer,
     removeBingBasemaps,
     setBingMapsApiKey,
+    setOrgUnitTree,
+    setMap,
 }) => {
     const { systemSettings } = useSystemSettings();
+    const engine = useDataEngine();
 
     useEffect(() => {
-        loadOrgUnitTree();
-        loadExternalLayers();
+        async function fetchData() {
+            const orgUnitTree = await fetchOrgUnits(engine);
+            setOrgUnitTree(orgUnitTree.orgUnitTree.organisationUnits);
 
-        if (mapId) {
-            loadFavorite(mapId);
-        }
+            const externalLayers = await fetchExternalLayers(engine);
+            externalLayers.externalLayers.externalMapLayers
+                .filter(isBaseMap)
+                .map(createExternalLayer)
+                .map(addBasemap);
 
-        // If analytical object is passed from another app
-        if (analyticalObject === 'true') {
-            getAnalyticalObject();
+            externalLayers.externalLayers.externalMapLayers
+                .filter(isOverlay)
+                .map(createExternalLayer)
+                .map(addExternalLayer);
+
+            if (mapId) {
+                const config = await fetchMap(mapId, engine);
+                const cleanedConfig = renameBoundaryLayerToOrgUnitLayer(config);
+                setMap(cleanedConfig);
+                addOrgUnitPaths(cleanedConfig.mapViews).map(loadLayer);
+            }
+
+            //     // If analytical object is passed from another app
+            //     if (analyticalObject === 'true') {
+            //         getAnalyticalObject();
+            //     }
         }
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -88,17 +128,21 @@ const App = ({
 App.propTypes = {
     mapId: PropTypes.string,
     analyticalObject: PropTypes.string,
-    loadOrgUnitTree: PropTypes.func,
-    loadExternalLayers: PropTypes.func,
+    addBasemap: PropTypes.func,
+    addExternalLayer: PropTypes.func,
     removeBingBasemaps: PropTypes.func,
     setBingMapsApiKey: PropTypes.func,
+    setOrgUnitTree: PropTypes.func,
+    setMap,
 };
 
 export default connect(null, {
-    loadOrgUnitTree,
-    loadExternalLayers,
+    addBasemap,
+    addExternalLayer,
     loadFavorite,
     getAnalyticalObject,
     removeBingBasemaps,
     setBingMapsApiKey,
+    setOrgUnitTree,
+    setMap,
 })(App);

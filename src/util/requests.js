@@ -22,6 +22,57 @@ export const mapRequest = async id => {
         }));
 };
 
+const fetchMapQuery = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: mapFields(),
+    },
+};
+
+export const fetchMap = async (id, engine) => {
+    return engine
+        .query(
+            { map: fetchMapQuery },
+            {
+                variables: {
+                    id,
+                },
+            }
+        )
+        .then(getBasemap)
+        .then(config => ({
+            ...config,
+            mapViews: upgradeGisAppLayers(config.mapViews),
+        }));
+};
+
+const fetchOrgUnitsQuery = {
+    resource: 'organisationUnits',
+    params: {
+        userDataViewFallback: true,
+        fields:
+            'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
+    },
+};
+
+export const fetchOrgUnits = async engine => {
+    return engine.query({ orgUnitTree: fetchOrgUnitsQuery });
+};
+
+const fetchExternalLayersQuery = {
+    resource: 'externalMapLayers',
+    params: {
+        paging: false,
+        fields:
+            'id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
+    },
+};
+
+export const fetchExternalLayers = async engine => {
+    return engine.query({ externalLayers: fetchExternalLayersQuery });
+};
+
 // Fetch one external layer
 export const getExternalLayer = async id => {
     const d2 = await getD2();
