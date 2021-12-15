@@ -6,7 +6,6 @@ import 'rxjs/add/operator/concatMapTo';
 import 'rxjs/add/observable/empty';
 import dataElementEpics from './dataElements';
 import dataSetEpics from './dataSets';
-import externalLayerEpics from './externalLayers';
 import favoriteEpics from './maps';
 import indicatorEpics from './indicators';
 import layerEpics from './layers';
@@ -29,7 +28,6 @@ export default combineEpics(
     dataElementEpics,
     dataSetEpics,
     errorEpic,
-    externalLayerEpics,
     favoriteEpics,
     indicatorEpics,
     layerEpics,

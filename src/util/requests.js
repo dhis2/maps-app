@@ -47,16 +47,17 @@ export const fetchMap = async (id, engine) => {
         }));
 };
 
-const fetchOrgUnitsQuery = {
-    resource: 'organisationUnits',
-    params: {
-        userDataViewFallback: true,
-        fields:
-            'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
-    },
-};
+// const fetchOrgUnitsQuery = {
+//     resource: 'organisationUnits',
+//     params: {
+//         userDataViewFallback: true,
+//         fields:
+//             'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
+//     },
+// };
 
 export const fetchOrgUnits = async () => {
+    // TODO - use d2 until correct dataQuery format can be determined
     const d2 = await getD2();
     const collection = await d2.models.organisationUnits.list({
         userDataViewFallback: true,
@@ -75,9 +76,8 @@ const fetchExternalLayersQuery = {
     },
 };
 
-export const fetchExternalLayers = async engine => {
-    return engine.query({ externalLayers: fetchExternalLayersQuery });
-};
+export const fetchExternalLayers = async engine =>
+    engine.query({ externalLayers: fetchExternalLayersQuery });
 
 // Fetch one external layer
 export const getExternalLayer = async id => {
