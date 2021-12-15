@@ -62,6 +62,7 @@ const App = ({
     removeBingBasemaps,
     setBingMapsApiKey,
     setOrgUnitTree,
+    setAnalyticalObject,
     setMap,
     loadLayer,
 }) => {
