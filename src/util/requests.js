@@ -30,8 +30,8 @@ const fetchMapQuery = {
     },
 };
 
-export const fetchMap = async (id, engine) => {
-    return engine
+export const fetchMap = async (id, engine) =>
+    engine
         .query(
             { map: fetchMapQuery },
             {
@@ -45,7 +45,6 @@ export const fetchMap = async (id, engine) => {
             ...config,
             mapViews: upgradeGisAppLayers(config.mapViews),
         }));
-};
 
 // const fetchOrgUnitsQuery = {
 //     resource: 'organisationUnits',
