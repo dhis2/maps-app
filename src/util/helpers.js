@@ -1,4 +1,3 @@
-import { getInstance as getD2 } from 'd2';
 import { isObject } from 'lodash/fp';
 import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../constants/layers';
 

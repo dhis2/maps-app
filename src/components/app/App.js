@@ -71,8 +71,8 @@ const App = ({
 
     useEffect(() => {
         async function fetchData() {
-            const orgUnitTree = await fetchOrgUnits(engine);
-            setOrgUnitTree(orgUnitTree.orgUnitTree.organisationUnits);
+            const orgUnitTree = await fetchOrgUnits();
+            setOrgUnitTree(orgUnitTree);
 
             const externalLayers = await fetchExternalLayers(engine);
             externalLayers.externalLayers.externalMapLayers

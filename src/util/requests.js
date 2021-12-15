@@ -56,8 +56,14 @@ const fetchOrgUnitsQuery = {
     },
 };
 
-export const fetchOrgUnits = async engine => {
-    return engine.query({ orgUnitTree: fetchOrgUnitsQuery });
+export const fetchOrgUnits = async () => {
+    const d2 = await getD2();
+    const collection = await d2.models.organisationUnits.list({
+        userDataViewFallback: true,
+        fields:
+            'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
+    });
+    return collection.toArray();
 };
 
 const fetchExternalLayersQuery = {
