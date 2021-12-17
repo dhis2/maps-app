@@ -42,8 +42,9 @@ context('Smoke Test', () => {
     });
 
     it('does not include Bing basemaps if no Bing api key', () => {
-        cy.intercept('systemSettings*', req => {
-            req.reply(res => {
+        cy.intercept({ method: 'GET', url: 'systemSettings?*' }, req => {
+            delete req.headers['if-none-match'];
+            req.continue(res => {
                 delete res.body.keyBingMapsApiKey;
 
                 res.send({
@@ -51,10 +52,28 @@ context('Smoke Test', () => {
                 });
             });
         });
+
         cy.visit('/');
 
         cy.get('[data-test="basemaplist"]', EXTENDED_TIMEOUT)
             .children()
             .should('have.length', 5);
+    });
+
+    it('includes Bing basemaps when Bing api key present', () => {
+        cy.intercept({ method: 'GET', url: 'systemSettings?*' }, req => {
+            delete req.headers['if-none-match'];
+            req.continue();
+        });
+
+        cy.visit('/');
+
+        cy.get('[data-test="basemaplist"]', EXTENDED_TIMEOUT)
+            .children()
+            .should('have.length.greaterThan', 5);
+
+        cy.get('[data-test="basemaplistitem-name"]')
+            .contains('Bing Road')
+            .should('be.visible');
     });
 });
