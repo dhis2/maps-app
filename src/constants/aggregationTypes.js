@@ -27,7 +27,11 @@ export const getEarthEngineAggregationTypes = filter => {
         { id: 'mean', name: i18n.t('Mean') },
         { id: 'median', name: i18n.t('Median') },
         { id: 'sum', name: i18n.t('Sum') },
-        { id: 'stdDev', name: i18n.t('Standard deviation') },
+        {
+            id: 'stdDev',
+            name: i18n.t('Standard deviation'),
+            shortName: i18n.t('Std dev'),
+        },
         { id: 'variance', name: i18n.t('Variance') },
     ];
 
@@ -37,5 +41,8 @@ export const getEarthEngineAggregationTypes = filter => {
 export const getEarthEngineStatisticType = id =>
     (getEarthEngineStatisticTypes().find(t => t.id === id) || {}).name;
 
-export const getEarthEngineAggregationType = id =>
-    (getEarthEngineAggregationTypes().find(t => t.id === id) || {}).name;
+export const getEarthEngineAggregationType = id => {
+    const { name, shortName } =
+        getEarthEngineAggregationTypes().find(t => t.id === id) || {};
+    return shortName || name;
+};

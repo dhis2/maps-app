@@ -1,3 +1,10 @@
+.popup {
+    color: var(--colors-grey900);
+    max-height: 240px;
+    overflow-y: auto;
+    padding-right: var(--spacers-dp8);
+}
+
 .title {
     font-weight: bold;
     font-size: 16px;
@@ -7,7 +14,9 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 22px;
+    margin-bottom: var(--spacers-dp16);
 }
 
 .table caption {
@@ -30,36 +39,44 @@
     font-weight: normal;
 }
 
-.table thead th {
-    text-align: left;
-    padding-bottom: var(--spacers-dp4);
+.table thead {
+    color: var(--colors-grey600);
+    font-weight: 500;
+    border-bottom: 1px solid var(--colors-grey300);
 }
 
-.table thead th:last-child {
+.table tfoot {
+    border-top: 1px solid var(--colors-grey300);
+}
+
+.table th,
+.table td {
     text-align: right;
-}
-
-.table tbody th {
-    text-align: left;
     font-weight: normal;
-    padding-right: var(--spacers-dp8);
 }
 
-.table tbody td {
+.table thead th:first-child,
+.table tbody th,
+.table tfoot th {
     text-align: left;
 }
 
-.table tbody td:last-child {
-    text-align: right;
+.table thead th,
+.table tfoot th {
+    font-weight: 500;
 }
 
-td.color {
+.table thead th:not(:first-child),
+.table td {
+    padding-left: var(--spacers-dp12);
+}
+
+.classes th:first-child {
     width: 20px;
 }
 
-td.name {
+.classes th:nth-child(2) {
     padding-left: var(--spacers-dp8);
-    padding-right: var(--spacers-dp8);
 }
 
 .loading {
