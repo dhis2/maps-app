@@ -15,13 +15,13 @@ There are two types of tests on this project, **unit** and **integration/browser
 
 ### Browser tests (Cypress)
 
-To run the Cypress tests locally, first set up the `cypress.env.json` file at the root of the repository. `dhis2_base_url` should be set to the DHIS2 api instance.
+To run the Cypress tests locally, first set up the `cypress.env.json` file at the root of the repository. `dhis2BaseUrl` should be set to the DHIS2 api instance.
 
 ```
 {
-    "dhis2_username": "admin",
-    "dhis2_password": "district",
-    "dhis2_base_url": "http://localhost:8080"
+    "dhis2Username": "admin",
+    "dhis2Password": "district",
+    "dhis2BaseUrl": "http://localhost:8080"
 }
 ```
 
