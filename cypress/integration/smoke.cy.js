@@ -1,5 +1,5 @@
 import { ThematicLayer } from '../elements/thematic_layer';
-import { getApiBaseUrl } from '../support/util';
+import { getApiBaseUrl, EXTENDED_TIMEOUT } from '../support/util';
 import { analyticalObject } from '../fixtures/analyticalObject';
 
 context('Smoke Test', () => {
@@ -39,5 +39,22 @@ context('Smoke Test', () => {
                 cy.get('canvas.maplibregl-canvas').should('be.visible');
             });
         });
+    });
+
+    it('does not include Bing basemaps if no Bing api key', () => {
+        cy.intercept('systemSettings*', req => {
+            req.reply(res => {
+                delete res.body.keyBingMapsApiKey;
+
+                res.send({
+                    body: res.body,
+                });
+            });
+        });
+        cy.visit('/');
+
+        cy.get('[data-test="basemaplist"]', EXTENDED_TIMEOUT)
+            .children()
+            .should('have.length', 5);
     });
 });
