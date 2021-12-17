@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import { SelectField } from '../../core';
 import { setBand } from '../../../actions/layerEdit';
 
-const MAX_BANDS = 10;
+const WARNING_BANDS = 10;
 
 const BandSelect = ({ band = [], bands, setBand, errorText }) => {
     let warning;
 
-    if (band.length > MAX_BANDS) {
+    // Show time warning if more than 10 bands/groups are selected
+    if (band.length > WARNING_BANDS) {
         warning = i18n.t(
             'Choosing many groups takes a long time to calculate and display.'
         );
