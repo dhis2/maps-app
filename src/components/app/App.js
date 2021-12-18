@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
+import log from 'loglevel';
 import { useDataEngine } from '@dhis2/app-runtime';
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
 import isEmpty from 'lodash/isEmpty';
@@ -71,36 +72,54 @@ const App = ({
 
     useEffect(() => {
         async function fetchData() {
-            const orgUnitTree = await fetchOrgUnits();
-            setOrgUnitTree(orgUnitTree);
+            try {
+                const orgUnitTree = await fetchOrgUnits();
+                setOrgUnitTree(orgUnitTree);
+            } catch (e) {
+                log.error('Could not load organisation unit tree');
+            }
 
-            const externalLayers = await fetchExternalLayers(engine);
-            externalLayers.externalLayers.externalMapLayers
-                .filter(isBaseMap)
-                .map(createExternalLayer)
-                .map(addBasemap);
+            try {
+                const externalLayers = await fetchExternalLayers(engine);
+                externalLayers.externalLayers.externalMapLayers
+                    .filter(isBaseMap)
+                    .map(createExternalLayer)
+                    .map(addBasemap);
 
-            externalLayers.externalLayers.externalMapLayers
-                .filter(isOverlay)
-                .map(createExternalLayer)
-                .map(addExternalLayer);
+                externalLayers.externalLayers.externalMapLayers
+                    .filter(isOverlay)
+                    .map(createExternalLayer)
+                    .map(addExternalLayer);
+            } catch (e) {
+                log.error('Could not load organisation unit tree');
+            }
 
             if (mapId) {
-                const config = await fetchMap(mapId, engine);
-                const cleanedConfig = renameBoundaryLayerToOrgUnitLayer(config);
-                setMap(cleanedConfig);
-                addOrgUnitPaths(cleanedConfig.mapViews).map(loadLayer);
+                try {
+                    const config = await fetchMap(mapId, engine);
+                    const cleanedConfig = renameBoundaryLayerToOrgUnitLayer(
+                        config
+                    );
+                    setMap(cleanedConfig);
+                    addOrgUnitPaths(cleanedConfig.mapViews).map(loadLayer);
+                } catch (e) {
+                    log.error(`Could not load map with id ${mapId}`);
+                }
             }
 
             if (analyticalObject === 'true') {
-                getCurrentAnalyticalObject().then(ao => {
-                    clearAnalyticalObjectFromUrl();
-                    return hasSingleDataDimension(ao)
-                        ? getThematicLayerFromAnalyticalObject(ao).then(
-                              loadLayer
-                          )
-                        : setAnalyticalObject(ao);
-                });
+                try {
+                    getCurrentAnalyticalObject().then(ao => {
+                        clearAnalyticalObjectFromUrl();
+                        return hasSingleDataDimension(ao)
+                            ? getThematicLayerFromAnalyticalObject(ao).then(
+                                  loadLayer
+                              )
+                            : setAnalyticalObject(ao);
+                    });
+                } catch (e) {
+                    log.error('Could not load current analytical object');
+                }
             }
         }
         fetchData();
