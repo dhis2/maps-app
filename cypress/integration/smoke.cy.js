@@ -1,5 +1,5 @@
 import { ThematicLayer } from '../elements/thematic_layer';
-import { getApiBaseUrl, EXTENDED_TIMEOUT } from '../support/util';
+import { getApiBaseUrl } from '../support/util';
 import { analyticalObject } from '../fixtures/analyticalObject';
 
 context('Smoke Test', () => {
