@@ -12,10 +12,18 @@ export class Layer {
         return this;
     }
 
-    selectTab(tab) {
+    selectTab(tabName) {
         cy.get('[data-test="dhis2-uicore-tabbar-tabs"]')
             .find('button')
-            .contains(tab)
+            .contains(tabName)
+            .click();
+
+        return this;
+    }
+
+    selectOu(ouName) {
+        cy.get('.tree-view.orgunit')
+            .contains(ouName)
             .click();
 
         return this;

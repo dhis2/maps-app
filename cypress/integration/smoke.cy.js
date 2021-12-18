@@ -41,39 +41,40 @@ context('Smoke Test', () => {
         });
     });
 
-    it('does not include Bing basemaps if no Bing api key', () => {
-        cy.intercept({ method: 'GET', url: 'systemSettings?*' }, req => {
-            delete req.headers['if-none-match'];
-            req.continue(res => {
-                delete res.body.keyBingMapsApiKey;
-
-                res.send({
-                    body: res.body,
-                });
-            });
-        });
-
+    it('opens the interpretations panel for a map', () => {
         cy.visit('/');
 
-        cy.get('[data-test="basemaplist"]', EXTENDED_TIMEOUT)
-            .children()
-            .should('have.length', 5);
-    });
+        cy.contains('File').click();
+        cy.get('[data-test="file-menu-container"]').should('be.visible');
 
-    it('includes Bing basemaps when Bing api key present', () => {
-        cy.intercept({ method: 'GET', url: 'systemSettings?*' }, req => {
-            delete req.headers['if-none-match'];
-            req.continue();
-        });
+        cy.get('[data-test="file-menu-open"]')
+            .should('be.visible')
+            .click();
 
-        cy.visit('/');
+        cy.get('[data-test="open-file-dialog-modal-name-filter"]')
+            .find('input')
+            .focus()
+            .type('ANC: LLITN coverage district and facility');
 
-        cy.get('[data-test="basemaplist"]', EXTENDED_TIMEOUT)
-            .children()
-            .should('have.length.greaterThan', 5);
+        cy.get('[data-test="open-file-dialog-modal"')
+            .contains('ANC: LLITN coverage district and facility')
+            .click();
 
-        cy.get('[data-test="basemaplistitem-name"]')
-            .contains('Bing Road')
+        cy.get('button')
+            .contains('Interpretations')
+            .click();
+
+        cy.contains('Map details').should('be.visible');
+        cy.get('textarea').should(
+            'have.attr',
+            'placeholder',
+            'Write an interpretation'
+        );
+
+        cy.get('p')
+            .contains(
+                'Koinadugu has a very high LLITN coverage despite low density of facilities providing nets.'
+            )
             .should('be.visible');
     });
 });

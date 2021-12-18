@@ -49,6 +49,31 @@ context('Thematic Layers', () => {
         ]);
     });
 
+    it('adds a thematic layer for OU Bombali', () => {
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('HIV')
+            .selectIndicator(INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType('Yearly')
+            .selectTab('Org Units')
+            .selectOu('Bombali')
+            .selectOu('Bo')
+            .addToMap();
+
+        Layer.validateDialogClosed(true);
+
+        // TODO: use visual snapshot testing to check the rendering of the map
+
+        Layer.validateCardTitle(INDICATOR_NAME);
+        Layer.validateCardItems([
+            '80.9 - 83.04 (1)',
+            '83.04 - 85.18 (0)',
+            '85.18 - 87.32 (0)',
+            '87.32 - 89.46 (0)',
+            '89.46 - 91.6 (1)',
+        ]);
+    });
+
     it('adds a thematic layer with start and end date', () => {
         Layer.openDialog('Thematic')
             .selectIndicatorGroup('HIV')

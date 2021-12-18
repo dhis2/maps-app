@@ -38,6 +38,7 @@ const RelativePeriodSelect = ({
             onChange={onChange}
             className={className}
             errorText={!value && errorText ? errorText : null}
+            dataTest="relative-period-select"
         />
     );
 };
