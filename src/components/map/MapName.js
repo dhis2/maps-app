@@ -9,7 +9,7 @@ import styles from './styles/MapName.module.css';
 
 const MapName = ({ showName, name, interpretationDate }) => {
     const { userSettings } = useUserSettings();
-    return showName && userSettings.keyUiLocale && name ? (
+    return showName && name ? (
         <div className={styles.mapName}>
             <div className={`${styles.name} dhis2-maps-title`}>{name}</div>
             {interpretationDate && (
@@ -20,7 +20,7 @@ const MapName = ({ showName, name, interpretationDate }) => {
                         {
                             interpretationDate: formatLocaleDate(
                                 interpretationDate,
-                                userSettings.keyUiLocale
+                                userSettings.keyUiLocale || 'en'
                             ),
                         }
                     )}
