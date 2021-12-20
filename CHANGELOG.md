@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/dhis2/maps-app/compare/v1.15.10...v1.16.0) (2021-12-20)
+
+
+### Features
+
+* run Earth Engine API in a web worker (DHIS2-12013) ([#1931](https://github.com/dhis2/maps-app/issues/1931)) ([53f6dda](https://github.com/dhis2/maps-app/commit/53f6dda9aa88c03187d185e8f5180288d797d016))
+
 ## [1.15.10](https://github.com/dhis2/maps-app/compare/v1.15.9...v1.15.10) (2021-12-11)
 
 
