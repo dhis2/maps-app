@@ -34,10 +34,10 @@ describe('systemSettings', () => {
     });
 
     it('includes Weekly period type when weekly periods not hidden in system settings', () => {
-        // cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
-        //     delete req.headers['if-none-match'];
-        //     req.continue();
-        // });
+        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
+            delete req.headers['if-none-match'];
+            req.continue();
+        });
 
         cy.visit('/');
 
@@ -76,10 +76,10 @@ describe('systemSettings', () => {
     });
 
     it('includes Bing basemaps when Bing api key present', () => {
-        // cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
-        //     delete req.headers['if-none-match'];
-        //     req.continue();
-        // });
+        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
+            delete req.headers['if-none-match'];
+            req.continue();
+        });
 
         cy.visit('/');
 
@@ -118,10 +118,10 @@ describe('systemSettings', () => {
     });
 
     it('uses Last 12 months as default relative period', () => {
-        // cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
-        //     delete req.headers['if-none-match'];
-        //     req.continue();
-        // });
+        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
+            delete req.headers['if-none-match'];
+            req.continue();
+        });
 
         cy.visit('/');
 

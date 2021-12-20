@@ -91,7 +91,7 @@ const App = ({
                     .map(createExternalLayer)
                     .map(addExternalLayer);
             } catch (e) {
-                log.error('Could not load organisation unit tree');
+                log.error('Could not load external map layers');
             }
 
             if (mapId) {
