@@ -1,3 +1,17 @@
+## [1.15.10](https://github.com/dhis2/maps-app/compare/v1.15.9...v1.15.10) (2021-12-11)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([76c2503](https://github.com/dhis2/maps-app/commit/76c2503be33a55668148659ce58dd3e62ad9a0f9))
+
+## [1.15.9](https://github.com/dhis2/maps-app/compare/v1.15.8...v1.15.9) (2021-12-02)
+
+
+### Bug Fixes
+
+* include font glyphs in apps bundle ([#1955](https://github.com/dhis2/maps-app/issues/1955)) ([b764ecb](https://github.com/dhis2/maps-app/commit/b764ecba0bd7232db7e65740a84e4d0079224150))
+
 ## [1.15.8](https://github.com/dhis2/maps-app/compare/v1.15.7...v1.15.8) (2021-11-26)
 
 
