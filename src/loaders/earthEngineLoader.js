@@ -106,14 +106,12 @@ const earthEngineLoader = async config => {
     const period = getPeriodNameFromFilter(filter);
     const data =
         Array.isArray(features) && features.length ? features : undefined;
+    const hasBand = b =>
+        Array.isArray(band) ? band.includes(b.id) : band === b.id;
 
     const groups =
         band && Array.isArray(bands) && bands.length
-            ? bands
-                  .filter(b =>
-                      Array.isArray(band) ? band.includes(b.id) : band === b.id
-                  )
-                  .map(b => b.name)
+            ? bands.filter(hasBand)
             : null;
 
     const legend = {

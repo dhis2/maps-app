@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import { Table, Column } from 'react-virtualized';
 import { isValidUid } from 'd2/uid';
 import { debounce } from 'lodash/fp';
@@ -176,7 +177,7 @@ class DataTable extends Component {
 
     render() {
         const { data, sortBy, sortDirection } = this.state;
-        const { width, height, layer } = this.props;
+        const { width, height, layer, aggregations } = this.props;
 
         const {
             layer: layerType,
@@ -190,151 +191,161 @@ class DataTable extends Component {
         const isOrgUnit = layerType === ORG_UNIT_LAYER;
         const isEvent = layerType === EVENT_LAYER;
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
+        const isLoading = isEarthEngine && aggregationType && !aggregations;
 
         return !serverCluster ? (
-            <Table
-                className={styles.dataTable}
-                width={width}
-                height={height}
-                headerHeight={48}
-                rowHeight={32}
-                rowCount={data.length}
-                rowGetter={({ index }) => data[index]}
-                sort={({ sortBy, sortDirection }) =>
-                    this.onSort(sortBy, sortDirection)
-                }
-                sortBy={sortBy}
-                sortDirection={sortDirection}
-                useDynamicRowHeight={false}
-                hideIndexRow={false}
-                onRowClick={!isEvent ? this.onRowClick : undefined}
-                onRowMouseOver={this.onRowMouseOver}
-                onRowMouseOut={this.onRowMouseOut}
-            >
-                <Column
-                    cellDataGetter={({ rowData }) => rowData.index}
-                    dataKey="index"
-                    label={i18n.t('Index')}
-                    width={72}
-                    className="right"
-                />
-                <Column
-                    dataKey={isEvent ? 'ouname' : 'name'}
-                    label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
-                    width={100}
-                    headerRenderer={props => (
-                        <ColumnHeader type="string" {...props} />
-                    )}
-                />
-                <Column
-                    dataKey="id"
-                    label={i18n.t('Id')}
-                    width={100}
-                    headerRenderer={props => (
-                        <ColumnHeader type="string" {...props} />
-                    )}
-                />
-                {isEvent && (
+            <>
+                <Table
+                    className={styles.dataTable}
+                    width={width}
+                    height={height}
+                    headerHeight={48}
+                    rowHeight={32}
+                    rowCount={data.length}
+                    rowGetter={({ index }) => data[index]}
+                    sort={({ sortBy, sortDirection }) =>
+                        this.onSort(sortBy, sortDirection)
+                    }
+                    sortBy={sortBy}
+                    sortDirection={sortDirection}
+                    useDynamicRowHeight={false}
+                    hideIndexRow={false}
+                    onRowClick={!isEvent ? this.onRowClick : undefined}
+                    onRowMouseOver={this.onRowMouseOver}
+                    onRowMouseOut={this.onRowMouseOut}
+                >
                     <Column
-                        dataKey="eventdate"
-                        label={i18n.t('Event time')}
+                        cellDataGetter={({ rowData }) => rowData.index}
+                        dataKey="index"
+                        label={i18n.t('Index')}
+                        width={72}
+                        className="right"
+                    />
+                    <Column
+                        dataKey={isEvent ? 'ouname' : 'name'}
+                        label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
                         width={100}
                         headerRenderer={props => (
-                            <ColumnHeader type="date" {...props} />
+                            <ColumnHeader type="string" {...props} />
                         )}
-                        cellRenderer={({ cellData }) =>
-                            cellData ? formatTime(cellData) : ''
-                        }
                     />
-                )}
-                {isEvent &&
-                    this.getEventDataItems().map(({ key, label, type }) => (
+                    <Column
+                        dataKey="id"
+                        label={i18n.t('Id')}
+                        width={100}
+                        headerRenderer={props => (
+                            <ColumnHeader type="string" {...props} />
+                        )}
+                    />
+                    {isEvent && (
                         <Column
-                            key={key}
-                            dataKey={key}
-                            label={label}
+                            dataKey="eventdate"
+                            label={i18n.t('Event time')}
                             width={100}
-                            className={type === 'number' ? 'right' : 'left'}
                             headerRenderer={props => (
-                                <ColumnHeader type={type} {...props} />
+                                <ColumnHeader type="date" {...props} />
+                            )}
+                            cellRenderer={({ cellData }) =>
+                                cellData ? formatTime(cellData) : ''
+                            }
+                        />
+                    )}
+                    {isEvent &&
+                        this.getEventDataItems().map(({ key, label, type }) => (
+                            <Column
+                                key={key}
+                                dataKey={key}
+                                label={label}
+                                width={100}
+                                className={type === 'number' ? 'right' : 'left'}
+                                headerRenderer={props => (
+                                    <ColumnHeader type={type} {...props} />
+                                )}
+                            />
+                        ))}
+                    {isThematic && (
+                        <Column
+                            dataKey="value"
+                            label={i18n.t('Value')}
+                            width={72}
+                            className="right"
+                            headerRenderer={props => (
+                                <ColumnHeader type="number" {...props} />
                             )}
                         />
-                    ))}
-                {isThematic && (
-                    <Column
-                        dataKey="value"
-                        label={i18n.t('Value')}
-                        width={72}
-                        className="right"
-                        headerRenderer={props => (
-                            <ColumnHeader type="number" {...props} />
-                        )}
-                    />
-                )}
-                {isThematic && (
-                    <Column
-                        dataKey="legend"
-                        label={i18n.t('Legend')}
-                        width={100}
-                        headerRenderer={props => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
-                )}
-                {isThematic && (
-                    <Column
-                        dataKey="range"
-                        label={i18n.t('Range')}
-                        width={72}
-                        headerRenderer={props => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
-                )}
-                {(isThematic || isOrgUnit) && (
-                    <Column
-                        dataKey="level"
-                        label={i18n.t('Level')}
-                        width={72}
-                        className="right"
-                        headerRenderer={props => (
-                            <ColumnHeader type="number" {...props} />
-                        )}
-                    />
-                )}
-                {(isThematic || isOrgUnit) && (
-                    <Column
-                        dataKey="parentName"
-                        label={i18n.t('Parent')}
-                        width={100}
-                        headerRenderer={props => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
-                )}
-                <Column
-                    dataKey="type"
-                    label={i18n.t('Type')}
-                    width={100}
-                    headerRenderer={props => (
-                        <ColumnHeader type="string" {...props} />
                     )}
-                />
-                {(isThematic || styleDataItem) && (
+                    {isThematic && (
+                        <Column
+                            dataKey="legend"
+                            label={i18n.t('Legend')}
+                            width={100}
+                            headerRenderer={props => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                        />
+                    )}
+                    {isThematic && (
+                        <Column
+                            dataKey="range"
+                            label={i18n.t('Range')}
+                            width={72}
+                            headerRenderer={props => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                        />
+                    )}
+                    {(isThematic || isOrgUnit) && (
+                        <Column
+                            dataKey="level"
+                            label={i18n.t('Level')}
+                            width={72}
+                            className="right"
+                            headerRenderer={props => (
+                                <ColumnHeader type="number" {...props} />
+                            )}
+                        />
+                    )}
+                    {(isThematic || isOrgUnit) && (
+                        <Column
+                            dataKey="parentName"
+                            label={i18n.t('Parent')}
+                            width={100}
+                            headerRenderer={props => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                        />
+                    )}
                     <Column
-                        dataKey="color"
-                        label={i18n.t('Color')}
+                        dataKey="type"
+                        label={i18n.t('Type')}
                         width={100}
                         headerRenderer={props => (
                             <ColumnHeader type="string" {...props} />
                         )}
-                        cellRenderer={ColorCell}
                     />
-                )}
+                    {(isThematic || styleDataItem) && (
+                        <Column
+                            dataKey="color"
+                            label={i18n.t('Color')}
+                            width={100}
+                            headerRenderer={props => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                            cellRenderer={ColorCell}
+                        />
+                    )}
 
-                {isEarthEngine &&
-                    EarthEngineColumns({ aggregationType, legend, data })}
-            </Table>
+                    {isEarthEngine &&
+                        EarthEngineColumns({ aggregationType, legend, data })}
+                </Table>
+                {isLoading === true && (
+                    <div className={styles.loader}>
+                        <CenteredContent>
+                            <CircularLoader />
+                        </CenteredContent>
+                    </div>
+                )}
+            </>
         ) : (
             <div className={styles.noSupport}>
                 {i18n.t(
