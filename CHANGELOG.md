@@ -1,3 +1,17 @@
+# [1.16.0](https://github.com/dhis2/maps-app/compare/v1.15.10...v1.16.0) (2021-12-20)
+
+
+### Features
+
+* run Earth Engine API in a web worker (DHIS2-12013) ([#1931](https://github.com/dhis2/maps-app/issues/1931)) ([53f6dda](https://github.com/dhis2/maps-app/commit/53f6dda9aa88c03187d185e8f5180288d797d016))
+
+## [1.15.10](https://github.com/dhis2/maps-app/compare/v1.15.9...v1.15.10) (2021-12-11)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([76c2503](https://github.com/dhis2/maps-app/commit/76c2503be33a55668148659ce58dd3e62ad9a0f9))
+
 ## [1.15.9](https://github.com/dhis2/maps-app/compare/v1.15.8...v1.15.9) (2021-12-02)
 
 

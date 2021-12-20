@@ -65,7 +65,12 @@ const EarthEngineDialog = props => {
         if (periodType) {
             getPeriods(datasetId)
                 .then(setPeriods)
-                .catch(setError);
+                .catch(error =>
+                    setError({
+                        type: 'engine',
+                        message: error.message,
+                    })
+                );
         }
     }, [datasetId, periodType]);
 
