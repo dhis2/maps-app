@@ -2,14 +2,14 @@ import { Layer } from './layer';
 
 export class TeLayer extends Layer {
     selectTeType(type) {
-        cy.get('[data-test="tetypeselect"]').click();
+        cy.getByDataTest('tetypeselect').click();
         cy.contains(type).click();
 
         return this;
     }
 
     selectTeProgram(program) {
-        cy.get('[data-test="programselect"]')
+        cy.getByDataTest('programselect')
             .contains('No program')
             .click();
 
@@ -19,14 +19,14 @@ export class TeLayer extends Layer {
     }
 
     selectStage(stage) {
-        cy.get('[data-test="programstageselect"]').click();
+        cy.getByDataTest('programstageselect').click();
         cy.contains(stage).click();
 
         return this;
     }
 
     validateStage(stage) {
-        cy.get('[data-test="programstageselect"]')
+        cy.getByDataTest('programstageselect')
             .contains(stage)
             .should('be.visible');
 

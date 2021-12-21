@@ -1,7 +1,7 @@
 import { TeLayer } from '../../elements/te_layer';
 import { EXTENDED_TIMEOUT } from '../../support/util';
 
-context('Tracked Entity Layers', () => {
+describe('Tracked Entity Layers', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT);
     });

@@ -13,7 +13,7 @@ export class Layer {
     }
 
     selectTab(tabName) {
-        cy.get('[data-test="dhis2-uicore-tabbar-tabs"]')
+        cy.getByDataTest('dhis2-uicore-tabbar-tabs')
             .find('button')
             .contains(tabName)
             .click();
@@ -49,21 +49,21 @@ export class Layer {
     }
 
     addToMap() {
-        cy.get('[data-test="dhis2-uicore-modalactions"]')
+        cy.getByDataTest('dhis2-uicore-modalactions')
             .contains('Add layer')
             .click();
     }
 
     validateDialogClosed(closed) {
         if (closed) {
-            cy.get('[data-test="layeredit"]').should('not.exist');
+            cy.getByDataTest('layeredit').should('not.exist');
         } else {
-            cy.get('[data-test="layeredit"]').should('be.visible');
+            cy.getByDataTest('layeredit').should('be.visible');
         }
     }
 
     validateCardTitle(title) {
-        cy.get('[data-test="layercard"]')
+        cy.getByDataTest('layercard')
             .contains(title)
             .should('be.visible');
 
@@ -71,7 +71,7 @@ export class Layer {
     }
 
     validateCardPeriod(period) {
-        cy.get('[data-test="layercard"]')
+        cy.getByDataTest('layercard')
             .contains(period)
             .should('be.visible');
 
@@ -80,7 +80,7 @@ export class Layer {
 
     validateCardItems(items) {
         items.forEach(item => {
-            cy.get('[data-test="layercard"]')
+            cy.getByDataTest('layercard')
                 .find('[data-test="layerlegend-item"]')
                 .contains(item)
                 .should('be.visible');
