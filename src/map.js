@@ -15,7 +15,7 @@ import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
 import { renameBoundaryLayerToOrgUnitLayer } from './util/helpers';
 import { apiVersion } from './constants/settings';
-import { defaultBasemaps } from './constants/basemaps';
+import { defaultBasemaps, DEFAULT_BASEMAP_ID } from './constants/basemaps';
 import { TILE_LAYER } from './constants/layers';
 
 function PluginContainer() {
@@ -112,11 +112,11 @@ function PluginContainer() {
 
     async function loadLayers(config) {
         if (!isUnmounted(config.el)) {
-            let basemap = config.basemap || 'osmLight';
+            let basemap = config.basemap || DEFAULT_BASEMAP_ID;
 
             // Default basemap is required, visibility is set to false below
             if (basemap === 'none') {
-                basemap = 'osmLight';
+                basemap = DEFAULT_BASEMAP_ID;
             }
 
             const basemapId = basemap.id || basemap;

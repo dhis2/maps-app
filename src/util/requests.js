@@ -4,6 +4,7 @@ import { isString, isObject, sortBy } from 'lodash/fp';
 import { apiFetch } from './api';
 import { SYSTEM_SETTINGS } from '../constants/settings';
 import { EXTERNAL_LAYER } from '../constants/layers';
+import { DEFAULT_BASEMAP_ID } from '../constants/basemaps';
 
 // API requests
 
@@ -95,13 +96,14 @@ export const getSystemSettings = () =>
     apiFetch(`/systemSettings/?key=${SYSTEM_SETTINGS.join(',')}`);
 
 // Different ways of specifying a basemap - TODO: simplify!
+// TODO - DEFAULT_BASEMAP_ID is not correct. We need the keyDefaultBaseMap sys setting
 const getBasemap = config => {
     const externalBasemap = config.mapViews.find(
         view =>
             view.layer === EXTERNAL_LAYER &&
             JSON.parse(view.config || {}).mapLayerPosition === 'BASEMAP'
     );
-    let basemap = { id: 'osmLight' }; // Default basemap
+    let basemap;
     let mapViews = config.mapViews;
 
     if (externalBasemap) {
@@ -112,10 +114,12 @@ const getBasemap = config => {
     } else if (isString(config.basemap)) {
         basemap =
             config.basemap === 'none'
-                ? { id: 'osmLight', isVisible: false }
+                ? { id: DEFAULT_BASEMAP_ID, isVisible: false }
                 : { id: config.basemap };
     } else if (isObject(config.basemap)) {
         basemap = config.basemap;
+    } else {
+        basemap = { id: DEFAULT_BASEMAP_ID }; // Default basemap
     }
 
     return {

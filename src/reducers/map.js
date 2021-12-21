@@ -8,7 +8,6 @@ const defaultState = {
         [50.2, 35.9],
     ],
     basemap: {
-        id: 'osmLight',
         isVisible: true,
         isExpanded: true,
         opacity: 1,

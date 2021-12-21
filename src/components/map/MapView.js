@@ -1,16 +1,18 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
 import Map from './Map';
 import SplitView from './SplitView';
 import { getSplitViewLayer } from '../../util/helpers';
 import { getMapControls } from '../../util/mapControls';
+import useBasemapConfig from '../../hooks/useBasemapConfig';
 
 // Shared component between app and plugin
 const MapView = props => {
     const {
         isPlugin,
         isFullscreen,
-        basemap,
         layers,
         controls,
         feature,
@@ -21,41 +23,55 @@ const MapView = props => {
         setAggregations,
         resizeCount,
     } = props;
+    const basemap = useBasemapConfig(props.basemap, props.basemaps);
 
     const splitViewLayer = getSplitViewLayer(layers);
     const isSplitView = !!splitViewLayer;
     const mapControls = getMapControls(isPlugin, isSplitView, controls);
 
     return (
-        <Fragment>
-            {isSplitView ? (
-                <SplitView
-                    isPlugin={isPlugin}
-                    isFullscreen={isFullscreen}
-                    basemap={basemap}
-                    layer={splitViewLayer}
-                    controls={mapControls}
-                    feature={feature}
-                    openContextMenu={openContextMenu}
-                    resizeCount={resizeCount}
-                />
+        <>
+            {basemap.id === undefined ? (
+                <>
+                    <ComponentCover translucent>
+                        <CenteredContent>
+                            <CircularLoader />
+                        </CenteredContent>
+                    </ComponentCover>
+                    <div />
+                </>
             ) : (
-                <Map
-                    isPlugin={isPlugin}
-                    isFullscreen={isFullscreen}
-                    basemap={basemap}
-                    layers={[...layers].reverse()}
-                    bounds={bounds}
-                    controls={mapControls}
-                    feature={feature}
-                    coordinatePopup={coordinatePopup}
-                    closeCoordinatePopup={closeCoordinatePopup}
-                    openContextMenu={openContextMenu}
-                    setAggregations={setAggregations}
-                    resizeCount={resizeCount}
-                />
+                <>
+                    {isSplitView ? (
+                        <SplitView
+                            isPlugin={isPlugin}
+                            isFullscreen={isFullscreen}
+                            basemap={basemap}
+                            layer={splitViewLayer}
+                            controls={mapControls}
+                            feature={feature}
+                            openContextMenu={openContextMenu}
+                            resizeCount={resizeCount}
+                        />
+                    ) : (
+                        <Map
+                            isPlugin={isPlugin}
+                            isFullscreen={isFullscreen}
+                            basemap={basemap}
+                            layers={[...layers].reverse()}
+                            bounds={bounds}
+                            controls={mapControls}
+                            feature={feature}
+                            coordinatePopup={coordinatePopup}
+                            closeCoordinatePopup={closeCoordinatePopup}
+                            openContextMenu={openContextMenu}
+                            setAggregations={setAggregations}
+                            resizeCount={resizeCount}
+                        />
+                    )}
+                </>
             )}
-        </Fragment>
+        </>
     );
 };
 
@@ -63,6 +79,7 @@ MapView.propTypes = {
     isPlugin: PropTypes.bool,
     isFullscreen: PropTypes.bool,
     basemap: PropTypes.object,
+    basemaps: PropTypes.array,
     layers: PropTypes.array,
     controls: PropTypes.array,
     feature: PropTypes.object,
@@ -74,4 +91,7 @@ MapView.propTypes = {
     resizeCount: PropTypes.number,
 };
 
-export default MapView;
+export default connect(state => ({
+    basemap: state.map.basemap,
+    basemaps: state.basemaps,
+}))(MapView);
