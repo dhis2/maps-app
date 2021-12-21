@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
+"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -193,6 +193,9 @@ msgid "Add layer"
 msgstr "Қатлам қўшиш"
 
 msgid "Aggregation method"
+msgstr ""
+
+msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -619,6 +622,12 @@ msgstr "Аждод бўлими"
 msgid "Last updated"
 msgstr "Охирги янгиланган"
 
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
+
 msgid "acres"
 msgstr "акр"
 
@@ -887,6 +896,9 @@ msgid "Mean"
 msgstr ""
 
 msgid "Median"
+msgstr ""
+
+msgid "Std dev"
 msgstr ""
 
 msgid "OSM Light"
@@ -1324,9 +1336,6 @@ msgid ""
 msgstr ""
 "Ушбу қатлам учун Google Earth Engine аккаунти зарур. Қўшимча маълумот олиш "
 "учунDHIS2 ҳужжатларини текширинг."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "Google Earth Engine га уланиб бўлмади."
 
 msgid "Facility"
 msgstr "Объект"
