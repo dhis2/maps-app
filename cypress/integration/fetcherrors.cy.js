@@ -1,35 +1,49 @@
-// import { ThematicLayer } from '../elements/thematic_layer';
-
-context('Fetch errors', () => {
-    it('non-existing map id', () => {
+describe('Fetch errors', () => {
+    it('non-existing map id does not crash app', () => {
         cy.visit('/?id=nonexisting');
 
         cy.getByDataTest('layercard').should('not.exist');
+        cy.getByDataTest('basemapcard').should('be.visible');
         cy.get('canvas').should('be.visible');
     });
 
-    it('currentAnalyticalObject doesnt exist', () => {
+    it('non-existing currentAnalyticalObject does not crash app', () => {
         cy.intercept(
             'GET',
             '/userDataStore/analytics/currentAnalyticalObject',
             {
                 statusCode: 404,
             }
-        ).as('noCurrentAnalyticalObject');
+        );
 
         cy.visit('/?currentAnalyticalObject=true');
 
         cy.getByDataTest('layercard').should('not.exist');
+        cy.getByDataTest('basemapcard').should('be.visible');
         cy.get('canvas').should('be.visible');
+    });
 
-        // cy.contains('button', 'Proceed').click();
+    it('error in org units request does not crash app', () => {
+        cy.intercept('GET', 'organisationUnits?*', {
+            statusCode: 409,
+        });
 
-        // const Layer = new ThematicLayer();
-        // Layer.validateCardTitle('ANC 1 Coverage');
-        // cy.get('canvas.maplibregl-canvas').should('be.visible');
+        cy.visit('/');
 
-        // it('org units request fails', () => {});
+        cy.getByDataTest('layercard').should('not.exist');
+        cy.getByDataTest('basemapcard').should('be.visible');
+        cy.get('canvas').should('be.visible');
+    });
 
-        // it('external layers request fails', () => {});
+    it('error in external layers request does not crash app', () => {
+        cy.intercept('GET', 'externalMapLayers?*', {
+            statusCode: 409,
+        });
+
+        cy.visit('/');
+
+        cy.getByDataTest('layercard').should('not.exist');
+        cy.getByDataTest('basemapcard').should('be.visible');
+        cy.get('canvas').should('be.visible');
     });
 });

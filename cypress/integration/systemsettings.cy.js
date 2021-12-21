@@ -4,6 +4,13 @@ import { EXTENDED_TIMEOUT } from '../support/util';
 const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: 'systemSettings?*' };
 
 describe('systemSettings', () => {
+    beforeEach(() => {
+        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
+            delete req.headers['if-none-match'];
+            req.continue();
+        });
+    });
+
     it('does not include Weekly period type when weekly periods hidden in system settings', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
             delete req.headers['if-none-match'];
@@ -34,11 +41,6 @@ describe('systemSettings', () => {
     });
 
     it('includes Weekly period type when weekly periods not hidden in system settings', () => {
-        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
-            delete req.headers['if-none-match'];
-            req.continue();
-        });
-
         cy.visit('/');
 
         const Layer = new ThematicLayer();
@@ -76,11 +78,6 @@ describe('systemSettings', () => {
     });
 
     it('includes Bing basemaps when Bing api key present', () => {
-        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
-            delete req.headers['if-none-match'];
-            req.continue();
-        });
-
         cy.visit('/');
 
         cy.getByDataTest('basemaplist', EXTENDED_TIMEOUT)
@@ -118,11 +115,6 @@ describe('systemSettings', () => {
     });
 
     it('uses Last 12 months as default relative period', () => {
-        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
-            delete req.headers['if-none-match'];
-            req.continue();
-        });
-
         cy.visit('/');
 
         const Layer = new ThematicLayer();

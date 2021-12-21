@@ -45,18 +45,18 @@ context('Smoke Test', () => {
         cy.visit('/');
 
         cy.contains('File').click();
-        cy.get('[data-test="file-menu-container"]').should('be.visible');
+        cy.getByDataTest('file-menu-container').should('be.visible');
 
-        cy.get('[data-test="file-menu-open"]')
+        cy.getByDataTest('file-menu-open')
             .should('be.visible')
             .click();
 
-        cy.get('[data-test="open-file-dialog-modal-name-filter"]')
+        cy.getByDataTest('open-file-dialog-modal-name-filter')
             .find('input')
             .focus()
             .type('ANC: LLITN coverage district and facility');
 
-        cy.get('[data-test="open-file-dialog-modal"')
+        cy.getByDataTest('open-file-dialog-modal')
             .contains('ANC: LLITN coverage district and facility')
             .click();
 
