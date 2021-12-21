@@ -1,5 +1,4 @@
 import { ThematicLayer } from '../elements/thematic_layer';
-import { getApiBaseUrl } from '../support/util';
 import { analyticalObject } from '../fixtures/analyticalObject';
 
 context('Smoke Test', () => {
@@ -16,29 +15,17 @@ context('Smoke Test', () => {
     });
 
     it('loads currentAnalyticalObject', () => {
-        cy.request({
-            method: 'DELETE',
-            url: `${getApiBaseUrl()}/api/userDataStore/analytics/currentAnalyticalObject`,
-            failOnStatusCode: false,
-        }).then(() => {
-            cy.request({
-                method: 'POST',
-                url: `${getApiBaseUrl()}/api/userDataStore/analytics/currentAnalyticalObject`,
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body: analyticalObject,
-            }).then(response => {
-                expect(response.status).to.equal(201);
-                cy.visit('/?currentAnalyticalObject=true');
-
-                cy.contains('button', 'Proceed').click();
-
-                const Layer = new ThematicLayer();
-                Layer.validateCardTitle('ANC 1 Coverage');
-                cy.get('canvas.maplibregl-canvas').should('be.visible');
-            });
+        cy.intercept('/userDataStore/analytics/currentAnalyticalObject', {
+            body: analyticalObject,
         });
+
+        cy.visit('/?currentAnalyticalObject=true');
+
+        cy.contains('button', 'Proceed').click();
+
+        const Layer = new ThematicLayer();
+        Layer.validateCardTitle('ANC 1 Coverage');
+        cy.get('canvas.maplibregl-canvas').should('be.visible');
     });
 
     it('opens the interpretations panel for a map', () => {
