@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
+"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -193,6 +193,9 @@ msgstr "添加图层"
 
 msgid "Aggregation method"
 msgstr "汇总方法"
+
+msgid "Choosing many groups takes a long time to calculate and display."
+msgstr ""
 
 msgid "Groups"
 msgstr "组"
@@ -609,6 +612,12 @@ msgstr "上级机构"
 msgid "Last updated"
 msgstr "Last updated"
 
+msgid "All groups"
+msgstr "所有组"
+
+msgid "Loading data"
+msgstr "加载数据中"
+
 msgid "acres"
 msgstr " 英亩"
 
@@ -873,6 +882,9 @@ msgstr "平均 "
 
 msgid "Median"
 msgstr "中位数"
+
+msgid "Std dev"
+msgstr ""
 
 msgid "OSM Light"
 msgstr "OSM轻量"
@@ -1300,9 +1312,6 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "无法连接到Google Earth Engine。"
 
 msgid "Facility"
 msgstr "功能"
