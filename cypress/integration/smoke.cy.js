@@ -1,14 +1,15 @@
 import { ThematicLayer } from '../elements/thematic_layer';
 import { analyticalObject } from '../fixtures/analyticalObject';
+import { EXTENDED_TIMEOUT } from '../support/util';
 
 context('Smoke Test', () => {
     it('loads', () => {
-        cy.visit('/');
+        cy.visit('/', EXTENDED_TIMEOUT);
         cy.title().should('equal', 'DHIS2 Maps');
     });
 
     it('loads with map id', () => {
-        cy.visit('/?id=ytkZY3ChM6J'); //ANC: 3rd visit coverage last year by district
+        cy.visit('/?id=ytkZY3ChM6J', EXTENDED_TIMEOUT); //ANC: 3rd visit coverage last year by district
 
         const Layer = new ThematicLayer();
         Layer.validateCardTitle('ANC 3 Coverage');
@@ -19,7 +20,7 @@ context('Smoke Test', () => {
             body: analyticalObject,
         });
 
-        cy.visit('/?currentAnalyticalObject=true');
+        cy.visit('/?currentAnalyticalObject=true', EXTENDED_TIMEOUT);
 
         cy.contains('button', 'Proceed').click();
 
@@ -29,7 +30,7 @@ context('Smoke Test', () => {
     });
 
     it('opens the interpretations panel for a map', () => {
-        cy.visit('/');
+        cy.visit('/', EXTENDED_TIMEOUT);
 
         cy.contains('File').click();
         cy.getByDataTest('file-menu-container').should('be.visible');
