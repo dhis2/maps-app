@@ -9,7 +9,7 @@ import Plugin from './components/plugin/Plugin';
 import {
     mapRequest,
     getExternalLayer,
-    getBingMapsApiKey,
+    fetchSystemSettings,
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
 import { translateConfig } from './util/favorites';
@@ -111,12 +111,18 @@ function PluginContainer() {
     }
 
     async function loadLayers(config) {
+        const systemSettings = await fetchSystemSettings([
+            'keyBingMapsApiKey',
+            'keyDefaultBaseMap',
+        ]);
+        const defaultBasemapId =
+            systemSettings.keyDefaultBaseMap || DEFAULT_BASEMAP_ID;
         if (!isUnmounted(config.el)) {
-            let basemap = config.basemap || DEFAULT_BASEMAP_ID;
+            let basemap = config.basemap || defaultBasemapId;
 
             // Default basemap is required, visibility is set to false below
             if (basemap === 'none') {
-                basemap = DEFAULT_BASEMAP_ID;
+                basemap = defaultBasemapId;
             }
 
             const basemapId = basemap.id || basemap;
@@ -135,7 +141,7 @@ function PluginContainer() {
             }
 
             if (basemapId.substring(0, 4) === 'bing') {
-                basemap.config.apiKey = await getBingMapsApiKey();
+                basemap.config.apiKey = systemSettings.keyBingMapsApiKey;
             }
 
             if (config.mapViews) {

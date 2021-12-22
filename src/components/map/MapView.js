@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
 import Map from './Map';
 import SplitView from './SplitView';
 import { getSplitViewLayer } from '../../util/helpers';
 import { getMapControls } from '../../util/mapControls';
-import useBasemapConfig from '../../hooks/useBasemapConfig';
 
 // Shared component between app and plugin
 const MapView = props => {
     const {
+        basemap,
         isPlugin,
         isFullscreen,
         layers,
@@ -23,7 +22,6 @@ const MapView = props => {
         setAggregations,
         resizeCount,
     } = props;
-    const basemap = useBasemapConfig(props.basemap, props.basemaps);
 
     const splitViewLayer = getSplitViewLayer(layers);
     const isSplitView = !!splitViewLayer;
@@ -79,7 +77,6 @@ MapView.propTypes = {
     isPlugin: PropTypes.bool,
     isFullscreen: PropTypes.bool,
     basemap: PropTypes.object,
-    basemaps: PropTypes.array,
     layers: PropTypes.array,
     controls: PropTypes.array,
     feature: PropTypes.object,
@@ -91,7 +88,4 @@ MapView.propTypes = {
     resizeCount: PropTypes.number,
 };
 
-export default connect(state => ({
-    basemap: state.map.basemap,
-    basemaps: state.basemaps,
-}))(MapView);
+export default MapView;
