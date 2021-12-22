@@ -8,14 +8,14 @@ context('Smoke Test', () => {
         cy.title().should('equal', 'DHIS2 Maps');
     });
 
-    it('loads with map id', () => {
+    it.skip('loads with map id', () => {
         cy.visit('/?id=ytkZY3ChM6J', EXTENDED_TIMEOUT); //ANC: 3rd visit coverage last year by district
 
         const Layer = new ThematicLayer();
         Layer.validateCardTitle('ANC 3 Coverage');
     });
 
-    it('loads currentAnalyticalObject', () => {
+    it.skip('loads currentAnalyticalObject', () => {
         cy.intercept('/userDataStore/analytics/currentAnalyticalObject', {
             body: analyticalObject,
         });
@@ -29,7 +29,7 @@ context('Smoke Test', () => {
         cy.get('canvas.maplibregl-canvas').should('be.visible');
     });
 
-    it('opens the interpretations panel for a map', () => {
+    it.skip('opens the interpretations panel for a map', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
 
         cy.contains('File').click();
