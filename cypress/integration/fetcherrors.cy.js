@@ -1,10 +1,12 @@
+import { EXTENDED_TIMEOUT } from '../support/util';
+
 describe('Fetch errors', () => {
     it('non-existing map id does not crash app', () => {
-        cy.visit('/?id=nonexisting');
+        cy.visit('/?id=nonexisting', EXTENDED_TIMEOUT);
 
-        cy.getByDataTest('layercard').should('not.exist');
-        cy.getByDataTest('basemapcard').should('be.visible');
-        cy.get('canvas').should('be.visible');
+        cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist');
+        cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
     });
 
     it('non-existing currentAnalyticalObject does not crash app', () => {
@@ -16,11 +18,11 @@ describe('Fetch errors', () => {
             }
         );
 
-        cy.visit('/?currentAnalyticalObject=true');
+        cy.visit('/?currentAnalyticalObject=true', EXTENDED_TIMEOUT);
 
-        cy.getByDataTest('layercard').should('not.exist');
-        cy.getByDataTest('basemapcard').should('be.visible');
-        cy.get('canvas').should('be.visible');
+        cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist');
+        cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
     });
 
     it('error in org units request does not crash app', () => {
@@ -28,11 +30,11 @@ describe('Fetch errors', () => {
             statusCode: 409,
         });
 
-        cy.visit('/');
+        cy.visit('/', EXTENDED_TIMEOUT);
 
-        cy.getByDataTest('layercard').should('not.exist');
-        cy.getByDataTest('basemapcard').should('be.visible');
-        cy.get('canvas').should('be.visible');
+        cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist');
+        cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
     });
 
     it('error in external layers request does not crash app', () => {
@@ -40,10 +42,10 @@ describe('Fetch errors', () => {
             statusCode: 409,
         });
 
-        cy.visit('/');
+        cy.visit('/', EXTENDED_TIMEOUT);
 
-        cy.getByDataTest('layercard').should('not.exist');
-        cy.getByDataTest('basemapcard').should('be.visible');
-        cy.get('canvas').should('be.visible');
+        cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist');
+        cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
     });
 });
