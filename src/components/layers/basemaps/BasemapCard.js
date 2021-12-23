@@ -17,7 +17,6 @@ import useBasemapConfig from '../../../hooks/useBasemapConfig';
 // Basemap card shown in left layers panel
 const BasemapCard = props => {
     const {
-        basemaps,
         subtitle = i18n.t('Basemap'),
         toggleBasemapExpand,
         toggleBasemapVisibility,
@@ -25,7 +24,7 @@ const BasemapCard = props => {
         selectBasemap,
     } = props;
 
-    const basemap = useBasemapConfig(props.basemap, basemaps);
+    const basemap = useBasemapConfig(props.basemap);
 
     return (
         <>
@@ -54,7 +53,7 @@ const BasemapCard = props => {
                 >
                     <BasemapList
                         selectedID={basemap.id}
-                        basemaps={basemaps}
+                        basemaps={props.basemaps}
                         selectBasemap={selectBasemap}
                     />
                 </LayerCard>
@@ -69,10 +68,8 @@ BasemapCard.propTypes = {
     opacity: PropTypes.number,
     isVisible: PropTypes.bool,
     isExpanded: PropTypes.bool,
-
     basemap: PropTypes.object.isRequired,
     basemaps: PropTypes.array.isRequired,
-
     changeBasemapOpacity: PropTypes.func.isRequired,
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
@@ -88,8 +85,8 @@ BasemapCard.defaultProps = {
 
 export default connect(
     state => ({
-        basemap: state.map.basemap, // Selected basemap
-        basemaps: state.basemaps, // All basemaps
+        basemap: state.map.basemap,
+        basemaps: state.basemaps,
     }),
     {
         changeBasemapOpacity,

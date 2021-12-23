@@ -35,7 +35,7 @@ const MapContainer = props => {
         setAggregations,
     } = props;
     const [resizeCount, setResizeCount] = useState(0);
-    const basemap = useBasemapConfig(props.basemap, props.basemaps);
+    const basemap = useBasemapConfig(props.basemap);
 
     const style = {
         position: 'absolute',
@@ -90,7 +90,6 @@ const MapContainer = props => {
 
 MapContainer.propTypes = {
     basemap: PropTypes.object,
-    basemaps: PropTypes.array,
     mapViews: PropTypes.array,
     bounds: PropTypes.array,
     showName: PropTypes.bool,
@@ -109,9 +108,8 @@ MapContainer.propTypes = {
 };
 
 export default connect(
-    ({ map, download, basemaps, dataTable, ui, feature }) => ({
+    ({ map, download, dataTable, ui, feature }) => ({
         basemap: map.basemap,
-        basemaps,
         newLayerIsLoading: map.newLayerIsLoading,
         coordinatePopup: map.coordinatePopup,
         mapViews: map.mapViews,

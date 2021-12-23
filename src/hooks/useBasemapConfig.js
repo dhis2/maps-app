@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useSystemSettings } from '../components/SystemSettingsProvider';
 
 const emptyBasemap = { config: {} };
 
-function useBasemapConfig(selBasemap, basemaps) {
+function useBasemapConfig(selBasemap) {
     const [basemap, setBasemap] = useState(emptyBasemap);
+    const basemaps = useSelector(state => state.basemaps);
     const { systemSettings } = useSystemSettings();
 
     useEffect(() => {

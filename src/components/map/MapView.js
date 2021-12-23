@@ -9,9 +9,9 @@ import { getMapControls } from '../../util/mapControls';
 // Shared component between app and plugin
 const MapView = props => {
     const {
-        basemap,
         isPlugin,
         isFullscreen,
+        basemap,
         layers,
         controls,
         feature,
