@@ -195,7 +195,7 @@ msgid "Aggregation method"
 msgstr "Metoda agregace"
 
 msgid "Choosing many groups takes a long time to calculate and display."
-msgstr ""
+msgstr "Výpočet a zobrazení výběru mnoha skupin trvá dlouho."
 
 msgid "Groups"
 msgstr "Skupiny"
@@ -898,7 +898,7 @@ msgid "Median"
 msgstr "Medián"
 
 msgid "Std dev"
-msgstr ""
+msgstr "Standardní odchylka"
 
 msgid "OSM Light"
 msgstr "OSM Light"
