@@ -1,10 +1,8 @@
 import { getInstance as getD2 } from 'd2';
 import { mapFields } from './helpers';
-import { isString, isObject, sortBy } from 'lodash/fp';
+import { sortBy } from 'lodash/fp';
 import { apiFetch } from './api';
-import { EXTERNAL_LAYER } from '../constants/layers';
-import { DEFAULT_BASEMAP_ID } from '../constants/basemaps';
-
+import { extractBasemap } from '../util/extractBasemap';
 // API requests
 
 // Fetch one favorite
@@ -15,7 +13,7 @@ export const mapRequest = async id => {
         .get(id, {
             fields: mapFields(),
         })
-        .then(getBasemap)
+        .then(extractBasemap)
         .then(config => ({
             ...config,
             mapViews: upgradeGisAppLayers(config.mapViews),
@@ -40,7 +38,7 @@ export const fetchMap = async (id, engine) =>
                 },
             }
         )
-        .then(map => getBasemap(map.map))
+        .then(map => extractBasemap(map.map))
         .then(config => ({
             ...config,
             mapViews: upgradeGisAppLayers(config.mapViews),
@@ -86,40 +84,6 @@ export const getExternalLayer = async id => {
 
 export const fetchSystemSettings = keys =>
     apiFetch(`/systemSettings/?key=${keys.join(',')}`);
-
-// Different ways of specifying a basemap - TODO: simplify!
-// TODO - DEFAULT_BASEMAP_ID is not correct. We need the keyDefaultBaseMap sys setting
-const getBasemap = config => {
-    const externalBasemap = config.mapViews.find(
-        view =>
-            view.layer === EXTERNAL_LAYER &&
-            JSON.parse(view.config || {}).mapLayerPosition === 'BASEMAP'
-    );
-    let basemap;
-    let mapViews = config.mapViews;
-
-    if (externalBasemap) {
-        basemap = JSON.parse(externalBasemap.config);
-        mapViews = config.mapViews.filter(
-            view => view.id !== externalBasemap.id
-        );
-    } else if (isString(config.basemap)) {
-        basemap =
-            config.basemap === 'none'
-                ? { id: DEFAULT_BASEMAP_ID, isVisible: false }
-                : { id: config.basemap };
-    } else if (isObject(config.basemap)) {
-        basemap = config.basemap;
-    } else {
-        basemap = { id: DEFAULT_BASEMAP_ID }; // Default basemap
-    }
-
-    return {
-        ...config,
-        basemap: basemap,
-        mapViews: mapViews,
-    };
-};
 
 // Layer order in the previous GIS app (bottom to top)
 const gisAppLayerOrder = {

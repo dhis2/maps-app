@@ -94,7 +94,6 @@ function PluginContainer() {
 
     function loadMap(config) {
         if (config.id && !isUnmounted(config.el)) {
-            // Load favorite
             mapRequest(config.id)
                 .then(renameBoundaryLayerToOrgUnitLayer)
                 .then(favorite =>

@@ -22,7 +22,6 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
-import { loadFavorite } from '../../actions/favorites';
 import { setAnalyticalObject } from '../../actions/analyticalObject';
 import { setOrgUnitTree } from '../../actions/orgUnits';
 import { setMap } from '../../actions/map';
@@ -174,7 +173,6 @@ App.propTypes = {
 export default connect(null, {
     addBasemap,
     addExternalLayer,
-    loadFavorite,
     removeBingBasemaps,
     setBingMapsApiKey,
     setOrgUnitTree,

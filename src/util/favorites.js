@@ -100,6 +100,7 @@ export const cleanMapConfig = ({ config, defaultBasemap }) => ({
     mapViews: config.mapViews.map(cleanLayerConfig),
 });
 
+//TODO - use system settings default basemap
 const getBasemapString = basemap => {
     if (!basemap) {
         return DEFAULT_BASEMAP_ID;
