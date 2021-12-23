@@ -89,7 +89,7 @@ describe('systemSettings', () => {
             .should('be.visible');
     });
 
-    it.skip('uses Last 6 months as default relative period', () => {
+    it('uses Last 6 months as default relative period', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
@@ -101,7 +101,8 @@ describe('systemSettings', () => {
             });
         });
 
-        cy.visit('/');
+        cy.visit('/', EXTENDED_TIMEOUT);
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
         const Layer = new ThematicLayer();
 
@@ -115,7 +116,7 @@ describe('systemSettings', () => {
     });
 
     it('uses Last 12 months as default relative period', () => {
-        cy.visit('/');
+        cy.visit('/', EXTENDED_TIMEOUT);
 
         const Layer = new ThematicLayer();
 
