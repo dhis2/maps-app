@@ -5,6 +5,8 @@ import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
 import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import i18n from './locales';
+import { getConfigFromNonMapConfig } from './util/getConfigFromNonMapConfig';
+import { createExternalLayerConfig } from './util/external';
 import Plugin from './components/plugin/Plugin';
 import {
     mapRequest,
@@ -12,11 +14,9 @@ import {
     fetchSystemSettings,
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
-import { translateConfig } from './util/favorites';
-import { renameBoundaryLayerToOrgUnitLayer } from './util/helpers';
+import { getMigratedMapConfig } from './util/getMigratedMapConfig';
 import { apiVersion } from './constants/settings';
-import { defaultBasemaps, DEFAULT_BASEMAP_ID } from './constants/basemaps';
-import { TILE_LAYER } from './constants/layers';
+import { defaultBasemaps } from './constants/basemaps';
 
 function PluginContainer() {
     let _configs = [];
@@ -92,55 +92,56 @@ function PluginContainer() {
         }
     }
 
-    function loadMap(config) {
-        if (config.id && !isUnmounted(config.el)) {
-            mapRequest(config.id)
-                .then(renameBoundaryLayerToOrgUnitLayer)
-                .then(favorite =>
-                    loadLayers({
-                        ...config,
-                        ...favorite,
-                    })
-                );
-        } else {
-            translateConfig(config)
-                .then(renameBoundaryLayerToOrgUnitLayer)
-                .then(loadLayers);
-        }
-    }
-
-    async function loadLayers(config) {
+    async function loadMap(config) {
         const systemSettings = await fetchSystemSettings([
             'keyBingMapsApiKey',
             'keyDefaultBaseMap',
         ]);
-        const defaultBasemapId =
-            systemSettings.keyDefaultBaseMap || DEFAULT_BASEMAP_ID;
+        if (config.id && !isUnmounted(config.el)) {
+            mapRequest(config.id, systemSettings.keyDefaultBaseMap).then(
+                favorite =>
+                    loadLayers(
+                        {
+                            ...config,
+                            ...favorite,
+                        },
+                        systemSettings.keyBingMapsApiKey
+                    )
+            );
+        } else if (!config.mapViews) {
+            loadLayers(
+                getConfigFromNonMapConfig(
+                    config,
+                    systemSettings.keyDefaultBaseMap
+                ),
+                systemSettings.keyBingMapsApiKey
+            );
+        } else {
+            loadLayers(
+                getMigratedMapConfig(config, systemSettings.keyDefaultBaseMap),
+                systemSettings.keyBingMapsApiKey
+            );
+        }
+    }
+
+    async function loadLayers(config, keyBingMapsApiKey) {
         if (!isUnmounted(config.el)) {
-            let basemap = config.basemap || defaultBasemapId;
+            const basemapId = config.basemap.id;
 
-            // Default basemap is required, visibility is set to false below
-            if (basemap === 'none') {
-                basemap = defaultBasemapId;
-            }
-
-            const basemapId = basemap.id || basemap;
+            let basemap;
 
             if (isValidUid(basemapId)) {
                 const externalLayer = await getExternalLayer(basemapId);
                 basemap = {
                     id: basemapId,
-                    config: {
-                        type: TILE_LAYER,
-                        ...externalLayer,
-                    },
+                    config: createExternalLayerConfig(externalLayer),
                 };
             } else {
                 basemap = defaultBasemaps().find(map => map.id === basemapId);
             }
 
             if (basemapId.substring(0, 4) === 'bing') {
-                basemap.config.apiKey = systemSettings.keyBingMapsApiKey;
+                basemap.config.apiKey = keyBingMapsApiKey;
             }
 
             if (config.mapViews) {
@@ -149,10 +150,6 @@ function PluginContainer() {
                         ...mapView,
                         userOrgUnit: config.userOrgUnit,
                     }));
-                }
-
-                if (config.basemap === 'none') {
-                    basemap.isVisible = false;
                 }
 
                 Promise.all(config.mapViews.map(fetchLayer)).then(mapViews =>

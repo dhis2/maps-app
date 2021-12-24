@@ -1,23 +1,18 @@
 import { getInstance as getD2 } from 'd2';
 import { mapFields } from './helpers';
-import { sortBy } from 'lodash/fp';
 import { apiFetch } from './api';
-import { extractBasemap } from '../util/extractBasemap';
+import { getMigratedMapConfig } from './getMigratedMapConfig';
 // API requests
 
 // Fetch one favorite
-export const mapRequest = async id => {
+export const mapRequest = async (id, keyDefaultBaseMap) => {
     const d2 = await getD2();
 
     return d2.models.map
         .get(id, {
             fields: mapFields(),
         })
-        .then(extractBasemap)
-        .then(config => ({
-            ...config,
-            mapViews: upgradeGisAppLayers(config.mapViews),
-        }));
+        .then(map => getMigratedMapConfig(map, keyDefaultBaseMap));
 };
 
 const fetchMapQuery = {
@@ -28,7 +23,7 @@ const fetchMapQuery = {
     },
 };
 
-export const fetchMap = async (id, engine) =>
+export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
     engine
         .query(
             { map: fetchMapQuery },
@@ -38,11 +33,7 @@ export const fetchMap = async (id, engine) =>
                 },
             }
         )
-        .then(map => extractBasemap(map.map))
-        .then(config => ({
-            ...config,
-            mapViews: upgradeGisAppLayers(config.mapViews),
-        }));
+        .then(map => getMigratedMapConfig(map.map, keyDefaultBaseMap));
 
 // const fetchOrgUnitsQuery = {
 //     resource: 'organisationUnits',
@@ -84,37 +75,6 @@ export const getExternalLayer = async id => {
 
 export const fetchSystemSettings = keys =>
     apiFetch(`/systemSettings/?key=${keys.join(',')}`);
-
-// Layer order in the previous GIS app (bottom to top)
-const gisAppLayerOrder = {
-    externalLayer: 1, // TODO: Distinguish between basemaps and overlays
-    earthEngine: 2,
-    thematic4: 3,
-    thematic3: 4,
-    thematic2: 5,
-    thematic1: 6,
-    boundary: 7,
-    facility: 8,
-    event: 9,
-};
-
-// Detection if map config is from previous GIS app
-// TODO: Better to store app version as part of config object?
-const isGisAppFormat = layers =>
-    layers.some(config => config.layer.match(/thematic[1-4]/));
-
-export const upgradeGisAppLayers = layers => {
-    if (!isGisAppFormat(layers)) {
-        return layers;
-    }
-
-    return sortBy(config => gisAppLayerOrder[config.layer], layers).map(
-        config => ({
-            ...config,
-            layer: config.layer.replace(/\d$/, ''), // Remove thematic number used in previous versions
-        })
-    );
-};
 
 // https://davidwalsh.name/query-string-javascript
 export const getUrlParameter = name => {

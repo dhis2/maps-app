@@ -45,10 +45,7 @@ import {
     hasSingleDataDimension,
     getThematicLayerFromAnalyticalObject,
 } from '../../util/analyticalObject';
-import {
-    renameBoundaryLayerToOrgUnitLayer,
-    addOrgUnitPaths,
-} from '../../util/helpers';
+import { addOrgUnitPaths } from '../../util/helpers';
 
 import styles from './styles/App.module.css';
 
@@ -98,11 +95,8 @@ const App = ({
             if (mapId) {
                 try {
                     const config = await fetchMap(mapId, engine);
-                    const cleanedConfig = renameBoundaryLayerToOrgUnitLayer(
-                        config
-                    );
-                    setMap(cleanedConfig);
-                    addOrgUnitPaths(cleanedConfig.mapViews).map(loadLayer);
+                    setMap(config);
+                    addOrgUnitPaths(config.mapViews).map(loadLayer);
                 } catch (e) {
                     log.error(`Could not load map with id ${mapId}`);
                 }

@@ -1,12 +1,5 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
-import { generateUid } from 'd2/uid';
-import { upgradeGisAppLayers } from './requests';
-import { getThematicLayerFromAnalyticalObject } from './analyticalObject';
-import {
-    EARTH_ENGINE_LAYER,
-    EXTERNAL_LAYER,
-    TRACKED_ENTITY_LAYER,
-} from '../constants/layers';
+import { EARTH_ENGINE_LAYER, TRACKED_ENTITY_LAYER } from '../constants/layers';
 import { DEFAULT_BASEMAP_ID } from '../constants/basemaps';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
@@ -208,54 +201,3 @@ export const cleanDimension = dim => ({
     ...dim,
     items: dim.items.map(item => pick(validModelProperties, item)),
 });
-
-// Set external basemap from mapViews (old format)
-const setExternalBasemap = config => {
-    const { mapViews } = config;
-    const externalBasemap = mapViews.find(view => {
-        if (view.layer === EXTERNAL_LAYER) {
-            if (typeof view.config === 'string') {
-                view.config = JSON.parse(view.config);
-            }
-
-            return view.config.mapLayerPosition === 'BASEMAP';
-        }
-        return false;
-    });
-
-    if (!externalBasemap) {
-        return config;
-    }
-
-    return {
-        ...config,
-        basemap: { id: externalBasemap.config.id },
-        mapViews: mapViews.filter(view => view.id !== externalBasemap.id),
-    };
-};
-
-// Translate from chart/pivot config to map config, or from the old GIS app format
-export const translateConfig = async config => {
-    // If chart/pivot config
-    if (!config.mapViews) {
-        const { el, name } = config;
-
-        return getThematicLayerFromAnalyticalObject(config).then(mapView => ({
-            el,
-            name,
-            mapViews: [
-                {
-                    id: generateUid(),
-                    ...mapView,
-                },
-            ],
-        }));
-    }
-
-    const newConfig = setExternalBasemap(config);
-
-    return {
-        ...newConfig,
-        mapViews: upgradeGisAppLayers(newConfig.mapViews),
-    };
-};

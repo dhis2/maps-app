@@ -12,10 +12,7 @@ import { loadLayer } from '../../actions/layers';
 import { fetchMap } from '../../util/requests';
 import { cleanMapConfig } from '../../util/favorites';
 import { useSystemSettings } from '../SystemSettingsProvider';
-import {
-    renameBoundaryLayerToOrgUnitLayer,
-    addOrgUnitPaths,
-} from '../../util/helpers';
+import { addOrgUnitPaths } from '../../util/helpers';
 import styles from './styles/FileMenu.module.css';
 
 const saveMapMutation = {
@@ -79,10 +76,8 @@ export const FileMenu = ({
 
     const openMap = async id => {
         const config = await fetchMap(id, engine, keyDefaultBaseMap);
-        const cleanedConfig = renameBoundaryLayerToOrgUnitLayer(config);
-
-        setMap(cleanedConfig);
-        addOrgUnitPaths(cleanedConfig.mapViews).map(loadLayer);
+        setMap(config);
+        addOrgUnitPaths(config.mapViews).map(loadLayer);
     };
 
     const saveAsNewMap = async ({ name, description }) => {
