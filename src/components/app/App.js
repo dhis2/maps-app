@@ -94,7 +94,11 @@ const App = ({
 
             if (mapId) {
                 try {
-                    const config = await fetchMap(mapId, engine);
+                    const config = await fetchMap(
+                        mapId,
+                        engine,
+                        systemSettings.keyDefaultBaseMap
+                    );
                     setMap(config);
                     addOrgUnitPaths(config.mapViews).map(loadLayer);
                 } catch (e) {
