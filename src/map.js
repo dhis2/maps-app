@@ -126,21 +126,18 @@ function PluginContainer() {
 
     async function loadLayers(config, keyBingMapsApiKey) {
         if (!isUnmounted(config.el)) {
-            const basemapId = config.basemap.id;
+            const basemap = config.basemap;
 
-            let basemap;
-
-            if (isValidUid(basemapId)) {
-                const externalLayer = await getExternalLayer(basemapId);
-                basemap = {
-                    id: basemapId,
-                    config: createExternalLayerConfig(externalLayer),
-                };
+            if (isValidUid(config.basemap.id)) {
+                const externalLayer = await getExternalLayer(config.basemap.id);
+                basemap.config = createExternalLayerConfig(externalLayer);
             } else {
-                basemap = defaultBasemaps().find(map => map.id === basemapId);
+                basemap.config = defaultBasemaps().find(
+                    map => map.id === config.basemap.id
+                ).config;
             }
 
-            if (basemapId.substring(0, 4) === 'bing') {
+            if (config.basemap.id.substring(0, 4) === 'bing') {
                 basemap.config.apiKey = keyBingMapsApiKey;
             }
 
