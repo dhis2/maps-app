@@ -1,18 +1,13 @@
 import { isString, isObject, sortBy } from 'lodash/fp';
 import { EXTERNAL_LAYER } from '../constants/layers';
 
-export const getMigratedMapConfig = (config, defaultBasemap) => {
-    const configWithBasemap = extractBasemap(config, defaultBasemap);
-    const configWithGisAppLayers = upgradeGisAppLayers(configWithBasemap);
-    const configWithRenamedBoundaryLayers = renameBoundaryLayerToOrgUnitLayer(
-        configWithGisAppLayers
+export const getMigratedMapConfig = (config, defaultBasemapId) =>
+    renameBoundaryLayerToOrgUnitLayer(
+        upgradeGisAppLayers(extractBasemap(config, defaultBasemapId))
     );
 
-    return configWithRenamedBoundaryLayers;
-};
-
 // Different ways of specifying a basemap - TODO: simplify!
-const extractBasemap = (config, defaultBasemap) => {
+const extractBasemap = (config, defaultBasemapId) => {
     const externalBasemap = config.mapViews.find(
         view =>
             view.layer === EXTERNAL_LAYER &&
@@ -29,12 +24,12 @@ const extractBasemap = (config, defaultBasemap) => {
     } else if (isString(config.basemap)) {
         basemap =
             config.basemap === 'none'
-                ? { id: defaultBasemap, isVisible: false }
+                ? { id: defaultBasemapId, isVisible: false }
                 : { id: config.basemap };
     } else if (isObject(config.basemap)) {
         basemap = config.basemap;
     } else {
-        basemap = { id: defaultBasemap };
+        basemap = { id: defaultBasemapId };
     }
 
     return {
@@ -64,7 +59,6 @@ const isGisAppFormat = layers =>
     layers.some(config => config.layer.match(/thematic[1-4]/));
 
 const upgradeGisAppLayers = config => {
-    //  mapViews: upgradeGisAppLayers(config.mapViews),
     const { mapViews } = config;
     if (!isGisAppFormat(mapViews)) {
         return config;
@@ -83,19 +77,6 @@ const upgradeGisAppLayers = config => {
         mapViews: updatedMapViews,
     };
 };
-
-// const oldUpgradeGisAppLayers = layers => {
-//     if (!isGisAppFormat(layers)) {
-//         return layers;
-//     }
-
-//     return sortBy(config => gisAppLayerOrder[config.layer], layers).map(
-//         config => ({
-//             ...config,
-//             layer: config.layer.replace(/\d$/, ''), // Remove thematic number used in previous versions
-//         })
-//     );
-// };
 
 // Change layer name from boundary to orgUnit when loading an old map
 // TODO: Change in db with an upgrade script
