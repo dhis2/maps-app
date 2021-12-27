@@ -109,12 +109,11 @@ function PluginContainer() {
                     )
             );
         } else if (!config.mapViews) {
-            loadLayers(
-                getConfigFromNonMapConfig(
-                    config,
-                    systemSettings.keyDefaultBaseMap
-                ),
-                systemSettings.keyBingMapsApiKey
+            getConfigFromNonMapConfig(
+                config,
+                systemSettings.keyDefaultBaseMap
+            ).then(config =>
+                loadLayers(config, systemSettings.keyBingMapsApiKey)
             );
         } else {
             loadLayers(
