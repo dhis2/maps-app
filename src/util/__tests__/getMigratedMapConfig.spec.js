@@ -3,7 +3,6 @@ import { getMigratedMapConfig } from '../getMigratedMapConfig';
 const defaultBasemapId = 'defaultBasemapId';
 
 test('getMigratedMapConfig when basemap in mapViews', () => {
-    expect(1).toEqual(1);
     const config = {
         id: 'mapId',
         name: 'map name',
