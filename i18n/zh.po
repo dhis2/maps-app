@@ -195,7 +195,7 @@ msgid "Aggregation method"
 msgstr "汇总方法"
 
 msgid "Choosing many groups takes a long time to calculate and display."
-msgstr ""
+msgstr "选择多个组需要很长时间来计算和显示。"
 
 msgid "Groups"
 msgstr "组"
@@ -884,7 +884,7 @@ msgid "Median"
 msgstr "中位数"
 
 msgid "Std dev"
-msgstr ""
+msgstr "标准差"
 
 msgid "OSM Light"
 msgstr "OSM轻量"
