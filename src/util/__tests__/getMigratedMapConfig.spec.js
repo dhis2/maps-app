@@ -50,7 +50,7 @@ test('getMigratedMapConfig when basemap is a string but not "none"', () => {
     const config = {
         id: 'mapId',
         name: 'map name',
-        basemap: 'The rainbow basemap',
+        basemap: 'TheRainbowBasemap',
         mapViews: [
             { layer: 'thematic', name: 'All the pretty colors' },
             { layer: 'facilities', name: 'All the facilities' },
@@ -61,7 +61,7 @@ test('getMigratedMapConfig when basemap is a string but not "none"', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'The rainbow basemap' },
+            basemap: { id: 'TheRainbowBasemap' },
             mapViews: [
                 { layer: 'thematic', name: 'All the pretty colors' },
                 { layer: 'facilities', name: 'All the facilities' },
