@@ -41,7 +41,7 @@ const layerName = () => ({
 
 const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
     const [validateLayer, setValidateLayer] = useState(false);
-    const { keyAnalysisRelativePeriod } = useSystemSettings().systemSettings;
+    const { keyAnalysisRelativePeriod } = useSystemSettings();
 
     const onValidateLayer = () => setValidateLayer(true);
 

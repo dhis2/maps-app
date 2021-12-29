@@ -8,7 +8,7 @@ import { useUserSettings } from '../UserSettingsProvider';
 import styles from './styles/MapName.module.css';
 
 const MapName = ({ showName, name, interpretationDate }) => {
-    const { userSettings } = useUserSettings();
+    const { keyUiLocale } = useUserSettings();
     return showName && name ? (
         <div className={styles.mapName}>
             <div className={`${styles.name} dhis2-maps-title`}>{name}</div>
@@ -20,7 +20,7 @@ const MapName = ({ showName, name, interpretationDate }) => {
                         {
                             interpretationDate: formatLocaleDate(
                                 interpretationDate,
-                                userSettings.keyUiLocale || 'en'
+                                keyUiLocale || 'en'
                             ),
                         }
                     )}
@@ -31,10 +31,9 @@ const MapName = ({ showName, name, interpretationDate }) => {
 };
 
 MapName.propTypes = {
-    showName: PropTypes.bool,
     name: PropTypes.string,
     interpretationDate: PropTypes.string,
-    uiLocale: PropTypes.string,
+    showName: PropTypes.bool,
 };
 
 export default connect(({ map, download }) => ({

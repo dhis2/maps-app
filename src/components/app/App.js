@@ -37,6 +37,7 @@ import {
     fetchOrgUnits,
     fetchExternalLayers,
     fetchMap,
+    getUrlParameter,
 } from '../../util/requests';
 import { createExternalLayer } from '../../util/external';
 import {
@@ -56,8 +57,6 @@ const isBaseMap = layer => layer.mapLayerPosition === 'BASEMAP';
 const isOverlay = layer => !isBaseMap(layer);
 
 const App = ({
-    mapId,
-    analyticalObject,
     addBasemap,
     addExternalLayer,
     removeBingBasemaps,
@@ -67,7 +66,7 @@ const App = ({
     setMap,
     loadLayer,
 }) => {
-    const { systemSettings } = useSystemSettings();
+    const systemSettings = useSystemSettings();
     const engine = useDataEngine();
 
     useEffect(() => {
@@ -93,6 +92,9 @@ const App = ({
             } catch (e) {
                 log.error('Could not load external map layers');
             }
+
+            const mapId = getUrlParameter('id');
+            const analyticalObject = getUrlParameter('currentAnalyticalObject');
 
             if (mapId) {
                 try {
@@ -159,8 +161,6 @@ const App = ({
 };
 
 App.propTypes = {
-    mapId: PropTypes.string,
-    analyticalObject: PropTypes.string,
     addBasemap: PropTypes.func,
     addExternalLayer: PropTypes.func,
     removeBingBasemaps: PropTypes.func,

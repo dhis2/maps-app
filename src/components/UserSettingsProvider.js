@@ -21,20 +21,13 @@ const UserSettingsProvider = ({ children }) => {
                 userSettings: userSettingsQuery,
             });
 
-            setSettings({
-                ...userSettings,
-                displayProperty: userSettings.keyAnalysisDisplayProperty,
-            });
+            setSettings(userSettings);
         }
         fetchData();
     }, []);
 
     return (
-        <UserSettingsCtx.Provider
-            value={{
-                userSettings: settings,
-            }}
-        >
+        <UserSettingsCtx.Provider value={settings}>
             {children}
         </UserSettingsCtx.Provider>
     );
