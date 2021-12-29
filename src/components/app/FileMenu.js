@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
@@ -42,12 +42,23 @@ export const FileMenu = ({
     setMapProps,
     setAlert,
 }) => {
+    const [errorMessage, setErrorMessage] = useState(null);
     const { d2 } = useD2();
-    const [saveMapMutate] = useDataMutation(saveMapMutation);
-    const [saveAsNewMapMutate] = useDataMutation(saveAsNewMapMutation);
+    const [saveMapMutate] = useDataMutation(saveMapMutation, {
+        onError: e => setErrorMessage(`Failed to save map: ${e.message}`),
+    });
+    const [saveAsNewMapMutate] = useDataMutation(saveAsNewMapMutation, {
+        onError: e => setErrorMessage(`Failed to save map: ${e.message}`),
+    });
     const engine = useDataEngine();
     const { keyDefaultBaseMap } = useSystemSettings().systemSettings;
     const setError = ({ message }) => setAlert({ critical: true, message });
+
+    useEffect(() => {
+        if (errorMessage) {
+            setAlert({ critical: true, message: errorMessage });
+        }
+    }, [errorMessage]);
 
     const saveMap = async () => {
         const config = cleanMapConfig({
@@ -92,36 +103,26 @@ export const FileMenu = ({
             config.mapViews.forEach(view => delete view.id);
         }
 
-        try {
-            const response = await saveAsNewMapMutate({
-                data: config,
-            });
+        const response = await saveAsNewMapMutate({
+            data: config,
+        });
 
-            if (response.status === 'OK') {
-                const newMapConfig = await fetchMap(
-                    response.response.uid,
-                    engine,
-                    keyDefaultBaseMap
-                );
+        if (response.status === 'OK') {
+            const newMapConfig = await fetchMap(
+                response.response.uid,
+                engine,
+                keyDefaultBaseMap
+            );
 
-                delete newMapConfig.mapViews;
-                setMapProps(newMapConfig);
+            delete newMapConfig.mapViews;
+            setMapProps(newMapConfig);
 
-                setAlert({
-                    success: true,
-                    message: getSavedMessage(name),
-                });
-            } else {
-                setAlert({
-                    critical: true,
-                    message: `${i18n.t('Error')}: ${response.message}`,
-                });
-            }
-        } catch (e) {
             setAlert({
-                critical: true,
-                message: `${i18n.t('Error')}: ${e.message}`,
+                success: true,
+                message: getSavedMessage(name),
             });
+        } else {
+            setErrorMessage(`${i18n.t('Error')}: ${response.message}`);
         }
     };
 

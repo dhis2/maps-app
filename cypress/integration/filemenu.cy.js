@@ -6,6 +6,7 @@ import {
     saveAsNewMap,
     saveNewMap,
     saveExistingMap,
+    deleteMap,
 } from '../elements/file_menu';
 
 import { EXTENDED_TIMEOUT } from '../support/util';
@@ -95,5 +96,80 @@ describe('File menu', () => {
         cy.wait('@saveTheExistingMap')
             .its('response.statusCode')
             .should('eq', 204);
+    });
+
+    it('save changes to existing map fails', () => {
+        cy.visit('/', EXTENDED_TIMEOUT);
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
+
+        openMap(MAP_TITLE);
+
+        cy.intercept(
+            {
+                method: 'PUT',
+                url: /\/maps\//,
+            },
+            { statusCode: 409 }
+        ).as('saveFails');
+
+        saveExistingMap();
+
+        cy.wait('@saveFails')
+            .its('response.statusCode')
+            .should('eq', 409);
+
+        cy.getByDataTest('dhis2-uicore-alertbar')
+            .contains('Failed to save map')
+            .should('be.visible');
+    });
+
+    it('save as new map fails', () => {
+        cy.visit('/', EXTENDED_TIMEOUT);
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
+
+        openMap(MAP_TITLE);
+
+        cy.intercept(
+            {
+                method: 'POST',
+                url: /\/maps/,
+            },
+            { statusCode: 409 }
+        ).as('saveAsFails');
+
+        saveAsNewMap('Map name');
+        cy.wait('@saveAsFails')
+            .its('response.statusCode')
+            .should('eq', 409);
+        cy.getByDataTest('dhis2-uicore-alertbar')
+            .contains('Failed to save map')
+            .should('be.visible');
+    });
+
+    it('deletes the maps', () => {
+        cy.visit('/', EXTENDED_TIMEOUT);
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
+
+        openMap(MAP_TITLE);
+        cy.intercept({
+            method: 'DELETE',
+            url: /\/maps/,
+        }).as('deleteMap');
+
+        deleteMap();
+
+        cy.wait('@deleteMap')
+            .its('response.statusCode')
+            .should('eq', 200);
+
+        cy.getByDataTest('layercard').should('not.exist');
+        cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
+
+        openMap(SAVEAS_MAP_TITLE);
+
+        deleteMap();
+
+        cy.getByDataTest('layercard').should('not.exist');
+        cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
     });
 });
