@@ -1,6 +1,5 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
 import { EARTH_ENGINE_LAYER, TRACKED_ENTITY_LAYER } from '../constants/layers';
-import { DEFAULT_BASEMAP_ID } from '../constants/basemaps';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -87,22 +86,22 @@ const validModelProperties = [
     'dimensionItemType',
 ];
 
-export const cleanMapConfig = ({ config, defaultBasemap }) => ({
+export const cleanMapConfig = ({ config, defaultBasemapId }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
-    basemap: getBasemapString(config.basemap || defaultBasemap),
+    basemap: getBasemapString(config.basemap, defaultBasemapId),
     mapViews: config.mapViews.map(cleanLayerConfig),
 });
 
-const getBasemapString = basemap => {
+const getBasemapString = (basemap, defaultBasemapId) => {
     if (!basemap) {
-        return DEFAULT_BASEMAP_ID;
+        return defaultBasemapId;
     }
 
     if (basemap.isVisible === false) {
         return 'none';
     }
 
-    return basemap.id;
+    return basemap.id || defaultBasemapId;
 };
 
 const cleanLayerConfig = config => ({

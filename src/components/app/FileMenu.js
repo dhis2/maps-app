@@ -29,10 +29,6 @@ const saveMapMutation = {
 const saveAsNewMapMutation = {
     resource: 'maps',
     type: 'create',
-    params: {
-        skipTranslation: true,
-        skipSharing: true,
-    },
     data: ({ data }) => data,
 };
 
@@ -56,7 +52,7 @@ export const FileMenu = ({
     const saveMap = async () => {
         const config = cleanMapConfig({
             config: map,
-            defaultBasemap: { id: keyDefaultBaseMap },
+            defaultBasemapId: keyDefaultBaseMap,
         });
 
         if (config.mapViews) {
@@ -84,7 +80,7 @@ export const FileMenu = ({
         const config = {
             ...cleanMapConfig({
                 config: map,
-                defaultBasemap: { id: keyDefaultBaseMap },
+                defaultBasemapId: keyDefaultBaseMap,
             }),
             name: name,
             description: description,
