@@ -1,3 +1,5 @@
+import { EXTENDED_TIMEOUT } from '../support/util';
+
 export const openMap = mapName => {
     cy.contains('File').click();
     cy.getByDataTest('file-menu-container').should('be.visible');
@@ -6,17 +8,25 @@ export const openMap = mapName => {
         .should('be.visible')
         .click();
 
+    cy.intercept({
+        method: 'GET',
+        url: /\/maps\?/,
+    }).as('fetchListOfMaps');
     cy.getByDataTest('open-file-dialog-modal-name-filter')
         .find('input')
         .clear()
         .focus()
         .type(mapName);
 
-    cy.getByDataTest('open-file-dialog-modal')
+    cy.wait('@fetchListOfMaps');
+
+    cy.getByDataTest('dhis2-uicore-datatable')
         .contains(mapName)
         .click();
 
-    cy.getByDataTest('file-menu-container').should('not.exist');
+    cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
+
+    cy.getByDataTest('open-file-dialog-modal').should('not.be.visible');
 };
 
 export const saveAsNewMap = newMapName => {
@@ -35,6 +45,8 @@ export const saveAsNewMap = newMapName => {
     cy.get('button')
         .contains('Save')
         .click();
+
+    cy.getByDataTest('file-menu-saveas-modal').should('not.exist');
 };
 
 export const saveNewMap = newMapName => {
@@ -53,6 +65,8 @@ export const saveNewMap = newMapName => {
     cy.get('button')
         .contains('Save')
         .click();
+
+    cy.getByDataTest('file-menu-saveas-modal').should('not.exist');
 };
 
 export const saveExistingMap = () => {
@@ -73,4 +87,6 @@ export const deleteMap = () => {
         .click();
 
     cy.getByDataTest('file-menu-delete-modal-delete').click();
+
+    cy.getByDataTest('file-menu-delete-modal').should('not.exist');
 };

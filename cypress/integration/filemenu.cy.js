@@ -146,7 +146,7 @@ describe('File menu', () => {
             .should('be.visible');
     });
 
-    it('deletes the maps', () => {
+    it('deletes MAP_TITLE map', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -164,10 +164,24 @@ describe('File menu', () => {
 
         cy.getByDataTest('layercard').should('not.exist');
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
+    });
+
+    it('deletes SAVEAS_MAP_TITLE map', () => {
+        cy.visit('/', EXTENDED_TIMEOUT);
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
         openMap(SAVEAS_MAP_TITLE);
 
+        cy.intercept({
+            method: 'DELETE',
+            url: /\/maps/,
+        }).as('deleteMap');
+
         deleteMap();
+
+        cy.wait('@deleteMap')
+            .its('response.statusCode')
+            .should('eq', 200);
 
         cy.getByDataTest('layercard').should('not.exist');
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
