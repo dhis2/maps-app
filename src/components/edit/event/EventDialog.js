@@ -467,9 +467,7 @@ export class EventDialog extends Component {
 
 const EventDialogWithSettings = props => (
     <SystemSettingsCtx.Consumer>
-        {({ systemSettings }) => (
-            <EventDialog settings={systemSettings} {...props} />
-        )}
+        {settings => <EventDialog settings={settings} {...props} />}
     </SystemSettingsCtx.Consumer>
 );
 

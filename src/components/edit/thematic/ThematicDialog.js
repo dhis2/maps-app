@@ -699,9 +699,7 @@ export class ThematicDialog extends Component {
 
 const ThematicDialogWithSettings = props => (
     <SystemSettingsCtx.Consumer>
-        {({ systemSettings }) => (
-            <ThematicDialog settings={systemSettings} {...props} />
-        )}
+        {settings => <ThematicDialog settings={settings} {...props} />}
     </SystemSettingsCtx.Consumer>
 );
 
