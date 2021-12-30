@@ -15,9 +15,9 @@ context('Org Unit Layers', () => {
         cy.contains('No organisation units are selected').should('be.visible');
     });
 
-    /*
     it('adds a org unit layer', () => {
-        Layer.openDialog('Boundaries')
+        Layer.openDialog('Org units')
+            .selectOu('Sierra Leone')
             .selectOuLevel('District')
             .addToMap();
 
@@ -25,8 +25,7 @@ context('Org Unit Layers', () => {
 
         // TODO: use visual snapshot testing to check the rendering of the map
 
-        Layer.validateCardTitle('Boundaries');
+        Layer.validateCardTitle('Organisation units');
         Layer.validateCardItems(['District']);
     });
-    */
 });

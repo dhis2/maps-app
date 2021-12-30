@@ -13,7 +13,7 @@ export const mapRequest = async id => {
 
     return d2.models.map
         .get(id, {
-            fields: await mapFields(),
+            fields: mapFields(),
         })
         .then(getBasemap)
         .then(config => ({
@@ -21,6 +21,62 @@ export const mapRequest = async id => {
             mapViews: upgradeGisAppLayers(config.mapViews),
         }));
 };
+
+const fetchMapQuery = {
+    resource: 'maps',
+    id: ({ id }) => id,
+    params: {
+        fields: mapFields(),
+    },
+};
+
+export const fetchMap = async (id, engine) =>
+    engine
+        .query(
+            { map: fetchMapQuery },
+            {
+                variables: {
+                    id,
+                },
+            }
+        )
+        .then(map => getBasemap(map.map))
+        .then(config => ({
+            ...config,
+            mapViews: upgradeGisAppLayers(config.mapViews),
+        }));
+
+// const fetchOrgUnitsQuery = {
+//     resource: 'organisationUnits',
+//     params: {
+//         userDataViewFallback: true,
+//         fields:
+//             'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
+//     },
+// };
+
+export const fetchOrgUnits = async () => {
+    // TODO - use d2 until correct dataQuery format can be determined
+    const d2 = await getD2();
+    const collection = await d2.models.organisationUnits.list({
+        userDataViewFallback: true,
+        fields:
+            'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
+    });
+    return collection.toArray();
+};
+
+const fetchExternalLayersQuery = {
+    resource: 'externalMapLayers',
+    params: {
+        paging: false,
+        fields:
+            'id,displayName~rename(name),service,url,attribution,mapService,layers,imageFormat,mapLayerPosition,legendSet,legendSetUrl',
+    },
+};
+
+export const fetchExternalLayers = async engine =>
+    engine.query({ externalLayers: fetchExternalLayersQuery });
 
 // Fetch one external layer
 export const getExternalLayer = async id => {

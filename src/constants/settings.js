@@ -1,5 +1,7 @@
 export const apiVersion = 37;
 
+export const DEFAULT_SYSTEM_SETTINGS = {};
+
 export const SYSTEM_SETTINGS = [
     'keyAnalysisRelativePeriod',
     'keyBingMapsApiKey',

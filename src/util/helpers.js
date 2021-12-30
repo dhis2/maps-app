@@ -1,4 +1,3 @@
-import { getInstance as getD2 } from 'd2';
 import { isObject } from 'lodash/fp';
 import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../constants/layers';
 
@@ -45,9 +44,8 @@ const baseFields = [
     'href',
 ];
 
-const analysisFields = async () => {
-    const d2 = await getD2();
-    const namePropertyUrl = await getDisplayPropertyUrl(d2);
+const analysisFields = () => {
+    const namePropertyUrl = getDisplayPropertyUrl();
     return [
         '*',
         `columns[dimension,filter,items[dimensionItem~rename(id),dimensionItemType,${namePropertyUrl}]]`,
@@ -88,8 +86,8 @@ const analysisFields = async () => {
     ];
 };
 
-export const mapFields = async () => {
-    const fields = await analysisFields();
+export const mapFields = () => {
+    const fields = analysisFields();
     return `${baseFields.join(',')}, mapViews[${fields.join(',')}]`;
 };
 
@@ -109,7 +107,7 @@ export const legendSetFields = [
 
 // Change layer name from boundary to orgUnit when loading an old map
 // TODO: Change in db with an upgrade script
-export const cleanMapObject = ao => ({
+export const renameBoundaryLayerToOrgUnitLayer = ao => ({
     ...ao,
     mapViews: ao.mapViews.map(v =>
         v.layer === 'boundary'

@@ -1,11 +1,15 @@
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 import 'typeface-roboto';
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Provider } from '@dhis2/app-runtime';
+import log from 'loglevel';
+import { useDataEngine } from '@dhis2/app-runtime';
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
+import isEmpty from 'lodash/isEmpty';
 import AppMenu from './AppMenu';
+import { useSystemSettings } from '../SystemSettingsProvider';
 import LayersPanel from '../layers/LayersPanel';
 import LayersToggle from '../layers/LayersToggle';
 import MapContainer from '../map/MapContainer';
@@ -18,55 +22,163 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
-import { apiVersion } from '../../constants/settings';
+import { loadFavorite } from '../../actions/favorites';
+import { setAnalyticalObject } from '../../actions/analyticalObject';
+import { setOrgUnitTree } from '../../actions/orgUnits';
+import { setMap } from '../../actions/map';
+import { loadLayer } from '../../actions/layers';
+import {
+    removeBingBasemaps,
+    setBingMapsApiKey,
+    addBasemap,
+} from '../../actions/basemap';
+import { addExternalLayer } from '../../actions/externalLayers';
+import {
+    fetchOrgUnits,
+    fetchExternalLayers,
+    fetchMap,
+    getUrlParameter,
+} from '../../util/requests';
+import { createExternalLayer } from '../../util/external';
+import {
+    getCurrentAnalyticalObject,
+    clearAnalyticalObjectFromUrl,
+    hasSingleDataDimension,
+    getThematicLayerFromAnalyticalObject,
+} from '../../util/analyticalObject';
+import {
+    renameBoundaryLayerToOrgUnitLayer,
+    addOrgUnitPaths,
+} from '../../util/helpers';
+
 import styles from './styles/App.module.css';
 
-// Makes d2 available in all child components
-export class App extends Component {
-    static propTypes = {
-        d2: PropTypes.object,
-    };
+const isBaseMap = layer => layer.mapLayerPosition === 'BASEMAP';
+const isOverlay = layer => !isBaseMap(layer);
 
-    static childContextTypes = {
-        d2: PropTypes.object.isRequired,
-    };
+const App = ({
+    addBasemap,
+    addExternalLayer,
+    removeBingBasemaps,
+    setBingMapsApiKey,
+    setOrgUnitTree,
+    setAnalyticalObject,
+    setMap,
+    loadLayer,
+}) => {
+    const systemSettings = useSystemSettings();
+    const engine = useDataEngine();
 
-    getChildContext() {
-        return {
-            d2: this.props.d2,
-        };
-    }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const orgUnitTree = await fetchOrgUnits();
+                setOrgUnitTree(orgUnitTree);
+            } catch (e) {
+                log.error('Could not load organisation unit tree');
+            }
 
-    render() {
-        return (
-            <Provider
-                config={{
-                    baseUrl: process.env.DHIS2_BASE_URL,
-                    apiVersion,
-                }}
-            >
-                <FatalErrorBoundary>
-                    <div className={styles.app}>
-                        <CssReset />
-                        <CssVariables colors spacers theme />
-                        <HeaderBar appName={i18n.t('Maps')} />
-                        <AppMenu />
-                        <InterpretationsPanel />
-                        <LayersPanel />
-                        <LayersToggle />
-                        <MapContainer />
-                        <BottomPanel />
-                        <LayerEdit />
-                        <ContextMenu />
-                        <AlertStack />
-                        <DataDownloadDialog />
-                        <OpenAsMapDialog />
-                        <OrgUnitProfile />
-                    </div>
-                </FatalErrorBoundary>
-            </Provider>
-        );
-    }
-}
+            try {
+                const externalLayers = await fetchExternalLayers(engine);
+                externalLayers.externalLayers.externalMapLayers
+                    .filter(isBaseMap)
+                    .map(createExternalLayer)
+                    .map(addBasemap);
 
-export default App;
+                externalLayers.externalLayers.externalMapLayers
+                    .filter(isOverlay)
+                    .map(createExternalLayer)
+                    .map(addExternalLayer);
+            } catch (e) {
+                log.error('Could not load external map layers');
+            }
+
+            const mapId = getUrlParameter('id');
+            const analyticalObject = getUrlParameter('currentAnalyticalObject');
+
+            if (mapId) {
+                try {
+                    const config = await fetchMap(mapId, engine);
+                    const cleanedConfig = renameBoundaryLayerToOrgUnitLayer(
+                        config
+                    );
+                    setMap(cleanedConfig);
+                    addOrgUnitPaths(cleanedConfig.mapViews).map(loadLayer);
+                } catch (e) {
+                    log.error(`Could not load map with id ${mapId}`);
+                }
+            }
+
+            if (analyticalObject === 'true') {
+                try {
+                    getCurrentAnalyticalObject().then(ao => {
+                        clearAnalyticalObjectFromUrl();
+                        return hasSingleDataDimension(ao)
+                            ? getThematicLayerFromAnalyticalObject(ao).then(
+                                  loadLayer
+                              )
+                            : setAnalyticalObject(ao);
+                    });
+                } catch (e) {
+                    log.error('Could not load current analytical object');
+                }
+            }
+        }
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (!isEmpty(systemSettings)) {
+            if (!systemSettings.keyBingMapsApiKey) {
+                removeBingBasemaps();
+            } else {
+                setBingMapsApiKey(systemSettings.keyBingMapsApiKey);
+            }
+        }
+    }, [systemSettings]);
+
+    return (
+        <FatalErrorBoundary>
+            <div className={styles.app}>
+                <CssReset />
+                <CssVariables colors spacers theme />
+                <HeaderBar appName={i18n.t('Maps')} />
+                <AppMenu />
+                <InterpretationsPanel />
+                <LayersPanel />
+                <LayersToggle />
+                <MapContainer />
+                <BottomPanel />
+                <LayerEdit />
+                <ContextMenu />
+                <AlertStack />
+                <DataDownloadDialog />
+                <OpenAsMapDialog />
+                <OrgUnitProfile />
+            </div>
+        </FatalErrorBoundary>
+    );
+};
+
+App.propTypes = {
+    addBasemap: PropTypes.func,
+    addExternalLayer: PropTypes.func,
+    removeBingBasemaps: PropTypes.func,
+    setBingMapsApiKey: PropTypes.func,
+    setOrgUnitTree: PropTypes.func,
+    setMap: PropTypes.func,
+    setAnalyticalObject: PropTypes.func,
+    loadLayer: PropTypes.func,
+};
+
+export default connect(null, {
+    addBasemap,
+    addExternalLayer,
+    loadFavorite,
+    removeBingBasemaps,
+    setBingMapsApiKey,
+    setOrgUnitTree,
+    setMap,
+    setAnalyticalObject,
+    loadLayer,
+})(App);

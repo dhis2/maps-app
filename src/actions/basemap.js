@@ -27,3 +27,7 @@ export const setBingMapsApiKey = key => ({
     type: types.BASEMAP_BING_KEY_SET,
     key,
 });
+
+export const removeBingBasemaps = () => ({
+    type: types.BASEMAP_REMOVE_BING_MAPS,
+});
