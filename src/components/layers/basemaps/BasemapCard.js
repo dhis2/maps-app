@@ -63,24 +63,13 @@ const BasemapCard = props => {
 };
 
 BasemapCard.propTypes = {
-    config: PropTypes.object,
     subtitle: PropTypes.string,
-    opacity: PropTypes.number,
-    isVisible: PropTypes.bool,
-    isExpanded: PropTypes.bool,
     basemap: PropTypes.object.isRequired,
     basemaps: PropTypes.array.isRequired,
     changeBasemapOpacity: PropTypes.func.isRequired,
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
     selectBasemap: PropTypes.func.isRequired,
-};
-
-BasemapCard.defaultProps = {
-    config: {},
-    opacity: 1,
-    isVisible: true,
-    isExpanded: true,
 };
 
 export default connect(

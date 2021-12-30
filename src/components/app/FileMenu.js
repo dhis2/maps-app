@@ -51,7 +51,7 @@ export const FileMenu = ({
         onError: e => setErrorMessage(`Failed to save map: ${e.message}`),
     });
     const engine = useDataEngine();
-    const { keyDefaultBaseMap } = useSystemSettings().systemSettings;
+    const { keyDefaultBaseMap } = useSystemSettings();
     const setError = ({ message }) => setAlert({ critical: true, message });
 
     useEffect(() => {

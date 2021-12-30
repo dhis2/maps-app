@@ -8,13 +8,13 @@ const emptyBasemap = { config: {} };
 function useBasemapConfig(selBasemap) {
     const [basemap, setBasemap] = useState(emptyBasemap);
     const basemaps = useSelector(state => state.basemaps);
-    const { systemSettings } = useSystemSettings();
+    const { keyDefaultBaseMap } = useSystemSettings();
 
     useEffect(() => {
         const selectedBasemap = Object.assign(
             {},
             defaultBasemapState,
-            { id: systemSettings.keyDefaultBaseMap },
+            { id: keyDefaultBaseMap },
             selBasemap
         );
 
@@ -23,7 +23,7 @@ function useBasemapConfig(selBasemap) {
             emptyBasemap;
 
         setBasemap(Object.assign({}, basemapConfig, selectedBasemap));
-    }, [systemSettings.keyDefaultBaseMap, selBasemap, basemaps]);
+    }, [keyDefaultBaseMap, selBasemap, basemaps]);
 
     return basemap;
 }
