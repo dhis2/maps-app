@@ -40,13 +40,13 @@ const layerName = () => ({
 });
 
 const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
-    const [validateLayer, setValidateLayer] = useState(false);
+    const [isValidLayer, setIsValidLayer] = useState(false);
     const { keyAnalysisRelativePeriod } = useSystemSettings();
 
-    const onValidateLayer = () => setValidateLayer(true);
+    const onValidateLayer = () => setIsValidLayer(true);
 
     const onLayerValidation = isValid => {
-        setValidateLayer(false);
+        setIsValidLayer(false);
         if (isValid) {
             const { id, editCounter = 0 } = layer;
 
@@ -89,7 +89,7 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
                     <LayerDialog
                         {...layer}
                         defaultPeriod={keyAnalysisRelativePeriod}
-                        validateLayer={validateLayer}
+                        validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}
                     />
                 </div>
