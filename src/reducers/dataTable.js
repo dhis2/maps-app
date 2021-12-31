@@ -7,7 +7,7 @@ const dataTable = (state = null, action) => {
 
         case types.DATA_TABLE_CLOSE:
         case types.MAP_NEW:
-        case types.FAVORITE_LOAD:
+        case types.MAP_SET:
             return null;
 
         case types.DATA_TABLE_TOGGLE:
