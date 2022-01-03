@@ -2,6 +2,7 @@ import { getInstance as getD2 } from 'd2';
 import { mapFields } from './helpers';
 import { apiFetch } from './api';
 import { getMigratedMapConfig } from './getMigratedMapConfig';
+import { DEFAULT_SYSTEM_SETTINGS } from '../constants/settings';
 // API requests
 
 // Fetch one favorite
@@ -74,7 +75,9 @@ export const getExternalLayer = async id => {
 };
 
 export const fetchSystemSettings = keys =>
-    apiFetch(`/systemSettings/?key=${keys.join(',')}`);
+    apiFetch(`/systemSettings/?key=${keys.join(',')}`).then(settings =>
+        Object.assign({}, DEFAULT_SYSTEM_SETTINGS, settings)
+    );
 
 // https://davidwalsh.name/query-string-javascript
 export const getUrlParameter = name => {
