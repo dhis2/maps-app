@@ -10,7 +10,7 @@ import {
 } from '../constants/layers';
 import { getProgramStatuses } from '../constants/programStatuses';
 import { createAlert } from '../util/alerts';
-import { formatLocaleDate } from '../util/time';
+import { formatStartEndDate, getDateArray } from '../util/time';
 import { getDataWithRelationships } from '../util/teiRelationshipsParser';
 
 const fields = [
@@ -69,7 +69,11 @@ const trackedEntityLoader = async config => {
     const name = program ? program.name : i18n.t('Tracked entity');
 
     const legend = {
-        period: `${formatLocaleDate(startDate)} - ${formatLocaleDate(endDate)}`,
+        title: name,
+        period: formatStartEndDate(
+            getDateArray(startDate),
+            getDateArray(endDate)
+        ),
         items: [
             {
                 name:
