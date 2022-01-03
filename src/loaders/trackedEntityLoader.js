@@ -65,7 +65,7 @@ const trackedEntityLoader = async config => {
         relationshipLineColor,
     } = config;
 
-    const name = program ? program.name : i18n.t('Tracked entity');
+    const name = program?.name ? program.name : i18n.t('Tracked entity');
 
     const legend = {
         title: name,
