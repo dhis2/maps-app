@@ -89,7 +89,7 @@ describe('systemSettings', () => {
             .should('be.visible');
     });
 
-    it.skip('uses Last 6 months as default relative period', () => {
+    it('uses Last 6 months as default relative period', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
@@ -106,26 +106,34 @@ describe('systemSettings', () => {
 
         const Layer = new ThematicLayer();
 
-        Layer.openDialog('Thematic').selectTab('Period');
-        cy.getByDataTest('relative-period-select')
-            .contains('Last 6 months')
-            .should('be.visible');
-        cy.getByDataTest('relative-period-select')
-            .contains('Last 12 months')
-            .should('not.exist');
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('HIV')
+            .selectIndicator('VCCT post-test counselling rate')
+            .addToMap();
+
+        Layer.validateCardPeriod('Last 6 months');
     });
 
-    it.skip('uses Last 12 months as default relative period', () => {
+    it('uses Last 12 months as default relative period', () => {
+        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
+            delete req.headers['if-none-match'];
+            req.continue(res => {
+                res.body.keyAnalysisRelativePeriod = 'LAST_12_MONTHS';
+
+                res.send({
+                    body: res.body,
+                });
+            });
+        });
         cy.visit('/', EXTENDED_TIMEOUT);
 
         const Layer = new ThematicLayer();
 
-        Layer.openDialog('Thematic').selectTab('Period');
-        cy.getByDataTest('relative-period-select')
-            .contains('Last 6 months')
-            .should('not.exist');
-        cy.getByDataTest('relative-period-select')
-            .contains('Last 12 months')
-            .should('be.visible');
+        Layer.openDialog('Thematic')
+            .selectIndicatorGroup('HIV')
+            .selectIndicator('VCCT post-test counselling rate')
+            .addToMap();
+
+        Layer.validateCardPeriod('Last 12 months');
     });
 });
