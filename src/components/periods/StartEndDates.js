@@ -29,14 +29,14 @@ const StartEndDates = props => {
         <Fragment>
             <DatePicker
                 label={i18n.t('Start date')}
-                value={startDate}
-                onChange={setStartDate}
+                defaultVal={startDate}
+                onBlur={setStartDate}
                 className={className || styles.select}
             />
             <DatePicker
                 label={i18n.t('End date')}
-                value={endDate}
-                onChange={setEndDate}
+                defaultVal={endDate}
+                onBlur={setEndDate}
                 className={className || styles.select}
             />
             {errorText && (
