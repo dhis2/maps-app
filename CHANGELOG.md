@@ -1,3 +1,10 @@
+## [1.16.5](https://github.com/dhis2/maps-app/compare/v1.16.4...v1.16.5) (2022-01-04)
+
+
+### Bug Fixes
+
+* maps-gl upgrade with shared ee worker ([#1995](https://github.com/dhis2/maps-app/issues/1995)) ([8ffe94b](https://github.com/dhis2/maps-app/commit/8ffe94b0b56a34792f7e04660454cf153148193c))
+
 ## [1.16.4](https://github.com/dhis2/maps-app/compare/v1.16.3...v1.16.4) (2021-12-30)
 
 
