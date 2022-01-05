@@ -91,9 +91,11 @@ export const FileMenu = ({
     const openMap = async id => {
         const map = await fetchMap(id, engine, keyDefaultBaseMap);
 
-        const basemap =
+        const basemapConfig =
             basemaps.find(bm => bm.id === map.basemap.id) ||
             getFallbackBasemap();
+
+        const basemap = { ...map.basemap, ...basemapConfig };
 
         setMap({ ...map, basemap });
         addOrgUnitPaths(map.mapViews).map(loadLayer);

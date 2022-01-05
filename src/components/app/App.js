@@ -107,9 +107,11 @@ const App = ({
 
                     const basemaps = externalBasemaps.concat(defaultBasemaps());
 
-                    const basemap =
+                    const basemapConfig =
                         basemaps.find(bm => bm.id === map.basemap.id) ||
                         getFallbackBasemap();
+
+                    const basemap = { ...map.basemap, ...basemapConfig };
 
                     setMap({ ...map, basemap });
                     addOrgUnitPaths(map.mapViews).map(loadLayer);
