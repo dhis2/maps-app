@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
 import LayerCard from '../LayerCard';
 import BasemapList from './BasemapList';
 import {
@@ -24,23 +25,35 @@ const BasemapCard = props => {
     const basemap = useBasemapConfig(props.basemap);
 
     return (
-        <LayerCard
-            hasOpacity={basemap.config.type === VECTOR_STYLE ? false : true}
-            title={basemap.name}
-            subtitle={subtitle}
-            opacity={basemap.opacity}
-            isExpanded={basemap.isExpanded}
-            isVisible={basemap.isVisible}
-            onOpacityChange={changeBasemapOpacity}
-            toggleExpand={toggleBasemapExpand}
-            toggleLayerVisibility={toggleBasemapVisibility}
-        >
-            <BasemapList
-                selectedID={basemap.id}
-                basemaps={props.basemaps}
-                selectBasemap={selectBasemap}
-            />
-        </LayerCard>
+        <>
+            {basemap.id === undefined ? (
+                <ComponentCover translucent>
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
+                </ComponentCover>
+            ) : (
+                <LayerCard
+                    hasOpacity={
+                        basemap.config.type === VECTOR_STYLE ? false : true
+                    }
+                    title={basemap.name}
+                    subtitle={subtitle}
+                    opacity={basemap.opacity}
+                    isExpanded={basemap.isExpanded}
+                    isVisible={basemap.isVisible}
+                    onOpacityChange={changeBasemapOpacity}
+                    toggleExpand={toggleBasemapExpand}
+                    toggleLayerVisibility={toggleBasemapVisibility}
+                >
+                    <BasemapList
+                        selectedID={basemap.id}
+                        basemaps={props.basemaps}
+                        selectBasemap={selectBasemap}
+                    />
+                </LayerCard>
+            )}
+        </>
     );
 };
 

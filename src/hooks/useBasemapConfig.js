@@ -6,25 +6,26 @@ import { getFallbackBasemap } from '../constants/basemaps';
 
 const emptyBasemap = { config: {} };
 
-function useBasemapConfig(selBasemap) {
+function useBasemapConfig(selected) {
     const [basemap, setBasemap] = useState(emptyBasemap);
     const basemaps = useSelector(state => state.basemaps);
     const { keyDefaultBaseMap } = useSystemSettings();
 
     useEffect(() => {
-        const selectedBasemap = Object.assign(
-            {},
-            defaultBasemapState,
-            { id: keyDefaultBaseMap },
-            selBasemap
-        );
+        const selectedId = selected.id || keyDefaultBaseMap;
 
-        const basemapConfig =
-            basemaps.find(({ id }) => id === selectedBasemap.id) ||
+        const basemapToUse =
+            basemaps.find(({ id }) => id === selectedId) ||
             getFallbackBasemap();
 
-        setBasemap(Object.assign({}, basemapConfig, selectedBasemap));
-    }, [keyDefaultBaseMap, selBasemap, basemaps]);
+        const basemapConfig = {
+            ...defaultBasemapState,
+            ...selected,
+            ...basemapToUse,
+        };
+
+        setBasemap(basemapConfig);
+    }, [keyDefaultBaseMap, selected, basemaps]);
 
     return basemap;
 }

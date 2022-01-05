@@ -35,6 +35,11 @@ const saveAsNewMapMutation = {
 
 const getSavedMessage = name => i18n.t('Map "{{name}}" is saved.', { name });
 
+const getSaveFailureMessage = message =>
+    i18n.t('Failed to save map. {{message}}', {
+        message,
+    });
+
 export const FileMenu = ({
     basemaps,
     map,
@@ -46,15 +51,15 @@ export const FileMenu = ({
 }) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const { d2 } = useD2();
-    const [saveMapMutate] = useDataMutation(saveMapMutation, {
-        onError: e => setErrorMessage(`Failed to save map: ${e.message}`),
-    });
-    const [saveAsNewMapMutate] = useDataMutation(saveAsNewMapMutation, {
-        onError: e => setErrorMessage(`Failed to save map: ${e.message}`),
-    });
     const engine = useDataEngine();
     const { keyDefaultBaseMap } = useSystemSettings();
-    const setError = ({ message }) => setAlert({ critical: true, message });
+
+    const [saveMapMutate] = useDataMutation(saveMapMutation, {
+        onError: e => setErrorMessage(getSaveFailureMessage(e.message)),
+    });
+    const [saveAsNewMapMutate] = useDataMutation(saveAsNewMapMutation, {
+        onError: e => setErrorMessage(getSaveFailureMessage(e.message)),
+    });
 
     useEffect(() => {
         if (errorMessage) {
@@ -145,7 +150,7 @@ export const FileMenu = ({
                 onSaveAs={saveAsNewMap}
                 onRename={setMapProps}
                 onDelete={newMap}
-                onError={setError}
+                onError={setErrorMessage}
             />
         </div>
     );

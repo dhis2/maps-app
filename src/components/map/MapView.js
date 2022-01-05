@@ -30,14 +30,11 @@ const MapView = props => {
     return (
         <>
             {basemap.id === undefined ? (
-                <>
-                    <ComponentCover translucent>
-                        <CenteredContent>
-                            <CircularLoader />
-                        </CenteredContent>
-                    </ComponentCover>
-                    <div />
-                </>
+                <ComponentCover translucent>
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
+                </ComponentCover>
             ) : (
                 <>
                     {isSplitView ? (
