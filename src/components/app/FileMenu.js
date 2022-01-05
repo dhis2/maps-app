@@ -13,6 +13,7 @@ import { fetchMap } from '../../util/requests';
 import { cleanMapConfig } from '../../util/favorites';
 import { useSystemSettings } from '../SystemSettingsProvider';
 import { addOrgUnitPaths } from '../../util/helpers';
+import { getFallbackBasemap } from '../../constants/basemaps';
 import styles from './styles/FileMenu.module.css';
 
 const saveMapMutation = {
@@ -35,6 +36,7 @@ const saveAsNewMapMutation = {
 const getSavedMessage = name => i18n.t('Map "{{name}}" is saved.', { name });
 
 export const FileMenu = ({
+    basemaps,
     map,
     newMap,
     setMap,
@@ -82,9 +84,14 @@ export const FileMenu = ({
     };
 
     const openMap = async id => {
-        const config = await fetchMap(id, engine, keyDefaultBaseMap);
-        setMap(config);
-        addOrgUnitPaths(config.mapViews).map(loadLayer);
+        const map = await fetchMap(id, engine, keyDefaultBaseMap);
+
+        const basemap =
+            basemaps.find(bm => bm.id === map.basemap.id) ||
+            getFallbackBasemap();
+
+        setMap({ ...map, basemap });
+        addOrgUnitPaths(map.mapViews).map(loadLayer);
     };
 
     const saveAsNewMap = async ({ name, description }) => {
@@ -145,6 +152,7 @@ export const FileMenu = ({
 };
 
 FileMenu.propTypes = {
+    basemaps: PropTypes.array.isRequired,
     map: PropTypes.object.isRequired,
     newMap: PropTypes.func.isRequired,
     setMap: PropTypes.func.isRequired,
@@ -153,7 +161,7 @@ FileMenu.propTypes = {
     setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(({ map }) => ({ map }), {
+export default connect(({ map, basemaps }) => ({ map, basemaps }), {
     newMap,
     setMap,
     setMapProps,

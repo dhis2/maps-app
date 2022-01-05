@@ -1,8 +1,8 @@
 import * as types from '../constants/actionTypes';
 
-export const addBasemap = layer => ({
-    type: types.BASEMAP_ADD,
-    payload: layer,
+export const addBasemaps = basemaps => ({
+    type: types.BASEMAPS_ADD,
+    payload: basemaps,
 });
 
 export const selectBasemap = id => ({

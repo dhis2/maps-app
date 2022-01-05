@@ -16,7 +16,7 @@ import {
 import { fetchLayer } from './loaders/layers';
 import { getMigratedMapConfig } from './util/getMigratedMapConfig';
 import { apiVersion } from './constants/settings';
-import { defaultBasemaps } from './constants/basemaps';
+import { getFallbackBasemap, defaultBasemaps } from './constants/basemaps';
 
 function PluginContainer() {
     let _configs = [];
@@ -125,18 +125,22 @@ function PluginContainer() {
 
     async function loadLayers(config, keyBingMapsApiKey) {
         if (!isUnmounted(config.el)) {
-            const basemap = config.basemap;
+            let basemap = config.basemap;
 
-            if (isValidUid(config.basemap.id)) {
-                const externalLayer = await getExternalLayer(config.basemap.id);
-                basemap.config = createExternalLayerConfig(externalLayer);
+            if (isValidUid(basemap.id)) {
+                try {
+                    const externalLayer = await getExternalLayer(basemap.id);
+                    basemap.config = createExternalLayerConfig(externalLayer);
+                } catch (e) {
+                    basemap = getFallbackBasemap();
+                }
             } else {
-                basemap.config = defaultBasemaps().find(
-                    map => map.id === config.basemap.id
-                ).config;
+                basemap =
+                    defaultBasemaps().find(map => map.id === basemap.id) ||
+                    getFallbackBasemap();
             }
 
-            if (config.basemap.id.substring(0, 4) === 'bing') {
+            if (basemap.id.substring(0, 4) === 'bing') {
                 basemap.config.apiKey = keyBingMapsApiKey;
             }
 

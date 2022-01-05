@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSystemSettings } from '../components/SystemSettingsProvider';
 import { defaultBasemapState } from '../reducers/map';
+import { getFallbackBasemap } from '../constants/basemaps';
 
 const emptyBasemap = { config: {} };
 
@@ -20,7 +21,7 @@ function useBasemapConfig(selBasemap) {
 
         const basemapConfig =
             basemaps.find(({ id }) => id === selectedBasemap.id) ||
-            emptyBasemap;
+            getFallbackBasemap();
 
         setBasemap(Object.assign({}, basemapConfig, selectedBasemap));
     }, [keyDefaultBaseMap, selBasemap, basemaps]);

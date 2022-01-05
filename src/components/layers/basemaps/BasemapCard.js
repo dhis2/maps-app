@@ -23,7 +23,6 @@ const BasemapCard = props => {
         changeBasemapOpacity,
         selectBasemap,
     } = props;
-
     const basemap = useBasemapConfig(props.basemap);
 
     return (

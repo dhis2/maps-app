@@ -1,6 +1,6 @@
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 import 'typeface-roboto';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
@@ -29,7 +29,7 @@ import { loadLayer } from '../../actions/layers';
 import {
     removeBingBasemaps,
     setBingMapsApiKey,
-    addBasemap,
+    addBasemaps,
 } from '../../actions/basemap';
 import { addExternalLayer } from '../../actions/externalLayers';
 import {
@@ -46,6 +46,7 @@ import {
     getThematicLayerFromAnalyticalObject,
 } from '../../util/analyticalObject';
 import { addOrgUnitPaths } from '../../util/helpers';
+import { defaultBasemaps, getFallbackBasemap } from '../../constants/basemaps';
 
 import styles from './styles/App.module.css';
 
@@ -53,7 +54,7 @@ const isBaseMap = layer => layer.mapLayerPosition === 'BASEMAP';
 const isOverlay = layer => !isBaseMap(layer);
 
 const App = ({
-    addBasemap,
+    addBasemaps,
     addExternalLayer,
     removeBingBasemaps,
     setBingMapsApiKey,
@@ -62,6 +63,7 @@ const App = ({
     setMap,
     loadLayer,
 }) => {
+    const [basemapsLoaded, setBasemapsLoaded] = useState(false);
     const systemSettings = useSystemSettings();
     const engine = useDataEngine();
 
@@ -73,13 +75,16 @@ const App = ({
             } catch (e) {
                 log.error('Could not load organisation unit tree');
             }
+            let externalBasemaps = [];
 
             try {
                 const externalLayers = await fetchExternalLayers(engine);
-                externalLayers.externalLayers.externalMapLayers
+                externalBasemaps = externalLayers.externalLayers.externalMapLayers
                     .filter(isBaseMap)
-                    .map(createExternalLayer)
-                    .map(addBasemap);
+                    .map(createExternalLayer);
+
+                addBasemaps(externalBasemaps);
+                setBasemapsLoaded(true);
 
                 externalLayers.externalLayers.externalMapLayers
                     .filter(isOverlay)
@@ -94,13 +99,20 @@ const App = ({
 
             if (mapId) {
                 try {
-                    const config = await fetchMap(
+                    const map = await fetchMap(
                         mapId,
                         engine,
                         systemSettings.keyDefaultBaseMap
                     );
-                    setMap(config);
-                    addOrgUnitPaths(config.mapViews).map(loadLayer);
+
+                    const basemaps = externalBasemaps.concat(defaultBasemaps());
+
+                    const basemap =
+                        basemaps.find(bm => bm.id === map.basemap.id) ||
+                        getFallbackBasemap();
+
+                    setMap({ ...map, basemap });
+                    addOrgUnitPaths(map.mapViews).map(loadLayer);
                 } catch (e) {
                     log.error(`Could not load map with id ${mapId}`);
                 }
@@ -142,9 +154,13 @@ const App = ({
                 <HeaderBar appName={i18n.t('Maps')} />
                 <AppMenu />
                 <InterpretationsPanel />
-                <LayersPanel />
-                <LayersToggle />
-                <MapContainer />
+                {basemapsLoaded && (
+                    <>
+                        <LayersToggle />
+                        <LayersPanel />
+                        <MapContainer />
+                    </>
+                )}
                 <BottomPanel />
                 <LayerEdit />
                 <ContextMenu />
@@ -158,7 +174,7 @@ const App = ({
 };
 
 App.propTypes = {
-    addBasemap: PropTypes.func,
+    addBasemaps: PropTypes.func,
     addExternalLayer: PropTypes.func,
     removeBingBasemaps: PropTypes.func,
     setBingMapsApiKey: PropTypes.func,
@@ -169,7 +185,7 @@ App.propTypes = {
 };
 
 export default connect(null, {
-    addBasemap,
+    addBasemaps,
     addExternalLayer,
     removeBingBasemaps,
     setBingMapsApiKey,
