@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { FileMenu as UiFileMenu } from '@dhis2/analytics';
 import { useD2 } from '@dhis2/app-runtime-adapter-d2';
 import { useDataMutation, useDataEngine } from '@dhis2/app-runtime';
-import { newMap, setMapProps } from '../../actions/map';
+import { newMap, tOpenMap, setMapProps } from '../../actions/map';
 import { setAlert } from '../../actions/alerts';
-import { setMap } from '../../actions/map';
-import { loadLayer } from '../../actions/layers';
 import { fetchMap } from '../../util/requests';
 import { cleanMapConfig } from '../../util/favorites';
 import { useSystemSettings } from '../SystemSettingsProvider';
-import { addOrgUnitPaths } from '../../util/helpers';
-import { getFallbackBasemap } from '../../constants/basemaps';
 import styles from './styles/FileMenu.module.css';
 
 const saveMapMutation = {
@@ -40,32 +36,18 @@ const getSaveFailureMessage = message =>
         message,
     });
 
-export const FileMenu = ({
-    basemaps,
-    map,
-    newMap,
-    setMap,
-    loadLayer,
-    setMapProps,
-    setAlert,
-}) => {
-    const [errorMessage, setErrorMessage] = useState(null);
+export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
     const { d2 } = useD2();
     const engine = useDataEngine();
     const { keyDefaultBaseMap } = useSystemSettings();
+    const setError = ({ message }) => setAlert({ critical: true, message });
 
     const [saveMapMutate] = useDataMutation(saveMapMutation, {
-        onError: e => setErrorMessage(getSaveFailureMessage(e.message)),
+        onError: e => setError({ message: getSaveFailureMessage(e.message) }),
     });
     const [saveAsNewMapMutate] = useDataMutation(saveAsNewMapMutation, {
-        onError: e => setErrorMessage(getSaveFailureMessage(e.message)),
+        onError: e => setError({ message: getSaveFailureMessage(e.message) }),
     });
-
-    useEffect(() => {
-        if (errorMessage) {
-            setAlert({ critical: true, message: errorMessage });
-        }
-    }, [errorMessage]);
 
     const saveMap = async () => {
         const config = cleanMapConfig({
@@ -82,23 +64,16 @@ export const FileMenu = ({
             data: config,
         });
 
-        setAlert({
-            success: true,
-            message: getSavedMessage(config.name),
-        });
+        setAlert({ success: true, message: getSavedMessage(config.name) });
     };
 
     const openMap = async id => {
-        const map = await fetchMap(id, engine, keyDefaultBaseMap);
-
-        const basemapConfig =
-            basemaps.find(bm => bm.id === map.basemap.id) ||
-            getFallbackBasemap();
-
-        const basemap = { ...map.basemap, ...basemapConfig };
-
-        setMap({ ...map, basemap });
-        addOrgUnitPaths(map.mapViews).map(loadLayer);
+        const error = await tOpenMap(id, keyDefaultBaseMap, engine);
+        if (error) {
+            setError({
+                message: i18n.t(`Error while opening map. ${error.message}`),
+            });
+        }
     };
 
     const saveAsNewMap = async ({ name, description }) => {
@@ -136,7 +111,9 @@ export const FileMenu = ({
                 message: getSavedMessage(name),
             });
         } else {
-            setErrorMessage(`${i18n.t('Error')}: ${response.message}`);
+            setError({
+                message: `${i18n.t('Error')}: ${response.message}`,
+            });
         }
     };
 
@@ -152,26 +129,23 @@ export const FileMenu = ({
                 onSaveAs={saveAsNewMap}
                 onRename={setMapProps}
                 onDelete={newMap}
-                onError={setErrorMessage}
+                onError={setError}
             />
         </div>
     );
 };
 
 FileMenu.propTypes = {
-    basemaps: PropTypes.array.isRequired,
     map: PropTypes.object.isRequired,
     newMap: PropTypes.func.isRequired,
-    setMap: PropTypes.func.isRequired,
-    loadLayer: PropTypes.func.isRequired,
+    tOpenMap: PropTypes.func.isRequired,
     setMapProps: PropTypes.func.isRequired,
     setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(({ map, basemaps }) => ({ map, basemaps }), {
+export default connect(({ map }) => ({ map }), {
     newMap,
-    setMap,
+    tOpenMap,
     setMapProps,
-    loadLayer,
     setAlert,
 })(FileMenu);

@@ -11,7 +11,7 @@ import {
 
 import { EXTENDED_TIMEOUT } from '../support/util';
 
-const MAP_TITLE = 'test saveas ' + new Date().toUTCString().slice(-12, -4);
+const MAP_TITLE = 'test filemenu ' + new Date().toUTCString().slice(-23, -4);
 const SAVEAS_MAP_TITLE = `${MAP_TITLE}-2`;
 
 describe('File menu', () => {
@@ -76,10 +76,19 @@ describe('File menu', () => {
 
         openMap(SAVEAS_MAP_TITLE);
 
+        ThemLayer.validateCardTitle('VCCT post-test counselling rate');
         OULayer.openDialog('Org units')
             .selectOu('Sierra Leone')
             .selectOuLevel('Chiefdom')
             .addToMap();
+
+        cy.contains('Facilities')
+            .parents('[data-test=layercard]')
+            .should('be.visible');
+
+        cy.contains('Organisation units')
+            .parents('[data-test=layercard]')
+            .should('be.visible');
 
         cy.intercept(
             {

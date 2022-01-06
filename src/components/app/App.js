@@ -24,7 +24,7 @@ import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
 import { setAnalyticalObject } from '../../actions/analyticalObject';
 import { setOrgUnitTree } from '../../actions/orgUnits';
-import { setMap } from '../../actions/map';
+import { tOpenMap } from '../../actions/map';
 import { loadLayer } from '../../actions/layers';
 import {
     removeBingBasemaps,
@@ -35,7 +35,6 @@ import { addExternalLayer } from '../../actions/externalLayers';
 import {
     fetchOrgUnits,
     fetchExternalLayers,
-    fetchMap,
     getUrlParameter,
 } from '../../util/requests';
 import { createExternalLayer } from '../../util/external';
@@ -45,8 +44,6 @@ import {
     hasSingleDataDimension,
     getThematicLayerFromAnalyticalObject,
 } from '../../util/analyticalObject';
-import { addOrgUnitPaths } from '../../util/helpers';
-import { defaultBasemaps, getFallbackBasemap } from '../../constants/basemaps';
 
 import styles from './styles/App.module.css';
 
@@ -60,8 +57,8 @@ const App = ({
     setBingMapsApiKey,
     setOrgUnitTree,
     setAnalyticalObject,
-    setMap,
     loadLayer,
+    tOpenMap,
 }) => {
     const [basemapsLoaded, setBasemapsLoaded] = useState(false);
     const systemSettings = useSystemSettings();
@@ -98,25 +95,14 @@ const App = ({
             const analyticalObject = getUrlParameter('currentAnalyticalObject');
 
             if (mapId) {
-                try {
-                    const map = await fetchMap(
-                        mapId,
-                        engine,
-                        systemSettings.keyDefaultBaseMap
-                    );
+                const error = await tOpenMap(
+                    mapId,
+                    systemSettings.keyDefaultBaseMap,
+                    engine
+                );
 
-                    const basemaps = externalBasemaps.concat(defaultBasemaps());
-
-                    const basemapConfig =
-                        basemaps.find(bm => bm.id === map.basemap.id) ||
-                        getFallbackBasemap();
-
-                    const basemap = { ...map.basemap, ...basemapConfig };
-
-                    setMap({ ...map, basemap });
-                    addOrgUnitPaths(map.mapViews).map(loadLayer);
-                } catch (e) {
-                    log.error(`Could not load map with id ${mapId}`);
+                if (error) {
+                    //TODO handle error with alert
                 }
             }
 
@@ -181,9 +167,9 @@ App.propTypes = {
     removeBingBasemaps: PropTypes.func,
     setBingMapsApiKey: PropTypes.func,
     setOrgUnitTree: PropTypes.func,
-    setMap: PropTypes.func,
     setAnalyticalObject: PropTypes.func,
     loadLayer: PropTypes.func,
+    tOpenMap: PropTypes.func,
 };
 
 export default connect(null, {
@@ -192,7 +178,7 @@ export default connect(null, {
     removeBingBasemaps,
     setBingMapsApiKey,
     setOrgUnitTree,
-    setMap,
     setAnalyticalObject,
     loadLayer,
+    tOpenMap,
 })(App);
