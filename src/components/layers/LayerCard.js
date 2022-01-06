@@ -16,51 +16,47 @@ const LayerCard = ({
     toggleExpand,
     children,
     ...layerToolbarProps
-}) => {
-    return (
-        <div
-            className={cx(styles.card, {
-                [styles.expanded]: isExpanded,
-            })}
-        >
-            <Card dataTest={isOverlay ? 'layercard' : 'basemapcard'}>
-                <div className={styles.cardHeader}>
-                    <div
-                        className={cx(styles.title, {
-                            [styles.overlay]: isOverlay,
-                        })}
+}) => (
+    <div
+        className={cx(styles.card, {
+            [styles.expanded]: isExpanded,
+        })}
+    >
+        <Card dataTest={isOverlay ? 'layercard' : 'basemapcard'}>
+            <div className={styles.cardHeader}>
+                <div
+                    className={cx(styles.title, {
+                        [styles.overlay]: isOverlay,
+                    })}
+                >
+                    <h2>{title}</h2>
+                    {subtitle && <h3>{subtitle}</h3>}
+                </div>
+                <div className={styles.action}>
+                    {isOverlay && <SortableHandle />}
+                    <IconButton
+                        tooltip={
+                            isExpanded ? i18n.t('Collapse') : i18n.t('Expand')
+                        }
+                        onClick={toggleExpand}
+                        className={styles.expand}
+                        dataTest="editbutton"
                     >
-                        <h2>{title}</h2>
-                        {subtitle && <h3>{subtitle}</h3>}
-                    </div>
-                    <div className={styles.action}>
-                        {isOverlay && <SortableHandle />}
-                        <IconButton
-                            tooltip={
-                                isExpanded
-                                    ? i18n.t('Collapse')
-                                    : i18n.t('Expand')
-                            }
-                            onClick={toggleExpand}
-                            className={styles.expand}
-                            dataTest="editbutton"
-                        >
-                            {isExpanded ? (
-                                <IconChevronUp24 />
-                            ) : (
-                                <IconChevronDown24 />
-                            )}
-                        </IconButton>
-                    </div>
+                        {isExpanded ? (
+                            <IconChevronUp24 />
+                        ) : (
+                            <IconChevronDown24 />
+                        )}
+                    </IconButton>
                 </div>
-                <div className={styles.collapsibleContent}>
-                    <div className={styles.content}>{children}</div>
-                    <LayerToolbar {...layerToolbarProps} />
-                </div>
-            </Card>
-        </div>
-    );
-};
+            </div>
+            <div className={styles.collapsibleContent}>
+                <div className={styles.content}>{children}</div>
+                <LayerToolbar {...layerToolbarProps} />
+            </div>
+        </Card>
+    </div>
+);
 
 LayerCard.propTypes = {
     title: PropTypes.string.isRequired,
