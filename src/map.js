@@ -2,15 +2,14 @@ import React, { createRef } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
-import { isValidUid } from 'd2/uid';
 import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import i18n from './locales';
 import { getConfigFromNonMapConfig } from './util/getConfigFromNonMapConfig';
-import { createExternalLayerConfig } from './util/external';
+import { createExternalLayer } from './util/external';
 import Plugin from './components/plugin/Plugin';
 import {
     mapRequest,
-    getExternalLayer,
+    fetchExternalLayersD2,
     fetchSystemSettings,
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
@@ -105,41 +104,43 @@ function PluginContainer() {
                             ...config,
                             ...favorite,
                         },
-                        systemSettings.keyBingMapsApiKey
+                        systemSettings
                     )
             );
         } else if (!config.mapViews) {
             getConfigFromNonMapConfig(
                 config,
                 systemSettings.keyDefaultBaseMap
-            ).then(config =>
-                loadLayers(config, systemSettings.keyBingMapsApiKey)
-            );
+            ).then(config => loadLayers(config, systemSettings));
         } else {
             loadLayers(
                 getMigratedMapConfig(config, systemSettings.keyDefaultBaseMap),
-                systemSettings.keyBingMapsApiKey
+                systemSettings
             );
         }
     }
 
-    async function loadLayers(config, keyBingMapsApiKey) {
+    async function loadLayers(
+        config,
+        { keyDefaultBaseMap, keyBingMapsApiKey }
+    ) {
         if (!isUnmounted(config.el)) {
-            let basemap = config.basemap;
+            let basemap = {};
+            try {
+                const externalLayers = await fetchExternalLayersD2();
+                const externalBasemaps = externalLayers
+                    .filter(layer => layer.mapLayerPosition === 'BASEMAP')
+                    .map(createExternalLayer);
+                const basemaps = defaultBasemaps().concat(externalBasemaps);
 
-            if (isValidUid(basemap.id)) {
-                try {
-                    const externalLayer = await getExternalLayer(basemap.id);
-                    basemap.config = createExternalLayerConfig(externalLayer);
-                } catch (e) {
-                    basemap = { ...basemap, ...getFallbackBasemap() };
-                }
-            } else {
-                const fallbackBasemap =
-                    defaultBasemaps().find(map => map.id === basemap.id) ||
+                const availableBasemap =
+                    basemaps.find(({ id }) => id === config.basemap.id) ||
+                    basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
                     getFallbackBasemap();
 
-                basemap = { ...basemap, ...fallbackBasemap };
+                basemap = { ...config.basemap, ...availableBasemap };
+            } catch (e) {
+                basemap = { ...config.basemap, ...getFallbackBasemap() };
             }
 
             if (basemap.id.substring(0, 4) === 'bing') {
@@ -180,6 +181,21 @@ function PluginContainer() {
 
                 _components[config.el] = ref;
             }
+
+            document.getElementById('basemapId').textContent =
+                config.basemap.id;
+
+            document.getElementById('basemapName').textContent =
+                config.basemap.name;
+            document.getElementById('basemapIsVisible').textContent =
+                config.basemap.isVisible === false ? 'no' : 'yes';
+
+            document.getElementById('mapviewsCount').textContent =
+                config.mapViews.length;
+
+            document.getElementById(
+                'mapviewsNames'
+            ).textContent = config.mapViews.map(view => view.layer).join(' ');
         }
     }
 

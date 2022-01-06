@@ -39,24 +39,6 @@ describe('Basemap checks', () => {
         checkBasemap.activeBasemap('OSM Detailed');
     });
 
-    it.skip('open map with basemap = googleStreets is set to "OSM Light"', () => {
-        cy.intercept({ method: 'GET', url: /\/maps\/r0UmHHulm4V/ }, req => {
-            delete req.headers['if-none-match'];
-            req.continue(res => {
-                res.body.basemap = 'googleStreets';
-                res.send({ body: res.body });
-            });
-        }).as('openMap');
-
-        cy.visit('/?id=r0UmHHulm4V', EXTENDED_TIMEOUT);
-
-        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
-
-        checkBasemap.cardIsVisible();
-        checkBasemap.isVisible();
-        checkBasemap.activeBasemap('OSM Light');
-    });
-
     it('open map with external basemap string', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/qTfO4YkQ9xW/ }, req => {
             delete req.headers['if-none-match'];

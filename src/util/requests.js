@@ -71,10 +71,11 @@ const fetchExternalLayersQuery = {
 export const fetchExternalLayers = async engine =>
     engine.query({ externalLayers: fetchExternalLayersQuery });
 
-// Fetch one external layer
-export const getExternalLayer = async id => {
+// For plugin - use d2
+export const fetchExternalLayersD2 = async () => {
     const d2 = await getD2();
-    return d2.models.externalMapLayers.get(id);
+    const layers = await d2.models.externalMapLayers.list();
+    return layers.toArray();
 };
 
 export const fetchSystemSettings = keys =>
