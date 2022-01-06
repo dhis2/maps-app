@@ -120,28 +120,31 @@ function PluginContainer() {
         }
     }
 
+    async function getBasemaps() {
+        try {
+            const externalLayers = await fetchExternalLayersD2();
+            const externalBasemaps = externalLayers
+                .filter(layer => layer.mapLayerPosition === 'BASEMAP')
+                .map(createExternalLayer);
+            return defaultBasemaps().concat(externalBasemaps);
+        } catch (e) {
+            return defaultBasemaps();
+        }
+    }
+
     async function loadLayers(
         config,
         { keyDefaultBaseMap, keyBingMapsApiKey }
     ) {
         if (!isUnmounted(config.el)) {
-            let basemap = {};
-            try {
-                const externalLayers = await fetchExternalLayersD2();
-                const externalBasemaps = externalLayers
-                    .filter(layer => layer.mapLayerPosition === 'BASEMAP')
-                    .map(createExternalLayer);
-                const basemaps = defaultBasemaps().concat(externalBasemaps);
+            const basemaps = await getBasemaps();
 
-                const availableBasemap =
-                    basemaps.find(({ id }) => id === config.basemap.id) ||
-                    basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
-                    getFallbackBasemap();
+            const availableBasemap =
+                basemaps.find(({ id }) => id === config.basemap.id) ||
+                basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
+                getFallbackBasemap();
 
-                basemap = { ...config.basemap, ...availableBasemap };
-            } catch (e) {
-                basemap = { ...config.basemap, ...getFallbackBasemap() };
-            }
+            const basemap = { ...config.basemap, ...availableBasemap };
 
             if (basemap.id.substring(0, 4) === 'bing') {
                 basemap.config.apiKey = keyBingMapsApiKey;
@@ -182,20 +185,24 @@ function PluginContainer() {
                 _components[config.el] = ref;
             }
 
-            document.getElementById('basemapId').textContent =
-                config.basemap.id;
+            if (config.isCypress) {
+                document.getElementById('basemapId').textContent =
+                    config.basemap.id;
 
-            document.getElementById('basemapName').textContent =
-                config.basemap.name;
-            document.getElementById('basemapIsVisible').textContent =
-                config.basemap.isVisible === false ? 'no' : 'yes';
+                document.getElementById('basemapName').textContent =
+                    config.basemap.name;
+                document.getElementById('basemapIsVisible').textContent =
+                    config.basemap.isVisible === false ? 'no' : 'yes';
 
-            document.getElementById('mapviewsCount').textContent =
-                config.mapViews.length;
+                document.getElementById('mapviewsCount').textContent =
+                    config.mapViews.length;
 
-            document.getElementById(
-                'mapviewsNames'
-            ).textContent = config.mapViews.map(view => view.layer).join(' ');
+                document.getElementById(
+                    'mapviewsNames'
+                ).textContent = config.mapViews
+                    .map(view => view.layer)
+                    .join(' ');
+            }
         }
     }
 
