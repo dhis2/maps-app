@@ -132,12 +132,14 @@ function PluginContainer() {
                     const externalLayer = await getExternalLayer(basemap.id);
                     basemap.config = createExternalLayerConfig(externalLayer);
                 } catch (e) {
-                    basemap = getFallbackBasemap();
+                    basemap = { ...basemap, ...getFallbackBasemap() };
                 }
             } else {
-                basemap =
+                const fallbackBasemap =
                     defaultBasemaps().find(map => map.id === basemap.id) ||
                     getFallbackBasemap();
+
+                basemap = { ...basemap, ...fallbackBasemap };
             }
 
             if (basemap.id.substring(0, 4) === 'bing') {
