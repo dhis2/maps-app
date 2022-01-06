@@ -27,7 +27,7 @@ const BasemapCard = props => {
     return (
         <>
             {basemap.id === undefined ? (
-                <ComponentCover translucent>
+                <ComponentCover>
                     <CenteredContent>
                         <CircularLoader />
                     </CenteredContent>
