@@ -89,6 +89,7 @@ const App = ({
                     .map(addExternalLayer);
             } catch (e) {
                 log.error('Could not load external map layers');
+                setBasemapsLoaded(true);
             }
 
             const mapId = getUrlParameter('id');
