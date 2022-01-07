@@ -6,7 +6,6 @@ import 'rxjs/add/operator/concatMapTo';
 import 'rxjs/add/observable/empty';
 import dataElementEpics from './dataElements';
 import dataSetEpics from './dataSets';
-import favoriteEpics from './maps';
 import indicatorEpics from './indicators';
 import layerEpics from './layers';
 import legendSetEpics from './legendSets';
@@ -14,7 +13,6 @@ import optionSetEpics from './optionSets';
 import orgUnitEpis from './orgUnits';
 import programEpics from './programs';
 import dimensionEpics from './dimensions';
-import favoritesEpics from './favorites';
 import trackedEntitiesEpics from './trackedEntities';
 import dataDownloadEpics from './dataDownload';
 
@@ -28,7 +26,6 @@ export default combineEpics(
     dataElementEpics,
     dataSetEpics,
     errorEpic,
-    favoriteEpics,
     indicatorEpics,
     layerEpics,
     legendSetEpics,
@@ -36,7 +33,6 @@ export default combineEpics(
     orgUnitEpis,
     programEpics,
     dimensionEpics,
-    favoritesEpics,
     trackedEntitiesEpics,
     dataDownloadEpics
 );

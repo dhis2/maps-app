@@ -32,7 +32,7 @@ describe('userSettings', () => {
             .contains('John Kamara')
             .click();
 
-        cy.contains('14 may 2020').should('be.visible');
+        cy.contains('14 may').should('be.visible');
     });
 
     it('shows the app in English', () => {
@@ -48,6 +48,6 @@ describe('userSettings', () => {
             .contains('John Kamara')
             .click();
 
-        cy.contains('May 14, 2020').should('be.visible');
+        cy.contains('May 14').should('be.visible');
     });
 });
