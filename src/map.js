@@ -192,6 +192,26 @@ function PluginContainer() {
 
                 _components[config.el] = ref;
             }
+
+            const basemapIdEl = document.getElementById('cypressBasemapId');
+            if (basemapIdEl) {
+                basemapIdEl.textContent = config.basemap.id;
+
+                const basemapVisibleEl = document.getElementById(
+                    'cypressBasemapVisible'
+                );
+                if (basemapVisibleEl) {
+                    basemapVisibleEl.textContent =
+                        config.basemap.isVisible === false ? 'no' : 'yes';
+                }
+
+                const mapViewsEl = document.getElementById('cypressMapViews');
+                if (mapViewsEl) {
+                    mapViewsEl.textContent = config.mapViews
+                        .map(view => view.layer)
+                        .join(' ');
+                }
+            }
         }
     }
 
