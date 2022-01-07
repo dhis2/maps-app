@@ -13,6 +13,7 @@ yarn-error.log
 manifest.webapp
 coverage
 src/locales/
+src/mapcypress.js
 .netlify
 cypress/videos/
 cypress/screenshots/

@@ -184,25 +184,6 @@ function PluginContainer() {
 
                 _components[config.el] = ref;
             }
-
-            if (config.isCypress) {
-                document.getElementById('basemapId').textContent =
-                    config.basemap.id;
-
-                document.getElementById('basemapName').textContent =
-                    config.basemap.name;
-                document.getElementById('basemapIsVisible').textContent =
-                    config.basemap.isVisible === false ? 'no' : 'yes';
-
-                document.getElementById('mapviewsCount').textContent =
-                    config.mapViews.length;
-
-                document.getElementById(
-                    'mapviewsNames'
-                ).textContent = config.mapViews
-                    .map(view => view.layer)
-                    .join(' ');
-            }
         }
     }
 
