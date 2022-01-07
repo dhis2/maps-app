@@ -2,6 +2,7 @@ import React, { createRef } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
+import { isValidUid } from 'd2/uid';
 import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import i18n from './locales';
 import { getConfigFromNonMapConfig } from './util/getConfigFromNonMapConfig';
@@ -120,12 +121,16 @@ function PluginContainer() {
         }
     }
 
-    async function getBasemaps() {
+    async function getBasemaps(basemapId, defaultBasemapId) {
         try {
-            const externalLayers = await fetchExternalLayersD2();
-            const externalBasemaps = externalLayers
-                .filter(layer => layer.mapLayerPosition === 'BASEMAP')
-                .map(createExternalLayer);
+            let externalBasemaps = [];
+            if (isValidUid(basemapId) || isValidUid(defaultBasemapId)) {
+                const externalLayers = await fetchExternalLayersD2();
+                externalBasemaps = externalLayers
+                    .filter(layer => layer.mapLayerPosition === 'BASEMAP')
+                    .map(createExternalLayer);
+            }
+
             return defaultBasemaps().concat(externalBasemaps);
         } catch (e) {
             return defaultBasemaps();
@@ -137,7 +142,10 @@ function PluginContainer() {
         { keyDefaultBaseMap, keyBingMapsApiKey }
     ) {
         if (!isUnmounted(config.el)) {
-            const basemaps = await getBasemaps();
+            const basemaps = await getBasemaps(
+                config.basemap.id,
+                keyDefaultBaseMap
+            );
 
             const availableBasemap =
                 basemaps.find(({ id }) => id === config.basemap.id) ||
