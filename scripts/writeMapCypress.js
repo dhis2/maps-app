@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 var fs = require('fs');
-console.log('start writing new file src/map_cypress.js');
+console.log('create file src/map_cypress.js');
 
 var data = fs
     .readFileSync('src/map.js')

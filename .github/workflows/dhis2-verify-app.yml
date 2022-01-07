@@ -124,9 +124,6 @@ jobs:
             - name: Install Cypress binary
               run: yarn cypress install
 
-            - name: Copy src/map.js to src/mapcypress.js for Cypress
-              run: node scripts/writeMapCypress.js
-
             - name: End-to-End tests
               uses: cypress-io/github-action@v2
               with:
