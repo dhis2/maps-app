@@ -29,13 +29,12 @@ const env = Object.keys(process.env)
 console.log('Building with environment:', env);
 
 const isProduction = env.NODE_ENV === 'production';
-const pluginFile = isProduction ? './src/map.js' : './src/mapcypress.js';
 
 const webpackConfig = {
     mode: env.NODE_ENV,
     entry: {
         app: ['babel-polyfill', './src/app.js'],
-        map: ['babel-regenerator-runtime', pluginFile],
+        map: ['babel-regenerator-runtime', './src/map.js'],
     },
     devtool: 'source-map',
     output: {

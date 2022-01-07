@@ -4,7 +4,7 @@ const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: /\/systemSettings\// };
 
 const pluginUrl = '/plugin.html?id=';
 
-describe('Basemap checks for plugin', () => {
+describe.skip('Basemap checks for plugin', () => {
     it('open map with basemap = none uses default basemap set to not visible', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/aVYDp6FYyFU/ }, req => {
             delete req.headers['if-none-match'];

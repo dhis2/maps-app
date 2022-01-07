@@ -20,7 +20,7 @@
         "lint"
     ],
     "scripts": {
-        "prestart": "yarn localize && yarn manifest && node scripts/writeMapCypress.js",
+        "prestart": "yarn localize && yarn manifest",
         "start": "webpack serve",
         "coverage": "yarn test --coverage",
         "test": "jest",
@@ -28,7 +28,7 @@
         "start:nobrowser": "BROWSER=none yarn start",
         "cy:open": "start-server-and-test 'yarn start:nobrowser' http://localhost:8082 'yarn cypress open --env networkMode=live'",
         "cy:run": "start-server-and-test 'yarn start:nobrowser' http://localhost:8082 'yarn cypress run --env networkMode=live'",
-        "prebuild": "yarn test && yarn localize && yarn manifest && rm src/mapcypress.js && rm -rf build && mkdir build && cp -r public/* ./build/",
+        "prebuild": "yarn test && yarn localize && yarn manifest && rm -rf build && mkdir build && cp -r public/* ./build/",
         "build": "NODE_ENV=production webpack",
         "build:netlify": "yarn build && d2-manifest package.json build/manifest.webapp --manifest.activities.dhis.href=\"https://play.dhis2.org/dev\"",
         "manifest": "d2-manifest package.json public/manifest.webapp",
