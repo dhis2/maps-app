@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/dhis2/maps-app/compare/v1.16.5...v1.17.0) (2022-01-07)
+
+
+### Features
+
+* use default basemap that is configured in system settings [DHIS2-12155] ([#1984](https://github.com/dhis2/maps-app/issues/1984)) ([fc74d8c](https://github.com/dhis2/maps-app/commit/fc74d8cf448d8aa94813bc2045128ace63f409cb))
+
 ## [1.16.5](https://github.com/dhis2/maps-app/compare/v1.16.4...v1.16.5) (2022-01-04)
 
 
