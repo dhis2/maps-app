@@ -2,7 +2,7 @@ import { EXTENDED_TIMEOUT } from '../support/util';
 
 const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: /\/systemSettings\// };
 
-const pluginUrl = '/plugin_cypress.html?id=';
+const pluginUrl = '/plugin.html?id=';
 
 describe('Basemap checks for plugin', () => {
     it('open map with basemap = none uses default basemap set to not visible', () => {
