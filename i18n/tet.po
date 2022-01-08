@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
+"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Tetum (Tetun) (https://www.transifex.com/hisp-uio/teams/100509/tet/)\n"
@@ -18,6 +18,15 @@ msgstr ""
 
 msgid "Maps"
 msgstr ""
+
+msgid "Map \"{{name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map. {{message}}"
+msgstr ""
+
+msgid "Error"
+msgstr "Erru"
 
 msgid "Classification"
 msgstr ""
@@ -1230,12 +1239,6 @@ msgstr "Abril finanseiru"
 
 msgid "Cancelled"
 msgstr ""
-
-msgid "Map \"{{name}}\" is saved."
-msgstr ""
-
-msgid "Error"
-msgstr "Erru"
 
 msgid "Selected org units"
 msgstr ""

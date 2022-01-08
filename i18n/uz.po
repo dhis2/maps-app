@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
+"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2021\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -17,6 +17,15 @@ msgstr ""
 
 msgid "Maps"
 msgstr "Хариталар"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr "Харита \"{{исми}}\" сақланган"
+
+msgid "Failed to save map. {{message}}"
+msgstr ""
+
+msgid "Error"
+msgstr "Хато"
 
 msgid "Classification"
 msgstr "Таснифи"
@@ -1254,12 +1263,6 @@ msgstr "Молиявий йил (бошланиши Апрель)"
 
 msgid "Cancelled"
 msgstr "Бекор қилинди"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "Харита \"{{исми}}\" сақланган"
-
-msgid "Error"
-msgstr "Хато"
 
 msgid "Selected org units"
 msgstr "Танланган танланган бўлимлар"

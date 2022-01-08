@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
+"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Fernando Jorge Bade, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -22,6 +22,15 @@ msgstr ""
 
 msgid "Maps"
 msgstr "Mapas"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr "O mapa \"{{name}}\" é salvo."
+
+msgid "Failed to save map. {{message}}"
+msgstr ""
+
+msgid "Error"
+msgstr "Erro"
 
 msgid "Classification"
 msgstr "Classificação"
@@ -1265,12 +1274,6 @@ msgstr "Ano Financeiro - Abril"
 
 msgid "Cancelled"
 msgstr "Cancelado"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "O mapa \"{{name}}\" é salvo."
-
-msgid "Error"
-msgstr "Erro"
 
 msgid "Selected org units"
 msgstr "Selecionar unidades organizacionais "

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
+"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2021\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -18,6 +18,15 @@ msgstr ""
 
 msgid "Maps"
 msgstr "Kart"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr "Kart \"{{name}}\" er lagret."
+
+msgid "Failed to save map. {{message}}"
+msgstr ""
+
+msgid "Error"
+msgstr "Feil"
 
 msgid "Classification"
 msgstr "Klassifisering"
@@ -1249,12 +1258,6 @@ msgstr "Regnskapsår (start april)"
 
 msgid "Cancelled"
 msgstr "Kansellert"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "Kart \"{{name}}\" er lagret."
-
-msgid "Error"
-msgstr "Feil"
 
 msgid "Selected org units"
 msgstr "Valgte org enheter"
