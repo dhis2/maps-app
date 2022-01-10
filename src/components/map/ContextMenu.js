@@ -150,10 +150,6 @@ const ContextMenu = props => {
     );
 };
 
-ContextMenu.contextTypes = {
-    d2: PropTypes.object.isRequired,
-};
-
 ContextMenu.propTypes = {
     feature: PropTypes.object,
     layerType: PropTypes.string,

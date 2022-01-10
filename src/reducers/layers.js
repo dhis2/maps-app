@@ -57,9 +57,6 @@ const layers = (state, action) => {
                 },
             ];
 
-        case types.EXTERNAL_LAYER_REMOVE:
-            return prevState.filter(layer => layer.id !== action.id);
-
         default:
             return prevState;
     }

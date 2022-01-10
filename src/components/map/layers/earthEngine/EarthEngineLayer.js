@@ -3,7 +3,7 @@ import Layer from '../Layer';
 import MapLoadingMask from '../../MapLoadingMask';
 import EarthEnginePopup from './EarthEnginePopup';
 import Alert from '../Alert';
-import { apiFetch } from '../../../../util/api';
+import { getAuthToken } from '../../../../util/earthEngine';
 import { filterData } from '../../../../util/filter';
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
 
@@ -35,17 +35,18 @@ export default class EarthEngineLayer extends Layer {
         }
     }
 
-    updateLayer = filterChange => {
+    updateLayer = async filterChange => {
         if (filterChange) {
             this.applyFilter();
         } else {
-            this.removeLayer();
-            this.createLayer(true);
+            this.clearAggregations();
+            await this.removeLayer();
+            await this.createLayer(true);
             this.setLayerOrder();
         }
     };
 
-    createLayer(isUpdate) {
+    async createLayer(isUpdate) {
         const {
             id,
             index,
@@ -71,9 +72,7 @@ export default class EarthEngineLayer extends Layer {
             areaRadius,
         } = this.props;
 
-        const { map } = this.context;
-
-        const aggregate = data && aggregationType && aggregationType.length;
+        const { map, isPlugin } = this.context;
 
         const config = {
             type: EARTH_ENGINE_LAYER,
@@ -95,6 +94,8 @@ export default class EarthEngineLayer extends Layer {
             resolution,
             projection,
             data,
+            aggregationType,
+            preload: !isPlugin,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
@@ -116,23 +117,30 @@ export default class EarthEngineLayer extends Layer {
             this.setState({ isLoading: true });
         }
 
-        config.accessToken = apiFetch('/tokens/google'); // returns promise
+        config.getAuthToken = getAuthToken;
 
         try {
             this.layer = map.createLayer(config);
-            map.addLayer(this.layer);
+            await map.addLayer(this.layer);
         } catch (error) {
             this.onError(error);
         }
 
-        if (aggregate) {
+        this.fitBoundsOnce();
+    }
+
+    hasAggregations() {
+        return this.props.data && this.props.aggregationType;
+    }
+
+    getAggregations() {
+        if (this.hasAggregations() && !this.state.aggregations) {
+            this.setState({ aggregations: 'loading' });
             this.layer
-                .aggregate(aggregationType)
+                .getAggregations()
                 .then(this.addAggregationValues.bind(this))
                 .catch(this.onError.bind(this));
         }
-
-        this.fitBoundsOnce();
     }
 
     addAggregationValues(aggregations) {
@@ -155,6 +163,17 @@ export default class EarthEngineLayer extends Layer {
             })),
             aggregations,
         });
+    }
+
+    clearAggregations() {
+        if (this.hasAggregations()) {
+            const { id, setAggregations } = this.props;
+            this.setState({ aggregations: undefined });
+
+            if (setAggregations) {
+                setAggregations({ [id]: undefined });
+            }
+        }
     }
 
     applyFilter() {
@@ -199,14 +218,19 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onFeatureClick(evt) {
+        this.getAggregations();
         this.setState({ popup: evt });
     }
 
     onLoad() {
         this.setState({ isLoading: false, popup: null });
+
+        if (!this.context.isPlugin) {
+            this.getAggregations();
+        }
     }
 
     onError(error) {
-        this.setState({ error, isLoading: false });
+        this.setState({ error: error.message, isLoading: false });
     }
 }

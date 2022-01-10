@@ -6,9 +6,15 @@ import {
     BING_LAYER,
 } from '../constants/layers';
 
+export const FALLBACK_BASEMAP_ID = 'osmLight';
+
+export const getFallbackBasemap = () => defaultBasemaps()[0];
+
+export const getBasemap = id => defaultBasemaps().find(map => map.id === id);
+
 export const defaultBasemaps = () => [
     {
-        id: 'osmLight',
+        id: FALLBACK_BASEMAP_ID,
         name: i18n.t('OSM Light'),
         img: 'images/osmlight.png',
         config: {
