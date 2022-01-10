@@ -4,24 +4,17 @@ import { BING_LAYER } from '../constants/layers';
 import * as types from '../constants/actionTypes';
 
 const basemaps = (state = defaultBasemaps(), action) => {
-    let bingMapsKey;
-
     switch (action.type) {
-        case types.BASEMAP_ADD:
-            return [...state, action.payload];
+        case types.BASEMAPS_ADD:
+            return state.concat(action.payload);
 
         case types.BASEMAP_REMOVE:
             return state.filter(basemap => basemap.id !== action.id);
 
-        case types.SYSTEM_SETTINGS_SET:
-            bingMapsKey = action.payload && action.payload.keyBingMapsApiKey;
+        case types.BASEMAP_REMOVE_BING_MAPS:
+            return state.filter(layer => layer.config.type !== BING_LAYER);
 
-            // Remove Bing basemaps is no key is provided
-            if (!bingMapsKey) {
-                return state.filter(layer => layer.config.type !== BING_LAYER);
-            }
-
-            // Set key property on Bing basemaps
+        case types.BASEMAP_BING_KEY_SET:
             return state.map(layer => {
                 if (layer.config.type !== BING_LAYER) {
                     return layer;
@@ -31,7 +24,7 @@ const basemaps = (state = defaultBasemaps(), action) => {
                     ...layer,
                     config: {
                         ...layer.config,
-                        apiKey: bingMapsKey,
+                        apiKey: action.key,
                     },
                 };
             });

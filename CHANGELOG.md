@@ -1,3 +1,24 @@
+# [1.17.0](https://github.com/dhis2/maps-app/compare/v1.16.5...v1.17.0) (2022-01-07)
+
+
+### Features
+
+* use default basemap that is configured in system settings [DHIS2-12155] ([#1984](https://github.com/dhis2/maps-app/issues/1984)) ([fc74d8c](https://github.com/dhis2/maps-app/commit/fc74d8cf448d8aa94813bc2045128ace63f409cb))
+
+## [1.16.5](https://github.com/dhis2/maps-app/compare/v1.16.4...v1.16.5) (2022-01-04)
+
+
+### Bug Fixes
+
+* maps-gl upgrade with shared ee worker ([#1995](https://github.com/dhis2/maps-app/issues/1995)) ([8ffe94b](https://github.com/dhis2/maps-app/commit/8ffe94b0b56a34792f7e04660454cf153148193c))
+
+## [1.16.4](https://github.com/dhis2/maps-app/compare/v1.16.3...v1.16.4) (2021-12-30)
+
+
+### Bug Fixes
+
+* only preload earth engine aggregations if org units are passed (DHIS2-12276) ([#1989](https://github.com/dhis2/maps-app/issues/1989)) ([0284ead](https://github.com/dhis2/maps-app/commit/0284ead137a7101663d46547eadd60685c8cf918))
+
 ## [1.16.3](https://github.com/dhis2/maps-app/compare/v1.16.2...v1.16.3) (2021-12-28)
 
 

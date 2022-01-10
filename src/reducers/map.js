@@ -2,17 +2,18 @@ import * as types from '../constants/actionTypes';
 import arrayMove from 'array-move';
 import { generateUid } from 'd2/uid';
 
+export const defaultBasemapState = {
+    isVisible: true,
+    isExpanded: true,
+    opacity: 1,
+};
+
 const defaultState = {
     bounds: [
         [-18.7, -34.9],
         [50.2, 35.9],
     ],
-    basemap: {
-        id: 'osmLight',
-        isVisible: true,
-        isExpanded: true,
-        opacity: 1,
-    },
+    basemap: defaultBasemapState,
     mapViews: [],
 };
 

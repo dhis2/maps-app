@@ -18,13 +18,7 @@ const SortableLayersList = SortableContainer(({ layers }) => (
     </div>
 ));
 
-const LayersPanel = ({
-    layersPanelOpen,
-    basemap,
-    basemaps,
-    layers,
-    sortLayers,
-}) =>
+const LayersPanel = ({ layersPanelOpen, layers, sortLayers }) =>
     layersPanelOpen && (
         <Drawer position="left">
             <SortableLayersList
@@ -33,26 +27,19 @@ const LayersPanel = ({
                 useDragHandle={true}
             />
             <div>
-                <BasemapCard {...basemap} basemaps={basemaps} />
+                <BasemapCard />
             </div>
         </Drawer>
     );
 
 LayersPanel.propTypes = {
     layersPanelOpen: PropTypes.bool.isRequired,
-    basemap: PropTypes.object.isRequired,
-    basemaps: PropTypes.array.isRequired,
     layers: PropTypes.array.isRequired,
     sortLayers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    basemap: {
-        ...state.basemaps.filter(b => b.id === state.map.basemap.id)[0],
-        ...state.map.basemap,
-    },
     layers: [...state.map.mapViews].reverse(),
-    basemaps: state.basemaps,
     layersPanelOpen: state.ui.layersPanelOpen,
 });
 
