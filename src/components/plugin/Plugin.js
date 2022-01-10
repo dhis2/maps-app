@@ -25,7 +25,6 @@ class Plugin extends Component {
 
     static defaultProps = {
         hideTitle: false,
-        basemap: { id: 'osmLight' },
     };
 
     constructor(props, context) {

@@ -10,37 +10,58 @@
             height: 450px;
             border: 1px solid black;
         }
-        #savedMapPicker {
-            padding: 30px;
-        }
         #savedMapPicker input {
             margin: 5px;
+        }
+        #mapArea {margin-bottom: 10px;}
+        .centering{
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 
 <body>
-    <div id="savedMapPicker" class="savedMapPicker">
-        <div>
-            <label>Saved Map ID</label>
-            <input type="text" id="inputMapID" value="smxK71C26QU" />
+    <div class="centering">
+        <div id="savedMapPicker" class="savedMapPicker">
+            <div>
+                <label>Saved Map ID</label>
+                <input type="text" id="inputMapID" value="smxK71C26QU" />
+            </div>
+            <div>
+                <label>Config JSON</label>
+                <textarea id="inputMapConfig"></textarea>
+            </div>
+            <div>
+                <label>User Org Unit</label>
+                <input type="text" id="inputUserOrgUnit" value="" />
+                <small><strong>Bo</strong> district = <strong>O6uvpzGd5pu</strong></small>
+            </div>
+            <div>
+                <button type="submit" id="btnLoadPlugin">Load</button>
+            </div>
         </div>
-        <div>
-            <label>Config JSON</label>
-            <textarea id="inputMapConfig"></textarea>
+        <div id="mapContainer">
+            <div>
+                <div id="map" class="map"></div>
+                <button type="submit" id="btnReset">Reset</button>
+            </div>
+            <div id="mapPropertiesArea">
+                <div>
+                    <span>BasemapId:</span>
+                    <span id="cypressBasemapId"></span>
+                </div>
+                <div>
+                    <span>Basemap isVisible:</span>
+                    <span id="cypressBasemapVisible"></span>
+                </div>
+                <div>
+                    <span>Mapviews names:</span>
+                    <span id="cypressMapViews"></span>
+                </div>
+            </div>
         </div>
-        <div>
-            <label>User Org Unit</label>
-            <input type="text" id="inputUserOrgUnit" value="" />
-            <small><strong>Bo</strong> district = <strong>O6uvpzGd5pu</strong></small>
-        </div>
-        <div>
-            <button type="submit" id="btnLoadPlugin">Load</button>
-        </div>
-    </div>
-    <div id="mapContainer">
-        <div id="map" class="map"></div>
-        <button type="submit" id="btnReset">Reset</button>
     </div>
     <script>
         const picker = document.getElementById('savedMapPicker');

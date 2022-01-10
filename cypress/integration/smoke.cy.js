@@ -31,41 +31,4 @@ context('Smoke Test', () => {
         Layer.validateCardTitle('ANC 1 Coverage');
         cy.get('canvas.maplibregl-canvas').should('be.visible');
     });
-
-    it.skip('opens the interpretations panel for a map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT);
-
-        cy.contains('File').click();
-        cy.getByDataTest('file-menu-container').should('be.visible');
-
-        cy.getByDataTest('file-menu-open')
-            .should('be.visible')
-            .click();
-
-        cy.getByDataTest('open-file-dialog-modal-name-filter')
-            .find('input')
-            .focus()
-            .type('ANC: LLITN coverage district and facility');
-
-        cy.getByDataTest('open-file-dialog-modal')
-            .contains('ANC: LLITN coverage district and facility')
-            .click();
-
-        cy.get('button')
-            .contains('Interpretations')
-            .click();
-
-        cy.contains('Map details').should('be.visible');
-        cy.get('textarea').should(
-            'have.attr',
-            'placeholder',
-            'Write an interpretation'
-        );
-
-        cy.get('p')
-            .contains(
-                'Koinadugu has a very high LLITN coverage despite low density of facilities providing nets.'
-            )
-            .should('be.visible');
-    });
 });

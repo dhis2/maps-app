@@ -17,7 +17,7 @@ exports[`LayerToolbar Should match toolbar snapshot WITH Edit button 1`] = `
     className="spacer"
   />
   <IconButton
-    className="button"
+    className="button visible"
     dataTest="visibilitybutton"
     onClick={[Function]}
     tooltip="Toggle visibility"
@@ -54,7 +54,7 @@ exports[`LayerToolbar Should match toolbar snapshot without Edit button 1`] = `
   data-test="layertoolbar"
 >
   <IconButton
-    className="button"
+    className="button visible"
     dataTest="visibilitybutton"
     onClick={[Function]}
     tooltip="Toggle visibility"

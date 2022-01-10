@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
 import Map from './Map';
 import SplitView from './SplitView';
 import { getSplitViewLayer } from '../../util/helpers';
@@ -27,35 +28,45 @@ const MapView = props => {
     const mapControls = getMapControls(isPlugin, isSplitView, controls);
 
     return (
-        <Fragment>
-            {isSplitView ? (
-                <SplitView
-                    isPlugin={isPlugin}
-                    isFullscreen={isFullscreen}
-                    basemap={basemap}
-                    layer={splitViewLayer}
-                    controls={mapControls}
-                    feature={feature}
-                    openContextMenu={openContextMenu}
-                    resizeCount={resizeCount}
-                />
+        <>
+            {basemap.id === undefined ? (
+                <ComponentCover>
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
+                </ComponentCover>
             ) : (
-                <Map
-                    isPlugin={isPlugin}
-                    isFullscreen={isFullscreen}
-                    basemap={basemap}
-                    layers={[...layers].reverse()}
-                    bounds={bounds}
-                    controls={mapControls}
-                    feature={feature}
-                    coordinatePopup={coordinatePopup}
-                    closeCoordinatePopup={closeCoordinatePopup}
-                    openContextMenu={openContextMenu}
-                    setAggregations={setAggregations}
-                    resizeCount={resizeCount}
-                />
+                <>
+                    {isSplitView ? (
+                        <SplitView
+                            isPlugin={isPlugin}
+                            isFullscreen={isFullscreen}
+                            basemap={basemap}
+                            layer={splitViewLayer}
+                            controls={mapControls}
+                            feature={feature}
+                            openContextMenu={openContextMenu}
+                            resizeCount={resizeCount}
+                        />
+                    ) : (
+                        <Map
+                            isPlugin={isPlugin}
+                            isFullscreen={isFullscreen}
+                            basemap={basemap}
+                            layers={[...layers].reverse()}
+                            bounds={bounds}
+                            controls={mapControls}
+                            feature={feature}
+                            coordinatePopup={coordinatePopup}
+                            closeCoordinatePopup={closeCoordinatePopup}
+                            openContextMenu={openContextMenu}
+                            setAggregations={setAggregations}
+                            resizeCount={resizeCount}
+                        />
+                    )}
+                </>
             )}
-        </Fragment>
+        </>
     );
 };
 

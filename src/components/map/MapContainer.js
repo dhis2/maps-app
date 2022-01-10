@@ -13,11 +13,11 @@ import {
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout';
+import useBasemapConfig from '../../hooks/useBasemapConfig';
 import styles from './styles/MapContainer.module.css';
 
 const MapContainer = props => {
     const {
-        basemap,
         mapViews,
         bounds,
         feature,
@@ -35,6 +35,7 @@ const MapContainer = props => {
         setAggregations,
     } = props;
     const [resizeCount, setResizeCount] = useState(0);
+    const basemap = useBasemapConfig(props.basemap);
 
     const style = {
         position: 'absolute',
@@ -107,11 +108,8 @@ MapContainer.propTypes = {
 };
 
 export default connect(
-    ({ map, basemaps, download, dataTable, ui, feature }) => ({
-        basemap: {
-            ...basemaps.filter(b => b.id === map.basemap.id)[0],
-            ...map.basemap,
-        },
+    ({ map, download, dataTable, ui, feature }) => ({
+        basemap: map.basemap,
         newLayerIsLoading: map.newLayerIsLoading,
         coordinatePopup: map.coordinatePopup,
         mapViews: map.mapViews,
