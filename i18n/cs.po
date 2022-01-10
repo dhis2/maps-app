@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
+"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -193,6 +193,9 @@ msgstr "Přidat vrstvu"
 
 msgid "Aggregation method"
 msgstr "Metoda agregace"
+
+msgid "Choosing many groups takes a long time to calculate and display."
+msgstr "Výpočet a zobrazení výběru mnoha skupin trvá dlouho."
 
 msgid "Groups"
 msgstr "Skupiny"
@@ -616,6 +619,12 @@ msgstr "Nadřazená jednotka"
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
+msgid "All groups"
+msgstr "Všechny skupiny"
+
+msgid "Loading data"
+msgstr "Načítání dat"
+
 msgid "acres"
 msgstr "akrů"
 
@@ -887,6 +896,9 @@ msgstr "Střední"
 
 msgid "Median"
 msgstr "Medián"
+
+msgid "Std dev"
+msgstr "Standardní odchylka"
 
 msgid "OSM Light"
 msgstr "OSM Light"
@@ -1324,9 +1336,6 @@ msgid ""
 msgstr ""
 "Tato vrstva vyžaduje účet Google Earth Engine. Další informace najdete v "
 "dokumentaci DHIS2."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "Nelze se připojit k Google Earth Engine."
 
 msgid "Facility"
 msgstr "Zařízení"

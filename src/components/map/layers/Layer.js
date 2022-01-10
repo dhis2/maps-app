@@ -5,6 +5,7 @@ import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../../constants/layers';
 class Layer extends PureComponent {
     static contextTypes = {
         map: PropTypes.object,
+        isPlugin: PropTypes.bool,
     };
 
     static propTypes = {
@@ -126,7 +127,9 @@ class Layer extends PureComponent {
     }
 
     setLayerOrder() {
-        this.layer.setIndex(this.props.index);
+        if (this.layer) {
+            this.layer.setIndex(this.props.index);
+        }
     }
 
     // Fit map to layer bounds
@@ -147,15 +150,15 @@ class Layer extends PureComponent {
     }
 
     async removeLayer() {
-        const map = this.context.map;
+        if (this.layer) {
+            const { map } = this.context;
 
-        this.layer.off('contextmenu', this.onFeatureRightClick, this);
+            this.layer.off('contextmenu', this.onFeatureRightClick, this);
 
-        if (map.hasLayer(this.layer)) {
             await map.removeLayer(this.layer);
-        }
 
-        delete this.layer;
+            delete this.layer;
+        }
     }
 
     highlightFeature(feature) {

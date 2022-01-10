@@ -1,12 +1,5 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
-import { generateUid } from 'd2/uid';
-import { upgradeGisAppLayers } from './requests';
-import { getThematicLayerFromAnalyticalObject } from './analyticalObject';
-import {
-    EARTH_ENGINE_LAYER,
-    EXTERNAL_LAYER,
-    TRACKED_ENTITY_LAYER,
-} from '../constants/layers';
+import { EARTH_ENGINE_LAYER, TRACKED_ENTITY_LAYER } from '../constants/layers';
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -93,22 +86,22 @@ const validModelProperties = [
     'dimensionItemType',
 ];
 
-export const cleanMapConfig = config => ({
+export const cleanMapConfig = ({ config, defaultBasemapId }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
-    basemap: getBasemapString(config.basemap),
+    basemap: getBasemapString(config.basemap, defaultBasemapId),
     mapViews: config.mapViews.map(cleanLayerConfig),
 });
 
-const getBasemapString = basemap => {
+const getBasemapString = (basemap, defaultBasemapId) => {
     if (!basemap) {
-        return 'osmLight';
+        return defaultBasemapId;
     }
 
     if (basemap.isVisible === false) {
         return 'none';
     }
 
-    return basemap.id;
+    return basemap.id || defaultBasemapId;
 };
 
 const cleanLayerConfig = config => ({
@@ -206,54 +199,3 @@ export const cleanDimension = dim => ({
     ...dim,
     items: dim.items.map(item => pick(validModelProperties, item)),
 });
-
-// Set external basemap from mapViews (old format)
-const setExternalBasemap = config => {
-    const { mapViews } = config;
-    const externalBasemap = mapViews.find(view => {
-        if (view.layer === EXTERNAL_LAYER) {
-            if (typeof view.config === 'string') {
-                view.config = JSON.parse(view.config);
-            }
-
-            return view.config.mapLayerPosition === 'BASEMAP';
-        }
-        return false;
-    });
-
-    if (!externalBasemap) {
-        return config;
-    }
-
-    return {
-        ...config,
-        basemap: { id: externalBasemap.config.id },
-        mapViews: mapViews.filter(view => view.id !== externalBasemap.id),
-    };
-};
-
-// Translate from chart/pivot config to map config, or from the old GIS app format
-export const translateConfig = async config => {
-    // If chart/pivot config
-    if (!config.mapViews) {
-        const { el, name } = config;
-
-        return getThematicLayerFromAnalyticalObject(config).then(mapView => ({
-            el,
-            name,
-            mapViews: [
-                {
-                    id: generateUid(),
-                    ...mapView,
-                },
-            ],
-        }));
-    }
-
-    const newConfig = setExternalBasemap(config);
-
-    return {
-        ...newConfig,
-        mapViews: upgradeGisAppLayers(newConfig.mapViews),
-    };
-};
