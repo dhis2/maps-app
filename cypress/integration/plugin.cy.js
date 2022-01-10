@@ -4,7 +4,7 @@ const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: /\/systemSettings\// };
 
 const pluginUrl = '/plugin.html?id=';
 
-describe.skip('Basemap checks for plugin', () => {
+describe('Basemap checks for plugin', () => {
     it('open map with basemap = none uses default basemap set to not visible', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/aVYDp6FYyFU/ }, req => {
             delete req.headers['if-none-match'];
@@ -18,19 +18,13 @@ describe.skip('Basemap checks for plugin', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        cy.get('#basemapId')
+        cy.get('#cypressBasemapId')
             .contains('osmLight')
             .should('be.visible');
-        cy.get('#basemapName')
-            .contains('OSM Light')
-            .should('be.visible');
-        cy.get('#basemapIsVisible')
+        cy.get('#cypressBasemapVisible')
             .contains('no')
             .should('be.visible');
-        cy.get('#mapviewsCount')
-            .contains('2')
-            .should('be.visible');
-        cy.get('#mapviewsNames')
+        cy.get('#cypressMapViews')
             .contains('thematic thematic')
             .should('be.visible');
     });
@@ -48,13 +42,10 @@ describe.skip('Basemap checks for plugin', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        cy.get('#basemapId')
+        cy.get('#cypressBasemapId')
             .contains('openStreetMap')
             .should('be.visible');
-        cy.get('#basemapName')
-            .contains('OSM Detailed')
-            .should('be.visible');
-        cy.get('#basemapIsVisible')
+        cy.get('#cypressBasemapVisible')
             .contains('yes')
             .should('be.visible');
     });
@@ -72,13 +63,10 @@ describe.skip('Basemap checks for plugin', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        cy.get('#basemapId')
+        cy.get('#cypressBasemapId')
             .contains('LOw2p0kPwua')
             .should('be.visible');
-        cy.get('#basemapName')
-            .contains('Dark basemap')
-            .should('be.visible');
-        cy.get('#basemapIsVisible')
+        cy.get('#cypressBasemapVisible')
             .contains('yes')
             .should('be.visible');
     });
@@ -106,13 +94,12 @@ describe.skip('Basemap checks for plugin', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        cy.get('#basemapId')
+        cy.get('#cypressBasemapId')
             .contains('osmLight')
             .should('be.visible');
-        cy.get('#basemapName')
-            .contains('OSM Light')
+        cy.get('#cypressBasemapVisible')
+            .contains('yes')
             .should('be.visible');
-        cy.get('#basemapIsVisible').contains('yes');
     });
 
     it('open map with unknown basemap uses system default basemap (which is set to an external basemap)', () => {
@@ -138,13 +125,12 @@ describe.skip('Basemap checks for plugin', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        cy.get('#basemapId')
+        cy.get('#cypressBasemapId')
             .contains('wNIQ8pNvSQd')
             .should('be.visible');
-        cy.get('#basemapName')
-            .contains('Terrain basemap')
+        cy.get('#cypressBasemapVisible')
+            .contains('yes')
             .should('be.visible');
-        cy.get('#basemapIsVisible').contains('yes');
     });
 
     it('open map with unknown basemap uses fallback basemap (OSM Light) when system default basemap is invalid', () => {
@@ -170,13 +156,12 @@ describe.skip('Basemap checks for plugin', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        cy.get('#basemapId')
+        cy.get('#cypressBasemapId')
             .contains('osmLight')
             .should('be.visible');
-        cy.get('#basemapName')
-            .contains('OSM Light')
+        cy.get('#cypressBasemapVisible')
+            .contains('yes')
             .should('be.visible');
-        cy.get('#basemapIsVisible').contains('yes');
     });
 
     it('open map with external basemap uses fallback basemap (OSM Light) when externalMapLayers request fails', () => {
@@ -193,13 +178,12 @@ describe.skip('Basemap checks for plugin', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        cy.get('#basemapId')
+        cy.get('#cypressBasemapId')
             .contains('osmLight')
             .should('be.visible');
-        cy.get('#basemapName')
-            .contains('OSM Light')
+        cy.get('#cypressBasemapVisible')
+            .contains('yes')
             .should('be.visible');
-        cy.get('#basemapIsVisible').contains('yes');
     });
 
     it('open map with internal basemap when externalMapLayers request fails', () => {
@@ -216,12 +200,11 @@ describe.skip('Basemap checks for plugin', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        cy.get('#basemapId')
+        cy.get('#cypressBasemapId')
             .contains('bingDark')
             .should('be.visible');
-        cy.get('#basemapName')
-            .contains('Bing Dark')
+        cy.get('#cypressBasemapVisible')
+            .contains('yes')
             .should('be.visible');
-        cy.get('#basemapIsVisible').contains('yes');
     });
 });
