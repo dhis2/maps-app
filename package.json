@@ -51,7 +51,7 @@
         "@dhis2/d2-ui-org-unit-tree": "^7.3.3",
         "@dhis2/maps-gl": "^3.0.2",
         "@dhis2/ui": "^6.20.0",
-        "abortcontroller-polyfill": "^1.5.0",
+        "abortcontroller-polyfill": "^1.7.3",
         "array-move": "^3.0.1",
         "classnames": "^2.2.6",
         "d2": "^31.9.2",
