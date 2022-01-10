@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.15.5",
+    "version": "1.17.0",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -42,13 +42,14 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^20.4.5",
-        "@dhis2/app-runtime": "^2.11.0",
-        "@dhis2/d2-i18n": "<1.1.0",
+        "@dhis2/app-runtime": "^3.2.7",
+        "@dhis2/app-runtime-adapter-d2": "^1.1.0",
+        "@dhis2/d2-i18n": "1.0.6",
         "@dhis2/d2-ui-core": "^7.3.3",
         "@dhis2/d2-ui-interpretations": "^7.3.3",
         "@dhis2/d2-ui-org-unit-dialog": "^7.3.3",
         "@dhis2/d2-ui-org-unit-tree": "^7.3.3",
-        "@dhis2/maps-gl": "^2.2.3",
+        "@dhis2/maps-gl": "^3.0.2",
         "@dhis2/ui": "^6.20.0",
         "abortcontroller-polyfill": "^1.5.0",
         "array-move": "^3.0.1",
@@ -70,10 +71,10 @@
         "prop-types": "^15.6.2",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "react-redux": "^5.0.7",
+        "react-redux": "^7.2.6",
         "react-sortable-hoc": "^1.11.0",
         "react-virtualized": "^9.22.3",
-        "redux": "^4.0.0",
+        "redux": "^4.1.2",
         "redux-logger": "^3.0.6",
         "redux-observable": "^0.18.0",
         "redux-thunk": "^2.3.0",
@@ -105,7 +106,7 @@
         "eslint-config-prettier": "^2.9.0",
         "eslint-plugin-cypress": "^2.11.3",
         "eslint-plugin-prettier": "^2.6.0",
-        "eslint-plugin-react": "7.20.6",
+        "eslint-plugin-react": "7.28.0",
         "file-loader": "^6.2.0",
         "gifsicle": "^3.0.4",
         "html-webpack-plugin": "^5.3.1",
@@ -132,6 +133,9 @@
         "icons": {
             "48": "icon.png"
         },
+        "appType": "APP",
+        "core_app": true,
+        "short_name": "maps",
         "developer": {
             "url": "",
             "name": "Bjørn Sandvik"

@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     font-style: italic;
+    padding-top: var(--spacers-dp12);
     padding-left: var(--spacers-dp16);
 }
 

@@ -14,6 +14,13 @@
     line-height: 30px;
 }
 
+.loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
 :global(.ReactVirtualized__Table__headerRow) {
     position: relative;
     background-color: #eee;

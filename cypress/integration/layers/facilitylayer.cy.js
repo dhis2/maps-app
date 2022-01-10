@@ -15,12 +15,11 @@ context('Facility Layers', () => {
         cy.contains('No organisation units are selected').should('be.visible');
     });
 
-    /*
     it('adds a facilities layer', () => {
         Layer.openDialog('Facilities')
-            .selectOuLevel('District')
-            .selectTab('Style')
-            .selectGroupSet('Facility Type')
+            .selectTab('Organisation Units')
+            .selectOu('Bo')
+            .selectOuLevel('Facility')
             .addToMap();
 
         Layer.validateDialogClosed(true);
@@ -28,7 +27,6 @@ context('Facility Layers', () => {
         // TODO: use visual snapshot testing to check the rendering of the map
 
         Layer.validateCardTitle('Facilities');
-        Layer.validateCardItems(['Hospital', 'Clinic', 'CHP', 'CHC', 'MCHP']);
+        Layer.validateCardItems(['Facility']);
     });
-    */
 });

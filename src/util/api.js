@@ -17,11 +17,7 @@ export const apiFetch = async (url, method, body) => {
         },
     };
 
-    if (config.context && config.context.auth) {
-        options.headers['Authorization'] = 'Basic ' + btoa(config.context.auth);
-    } else {
-        options.credentials = 'include';
-    }
+    options.credentials = 'include';
 
     if (method && body) {
         options.method = method;

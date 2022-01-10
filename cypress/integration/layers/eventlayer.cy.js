@@ -16,11 +16,13 @@ context('Event Layers', () => {
         cy.contains('Program is required').should('be.visible');
     });
 
-    /*
     it('adds an event layer', () => {
         Layer.openDialog('Events')
             .selectProgram('Inpatient morbidity and mortality')
             .validateStage('Inpatient morbidity and mortality')
+            .selectTab('Org Units')
+            .selectOu('Bombali')
+            .selectOu('Bo')
             .addToMap();
 
         Layer.validateDialogClosed(true);
@@ -28,5 +30,4 @@ context('Event Layers', () => {
         Layer.validateCardTitle('Inpatient morbidity and mortality');
         Layer.validateCardItems(['Event']);
     });
-    */
 });

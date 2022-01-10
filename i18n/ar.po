@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Hamza Assada <7amza.it@gmail.com>, 2021
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
+# Hamza Assada <7amza.it@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-20T11:58:28.882Z\n"
+"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -192,6 +192,9 @@ msgid "Add layer"
 msgstr "إضافة طبقة"
 
 msgid "Aggregation method"
+msgstr ""
+
+msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -610,6 +613,12 @@ msgstr "الوحدة العليا"
 msgid "Last updated"
 msgstr "آخر تحديث"
 
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
+
 msgid "acres"
 msgstr "فدان"
 
@@ -827,7 +836,7 @@ msgid "End date"
 msgstr "تاريخ النهاية"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "غير متوفر في وضع عدم الإتصال"
 
 msgid "Program indicator"
 msgstr "مؤشر البرنامج"
@@ -875,6 +884,9 @@ msgid "Mean"
 msgstr ""
 
 msgid "Median"
+msgstr ""
+
+msgid "Std dev"
 msgstr ""
 
 msgid "OSM Light"
@@ -1312,9 +1324,6 @@ msgid ""
 msgstr ""
 "تتطلب هذه الطبقة حساب Google Earth Engine. تحقق من وثائق DHIS2 لمزيد من "
 "المعلومات."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "لم يتمكن من الاتصال بـ Google Earth Engine."
 
 msgid "Facility"
 msgstr "المنشأة"
