@@ -10,6 +10,8 @@ describe('Basemap checks for plugin', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/aVYDp6FYyFU/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
+                expect(res).to.exist;
+                expect(res.body).to.exist;
                 res.body.basemap = 'none';
                 res.send({ body: res.body });
             });
@@ -40,6 +42,8 @@ describe('Basemap checks for plugin', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/zDP78aJU8nX/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
+                expect(res).to.exist;
+                expect(res.body).to.exist;
                 res.body.basemap = { id: 'openStreetMap' };
                 res.send({ body: res.body });
             });
@@ -67,6 +71,8 @@ describe('Basemap checks for plugin', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/qTfO4YkQ9xW/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
+                expect(res).to.exist;
+                expect(res.body).to.exist;
                 res.body.basemap = 'LOw2p0kPwua';
                 res.send({ body: res.body });
             });
@@ -104,6 +110,8 @@ describe('Basemap checks for plugin', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/ZugJzZ7xxRW/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
+                expect(res).to.exist;
+                expect(res.body).to.exist;
                 delete res.body.basemap;
                 res.send({ body: res.body });
             });
@@ -141,6 +149,8 @@ describe('Basemap checks for plugin', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/ZBjCfSaLSqD/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
+                expect(res).to.exist;
+                expect(res.body).to.exist;
                 res.body.basemap = 'unknoWNvSQd';
                 res.send({ body: res.body });
             });
@@ -178,6 +188,8 @@ describe('Basemap checks for plugin', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/wIIoj44X77r/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
+                expect(res).to.exist;
+                expect(res.body).to.exist;
                 res.body.basemap = 'unknoWNvSQd';
                 res.send({ body: res.body });
             });
@@ -206,6 +218,8 @@ describe('Basemap checks for plugin', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/voX07ulo2Bq/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
+                expect(res).to.exist;
+                expect(res.body).to.exist;
                 res.body.basemap = 'LOw2p0kPwua';
                 res.send({ body: res.body });
             });
@@ -234,6 +248,8 @@ describe('Basemap checks for plugin', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/voX07ulo2Bq/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
+                expect(res).to.exist;
+                expect(res.body).to.exist;
                 res.body.basemap = 'bingDark';
                 res.send({ body: res.body });
             });

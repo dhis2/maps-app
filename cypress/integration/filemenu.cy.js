@@ -23,10 +23,14 @@ describe('File menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        ThemLayer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
-            .selectIndicator('VCCT post-test counselling rate')
-            .addToMap();
+        cy.intercept({ method: 'GET', url: /\/indicators/ }).as(
+            'fetchIndicators'
+        );
+
+        ThemLayer.openDialog('Thematic').selectIndicatorGroup('HIV');
+
+        cy.wait('@fetchIndicators');
+        ThemLayer.selectIndicator('VCCT post-test counselling rate').addToMap();
 
         cy.intercept({ method: 'POST', url: 'maps' }, req => {
             expect(req.body.mapViews).to.have.length(1);
