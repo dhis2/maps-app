@@ -95,7 +95,7 @@ describe('Basemap checks', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
-                res.body.keyDefaultBaseMap = 'wNIQ8pNvSQd';
+                res.body.keyDefaultBaseMap = 'wNIQ8pNvSQd'; //Terrain basemap
 
                 res.send({
                     body: res.body,

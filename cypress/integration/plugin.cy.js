@@ -15,6 +15,7 @@ describe('Basemap checks for plugin', () => {
         }).as('openMap');
 
         cy.visit(`${pluginUrl}aVYDp6FYyFU`, EXTENDED_TIMEOUT);
+        cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -39,6 +40,7 @@ describe('Basemap checks for plugin', () => {
         }).as('openMap');
 
         cy.visit(`${pluginUrl}zDP78aJU8nX`, EXTENDED_TIMEOUT);
+        cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -60,6 +62,7 @@ describe('Basemap checks for plugin', () => {
         }).as('openMap');
 
         cy.visit(`${pluginUrl}qTfO4YkQ9xW`, EXTENDED_TIMEOUT);
+        cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -91,6 +94,7 @@ describe('Basemap checks for plugin', () => {
         }).as('openMap');
 
         cy.visit(`${pluginUrl}ZugJzZ7xxRW`, EXTENDED_TIMEOUT);
+        cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -122,6 +126,7 @@ describe('Basemap checks for plugin', () => {
         }).as('openMap');
 
         cy.visit(`${pluginUrl}ZBjCfSaLSqD`, EXTENDED_TIMEOUT);
+        cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -153,6 +158,7 @@ describe('Basemap checks for plugin', () => {
         }).as('openMap');
 
         cy.visit(`${pluginUrl}wIIoj44X77r`, EXTENDED_TIMEOUT);
+        cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -175,6 +181,7 @@ describe('Basemap checks for plugin', () => {
         }).as('openMap');
 
         cy.visit(`${pluginUrl}voX07ulo2Bq`, EXTENDED_TIMEOUT);
+        cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -197,6 +204,7 @@ describe('Basemap checks for plugin', () => {
         }).as('openMap');
 
         cy.visit(`${pluginUrl}voX07ulo2Bq`, EXTENDED_TIMEOUT);
+        cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
