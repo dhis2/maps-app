@@ -11,7 +11,7 @@ import {
 
 import { EXTENDED_TIMEOUT } from '../support/util';
 
-const MAP_TITLE = 'test filemenu ' + new Date().toUTCString().slice(-23, -4);
+const MAP_TITLE = 'test ' + new Date().toUTCString().slice(-24, -4);
 const SAVEAS_MAP_TITLE = `${MAP_TITLE}-2`;
 
 describe('File menu', () => {
@@ -23,10 +23,14 @@ describe('File menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
-        ThemLayer.openDialog('Thematic')
-            .selectIndicatorGroup('HIV')
-            .selectIndicator('VCCT post-test counselling rate')
-            .addToMap();
+        cy.intercept({ method: 'GET', url: /\/indicators/ }).as(
+            'fetchIndicators'
+        );
+
+        ThemLayer.openDialog('Thematic').selectIndicatorGroup('HIV');
+
+        cy.wait('@fetchIndicators');
+        ThemLayer.selectIndicator('VCCT post-test counselling rate').addToMap();
 
         cy.intercept({ method: 'POST', url: 'maps' }, req => {
             expect(req.body.mapViews).to.have.length(1);
