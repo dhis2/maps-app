@@ -8,6 +8,9 @@ const pluginUrl = '/plugin.html';
 describe('Basemap checks for plugin', () => {
     it('open map with basemap = none uses default basemap set to not visible', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/aVYDp6FYyFU/ }, req => {
+            console.log('req', req);
+            expect(req.url).to.include('maps/aVYDp6FYyFU');
+            // expect(req.headers.host).to.include('debug.dhis2.org');
             delete req.headers['if-none-match'];
             req.continue(res => {
                 expect(res).to.exist;
@@ -15,7 +18,7 @@ describe('Basemap checks for plugin', () => {
                 res.body.basemap = 'none';
                 res.send({ body: res.body });
             });
-        }).as('openMap');
+        }).as('openMap1');
 
         // cy.visit(`${pluginUrl}aVYDp6FYyFU`, EXTENDED_TIMEOUT);
         cy.visit(pluginUrl);
@@ -23,9 +26,9 @@ describe('Basemap checks for plugin', () => {
             .clear()
             .type('aVYDp6FYyFU');
         cy.get('#btnLoadPlugin').click();
-        cy.wait('@openMap');
+        cy.wait('@openMap1');
 
-        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
+        // cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
         cy.get('#cypressBasemapId')
             .contains('osmLight')
