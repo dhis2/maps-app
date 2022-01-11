@@ -41,6 +41,7 @@ export class TrackedEntityTypeSelect extends Component {
                 onChange={trackedEntityType => onChange(trackedEntityType)}
                 className={className}
                 errorText={!trackedEntityType && errorText ? errorText : null}
+                dataTest="tetypeselect"
             />
         );
     }

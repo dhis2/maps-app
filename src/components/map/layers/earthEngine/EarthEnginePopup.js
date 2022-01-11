@@ -15,78 +15,145 @@ const EarthEnginePopup = props => {
     const values = typeof data === 'object' ? data[id] : null;
     const classes = hasClasses(valueType);
     const isPercentage = valueType === 'percentage';
-    let rows = [];
-    let header = null;
+    const isLoading = data === 'loading';
+    let table = null;
 
     if (values) {
-        const types = Object.keys(values);
-        const onlySum = types.length === 1 && types[0] === 'sum';
-
         if (classes) {
             const valueFormat = numberPrecision(isPercentage ? 2 : 0);
 
-            header = (
-                <thead>
-                    <tr>
-                        <th colSpan="2">
-                            {title} {period}
-                        </th>
-                        <th>{valueType}</th>
-                    </tr>
-                </thead>
-            );
-
-            rows = items
-                .filter(i => values[i.id])
-                .sort((a, b) => values[b.id] - values[a.id])
-                .map(({ id, name, color }) => (
-                    <tr key={id}>
-                        <td
-                            className={styles.color}
-                            style={{
-                                backgroundColor: color,
-                            }}
-                        ></td>
-                        <td className={styles.name}>{name}</td>
-                        <td>
-                            {valueFormat(values[id])}
-                            {isPercentage ? '%' : ''}
-                        </td>
-                    </tr>
-                ));
-        } else {
-            header = (
-                <caption>
-                    {title}
-                    {period && <div>{period}</div>}
-                    {groups && (
-                        <div className={styles.group}>
-                            {groups.length > 1
-                                ? i18n.t('Groups')
-                                : i18n.t('Group')}
-                            :
-                            {groups.map(group => (
-                                <div key={group}>{group}</div>
+            table = (
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th colSpan="2">
+                                {title} {period}
+                            </th>
+                            <th>{valueType}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items
+                            .filter(i => values[i.id])
+                            .sort((a, b) => values[b.id] - values[a.id])
+                            .map(({ id, name, color }) => (
+                                <tr key={id} className={styles.classes}>
+                                    <th
+                                        style={{
+                                            backgroundColor: color,
+                                        }}
+                                    ></th>
+                                    <th>{name}</th>
+                                    <td>
+                                        {valueFormat(values[id])}
+                                        {isPercentage ? '%' : ''}
+                                    </td>
+                                </tr>
                             ))}
-                        </div>
-                    )}
+                    </tbody>
+                </table>
+            );
+        } else {
+            const onlySum = valueType.length === 1 && valueType[0] === 'sum';
+
+            // Returns the value key for a type/group
+            const getValueKey = (type, group) =>
+                groups.length === 1
+                    ? type
+                    : valueType.length === 1
+                    ? group
+                    : `${group}_${type}`;
+
+            // Returns the value format (precision) for an aggregation type
+            const getValueFormat = type =>
+                numberPrecision(
+                    getPrecision(
+                        Object.values(data)
+                            .map(ou =>
+                                Object.keys(ou)
+                                    .filter(key => key.includes(type))
+                                    .map(key => ou[key])
+                            )
+                            .flat()
+                    )
+                );
+
+            // Create value format function for each aggregation type
+            const typeValueFormat = valueType.reduce((types, type) => {
+                types[type] = getValueFormat(type);
+                return types;
+            }, {});
+
+            const header = (
+                <caption>
+                    {title} {period}
                     {!onlySum && <div className={styles.unit}>{unit}</div>}
                 </caption>
             );
 
-            rows = types.map(type => {
-                const precision = getPrecision(
-                    Object.values(data).map(d => d[type])
+            if (groups) {
+                table = (
+                    <table className={styles.table}>
+                        {header}
+                        <thead>
+                            <tr>
+                                <th>Group</th>
+                                {valueType.map(type => (
+                                    <th key={type}>
+                                        {getEarthEngineAggregationType(type)}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {groups.map(({ id, name }) => (
+                                <tr key={id}>
+                                    <th>{name}</th>
+                                    {valueType.map(type => (
+                                        <td key={type}>
+                                            {typeValueFormat[type](
+                                                values[getValueKey(type, id)]
+                                            )}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                        {groups.length > 1 && (
+                            <tfoot>
+                                <tr>
+                                    <th>{i18n.t('All groups')}</th>
+                                    {valueType.map(type => (
+                                        <td key={type}>
+                                            {typeValueFormat[type](
+                                                values[type]
+                                            )}
+                                        </td>
+                                    ))}
+                                </tr>
+                            </tfoot>
+                        )}
+                    </table>
                 );
-                const valueFormat = numberPrecision(precision);
-
-                return (
-                    <tr key={type}>
-                        <th>{getEarthEngineAggregationType(type)}:</th>
-                        <td>{valueFormat(values[type])}</td>
-                    </tr>
+            } else {
+                table = (
+                    <table className={styles.table}>
+                        {header}
+                        <tbody>
+                            {valueType.map(type => (
+                                <tr key={type}>
+                                    <th>
+                                        {getEarthEngineAggregationType(type)}:
+                                    </th>
+                                    <td>
+                                        {typeValueFormat[type](values[type])}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 );
-            });
+            }
         }
     }
 
@@ -97,19 +164,16 @@ const EarthEnginePopup = props => {
             onClose={onClose}
             className="dhis2-map-popup-orgunit"
         >
-            <div className={styles.title}>{name}</div>
-            {values && (
-                <table className={styles.table}>
-                    {header}
-                    <tbody>{rows}</tbody>
-                </table>
-            )}
-            {data === 'loading' && (
-                <div className={styles.loading}>
-                    <CircularLoader small />
-                    {i18n.t('Loading data')}
-                </div>
-            )}
+            <div className={styles.popup}>
+                <div className={styles.title}>{name}</div>
+                {table}
+                {isLoading && (
+                    <div className={styles.loading}>
+                        <CircularLoader small />
+                        {i18n.t('Loading data')}
+                    </div>
+                )}
+            </div>
         </Popup>
     );
 };

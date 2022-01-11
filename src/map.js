@@ -5,18 +5,18 @@ import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
 import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import i18n from './locales';
+import { getConfigFromNonMapConfig } from './util/getConfigFromNonMapConfig';
+import { createExternalLayer } from './util/external';
 import Plugin from './components/plugin/Plugin';
 import {
     mapRequest,
-    getExternalLayer,
-    getBingMapsApiKey,
+    fetchExternalLayersD2,
+    fetchSystemSettings,
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
-import { translateConfig } from './util/favorites';
-import { cleanMapObject } from './util/helpers';
+import { getMigratedMapConfig } from './util/getMigratedMapConfig';
 import { apiVersion } from './constants/settings';
-import { defaultBasemaps } from './constants/basemaps';
-import { TILE_LAYER } from './constants/layers';
+import { getFallbackBasemap, defaultBasemaps } from './constants/basemaps';
 
 function PluginContainer() {
     let _configs = [];
@@ -92,50 +92,70 @@ function PluginContainer() {
         }
     }
 
-    function loadMap(config) {
+    async function loadMap(config) {
+        const systemSettings = await fetchSystemSettings([
+            'keyBingMapsApiKey',
+            'keyDefaultBaseMap',
+        ]);
         if (config.id && !isUnmounted(config.el)) {
-            // Load favorite
-            mapRequest(config.id)
-                .then(cleanMapObject)
-                .then(favorite =>
-                    loadLayers({
-                        ...config,
-                        ...favorite,
-                    })
-                );
+            mapRequest(config.id, systemSettings.keyDefaultBaseMap).then(
+                favorite =>
+                    loadLayers(
+                        {
+                            ...config,
+                            ...favorite,
+                        },
+                        systemSettings
+                    )
+            );
+        } else if (!config.mapViews) {
+            getConfigFromNonMapConfig(
+                config,
+                systemSettings.keyDefaultBaseMap
+            ).then(config => loadLayers(config, systemSettings));
         } else {
-            translateConfig(config)
-                .then(cleanMapObject)
-                .then(loadLayers);
+            loadLayers(
+                getMigratedMapConfig(config, systemSettings.keyDefaultBaseMap),
+                systemSettings
+            );
         }
     }
 
-    async function loadLayers(config) {
+    async function getBasemaps(basemapId, defaultBasemapId) {
+        try {
+            let externalBasemaps = [];
+            if (isValidUid(basemapId) || isValidUid(defaultBasemapId)) {
+                const externalLayers = await fetchExternalLayersD2();
+                externalBasemaps = externalLayers
+                    .filter(layer => layer.mapLayerPosition === 'BASEMAP')
+                    .map(createExternalLayer);
+            }
+
+            return defaultBasemaps().concat(externalBasemaps);
+        } catch (e) {
+            return defaultBasemaps();
+        }
+    }
+
+    async function loadLayers(
+        config,
+        { keyDefaultBaseMap, keyBingMapsApiKey }
+    ) {
         if (!isUnmounted(config.el)) {
-            let basemap = config.basemap || 'osmLight';
+            const basemaps = await getBasemaps(
+                config.basemap.id,
+                keyDefaultBaseMap
+            );
 
-            // Default basemap is required, visibility is set to false below
-            if (basemap === 'none') {
-                basemap = 'osmLight';
-            }
+            const availableBasemap =
+                basemaps.find(({ id }) => id === config.basemap.id) ||
+                basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
+                getFallbackBasemap();
 
-            const basemapId = basemap.id || basemap;
+            const basemap = { ...config.basemap, ...availableBasemap };
 
-            if (isValidUid(basemapId)) {
-                const externalLayer = await getExternalLayer(basemapId);
-                basemap = {
-                    id: basemapId,
-                    config: {
-                        type: TILE_LAYER,
-                        ...externalLayer,
-                    },
-                };
-            } else {
-                basemap = defaultBasemaps().find(map => map.id === basemapId);
-            }
-
-            if (basemapId.substring(0, 4) === 'bing') {
-                basemap.config.apiKey = await getBingMapsApiKey();
+            if (basemap.id.substring(0, 4) === 'bing') {
+                basemap.config.apiKey = keyBingMapsApiKey;
             }
 
             if (config.mapViews) {
@@ -144,10 +164,6 @@ function PluginContainer() {
                         ...mapView,
                         userOrgUnit: config.userOrgUnit,
                     }));
-                }
-
-                if (config.basemap === 'none') {
-                    basemap.isVisible = false;
                 }
 
                 Promise.all(config.mapViews.map(fetchLayer)).then(mapViews =>
@@ -175,6 +191,26 @@ function PluginContainer() {
                 }
 
                 _components[config.el] = ref;
+            }
+
+            const basemapIdEl = document.getElementById('cypressBasemapId');
+            if (basemapIdEl) {
+                basemapIdEl.textContent = config.basemap.id;
+
+                const basemapVisibleEl = document.getElementById(
+                    'cypressBasemapVisible'
+                );
+                if (basemapVisibleEl) {
+                    basemapVisibleEl.textContent =
+                        config.basemap.isVisible === false ? 'no' : 'yes';
+                }
+
+                const mapViewsEl = document.getElementById('cypressMapViews');
+                if (mapViewsEl) {
+                    mapViewsEl.textContent = config.mapViews
+                        .map(view => view.layer)
+                        .join(' ');
+                }
             }
         }
     }

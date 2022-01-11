@@ -9,7 +9,7 @@ const dataTable = (state = {}, action) => {
             };
 
         case types.MAP_NEW:
-        case types.FAVORITE_LOAD:
+        case types.MAP_SET:
             return {};
 
         case types.LAYER_REMOVE:
