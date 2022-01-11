@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/dhis2/maps-app/compare/v1.17.0...v1.17.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* modify or fix flaky cypress tests ([#2004](https://github.com/dhis2/maps-app/issues/2004)) ([b91836b](https://github.com/dhis2/maps-app/commit/b91836bd4faa7b9a9c7fce43e5253db4fd90bd6f))
+
 # [1.17.0](https://github.com/dhis2/maps-app/compare/v1.16.5...v1.17.0) (2022-01-07)
 
 
