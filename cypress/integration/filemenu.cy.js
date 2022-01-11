@@ -11,7 +11,7 @@ import {
 
 import { EXTENDED_TIMEOUT } from '../support/util';
 
-const MAP_TITLE = 'test filemenu ' + new Date().toUTCString().slice(-23, -4);
+const MAP_TITLE = 'test ' + new Date().toUTCString().slice(-24, -4);
 const SAVEAS_MAP_TITLE = `${MAP_TITLE}-2`;
 
 describe('File menu', () => {

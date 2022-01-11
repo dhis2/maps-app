@@ -23,6 +23,7 @@ export const openMap = mapName => {
     cy.getByDataTest('dhis2-uicore-datatable')
         .contains(mapName)
         .click();
+    cy.wait(1000);
 
     cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 

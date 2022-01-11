@@ -1,5 +1,7 @@
-import { EXTENDED_TIMEOUT } from '../support/util';
+// import { EXTENDED_TIMEOUT } from '../support/util';
 import { checkBasemap } from '../elements/basemap_card';
+
+const EXTENDED_TIMEOUT = { timeout: 25000 };
 
 const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: 'systemSettings?*' };
 
