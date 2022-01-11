@@ -95,7 +95,7 @@ describe('Basemap checks', () => {
         checkBasemap.activeBasemap('OSM Light');
     });
 
-    it('open map with unknown basemap uses system default basemap (which is set to an external basemap)', () => {
+    it.skip('open map with unknown basemap uses system default basemap (which is set to an external basemap)', () => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
