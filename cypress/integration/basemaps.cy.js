@@ -1,9 +1,15 @@
 import { EXTENDED_TIMEOUT } from '../support/util';
 import { checkBasemap } from '../elements/basemap_card';
 
-const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: 'systemSettings?*' };
+const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: /systemSettings\?/ };
 
 describe('Basemap checks', () => {
+    beforeEach(() => {
+        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, req => {
+            delete req.headers['if-none-match'];
+            req.continue();
+        });
+    });
     it('open map with basemap = none uses default basemap set to not visible', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/ytkZY3ChM6J/ }, req => {
             delete req.headers['if-none-match'];
