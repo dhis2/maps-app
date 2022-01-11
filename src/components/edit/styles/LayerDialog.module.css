@@ -1,12 +1,19 @@
 .select {
     width: auto;
-    max-width: 300px;
+    max-width: 340px;
+}
+
+.periodSelect {
+    width: auto;
+    max-width: 360px;
 }
 
 .tabContent {
+    font-size: 14px;
     margin: var(--spacers-dp4) -16px 0;
-    height: 340px;
+    height: 360px;
     overflow-y: auto;
+    color: #333;
 }
 
 .flexColumnFlow {
@@ -34,9 +41,18 @@
     clear: both;
 }
 
+.flexInnerColumnFlow > div {
+    flex: 1;
+    margin: var(--spacers-dp8);
+}
+
 .flexInnerColumn {
     flex: 1;
     margin: var(--spacers-dp8);
+}
+
+.singleColumn {
+    max-width: 400px;
 }
 
 .header {
@@ -46,14 +62,14 @@
     font-weight: bold;
 }
 
-.notice {
-    margin: var(--spacers-dp8) 0;
+.paragraph {
+    padding: var(--spacers-dp8) 0 var(--spacers-dp4);
+    font-size: 13px;
+    line-height: var(--spacers-dp16);
 }
 
-.help {
-    margin-top: var(--spacers-dp8);
-    font-size: 14px;
-    line-height: 20px;
+.notice {
+    margin: var(--spacers-dp16) 0;
 }
 
 .error {
@@ -72,15 +88,11 @@
 
 .checkboxInline {
     height: 70px;
-    margin: 24px 40px 0 0;
+    padding-top: var(--spacers-dp24);
 }
 
 .fontInline {
     margin: -10px 0 10px;
-}
-
-.fontBlock {
-    margin: -12px 8px 8px 38px;
 }
 
 .numberField {
@@ -100,14 +112,18 @@
     width: 180px;
 }
 
-/* Boundary */
+/* Org unit */
 
-.radius {
+.marginBottom {
+    margin-bottom: var(--spacers-dp16);
+}
+
+.narrowField {
     width: 120px;
 }
 
-.boundaryFont {
-    margin: -10px 0 10px 40px;
+.narrowFieldIcon {
+    width: 128px;
 }
 
 /* Earth Engine */
@@ -122,11 +138,12 @@
 }
 
 .legendTitle {
-    padding-bottom: var(--spacers-dp16);
-    font-weight: bold;
+    font-size: 14px;
+    padding: var(--spacers-dp12) 0;
 }
 
 .scale {
+    margin-left: var(--spacers-dp8);
     margin-top: var(--spacers-dp16);
 }
 

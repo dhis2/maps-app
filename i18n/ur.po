@@ -1,14 +1,14 @@
 # 
 # Translators:
-# phil_dhis2, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
+# Viktor Varland <viktor@dhis2.org>, 2021
+# phil_dhis2, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
+"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2020\n"
+"Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,14 +76,14 @@ msgstr "ڈیٹا سیٹ"
 msgid "Index"
 msgstr ""
 
-msgid "Id"
-msgstr "آئی ڈی"
-
 msgid "Org unit"
 msgstr ""
 
 msgid "Name"
 msgstr "ÙØ§Ù"
+
+msgid "Id"
+msgstr "آئی ڈی"
 
 msgid "Event time"
 msgstr "واقعہ کا وقت"
@@ -143,116 +143,20 @@ msgstr "بند"
 msgid "Legend position"
 msgstr ""
 
-msgid "Year"
-msgstr "سال"
-
-msgid "Period"
-msgstr "مدت"
-
 msgid "Organisation Units"
 msgstr "تنظیمی یونٹس"
 
 msgid "Style"
 msgstr "سٹائل"
 
-msgid "Labels"
-msgstr "لیبل"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr ""
 
 msgid "Point radius"
 msgstr "پوائنٹ ریڈیو"
 
 msgid "No organisation units are selected"
-msgstr ""
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr ""
-
-msgid "Select year"
-msgstr "سال کو منتخب کریں"
-
-msgid "Min people"
-msgstr ""
-
-msgid "Max people"
-msgstr ""
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr ""
-
-msgid "Min meters"
-msgstr ""
-
-msgid "Max meters"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-
-msgid "Min mm"
-msgstr ""
-
-msgid "Max mm"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Min °C"
-msgstr ""
-
-msgid "Max °C"
-msgstr ""
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr ""
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-
-msgid "Min"
-msgstr "کم سے کم"
-
-msgid "Max"
-msgstr "زیادہ سے زیادہ"
-
-msgid "Steps"
-msgstr "مرحلے"
-
-msgid "Legend preview"
-msgstr ""
-
-msgid "This field is required"
-msgstr "اس کو پر کرنا ضروری ہے"
-
-msgid "Valid range is"
-msgstr ""
-
-msgid "Group Set"
-msgstr ""
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
-
-msgid "Buffer"
-msgstr ""
-
-msgid "Radius in meters"
-msgstr ""
-
-msgid "Group set is required"
 msgstr ""
 
 msgid "event"
@@ -267,7 +171,7 @@ msgstr ""
 msgid "thematic"
 msgstr ""
 
-msgid "boundary"
+msgid "org unit"
 msgstr ""
 
 msgid "Earth Engine"
@@ -285,8 +189,76 @@ msgstr ""
 msgid "Add layer"
 msgstr ""
 
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Choosing many groups takes a long time to calculate and display."
+msgstr ""
+
+msgid "Groups"
+msgstr "گروپ"
+
+msgid "This field is required"
+msgstr "اس کو پر کرنا ضروری ہے"
+
 msgid "Data"
 msgstr "ڈیٹا"
+
+msgid "Period"
+msgstr "مدت"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr ""
+
+msgid ""
+"Multiple aggregation methods are available. See the aggregation results by "
+"clicking map regions or viewing the data table. The results can also be "
+"downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Source"
+msgstr "ذریعہ"
+
+msgid "Year"
+msgstr "سال"
+
+msgid "Available periods are set by the source data"
+msgstr ""
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
+msgstr ""
+
+msgid "Min"
+msgstr "کم سے کم"
+
+msgid "Max"
+msgstr "زیادہ سے زیادہ"
+
+msgid "Steps"
+msgstr "مرحلے"
+
+msgid "Legend preview"
+msgstr ""
 
 msgid "Org Units"
 msgstr ""
@@ -318,8 +290,23 @@ msgstr ""
 msgid "No organisation units are selected."
 msgstr ""
 
+msgid "No legend set is selected"
+msgstr ""
+
 msgid "Event status"
 msgstr "واقعہ کی حیثیت"
+
+msgid "Boundary color"
+msgstr ""
+
+msgid "Buffer"
+msgstr ""
+
+msgid "Radius in meters"
+msgstr ""
+
+msgid "Labels"
+msgstr "لیبل"
 
 msgid "Aggregation type"
 msgstr "مجموعی قسم"
@@ -331,6 +318,9 @@ msgid "Low radius"
 msgstr ""
 
 msgid "High radius"
+msgstr ""
+
+msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
@@ -358,9 +348,6 @@ msgid "Program indicator is required"
 msgstr ""
 
 msgid "Period is required"
-msgstr ""
-
-msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
@@ -489,6 +476,15 @@ msgstr "تاریخ"
 msgid "Remove filter"
 msgstr ""
 
+msgid "Group set"
+msgstr "گروپ سیٹ"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "اشاروں کا گروپ"
 
@@ -551,6 +547,9 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
+msgid "Hide data table"
+msgstr "ڈیٹا ٹیبل چھپائیں"
+
 msgid "Show data table"
 msgstr ""
 
@@ -569,14 +568,11 @@ msgstr ""
 msgid "Mid"
 msgstr ""
 
+msgid "Group"
+msgstr "گروپ"
+
 msgid "Filters"
 msgstr "فلٹرز"
-
-msgid "Source"
-msgstr "ذریعہ"
-
-msgid "Parent unit"
-msgstr "والدین یونٹ"
 
 msgid "Drill up one level"
 msgstr "ایک سطح کو ڈرائیں"
@@ -584,29 +580,14 @@ msgstr "ایک سطح کو ڈرائیں"
 msgid "Drill down one level"
 msgstr "ایک سطح کو نیچے ڈالو"
 
-msgid "Show information"
-msgstr "معلومات دکھائیں"
+msgid "View profile"
+msgstr "معلومات دیکھو"
 
 msgid "Show longitude/latitude"
 msgstr "طول و عرض / طول و عرض دکھائیں"
 
-msgid "Swap longitude/latitude"
-msgstr "طول و عرض / طول و عرض کو تبدیل کریں"
-
-msgid "Relocate"
-msgstr "رہائشی"
-
 msgid "Show {{name}}"
 msgstr ""
-
-msgid "Not set"
-msgstr "سیٹ نہیں ہے"
-
-msgid "Organisation unit"
-msgstr "تنظیم یونٹ"
-
-msgid "Groups"
-msgstr "گروپ"
 
 msgid "Longitude"
 msgstr "لمبائی"
@@ -617,8 +598,23 @@ msgstr "طول"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
+msgid "Not set"
+msgstr "سیٹ نہیں ہے"
+
+msgid "Organisation unit"
+msgstr "تنظیم یونٹ"
+
+msgid "Parent unit"
+msgstr "والدین یونٹ"
+
 msgid "Last updated"
 msgstr "آخری اپ ڈیٹ"
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr ""
@@ -701,8 +697,10 @@ msgstr "آگے بڑھو"
 msgid "Options"
 msgstr "اختیارات"
 
-msgid "Code"
-msgstr "کوڈ"
+msgid ""
+"This data element has too many options ({{length}}). Max options for styling"
+" is {{max}}."
+msgstr ""
 
 msgid "No data found for this period."
 msgstr ""
@@ -710,18 +708,54 @@ msgstr ""
 msgid "Select groups"
 msgstr "گروپ منتخب کریں"
 
-msgid "Group set"
-msgstr "گروپ سیٹ"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "کوڈ"
+
+msgid "Short name"
+msgstr "Ù"
+
+msgid "Opening date"
+msgstr "تاریخ آغاز"
+
+msgid "Closed date"
+msgstr "آخری تاریخ"
+
+msgid "URL"
+msgstr "یو آر ایل"
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "ای میل"
+
+msgid "Address"
+msgstr "پتا"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "شناخت"
+
+msgid "Comment"
+msgstr "تبصرا"
 
 msgid "Select levels"
 msgstr "سطحوں کا انتخاب کریں"
 
+msgid "Organisation unit profile"
+msgstr ""
+
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
-msgstr ""
-
-msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
@@ -796,6 +830,9 @@ msgstr "تاریخ آغاز"
 msgid "End date"
 msgstr "آخری تاریخ"
 
+msgid "Not available offline"
+msgstr ""
+
 msgid "Program indicator"
 msgstr "پروگرام کا اشارہ"
 
@@ -829,6 +866,24 @@ msgstr "معیاری انحراف"
 msgid "Variance"
 msgstr "متغیر"
 
+msgid "Percentage"
+msgstr "فیصد"
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
+msgstr ""
+
+msgid "Std dev"
+msgstr ""
+
 msgid "OSM Light"
 msgstr "OSM لائٹ"
 
@@ -853,248 +908,137 @@ msgstr ""
 msgid "Bing Aerial Labels"
 msgstr ""
 
-msgid "All"
-msgstr "تمام"
-
-msgid "Active"
-msgstr "فعال"
-
-msgid "Completed"
-msgstr "مکمل"
-
-msgid "Schedule"
-msgstr "شیڈول"
-
-msgid "Overdue"
-msgstr "زیادہ سے زیادہ"
-
-msgid "Skipped"
-msgstr "کھڑا"
-
-msgid "Choropleth"
+msgid "Population"
 msgstr ""
 
-msgid "Bubble map"
+msgid "people per hectare"
 msgstr ""
 
-msgid "Automatic color legend"
+msgid "Estimated number of people living in an area."
 msgstr ""
 
-msgid "Predefined color legend"
+msgid "Population age groups"
 msgstr ""
-
-msgid "Single color legend"
-msgstr ""
-
-msgid "Equal intervals"
-msgstr "برابر وقفے"
-
-msgid "Equal counts"
-msgstr "مساوات"
-
-msgid "Daily"
-msgstr "روزانہ"
-
-msgid "Weekly"
-msgstr "ہفتہ وار"
-
-msgid "Monthly"
-msgstr "ماہانہ"
-
-msgid "Bi-monthly)"
-msgstr ""
-
-msgid "Quarterly"
-msgstr "سہ ماہی"
-
-msgid "Six-monthly"
-msgstr "چھ ماہی"
-
-msgid "Six-monthly April"
-msgstr "چھ ماہی اپریل"
-
-msgid "Yearly"
-msgstr "سالانہ"
-
-msgid "Financial year (Start October)"
-msgstr "مالی سال (اکتوبر شروع کریں)"
-
-msgid "Financial year (Start July)"
-msgstr "مالی سال (جولائی شروع کریں)"
-
-msgid "Financial year (Start April)"
-msgstr "مالی سال (اپریل شروع کریں)"
-
-msgid "Today"
-msgstr "آج"
-
-msgid "Yesterday"
-msgstr "کل"
-
-msgid "Last 3 days"
-msgstr "آخری 3 دن"
-
-msgid "Last 7 days"
-msgstr "آخری 7 دن"
-
-msgid "Last 14 days"
-msgstr "آخری 14 دن"
-
-msgid "Last 30 days"
-msgstr "آخری 30 دن"
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "اس ہفتے"
-
-msgid "Last week"
-msgstr "آخری ہفتہ"
-
-msgid "Last 4 weeks"
-msgstr "آخری ۴ ہفتے"
-
-msgid "Last 12 weeks"
-msgstr "آخری ۱۲ ہفتے"
-
-msgid "Last 52 weeks"
-msgstr "آخری ۵۲ ہفتے"
-
-msgid "Weeks this year"
-msgstr "اس سال ہفتہ"
-
-msgid "This bi-week"
-msgstr ""
-
-msgid "Last bi-week"
-msgstr ""
-
-msgid "Last 4 bi-weeks"
-msgstr ""
-
-msgid "This month"
-msgstr "اس مہینے"
-
-msgid "Last month"
-msgstr "آخری ماہ"
-
-msgid "Last 3 months"
-msgstr "آخری ۳ ماہ"
-
-msgid "Last 6 months"
-msgstr "آخری ۶ ماہ"
-
-msgid "Last 12 months"
-msgstr "آخری ۱۲ ماہ"
-
-msgid "Months this year"
-msgstr "ماہ اس سال"
-
-msgid "This bi-month"
-msgstr "یہ دو ماہ"
-
-msgid "Last bi-month"
-msgstr "آخری دو ماہ"
-
-msgid "Last 6 bi-months"
-msgstr "آخری ۶ دو ماہانہ"
-
-msgid "Bi-months this year"
-msgstr "اس مہینے میں مہینے"
-
-msgid "This quarter"
-msgstr "اس سہ ماہی"
-
-msgid "Last quarter"
-msgstr "آخری سہ ماہ"
-
-msgid "Last 4 quarters"
-msgstr "آخری ۴ سہ ماہی"
-
-msgid "Quarters this year"
-msgstr "سہ ماہی اس سال"
-
-msgid "This six-month"
-msgstr "یہ چھ ماہ"
-
-msgid "Last six-month"
-msgstr "آخری ۶ ماہ"
-
-msgid "Last 2 six-months"
-msgstr "آخری ۲ چھ ماہ"
-
-msgid "This year"
-msgstr "اس سال"
-
-msgid "Last year"
-msgstr "آخری سال"
-
-msgid "Last 5 years"
-msgstr "آخری ۵ سال"
-
-msgid "This financial year"
-msgstr "اس مالیاتی سال"
-
-msgid "Last financial year"
-msgstr "آخری مالیاتی سال"
-
-msgid "Last 5 financial years"
-msgstr "آخری ۵ مالیاتی سال"
-
-msgid "Cancelled"
-msgstr "منسوخ"
 
 msgid ""
-"This layer requires a Google Earth Engine account. Check the DHIS2 "
-"documentation for more information."
+"Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 
-msgid "Cannot connect to Google Earth Engine."
+msgid "Men 0 - 1 years"
 msgstr ""
 
-msgid "Map \"{{name}}\" is saved."
+msgid "Men 1 - 4 years"
 msgstr ""
 
-msgid "Error"
-msgstr "غلطی"
-
-msgid "Boundaries"
+msgid "Men 5 - 9 years"
 msgstr ""
 
-msgid "No boundaries found"
+msgid "Men 10 - 14 years"
+msgstr ""
+
+msgid "Men 15 - 19 years"
+msgstr ""
+
+msgid "Men 20 - 24 years"
+msgstr ""
+
+msgid "Men 25 - 29 years"
+msgstr ""
+
+msgid "Men 30 - 34 years"
+msgstr ""
+
+msgid "Men 35 - 39 years"
+msgstr ""
+
+msgid "Men 40 - 44 years"
+msgstr ""
+
+msgid "Men 45 - 49 years"
+msgstr ""
+
+msgid "Men 50 - 54 years"
+msgstr ""
+
+msgid "Men 55 - 59 years"
+msgstr ""
+
+msgid "Men 60 - 64 years"
+msgstr ""
+
+msgid "Men 65 - 69 years"
+msgstr ""
+
+msgid "Men 70 - 74 years"
+msgstr ""
+
+msgid "Men 75 - 79 years"
+msgstr ""
+
+msgid "Men 80 years and above"
+msgstr ""
+
+msgid "Women 0 - 1 years"
+msgstr ""
+
+msgid "Women 1 - 4 years"
+msgstr ""
+
+msgid "Women 5 - 9 years"
+msgstr ""
+
+msgid "Women 10 - 14 years"
+msgstr ""
+
+msgid "Women 15 - 19 years"
+msgstr ""
+
+msgid "Women 20 - 24 years"
+msgstr ""
+
+msgid "Women 25 - 29 years"
+msgstr ""
+
+msgid "Women 30 - 34 years"
+msgstr ""
+
+msgid "Women 35 - 39 years"
+msgstr ""
+
+msgid "Women 40 - 44 years"
+msgstr ""
+
+msgid "Women 45 - 49 years"
+msgstr ""
+
+msgid "Women 50 - 54 years"
+msgstr ""
+
+msgid "Women 55 - 59 years"
+msgstr ""
+
+msgid "Women 60 - 64 years"
+msgstr ""
+
+msgid "Women 65 - 69 years"
+msgstr ""
+
+msgid "Women 70 - 74 years"
+msgstr ""
+
+msgid "Women 75 - 79 years"
+msgstr ""
+
+msgid "Women 80 years and above"
 msgstr ""
 
 msgid "Elevation"
 msgstr "اونچائی"
 
-msgid "metres"
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
-msgstr ""
-
-msgid "Population density"
-msgstr "آبادی کثافت"
-
-msgid "people per km²"
-msgstr ""
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates."
-msgstr ""
-
-msgid "Nighttime lights"
-msgstr "رات کے وقت کی روشنی"
-
-msgid "light intensity"
 msgstr ""
 
 msgid "Precipitation"
@@ -1104,7 +1048,9 @@ msgid "millimeter"
 msgstr ""
 
 msgid ""
-"Precipitation collected from satellite and weather stations on the ground."
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
 msgstr ""
 
 msgid "Temperature"
@@ -1122,9 +1068,6 @@ msgid "Landcover"
 msgstr ""
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
-
-msgid "Water"
 msgstr ""
 
 msgid "Evergreen Needleleaf forest"
@@ -1175,7 +1118,129 @@ msgstr ""
 msgid "Barren or sparsely vegetated"
 msgstr ""
 
-msgid "Unclassified"
+msgid "Water"
+msgstr ""
+
+msgid "people per km²"
+msgstr ""
+
+msgid "Nighttime lights"
+msgstr "رات کے وقت کی روشنی"
+
+msgid "light intensity"
+msgstr ""
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+
+msgid "All"
+msgstr "تمام"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Completed"
+msgstr "مکمل"
+
+msgid "Schedule"
+msgstr "شیڈول"
+
+msgid "Overdue"
+msgstr "زیادہ سے زیادہ"
+
+msgid "Skipped"
+msgstr "کھڑا"
+
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
+msgid "Equal intervals"
+msgstr "برابر وقفے"
+
+msgid "Equal counts"
+msgstr "مساوات"
+
+msgid "Symbol"
+msgstr "علامت"
+
+msgid "Daily"
+msgstr "روزانہ"
+
+msgid "Weekly"
+msgstr "ہفتہ وار"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "ہفتہ وار (بدھ شروع کریں)"
+
+msgid "Weekly (Start Thursday)"
+msgstr "ہفتہ وار (جمعرات شروع کریں)"
+
+msgid "Weekly (Start Saturday)"
+msgstr "ہفتہ وار (ہفتہ شروع کریں)"
+
+msgid "Weekly (Start Sunday)"
+msgstr "ہفتہ (اتوار شروع کریں)"
+
+msgid "Bi-weekly"
+msgstr ""
+
+msgid "Monthly"
+msgstr "ماہانہ"
+
+msgid "Bi-monthly"
+msgstr "دو ماہی"
+
+msgid "Quarterly"
+msgstr "سہ ماہی"
+
+msgid "Six-monthly"
+msgstr "چھ ماہی"
+
+msgid "Six-monthly April"
+msgstr "چھ ماہی اپریل"
+
+msgid "Yearly"
+msgstr "سالانہ"
+
+msgid "Financial year (Start November)"
+msgstr ""
+
+msgid "Financial year (Start October)"
+msgstr "مالی سال (اکتوبر شروع کریں)"
+
+msgid "Financial year (Start July)"
+msgstr "مالی سال (جولائی شروع کریں)"
+
+msgid "Financial year (Start April)"
+msgstr "مالی سال (اپریل شروع کریں)"
+
+msgid "Cancelled"
+msgstr "منسوخ"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr ""
+
+msgid "Error"
+msgstr "غلطی"
+
+msgid "Selected org units"
+msgstr ""
+
+msgid "No coordinates found"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1184,23 +1249,26 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "تقریب"
+msgid "Displaying first {{pageSize}} events out of {{total}}"
+msgstr ""
 
 msgid "No data found"
 msgstr "کوئی ڈیٹا نہیں ملا"
 
+msgid "Event"
+msgstr "تقریب"
+
 msgid "Facilities"
 msgstr ""
 
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "تنظیمی یونٹس"
+
 msgid "Thematic layer"
 msgstr "تھیمٹ پرت"
-
-msgid "Selected org units"
-msgstr ""
-
-msgid "No coordinates found"
-msgstr ""
 
 msgid "No data"
 msgstr "کوئی مواد نہیں"
@@ -1215,6 +1283,9 @@ msgid "related"
 msgstr ""
 
 msgid "Thematic"
+msgstr ""
+
+msgid "Org units"
 msgstr ""
 
 msgid "not one of"
@@ -1232,7 +1303,15 @@ msgstr ""
 msgid "No"
 msgstr "نہیں"
 
-msgid "There was a problem creating a map from the imported data."
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr ""
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr ""
+
+msgid "Facility"
 msgstr ""
 
 msgid "Start date is invalid"

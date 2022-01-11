@@ -1,0 +1,4 @@
+.label {
+    margin: var(--spacers-dp12) 0;
+    font-size: 14px;
+}

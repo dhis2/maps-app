@@ -2,17 +2,18 @@ import * as types from '../constants/actionTypes';
 import arrayMove from 'array-move';
 import { generateUid } from 'd2/uid';
 
+export const defaultBasemapState = {
+    isVisible: true,
+    isExpanded: true,
+    opacity: 1,
+};
+
 const defaultState = {
     bounds: [
         [-18.7, -34.9],
         [50.2, 35.9],
     ],
-    basemap: {
-        id: 'osmLight',
-        isVisible: true,
-        isExpanded: true,
-        opacity: 1,
-    },
+    basemap: defaultBasemapState,
     mapViews: [],
 };
 
@@ -104,18 +105,6 @@ const layer = (state, action) => {
                 isExpanded: !state.isExpanded,
             };
 
-        case types.ORGANISATION_UNIT_SELECT:
-        case types.ORGANISATION_UNIT_UNSELECT:
-        case types.ORGANISATION_UNIT_COORDINATE_CHANGE:
-            if (state.id !== action.layerId) {
-                return state;
-            }
-
-            return {
-                ...state,
-                data: state.data.map(l => orgUnit(l, action)),
-            };
-
         // Add/change filter
         case types.DATA_FILTER_SET:
             if (state.id !== action.layerId) {
@@ -158,46 +147,6 @@ const layer = (state, action) => {
             return {
                 ...state,
                 coordinate: action.coordinate,
-            };
-
-        default:
-            return state;
-    }
-};
-
-const orgUnit = (state, action) => {
-    switch (action.type) {
-        case types.ORGANISATION_UNIT_SELECT:
-            if (state.id !== action.featureId) {
-                return state;
-            }
-
-            return {
-                ...state,
-                isSelected: true,
-            };
-
-        case types.ORGANISATION_UNIT_UNSELECT:
-            if (state.id !== action.featureId) {
-                return state;
-            }
-
-            return {
-                ...state,
-                isSelected: false,
-            };
-
-        case types.ORGANISATION_UNIT_COORDINATE_CHANGE:
-            if (state.id !== action.featureId) {
-                return state;
-            }
-
-            return {
-                ...state,
-                geometry: {
-                    ...state.geometry,
-                    coordinates: action.coordinate,
-                },
             };
 
         default:
@@ -270,11 +219,6 @@ const map = (state = defaultState, action) => {
                 newLayerIsLoading: false,
             };
 
-        case types.LAYER_ADD_DATA:
-            return {
-                ...state,
-            };
-
         case types.LAYER_REMOVE:
             return {
                 ...state,
@@ -302,10 +246,6 @@ const map = (state = defaultState, action) => {
         case types.LAYER_CHANGE_OPACITY:
         case types.LAYER_TOGGLE_VISIBILITY:
         case types.LAYER_TOGGLE_EXPAND:
-        case types.ORGANISATION_UNIT_SELECT:
-        case types.ORGANISATION_UNIT_UNSELECT:
-        case types.ORGANISATION_UNIT_COORDINATE_CHANGE:
-        case types.ORGANISATION_UNITS_FILTER:
         case types.DATA_FILTER_SET:
         case types.DATA_FILTER_CLEAR:
         case types.MAP_EARTH_ENGINE_VALUE_SHOW:

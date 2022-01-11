@@ -2,12 +2,21 @@ import i18n from '@dhis2/d2-i18n';
 
 const DEFAULT_LOCALE = 'en';
 
+// BCP 47 locale format
+const dateLocale = locale =>
+    locale && locale.includes('_') ? locale.replace('_', '-') : locale;
+
 /**
  * Converts a date string or timestamp to a date object
- * @param {String|Number|Date} date
+ * @param {String|Number|Array|Date} date
  * @returns {String}
  */
-export const toDate = date => new Date(date);
+const toDate = date => {
+    if (Array.isArray(date)) {
+        return new Date(date[0], date[1], date[2]);
+    }
+    return new Date(date);
+};
 
 // Simple check if the date part is correctly formatted
 const shortDateRegexp = /^\d{4}-\d{2}-\d{2}$/;
@@ -17,12 +26,12 @@ const shortDateRegexp = /^\d{4}-\d{2}-\d{2}$/;
  * @param {String} dateString
  * @returns {String}
  */
-export const isValidDateFormat = dateString =>
+const isValidDateFormat = dateString =>
     shortDateRegexp.test(dateString.substr(0, 10));
 
 /**
- * Formats a date string or timestamp into format used by DHIS2 and <input> date
- * @param {String|Number|Date} date
+ * Formats a date string, timestamp or date array into format used by DHIS2 and <input> date
+ * @param {String|Number|Array|Date} date
  * @returns {String}
  */
 export const formatDate = date => {
@@ -44,7 +53,7 @@ const fallbackDateFormat = dateString => dateString.substr(0, 10);
  * Returns true if the Internationalization API is supported
  * @returns {Boolean}
  */
-export const hasIntlSupport =
+const hasIntlSupport =
     typeof global.Intl !== 'undefined' && Intl.DateTimeFormat;
 
 /**
@@ -56,17 +65,20 @@ export const hasIntlSupport =
  */
 export const formatLocaleDate = (dateString, locale, showYear = true) =>
     hasIntlSupport
-        ? new Intl.DateTimeFormat(locale || i18n.language || DEFAULT_LOCALE, {
-              year: showYear ? 'numeric' : undefined,
-              month: 'short',
-              day: 'numeric',
-          }).format(toDate(dateString))
+        ? new Intl.DateTimeFormat(
+              dateLocale(locale || i18n.language || DEFAULT_LOCALE),
+              {
+                  year: showYear ? 'numeric' : undefined,
+                  month: 'short',
+                  day: 'numeric',
+              }
+          ).format(toDate(dateString))
         : fallbackDateFormat(dateString);
 
 /**
  * Formats a date range
- * @param {String|Number} startDate
- * @param {String|Number} endDate
+ * @param {String|Array|Number} startDate
+ * @param {String|Array|Number} endDate
  * @param {String} locale
  * @param {Boolean} showYear
  * @returns {String}
@@ -81,17 +93,33 @@ export const formatStartEndDate = (startDate, endDate, locale, showYear) => {
 };
 
 /**
+ * @param {String} dateString
+ * @returns {Array}
+ */
+export const getDateArray = dateString => {
+    const year = parseInt(dateString.substring(0, 4));
+    const month = parseInt(dateString.substring(5, 7)) - 1;
+    const day = parseInt(dateString.substring(8, 10));
+    return [year, month, day];
+};
+
+/**
  * Checks for errors for start and end date strings or timestamps
- * @param {String} startDate
- * @param {String} endDate
+ * @param {String} startDateStr
+ * @param {String} endDateStr
  * @returns {String|null}
  */
-export const getStartEndDateError = (startDate, endDate) => {
-    if (!isValidDateFormat(startDate)) {
+export const getStartEndDateError = (startDateStr, endDateStr) => {
+    if (!isValidDateFormat(startDateStr)) {
         return i18n.t('Start date is invalid');
-    } else if (!isValidDateFormat(endDate)) {
+    } else if (!isValidDateFormat(endDateStr)) {
         return i18n.t('End date is invalid');
-    } else if (toDate(endDate) < toDate(startDate)) {
+    }
+
+    const startDateArr = getDateArray(startDateStr);
+    const endDateArr = getDateArray(endDateStr);
+
+    if (toDate(endDateArr) < toDate(startDateArr)) {
         return i18n.t('End date cannot be earlier than start date');
     }
     return null;
@@ -99,7 +127,7 @@ export const getStartEndDateError = (startDate, endDate) => {
 
 /**
  * Returns the year of the date, or the current year of no date is passed
- * @param {String|Number|Date} startDate
+ * @param {String|Number|Array|Date} startDate
  * @returns {Number}
  */
 export const getYear = date => toDate(date || new Date()).getFullYear();

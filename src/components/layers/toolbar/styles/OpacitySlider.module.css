@@ -22,18 +22,26 @@
     appearance: none;
     width: 12px;
     height: 12px;
-    background: var(--colors-grey800);
+    background: var(--colors-grey600);
     border-radius: 50%;
 }
 
 .slider::-moz-range-thumb {
     width: 12px;
     height: 12px;
-    background: var(--colors-grey800);
+    background: var(--colors-grey600);
     border: 0;
     border-radius: 50%;
 }
 
 .slider::-moz-focus-outer {
     border: 0;
+}
+
+.slider:disabled::-webkit-slider-thumb {
+    background: var(--colors-grey400);
+}
+
+.slider:disabled::-moz-range-thumb {
+    background: var(--colors-grey400);
 }

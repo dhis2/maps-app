@@ -1,16 +1,16 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2020
-# phil_dhis2, 2020
-# 晓东 林 <13981924470@126.com>, 2020
-# easylin <lin_xd@126.com>, 2020
+# Viktor Varland <viktor@dhis2.org>, 2021
+# 晓东 林 <13981924470@126.com>, 2021
+# phil_dhis2, 2021
+# easylin <lin_xd@126.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
+"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2020\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,14 +78,14 @@ msgstr "数据集"
 msgid "Index"
 msgstr "索引"
 
-msgid "Id"
-msgstr "Id"
-
 msgid "Org unit"
 msgstr "机构"
 
 msgid "Name"
 msgstr "名称"
+
+msgid "Id"
+msgstr "Id"
 
 msgid "Event time"
 msgstr "事件时间"
@@ -145,117 +145,21 @@ msgstr "关闭"
 msgid "Legend position"
 msgstr "图例位置"
 
-msgid "Year"
-msgstr "年"
-
-msgid "Period"
-msgstr "周期"
-
 msgid "Organisation Units"
 msgstr "组织机构管理"
 
 msgid "Style"
 msgstr "风格"
 
-msgid "Labels"
-msgstr "标签"
+msgid ""
+"Remember to select the organisation unit level containing the facilities."
+msgstr "记住选择包括机构的等级"
 
 msgid "Point radius"
 msgstr "点半径"
 
 msgid "No organisation units are selected"
 msgstr "没有选择机构"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr "与国际总数对应的人口密度评估，如果你在的国际没有数据，尝试换不同的年度"
-
-msgid "Select year"
-msgstr "选择年份"
-
-msgid "Min people"
-msgstr "最小人口"
-
-msgid "Max people"
-msgstr "最大人口"
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr "海平面以上的海拔，你可以调节最大最小值，以最好代表你的地区边界。"
-
-msgid "Min meters"
-msgstr "最小米数"
-
-msgid "Max meters"
-msgstr "最大米数"
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr "从地面上的卫星和气象站收集的降水。该值在5天内以毫米为单位。在下个月的第3周内每月更新一次。"
-
-msgid "Min mm"
-msgstr "最小毫米数"
-
-msgid "Max mm"
-msgstr "最大毫米数"
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr "在8天内从卫星收集的地表温度。在云层持续覆盖的区域中将出现空白点。"
-
-msgid "Min °C"
-msgstr "最低摄氏温度"
-
-msgid "Max °C"
-msgstr "最高摄氏温度"
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr "从卫星采集的17个地区的陆地覆盖类型"
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr "各个城市城镇的灯光亮度，包括烟雾"
-
-msgid "Min"
-msgstr "最小"
-
-msgid "Max"
-msgstr "最大"
-
-msgid "Steps"
-msgstr "步"
-
-msgid "Legend preview"
-msgstr "图例预览"
-
-msgid "This field is required"
-msgstr "这个字段是必填的"
-
-msgid "Valid range is"
-msgstr "有效范围"
-
-msgid "Group Set"
-msgstr "组集"
-
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr "记住选择包括机构的等级"
-
-msgid "Buffer"
-msgstr "缓冲"
-
-msgid "Radius in meters"
-msgstr "半径（米）"
-
-msgid "Group set is required"
-msgstr "需要组集"
 
 msgid "event"
 msgstr "事件"
@@ -269,8 +173,8 @@ msgstr "机构"
 msgid "thematic"
 msgstr "主题"
 
-msgid "boundary"
-msgstr "边界"
+msgid "org unit"
+msgstr "组织单位"
 
 msgid "Earth Engine"
 msgstr "地图引擎"
@@ -287,8 +191,76 @@ msgstr "更新图层"
 msgid "Add layer"
 msgstr "添加图层"
 
+msgid "Aggregation method"
+msgstr "汇总方法"
+
+msgid "Choosing many groups takes a long time to calculate and display."
+msgstr "选择多个组需要很长时间来计算和显示。"
+
+msgid "Groups"
+msgstr "组"
+
+msgid "This field is required"
+msgstr "这个字段是必填的"
+
 msgid "Data"
 msgstr "数据"
+
+msgid "Period"
+msgstr "周期"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr "数据将在Google Earth Engine上针对所选组织单位进行计算。"
+
+msgid ""
+"Multiple aggregation methods are available. See the aggregation results by "
+"clicking map regions or viewing the data table. The results can also be "
+"downloaded."
+msgstr "有多种汇总统计方法可用。通过单击地图区域或查看数据表来查看聚合结果。结果也可以下载。"
+
+msgid "Unit"
+msgstr "单元"
+
+msgid "Source"
+msgstr "资源"
+
+msgid "Year"
+msgstr "年"
+
+msgid "Available periods are set by the source data"
+msgstr "可用期间由源数据设置"
+
+msgid "Loading periods"
+msgstr "加载期"
+
+msgid "Min value is required"
+msgstr "要求最小值"
+
+msgid "Max value is required"
+msgstr "最大值为必填项"
+
+msgid "Max should be greater than min"
+msgstr "最大值应大于最小值"
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
+
+msgid "Unit: {{ unit }}"
+msgstr "机构: {{ unit }}"
+
+msgid "Min"
+msgstr "最小"
+
+msgid "Max"
+msgstr "最大"
+
+msgid "Steps"
+msgstr "步"
+
+msgid "Legend preview"
+msgstr "图例预览"
 
 msgid "Org Units"
 msgstr "机构"
@@ -320,20 +292,38 @@ msgstr "需要项目阶段"
 msgid "No organisation units are selected."
 msgstr "没有选择机构"
 
+msgid "No legend set is selected"
+msgstr "未选择图例集"
+
 msgid "Event status"
 msgstr "事件状态"
+
+msgid "Boundary color"
+msgstr "边界颜色"
+
+msgid "Buffer"
+msgstr "缓冲"
+
+msgid "Radius in meters"
+msgstr "半径（米）"
+
+msgid "Labels"
+msgstr "标签"
 
 msgid "Aggregation type"
 msgstr "汇总类型"
 
 msgid "Show no data"
-msgstr "不显示数据"
+msgstr "显示无数据"
 
 msgid "Low radius"
 msgstr "低半径"
 
 msgid "High radius"
 msgstr "高半径"
+
+msgid "High radius should be greater than low radius"
+msgstr "高半径应大于低半径"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "半径应介于{{min}}至{{max}}之间"
@@ -361,9 +351,6 @@ msgstr "需要项目指标"
 
 msgid "Period is required"
 msgstr "需要期间"
-
-msgid "No legend set is selected"
-msgstr "未选择图例集"
 
 msgid "Indicator"
 msgstr "指标"
@@ -404,7 +391,7 @@ msgstr "选择关系类型前先选择跟踪实体类型"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
-msgstr "在地图上显示实体恭喜是一个试验特征功能"
+msgstr "在地图中显示跟踪实体关系是一项实验性功能"
 
 msgid "Display Tracked Entity relationships"
 msgstr "显示跟踪实体关系"
@@ -491,6 +478,15 @@ msgstr "日期"
 msgid "Remove filter"
 msgstr "移除过滤器"
 
+msgid "Group set"
+msgstr "组集"
+
+msgid "Failed to load organisation unit groups."
+msgstr "未能加载组织机构组。"
+
+msgid "Style by group set"
+msgstr "按组集设置样式"
+
 msgid "Indicator group"
 msgstr "指标组"
 
@@ -553,6 +549,9 @@ msgstr "设置图层透明性"
 msgid "More actions"
 msgstr "更多操作"
 
+msgid "Hide data table"
+msgstr "隐藏数据表"
+
 msgid "Show data table"
 msgstr "显示数据表"
 
@@ -571,14 +570,11 @@ msgstr "移除图层"
 msgid "Mid"
 msgstr "中"
 
+msgid "Group"
+msgstr "组"
+
 msgid "Filters"
 msgstr "过滤器"
-
-msgid "Source"
-msgstr "资源"
-
-msgid "Parent unit"
-msgstr "上级机构"
 
 msgid "Drill up one level"
 msgstr "上钻一级"
@@ -586,29 +582,14 @@ msgstr "上钻一级"
 msgid "Drill down one level"
 msgstr "下钻一级"
 
-msgid "Show information"
-msgstr "显示信息表格"
+msgid "View profile"
+msgstr "查看简介"
 
 msgid "Show longitude/latitude"
 msgstr "显示经纬度"
 
-msgid "Swap longitude/latitude"
-msgstr "切换经纬度"
-
-msgid "Relocate"
-msgstr "重新定位"
-
 msgid "Show {{name}}"
 msgstr "显示{{name}}"
-
-msgid "Not set"
-msgstr "没有设置"
-
-msgid "Organisation unit"
-msgstr "组织机构"
-
-msgid "Groups"
-msgstr "组"
 
 msgid "Longitude"
 msgstr "经度"
@@ -619,8 +600,23 @@ msgstr "纬度"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
 
+msgid "Not set"
+msgstr "没有设置"
+
+msgid "Organisation unit"
+msgstr "组织机构"
+
+msgid "Parent unit"
+msgstr "上级机构"
+
 msgid "Last updated"
 msgstr "Last updated"
+
+msgid "All groups"
+msgstr "所有组"
+
+msgid "Loading data"
+msgstr "加载数据中"
 
 msgid "acres"
 msgstr " 英亩"
@@ -703,8 +699,10 @@ msgstr "处理"
 msgid "Options"
 msgstr "选项"
 
-msgid "Code"
-msgstr "代码"
+msgid ""
+"This data element has too many options ({{length}}). Max options for styling"
+" is {{max}}."
+msgstr "该数据元素的选项太多（{{length}}）。样式的最大选项为{{max}}。"
 
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
@@ -712,19 +710,55 @@ msgstr "在该期间没有找到数据"
 msgid "Select groups"
 msgstr "选择组"
 
-msgid "Group set"
-msgstr "组集"
+msgid "Image of the organisation unit"
+msgstr "组织机构图像"
+
+msgid "Code"
+msgstr "代码"
+
+msgid "Short name"
+msgstr "缩写名"
+
+msgid "Opening date"
+msgstr "生效日期"
+
+msgid "Closed date"
+msgstr "截止日"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr "链接"
+
+msgid "Contact"
+msgstr "联系人"
+
+msgid "Email"
+msgstr "邮件"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "Phone"
+msgstr "电话"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "评论"
 
 msgid "Select levels"
 msgstr "选择等级"
+
+msgid "Organisation unit profile"
+msgstr "组织机构简介"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr "不能合并用户组织机构，选择单个单位。"
-
-msgid "Click the map where you want to relocate the facility."
-msgstr "单击您要在其中重新定位的机构的地图。"
 
 msgid "user organisation unit"
 msgstr "用户所在的机构"
@@ -798,6 +832,9 @@ msgstr "开始日期"
 msgid "End date"
 msgstr "结束日期"
 
+msgid "Not available offline"
+msgstr "离线不可用"
+
 msgid "Program indicator"
 msgstr "项目指标"
 
@@ -831,6 +868,24 @@ msgstr "标准差"
 msgid "Variance"
 msgstr "差异"
 
+msgid "Percentage"
+msgstr "百分比"
+
+msgid "Hectares"
+msgstr "公顷"
+
+msgid "Acres"
+msgstr "英亩"
+
+msgid "Mean"
+msgstr "平均 "
+
+msgid "Median"
+msgstr "中位数"
+
+msgid "Std dev"
+msgstr "标准差"
+
 msgid "OSM Light"
 msgstr "OSM轻量"
 
@@ -855,249 +910,138 @@ msgstr "Bing空间图"
 msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
 
-msgid "All"
-msgstr "全部"
+msgid "Population"
+msgstr "人口"
 
-msgid "Active"
-msgstr "活跃的"
+msgid "people per hectare"
+msgstr "每公顷人数"
 
-msgid "Completed"
-msgstr "完成"
+msgid "Estimated number of people living in an area."
+msgstr "居住在一个地区的估计人数。"
 
-msgid "Schedule"
-msgstr "调度"
-
-msgid "Overdue"
-msgstr "逾期"
-
-msgid "Skipped"
-msgstr "跳过"
-
-msgid "Choropleth"
-msgstr "胆管"
-
-msgid "Bubble map"
-msgstr "气泡图"
-
-msgid "Automatic color legend"
-msgstr "自动颜色图例"
-
-msgid "Predefined color legend"
-msgstr "预定义的颜色图例"
-
-msgid "Single color legend"
-msgstr "单色图例"
-
-msgid "Equal intervals"
-msgstr "平等间隔"
-
-msgid "Equal counts"
-msgstr "等数量"
-
-msgid "Daily"
-msgstr "每日"
-
-msgid "Weekly"
-msgstr "每周"
-
-msgid "Monthly"
-msgstr "每月"
-
-msgid "Bi-monthly)"
-msgstr "两个月）"
-
-msgid "Quarterly"
-msgstr "季度"
-
-msgid "Six-monthly"
-msgstr "六个月"
-
-msgid "Six-monthly April"
-msgstr "半年四月"
-
-msgid "Yearly"
-msgstr "每年"
-
-msgid "Financial year (Start October)"
-msgstr "财务十月"
-
-msgid "Financial year (Start July)"
-msgstr "财务七月"
-
-msgid "Financial year (Start April)"
-msgstr "财务四月"
-
-msgid "Today"
-msgstr "今天"
-
-msgid "Yesterday"
-msgstr "昨天"
-
-msgid "Last 3 days"
-msgstr "Last 3 days"
-
-msgid "Last 7 days"
-msgstr "最近7天"
-
-msgid "Last 14 days"
-msgstr "Last 14 days"
-
-msgid "Last 30 days"
-msgstr "最近30天"
-
-msgid "Last 60 days"
-msgstr "最近60天"
-
-msgid "Last 90 days"
-msgstr "最近90天"
-
-msgid "Last 180 days"
-msgstr "最近180天"
-
-msgid "This week"
-msgstr "本年"
-
-msgid "Last week"
-msgstr "上周"
-
-msgid "Last 4 weeks"
-msgstr "最近四周"
-
-msgid "Last 12 weeks"
-msgstr "最近12周"
-
-msgid "Last 52 weeks"
-msgstr "Last 52 weeks"
-
-msgid "Weeks this year"
-msgstr "Weeks this year"
-
-msgid "This bi-week"
-msgstr "本双周"
-
-msgid "Last bi-week"
-msgstr "最近两周"
-
-msgid "Last 4 bi-weeks"
-msgstr "最近4个两周"
-
-msgid "This month"
-msgstr "本月"
-
-msgid "Last month"
-msgstr "上月"
-
-msgid "Last 3 months"
-msgstr "最近3个月"
-
-msgid "Last 6 months"
-msgstr "Last 6 months"
-
-msgid "Last 12 months"
-msgstr "最近12月"
-
-msgid "Months this year"
-msgstr "今年的月份"
-
-msgid "This bi-month"
-msgstr "本双月"
-
-msgid "Last bi-month"
-msgstr "Last bi-month"
-
-msgid "Last 6 bi-months"
-msgstr "Last 6 bi-months"
-
-msgid "Bi-months this year"
-msgstr "Bi-months this year"
-
-msgid "This quarter"
-msgstr "本季度"
-
-msgid "Last quarter"
-msgstr "最近一季"
-
-msgid "Last 4 quarters"
-msgstr "最近四个季度"
-
-msgid "Quarters this year"
-msgstr "今年的季度"
-
-msgid "This six-month"
-msgstr "本六个月"
-
-msgid "Last six-month"
-msgstr "最近六个月"
-
-msgid "Last 2 six-months"
-msgstr "最近两个半年"
-
-msgid "This year"
-msgstr "今年"
-
-msgid "Last year"
-msgstr "去年"
-
-msgid "Last 5 years"
-msgstr "最近5年"
-
-msgid "This financial year"
-msgstr "本财年"
-
-msgid "Last financial year"
-msgstr "上一财政年"
-
-msgid "Last 5 financial years"
-msgstr "最近五个财政年"
-
-msgid "Cancelled"
-msgstr "已取消"
+msgid "Population age groups"
+msgstr "人口年龄组"
 
 msgid ""
-"This layer requires a Google Earth Engine account. Check the DHIS2 "
-"documentation for more information."
-msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
+"Estimated number of people living in an area, grouped by age and gender."
+msgstr "按年龄和性别分组的估计居住在该地区的人数。"
 
-msgid "Cannot connect to Google Earth Engine."
-msgstr "无法连接到Google Earth Engine。"
+msgid "Men 0 - 1 years"
+msgstr "0-1岁男性"
 
-msgid "Map \"{{name}}\" is saved."
-msgstr "地图“ {{name}}”已保存。"
+msgid "Men 1 - 4 years"
+msgstr "1-4岁男性"
 
-msgid "Error"
-msgstr "错误"
+msgid "Men 5 - 9 years"
+msgstr "5-9岁男性"
 
-msgid "Boundaries"
-msgstr "边界线"
+msgid "Men 10 - 14 years"
+msgstr "10-14岁男性"
 
-msgid "No boundaries found"
-msgstr "没有发现边界线"
+msgid "Men 15 - 19 years"
+msgstr "15-19岁的男性"
+
+msgid "Men 20 - 24 years"
+msgstr "20至24岁男性"
+
+msgid "Men 25 - 29 years"
+msgstr "25-29岁的男性"
+
+msgid "Men 30 - 34 years"
+msgstr "30-34岁的男性"
+
+msgid "Men 35 - 39 years"
+msgstr "35-39岁的男性"
+
+msgid "Men 40 - 44 years"
+msgstr "40-44岁的男性"
+
+msgid "Men 45 - 49 years"
+msgstr "45至49岁的男性"
+
+msgid "Men 50 - 54 years"
+msgstr "50-54岁的男性"
+
+msgid "Men 55 - 59 years"
+msgstr "55-59岁的男性"
+
+msgid "Men 60 - 64 years"
+msgstr "60-64岁的男性"
+
+msgid "Men 65 - 69 years"
+msgstr "65-69岁的男性"
+
+msgid "Men 70 - 74 years"
+msgstr "70-74岁的男性"
+
+msgid "Men 75 - 79 years"
+msgstr "75-79岁的男性"
+
+msgid "Men 80 years and above"
+msgstr "80岁以上的男性"
+
+msgid "Women 0 - 1 years"
+msgstr "0-1岁女性"
+
+msgid "Women 1 - 4 years"
+msgstr "1-4岁女性"
+
+msgid "Women 5 - 9 years"
+msgstr "5至9岁的女性"
+
+msgid "Women 10 - 14 years"
+msgstr "10至14岁的女性"
+
+msgid "Women 15 - 19 years"
+msgstr "15-19岁的女性"
+
+msgid "Women 20 - 24 years"
+msgstr "20至24岁的女性"
+
+msgid "Women 25 - 29 years"
+msgstr "25-29岁的女性"
+
+msgid "Women 30 - 34 years"
+msgstr "30-34岁的女性"
+
+msgid "Women 35 - 39 years"
+msgstr "35至39岁的女性"
+
+msgid "Women 40 - 44 years"
+msgstr "40-44岁的女性"
+
+msgid "Women 45 - 49 years"
+msgstr "45-49岁的女性"
+
+msgid "Women 50 - 54 years"
+msgstr "50-54岁的女性"
+
+msgid "Women 55 - 59 years"
+msgstr "55至59岁的女性"
+
+msgid "Women 60 - 64 years"
+msgstr "60-64岁的女性"
+
+msgid "Women 65 - 69 years"
+msgstr "65-69岁的女性"
+
+msgid "Women 70 - 74 years"
+msgstr "70-74岁的女性"
+
+msgid "Women 75 - 79 years"
+msgstr "75至79岁的女性"
+
+msgid "Women 80 years and above"
+msgstr "80岁及以上的女性"
 
 msgid "Elevation"
 msgstr "高程"
 
-msgid "metres"
-msgstr "米"
+msgid "meters"
+msgstr "米数"
 
 msgid "Elevation above sea-level."
 msgstr "海拔高于海平面。"
-
-msgid "Population density"
-msgstr "人口密度"
-
-msgid "people per km²"
-msgstr "每平方公里的人数"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates."
-msgstr "调整了人口密度的估计值，并调整了全国总数，以匹配联合国人口划分的估计值。"
-
-msgid "Nighttime lights"
-msgstr "夜间灯光"
-
-msgid "light intensity"
-msgstr "光强度"
 
 msgid "Precipitation"
 msgstr "降水"
@@ -1106,8 +1050,10 @@ msgid "millimeter"
 msgstr "毫米"
 
 msgid ""
-"Precipitation collected from satellite and weather stations on the ground."
-msgstr "从地面上的卫星和气象站收集的降水。"
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
+msgstr "从地面上的卫星和气象站收集的降水。该值在5天内以毫米为单位。在下个月的第3周内每月更新一次。"
 
 msgid "Temperature"
 msgstr "温度"
@@ -1125,9 +1071,6 @@ msgstr "陆地覆盖"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "从卫星收集的独特的土地覆被类型。"
-
-msgid "Water"
-msgstr "水"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "常绿针叶林"
@@ -1177,8 +1120,130 @@ msgstr "冰雪"
 msgid "Barren or sparsely vegetated"
 msgstr "贫瘠或稀疏的植被"
 
-msgid "Unclassified"
-msgstr "未分类"
+msgid "Water"
+msgstr "水"
+
+msgid "people per km²"
+msgstr "每平方公里的人数"
+
+msgid "Nighttime lights"
+msgstr "夜间灯光"
+
+msgid "light intensity"
+msgstr "光强度"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr "各个城市城镇的灯光亮度，包括烟雾"
+
+msgid "All"
+msgstr "全部"
+
+msgid "Active"
+msgstr "活跃的"
+
+msgid "Completed"
+msgstr "完成"
+
+msgid "Schedule"
+msgstr "调度"
+
+msgid "Overdue"
+msgstr "逾期"
+
+msgid "Skipped"
+msgstr "跳过"
+
+msgid "Choropleth"
+msgstr "胆管"
+
+msgid "Bubble map"
+msgstr "气泡图"
+
+msgid "Automatic color legend"
+msgstr "自动颜色图例"
+
+msgid "Predefined color legend"
+msgstr "预定义的颜色图例"
+
+msgid "Single color legend"
+msgstr "单色图例"
+
+msgid "Equal intervals"
+msgstr "平等间隔"
+
+msgid "Equal counts"
+msgstr "等数量"
+
+msgid "Symbol"
+msgstr "符号"
+
+msgid "Daily"
+msgstr "每日"
+
+msgid "Weekly"
+msgstr "每周"
+
+msgid "Weekly (Start Wednesday)"
+msgstr "每周（始于周二）"
+
+msgid "Weekly (Start Thursday)"
+msgstr "每周（始于周四）"
+
+msgid "Weekly (Start Saturday)"
+msgstr "每周（始于周六）"
+
+msgid "Weekly (Start Sunday)"
+msgstr "每周（始于周日）"
+
+msgid "Bi-weekly"
+msgstr "两周"
+
+msgid "Monthly"
+msgstr "每月"
+
+msgid "Bi-monthly"
+msgstr "每两月"
+
+msgid "Quarterly"
+msgstr "季度"
+
+msgid "Six-monthly"
+msgstr "六个月"
+
+msgid "Six-monthly April"
+msgstr "半年四月"
+
+msgid "Yearly"
+msgstr "每年"
+
+msgid "Financial year (Start November)"
+msgstr "财政年（11月始）"
+
+msgid "Financial year (Start October)"
+msgstr "财务十月"
+
+msgid "Financial year (Start July)"
+msgstr "财务七月"
+
+msgid "Financial year (Start April)"
+msgstr "财务四月"
+
+msgid "Cancelled"
+msgstr "已取消"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr "地图“ {{name}}”已保存。"
+
+msgid "Error"
+msgstr "错误"
+
+msgid "Selected org units"
+msgstr "选择的机构"
+
+msgid "No coordinates found"
+msgstr "没有找到坐标"
 
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
@@ -1186,23 +1251,26 @@ msgstr "您无权访问此图层数据"
 msgid "An unknown error occurred while reading layer data"
 msgstr "读取图层数据时发生未知错误"
 
-msgid "Event"
-msgstr "四级"
+msgid "Displaying first {{pageSize}} events out of {{total}}"
+msgstr "显示{{total}}中的前{{pageSize}}个事件"
 
 msgid "No data found"
 msgstr "没有数据被找到"
 
+msgid "Event"
+msgstr "四级"
+
 msgid "Facilities"
 msgstr "机构设施"
 
+msgid "No facilities found"
+msgstr "没有找到机构设施"
+
+msgid "Organisation units"
+msgstr "组织机构"
+
 msgid "Thematic layer"
 msgstr "专题层"
-
-msgid "Selected org units"
-msgstr "选择的机构"
-
-msgid "No coordinates found"
-msgstr "没有找到坐标"
 
 msgid "No data"
 msgstr "无数据"
@@ -1219,6 +1287,9 @@ msgstr "相关的"
 msgid "Thematic"
 msgstr "专题图"
 
+msgid "Org units"
+msgstr "组织机构"
+
 msgid "not one of"
 msgstr "不是当中一个"
 
@@ -1234,8 +1305,16 @@ msgstr "假"
 msgid "No"
 msgstr "否"
 
-msgid "There was a problem creating a map from the imported data."
-msgstr "从导入的数据创建地图时出现问题。"
+msgid "Cannot get authorization token for Google Earth Engine."
+msgstr "无法获取Google Earth Engine的授权令牌。"
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
+
+msgid "Facility"
+msgstr "功能"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { scaleSqrt } from 'd3-scale';
-import { hcl } from 'd3-color';
 import Bubble from './Bubble';
+import { getContrastColor } from '../../util/colors';
 import { getLongestTextLength } from '../../util/helpers';
 
 const style = {
@@ -47,7 +47,7 @@ const Bubbles = ({ radiusLow, radiusHigh, color, classes }) => {
         });
     } else {
         // If single color
-        const stroke = color && hcl(color).l < 70 ? '#fff' : '#000';
+        const stroke = color && getContrastColor(color);
 
         bubbles = [
             {

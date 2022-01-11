@@ -1,0 +1,26 @@
+.periodSelect {
+    margin-top: var(--spacers-dp16);
+}
+
+.year {
+    width: 35%;
+    padding-right: var(--spacers-dp16);
+    box-sizing: border-box;
+}
+
+.period {
+    width: 65%;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    padding-top: var(--spacers-dp12);
+    padding-left: var(--spacers-dp16);
+}
+
+.loading div {
+    display: inline-block;
+    margin-right: var(--spacers-dp24);
+}

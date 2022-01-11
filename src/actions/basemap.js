@@ -1,8 +1,8 @@
 import * as types from '../constants/actionTypes';
 
-export const addBasemap = layer => ({
-    type: types.BASEMAP_ADD,
-    payload: layer,
+export const addBasemaps = basemaps => ({
+    type: types.BASEMAPS_ADD,
+    payload: basemaps,
 });
 
 export const selectBasemap = id => ({
@@ -26,4 +26,8 @@ export const changeBasemapOpacity = opacity => ({
 export const setBingMapsApiKey = key => ({
     type: types.BASEMAP_BING_KEY_SET,
     key,
+});
+
+export const removeBingBasemaps = () => ({
+    type: types.BASEMAP_REMOVE_BING_MAPS,
 });

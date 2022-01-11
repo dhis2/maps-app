@@ -1,70 +1,71 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InterpretationsComponent from '@dhis2/d2-ui-interpretations';
+import { useD2 } from '@dhis2/app-runtime-adapter-d2';
+import Drawer from '../core/Drawer';
 import { openInterpretationsPanel } from '../../actions/ui';
 import { setRelativePeriodDate } from '../../actions/map';
 import { setInterpretation } from '../../actions/interpretations';
 import { getUrlParameter } from '../../util/requests';
-import styles from './styles/InterpretationsPanel.module.css';
 
-class InterpretationsPanel extends Component {
-    static contextTypes = {
-        d2: PropTypes.object,
-    };
+const InterpretationsPanel = ({
+    mapId,
+    isOpen,
+    interpretationId,
+    setInterpretation,
+    openInterpretationsPanel,
+    setRelativePeriodDate,
+}) => {
+    const { d2 } = useD2();
 
-    static propTypes = {
-        isOpen: PropTypes.bool,
-        mapId: PropTypes.string,
-        interpretationId: PropTypes.string,
-        setInterpretation: PropTypes.func.isRequired,
-        openInterpretationsPanel: PropTypes.func.isRequired,
-        setRelativePeriodDate: PropTypes.func.isRequired,
-    };
-
-    componentDidMount() {
+    useEffect(() => {
         const interpretationId = getUrlParameter('interpretationid');
 
         if (interpretationId) {
-            this.props.setInterpretation(interpretationId);
-            this.props.openInterpretationsPanel();
+            setInterpretation(interpretationId);
+            openInterpretationsPanel();
         }
-    }
+    }, []);
 
-    render() {
-        const { mapId, isOpen, interpretationId } = this.props;
-
-        if (!mapId || !isOpen) {
-            return null;
-        }
-
-        return (
-            Boolean(isOpen && mapId) && (
-                <div className={styles.drawer}>
-                    <InterpretationsComponent
-                        d2={this.context.d2}
-                        id={mapId}
-                        type="map"
-                        currentInterpretationId={interpretationId}
-                        onCurrentInterpretationChange={
-                            this.onCurrentInterpretationChange
-                        }
-                    />
-                </div>
-            )
-        );
-    }
-
-    onCurrentInterpretationChange = interpretation => {
-        const { setInterpretation, setRelativePeriodDate } = this.props;
+    const onCurrentInterpretationChange = interpretation => {
         setInterpretation(interpretation ? interpretation.id : null);
         setRelativePeriodDate(interpretation ? interpretation.created : null);
     };
-}
+
+    if (!mapId || !isOpen) {
+        return null;
+    }
+
+    return (
+        Boolean(isOpen && mapId) && (
+            <Drawer>
+                <InterpretationsComponent
+                    d2={d2}
+                    id={mapId}
+                    type="map"
+                    currentInterpretationId={interpretationId}
+                    onCurrentInterpretationChange={
+                        onCurrentInterpretationChange
+                    }
+                />
+            </Drawer>
+        )
+    );
+};
+
+InterpretationsPanel.propTypes = {
+    isOpen: PropTypes.bool,
+    mapId: PropTypes.string,
+    interpretationId: PropTypes.string,
+    setInterpretation: PropTypes.func.isRequired,
+    openInterpretationsPanel: PropTypes.func.isRequired,
+    setRelativePeriodDate: PropTypes.func.isRequired,
+};
 
 export default connect(
     state => ({
-        isOpen: state.ui.interpretationsPanelOpen,
+        isOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
         mapId: state.map.id,
         interpretationId: state.interpretation.id,
     }),

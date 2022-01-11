@@ -3,24 +3,22 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { union } from 'lodash/fp';
 import { init, config, getUserSettings } from 'd2';
 import { isValidUid } from 'd2/uid';
-import log from 'loglevel'; // TODO: Remove version logging
+import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import i18n from './locales';
+import { getConfigFromNonMapConfig } from './util/getConfigFromNonMapConfig';
+import { createExternalLayer } from './util/external';
 import Plugin from './components/plugin/Plugin';
 import {
     mapRequest,
-    getExternalLayer,
-    getBingMapsApiKey,
+    fetchExternalLayersD2,
+    fetchSystemSettings,
 } from './util/requests';
 import { fetchLayer } from './loaders/layers';
-import { translateConfig } from './util/favorites';
-import { defaultBasemaps } from './constants/basemaps';
-import { version } from '../package.json'; // TODO: Remove version logging
+import { getMigratedMapConfig } from './util/getMigratedMapConfig';
+import { apiVersion } from './constants/settings';
+import { getFallbackBasemap, defaultBasemaps } from './constants/basemaps';
 
-const apiVersion = 35;
-
-log.info(`Maps plugin: ${version}`); // TODO: Remove version logging
-
-const PluginContainer = () => {
+function PluginContainer() {
     let _configs = [];
     let _components = {};
     let _isReady = false;
@@ -94,46 +92,70 @@ const PluginContainer = () => {
         }
     }
 
-    function loadMap(config) {
+    async function loadMap(config) {
+        const systemSettings = await fetchSystemSettings([
+            'keyBingMapsApiKey',
+            'keyDefaultBaseMap',
+        ]);
         if (config.id && !isUnmounted(config.el)) {
-            // Load favorite
-            mapRequest(config.id).then(favorite =>
-                loadLayers({
-                    ...config,
-                    ...favorite,
-                })
+            mapRequest(config.id, systemSettings.keyDefaultBaseMap).then(
+                favorite =>
+                    loadLayers(
+                        {
+                            ...config,
+                            ...favorite,
+                        },
+                        systemSettings
+                    )
             );
+        } else if (!config.mapViews) {
+            getConfigFromNonMapConfig(
+                config,
+                systemSettings.keyDefaultBaseMap
+            ).then(config => loadLayers(config, systemSettings));
         } else {
-            translateConfig(config).then(loadLayers);
+            loadLayers(
+                getMigratedMapConfig(config, systemSettings.keyDefaultBaseMap),
+                systemSettings
+            );
         }
     }
 
-    async function loadLayers(config) {
+    async function getBasemaps(basemapId, defaultBasemapId) {
+        try {
+            let externalBasemaps = [];
+            if (isValidUid(basemapId) || isValidUid(defaultBasemapId)) {
+                const externalLayers = await fetchExternalLayersD2();
+                externalBasemaps = externalLayers
+                    .filter(layer => layer.mapLayerPosition === 'BASEMAP')
+                    .map(createExternalLayer);
+            }
+
+            return defaultBasemaps().concat(externalBasemaps);
+        } catch (e) {
+            return defaultBasemaps();
+        }
+    }
+
+    async function loadLayers(
+        config,
+        { keyDefaultBaseMap, keyBingMapsApiKey }
+    ) {
         if (!isUnmounted(config.el)) {
-            let basemap = config.basemap || 'osmLight';
+            const basemaps = await getBasemaps(
+                config.basemap.id,
+                keyDefaultBaseMap
+            );
 
-            // Default basemap is required, visibility is set to false below
-            if (basemap === 'none') {
-                basemap = 'osmLight';
-            }
+            const availableBasemap =
+                basemaps.find(({ id }) => id === config.basemap.id) ||
+                basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
+                getFallbackBasemap();
 
-            const basemapId = basemap.id || basemap;
+            const basemap = { ...config.basemap, ...availableBasemap };
 
-            if (isValidUid(basemapId)) {
-                const externalLayer = await getExternalLayer(basemapId);
-                basemap = {
-                    id: basemapId,
-                    config: {
-                        type: 'tileLayer',
-                        ...externalLayer,
-                    },
-                };
-            } else {
-                basemap = defaultBasemaps().find(map => map.id === basemapId);
-            }
-
-            if (basemapId.substring(0, 4) === 'bing') {
-                basemap.config.apiKey = await getBingMapsApiKey();
+            if (basemap.id.substring(0, 4) === 'bing') {
+                basemap.config.apiKey = keyBingMapsApiKey;
             }
 
             if (config.mapViews) {
@@ -142,10 +164,6 @@ const PluginContainer = () => {
                         ...mapView,
                         userOrgUnit: config.userOrgUnit,
                     }));
-                }
-
-                if (config.basemap === 'none') {
-                    basemap.isVisible = false;
                 }
 
                 Promise.all(config.mapViews.map(fetchLayer)).then(mapViews =>
@@ -174,6 +192,26 @@ const PluginContainer = () => {
 
                 _components[config.el] = ref;
             }
+
+            const basemapIdEl = document.getElementById('cypressBasemapId');
+            if (basemapIdEl) {
+                basemapIdEl.textContent = config.basemap.id;
+
+                const basemapVisibleEl = document.getElementById(
+                    'cypressBasemapVisible'
+                );
+                if (basemapVisibleEl) {
+                    basemapVisibleEl.textContent =
+                        config.basemap.isVisible === false ? 'no' : 'yes';
+                }
+
+                const mapViewsEl = document.getElementById('cypressMapViews');
+                if (mapViewsEl) {
+                    mapViewsEl.textContent = config.mapViews
+                        .map(view => view.layer)
+                        .join(' ');
+                }
+            }
         }
     }
 
@@ -182,10 +220,13 @@ const PluginContainer = () => {
             const domEl = document.getElementById(config.el);
 
             if (domEl) {
-                domEl.innerHTML = '';
-                const div = document.createElement('div');
-                div.className = 'spinner';
-                domEl.appendChild(div);
+                render(
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>,
+                    domEl
+                );
+
                 _components[config.el] = 'loading';
             }
         }
@@ -217,7 +258,7 @@ const PluginContainer = () => {
     }
 
     // Should be called if the map container is resized
-    function resize(el, isFullscreen = false) {
+    function resize(el, isFullscreen) {
         const mapComponent = _components[el];
 
         if (mapComponent && mapComponent.current) {
@@ -226,6 +267,21 @@ const PluginContainer = () => {
         }
 
         return false;
+    }
+
+    function setOfflineStatus(isOffline) {
+        return Object.keys(_components)
+            .map(el => {
+                const mapComponent = _components[el];
+
+                if (mapComponent && mapComponent.current) {
+                    mapComponent.current.setOfflineStatus(isOffline);
+                    return true;
+                }
+
+                return false;
+            })
+            .some(isSet => isSet); // Return true if set for at least one map
     }
 
     return {
@@ -240,8 +296,9 @@ const PluginContainer = () => {
         resize,
         unmount,
         remove: unmount,
+        setOfflineStatus,
     };
-};
+}
 
 const mapPlugin = new PluginContainer();
 

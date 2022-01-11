@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import SelectField from '../core/SelectField';
+import { SelectField } from '../core';
 import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
@@ -25,7 +25,13 @@ export class CoordinateField extends Component {
         this.loadData();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        const { program, onChange } = this.props;
+
+        if (program !== prevProps.program) {
+            onChange('event');
+        }
+
         this.loadData();
     }
 
@@ -56,7 +62,7 @@ export class CoordinateField extends Component {
             <SelectField
                 label={i18n.t('Coordinate field')}
                 items={fields}
-                value={value || 'event'}
+                value={fields.find(f => f.id === value) ? value : 'event'}
                 onChange={field => onChange(field.id)}
                 className={className}
             />

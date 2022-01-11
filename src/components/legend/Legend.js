@@ -9,6 +9,7 @@ import styles from './styles/Legend.module.css';
 const Legend = ({
     description,
     filters,
+    groups,
     unit,
     items,
     bubbles,
@@ -19,6 +20,14 @@ const Legend = ({
 }) => (
     <dl className={styles.legend} data-test="layerlegend">
         {description && <div className={styles.description}>{description}</div>}
+        {groups && (
+            <div className={styles.group}>
+                {groups.length > 1 ? i18n.t('Groups') : i18n.t('Group')}:
+                {groups.map(({ id, name }) => (
+                    <div key={id}>{name}</div>
+                ))}
+            </div>
+        )}
         {unit && items && <div className={styles.unit}>{unit}</div>}
         {bubbles ? (
             <Bubbles {...bubbles} classes={items} />
@@ -53,7 +62,9 @@ const Legend = ({
             <div className={styles.source}>
                 {i18n.t('Source')}:&nbsp;
                 {sourceUrl ? (
-                    <a href={sourceUrl}>{source}</a>
+                    <a href={sourceUrl} target="_blank" rel="noreferrer">
+                        {source}
+                    </a>
                 ) : (
                     <span>{source}</span>
                 )}
@@ -65,6 +76,7 @@ const Legend = ({
 Legend.propTypes = {
     description: PropTypes.string,
     filters: PropTypes.array,
+    groups: PropTypes.array,
     unit: PropTypes.string,
     items: PropTypes.array,
     bubbles: PropTypes.shape({

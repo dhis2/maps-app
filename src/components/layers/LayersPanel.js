@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import Drawer from '../core/Drawer';
 import BasemapCard from '../layers/basemaps/BasemapCard';
 import OverlayCard from './overlays/OverlayCard';
 import { sortLayers } from '../../actions/layers';
-import styles from './styles/LayersPanel.module.css';
 
 const SortableLayer = SortableElement(OverlayCard);
 
@@ -18,41 +18,28 @@ const SortableLayersList = SortableContainer(({ layers }) => (
     </div>
 ));
 
-const LayersPanel = ({
-    layersPanelOpen,
-    basemap,
-    basemaps,
-    layers,
-    sortLayers,
-}) =>
+const LayersPanel = ({ layersPanelOpen, layers, sortLayers }) =>
     layersPanelOpen && (
-        <div className={styles.drawer}>
+        <Drawer position="left">
             <SortableLayersList
                 layers={layers}
                 onSortEnd={sortLayers}
                 useDragHandle={true}
             />
             <div>
-                <BasemapCard {...basemap} basemaps={basemaps} />
+                <BasemapCard />
             </div>
-        </div>
+        </Drawer>
     );
 
 LayersPanel.propTypes = {
     layersPanelOpen: PropTypes.bool.isRequired,
-    basemap: PropTypes.object.isRequired,
-    basemaps: PropTypes.array.isRequired,
     layers: PropTypes.array.isRequired,
     sortLayers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    basemap: {
-        ...state.basemaps.filter(b => b.id === state.map.basemap.id)[0],
-        ...state.map.basemap,
-    },
     layers: [...state.map.mapViews].reverse(),
-    basemaps: state.basemaps,
     layersPanelOpen: state.ui.layersPanelOpen,
 });
 

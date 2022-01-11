@@ -18,10 +18,13 @@ export const SelectField = props => {
     const {
         dense = true,
         errorText,
+        helpText,
+        warning,
         items,
         label,
         loading,
         multiple,
+        disabled,
         onChange,
         className,
         value,
@@ -60,20 +63,18 @@ export const SelectField = props => {
                 dense={dense}
                 label={label}
                 selected={!isLoading ? selected : undefined}
+                disabled={disabled}
                 loading={isLoading}
                 error={!!errorText}
-                validationText={errorText}
+                warning={!!warning}
+                validationText={warning ? warning : errorText}
+                helpText={helpText}
                 onChange={onSelectChange}
                 dataTest={dataTest}
             >
                 {items &&
                     items.map(({ id, name }) => (
-                        <Option
-                            key={id}
-                            value={String(id)}
-                            label={name}
-                            dataTest="selectfield-menuitem"
-                        />
+                        <Option key={id} value={String(id)} label={name} />
                     ))}
             </Select>
         </div>
@@ -92,9 +93,24 @@ SelectField.propTypes = {
     dense: PropTypes.bool,
 
     /**
+     * Disable the select field
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * If set, shows the help text below the SelectField
+     */
+    helpText: PropTypes.string,
+
+    /**
      * If set, shows the error message below the SelectField
      */
     errorText: PropTypes.string,
+
+    /**
+     * If set, shows the warning message below the SelectField
+     */
+    warning: PropTypes.string,
 
     /**
      * The select field items (rendered as MenuItems)

@@ -16,8 +16,8 @@ const LegendLayer = ({ id, legend, alerts = [] }) => (
                 <LayerLegend {...legend} />
             </Fragment>
         )}
-        {alerts.map(alert => (
-            <div key={alert.id} className="dhis2-map-legend-alert">
+        {alerts.map((alert, index) => (
+            <div key={index} className="dhis2-map-legend-alert">
                 {alert.message}
             </div>
         ))}

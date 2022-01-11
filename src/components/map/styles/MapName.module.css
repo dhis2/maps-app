@@ -1,6 +1,7 @@
 .mapName {
     display: flex;
     justify-content: center;
+    align-items: center;
     position: absolute;
     max-width: calc(100% - 100px);
     top: 0;
@@ -15,19 +16,22 @@
 .name {
     composes: box from '../../../styles/map.css';
     margin: var(--spacers-dp8);
-    padding: 6px 8px;
+    padding: 6px var(--spacers-dp8);
     line-height: 17px;
 }
 
 .interpretation {
+    composes: box from '../../../styles/map.css';
     position: relative;
-    padding: 7px 8px 7px 28px;
+    padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp8)
+        var(--spacers-dp32);
     font-size: 12px;
     line-height: 15px;
 }
 
-.interpretationIcon {
+.interpretation svg {
     position: absolute;
     left: var(--spacers-dp8);
-    top: 7px;
+    top: var(--spacers-dp8);
+    color: var(--colors-grey700);
 }

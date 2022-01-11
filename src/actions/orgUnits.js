@@ -1,4 +1,6 @@
+import log from 'loglevel';
 import * as types from '../constants/actionTypes';
+import { fetchOrgUnits } from '../util/requests';
 
 // Load organisation unit tree
 export const loadOrgUnitTree = () => ({
@@ -44,42 +46,21 @@ export const setOrgUnitGroupSets = data => ({
     payload: data,
 });
 
-export const loadOrgUnit = attr => ({
-    type: types.ORGANISATION_UNIT_LOAD,
-    payload: attr,
+export const setOrgUnitProfile = id => ({
+    type: types.ORGANISATION_UNIT_PROFILE_SET,
+    payload: id,
 });
 
-export const setOrgUnit = model => ({
-    type: types.ORGANISATION_UNIT_SET,
-    payload: model,
+export const closeOrgUnitProfile = () => ({
+    type: types.ORGANISATION_UNIT_PROFILE_CLOSE,
 });
 
-export const closeOrgUnit = () => ({
-    type: types.ORGANISATION_UNIT_CLOSE,
-});
-
-export const selectOrgUnit = (layerId, featureId) => ({
-    type: types.ORGANISATION_UNIT_SELECT,
-    layerId,
-    featureId,
-});
-
-export const unselectOrgUnit = (layerId, featureId) => ({
-    type: types.ORGANISATION_UNIT_UNSELECT,
-    layerId,
-    featureId,
-});
-
-export const changeOrgUnitCoordinate = (layerId, featureId, coordinate) => ({
-    type: types.ORGANISATION_UNIT_COORDINATE_CHANGE,
-    layerId,
-    featureId,
-    coordinate,
-});
-
-export const setOrgUnitCoordinate = (layerId, featureId, coordinate) => ({
-    type: types.ORGANISATION_UNIT_COORDINATE_SET,
-    layerId,
-    featureId,
-    coordinate,
-});
+export const tSetOrgUnitTree = () => async dispatch => {
+    try {
+        const orgUnitTree = await fetchOrgUnits();
+        dispatch(setOrgUnitTree(orgUnitTree));
+    } catch (e) {
+        log.error('Could not load organisation unit tree');
+        return e;
+    }
+};

@@ -18,7 +18,7 @@ import {
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
-import { formatLocaleDate } from '../util/time';
+import { formatStartEndDate, getDateArray } from '../util/time';
 import {
     THEMATIC_BUBBLE,
     THEMATIC_RADIUS_LOW,
@@ -125,9 +125,10 @@ const thematicLoader = async config => {
         title: name,
         period: period
             ? names[period.id] || period.id
-            : `${formatLocaleDate(config.startDate)} - ${formatLocaleDate(
-                  config.endDate
-              )}`,
+            : formatStartEndDate(
+                  getDateArray(config.startDate),
+                  getDateArray(config.endDate)
+              ),
         items: legendItems,
     };
 
@@ -203,7 +204,7 @@ const thematicLoader = async config => {
             });
         });
     } else {
-        valueFeatures.forEach(({ id, geometry, properties }) => {
+        valueFeatures.forEach(({ id, properties }) => {
             const value = valueById[id];
             const item = getLegendItem(value);
 
@@ -218,7 +219,6 @@ const thematicLoader = async config => {
 
             properties.value = value;
             properties.radius = getRadiusForValue(value);
-            properties.type = geometry.type; // Shown in data table
         });
     }
 

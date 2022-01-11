@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
 import LayerCard from '../LayerCard';
 import BasemapList from './BasemapList';
 import {
@@ -10,66 +11,66 @@ import {
     toggleBasemapVisibility,
     selectBasemap,
 } from '../../../actions/basemap';
+import { VECTOR_STYLE } from '../../../constants/layers';
+import useBasemapConfig from '../../../hooks/useBasemapConfig';
 
-// Basemap card shown in left layers panel
 const BasemapCard = props => {
     const {
-        name,
         subtitle = i18n.t('Basemap'),
-        opacity,
-        isExpanded,
-        isVisible,
         toggleBasemapExpand,
         toggleBasemapVisibility,
         changeBasemapOpacity,
+        selectBasemap,
     } = props;
+    const basemap = useBasemapConfig(props.basemap);
 
     return (
-        <LayerCard
-            title={name}
-            subtitle={subtitle}
-            opacity={opacity}
-            isExpanded={isExpanded}
-            isVisible={isVisible}
-            onOpacityChange={changeBasemapOpacity}
-            toggleExpand={toggleBasemapExpand}
-            toggleLayerVisibility={toggleBasemapVisibility}
-        >
-            <BasemapList
-                selectedID={props.basemap.id}
-                basemaps={props.basemaps}
-                selectBasemap={props.selectBasemap}
-            />
-        </LayerCard>
+        <>
+            {basemap.id === undefined ? (
+                <ComponentCover>
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
+                </ComponentCover>
+            ) : (
+                <LayerCard
+                    hasOpacity={
+                        basemap.config.type === VECTOR_STYLE ? false : true
+                    }
+                    title={basemap.name}
+                    subtitle={subtitle}
+                    opacity={basemap.opacity}
+                    isExpanded={basemap.isExpanded}
+                    isVisible={basemap.isVisible}
+                    onOpacityChange={changeBasemapOpacity}
+                    toggleExpand={toggleBasemapExpand}
+                    toggleLayerVisibility={toggleBasemapVisibility}
+                >
+                    <BasemapList
+                        selectedID={basemap.id}
+                        basemaps={props.basemaps}
+                        selectBasemap={selectBasemap}
+                    />
+                </LayerCard>
+            )}
+        </>
     );
 };
 
 BasemapCard.propTypes = {
-    name: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
-    opacity: PropTypes.number,
-    isVisible: PropTypes.bool,
-    isExpanded: PropTypes.bool,
-
     basemap: PropTypes.object.isRequired,
     basemaps: PropTypes.array.isRequired,
-
     changeBasemapOpacity: PropTypes.func.isRequired,
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
     selectBasemap: PropTypes.func.isRequired,
 };
 
-BasemapCard.defaultProps = {
-    opacity: 1,
-    isVisible: true,
-    isExpanded: true,
-};
-
 export default connect(
     state => ({
-        basemap: state.map.basemap, // Selected basemap
-        basemaps: state.basemaps, // All basemaps
+        basemap: state.map.basemap,
+        basemaps: state.basemaps,
     }),
     {
         changeBasemapOpacity,

@@ -2,16 +2,17 @@
 # Translators:
 # Sheila André <sandre@saudigitus.org>, 2020
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
-# phil_dhis2, 2020
-# Viktor Varland <viktor@dhis2.org>, 2020
-# Ge Joao <gsimango@saudigitus.org>, 2020
+# Ge Joao <gsimango@saudigitus.org>, 2021
+# phil_dhis2, 2021
+# Viktor Varland <viktor@dhis2.org>, 2021
+# Fernando Jorge Bade, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2020-11-19T09:15:54.056Z\n"
+"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2020\n"
+"Last-Translator: Fernando Jorge Bade, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,14 +80,14 @@ msgstr "Ficha"
 msgid "Index"
 msgstr "Indice "
 
-msgid "Id"
-msgstr "Id"
-
 msgid "Org unit"
 msgstr "Unidade organizacional"
 
 msgid "Name"
 msgstr "Nome"
+
+msgid "Id"
+msgstr "Id"
 
 msgid "Event time"
 msgstr "Hora do evento"
@@ -150,117 +151,11 @@ msgstr "Fechar"
 msgid "Legend position"
 msgstr "Posição da legenda"
 
-msgid "Year"
-msgstr "Ano"
-
-msgid "Period"
-msgstr "Período"
-
 msgid "Organisation Units"
 msgstr "Unidades Organizacionais"
 
 msgid "Style"
 msgstr "Estilo"
-
-msgid "Labels"
-msgstr "Etiquetas"
-
-msgid "Point radius"
-msgstr "Raio do ponto"
-
-msgid "No organisation units are selected"
-msgstr "Nenhuma unidade organizacional está selecionada"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates. Try a different year if you don't see data "
-"for your country."
-msgstr ""
-"Estimativas da densidade populacional com totais nacionais ajustados para "
-"corresponder às estimativas da divisão da população da ONU. Tente um ano "
-"diferente se você não ver os dados para o seu país."
-
-msgid "Select year"
-msgstr "Selecionar ano"
-
-msgid "Min people"
-msgstr "Minumo da população "
-
-msgid "Max people"
-msgstr "Max da população "
-
-msgid ""
-"Elevation above sea-level. You can adjust the min and max values so it "
-"better representes the terrain in your region."
-msgstr ""
-"Elevação acima do nível do mar. Você pode ajustar os valores mínimo e máximo"
-" para que ele represente melhor o terreno em sua região."
-
-msgid "Min meters"
-msgstr "Metros mínimos"
-
-msgid "Max meters"
-msgstr "Metros maximos "
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, during"
-" the 3rd week of the following month."
-msgstr ""
-"Precipitação coletada de satélites e estações meteorológicas no solo. Os "
-"valores estão em milímetros dentro de períodos de 5 dias. Atualizado "
-"mensalmente, durante a 3ª semana do mês seguinte."
-
-msgid "Min mm"
-msgstr "Milimentros minimos "
-
-msgid "Max mm"
-msgstr "Milímetros máximos "
-
-msgid ""
-"Land surface temperatures collected from satellite in 8 days periods. Blank "
-"spots will appear in areas with a persistent cloud cover."
-msgstr ""
-"Temperatura da superfície da terra colectada do satélite em períodos de 8 "
-"dias. Pontos em branco aparecerão em áreas com uma cobertura de nuvens "
-"persistente."
-
-msgid "Min °C"
-msgstr "Minimo °C"
-
-msgid "Max °C"
-msgstr "Maximo °C"
-
-msgid "17 distinct landcover types collected from satellites."
-msgstr "17 tipos de coberturas terrestres distintas, colectados de satélites."
-
-msgid ""
-"Light intensity from cities, towns, and other sites with persistent "
-"lighting, including gas flares."
-msgstr ""
-"Intensidade da luz de cidades, vilas e outros locais com iluminação "
-"persistente, incluindo queima de gás."
-
-msgid "Min"
-msgstr "Mínimo"
-
-msgid "Max"
-msgstr "Máx"
-
-msgid "Steps"
-msgstr "Passos"
-
-msgid "Legend preview"
-msgstr "Visualização da legenda"
-
-msgid "This field is required"
-msgstr "Este campo é obrigatorio"
-
-msgid "Valid range is"
-msgstr "O intervalo válido é"
-
-msgid "Group Set"
-msgstr "Conjunto de grupo"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -268,14 +163,11 @@ msgstr ""
 "Lembre-se de selecionar o nível da unidade organizacional que contém as "
 "instalações."
 
-msgid "Buffer"
-msgstr "Buffer"
+msgid "Point radius"
+msgstr "Raio do ponto"
 
-msgid "Radius in meters"
-msgstr "Raio em metros"
-
-msgid "Group set is required"
-msgstr "O conjunto de grupos é obrigatório"
+msgid "No organisation units are selected"
+msgstr "Nenhuma unidade organizacional está selecionada"
 
 msgid "event"
 msgstr "Evento"
@@ -289,8 +181,8 @@ msgstr "Instalação"
 msgid "thematic"
 msgstr "temática"
 
-msgid "boundary"
-msgstr "fronteira"
+msgid "org unit"
+msgstr ""
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -307,8 +199,76 @@ msgstr "Actualizar camada"
 msgid "Add layer"
 msgstr "Adicionar camada"
 
+msgid "Aggregation method"
+msgstr ""
+
+msgid "Choosing many groups takes a long time to calculate and display."
+msgstr ""
+
+msgid "Groups"
+msgstr "Grupos"
+
+msgid "This field is required"
+msgstr "Este campo é obrigatorio"
+
 msgid "Data"
 msgstr "Dados"
+
+msgid "Period"
+msgstr "Período"
+
+msgid ""
+"Data will be calculated on Google Earth Engine for the chosen organisation "
+"units."
+msgstr ""
+
+msgid ""
+"Multiple aggregation methods are available. See the aggregation results by "
+"clicking map regions or viewing the data table. The results can also be "
+"downloaded."
+msgstr ""
+
+msgid "Unit"
+msgstr ""
+
+msgid "Source"
+msgstr "Fonte"
+
+msgid "Year"
+msgstr "Ano"
+
+msgid "Available periods are set by the source data"
+msgstr ""
+
+msgid "Loading periods"
+msgstr ""
+
+msgid "Min value is required"
+msgstr ""
+
+msgid "Max value is required"
+msgstr ""
+
+msgid "Max should be greater than min"
+msgstr ""
+
+msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgstr ""
+
+msgid "Unit: {{ unit }}"
+msgstr ""
+
+msgid "Min"
+msgstr "Mínimo"
+
+msgid "Max"
+msgstr "Máx"
+
+msgid "Steps"
+msgstr "Passos"
+
+msgid "Legend preview"
+msgstr "Visualização da legenda"
 
 msgid "Org Units"
 msgstr ""
@@ -342,8 +302,23 @@ msgstr "Etapa do programa é necessária"
 msgid "No organisation units are selected."
 msgstr "Nenhuma unidade organizacional selecionada"
 
+msgid "No legend set is selected"
+msgstr ""
+
 msgid "Event status"
 msgstr "Estado do evento "
+
+msgid "Boundary color"
+msgstr ""
+
+msgid "Buffer"
+msgstr "Buffer"
+
+msgid "Radius in meters"
+msgstr "Raio em metros"
+
+msgid "Labels"
+msgstr "Etiquetas"
 
 msgid "Aggregation type"
 msgstr "Tipo de agregacão"
@@ -355,6 +330,9 @@ msgid "Low radius"
 msgstr ""
 
 msgid "High radius"
+msgstr ""
+
+msgid "High radius should be greater than low radius"
 msgstr ""
 
 msgid "Radius should be between {{min}} and {{max}}"
@@ -383,9 +361,6 @@ msgstr "Indicador de programa é necessário"
 
 msgid "Period is required"
 msgstr "Período é obrigatório"
-
-msgid "No legend set is selected"
-msgstr ""
 
 msgid "Indicator"
 msgstr "Indicador"
@@ -521,6 +496,15 @@ msgstr "Data"
 msgid "Remove filter"
 msgstr "Remover filtro "
 
+msgid "Group set"
+msgstr "Conjunto do grupo"
+
+msgid "Failed to load organisation unit groups."
+msgstr ""
+
+msgid "Style by group set"
+msgstr ""
+
 msgid "Indicator group"
 msgstr "Grupo de Indicador"
 
@@ -586,6 +570,9 @@ msgstr "Definir opacidade da camada"
 msgid "More actions"
 msgstr "Mais acções"
 
+msgid "Hide data table"
+msgstr "Ocultar tabela de dados"
+
 msgid "Show data table"
 msgstr ""
 
@@ -604,14 +591,11 @@ msgstr "Remover camada"
 msgid "Mid"
 msgstr ""
 
+msgid "Group"
+msgstr "Grupo"
+
 msgid "Filters"
 msgstr "Filtros"
-
-msgid "Source"
-msgstr "Fonte"
-
-msgid "Parent unit"
-msgstr "Unidade parental"
 
 msgid "Drill up one level"
 msgstr "Perfurar um nivel"
@@ -619,29 +603,14 @@ msgstr "Perfurar um nivel"
 msgid "Drill down one level"
 msgstr "Perfurar um nivel"
 
-msgid "Show information"
-msgstr "Mostrar folha de informação"
+msgid "View profile"
+msgstr "Ver Perfil"
 
 msgid "Show longitude/latitude"
 msgstr "Mostrar longitude/latitude"
 
-msgid "Swap longitude/latitude"
-msgstr "Trocar longitude/latitude"
-
-msgid "Relocate"
-msgstr "Realocar"
-
 msgid "Show {{name}}"
 msgstr ""
-
-msgid "Not set"
-msgstr "Não definido"
-
-msgid "Organisation unit"
-msgstr "Unidade organizacional"
-
-msgid "Groups"
-msgstr "Grupos"
 
 msgid "Longitude"
 msgstr "Longitude"
@@ -652,8 +621,23 @@ msgstr "Latitude"
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Visualizando interpretação de {{interpretaçãoDados}}"
 
+msgid "Not set"
+msgstr "Não definido"
+
+msgid "Organisation unit"
+msgstr "Unidade organizacional"
+
+msgid "Parent unit"
+msgstr "Unidade parental"
+
 msgid "Last updated"
 msgstr "Última actualização"
+
+msgid "All groups"
+msgstr ""
+
+msgid "Loading data"
+msgstr ""
 
 msgid "acres"
 msgstr "acres"
@@ -739,8 +723,10 @@ msgstr "Prosseguir"
 msgid "Options"
 msgstr "Opções"
 
-msgid "Code"
-msgstr "Código"
+msgid ""
+"This data element has too many options ({{length}}). Max options for styling"
+" is {{max}}."
+msgstr ""
 
 msgid "No data found for this period."
 msgstr "Não foram encontrados dados para este período."
@@ -748,11 +734,50 @@ msgstr "Não foram encontrados dados para este período."
 msgid "Select groups"
 msgstr "Selecionar grupos"
 
-msgid "Group set"
-msgstr "Conjunto do grupo"
+msgid "Image of the organisation unit"
+msgstr ""
+
+msgid "Code"
+msgstr "Código"
+
+msgid "Short name"
+msgstr "Nome curto"
+
+msgid "Opening date"
+msgstr "Data da abertura"
+
+msgid "Closed date"
+msgstr "Data fecho"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Link"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Address"
+msgstr "Endereço"
+
+msgid "Phone"
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Comment"
+msgstr "Comentário"
 
 msgid "Select levels"
 msgstr "Selecionar Nível"
+
+msgid "Organisation unit profile"
+msgstr ""
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -760,9 +785,6 @@ msgid ""
 msgstr ""
 "Não é possível combinar unidades organizacionais do usuário e selecionar "
 "unidades individuais."
-
-msgid "Click the map where you want to relocate the facility."
-msgstr ""
 
 msgid "user organisation unit"
 msgstr "Unidades organizacionais do usuário"
@@ -836,6 +858,9 @@ msgstr "Data Início"
 msgid "End date"
 msgstr "Data Final"
 
+msgid "Not available offline"
+msgstr "Não disponível offline"
+
 msgid "Program indicator"
 msgstr "Gestão do indicadores de programa"
 
@@ -869,6 +894,24 @@ msgstr "Desvio padrão"
 msgid "Variance"
 msgstr "Variância"
 
+msgid "Percentage"
+msgstr "Percentagem "
+
+msgid "Hectares"
+msgstr ""
+
+msgid "Acres"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
+msgstr ""
+
+msgid "Std dev"
+msgstr ""
+
 msgid "OSM Light"
 msgstr "Open street map lite"
 
@@ -893,251 +936,138 @@ msgstr "Bing Aerial"
 msgid "Bing Aerial Labels"
 msgstr "Etiquetas aéreas do Bing"
 
-msgid "All"
-msgstr "Tudo"
-
-msgid "Active"
-msgstr "Activo"
-
-msgid "Completed"
-msgstr "Completo"
-
-msgid "Schedule"
-msgstr "Programar"
-
-msgid "Overdue"
-msgstr "Atrasado"
-
-msgid "Skipped"
-msgstr "Ignorado"
-
-msgid "Choropleth"
+msgid "Population"
 msgstr ""
 
-msgid "Bubble map"
+msgid "people per hectare"
 msgstr ""
 
-msgid "Automatic color legend"
+msgid "Estimated number of people living in an area."
 msgstr ""
 
-msgid "Predefined color legend"
+msgid "Population age groups"
 msgstr ""
-
-msgid "Single color legend"
-msgstr ""
-
-msgid "Equal intervals"
-msgstr "Intervalos iguais"
-
-msgid "Equal counts"
-msgstr "Contagem equivalente"
-
-msgid "Daily"
-msgstr "Diário"
-
-msgid "Weekly"
-msgstr "Semanal"
-
-msgid "Monthly"
-msgstr "Mensal"
-
-msgid "Bi-monthly)"
-msgstr "Bimensalmente)"
-
-msgid "Quarterly"
-msgstr "Trimestral"
-
-msgid "Six-monthly"
-msgstr "Semestral"
-
-msgid "Six-monthly April"
-msgstr "Semestral a partir de Abril"
-
-msgid "Yearly"
-msgstr "Anualmente"
-
-msgid "Financial year (Start October)"
-msgstr "Ano Financeiro - Outubro"
-
-msgid "Financial year (Start July)"
-msgstr "Ano Financeiro - Julho"
-
-msgid "Financial year (Start April)"
-msgstr "Ano Financeiro - Abril"
-
-msgid "Today"
-msgstr "Hoje"
-
-msgid "Yesterday"
-msgstr "Ontém"
-
-msgid "Last 3 days"
-msgstr "Últimos 3 dias"
-
-msgid "Last 7 days"
-msgstr "Últimos 7 dias"
-
-msgid "Last 14 days"
-msgstr "Últimos 14  dias"
-
-msgid "Last 30 days"
-msgstr "Últimos 30 dias"
-
-msgid "Last 60 days"
-msgstr ""
-
-msgid "Last 90 days"
-msgstr ""
-
-msgid "Last 180 days"
-msgstr ""
-
-msgid "This week"
-msgstr "Esta semana"
-
-msgid "Last week"
-msgstr "Última semana"
-
-msgid "Last 4 weeks"
-msgstr "Últimas quatro semanas"
-
-msgid "Last 12 weeks"
-msgstr "Últimas doze semanas"
-
-msgid "Last 52 weeks"
-msgstr "Últimas 52 semanas"
-
-msgid "Weeks this year"
-msgstr "Semanas deste ano "
-
-msgid "This bi-week"
-msgstr "Nesta bisemanal"
-
-msgid "Last bi-week"
-msgstr "Ultimo bimensal "
-
-msgid "Last 4 bi-weeks"
-msgstr "Nas últimas 4 semanas"
-
-msgid "This month"
-msgstr "Este mês"
-
-msgid "Last month"
-msgstr "Último mês"
-
-msgid "Last 3 months"
-msgstr "Últimos três meses"
-
-msgid "Last 6 months"
-msgstr "Últimos seis meses"
-
-msgid "Last 12 months"
-msgstr "Últimos doze meses"
-
-msgid "Months this year"
-msgstr "Meses deste ano"
-
-msgid "This bi-month"
-msgstr "Este bi-mês"
-
-msgid "Last bi-month"
-msgstr "Último bimestre"
-
-msgid "Last 6 bi-months"
-msgstr "Últimos seis bi-meses"
-
-msgid "Bi-months this year"
-msgstr "Bimensais este ano"
-
-msgid "This quarter"
-msgstr "Este Trimestre"
-
-msgid "Last quarter"
-msgstr "Último trimestre"
-
-msgid "Last 4 quarters"
-msgstr "Últimos quatro trimestres"
-
-msgid "Quarters this year"
-msgstr "Trimestres deste ano"
-
-msgid "This six-month"
-msgstr "Estes seis meses"
-
-msgid "Last six-month"
-msgstr "Último semestre"
-
-msgid "Last 2 six-months"
-msgstr "Dois últimos seis-meses"
-
-msgid "This year"
-msgstr "Este ano"
-
-msgid "Last year"
-msgstr "Último ano"
-
-msgid "Last 5 years"
-msgstr "Últimos cinco anos"
-
-msgid "This financial year"
-msgstr "Ano financeiro"
-
-msgid "Last financial year"
-msgstr "Último ano fiscal"
-
-msgid "Last 5 financial years"
-msgstr "Últimos cinco anos fiscais"
-
-msgid "Cancelled"
-msgstr "Cancelado"
 
 msgid ""
-"This layer requires a Google Earth Engine account. Check the DHIS2 "
-"documentation for more information."
+"Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 
-msgid "Cannot connect to Google Earth Engine."
+msgid "Men 0 - 1 years"
 msgstr ""
 
-msgid "Map \"{{name}}\" is saved."
-msgstr "O mapa \"{{name}}\" é salvo."
+msgid "Men 1 - 4 years"
+msgstr ""
 
-msgid "Error"
-msgstr "Erro"
+msgid "Men 5 - 9 years"
+msgstr ""
 
-msgid "Boundaries"
-msgstr "Limites"
+msgid "Men 10 - 14 years"
+msgstr ""
 
-msgid "No boundaries found"
-msgstr "Nenhum limite encontrado"
+msgid "Men 15 - 19 years"
+msgstr ""
+
+msgid "Men 20 - 24 years"
+msgstr ""
+
+msgid "Men 25 - 29 years"
+msgstr ""
+
+msgid "Men 30 - 34 years"
+msgstr ""
+
+msgid "Men 35 - 39 years"
+msgstr ""
+
+msgid "Men 40 - 44 years"
+msgstr ""
+
+msgid "Men 45 - 49 years"
+msgstr ""
+
+msgid "Men 50 - 54 years"
+msgstr ""
+
+msgid "Men 55 - 59 years"
+msgstr ""
+
+msgid "Men 60 - 64 years"
+msgstr ""
+
+msgid "Men 65 - 69 years"
+msgstr ""
+
+msgid "Men 70 - 74 years"
+msgstr ""
+
+msgid "Men 75 - 79 years"
+msgstr ""
+
+msgid "Men 80 years and above"
+msgstr ""
+
+msgid "Women 0 - 1 years"
+msgstr ""
+
+msgid "Women 1 - 4 years"
+msgstr ""
+
+msgid "Women 5 - 9 years"
+msgstr ""
+
+msgid "Women 10 - 14 years"
+msgstr ""
+
+msgid "Women 15 - 19 years"
+msgstr ""
+
+msgid "Women 20 - 24 years"
+msgstr ""
+
+msgid "Women 25 - 29 years"
+msgstr ""
+
+msgid "Women 30 - 34 years"
+msgstr ""
+
+msgid "Women 35 - 39 years"
+msgstr ""
+
+msgid "Women 40 - 44 years"
+msgstr ""
+
+msgid "Women 45 - 49 years"
+msgstr ""
+
+msgid "Women 50 - 54 years"
+msgstr ""
+
+msgid "Women 55 - 59 years"
+msgstr ""
+
+msgid "Women 60 - 64 years"
+msgstr ""
+
+msgid "Women 65 - 69 years"
+msgstr ""
+
+msgid "Women 70 - 74 years"
+msgstr ""
+
+msgid "Women 75 - 79 years"
+msgstr ""
+
+msgid "Women 80 years and above"
+msgstr ""
 
 msgid "Elevation"
 msgstr "Elevação"
 
-msgid "metres"
-msgstr "metros"
+msgid "meters"
+msgstr ""
 
 msgid "Elevation above sea-level."
 msgstr "Elevação acima do nível do mar."
-
-msgid "Population density"
-msgstr "Densidade populacional"
-
-msgid "people per km²"
-msgstr "População por km²"
-
-msgid ""
-"Population density estimates with national totals adjusted to match UN "
-"population division estimates."
-msgstr ""
-"Estimativas da densidade populacional com totais nacionais ajustados para "
-"corresponder às estimativas da divisão da população da ONU."
-
-msgid "Nighttime lights"
-msgstr "Luzes noturnas"
-
-msgid "light intensity"
-msgstr "intensidade da luz"
 
 msgid "Precipitation"
 msgstr "Precipitação"
@@ -1146,9 +1076,13 @@ msgid "millimeter"
 msgstr "milimetro"
 
 msgid ""
-"Precipitation collected from satellite and weather stations on the ground."
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
 msgstr ""
-"Precipitação colectada das estações de satélite e meteorológicas no solo."
+"Precipitação coletada de satélites e estações meteorológicas no solo. Os "
+"valores estão em milímetros dentro de períodos de 5 dias. Atualizado "
+"mensalmente, durante a 3ª semana do mês seguinte."
 
 msgid "Temperature"
 msgstr "Temperatura"
@@ -1168,9 +1102,6 @@ msgstr "Cobertura da terra"
 
 msgid "Distinct landcover types collected from satellites."
 msgstr "Tipos de cobertura terrestre distintos colectados de satélites."
-
-msgid "Water"
-msgstr "Água"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Floresta de folhas de agulhas sempre-verdes"
@@ -1220,8 +1151,132 @@ msgstr "Neve e gelo"
 msgid "Barren or sparsely vegetated"
 msgstr ""
 
-msgid "Unclassified"
-msgstr "Não classificadas "
+msgid "Water"
+msgstr "Água"
+
+msgid "people per km²"
+msgstr "População por km²"
+
+msgid "Nighttime lights"
+msgstr "Luzes noturnas"
+
+msgid "light intensity"
+msgstr "intensidade da luz"
+
+msgid ""
+"Light intensity from cities, towns, and other sites with persistent "
+"lighting, including gas flares."
+msgstr ""
+"Intensidade da luz de cidades, vilas e outros locais com iluminação "
+"persistente, incluindo queima de gás."
+
+msgid "All"
+msgstr "Tudo"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Completed"
+msgstr "Completo"
+
+msgid "Schedule"
+msgstr "Programar"
+
+msgid "Overdue"
+msgstr "Atrasado"
+
+msgid "Skipped"
+msgstr "Ignorado"
+
+msgid "Choropleth"
+msgstr ""
+
+msgid "Bubble map"
+msgstr ""
+
+msgid "Automatic color legend"
+msgstr ""
+
+msgid "Predefined color legend"
+msgstr ""
+
+msgid "Single color legend"
+msgstr ""
+
+msgid "Equal intervals"
+msgstr "Intervalos iguais"
+
+msgid "Equal counts"
+msgstr "Contagem equivalente"
+
+msgid "Symbol"
+msgstr "Símbolo"
+
+msgid "Daily"
+msgstr "Diário"
+
+msgid "Weekly"
+msgstr "Semanal"
+
+msgid "Weekly (Start Wednesday)"
+msgstr ""
+
+msgid "Weekly (Start Thursday)"
+msgstr ""
+
+msgid "Weekly (Start Saturday)"
+msgstr ""
+
+msgid "Weekly (Start Sunday)"
+msgstr ""
+
+msgid "Bi-weekly"
+msgstr "Quinzenal"
+
+msgid "Monthly"
+msgstr "Mensal"
+
+msgid "Bi-monthly"
+msgstr "Bimensal"
+
+msgid "Quarterly"
+msgstr "Trimestral"
+
+msgid "Six-monthly"
+msgstr "Semestral"
+
+msgid "Six-monthly April"
+msgstr "Semestral a partir de Abril"
+
+msgid "Yearly"
+msgstr "Anualmente"
+
+msgid "Financial year (Start November)"
+msgstr ""
+
+msgid "Financial year (Start October)"
+msgstr "Ano Financeiro - Outubro"
+
+msgid "Financial year (Start July)"
+msgstr "Ano Financeiro - Julho"
+
+msgid "Financial year (Start April)"
+msgstr "Ano Financeiro - Abril"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr "O mapa \"{{name}}\" é salvo."
+
+msgid "Error"
+msgstr "Erro"
+
+msgid "Selected org units"
+msgstr "Selecionar unidades organizacionais "
+
+msgid "No coordinates found"
+msgstr "Nenhuma coordenada encontrada"
 
 msgid "You don't have access to this layer data"
 msgstr ""
@@ -1229,23 +1284,26 @@ msgstr ""
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
-msgid "Event"
-msgstr "Evento"
+msgid "Displaying first {{pageSize}} events out of {{total}}"
+msgstr ""
 
 msgid "No data found"
 msgstr "Dado não encontrado"
 
+msgid "Event"
+msgstr "Evento"
+
 msgid "Facilities"
 msgstr "Instalações"
 
+msgid "No facilities found"
+msgstr ""
+
+msgid "Organisation units"
+msgstr "Unidades organizacionais"
+
 msgid "Thematic layer"
 msgstr "Camada temática"
-
-msgid "Selected org units"
-msgstr "Selecionar unidades organizacionais "
-
-msgid "No coordinates found"
-msgstr "Nenhuma coordenada encontrada"
 
 msgid "No data"
 msgstr "Não ha dados"
@@ -1262,6 +1320,9 @@ msgstr "Relacionado "
 msgid "Thematic"
 msgstr "Temático"
 
+msgid "Org units"
+msgstr "Unidades organizacionais"
+
 msgid "not one of"
 msgstr "não um dos"
 
@@ -1277,8 +1338,16 @@ msgstr "Falso "
 msgid "No"
 msgstr "Não"
 
-msgid "There was a problem creating a map from the imported data."
+msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
+
+msgid ""
+"This layer requires a Google Earth Engine account. Check the DHIS2 "
+"documentation for more information."
+msgstr ""
+
+msgid "Facility"
+msgstr "Unidade sanitaria"
 
 msgid "Start date is invalid"
 msgstr "A data de início é inválida"

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
-import SelectField from '../core/SelectField';
+import { SelectField } from '../core';
 import { loadIndicators } from '../../actions/indicators';
 
 export class IndicatorSelect extends Component {
@@ -56,7 +56,7 @@ export class IndicatorSelect extends Component {
                 onChange={dataItem => onChange(dataItem, 'indicator')}
                 className={className}
                 errorText={!indicator && errorText ? errorText : null}
-                data-test="indicatorselect"
+                dataTest="indicatorselect"
             />
         );
     }

@@ -7,37 +7,41 @@ import MapName from './MapName';
 import MapLoadingMask from './MapLoadingMask';
 import DownloadLegend from '../download/DownloadLegend';
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
+import { setAggregations } from '../../actions/aggregations';
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,
-    INTERPRETATIONS_PANEL_WIDTH,
+    RIGHT_PANEL_WIDTH,
 } from '../../constants/layout';
+import useBasemapConfig from '../../hooks/useBasemapConfig';
 import styles from './styles/MapContainer.module.css';
 
 const MapContainer = props => {
     const {
-        basemap,
         mapViews,
         bounds,
+        feature,
         showName,
         newLayerIsLoading,
         coordinatePopup,
         layersPanelOpen,
-        interpretationsPanelOpen,
+        rightPanelOpen,
         dataTableOpen,
         dataTableHeight,
         isDownload,
         legendPosition,
         openContextMenu,
         closeCoordinatePopup,
+        setAggregations,
     } = props;
     const [resizeCount, setResizeCount] = useState(0);
+    const basemap = useBasemapConfig(props.basemap);
 
     const style = {
         position: 'absolute',
         top: HEADER_HEIGHT,
         left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
-        right: interpretationsPanelOpen ? INTERPRETATIONS_PANEL_WIDTH : 0,
+        right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
     };
 
@@ -47,12 +51,7 @@ const MapContainer = props => {
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
         setResizeCount(resizeCount + 1);
-    }, [
-        layersPanelOpen,
-        interpretationsPanelOpen,
-        dataTableOpen,
-        dataTableHeight,
-    ]);
+    }, [layersPanelOpen, rightPanelOpen, dataTableOpen, dataTableHeight]);
 
     return (
         <div style={style}>
@@ -69,18 +68,20 @@ const MapContainer = props => {
                     basemap={basemap}
                     layers={layers}
                     bounds={bounds}
+                    feature={feature}
                     openContextMenu={openContextMenu}
                     coordinatePopup={coordinatePopup}
                     closeCoordinatePopup={closeCoordinatePopup}
+                    setAggregations={setAggregations}
                     resizeCount={resizeCount}
                 />
-                {isDownload && legendPosition && layers.length && (
+                {isDownload && legendPosition && layers.length ? (
                     <DownloadLegend
                         position={legendPosition}
                         layers={layers}
                         showName={showName}
                     />
-                )}
+                ) : null}
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>
@@ -92,24 +93,23 @@ MapContainer.propTypes = {
     mapViews: PropTypes.array,
     bounds: PropTypes.array,
     showName: PropTypes.bool,
+    feature: PropTypes.object,
     newLayerIsLoading: PropTypes.bool,
     coordinatePopup: PropTypes.array,
     dataTableOpen: PropTypes.bool,
     dataTableHeight: PropTypes.number,
     isDownload: PropTypes.bool,
     legendPosition: PropTypes.string,
-    interpretationsPanelOpen: PropTypes.bool,
+    rightPanelOpen: PropTypes.bool,
     layersPanelOpen: PropTypes.bool,
     openContextMenu: PropTypes.func.isRequired,
     closeCoordinatePopup: PropTypes.func.isRequired,
+    setAggregations: PropTypes.func.isRequired,
 };
 
 export default connect(
-    ({ map, basemaps, download, dataTable, ui }) => ({
-        basemap: {
-            ...basemaps.filter(b => b.id === map.basemap.id)[0],
-            ...map.basemap,
-        },
+    ({ map, download, dataTable, ui, feature }) => ({
+        basemap: map.basemap,
         newLayerIsLoading: map.newLayerIsLoading,
         coordinatePopup: map.coordinatePopup,
         mapViews: map.mapViews,
@@ -118,10 +118,12 @@ export default connect(
         showName: download.showDialog ? download.showName : true,
         legendPosition: download.showLegend ? download.legendPosition : null,
         dataTableOpen: !!dataTable,
+        feature,
         ...ui,
     }),
     {
         openContextMenu,
         closeCoordinatePopup,
+        setAggregations,
     }
 )(MapContainer);

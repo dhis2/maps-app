@@ -15,8 +15,10 @@ import {
     CLASSIFICATION_SINGLE_COLOR,
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
+    CLASSIFICATION_PREDEFINED,
     THEMATIC_CHOROPLETH,
 } from '../constants/layers';
+import { START_END_DATES } from '../constants/periods';
 
 const layerEdit = (state = null, action) => {
     let columns;
@@ -39,7 +41,7 @@ const layerEdit = (state = null, action) => {
                 program: program ? { ...program } : null,
                 columns: [],
                 programStage: null,
-                styleDataElement: null,
+                styleDataItem: null,
             };
 
         case types.LAYER_EDIT_PROGRAM_STAGE_SET:
@@ -49,7 +51,7 @@ const layerEdit = (state = null, action) => {
                     ...action.programStage,
                 },
                 columns: [],
-                styleDataElement: null,
+                styleDataItem: null,
             };
 
         case types.LAYER_EDIT_VALUE_TYPE_SET:
@@ -115,7 +117,7 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 filters:
-                    action.period.id !== 'START_END_DATES'
+                    action.period.id !== START_END_DATES
                         ? setFiltersFromPeriod(state.filters, action.period)
                         : [],
             };
@@ -281,6 +283,7 @@ const layerEdit = (state = null, action) => {
             ) {
                 delete newState.method;
                 delete newState.colorScale;
+                delete newState.classes;
             }
 
             return newState;
@@ -292,14 +295,17 @@ const layerEdit = (state = null, action) => {
             };
 
             if (
-                action.method !== CLASSIFICATION_EQUAL_INTERVALS ||
-                action.method !== CLASSIFICATION_EQUAL_COUNTS
+                state.method === CLASSIFICATION_SINGLE_COLOR ||
+                ![
+                    CLASSIFICATION_EQUAL_INTERVALS,
+                    CLASSIFICATION_EQUAL_COUNTS,
+                ].includes(action.method)
             ) {
                 delete newState.colorScale;
                 delete newState.classes;
             }
 
-            if (action.method !== 1) {
+            if (action.method !== CLASSIFICATION_PREDEFINED) {
                 delete newState.legendSet;
             }
 
@@ -382,6 +388,12 @@ const layerEdit = (state = null, action) => {
                 relatedPointRadius: parseInt(action.radius, 10),
             };
 
+        case types.LAYER_EDIT_ORGANISATION_UNIT_COLOR_SET:
+            return {
+                ...state,
+                organisationUnitColor: action.color,
+            };
+
         case types.LAYER_EDIT_ORGANISATION_UNIT_GROUP_SET:
             return {
                 ...state,
@@ -425,13 +437,18 @@ const layerEdit = (state = null, action) => {
                 organisationUnitSelectionMode: action.payload,
             };
 
+        case types.LAYER_EDIT_BAND_SET:
+            return {
+                ...state,
+                band: action.payload,
+            };
+
         case types.LAYER_EDIT_PARAMS_SET:
             return {
                 ...state,
                 params: {
-                    min: action.min,
-                    max: action.max,
-                    palette: action.palette,
+                    ...state.params,
+                    ...action.payload,
                 },
             };
 
@@ -471,10 +488,10 @@ const layerEdit = (state = null, action) => {
                 labelFontStyle: action.style,
             };
 
-        case types.LAYER_EDIT_AREA_RADIUS_SET:
+        case types.LAYER_EDIT_BUFFER_RADIUS_SET:
             return {
                 ...state,
-                areaRadius: action.radius ? parseInt(action.radius, 10) : null,
+                areaRadius: action.radius,
             };
 
         case types.LAYER_EDIT_RADIUS_LOW_SET:

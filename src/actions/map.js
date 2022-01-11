@@ -1,4 +1,9 @@
+import log from 'loglevel';
 import * as types from '../constants/actionTypes';
+import { getFallbackBasemap } from '../constants/basemaps';
+import { fetchMap } from '../util/requests';
+import { addOrgUnitPaths } from '../util/helpers';
+import { loadLayer } from './layers';
 
 export const newMap = () => ({
     type: types.MAP_NEW,
@@ -42,3 +47,24 @@ export const setRelativePeriodDate = date => ({
     type: types.MAP_RELATIVE_PERIOD_DATE_SET,
     payload: date,
 });
+
+export const tOpenMap = (mapId, keyDefaultBaseMap, dataEngine) => async (
+    dispatch,
+    getState
+) => {
+    try {
+        const map = await fetchMap(mapId, dataEngine, keyDefaultBaseMap);
+
+        const basemapConfig =
+            getState().basemaps.find(bm => bm.id === map.basemap.id) ||
+            getFallbackBasemap();
+
+        const basemap = { ...map.basemap, ...basemapConfig };
+
+        dispatch(setMap({ ...map, basemap }));
+        addOrgUnitPaths(map.mapViews).map(view => dispatch(loadLayer(view)));
+    } catch (e) {
+        log.error(e);
+        return e;
+    }
+};

@@ -10,7 +10,7 @@ import {
     Button,
     ButtonStrip,
 } from '@dhis2/ui';
-import Checkbox from '../core/Checkbox';
+import { Checkbox } from '../core';
 import LegendPosition from './LegendPosition';
 import {
     toggleDownloadDialog,
@@ -122,15 +122,15 @@ export class DownloadDialog extends Component {
             .substring(7)}.png`;
 
         // Skip map controls in download except attribution and scale
-        // Mapbox map controls contains inline SVG for CSS background-image, which
+        // MapLibre map controls contains inline SVG for CSS background-image, which
         // is not accepted by dom-to-image
         // Bing Maps logo is blocked by CORS policy
         const skipElements = el =>
             !el.classList ||
-            el.classList.contains('mapboxgl-ctrl-scale') ||
-            el.classList.contains('mapboxgl-ctrl-attrib') ||
+            el.classList.contains('maplibregl-ctrl-scale') ||
+            el.classList.contains('maplibregl-ctrl-attrib-button') ||
             !(
-                el.classList.contains('mapboxgl-ctrl') ||
+                el.classList.contains('maplibregl-ctrl') ||
                 el.classList.contains('dhis2-map-bing-logo')
             );
 
@@ -149,7 +149,7 @@ export class DownloadDialog extends Component {
                 .getComputedStyle(titleEl, null)
                 .getPropertyValue('width');
 
-            titleEl.style.width = parseInt(width, 10) + 1 + 'px';
+            titleEl.style.width = parseFloat(width) + 1 + 'px';
         }
 
         convertToPng(mapEl, options)

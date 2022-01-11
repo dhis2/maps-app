@@ -1,16 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Tooltip } from '@dhis2/ui';
-import CreateIcon from '@material-ui/icons/Create';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import IconButton from '../../core/IconButton';
+import cx from 'classnames';
+import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui';
+import { IconButton } from '../../core';
 import OpacitySlider from './OpacitySlider';
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu';
 import styles from './styles/LayerToolbar.module.css';
 
 export const LayerToolbar = ({
+    hasOpacity,
     opacity = 1,
     isVisible,
     onOpacityChange,
@@ -29,7 +28,7 @@ export const LayerToolbar = ({
                         className={styles.button}
                         dataTest="editbutton"
                     >
-                        <CreateIcon data-icon="CreateIcon" />
+                        <IconEdit24 />
                     </IconButton>
                     <span className={styles.spacer} />
                 </Fragment>
@@ -38,20 +37,20 @@ export const LayerToolbar = ({
             <IconButton
                 tooltip={i18n.t('Toggle visibility')}
                 onClick={toggleLayerVisibility}
-                className={styles.button}
+                className={cx(styles.button, {
+                    visible: isVisible,
+                    notvisible: !isVisible,
+                })}
                 dataTest="visibilitybutton"
             >
-                {isVisible ? (
-                    <VisibilityIcon data-icon="VisibilityIcon" />
-                ) : (
-                    <VisibilityOffIcon data-icon="VisibilityOffIcon" />
-                )}
+                {isVisible ? <IconView24 /> : <IconViewOff24 />}
             </IconButton>
 
             <div className={styles.sliderContainer}>
                 <Tooltip content={i18n.t('Set layer opacity')}>
                     <OpacitySlider
                         opacity={opacity}
+                        disabled={!isVisible || !hasOpacity}
                         onChange={onOpacityChange}
                     />
                 </Tooltip>
@@ -62,11 +61,16 @@ export const LayerToolbar = ({
 };
 
 LayerToolbar.propTypes = {
-    opacity: PropTypes.number.isRequired,
+    hasOpacity: PropTypes.bool,
+    opacity: PropTypes.number,
     isVisible: PropTypes.bool,
     toggleLayerVisibility: PropTypes.func.isRequired,
     onOpacityChange: PropTypes.func.isRequired,
     onEdit: PropTypes.func,
+};
+
+LayerToolbar.defaultProps = {
+    hasOpacity: true,
 };
 
 export default LayerToolbar;

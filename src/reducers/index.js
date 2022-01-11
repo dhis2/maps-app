@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import aggregations from './aggregations';
 import alerts from './alerts';
 import analyticalObject from './analyticalObject';
 import basemaps from './basemaps';
@@ -10,7 +11,6 @@ import dataSets from './dataSets';
 import dataTable from './dataTable';
 import dimensions from './dimensions';
 import download from './download.js';
-import earthEngine from './earthEngine';
 import layerEdit from './layerEdit';
 import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
@@ -20,7 +20,7 @@ import legendSets from './legendSets';
 import loading from './loading';
 import map from './map';
 import optionSets from './optionSets';
-import orgUnit from './orgUnit';
+import orgUnitProfile from './orgUnitProfile';
 import orgUnitTree from './orgUnitTree';
 import orgUnitGroups from './orgUnitGroups';
 import orgUnitGroupSets from './orgUnitGroupSets';
@@ -32,11 +32,12 @@ import programStages from './programStages';
 import programStageDataElements from './programStageDataElements';
 import programTrackedEntityAttributes from './programTrackedEntityAttributes';
 import ui from './ui';
-import settings from './settings';
 import trackedEntityTypes from './trackedEntityTypes';
 import dataDownload from './dataDownload';
+import feature from './feature';
 
 export default combineReducers({
+    aggregations,
     alerts,
     analyticalObject,
     basemaps,
@@ -48,7 +49,6 @@ export default combineReducers({
     dataTable,
     dimensions,
     download,
-    earthEngine,
     indicators,
     indicatorGroups,
     interpretation,
@@ -58,7 +58,7 @@ export default combineReducers({
     loading,
     map,
     optionSets,
-    orgUnit,
+    orgUnitProfile,
     orgUnitTree,
     orgUnitGroupSets,
     orgUnitGroups,
@@ -70,7 +70,7 @@ export default combineReducers({
     programStageDataElements,
     programTrackedEntityAttributes,
     ui,
-    settings,
     trackedEntityTypes,
     dataDownload,
+    feature,
 });

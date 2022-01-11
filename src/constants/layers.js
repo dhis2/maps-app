@@ -1,23 +1,40 @@
 import i18n from '@dhis2/d2-i18n';
 import { formatDate } from '../util/time';
 
+export const VECTOR_STYLE = 'vectorStyle';
+export const TILE_LAYER = 'tileLayer';
+export const WMS_LAYER = 'wmsLayer';
+export const GOOGLE_LAYER = 'googleLayer';
+export const BING_LAYER = 'bingLayer';
+export const EVENT_LAYER = 'event';
+export const THEMATIC_LAYER = 'thematic';
+export const FACILITY_LAYER = 'facility';
+export const BOUNDARY_LAYER = 'boundary';
+export const ORG_UNIT_LAYER = 'orgUnit';
+export const EXTERNAL_LAYER = 'external';
+export const EARTH_ENGINE_LAYER = 'earthEngine';
+export const TRACKED_ENTITY_LAYER = 'trackedEntity';
+export const GEOJSON_LAYER = 'geoJson';
+
 export const DOWNLOADABLE_LAYER_TYPES = [
-    'facility',
-    'thematic',
-    'boundary',
-    'event',
+    FACILITY_LAYER,
+    THEMATIC_LAYER,
+    ORG_UNIT_LAYER,
+    EVENT_LAYER,
+    EARTH_ENGINE_LAYER,
 ];
 
 export const IMPORTABLE_LAYER_TYPES = ['earthEngine'];
 
 export const DATA_TABLE_LAYER_TYPES = [
-    'facility',
-    'thematic',
-    'boundary',
-    'event',
+    FACILITY_LAYER,
+    THEMATIC_LAYER,
+    ORG_UNIT_LAYER,
+    EVENT_LAYER,
+    EARTH_ENGINE_LAYER,
 ];
 
-export const OPEN_AS_LAYER_TYPES = ['thematic'];
+export const OPEN_AS_LAYER_TYPES = [THEMATIC_LAYER];
 
 export const DEFAULT_START_DATE = formatDate(
     new Date().setFullYear(new Date().getFullYear() - 1)
@@ -39,6 +56,7 @@ export const THEMATIC_RADIUS_HIGH = 30;
 export const THEMATIC_RADIUS_MIN = 0;
 export const THEMATIC_RADIUS_MAX = 50;
 export const THEMATIC_COLOR = '#558CC0';
+export const THEMATIC_BUFFER = 5000;
 
 export const getThematicMapTypes = () => [
     {
@@ -54,6 +72,8 @@ export const getThematicMapTypes = () => [
 ];
 
 /* EVENT LAYER */
+export const EVENT_CLIENT_PAGE_SIZE = 100000;
+export const EVENT_SERVER_CLUSTER_COUNT = 2000;
 export const EVENT_COLOR = '#333333';
 export const EVENT_RADIUS = 6;
 export const EVENT_BUFFER = 100;
@@ -65,6 +85,16 @@ export const TEI_BUFFER = 100;
 export const TEI_RELATED_COLOR = '#000000';
 export const TEI_RELATED_RADIUS = 3;
 export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
+
+/* FACILITY LAYER */
+export const FACILITY_BUFFER = 5000;
+
+/* ORG UNIT LAYER */
+export const ORG_UNIT_COLOR = '#333333';
+export const ORG_UNIT_RADIUS = 6;
+
+/* EARTH ENGINE LAYER */
+export const EE_BUFFER = 5000;
 
 /* CLASSIFICATION */
 export const CLASSIFICATION_PREDEFINED = 1;
@@ -102,10 +132,30 @@ export const getClassificationTypes = () => [
     },
 ];
 
+export const STYLE_TYPE_COLOR = 'COLOR';
+export const STYLE_TYPE_SYMBOL = 'SYMBOL';
+
+export const getGroupSetStyleTypes = () => [
+    {
+        id: STYLE_TYPE_COLOR,
+        name: i18n.t('Color'),
+    },
+    {
+        id: STYLE_TYPE_SYMBOL,
+        name: i18n.t('Symbol'),
+    },
+];
+
 /* LABEL STYLES */
 export const LABEL_FONT_SIZE = '11px';
+export const LABEL_FONT_SIZE_MIN = 6;
+export const LABEL_FONT_SIZE_MAX = 100;
 export const LABEL_FONT_STYLE = 'normal';
 export const LABEL_FONT_WEIGHT = 'normal';
 export const LABEL_FONT_COLOR = '#333333';
 
 export const NO_DATA_COLOR = '#CCCCCC';
+
+/* POINT RADIUS */
+export const MIN_RADIUS = 1;
+export const MAX_RADIUS = 100;

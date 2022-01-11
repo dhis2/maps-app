@@ -1,5 +1,6 @@
 import { parseLayerConfig } from '../util/external';
 import { loadLegendSet, getPredefinedLegendItems } from '../util/legend';
+import { EXTERNAL_LAYER } from '../constants/layers';
 
 const externalLoader = async layer => {
     let { config } = layer;
@@ -26,7 +27,7 @@ const externalLoader = async layer => {
 
     return {
         ...layer,
-        layer: 'external',
+        layer: EXTERNAL_LAYER,
         name,
         legend,
         config,

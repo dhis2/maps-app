@@ -1,0 +1,14 @@
+.buffer {
+    margin: 0 -8px;
+    clear: both;
+    align-items: center;
+    min-height: 76px;
+}
+
+.buffer > div {
+    margin: var(--spacers-dp8);
+}
+
+.numberField {
+    padding-left: 23px;
+}

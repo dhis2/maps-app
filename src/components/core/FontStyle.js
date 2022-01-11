@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
-import { Button } from '@dhis2/ui';
-import BoldIcon from '@material-ui/icons/FormatBold';
-import ItalicIcon from '@material-ui/icons/FormatItalic';
+import { Button, IconTextBold24, IconTextItalic24 } from '@dhis2/ui';
 import cx from 'classnames';
 import NumberField from './NumberField';
 import ColorButton from './ColorButton';
 import { cssColor } from '../../util/colors';
-import { LABEL_FONT_SIZE, LABEL_FONT_COLOR } from '../../constants/layers';
+import {
+    LABEL_FONT_SIZE,
+    LABEL_FONT_SIZE_MIN,
+    LABEL_FONT_SIZE_MAX,
+    LABEL_FONT_COLOR,
+} from '../../constants/layers';
 import styles from './styles/FontStyle.module.css';
 
 const FontStyle = ({
@@ -27,6 +30,8 @@ const FontStyle = ({
             <NumberField
                 dense
                 label={i18n.t('Size')}
+                min={LABEL_FONT_SIZE_MIN}
+                max={LABEL_FONT_SIZE_MAX}
                 value={parseInt(
                     size !== undefined ? size : LABEL_FONT_SIZE,
                     10
@@ -44,7 +49,7 @@ const FontStyle = ({
         )}
         {onWeightChange && (
             <Button
-                icon={<BoldIcon />}
+                icon={<IconTextBold24 />}
                 onClick={() => {
                     onWeightChange(weight === 'bold' ? 'normal' : 'bold');
                 }}
@@ -54,7 +59,7 @@ const FontStyle = ({
         )}
         {onStyleChange && (
             <Button
-                icon={<ItalicIcon />}
+                icon={<IconTextItalic24 />}
                 onClick={() => {
                     onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic');
                 }}

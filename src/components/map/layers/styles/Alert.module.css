@@ -1,0 +1,6 @@
+.alert {
+    position: fixed;
+    inset: auto auto 0px 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}

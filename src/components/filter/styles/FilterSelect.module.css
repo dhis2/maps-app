@@ -8,3 +8,7 @@
     float: left;
     width: calc((100% - 24px) / 8 * 3);
 }
+
+.checkbox {
+    padding-top: 26px;
+}

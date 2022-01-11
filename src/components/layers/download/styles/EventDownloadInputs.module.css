@@ -7,6 +7,5 @@
 }
 
 .checkboxRoot {
-    margin: var(--spacers-dp4) 0;
-    margin-left: -12px;
+    margin-top: var(--spacers-dp16);
 }

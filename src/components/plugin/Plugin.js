@@ -25,13 +25,13 @@ class Plugin extends Component {
 
     static defaultProps = {
         hideTitle: false,
-        basemap: { id: 'osmLight' },
     };
 
     constructor(props, context) {
         super(props, context);
 
         this.state = {
+            isOffline: false,
             mapViews: props.mapViews, // Can be changed by drilling
             resizeCount: 0,
         };
@@ -45,8 +45,9 @@ class Plugin extends Component {
             feature,
             mapViews,
             resizeCount,
-            isSplitView,
             isFullscreen,
+            isSplitView,
+            isOffline,
             container,
         } = this.state;
 
@@ -63,15 +64,16 @@ class Plugin extends Component {
                     controls={controls}
                     bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
-                    onCloseContextMenu={this.onCloseContextMenu}
                     resizeCount={resizeCount}
                 />
                 <Legend layers={mapViews} />
                 <ContextMenu
+                    feature={feature}
                     position={position}
                     offset={offset}
-                    feature={feature}
                     onDrill={this.onDrill}
+                    onClose={this.onCloseContextMenu}
+                    isOffline={isOffline}
                     isSplitView={isSplitView}
                     container={container}
                 />
@@ -80,12 +82,16 @@ class Plugin extends Component {
     }
 
     // Call this method when plugin container is resized
-    resize(isFullscreen = false) {
+    resize(isFullscreen) {
         // Will trigger a redraw of the MapView component
         this.setState(state => ({
             resizeCount: state.resizeCount + 1,
             isFullscreen,
         }));
+    }
+
+    setOfflineStatus(isOffline) {
+        this.setState({ isOffline });
     }
 
     onOpenContextMenu = state => this.setState(state);

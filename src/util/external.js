@@ -1,8 +1,26 @@
 import { getExternalLayer } from './requests';
+import {
+    EXTERNAL_LAYER,
+    TILE_LAYER,
+    WMS_LAYER,
+    VECTOR_STYLE,
+} from '../constants/layers';
+
+const MAP_SERVICE_WMS = 'WMS';
+const MAP_SERVICE_TMS = 'TMS';
+const MAP_SERVICE_XYZ = 'XYZ';
+const MAP_SERVICE_VECTOR_STYLE = 'VECTOR_STYLE';
+
+const mapServiceToTypeMap = {
+    [MAP_SERVICE_WMS]: WMS_LAYER,
+    [MAP_SERVICE_XYZ]: TILE_LAYER,
+    [MAP_SERVICE_TMS]: TILE_LAYER,
+    [MAP_SERVICE_VECTOR_STYLE]: VECTOR_STYLE,
+};
 
 // Create external layer from a model
 export const createExternalLayer = model => ({
-    layer: 'external',
+    layer: EXTERNAL_LAYER,
     id: model.id,
     name: model.name,
     opacity: 1,
@@ -23,9 +41,10 @@ export const createExternalLayerConfig = model => {
         legendSetUrl,
     } = model;
 
-    const type = mapService === 'WMS' ? 'wmsLayer' : 'tileLayer';
+    const type = mapServiceToTypeMap[mapService];
+
     const format = imageFormat === 'JPG' ? 'image/jpeg' : 'image/png';
-    const tms = mapService === 'TMS';
+    const tms = mapService === MAP_SERVICE_TMS;
 
     return {
         id,

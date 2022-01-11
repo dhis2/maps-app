@@ -17,27 +17,24 @@ describe('LayerToolbar', () => {
         const wrapper = shallowRenderLayerToolbar();
         expect(wrapper.find('[dataTest="visibilitybutton"]').length).toBe(1); // Visibility toggle
         expect(wrapper.find('OpacitySlider').length).toBe(1);
-        expect(wrapper.find('LayerToolbarMoreMenu').length).toBe(1);
     });
 
-    it('Should show VisibilityIcon when visible', () => {
+    it('Should show SvgView24 when visible', () => {
         const wrapper = shallowRenderLayerToolbar({
             isVisible: true,
         });
 
-        // https://github.com/mui-org/material-ui/issues/15928#issuecomment-497634585
-        expect(wrapper.find('[data-icon="VisibilityIcon"]').length).toBe(1);
-        expect(wrapper.find('[data-icon="VisibilityOffIcon"]').length).toBe(0);
+        expect(wrapper.find('SvgView24').length).toBe(1);
+        expect(wrapper.find('SvgViewOff24').length).toBe(0);
     });
 
-    it('Should show VisibilityOffIcon when not visible', () => {
+    it('Should show SvgViewOff24 when not visible', () => {
         const wrapper = shallowRenderLayerToolbar({
             isVisible: false,
         });
 
-        // https://github.com/mui-org/material-ui/issues/15928#issuecomment-497634585
-        expect(wrapper.find('[data-icon="VisibilityIcon"]').length).toBe(0);
-        expect(wrapper.find('[data-icon="VisibilityOffIcon"]').length).toBe(1);
+        expect(wrapper.find('SvgView24').length).toBe(0);
+        expect(wrapper.find('SvgViewOff24').length).toBe(1);
     });
 
     it('Should call toggleLayerVisibility callback on button press', () => {
@@ -60,7 +57,6 @@ describe('LayerToolbar', () => {
         });
         expect(wrapper.find('[dataTest="visibilitybutton"]').length).toBe(1);
         expect(wrapper.find('OpacitySlider').length).toBe(1);
-        expect(wrapper.find('LayerToolbarMoreMenu').length).toBe(1);
     });
 
     it('Should match toolbar snapshot WITH Edit button', () => {

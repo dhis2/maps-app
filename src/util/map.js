@@ -43,10 +43,11 @@ export const toGeoJson = organisationUnits =>
                 type: 'Feature',
                 id: ou.id,
                 geometry: {
-                    type: type,
+                    type,
                     coordinates: coord,
                 },
                 properties: {
+                    type,
                     id: ou.id,
                     name: ou.na,
                     hasCoordinatesDown: ou.hcd,
@@ -57,6 +58,7 @@ export const toGeoJson = organisationUnits =>
                     parentGraph: ou.pg,
                     parentId: ou.pi,
                     parentName: ou.pn,
+                    dimensions: ou.dimensions,
                 },
             };
         })
@@ -66,14 +68,31 @@ export const toGeoJson = organisationUnits =>
                 geometry.coordinates.length
         );
 
-// TODO: parentGraph is not used
 export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
     ...layerConfig,
     rows: [
         {
             dimension: dimConf.organisationUnit.objectName,
-            items: [{ id: parentId }, { id: 'LEVEL-' + level }],
+            items: [
+                { id: parentId, path: `${parentGraph}/${parentId}` },
+                { id: 'LEVEL-' + level },
+            ],
         },
     ],
-    parentGraphMap: {},
 });
+
+// Called when plugin maps enter or exit fullscreen
+export const onFullscreenChange = (map, isFullscreen = false) => {
+    map.resize();
+
+    if (!isFullscreen) {
+        const bounds = map.getLayersBounds();
+
+        if (Array.isArray(bounds)) {
+            map.fitBounds(bounds);
+        }
+    }
+
+    map.toggleMultiTouch(!isFullscreen);
+    map.toggleScrollZoom(isFullscreen);
+};

@@ -1,0 +1,33 @@
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useSystemSettings } from '../components/SystemSettingsProvider';
+import { defaultBasemapState } from '../reducers/map';
+import { getFallbackBasemap } from '../constants/basemaps';
+
+const emptyBasemap = { config: {} };
+
+function useBasemapConfig(selected) {
+    const [basemap, setBasemap] = useState(emptyBasemap);
+    const basemaps = useSelector(state => state.basemaps);
+    const { keyDefaultBaseMap } = useSystemSettings();
+
+    useEffect(() => {
+        const selectedId = selected.id || keyDefaultBaseMap;
+
+        const basemapToUse =
+            basemaps.find(({ id }) => id === selectedId) ||
+            getFallbackBasemap();
+
+        const basemapConfig = {
+            ...defaultBasemapState,
+            ...selected,
+            ...basemapToUse,
+        };
+
+        setBasemap(basemapConfig);
+    }, [keyDefaultBaseMap, selected, basemaps]);
+
+    return basemap;
+}
+
+export default useBasemapConfig;

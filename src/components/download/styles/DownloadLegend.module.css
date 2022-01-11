@@ -4,7 +4,8 @@
     padding: var(--spacers-dp8) var(--spacers-dp8) 0 var(--spacers-dp8);
     z-index: 998;
     font-size: 14px;
-    max-width: 220px;
+    max-width: 240px;
+    overflow: hidden;
 }
 
 .downloadLegend div a:link,
@@ -25,7 +26,9 @@
 
 .period {
     display: block;
+    font-size: 14px;
     font-weight: normal;
+    padding-top: 2px;
 }
 
 .topleft {
