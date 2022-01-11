@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
-"PO-Revision-Date: 2022-01-06T08:44:33.487Z\n"
+"POT-Creation-Date: 2022-01-11T11:32:27.591Z\n"
+"PO-Revision-Date: 2022-01-11T11:32:27.591Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1027,10 +1027,18 @@ msgstr ""
 msgid "Women 80 years and above"
 msgstr ""
 
-msgid "Elevation"
+msgid "Building footprints"
 msgstr ""
 
 msgid "meters"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid "Elevation"
 msgstr ""
 
 msgid "Elevation above sea-level."
