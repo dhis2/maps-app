@@ -1,7 +1,5 @@
-// import { EXTENDED_TIMEOUT } from '../support/util';
+import { EXTENDED_TIMEOUT } from '../support/util';
 import { checkBasemap } from '../elements/basemap_card';
-
-const EXTENDED_TIMEOUT = { timeout: 25000 };
 
 const SYSTEM_SETTINGS_ENDPOINT = { method: 'GET', url: 'systemSettings?*' };
 
@@ -101,7 +99,7 @@ describe('Basemap checks', () => {
                     body: res.body,
                 });
             });
-        });
+        }).as('systemSettings');
         cy.intercept({ method: 'GET', url: /\/maps\/wIIoj44X77r/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
@@ -111,6 +109,7 @@ describe('Basemap checks', () => {
         }).as('openMap');
 
         cy.visit('/?id=wIIoj44X77r', EXTENDED_TIMEOUT);
+        cy.wait('@systemSettings');
         cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
@@ -130,7 +129,7 @@ describe('Basemap checks', () => {
                     body: res.body,
                 });
             });
-        });
+        }).as('systemSettings');
         cy.intercept({ method: 'GET', url: /\/maps\/wIIoj44X77r/ }, req => {
             delete req.headers['if-none-match'];
             req.continue(res => {
@@ -140,6 +139,7 @@ describe('Basemap checks', () => {
         }).as('openMap');
 
         cy.visit('/?id=wIIoj44X77r', EXTENDED_TIMEOUT);
+        cy.wait('@systemSettings');
         cy.wait('@openMap');
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
