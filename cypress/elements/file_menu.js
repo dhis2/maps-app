@@ -45,7 +45,7 @@ export const saveAsNewMap = newMapName => {
         .should('be.visible')
         .click();
 
-    cy.getByDataTest('file-menu-saveas-modal-name-content')
+    cy.getByDataTest('file-menu-saveas-modal-name-content', EXTENDED_TIMEOUT)
         .find('input')
         .clear()
         .type(newMapName);
@@ -65,7 +65,7 @@ export const saveNewMap = newMapName => {
         .should('be.visible')
         .click();
 
-    cy.getByDataTest('file-menu-saveas-modal-name-content')
+    cy.getByDataTest('file-menu-saveas-modal-name-content', EXTENDED_TIMEOUT)
         .find('input')
         .clear()
         .type(newMapName);

@@ -44,7 +44,7 @@ describe('File menu', () => {
             .should('eq', 201);
     });
 
-    it('save existing as new map', () => {
+    it.skip('save existing as new map', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -74,7 +74,7 @@ describe('File menu', () => {
             .should('eq', 201);
     });
 
-    it('save changes to existing map', () => {
+    it.skip('save changes to existing map', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -111,7 +111,7 @@ describe('File menu', () => {
             .should('eq', 204);
     });
 
-    it('save changes to existing map fails', () => {
+    it.skip('save changes to existing map fails', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -136,7 +136,7 @@ describe('File menu', () => {
             .should('be.visible');
     });
 
-    it('save as new map fails', () => {
+    it.skip('save as new map fails', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -179,7 +179,7 @@ describe('File menu', () => {
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible');
     });
 
-    it('deletes SAVEAS_MAP_TITLE map', () => {
+    it.skip('deletes SAVEAS_MAP_TITLE map', () => {
         cy.visit('/', EXTENDED_TIMEOUT);
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
