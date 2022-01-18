@@ -124,10 +124,14 @@ export const setCurrentAnalyticalObject = async ao => {
 };
 
 // Sets analytical object to open it in another app
-export const setAnalyticalObjectAndSwitchApp = async (layer, openAs) => {
+export const setAnalyticalObjectAndSwitchApp = async (
+    layer,
+    openAs,
+    baseUrl
+) => {
     const ao = getAnalyticalObjectFromThematicLayer(layer);
 
-    const url = `${process.env.DHIS2_BASE_URL}/${APP_URLS[openAs]}/#/currentAnalyticalObject`;
+    const url = `${baseUrl}/${APP_URLS[openAs]}/#/currentAnalyticalObject`;
 
     await setCurrentAnalyticalObject(ao);
 
