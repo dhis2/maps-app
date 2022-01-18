@@ -25,6 +25,7 @@ export const LayerToolbarMoreMenu = ({
     openAs,
     downloadData,
     dataTableOpen,
+    isLoading,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const anchorRef = useRef();
@@ -95,6 +96,7 @@ export const LayerToolbarMoreMenu = ({
                                         setIsOpen(false);
                                         downloadData();
                                     }}
+                                    disabled={isLoading}
                                 />
                             )}
                             {showDivider && <Divider />}
@@ -135,8 +137,10 @@ LayerToolbarMoreMenu.propTypes = {
     openAs: PropTypes.func,
     downloadData: PropTypes.func,
     dataTableOpen: PropTypes.string,
+    isLoading: PropTypes.bool,
 };
 
-export default connect(({ dataTable }) => ({
+export default connect(({ dataTable, aggregations }, { layer }) => ({
     dataTableOpen: dataTable,
+    isLoading: layer?.layer === 'earthEngine' && !aggregations[layer.id],
 }))(LayerToolbarMoreMenu);
