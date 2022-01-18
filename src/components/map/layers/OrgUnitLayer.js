@@ -93,9 +93,4 @@ export default class OrgUnitLayer extends Layer {
     onFeatureClick(evt) {
         this.setState({ popup: evt });
     }
-
-    removeLayer() {
-        this.layer.off('click', this.onFeatureClick, this);
-        super.removeLayer();
-    }
 }

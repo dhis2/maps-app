@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
+import { useConfig } from '@dhis2/app-runtime';
 import LayerCard from '../LayerCard';
 import Legend from '../../legend/Legend';
 import {
@@ -35,6 +36,8 @@ const OverlayCard = ({
     openDataDownloadDialog,
     setAlert,
 }) => {
+    const { baseUrl } = useConfig();
+
     const {
         id,
         name,
@@ -81,7 +84,8 @@ const OverlayCard = ({
             }
             openAs={
                 canOpenAs
-                    ? type => setAnalyticalObjectAndSwitchApp(layer, type)
+                    ? type =>
+                          setAnalyticalObjectAndSwitchApp(layer, type, baseUrl)
                     : undefined
             }
         >
