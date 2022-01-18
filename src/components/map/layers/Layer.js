@@ -105,11 +105,11 @@ class Layer extends PureComponent {
         await map.addLayer(this.layer);
     }
 
-    async updateLayer() {
+    updateLayer = async () => {
         await this.removeLayer();
         await this.createLayer(true);
         this.setLayerOrder();
-    }
+    };
 
     // Override in subclass if needed
     setPeriod(callback) {
