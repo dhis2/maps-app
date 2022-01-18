@@ -62,7 +62,7 @@ class Layer extends PureComponent {
         ) {
             // Reset period if edited
             if (isEdited) {
-                this.setPeriod(this.updateLayer);
+                this.setPeriod(this.updateLayer.bind(this));
             } else {
                 this.updateLayer(dataFilters !== prevProps.dataFilters);
             }

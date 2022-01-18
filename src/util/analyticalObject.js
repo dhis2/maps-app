@@ -1,4 +1,4 @@
-import { config, getInstance as getD2 } from 'd2';
+import { getInstance as getD2 } from 'd2';
 import { getPeriodNameFromId, getDimensionsFromFilters } from './analytics';
 import { loadDataItemLegendSet } from './legend';
 import { cleanDimension } from './favorites';
@@ -124,9 +124,14 @@ export const setCurrentAnalyticalObject = async ao => {
 };
 
 // Sets analytical object to open it in another app
-export const setAnalyticalObjectAndSwitchApp = async (layer, openAs) => {
+export const setAnalyticalObjectAndSwitchApp = async (
+    layer,
+    openAs,
+    baseUrl
+) => {
     const ao = getAnalyticalObjectFromThematicLayer(layer);
-    const url = `${config.appUrl}/${APP_URLS[openAs]}/#/currentAnalyticalObject`;
+
+    const url = `${baseUrl}/${APP_URLS[openAs]}/#/currentAnalyticalObject`;
 
     await setCurrentAnalyticalObject(ao);
 
