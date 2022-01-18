@@ -62,7 +62,7 @@ class Layer extends PureComponent {
         ) {
             // Reset period if edited
             if (isEdited) {
-                this.setPeriod(this.updateLayer);
+                this.setPeriod(this.updateLayer.bind(this));
             } else {
                 this.updateLayer(dataFilters !== prevProps.dataFilters);
             }
@@ -105,11 +105,11 @@ class Layer extends PureComponent {
         await map.addLayer(this.layer);
     }
 
-    updateLayer = async () => {
+    async updateLayer() {
         await this.removeLayer();
         await this.createLayer(true);
         this.setLayerOrder();
-    };
+    }
 
     // Override in subclass if needed
     setPeriod(callback) {
