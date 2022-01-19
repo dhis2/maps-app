@@ -1,6 +1,8 @@
 import * as types from '../constants/actionTypes';
 
 const dataTable = (state = {}, action) => {
+    let layerId;
+
     switch (action.type) {
         case types.AGGREGATIONS_SET:
             return {
@@ -13,10 +15,13 @@ const dataTable = (state = {}, action) => {
             return {};
 
         case types.LAYER_REMOVE:
-            return state[action.id]
+        case types.LAYER_UPDATE:
+            layerId = action.id || action.payload?.id;
+
+            return layerId && state[layerId]
                 ? {
                       ...state,
-                      [action.id]: null,
+                      [layerId]: undefined,
                   }
                 : state;
 
