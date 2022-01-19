@@ -219,7 +219,7 @@ export const earthEngineLayers = () => [
             'https://explorer.earthengine.google.com/#detail/USGS%2FSRTMGL1_003',
         img: 'images/elevation.png',
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
-        defaultAggregations: ['min', 'max', 'mean'],
+        defaultAggregations: ['mean', 'min', 'max'],
         band: 'elevation',
         params: {
             min: 0,
@@ -242,7 +242,7 @@ export const earthEngineLayers = () => [
         periodType: 'Custom',
         band: 'precipitation',
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
-        defaultAggregations: ['min', 'max', 'mean'],
+        defaultAggregations: ['mean', 'min', 'max'],
         mask: true,
         img: 'images/precipitation.png',
         params: {
@@ -265,7 +265,7 @@ export const earthEngineLayers = () => [
             'https://explorer.earthengine.google.com/#detail/MODIS%2FMOD11A2',
         img: 'images/temperature.png',
         aggregations: ['min', 'max', 'mean', 'median', 'stdDev', 'variance'],
-        defaultAggregations: ['min', 'max', 'mean'],
+        defaultAggregations: ['mean', 'min', 'max'],
         periodType: 'Custom',
         band: 'LST_Day_1km',
         mask: true,
