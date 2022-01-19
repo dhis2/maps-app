@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/dhis2/maps-app/compare/v1.17.2...v1.18.0) (2022-01-19)
+
+
+### Features
+
+* improved handling of earth engine layers ([#2011](https://github.com/dhis2/maps-app/issues/2011)) ([8b31b7b](https://github.com/dhis2/maps-app/commit/8b31b7b1188ab91f2d0bec6e4913aa1d4cd27aa8))
+
 ## [1.17.2](https://github.com/dhis2/maps-app/compare/v1.17.1...v1.17.2) (2022-01-18)
 
 
