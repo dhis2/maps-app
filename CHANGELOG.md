@@ -1,3 +1,11 @@
+## [1.17.2](https://github.com/dhis2/maps-app/compare/v1.17.1...v1.17.2) (2022-01-18)
+
+
+### Bug Fixes
+
+* external basemap opacity ([#2010](https://github.com/dhis2/maps-app/issues/2010)) ([a698cd4](https://github.com/dhis2/maps-app/commit/a698cd429e8d29b65f43ee3e78b42d4d9f1708c2))
+* layer scope, data table filter and open as chart base url (DHIS2-12462) ([#2009](https://github.com/dhis2/maps-app/issues/2009)) ([ed1f5da](https://github.com/dhis2/maps-app/commit/ed1f5dab808ffc3762a8265ef6a59ec502593746))
+
 ## [1.17.1](https://github.com/dhis2/maps-app/compare/v1.17.0...v1.17.1) (2022-01-11)
 
 
