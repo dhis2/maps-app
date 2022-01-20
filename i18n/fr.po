@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
+"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yayra Gomado <ygomado@hispwca.org>, 2021\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -27,6 +27,15 @@ msgstr ""
 
 msgid "Maps"
 msgstr "Cartes"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr "La carte « {{name}} » est enregistrée."
+
+msgid "Failed to save map. {{message}}"
+msgstr ""
+
+msgid "Error"
+msgstr "Erreur"
 
 msgid "Classification"
 msgstr "Classification"
@@ -1277,12 +1286,6 @@ msgstr "Financière Avril"
 
 msgid "Cancelled"
 msgstr "Annulé"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "La carte « {{name}} » est enregistrée."
-
-msgid "Error"
-msgstr "Erreur"
 
 msgid "Selected org units"
 msgstr "Unités d'organisation sélectionnées"

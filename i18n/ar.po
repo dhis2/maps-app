@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
+"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -19,6 +19,15 @@ msgstr ""
 
 msgid "Maps"
 msgstr "الخرائط"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr "تم حفظ الخريطة \"{{name}}\"."
+
+msgid "Failed to save map. {{message}}"
+msgstr ""
+
+msgid "Error"
+msgstr "خطأ"
 
 msgid "Classification"
 msgstr "تصنيف"
@@ -1242,12 +1251,6 @@ msgstr "السنة المالية (تبدأ في ابريل)"
 
 msgid "Cancelled"
 msgstr "تم الإلغاء"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "تم حفظ الخريطة \"{{name}}\"."
-
-msgid "Error"
-msgstr "خطأ"
 
 msgid "Selected org units"
 msgstr "وحدات تنظيمية مختارة"

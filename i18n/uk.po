@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
+"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 
 msgid "Maps"
 msgstr "Maps"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr ""
+
+msgid "Failed to save map. {{message}}"
+msgstr ""
+
+msgid "Error"
+msgstr "Помилка"
 
 msgid "Classification"
 msgstr ""
@@ -1232,12 +1241,6 @@ msgstr "Фінансовий рік (Початок у квітні)"
 
 msgid "Cancelled"
 msgstr "Скасовано"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr ""
-
-msgid "Error"
-msgstr "Помилка"
 
 msgid "Selected org units"
 msgstr ""
