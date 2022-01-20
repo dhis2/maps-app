@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { IconDrag } from '../core/icons';
 import styles from './styles/ResizeHandle.module.css';
 
+// TODO: Remove globe cursor in chrome
+// https://stackoverflow.com/questions/6771196/stopping-chrome-from-changing-cursor-to-a-globe-while-dragging-a-link
+
 const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
     let dragHeight = 0;
 
@@ -35,6 +38,8 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
         if (height && onResizeEnd) {
             onResizeEnd(height);
         }
+
+        document.ondragover = null;
     };
 
     const getHeight = evt => {
