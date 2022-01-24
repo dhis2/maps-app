@@ -1,5 +1,5 @@
-import PropTypes from '@dhis2/prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './styles/MenuButton.module.css';
 
 /* Copied from https://github.com/dhis2/data-visualizer-app/blob/master/packages/app/src/components/MenuButton/MenuButton.js */

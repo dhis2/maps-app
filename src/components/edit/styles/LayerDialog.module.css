@@ -9,10 +9,11 @@
 }
 
 .tabContent {
-    font-size: 14px;
+    width: calc(100% + var(--spacers-dp16));
     margin: var(--spacers-dp4) -16px 0;
     height: 360px;
     overflow-y: auto;
+    font-size: 14px;
     color: #333;
 }
 
