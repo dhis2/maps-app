@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/dhis2/maps-app/compare/v1.18.1...v1.18.2) (2022-01-24)
+
+
+### Bug Fixes
+
+* disable draging on drag end ([#2012](https://github.com/dhis2/maps-app/issues/2012)) ([640a071](https://github.com/dhis2/maps-app/commit/640a071deb5b37e85a3c4164ed3588da3927d206))
+
 ## [1.18.1](https://github.com/dhis2/maps-app/compare/v1.18.0...v1.18.1) (2022-01-20)
 
 
