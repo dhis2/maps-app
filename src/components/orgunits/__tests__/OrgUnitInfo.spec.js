@@ -134,8 +134,8 @@ describe('Org unit profile (location details)', () => {
         expect(closed).not.toEqual(closedDate);
         expect(closed).toEqual(formatDate(closedDate));
 
-        expect(wrapper.find('[label="Opening date"]').isEmpty()).toEqual(false);
-        expect(wrapper.find('[label="Closed date"]').isEmpty()).toEqual(false);
+        expect(wrapper.find('[label="Opening date"]').exists());
+        expect(wrapper.find('[label="Closed date"]').exists());
 
         featureType = 'POLYGON';
         wrapper = renderWithProps({
@@ -144,8 +144,8 @@ describe('Org unit profile (location details)', () => {
             featureType,
         });
 
-        expect(wrapper.find('[label="Opening date"]').isEmpty()).toEqual(true);
-        expect(wrapper.find('[label="Closed date"]').isEmpty()).toEqual(true);
+        expect(wrapper.find('[label="Opening date"]').exists()).toEqual(false);
+        expect(wrapper.find('[label="Closed date"]').exists()).toEqual(false);
     });
 
     it('should render formatted longitude and latitude', () => {

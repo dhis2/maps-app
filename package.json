@@ -23,7 +23,7 @@
         "prestart": "yarn localize && yarn manifest",
         "start": "webpack serve",
         "coverage": "yarn test --coverage",
-        "test": "jest",
+        "test": "d2-app-scripts test",
         "test:watch": "yarn test --watch",
         "start:nobrowser": "BROWSER=none yarn start",
         "cy:open": "start-server-and-test 'yarn start:nobrowser' http://localhost:8082 'yarn cypress open --env networkMode=live'",
@@ -41,7 +41,7 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/analytics": "^20.4.5",
+        "@dhis2/analytics": "^21.4.2",
         "@dhis2/app-runtime": "^3.2.7",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/d2-i18n": "1.0.6",
@@ -85,13 +85,12 @@
         "whatwg-fetch": "^3.4.1"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^7.6.0",
+        "@dhis2/cli-app-scripts": "^8.3.2",
         "@dhis2/cypress-commands": "^8.0.6",
         "@dhis2/cypress-plugins": "^8.0.6",
         "@dhis2/d2-i18n-extract": "^1.0.8",
         "@dhis2/d2-i18n-generate": "^1.2.0",
         "babel-eslint": "^10.1.0",
-        "babel-jest": "^26.6.3",
         "babel-loader": "^8.2.2",
         "babel-polyfill": "^6.26.0",
         "babel-regenerator-runtime": "^6.5.0",
@@ -112,7 +111,6 @@
         "html-webpack-plugin": "^5.3.1",
         "identity-obj-proxy": "^3.0.0",
         "image-webpack-loader": "^7.0.1",
-        "jest": "^26.6.3",
         "optipng-bin": "^8.1.0",
         "pngquant-bin": "^3.1.1",
         "precommit-hook": "3.0.0",
