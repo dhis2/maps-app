@@ -1,3 +1,10 @@
+## [1.18.3](https://github.com/dhis2/maps-app/compare/v1.18.2...v1.18.3) (2022-01-24)
+
+
+### Bug Fixes
+
+* upgrade to latest @dhis2/ui version ([#2013](https://github.com/dhis2/maps-app/issues/2013)) ([c4642bf](https://github.com/dhis2/maps-app/commit/c4642bfe158f8b13ea0c0b4956d1be8c8da2cb5f))
+
 ## [1.18.2](https://github.com/dhis2/maps-app/compare/v1.18.1...v1.18.2) (2022-01-24)
 
 
