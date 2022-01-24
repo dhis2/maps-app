@@ -91,7 +91,7 @@ export default class EarthEngineLayer extends Layer {
             name,
             unit,
             value,
-            noValue: i18n.t('No value'),
+            noValue: i18n.t('no value'),
             legend: legend.items,
             resolution,
             projection,
