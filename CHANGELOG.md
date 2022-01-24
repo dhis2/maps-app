@@ -1,3 +1,10 @@
+## [1.18.4](https://github.com/dhis2/maps-app/compare/v1.18.3...v1.18.4) (2022-01-24)
+
+
+### Bug Fixes
+
+* keep data filter when Earth Engine layer is redrawn ([ce2a78c](https://github.com/dhis2/maps-app/commit/ce2a78c5b935f3269833b1575ee00753811dd6c7))
+
 ## [1.18.3](https://github.com/dhis2/maps-app/compare/v1.18.2...v1.18.3) (2022-01-24)
 
 
