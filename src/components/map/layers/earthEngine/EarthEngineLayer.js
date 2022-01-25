@@ -95,7 +95,7 @@ export default class EarthEngineLayer extends Layer {
             projection,
             data,
             aggregationType,
-            preload: !isPlugin,
+            preload: !isPlugin && this.hasAggregations(),
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
@@ -130,7 +130,12 @@ export default class EarthEngineLayer extends Layer {
     }
 
     hasAggregations() {
-        return this.props.data && this.props.aggregationType;
+        const { data, aggregationType } = this.props;
+        return (
+            data &&
+            (typeof aggregationType === 'string' ||
+                (Array.isArray(aggregationType) && aggregationType.length))
+        );
     }
 
     getAggregations() {
