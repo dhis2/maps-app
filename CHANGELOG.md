@@ -1,3 +1,11 @@
+## [1.18.6](https://github.com/dhis2/maps-app/compare/v1.18.5...v1.18.6) (2022-01-25)
+
+
+### Bug Fixes
+
+* maps-gl upgrade ([75d96c9](https://github.com/dhis2/maps-app/commit/75d96c9013f0e8dfa6e6d412a8b27677eeddb6be))
+* pass translated "no value" label for Earth Engine layers (DHIS2-12506) ([#2017](https://github.com/dhis2/maps-app/issues/2017)) ([ee69dfc](https://github.com/dhis2/maps-app/commit/ee69dfc1ac89241109d9485cd06f36a72f22dbe6))
+
 ## [1.18.5](https://github.com/dhis2/maps-app/compare/v1.18.4...v1.18.5) (2022-01-25)
 
 
