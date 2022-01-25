@@ -1,3 +1,10 @@
+## [1.18.5](https://github.com/dhis2/maps-app/compare/v1.18.4...v1.18.5) (2022-01-25)
+
+
+### Bug Fixes
+
+* display api error when org unit selection is invalid ([#2016](https://github.com/dhis2/maps-app/issues/2016)) ([909fc43](https://github.com/dhis2/maps-app/commit/909fc43a72e8efd074f024cea42851637a728d85))
+
 ## [1.18.4](https://github.com/dhis2/maps-app/compare/v1.18.3...v1.18.4) (2022-01-24)
 
 
