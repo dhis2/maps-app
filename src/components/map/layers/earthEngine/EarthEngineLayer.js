@@ -1,4 +1,5 @@
 import React from 'react';
+import i18n from '@dhis2/d2-i18n';
 import Layer from '../Layer';
 import MapLoadingMask from '../../MapLoadingMask';
 import EarthEnginePopup from './EarthEnginePopup';
@@ -90,6 +91,7 @@ export default class EarthEngineLayer extends Layer {
             name,
             unit,
             value,
+            noValue: i18n.t('no value'),
             legend: legend.items,
             resolution,
             projection,
