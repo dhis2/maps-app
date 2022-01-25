@@ -25,7 +25,7 @@ export const LayerToolbarMoreMenu = ({
     openAs,
     downloadData,
     dataTableOpen,
-    isLoading,
+    downloadDisabled,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const anchorRef = useRef();
@@ -96,7 +96,7 @@ export const LayerToolbarMoreMenu = ({
                                         setIsOpen(false);
                                         downloadData();
                                     }}
-                                    disabled={isLoading}
+                                    disabled={downloadDisabled}
                                 />
                             )}
                             {showDivider && <Divider />}
@@ -137,10 +137,13 @@ LayerToolbarMoreMenu.propTypes = {
     openAs: PropTypes.func,
     downloadData: PropTypes.func,
     dataTableOpen: PropTypes.string,
-    isLoading: PropTypes.bool,
+    downloadDisabled: PropTypes.bool,
 };
 
 export default connect(({ dataTable, aggregations }, { layer }) => ({
     dataTableOpen: dataTable,
-    isLoading: layer?.layer === 'earthEngine' && !aggregations[layer.id],
+    // Disable EE download if no org units or no aggregations are available
+    downloadDisabled:
+        layer?.layer === 'earthEngine' &&
+        (!layer.data || !aggregations[layer.id]),
 }))(LayerToolbarMoreMenu);
