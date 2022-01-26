@@ -73,19 +73,21 @@ const EarthEnginePopup = props => {
                 </caption>
             );
 
-            rows = types.map(type => {
-                const precision = getPrecision(
-                    Object.values(data).map(d => d[type])
-                );
-                const valueFormat = numberPrecision(precision);
+            rows = types
+                .filter(type => getEarthEngineAggregationType(type))
+                .map(type => {
+                    const precision = getPrecision(
+                        Object.values(data).map(d => d[type])
+                    );
+                    const valueFormat = numberPrecision(precision);
 
-                return (
-                    <tr key={type}>
-                        <th>{getEarthEngineAggregationType(type)}:</th>
-                        <td>{valueFormat(values[type])}</td>
-                    </tr>
-                );
-            });
+                    return (
+                        <tr key={type}>
+                            <th>{getEarthEngineAggregationType(type)}:</th>
+                            <td>{valueFormat(values[type])}</td>
+                        </tr>
+                    );
+                });
         }
     }
 
