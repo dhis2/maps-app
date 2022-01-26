@@ -1,3 +1,10 @@
+## [1.18.7](https://github.com/dhis2/maps-app/compare/v1.18.6...v1.18.7) (2022-01-26)
+
+
+### Bug Fixes
+
+* handle no aggregation types or no org units for Earth Engine layers (DHIS2-12475) ([#2018](https://github.com/dhis2/maps-app/issues/2018)) ([774512f](https://github.com/dhis2/maps-app/commit/774512fb0d241185cd2c1f0d8edc1765f016a17f))
+
 ## [1.18.6](https://github.com/dhis2/maps-app/compare/v1.18.5...v1.18.6) (2022-01-25)
 
 
