@@ -127,7 +127,7 @@ export default class EarthEngineLayer extends Layer {
             this.onError(error);
         }
 
-        this.getAggregation();
+        this.getAggregations();
 
         this.fitBoundsOnce();
     }
