@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "36.0.3",
+    "version": "36.0.4",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -52,7 +52,7 @@
         "@dhis2/d2-ui-interpretations": "^7.3.3",
         "@dhis2/d2-ui-org-unit-dialog": "^7.3.3",
         "@dhis2/d2-ui-org-unit-tree": "^7.3.3",
-        "@dhis2/maps-gl": "^2.2.4",
+        "@dhis2/maps-gl": "^3.0.4",
         "@dhis2/ui": "^6.25.2",
         "abortcontroller-polyfill": "^1.5.0",
         "array-move": "^3.0.1",
