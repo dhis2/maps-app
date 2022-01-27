@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
+"POT-Creation-Date: 2022-01-24T17:17:35.040Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -620,6 +620,9 @@ msgstr ""
 
 msgid "Last updated"
 msgstr "Останнє оновлення"
+
+msgid "no value"
+msgstr ""
 
 msgid "All groups"
 msgstr ""

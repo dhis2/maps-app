@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
+"POT-Creation-Date: 2022-01-24T17:17:35.040Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Pashto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
@@ -618,6 +618,9 @@ msgstr "واحد بزرگ"
 
 msgid "Last updated"
 msgstr "د وروستي ځل لپاره تجدید شوې"
+
+msgid "no value"
+msgstr ""
 
 msgid "All groups"
 msgstr ""
