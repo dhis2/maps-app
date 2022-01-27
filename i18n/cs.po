@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-06T08:44:33.487Z\n"
+"POT-Creation-Date: 2022-01-24T17:17:35.040Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -627,6 +627,9 @@ msgstr "Nadřazená jednotka"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
+
+msgid "no value"
+msgstr "žádná hodnota"
 
 msgid "All groups"
 msgstr "Všechny skupiny"
