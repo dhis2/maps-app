@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-03T11:49:34.873Z\n"
+"POT-Creation-Date: 2022-01-26T15:42:50.551Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -624,6 +624,9 @@ msgstr "Аjdod boʼlimi"
 
 msgid "Last updated"
 msgstr "Oxirgi yangilangan"
+
+msgid "no value"
+msgstr ""
 
 msgid "acres"
 msgstr "akr"
@@ -1332,9 +1335,6 @@ msgid ""
 msgstr ""
 "Ushbu qatlam uchun Google Earth Engine akkaunti zarur. Qoʼshimcha maʼlumot "
 "olish uchunDHIS2 hujjatlarini tekshiring."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "Google Earth Engine ga ulanib boʼlmadi."
 
 msgid "Facility"
 msgstr ""

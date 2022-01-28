@@ -1,17 +1,17 @@
 # 
 # Translators:
-# Asos <aso.rezaiy@gmail.com>, 2021
 # phil_dhis2, 2021
 # Antonia Bezenchek <antonia@informa.pro>, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # KRG HIS <antonia.bezenchek@informa.pro>, 2021
+# Asos <aso.rezaiy@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-03T11:49:34.873Z\n"
+"POT-Creation-Date: 2022-01-26T15:42:50.551Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2021\n"
+"Last-Translator: Asos <aso.rezaiy@gmail.com>, 2022\n"
 "Language-Team: Central Kurdish (https://www.transifex.com/hisp-uio/teams/100509/ckb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -609,6 +609,9 @@ msgstr ""
 
 msgid "Last updated"
 msgstr ""
+
+msgid "no value"
+msgstr "هیچ نرخێک"
 
 msgid "acres"
 msgstr ""
@@ -1300,9 +1303,6 @@ msgstr ""
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
-msgstr ""
-
-msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Facility"
