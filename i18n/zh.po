@@ -2,15 +2,15 @@
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2021
 # phil_dhis2, 2021
-# 晓东 林 <13981924470@126.com>, 2021
 # easylin <lin_xd@126.com>, 2021
+# 晓东 林 <13981924470@126.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
+"POT-Creation-Date: 2022-01-26T16:52:39.743Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -602,6 +602,9 @@ msgstr "加载图层数据"
 
 msgid "Last updated"
 msgstr "上次更新"
+
+msgid "no value"
+msgstr "无值"
 
 msgid "acres"
 msgstr " 英亩"
@@ -1255,9 +1258,6 @@ msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr "该层需要一个Google Earth Engine帐户。有关更多信息，请参阅DHIS2文档。"
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "无法连接到Google Earth Engine。"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"

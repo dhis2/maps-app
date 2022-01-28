@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
+"POT-Creation-Date: 2022-01-26T16:52:39.743Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -599,6 +599,9 @@ msgstr ""
 
 msgid "Last updated"
 msgstr "تجدید آخیر"
+
+msgid "no value"
+msgstr ""
 
 msgid "acres"
 msgstr ""
@@ -1251,9 +1254,6 @@ msgstr ""
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
-msgstr ""
-
-msgid "Cannot connect to Google Earth Engine."
 msgstr ""
 
 msgid "Start date is invalid"

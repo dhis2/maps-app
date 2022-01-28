@@ -2,14 +2,14 @@
 # Translators:
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
-# Hamza Assada <7amza.it@gmail.com>, 2021
+# Hamza Assada <7amza.it@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-19T10:03:29.943Z\n"
+"POT-Creation-Date: 2022-01-26T16:52:39.743Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2021\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2022\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -603,6 +603,9 @@ msgstr ""
 
 msgid "Last updated"
 msgstr "آخر تحديث"
+
+msgid "no value"
+msgstr "لاتوجد قيمة"
 
 msgid "acres"
 msgstr "فدان"
@@ -1267,9 +1270,6 @@ msgid ""
 msgstr ""
 "تتطلب هذه الطبقة حساب Google Earth Engine. تحقق من وثائق DHIS2 لمزيد من "
 "المعلومات."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "لم يتمكن من الاتصال بـ Google Earth Engine."
 
 msgid "Start date is invalid"
 msgstr "تاريخ البدء غير صالح"
