@@ -37,7 +37,7 @@ const earthEngineLoader = async config => {
             ];
         }
 
-        if (!features.length) {
+        if (Array.isArray(features) && !features.length) {
             alerts = [
                 {
                     warning: true,
