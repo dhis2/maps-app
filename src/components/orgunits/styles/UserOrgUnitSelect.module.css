@@ -8,7 +8,7 @@
     fill: none;
 }
 
-.userOrgUnits svg rect.filled {
+.userOrgUnits svg :global rect.filled {
     stroke: #555;
     fill: #555;
 }
