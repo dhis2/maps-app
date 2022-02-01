@@ -35,6 +35,8 @@ const ResizeHandle = ({ onResize, onResizeEnd, minHeight, maxHeight }) => {
         if (height && onResizeEnd) {
             onResizeEnd(height);
         }
+
+        document.ondragover = null;
     };
 
     const getHeight = evt => {
