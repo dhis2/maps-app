@@ -1,3 +1,10 @@
+## [1.18.9](https://github.com/dhis2/maps-app/compare/v1.18.8...v1.18.9) (2022-02-01)
+
+
+### Bug Fixes
+
+* use male/female instead of men/women ([#2030](https://github.com/dhis2/maps-app/issues/2030)) ([a7cbfee](https://github.com/dhis2/maps-app/commit/a7cbfeef2fb7de11a3c45e1ac834b07fad02129f))
+
 ## [1.18.8](https://github.com/dhis2/maps-app/compare/v1.18.7...v1.18.8) (2022-01-27)
 
 
