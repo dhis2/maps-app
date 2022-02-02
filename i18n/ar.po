@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-26T15:42:50.551Z\n"
+"POT-Creation-Date: 2022-01-31T15:10:01.567Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2022\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -920,112 +920,112 @@ msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 
-msgid "Men 0 - 1 years"
+msgid "Male 0 - 1 years"
 msgstr ""
 
-msgid "Men 1 - 4 years"
+msgid "Male 1 - 4 years"
 msgstr ""
 
-msgid "Men 5 - 9 years"
+msgid "Male 5 - 9 years"
 msgstr ""
 
-msgid "Men 10 - 14 years"
+msgid "Male 10 - 14 years"
 msgstr ""
 
-msgid "Men 15 - 19 years"
+msgid "Male 15 - 19 years"
 msgstr ""
 
-msgid "Men 20 - 24 years"
+msgid "Male 20 - 24 years"
 msgstr ""
 
-msgid "Men 25 - 29 years"
+msgid "Male 25 - 29 years"
 msgstr ""
 
-msgid "Men 30 - 34 years"
+msgid "Male 30 - 34 years"
 msgstr ""
 
-msgid "Men 35 - 39 years"
+msgid "Male 35 - 39 years"
 msgstr ""
 
-msgid "Men 40 - 44 years"
+msgid "Male 40 - 44 years"
 msgstr ""
 
-msgid "Men 45 - 49 years"
+msgid "Male 45 - 49 years"
 msgstr ""
 
-msgid "Men 50 - 54 years"
+msgid "Male 50 - 54 years"
 msgstr ""
 
-msgid "Men 55 - 59 years"
+msgid "Male 55 - 59 years"
 msgstr ""
 
-msgid "Men 60 - 64 years"
+msgid "Male 60 - 64 years"
 msgstr ""
 
-msgid "Men 65 - 69 years"
+msgid "Male 65 - 69 years"
 msgstr ""
 
-msgid "Men 70 - 74 years"
+msgid "Male 70 - 74 years"
 msgstr ""
 
-msgid "Men 75 - 79 years"
+msgid "Male 75 - 79 years"
 msgstr ""
 
-msgid "Men 80 years and above"
+msgid "Male 80 years and above"
 msgstr ""
 
-msgid "Women 0 - 1 years"
+msgid "Female 0 - 1 years"
 msgstr ""
 
-msgid "Women 1 - 4 years"
+msgid "Female 1 - 4 years"
 msgstr ""
 
-msgid "Women 5 - 9 years"
+msgid "Female 5 - 9 years"
 msgstr ""
 
-msgid "Women 10 - 14 years"
+msgid "Female 10 - 14 years"
 msgstr ""
 
-msgid "Women 15 - 19 years"
+msgid "Female 15 - 19 years"
 msgstr ""
 
-msgid "Women 20 - 24 years"
+msgid "Female 20 - 24 years"
 msgstr ""
 
-msgid "Women 25 - 29 years"
+msgid "Female 25 - 29 years"
 msgstr ""
 
-msgid "Women 30 - 34 years"
+msgid "Female 30 - 34 years"
 msgstr ""
 
-msgid "Women 35 - 39 years"
+msgid "Female 35 - 39 years"
 msgstr ""
 
-msgid "Women 40 - 44 years"
+msgid "Female 40 - 44 years"
 msgstr ""
 
-msgid "Women 45 - 49 years"
+msgid "Female 45 - 49 years"
 msgstr ""
 
-msgid "Women 50 - 54 years"
+msgid "Female 50 - 54 years"
 msgstr ""
 
-msgid "Women 55 - 59 years"
+msgid "Female 55 - 59 years"
 msgstr ""
 
-msgid "Women 60 - 64 years"
+msgid "Female 60 - 64 years"
 msgstr ""
 
-msgid "Women 65 - 69 years"
+msgid "Female 65 - 69 years"
 msgstr ""
 
-msgid "Women 70 - 74 years"
+msgid "Female 70 - 74 years"
 msgstr ""
 
-msgid "Women 75 - 79 years"
+msgid "Female 75 - 79 years"
 msgstr ""
 
-msgid "Women 80 years and above"
+msgid "Female 80 years and above"
 msgstr ""
 
 msgid "Elevation"
