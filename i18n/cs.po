@@ -933,34 +933,34 @@ msgstr ""
 "Odhadovaný počet lidí žijících v oblasti seskupených podle věku a pohlaví."
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Muž 0-1 rok"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Muž 1-4 roky"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Muž 5-9 let"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Muž 10-14 let"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Muž 15-19 let"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Muž 20-24 let"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Muž 25 - 29 let"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Muž 30 - 34 let"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Muž 35 - 39 let"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Muž 40 - 44 let"
 
 msgid "Male 45 - 49 years"
 msgstr ""
