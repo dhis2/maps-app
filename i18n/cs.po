@@ -1,13 +1,13 @@
 # 
 # Translators:
-# trendspotter <jirka.p@volny.cz>, 2021
+# trendspotter <jirka.p@volny.cz>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-10-03T11:49:34.873Z\n"
+"POT-Creation-Date: 2022-01-31T15:10:01.567Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: trendspotter <jirka.p@volny.cz>, 2021\n"
+"Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -616,6 +616,9 @@ msgstr "Nadřazená jednotka"
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
+msgid "no value"
+msgstr "žádná hodnota"
+
 msgid "acres"
 msgstr "akrů"
 
@@ -929,113 +932,113 @@ msgid ""
 msgstr ""
 "Odhadovaný počet lidí žijících v oblasti seskupených podle věku a pohlaví."
 
-msgid "Men 0 - 1 years"
-msgstr "Muži 0 - 1 rok"
+msgid "Male 0 - 1 years"
+msgstr "Muž 0-1 rok"
 
-msgid "Men 1 - 4 years"
-msgstr "Muži 1 - 4 roky"
+msgid "Male 1 - 4 years"
+msgstr "Muž 1-4 roky"
 
-msgid "Men 5 - 9 years"
-msgstr "Muži 5 - 9 let"
+msgid "Male 5 - 9 years"
+msgstr "Muž 5-9 let"
 
-msgid "Men 10 - 14 years"
-msgstr "Muži 10 - 14 let"
+msgid "Male 10 - 14 years"
+msgstr "Muž 10-14 let"
 
-msgid "Men 15 - 19 years"
-msgstr "Muži 15 - 19 let"
+msgid "Male 15 - 19 years"
+msgstr "Muž 15-19 let"
 
-msgid "Men 20 - 24 years"
-msgstr "Muži 20 - 24 let"
+msgid "Male 20 - 24 years"
+msgstr "Muž 20-24 let"
 
-msgid "Men 25 - 29 years"
-msgstr "Muži 25 - 29 let"
+msgid "Male 25 - 29 years"
+msgstr "Muž 25 - 29 let"
 
-msgid "Men 30 - 34 years"
-msgstr "Muži 30 - 34 let"
+msgid "Male 30 - 34 years"
+msgstr "Muž 30 - 34 let"
 
-msgid "Men 35 - 39 years"
-msgstr "Muži 35 - 39 let"
+msgid "Male 35 - 39 years"
+msgstr "Muž 35 - 39 let"
 
-msgid "Men 40 - 44 years"
-msgstr "Muži 40 - 44 let"
+msgid "Male 40 - 44 years"
+msgstr "Muž 40 - 44 let"
 
-msgid "Men 45 - 49 years"
-msgstr "Muži 45 - 49 let"
+msgid "Male 45 - 49 years"
+msgstr "Muž 45 - 49 let"
 
-msgid "Men 50 - 54 years"
-msgstr "Muži 50 - 54 let"
+msgid "Male 50 - 54 years"
+msgstr "Muž 50 - 54 let"
 
-msgid "Men 55 - 59 years"
-msgstr "Muži od 55 do 59 let"
+msgid "Male 55 - 59 years"
+msgstr "Muž 55 - 59 let"
 
-msgid "Men 60 - 64 years"
-msgstr "Muži 60 - 64 let"
+msgid "Male 60 - 64 years"
+msgstr "Muž 60 - 64 let"
 
-msgid "Men 65 - 69 years"
-msgstr "Muži od 65 do 69 let"
+msgid "Male 65 - 69 years"
+msgstr "Muž 65 - 69 let"
 
-msgid "Men 70 - 74 years"
-msgstr "Muži 70 - 74 let"
+msgid "Male 70 - 74 years"
+msgstr "Muž 70 - 74 let"
 
-msgid "Men 75 - 79 years"
-msgstr "Muži 75 - 79 let"
+msgid "Male 75 - 79 years"
+msgstr "Muž 75 - 79 let"
 
-msgid "Men 80 years and above"
-msgstr "Muži od 80 let"
+msgid "Male 80 years and above"
+msgstr "Muž 80 let a více"
 
-msgid "Women 0 - 1 years"
-msgstr "Ženy 0 - 1 rok"
+msgid "Female 0 - 1 years"
+msgstr "Žena 0 - 1 rok"
 
-msgid "Women 1 - 4 years"
-msgstr "Ženy 1 - 4 roky"
+msgid "Female 1 - 4 years"
+msgstr "Žena 1 - 4 roky"
 
-msgid "Women 5 - 9 years"
-msgstr "Ženy 5 - 9 let"
+msgid "Female 5 - 9 years"
+msgstr "Žena 5 - 9 let"
 
-msgid "Women 10 - 14 years"
-msgstr "Ženy 10 - 14 let"
+msgid "Female 10 - 14 years"
+msgstr "Žena 10 - 14 let"
 
-msgid "Women 15 - 19 years"
-msgstr "Ženy 15 - 19 let"
+msgid "Female 15 - 19 years"
+msgstr "Žena 15 - 19 let"
 
-msgid "Women 20 - 24 years"
-msgstr "Ženy 20 - 24 let"
+msgid "Female 20 - 24 years"
+msgstr "Žena 20 - 24 let"
 
-msgid "Women 25 - 29 years"
-msgstr "Ženy 25 - 29 let"
+msgid "Female 25 - 29 years"
+msgstr "Žena 25 - 29 let"
 
-msgid "Women 30 - 34 years"
-msgstr "Ženy 30 - 34 let"
+msgid "Female 30 - 34 years"
+msgstr "Žena 30 - 34 let"
 
-msgid "Women 35 - 39 years"
-msgstr "Ženy 35 - 39 let"
+msgid "Female 35 - 39 years"
+msgstr "Žena 35 - 39 let"
 
-msgid "Women 40 - 44 years"
-msgstr "Ženy 40 - 44 let"
+msgid "Female 40 - 44 years"
+msgstr "Žena 40 - 44 let"
 
-msgid "Women 45 - 49 years"
-msgstr "Ženy 45 - 49 let"
+msgid "Female 45 - 49 years"
+msgstr "Žena 45 - 49 let"
 
-msgid "Women 50 - 54 years"
-msgstr "Ženy 50 - 54 let"
+msgid "Female 50 - 54 years"
+msgstr "Žena 50 - 54 let"
 
-msgid "Women 55 - 59 years"
-msgstr "Ženy 55 - 59 let"
+msgid "Female 55 - 59 years"
+msgstr "Žena 55 - 59 let"
 
-msgid "Women 60 - 64 years"
-msgstr "Ženy 60 - 64 let"
+msgid "Female 60 - 64 years"
+msgstr "Žena 60 - 64 let"
 
-msgid "Women 65 - 69 years"
-msgstr "Ženy 65 - 69 let"
+msgid "Female 65 - 69 years"
+msgstr "Žena 65 - 69 let"
 
-msgid "Women 70 - 74 years"
-msgstr "Ženy 70 - 74 let"
+msgid "Female 70 - 74 years"
+msgstr "Žena 70 - 74 let"
 
-msgid "Women 75 - 79 years"
-msgstr "Ženy 75 - 79 let"
+msgid "Female 75 - 79 years"
+msgstr "Žena 75 - 79 let"
 
-msgid "Women 80 years and above"
-msgstr "Ženy starší 80 let"
+msgid "Female 80 years and above"
+msgstr "Žena 80 let a více"
 
 msgid "Elevation"
 msgstr "Nadmořská výška"
@@ -1324,9 +1327,6 @@ msgid ""
 msgstr ""
 "Tato vrstva vyžaduje účet Google Earth Engine. Další informace najdete v "
 "dokumentaci DHIS2."
-
-msgid "Cannot connect to Google Earth Engine."
-msgstr "Nelze se připojit k Google Earth Engine."
 
 msgid "Facility"
 msgstr "Zařízení"
