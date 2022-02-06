@@ -924,82 +924,82 @@ msgid "Male 40 - 44 years"
 msgstr "Muž 40 - 44 let"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Muž 45 - 49 let"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Muž 50 - 54 let"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Muž 55 - 59 let"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Muž 60 - 64 let"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Muž 65 - 69 let"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Muž 70 - 74 let"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Muž 75 - 79 let"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Muž 80 let a více"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "Žena 0 - 1 rok"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "Žena 1 - 4 roky"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "Žena 5 - 9 let"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "Žena 10 - 14 let"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "Žena 15 - 19 let"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "Žena 20 - 24 let"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "Žena 25 - 29 let"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "Žena 30 - 34 let"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "Žena 35 - 39 let"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "Žena 40 - 44 let"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "Žena 45 - 49 let"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "Žena 50 - 54 let"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "Žena 55 - 59 let"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "Žena 60 - 64 let"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "Žena 65 - 69 let"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "Žena 70 - 74 let"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "Žena 75 - 79 let"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "Žena 80 let a více"
 
 msgid "Elevation"
 msgstr "Nadmořská výška"
