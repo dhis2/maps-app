@@ -23,6 +23,7 @@ class FacilityLayer extends Layer {
             dataFilters,
             labels,
             areaRadius,
+            associatedGeometries,
             organisationUnitColor: color = ORG_UNIT_COLOR,
             organisationUnitGroupSet,
         } = this.props;
@@ -35,13 +36,21 @@ class FacilityLayer extends Layer {
             ? color
             : getContrastColor(color);
 
-        // Create layer config object
-        const config = {
-            type: GEOJSON_LAYER,
+        const group = map.createLayer({
+            type: 'group',
             id,
             index,
             opacity,
             isVisible,
+        });
+
+        // Create layer config object
+        const config = {
+            type: GEOJSON_LAYER,
+            // id,
+            // index,
+            // opacity,
+            // isVisible,
             data: filteredData,
             hoverLabel: '{name}',
             style: {
@@ -66,7 +75,24 @@ class FacilityLayer extends Layer {
         }
 
         // Create and add facility layer based on config object
-        this.layer = map.createLayer(config);
+        // this.layer = map.createLayer(config);
+        // map.addLayer(this.layer);
+
+        if (associatedGeometries) {
+            group.addLayer({
+                type: GEOJSON_LAYER,
+                data: associatedGeometries,
+                style: {
+                    color: '#95c8fb',
+                    opacityFactor: 0.5,
+                },
+            });
+        }
+
+        group.addLayer(config);
+
+        this.layer = group;
+
         map.addLayer(this.layer);
 
         // Fit map to layer bounds once (when first created)

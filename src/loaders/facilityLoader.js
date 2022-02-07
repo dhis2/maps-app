@@ -4,14 +4,20 @@ import { toGeoJson } from '../util/map';
 import { fetchOrgUnitGroupSet } from '../util/orgUnits';
 import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
-import { filterPointFacilities, getStyledOrgUnits } from '../util/orgUnits';
+import {
+    filterPointFacilities,
+    getStyledOrgUnits,
+    fetchAssociatedGeometries,
+} from '../util/orgUnits';
 
 const facilityLoader = async config => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const includeGroupSets = !!groupSet;
+    const showAssociatedGeometry = true; // TODO
     const alerts = [];
     let orgUnitParams = orgUnits.map(item => item.id);
+    let associatedGeometries;
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
@@ -44,6 +50,10 @@ const facilityLoader = async config => {
 
     const [features, organisationUnitGroups] = await Promise.all(requests);
 
+    if (showAssociatedGeometry) {
+        associatedGeometries = await fetchAssociatedGeometries();
+    }
+
     if (organisationUnitGroups) {
         groupSet.organisationUnitGroups = organisationUnitGroups;
     }
@@ -68,6 +78,7 @@ const facilityLoader = async config => {
     return {
         ...config,
         data: styledFeatures,
+        associatedGeometries,
         name,
         legend,
         alerts,
