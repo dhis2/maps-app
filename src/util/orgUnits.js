@@ -48,6 +48,12 @@ export const fetchOrgUnitGroupSet = id =>
         `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
     ).then(parseGroupSet);
 
+export const fetchOrgUnitGeometryAttributes = () =>
+    // apiFetch(`/attributes.json?fields=id,name&filter=valueType:eq:TEXT&filter=organisationUnitAttribute:eq:true`)
+    fetch('temp/org-unit-geometry-attributes.json') // TODO
+        .then(response => response.json())
+        .then(({ attributes }) => attributes);
+
 export const filterPointFacilities = data => data.filter(d => d.ty === 1);
 
 export const getOrgUnitStyle = (dimensions, groupSet) =>

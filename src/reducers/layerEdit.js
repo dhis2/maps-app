@@ -400,6 +400,12 @@ const layerEdit = (state = null, action) => {
                 organisationUnitGroupSet: action.organisationUnitGroupSet,
             };
 
+        case types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET:
+            return {
+                ...state,
+                geometryAttribute: action.geometryAttribute,
+            };
+
         case types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET:
             return {
                 ...state,

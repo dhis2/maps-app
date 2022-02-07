@@ -8,6 +8,7 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import OrgUnitGeometryAttributeSelect from '../orgunits/OrgUnitGeometryAttributeSelect';
 import Labels from './shared/Labels';
 import BufferRadius from './shared/BufferRadius';
 import StyleByGroupSet from '../groupSet/StyleByGroupSet';
@@ -187,6 +188,7 @@ class FacilityDialog extends Component {
                             data-test="facilitydialog-styletab"
                         >
                             <div className={cx(styles.flexColumn)}>
+                                <OrgUnitGeometryAttributeSelect />
                                 <Labels />
                                 <BufferRadius defaultRadius={FACILITY_BUFFER} />
                             </div>
