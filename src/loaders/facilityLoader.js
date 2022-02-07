@@ -50,10 +50,6 @@ const facilityLoader = async config => {
 
     const [features, organisationUnitGroups] = await Promise.all(requests);
 
-    if (showAssociatedGeometry) {
-        associatedGeometries = await fetchAssociatedGeometries();
-    }
-
     if (organisationUnitGroups) {
         groupSet.organisationUnitGroups = organisationUnitGroups;
     }
@@ -66,6 +62,18 @@ const facilityLoader = async config => {
     );
 
     legend.title = name;
+
+    if (showAssociatedGeometry) {
+        associatedGeometries = await fetchAssociatedGeometries();
+
+        legend.items.push({
+            name: 'Catchment area', // TODO
+            type: 'polygon',
+            strokeColor: '#333',
+            fillColor: 'rgba(149, 200, 251, 0.5)',
+            weight: 0.5,
+        });
+    }
 
     if (areaRadius) {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];

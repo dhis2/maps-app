@@ -47,10 +47,6 @@ class FacilityLayer extends Layer {
         // Create layer config object
         const config = {
             type: GEOJSON_LAYER,
-            // id,
-            // index,
-            // opacity,
-            // isVisible,
             data: filteredData,
             hoverLabel: '{name}',
             style: {
@@ -74,21 +70,18 @@ class FacilityLayer extends Layer {
             config.buffer = areaRadius;
         }
 
-        // Create and add facility layer based on config object
-        // this.layer = map.createLayer(config);
-        // map.addLayer(this.layer);
-
         if (associatedGeometries) {
             group.addLayer({
                 type: GEOJSON_LAYER,
                 data: associatedGeometries,
                 style: {
-                    color: '#95c8fb',
+                    color: 'rgb(149, 200, 251)',
                     opacityFactor: 0.5,
                 },
             });
         }
 
+        // Create and add facility layer based on config object
         group.addLayer(config);
 
         this.layer = group;

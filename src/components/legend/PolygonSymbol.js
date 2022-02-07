@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const OutlineSymbol = ({ color, weight }) => (
+const OutlineSymbol = ({ color, fill, weight }) => (
     <svg viewBox="0 0 24 24" style={{ width: 24, height: 24 }}>
         <path
-            fill="none"
+            fill={fill || 'none'}
             stroke={color}
             strokeWidth={weight}
             strokeLinecap="round"
@@ -16,6 +16,7 @@ const OutlineSymbol = ({ color, weight }) => (
 
 OutlineSymbol.propTypes = {
     color: PropTypes.string,
+    fill: PropTypes.string,
     weight: PropTypes.number,
 };
 
