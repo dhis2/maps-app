@@ -1,3 +1,10 @@
+## [1.18.10](https://github.com/dhis2/maps-app/compare/v1.18.9...v1.18.10) (2022-02-07)
+
+
+### Bug Fixes
+
+* upgrade to latest maps-gl ([#2038](https://github.com/dhis2/maps-app/issues/2038)) ([d134247](https://github.com/dhis2/maps-app/commit/d134247ace567a3c64c416054c7b4c9c01991eef))
+
 ## [1.18.9](https://github.com/dhis2/maps-app/compare/v1.18.8...v1.18.9) (2022-02-01)
 
 
