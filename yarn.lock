@@ -2104,7 +2104,7 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^3.0.5":
+"@dhis2/maps-gl@^3.0.4":
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.0.5.tgz#8524024f6df2076d967e719c64006dde5cbc4f79"
   integrity sha512-PJwHHBm4/wIGCGnfxn6qONEC9KVLF5NYHydaw+MfEqbjG7MWEggjM9MtgI/fbhTkcPqMsFNgm+kaA8tDQ2eBLQ==
