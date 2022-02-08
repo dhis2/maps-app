@@ -34,9 +34,9 @@ class ThematicLayer extends Layer {
 
         const { period } = this.state;
 
-        const bubbleMap = thematicMapType === THEMATIC_BUBBLE;
+        const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
 
-        let periodData = bubbleMap ? polygonsToPoints(data) : data;
+        let periodData = isBubbleMap ? polygonsToPoints(data) : data;
 
         if (renderingStrategy !== RENDERING_STRATEGY_SINGLE) {
             const values = valuesByPeriod[period.id] || {};
@@ -80,7 +80,7 @@ class ThematicLayer extends Layer {
         }
 
         // Add boundaries as a separate layer
-        if (bubbleMap) {
+        if (isBubbleMap) {
             this.layer = map.createLayer({
                 type: 'group',
                 id,

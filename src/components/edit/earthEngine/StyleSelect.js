@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { NumberField, ColorScaleSelect } from '../../core';
 import LegendItem from '../../legend/LegendItem';
+import OrgUnitGeometryAttributeSelect from '../../orgunits/OrgUnitGeometryAttributeSelect';
 import BufferRadius from '../shared/BufferRadius';
 import { getColorScale, getColorPalette } from '../../../util/colors';
 import { createLegend } from '../../../loaders/earthEngineLoader';
@@ -17,10 +18,12 @@ const maxSteps = 9;
 const paramsAreValid = ({ min, max }) =>
     !Number.isNaN(min) && !Number.isNaN(max) && max > min;
 
-const StyleSelect = ({ unit, params, setParams }) => {
+const StyleSelect = ({ unit, params, geometryAttribute, setParams }) => {
     const { min, max, palette } = params;
     const [steps, setSteps] = useState(palette.split(',').length);
     const legend = paramsAreValid(params) && createLegend(params);
+    const hasGeometryAttribute =
+        geometryAttribute && geometryAttribute.id !== 'none';
 
     const onStepsChange = useCallback(
         steps => {
@@ -94,7 +97,10 @@ const StyleSelect = ({ unit, params, setParams }) => {
                         />
                     </div>
                 </div>
-                <BufferRadius defaultRadius={EE_BUFFER} />
+                <OrgUnitGeometryAttributeSelect />
+                {!hasGeometryAttribute && (
+                    <BufferRadius defaultRadius={EE_BUFFER} />
+                )}
             </div>
             {legend && (
                 <div className={styles.flexColumn}>
@@ -126,6 +132,9 @@ StyleSelect.propTypes = {
         min: PropTypes.number.isRequired,
         max: PropTypes.number.isRequired,
         palette: PropTypes.string.isRequired,
+    }),
+    geometryAttribute: PropTypes.shape({
+        id: PropTypes.string.isRequired,
     }),
     setParams: PropTypes.func.isRequired,
 };

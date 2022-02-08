@@ -7,17 +7,21 @@ import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { numberPrecision } from '../util/numbers';
 import { toGeoJson } from '../util/map';
+import { fetchAssociatedGeometries } from '../util/orgUnits';
 
 // Returns a promise
 const earthEngineLoader = async config => {
-    const { rows, aggregationType } = config;
+    const { rows, aggregationType, geometryAttribute } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     let layerConfig = {};
     let dataset;
     let features;
     let alerts;
 
-    if (orgUnits && orgUnits.length) {
+    if (geometryAttribute) {
+        features = await fetchAssociatedGeometries(geometryAttribute.id);
+        // console.log('use geometry attribute', geometryAttribute, features);
+    } else if (orgUnits && orgUnits.length) {
         const d2 = await getD2();
         const displayProperty = getDisplayProperty(d2).toUpperCase();
         const orgUnitParams = orgUnits.map(item => item.id);

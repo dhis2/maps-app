@@ -11,10 +11,14 @@ import {
 } from '../util/orgUnits';
 
 const facilityLoader = async config => {
-    const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config;
+    const {
+        rows,
+        organisationUnitGroupSet: groupSet,
+        areaRadius,
+        geometryAttribute,
+    } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const includeGroupSets = !!groupSet;
-    const showAssociatedGeometry = true; // TODO
     const alerts = [];
     let orgUnitParams = orgUnits.map(item => item.id);
     let associatedGeometries;
@@ -63,11 +67,13 @@ const facilityLoader = async config => {
 
     legend.title = name;
 
-    if (showAssociatedGeometry) {
-        associatedGeometries = await fetchAssociatedGeometries();
+    if (geometryAttribute) {
+        associatedGeometries = await fetchAssociatedGeometries(
+            geometryAttribute.id
+        );
 
         legend.items.push({
-            name: 'Catchment area', // TODO
+            name: geometryAttribute.name,
             type: 'polygon',
             strokeColor: '#333',
             fillColor: 'rgba(149, 200, 251, 0.5)',

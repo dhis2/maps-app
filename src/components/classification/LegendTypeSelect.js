@@ -7,6 +7,7 @@ import {
     getLegendTypes,
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
+    THEMATIC_BUBBLE,
 } from '../../constants/layers';
 
 // Select between user defined (automatic), predefined or single color
@@ -20,7 +21,7 @@ export const LegendTypeSelect = ({ mapType, method, setClassification }) =>
             }
             onChange={method => setClassification(Number(method))}
         >
-            {getLegendTypes(mapType === 'BUBBLE').map(({ id, name }) => (
+            {getLegendTypes(mapType === THEMATIC_BUBBLE).map(({ id, name }) => (
                 <Radio key={id} value={id} label={name} />
             ))}
         </RadioGroup>

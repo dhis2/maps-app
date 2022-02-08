@@ -18,6 +18,7 @@ import {
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
+import { fetchAssociatedGeometries } from '../util/orgUnits';
 import { formatStartEndDate, getDateArray } from '../util/time';
 import {
     THEMATIC_BUBBLE,
@@ -40,10 +41,11 @@ const thematicLoader = async config => {
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         thematicMapType,
         noDataColor,
+        geometryAttribute,
     } = config;
 
     const dataItem = getDataItemFromColumns(columns);
-
+    let associatedGeometries = [];
     let error;
 
     const response = await loadData(config).catch(err => {
@@ -71,7 +73,18 @@ const thematicLoader = async config => {
         };
     }
 
-    const [features, data] = response;
+    let features;
+
+    const [mainFeatures, data] = response;
+
+    if (geometryAttribute) {
+        associatedGeometries = await fetchAssociatedGeometries(
+            geometryAttribute.id
+        );
+    }
+
+    features = mainFeatures.concat(associatedGeometries);
+
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR;
