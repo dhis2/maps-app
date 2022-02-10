@@ -71,6 +71,7 @@ export default class EarthEngineLayer extends Layer {
             data,
             aggregationType,
             areaRadius,
+            geometryAttribute,
         } = this.props;
 
         const { map, isPlugin } = this.context;
@@ -107,7 +108,7 @@ export default class EarthEngineLayer extends Layer {
             config.params = params;
         }
 
-        if (areaRadius) {
+        if (areaRadius && !geometryAttribute) {
             config.buffer = areaRadius;
         }
 

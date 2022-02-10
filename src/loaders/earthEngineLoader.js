@@ -18,10 +18,7 @@ const earthEngineLoader = async config => {
     let features;
     let alerts;
 
-    if (geometryAttribute) {
-        features = await fetchAssociatedGeometries(geometryAttribute.id);
-        // console.log('use geometry attribute', geometryAttribute, features);
-    } else if (orgUnits && orgUnits.length) {
+    if (orgUnits && orgUnits.length) {
         const d2 = await getD2();
         const displayProperty = getDisplayProperty(d2).toUpperCase();
         const orgUnitParams = orgUnits.map(item => item.id);
@@ -32,6 +29,14 @@ const earthEngineLoader = async config => {
                 .displayProperty(displayProperty)
                 .getAll()
                 .then(toGeoJson);
+
+            if (geometryAttribute) {
+                const associatedGeometries = await fetchAssociatedGeometries(
+                    geometryAttribute.id
+                );
+
+                features = features.concat(associatedGeometries);
+            }
         } catch (error) {
             alerts = [
                 {

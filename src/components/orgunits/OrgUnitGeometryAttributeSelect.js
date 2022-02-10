@@ -22,7 +22,7 @@ export const OrgUnitGeometryAttributeSelect = ({
 
     return (
         <SelectField
-            label={i18n.t('Show associated geometry')}
+            label={i18n.t('Use associated geometry')}
             items={[{ id: 'none', name: i18n.t('None') }, ...attributes]}
             value={geometryAttribute ? geometryAttribute.id : null}
             onChange={setOrganisationUnitGeometryAttribute}

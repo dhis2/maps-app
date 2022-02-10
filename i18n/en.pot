@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-31T14:54:01.715Z\n"
-"PO-Revision-Date: 2022-01-31T14:54:01.715Z\n"
+"POT-Creation-Date: 2022-02-09T10:40:05.641Z\n"
+"PO-Revision-Date: 2022-02-09T10:40:05.641Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -702,6 +702,9 @@ msgid ""
 msgstr ""
 
 msgid "No data found for this period."
+msgstr ""
+
+msgid "Show associated geometry"
 msgstr ""
 
 msgid "Select groups"
