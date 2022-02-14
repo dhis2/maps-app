@@ -1,3 +1,10 @@
+## [1.18.12](https://github.com/dhis2/maps-app/compare/v1.18.11...v1.18.12) (2022-02-14)
+
+
+### Bug Fixes
+
+* improved error handling for facility layers ([#2043](https://github.com/dhis2/maps-app/issues/2043)) ([4da906f](https://github.com/dhis2/maps-app/commit/4da906f758a3f98a91cbd576d7613b5cd2642dd5))
+
 ## [1.18.11](https://github.com/dhis2/maps-app/compare/v1.18.10...v1.18.11) (2022-02-13)
 
 
