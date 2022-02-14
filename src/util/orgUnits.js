@@ -77,7 +77,7 @@ export const getOrgUnitGroupLegendItems = (
     );
 
 export const getStyledOrgUnits = (
-    features,
+    features = [],
     groupSet = {},
     { organisationUnitColor = ORG_UNIT_COLOR, radiusLow = ORG_UNIT_RADIUS },
     contextPath,
