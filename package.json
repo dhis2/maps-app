@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.18.13",
+    "version": "1.18.14",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
