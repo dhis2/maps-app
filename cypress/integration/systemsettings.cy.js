@@ -99,9 +99,10 @@ describe('systemSettings', () => {
                     body: res.body,
                 });
             });
-        });
+        }).as('getSystemSettings6months');
 
         cy.visit('/', EXTENDED_TIMEOUT);
+        cy.wait('@getSystemSettings6months');
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
         const Layer = new ThematicLayer();
@@ -124,8 +125,10 @@ describe('systemSettings', () => {
                     body: res.body,
                 });
             });
-        });
+        }).as('getSystemSettings12months');
+
         cy.visit('/', EXTENDED_TIMEOUT);
+        cy.wait('@getSystemSettings12months');
 
         const Layer = new ThematicLayer();
 

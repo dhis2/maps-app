@@ -22,7 +22,7 @@ const Legend = ({
         {description && <div className={styles.description}>{description}</div>}
         {groups && (
             <div className={styles.group}>
-                {groups.length > 1 ? i18n.t('Groups') : i18n.t('Group')}:
+                {groups.length > 1 ? i18n.t('Groups') : i18n.t('Group')}
                 {groups.map(({ id, name }) => (
                     <div key={id}>{name}</div>
                 ))}

@@ -1,16 +1,16 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2021
-# 晓东 林 <13981924470@126.com>, 2021
 # phil_dhis2, 2021
-# easylin <lin_xd@126.com>, 2021
+# easylin <lin_xd@126.com>, 2022
+# 晓东 林 <13981924470@126.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-12-13T12:22:02.535Z\n"
+"POT-Creation-Date: 2022-01-31T14:54:01.715Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2021\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,6 +20,15 @@ msgstr ""
 
 msgid "Maps"
 msgstr "地图"
+
+msgid "Map \"{{name}}\" is saved."
+msgstr "地图“ {{name}}”已保存。"
+
+msgid "Failed to save map. {{message}}"
+msgstr "保存地图失败。{{message}}"
+
+msgid "Error"
+msgstr "错误"
 
 msgid "Classification"
 msgstr "分类"
@@ -612,6 +621,9 @@ msgstr "上级机构"
 msgid "Last updated"
 msgstr "Last updated"
 
+msgid "no value"
+msgstr "无值"
+
 msgid "All groups"
 msgstr "所有组"
 
@@ -926,113 +938,113 @@ msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr "按年龄和性别分组的估计居住在该地区的人数。"
 
-msgid "Men 0 - 1 years"
-msgstr "0-1岁男性"
+msgid "Male 0 - 1 years"
+msgstr ""
 
-msgid "Men 1 - 4 years"
-msgstr "1-4岁男性"
+msgid "Male 1 - 4 years"
+msgstr ""
 
-msgid "Men 5 - 9 years"
-msgstr "5-9岁男性"
+msgid "Male 5 - 9 years"
+msgstr ""
 
-msgid "Men 10 - 14 years"
-msgstr "10-14岁男性"
+msgid "Male 10 - 14 years"
+msgstr ""
 
-msgid "Men 15 - 19 years"
-msgstr "15-19岁的男性"
+msgid "Male 15 - 19 years"
+msgstr ""
 
-msgid "Men 20 - 24 years"
-msgstr "20至24岁男性"
+msgid "Male 20 - 24 years"
+msgstr ""
 
-msgid "Men 25 - 29 years"
-msgstr "25-29岁的男性"
+msgid "Male 25 - 29 years"
+msgstr ""
 
-msgid "Men 30 - 34 years"
-msgstr "30-34岁的男性"
+msgid "Male 30 - 34 years"
+msgstr ""
 
-msgid "Men 35 - 39 years"
-msgstr "35-39岁的男性"
+msgid "Male 35 - 39 years"
+msgstr ""
 
-msgid "Men 40 - 44 years"
-msgstr "40-44岁的男性"
+msgid "Male 40 - 44 years"
+msgstr ""
 
-msgid "Men 45 - 49 years"
-msgstr "45至49岁的男性"
+msgid "Male 45 - 49 years"
+msgstr ""
 
-msgid "Men 50 - 54 years"
-msgstr "50-54岁的男性"
+msgid "Male 50 - 54 years"
+msgstr ""
 
-msgid "Men 55 - 59 years"
-msgstr "55-59岁的男性"
+msgid "Male 55 - 59 years"
+msgstr ""
 
-msgid "Men 60 - 64 years"
-msgstr "60-64岁的男性"
+msgid "Male 60 - 64 years"
+msgstr ""
 
-msgid "Men 65 - 69 years"
-msgstr "65-69岁的男性"
+msgid "Male 65 - 69 years"
+msgstr ""
 
-msgid "Men 70 - 74 years"
-msgstr "70-74岁的男性"
+msgid "Male 70 - 74 years"
+msgstr ""
 
-msgid "Men 75 - 79 years"
-msgstr "75-79岁的男性"
+msgid "Male 75 - 79 years"
+msgstr ""
 
-msgid "Men 80 years and above"
-msgstr "80岁以上的男性"
+msgid "Male 80 years and above"
+msgstr ""
 
-msgid "Women 0 - 1 years"
-msgstr "0-1岁女性"
+msgid "Female 0 - 1 years"
+msgstr ""
 
-msgid "Women 1 - 4 years"
-msgstr "1-4岁女性"
+msgid "Female 1 - 4 years"
+msgstr ""
 
-msgid "Women 5 - 9 years"
-msgstr "5至9岁的女性"
+msgid "Female 5 - 9 years"
+msgstr ""
 
-msgid "Women 10 - 14 years"
-msgstr "10至14岁的女性"
+msgid "Female 10 - 14 years"
+msgstr ""
 
-msgid "Women 15 - 19 years"
-msgstr "15-19岁的女性"
+msgid "Female 15 - 19 years"
+msgstr ""
 
-msgid "Women 20 - 24 years"
-msgstr "20至24岁的女性"
+msgid "Female 20 - 24 years"
+msgstr ""
 
-msgid "Women 25 - 29 years"
-msgstr "25-29岁的女性"
+msgid "Female 25 - 29 years"
+msgstr ""
 
-msgid "Women 30 - 34 years"
-msgstr "30-34岁的女性"
+msgid "Female 30 - 34 years"
+msgstr ""
 
-msgid "Women 35 - 39 years"
-msgstr "35至39岁的女性"
+msgid "Female 35 - 39 years"
+msgstr ""
 
-msgid "Women 40 - 44 years"
-msgstr "40-44岁的女性"
+msgid "Female 40 - 44 years"
+msgstr ""
 
-msgid "Women 45 - 49 years"
-msgstr "45-49岁的女性"
+msgid "Female 45 - 49 years"
+msgstr ""
 
-msgid "Women 50 - 54 years"
-msgstr "50-54岁的女性"
+msgid "Female 50 - 54 years"
+msgstr ""
 
-msgid "Women 55 - 59 years"
-msgstr "55至59岁的女性"
+msgid "Female 55 - 59 years"
+msgstr ""
 
-msgid "Women 60 - 64 years"
-msgstr "60-64岁的女性"
+msgid "Female 60 - 64 years"
+msgstr ""
 
-msgid "Women 65 - 69 years"
-msgstr "65-69岁的女性"
+msgid "Female 65 - 69 years"
+msgstr ""
 
-msgid "Women 70 - 74 years"
-msgstr "70-74岁的女性"
+msgid "Female 70 - 74 years"
+msgstr ""
 
-msgid "Women 75 - 79 years"
-msgstr "75至79岁的女性"
+msgid "Female 75 - 79 years"
+msgstr ""
 
-msgid "Women 80 years and above"
-msgstr "80岁及以上的女性"
+msgid "Female 80 years and above"
+msgstr ""
 
 msgid "Elevation"
 msgstr "高程"
@@ -1232,12 +1244,6 @@ msgstr "财务四月"
 
 msgid "Cancelled"
 msgstr "已取消"
-
-msgid "Map \"{{name}}\" is saved."
-msgstr "地图“ {{name}}”已保存。"
-
-msgid "Error"
-msgstr "错误"
 
 msgid "Selected org units"
 msgstr "选择的机构"

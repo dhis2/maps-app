@@ -1,8 +1,8 @@
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
 import 'typeface-roboto';
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { useDataEngine } from '@dhis2/app-runtime';
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';

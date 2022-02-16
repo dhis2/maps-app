@@ -1,4 +1,5 @@
 import React from 'react';
+import i18n from '@dhis2/d2-i18n';
 import Layer from '../Layer';
 import MapLoadingMask from '../../MapLoadingMask';
 import EarthEnginePopup from './EarthEnginePopup';
@@ -92,12 +93,13 @@ export default class EarthEngineLayer extends Layer {
             name,
             unit,
             value,
+            noValue: i18n.t('no value'),
             legend: legend.items,
             resolution,
             projection,
             data,
             aggregationType,
-            preload: !isPlugin,
+            preload: !isPlugin && this.hasAggregations(),
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
@@ -132,7 +134,12 @@ export default class EarthEngineLayer extends Layer {
     }
 
     hasAggregations() {
-        return this.props.data && this.props.aggregationType;
+        const { data, aggregationType } = this.props;
+        return (
+            data &&
+            (typeof aggregationType === 'string' ||
+                (Array.isArray(aggregationType) && aggregationType.length))
+        );
     }
 
     getAggregations() {

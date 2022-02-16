@@ -18,6 +18,11 @@ function useBasemapConfig(selected) {
             basemaps.find(({ id }) => id === selectedId) ||
             getFallbackBasemap();
 
+        // Make sure we don't override the basemap opacity
+        if (basemapToUse && selected.opacity !== undefined) {
+            delete basemapToUse.opacity;
+        }
+
         const basemapConfig = {
             ...defaultBasemapState,
             ...selected,

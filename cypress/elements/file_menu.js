@@ -20,9 +20,17 @@ export const openMap = mapName => {
 
     cy.wait('@fetchListOfMaps');
 
+    cy.log(mapName);
+
+    cy.getByDataTest('dhis2-uicore-datatable')
+        .contains(mapName)
+        .should('be.visible');
     cy.getByDataTest('dhis2-uicore-datatable')
         .contains(mapName)
         .click();
+
+    // cy.get('[data-test="dhis2-uicore-layer"]').click('topLeft');
+    // cy.wait(1000);
 
     cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
@@ -37,7 +45,7 @@ export const saveAsNewMap = newMapName => {
         .should('be.visible')
         .click();
 
-    cy.getByDataTest('file-menu-saveas-modal-name-content')
+    cy.getByDataTest('file-menu-saveas-modal-name-content', EXTENDED_TIMEOUT)
         .find('input')
         .clear()
         .type(newMapName);
@@ -57,7 +65,7 @@ export const saveNewMap = newMapName => {
         .should('be.visible')
         .click();
 
-    cy.getByDataTest('file-menu-saveas-modal-name-content')
+    cy.getByDataTest('file-menu-saveas-modal-name-content', EXTENDED_TIMEOUT)
         .find('input')
         .clear()
         .type(newMapName);
