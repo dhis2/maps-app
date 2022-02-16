@@ -85,7 +85,7 @@ const facilityLoader = async config => {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];
     }
 
-    if (!styledFeatures.length) {
+    if (!styledFeatures.length && !alerts.length) {
         alerts.push({ warning: true, message: i18n.t('No facilities found') });
     }
 

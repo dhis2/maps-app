@@ -1,3 +1,31 @@
+## [1.18.14](https://github.com/dhis2/maps-app/compare/v1.18.13...v1.18.14) (2022-02-15)
+
+
+### Bug Fixes
+
+* maps-gl upgrade ([e052bd8](https://github.com/dhis2/maps-app/commit/e052bd8b8da50bb0a94ae528ba5b0bbe0f829b54))
+
+## [1.18.13](https://github.com/dhis2/maps-app/compare/v1.18.12...v1.18.13) (2022-02-15)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([da3e38f](https://github.com/dhis2/maps-app/commit/da3e38fbbbf47d513e41524bfd6cf0a0374149f2))
+
+## [1.18.12](https://github.com/dhis2/maps-app/compare/v1.18.11...v1.18.12) (2022-02-14)
+
+
+### Bug Fixes
+
+* improved error handling for facility layers ([#2043](https://github.com/dhis2/maps-app/issues/2043)) ([4da906f](https://github.com/dhis2/maps-app/commit/4da906f758a3f98a91cbd576d7613b5cd2642dd5))
+
+## [1.18.11](https://github.com/dhis2/maps-app/compare/v1.18.10...v1.18.11) (2022-02-13)
+
+
+### Bug Fixes
+
+* maps-gl upgrade ([d68ee01](https://github.com/dhis2/maps-app/commit/d68ee013eaada95c09bad77cf08fa0663dbcc7eb))
+
 ## [1.18.10](https://github.com/dhis2/maps-app/compare/v1.18.9...v1.18.10) (2022-02-07)
 
 
