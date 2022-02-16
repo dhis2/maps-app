@@ -104,8 +104,6 @@ export default class EarthEngineLayer extends Layer {
             onLoad: this.onLoad.bind(this),
         };
 
-        console.log('data', data);
-
         if (params) {
             config.params = params;
         }
@@ -155,8 +153,6 @@ export default class EarthEngineLayer extends Layer {
 
     addAggregationValues(aggregations) {
         const { id, data, setAggregations } = this.props;
-
-        console.log('aggregations', aggregations);
 
         // Make aggregations available for data table and download
         // setAggregations is not available in map plugin

@@ -23,6 +23,7 @@ class FacilityLayer extends Layer {
             dataFilters,
             labels,
             areaRadius,
+            geometryAttribute,
             associatedGeometries,
             organisationUnitColor: color = ORG_UNIT_COLOR,
             organisationUnitGroupSet,
@@ -74,10 +75,13 @@ class FacilityLayer extends Layer {
             group.addLayer({
                 type: GEOJSON_LAYER,
                 data: associatedGeometries,
+                hoverLabel: `{name}: ${geometryAttribute.name}`,
                 style: {
                     color: 'rgb(149, 200, 251)',
                     opacityFactor: 0.5,
                 },
+                onClick: this.onAssociatedGeometryClick.bind(this),
+                onRightClick: this.onFeatureRightClick.bind(this),
             });
         }
 
@@ -95,6 +99,7 @@ class FacilityLayer extends Layer {
     getPopup() {
         const { coordinates, feature } = this.state.popup;
         const { id, name, dimensions, pn } = feature.properties;
+        const { geometryAttribute } = this.props;
 
         return (
             <Popup
@@ -104,6 +109,9 @@ class FacilityLayer extends Layer {
                 className="dhis2-map-popup-orgunit"
             >
                 <em>{name}</em>
+                {this.state.isAssociatedGeometry && (
+                    <div>{geometryAttribute.name}</div>
+                )}
                 {isPlainObject(dimensions) && (
                     <div>
                         {i18n.t('Groups')}:
@@ -127,6 +135,10 @@ class FacilityLayer extends Layer {
 
     onFeatureClick(evt) {
         this.setState({ popup: evt });
+    }
+
+    onAssociatedGeometryClick(evt) {
+        this.setState({ popup: evt, isAssociatedGeometry: true });
     }
 }
 

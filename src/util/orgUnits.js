@@ -49,10 +49,9 @@ export const fetchOrgUnitGroupSet = id =>
     ).then(parseGroupSet);
 
 export const fetchOrgUnitGeometryAttributes = () =>
-    // apiFetch(`/attributes.json?fields=id,name&filter=valueType:eq:TEXT&filter=organisationUnitAttribute:eq:true`)
-    fetch('temp/org-unit-geometry-attributes.json') // TODO
-        .then(response => response.json())
-        .then(({ attributes }) => attributes);
+    apiFetch(
+        `/attributes.json?fields=id,name&filter=valueType:eq:GEOJSON&filter=organisationUnitAttribute:eq:true`
+    ).then(({ attributes }) => attributes);
 
 export const filterPointFacilities = data => data.filter(d => d.ty === 1);
 

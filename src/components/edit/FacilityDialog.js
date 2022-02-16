@@ -49,6 +49,9 @@ class FacilityDialog extends Component {
         radiusLow: PropTypes.number,
         organisationUnitColor: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
+        geometryAttribute: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
         setOrgUnitLevels: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
@@ -116,6 +119,7 @@ class FacilityDialog extends Component {
             radiusLow,
             organisationUnitColor,
             organisationUnitGroupSet,
+            geometryAttribute,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
@@ -129,6 +133,8 @@ class FacilityDialog extends Component {
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
+        const hasGeometryAttribute =
+            geometryAttribute && geometryAttribute.id !== 'none';
 
         return (
             <div data-test="facilitydialog">
@@ -189,8 +195,12 @@ class FacilityDialog extends Component {
                         >
                             <div className={cx(styles.flexColumn)}>
                                 <OrgUnitGeometryAttributeSelect />
+                                {!hasGeometryAttribute && (
+                                    <BufferRadius
+                                        defaultRadius={FACILITY_BUFFER}
+                                    />
+                                )}
                                 <Labels />
-                                <BufferRadius defaultRadius={FACILITY_BUFFER} />
                             </div>
                             <div className={styles.flexColumn}>
                                 <StyleByGroupSet

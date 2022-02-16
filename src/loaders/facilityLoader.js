@@ -17,9 +17,13 @@ const facilityLoader = async config => {
         areaRadius,
         geometryAttribute,
     } = config;
+
     const orgUnits = getOrgUnitsFromRows(rows);
     const includeGroupSets = !!groupSet;
+    const hasGeometryAttribute =
+        geometryAttribute && geometryAttribute.id !== 'none';
     const alerts = [];
+
     let orgUnitParams = orgUnits.map(item => item.id);
     let associatedGeometries;
 
@@ -67,7 +71,7 @@ const facilityLoader = async config => {
 
     legend.title = name;
 
-    if (geometryAttribute) {
+    if (hasGeometryAttribute) {
         associatedGeometries = await fetchAssociatedGeometries(
             geometryAttribute.id
         );

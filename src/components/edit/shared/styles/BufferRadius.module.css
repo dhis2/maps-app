@@ -1,8 +1,7 @@
 .buffer {
-    margin: 0 -8px;
+    margin: var(--spacers-dp16) -8px 0;
     clear: both;
     align-items: center;
-    min-height: 76px;
 }
 
 .buffer > div {

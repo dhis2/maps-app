@@ -404,6 +404,9 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 geometryAttribute: action.geometryAttribute,
+                ...(action.geometryAttribute !== 'none' && {
+                    areaRadius: null,
+                }),
             };
 
         case types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET:
