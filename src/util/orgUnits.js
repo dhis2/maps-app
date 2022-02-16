@@ -207,6 +207,6 @@ export const fetchFacilityConfigurations = async () => {
 
 // TODO
 export const fetchAssociatedGeometries = () =>
-    fetch('temp/bargbe-catchment-areas.json')
+    fetch('temp/bo-catchment-areas.json')
         .then(response => response.json())
         .then(toGeoJson);
