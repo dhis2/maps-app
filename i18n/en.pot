@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-31T14:54:01.715Z\n"
-"PO-Revision-Date: 2022-01-31T14:54:01.715Z\n"
+"POT-Creation-Date: 2022-02-16T09:38:30.003Z\n"
+"PO-Revision-Date: 2022-02-16T09:38:30.003Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1033,7 +1033,7 @@ msgstr ""
 msgid "Building footprints"
 msgstr ""
 
-msgid "meters"
+msgid "Number of buildings"
 msgstr ""
 
 msgid ""
@@ -1042,6 +1042,9 @@ msgid ""
 msgstr ""
 
 msgid "Elevation"
+msgstr ""
+
+msgid "meters"
 msgstr ""
 
 msgid "Elevation above sea-level."
