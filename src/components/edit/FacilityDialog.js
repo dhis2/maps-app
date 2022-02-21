@@ -209,7 +209,7 @@ class FacilityDialog extends Component {
                                 {!organisationUnitGroupSet && (
                                     <>
                                         <ColorPicker
-                                            label={i18n.t('Color')}
+                                            label={i18n.t('Point color')}
                                             color={
                                                 organisationUnitColor ||
                                                 ORG_UNIT_COLOR
