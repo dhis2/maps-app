@@ -20,8 +20,6 @@ export default class OrgUnitLayer extends Layer {
             data,
             labels,
             radiusLow,
-            // geometryAttribute,
-            // associatedGeometries,
             dataFilters,
             organisationUnitColor = ORG_UNIT_COLOR,
         } = this.props;
