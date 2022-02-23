@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import cx from 'classnames';
-import { Tab, Tabs, Help, NumberField, ColorPicker } from '../core';
+import { Tab, Tabs, NumberField, ColorPicker } from '../core';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import OrgUnitGeometryAttributeSelect from '../orgunits/OrgUnitGeometryAttributeSelect';
 import Labels from './shared/Labels';
 import BufferRadius from './shared/BufferRadius';
 import StyleByGroupSet from '../groupSet/StyleByGroupSet';
@@ -48,6 +49,9 @@ class FacilityDialog extends Component {
         radiusLow: PropTypes.number,
         organisationUnitColor: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
+        geometryAttribute: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
         setOrgUnitLevels: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
@@ -115,6 +119,7 @@ class FacilityDialog extends Component {
             radiusLow,
             organisationUnitColor,
             organisationUnitGroupSet,
+            geometryAttribute,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
@@ -128,6 +133,8 @@ class FacilityDialog extends Component {
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
+        const hasGeometryAttribute =
+            geometryAttribute && geometryAttribute.id !== 'none';
 
         return (
             <div data-test="facilitydialog">
@@ -167,16 +174,11 @@ class FacilityDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
-                                {!orgUnits.length && orgUnitsError ? (
+                                <OrgUnitGeometryAttributeSelect />
+                                {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}
                                     </div>
-                                ) : (
-                                    <Help>
-                                        {i18n.t(
-                                            'Remember to select the organisation unit level containing the facilities.'
-                                        )}
-                                    </Help>
                                 )}
                             </div>
                         </div>
@@ -188,7 +190,11 @@ class FacilityDialog extends Component {
                         >
                             <div className={cx(styles.flexColumn)}>
                                 <Labels />
-                                <BufferRadius defaultRadius={FACILITY_BUFFER} />
+                                {!hasGeometryAttribute && (
+                                    <BufferRadius
+                                        defaultRadius={FACILITY_BUFFER}
+                                    />
+                                )}
                             </div>
                             <div className={styles.flexColumn}>
                                 <StyleByGroupSet
@@ -197,7 +203,7 @@ class FacilityDialog extends Component {
                                 {!organisationUnitGroupSet && (
                                     <>
                                         <ColorPicker
-                                            label={i18n.t('Color')}
+                                            label={i18n.t('Point color')}
                                             color={
                                                 organisationUnitColor ||
                                                 ORG_UNIT_COLOR
