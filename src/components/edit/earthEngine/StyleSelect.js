@@ -96,9 +96,10 @@ const StyleSelect = ({ unit, params, geometryAttribute, setParams }) => {
                         />
                     </div>
                 </div>
-                {!hasGeometryAttribute && (
-                    <BufferRadius defaultRadius={EE_BUFFER} />
-                )}
+                <BufferRadius
+                    defaultRadius={EE_BUFFER}
+                    disabled={hasGeometryAttribute}
+                />
             </div>
             {legend && (
                 <div className={styles.flexColumn}>

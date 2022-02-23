@@ -400,15 +400,6 @@ const layerEdit = (state = null, action) => {
                 organisationUnitGroupSet: action.organisationUnitGroupSet,
             };
 
-        case types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET:
-            return {
-                ...state,
-                geometryAttribute: action.geometryAttribute,
-                ...(action.geometryAttribute !== 'none' && {
-                    areaRadius: null,
-                }),
-            };
-
         case types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET:
             return {
                 ...state,
@@ -425,6 +416,15 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 rows: createUserOrgUnitsDimension(action.userOrgUnits),
+            };
+
+        case types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET:
+            return {
+                ...state,
+                geometryAttribute: action.geometryAttribute,
+                ...(action.geometryAttribute !== 'none' && {
+                    areaRadius: null,
+                }),
             };
 
         case types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE:
