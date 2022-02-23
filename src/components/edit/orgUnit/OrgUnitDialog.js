@@ -7,6 +7,7 @@ import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import OrgUnitGeometryAttributeSelect from '../../orgunits/OrgUnitGeometryAttributeSelect';
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
 import Labels from '../shared/Labels';
 import {
@@ -159,6 +160,7 @@ class OrgUnitDialog extends Component {
                                 <StyleByGroupSet
                                     defaultStyleType={STYLE_TYPE_COLOR}
                                 />
+                                <OrgUnitGeometryAttributeSelect />
                             </div>
                         </div>
                     )}

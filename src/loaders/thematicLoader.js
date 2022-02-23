@@ -45,6 +45,8 @@ const thematicLoader = async config => {
     } = config;
 
     const dataItem = getDataItemFromColumns(columns);
+    const hasGeometryAttribute =
+        geometryAttribute && geometryAttribute.id !== 'none';
     let associatedGeometries = [];
     let error;
 
@@ -77,7 +79,7 @@ const thematicLoader = async config => {
 
     const [mainFeatures, data] = response;
 
-    if (geometryAttribute) {
+    if (hasGeometryAttribute) {
         associatedGeometries = await fetchAssociatedGeometries(
             geometryAttribute.id
         );
@@ -217,23 +219,35 @@ const thematicLoader = async config => {
             });
         });
     } else {
-        valueFeatures.forEach(({ id, properties }) => {
+        valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id];
             const item = getLegendItem(value);
+            const hasAssociatedGeometry =
+                geometry.type === 'Point' &&
+                !!valueFeatures.find(
+                    f => f.id === id && f.geometry.type !== 'Point'
+                ); // TODO: More bullet proof
 
             if (isSingleColor) {
                 properties.color = colorScale;
             } else if (item) {
                 item.count++;
-                properties.color = item.color;
+                properties.color = hasAssociatedGeometry ? '#333' : item.color; // TODO: Make constant
                 properties.legend = item.name; // Shown in data table
                 properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
             }
 
             properties.value = value;
-            properties.radius = getRadiusForValue(value);
+            properties.radius = hasAssociatedGeometry
+                ? 4
+                : getRadiusForValue(value); // TODO: Make constant
+
+            // properties.hideInDataTable = hasAssociatedGeometry;
         });
     }
+
+    // TODO: Hide associated geometry from data table
+    // TODO: handle values by period
 
     if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
         legend.items.push({ color: noDataColor, name: i18n.t('No data') });

@@ -6,7 +6,11 @@ import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { getLabelStyle } from '../../../util/labels';
 import { getContrastColor } from '../../../util/colors';
-import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
+import {
+    ORG_UNIT_COLOR,
+    GEOJSON_LAYER,
+    GROUP_LAYER,
+} from '../../../constants/layers';
 
 class FacilityLayer extends Layer {
     state = {
@@ -38,7 +42,7 @@ class FacilityLayer extends Layer {
             : getContrastColor(color);
 
         const group = map.createLayer({
-            type: 'group',
+            type: GROUP_LAYER,
             id,
             index,
             opacity,

@@ -4,10 +4,18 @@ import { toGeoJson } from '../util/map';
 import { fetchOrgUnitGroupSet } from '../util/orgUnits';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
-import { getOrgUnitLevels, getStyledOrgUnits } from '../util/orgUnits';
+import {
+    getOrgUnitLevels,
+    getStyledOrgUnits,
+    fetchAssociatedGeometries,
+} from '../util/orgUnits';
 
 const orgUnitLoader = async config => {
-    const { rows, organisationUnitGroupSet: groupSet } = config;
+    const {
+        rows,
+        organisationUnitGroupSet: groupSet,
+        geometryAttribute,
+    } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
     const includeGroupSets = !!groupSet;
@@ -15,7 +23,12 @@ const orgUnitLoader = async config => {
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const { contextPath } = d2.system.systemInfo;
+    const hasGeometryAttribute =
+        geometryAttribute && geometryAttribute.id !== 'none';
     const name = i18n.t('Organisation units');
+
+    let features;
+    let associatedGeometries = [];
 
     const requests = [
         d2.geoFeatures
@@ -31,13 +44,23 @@ const orgUnitLoader = async config => {
         requests.push(fetchOrgUnitGroupSet(groupSet.id));
     }
 
-    const [features, orgUnitLevels, organisationUnitGroups] = await Promise.all(
-        requests
-    );
+    const [
+        mainFeatures,
+        orgUnitLevels,
+        organisationUnitGroups,
+    ] = await Promise.all(requests);
 
     if (organisationUnitGroups) {
         groupSet.organisationUnitGroups = organisationUnitGroups;
     }
+
+    if (hasGeometryAttribute) {
+        associatedGeometries = await fetchAssociatedGeometries(
+            geometryAttribute.id
+        );
+    }
+
+    features = mainFeatures.concat(associatedGeometries);
 
     const { styledFeatures, legend } = getStyledOrgUnits(
         features,
@@ -56,6 +79,7 @@ const orgUnitLoader = async config => {
     return {
         ...config,
         data: styledFeatures,
+        associatedGeometries,
         name,
         legend,
         alerts,

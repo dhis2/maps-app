@@ -5,6 +5,7 @@ import Popup from '../Popup';
 import { apiFetch } from '../../../util/api';
 import { formatTime } from '../../../util/helpers';
 import {
+    GROUP_LAYER,
     TEI_COLOR,
     TEI_RADIUS,
     TEI_RELATIONSHIP_LINE_COLOR,
@@ -119,7 +120,7 @@ class TrackedEntityLayer extends Layer {
 
         // Create and add layer based on config object
         const group = map.createLayer({
-            type: 'group',
+            type: GROUP_LAYER,
             id,
             index,
             opacity,

@@ -116,6 +116,12 @@ export const getStyledOrgUnits = (
     const useColor = styleType === STYLE_TYPE_COLOR;
 
     let styledFeatures = features.map(f => {
+        const hasAssociatedGeometry =
+            f.geometry.type === 'Point' &&
+            !!features.find(
+                ({ id, geometry }) => id === f.id && geometry.type !== 'Point'
+            ); // TODO: More bullet proof
+
         const { color, symbol } = getOrgUnitStyle(
             f.properties.dimensions,
             groupSet
@@ -127,7 +133,7 @@ export const getStyledOrgUnits = (
         };
 
         if (useColor && color) {
-            properties.color = color;
+            properties.color = hasAssociatedGeometry ? '#333' : color; // TODO: Make constant
         } else if (symbol) {
             properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`;
         }

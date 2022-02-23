@@ -14,6 +14,7 @@ import {
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
     BOUNDARY_LAYER,
+    GROUP_LAYER,
 } from '../../../constants/layers';
 
 class ThematicLayer extends Layer {
@@ -82,7 +83,7 @@ class ThematicLayer extends Layer {
         // Add boundaries as a separate layer
         if (isBubbleMap) {
             this.layer = map.createLayer({
-                type: 'group',
+                type: GROUP_LAYER,
                 id,
                 index,
                 opacity,
