@@ -39,7 +39,6 @@ import {
     DEFAULT_ORG_UNIT_LEVEL,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
-    THEMATIC_BUBBLE,
 } from '../../../constants/layers';
 
 import { RELATIVE_PERIODS, START_END_DATES } from '../../../constants/periods';
@@ -280,7 +279,6 @@ export class ThematicDialog extends Component {
         const dataItem = getDataItemFromColumns(columns);
         const dimensions = getDimensionsFromFilters(filters);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
-        const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
 
         return (
             <div data-test="thematicdialog">
@@ -509,6 +507,7 @@ export class ThematicDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
+                                <OrgUnitGeometryAttributeSelect />
                                 {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}
@@ -537,9 +536,6 @@ export class ThematicDialog extends Component {
                                         className={styles.numberField}
                                     />
                                 </div>
-                                {!isBubbleMap && (
-                                    <OrgUnitGeometryAttributeSelect />
-                                )}
                                 <Labels />
                             </div>
                             <div className={styles.flexColumn}>

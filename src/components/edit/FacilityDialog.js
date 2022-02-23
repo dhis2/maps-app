@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import cx from 'classnames';
-import { Tab, Tabs, Help, NumberField, ColorPicker } from '../core';
+import { Tab, Tabs, NumberField, ColorPicker } from '../core';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
@@ -174,16 +174,11 @@ class FacilityDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
-                                {!orgUnits.length && orgUnitsError ? (
+                                <OrgUnitGeometryAttributeSelect />
+                                {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}
                                     </div>
-                                ) : (
-                                    <Help>
-                                        {i18n.t(
-                                            'Remember to select the organisation unit level containing the facilities.'
-                                        )}
-                                    </Help>
                                 )}
                             </div>
                         </div>
@@ -194,7 +189,6 @@ class FacilityDialog extends Component {
                             data-test="facilitydialog-styletab"
                         >
                             <div className={cx(styles.flexColumn)}>
-                                <OrgUnitGeometryAttributeSelect />
                                 {!hasGeometryAttribute && (
                                     <BufferRadius
                                         defaultRadius={FACILITY_BUFFER}

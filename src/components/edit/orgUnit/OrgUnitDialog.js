@@ -120,6 +120,7 @@ class OrgUnitDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
+                                <OrgUnitGeometryAttributeSelect />
                                 {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}
@@ -160,7 +161,6 @@ class OrgUnitDialog extends Component {
                                 <StyleByGroupSet
                                     defaultStyleType={STYLE_TYPE_COLOR}
                                 />
-                                <OrgUnitGeometryAttributeSelect />
                             </div>
                         </div>
                     )}

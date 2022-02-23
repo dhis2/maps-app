@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { NumberField, ColorScaleSelect } from '../../core';
 import LegendItem from '../../legend/LegendItem';
-import OrgUnitGeometryAttributeSelect from '../../orgunits/OrgUnitGeometryAttributeSelect';
 import BufferRadius from '../shared/BufferRadius';
 import { getColorScale, getColorPalette } from '../../../util/colors';
 import { createLegend } from '../../../loaders/earthEngineLoader';
@@ -97,7 +96,6 @@ const StyleSelect = ({ unit, params, geometryAttribute, setParams }) => {
                         />
                     </div>
                 </div>
-                <OrgUnitGeometryAttributeSelect />
                 {!hasGeometryAttribute && (
                     <BufferRadius defaultRadius={EE_BUFFER} />
                 )}
