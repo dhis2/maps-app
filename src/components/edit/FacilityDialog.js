@@ -190,11 +190,10 @@ class FacilityDialog extends Component {
                         >
                             <div className={cx(styles.flexColumn)}>
                                 <Labels />
-                                {!hasGeometryAttribute && (
-                                    <BufferRadius
-                                        defaultRadius={FACILITY_BUFFER}
-                                    />
-                                )}
+                                <BufferRadius
+                                    defaultRadius={FACILITY_BUFFER}
+                                    disabled={hasGeometryAttribute}
+                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 <StyleByGroupSet
