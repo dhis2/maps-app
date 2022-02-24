@@ -77,7 +77,6 @@ const orgUnitLoader = async config => {
     return {
         ...config,
         data: styledFeatures,
-        associatedGeometries,
         name,
         legend,
         alerts,

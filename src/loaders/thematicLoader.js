@@ -18,7 +18,7 @@ import {
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
-import { fetchAssociatedGeometries } from '../util/orgUnits';
+import { getCoordinateField } from '../util/orgUnits';
 import { formatStartEndDate, getDateArray } from '../util/time';
 import {
     THEMATIC_BUBBLE,
@@ -41,13 +41,9 @@ const thematicLoader = async config => {
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         thematicMapType,
         noDataColor,
-        geometryAttribute,
     } = config;
 
     const dataItem = getDataItemFromColumns(columns);
-    const hasGeometryAttribute =
-        geometryAttribute && geometryAttribute.id !== 'none';
-    let associatedGeometries = [];
     let error;
 
     const response = await loadData(config).catch(err => {
@@ -77,13 +73,7 @@ const thematicLoader = async config => {
 
     let features;
 
-    const [mainFeatures, data] = response;
-
-    if (hasGeometryAttribute) {
-        associatedGeometries = await fetchAssociatedGeometries(
-            geometryAttribute.id
-        );
-    }
+    const [mainFeatures, data, associatedGeometries = []] = response;
 
     features = mainFeatures.concat(associatedGeometries);
 
@@ -241,12 +231,9 @@ const thematicLoader = async config => {
             properties.radius = hasAssociatedGeometry
                 ? 4
                 : getRadiusForValue(value); // TODO: Make constant
-
-            // properties.hideInDataTable = hasAssociatedGeometry;
         });
     }
 
-    // TODO: Hide associated geometry from data table
     // TODO: handle values by period
 
     if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
@@ -340,6 +327,7 @@ const loadData = async config => {
     const period = getPeriodFromFilters(filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
+    const coordinateField = getCoordinateField(config);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const d2 = await getD2();
@@ -348,6 +336,7 @@ const loadData = async config => {
         displayProperty
     ).toUpperCase();
     const geoFeaturesParams = {};
+
     let orgUnitParams = orgUnits.map(item => item.id);
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id;
 
@@ -399,18 +388,33 @@ const loadData = async config => {
         analyticsRequest = analyticsRequest.addDimension('co');
     }
 
-    // Features request
-    const orgUnitReq = d2.geoFeatures
+    const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayPropertyUpper)
+        .displayProperty(displayPropertyUpper);
+
+    // Features request
+    const orgUnitReq = featuresRequest
         .getAll(geoFeaturesParams)
         .then(toGeoJson);
 
     // Data request
     const dataReq = d2.analytics.aggregate.get(analyticsRequest);
 
+    const requests = [orgUnitReq, dataReq];
+
+    if (coordinateField) {
+        const associatedGeometriesReq = featuresRequest
+            .getAll({
+                ...geoFeaturesParams,
+                coordinateField: coordinateField.id,
+            })
+            .then(toGeoJson);
+
+        requests.push(associatedGeometriesReq);
+    }
+
     // Return promise with both requests
-    return Promise.all([orgUnitReq, dataReq]);
+    return Promise.all(requests);
 };
 
 export default thematicLoader;
