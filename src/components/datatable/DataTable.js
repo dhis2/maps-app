@@ -12,7 +12,7 @@ import EarthEngineColumns from './EarthEngineColumns';
 import { setOrgUnitProfile } from '../../actions/orgUnits';
 import { highlightFeature } from '../../actions/feature';
 import { loadLayer } from '../../actions/layers';
-import { filterData, removeDuplicateIds } from '../../util/filter';
+import { filterData } from '../../util/filter';
 import { formatTime } from '../../util/helpers';
 import {
     EVENT_LAYER,
@@ -110,7 +110,7 @@ class DataTable extends Component {
 
     // TODO: Make sure sorting works across different locales - use lib method
     sort(data, sortBy, sortDirection) {
-        return removeDuplicateIds(data).sort((a, b) => {
+        return data.sort((a, b) => {
             a = a[sortBy];
             b = b[sortBy];
 

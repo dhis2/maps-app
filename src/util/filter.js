@@ -26,11 +26,6 @@ export const filterData = (data, filters) => {
     return filteredData;
 };
 
-// Only keep the last feature with the same id
-// Used for data table when having associated geometries
-export const removeDuplicateIds = data =>
-    data.filter((d, i) => i > data.findIndex(f => f.id === d.id && f !== d));
-
 // Simple check if string contains another string
 export const stringFilter = (string, filter) => {
     return ('' + string).toLowerCase().includes(filter.toLowerCase());
