@@ -14,7 +14,6 @@ import {
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
     BOUNDARY_LAYER,
-    GROUP_LAYER,
 } from '../../../constants/layers';
 
 class ThematicLayer extends Layer {
@@ -35,9 +34,9 @@ class ThematicLayer extends Layer {
 
         const { period } = this.state;
 
-        const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
+        const bubbleMap = thematicMapType === THEMATIC_BUBBLE;
 
-        let periodData = isBubbleMap ? polygonsToPoints(data) : data;
+        let periodData = bubbleMap ? polygonsToPoints(data) : data;
 
         if (renderingStrategy !== RENDERING_STRATEGY_SINGLE) {
             const values = valuesByPeriod[period.id] || {};
@@ -81,9 +80,9 @@ class ThematicLayer extends Layer {
         }
 
         // Add boundaries as a separate layer
-        if (isBubbleMap) {
+        if (bubbleMap) {
             this.layer = map.createLayer({
-                type: GROUP_LAYER,
+                type: 'group',
                 id,
                 index,
                 opacity,

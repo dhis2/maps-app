@@ -2,7 +2,6 @@ import { uniqBy } from 'lodash/fp';
 import i18n from '@dhis2/d2-i18n';
 import { apiFetch } from './api';
 import { getDisplayPropertyUrl } from './helpers';
-import { toGeoJson } from './map';
 import { getUniqueColor } from './colors';
 import { qualitativeColors } from '../constants/colors';
 import {
@@ -210,12 +209,6 @@ export const fetchFacilityConfigurations = async () => {
         facilityOrgUnitGroupSet,
     };
 };
-
-// TODO
-export const fetchAssociatedGeometries = () =>
-    fetch('temp/bo-catchment-areas.json')
-        .then(response => response.json())
-        .then(toGeoJson);
 
 // Returns coordinate field from layer config
 export const getCoordinateField = ({ geometryAttribute }) =>
