@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/dhis2/maps-app/compare/v1.19.0...v1.19.1) (2022-02-24)
+
+
+### Bug Fixes
+
+* polygon legend item ([#2056](https://github.com/dhis2/maps-app/issues/2056)) ([9541fb6](https://github.com/dhis2/maps-app/commit/9541fb65916be3dd5ab224e7cd8df09649ccb79c))
+
 # [1.19.0](https://github.com/dhis2/maps-app/compare/v1.18.14...v1.19.0) (2022-02-24)
 
 
