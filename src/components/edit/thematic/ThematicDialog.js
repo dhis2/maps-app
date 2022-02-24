@@ -19,6 +19,7 @@ import IndicatorSelect from '../../indicator/IndicatorSelect';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
+import OrgUnitGeometryAttributeSelect from '../../orgunits/OrgUnitGeometryAttributeSelect';
 import PeriodSelect from '../../periods/PeriodSelect';
 import PeriodTypeSelect from '../../periods/PeriodTypeSelect';
 import RenderingStrategy from '../../periods/RenderingStrategy';
@@ -506,6 +507,7 @@ export class ThematicDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
+                                <OrgUnitGeometryAttributeSelect />
                                 {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}

@@ -418,6 +418,15 @@ const layerEdit = (state = null, action) => {
                 rows: createUserOrgUnitsDimension(action.userOrgUnits),
             };
 
+        case types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET:
+            return {
+                ...state,
+                geometryAttribute: action.geometryAttribute,
+                ...(action.geometryAttribute !== 'none' && {
+                    areaRadius: null,
+                }),
+            };
+
         case types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE:
             return {
                 ...state,
