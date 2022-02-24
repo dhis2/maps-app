@@ -157,3 +157,6 @@ export const NO_DATA_COLOR = '#CCCCCC';
 /* POINT RADIUS */
 export const MIN_RADIUS = 1;
 export const MAX_RADIUS = 100;
+
+/* id used when no value is selected */
+export const NONE_ID = 'none';

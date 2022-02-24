@@ -9,6 +9,7 @@ import {
     ORG_UNIT_RADIUS,
     STYLE_TYPE_COLOR,
     STYLE_TYPE_SYMBOL,
+    NONE_ID,
 } from '../constants/layers';
 
 const getGroupColor = groups => {
@@ -202,3 +203,6 @@ export const fetchFacilityConfigurations = async () => {
         facilityOrgUnitGroupSet,
     };
 };
+
+// Returns true if geometry attrubute contains an id
+export const hasGeometryAttribute = attr => attr && attr.id !== NONE_ID;
