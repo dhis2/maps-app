@@ -10,6 +10,7 @@ import {
     ORG_UNIT_RADIUS,
     STYLE_TYPE_COLOR,
     STYLE_TYPE_SYMBOL,
+    NONE,
 } from '../constants/layers';
 
 const getGroupColor = groups => {
@@ -215,3 +216,9 @@ export const fetchAssociatedGeometries = () =>
     fetch('temp/bo-catchment-areas.json')
         .then(response => response.json())
         .then(toGeoJson);
+
+// Returns coordinate field from layer config
+export const getCoordinateField = ({ geometryAttribute }) =>
+    geometryAttribute && geometryAttribute.id !== NONE
+        ? geometryAttribute
+        : null;
