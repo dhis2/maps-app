@@ -91,9 +91,7 @@ class FacilityLayer extends Layer {
 
         // Create and add facility layer based on config object
         group.addLayer(config);
-
         this.layer = group;
-
         map.addLayer(this.layer);
 
         // Fit map to layer bounds once (when first created)

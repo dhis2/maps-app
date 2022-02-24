@@ -14,7 +14,6 @@ const earthEngineLoader = async config => {
     const { rows, aggregationType } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const coordinateField = getCoordinateField(config);
-
     let layerConfig = {};
     let dataset;
     let features;

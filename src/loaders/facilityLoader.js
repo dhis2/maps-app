@@ -12,12 +12,10 @@ import {
 
 const facilityLoader = async config => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config;
-
     const orgUnits = getOrgUnitsFromRows(rows);
     const includeGroupSets = !!groupSet;
     const coordinateField = getCoordinateField(config);
     const alerts = [];
-
     let orgUnitParams = orgUnits.map(item => item.id);
     let associatedGeometries;
 
