@@ -18,7 +18,6 @@ import {
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
-import { getCoordinateField } from '../util/orgUnits';
 import { formatStartEndDate, getDateArray } from '../util/time';
 import {
     THEMATIC_BUBBLE,
@@ -44,6 +43,7 @@ const thematicLoader = async config => {
     } = config;
 
     const dataItem = getDataItemFromColumns(columns);
+
     let error;
 
     const response = await loadData(config).catch(err => {
@@ -71,12 +71,7 @@ const thematicLoader = async config => {
         };
     }
 
-    let features;
-
-    const [mainFeatures, data, associatedGeometries = []] = response;
-
-    features = mainFeatures.concat(associatedGeometries);
-
+    const [features, data] = response;
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR;
@@ -209,32 +204,23 @@ const thematicLoader = async config => {
             });
         });
     } else {
-        valueFeatures.forEach(({ id, geometry, properties }) => {
+        valueFeatures.forEach(({ id, properties }) => {
             const value = valueById[id];
             const item = getLegendItem(value);
-            const hasAssociatedGeometry =
-                geometry.type === 'Point' &&
-                !!valueFeatures.find(
-                    f => f.id === id && f.geometry.type !== 'Point'
-                ); // TODO: More bullet proof
 
             if (isSingleColor) {
                 properties.color = colorScale;
             } else if (item) {
                 item.count++;
-                properties.color = hasAssociatedGeometry ? '#333' : item.color; // TODO: Make constant
+                properties.color = item.color;
                 properties.legend = item.name; // Shown in data table
                 properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
             }
 
             properties.value = value;
-            properties.radius = hasAssociatedGeometry
-                ? 4
-                : getRadiusForValue(value); // TODO: Make constant
+            properties.radius = getRadiusForValue(value);
         });
     }
-
-    // TODO: handle values by period
 
     if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
         legend.items.push({ color: noDataColor, name: i18n.t('No data') });
@@ -327,7 +313,6 @@ const loadData = async config => {
     const period = getPeriodFromFilters(filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
-    const coordinateField = getCoordinateField(config);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const d2 = await getD2();
@@ -336,7 +321,6 @@ const loadData = async config => {
         displayProperty
     ).toUpperCase();
     const geoFeaturesParams = {};
-
     let orgUnitParams = orgUnits.map(item => item.id);
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id;
 
@@ -388,33 +372,18 @@ const loadData = async config => {
         analyticsRequest = analyticsRequest.addDimension('co');
     }
 
-    const featuresRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(displayPropertyUpper);
-
     // Features request
-    const orgUnitReq = featuresRequest
+    const orgUnitReq = d2.geoFeatures
+        .byOrgUnit(orgUnitParams)
+        .displayProperty(displayPropertyUpper)
         .getAll(geoFeaturesParams)
         .then(toGeoJson);
 
     // Data request
     const dataReq = d2.analytics.aggregate.get(analyticsRequest);
 
-    const requests = [orgUnitReq, dataReq];
-
-    if (coordinateField) {
-        const associatedGeometriesReq = featuresRequest
-            .getAll({
-                ...geoFeaturesParams,
-                coordinateField: coordinateField.id,
-            })
-            .then(toGeoJson);
-
-        requests.push(associatedGeometriesReq);
-    }
-
     // Return promise with both requests
-    return Promise.all(requests);
+    return Promise.all([orgUnitReq, dataReq]);
 };
 
 export default thematicLoader;

@@ -68,7 +68,7 @@ const facilityLoader = async config => {
     legend.title = name;
 
     if (coordinateField) {
-        associatedGeometries = await await featuresRequest
+        associatedGeometries = await featuresRequest
             .getAll({
                 coordinateField: coordinateField.id,
                 includeGroupSets,
