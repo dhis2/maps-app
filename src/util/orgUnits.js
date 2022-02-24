@@ -116,24 +116,25 @@ export const getStyledOrgUnits = (
     const useColor = styleType === STYLE_TYPE_COLOR;
 
     let styledFeatures = features.map(f => {
+        const isPoint = f.geometry.type === 'Point';
         const hasAssociatedGeometry =
-            f.geometry.type === 'Point' &&
+            isPoint &&
             !!features.find(
                 ({ id, geometry }) => id === f.id && geometry.type !== 'Point'
-            ); // TODO: More bullet proof
+            );
 
         const { color, symbol } = getOrgUnitStyle(
             f.properties.dimensions,
             groupSet
         );
-        const radius = f.geometry.type === 'Point' ? radiusLow : undefined;
+        const radius = isPoint ? radiusLow : undefined;
         const properties = {
             ...f.properties,
             radius,
         };
 
         if (useColor && color) {
-            properties.color = hasAssociatedGeometry ? '#333' : color; // TODO: Make constant
+            properties.color = hasAssociatedGeometry ? ORG_UNIT_COLOR : color;
         } else if (symbol) {
             properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`;
         }
