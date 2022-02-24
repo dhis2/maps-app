@@ -7,21 +7,15 @@ import { getOrgUnitsFromRows } from '../util/analytics';
 import {
     filterPointFacilities,
     getStyledOrgUnits,
-    fetchAssociatedGeometries,
+    getCoordinateField,
 } from '../util/orgUnits';
 
 const facilityLoader = async config => {
-    const {
-        rows,
-        organisationUnitGroupSet: groupSet,
-        areaRadius,
-        geometryAttribute,
-    } = config;
+    const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config;
 
     const orgUnits = getOrgUnitsFromRows(rows);
     const includeGroupSets = !!groupSet;
-    const hasGeometryAttribute =
-        geometryAttribute && geometryAttribute.id !== 'none';
+    const coordinateField = getCoordinateField(config);
     const alerts = [];
 
     let orgUnitParams = orgUnits.map(item => item.id);
@@ -32,10 +26,12 @@ const facilityLoader = async config => {
     const { contextPath } = d2.system.systemInfo;
     const name = i18n.t('Facilities');
 
+    const featuresRequest = d2.geoFeatures
+        .byOrgUnit(orgUnitParams)
+        .displayProperty(displayProperty);
+
     const requests = [
-        d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
+        featuresRequest
             .getAll({
                 includeGroupSets,
             })
@@ -71,13 +67,16 @@ const facilityLoader = async config => {
 
     legend.title = name;
 
-    if (hasGeometryAttribute) {
-        associatedGeometries = await fetchAssociatedGeometries(
-            geometryAttribute.id
-        );
+    if (coordinateField) {
+        associatedGeometries = await await featuresRequest
+            .getAll({
+                coordinateField: coordinateField.id,
+                includeGroupSets,
+            })
+            .then(toGeoJson);
 
         legend.items.push({
-            name: geometryAttribute.name,
+            name: coordinateField.name,
             type: 'polygon',
             strokeColor: '#333',
             fillColor: 'rgba(149, 200, 251, 0.5)',
