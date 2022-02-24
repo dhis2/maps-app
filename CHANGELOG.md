@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/dhis2/maps-app/compare/v1.18.14...v1.19.0) (2022-02-24)
+
+
+### Features
+
+* organisation unit geometry attribute select (DHIS2-11969) ([#2055](https://github.com/dhis2/maps-app/issues/2055)) ([bf831c5](https://github.com/dhis2/maps-app/commit/bf831c5c88cb381192a0dba971b0e0b27bd31a8e))
+
 ## [1.18.14](https://github.com/dhis2/maps-app/compare/v1.18.13...v1.18.14) (2022-02-15)
 
 
