@@ -7,35 +7,30 @@ import { getDisplayProperty } from '../util/helpers';
 import {
     getOrgUnitLevels,
     getStyledOrgUnits,
-    fetchAssociatedGeometries,
+    getCoordinateField,
 } from '../util/orgUnits';
 
 const orgUnitLoader = async config => {
-    const {
-        rows,
-        organisationUnitGroupSet: groupSet,
-        geometryAttribute,
-    } = config;
+    const { rows, organisationUnitGroupSet: groupSet } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
     const includeGroupSets = !!groupSet;
+    const coordinateField = getCoordinateField(config);
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const { contextPath } = d2.system.systemInfo;
-    const hasGeometryAttribute =
-        geometryAttribute && geometryAttribute.id !== 'none';
     const name = i18n.t('Organisation units');
+
+    const featuresRequest = d2.geoFeatures
+        .byOrgUnit(orgUnitParams)
+        .displayProperty(displayProperty);
 
     let features;
     let associatedGeometries = [];
 
     const requests = [
-        d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
-            .getAll({ includeGroupSets })
-            .then(toGeoJson),
+        featuresRequest.getAll({ includeGroupSets }).then(toGeoJson),
         getOrgUnitLevels(d2),
     ];
 
@@ -54,10 +49,13 @@ const orgUnitLoader = async config => {
         groupSet.organisationUnitGroups = organisationUnitGroups;
     }
 
-    if (hasGeometryAttribute) {
-        associatedGeometries = await fetchAssociatedGeometries(
-            geometryAttribute.id
-        );
+    if (coordinateField) {
+        associatedGeometries = await featuresRequest
+            .getAll({
+                coordinateField: coordinateField.id,
+                includeGroupSets,
+            })
+            .then(toGeoJson);
     }
 
     features = mainFeatures.concat(associatedGeometries);
