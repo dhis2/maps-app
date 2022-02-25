@@ -1,14 +1,14 @@
 # 
 # Translators:
 # phil_dhis2, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
+# Viktor Varland <viktor@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T14:54:01.715Z\n"
+"POT-Creation-Date: 2022-02-23T16:00:05.712Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Pashto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -158,9 +158,8 @@ msgstr "د سازمان واحدونه"
 msgid "Style"
 msgstr "طرز یا ډول"
 
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgid "Point color"
+msgstr "د ټکی رنګ"
 
 msgid "Point radius"
 msgstr "ټکی تر وړانګې"
@@ -715,6 +714,9 @@ msgid ""
 msgstr ""
 
 msgid "No data found for this period."
+msgstr ""
+
+msgid "Use associated geometry"
 msgstr ""
 
 msgid "Select groups"
