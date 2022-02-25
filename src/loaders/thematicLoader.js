@@ -227,7 +227,9 @@ const thematicLoader = async config => {
             if (isSingleColor) {
                 properties.color = colorScale;
             } else if (item) {
-                item.count++;
+                if (!hasAdditionalGeometry) {
+                    item.count++; // Only count org units once in legend
+                }
                 properties.color =
                     hasAdditionalGeometry && isPoint
                         ? ORG_UNIT_COLOR
