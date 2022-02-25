@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n';
 import { getInstance as getD2 } from 'd2';
 import { toGeoJson } from '../util/map';
-import { fetchOrgUnitGroupSet } from '../util/orgUnits';
+import { fetchOrgUnitGroupSet, setAdditionalGeometry } from '../util/orgUnits';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import {
@@ -59,6 +59,8 @@ const orgUnitLoader = async config => {
     }
 
     features = mainFeatures.concat(associatedGeometries);
+
+    setAdditionalGeometry(features);
 
     const { styledFeatures, legend } = getStyledOrgUnits(
         features,

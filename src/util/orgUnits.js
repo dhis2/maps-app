@@ -7,6 +7,7 @@ import { qualitativeColors } from '../constants/colors';
 import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS,
+    ORG_UNIT_RADIUS_SMALL,
     STYLE_TYPE_COLOR,
     STYLE_TYPE_SYMBOL,
     NONE,
@@ -117,24 +118,24 @@ export const getStyledOrgUnits = (
 
     let styledFeatures = features.map(f => {
         const isPoint = f.geometry.type === 'Point';
-        const hasAssociatedGeometry =
-            isPoint &&
-            !!features.find(
-                ({ id, geometry }) => id === f.id && geometry.type !== 'Point'
-            );
-
+        const { hasAdditionalGeometry } = f.properties;
         const { color, symbol } = getOrgUnitStyle(
             f.properties.dimensions,
             groupSet
         );
-        const radius = isPoint ? radiusLow : undefined;
+        let radius;
+
+        if (isPoint) {
+            radius = hasAdditionalGeometry ? ORG_UNIT_RADIUS_SMALL : radiusLow;
+        }
+
         const properties = {
             ...f.properties,
             radius,
         };
 
         if (useColor && color) {
-            properties.color = hasAssociatedGeometry ? ORG_UNIT_COLOR : color;
+            properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color;
         } else if (symbol) {
             properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`;
         }
