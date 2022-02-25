@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T14:54:01.715Z\n"
+"POT-Creation-Date: 2022-02-23T16:00:05.712Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -160,8 +160,7 @@ msgstr ""
 msgid "Style"
 msgstr "Стиль"
 
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
+msgid "Point color"
 msgstr ""
 
 msgid "Point radius"
@@ -717,6 +716,9 @@ msgid ""
 msgstr ""
 
 msgid "No data found for this period."
+msgstr ""
+
+msgid "Use associated geometry"
 msgstr ""
 
 msgid "Select groups"
