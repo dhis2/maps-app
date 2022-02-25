@@ -9,6 +9,7 @@ import {
     ORG_UNIT_RADIUS,
     STYLE_TYPE_COLOR,
     STYLE_TYPE_SYMBOL,
+    NONE,
 } from '../constants/layers';
 
 const getGroupColor = groups => {
@@ -115,18 +116,25 @@ export const getStyledOrgUnits = (
     const useColor = styleType === STYLE_TYPE_COLOR;
 
     let styledFeatures = features.map(f => {
+        const isPoint = f.geometry.type === 'Point';
+        const hasAssociatedGeometry =
+            isPoint &&
+            !!features.find(
+                ({ id, geometry }) => id === f.id && geometry.type !== 'Point'
+            );
+
         const { color, symbol } = getOrgUnitStyle(
             f.properties.dimensions,
             groupSet
         );
-        const radius = f.geometry.type === 'Point' ? radiusLow : undefined;
+        const radius = isPoint ? radiusLow : undefined;
         const properties = {
             ...f.properties,
             radius,
         };
 
         if (useColor && color) {
-            properties.color = color;
+            properties.color = hasAssociatedGeometry ? ORG_UNIT_COLOR : color;
         } else if (symbol) {
             properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`;
         }
@@ -202,3 +210,9 @@ export const fetchFacilityConfigurations = async () => {
         facilityOrgUnitGroupSet,
     };
 };
+
+// Returns coordinate field from layer config
+export const getCoordinateField = ({ geometryAttribute }) =>
+    geometryAttribute && geometryAttribute.id !== NONE
+        ? geometryAttribute
+        : null;
