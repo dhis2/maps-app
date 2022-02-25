@@ -1,3 +1,15 @@
+# [1.20.0](https://github.com/dhis2/maps-app/compare/v1.19.2...v1.20.0) (2022-02-25)
+
+
+### Bug Fixes
+
+* remove duplicate org units from data table ([#2057](https://github.com/dhis2/maps-app/issues/2057)) ([5c55120](https://github.com/dhis2/maps-app/commit/5c551201da63b4512550ebfd7ef45ca06a9a7926))
+
+
+### Features
+
+* facility, org unit and earth engine catchment areas (DHIS2-11969) ([#2037](https://github.com/dhis2/maps-app/issues/2037)) ([9eebff4](https://github.com/dhis2/maps-app/commit/9eebff44f834cbc06ee40cf61dc4d070b18e6ed2))
+
 ## [1.19.2](https://github.com/dhis2/maps-app/compare/v1.19.1...v1.19.2) (2022-02-25)
 
 
