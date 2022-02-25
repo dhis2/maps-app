@@ -7,7 +7,7 @@ import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { numberPrecision } from '../util/numbers';
 import { toGeoJson } from '../util/map';
-import { getCoordinateField } from '../util/orgUnits';
+import { getCoordinateField, setAdditionalGeometry } from '../util/orgUnits';
 
 // Returns a promise
 const earthEngineLoader = async config => {
@@ -39,6 +39,7 @@ const earthEngineLoader = async config => {
                     .then(toGeoJson);
 
                 features = features.concat(associatedGeometries);
+                setAdditionalGeometry(features);
             }
         } catch (error) {
             alerts = [
