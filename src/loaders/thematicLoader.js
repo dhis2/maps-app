@@ -18,7 +18,7 @@ import {
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
-import { getCoordinateField } from '../util/orgUnits';
+import { setAdditionalGeometry, getCoordinateField } from '../util/orgUnits';
 import { formatStartEndDate, getDateArray } from '../util/time';
 import {
     THEMATIC_BUBBLE,
@@ -170,15 +170,7 @@ const thematicLoader = async config => {
         .clamp(true);
 
     if (valueFeatures.length) {
-        valueFeatures
-            .filter(
-                (feature, i) =>
-                    i <
-                    valueFeatures.findIndex(
-                        f => f.id === feature.id && f !== feature
-                    )
-            )
-            .forEach(f => (f.properties.hasAdditionalGeometry = true));
+        setAdditionalGeometry(valueFeatures);
     } else {
         if (!features.length) {
             const orgUnits = getOrgUnitsFromRows(rows);
@@ -227,8 +219,9 @@ const thematicLoader = async config => {
             if (isSingleColor) {
                 properties.color = colorScale;
             } else if (item) {
+                // Only count org units once in legend
                 if (!hasAdditionalGeometry) {
-                    item.count++; // Only count org units once in legend
+                    item.count++;
                 }
                 properties.color =
                     hasAdditionalGeometry && isPoint
