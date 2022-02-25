@@ -19,6 +19,7 @@ import {
     STYLE_TYPE_SYMBOL,
     MIN_RADIUS,
     MAX_RADIUS,
+    NONE,
 } from '../../constants/layers';
 import styles from './styles/LayerDialog.module.css';
 
@@ -134,7 +135,7 @@ class FacilityDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
         const hasGeometryAttribute =
-            geometryAttribute && geometryAttribute.id !== 'none';
+            geometryAttribute && geometryAttribute.id !== NONE;
 
         return (
             <div data-test="facilitydialog">
