@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/dhis2/maps-app/compare/v1.20.0...v1.21.0) (2022-02-25)
+
+
+### Features
+
+* catchment areas for thematic layers (DHIS2-11969) ([#2058](https://github.com/dhis2/maps-app/issues/2058)) ([68fcf91](https://github.com/dhis2/maps-app/commit/68fcf913e96b8e4918037c23146ca50157705ff7))
+
 # [1.20.0](https://github.com/dhis2/maps-app/compare/v1.19.2...v1.20.0) (2022-02-25)
 
 
