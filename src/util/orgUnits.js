@@ -216,3 +216,13 @@ export const getCoordinateField = ({ geometryAttribute }) =>
     geometryAttribute && geometryAttribute.id !== NONE
         ? geometryAttribute
         : null;
+
+// Set hasAddiditionalGeometry property if exist
+export const setAdditionalGeometry = features =>
+    features
+        .filter(
+            (feature, i) =>
+                i <
+                features.findIndex(f => f.id === feature.id && f !== feature)
+        )
+        .forEach(f => (f.properties.hasAdditionalGeometry = true));
