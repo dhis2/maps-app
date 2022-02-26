@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/dhis2/maps-app/compare/v1.21.0...v1.21.1) (2022-02-26)
+
+
+### Bug Fixes
+
+* catchment areas fixes (DHIS2-11969) ([#2059](https://github.com/dhis2/maps-app/issues/2059)) ([2dd5a40](https://github.com/dhis2/maps-app/commit/2dd5a409d6eabbd846207f79924ce1891c0d7171))
+
 # [1.21.0](https://github.com/dhis2/maps-app/compare/v1.20.0...v1.21.0) (2022-02-25)
 
 
