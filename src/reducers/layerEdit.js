@@ -17,6 +17,7 @@ import {
     CLASSIFICATION_EQUAL_COUNTS,
     CLASSIFICATION_PREDEFINED,
     THEMATIC_CHOROPLETH,
+    NONE,
 } from '../constants/layers';
 import { START_END_DATES } from '../constants/periods';
 
@@ -422,7 +423,7 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 geometryAttribute: action.geometryAttribute,
-                ...(action.geometryAttribute !== 'none' && {
+                ...(action.geometryAttribute !== NONE && {
                     areaRadius: null,
                 }),
             };

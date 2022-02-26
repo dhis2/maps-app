@@ -5,6 +5,7 @@ import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
 import { fetchOrgUnitGeometryAttributes } from '../../util/orgUnits';
 import { setOrganisationUnitGeometryAttribute } from '../../actions/layerEdit';
+import { NONE } from '../../constants/layers';
 
 export const OrgUnitGeometryAttributeSelect = ({
     geometryAttribute,
@@ -23,7 +24,7 @@ export const OrgUnitGeometryAttributeSelect = ({
     return (
         <SelectField
             label={i18n.t('Use associated geometry')}
-            items={[{ id: 'none', name: i18n.t('None') }, ...attributes]}
+            items={[{ id: NONE, name: i18n.t('None') }, ...attributes]}
             value={geometryAttribute ? geometryAttribute.id : null}
             onChange={setOrganisationUnitGeometryAttribute}
             data-test="orgunitgeometryattributeselect"

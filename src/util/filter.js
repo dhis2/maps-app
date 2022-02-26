@@ -31,11 +31,6 @@ export const stringFilter = (string, filter) => {
     return ('' + string).toLowerCase().includes(filter.toLowerCase());
 };
 
-// Only keep the last feature with the same id
-// Used for data table when having associated geometries
-export const removeDuplicateIds = data =>
-    data.filter((d, i) => i > data.findIndex(f => f.id === d.id && f !== d));
-
 // Numeric filter supporting AND, OR, GREATER THAN, LESS THAN or equal number
 export const numericFilter = (value, filter) => {
     // TODO: Syntax error handling
