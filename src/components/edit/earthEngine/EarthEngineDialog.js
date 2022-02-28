@@ -8,7 +8,8 @@ import AggregationSelect from './AggregationSelect';
 import BandSelect from './BandSelect';
 import PeriodSelect from './PeriodSelect';
 import OrgUnitsSelect from './OrgUnitsSelect';
-import StyleSelect from './StyleSelect';
+import StyleTab from './StyleTab';
+// import StyleSelect from './StyleSelect';
 import { getEarthEngineLayer } from '../../../constants/earthEngine';
 import {
     getPeriodFromFilter,
@@ -47,6 +48,7 @@ const EarthEngineDialog = props => {
 
     const {
         description,
+        notice,
         periodType,
         bands,
         filters = defaultFilters,
@@ -145,7 +147,7 @@ const EarthEngineDialog = props => {
                 <Tab value="data">{i18n.t('Data')}</Tab>
                 {periodType && <Tab value="period">{i18n.t('Period')}</Tab>}
                 <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
-                {params && <Tab value="style">{i18n.t('Style')}</Tab>}
+                <Tab value="style">{i18n.t('Style')}</Tab>
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === 'data' && (
@@ -157,6 +159,9 @@ const EarthEngineDialog = props => {
                                     'Data will be calculated on Google Earth Engine for the chosen organisation units.'
                                 )}
                             </p>
+                            {notice && (
+                                <p className={styles.eeNotice}>{notice}</p>
+                            )}
                             <p>
                                 {hasMultipleAggregations && (
                                     <>
@@ -213,7 +218,7 @@ const EarthEngineDialog = props => {
                 )}
                 {tab === 'orgunits' && <OrgUnitsSelect rows={rows} />}
                 {tab === 'style' && (
-                    <StyleSelect
+                    <StyleTab
                         unit={unit}
                         params={params}
                         geometryAttribute={geometryAttribute}

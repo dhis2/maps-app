@@ -217,6 +217,9 @@ export const earthEngineLayers = () => [
         description: i18n.t(
             'The outlines of buildings derived from high-resolution satellite imagery. Only for the continent of Africa.'
         ),
+        notice: i18n.t(
+            'Building counts are only available for smaller organisation unit areas.'
+        ),
         source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
         sourceUrl: 'https://sites.research.google/open-buildings/',
         img: 'images/buildings.png',

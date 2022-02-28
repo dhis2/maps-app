@@ -29,8 +29,9 @@ export default class EarthEngineLayer extends Layer {
                 });
             } catch (error) {
                 this.setState({
-                    error:
-                        'Google Earth Engine failed. Is the service configured for this DHIS2 instance?',
+                    error: i18n.t(
+                        'Google Earth Engine failed. Is the service configured for this DHIS2 instance?'
+                    ),
                 });
             }
         }
@@ -240,6 +241,14 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onError(error) {
-        this.setState({ error: error.message, isLoading: false });
+        let message = error.message || error;
+
+        if (message.includes('memory limit exceeded')) {
+            message = i18n.t(
+                'Organisation unit area is too large. Select a smaller region to see the values.'
+            );
+        }
+
+        this.setState({ error: message, isLoading: false });
     }
 }
