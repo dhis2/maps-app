@@ -91,16 +91,3 @@
     display: inline-block;
     margin-right: var(--spacers-dp12);
 }
-
-.loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-style: italic;
-    margin-bottom: var(--spacers-dp16);
-}
-
-.loading div {
-    display: inline-block;
-    margin-right: var(--spacers-dp12);
-}
