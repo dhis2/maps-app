@@ -7,8 +7,10 @@ import { qualitativeColors } from '../constants/colors';
 import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS,
+    ORG_UNIT_RADIUS_SMALL,
     STYLE_TYPE_COLOR,
     STYLE_TYPE_SYMBOL,
+    NONE,
 } from '../constants/layers';
 
 const getGroupColor = groups => {
@@ -46,6 +48,11 @@ export const fetchOrgUnitGroupSet = id =>
     apiFetch(
         `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
     ).then(parseGroupSet);
+
+export const fetchOrgUnitGeometryAttributes = () =>
+    apiFetch(
+        `/attributes.json?fields=id,name&filter=valueType:eq:GEOJSON&filter=organisationUnitAttribute:eq:true`
+    ).then(({ attributes }) => attributes);
 
 export const filterPointFacilities = data => data.filter(d => d.ty === 1);
 
@@ -110,18 +117,25 @@ export const getStyledOrgUnits = (
     const useColor = styleType === STYLE_TYPE_COLOR;
 
     let styledFeatures = features.map(f => {
+        const isPoint = f.geometry.type === 'Point';
+        const { hasAdditionalGeometry } = f.properties;
         const { color, symbol } = getOrgUnitStyle(
             f.properties.dimensions,
             groupSet
         );
-        const radius = f.geometry.type === 'Point' ? radiusLow : undefined;
+        let radius;
+
+        if (isPoint) {
+            radius = hasAdditionalGeometry ? ORG_UNIT_RADIUS_SMALL : radiusLow;
+        }
+
         const properties = {
             ...f.properties,
             radius,
         };
 
         if (useColor && color) {
-            properties.color = color;
+            properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color;
         } else if (symbol) {
             properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`;
         }
@@ -197,3 +211,19 @@ export const fetchFacilityConfigurations = async () => {
         facilityOrgUnitGroupSet,
     };
 };
+
+// Returns coordinate field from layer config
+export const getCoordinateField = ({ geometryAttribute }) =>
+    geometryAttribute && geometryAttribute.id !== NONE
+        ? geometryAttribute
+        : null;
+
+// Set hasAddiditionalGeometry property if exist
+export const setAdditionalGeometry = features =>
+    features
+        .filter(
+            (feature, i) =>
+                i <
+                features.findIndex(f => f.id === feature.id && f !== feature)
+        )
+        .forEach(f => (f.properties.hasAdditionalGeometry = true));

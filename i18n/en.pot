@@ -149,7 +149,7 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-msgid "Remember to select the organisation unit level containing the facilities."
+msgid "Point color"
 msgstr ""
 
 msgid "Point radius"
@@ -702,6 +702,9 @@ msgid ""
 msgstr ""
 
 msgid "No data found for this period."
+msgstr ""
+
+msgid "Use associated geometry"
 msgstr ""
 
 msgid "Select groups"

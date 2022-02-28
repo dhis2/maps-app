@@ -96,7 +96,9 @@ class DataTable extends Component {
     filter() {
         const { layer, aggregations = {} } = this.props;
         const { dataFilters } = layer;
-        const data = layer.data;
+        const data = layer.data.filter(
+            d => !d.properties.hasAdditionalGeometry
+        );
 
         return filterData(
             data.map((d, index) => ({

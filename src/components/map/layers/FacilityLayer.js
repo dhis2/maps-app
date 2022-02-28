@@ -6,7 +6,11 @@ import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { getLabelStyle } from '../../../util/labels';
 import { getContrastColor } from '../../../util/colors';
-import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
+import {
+    ORG_UNIT_COLOR,
+    GEOJSON_LAYER,
+    GROUP_LAYER,
+} from '../../../constants/layers';
 
 class FacilityLayer extends Layer {
     state = {
@@ -23,6 +27,8 @@ class FacilityLayer extends Layer {
             dataFilters,
             labels,
             areaRadius,
+            geometryAttribute,
+            associatedGeometries,
             organisationUnitColor: color = ORG_UNIT_COLOR,
             organisationUnitGroupSet,
         } = this.props;
@@ -35,13 +41,17 @@ class FacilityLayer extends Layer {
             ? color
             : getContrastColor(color);
 
-        // Create layer config object
-        const config = {
-            type: GEOJSON_LAYER,
+        const group = map.createLayer({
+            type: GROUP_LAYER,
             id,
             index,
             opacity,
             isVisible,
+        });
+
+        // Create layer config object
+        const config = {
+            type: GEOJSON_LAYER,
             data: filteredData,
             hoverLabel: '{name}',
             style: {
@@ -65,8 +75,23 @@ class FacilityLayer extends Layer {
             config.buffer = areaRadius;
         }
 
+        if (associatedGeometries) {
+            group.addLayer({
+                type: GEOJSON_LAYER,
+                data: associatedGeometries,
+                hoverLabel: `{name}: ${geometryAttribute.name}`,
+                style: {
+                    color: 'rgb(149, 200, 251)',
+                    opacityFactor: 0.5,
+                },
+                onClick: this.onAssociatedGeometryClick.bind(this),
+                onRightClick: this.onFeatureRightClick.bind(this),
+            });
+        }
+
         // Create and add facility layer based on config object
-        this.layer = map.createLayer(config);
+        group.addLayer(config);
+        this.layer = group;
         map.addLayer(this.layer);
 
         // Fit map to layer bounds once (when first created)
@@ -76,6 +101,7 @@ class FacilityLayer extends Layer {
     getPopup() {
         const { coordinates, feature } = this.state.popup;
         const { id, name, dimensions, pn } = feature.properties;
+        const { geometryAttribute } = this.props;
 
         return (
             <Popup
@@ -85,6 +111,9 @@ class FacilityLayer extends Layer {
                 className="dhis2-map-popup-orgunit"
             >
                 <em>{name}</em>
+                {this.state.isAssociatedGeometry && (
+                    <div>{geometryAttribute.name}</div>
+                )}
                 {isPlainObject(dimensions) && (
                     <div>
                         {i18n.t('Groups')}:
@@ -108,6 +137,10 @@ class FacilityLayer extends Layer {
 
     onFeatureClick(evt) {
         this.setState({ popup: evt });
+    }
+
+    onAssociatedGeometryClick(evt) {
+        this.setState({ popup: evt, isAssociatedGeometry: true });
     }
 }
 

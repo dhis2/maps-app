@@ -17,6 +17,7 @@ import {
     CLASSIFICATION_EQUAL_COUNTS,
     CLASSIFICATION_PREDEFINED,
     THEMATIC_CHOROPLETH,
+    NONE,
 } from '../constants/layers';
 import { START_END_DATES } from '../constants/periods';
 
@@ -416,6 +417,15 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 rows: createUserOrgUnitsDimension(action.userOrgUnits),
+            };
+
+        case types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET:
+            return {
+                ...state,
+                geometryAttribute: action.geometryAttribute,
+                ...(action.geometryAttribute !== NONE && {
+                    areaRadius: null,
+                }),
             };
 
         case types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE:

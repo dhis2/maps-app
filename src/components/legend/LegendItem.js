@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LineSymbol from './LineSymbol';
-import OutlineSymbol from './OutlineSymbol';
+import PolygonSymbol from './PolygonSymbol';
 import LegendItemRange from './LegendItemRange';
 import styles from './styles/LegendItem.module.css';
 
@@ -12,6 +12,7 @@ const LegendItem = ({
     image,
     color,
     strokeColor,
+    fillColor,
     radius,
     weight,
     name,
@@ -47,7 +48,11 @@ const LegendItem = ({
                     type === 'LineString' ? (
                         <LineSymbol color={color} weight={weight} />
                     ) : (
-                        <OutlineSymbol color={color} weight={weight} />
+                        <PolygonSymbol
+                            color={strokeColor || color}
+                            fill={fillColor}
+                            weight={weight}
+                        />
                     )
                 ) : (
                     <span style={symbol} />
@@ -68,6 +73,7 @@ LegendItem.propTypes = {
     image: PropTypes.string,
     color: PropTypes.string,
     strokeColor: PropTypes.string,
+    fillColor: PropTypes.string,
     radius: PropTypes.number,
     weight: PropTypes.number,
     name: PropTypes.string,

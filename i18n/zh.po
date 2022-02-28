@@ -2,15 +2,15 @@
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2021
 # phil_dhis2, 2021
-# easylin <lin_xd@126.com>, 2022
 # 晓东 林 <13981924470@126.com>, 2022
+# easylin <lin_xd@126.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T14:54:01.715Z\n"
+"POT-Creation-Date: 2022-02-23T16:00:05.712Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,9 +160,8 @@ msgstr "组织机构管理"
 msgid "Style"
 msgstr "风格"
 
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr "记住选择包括机构的等级"
+msgid "Point color"
+msgstr "点颜色"
 
 msgid "Point radius"
 msgstr "点半径"
@@ -719,6 +718,9 @@ msgstr "该数据元素的选项太多（{{length}}）。样式的最大选项�
 msgid "No data found for this period."
 msgstr "在该期间没有找到数据"
 
+msgid "Use associated geometry"
+msgstr "使用相关的几何坐标"
+
 msgid "Select groups"
 msgstr "选择组"
 
@@ -939,112 +941,112 @@ msgid ""
 msgstr "按年龄和性别分组的估计居住在该地区的人数。"
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "男性 0 - 1 岁"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "男性 1 - 4 岁"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "男性 5 - 9 岁"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "男性 10 - 14 岁"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "男性 15 - 19 岁"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "男性 20 - 24 岁"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "男性 25 - 29 岁"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "男性 30 - 34 岁"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "男性 35 - 39 岁"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "男性 40 - 44 岁"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "男性 45 - 49 岁"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "男性 50 - 54 岁"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "男性 55 - 59 岁"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "男性 60 - 64 岁"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "男性 65 - 69 岁"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "男性 70 - 74 岁"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "男性 75 - 79 岁"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "男性 80 岁及以上"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "女性 0 - 1 岁"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "女性 1 - 4 岁"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "女性 5 - 9 岁"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "女性 10 - 14 岁"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "女性 15 - 19 岁"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "女性 20 - 24 岁"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "女性 25 - 29 岁"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "女性 30 - 34 岁"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "女性 35 - 39 岁"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "女性 40 - 44 岁"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "女性 45 - 49 岁"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "女性 50 - 54 岁"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "女性 55 - 59 岁"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "女性 60 - 64 岁"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "女性 65 - 69 岁"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "女性 70 - 74 岁"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "女性 75 - 79 岁"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "80岁及以上女性"
 
 msgid "Elevation"
 msgstr "高程"
