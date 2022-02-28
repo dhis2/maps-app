@@ -731,7 +731,7 @@ msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
 
 msgid "Use associated geometry"
-msgstr ""
+msgstr "Použít přidruženou geometrii"
 
 msgid "Select groups"
 msgstr "Vyberte skupiny"
