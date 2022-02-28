@@ -53,6 +53,7 @@ const EarthEngineDialog = props => {
         unit,
         source,
         sourceUrl,
+        aggregations,
     } = dataset;
 
     const period = getPeriodFromFilter(filter);
@@ -61,11 +62,19 @@ const EarthEngineDialog = props => {
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length);
 
+    const hasMultipleAggregations = !aggregations || aggregations.length > 1;
+
     // Load all available periods
     useEffect(() => {
+        let isCancelled = false;
+
         if (periodType) {
             getPeriods(datasetId)
-                .then(setPeriods)
+                .then(periods => {
+                    if (!isCancelled) {
+                        setPeriods(periods);
+                    }
+                })
                 .catch(error =>
                     setError({
                         type: 'engine',
@@ -73,6 +82,8 @@ const EarthEngineDialog = props => {
                     })
                 );
         }
+
+        return () => (isCancelled = true);
     }, [datasetId, periodType]);
 
     // Set most recent period by default
@@ -147,8 +158,16 @@ const EarthEngineDialog = props => {
                                 )}
                             </p>
                             <p>
+                                {hasMultipleAggregations && (
+                                    <>
+                                        {i18n.t(
+                                            'Multiple aggregation methods are available.'
+                                        )}
+                                        &nbsp;
+                                    </>
+                                )}
                                 {i18n.t(
-                                    'Multiple aggregation methods are available. See the aggregation results by clicking map regions or viewing the data table. The results can also be downloaded.'
+                                    'See the aggregation results by clicking map regions or viewing the data table. The results can also be downloaded.'
                                 )}
                             </p>
                         </Help>

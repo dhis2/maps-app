@@ -219,7 +219,7 @@ export const earthEngineLayers = () => [
         ),
         source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
         sourceUrl: 'https://sites.research.google/open-buildings/',
-        img: '',
+        img: 'images/buildings.png',
         aggregations: ['count'],
         defaultAggregations: ['count'],
         opacity: 0.9,
