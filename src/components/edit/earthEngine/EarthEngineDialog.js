@@ -9,7 +9,6 @@ import BandSelect from './BandSelect';
 import PeriodSelect from './PeriodSelect';
 import OrgUnitsSelect from './OrgUnitsSelect';
 import StyleTab from './StyleTab';
-// import StyleSelect from './StyleSelect';
 import { getEarthEngineLayer } from '../../../constants/earthEngine';
 import {
     getPeriodFromFilter,
