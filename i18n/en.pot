@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-16T09:38:30.003Z\n"
-"PO-Revision-Date: 2022-02-16T09:38:30.003Z\n"
+"POT-Creation-Date: 2022-02-28T15:22:13.376Z\n"
+"PO-Revision-Date: 2022-02-28T15:22:13.376Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -211,16 +211,21 @@ msgid ""
 "units."
 msgstr ""
 
+msgid "Multiple aggregation methods are available."
+msgstr ""
+
 msgid ""
-"Multiple aggregation methods are available. See the aggregation results by "
-"clicking map regions or viewing the data table. The results can also be "
-"downloaded."
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
 msgstr ""
 
 msgid "Unit"
 msgstr ""
 
 msgid "Source"
+msgstr ""
+
+msgid "Legend preview"
 msgstr ""
 
 msgid "Year"
@@ -254,9 +259,6 @@ msgid "Max"
 msgstr ""
 
 msgid "Steps"
-msgstr ""
-
-msgid "Legend preview"
 msgstr ""
 
 msgid "Org Units"
@@ -606,7 +608,17 @@ msgstr ""
 msgid "Last updated"
 msgstr ""
 
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
+
 msgid "no value"
+msgstr ""
+
+msgid ""
+"Organisation unit area is too large. Select a smaller region to see the "
+"values."
 msgstr ""
 
 msgid "All groups"
@@ -1042,6 +1054,9 @@ msgstr ""
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
 "Only for the continent of Africa."
+msgstr ""
+
+msgid "Building counts are only available for smaller organisation unit areas."
 msgstr ""
 
 msgid "Elevation"
