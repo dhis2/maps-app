@@ -155,3 +155,7 @@
     line-height: 12px;
     margin-left: var(--spacers-dp12);
 }
+
+.eeNotice {
+    font-weight: bold;
+}

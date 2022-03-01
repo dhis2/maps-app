@@ -22,6 +22,7 @@ export const getEarthEngineStatisticTypes = () => [
 // Earth Engine layer
 export const getEarthEngineAggregationTypes = filter => {
     const types = [
+        { id: 'count', name: i18n.t('Count') },
         { id: 'min', name: i18n.t('Min') },
         { id: 'max', name: i18n.t('Max') },
         { id: 'mean', name: i18n.t('Mean') },
