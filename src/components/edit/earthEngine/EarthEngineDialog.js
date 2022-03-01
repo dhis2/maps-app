@@ -35,7 +35,7 @@ const EarthEngineDialog = props => {
         params,
         filter,
         areaRadius,
-        geometryAttribute,
+        orgUnitField,
         setFilter,
         setOrgUnitLevels,
         setBufferRadius,
@@ -220,7 +220,7 @@ const EarthEngineDialog = props => {
                     <StyleTab
                         unit={unit}
                         params={params}
-                        geometryAttribute={geometryAttribute}
+                        geometryAttribute={orgUnitField}
                     />
                 )}
             </div>
@@ -239,7 +239,7 @@ EarthEngineDialog.propTypes = {
         palette: PropTypes.string.isRequired,
     }),
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    geometryAttribute: PropTypes.shape({
+    orgUnitField: PropTypes.shape({
         id: PropTypes.string.isRequired,
     }),
     legend: PropTypes.object,

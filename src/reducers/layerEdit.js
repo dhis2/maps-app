@@ -422,8 +422,8 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET:
             return {
                 ...state,
-                geometryAttribute: action.geometryAttribute,
-                ...(action.geometryAttribute !== NONE && {
+                orgUnitField: action.payload,
+                ...(action.payload !== NONE && {
                     areaRadius: null,
                 }),
             };

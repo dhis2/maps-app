@@ -54,6 +54,7 @@ const validLayerProperties = [
     'organisationUnitColor',
     'organisationUnitGroupSet',
     'organisationUnitSelectionMode',
+    'orgUnitField',
     'params',
     'periodName',
     'periodType',

@@ -41,7 +41,7 @@ OrgUnitGeometryAttributeSelect.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        geometryAttribute: layerEdit.geometryAttribute,
+        geometryAttribute: layerEdit.orgUnitField,
     }),
     { setOrganisationUnitGeometryAttribute }
 )(OrgUnitGeometryAttributeSelect);

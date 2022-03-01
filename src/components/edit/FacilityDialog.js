@@ -50,7 +50,7 @@ class FacilityDialog extends Component {
         radiusLow: PropTypes.number,
         organisationUnitColor: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
-        geometryAttribute: PropTypes.shape({
+        orgUnitField: PropTypes.shape({
             id: PropTypes.string.isRequired,
         }),
         setOrgUnitLevels: PropTypes.func.isRequired,
@@ -120,7 +120,7 @@ class FacilityDialog extends Component {
             radiusLow,
             organisationUnitColor,
             organisationUnitGroupSet,
-            geometryAttribute,
+            orgUnitField,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
@@ -134,8 +134,7 @@ class FacilityDialog extends Component {
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
-        const hasGeometryAttribute =
-            geometryAttribute && geometryAttribute.id !== NONE;
+        const hasGeometryAttribute = orgUnitField && orgUnitField.id !== NONE;
 
         return (
             <div data-test="facilitydialog">
