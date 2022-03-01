@@ -38,25 +38,30 @@ const earthEngineLoader = async config => {
                     })
                     .then(toGeoJson);
 
+                if (!associatedGeometries.length) {
+                    alerts.push({
+                        warning: true,
+                        message: `${coordinateField.name}: ${i18n.t(
+                            'No coordinates found'
+                        )}`,
+                    });
+                }
+
                 features = features.concat(associatedGeometries);
                 setAdditionalGeometry(features);
+            } else if (!features.length) {
+                alerts.push({
+                    warning: true,
+                    message: `${i18n.t('Selected org units')}: ${i18n.t(
+                        'No coordinates found'
+                    )}`,
+                });
             }
         } catch (error) {
             alerts = [
                 {
                     critical: true,
                     message: `${i18n.t('Error')}: ${error.message}`,
-                },
-            ];
-        }
-
-        if (Array.isArray(features) && !features.length) {
-            alerts = [
-                {
-                    warning: true,
-                    message: `${i18n.t('Selected org units')}: ${i18n.t(
-                        'No coordinates found'
-                    )}`,
                 },
             ];
         }

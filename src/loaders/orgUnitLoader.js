@@ -21,6 +21,7 @@ const orgUnitLoader = async config => {
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const { contextPath } = d2.system.systemInfo;
     const name = i18n.t('Organisation units');
+    const alerts = [];
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
@@ -45,6 +46,15 @@ const orgUnitLoader = async config => {
         organisationUnitGroups,
     ] = await Promise.all(requests);
 
+    if (!mainFeatures.length) {
+        alerts.push({
+            warning: true,
+            message: `${i18n.t('Selected org units')}: ${i18n.t(
+                'No coordinates found'
+            )}`,
+        });
+    }
+
     if (organisationUnitGroups) {
         groupSet.organisationUnitGroups = organisationUnitGroups;
     }
@@ -56,6 +66,15 @@ const orgUnitLoader = async config => {
                 includeGroupSets,
             })
             .then(toGeoJson);
+
+        if (!associatedGeometries.length) {
+            alerts.push({
+                warning: true,
+                message: `${coordinateField.name}: ${i18n.t(
+                    'No coordinates found'
+                )}`,
+            });
+        }
     }
 
     features = mainFeatures.concat(associatedGeometries);
@@ -71,10 +90,6 @@ const orgUnitLoader = async config => {
     );
 
     legend.title = name;
-
-    const alerts = !features.length
-        ? [{ warning: true, message: i18n.t('No coordinates found') }]
-        : undefined;
 
     return {
         ...config,
