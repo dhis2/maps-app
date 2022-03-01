@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-01T15:51:04.392Z\n"
-"PO-Revision-Date: 2022-03-01T15:51:04.393Z\n"
+"POT-Creation-Date: 2022-03-01T16:01:26.215Z\n"
+"PO-Revision-Date: 2022-03-01T16:01:26.215Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1258,10 +1258,13 @@ msgstr ""
 msgid "Cancelled"
 msgstr ""
 
-msgid "No coordinates found"
+msgid "{{name}}: No coordinates found"
 msgstr ""
 
-msgid "Selected org units"
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1282,13 +1285,19 @@ msgstr ""
 msgid "Facilities"
 msgstr ""
 
-msgid "Error: {{message}}"
+msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"
 msgstr ""
 
 msgid "Thematic layer"
+msgstr ""
+
+msgid "Selected org units"
+msgstr ""
+
+msgid "No coordinates found"
 msgstr ""
 
 msgid "No data"

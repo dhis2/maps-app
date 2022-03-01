@@ -49,9 +49,9 @@ const orgUnitLoader = async config => {
     if (!mainFeatures.length) {
         alerts.push({
             warning: true,
-            message: `${i18n.t('Selected org units')}: ${i18n.t(
-                'No coordinates found'
-            )}`,
+            message: i18n.t('Selected org units: No coordinates found', {
+                nsSeparator: ';',
+            }),
         });
     }
 
@@ -70,9 +70,10 @@ const orgUnitLoader = async config => {
         if (!associatedGeometries.length) {
             alerts.push({
                 warning: true,
-                message: `${coordinateField.name}: ${i18n.t(
-                    'No coordinates found'
-                )}`,
+                message: i18n.t('{{name}}: No coordinates found', {
+                    name: coordinateField.name,
+                    nsSeparator: ';',
+                }),
             });
         }
     }

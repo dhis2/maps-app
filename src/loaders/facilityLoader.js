@@ -79,9 +79,10 @@ const facilityLoader = async config => {
         if (!associatedGeometries.length) {
             alerts.push({
                 warning: true,
-                message: `${coordinateField.name}: ${i18n.t(
-                    'No coordinates found'
-                )}`,
+                message: i18n.t('{{name}}: No coordinates found', {
+                    name: coordinateField.name,
+                    nsSeparator: ';',
+                }),
             });
         }
 
@@ -101,9 +102,9 @@ const facilityLoader = async config => {
     if (!styledFeatures.length) {
         alerts.push({
             warning: true,
-            message: `${i18n.t('Facilities')}: ${i18n.t(
-                'No coordinates found'
-            )}`,
+            message: i18n.t('Facilities: No coordinates found', {
+                nsSeparator: ';',
+            }),
         });
     }
 
