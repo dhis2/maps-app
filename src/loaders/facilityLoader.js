@@ -39,7 +39,10 @@ const facilityLoader = async config => {
                 if (error && error.message) {
                     alerts.push({
                         critical: true,
-                        message: `${i18n.t('Error')}: ${error.message}`,
+                        message: i18n.t('Error: {{message}}', {
+                            message: error.message,
+                            nsSeparator: ';',
+                        }),
                     });
                 }
             }),
