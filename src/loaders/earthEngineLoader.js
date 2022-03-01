@@ -14,10 +14,11 @@ const earthEngineLoader = async config => {
     const { rows, aggregationType } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const coordinateField = getCoordinateField(config);
+    const alerts = [];
+
     let layerConfig = {};
     let dataset;
     let features;
-    let alerts;
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2();
@@ -38,27 +39,39 @@ const earthEngineLoader = async config => {
                     })
                     .then(toGeoJson);
 
+                if (!associatedGeometries.length) {
+                    alerts.push({
+                        warning: true,
+                        message: i18n.t('{{name}}: No coordinates found', {
+                            name: coordinateField.name,
+                            nsSeparator: ';',
+                        }),
+                    });
+                }
+
                 features = features.concat(associatedGeometries);
                 setAdditionalGeometry(features);
+            } else if (!features.length) {
+                alerts.push({
+                    warning: true,
+                    message: i18n.t(
+                        'Selected org units: No coordinates found',
+                        {
+                            nsSeparator: ';',
+                        }
+                    ),
+                });
             }
         } catch (error) {
-            alerts = [
+            alerts.push([
                 {
                     critical: true,
-                    message: `${i18n.t('Error')}: ${error.message}`,
+                    message: i18n.t('Error: {{message}}', {
+                        message: error.message,
+                        nsSeparator: ';',
+                    }),
                 },
-            ];
-        }
-
-        if (Array.isArray(features) && !features.length) {
-            alerts = [
-                {
-                    warning: true,
-                    message: `${i18n.t('Selected org units')}: ${i18n.t(
-                        'No coordinates found'
-                    )}`,
-                },
-            ];
+            ]);
         }
     }
 

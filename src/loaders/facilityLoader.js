@@ -39,7 +39,10 @@ const facilityLoader = async config => {
                 if (error && error.message) {
                     alerts.push({
                         critical: true,
-                        message: `${i18n.t('Error')}: ${error.message}`,
+                        message: i18n.t('Error: {{message}}', {
+                            message: error.message,
+                            nsSeparator: ';',
+                        }),
                     });
                 }
             }),
@@ -73,6 +76,16 @@ const facilityLoader = async config => {
             })
             .then(toGeoJson);
 
+        if (!associatedGeometries.length) {
+            alerts.push({
+                warning: true,
+                message: i18n.t('{{name}}: No coordinates found', {
+                    name: coordinateField.name,
+                    nsSeparator: ';',
+                }),
+            });
+        }
+
         legend.items.push({
             name: coordinateField.name,
             type: 'polygon',
@@ -86,8 +99,13 @@ const facilityLoader = async config => {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];
     }
 
-    if (!styledFeatures.length && !alerts.length) {
-        alerts.push({ warning: true, message: i18n.t('No facilities found') });
+    if (!styledFeatures.length) {
+        alerts.push({
+            warning: true,
+            message: i18n.t('Facilities: No coordinates found', {
+                nsSeparator: ';',
+            }),
+        });
     }
 
     return {
