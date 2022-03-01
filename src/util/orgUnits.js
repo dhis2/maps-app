@@ -213,10 +213,8 @@ export const fetchFacilityConfigurations = async () => {
 };
 
 // Returns coordinate field from layer config
-export const getCoordinateField = ({ geometryAttribute }) =>
-    geometryAttribute && geometryAttribute.id !== NONE
-        ? geometryAttribute
-        : null;
+export const getCoordinateField = ({ orgUnitField }) =>
+    orgUnitField && orgUnitField.id !== NONE ? orgUnitField : null;
 
 // Set hasAddiditionalGeometry property if exist
 export const setAdditionalGeometry = features =>
