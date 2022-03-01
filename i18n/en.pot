@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-01T10:09:54.758Z\n"
-"PO-Revision-Date: 2022-03-01T10:09:54.758Z\n"
+"POT-Creation-Date: 2022-03-01T15:33:37.276Z\n"
+"PO-Revision-Date: 2022-03-01T15:33:37.276Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1258,10 +1258,10 @@ msgstr ""
 msgid "Cancelled"
 msgstr ""
 
-msgid "Selected org units"
+msgid "No coordinates found"
 msgstr ""
 
-msgid "No coordinates found"
+msgid "Selected org units"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1280,9 +1280,6 @@ msgid "Event"
 msgstr ""
 
 msgid "Facilities"
-msgstr ""
-
-msgid "No facilities found"
 msgstr ""
 
 msgid "Organisation units"

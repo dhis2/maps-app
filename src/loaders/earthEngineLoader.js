@@ -14,10 +14,11 @@ const earthEngineLoader = async config => {
     const { rows, aggregationType } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const coordinateField = getCoordinateField(config);
+    const alerts = [];
+
     let layerConfig = {};
     let dataset;
     let features;
-    let alerts;
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2();
@@ -58,12 +59,12 @@ const earthEngineLoader = async config => {
                 });
             }
         } catch (error) {
-            alerts = [
+            alerts.push([
                 {
                     critical: true,
                     message: `${i18n.t('Error')}: ${error.message}`,
                 },
-            ];
+            ]);
         }
     }
 
