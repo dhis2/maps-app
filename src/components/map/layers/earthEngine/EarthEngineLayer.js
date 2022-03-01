@@ -243,10 +243,8 @@ export default class EarthEngineLayer extends Layer {
     onError(error) {
         let message = error.message || error;
 
-        if (message.includes('memory limit exceeded')) {
-            message = i18n.t(
-                'Organisation unit area is too large. Select a smaller region to see the values.'
-            );
+        if (message.includes('memory limit exceeded') && this.props.error) {
+            message = this.props.error;
         }
 
         this.setState({ error: message, isLoading: false });

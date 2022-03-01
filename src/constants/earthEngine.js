@@ -220,6 +220,9 @@ export const earthEngineLayers = () => [
         notice: i18n.t(
             'Building counts are only available for smaller organisation unit areas.'
         ),
+        error: i18n.t(
+            'Select a smaller area or single organization unit to see the count of buildings.'
+        ),
         source: 'NASA / USGS / JPL-Caltech / Google Earth Engine',
         sourceUrl: 'https://sites.research.google/open-buildings/',
         img: 'images/buildings.png',

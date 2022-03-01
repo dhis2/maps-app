@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-28T15:22:13.376Z\n"
-"PO-Revision-Date: 2022-02-28T15:22:13.376Z\n"
+"POT-Creation-Date: 2022-03-01T10:09:54.758Z\n"
+"PO-Revision-Date: 2022-03-01T10:09:54.758Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -616,11 +616,6 @@ msgstr ""
 msgid "no value"
 msgstr ""
 
-msgid ""
-"Organisation unit area is too large. Select a smaller region to see the "
-"values."
-msgstr ""
-
 msgid "All groups"
 msgstr ""
 
@@ -1057,6 +1052,11 @@ msgid ""
 msgstr ""
 
 msgid "Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
 msgstr ""
 
 msgid "Elevation"
