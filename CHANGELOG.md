@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/dhis2/maps-app/compare/v1.21.3...v1.22.0) (2022-03-01)
+
+
+### Features
+
+* new earth engine buildings layer (DHIS2-11963) ([#2005](https://github.com/dhis2/maps-app/issues/2005)) ([d946042](https://github.com/dhis2/maps-app/commit/d9460426923900c4001c4ec30829d87017cf84f4))
+
 ## [1.21.3](https://github.com/dhis2/maps-app/compare/v1.21.2...v1.21.3) (2022-02-28)
 
 
