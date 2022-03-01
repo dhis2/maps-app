@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/dhis2/maps-app/compare/v1.22.0...v1.22.1) (2022-03-01)
+
+
+### Bug Fixes
+
+* no coordinates warnings ([#2063](https://github.com/dhis2/maps-app/issues/2063)) ([8701f08](https://github.com/dhis2/maps-app/commit/8701f08569f38ac47a4126463d0a176eeb8b6acd))
+
 # [1.22.0](https://github.com/dhis2/maps-app/compare/v1.21.3...v1.22.0) (2022-03-01)
 
 
