@@ -35,7 +35,6 @@ import {
 const thematicLoader = async config => {
     const {
         columns,
-        rows,
         radiusLow = THEMATIC_RADIUS_LOW,
         radiusHigh = THEMATIC_RADIUS_HIGH,
         classes,
@@ -173,15 +172,11 @@ const thematicLoader = async config => {
         setAdditionalGeometry(valueFeatures);
     } else {
         if (!features.length) {
-            const orgUnits = getOrgUnitsFromRows(rows);
-
             alert = {
                 warning: true,
-                message: `${
-                    orgUnits.length === 1
-                        ? names[orgUnits[0].id] || orgUnits[0].name
-                        : i18n.t('Selected org units')
-                }: ${i18n.t('No coordinates found')}`,
+                message: i18n.t('Selected org units: No coordinates found', {
+                    nsSeparator: ';',
+                }),
             };
         } else {
             alert = {
