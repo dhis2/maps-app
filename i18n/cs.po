@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-02-23T16:00:05.712Z\n"
+"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -224,20 +224,22 @@ msgstr ""
 "Data budou vypočítána na Google Earth Engine pro vybrané organizační "
 "jednotky."
 
-msgid ""
-"Multiple aggregation methods are available. See the aggregation results by "
-"clicking map regions or viewing the data table. The results can also be "
-"downloaded."
+msgid "Multiple aggregation methods are available."
 msgstr ""
-"K dispozici je několik metod agregace. Výsledky agregace zobrazíte kliknutím"
-" na mapové oblasti nebo zobrazením datové tabulky. Výsledky lze také "
-"stáhnout."
+
+msgid ""
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
+msgstr ""
 
 msgid "Unit"
 msgstr "Jednotka"
 
 msgid "Source"
 msgstr "Zdroj"
+
+msgid "Legend preview"
+msgstr "Náhled legendy"
 
 msgid "Year"
 msgstr "Rok"
@@ -271,9 +273,6 @@ msgstr "Max"
 
 msgid "Steps"
 msgstr "Kroky"
-
-msgid "Legend preview"
-msgstr "Náhled legendy"
 
 msgid "Org Units"
 msgstr "Org. Jednotky"
@@ -626,6 +625,11 @@ msgstr "Nadřazená jednotka"
 
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
 msgid "no value"
 msgstr "žádná hodnota"
@@ -1063,6 +1067,26 @@ msgstr "Žena 75 - 79 let"
 msgid "Female 80 years and above"
 msgstr "Žena 80 let a více"
 
+msgid "Building footprints"
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
 msgid "Elevation"
 msgstr "Nadmořská výška"
 
@@ -1269,11 +1293,14 @@ msgstr "Finanční rok (od dubna)"
 msgid "Cancelled"
 msgstr "Zrušeno"
 
-msgid "Selected org units"
-msgstr "Vybrané organizační jednotky"
+msgid "{{name}}: No coordinates found"
+msgstr ""
 
-msgid "No coordinates found"
-msgstr "Nenalezeny žádné souřadnice"
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "K datům této vrstvy nemáte přístup"
@@ -1293,8 +1320,8 @@ msgstr "Událost"
 msgid "Facilities"
 msgstr "Zařízení"
 
-msgid "No facilities found"
-msgstr "Nebylo nalezeno žádné zařízení"
+msgid "Facilities: No coordinates found"
+msgstr ""
 
 msgid "Organisation units"
 msgstr "Organizační jednotky"

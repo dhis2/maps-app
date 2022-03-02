@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-02-23T16:00:05.712Z\n"
+"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Ibatov <ibatovk@who.int>, 2022\n"
 "Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -223,10 +223,12 @@ msgid ""
 "units."
 msgstr ""
 
+msgid "Multiple aggregation methods are available."
+msgstr ""
+
 msgid ""
-"Multiple aggregation methods are available. See the aggregation results by "
-"clicking map regions or viewing the data table. The results can also be "
-"downloaded."
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
 msgstr ""
 
 msgid "Unit"
@@ -234,6 +236,9 @@ msgstr ""
 
 msgid "Source"
 msgstr "Манба"
+
+msgid "Legend preview"
+msgstr "Аввалги таъриф"
 
 msgid "Year"
 msgstr "Йил"
@@ -267,9 +272,6 @@ msgstr "Максимум"
 
 msgid "Steps"
 msgstr "Қадамлар"
-
-msgid "Legend preview"
-msgstr "Аввалги таъриф"
 
 msgid "Org Units"
 msgstr "Ташкилий Бўлимлар"
@@ -629,6 +631,11 @@ msgstr "Аждод бўлими"
 
 msgid "Last updated"
 msgstr "Охирги янгиланган"
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
 msgid "no value"
 msgstr "қиймат йўқ"
@@ -1063,6 +1070,26 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
+msgid "Building footprints"
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
 msgid "Elevation"
 msgstr "Баландлик"
 
@@ -1269,11 +1296,14 @@ msgstr "Молиявий йил (бошланиши Апрель)"
 msgid "Cancelled"
 msgstr "Бекор қилинди"
 
-msgid "Selected org units"
-msgstr "Танланган танланган бўлимлар"
+msgid "{{name}}: No coordinates found"
+msgstr ""
 
-msgid "No coordinates found"
-msgstr "Координаталар топилмади"
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "Ушбу қатлам маълумотларига кириш ҳуқуқига эга эмассиз"
@@ -1293,7 +1323,7 @@ msgstr "Тадбир"
 msgid "Facilities"
 msgstr "Муассасалар"
 
-msgid "No facilities found"
+msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"
