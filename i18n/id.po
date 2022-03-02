@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-02-23T16:00:05.712Z\n"
+"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -230,19 +230,22 @@ msgstr ""
 "Data akan dihitung di Google Earth Engine untuk unit organisasi yang "
 "dipilih."
 
-msgid ""
-"Multiple aggregation methods are available. See the aggregation results by "
-"clicking map regions or viewing the data table. The results can also be "
-"downloaded."
+msgid "Multiple aggregation methods are available."
 msgstr ""
-"Beberapa metode agregasi tersedia. Lihat hasil agregasi dengan mengklik "
-"wilayah peta atau melihat tabel data. Hasilnya juga bisa diunduh."
+
+msgid ""
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
+msgstr ""
 
 msgid "Unit"
 msgstr "Satuan"
 
 msgid "Source"
 msgstr "Sumber"
+
+msgid "Legend preview"
+msgstr "Pratinjau legenda"
 
 msgid "Year"
 msgstr "Tahun"
@@ -276,9 +279,6 @@ msgstr "Maksimal"
 
 msgid "Steps"
 msgstr "langkah"
-
-msgid "Legend preview"
-msgstr "Pratinjau legenda"
 
 msgid "Org Units"
 msgstr "Unit Organisasi"
@@ -638,6 +638,11 @@ msgstr "Unit induk"
 
 msgid "Last updated"
 msgstr "Terakhir diperbarui"
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
 msgid "no value"
 msgstr "tidak ada nilai"
@@ -1076,6 +1081,26 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
+msgid "Building footprints"
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
 msgid "Elevation"
 msgstr "Ketinggian"
 
@@ -1282,11 +1307,14 @@ msgstr "Financial April"
 msgid "Cancelled"
 msgstr "Dibatalkan"
 
-msgid "Selected org units"
-msgstr "Unit organisasi yang dipilih"
+msgid "{{name}}: No coordinates found"
+msgstr ""
 
-msgid "No coordinates found"
-msgstr "Tidak ditemukan koordinat"
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "Anda tidak memiliki akses ke data layer ini"
@@ -1306,7 +1334,7 @@ msgstr "Kejadian"
 msgid "Facilities"
 msgstr "Fasilitas"
 
-msgid "No facilities found"
+msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"

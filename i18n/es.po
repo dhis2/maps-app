@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-02-23T16:00:05.712Z\n"
+"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -229,10 +229,12 @@ msgid ""
 "units."
 msgstr ""
 
+msgid "Multiple aggregation methods are available."
+msgstr ""
+
 msgid ""
-"Multiple aggregation methods are available. See the aggregation results by "
-"clicking map regions or viewing the data table. The results can also be "
-"downloaded."
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
 msgstr ""
 
 msgid "Unit"
@@ -240,6 +242,9 @@ msgstr ""
 
 msgid "Source"
 msgstr "Fuente"
+
+msgid "Legend preview"
+msgstr ""
 
 msgid "Year"
 msgstr "Año"
@@ -273,9 +278,6 @@ msgstr "Máx"
 
 msgid "Steps"
 msgstr "Pasos"
-
-msgid "Legend preview"
-msgstr ""
 
 msgid "Org Units"
 msgstr ""
@@ -626,6 +628,11 @@ msgstr "Unidad padre"
 
 msgid "Last updated"
 msgstr "Última actualización"
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
 msgid "no value"
 msgstr "sin valor"
@@ -1055,6 +1062,26 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
+msgid "Building footprints"
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
 msgid "Elevation"
 msgstr "Elevación"
 
@@ -1254,10 +1281,13 @@ msgstr "Año fiscal - Abril"
 msgid "Cancelled"
 msgstr "Cancelar"
 
-msgid "Selected org units"
+msgid "{{name}}: No coordinates found"
 msgstr ""
 
-msgid "No coordinates found"
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1278,7 +1308,7 @@ msgstr "Evento"
 msgid "Facilities"
 msgstr ""
 
-msgid "No facilities found"
+msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"

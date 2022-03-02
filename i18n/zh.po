@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-02-23T16:00:05.712Z\n"
+"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -222,17 +222,22 @@ msgid ""
 "units."
 msgstr "数据将在Google Earth Engine上针对所选组织单位进行计算。"
 
+msgid "Multiple aggregation methods are available."
+msgstr ""
+
 msgid ""
-"Multiple aggregation methods are available. See the aggregation results by "
-"clicking map regions or viewing the data table. The results can also be "
-"downloaded."
-msgstr "有多种汇总统计方法可用。通过单击地图区域或查看数据表来查看聚合结果。结果也可以下载。"
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
+msgstr ""
 
 msgid "Unit"
 msgstr "单元"
 
 msgid "Source"
 msgstr "资源"
+
+msgid "Legend preview"
+msgstr "图例预览"
 
 msgid "Year"
 msgstr "年"
@@ -266,9 +271,6 @@ msgstr "最大"
 
 msgid "Steps"
 msgstr "步"
-
-msgid "Legend preview"
-msgstr "图例预览"
 
 msgid "Org Units"
 msgstr "机构"
@@ -619,6 +621,11 @@ msgstr "上级机构"
 
 msgid "Last updated"
 msgstr "Last updated"
+
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
 
 msgid "no value"
 msgstr "无值"
@@ -1048,6 +1055,26 @@ msgstr "女性 75 - 79 岁"
 msgid "Female 80 years and above"
 msgstr "80岁及以上女性"
 
+msgid "Building footprints"
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+
 msgid "Elevation"
 msgstr "高程"
 
@@ -1247,11 +1274,14 @@ msgstr "财务四月"
 msgid "Cancelled"
 msgstr "已取消"
 
-msgid "Selected org units"
-msgstr "选择的机构"
+msgid "{{name}}: No coordinates found"
+msgstr ""
 
-msgid "No coordinates found"
-msgstr "没有找到坐标"
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
@@ -1271,8 +1301,8 @@ msgstr "四级"
 msgid "Facilities"
 msgstr "机构设施"
 
-msgid "No facilities found"
-msgstr "没有找到机构设施"
+msgid "Facilities: No coordinates found"
+msgstr ""
 
 msgid "Organisation units"
 msgstr "组织机构"
