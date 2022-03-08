@@ -223,12 +223,12 @@ msgid ""
 msgstr "数据将在Google Earth Engine上针对所选组织单位进行计算。"
 
 msgid "Multiple aggregation methods are available."
-msgstr ""
+msgstr "有多种汇总方法可用。"
 
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
-msgstr ""
+msgstr "通过单击地图区域或查看数据表查看聚合结果。结果也可以下载。"
 
 msgid "Unit"
 msgstr "单元"
@@ -625,7 +625,7 @@ msgstr "Last updated"
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
 "instance?"
-msgstr ""
+msgstr "Google 地球引擎失败。是否为此 DHIS2 实例配置了服务？"
 
 msgid "no value"
 msgstr "无值"
@@ -1056,24 +1056,24 @@ msgid "Female 80 years and above"
 msgstr "80岁及以上女性"
 
 msgid "Building footprints"
-msgstr ""
+msgstr "构建足迹"
 
 msgid "Number of buildings"
-msgstr ""
+msgstr "构建物数量"
 
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
 "Only for the continent of Africa."
-msgstr ""
+msgstr "来自高分辨率卫星图像的建筑物轮廓。仅适用于非洲大陆。"
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
-msgstr ""
+msgstr "建筑物计数仅适用于较小的组织单位区域。"
 
 msgid ""
 "Select a smaller area or single organization unit to see the count of "
 "buildings."
-msgstr ""
+msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。"
 
 msgid "Elevation"
 msgstr "高程"
@@ -1275,13 +1275,13 @@ msgid "Cancelled"
 msgstr "已取消"
 
 msgid "{{name}}: No coordinates found"
-msgstr ""
+msgstr "{{name}}：未找到坐标"
 
 msgid "Selected org units: No coordinates found"
-msgstr ""
+msgstr "选定的组织单位：未找到坐标"
 
 msgid "Error: {{message}}"
-msgstr ""
+msgstr "错误: {{message}}"
 
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"
@@ -1302,7 +1302,7 @@ msgid "Facilities"
 msgstr "机构设施"
 
 msgid "Facilities: No coordinates found"
-msgstr ""
+msgstr "机构设施：未找到坐标"
 
 msgid "Organisation units"
 msgstr "组织机构"
