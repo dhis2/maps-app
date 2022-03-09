@@ -13,7 +13,7 @@ export const defaultBasemaps = () => [
         name: i18n.t('OSM Light'),
         img: 'images/osmlight.png',
         config: {
-            type: 'tileLayer',
+            type: TILE_LAYER,
             url:
                 '//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
             attribution:
