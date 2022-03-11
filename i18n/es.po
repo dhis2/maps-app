@@ -10,13 +10,14 @@
 # phil_dhis2, 2021
 # Prabhjot Singh, 2021
 # Viktor Varland <viktor@dhis2.org>, 2022
+# Janeth Cruz, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-01-31T15:16:16.180Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"Last-Translator: Janeth Cruz, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -167,7 +168,7 @@ msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Group Set"
-msgstr ""
+msgstr "Set de grupos"
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
