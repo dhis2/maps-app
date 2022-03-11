@@ -213,9 +213,9 @@ export const fetchFacilityConfigurations = async () => {
 };
 
 // Returns coordinate field from layer config
-export const getCoordinateField = ({ geometryAttribute }) =>
-    geometryAttribute && geometryAttribute.id !== NONE
-        ? geometryAttribute
+export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>
+    orgUnitField && orgUnitField !== NONE
+        ? { id: orgUnitField, name: orgUnitFieldDisplayName }
         : null;
 
 // Set hasAddiditionalGeometry property if exist

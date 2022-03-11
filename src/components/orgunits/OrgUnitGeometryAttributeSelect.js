@@ -8,7 +8,7 @@ import { setOrganisationUnitGeometryAttribute } from '../../actions/layerEdit';
 import { NONE } from '../../constants/layers';
 
 export const OrgUnitGeometryAttributeSelect = ({
-    geometryAttribute,
+    orgUnitField,
     setOrganisationUnitGeometryAttribute,
 }) => {
     const [attributes, setAttributes] = useState([]);
@@ -25,7 +25,7 @@ export const OrgUnitGeometryAttributeSelect = ({
         <SelectField
             label={i18n.t('Use associated geometry')}
             items={[{ id: NONE, name: i18n.t('None') }, ...attributes]}
-            value={geometryAttribute ? geometryAttribute.id : null}
+            value={orgUnitField}
             onChange={setOrganisationUnitGeometryAttribute}
             data-test="orgunitgeometryattributeselect"
         />
@@ -33,15 +33,13 @@ export const OrgUnitGeometryAttributeSelect = ({
 };
 
 OrgUnitGeometryAttributeSelect.propTypes = {
-    geometryAttribute: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }),
+    orgUnitField: PropTypes.string,
     setOrganisationUnitGeometryAttribute: PropTypes.func.isRequired,
 };
 
 export default connect(
     ({ layerEdit }) => ({
-        geometryAttribute: layerEdit.geometryAttribute,
+        orgUnitField: layerEdit.orgUnitField,
     }),
     { setOrganisationUnitGeometryAttribute }
 )(OrgUnitGeometryAttributeSelect);
