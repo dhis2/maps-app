@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
-"PO-Revision-Date: 2022-03-01T16:07:11.327Z\n"
+"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
+"PO-Revision-Date: 2022-03-11T20:46:39.429Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -1169,15 +1169,6 @@ msgid "Active"
 msgstr ""
 
 msgid "Completed"
-msgstr ""
-
-msgid "Schedule"
-msgstr ""
-
-msgid "Overdue"
-msgstr ""
-
-msgid "Skipped"
 msgstr ""
 
 msgid "Choropleth"
