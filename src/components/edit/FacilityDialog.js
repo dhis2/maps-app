@@ -132,7 +132,7 @@ class FacilityDialog extends Component {
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
-        const hasOrgUnitField = orgUnitField && orgUnitField !== NONE;
+        const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE;
 
         return (
             <div data-test="facilitydialog">
