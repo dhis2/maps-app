@@ -193,7 +193,8 @@ class DataTable extends Component {
         const isOrgUnit = layerType === ORG_UNIT_LAYER;
         const isEvent = layerType === EVENT_LAYER;
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
-        const isLoading = isEarthEngine && aggregationType && !aggregations;
+        const isLoading =
+            isEarthEngine && aggregationType?.length && !aggregations;
 
         return !serverCluster ? (
             <>
