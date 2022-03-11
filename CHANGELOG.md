@@ -1,3 +1,11 @@
+## [1.22.3](https://github.com/dhis2/maps-app/compare/v1.22.2...v1.22.3) (2022-03-11)
+
+
+### Bug Fixes
+
+* maps-gl upgrade ([b324c6c](https://github.com/dhis2/maps-app/commit/b324c6c749ec1628f462bf27bb3f89dd0f256c75))
+* switch back to default image tiles basemap ([#2073](https://github.com/dhis2/maps-app/issues/2073)) ([c559424](https://github.com/dhis2/maps-app/commit/c5594244aedc92a23ae0942f770fe27c4b9cd0ca))
+
 ## [1.22.2](https://github.com/dhis2/maps-app/compare/v1.22.1...v1.22.2) (2022-03-02)
 
 
