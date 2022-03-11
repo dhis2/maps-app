@@ -1,10 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
-import {
-    VECTOR_STYLE,
-    TILE_LAYER,
-    GOOGLE_LAYER,
-    BING_LAYER,
-} from '../constants/layers';
+import { TILE_LAYER, GOOGLE_LAYER, BING_LAYER } from '../constants/layers';
 
 export const FALLBACK_BASEMAP_ID = 'osmLight';
 
@@ -18,9 +13,9 @@ export const defaultBasemaps = () => [
         name: i18n.t('OSM Light'),
         img: 'images/osmlight.png',
         config: {
-            type: VECTOR_STYLE,
-            url: '//basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-            // beforeId: 'watername_ocean', //TODO - this may become a configurable property
+            type: TILE_LAYER,
+            url:
+                '//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
             attribution:
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
         },

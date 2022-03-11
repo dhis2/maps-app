@@ -20,7 +20,11 @@ import {
     setOrgUnitLevels,
     setBufferRadius,
 } from '../../../actions/layerEdit';
-import { DEFAULT_ORG_UNIT_LEVEL, EE_BUFFER } from '../../../constants/layers';
+import {
+    DEFAULT_ORG_UNIT_LEVEL,
+    EE_BUFFER,
+    NONE,
+} from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
 const EarthEngineDialog = props => {
@@ -35,7 +39,7 @@ const EarthEngineDialog = props => {
         params,
         filter,
         areaRadius,
-        geometryAttribute,
+        orgUnitField,
         setFilter,
         setOrgUnitLevels,
         setBufferRadius,
@@ -64,6 +68,8 @@ const EarthEngineDialog = props => {
     const noBandSelected = Array.isArray(bands) && (!band || !band.length);
 
     const hasMultipleAggregations = !aggregations || aggregations.length > 1;
+
+    const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE;
 
     // Load all available periods
     useEffect(() => {
@@ -220,7 +226,7 @@ const EarthEngineDialog = props => {
                     <StyleTab
                         unit={unit}
                         params={params}
-                        geometryAttribute={geometryAttribute}
+                        hasOrgUnitField={hasOrgUnitField}
                     />
                 )}
             </div>
@@ -239,9 +245,7 @@ EarthEngineDialog.propTypes = {
         palette: PropTypes.string.isRequired,
     }),
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    geometryAttribute: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }),
+    orgUnitField: PropTypes.string,
     legend: PropTypes.object,
     validateLayer: PropTypes.bool.isRequired,
     setFilter: PropTypes.func.isRequired,

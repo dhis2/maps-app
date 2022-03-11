@@ -8,7 +8,7 @@ import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
-import OrgUnitGeometryAttributeSelect from '../orgunits/OrgUnitGeometryAttributeSelect';
+import OrgUnitFieldSelect from '../orgunits/OrgUnitFieldSelect';
 import Labels from './shared/Labels';
 import BufferRadius from './shared/BufferRadius';
 import StyleByGroupSet from '../groupSet/StyleByGroupSet';
@@ -50,9 +50,7 @@ class FacilityDialog extends Component {
         radiusLow: PropTypes.number,
         organisationUnitColor: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
-        geometryAttribute: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
+        orgUnitField: PropTypes.string,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
@@ -120,7 +118,7 @@ class FacilityDialog extends Component {
             radiusLow,
             organisationUnitColor,
             organisationUnitGroupSet,
-            geometryAttribute,
+            orgUnitField,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
@@ -134,8 +132,7 @@ class FacilityDialog extends Component {
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
-        const hasGeometryAttribute =
-            geometryAttribute && geometryAttribute.id !== NONE;
+        const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE;
 
         return (
             <div data-test="facilitydialog">
@@ -175,7 +172,7 @@ class FacilityDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
-                                <OrgUnitGeometryAttributeSelect />
+                                <OrgUnitFieldSelect />
                                 {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}
@@ -193,7 +190,7 @@ class FacilityDialog extends Component {
                                 <Labels />
                                 <BufferRadius
                                     defaultRadius={FACILITY_BUFFER}
-                                    disabled={hasGeometryAttribute}
+                                    disabled={hasOrgUnitField}
                                 />
                             </div>
                             <div className={styles.flexColumn}>

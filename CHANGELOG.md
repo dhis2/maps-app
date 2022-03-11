@@ -1,3 +1,23 @@
+# [1.23.0](https://github.com/dhis2/maps-app/compare/v1.22.3...v1.23.0) (2022-03-11)
+
+
+### Bug Fixes
+
+* disable data table if no org units ([#2075](https://github.com/dhis2/maps-app/issues/2075)) ([4b9079b](https://github.com/dhis2/maps-app/commit/4b9079baaa3383bbbf1cfc3435dae73335fa120f))
+
+
+### Features
+
+* catchment area support in analytical object (DHIS2-11969) ([#2076](https://github.com/dhis2/maps-app/issues/2076)) ([2a3c091](https://github.com/dhis2/maps-app/commit/2a3c09191641c4376f1e6eca31e2c46596d01893))
+
+## [1.22.3](https://github.com/dhis2/maps-app/compare/v1.22.2...v1.22.3) (2022-03-11)
+
+
+### Bug Fixes
+
+* maps-gl upgrade ([b324c6c](https://github.com/dhis2/maps-app/commit/b324c6c749ec1628f462bf27bb3f89dd0f256c75))
+* switch back to default image tiles basemap ([#2073](https://github.com/dhis2/maps-app/issues/2073)) ([c559424](https://github.com/dhis2/maps-app/commit/c5594244aedc92a23ae0942f770fe27c4b9cd0ca))
+
 ## [1.22.2](https://github.com/dhis2/maps-app/compare/v1.22.1...v1.22.2) (2022-03-02)
 
 

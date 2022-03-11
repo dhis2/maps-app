@@ -17,6 +17,7 @@ import {
     CLASSIFICATION_EQUAL_COUNTS,
     CLASSIFICATION_PREDEFINED,
     THEMATIC_CHOROPLETH,
+    EE_BUFFER,
     NONE,
 } from '../constants/layers';
 import { START_END_DATES } from '../constants/periods';
@@ -419,13 +420,15 @@ const layerEdit = (state = null, action) => {
                 rows: createUserOrgUnitsDimension(action.userOrgUnits),
             };
 
-        case types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET:
+        // eslint-disable-next-line no-case-declarations
+        case types.LAYER_EDIT_ORGANISATION_UNIT_FIELD_SET:
+            const { id, name } = action.payload;
+
             return {
                 ...state,
-                geometryAttribute: action.geometryAttribute,
-                ...(action.geometryAttribute !== NONE && {
-                    areaRadius: null,
-                }),
+                orgUnitField: id,
+                orgUnitFieldDisplayName: id !== NONE ? name : null,
+                areaRadius: id === NONE ? EE_BUFFER : null,
             };
 
         case types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE:

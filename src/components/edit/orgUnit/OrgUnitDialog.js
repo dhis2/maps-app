@@ -7,7 +7,7 @@ import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
-import OrgUnitGeometryAttributeSelect from '../../orgunits/OrgUnitGeometryAttributeSelect';
+import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect';
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
 import Labels from '../shared/Labels';
 import {
@@ -120,7 +120,7 @@ class OrgUnitDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
-                                <OrgUnitGeometryAttributeSelect />
+                                <OrgUnitFieldSelect />
                                 {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}
