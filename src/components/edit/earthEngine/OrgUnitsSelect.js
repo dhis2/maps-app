@@ -5,7 +5,7 @@ import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
-import OrgUnitGeometryAttributeSelect from '../../orgunits/OrgUnitGeometryAttributeSelect';
+import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect';
 import {
     toggleOrgUnit,
     setOrgUnitLevels,
@@ -57,7 +57,7 @@ const OrgUnitsSelect = ({
                     selected={selectedUserOrgUnits}
                     onChange={setUserOrgUnits}
                 />
-                <OrgUnitGeometryAttributeSelect />
+                <OrgUnitFieldSelect />
                 {!orgUnits.length && error && (
                     <div className={styles.error}>{error}</div>
                 )}

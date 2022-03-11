@@ -49,7 +49,7 @@ export const fetchOrgUnitGroupSet = id =>
         `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
     ).then(parseGroupSet);
 
-export const fetchOrgUnitGeometryAttributes = () =>
+export const fetchOrgUnitFields = () =>
     apiFetch(
         `/attributes.json?fields=id,name&filter=valueType:eq:GEOJSON&filter=organisationUnitAttribute:eq:true`
     ).then(({ attributes }) => attributes);

@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { SelectField } from '../core';
-import { fetchOrgUnitGeometryAttributes } from '../../util/orgUnits';
-import { setOrganisationUnitGeometryAttribute } from '../../actions/layerEdit';
+import { fetchOrgUnitFields } from '../../util/orgUnits';
+import { setOrganisationUnitField } from '../../actions/layerEdit';
 import { NONE } from '../../constants/layers';
 
-export const OrgUnitGeometryAttributeSelect = ({
+export const OrgUnitFieldSelect = ({
     orgUnitField,
-    setOrganisationUnitGeometryAttribute,
+    setOrganisationUnitField,
 }) => {
     const [attributes, setAttributes] = useState([]);
 
     useEffect(() => {
-        fetchOrgUnitGeometryAttributes().then(setAttributes);
+        fetchOrgUnitFields().then(setAttributes);
     }, []);
 
     if (!attributes.length) {
@@ -26,20 +26,20 @@ export const OrgUnitGeometryAttributeSelect = ({
             label={i18n.t('Use associated geometry')}
             items={[{ id: NONE, name: i18n.t('None') }, ...attributes]}
             value={orgUnitField}
-            onChange={setOrganisationUnitGeometryAttribute}
-            data-test="orgunitgeometryattributeselect"
+            onChange={setOrganisationUnitField}
+            data-test="orgunitfieldselect"
         />
     );
 };
 
-OrgUnitGeometryAttributeSelect.propTypes = {
+OrgUnitFieldSelect.propTypes = {
     orgUnitField: PropTypes.string,
-    setOrganisationUnitGeometryAttribute: PropTypes.func.isRequired,
+    setOrganisationUnitField: PropTypes.func.isRequired,
 };
 
 export default connect(
     ({ layerEdit }) => ({
         orgUnitField: layerEdit.orgUnitField,
     }),
-    { setOrganisationUnitGeometryAttribute }
-)(OrgUnitGeometryAttributeSelect);
+    { setOrganisationUnitField }
+)(OrgUnitFieldSelect);

@@ -421,8 +421,8 @@ const layerEdit = (state = null, action) => {
             };
 
         // eslint-disable-next-line no-case-declarations
-        case types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET:
-            const { id, name } = action.geometryAttribute;
+        case types.LAYER_EDIT_ORGANISATION_UNIT_FIELD_SET:
+            const { id, name } = action.payload;
 
             return {
                 ...state,
