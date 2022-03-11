@@ -27,7 +27,7 @@ class FacilityLayer extends Layer {
             dataFilters,
             labels,
             areaRadius,
-            geometryAttribute,
+            orgUnitFieldDisplayName,
             associatedGeometries,
             organisationUnitColor: color = ORG_UNIT_COLOR,
             organisationUnitGroupSet,
@@ -79,7 +79,7 @@ class FacilityLayer extends Layer {
             group.addLayer({
                 type: GEOJSON_LAYER,
                 data: associatedGeometries,
-                hoverLabel: `{name}: ${geometryAttribute.name}`,
+                hoverLabel: `{name}: ${orgUnitFieldDisplayName}`,
                 style: {
                     color: 'rgb(149, 200, 251)',
                     opacityFactor: 0.5,
@@ -101,7 +101,7 @@ class FacilityLayer extends Layer {
     getPopup() {
         const { coordinates, feature } = this.state.popup;
         const { id, name, dimensions, pn } = feature.properties;
-        const { geometryAttribute } = this.props;
+        const { orgUnitFieldDisplayName } = this.props;
 
         return (
             <Popup
@@ -112,7 +112,7 @@ class FacilityLayer extends Layer {
             >
                 <em>{name}</em>
                 {this.state.isAssociatedGeometry && (
-                    <div>{geometryAttribute.name}</div>
+                    <div>{orgUnitFieldDisplayName}</div>
                 )}
                 {isPlainObject(dimensions) && (
                     <div>

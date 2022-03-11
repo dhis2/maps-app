@@ -174,9 +174,9 @@ export const setOrganisationUnitColor = color => ({
     color,
 });
 
-export const setOrganisationUnitGeometryAttribute = geometryAttribute => ({
-    type: types.LAYER_EDIT_ORGANISATION_UNIT_GEOMETRY_ATTRIBUTE_SET,
-    geometryAttribute,
+export const setOrganisationUnitField = payload => ({
+    type: types.LAYER_EDIT_ORGANISATION_UNIT_FIELD_SET,
+    payload,
 });
 
 // Set period label (earth engine)
