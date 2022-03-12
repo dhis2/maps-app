@@ -203,31 +203,6 @@ export default class EarthEngineLayer extends Layer {
         const { legend, aggregationType } = this.props;
         const { isLoading, popup, aggregations, error } = this.state;
 
-        /*
-        if (error) {
-            return (
-                <Alert
-                    message={error}
-                    onHidden={() => this.setState({ error: null })}
-                />
-            );
-        }
-
-        if (isLoading) {
-            return <MapLoadingMask />;
-        }
-
-        return popup ? (
-            <EarthEnginePopup
-                data={aggregations || {}}
-                legend={legend}
-                valueType={aggregationType}
-                onClose={this.onPopupClose}
-                {...popup}
-            />
-        ) : null;
-        */
-
         return (
             <>
                 {isLoading && <MapLoadingMask />}
