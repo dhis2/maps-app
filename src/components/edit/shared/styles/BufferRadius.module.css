@@ -12,3 +12,10 @@
 .numberField {
     padding-left: 23px;
 }
+
+.info {
+    padding-left: 23px;
+    line-height: 20px;
+    color: rgb(110, 122, 138);
+    font-style: italic;
+}

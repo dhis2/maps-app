@@ -12,7 +12,7 @@ const StyleTab = ({ unit, params, hasOrgUnitField }) => (
             {params && <StyleSelect unit={unit} params={params} />}
             <BufferRadius
                 defaultRadius={EE_BUFFER}
-                disabled={hasOrgUnitField}
+                hasOrgUnitField={hasOrgUnitField}
             />
         </div>
         {params && <LegendPreview params={params} />}
