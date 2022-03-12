@@ -63,15 +63,13 @@ const earthEngineLoader = async config => {
                 });
             }
         } catch (error) {
-            alerts.push([
-                {
-                    critical: true,
-                    message: i18n.t('Error: {{message}}', {
-                        message: error.message,
-                        nsSeparator: ';',
-                    }),
-                },
-            ]);
+            alerts.push({
+                critical: true,
+                message: i18n.t('Error: {{message}}', {
+                    message: error.message,
+                    nsSeparator: ';',
+                }),
+            });
         }
     }
 
