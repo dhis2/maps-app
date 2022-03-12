@@ -91,7 +91,7 @@ export const FACILITY_BUFFER = 5000;
 /* ORG UNIT LAYER */
 export const ORG_UNIT_COLOR = '#333333';
 export const ORG_UNIT_RADIUS = 6;
-export const ORG_UNIT_RADIUS_SMALL = 3;
+export const ORG_UNIT_RADIUS_SMALL = 1;
 
 /* EARTH ENGINE LAYER */
 export const EE_BUFFER = 5000;
