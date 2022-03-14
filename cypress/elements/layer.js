@@ -24,6 +24,7 @@ export class Layer {
     selectOu(ouName) {
         cy.get('.tree-view.orgunit')
             .contains(ouName)
+            .scrollIntoView()
             .click();
 
         return this;

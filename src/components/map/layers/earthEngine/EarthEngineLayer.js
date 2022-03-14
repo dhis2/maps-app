@@ -203,28 +203,26 @@ export default class EarthEngineLayer extends Layer {
         const { legend, aggregationType } = this.props;
         const { isLoading, popup, aggregations, error } = this.state;
 
-        if (error) {
-            return (
-                <Alert
-                    message={error}
-                    onHidden={() => this.setState({ error: null })}
-                />
-            );
-        }
-
-        if (isLoading) {
-            return <MapLoadingMask />;
-        }
-
-        return popup ? (
-            <EarthEnginePopup
-                data={aggregations || {}}
-                legend={legend}
-                valueType={aggregationType}
-                onClose={this.onPopupClose}
-                {...popup}
-            />
-        ) : null;
+        return (
+            <>
+                {isLoading && <MapLoadingMask />}
+                {error && (
+                    <Alert
+                        message={error}
+                        onHidden={() => this.setState({ error: null })}
+                    />
+                )}
+                {popup && (
+                    <EarthEnginePopup
+                        data={aggregations || {}}
+                        legend={legend}
+                        valueType={aggregationType}
+                        onClose={this.onPopupClose}
+                        {...popup}
+                    />
+                )}
+            </>
+        );
     }
 
     onFeatureClick(evt) {
@@ -247,6 +245,10 @@ export default class EarthEngineLayer extends Layer {
             message = this.props.error;
         }
 
-        this.setState({ error: message, isLoading: false });
+        this.setState({
+            error: message,
+            isLoading: false,
+            aggregations: 'error',
+        });
     }
 }
