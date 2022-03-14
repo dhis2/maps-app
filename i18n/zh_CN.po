@@ -168,7 +168,7 @@ msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "事件"
 
 msgid "tracked entity"
 msgstr ""
