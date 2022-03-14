@@ -1,3 +1,12 @@
+## [1.23.2](https://github.com/dhis2/maps-app/compare/v1.23.1...v1.23.2) (2022-03-14)
+
+
+### Bug Fixes
+
+* error format ([#2082](https://github.com/dhis2/maps-app/issues/2082)) ([05d952f](https://github.com/dhis2/maps-app/commit/05d952f27c654ebbe29d5e766f5d68568ccef008))
+* filter out invalid geojson ([#2078](https://github.com/dhis2/maps-app/issues/2078)) ([bdb73f3](https://github.com/dhis2/maps-app/commit/bdb73f36ad806cb21ac7d9286d096d2a55039cf3))
+* show disabled buffer info ([#2081](https://github.com/dhis2/maps-app/issues/2081)) ([961c46a](https://github.com/dhis2/maps-app/commit/961c46a6d4b40c56d4a851d098b5284d402aab4a))
+
 ## [1.23.1](https://github.com/dhis2/maps-app/compare/v1.23.0...v1.23.1) (2022-03-12)
 
 
