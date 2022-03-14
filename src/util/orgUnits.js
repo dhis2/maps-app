@@ -126,7 +126,9 @@ export const getStyledOrgUnits = (
         let radius;
 
         if (isPoint) {
-            radius = hasAdditionalGeometry ? ORG_UNIT_RADIUS_SMALL : radiusLow;
+            radius = hasAdditionalGeometry
+                ? ORG_UNIT_RADIUS_SMALL + 1
+                : radiusLow;
         }
 
         const properties = {

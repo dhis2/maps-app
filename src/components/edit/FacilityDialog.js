@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import cx from 'classnames';
 import { Tab, Tabs, NumberField, ColorPicker } from '../core';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
@@ -186,11 +185,11 @@ class FacilityDialog extends Component {
                             className={styles.flexColumnFlow}
                             data-test="facilitydialog-styletab"
                         >
-                            <div className={cx(styles.flexColumn)}>
+                            <div className={styles.flexColumn}>
                                 <Labels />
                                 <BufferRadius
                                     defaultRadius={FACILITY_BUFFER}
-                                    disabled={hasOrgUnitField}
+                                    hasOrgUnitField={hasOrgUnitField}
                                 />
                             </div>
                             <div className={styles.flexColumn}>
