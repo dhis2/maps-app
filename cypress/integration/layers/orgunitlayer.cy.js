@@ -12,7 +12,9 @@ context('Org Unit Layers', () => {
 
         Layer.validateDialogClosed(false);
 
-        cy.contains('No organisation units are selected').should('be.visible');
+        cy.contains('No organisation units are selected')
+            .scrollIntoView()
+            .should('be.visible');
     });
 
     it('adds a org unit layer', () => {
