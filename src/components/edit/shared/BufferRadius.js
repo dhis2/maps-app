@@ -16,18 +16,20 @@ import styles from './styles/BufferRadius.module.css';
 const BufferRadius = ({
     radius,
     defaultRadius = 1000,
+    hasOrgUnitField,
     disabled,
     className,
     setBufferRadius,
 }) => {
     const showBuffer = radius !== undefined && radius !== null;
+    const isDisabled = disabled || hasOrgUnitField;
 
     return (
         <div className={cx(styles.buffer, className)}>
             <Checkbox
                 label={i18n.t('Buffer')}
                 checked={showBuffer}
-                disabled={disabled}
+                disabled={isDisabled}
                 onChange={isChecked =>
                     setBufferRadius(isChecked ? radius || defaultRadius : null)
                 }
@@ -36,13 +38,20 @@ const BufferRadius = ({
                 <NumberField
                     label={i18n.t('Radius in meters')}
                     value={Number.isInteger(radius) ? radius : ''}
-                    disabled={disabled}
+                    disabled={isDisabled}
                     onChange={value =>
                         setBufferRadius(value !== '' ? parseInt(value, 10) : '')
                     }
                     min={0}
                     className={styles.numberField}
                 />
+            )}
+            {hasOrgUnitField && (
+                <div className={styles.info}>
+                    {i18n.t(
+                        "Buffer can't be combined with associated geometry."
+                    )}
+                </div>
             )}
         </div>
     );
@@ -51,6 +60,7 @@ const BufferRadius = ({
 BufferRadius.propTypes = {
     radius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     defaultRadius: PropTypes.number,
+    hasOrgUnitField: PropTypes.bool,
     disabled: PropTypes.bool,
     className: PropTypes.string,
     setBufferRadius: PropTypes.func.isRequired,

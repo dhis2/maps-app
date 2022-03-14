@@ -45,6 +45,7 @@ const thematicLoader = async config => {
     } = config;
 
     const dataItem = getDataItemFromColumns(columns);
+    const coordinateField = getCoordinateField(config);
 
     let error;
 
@@ -91,6 +92,7 @@ const thematicLoader = async config => {
     let minValue = orderedValues[0];
     let maxValue = orderedValues[orderedValues.length - 1];
     const name = names[dataItem.id];
+    const alerts = [];
 
     let legendSet = config.legendSet;
 
@@ -105,7 +107,6 @@ const thematicLoader = async config => {
     }
 
     let method = legendSet ? CLASSIFICATION_PREDEFINED : config.method; // Favorites often have wrong method
-    let alert;
 
     if (legendSet) {
         legendSet = await loadLegendSet(legendSet);
@@ -172,18 +173,28 @@ const thematicLoader = async config => {
         setAdditionalGeometry(valueFeatures);
     } else {
         if (!features.length) {
-            alert = {
+            alerts.push({
                 warning: true,
                 message: i18n.t('Selected org units: No coordinates found', {
                     nsSeparator: ';',
                 }),
-            };
+            });
         } else {
-            alert = {
+            alerts.push({
                 warning: true,
                 message: `${name}: ${i18n.t('No data found')}`,
-            };
+            });
         }
+    }
+
+    if (coordinateField && !associatedGeometries.length) {
+        alerts.push({
+            warning: true,
+            message: i18n.t('{{name}}: No coordinates found', {
+                name: coordinateField.name,
+                nsSeparator: ';',
+            }),
+        });
     }
 
     if (valuesByPeriod) {
@@ -245,7 +256,7 @@ const thematicLoader = async config => {
         name,
         legend,
         method,
-        alerts: alert ? [alert] : undefined,
+        alerts,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,

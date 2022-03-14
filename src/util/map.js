@@ -65,7 +65,8 @@ export const toGeoJson = organisationUnits =>
         .filter(
             ({ geometry }) =>
                 Array.isArray(geometry.coordinates) &&
-                geometry.coordinates.length
+                geometry.coordinates.length &&
+                geometry.coordinates.flat().length
         );
 
 export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
