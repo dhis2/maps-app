@@ -1,3 +1,12 @@
+## [1.23.3](https://github.com/dhis2/maps-app/compare/v1.23.2...v1.23.3) (2022-03-14)
+
+
+### Bug Fixes
+
+* allow popups for buildings layer while showing an error ([#2079](https://github.com/dhis2/maps-app/issues/2079)) ([e2e1566](https://github.com/dhis2/maps-app/commit/e2e1566cdbc5d8f2232132940bc7330c1459bebf))
+* remove unused event statuses ([#2077](https://github.com/dhis2/maps-app/issues/2077)) ([375ddee](https://github.com/dhis2/maps-app/commit/375ddee5429c9bd4a0a9712ebc769b2dbcfd3a42))
+* show warning if no catchment areas for thematic layer ([#2080](https://github.com/dhis2/maps-app/issues/2080)) ([bddfe94](https://github.com/dhis2/maps-app/commit/bddfe9427a7e3a7fb9228f7089029f65ed0946bb))
+
 ## [1.23.2](https://github.com/dhis2/maps-app/compare/v1.23.1...v1.23.2) (2022-03-14)
 
 
