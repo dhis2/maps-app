@@ -13,16 +13,4 @@ export const getEventStatuses = () => [
         id: 'COMPLETED',
         name: i18n.t('Completed'),
     },
-    {
-        id: 'SCHEDULE',
-        name: i18n.t('Schedule'),
-    },
-    {
-        id: 'OVERDUE',
-        name: i18n.t('Overdue'),
-    },
-    {
-        id: 'SKIPPED',
-        name: i18n.t('Skipped'),
-    },
 ];
