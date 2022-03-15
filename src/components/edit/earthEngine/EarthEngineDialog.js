@@ -109,10 +109,10 @@ const EarthEngineDialog = props => {
     }, [rows, setOrgUnitLevels]);
 
     useEffect(() => {
-        if (areaRadius === undefined) {
+        if (!hasOrgUnitField && areaRadius === undefined) {
             setBufferRadius(EE_BUFFER);
         }
-    }, [areaRadius, setBufferRadius]);
+    }, [hasOrgUnitField, areaRadius, setBufferRadius]);
 
     useEffect(() => {
         if (validateLayer) {
