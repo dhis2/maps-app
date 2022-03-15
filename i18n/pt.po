@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
+"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -324,6 +324,9 @@ msgstr "Buffer"
 
 msgid "Radius in meters"
 msgstr "Raio em metros"
+
+msgid "Buffer can't be combined with associated geometry."
+msgstr ""
 
 msgid "Labels"
 msgstr "Etiquetas"
@@ -1217,15 +1220,6 @@ msgstr "Activo"
 
 msgid "Completed"
 msgstr "Completo"
-
-msgid "Schedule"
-msgstr "Programar"
-
-msgid "Overdue"
-msgstr "Atrasado"
-
-msgid "Skipped"
-msgstr "Ignorado"
 
 msgid "Choropleth"
 msgstr ""
