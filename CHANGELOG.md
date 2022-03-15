@@ -1,3 +1,10 @@
+## [1.23.5](https://github.com/dhis2/maps-app/compare/v1.23.4...v1.23.5) (2022-03-15)
+
+
+### Bug Fixes
+
+* no buffer if catchement area ([#2089](https://github.com/dhis2/maps-app/issues/2089)) ([741df17](https://github.com/dhis2/maps-app/commit/741df17304cda233a0de7300072c4f634e8a66e1))
+
 ## [1.23.4](https://github.com/dhis2/maps-app/compare/v1.23.3...v1.23.4) (2022-03-15)
 
 
