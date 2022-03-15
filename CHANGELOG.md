@@ -1,3 +1,10 @@
+## [1.23.4](https://github.com/dhis2/maps-app/compare/v1.23.3...v1.23.4) (2022-03-15)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b0b9f06](https://github.com/dhis2/maps-app/commit/b0b9f06b1a893c0ecc5e7941cc2634bc9a2ccbdf))
+
 ## [1.23.3](https://github.com/dhis2/maps-app/compare/v1.23.2...v1.23.3) (2022-03-14)
 
 
