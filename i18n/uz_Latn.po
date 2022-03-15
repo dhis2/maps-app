@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
+"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2022\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -320,6 +320,9 @@ msgstr "Bufer"
 
 msgid "Radius in meters"
 msgstr "Radius metrlarda"
+
+msgid "Buffer can't be combined with associated geometry."
+msgstr ""
 
 msgid "Labels"
 msgstr "Yorliqlar"
@@ -1216,15 +1219,6 @@ msgstr "Faol"
 
 msgid "Completed"
 msgstr "bajarildi"
-
-msgid "Schedule"
-msgstr "Reja"
-
-msgid "Overdue"
-msgstr "Muddat oʼtgan"
-
-msgid "Skipped"
-msgstr "Oʼtkazib yuborildi"
 
 msgid "Choropleth"
 msgstr "Xoroplet"

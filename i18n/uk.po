@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
+"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -315,6 +315,9 @@ msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
 msgid "Labels"
@@ -1186,15 +1189,6 @@ msgstr "Активне"
 
 msgid "Completed"
 msgstr "Завершено"
-
-msgid "Schedule"
-msgstr "Запланувати"
-
-msgid "Overdue"
-msgstr "Прострочене"
-
-msgid "Skipped"
-msgstr "Пропущене"
 
 msgid "Choropleth"
 msgstr ""
