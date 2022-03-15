@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
+"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -318,6 +318,9 @@ msgstr "Vyrovnávací paměť"
 
 msgid "Radius in meters"
 msgstr "Poloměr v metrech"
+
+msgid "Buffer can't be combined with associated geometry."
+msgstr ""
 
 msgid "Labels"
 msgstr "Štítky"
@@ -1205,15 +1208,6 @@ msgstr "Aktivní"
 
 msgid "Completed"
 msgstr "Dokončeno"
-
-msgid "Schedule"
-msgstr "Plán"
-
-msgid "Overdue"
-msgstr "Po termínu"
-
-msgid "Skipped"
-msgstr "Přeskočeno"
 
 msgid "Choropleth"
 msgstr "Choropleth"

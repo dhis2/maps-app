@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-01T16:07:11.327Z\n"
+"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Lao (https://www.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -313,6 +313,9 @@ msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
 msgid "Labels"
@@ -1184,15 +1187,6 @@ msgstr "ທີ່ຍັງນໍາໃຊ້ຢູ່"
 
 msgid "Completed"
 msgstr "ສໍາເລັດແລ້ວ"
-
-msgid "Schedule"
-msgstr "ກຳນົດເວລາ"
-
-msgid "Overdue"
-msgstr "ກາຍເວລາທີ່ກໍານົດ"
-
-msgid "Skipped"
-msgstr "ຂ້າມໄປ"
 
 msgid "Choropleth"
 msgstr ""
