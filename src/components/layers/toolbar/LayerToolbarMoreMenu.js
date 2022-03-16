@@ -25,7 +25,8 @@ export const LayerToolbarMoreMenu = ({
     openAs,
     downloadData,
     dataTableOpen,
-    downloadDisabled,
+    hasOrgUnitData,
+    isLoading,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const anchorRef = useRef();
@@ -76,6 +77,7 @@ export const LayerToolbarMoreMenu = ({
                                         setIsOpen(false);
                                         toggleDataTable();
                                     }}
+                                    disabled={!hasOrgUnitData}
                                 />
                             )}
                             {openAs && (
@@ -96,7 +98,7 @@ export const LayerToolbarMoreMenu = ({
                                         setIsOpen(false);
                                         downloadData();
                                     }}
-                                    disabled={downloadDisabled}
+                                    disabled={!hasOrgUnitData || isLoading}
                                 />
                             )}
                             {showDivider && <Divider />}
@@ -137,13 +139,18 @@ LayerToolbarMoreMenu.propTypes = {
     openAs: PropTypes.func,
     downloadData: PropTypes.func,
     dataTableOpen: PropTypes.string,
-    downloadDisabled: PropTypes.bool,
+    hasOrgUnitData: PropTypes.bool,
+    isLoading: PropTypes.bool,
 };
 
-export default connect(({ dataTable, aggregations }, { layer }) => ({
-    dataTableOpen: dataTable,
-    // Disable EE download if no org units or no aggregations are available
-    downloadDisabled:
-        layer?.layer === 'earthEngine' &&
-        (!layer.data || !aggregations[layer.id]),
-}))(LayerToolbarMoreMenu);
+export default connect(
+    ({ dataTable: dataTableOpen, aggregations }, { layer = {} }) => {
+        const hasOrgUnitData = !!layer.data;
+        const isLoading =
+            hasOrgUnitData &&
+            layer.aggregationType?.length > 0 &&
+            !aggregations[layer.id];
+
+        return { dataTableOpen, hasOrgUnitData, isLoading };
+    }
+)(LayerToolbarMoreMenu);
