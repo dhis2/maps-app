@@ -1,3 +1,10 @@
+## [1.23.6](https://github.com/dhis2/maps-app/compare/v1.23.5...v1.23.6) (2022-03-16)
+
+
+### Bug Fixes
+
+* close data table if no data ([#2092](https://github.com/dhis2/maps-app/issues/2092)) ([8b5cce8](https://github.com/dhis2/maps-app/commit/8b5cce8e423786f98a1781c24e27c8138bf05e24))
+
 ## [1.23.5](https://github.com/dhis2/maps-app/compare/v1.23.4...v1.23.5) (2022-03-15)
 
 
