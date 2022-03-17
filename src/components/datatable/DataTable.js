@@ -11,6 +11,7 @@ import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
 import { setOrgUnitProfile } from '../../actions/orgUnits';
 import { highlightFeature } from '../../actions/feature';
+import { closeDataTable } from '../../actions/dataTable';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
 import { formatTime } from '../../util/helpers';
@@ -32,6 +33,7 @@ class DataTable extends Component {
         feature: PropTypes.object,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
+        closeDataTable: PropTypes.func.isRequired,
         loadLayer: PropTypes.func.isRequired,
         setOrgUnitProfile: PropTypes.func.isRequired,
         highlightFeature: PropTypes.func.isRequired,
@@ -64,11 +66,13 @@ class DataTable extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { layer, aggregations } = this.props;
+        const { layer, aggregations, closeDataTable } = this.props;
         const { data, dataFilters } = layer;
         const prev = prevProps.layer;
 
-        if (
+        if (!data) {
+            closeDataTable();
+        } else if (
             data !== prev.data ||
             dataFilters !== prev.dataFilters ||
             aggregations !== prevProps.aggregations
@@ -372,6 +376,7 @@ export default connect(
             : {};
     },
     {
+        closeDataTable,
         loadLayer,
         setOrgUnitProfile,
         highlightFeature,
