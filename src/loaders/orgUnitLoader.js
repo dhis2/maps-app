@@ -26,12 +26,24 @@ const orgUnitLoader = async config => {
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayProperty);
-
     let features;
     let associatedGeometries = [];
 
     const requests = [
-        featuresRequest.getAll({ includeGroupSets }).then(toGeoJson),
+        featuresRequest
+            .getAll({ includeGroupSets })
+            .then(toGeoJson)
+            .catch(error => {
+                if (error && error.message) {
+                    alerts.push({
+                        critical: true,
+                        message: i18n.t('Error: {{message}}', {
+                            message: error.message,
+                            nsSeparator: ';',
+                        }),
+                    });
+                }
+            }),
         getOrgUnitLevels(d2),
     ];
 
@@ -41,12 +53,12 @@ const orgUnitLoader = async config => {
     }
 
     const [
-        mainFeatures,
+        mainFeatures = [],
         orgUnitLevels,
         organisationUnitGroups,
     ] = await Promise.all(requests);
 
-    if (!mainFeatures.length) {
+    if (!mainFeatures.length && !alerts.length) {
         alerts.push({
             warning: true,
             message: i18n.t('Selected org units: No coordinates found', {
