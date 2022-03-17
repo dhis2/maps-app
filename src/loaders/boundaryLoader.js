@@ -18,12 +18,25 @@ const boundaryLoader = async config => {
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const layerName = i18n.t('Boundaries');
     const orgUnitLevelNames = await getOrgUnitLevelNames(d2);
+    const alerts = [];
 
-    const features = await d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty)
-        .getAll()
-        .then(toGeoJson);
+    const features =
+        (await d2.geoFeatures
+            .byOrgUnit(orgUnitParams)
+            .displayProperty(displayProperty)
+            .getAll()
+            .then(toGeoJson)
+            .catch(error => {
+                if (error && error.message) {
+                    alerts.push({
+                        critical: true,
+                        message: i18n.t('Error: {{message}}', {
+                            message: error.message,
+                            nsSeparator: ';',
+                        }),
+                    });
+                }
+            })) || [];
 
     const levels = uniqBy(f => f.properties.level, features)
         .map(f => f.properties.level)
@@ -58,13 +71,15 @@ const boundaryLoader = async config => {
         })),
     };
 
+    if (!features.length && !alerts.length) {
+        alerts.push({ warning: true, message: i18n.t('No coordinates found') });
+    }
+
     return {
         ...config,
         data: features,
         name: layerName,
-        alerts: !features.length
-            ? [{ warning: true, message: i18n.t('No boundaries found') }]
-            : undefined,
+        alerts,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
