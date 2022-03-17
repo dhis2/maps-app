@@ -26,6 +26,7 @@ const orgUnitLoader = async config => {
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayProperty);
+
     let features;
     let associatedGeometries = [];
 
