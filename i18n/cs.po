@@ -225,12 +225,14 @@ msgstr ""
 "jednotky."
 
 msgid "Multiple aggregation methods are available."
-msgstr ""
+msgstr "K dispozici je více metod agregace."
 
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
 msgstr ""
+"Prohlédněte si výsledky agregace kliknutím na mapu regionů nebo zobrazením "
+"tabulky dat. Výsledky lze také stáhnout."
 
 msgid "Unit"
 msgstr "Jednotka"
@@ -320,7 +322,7 @@ msgid "Radius in meters"
 msgstr "Poloměr v metrech"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "Vyrovnávací paměť nelze kombinovat s přidruženou geometrií."
 
 msgid "Labels"
 msgstr "Štítky"
@@ -633,6 +635,8 @@ msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
 "instance?"
 msgstr ""
+"Google Earth Engine selhal. Je služba nakonfigurována pro tuto instanci "
+"DHIS2?"
 
 msgid "no value"
 msgstr "žádná hodnota"
@@ -1071,24 +1075,30 @@ msgid "Female 80 years and above"
 msgstr "Žena 80 let a více"
 
 msgid "Building footprints"
-msgstr ""
+msgstr "Stavební stopy"
 
 msgid "Number of buildings"
-msgstr ""
+msgstr "Počet budov"
 
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
 "Only for the continent of Africa."
 msgstr ""
+"Obrysy budov odvozené ze satelitních snímků s vysokým rozlišením. Pouze pro "
+"africký kontinent."
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
 msgstr ""
+"Počty budov jsou k dispozici pouze pro oblasti menších organizačních "
+"jednotek."
 
 msgid ""
 "Select a smaller area or single organization unit to see the count of "
 "buildings."
 msgstr ""
+"Chcete-li zobrazit počet budov, vyberte menší oblast nebo jednu organizační "
+"jednotku."
 
 msgid "Elevation"
 msgstr "Nadmořská výška"
@@ -1288,13 +1298,13 @@ msgid "Cancelled"
 msgstr "Zrušeno"
 
 msgid "{{name}}: No coordinates found"
-msgstr ""
+msgstr "{{name}}: Nebyly nalezeny žádné souřadnice"
 
 msgid "Selected org units: No coordinates found"
-msgstr ""
+msgstr "Vybrané organizační jednotky: Nebyly nalezeny žádné souřadnice"
 
 msgid "Error: {{message}}"
-msgstr ""
+msgstr "Chyba {{message}}"
 
 msgid "You don't have access to this layer data"
 msgstr "K datům této vrstvy nemáte přístup"
@@ -1315,7 +1325,7 @@ msgid "Facilities"
 msgstr "Zařízení"
 
 msgid "Facilities: No coordinates found"
-msgstr ""
+msgstr "Zařízení: Nebyly nalezeny žádné souřadnice"
 
 msgid "Organisation units"
 msgstr "Organizační jednotky"
