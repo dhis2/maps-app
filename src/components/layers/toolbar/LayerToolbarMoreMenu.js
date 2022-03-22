@@ -140,17 +140,16 @@ LayerToolbarMoreMenu.propTypes = {
     downloadData: PropTypes.func,
     dataTableOpen: PropTypes.string,
     hasOrgUnitData: PropTypes.bool,
-    hasAggregations: PropTypes.bool,
     isLoading: PropTypes.bool,
 };
 
 export default connect(
     ({ dataTable: dataTableOpen, aggregations }, { layer = {} }) => {
-        const hasOrgUnitData = !!layer.data;
+        const isEarthEngine = layer.layer === 'earthEngine';
+        const hasOrgUnitData =
+            layer.data && (!isEarthEngine || layer.aggregationType?.length > 0);
         const isLoading =
-            hasOrgUnitData &&
-            layer.aggregationType?.length > 0 &&
-            !aggregations[layer.id];
+            isEarthEngine && hasOrgUnitData && !aggregations[layer.id];
 
         return { dataTableOpen, hasOrgUnitData, isLoading };
     }
