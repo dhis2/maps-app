@@ -16,13 +16,25 @@ const orgUnitLoader = async config => {
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const { contextPath } = d2.system.systemInfo;
     const name = i18n.t('Organisation units');
+    const alerts = [];
 
     const requests = [
         d2.geoFeatures
             .byOrgUnit(orgUnitParams)
             .displayProperty(displayProperty)
             .getAll({ includeGroupSets })
-            .then(toGeoJson),
+            .then(toGeoJson)
+            .catch(error => {
+                if (error && error.message) {
+                    alerts.push({
+                        critical: true,
+                        message: i18n.t('Error: {{message}}', {
+                            message: error.message,
+                            nsSeparator: ';',
+                        }),
+                    });
+                }
+            }),
         getOrgUnitLevels(d2),
     ];
 
@@ -31,9 +43,11 @@ const orgUnitLoader = async config => {
         requests.push(fetchOrgUnitGroupSet(groupSet.id));
     }
 
-    const [features, orgUnitLevels, organisationUnitGroups] = await Promise.all(
-        requests
-    );
+    const [
+        features = [],
+        orgUnitLevels,
+        organisationUnitGroups,
+    ] = await Promise.all(requests);
 
     if (organisationUnitGroups) {
         groupSet.organisationUnitGroups = organisationUnitGroups;
@@ -49,9 +63,9 @@ const orgUnitLoader = async config => {
 
     legend.title = name;
 
-    const alerts = !features.length
-        ? [{ warning: true, message: i18n.t('No coordinates found') }]
-        : undefined;
+    if (!features.length && !alerts.length) {
+        alerts.push({ warning: true, message: i18n.t('No coordinates found') });
+    }
 
     return {
         ...config,
