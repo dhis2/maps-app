@@ -318,7 +318,7 @@ msgid "Radius in meters"
 msgstr "半径（米）"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "缓冲区不能与关联的几何图形组合。"
 
 msgid "Labels"
 msgstr "标签"
