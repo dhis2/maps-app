@@ -1,3 +1,10 @@
+## [1.23.7](https://github.com/dhis2/maps-app/compare/v1.23.6...v1.23.7) (2022-03-24)
+
+
+### Bug Fixes
+
+* disable data table and download if no aggregations (DHIS2-12475) ([#2100](https://github.com/dhis2/maps-app/issues/2100)) ([0fbe305](https://github.com/dhis2/maps-app/commit/0fbe305b73af0b01120eae9a1e71a43be5fd1fb8))
+
 ## [1.23.6](https://github.com/dhis2/maps-app/compare/v1.23.5...v1.23.6) (2022-03-16)
 
 
