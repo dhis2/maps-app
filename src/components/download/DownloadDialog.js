@@ -128,9 +128,10 @@ export class DownloadDialog extends Component {
         const skipElements = el =>
             !el.classList ||
             el.classList.contains('mapboxgl-ctrl-scale') ||
-            el.classList.contains('mapboxgl-ctrl-attrib-button') ||
+            el.classList.contains('maplibregl-ctrl-attrib') ||
             !(
-                el.classList.contains('mapboxgl-ctrl') ||
+                el.classList.contains('maplibregl-ctrl') ||
+                el.classList.contains('maplibregl-ctrl-attrib-button') ||
                 el.classList.contains('dhis2-map-bing-logo')
             );
 
@@ -140,7 +141,7 @@ export class DownloadDialog extends Component {
             filter: skipElements,
         };
 
-        // Adding 1 to the computed width of the title element avoids text
+        // Adding 2 px to the computed width of the title element avoids text
         // wrapping outside the box in the generated image
         const titleEl = mapEl.getElementsByClassName('dhis2-maps-title')[0];
 
@@ -149,7 +150,7 @@ export class DownloadDialog extends Component {
                 .getComputedStyle(titleEl, null)
                 .getPropertyValue('width');
 
-            titleEl.style.width = parseFloat(width) + 1 + 'px';
+            titleEl.style.width = `${parseFloat(width) + 2}px`;
         }
 
         convertToPng(mapEl, options)
