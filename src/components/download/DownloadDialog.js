@@ -128,10 +128,10 @@ export class DownloadDialog extends Component {
         const skipElements = el =>
             !el.classList ||
             el.classList.contains('mapboxgl-ctrl-scale') ||
-            el.classList.contains('maplibregl-ctrl-attrib') ||
+            el.classList.contains('mapboxgl-ctrl-attrib') ||
             !(
-                el.classList.contains('maplibregl-ctrl') ||
-                el.classList.contains('maplibregl-ctrl-attrib-button') ||
+                el.classList.contains('mapboxgl-ctrl') ||
+                el.classList.contains('mapboxgl-ctrl-attrib-button') ||
                 el.classList.contains('dhis2-map-bing-logo')
             );
 
