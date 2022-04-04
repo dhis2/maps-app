@@ -150,7 +150,7 @@ export class DownloadDialog extends Component {
                 .getComputedStyle(titleEl, null)
                 .getPropertyValue('width');
 
-            titleEl.style.width = parseFloat(width) + 2 + 'px';
+            titleEl.style.width = `${parseFloat(width) + 2}px`;
         }
 
         convertToPng(mapEl, options)
