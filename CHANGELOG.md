@@ -1,3 +1,10 @@
+## [1.23.8](https://github.com/dhis2/maps-app/compare/v1.23.7...v1.23.8) (2022-04-04)
+
+
+### Bug Fixes
+
+* improved map download style (DHIS2-12861, DHIS2-12862)  ([#2105](https://github.com/dhis2/maps-app/issues/2105)) ([0ecf4f5](https://github.com/dhis2/maps-app/commit/0ecf4f5f363b02be90a61db158eef6c9fcdf097c))
+
 ## [1.23.7](https://github.com/dhis2/maps-app/compare/v1.23.6...v1.23.7) (2022-03-24)
 
 
