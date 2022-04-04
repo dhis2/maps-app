@@ -128,7 +128,7 @@ export class DownloadDialog extends Component {
         const skipElements = el =>
             !el.classList ||
             el.classList.contains('maplibregl-ctrl-scale') ||
-            el.classList.contains('mapboxgl-ctrl-attrib') ||
+            el.classList.contains('maplibregl-ctrl-attrib') ||
             !(
                 el.classList.contains('maplibregl-ctrl') ||
                 el.classList.contains('maplibregl-ctrl-attrib-button') ||
