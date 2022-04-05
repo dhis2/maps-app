@@ -1,3 +1,10 @@
+## [1.23.9](https://github.com/dhis2/maps-app/compare/v1.23.8...v1.23.9) (2022-04-05)
+
+
+### Bug Fixes
+
+* upgrade @dhis2/analytics ([#2106](https://github.com/dhis2/maps-app/issues/2106)) ([18021bb](https://github.com/dhis2/maps-app/commit/18021bb06c21ad5faa5f1e87381bac31b610f445))
+
 ## [1.23.8](https://github.com/dhis2/maps-app/compare/v1.23.7...v1.23.8) (2022-04-04)
 
 
