@@ -1,3 +1,10 @@
+## [1.23.12](https://github.com/dhis2/maps-app/compare/v1.23.11...v1.23.12) (2022-04-05)
+
+
+### Bug Fixes
+
+* revert d2 change ([bed44e7](https://github.com/dhis2/maps-app/commit/bed44e79af6f946fe234b5e01571d622f49ca786))
+
 ## [1.23.11](https://github.com/dhis2/maps-app/compare/v1.23.10...v1.23.11) (2022-04-05)
 
 
