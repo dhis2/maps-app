@@ -1,3 +1,10 @@
+## [1.23.11](https://github.com/dhis2/maps-app/compare/v1.23.10...v1.23.11) (2022-04-05)
+
+
+### Bug Fixes
+
+* show error when org unit selection is invalid for org unit layer (DHIS2-12504) ([#2096](https://github.com/dhis2/maps-app/issues/2096)) ([9cb19bf](https://github.com/dhis2/maps-app/commit/9cb19bfead28660565621c14fe43b82a0aa61436))
+
 ## [1.23.10](https://github.com/dhis2/maps-app/compare/v1.23.9...v1.23.10) (2022-04-05)
 
 
