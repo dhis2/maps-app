@@ -1,3 +1,10 @@
+## [1.23.10](https://github.com/dhis2/maps-app/compare/v1.23.9...v1.23.10) (2022-04-05)
+
+
+### Bug Fixes
+
+* remove d2 and pass currentUser to FileMenu ([#2024](https://github.com/dhis2/maps-app/issues/2024)) ([8802586](https://github.com/dhis2/maps-app/commit/880258622c46b982ecf28d88fd260fe4fe3bb554)), closes [#1114](https://github.com/dhis2/maps-app/issues/1114)
+
 ## [1.23.9](https://github.com/dhis2/maps-app/compare/v1.23.8...v1.23.9) (2022-04-05)
 
 
