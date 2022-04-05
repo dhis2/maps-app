@@ -120,7 +120,7 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
     return (
         <div className={styles.fileMenu}>
             <UiFileMenu
-                currentUser={d2.currentUser}
+                d2={d2}
                 fileType="map"
                 fileObject={map}
                 onNew={newMap}
