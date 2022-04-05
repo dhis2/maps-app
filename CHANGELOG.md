@@ -1,3 +1,24 @@
+## [1.23.9](https://github.com/dhis2/maps-app/compare/v1.23.8...v1.23.9) (2022-04-05)
+
+
+### Bug Fixes
+
+* upgrade @dhis2/analytics ([#2106](https://github.com/dhis2/maps-app/issues/2106)) ([18021bb](https://github.com/dhis2/maps-app/commit/18021bb06c21ad5faa5f1e87381bac31b610f445))
+
+## [1.23.8](https://github.com/dhis2/maps-app/compare/v1.23.7...v1.23.8) (2022-04-04)
+
+
+### Bug Fixes
+
+* improved map download style (DHIS2-12861, DHIS2-12862)  ([#2105](https://github.com/dhis2/maps-app/issues/2105)) ([0ecf4f5](https://github.com/dhis2/maps-app/commit/0ecf4f5f363b02be90a61db158eef6c9fcdf097c))
+
+## [1.23.7](https://github.com/dhis2/maps-app/compare/v1.23.6...v1.23.7) (2022-03-24)
+
+
+### Bug Fixes
+
+* disable data table and download if no aggregations (DHIS2-12475) ([#2100](https://github.com/dhis2/maps-app/issues/2100)) ([0fbe305](https://github.com/dhis2/maps-app/commit/0fbe305b73af0b01120eae9a1e71a43be5fd1fb8))
+
 ## [1.23.6](https://github.com/dhis2/maps-app/compare/v1.23.5...v1.23.6) (2022-03-16)
 
 

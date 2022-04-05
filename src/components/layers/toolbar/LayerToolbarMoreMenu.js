@@ -15,6 +15,8 @@ import {
     IconDelete16,
 } from '@dhis2/ui';
 import { IconButton } from '../../core';
+import { EARTH_ENGINE_LAYER } from '../../../constants/layers';
+
 import styles from './styles/LayerToolbarMore.module.css';
 
 export const LayerToolbarMoreMenu = ({
@@ -140,17 +142,16 @@ LayerToolbarMoreMenu.propTypes = {
     downloadData: PropTypes.func,
     dataTableOpen: PropTypes.string,
     hasOrgUnitData: PropTypes.bool,
-    hasAggregations: PropTypes.bool,
     isLoading: PropTypes.bool,
 };
 
 export default connect(
     ({ dataTable: dataTableOpen, aggregations }, { layer = {} }) => {
-        const hasOrgUnitData = !!layer.data;
+        const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER;
+        const hasOrgUnitData =
+            layer.data && (!isEarthEngine || layer.aggregationType?.length > 0);
         const isLoading =
-            hasOrgUnitData &&
-            layer.aggregationType?.length > 0 &&
-            !aggregations[layer.id];
+            isEarthEngine && hasOrgUnitData && !aggregations[layer.id];
 
         return { dataTableOpen, hasOrgUnitData, isLoading };
     }
