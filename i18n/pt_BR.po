@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:10:01.567Z\n"
+"POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Oscar Mesones Lapouble <oscar.lapouble@gmail.com>, 2022\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/hisp-uio/teams/100509/pt_BR/)\n"
@@ -1258,6 +1258,9 @@ msgstr ""
 
 msgid "Organisation units"
 msgstr "Unidades organizacionais"
+
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Camada temática"
