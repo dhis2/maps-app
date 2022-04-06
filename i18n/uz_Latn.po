@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:16:16.180Z\n"
+"POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
 "Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -1221,14 +1221,14 @@ msgstr "Xatolik"
 msgid "Boundaries"
 msgstr "Chegaralar"
 
-msgid "No boundaries found"
-msgstr "Hech qanday chegara topilmadi"
-
-msgid "Selected org units"
-msgstr "Tanlangan tanlangan boʼlimlar"
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "Koordinatalar topilmadi"
+
+msgid "Selected org units"
+msgstr "Tanlangan tanlangan boʼlimlar"
 
 msgid "You don't have access to this layer data"
 msgstr "Ushbu qatlam maʼlumotlariga kirish huquqiga ega emassiz"

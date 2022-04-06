@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:16:16.180Z\n"
+"POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: phil_dhis2, 2021\n"
 "Language-Team: Burmese (https://www.transifex.com/hisp-uio/teams/100509/my/)\n"
@@ -1190,13 +1190,13 @@ msgstr "အမှား"
 msgid "Boundaries"
 msgstr ""
 
-msgid "No boundaries found"
-msgstr ""
-
-msgid "Selected org units"
+msgid "Error: {{message}}"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "Selected org units"
 msgstr ""
 
 msgid "You don't have access to this layer data"

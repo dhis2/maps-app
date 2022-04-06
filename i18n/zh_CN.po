@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:16:16.180Z\n"
+"POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -1189,14 +1189,14 @@ msgstr "错误"
 msgid "Boundaries"
 msgstr ""
 
-msgid "No boundaries found"
+msgid "Error: {{message}}"
+msgstr ""
+
+msgid "No coordinates found"
 msgstr ""
 
 msgid "Selected org units"
 msgstr "选定的组织机构"
-
-msgid "No coordinates found"
-msgstr ""
 
 msgid "You don't have access to this layer data"
 msgstr ""

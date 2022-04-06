@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:16:16.180Z\n"
+"POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -1226,14 +1226,14 @@ msgstr "Error"
 msgid "Boundaries"
 msgstr "Batas"
 
-msgid "No boundaries found"
-msgstr "Tidak ada batasan yang ditemukan"
-
-msgid "Selected org units"
-msgstr "Unit organisasi yang dipilih"
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "Tidak ditemukan koordinat"
+
+msgid "Selected org units"
+msgstr "Unit organisasi yang dipilih"
 
 msgid "You don't have access to this layer data"
 msgstr "Anda tidak memiliki akses ke data layer ini"
