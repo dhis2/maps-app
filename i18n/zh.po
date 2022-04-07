@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:16:16.180Z\n"
+"POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -1191,14 +1191,14 @@ msgstr "错误"
 msgid "Boundaries"
 msgstr "边界线"
 
-msgid "No boundaries found"
-msgstr "没有发现边界线"
-
-msgid "Selected org units"
-msgstr "选择的机构"
+msgid "Error: {{message}}"
+msgstr "错误: {{message}}"
 
 msgid "No coordinates found"
 msgstr "没有找到坐标"
+
+msgid "Selected org units"
+msgstr "选择的机构"
 
 msgid "You don't have access to this layer data"
 msgstr "您无权访问此图层数据"

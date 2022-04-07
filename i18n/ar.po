@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:16:16.180Z\n"
+"POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2022\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -1201,14 +1201,14 @@ msgstr "خطأ"
 msgid "Boundaries"
 msgstr "الحدود"
 
-msgid "No boundaries found"
-msgstr "لم يتم العثور على حدود"
-
-msgid "Selected org units"
-msgstr "وحدات تنظيمية مختارة"
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "لم يتم العثور على إحداثيات"
+
+msgid "Selected org units"
+msgstr "وحدات تنظيمية مختارة"
 
 msgid "You don't have access to this layer data"
 msgstr "ليس لديك حق الوصول إلى بيانات الطبقة هذه"
