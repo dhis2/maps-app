@@ -350,7 +350,7 @@ msgid "Program stage is required"
 msgstr "Le stade de programme est requise"
 
 msgid "No organisation units are selected."
-msgstr "Aucune unité d'organisation choisie"
+msgstr "Aucune unité d'organisation sélectionnée"
 
 msgid "Event status"
 msgstr "Statut de l'événement"
@@ -794,7 +794,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr "{{units}} dans et tout ce qui se trouve en dessous de {{orgunits}}"
 
 msgid "Selected organisation units"
-msgstr "Unités d'organisation choisies"
+msgstr "Unités d'organisation sélectionnées"
 
 msgid "Main"
 msgstr "Principal"
