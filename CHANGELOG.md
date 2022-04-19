@@ -1,3 +1,24 @@
+## [1.23.12](https://github.com/dhis2/maps-app/compare/v1.23.11...v1.23.12) (2022-04-05)
+
+
+### Bug Fixes
+
+* revert d2 change ([bed44e7](https://github.com/dhis2/maps-app/commit/bed44e79af6f946fe234b5e01571d622f49ca786))
+
+## [1.23.11](https://github.com/dhis2/maps-app/compare/v1.23.10...v1.23.11) (2022-04-05)
+
+
+### Bug Fixes
+
+* show error when org unit selection is invalid for org unit layer (DHIS2-12504) ([#2096](https://github.com/dhis2/maps-app/issues/2096)) ([9cb19bf](https://github.com/dhis2/maps-app/commit/9cb19bfead28660565621c14fe43b82a0aa61436))
+
+## [1.23.10](https://github.com/dhis2/maps-app/compare/v1.23.9...v1.23.10) (2022-04-05)
+
+
+### Bug Fixes
+
+* remove d2 and pass currentUser to FileMenu ([#2024](https://github.com/dhis2/maps-app/issues/2024)) ([8802586](https://github.com/dhis2/maps-app/commit/880258622c46b982ecf28d88fd260fe4fe3bb554)), closes [#1114](https://github.com/dhis2/maps-app/issues/1114)
+
 ## [1.23.9](https://github.com/dhis2/maps-app/compare/v1.23.8...v1.23.9) (2022-04-05)
 
 
