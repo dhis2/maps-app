@@ -175,7 +175,7 @@ msgid "Point radius"
 msgstr "Taille des points"
 
 msgid "No organisation units are selected"
-msgstr "Aucune unité d'organisation choisie"
+msgstr "Aucune unité d'organisation sélectionnée"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
@@ -321,7 +321,7 @@ msgid "period"
 msgstr "période"
 
 msgid "Org units"
-msgstr "OrgUnit"
+msgstr "Unités d´Organisation"
 
 msgid "Filter"
 msgstr "Filtrer"
@@ -333,7 +333,7 @@ msgid "Group events"
 msgstr "Événements de groupe"
 
 msgid "View all events"
-msgstr "Voir tout événements"
+msgstr "Voir tous les événements"
 
 msgid "Radius"
 msgstr "Rayon"
@@ -401,7 +401,7 @@ msgid "Indicator"
 msgstr "Indicateur"
 
 msgid "Reporting rates"
-msgstr "Taux de rapport"
+msgstr "Taux de rapportage"
 
 msgid "Event data items"
 msgstr "Eléments de données évènement"
@@ -1036,7 +1036,7 @@ msgid "This month"
 msgstr "Ce mois-ci"
 
 msgid "Last month"
-msgstr "Le mois dernier"
+msgstr "Mois dernier"
 
 msgid "Last 3 months"
 msgstr "3 derniers mois"
@@ -1099,7 +1099,7 @@ msgid "Last financial year"
 msgstr "Dernière année financière"
 
 msgid "Last 5 financial years"
-msgstr "5 dernières années financières"
+msgstr "5 dernières années fiscales"
 
 msgid "Cancelled"
 msgstr "Annulé"
@@ -1262,7 +1262,7 @@ msgid "Facilities"
 msgstr "Établissements"
 
 msgid "Thematic layer"
-msgstr "Thématique"
+msgstr "Couche thématique "
 
 msgid "Selected org units"
 msgstr "Unités d’organisation sélectionnées"
