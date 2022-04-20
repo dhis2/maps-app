@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
+import { scaleTime } from 'd3-scale';
 import { axisBottom } from 'd3-axis';
 import cx from 'classnames';
 import timeTicks from '../../util/timeTicks';
-import { scaleTime } from 'd3-scale';
 import styles from './styles/Timeline.module.css';
 
 const paddingLeft = 40;
@@ -80,8 +80,6 @@ export class Timeline extends Component {
             const { id, startDate, endDate } = item;
             const x = this.timeScale(startDate);
             const width = this.timeScale(endDate) - x;
-
-            // console.log('item', item);
 
             return (
                 <rect
