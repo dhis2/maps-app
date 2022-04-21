@@ -1,3 +1,66 @@
+## [1.23.14](https://github.com/dhis2/maps-app/compare/v1.23.13...v1.23.14) (2022-04-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([fea51f6](https://github.com/dhis2/maps-app/commit/fea51f65182b6a708ef8d82b8765ee7be60963b4))
+
+## [1.23.13](https://github.com/dhis2/maps-app/compare/v1.23.12...v1.23.13) (2022-04-19)
+
+
+### Bug Fixes
+
+* map download improvements (DHIS2-12861) ([#2117](https://github.com/dhis2/maps-app/issues/2117)) ([c69376b](https://github.com/dhis2/maps-app/commit/c69376b99bc7c73df73b517223db00dec4662868))
+
+## [1.23.12](https://github.com/dhis2/maps-app/compare/v1.23.11...v1.23.12) (2022-04-05)
+
+
+### Bug Fixes
+
+* revert d2 change ([bed44e7](https://github.com/dhis2/maps-app/commit/bed44e79af6f946fe234b5e01571d622f49ca786))
+
+## [1.23.11](https://github.com/dhis2/maps-app/compare/v1.23.10...v1.23.11) (2022-04-05)
+
+
+### Bug Fixes
+
+* show error when org unit selection is invalid for org unit layer (DHIS2-12504) ([#2096](https://github.com/dhis2/maps-app/issues/2096)) ([9cb19bf](https://github.com/dhis2/maps-app/commit/9cb19bfead28660565621c14fe43b82a0aa61436))
+
+## [1.23.10](https://github.com/dhis2/maps-app/compare/v1.23.9...v1.23.10) (2022-04-05)
+
+
+### Bug Fixes
+
+* remove d2 and pass currentUser to FileMenu ([#2024](https://github.com/dhis2/maps-app/issues/2024)) ([8802586](https://github.com/dhis2/maps-app/commit/880258622c46b982ecf28d88fd260fe4fe3bb554)), closes [#1114](https://github.com/dhis2/maps-app/issues/1114)
+
+## [1.23.9](https://github.com/dhis2/maps-app/compare/v1.23.8...v1.23.9) (2022-04-05)
+
+
+### Bug Fixes
+
+* upgrade @dhis2/analytics ([#2106](https://github.com/dhis2/maps-app/issues/2106)) ([18021bb](https://github.com/dhis2/maps-app/commit/18021bb06c21ad5faa5f1e87381bac31b610f445))
+
+## [1.23.8](https://github.com/dhis2/maps-app/compare/v1.23.7...v1.23.8) (2022-04-04)
+
+
+### Bug Fixes
+
+* improved map download style (DHIS2-12861, DHIS2-12862)  ([#2105](https://github.com/dhis2/maps-app/issues/2105)) ([0ecf4f5](https://github.com/dhis2/maps-app/commit/0ecf4f5f363b02be90a61db158eef6c9fcdf097c))
+
+## [1.23.7](https://github.com/dhis2/maps-app/compare/v1.23.6...v1.23.7) (2022-03-24)
+
+
+### Bug Fixes
+
+* disable data table and download if no aggregations (DHIS2-12475) ([#2100](https://github.com/dhis2/maps-app/issues/2100)) ([0fbe305](https://github.com/dhis2/maps-app/commit/0fbe305b73af0b01120eae9a1e71a43be5fd1fb8))
+
+## [1.23.6](https://github.com/dhis2/maps-app/compare/v1.23.5...v1.23.6) (2022-03-16)
+
+
+### Bug Fixes
+
+* close data table if no data ([#2092](https://github.com/dhis2/maps-app/issues/2092)) ([8b5cce8](https://github.com/dhis2/maps-app/commit/8b5cce8e423786f98a1781c24e27c8138bf05e24))
+
 ## [1.23.5](https://github.com/dhis2/maps-app/compare/v1.23.4...v1.23.5) (2022-03-15)
 
 

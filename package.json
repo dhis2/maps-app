@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.23.5",
+    "version": "1.23.14",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -41,7 +41,7 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/analytics": "^21.4.2",
+        "@dhis2/analytics": "^21.5.2",
         "@dhis2/app-runtime": "^3.2.7",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/d2-i18n": "1.0.6",
@@ -49,7 +49,7 @@
         "@dhis2/d2-ui-interpretations": "^7.3.3",
         "@dhis2/d2-ui-org-unit-dialog": "^7.3.3",
         "@dhis2/d2-ui-org-unit-tree": "^7.3.3",
-        "@dhis2/maps-gl": "^3.4.2",
+        "@dhis2/maps-gl": "^3.4.3",
         "@dhis2/ui": "^7.14.2",
         "abortcontroller-polyfill": "^1.7.3",
         "array-move": "^3.0.1",
@@ -64,8 +64,8 @@
         "d3-selection": "^3.0.0",
         "d3-time": "^3.0.0",
         "d3-time-format": "^4.1.0",
-        "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.5",
+        "html-to-image": "^1.9.0",
         "lodash": "^4.17.21",
         "loglevel": "^1.7.1",
         "promise-polyfill": "^8.2.1",
