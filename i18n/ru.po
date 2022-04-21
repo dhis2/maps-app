@@ -1,16 +1,16 @@
 # 
 # Translators:
-# Saurabh Leekha <saurabh.leekha@hispindia.org>, 2021
-# Ulanbek Abakirov <ulans@mail.ru>, 2021
-# phil_dhis2, 2021
+# Ulanbek Abakirov <ulans@mail.ru>, 2022
+# Saurabh Leekha <saurabh.leekha@hispindia.org>, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
+# phil_dhis2, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"PO-Revision-Date: 2022-04-20 10:28+0000\n"
+"Last-Translator: phil_dhis2, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Maps"
-msgstr "Maps"
+msgstr "Карты"
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
@@ -130,7 +130,7 @@ msgid "Dimension"
 msgstr "Измерение"
 
 msgid "Download"
-msgstr "Загрузить"
+msgstr "Скачать"
 
 msgid "Download map"
 msgstr ""
@@ -146,7 +146,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Отменить"
+msgstr "Отмена"
 
 msgid "Close"
 msgstr "Закрыть"
@@ -279,7 +279,7 @@ msgid "Filter"
 msgstr "Фильтр"
 
 msgid "Events"
-msgstr "Events"
+msgstr "События"
 
 msgid "Group events"
 msgstr ""
@@ -324,7 +324,7 @@ msgid "Labels"
 msgstr "Метки"
 
 msgid "Aggregation type"
-msgstr "Тип агрегации"
+msgstr "Тип агрегирования"
 
 msgid "Show no data"
 msgstr ""
@@ -375,7 +375,7 @@ msgid "Event data items"
 msgstr "Элементы данных событий"
 
 msgid "Program indicators"
-msgstr "Программные показатели"
+msgstr "Индикаторы программы"
 
 msgid "Item type"
 msgstr "Тип элемента"
@@ -618,7 +618,7 @@ msgid "Not set"
 msgstr "Не устнановлен"
 
 msgid "Organisation unit"
-msgstr "Организация"
+msgstr "Организационная единица"
 
 msgid "Parent unit"
 msgstr "Родительская"
@@ -719,7 +719,7 @@ msgid "Proceed"
 msgstr "Продолжить"
 
 msgid "Options"
-msgstr "Опции"
+msgstr "Параметры"
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -1258,13 +1258,13 @@ msgid "Financial year (Start November)"
 msgstr "Финансовый год (начало Ноябрь)"
 
 msgid "Financial year (Start October)"
-msgstr "Финансовый год - Октябрь"
+msgstr "Финансовый год (начало Октябрь)"
 
 msgid "Financial year (Start July)"
-msgstr "Финансовый год - Июль"
+msgstr "Финансовый год (начало Июль)"
 
 msgid "Financial year (Start April)"
-msgstr "Финансовый год - Апрель"
+msgstr "Финансовый год (начало Апрель)"
 
 msgid "Cancelled"
 msgstr "Отмененный"

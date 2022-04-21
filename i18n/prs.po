@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"PO-Revision-Date: 2022-04-20 10:28+0000\n"
 "Last-Translator: phil_dhis2, 2022\n"
 "Language-Team: Persian (Afghanistan) (https://www.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgid "Details"
 msgstr "جزئیات"
 
 msgid "Yes"
-msgstr "بله"
+msgstr "بلی"
 
 msgid "Event location"
 msgstr "د پېښې طبقه"
@@ -143,7 +143,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "لغو کردن"
+msgstr "انصراف"
 
 msgid "Close"
 msgstr "بستن"
@@ -206,7 +206,7 @@ msgid "Groups"
 msgstr "ګروپونه"
 
 msgid "This field is required"
-msgstr "اسم هذا از قبل ثبت و راجستر شده است"
+msgstr "این بخش لازمی میباشد"
 
 msgid "Data"
 msgstr "دیتا"
@@ -548,7 +548,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "ویرایش"
+msgstr "تجدید"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -614,7 +614,7 @@ msgid "Not set"
 msgstr "تعین نه گردیده است"
 
 msgid "Organisation unit"
-msgstr "بخش نهاد/سازمان"
+msgstr "واحد سازمان"
 
 msgid "Parent unit"
 msgstr "لوی واحد"
@@ -857,7 +857,7 @@ msgid "Not available offline"
 msgstr ""
 
 msgid "Program indicator"
-msgstr "شاخص پروگرام"
+msgstr "ایجاد پروگرام شاخص"
 
 msgid "No program"
 msgstr "هیچ پروگرام نیست"

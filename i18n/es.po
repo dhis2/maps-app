@@ -1,21 +1,21 @@
 # 
 # Translators:
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2020
-# ericbp <ericbarredap@gmail.com>, 2020
-# Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
-# Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
-# Alison Andrade <aandrade@ippfwhr.org>, 2021
-# phil_dhis2, 2021
-# Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
-# Prabhjot Singh, 2021
+# Alison Andrade <aandrade@ippfwhr.org>, 2022
+# ericbp <ericbarredap@gmail.com>, 2022
+# Prabhjot Singh, 2022
+# Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2022
+# Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2022
+# Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2022
+# phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"PO-Revision-Date: 2022-04-20 10:28+0000\n"
+"Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,7 +66,7 @@ msgid "Details"
 msgstr "Detalles"
 
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 msgid "Event location"
 msgstr "Event location"
@@ -663,7 +663,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr "Borrar"
+msgstr "Eliminar"
 
 msgid "Distance"
 msgstr ""
@@ -871,7 +871,7 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr "Program"
+msgstr "Programa"
 
 msgid "Stage"
 msgstr "Fase"
@@ -1292,7 +1292,7 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
-msgstr "Dato no encontrado"
+msgstr "Datos no encontrados"
 
 msgid "Event"
 msgstr "Evento"
@@ -1313,7 +1313,7 @@ msgid "No data"
 msgstr "No hay datos"
 
 msgid "Tracked entity"
-msgstr "Tracked entity"
+msgstr "Entidad de seguimiento"
 
 msgid "No tracked entities found"
 msgstr ""

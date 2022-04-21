@@ -1,16 +1,16 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2021
-# phil_dhis2, 2021
-# 晓东 林 <13981924470@126.com>, 2022
+# phil_dhis2, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
 # easylin <lin_xd@126.com>, 2022
+# 晓东 林 <13981924470@126.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
+"PO-Revision-Date: 2022-04-20 10:28+0000\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +61,7 @@ msgid "Details"
 msgstr "详情"
 
 msgid "Yes"
-msgstr "是"
+msgstr "是的"
 
 msgid "Event location"
 msgstr "事件位置"
@@ -70,7 +70,7 @@ msgid "Coordinate field"
 msgstr "坐标字段"
 
 msgid "None"
-msgstr "无"
+msgstr "没有"
 
 msgid "Data item"
 msgstr "数据条目"
@@ -182,7 +182,7 @@ msgid "thematic"
 msgstr "主题"
 
 msgid "org unit"
-msgstr "组织单位"
+msgstr ""
 
 msgid "Earth Engine"
 msgstr "地图引擎"
@@ -200,7 +200,7 @@ msgid "Add layer"
 msgstr "添加图层"
 
 msgid "Aggregation method"
-msgstr "汇总方法"
+msgstr ""
 
 msgid "Choosing many groups takes a long time to calculate and display."
 msgstr "选择多个组需要很长时间来计算和显示。"
@@ -215,12 +215,12 @@ msgid "Data"
 msgstr "数据"
 
 msgid "Period"
-msgstr "周期"
+msgstr "期间"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
-msgstr "数据将在Google Earth Engine上针对所选组织单位进行计算。"
+msgstr ""
 
 msgid "Multiple aggregation methods are available."
 msgstr "有多种汇总方法可用。"
@@ -228,10 +228,10 @@ msgstr "有多种汇总方法可用。"
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
-msgstr "通过单击地图区域或查看数据表查看聚合结果。结果也可以下载。"
+msgstr ""
 
 msgid "Unit"
-msgstr "单元"
+msgstr ""
 
 msgid "Source"
 msgstr "资源"
@@ -243,22 +243,22 @@ msgid "Year"
 msgstr "年"
 
 msgid "Available periods are set by the source data"
-msgstr "可用期间由源数据设置"
+msgstr ""
 
 msgid "Loading periods"
-msgstr "加载期"
+msgstr "载入期间"
 
 msgid "Min value is required"
-msgstr "要求最小值"
+msgstr ""
 
 msgid "Max value is required"
-msgstr "最大值为必填项"
+msgstr ""
 
 msgid "Max should be greater than min"
-msgstr "最大值应大于最小值"
+msgstr ""
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
+msgstr ""
 
 msgid "Unit: {{ unit }}"
 msgstr "机构: {{ unit }}"
@@ -318,7 +318,7 @@ msgid "Radius in meters"
 msgstr "半径（米）"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "缓冲区不能与关联的几何图形组合。"
 
 msgid "Labels"
 msgstr "标签"
@@ -372,7 +372,7 @@ msgid "Reporting rates"
 msgstr "上报率"
 
 msgid "Event data items"
-msgstr "事件数据项"
+msgstr "事件数据条目"
 
 msgid "Program indicators"
 msgstr "项目指标"
@@ -384,7 +384,7 @@ msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
 
 msgid "Program/Enrollment date"
-msgstr "计划/注册日期"
+msgstr "项目/注册日期"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr "被跟踪实体在项目中注册或登记的日期"
@@ -396,7 +396,7 @@ msgid "Relationships"
 msgstr "关系"
 
 msgid "Follow up"
-msgstr "后续跟进"
+msgstr "后续跟踪"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -444,7 +444,7 @@ msgid "Failed to load relationship types."
 msgstr "载入关系类型失败"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
-msgstr "跟踪的实体类型没有发现关系类型"
+msgstr "跟踪的实体类型{{type}}没有发现关系类型"
 
 msgid "Relationship type"
 msgstr "关系类型"
@@ -453,7 +453,7 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr "DHIS2地图应用发生错误"
 
 msgid "Something went wrong"
-msgstr "出了些问题"
+msgstr "出问题了"
 
 msgid "Refresh to try again"
 msgstr "刷新后再试"
@@ -504,13 +504,13 @@ msgid "Indicator group"
 msgstr "指标组"
 
 msgid "Interpretations"
-msgstr "注释"
+msgstr "解释"
 
 msgid "Collapse"
 msgstr "折叠"
 
 msgid "Expand"
-msgstr "展开"
+msgstr "打开"
 
 msgid "External basemap"
 msgstr "外部基础图层"
@@ -608,7 +608,7 @@ msgid "Longitude"
 msgstr "经度"
 
 msgid "Latitude"
-msgstr "纬度"
+msgstr "维度"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "查看自{{interpretationDate}}的注释"
@@ -617,18 +617,18 @@ msgid "Not set"
 msgstr "没有设置"
 
 msgid "Organisation unit"
-msgstr "组织机构"
+msgstr "机构"
 
 msgid "Parent unit"
 msgstr "上级机构"
 
 msgid "Last updated"
-msgstr "Last updated"
+msgstr "上次更新"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
 "instance?"
-msgstr "Google 地球引擎失败。是否为此 DHIS2 实例配置了服务？"
+msgstr ""
 
 msgid "no value"
 msgstr "无值"
@@ -821,13 +821,13 @@ msgid "Previous year"
 msgstr "前年"
 
 msgid "Next year"
-msgstr "来年"
+msgstr "下一年"
 
 msgid "Relative"
-msgstr "关系"
+msgstr "相对时间"
 
 msgid "Period type"
-msgstr "周期类型"
+msgstr "期间类型"
 
 msgid "Start/end dates"
 msgstr "开始-结束日期"
@@ -896,16 +896,16 @@ msgid "Percentage"
 msgstr "百分比"
 
 msgid "Hectares"
-msgstr "公顷"
+msgstr ""
 
 msgid "Acres"
-msgstr "英亩"
+msgstr ""
 
 msgid "Mean"
 msgstr "平均 "
 
 msgid "Median"
-msgstr "中位数"
+msgstr ""
 
 msgid "Std dev"
 msgstr "标准差"
@@ -935,128 +935,128 @@ msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
 
 msgid "Population"
-msgstr "人口"
+msgstr ""
 
 msgid "people per hectare"
 msgstr "每公顷人数"
 
 msgid "Estimated number of people living in an area."
-msgstr "居住在一个地区的估计人数。"
+msgstr ""
 
 msgid "Population age groups"
-msgstr "人口年龄组"
+msgstr ""
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
-msgstr "按年龄和性别分组的估计居住在该地区的人数。"
+msgstr ""
 
 msgid "Male 0 - 1 years"
-msgstr "男性 0 - 1 岁"
+msgstr ""
 
 msgid "Male 1 - 4 years"
-msgstr "男性 1 - 4 岁"
+msgstr ""
 
 msgid "Male 5 - 9 years"
-msgstr "男性 5 - 9 岁"
+msgstr ""
 
 msgid "Male 10 - 14 years"
-msgstr "男性 10 - 14 岁"
+msgstr ""
 
 msgid "Male 15 - 19 years"
-msgstr "男性 15 - 19 岁"
+msgstr ""
 
 msgid "Male 20 - 24 years"
-msgstr "男性 20 - 24 岁"
+msgstr ""
 
 msgid "Male 25 - 29 years"
-msgstr "男性 25 - 29 岁"
+msgstr ""
 
 msgid "Male 30 - 34 years"
-msgstr "男性 30 - 34 岁"
+msgstr ""
 
 msgid "Male 35 - 39 years"
-msgstr "男性 35 - 39 岁"
+msgstr ""
 
 msgid "Male 40 - 44 years"
-msgstr "男性 40 - 44 岁"
+msgstr ""
 
 msgid "Male 45 - 49 years"
-msgstr "男性 45 - 49 岁"
+msgstr ""
 
 msgid "Male 50 - 54 years"
-msgstr "男性 50 - 54 岁"
+msgstr ""
 
 msgid "Male 55 - 59 years"
-msgstr "男性 55 - 59 岁"
+msgstr ""
 
 msgid "Male 60 - 64 years"
-msgstr "男性 60 - 64 岁"
+msgstr ""
 
 msgid "Male 65 - 69 years"
-msgstr "男性 65 - 69 岁"
+msgstr ""
 
 msgid "Male 70 - 74 years"
-msgstr "男性 70 - 74 岁"
+msgstr ""
 
 msgid "Male 75 - 79 years"
-msgstr "男性 75 - 79 岁"
+msgstr ""
 
 msgid "Male 80 years and above"
-msgstr "男性 80 岁及以上"
+msgstr ""
 
 msgid "Female 0 - 1 years"
-msgstr "女性 0 - 1 岁"
+msgstr ""
 
 msgid "Female 1 - 4 years"
-msgstr "女性 1 - 4 岁"
+msgstr ""
 
 msgid "Female 5 - 9 years"
-msgstr "女性 5 - 9 岁"
+msgstr ""
 
 msgid "Female 10 - 14 years"
-msgstr "女性 10 - 14 岁"
+msgstr ""
 
 msgid "Female 15 - 19 years"
-msgstr "女性 15 - 19 岁"
+msgstr ""
 
 msgid "Female 20 - 24 years"
-msgstr "女性 20 - 24 岁"
+msgstr ""
 
 msgid "Female 25 - 29 years"
-msgstr "女性 25 - 29 岁"
+msgstr ""
 
 msgid "Female 30 - 34 years"
-msgstr "女性 30 - 34 岁"
+msgstr ""
 
 msgid "Female 35 - 39 years"
-msgstr "女性 35 - 39 岁"
+msgstr ""
 
 msgid "Female 40 - 44 years"
-msgstr "女性 40 - 44 岁"
+msgstr ""
 
 msgid "Female 45 - 49 years"
-msgstr "女性 45 - 49 岁"
+msgstr ""
 
 msgid "Female 50 - 54 years"
-msgstr "女性 50 - 54 岁"
+msgstr ""
 
 msgid "Female 55 - 59 years"
-msgstr "女性 55 - 59 岁"
+msgstr ""
 
 msgid "Female 60 - 64 years"
-msgstr "女性 60 - 64 岁"
+msgstr ""
 
 msgid "Female 65 - 69 years"
-msgstr "女性 65 - 69 岁"
+msgstr ""
 
 msgid "Female 70 - 74 years"
-msgstr "女性 70 - 74 岁"
+msgstr ""
 
 msgid "Female 75 - 79 years"
-msgstr "女性 75 - 79 岁"
+msgstr ""
 
 msgid "Female 80 years and above"
-msgstr "80岁及以上女性"
+msgstr ""
 
 msgid "Building footprints"
 msgstr "构建足迹"
@@ -1067,16 +1067,16 @@ msgstr "构建物数量"
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
 "Only for the continent of Africa."
-msgstr "来自高分辨率卫星图像的建筑物轮廓。仅适用于非洲大陆。"
+msgstr ""
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
-msgstr "建筑物计数仅适用于较小的组织单位区域。"
+msgstr ""
 
 msgid ""
 "Select a smaller area or single organization unit to see the count of "
 "buildings."
-msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。"
+msgstr ""
 
 msgid "Elevation"
 msgstr "高程"
@@ -1257,22 +1257,22 @@ msgid "Financial year (Start November)"
 msgstr "财政年（11月始）"
 
 msgid "Financial year (Start October)"
-msgstr "财务十月"
+msgstr "财政年度（从 10 月开始）"
 
 msgid "Financial year (Start July)"
-msgstr "财务七月"
+msgstr "财政年度（从七月开始）"
 
 msgid "Financial year (Start April)"
-msgstr "财务四月"
+msgstr "财政年度（从四月开始）"
 
 msgid "Cancelled"
 msgstr "已取消"
 
 msgid "{{name}}: No coordinates found"
-msgstr "{{name}}：未找到坐标"
+msgstr ""
 
 msgid "Selected org units: No coordinates found"
-msgstr "选定的组织单位：未找到坐标"
+msgstr ""
 
 msgid "Error: {{message}}"
 msgstr "错误: {{message}}"
@@ -1287,10 +1287,10 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "显示{{total}}中的前{{pageSize}}个事件"
 
 msgid "No data found"
-msgstr "没有数据被找到"
+msgstr "没有发现数据"
 
 msgid "Event"
-msgstr "四级"
+msgstr "事件"
 
 msgid "Facilities"
 msgstr "机构设施"
@@ -1308,7 +1308,7 @@ msgid "No data"
 msgstr "无数据"
 
 msgid "Tracked entity"
-msgstr "跟踪实体"
+msgstr "跟踪的实体"
 
 msgid "No tracked entities found"
 msgstr "没有找到跟踪实体"
@@ -1335,10 +1335,10 @@ msgid "false"
 msgstr "假"
 
 msgid "No"
-msgstr "否"
+msgstr "不"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr "无法获取Google Earth Engine的授权令牌。"
+msgstr ""
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "

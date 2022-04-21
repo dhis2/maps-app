@@ -1,14 +1,14 @@
 # 
 # Translators:
-# phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2022
+# phil_dhis2, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"PO-Revision-Date: 2022-04-20 10:28+0000\n"
+"Last-Translator: phil_dhis2, 2022\n"
 "Language-Team: Pashto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,7 +59,7 @@ msgid "Details"
 msgstr "جزیات [ ژباړه ـ جزیات ]"
 
 msgid "Yes"
-msgstr "هو [ درست ]"
+msgstr "هو"
 
 msgid "Event location"
 msgstr "رویداد ځای"
@@ -101,7 +101,7 @@ msgid "Value"
 msgstr "ارزښت یا رقم"
 
 msgid "Legend"
-msgstr "Legend"
+msgstr "ليجنډ"
 
 msgid "Range"
 msgstr "پراختیا"
@@ -1333,7 +1333,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "نه [ نه ]"
+msgstr "نه"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""

@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2020
-# Rahman Monjur <simran.monjur@gmail.com>, 2021
+# Rahman Monjur <simran.monjur@gmail.com>, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Rahman Monjur <simran.monjur@gmail.com>, 2021\n"
+"PO-Revision-Date: 2022-04-20 10:28+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Bengali (https://www.transifex.com/hisp-uio/teams/100509/bn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

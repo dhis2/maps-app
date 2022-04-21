@@ -1,17 +1,18 @@
 # 
 # Translators:
-# Sheila André <sandre@saudigitus.org>, 2020
-# Ge Joao <gsimango@saudigitus.org>, 2021
-# phil_dhis2, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
-# Fernando Jorge Bade, 2021
+# Fernando Jorge Bade, 2022
+# Sheila André <sandre@saudigitus.org>, 2022
+# David Júnior <davidjr.mondlane@gmail.com>, 2022
+# phil_dhis2, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
+# Ge Joao <gsimango@saudigitus.org>, 2022
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"PO-Revision-Date: 2022-04-20 10:28+0000\n"
 "Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +64,7 @@ msgid "Details"
 msgstr "Detalhes"
 
 msgid "Yes"
-msgstr "Sim"
+msgstr "sim"
 
 msgid "Event location"
 msgstr "Localização do evento "
@@ -176,7 +177,7 @@ msgid "No organisation units are selected"
 msgstr "Nenhuma unidade organizacional está selecionada"
 
 msgid "event"
-msgstr "Evento"
+msgstr "evento"
 
 msgid "tracked entity"
 msgstr "Entidade rastreada"
@@ -270,7 +271,7 @@ msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
-msgstr "Mínimo"
+msgstr "Min"
 
 msgid "Max"
 msgstr "Máx"
@@ -400,7 +401,7 @@ msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
-msgstr "Status do programa"
+msgstr "Estado do programa"
 
 msgid "Relationships"
 msgstr "Relacionamentos"
@@ -434,10 +435,10 @@ msgid "Selected only"
 msgstr "Apenas selecionados"
 
 msgid "Selected and below"
-msgstr "Selecionado e abaixo"
+msgstr "Selecione a baixo"
 
 msgid "Selected and all below"
-msgstr "Selecionado e tudo abaixo"
+msgstr "Selecione  tudo abaixo"
 
 msgid "Tracked entities"
 msgstr "Entidades rastreadas"
@@ -642,7 +643,7 @@ msgid "Parent unit"
 msgstr "Unidade parental"
 
 msgid "Last updated"
-msgstr "Última actualização"
+msgstr "Ultima actualização"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -677,7 +678,7 @@ msgid "Click where you want to start the measurement"
 msgstr "Clique onde você deseja iniciar a medição"
 
 msgid "Delete"
-msgstr "Apagar"
+msgstr "Suprimir"
 
 msgid "Distance"
 msgstr "Distância"
@@ -698,7 +699,7 @@ msgid "km"
 msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr "Meça distâncias e áreas"
+msgstr "Medir  distâncias e  áreas"
 
 msgid "mi"
 msgstr "mi"
@@ -1216,10 +1217,10 @@ msgid "All"
 msgstr "Tudo"
 
 msgid "Active"
-msgstr "Activo"
+msgstr "Ativo"
 
 msgid "Completed"
-msgstr "Completo"
+msgstr "Concluído"
 
 msgid "Choropleth"
 msgstr ""
