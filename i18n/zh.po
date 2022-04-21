@@ -1,16 +1,16 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2021
-# phil_dhis2, 2021
 # 晓东 林 <13981924470@126.com>, 2022
 # easylin <lin_xd@126.com>, 2022
+# phil_dhis2, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
+"Last-Translator: phil_dhis2, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -318,7 +318,7 @@ msgid "Radius in meters"
 msgstr "半径（米）"
 
 msgid "Buffer can't be combined with associated geometry."
-msgstr ""
+msgstr "缓冲区不能与关联的几何图形组合。"
 
 msgid "Labels"
 msgstr "标签"
@@ -824,7 +824,7 @@ msgid "Next year"
 msgstr "来年"
 
 msgid "Relative"
-msgstr "关系"
+msgstr "相对时间"
 
 msgid "Period type"
 msgstr "周期类型"
