@@ -5,11 +5,6 @@
     overflow: hidden;
 }
 
-/* Roboto font is not loaded by dom-to-image => switch to Arial */
-.download :global(div) {
-    font-family: Arial, sans-serif !important;
-}
-
 .download :global(.dhis2-map-timeline) {
     display: none;
 }
