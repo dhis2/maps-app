@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Karoline Tufte Lien <karoline@dhis2.org>, 2021
+# Karoline Tufte Lien <karoline@dhis2.org>, 2022
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"PO-Revision-Date: 2022-04-20 10:28+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2022\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -369,7 +369,7 @@ msgid "Indicator"
 msgstr "Indikator"
 
 msgid "Reporting rates"
-msgstr "Rapporteringsrater"
+msgstr "Rapporteringsfrekvens"
 
 msgid "Event data items"
 msgstr "Hendelsesdatapunkter"
@@ -726,7 +726,7 @@ msgid "Proceed"
 msgstr "Fortsett"
 
 msgid "Options"
-msgstr "Alternativer"
+msgstr "Alternativ"
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -1295,10 +1295,10 @@ msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
-msgstr "Du har ikke tilgang til disse lagdataene"
+msgstr "Du har ikke tilgang til disse kartlagdataene"
 
 msgid "An unknown error occurred while reading layer data"
-msgstr "En ukjent feil oppstod under lesing av lagdata"
+msgstr "En ukjent feil oppstod under lesing av kartlagdata"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
