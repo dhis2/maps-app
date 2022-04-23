@@ -2,13 +2,14 @@
 # Translators:
 # Cherise Beek <cherise.beek@gmail.com>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2021
+# Rica Zamora Duchateau, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:28:36.035Z\n"
 "PO-Revision-Date: 2019-11-26 23:27+0000\n"
-"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2021\n"
+"Last-Translator: Rica Zamora Duchateau, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,146 +18,150 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Maps"
-msgstr ""
+msgstr "Kaarten"
 
 msgid "Classification"
-msgstr ""
+msgstr "Classificatie"
 
 msgid "Classes"
-msgstr ""
+msgstr "Klassen"
 
 msgid "Legend set"
-msgstr ""
+msgstr "Legendereeks"
 
 msgid "Color"
-msgstr ""
+msgstr "Kleur"
 
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 msgid "Data element group"
-msgstr ""
+msgstr "Gegevenselementengroep"
 
 msgid "Data element operand"
-msgstr ""
+msgstr "Gegevenselementenoperand"
 
 msgid "Data element"
 msgstr "informatie onderdeel"
 
 msgid "Totals"
-msgstr ""
+msgstr "Totalen"
 
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 msgid "Event location"
-msgstr ""
+msgstr "Gebeurtenislocatie"
 
 msgid "Coordinate field"
-msgstr ""
+msgstr "Coördinatenveld"
 
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 msgid "Data item"
-msgstr ""
+msgstr "Gegevensitem"
 
 msgid "Event data item"
-msgstr ""
+msgstr "Gebeurtenisgegevensitem"
 
 msgid "Style by data element"
-msgstr ""
+msgstr "Stileer volgens gegevenselement"
 
 msgid "Data set"
-msgstr ""
+msgstr "Gegevensreeks"
 
 msgid "Index"
-msgstr ""
+msgstr "Index"
 
 msgid "Org unit"
-msgstr ""
+msgstr "Organisatieëenheid"
 
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 msgid "Event time"
-msgstr ""
+msgstr "Tijd van gebeurtenis"
 
 msgid "Value"
-msgstr ""
+msgstr "Waarde"
 
 msgid "Legend"
-msgstr ""
+msgstr "Legenda"
 
 msgid "Range"
-msgstr ""
+msgstr "Bereik"
 
 msgid "Level"
-msgstr ""
+msgstr "Niveau"
 
 msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr ""
+msgstr "Soort"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
+"De gegevenstabel wordt niet ondersteund wanneer gebeurtenissen op de server "
+"gegroepeerd zijn."
 
 msgid "Add filter"
-msgstr ""
+msgstr "Voeg filter toe"
 
 msgid "Items"
-msgstr ""
+msgstr "Items"
 
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensie"
 
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 msgid "Download map"
-msgstr ""
+msgstr "Download kaart"
 
 msgid "Show name"
-msgstr ""
+msgstr "Toon naam"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Toon legenda"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
+"Het downloaden van kaarten wordt niet ondersteund door uw browser. Probeer "
+"Google Chrome of Firefox."
 
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleer"
 
 msgid "Close"
-msgstr ""
+msgstr "Sluit"
 
 msgid "Legend position"
-msgstr ""
+msgstr "Legendapositie"
 
 msgid "Organisation Units"
-msgstr ""
+msgstr "Organisatieëenheden"
 
 msgid "Style"
-msgstr ""
+msgstr "Stijl"
 
 msgid "Labels"
-msgstr ""
+msgstr "Labels"
 
 msgid "Point radius"
-msgstr ""
+msgstr "Puntradius"
 
 msgid "No organisation units are selected"
-msgstr ""
+msgstr "Geen organisatieëenheden zijn geselecteerd."
 
 msgid "Group Set"
 msgstr ""
@@ -164,51 +169,53 @@ msgstr ""
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
 msgstr ""
+"Vergeet niet het organisatieëenheidsniveau dat de instellingen bevat te "
+"selecteren."
 
 msgid "Group set is required"
-msgstr ""
+msgstr "Groepsreeks is verplicht"
 
 msgid "event"
-msgstr ""
+msgstr "gebeurtenis"
 
 msgid "tracked entity"
-msgstr ""
+msgstr "getraceerde entiteit"
 
 msgid "facility"
-msgstr ""
+msgstr "instelling"
 
 msgid "thematic"
-msgstr ""
+msgstr "thematisch"
 
 msgid "boundary"
 msgstr ""
 
 msgid "Earth Engine"
-msgstr ""
+msgstr "Earth Engine"
 
 msgid "Edit {{name}} layer"
-msgstr ""
+msgstr "Bewerk {{naam}}-laag"
 
 msgid "Add new {{name}} layer"
-msgstr ""
+msgstr "Voeg een nieuwe {{naam}}-laag toe"
 
 msgid "Update layer"
-msgstr ""
+msgstr "Werk laag bij"
 
 msgid "Add layer"
-msgstr ""
+msgstr "Voeg laag toe"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "Aggregatiemethode"
 
 msgid "Groups"
-msgstr ""
+msgstr "Groepen"
 
 msgid "This field is required"
-msgstr ""
+msgstr "Dit veld is verplicht."
 
 msgid "Data"
-msgstr ""
+msgstr "Gegevens"
 
 msgid "Period"
 msgstr "Periode"
@@ -217,39 +224,44 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Gegevens worden in Google Earth Engine berekend voor de gekozen "
+"organisatieëenheden."
 
 msgid ""
 "Multiple aggregation methods are available. See the aggregation results by "
 "clicking map regions or viewing the data table. The results can also be "
 "downloaded."
 msgstr ""
+"Meerdere aggregatiemethodes zijn beschikbaar. Bekijk de aggregatieresultaten"
+" door op kaartregio's te klikken of de gegevenstabel te bekijken. De "
+"resultaten kunnen ook gedownload worden."
 
 msgid "Unit"
-msgstr ""
+msgstr "Eenheid"
 
 msgid "Source"
-msgstr ""
+msgstr "Bron"
 
 msgid "Year"
-msgstr ""
+msgstr "Jaar"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Beschikbare periodes worden door de brongegevens vastgesteld"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Laadperiodes"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "Min. waarde is verplicht"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "Max. waarde is verplicht"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "Max. moet groter zijn dan min."
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "Geldige stappen zijn {{minStappen}} tot {{maxStappen}}"
 
 msgid "Min"
 msgstr "Min"
@@ -258,211 +270,225 @@ msgid "Max"
 msgstr "Max"
 
 msgid "Steps"
-msgstr ""
+msgstr "Stappen"
 
 msgid "Legend preview"
-msgstr ""
+msgstr "Voorbeeldweergave van legenda"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Organisatieëenheden"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 msgid "Events"
-msgstr ""
+msgstr "Gebeurtenissen"
 
 msgid "Group events"
-msgstr ""
+msgstr "Groepsgebeurtenissen"
 
 msgid "View all events"
-msgstr ""
+msgstr "Bekijk alle gebeurtenissen"
 
 msgid "Radius"
-msgstr ""
+msgstr "Radius"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
+"U kan gebeurtenissen stileren per gegevenselementen nadat een programma "
+"geselecteerd is."
 
 msgid "Program is required"
-msgstr ""
+msgstr "Programma is verplicht."
 
 msgid "Program stage is required"
-msgstr ""
+msgstr "Programmastadium is verplicht."
 
 msgid "No organisation units are selected."
-msgstr ""
+msgstr "Geen organisatieëenheden zijn geselecteerd."
 
 msgid "No legend set is selected"
-msgstr ""
+msgstr "Geen legendareeks is geselecteerd."
 
 msgid "Event status"
-msgstr ""
+msgstr "Gebeurtenisstatus"
 
 msgid "Buffer"
-msgstr ""
+msgstr "Buffer"
 
 msgid "Radius in meters"
-msgstr ""
+msgstr "Radius in meters"
 
 msgid "Aggregation type"
-msgstr ""
+msgstr "Aggregatietype"
 
 msgid "Show no data"
-msgstr ""
+msgstr "Toon geen gegevens"
 
 msgid "Low radius"
-msgstr ""
+msgstr "Lage radius"
 
 msgid "High radius"
-msgstr ""
+msgstr "Hoge radius"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "Hoge radius moet groter zijn dan lage radius"
 
 msgid "Radius should be between {{min}} and {{max}}"
-msgstr ""
+msgstr "Radius moet tussen {{min}} en {{max}} zijn"
 
 msgid "Indicator group is required"
-msgstr ""
+msgstr "Indicatorgroep is verplicht"
 
 msgid "Indicator is required"
-msgstr ""
+msgstr "Indicator is verplicht"
 
 msgid "Data element group is required"
-msgstr ""
+msgstr "Gegevenselementengroep is verplicht"
 
 msgid "Data element is required"
-msgstr ""
+msgstr "Gegevenselement is verplicht"
 
 msgid "Data set is required"
-msgstr ""
+msgstr "Gegevensreeks is verplicht"
 
 msgid "Event data item is required"
-msgstr ""
+msgstr "Gegevensitem van gebeurtenis is verplicht"
 
 msgid "Program indicator is required"
-msgstr ""
+msgstr "Programmaindicator is verplicht"
 
 msgid "Period is required"
-msgstr ""
+msgstr "Periode is verplicht"
 
 msgid "Indicator"
-msgstr ""
+msgstr "Indicator"
 
 msgid "Reporting rates"
 msgstr ""
 
 msgid "Event data items"
-msgstr ""
+msgstr "Gebeurtenisgegevensitems"
 
 msgid "Program indicators"
-msgstr ""
+msgstr "Programmaindicators"
 
 msgid "Item type"
-msgstr ""
+msgstr "Itemsoort"
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
+"Selecteer periode wanneer getraceerde entiteiten laatst werden geüpdatet"
 
 msgid "Program/Enrollment date"
-msgstr ""
+msgstr "Programma-/Inschrijvingsdatum"
 
 msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
+"de datum een getraceerde entiteit geregistreerd of ingeschreven werd in een "
+"programma"
 
 msgid "Program status"
-msgstr ""
+msgstr "Programmastatus"
 
 msgid "Relationships"
-msgstr ""
+msgstr "Relaties"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Volg op"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
+"Selecteer a.u.b. een Getraceerde Entiteitssoort voordat u een Relatiesoort "
+"selecteert"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
+"Getraceerde entiteitsrelaties tonen in Kaarten is een experimentele functie"
 
 msgid "Display Tracked Entity relationships"
-msgstr ""
+msgstr "Toon Getraceerde Entiteitsrelaties"
 
 msgid ""
 "Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
+"Tel relaties die entiteiten buiten het\"{{programma}}\"-programma aansluiten"
+" mee"
 
 msgid "Selection mode"
-msgstr ""
+msgstr "Selectiemodus"
 
 msgid "Selected only"
-msgstr ""
+msgstr "Alleen geselecteerd"
 
 msgid "Selected and below"
-msgstr ""
+msgstr "Geselecteerd en onderstaand"
 
 msgid "Selected and all below"
-msgstr ""
+msgstr "Geselecteerd en alle onderstaanden"
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Getraceerde entiteiten"
 
 msgid "Tracked entity style"
-msgstr ""
+msgstr "Stijl van getraceerde entiteit"
 
 msgid "Point size"
-msgstr ""
+msgstr "Puntmaat"
 
 msgid "Related entity style"
-msgstr ""
+msgstr "Stijl van gerelateerde entiteit"
 
 msgid "Line Color"
-msgstr ""
+msgstr "Lijnkleur"
 
 msgid "Failed to load relationship types."
-msgstr ""
+msgstr "Laden van relatiesoorten mislukt."
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
+"Geen relatiesoorten werden gevonden voor getraceerde entiteitssoort "
+"{{soort}}"
 
 msgid "Relationship type"
-msgstr ""
+msgstr "Relatiesoort"
 
 msgid "An error occurred in the DHIS2 Maps application."
-msgstr ""
+msgstr "Een fout is opgetreden in de toepassing DHIS2 Kaarten."
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Er is iets fout gegaan."
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Ververs om opnieuw te proberen"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Verberg technische details"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Toon technische details"
 
 msgid "The following information may be requested by technical support."
 msgstr ""
+"De volgende information kan aangevraagd worden bij de technische "
+"ondersteuning."
 
 msgid "Filtering is available after selecting a program stage."
-msgstr ""
+msgstr "Filteren is beschikbaar nadat een programmastadium geselecteerd is."
 
 msgid "one of"
-msgstr ""
+msgstr "één van"
 
 msgid "contains"
-msgstr ""
+msgstr "bevat"
 
 msgid "is"
-msgstr ""
+msgstr "is"
 
 msgid "is not"
-msgstr ""
+msgstr "is niet"
 
 msgid "Operator"
 msgstr "Operator"
@@ -471,63 +497,65 @@ msgid "Date"
 msgstr "Datum\n"
 
 msgid "Remove filter"
-msgstr ""
+msgstr "Verwijder filter"
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Indicatorgroep"
 
 msgid "Interpretations"
-msgstr ""
+msgstr "Interpretaties"
 
 msgid "Collapse"
 msgstr ""
 
 msgid "Expand"
-msgstr ""
+msgstr "Breid uit"
 
 msgid "External basemap"
-msgstr ""
+msgstr "Externe basiskaart"
 
 msgid "Basemap"
-msgstr ""
+msgstr "Basiskaart"
 
 msgid "Download Layer Data"
-msgstr ""
+msgstr "Download Laaggegevens"
 
 msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr ""
+msgstr "GeoJSON-gegevens voor \"{{laagNaam}}\" zijn aan het downloaden"
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
 "Desktop."
 msgstr ""
+"GeoJSON wordt ondersteund door de meeste GIS-software, inclusief QGIS en "
+"ArcGIS Desktop."
 
 msgid "Data download failed."
-msgstr ""
+msgstr "Downloaden van gegevens mislukt."
 
 msgid "ID Format"
-msgstr ""
+msgstr "ID-formaat"
 
 msgid "Use human-readable keys"
 msgstr ""
 
 msgid "External layer"
-msgstr ""
+msgstr "Externe laag"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Loading layer"
-msgstr ""
+msgstr "Laag aan het laden"
 
 msgid "{{name}} deleted."
-msgstr ""
+msgstr "{{name}} verwijderd."
 
 msgid "Edit"
-msgstr ""
+msgstr "Bewerk"
 
 msgid "Toggle visibility"
-msgstr ""
+msgstr "Schakel zichtbaarheid in"
 
 msgid "Set layer opacity"
 msgstr ""
@@ -536,22 +564,22 @@ msgid "More actions"
 msgstr ""
 
 msgid "Hide data table"
-msgstr ""
+msgstr "Verberg gegevenstabel"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Toon gegevenstabel"
 
 msgid "Open as chart"
-msgstr ""
+msgstr "Open als grafiek"
 
 msgid "Download data"
-msgstr ""
+msgstr "Download gegevens"
 
 msgid "Edit layer"
-msgstr ""
+msgstr "Bewerk laag"
 
 msgid "Remove layer"
-msgstr ""
+msgstr "Verwijder laag"
 
 msgid "Mid"
 msgstr ""
@@ -560,7 +588,7 @@ msgid "Group"
 msgstr ""
 
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
 msgid "Drill up one level"
 msgstr ""
@@ -569,10 +597,10 @@ msgid "Drill down one level"
 msgstr ""
 
 msgid "Show information"
-msgstr ""
+msgstr "Toon informatie"
 
 msgid "Show longitude/latitude"
-msgstr ""
+msgstr "Toon lengtegraad/breedtegraad"
 
 msgid "Show {{name}}"
 msgstr ""
@@ -584,16 +612,16 @@ msgid "Latitude"
 msgstr ""
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Interpretatie van {{interpretatieDatum}} aan het bezichtigen"
 
 msgid "Parent unit"
 msgstr ""
 
 msgid "Not set"
-msgstr ""
+msgstr "Niet vastgesteld"
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Organisatieëenheid"
 
 msgid "Loading layer data"
 msgstr ""
@@ -668,22 +696,25 @@ msgid "Zoom to content"
 msgstr ""
 
 msgid "Open as map"
-msgstr ""
+msgstr "Open als kaart"
 
 msgid ""
 "This chart/table contains {{numItems}} data items. Choose which items you "
 "want to import from the list below. Each data item will be created as a map "
 "layer."
 msgstr ""
+"Deze grafiek/tabel bevat {{numItems}} gegevensitems. Kies welke items u wil "
+"importeren van onderstaande lijst. Elk dataitem wordt als kaartlaag "
+"gecreëerd."
 
 msgid "Data items"
-msgstr ""
+msgstr "Gegevensitems"
 
 msgid "Proceed"
-msgstr ""
+msgstr "Ga door"
 
 msgid "Options"
-msgstr ""
+msgstr "Opties"
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -691,22 +722,22 @@ msgid ""
 msgstr ""
 
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 msgid "Loading data"
 msgstr ""
 
 msgid "No data found for this period."
-msgstr ""
+msgstr "Geen gegevens gevonden voor deze periode."
 
 msgid "Select groups"
-msgstr ""
+msgstr "Selecteer groepen"
 
 msgid "Group set"
-msgstr ""
+msgstr "Groepsreeks"
 
 msgid "Select levels"
-msgstr ""
+msgstr "Selecteur niveaus"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -717,13 +748,13 @@ msgid "Click the map where you want to relocate the facility."
 msgstr ""
 
 msgid "user organisation unit"
-msgstr ""
+msgstr "gebruiker organisatieëenheid"
 
 msgid "right below user organisation unit"
-msgstr ""
+msgstr "net onder gebruiker organisatieëenheid"
 
 msgid "two levels below user organisation unit"
-msgstr ""
+msgstr "twee niveaus onder gebruikersorganisatieëenheid"
 
 msgid "{{units}} in {{orgunits}}"
 msgstr ""
@@ -750,22 +781,22 @@ msgid "User organisation units"
 msgstr ""
 
 msgid "Previous year"
-msgstr ""
+msgstr "Vorig jaar"
 
 msgid "Next year"
-msgstr ""
+msgstr "Volgend jaar"
 
 msgid "Relative"
-msgstr ""
+msgstr "Relatief"
 
 msgid "Period type"
-msgstr ""
+msgstr "Soort periode"
 
 msgid "Start/end dates"
 msgstr ""
 
 msgid "Only one timeline is allowed."
-msgstr ""
+msgstr "Alleen één tijdslijn is toegelaten."
 
 msgid "Remove other layers to enable split map views."
 msgstr ""
@@ -783,25 +814,25 @@ msgid "Split map views"
 msgstr ""
 
 msgid "Start date"
-msgstr ""
+msgstr "Startdatum"
 
 msgid "End date"
-msgstr ""
+msgstr "Einddatum"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Programmaindicator"
 
 msgid "No program"
-msgstr ""
+msgstr "Geen programma"
 
 msgid "Program"
-msgstr ""
+msgstr "Programma"
 
 msgid "Stage"
-msgstr ""
+msgstr "Stadium"
 
 msgid "Tracked Entity Type"
-msgstr ""
+msgstr "Getraceerde Entiteitssoort"
 
 msgid "By data element"
 msgstr ""
@@ -1184,19 +1215,19 @@ msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 msgid "Boundaries"
-msgstr ""
+msgstr "Grenzen"
 
 msgid "Error: {{message}}"
 msgstr ""
 
 msgid "No coordinates found"
-msgstr ""
+msgstr "Geen coördinaten gevonden"
 
 msgid "Selected org units"
-msgstr ""
+msgstr "Geselecteerde organisatieëenheden"
 
 msgid "You don't have access to this layer data"
 msgstr ""
@@ -1205,49 +1236,49 @@ msgid "An unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "Gebeurtenis"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
-msgstr ""
+msgstr "Geen gegevens gevonden"
 
 msgid "Facilities"
-msgstr ""
+msgstr "Instellingen"
 
 msgid "Thematic layer"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "Geen gegevens"
 
 msgid "Tracked entity"
-msgstr ""
+msgstr "Getraceerde entiteit"
 
 msgid "No tracked entities found"
-msgstr ""
+msgstr "Geen getraceerde entiteiten gevonden"
 
 msgid "related"
-msgstr ""
+msgstr "gerelateerd"
 
 msgid "Thematic"
 msgstr ""
 
 msgid "not one of"
-msgstr ""
+msgstr "niet één van"
 
 msgid "doesn't contains"
-msgstr ""
+msgstr "bevat niet"
 
 msgid "true"
-msgstr ""
+msgstr "waar"
 
 msgid "false"
-msgstr ""
+msgstr "onwaar"
 
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
@@ -1258,10 +1289,10 @@ msgid ""
 msgstr ""
 
 msgid "Start date is invalid"
-msgstr ""
+msgstr "Startdatum is ongeldig"
 
 msgid "End date is invalid"
-msgstr ""
+msgstr "Einddatum is ongeldig"
 
 msgid "End date cannot be earlier than start date"
-msgstr ""
+msgstr "Einddatum kan niet vroeger zijn dat startdatum"
