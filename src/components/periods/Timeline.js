@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { select } from 'd3-selection';
+import { scaleTime } from 'd3-scale';
 import { axisBottom } from 'd3-axis';
 import cx from 'classnames';
-import { scaleTime } from '../../util/periods';
+import timeTicks from '../../util/timeTicks';
 import styles from './styles/Timeline.module.css';
 
 const paddingLeft = 40;
@@ -120,10 +121,13 @@ export class Timeline extends Component {
         const numPeriods =
             periods.length * (doubleTicksPeriods.includes(periodId) ? 2 : 1);
         const { width } = this.state;
-        const ticks = Math.round(width / labelWidth);
+        const maxTicks = Math.round(width / labelWidth);
+        const numTicks = maxTicks < numPeriods ? maxTicks : numPeriods;
         const timeAxis = axisBottom(this.timeScale);
+        const [startDate, endDate] = this.timeScale.domain();
+        const ticks = timeTicks(startDate, endDate, numTicks);
 
-        timeAxis.ticks(ticks < numPeriods ? ticks : numPeriods);
+        timeAxis.tickValues(ticks);
 
         select(this.node).call(timeAxis);
     };

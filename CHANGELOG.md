@@ -1,3 +1,17 @@
+## [1.23.15](https://github.com/dhis2/maps-app/compare/v1.23.14...v1.23.15) (2022-04-21)
+
+
+### Bug Fixes
+
+* d3 upgrade and custom time scale ticks ([#2120](https://github.com/dhis2/maps-app/issues/2120)) ([9d4605c](https://github.com/dhis2/maps-app/commit/9d4605ca9cb27c506f56d67ad85b21571ec765b1))
+
+## [1.23.14](https://github.com/dhis2/maps-app/compare/v1.23.13...v1.23.14) (2022-04-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([fea51f6](https://github.com/dhis2/maps-app/commit/fea51f65182b6a708ef8d82b8765ee7be60963b4))
+
 ## [1.23.13](https://github.com/dhis2/maps-app/compare/v1.23.12...v1.23.13) (2022-04-19)
 
 
