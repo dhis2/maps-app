@@ -47,7 +47,7 @@ msgid "Data element group"
 msgstr "Groupe d'éléments de données"
 
 msgid "Data element operand"
-msgstr "élément de donnée opérande"
+msgstr "Opérande d'élément de données"
 
 msgid "Data element"
 msgstr "Élément de données"
@@ -172,7 +172,7 @@ msgid "Labels"
 msgstr "Étiquettes"
 
 msgid "Point radius"
-msgstr "Taille des points"
+msgstr "Rayon de point"
 
 msgid "No organisation units are selected"
 msgstr "Aucune unité d'organisation sélectionnée"
@@ -441,7 +441,7 @@ msgstr ""
 "de relation"
 
 msgid "WARNING"
-msgstr "ATTENTION"
+msgstr "AVERTISSEMENT"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
@@ -663,7 +663,7 @@ msgid "Latitude"
 msgstr "Latitude"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "Affichage de l'interprétation de {{interpretationDate}}"
+msgstr "Affichage de l'interprétation de {{Date de l'interprétation}}"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"
@@ -865,7 +865,7 @@ msgid "Tracked Entity Type"
 msgstr "Type d’entité suivie"
 
 msgid "By data element"
-msgstr "Par élément de donnée"
+msgstr "Par élément de données"
 
 msgid "Count"
 msgstr "Décompte"
