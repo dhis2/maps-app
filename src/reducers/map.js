@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import arrayMove from 'array-move';
+import { arrayMoveImmutable } from 'array-move';
 import { generateUid } from 'd2/uid';
 
 export const defaultBasemapState = {
@@ -229,7 +229,7 @@ const map = (state = defaultState, action) => {
 
         case types.LAYER_SORT:
             mapViews = [...state.mapViews].reverse(); // TODO: Refactor
-            sortedMapViews = arrayMove(
+            sortedMapViews = arrayMoveImmutable(
                 mapViews,
                 action.oldIndex,
                 action.newIndex

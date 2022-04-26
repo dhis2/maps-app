@@ -52,7 +52,7 @@
         "@dhis2/maps-gl": "^3.4.4",
         "@dhis2/ui": "^7.14.2",
         "abortcontroller-polyfill": "^1.7.3",
-        "array-move": "^3.0.1",
+        "array-move": "^4.0.0",
         "classnames": "^2.2.6",
         "d2": "^31.9.2",
         "d2-utilizr": "^0.2.15",
