@@ -80,7 +80,7 @@
         "redux-observable": "^0.18.0",
         "redux-thunk": "^2.3.0",
         "rxjs": "5.5.12",
-        "styled-jsx": "^3.4.4",
+        "styled-jsx": "^3.4.7",
         "typeface-roboto": "^0.0.75",
         "url-polyfill": "^1.1.12",
         "whatwg-fetch": "^3.6.2"
