@@ -74,7 +74,7 @@ msgid "Data item"
 msgstr "Elément de données"
 
 msgid "Event data item"
-msgstr "Elément de données évènement"
+msgstr "Élément de données d'événement"
 
 msgid "Style by data element"
 msgstr "Style par élément de donnée"
@@ -188,7 +188,7 @@ msgstr ""
 "pays."
 
 msgid "Select year"
-msgstr "Sélectionnez année"
+msgstr "Sélectionner une année"
 
 msgid "Min people"
 msgstr "Nombre minimum de personnes"
@@ -404,7 +404,7 @@ msgid "Reporting rates"
 msgstr "Taux de rapportage"
 
 msgid "Event data items"
-msgstr "Eléments de données évènement"
+msgstr "Éléments de données d'événement"
 
 msgid "Program indicators"
 msgstr "Indicateurs de programme"
@@ -511,7 +511,7 @@ msgstr "Afficher les détails techniques"
 
 msgid "The following information may be requested by technical support."
 msgstr ""
-"Les informations suivantes peuvent être demandées par support technique."
+"Les informations suivantes peuvent être demandées par soutien technique."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -551,10 +551,10 @@ msgid "Basemap"
 msgstr "Fond de carte"
 
 msgid "Collapse"
-msgstr "Plier"
+msgstr "Réduire"
 
 msgid "Expand"
-msgstr "Développer"
+msgstr "Agrandir"
 
 msgid "Download Layer Data"
 msgstr "Télécharger les données de couche"
@@ -636,13 +636,13 @@ msgid "Drill down one level"
 msgstr "Descendre d'un niveau"
 
 msgid "Show information"
-msgstr "Afficher la fiche d'information"
+msgstr "Afficher la fiche d'informations"
 
 msgid "Show longitude/latitude"
 msgstr "Afficher longitude/latitude"
 
 msgid "Swap longitude/latitude"
-msgstr "Inverser long/lat"
+msgstr "Permuter longitude/latitude"
 
 msgid "Relocate"
 msgstr "Relocaliser"
@@ -672,7 +672,7 @@ msgid "acres"
 msgstr "acres"
 
 msgid "Area"
-msgstr "Aire"
+msgstr "Zone"
 
 msgid "Center map on area"
 msgstr "Centrer la carte sur la zone"
@@ -815,13 +815,13 @@ msgid "Next year"
 msgstr "L'année prochaine"
 
 msgid "Relative"
-msgstr "Relatif"
+msgstr "Relative"
 
 msgid "Period type"
 msgstr "Type de période"
 
 msgid "Start/end dates"
-msgstr "Dates début-fin"
+msgstr "Dates de début/fin"
 
 msgid "Display periods"
 msgstr "Afficher les périodes"
@@ -916,13 +916,13 @@ msgid "Completed"
 msgstr "Terminé"
 
 msgid "Schedule"
-msgstr "Planning"
+msgstr "Planifier"
 
 msgid "Overdue"
 msgstr "En retard"
 
 msgid "Skipped"
-msgstr "Sauté"
+msgstr "Ignoré"
 
 msgid "Choropleth"
 msgstr "Choroplèthe"
@@ -964,19 +964,19 @@ msgid "Six-monthly"
 msgstr "Semestriel"
 
 msgid "Six-monthly April"
-msgstr "Six-mois avril"
+msgstr "Semestriel Avril"
 
 msgid "Yearly"
 msgstr "Annuel"
 
 msgid "Financial year (Start October)"
-msgstr "Financière Octobre"
+msgstr "Année fiscale (Débutant par octobre)"
 
 msgid "Financial year (Start July)"
-msgstr "Financière Juillet"
+msgstr "Année fiscale (Débutant par juillet)"
 
 msgid "Financial year (Start April)"
-msgstr "Financière Avril"
+msgstr "Année fiscale (Débutant par avril)"
 
 msgid "Today"
 msgstr "Aujourd'hui"
@@ -1096,7 +1096,7 @@ msgid "This financial year"
 msgstr "Année fiscale en cours"
 
 msgid "Last financial year"
-msgstr "Dernière année financière"
+msgstr "Année fiscale précédente"
 
 msgid "Last 5 financial years"
 msgstr "5 dernières années fiscales"
@@ -1186,7 +1186,7 @@ msgstr ""
 "persistante."
 
 msgid "Landcover"
-msgstr "Couverture du sol"
+msgstr "Couverture terrestre"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Forêt de conifères à feuillage persistant"
@@ -1268,7 +1268,7 @@ msgid "Selected org units"
 msgstr "Unités d’organisation sélectionnées"
 
 msgid "No coordinates found"
-msgstr "Coordonnées non trouvées"
+msgstr "Aucune coordonnée trouvée"
 
 msgid "No data"
 msgstr "Aucune donnée"
@@ -1304,10 +1304,10 @@ msgid "Map could not be created"
 msgstr "La carte n’a pas pu être créée"
 
 msgid "Start date is invalid"
-msgstr "La date de début n'est pas valable"
+msgstr "La date de début n'est pas valide"
 
 msgid "End date is invalid"
-msgstr "La date de fin n'est pas valable"
+msgstr "La date de fin n'est pas valide"
 
 msgid "End date cannot be earlier than start date"
-msgstr "La date de fin ne peut pas précéder la date début"
+msgstr "La date de fin ne peut être antérieure à la date de début"
