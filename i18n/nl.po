@@ -558,10 +558,10 @@ msgid "Toggle visibility"
 msgstr "Schakel zichtbaarheid in"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Doorzichtigheid van laag instellen"
 
 msgid "More actions"
-msgstr ""
+msgstr "Meerdere taken"
 
 msgid "Hide data table"
 msgstr "Verberg gegevenstabel"
@@ -582,10 +582,10 @@ msgid "Remove layer"
 msgstr "Verwijder laag"
 
 msgid "Mid"
-msgstr ""
+msgstr "Midden"
 
 msgid "Group"
-msgstr ""
+msgstr "Groep"
 
 msgid "Filters"
 msgstr "Filters"
@@ -603,13 +603,13 @@ msgid "Show longitude/latitude"
 msgstr "Toon lengtegraad/breedtegraad"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Toon [[name]]"
 
 msgid "Longitude"
-msgstr ""
+msgstr "Lengtegraad"
 
 msgid "Latitude"
-msgstr ""
+msgstr "Breedtegraad"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr "Interpretatie van {{interpretatieDatum}} aan het bezichtigen"
@@ -624,7 +624,7 @@ msgid "Organisation unit"
 msgstr "Organisatieëenheid"
 
 msgid "Loading layer data"
-msgstr ""
+msgstr "Laag data aan het laden"
 
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"
@@ -633,67 +633,67 @@ msgid "no value"
 msgstr ""
 
 msgid "acres"
-msgstr ""
+msgstr "aren"
 
 msgid "Area"
-msgstr ""
+msgstr "Oppervlakte"
 
 msgid "Center map on area"
-msgstr ""
+msgstr "Centreer kaart op gebied"
 
 msgid "Center map on line"
-msgstr ""
+msgstr "Centreet kaart op lijn"
 
 msgid "Click the next position"
-msgstr ""
+msgstr "Klik op de volgende positie"
 
 msgid "Click where you want to start the measurement"
-msgstr ""
+msgstr "Klik waar u de meting wil starten"
 
 msgid "Delete"
 msgstr "Verwijderen"
 
 msgid "Distance"
-msgstr ""
+msgstr "Afstand"
 
 msgid "Enter fullscreen"
-msgstr ""
+msgstr "Toon volledig scherm"
 
 msgid "Exit fullscreen"
-msgstr ""
+msgstr "Verlaat volledig scherm"
 
 msgid "Finish measurement"
-msgstr ""
+msgstr "Beëindig meting"
 
 msgid "ha"
-msgstr ""
+msgstr "ha"
 
 msgid "km"
-msgstr ""
+msgstr "km"
 
 msgid "Measure distances and areas"
-msgstr ""
+msgstr "Meet afstanden en oppervlaktes"
 
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 msgid "Perimeter"
-msgstr ""
+msgstr "Omtrek"
 
 msgid "Reset bearing to north"
-msgstr ""
+msgstr "Verzet richting naar het noorden"
 
 msgid "Search for place or address"
-msgstr ""
+msgstr "Zoek plaats of adres"
 
 msgid "Zoom in"
-msgstr ""
+msgstr "Inzoomen"
 
 msgid "Zoom out"
-msgstr ""
+msgstr "Uitzoomen"
 
 msgid "Zoom to content"
-msgstr ""
+msgstr "Zoom tot inhoud"
 
 msgid "Open as map"
 msgstr "Open als kaart"
@@ -743,9 +743,11 @@ msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
+"Het is niet mogelijk om individuele gebruikersorganisatieëenheden en "
+"individuele eenheden te selecteren."
 
 msgid "Click the map where you want to relocate the facility."
-msgstr ""
+msgstr "Klik op de kaart waar u de instelling naartoe wil verplaatsen."
 
 msgid "user organisation unit"
 msgstr "gebruiker organisatieëenheid"
@@ -757,7 +759,7 @@ msgid "two levels below user organisation unit"
 msgstr "twee niveaus onder gebruikersorganisatieëenheid"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} in {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
@@ -766,7 +768,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Geselecteerde organisatieëenheden"
 
 msgid "Main"
 msgstr ""
@@ -778,7 +780,7 @@ msgid "2 x below"
 msgstr ""
 
 msgid "User organisation units"
-msgstr ""
+msgstr "gebruikersorganisatieëenheid"
 
 msgid "Previous year"
 msgstr "Vorig jaar"
@@ -793,7 +795,7 @@ msgid "Period type"
 msgstr "Soort periode"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Start-/einddatums"
 
 msgid "Only one timeline is allowed."
 msgstr "Alleen één tijdslijn is toegelaten."
@@ -802,16 +804,16 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Display periods"
-msgstr ""
+msgstr "Toon periodes"
 
 msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
-msgstr ""
+msgstr "Tijdlijn"
 
 msgid "Split map views"
-msgstr ""
+msgstr "Splits kaartweergaves"
 
 msgid "Start date"
 msgstr "Startdatum"
@@ -835,77 +837,79 @@ msgid "Tracked Entity Type"
 msgstr "Getraceerde Entiteitssoort"
 
 msgid "By data element"
-msgstr ""
+msgstr "Volgens gegevenselement"
 
 msgid "Count"
-msgstr ""
+msgstr "Tel"
 
 msgid "Average"
-msgstr ""
+msgstr "Gemiddelde"
 
 msgid "Sum"
-msgstr ""
+msgstr "Som"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Standaarddeviatie"
 
 msgid "Variance"
-msgstr ""
+msgstr "Variantie"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Percentage"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Hectaren"
 
 msgid "Acres"
-msgstr ""
+msgstr "Aren"
 
 msgid "Mean"
-msgstr ""
+msgstr "Gemiddelde"
 
 msgid "Median"
-msgstr ""
+msgstr "Mediaan"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Light"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Detailed"
 
 msgid "Google Streets"
-msgstr ""
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing Road"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing Dark"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Bing Aerial Labels"
 
 msgid "Population"
-msgstr ""
+msgstr "Bevolking"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "bevolking per hectare"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Geschat aantal inwoners in een gebied."
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Bevolkingsleeftijdsgroepen"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Geschat aantal inwoners in een gebied, gegroepeerd volgens leeftijd en "
+"geslacht."
 
 msgid "Male 0 - 1 years"
 msgstr ""
@@ -1016,57 +1020,62 @@ msgid "Female 80 years and above"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "Hoogte"
 
 msgid "meters"
-msgstr ""
+msgstr "meters"
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Hoogte boven zeespiegel"
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Neerslag"
 
 msgid "millimeter"
-msgstr ""
+msgstr "millimeter"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Neerslag verzameld van satelliet- en weerstations aan de grond. De waarden "
+"zijn in millimeters binnen 5-daagse periodes. Maandelijks geüpdatet, tijdens"
+" de 3de week van de volgende maand."
 
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatuur"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "°C tijdens de dag"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
+"zich in gebieden met aanhoudende bewolking."
 
 msgid "Landcover"
-msgstr ""
+msgstr "Landbedekking"
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "Verschillende landbedekkingstypes verzameld van satellieten."
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Groenblijvend naaldbos"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Groenblijvend loofbos"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Bladverliezend naaldbos"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Bladverliezend loofbos"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "Gemengd bos"
 
 msgid "Closed shrublands"
 msgstr ""
@@ -1078,10 +1087,10 @@ msgid "Woody savannas"
 msgstr ""
 
 msgid "Savannas"
-msgstr ""
+msgstr "Savannes"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Graslanden"
 
 msgid "Permanent wetlands"
 msgstr ""
@@ -1096,22 +1105,22 @@ msgid "Cropland/Natural vegetation mosaic"
 msgstr ""
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "Sneeuw en ijs"
 
 msgid "Barren or sparsely vegetated"
 msgstr ""
 
 msgid "Water"
-msgstr ""
+msgstr "Water"
 
 msgid "people per km²"
-msgstr ""
+msgstr "mensen per km²"
 
 msgid "Nighttime lights"
 msgstr ""
 
 msgid "light intensity"
-msgstr ""
+msgstr "lichtintensiteit"
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -1119,31 +1128,31 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 msgid "Completed"
-msgstr ""
+msgstr "Voltooid"
 
 msgid "Schedule"
 msgstr ""
 
 msgid "Overdue"
-msgstr ""
+msgstr "Verlopen"
 
 msgid "Skipped"
-msgstr ""
+msgstr "Overgeslaten"
 
 msgid "Choropleth"
-msgstr ""
+msgstr "Choropleet"
 
 msgid "Bubble map"
 msgstr ""
 
 msgid "Automatic color legend"
-msgstr ""
+msgstr "Automatische kleurlegenda"
 
 msgid "Predefined color legend"
 msgstr ""
@@ -1158,31 +1167,31 @@ msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "Dagelijks"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Wekelijks"
 
 msgid "Weekly (Start Wednesday)"
-msgstr ""
+msgstr "Wekelijks (Start op woensdag)"
 
 msgid "Weekly (Start Thursday)"
-msgstr ""
+msgstr "Wekelijks (Start op donderdag)"
 
 msgid "Weekly (Start Saturday)"
-msgstr ""
+msgstr "Wekelijks (Start op zaterdag)"
 
 msgid "Weekly (Start Sunday)"
-msgstr ""
+msgstr "Wekelijks (Start op zondag)"
 
 msgid "Bi-weekly"
-msgstr ""
+msgstr "Tweewekelijks"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Maandelijks"
 
 msgid "Bi-monthly"
-msgstr ""
+msgstr "Tweemaandelijks"
 
 msgid "Quarterly"
 msgstr ""
@@ -1194,25 +1203,25 @@ msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr ""
+msgstr "Jaarlijks"
 
 msgid "Financial year (Start November)"
-msgstr ""
+msgstr "Financieel jaar (Start november)"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Financieel jaar (Start oktober)"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Financieel jaar (Start juli)"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Financieel jaar (Start april)"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Geannuleerd"
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "Kaart \"{{name}}\" is opgeslagen."
 
 msgid "Error"
 msgstr "Fout"
@@ -1230,16 +1239,17 @@ msgid "Selected org units"
 msgstr "Geselecteerde organisatieëenheden"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "U heeft geen toegang to deze laaggegevens."
 
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
+"Een onbekende fout is opgetreden tijdens het inlezen van laaggegevens."
 
 msgid "Event"
 msgstr "Gebeurtenis"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
+msgstr "Toon de eerste {{pageSize}} evenementen van de {{total}}"
 
 msgid "No data found"
 msgstr "Geen gegevens gevonden"
@@ -1248,7 +1258,7 @@ msgid "Facilities"
 msgstr "Instellingen"
 
 msgid "Thematic layer"
-msgstr ""
+msgstr "Thematische laag"
 
 msgid "No data"
 msgstr "Geen gegevens"
@@ -1263,7 +1273,7 @@ msgid "related"
 msgstr "gerelateerd"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Thematisch"
 
 msgid "not one of"
 msgstr "niet één van"
