@@ -407,10 +407,10 @@ msgid "Toggle visibility"
 msgstr "Schakel zichtbaarheid in"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Doorzichtigheid van laag instellen"
 
 msgid "More actions"
-msgstr ""
+msgstr "Meerdere taken"
 
 msgid "Data table"
 msgstr "Gegevenstabel"
