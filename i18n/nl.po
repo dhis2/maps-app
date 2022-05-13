@@ -195,6 +195,9 @@ msgid ""
 "The values are in millimeters within 5 days periods. Updated monthly, during"
 " the 3rd week of the following month."
 msgstr ""
+"Neerslag verzameld van satelliet- en weerstations aan de grond. De waarden "
+"zijn in millimeters binnen 5-daagse periodes. Maandelijks geüpdatet, tijdens"
+" de 3de week van de volgende maand."
 
 msgid "Min mm"
 msgstr ""
@@ -214,7 +217,7 @@ msgid "Max °C"
 msgstr ""
 
 msgid "Distinct landcover types collected from satellites."
-msgstr ""
+msgstr "Verschillende landbedekkingstypes verzameld van satellieten."
 
 msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
@@ -562,10 +565,10 @@ msgid "Toggle visibility"
 msgstr "Schakel zichtbaarheid in"
 
 msgid "Set layer opacity"
-msgstr ""
+msgstr "Doorzichtigheid van laag instellen"
 
 msgid "More actions"
-msgstr ""
+msgstr "Meerdere taken"
 
 msgid "Data table"
 msgstr "Gegevenstabel"
@@ -658,6 +661,8 @@ msgid ""
 "It’s not possible to combine user organisation units and select individual "
 "units."
 msgstr ""
+"Het is niet mogelijk om individuele gebruikersorganisatieëenheden en "
+"individuele eenheden te selecteren."
 
 msgid "Click the map where you want to relocate facility"
 msgstr "Klik op de kaart waar u de instelling naartoe wil verplaatsen"
@@ -672,7 +677,7 @@ msgid "two levels below user organisation unit"
 msgstr "twee niveaus onder gebruikersorganisatieëenheid"
 
 msgid "{{units}} in {{orgunits}}"
-msgstr ""
+msgstr "{{units}} in {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
 msgstr ""
@@ -681,7 +686,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Geselecteerde organisatieëenheden"
 
 msgid "Main"
 msgstr ""
@@ -693,7 +698,7 @@ msgid "2 x below"
 msgstr ""
 
 msgid "User organisation units"
-msgstr ""
+msgstr "gebruikersorganisatieëenheid"
 
 msgid "Previous year"
 msgstr "Vorig jaar"
@@ -708,19 +713,19 @@ msgid "Period type"
 msgstr "Soort periode"
 
 msgid "Start/end dates"
-msgstr ""
+msgstr "Start-/einddatums"
 
 msgid "Display periods"
-msgstr ""
+msgstr "Toon periodes"
 
 msgid "Single (aggregate)"
 msgstr ""
 
 msgid "Timeline"
-msgstr ""
+msgstr "Tijdlijn"
 
 msgid "Split map views"
-msgstr ""
+msgstr "Splits kaartweergaves"
 
 msgid "Only one timeline is allowed."
 msgstr "Alleen één tijdslijn is toegelaten."
@@ -744,34 +749,34 @@ msgid "Tracked Entity Type"
 msgstr "Getraceerde Entiteitssoort"
 
 msgid "By data element"
-msgstr ""
+msgstr "Volgens gegevenselement"
 
 msgid "Count"
-msgstr ""
+msgstr "Tel"
 
 msgid "Average"
-msgstr ""
+msgstr "Gemiddelde"
 
 msgid "Sum"
-msgstr ""
+msgstr "Som"
 
 msgid "Standard deviation"
-msgstr ""
+msgstr "Standaarddeviatie"
 
 msgid "Variance"
-msgstr ""
+msgstr "Variantie"
 
 msgid "OSM Light"
-msgstr ""
+msgstr "OSM Light"
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM Detailed"
 
 msgid "Google Streets"
-msgstr ""
+msgstr "Google Streets"
 
 msgid "Google Hybrid"
-msgstr ""
+msgstr "Google Hybrid"
 
 msgid "Equal intervals"
 msgstr ""
@@ -780,13 +785,13 @@ msgid "Equal counts"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "Dagelijks"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Wekelijks"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Maandelijks"
 
 msgid "Bi-monthly)"
 msgstr ""
@@ -801,22 +806,22 @@ msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr ""
+msgstr "Jaarlijks"
 
 msgid "Financial year (Start October)"
-msgstr ""
+msgstr "Financieel jaar (Start oktober)"
 
 msgid "Financial year (Start July)"
-msgstr ""
+msgstr "Financieel jaar (Start juli)"
 
 msgid "Financial year (Start April)"
-msgstr ""
+msgstr "Financieel jaar (Start april)"
 
 msgid "Today"
-msgstr ""
+msgstr "Vandaag"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Gisteren"
 
 msgid "Last 3 days"
 msgstr ""
@@ -928,7 +933,7 @@ msgid "A connection to Google Earth Engine could not be established."
 msgstr "Een verbinding met Google Earth Engine kon niet worden gevestigd."
 
 msgid "Map \"{{name}}\" is saved."
-msgstr ""
+msgstr "Kaart \"{{name}}\" is opgeslagen."
 
 msgid "Boundaries"
 msgstr "Grenzen"
@@ -940,19 +945,19 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Elevation"
-msgstr ""
+msgstr "Hoogte"
 
 msgid "metres"
 msgstr ""
 
 msgid "Elevation above sea-level."
-msgstr ""
+msgstr "Hoogte boven zeespiegel"
 
 msgid "Population density"
 msgstr ""
 
 msgid "people per km²"
-msgstr ""
+msgstr "mensen per km²"
 
 msgid ""
 "Population density estimates with national totals adjusted to match UN "
@@ -963,46 +968,48 @@ msgid "Nighttime lights"
 msgstr ""
 
 msgid "light intensity"
-msgstr ""
+msgstr "lichtintensiteit"
 
 msgid "Precipitation"
-msgstr ""
+msgstr "Neerslag"
 
 msgid "millimeter"
-msgstr ""
+msgstr "millimeter"
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground."
 msgstr ""
 
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatuur"
 
 msgid "°C during daytime"
-msgstr ""
+msgstr "°C tijdens de dag"
 
 msgid ""
 "Land surface temperatures collected from satellite. Blank spots will appear "
 "in areas with a persistent cloud cover."
 msgstr ""
+"Landoppervlaktemperaturen verzameld van satelliet. Lege plekken vertonen "
+"zich in gebieden met aanhoudende bewolking."
 
 msgid "Landcover"
-msgstr ""
+msgstr "Landbedekking"
 
 msgid "Evergreen Needleleaf forest"
-msgstr ""
+msgstr "Groenblijvend naaldbos"
 
 msgid "Evergreen Broadleaf forest"
-msgstr ""
+msgstr "Groenblijvend loofbos"
 
 msgid "Deciduous Needleleaf forest"
-msgstr ""
+msgstr "Bladverliezend naaldbos"
 
 msgid "Deciduous Broadleaf forest"
-msgstr ""
+msgstr "Bladverliezend loofbos"
 
 msgid "Mixed forest"
-msgstr ""
+msgstr "Gemengd bos"
 
 msgid "Closed shrublands"
 msgstr ""
@@ -1014,10 +1021,10 @@ msgid "Woody savannas"
 msgstr ""
 
 msgid "Savannas"
-msgstr ""
+msgstr "Savannes"
 
 msgid "Grasslands"
-msgstr ""
+msgstr "Graslanden"
 
 msgid "Permanent wetlands"
 msgstr ""
@@ -1032,13 +1039,13 @@ msgid "Cropland/Natural vegetation mosaic"
 msgstr ""
 
 msgid "Snow and ice"
-msgstr ""
+msgstr "Sneeuw en ijs"
 
 msgid "Barren or sparsely vegetated"
 msgstr ""
 
 msgid "Water"
-msgstr ""
+msgstr "Water"
 
 msgid "Access denied"
 msgstr "Toegang geweigerd"
@@ -1062,7 +1069,7 @@ msgid "Facilities"
 msgstr "Instellingen"
 
 msgid "Thematic layer"
-msgstr ""
+msgstr "Thematische laag"
 
 msgid "Selected org units"
 msgstr "Geselecteerde organisatieëenheden"
@@ -1080,7 +1087,7 @@ msgid "related"
 msgstr "gerelateerd"
 
 msgid "Thematic"
-msgstr ""
+msgstr "Thematisch"
 
 msgid "not one of"
 msgstr "niet één van"
