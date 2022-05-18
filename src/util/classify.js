@@ -1,9 +1,11 @@
 // Utils for thematic mapping
+import geostats from 'geostats';
 import { precisionRound } from 'd3-format';
 import { numberPrecision } from './numbers';
 import {
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
+    CLASSIFICATION_NATURAL_BREAKS,
 } from '../constants/layers';
 
 // Returns legend item where a value belongs
@@ -21,25 +23,27 @@ export const getLegendItems = (values, method, numClasses) => {
     const maxValue = values[values.length - 1];
     let bins;
 
-    if (method === CLASSIFICATION_EQUAL_INTERVALS) {
-        bins = getEqualIntervals(minValue, maxValue, numClasses);
-    } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
-        bins = getQuantiles(values, numClasses);
-    }
-
-    return bins;
-};
-
-export const getClassBins = (values, method, numClasses) => {
-    const minValue = values[0];
-    const maxValue = values[values.length - 1];
-    let bins;
+    // https://macwright.com/2013/02/18/literate-jenks.html
+    // Candidate: https://github.com/mtralka/GeoBuckets
+    const geoSeries = new geostats(values);
 
     if (method === CLASSIFICATION_EQUAL_INTERVALS) {
         bins = getEqualIntervals(minValue, maxValue, numClasses);
+
+        console.log(
+            'equal intervals',
+            bins,
+            geoSeries.getEqInterval(numClasses)
+        );
     } else if (method === CLASSIFICATION_EQUAL_COUNTS) {
         bins = getQuantiles(values, numClasses);
+
+        console.log('quantiles', bins, geoSeries.getQuantile(numClasses));
+    } else if (method === CLASSIFICATION_NATURAL_BREAKS) {
+        bins = getNaturalBreaks(values, numClasses);
     }
+
+    console.log('bins', bins);
 
     return bins;
 };
@@ -91,4 +95,30 @@ export const getQuantiles = (values, numClasses) => {
             startValue: valueFormat(value),
             endValue: valueFormat(bins[index + 1] || maxValue),
         }));
+};
+
+export const getNaturalBreaks = (values, numClasses) => {
+    const geoSeries = new geostats(values);
+
+    // https://github.com/simogeo/geostats/pull/49
+    const jenks = geoSeries.getClassJenks2(numClasses);
+
+    const bins = jenks.reduce((arr, startValue, index) => {
+        const endValue = jenks[index + 1];
+
+        if (endValue !== undefined) {
+            arr.push({ startValue, endValue });
+        }
+
+        return arr;
+    }, []);
+
+    console.log(
+        'CLASSIFICATION_NATURAL_BREAKS',
+        numClasses,
+        values,
+        jenks,
+        bins
+    );
+    return bins;
 };
