@@ -2,15 +2,15 @@
 # Translators:
 # phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
-# easylin <lin_xd@126.com>, 2022
 # 晓东 林 <13981924470@126.com>, 2022
+# easylin <lin_xd@126.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,7 +182,7 @@ msgid "thematic"
 msgstr "主题"
 
 msgid "org unit"
-msgstr ""
+msgstr "组织单位"
 
 msgid "Earth Engine"
 msgstr "地图引擎"
@@ -200,7 +200,7 @@ msgid "Add layer"
 msgstr "添加图层"
 
 msgid "Aggregation method"
-msgstr ""
+msgstr "统计汇总方法"
 
 msgid "Choosing many groups takes a long time to calculate and display."
 msgstr "选择多个组需要很长时间来计算和显示。"
@@ -220,7 +220,7 @@ msgstr "期间"
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
-msgstr ""
+msgstr "将在 Google 地球引擎上为所选组织单位计算数据。"
 
 msgid "Multiple aggregation methods are available."
 msgstr "有多种汇总方法可用。"
@@ -228,10 +228,10 @@ msgstr "有多种汇总方法可用。"
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
-msgstr ""
+msgstr "通过单击地图区域或查看数据表查看聚合结果。结果也可以下载。"
 
 msgid "Unit"
-msgstr ""
+msgstr "单元"
 
 msgid "Source"
 msgstr "资源"
@@ -243,22 +243,22 @@ msgid "Year"
 msgstr "年"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "可用期间由源数据设置"
 
 msgid "Loading periods"
 msgstr "载入期间"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "最小值是必需的"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "最大值是必需的"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "最大值应大于最小值"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "有效步数为 {{minSteps}} 到 {{maxSteps}}"
 
 msgid "Unit: {{ unit }}"
 msgstr "机构: {{ unit }}"
@@ -628,7 +628,7 @@ msgstr "上次更新"
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
 "instance?"
-msgstr ""
+msgstr "Google 地球引擎失败。是否为此 DHIS2 实例配置了服务？"
 
 msgid "no value"
 msgstr "无值"
@@ -896,16 +896,16 @@ msgid "Percentage"
 msgstr "百分比"
 
 msgid "Hectares"
-msgstr ""
+msgstr "公顷"
 
 msgid "Acres"
-msgstr ""
+msgstr "英亩"
 
 msgid "Mean"
 msgstr "平均 "
 
 msgid "Median"
-msgstr ""
+msgstr "中位数"
 
 msgid "Std dev"
 msgstr "标准差"
@@ -935,128 +935,128 @@ msgid "Bing Aerial Labels"
 msgstr "Bing空间标示图"
 
 msgid "Population"
-msgstr ""
+msgstr "人口"
 
 msgid "people per hectare"
 msgstr "每公顷人数"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "居住在一个地区的估计人数。"
 
 msgid "Population age groups"
-msgstr ""
+msgstr "人口年龄组"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
-msgstr ""
+msgstr "居住在一个地区的估计人数，按年龄和性别分组。"
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "男性 0 - 1 岁"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "男性 1 - 4 岁"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "男性 5 - 9 岁"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "男性 10 - 14 岁"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "男性 15 - 19 岁"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "男性 20 - 24 岁"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "男性 25 - 29 岁"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "男性 30 - 34 岁"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "男性 35 - 39 岁"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "男性 40 - 44 岁"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "男性 45 - 49 岁"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "男性 50 - 54 岁"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "男性 55 - 59 岁"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "男性 60 - 64 岁"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "男性 65 - 69 岁"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "男性 70 - 74 岁"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "男性 75 - 79 岁"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "男 80岁及以上"
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "女性 0 - 1 岁"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "女性 1 - 4 岁"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "女性 5 - 9 岁"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "女性 10 - 14 岁"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "女性 15 - 19 岁"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "女性 20 - 24 岁"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "女性 25 - 29 岁"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "女性 30 - 34 岁"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "女性 35 - 39 岁"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "女性 40 - 44 岁"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "女性 45 - 49 岁"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "女性 50 - 54 岁"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "女性 55 - 59 岁"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "女性 60 - 64 岁"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "女性 65 - 69 岁"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "女性 70 - 74 岁"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "女性 75 - 79 岁"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "80岁及以上女性"
 
 msgid "Building footprints"
 msgstr "构建足迹"
@@ -1067,16 +1067,16 @@ msgstr "构建物数量"
 msgid ""
 "The outlines of buildings derived from high-resolution satellite imagery. "
 "Only for the continent of Africa."
-msgstr ""
+msgstr "来自高分辨率卫星图像的建筑物轮廓。仅适用于非洲大陆。"
 
 msgid ""
 "Building counts are only available for smaller organisation unit areas."
-msgstr ""
+msgstr "建筑物计数仅适用于较小的组织单位区域。"
 
 msgid ""
 "Select a smaller area or single organization unit to see the count of "
 "buildings."
-msgstr ""
+msgstr "选择较小的区域或单个组织单位以查看建筑物的数量。"
 
 msgid "Elevation"
 msgstr "高程"
@@ -1269,10 +1269,10 @@ msgid "Cancelled"
 msgstr "已取消"
 
 msgid "{{name}}: No coordinates found"
-msgstr ""
+msgstr "{{name}}：未找到坐标"
 
 msgid "Selected org units: No coordinates found"
-msgstr ""
+msgstr "选定的组织单位：未找到坐标"
 
 msgid "Error: {{message}}"
 msgstr "错误: {{message}}"
@@ -1338,7 +1338,7 @@ msgid "No"
 msgstr "不"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "无法获取 Google 地球引擎的授权令牌。"
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
