@@ -10,8 +10,8 @@
 
 .tabContent {
     width: calc(100% + var(--spacers-dp16));
-    margin: var(--spacers-dp4) -16px 0;
-    height: 400px;
+    margin: var(--spacers-dp8) -16px 0;
+    height: 380px;
     overflow-y: auto;
     font-size: 14px;
     color: #333;
@@ -30,7 +30,7 @@
 
 .flexColumn {
     flex: 1 1 0px;
-    margin: var(--spacers-dp8) var(--spacers-dp16) 0;
+    margin: var(--spacers-dp4) var(--spacers-dp16) 0;
     box-sizing: border-box;
     max-width: 260px;
 }

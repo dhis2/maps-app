@@ -1,5 +1,5 @@
 .userOrgUnits {
-    margin-top: var(--spacers-dp12);
+    margin: var(--spacers-dp12) 0 var(--spacers-dp4);
     font-size: 14px;
 }
 
