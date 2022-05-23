@@ -190,7 +190,7 @@ export class TrackedEntityDialog extends Component {
         } = this.state;
 
         return (
-            <div>
+            <div className={styles.content}>
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="data">{i18n.t('Data')}</Tab>
                     <Tab value="relationships">{i18n.t('Relationships')}</Tab>
