@@ -7,6 +7,10 @@ import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
 } from '../../actions/programs';
+import {
+    EVENT_COORDINATE_DEFAULT,
+    EVENT_COORDINATE_ENROLLMENT,
+} from '../../constants/layers';
 
 const CoordinateField = ({
     value,
@@ -21,8 +25,11 @@ const CoordinateField = ({
 }) => {
     const fields = useMemo(() => {
         const items = [
-            { id: 'event', name: i18n.t('Event location') }, // Default coordinate field
-            { id: 'enrollment', name: i18n.t('Enrollment coordinate') },
+            { id: EVENT_COORDINATE_DEFAULT, name: i18n.t('Event location') },
+            {
+                id: EVENT_COORDINATE_ENROLLMENT,
+                name: i18n.t('Enrollment coordinate'),
+            },
         ];
 
         return program && programStage
@@ -39,21 +46,16 @@ const CoordinateField = ({
         if (program && !programAttributes[program.id]) {
             loadProgramTrackedEntityAttributes(program.id);
         }
+    }, [program, programAttributes, loadProgramTrackedEntityAttributes]);
 
+    useEffect(() => {
         if (programStage && !dataElements[programStage.id]) {
             loadProgramStageDataElements(programStage.id);
         }
-    }, [
-        program,
-        programAttributes,
-        programStage,
-        dataElements,
-        loadProgramStageDataElements,
-        loadProgramStageDataElements,
-    ]);
+    }, [programStage, dataElements, loadProgramStageDataElements]);
 
     useEffect(() => {
-        onChange('event');
+        onChange(EVENT_COORDINATE_DEFAULT);
     }, [program, onChange]);
 
     return (

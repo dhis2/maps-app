@@ -20,6 +20,7 @@ import {
     EVENT_SERVER_CLUSTER_COUNT,
     EVENT_COLOR,
     EVENT_RADIUS,
+    EVENT_COORDINATE_ENROLLMENT,
 } from '../constants/layers';
 import { formatStartEndDate, getDateArray } from '../util/time';
 import { cssColor, getContrastColor } from '../util/colors';
@@ -254,11 +255,19 @@ export const getAnalyticsRequest = async ({
         });
     }
 
+    // If coordinate field other than event coordinate
     if (eventCoordinateField) {
-        // If coordinate field other than event coordinate
-        analyticsRequest = analyticsRequest
-            .addDimension(eventCoordinateField) // Used by analytics/events/query/
-            .withCoordinateField(eventCoordinateField); // Used by analytics/events/count and analytics/events/cluster
+        // Used by analytics/events/count and analytics/events/cluster
+        analyticsRequest = analyticsRequest.withCoordinateField(
+            eventCoordinateField
+        );
+
+        if (eventCoordinateField !== EVENT_COORDINATE_ENROLLMENT) {
+            // Used by analytics/events/query/
+            analyticsRequest = analyticsRequest.addDimension(
+                eventCoordinateField
+            );
+        }
     }
 
     if (eventStatus && eventStatus !== 'ALL') {
