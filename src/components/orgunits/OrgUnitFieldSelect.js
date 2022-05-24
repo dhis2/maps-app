@@ -6,6 +6,7 @@ import { SelectField } from '../core';
 import { fetchOrgUnitFields } from '../../util/orgUnits';
 import { setOrganisationUnitField } from '../../actions/layerEdit';
 import { NONE } from '../../constants/layers';
+import styles from './styles/OrgUnitFieldSelect.module.css';
 
 export const OrgUnitFieldSelect = ({
     orgUnitField,
@@ -21,14 +22,23 @@ export const OrgUnitFieldSelect = ({
         return null;
     }
 
+    const attribute = attributes.find(a => a.id === orgUnitField);
+
     return (
-        <SelectField
-            label={i18n.t('Use associated geometry')}
-            items={[{ id: NONE, name: i18n.t('None') }, ...attributes]}
-            value={orgUnitField}
-            onChange={setOrganisationUnitField}
-            data-test="orgunitfieldselect"
-        />
+        <>
+            <SelectField
+                label={i18n.t('Use associated geometry')}
+                items={[{ id: NONE, name: i18n.t('None') }, ...attributes]}
+                value={orgUnitField}
+                onChange={setOrganisationUnitField}
+                data-test="orgunitfieldselect"
+            />
+            {attribute && attribute.description && (
+                <div className={styles.orgUnitFieldDescription}>
+                    {attribute.description}
+                </div>
+            )}
+        </>
     );
 };
 
