@@ -147,7 +147,7 @@ const EarthEngineDialog = props => {
     }
 
     return (
-        <div>
+        <div className={styles.content}>
             <Tabs value={tab} onChange={setTab}>
                 <Tab value="data">{i18n.t('Data')}</Tab>
                 {periodType && <Tab value="period">{i18n.t('Period')}</Tab>}

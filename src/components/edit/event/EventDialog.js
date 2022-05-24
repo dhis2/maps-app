@@ -206,7 +206,7 @@ export class EventDialog extends Component {
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
 
         return (
-            <div data-test="eventdialog">
+            <div className={styles.content} data-test="eventdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="data">{i18n.t('Data')}</Tab>
                     <Tab value="period">{i18n.t('Period')}</Tab>
