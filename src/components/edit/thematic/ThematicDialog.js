@@ -281,7 +281,7 @@ export class ThematicDialog extends Component {
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
-            <div data-test="thematicdialog">
+            <div className={styles.content} data-test="thematicdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="data" dataTest="thematicdialog-tabs-data">
                         {i18n.t('Data')}

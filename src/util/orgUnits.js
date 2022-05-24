@@ -51,7 +51,7 @@ export const fetchOrgUnitGroupSet = id =>
 
 export const fetchOrgUnitFields = () =>
     apiFetch(
-        `/attributes.json?fields=id,name&filter=valueType:eq:GEOJSON&filter=organisationUnitAttribute:eq:true`
+        `/attributes.json?fields=id,name,description&filter=valueType:eq:GEOJSON&filter=organisationUnitAttribute:eq:true`
     ).then(({ attributes }) => attributes);
 
 export const filterPointFacilities = data => data.filter(d => d.ty === 1);

@@ -134,7 +134,7 @@ class FacilityDialog extends Component {
         const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE;
 
         return (
-            <div data-test="facilitydialog">
+            <div className={styles.content} data-test="facilitydialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
