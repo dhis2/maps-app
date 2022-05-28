@@ -1,19 +1,19 @@
 # 
 # Translators:
-# SubhamJena <subhamjena8465@gmail.com>, 2022
+# Valeriu Plesca <vplesca@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: SubhamJena <subhamjena8465@gmail.com>, 2022\n"
-"Language-Team: Odia (https://www.transifex.com/hisp-uio/teams/100509/or/)\n"
+"Last-Translator: Valeriu Plesca <vplesca@gmail.com>, 2022\n"
+"Language-Team: Romanian (https://www.transifex.com/hisp-uio/teams/100509/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: or\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 msgid "Maps"
 msgstr ""
@@ -46,10 +46,10 @@ msgid "Totals"
 msgstr ""
 
 msgid "Details"
-msgstr "ବିବରଣୀ"
+msgstr ""
 
 msgid "Yes"
-msgstr "ହଁ"
+msgstr "Da"
 
 msgid "Event location"
 msgstr ""
@@ -137,7 +137,7 @@ msgid "Cancel"
 msgstr ""
 
 msgid "Close"
-msgstr ""
+msgstr "Închidere"
 
 msgid "Legend position"
 msgstr ""
@@ -221,10 +221,10 @@ msgid ""
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 msgid "Max"
-msgstr ""
+msgstr "Max"
 
 msgid "Steps"
 msgstr ""
@@ -255,7 +255,7 @@ msgid "Group set is required"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "eveniment"
 
 msgid "tracked entity"
 msgstr ""
@@ -545,7 +545,7 @@ msgid "Split view can not be combined with other layer types."
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Editare"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -605,7 +605,7 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Unitate organizațională"
 
 msgid "Groups"
 msgstr ""
@@ -620,7 +620,7 @@ msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
+msgstr "Ultima actualizare"
 
 msgid "acres"
 msgstr ""
@@ -641,7 +641,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "Lichidare"
 
 msgid "Distance"
 msgstr ""
@@ -853,13 +853,13 @@ msgid "Bing Aerial Labels"
 msgstr ""
 
 msgid "All"
-msgstr "ସବୁ"
+msgstr ""
 
 msgid "Active"
-msgstr ""
+msgstr "Activ"
 
 msgid "Completed"
-msgstr ""
+msgstr "Complet"
 
 msgid "Schedule"
 msgstr ""
@@ -895,10 +895,10 @@ msgid "Daily"
 msgstr ""
 
 msgid "Weekly"
-msgstr "ସାପ୍ତାହିକ"
+msgstr ""
 
 msgid "Monthly"
-msgstr "ମାସିକ"
+msgstr ""
 
 msgid "Bi-monthly"
 msgstr ""
@@ -913,7 +913,7 @@ msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr "ବାର୍ଷିକ"
+msgstr ""
 
 msgid "Financial year (Start October)"
 msgstr ""
@@ -925,10 +925,10 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Today"
-msgstr "ଆଜି"
+msgstr "Astăzi"
 
 msgid "Yesterday"
-msgstr "ଗତକାଲି"
+msgstr ""
 
 msgid "Last 3 days"
 msgstr ""
@@ -952,10 +952,10 @@ msgid "Last 180 days"
 msgstr ""
 
 msgid "This week"
-msgstr "ଚଳିତ ସପ୍ତାହ"
+msgstr "Săptămâna aceasta"
 
 msgid "Last week"
-msgstr "ଗତ ସପ୍ତାହ"
+msgstr "Săptămâna trecută"
 
 msgid "Last 4 weeks"
 msgstr ""
@@ -979,13 +979,13 @@ msgid "Last 4 bi-weeks"
 msgstr ""
 
 msgid "This month"
-msgstr "ଚଳିତ ମାସ"
+msgstr "Luna aceasta"
 
 msgid "Last month"
-msgstr "ଗତ ମାସ"
+msgstr "Luna trecută"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "Ultimele 3 luni"
 
 msgid "Last 6 months"
 msgstr ""
@@ -1048,7 +1048,7 @@ msgid "Last 5 financial years"
 msgstr ""
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Anulat"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
@@ -1056,7 +1056,7 @@ msgid ""
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 msgid "A connection to Google Earth Engine could not be established."
 msgstr ""
@@ -1232,7 +1232,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "ନାହିଁ"
+msgstr "Nu"
 
 msgid "Map could not be created"
 msgstr ""
