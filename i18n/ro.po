@@ -106,7 +106,7 @@ msgid "Range"
 msgstr ""
 
 msgid "Level"
-msgstr ""
+msgstr "Nivel"
 
 msgid "Parent"
 msgstr ""
@@ -124,7 +124,7 @@ msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensiune"
 
 msgid "Download"
 msgstr ""
@@ -203,7 +203,7 @@ msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupuri"
 
 msgid "This field is required"
 msgstr ""
@@ -237,7 +237,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "An"
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -363,7 +363,7 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "Indicator"
 
 msgid "Reporting rates"
 msgstr ""
@@ -581,7 +581,7 @@ msgid "Mid"
 msgstr ""
 
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 msgid "Filters"
 msgstr ""
@@ -818,13 +818,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "Anul următor"
 
 msgid "Relative"
 msgstr ""
 
 msgid "Period type"
-msgstr ""
+msgstr "Tipul perioadei"
 
 msgid "Start/end dates"
 msgstr ""
@@ -1233,13 +1233,13 @@ msgid "Bi-weekly"
 msgstr ""
 
 msgid "Monthly"
-msgstr ""
+msgstr "Lunar"
 
 msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Trimestrial"
 
 msgid "Six-monthly"
 msgstr ""
@@ -1248,7 +1248,7 @@ msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr ""
+msgstr "Anual"
 
 msgid "Financial year (Start November)"
 msgstr ""
@@ -1317,7 +1317,7 @@ msgid "Thematic"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "Unități organizaționale"
 
 msgid "not one of"
 msgstr ""
