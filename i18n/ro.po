@@ -85,7 +85,7 @@ msgid "Range"
 msgstr ""
 
 msgid "Level"
-msgstr ""
+msgstr "Nivel"
 
 msgid "Parent"
 msgstr ""
@@ -164,7 +164,7 @@ msgid "Filter"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "Unități organizaționale"
 
 msgid "Start date"
 msgstr ""
@@ -276,7 +276,7 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "Indicator"
 
 msgid "Reporting rates"
 msgstr ""
@@ -452,7 +452,7 @@ msgid "Event time"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupuri"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
@@ -500,10 +500,10 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "Anul următor"
 
 msgid "Period type"
-msgstr ""
+msgstr "Tipul perioadei"
 
 msgid "Program indicator"
 msgstr ""
