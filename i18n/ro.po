@@ -91,7 +91,7 @@ msgid "Range"
 msgstr ""
 
 msgid "Level"
-msgstr ""
+msgstr "Nivel"
 
 msgid "Parent"
 msgstr ""
@@ -112,7 +112,7 @@ msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensiune"
 
 msgid "Download"
 msgstr ""
@@ -140,7 +140,7 @@ msgid "Legend position"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "An"
 
 msgid "Period"
 msgstr ""
@@ -242,7 +242,7 @@ msgid "period"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "Unități organizaționale"
 
 msgid "Filter"
 msgstr ""
@@ -416,7 +416,7 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "Indicator"
 
 msgid "Reporting rates"
 msgstr ""
@@ -595,7 +595,7 @@ msgid "Event time"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupuri"
 
 msgid "Longitude"
 msgstr ""
@@ -747,13 +747,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "Anul următor"
 
 msgid "Relative"
 msgstr ""
 
 msgid "Period type"
-msgstr ""
+msgstr "Tipul perioadei"
 
 msgid "Start/end dates"
 msgstr ""
@@ -846,13 +846,13 @@ msgid "Weekly"
 msgstr ""
 
 msgid "Monthly"
-msgstr ""
+msgstr "Lunar"
 
 msgid "Bi-monthly)"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Trimestrial"
 
 msgid "Six-monthly"
 msgstr ""
@@ -861,7 +861,7 @@ msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr ""
+msgstr "Anual"
 
 msgid "Financial year (Start October)"
 msgstr ""
@@ -876,16 +876,16 @@ msgid "Today"
 msgstr "Astăzi"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "Ieri"
 
 msgid "Last 3 days"
-msgstr ""
+msgstr "Ultimele 3 zile"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "Ultimele 7 zile"
 
 msgid "Last 14 days"
-msgstr ""
+msgstr "Ultimele 14 zile"
 
 msgid "This week"
 msgstr "Săptămâna aceasta"
@@ -894,16 +894,16 @@ msgid "Last week"
 msgstr "Săptămâna trecută"
 
 msgid "Last 4 weeks"
-msgstr ""
+msgstr "Ultimele 4 săptămâni"
 
 msgid "Last 12 weeks"
 msgstr ""
 
 msgid "Last 52 weeks"
-msgstr ""
+msgstr "Ultimele 52 de săptămâni"
 
 msgid "Weeks this year"
-msgstr ""
+msgstr "Săptămâni în anul curent"
 
 msgid "This month"
 msgstr "Luna aceasta"
@@ -915,13 +915,13 @@ msgid "Last 3 months"
 msgstr "Ultimele 3 luni"
 
 msgid "Last 6 months"
-msgstr ""
+msgstr "Ultimele 6 luni"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "Ultimele 12 luni"
 
 msgid "Months this year"
-msgstr ""
+msgstr "Luni în anul curent"
 
 msgid "This bi-month"
 msgstr ""
@@ -939,40 +939,40 @@ msgid "This quarter"
 msgstr ""
 
 msgid "Last quarter"
-msgstr ""
+msgstr "Ultimul trimestru"
 
 msgid "Last 4 quarters"
-msgstr ""
+msgstr "Ultimele 4 trimestre"
 
 msgid "Quarters this year"
-msgstr ""
+msgstr "Trimestre în anul curent"
 
 msgid "This six-month"
 msgstr ""
 
 msgid "Last six-month"
-msgstr ""
+msgstr "Ultimele șase luni"
 
 msgid "Last 2 six-months"
-msgstr ""
+msgstr "Ultimele 2 șase luni"
 
 msgid "This year"
 msgstr ""
 
 msgid "Last year"
-msgstr ""
+msgstr "Anul trecut"
 
 msgid "Last 5 years"
-msgstr ""
+msgstr "Ultimii 5 ani"
 
 msgid "This financial year"
 msgstr ""
 
 msgid "Last financial year"
-msgstr ""
+msgstr "Ultimul an financiar"
 
 msgid "Last 5 financial years"
-msgstr ""
+msgstr "Ultimii 5 ani financiari"
 
 msgid ""
 "To show this layer you must first sign up for the Earth Engine service at "
