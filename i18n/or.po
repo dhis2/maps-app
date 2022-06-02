@@ -577,10 +577,10 @@ msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr ""
+msgstr "ଦ୍ରାଘିମା"
 
 msgid "Latitude"
-msgstr ""
+msgstr "ଅକ୍ଷାଂଶ"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
