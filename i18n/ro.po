@@ -70,7 +70,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "Set de date"
 
 msgid "Index"
 msgstr ""
@@ -116,7 +116,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Anulare"
 
 msgid "Close"
 msgstr "Închidere"
@@ -128,7 +128,7 @@ msgid "Period"
 msgstr ""
 
 msgid "Organisation units"
-msgstr ""
+msgstr "Unități organizaționale"
 
 msgid "Style"
 msgstr ""
@@ -167,10 +167,10 @@ msgid "Org units"
 msgstr "Unități organizaționale"
 
 msgid "Start date"
-msgstr ""
+msgstr "Data de început"
 
 msgid "End date"
-msgstr ""
+msgstr "Data de sfîrșit"
 
 msgid "Events"
 msgstr ""
@@ -324,7 +324,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 msgid "one of"
 msgstr ""
@@ -345,7 +345,7 @@ msgid "is not"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Grup de indicatori"
 
 msgid "Interpretations"
 msgstr ""
@@ -416,7 +416,7 @@ msgid "Open as"
 msgstr ""
 
 msgid "Pivot"
-msgstr ""
+msgstr "Pivot"
 
 msgid "Chart"
 msgstr ""
@@ -512,7 +512,7 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Stage"
 msgstr ""
