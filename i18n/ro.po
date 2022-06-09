@@ -70,7 +70,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "Set de date"
 
 msgid "Index"
 msgstr ""
@@ -134,7 +134,7 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Anulare"
 
 msgid "Close"
 msgstr "Închidere"
@@ -149,7 +149,7 @@ msgid "Period"
 msgstr ""
 
 msgid "Organisation units"
-msgstr ""
+msgstr "Unități organizaționale"
 
 msgid "Style"
 msgstr ""
@@ -477,7 +477,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 msgid "one of"
 msgstr ""
@@ -495,7 +495,7 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Grup de indicatori"
 
 msgid "Interpretations"
 msgstr ""
@@ -742,7 +742,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Unități organizaționale selectate"
 
 msgid "Main"
 msgstr ""
@@ -790,10 +790,10 @@ msgid "Remove other layers to enable split map views."
 msgstr ""
 
 msgid "Start date"
-msgstr ""
+msgstr "Data de început"
 
 msgid "End date"
-msgstr ""
+msgstr "Data de sfîrșit"
 
 msgid "Program indicator"
 msgstr ""
@@ -802,7 +802,7 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Stage"
 msgstr ""
@@ -961,7 +961,7 @@ msgid "Last 4 weeks"
 msgstr "Ultimele 4 săptămâni"
 
 msgid "Last 12 weeks"
-msgstr ""
+msgstr "Ultimele 12 săptămâni"
 
 msgid "Last 52 weeks"
 msgstr "Ultimele 52 de săptămâni"
