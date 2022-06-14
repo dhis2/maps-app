@@ -2,11 +2,8 @@
     display: flex;
     position: absolute;
     width: 100%;
-    height: 40px;
+    height: 38px;
     z-index: 1200;
     box-shadow: 0 1px 1px 0 #9e9e9e;
-}
-
-.appMenu button {
-    color: var(--colors-grey900);
+    padding-top: 1px;
 }
