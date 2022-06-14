@@ -48,9 +48,11 @@ export const createEventFeature = (
             option = options.find(option => option.code === value);
         }
 
+        // console.log('geometry', geometry?.type);
+
         return {
             id,
-            type: geometry.type,
+            type: geometry?.type,
             ...props,
             [names[header.name] || header.name]: option ? option.name : value,
         };
@@ -116,16 +118,18 @@ export const createEventFeatures = (response, config = {}) => {
     );
     const options = Object.values(response.metaData.items);
 
-    const data = response.rows.map(row =>
-        createEventFeature(
-            response.headers,
-            config.outputIdScheme !== 'ID' ? names : {},
-            options,
-            row,
-            row[idCol],
-            getGeometry
+    const data = response.rows
+        .map(row =>
+            createEventFeature(
+                response.headers,
+                config.outputIdScheme !== 'ID' ? names : {},
+                options,
+                row,
+                row[idCol],
+                getGeometry
+            )
         )
-    );
+        .filter(f => f.geometry); // TODO: Events without coordinates should not be returned
 
     // Sort to draw polygons before points
     data.sort(feature => (feature.geometry.type === 'Polygon' ? -1 : 0));

@@ -47,6 +47,7 @@ const eventLoader = async layerConfig => {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [accessDeniedAlert];
         } else {
+            console.log('error', e);
             config.alerts = [unknownErrorAlert];
         }
     }
@@ -262,7 +263,11 @@ export const getAnalyticsRequest = async ({
             eventCoordinateField
         );
 
-        if (eventCoordinateField !== EVENT_COORDINATE_ENROLLMENT) {
+        if (eventCoordinateField === EVENT_COORDINATE_ENROLLMENT) {
+            analyticsRequest = analyticsRequest.withParameters({
+                coordinateOuFallback: true,
+            });
+        } else {
             // Used by analytics/events/query/
             analyticsRequest = analyticsRequest.addDimension(
                 eventCoordinateField
