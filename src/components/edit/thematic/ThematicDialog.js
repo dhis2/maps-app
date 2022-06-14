@@ -19,6 +19,7 @@ import IndicatorSelect from '../../indicator/IndicatorSelect';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
+import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect';
 import PeriodSelect from '../../periods/PeriodSelect';
 import PeriodTypeSelect from '../../periods/PeriodTypeSelect';
 import RenderingStrategy from '../../periods/RenderingStrategy';
@@ -280,7 +281,7 @@ export class ThematicDialog extends Component {
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
-            <div data-test="thematicdialog">
+            <div className={styles.content} data-test="thematicdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="data" dataTest="thematicdialog-tabs-data">
                         {i18n.t('Data')}
@@ -506,6 +507,7 @@ export class ThematicDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
+                                <OrgUnitFieldSelect />
                                 {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}

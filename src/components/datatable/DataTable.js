@@ -11,6 +11,7 @@ import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
 import { setOrgUnitProfile } from '../../actions/orgUnits';
 import { highlightFeature } from '../../actions/feature';
+import { closeDataTable } from '../../actions/dataTable';
 import { loadLayer } from '../../actions/layers';
 import { filterData } from '../../util/filter';
 import { formatTime } from '../../util/helpers';
@@ -32,6 +33,7 @@ class DataTable extends Component {
         feature: PropTypes.object,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
+        closeDataTable: PropTypes.func.isRequired,
         loadLayer: PropTypes.func.isRequired,
         setOrgUnitProfile: PropTypes.func.isRequired,
         highlightFeature: PropTypes.func.isRequired,
@@ -64,11 +66,13 @@ class DataTable extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { layer, aggregations } = this.props;
+        const { layer, aggregations, closeDataTable } = this.props;
         const { data, dataFilters } = layer;
         const prev = prevProps.layer;
 
-        if (
+        if (!data) {
+            closeDataTable();
+        } else if (
             data !== prev.data ||
             dataFilters !== prev.dataFilters ||
             aggregations !== prevProps.aggregations
@@ -96,7 +100,9 @@ class DataTable extends Component {
     filter() {
         const { layer, aggregations = {} } = this.props;
         const { dataFilters } = layer;
-        const data = layer.data;
+        const data = layer.data.filter(
+            d => !d.properties.hasAdditionalGeometry
+        );
 
         return filterData(
             data.map((d, index) => ({
@@ -191,7 +197,8 @@ class DataTable extends Component {
         const isOrgUnit = layerType === ORG_UNIT_LAYER;
         const isEvent = layerType === EVENT_LAYER;
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
-        const isLoading = isEarthEngine && aggregationType && !aggregations;
+        const isLoading =
+            isEarthEngine && aggregationType?.length && !aggregations;
 
         return !serverCluster ? (
             <>
@@ -369,6 +376,7 @@ export default connect(
             : {};
     },
     {
+        closeDataTable,
         loadLayer,
         setOrgUnitProfile,
         highlightFeature,

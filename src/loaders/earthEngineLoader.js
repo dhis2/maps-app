@@ -7,45 +7,69 @@ import { getOrgUnitsFromRows } from '../util/analytics';
 import { getDisplayProperty } from '../util/helpers';
 import { numberPrecision } from '../util/numbers';
 import { toGeoJson } from '../util/map';
+import { getCoordinateField, setAdditionalGeometry } from '../util/orgUnits';
 
 // Returns a promise
 const earthEngineLoader = async config => {
     const { rows, aggregationType } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
+    const coordinateField = getCoordinateField(config);
+    const alerts = [];
+
     let layerConfig = {};
     let dataset;
     let features;
-    let alerts;
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2();
         const displayProperty = getDisplayProperty(d2).toUpperCase();
         const orgUnitParams = orgUnits.map(item => item.id);
 
-        try {
-            features = await d2.geoFeatures
-                .byOrgUnit(orgUnitParams)
-                .displayProperty(displayProperty)
-                .getAll()
-                .then(toGeoJson);
-        } catch (error) {
-            alerts = [
-                {
-                    critical: true,
-                    message: `${i18n.t('Error')}: ${error.message}`,
-                },
-            ];
-        }
+        const featuresRequest = d2.geoFeatures
+            .byOrgUnit(orgUnitParams)
+            .displayProperty(displayProperty);
 
-        if (Array.isArray(features) && !features.length) {
-            alerts = [
-                {
+        try {
+            features = await featuresRequest.getAll().then(toGeoJson);
+
+            if (coordinateField) {
+                const associatedGeometries = await featuresRequest
+                    .getAll({
+                        coordinateField: coordinateField.id,
+                    })
+                    .then(toGeoJson);
+
+                if (!associatedGeometries.length) {
+                    alerts.push({
+                        warning: true,
+                        message: i18n.t('{{name}}: No coordinates found', {
+                            name: coordinateField.name,
+                            nsSeparator: ';',
+                        }),
+                    });
+                }
+
+                features = features.concat(associatedGeometries);
+                setAdditionalGeometry(features);
+            } else if (!features.length) {
+                alerts.push({
                     warning: true,
-                    message: `${i18n.t('Selected org units')}: ${i18n.t(
-                        'No coordinates found'
-                    )}`,
-                },
-            ];
+                    message: i18n.t(
+                        'Selected org units: No coordinates found',
+                        {
+                            nsSeparator: ';',
+                        }
+                    ),
+                });
+            }
+        } catch (error) {
+            alerts.push({
+                critical: true,
+                message: i18n.t('Error: {{message}}', {
+                    message: error.message,
+                    nsSeparator: ';',
+                }),
+            });
         }
     }
 

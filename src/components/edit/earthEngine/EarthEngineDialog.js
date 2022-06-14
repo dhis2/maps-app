@@ -8,7 +8,7 @@ import AggregationSelect from './AggregationSelect';
 import BandSelect from './BandSelect';
 import PeriodSelect from './PeriodSelect';
 import OrgUnitsSelect from './OrgUnitsSelect';
-import StyleSelect from './StyleSelect';
+import StyleTab from './StyleTab';
 import { getEarthEngineLayer } from '../../../constants/earthEngine';
 import {
     getPeriodFromFilter,
@@ -20,7 +20,11 @@ import {
     setOrgUnitLevels,
     setBufferRadius,
 } from '../../../actions/layerEdit';
-import { DEFAULT_ORG_UNIT_LEVEL, EE_BUFFER } from '../../../constants/layers';
+import {
+    DEFAULT_ORG_UNIT_LEVEL,
+    EE_BUFFER,
+    NONE,
+} from '../../../constants/layers';
 import styles from '../styles/LayerDialog.module.css';
 
 const EarthEngineDialog = props => {
@@ -35,6 +39,7 @@ const EarthEngineDialog = props => {
         params,
         filter,
         areaRadius,
+        orgUnitField,
         setFilter,
         setOrgUnitLevels,
         setBufferRadius,
@@ -46,12 +51,14 @@ const EarthEngineDialog = props => {
 
     const {
         description,
+        notice,
         periodType,
         bands,
         filters = defaultFilters,
         unit,
         source,
         sourceUrl,
+        aggregations,
     } = dataset;
 
     const period = getPeriodFromFilter(filter);
@@ -60,11 +67,21 @@ const EarthEngineDialog = props => {
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length);
 
+    const hasMultipleAggregations = !aggregations || aggregations.length > 1;
+
+    const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE;
+
     // Load all available periods
     useEffect(() => {
+        let isCancelled = false;
+
         if (periodType) {
             getPeriods(datasetId)
-                .then(setPeriods)
+                .then(periods => {
+                    if (!isCancelled) {
+                        setPeriods(periods);
+                    }
+                })
                 .catch(error =>
                     setError({
                         type: 'engine',
@@ -72,6 +89,8 @@ const EarthEngineDialog = props => {
                     })
                 );
         }
+
+        return () => (isCancelled = true);
     }, [datasetId, periodType]);
 
     // Set most recent period by default
@@ -90,10 +109,10 @@ const EarthEngineDialog = props => {
     }, [rows, setOrgUnitLevels]);
 
     useEffect(() => {
-        if (areaRadius === undefined) {
+        if (!hasOrgUnitField && areaRadius === undefined) {
             setBufferRadius(EE_BUFFER);
         }
-    }, [areaRadius, setBufferRadius]);
+    }, [hasOrgUnitField, areaRadius, setBufferRadius]);
 
     useEffect(() => {
         if (validateLayer) {
@@ -128,12 +147,12 @@ const EarthEngineDialog = props => {
     }
 
     return (
-        <div>
+        <div className={styles.content}>
             <Tabs value={tab} onChange={setTab}>
                 <Tab value="data">{i18n.t('Data')}</Tab>
                 {periodType && <Tab value="period">{i18n.t('Period')}</Tab>}
                 <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
-                {params && <Tab value="style">{i18n.t('Style')}</Tab>}
+                <Tab value="style">{i18n.t('Style')}</Tab>
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === 'data' && (
@@ -145,9 +164,20 @@ const EarthEngineDialog = props => {
                                     'Data will be calculated on Google Earth Engine for the chosen organisation units.'
                                 )}
                             </p>
+                            {notice && (
+                                <p className={styles.eeNotice}>{notice}</p>
+                            )}
                             <p>
+                                {hasMultipleAggregations && (
+                                    <>
+                                        {i18n.t(
+                                            'Multiple aggregation methods are available.'
+                                        )}
+                                        &nbsp;
+                                    </>
+                                )}
                                 {i18n.t(
-                                    'Multiple aggregation methods are available. See the aggregation results by clicking map regions or viewing the data table. The results can also be downloaded.'
+                                    'See the aggregation results by clicking map regions or viewing the data table. The results can also be downloaded.'
                                 )}
                             </p>
                         </Help>
@@ -192,7 +222,13 @@ const EarthEngineDialog = props => {
                     />
                 )}
                 {tab === 'orgunits' && <OrgUnitsSelect rows={rows} />}
-                {tab === 'style' && <StyleSelect unit={unit} params={params} />}
+                {tab === 'style' && (
+                    <StyleTab
+                        unit={unit}
+                        params={params}
+                        hasOrgUnitField={hasOrgUnitField}
+                    />
+                )}
             </div>
         </div>
     );
@@ -209,6 +245,7 @@ EarthEngineDialog.propTypes = {
         palette: PropTypes.string.isRequired,
     }),
     areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    orgUnitField: PropTypes.string,
     legend: PropTypes.object,
     validateLayer: PropTypes.bool.isRequired,
     setFilter: PropTypes.func.isRequired,

@@ -1,22 +1,22 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# SubhamJena <subhamjena8465@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
-"Language-Team: Danish (https://www.transifex.com/hisp-uio/teams/100509/da/)\n"
+"Last-Translator: SubhamJena <subhamjena8465@gmail.com>, 2022\n"
+"Language-Team: Odia (https://www.transifex.com/hisp-uio/teams/100509/or/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
+"Language: or\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Maps"
-msgstr "Maps"
+msgstr ""
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
@@ -25,7 +25,7 @@ msgid "Failed to save map. {{message}}"
 msgstr ""
 
 msgid "Error"
-msgstr "Error"
+msgstr ""
 
 msgid "Classification"
 msgstr ""
@@ -43,22 +43,22 @@ msgid "Size"
 msgstr ""
 
 msgid "Data element group"
-msgstr "Data element group"
+msgstr ""
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Data element"
+msgstr ""
 
 msgid "Totals"
 msgstr ""
 
 msgid "Details"
-msgstr "Details"
+msgstr "ବିବରଣୀ"
 
 msgid "Yes"
-msgstr "Yes"
+msgstr "ହଁ"
 
 msgid "Event location"
 msgstr ""
@@ -67,7 +67,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr "None"
+msgstr ""
 
 msgid "Data item"
 msgstr ""
@@ -79,7 +79,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "Data set"
+msgstr ""
 
 msgid "Index"
 msgstr ""
@@ -88,7 +88,7 @@ msgid "Org unit"
 msgstr ""
 
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 msgid "Id"
 msgstr ""
@@ -143,10 +143,10 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr ""
 
 msgid "Close"
-msgstr "Close"
+msgstr ""
 
 msgid "Legend position"
 msgstr ""
@@ -155,7 +155,7 @@ msgid "Organisation Units"
 msgstr ""
 
 msgid "Style"
-msgstr "Style"
+msgstr ""
 
 msgid "Point color"
 msgstr ""
@@ -237,7 +237,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "Year"
-msgstr "Year"
+msgstr ""
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -261,10 +261,10 @@ msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
-msgstr "Min"
+msgstr ""
 
 msgid "Max"
-msgstr "Max"
+msgstr ""
 
 msgid "Steps"
 msgstr ""
@@ -273,10 +273,10 @@ msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr "Filter"
+msgstr ""
 
 msgid "Events"
-msgstr "Events"
+msgstr ""
 
 msgid "Group events"
 msgstr ""
@@ -363,7 +363,7 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr "Indicator"
+msgstr ""
 
 msgid "Reporting rates"
 msgstr ""
@@ -444,7 +444,7 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr "Relationship type"
+msgstr ""
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
@@ -480,10 +480,10 @@ msgid "is not"
 msgstr ""
 
 msgid "Operator"
-msgstr "Operator"
+msgstr ""
 
 msgid "Date"
-msgstr "Date"
+msgstr ""
 
 msgid "Remove filter"
 msgstr ""
@@ -498,10 +498,10 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Indicator group"
+msgstr ""
 
 msgid "Interpretations"
-msgstr "Interpretations"
+msgstr ""
 
 msgid "Collapse"
 msgstr ""
@@ -614,7 +614,7 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr "Organisation unit"
+msgstr ""
 
 msgid "Parent unit"
 msgstr ""
@@ -655,7 +655,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr "Delete"
+msgstr ""
 
 msgid "Distance"
 msgstr ""
@@ -735,16 +735,16 @@ msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr "Code"
+msgstr ""
 
 msgid "Short name"
-msgstr "Short name"
+msgstr ""
 
 msgid "Opening date"
-msgstr "Opening date"
+msgstr ""
 
 msgid "Closed date"
-msgstr "Closed date"
+msgstr ""
 
 msgid "URL"
 msgstr ""
@@ -759,7 +759,7 @@ msgid "Email"
 msgstr ""
 
 msgid "Address"
-msgstr "Address"
+msgstr ""
 
 msgid "Phone"
 msgstr ""
@@ -768,7 +768,7 @@ msgid "ID"
 msgstr ""
 
 msgid "Comment"
-msgstr "Comment"
+msgstr ""
 
 msgid "Select levels"
 msgstr ""
@@ -848,10 +848,10 @@ msgid "Split map views"
 msgstr ""
 
 msgid "Start date"
-msgstr "Start date"
+msgstr ""
 
 msgid "End date"
-msgstr "End date"
+msgstr ""
 
 msgid "Not available offline"
 msgstr ""
@@ -1179,10 +1179,10 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr "All"
+msgstr "ସବୁ"
 
 msgid "Active"
-msgstr "Active"
+msgstr ""
 
 msgid "Completed"
 msgstr ""
@@ -1212,10 +1212,10 @@ msgid "Symbol"
 msgstr ""
 
 msgid "Daily"
-msgstr "Daily"
+msgstr ""
 
 msgid "Weekly"
-msgstr "Weekly"
+msgstr "ସାପ୍ତାହିକ"
 
 msgid "Weekly (Start Wednesday)"
 msgstr ""
@@ -1233,22 +1233,22 @@ msgid "Bi-weekly"
 msgstr ""
 
 msgid "Monthly"
-msgstr "Monthly"
+msgstr "ମାସିକ"
 
 msgid "Bi-monthly"
-msgstr "Bi-monthly"
+msgstr ""
 
 msgid "Quarterly"
-msgstr "Quarterly"
+msgstr ""
 
 msgid "Six-monthly"
-msgstr "Six-monthly"
+msgstr ""
 
 msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr "Yearly"
+msgstr "ବାର୍ଷିକ"
 
 msgid "Financial year (Start November)"
 msgstr ""
@@ -1296,7 +1296,7 @@ msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"
-msgstr "Organisation units"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr ""
@@ -1305,7 +1305,7 @@ msgid "No data"
 msgstr ""
 
 msgid "Tracked entity"
-msgstr "Tracked entity"
+msgstr ""
 
 msgid "No tracked entities found"
 msgstr ""
@@ -1332,7 +1332,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "No"
+msgstr "ନାହିଁ"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""

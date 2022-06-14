@@ -18,12 +18,7 @@ import {
     toggleDownloadShowLegend,
     setDownloadLegendPosition,
 } from '../../actions/download';
-import {
-    convertToPng,
-    dataURItoBlob,
-    downloadFile,
-    downloadSupport,
-} from '../../util/export-image';
+import { downloadMapImage, downloadSupport } from '../../util/export-image';
 import styles from './styles/DownloadDialog.module.css';
 
 export class DownloadDialog extends Component {
@@ -121,51 +116,11 @@ export class DownloadDialog extends Component {
             .toString(36)
             .substring(7)}.png`;
 
-        // Skip map controls in download except attribution and scale
-        // MapLibre map controls contains inline SVG for CSS background-image, which
-        // is not accepted by dom-to-image
-        // Bing Maps logo is blocked by CORS policy
-        const skipElements = el =>
-            !el.classList ||
-            el.classList.contains('maplibregl-ctrl-scale') ||
-            el.classList.contains('maplibregl-ctrl-attrib-button') ||
-            !(
-                el.classList.contains('maplibregl-ctrl') ||
-                el.classList.contains('dhis2-map-bing-logo')
-            );
-
-        const options = {
-            width: mapEl.offsetWidth,
-            height: mapEl.offsetHeight,
-            filter: skipElements,
-        };
-
-        // Adding 1 to the computed width of the title element avoids text
-        // wrapping outside the box in the generated image
-        const titleEl = mapEl.getElementsByClassName('dhis2-maps-title')[0];
-
-        if (titleEl) {
-            const width = window
-                .getComputedStyle(titleEl, null)
-                .getPropertyValue('width');
-
-            titleEl.style.width = parseFloat(width) + 1 + 'px';
-        }
-
-        convertToPng(mapEl, options)
-            .then(dataUri => {
-                downloadFile(dataURItoBlob(dataUri), filename);
-
-                if (titleEl) {
-                    titleEl.style.width = 'auto';
-                }
-
-                this.onClose();
-            })
+        downloadMapImage(mapEl, filename)
+            .then(this.onClose)
             .catch(this.onError);
     };
 
-    // Not working in Safari: https://github.com/tsayen/dom-to-image/issues/27
     onError = error => {
         this.setState({ error });
     };

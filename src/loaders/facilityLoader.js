@@ -4,24 +4,32 @@ import { toGeoJson } from '../util/map';
 import { fetchOrgUnitGroupSet } from '../util/orgUnits';
 import { getDisplayProperty } from '../util/helpers';
 import { getOrgUnitsFromRows } from '../util/analytics';
-import { filterPointFacilities, getStyledOrgUnits } from '../util/orgUnits';
+import {
+    filterPointFacilities,
+    getStyledOrgUnits,
+    getCoordinateField,
+} from '../util/orgUnits';
 
 const facilityLoader = async config => {
     const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const includeGroupSets = !!groupSet;
+    const coordinateField = getCoordinateField(config);
     const alerts = [];
     let orgUnitParams = orgUnits.map(item => item.id);
+    let associatedGeometries;
 
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
     const { contextPath } = d2.system.systemInfo;
     const name = i18n.t('Facilities');
 
+    const featuresRequest = d2.geoFeatures
+        .byOrgUnit(orgUnitParams)
+        .displayProperty(displayProperty);
+
     const requests = [
-        d2.geoFeatures
-            .byOrgUnit(orgUnitParams)
-            .displayProperty(displayProperty)
+        featuresRequest
             .getAll({
                 includeGroupSets,
             })
@@ -31,7 +39,10 @@ const facilityLoader = async config => {
                 if (error && error.message) {
                     alerts.push({
                         critical: true,
-                        message: `${i18n.t('Error')}: ${error.message}`,
+                        message: i18n.t('Error: {{message}}', {
+                            message: error.message,
+                            nsSeparator: ';',
+                        }),
                     });
                 }
             }),
@@ -57,17 +68,50 @@ const facilityLoader = async config => {
 
     legend.title = name;
 
+    if (coordinateField) {
+        associatedGeometries = await featuresRequest
+            .getAll({
+                coordinateField: coordinateField.id,
+                includeGroupSets,
+            })
+            .then(toGeoJson);
+
+        if (!associatedGeometries.length) {
+            alerts.push({
+                warning: true,
+                message: i18n.t('{{name}}: No coordinates found', {
+                    name: coordinateField.name,
+                    nsSeparator: ';',
+                }),
+            });
+        }
+
+        legend.items.push({
+            name: coordinateField.name,
+            type: 'polygon',
+            strokeColor: '#333',
+            fillColor: 'rgba(149, 200, 251, 0.5)',
+            weight: 0.5,
+        });
+    }
+
     if (areaRadius) {
         legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];
     }
 
     if (!styledFeatures.length) {
-        alerts.push({ warning: true, message: i18n.t('No facilities found') });
+        alerts.push({
+            warning: true,
+            message: i18n.t('Facilities: No coordinates found', {
+                nsSeparator: ';',
+            }),
+        });
     }
 
     return {
         ...config,
         data: styledFeatures,
+        associatedGeometries,
         name,
         legend,
         alerts,

@@ -15,6 +15,7 @@ export const EXTERNAL_LAYER = 'external';
 export const EARTH_ENGINE_LAYER = 'earthEngine';
 export const TRACKED_ENTITY_LAYER = 'trackedEntity';
 export const GEOJSON_LAYER = 'geoJson';
+export const GROUP_LAYER = 'group';
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
@@ -90,6 +91,7 @@ export const FACILITY_BUFFER = 5000;
 /* ORG UNIT LAYER */
 export const ORG_UNIT_COLOR = '#333333';
 export const ORG_UNIT_RADIUS = 6;
+export const ORG_UNIT_RADIUS_SMALL = 1;
 
 /* EARTH ENGINE LAYER */
 export const EE_BUFFER = 5000;
@@ -157,3 +159,5 @@ export const NO_DATA_COLOR = '#CCCCCC';
 /* POINT RADIUS */
 export const MIN_RADIUS = 1;
 export const MAX_RADIUS = 100;
+
+export const NONE = 'none';

@@ -18,6 +18,7 @@ import {
     getDataItemFromColumns,
     getApiResponseNames,
 } from '../util/analytics';
+import { setAdditionalGeometry, getCoordinateField } from '../util/orgUnits';
 import { formatStartEndDate, getDateArray } from '../util/time';
 import {
     THEMATIC_BUBBLE,
@@ -26,13 +27,14 @@ import {
     RENDERING_STRATEGY_SINGLE,
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_SINGLE_COLOR,
+    ORG_UNIT_COLOR,
+    ORG_UNIT_RADIUS_SMALL,
     NO_DATA_COLOR,
 } from '../constants/layers';
 
 const thematicLoader = async config => {
     const {
         columns,
-        rows,
         radiusLow = THEMATIC_RADIUS_LOW,
         radiusHigh = THEMATIC_RADIUS_HIGH,
         classes,
@@ -43,6 +45,7 @@ const thematicLoader = async config => {
     } = config;
 
     const dataItem = getDataItemFromColumns(columns);
+    const coordinateField = getCoordinateField(config);
 
     let error;
 
@@ -71,7 +74,8 @@ const thematicLoader = async config => {
         };
     }
 
-    const [features, data] = response;
+    const [mainFeatures, data, associatedGeometries = []] = response;
+    const features = mainFeatures.concat(associatedGeometries);
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR;
@@ -88,6 +92,7 @@ const thematicLoader = async config => {
     let minValue = orderedValues[0];
     let maxValue = orderedValues[orderedValues.length - 1];
     const name = names[dataItem.id];
+    const alerts = [];
 
     let legendSet = config.legendSet;
 
@@ -102,7 +107,6 @@ const thematicLoader = async config => {
     }
 
     let method = legendSet ? CLASSIFICATION_PREDEFINED : config.method; // Favorites often have wrong method
-    let alert;
 
     if (legendSet) {
         legendSet = await loadLegendSet(legendSet);
@@ -165,24 +169,32 @@ const thematicLoader = async config => {
         .domain([minValue, maxValue])
         .clamp(true);
 
-    if (!valueFeatures.length) {
+    if (valueFeatures.length) {
+        setAdditionalGeometry(valueFeatures);
+    } else {
         if (!features.length) {
-            const orgUnits = getOrgUnitsFromRows(rows);
-
-            alert = {
+            alerts.push({
                 warning: true,
-                message: `${
-                    orgUnits.length === 1
-                        ? names[orgUnits[0].id] || orgUnits[0].name
-                        : i18n.t('Selected org units')
-                }: ${i18n.t('No coordinates found')}`,
-            };
+                message: i18n.t('Selected org units: No coordinates found', {
+                    nsSeparator: ';',
+                }),
+            });
         } else {
-            alert = {
+            alerts.push({
                 warning: true,
                 message: `${name}: ${i18n.t('No data found')}`,
-            };
+            });
         }
+    }
+
+    if (coordinateField && !associatedGeometries.length) {
+        alerts.push({
+            warning: true,
+            message: i18n.t('{{name}}: No coordinates found', {
+                name: coordinateField.name,
+                nsSeparator: ';',
+            }),
+        });
     }
 
     if (valuesByPeriod) {
@@ -204,21 +216,31 @@ const thematicLoader = async config => {
             });
         });
     } else {
-        valueFeatures.forEach(({ id, properties }) => {
+        valueFeatures.forEach(({ id, geometry, properties }) => {
             const value = valueById[id];
             const item = getLegendItem(value);
+            const isPoint = geometry.type === 'Point';
+            const { hasAdditionalGeometry } = properties;
 
             if (isSingleColor) {
                 properties.color = colorScale;
             } else if (item) {
-                item.count++;
-                properties.color = item.color;
+                // Only count org units once in legend
+                if (!hasAdditionalGeometry) {
+                    item.count++;
+                }
+                properties.color =
+                    hasAdditionalGeometry && isPoint
+                        ? ORG_UNIT_COLOR
+                        : item.color;
                 properties.legend = item.name; // Shown in data table
                 properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
             }
 
             properties.value = value;
-            properties.radius = getRadiusForValue(value);
+            properties.radius = hasAdditionalGeometry
+                ? ORG_UNIT_RADIUS_SMALL
+                : getRadiusForValue(value);
         });
     }
 
@@ -234,7 +256,7 @@ const thematicLoader = async config => {
         name,
         legend,
         method,
-        alerts: alert ? [alert] : undefined,
+        alerts,
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
@@ -313,6 +335,7 @@ const loadData = async config => {
     const period = getPeriodFromFilters(filters);
     const dimensions = getValidDimensionsFromFilters(config.filters);
     const dataItem = getDataItemFromColumns(columns);
+    const coordinateField = getCoordinateField(config);
     const isOperand = columns[0].dimension === dimConf.operand.objectName;
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
     const d2 = await getD2();
@@ -372,18 +395,34 @@ const loadData = async config => {
         analyticsRequest = analyticsRequest.addDimension('co');
     }
 
-    // Features request
-    const orgUnitReq = d2.geoFeatures
+    const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayPropertyUpper)
+        .displayProperty(displayPropertyUpper);
+
+    // Features request
+    const orgUnitReq = featuresRequest
         .getAll(geoFeaturesParams)
         .then(toGeoJson);
 
     // Data request
     const dataReq = d2.analytics.aggregate.get(analyticsRequest);
 
-    // Return promise with both requests
-    return Promise.all([orgUnitReq, dataReq]);
+    const requests = [orgUnitReq, dataReq];
+
+    if (coordinateField) {
+        // Associated geometry request
+        requests.push(
+            featuresRequest
+                .getAll({
+                    ...geoFeaturesParams,
+                    coordinateField: coordinateField.id,
+                })
+                .then(toGeoJson)
+        );
+    }
+
+    // Return promise with all requests
+    return Promise.all(requests);
 };
 
 export default thematicLoader;

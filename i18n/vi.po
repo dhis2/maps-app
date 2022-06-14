@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-24T17:17:35.040Z\n"
+"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -159,9 +159,8 @@ msgstr "Quản trị đơn vị"
 msgid "Style"
 msgstr "Kiểu dáng"
 
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr ""
+msgid "Point color"
+msgstr "Màu Điểm"
 
 msgid "Point radius"
 msgstr "Tỉ lệ Điểm"
@@ -222,10 +221,12 @@ msgid ""
 "units."
 msgstr ""
 
+msgid "Multiple aggregation methods are available."
+msgstr ""
+
 msgid ""
-"Multiple aggregation methods are available. See the aggregation results by "
-"clicking map regions or viewing the data table. The results can also be "
-"downloaded."
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
 msgstr ""
 
 msgid "Unit"
@@ -233,6 +234,9 @@ msgstr ""
 
 msgid "Source"
 msgstr "Nguồn"
+
+msgid "Legend preview"
+msgstr ""
 
 msgid "Year"
 msgstr "Năm"
@@ -266,9 +270,6 @@ msgstr "Lớn nhất"
 
 msgid "Steps"
 msgstr "Bước"
-
-msgid "Legend preview"
-msgstr ""
 
 msgid "Org Units"
 msgstr ""
@@ -313,6 +314,9 @@ msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
+msgstr ""
+
+msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
 msgid "Labels"
@@ -620,6 +624,11 @@ msgstr "Đơn Vị Cha"
 msgid "Last updated"
 msgstr "Lần cập nhật cuối"
 
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
+
 msgid "no value"
 msgstr "không có giá trị"
 
@@ -716,6 +725,9 @@ msgid ""
 msgstr ""
 
 msgid "No data found for this period."
+msgstr ""
+
+msgid "Use associated geometry"
 msgstr ""
 
 msgid "Select groups"
@@ -937,112 +949,132 @@ msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 
-msgid "Men 0 - 1 years"
+msgid "Male 0 - 1 years"
 msgstr ""
 
-msgid "Men 1 - 4 years"
+msgid "Male 1 - 4 years"
 msgstr ""
 
-msgid "Men 5 - 9 years"
+msgid "Male 5 - 9 years"
 msgstr ""
 
-msgid "Men 10 - 14 years"
+msgid "Male 10 - 14 years"
 msgstr ""
 
-msgid "Men 15 - 19 years"
+msgid "Male 15 - 19 years"
 msgstr ""
 
-msgid "Men 20 - 24 years"
+msgid "Male 20 - 24 years"
 msgstr ""
 
-msgid "Men 25 - 29 years"
+msgid "Male 25 - 29 years"
 msgstr ""
 
-msgid "Men 30 - 34 years"
+msgid "Male 30 - 34 years"
 msgstr ""
 
-msgid "Men 35 - 39 years"
+msgid "Male 35 - 39 years"
 msgstr ""
 
-msgid "Men 40 - 44 years"
+msgid "Male 40 - 44 years"
 msgstr ""
 
-msgid "Men 45 - 49 years"
+msgid "Male 45 - 49 years"
 msgstr ""
 
-msgid "Men 50 - 54 years"
+msgid "Male 50 - 54 years"
 msgstr ""
 
-msgid "Men 55 - 59 years"
+msgid "Male 55 - 59 years"
 msgstr ""
 
-msgid "Men 60 - 64 years"
+msgid "Male 60 - 64 years"
 msgstr ""
 
-msgid "Men 65 - 69 years"
+msgid "Male 65 - 69 years"
 msgstr ""
 
-msgid "Men 70 - 74 years"
+msgid "Male 70 - 74 years"
 msgstr ""
 
-msgid "Men 75 - 79 years"
+msgid "Male 75 - 79 years"
 msgstr ""
 
-msgid "Men 80 years and above"
+msgid "Male 80 years and above"
 msgstr ""
 
-msgid "Women 0 - 1 years"
+msgid "Female 0 - 1 years"
 msgstr ""
 
-msgid "Women 1 - 4 years"
+msgid "Female 1 - 4 years"
 msgstr ""
 
-msgid "Women 5 - 9 years"
+msgid "Female 5 - 9 years"
 msgstr ""
 
-msgid "Women 10 - 14 years"
+msgid "Female 10 - 14 years"
 msgstr ""
 
-msgid "Women 15 - 19 years"
+msgid "Female 15 - 19 years"
 msgstr ""
 
-msgid "Women 20 - 24 years"
+msgid "Female 20 - 24 years"
 msgstr ""
 
-msgid "Women 25 - 29 years"
+msgid "Female 25 - 29 years"
 msgstr ""
 
-msgid "Women 30 - 34 years"
+msgid "Female 30 - 34 years"
 msgstr ""
 
-msgid "Women 35 - 39 years"
+msgid "Female 35 - 39 years"
 msgstr ""
 
-msgid "Women 40 - 44 years"
+msgid "Female 40 - 44 years"
 msgstr ""
 
-msgid "Women 45 - 49 years"
+msgid "Female 45 - 49 years"
 msgstr ""
 
-msgid "Women 50 - 54 years"
+msgid "Female 50 - 54 years"
 msgstr ""
 
-msgid "Women 55 - 59 years"
+msgid "Female 55 - 59 years"
 msgstr ""
 
-msgid "Women 60 - 64 years"
+msgid "Female 60 - 64 years"
 msgstr ""
 
-msgid "Women 65 - 69 years"
+msgid "Female 65 - 69 years"
 msgstr ""
 
-msgid "Women 70 - 74 years"
+msgid "Female 70 - 74 years"
 msgstr ""
 
-msgid "Women 75 - 79 years"
+msgid "Female 75 - 79 years"
 msgstr ""
 
-msgid "Women 80 years and above"
+msgid "Female 80 years and above"
+msgstr ""
+
+msgid "Building footprints"
+msgstr ""
+
+msgid "Number of buildings"
+msgstr ""
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
 msgstr ""
 
 msgid "Elevation"
@@ -1157,15 +1189,6 @@ msgstr "Hoạt động"
 msgid "Completed"
 msgstr "Hoàn tất"
 
-msgid "Schedule"
-msgstr "Lịch biểu"
-
-msgid "Overdue"
-msgstr "Quá hạn"
-
-msgid "Skipped"
-msgstr "Đã bỏ qua"
-
 msgid "Choropleth"
 msgstr ""
 
@@ -1244,10 +1267,13 @@ msgstr "Năm Tài Chính - Tháng 4"
 msgid "Cancelled"
 msgstr "Đã hủy"
 
-msgid "Selected org units"
+msgid "{{name}}: No coordinates found"
 msgstr ""
 
-msgid "No coordinates found"
+msgid "Selected org units: No coordinates found"
+msgstr ""
+
+msgid "Error: {{message}}"
 msgstr ""
 
 msgid "You don't have access to this layer data"
@@ -1268,7 +1294,7 @@ msgstr "Sự Kiện"
 msgid "Facilities"
 msgstr ""
 
-msgid "No facilities found"
+msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"

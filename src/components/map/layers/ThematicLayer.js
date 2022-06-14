@@ -14,6 +14,8 @@ import {
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
     BOUNDARY_LAYER,
+    ORG_UNIT_COLOR,
+    ORG_UNIT_RADIUS_SMALL,
 } from '../../../constants/layers';
 
 class ThematicLayer extends Layer {
@@ -41,11 +43,16 @@ class ThematicLayer extends Layer {
         if (renderingStrategy !== RENDERING_STRATEGY_SINGLE) {
             const values = valuesByPeriod[period.id] || {};
 
-            periodData = periodData.map(feature => ({
-                ...feature,
+            periodData = periodData.map(f => ({
+                ...f,
                 properties: {
-                    ...feature.properties,
-                    ...values[feature.id],
+                    ...f.properties,
+                    ...values[f.id],
+                    ...(f.properties.hasAdditionalGeometry &&
+                        f.geometry.type === 'Point' && {
+                            color: ORG_UNIT_COLOR,
+                            radius: ORG_UNIT_RADIUS_SMALL,
+                        }),
                 },
             }));
 
@@ -96,7 +103,7 @@ class ThematicLayer extends Layer {
                     properties: {
                         ...f.properties,
                         style: {
-                            color: '#333',
+                            color: ORG_UNIT_COLOR,
                             weight: 0.5,
                         },
                     },

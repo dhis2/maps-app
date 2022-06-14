@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-24T17:17:35.040Z\n"
+"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -160,9 +160,8 @@ msgstr "Organizační jednotky"
 msgid "Style"
 msgstr "Styl"
 
-msgid ""
-"Remember to select the organisation unit level containing the facilities."
-msgstr "Nezapomeňte vybrat úroveň organizační jednotky obsahující zařízení."
+msgid "Point color"
+msgstr "Barva bodu"
 
 msgid "Point radius"
 msgstr "Poloměr bodu"
@@ -225,20 +224,24 @@ msgstr ""
 "Data budou vypočítána na Google Earth Engine pro vybrané organizační "
 "jednotky."
 
+msgid "Multiple aggregation methods are available."
+msgstr "K dispozici je více metod agregace."
+
 msgid ""
-"Multiple aggregation methods are available. See the aggregation results by "
-"clicking map regions or viewing the data table. The results can also be "
-"downloaded."
+"See the aggregation results by clicking map regions or viewing the data "
+"table. The results can also be downloaded."
 msgstr ""
-"K dispozici je několik metod agregace. Výsledky agregace zobrazíte kliknutím"
-" na mapové oblasti nebo zobrazením datové tabulky. Výsledky lze také "
-"stáhnout."
+"Prohlédněte si výsledky agregace kliknutím na mapu regionů nebo zobrazením "
+"tabulky dat. Výsledky lze také stáhnout."
 
 msgid "Unit"
 msgstr "Jednotka"
 
 msgid "Source"
 msgstr "Zdroj"
+
+msgid "Legend preview"
+msgstr "Náhled legendy"
 
 msgid "Year"
 msgstr "Rok"
@@ -272,9 +275,6 @@ msgstr "Max"
 
 msgid "Steps"
 msgstr "Kroky"
-
-msgid "Legend preview"
-msgstr "Náhled legendy"
 
 msgid "Org Units"
 msgstr "Org. Jednotky"
@@ -320,6 +320,9 @@ msgstr "Vyrovnávací paměť"
 
 msgid "Radius in meters"
 msgstr "Poloměr v metrech"
+
+msgid "Buffer can't be combined with associated geometry."
+msgstr "Vyrovnávací paměť nelze kombinovat s přidruženou geometrií."
 
 msgid "Labels"
 msgstr "Štítky"
@@ -628,6 +631,13 @@ msgstr "Nadřazená jednotka"
 msgid "Last updated"
 msgstr "Naposledy aktualizováno"
 
+msgid ""
+"Google Earth Engine failed. Is the service configured for this DHIS2 "
+"instance?"
+msgstr ""
+"Google Earth Engine selhal. Je služba nakonfigurována pro tuto instanci "
+"DHIS2?"
+
 msgid "no value"
 msgstr "žádná hodnota"
 
@@ -730,6 +740,9 @@ msgstr ""
 
 msgid "No data found for this period."
 msgstr "Pro toto období nenalezeny žádné údaje."
+
+msgid "Use associated geometry"
+msgstr "Použít přidruženou geometrii"
 
 msgid "Select groups"
 msgstr "Vyberte skupiny"
@@ -953,113 +966,139 @@ msgid ""
 msgstr ""
 "Odhadovaný počet lidí žijících v oblasti seskupených podle věku a pohlaví."
 
-msgid "Men 0 - 1 years"
-msgstr "Muži 0 - 1 rok"
+msgid "Male 0 - 1 years"
+msgstr "Muž 0-1 rok"
 
-msgid "Men 1 - 4 years"
-msgstr "Muži 1 - 4 roky"
+msgid "Male 1 - 4 years"
+msgstr "Muž 1-4 roky"
 
-msgid "Men 5 - 9 years"
-msgstr "Muži 5 - 9 let"
+msgid "Male 5 - 9 years"
+msgstr "Muž 5-9 let"
 
-msgid "Men 10 - 14 years"
-msgstr "Muži 10 - 14 let"
+msgid "Male 10 - 14 years"
+msgstr "Muž 10-14 let"
 
-msgid "Men 15 - 19 years"
-msgstr "Muži 15 - 19 let"
+msgid "Male 15 - 19 years"
+msgstr "Muž 15-19 let"
 
-msgid "Men 20 - 24 years"
-msgstr "Muži 20 - 24 let"
+msgid "Male 20 - 24 years"
+msgstr "Muž 20-24 let"
 
-msgid "Men 25 - 29 years"
-msgstr "Muži 25 - 29 let"
+msgid "Male 25 - 29 years"
+msgstr "Muž 25 - 29 let"
 
-msgid "Men 30 - 34 years"
-msgstr "Muži 30 - 34 let"
+msgid "Male 30 - 34 years"
+msgstr "Muž 30 - 34 let"
 
-msgid "Men 35 - 39 years"
-msgstr "Muži 35 - 39 let"
+msgid "Male 35 - 39 years"
+msgstr "Muž 35 - 39 let"
 
-msgid "Men 40 - 44 years"
-msgstr "Muži 40 - 44 let"
+msgid "Male 40 - 44 years"
+msgstr "Muž 40 - 44 let"
 
-msgid "Men 45 - 49 years"
-msgstr "Muži 45 - 49 let"
+msgid "Male 45 - 49 years"
+msgstr "Muž 45 - 49 let"
 
-msgid "Men 50 - 54 years"
-msgstr "Muži 50 - 54 let"
+msgid "Male 50 - 54 years"
+msgstr "Muž 50 - 54 let"
 
-msgid "Men 55 - 59 years"
-msgstr "Muži od 55 do 59 let"
+msgid "Male 55 - 59 years"
+msgstr "Muž 55 - 59 let"
 
-msgid "Men 60 - 64 years"
-msgstr "Muži 60 - 64 let"
+msgid "Male 60 - 64 years"
+msgstr "Muž 60 - 64 let"
 
-msgid "Men 65 - 69 years"
-msgstr "Muži od 65 do 69 let"
+msgid "Male 65 - 69 years"
+msgstr "Muž 65 - 69 let"
 
-msgid "Men 70 - 74 years"
-msgstr "Muži 70 - 74 let"
+msgid "Male 70 - 74 years"
+msgstr "Muž 70 - 74 let"
 
-msgid "Men 75 - 79 years"
-msgstr "Muži 75 - 79 let"
+msgid "Male 75 - 79 years"
+msgstr "Muž 75 - 79 let"
 
-msgid "Men 80 years and above"
-msgstr "Muži od 80 let"
+msgid "Male 80 years and above"
+msgstr "Muž 80 let a více"
 
-msgid "Women 0 - 1 years"
-msgstr "Ženy 0 - 1 rok"
+msgid "Female 0 - 1 years"
+msgstr "Žena 0 - 1 rok"
 
-msgid "Women 1 - 4 years"
-msgstr "Ženy 1 - 4 roky"
+msgid "Female 1 - 4 years"
+msgstr "Žena 1 - 4 roky"
 
-msgid "Women 5 - 9 years"
-msgstr "Ženy 5 - 9 let"
+msgid "Female 5 - 9 years"
+msgstr "Žena 5 - 9 let"
 
-msgid "Women 10 - 14 years"
-msgstr "Ženy 10 - 14 let"
+msgid "Female 10 - 14 years"
+msgstr "Žena 10 - 14 let"
 
-msgid "Women 15 - 19 years"
-msgstr "Ženy 15 - 19 let"
+msgid "Female 15 - 19 years"
+msgstr "Žena 15 - 19 let"
 
-msgid "Women 20 - 24 years"
-msgstr "Ženy 20 - 24 let"
+msgid "Female 20 - 24 years"
+msgstr "Žena 20 - 24 let"
 
-msgid "Women 25 - 29 years"
-msgstr "Ženy 25 - 29 let"
+msgid "Female 25 - 29 years"
+msgstr "Žena 25 - 29 let"
 
-msgid "Women 30 - 34 years"
-msgstr "Ženy 30 - 34 let"
+msgid "Female 30 - 34 years"
+msgstr "Žena 30 - 34 let"
 
-msgid "Women 35 - 39 years"
-msgstr "Ženy 35 - 39 let"
+msgid "Female 35 - 39 years"
+msgstr "Žena 35 - 39 let"
 
-msgid "Women 40 - 44 years"
-msgstr "Ženy 40 - 44 let"
+msgid "Female 40 - 44 years"
+msgstr "Žena 40 - 44 let"
 
-msgid "Women 45 - 49 years"
-msgstr "Ženy 45 - 49 let"
+msgid "Female 45 - 49 years"
+msgstr "Žena 45 - 49 let"
 
-msgid "Women 50 - 54 years"
-msgstr "Ženy 50 - 54 let"
+msgid "Female 50 - 54 years"
+msgstr "Žena 50 - 54 let"
 
-msgid "Women 55 - 59 years"
-msgstr "Ženy 55 - 59 let"
+msgid "Female 55 - 59 years"
+msgstr "Žena 55 - 59 let"
 
-msgid "Women 60 - 64 years"
-msgstr "Ženy 60 - 64 let"
+msgid "Female 60 - 64 years"
+msgstr "Žena 60 - 64 let"
 
-msgid "Women 65 - 69 years"
-msgstr "Ženy 65 - 69 let"
+msgid "Female 65 - 69 years"
+msgstr "Žena 65 - 69 let"
 
-msgid "Women 70 - 74 years"
-msgstr "Ženy 70 - 74 let"
+msgid "Female 70 - 74 years"
+msgstr "Žena 70 - 74 let"
 
-msgid "Women 75 - 79 years"
-msgstr "Ženy 75 - 79 let"
+msgid "Female 75 - 79 years"
+msgstr "Žena 75 - 79 let"
 
-msgid "Women 80 years and above"
-msgstr "Ženy starší 80 let"
+msgid "Female 80 years and above"
+msgstr "Žena 80 let a více"
+
+msgid "Building footprints"
+msgstr "Stavební stopy"
+
+msgid "Number of buildings"
+msgstr "Počet budov"
+
+msgid ""
+"The outlines of buildings derived from high-resolution satellite imagery. "
+"Only for the continent of Africa."
+msgstr ""
+"Obrysy budov odvozené ze satelitních snímků s vysokým rozlišením. Pouze pro "
+"africký kontinent."
+
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
+msgstr ""
+"Počty budov jsou k dispozici pouze pro oblasti menších organizačních "
+"jednotek."
+
+msgid ""
+"Select a smaller area or single organization unit to see the count of "
+"buildings."
+msgstr ""
+"Chcete-li zobrazit počet budov, vyberte menší oblast nebo jednu organizační "
+"jednotku."
 
 msgid "Elevation"
 msgstr "Nadmořská výška"
@@ -1180,15 +1219,6 @@ msgstr "Aktivní"
 msgid "Completed"
 msgstr "Dokončeno"
 
-msgid "Schedule"
-msgstr "Plán"
-
-msgid "Overdue"
-msgstr "Po termínu"
-
-msgid "Skipped"
-msgstr "Přeskočeno"
-
 msgid "Choropleth"
 msgstr "Choropleth"
 
@@ -1267,11 +1297,14 @@ msgstr "Finanční rok (od dubna)"
 msgid "Cancelled"
 msgstr "Zrušeno"
 
-msgid "Selected org units"
-msgstr "Vybrané organizační jednotky"
+msgid "{{name}}: No coordinates found"
+msgstr "{{name}}: Nebyly nalezeny žádné souřadnice"
 
-msgid "No coordinates found"
-msgstr "Nenalezeny žádné souřadnice"
+msgid "Selected org units: No coordinates found"
+msgstr "Vybrané organizační jednotky: Nebyly nalezeny žádné souřadnice"
+
+msgid "Error: {{message}}"
+msgstr "Chyba {{message}}"
 
 msgid "You don't have access to this layer data"
 msgstr "K datům této vrstvy nemáte přístup"
@@ -1291,8 +1324,8 @@ msgstr "Událost"
 msgid "Facilities"
 msgstr "Zařízení"
 
-msgid "No facilities found"
-msgstr "Nebylo nalezeno žádné zařízení"
+msgid "Facilities: No coordinates found"
+msgstr "Zařízení: Nebyly nalezeny žádné souřadnice"
 
 msgid "Organisation units"
 msgstr "Organizační jednotky"

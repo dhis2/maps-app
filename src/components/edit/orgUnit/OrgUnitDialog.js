@@ -7,6 +7,7 @@ import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
+import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect';
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
 import Labels from '../shared/Labels';
 import {
@@ -82,7 +83,7 @@ class OrgUnitDialog extends Component {
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
 
         return (
-            <div data-test="orgunitdialog">
+            <div className={styles.content} data-test="orgunitdialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
@@ -119,6 +120,7 @@ class OrgUnitDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
+                                <OrgUnitFieldSelect />
                                 {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}

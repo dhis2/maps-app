@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import cx from 'classnames';
-import { Tab, Tabs, Help, NumberField, ColorPicker } from '../core';
+import { Tab, Tabs, NumberField, ColorPicker } from '../core';
 import OrgUnitTree from '../orgunits/OrgUnitTree';
 import OrgUnitGroupSelect from '../orgunits/OrgUnitGroupSelect';
 import OrgUnitLevelSelect from '../orgunits/OrgUnitLevelSelect';
 import UserOrgUnitsSelect from '../orgunits/UserOrgUnitsSelect';
+import OrgUnitFieldSelect from '../orgunits/OrgUnitFieldSelect';
 import Labels from './shared/Labels';
 import BufferRadius from './shared/BufferRadius';
 import StyleByGroupSet from '../groupSet/StyleByGroupSet';
@@ -18,6 +18,7 @@ import {
     STYLE_TYPE_SYMBOL,
     MIN_RADIUS,
     MAX_RADIUS,
+    NONE,
 } from '../../constants/layers';
 import styles from './styles/LayerDialog.module.css';
 
@@ -48,6 +49,7 @@ class FacilityDialog extends Component {
         radiusLow: PropTypes.number,
         organisationUnitColor: PropTypes.string,
         organisationUnitGroupSet: PropTypes.object,
+        orgUnitField: PropTypes.string,
         setOrgUnitLevels: PropTypes.func.isRequired,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
@@ -115,6 +117,7 @@ class FacilityDialog extends Component {
             radiusLow,
             organisationUnitColor,
             organisationUnitGroupSet,
+            orgUnitField,
             setOrgUnitLevels,
             setOrgUnitGroups,
             setUserOrgUnits,
@@ -128,9 +131,10 @@ class FacilityDialog extends Component {
         const orgUnits = getOrgUnitsFromRows(rows);
         const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
+        const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE;
 
         return (
-            <div data-test="facilitydialog">
+            <div className={styles.content} data-test="facilitydialog">
                 <Tabs value={tab} onChange={tab => this.setState({ tab })}>
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
@@ -167,16 +171,11 @@ class FacilityDialog extends Component {
                                     selected={selectedUserOrgUnits}
                                     onChange={setUserOrgUnits}
                                 />
-                                {!orgUnits.length && orgUnitsError ? (
+                                <OrgUnitFieldSelect />
+                                {!orgUnits.length && orgUnitsError && (
                                     <div className={styles.error}>
                                         {orgUnitsError}
                                     </div>
-                                ) : (
-                                    <Help>
-                                        {i18n.t(
-                                            'Remember to select the organisation unit level containing the facilities.'
-                                        )}
-                                    </Help>
                                 )}
                             </div>
                         </div>
@@ -186,9 +185,12 @@ class FacilityDialog extends Component {
                             className={styles.flexColumnFlow}
                             data-test="facilitydialog-styletab"
                         >
-                            <div className={cx(styles.flexColumn)}>
+                            <div className={styles.flexColumn}>
                                 <Labels />
-                                <BufferRadius defaultRadius={FACILITY_BUFFER} />
+                                <BufferRadius
+                                    defaultRadius={FACILITY_BUFFER}
+                                    hasOrgUnitField={hasOrgUnitField}
+                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 <StyleByGroupSet
@@ -197,7 +199,7 @@ class FacilityDialog extends Component {
                                 {!organisationUnitGroupSet && (
                                     <>
                                         <ColorPicker
-                                            label={i18n.t('Color')}
+                                            label={i18n.t('Point color')}
                                             color={
                                                 organisationUnitColor ||
                                                 ORG_UNIT_COLOR
