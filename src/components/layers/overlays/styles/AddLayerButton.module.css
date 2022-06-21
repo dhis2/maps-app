@@ -4,8 +4,8 @@
 }
 
 .btnContent {
-    width: 284px;
-    padding: 1px 0 0 12px;
+    width: 276px;
+    padding-left: var(--spacers-dp8);
     text-align: left;
     display: flex;
 }

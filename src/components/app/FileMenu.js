@@ -10,7 +10,6 @@ import { setAlert } from '../../actions/alerts';
 import { fetchMap } from '../../util/requests';
 import { cleanMapConfig } from '../../util/favorites';
 import { useSystemSettings } from '../SystemSettingsProvider';
-import styles from './styles/FileMenu.module.css';
 
 const saveMapMutation = {
     resource: 'maps',
@@ -118,20 +117,18 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
     };
 
     return (
-        <div className={styles.fileMenu}>
-            <UiFileMenu
-                d2={d2}
-                fileType="map"
-                fileObject={map}
-                onNew={newMap}
-                onOpen={openMap}
-                onSave={saveMap}
-                onSaveAs={saveAsNewMap}
-                onRename={setMapProps}
-                onDelete={newMap}
-                onError={setError}
-            />
-        </div>
+        <UiFileMenu
+            currentUser={d2.currentUser}
+            fileType="map"
+            fileObject={map}
+            onNew={newMap}
+            onOpen={openMap}
+            onSave={saveMap}
+            onSaveAs={saveAsNewMap}
+            onRename={setMapProps}
+            onDelete={newMap}
+            onError={setError}
+        />
     );
 };
 
