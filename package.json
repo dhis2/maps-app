@@ -100,7 +100,7 @@
         "d2-manifest": "^1.0.0",
         "enzyme": "^3.3.0",
         "enzyme-adapter-react-16": "^1.15.4",
-        "enzyme-to-json": "^3.5.0",
+        "enzyme-to-json": "^3.6.2",
         "eslint": "^4.18.1",
         "eslint-config-dhis2": "^3.0.7",
         "eslint-config-prettier": "^2.9.0",
