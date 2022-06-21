@@ -88,7 +88,7 @@
     "devDependencies": {
         "@babel/core": "^7.18.5",
         "@babel/preset-env": "^7.18.2",
-        "@dhis2/cli-app-scripts": "^8.3.3",
+        "@dhis2/cli-app-scripts": "^9.0.1",
         "@dhis2/cypress-commands": "^9.0.2",
         "@dhis2/cypress-plugins": "^9.0.2",
         "@dhis2/d2-i18n-extract": "^1.0.8",
