@@ -1,3 +1,10 @@
+## [1.23.18](https://github.com/dhis2/maps-app/compare/v1.23.17...v1.23.18) (2022-06-21)
+
+
+### Bug Fixes
+
+* file menu upgrade and aligment ([#2183](https://github.com/dhis2/maps-app/issues/2183)) ([f717d10](https://github.com/dhis2/maps-app/commit/f717d10da808fb96f254095d6abbe392f6a9cab6))
+
 ## [1.23.17](https://github.com/dhis2/maps-app/compare/v1.23.16...v1.23.17) (2022-05-26)
 
 
