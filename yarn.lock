@@ -2629,11 +2629,12 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^23.11.1":
-  version "23.11.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.11.1.tgz#62dc247e32657fffacbccce027adda9b43b507f4"
-  integrity sha512-+BJ4V80rPW3q9ZnjylBw9zylrG3fNN+YFOxAIS8MURa8g/6Z8AB9VIi9X5mBNmKmMprBtse6cWHNb5gREhcNsg==
+"@dhis2/analytics@^23.12.4":
+  version "23.12.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.12.4.tgz#80aeb0bfe08cd68feaaece6fc91d1bba87f0cf4b"
+  integrity sha512-4WelgkBHV1H2M/kBorwMpkJ6fuD1zvL1Rp/qa7Zp0nSKTsglAFHse3IwRaROCI2qfTAKZQWyc0DONjMsN2Jurg==
   dependencies:
+    "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
     d2-utilizr "^0.2.16"
     d3-color "^1.2.3"
@@ -2877,6 +2878,15 @@
   version "7.3.3"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-rich-text/-/d2-ui-rich-text-7.3.3.tgz#4fdb8de8a56edc924f98768efc1fead47450f834"
   integrity sha512-3uVI4jT4MpwE4JYuJarTHEtf+fX0kt4JCKqgUUaRKW0Oul6/E1zm5vpHccPlhUVRtdmD/epcJ4AmWDznqp5rQg==
+  dependencies:
+    babel-runtime "^6.26.0"
+    markdown-it "^8.4.2"
+    prop-types "^15.6.2"
+
+"@dhis2/d2-ui-rich-text@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-rich-text/-/d2-ui-rich-text-7.4.0.tgz#e1fb6eff7309ea80a6af3bee2a247c9f93ea721d"
+  integrity sha512-q8woPPyYHiqQfNtujuCQH8eq7zRcN0140XqrKHw1DXF/fnqmrcVDTNZkPSaWMuUsdPhcgTHcnuEySP0MRAXv6g==
   dependencies:
     babel-runtime "^6.26.0"
     markdown-it "^8.4.2"
