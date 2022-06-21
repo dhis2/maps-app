@@ -2629,11 +2629,12 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^23.11.1":
-  version "23.11.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.11.1.tgz#62dc247e32657fffacbccce027adda9b43b507f4"
-  integrity sha512-+BJ4V80rPW3q9ZnjylBw9zylrG3fNN+YFOxAIS8MURa8g/6Z8AB9VIi9X5mBNmKmMprBtse6cWHNb5gREhcNsg==
+"@dhis2/analytics@^23.12.4":
+  version "23.12.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.12.4.tgz#80aeb0bfe08cd68feaaece6fc91d1bba87f0cf4b"
+  integrity sha512-4WelgkBHV1H2M/kBorwMpkJ6fuD1zvL1Rp/qa7Zp0nSKTsglAFHse3IwRaROCI2qfTAKZQWyc0DONjMsN2Jurg==
   dependencies:
+    "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
     d2-utilizr "^0.2.16"
     d3-color "^1.2.3"
@@ -2658,7 +2659,7 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@dhis2/app-runtime@^3.2.3", "@dhis2/app-runtime@^3.2.7":
+"@dhis2/app-runtime@^3.2.3":
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-3.2.7.tgz#7da8a07c9c1467d673159d708e65c52a079028db"
   integrity sha512-M9u5CZYeR9Hqe5T06wHi2rMKV48sxejLapIoMSQWLP6DKDd5t4oQ/iLkceNpNprRlNXuFszt8KoSBBcpYE7a/g==
@@ -2668,15 +2669,35 @@
     "@dhis2/app-service-data" "3.2.7"
     "@dhis2/app-service-offline" "3.2.7"
 
+"@dhis2/app-runtime@^3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-3.4.4.tgz#87202b82babe6e4b3f29f784e02a3b295960359c"
+  integrity sha512-GTj0H6TLVcw6zo0Vf9aDuPJbsjFfbNWN/SSC9/GF2a0foXdKVSCoc4H5+gW/RhBgYvaSZYwQBA6L+qBaQj7c0Q==
+  dependencies:
+    "@dhis2/app-service-alerts" "3.4.4"
+    "@dhis2/app-service-config" "3.4.4"
+    "@dhis2/app-service-data" "3.4.4"
+    "@dhis2/app-service-offline" "3.4.4"
+
 "@dhis2/app-service-alerts@3.2.7":
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.2.7.tgz#e13f0eaf7b4f76cb8bfa6a6817ec2ec448d51e8b"
   integrity sha512-CabOtM+Jbfz9vKCBapRgMEJ+tsoli3pZ8+N9wwq9r/qL2uYb4eeA0CuTS1fB/R5im0w+lrKDzbAMmNIFfxPjGw==
 
+"@dhis2/app-service-alerts@3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.4.4.tgz#ccd8848f416e976a01ea11bbbd6e1ae873136777"
+  integrity sha512-o2DHlZIHxJQ4XwJ9uIr0UpMTi3ZK0W6u+FkSnPGwrvF+MCFsxA0+pjN7PfBo4acCQHPBwTZzcyq0WYiEAJM7OA==
+
 "@dhis2/app-service-config@3.2.7":
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/@dhis2/app-service-config/-/app-service-config-3.2.7.tgz#6d72143729edf85188c859f072e1fce8e091d247"
   integrity sha512-6MVR0h1TOSflhxCHMWj76czTiOb6NPCbR4j8IOCaBJg6Y2/Z92dJGxHD4X4rMt1Zuf8H1X6OKFR577BSsMguPg==
+
+"@dhis2/app-service-config@3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-config/-/app-service-config-3.4.4.tgz#b5773138183bf339055957bdd1d24b54fecc404e"
+  integrity sha512-QCUfptfmwh3Xs16rr7DDTgMBuQIcJpt2CZEc6XROPYMgBBvN3sncA9Rzb7Jf+xblZwUWi0xuZ7PKs49FFS+5kQ==
 
 "@dhis2/app-service-data@3.2.7":
   version "3.2.7"
@@ -2685,10 +2706,24 @@
   dependencies:
     react-query "^3.13.11"
 
+"@dhis2/app-service-data@3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-data/-/app-service-data-3.4.4.tgz#028236463b82f998ff7bd44e811153f6c1408507"
+  integrity sha512-mJyaSRikY5noXHdpSm3pTPM/ga+6Jp7XgG62J0mSXsVbwYSOJSLQqcponXsTNwaX3IuQHLir83dXe06YjZq70Q==
+  dependencies:
+    react-query "^3.13.11"
+
 "@dhis2/app-service-offline@3.2.7":
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/@dhis2/app-service-offline/-/app-service-offline-3.2.7.tgz#ae35622e94ad62811ce9188446ff675ba8794b31"
   integrity sha512-KiCVDyWKSnDRzviHWB1DbQ9x3zc+ot8J+Nr3DR4VJxHHC4HIrZTJeoaJH2pmAgrrDtEPAjzIhf1ocfGSszN5bg==
+  dependencies:
+    lodash "^4.17.21"
+
+"@dhis2/app-service-offline@3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-offline/-/app-service-offline-3.4.4.tgz#49d460b22c8eb8357aeef05aee8ed6f8a5c3a953"
+  integrity sha512-wBlaMh7rdlr9RQ02q5vADtk9ixFtfI5ywXmxCPiXPBRftahMqwUpGpD88KPIUpoSPRI0V2LYGv0XQm33+gmKnw==
   dependencies:
     lodash "^4.17.21"
 
@@ -2800,14 +2835,6 @@
     moment "^2.22.1"
     rimraf "^2.6.2"
 
-"@dhis2/d2-i18n@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-i18n/-/d2-i18n-1.0.6.tgz#2914be8acf296f3a6bf7b51c76c46da6a120b0ff"
-  integrity sha512-7YdA4ppFosjuyf7ZMm47BrdsA5TWLM9lmS0lUPgjcCVeeWfUgagqzf4W5JGB9XQ3w1vzK+yy5zH2Ij8IgRAGhA==
-  dependencies:
-    i18next "^10.3"
-    moment "^2.24.0"
-
 "@dhis2/d2-i18n@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@dhis2/d2-i18n/-/d2-i18n-1.1.0.tgz#ec777c5091f747e4c5aa4f9801c62ba4d1ef3d16"
@@ -2816,10 +2843,10 @@
     i18next "^10.3"
     moment "^2.24.0"
 
-"@dhis2/d2-ui-core@7.3.3", "@dhis2/d2-ui-core@^7.3.3":
-  version "7.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-core/-/d2-ui-core-7.3.3.tgz#305dd9d4a1fe65672ace305c530230dfe7f89030"
-  integrity sha512-/LFTo83ym7Nwirj+Ecq5OO/Fpy8OrANOUQQGRqpwdW24h0Qm77WTZRPmpaNMg/c3eMhMBVtQbcwKlqE+hDSGOQ==
+"@dhis2/d2-ui-core@7.4.0", "@dhis2/d2-ui-core@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-core/-/d2-ui-core-7.4.0.tgz#796afffbca4cf7f76a500d979e53c01abe8ebcb2"
+  integrity sha512-lVk3q2PV3Xb0RoeCcK/UgR2zqymj3SUix4qQXm+5HLZww6UtP8sTj+QcEEuVbPBqHPHaXnSOsKgtoD02QJfm4A==
   dependencies:
     babel-runtime "^6.26.0"
     d2 "~31.7"
@@ -2827,14 +2854,14 @@
     material-ui "^0.20.0"
     rxjs "^5.5.7"
 
-"@dhis2/d2-ui-interpretations@^7.3.3":
-  version "7.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-7.3.3.tgz#9bd45f548dc7b51ddd938d51d24a3be043ab7b7a"
-  integrity sha512-6bREjYPwmniN7kPVnEmAbuA3xPd/YMcaTTo2DvXHcYPrmeVGxucuiogm0pJBsX+DFNDgC4d8Dlcly4d0URhEPQ==
+"@dhis2/d2-ui-interpretations@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-interpretations/-/d2-ui-interpretations-7.4.0.tgz#c712a26886137009c32ab56e9b6d9e06ac90c424"
+  integrity sha512-54LYUNwwCd3L8HYlg8gv1URjbfM1FPVSJoUieeyhtdidpTFUPPoc9Ud4kgrq+Y2QJe/mgh8Dx0RYyqoNLrRmtw==
   dependencies:
-    "@dhis2/d2-ui-mentions-wrapper" "7.3.3"
-    "@dhis2/d2-ui-rich-text" "7.3.3"
-    "@dhis2/d2-ui-sharing-dialog" "7.3.3"
+    "@dhis2/d2-ui-mentions-wrapper" "7.4.0"
+    "@dhis2/d2-ui-rich-text" "7.4.0"
+    "@dhis2/d2-ui-sharing-dialog" "7.4.0"
     "@material-ui/core" "^3.3.1"
     "@material-ui/icons" "^3.0.1"
     babel-runtime "^6.26.0"
@@ -2844,50 +2871,50 @@
     prop-types "^15.5.10"
     react-portal "^4.1.5"
 
-"@dhis2/d2-ui-mentions-wrapper@7.3.3":
-  version "7.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-mentions-wrapper/-/d2-ui-mentions-wrapper-7.3.3.tgz#c927c1fef27821db4c24f54c180cdd5f19c22e2b"
-  integrity sha512-WK0EoV0FBF4rItlOZAAbQAVvHM+n3Eq7nBfUxcyTqpTEeD5HuGhzLTlkKoS68jrj1pGEepbeYhBXtgdCT/hWqQ==
+"@dhis2/d2-ui-mentions-wrapper@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-mentions-wrapper/-/d2-ui-mentions-wrapper-7.4.0.tgz#5cd2334aa70c877885fa7b9cdfb4a1165d5423c5"
+  integrity sha512-QPAxLoGa1FC6AlouvxE7ORLku8VdwRNnPkm4TeNBwmIDoHjg+c5EQ+Sc07NJykSt1f3l/LG+sAQxfFTfRAS6Sg==
   dependencies:
     "@material-ui/core" "^3.3.1"
     lodash "^4.17.10"
     prop-types "^15.6.2"
 
-"@dhis2/d2-ui-org-unit-dialog@^7.3.3":
-  version "7.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-dialog/-/d2-ui-org-unit-dialog-7.3.3.tgz#93ab52bc512daece6a8dfc2a0ff36a253b6b4a91"
-  integrity sha512-nyiay/23YG+oPFoPwDybvMBe5Us5Ko3X45yNpoMXW4A68ame5r4SIwLa0VHAxb0XpsSxJZM+7TsVrW6EDfM5LA==
+"@dhis2/d2-ui-org-unit-dialog@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-dialog/-/d2-ui-org-unit-dialog-7.4.0.tgz#5278893bb5dd8f33abfa103aa1faeee377d49a09"
+  integrity sha512-Z22eGEO5iHrruci+KM+1PJ/LAjiIMelIMSqk5Ru24H7tTk6GxV/sLB/GGvJHGReDm+ifQmblwNrO4EiPsWQ4JQ==
   dependencies:
-    "@dhis2/d2-ui-org-unit-tree" "7.3.3"
+    "@dhis2/d2-ui-org-unit-tree" "7.4.0"
     "@material-ui/core" "^3.3.1"
     "@material-ui/icons" "^3.0.1"
     prop-types "^15.5.10"
 
-"@dhis2/d2-ui-org-unit-tree@7.3.3", "@dhis2/d2-ui-org-unit-tree@^7.3.3":
-  version "7.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-7.3.3.tgz#86fe4c37468fa845b2a6fe893fef74e1efdfb889"
-  integrity sha512-NqbvAd+Zik1KD2AjoZYhz0ejSJg/7wstdS9pUpF9a/KwS1bCi9teTIEkSYC7ntzlRccfA5Ae2VyK7bG7Tzpesg==
+"@dhis2/d2-ui-org-unit-tree@7.4.0", "@dhis2/d2-ui-org-unit-tree@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-org-unit-tree/-/d2-ui-org-unit-tree-7.4.0.tgz#a550278f6f8ed9e984eb7ba3ac209de30e7e0b96"
+  integrity sha512-D44liivosGW8JzOlGhgs31szKGGCxGuML0R1d9ty0YTu/oWyL79OGEdblAg9ET046Gr02ZuPZ0PMGWMhEyM9VA==
   dependencies:
-    "@dhis2/d2-ui-core" "7.3.3"
+    "@dhis2/d2-ui-core" "7.4.0"
     "@material-ui/core" "^3.3.1"
     babel-runtime "^6.26.0"
     prop-types "^15.5.10"
 
-"@dhis2/d2-ui-rich-text@7.3.3":
-  version "7.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-rich-text/-/d2-ui-rich-text-7.3.3.tgz#4fdb8de8a56edc924f98768efc1fead47450f834"
-  integrity sha512-3uVI4jT4MpwE4JYuJarTHEtf+fX0kt4JCKqgUUaRKW0Oul6/E1zm5vpHccPlhUVRtdmD/epcJ4AmWDznqp5rQg==
+"@dhis2/d2-ui-rich-text@7.4.0", "@dhis2/d2-ui-rich-text@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-rich-text/-/d2-ui-rich-text-7.4.0.tgz#e1fb6eff7309ea80a6af3bee2a247c9f93ea721d"
+  integrity sha512-q8woPPyYHiqQfNtujuCQH8eq7zRcN0140XqrKHw1DXF/fnqmrcVDTNZkPSaWMuUsdPhcgTHcnuEySP0MRAXv6g==
   dependencies:
     babel-runtime "^6.26.0"
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/d2-ui-sharing-dialog@7.3.3":
-  version "7.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-sharing-dialog/-/d2-ui-sharing-dialog-7.3.3.tgz#890e072b6eb0e0064548916737966371cc935c61"
-  integrity sha512-xq3/8ZnstHFiholePV+KB0JSV1N7zK87z/7gH4grSIaQkeRrDeTXkPMM8epz4BHwSBv39eI0AAzXoJA8F3EQjw==
+"@dhis2/d2-ui-sharing-dialog@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-sharing-dialog/-/d2-ui-sharing-dialog-7.4.0.tgz#1910f96bbfb4c706b1fedc677e8a28e62599dc73"
+  integrity sha512-5ebCQ7WxhD6y0gyPeOUiFb4XiKPJI4gZfRFmcuNLphu57TkcWj6HxWF3cDv+DYM0BS8c9Pq2iSCThay5nPFYDA==
   dependencies:
-    "@dhis2/d2-ui-core" "7.3.3"
+    "@dhis2/d2-ui-core" "7.4.0"
     "@material-ui/core" "^3.3.1"
     "@material-ui/icons" "^3.0.1"
     babel-runtime "^6.26.0"
@@ -2896,10 +2923,10 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^3.4.4":
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.4.4.tgz#6e5f36634df40127313e3f5244eb355e8094914a"
-  integrity sha512-zhcQcm3z2T8zubAqQG3DMbqHmXX3gZEyMd/l/RA2QbM9OCyigX0zIcvN9WkLAHqsoNm70+1VRwPEjyvGqhO7dQ==
+"@dhis2/maps-gl@^3.4.5":
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.4.5.tgz#34b8f4694663200ffd50c87c217ae86ca0a583d9"
+  integrity sha512-di9+F72WJMndO+T58U8CWeQk0n8f2i8V1pgn//PR8yUxclWR1mSrJUL4ZW+RbY37wxgm2m3wiwrYeh6widKZ7w==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
