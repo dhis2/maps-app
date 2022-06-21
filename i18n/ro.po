@@ -1,28 +1,22 @@
 # 
 # Translators:
-# Viktor Varland <viktor@dhis2.org>, 2019
-# phil_dhis2, 2019
-# ericbp <ericbarredap@gmail.com>, 2019
-# Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
-# Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
-# Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
-# Alison Andrade <aandrade@ippfwhr.org>, 2021
+# Valeriu Plesca <vplesca@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2019-11-20T13:55:02.205Z\n"
 "PO-Revision-Date: 2019-09-02 08:01+0000\n"
-"Last-Translator: Alison Andrade <aandrade@ippfwhr.org>, 2021\n"
-"Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
+"Last-Translator: Valeriu Plesca <vplesca@gmail.com>, 2022\n"
+"Language-Team: Romanian (https://www.transifex.com/hisp-uio/teams/100509/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 msgid "Maps"
-msgstr "Mapas"
+msgstr ""
 
 msgid "Classification"
 msgstr ""
@@ -31,64 +25,64 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Leyenda"
+msgstr ""
 
 msgid "Automatic"
-msgstr "Automático"
+msgstr ""
 
 msgid "Predefined"
-msgstr "Predefinido"
+msgstr ""
 
 msgid "Data element group"
-msgstr "Grupo de elemento de datos"
+msgstr ""
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Elemento de datos"
+msgstr ""
 
 msgid "Totals"
-msgstr "Totales"
+msgstr ""
 
 msgid "Details"
-msgstr "Detalles"
+msgstr ""
 
 msgid "Yes"
-msgstr "Si"
+msgstr "Da"
 
 msgid "Event location"
-msgstr "Event location"
+msgstr ""
 
 msgid "Coordinate field"
-msgstr "Coordinate field"
+msgstr ""
 
 msgid "None"
-msgstr "Ninguno"
+msgstr ""
 
 msgid "Data item"
 msgstr ""
 
 msgid "Event data item"
-msgstr "Event data item"
+msgstr ""
 
 msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "Set de Datos"
+msgstr "Set de date"
 
 msgid "Index"
 msgstr ""
 
 msgid "Value"
-msgstr "Valor"
+msgstr ""
 
 msgid "Legend"
-msgstr "Set de leyendas"
+msgstr ""
 
 msgid "Range"
-msgstr "Rango"
+msgstr ""
 
 msgid "Level"
 msgstr "Nivel"
@@ -100,13 +94,13 @@ msgid "Id"
 msgstr ""
 
 msgid "Type"
-msgstr "Tipo"
+msgstr ""
 
 msgid "Color"
 msgstr ""
 
 msgid "Download"
-msgstr "Descargar"
+msgstr ""
 
 msgid "Download map"
 msgstr ""
@@ -122,40 +116,40 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Anulare"
 
 msgid "Close"
-msgstr "Cerrar"
+msgstr "Închidere"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Period"
-msgstr "Periodo"
+msgstr ""
 
 msgid "Organisation units"
-msgstr "Unidades orgenizativas"
+msgstr "Unități organizaționale"
 
 msgid "Style"
-msgstr "Estilo"
+msgstr ""
 
 msgid "Labels"
 msgstr ""
 
 msgid "Point radius"
-msgstr "Point radius"
+msgstr ""
 
 msgid "No organisation units are selected"
 msgstr ""
 
 msgid "Steps"
-msgstr "Pasos"
+msgstr ""
 
 msgid "Legend preview"
 msgstr ""
 
 msgid "This field is required"
-msgstr "Se requiere éste campo"
+msgstr ""
 
 msgid "Valid range is"
 msgstr ""
@@ -167,19 +161,19 @@ msgid "period"
 msgstr ""
 
 msgid "Filter"
-msgstr "filtro"
+msgstr ""
 
 msgid "Org units"
-msgstr "Unidades organizativas"
+msgstr "Unități organizaționale"
 
 msgid "Start date"
-msgstr "Fecha inicial"
+msgstr "Data de început"
 
 msgid "End date"
-msgstr "Fecha final"
+msgstr "Data de sfîrșit"
 
 msgid "Events"
-msgstr "Eventos"
+msgstr ""
 
 msgid "Group events"
 msgstr ""
@@ -194,7 +188,7 @@ msgid "Buffer"
 msgstr ""
 
 msgid "Radius in meters"
-msgstr "Radio en metros"
+msgstr ""
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
@@ -209,7 +203,7 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "Group set"
-msgstr "Set de grupos"
+msgstr ""
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -231,28 +225,28 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "Program status"
-msgstr "Estado del programa"
+msgstr ""
 
 msgid "Follow up"
-msgstr "Seguimiento"
+msgstr ""
 
 msgid "Selection mode"
-msgstr "Modo de selección"
+msgstr ""
 
 msgid "Tracked entities"
-msgstr "Entidades monitoreadas"
+msgstr ""
 
 msgid "Point size"
 msgstr ""
 
 msgid "Aggregation type"
-msgstr "Tipo de agregación"
+msgstr ""
 
 msgid "Low size"
-msgstr "Tamaño pequeño"
+msgstr ""
 
 msgid "High size"
-msgstr "Tamaño grande"
+msgstr ""
 
 msgid "Indicator group is required"
 msgstr ""
@@ -282,25 +276,25 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr "Indicadores"
+msgstr "Indicator"
 
 msgid "Reporting rates"
-msgstr "Tasas de Informes"
+msgstr ""
 
 msgid "Event data items"
-msgstr "Datos de eventos"
+msgstr ""
 
 msgid "Program indicators"
-msgstr "Indicadores de programa"
+msgstr ""
 
 msgid "Item type"
-msgstr "Item type"
+msgstr ""
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr "Algo ha ido mal"
+msgstr ""
 
 msgid "Refresh to try again"
 msgstr ""
@@ -318,7 +312,7 @@ msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Add filter"
-msgstr "Añadir filtro"
+msgstr ""
 
 msgid "Delete filter"
 msgstr ""
@@ -327,10 +321,10 @@ msgid "Remove filter"
 msgstr ""
 
 msgid "Operator"
-msgstr "Operador"
+msgstr ""
 
 msgid "Date"
-msgstr "Fecha"
+msgstr "Data"
 
 msgid "one of"
 msgstr ""
@@ -345,25 +339,25 @@ msgid "doesn't contains"
 msgstr ""
 
 msgid "is"
-msgstr "es"
+msgstr ""
 
 msgid "is not"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Grupo de indicadores"
+msgstr "Grup de indicatori"
 
 msgid "Interpretations"
-msgstr "Interpretaciones"
+msgstr ""
 
 msgid "Basemap"
 msgstr ""
 
 msgid "Collapse"
-msgstr "Contraer"
+msgstr ""
 
 msgid "Expand"
-msgstr "Expandir"
+msgstr ""
 
 msgid "Download Layer Data"
 msgstr ""
@@ -389,13 +383,13 @@ msgid "Loading layer"
 msgstr ""
 
 msgid "deleted"
-msgstr "eliminado"
+msgstr ""
 
 msgid "Filters"
-msgstr "Filtros"
+msgstr ""
 
 msgid "Edit"
-msgstr "Editar"
+msgstr "Editare"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -407,13 +401,13 @@ msgid "More actions"
 msgstr ""
 
 msgid "Data table"
-msgstr "Tabla de datos"
+msgstr ""
 
 msgid "Download data"
-msgstr "Descarga de datos"
+msgstr ""
 
 msgid "Edit layer"
-msgstr "Editar capa"
+msgstr ""
 
 msgid "Remove layer"
 msgstr ""
@@ -422,64 +416,64 @@ msgid "Open as"
 msgstr ""
 
 msgid "Pivot"
-msgstr "Pivote"
+msgstr "Pivot"
 
 msgid "Chart"
-msgstr "Grafico"
+msgstr ""
 
 msgid "Parent unit"
-msgstr "Unidad padre"
+msgstr ""
 
 msgid "Drill up one level"
-msgstr "Desglosar nivel anterior"
+msgstr ""
 
 msgid "Drill down one level"
-msgstr "Desglosar un nivel"
+msgstr ""
 
 msgid "Show information"
-msgstr "Mostrar hoja de información"
+msgstr ""
 
 msgid "Show longitude/latitude"
-msgstr "Mostrar longitud/latitud"
+msgstr ""
 
 msgid "Swap longitude/latitude"
-msgstr "Intercambiar longitud/latitud"
+msgstr ""
 
 msgid "Relocate"
-msgstr "Reubicar"
+msgstr ""
 
 msgid "Not set"
-msgstr "No configurado"
+msgstr ""
 
 msgid "Organisation unit"
-msgstr "Unidad organizativa"
+msgstr "Unitate organizațională"
 
 msgid "Event time"
-msgstr "Event time"
+msgstr ""
 
 msgid "Groups"
-msgstr "Grupos"
+msgstr "Grupuri"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Última actualización"
+msgstr "Ultima actualizare"
 
 msgid "Options"
-msgstr "Opciones"
+msgstr ""
 
 msgid "Code"
-msgstr "Código"
+msgstr ""
 
 msgid "No data found for this period."
 msgstr ""
 
 msgid "Select groups"
-msgstr "Seleccionar grupos"
+msgstr ""
 
 msgid "Select levels"
-msgstr "Seleccionar niveles"
+msgstr ""
 
 msgid "Click the map where you want to relocate facility"
 msgstr ""
@@ -494,7 +488,7 @@ msgid "two levels below user organisation unit"
 msgstr ""
 
 msgid "in"
-msgstr "en"
+msgstr "în"
 
 msgid "in and right below"
 msgstr ""
@@ -506,10 +500,10 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr "Año siguiente"
+msgstr "Anul următor"
 
 msgid "Period type"
-msgstr "Tipo de periodo"
+msgstr "Tipul perioadei"
 
 msgid "Program indicator"
 msgstr ""
@@ -518,10 +512,10 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr "Programa"
+msgstr "Program"
 
 msgid "Stage"
-msgstr "Fase"
+msgstr ""
 
 msgid "Tracked Entity Type"
 msgstr ""
@@ -538,7 +532,7 @@ msgid "is saved"
 msgstr ""
 
 msgid "Error"
-msgstr "Error"
+msgstr "Eroare"
 
 msgid "Boundaries"
 msgstr ""
@@ -550,28 +544,28 @@ msgid "No boundaries found"
 msgstr ""
 
 msgid "Access denied"
-msgstr "Acceso denegado"
+msgstr ""
 
 msgid "user is not allowed to read layer data"
 msgstr ""
 
 msgid "Failed"
-msgstr "Ha fallado"
+msgstr ""
 
 msgid "an unknown error occurred while reading layer data"
 msgstr ""
 
 msgid "Event"
-msgstr "Evento"
+msgstr ""
 
 msgid "Facilities"
 msgstr ""
 
 msgid "No data found"
-msgstr "Dato no encontrado"
+msgstr ""
 
 msgid "Tracked entity"
-msgstr "Tracked entity"
+msgstr ""
 
 msgid "No tracked entities found"
 msgstr ""
@@ -583,7 +577,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "No"
+msgstr "Nu"
 
 msgid "Map could not be created"
 msgstr ""
