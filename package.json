@@ -77,7 +77,7 @@
         "react-virtualized": "^9.22.3",
         "redux": "^4.2.0",
         "redux-logger": "^3.0.6",
-        "redux-observable": "^2.0.0",
+        "redux-observable": "^0.18.0",
         "redux-thunk": "^2.4.1",
         "rxjs": "5.5.12",
         "styled-jsx": "^4.0.1",
