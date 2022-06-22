@@ -1,19 +1,19 @@
 # 
 # Translators:
-# SubhamJena <subhamjena8465@gmail.com>, 2022
+# Valeriu Plesca <vplesca@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: SubhamJena <subhamjena8465@gmail.com>, 2022\n"
-"Language-Team: Odia (https://www.transifex.com/hisp-uio/teams/100509/or/)\n"
+"Last-Translator: Valeriu Plesca <vplesca@gmail.com>, 2022\n"
+"Language-Team: Romanian (https://www.transifex.com/hisp-uio/teams/100509/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: or\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 msgid "Maps"
 msgstr ""
@@ -25,7 +25,7 @@ msgid "Failed to save map. {{message}}"
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 msgid "Classification"
 msgstr ""
@@ -55,10 +55,10 @@ msgid "Totals"
 msgstr ""
 
 msgid "Details"
-msgstr "ବିବରଣୀ"
+msgstr ""
 
 msgid "Yes"
-msgstr "ହଁ"
+msgstr "Da"
 
 msgid "Event location"
 msgstr ""
@@ -79,7 +79,7 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr ""
+msgstr "Set de date"
 
 msgid "Index"
 msgstr ""
@@ -106,7 +106,7 @@ msgid "Range"
 msgstr ""
 
 msgid "Level"
-msgstr ""
+msgstr "Nivel"
 
 msgid "Parent"
 msgstr ""
@@ -124,7 +124,7 @@ msgid "Items"
 msgstr ""
 
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensiune"
 
 msgid "Download"
 msgstr ""
@@ -143,10 +143,10 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Anulare"
 
 msgid "Close"
-msgstr ""
+msgstr "Închidere"
 
 msgid "Legend position"
 msgstr ""
@@ -167,7 +167,7 @@ msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "eveniment"
 
 msgid "tracked entity"
 msgstr ""
@@ -203,7 +203,7 @@ msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupuri"
 
 msgid "This field is required"
 msgstr ""
@@ -237,7 +237,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "Year"
-msgstr ""
+msgstr "An"
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -261,10 +261,10 @@ msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 msgid "Max"
-msgstr ""
+msgstr "Max"
 
 msgid "Steps"
 msgstr ""
@@ -363,7 +363,7 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr ""
+msgstr "Indicator"
 
 msgid "Reporting rates"
 msgstr ""
@@ -390,7 +390,7 @@ msgid "Program status"
 msgstr ""
 
 msgid "Relationships"
-msgstr ""
+msgstr "Relații"
 
 msgid "Follow up"
 msgstr ""
@@ -483,7 +483,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 msgid "Remove filter"
 msgstr ""
@@ -498,7 +498,7 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr ""
+msgstr "Grup de indicatori"
 
 msgid "Interpretations"
 msgstr ""
@@ -548,7 +548,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Editare"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -581,7 +581,7 @@ msgid "Mid"
 msgstr ""
 
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 msgid "Filters"
 msgstr ""
@@ -602,10 +602,10 @@ msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr "ଦ୍ରାଘିମା"
+msgstr ""
 
 msgid "Latitude"
-msgstr "ଅକ୍ଷାଂଶ"
+msgstr ""
 
 msgid "Viewing interpretation from {{interpretationDate}}"
 msgstr ""
@@ -614,13 +614,13 @@ msgid "Not set"
 msgstr ""
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Unitate organizațională"
 
 msgid "Parent unit"
 msgstr ""
 
 msgid "Last updated"
-msgstr ""
+msgstr "Ultima actualizare"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -655,7 +655,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "Lichidare"
 
 msgid "Distance"
 msgstr ""
@@ -747,7 +747,7 @@ msgid "Closed date"
 msgstr ""
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid "Link"
 msgstr ""
@@ -800,7 +800,7 @@ msgid "{{units}} in and all below {{orgunits}}"
 msgstr ""
 
 msgid "Selected organisation units"
-msgstr ""
+msgstr "Unități organizaționale selectate"
 
 msgid "Main"
 msgstr ""
@@ -818,13 +818,13 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr ""
+msgstr "Anul următor"
 
 msgid "Relative"
 msgstr ""
 
 msgid "Period type"
-msgstr ""
+msgstr "Tipul perioadei"
 
 msgid "Start/end dates"
 msgstr ""
@@ -848,10 +848,10 @@ msgid "Split map views"
 msgstr ""
 
 msgid "Start date"
-msgstr ""
+msgstr "Data de început"
 
 msgid "End date"
-msgstr ""
+msgstr "Data de sfîrșit"
 
 msgid "Not available offline"
 msgstr ""
@@ -863,7 +863,7 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Stage"
 msgstr ""
@@ -1179,13 +1179,13 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr "ସବୁ"
+msgstr ""
 
 msgid "Active"
-msgstr ""
+msgstr "Activ"
 
 msgid "Completed"
-msgstr ""
+msgstr "Complet"
 
 msgid "Choropleth"
 msgstr ""
@@ -1215,7 +1215,7 @@ msgid "Daily"
 msgstr ""
 
 msgid "Weekly"
-msgstr "ସାପ୍ତାହିକ"
+msgstr ""
 
 msgid "Weekly (Start Wednesday)"
 msgstr ""
@@ -1233,13 +1233,13 @@ msgid "Bi-weekly"
 msgstr ""
 
 msgid "Monthly"
-msgstr "ମାସିକ"
+msgstr "Lunar"
 
 msgid "Bi-monthly"
 msgstr ""
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Trimestrial"
 
 msgid "Six-monthly"
 msgstr ""
@@ -1248,7 +1248,7 @@ msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr "ବାର୍ଷିକ"
+msgstr "Anual"
 
 msgid "Financial year (Start November)"
 msgstr ""
@@ -1263,7 +1263,7 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Anulat"
 
 msgid "{{name}}: No coordinates found"
 msgstr ""
@@ -1296,7 +1296,7 @@ msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"
-msgstr ""
+msgstr "Unități organizaționale"
 
 msgid "Thematic layer"
 msgstr ""
@@ -1317,7 +1317,7 @@ msgid "Thematic"
 msgstr ""
 
 msgid "Org units"
-msgstr ""
+msgstr "Unități organizaționale"
 
 msgid "not one of"
 msgstr ""
@@ -1332,7 +1332,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "ନାହିଁ"
+msgstr "Nu"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
@@ -1343,7 +1343,7 @@ msgid ""
 msgstr ""
 
 msgid "Facility"
-msgstr ""
+msgstr "Facilitate"
 
 msgid "Start date is invalid"
 msgstr ""
