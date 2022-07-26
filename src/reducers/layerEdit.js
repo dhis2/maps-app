@@ -579,10 +579,10 @@ const layerEdit = (state = null, action) => {
 
             return newState;
 
-        case types.LAYER_EDIT_SHOW_COMPLETED_EVENTS_SET:
+        case types.LAYER_EDIT_COMPLETED_ONLY_SET:
             return {
                 ...state,
-                completedEvents: action.payload,
+                completedOnly: action.payload,
             };
 
         default:

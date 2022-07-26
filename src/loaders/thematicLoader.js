@@ -330,6 +330,7 @@ const loadData = async config => {
         relativePeriodDate,
         aggregationType,
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
+        completedOnly,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
@@ -393,6 +394,12 @@ const loadData = async config => {
 
     if (isOperand) {
         analyticsRequest = analyticsRequest.addDimension('co');
+    }
+
+    if (completedOnly) {
+        analyticsRequest = analyticsRequest.withParameters({
+            completedOnly,
+        });
     }
 
     const featuresRequest = d2.geoFeatures

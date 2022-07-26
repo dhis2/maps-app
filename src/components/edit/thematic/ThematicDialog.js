@@ -6,7 +6,7 @@ import { SystemSettingsCtx } from '../../SystemSettingsProvider';
 import { Tab, Tabs } from '../../core';
 import ValueTypeSelect from './ValueTypeSelect';
 import AggregationTypeSelect from './AggregationTypeSelect';
-import ShowCompletedEventsCheckbox from './ShowCompletedEventsCheckbox';
+import CompletedOnlyCheckbox from './CompletedOnlyCheckbox';
 import NoDataColor from './NoDataColor';
 import DataElementGroupSelect from '../../dataElement/DataElementGroupSelect';
 import DataElementSelect from '../../dataElement/DataElementSelect';
@@ -428,7 +428,7 @@ export class ThematicDialog extends Component {
                                 ),
                             ]}
                             <AggregationTypeSelect className={styles.select} />
-                            {hasEventData && <ShowCompletedEventsCheckbox />}
+                            {hasEventData && <CompletedOnlyCheckbox />}
                         </div>
                     )}
                     {tab === 'period' && (
