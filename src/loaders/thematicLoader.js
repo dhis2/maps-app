@@ -31,6 +31,7 @@ import {
     ORG_UNIT_RADIUS_SMALL,
     NO_DATA_COLOR,
 } from '../constants/layers';
+import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses';
 
 const thematicLoader = async config => {
     const {
@@ -330,7 +331,7 @@ const loadData = async config => {
         relativePeriodDate,
         aggregationType,
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
-        completedOnly,
+        eventStatus,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
@@ -396,9 +397,9 @@ const loadData = async config => {
         analyticsRequest = analyticsRequest.addDimension('co');
     }
 
-    if (completedOnly) {
+    if (eventStatus === EVENT_STATUS_COMPLETED) {
         analyticsRequest = analyticsRequest.withParameters({
-            completedOnly,
+            completedOnly: true,
         });
     }
 

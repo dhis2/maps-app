@@ -3,26 +3,34 @@ import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 import { connect } from 'react-redux';
 import { Checkbox } from '../../core';
-import { setCompletedOnly } from '../../../actions/layerEdit';
+import { setEventStatus } from '../../../actions/layerEdit';
+import {
+    EVENT_STATUS_ALL,
+    EVENT_STATUS_COMPLETED,
+} from '../../../constants/eventStatuses';
 
-export const CompletedOnlyCheckbox = ({ completedOnly, setCompletedOnly }) => {
+export const CompletedOnlyCheckbox = ({ completedOnly, setEventStatus }) => {
     return (
         <Checkbox
             label={i18n.t('Only show completed events')}
             checked={completedOnly}
-            onChange={setCompletedOnly}
+            onChange={isChecked =>
+                setEventStatus(
+                    isChecked ? EVENT_STATUS_COMPLETED : EVENT_STATUS_ALL
+                )
+            }
         />
     );
 };
 
 CompletedOnlyCheckbox.propTypes = {
     completedOnly: PropTypes.bool,
-    setCompletedOnly: PropTypes.func.isRequired,
+    setEventStatus: PropTypes.func.isRequired,
 };
 
 export default connect(
     ({ layerEdit }) => ({
-        completedOnly: layerEdit.completedOnly,
+        completedOnly: layerEdit.eventStatus === EVENT_STATUS_COMPLETED,
     }),
-    { setCompletedOnly }
+    { setEventStatus }
 )(CompletedOnlyCheckbox);

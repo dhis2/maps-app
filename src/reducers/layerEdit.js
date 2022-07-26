@@ -20,6 +20,7 @@ import {
     EE_BUFFER,
     NONE,
 } from '../constants/layers';
+import { EVENT_STATUS_ALL } from '../constants/eventStatuses';
 import { START_END_DATES } from '../constants/periods';
 
 const layerEdit = (state = null, action) => {
@@ -334,7 +335,7 @@ const layerEdit = (state = null, action) => {
             newState = { ...state };
 
             // Default
-            if (action.status === 'ALL') {
+            if (action.status === EVENT_STATUS_ALL) {
                 delete newState.eventStatus;
             } else {
                 newState.eventStatus = action.status;
@@ -578,12 +579,6 @@ const layerEdit = (state = null, action) => {
             }
 
             return newState;
-
-        case types.LAYER_EDIT_COMPLETED_ONLY_SET:
-            return {
-                ...state,
-                completedOnly: action.payload,
-            };
 
         default:
             return state;
