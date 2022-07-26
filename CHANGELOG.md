@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/dhis2/maps-app/compare/v1.23.18...v1.24.0) (2022-07-26)
+
+
+### Features
+
+* only show completed events for thematic layers (DHIS2-13095) ([#2204](https://github.com/dhis2/maps-app/issues/2204)) ([bfa1b1b](https://github.com/dhis2/maps-app/commit/bfa1b1b98906ae8160b0ee6738ba588a1c3d3363))
+
 ## [1.23.18](https://github.com/dhis2/maps-app/compare/v1.23.17...v1.23.18) (2022-06-21)
 
 
