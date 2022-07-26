@@ -378,3 +378,9 @@ export const setNoDataColor = color => ({
     type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
     payload: color,
 });
+
+// Set only show completed events
+export const setShowCompletedEvents = checked => ({
+    type: types.LAYER_EDIT_SHOW_COMPLETED_EVENTS_SET,
+    payload: checked,
+});
