@@ -1,3 +1,10 @@
+## [1.24.3](https://github.com/dhis2/maps-app/compare/v1.24.2...v1.24.3) (2022-07-27)
+
+
+### Bug Fixes
+
+* uncheck completed only if other value type ([#2218](https://github.com/dhis2/maps-app/issues/2218)) ([a4ba5a7](https://github.com/dhis2/maps-app/commit/a4ba5a70937cb4e54a1c89ce300749b6b3091e69))
+
 ## [1.24.2](https://github.com/dhis2/maps-app/compare/v1.24.1...v1.24.2) (2022-07-27)
 
 
