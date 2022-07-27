@@ -280,11 +280,6 @@ export class ThematicDialog extends Component {
         const dataItem = getDataItemFromColumns(columns);
         const dimensions = getDimensionsFromFilters(filters);
         const hasUserOrgUnits = !!selectedUserOrgUnits.length;
-        const hasEventData = [
-            dimConf.indicator.objectName,
-            dimConf.programIndicator.objectName,
-            dimConf.eventDataItem.objectName,
-        ].includes(valueType);
 
         return (
             <div className={styles.content} data-test="thematicdialog">
@@ -428,7 +423,7 @@ export class ThematicDialog extends Component {
                                 ),
                             ]}
                             <AggregationTypeSelect className={styles.select} />
-                            {hasEventData && <CompletedOnlyCheckbox />}
+                            <CompletedOnlyCheckbox valueType={valueType} />
                         </div>
                     )}
                     {tab === 'period' && (
