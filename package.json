@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.24.0",
+    "version": "1.24.1",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -86,7 +86,7 @@
         "whatwg-fetch": "^3.6.2"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^8.3.2",
+        "@dhis2/cli-app-scripts": "^10.0.0",
         "@dhis2/cypress-commands": "^8.0.6",
         "@dhis2/cypress-plugins": "^8.0.6",
         "@dhis2/d2-i18n-extract": "^1.0.8",
