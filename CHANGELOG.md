@@ -1,3 +1,10 @@
+## [1.24.2](https://github.com/dhis2/maps-app/compare/v1.24.1...v1.24.2) (2022-07-27)
+
+
+### Bug Fixes
+
+* dependency upgrades ([#2187](https://github.com/dhis2/maps-app/issues/2187)) ([b3632f9](https://github.com/dhis2/maps-app/commit/b3632f95292509cc4011cc4aecd1ab27cf408578))
+
 ## [1.24.1](https://github.com/dhis2/maps-app/compare/v1.24.0...v1.24.1) (2022-07-27)
 
 
