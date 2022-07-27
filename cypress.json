@@ -8,6 +8,5 @@
         "networkMode": "live",
         "dhis2ApiVersion": "38"
     },
-    "defaultCommandTimeout": 15000,
     "testFiles": "**/*.cy.js"
 }
