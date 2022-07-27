@@ -109,7 +109,7 @@
         "eslint-config-prettier": "^2.10.0",
         "eslint-plugin-cypress": "^2.12.1",
         "eslint-plugin-prettier": "^2.7.0",
-        "eslint-plugin-react": "^7.30.0",
+        "eslint-plugin-react": "^7.30.1",
         "file-loader": "^6.2.0",
         "gifsicle": "^3.0.4",
         "html-webpack-plugin": "^5.5.0",
