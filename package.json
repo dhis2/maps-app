@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.24.0",
+    "version": "1.24.1",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -109,7 +109,7 @@
         "eslint-plugin-react": "7.28.0",
         "file-loader": "^6.2.0",
         "gifsicle": "^3.0.4",
-        "html-webpack-plugin": "^5.3.1",
+        "html-webpack-plugin": "^5.5.0",
         "identity-obj-proxy": "^3.0.0",
         "image-webpack-loader": "^7.0.1",
         "optipng-bin": "^8.1.0",
