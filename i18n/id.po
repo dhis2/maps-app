@@ -8,13 +8,14 @@
 # Carwoto Sa'an <carwoto@gmail.com>, 2021
 # Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022
+# Raja Fathurrahim, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:10:01.567Z\n"
+"POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022\n"
+"Last-Translator: Raja Fathurrahim, 2022\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,7 +167,7 @@ msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
-msgstr ""
+msgstr "acara/peristiwa"
 
 msgid "tracked entity"
 msgstr "entitas dilacak"
@@ -1270,6 +1271,9 @@ msgstr ""
 
 msgid "Organisation units"
 msgstr "Unit organisasi"
+
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "Layer tematik"

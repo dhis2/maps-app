@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-01-31T15:10:01.567Z\n"
+"POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2021\n"
 "Language-Team: Pashto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
@@ -1257,6 +1257,9 @@ msgstr ""
 
 msgid "Organisation units"
 msgstr "د سازمان واحدونه"
+
+msgid "Error: {{message}}"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr "لایه موضوعی"
