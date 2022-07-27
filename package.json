@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.24.0",
+    "version": "1.24.1",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -95,7 +95,7 @@
         "babel-loader": "^8.2.2",
         "babel-polyfill": "^6.26.0",
         "babel-regenerator-runtime": "^6.5.0",
-        "css-loader": "^6.5.1",
+        "css-loader": "^6.7.1",
         "cypress": "^8.5.0",
         "d2-manifest": "^1.0.0",
         "enzyme": "^3.3.0",
