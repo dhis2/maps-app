@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/dhis2/maps-app/compare/v1.24.0...v1.24.1) (2022-07-27)
+
+
+### Bug Fixes
+
+* localize ([c56bb55](https://github.com/dhis2/maps-app/commit/c56bb55d3e1773629dee1ce676662adb1565b991))
+
 # [1.24.0](https://github.com/dhis2/maps-app/compare/v1.23.18...v1.24.0) (2022-07-26)
 
 
