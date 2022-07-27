@@ -114,7 +114,7 @@
         "gifsicle": "^3.0.4",
         "html-webpack-plugin": "^5.5.0",
         "identity-obj-proxy": "^3.0.0",
-        "image-webpack-loader": "^7.0.1",
+        "image-webpack-loader": "^8.1.0",
         "optipng-bin": "^8.1.0",
         "pngquant-bin": "^3.1.1",
         "precommit-hook": "3.0.0",
