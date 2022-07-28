@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
+"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Urdu (https://www.transifex.com/hisp-uio/teams/100509/ur/)\n"
@@ -323,6 +323,9 @@ msgstr "لیبل"
 
 msgid "Aggregation type"
 msgstr "مجموعی قسم"
+
+msgid "Only show completed events"
+msgstr ""
 
 msgid "Show no data"
 msgstr ""
