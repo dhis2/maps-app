@@ -270,12 +270,6 @@ const map = (state = defaultState, action) => {
                 mapViews: state.mapViews.map(l => layer(l, action)),
             };
 
-        case types.MAP_RELATIVE_PERIOD_DATE_SET:
-            return {
-                ...state,
-                interpretationDate: action.payload,
-            };
-
         default:
             return state;
     }
