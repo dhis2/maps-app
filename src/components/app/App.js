@@ -18,6 +18,7 @@ import ContextMenu from '../map/ContextMenu';
 import OrgUnitProfile from '../orgunits/OrgUnitProfile';
 import AlertStack from '../alerts/AlertStack';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
+import InterpretationModal from '../interpretations/InterpretationModal';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog';
 import FatalErrorBoundary from '../errors/FatalErrorBoundary';
@@ -78,6 +79,7 @@ const App = ({
                 <HeaderBar appName={i18n.t('Maps')} />
                 <AppMenu />
                 <InterpretationsPanel />
+                <InterpretationModal />
                 {basemapsLoaded && (
                     <>
                         <LayersToggle />

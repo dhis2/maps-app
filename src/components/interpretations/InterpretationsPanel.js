@@ -12,13 +12,10 @@ import styles from './styles/InterpretationsPanel.module.css';
 const InterpretationsPanel = ({
     mapId,
     isOpen,
-    // interpretationId,
     setInterpretation,
     openInterpretationsPanel,
 }) => {
     const { d2 } = useD2();
-
-    // console.log(interpretationId);
 
     useEffect(() => {
         const interpretationId = getUrlParameter('interpretationid');
@@ -62,7 +59,6 @@ export default connect(
     state => ({
         isOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
         mapId: state.map.id,
-        interpretationId: state.interpretation.id,
     }),
     { openInterpretationsPanel, setInterpretation }
 )(InterpretationsPanel);
