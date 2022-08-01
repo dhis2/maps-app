@@ -3,7 +3,7 @@ import React from 'react';
 
 const InterpretationDownload = () => {
     // console.log('InterpretationDownload', props);
-    return <div>Download</div>;
+    return <div>&nbsp;</div>;
 };
 
 InterpretationDownload.propTypes = {};
