@@ -89,7 +89,7 @@ msgid "Level"
 msgstr "Niveau"
 
 msgid "Parent"
-msgstr ""
+msgstr "Bovenliggend element"
 
 msgid "Id"
 msgstr "ID"
@@ -278,7 +278,7 @@ msgid "Program indicator is required"
 msgstr "Programmaindicator is verplicht"
 
 msgid "Period type is required"
-msgstr ""
+msgstr "Periodesoort is verplicht"
 
 msgid "Period is required"
 msgstr "Periode is verplicht"
@@ -287,7 +287,7 @@ msgid "Indicator"
 msgstr "Indicator"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "Rapporteringsgraden"
 
 msgid "Event data items"
 msgstr "Gebeurtenisgegevensitems"
@@ -325,7 +325,7 @@ msgid "Add filter"
 msgstr "Voeg filter toe"
 
 msgid "Delete filter"
-msgstr ""
+msgstr "Verwijder filter"
 
 msgid "Remove filter"
 msgstr "Verwijder filter"
@@ -364,7 +364,7 @@ msgid "Basemap"
 msgstr "Basiskaart"
 
 msgid "Collapse"
-msgstr ""
+msgstr "Inklappen"
 
 msgid "Expand"
 msgstr "Breid uit"
@@ -389,7 +389,7 @@ msgid "ID Format"
 msgstr "ID-formaat"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Gebruik menselijk leesbare sleutels"
 
 msgid "Loading layer"
 msgstr "Laag aan het laden"
@@ -425,22 +425,22 @@ msgid "Remove layer"
 msgstr "Verwijder laag"
 
 msgid "Open as"
-msgstr ""
+msgstr "Open als"
 
 msgid "Pivot"
-msgstr ""
+msgstr "Draaitabel"
 
 msgid "Chart"
-msgstr ""
+msgstr "Grafiek"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Boveliggende eenheid"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "Ga één niveau omhoog"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "Ga één niveau omlaag"
 
 msgid "Show information"
 msgstr "Toon informatie"
@@ -552,10 +552,10 @@ msgid "Boundaries"
 msgstr "Grenzen"
 
 msgid "Alert"
-msgstr ""
+msgstr "Waarschuwing"
 
 msgid "No boundaries found"
-msgstr ""
+msgstr "Geen grenzen gevonden"
 
 msgid "Access denied"
 msgstr "Toegang geweigerd"
