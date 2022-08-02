@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AboutAOUnit, InterpretationsUnit } from '@dhis2/analytics';
 import { useD2 } from '@dhis2/app-runtime-adapter-d2';
 import Drawer from '../core/Drawer';
+import InterpretationModal from './InterpretationModal';
 import { openInterpretationsPanel } from '../../actions/ui';
 import { setInterpretation } from '../../actions/interpretations';
 import { getUrlParameter } from '../../util/requests';
@@ -16,6 +17,10 @@ const InterpretationsPanel = ({
     openInterpretationsPanel,
 }) => {
     const { d2 } = useD2();
+    const interpretationsUnitRef = useRef();
+
+    const onInterpretationUpdate = () =>
+        interpretationsUnitRef.current.refresh();
 
     useEffect(() => {
         const interpretationId = getUrlParameter('interpretationid');
@@ -26,24 +31,26 @@ const InterpretationsPanel = ({
         }
     }, []);
 
-    if (!mapId || !isOpen) {
-        return null;
-    }
-
     return (
-        Boolean(isOpen && mapId) && (
-            <Drawer className={styles.drawer}>
-                <AboutAOUnit type="maps" id={mapId} />
-                <InterpretationsUnit
-                    type="map"
-                    id={mapId}
-                    currentUser={d2.currentUser}
-                    onInterpretationClick={setInterpretation}
-                    onReplyIconClick={setInterpretation}
-                    disabled={false}
-                />
-            </Drawer>
-        )
+        <>
+            {Boolean(isOpen && mapId) && (
+                <Drawer className={styles.drawer}>
+                    <AboutAOUnit type="maps" id={mapId} />
+                    <InterpretationsUnit
+                        ref={interpretationsUnitRef}
+                        type="map"
+                        id={mapId}
+                        currentUser={d2.currentUser}
+                        onInterpretationClick={setInterpretation}
+                        onReplyIconClick={setInterpretation}
+                        disabled={false}
+                    />
+                </Drawer>
+            )}
+            <InterpretationModal
+                onInterpretationUpdate={onInterpretationUpdate}
+            />
+        </>
     );
 };
 
