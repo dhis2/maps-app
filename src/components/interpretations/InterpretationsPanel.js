@@ -10,25 +10,20 @@ import { useD2 } from '@dhis2/app-runtime-adapter-d2';
 import Drawer from '../core/Drawer';
 import InterpretationMap from './InterpretationMap';
 import InterpretationDownload from './InterpretationDownload';
-import { openInterpretationsPanel } from '../../actions/ui';
 import { getUrlParameter } from '../../util/requests';
 
-const InterpretationsPanel = ({ map, isOpen, openInterpretationsPanel }) => {
+const InterpretationsPanel = ({ map, isOpen }) => {
     const [interpretationId, setInterpretationId] = useState();
     const [isMapLoading, setIsMapLoading] = useState(false);
     const [initialFocus, setInitialFocus] = useState(false);
     const interpretationsUnitRef = useRef();
     const { d2 } = useD2();
 
-    const onInterpretationUpdate = () =>
-        interpretationsUnitRef.current.refresh();
-
     useEffect(() => {
         const urlInterpretationId = getUrlParameter('interpretationid');
 
         if (urlInterpretationId) {
             setInterpretationId(urlInterpretationId);
-            openInterpretationsPanel();
         }
     }, []);
 
@@ -58,7 +53,9 @@ const InterpretationsPanel = ({ map, isOpen, openInterpretationsPanel }) => {
             {interpretationId && (
                 <InterpretationModal
                     currentUser={d2.currentUser}
-                    onInterpretationUpdate={onInterpretationUpdate}
+                    onInterpretationUpdate={() =>
+                        interpretationsUnitRef.current.refresh()
+                    }
                     initialFocus={initialFocus}
                     interpretationId={interpretationId}
                     isVisualizationLoading={isMapLoading}
@@ -80,13 +77,9 @@ InterpretationsPanel.propTypes = {
     isOpen: PropTypes.bool,
     map: PropTypes.object.isRequired,
     interpretationId: PropTypes.string,
-    openInterpretationsPanel: PropTypes.func.isRequired,
 };
 
-export default connect(
-    state => ({
-        isOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
-        map: state.map,
-    }),
-    { openInterpretationsPanel }
-)(InterpretationsPanel);
+export default connect(state => ({
+    isOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
+    map: state.map,
+}))(InterpretationsPanel);
