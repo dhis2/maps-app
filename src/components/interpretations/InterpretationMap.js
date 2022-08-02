@@ -46,7 +46,7 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
     }, [mapViews, onResponsesReceived]);
 
     return mapViews ? (
-        <div className={styles.plugin}>
+        <div className={styles.map}>
             <Plugin {...visualization} mapViews={mapViews} />
         </div>
     ) : null;
