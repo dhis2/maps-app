@@ -1,16 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AboutAOUnit, InterpretationsUnit } from '@dhis2/analytics';
+import {
+    AboutAOUnit,
+    InterpretationsUnit,
+    InterpretationModal,
+} from '@dhis2/analytics';
 import { useD2 } from '@dhis2/app-runtime-adapter-d2';
 import Drawer from '../core/Drawer';
-import InterpretationModal from './InterpretationModal';
+import InterpretationMap from './InterpretationMap';
+import InterpretationDownload from './InterpretationDownload';
 import { openInterpretationsPanel } from '../../actions/ui';
 import { getUrlParameter } from '../../util/requests';
-import styles from './styles/InterpretationsPanel.module.css';
 
-const InterpretationsPanel = ({ mapId, isOpen, openInterpretationsPanel }) => {
+const InterpretationsPanel = ({ map, isOpen, openInterpretationsPanel }) => {
     const [interpretationId, setInterpretationId] = useState();
+    const [isMapLoading, setIsMapLoading] = useState(false);
+    const [initialFocus, setInitialFocus] = useState(false);
     const interpretationsUnitRef = useRef();
     const { d2 } = useD2();
 
@@ -26,34 +32,53 @@ const InterpretationsPanel = ({ mapId, isOpen, openInterpretationsPanel }) => {
         }
     }, []);
 
+    if (!map.id) {
+        return null;
+    }
+
     return (
         <>
-            {Boolean(isOpen && mapId) && (
-                <Drawer className={styles.drawer}>
-                    <AboutAOUnit type="maps" id={mapId} />
+            {isOpen && (
+                <Drawer>
+                    <AboutAOUnit type="maps" id={map.id} />
                     <InterpretationsUnit
                         ref={interpretationsUnitRef}
                         type="map"
-                        id={mapId}
+                        id={map.id}
                         currentUser={d2.currentUser}
                         onInterpretationClick={setInterpretationId}
-                        onReplyIconClick={setInterpretationId}
-                        disabled={false}
+                        onReplyIconClick={interpretationId => {
+                            setInterpretationId(interpretationId);
+                            setInitialFocus(true);
+                        }}
+                        disabled={false} // TODO
                     />
                 </Drawer>
             )}
-            <InterpretationModal
-                interpretationId={interpretationId}
-                onInterpretationUpdate={onInterpretationUpdate}
-                onClose={() => setInterpretationId()}
-            />
+            {interpretationId && (
+                <InterpretationModal
+                    currentUser={d2.currentUser}
+                    onInterpretationUpdate={onInterpretationUpdate}
+                    initialFocus={initialFocus}
+                    interpretationId={interpretationId}
+                    isVisualizationLoading={isMapLoading}
+                    onClose={() => {
+                        setInterpretationId();
+                        setInitialFocus(false);
+                    }}
+                    onResponsesReceived={() => setIsMapLoading(false)}
+                    visualization={map}
+                    downloadMenuComponent={InterpretationDownload}
+                    pluginComponent={InterpretationMap}
+                />
+            )}
         </>
     );
 };
 
 InterpretationsPanel.propTypes = {
     isOpen: PropTypes.bool,
-    mapId: PropTypes.string,
+    map: PropTypes.object.isRequired,
     interpretationId: PropTypes.string,
     openInterpretationsPanel: PropTypes.func.isRequired,
 };
@@ -61,7 +86,7 @@ InterpretationsPanel.propTypes = {
 export default connect(
     state => ({
         isOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
-        mapId: state.map.id,
+        map: state.map,
     }),
     { openInterpretationsPanel }
 )(InterpretationsPanel);

@@ -16,7 +16,6 @@ import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
 import layers from './layers';
 import legendSets from './legendSets';
-import loading from './loading';
 import map from './map';
 import optionSets from './optionSets';
 import orgUnitProfile from './orgUnitProfile';
@@ -53,7 +52,6 @@ export default combineReducers({
     layerEdit,
     layers,
     legendSets,
-    loading,
     map,
     optionSets,
     orgUnitProfile,

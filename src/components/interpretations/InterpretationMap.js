@@ -6,13 +6,7 @@ import { getRelativePeriods } from '../../util/periods';
 import { fetchLayer } from '../../loaders/layers';
 import styles from './styles/InterpretationMap.module.css';
 
-const InterpretationMap = ({
-    visualization,
-    filters,
-    onResponsesReceived,
-    // className,
-}) => {
-    const [isLoading, setIsLoading] = useState(true);
+const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
     const [mapViews, setMapViews] = useState();
 
     useEffect(() => {
@@ -23,30 +17,37 @@ const InterpretationMap = ({
                     period && getRelativePeriods().find(p => p.id === period.id)
                 );
             })
-            .map(layer => ({ ...layer, ...filters }));
+            .map(layer => ({
+                ...layer,
+                ...filters,
+                // relativePeriodDate: '2022-05-01T17:45:58.166',
+            }));
 
         if (relativePeriodLayers.length) {
             Promise.all(relativePeriodLayers.map(fetchLayer)).then(mapViews => {
-                setMapViews(mapViews);
-                setIsLoading(false);
+                setMapViews(
+                    visualization.mapViews.map(
+                        layer =>
+                            mapViews.find(
+                                relativeLayer => relativeLayer.id === layer.id
+                            ) || layer
+                    )
+                );
             });
         } else {
-            setIsLoading(false);
+            setMapViews(visualization.mapViews);
         }
     }, [visualization, filters]);
 
     useEffect(() => {
-        if (isLoading === false) {
+        if (mapViews) {
             onResponsesReceived();
         }
-    }, [isLoading, onResponsesReceived]);
+    }, [mapViews, onResponsesReceived]);
 
-    return isLoading === false ? (
+    return mapViews ? (
         <div className={styles.plugin}>
-            <Plugin
-                {...visualization}
-                mapViews={mapViews || visualization.mapViews}
-            />
+            <Plugin {...visualization} mapViews={mapViews} />
         </div>
     ) : null;
 };
