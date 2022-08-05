@@ -3198,10 +3198,10 @@
     recompose "^0.26.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^3.4.5":
-  version "3.4.5"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.4.5.tgz#34b8f4694663200ffd50c87c217ae86ca0a583d9"
-  integrity sha512-di9+F72WJMndO+T58U8CWeQk0n8f2i8V1pgn//PR8yUxclWR1mSrJUL4ZW+RbY37wxgm2m3wiwrYeh6widKZ7w==
+"@dhis2/maps-gl@^3.4.6":
+  version "3.4.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.4.6.tgz#0f05f1ad9e78c56daa8e6cdad5f224040c910476"
+  integrity sha512-YAnGKLphBj2jxXfP4f0WTNOMsBa055va0pXC/nn9cL9Z/97CgVCrfAht6fD7QCbTUw3qwknYZW0F1saO6b4JNQ==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
