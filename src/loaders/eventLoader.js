@@ -47,7 +47,7 @@ const eventLoader = async layerConfig => {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [accessDeniedAlert];
         } else {
-            console.log('error', e);
+            // console.log('error', e);
             config.alerts = [unknownErrorAlert];
         }
     }

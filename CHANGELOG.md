@@ -1,3 +1,52 @@
+## [1.24.4](https://github.com/dhis2/maps-app/compare/v1.24.3...v1.24.4) (2022-07-28)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([d46c25f](https://github.com/dhis2/maps-app/commit/d46c25f0749d4ed8950228cd932c53fc13d5cd57))
+
+## [1.24.3](https://github.com/dhis2/maps-app/compare/v1.24.2...v1.24.3) (2022-07-27)
+
+
+### Bug Fixes
+
+* uncheck completed only if other value type ([#2218](https://github.com/dhis2/maps-app/issues/2218)) ([a4ba5a7](https://github.com/dhis2/maps-app/commit/a4ba5a70937cb4e54a1c89ce300749b6b3091e69))
+
+## [1.24.2](https://github.com/dhis2/maps-app/compare/v1.24.1...v1.24.2) (2022-07-27)
+
+
+### Bug Fixes
+
+* dependency upgrades ([#2187](https://github.com/dhis2/maps-app/issues/2187)) ([b3632f9](https://github.com/dhis2/maps-app/commit/b3632f95292509cc4011cc4aecd1ab27cf408578))
+
+## [1.24.1](https://github.com/dhis2/maps-app/compare/v1.24.0...v1.24.1) (2022-07-27)
+
+
+### Bug Fixes
+
+* localize ([c56bb55](https://github.com/dhis2/maps-app/commit/c56bb55d3e1773629dee1ce676662adb1565b991))
+
+# [1.24.0](https://github.com/dhis2/maps-app/compare/v1.23.18...v1.24.0) (2022-07-26)
+
+
+### Features
+
+* only show completed events for thematic layers (DHIS2-13095) ([#2204](https://github.com/dhis2/maps-app/issues/2204)) ([bfa1b1b](https://github.com/dhis2/maps-app/commit/bfa1b1b98906ae8160b0ee6738ba588a1c3d3363))
+
+## [1.23.18](https://github.com/dhis2/maps-app/compare/v1.23.17...v1.23.18) (2022-06-21)
+
+
+### Bug Fixes
+
+* file menu upgrade and aligment ([#2183](https://github.com/dhis2/maps-app/issues/2183)) ([f717d10](https://github.com/dhis2/maps-app/commit/f717d10da808fb96f254095d6abbe392f6a9cab6))
+
+## [1.23.17](https://github.com/dhis2/maps-app/compare/v1.23.16...v1.23.17) (2022-05-26)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([97d5db3](https://github.com/dhis2/maps-app/commit/97d5db3bad9ee62bd7fe5e8dc6e3b4b0eda1c7c5))
+
 ## [1.23.16](https://github.com/dhis2/maps-app/compare/v1.23.15...v1.23.16) (2022-05-24)
 
 

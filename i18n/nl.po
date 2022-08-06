@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
+"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rica Zamora Duchateau, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -111,7 +111,7 @@ msgid "Level"
 msgstr "Niveau"
 
 msgid "Parent"
-msgstr ""
+msgstr "Bovenliggend element"
 
 msgid "Type"
 msgstr "Soort"
@@ -333,6 +333,9 @@ msgstr "Labels"
 msgid "Aggregation type"
 msgstr "Aggregatietype"
 
+msgid "Only show completed events"
+msgstr ""
+
 msgid "Show no data"
 msgstr "Toon geen gegevens"
 
@@ -376,7 +379,7 @@ msgid "Indicator"
 msgstr "Indicator"
 
 msgid "Reporting rates"
-msgstr ""
+msgstr "Rapporteringsgraden"
 
 msgid "Event data items"
 msgstr "Gebeurtenisgegevensitems"
@@ -526,7 +529,7 @@ msgid "Interpretations"
 msgstr "Interpretaties"
 
 msgid "Collapse"
-msgstr ""
+msgstr "Inklappen"
 
 msgid "Expand"
 msgstr "Breid uit"
@@ -557,13 +560,14 @@ msgid "ID Format"
 msgstr "ID-formaat"
 
 msgid "Use human-readable keys"
-msgstr ""
+msgstr "Gebruik menselijk leesbare sleutels"
 
 msgid "External layer"
 msgstr "Externe laag"
 
 msgid "Split view can not be combined with other layer types."
 msgstr ""
+"Gesplitste weergave kan niet gecombineerd worden met aandere laagsoorten."
 
 msgid "Loading layer"
 msgstr "Laag aan het laden"
@@ -611,10 +615,10 @@ msgid "Filters"
 msgstr "Filters"
 
 msgid "Drill up one level"
-msgstr ""
+msgstr "Ga één niveau omhoog"
 
 msgid "Drill down one level"
-msgstr ""
+msgstr "Ga één niveau omlaag"
 
 msgid "View profile"
 msgstr "Bekijk profiel"
@@ -641,7 +645,7 @@ msgid "Organisation unit"
 msgstr "Organisatieëenheid"
 
 msgid "Parent unit"
-msgstr ""
+msgstr "Boveliggende eenheid"
 
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"
@@ -748,6 +752,8 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
+"Dit gegevenselement heeft te veel opties ({{length}}). Maximale aantal "
+"opties voor styleren is {{max}}."
 
 msgid "No data found for this period."
 msgstr "Geen gegevens gevonden voor deze periode."
@@ -823,22 +829,22 @@ msgid "{{units}} in {{orgunits}}"
 msgstr "{{units}} in {{orgunits}}"
 
 msgid "{{units}} in and right below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} in en juist onder {{orgunits}}"
 
 msgid "{{units}} in and all below {{orgunits}}"
-msgstr ""
+msgstr "{{units}} in en alle onder {{orgunits}}"
 
 msgid "Selected organisation units"
 msgstr "Geselecteerde organisatieëenheden"
 
 msgid "Main"
-msgstr ""
+msgstr "Algemeen"
 
 msgid "Below"
-msgstr ""
+msgstr "Onder"
 
 msgid "2 x below"
-msgstr ""
+msgstr "2 x onder"
 
 msgid "User organisation units"
 msgstr "gebruikersorganisatieëenheid"
@@ -862,13 +868,13 @@ msgid "Only one timeline is allowed."
 msgstr "Alleen één tijdslijn is toegelaten."
 
 msgid "Remove other layers to enable split map views."
-msgstr ""
+msgstr "Verwijder andere lagen om gesplitste kaartweergaven in te schakelen."
 
 msgid "Display periods"
 msgstr "Toon periodes"
 
 msgid "Single (aggregate)"
-msgstr ""
+msgstr "Enkelvoudig (aggregaat)"
 
 msgid "Timeline"
 msgstr "Tijdlijn"
@@ -1165,13 +1171,13 @@ msgid "Mixed forest"
 msgstr "Gemengd bos"
 
 msgid "Closed shrublands"
-msgstr ""
+msgstr "Gesloten struikgewas"
 
 msgid "Open shrublands"
-msgstr ""
+msgstr "Open struikgewas"
 
 msgid "Woody savannas"
-msgstr ""
+msgstr "Bosrijke savannes"
 
 msgid "Savannas"
 msgstr "Savannes"
@@ -1180,22 +1186,22 @@ msgid "Grasslands"
 msgstr "Graslanden"
 
 msgid "Permanent wetlands"
-msgstr ""
+msgstr "Permanent nat grondgebied"
 
 msgid "Croplands"
-msgstr ""
+msgstr "Akkerlanden"
 
 msgid "Urban and built-up"
-msgstr ""
+msgstr "Stedelijk en bebouwd"
 
 msgid "Cropland/Natural vegetation mosaic"
-msgstr ""
+msgstr "Akkerland-/Natuurlijke vegetatie-mosaiek"
 
 msgid "Snow and ice"
 msgstr "Sneeuw en ijs"
 
 msgid "Barren or sparsely vegetated"
-msgstr ""
+msgstr "Kaal of schaars begroeid"
 
 msgid "Water"
 msgstr "Water"
@@ -1204,7 +1210,7 @@ msgid "people per km²"
 msgstr "mensen per km²"
 
 msgid "Nighttime lights"
-msgstr ""
+msgstr "Nachtelijke lichten"
 
 msgid "light intensity"
 msgstr "lichtintensiteit"
@@ -1213,6 +1219,8 @@ msgid ""
 "Light intensity from cities, towns, and other sites with persistent "
 "lighting, including gas flares."
 msgstr ""
+"Lichtintensiteit van grootsteden, steden, en andere plaatsen met aanhoudende"
+" belichting, inclusief gasvlammen."
 
 msgid "All"
 msgstr "Alle"
@@ -1227,22 +1235,22 @@ msgid "Choropleth"
 msgstr "Choropleet"
 
 msgid "Bubble map"
-msgstr ""
+msgstr "Bubbelkaart"
 
 msgid "Automatic color legend"
 msgstr "Automatische kleurlegenda"
 
 msgid "Predefined color legend"
-msgstr ""
+msgstr "Voorgedefinieerde kleurlegenda"
 
 msgid "Single color legend"
-msgstr ""
+msgstr "Enkele kleurlegende"
 
 msgid "Equal intervals"
-msgstr ""
+msgstr "Gelijke intervallen"
 
 msgid "Equal counts"
-msgstr ""
+msgstr "Gelijke aantallen"
 
 msgid "Symbol"
 msgstr "Symbool"
@@ -1275,13 +1283,13 @@ msgid "Bi-monthly"
 msgstr "Tweemaandelijks"
 
 msgid "Quarterly"
-msgstr ""
+msgstr "Driemaandelijks"
 
 msgid "Six-monthly"
-msgstr ""
+msgstr "Zesmaandelijks"
 
 msgid "Six-monthly April"
-msgstr ""
+msgstr "Zesmaandelijks april"
 
 msgid "Yearly"
 msgstr "Jaarlijks"
@@ -1372,12 +1380,14 @@ msgid "No"
 msgstr "Nee"
 
 msgid "Cannot get authorization token for Google Earth Engine."
-msgstr ""
+msgstr "Kan geen authorisatietoken verkrijgen voor Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Deze laag vereist een Google Earth Engine-account. Kijk de "
+"DHIS2-documentation na voor meer informatie."
 
 msgid "Facility"
 msgstr "Faciliteit"

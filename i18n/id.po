@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
+"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022\n"
 "Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
@@ -335,6 +335,9 @@ msgstr "label"
 
 msgid "Aggregation type"
 msgstr "Tipe agregasi"
+
+msgid "Only show completed events"
+msgstr ""
 
 msgid "Show no data"
 msgstr "Tidak ada data"

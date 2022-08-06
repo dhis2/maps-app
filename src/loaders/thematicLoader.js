@@ -31,6 +31,7 @@ import {
     ORG_UNIT_RADIUS_SMALL,
     NO_DATA_COLOR,
 } from '../constants/layers';
+import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses';
 
 const thematicLoader = async config => {
     const {
@@ -330,6 +331,7 @@ const loadData = async config => {
         relativePeriodDate,
         aggregationType,
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
+        eventStatus,
     } = config;
     const orgUnits = getOrgUnitsFromRows(rows);
     const period = getPeriodFromFilters(filters);
@@ -393,6 +395,12 @@ const loadData = async config => {
 
     if (isOperand) {
         analyticsRequest = analyticsRequest.addDimension('co');
+    }
+
+    if (eventStatus === EVENT_STATUS_COMPLETED) {
+        analyticsRequest = analyticsRequest.withParameters({
+            completedOnly: true,
+        });
     }
 
     const featuresRequest = d2.geoFeatures
