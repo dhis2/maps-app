@@ -28,6 +28,7 @@ const MapContainer = props => {
         rightPanelOpen,
         dataTableOpen,
         dataTableHeight,
+        interpretationModalClosedCount,
         isDownload,
         legendPosition,
         openContextMenu,
@@ -50,7 +51,7 @@ const MapContainer = props => {
 
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
-        setResizeCount(resizeCount + 1);
+        setResizeCount(count => count + 1);
     }, [layersPanelOpen, rightPanelOpen, dataTableOpen, dataTableHeight]);
 
     return (
@@ -74,6 +75,7 @@ const MapContainer = props => {
                     closeCoordinatePopup={closeCoordinatePopup}
                     setAggregations={setAggregations}
                     resizeCount={resizeCount}
+                    restoreCount={interpretationModalClosedCount}
                 />
                 {isDownload && legendPosition && layers.length ? (
                     <DownloadLegend
@@ -102,6 +104,7 @@ MapContainer.propTypes = {
     legendPosition: PropTypes.string,
     rightPanelOpen: PropTypes.bool,
     layersPanelOpen: PropTypes.bool,
+    interpretationModalClosedCount: PropTypes.number,
     openContextMenu: PropTypes.func.isRequired,
     closeCoordinatePopup: PropTypes.func.isRequired,
     setAggregations: PropTypes.func.isRequired,
@@ -118,6 +121,7 @@ export default connect(
         showName: download.showDialog ? download.showName : true,
         legendPosition: download.showLegend ? download.legendPosition : null,
         dataTableOpen: !!dataTable,
+        interpretationModalClosedCount: ui.interpretationModalClosedCount,
         feature,
         ...ui,
     }),

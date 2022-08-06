@@ -11,8 +11,13 @@ import Drawer from '../core/Drawer';
 import InterpretationMap from './InterpretationMap';
 import InterpretationDownload from './InterpretationDownload';
 import { getUrlParameter } from '../../util/requests';
+import { incrementInterpretationModalClosedCount } from '../../actions/ui';
 
-const InterpretationsPanel = ({ map, isOpen }) => {
+const InterpretationsPanel = ({
+    map,
+    isPanelOpen,
+    incrementInterpretationModalClosedCount,
+}) => {
     const [interpretationId, setInterpretationId] = useState();
     const [isMapLoading, setIsMapLoading] = useState(false);
     const [initialFocus, setInitialFocus] = useState(false);
@@ -27,13 +32,13 @@ const InterpretationsPanel = ({ map, isOpen }) => {
         }
     }, []);
 
-    if (!map.id) {
+    if (!map?.id) {
         return null;
     }
 
     return (
         <>
-            {isOpen && (
+            {isPanelOpen && (
                 <Drawer>
                     <AboutAOUnit type="maps" id={map.id} />
                     <InterpretationsUnit
@@ -62,6 +67,12 @@ const InterpretationsPanel = ({ map, isOpen }) => {
                     onClose={() => {
                         setInterpretationId();
                         setInitialFocus(false);
+
+                        // TODO: Remove timeout if onClose is called after maps are not rendered
+                        setTimeout(
+                            () => incrementInterpretationModalClosedCount(),
+                            100
+                        );
                     }}
                     onResponsesReceived={() => setIsMapLoading(false)}
                     visualization={map}
@@ -74,12 +85,17 @@ const InterpretationsPanel = ({ map, isOpen }) => {
 };
 
 InterpretationsPanel.propTypes = {
-    isOpen: PropTypes.bool,
     map: PropTypes.object.isRequired,
-    interpretationId: PropTypes.string,
+    isPanelOpen: PropTypes.bool,
+    incrementInterpretationModalClosedCount: PropTypes.func.isRequired,
 };
 
-export default connect(state => ({
-    isOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
-    map: state.map,
-}))(InterpretationsPanel);
+export default connect(
+    state => ({
+        map: state.map,
+        isPanelOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
+    }),
+    {
+        incrementInterpretationModalClosedCount,
+    }
+)(InterpretationsPanel);

@@ -7,6 +7,7 @@ const defaultState = {
     rightPanelOpen: false,
     dataTableHeight: 300,
     mapContextMenu: true,
+    interpretationModalClosedCount: 0,
 };
 
 const ui = (state = defaultState, action) => {
@@ -44,6 +45,13 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 rightPanelOpen: false,
+            };
+
+        case types.INTERPRETATION_MODAL_CLOSED_COUNT:
+            return {
+                ...state,
+                interpretationModalClosedCount:
+                    state.interpretationModalClosedCount + 1,
             };
 
         case types.DATA_TABLE_RESIZE:

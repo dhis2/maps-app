@@ -11,7 +11,6 @@ export const splitViewControls = [
     { type: 'zoom' },
     { type: 'fullscreen' },
     { type: 'fitBounds' },
-    { type: 'search' },
     { type: 'attribution', prefix: false },
 ];
 
