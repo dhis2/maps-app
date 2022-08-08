@@ -39,6 +39,7 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
+    setFallbackCoordinateField,
     setOrgUnitRoot,
     setUserOrgUnits,
     toggleOrgUnit,
@@ -68,6 +69,7 @@ export class EventDialog extends Component {
         eventCoordinateField: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
+        fallbackCoordinateField: PropTypes.string,
         filters: PropTypes.array,
         settings: PropTypes.object,
         legendSet: PropTypes.object,
@@ -75,6 +77,7 @@ export class EventDialog extends Component {
         onLayerValidation: PropTypes.func.isRequired,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
+            trackedEntityType: PropTypes.object,
         }),
         programStage: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -94,6 +97,7 @@ export class EventDialog extends Component {
         setEventClustering: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
+        setFallbackCoordinateField: PropTypes.func.isRequired,
         setOrgUnitRoot: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
@@ -167,6 +171,7 @@ export class EventDialog extends Component {
             eventCoordinateField,
             eventPointColor,
             eventPointRadius,
+            fallbackCoordinateField,
             filters = [],
             settings,
             program,
@@ -185,6 +190,7 @@ export class EventDialog extends Component {
             setEventClustering,
             setEventPointColor,
             setEventPointRadius,
+            setFallbackCoordinateField,
             setUserOrgUnits,
             toggleOrgUnit,
             setPeriod,
@@ -230,25 +236,39 @@ export class EventDialog extends Component {
                                 errorText={programError}
                                 data-test="eventdialog-programselect"
                             />
-                            <ProgramStageSelect
-                                program={program}
-                                programStage={programStage}
-                                onChange={setProgramStage}
-                                className={styles.select}
-                                errorText={programStageError}
-                            />
-                            <CoordinateField
-                                program={program}
-                                programStage={programStage}
-                                value={eventCoordinateField}
-                                onChange={setEventCoordinateField}
-                                className={styles.select}
-                            />
-                            <EventStatusSelect
-                                value={eventStatus}
-                                onChange={setEventStatus}
-                                className={styles.select}
-                            />
+                            {program && (
+                                <>
+                                    <ProgramStageSelect
+                                        program={program}
+                                        programStage={programStage}
+                                        onChange={setProgramStage}
+                                        className={styles.select}
+                                        errorText={programStageError}
+                                    />
+                                    <CoordinateField
+                                        program={program}
+                                        programStage={programStage}
+                                        value={eventCoordinateField}
+                                        onChange={setEventCoordinateField}
+                                        className={styles.select}
+                                    />
+                                    <CoordinateField
+                                        program={program}
+                                        programStage={programStage}
+                                        value={fallbackCoordinateField}
+                                        eventCoordinateField={
+                                            eventCoordinateField || 'EVENT'
+                                        }
+                                        onChange={setFallbackCoordinateField}
+                                        className={styles.select}
+                                    />
+                                    <EventStatusSelect
+                                        value={eventStatus}
+                                        onChange={setEventStatus}
+                                        className={styles.select}
+                                    />
+                                </>
+                            )}
                         </div>
                     )}
                     {tab === 'period' && (
@@ -481,6 +501,7 @@ export default connect(
         setEventClustering,
         setEventPointColor,
         setEventPointRadius,
+        setFallbackCoordinateField,
         setOrgUnitRoot,
         setUserOrgUnits,
         toggleOrgUnit,

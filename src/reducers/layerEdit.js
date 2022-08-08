@@ -373,6 +373,14 @@ const layerEdit = (state = null, action) => {
                 eventPointColor: action.color,
             };
 
+        case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:
+            newState = { ...state };
+
+            // TODO: handle no value
+            newState.fallbackCoordinateField = action.fieldId;
+
+            return newState;
+
         case types.LAYER_EDIT_RELATED_POINT_COLOR_SET:
             return {
                 ...state,

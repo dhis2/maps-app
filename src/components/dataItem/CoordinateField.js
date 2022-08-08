@@ -2,7 +2,7 @@ import React, { useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
-import { SelectField, Checkbox } from '../core';
+import { SelectField } from '../core';
 import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
@@ -18,11 +18,17 @@ const CoordinateField = ({
     programStage,
     programAttributes,
     dataElements,
+    eventCoordinateField,
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
     onChange,
     className,
 }) => {
+    // const isTrackerProgram = !!program?.trackedEntityType;
+    const isFallback = !!eventCoordinateField;
+
+    // console.log('isTrackerProgram', isTrackerProgram);
+
     const fields = useMemo(() => {
         const items = [
             { id: EVENT_COORDINATE_DEFAULT, name: i18n.t('Event location') },
@@ -61,7 +67,11 @@ const CoordinateField = ({
     return (
         <div className={className}>
             <SelectField
-                label={i18n.t('Coordinate field')}
+                label={
+                    isFallback
+                        ? i18n.t('Fallback coordinate field')
+                        : i18n.t('Coordinate field')
+                }
                 items={fields}
                 value={
                     fields.find(f => f.id === value)
@@ -70,13 +80,6 @@ const CoordinateField = ({
                 }
                 onChange={field => onChange(field.id)}
             />
-            {value === EVENT_COORDINATE_ENROLLMENT && (
-                <Checkbox
-                    label={i18n.t('Fallback on event location')}
-                    checked={true}
-                    onChange={() => {}}
-                />
-            )}
         </div>
     );
 };
@@ -87,6 +90,7 @@ CoordinateField.propTypes = {
     programStage: PropTypes.object,
     programAttributes: PropTypes.object.isRequired,
     dataElements: PropTypes.object.isRequired,
+    eventCoordinateField: PropTypes.string,
     loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
     loadProgramStageDataElements: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
