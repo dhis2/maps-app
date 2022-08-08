@@ -17,6 +17,7 @@ import {
     CLASSIFICATION_EQUAL_COUNTS,
     CLASSIFICATION_PREDEFINED,
     THEMATIC_CHOROPLETH,
+    EVENT_COORDINATE_DEFAULT,
     EE_BUFFER,
     NONE,
 } from '../constants/layers';
@@ -347,7 +348,7 @@ const layerEdit = (state = null, action) => {
             newState = { ...state };
 
             // Default
-            if (action.fieldId === 'event') {
+            if (action.fieldId === EVENT_COORDINATE_DEFAULT) {
                 delete newState.eventCoordinateField;
             } else {
                 newState.eventCoordinateField = action.fieldId;

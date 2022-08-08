@@ -26,6 +26,7 @@ import {
     CLASSIFICATION_PREDEFINED,
     MIN_RADIUS,
     MAX_RADIUS,
+    EVENT_COORDINATE_DEFAULT,
 } from '../../../constants/layers';
 import { START_END_DATES } from '../../../constants/periods';
 
@@ -257,7 +258,8 @@ export class EventDialog extends Component {
                                         programStage={programStage}
                                         value={fallbackCoordinateField}
                                         eventCoordinateField={
-                                            eventCoordinateField || 'EVENT'
+                                            eventCoordinateField ||
+                                            EVENT_COORDINATE_DEFAULT
                                         }
                                         onChange={setFallbackCoordinateField}
                                         className={styles.select}

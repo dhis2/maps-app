@@ -76,7 +76,7 @@ export const EVENT_SERVER_CLUSTER_COUNT = 2000;
 export const EVENT_COLOR = '#333333';
 export const EVENT_RADIUS = 6;
 export const EVENT_BUFFER = 100;
-export const EVENT_COORDINATE_DEFAULT = 'event';
+export const EVENT_COORDINATE_DEFAULT = 'EVENT';
 export const EVENT_COORDINATE_ENROLLMENT = 'ENROLLMENT';
 
 /* TEI LAYER */

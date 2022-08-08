@@ -27,7 +27,7 @@ const CoordinateField = ({
     // const isTrackerProgram = !!program?.trackedEntityType;
     const isFallback = !!eventCoordinateField;
 
-    // console.log('isTrackerProgram', isTrackerProgram);
+    // console.log('isFallback isTrackerProgram', isFallback, isTrackerProgram);
 
     const fields = useMemo(() => {
         const items = [
@@ -63,6 +63,8 @@ const CoordinateField = ({
     useEffect(() => {
         onChange(EVENT_COORDINATE_DEFAULT);
     }, [program, onChange]);
+
+    // console.log('EVENT_COORDINATE_DEFAULT', EVENT_COORDINATE_DEFAULT);
 
     return (
         <div className={className}>
