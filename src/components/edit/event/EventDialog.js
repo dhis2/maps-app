@@ -27,6 +27,7 @@ import {
     MIN_RADIUS,
     MAX_RADIUS,
     EVENT_COORDINATE_DEFAULT,
+    NONE,
 } from '../../../constants/layers';
 import { START_END_DATES } from '../../../constants/periods';
 
@@ -155,7 +156,23 @@ export class EventDialog extends Component {
     }
 
     componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props;
+        const {
+            eventCoordinateField,
+            fallbackCoordinateField,
+            setFallbackCoordinateField,
+            validateLayer,
+            onLayerValidation,
+        } = this.props;
+
+        // Make sure fallback coordiante is different from event coordinate
+        if (
+            (eventCoordinateField &&
+                eventCoordinateField === fallbackCoordinateField) ||
+            (!eventCoordinateField &&
+                fallbackCoordinateField === EVENT_COORDINATE_DEFAULT)
+        ) {
+            setFallbackCoordinateField(NONE);
+        }
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
             onLayerValidation(this.validate());

@@ -377,8 +377,12 @@ const layerEdit = (state = null, action) => {
         case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:
             newState = { ...state };
 
-            // TODO: handle no value
-            newState.fallbackCoordinateField = action.fieldId;
+            // Default
+            if (action.fieldId === NONE) {
+                delete newState.fallbackCoordinateField;
+            } else {
+                newState.fallbackCoordinateField = action.fieldId;
+            }
 
             return newState;
 
