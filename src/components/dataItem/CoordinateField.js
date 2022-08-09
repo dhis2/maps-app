@@ -93,12 +93,6 @@ const CoordinateField = ({
         }
     }, [programStage, dataElements, loadProgramStageDataElements]);
 
-    /* TODO
-    useEffect(() => {
-        onChange(EVENT_COORDINATE_DEFAULT);
-    }, [program, onChange]);
-    */
-
     const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT;
 
     return (

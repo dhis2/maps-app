@@ -20,7 +20,6 @@ import {
     EVENT_SERVER_CLUSTER_COUNT,
     EVENT_COLOR,
     EVENT_RADIUS,
-    EVENT_COORDINATE_ENROLLMENT,
 } from '../constants/layers';
 import { formatStartEndDate, getDateArray } from '../util/time';
 import { cssColor, getContrastColor } from '../util/colors';
@@ -77,8 +76,8 @@ const loadEventLayer = async config => {
 
     const period = getPeriodFromFilters(filters);
     const dataFilters = getFiltersFromColumns(columns);
-    const d2 = await getD2();
-    const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport;
+    // const d2 = await getD2();
+    const spatialSupport = true; // d2.system.systemInfo.databaseInfo.spatialSupport; // TODO
 
     config.isExtended = showDataTable;
 
@@ -101,10 +100,13 @@ const loadEventLayer = async config => {
     // Delete serverCluster option if previously set
     delete config.serverCluster;
 
+    // console.log('#', d2, spatialSupport, eventClustering, styleDataItem);
+
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
     if (spatialSupport && eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest);
+
         config.bounds = getBounds(response.extent);
         config.serverCluster = useServerCluster(response.count);
     }
@@ -205,6 +207,7 @@ export const getAnalyticsRequest = async ({
     styleDataItem,
     eventStatus,
     eventCoordinateField,
+    fallbackCoordinateField,
     relativePeriodDate,
     isExtended,
 }) => {
@@ -258,6 +261,13 @@ export const getAnalyticsRequest = async ({
 
     // If coordinate field other than event coordinate
     if (eventCoordinateField) {
+        // console.log('eventCoordinateField', eventCoordinateField);
+
+        analyticsRequest = analyticsRequest
+            .addDimension(eventCoordinateField) // Used by analytics/events/query/
+            .withCoordinateField(eventCoordinateField); // Used by analytics/events/count and analytics/events/cluster
+
+        /*
         // Used by analytics/events/count and analytics/events/cluster
         analyticsRequest = analyticsRequest.withCoordinateField(
             eventCoordinateField
@@ -273,6 +283,15 @@ export const getAnalyticsRequest = async ({
                 eventCoordinateField
             );
         }
+        */
+    }
+
+    if (fallbackCoordinateField) {
+        // console.log('fallbackCoordinateField', fallbackCoordinateField);
+
+        analyticsRequest = analyticsRequest.withParameters({
+            fallbackCoordinateField,
+        });
     }
 
     if (eventStatus && eventStatus !== 'ALL') {
