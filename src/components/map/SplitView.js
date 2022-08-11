@@ -38,11 +38,11 @@ const SplitView = ({
     }, [map, controls, containerRef]);
 
     useEffect(() => {
-        if (map && !isPlugin) {
+        if (map && isPlugin) {
             map.on('fullscreenchange', onFullscreenChange);
         }
         return () => {
-            if (map && !isPlugin) {
+            if (map && isPlugin) {
                 map.off('fullscreenchange', onFullscreenChange);
             }
         };
