@@ -9,9 +9,11 @@ import {
 import { useD2 } from '@dhis2/app-runtime-adapter-d2';
 import Drawer from '../core/Drawer';
 import InterpretationMap from './InterpretationMap';
-import InterpretationDownload from './InterpretationDownload';
 import { getUrlParameter } from '../../util/requests';
 import { setInterpretation } from '../../actions/interpretations';
+
+// We don't support map download for interpretation date
+const InterpretationDownload = () => <div>&nbsp;</div>;
 
 const InterpretationsPanel = ({
     interpretationId,
