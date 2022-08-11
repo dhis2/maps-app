@@ -17,11 +17,11 @@ const MapView = props => {
         feature,
         bounds,
         coordinatePopup,
+        interpretationModalOpen,
         closeCoordinatePopup,
         openContextMenu,
         setAggregations,
         resizeCount,
-        restoreCount,
     } = props;
 
     const splitViewLayer = getSplitViewLayer(layers);
@@ -49,9 +49,9 @@ const MapView = props => {
                             layer={splitViewLayer}
                             controls={mapControls}
                             feature={feature}
+                            interpretationModalOpen={interpretationModalOpen}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
-                            restoreCount={restoreCount}
                         />
                     ) : (
                         <Map
@@ -67,7 +67,6 @@ const MapView = props => {
                             openContextMenu={openContextMenu}
                             setAggregations={setAggregations}
                             resizeCount={resizeCount}
-                            restoreCount={restoreCount}
                         />
                     )}
                 </>
@@ -85,11 +84,11 @@ MapView.propTypes = {
     feature: PropTypes.object,
     bounds: PropTypes.array,
     coordinatePopup: PropTypes.array,
+    interpretationModalOpen: PropTypes.bool,
     closeCoordinatePopup: PropTypes.func,
     openContextMenu: PropTypes.func,
     setAggregations: PropTypes.func,
     resizeCount: PropTypes.number,
-    restoreCount: PropTypes.number,
 };
 
 export default MapView;

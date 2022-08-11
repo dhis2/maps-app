@@ -7,7 +7,6 @@ const defaultState = {
     rightPanelOpen: false,
     dataTableHeight: 300,
     mapContextMenu: true,
-    interpretationModalClosedCount: 0,
 };
 
 const ui = (state = defaultState, action) => {

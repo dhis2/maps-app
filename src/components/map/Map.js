@@ -39,7 +39,6 @@ class Map extends Component {
         zoom: PropTypes.number,
         coordinatePopup: PropTypes.array,
         resizeCount: PropTypes.number,
-        restoreCount: PropTypes.number,
         closeCoordinatePopup: PropTypes.func,
         openContextMenu: PropTypes.func.isRequired,
         setAggregations: PropTypes.func,
@@ -113,19 +112,10 @@ class Map extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const {
-            resizeCount,
-            restoreCount,
-            isFullscreen,
-            isPlugin,
-        } = this.props;
+        const { resizeCount, isFullscreen, isPlugin } = this.props;
 
         if (resizeCount !== prevProps.resizeCount) {
             this.map.resize();
-        }
-
-        if (restoreCount !== prevProps.restoreCount) {
-            this.map.restore();
         }
 
         // From map plugin resize method

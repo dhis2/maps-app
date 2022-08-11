@@ -34,7 +34,6 @@ class Plugin extends Component {
             isOffline: false,
             mapViews: props.mapViews, // Can be changed by drilling
             resizeCount: 0,
-            restoreCount: 0,
         };
     }
 
@@ -46,7 +45,6 @@ class Plugin extends Component {
             feature,
             mapViews,
             resizeCount,
-            restoreCount,
             isFullscreen,
             isSplitView,
             isOffline,
@@ -67,7 +65,6 @@ class Plugin extends Component {
                     bounds={defaultBounds}
                     openContextMenu={this.onOpenContextMenu}
                     resizeCount={resizeCount}
-                    restoreCount={restoreCount}
                 />
                 <Legend layers={mapViews} />
                 <ContextMenu
@@ -90,13 +87,6 @@ class Plugin extends Component {
         this.setState(state => ({
             resizeCount: state.resizeCount + 1,
             isFullscreen,
-        }));
-    }
-
-    // Call this method if map should be restored after lost WebGL context
-    restore() {
-        this.setState(state => ({
-            restoreCount: state.restoreCount + 1,
         }));
     }
 

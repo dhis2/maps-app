@@ -20,21 +20,29 @@ const InterpretationsPanel = ({
     setInterpretation,
 }) => {
     const [isMapLoading, setIsMapLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState();
     const [initialFocus, setInitialFocus] = useState(false);
     const interpretationsUnitRef = useRef();
     const { d2 } = useD2();
 
-    // TODO: Remove timeout if onClose is called after maps are not rendered
-    const onModalClose = useCallback(() => {
-        setTimeout(() => {
-            setInitialFocus(false);
-            setInterpretation();
-        }, 100);
+    const onInterpretationClick = useCallback(interpretationId => {
+        setInterpretation(interpretationId);
+        setIsModalOpen(true);
     }, []);
 
     const onReplyIconClick = useCallback(interpretationId => {
-        setInterpretation(interpretationId);
         setInitialFocus(true);
+        setInterpretation(interpretationId);
+        setIsModalOpen(true);
+    }, []);
+
+    const onModalClose = useCallback(() => {
+        setIsModalOpen(false);
+        setInitialFocus(false);
+
+        // Small timeout added as the interpretation modal onClose is called before the
+        // modal is actaully closed. It needs to be closed to free the webgl context used.
+        setTimeout(setInterpretation, 100);
     }, []);
 
     useEffect(() => {
@@ -59,13 +67,13 @@ const InterpretationsPanel = ({
                         type="map"
                         id={map.id}
                         currentUser={d2.currentUser}
-                        onInterpretationClick={setInterpretation}
+                        onInterpretationClick={onInterpretationClick}
                         onReplyIconClick={onReplyIconClick}
-                        disabled={false} // TODO
+                        // disabled={false} // TODO
                     />
                 </Drawer>
             )}
-            {interpretationId && (
+            {isModalOpen && interpretationId && (
                 <InterpretationModal
                     currentUser={d2.currentUser}
                     onInterpretationUpdate={() =>
@@ -96,7 +104,7 @@ export default connect(
     state => ({
         map: state.map,
         isPanelOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
-        interpretationId: state.interpretation,
+        interpretationId: state.interpretation.id,
     }),
     {
         setInterpretation,

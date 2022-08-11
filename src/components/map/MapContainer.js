@@ -28,7 +28,7 @@ const MapContainer = props => {
         rightPanelOpen,
         dataTableOpen,
         dataTableHeight,
-        interpretationModalClosedCount,
+        interpretationModalOpen,
         isDownload,
         legendPosition,
         openContextMenu,
@@ -72,10 +72,10 @@ const MapContainer = props => {
                     feature={feature}
                     openContextMenu={openContextMenu}
                     coordinatePopup={coordinatePopup}
+                    interpretationModalOpen={interpretationModalOpen}
                     closeCoordinatePopup={closeCoordinatePopup}
                     setAggregations={setAggregations}
                     resizeCount={resizeCount}
-                    restoreCount={interpretationModalClosedCount}
                 />
                 {isDownload && legendPosition && layers.length ? (
                     <DownloadLegend
@@ -100,18 +100,18 @@ MapContainer.propTypes = {
     coordinatePopup: PropTypes.array,
     dataTableOpen: PropTypes.bool,
     dataTableHeight: PropTypes.number,
+    interpretationModalOpen: PropTypes.bool,
     isDownload: PropTypes.bool,
     legendPosition: PropTypes.string,
     rightPanelOpen: PropTypes.bool,
     layersPanelOpen: PropTypes.bool,
-    interpretationModalClosedCount: PropTypes.number,
     openContextMenu: PropTypes.func.isRequired,
     closeCoordinatePopup: PropTypes.func.isRequired,
     setAggregations: PropTypes.func.isRequired,
 };
 
 export default connect(
-    ({ map, download, dataTable, ui, feature }) => ({
+    ({ map, download, dataTable, ui, feature, interpretation }) => ({
         basemap: map.basemap,
         newLayerIsLoading: map.newLayerIsLoading,
         coordinatePopup: map.coordinatePopup,
@@ -121,7 +121,7 @@ export default connect(
         showName: download.showDialog ? download.showName : true,
         legendPosition: download.showLegend ? download.legendPosition : null,
         dataTableOpen: !!dataTable,
-        interpretationModalClosedCount: ui.interpretationModalClosedCount,
+        interpretationModalOpen: !!interpretation.id,
         feature,
         ...ui,
     }),

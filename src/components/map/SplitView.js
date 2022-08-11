@@ -13,8 +13,8 @@ const SplitView = ({
     layer,
     feature,
     controls,
+    interpretationModalOpen,
     openContextMenu,
-    restoreCount,
 }) => {
     // const [controls, setControls] = useState();
     const [isFullscreen, setIsFullscreen] = useState();
@@ -46,7 +46,7 @@ const SplitView = ({
         };
     }, [mapControls, containerRef, controls, isPlugin]);
 
-    return (
+    return !interpretationModalOpen ? (
         <div
             // ref={node => (this.node = node)}
             ref={containerRef}
@@ -57,7 +57,6 @@ const SplitView = ({
                     key={period.id}
                     index={index}
                     count={periods.length}
-                    restoreCount={restoreCount}
                     layerId={id}
                     setMapControls={setMapControls}
                     isPlugin={isPlugin}
@@ -75,7 +74,7 @@ const SplitView = ({
                 </MapItem>
             ))}
         </div>
-    );
+    ) : null;
 };
 
 SplitView.propTypes = {
@@ -85,8 +84,8 @@ SplitView.propTypes = {
     basemap: PropTypes.object,
     feature: PropTypes.object,
     controls: PropTypes.array,
+    interpretationModalOpen: PropTypes.bool,
     openContextMenu: PropTypes.func.isRequired,
-    restoreCount: PropTypes.number,
 };
 
 SplitView.defaultProps = {
