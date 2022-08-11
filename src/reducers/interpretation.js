@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-const programs = (state = {}, action) => {
+const interpretation = (state = {}, action) => {
     switch (action.type) {
         case types.INTERPRETATION_SET:
             return { ...state, id: action.payload };
@@ -10,4 +10,4 @@ const programs = (state = {}, action) => {
     }
 };
 
-export default programs;
+export default interpretation;
