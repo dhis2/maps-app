@@ -1,3 +1,10 @@
+## [1.24.5](https://github.com/dhis2/maps-app/compare/v1.24.4...v1.24.5) (2022-08-11)
+
+
+### Bug Fixes
+
+* split view rendering ([#2239](https://github.com/dhis2/maps-app/issues/2239)) ([4eaee57](https://github.com/dhis2/maps-app/commit/4eaee573ada47bb96c42f587d2cb92b454975fa1))
+
 ## [1.24.4](https://github.com/dhis2/maps-app/compare/v1.24.3...v1.24.4) (2022-07-28)
 
 
