@@ -57,7 +57,7 @@ class SplitView extends PureComponent {
 
         const { id, periods = [] } = layer;
 
-        console.log('isPlugin', isPlugin);
+        // console.log('isPlugin', isPlugin);
 
         return (
             <div

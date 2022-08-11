@@ -25,7 +25,7 @@ const SplitView = ({
 
     useEffect(() => {
         if (mapControls && containerRef.current && controls) {
-            console.log('Add controls');
+            // console.log('Add controls');
 
             controls.forEach(control => {
                 mapControls.addControl(control);
