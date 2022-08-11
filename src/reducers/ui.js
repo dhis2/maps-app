@@ -47,13 +47,6 @@ const ui = (state = defaultState, action) => {
                 rightPanelOpen: false,
             };
 
-        case types.INTERPRETATION_MODAL_CLOSED_COUNT:
-            return {
-                ...state,
-                interpretationModalClosedCount:
-                    state.interpretationModalClosedCount + 1,
-            };
-
         case types.DATA_TABLE_RESIZE:
             return {
                 ...state,

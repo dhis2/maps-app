@@ -14,6 +14,7 @@ import download from './download.js';
 import layerEdit from './layerEdit';
 import indicators from './indicators';
 import indicatorGroups from './indicatorGroups';
+import interpretation from './interpretation';
 import layers from './layers';
 import legendSets from './legendSets';
 import map from './map';
@@ -49,6 +50,7 @@ export default combineReducers({
     download,
     indicators,
     indicatorGroups,
+    interpretation,
     layerEdit,
     layers,
     legendSets,

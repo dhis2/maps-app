@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -11,24 +11,37 @@ import Drawer from '../core/Drawer';
 import InterpretationMap from './InterpretationMap';
 import InterpretationDownload from './InterpretationDownload';
 import { getUrlParameter } from '../../util/requests';
-import { incrementInterpretationModalClosedCount } from '../../actions/ui';
+import { setInterpretation } from '../../actions/interpretations';
 
 const InterpretationsPanel = ({
+    interpretationId,
     map,
     isPanelOpen,
-    incrementInterpretationModalClosedCount,
+    setInterpretation,
 }) => {
-    const [interpretationId, setInterpretationId] = useState();
     const [isMapLoading, setIsMapLoading] = useState(false);
     const [initialFocus, setInitialFocus] = useState(false);
     const interpretationsUnitRef = useRef();
     const { d2 } = useD2();
 
+    // TODO: Remove timeout if onClose is called after maps are not rendered
+    const onModalClose = useCallback(() => {
+        setTimeout(() => {
+            setInitialFocus(false);
+            setInterpretation();
+        }, 100);
+    }, []);
+
+    const onReplyIconClick = useCallback(interpretationId => {
+        setInterpretation(interpretationId);
+        setInitialFocus(true);
+    }, []);
+
     useEffect(() => {
         const urlInterpretationId = getUrlParameter('interpretationid');
 
         if (urlInterpretationId) {
-            setInterpretationId(urlInterpretationId);
+            setInterpretation(urlInterpretationId);
         }
     }, []);
 
@@ -46,11 +59,8 @@ const InterpretationsPanel = ({
                         type="map"
                         id={map.id}
                         currentUser={d2.currentUser}
-                        onInterpretationClick={setInterpretationId}
-                        onReplyIconClick={interpretationId => {
-                            setInterpretationId(interpretationId);
-                            setInitialFocus(true);
-                        }}
+                        onInterpretationClick={setInterpretation}
+                        onReplyIconClick={onReplyIconClick}
                         disabled={false} // TODO
                     />
                 </Drawer>
@@ -64,16 +74,7 @@ const InterpretationsPanel = ({
                     initialFocus={initialFocus}
                     interpretationId={interpretationId}
                     isVisualizationLoading={isMapLoading}
-                    onClose={() => {
-                        setInterpretationId();
-                        setInitialFocus(false);
-
-                        // TODO: Remove timeout if onClose is called after maps are not rendered
-                        setTimeout(
-                            () => incrementInterpretationModalClosedCount(),
-                            100
-                        );
-                    }}
+                    onClose={onModalClose}
                     onResponsesReceived={() => setIsMapLoading(false)}
                     visualization={map}
                     downloadMenuComponent={InterpretationDownload}
@@ -85,17 +86,19 @@ const InterpretationsPanel = ({
 };
 
 InterpretationsPanel.propTypes = {
+    interpretationId: PropTypes.string,
     map: PropTypes.object.isRequired,
     isPanelOpen: PropTypes.bool,
-    incrementInterpretationModalClosedCount: PropTypes.func.isRequired,
+    setInterpretation: PropTypes.func.isRequired,
 };
 
 export default connect(
     state => ({
         map: state.map,
         isPanelOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
+        interpretationId: state.interpretation,
     }),
     {
-        incrementInterpretationModalClosedCount,
+        setInterpretation,
     }
 )(InterpretationsPanel);

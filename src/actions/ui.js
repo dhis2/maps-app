@@ -21,7 +21,3 @@ export const openInterpretationsPanel = () => ({
 export const closeInterpretationsPanel = () => ({
     type: types.INTERPRETATIONS_PANEL_CLOSE,
 });
-
-export const incrementInterpretationModalClosedCount = () => ({
-    type: types.INTERPRETATION_MODAL_CLOSED_COUNT,
-});
