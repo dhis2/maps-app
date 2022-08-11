@@ -57,18 +57,19 @@ const thematicLoader = async config => {
     if (!response) {
         return {
             ...config,
-            ...(error && error.message
+            ...(error
                 ? {
                       alerts: [
                           {
                               critical: true,
-                              message: `${i18n.t('Error')}: ${error.message}`,
+                              message: `${i18n.t('Error')}: ${error.message ||
+                                  error}`,
                           },
                       ],
                   }
                 : {}),
             name: dataItem ? dataItem.name : i18n.t('Thematic layer'),
-            data: null,
+            data: [],
             legend: null,
             isLoaded: true,
             isVisible: true,
