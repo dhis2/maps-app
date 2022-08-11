@@ -240,7 +240,6 @@ const map = (state = defaultState, action) => {
                 mapViews: sortedMapViews,
             };
 
-        case types.LAYER_LOAD:
         case types.LAYER_UPDATE:
         case types.LAYER_EDIT:
         case types.LAYER_CHANGE_OPACITY:

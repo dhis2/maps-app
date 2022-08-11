@@ -56,7 +56,7 @@ class Layer extends PureComponent {
         if (
             id !== prevProps.id ||
             data !== prevProps.data ||
-            period !== prevPeriod ||
+            period?.id !== prevPeriod?.id ||
             dataFilters !== prevProps.dataFilters ||
             isEdited
         ) {
