@@ -44,7 +44,7 @@
         "@dhis2/analytics": "^23.13.0",
         "@dhis2/app-runtime": "^3.4.4",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
-        "@dhis2/d2-i18n": "1.0.6",
+        "@dhis2/d2-i18n": "^1.1.0",
         "@dhis2/d2-ui-core": "^7.4.0",
         "@dhis2/d2-ui-org-unit-dialog": "^7.4.0",
         "@dhis2/d2-ui-org-unit-tree": "^7.4.0",
