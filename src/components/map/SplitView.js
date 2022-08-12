@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import PeriodName from './PeriodName';
@@ -13,35 +13,48 @@ const SplitView = ({
     layer,
     feature,
     controls,
-    interpretationModalOpen,
     openContextMenu,
+    isFullscreen,
+    interpretationModalOpen,
 }) => {
-    const [isFullscreen, setIsFullscreen] = useState();
-    const [mapControls, setMapControls] = useState();
+    const [showFullscreen, setShowFullscreen] = useState();
+    const [map, setMap] = useState(); // Called from map child
     const containerRef = useRef();
 
-    const { id, periods = [] } = layer;
+    // From built-in fullscreen control
+    const onFullscreenChange = useCallback(
+        ({ isFullscreen }) => setShowFullscreen(isFullscreen),
+        []
+    );
 
     useEffect(() => {
-        if (mapControls && containerRef.current && controls) {
+        if (map && controls && containerRef.current) {
             controls.forEach(control => {
-                mapControls.addControl(control);
+                map.addControl(control);
                 containerRef.current.append(
-                    mapControls.getControlContainer(control.type)
+                    map.getControlContainer(control.type)
                 );
             });
-
-            if (isPlugin) {
-                mapControls.on('fullscreenchange', setIsFullscreen);
-            }
         }
+    }, [map, controls, containerRef]);
 
+    useEffect(() => {
+        if (map && isPlugin) {
+            map.on('fullscreenchange', onFullscreenChange);
+        }
         return () => {
-            if (mapControls && isPlugin) {
-                mapControls.off('fullscreenchange', setIsFullscreen);
+            if (map && isPlugin) {
+                map.off('fullscreenchange', onFullscreenChange);
             }
         };
-    }, [mapControls, containerRef, controls, isPlugin]);
+    }, [map, isPlugin, onFullscreenChange]);
+
+    useEffect(() => {
+        // From map plugin resize method
+        setShowFullscreen(isFullscreen);
+    }, [isFullscreen]);
+
+    const { id, periods = [] } = layer;
 
     return !interpretationModalOpen ? (
         <div
@@ -54,9 +67,9 @@ const SplitView = ({
                     index={index}
                     count={periods.length}
                     layerId={id}
-                    setMapControls={setMapControls}
+                    setMapControls={setMap}
                     isPlugin={isPlugin}
-                    isFullscreen={isFullscreen}
+                    isFullscreen={showFullscreen}
                 >
                     <Layer index={0} {...basemap} />
                     <ThematicLayer
