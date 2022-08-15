@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import PeriodName from './PeriodName';
@@ -7,104 +7,96 @@ import Layer from './layers/Layer';
 import ThematicLayer from './layers/ThematicLayer';
 import styles from './styles/SplitView.module.css';
 
-class SplitView extends PureComponent {
-    static propTypes = {
-        isPlugin: PropTypes.bool,
-        isFullscreen: PropTypes.bool,
-        layer: PropTypes.object.isRequired,
-        basemap: PropTypes.object,
-        feature: PropTypes.object,
-        controls: PropTypes.array,
-        openContextMenu: PropTypes.func.isRequired,
-    };
-
-    static defaultProps = {
-        openContextMenu: () => {},
-    };
-
-    state = {
-        controls: null,
-    };
-
-    // Add map controls to split view container
-    componentDidUpdate(prevProps, prevState) {
-        const { isFullscreen, isPlugin } = this.props;
-        const { controls } = this.state;
-
-        // From map plugin resize method
-        if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
-            this.setState({ isFullscreen });
-        }
-
-        if (controls !== prevState.controls) {
-            Object.values(controls).forEach(control =>
-                this.node.append(control)
-            );
-        }
-    }
-
-    render() {
-        const {
-            isPlugin,
-            basemap,
-            layer,
-            feature,
-            openContextMenu,
-        } = this.props;
-        const { isFullscreen } = this.state;
-
-        const { id, periods = [] } = layer;
-
-        return (
-            <div
-                ref={node => (this.node = node)}
-                className={cx('dhis2-map-split-view', styles.splitView)}
-            >
-                {periods.map((period, index) => (
-                    <MapItem
-                        key={period.id}
-                        index={index}
-                        count={periods.length}
-                        layerId={id}
-                        onAdd={this.onMapAdd}
-                        onRemove={this.onMapRemove}
-                        setMapControls={this.setMapControls}
-                        isPlugin={isPlugin}
-                        isFullscreen={isFullscreen}
-                    >
-                        <Layer index={0} {...basemap} />
-                        <ThematicLayer
-                            index={1}
-                            period={period}
-                            feature={feature}
-                            {...layer}
-                            openContextMenu={openContextMenu}
-                        />
-                        <PeriodName period={period.name} />
-                    </MapItem>
-                ))}
-            </div>
-        );
-    }
-
-    // Called from map child
-    setMapControls = map => {
-        const controls = {};
-
-        this.props.controls.forEach(control => {
-            map.addControl(control);
-            controls[control.type] = map.getControlContainer(control.type);
-        });
-
-        if (this.props.isPlugin) {
-            map.on('fullscreenchange', this.onFullScreenChange);
-        }
-
-        this.setState({ controls });
-    };
+const SplitView = ({
+    isPlugin,
+    basemap,
+    layer,
+    feature,
+    controls,
+    openContextMenu,
+    isFullscreen,
+}) => {
+    const [showFullscreen, setShowFullscreen] = useState();
+    const [map, setMap] = useState(); // Called from map child
+    const containerRef = useRef();
 
     // From built-in fullscreen control
-    onFullScreenChange = ({ isFullscreen }) => this.setState({ isFullscreen });
-}
+    const onFullscreenChange = useCallback(
+        ({ isFullscreen }) => setShowFullscreen(isFullscreen),
+        []
+    );
+
+    useEffect(() => {
+        if (map && controls && containerRef.current) {
+            controls.forEach(control => {
+                map.addControl(control);
+                containerRef.current.append(
+                    map.getControlContainer(control.type)
+                );
+            });
+        }
+    }, [map, controls, containerRef]);
+
+    useEffect(() => {
+        if (map && isPlugin) {
+            map.on('fullscreenchange', onFullscreenChange);
+        }
+        return () => {
+            if (map && isPlugin) {
+                map.off('fullscreenchange', onFullscreenChange);
+            }
+        };
+    }, [map, isPlugin, onFullscreenChange]);
+
+    useEffect(() => {
+        // From map plugin resize method
+        setShowFullscreen(isFullscreen);
+    }, [isFullscreen]);
+
+    const { id, periods = [] } = layer;
+
+    return (
+        <div
+            ref={containerRef}
+            className={cx('dhis2-map-split-view', styles.splitView)}
+        >
+            {periods.map((period, index) => (
+                <MapItem
+                    key={period.id}
+                    index={index}
+                    count={periods.length}
+                    layerId={id}
+                    setMapControls={setMap}
+                    isPlugin={isPlugin}
+                    isFullscreen={showFullscreen}
+                >
+                    <Layer index={0} {...basemap} />
+                    <ThematicLayer
+                        index={1}
+                        period={period}
+                        feature={feature}
+                        {...layer}
+                        openContextMenu={openContextMenu}
+                    />
+                    <PeriodName period={period.name} />
+                </MapItem>
+            ))}
+        </div>
+    );
+};
+
+SplitView.propTypes = {
+    isPlugin: PropTypes.bool,
+    isFullscreen: PropTypes.bool,
+    layer: PropTypes.object.isRequired,
+    basemap: PropTypes.object,
+    feature: PropTypes.object,
+    controls: PropTypes.array,
+    openContextMenu: PropTypes.func.isRequired,
+};
+
+SplitView.defaultProps = {
+    openContextMenu: () => {},
+};
 
 export default SplitView;
