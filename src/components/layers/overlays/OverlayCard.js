@@ -90,13 +90,13 @@ const OverlayCard = ({
             }
             openAs={
                 canOpenAs
-                    ? type => {
+                    ? async type => {
                           const currentAO = getAnalyticalObjectFromThematicLayer(
                               layer
                           );
 
                           // Store AO in user data store
-                          set(currentAO);
+                          await set(currentAO);
 
                           // Open it in another app
                           window.location.href = `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`;
