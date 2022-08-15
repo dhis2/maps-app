@@ -10,6 +10,7 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
     const [mapViews, setMapViews] = useState();
 
     useEffect(() => {
+        // Find layers with relative periods
         const relativePeriodLayers = visualization.mapViews
             .filter(config => {
                 const period = getPeriodFromFilters(config.filters);
@@ -19,12 +20,13 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
             })
             .map(layer => ({
                 ...layer,
-                ...filters,
-                // relativePeriodDate: '2022-05-01T17:45:58.166',
+                ...filters, // includes relativePeriodDate
             }));
 
         if (relativePeriodLayers.length) {
+            // Refetch all relative period layers using the relativePeriodDate date
             Promise.all(relativePeriodLayers.map(fetchLayer)).then(mapViews => {
+                // Replace layers fetched using interpretation date
                 setMapViews(
                     visualization.mapViews.map(
                         layer =>
@@ -54,7 +56,9 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
 
 InterpretationMap.propTypes = {
     visualization: PropTypes.object.isRequired,
-    filters: PropTypes.object,
+    filters: PropTypes.shape({
+        relativePeriodDate: PropTypes.string.isRequired,
+    }),
     onResponsesReceived: PropTypes.func.isRequired,
     className: PropTypes.string,
 };
