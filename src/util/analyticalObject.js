@@ -1,4 +1,3 @@
-import { getInstance as getD2 } from 'd2';
 import { getPeriodNameFromId, getDimensionsFromFilters } from './analytics';
 import { loadDataItemLegendSet } from './legend';
 import { cleanDimension } from './favorites';
@@ -7,7 +6,7 @@ import { THEMATIC_LAYER } from '../constants/layers';
 export const NAMESPACE = 'analytics';
 export const CURRENT_AO_KEY = 'currentAnalyticalObject';
 
-const APP_URLS = {
+export const APP_URLS = {
     CHART: 'dhis-web-data-visualizer',
     PIVOT: 'dhis-web-pivot',
 };
@@ -98,44 +97,6 @@ export const getAnalyticalObjectFromThematicLayer = (layer = {}) => {
         filters,
         aggregationType,
     };
-};
-
-// Returns or creates "analytics" namespace in user data store
-export const getAnalyticsNamespace = async () => {
-    const d2 = await getD2();
-    const { dataStore } = d2.currentUser;
-    const hasNamespace = await dataStore.has(NAMESPACE);
-
-    return hasNamespace
-        ? await dataStore.get(NAMESPACE)
-        : await dataStore.create(NAMESPACE);
-};
-
-// Returns current analytical object from user data store
-export const getCurrentAnalyticalObject = async () => {
-    const ns = await getAnalyticsNamespace();
-    return ns.get(CURRENT_AO_KEY);
-};
-
-// Sets current analytical object in user data store
-export const setCurrentAnalyticalObject = async ao => {
-    const ns = await getAnalyticsNamespace();
-    return ns.set(CURRENT_AO_KEY, ao);
-};
-
-// Sets analytical object to open it in another app
-export const setAnalyticalObjectAndSwitchApp = async (
-    layer,
-    openAs,
-    baseUrl
-) => {
-    const ao = getAnalyticalObjectFromThematicLayer(layer);
-
-    const url = `${baseUrl}/${APP_URLS[openAs]}/#/currentAnalyticalObject`;
-
-    await setCurrentAnalyticalObject(ao);
-
-    window.location.href = url;
 };
 
 // Temporary fix until we switch to hash and react router
