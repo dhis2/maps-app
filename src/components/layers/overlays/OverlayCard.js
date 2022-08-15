@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { useConfig } from '@dhis2/app-runtime';
+import { useSetting } from '@dhis2/app-service-datastore';
 import LayerCard from '../LayerCard';
 import Legend from '../../legend/Legend';
 import {
@@ -15,7 +16,11 @@ import {
 import { setAlert } from '../../../actions/alerts';
 import { toggleDataTable } from '../../../actions/dataTable';
 import { openDataDownloadDialog } from '../../../actions/dataDownload';
-import { setAnalyticalObjectAndSwitchApp } from '../../../util/analyticalObject';
+import {
+    getAnalyticalObjectFromThematicLayer,
+    APP_URLS,
+    CURRENT_AO_KEY,
+} from '../../../util/analyticalObject';
 import {
     DOWNLOADABLE_LAYER_TYPES,
     DATA_TABLE_LAYER_TYPES,
@@ -37,6 +42,7 @@ const OverlayCard = ({
     setAlert,
 }) => {
     const { baseUrl } = useConfig();
+    const [, /* actual value not used */ { set }] = useSetting(CURRENT_AO_KEY);
 
     const {
         id,
@@ -84,8 +90,17 @@ const OverlayCard = ({
             }
             openAs={
                 canOpenAs
-                    ? type =>
-                          setAnalyticalObjectAndSwitchApp(layer, type, baseUrl)
+                    ? type => {
+                          const currentAO = getAnalyticalObjectFromThematicLayer(
+                              layer
+                          );
+
+                          // Store AO in user data store
+                          set(currentAO);
+
+                          // Open it in another app
+                          window.location.href = `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`;
+                      }
                     : undefined
             }
         >
