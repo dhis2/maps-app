@@ -52,6 +52,7 @@ const InterpretationsPanel = ({
 
         if (urlInterpretationId) {
             setInterpretation(urlInterpretationId);
+            setIsModalOpen(true);
         }
     }, []);
 
@@ -71,7 +72,6 @@ const InterpretationsPanel = ({
                         currentUser={d2.currentUser}
                         onInterpretationClick={onInterpretationClick}
                         onReplyIconClick={onReplyIconClick}
-                        // disabled={false} // TODO
                     />
                 </Drawer>
             )}

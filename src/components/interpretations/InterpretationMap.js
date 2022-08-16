@@ -26,7 +26,7 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
         if (relativePeriodLayers.length) {
             // Refetch all relative period layers using the relativePeriodDate date
             Promise.all(relativePeriodLayers.map(fetchLayer)).then(mapViews => {
-                // Replace layers fetched using interpretation date
+                // Replace layers fetched and update state
                 setMapViews(
                     visualization.mapViews.map(
                         layer =>
