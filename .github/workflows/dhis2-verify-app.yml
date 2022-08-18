@@ -141,8 +141,8 @@ jobs:
                   COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
                   SERVER_START_CMD: 'yarn start:nobrowser'
                   SERVER_URL: 'http://localhost:8082'
-                  DHIS2_BASE_URL: 'https://test.e2e.dhis2.org/lytics-app-SLdev'
-                  CYPRESS_dhis2BaseUrl: 'https://test.e2e.dhis2.org/lytics-app-SLdev'
+                  DHIS2_BASE_URL: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
+                  CYPRESS_dhis2BaseUrl:  ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
                   CYPRESS_dhis2ApiVersion: 38
                   CYPRESS_networkMode: 'live'
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
