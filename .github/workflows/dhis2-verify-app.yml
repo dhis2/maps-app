@@ -145,8 +145,8 @@ jobs:
                   CYPRESS_dhis2BaseUrl: 'https://test.e2e.dhis2.org/lytics-app-SLdev'
                   CYPRESS_dhis2ApiVersion: 38
                   CYPRESS_networkMode: 'live'
-                  CYPRESS_dhis2Username: 'admin'
-                  CYPRESS_dhis2Password: 'district'
+                  CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
+                  CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
 
     publish:
         runs-on: ubuntu-latest
