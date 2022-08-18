@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/dhis2/maps-app/compare/v1.24.6...v1.25.0) (2022-08-18)
+
+
+### Features
+
+* read current AO via new data store api ([#2247](https://github.com/dhis2/maps-app/issues/2247)) ([ba4b771](https://github.com/dhis2/maps-app/commit/ba4b771fa76d089d116db837163f57baa950bde7))
+
 ## [1.24.6](https://github.com/dhis2/maps-app/compare/v1.24.5...v1.24.6) (2022-08-11)
 
 
