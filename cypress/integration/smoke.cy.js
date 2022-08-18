@@ -1,5 +1,4 @@
 import { ThematicLayer } from '../elements/thematic_layer';
-import { analyticalObject } from '../fixtures/analyticalObject';
 import { EXTENDED_TIMEOUT } from '../support/util';
 
 context('Smoke Test', () => {
@@ -18,12 +17,13 @@ context('Smoke Test', () => {
         Layer.validateCardTitle('ANC 3 Coverage');
     });
 
-    it.skip('loads currentAnalyticalObject', () => {
-        cy.intercept('/userDataStore/analytics/currentAnalyticalObject', {
-            body: analyticalObject,
+    it('loads currentAnalyticalObject', () => {
+        cy.intercept('**/userDataStore/analytics/settings', {
+            fixture: 'analyticalObject.json',
         });
 
         cy.visit('/?currentAnalyticalObject=true', EXTENDED_TIMEOUT);
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
 
         cy.contains('button', 'Proceed').click();
 

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { useDataEngine } from '@dhis2/app-runtime';
+import { useSetting } from '@dhis2/app-service-datastore';
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
 import isEmpty from 'lodash/isEmpty';
 import AppMenu from './AppMenu';
@@ -26,6 +27,7 @@ import { tSetOrgUnitTree } from '../../actions/orgUnits';
 import { tOpenMap } from '../../actions/map';
 import { tSetExternalLayers } from '../../actions/externalLayers';
 import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap';
+import { CURRENT_AO_KEY } from '../../util/analyticalObject';
 import { getUrlParameter } from '../../util/requests';
 
 import styles from './styles/App.module.css';
@@ -41,6 +43,7 @@ const App = ({
     const [basemapsLoaded, setBasemapsLoaded] = useState(false);
     const systemSettings = useSystemSettings();
     const engine = useDataEngine();
+    const [currentAO] = useSetting(CURRENT_AO_KEY);
 
     useEffect(() => {
         async function fetchData() {
@@ -54,7 +57,7 @@ const App = ({
             }
 
             if (getUrlParameter('currentAnalyticalObject') === 'true') {
-                await tSetAnalyticalObject();
+                await tSetAnalyticalObject(currentAO);
             }
         }
         fetchData();
