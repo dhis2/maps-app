@@ -8,13 +8,14 @@
 # Pablo Pajuelo Cabezas <ppajuelo@quadram.mobi>, 2020
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
 # Prabhjot Singh, 2021
+# Carlos Tejo Alonso, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T18:29:36.377Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Prabhjot Singh, 2021\n"
+"Last-Translator: Carlos Tejo Alonso, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +42,7 @@ msgid "Predefined"
 msgstr "Predefinido"
 
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 msgid "Data element group"
 msgstr "Grupo de elemento de datos"
@@ -110,7 +111,7 @@ msgid "Type"
 msgstr "Tipo"
 
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 msgid "Add filter"
 msgstr "Añadir filtro"
@@ -125,13 +126,13 @@ msgid "Download"
 msgstr "Descargar"
 
 msgid "Download map"
-msgstr ""
+msgstr "Descargar mapa"
 
 msgid "Show name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Mostrar leyenda"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -159,7 +160,7 @@ msgid "Style"
 msgstr "Estilo"
 
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 msgid "Point radius"
 msgstr "Point radius"
@@ -270,7 +271,7 @@ msgid "View all events"
 msgstr ""
 
 msgid "Radius"
-msgstr ""
+msgstr "Radio"
 
 msgid "Buffer"
 msgstr ""
