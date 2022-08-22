@@ -64,7 +64,7 @@ const InterpretationsPanel = ({
         <>
             {isPanelOpen && (
                 <Drawer>
-                    <AboutAOUnit type="maps" id={map.id} />
+                    <AboutAOUnit type="map" id={map.id} />
                     <InterpretationsUnit
                         ref={interpretationsUnitRef}
                         type="map"
