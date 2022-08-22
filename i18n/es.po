@@ -11,13 +11,14 @@
 # phil_dhis2, 2021
 # Prabhjot Singh, 2021
 # Viktor Varland <viktor@dhis2.org>, 2022
+# Carlos Tejo Alonso, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"Last-Translator: Carlos Tejo Alonso, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,10 +39,10 @@ msgid "Legend set"
 msgstr "Legend set"
 
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 msgid "Data element group"
 msgstr "Grupo de elemento de datos"
@@ -131,13 +132,13 @@ msgid "Download"
 msgstr "Descargar"
 
 msgid "Download map"
-msgstr ""
+msgstr "Descargar mapa"
 
 msgid "Show name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Mostrar leyenda"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -282,7 +283,7 @@ msgid "View all events"
 msgstr ""
 
 msgid "Radius"
-msgstr ""
+msgstr "Radio"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
@@ -312,7 +313,7 @@ msgid "Radius in meters"
 msgstr "Radio en metros"
 
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 msgid "Aggregation type"
 msgstr "Tipo de agregación"

@@ -3,13 +3,14 @@
 # phil_dhis2, 2021
 # Viktor Varland <viktor@dhis2.org>, 2021
 # Nadiia <semchuk@aph.org.ua>, 2021
+# Éva Tamási, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2021\n"
+"Last-Translator: Éva Tamási, 2022\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgid "Color"
 msgstr ""
 
 msgid "Size"
-msgstr ""
+msgstr "Розмір"
 
 msgid "Data element group"
 msgstr "Група елементів даних"
@@ -63,7 +64,7 @@ msgid "None"
 msgstr "Жодного"
 
 msgid "Data item"
-msgstr ""
+msgstr "Елемент даних"
 
 msgid "Event data item"
 msgstr ""
@@ -99,7 +100,7 @@ msgid "Range"
 msgstr "Проміжок"
 
 msgid "Level"
-msgstr ""
+msgstr "Рівень"
 
 msgid "Parent"
 msgstr ""
@@ -111,7 +112,7 @@ msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "Додати фільтр"
 
 msgid "Items"
 msgstr ""
@@ -194,7 +195,7 @@ msgid "Aggregation method"
 msgstr ""
 
 msgid "Groups"
-msgstr ""
+msgstr "Групи"
 
 msgid "This field is required"
 msgstr "Обов'язкове поле"
@@ -253,7 +254,7 @@ msgid "Max"
 msgstr "Макс"
 
 msgid "Steps"
-msgstr ""
+msgstr "Кроки"
 
 msgid "Legend preview"
 msgstr ""
@@ -304,7 +305,7 @@ msgid "Radius in meters"
 msgstr ""
 
 msgid "Labels"
-msgstr ""
+msgstr "Мітки"
 
 msgid "Aggregation type"
 msgstr "Тип агрегації"
@@ -436,19 +437,19 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Сталася помилка"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Оновіть, щоб спробувати ще раз"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Приховати технічні подробиці"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Показати технічні подробиці"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "Наступна інформація може знадобитися службі технічної підтримки."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -594,7 +595,7 @@ msgid "Latitude"
 msgstr "Широта"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Перегляд інтерпретації з {{interpretationDate}}"
 
 msgid "Not set"
 msgstr "Не встановлено"
@@ -615,7 +616,7 @@ msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr ""
+msgstr "З областями"
 
 msgid "Center map on area"
 msgstr ""
@@ -826,7 +827,7 @@ msgid "End date"
 msgstr "Кінцева дата"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Недоступно в автономному режимі"
 
 msgid "Program indicator"
 msgstr "Програмний індикатор"
