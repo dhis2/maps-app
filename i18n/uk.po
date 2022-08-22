@@ -4,13 +4,14 @@
 # Wanda <wanda@frontlineaids.org>, 2021
 # Nadiia <semchuk@aph.org.ua>, 2021
 # phil_dhis2, 2021
+# Éva Tamási, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"Last-Translator: Éva Tamási, 2022\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +35,7 @@ msgid "Color"
 msgstr ""
 
 msgid "Size"
-msgstr ""
+msgstr "Розмір"
 
 msgid "Data element group"
 msgstr "Група елементів даних"
@@ -64,7 +65,7 @@ msgid "None"
 msgstr "Жодного"
 
 msgid "Data item"
-msgstr ""
+msgstr "Елемент даних"
 
 msgid "Event data item"
 msgstr ""
@@ -100,7 +101,7 @@ msgid "Range"
 msgstr "Проміжок"
 
 msgid "Level"
-msgstr ""
+msgstr "Рівень"
 
 msgid "Parent"
 msgstr ""
@@ -112,7 +113,7 @@ msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
-msgstr ""
+msgstr "Додати фільтр"
 
 msgid "Items"
 msgstr ""
@@ -158,7 +159,7 @@ msgid "Style"
 msgstr "Стиль"
 
 msgid "Labels"
-msgstr ""
+msgstr "Мітки"
 
 msgid "Point radius"
 msgstr ""
@@ -230,7 +231,7 @@ msgid "Max"
 msgstr "Макс"
 
 msgid "Steps"
-msgstr ""
+msgstr "Кроки"
 
 msgid "Legend preview"
 msgstr ""
@@ -459,19 +460,19 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Сталася помилка"
 
 msgid "Refresh to try again"
-msgstr ""
+msgstr "Оновіть, щоб спробувати ще раз"
 
 msgid "Hide technical details"
-msgstr ""
+msgstr "Приховати технічні подробиці"
 
 msgid "Show technical details"
-msgstr ""
+msgstr "Показати технічні подробиці"
 
 msgid "The following information may be requested by technical support."
-msgstr ""
+msgstr "Наступна інформація може знадобитися службі технічної підтримки."
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -611,7 +612,7 @@ msgid "Organisation unit"
 msgstr "Організаційний підрозділ"
 
 msgid "Groups"
-msgstr ""
+msgstr "Групи"
 
 msgid "Longitude"
 msgstr "Довгота"
@@ -620,7 +621,7 @@ msgid "Latitude"
 msgstr "Широта"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
+msgstr "Перегляд інтерпретації з {{interpretationDate}}"
 
 msgid "Last updated"
 msgstr "Останнє оновлення"
@@ -629,7 +630,7 @@ msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr ""
+msgstr "З областями"
 
 msgid "Center map on area"
 msgstr ""
@@ -943,16 +944,16 @@ msgid "Last 14 days"
 msgstr "Минулі 14 днів"
 
 msgid "Last 30 days"
-msgstr ""
+msgstr "Останні 30 днів"
 
 msgid "Last 60 days"
-msgstr ""
+msgstr "Останні 60 днів"
 
 msgid "Last 90 days"
-msgstr ""
+msgstr "Останні 90 днів"
 
 msgid "Last 180 days"
-msgstr ""
+msgstr "Останні 180 днів"
 
 msgid "This week"
 msgstr "Поточний тиждень"

@@ -10,13 +10,14 @@
 # Jaime Bosque <jaime.bosque@dhis2.org>, 2021
 # Prabhjot Singh, 2021
 # phil_dhis2, 2021
+# Carlos Tejo Alonso, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-12-02T11:55:27.879Z\n"
 "PO-Revision-Date: 2020-12-22 22:18+0000\n"
-"Last-Translator: phil_dhis2, 2021\n"
+"Last-Translator: Carlos Tejo Alonso, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,10 +38,10 @@ msgid "Legend set"
 msgstr "Legend set"
 
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 msgid "Data element group"
 msgstr "Grupo de elemento de datos"
@@ -130,13 +131,13 @@ msgid "Download"
 msgstr "Descargar"
 
 msgid "Download map"
-msgstr ""
+msgstr "Descargar mapa"
 
 msgid "Show name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Mostrar leyenda"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -164,7 +165,7 @@ msgid "Style"
 msgstr "Estilo"
 
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 msgid "Point radius"
 msgstr "Point radius"
@@ -315,7 +316,7 @@ msgid "View all events"
 msgstr ""
 
 msgid "Radius"
-msgstr ""
+msgstr "Radio"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
