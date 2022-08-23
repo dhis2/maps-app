@@ -32,8 +32,7 @@ describe('userSettings', () => {
             .contains('John Kamara')
             .click();
 
-        // TODO: enable when interpreation dates are localised
-        // cy.contains('14 may').should('be.visible');
+        cy.contains('14 de may.').should('be.visible');
     });
 
     it('shows the app in English', () => {
