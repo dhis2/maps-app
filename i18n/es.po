@@ -9,13 +9,14 @@
 # phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
+# Carlos Tejo Alonso, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
-"Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022\n"
+"Last-Translator: Carlos Tejo Alonso, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,10 +46,10 @@ msgid "Legend set"
 msgstr "Legend set"
 
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 msgid "Data element group"
 msgstr "Grupo de elemento de datos"
@@ -138,13 +139,13 @@ msgid "Download"
 msgstr "Descargar"
 
 msgid "Download map"
-msgstr ""
+msgstr "Descargar mapa"
 
 msgid "Show name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 msgid "Show legend"
-msgstr ""
+msgstr "Mostrar leyenda"
 
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
@@ -293,7 +294,7 @@ msgid "View all events"
 msgstr ""
 
 msgid "Radius"
-msgstr ""
+msgstr "Radio"
 
 msgid "You can style events by data element after selecting a program."
 msgstr ""
@@ -326,7 +327,7 @@ msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 msgid "Aggregation type"
 msgstr "Tipo de agregación"
