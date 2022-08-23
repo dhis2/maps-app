@@ -12,9 +12,6 @@ import InterpretationMap from './InterpretationMap';
 import { getUrlParameter } from '../../util/requests';
 import { setInterpretation } from '../../actions/interpretations';
 
-// We don't support map download for interpretation date
-const InterpretationDownload = () => <div>&nbsp;</div>;
-
 const InterpretationsPanel = ({
     interpretationId,
     map,
@@ -87,7 +84,6 @@ const InterpretationsPanel = ({
                     onClose={onModalClose}
                     onResponsesReceived={() => setIsMapLoading(false)}
                     visualization={map}
-                    downloadMenuComponent={InterpretationDownload}
                     pluginComponent={InterpretationMap}
                 />
             )}
