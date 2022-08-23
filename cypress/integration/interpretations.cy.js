@@ -14,13 +14,11 @@ context('Interpretations', () => {
 
         cy.contains('About this map').should('be.visible');
 
-        /*
-        cy.get('textarea').should(
+        cy.get('input').should(
             'have.attr',
             'placeholder',
             'Write an interpretation'
         );
-        */
 
         cy.get('p')
             .contains(
