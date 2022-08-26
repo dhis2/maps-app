@@ -756,7 +756,7 @@ msgid "Link"
 msgstr ""
 
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 msgid "Email"
 msgstr "Електронна пошта"
