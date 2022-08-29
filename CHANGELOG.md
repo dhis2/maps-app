@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/dhis2/maps-app/compare/v1.25.1...v1.26.0) (2022-08-29)
+
+
+### Features
+
+* new interpretation components (DHIS2-13530) ([#2228](https://github.com/dhis2/maps-app/issues/2228)) ([39b5a0e](https://github.com/dhis2/maps-app/commit/39b5a0ed767b16c198ed870a5cd7994812663b42))
+
 ## [1.25.1](https://github.com/dhis2/maps-app/compare/v1.25.0...v1.25.1) (2022-08-23)
 
 
