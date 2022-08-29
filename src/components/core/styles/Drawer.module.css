@@ -8,7 +8,6 @@
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 1190;
-    width: 300px;
 }
 
 .left {
@@ -16,6 +15,7 @@
     right: auto;
     border-right: 1px solid #e0e0e0;
     box-shadow: 1px 0 1px 0 rgba(0, 0, 0, 0.2);
+    width: 300px;
 }
 
 .right {
@@ -23,4 +23,5 @@
     right: 0;
     border-left: 1px solid #e0e0e0;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    width: 380px;
 }

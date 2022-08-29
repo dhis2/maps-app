@@ -15,6 +15,7 @@ const SplitView = ({
     controls,
     openContextMenu,
     isFullscreen,
+    interpretationModalOpen,
 }) => {
     const [showFullscreen, setShowFullscreen] = useState();
     const [map, setMap] = useState(); // Called from map child
@@ -55,7 +56,7 @@ const SplitView = ({
 
     const { id, periods = [] } = layer;
 
-    return (
+    return !interpretationModalOpen ? (
         <div
             ref={containerRef}
             className={cx('dhis2-map-split-view', styles.splitView)}
@@ -82,7 +83,7 @@ const SplitView = ({
                 </MapItem>
             ))}
         </div>
-    );
+    ) : null;
 };
 
 SplitView.propTypes = {
@@ -92,6 +93,7 @@ SplitView.propTypes = {
     basemap: PropTypes.object,
     feature: PropTypes.object,
     controls: PropTypes.array,
+    interpretationModalOpen: PropTypes.bool,
     openContextMenu: PropTypes.func.isRequired,
 };
 

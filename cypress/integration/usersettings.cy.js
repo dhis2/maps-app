@@ -32,7 +32,7 @@ describe('userSettings', () => {
             .contains('John Kamara')
             .click();
 
-        cy.contains('14 may').should('be.visible');
+        cy.contains('14 de may.').should('be.visible');
     });
 
     it('shows the app in English', () => {

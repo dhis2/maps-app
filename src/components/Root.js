@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Provider as DataProvider } from '@dhis2/app-runtime';
@@ -71,6 +72,7 @@ const Root = ({ store }) => (
                                                 return null;
                                             }
                                             i18n.changeLanguage(keyUiLocale);
+                                            moment.locale(keyUiLocale);
                                             return <App />;
                                         }}
                                     </UserSettingsCtx.Consumer>
