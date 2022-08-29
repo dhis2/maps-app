@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
+"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -618,9 +618,6 @@ msgstr "Zeměpisná délka"
 
 msgid "Latitude"
 msgstr "Zeměpisná šířka"
-
-msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "Prohlížení interpretací od {{interpretDate}}"
 
 msgid "Not set"
 msgstr "Nenastaveno"
