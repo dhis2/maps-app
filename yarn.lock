@@ -2896,10 +2896,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.0.2":
-  version "24.0.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.0.2.tgz#02d68544c4ddf9b2fb0ff4e437c31fde4c42842a"
-  integrity sha512-kP6wdTOEskm5javePxO20K8DozWHqZXqtTuOCa9AzB7T2kXIaCPqrzItGm+H+/DaxEhIx5iIysg6jvaCaOfMsA==
+"@dhis2/analytics@^24.0.7":
+  version "24.0.7"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.0.7.tgz#b6f7f5238e707af93eafef4671e7c48013c244e7"
+  integrity sha512-2MLqYdsYzOglEohe5YeiNCO9inxdz2n4nxZLFBBRO9O1eCGA4yPalTy4+ws80mEPV1KDXRvwA07yg74dOf16mg==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
