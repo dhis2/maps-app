@@ -1,3 +1,5 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js';
+
 const USER_SETTINGS_ENDPOINT = { method: 'GET', url: 'userSettings?*' };
 
 describe('userSettings', () => {
@@ -22,7 +24,7 @@ describe('userSettings', () => {
 
         cy.visit('/?id=ZBjCfSaLSqD');
 
-        cy.contains('Fichero').should('be.visible');
+        cy.contains('Fichero', EXTENDED_TIMEOUT).should('be.visible');
         cy.contains('File').should('not.exist');
         cy.contains('Descargar').should('be.visible');
         cy.contains('Download').should('not.exist');
@@ -38,8 +40,8 @@ describe('userSettings', () => {
     it('shows the app in English', () => {
         cy.visit('/?id=ZBjCfSaLSqD');
 
+        cy.contains('File', EXTENDED_TIMEOUT).should('be.visible');
         cy.contains('Fichero').should('not.exist');
-        cy.contains('File').should('be.visible');
         cy.contains('Descargar').should('not.exist');
         cy.contains('Download').should('be.visible');
 
