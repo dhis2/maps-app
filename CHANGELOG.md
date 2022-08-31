@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/dhis2/maps-app/compare/v1.26.0...v1.26.1) (2022-08-30)
+
+
+### Bug Fixes
+
+* use tileScale to avoid ee aggregation timeout ([cdcdd56](https://github.com/dhis2/maps-app/commit/cdcdd56d3f0da536508da1081fea50d525eb0287))
+
 # [1.26.0](https://github.com/dhis2/maps-app/compare/v1.25.1...v1.26.0) (2022-08-29)
 
 
