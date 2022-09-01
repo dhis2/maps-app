@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
+"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Éva Tamási, 2022\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -156,7 +156,7 @@ msgid "Legend position"
 msgstr ""
 
 msgid "Organisation Units"
-msgstr ""
+msgstr "Організаційні підрозділи"
 
 msgid "Style"
 msgstr "Стиль"
@@ -614,9 +614,6 @@ msgstr "Довгота"
 msgid "Latitude"
 msgstr "Широта"
 
-msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "Перегляд інтерпретації з {{interpretationDate}}"
-
 msgid "Not set"
 msgstr "Не встановлено"
 
@@ -760,7 +757,7 @@ msgid "Link"
 msgstr ""
 
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 msgid "Email"
 msgstr "Електронна пошта"
@@ -918,7 +915,7 @@ msgid "OSM Light"
 msgstr ""
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM - подробиці"
 
 msgid "Google Streets"
 msgstr ""
@@ -927,16 +924,16 @@ msgid "Google Hybrid"
 msgstr ""
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing - дорога"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing - темний"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing - супутник"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Bing - супутник з мітками"
 
 msgid "Population"
 msgstr ""

@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
+"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/hisp-uio/teams/100509/pt/)\n"
@@ -631,9 +631,6 @@ msgstr "Longitude"
 
 msgid "Latitude"
 msgstr "Latitude"
-
-msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "Visualizando interpretação de {{interpretaçãoDados}}"
 
 msgid "Not set"
 msgstr "Não definido"
