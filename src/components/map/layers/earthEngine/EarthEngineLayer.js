@@ -71,6 +71,7 @@ export default class EarthEngineLayer extends Layer {
             data,
             aggregationType,
             areaRadius,
+            tileScale,
         } = this.props;
 
         const { map } = this.context;
@@ -97,6 +98,7 @@ export default class EarthEngineLayer extends Layer {
             projection,
             data,
             aggregationType,
+            tileScale,
             preload: this.hasAggregations(),
             getAuthToken: getAuthToken,
             onClick: this.onFeatureClick.bind(this),
