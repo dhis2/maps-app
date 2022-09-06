@@ -117,7 +117,7 @@
         "identity-obj-proxy": "^3.0.0",
         "image-webpack-loader": "^7.0.1",
         "optipng-bin": "^8.1.0",
-        "pngquant-bin": "^3.1.1",
+        "pngquant-bin": "^8.0.1",
         "precommit-hook": "3.0.0",
         "prettier": "^1.19.1",
         "react-addons-test-utils": "^15.6.2",
