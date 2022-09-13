@@ -53,7 +53,7 @@
         "@dhis2/ui": "^8.4.13",
         "abortcontroller-polyfill": "^1.7.3",
         "array-move": "^4.0.0",
-        "classnames": "^2.3.1",
+        "classnames": "^2.3.2",
         "d2": "^31.10.2",
         "d2-utilizr": "^0.2.16",
         "d3-array": "^3.2.0",
