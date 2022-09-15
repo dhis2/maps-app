@@ -31,7 +31,7 @@ msgid "Legend set"
 msgstr "Набір умовних позначень"
 
 msgid "Automatic"
-msgstr ""
+msgstr "Автоматично"
 
 msgid "Predefined"
 msgstr ""
@@ -816,7 +816,7 @@ msgid "OSM Light"
 msgstr ""
 
 msgid "OSM Detailed"
-msgstr ""
+msgstr "OSM - подробиці"
 
 msgid "Google Streets"
 msgstr ""
@@ -825,16 +825,16 @@ msgid "Google Hybrid"
 msgstr ""
 
 msgid "Bing Road"
-msgstr ""
+msgstr "Bing - дорога"
 
 msgid "Bing Dark"
-msgstr ""
+msgstr "Bing - темний"
 
 msgid "Bing Aerial"
-msgstr ""
+msgstr "Bing - супутник"
 
 msgid "Bing Aerial Labels"
-msgstr ""
+msgstr "Bing - супутник з мітками"
 
 msgid "Equal intervals"
 msgstr ""
