@@ -10,6 +10,7 @@ env:
     GIT_COMMITTER_NAME: '@dhis2-bot'
     GIT_COMMITTER_EMAIL: 'apps@dhis2.org'
     GH_TOKEN: ${{secrets.DHIS2_BOT_GITHUB_TOKEN}}
+    DHIS2_BASE_URL: ${{ secrets.CYPRESS_DHIS2_BASE_URL_37 }}
     CI: true
 
 jobs:
@@ -141,7 +142,6 @@ jobs:
                   COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
                   SERVER_START_CMD: 'yarn start:nobrowser'
                   SERVER_URL: 'http://localhost:8082'
-                  DHIS2_BASE_URL: ${{ secrets.CYPRESS_DHIS2_BASE_URL_37 }}
                   CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_37 }}
                   CYPRESS_dhis2ApiVersion: 38
                   CYPRESS_networkMode: 'live'
