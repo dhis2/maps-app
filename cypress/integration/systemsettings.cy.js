@@ -112,6 +112,8 @@ describe('systemSettings', () => {
             .selectIndicator('VCCT post-test counselling rate')
             .addToMap();
 
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible');
+
         Layer.validateCardPeriod('Last 6 months');
     });
 
