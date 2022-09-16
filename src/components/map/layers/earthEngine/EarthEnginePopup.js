@@ -98,13 +98,15 @@ const EarthEnginePopup = props => {
             onClose={onClose}
             className="dhis2-map-popup-orgunit"
         >
-            <div className={styles.title}>{name}</div>
-            {values && (
-                <table className={styles.table}>
-                    {header}
-                    <tbody>{rows}</tbody>
-                </table>
-            )}
+            <div className={styles.popup}>
+                <div className={styles.title}>{name}</div>
+                {values && (
+                    <table className={styles.table}>
+                        {header}
+                        <tbody>{rows}</tbody>
+                    </table>
+                )}
+            </div>
         </Popup>
     );
 };
