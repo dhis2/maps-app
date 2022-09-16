@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-11T20:46:39.429Z\n"
+"POT-Creation-Date: 2022-09-05T09:05:03.293Z\n"
 "PO-Revision-Date: 2022-04-20 10:28+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -201,9 +201,6 @@ msgstr "添加图层"
 
 msgid "Aggregation method"
 msgstr "统计汇总方法"
-
-msgid "Choosing many groups takes a long time to calculate and display."
-msgstr "选择多个组需要很长时间来计算和显示。"
 
 msgid "Groups"
 msgstr "组"
