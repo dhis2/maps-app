@@ -1,6 +1,6 @@
 import { FALLBACK_BASEMAP_ID } from './basemaps';
 
-export const apiVersion = 38;
+export const apiVersion = 39;
 
 export const DEFAULT_SYSTEM_SETTINGS = {
     keyDefaultBaseMap: FALLBACK_BASEMAP_ID,
