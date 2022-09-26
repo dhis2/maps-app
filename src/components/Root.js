@@ -1,13 +1,16 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Provider as DataProvider } from '@dhis2/app-runtime';
+import { DataStoreProvider } from '@dhis2/app-service-datastore';
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2';
 import { CenteredContent, CircularLoader } from '@dhis2/ui';
 import UserSettingsProvider, { UserSettingsCtx } from './UserSettingsProvider';
 import SystemSettingsProvider from './SystemSettingsProvider';
 import { apiVersion } from '../constants/settings';
 import App from './app/App';
+import { NAMESPACE } from '../util/analyticalObject';
 
 import i18n from '../locales';
 
@@ -60,19 +63,22 @@ const Root = ({ store }) => (
                     }
 
                     return (
-                        <SystemSettingsProvider>
-                            <UserSettingsProvider>
-                                <UserSettingsCtx.Consumer>
-                                    {({ keyUiLocale }) => {
-                                        if (!keyUiLocale) {
-                                            return null;
-                                        }
-                                        i18n.changeLanguage(keyUiLocale);
-                                        return <App />;
-                                    }}
-                                </UserSettingsCtx.Consumer>
-                            </UserSettingsProvider>
-                        </SystemSettingsProvider>
+                        <DataStoreProvider namespace={NAMESPACE}>
+                            <SystemSettingsProvider>
+                                <UserSettingsProvider>
+                                    <UserSettingsCtx.Consumer>
+                                        {({ keyUiLocale }) => {
+                                            if (!keyUiLocale) {
+                                                return null;
+                                            }
+                                            i18n.changeLanguage(keyUiLocale);
+                                            moment.locale(keyUiLocale);
+                                            return <App />;
+                                        }}
+                                    </UserSettingsCtx.Consumer>
+                                </UserSettingsProvider>
+                            </SystemSettingsProvider>
+                        </DataStoreProvider>
                     );
                 }}
             </D2Shim>

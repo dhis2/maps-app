@@ -240,7 +240,6 @@ const map = (state = defaultState, action) => {
                 mapViews: sortedMapViews,
             };
 
-        case types.LAYER_LOAD:
         case types.LAYER_UPDATE:
         case types.LAYER_EDIT:
         case types.LAYER_CHANGE_OPACITY:
@@ -268,12 +267,6 @@ const map = (state = defaultState, action) => {
                 ...state,
                 alerts: undefined,
                 mapViews: state.mapViews.map(l => layer(l, action)),
-            };
-
-        case types.MAP_RELATIVE_PERIOD_DATE_SET:
-            return {
-                ...state,
-                interpretationDate: action.payload,
             };
 
         default:

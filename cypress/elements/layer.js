@@ -1,12 +1,13 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js';
+
 export class Layer {
     openDialog(layer) {
         const dataTest = `addlayeritem-${layer
             .toLowerCase()
             .replace(/\s/g, '_')}`;
 
-        cy.get('button')
-            .contains('Add layer')
-            .click();
+        cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click();
+
         cy.get(`[data-test="${dataTest}"]`).click();
 
         return this;
@@ -50,21 +51,23 @@ export class Layer {
     }
 
     addToMap() {
-        cy.getByDataTest('dhis2-uicore-modalactions')
+        cy.getByDataTest('dhis2-uicore-modalactions', EXTENDED_TIMEOUT)
             .contains('Add layer')
             .click();
     }
 
     validateDialogClosed(closed) {
         if (closed) {
-            cy.getByDataTest('layeredit').should('not.exist');
+            cy.getByDataTest('layeredit', EXTENDED_TIMEOUT).should('not.exist');
         } else {
-            cy.getByDataTest('layeredit').should('be.visible');
+            cy.getByDataTest('layeredit', EXTENDED_TIMEOUT).should(
+                'be.visible'
+            );
         }
     }
 
     validateCardTitle(title) {
-        cy.getByDataTest('layercard')
+        cy.getByDataTest('layercard', EXTENDED_TIMEOUT)
             .contains(title)
             .should('be.visible');
 
@@ -72,7 +75,7 @@ export class Layer {
     }
 
     validateCardPeriod(period) {
-        cy.getByDataTest('layercard')
+        cy.getByDataTest('layercard', EXTENDED_TIMEOUT)
             .contains(period)
             .should('be.visible');
 
@@ -81,7 +84,7 @@ export class Layer {
 
     validateCardItems(items) {
         items.forEach(item => {
-            cy.getByDataTest('layercard')
+            cy.getByDataTest('layercard', EXTENDED_TIMEOUT)
                 .find('[data-test="layerlegend-item"]')
                 .contains(item)
                 .should('be.visible');

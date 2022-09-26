@@ -1,3 +1,59 @@
+## [1.26.3](https://github.com/dhis2/maps-app/compare/v1.26.2...v1.26.3) (2022-09-01)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b7a900e](https://github.com/dhis2/maps-app/commit/b7a900e483c442d6b90949e09540d3846c058d2d))
+
+## [1.26.2](https://github.com/dhis2/maps-app/compare/v1.26.1...v1.26.2) (2022-08-31)
+
+
+### Bug Fixes
+
+* use tileScale to avoid EE aggregation timeout ([#2281](https://github.com/dhis2/maps-app/issues/2281)) ([feacf0e](https://github.com/dhis2/maps-app/commit/feacf0e4985c5898aaf45b720d16f19dc37e6d36))
+
+## [1.26.1](https://github.com/dhis2/maps-app/compare/v1.26.0...v1.26.1) (2022-08-30)
+
+
+### Bug Fixes
+
+* use tileScale to avoid ee aggregation timeout ([cdcdd56](https://github.com/dhis2/maps-app/commit/cdcdd56d3f0da536508da1081fea50d525eb0287))
+
+# [1.26.0](https://github.com/dhis2/maps-app/compare/v1.25.1...v1.26.0) (2022-08-29)
+
+
+### Features
+
+* new interpretation components (DHIS2-13530) ([#2228](https://github.com/dhis2/maps-app/issues/2228)) ([39b5a0e](https://github.com/dhis2/maps-app/commit/39b5a0ed767b16c198ed870a5cd7994812663b42))
+
+## [1.25.1](https://github.com/dhis2/maps-app/compare/v1.25.0...v1.25.1) (2022-08-23)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([0a32d6b](https://github.com/dhis2/maps-app/commit/0a32d6b79be0ef6233d3849f19347ea4ad9feb6f))
+
+# [1.25.0](https://github.com/dhis2/maps-app/compare/v1.24.6...v1.25.0) (2022-08-18)
+
+
+### Features
+
+* read current AO via new data store api ([#2247](https://github.com/dhis2/maps-app/issues/2247)) ([ba4b771](https://github.com/dhis2/maps-app/commit/ba4b771fa76d089d116db837163f57baa950bde7))
+
+## [1.24.6](https://github.com/dhis2/maps-app/compare/v1.24.5...v1.24.6) (2022-08-11)
+
+
+### Bug Fixes
+
+* minor fixes ([#2243](https://github.com/dhis2/maps-app/issues/2243)) ([6846ae8](https://github.com/dhis2/maps-app/commit/6846ae82c52ad980342f2931f7cb899b26cf8bf3))
+
+## [1.24.5](https://github.com/dhis2/maps-app/compare/v1.24.4...v1.24.5) (2022-08-11)
+
+
+### Bug Fixes
+
+* split view rendering ([#2239](https://github.com/dhis2/maps-app/issues/2239)) ([4eaee57](https://github.com/dhis2/maps-app/commit/4eaee573ada47bb96c42f587d2cb92b454975fa1))
+
 ## [1.24.4](https://github.com/dhis2/maps-app/compare/v1.24.3...v1.24.4) (2022-07-28)
 
 

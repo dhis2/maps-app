@@ -12,8 +12,9 @@ context('Interpretations', () => {
             .contains('Interpretations')
             .click();
 
-        cy.contains('Map details').should('be.visible');
-        cy.get('textarea').should(
+        cy.contains('About this map').should('be.visible');
+
+        cy.get('input').should(
             'have.attr',
             'placeholder',
             'Write an interpretation'

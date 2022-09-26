@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
+"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Rica Zamora Duchateau, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -634,9 +634,6 @@ msgstr "Lengtegraad"
 
 msgid "Latitude"
 msgstr "Breedtegraad"
-
-msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "Interpretatie van {{interpretatieDatum}} aan het bezichtigen"
 
 msgid "Not set"
 msgstr "Niet vastgesteld"

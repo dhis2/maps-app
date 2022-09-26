@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
 import Map from './Map';
@@ -17,6 +17,7 @@ const MapView = props => {
         feature,
         bounds,
         coordinatePopup,
+        interpretationModalOpen,
         closeCoordinatePopup,
         openContextMenu,
         setAggregations,
@@ -25,7 +26,10 @@ const MapView = props => {
 
     const splitViewLayer = getSplitViewLayer(layers);
     const isSplitView = !!splitViewLayer;
-    const mapControls = getMapControls(isPlugin, isSplitView, controls);
+    const mapControls = useMemo(
+        () => getMapControls(isPlugin, isSplitView, controls),
+        [isPlugin, isSplitView, controls]
+    );
 
     return (
         <>
@@ -45,6 +49,7 @@ const MapView = props => {
                             layer={splitViewLayer}
                             controls={mapControls}
                             feature={feature}
+                            interpretationModalOpen={interpretationModalOpen}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
                         />
@@ -79,6 +84,7 @@ MapView.propTypes = {
     feature: PropTypes.object,
     bounds: PropTypes.array,
     coordinatePopup: PropTypes.array,
+    interpretationModalOpen: PropTypes.bool,
     closeCoordinatePopup: PropTypes.func,
     openContextMenu: PropTypes.func,
     setAggregations: PropTypes.func,

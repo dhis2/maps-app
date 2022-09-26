@@ -43,11 +43,6 @@ export const showEarthEngineValue = (layerId, coordinate) => ({
     coordinate,
 });
 
-export const setRelativePeriodDate = date => ({
-    type: types.MAP_RELATIVE_PERIOD_DATE_SET,
-    payload: date,
-});
-
 export const tOpenMap = (mapId, keyDefaultBaseMap, dataEngine) => async (
     dispatch,
     getState
