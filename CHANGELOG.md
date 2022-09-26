@@ -1,3 +1,10 @@
+## [1.26.4](https://github.com/dhis2/maps-app/compare/v1.26.3...v1.26.4) (2022-09-26)
+
+
+### Bug Fixes
+
+* bump web api version to 39 ([#2306](https://github.com/dhis2/maps-app/issues/2306)) ([be85d7c](https://github.com/dhis2/maps-app/commit/be85d7cb4ef856b6be25a81c12a30a0305eb459b))
+
 ## [1.26.3](https://github.com/dhis2/maps-app/compare/v1.26.2...v1.26.3) (2022-09-01)
 
 
