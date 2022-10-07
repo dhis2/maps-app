@@ -89,7 +89,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Org unit"
-msgstr ""
+msgstr "Організаційний підрозділ"
 
 msgid "Name"
 msgstr "Ім'я"
@@ -397,7 +397,7 @@ msgid "Relationships"
 msgstr "Зв'язки"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Подальші дії"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -427,7 +427,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Об’єкт, який відстежується"
 
 msgid "Tracked entity style"
 msgstr ""
