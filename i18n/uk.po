@@ -2,15 +2,15 @@
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2020
 # phil_dhis2, 2020
-# Nadiia <semchuk@aph.org.ua>, 2021
 # Éva Tamási, 2022
+# Nadiia <semchuk@aph.org.ua>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2021-04-15T18:29:36.377Z\n"
 "PO-Revision-Date: 2020-02-28 15:07+0000\n"
-"Last-Translator: Éva Tamási, 2022\n"
+"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2022\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -339,7 +339,7 @@ msgid "Program status"
 msgstr "Статус програми"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Подальші дії"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -368,7 +368,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Об’єкт, який відстежується"
 
 msgid "Tracked entity style"
 msgstr ""
