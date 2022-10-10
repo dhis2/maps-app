@@ -328,7 +328,7 @@ msgid "Aggregation type"
 msgstr "Typ agregace"
 
 msgid "Only show completed events"
-msgstr ""
+msgstr "Zobrazí pouze dokončené události"
 
 msgid "Show no data"
 msgstr "Zobrazit žádná data"
