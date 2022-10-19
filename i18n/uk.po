@@ -1,17 +1,16 @@
 # 
 # Translators:
-# Wanda <wanda@frontlineaids.org>, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
-# Nadiia <semchuk@aph.org.ua>, 2021
-# phil_dhis2, 2021
 # Éva Tamási, 2022
+# Nadiia <semchuk@aph.org.ua>, 2022
+# phil_dhis2, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Éva Tamási, 2022\n"
+"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"PO-Revision-Date: 2022-10-15 22:31+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Maps"
-msgstr "Maps"
+msgstr "Мапи"
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
@@ -71,7 +70,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr "Жодного"
+msgstr "Немає"
 
 msgid "Data item"
 msgstr "Елемент даних"
@@ -89,7 +88,7 @@ msgid "Index"
 msgstr ""
 
 msgid "Org unit"
-msgstr ""
+msgstr "Організаційний підрозділ"
 
 msgid "Name"
 msgstr "Ім'я"
@@ -201,9 +200,6 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -397,10 +393,10 @@ msgid "Program status"
 msgstr "Статус програми"
 
 msgid "Relationships"
-msgstr "Зв'язки"
+msgstr "Зв’язки"
 
 msgid "Follow up"
-msgstr ""
+msgstr "Подальші дії"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -430,7 +426,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Об’єкти, які відстежуються"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -505,7 +501,7 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Група показників"
+msgstr "Група індикаторів"
 
 msgid "Interpretations"
 msgstr "Інтерпретації"
@@ -632,7 +628,7 @@ msgid ""
 msgstr ""
 
 msgid "no value"
-msgstr ""
+msgstr "немає значення"
 
 msgid "All groups"
 msgstr ""
@@ -751,7 +747,7 @@ msgid "Closed date"
 msgstr "Дата закриття"
 
 msgid "URL"
-msgstr "URL (Інтернет-адреса)"
+msgstr "URL-адреса"
 
 msgid "Link"
 msgstr ""
@@ -861,13 +857,13 @@ msgid "Not available offline"
 msgstr "Недоступно в автономному режимі"
 
 msgid "Program indicator"
-msgstr "Program indicator"
+msgstr "Програмний індикатор"
 
 msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr "Program"
+msgstr "Програма"
 
 msgid "Stage"
 msgstr ""
@@ -882,7 +878,7 @@ msgid "Count"
 msgstr "Підрахунок"
 
 msgid "Average"
-msgstr "Середнє"
+msgstr "Середнє значення"
 
 msgid "Sum"
 msgstr "Сума"
@@ -1183,10 +1179,10 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr "Всі"
+msgstr "Усі"
 
 msgid "Active"
-msgstr "Активне"
+msgstr "Активно"
 
 msgid "Completed"
 msgstr "Завершено"
@@ -1234,10 +1230,10 @@ msgid "Weekly (Start Sunday)"
 msgstr ""
 
 msgid "Bi-weekly"
-msgstr "Щодвотижневий"
+msgstr "Щодва тижні"
 
 msgid "Monthly"
-msgstr "Щомісячно"
+msgstr "Щомісяця"
 
 msgid "Bi-monthly"
 msgstr "Щодва місяці"
@@ -1309,7 +1305,7 @@ msgid "No data"
 msgstr "Немає даних"
 
 msgid "Tracked entity"
-msgstr "Відстежуване явище"
+msgstr "Об’єкт, що відстежується"
 
 msgid "No tracked entities found"
 msgstr ""

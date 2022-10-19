@@ -1,16 +1,16 @@
 # 
 # Translators:
-# Antonia Bezenchek <antonia@informa.pro>, 2020
-# Viktor Varland <viktor@dhis2.org>, 2021
-# KRG HIS <antonia.bezenchek@informa.pro>, 2021
-# phil_dhis2, 2021
+# phil_dhis2, 2022
+# Antonia Bezenchek <antonia@informa.pro>, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
+# KRG HIS <antonia.bezenchek@informa.pro>, 2022
 # Asos <aso.rezaiy@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Asos <aso.rezaiy@gmail.com>, 2022\n"
 "Language-Team: Central Kurdish (https://www.transifex.com/hisp-uio/teams/100509/ckb/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgid "Details"
 msgstr ""
 
 msgid "Yes"
-msgstr "ەڵێ"
+msgstr "بەڵێ"
 
 msgid "Event location"
 msgstr ""
@@ -201,9 +201,6 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -490,7 +487,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr "داتا"
+msgstr "بەروار"
 
 msgid "Remove filter"
 msgstr ""
@@ -614,9 +611,6 @@ msgstr ""
 msgid "Latitude"
 msgstr ""
 
-msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
-
 msgid "Not set"
 msgstr ""
 
@@ -662,7 +656,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr "سرينةوة"
+msgstr "سڕینەوە"
 
 msgid "Distance"
 msgstr ""
@@ -870,7 +864,7 @@ msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr "بةرنامة"
+msgstr "پرۆگرام"
 
 msgid "Stage"
 msgstr ""

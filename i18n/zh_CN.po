@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgid "Details"
 msgstr "详情"
 
 msgid "Yes"
-msgstr "Yes"
+msgstr "是"
 
 msgid "Event location"
 msgstr "事件位置"
@@ -68,7 +68,7 @@ msgid "Coordinate field"
 msgstr "坐标字段"
 
 msgid "None"
-msgstr "没有"
+msgstr "无"
 
 msgid "Data item"
 msgstr ""
@@ -200,9 +200,6 @@ msgstr ""
 msgid "Aggregation method"
 msgstr ""
 
-msgid "Choosing many groups takes a long time to calculate and display."
-msgstr ""
-
 msgid "Groups"
 msgstr "组"
 
@@ -213,7 +210,7 @@ msgid "Data"
 msgstr "数据"
 
 msgid "Period"
-msgstr "期间"
+msgstr "周期"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -265,7 +262,7 @@ msgid "Min"
 msgstr "最小"
 
 msgid "Max"
-msgstr "最大"
+msgstr "最大值"
 
 msgid "Steps"
 msgstr "步"
@@ -274,7 +271,7 @@ msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr "过滤器"
+msgstr "筛选"
 
 msgid "Events"
 msgstr "事件"
@@ -484,7 +481,7 @@ msgid "is not"
 msgstr ""
 
 msgid "Operator"
-msgstr "操作符"
+msgstr "操作员"
 
 msgid "Date"
 msgstr "日期"
@@ -552,7 +549,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "编辑<br>"
+msgstr "编辑"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -609,7 +606,7 @@ msgid "Longitude"
 msgstr "经度"
 
 msgid "Latitude"
-msgstr "维度"
+msgstr "纬度"
 
 msgid "Not set"
 msgstr "没有设置"
@@ -621,7 +618,7 @@ msgid "Parent unit"
 msgstr "上级机构"
 
 msgid "Last updated"
-msgstr "Last updated"
+msgstr "上次更新"
 
 msgid ""
 "Google Earth Engine failed. Is the service configured for this DHIS2 "
@@ -849,7 +846,7 @@ msgid "Split map views"
 msgstr ""
 
 msgid "Start date"
-msgstr "开始日期"
+msgstr "起始日期"
 
 msgid "End date"
 msgstr "结束日期"
@@ -1183,7 +1180,7 @@ msgid "All"
 msgstr "全部"
 
 msgid "Active"
-msgstr "活跃的"
+msgstr "活动的"
 
 msgid "Completed"
 msgstr "完成"
@@ -1264,7 +1261,7 @@ msgid "Financial year (Start April)"
 msgstr "财务四月"
 
 msgid "Cancelled"
-msgstr "取消"
+msgstr "已取消"
 
 msgid "{{name}}: No coordinates found"
 msgstr ""
@@ -1285,7 +1282,7 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
-msgstr "没有发现数据"
+msgstr "没有数据被找到"
 
 msgid "Event"
 msgstr "事件"
@@ -1306,7 +1303,7 @@ msgid "No data"
 msgstr "无数据"
 
 msgid "Tracked entity"
-msgstr "跟踪的实体"
+msgstr "跟踪实体"
 
 msgid "No tracked entities found"
 msgstr ""
@@ -1333,7 +1330,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "No"
+msgstr "否"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""

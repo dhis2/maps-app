@@ -1,14 +1,14 @@
 # 
 # Translators:
-# phil_dhis2, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
+# Viktor Varland <viktor@dhis2.org>, 2022
+# phil_dhis2, 2022
 # Hamza Assada <7amza.it@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2022\n"
 "Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid "Classes"
 msgstr "التصنيفات"
 
 msgid "Legend set"
-msgstr "حزمة وسائل الإيضاح"
+msgstr "حزمة المفاتيح الإيضاحية"
 
 msgid "Color"
 msgstr "اللون"
@@ -54,7 +54,7 @@ msgid "Data element"
 msgstr "عنصر البيانات"
 
 msgid "Totals"
-msgstr "الإجمالي"
+msgstr "الإجماليات"
 
 msgid "Details"
 msgstr "التفاصيل"
@@ -102,7 +102,7 @@ msgid "Value"
 msgstr "القيمة"
 
 msgid "Legend"
-msgstr "شروحات"
+msgstr "مفاتيح إيضاحية"
 
 msgid "Range"
 msgstr "نطاق"
@@ -129,7 +129,7 @@ msgid "Dimension"
 msgstr "البُعد"
 
 msgid "Download"
-msgstr "تحميل"
+msgstr "تنزيل"
 
 msgid "Download map"
 msgstr "تنزيل الخريطة"
@@ -202,9 +202,6 @@ msgstr "إضافة طبقة"
 msgid "Aggregation method"
 msgstr ""
 
-msgid "Choosing many groups takes a long time to calculate and display."
-msgstr ""
-
 msgid "Groups"
 msgstr "المجموعات"
 
@@ -240,7 +237,7 @@ msgid "Legend preview"
 msgstr ""
 
 msgid "Year"
-msgstr "السنة"
+msgstr "سنة"
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -372,7 +369,7 @@ msgid "Indicator"
 msgstr "المؤشر"
 
 msgid "Reporting rates"
-msgstr "معدلات إعداد التقارير"
+msgstr "معدلات إرسال البلاغات"
 
 msgid "Event data items"
 msgstr "عناصر بيانات الحدث"
@@ -456,10 +453,10 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr "حدث خطأ في تطبيق خرائط DHIS2."
 
 msgid "Something went wrong"
-msgstr "هناك خطأ ما"
+msgstr "حدث خطأ ما"
 
 msgid "Refresh to try again"
-msgstr "حدث للمحاولة مرة أخرى"
+msgstr "قم بالتحديث للمحاولة مرة أخرى"
 
 msgid "Hide technical details"
 msgstr "إخفاء التفاصيل التقنية"
@@ -480,7 +477,7 @@ msgid "contains"
 msgstr "يحتوي على"
 
 msgid "is"
-msgstr "confirm_delete_relationship_type=هل تريد بالتأكيد حذف نوع العلاقة؟"
+msgstr "confirm_delete_relationship_type\\=هل تريد بالتأكيد حذف نوع العلاقة؟"
 
 msgid "is not"
 msgstr "ليس"
@@ -510,7 +507,7 @@ msgid "Interpretations"
 msgstr "التفسيرات"
 
 msgid "Collapse"
-msgstr "انهيار"
+msgstr "لملمة"
 
 msgid "Expand"
 msgstr "توسيع"
@@ -579,7 +576,7 @@ msgid "Download data"
 msgstr "تنزيل البيانات"
 
 msgid "Edit layer"
-msgstr "تحرير الطبقة"
+msgstr "تعديل الطبقة"
 
 msgid "Remove layer"
 msgstr "أزل الطبقة"
@@ -618,7 +615,7 @@ msgid "Not set"
 msgstr "غير مضبوط"
 
 msgid "Organisation unit"
-msgstr "الوحدة التنظيمية"
+msgstr "وحدة تنظيمية"
 
 msgid "Parent unit"
 msgstr "الوحدة العليا"
@@ -741,7 +738,7 @@ msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr "الرمز"
+msgstr "الكود"
 
 msgid "Short name"
 msgstr "الاسم المختصر"
@@ -762,7 +759,7 @@ msgid "Contact"
 msgstr ""
 
 msgid "Email"
-msgstr "البريد الإلكتروني"
+msgstr "بريد إلكتروني"
 
 msgid "Address"
 msgstr "العنوان"
@@ -863,7 +860,7 @@ msgid "Not available offline"
 msgstr "غير متوفر في وضع عدم الإتصال"
 
 msgid "Program indicator"
-msgstr "مؤشر البرنامج"
+msgstr "مؤشرات البرنامج"
 
 msgid "No program"
 msgstr "لا يوجد برنامج"
@@ -1195,10 +1192,10 @@ msgid "All"
 msgstr "الجميع"
 
 msgid "Active"
-msgstr "فعال"
+msgstr "نشط"
 
 msgid "Completed"
-msgstr "المكتملة"
+msgstr "مكتمل"
 
 msgid "Choropleth"
 msgstr ""
@@ -1255,10 +1252,10 @@ msgid "Quarterly"
 msgstr "ربعي"
 
 msgid "Six-monthly"
-msgstr "كل ستة أشهر"
+msgstr "كل ستة-أشهر"
 
 msgid "Six-monthly April"
-msgstr "كل ستة أشهر، ابريل"
+msgstr "نصف سنوي، كل ستة أشهر، ابريل"
 
 msgid "Yearly"
 msgstr "سنوي"
@@ -1276,7 +1273,7 @@ msgid "Financial year (Start April)"
 msgstr "السنة المالية (تبدأ في ابريل)"
 
 msgid "Cancelled"
-msgstr "تم الإلغاء"
+msgstr "ملغي"
 
 msgid "{{name}}: No coordinates found"
 msgstr ""
@@ -1297,10 +1294,10 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
-msgstr "لم توجد بيانات"
+msgstr "لم يتم إيجاد بيانات"
 
 msgid "Event"
-msgstr "الحدث"
+msgstr "حدث"
 
 msgid "Facilities"
 msgstr "مرافق"
