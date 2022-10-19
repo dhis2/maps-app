@@ -397,7 +397,7 @@ msgid "Program status"
 msgstr "Статус програми"
 
 msgid "relationships"
-msgstr ""
+msgstr "зв'язки"
 
 msgid "Follow up"
 msgstr "Подальші дії"
