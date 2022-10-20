@@ -1,13 +1,13 @@
 # 
 # Translators:
-# phil_dhis2, 2021
+# phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-27T11:36:02.370Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Pashto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgid "Details"
 msgstr "جزیات [ ژباړه ـ جزیات ]"
 
 msgid "Yes"
-msgstr "هو [ درست ]"
+msgstr "هو"
 
 msgid "Event location"
 msgstr "رویداد ځای"
@@ -101,7 +101,7 @@ msgid "Value"
 msgstr "ارزښت یا رقم"
 
 msgid "Legend"
-msgstr "Legend"
+msgstr "ليجنډ"
 
 msgid "Range"
 msgstr "پراختیا"
@@ -198,9 +198,6 @@ msgid "Add layer"
 msgstr ""
 
 msgid "Aggregation method"
-msgstr ""
-
-msgid "Choosing many groups takes a long time to calculate and display."
 msgstr ""
 
 msgid "Groups"
@@ -610,9 +607,6 @@ msgstr "لانګېټيوډ"
 
 msgid "Latitude"
 msgstr "لېټېټيوډ"
-
-msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr ""
 
 msgid "Not set"
 msgstr "نه دی ترتیب شوی"
@@ -1336,7 +1330,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "نه [ نه ]"
+msgstr "نه"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""

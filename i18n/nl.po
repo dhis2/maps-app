@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Cherise Beek <cherise.beek@gmail.com>, 2021
-# Yury Rogachev <yury@dhis2.org>, 2021
+# Yury Rogachev <yury@dhis2.org>, 2022
+# Cherise Beek <cherise.beek@gmail.com>, 2022
 # Rica Zamora Duchateau, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Rica Zamora Duchateau, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid "Classes"
 msgstr "Klassen"
 
 msgid "Legend set"
-msgstr "Legendereeks"
+msgstr "Legendareeks"
 
 msgid "Color"
 msgstr "Kleur"
@@ -51,7 +51,7 @@ msgid "Data element operand"
 msgstr "Gegevenselementenoperand"
 
 msgid "Data element"
-msgstr "informatie onderdeel"
+msgstr "Informatieonderdeel"
 
 msgid "Totals"
 msgstr "Totalen"
@@ -131,7 +131,7 @@ msgid "Dimension"
 msgstr "Dimensie"
 
 msgid "Download"
-msgstr "Download"
+msgstr "Downloaden"
 
 msgid "Download map"
 msgstr "Download kaart"
@@ -149,7 +149,7 @@ msgstr ""
 "Google Chrome of Firefox."
 
 msgid "Cancel"
-msgstr "Annuleer"
+msgstr "Annuleren"
 
 msgid "Close"
 msgstr "Sluit"
@@ -204,9 +204,6 @@ msgstr "Voeg laag toe"
 
 msgid "Aggregation method"
 msgstr "Aggregatiemethode"
-
-msgid "Choosing many groups takes a long time to calculate and display."
-msgstr ""
 
 msgid "Groups"
 msgstr "Groepen"
@@ -304,7 +301,7 @@ msgid "Program is required"
 msgstr "Programma is verplicht."
 
 msgid "Program stage is required"
-msgstr "Programmastadium is verplicht."
+msgstr "Programmastadium is verplicht"
 
 msgid "No organisation units are selected."
 msgstr "Geen organisatieëenheden zijn geselecteerd."
@@ -479,14 +476,14 @@ msgid "Refresh to try again"
 msgstr "Ververs om opnieuw te proberen"
 
 msgid "Hide technical details"
-msgstr "Verberg technische details"
+msgstr "Technische details verbergen"
 
 msgid "Show technical details"
-msgstr "Toon technische details"
+msgstr "Technische details tonen"
 
 msgid "The following information may be requested by technical support."
 msgstr ""
-"De volgende information kan aangevraagd worden bij de technische "
+"De volgende informatie kan aangevraagd worden bij de technische "
 "ondersteuning."
 
 msgid "Filtering is available after selecting a program stage."
@@ -508,7 +505,7 @@ msgid "Operator"
 msgstr "Operator"
 
 msgid "Date"
-msgstr "Datum\n"
+msgstr "Datum"
 
 msgid "Remove filter"
 msgstr "Verwijder filter"
@@ -680,7 +677,7 @@ msgid "Click where you want to start the measurement"
 msgstr "Klik waar u de meting wil starten"
 
 msgid "Delete"
-msgstr "Verwijderen"
+msgstr "Verwijder"
 
 msgid "Distance"
 msgstr "Afstand"
@@ -814,10 +811,10 @@ msgstr ""
 "individuele eenheden te selecteren."
 
 msgid "user organisation unit"
-msgstr "gebruiker organisatieëenheid"
+msgstr "gebruikersorganisatieëenheid"
 
 msgid "right below user organisation unit"
-msgstr "net onder gebruiker organisatieëenheid"
+msgstr "net onder gebruikersorganisatieëenheid"
 
 msgid "two levels below user organisation unit"
 msgstr "twee niveaus onder gebruikersorganisatieëenheid"
@@ -844,7 +841,7 @@ msgid "2 x below"
 msgstr "2 x onder"
 
 msgid "User organisation units"
-msgstr "gebruikersorganisatieëenheid"
+msgstr "Gebruikersorganisatieëenheden"
 
 msgid "Previous year"
 msgstr "Vorig jaar"

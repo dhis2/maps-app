@@ -1,14 +1,15 @@
 # 
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2021
-# phil_dhis2, 2021
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2022
+# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
+# phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-07-28T12:57:20.969Z\n"
-"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"PO-Revision-Date: 2022-10-15 22:31+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
 "Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +37,7 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Tập Chú Thích"
+msgstr "Legend"
 
 msgid "Color"
 msgstr "Màu"
@@ -51,7 +52,7 @@ msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Phần Tử Dữ Liệu"
+msgstr "Phần tử dữ liệu"
 
 msgid "Totals"
 msgstr "Tổng"
@@ -102,7 +103,7 @@ msgid "Value"
 msgstr "Giá trị"
 
 msgid "Legend"
-msgstr "Chú Thích"
+msgstr "Chú giải"
 
 msgid "Range"
 msgstr "Khoảng"
@@ -114,7 +115,7 @@ msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "Type"
+msgstr "Loại"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
@@ -201,9 +202,6 @@ msgstr ""
 msgid "Aggregation method"
 msgstr ""
 
-msgid "Choosing many groups takes a long time to calculate and display."
-msgstr ""
-
 msgid "Groups"
 msgstr "Các nhóm"
 
@@ -214,7 +212,7 @@ msgid "Data"
 msgstr "Dữ liệu"
 
 msgid "Period"
-msgstr "Thời gian"
+msgstr "Thời điểm"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -305,7 +303,7 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Event status"
-msgstr "Tình trạng sự kiện"
+msgstr "Trạng thái sự kiện"
 
 msgid "Boundary color"
 msgstr ""
@@ -374,7 +372,7 @@ msgid "Reporting rates"
 msgstr "Tỷ lệ báo cáo"
 
 msgid "Event data items"
-msgstr "Mục dữ liệu sự kiện"
+msgstr "Dữ liệu sự kiện"
 
 msgid "Program indicators"
 msgstr "Chỉ Số Chương Trình"
@@ -395,7 +393,7 @@ msgid "Program status"
 msgstr "Tình trạng chương trình"
 
 msgid "Relationships"
-msgstr "Mối quan hệ"
+msgstr "Quan hệ với bệnh nhân"
 
 msgid "Follow up"
 msgstr "Theo dõi"
@@ -428,7 +426,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr "Các thực thể được theo dõi"
+msgstr "Các đối tượng theo dõi"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -455,7 +453,7 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr "Có lỗi"
+msgstr "Có gì đó không đúng"
 
 msgid "Refresh to try again"
 msgstr "Thử lại"
@@ -506,7 +504,7 @@ msgid "Indicator group"
 msgstr "Nhóm chỉ số"
 
 msgid "Interpretations"
-msgstr "Diễn giải báo cáo"
+msgstr "Diễn giải "
 
 msgid "Collapse"
 msgstr "Thu gọn"
@@ -553,7 +551,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "Sửa"
+msgstr "Chỉnh sửa"
 
 msgid "Toggle visibility"
 msgstr ""
@@ -714,7 +712,7 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr "Tiếp tục"
+msgstr "Tiến hành"
 
 msgid "Options"
 msgstr "Tùy chọn"
@@ -749,7 +747,7 @@ msgid "Closed date"
 msgstr "Ngày đóng"
 
 msgid "URL"
-msgstr "Đường dẫn URL"
+msgstr "URL"
 
 msgid "Link"
 msgstr "Liên kết"
@@ -889,7 +887,7 @@ msgid "Standard deviation"
 msgstr "Độ lệch chuẩn"
 
 msgid "Variance"
-msgstr "Sự khác nhau"
+msgstr "Phương sai"
 
 msgid "Percentage"
 msgstr "Phần trăm"
@@ -1187,7 +1185,7 @@ msgid "Active"
 msgstr "Hoạt động"
 
 msgid "Completed"
-msgstr "Hoàn tất"
+msgstr "Đã hoàn tất"
 
 msgid "Choropleth"
 msgstr ""
@@ -1214,10 +1212,10 @@ msgid "Symbol"
 msgstr "Ký hiệu"
 
 msgid "Daily"
-msgstr "Hàng ngày"
+msgstr "Hàng Ngày"
 
 msgid "Weekly"
-msgstr "Hàng tuần"
+msgstr "Hàng Tuần"
 
 msgid "Weekly (Start Wednesday)"
 msgstr "Hàng tuần (Bắt đầu từ Thứ Tư)"
@@ -1232,10 +1230,10 @@ msgid "Weekly (Start Sunday)"
 msgstr "Hàng tuần (Bắt đầu từ Chủ nhật)"
 
 msgid "Bi-weekly"
-msgstr "Hai-tuần"
+msgstr "Hàng 2-Tuần"
 
 msgid "Monthly"
-msgstr "Hàng tháng"
+msgstr "Hàng Tháng"
 
 msgid "Bi-monthly"
 msgstr "Hàng 2 tháng"
@@ -1244,25 +1242,25 @@ msgid "Quarterly"
 msgstr "Hàng quý"
 
 msgid "Six-monthly"
-msgstr "Hàng 6 tháng"
+msgstr "Hàng 6-Tháng"
 
 msgid "Six-monthly April"
-msgstr "Hàng 6 tháng - tháng 4"
+msgstr "Hàng 6-Tháng bắt đầu Tháng Tư"
 
 msgid "Yearly"
-msgstr "Một năm"
+msgstr "Hàng Năm"
 
 msgid "Financial year (Start November)"
 msgstr "Năm tài chính (Bắt đầu từ tháng 11)"
 
 msgid "Financial year (Start October)"
-msgstr "Năm Tài Chính - Tháng 10"
+msgstr "Năm Tài Chính (Bắt đầu Tháng 10)"
 
 msgid "Financial year (Start July)"
-msgstr "Năm Tài Chính - Tháng 7"
+msgstr "Năm Tài Chính (Bắt đầu Tháng 7)"
 
 msgid "Financial year (Start April)"
-msgstr "Năm Tài Chính - Tháng 4"
+msgstr "Năm Tài Chính (Bắt đầu Tháng 4)"
 
 msgid "Cancelled"
 msgstr "Đã hủy"
