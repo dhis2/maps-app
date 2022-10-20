@@ -333,7 +333,7 @@ msgid "Select period when tracked entities were last updated"
 msgstr ""
 
 msgid "relationships"
-msgstr ""
+msgstr "зв'язки"
 
 msgid "Program status"
 msgstr "Статус програми"
