@@ -16,6 +16,7 @@ import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
 import OrgUnitDialog from './orgUnit/OrgUnitDialog';
 import EarthEngineDialog from './earthEngine/EarthEngineDialog';
+import ExternalDialog from './external/ExternalDialog';
 import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
 import { EARTH_ENGINE_LAYER } from '../../constants/layers';
 import { useSystemSettings } from '../SystemSettingsProvider';
@@ -28,8 +29,10 @@ const layerType = {
     thematic: ThematicDialog,
     orgUnit: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
+    external: ExternalDialog,
 };
 
+/*
 const layerName = () => ({
     event: i18n.t('event'),
     trackedEntity: i18n.t('tracked entity'),
@@ -38,6 +41,7 @@ const layerName = () => ({
     orgUnit: i18n.t('org unit'),
     earthEngine: i18n.t('Earth Engine'),
 });
+*/
 
 const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false);
@@ -71,15 +75,20 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
         return null;
     }
 
-    let name = layerName()[type];
+    // let name = layerName()[type] || layer.type;
+    let name = layer.type;
 
     if (type === EARTH_ENGINE_LAYER) {
-        name = layer.name.toLowerCase();
+        name = layer.name; // .toLowerCase();
     }
 
+    /*
     const title = layer.id
         ? i18n.t('Edit {{name}} layer', { name })
         : i18n.t('Add new {{name}} layer', { name });
+    */
+
+    const title = i18n.t('{{name}} layer', { name });
 
     return (
         <Modal position="middle" dataTest="layeredit">

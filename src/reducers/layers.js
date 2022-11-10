@@ -42,6 +42,17 @@ const defaultLayers = () => [
         opacity: 1,
     },
     ...earthEngineLayers().filter(l => !l.legacy),
+    {
+        layer: 'external',
+        type: 'Settlement extents',
+        opacity: 1,
+        config: {
+            type: 'featureService',
+            name: 'Settlement extents',
+            url:
+                'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/ArcGIS/rest/services/GRID3_Sierra_Leone_Settlement_Extents/FeatureServer/0',
+        },
+    },
 ];
 
 const layers = (state, action) => {

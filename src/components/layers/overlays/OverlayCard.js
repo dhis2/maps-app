@@ -52,10 +52,12 @@ const OverlayCard = ({
         opacity,
         isVisible,
         layer: layerType,
+        config = {},
         isLoaded,
     } = layer;
 
-    const canEdit = layerType !== EXTERNAL_LAYER;
+    const canEdit =
+        layerType !== EXTERNAL_LAYER || config.type === 'featureService';
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType);
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType);
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType);

@@ -14,7 +14,58 @@ const defaultState = {
         [50.2, 35.9],
     ],
     basemap: defaultBasemapState,
-    mapViews: [],
+    mapViews: [
+        /*
+        {
+            id: 'LBLdMevUSrm',
+            layer: 'external',
+            name: 'Settlement extents',
+            opacity: 1,
+            config: {
+                id: 'suB1SFdc6RD',
+                type: 'geoJsonUrl',
+                url:
+                    'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/arcgis/rest/services/GRID3_Sierra_Leone_Settlement_Extents/FeatureServer/0/query?f=pgeojson&where=1=1',
+                attribution: 'GRID3',
+                style: {
+                    color: '#FFA500',
+                },
+            },
+            legend: {
+                title: 'Settlement extents',
+            },
+            isVisible: true,
+            editCounter: 0,
+            isLoaded: true,
+            isExpanded: true,
+        },
+        */
+        /*
+        {
+            id: 'LBLdMevUSrm',
+            layer: 'external',
+            name: 'Settlement extents',
+            opacity: 1,
+            config: {
+                id: 'suB1SFdc6RD',
+                type: 'featureService',
+                url:
+                    'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/ArcGIS/rest/services/GRID3_Sierra_Leone_Settlement_Extents/FeatureServer/0',
+                attribution: 'GRID3',
+                style: {
+                    color: '#FFA500',
+                },
+            },
+            legend: {
+                title: 'Settlement extents',
+            },
+            isVisible: true,
+            editCounter: 0,
+            isLoaded: true,
+            isExpanded: true,
+        },
+        */
+    ],
 };
 
 const basemap = (state, action) => {
