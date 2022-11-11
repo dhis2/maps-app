@@ -94,21 +94,29 @@ class Layer extends PureComponent {
         const { id, index = 0, config, opacity, isVisible } = this.props;
         const { map } = this.context;
 
-        this.layer = map.createLayer({
-            ...config,
-            id,
-            index,
-            opacity,
-            isVisible,
-        });
+        try {
+            this.layer = map.createLayer({
+                ...config,
+                id,
+                index,
+                opacity,
+                isVisible,
+            });
+        } catch (e) {
+            console.log('Failed to create Layer', e);
+        }
 
         await map.addLayer(this.layer);
     }
 
     async updateLayer() {
-        await this.removeLayer();
-        await this.createLayer(true);
-        this.setLayerOrder();
+        try {
+            await this.removeLayer();
+            await this.createLayer(true);
+            this.setLayerOrder();
+        } catch (e) {
+            console.log('Failed to update layer', e);
+        }
     }
 
     // Override in subclass if needed
