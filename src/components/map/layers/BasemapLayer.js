@@ -10,13 +10,6 @@ const BasemapLayer = (
     const [layer, setLayer] = useState(null);
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     return () => {
-    //         console.log('cleanup', layer, context.map.getLayers().length);
-    //         removeLayer();
-    //     };
-    // }, []);
-
     useEffect(() => {
         isVisible && addLayer();
     }, [id, isVisible]);
