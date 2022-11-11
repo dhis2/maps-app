@@ -1,10 +1,12 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PeriodName from './PeriodName';
 import MapItem from './MapItem';
-import Layer from './layers/Layer';
+import BasemapLayer from './layers/BasemapLayer';
 import ThematicLayer from './layers/ThematicLayer';
+import { setAlert } from '../../actions/alerts';
 import styles from './styles/SplitView.module.css';
 
 const SplitView = ({
@@ -19,6 +21,8 @@ const SplitView = ({
 }) => {
     const [showFullscreen, setShowFullscreen] = useState();
     const [map, setMap] = useState(); // Called from map child
+    const [error, setError] = useState(null);
+    const dispatch = useDispatch();
     const containerRef = useRef();
 
     // From built-in fullscreen control
@@ -54,6 +58,16 @@ const SplitView = ({
         setShowFullscreen(isFullscreen);
     }, [isFullscreen]);
 
+    useEffect(() => {
+        setError(null);
+    }, [basemap]);
+
+    useEffect(() => {
+        if (error) {
+            dispatch(setAlert({ critical: true, message: error }));
+        }
+    }, [error]);
+
     const { id, periods = [] } = layer;
 
     return !interpretationModalOpen ? (
@@ -71,7 +85,7 @@ const SplitView = ({
                     isPlugin={isPlugin}
                     isFullscreen={showFullscreen}
                 >
-                    <Layer index={0} {...basemap} />
+                    <BasemapLayer {...basemap} onError={setError} />
                     <ThematicLayer
                         index={1}
                         period={period}

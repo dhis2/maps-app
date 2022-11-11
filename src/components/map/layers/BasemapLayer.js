@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { setAlert } from '../../../actions/alerts';
 
 const BasemapLayer = (
-    { id, index = 0, config, opacity, isVisible },
+    { id, index = 0, config, opacity, isVisible, onError },
     context
 ) => {
     const [layer, setLayer] = useState(null);
@@ -38,14 +38,19 @@ const BasemapLayer = (
             setLayer(theLayer);
             await context.map.addLayer(theLayer);
         } catch (errorMessage) {
-            console.log(`Basemap could not be added: ${errorMessage}`);
+            const message = `Basemap could not be added: ${errorMessage}`;
+            console.log(message);
 
-            dispatch(
-                setAlert({
-                    critical: true,
-                    message: `Basemap could not be added: ${errorMessage}`,
-                })
-            );
+            if (onError) {
+                onError(message);
+            } else {
+                dispatch(
+                    setAlert({
+                        critical: true,
+                        message,
+                    })
+                );
+            }
         }
     };
 
@@ -66,6 +71,7 @@ BasemapLayer.propTypes = {
     id: PropTypes.string,
     index: PropTypes.number,
     isVisible: PropTypes.bool,
+    onError: PropTypes.func,
     opacity: PropTypes.number,
 };
 
