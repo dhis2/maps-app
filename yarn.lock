@@ -4700,6 +4700,13 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@esri/arcgis-rest-feature-service@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@esri/arcgis-rest-feature-service/-/arcgis-rest-feature-service-4.0.3.tgz#ae6bd44ea2bbea63965a94b2d95e3b7569532900"
+  integrity sha512-VHvga97LNIrQHuLk+pBfXEtJkl1ItPIQSXZ78lXohCA5SIwMZuqLuLzgRNABb/WvbuRLsv7pzBwia6yy5o97BA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@esri/arcgis-rest-fetch@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@esri/arcgis-rest-fetch/-/arcgis-rest-fetch-4.0.0.tgz#aa5bf2bedccc168ea52433eb9c56b452b450500d"
@@ -4713,6 +4720,13 @@
   integrity sha512-cAS9HONIJgseCDdgRCIHBR4CE/OQXZIRP3FoNx/w+XyjVqK6yQiwCeXpYLfHeEZ6GEQqrA9XUBxifWG9UaJyXA==
   dependencies:
     formdata-node "^4.1.0"
+
+"@esri/arcgis-rest-portal@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@esri/arcgis-rest-portal/-/arcgis-rest-portal-4.1.0.tgz#bcf85f40156bc6d802de1be32aab3a17769de8b7"
+  integrity sha512-atNuccNtZ5iMzPFISDZBLdovcMVpSR43jMqlrOCa53DZ0f5dfAg9hzS3riVoB2uNAqLJjcs5QAA4zYj4pWqfSg==
+  dependencies:
+    tslib "^2.3.0"
 
 "@esri/arcgis-rest-request@^4.1.1":
   version "4.1.1"
@@ -5662,6 +5676,18 @@
   integrity sha512-XIB2XbzHTN6ieIjfIMV9hlVcfPU26s2vafYWQcZHWXHOxiaRZYEDKEwdl129Zyg50+foYV2jCgtrqSA6qNuNSA==
   dependencies:
     defer-to-connect "^1.0.1"
+
+"@terraformer/arcgis@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@terraformer/arcgis/-/arcgis-2.1.2.tgz#9e05cc5e0ddc400e532f6ccb1d91bdf420e4a756"
+  integrity sha512-IvdfqehcNAUtKU1OFMKwPT8EvdKlVFZ7q7ZKzkIF8XzYZIVsZLuXuOS1UBdRh5u/o+X5Gax7jiZhD8U/4TV+Jw==
+  dependencies:
+    "@terraformer/common" "^2.1.2"
+
+"@terraformer/common@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@terraformer/common/-/common-2.1.2.tgz#7bf83f81f1c3a99069c714c044004f9707f00c97"
+  integrity sha512-cwPdTFzIpekZhZRrgDEkqLKNPoqbyCBQHiemaovnGIeUx0Pl336MY/eCxzJ5zXkrQLVo9zPalq/vYW5HnyKevQ==
 
 "@testing-library/dom@^8.0.0":
   version "8.11.2"
@@ -22568,7 +22594,7 @@ tslib@^2.0.1, tslib@^2.0.3:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
   integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
 
-tslib@^2.3.1:
+tslib@^2.3.0, tslib@^2.3.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
   integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==

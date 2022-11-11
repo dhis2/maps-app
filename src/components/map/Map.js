@@ -10,6 +10,7 @@ import ThematicLayer from './layers/ThematicLayer';
 import OrgUnitLayer from './layers/OrgUnitLayer';
 import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
 import ExternalLayer from './layers/ExternalLayer';
+import FeatureService from './layers/FeatureService';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
 import { onFullscreenChange } from '../../util/map';
@@ -23,6 +24,7 @@ const layerType = {
     orgUnit: OrgUnitLayer,
     earthEngine: EarthEngineLayer,
     external: ExternalLayer,
+    featureService: FeatureService,
 };
 
 class Map extends Component {
@@ -152,7 +154,17 @@ class Map extends Component {
                 {map && (
                     <Fragment>
                         {overlays.map((config, index) => {
-                            const Overlay = layerType[config.layer] || Layer;
+                            let type = config.layer;
+
+                            if (
+                                type === 'external' &&
+                                config.config.type === 'featureService'
+                            ) {
+                                type = config.config.type;
+                            }
+
+                            let Overlay = layerType[type] || Layer;
+
                             const highlight =
                                 feature && feature.layerId === config.id
                                     ? feature
