@@ -18,14 +18,7 @@ const BasemapLayer = (
     // }, []);
 
     useEffect(() => {
-        try {
-            if (isVisible) {
-                addLayer();
-            }
-        } catch (e) {
-            console.log('Failed to create Layer', e);
-            dispatch(setAlert({ critical: true, e }));
-        }
+        isVisible && addLayer();
     }, [id, isVisible]);
 
     useEffect(() => {
@@ -51,8 +44,15 @@ const BasemapLayer = (
 
             setLayer(theLayer);
             await context.map.addLayer(theLayer);
-        } catch (e) {
-            console.log('Oh noos!!!', e);
+        } catch (errorMessage) {
+            console.log(`Basemap could not be added: ${errorMessage}`);
+
+            dispatch(
+                setAlert({
+                    critical: true,
+                    message: `Basemap could not be added: ${errorMessage}`,
+                })
+            );
         }
     };
 
