@@ -59,7 +59,7 @@ const BasemapLayer = (
     return null;
 };
 
-BasemapLayer.contextTypes = { map: PropTypes.object, isPlugin: PropTypes.bool };
+BasemapLayer.contextTypes = { map: PropTypes.object };
 
 BasemapLayer.propTypes = {
     config: PropTypes.object,
