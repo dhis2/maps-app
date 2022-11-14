@@ -39,7 +39,6 @@ const BasemapLayer = (
             await context.map.addLayer(theLayer);
         } catch (errorMessage) {
             const message = `Basemap could not be added: ${errorMessage}`;
-            console.log(message);
 
             if (onError) {
                 onError(message);
