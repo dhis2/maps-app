@@ -1,7 +1,10 @@
+import { connect } from 'react-redux'; // TODO: not available in plugin
 import Layer from './Layer';
+import { filterData } from '../../../util/filter';
+import { setFeatureProfile } from '../../../actions/feature'; // TODO: not available in plugin
 import { GEOJSON_LAYER } from '../../../constants/layers';
 
-export default class ExternalLayer extends Layer {
+class FeatureService extends Layer {
     createLayer() {
         const {
             id,
@@ -9,12 +12,15 @@ export default class ExternalLayer extends Layer {
             opacity,
             isVisible,
             data,
+            dataFilters,
             feature,
             /* config,*/
         } = this.props;
         const { map } = this.context;
 
         // console.log('FeatureService', feature);
+
+        const filteredData = filterData(data, dataFilters);
 
         const group = map.createLayer({
             type: 'group',
@@ -46,13 +52,13 @@ export default class ExternalLayer extends Layer {
             index,
             opacity,
             isVisible,
-            data,
+            data: filteredData,
             // hoverLabel: '{name}',
             style: {
                 color: 'red',
                 // strokeColor: organisationUnitColor,
             },
-            // onClick: this.onFeatureClick.bind(this),
+            onClick: this.onFeatureClick.bind(this),
             // onRightClick: this.onFeatureRightClick.bind(this),
         });
 
@@ -75,4 +81,16 @@ export default class ExternalLayer extends Layer {
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce();
     }
+
+    onFeatureClick(evt) {
+        // console.log('click', evt.feature, this.props.fields);
+        this.props.setFeatureProfile({
+            fields: this.props.fields,
+            data: evt.feature.properties,
+        });
+    }
 }
+
+export default connect(null, {
+    setFeatureProfile,
+})(FeatureService);

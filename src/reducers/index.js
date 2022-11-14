@@ -34,6 +34,7 @@ import ui from './ui';
 import trackedEntityTypes from './trackedEntityTypes';
 import dataDownload from './dataDownload';
 import feature from './feature';
+import featureProfile from './featureProfile';
 
 export default combineReducers({
     aggregations,
@@ -71,4 +72,5 @@ export default combineReducers({
     trackedEntityTypes,
     dataDownload,
     feature,
+    featureProfile,
 });

@@ -1,4 +1,5 @@
 import { getInstance as getD2 } from 'd2';
+import { request } from '@esri/arcgis-rest-request';
 import { queryFeatures } from '@esri/arcgis-rest-feature-service';
 import { geojsonToArcGIS } from '@terraformer/arcgis';
 import { getOrgUnitsFromRows } from '../util/analytics';
@@ -30,6 +31,8 @@ const featureServiceLoader = async layer => {
         feature = orgUnitFeatures[0];
     }
 
+    const metadata = await request(url);
+
     const { features /*, properties */ } = await queryFeatures({
         url,
         where,
@@ -40,14 +43,13 @@ const featureServiceLoader = async layer => {
         /* authentication, */
     });
 
-    // console.log('loader', features, properties);
-
     return {
         ...layer,
         layer: EXTERNAL_LAYER,
         name,
         legend,
         data: features,
+        fields: metadata.fields,
         feature,
         isLoaded: true,
         isExpanded: true,

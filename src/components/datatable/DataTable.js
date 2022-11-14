@@ -9,6 +9,7 @@ import { debounce } from 'lodash/fp';
 import ColumnHeader from './ColumnHeader';
 import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
+import FeatureServiceColumns from './FeatureServiceColumns';
 import { setOrgUnitProfile } from '../../actions/orgUnits';
 import { highlightFeature } from '../../actions/feature';
 import { closeDataTable } from '../../actions/dataTable';
@@ -20,6 +21,8 @@ import {
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
+    EXTERNAL_LAYER,
+    FEATURE_SERVICE,
 } from '../../constants/layers';
 import { numberValueTypes } from '../../constants/valueTypes';
 import styles from './styles/DataTable.module.css';
@@ -191,12 +194,16 @@ class DataTable extends Component {
             serverCluster,
             aggregationType,
             legend,
+            fields,
         } = layer;
 
         const isThematic = layerType === THEMATIC_LAYER;
         const isOrgUnit = layerType === ORG_UNIT_LAYER;
         const isEvent = layerType === EVENT_LAYER;
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
+        const isFeatureService =
+            layerType === EXTERNAL_LAYER &&
+            layer.config?.type === FEATURE_SERVICE;
         const isLoading =
             isEarthEngine && aggregationType?.length && !aggregations;
 
@@ -228,22 +235,28 @@ class DataTable extends Component {
                         width={72}
                         className="right"
                     />
-                    <Column
-                        dataKey={isEvent ? 'ouname' : 'name'}
-                        label={isEvent ? i18n.t('Org unit') : i18n.t('Name')}
-                        width={100}
-                        headerRenderer={props => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
-                    <Column
-                        dataKey="id"
-                        label={i18n.t('Id')}
-                        width={100}
-                        headerRenderer={props => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
+                    {!isFeatureService && (
+                        <Column
+                            dataKey={isEvent ? 'ouname' : 'name'}
+                            label={
+                                isEvent ? i18n.t('Org unit') : i18n.t('Name')
+                            }
+                            width={100}
+                            headerRenderer={props => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                        />
+                    )}
+                    {!isFeatureService && (
+                        <Column
+                            dataKey="id"
+                            label={i18n.t('Id')}
+                            width={100}
+                            headerRenderer={props => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                        />
+                    )}
                     {isEvent && (
                         <Column
                             dataKey="eventdate"
@@ -322,14 +335,16 @@ class DataTable extends Component {
                             )}
                         />
                     )}
-                    <Column
-                        dataKey="type"
-                        label={i18n.t('Type')}
-                        width={100}
-                        headerRenderer={props => (
-                            <ColumnHeader type="string" {...props} />
-                        )}
-                    />
+                    {!isFeatureService && (
+                        <Column
+                            dataKey="type"
+                            label={i18n.t('Type')}
+                            width={100}
+                            headerRenderer={props => (
+                                <ColumnHeader type="string" {...props} />
+                            )}
+                        />
+                    )}
                     {(isThematic || styleDataItem) && (
                         <Column
                             dataKey="color"
@@ -344,6 +359,9 @@ class DataTable extends Component {
 
                     {isEarthEngine &&
                         EarthEngineColumns({ aggregationType, legend, data })}
+
+                    {isFeatureService &&
+                        FeatureServiceColumns({ fields, data })}
                 </Table>
                 {isLoading === true && (
                     <div className={styles.loader}>

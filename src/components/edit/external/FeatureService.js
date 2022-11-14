@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { request } from '@esri/arcgis-rest-request';
-import { Tab, Tabs } from '../../core';
+import { Help, Tab, Tabs } from '../../core';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
 import { toggleOrgUnit } from '../../../actions/layerEdit';
 import { getOrgUnitNodesFromRows } from '../../../util/analytics';
@@ -16,7 +16,7 @@ const FeatureServiceDialog = ({
     validateLayer,
     onLayerValidation,
 }) => {
-    const [tab, setTab] = useState('orgunits');
+    const [tab, setTab] = useState('data');
     const [metadata, setMetadata] = useState();
 
     const { url } = config;
@@ -40,10 +40,18 @@ const FeatureServiceDialog = ({
     return (
         <div className={styles.content} data-test="orgunitdialog">
             <Tabs value={tab} onChange={setTab}>
+                <Tab value="data">{i18n.t('Data')}</Tab>
                 <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                 <Tab value="style">{i18n.t('Style')}</Tab>
             </Tabs>
             <div className={styles.tabContent}>
+                {tab === 'data' && (
+                    <div className={styles.flexRowFlow}>
+                        <Help>
+                            <>{metadata && <p>{metadata.description}</p>}</>
+                        </Help>
+                    </div>
+                )}
                 {tab === 'orgunits' && (
                     <div
                         className={styles.flexColumnFlow}

@@ -17,6 +17,7 @@ import BottomPanel from '../datatable/BottomPanel';
 import LayerEdit from '../edit/LayerEdit';
 import ContextMenu from '../map/ContextMenu';
 import OrgUnitProfile from '../orgunits/OrgUnitProfile';
+import FeatureProfile from '../feature/FeatureProfile';
 import AlertStack from '../alerts/AlertStack';
 import InterpretationsPanel from '../interpretations/InterpretationsPanel';
 import DataDownloadDialog from '../layers/download/DataDownloadDialog';
@@ -95,6 +96,7 @@ const App = ({
                 <DataDownloadDialog />
                 <OpenAsMapDialog />
                 <OrgUnitProfile />
+                <FeatureProfile />
             </div>
         </FatalErrorBoundary>
     );

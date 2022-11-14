@@ -44,7 +44,10 @@ InterpretationsToggle.propTypes = {
 
 export default connect(
     state => ({
-        interpretationsOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
+        interpretationsOpen:
+            state.ui.rightPanelOpen &&
+            !state.orgUnitProfile &&
+            !state.featureProfile,
         interpretationsEnabled: Boolean(state.map.id),
     }),
     {

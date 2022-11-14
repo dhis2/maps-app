@@ -101,7 +101,10 @@ InterpretationsPanel.propTypes = {
 export default connect(
     state => ({
         map: state.map,
-        isPanelOpen: state.ui.rightPanelOpen && !state.orgUnitProfile,
+        isPanelOpen:
+            state.ui.rightPanelOpen &&
+            !state.orgUnitProfile &&
+            !state.featureProfile,
         interpretationId: state.interpretation.id,
     }),
     {
