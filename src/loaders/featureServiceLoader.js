@@ -5,11 +5,9 @@ import { geojsonToArcGIS } from '@terraformer/arcgis';
 import { getOrgUnitsFromRows } from '../util/analytics';
 import { toGeoJson } from '../util/map';
 import { getDisplayProperty } from '../util/helpers';
-import { EXTERNAL_LAYER } from '../constants/layers';
 
 const featureServiceLoader = async layer => {
-    const { config, rows } = layer;
-    const { name, url, where } = config;
+    const { rows, name, url, where } = layer;
     const legend = { title: name };
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
@@ -45,7 +43,6 @@ const featureServiceLoader = async layer => {
 
     return {
         ...layer,
-        layer: EXTERNAL_LAYER,
         name,
         legend,
         data: features,

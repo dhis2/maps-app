@@ -21,7 +21,6 @@ import {
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
-    EXTERNAL_LAYER,
     FEATURE_SERVICE,
 } from '../../constants/layers';
 import { numberValueTypes } from '../../constants/valueTypes';
@@ -201,9 +200,7 @@ class DataTable extends Component {
         const isOrgUnit = layerType === ORG_UNIT_LAYER;
         const isEvent = layerType === EVENT_LAYER;
         const isEarthEngine = layerType === EARTH_ENGINE_LAYER;
-        const isFeatureService =
-            layerType === EXTERNAL_LAYER &&
-            layer.config?.type === FEATURE_SERVICE;
+        const isFeatureService = layerType === FEATURE_SERVICE;
         const isLoading =
             isEarthEngine && aggregationType?.length && !aggregations;
 

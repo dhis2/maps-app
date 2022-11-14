@@ -154,17 +154,7 @@ class Map extends Component {
                 {map && (
                     <Fragment>
                         {overlays.map((config, index) => {
-                            let type = config.layer;
-
-                            if (
-                                type === 'external' &&
-                                config.config.type === 'featureService'
-                            ) {
-                                type = config.config.type;
-                            }
-
-                            let Overlay = layerType[type] || Layer;
-
+                            const Overlay = layerType[config.layer] || Layer;
                             const highlight =
                                 feature && feature.layerId === config.id
                                     ? feature

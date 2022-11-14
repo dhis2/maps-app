@@ -1,5 +1,4 @@
 import { parseLayerConfig } from '../util/external';
-import featureServiceLoader from './featureServiceLoader';
 import { loadLegendSet, getPredefinedLegendItems } from '../util/legend';
 import { EXTERNAL_LAYER } from '../constants/layers';
 
@@ -11,10 +10,6 @@ const externalLoader = async layer => {
         config = await parseLayerConfig(config);
     } else {
         delete layer.id;
-    }
-
-    if (config.type === 'featureService') {
-        return featureServiceLoader({ ...layer, config });
     }
 
     const { name, legendSet, legendSetUrl } = config;

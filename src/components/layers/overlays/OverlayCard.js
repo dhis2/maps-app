@@ -26,7 +26,6 @@ import {
     DATA_TABLE_LAYER_TYPES,
     OPEN_AS_LAYER_TYPES,
     EXTERNAL_LAYER,
-    FEATURE_SERVICE,
 } from '../../../constants/layers';
 
 import styles from './styles/OverlayCard.module.css';
@@ -53,15 +52,11 @@ const OverlayCard = ({
         opacity,
         isVisible,
         layer: layerType,
-        config = {},
         isLoaded,
     } = layer;
 
-    const isFeatureService =
-        layerType === EXTERNAL_LAYER && config?.type === FEATURE_SERVICE;
-    const canEdit = layerType !== EXTERNAL_LAYER || isFeatureService;
-    const canToggleDataTable =
-        DATA_TABLE_LAYER_TYPES.includes(layerType) || isFeatureService;
+    const canEdit = layerType !== EXTERNAL_LAYER;
+    const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType);
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType);
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType);
 

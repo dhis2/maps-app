@@ -17,11 +17,7 @@ const AddLayerPopover = ({
 }) => {
     const onLayerSelect = layer => {
         const config = { ...layer };
-        const canEdit =
-            layer.layer !== EXTERNAL_LAYER ||
-            layer.config.type === 'featureService';
-
-        canEdit ? editLayer(config) : loadLayer(config);
+        layer.layer === EXTERNAL_LAYER ? loadLayer(config) : editLayer(config);
         onClose();
     };
 
