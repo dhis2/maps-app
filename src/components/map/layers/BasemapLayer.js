@@ -1,22 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAlert } from '../../../actions/alerts';
 
-const BasemapLayer = (
-    { id, index = 0, config, opacity, isVisible, onError },
-    { map }
-) => {
-    const [layer, setLayer] = useState(null);
+const BasemapLayer = ({ id, config, opacity, isVisible, onError }, { map }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        isVisible && addLayer();
+        isVisible && id && addLayer();
     }, [id, isVisible]);
 
     useEffect(() => {
+        const layer = map.getLayerAtIndex(0);
         layer?.setOpacity && layer.setOpacity(opacity);
-    }, [layer, opacity]);
+    }, [opacity]);
 
     useEffect(() => {
         if (!isVisible) {
@@ -30,12 +27,11 @@ const BasemapLayer = (
             const theLayer = map.createLayer({
                 ...config,
                 id,
-                index,
+                index: 0,
                 opacity,
                 isVisible,
             });
 
-            setLayer(theLayer);
             await map.addLayer(theLayer);
         } catch (errorMessage) {
             const message = `Basemap could not be added: ${errorMessage}`;
@@ -54,9 +50,9 @@ const BasemapLayer = (
     };
 
     const removeLayer = async () => {
+        const layer = map.getLayerAtIndex(0);
         if (layer) {
             await map.removeLayer(layer);
-            setLayer(null);
         }
     };
 
