@@ -18,8 +18,6 @@ class FeatureService extends Layer {
         } = this.props;
         const { map } = this.context;
 
-        // console.log('FeatureService', feature);
-
         const filteredData = filterData(data, dataFilters);
 
         const group = map.createLayer({
@@ -83,9 +81,11 @@ class FeatureService extends Layer {
     }
 
     onFeatureClick(evt) {
-        // console.log('click', evt.feature, this.props.fields);
+        const { name, fields } = this.props;
+
         this.props.setFeatureProfile({
-            fields: this.props.fields,
+            name,
+            fields,
             data: evt.feature.properties,
         });
     }

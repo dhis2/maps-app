@@ -31,10 +31,6 @@
     padding: var(--spacers-dp16);
 }
 
-.orgUnitData {
-    margin-top: var(--spacers-dp16);
-}
-
 .periodSelect label span {
     display: none;
 }

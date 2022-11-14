@@ -10,7 +10,7 @@ import styles from './styles/FeatureProfile.module.css';
 /*
  *  Loads an org unit profile and displays it in a right drawer component
  */
-export const FeatureProfile = ({ fields, data, closeFeatureProfile }) => {
+export const FeatureProfile = ({ name, fields, data, closeFeatureProfile }) => {
     if (!fields || !data) {
         return null;
     }
@@ -18,7 +18,7 @@ export const FeatureProfile = ({ fields, data, closeFeatureProfile }) => {
     return (
         <Drawer className={styles.drawer}>
             <div className={styles.header}>
-                {i18n.t('Feature profile')}
+                {name || i18n.t('Feature profile')}
                 <span className={styles.close} onClick={closeFeatureProfile}>
                     <IconCross24 />
                 </span>
@@ -44,6 +44,7 @@ export const FeatureProfile = ({ fields, data, closeFeatureProfile }) => {
 };
 
 FeatureProfile.propTypes = {
+    name: PropTypes.string,
     fields: PropTypes.array,
     data: PropTypes.object,
     closeFeatureProfile: PropTypes.func.isRequired,

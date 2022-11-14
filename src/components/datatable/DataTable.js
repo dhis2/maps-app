@@ -11,6 +11,7 @@ import ColorCell from './ColorCell';
 import EarthEngineColumns from './EarthEngineColumns';
 import FeatureServiceColumns from './FeatureServiceColumns';
 import { setOrgUnitProfile } from '../../actions/orgUnits';
+import { setFeatureProfile } from '../../actions/feature';
 import { highlightFeature } from '../../actions/feature';
 import { closeDataTable } from '../../actions/dataTable';
 import { loadLayer } from '../../actions/layers';
@@ -38,6 +39,7 @@ class DataTable extends Component {
         closeDataTable: PropTypes.func.isRequired,
         loadLayer: PropTypes.func.isRequired,
         setOrgUnitProfile: PropTypes.func.isRequired,
+        setFeatureProfile: PropTypes.func.isRequired,
         highlightFeature: PropTypes.func.isRequired,
     };
 
@@ -179,7 +181,22 @@ class DataTable extends Component {
         }
     });
 
-    onRowClick = evt => this.props.setOrgUnitProfile(evt.rowData.id);
+    onRowClick = evt => {
+        const { layer: layerType } = this.props.layer;
+
+        if (layerType === FEATURE_SERVICE) {
+            const { name, fields } = this.props.layer;
+
+            this.props.setFeatureProfile({
+                name,
+                fields,
+                data: evt.rowData,
+            });
+        } else {
+            this.props.setOrgUnitProfile(evt.rowData.id);
+        }
+    };
+
     onRowMouseOver = evt => this.highlightFeature(evt.rowData.id);
     onRowMouseOut = () => this.highlightFeature();
 
@@ -394,6 +411,7 @@ export default connect(
         closeDataTable,
         loadLayer,
         setOrgUnitProfile,
+        setFeatureProfile,
         highlightFeature,
     }
 )(DataTable);
