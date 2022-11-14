@@ -4205,10 +4205,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.0.8":
-  version "24.0.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.0.8.tgz#a463bef8ea1f10b8581d202583fa3da5e474c9bf"
-  integrity sha512-Jkh23yiEkUz4SYgGItEkM1z4nXqsLUs9aqUl7oihwQmut2iIMHLo2355QsuELcQGP8DFf4Qgu9MT1mrOZADIFA==
+"@dhis2/analytics@^24.3.3":
+  version "24.3.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.3.3.tgz#fdbfdf4890414c0a99efd12c3250227caedc3655"
+  integrity sha512-vMqOdaMilgkPvUl8xMjZRY6zly4AHr2xwKBH0yStoHhMlC3hTVkDxx/BmQ1RwyQPWMN++7HqKYF6dU+ri/XJSw==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
