@@ -59,6 +59,7 @@ const defaultLayers = () => [
         external: true,
         layer: 'featureService',
         type: 'Settlement extents',
+        name: 'Settlement extents',
         opacity: 1,
         url:
             'https://services3.arcgis.com/BU6Aadhn6tbBEdyk/ArcGIS/rest/services/GRID3_Sierra_Leone_Settlement_Extents/FeatureServer/0',

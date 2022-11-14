@@ -10,16 +10,14 @@ import { getOrgUnitNodesFromRows } from '../../../util/analytics';
 import styles from '../styles/LayerDialog.module.css';
 
 const FeatureServiceDialog = ({
+    url,
     rows = [],
-    config,
     toggleOrgUnit,
     validateLayer,
     onLayerValidation,
 }) => {
     const [tab, setTab] = useState('data');
     const [metadata, setMetadata] = useState();
-
-    const { url } = config;
 
     useEffect(() => {
         request(url).then(setMetadata);
@@ -81,11 +79,9 @@ const FeatureServiceDialog = ({
 };
 
 FeatureServiceDialog.propTypes = {
+    url: PropTypes.string.isRequired,
     rows: PropTypes.array,
     toggleOrgUnit: PropTypes.func.isRequired,
-    config: PropTypes.shape({
-        url: PropTypes.string.isRequired,
-    }),
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
 };

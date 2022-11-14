@@ -16,7 +16,7 @@ import FacilityDialog from './FacilityDialog';
 import ThematicDialog from './thematic/ThematicDialog';
 import OrgUnitDialog from './orgUnit/OrgUnitDialog';
 import EarthEngineDialog from './earthEngine/EarthEngineDialog';
-import ExternalDialog from './external/ExternalDialog';
+import FeatureServiceDialog from './arcgis/FeatureServiceDialog';
 import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
 import { EARTH_ENGINE_LAYER } from '../../constants/layers';
 import { useSystemSettings } from '../SystemSettingsProvider';
@@ -29,7 +29,7 @@ const layerType = {
     thematic: ThematicDialog,
     orgUnit: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
-    external: ExternalDialog,
+    featureService: FeatureServiceDialog,
 };
 
 /*
