@@ -5,7 +5,7 @@ import { setAlert } from '../../../actions/alerts';
 
 const BasemapLayer = (
     { id, index = 0, config, opacity, isVisible, onError },
-    context
+    { map }
 ) => {
     const [layer, setLayer] = useState(null);
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const BasemapLayer = (
     const addLayer = async () => {
         await removeLayer();
         try {
-            const theLayer = context.map.createLayer({
+            const theLayer = map.createLayer({
                 ...config,
                 id,
                 index,
@@ -36,7 +36,7 @@ const BasemapLayer = (
             });
 
             setLayer(theLayer);
-            await context.map.addLayer(theLayer);
+            await map.addLayer(theLayer);
         } catch (errorMessage) {
             const message = `Basemap could not be added: ${errorMessage}`;
 
@@ -55,7 +55,7 @@ const BasemapLayer = (
 
     const removeLayer = async () => {
         if (layer) {
-            await context.map.removeLayer(layer);
+            await map.removeLayer(layer);
             setLayer(null);
         }
     };
