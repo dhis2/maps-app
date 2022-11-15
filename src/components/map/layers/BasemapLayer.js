@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setAlert } from '../../../actions/alerts';
+import log from 'loglevel';
 
 const BASEMAP_LAYER_INDEX = 0;
 
 const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
     const [layer, setLayer] = useState(null);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         return function cleanup() {
@@ -37,14 +35,8 @@ const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
                     setLayer(newLayer); //even if addLayer throws, we need to keep a handle to the layer
                     await map.addLayer(newLayer);
                 } catch (errorMessage) {
-                    const message = `Basemap could not be added: ${errorMessage}`;
-
-                    dispatch(
-                        setAlert({
-                            critical: true,
-                            message,
-                        })
-                    );
+                    // TODO - use app-runtime alert system
+                    log.error(`Basemap could not be added: ${errorMessage}`);
                 }
             }
         };
