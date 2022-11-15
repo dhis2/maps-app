@@ -5,7 +5,7 @@ import { setAlert } from '../../../actions/alerts';
 
 const BASEMAP_LAYER_INDEX = 0;
 
-const BasemapLayer = ({ id, config, opacity, isVisible, onError }, { map }) => {
+const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
     const [layer, setLayer] = useState(null);
     const dispatch = useDispatch();
 
@@ -39,16 +39,12 @@ const BasemapLayer = ({ id, config, opacity, isVisible, onError }, { map }) => {
                 } catch (errorMessage) {
                     const message = `Basemap could not be added: ${errorMessage}`;
 
-                    if (onError) {
-                        onError(message);
-                    } else {
-                        dispatch(
-                            setAlert({
-                                critical: true,
-                                message,
-                            })
-                        );
-                    }
+                    dispatch(
+                        setAlert({
+                            critical: true,
+                            message,
+                        })
+                    );
                 }
             }
         };
@@ -58,7 +54,7 @@ const BasemapLayer = ({ id, config, opacity, isVisible, onError }, { map }) => {
 
     useEffect(() => {
         layer?.setOpacity && layer.setOpacity(opacity);
-    }, [opacity, map]);
+    }, [opacity, map]); //layer should not be a dependency
 
     return null;
 };
@@ -69,7 +65,6 @@ BasemapLayer.propTypes = {
     config: PropTypes.object,
     id: PropTypes.string,
     isVisible: PropTypes.bool,
-    onError: PropTypes.func,
     opacity: PropTypes.number,
 };
 
