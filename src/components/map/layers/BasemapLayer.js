@@ -16,12 +16,17 @@ const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
     );
 
     useEffect(() => {
-        try {
-            map.addLayer(basemap);
-        } catch (errorMessage) {
-            // TODO - use app-runtime alert system
-            log.error(`Basemap could not be added: ${errorMessage}`);
-        }
+        // Run async to catch error while basemap is added
+        const addBasemap = async () => {
+            try {
+                await map.addLayer(basemap);
+            } catch (errorMessage) {
+                // TODO - use app-runtime alert system
+                log.error(`Basemap could not be added: ${errorMessage}`);
+            }
+        };
+
+        addBasemap();
         return () => map.removeLayer(basemap);
     }, [map, basemap]);
 
@@ -30,10 +35,8 @@ const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
     }, [basemap, opacity]);
 
     useEffect(() => {
-        if (basemap.setVisibility) {
-            basemap.setVisibility(isVisible);
-        }
-    }, [map, basemap, isVisible]);
+        basemap.setVisibility(isVisible);
+    }, [basemap, isVisible]);
 
     return null;
 };
