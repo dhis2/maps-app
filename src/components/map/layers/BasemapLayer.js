@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAlert } from '../../../actions/alerts';
@@ -6,13 +6,22 @@ import { setAlert } from '../../../actions/alerts';
 const BASEMAP_LAYER_INDEX = 0;
 
 const BasemapLayer = ({ id, config, opacity, isVisible, onError }, { map }) => {
+    const [layer, setLayer] = useState(null);
     const dispatch = useDispatch();
 
     useEffect(() => {
+        return function cleanup() {
+            if (layer) {
+                map.removeLayer(layer);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
         const updateLayer = async () => {
-            const oldLayer = map.getLayerAtIndex(BASEMAP_LAYER_INDEX);
-            if (oldLayer) {
-                await map.removeLayer(oldLayer);
+            if (layer) {
+                await map.removeLayer(layer);
+                setLayer(null);
             }
 
             if (isVisible && id) {
@@ -25,6 +34,7 @@ const BasemapLayer = ({ id, config, opacity, isVisible, onError }, { map }) => {
                         isVisible,
                     });
 
+                    setLayer(newLayer); //even if addLayer throws, we need to keep a handle to the layer
                     await map.addLayer(newLayer);
                 } catch (errorMessage) {
                     const message = `Basemap could not be added: ${errorMessage}`;
@@ -44,10 +54,9 @@ const BasemapLayer = ({ id, config, opacity, isVisible, onError }, { map }) => {
         };
 
         updateLayer();
-    }, [id, isVisible, map, config]);
+    }, [id, isVisible, map, config]); //layer should not be a dependency
 
     useEffect(() => {
-        const layer = map.getLayerAtIndex(BASEMAP_LAYER_INDEX);
         layer?.setOpacity && layer.setOpacity(opacity);
     }, [opacity, map]);
 
