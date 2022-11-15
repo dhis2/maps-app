@@ -7,8 +7,8 @@ import { toGeoJson } from '../util/map';
 import { getDisplayProperty } from '../util/helpers';
 
 const featureServiceLoader = async layer => {
-    const { rows, name, url, where } = layer;
-    const legend = { title: name };
+    const { rows, name, url, where, featureStyle } = layer;
+    const legend = { title: name, items: [] };
     const orgUnits = getOrgUnitsFromRows(rows);
     const orgUnitParams = orgUnits.map(item => item.id);
     const d2 = await getD2();
@@ -39,6 +39,12 @@ const featureServiceLoader = async layer => {
         f: 'geojson',
         maxUrlLength: 2048,
         /* authentication, */
+    });
+
+    legend.items.push({
+        name: 'Feature',
+        ...featureStyle,
+        fillColor: featureStyle.color, // TODO: Clean up styles
     });
 
     return {
