@@ -14,7 +14,7 @@ class FeatureService extends Layer {
             data,
             dataFilters,
             feature,
-            /* config,*/
+            featureStyle,
         } = this.props;
         const { map } = this.context;
 
@@ -51,11 +51,8 @@ class FeatureService extends Layer {
             opacity,
             isVisible,
             data: filteredData,
-            // hoverLabel: '{name}',
-            style: {
-                color: 'red',
-                // strokeColor: organisationUnitColor,
-            },
+            hoverLabel: '{type}',
+            style: featureStyle,
             onClick: this.onFeatureClick.bind(this),
             // onRightClick: this.onFeatureRightClick.bind(this),
         });

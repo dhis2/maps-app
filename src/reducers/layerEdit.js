@@ -5,6 +5,7 @@ import {
     addOrgUnitLevelsToRows,
     addOrgUnitGroupsToRows,
     createUserOrgUnitsDimension,
+    setOrgUnitNodeInRows,
     toggleOrgUnitNodeInRows,
     setOrgUnitPathInRows,
     removePeriodFromFilters,
@@ -432,6 +433,12 @@ const layerEdit = (state = null, action) => {
                 areaRadius: id === NONE ? EE_BUFFER : null,
             };
 
+        case types.LAYER_EDIT_ORGANISATIOM_UNIT_SET:
+            return {
+                ...state,
+                rows: setOrgUnitNodeInRows(action.orgUnit),
+            };
+
         case types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE:
             return {
                 ...state,
@@ -579,6 +586,15 @@ const layerEdit = (state = null, action) => {
             }
 
             return newState;
+
+        case types.LAYER_EDIT_FEATURE_STYLE_SET:
+            return {
+                ...state,
+                featureStyle: {
+                    ...state.featureStyle,
+                    ...action.payload,
+                },
+            };
 
         default:
             return state;

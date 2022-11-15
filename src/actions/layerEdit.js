@@ -149,6 +149,11 @@ export const setRelationshipLineColor = color => ({
     color,
 });
 
+export const setOrgUnit = orgUnit => ({
+    type: types.LAYER_EDIT_ORGANISATIOM_UNIT_SET,
+    orgUnit,
+});
+
 export const toggleOrgUnit = orgUnit => ({
     type: types.LAYER_EDIT_ORGANISATIOM_UNIT_TOGGLE,
     orgUnit,
@@ -377,4 +382,10 @@ export const setRenderingStrategy = display => ({
 export const setNoDataColor = color => ({
     type: types.LAYER_EDIT_NO_DATA_COLOR_SET,
     payload: color,
+});
+
+// Set feature style
+export const setFeatureStyle = style => ({
+    type: types.LAYER_EDIT_FEATURE_STYLE_SET,
+    payload: style,
 });

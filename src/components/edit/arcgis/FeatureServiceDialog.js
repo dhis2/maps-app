@@ -5,14 +5,21 @@ import i18n from '@dhis2/d2-i18n';
 import { request } from '@esri/arcgis-rest-request';
 import { Help, Tab, Tabs } from '../../core';
 import OrgUnitTree from '../../orgunits/OrgUnitTree';
-import { toggleOrgUnit } from '../../../actions/layerEdit';
+import FeatureServiceStyle from '../shared/FeatureStyle';
+import { setOrgUnit, setFeatureStyle } from '../../../actions/layerEdit';
 import { getOrgUnitNodesFromRows } from '../../../util/analytics';
+import {
+    setDrawingInfo,
+    getFeatureStyleFields,
+} from '../../../util/featureStyle';
 import styles from '../styles/LayerDialog.module.css';
 
 const FeatureServiceDialog = ({
     url,
     rows = [],
-    toggleOrgUnit,
+    featureStyle,
+    setOrgUnit,
+    setFeatureStyle,
     validateLayer,
     onLayerValidation,
 }) => {
@@ -24,10 +31,12 @@ const FeatureServiceDialog = ({
     }, [url]);
 
     useEffect(() => {
-        if (metadata) {
+        if (metadata && !featureStyle) {
+            // Set feature style from metadata drawiing ingo
+            setFeatureStyle(setDrawingInfo(featureStyle, metadata.drawingInfo));
             // console.log('metadata', metadata);
         }
-    }, [metadata]);
+    }, [metadata, featureStyle]);
 
     useEffect(() => {
         if (validateLayer) {
@@ -58,8 +67,13 @@ const FeatureServiceDialog = ({
                         <div className={styles.orgUnitTree}>
                             <OrgUnitTree
                                 selected={getOrgUnitNodesFromRows(rows)}
-                                onClick={toggleOrgUnit}
-                                // disabled={hasUserOrgUnits}
+                                onClick={setOrgUnit}
+                                /*
+                                onClick={test => {
+                                    console.log(test);
+                                    setOrgUnit(test);
+                                }}
+                                */
                             />
                         </div>
                     </div>
@@ -69,8 +83,17 @@ const FeatureServiceDialog = ({
                         className={styles.flexColumnFlow}
                         data-test="orgunitdialog-styletab"
                     >
-                        <div className={styles.flexColumn}></div>
-                        <div className={styles.flexColumn}></div>
+                        <div className={styles.flexColumn}>
+                            {metadata && (
+                                <FeatureServiceStyle
+                                    fields={getFeatureStyleFields(
+                                        metadata.geometryType
+                                    )}
+                                    style={featureStyle}
+                                    onChange={setFeatureStyle}
+                                />
+                            )}
+                        </div>
                     </div>
                 )}
             </div>
@@ -81,7 +104,9 @@ const FeatureServiceDialog = ({
 FeatureServiceDialog.propTypes = {
     url: PropTypes.string.isRequired,
     rows: PropTypes.array,
-    toggleOrgUnit: PropTypes.func.isRequired,
+    featureStyle: PropTypes.object,
+    setFeatureStyle: PropTypes.func.isRequired,
+    setOrgUnit: PropTypes.func.isRequired,
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
 };
@@ -89,7 +114,8 @@ FeatureServiceDialog.propTypes = {
 export default connect(
     null,
     {
-        toggleOrgUnit,
+        setOrgUnit,
+        setFeatureStyle,
     },
     null,
     {

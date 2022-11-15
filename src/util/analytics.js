@@ -65,6 +65,10 @@ const isOrgUnitNode = ou => isValidUid(ou.id);
 export const getOrgUnitNodesFromRows = (rows = []) =>
     getOrgUnitsFromRows(rows).filter(isOrgUnitNode);
 
+export const setOrgUnitNodeInRows = orgUnit => [
+    createDimension('ou', [orgUnit]),
+];
+
 export const toggleOrgUnitNodeInRows = (rows = [], orgUnit) => {
     const orgUnits = getOrgUnitsFromRows(rows);
     const hasOrgUnit = orgUnits.some(ou => ou.id === orgUnit.id);
