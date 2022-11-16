@@ -9,6 +9,7 @@ import FacilityLayer from './layers/FacilityLayer';
 import ThematicLayer from './layers/ThematicLayer';
 import OrgUnitLayer from './layers/OrgUnitLayer';
 import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer';
+import BasemapLayer from './layers/BasemapLayer';
 import ExternalLayer from './layers/ExternalLayer';
 import Popup from './Popup';
 import { controlTypes } from './MapApi';
@@ -169,7 +170,7 @@ class Map extends Component {
                                 />
                             );
                         })}
-                        {basemap.isVisible !== false && <Layer {...basemap} />}
+                        <BasemapLayer {...basemap} />
                         {coordinates && (
                             <Popup
                                 coordinates={coordinates}
