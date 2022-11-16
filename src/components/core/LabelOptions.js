@@ -25,8 +25,8 @@ const getLabelOptions = () => [
 
 export const LabelOptions = ({ option, onDisplayOptionChange }) => (
     <RadioGroup
-        value={option !== undefined ? option : LABEL_DISPLAY_OPTION_NAME_ONLY}
-        onChange={val => onDisplayOptionChange(val)}
+        value={option || LABEL_DISPLAY_OPTION_NAME_ONLY}
+        onChange={onDisplayOptionChange}
     >
         {getLabelOptions().map(({ value, label }) => (
             <Radio key={value} value={value} label={label} />
