@@ -12,7 +12,7 @@ const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
                 id,
                 index: BASEMAP_LAYER_INDEX,
             }),
-        [id, config]
+        [map, id, config]
     );
 
     useEffect(() => {
