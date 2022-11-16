@@ -16,17 +16,10 @@ const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
     );
 
     useEffect(() => {
-        // Run async to catch error while basemap is added
-        const addBasemap = async () => {
-            try {
-                await map.addLayer(basemap);
-            } catch (errorMessage) {
-                // TODO - use app-runtime alert system
-                log.error(`Basemap could not be added: ${errorMessage}`);
-            }
-        };
-
-        addBasemap();
+        map.addLayer(basemap).catch(
+            errorMessage =>
+                log.error(`Basemap could not be added: ${errorMessage}`) // TODO - use app-runtime alert system
+        );
         return () => map.removeLayer(basemap);
     }, [map, basemap]);
 
