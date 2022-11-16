@@ -10,35 +10,32 @@ import {
 
 const getLabelOptions = () => [
     {
-        id: LABEL_DISPLAY_OPTION_NAME_ONLY,
-        name: i18n.t('Name'),
+        value: LABEL_DISPLAY_OPTION_NAME_ONLY,
+        label: i18n.t('Name'),
     },
     {
-        id: LABEL_DISPLAY_OPTION_NAME_AND_VALUE,
-        name: i18n.t('Name and value'),
+        value: LABEL_DISPLAY_OPTION_NAME_AND_VALUE,
+        label: i18n.t('Name and value'),
     },
     {
-        id: LABEL_DISPLAY_OPTION_VALUE_ONLY,
-        name: i18n.t('Value'),
+        value: LABEL_DISPLAY_OPTION_VALUE_ONLY,
+        label: i18n.t('Value'),
     },
 ];
 
 export const LabelOptions = ({ option, onDisplayOptionChange }) => (
     <RadioGroup
-        value={parseInt(
-            option !== undefined ? option : LABEL_DISPLAY_OPTION_NAME_ONLY,
-            10
-        )}
+        value={option !== undefined ? option : LABEL_DISPLAY_OPTION_NAME_ONLY}
         onChange={val => onDisplayOptionChange(val)}
     >
-        {getLabelOptions().map(({ id, name }) => (
-            <Radio key={id} value={id} label={name} />
+        {getLabelOptions().map(({ value, label }) => (
+            <Radio key={value} value={value} label={label} />
         ))}
     </RadioGroup>
 );
 
 LabelOptions.propTypes = {
-    option: PropTypes.number,
+    option: PropTypes.string,
     onDisplayOptionChange: PropTypes.func.isRequired,
 };
 

@@ -7,10 +7,7 @@ import Popup from '../Popup';
 import { filterData } from '../../../util/filter';
 import { getPeriodFromFilters } from '../../../util/analytics';
 import { polygonsToPoints } from '../../../util/geojson';
-import {
-    getLabelStyle,
-    getLabelDisplayOptionFormat,
-} from '../../../util/labels';
+import { getLabelStyle } from '../../../util/labels';
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
@@ -85,9 +82,7 @@ class ThematicLayer extends Layer {
         };
 
         if (labels) {
-            config.label = getLabelDisplayOptionFormat(
-                this.props.labelDisplayOption
-            );
+            config.label = this.props.labelDisplayOption;
             config.labelStyle = getLabelStyle(this.props);
         }
 

@@ -4,8 +4,6 @@ import {
     LABEL_FONT_STYLE,
     LABEL_FONT_WEIGHT,
     LABEL_FONT_COLOR,
-    LABEL_DISPLAY_OPTION_NAME_AND_VALUE,
-    LABEL_DISPLAY_OPTION_VALUE_ONLY,
 } from '../constants/layers';
 
 export const getLabelStyle = ({
@@ -23,13 +21,4 @@ export const getLabelStyle = ({
         color: cssColor(labelFontColor) || LABEL_FONT_COLOR,
         paddingTop: '10px',
     };
-};
-
-export const getLabelDisplayOptionFormat = labelDisplayOption => {
-    if (labelDisplayOption === LABEL_DISPLAY_OPTION_NAME_AND_VALUE) {
-        return ['format', ['get', 'name'], '\n', ['get', 'value']];
-    } else if (labelDisplayOption === LABEL_DISPLAY_OPTION_VALUE_ONLY) {
-        return '{value}';
-    }
-    return '{name}';
 };

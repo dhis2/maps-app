@@ -71,7 +71,7 @@ const Labels = ({
 Labels.propTypes = {
     includeDisplayOption: PropTypes.bool,
     labels: PropTypes.bool,
-    labelDisplayOption: PropTypes.number,
+    labelDisplayOption: PropTypes.string,
     labelFontColor: PropTypes.string,
     labelFontSize: PropTypes.string,
     labelFontStyle: PropTypes.string,
