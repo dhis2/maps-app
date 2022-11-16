@@ -16,6 +16,7 @@ import {
 } from '../../../actions/layerEdit';
 
 const Labels = ({
+    includeDisplayOption,
     labels,
     labelDisplayOption,
     labelFontColor,
@@ -39,10 +40,17 @@ const Labels = ({
                 />
                 {labels && (
                     <>
-                        <LabelOptions
-                            option={labelDisplayOption}
-                            onDisplayOptionChange={setLabelsDisplayOption}
-                        />
+                        {includeDisplayOption && (
+                            <>
+                                <LabelOptions
+                                    option={labelDisplayOption}
+                                    onDisplayOptionChange={
+                                        setLabelsDisplayOption
+                                    }
+                                />
+                                <div>Label font style</div>
+                            </>
+                        )}
                         <FontStyle
                             color={labelFontColor}
                             size={labelFontSize}
@@ -61,6 +69,7 @@ const Labels = ({
 };
 
 Labels.propTypes = {
+    includeDisplayOption: PropTypes.bool,
     labels: PropTypes.bool,
     labelDisplayOption: PropTypes.number,
     labelFontColor: PropTypes.string,

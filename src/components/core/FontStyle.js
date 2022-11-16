@@ -26,7 +26,6 @@ const FontStyle = ({
     className,
 }) => (
     <div className={cx(styles.fontStyle, className)}>
-        <div>Label font style</div>
         {onSizeChange && (
             <NumberField
                 dense
