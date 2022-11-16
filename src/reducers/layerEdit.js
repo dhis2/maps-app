@@ -478,6 +478,9 @@ const layerEdit = (state = null, action) => {
                 labels: action.isChecked,
             };
 
+        case types.LAYER_EDIT_LABELS_DISPLAY_OPTION:
+            return { ...state, labelDisplayOption: action.labelDisplayOption };
+
         case types.LAYER_EDIT_LABEL_FONT_COLOR_SET:
             return {
                 ...state,

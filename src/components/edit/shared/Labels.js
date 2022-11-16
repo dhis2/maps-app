@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import cx from 'classnames';
-import { Checkbox, FontStyle } from '../../core';
+import { Checkbox, FontStyle, LabelOptions } from '../../core';
 import styles from '../styles/LayerDialog.module.css';
 
 import {
@@ -12,15 +12,18 @@ import {
     setLabelFontSize,
     setLabelFontWeight,
     setLabelFontStyle,
+    setLabelsDisplayOption,
 } from '../../../actions/layerEdit';
 
 const Labels = ({
     labels,
+    labelDisplayOption,
     labelFontColor,
     labelFontSize,
     labelFontStyle,
     labelFontWeight,
     setLabels,
+    setLabelsDisplayOption,
     setLabelFontColor,
     setLabelFontSize,
     setLabelFontWeight,
@@ -35,16 +38,22 @@ const Labels = ({
                     onChange={setLabels}
                 />
                 {labels && (
-                    <FontStyle
-                        color={labelFontColor}
-                        size={labelFontSize}
-                        weight={labelFontWeight}
-                        fontStyle={labelFontStyle}
-                        onColorChange={setLabelFontColor}
-                        onSizeChange={setLabelFontSize}
-                        onWeightChange={setLabelFontWeight}
-                        onStyleChange={setLabelFontStyle}
-                    />
+                    <>
+                        <LabelOptions
+                            option={labelDisplayOption}
+                            onDisplayOptionChange={setLabelsDisplayOption}
+                        />
+                        <FontStyle
+                            color={labelFontColor}
+                            size={labelFontSize}
+                            weight={labelFontWeight}
+                            fontStyle={labelFontStyle}
+                            onColorChange={setLabelFontColor}
+                            onSizeChange={setLabelFontSize}
+                            onWeightChange={setLabelFontWeight}
+                            onStyleChange={setLabelFontStyle}
+                        />
+                    </>
                 )}
             </div>
         </div>
@@ -53,11 +62,13 @@ const Labels = ({
 
 Labels.propTypes = {
     labels: PropTypes.bool,
+    labelDisplayOption: PropTypes.number,
     labelFontColor: PropTypes.string,
     labelFontSize: PropTypes.string,
     labelFontStyle: PropTypes.string,
     labelFontWeight: PropTypes.string,
     setLabels: PropTypes.func.isRequired,
+    setLabelsDisplayOption: PropTypes.func.isRequired,
     setLabelFontColor: PropTypes.func.isRequired,
     setLabelFontSize: PropTypes.func.isRequired,
     setLabelFontWeight: PropTypes.func.isRequired,
@@ -67,6 +78,7 @@ Labels.propTypes = {
 export default connect(
     ({ layerEdit }) => ({
         labels: layerEdit.labels,
+        labelDisplayOption: layerEdit.labelDisplayOption,
         labelFontColor: layerEdit.labelFontColor,
         labelFontSize: layerEdit.labelFontSize,
         labelFontStyle: layerEdit.labelFontStyle,
@@ -74,6 +86,7 @@ export default connect(
     }),
     {
         setLabels,
+        setLabelsDisplayOption,
         setLabelFontColor,
         setLabelFontSize,
         setLabelFontWeight,

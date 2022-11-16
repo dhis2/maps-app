@@ -9,6 +9,7 @@ import FontStyle from './FontStyle';
 import Help from './Help';
 import IconButton from './IconButton';
 import ImageSelect from './ImageSelect';
+import LabelOptions from './LabelOptions';
 import MenuButton from './MenuButton';
 import NumberField from './NumberField';
 import Radio from './Radio';
@@ -30,6 +31,7 @@ export {
     Help,
     IconButton,
     ImageSelect,
+    LabelOptions,
     MenuButton,
     NumberField,
     Radio,

@@ -147,6 +147,9 @@ export const getGroupSetStyleTypes = () => [
 ];
 
 /* LABEL STYLES */
+export const LABEL_DISPLAY_OPTION_NAME_ONLY = 1;
+export const LABEL_DISPLAY_OPTION_NAME_AND_VALUE = 2;
+export const LABEL_DISPLAY_OPTION_VALUE_ONLY = 3;
 export const LABEL_FONT_SIZE = '11px';
 export const LABEL_FONT_SIZE_MIN = 6;
 export const LABEL_FONT_SIZE_MAX = 100;
