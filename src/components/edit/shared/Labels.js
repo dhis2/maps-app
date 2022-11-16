@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import cx from 'classnames';
-import { Checkbox, FontStyle, LabelOptions } from '../../core';
+import { Checkbox, FontStyle, LabelDisplayOptions } from '../../core';
 import styles from '../styles/LayerDialog.module.css';
 
 import {
@@ -42,7 +42,7 @@ const Labels = ({
                     <>
                         {includeDisplayOption && (
                             <>
-                                <LabelOptions
+                                <LabelDisplayOptions
                                     option={labelDisplayOption}
                                     onDisplayOptionChange={
                                         setLabelsDisplayOption
