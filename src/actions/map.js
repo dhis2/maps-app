@@ -43,6 +43,10 @@ export const showEarthEngineValue = (layerId, coordinate) => ({
     coordinate,
 });
 
+export const clearAlerts = () => ({
+    type: types.MAP_ALERTS_CLEAR,
+});
+
 export const tOpenMap = (mapId, keyDefaultBaseMap, dataEngine) => async (
     dispatch,
     getState

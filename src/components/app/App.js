@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { useDataEngine } from '@dhis2/app-runtime';
+import { AlertsProvider } from '@dhis2/app-service-alerts';
 import { useSetting } from '@dhis2/app-service-datastore';
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui';
 import isEmpty from 'lodash/isEmpty';
@@ -75,27 +76,29 @@ const App = ({
 
     return (
         <FatalErrorBoundary>
-            <div className={styles.app}>
-                <CssReset />
-                <CssVariables colors spacers theme />
-                <HeaderBar appName={i18n.t('Maps')} />
-                <AppMenu />
-                <InterpretationsPanel />
-                {basemapsLoaded && (
-                    <>
-                        <LayersToggle />
-                        <LayersPanel />
-                        <MapContainer />
-                    </>
-                )}
-                <BottomPanel />
-                <LayerEdit />
-                <ContextMenu />
-                <AlertStack />
-                <DataDownloadDialog />
-                <OpenAsMapDialog />
-                <OrgUnitProfile />
-            </div>
+            <AlertsProvider>
+                <div className={styles.app}>
+                    <CssReset />
+                    <CssVariables colors spacers theme />
+                    <HeaderBar appName={i18n.t('Maps')} />
+                    <AppMenu />
+                    <InterpretationsPanel />
+                    {basemapsLoaded && (
+                        <>
+                            <LayersToggle />
+                            <LayersPanel />
+                            <MapContainer />
+                        </>
+                    )}
+                    <BottomPanel />
+                    <LayerEdit />
+                    <ContextMenu />
+                    <AlertStack />
+                    <DataDownloadDialog />
+                    <OpenAsMapDialog />
+                    <OrgUnitProfile />
+                </div>
+            </AlertsProvider>
         </FatalErrorBoundary>
     );
 };

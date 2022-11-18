@@ -4265,6 +4265,11 @@
   resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.4.4.tgz#ccd8848f416e976a01ea11bbbd6e1ae873136777"
   integrity sha512-o2DHlZIHxJQ4XwJ9uIr0UpMTi3ZK0W6u+FkSnPGwrvF+MCFsxA0+pjN7PfBo4acCQHPBwTZzcyq0WYiEAJM7OA==
 
+"@dhis2/app-service-alerts@^3.6.2":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.6.2.tgz#c16e8199a7ee1b2c2bdfefce142e325b0717322c"
+  integrity sha512-gnDt4l4+phEe+Rvv2tBkYW/M3P7RpSh3cPZRrcBqCZixX459NUtHp4riJ7t/BdGCtXUrZdPYJ4zzm/i15wq1XQ==
+
 "@dhis2/app-service-config@3.2.7":
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/@dhis2/app-service-config/-/app-service-config-3.2.7.tgz#6d72143729edf85188c859f072e1fce8e091d247"

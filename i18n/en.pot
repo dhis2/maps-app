@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
-"PO-Revision-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2022-11-17T13:03:42.408Z\n"
+"PO-Revision-Date: 2022-11-17T13:03:42.408Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -14,10 +14,7 @@ msgstr ""
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Failed to save map. {{message}}"
-msgstr ""
-
-msgid "Error"
+msgid "Failed to save map: {{message}}"
 msgstr ""
 
 msgid "Classification"
@@ -1280,6 +1277,9 @@ msgid "Facilities: No coordinates found"
 msgstr ""
 
 msgid "Organisation units"
+msgstr ""
+
+msgid "Error"
 msgstr ""
 
 msgid "Thematic layer"

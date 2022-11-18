@@ -8,4 +8,8 @@ export const getMapAlerts = mapConfig =>
                 mapConfig.mapViews
                     .filter(layer => layer.alerts)
                     .map(layer => layer.alerts))
-        );
+        )
+        .map(({ success, warning, critical, message }) => ({
+            message,
+            options: { success, warning, critical },
+        }));

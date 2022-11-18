@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import i18n from '@dhis2/d2-i18n';
 import { useConfig } from '@dhis2/app-runtime';
+import { useAlert } from '@dhis2/app-service-alerts';
 import { useSetting } from '@dhis2/app-service-datastore';
 import LayerCard from '../LayerCard';
 import Legend from '../../legend/Legend';
@@ -13,7 +14,6 @@ import {
     toggleLayerExpand,
     toggleLayerVisibility,
 } from '../../../actions/layers';
-import { setAlert } from '../../../actions/alerts';
 import { toggleDataTable } from '../../../actions/dataTable';
 import { openDataDownloadDialog } from '../../../actions/dataDownload';
 import {
@@ -39,10 +39,10 @@ const OverlayCard = ({
     toggleLayerVisibility,
     toggleDataTable,
     openDataDownloadDialog,
-    setAlert,
 }) => {
     const { baseUrl } = useConfig();
     const [, /* actual value not used */ { set }] = useSetting(CURRENT_AO_KEY);
+    const layerRemovedAlert = useAlert(({ msg }) => msg, { success: true });
 
     const {
         id,
@@ -80,9 +80,8 @@ const OverlayCard = ({
             onOpacityChange={newOpacity => changeLayerOpacity(id, newOpacity)}
             onRemove={() => {
                 removeLayer(id);
-                setAlert({
-                    success: true,
-                    message: i18n.t('{{name}} deleted.', { name }),
+                layerRemovedAlert.show({
+                    msg: i18n.t('{{name}} deleted.', { name }),
                 });
             }}
             downloadData={
@@ -119,7 +118,6 @@ OverlayCard.propTypes = {
     removeLayer: PropTypes.func.isRequired,
     changeLayerOpacity: PropTypes.func.isRequired,
     openDataDownloadDialog: PropTypes.func.isRequired,
-    setAlert: PropTypes.func.isRequired,
     toggleLayerExpand: PropTypes.func.isRequired,
     toggleLayerVisibility: PropTypes.func.isRequired,
     toggleDataTable: PropTypes.func.isRequired,
@@ -132,6 +130,5 @@ export default connect(null, {
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
-    setAlert,
     openDataDownloadDialog,
 })(OverlayCard);

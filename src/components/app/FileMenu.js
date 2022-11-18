@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { FileMenu as UiFileMenu } from '@dhis2/analytics';
 import { useD2 } from '@dhis2/app-runtime-adapter-d2';
 import { useDataMutation, useDataEngine } from '@dhis2/app-runtime';
+import { useAlert } from '@dhis2/app-service-alerts';
 import { newMap, tOpenMap, setMapProps } from '../../actions/map';
-import { setAlert } from '../../actions/alerts';
 import { fetchMap } from '../../util/requests';
 import { cleanMapConfig } from '../../util/favorites';
 import { useSystemSettings } from '../SystemSettingsProvider';
@@ -31,22 +31,52 @@ const saveAsNewMapMutation = {
 const getSavedMessage = name => i18n.t('Map "{{name}}" is saved.', { name });
 
 const getSaveFailureMessage = message =>
-    i18n.t('Failed to save map. {{message}}', {
+    i18n.t('Failed to save map: {{message}}', {
         message,
+        nsSeparator: ';',
     });
 
-export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
+export const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
     const { d2 } = useD2();
     const engine = useDataEngine();
     const { keyDefaultBaseMap } = useSystemSettings();
-    const setError = ({ message }) => setAlert({ critical: true, message });
+    //alerts
+    const saveAlert = useAlert(
+        ({ msg }) => msg,
+        ({ isCritical }) =>
+            isCritical ? { critical: true } : { success: true }
+    );
+    const saveAsAlert = useAlert(
+        ({ msg }) => msg,
+        ({ isCritical }) =>
+            isCritical ? { critical: true } : { success: true }
+    );
+    const deleteAlert = useAlert('Map successfully deleted', {
+        success: true,
+        duration: 3000,
+    });
+    const fileMenuErrorAlert = useAlert(({ msg }) => msg, { critical: true });
+    const openMapErrorAlert = useAlert(({ msg }) => msg, { critical: true });
 
     const [saveMapMutate] = useDataMutation(saveMapMutation, {
-        onError: e => setError({ message: getSaveFailureMessage(e.message) }),
+        onError: e =>
+            saveAlert.show({
+                msg: getSaveFailureMessage(e.message),
+                isCritical: true,
+            }),
     });
     const [saveAsNewMapMutate] = useDataMutation(saveAsNewMapMutation, {
-        onError: e => setError({ message: getSaveFailureMessage(e.message) }),
+        onError: e =>
+            saveAsAlert.show({
+                msg: getSaveFailureMessage(e.message),
+                isCritical: true,
+            }),
     });
+
+    const onFileMenuError = e =>
+        fileMenuErrorAlert.show({
+            msg: e.message,
+        });
 
     const saveMap = async () => {
         const config = cleanMapConfig({
@@ -63,14 +93,16 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
             data: config,
         });
 
-        setAlert({ success: true, message: getSavedMessage(config.name) });
+        saveAlert.show({ msg: getSavedMessage(config.name) });
     };
 
     const openMap = async id => {
         const error = await tOpenMap(id, keyDefaultBaseMap, engine);
         if (error) {
-            setError({
-                message: i18n.t(`Error while opening map. ${error.message}`),
+            openMapErrorAlert.show({
+                msg: i18n.t(`Error while opening map: ${error.message}`, {
+                    nsSeparator: ';',
+                }),
             });
         }
     };
@@ -105,15 +137,18 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
             delete newMapConfig.mapViews;
             setMapProps(newMapConfig);
 
-            setAlert({
-                success: true,
-                message: getSavedMessage(name),
-            });
+            saveAsAlert.show({ msg: getSavedMessage(config.name) });
         } else {
-            setError({
-                message: `${i18n.t('Error')}: ${response.message}`,
+            saveAsAlert.show({
+                msg: getSaveFailureMessage(response.message),
+                isCritical: true,
             });
         }
+    };
+
+    const onDelete = () => {
+        deleteAlert.show();
+        newMap();
     };
 
     return (
@@ -126,8 +161,8 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps, setAlert }) => {
             onSave={saveMap}
             onSaveAs={saveAsNewMap}
             onRename={setMapProps}
-            onDelete={newMap}
-            onError={setError}
+            onDelete={onDelete}
+            onError={onFileMenuError}
         />
     );
 };
@@ -137,12 +172,10 @@ FileMenu.propTypes = {
     newMap: PropTypes.func.isRequired,
     tOpenMap: PropTypes.func.isRequired,
     setMapProps: PropTypes.func.isRequired,
-    setAlert: PropTypes.func.isRequired,
 };
 
 export default connect(({ map }) => ({ map }), {
     newMap,
     tOpenMap,
     setMapProps,
-    setAlert,
 })(FileMenu);
