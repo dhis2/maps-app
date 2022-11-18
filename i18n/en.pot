@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-11-17T13:03:42.408Z\n"
-"PO-Revision-Date: 2022-11-17T13:03:42.408Z\n"
+"POT-Creation-Date: 2022-11-18T08:42:29.083Z\n"
+"PO-Revision-Date: 2022-11-18T08:42:29.083Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -591,6 +591,9 @@ msgid "Longitude"
 msgstr ""
 
 msgid "Latitude"
+msgstr ""
+
+msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
 msgid "Not set"

@@ -1,10 +1,16 @@
 import { useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import log from 'loglevel';
+import { useAlert } from '@dhis2/app-service-alerts';
+import i18n from '@dhis2/d2-i18n';
 
 const BASEMAP_LAYER_INDEX = 0;
 
-const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
+const BasemapLayer = (
+    { id, config, opacity, isVisible },
+    { map, isPlugin }
+) => {
+    const basemapErrorAlert = useAlert(({ msg }) => msg, { critical: true });
     const basemap = useMemo(
         () =>
             map.createLayer({
@@ -16,10 +22,17 @@ const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
     );
 
     useEffect(() => {
-        map.addLayer(basemap).catch(
-            errorMessage =>
-                log.error(`Basemap could not be added: ${errorMessage}`) // TODO - use app-runtime alert system
-        );
+        map.addLayer(basemap).catch(errorMessage => {
+            log.error(`Basemap could not be added: ${errorMessage}`);
+            if (!isPlugin) {
+                basemapErrorAlert.show({
+                    msg: i18n.t('Basemap could not be added: {{message}}', {
+                        message: errorMessage,
+                        nsSeparator: ';',
+                    }),
+                });
+            }
+        });
         return () => map.removeLayer(basemap);
     }, [map, basemap]);
 
