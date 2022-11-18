@@ -147,8 +147,8 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
     };
 
     const onDelete = () => {
-        deleteAlert.show();
         newMap();
+        deleteAlert.show();
     };
 
     return (
