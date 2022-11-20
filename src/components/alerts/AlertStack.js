@@ -32,18 +32,23 @@ export const AlertStack = () => {
                     </AlertBar>
                 ))
                 .concat(
-                    mapAlerts.map(({ message, options }, index) => (
-                        <AlertBar
-                            key={`mapalert-${index}`}
-                            success={options.success}
-                            warning={options.warning}
-                            critical={options.critical}
-                            duration={options.duration || DEFAULT_DURATION}
-                            onHidden={clearMapAlerts}
-                        >
-                            {message}
-                        </AlertBar>
-                    ))
+                    mapAlerts.map(
+                        (
+                            { message, success, warning, critical, duration },
+                            index
+                        ) => (
+                            <AlertBar
+                                key={`mapalert-${index}`}
+                                success={success}
+                                warning={warning}
+                                critical={critical}
+                                duration={duration || DEFAULT_DURATION}
+                                onHidden={clearMapAlerts}
+                            >
+                                {message}
+                            </AlertBar>
+                        )
+                    )
                 )}
         </UiAlertStack>
     ) : null;
