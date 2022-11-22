@@ -23,7 +23,7 @@ import ColorCell from './ColorCell.js'
 import ColumnHeader from './ColumnHeader.js'
 import EarthEngineColumns from './EarthEngineColumns.js'
 import styles from './styles/DataTable.module.css'
-import '../../../node_modules/react-virtualized/styles.css'
+import 'react-virtualized/styles.css'
 
 // Using react component to keep sorting state, which is only used within the data table.
 class DataTable extends Component {
