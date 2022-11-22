@@ -5,6 +5,7 @@ import PeriodName from './PeriodName';
 import MapItem from './MapItem';
 import BasemapLayer from './layers/BasemapLayer';
 import ThematicLayer from './layers/ThematicLayer';
+import MapProvider from '../MapProvider.js';
 import styles from './styles/SplitView.module.css';
 
 const SplitView = ({
@@ -62,25 +63,31 @@ const SplitView = ({
             className={cx('dhis2-map-split-view', styles.splitView)}
         >
             {periods.map((period, index) => (
-                <MapItem
+                <MapProvider
                     key={period.id}
-                    index={index}
-                    count={periods.length}
-                    layerId={id}
-                    setMapControls={setMap}
                     isPlugin={isPlugin}
-                    isFullscreen={showFullscreen}
+                    attributionControl={false}
+                    isSplitView={true}
                 >
-                    <BasemapLayer {...basemap} />
-                    <ThematicLayer
-                        index={1}
-                        period={period}
-                        feature={feature}
-                        {...layer}
-                        openContextMenu={openContextMenu}
-                    />
-                    <PeriodName period={period.name} />
-                </MapItem>
+                    <MapItem
+                        index={index}
+                        count={periods.length}
+                        layerId={id}
+                        setMapControls={setMap}
+                        isPlugin={isPlugin}
+                        isFullscreen={showFullscreen}
+                    >
+                        <BasemapLayer {...basemap} />
+                        <ThematicLayer
+                            index={1}
+                            period={period}
+                            feature={feature}
+                            {...layer}
+                            openContextMenu={openContextMenu}
+                        />
+                        <PeriodName period={period.name} />
+                    </MapItem>
+                </MapProvider>
             ))}
         </div>
     ) : null;

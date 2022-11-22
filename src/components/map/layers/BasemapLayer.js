@@ -1,12 +1,15 @@
 import { useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import log from 'loglevel';
+import { useMapContext } from '../../MapProvider';
 
 const BASEMAP_LAYER_INDEX = 0;
 
-const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
+const BasemapLayer = ({ id, config, opacity, isVisible }) => {
+    const { map } = useMapContext();
     const basemap = useMemo(
         () =>
+            map &&
             map.createLayer({
                 ...config,
                 id,
@@ -16,10 +19,11 @@ const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
     );
 
     useEffect(() => {
-        map.addLayer(basemap).catch(
-            errorMessage =>
-                log.error(`Basemap could not be added: ${errorMessage}`) // TODO - use app-runtime alert system
-        );
+        map &&
+            map.addLayer(basemap).catch(
+                errorMessage =>
+                    log.error(`Basemap could not be added: ${errorMessage}`) // TODO - use app-runtime alert system
+            );
         return () => map.removeLayer(basemap);
     }, [map, basemap]);
 

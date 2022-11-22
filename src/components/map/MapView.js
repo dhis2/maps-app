@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
-import Map from './Map';
+import Map from './MapFnComponent';
 import SplitView from './SplitView';
 import { getSplitViewLayer } from '../../util/helpers';
 import { getMapControls } from '../../util/mapControls';
+import MapProvider from '../MapProvider.js';
 
 // Shared component between app and plugin
 const MapView = props => {
@@ -54,20 +55,27 @@ const MapView = props => {
                             resizeCount={resizeCount}
                         />
                     ) : (
-                        <Map
+                        <MapProvider
                             isPlugin={isPlugin}
-                            isFullscreen={isFullscreen}
-                            basemap={basemap}
-                            layers={[...layers].reverse()}
-                            bounds={bounds}
-                            controls={mapControls}
-                            feature={feature}
-                            coordinatePopup={coordinatePopup}
-                            closeCoordinatePopup={closeCoordinatePopup}
                             openContextMenu={openContextMenu}
-                            setAggregations={setAggregations}
-                            resizeCount={resizeCount}
-                        />
+                            attributionControl={true}
+                            isSplitView={false}
+                        >
+                            <Map
+                                isPlugin={isPlugin}
+                                isFullscreen={isFullscreen}
+                                basemap={basemap}
+                                layers={[...layers].reverse()}
+                                bounds={bounds}
+                                controls={mapControls}
+                                feature={feature}
+                                coordinatePopup={coordinatePopup}
+                                openContextMenu={openContextMenu}
+                                closeCoordinatePopup={closeCoordinatePopup}
+                                setAggregations={setAggregations}
+                                resizeCount={resizeCount}
+                            />
+                        </MapProvider>
                     )}
                 </>
             )}
