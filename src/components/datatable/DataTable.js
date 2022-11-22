@@ -20,10 +20,10 @@ import {
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
-} from '../../constants/layers';
-import { numberValueTypes } from '../../constants/valueTypes';
-import styles from './styles/DataTable.module.css';
-import '../../../node_modules/react-virtualized/styles.css';
+} from '../../constants/layers'
+import { numberValueTypes } from '../../constants/valueTypes'
+import styles from './styles/DataTable.module.css'
+import 'react-virtualized/styles.css'
 
 // Using react component to keep sorting state, which is only used within the data table.
 class DataTable extends Component {

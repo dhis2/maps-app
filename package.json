@@ -9,40 +9,21 @@
     },
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
-    "husky": {
-        "hooks": {
-            "pre-commit": "yarn extract-pot && yarn prettify && CI=true yarn test && git add -A ."
-        }
-    },
-    "pre-commit": [
-        "validate",
-        "test",
-        "lint"
-    ],
     "scripts": {
-        "prestart": "yarn localize && yarn manifest",
-        "start": "webpack serve",
-        "coverage": "yarn test --coverage",
+        "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
-        "test:watch": "yarn test --watch",
-        "start:nobrowser": "BROWSER=none yarn start",
-        "cy:open": "start-server-and-test 'yarn start:nobrowser' http://localhost:8082 'yarn cypress open --env networkMode=live'",
-        "cy:run": "start-server-and-test 'yarn start:nobrowser' http://localhost:8082 'yarn cypress run --env networkMode=live'",
-        "prebuild": "yarn test && yarn localize && yarn manifest && rm -rf build && mkdir build && cp -r public/* ./build/",
-        "build": "NODE_ENV=production webpack",
-        "build:netlify": "yarn build && d2-manifest package.json build/manifest.webapp --manifest.activities.dhis.href=\"https://play.dhis2.org/dev\"",
-        "manifest": "d2-manifest package.json public/manifest.webapp",
-        "lint": "eslint ./src",
-        "validate": "npm ls --depth 0 || yarn list",
-        "profile": "yarn start --profile",
-        "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
-        "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
-        "localize": "yarn extract-pot && d2-i18n-generate -n default -p ./i18n/ -o ./src/locales/",
-        "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
+        "cy:open": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress open --env networkMode=live'",
+        "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run --env networkMode=live'",
+        "build": "d2-app-scripts build",
+        "lint": "d2-style check",
+        "format": "d2-style apply",
+        "deploy": "d2-app-scripts deploy",
+        "validate-commit": "d2-style check --staged",
+        "validate-push": "yarn test"
     },
     "dependencies": {
         "@dhis2/analytics": "^24.0.8",
-        "@dhis2/app-runtime": "^3.4.4",
+        "@dhis2/app-runtime": "^3.7.0",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
         "@dhis2/d2-i18n": "^1.1.0",
@@ -81,72 +62,19 @@
         "redux-thunk": "^2.4.1",
         "rxjs": "5.5.12",
         "styled-jsx": "^4.0.1",
-        "typeface-roboto": "^0.0.75",
         "url-polyfill": "^1.1.12",
         "whatwg-fetch": "^3.6.2"
     },
     "devDependencies": {
-        "@babel/core": "^7.19.0",
-        "@babel/preset-env": "^7.19.0",
-        "@dhis2/cli-app-scripts": "^10.0.0",
+        "@dhis2/cli-app-scripts": "^10.1.5",
+        "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^9.0.2",
         "@dhis2/cypress-plugins": "^9.0.2",
-        "@dhis2/d2-i18n-extract": "^1.0.8",
-        "@dhis2/d2-i18n-generate": "^1.2.0",
-        "babel-eslint": "^10.1.0",
-        "babel-loader": "^8.2.5",
-        "babel-polyfill": "^6.26.0",
-        "babel-regenerator-runtime": "^6.5.0",
-        "css-loader": "^6.7.1",
         "cypress": "^8.7.0",
-        "cypress-cucumber-preprocessor": "^4.3.1",
-        "d2-manifest": "^1.0.0",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.6",
         "enzyme-to-json": "^3.6.2",
-        "eslint": "^4.19.1",
-        "eslint-config-dhis2": "^3.0.7",
-        "eslint-config-prettier": "^2.10.0",
         "eslint-plugin-cypress": "^2.12.1",
-        "eslint-plugin-prettier": "^2.7.0",
-        "eslint-plugin-react": "^7.31.7",
-        "file-loader": "^6.2.0",
-        "gifsicle": "^3.0.4",
-        "html-webpack-plugin": "^5.5.0",
-        "husky": "^8.0.1",
-        "identity-obj-proxy": "^3.0.0",
-        "image-webpack-loader": "^7.0.1",
-        "optipng-bin": "^8.1.0",
-        "pngquant-bin": "^3.1.1",
-        "precommit-hook": "3.0.0",
-        "prettier": "^1.19.1",
-        "react-addons-test-utils": "^15.6.2",
-        "redux-devtools": "^3.7.0",
-        "start-server-and-test": "^1.14.0",
-        "style-loader": "^2.0.0",
-        "terser-webpack-plugin": "^5.3.3",
-        "url-loader": "^4.1.1",
-        "wait-on": "^3.3.0",
-        "webpack": "^5.74.0",
-        "webpack-cli": "^4.10.0",
-        "webpack-dev-server": "^3.11.3"
-    },
-    "manifest.webapp": {
-        "name": "DHIS2 Maps",
-        "icons": {
-            "48": "icon.png"
-        },
-        "appType": "APP",
-        "core_app": true,
-        "short_name": "maps",
-        "developer": {
-            "url": "",
-            "name": "Bjørn Sandvik"
-        },
-        "activities": {
-            "dhis": {
-                "href": ".."
-            }
-        }
+        "start-server-and-test": "^1.14.0"
     }
 }

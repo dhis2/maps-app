@@ -1,19 +1,14 @@
-.DS_Store
-.idea
-.vscode
-.jshintignore
-.jshintrc
-.webpack-profile.json
-package-lock.json
 node_modules
 build
-target
-npm-debug.log
-yarn-error.log
-manifest.webapp
-coverage
-src/locales/
-.netlify
 cypress/videos/
 cypress/screenshots/
 cypress.env.json
+
+# DHIS2 Platform
+.d2
+src/locales
+
+# IDEs and environment
+.DS_Store
+.idea
+.vscode
