@@ -1,25 +1,22 @@
 # 
 # Translators:
-# phil_dhis2, 2021
-# Viktor Varland <viktor@dhis2.org>, 2021
-# Éva Tamási, 2022
-# Nadiia <semchuk@aph.org.ua>, 2022
+# Jaime Bosque <jaime.bosque@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-04-04T19:05:18.758Z\n"
 "PO-Revision-Date: 2021-09-04 00:11+0000\n"
-"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2022\n"
-"Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
+"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2022\n"
+"Language-Team: Spanish (Latin America) (https://www.transifex.com/hisp-uio/teams/100509/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Language: es_419\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Maps"
-msgstr "Мапи"
+msgstr ""
 
 msgid "Classification"
 msgstr ""
@@ -28,31 +25,31 @@ msgid "Classes"
 msgstr ""
 
 msgid "Legend set"
-msgstr "Набір умовних позначень"
+msgstr ""
 
 msgid "Color"
 msgstr ""
 
 msgid "Size"
-msgstr "Розмір"
+msgstr ""
 
 msgid "Data element group"
-msgstr "Група елементів даних"
+msgstr ""
 
 msgid "Data element operand"
 msgstr ""
 
 msgid "Data element"
-msgstr "Елемент даних"
+msgstr ""
 
 msgid "Totals"
-msgstr "Підсумки"
+msgstr ""
 
 msgid "Details"
-msgstr "Деталі"
+msgstr "Detalles"
 
 msgid "Yes"
-msgstr "Так"
+msgstr "Sí"
 
 msgid "Event location"
 msgstr ""
@@ -61,10 +58,10 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr "Жодного"
+msgstr "Ninguno"
 
 msgid "Data item"
-msgstr "Елемент даних"
+msgstr ""
 
 msgid "Event data item"
 msgstr ""
@@ -73,16 +70,16 @@ msgid "Style by data element"
 msgstr ""
 
 msgid "Data set"
-msgstr "Набір даних"
+msgstr ""
 
 msgid "Index"
 msgstr ""
 
 msgid "Org unit"
-msgstr "Організаційний підрозділ"
+msgstr "Unidad Organizativa"
 
 msgid "Name"
-msgstr "Ім'я"
+msgstr "Nombre"
 
 msgid "Id"
 msgstr ""
@@ -91,28 +88,28 @@ msgid "Event time"
 msgstr ""
 
 msgid "Value"
-msgstr "Значення"
+msgstr "Valor"
 
 msgid "Legend"
-msgstr "Умовні позначення"
+msgstr ""
 
 msgid "Range"
-msgstr "Проміжок"
+msgstr ""
 
 msgid "Level"
-msgstr "Рівень"
+msgstr ""
 
 msgid "Parent"
 msgstr ""
 
 msgid "Type"
-msgstr "Тип"
+msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr ""
 
 msgid "Add filter"
-msgstr "Додати фільтр"
+msgstr ""
 
 msgid "Items"
 msgstr ""
@@ -121,7 +118,7 @@ msgid "Dimension"
 msgstr ""
 
 msgid "Download"
-msgstr "Завантажити"
+msgstr ""
 
 msgid "Download map"
 msgstr ""
@@ -137,19 +134,19 @@ msgid ""
 msgstr ""
 
 msgid "Cancel"
-msgstr "Скасувати"
+msgstr "Cancelar"
 
 msgid "Close"
-msgstr "Закрити"
+msgstr "Cerrar"
 
 msgid "Legend position"
 msgstr ""
 
 msgid "Organisation Units"
-msgstr "Організаційні підрозділи"
+msgstr ""
 
 msgid "Style"
-msgstr "Стиль"
+msgstr ""
 
 msgid ""
 "Remember to select the organisation unit level containing the facilities."
@@ -195,16 +192,16 @@ msgid "Aggregation method"
 msgstr ""
 
 msgid "Groups"
-msgstr "Групи"
+msgstr ""
 
 msgid "This field is required"
-msgstr "Обов'язкове поле"
+msgstr ""
 
 msgid "Data"
-msgstr "Дані"
+msgstr "Datos"
 
 msgid "Period"
-msgstr "Період"
+msgstr "Periodo"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -221,10 +218,10 @@ msgid "Unit"
 msgstr ""
 
 msgid "Source"
-msgstr "Source"
+msgstr ""
 
 msgid "Year"
-msgstr "Рік"
+msgstr ""
 
 msgid "Available periods are set by the source data"
 msgstr ""
@@ -248,13 +245,13 @@ msgid "Unit: {{ unit }}"
 msgstr ""
 
 msgid "Min"
-msgstr "Мін"
+msgstr ""
 
 msgid "Max"
-msgstr "Макс"
+msgstr "Máx"
 
 msgid "Steps"
-msgstr "Кроки"
+msgstr ""
 
 msgid "Legend preview"
 msgstr ""
@@ -263,10 +260,10 @@ msgid "Org Units"
 msgstr ""
 
 msgid "Filter"
-msgstr "Фільтр"
+msgstr ""
 
 msgid "Events"
-msgstr "Події"
+msgstr "Eventos"
 
 msgid "Group events"
 msgstr ""
@@ -293,7 +290,7 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Event status"
-msgstr "Статус події"
+msgstr "Estado del evento"
 
 msgid "Boundary color"
 msgstr ""
@@ -305,10 +302,10 @@ msgid "Radius in meters"
 msgstr ""
 
 msgid "Labels"
-msgstr "Мітки"
+msgstr ""
 
 msgid "Aggregation type"
-msgstr "Тип агрегації"
+msgstr ""
 
 msgid "Show no data"
 msgstr ""
@@ -350,16 +347,16 @@ msgid "Period is required"
 msgstr ""
 
 msgid "Indicator"
-msgstr "Індикатор"
+msgstr ""
 
 msgid "Reporting rates"
-msgstr "Частота повідомлень"
+msgstr ""
 
 msgid "Event data items"
-msgstr "Складові дані події"
+msgstr ""
 
 msgid "Program indicators"
-msgstr "Програмні показники"
+msgstr ""
 
 msgid "Item type"
 msgstr ""
@@ -374,13 +371,13 @@ msgid "the date a tracked entity was registered or enrolled in a program"
 msgstr ""
 
 msgid "Program status"
-msgstr "Статус програми"
+msgstr ""
 
 msgid "Relationships"
-msgstr "Зв'язки"
+msgstr "Relaciones"
 
 msgid "Follow up"
-msgstr "Подальші дії"
+msgstr "Seguimiento"
 
 msgid ""
 "Please select a Tracked Entity Type before selecting a Relationship Type"
@@ -410,7 +407,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr "Об’єкт, який відстежується"
+msgstr "Entidades monitoreadas"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -431,25 +428,25 @@ msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
 msgid "Relationship type"
-msgstr "Тип зв'язку"
+msgstr ""
 
 msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr "Сталася помилка"
+msgstr "Algo ha ido mal"
 
 msgid "Refresh to try again"
-msgstr "Оновіть, щоб спробувати ще раз"
+msgstr ""
 
 msgid "Hide technical details"
-msgstr "Приховати технічні подробиці"
+msgstr ""
 
 msgid "Show technical details"
-msgstr "Показати технічні подробиці"
+msgstr ""
 
 msgid "The following information may be requested by technical support."
-msgstr "Наступна інформація може знадобитися службі технічної підтримки."
+msgstr ""
 
 msgid "Filtering is available after selecting a program stage."
 msgstr ""
@@ -467,10 +464,10 @@ msgid "is not"
 msgstr ""
 
 msgid "Operator"
-msgstr "Оператор"
+msgstr ""
 
 msgid "Date"
-msgstr "Дата"
+msgstr "Fecha"
 
 msgid "Remove filter"
 msgstr ""
@@ -485,16 +482,16 @@ msgid "Style by group set"
 msgstr ""
 
 msgid "Indicator group"
-msgstr "Група індикаторів"
+msgstr ""
 
 msgid "Interpretations"
-msgstr "Інтерпретації"
+msgstr ""
 
 msgid "Collapse"
-msgstr "Згорнути"
+msgstr ""
 
 msgid "Expand"
-msgstr "Розгорнути"
+msgstr ""
 
 msgid "External basemap"
 msgstr ""
@@ -535,7 +532,7 @@ msgid "{{name}} deleted."
 msgstr ""
 
 msgid "Edit"
-msgstr "Редагувати"
+msgstr ""
 
 msgid "Toggle visibility"
 msgstr ""
@@ -556,7 +553,7 @@ msgid "Open as chart"
 msgstr ""
 
 msgid "Download data"
-msgstr "Завантажити дані"
+msgstr ""
 
 msgid "Edit layer"
 msgstr ""
@@ -568,7 +565,7 @@ msgid "Mid"
 msgstr ""
 
 msgid "Group"
-msgstr "Група"
+msgstr ""
 
 msgid "Filters"
 msgstr ""
@@ -580,7 +577,7 @@ msgid "Drill down one level"
 msgstr ""
 
 msgid "View profile"
-msgstr "Переглянути профіль"
+msgstr ""
 
 msgid "Show longitude/latitude"
 msgstr ""
@@ -589,34 +586,34 @@ msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr "Довгота"
+msgstr "Longitud"
 
 msgid "Latitude"
-msgstr "Широта"
+msgstr "Latitud"
 
 msgid "Viewing interpretation from {{interpretationDate}}"
-msgstr "Перегляд інтерпретації з {{interpretationDate}}"
+msgstr ""
 
 msgid "Not set"
-msgstr "Не встановлено"
+msgstr ""
 
 msgid "Organisation unit"
-msgstr "Організаційний підрозділ"
+msgstr ""
 
 msgid "Parent unit"
 msgstr ""
 
 msgid "Last updated"
-msgstr "Останнє оновлення"
+msgstr ""
 
 msgid "no value"
-msgstr "немає значення"
+msgstr "sin valor"
 
 msgid "acres"
 msgstr ""
 
 msgid "Area"
-msgstr "З областями"
+msgstr ""
 
 msgid "Center map on area"
 msgstr ""
@@ -631,7 +628,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr "Видалити"
+msgstr "Borrar"
 
 msgid "Distance"
 msgstr ""
@@ -667,10 +664,10 @@ msgid "Search for place or address"
 msgstr ""
 
 msgid "Zoom in"
-msgstr "Збільшити"
+msgstr ""
 
 msgid "Zoom out"
-msgstr "Зменшити"
+msgstr ""
 
 msgid "Zoom to content"
 msgstr ""
@@ -688,10 +685,10 @@ msgid "Data items"
 msgstr ""
 
 msgid "Proceed"
-msgstr "Продовжити"
+msgstr ""
 
 msgid "Options"
-msgstr "Опції"
+msgstr ""
 
 msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
@@ -708,40 +705,40 @@ msgid "Image of the organisation unit"
 msgstr ""
 
 msgid "Code"
-msgstr "Код"
+msgstr ""
 
 msgid "Short name"
-msgstr "Коротке ім'я"
+msgstr ""
 
 msgid "Opening date"
-msgstr "Дата відкриття"
+msgstr ""
 
 msgid "Closed date"
-msgstr "Дата закриття"
+msgstr ""
 
 msgid "URL"
-msgstr "URL (Інтернет-адреса)"
+msgstr ""
 
 msgid "Link"
 msgstr ""
 
 msgid "Contact"
-msgstr "Контакт"
+msgstr ""
 
 msgid "Email"
-msgstr "Електронна пошта"
+msgstr ""
 
 msgid "Address"
-msgstr "Адреса"
+msgstr ""
 
 msgid "Phone"
 msgstr ""
 
 msgid "ID"
-msgstr "ID (ідентифікатор)"
+msgstr ""
 
 msgid "Comment"
-msgstr "Коментар"
+msgstr ""
 
 msgid "Select levels"
 msgstr ""
@@ -791,10 +788,10 @@ msgid "Previous year"
 msgstr ""
 
 msgid "Next year"
-msgstr "Наступний рік"
+msgstr ""
 
 msgid "Relative"
-msgstr "Родич"
+msgstr ""
 
 msgid "Period type"
 msgstr ""
@@ -821,22 +818,22 @@ msgid "Split map views"
 msgstr ""
 
 msgid "Start date"
-msgstr "Початкова дата"
+msgstr ""
 
 msgid "End date"
-msgstr "Кінцева дата"
+msgstr ""
 
 msgid "Not available offline"
-msgstr "Недоступно в автономному режимі"
+msgstr ""
 
 msgid "Program indicator"
-msgstr "Програмний індикатор"
+msgstr ""
 
 msgid "No program"
 msgstr ""
 
 msgid "Program"
-msgstr "Програма"
+msgstr ""
 
 msgid "Stage"
 msgstr ""
@@ -845,25 +842,25 @@ msgid "Tracked Entity Type"
 msgstr ""
 
 msgid "By data element"
-msgstr "За елементом даних"
+msgstr ""
 
 msgid "Count"
-msgstr "Підрахунок"
+msgstr ""
 
 msgid "Average"
-msgstr "Середнє"
+msgstr ""
 
 msgid "Sum"
-msgstr "Сума"
+msgstr ""
 
 msgid "Standard deviation"
-msgstr "Стандартне відхилення"
+msgstr ""
 
 msgid "Variance"
-msgstr "Коливання (варіативність)"
+msgstr ""
 
 msgid "Percentage"
-msgstr "Відсоток"
+msgstr ""
 
 msgid "Hectares"
 msgstr ""
@@ -881,7 +878,7 @@ msgid "OSM Light"
 msgstr ""
 
 msgid "OSM Detailed"
-msgstr "OSM - подробиці"
+msgstr ""
 
 msgid "Google Streets"
 msgstr ""
@@ -890,16 +887,16 @@ msgid "Google Hybrid"
 msgstr ""
 
 msgid "Bing Road"
-msgstr "Bing - дорога"
+msgstr ""
 
 msgid "Bing Dark"
-msgstr "Bing - темний"
+msgstr ""
 
 msgid "Bing Aerial"
-msgstr "Bing - супутник"
+msgstr ""
 
 msgid "Bing Aerial Labels"
-msgstr "Bing - супутник з мітками"
+msgstr ""
 
 msgid "Population"
 msgstr ""
@@ -1129,22 +1126,22 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr "Всі"
+msgstr "Todos"
 
 msgid "Active"
-msgstr "Активно"
+msgstr "Activo"
 
 msgid "Completed"
-msgstr "Завершено"
+msgstr "Completado"
 
 msgid "Schedule"
-msgstr "Запланувати"
+msgstr "Programado"
 
 msgid "Overdue"
-msgstr "Прострочене"
+msgstr "Atrasado"
 
 msgid "Skipped"
-msgstr "Пропущено"
+msgstr "Omitido"
 
 msgid "Choropleth"
 msgstr ""
@@ -1171,10 +1168,10 @@ msgid "Symbol"
 msgstr ""
 
 msgid "Daily"
-msgstr "Щодня"
+msgstr "Diario"
 
 msgid "Weekly"
-msgstr "Щотижня"
+msgstr "Semanal"
 
 msgid "Weekly (Start Wednesday)"
 msgstr ""
@@ -1189,46 +1186,46 @@ msgid "Weekly (Start Sunday)"
 msgstr ""
 
 msgid "Bi-weekly"
-msgstr "Щодва тижні"
+msgstr ""
 
 msgid "Monthly"
-msgstr "Щомісячно"
+msgstr "Mensual"
 
 msgid "Bi-monthly"
-msgstr "Щодва місяці"
+msgstr ""
 
 msgid "Quarterly"
-msgstr "Щоквартально"
+msgstr ""
 
 msgid "Six-monthly"
-msgstr "Раз на півріччя"
+msgstr ""
 
 msgid "Six-monthly April"
-msgstr "Раз на півріччя квітень"
+msgstr ""
 
 msgid "Yearly"
-msgstr "Щорічно"
+msgstr "Anual"
 
 msgid "Financial year (Start November)"
 msgstr ""
 
 msgid "Financial year (Start October)"
-msgstr "Фінансовий рік (Початок у жовтні)"
+msgstr ""
 
 msgid "Financial year (Start July)"
-msgstr "Фінансовий рік (Початок у липні)"
+msgstr ""
 
 msgid "Financial year (Start April)"
-msgstr "Фінансовий рік (Початок у квітні)"
+msgstr ""
 
 msgid "Cancelled"
-msgstr "Скасовано"
+msgstr "Cancelar"
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
 msgid "Error"
-msgstr "Помилка"
+msgstr "Error"
 
 msgid "Selected org units"
 msgstr ""
@@ -1246,10 +1243,10 @@ msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr ""
 
 msgid "No data found"
-msgstr "Даних не знайдено"
+msgstr ""
 
 msgid "Event"
-msgstr "Подія"
+msgstr "Evento"
 
 msgid "Facilities"
 msgstr ""
@@ -1258,7 +1255,7 @@ msgid "No facilities found"
 msgstr ""
 
 msgid "Organisation units"
-msgstr "Організаційні підрозділи"
+msgstr ""
 
 msgid "Error: {{message}}"
 msgstr ""
@@ -1267,10 +1264,10 @@ msgid "Thematic layer"
 msgstr ""
 
 msgid "No data"
-msgstr "Немає даних"
+msgstr "No hay datos"
 
 msgid "Tracked entity"
-msgstr "Об'єкт, що відстежується"
+msgstr ""
 
 msgid "No tracked entities found"
 msgstr ""
@@ -1297,7 +1294,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr "Ні"
+msgstr "No"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
