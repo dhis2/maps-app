@@ -14,6 +14,7 @@ import SystemSettingsProvider from './SystemSettingsProvider.js'
 import UserSettingsProvider, {
     UserSettingsCtx,
 } from './UserSettingsProvider.js'
+import WindowDimensionsProvider from './WindowDimensionsProvider.js'
 
 const d2Config = {
     schemas: [
@@ -65,20 +66,22 @@ const Root = ({ store }) => (
 
                     return (
                         <DataStoreProvider namespace={NAMESPACE}>
-                            <SystemSettingsProvider>
-                                <UserSettingsProvider>
-                                    <UserSettingsCtx.Consumer>
-                                        {({ keyUiLocale }) => {
-                                            if (!keyUiLocale) {
-                                                return null
-                                            }
-                                            i18n.changeLanguage(keyUiLocale)
-                                            moment.locale(keyUiLocale)
-                                            return <App />
-                                        }}
-                                    </UserSettingsCtx.Consumer>
-                                </UserSettingsProvider>
-                            </SystemSettingsProvider>
+                            <WindowDimensionsProvider>
+                                <SystemSettingsProvider>
+                                    <UserSettingsProvider>
+                                        <UserSettingsCtx.Consumer>
+                                            {({ keyUiLocale }) => {
+                                                if (!keyUiLocale) {
+                                                    return null
+                                                }
+                                                i18n.changeLanguage(keyUiLocale)
+                                                moment.locale(keyUiLocale)
+                                                return <App />
+                                            }}
+                                        </UserSettingsCtx.Consumer>
+                                    </UserSettingsProvider>
+                                </SystemSettingsProvider>
+                            </WindowDimensionsProvider>
                         </DataStoreProvider>
                     )
                 }}

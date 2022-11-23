@@ -11,13 +11,6 @@ const defaultState = {
 
 const ui = (state = defaultState, action) => {
     switch (action.type) {
-        case types.SCREEN_RESIZE:
-            return {
-                ...state,
-                width: action.width,
-                height: action.height,
-            }
-
         case types.LAYERS_PANEL_OPEN:
             return {
                 ...state,
