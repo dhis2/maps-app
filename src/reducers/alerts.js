@@ -1,16 +1,16 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const alerts = (state = [], action) => {
     switch (action.type) {
         case types.ALERT_SET:
-            return [...state, action.payload];
+            return [...state, action.payload]
 
         case types.ALERTS_CLEAR:
-            return [];
+            return []
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default alerts;
+export default alerts

@@ -1,4 +1,4 @@
-import { cleanMapConfig } from '../favorites';
+import { cleanMapConfig } from '../favorites'
 
 describe('cleanMapConfig', () => {
     test('adds basemap when config basemap is missing id', () => {
@@ -8,27 +8,27 @@ describe('cleanMapConfig', () => {
             mapViews: [{ layer: 'layer1' }],
             name: 'my new map',
             zoom: null,
-        };
+        }
 
         const cleanedConfig = cleanMapConfig({
             config,
             defaultBasemapId: 'thedefaultBasemap',
-        });
+        })
         expect(cleanedConfig).toEqual(
             expect.objectContaining({
                 basemap: 'thedefaultBasemap',
                 mapViews: [{ layer: 'layer1' }],
                 name: 'my new map',
             })
-        );
+        )
 
         expect(cleanedConfig).toEqual(
             expect.not.objectContaining({
                 zoom: null,
                 latitude: null,
             })
-        );
-    });
+        )
+    })
 
     test('returns basemap id from config', () => {
         const config = {
@@ -40,18 +40,18 @@ describe('cleanMapConfig', () => {
             },
             mapViews: [{ layer: 'layer1' }],
             name: 'my new map',
-        };
+        }
 
         const cleanedConfig = cleanMapConfig({
             config,
             defaultBasemapId: 'thedefaultBasemap',
-        });
+        })
         expect(cleanedConfig).toEqual(
             expect.objectContaining({
                 basemap: 'myUniqueBasemap',
                 mapViews: [{ layer: 'layer1' }],
                 name: 'my new map',
             })
-        );
-    });
-});
+        )
+    })
+})

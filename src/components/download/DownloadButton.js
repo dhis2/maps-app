@@ -1,15 +1,15 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { MenuButton } from '../core';
-import DownloadDialog from './DownloadDialog';
-import { toggleDownloadDialog } from '../../actions/download';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { toggleDownloadDialog } from '../../actions/download.js'
+import { MenuButton } from '../core/index.js'
+import DownloadDialog from './DownloadDialog.js'
 
 export class DownloadButton extends Component {
     static propTypes = {
         toggleDownloadDialog: PropTypes.func.isRequired,
-    };
+    }
 
     render() {
         return (
@@ -19,10 +19,10 @@ export class DownloadButton extends Component {
                 </MenuButton>
                 <DownloadDialog />
             </Fragment>
-        );
+        )
     }
 
-    onClick = () => this.props.toggleDownloadDialog(true);
+    onClick = () => this.props.toggleDownloadDialog(true)
 }
 
-export default connect(null, { toggleDownloadDialog })(DownloadButton);
+export default connect(null, { toggleDownloadDialog })(DownloadButton)

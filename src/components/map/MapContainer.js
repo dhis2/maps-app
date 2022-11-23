@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import cx from 'classnames';
-import MapView from './MapView';
-import MapName from './MapName';
-import MapLoadingMask from './MapLoadingMask';
-import DownloadLegend from '../download/DownloadLegend';
-import { openContextMenu, closeCoordinatePopup } from '../../actions/map';
-import { setAggregations } from '../../actions/aggregations';
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { setAggregations } from '../../actions/aggregations.js'
+import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
-} from '../../constants/layout';
-import useBasemapConfig from '../../hooks/useBasemapConfig';
-import styles from './styles/MapContainer.module.css';
+} from '../../constants/layout.js'
+import useBasemapConfig from '../../hooks/useBasemapConfig.js'
+import DownloadLegend from '../download/DownloadLegend.js'
+import MapLoadingMask from './MapLoadingMask.js'
+import MapName from './MapName.js'
+import MapView from './MapView.js'
+import styles from './styles/MapContainer.module.css'
 
-const MapContainer = props => {
+const MapContainer = (props) => {
     const {
         mapViews,
         bounds,
@@ -34,9 +34,9 @@ const MapContainer = props => {
         openContextMenu,
         closeCoordinatePopup,
         setAggregations,
-    } = props;
-    const [resizeCount, setResizeCount] = useState(0);
-    const basemap = useBasemapConfig(props.basemap);
+    } = props
+    const [resizeCount, setResizeCount] = useState(0)
+    const basemap = useBasemapConfig(props.basemap)
 
     const style = {
         position: 'absolute',
@@ -44,15 +44,15 @@ const MapContainer = props => {
         left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
         right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
-    };
+    }
 
-    const layers = mapViews.filter(layer => layer.isLoaded);
-    const isLoading = newLayerIsLoading || layers.length !== mapViews.length;
+    const layers = mapViews.filter((layer) => layer.isLoaded)
+    const isLoading = newLayerIsLoading || layers.length !== mapViews.length
 
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
-        setResizeCount(count => count + 1);
-    }, [layersPanelOpen, rightPanelOpen, dataTableOpen, dataTableHeight]);
+        setResizeCount((count) => count + 1)
+    }, [layersPanelOpen, rightPanelOpen, dataTableOpen, dataTableHeight])
 
     return (
         <div style={style}>
@@ -87,28 +87,28 @@ const MapContainer = props => {
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>
-    );
-};
+    )
+}
 
 MapContainer.propTypes = {
+    closeCoordinatePopup: PropTypes.func.isRequired,
+    openContextMenu: PropTypes.func.isRequired,
+    setAggregations: PropTypes.func.isRequired,
     basemap: PropTypes.object,
-    mapViews: PropTypes.array,
     bounds: PropTypes.array,
-    showName: PropTypes.bool,
-    feature: PropTypes.object,
-    newLayerIsLoading: PropTypes.bool,
     coordinatePopup: PropTypes.array,
-    dataTableOpen: PropTypes.bool,
     dataTableHeight: PropTypes.number,
+    dataTableOpen: PropTypes.bool,
+    feature: PropTypes.object,
     interpretationModalOpen: PropTypes.bool,
     isDownload: PropTypes.bool,
-    legendPosition: PropTypes.string,
-    rightPanelOpen: PropTypes.bool,
     layersPanelOpen: PropTypes.bool,
-    openContextMenu: PropTypes.func.isRequired,
-    closeCoordinatePopup: PropTypes.func.isRequired,
-    setAggregations: PropTypes.func.isRequired,
-};
+    legendPosition: PropTypes.string,
+    mapViews: PropTypes.array,
+    newLayerIsLoading: PropTypes.bool,
+    rightPanelOpen: PropTypes.bool,
+    showName: PropTypes.bool,
+}
 
 export default connect(
     ({ map, download, dataTable, ui, feature, interpretation }) => ({
@@ -130,4 +130,4 @@ export default connect(
         closeCoordinatePopup,
         setAggregations,
     }
-)(MapContainer);
+)(MapContainer)

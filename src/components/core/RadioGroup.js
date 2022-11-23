@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { FieldGroup } from '@dhis2/ui';
-import cx from 'classnames';
-import styles from './styles/RadioGroup.module.css';
+import { FieldGroup } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
+import styles from './styles/RadioGroup.module.css'
 
-export const RadioContext = React.createContext();
+export const RadioContext = React.createContext()
 
 const RadioGroup = ({
     value,
@@ -15,13 +15,13 @@ const RadioGroup = ({
     children,
     dataTest,
 }) => {
-    const [radio, setRadio] = useState(value);
+    const [radio, setRadio] = useState(value)
 
     useEffect(() => {
         if (value !== radio) {
-            setRadio(value);
+            setRadio(value)
         }
-    }, [value, radio]);
+    }, [value, radio])
 
     return (
         <RadioContext.Provider value={{ radio, onChange }}>
@@ -39,17 +39,17 @@ const RadioGroup = ({
                 </FieldGroup>
             </div>
         </RadioContext.Provider>
-    );
-};
+    )
+}
 
 RadioGroup.propTypes = {
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    label: PropTypes.string,
-    helpText: PropTypes.string,
-    display: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     children: PropTypes.arrayOf(PropTypes.node),
     dataTest: PropTypes.string,
-};
+    display: PropTypes.string,
+    helpText: PropTypes.string,
+    label: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+}
 
-export default RadioGroup;
+export default RadioGroup

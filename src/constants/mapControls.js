@@ -5,13 +5,13 @@ export const mapControls = [
     { type: 'scale', imperial: false },
     { type: 'search' },
     { type: 'measure' },
-];
+]
 
 export const splitViewControls = [
     { type: 'zoom' },
     { type: 'fullscreen' },
     { type: 'fitBounds' },
     { type: 'attribution', prefix: false },
-];
+]
 
-export const pluginControls = [{ type: 'zoom' }];
+export const pluginControls = [{ type: 'zoom' }]

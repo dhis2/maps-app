@@ -1,6 +1,6 @@
-import { getMigratedMapConfig } from '../getMigratedMapConfig';
+import { getMigratedMapConfig } from '../getMigratedMapConfig'
 
-const defaultBasemapId = 'defaultBasemapId';
+const defaultBasemapId = 'defaultBasemapId'
 
 test('getMigratedMapConfig when basemap in mapViews', () => {
     const config = {
@@ -9,8 +9,7 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
         mapViews: [
             {
                 layer: 'external',
-                config:
-                    '{"mapLayerPosition": "BASEMAP","id": "Basemap id","name": "Basemap name"}',
+                config: '{"mapLayerPosition": "BASEMAP","id": "Basemap id","name": "Basemap name"}',
             },
             {
                 layer: 'thematic',
@@ -21,7 +20,7 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
                 },
             },
         ],
-    };
+    }
 
     expect(getMigratedMapConfig(config, defaultBasemapId)).toEqual(
         expect.objectContaining({
@@ -43,8 +42,8 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
                 },
             ],
         })
-    );
-});
+    )
+})
 
 test('getMigratedMapConfig when basemap is a string but not "none"', () => {
     const config = {
@@ -55,7 +54,7 @@ test('getMigratedMapConfig when basemap is a string but not "none"', () => {
             { layer: 'thematic', name: 'All the pretty colors' },
             { layer: 'facilities', name: 'All the facilities' },
         ],
-    };
+    }
 
     expect(getMigratedMapConfig(config, defaultBasemapId)).toEqual(
         expect.objectContaining({
@@ -67,8 +66,8 @@ test('getMigratedMapConfig when basemap is a string but not "none"', () => {
                 { layer: 'facilities', name: 'All the facilities' },
             ],
         })
-    );
-});
+    )
+})
 
 test('getMigratedMapConfig when basemap is string "none"', () => {
     const config = {
@@ -79,7 +78,7 @@ test('getMigratedMapConfig when basemap is string "none"', () => {
             { layer: 'thematic', name: 'All the pretty colors' },
             { layer: 'facilities', name: 'All the facilities' },
         ],
-    };
+    }
 
     expect(getMigratedMapConfig(config, defaultBasemapId)).toEqual(
         expect.objectContaining({
@@ -94,8 +93,8 @@ test('getMigratedMapConfig when basemap is string "none"', () => {
                 { layer: 'facilities', name: 'All the facilities' },
             ],
         })
-    );
-});
+    )
+})
 
 test('getMigratedMapConfig when basemap is an object', () => {
     const config = {
@@ -109,7 +108,7 @@ test('getMigratedMapConfig when basemap is an object', () => {
             { layer: 'thematic', name: 'All the pretty colors' },
             { layer: 'facilities', name: 'All the facilities' },
         ],
-    };
+    }
 
     expect(getMigratedMapConfig(config, defaultBasemapId)).toEqual(
         expect.objectContaining({
@@ -121,8 +120,8 @@ test('getMigratedMapConfig when basemap is an object', () => {
                 { layer: 'facilities', name: 'All the facilities' },
             ],
         })
-    );
-});
+    )
+})
 
 test('getMigratedMapConfig when no basemap in config', () => {
     const config = {
@@ -132,7 +131,7 @@ test('getMigratedMapConfig when no basemap in config', () => {
             { layer: 'thematic', name: 'All the pretty colors' },
             { layer: 'facilities', name: 'All the facilities' },
         ],
-    };
+    }
 
     expect(getMigratedMapConfig(config, defaultBasemapId)).toEqual(
         expect.objectContaining({
@@ -144,8 +143,8 @@ test('getMigratedMapConfig when no basemap in config', () => {
                 { layer: 'facilities', name: 'All the facilities' },
             ],
         })
-    );
-});
+    )
+})
 
 // TODO - add a test that checks externalLayer and basemap
 test('getMigratedMapConfig with old GIS app format and Boundary layer', () => {
@@ -158,7 +157,7 @@ test('getMigratedMapConfig with old GIS app format and Boundary layer', () => {
             { layer: 'thematic2', name: 'Thematic layer 2' },
             { layer: 'boundary', name: 'Boundary layer' },
         ],
-    };
+    }
 
     expect(getMigratedMapConfig(config, defaultBasemapId)).toEqual(
         expect.objectContaining({
@@ -171,5 +170,5 @@ test('getMigratedMapConfig with old GIS app format and Boundary layer', () => {
                 { layer: 'orgUnit', name: 'Boundary layer' },
             ],
         })
-    );
-});
+    )
+})

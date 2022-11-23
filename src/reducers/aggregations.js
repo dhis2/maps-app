@@ -1,33 +1,33 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const dataTable = (state = {}, action) => {
-    let layerId;
+    let layerId
 
     switch (action.type) {
         case types.AGGREGATIONS_SET:
             return {
                 ...state,
                 ...action.payload,
-            };
+            }
 
         case types.MAP_NEW:
         case types.MAP_SET:
-            return {};
+            return {}
 
         case types.LAYER_REMOVE:
         case types.LAYER_UPDATE:
-            layerId = action.id || action.payload?.id;
+            layerId = action.id || action.payload?.id
 
             return layerId && state[layerId]
                 ? {
                       ...state,
                       [layerId]: undefined,
                   }
-                : state;
+                : state
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default dataTable;
+export default dataTable

@@ -12,4 +12,4 @@ export const qualitativeColors = [
     '#b15928',
     '#6a3d9a',
     '#e31a1c',
-];
+]

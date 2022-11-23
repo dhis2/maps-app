@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import DimensionSelect from './DimensionSelect';
-import DimensionItemsSelect from './DimensionItemsSelect';
-import RemoveFilter from '../filter/RemoveFilter';
-import styles from './styles/DimensionFilterRow.module.css';
+import PropTypes from 'prop-types'
+import React from 'react'
+import RemoveFilter from '../filter/RemoveFilter.js'
+import DimensionItemsSelect from './DimensionItemsSelect.js'
+import DimensionSelect from './DimensionSelect.js'
+import styles from './styles/DimensionFilterRow.module.css'
 
 const DimensionFilterRow = ({
     dimension,
@@ -12,31 +12,30 @@ const DimensionFilterRow = ({
     onChange,
     onRemove,
 }) => {
-    const onSelect = (dimension, items) =>
-        onChange(index, { dimension, items });
+    const onSelect = (dimension, items) => onChange(index, { dimension, items })
 
     return (
         <div className={styles.filterRow}>
             <DimensionSelect
                 dimension={dimension}
-                onChange={selectedDimension => onSelect(selectedDimension.id)}
+                onChange={(selectedDimension) => onSelect(selectedDimension.id)}
             />
             <DimensionItemsSelect
                 dimension={dimension}
-                value={items ? items.map(item => item.id) : null}
-                onChange={items => onSelect(dimension, items)}
+                value={items ? items.map((item) => item.id) : null}
+                onChange={(items) => onSelect(dimension, items)}
             />
             <RemoveFilter onClick={() => onRemove(index)} />
         </div>
-    );
-};
+    )
+}
 
 DimensionFilterRow.propTypes = {
-    dimension: PropTypes.string,
-    items: PropTypes.array,
-    index: PropTypes.number,
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
-};
+    dimension: PropTypes.string,
+    index: PropTypes.number,
+    items: PropTypes.array,
+}
 
-export default DimensionFilterRow;
+export default DimensionFilterRow

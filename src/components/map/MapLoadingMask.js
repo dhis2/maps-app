@@ -1,6 +1,6 @@
-import React from 'react';
-import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
-import styles from './styles/MapLoadingMask.module.css';
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui'
+import React from 'react'
+import styles from './styles/MapLoadingMask.module.css'
 
 const MapLoadingMask = () => (
     <ComponentCover translucent className={styles.cover}>
@@ -8,6 +8,6 @@ const MapLoadingMask = () => (
             <CircularLoader />
         </CenteredContent>
     </ComponentCover>
-);
+)
 
-export default MapLoadingMask;
+export default MapLoadingMask

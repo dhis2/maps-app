@@ -1,58 +1,58 @@
-import { useDataEngine } from '@dhis2/app-runtime';
-import PropTypes from 'prop-types';
-import React, { useContext, useState, useEffect, createContext } from 'react';
+import { useDataEngine } from '@dhis2/app-runtime'
+import PropTypes from 'prop-types'
+import React, { useContext, useState, useEffect, createContext } from 'react'
 import {
     DEFAULT_SYSTEM_SETTINGS,
     SYSTEM_SETTINGS,
-} from '../constants/settings';
+} from '../constants/settings.js'
 
 export const systemSettingsQuery = {
     resource: 'systemSettings',
     params: { key: SYSTEM_SETTINGS },
-};
+}
 
-export const SystemSettingsCtx = createContext({});
+export const SystemSettingsCtx = createContext({})
 
-const periodSetting = /keyHide(.*)Periods/;
+const periodSetting = /keyHide(.*)Periods/
 
-const getHiddenPeriods = systemSettings => {
+const getHiddenPeriods = (systemSettings) => {
     return Object.keys(systemSettings)
         .filter(
-            setting => periodSetting.test(setting) && systemSettings[setting]
+            (setting) => periodSetting.test(setting) && systemSettings[setting]
         )
-        .map(setting => setting.match(periodSetting)[1].toUpperCase());
-};
+        .map((setting) => setting.match(periodSetting)[1].toUpperCase())
+}
 
 const SystemSettingsProvider = ({ children }) => {
-    const [settings, setSettings] = useState({});
-    const engine = useDataEngine();
+    const [settings, setSettings] = useState({})
+    const engine = useDataEngine()
 
     useEffect(() => {
         async function fetchData() {
             const { systemSettings } = await engine.query({
                 systemSettings: systemSettingsQuery,
-            });
+            })
 
             setSettings(
                 Object.assign({}, DEFAULT_SYSTEM_SETTINGS, systemSettings, {
                     hiddenPeriods: getHiddenPeriods(systemSettings),
                 })
-            );
+            )
         }
-        fetchData();
-    }, []);
+        fetchData()
+    }, [])
 
     return (
         <SystemSettingsCtx.Provider value={settings}>
             {children}
         </SystemSettingsCtx.Provider>
-    );
-};
+    )
+}
 
 SystemSettingsProvider.propTypes = {
     children: PropTypes.node,
-};
+}
 
-export default SystemSettingsProvider;
+export default SystemSettingsProvider
 
-export const useSystemSettings = () => useContext(SystemSettingsCtx);
+export const useSystemSettings = () => useContext(SystemSettingsCtx)

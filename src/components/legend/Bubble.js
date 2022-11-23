@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { guideLength, textPadding } from './Bubbles';
+import PropTypes from 'prop-types'
+import React from 'react'
+import { guideLength, textPadding } from './Bubbles.js'
 
 const Bubble = ({
     radius,
@@ -11,15 +11,15 @@ const Bubble = ({
     stroke,
     pattern,
 }) => {
-    const leftAlign = textAlign === 'left';
-    const x = maxRadius;
-    const y = maxRadius * 2 - radius;
+    const leftAlign = textAlign === 'left'
+    const x = maxRadius
+    const y = maxRadius * 2 - radius
     const x2 = leftAlign
         ? x - maxRadius - guideLength
-        : x + maxRadius + guideLength;
-    const y2 = maxRadius * 2 - radius * 2;
-    const textX = x2 + (leftAlign ? -textPadding : textPadding);
-    const textAnchor = leftAlign ? 'end' : 'start';
+        : x + maxRadius + guideLength
+    const y2 = maxRadius * 2 - radius * 2
+    const textX = x2 + (leftAlign ? -textPadding : textPadding)
+    const textAnchor = leftAlign ? 'end' : 'start'
 
     return (
         <g>
@@ -55,17 +55,17 @@ const Bubble = ({
                 </g>
             )}
         </g>
-    );
-};
+    )
+}
 
 Bubble.propTypes = {
-    radius: PropTypes.number.isRequired,
     maxRadius: PropTypes.number.isRequired,
+    radius: PropTypes.number.isRequired,
+    color: PropTypes.string,
+    pattern: PropTypes.string,
+    stroke: PropTypes.string,
     text: PropTypes.string,
     textAlign: PropTypes.oneOf(['left', 'right']),
-    color: PropTypes.string,
-    stroke: PropTypes.string,
-    pattern: PropTypes.string,
-};
+}
 
-export default Bubble;
+export default Bubble

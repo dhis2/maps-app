@@ -1,13 +1,13 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const dataSets = (state = null, action) => {
     switch (action.type) {
         case types.DATA_SETS_SET:
-            return action.payload;
+            return action.payload
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default dataSets;
+export default dataSets

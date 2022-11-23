@@ -1,11 +1,11 @@
-import React, { Fragment, useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { Popover, IconChevronDown24 } from '@dhis2/ui';
-import { DimensionsPanel } from '@dhis2/analytics';
-import { loadDimensions } from '../../actions/dimensions';
-import styles from './styles/DimensionSelect.module.css';
+import { DimensionsPanel } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
+import { Popover, IconChevronDown24 } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { Fragment, useRef, useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { loadDimensions } from '../../actions/dimensions.js'
+import styles from './styles/DimensionSelect.module.css'
 
 const DimensionSelect = ({
     dimension,
@@ -13,28 +13,28 @@ const DimensionSelect = ({
     onChange,
     loadDimensions,
 }) => {
-    const dropdownRef = useRef();
-    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef()
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         if (!dimensions) {
-            loadDimensions();
+            loadDimensions()
         }
-    }, [dimensions, loadDimensions]);
+    }, [dimensions, loadDimensions])
 
     if (!dimensions) {
-        return null;
+        return null
     }
 
-    const findDimension = id => dimensions.find(d => d.id === id);
-    const selected = findDimension(dimension);
+    const findDimension = (id) => dimensions.find((d) => d.id === id)
+    const selected = findDimension(dimension)
 
-    const onDimensionClick = dim => {
+    const onDimensionClick = (dim) => {
         if (dim !== dimension) {
-            onChange(findDimension(dim));
+            onChange(findDimension(dim))
         }
-        setIsOpen(false);
-    };
+        setIsOpen(false)
+    }
 
     return (
         <Fragment>
@@ -61,19 +61,19 @@ const DimensionSelect = ({
                 </Popover>
             )}
         </Fragment>
-    );
-};
+    )
+}
 
 DimensionSelect.propTypes = {
+    loadDimensions: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     dimension: PropTypes.string,
     dimensions: PropTypes.array,
-    onChange: PropTypes.func.isRequired,
-    loadDimensions: PropTypes.func.isRequired,
-};
+}
 
 export default connect(
     ({ dimensions }) => ({
         dimensions,
     }),
     { loadDimensions }
-)(DimensionSelect);
+)(DimensionSelect)

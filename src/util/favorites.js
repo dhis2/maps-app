@@ -1,5 +1,8 @@
-import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp';
-import { EARTH_ENGINE_LAYER, TRACKED_ENTITY_LAYER } from '../constants/layers';
+import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
+import {
+    EARTH_ENGINE_LAYER,
+    TRACKED_ENTITY_LAYER,
+} from '../constants/layers.js'
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -14,7 +17,7 @@ const validMapProperties = [
     'publicAccess',
     'created',
     'lastUpdated',
-];
+]
 
 const validLayerProperties = [
     'aggregationType',
@@ -77,55 +80,55 @@ const validLayerProperties = [
     'relatedPointRadius',
     'relationshipLineColor',
     'relationshipOutsideProgram',
-];
+]
 
-const models = ['program', 'programStage', 'organisationUnitGroupSet'];
+const models = ['program', 'programStage', 'organisationUnitGroupSet']
 
 const validModelProperties = [
     'id',
     'name',
     'dimensionType',
     'dimensionItemType',
-];
+]
 
 export const cleanMapConfig = ({ config, defaultBasemapId }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
     basemap: getBasemapString(config.basemap, defaultBasemapId),
     mapViews: config.mapViews.map(cleanLayerConfig),
-});
+})
 
 const getBasemapString = (basemap, defaultBasemapId) => {
     if (!basemap) {
-        return defaultBasemapId;
+        return defaultBasemapId
     }
 
     if (basemap.isVisible === false) {
-        return 'none';
+        return 'none'
     }
 
-    return basemap.id || defaultBasemapId;
-};
+    return basemap.id || defaultBasemapId
+}
 
-const cleanLayerConfig = config => ({
+const cleanLayerConfig = (config) => ({
     ...models2objects(pick(validLayerProperties, config)),
-});
+})
 
 // TODO: This feels hacky, find better way to clean map configs before saving
-const models2objects = config => {
-    const { layer } = config;
+const models2objects = (config) => {
+    const { layer } = config
 
-    Object.keys(config).forEach(key => {
+    Object.keys(config).forEach((key) => {
         config[key] = models.includes(key)
             ? pick(validModelProperties, config[key])
-            : config[key];
-    });
+            : config[key]
+    })
 
     if (config.rows) {
-        config.rows = config.rows.map(cleanDimension);
+        config.rows = config.rows.map(cleanDimension)
     }
 
     if (layer === EARTH_ENGINE_LAYER) {
-        const { datasetId: id, band, params, aggregationType, filter } = config;
+        const { datasetId: id, band, params, aggregationType, filter } = config
 
         const eeConfig = {
             id,
@@ -133,23 +136,23 @@ const models2objects = config => {
             band,
             aggregationType,
             filter,
-        };
+        }
 
         // Removes undefined keys before stringify
         Object.keys(eeConfig).forEach(
-            key => eeConfig[key] === undefined && delete eeConfig[key]
-        );
+            (key) => eeConfig[key] === undefined && delete eeConfig[key]
+        )
 
-        config.config = JSON.stringify(eeConfig);
+        config.config = JSON.stringify(eeConfig)
 
-        delete config.datasetId;
-        delete config.params;
-        delete config.filter;
-        delete config.filters;
-        delete config.periodType;
-        delete config.periodName;
-        delete config.aggregationType;
-        delete config.band;
+        delete config.datasetId
+        delete config.params
+        delete config.filter
+        delete config.filters
+        delete config.periodType
+        delete config.periodName
+        delete config.aggregationType
+        delete config.band
     } else if (layer === TRACKED_ENTITY_LAYER) {
         config.config = JSON.stringify({
             relationships: config.relationshipType
@@ -163,18 +166,18 @@ const models2objects = config => {
                   }
                 : null,
             periodType: config.periodType,
-        });
+        })
 
-        delete config.relationshipType;
-        delete config.relatedPointColor;
-        delete config.relatedPointRadius;
-        delete config.relationshipLineColor;
-        delete config.relationshipOutsideProgram;
-        delete config.periodType;
+        delete config.relationshipType
+        delete config.relatedPointColor
+        delete config.relatedPointRadius
+        delete config.relationshipLineColor
+        delete config.relationshipOutsideProgram
+        delete config.periodType
     }
 
     if (isObject(config.config)) {
-        config.config = JSON.stringify(config.config); // External overlay
+        config.config = JSON.stringify(config.config) // External overlay
     }
 
     if (config.styleDataItem) {
@@ -183,21 +186,21 @@ const models2objects = config => {
         config.styleDataItem = omit(
             ['legendSet', 'name', 'optionSet.name'],
             config.styleDataItem
-        );
+        )
 
         if (config.styleDataItem.optionSet) {
             // Remove name and code from options as these are not persistent
-            config.styleDataItem.optionSet.options.forEach(option => {
-                delete option.name;
-                delete option.code;
-            });
+            config.styleDataItem.optionSet.options.forEach((option) => {
+                delete option.name
+                delete option.code
+            })
         }
     }
 
-    return config;
-};
+    return config
+}
 
-export const cleanDimension = dim => ({
+export const cleanDimension = (dim) => ({
     ...dim,
-    items: dim.items.map(item => pick(validModelProperties, item)),
-});
+    items: dim.items.map((item) => pick(validModelProperties, item)),
+})

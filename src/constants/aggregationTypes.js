@@ -1,4 +1,4 @@
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 
 // Thematic layer
 export const getThematicAggregationTypes = () => [
@@ -10,17 +10,17 @@ export const getThematicAggregationTypes = () => [
     { id: 'VARIANCE', name: i18n.t('Variance') },
     { id: 'MIN', name: i18n.t('Min') },
     { id: 'MAX', name: i18n.t('Max') },
-];
+]
 
 // Earth Engine layer
 export const getEarthEngineStatisticTypes = () => [
     { id: 'percentage', name: i18n.t('Percentage') },
     { id: 'hectares', name: i18n.t('Hectares') },
     { id: 'acres', name: i18n.t('Acres') },
-];
+]
 
 // Earth Engine layer
-export const getEarthEngineAggregationTypes = filter => {
+export const getEarthEngineAggregationTypes = (filter) => {
     const types = [
         { id: 'count', name: i18n.t('Count') },
         { id: 'min', name: i18n.t('Min') },
@@ -34,16 +34,16 @@ export const getEarthEngineAggregationTypes = filter => {
             shortName: i18n.t('Std dev'),
         },
         { id: 'variance', name: i18n.t('Variance') },
-    ];
+    ]
 
-    return filter ? types.filter(({ id }) => filter.includes(id)) : types;
-};
+    return filter ? types.filter(({ id }) => filter.includes(id)) : types
+}
 
-export const getEarthEngineStatisticType = id =>
-    (getEarthEngineStatisticTypes().find(t => t.id === id) || {}).name;
+export const getEarthEngineStatisticType = (id) =>
+    (getEarthEngineStatisticTypes().find((t) => t.id === id) || {}).name
 
-export const getEarthEngineAggregationType = id => {
+export const getEarthEngineAggregationType = (id) => {
     const { name, shortName } =
-        getEarthEngineAggregationTypes().find(t => t.id === id) || {};
-    return shortName || name;
-};
+        getEarthEngineAggregationTypes().find((t) => t.id === id) || {}
+    return shortName || name
+}

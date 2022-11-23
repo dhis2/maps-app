@@ -1,20 +1,20 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import {
     SingleSelectField,
     SingleSelectOption,
     MultiSelectField,
     MultiSelectOption,
-} from '@dhis2/ui';
-import cx from 'classnames';
-import styles from './styles/InputField.module.css';
+} from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
+import styles from './styles/InputField.module.css'
 
 /**
  * Wrapper component around @dhis2/ui SingleSelectField and MultiSelectField
  * Allows options to be created from an array of models (containing id and name properties)
  * id can be numbers, although @dhis2/ui requires option values to be strings.
  */
-export const SelectField = props => {
+export const SelectField = (props) => {
     const {
         dense = true,
         errorText,
@@ -29,19 +29,19 @@ export const SelectField = props => {
         className,
         value,
         dataTest,
-    } = props;
+    } = props
 
-    const isLoading = loading === true;
+    const isLoading = loading === true
 
-    const Select = multiple ? MultiSelectField : SingleSelectField;
-    const Option = multiple ? MultiSelectOption : SingleSelectOption;
+    const Select = multiple ? MultiSelectField : SingleSelectField
+    const Option = multiple ? MultiSelectOption : SingleSelectOption
 
-    let selected;
+    let selected
 
     if (multiple) {
-        selected = Array.isArray(value) ? value.map(v => String(v)) : [];
+        selected = Array.isArray(value) ? value.map((v) => String(v)) : []
     } else {
-        selected = value !== undefined && value !== null ? String(value) : '';
+        selected = value !== undefined && value !== null ? String(value) : ''
     }
 
     // Returns selected items in the original format
@@ -50,12 +50,12 @@ export const SelectField = props => {
             onChange(
                 multiple
                     ? items
-                          .filter(item => selected.includes(String(item.id)))
-                          .map(item => item.id)
-                    : items.find(item => String(item.id) === selected)
+                          .filter((item) => selected.includes(String(item.id)))
+                          .map((item) => item.id)
+                    : items.find((item) => String(item.id) === selected)
             ),
         [items, multiple, onChange]
-    );
+    )
 
     return (
         <div className={cx(styles.inputField, className)}>
@@ -78,43 +78,16 @@ export const SelectField = props => {
                     ))}
             </Select>
         </div>
-    );
-};
+    )
+}
 
 SelectField.propTypes = {
-    /**
-     * data-test attribute used for testing
-     */
+    className: PropTypes.string,
     dataTest: PropTypes.string,
-
-    /**
-     * Render a dense select field
-     */
     dense: PropTypes.bool,
-
-    /**
-     * Disable the select field
-     */
     disabled: PropTypes.bool,
-
-    /**
-     * If set, shows the help text below the SelectField
-     */
-    helpText: PropTypes.string,
-
-    /**
-     * If set, shows the error message below the SelectField
-     */
     errorText: PropTypes.string,
-
-    /**
-     * If set, shows the warning message below the SelectField
-     */
-    warning: PropTypes.string,
-
-    /**
-     * The select field items (rendered as MenuItems)
-     */
+    helpText: PropTypes.string,
     items: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -122,38 +95,9 @@ SelectField.propTypes = {
             name: PropTypes.string,
         })
     ),
-
-    /**
-     * The label of the select field
-     */
     label: PropTypes.string,
-
-    /**
-     * If true, a spinner will be shown in the select menu. If string, the loading text will be shown.
-     */
     loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-
-    /**
-     * If true, the select field will support multiple selection. Adds a checkbox to each menu item.
-     */
     multiple: PropTypes.bool,
-
-    /**
-     * onChange callback, that is fired when the select field's value changes
-     *
-     * The onChange callback will receive one argument: The item selected if not multiple, or an array of
-     * ids if multiple.
-     */
-    onChange: PropTypes.func,
-
-    /**
-     * Class name for the root element
-     */
-    className: PropTypes.string,
-
-    /**
-     * The value(s) of the select field
-     */
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
@@ -161,6 +105,8 @@ SelectField.propTypes = {
             PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         ),
     ]),
-};
+    warning: PropTypes.string,
+    onChange: PropTypes.func,
+}
 
-export default SelectField;
+export default SelectField

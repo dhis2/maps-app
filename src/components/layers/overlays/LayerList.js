@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import Layer from './Layer';
-import styles from './styles/LayerList.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Layer from './Layer.js'
+import styles from './styles/LayerList.module.css'
 
 const LayerList = ({ layers, isSplitView, onLayerSelect }) => (
     <div className={styles.layerList}>
@@ -24,12 +24,12 @@ const LayerList = ({ layers, isSplitView, onLayerSelect }) => (
             </div>
         )}
     </div>
-);
+)
 
 LayerList.propTypes = {
     layers: PropTypes.array.isRequired,
-    isSplitView: PropTypes.bool,
     onLayerSelect: PropTypes.func.isRequired,
-};
+    isSplitView: PropTypes.bool,
+}
 
-export default LayerList;
+export default LayerList

@@ -1,18 +1,17 @@
-import React from 'react'
-import log from 'loglevel'
-import moment from 'moment'
-import { Provider as ReduxProvider } from 'react-redux'
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import { CenteredContent, CircularLoader } from '@dhis2/ui'
+import log from 'loglevel'
+import moment from 'moment'
+import React from 'react'
+import { Provider as ReduxProvider } from 'react-redux'
+import App from './components/app/App.js'
+import SystemSettingsProvider from './components/SystemSettingsProvider.js'
 import UserSettingsProvider, {
     UserSettingsCtx,
-} from './components/UserSettingsProvider'
-import SystemSettingsProvider from './components/SystemSettingsProvider'
-import WindowDimensionsProvider from './components/WindowDimensionsProvider'
-import App from './components/app/App'
-import store from './store'
-
-import './locales'
+} from './components/UserSettingsProvider.js'
+import WindowDimensionsProvider from './components/WindowDimensionsProvider.js'
+import './locales/index.js'
+import store from './store/index.js'
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
@@ -76,6 +75,7 @@ const AppWrapper = () => (
                                     )
                                 }}
                             </UserSettingsCtx.Consumer>
+                            
                         </UserSettingsProvider>
                     </SystemSettingsProvider>
                 )

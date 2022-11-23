@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { CircularLoader } from '@dhis2/ui';
-import { SelectField } from '../../core';
-import styles from './styles/PeriodSelect.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { CircularLoader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import { SelectField } from '../../core/index.js'
+import styles from './styles/PeriodSelect.module.css'
 
 // http://localhost:8080/api/periodTypes.json
 const EarthEnginePeriodSelect = ({
@@ -14,43 +14,43 @@ const EarthEnginePeriodSelect = ({
     errorText,
     className,
 }) => {
-    const [year, setYear] = useState();
-    const byYear = periodType === 'Custom';
+    const [year, setYear] = useState()
+    const byYear = periodType === 'Custom'
 
     const years = useMemo(
         () =>
             byYear && periods
-                ? [...new Set(periods.map(p => p.year))].map(year => ({
+                ? [...new Set(periods.map((p) => p.year))].map((year) => ({
                       id: year,
                       name: String(year),
                   }))
                 : null,
         [byYear, periods]
-    );
+    )
 
     const byYearPeriods = useMemo(
         () =>
             byYear && year && periods
-                ? periods.filter(p => p.year === year)
+                ? periods.filter((p) => p.year === year)
                 : null,
         [byYear, year, periods]
-    );
+    )
 
     const onYearChange = useCallback(
         ({ id }) => {
-            onChange(null);
-            setYear(id);
+            onChange(null)
+            setYear(id)
         },
         [onChange]
-    );
+    )
 
     useEffect(() => {
         if (byYear && period) {
-            setYear(period.year);
+            setYear(period.year)
         }
-    }, [byYear, period]);
+    }, [byYear, period])
 
-    const items = byYear ? byYearPeriods : periods;
+    const items = byYear ? byYearPeriods : periods
 
     return items ? (
         <div className={className}>
@@ -81,16 +81,16 @@ const EarthEnginePeriodSelect = ({
             <CircularLoader small />
             {i18n.t('Loading periods')}
         </div>
-    );
-};
+    )
+}
 
 EarthEnginePeriodSelect.propTypes = {
     periodType: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    errorText: PropTypes.string,
     period: PropTypes.object,
     periods: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    onChange: PropTypes.func.isRequired,
-    errorText: PropTypes.string,
-    className: PropTypes.string,
-};
+}
 
-export default EarthEnginePeriodSelect;
+export default EarthEnginePeriodSelect

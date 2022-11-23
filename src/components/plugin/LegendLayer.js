@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import LayerLegend from '../legend/Legend';
+import PropTypes from 'prop-types'
+import React, { Fragment } from 'react'
+import LayerLegend from '../legend/Legend.js'
 
 // Renders a legend with alerts for one map layer
 const LegendLayer = ({ id, legend, alerts = [] }) => (
@@ -22,15 +22,15 @@ const LegendLayer = ({ id, legend, alerts = [] }) => (
             </div>
         ))}
     </div>
-);
+)
 
 LegendLayer.propTypes = {
     id: PropTypes.string.isRequired,
+    alerts: PropTypes.array,
+    data: PropTypes.array,
     layer: PropTypes.string,
     legend: PropTypes.object,
     serverCluster: PropTypes.bool,
-    data: PropTypes.array,
-    alerts: PropTypes.array,
-};
+}
 
-export default LegendLayer;
+export default LegendLayer

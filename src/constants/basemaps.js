@@ -1,11 +1,11 @@
-import i18n from '@dhis2/d2-i18n';
-import { TILE_LAYER, GOOGLE_LAYER, BING_LAYER } from '../constants/layers';
+import i18n from '@dhis2/d2-i18n'
+import { TILE_LAYER, GOOGLE_LAYER, BING_LAYER } from '../constants/layers.js'
 
-export const FALLBACK_BASEMAP_ID = 'osmLight';
+export const FALLBACK_BASEMAP_ID = 'osmLight'
 
-export const getFallbackBasemap = () => defaultBasemaps()[0];
+export const getFallbackBasemap = () => defaultBasemaps()[0]
 
-export const getBasemap = id => defaultBasemaps().find(map => map.id === id);
+export const getBasemap = (id) => defaultBasemaps().find((map) => map.id === id)
 
 export const defaultBasemaps = () => [
     {
@@ -14,8 +14,7 @@ export const defaultBasemaps = () => [
         img: 'images/osmlight.png',
         config: {
             type: TILE_LAYER,
-            url:
-                '//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+            url: '//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
             attribution:
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
         },
@@ -56,8 +55,7 @@ export const defaultBasemaps = () => [
         config: {
             type: BING_LAYER,
             style: 'CanvasLight',
-            apiKey:
-                'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
+            apiKey: 'AotYGLQC0RDcofHC5pWLaW7k854n-6T9mTunsev9LEFwVqGaVnG8b4KERNY9PeKA', // TODO: Read from db
         },
     },
     {
@@ -87,4 +85,4 @@ export const defaultBasemaps = () => [
             style: 'AerialWithLabelsOnDemand',
         },
     },
-];
+]

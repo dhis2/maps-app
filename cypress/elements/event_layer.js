@@ -1,25 +1,25 @@
-import { Layer } from './layer';
+import { Layer } from './layer.js'
 
 export class EventLayer extends Layer {
     selectProgram(program) {
-        cy.get('[data-test="programselect"]').click();
-        cy.contains(program).click();
+        cy.get('[data-test="programselect"]').click()
+        cy.contains(program).click()
 
-        return this;
+        return this
     }
 
     selectStage(stage) {
-        cy.get('[data-test="programstageselect"]').click();
-        cy.contains(stage).click();
+        cy.get('[data-test="programstageselect"]').click()
+        cy.contains(stage).click()
 
-        return this;
+        return this
     }
 
     validateStage(stage) {
         cy.get('[data-test="programstageselect"]')
             .contains(stage)
-            .should('be.visible');
+            .should('be.visible')
 
-        return this;
+        return this
     }
 }

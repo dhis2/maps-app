@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const programStages = (state = {}, action) => {
     switch (action.type) {
@@ -6,11 +6,11 @@ const programStages = (state = {}, action) => {
             return {
                 ...state,
                 [action.programId]: action.payload,
-            };
+            }
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default programStages;
+export default programStages

@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Column } from 'react-virtualized';
-import ColumnHeader from './ColumnHeader';
-import { numberPrecision } from '../../util/numbers';
-import { hasClasses, getPrecision } from '../../util/earthEngine';
+import PropTypes from 'prop-types'
+import React from 'react'
+import { Column } from 'react-virtualized'
+import { hasClasses, getPrecision } from '../../util/earthEngine.js'
+import { numberPrecision } from '../../util/numbers.js'
+import ColumnHeader from './ColumnHeader.js'
 
 const EarthEngineColumns = ({ aggregationType, legend, data }) => {
-    const { title, items } = legend;
+    const { title, items } = legend
 
     if (hasClasses(aggregationType) && items) {
-        const valueFormat = numberPrecision(2);
+        const valueFormat = numberPrecision(2)
 
         return items.map(({ id, name }) => (
             <Column
@@ -18,19 +18,19 @@ const EarthEngineColumns = ({ aggregationType, legend, data }) => {
                 label={name}
                 width={100}
                 className="right"
-                headerRenderer={props => (
+                headerRenderer={(props) => (
                     <ColumnHeader type="number" {...props} />
                 )}
-                cellRenderer={d =>
+                cellRenderer={(d) =>
                     d.cellData !== undefined ? valueFormat(d.cellData) : ''
                 }
             />
-        ));
+        ))
     } else if (Array.isArray(aggregationType) && aggregationType.length) {
-        return aggregationType.map(type => {
-            const label = `${type} ${title}`.toUpperCase(); // Already translated
-            const precision = getPrecision(data.map(d => d[type]));
-            const valueFormat = numberPrecision(precision);
+        return aggregationType.map((type) => {
+            const label = `${type} ${title}`.toUpperCase() // Already translated
+            const precision = getPrecision(data.map((d) => d[type]))
+            const valueFormat = numberPrecision(precision)
 
             return (
                 <Column
@@ -39,26 +39,26 @@ const EarthEngineColumns = ({ aggregationType, legend, data }) => {
                     label={label}
                     width={100}
                     className="right"
-                    headerRenderer={props => (
+                    headerRenderer={(props) => (
                         <ColumnHeader type="number" {...props} />
                     )}
-                    cellRenderer={d =>
+                    cellRenderer={(d) =>
                         d.cellData !== undefined ? valueFormat(d.cellData) : ''
                     }
                 />
-            );
-        });
+            )
+        })
     }
 
-    return null;
-};
+    return null
+}
 
 EarthEngineColumns.propTypes = {
-    classes: PropTypes.bool,
     aggregationType: PropTypes.array,
-    legend: PropTypes.object,
-    data: PropTypes.array,
     aggregations: PropTypes.object,
-};
+    classes: PropTypes.bool,
+    data: PropTypes.array,
+    legend: PropTypes.object,
+}
 
-export default EarthEngineColumns;
+export default EarthEngineColumns
