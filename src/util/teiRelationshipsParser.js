@@ -1,6 +1,6 @@
-import { apiFetch } from './api';
+import { apiFetch } from './api.js'
 
-const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE';
+const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 
 export const fetchTEIs = async ({
     type,
@@ -8,50 +8,51 @@ export const fetchTEIs = async ({
     fields,
     organisationUnitSelectionMode,
 }) => {
-    let url = `/trackedEntityInstances?skipPaging=true&fields=${fields}&ou=${orgUnits}`;
+    let url = `/trackedEntityInstances?skipPaging=true&fields=${fields}&ou=${orgUnits}`
     if (organisationUnitSelectionMode) {
-        url += `&ouMode=${organisationUnitSelectionMode}`;
+        url += `&ouMode=${organisationUnitSelectionMode}`
     }
 
-    url += `&trackedEntityType=${type.id}`;
+    url += `&trackedEntityType=${type.id}`
 
-    const data = await apiFetch(url);
+    const data = await apiFetch(url)
 
-    return data.trackedEntityInstances;
-};
+    return data.trackedEntityInstances
+}
 
-const normalizeInstances = instances => {
+const normalizeInstances = (instances) => {
     return instances
-        .filter(instance => !!instance.coordinates)
+        .filter((instance) => !!instance.coordinates)
         .reduce((out, instance) => {
-            out[instance.id] = instance;
-            return out;
-        }, {});
-};
+            out[instance.id] = instance
+            return out
+        }, {})
+}
 
-export const parseTEInstanceId = instance =>
-    instance.trackedEntityInstance.trackedEntityInstance;
+export const parseTEInstanceId = (instance) =>
+    instance.trackedEntityInstance.trackedEntityInstance
 
 const isValidRel = (rel, type, id) =>
-    rel.relationshipType === type && parseTEInstanceId(rel.from) === id;
+    rel.relationshipType === type && parseTEInstanceId(rel.from) === id
 
 const isIndexInstance = (instance, type) => {
-    let hasChildren = false;
+    let hasChildren = false
     for (let i = 0; i < instance.relationships.length; ++i) {
-        const rel = instance.relationships[i];
+        const rel = instance.relationships[i]
         if (rel.relationshipType !== type) {
-            continue;
+            continue
         }
         if (parseTEInstanceId(rel.to) === instance.id) {
-            return false;
+            return false
         }
         if (parseTEInstanceId(rel.from) === instance.id) {
-            hasChildren = true;
+            hasChildren = true
         }
     }
-    return hasChildren;
-};
+    return hasChildren
+}
 
+/* eslint-disable max-params */
 const getInstanceRelationships = (
     relationshipsById,
     from,
@@ -59,23 +60,25 @@ const getInstanceRelationships = (
     type,
     isRecursive
 ) => {
-    const localRels = from.relationships.filter(rel =>
+    const localRels = from.relationships.filter((rel) =>
         isValidRel(rel, type, from.id)
-    );
+    )
 
-    localRels.forEach(rel => {
-        const id = rel.relationship;
-        if (relationshipsById[id]) return;
-        const to = targetInstances[parseTEInstanceId(rel.to)];
+    localRels.forEach((rel) => {
+        const id = rel.relationship
+        if (relationshipsById[id]) {
+            return
+        }
+        const to = targetInstances[parseTEInstanceId(rel.to)]
         if (!to) {
             // console.error('NOT FOUND', rel.to);
-            return;
+            return
         }
         relationshipsById[id] = {
             id,
             from,
             to,
-        };
+        }
         if (isRecursive) {
             getInstanceRelationships(
                 relationshipsById,
@@ -83,33 +86,34 @@ const getInstanceRelationships = (
                 targetInstances,
                 type,
                 true
-            );
+            )
         }
-    });
-};
+    })
+}
+/* eslint-enable max-params */
 
 const fields = [
     'trackedEntityInstance~rename(id)',
     'featureType',
     'coordinates',
     'relationships',
-];
+]
 export const getDataWithRelationships = async (
     sourceInstances,
     relationshipType,
     { orgUnits, organisationUnitSelectionMode }
 ) => {
-    const from = relationshipType.fromConstraint;
-    const to = relationshipType.toConstraint;
+    const from = relationshipType.fromConstraint
+    const to = relationshipType.toConstraint
 
     if (
         from.relationshipEntity !== TRACKED_ENTITY_INSTANCE ||
         to.relationshipEntity !== TRACKED_ENTITY_INSTANCE
     ) {
-        return [];
+        return []
     }
 
-    const isRecursive = from.trackedEntityType.id === to.trackedEntityType.id;
+    const isRecursive = from.trackedEntityType.id === to.trackedEntityType.id
 
     const targetInstances = normalizeInstances(
         isRecursive
@@ -120,16 +124,16 @@ export const getDataWithRelationships = async (
                   orgUnits,
                   organisationUnitSelectionMode,
               })
-    );
+    )
 
     const filteredSourceInstances = isRecursive
-        ? sourceInstances.filter(instance =>
+        ? sourceInstances.filter((instance) =>
               isIndexInstance(instance, relationshipType.id)
           )
-        : sourceInstances;
-    const relationshipsById = {};
+        : sourceInstances
+    const relationshipsById = {}
 
-    filteredSourceInstances.forEach(instance =>
+    filteredSourceInstances.forEach((instance) =>
         getInstanceRelationships(
             relationshipsById,
             instance,
@@ -137,14 +141,14 @@ export const getDataWithRelationships = async (
             relationshipType.id,
             isRecursive
         )
-    );
+    )
 
-    filteredSourceInstances.forEach(instance => {
-        delete targetInstances[instance.id];
-    });
+    filteredSourceInstances.forEach((instance) => {
+        delete targetInstances[instance.id]
+    })
     return {
         primary: filteredSourceInstances,
         relationships: Object.values(relationshipsById),
         secondary: Object.values(targetInstances),
-    };
-};
+    }
+}

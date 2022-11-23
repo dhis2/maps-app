@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import cx from 'classnames';
-import FirstLevel from './UserOrgUnitsFirstLevel';
-import SecondLevel from './UserOrgUnitsSecondLevel';
-import ThirdLevel from './UserOrgUnitsThirdLevel';
-import styles from './styles/UserOrgUnitSelect.module.css';
+import i18n from '@dhis2/d2-i18n'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/UserOrgUnitSelect.module.css'
+import FirstLevel from './UserOrgUnitsFirstLevel.js'
+import SecondLevel from './UserOrgUnitsSecondLevel.js'
+import ThirdLevel from './UserOrgUnitsThirdLevel.js'
 
 const getLevels = () => [
     {
@@ -23,15 +23,15 @@ const getLevels = () => [
         label: i18n.t('2 x below'),
         Icon: ThirdLevel,
     },
-];
+]
 
 // TODO: Use ImageSelect.js component for selectable image?
 const UserOrgUnitSelect = ({ selected, onChange, style }) => (
     <div className={styles.userOrgUnits} style={style}>
         <div className={styles.title}>{i18n.t('User organisation units')}</div>
         <div className={styles.container}>
-            {getLevels().map(level => {
-                const isSelected = selected.includes(level.id);
+            {getLevels().map((level) => {
+                const isSelected = selected.includes(level.id)
 
                 return (
                     <div
@@ -43,7 +43,7 @@ const UserOrgUnitSelect = ({ selected, onChange, style }) => (
                             onChange(
                                 !isSelected
                                     ? [...selected, level.id]
-                                    : selected.filter(id => id !== level.id)
+                                    : selected.filter((id) => id !== level.id)
                             )
                         }
                     >
@@ -52,16 +52,16 @@ const UserOrgUnitSelect = ({ selected, onChange, style }) => (
                         </div>
                         {level.label}
                     </div>
-                );
+                )
             })}
         </div>
     </div>
-);
+)
 
 UserOrgUnitSelect.propTypes = {
-    selected: PropTypes.array,
     onChange: PropTypes.func.isRequired,
+    selected: PropTypes.array,
     style: PropTypes.object,
-};
+}
 
-export default UserOrgUnitSelect;
+export default UserOrgUnitSelect

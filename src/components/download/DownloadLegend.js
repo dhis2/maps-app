@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import Legend from '../legend/Legend';
-import { legendPositions } from './LegendPosition';
-import styles from './styles/DownloadLegend.module.css';
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Legend from '../legend/Legend.js'
+import { legendPositions } from './LegendPosition.js'
+import styles from './styles/DownloadLegend.module.css'
 
 export const DownloadLegend = ({ position, layers, showName }) => {
     const legends = layers
-        .filter(layer => layer.legend)
-        .map(layer => layer.legend)
-        .reverse();
+        .filter((layer) => layer.legend)
+        .map((layer) => layer.legend)
+        .reverse()
 
     return (
         <div
@@ -27,13 +27,13 @@ export const DownloadLegend = ({ position, layers, showName }) => {
                 </div>
             ))}
         </div>
-    );
-};
+    )
+}
 
 DownloadLegend.propTypes = {
-    position: PropTypes.oneOf(legendPositions).isRequired,
     layers: PropTypes.array.isRequired,
+    position: PropTypes.oneOf(legendPositions).isRequired,
     showName: PropTypes.bool.isRequired,
-};
+}
 
-export default DownloadLegend;
+export default DownloadLegend

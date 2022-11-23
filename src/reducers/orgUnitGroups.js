@@ -1,13 +1,13 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const orgUnitGroups = (state = null, action) => {
     switch (action.type) {
         case types.ORGANISATION_UNIT_GROUPS_SET:
-            return action.payload;
+            return action.payload
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default orgUnitGroups;
+export default orgUnitGroups

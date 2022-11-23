@@ -1,36 +1,36 @@
-import FileSaver from 'file-saver'; // https://github.com/eligrey/FileSaver.js
-import findIndex from 'lodash/findIndex';
-import { isValidCoordinate } from './map';
-import { poleOfInaccessibility } from '../components/map/MapApi';
-// import { createSld } from './sld';
+import FileSaver from 'file-saver' // https://github.com/eligrey/FileSaver.js
+import findIndex from 'lodash/findIndex'
+import { poleOfInaccessibility } from '../components/map/MapApi.js'
+import { isValidCoordinate } from './map.js'
 
-export const META_DATA_FORMAT_ID = 'ID';
-export const META_DATA_FORMAT_NAME = 'Name';
-export const META_DATA_FORMAT_CODE = 'Code';
+export const META_DATA_FORMAT_ID = 'ID'
+export const META_DATA_FORMAT_NAME = 'Name'
+export const META_DATA_FORMAT_CODE = 'Code'
 
-export const EVENT_ID_FIELD = 'psi';
+export const EVENT_ID_FIELD = 'psi'
 
-const standardizeFilename = rawName => rawName.replace(/\s+/g, '_');
-export const createGeoJsonBlob = data => {
+const standardizeFilename = (rawName) => rawName.replace(/\s+/g, '_')
+export const createGeoJsonBlob = (data) => {
     const geojson = {
         type: 'FeatureCollection',
         features: data,
-    };
+    }
 
     const blob = new Blob([JSON.stringify(geojson)], {
         type: 'application/json;charset=utf-8',
-    });
-    return blob;
-};
+    })
+    return blob
+}
 
 export const downloadGeoJson = ({ name, data }) => {
     FileSaver.saveAs(
         createGeoJsonBlob(data),
         standardizeFilename(name) + '.geojson'
-    );
-};
+    )
+}
 
 // TODO: Remove name mapping logic, use server params DataIDScheme / OuputIDScheme instead
+/* eslint-disable max-params */
 export const createEventFeature = (
     headers,
     names,
@@ -39,13 +39,13 @@ export const createEventFeature = (
     id,
     getGeometry
 ) => {
-    const geometry = getGeometry(event);
+    const geometry = getGeometry(event)
     const properties = event.reduce((props, value, i) => {
-        const header = headers[i];
-        let option;
+        const header = headers[i]
+        let option
 
         if (header.optionSet) {
-            option = options.find(option => option.code === value);
+            option = options.find((option) => option.code === value)
         }
 
         return {
@@ -53,30 +53,31 @@ export const createEventFeature = (
             type: geometry.type,
             ...props,
             [names[header.name] || header.name]: option ? option.name : value,
-        };
-    }, {});
+        }
+    }, {})
 
     return {
         type: 'Feature',
         id,
         properties,
         geometry,
-    };
-};
+    }
+}
+/* eslint-enable max-params */
 
 export const buildEventGeometryGetter = (headers, eventCoordinateField) => {
     // If coordinate field other than event location (only points are currently supported)
     if (eventCoordinateField) {
-        const col = findIndex(headers, h => h.name === eventCoordinateField);
+        const col = findIndex(headers, (h) => h.name === eventCoordinateField)
 
-        return event => {
-            let coordinates = event[col];
+        return (event) => {
+            let coordinates = event[col]
 
             if (typeof coordinates === 'string' && coordinates.length) {
                 try {
-                    coordinates = JSON.parse(coordinates);
+                    coordinates = JSON.parse(coordinates)
                 } catch (evt) {
-                    return null;
+                    return null
                 }
             }
 
@@ -84,17 +85,17 @@ export const buildEventGeometryGetter = (headers, eventCoordinateField) => {
                 return {
                     type: 'Point',
                     coordinates,
-                };
+                }
             }
 
-            return null;
-        };
+            return null
+        }
     } else {
         // Use event location (can be point or polygon)
-        const geomCol = findIndex(headers, h => h.name === 'geometry');
-        return event => JSON.parse(event[geomCol]);
+        const geomCol = findIndex(headers, (h) => h.name === 'geometry')
+        return (event) => JSON.parse(event[geomCol])
     }
-};
+}
 
 export const createEventFeatures = (response, config = {}) => {
     const names = {
@@ -106,17 +107,17 @@ export const createEventFeatures = (response, config = {}) => {
             {}
         ),
         ...config.columnNames, // TODO: Check if columnNames is still needed
-    };
+    }
 
-    const idColName = config.idCol || EVENT_ID_FIELD;
-    const idCol = findIndex(response.headers, h => h.name === idColName);
+    const idColName = config.idCol || EVENT_ID_FIELD
+    const idCol = findIndex(response.headers, (h) => h.name === idColName)
     const getGeometry = buildEventGeometryGetter(
         response.headers,
         config && config.eventCoordinateField
-    );
-    const options = Object.values(response.metaData.items);
+    )
+    const options = Object.values(response.metaData.items)
 
-    const data = response.rows.map(row =>
+    const data = response.rows.map((row) =>
         createEventFeature(
             response.headers,
             config.outputIdScheme !== 'ID' ? names : {},
@@ -125,18 +126,18 @@ export const createEventFeatures = (response, config = {}) => {
             row[idCol],
             getGeometry
         )
-    );
+    )
 
     // Sort to draw polygons before points
-    data.sort(feature => (feature.geometry.type === 'Polygon' ? -1 : 0));
+    data.sort((feature) => (feature.geometry.type === 'Polygon' ? -1 : 0))
 
-    return { data, names };
-};
+    return { data, names }
+}
 
 // Include column for data element used for styling (if not already used in filter)
 export const addStyleDataItem = (dataItems, styleDataItem) =>
     styleDataItem &&
-    !dataItems.find(item => item.dimension === styleDataItem.id)
+    !dataItems.find((item) => item.dimension === styleDataItem.id)
         ? [
               ...dataItems,
               {
@@ -144,28 +145,28 @@ export const addStyleDataItem = (dataItems, styleDataItem) =>
                   name: styleDataItem.name,
               },
           ]
-        : [...dataItems];
+        : [...dataItems]
 
-export const getBounds = bbox => {
+export const getBounds = (bbox) => {
     if (!bbox) {
-        return null;
+        return null
     }
-    const extent = bbox.match(/([-\d.]+)/g);
+    const extent = bbox.match(/([-\d.]+)/g)
     return [
         [extent[0], extent[1]],
         [extent[2], extent[3]],
-    ];
-};
+    ]
+}
 
 // Translating polygons to points using poleOfInaccessibility from maps-gl
-export const polygonsToPoints = features =>
-    features.map(feature => ({
+export const polygonsToPoints = (features) =>
+    features.map((feature) => ({
         ...feature,
         geometry: {
             type: 'Point',
             coordinates: poleOfInaccessibility(feature.geometry),
         },
-    }));
+    }))
 
 // export const downloadStyle = name => {
 //     const sld = createSld(); // TODO: Make generic

@@ -1,40 +1,40 @@
-import i18n from '@dhis2/d2-i18n';
-import { getInstance as getD2 } from 'd2';
-import { toGeoJson } from '../util/map';
-import { fetchOrgUnitGroupSet, setAdditionalGeometry } from '../util/orgUnits';
-import { getOrgUnitsFromRows } from '../util/analytics';
-import { getDisplayProperty } from '../util/helpers';
+import i18n from '@dhis2/d2-i18n'
+import { getInstance as getD2 } from 'd2'
+import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { getDisplayProperty } from '../util/helpers.js'
+import { toGeoJson } from '../util/map.js'
 import {
+    fetchOrgUnitGroupSet,
+    setAdditionalGeometry,
     getOrgUnitLevels,
     getStyledOrgUnits,
     getCoordinateField,
-} from '../util/orgUnits';
+} from '../util/orgUnits.js'
 
-const orgUnitLoader = async config => {
-    const { rows, organisationUnitGroupSet: groupSet } = config;
-    const orgUnits = getOrgUnitsFromRows(rows);
-    const orgUnitParams = orgUnits.map(item => item.id);
-    const includeGroupSets = !!groupSet;
-    const coordinateField = getCoordinateField(config);
+const orgUnitLoader = async (config) => {
+    const { rows, organisationUnitGroupSet: groupSet } = config
+    const orgUnits = getOrgUnitsFromRows(rows)
+    const orgUnitParams = orgUnits.map((item) => item.id)
+    const includeGroupSets = !!groupSet
+    const coordinateField = getCoordinateField(config)
 
-    const d2 = await getD2();
-    const displayProperty = getDisplayProperty(d2).toUpperCase();
-    const { contextPath } = d2.system.systemInfo;
-    const name = i18n.t('Organisation units');
-    const alerts = [];
+    const d2 = await getD2()
+    const displayProperty = getDisplayProperty(d2).toUpperCase()
+    const { contextPath } = d2.system.systemInfo
+    const name = i18n.t('Organisation units')
+    const alerts = []
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty);
+        .displayProperty(displayProperty)
 
-    let features;
-    let associatedGeometries = [];
+    let associatedGeometries = []
 
     const requests = [
         featuresRequest
             .getAll({ includeGroupSets })
             .then(toGeoJson)
-            .catch(error => {
+            .catch((error) => {
                 if (error && error.message) {
                     alerts.push({
                         critical: true,
@@ -42,22 +42,19 @@ const orgUnitLoader = async config => {
                             message: error.message,
                             nsSeparator: ';',
                         }),
-                    });
+                    })
                 }
             }),
         getOrgUnitLevels(d2),
-    ];
+    ]
 
     // Load organisationUnitGroups if not passed
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        requests.push(fetchOrgUnitGroupSet(groupSet.id));
+        requests.push(fetchOrgUnitGroupSet(groupSet.id))
     }
 
-    const [
-        mainFeatures = [],
-        orgUnitLevels,
-        organisationUnitGroups,
-    ] = await Promise.all(requests);
+    const [mainFeatures = [], orgUnitLevels, organisationUnitGroups] =
+        await Promise.all(requests)
 
     if (!mainFeatures.length && !alerts.length) {
         alerts.push({
@@ -65,11 +62,11 @@ const orgUnitLoader = async config => {
             message: i18n.t('Selected org units: No coordinates found', {
                 nsSeparator: ';',
             }),
-        });
+        })
     }
 
     if (organisationUnitGroups) {
-        groupSet.organisationUnitGroups = organisationUnitGroups;
+        groupSet.organisationUnitGroups = organisationUnitGroups
     }
 
     if (coordinateField) {
@@ -78,7 +75,7 @@ const orgUnitLoader = async config => {
                 coordinateField: coordinateField.id,
                 includeGroupSets,
             })
-            .then(toGeoJson);
+            .then(toGeoJson)
 
         if (!associatedGeometries.length) {
             alerts.push({
@@ -87,13 +84,13 @@ const orgUnitLoader = async config => {
                     name: coordinateField.name,
                     nsSeparator: ';',
                 }),
-            });
+            })
         }
     }
 
-    features = mainFeatures.concat(associatedGeometries);
+    const features = mainFeatures.concat(associatedGeometries)
 
-    setAdditionalGeometry(features);
+    setAdditionalGeometry(features)
 
     const { styledFeatures, legend } = getStyledOrgUnits(
         features,
@@ -101,9 +98,9 @@ const orgUnitLoader = async config => {
         config,
         contextPath,
         orgUnitLevels
-    );
+    )
 
-    legend.title = name;
+    legend.title = name
 
     return {
         ...config,
@@ -114,7 +111,7 @@ const orgUnitLoader = async config => {
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
-    };
-};
+    }
+}
 
-export default orgUnitLoader;
+export default orgUnitLoader

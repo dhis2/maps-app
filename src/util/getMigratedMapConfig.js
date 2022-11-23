@@ -1,43 +1,43 @@
-import { isString, isObject, sortBy } from 'lodash/fp';
-import { EXTERNAL_LAYER } from '../constants/layers';
+import { isString, isObject, sortBy } from 'lodash/fp'
+import { EXTERNAL_LAYER } from '../constants/layers.js'
 
 export const getMigratedMapConfig = (config, defaultBasemapId) =>
     renameBoundaryLayerToOrgUnitLayer(
         upgradeGisAppLayers(extractBasemap(config, defaultBasemapId))
-    );
+    )
 
 // Different ways of specifying a basemap - TODO: simplify!
 const extractBasemap = (config, defaultBasemapId) => {
     const externalBasemap = config.mapViews.find(
-        view =>
+        (view) =>
             view.layer === EXTERNAL_LAYER &&
             JSON.parse(view.config || {}).mapLayerPosition === 'BASEMAP'
-    );
-    let basemap;
-    let mapViews = config.mapViews;
+    )
+    let basemap
+    let mapViews = config.mapViews
 
     if (externalBasemap) {
-        basemap = JSON.parse(externalBasemap.config);
+        basemap = JSON.parse(externalBasemap.config)
         mapViews = config.mapViews.filter(
-            view => view.id !== externalBasemap.id
-        );
+            (view) => view.id !== externalBasemap.id
+        )
     } else if (isString(config.basemap)) {
         basemap =
             config.basemap === 'none'
                 ? { id: defaultBasemapId, isVisible: false }
-                : { id: config.basemap };
+                : { id: config.basemap }
     } else if (isObject(config.basemap)) {
-        basemap = config.basemap;
+        basemap = config.basemap
     } else {
-        basemap = { id: defaultBasemapId };
+        basemap = { id: defaultBasemapId }
     }
 
     return {
         ...config,
         basemap: basemap,
         mapViews: mapViews,
-    };
-};
+    }
+}
 
 // Detection if map config is from previous GIS app
 // TODO: Better to store app version as part of config object?
@@ -53,36 +53,36 @@ const gisAppLayerOrder = {
     boundary: 7,
     facility: 8,
     event: 9,
-};
+}
 
-const isGisAppFormat = layers =>
-    layers.some(config => config.layer.match(/thematic[1-4]/));
+const isGisAppFormat = (layers) =>
+    layers.some((config) => config.layer.match(/thematic[1-4]/))
 
-const upgradeGisAppLayers = config => {
-    const { mapViews } = config;
+const upgradeGisAppLayers = (config) => {
+    const { mapViews } = config
     if (!isGisAppFormat(mapViews)) {
-        return config;
+        return config
     }
 
     const updatedMapViews = sortBy(
-        mapView => gisAppLayerOrder[mapView.layer],
+        (mapView) => gisAppLayerOrder[mapView.layer],
         mapViews
-    ).map(orderedMapView => ({
+    ).map((orderedMapView) => ({
         ...orderedMapView,
         layer: orderedMapView.layer.replace(/\d$/, ''), // Remove thematic number used in previous versions
-    }));
+    }))
 
     return {
         ...config,
         mapViews: updatedMapViews,
-    };
-};
+    }
+}
 
 // Change layer name from boundary to orgUnit when loading an old map
 // TODO: Change in db with an upgrade script
-const renameBoundaryLayerToOrgUnitLayer = config => ({
+const renameBoundaryLayerToOrgUnitLayer = (config) => ({
     ...config,
-    mapViews: config.mapViews.map(v =>
+    mapViews: config.mapViews.map((v) =>
         v.layer === 'boundary'
             ? {
                   ...v,
@@ -90,4 +90,4 @@ const renameBoundaryLayerToOrgUnitLayer = config => ({
               }
             : v
     ),
-});
+})

@@ -1,4 +1,3 @@
-import i18n from '@dhis2/d2-i18n';
 import {
     DAILY,
     WEEKLY,
@@ -18,7 +17,8 @@ import {
     FYOCT,
     FYJUL,
     FYAPR,
-} from '@dhis2/analytics';
+} from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 
 export const periodGroups = [
     DAILY,
@@ -30,35 +30,35 @@ export const periodGroups = [
     SIXMONTHLY,
     YEARLY,
     FINANCIAL,
-];
+]
 
 // TODO: import from @dhis2/analytics (needs to be defined)
-const TODAY = 'TODAY';
-const YESTERDAY = 'YESTERDAY';
-const LAST_14_DAYS = 'LAST_14_DAYS';
-const LAST_30_DAYS = 'LAST_30_DAYS';
-const LAST_60_DAYS = 'LAST_60_DAYS';
-const LAST_90_DAYS = 'LAST_90_DAYS';
-const LAST_180_DAYS = 'LAST_180_DAYS';
-const THIS_WEEK = 'THIS_WEEK';
-const LAST_WEEK = 'LAST_WEEK';
-const LAST_52_WEEKS = 'LAST_52_WEEKS';
-const WEEKS_THIS_YEAR = 'WEEKS_THIS_YEAR';
-const THIS_BIWEEK = 'THIS_BIWEEK';
-const LAST_BIWEEK = 'LAST_BIWEEK';
-const THIS_MONTH = 'THIS_MONTH';
-const LAST_MONTH = 'LAST_MONTH';
-const THIS_BIMONTH = 'THIS_BIMONTH';
-const LAST_BIMONTH = 'LAST_BIMONTH';
-const THIS_QUARTER = 'THIS_QUARTER';
-const LAST_QUARTER = 'LAST_QUARTER';
-const THIS_YEAR = 'THIS_YEAR';
-const LAST_YEAR = 'LAST_YEAR';
-const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR';
-const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR';
+const TODAY = 'TODAY'
+const YESTERDAY = 'YESTERDAY'
+const LAST_14_DAYS = 'LAST_14_DAYS'
+const LAST_30_DAYS = 'LAST_30_DAYS'
+const LAST_60_DAYS = 'LAST_60_DAYS'
+const LAST_90_DAYS = 'LAST_90_DAYS'
+const LAST_180_DAYS = 'LAST_180_DAYS'
+const THIS_WEEK = 'THIS_WEEK'
+const LAST_WEEK = 'LAST_WEEK'
+const LAST_52_WEEKS = 'LAST_52_WEEKS'
+const WEEKS_THIS_YEAR = 'WEEKS_THIS_YEAR'
+const THIS_BIWEEK = 'THIS_BIWEEK'
+const LAST_BIWEEK = 'LAST_BIWEEK'
+const THIS_MONTH = 'THIS_MONTH'
+const LAST_MONTH = 'LAST_MONTH'
+const THIS_BIMONTH = 'THIS_BIMONTH'
+const LAST_BIMONTH = 'LAST_BIMONTH'
+const THIS_QUARTER = 'THIS_QUARTER'
+const LAST_QUARTER = 'LAST_QUARTER'
+const THIS_YEAR = 'THIS_YEAR'
+const LAST_YEAR = 'LAST_YEAR'
+const THIS_FINANCIAL_YEAR = 'THIS_FINANCIAL_YEAR'
+const LAST_FINANCIAL_YEAR = 'LAST_FINANCIAL_YEAR'
 
-export const RELATIVE_PERIODS = 'RELATIVE_PERIODS';
-export const START_END_DATES = 'START_END_DATES';
+export const RELATIVE_PERIODS = 'RELATIVE_PERIODS'
+export const START_END_DATES = 'START_END_DATES'
 
 export const periodTypes = () => [
     {
@@ -154,7 +154,7 @@ export const periodTypes = () => [
         id: START_END_DATES,
         name: i18n.t('Start/end dates'),
     },
-];
+]
 
 // Periods that will only produce a single map (not for timeline/split view)
 export const singleMapPeriods = [
@@ -174,7 +174,7 @@ export const singleMapPeriods = [
     LAST_YEAR,
     THIS_FINANCIAL_YEAR,
     LAST_FINANCIAL_YEAR,
-];
+]
 
 // Periods not supported for split view (maximum 12 maps)
 export const invalidSplitViewPeriods = [
@@ -185,4 +185,4 @@ export const invalidSplitViewPeriods = [
     LAST_180_DAYS,
     LAST_52_WEEKS,
     WEEKS_THIS_YEAR,
-];
+]

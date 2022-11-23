@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import GroupSetSelect from './GroupSetSelect';
-import GroupSetStyle from './GroupSetStyle';
-import { setOrganisationUnitGroupSet } from '../../actions/layerEdit';
-import styles from '../edit/styles/LayerDialog.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { setOrganisationUnitGroupSet } from '../../actions/layerEdit.js'
+import styles from '../edit/styles/LayerDialog.module.css'
+import GroupSetSelect from './GroupSetSelect.js'
+import GroupSetStyle from './GroupSetStyle.js'
 
 export const StyleByGroupSet = ({
     defaultStyleType,
@@ -28,20 +28,20 @@ export const StyleByGroupSet = ({
                 />
             )}
         </div>
-    );
-};
+    )
+}
 
 StyleByGroupSet.propTypes = {
+    setOrganisationUnitGroupSet: PropTypes.func.isRequired,
     defaultStyleType: PropTypes.string,
     groupSet: PropTypes.shape({
         id: PropTypes.string.isRequired,
     }),
-    setOrganisationUnitGroupSet: PropTypes.func.isRequired,
-};
+}
 
 export default connect(
     ({ layerEdit }) => ({
         groupSet: layerEdit.organisationUnitGroupSet,
     }),
     { setOrganisationUnitGroupSet }
-)(StyleByGroupSet);
+)(StyleByGroupSet)

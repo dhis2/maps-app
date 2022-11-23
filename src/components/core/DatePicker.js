@@ -1,17 +1,17 @@
-import React, { useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import styles from './styles/DatePicker.module.css';
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, { useRef, useEffect } from 'react'
+import styles from './styles/DatePicker.module.css'
 
 // Fallback on browser native until full DatePicker support in @dhis2/ui
 const DatePicker = ({ label, name, defaultVal, onBlur, className }) => {
-    const inputEl = useRef(null);
+    const inputEl = useRef(null)
 
     useEffect(() => {
         if (inputEl.current) {
-            inputEl.current.defaultValue = defaultVal;
+            inputEl.current.defaultValue = defaultVal
         }
-    }, [defaultVal]);
+    }, [defaultVal])
 
     return (
         <div className={cx(styles.datePicker, className)}>
@@ -24,22 +24,21 @@ const DatePicker = ({ label, name, defaultVal, onBlur, className }) => {
                             ref={inputEl}
                             type="date"
                             name={name}
-                            onBlur={e => onBlur(e.target.value)}
+                            onBlur={(e) => onBlur(e.target.value)}
                         />
                     </div>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
 DatePicker.propTypes = {
     label: PropTypes.string.isRequired,
-    defaultVal: PropTypes.string,
-    dense: PropTypes.bool,
-    name: PropTypes.string,
     onBlur: PropTypes.func.isRequired,
     className: PropTypes.string,
-};
+    defaultVal: PropTypes.string,
+    name: PropTypes.string,
+}
 
-export default DatePicker;
+export default DatePicker

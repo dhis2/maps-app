@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './styles/PeriodName.module.css';
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/PeriodName.module.css'
 
 const PeriodName = ({ period, isTimeline }) => (
     <div
@@ -9,11 +9,11 @@ const PeriodName = ({ period, isTimeline }) => (
     >
         <div className={styles.period}>{period}</div>
     </div>
-);
+)
 
 PeriodName.propTypes = {
     period: PropTypes.string.isRequired,
     isTimeline: PropTypes.bool,
-};
+}
 
-export default PeriodName;
+export default PeriodName

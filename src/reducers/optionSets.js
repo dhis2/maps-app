@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const optionSets = (state = {}, action) => {
     switch (action.type) {
@@ -6,11 +6,11 @@ const optionSets = (state = {}, action) => {
             return {
                 ...state,
                 [action.payload.id]: action.payload,
-            };
+            }
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default optionSets;
+export default optionSets

@@ -1,13 +1,13 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const feature = (state = null, action) => {
     switch (action.type) {
         case types.FEATURE_HIGHLIGHT:
-            return action.payload ? { ...action.payload } : null;
+            return action.payload ? { ...action.payload } : null
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default feature;
+export default feature

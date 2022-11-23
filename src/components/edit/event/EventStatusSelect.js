@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../../core';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
 import {
     getEventStatuses,
     EVENT_STATUS_ALL,
-} from '../../../constants/eventStatuses';
+} from '../../../constants/eventStatuses.js'
+import { SelectField } from '../../core/index.js'
 
 const EventStatusSelect = ({
     value = EVENT_STATUS_ALL,
@@ -16,15 +16,15 @@ const EventStatusSelect = ({
         label={i18n.t('Event status')}
         items={getEventStatuses()}
         value={value}
-        onChange={valueType => onChange(valueType.id)}
+        onChange={(valueType) => onChange(valueType.id)}
         className={className}
     />
-);
+)
 
 EventStatusSelect.propTypes = {
-    value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
-};
+    value: PropTypes.string,
+}
 
-export default EventStatusSelect;
+export default EventStatusSelect

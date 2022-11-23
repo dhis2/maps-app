@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import LegendLayer from './LegendLayer';
-import './styles/Legend.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import LegendLayer from './LegendLayer.js'
+import './styles/Legend.css'
 
 // Renders a legend for all map layers
 const Legend = ({ layers }) => {
-    const [isOpen, toggleOpen] = useState(false);
+    const [isOpen, toggleOpen] = useState(false)
 
     const legendLayers = layers
-        .filter(layer => layer.legend || layer.alerts)
-        .reverse(); // Show top layer first
+        .filter((layer) => layer.legend || layer.alerts)
+        .reverse() // Show top layer first
 
     return (
         <div className="dhis2-map-legend">
@@ -19,7 +19,7 @@ const Legend = ({ layers }) => {
                     className="dhis2-map-legend-content"
                     onMouseLeave={() => toggleOpen(false)}
                 >
-                    {legendLayers.map(layer => (
+                    {legendLayers.map((layer) => (
                         <LegendLayer key={layer.id} {...layer} />
                     ))}
                 </div>
@@ -31,11 +31,11 @@ const Legend = ({ layers }) => {
                 />
             )}
         </div>
-    );
-};
+    )
+}
 
 Legend.propTypes = {
     layers: PropTypes.array.isRequired,
-};
+}
 
-export default Legend;
+export default Legend

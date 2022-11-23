@@ -1,17 +1,17 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { Help } from '@dhis2/ui';
-import { NumberField } from '../../core';
-import { setRadiusLow, setRadiusHigh } from '../../../actions/layerEdit';
+import i18n from '@dhis2/d2-i18n'
+import { Help } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { Fragment } from 'react'
+import { connect } from 'react-redux'
+import { setRadiusLow, setRadiusHigh } from '../../../actions/layerEdit.js'
 import {
     THEMATIC_RADIUS_LOW,
     THEMATIC_RADIUS_HIGH,
     THEMATIC_RADIUS_MIN,
     THEMATIC_RADIUS_MAX,
-} from '../../../constants/layers';
-import styles from './styles/RadiusSelect.module.css';
+} from '../../../constants/layers.js'
+import { NumberField } from '../../core/index.js'
+import styles from './styles/RadiusSelect.module.css'
 
 export const isValidRadius = (
     radiusLow = THEMATIC_RADIUS_LOW,
@@ -21,7 +21,7 @@ export const isValidRadius = (
     !isNaN(radiusHigh) &&
     radiusLow <= radiusHigh &&
     radiusLow >= THEMATIC_RADIUS_MIN &&
-    radiusHigh <= THEMATIC_RADIUS_MAX;
+    radiusHigh <= THEMATIC_RADIUS_MAX
 
 const RadiusSelect = ({
     radiusLow = THEMATIC_RADIUS_LOW,
@@ -65,15 +65,15 @@ const RadiusSelect = ({
             </div>
         )}
     </Fragment>
-);
+)
 
 RadiusSelect.propTypes = {
-    radiusLow: PropTypes.number,
-    radiusHigh: PropTypes.number,
-    setRadiusLow: PropTypes.func.isRequired,
     setRadiusHigh: PropTypes.func.isRequired,
+    setRadiusLow: PropTypes.func.isRequired,
     className: PropTypes.string,
-};
+    radiusHigh: PropTypes.number,
+    radiusLow: PropTypes.number,
+}
 
 export default connect(
     ({ layerEdit }) => ({
@@ -81,4 +81,4 @@ export default connect(
         radiusHigh: layerEdit.radiusHigh,
     }),
     { setRadiusLow, setRadiusHigh }
-)(RadiusSelect);
+)(RadiusSelect)

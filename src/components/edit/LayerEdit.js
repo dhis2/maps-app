@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
     ModalTitle,
@@ -9,17 +6,24 @@ import {
     ModalActions,
     Button,
     ButtonStrip,
-} from '@dhis2/ui';
-import EventDialog from './event/EventDialog';
-import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog';
-import FacilityDialog from './FacilityDialog';
-import ThematicDialog from './thematic/ThematicDialog';
-import OrgUnitDialog from './orgUnit/OrgUnitDialog';
-import EarthEngineDialog from './earthEngine/EarthEngineDialog';
-import { loadLayer, cancelLayer, setLayerLoading } from '../../actions/layers';
-import { EARTH_ENGINE_LAYER } from '../../constants/layers';
-import { useSystemSettings } from '../SystemSettingsProvider';
-import styles from './styles/LayerEdit.module.css';
+} from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import {
+    loadLayer,
+    cancelLayer,
+    setLayerLoading,
+} from '../../actions/layers.js'
+import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import { useSystemSettings } from '../SystemSettingsProvider.js'
+import EarthEngineDialog from './earthEngine/EarthEngineDialog.js'
+import EventDialog from './event/EventDialog.js'
+import FacilityDialog from './FacilityDialog.js'
+import OrgUnitDialog from './orgUnit/OrgUnitDialog.js'
+import styles from './styles/LayerEdit.module.css'
+import ThematicDialog from './thematic/ThematicDialog.js'
+import TrackedEntityDialog from './trackedEntity/TrackedEntityDialog.js'
 
 const layerType = {
     event: EventDialog,
@@ -28,7 +32,7 @@ const layerType = {
     thematic: ThematicDialog,
     orgUnit: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
-};
+}
 
 const layerName = () => ({
     event: i18n.t('event'),
@@ -37,49 +41,49 @@ const layerName = () => ({
     thematic: i18n.t('thematic'),
     orgUnit: i18n.t('org unit'),
     earthEngine: i18n.t('Earth Engine'),
-});
+})
 
 const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
-    const [isValidLayer, setIsValidLayer] = useState(false);
-    const { keyAnalysisRelativePeriod } = useSystemSettings();
+    const [isValidLayer, setIsValidLayer] = useState(false)
+    const { keyAnalysisRelativePeriod } = useSystemSettings()
 
-    const onValidateLayer = () => setIsValidLayer(true);
+    const onValidateLayer = () => setIsValidLayer(true)
 
-    const onLayerValidation = isValid => {
-        setIsValidLayer(false);
+    const onLayerValidation = (isValid) => {
+        setIsValidLayer(false)
         if (isValid) {
-            const { id, editCounter = 0 } = layer;
+            const { id, editCounter = 0 } = layer
 
-            setLayerLoading(id);
+            setLayerLoading(id)
 
             loadLayer({
                 ...layer,
                 editCounter: editCounter + 1,
-            });
-            cancelLayer();
+            })
+            cancelLayer()
         }
-    };
+    }
 
     if (!layer) {
-        return null;
+        return null
     }
 
-    const type = layer.layer;
-    const LayerDialog = layerType[type];
+    const type = layer.layer
+    const LayerDialog = layerType[type]
 
     if (!LayerDialog) {
-        return null;
+        return null
     }
 
-    let name = layerName()[type];
+    let name = layerName()[type]
 
     if (type === EARTH_ENGINE_LAYER) {
-        name = layer.name.toLowerCase();
+        name = layer.name.toLowerCase()
     }
 
     const title = layer.id
         ? i18n.t('Edit {{name}} layer', { name })
-        : i18n.t('Add new {{name}} layer', { name });
+        : i18n.t('Add new {{name}} layer', { name })
 
     return (
         <Modal position="middle" dataTest="layeredit">
@@ -113,19 +117,19 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
                 </ButtonStrip>
             </ModalActions>
         </Modal>
-    );
-};
+    )
+}
 
 LayerEdit.propTypes = {
-    layer: PropTypes.object,
-    loadLayer: PropTypes.func.isRequired,
     cancelLayer: PropTypes.func.isRequired,
+    loadLayer: PropTypes.func.isRequired,
     setLayerLoading: PropTypes.func.isRequired,
-};
+    layer: PropTypes.object,
+}
 
 export default connect(
     ({ layerEdit }) => ({
         layer: layerEdit,
     }),
     { loadLayer, cancelLayer, setLayerLoading }
-)(LayerEdit);
+)(LayerEdit)

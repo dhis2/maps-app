@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { IconInfo16 } from '@dhis2/ui';
-import styles from './styles/Help.module.css';
+import { IconInfo16 } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/Help.module.css'
 
 // Adds info icon next to help content
 const HelpWithIcon = ({ children }) => (
@@ -9,10 +9,10 @@ const HelpWithIcon = ({ children }) => (
         <IconInfo16 />
         <div className={styles.content}>{children}</div>
     </div>
-);
+)
 
 HelpWithIcon.propTypes = {
     children: PropTypes.node.isRequired,
-};
+}
 
-export default HelpWithIcon;
+export default HelpWithIcon

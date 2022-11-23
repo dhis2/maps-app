@@ -1,19 +1,19 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const orgUnitProfile = (state = null, action) => {
     switch (action.type) {
         case types.ORGANISATION_UNIT_PROFILE_SET:
-            return action.payload;
+            return action.payload
 
         case types.ORGANISATION_UNIT_PROFILE_CLOSE:
         case types.INTERPRETATIONS_PANEL_OPEN:
         case types.MAP_NEW:
         case types.MAP_SET:
-            return null;
+            return null
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default orgUnitProfile;
+export default orgUnitProfile

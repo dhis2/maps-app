@@ -1,33 +1,33 @@
-import { OrgUnitLayer } from '../../elements/orgunit_layer';
+import { OrgUnitLayer } from '../../elements/orgunit_layer.js'
 
 context('Org Unit Layers', () => {
     beforeEach(() => {
-        cy.visit('/');
-    });
+        cy.visit('/')
+    })
 
-    const Layer = new OrgUnitLayer();
+    const Layer = new OrgUnitLayer()
 
     it('shows error if no orgunit selected', () => {
-        Layer.openDialog('Org units').addToMap();
+        Layer.openDialog('Org units').addToMap()
 
-        Layer.validateDialogClosed(false);
+        Layer.validateDialogClosed(false)
 
         cy.contains('No organisation units are selected')
             .scrollIntoView()
-            .should('be.visible');
-    });
+            .should('be.visible')
+    })
 
     it('adds a org unit layer', () => {
         Layer.openDialog('Org units')
             .selectOu('Sierra Leone')
             .selectOuLevel('District')
-            .addToMap();
+            .addToMap()
 
-        Layer.validateDialogClosed(true);
+        Layer.validateDialogClosed(true)
 
         // TODO: use visual snapshot testing to check the rendering of the map
 
-        Layer.validateCardTitle('Organisation units');
-        Layer.validateCardItems(['District']);
-    });
-});
+        Layer.validateCardTitle('Organisation units')
+        Layer.validateCardItems(['District'])
+    })
+})

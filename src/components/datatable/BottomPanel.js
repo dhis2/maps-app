@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { IconCross16 } from '@dhis2/ui';
-import ResizeHandle from './ResizeHandle';
-import DataTable from '../datatable/DataTable';
+import { IconCross16 } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import {
     HEADER_HEIGHT,
     LAYERS_PANEL_WIDTH,
     RIGHT_PANEL_WIDTH,
-} from '../../constants/layout';
-import { closeDataTable, resizeDataTable } from '../../actions/dataTable';
-import styles from './styles/BottomPanel.module.css';
+} from '../../constants/layout.js'
+import DataTable from '../datatable/DataTable.js'
+import ResizeHandle from './ResizeHandle.js'
+import styles from './styles/BottomPanel.module.css'
 
 // Container for DataTable
 class BottomPanel extends Component {
@@ -24,25 +24,25 @@ class BottomPanel extends Component {
             height,
             resizeDataTable,
             closeDataTable,
-        } = this.props;
+        } = this.props
 
         if (dataTableOpen) {
-            const maxHeight = height - HEADER_HEIGHT - 20;
+            const maxHeight = height - HEADER_HEIGHT - 20
             const tableHeight =
-                dataTableHeight < maxHeight ? dataTableHeight : maxHeight;
-            const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0;
-            const rightPanelWidth = rightPanelOpen ? RIGHT_PANEL_WIDTH : 0;
-            const tableWidth = width - layersWidth - rightPanelWidth;
+                dataTableHeight < maxHeight ? dataTableHeight : maxHeight
+            const layersWidth = layersPanelOpen ? LAYERS_PANEL_WIDTH : 0
+            const rightPanelWidth = rightPanelOpen ? RIGHT_PANEL_WIDTH : 0
+            const tableWidth = width - layersWidth - rightPanelWidth
 
             const style = {
                 height: tableHeight,
                 left: layersWidth,
                 right: rightPanelWidth,
-            };
+            }
 
             return (
                 <div
-                    ref={node => (this.node = node)}
+                    ref={(node) => (this.node = node)}
                     className={styles.bottomPanel}
                     style={style}
                 >
@@ -51,33 +51,33 @@ class BottomPanel extends Component {
                     </span>
                     <ResizeHandle
                         maxHeight={maxHeight}
-                        onResize={height => this.onResize(height)}
-                        onResizeEnd={height => resizeDataTable(height)}
+                        onResize={(height) => this.onResize(height)}
+                        onResizeEnd={(height) => resizeDataTable(height)}
                     />
                     <DataTable width={tableWidth} height={tableHeight} />
                 </div>
-            );
+            )
         }
 
-        return null;
+        return null
     }
 
     // Called from resize handle
     onResize(height) {
-        this.node.style.height = `${height}px`;
+        this.node.style.height = `${height}px`
     }
 }
 
 BottomPanel.propTypes = {
-    layersPanelOpen: PropTypes.bool.isRequired,
-    rightPanelOpen: PropTypes.bool.isRequired,
-    dataTableOpen: PropTypes.bool.isRequired,
-    dataTableHeight: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    resizeDataTable: PropTypes.func.isRequired,
     closeDataTable: PropTypes.func.isRequired,
-};
+    dataTableHeight: PropTypes.number.isRequired,
+    dataTableOpen: PropTypes.bool.isRequired,
+    height: PropTypes.number.isRequired,
+    layersPanelOpen: PropTypes.bool.isRequired,
+    resizeDataTable: PropTypes.func.isRequired,
+    rightPanelOpen: PropTypes.bool.isRequired,
+    width: PropTypes.number.isRequired,
+}
 
 export default connect(
     ({ dataTable, ui }) => ({
@@ -89,4 +89,4 @@ export default connect(
         height: ui.height,
     }),
     { closeDataTable, resizeDataTable }
-)(BottomPanel);
+)(BottomPanel)

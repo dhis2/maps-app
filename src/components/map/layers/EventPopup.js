@@ -1,53 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import Popup from '../Popup';
-import { apiFetch } from '../../../util/api';
-import { formatTime, formatCoordinate } from '../../../util/helpers';
-import { EVENT_ID_FIELD } from '../../../util/geojson';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
+import { apiFetch } from '../../../util/api.js'
+import { EVENT_ID_FIELD } from '../../../util/geojson.js'
+import { formatTime, formatCoordinate } from '../../../util/helpers.js'
+import Popup from '../Popup.js'
 
 // Returns true if value is not undefined or null;
-const hasValue = value => value !== undefined || value !== null;
+const hasValue = (value) => value !== undefined || value !== null
 
 // Loads event data for the selected feature
-const loadEventData = async feature => {
+const loadEventData = async (feature) => {
     if (!feature) {
-        return null;
+        return null
     }
 
-    const id = feature.properties.id || feature.properties[EVENT_ID_FIELD];
+    const id = feature.properties.id || feature.properties[EVENT_ID_FIELD]
 
-    return apiFetch(`/events/${id}`);
-};
+    return apiFetch(`/events/${id}`)
+}
 
 // Returns table rows for all display elements
+/* eslint-disable max-params */
 const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
-    const dataRows = [];
+    const dataRows = []
 
     // Include data element used for styling if not included below
     if (
         styleDataItem &&
-        !displayElements.find(d => d.id === styleDataItem.id)
+        !displayElements.find((d) => d.id === styleDataItem.id)
     ) {
         dataRows.push(
             <tr key={styleDataItem.id}>
                 <th>{styleDataItem.name}</th>
                 <td>{hasValue(value) ? value : i18n.t('Not set')}</td>
             </tr>
-        );
+        )
     }
 
     // Include rows for each displayInReport data elements
     displayElements.forEach(({ id, name, valueType, options }) => {
-        const { value } = dataValues.find(d => d.dataElement === id) || {};
-        let formattedValue = value;
+        const { value } = dataValues.find((d) => d.dataElement === id) || {}
+        let formattedValue = value
 
         if (valueType === 'COORDINATE' && value) {
-            formattedValue = formatCoordinate(value);
+            formattedValue = formatCoordinate(value)
         } else if (options) {
-            formattedValue = options[value];
+            formattedValue = options[value]
         } else if (!hasValue(value)) {
-            formattedValue = i18n.t('Not set');
+            formattedValue = i18n.t('Not set')
         }
 
         dataRows.push(
@@ -55,18 +56,19 @@ const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
                 <th>{name}</th>
                 <td>{formattedValue}</td>
             </tr>
-        );
-    });
+        )
+    })
 
     if (dataRows.length) {
-        dataRows.push(<tr key="divider" style={{ height: 5 }} />);
+        dataRows.push(<tr key="divider" style={{ height: 5 }} />)
     }
 
-    return dataRows;
-};
+    return dataRows
+}
+/* eslint-enable max-params */
 
 // Will display a popup for an event feature
-const EventPopup = props => {
+const EventPopup = (props) => {
     const {
         coordinates,
         feature,
@@ -74,29 +76,29 @@ const EventPopup = props => {
         displayElements,
         eventCoordinateFieldName,
         onClose,
-    } = props;
+    } = props
 
-    const [eventData, setEventData] = useState();
+    const [eventData, setEventData] = useState()
 
     // Load event data every time a new feature is clicked
     useEffect(() => {
-        let aborted = false;
+        let aborted = false
 
-        loadEventData(feature).then(data => {
+        loadEventData(feature).then((data) => {
             if (!aborted) {
-                setEventData(data);
+                setEventData(data)
             }
-        });
+        })
 
         return () => {
-            setEventData(); // Clear event data
-            aborted = true;
-        };
-    }, [feature, setEventData]);
+            setEventData() // Clear event data
+            aborted = true
+        }
+    }, [feature, setEventData])
 
-    const { type, coordinates: coord } = feature.geometry;
-    const { value } = feature.properties;
-    const { dataValues = [], eventDate, orgUnitName } = eventData || {};
+    const { type, coordinates: coord } = feature.geometry
+    const { value } = feature.properties
+    const { dataValues = [], eventDate, orgUnitName } = eventData || {}
 
     return (
         <Popup
@@ -139,16 +141,16 @@ const EventPopup = props => {
                 </tbody>
             </table>
         </Popup>
-    );
-};
+    )
+}
 
 EventPopup.propTypes = {
     coordinates: PropTypes.array.isRequired,
-    feature: PropTypes.object.isRequired,
     displayElements: PropTypes.array.isRequired,
+    feature: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
     eventCoordinateFieldName: PropTypes.string,
     styleDataItem: PropTypes.object,
-    onClose: PropTypes.func.isRequired,
-};
+}
 
-export default EventPopup;
+export default EventPopup

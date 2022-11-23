@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import LineSymbol from './LineSymbol';
-import PolygonSymbol from './PolygonSymbol';
-import LegendItemRange from './LegendItemRange';
-import styles from './styles/LegendItem.module.css';
+import PropTypes from 'prop-types'
+import React from 'react'
+import LegendItemRange from './LegendItemRange.js'
+import LineSymbol from './LineSymbol.js'
+import PolygonSymbol from './PolygonSymbol.js'
+import styles from './styles/LegendItem.module.css'
 
-const maxRadius = 15;
+const maxRadius = 15
 
 const LegendItem = ({
     type,
@@ -21,24 +21,24 @@ const LegendItem = ({
     count,
 }) => {
     if (!name && startValue === undefined) {
-        return null;
+        return null
     }
 
     const symbol = {
         backgroundImage: image ? `url(${image})` : 'none',
         backgroundColor: color ? color : 'transparent',
-    };
+    }
 
     if (strokeColor) {
-        symbol.border = `1px solid ${strokeColor}`;
+        symbol.border = `1px solid ${strokeColor}`
     }
 
     if (radius) {
-        const r = Math.min(radius, maxRadius) * 2;
+        const r = Math.min(radius, maxRadius) * 2
 
-        symbol.width = `${r}px`;
-        symbol.height = `${r}px`;
-        symbol.borderRadius = '50%';
+        symbol.width = `${r}px`
+        symbol.height = `${r}px`
+        symbol.borderRadius = '50%'
     }
 
     return (
@@ -65,21 +65,21 @@ const LegendItem = ({
                 count={count}
             />
         </tr>
-    );
-};
+    )
+}
 
 LegendItem.propTypes = {
-    type: PropTypes.string,
-    image: PropTypes.string,
     color: PropTypes.string,
-    strokeColor: PropTypes.string,
-    fillColor: PropTypes.string,
-    radius: PropTypes.number,
-    weight: PropTypes.number,
-    name: PropTypes.string,
-    startValue: PropTypes.number,
-    endValue: PropTypes.number,
     count: PropTypes.number,
-};
+    endValue: PropTypes.number,
+    fillColor: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    radius: PropTypes.number,
+    startValue: PropTypes.number,
+    strokeColor: PropTypes.string,
+    type: PropTypes.string,
+    weight: PropTypes.number,
+}
 
-export default LegendItem;
+export default LegendItem

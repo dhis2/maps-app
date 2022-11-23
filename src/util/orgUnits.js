@@ -1,9 +1,6 @@
-import { uniqBy } from 'lodash/fp';
-import i18n from '@dhis2/d2-i18n';
-import { apiFetch } from './api';
-import { getDisplayPropertyUrl } from './helpers';
-import { getUniqueColor } from './colors';
-import { qualitativeColors } from '../constants/colors';
+import i18n from '@dhis2/d2-i18n'
+import { uniqBy } from 'lodash/fp'
+import { qualitativeColors } from '../constants/colors.js'
 import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS,
@@ -11,50 +8,53 @@ import {
     STYLE_TYPE_COLOR,
     STYLE_TYPE_SYMBOL,
     NONE,
-} from '../constants/layers';
+} from '../constants/layers.js'
+import { apiFetch } from './api.js'
+import { getUniqueColor } from './colors.js'
+import { getDisplayPropertyUrl } from './helpers.js'
 
-const getGroupColor = groups => {
-    const groupsWithoutColors = groups.filter(g => !g.color);
-    const colors = getUniqueColor(qualitativeColors);
-    return group => {
-        const index = groupsWithoutColors.findIndex(g => g.id === group.id);
-        return colors(index);
-    };
-};
+const getGroupColor = (groups) => {
+    const groupsWithoutColors = groups.filter((g) => !g.color)
+    const colors = getUniqueColor(qualitativeColors)
+    return (group) => {
+        const index = groupsWithoutColors.findIndex((g) => g.id === group.id)
+        return colors(index)
+    }
+}
 
 // Default symbol 21-25 are coloured circles
-const getGroupSymbol = groups => {
-    const groupsWithoutSymbols = groups.filter(g => !g.symbol);
-    return group => {
-        const index = groupsWithoutSymbols.findIndex(g => g.id === group.id);
-        return index < 5 ? `${21 + index}.png` : '25.png';
-    };
-};
+const getGroupSymbol = (groups) => {
+    const groupsWithoutSymbols = groups.filter((g) => !g.symbol)
+    return (group) => {
+        const index = groupsWithoutSymbols.findIndex((g) => g.id === group.id)
+        return index < 5 ? `${21 + index}.png` : '25.png'
+    }
+}
 
 const parseGroupSet = ({ organisationUnitGroups: groups }) => {
-    groups.sort((a, b) => a.name.localeCompare(b.name));
+    groups.sort((a, b) => a.name.localeCompare(b.name))
 
-    const getColor = getGroupColor(groups);
-    const getSymbol = getGroupSymbol(groups);
+    const getColor = getGroupColor(groups)
+    const getSymbol = getGroupSymbol(groups)
 
-    return groups.map(group => ({
+    return groups.map((group) => ({
         ...group,
         color: group.color || getColor(group),
         symbol: group.symbol || getSymbol(group),
-    }));
-};
+    }))
+}
 
-export const fetchOrgUnitGroupSet = id =>
+export const fetchOrgUnitGroupSet = (id) =>
     apiFetch(
         `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
-    ).then(parseGroupSet);
+    ).then(parseGroupSet)
 
 export const fetchOrgUnitFields = () =>
     apiFetch(
         `/attributes.json?fields=id,name,description&filter=valueType:eq:GEOJSON&filter=organisationUnitAttribute:eq:true`
-    ).then(({ attributes }) => attributes);
+    ).then(({ attributes }) => attributes)
 
-export const filterPointFacilities = data => data.filter(d => d.ty === 1);
+export const filterPointFacilities = (data) => data.filter((d) => d.ty === 1)
 
 export const getOrgUnitStyle = (dimensions, groupSet) =>
     groupSet &&
@@ -62,9 +62,9 @@ export const getOrgUnitStyle = (dimensions, groupSet) =>
     dimensions &&
     dimensions[groupSet.id]
         ? groupSet.organisationUnitGroups.find(
-              g => g.id === dimensions[groupSet.id]
+              (g) => g.id === dimensions[groupSet.id]
           )
-        : {};
+        : {}
 
 export const getOrgUnitGroupLegendItems = (
     groups = [],
@@ -81,8 +81,9 @@ export const getOrgUnitGroupLegendItems = (
                   name,
                   image: `${contextPath}/images/orgunitgroup/${symbol}`,
               }
-    );
+    )
 
+/* eslint-disable max-params */
 export const getStyledOrgUnits = (
     features = [],
     groupSet = {},
@@ -94,74 +95,74 @@ export const getStyledOrgUnits = (
         name,
         styleType = orgUnitLevels ? STYLE_TYPE_COLOR : STYLE_TYPE_SYMBOL,
         organisationUnitGroups = [],
-    } = groupSet;
-    const isFacilityLayer = !orgUnitLevels;
-    let levelWeight;
-    let levelItems = [];
+    } = groupSet
+    const isFacilityLayer = !orgUnitLevels
+    let levelWeight
+    let levelItems = []
 
     if (!isFacilityLayer) {
-        const levels = uniqBy(f => f.properties.level, features)
-            .map(f => f.properties.level)
-            .sort();
+        const levels = uniqBy((f) => f.properties.level, features)
+            .map((f) => f.properties.level)
+            .sort()
 
-        levelWeight = level =>
-            Math.pow(levels.length - levels.indexOf(level), 1.2);
+        levelWeight = (level) =>
+            Math.pow(levels.length - levels.indexOf(level), 1.2)
 
-        levelItems = levels.map(level => ({
+        levelItems = levels.map((level) => ({
             name: orgUnitLevels[level],
             color: organisationUnitColor,
             weight: levelWeight(level),
-        }));
+        }))
     }
 
-    const useColor = styleType === STYLE_TYPE_COLOR;
+    const useColor = styleType === STYLE_TYPE_COLOR
 
-    let styledFeatures = features.map(f => {
-        const isPoint = f.geometry.type === 'Point';
-        const { hasAdditionalGeometry } = f.properties;
+    let styledFeatures = features.map((f) => {
+        const isPoint = f.geometry.type === 'Point'
+        const { hasAdditionalGeometry } = f.properties
         const { color, symbol } = getOrgUnitStyle(
             f.properties.dimensions,
             groupSet
-        );
-        let radius;
+        )
+        let radius
 
         if (isPoint) {
             radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL + 1
-                : radiusLow;
+                : radiusLow
         }
 
         const properties = {
             ...f.properties,
             radius,
-        };
+        }
 
         if (useColor && color) {
-            properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color;
+            properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color
         } else if (symbol) {
-            properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`;
+            properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`
         }
 
         if (properties.level && levelWeight) {
-            properties.weight = levelWeight(f.properties.level);
+            properties.weight = levelWeight(f.properties.level)
         }
 
         return {
             ...f,
             properties,
-        };
-    });
+        }
+    })
 
     // Only include facilities having a group membership
     if (isFacilityLayer && groupSet.id && !useColor) {
-        styledFeatures = styledFeatures.filter(f => f.properties.iconUrl);
+        styledFeatures = styledFeatures.filter((f) => f.properties.iconUrl)
     }
 
     const groupItems = getOrgUnitGroupLegendItems(
         organisationUnitGroups,
         useColor,
         contextPath
-    );
+    )
 
     const facilityItems =
         isFacilityLayer && !groupSet.id
@@ -172,7 +173,7 @@ export const getStyledOrgUnits = (
                       radius: radiusLow,
                   },
               ]
-            : [];
+            : []
 
     return {
         styledFeatures,
@@ -180,15 +181,16 @@ export const getStyledOrgUnits = (
             unit: name,
             items: [...levelItems, ...groupItems, ...facilityItems],
         },
-    };
-};
+    }
+}
+/* eslint-enable max-params */
 
 // This function returns the org unit level names used in the legend
-export const getOrgUnitLevels = async d2 => {
+export const getOrgUnitLevels = async (d2) => {
     const orgUnitLevels = await d2.models.organisationUnitLevels.list({
         fields: `id,${getDisplayPropertyUrl(d2)},level`,
         paging: false,
-    });
+    })
 
     return orgUnitLevels
         ? orgUnitLevels.toArray().reduce(
@@ -198,34 +200,34 @@ export const getOrgUnitLevels = async d2 => {
               }),
               {}
           )
-        : {};
-};
+        : {}
+}
 
 // Loads default org unit level and group set for facility layer
 export const fetchFacilityConfigurations = async () => {
     const [facilityOrgUnitLevel, facilityOrgUnitGroupSet] = await Promise.all([
         apiFetch('/configuration/facilityOrgUnitLevel'),
         apiFetch('/configuration/facilityOrgUnitGroupSet'),
-    ]);
+    ])
 
     return {
         facilityOrgUnitLevel,
         facilityOrgUnitGroupSet,
-    };
-};
+    }
+}
 
 // Returns coordinate field from layer config
 export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>
     orgUnitField && orgUnitField !== NONE
         ? { id: orgUnitField, name: orgUnitFieldDisplayName }
-        : null;
+        : null
 
 // Set hasAddiditionalGeometry property if exist
-export const setAdditionalGeometry = features =>
+export const setAdditionalGeometry = (features) =>
     features
         .filter(
             (feature, i) =>
                 i <
-                features.findIndex(f => f.id === feature.id && f !== feature)
+                features.findIndex((f) => f.id === feature.id && f !== feature)
         )
-        .forEach(f => (f.properties.hasAdditionalGeometry = true));
+        .forEach((f) => (f.properties.hasAdditionalGeometry = true))

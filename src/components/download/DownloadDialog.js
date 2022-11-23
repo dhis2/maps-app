@@ -1,7 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
     ModalTitle,
@@ -9,35 +6,38 @@ import {
     ModalActions,
     Button,
     ButtonStrip,
-} from '@dhis2/ui';
-import { Checkbox } from '../core';
-import LegendPosition from './LegendPosition';
+} from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import {
     toggleDownloadDialog,
     toggleDownloadShowName,
     toggleDownloadShowLegend,
     setDownloadLegendPosition,
-} from '../../actions/download';
-import { downloadMapImage, downloadSupport } from '../../util/export-image';
-import styles from './styles/DownloadDialog.module.css';
+} from '../../actions/download.js'
+import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
+import { Checkbox } from '../core/index.js'
+import LegendPosition from './LegendPosition.js'
+import styles from './styles/DownloadDialog.module.css'
 
 export class DownloadDialog extends Component {
     static propTypes = {
-        showDialog: PropTypes.bool.isRequired,
-        showName: PropTypes.bool.isRequired,
-        showLegend: PropTypes.bool.isRequired,
-        legendPosition: PropTypes.string.isRequired,
-        hasName: PropTypes.bool.isRequired,
         hasLegend: PropTypes.bool.isRequired,
-        toggleDownloadDialog: PropTypes.func.isRequired,
-        toggleDownloadShowName: PropTypes.func.isRequired,
-        toggleDownloadShowLegend: PropTypes.func.isRequired,
+        hasName: PropTypes.bool.isRequired,
+        legendPosition: PropTypes.string.isRequired,
         setDownloadLegendPosition: PropTypes.func.isRequired,
-    };
+        showDialog: PropTypes.bool.isRequired,
+        showLegend: PropTypes.bool.isRequired,
+        showName: PropTypes.bool.isRequired,
+        toggleDownloadDialog: PropTypes.func.isRequired,
+        toggleDownloadShowLegend: PropTypes.func.isRequired,
+        toggleDownloadShowName: PropTypes.func.isRequired,
+    }
 
     state = {
         error: null,
-    };
+    }
 
     render() {
         const {
@@ -50,13 +50,13 @@ export class DownloadDialog extends Component {
             toggleDownloadShowName,
             toggleDownloadShowLegend,
             setDownloadLegendPosition,
-        } = this.props;
+        } = this.props
 
         if (!showDialog) {
-            return null;
+            return null
         }
 
-        const isSupported = downloadSupport() && !this.state.error;
+        const isSupported = downloadSupport() && !this.state.error
 
         return (
             <Modal position="middle" small onClose={this.onClose}>
@@ -104,32 +104,29 @@ export class DownloadDialog extends Component {
                     </ButtonStrip>
                 </ModalActions>
             </Modal>
-        );
+        )
     }
 
-    onClose = () => this.props.toggleDownloadDialog(false);
+    onClose = () => this.props.toggleDownloadDialog(false)
 
     onDownload = () => {
-        const mapEl = document.getElementById('dhis2-map-container');
+        const mapEl = document.getElementById('dhis2-map-container')
 
-        const filename = `map-${Math.random()
-            .toString(36)
-            .substring(7)}.png`;
+        const filename = `map-${Math.random().toString(36).substring(7)}.png`
 
-        downloadMapImage(mapEl, filename)
-            .then(this.onClose)
-            .catch(this.onError);
-    };
+        downloadMapImage(mapEl, filename).then(this.onClose).catch(this.onError)
+    }
 
-    onError = error => {
-        this.setState({ error });
-    };
+    onError = (error) => {
+        this.setState({ error })
+    }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         hasName: state.map.name !== undefined,
-        hasLegend: state.map.mapViews.filter(layer => layer.legend).length > 0,
+        hasLegend:
+            state.map.mapViews.filter((layer) => layer.legend).length > 0,
         ...state.download,
     }),
     {
@@ -138,4 +135,4 @@ export default connect(
         toggleDownloadShowLegend,
         setDownloadLegendPosition,
     }
-)(DownloadDialog);
+)(DownloadDialog)

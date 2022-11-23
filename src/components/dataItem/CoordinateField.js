@@ -1,38 +1,38 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
-} from '../../actions/programs';
+} from '../../actions/programs.js'
+import { SelectField } from '../core/index.js'
 
 export class CoordinateField extends Component {
     static propTypes = {
-        value: PropTypes.string,
-        program: PropTypes.object,
-        programStage: PropTypes.object,
-        programAttributes: PropTypes.object.isRequired,
         dataElements: PropTypes.object.isRequired,
-        loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
         loadProgramStageDataElements: PropTypes.func.isRequired,
+        loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
+        programAttributes: PropTypes.object.isRequired,
         onChange: PropTypes.func.isRequired,
         className: PropTypes.string,
-    };
+        program: PropTypes.object,
+        programStage: PropTypes.object,
+        value: PropTypes.string,
+    }
 
     componentDidMount() {
-        this.loadData();
+        this.loadData()
     }
 
     componentDidUpdate(prevProps) {
-        const { program, onChange } = this.props;
+        const { program, onChange } = this.props
 
         if (program !== prevProps.program) {
-            onChange('event');
+            onChange('event')
         }
 
-        this.loadData();
+        this.loadData()
     }
 
     render() {
@@ -44,29 +44,29 @@ export class CoordinateField extends Component {
             dataElements,
             onChange,
             className,
-        } = this.props;
+        } = this.props
         let fields = [
             { id: 'event', name: i18n.t('Event location') }, // Default coordinate field
-        ];
+        ]
 
         if (program && programStage) {
             fields = fields.concat(
                 [
                     ...(programAttributes[program.id] || []),
                     ...(dataElements[programStage.id] || []),
-                ].filter(field => field.valueType === 'COORDINATE')
-            );
+                ].filter((field) => field.valueType === 'COORDINATE')
+            )
         }
 
         return (
             <SelectField
                 label={i18n.t('Coordinate field')}
                 items={fields}
-                value={fields.find(f => f.id === value) ? value : 'event'}
-                onChange={field => onChange(field.id)}
+                value={fields.find((f) => f.id === value) ? value : 'event'}
+                onChange={(field) => onChange(field.id)}
                 className={className}
             />
-        );
+        )
     }
 
     loadData() {
@@ -77,22 +77,22 @@ export class CoordinateField extends Component {
             dataElements,
             loadProgramTrackedEntityAttributes,
             loadProgramStageDataElements,
-        } = this.props;
+        } = this.props
 
         if (program && !programAttributes[program.id]) {
-            loadProgramTrackedEntityAttributes(program.id);
+            loadProgramTrackedEntityAttributes(program.id)
         }
 
         if (programStage && !dataElements[programStage.id]) {
-            loadProgramStageDataElements(programStage.id);
+            loadProgramStageDataElements(programStage.id)
         }
     }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         programAttributes: state.programTrackedEntityAttributes,
         dataElements: state.programStageDataElements,
     }),
     { loadProgramTrackedEntityAttributes, loadProgramStageDataElements }
-)(CoordinateField);
+)(CoordinateField)

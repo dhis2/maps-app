@@ -1,25 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { range } from 'lodash/fp';
-import { SelectField, ColorScaleSelect } from '../core';
-import { setClassification, setColorScale } from '../../actions/layerEdit';
-import { getClassificationTypes } from '../../constants/layers';
+import i18n from '@dhis2/d2-i18n'
+import { range } from 'lodash/fp'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { setClassification, setColorScale } from '../../actions/layerEdit.js'
+import {
+    getClassificationTypes,
+    CLASSIFICATION_EQUAL_INTERVALS,
+} from '../../constants/layers.js'
 import {
     defaultColorScaleName,
     defaultClasses,
     defaultColorScale,
     getColorPalette,
     getColorScale,
-} from '../../util/colors';
-import { CLASSIFICATION_EQUAL_INTERVALS } from '../../constants/layers';
-import styles from './styles/Classification.module.css';
+} from '../../util/colors.js'
+import { SelectField, ColorScaleSelect } from '../core/index.js'
+import styles from './styles/Classification.module.css'
 
-const classRange = range(3, 10).map(num => ({
+const classRange = range(3, 10).map((num) => ({
     id: num,
     name: num.toString(),
-})); // 3 - 9
+})) // 3 - 9
 
 const Classification = ({
     method,
@@ -30,7 +32,7 @@ const Classification = ({
 }) => {
     const colorScaleName = colorScale
         ? getColorScale(colorScale)
-        : defaultColorScaleName;
+        : defaultColorScaleName
 
     return [
         <SelectField
@@ -38,7 +40,7 @@ const Classification = ({
             label={i18n.t('Classification')}
             value={method || CLASSIFICATION_EQUAL_INTERVALS}
             items={getClassificationTypes()}
-            onChange={method => setClassification(method.id)}
+            onChange={(method) => setClassification(method.id)}
             className={styles.select}
         />,
         <div key="scale">
@@ -46,7 +48,7 @@ const Classification = ({
                 label={i18n.t('Classes')}
                 value={classes !== undefined ? classes : defaultClasses}
                 items={classRange}
-                onChange={item =>
+                onChange={(item) =>
                     setColorScale(getColorPalette(colorScaleName, item.id))
                 }
                 className={styles.classes}
@@ -59,16 +61,16 @@ const Classification = ({
             />
             <div className={styles.clear} />
         </div>,
-    ];
-};
+    ]
+}
 
 Classification.propTypes = {
-    method: PropTypes.number,
-    classes: PropTypes.number,
-    colorScale: PropTypes.string,
     setClassification: PropTypes.func.isRequired,
     setColorScale: PropTypes.func.isRequired,
-};
+    classes: PropTypes.number,
+    colorScale: PropTypes.string,
+    method: PropTypes.number,
+}
 
 export default connect(
     ({ layerEdit }) => ({
@@ -77,4 +79,4 @@ export default connect(
         colorScale: layerEdit.colorScale,
     }),
     { setClassification, setColorScale }
-)(Classification);
+)(Classification)
