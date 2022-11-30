@@ -35,7 +35,7 @@ msgid "Map \"{{name}}\" is saved."
 msgstr "La carte « {{name}} » est enregistrée."
 
 msgid "Failed to save map. {{message}}"
-msgstr ""
+msgstr "Échec de la mise à jour de la carte. {{message}}"
 
 msgid "Error"
 msgstr "Erreur"
@@ -196,7 +196,7 @@ msgid "thematic"
 msgstr "thématique"
 
 msgid "org unit"
-msgstr ""
+msgstr "Unité d'organisation"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -232,17 +232,22 @@ msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
 "units."
 msgstr ""
+"Les données seront calculées sur Google Earth Engine pour les unités "
+"d'organisation choisies."
 
 msgid "Multiple aggregation methods are available."
-msgstr ""
+msgstr "Il existe plusieurs méthodes d'agrégation."
 
 msgid ""
 "See the aggregation results by clicking map regions or viewing the data "
 "table. The results can also be downloaded."
 msgstr ""
+"Pour voir les résultats de l'agrégation, cliquez sur les régions de la carte"
+" ou consultez le tableau des données. Vous pouvez également télécharger les "
+"résultats."
 
 msgid "Unit"
-msgstr ""
+msgstr "Unité"
 
 msgid "Source"
 msgstr "Source"
@@ -807,7 +812,7 @@ msgid "Select levels"
 msgstr "Sélectionner les niveaux"
 
 msgid "Organisation unit profile"
-msgstr ""
+msgstr "Profil de l'unité d'organisation"
 
 msgid ""
 "It’s not possible to combine user organisation units and select individual "
@@ -942,7 +947,7 @@ msgid "Median"
 msgstr ""
 
 msgid "Std dev"
-msgstr ""
+msgstr "Dév. Std."
 
 msgid "OSM Light"
 msgstr "OSM Light"
@@ -969,16 +974,16 @@ msgid "Bing Aerial Labels"
 msgstr "Étiquettes Bing Satellite"
 
 msgid "Population"
-msgstr ""
+msgstr "Population"
 
 msgid "people per hectare"
-msgstr ""
+msgstr "personnes par hectare"
 
 msgid "Estimated number of people living in an area."
 msgstr ""
 
 msgid "Population age groups"
-msgstr ""
+msgstr "Groupes d'âge de la population"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1039,19 +1044,19 @@ msgid "Male 80 years and above"
 msgstr ""
 
 msgid "Female 0 - 1 years"
-msgstr ""
+msgstr "Féminin 0 - 1 an"
 
 msgid "Female 1 - 4 years"
-msgstr ""
+msgstr "Féminin 1 - 4 ans"
 
 msgid "Female 5 - 9 years"
-msgstr ""
+msgstr "Féminin 5 - 9 ans"
 
 msgid "Female 10 - 14 years"
-msgstr ""
+msgstr "Féminin 10 - 14 ans"
 
 msgid "Female 15 - 19 years"
-msgstr ""
+msgstr "Féminin 15 - 19 ans"
 
 msgid "Female 20 - 24 years"
 msgstr ""
