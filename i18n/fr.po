@@ -252,22 +252,22 @@ msgid "Year"
 msgstr "Année"
 
 msgid "Available periods are set by the source data"
-msgstr ""
+msgstr "Les périodes disponibles sont définies par les données sources"
 
 msgid "Loading periods"
-msgstr ""
+msgstr "Chargement des périodes"
 
 msgid "Min value is required"
-msgstr ""
+msgstr "Une valeur minimale est requise"
 
 msgid "Max value is required"
-msgstr ""
+msgstr "Une valeur maximale est requise"
 
 msgid "Max should be greater than min"
-msgstr ""
+msgstr "Le max doit être supérieur au min"
 
 msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "Les étapes valides sont {{Etapesmin}} à {{Etapesmax}}"
 
 msgid "Min"
 msgstr "Min"
@@ -282,7 +282,7 @@ msgid "Legend preview"
 msgstr "Aperçu de la légende"
 
 msgid "Org Units"
-msgstr ""
+msgstr "Unités d´organisation"
 
 msgid "Filter"
 msgstr "Filtrer"
@@ -338,7 +338,7 @@ msgid "High radius"
 msgstr "Rayon élevé"
 
 msgid "High radius should be greater than low radius"
-msgstr ""
+msgstr "Le rayon supérieur doit être supérieur au rayon inférieur"
 
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Le rayon doit se situer entre {{min}} et {{max}}"
@@ -573,7 +573,7 @@ msgid "Hide data table"
 msgstr "Masquer le tableau de données"
 
 msgid "Show data table"
-msgstr ""
+msgstr "Afficher le tableau de données"
 
 msgid "Open as chart"
 msgstr "Ouvrir sous forme de graphique"
@@ -609,7 +609,7 @@ msgid "Show longitude/latitude"
 msgstr "Afficher longitude/latitude"
 
 msgid "Show {{name}}"
-msgstr ""
+msgstr "Afficher {{nom}}"
 
 msgid "Longitude"
 msgstr "Longitude"
@@ -726,12 +726,14 @@ msgid ""
 "This data element has too many options ({{length}}). Max options for styling"
 " is {{max}}."
 msgstr ""
+"Cet élément de données a trop d'options ({{longueur}}). Le nombre maximal "
+"d'options pour le style est {{max}}."
 
 msgid "Code"
 msgstr "Code"
 
 msgid "Loading data"
-msgstr ""
+msgstr "Chargement des données"
 
 msgid "No data found for this period."
 msgstr "Aucune donnée trouvée pour cette période."
@@ -866,16 +868,16 @@ msgid "Percentage"
 msgstr "Pourcentage"
 
 msgid "Hectares"
-msgstr ""
+msgstr "Hectares"
 
 msgid "Acres"
-msgstr ""
+msgstr "Acres"
 
 msgid "Mean"
 msgstr "Signifier"
 
 msgid "Median"
-msgstr ""
+msgstr "Médian"
 
 msgid "OSM Light"
 msgstr "OSM Light"
@@ -908,7 +910,7 @@ msgid "people per hectare"
 msgstr "personnes par hectare"
 
 msgid "Estimated number of people living in an area."
-msgstr ""
+msgstr "Estimation du nombre de personnes vivant dans une région."
 
 msgid "Population age groups"
 msgstr "Groupes d'âge de la population"
@@ -916,60 +918,62 @@ msgstr "Groupes d'âge de la population"
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
+"Estimation du nombre de personnes vivant dans une zone, regroupées par âge "
+"et par sexe."
 
 msgid "Male 0 - 1 years"
-msgstr ""
+msgstr "Masculin 0 - 1 an"
 
 msgid "Male 1 - 4 years"
-msgstr ""
+msgstr "Masculin 1 - 4 ans"
 
 msgid "Male 5 - 9 years"
-msgstr ""
+msgstr "Masculin 5 - 9 ans"
 
 msgid "Male 10 - 14 years"
-msgstr ""
+msgstr "Masculin 10 - 14 ans"
 
 msgid "Male 15 - 19 years"
-msgstr ""
+msgstr "Masculin 15 - 19 ans"
 
 msgid "Male 20 - 24 years"
-msgstr ""
+msgstr "Masculin 20 - 24 ans"
 
 msgid "Male 25 - 29 years"
-msgstr ""
+msgstr "Masculin 25 - 29 ans"
 
 msgid "Male 30 - 34 years"
-msgstr ""
+msgstr "Masculin 30 - 34 ans"
 
 msgid "Male 35 - 39 years"
-msgstr ""
+msgstr "Masculin 35 - 39 ans"
 
 msgid "Male 40 - 44 years"
-msgstr ""
+msgstr "Masculin 40 - 44 ans"
 
 msgid "Male 45 - 49 years"
-msgstr ""
+msgstr "Masculin 45 - 49 ans"
 
 msgid "Male 50 - 54 years"
-msgstr ""
+msgstr "Masculin 50 - 54 ans"
 
 msgid "Male 55 - 59 years"
-msgstr ""
+msgstr "Masculin 55 - 59 ans"
 
 msgid "Male 60 - 64 years"
-msgstr ""
+msgstr "Masculin 60 - 64 ans"
 
 msgid "Male 65 - 69 years"
-msgstr ""
+msgstr "Masculin 65 - 69 ans"
 
 msgid "Male 70 - 74 years"
-msgstr ""
+msgstr "Masculin 70 - 74 ans"
 
 msgid "Male 75 - 79 years"
-msgstr ""
+msgstr "Masculin 75 - 79 ans"
 
 msgid "Male 80 years and above"
-msgstr ""
+msgstr "Masculin 80 ans et plus"
 
 msgid "Female 0 - 1 years"
 msgstr "Féminin 0 - 1 an"
@@ -987,49 +991,49 @@ msgid "Female 15 - 19 years"
 msgstr "Féminin 15 - 19 ans"
 
 msgid "Female 20 - 24 years"
-msgstr ""
+msgstr "Féminin 20 - 24 ans"
 
 msgid "Female 25 - 29 years"
-msgstr ""
+msgstr "Féminin 25 - 29 ans"
 
 msgid "Female 30 - 34 years"
-msgstr ""
+msgstr "Féminin 30 - 34 ans"
 
 msgid "Female 35 - 39 years"
-msgstr ""
+msgstr "Féminin 35 - 39 ans"
 
 msgid "Female 40 - 44 years"
-msgstr ""
+msgstr "Féminin 40 - 44 ans"
 
 msgid "Female 45 - 49 years"
-msgstr ""
+msgstr "Féminin 45 - 49 ans"
 
 msgid "Female 50 - 54 years"
-msgstr ""
+msgstr "Féminin 50 - 54 ans"
 
 msgid "Female 55 - 59 years"
-msgstr ""
+msgstr "Féminin 55 - 59 ans"
 
 msgid "Female 60 - 64 years"
-msgstr ""
+msgstr "Féminin 60 - 64 ans"
 
 msgid "Female 65 - 69 years"
-msgstr ""
+msgstr "Féminin 65 - 69 ans"
 
 msgid "Female 70 - 74 years"
-msgstr ""
+msgstr "Féminin 70 - 74 ans"
 
 msgid "Female 75 - 79 years"
-msgstr ""
+msgstr "Féminin 75 - 79 ans"
 
 msgid "Female 80 years and above"
-msgstr ""
+msgstr "Féminin 80 ans et plus"
 
 msgid "Elevation"
 msgstr "Altitude"
 
 msgid "meters"
-msgstr ""
+msgstr "mètres"
 
 msgid "Elevation above sea-level."
 msgstr "Altitude."
@@ -1240,7 +1244,7 @@ msgid "Boundaries"
 msgstr "Limites"
 
 msgid "Error: {{message}}"
-msgstr ""
+msgstr "Erreur : {{message}}"
 
 msgid "No coordinates found"
 msgstr "Coordonnées non trouvées"
@@ -1249,16 +1253,17 @@ msgid "Selected org units"
 msgstr "Unités d'organisation sélectionnées"
 
 msgid "You don't have access to this layer data"
-msgstr ""
+msgstr "Vous n'avez pas accès aux données de cette couche."
 
 msgid "An unknown error occurred while reading layer data"
 msgstr ""
+"Une erreur inconnue est survenue lors de la lecture des données de la couche"
 
 msgid "Event"
 msgstr "Evènement"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
-msgstr ""
+msgstr "Affichage des premiers événements {{pageSize}} sur {{total}}"
 
 msgid "No data found"
 msgstr "Aucune valeur trouvée"
@@ -1301,11 +1306,14 @@ msgstr "Non"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""
+"Impossible d'obtenir le token d'autorisation pour Google Earth Engine."
 
 msgid ""
 "This layer requires a Google Earth Engine account. Check the DHIS2 "
 "documentation for more information."
 msgstr ""
+"Cette couche nécessite un compte Google Earth Engine. Consultez la "
+"documentation du DHIS2 pour plus d'informations."
 
 msgid "Start date is invalid"
 msgstr "La date de début n'est pas valable"
