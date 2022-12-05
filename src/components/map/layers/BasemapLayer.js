@@ -1,10 +1,33 @@
 import { useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import log from 'loglevel';
+import { useAlert } from '@dhis2/app-service-alerts';
+import i18n from '@dhis2/d2-i18n';
+import {
+    ALERT_CRITICAL,
+    ALERT_MESSAGE_DYNAMIC,
+} from '../../../constants/alerts';
 
 const BASEMAP_LAYER_INDEX = 0;
 
-const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
+const getAlertError = message => {
+    return {
+        msg: i18n.t('Basemap could not be added: {{message}}', {
+            message,
+            nsSeparator: ';',
+        }),
+    };
+};
+
+const BasemapLayer = (
+    { id, config, opacity, isVisible },
+    { map, isPlugin }
+) => {
+    const basemapNotFoundAlert = useAlert(
+        ALERT_MESSAGE_DYNAMIC,
+        ALERT_CRITICAL
+    );
+    const basemapInvalidAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL);
     const basemap = useMemo(
         () =>
             map.createLayer({
@@ -16,10 +39,17 @@ const BasemapLayer = ({ id, config, opacity, isVisible }, { map }) => {
     );
 
     useEffect(() => {
-        map.addLayer(basemap).catch(
-            errorMessage =>
-                log.error(`Basemap could not be added: ${errorMessage}`) // TODO - use app-runtime alert system
-        );
+        map.addLayer(basemap).catch(errorMessage => {
+            log.error(`Basemap could not be added: ${errorMessage}`);
+            if (!isPlugin) {
+                const alertError = getAlertError(errorMessage);
+                if (errorMessage.includes('not found')) {
+                    basemapNotFoundAlert.show(alertError);
+                } else {
+                    basemapInvalidAlert.show(alertError);
+                }
+            }
+        });
         return () => map.removeLayer(basemap);
     }, [map, basemap]);
 
