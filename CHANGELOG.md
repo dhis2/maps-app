@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/dhis2/maps-app/compare/v1.26.12...v1.27.0) (2022-12-05)
+
+
+### Features
+
+* add alert when basemap fails to load ([#2366](https://github.com/dhis2/maps-app/issues/2366)) ([889ae40](https://github.com/dhis2/maps-app/commit/889ae40865a6ce86096cf2f4f9ecdaea5485aa07))
+
 ## [1.26.12](https://github.com/dhis2/maps-app/compare/v1.26.11...v1.26.12) (2022-12-01)
 
 
