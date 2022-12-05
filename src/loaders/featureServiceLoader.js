@@ -9,24 +9,32 @@ import { getDisplayProperty } from '../util/helpers';
 const featureServiceLoader = async layer => {
     const { rows, name, url, where, featureStyle } = layer;
     const legend = { title: name, items: [] };
-    const orgUnits = getOrgUnitsFromRows(rows);
-    const orgUnitParams = orgUnits.map(item => item.id);
+
     const d2 = await getD2();
     const displayProperty = getDisplayProperty(d2).toUpperCase();
-    const orgUnitsRequest = d2.geoFeatures
-        .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty);
+
     let orgUnitFeatures;
     let feature;
 
-    try {
-        orgUnitFeatures = await orgUnitsRequest.getAll().then(toGeoJson);
-    } catch (error) {
-        // console.log(error); // TODO
-    }
+    console.log('rows', rows);
 
-    if (orgUnitFeatures.length) {
-        feature = orgUnitFeatures[0];
+    if (rows && rows.length) {
+        const orgUnits = getOrgUnitsFromRows(rows);
+        const orgUnitParams = orgUnits.map(item => item.id);
+
+        const orgUnitsRequest = d2.geoFeatures
+            .byOrgUnit(orgUnitParams)
+            .displayProperty(displayProperty);
+
+        try {
+            orgUnitFeatures = await orgUnitsRequest.getAll().then(toGeoJson);
+        } catch (error) {
+            // console.log(error); // TODO
+        }
+
+        if (orgUnitFeatures.length) {
+            feature = orgUnitFeatures[0];
+        }
     }
 
     const metadata = await request(url);
@@ -34,10 +42,12 @@ const featureServiceLoader = async layer => {
     const { features /*, properties */ } = await queryFeatures({
         url,
         where,
-        geometry: geojsonToArcGIS(feature.geometry),
+        geometry: feature ? geojsonToArcGIS(feature.geometry) : null,
         geometryType: 'esriGeometryPolygon',
         f: 'geojson',
         maxUrlLength: 2048,
+        resultOffset: 0, // TODO: Remove
+        resultRecordCount: 100, // TODO: Remove
         /* authentication, */
     });
 
@@ -46,6 +56,9 @@ const featureServiceLoader = async layer => {
         ...featureStyle,
         fillColor: featureStyle.color, // TODO: Clean up styles
     });
+
+    console.log('features', features);
+    // https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/USGS_Seismic_Data_v1/FeatureServer/0/query?f=pbf&cacheHint=true&maxRecordCountFactor=4&resultOffset=0&resultRecordCount=8000&where=1%3D1&orderByFields=OBJECTID&outFields=OBJECTID%2Calert%2Cmag&outSR=102100&spatialRel=esriSpatialRelIntersects
 
     return {
         ...layer,

@@ -102,7 +102,7 @@ class FacilityDialog extends Component {
                 facilityOrgUnitGroupSet &&
                 !prevState.facilityOrgUnitGroupSet
             ) {
-                setOrganisationUnitGroupSet(facilityOrgUnitGroupSet);
+                // setOrganisationUnitGroupSet(facilityOrgUnitGroupSet);
             }
         }
 
