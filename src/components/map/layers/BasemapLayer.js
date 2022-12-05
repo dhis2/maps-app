@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import log from 'loglevel';
 import { useAlert } from '@dhis2/app-service-alerts';
 import i18n from '@dhis2/d2-i18n';
+import {
+    ALERT_CRITICAL,
+    ALERT_MESSAGE_DYNAMIC,
+} from '../../../constants/alerts';
 
 const BASEMAP_LAYER_INDEX = 0;
 
@@ -19,8 +23,11 @@ const BasemapLayer = (
     { id, config, opacity, isVisible },
     { map, isPlugin }
 ) => {
-    const basemapNotFoundAlert = useAlert(({ msg }) => msg, { critical: true });
-    const basemapInvalidAlert = useAlert(({ msg }) => msg, { critical: true });
+    const basemapNotFoundAlert = useAlert(
+        ALERT_MESSAGE_DYNAMIC,
+        ALERT_CRITICAL
+    );
+    const basemapInvalidAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL);
     const basemap = useMemo(
         () =>
             map.createLayer({

@@ -10,6 +10,12 @@ import { newMap, tOpenMap, setMapProps } from '../../actions/map';
 import { fetchMap } from '../../util/requests';
 import { cleanMapConfig } from '../../util/favorites';
 import { useSystemSettings } from '../SystemSettingsProvider';
+import {
+    ALERT_CRITICAL,
+    ALERT_MESSAGE_DYNAMIC,
+    ALERT_OPTIONS_DYNAMIC,
+    ALERT_SUCCESS_DELAY,
+} from '../../constants/alerts';
 
 const saveMapMutation = {
     resource: 'maps',
@@ -41,35 +47,27 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
     const engine = useDataEngine();
     const { keyDefaultBaseMap } = useSystemSettings();
     //alerts
-    const saveAlert = useAlert(
-        ({ msg }) => msg,
-        ({ isCritical }) =>
-            isCritical ? { critical: true } : { success: true }
+    const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC);
+    const saveAsAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC);
+    const deleteAlert = useAlert(
+        'Map successfully deleted',
+        ALERT_SUCCESS_DELAY
     );
-    const saveAsAlert = useAlert(
-        ({ msg }) => msg,
-        ({ isCritical }) =>
-            isCritical ? { critical: true } : { success: true }
-    );
-    const deleteAlert = useAlert('Map successfully deleted', {
-        success: true,
-        duration: 3000,
-    });
-    const fileMenuErrorAlert = useAlert(({ msg }) => msg, { critical: true });
-    const openMapErrorAlert = useAlert(({ msg }) => msg, { critical: true });
+    const fileMenuErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL);
+    const openMapErrorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_CRITICAL);
 
     const [saveMapMutate] = useDataMutation(saveMapMutation, {
         onError: e =>
             saveAlert.show({
                 msg: getSaveFailureMessage(e.message),
-                isCritical: true,
+                isError: true,
             }),
     });
     const [saveAsNewMapMutate] = useDataMutation(saveAsNewMapMutation, {
         onError: e =>
             saveAsAlert.show({
                 msg: getSaveFailureMessage(e.message),
-                isCritical: true,
+                isError: true,
             }),
     });
 
@@ -141,7 +139,7 @@ export const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
         } else {
             saveAsAlert.show({
                 msg: getSaveFailureMessage(response.message),
-                isCritical: true,
+                isError: true,
             });
         }
     };

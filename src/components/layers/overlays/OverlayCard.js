@@ -27,6 +27,10 @@ import {
     OPEN_AS_LAYER_TYPES,
     EXTERNAL_LAYER,
 } from '../../../constants/layers';
+import {
+    ALERT_SUCCESS,
+    ALERT_MESSAGE_DYNAMIC,
+} from '../../../constants/alerts';
 
 import styles from './styles/OverlayCard.module.css';
 
@@ -42,7 +46,7 @@ const OverlayCard = ({
 }) => {
     const { baseUrl } = useConfig();
     const [, /* actual value not used */ { set }] = useSetting(CURRENT_AO_KEY);
-    const layerRemovedAlert = useAlert(({ msg }) => msg, { success: true });
+    const layerRemovedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_SUCCESS);
 
     const {
         id,
