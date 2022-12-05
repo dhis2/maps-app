@@ -1,32 +1,20 @@
-import React from 'react'
-// import 'url-polyfill';
-import log from 'loglevel'
-import { debounce } from 'lodash/fp'
-import moment from 'moment'
-import PropTypes from 'prop-types'
-import { Provider as ReduxProvider } from 'react-redux'
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import { CenteredContent, CircularLoader } from '@dhis2/ui'
+import log from 'loglevel'
+import moment from 'moment'
+import React from 'react'
+import { Provider as ReduxProvider } from 'react-redux'
+import App from './components/app/App.js'
+import SystemSettingsProvider from './components/SystemSettingsProvider.js'
 import UserSettingsProvider, {
     UserSettingsCtx,
-} from './components/UserSettingsProvider'
-import SystemSettingsProvider from './components/SystemSettingsProvider'
-import App from './components/app/App'
-import store from './store'
-import { resizeScreen } from './actions/ui'
-
-import './locales'
+} from './components/UserSettingsProvider.js'
+import WindowDimensionsProvider from './components/WindowDimensionsProvider.js'
+import store from './store/index.js'
+import './locales/index.js'
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
-)
-
-// Window resize listener: http://stackoverflow.com/questions/35073669/window-resize-react-redux
-window.addEventListener(
-    'resize',
-    debounce(150, () =>
-        store.dispatch(resizeScreen(window.innerWidth, window.innerHeight))
-    )
 )
 
 const d2Config = {
@@ -80,7 +68,11 @@ const AppWrapper = () => (
                                         return null
                                     }
                                     moment.locale(keyUiLocale)
-                                    return <App />
+                                    return (
+                                        <WindowDimensionsProvider>
+                                            <App />
+                                        </WindowDimensionsProvider>
+                                    )
                                 }}
                             </UserSettingsCtx.Consumer>
                         </UserSettingsProvider>

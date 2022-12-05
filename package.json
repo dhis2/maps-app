@@ -23,7 +23,7 @@
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/"
     },
     "dependencies": {
-        "@dhis2/analytics": "^24.0.8",
+        "@dhis2/analytics": "^24.3.10",
         "@dhis2/app-runtime": "^3.7.0",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-alerts": "^3.6.2",
@@ -33,7 +33,8 @@
         "@dhis2/d2-ui-org-unit-dialog": "^7.4.0",
         "@dhis2/d2-ui-org-unit-tree": "^7.4.0",
         "@dhis2/maps-gl": "^3.5.3",
-        "@dhis2/ui": "^8.4.13",
+        "@dhis2/ui": "^8.7.5",
+        "@krakenjs/post-robot": "^11.0.0",
         "abortcontroller-polyfill": "^1.7.3",
         "array-move": "^4.0.0",
         "classnames": "^2.3.1",
@@ -68,7 +69,7 @@
         "whatwg-fetch": "^3.6.2"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^10.1.5",
+        "@dhis2/cli-app-scripts": "^10.2.0",
         "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^9.0.2",
         "@dhis2/cypress-plugins": "^9.0.2",

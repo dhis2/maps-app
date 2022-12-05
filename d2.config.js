@@ -3,9 +3,16 @@ const config = {
     name: 'maps',
     title: 'Maps',
 
+    pwa: {
+        enabled: true,
+        caching: {
+            patternsToOmitFromAppShell: [/.*/],
+        },
+    },
+
     entryPoints: {
         app: './src/AppWrapper.js',
-        // plugin: './src/PluginWrapper.js',
+        plugin: './src/PluginWrapper.js',
     },
 
     coreApp: true,

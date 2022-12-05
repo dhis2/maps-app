@@ -1972,7 +1972,7 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.0.8":
+"@dhis2/analytics@^24.3.10":
   version "24.3.10"
   resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.3.10.tgz#f63d9fc95eec3781258fcb1092c5161bf7ab592e"
   integrity sha512-Uiw2Y5tY5Xk1vmIMTB9pEruGeMNDVIsw+VZaly57Nk+41j02DiJ8ptF+BK9HxUydIf6LwAU4YHjOIPB3t40ooA==
@@ -2070,7 +2070,7 @@
     typeface-roboto "^0.0.75"
     typescript "^3.6.3"
 
-"@dhis2/cli-app-scripts@^10.1.5":
+"@dhis2/cli-app-scripts@^10.2.0":
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-10.2.0.tgz#26cd5e1445925343ef5d889dcd0899be6edf1b24"
   integrity sha512-H6OVB8uRdo2cNZi2Uz6Kk6+JKN09sHG9ljcAkLsOQCGQ2dMhhtmFqT5XSFGGntFVquFR0H4VN8DkKibFpdL4tg==
@@ -2291,7 +2291,7 @@
   resolved "https://registry.yarnpkg.com/@dhis2/ui-icons/-/ui-icons-8.7.6.tgz#21c933ab8c98d7e984d4e0734b924903ceeb05c2"
   integrity sha512-IVfHXTBK8MLGO19W2oHruQr23f8yoxkK86Gmsw9+aVHCb5OLFwgMMKbwilhoaWVKSBff3Kht7+MElHeTJdvw6Q==
 
-"@dhis2/ui@^8.4.13", "@dhis2/ui@^8.6.2":
+"@dhis2/ui@^8.6.2", "@dhis2/ui@^8.7.5":
   version "8.7.6"
   resolved "https://registry.yarnpkg.com/@dhis2/ui/-/ui-8.7.6.tgz#5dd8a57b5566268c67db5e5f59f6b19fbe8f5c47"
   integrity sha512-0qAIOge+Hnpy2zJsCcVrc3GfArWOix3ozlx3hg3tR5RhxLAgpSkssGu/In7aRKC0nr0L7Wpwz4QGtkObS8S+Cw==
@@ -2693,6 +2693,48 @@
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
+
+"@krakenjs/belter@^2.0.0":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@krakenjs/belter/-/belter-2.2.2.tgz#aad54eb770af41872f2b29a3d3720d4b68d7e170"
+  integrity sha512-3FRW6u6HXkLvyYYXkk9Rvtf7mfCDDXf5BspPd13zcj1l1z+bb01s+7mWG/LfUDMY4fuGimF70GIPBKoPIxk+hg==
+  dependencies:
+    "@krakenjs/cross-domain-safe-weakmap" "^2.0.2"
+    "@krakenjs/cross-domain-utils" "^3.0.2"
+    "@krakenjs/zalgo-promise" "^2.0.0"
+
+"@krakenjs/cross-domain-safe-weakmap@^2.0.0", "@krakenjs/cross-domain-safe-weakmap@^2.0.2":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@krakenjs/cross-domain-safe-weakmap/-/cross-domain-safe-weakmap-2.0.3.tgz#eb607534c14bd8bc2f3456d993618361fb38489f"
+  integrity sha512-WsGi6347ddZ9Y0HoBuTYCX2QTAHxYVaUs2T/0n8XJKXZOEJPnLWlW6eYAOgyyuUsYusWMAkYv00fvfxAlTU8/w==
+  dependencies:
+    "@krakenjs/cross-domain-utils" "^3.0.2"
+
+"@krakenjs/cross-domain-utils@^3.0.0", "@krakenjs/cross-domain-utils@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@krakenjs/cross-domain-utils/-/cross-domain-utils-3.0.2.tgz#cbbd3323e65e831debc351549c0b8972df0382d5"
+  integrity sha512-uNTQrAevzKtOu13UZzamCR6rKX2vpdb6g/gVXMJVSMvAlYhxBN6mOD6U56DmSdBJDKvLSYZbIYUkBh2inDyIXQ==
+
+"@krakenjs/post-robot@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@krakenjs/post-robot/-/post-robot-11.0.0.tgz#98a285b70db2bac2c58f297cd8403a4cc2518a6a"
+  integrity sha512-t+IlQCrwzLa1IWxEvdfr9r/xgOmQoykVQ1rtEukw1LYVHPU3p3eDDC5djODE7ErWYDbkYncrHcbDEh6Gc/G9wQ==
+  dependencies:
+    "@krakenjs/belter" "^2.0.0"
+    "@krakenjs/cross-domain-safe-weakmap" "^2.0.0"
+    "@krakenjs/cross-domain-utils" "^3.0.0"
+    "@krakenjs/universal-serialize" "^2.0.0"
+    "@krakenjs/zalgo-promise" "^2.0.0"
+
+"@krakenjs/universal-serialize@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@krakenjs/universal-serialize/-/universal-serialize-2.0.0.tgz#c4a508ec53f6b412b1032e78c570b87f4f2c7763"
+  integrity sha512-Qd9W2iaP5lMTzXPETomBDAaqbgHYkEjJKcQ+3eNC8EwWGCHFk3/+uQ41B+QYfSZqRoz8AEjdNHOps7nDEypAyw==
+
+"@krakenjs/zalgo-promise@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@krakenjs/zalgo-promise/-/zalgo-promise-2.0.1.tgz#36b4225a566f0a0903a8d771a11a9efc131c6987"
+  integrity sha512-n30eknZjD7z8/joFqjI8FIDZ0yJPZHcQBce1B3tAumwNZL0C42Ta/w37MfthxHV61JHEFGfy7b727h/kzagJDA==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"

@@ -576,7 +576,7 @@ msgid "Latitude"
 msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
-msgstr ""
+msgstr "Basemap could not be added: {{message}}"
 
 msgid "Not set"
 msgstr ""
@@ -1265,7 +1265,7 @@ msgid "Organisation units"
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 msgid "Thematic layer"
 msgstr ""
