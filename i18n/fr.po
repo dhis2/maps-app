@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2022-11-18T08:42:29.083Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -32,11 +32,8 @@ msgstr "Cartes"
 msgid "Map \"{{name}}\" is saved."
 msgstr "La carte « {{name}} » est enregistrée."
 
-msgid "Failed to save map. {{message}}"
-msgstr "Échec de la mise à jour de la carte. {{message}}"
-
-msgid "Error"
-msgstr "Erreur"
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr "Classification"
@@ -643,6 +640,9 @@ msgstr "Longitude"
 
 msgid "Latitude"
 msgstr "Latitude"
+
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "Non défini"
@@ -1360,6 +1360,9 @@ msgstr "Etablissements : Coordonnées non trouvées"
 
 msgid "Organisation units"
 msgstr "Unités d'organisation"
+
+msgid "Error"
+msgstr "Erreur"
 
 msgid "Thematic layer"
 msgstr "Thématique"
