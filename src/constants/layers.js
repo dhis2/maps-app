@@ -146,13 +146,13 @@ export const getGroupSetStyleTypes = () => [
     },
 ];
 
-/* LABEL DISPLAY OPTIONS - match the definitions in maps-gl */
-export const LABEL_DISPLAY_OPTION_NAME_ONLY = 'NAME';
-export const LABEL_DISPLAY_OPTION_NAME_AND_VALUE = 'NAME_AND_VALUE';
-export const LABEL_DISPLAY_OPTION_VALUE_ONLY = 'VALUE';
+/* LABEL TEMPLATES */
+export const LABEL_TEMPLATE_NAME_ONLY = '{name}';
+export const LABEL_TEMPLATE_NAME_AND_VALUE = '{name}\n{value}';
+export const LABEL_TEMPLATE_VALUE_ONLY = 'value}';
 
 /* LABEL STYLES */
-export const LABEL_FONT_SIZE = '11px';
+export const LABEL_FONT_SIZE = '14px';
 export const LABEL_FONT_SIZE_MIN = 6;
 export const LABEL_FONT_SIZE_MAX = 100;
 export const LABEL_FONT_STYLE = 'normal';

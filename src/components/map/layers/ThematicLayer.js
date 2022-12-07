@@ -16,7 +16,7 @@ import {
     BOUNDARY_LAYER,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
-    LABEL_DISPLAY_OPTION_NAME_ONLY,
+    LABEL_TEMPLATE_NAME_ONLY,
 } from '../../../constants/layers';
 
 class ThematicLayer extends Layer {
@@ -83,8 +83,7 @@ class ThematicLayer extends Layer {
         };
 
         if (labels) {
-            config.label =
-                this.props.labelDisplayOption || LABEL_DISPLAY_OPTION_NAME_ONLY;
+            config.label = this.props.labelTemplate || LABEL_TEMPLATE_NAME_ONLY;
             config.labelStyle = getLabelStyle(this.props);
         }
 

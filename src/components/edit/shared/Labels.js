@@ -12,19 +12,19 @@ import {
     setLabelFontSize,
     setLabelFontWeight,
     setLabelFontStyle,
-    setLabelsDisplayOption,
+    setLabelTemplate,
 } from '../../../actions/layerEdit';
 
 const Labels = ({
     includeDisplayOption,
     labels,
-    labelDisplayOption,
+    labelTemplate,
     labelFontColor,
     labelFontSize,
     labelFontStyle,
     labelFontWeight,
     setLabels,
-    setLabelsDisplayOption,
+    setLabelTemplate,
     setLabelFontColor,
     setLabelFontSize,
     setLabelFontWeight,
@@ -43,10 +43,8 @@ const Labels = ({
                         {includeDisplayOption && (
                             <>
                                 <LabelDisplayOptions
-                                    option={labelDisplayOption}
-                                    onDisplayOptionChange={
-                                        setLabelsDisplayOption
-                                    }
+                                    option={labelTemplate}
+                                    onDisplayOptionChange={setLabelTemplate}
                                 />
                                 <div>Label font style</div>
                             </>
@@ -71,13 +69,13 @@ const Labels = ({
 Labels.propTypes = {
     includeDisplayOption: PropTypes.bool,
     labels: PropTypes.bool,
-    labelDisplayOption: PropTypes.string,
+    labelTemplate: PropTypes.string,
     labelFontColor: PropTypes.string,
     labelFontSize: PropTypes.string,
     labelFontStyle: PropTypes.string,
     labelFontWeight: PropTypes.string,
     setLabels: PropTypes.func.isRequired,
-    setLabelsDisplayOption: PropTypes.func.isRequired,
+    setLabelTemplate: PropTypes.func.isRequired,
     setLabelFontColor: PropTypes.func.isRequired,
     setLabelFontSize: PropTypes.func.isRequired,
     setLabelFontWeight: PropTypes.func.isRequired,
@@ -87,7 +85,7 @@ Labels.propTypes = {
 export default connect(
     ({ layerEdit }) => ({
         labels: layerEdit.labels,
-        labelDisplayOption: layerEdit.labelDisplayOption,
+        labelTemplate: layerEdit.labelTemplate,
         labelFontColor: layerEdit.labelFontColor,
         labelFontSize: layerEdit.labelFontSize,
         labelFontStyle: layerEdit.labelFontStyle,
@@ -95,7 +93,7 @@ export default connect(
     }),
     {
         setLabels,
-        setLabelsDisplayOption,
+        setLabelTemplate,
         setLabelFontColor,
         setLabelFontSize,
         setLabelFontWeight,
