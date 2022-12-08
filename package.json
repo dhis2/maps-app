@@ -9,16 +9,6 @@
     },
     "license": "BSD-3-Clause",
     "author": "Bjørn Sandvik",
-    "husky": {
-        "hooks": {
-            "pre-commit": "yarn extract-pot && yarn prettify && CI=true yarn test && git add -A ."
-        }
-    },
-    "pre-commit": [
-        "validate",
-        "test",
-        "lint"
-    ],
     "scripts": {
         "prestart": "yarn localize && yarn manifest",
         "start": "webpack serve",
@@ -32,10 +22,9 @@
         "build": "NODE_ENV=production webpack",
         "build:netlify": "yarn build && d2-manifest package.json build/manifest.webapp --manifest.activities.dhis.href=\"https://play.dhis2.org/dev\"",
         "manifest": "d2-manifest package.json public/manifest.webapp",
-        "lint": "eslint ./src",
-        "validate": "npm ls --depth 0 || yarn list",
+        "lint": "yarn d2-style check",
+        "format": "yarn d2-style apply",
         "profile": "yarn start --profile",
-        "prettify": "prettier \"src/**/*.{js,jsx,json,css}\" --write",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
         "localize": "yarn extract-pot && d2-i18n-generate -n default -p ./i18n/ -o ./src/locales/",
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
@@ -90,6 +79,7 @@
         "@babel/core": "^7.19.0",
         "@babel/preset-env": "^7.19.0",
         "@dhis2/cli-app-scripts": "^10.0.0",
+        "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^9.0.2",
         "@dhis2/cypress-plugins": "^9.0.2",
         "@dhis2/d2-i18n-extract": "^1.0.8",
