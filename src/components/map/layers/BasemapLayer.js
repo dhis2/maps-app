@@ -73,4 +73,9 @@ BasemapLayer.propTypes = {
     opacity: PropTypes.number,
 };
 
+BasemapLayer.defaultProps = {
+    opacity: 1,
+    isVisible: true,
+};
+
 export default BasemapLayer;
