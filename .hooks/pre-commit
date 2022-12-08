@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn extract-pot && yarn lint --staged && CI=true yarn test && git add -A .
+yarn extract-pot && yarn lint --staged && git add -A .
