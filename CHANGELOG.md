@@ -1,3 +1,11 @@
+## [1.27.2](https://github.com/dhis2/maps-app/compare/v1.27.1...v1.27.2) (2022-12-09)
+
+
+### Bug Fixes
+
+* default opacity and isVisible for basemap layer ([#2400](https://github.com/dhis2/maps-app/issues/2400)) ([368f26f](https://github.com/dhis2/maps-app/commit/368f26fc675de375a7e3cf3e237e1dba89c62fec))
+* white background for download maps ([#2404](https://github.com/dhis2/maps-app/issues/2404)) ([ef943dc](https://github.com/dhis2/maps-app/commit/ef943dc0fd4b90d92012095f13a0a624ba789d57))
+
 ## [1.27.1](https://github.com/dhis2/maps-app/compare/v1.27.0...v1.27.1) (2022-12-06)
 
 
