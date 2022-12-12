@@ -10,7 +10,7 @@ import {
     ORG_UNIT_COLOR,
     GEOJSON_LAYER,
     GROUP_LAYER,
-    LABEL_DISPLAY_OPTION_NAME_ONLY,
+    LABEL_TEMPLATE_NAME_ONLY,
 } from '../../../constants/layers';
 
 class FacilityLayer extends Layer {
@@ -65,7 +65,7 @@ class FacilityLayer extends Layer {
 
         // Labels and label style
         if (labels) {
-            config.label = LABEL_DISPLAY_OPTION_NAME_ONLY;
+            config.label = LABEL_TEMPLATE_NAME_ONLY;
             config.labelStyle = {
                 ...getLabelStyle(this.props),
                 paddingTop: '10px',

@@ -7,7 +7,7 @@ import { getLabelStyle } from '../../../util/labels';
 import {
     ORG_UNIT_COLOR,
     GEOJSON_LAYER,
-    LABEL_DISPLAY_OPTION_NAME_ONLY,
+    LABEL_TEMPLATE_NAME_ONLY,
 } from '../../../constants/layers';
 
 export default class OrgUnitLayer extends Layer {
@@ -49,7 +49,7 @@ export default class OrgUnitLayer extends Layer {
         };
 
         if (labels) {
-            config.label = LABEL_DISPLAY_OPTION_NAME_ONLY;
+            config.label = LABEL_TEMPLATE_NAME_ONLY;
             config.labelStyle = getLabelStyle(this.props);
         }
 

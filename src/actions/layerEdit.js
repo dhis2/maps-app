@@ -277,9 +277,9 @@ export const setLabels = isChecked => ({
     isChecked,
 });
 
-export const setLabelsDisplayOption = labelDisplayOption => ({
-    type: types.LAYER_EDIT_LABELS_DISPLAY_OPTION,
-    labelDisplayOption,
+export const setLabelTemplate = template => ({
+    type: types.LAYER_EDIT_LABEL_TEMPLATE,
+    template,
 });
 
 // Set label font style (italic)
