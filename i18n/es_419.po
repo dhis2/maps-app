@@ -1,12 +1,19 @@
+# 
+# Translators:
+# Jaime Bosque <jaime.bosque@dhis2.org>, 2022
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"PO-Revision-Date: 2019-06-25 18:35+0000\n"
+"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2022\n"
+"Language-Team: Spanish (Latin America) (https://www.transifex.com/hisp-uio/teams/100509/es_419/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-11-18T08:42:29.083Z\n"
-"PO-Revision-Date: 2022-11-18T08:42:29.083Z\n"
+"Language: es_419\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Maps"
 msgstr ""
@@ -14,8 +21,11 @@ msgstr ""
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
 
-msgid "Failed to save map: {{message}}"
+msgid "Failed to save map. {{message}}"
 msgstr ""
+
+msgid "Error"
+msgstr "Error"
 
 msgid "Classification"
 msgstr ""
@@ -32,15 +42,6 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-msgid "Name"
-msgstr ""
-
-msgid "Name and value"
-msgstr ""
-
-msgid "Value"
-msgstr ""
-
 msgid "Data element group"
 msgstr ""
 
@@ -54,10 +55,10 @@ msgid "Totals"
 msgstr ""
 
 msgid "Details"
-msgstr ""
+msgstr "Detalles"
 
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 msgid "Event location"
 msgstr ""
@@ -66,7 +67,7 @@ msgid "Coordinate field"
 msgstr ""
 
 msgid "None"
-msgstr ""
+msgstr "Ninguno"
 
 msgid "Data item"
 msgstr ""
@@ -84,13 +85,19 @@ msgid "Index"
 msgstr ""
 
 msgid "Org unit"
-msgstr ""
+msgstr "Unidad Organizativa"
+
+msgid "Name"
+msgstr "Nombre"
 
 msgid "Id"
 msgstr ""
 
 msgid "Event time"
 msgstr ""
+
+msgid "Value"
+msgstr "Valor"
 
 msgid "Legend"
 msgstr ""
@@ -131,14 +138,15 @@ msgstr ""
 msgid "Show legend"
 msgstr ""
 
-msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
+msgid ""
+"Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 msgid "Legend position"
 msgstr ""
@@ -198,10 +206,10 @@ msgid "This field is required"
 msgstr ""
 
 msgid "Data"
-msgstr ""
+msgstr "Datos"
 
 msgid "Period"
-msgstr ""
+msgstr "Periodo"
 
 msgid ""
 "Data will be calculated on Google Earth Engine for the chosen organisation "
@@ -253,7 +261,7 @@ msgid "Min"
 msgstr ""
 
 msgid "Max"
-msgstr ""
+msgstr "Máx"
 
 msgid "Steps"
 msgstr ""
@@ -265,7 +273,7 @@ msgid "Filter"
 msgstr ""
 
 msgid "Events"
-msgstr ""
+msgstr "Eventos"
 
 msgid "Group events"
 msgstr ""
@@ -292,7 +300,7 @@ msgid "No legend set is selected"
 msgstr ""
 
 msgid "Event status"
-msgstr ""
+msgstr "Estado del evento"
 
 msgid "Boundary color"
 msgstr ""
@@ -382,21 +390,24 @@ msgid "Program status"
 msgstr ""
 
 msgid "Relationships"
-msgstr ""
+msgstr "Relaciones"
 
 msgid "Follow up"
+msgstr "Seguimiento"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
-msgid "Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-
-msgid "Displaying tracked entity relationships in Maps is an experimental feature"
+msgid ""
+"Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
 msgstr ""
 
-msgid "Include relationships that connect entities outside \"{{program}}\" program"
+msgid ""
+"Include relationships that connect entities outside \"{{program}}\" program"
 msgstr ""
 
 msgid "Selection mode"
@@ -412,7 +423,7 @@ msgid "Selected and all below"
 msgstr ""
 
 msgid "Tracked entities"
-msgstr ""
+msgstr "Entidades monitoreadas"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -439,7 +450,7 @@ msgid "An error occurred in the DHIS2 Maps application."
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Algo ha ido mal"
 
 msgid "Refresh to try again"
 msgstr ""
@@ -472,7 +483,7 @@ msgid "Operator"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 msgid "Remove filter"
 msgstr ""
@@ -591,13 +602,10 @@ msgid "Show {{name}}"
 msgstr ""
 
 msgid "Longitude"
-msgstr ""
+msgstr "Longitud"
 
 msgid "Latitude"
-msgstr ""
-
-msgid "Basemap could not be added: {{message}}"
-msgstr ""
+msgstr "Latitud"
 
 msgid "Not set"
 msgstr ""
@@ -617,7 +625,7 @@ msgid ""
 msgstr ""
 
 msgid "no value"
-msgstr ""
+msgstr "sin valor"
 
 msgid "All groups"
 msgstr ""
@@ -644,7 +652,7 @@ msgid "Click where you want to start the measurement"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "Borrar"
 
 msgid "Distance"
 msgstr ""
@@ -707,8 +715,8 @@ msgid "Options"
 msgstr ""
 
 msgid ""
-"This data element has too many options ({{length}}). Max options for "
-"styling is {{max}}."
+"This data element has too many options ({{length}}). Max options for styling"
+" is {{max}}."
 msgstr ""
 
 msgid "No data found for this period."
@@ -932,7 +940,8 @@ msgstr ""
 msgid "Population age groups"
 msgstr ""
 
-msgid "Estimated number of people living in an area, grouped by age and gender."
+msgid ""
+"Estimated number of people living in an area, grouped by age and gender."
 msgstr ""
 
 msgid "Male 0 - 1 years"
@@ -1054,7 +1063,8 @@ msgid ""
 "Only for the continent of Africa."
 msgstr ""
 
-msgid "Building counts are only available for smaller organisation unit areas."
+msgid ""
+"Building counts are only available for smaller organisation unit areas."
 msgstr ""
 
 msgid ""
@@ -1079,8 +1089,8 @@ msgstr ""
 
 msgid ""
 "Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5 days periods. Updated monthly, "
-"during the 3rd week of the following month."
+"The values are in millimeters within 5 days periods. Updated monthly, during"
+" the 3rd week of the following month."
 msgstr ""
 
 msgid "Temperature"
@@ -1166,13 +1176,13 @@ msgid ""
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 msgid "Completed"
-msgstr ""
+msgstr "Completado"
 
 msgid "Choropleth"
 msgstr ""
@@ -1199,10 +1209,10 @@ msgid "Symbol"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "Diario"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Semanal"
 
 msgid "Weekly (Start Wednesday)"
 msgstr ""
@@ -1220,7 +1230,7 @@ msgid "Bi-weekly"
 msgstr ""
 
 msgid "Monthly"
-msgstr ""
+msgstr "Mensual"
 
 msgid "Bi-monthly"
 msgstr ""
@@ -1235,7 +1245,7 @@ msgid "Six-monthly April"
 msgstr ""
 
 msgid "Yearly"
-msgstr ""
+msgstr "Anual"
 
 msgid "Financial year (Start November)"
 msgstr ""
@@ -1250,7 +1260,7 @@ msgid "Financial year (Start April)"
 msgstr ""
 
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelar"
 
 msgid "{{name}}: No coordinates found"
 msgstr ""
@@ -1274,7 +1284,7 @@ msgid "No data found"
 msgstr ""
 
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 msgid "Facilities"
 msgstr ""
@@ -1285,14 +1295,11 @@ msgstr ""
 msgid "Organisation units"
 msgstr ""
 
-msgid "Error"
-msgstr ""
-
 msgid "Thematic layer"
 msgstr ""
 
 msgid "No data"
-msgstr ""
+msgstr "No hay datos"
 
 msgid "Tracked entity"
 msgstr ""
@@ -1322,7 +1329,7 @@ msgid "false"
 msgstr ""
 
 msgid "No"
-msgstr ""
+msgstr "No"
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr ""

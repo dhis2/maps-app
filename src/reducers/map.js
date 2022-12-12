@@ -133,7 +133,7 @@ const layer = (state, action) => {
                 dataFilters: filters,
             };
 
-        case types.ALERTS_CLEAR:
+        case types.MAP_ALERTS_CLEAR:
             return {
                 ...state,
                 alerts: undefined,
@@ -262,7 +262,7 @@ const map = (state = defaultState, action) => {
                 newLayerIsLoading: action.id ? false : true,
             };
 
-        case types.ALERTS_CLEAR:
+        case types.MAP_ALERTS_CLEAR:
             return {
                 ...state,
                 alerts: undefined,

@@ -1,7 +1,3 @@
-/* ALERT */
-export const ALERT_SET = 'ALERT_SET';
-export const ALERTS_CLEAR = 'ALERT_CLEAR';
-
 /* MAP */
 export const MAP_NEW = 'MAP_NEW';
 export const MAP_SET = 'MAP_SET';
@@ -11,6 +7,7 @@ export const MAP_CONTEXT_MENU_CLOSE = 'MAP_CONTEXT_MENU_CLOSE';
 export const MAP_COORDINATE_OPEN = 'MAP_COORDINATE_OPEN';
 export const MAP_COORDINATE_CLOSE = 'MAP_COORDINATE_CLOSE';
 export const MAP_EARTH_ENGINE_VALUE_SHOW = 'MAP_EARTH_ENGINE_VALUE_SHOW';
+export const MAP_ALERTS_CLEAR = 'MAP_ALERT_CLEAR';
 
 /* BASEMAP */
 export const BASEMAPS_ADD = 'BASEMAPS_ADD';

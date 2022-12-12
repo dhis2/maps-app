@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import PeriodName from './PeriodName';
 import MapItem from './MapItem';
-import Layer from './layers/Layer';
+import BasemapLayer from './layers/BasemapLayer';
 import ThematicLayer from './layers/ThematicLayer';
 import styles from './styles/SplitView.module.css';
 
@@ -71,7 +71,7 @@ const SplitView = ({
                     isPlugin={isPlugin}
                     isFullscreen={showFullscreen}
                 >
-                    <Layer index={0} {...basemap} />
+                    <BasemapLayer {...basemap} />
                     <ThematicLayer
                         index={1}
                         period={period}
