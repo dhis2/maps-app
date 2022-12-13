@@ -86,7 +86,7 @@
         "@dhis2/d2-i18n-generate": "^1.2.0",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^12.0.0",
-        "babel-loader": "^8.2.5",
+        "babel-loader": "^9.1.0",
         "babel-polyfill": "^6.26.0",
         "babel-regenerator-runtime": "^6.5.0",
         "css-loader": "^6.7.1",
