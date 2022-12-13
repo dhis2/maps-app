@@ -7,10 +7,7 @@ import { fetchOrgUnitGroupSet } from '../../util/orgUnits.js'
 import GroupStyle from './GroupStyle.js'
 import styles from './styles/GroupSetStyle.module.css'
 
-export const GroupSetStyle = ({
-    defaultStyleType = STYLE_TYPE_COLOR,
-    groupSet,
-}) => {
+const GroupSetStyle = ({ defaultStyleType = STYLE_TYPE_COLOR, groupSet }) => {
     const [groups, setGroups] = useState([])
     const [error, setError] = useState()
 

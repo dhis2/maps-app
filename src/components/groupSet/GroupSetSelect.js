@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { loadOrgUnitGroupSets } from '../../actions/orgUnits.js'
 import { SelectField } from '../core/index.js'
 
-export const GroupSetSelect = ({
+const GroupSetSelect = ({
     label = i18n.t('Group set'),
     orgUnitGroupSets,
     value,

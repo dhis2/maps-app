@@ -10,7 +10,7 @@ const style = {
     marginTop: -12,
 }
 
-export class OrgUnitGroupSelect extends Component {
+class OrgUnitGroupSelect extends Component {
     static propTypes = {
         loadOrgUnitGroups: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,

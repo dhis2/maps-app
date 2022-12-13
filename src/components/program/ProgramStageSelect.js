@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { loadProgramStages } from '../../actions/programs.js'
 import { SelectField } from '../core/index.js'
 
-export class ProgramStageSelect extends Component {
+class ProgramStageSelect extends Component {
     static propTypes = {
         loadProgramStages: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,

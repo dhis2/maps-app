@@ -8,7 +8,7 @@ import {
 } from '../../actions/programs.js'
 import { SelectField } from '../core/index.js'
 
-export class CoordinateField extends Component {
+class CoordinateField extends Component {
     static propTypes = {
         dataElements: PropTypes.object.isRequired,
         loadProgramStageDataElements: PropTypes.func.isRequired,

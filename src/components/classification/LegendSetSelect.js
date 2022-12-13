@@ -10,7 +10,7 @@ const style = {
     width: '100%',
 }
 
-export class LegendSetSelect extends Component {
+class LegendSetSelect extends Component {
     static propTypes = {
         loadLegendSets: PropTypes.func.isRequired,
         setLegendSet: PropTypes.func.isRequired,

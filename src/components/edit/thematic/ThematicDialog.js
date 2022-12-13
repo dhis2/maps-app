@@ -76,7 +76,7 @@ import RadiusSelect, { isValidRadius } from './RadiusSelect.js'
 import ThematicMapTypeSelect from './ThematicMapTypeSelect.js'
 import ValueTypeSelect from './ValueTypeSelect.js'
 
-export class ThematicDialog extends Component {
+class ThematicDialog extends Component {
     static propTypes = {
         loadOrgUnitPath: PropTypes.func.isRequired,
         setClassification: PropTypes.func.isRequired,

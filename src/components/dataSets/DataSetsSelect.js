@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { loadDataSets } from '../../actions/dataSets.js'
 import { SelectField } from '../core/index.js'
 
-export class DataElementGroupSelect extends Component {
+class DataSetsSelect extends Component {
     static propTypes = {
         loadDataSets: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
@@ -46,4 +46,4 @@ export default connect(
         dataSets: state.dataSets,
     }),
     { loadDataSets }
-)(DataElementGroupSelect)
+)(DataSetsSelect)

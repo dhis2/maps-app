@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { loadProgramIndicators } from '../../actions/programs.js'
 import { SelectField } from '../core/index.js'
 
-export class ProgramIndicatorSelect extends Component {
+class ProgramIndicatorSelect extends Component {
     static propTypes = {
         loadProgramIndicators: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,

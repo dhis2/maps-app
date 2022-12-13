@@ -60,7 +60,7 @@ import BufferRadius from '../shared/BufferRadius.js'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.js'
 
-export class EventDialog extends Component {
+class EventDialog extends Component {
     static propTypes = {
         setEndDate: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,

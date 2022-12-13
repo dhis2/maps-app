@@ -14,7 +14,7 @@ import styles from './styles/InputField.module.css'
  * Allows options to be created from an array of models (containing id and name properties)
  * id can be numbers, although @dhis2/ui requires option values to be strings.
  */
-export const SelectField = (props) => {
+const SelectField = (props) => {
     const {
         dense = true,
         errorText,

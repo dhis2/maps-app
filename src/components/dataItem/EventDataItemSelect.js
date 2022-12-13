@@ -19,7 +19,7 @@ const excludeValueTypes = [
 ]
 
 // Used in thematic layer dialog
-export class EventDataItemSelect extends Component {
+class EventDataItemSelect extends Component {
     static propTypes = {
         dataElements: PropTypes.object.isRequired,
         loadProgramDataElements: PropTypes.func.isRequired,

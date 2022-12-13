@@ -11,7 +11,7 @@ export const legendPositions = [
     'bottomright',
 ]
 
-export const LegendPosition = ({ position, onChange }) => (
+const LegendPosition = ({ position, onChange }) => (
     <div className={styles.root}>
         <label className={styles.label}>{i18n.t('Legend position')}</label>
         {legendPositions.map((pos) => (

@@ -8,10 +8,7 @@ import { fetchOrgUnitFields } from '../../util/orgUnits.js'
 import { SelectField } from '../core/index.js'
 import styles from './styles/OrgUnitFieldSelect.module.css'
 
-export const OrgUnitFieldSelect = ({
-    orgUnitField,
-    setOrganisationUnitField,
-}) => {
+const OrgUnitFieldSelect = ({ orgUnitField, setOrganisationUnitField }) => {
     const [attributes, setAttributes] = useState([])
 
     useEffect(() => {

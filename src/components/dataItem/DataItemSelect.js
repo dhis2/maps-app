@@ -9,7 +9,7 @@ import {
 import { combineDataItems } from '../../util/analytics.js'
 import { SelectField } from '../core/index.js'
 
-export class DataItemSelect extends Component {
+class DataItemSelect extends Component {
     static propTypes = {
         dataElements: PropTypes.object.isRequired,
         programAttributes: PropTypes.object.isRequired,

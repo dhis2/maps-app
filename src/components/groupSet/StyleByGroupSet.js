@@ -7,7 +7,7 @@ import styles from '../edit/styles/LayerDialog.module.css'
 import GroupSetSelect from './GroupSetSelect.js'
 import GroupSetStyle from './GroupSetStyle.js'
 
-export const StyleByGroupSet = ({
+const StyleByGroupSet = ({
     defaultStyleType,
     groupSet,
     setOrganisationUnitGroupSet,
