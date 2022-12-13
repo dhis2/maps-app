@@ -86,8 +86,8 @@ SelectField.propTypes = {
     dataTest: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
-    errorText: PropTypes.string,
-    helpText: PropTypes.string,
+    errorText: PropTypes.string, // If set, shows the error message below the SelectField
+    helpText: PropTypes.string, // If set, shows the help text below the SelectField
     items: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -96,7 +96,9 @@ SelectField.propTypes = {
         })
     ),
     label: PropTypes.string,
+    // If true, spinner will be shown in the select menu. If string, the text will be shown
     loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    // If true, then use multiple selection. Adds a checkbox to each menu item.
     multiple: PropTypes.bool,
     value: PropTypes.oneOfType([
         PropTypes.string,
@@ -105,7 +107,7 @@ SelectField.propTypes = {
             PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         ),
     ]),
-    warning: PropTypes.string,
+    warning: PropTypes.string, // If set, shows the warning message below the SelectField
     onChange: PropTypes.func,
 }
 
