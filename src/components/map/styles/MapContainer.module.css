@@ -5,6 +5,10 @@
     overflow: hidden;
 }
 
+.download {
+    background-color: white;
+}
+
 .download :global(.dhis2-map-timeline) {
     display: none;
 }
