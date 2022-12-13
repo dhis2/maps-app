@@ -89,7 +89,7 @@
         "babel-loader": "^8.2.5",
         "babel-polyfill": "^6.26.0",
         "babel-regenerator-runtime": "^6.5.0",
-        "css-loader": "^6.7.1",
+        "css-loader": "^6.7.2",
         "cypress": "^8.7.0",
         "cypress-cucumber-preprocessor": "^4.3.1",
         "d2-manifest": "^1.0.0",
