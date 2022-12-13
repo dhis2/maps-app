@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { Button, IconTextBold24, IconTextItalic24 } from '@dhis2/ui';
-import cx from 'classnames';
-import NumberField from './NumberField';
-import ColorButton from './ColorButton';
-import { cssColor } from '../../util/colors';
+import i18n from '@dhis2/d2-i18n'
+import { Button, IconTextBold24, IconTextItalic24 } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
 import {
     LABEL_FONT_SIZE,
     LABEL_FONT_SIZE_MIN,
     LABEL_FONT_SIZE_MAX,
     LABEL_FONT_COLOR,
-} from '../../constants/layers';
-import styles from './styles/FontStyle.module.css';
+} from '../../constants/layers.js'
+import { cssColor } from '../../util/colors.js'
+import ColorButton from './ColorButton.js'
+import NumberField from './NumberField.js'
+import styles from './styles/FontStyle.module.css'
 
 const FontStyle = ({
     color,
@@ -36,7 +36,7 @@ const FontStyle = ({
                     size !== undefined ? size : LABEL_FONT_SIZE,
                     10
                 )}
-                onChange={value => onSizeChange(value + 'px')}
+                onChange={(value) => onSizeChange(value + 'px')}
                 className={styles.textSize}
             />
         )}
@@ -51,7 +51,7 @@ const FontStyle = ({
             <Button
                 icon={<IconTextBold24 />}
                 onClick={() => {
-                    onWeightChange(weight === 'bold' ? 'normal' : 'bold');
+                    onWeightChange(weight === 'bold' ? 'normal' : 'bold')
                 }}
                 secondary
                 toggled={weight === 'bold'}
@@ -61,25 +61,25 @@ const FontStyle = ({
             <Button
                 icon={<IconTextItalic24 />}
                 onClick={() => {
-                    onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic');
+                    onStyleChange(fontStyle === 'italic' ? 'normal' : 'italic')
                 }}
                 secondary
                 toggled={fontStyle === 'italic'}
             />
         )}
     </div>
-);
+)
 
 FontStyle.propTypes = {
+    className: PropTypes.string,
     color: PropTypes.string,
+    fontStyle: PropTypes.string,
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     weight: PropTypes.string,
-    fontStyle: PropTypes.string,
     onColorChange: PropTypes.func,
     onSizeChange: PropTypes.func,
-    onWeightChange: PropTypes.func,
     onStyleChange: PropTypes.func,
-    className: PropTypes.string,
-};
+    onWeightChange: PropTypes.func,
+}
 
-export default FontStyle;
+export default FontStyle

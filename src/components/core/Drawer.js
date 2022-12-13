@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import styles from './styles/Drawer.module.css';
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/Drawer.module.css'
 
 export const Drawer = ({ position = 'right', className, children }) => (
     <div
@@ -12,15 +12,15 @@ export const Drawer = ({ position = 'right', className, children }) => (
     >
         {children}
     </div>
-);
+)
 
 Drawer.propTypes = {
-    position: PropTypes.string,
-    className: PropTypes.string,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,
     ]),
-};
+    className: PropTypes.string,
+    position: PropTypes.string,
+}
 
-export default Drawer;
+export default Drawer

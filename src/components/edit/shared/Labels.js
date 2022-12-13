@@ -1,18 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import cx from 'classnames';
-import { Checkbox, FontStyle } from '../../core';
-import styles from '../styles/LayerDialog.module.css';
-
+import i18n from '@dhis2/d2-i18n'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
 import {
     setLabels,
     setLabelFontColor,
     setLabelFontSize,
     setLabelFontWeight,
     setLabelFontStyle,
-} from '../../../actions/layerEdit';
+} from '../../../actions/layerEdit.js'
+import { Checkbox, FontStyle } from '../../core/index.js'
+import styles from '../styles/LayerDialog.module.css'
 
 const Labels = ({
     labels,
@@ -48,21 +47,21 @@ const Labels = ({
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
 Labels.propTypes = {
-    labels: PropTypes.bool,
+    setLabelFontColor: PropTypes.func.isRequired,
+    setLabelFontSize: PropTypes.func.isRequired,
+    setLabelFontStyle: PropTypes.func.isRequired,
+    setLabelFontWeight: PropTypes.func.isRequired,
+    setLabels: PropTypes.func.isRequired,
     labelFontColor: PropTypes.string,
     labelFontSize: PropTypes.string,
     labelFontStyle: PropTypes.string,
     labelFontWeight: PropTypes.string,
-    setLabels: PropTypes.func.isRequired,
-    setLabelFontColor: PropTypes.func.isRequired,
-    setLabelFontSize: PropTypes.func.isRequired,
-    setLabelFontWeight: PropTypes.func.isRequired,
-    setLabelFontStyle: PropTypes.func.isRequired,
-};
+    labels: PropTypes.bool,
+}
 
 export default connect(
     ({ layerEdit }) => ({
@@ -79,4 +78,4 @@ export default connect(
         setLabelFontWeight,
         setLabelFontStyle,
     }
-)(Labels);
+)(Labels)

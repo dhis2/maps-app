@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
-import { SelectField } from '../core';
-import { loadIndicators } from '../../actions/indicators';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loadIndicators } from '../../actions/indicators.js'
+import { SelectField } from '../core/index.js'
 
 export class IndicatorSelect extends Component {
     static propTypes = {
-        indicatorGroup: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
-        indicator: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
-        indicators: PropTypes.array,
         loadIndicators: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         className: PropTypes.string,
         errorText: PropTypes.string,
-    };
+        indicator: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        indicatorGroup: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        indicators: PropTypes.array,
+    }
 
     componentDidUpdate() {
-        const { indicatorGroup, indicators, loadIndicators } = this.props;
+        const { indicatorGroup, indicators, loadIndicators } = this.props
 
         if (indicatorGroup && !indicators) {
-            loadIndicators(indicatorGroup.id);
+            loadIndicators(indicatorGroup.id)
         }
     }
 
@@ -36,14 +36,14 @@ export class IndicatorSelect extends Component {
             onChange,
             className,
             errorText,
-        } = this.props;
+        } = this.props
 
-        let items = indicators;
+        let items = indicators
 
         if (!indicatorGroup && !indicator) {
-            return null;
+            return null
         } else if (!indicators && indicator) {
-            items = [indicator]; // If favorite is loaded, we only know the used indicator
+            items = [indicator] // If favorite is loaded, we only know the used indicator
         }
 
         return (
@@ -53,12 +53,12 @@ export class IndicatorSelect extends Component {
                 label={i18n.t('Indicator')}
                 items={items}
                 value={indicator ? indicator.id : null}
-                onChange={dataItem => onChange(dataItem, 'indicator')}
+                onChange={(dataItem) => onChange(dataItem, 'indicator')}
                 className={className}
                 errorText={!indicator && errorText ? errorText : null}
                 dataTest="indicatorselect"
             />
-        );
+        )
     }
 }
 
@@ -69,4 +69,4 @@ export default connect(
             : null,
     }),
     { loadIndicators }
-)(IndicatorSelect);
+)(IndicatorSelect)

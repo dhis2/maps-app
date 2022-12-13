@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { ImageSelect } from '../../core';
-import { setThematicMapType } from '../../../actions/layerEdit';
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { setThematicMapType } from '../../../actions/layerEdit.js'
 import {
     THEMATIC_CHOROPLETH,
     getThematicMapTypes,
-} from '../../../constants/layers';
-import styles from '../styles/LayerDialog.module.css';
+} from '../../../constants/layers.js'
+import { ImageSelect } from '../../core/index.js'
+import styles from '../styles/LayerDialog.module.css'
 
 // Select between choropleth and bubble map for thematic layers
 export const ThematicMapTypeSelect = ({
@@ -27,11 +27,11 @@ export const ThematicMapTypeSelect = ({
             />
         ))}
     </div>
-);
+)
 
 ThematicMapTypeSelect.propTypes = {
-    type: PropTypes.string,
     setThematicMapType: PropTypes.func.isRequired,
-};
+    type: PropTypes.string,
+}
 
-export default connect(null, { setThematicMapType })(ThematicMapTypeSelect);
+export default connect(null, { setThematicMapType })(ThematicMapTypeSelect)

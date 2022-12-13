@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, ButtonStrip, CircularLoader } from '@dhis2/ui';
-import i18n from '@dhis2/d2-i18n';
-import styles from './styles/DataDownloadDialogActions.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { Button, ButtonStrip, CircularLoader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/DataDownloadDialogActions.module.css'
 
 export const DataDownloadDialogActions = ({
     downloading,
@@ -20,12 +20,12 @@ export const DataDownloadDialogActions = ({
             )}
         </Button>
     </ButtonStrip>
-);
+)
 
 DataDownloadDialogActions.propTypes = {
     downloading: PropTypes.bool.isRequired,
-    onStartClick: PropTypes.func.isRequired,
     onCancelClick: PropTypes.func.isRequired,
-};
+    onStartClick: PropTypes.func.isRequired,
+}
 
-export default DataDownloadDialogActions;
+export default DataDownloadDialogActions

@@ -1,11 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { FatalErrorBoundary } from '../FatalErrorBoundary';
+import { shallow } from 'enzyme'
+import React from 'react'
+import { FatalErrorBoundary } from '../FatalErrorBoundary.js'
 
 const Something = () => {
     // Placeholder
-    return null;
-};
+    return null
+}
 
 describe('FatalErrorBoundary', () => {
     it('Should render the normal tree when no error occurs', () => {
@@ -15,43 +15,43 @@ describe('FatalErrorBoundary', () => {
                     <span id="testme">Hello there!</span>
                 </div>
             </FatalErrorBoundary>
-        );
+        )
 
-        expect(wrapper.find('span#testme').length).toBe(1);
-    });
+        expect(wrapper.find('span#testme').length).toBe(1)
+    })
 
     it('Should render the error mask when an error is thrown', () => {
         const wrapper = shallow(
             <FatalErrorBoundary classes={{}}>
                 <Something />
             </FatalErrorBoundary>
-        );
+        )
 
-        expect(wrapper.find(Something).length).toBe(1);
+        expect(wrapper.find(Something).length).toBe(1)
 
         const testErrorText =
-            'This is a test of the emergency alert system.  This is only a test.';
-        wrapper.find(Something).simulateError(new Error(testErrorText));
-        expect(wrapper.contains('Show technical details')).toBe(true);
-    });
+            'This is a test of the emergency alert system.  This is only a test.'
+        wrapper.find(Something).simulateError(new Error(testErrorText))
+        expect(wrapper.contains('Show technical details')).toBe(true)
+    })
 
     it('Should match the snapshot tree when error is manually invoked', () => {
         const wrapper = shallow(
             <FatalErrorBoundary classes={{}}>
                 <Something />
             </FatalErrorBoundary>
-        );
+        )
 
         const error = {
             stack: 'This is the stack',
-        };
+        }
         const errorInfo = {
             componentStack: 'This is the component stack',
-        };
+        }
 
-        wrapper.setState({ error, errorInfo });
+        wrapper.setState({ error, errorInfo })
 
-        expect(wrapper.contains('Show technical details')).toBe(true);
-        expect(wrapper).toMatchSnapshot();
-    });
-});
+        expect(wrapper.contains('Show technical details')).toBe(true)
+        expect(wrapper).toMatchSnapshot()
+    })
+})

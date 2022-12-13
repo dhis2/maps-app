@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
 import {
     getOrgUnitNodesFromRows,
     getUserOrgUnitsFromRows,
-} from '../../util/analytics';
+} from '../../util/analytics.js'
 
 const styles = {
     container: {
@@ -14,7 +14,7 @@ const styles = {
     error: {
         color: 'red',
     },
-};
+}
 
 const getLevels = () => ({
     USER_ORGUNIT: i18n.t('user organisation unit'),
@@ -22,23 +22,23 @@ const getLevels = () => ({
     USER_ORGUNIT_GRANDCHILDREN: i18n.t(
         'two levels below user organisation unit'
     ),
-});
+})
 
-const getModeString = props => ({
+const getModeString = (props) => ({
     SELECTED: i18n.t('{{units}} in {{orgunits}}', props),
     CHILDREN: i18n.t('{{units}} in and right below {{orgunits}}', props),
     DESCENDANTS: i18n.t('{{units}} in and all below {{orgunits}}', props),
-});
+})
 
 const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
     const orgUnits = getOrgUnitNodesFromRows(rows)
-        .map(ou => ou.displayName || ou.name)
-        .sort();
+        .map((ou) => ou.displayName || ou.name)
+        .sort()
     const userOrgUnits = getUserOrgUnitsFromRows(rows)
         .sort()
-        .map(id => getLevels()[id]);
+        .map((id) => getLevels()[id])
 
-    let selected = i18n.t('No organisation units are selected');
+    let selected = i18n.t('No organisation units are selected')
 
     if (orgUnits.length || userOrgUnits.length) {
         selected = getModeString({
@@ -46,7 +46,7 @@ const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
                 ? userOrgUnits.join(', ')
                 : orgUnits.join(', '),
             units,
-        })[mode];
+        })[mode]
     }
 
     return (
@@ -61,14 +61,14 @@ const SelectedOrgUnits = ({ units, rows, mode = 'SELECTED', error }) => {
                 </div>
             )}
         </div>
-    );
-};
+    )
+}
 
 SelectedOrgUnits.propTypes = {
-    mode: PropTypes.string,
-    units: PropTypes.string,
-    rows: PropTypes.array,
     error: PropTypes.string,
-};
+    mode: PropTypes.string,
+    rows: PropTypes.array,
+    units: PropTypes.string,
+}
 
-export default SelectedOrgUnits;
+export default SelectedOrgUnits

@@ -1,24 +1,24 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const dataTable = (state = null, action) => {
     switch (action.type) {
         case types.DATA_TABLE_OPEN:
-            return action.id;
+            return action.id
 
         case types.DATA_TABLE_CLOSE:
         case types.MAP_NEW:
         case types.MAP_SET:
-            return null;
+            return null
 
         case types.DATA_TABLE_TOGGLE:
-            return state === action.id ? null : action.id;
+            return state === action.id ? null : action.id
 
         case types.LAYER_REMOVE:
-            return state === action.id ? null : state;
+            return state === action.id ? null : state
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default dataTable;
+export default dataTable

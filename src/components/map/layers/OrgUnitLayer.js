@@ -1,15 +1,15 @@
-import React from 'react';
-import i18n from '@dhis2/d2-i18n';
-import Layer from './Layer';
-import Popup from '../Popup';
-import { filterData } from '../../../util/filter';
-import { getLabelStyle } from '../../../util/labels';
-import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers';
+import i18n from '@dhis2/d2-i18n'
+import React from 'react'
+import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers.js'
+import { filterData } from '../../../util/filter.js'
+import { getLabelStyle } from '../../../util/labels.js'
+import Popup from '../Popup.js'
+import Layer from './Layer.js'
 
 export default class OrgUnitLayer extends Layer {
     state = {
         popup: null,
-    };
+    }
 
     createLayer() {
         const {
@@ -22,11 +22,11 @@ export default class OrgUnitLayer extends Layer {
             radiusLow,
             dataFilters,
             organisationUnitColor = ORG_UNIT_COLOR,
-        } = this.props;
+        } = this.props
 
-        const filteredData = filterData(data, dataFilters);
+        const filteredData = filterData(data, dataFilters)
 
-        const map = this.context.map;
+        const map = this.context.map
 
         const config = {
             type: GEOJSON_LAYER,
@@ -42,27 +42,27 @@ export default class OrgUnitLayer extends Layer {
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
-        };
+        }
 
         if (labels) {
-            config.label = '{name}';
-            config.labelStyle = getLabelStyle(this.props);
+            config.label = '{name}'
+            config.labelStyle = getLabelStyle(this.props)
         }
 
         if (radiusLow) {
-            config.style.radius = radiusLow;
+            config.style.radius = radiusLow
         }
 
-        this.layer = map.createLayer(config);
-        map.addLayer(this.layer);
+        this.layer = map.createLayer(config)
+        map.addLayer(this.layer)
 
         // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce();
+        this.fitBoundsOnce()
     }
 
     getPopup() {
-        const { coordinates, feature } = this.state.popup;
-        const { id, name, level, parentName } = feature.properties;
+        const { coordinates, feature } = this.state.popup
+        const { id, name, level, parentName } = feature.properties
 
         return (
             <Popup
@@ -83,14 +83,14 @@ export default class OrgUnitLayer extends Layer {
                     </div>
                 )}
             </Popup>
-        );
+        )
     }
 
     render() {
-        return this.state.popup ? this.getPopup() : null;
+        return this.state.popup ? this.getPopup() : null
     }
 
     onFeatureClick(evt) {
-        this.setState({ popup: evt });
+        this.setState({ popup: evt })
     }
 }

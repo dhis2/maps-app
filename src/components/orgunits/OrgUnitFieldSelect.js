@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
-import { fetchOrgUnitFields } from '../../util/orgUnits';
-import { setOrganisationUnitField } from '../../actions/layerEdit';
-import { NONE } from '../../constants/layers';
-import styles from './styles/OrgUnitFieldSelect.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { setOrganisationUnitField } from '../../actions/layerEdit.js'
+import { NONE } from '../../constants/layers.js'
+import { fetchOrgUnitFields } from '../../util/orgUnits.js'
+import { SelectField } from '../core/index.js'
+import styles from './styles/OrgUnitFieldSelect.module.css'
 
 export const OrgUnitFieldSelect = ({
     orgUnitField,
     setOrganisationUnitField,
 }) => {
-    const [attributes, setAttributes] = useState([]);
+    const [attributes, setAttributes] = useState([])
 
     useEffect(() => {
-        fetchOrgUnitFields().then(setAttributes);
-    }, []);
+        fetchOrgUnitFields().then(setAttributes)
+    }, [])
 
     if (!attributes.length) {
-        return null;
+        return null
     }
 
-    const attribute = attributes.find(a => a.id === orgUnitField);
+    const attribute = attributes.find((a) => a.id === orgUnitField)
 
     return (
         <>
@@ -39,17 +39,17 @@ export const OrgUnitFieldSelect = ({
                 </div>
             )}
         </>
-    );
-};
+    )
+}
 
 OrgUnitFieldSelect.propTypes = {
-    orgUnitField: PropTypes.string,
     setOrganisationUnitField: PropTypes.func.isRequired,
-};
+    orgUnitField: PropTypes.string,
+}
 
 export default connect(
     ({ layerEdit }) => ({
         orgUnitField: layerEdit.orgUnitField,
     }),
     { setOrganisationUnitField }
-)(OrgUnitFieldSelect);
+)(OrgUnitFieldSelect)

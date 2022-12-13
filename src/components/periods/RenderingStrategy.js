@@ -1,48 +1,47 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Radio, RadioGroup } from '../core';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
-} from '../../constants/layers';
+} from '../../constants/layers.js'
 import {
     singleMapPeriods,
     invalidSplitViewPeriods,
-} from '../../constants/periods';
+} from '../../constants/periods.js'
+import { Radio, RadioGroup } from '../core/index.js'
 
 class RenderingStrategy extends Component {
     static propTypes = {
-        value: PropTypes.string,
-        period: PropTypes.object,
-        layerId: PropTypes.string,
+        onChange: PropTypes.func.isRequired,
         hasOtherLayers: PropTypes.bool,
         hasOtherTimelineLayers: PropTypes.bool,
-        onChange: PropTypes.func.isRequired,
-    };
+        period: PropTypes.object,
+        value: PropTypes.string,
+    }
 
     static defaultProps = {
         value: RENDERING_STRATEGY_SINGLE,
         period: {},
-    };
+    }
 
     componentDidUpdate(prevProps) {
-        const { value, period, onChange } = this.props;
+        const { value, period, onChange } = this.props
 
         if (period !== prevProps.period) {
             if (
                 singleMapPeriods.includes(period.id) &&
                 value !== RENDERING_STRATEGY_SINGLE
             ) {
-                onChange(RENDERING_STRATEGY_SINGLE);
+                onChange(RENDERING_STRATEGY_SINGLE)
             } else if (
                 invalidSplitViewPeriods.includes(period.id) &&
                 value === RENDERING_STRATEGY_SPLIT_BY_PERIOD
             ) {
                 // TODO: Switch to 'timeline' when we support it
-                onChange(RENDERING_STRATEGY_SINGLE);
+                onChange(RENDERING_STRATEGY_SINGLE)
             }
         }
     }
@@ -54,18 +53,18 @@ class RenderingStrategy extends Component {
             hasOtherLayers,
             hasOtherTimelineLayers,
             onChange,
-        } = this.props;
+        } = this.props
 
         if (singleMapPeriods.includes(period.id)) {
-            return null;
+            return null
         }
 
-        let helpText;
+        let helpText
 
         if (hasOtherTimelineLayers) {
-            helpText = i18n.t('Only one timeline is allowed.');
+            helpText = i18n.t('Only one timeline is allowed.')
         } else if (hasOtherLayers) {
-            helpText = i18n.t('Remove other layers to enable split map views.');
+            helpText = i18n.t('Remove other layers to enable split map views.')
         }
 
         return (
@@ -90,20 +89,20 @@ class RenderingStrategy extends Component {
                     }
                 />
             </RadioGroup>
-        );
+        )
     }
 }
 
 export default connect((state, props) => {
-    const { mapViews } = state.map;
+    const { mapViews } = state.map
 
     return {
         hasOtherLayers: !!mapViews.filter(({ id }) => id !== props.layerId)
             .length,
         hasOtherTimelineLayers: !!mapViews.find(
-            layer =>
+            (layer) =>
                 layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
                 layer.id !== props.layerId
         ),
-    };
-})(RenderingStrategy);
+    }
+})(RenderingStrategy)

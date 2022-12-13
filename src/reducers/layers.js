@@ -1,13 +1,13 @@
-import i18n from '@dhis2/d2-i18n';
-import * as types from '../constants/actionTypes';
+import i18n from '@dhis2/d2-i18n'
+import * as types from '../constants/actionTypes.js'
+import { earthEngineLayers } from '../constants/earthEngine.js'
 import {
     THEMATIC_LAYER,
     EVENT_LAYER,
     TRACKED_ENTITY_LAYER,
     FACILITY_LAYER,
     ORG_UNIT_LAYER,
-} from '../constants/layers';
-import { earthEngineLayers } from '../constants/earthEngine';
+} from '../constants/layers.js'
 
 const defaultLayers = () => [
     {
@@ -41,11 +41,11 @@ const defaultLayers = () => [
         img: 'images/orgunits.png',
         opacity: 1,
     },
-    ...earthEngineLayers().filter(l => !l.legacy),
-];
+    ...earthEngineLayers().filter((l) => !l.legacy),
+]
 
 const layers = (state, action) => {
-    const prevState = state || defaultLayers();
+    const prevState = state || defaultLayers()
 
     switch (action.type) {
         case types.EXTERNAL_LAYER_ADD:
@@ -55,11 +55,11 @@ const layers = (state, action) => {
                     ...action.payload,
                     isVisible: true,
                 },
-            ];
+            ]
 
         default:
-            return prevState;
+            return prevState
     }
-};
+}
 
-export default layers;
+export default layers

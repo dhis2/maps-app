@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Radio, RadioGroup } from '../core';
-import { setClassification } from '../../actions/layerEdit';
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { setClassification } from '../../actions/layerEdit.js'
 import {
     getLegendTypes,
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_EQUAL_COUNTS,
-} from '../../constants/layers';
+} from '../../constants/layers.js'
+import { Radio, RadioGroup } from '../core/index.js'
 
 // Select between user defined (automatic), predefined or single color
 export const LegendTypeSelect = ({ mapType, method, setClassification }) =>
@@ -18,18 +18,18 @@ export const LegendTypeSelect = ({ mapType, method, setClassification }) =>
                     ? CLASSIFICATION_EQUAL_INTERVALS
                     : method
             }
-            onChange={method => setClassification(Number(method))}
+            onChange={(method) => setClassification(Number(method))}
         >
             {getLegendTypes(mapType === 'BUBBLE').map(({ id, name }) => (
                 <Radio key={id} value={id} label={name} />
             ))}
         </RadioGroup>
-    ) : null;
+    ) : null
 
 LegendTypeSelect.propTypes = {
-    method: PropTypes.number,
-    mapType: PropTypes.string,
     setClassification: PropTypes.func.isRequired,
-};
+    mapType: PropTypes.string,
+    method: PropTypes.number,
+}
 
-export default connect(null, { setClassification })(LegendTypeSelect);
+export default connect(null, { setClassification })(LegendTypeSelect)

@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
-import { loadTrackedEntityTypes } from '../../actions/trackedEntities';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loadTrackedEntityTypes } from '../../actions/trackedEntities.js'
+import { SelectField } from '../core/index.js'
 
 export class TrackedEntityTypeSelect extends Component {
     static propTypes = {
+        loadTrackedEntityTypes: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        className: PropTypes.string,
+        errorText: PropTypes.string,
         trackedEntityType: PropTypes.object,
         trackedEntityTypes: PropTypes.array,
-        errorText: PropTypes.string,
-        onChange: PropTypes.func.isRequired,
-        loadTrackedEntityTypes: PropTypes.func.isRequired,
-        className: PropTypes.string,
-    };
+    }
 
     componentDidMount() {
-        const { trackedEntityTypes, loadTrackedEntityTypes } = this.props;
+        const { trackedEntityTypes, loadTrackedEntityTypes } = this.props
 
         if (!trackedEntityTypes) {
-            loadTrackedEntityTypes();
+            loadTrackedEntityTypes()
         }
     }
 
@@ -30,7 +30,7 @@ export class TrackedEntityTypeSelect extends Component {
             onChange,
             className,
             errorText,
-        } = this.props;
+        } = this.props
 
         return (
             <SelectField
@@ -38,18 +38,18 @@ export class TrackedEntityTypeSelect extends Component {
                 loading={trackedEntityTypes ? false : true}
                 items={trackedEntityTypes}
                 value={trackedEntityType ? trackedEntityType.id : null}
-                onChange={trackedEntityType => onChange(trackedEntityType)}
+                onChange={(trackedEntityType) => onChange(trackedEntityType)}
                 className={className}
                 errorText={!trackedEntityType && errorText ? errorText : null}
                 dataTest="tetypeselect"
             />
-        );
+        )
     }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         trackedEntityTypes: state.trackedEntityTypes,
     }),
     { loadTrackedEntityTypes }
-)(TrackedEntityTypeSelect);
+)(TrackedEntityTypeSelect)

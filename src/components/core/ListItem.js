@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './styles/ListItem.module.css';
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/ListItem.module.css'
 
 // Left aligned label (no wrap) and right align value of variable width
 const ListItem = ({ label, formatter, children }) =>
@@ -13,15 +13,15 @@ const ListItem = ({ label, formatter, children }) =>
                 </tr>
             </tbody>
         </table>
-    ) : null;
+    ) : null
 
 ListItem.propTypes = {
     label: PropTypes.string.isRequired,
-    formatter: PropTypes.func,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,
     ]),
-};
+    formatter: PropTypes.func,
+}
 
-export default ListItem;
+export default ListItem

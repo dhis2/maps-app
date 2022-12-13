@@ -1,7 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
     ModalTitle,
@@ -9,55 +6,58 @@ import {
     ModalActions,
     Button,
     ButtonStrip,
-} from '@dhis2/ui';
-import { SelectField } from '../core';
-import { loadLayer } from '../../actions/layers';
-import { clearAnalyticalObject } from '../../actions/analyticalObject';
+} from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { clearAnalyticalObject } from '../../actions/analyticalObject.js'
+import { loadLayer } from '../../actions/layers.js'
 import {
     getDataDimensionsFromAnalyticalObject,
     getThematicLayerFromAnalyticalObject,
-} from '../../util/analyticalObject';
-import styles from './styles/OpenAsMapDialog.module.css';
+} from '../../util/analyticalObject.js'
+import { SelectField } from '../core/index.js'
+import styles from './styles/OpenAsMapDialog.module.css'
 
 export class OpenAsMapDialog extends Component {
     static propTypes = {
+        clearAnalyticalObject: PropTypes.func.isRequired,
+        loadLayer: PropTypes.func.isRequired,
         showDialog: PropTypes.bool.isRequired,
         ao: PropTypes.object,
-        loadLayer: PropTypes.func.isRequired,
-        clearAnalyticalObject: PropTypes.func.isRequired,
-    };
+    }
 
     state = {
         selectedDataDims: [],
-    };
+    }
 
     componentDidUpdate(prevProps) {
-        const { ao } = this.props;
+        const { ao } = this.props
 
         if (ao && ao !== prevProps.ao) {
-            this.setDefaultState();
+            this.setDefaultState()
         }
     }
 
     setDefaultState() {
-        const dataDims = getDataDimensionsFromAnalyticalObject(this.props.ao);
+        const dataDims = getDataDimensionsFromAnalyticalObject(this.props.ao)
 
         // Select the first data dimension
         if (dataDims && dataDims.length) {
-            this.onSelectDataDim([dataDims[0].id]);
+            this.onSelectDataDim([dataDims[0].id])
         }
     }
 
     render() {
-        const { ao, showDialog, clearAnalyticalObject } = this.props;
-        const { selectedDataDims } = this.state;
+        const { ao, showDialog, clearAnalyticalObject } = this.props
+        const { selectedDataDims } = this.state
 
         if (!showDialog) {
-            return null;
+            return null
         }
 
-        const dataDims = getDataDimensionsFromAnalyticalObject(ao);
-        const disableProceedBtn = !selectedDataDims.length;
+        const dataDims = getDataDimensionsFromAnalyticalObject(ao)
+        const disableProceedBtn = !selectedDataDims.length
 
         return (
             <Modal small position="middle" onClose={this.onClose}>
@@ -98,17 +98,17 @@ export class OpenAsMapDialog extends Component {
                     </ButtonStrip>
                 </ModalActions>
             </Modal>
-        );
+        )
     }
 
-    onSelectDataDim = selectedDataDims => {
-        this.setState({ selectedDataDims });
-    };
+    onSelectDataDim = (selectedDataDims) => {
+        this.setState({ selectedDataDims })
+    }
 
     onProceedClick = async () => {
-        const { ao, loadLayer, clearAnalyticalObject } = this.props;
-        const dataDims = [...this.state.selectedDataDims].reverse();
-        const lastDataId = dataDims[dataDims.length - 1];
+        const { ao, loadLayer, clearAnalyticalObject } = this.props
+        const dataDims = [...this.state.selectedDataDims].reverse()
+        const lastDataId = dataDims[dataDims.length - 1]
 
         // Call in sequence
         for (const dataId of dataDims) {
@@ -116,19 +116,19 @@ export class OpenAsMapDialog extends Component {
                 ao,
                 dataId,
                 dataId === lastDataId
-            );
+            )
 
             if (layer) {
-                loadLayer(layer);
+                loadLayer(layer)
             }
         }
 
-        clearAnalyticalObject();
-    };
+        clearAnalyticalObject()
+    }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         showDialog: !!state.analyticalObject,
         ao: state.analyticalObject,
     }),
@@ -136,4 +136,4 @@ export default connect(
         loadLayer,
         clearAnalyticalObject,
     }
-)(OpenAsMapDialog);
+)(OpenAsMapDialog)

@@ -1,18 +1,19 @@
-import React from 'react';
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import { Provider as ReduxProvider } from 'react-redux';
-import { Provider as DataProvider } from '@dhis2/app-runtime';
-import { DataStoreProvider } from '@dhis2/app-service-datastore';
-import { D2Shim } from '@dhis2/app-runtime-adapter-d2';
-import { CenteredContent, CircularLoader } from '@dhis2/ui';
-import UserSettingsProvider, { UserSettingsCtx } from './UserSettingsProvider';
-import SystemSettingsProvider from './SystemSettingsProvider';
-import { apiVersion } from '../constants/settings';
-import App from './app/App';
-import { NAMESPACE } from '../util/analyticalObject';
-
-import i18n from '../locales';
+import { Provider as DataProvider } from '@dhis2/app-runtime'
+import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
+import { DataStoreProvider } from '@dhis2/app-service-datastore'
+import { CenteredContent, CircularLoader } from '@dhis2/ui'
+import moment from 'moment'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { Provider as ReduxProvider } from 'react-redux'
+import { apiVersion } from '../constants/settings.js'
+import i18n from '../locales/index.js'
+import { NAMESPACE } from '../util/analyticalObject.js'
+import App from './app/App.js'
+import SystemSettingsProvider from './SystemSettingsProvider.js'
+import UserSettingsProvider, {
+    UserSettingsCtx,
+} from './UserSettingsProvider.js'
 
 const d2Config = {
     schemas: [
@@ -33,7 +34,7 @@ const d2Config = {
         'programStage',
         'userGroup',
     ],
-};
+}
 
 const Root = ({ store }) => (
     <DataProvider
@@ -59,7 +60,7 @@ const Root = ({ store }) => (
                                     <CircularLoader />
                                 </CenteredContent>
                             </div>
-                        );
+                        )
                     }
 
                     return (
@@ -69,25 +70,25 @@ const Root = ({ store }) => (
                                     <UserSettingsCtx.Consumer>
                                         {({ keyUiLocale }) => {
                                             if (!keyUiLocale) {
-                                                return null;
+                                                return null
                                             }
-                                            i18n.changeLanguage(keyUiLocale);
-                                            moment.locale(keyUiLocale);
-                                            return <App />;
+                                            i18n.changeLanguage(keyUiLocale)
+                                            moment.locale(keyUiLocale)
+                                            return <App />
                                         }}
                                     </UserSettingsCtx.Consumer>
                                 </UserSettingsProvider>
                             </SystemSettingsProvider>
                         </DataStoreProvider>
-                    );
+                    )
                 }}
             </D2Shim>
         </ReduxProvider>
     </DataProvider>
-);
+)
 
 Root.propTypes = {
     store: PropTypes.object.isRequired,
-};
+}
 
-export default Root;
+export default Root

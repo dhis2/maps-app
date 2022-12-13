@@ -1,20 +1,20 @@
-import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { AlertStack as UiAlertStack, AlertBar } from '@dhis2/ui';
-import { useAlerts } from '@dhis2/app-service-alerts';
-import { getMapAlerts } from '../../util/alerts';
-import { clearAlerts } from '../../actions/map';
+import { useAlerts } from '@dhis2/app-service-alerts'
+import { AlertStack as UiAlertStack, AlertBar } from '@dhis2/ui'
+import React, { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { clearAlerts } from '../../actions/map.js'
+import { getMapAlerts } from '../../util/alerts.js'
 
-const DEFAULT_DURATION = 6000;
+const DEFAULT_DURATION = 6000
 
 export const AlertStack = () => {
-    const alerts = useAlerts();
-    const mapAlerts = useSelector(state => getMapAlerts(state.map));
-    const dispatch = useDispatch();
+    const alerts = useAlerts()
+    const mapAlerts = useSelector((state) => getMapAlerts(state.map))
+    const dispatch = useDispatch()
 
     const clearMapAlerts = useCallback(() => {
-        dispatch(clearAlerts());
-    }, [dispatch]);
+        dispatch(clearAlerts())
+    }, [dispatch])
 
     return alerts.length || mapAlerts.length ? (
         <UiAlertStack>
@@ -51,7 +51,7 @@ export const AlertStack = () => {
                     )
                 )}
         </UiAlertStack>
-    ) : null;
-};
+    ) : null
+}
 
-export default AlertStack;
+export default AlertStack

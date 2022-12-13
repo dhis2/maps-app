@@ -1,25 +1,9 @@
-import i18n from '@dhis2/d2-i18n';
-import { getInstance as getD2 } from 'd2';
-import { scaleSqrt } from 'd3-scale';
-import { findIndex, curry } from 'lodash/fp';
-import { toGeoJson } from '../util/map';
-import { dimConf } from '../constants/dimension';
-import { getLegendItemForValue } from '../util/classify';
-import { getDisplayProperty } from '../util/helpers';
-import {
-    loadLegendSet,
-    getPredefinedLegendItems,
-    getAutomaticLegendItems,
-} from '../util/legend';
-import {
-    getOrgUnitsFromRows,
-    getPeriodFromFilters,
-    getValidDimensionsFromFilters,
-    getDataItemFromColumns,
-    getApiResponseNames,
-} from '../util/analytics';
-import { setAdditionalGeometry, getCoordinateField } from '../util/orgUnits';
-import { formatStartEndDate, getDateArray } from '../util/time';
+import i18n from '@dhis2/d2-i18n'
+import { getInstance as getD2 } from 'd2'
+import { scaleSqrt } from 'd3-scale'
+import { findIndex, curry } from 'lodash/fp'
+import { dimConf } from '../constants/dimension.js'
+import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
 import {
     THEMATIC_BUBBLE,
     THEMATIC_RADIUS_LOW,
@@ -30,10 +14,26 @@ import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
     NO_DATA_COLOR,
-} from '../constants/layers';
-import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses';
+} from '../constants/layers.js'
+import {
+    getOrgUnitsFromRows,
+    getPeriodFromFilters,
+    getValidDimensionsFromFilters,
+    getDataItemFromColumns,
+    getApiResponseNames,
+} from '../util/analytics.js'
+import { getLegendItemForValue } from '../util/classify.js'
+import { getDisplayProperty } from '../util/helpers.js'
+import {
+    loadLegendSet,
+    getPredefinedLegendItems,
+    getAutomaticLegendItems,
+} from '../util/legend.js'
+import { toGeoJson } from '../util/map.js'
+import { setAdditionalGeometry, getCoordinateField } from '../util/orgUnits.js'
+import { formatStartEndDate, getDateArray } from '../util/time.js'
 
-const thematicLoader = async config => {
+const thematicLoader = async (config) => {
     const {
         columns,
         radiusLow = THEMATIC_RADIUS_LOW,
@@ -43,16 +43,16 @@ const thematicLoader = async config => {
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         thematicMapType,
         noDataColor,
-    } = config;
+    } = config
 
-    const dataItem = getDataItemFromColumns(columns);
-    const coordinateField = getCoordinateField(config);
+    const dataItem = getDataItemFromColumns(columns)
+    const coordinateField = getCoordinateField(config)
 
-    let error;
+    let error
 
-    const response = await loadData(config).catch(err => {
-        error = err;
-    });
+    const response = await loadData(config).catch((err) => {
+        error = err
+    })
 
     if (!response) {
         return {
@@ -62,8 +62,9 @@ const thematicLoader = async config => {
                       alerts: [
                           {
                               critical: true,
-                              message: `${i18n.t('Error')}: ${error.message ||
-                                  error}`,
+                              message: `${i18n.t('Error')}: ${
+                                  error.message || error
+                              }`,
                           },
                       ],
                   }
@@ -73,30 +74,30 @@ const thematicLoader = async config => {
             legend: null,
             isLoaded: true,
             isVisible: true,
-        };
+        }
     }
 
-    const [mainFeatures, data, associatedGeometries = []] = response;
-    const features = mainFeatures.concat(associatedGeometries);
-    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
-    const isBubbleMap = thematicMapType === THEMATIC_BUBBLE;
-    const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR;
-    const period = getPeriodFromFilters(config.filters);
-    const periods = getPeriodsFromMetaData(data.metaData);
-    const dimensions = getValidDimensionsFromFilters(config.filters);
-    const names = getApiResponseNames(data);
-    const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null;
-    const valueById = getValueById(data);
+    const [mainFeatures, data, associatedGeometries = []] = response
+    const features = mainFeatures.concat(associatedGeometries)
+    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
+    const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
+    const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
+    const period = getPeriodFromFilters(config.filters)
+    const periods = getPeriodsFromMetaData(data.metaData)
+    const dimensions = getValidDimensionsFromFilters(config.filters)
+    const names = getApiResponseNames(data)
+    const valuesByPeriod = !isSingleMap ? getValuesByPeriod(data) : null
+    const valueById = getValueById(data)
     const valueFeatures = noDataColor
         ? features
-        : features.filter(({ id }) => valueById[id] !== undefined);
-    const orderedValues = getOrderedValues(data);
-    let minValue = orderedValues[0];
-    let maxValue = orderedValues[orderedValues.length - 1];
-    const name = names[dataItem.id];
-    const alerts = [];
+        : features.filter(({ id }) => valueById[id] !== undefined)
+    const orderedValues = getOrderedValues(data)
+    let minValue = orderedValues[0]
+    let maxValue = orderedValues[orderedValues.length - 1]
+    const name = names[dataItem.id]
+    const alerts = []
 
-    let legendSet = config.legendSet;
+    let legendSet = config.legendSet
 
     // Use legend set defined for data item as default
     if (
@@ -105,16 +106,17 @@ const thematicLoader = async config => {
         (config.method === undefined ||
             config.method === CLASSIFICATION_PREDEFINED)
     ) {
-        legendSet = dataItem.legendSet;
+        legendSet = dataItem.legendSet
     }
 
-    let method = legendSet ? CLASSIFICATION_PREDEFINED : config.method; // Favorites often have wrong method
+    // Favorites often have wrong method
+    const method = legendSet ? CLASSIFICATION_PREDEFINED : config.method
 
     if (legendSet) {
-        legendSet = await loadLegendSet(legendSet);
+        legendSet = await loadLegendSet(legendSet)
     }
 
-    let legendItems = [];
+    let legendItems = []
 
     if (!isSingleColor) {
         legendItems = legendSet
@@ -124,7 +126,7 @@ const thematicLoader = async config => {
                   method,
                   classes,
                   colorScale
-              );
+              )
     }
 
     const legend = {
@@ -136,19 +138,19 @@ const thematicLoader = async config => {
                   getDateArray(config.endDate)
               ),
         items: legendItems,
-    };
+    }
 
     if (dimensions && dimensions.length) {
         legend.filters = dimensions.map(
-            d =>
+            (d) =>
                 `${names[d.dimension]}: ${d.items
-                    .map(i => names[i.id])
+                    .map((i) => names[i.id])
                     .join(', ')}`
-        );
+        )
     }
 
     if (isSingleMap) {
-        legend.items.forEach(item => (item.count = 0));
+        legend.items.forEach((item) => (item.count = 0))
     }
 
     if (isBubbleMap) {
@@ -156,23 +158,23 @@ const thematicLoader = async config => {
             radiusLow,
             radiusHigh,
             color: isSingleColor ? colorScale : null,
-        };
+        }
     }
 
-    const getLegendItem = curry(getLegendItemForValue)(legend.items);
+    const getLegendItem = curry(getLegendItemForValue)(legend.items)
 
     if (legendSet && Array.isArray(legend.items) && legend.items.length >= 2) {
-        minValue = legend.items[0].startValue;
-        maxValue = legend.items[legend.items.length - 1].endValue;
+        minValue = legend.items[0].startValue
+        maxValue = legend.items[legend.items.length - 1].endValue
     }
 
     const getRadiusForValue = scaleSqrt()
         .range([radiusLow, radiusHigh])
         .domain([minValue, maxValue])
-        .clamp(true);
+        .clamp(true)
 
     if (valueFeatures.length) {
-        setAdditionalGeometry(valueFeatures);
+        setAdditionalGeometry(valueFeatures)
     } else {
         if (!features.length) {
             alerts.push({
@@ -180,12 +182,12 @@ const thematicLoader = async config => {
                 message: i18n.t('Selected org units: No coordinates found', {
                     nsSeparator: ';',
                 }),
-            });
+            })
         } else {
             alerts.push({
                 warning: true,
                 message: `${name}: ${i18n.t('No data found')}`,
-            });
+            })
         }
     }
 
@@ -196,58 +198,58 @@ const thematicLoader = async config => {
                 name: coordinateField.name,
                 nsSeparator: ';',
             }),
-        });
+        })
     }
 
     if (valuesByPeriod) {
-        const periods = Object.keys(valuesByPeriod);
-        periods.forEach(period => {
-            const orgUnits = Object.keys(valuesByPeriod[period]);
-            orgUnits.forEach(orgunit => {
-                const item = valuesByPeriod[period][orgunit];
-                const value = Number(item.value);
-                const legend = getLegendItem(value);
+        const periods = Object.keys(valuesByPeriod)
+        periods.forEach((period) => {
+            const orgUnits = Object.keys(valuesByPeriod[period])
+            orgUnits.forEach((orgunit) => {
+                const item = valuesByPeriod[period][orgunit]
+                const value = Number(item.value)
+                const legend = getLegendItem(value)
 
                 if (isSingleColor) {
-                    item.color = colorScale;
+                    item.color = colorScale
                 } else {
-                    item.color = legend ? legend.color : NO_DATA_COLOR;
+                    item.color = legend ? legend.color : NO_DATA_COLOR
                 }
 
-                item.radius = getRadiusForValue(value);
-            });
-        });
+                item.radius = getRadiusForValue(value)
+            })
+        })
     } else {
         valueFeatures.forEach(({ id, geometry, properties }) => {
-            const value = valueById[id];
-            const item = getLegendItem(value);
-            const isPoint = geometry.type === 'Point';
-            const { hasAdditionalGeometry } = properties;
+            const value = valueById[id]
+            const item = getLegendItem(value)
+            const isPoint = geometry.type === 'Point'
+            const { hasAdditionalGeometry } = properties
 
             if (isSingleColor) {
-                properties.color = colorScale;
+                properties.color = colorScale
             } else if (item) {
                 // Only count org units once in legend
                 if (!hasAdditionalGeometry) {
-                    item.count++;
+                    item.count++
                 }
                 properties.color =
                     hasAdditionalGeometry && isPoint
                         ? ORG_UNIT_COLOR
-                        : item.color;
-                properties.legend = item.name; // Shown in data table
-                properties.range = `${item.startValue} - ${item.endValue}`; // Shown in data table
+                        : item.color
+                properties.legend = item.name // Shown in data table
+                properties.range = `${item.startValue} - ${item.endValue}` // Shown in data table
             }
 
-            properties.value = value;
+            properties.value = value
             properties.radius = hasAdditionalGeometry
                 ? ORG_UNIT_RADIUS_SMALL
-                : getRadiusForValue(value);
-        });
+                : getRadiusForValue(value)
+        })
     }
 
     if (noDataColor && Array.isArray(legend.items) && !isBubbleMap) {
-        legend.items.push({ color: noDataColor, name: i18n.t('No data') });
+        legend.items.push({ color: noDataColor, name: i18n.t('No data') })
     }
 
     return {
@@ -262,64 +264,64 @@ const thematicLoader = async config => {
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
-    };
-};
+    }
+}
 
 const getPeriodsFromMetaData = ({ dimensions, items }) =>
-    dimensions.pe.map(id => {
-        const { name, startDate, endDate } = items[id];
+    dimensions.pe.map((id) => {
+        const { name, startDate, endDate } = items[id]
 
-        const newEndDate = new Date(endDate);
+        const newEndDate = new Date(endDate)
 
         // Set to midnight to include the last day
-        newEndDate.setHours(24);
+        newEndDate.setHours(24)
 
         return {
             id,
             name,
             startDate: new Date(startDate),
             endDate: newEndDate,
-        };
-    });
+        }
+    })
 
-const getValuesByPeriod = data => {
-    const { headers, rows } = data;
-    const periodIndex = findIndex(['name', 'pe'], headers);
-    const ouIndex = findIndex(['name', 'ou'], headers);
-    const valueIndex = findIndex(['name', 'value'], headers);
+const getValuesByPeriod = (data) => {
+    const { headers, rows } = data
+    const periodIndex = findIndex(['name', 'pe'], headers)
+    const ouIndex = findIndex(['name', 'ou'], headers)
+    const valueIndex = findIndex(['name', 'value'], headers)
 
     return rows.reduce((obj, row) => {
-        const period = row[periodIndex];
-        const periodObj = (obj[period] = obj[period] || {});
+        const period = row[periodIndex]
+        const periodObj = (obj[period] = obj[period] || {})
         periodObj[row[ouIndex]] = {
             value: row[valueIndex],
-        };
-        return obj;
-    }, {});
-};
+        }
+        return obj
+    }, {})
+}
 
 // Returns an object mapping org. units and values
-const getValueById = data => {
-    const { headers, rows } = data;
-    const ouIndex = findIndex(['name', 'ou'], headers);
-    const valueIndex = findIndex(['name', 'value'], headers);
+const getValueById = (data) => {
+    const { headers, rows } = data
+    const ouIndex = findIndex(['name', 'ou'], headers)
+    const valueIndex = findIndex(['name', 'value'], headers)
 
     return rows.reduce((obj, row) => {
-        obj[row[ouIndex]] = parseFloat(row[valueIndex]);
-        return obj;
-    }, {});
-};
+        obj[row[ouIndex]] = parseFloat(row[valueIndex])
+        return obj
+    }, {})
+}
 
 // Returns an array of ordered values
-const getOrderedValues = data => {
-    const { headers, rows } = data;
-    const valueIndex = findIndex(['name', 'value'], headers);
+const getOrderedValues = (data) => {
+    const { headers, rows } = data
+    const valueIndex = findIndex(['name', 'value'], headers)
 
-    return rows.map(row => parseFloat(row[valueIndex])).sort((a, b) => a - b);
-};
+    return rows.map((row) => parseFloat(row[valueIndex])).sort((a, b) => a - b)
+}
 
 // Load features and data values from api
-const loadData = async config => {
+const loadData = async (config) => {
     const {
         rows,
         columns,
@@ -333,90 +335,85 @@ const loadData = async config => {
         aggregationType,
         renderingStrategy = RENDERING_STRATEGY_SINGLE,
         eventStatus,
-    } = config;
-    const orgUnits = getOrgUnitsFromRows(rows);
-    const period = getPeriodFromFilters(filters);
-    const dimensions = getValidDimensionsFromFilters(config.filters);
-    const dataItem = getDataItemFromColumns(columns);
-    const coordinateField = getCoordinateField(config);
-    const isOperand = columns[0].dimension === dimConf.operand.objectName;
-    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE;
-    const d2 = await getD2();
+    } = config
+    const orgUnits = getOrgUnitsFromRows(rows)
+    const period = getPeriodFromFilters(filters)
+    const dimensions = getValidDimensionsFromFilters(config.filters)
+    const dataItem = getDataItemFromColumns(columns)
+    const coordinateField = getCoordinateField(config)
+    const isOperand = columns[0].dimension === dimConf.operand.objectName
+    const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
+    const d2 = await getD2()
     const displayPropertyUpper = getDisplayProperty(
         d2,
         displayProperty
-    ).toUpperCase();
-    const geoFeaturesParams = {};
-    let orgUnitParams = orgUnits.map(item => item.id);
-    let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id;
+    ).toUpperCase()
+    const geoFeaturesParams = {}
+    const orgUnitParams = orgUnits.map((item) => item.id)
+    let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
 
     if (valueType === 'ds') {
-        dataDimension += '.REPORTING_RATE';
+        dataDimension += '.REPORTING_RATE'
     }
 
     let analyticsRequest = new d2.analytics.request()
-        .addOrgUnitDimension(orgUnits.map(ou => ou.id))
+        .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
         .addDataDimension(dataDimension)
-        .withDisplayProperty(displayPropertyUpper);
+        .withDisplayProperty(displayPropertyUpper)
 
     if (!isSingleMap) {
-        analyticsRequest = analyticsRequest.addPeriodDimension(period.id);
+        analyticsRequest = analyticsRequest.addPeriodDimension(period.id)
     } else {
         analyticsRequest = period
             ? analyticsRequest.addPeriodFilter(period.id)
-            : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
+            : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
     }
 
     if (dimensions) {
         dimensions.forEach(
-            d =>
+            (d) =>
                 (analyticsRequest = analyticsRequest.addFilter(
                     d.dimension,
-                    d.items.map(i => i.id)
+                    d.items.map((i) => i.id)
                 ))
-        );
+        )
     }
 
     if (Array.isArray(userOrgUnit) && userOrgUnit.length) {
-        geoFeaturesParams.userOrgUnit = userOrgUnit.join(';');
-        analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit);
+        geoFeaturesParams.userOrgUnit = userOrgUnit.join(';')
+        analyticsRequest = analyticsRequest.withUserOrgUnit(userOrgUnit)
     }
 
     if (relativePeriodDate) {
-        analyticsRequest = analyticsRequest.withRelativePeriodDate(
-            relativePeriodDate
-        );
+        analyticsRequest =
+            analyticsRequest.withRelativePeriodDate(relativePeriodDate)
     }
 
     if (aggregationType) {
-        analyticsRequest = analyticsRequest.withAggregationType(
-            aggregationType
-        );
+        analyticsRequest = analyticsRequest.withAggregationType(aggregationType)
     }
 
     if (isOperand) {
-        analyticsRequest = analyticsRequest.addDimension('co');
+        analyticsRequest = analyticsRequest.addDimension('co')
     }
 
     if (eventStatus === EVENT_STATUS_COMPLETED) {
         analyticsRequest = analyticsRequest.withParameters({
             completedOnly: true,
-        });
+        })
     }
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayPropertyUpper);
+        .displayProperty(displayPropertyUpper)
 
     // Features request
-    const orgUnitReq = featuresRequest
-        .getAll(geoFeaturesParams)
-        .then(toGeoJson);
+    const orgUnitReq = featuresRequest.getAll(geoFeaturesParams).then(toGeoJson)
 
     // Data request
-    const dataReq = d2.analytics.aggregate.get(analyticsRequest);
+    const dataReq = d2.analytics.aggregate.get(analyticsRequest)
 
-    const requests = [orgUnitReq, dataReq];
+    const requests = [orgUnitReq, dataReq]
 
     if (coordinateField) {
         // Associated geometry request
@@ -427,11 +424,11 @@ const loadData = async config => {
                     coordinateField: coordinateField.id,
                 })
                 .then(toGeoJson)
-        );
+        )
     }
 
     // Return promise with all requests
-    return Promise.all(requests);
-};
+    return Promise.all(requests)
+}
 
-export default thematicLoader;
+export default thematicLoader
