@@ -40,7 +40,7 @@ const SystemSettingsProvider = ({ children }) => {
             )
         }
         fetchData()
-    }, [])
+    }, [engine])
 
     return (
         <SystemSettingsCtx.Provider value={settings}>

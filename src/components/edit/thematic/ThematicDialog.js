@@ -441,7 +441,6 @@ export class ThematicDialog extends Component {
                             {periodType === RELATIVE_PERIODS && (
                                 <RelativePeriodSelect
                                     period={period}
-                                    hiddenPeriods={settings.hiddenPeriods}
                                     onChange={setPeriod}
                                     className={styles.periodSelect}
                                     errorText={periodError}

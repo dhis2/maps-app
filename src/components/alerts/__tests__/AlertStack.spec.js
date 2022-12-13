@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { AlertStack as MapsAlertStack } from '../AlertStack.js'
+import MapsAlertStack from '../AlertStack.js'
 
 const mockStore = configureMockStore()
 

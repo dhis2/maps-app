@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './styles/Drawer.module.css'
 
-export const Drawer = ({ position = 'right', className, children }) => (
+const Drawer = ({ position = 'right', className, children }) => (
     <div
         className={cx(className, styles.drawer, {
             [styles.left]: position === 'left',

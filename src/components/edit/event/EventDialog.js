@@ -170,7 +170,6 @@ export class EventDialog extends Component {
             eventPointColor,
             eventPointRadius,
             filters = [],
-            settings,
             program,
             programStage,
             rows = [],
@@ -261,7 +260,6 @@ export class EventDialog extends Component {
                             <RelativePeriodSelect
                                 period={period}
                                 startEndDates={true}
-                                hiddenPeriods={settings.hiddenPeriods}
                                 onChange={setPeriod}
                                 className={styles.select}
                             />

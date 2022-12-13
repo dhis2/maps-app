@@ -7,7 +7,7 @@ import { getMapAlerts } from '../../util/alerts.js'
 
 const DEFAULT_DURATION = 6000
 
-export const AlertStack = () => {
+const AlertStack = () => {
     const alerts = useAlerts()
     const mapAlerts = useSelector((state) => getMapAlerts(state.map))
     const dispatch = useDispatch()
