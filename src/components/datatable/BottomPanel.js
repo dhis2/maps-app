@@ -1,6 +1,6 @@
 import { IconCross16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
+import React, { useRef, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import {
@@ -25,7 +25,10 @@ const BottomPanel = ({
     const { width, height } = useWindowDimensions()
     const node = useRef(null)
 
-    const onResize = (h) => (node.current.style.height = `${h}px`)
+    const onResize = useCallback(
+        (h) => (node.current.style.height = `${h}px`),
+        [node]
+    )
 
     if (dataTableOpen) {
         const maxHeight = height - HEADER_HEIGHT - 20
@@ -48,8 +51,8 @@ const BottomPanel = ({
                 </span>
                 <ResizeHandle
                     maxHeight={maxHeight}
-                    onResize={(h) => onResize(h)}
-                    onResizeEnd={(h) => resizeDataTable(h)}
+                    onResize={onResize}
+                    onResizeEnd={resizeDataTable}
                 />
                 <DataTable width={tableWidth} height={tableHeight} />
             </div>
