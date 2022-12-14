@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-30T15:47:38.891Z\n"
+"POT-Creation-Date: 2022-11-18T08:42:29.083Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -24,11 +24,8 @@ msgstr "地图"
 msgid "Map \"{{name}}\" is saved."
 msgstr "地图“ {{name}}”已保存。"
 
-msgid "Failed to save map. {{message}}"
-msgstr "保存地图失败。{{message}}"
-
-msgid "Error"
-msgstr "错误"
+msgid "Failed to save map: {{message}}"
+msgstr ""
 
 msgid "Classification"
 msgstr "分类"
@@ -609,6 +606,9 @@ msgstr "经度"
 
 msgid "Latitude"
 msgstr "纬度"
+
+msgid "Basemap could not be added: {{message}}"
+msgstr ""
 
 msgid "Not set"
 msgstr "没有设置"
@@ -1297,6 +1297,9 @@ msgstr "机构设施：未找到坐标"
 
 msgid "Organisation units"
 msgstr "组织机构"
+
+msgid "Error"
+msgstr "错误"
 
 msgid "Thematic layer"
 msgstr "专题层"

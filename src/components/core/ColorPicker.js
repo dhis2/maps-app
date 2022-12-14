@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { IconChevronDown24 } from '@dhis2/ui';
-import cx from 'classnames';
-import { isDarkColor } from '../../util/colors';
-import styles from './styles/ColorPicker.module.css';
+import { IconChevronDown24 } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, { Fragment } from 'react'
+import { isDarkColor } from '../../util/colors.js'
+import styles from './styles/ColorPicker.module.css'
 
 const ColorPicker = ({ color, label, width, height, onChange, className }) => (
     <Fragment>
@@ -26,20 +26,20 @@ const ColorPicker = ({ color, label, width, height, onChange, className }) => (
                 <input
                     type="color"
                     value={color}
-                    onChange={e => onChange(e.target.value.toUpperCase())}
+                    onChange={(e) => onChange(e.target.value.toUpperCase())}
                 />
             </label>
         </div>
     </Fragment>
-);
+)
 
 ColorPicker.propTypes = {
     color: PropTypes.string.isRequired,
-    label: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
-};
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    label: PropTypes.string,
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+}
 
-export default ColorPicker;
+export default ColorPicker

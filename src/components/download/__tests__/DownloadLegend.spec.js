@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { DownloadLegend } from '../DownloadLegend';
+import { shallow } from 'enzyme'
+import React from 'react'
+import { DownloadLegend } from '../DownloadLegend.js'
 
 describe('DownloadLegend', () => {
     const layers = [
@@ -21,9 +21,9 @@ describe('DownloadLegend', () => {
                 period: '2017',
             },
         },
-    ];
+    ]
 
-    const renderComponent = props =>
+    const renderComponent = (props) =>
         shallow(
             <DownloadLegend
                 position="bottomright"
@@ -31,21 +31,21 @@ describe('DownloadLegend', () => {
                 showName={false}
                 {...props}
             />
-        );
+        )
 
     it('Should render a legend component', () => {
-        expect(renderComponent().exists()).toBe(true);
-    });
+        expect(renderComponent().exists()).toBe(true)
+    })
 
     it('Should only render layers with legends', () => {
-        const wrapper = renderComponent({ layers });
-        expect(wrapper.children().length).toEqual(2);
-        expect(wrapper.find('Legend').length).toEqual(2);
-    });
+        const wrapper = renderComponent({ layers })
+        expect(wrapper.children().length).toEqual(2)
+        expect(wrapper.find('Legend').length).toEqual(2)
+    })
 
     it('Should render legend title and period', () => {
-        const wrapper = renderComponent({ layers });
-        expect(wrapper.containsMatchingElement('Layer 1')).toBe(true);
-        expect(wrapper.containsMatchingElement(<span>2018</span>)).toBe(true);
-    });
-});
+        const wrapper = renderComponent({ layers })
+        expect(wrapper.containsMatchingElement('Layer 1')).toBe(true)
+        expect(wrapper.containsMatchingElement(<span>2018</span>)).toBe(true)
+    })
+})

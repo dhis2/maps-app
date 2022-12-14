@@ -1,22 +1,22 @@
-import Checkbox from './Checkbox';
-import ColorButton from './ColorButton';
-import ColorPicker from './ColorPicker';
-import ColorScale from './ColorScale';
-import ColorScaleSelect from './ColorScaleSelect';
-import ConditionalWrapper from './ConditionalWrapper';
-import DatePicker from './DatePicker';
-import FontStyle from './FontStyle';
-import Help from './Help';
-import IconButton from './IconButton';
-import ImageSelect from './ImageSelect';
-import MenuButton from './MenuButton';
-import NumberField from './NumberField';
-import Radio from './Radio';
-import RadioGroup from './RadioGroup';
-import SelectField from './SelectField';
-import Tab from './Tab';
-import Tabs from './Tabs';
-import TextField from './TextField';
+import Checkbox from './Checkbox.js'
+import ColorButton from './ColorButton.js'
+import ColorPicker from './ColorPicker.js'
+import ColorScale from './ColorScale.js'
+import ColorScaleSelect from './ColorScaleSelect.js'
+import ConditionalWrapper from './ConditionalWrapper.js'
+import DatePicker from './DatePicker.js'
+import FontStyle from './FontStyle.js'
+import Help from './Help.js'
+import IconButton from './IconButton.js'
+import ImageSelect from './ImageSelect.js'
+import MenuButton from './MenuButton.js'
+import NumberField from './NumberField.js'
+import Radio from './Radio.js'
+import RadioGroup from './RadioGroup.js'
+import SelectField from './SelectField.js'
+import Tab from './Tab.js'
+import Tabs from './Tabs.js'
+import TextField from './TextField.js'
 
 export {
     Checkbox,
@@ -38,4 +38,4 @@ export {
     Tab,
     Tabs,
     TextField,
-};
+}

@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField, Checkbox } from '../../core';
-import styles from './styles/EventDownloadInputs.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Fragment } from 'react'
+import { SelectField, Checkbox } from '../../core/index.js'
+import styles from './styles/EventDownloadInputs.module.css'
 
 export const EventDownloadInputs = ({
     formatOptions,
@@ -28,13 +28,13 @@ export const EventDownloadInputs = ({
             onChange={onCheckHumanReadable}
         />
     </Fragment>
-);
+)
 EventDownloadInputs.propTypes = {
     formatOptions: PropTypes.array.isRequired,
-    selectedFormatOption: PropTypes.number,
     humanReadableChecked: PropTypes.bool.isRequired,
     onChangeFormatOption: PropTypes.func.isRequired,
     onCheckHumanReadable: PropTypes.func.isRequired,
-};
+    selectedFormatOption: PropTypes.number,
+}
 
-export default EventDownloadInputs;
+export default EventDownloadInputs

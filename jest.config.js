@@ -10,4 +10,4 @@ module.exports = {
     },
     testURL: 'http://localhost/',
     snapshotSerializers: ['enzyme-to-json/serializer'],
-};
+}

@@ -1,12 +1,12 @@
-import React from 'react';
-import i18n from '@dhis2/d2-i18n';
-import Layer from '../Layer';
-import MapLoadingMask from '../../MapLoadingMask';
-import EarthEnginePopup from './EarthEnginePopup';
-import Alert from '../Alert';
-import { getAuthToken } from '../../../../util/earthEngine';
-import { filterData } from '../../../../util/filter';
-import { EARTH_ENGINE_LAYER } from '../../../../constants/layers';
+import i18n from '@dhis2/d2-i18n'
+import React from 'react'
+import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
+import { getAuthToken } from '../../../../util/earthEngine.js'
+import { filterData } from '../../../../util/filter.js'
+import MapLoadingMask from '../../MapLoadingMask.js'
+import Alert from '../Alert.js'
+import Layer from '../Layer.js'
+import EarthEnginePopup from './EarthEnginePopup.js'
 
 export default class EarthEngineLayer extends Layer {
     state = {
@@ -14,39 +14,39 @@ export default class EarthEngineLayer extends Layer {
         popup: null,
         aggregations: null,
         error: null,
-    };
+    }
 
     componentDidUpdate(prev) {
-        super.componentDidUpdate(prev);
+        super.componentDidUpdate(prev)
 
-        const { coordinate } = this.props;
+        const { coordinate } = this.props
 
         if (coordinate && coordinate !== prev.coordinate) {
             try {
                 this.layer.showValue({
                     lng: coordinate[0],
                     lat: coordinate[1],
-                });
+                })
             } catch (error) {
                 this.setState({
                     error: i18n.t(
                         'Google Earth Engine failed. Is the service configured for this DHIS2 instance?'
                     ),
-                });
+                })
             }
         }
     }
 
-    updateLayer = async filterChange => {
+    updateLayer = async (filterChange) => {
         if (filterChange) {
-            this.applyFilter();
+            this.applyFilter()
         } else {
-            this.clearAggregations();
-            await this.removeLayer();
-            await this.createLayer(true);
-            this.setLayerOrder();
+            this.clearAggregations()
+            await this.removeLayer()
+            await this.createLayer(true)
+            this.setLayerOrder()
         }
-    };
+    }
 
     async createLayer(isUpdate) {
         const {
@@ -74,9 +74,9 @@ export default class EarthEngineLayer extends Layer {
             aggregationType,
             areaRadius,
             tileScale,
-        } = this.props;
+        } = this.props
 
-        const { map, isPlugin } = this.context;
+        const { map, isPlugin } = this.context
 
         const config = {
             type: EARTH_ENGINE_LAYER,
@@ -106,67 +106,67 @@ export default class EarthEngineLayer extends Layer {
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
             onLoad: this.onLoad.bind(this),
-        };
+        }
 
         if (params) {
-            config.params = params;
+            config.params = params
         }
 
         if (areaRadius) {
-            config.buffer = areaRadius;
+            config.buffer = areaRadius
         }
 
         if (popup) {
-            config.popup = popup;
+            config.popup = popup
         }
 
         if (isUpdate) {
-            this.setState({ isLoading: true });
+            this.setState({ isLoading: true })
         }
 
-        config.getAuthToken = getAuthToken;
+        config.getAuthToken = getAuthToken
 
         try {
-            this.layer = map.createLayer(config);
-            await map.addLayer(this.layer);
+            this.layer = map.createLayer(config)
+            await map.addLayer(this.layer)
         } catch (error) {
-            this.onError(error);
+            this.onError(error)
         }
 
-        this.fitBoundsOnce();
+        this.fitBoundsOnce()
     }
 
     hasAggregations() {
-        const { data, aggregationType } = this.props;
+        const { data, aggregationType } = this.props
         return (
             data &&
             (typeof aggregationType === 'string' ||
                 (Array.isArray(aggregationType) && aggregationType.length))
-        );
+        )
     }
 
     getAggregations() {
         if (this.hasAggregations() && !this.state.aggregations) {
-            this.setState({ aggregations: 'loading' });
+            this.setState({ aggregations: 'loading' })
             this.layer
                 .getAggregations()
                 .then(this.addAggregationValues.bind(this))
-                .catch(this.onError.bind(this));
+                .catch(this.onError.bind(this))
         }
     }
 
     addAggregationValues(aggregations) {
-        const { id, data, setAggregations } = this.props;
+        const { id, data, setAggregations } = this.props
 
         // Make aggregations available for data table and download
         // setAggregations is not available in map plugin
         if (setAggregations) {
-            setAggregations({ [id]: aggregations });
+            setAggregations({ [id]: aggregations })
         }
 
         // Make aggregations available for filtering and popup
         this.setState({
-            data: data.map(f => ({
+            data: data.map((f) => ({
                 ...f,
                 properties: {
                     ...f.properties,
@@ -174,36 +174,36 @@ export default class EarthEngineLayer extends Layer {
                 },
             })),
             aggregations,
-        });
+        })
     }
 
     clearAggregations() {
         if (this.hasAggregations()) {
-            const { id, setAggregations } = this.props;
-            this.setState({ aggregations: undefined });
+            const { id, setAggregations } = this.props
+            this.setState({ aggregations: undefined })
 
             if (setAggregations) {
-                setAggregations({ [id]: undefined });
+                setAggregations({ [id]: undefined })
             }
         }
     }
 
     applyFilter() {
-        const { data, dataFilters } = this.props;
+        const { data, dataFilters } = this.props
 
         const filteredData = filterData(
             this.state.data || data,
             dataFilters
-        ).map(f => f.id);
+        ).map((f) => f.id)
 
         if (this.layer && this.layer.filter) {
-            this.layer.filter(filteredData);
+            this.layer.filter(filteredData)
         }
     }
 
     render() {
-        const { legend, aggregationType } = this.props;
-        const { isLoading, popup, aggregations, error } = this.state;
+        const { legend, aggregationType } = this.props
+        const { isLoading, popup, aggregations, error } = this.state
 
         return (
             <>
@@ -224,33 +224,33 @@ export default class EarthEngineLayer extends Layer {
                     />
                 )}
             </>
-        );
+        )
     }
 
     onFeatureClick(evt) {
-        this.getAggregations();
-        this.setState({ popup: evt });
+        this.getAggregations()
+        this.setState({ popup: evt })
     }
 
     onLoad() {
-        this.setState({ isLoading: false, popup: null });
+        this.setState({ isLoading: false, popup: null })
 
         if (!this.context.isPlugin) {
-            this.getAggregations();
+            this.getAggregations()
         }
     }
 
     onError(error) {
-        let message = error.message || error;
+        let message = error.message || error
 
         if (message.includes('memory limit exceeded') && this.props.error) {
-            message = this.props.error;
+            message = this.props.error
         }
 
         this.setState({
             error: message,
             isLoading: false,
             aggregations: 'error',
-        });
+        })
     }
 }

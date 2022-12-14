@@ -1,5 +1,5 @@
-import { enableAutoLogin } from '@dhis2/cypress-commands';
+import { enableAutoLogin } from '@dhis2/cypress-commands'
 
-import './commands';
+import './commands.js'
 
-enableAutoLogin();
+enableAutoLogin()

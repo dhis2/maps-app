@@ -1,33 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { CircularLoader } from '@dhis2/ui';
-import PeriodSelect from '../periods/PeriodSelect';
-import { apiFetch } from '../../util/api';
-import styles from './styles/OrgUnitData.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { CircularLoader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
+import { apiFetch } from '../../util/api.js'
+import PeriodSelect from '../periods/PeriodSelect.js'
+import styles from './styles/OrgUnitData.module.css'
 
 /*
  *  Displays a period selector and org unit data items (data elements, indicators, reporting rates, program indicators)
  */
 const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
-    const [period, setPeriod] = useState(defaultPeriod);
-    const [items, setItems] = useState(data);
-    const [isLoading, setIsLoading] = useState(false);
+    const [period, setPeriod] = useState(defaultPeriod)
+    const [items, setItems] = useState(data)
+    const [isLoading, setIsLoading] = useState(false)
 
     // Load data items if period is changed
     useEffect(() => {
         if (period.id === defaultPeriod.id) {
-            setItems(data);
+            setItems(data)
         } else {
-            setIsLoading(true);
+            setIsLoading(true)
             apiFetch(`/organisationUnitProfile/${id}/data?period=${period.id}`)
                 .then(({ dataItems }) => {
-                    setItems(dataItems);
-                    setIsLoading(false);
+                    setItems(dataItems)
+                    setIsLoading(false)
                 })
-                .then(setItems);
+                .then(setItems)
         }
-    }, [id, period, defaultPeriod, data]);
+    }, [id, period, defaultPeriod, data])
 
     return (
         <div className={styles.orgUnitData}>
@@ -62,14 +62,14 @@ const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
 OrgUnitData.propTypes = {
+    defaultPeriod: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     periodType: PropTypes.string.isRequired,
-    defaultPeriod: PropTypes.object.isRequired,
     data: PropTypes.array,
-};
+}
 
-export default OrgUnitData;
+export default OrgUnitData

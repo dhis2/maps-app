@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
-import { loadProgramStages } from '../../actions/programs';
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import i18n from '@dhis2/d2-i18n'
+import { SelectField } from '../core'
+import { loadProgramStages } from '../../actions/programs'
 
 const ProgramStageSelect = ({
     program,
@@ -15,23 +15,23 @@ const ProgramStageSelect = ({
     errorText,
 }) => {
     useEffect(() => {
-        const stages = programStages[program.id];
+        const stages = programStages[program.id]
 
         // Load program stages when program is selected
         if (!stages) {
-            loadProgramStages(program.id);
+            loadProgramStages(program.id)
         }
 
         // Select first program stage if only one
         if (program && !programStage && stages && stages.length === 1) {
-            onChange(stages[0]);
+            onChange(stages[0])
         }
-    }, [program, programStages, loadProgramStages, onChange]);
+    }, [program, programStages, loadProgramStages, onChange])
 
-    let items = programStages[program.id];
+    let items = programStages[program.id]
 
     if (!items && programStage) {
-        items = [programStage]; // If favorite is loaded, we only know the used program stage
+        items = [programStage] // If favorite is loaded, we only know the used program stage
     }
 
     return (
@@ -45,8 +45,8 @@ const ProgramStageSelect = ({
             errorText={!programStage && errorText ? errorText : null}
             dataTest="programstageselect"
         />
-    );
-};
+    )
+}
 
 ProgramStageSelect.propTypes = {
     program: PropTypes.object,
@@ -56,11 +56,11 @@ ProgramStageSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
     loadProgramStages: PropTypes.func.isRequired,
     className: PropTypes.string,
-};
+}
 
 export default connect(
-    state => ({
+    (state) => ({
         programStages: state.programStages,
     }),
     { loadProgramStages }
-)(ProgramStageSelect);
+)(ProgramStageSelect)

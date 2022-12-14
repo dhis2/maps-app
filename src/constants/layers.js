@@ -1,21 +1,21 @@
-import i18n from '@dhis2/d2-i18n';
-import { formatDate } from '../util/time';
+import i18n from '@dhis2/d2-i18n'
+import { formatDate } from '../util/time.js'
 
-export const VECTOR_STYLE = 'vectorStyle';
-export const TILE_LAYER = 'tileLayer';
-export const WMS_LAYER = 'wmsLayer';
-export const GOOGLE_LAYER = 'googleLayer';
-export const BING_LAYER = 'bingLayer';
-export const EVENT_LAYER = 'event';
-export const THEMATIC_LAYER = 'thematic';
-export const FACILITY_LAYER = 'facility';
-export const BOUNDARY_LAYER = 'boundary';
-export const ORG_UNIT_LAYER = 'orgUnit';
-export const EXTERNAL_LAYER = 'external';
-export const EARTH_ENGINE_LAYER = 'earthEngine';
-export const TRACKED_ENTITY_LAYER = 'trackedEntity';
-export const GEOJSON_LAYER = 'geoJson';
-export const GROUP_LAYER = 'group';
+export const VECTOR_STYLE = 'vectorStyle'
+export const TILE_LAYER = 'tileLayer'
+export const WMS_LAYER = 'wmsLayer'
+export const GOOGLE_LAYER = 'googleLayer'
+export const BING_LAYER = 'bingLayer'
+export const EVENT_LAYER = 'event'
+export const THEMATIC_LAYER = 'thematic'
+export const FACILITY_LAYER = 'facility'
+export const BOUNDARY_LAYER = 'boundary'
+export const ORG_UNIT_LAYER = 'orgUnit'
+export const EXTERNAL_LAYER = 'external'
+export const EARTH_ENGINE_LAYER = 'earthEngine'
+export const TRACKED_ENTITY_LAYER = 'trackedEntity'
+export const GEOJSON_LAYER = 'geoJson'
+export const GROUP_LAYER = 'group'
 
 export const DOWNLOADABLE_LAYER_TYPES = [
     FACILITY_LAYER,
@@ -23,7 +23,7 @@ export const DOWNLOADABLE_LAYER_TYPES = [
     ORG_UNIT_LAYER,
     EVENT_LAYER,
     EARTH_ENGINE_LAYER,
-];
+]
 
 export const DATA_TABLE_LAYER_TYPES = [
     FACILITY_LAYER,
@@ -31,31 +31,31 @@ export const DATA_TABLE_LAYER_TYPES = [
     ORG_UNIT_LAYER,
     EVENT_LAYER,
     EARTH_ENGINE_LAYER,
-];
+]
 
-export const OPEN_AS_LAYER_TYPES = [THEMATIC_LAYER];
+export const OPEN_AS_LAYER_TYPES = [THEMATIC_LAYER]
 
 export const DEFAULT_START_DATE = formatDate(
     new Date().setFullYear(new Date().getFullYear() - 1)
-);
-export const DEFAULT_END_DATE = formatDate(new Date());
+)
+export const DEFAULT_END_DATE = formatDate(new Date())
 
-export const DEFAULT_ORG_UNIT_LEVEL = 2;
+export const DEFAULT_ORG_UNIT_LEVEL = 2
 
 /* RENDERING STRATEGY */
-export const RENDERING_STRATEGY_SINGLE = 'SINGLE';
-export const RENDERING_STRATEGY_TIMELINE = 'TIMELINE';
-export const RENDERING_STRATEGY_SPLIT_BY_PERIOD = 'SPLIT_BY_PERIOD';
+export const RENDERING_STRATEGY_SINGLE = 'SINGLE'
+export const RENDERING_STRATEGY_TIMELINE = 'TIMELINE'
+export const RENDERING_STRATEGY_SPLIT_BY_PERIOD = 'SPLIT_BY_PERIOD'
 
 /* THEMATIC LAYER */
-export const THEMATIC_CHOROPLETH = 'CHOROPLETH';
-export const THEMATIC_BUBBLE = 'BUBBLE';
-export const THEMATIC_RADIUS_LOW = 5;
-export const THEMATIC_RADIUS_HIGH = 30;
-export const THEMATIC_RADIUS_MIN = 0;
-export const THEMATIC_RADIUS_MAX = 50;
-export const THEMATIC_COLOR = '#558CC0';
-export const THEMATIC_BUFFER = 5000;
+export const THEMATIC_CHOROPLETH = 'CHOROPLETH'
+export const THEMATIC_BUBBLE = 'BUBBLE'
+export const THEMATIC_RADIUS_LOW = 5
+export const THEMATIC_RADIUS_HIGH = 30
+export const THEMATIC_RADIUS_MIN = 0
+export const THEMATIC_RADIUS_MAX = 50
+export const THEMATIC_COLOR = '#558CC0'
+export const THEMATIC_BUFFER = 5000
 
 export const getThematicMapTypes = () => [
     {
@@ -68,45 +68,45 @@ export const getThematicMapTypes = () => [
         name: i18n.t('Bubble map'),
         image: 'images/bubble.png',
     },
-];
+]
 
 /* EVENT LAYER */
-export const EVENT_CLIENT_PAGE_SIZE = 100000;
-export const EVENT_SERVER_CLUSTER_COUNT = 2000;
-export const EVENT_COLOR = '#333333';
-export const EVENT_RADIUS = 6;
-export const EVENT_BUFFER = 100;
-export const EVENT_COORDINATE_DEFAULT = 'psigeometry';
-export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry';
-export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry';
-export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry';
+export const EVENT_CLIENT_PAGE_SIZE = 100000
+export const EVENT_SERVER_CLUSTER_COUNT = 2000
+export const EVENT_COLOR = '#333333'
+export const EVENT_RADIUS = 6
+export const EVENT_BUFFER = 100
+export const EVENT_COORDINATE_DEFAULT = 'psigeometry'
+export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
+export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
+export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 
 /* TEI LAYER */
-export const TEI_COLOR = '#BB0000';
-export const TEI_RADIUS = 6;
-export const TEI_BUFFER = 100;
-export const TEI_RELATED_COLOR = '#000000';
-export const TEI_RELATED_RADIUS = 3;
-export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB';
+export const TEI_COLOR = '#BB0000'
+export const TEI_RADIUS = 6
+export const TEI_BUFFER = 100
+export const TEI_RELATED_COLOR = '#000000'
+export const TEI_RELATED_RADIUS = 3
+export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB'
 
 /* FACILITY LAYER */
-export const FACILITY_BUFFER = 5000;
+export const FACILITY_BUFFER = 5000
 
 /* ORG UNIT LAYER */
-export const ORG_UNIT_COLOR = '#333333';
-export const ORG_UNIT_RADIUS = 6;
-export const ORG_UNIT_RADIUS_SMALL = 1;
+export const ORG_UNIT_COLOR = '#333333'
+export const ORG_UNIT_RADIUS = 6
+export const ORG_UNIT_RADIUS_SMALL = 1
 
 /* EARTH ENGINE LAYER */
-export const EE_BUFFER = 5000;
+export const EE_BUFFER = 5000
 
 /* CLASSIFICATION */
-export const CLASSIFICATION_PREDEFINED = 1;
-export const CLASSIFICATION_EQUAL_INTERVALS = 2;
-export const CLASSIFICATION_EQUAL_COUNTS = 3;
-export const CLASSIFICATION_SINGLE_COLOR = 10;
+export const CLASSIFICATION_PREDEFINED = 1
+export const CLASSIFICATION_EQUAL_INTERVALS = 2
+export const CLASSIFICATION_EQUAL_COUNTS = 3
+export const CLASSIFICATION_SINGLE_COLOR = 10
 
-export const getLegendTypes = isBubble => [
+export const getLegendTypes = (isBubble) => [
     {
         id: CLASSIFICATION_EQUAL_INTERVALS,
         name: i18n.t('Automatic color legend'),
@@ -123,7 +123,7 @@ export const getLegendTypes = isBubble => [
               },
           ]
         : []),
-];
+]
 
 export const getClassificationTypes = () => [
     {
@@ -134,10 +134,10 @@ export const getClassificationTypes = () => [
         id: CLASSIFICATION_EQUAL_COUNTS,
         name: i18n.t('Equal counts'),
     },
-];
+]
 
-export const STYLE_TYPE_COLOR = 'COLOR';
-export const STYLE_TYPE_SYMBOL = 'SYMBOL';
+export const STYLE_TYPE_COLOR = 'COLOR'
+export const STYLE_TYPE_SYMBOL = 'SYMBOL'
 
 export const getGroupSetStyleTypes = () => [
     {
@@ -148,20 +148,20 @@ export const getGroupSetStyleTypes = () => [
         id: STYLE_TYPE_SYMBOL,
         name: i18n.t('Symbol'),
     },
-];
+]
 
 /* LABEL STYLES */
-export const LABEL_FONT_SIZE = '11px';
-export const LABEL_FONT_SIZE_MIN = 6;
-export const LABEL_FONT_SIZE_MAX = 100;
-export const LABEL_FONT_STYLE = 'normal';
-export const LABEL_FONT_WEIGHT = 'normal';
-export const LABEL_FONT_COLOR = '#333333';
+export const LABEL_FONT_SIZE = '11px'
+export const LABEL_FONT_SIZE_MIN = 6
+export const LABEL_FONT_SIZE_MAX = 100
+export const LABEL_FONT_STYLE = 'normal'
+export const LABEL_FONT_WEIGHT = 'normal'
+export const LABEL_FONT_COLOR = '#333333'
 
-export const NO_DATA_COLOR = '#CCCCCC';
+export const NO_DATA_COLOR = '#CCCCCC'
 
 /* POINT RADIUS */
-export const MIN_RADIUS = 1;
-export const MAX_RADIUS = 100;
+export const MIN_RADIUS = 1
+export const MAX_RADIUS = 100
 
-export const NONE = 'none';
+export const NONE = 'none'

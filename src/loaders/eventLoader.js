@@ -1,64 +1,63 @@
-import i18n from '@dhis2/d2-i18n';
-import { getInstance as getD2 } from 'd2';
-import { getEventColumns } from '../epics/dataDownload';
-import { styleByDataItem } from '../util/styleByDataItem';
+import i18n from '@dhis2/d2-i18n'
+import { getInstance as getD2 } from 'd2'
+import { getEventStatuses } from '../constants/eventStatuses.js'
+import {
+    EVENT_CLIENT_PAGE_SIZE,
+    EVENT_SERVER_CLUSTER_COUNT,
+    EVENT_COLOR,
+    EVENT_RADIUS,
+} from '../constants/layers.js'
+import { getEventColumns } from '../epics/dataDownload.js'
 import {
     getOrgUnitsFromRows,
     getFiltersFromColumns,
     getFiltersAsText,
     getPeriodFromFilters,
     getPeriodNameFromId,
-} from '../util/analytics';
+} from '../util/analytics.js'
+import { cssColor, getContrastColor } from '../util/colors.js'
 import {
     createEventFeatures,
     addStyleDataItem,
     getBounds,
-} from '../util/geojson';
-import { getEventStatuses } from '../constants/eventStatuses';
-import {
-    EVENT_CLIENT_PAGE_SIZE,
-    EVENT_SERVER_CLUSTER_COUNT,
-    EVENT_COLOR,
-    EVENT_RADIUS,
-} from '../constants/layers';
-import { formatStartEndDate, getDateArray } from '../util/time';
-import { cssColor, getContrastColor } from '../util/colors';
+} from '../util/geojson.js'
+import { styleByDataItem } from '../util/styleByDataItem.js'
+import { formatStartEndDate, getDateArray } from '../util/time.js'
 
 // Server clustering if more than 2000 events
-const useServerCluster = count => count > EVENT_SERVER_CLUSTER_COUNT;
+const useServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
 
 const accessDeniedAlert = {
     warning: true,
     message: i18n.t("You don't have access to this layer data"),
-};
+}
 const unknownErrorAlert = {
     critical: true,
     message: i18n.t('An unknown error occurred while reading layer data'),
-};
+}
 
 // TODO: Refactor to share code with other loaders
 // Returns a promise
-const eventLoader = async layerConfig => {
-    let config = { ...layerConfig };
+const eventLoader = async (layerConfig) => {
+    const config = { ...layerConfig }
     try {
-        await loadEventLayer(config);
+        await loadEventLayer(config)
     } catch (e) {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
-            config.alerts = [accessDeniedAlert];
+            config.alerts = [accessDeniedAlert]
         } else {
-            // console.log('error', e);
             config.alerts = [unknownErrorAlert];
         }
     }
 
-    config.isLoaded = true;
-    config.isExpanded = true;
-    config.isVisible = true;
+    config.isLoaded = true
+    config.isExpanded = true
+    config.isVisible = true
 
-    return config;
-};
+    return config
+}
 
-const loadEventLayer = async config => {
+const loadEventLayer = async (config) => {
     const {
         columns,
         endDate,
@@ -72,19 +71,26 @@ const loadEventLayer = async config => {
         styleDataItem,
         areaRadius,
         showDataTable,
-    } = config;
+    } = config
 
+<<<<<<< HEAD
     const period = getPeriodFromFilters(filters);
     const dataFilters = getFiltersFromColumns(columns);
     // const d2 = await getD2();
     const spatialSupport = true; // d2.system.systemInfo.databaseInfo.spatialSupport; // TODO
+=======
+    const period = getPeriodFromFilters(filters)
+    const dataFilters = getFiltersFromColumns(columns)
+    const d2 = await getD2()
+    const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport
+>>>>>>> master
 
-    config.isExtended = showDataTable;
+    config.isExtended = showDataTable
 
-    let analyticsRequest = await getAnalyticsRequest(config);
-    let alert;
+    const analyticsRequest = await getAnalyticsRequest(config)
+    let alert
 
-    config.name = programStage.name;
+    config.name = programStage.name
 
     config.legend = {
         title: config.name,
@@ -95,35 +101,35 @@ const loadEventLayer = async config => {
                   getDateArray(endDate)
               ),
         items: [],
-    };
+    }
 
     // Delete serverCluster option if previously set
-    delete config.serverCluster;
-
-    // console.log('#', d2, spatialSupport, eventClustering, styleDataItem);
+    delete config.serverCluster
 
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
     if (spatialSupport && eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest);
-
         config.bounds = getBounds(response.extent);
+
+        // FIXME
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         config.serverCluster = useServerCluster(response.count);
     }
 
     if (!config.serverCluster) {
-        config.outputIdScheme = 'ID'; // Required for StyleByDataItem to work
+        config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
         const { names, data, response } = await loadData(
             analyticsRequest.withPageSize(EVENT_CLIENT_PAGE_SIZE), // DHIS2-10742,
             config
-        );
-        const { total } = response.metaData.pager;
+        )
+        const { total } = response.metaData.pager
 
-        config.data = data;
+        config.data = data
 
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
-                await styleByDataItem(config);
+                await styleByDataItem(config)
             }
 
             if (total > EVENT_CLIENT_PAGE_SIZE) {
@@ -136,13 +142,13 @@ const loadEventLayer = async config => {
                             total,
                         }
                     )}`,
-                };
+                }
             }
         } else {
             alert = {
                 warning: true,
                 message: `${config.name}: ${i18n.t('No data found')}`,
-            };
+            }
         }
 
         // TODO: Add filters to legend when using server cluster
@@ -152,14 +158,14 @@ const loadEventLayer = async config => {
             getFiltersAsText(dataFilters, {
                 ...names,
                 ...(await getFilterOptionNames(dataFilters, response.headers)),
-            });
+            })
 
-        config.headers = response.headers;
+        config.headers = response.headers
     }
 
     if (!styleDataItem) {
-        const color = cssColor(eventPointColor) || EVENT_COLOR;
-        const strokeColor = getContrastColor(color);
+        const color = cssColor(eventPointColor) || EVENT_COLOR
+        const strokeColor = getContrastColor(color)
 
         config.legend.items = [
             {
@@ -168,31 +174,31 @@ const loadEventLayer = async config => {
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,
             },
-        ];
+        ]
     }
 
-    let explanation = [];
+    const explanation = []
 
     if (eventStatus) {
         explanation.push(
             `${i18n.t('Event status')}: ${
-                getEventStatuses().find(s => s.id === eventStatus).name
+                getEventStatuses().find((s) => s.id === eventStatus).name
             }`
-        );
+        )
     }
 
     if (areaRadius) {
-        explanation.push(`${i18n.t('Buffer')}: ${areaRadius} ${'m'}`);
+        explanation.push(`${i18n.t('Buffer')}: ${areaRadius} ${'m'}`)
     }
 
     if (explanation.length) {
-        config.legend.explanation = explanation;
+        config.legend.explanation = explanation
     }
 
     if (alert) {
-        config.alerts = [alert];
+        config.alerts = [alert]
     }
-};
+}
 
 // Also used to query for server cluster in map/EventLayer.js
 // TODO: Use DataIDScheme / OutputIDScheme instead of requesting all metaData (which can easily dwarf the actual response data)
@@ -211,52 +217,51 @@ export const getAnalyticsRequest = async ({
     relativePeriodDate,
     isExtended,
 }) => {
-    const orgUnits = getOrgUnitsFromRows(rows);
-    const period = getPeriodFromFilters(filters);
+    const orgUnits = getOrgUnitsFromRows(rows)
+    const period = getPeriodFromFilters(filters)
     const dataItems = addStyleDataItem(
         columns.filter(isValidDimension),
         styleDataItem
-    );
+    )
 
     // Add "display in reports" columns that are not already present
     if (isExtended) {
-        const displayColumns = await getEventColumns({ programStage });
+        const displayColumns = await getEventColumns({ programStage })
 
-        displayColumns.forEach(col => {
-            if (!dataItems.find(item => item.dimension === col.dimension)) {
-                dataItems.push(col);
+        displayColumns.forEach((col) => {
+            if (!dataItems.find((item) => item.dimension === col.dimension)) {
+                dataItems.push(col)
             }
-        });
+        })
     }
 
-    const d2 = await getD2();
+    const d2 = await getD2()
 
     let analyticsRequest = new d2.analytics.request()
         .withProgram(program.id)
         .withStage(programStage.id)
-        .withCoordinatesOnly(true);
+        .withCoordinatesOnly(true)
 
     analyticsRequest = period
         ? analyticsRequest.addPeriodFilter(period.id)
-        : analyticsRequest.withStartDate(startDate).withEndDate(endDate);
+        : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
 
     if (relativePeriodDate) {
-        analyticsRequest = analyticsRequest.withRelativePeriodDate(
-            relativePeriodDate
-        );
+        analyticsRequest =
+            analyticsRequest.withRelativePeriodDate(relativePeriodDate)
     }
 
     analyticsRequest = analyticsRequest.addOrgUnitDimension(
-        orgUnits.map(ou => ou.id)
-    );
+        orgUnits.map((ou) => ou.id)
+    )
 
     if (dataItems) {
-        dataItems.forEach(item => {
+        dataItems.forEach((item) => {
             analyticsRequest = analyticsRequest.addDimension(
                 item.dimension,
                 item.filter
-            );
-        });
+            )
+        })
     }
 
     // If coordinate field other than event coordinate
@@ -295,64 +300,66 @@ export const getAnalyticsRequest = async ({
     }
 
     if (eventStatus && eventStatus !== 'ALL') {
-        analyticsRequest = analyticsRequest.withEventStatus(eventStatus);
+        analyticsRequest = analyticsRequest.withEventStatus(eventStatus)
     }
 
-    return analyticsRequest;
-};
+    return analyticsRequest
+}
 
-export const getCount = async request => {
-    const d2 = await getD2();
-    return await d2.analytics.events.getCount(request);
-};
+export const getCount = async (request) => {
+    const d2 = await getD2()
+    return await d2.analytics.events.getCount(request)
+}
 
 export const loadData = async (request, config = {}) => {
-    const d2 = await getD2();
-    const response = await d2.analytics.events.getQuery(request);
+    const d2 = await getD2()
+    const response = await d2.analytics.events.getQuery(request)
 
-    const { data, names } = createEventFeatures(response, config);
+    const { data, names } = createEventFeatures(response, config)
 
     return {
         data,
         names,
         response,
-    };
-};
+    }
+}
 
 // If the layer included filters using option sets, this function return an object
 // mapping option codes to named used to translate codes in the legend
 const getFilterOptionNames = async (filters, headers) => {
-    const d2 = await getD2();
+    const d2 = await getD2()
 
     if (!filters) {
-        return null;
+        return null
     }
 
     // Returns array of option set ids used for filtering
     const optionSets = filters
-        .map(filter => headers.find(header => header.name === filter.dimension))
-        .filter(header => header.optionSet)
-        .map(header => header.optionSet);
+        .map((filter) =>
+            headers.find((header) => header.name === filter.dimension)
+        )
+        .filter((header) => header.optionSet)
+        .map((header) => header.optionSet)
 
     if (!optionSets.length) {
-        return;
+        return
     }
 
     const mappedOptionSets = await Promise.all(
-        optionSets.map(id =>
+        optionSets.map((id) =>
             d2.models.optionSets
                 .get(id, {
                     fields: 'options[code,displayName~rename(name)]',
                 })
-                .then(model => model.options)
-                .then(options =>
+                .then((model) => model.options)
+                .then((options) =>
                     options.reduce((obj, { code, name }) => {
-                        obj[code] = name;
-                        return obj;
+                        obj[code] = name
+                        return obj
                     }, {})
                 )
         )
-    );
+    )
 
     // Returns one object with all option codes mapped to names
     return mappedOptionSets.reduce(
@@ -361,12 +368,12 @@ const getFilterOptionNames = async (filters, headers) => {
             ...set,
         }),
         {}
-    );
-};
+    )
+}
 
 // Empty filter sometimes returned for saved maps
 // Dimension without filter and empty items array returns false
 const isValidDimension = ({ dimension, filter, items }) =>
-    Boolean(dimension && (filter || !items || items.length));
+    Boolean(dimension && (filter || !items || items.length))
 
-export default eventLoader;
+export default eventLoader

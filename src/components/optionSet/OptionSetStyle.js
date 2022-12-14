@@ -1,25 +1,25 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { Help, CircularLoader } from '@dhis2/ui';
-import OptionStyle from './OptionStyle';
-import { loadOptionSet } from '../../actions/optionSets';
-import { setOptionStyle } from '../../actions/layerEdit';
-import { qualitativeColors } from '../../constants/colors';
-import { getUniqueColor } from '../../util/colors';
-import styles from './styles/OptionSetStyle.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { Help, CircularLoader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState, useCallback, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { setOptionStyle } from '../../actions/layerEdit.js'
+import { loadOptionSet } from '../../actions/optionSets.js'
+import { qualitativeColors } from '../../constants/colors.js'
+import { getUniqueColor } from '../../util/colors.js'
+import OptionStyle from './OptionStyle.js'
+import styles from './styles/OptionSetStyle.module.css'
 
-const MAX_OPTIONS = 50;
+const MAX_OPTIONS = 50
 
-const getColor = getUniqueColor(qualitativeColors);
+const getColor = getUniqueColor(qualitativeColors)
 
 const addOptionStyle = (option, index) => ({
     ...option,
     style: {
         color: option.style ? option.style.color : getColor(index),
     },
-});
+})
 
 const OptionSetStyle = ({
     id,
@@ -28,12 +28,12 @@ const OptionSetStyle = ({
     loadOptionSet,
     setOptionStyle,
 }) => {
-    const [warning, setWarning] = useState();
+    const [warning, setWarning] = useState()
 
     const onChange = useCallback(
         (id, color) => {
             setOptionStyle(
-                options.map(option =>
+                options.map((option) =>
                     option.id === id
                         ? {
                               ...option,
@@ -43,19 +43,19 @@ const OptionSetStyle = ({
                           }
                         : option
                 )
-            );
+            )
         },
         [options, setOptionStyle]
-    );
+    )
 
     useEffect(() => {
         if (!optionSet) {
-            loadOptionSet(id);
+            loadOptionSet(id)
         } else {
-            const { options } = optionSet;
+            const { options } = optionSet
 
             if (options.length <= MAX_OPTIONS) {
-                setOptionStyle(options.map(addOptionStyle));
+                setOptionStyle(options.map(addOptionStyle))
             } else {
                 setWarning(
                     i18n.t(
@@ -65,10 +65,10 @@ const OptionSetStyle = ({
                             max: MAX_OPTIONS,
                         }
                     )
-                );
+                )
             }
         }
-    }, [id, optionSet, loadOptionSet, setOptionStyle]);
+    }, [id, optionSet, loadOptionSet, setOptionStyle])
 
     return (
         <div className={styles.optionSetStyle}>
@@ -78,7 +78,7 @@ const OptionSetStyle = ({
                         key={id}
                         name={name}
                         color={style.color}
-                        onChange={color => onChange(id, color)}
+                        onChange={(color) => onChange(id, color)}
                     />
                 ))
             ) : warning ? (
@@ -87,20 +87,20 @@ const OptionSetStyle = ({
                 <CircularLoader small />
             )}
         </div>
-    );
-};
+    )
+}
 
 OptionSetStyle.propTypes = {
     id: PropTypes.string.isRequired,
-    options: PropTypes.array,
-    optionSet: PropTypes.object,
     loadOptionSet: PropTypes.func.isRequired,
     setOptionStyle: PropTypes.func.isRequired,
-};
+    optionSet: PropTypes.object,
+    options: PropTypes.array,
+}
 
 export default connect(
     (state, props) => ({
         optionSet: state.optionSets[props.id],
     }),
     { loadOptionSet, setOptionStyle }
-)(OptionSetStyle);
+)(OptionSetStyle)

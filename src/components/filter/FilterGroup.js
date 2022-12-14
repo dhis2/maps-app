@@ -1,12 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { Button } from '@dhis2/ui';
-import FilterRow from './FilterRow';
-import { combineDataItems } from '../../util/analytics';
-import { addFilter, removeFilter, changeFilter } from '../../actions/layerEdit';
-import styles from './styles/FilterGroup.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { Button } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import {
+    addFilter,
+    removeFilter,
+    changeFilter,
+} from '../../actions/layerEdit.js'
+import { combineDataItems } from '../../util/analytics.js'
+import FilterRow from './FilterRow.js'
+import styles from './styles/FilterGroup.module.css'
 
 const FilterGroup = ({
     filters = [],
@@ -41,21 +45,21 @@ const FilterGroup = ({
         <div className={styles.note}>
             {i18n.t('Filtering is available after selecting a program stage.')}
         </div>
-    );
+    )
 
 FilterGroup.propTypes = {
-    filters: PropTypes.array,
+    addFilter: PropTypes.func.isRequired,
+    changeFilter: PropTypes.func.isRequired,
+    removeFilter: PropTypes.func.isRequired,
     dataItems: PropTypes.array,
+    filters: PropTypes.array,
     program: PropTypes.shape({
         id: PropTypes.string.isRequired,
     }),
     programStage: PropTypes.shape({
         id: PropTypes.string.isRequired,
     }),
-    addFilter: PropTypes.func.isRequired,
-    removeFilter: PropTypes.func.isRequired,
-    changeFilter: PropTypes.func.isRequired,
-};
+}
 
 export default connect(
     (state, { program, programStage }) => ({
@@ -70,4 +74,4 @@ export default connect(
                 : [],
     }),
     { addFilter, removeFilter, changeFilter }
-)(FilterGroup);
+)(FilterGroup)

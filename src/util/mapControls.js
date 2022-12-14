@@ -2,22 +2,22 @@ import {
     mapControls,
     splitViewControls,
     pluginControls,
-} from '../constants/mapControls';
+} from '../constants/mapControls.js'
 
 // Returns the map controls shown on a map
 export const getMapControls = (isPlugin, isSplitView, controls) => {
-    let ctrls;
+    let ctrls
 
     if (isPlugin) {
-        ctrls = controls || pluginControls;
+        ctrls = controls || pluginControls
     } else {
-        ctrls = controls || isSplitView ? splitViewControls : mapControls;
+        ctrls = controls || isSplitView ? splitViewControls : mapControls
     }
 
     return isSplitView
-        ? ctrls.map(c => ({
+        ? ctrls.map((c) => ({
               ...c,
               isSplitView,
           }))
-        : ctrls;
-};
+        : ctrls
+}

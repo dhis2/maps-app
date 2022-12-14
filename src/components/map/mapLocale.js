@@ -1,4 +1,4 @@
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 
 const getMapLocale = () => ({
     acres: i18n.t('acres'),
@@ -25,6 +25,6 @@ const getMapLocale = () => ({
     'Zoom in': i18n.t('Zoom in'),
     'Zoom out': i18n.t('Zoom out'),
     'Zoom to content': i18n.t('Zoom to content'),
-});
+})
 
-export default getMapLocale;
+export default getMapLocale

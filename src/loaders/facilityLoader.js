@@ -1,32 +1,32 @@
-import i18n from '@dhis2/d2-i18n';
-import { getInstance as getD2 } from 'd2';
-import { toGeoJson } from '../util/map';
-import { fetchOrgUnitGroupSet } from '../util/orgUnits';
-import { getDisplayProperty } from '../util/helpers';
-import { getOrgUnitsFromRows } from '../util/analytics';
+import i18n from '@dhis2/d2-i18n'
+import { getInstance as getD2 } from 'd2'
+import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { getDisplayProperty } from '../util/helpers.js'
+import { toGeoJson } from '../util/map.js'
 import {
+    fetchOrgUnitGroupSet,
     filterPointFacilities,
     getStyledOrgUnits,
     getCoordinateField,
-} from '../util/orgUnits';
+} from '../util/orgUnits.js'
 
-const facilityLoader = async config => {
-    const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config;
-    const orgUnits = getOrgUnitsFromRows(rows);
-    const includeGroupSets = !!groupSet;
-    const coordinateField = getCoordinateField(config);
-    const alerts = [];
-    let orgUnitParams = orgUnits.map(item => item.id);
-    let associatedGeometries;
+const facilityLoader = async (config) => {
+    const { rows, organisationUnitGroupSet: groupSet, areaRadius } = config
+    const orgUnits = getOrgUnitsFromRows(rows)
+    const includeGroupSets = !!groupSet
+    const coordinateField = getCoordinateField(config)
+    const alerts = []
+    const orgUnitParams = orgUnits.map((item) => item.id)
+    let associatedGeometries
 
-    const d2 = await getD2();
-    const displayProperty = getDisplayProperty(d2).toUpperCase();
-    const { contextPath } = d2.system.systemInfo;
-    const name = i18n.t('Facilities');
+    const d2 = await getD2()
+    const displayProperty = getDisplayProperty(d2).toUpperCase()
+    const { contextPath } = d2.system.systemInfo
+    const name = i18n.t('Facilities')
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty);
+        .displayProperty(displayProperty)
 
     const requests = [
         featuresRequest
@@ -35,7 +35,7 @@ const facilityLoader = async config => {
             })
             .then(filterPointFacilities)
             .then(toGeoJson)
-            .catch(error => {
+            .catch((error) => {
                 if (error && error.message) {
                     alerts.push({
                         critical: true,
@@ -43,20 +43,20 @@ const facilityLoader = async config => {
                             message: error.message,
                             nsSeparator: ';',
                         }),
-                    });
+                    })
                 }
             }),
-    ];
+    ]
 
     // Load organisationUnitGroups if not passed
     if (includeGroupSets && !groupSet.organisationUnitGroups) {
-        requests.push(fetchOrgUnitGroupSet(groupSet.id));
+        requests.push(fetchOrgUnitGroupSet(groupSet.id))
     }
 
-    const [features, organisationUnitGroups] = await Promise.all(requests);
+    const [features, organisationUnitGroups] = await Promise.all(requests)
 
     if (organisationUnitGroups) {
-        groupSet.organisationUnitGroups = organisationUnitGroups;
+        groupSet.organisationUnitGroups = organisationUnitGroups
     }
 
     const { styledFeatures, legend } = getStyledOrgUnits(
@@ -64,9 +64,9 @@ const facilityLoader = async config => {
         groupSet,
         config,
         contextPath
-    );
+    )
 
-    legend.title = name;
+    legend.title = name
 
     if (coordinateField) {
         associatedGeometries = await featuresRequest
@@ -74,7 +74,7 @@ const facilityLoader = async config => {
                 coordinateField: coordinateField.id,
                 includeGroupSets,
             })
-            .then(toGeoJson);
+            .then(toGeoJson)
 
         if (!associatedGeometries.length) {
             alerts.push({
@@ -83,7 +83,7 @@ const facilityLoader = async config => {
                     name: coordinateField.name,
                     nsSeparator: ';',
                 }),
-            });
+            })
         }
 
         legend.items.push({
@@ -92,11 +92,11 @@ const facilityLoader = async config => {
             strokeColor: '#333',
             fillColor: 'rgba(149, 200, 251, 0.5)',
             weight: 0.5,
-        });
+        })
     }
 
     if (areaRadius) {
-        legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`];
+        legend.explanation = [`${areaRadius} ${'m'} ${'buffer'}`]
     }
 
     if (!styledFeatures.length) {
@@ -105,7 +105,7 @@ const facilityLoader = async config => {
             message: i18n.t('Facilities: No coordinates found', {
                 nsSeparator: ';',
             }),
-        });
+        })
     }
 
     return {
@@ -118,7 +118,7 @@ const facilityLoader = async config => {
         isLoaded: true,
         isExpanded: true,
         isVisible: true,
-    };
-};
+    }
+}
 
-export default facilityLoader;
+export default facilityLoader

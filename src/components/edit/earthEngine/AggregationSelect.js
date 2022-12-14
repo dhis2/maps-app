@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
-import { SelectField } from '../../core';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { setAggregationType } from '../../../actions/layerEdit.js'
 import {
     getEarthEngineAggregationTypes,
     getEarthEngineStatisticTypes,
-} from '../../../constants/aggregationTypes';
-import { setAggregationType } from '../../../actions/layerEdit';
-import { hasClasses } from '../../../util/earthEngine';
+} from '../../../constants/aggregationTypes.js'
+import { hasClasses } from '../../../util/earthEngine.js'
+import { SelectField } from '../../core/index.js'
 
 const AggregationSelect = ({
     aggregations,
@@ -16,17 +16,17 @@ const AggregationSelect = ({
     aggregationType,
     setAggregationType,
 }) => {
-    const classes = hasClasses(defaultAggregations);
+    const classes = hasClasses(defaultAggregations)
 
     const types = classes
         ? getEarthEngineStatisticTypes()
-        : getEarthEngineAggregationTypes(aggregations);
+        : getEarthEngineAggregationTypes(aggregations)
 
     useEffect(() => {
         if (!aggregationType && defaultAggregations) {
-            setAggregationType(defaultAggregations);
+            setAggregationType(defaultAggregations)
         }
-    }, [aggregationType, defaultAggregations]);
+    }, [aggregationType, defaultAggregations])
 
     return (
         <SelectField
@@ -34,20 +34,20 @@ const AggregationSelect = ({
             items={types}
             multiple={!classes}
             value={aggregationType}
-            onChange={type => setAggregationType(classes ? type.id : type)}
+            onChange={(type) => setAggregationType(classes ? type.id : type)}
         />
-    );
-};
+    )
+}
 
 AggregationSelect.propTypes = {
+    setAggregationType: PropTypes.func.isRequired,
+    aggregationType: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     aggregations: PropTypes.array,
     defaultAggregations: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,
     ]),
-    aggregationType: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    setAggregationType: PropTypes.func.isRequired,
-};
+}
 
 export default connect(
     ({ layerEdit }) => ({
@@ -56,4 +56,4 @@ export default connect(
         aggregationType: layerEdit.aggregationType,
     }),
     { setAggregationType }
-)(AggregationSelect);
+)(AggregationSelect)

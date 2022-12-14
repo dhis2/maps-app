@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const dataElements = (state = {}, action) => {
     switch (action.type) {
@@ -6,11 +6,11 @@ const dataElements = (state = {}, action) => {
             return {
                 ...state,
                 [action.groupId]: action.payload,
-            };
+            }
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default dataElements;
+export default dataElements

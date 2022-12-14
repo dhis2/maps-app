@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { Card, IconChevronUp24, IconChevronDown24 } from '@dhis2/ui';
-import cx from 'classnames';
-import { IconButton } from '../core';
-import SortableHandle from './SortableHandle';
-import LayerToolbar from './toolbar/LayerToolbar';
-import styles from './styles/LayerCard.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { Card, IconChevronUp24, IconChevronDown24 } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { IconButton } from '../core/index.js'
+import SortableHandle from './SortableHandle.js'
+import styles from './styles/LayerCard.module.css'
+import LayerToolbar from './toolbar/LayerToolbar.js'
 
 const LayerCard = ({
     title,
@@ -56,18 +56,18 @@ const LayerCard = ({
             </div>
         </Card>
     </div>
-);
+)
 
 LayerCard.propTypes = {
-    title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string,
-    isOverlay: PropTypes.bool,
     isExpanded: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
     toggleExpand: PropTypes.func.isRequired,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,
     ]),
-};
+    isOverlay: PropTypes.bool,
+    subtitle: PropTypes.string,
+}
 
-export default LayerCard;
+export default LayerCard

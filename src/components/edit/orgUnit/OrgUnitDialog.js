@@ -1,24 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { Tab, Tabs, NumberField, ColorPicker } from '../../core';
-import OrgUnitTree from '../../orgunits/OrgUnitTree';
-import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
-import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
-import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect';
-import StyleByGroupSet from '../../groupSet/StyleByGroupSet';
-import Labels from '../shared/Labels';
-import {
-    ORG_UNIT_COLOR,
-    ORG_UNIT_RADIUS,
-    STYLE_TYPE_COLOR,
-    MIN_RADIUS,
-    MAX_RADIUS,
-} from '../../../constants/layers';
-import styles from '../styles/LayerDialog.module.css';
-
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
     setOrgUnitLevels,
     setOrgUnitGroups,
@@ -26,40 +9,55 @@ import {
     toggleOrgUnit,
     setRadiusLow,
     setOrganisationUnitColor,
-} from '../../../actions/layerEdit';
-
+} from '../../../actions/layerEdit.js'
+import {
+    ORG_UNIT_COLOR,
+    ORG_UNIT_RADIUS,
+    STYLE_TYPE_COLOR,
+    MIN_RADIUS,
+    MAX_RADIUS,
+} from '../../../constants/layers.js'
 import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     getOrgUnitLevelsFromRows,
     getOrgUnitGroupsFromRows,
     getUserOrgUnitsFromRows,
-} from '../../../util/analytics';
+} from '../../../util/analytics.js'
+import { Tab, Tabs, NumberField, ColorPicker } from '../../core/index.js'
+import StyleByGroupSet from '../../groupSet/StyleByGroupSet.js'
+import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect.js'
+import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect.js'
+import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect.js'
+import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
+import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
+import Labels from '../shared/Labels.js'
+import styles from '../styles/LayerDialog.module.css'
 
 class OrgUnitDialog extends Component {
     static propTypes = {
-        rows: PropTypes.array,
-        radiusLow: PropTypes.number,
-        organisationUnitColor: PropTypes.string,
         setOrgUnitGroups: PropTypes.func.isRequired,
         setOrgUnitLevels: PropTypes.func.isRequired,
-        setRadiusLow: PropTypes.func.isRequired,
         setOrganisationUnitColor: PropTypes.func.isRequired,
+        setRadiusLow: PropTypes.func.isRequired,
         setUserOrgUnits: PropTypes.func.isRequired,
         toggleOrgUnit: PropTypes.func.isRequired,
-        onLayerValidation: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
-    };
+        onLayerValidation: PropTypes.func.isRequired,
+        organisationUnitColor: PropTypes.string,
+        radiusLow: PropTypes.number,
+        rows: PropTypes.array,
+    }
 
     state = {
         tab: 'orgunits',
-    };
+    }
 
     componentDidUpdate(prev) {
-        const { validateLayer, onLayerValidation } = this.props;
+        const { validateLayer, onLayerValidation } = this.props
 
         if (validateLayer && validateLayer !== prev.validateLayer) {
-            onLayerValidation(this.validate());
+            onLayerValidation(this.validate())
         }
     }
 
@@ -74,17 +72,17 @@ class OrgUnitDialog extends Component {
             toggleOrgUnit,
             setOrganisationUnitColor,
             setRadiusLow,
-        } = this.props;
+        } = this.props
 
-        const { tab, orgUnitsError } = this.state;
+        const { tab, orgUnitsError } = this.state
 
-        const orgUnits = getOrgUnitsFromRows(rows);
-        const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
-        const hasUserOrgUnits = !!selectedUserOrgUnits.length;
+        const orgUnits = getOrgUnitsFromRows(rows)
+        const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows)
+        const hasUserOrgUnits = !!selectedUserOrgUnits.length
 
         return (
             <div className={styles.content} data-test="orgunitdialog">
-                <Tabs value={tab} onChange={tab => this.setState({ tab })}>
+                <Tabs value={tab} onChange={(tab) => this.setState({ tab })}>
                     <Tab value="orgunits">{i18n.t('Organisation Units')}</Tab>
                     <Tab value="style">{i18n.t('Style')}</Tab>
                 </Tabs>
@@ -166,7 +164,7 @@ class OrgUnitDialog extends Component {
                     )}
                 </div>
             </div>
-        );
+        )
     }
 
     // TODO: Add to parent class?
@@ -174,23 +172,23 @@ class OrgUnitDialog extends Component {
         this.setState({
             [key]: message,
             tab,
-        });
+        })
 
-        return false;
+        return false
     }
 
     validate() {
-        const { rows } = this.props;
+        const { rows } = this.props
 
         if (!getOrgUnitsFromRows(rows).length) {
             return this.setErrorState(
                 'orgUnitsError',
                 i18n.t('No organisation units are selected'),
                 'orgunits'
-            );
+            )
         }
 
-        return true;
+        return true
     }
 }
 
@@ -208,4 +206,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(OrgUnitDialog);
+)(OrgUnitDialog)

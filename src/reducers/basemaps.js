@@ -1,23 +1,22 @@
-import { defaultBasemaps } from '../constants/basemaps';
-import { BING_LAYER } from '../constants/layers';
-
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
+import { defaultBasemaps } from '../constants/basemaps.js'
+import { BING_LAYER } from '../constants/layers.js'
 
 const basemaps = (state = defaultBasemaps(), action) => {
     switch (action.type) {
         case types.BASEMAPS_ADD:
-            return state.concat(action.payload);
+            return state.concat(action.payload)
 
         case types.BASEMAP_REMOVE:
-            return state.filter(basemap => basemap.id !== action.id);
+            return state.filter((basemap) => basemap.id !== action.id)
 
         case types.BASEMAP_REMOVE_BING_MAPS:
-            return state.filter(layer => layer.config.type !== BING_LAYER);
+            return state.filter((layer) => layer.config.type !== BING_LAYER)
 
         case types.BASEMAP_BING_KEY_SET:
-            return state.map(layer => {
+            return state.map((layer) => {
                 if (layer.config.type !== BING_LAYER) {
-                    return layer;
+                    return layer
                 }
 
                 return {
@@ -26,12 +25,12 @@ const basemaps = (state = defaultBasemaps(), action) => {
                         ...layer.config,
                         apiKey: action.key,
                     },
-                };
-            });
+                }
+            })
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default basemaps;
+export default basemaps

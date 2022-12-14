@@ -1,6 +1,6 @@
-import i18n from '@dhis2/d2-i18n';
-import { defaultFilters } from '../util/earthEngine';
-import { EARTH_ENGINE_LAYER } from './layers';
+import i18n from '@dhis2/d2-i18n'
+import { defaultFilters } from '../util/earthEngine.js'
+import { EARTH_ENGINE_LAYER } from './layers.js'
 
 export const earthEngineLayers = () => [
     {
@@ -472,7 +472,7 @@ export const earthEngineLayers = () => [
         },
         opacity: 0.9,
     },
-];
+]
 
-export const getEarthEngineLayer = id =>
-    earthEngineLayers().find(l => l.datasetId === id);
+export const getEarthEngineLayer = (id) =>
+    earthEngineLayers().find((l) => l.datasetId === id)

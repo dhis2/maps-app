@@ -1,3 +1,88 @@
+## [1.27.2](https://github.com/dhis2/maps-app/compare/v1.27.1...v1.27.2) (2022-12-09)
+
+
+### Bug Fixes
+
+* default opacity and isVisible for basemap layer ([#2400](https://github.com/dhis2/maps-app/issues/2400)) ([368f26f](https://github.com/dhis2/maps-app/commit/368f26fc675de375a7e3cf3e237e1dba89c62fec))
+* white background for download maps ([#2404](https://github.com/dhis2/maps-app/issues/2404)) ([ef943dc](https://github.com/dhis2/maps-app/commit/ef943dc0fd4b90d92012095f13a0a624ba789d57))
+
+## [1.27.1](https://github.com/dhis2/maps-app/compare/v1.27.0...v1.27.1) (2022-12-06)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([610ead7](https://github.com/dhis2/maps-app/commit/610ead7b60822d4527346b16fb8e9ae4399c12eb))
+
+# [1.27.0](https://github.com/dhis2/maps-app/compare/v1.26.12...v1.27.0) (2022-12-05)
+
+
+### Features
+
+* add alert when basemap fails to load ([#2366](https://github.com/dhis2/maps-app/issues/2366)) ([889ae40](https://github.com/dhis2/maps-app/commit/889ae40865a6ce86096cf2f4f9ecdaea5485aa07))
+
+## [1.26.12](https://github.com/dhis2/maps-app/compare/v1.26.11...v1.26.12) (2022-12-01)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([a2744f4](https://github.com/dhis2/maps-app/commit/a2744f4263b1671d81636c715910adee378eab4b))
+
+## [1.26.11](https://github.com/dhis2/maps-app/compare/v1.26.10...v1.26.11) (2022-11-30)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([8d18c71](https://github.com/dhis2/maps-app/commit/8d18c7181118dae83093923c3b1eb86f48ae3b9d))
+
+## [1.26.10](https://github.com/dhis2/maps-app/compare/v1.26.9...v1.26.10) (2022-11-29)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([c480aa2](https://github.com/dhis2/maps-app/commit/c480aa2dd77a95139e83ea7c6f74a25b3962d8f4))
+
+## [1.26.9](https://github.com/dhis2/maps-app/compare/v1.26.8...v1.26.9) (2022-11-17)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([2a34719](https://github.com/dhis2/maps-app/commit/2a3471943717ee657f7e442f3caf91f4b0e6b063))
+
+## [1.26.8](https://github.com/dhis2/maps-app/compare/v1.26.7...v1.26.8) (2022-10-26)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([335ab91](https://github.com/dhis2/maps-app/commit/335ab914588dedab48a2d2997d370bbfa59efb17))
+
+## [1.26.7](https://github.com/dhis2/maps-app/compare/v1.26.6...v1.26.7) (2022-10-11)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([4099436](https://github.com/dhis2/maps-app/commit/409943668e416d2613e87f0ad3c5eb4fe4f595a6))
+
+## [1.26.6](https://github.com/dhis2/maps-app/compare/v1.26.5...v1.26.6) (2022-10-08)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([3c6f62a](https://github.com/dhis2/maps-app/commit/3c6f62ae9a8afde0626deb0fc92716c067f54e9a))
+
+## [1.26.5](https://github.com/dhis2/maps-app/compare/v1.26.4...v1.26.5) (2022-10-07)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([7295eb7](https://github.com/dhis2/maps-app/commit/7295eb7369b41ab252c6dfead6d43cd8c1943913))
+
+## [1.26.4](https://github.com/dhis2/maps-app/compare/v1.26.3...v1.26.4) (2022-09-26)
+
+
+### Bug Fixes
+
+* bump web api version to 39 ([#2306](https://github.com/dhis2/maps-app/issues/2306)) ([be85d7c](https://github.com/dhis2/maps-app/commit/be85d7cb4ef856b6be25a81c12a30a0305eb459b))
+
 ## [1.26.3](https://github.com/dhis2/maps-app/compare/v1.26.2...v1.26.3) (2022-09-01)
 
 

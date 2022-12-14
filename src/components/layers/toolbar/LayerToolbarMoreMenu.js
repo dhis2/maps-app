@@ -1,7 +1,4 @@
-import React, { Fragment, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 import {
     Popover,
     Menu,
@@ -13,11 +10,13 @@ import {
     IconDownload16,
     IconEdit16,
     IconDelete16,
-} from '@dhis2/ui';
-import { IconButton } from '../../core';
-import { EARTH_ENGINE_LAYER } from '../../../constants/layers';
-
-import styles from './styles/LayerToolbarMore.module.css';
+} from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { Fragment, useState, useRef } from 'react'
+import { connect } from 'react-redux'
+import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
+import { IconButton } from '../../core/index.js'
+import styles from './styles/LayerToolbarMore.module.css'
 
 export const LayerToolbarMoreMenu = ({
     layer = {},
@@ -30,15 +29,15 @@ export const LayerToolbarMoreMenu = ({
     hasOrgUnitData,
     isLoading,
 }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const anchorRef = useRef();
+    const [isOpen, setIsOpen] = useState(false)
+    const anchorRef = useRef()
 
     const somethingAboveDivider = toggleDataTable || downloadData,
         somethingBelowDivider = onRemove || onEdit,
-        showDivider = somethingAboveDivider && somethingBelowDivider;
+        showDivider = somethingAboveDivider && somethingBelowDivider
 
     if (!somethingAboveDivider && !somethingBelowDivider) {
-        return null;
+        return null
     }
 
     return (
@@ -76,8 +75,8 @@ export const LayerToolbarMoreMenu = ({
                                     }
                                     icon={<IconTable16 />}
                                     onClick={() => {
-                                        setIsOpen(false);
-                                        toggleDataTable();
+                                        setIsOpen(false)
+                                        toggleDataTable()
                                     }}
                                     disabled={!hasOrgUnitData}
                                 />
@@ -87,8 +86,8 @@ export const LayerToolbarMoreMenu = ({
                                     label={i18n.t('Open as chart')}
                                     icon={<IconVisualizationColumn16 />}
                                     onClick={() => {
-                                        setIsOpen(false);
-                                        openAs('CHART');
+                                        setIsOpen(false)
+                                        openAs('CHART')
                                     }}
                                 />
                             )}
@@ -97,8 +96,8 @@ export const LayerToolbarMoreMenu = ({
                                     label={i18n.t('Download data')}
                                     icon={<IconDownload16 />}
                                     onClick={() => {
-                                        setIsOpen(false);
-                                        downloadData();
+                                        setIsOpen(false)
+                                        downloadData()
                                     }}
                                     disabled={!hasOrgUnitData || isLoading}
                                 />
@@ -109,8 +108,8 @@ export const LayerToolbarMoreMenu = ({
                                     label={i18n.t('Edit layer')}
                                     icon={<IconEdit16 />}
                                     onClick={() => {
-                                        setIsOpen(false);
-                                        onEdit();
+                                        setIsOpen(false)
+                                        onEdit()
                                     }}
                                 />
                             )}
@@ -120,8 +119,8 @@ export const LayerToolbarMoreMenu = ({
                                     icon={<IconDelete16 />}
                                     destructive
                                     onClick={() => {
-                                        setIsOpen(false);
-                                        onRemove();
+                                        setIsOpen(false)
+                                        onRemove()
                                     }}
                                 />
                             )}
@@ -130,29 +129,29 @@ export const LayerToolbarMoreMenu = ({
                 </Popover>
             )}
         </Fragment>
-    );
-};
+    )
+}
 
 LayerToolbarMoreMenu.propTypes = {
-    layer: PropTypes.object,
-    onEdit: PropTypes.func,
-    onRemove: PropTypes.func,
-    toggleDataTable: PropTypes.func,
-    openAs: PropTypes.func,
-    downloadData: PropTypes.func,
     dataTableOpen: PropTypes.string,
+    downloadData: PropTypes.func,
     hasOrgUnitData: PropTypes.bool,
     isLoading: PropTypes.bool,
-};
+    layer: PropTypes.object,
+    openAs: PropTypes.func,
+    toggleDataTable: PropTypes.func,
+    onEdit: PropTypes.func,
+    onRemove: PropTypes.func,
+}
 
 export default connect(
     ({ dataTable: dataTableOpen, aggregations }, { layer = {} }) => {
-        const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER;
+        const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER
         const hasOrgUnitData =
-            layer.data && (!isEarthEngine || layer.aggregationType?.length > 0);
+            layer.data && (!isEarthEngine || layer.aggregationType?.length > 0)
         const isLoading =
-            isEarthEngine && hasOrgUnitData && !aggregations[layer.id];
+            isEarthEngine && hasOrgUnitData && !aggregations[layer.id]
 
-        return { dataTableOpen, hasOrgUnitData, isLoading };
+        return { dataTableOpen, hasOrgUnitData, isLoading }
     }
-)(LayerToolbarMoreMenu);
+)(LayerToolbarMoreMenu)

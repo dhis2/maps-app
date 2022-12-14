@@ -1,6 +1,6 @@
-import { hcl } from 'd3-color';
-import { isString } from 'lodash/fp';
-import colorbrewer from '../constants/colorbrewer';
+import { hcl } from 'd3-color'
+import { isString } from 'lodash/fp'
+import colorbrewer from '../constants/colorbrewer.js'
 
 // Allowed color scales from ColorBrewer for EE (needs to have at least 9 classes)
 export const colorScales = [
@@ -35,63 +35,64 @@ export const colorScales = [
     'Pastel1',
     'Set1',
     'Set3',
-];
+]
 
 // Returns a color brewer scale for a number of classes
 export const getColorPalette = (scale, classes) => {
-    return colorbrewer[scale][classes].join(',');
-};
+    return colorbrewer[scale][classes].join(',')
+}
 
 // Returns color scale name for a palette
-export const getColorScale = palette => {
-    const classes = palette.split(',').length;
+export const getColorScale = (palette) => {
+    const classes = palette.split(',').length
     return colorScales.find(
-        name => colorbrewer[name][classes].join(',') === palette
-    );
-};
+        (name) => colorbrewer[name][classes].join(',') === palette
+    )
+}
 
-export const defaultColorScaleName = 'YlOrBr';
-export const defaultClasses = 5;
+export const defaultColorScaleName = 'YlOrBr'
+export const defaultClasses = 5
 export const defaultColorScale = getColorPalette(
     defaultColorScaleName,
     defaultClasses
-);
+)
 
 // Correct colors not adhering to the css standard (add missing #)
-export const cssColor = color => {
+export const cssColor = (color) => {
     if (!isString(color)) {
-        return color;
+        return color
     } else if (color === '##normal') {
         // ##normal is used in old map favorites
-        return null; // Will apply default color
+        return null // Will apply default color
     }
-    return (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(color) ? '#' : '') + color;
-};
+    return (/(^[0-9A-F]{6}$)|(^[0-9A-F]{3}$)/i.test(color) ? '#' : '') + color
+}
 
 // Returns an unique color (first from an array, then random but still unique)
-export const getUniqueColor = defaultColors => {
-    const colors = [...defaultColors];
+export const getUniqueColor = (defaultColors) => {
+    const colors = [...defaultColors]
 
     function randomColor() {
         const color = '#000000'.replace(/0/g, () =>
             (~~(Math.random() * 16)).toString(16)
-        );
+        )
 
         // Recursive until color is unique
         if (colors.includes(color)) {
-            return randomColor();
+            return randomColor()
         }
 
-        colors.push(color);
+        colors.push(color)
 
-        return color;
+        return color
     }
 
-    return index => colors[index] || randomColor();
-};
+    return (index) => colors[index] || randomColor()
+}
 
 // Returns true if a color is dark
-export const isDarkColor = color => hcl(color).l < 70;
+export const isDarkColor = (color) => hcl(color).l < 70
 
 // Returns constrasting color
-export const getContrastColor = color => (isDarkColor(color) ? '#fff' : '#000');
+export const getContrastColor = (color) =>
+    isDarkColor(color) ? '#fff' : '#000'

@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { NoticeBox } from '@dhis2/ui';
-import { Help, Tab, Tabs } from '../../core';
-import AggregationSelect from './AggregationSelect';
-import BandSelect from './BandSelect';
-import PeriodSelect from './PeriodSelect';
-import OrgUnitsSelect from './OrgUnitsSelect';
-import StyleTab from './StyleTab';
-import { getEarthEngineLayer } from '../../../constants/earthEngine';
-import {
-    getPeriodFromFilter,
-    getPeriods,
-    defaultFilters,
-} from '../../../util/earthEngine';
+import i18n from '@dhis2/d2-i18n'
+import { NoticeBox } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import {
     setFilter,
     setOrgUnitLevels,
     setBufferRadius,
-} from '../../../actions/layerEdit';
+} from '../../../actions/layerEdit.js'
+import { getEarthEngineLayer } from '../../../constants/earthEngine.js'
 import {
     DEFAULT_ORG_UNIT_LEVEL,
     EE_BUFFER,
     NONE,
-} from '../../../constants/layers';
-import styles from '../styles/LayerDialog.module.css';
+} from '../../../constants/layers.js'
+import {
+    getPeriodFromFilter,
+    getPeriods,
+    defaultFilters,
+} from '../../../util/earthEngine.js'
+import { Help, Tab, Tabs } from '../../core/index.js'
+import styles from '../styles/LayerDialog.module.css'
+import AggregationSelect from './AggregationSelect.js'
+import BandSelect from './BandSelect.js'
+import OrgUnitsSelect from './OrgUnitsSelect.js'
+import PeriodSelect from './PeriodSelect.js'
+import StyleTab from './StyleTab.js'
 
-const EarthEngineDialog = props => {
-    const [tab, setTab] = useState('data');
-    const [periods, setPeriods] = useState();
-    const [error, setError] = useState();
+const EarthEngineDialog = (props) => {
+    const [tab, setTab] = useState('data')
+    const [periods, setPeriods] = useState()
+    const [error, setError] = useState()
 
     const {
         datasetId,
@@ -45,9 +45,9 @@ const EarthEngineDialog = props => {
         setBufferRadius,
         validateLayer,
         onLayerValidation,
-    } = props;
+    } = props
 
-    const dataset = getEarthEngineLayer(datasetId);
+    const dataset = getEarthEngineLayer(datasetId)
 
     const {
         description,
@@ -59,91 +59,91 @@ const EarthEngineDialog = props => {
         source,
         sourceUrl,
         aggregations,
-    } = dataset;
+    } = dataset
 
-    const period = getPeriodFromFilter(filter);
+    const period = getPeriodFromFilter(filter)
 
-    const setPeriod = period => setFilter(period ? filters(period) : null);
+    const setPeriod = (period) => setFilter(period ? filters(period) : null)
 
-    const noBandSelected = Array.isArray(bands) && (!band || !band.length);
+    const noBandSelected = Array.isArray(bands) && (!band || !band.length)
 
-    const hasMultipleAggregations = !aggregations || aggregations.length > 1;
+    const hasMultipleAggregations = !aggregations || aggregations.length > 1
 
-    const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE;
+    const hasOrgUnitField = !!orgUnitField && orgUnitField !== NONE
 
     // Load all available periods
     useEffect(() => {
-        let isCancelled = false;
+        let isCancelled = false
 
         if (periodType) {
             getPeriods(datasetId)
-                .then(periods => {
+                .then((periods) => {
                     if (!isCancelled) {
-                        setPeriods(periods);
+                        setPeriods(periods)
                     }
                 })
-                .catch(error =>
+                .catch((error) =>
                     setError({
                         type: 'engine',
                         message: error.message,
                     })
-                );
+                )
         }
 
-        return () => (isCancelled = true);
-    }, [datasetId, periodType]);
+        return () => (isCancelled = true)
+    }, [datasetId, periodType])
 
     // Set most recent period by default
     useEffect(() => {
         if (filter === undefined) {
             if (Array.isArray(periods) && periods.length) {
-                setPeriod(periods[0]);
+                setPeriod(periods[0])
             }
         }
-    }, [periods, filter]);
+    }, [periods, filter])
 
     useEffect(() => {
         if (!rows) {
-            setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL]);
+            setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL])
         }
-    }, [rows, setOrgUnitLevels]);
+    }, [rows, setOrgUnitLevels])
 
     useEffect(() => {
         if (!hasOrgUnitField && areaRadius === undefined) {
-            setBufferRadius(EE_BUFFER);
+            setBufferRadius(EE_BUFFER)
         }
-    }, [hasOrgUnitField, areaRadius, setBufferRadius]);
+    }, [hasOrgUnitField, areaRadius, setBufferRadius])
 
     useEffect(() => {
         if (validateLayer) {
-            const isValid = !noBandSelected && (!periodType || period);
+            const isValid = !noBandSelected && (!periodType || period)
 
             if (!isValid) {
                 if (noBandSelected) {
                     setError({
                         type: 'band',
                         message: i18n.t('This field is required'),
-                    });
-                    setTab('data');
+                    })
+                    setTab('data')
                 } else {
                     setError({
                         type: 'period',
                         message: i18n.t('This field is required'),
-                    });
-                    setTab('period');
+                    })
+                    setTab('period')
                 }
             }
 
-            onLayerValidation(isValid);
+            onLayerValidation(isValid)
         }
-    }, [validateLayer, periodType, period, onLayerValidation]);
+    }, [validateLayer, periodType, period, onLayerValidation])
 
     if (error && error.type === 'engine') {
         return (
             <div className={styles.flexRowFlow}>
                 <NoticeBox {...error}>{error.message}</NoticeBox>
             </div>
-        );
+        )
     }
 
     return (
@@ -231,28 +231,28 @@ const EarthEngineDialog = props => {
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
 EarthEngineDialog.propTypes = {
-    rows: PropTypes.array,
     datasetId: PropTypes.string.isRequired,
-    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-    filter: PropTypes.array,
-    params: PropTypes.shape({
-        min: PropTypes.number.isRequired,
-        max: PropTypes.number.isRequired,
-        palette: PropTypes.string.isRequired,
-    }),
-    areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    orgUnitField: PropTypes.string,
-    legend: PropTypes.object,
-    validateLayer: PropTypes.bool.isRequired,
+    setBufferRadius: PropTypes.func.isRequired,
     setFilter: PropTypes.func.isRequired,
     setOrgUnitLevels: PropTypes.func.isRequired,
-    setBufferRadius: PropTypes.func.isRequired,
+    validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
-};
+    areaRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    band: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    filter: PropTypes.array,
+    legend: PropTypes.object,
+    orgUnitField: PropTypes.string,
+    params: PropTypes.shape({
+        max: PropTypes.number.isRequired,
+        min: PropTypes.number.isRequired,
+        palette: PropTypes.string.isRequired,
+    }),
+    rows: PropTypes.array,
+}
 
 export default connect(
     null,
@@ -261,4 +261,4 @@ export default connect(
     {
         forwardRef: true,
     }
-)(EarthEngineDialog);
+)(EarthEngineDialog)
