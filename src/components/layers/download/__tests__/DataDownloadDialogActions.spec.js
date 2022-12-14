@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { DataDownloadDialogActions } from '../DataDownloadDialogActions.js'
+import DataDownloadDialogActions from '../DataDownloadDialogActions.js'
 
 describe('DataDownloadDialogActions', () => {
     const renderComponent = (props) =>

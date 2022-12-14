@@ -1,12 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DownloadButton Should render a download button and a dialog component 1`] = `
-<Fragment>
-  <MenuButton
-    onClick={[Function]}
+exports[`DownloadButton renders menu button and download dialog 1`] = `
+<div>
+  <button
+    class="ui-MenuButton"
   >
     Download
-  </MenuButton>
-  <Connect(DownloadDialog) />
-</Fragment>
+  </button>
+  <div
+    class="ui-DownloadDialog"
+  />
+</div>
 `;

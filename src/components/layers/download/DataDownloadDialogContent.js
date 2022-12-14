@@ -6,7 +6,7 @@ import { Help } from '../../core/index.js'
 import EventDownloadInputs from './EventDownloadInputs.js'
 import styles from './styles/DataDownloadDialogContent.module.css'
 
-export const DataDownloadDialogContent = ({
+const DataDownloadDialogContent = ({
     isEventLayer,
     error,
     layerName,

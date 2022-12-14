@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './styles/DataDownloadDialogActions.module.css'
 
-export const DataDownloadDialogActions = ({
+const DataDownloadDialogActions = ({
     downloading,
     onStartClick,
     onCancelClick,

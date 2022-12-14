@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { EventDownloadInputs } from '../EventDownloadInputs.js'
+import EventDownloadInputs from '../EventDownloadInputs.js'
 
 describe('EventDownloadInputs', () => {
     const formatOptions = [

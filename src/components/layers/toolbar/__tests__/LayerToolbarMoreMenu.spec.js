@@ -70,7 +70,7 @@ describe('LayerToolbarMoreMenu', () => {
             </Provider>
         )
 
-        fireEvent.click(screen.getByLabelText('Open layer menu'))
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
         await waitFor(() => {
             expect(screen.queryByText('Edit layer')).toBeTruthy()
@@ -104,7 +104,7 @@ describe('LayerToolbarMoreMenu', () => {
             </Provider>
         )
 
-        fireEvent.click(screen.getByLabelText('Open layer menu'))
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
         await waitFor(() => {
             expect(screen.queryByText('Show data table')).toBeTruthy()
@@ -118,7 +118,7 @@ describe('LayerToolbarMoreMenu', () => {
         })
     })
 
-    it('renders only toggleDataTable menu', async () => {
+    test('renders only toggleDataTable menu', async () => {
         const store = {
             aggregations: {},
         }
@@ -137,7 +137,7 @@ describe('LayerToolbarMoreMenu', () => {
             </Provider>
         )
 
-        fireEvent.click(screen.getByLabelText('Open layer menu'))
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
         await waitFor(() => {
             expect(screen.queryByText('Show data table')).toBeTruthy()
@@ -171,7 +171,7 @@ describe('LayerToolbarMoreMenu', () => {
             </Provider>
         )
 
-        fireEvent.click(screen.getByLabelText('Open layer menu'))
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
         await waitFor(() => {
             expect(screen.queryByText('Show data table')).toBeTruthy()
@@ -186,7 +186,7 @@ describe('LayerToolbarMoreMenu', () => {
         })
     })
 
-    test.only('renders four MenuItems WITH divider if passed toggleDataTable, downloadData, onEdit, and onRemove', async () => {
+    test('renders four MenuItems WITH divider if passed toggleDataTable, downloadData, onEdit, and onRemove', async () => {
         const store = {
             aggregations: {},
         }
