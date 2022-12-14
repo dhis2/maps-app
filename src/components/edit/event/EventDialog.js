@@ -18,22 +18,6 @@ import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect'
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits'
 import BufferRadius from '../shared/BufferRadius'
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
-    EVENT_COLOR,
-    EVENT_RADIUS,
-    EVENT_BUFFER,
-    CLASSIFICATION_PREDEFINED,
-    MIN_RADIUS,
-    MAX_RADIUS,
-    EVENT_COORDINATE_DEFAULT,
-    NONE,
-} from '../../../constants/layers'
-import { START_END_DATES } from '../../../constants/periods'
-
-import styles from '../styles/LayerDialog.module.css'
-
-import {
     setProgram,
     setProgramStage,
     setEventStatus,
@@ -50,17 +34,6 @@ import {
     setEndDate,
 } from '../../../actions/layerEdit.js'
 import {
-    DEFAULT_START_DATE,
-    DEFAULT_END_DATE,
-    EVENT_COLOR,
-    EVENT_RADIUS,
-    EVENT_BUFFER,
-    CLASSIFICATION_PREDEFINED,
-    MIN_RADIUS,
-    MAX_RADIUS,
-} from '../../../constants/layers.js'
-import { START_END_DATES } from '../../../constants/periods.js'
-import {
     getPeriodFromFilters,
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
@@ -70,26 +43,19 @@ import { cssColor } from '../../../util/colors.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
 import {
-    Tab,
-    Tabs,
-    NumberField,
-    ImageSelect,
-    ColorPicker,
-} from '../../core/index.js'
-import CoordinateField from '../../dataItem/CoordinateField.js'
-import StyleByDataItem from '../../dataItem/StyleByDataItem.js'
-import FilterGroup from '../../filter/FilterGroup.js'
-import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
-import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits.js'
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
-import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
-import StartEndDates from '../../periods/StartEndDates.js'
-import ProgramSelect from '../../program/ProgramSelect.js'
-import ProgramStageSelect from '../../program/ProgramStageSelect.js'
-import { SystemSettingsCtx } from '../../SystemSettingsProvider.js'
-import BufferRadius from '../shared/BufferRadius.js'
+    DEFAULT_START_DATE,
+    DEFAULT_END_DATE,
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    EVENT_BUFFER,
+    CLASSIFICATION_PREDEFINED,
+    MIN_RADIUS,
+    MAX_RADIUS,
+    EVENT_COORDINATE_DEFAULT,
+    NONE,
+} from '../../../constants/layers'
+import { START_END_DATES } from '../../../constants/periods'
 import styles from '../styles/LayerDialog.module.css'
-import EventStatusSelect from './EventStatusSelect.js'
 
 export class EventDialog extends Component {
     static propTypes = {

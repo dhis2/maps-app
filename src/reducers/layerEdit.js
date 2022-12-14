@@ -1,15 +1,4 @@
 import * as types from '../constants/actionTypes.js'
-import { EVENT_STATUS_ALL } from '../constants/eventStatuses.js'
-import {
-    CLASSIFICATION_SINGLE_COLOR,
-    CLASSIFICATION_EQUAL_INTERVALS,
-    CLASSIFICATION_EQUAL_COUNTS,
-    CLASSIFICATION_PREDEFINED,
-    THEMATIC_CHOROPLETH,
-    EE_BUFFER,
-    NONE,
-} from '../constants/layers.js'
-import { START_END_DATES } from '../constants/periods.js'
 import {
     setFiltersFromPeriod,
     setDataItemInColumns,
