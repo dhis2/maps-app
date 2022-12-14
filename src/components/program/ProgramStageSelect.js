@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import i18n from '@dhis2/d2-i18n'
-import { SelectField } from '../core'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import { loadProgramStages } from '../../actions/programs'
+import { SelectField } from '../core'
 
 const ProgramStageSelect = ({
     program,

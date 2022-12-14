@@ -46,7 +46,7 @@ const eventLoader = async (layerConfig) => {
         if (e.httpStatusCode === 403 || e.httpStatusCode === 409) {
             config.alerts = [accessDeniedAlert]
         } else {
-            config.alerts = [unknownErrorAlert];
+            config.alerts = [unknownErrorAlert]
         }
     }
 
@@ -73,17 +73,10 @@ const loadEventLayer = async (config) => {
         showDataTable,
     } = config
 
-<<<<<<< HEAD
-    const period = getPeriodFromFilters(filters);
-    const dataFilters = getFiltersFromColumns(columns);
-    // const d2 = await getD2();
-    const spatialSupport = true; // d2.system.systemInfo.databaseInfo.spatialSupport; // TODO
-=======
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
-    const d2 = await getD2()
-    const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport
->>>>>>> master
+    // const d2 = await getD2();
+    const spatialSupport = true // d2.system.systemInfo.databaseInfo.spatialSupport; // TODO
 
     config.isExtended = showDataTable
 
@@ -109,12 +102,12 @@ const loadEventLayer = async (config) => {
     // Check if events should be clustered on the server or the client
     // Style by data item is only supported in the client (donuts)
     if (spatialSupport && eventClustering && !styleDataItem) {
-        const response = await getCount(analyticsRequest);
-        config.bounds = getBounds(response.extent);
+        const response = await getCount(analyticsRequest)
+        config.bounds = getBounds(response.extent)
 
         // FIXME
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        config.serverCluster = useServerCluster(response.count);
+        config.serverCluster = useServerCluster(response.count)
     }
 
     if (!config.serverCluster) {
@@ -247,8 +240,9 @@ export const getAnalyticsRequest = async ({
         : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
 
     if (relativePeriodDate) {
-        analyticsRequest =
-            analyticsRequest.withRelativePeriodDate(relativePeriodDate)
+        analyticsRequest = analyticsRequest.withRelativePeriodDate(
+            relativePeriodDate
+        )
     }
 
     analyticsRequest = analyticsRequest.addOrgUnitDimension(
@@ -270,7 +264,7 @@ export const getAnalyticsRequest = async ({
 
         analyticsRequest = analyticsRequest
             .addDimension(eventCoordinateField) // Used by analytics/events/query/
-            .withCoordinateField(eventCoordinateField); // Used by analytics/events/count and analytics/events/cluster
+            .withCoordinateField(eventCoordinateField) // Used by analytics/events/count and analytics/events/cluster
 
         /*
         // Used by analytics/events/count and analytics/events/cluster
@@ -296,7 +290,7 @@ export const getAnalyticsRequest = async ({
 
         analyticsRequest = analyticsRequest.withParameters({
             fallbackCoordinateField,
-        });
+        })
     }
 
     if (eventStatus && eventStatus !== 'ALL') {

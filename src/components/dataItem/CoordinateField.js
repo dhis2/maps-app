@@ -1,8 +1,7 @@
-import React, { useMemo, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import i18n from '@dhis2/d2-i18n'
-import { SelectField } from '../core'
+import PropTypes from 'prop-types'
+import React, { useMemo, useEffect } from 'react'
+import { connect } from 'react-redux'
 import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
@@ -14,6 +13,7 @@ import {
     EVENT_COORDINATE_ORG_UNIT,
     NONE,
 } from '../../constants/layers'
+import { SelectField } from '../core'
 
 const CoordinateField = ({
     value,
