@@ -24,16 +24,22 @@ const InterpretationsPanel = ({
     const interpretationsUnitRef = useRef()
     const { d2 } = useD2()
 
-    const onInterpretationClick = useCallback((interpretationId) => {
-        setInterpretation(interpretationId)
-        setIsModalOpen(true)
-    }, [])
+    const onInterpretationClick = useCallback(
+        (interpretationId) => {
+            setInterpretation(interpretationId)
+            setIsModalOpen(true)
+        },
+        [setInterpretation]
+    )
 
-    const onReplyIconClick = useCallback((interpretationId) => {
-        setInitialFocus(true)
-        setInterpretation(interpretationId)
-        setIsModalOpen(true)
-    }, [])
+    const onReplyIconClick = useCallback(
+        (interpretationId) => {
+            setInitialFocus(true)
+            setInterpretation(interpretationId)
+            setIsModalOpen(true)
+        },
+        [setInterpretation]
+    )
 
     const onModalClose = useCallback(() => {
         setIsModalOpen(false)
@@ -42,7 +48,7 @@ const InterpretationsPanel = ({
         // Small timeout added as the interpretation modal onClose is called before the
         // modal is actaully closed. It needs to be closed to free the webgl context used.
         setTimeout(setInterpretation, 100)
-    }, [])
+    }, [setInterpretation])
 
     useEffect(() => {
         const urlInterpretationId = getUrlParameter('interpretationid')
@@ -51,7 +57,7 @@ const InterpretationsPanel = ({
             setInterpretation(urlInterpretationId)
             setIsModalOpen(true)
         }
-    }, [])
+    }, [setInterpretation])
 
     if (!map?.id) {
         return null

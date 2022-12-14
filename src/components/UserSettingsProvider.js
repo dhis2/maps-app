@@ -17,14 +17,12 @@ const UserSettingsProvider = ({ children }) => {
 
     useEffect(() => {
         async function fetchData() {
-            console.log('async fetch')
             const { userSettings } = await engine.query({
                 userSettings: userSettingsQuery,
             })
 
             setSettings(userSettings)
         }
-        console.log('UserSettings fetch')
         fetchData()
     }, [engine])
 

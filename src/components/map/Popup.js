@@ -18,7 +18,7 @@ const Popup = (props, context) => {
     // Close popup if component is unmounted
     useEffect(() => {
         return () => map.closePopup()
-    }, [])
+    }, [map])
 
     return createPortal(
         <>

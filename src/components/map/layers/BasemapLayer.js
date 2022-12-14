@@ -48,7 +48,7 @@ const BasemapLayer = (
             }
         })
         return () => map.removeLayer(basemap)
-    }, [map, basemap])
+    }, [map, basemap, isPlugin]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         basemap.setOpacity(opacity)
