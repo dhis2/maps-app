@@ -1,8 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { CenteredContent, CircularLoader, IconCross24 } from '@dhis2/ui'
-import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { closeOrgUnitProfile } from '../../actions/orgUnits.js'
 import { apiFetch } from '../../util/api.js'
 import {
@@ -23,8 +22,10 @@ const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0]
 /*
  *  Loads an org unit profile and displays it in a right drawer component
  */
-export const OrgUnitProfile = ({ id, closeOrgUnitProfile }) => {
+const OrgUnitProfile = () => {
     const [profile, setProfile] = useState()
+    const id = useSelector((state) => state.orgUnitProfile)
+    const dispatch = useDispatch()
 
     // Load org unit profile when id is changed
     // https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/org-unit-profile.html
@@ -45,7 +46,12 @@ export const OrgUnitProfile = ({ id, closeOrgUnitProfile }) => {
         <Drawer className={styles.drawer}>
             <div className={styles.header}>
                 {i18n.t('Organisation unit profile')}
-                <span className={styles.close} onClick={closeOrgUnitProfile}>
+                <span
+                    role="button"
+                    aria-label={i18n.t('Close')}
+                    className={styles.close}
+                    onClick={() => dispatch(closeOrgUnitProfile())}
+                >
                     <IconCross24 />
                 </span>
             </div>
@@ -74,14 +80,4 @@ export const OrgUnitProfile = ({ id, closeOrgUnitProfile }) => {
     )
 }
 
-OrgUnitProfile.propTypes = {
-    closeOrgUnitProfile: PropTypes.func.isRequired,
-    id: PropTypes.string,
-}
-
-export default connect(
-    ({ orgUnitProfile }) => ({
-        id: orgUnitProfile,
-    }),
-    { closeOrgUnitProfile }
-)(OrgUnitProfile)
+export default OrgUnitProfile

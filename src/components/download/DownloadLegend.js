@@ -5,7 +5,7 @@ import Legend from '../legend/Legend.js'
 import { legendPositions } from './LegendPosition.js'
 import styles from './styles/DownloadLegend.module.css'
 
-export const DownloadLegend = ({ position, layers, showName }) => {
+const DownloadLegend = ({ position, layers, showName }) => {
     const legends = layers
         .filter((layer) => layer.legend)
         .map((layer) => layer.legend)

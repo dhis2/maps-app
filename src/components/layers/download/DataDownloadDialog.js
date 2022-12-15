@@ -26,7 +26,7 @@ const formatOptions = formatOptionsFlat.map((name, i) => ({
     name,
 }))
 
-export class DataDownloadDialog extends Component {
+class DataDownloadDialog extends Component {
     static propTypes = {
         closeDialog: PropTypes.func.isRequired,
         downloading: PropTypes.bool.isRequired,

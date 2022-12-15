@@ -10,7 +10,7 @@ const allProgramsItem = {
     name: i18n.t('No program'),
 }
 
-export class ProgramSelect extends Component {
+class ProgramSelect extends Component {
     static propTypes = {
         loadPrograms: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,

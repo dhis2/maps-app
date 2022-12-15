@@ -10,7 +10,7 @@ import {
 import { Radio, RadioGroup } from '../core/index.js'
 
 // Select between user defined (automatic), predefined or single color
-export const LegendTypeSelect = ({ mapType, method, setClassification }) =>
+const LegendTypeSelect = ({ mapType, method, setClassification }) =>
     method ? (
         <RadioGroup
             value={

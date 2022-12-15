@@ -26,7 +26,7 @@ const AggregationSelect = ({
         if (!aggregationType && defaultAggregations) {
             setAggregationType(defaultAggregations)
         }
-    }, [aggregationType, defaultAggregations])
+    }, [aggregationType, defaultAggregations, setAggregationType])
 
     return (
         <SelectField

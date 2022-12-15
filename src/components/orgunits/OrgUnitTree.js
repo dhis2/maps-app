@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { loadOrgUnitTree } from '../../actions/orgUnits.js'
 import styles from './styles/OrgUnitTree.module.css'
 
-export class OrgUnitTreeMaps extends Component {
+class OrgUnitTreeMaps extends Component {
     static propTypes = {
         loadOrgUnitTree: PropTypes.func.isRequired,
         disabled: PropTypes.bool,

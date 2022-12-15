@@ -6,7 +6,7 @@ import { setAggregationType } from '../../../actions/layerEdit.js'
 import { getThematicAggregationTypes } from '../../../constants/aggregationTypes.js'
 import { SelectField } from '../../core/index.js'
 
-export const AggregationTypeSelect = ({
+const AggregationTypeSelect = ({
     aggregationType,
     setAggregationType,
     className,

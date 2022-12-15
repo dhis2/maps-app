@@ -19,7 +19,7 @@ import {
 import { SelectField } from '../core/index.js'
 import styles from './styles/OpenAsMapDialog.module.css'
 
-export class OpenAsMapDialog extends Component {
+class OpenAsMapDialog extends Component {
     static propTypes = {
         clearAnalyticalObject: PropTypes.func.isRequired,
         loadLayer: PropTypes.func.isRequired,

@@ -10,7 +10,7 @@ import {
 import { MenuButton } from '../core/index.js'
 import styles from './styles/InterpretationsToggle.module.css'
 
-export const InterpretationsToggle = ({
+const InterpretationsToggle = ({
     interpretationsOpen,
     interpretationsEnabled,
     openInterpretationsPanel,

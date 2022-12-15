@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { loadDataElementGroups } from '../../actions/dataElements.js'
 import { SelectField } from '../core/index.js'
 
-export class DataElementGroupSelect extends Component {
+class DataElementGroupSelect extends Component {
     static propTypes = {
         loadDataElementGroups: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,

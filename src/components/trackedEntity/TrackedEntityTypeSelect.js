@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { loadTrackedEntityTypes } from '../../actions/trackedEntities.js'
 import { SelectField } from '../core/index.js'
 
-export class TrackedEntityTypeSelect extends Component {
+class TrackedEntityTypeSelect extends Component {
     static propTypes = {
         loadTrackedEntityTypes: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,

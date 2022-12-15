@@ -5,7 +5,7 @@ import AddLayerButton from '../layers/overlays/AddLayerButton.js'
 import FileMenu from './FileMenu.js'
 import styles from './styles/AppMenu.module.css'
 
-export const AppMenu = () => (
+const AppMenu = () => (
     <div className={styles.appMenu}>
         <AddLayerButton />
         <FileMenu />

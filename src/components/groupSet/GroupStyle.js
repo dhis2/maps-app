@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import styles from './styles/GroupStyle.module.css'
 
-export const GroupStyle = ({ name, color, symbol, styleType }) => {
+const GroupStyle = ({ name, color, symbol, styleType }) => {
     const [imagePath, setImagePath] = useState()
     const useColor = styleType !== 'SYMBOL'
 

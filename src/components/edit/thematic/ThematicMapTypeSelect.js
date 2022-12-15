@@ -10,7 +10,7 @@ import { ImageSelect } from '../../core/index.js'
 import styles from '../styles/LayerDialog.module.css'
 
 // Select between choropleth and bubble map for thematic layers
-export const ThematicMapTypeSelect = ({
+const ThematicMapTypeSelect = ({
     type = THEMATIC_CHOROPLETH,
     setThematicMapType,
 }) => (

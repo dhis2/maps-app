@@ -8,7 +8,7 @@ import LayerToolbarMoreMenu from './LayerToolbarMoreMenu.js'
 import OpacitySlider from './OpacitySlider.js'
 import styles from './styles/LayerToolbar.module.css'
 
-export const LayerToolbar = ({
+const LayerToolbar = ({
     hasOpacity,
     opacity = 1,
     isVisible,

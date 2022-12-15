@@ -24,7 +24,7 @@ const UserSettingsProvider = ({ children }) => {
             setSettings(userSettings)
         }
         fetchData()
-    }, [])
+    }, [engine])
 
     return (
         <UserSettingsCtx.Provider value={settings}>

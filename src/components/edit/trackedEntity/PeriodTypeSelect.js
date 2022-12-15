@@ -6,7 +6,7 @@ import { setPeriodType } from '../../../actions/layerEdit.js'
 import { Radio, RadioGroup } from '../../core/index.js'
 import styles from './styles/PeriodTypeSelect.module.css'
 
-export const PeriodTypeSelect = ({
+const PeriodTypeSelect = ({
     program,
     periodType = 'lastUpdated',
     setPeriodType,

@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { LayerToolbar } from '../LayerToolbar.js'
+import LayerToolbar from '../LayerToolbar.js'
 
 describe('LayerToolbar', () => {
     const shallowRenderLayerToolbar = (props) =>

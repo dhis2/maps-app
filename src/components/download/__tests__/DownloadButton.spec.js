@@ -1,40 +1,47 @@
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
-import { DownloadButton } from '../DownloadButton.js'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import DownloadButton from '../DownloadButton.js'
+
+jest.mock('../../../actions/download', () => {
+    return {
+        toggleDownloadDialog: jest
+            .fn()
+            .mockReturnValue({ type: 'DOWNLOAD_DIALOG_TOGGLE' }),
+    }
+})
+
+/* eslint-disable react/prop-types */
+jest.mock('../DownloadDialog.js', () => {
+    return {
+        __esModule: true,
+        default: function Mock(props) {
+            return <div className="ui-DownloadDialog">{props.children}</div>
+        },
+    }
+})
+
+jest.mock('../../core/index.js', () => {
+    return {
+        MenuButton: function Mock(props) {
+            return <button className="ui-MenuButton">{props.children}</button>
+        },
+    }
+})
+/* eslint-enable react/prop-types */
+
+const mockStore = configureMockStore()
 
 describe('DownloadButton', () => {
-    const renderComponent = (props) =>
-        shallow(
-            <DownloadButton
-                classes={{}}
-                toggleDownloadDialog={() => null}
-                {...props}
-            />
+    it('renders menu button and download dialog', () => {
+        const store = {}
+
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <DownloadButton />
+            </Provider>
         )
-
-    it('Should render a download button', () => {
-        const wrapper = renderComponent()
-        expect(wrapper.find('MenuButton').exists()).toBe(true)
-        expect(wrapper.find('MenuButton').render().text()).toEqual('Download')
-    })
-
-    it('Should render a download dialog', () => {
-        const wrapper = renderComponent()
-        expect(wrapper.find('Connect(DownloadDialog)').exists()).toBe(true)
-    })
-
-    it('Should render a download button and a dialog component', () => {
-        const wrapper = renderComponent()
-        expect(wrapper).toMatchSnapshot()
-    })
-
-    it('should call toggleDownloadDialog when download button is clicked', () => {
-        const toggleDownloadDialogSpy = jest.fn()
-        const wrapper = renderComponent({
-            toggleDownloadDialog: toggleDownloadDialogSpy,
-        })
-
-        wrapper.find('MenuButton').simulate('click', true)
-        expect(toggleDownloadDialogSpy).toHaveBeenCalled()
+        expect(container).toMatchSnapshot()
     })
 })

@@ -61,7 +61,15 @@ const App = ({
             }
         }
         fetchData()
-    }, [])
+    }, [
+        engine,
+        currentAO,
+        systemSettings.keyDefaultBaseMap,
+        tOpenMap,
+        tSetAnalyticalObject,
+        tSetExternalLayers,
+        tSetOrgUnitTree,
+    ])
 
     useEffect(() => {
         if (!isEmpty(systemSettings)) {
@@ -71,7 +79,7 @@ const App = ({
                 setBingMapsApiKey(systemSettings.keyBingMapsApiKey)
             }
         }
-    }, [systemSettings])
+    }, [systemSettings, removeBingBasemaps, setBingMapsApiKey])
 
     return (
         <FatalErrorBoundary>
