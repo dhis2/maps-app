@@ -24,14 +24,17 @@ const getLabelDisplayOptions = () => [
 ];
 
 export const LabelDisplayOptions = ({ option, onDisplayOptionChange }) => (
-    <RadioGroup
-        value={option || LABEL_TEMPLATE_NAME_ONLY}
-        onChange={onDisplayOptionChange}
-    >
-        {getLabelDisplayOptions().map(({ value, label }) => (
-            <Radio key={value} value={value} label={label} />
-        ))}
-    </RadioGroup>
+    <>
+        <div>{i18n.t('Labels to display')}</div>
+        <RadioGroup
+            value={option || LABEL_DISPLAY_OPTION_NAME_ONLY}
+            onChange={onDisplayOptionChange}
+        >
+            {getLabelDisplayOptions().map(({ value, label }) => (
+                <Radio key={value} value={value} label={label} />
+            ))}
+        </RadioGroup>
+    </>
 );
 
 LabelDisplayOptions.propTypes = {

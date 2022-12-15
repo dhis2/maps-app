@@ -163,3 +163,7 @@
 .eeNotice {
     font-weight: bold;
 }
+
+.labelDisplayOptions {
+    margin-left: 8px;
+}

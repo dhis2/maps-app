@@ -41,13 +41,13 @@ const Labels = ({
                 {labels && (
                     <>
                         {includeDisplayOption && (
-                            <>
+                            <div className={styles.labelDisplayOptions}>
                                 <LabelDisplayOptions
                                     option={labelTemplate}
                                     onDisplayOptionChange={setLabelTemplate}
                                 />
-                                <div>Label font style</div>
-                            </>
+                                <div>{i18n.t('Label font style')}</div>
+                            </div>
                         )}
                         <FontStyle
                             color={labelFontColor}
