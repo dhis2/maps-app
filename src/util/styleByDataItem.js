@@ -1,52 +1,52 @@
-import i18n from '@dhis2/d2-i18n';
-import { getInstance as getD2 } from 'd2';
-import { curry } from 'lodash/fp';
-import { getLegendItemForValue } from './classify';
-import {
-    loadLegendSet,
-    getAutomaticLegendItems,
-    getPredefinedLegendItems,
-} from './legend';
+import i18n from '@dhis2/d2-i18n'
+import { getInstance as getD2 } from 'd2'
+import { curry } from 'lodash/fp'
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
     CLASSIFICATION_PREDEFINED,
-} from '../constants/layers';
-import { numberValueTypes } from '../constants/valueTypes';
-import { cssColor } from '../util/colors';
+} from '../constants/layers.js'
+import { numberValueTypes } from '../constants/valueTypes.js'
+import { cssColor } from '../util/colors.js'
+import { getLegendItemForValue } from './classify.js'
+import {
+    loadLegendSet,
+    getAutomaticLegendItems,
+    getPredefinedLegendItems,
+} from './legend.js'
 
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved
 // This function is modifiyng the config object before it's added to the redux store
-export const styleByDataItem = async config => {
-    const { styleDataItem } = config;
+export const styleByDataItem = async (config) => {
+    const { styleDataItem } = config
 
     if (styleDataItem.optionSet) {
-        await styleByOptionSet(config);
+        await styleByOptionSet(config)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
-        await styleByNumeric(config);
+        await styleByNumeric(config)
     } else if (styleDataItem.valueType === 'BOOLEAN') {
-        await styleByBoolean(config);
+        await styleByBoolean(config)
     }
 
     config.legend.items.push({
         name: i18n.t('Not set'),
         color: cssColor(config.eventPointColor) || EVENT_COLOR,
         radius: config.eventPointRadius || EVENT_RADIUS,
-    });
+    })
 
-    return config;
-};
+    return config
+}
 
-export const styleByBoolean = async config => {
-    const { styleDataItem, data, legend, eventPointRadius } = config;
-    const { id, name, values } = styleDataItem;
+export const styleByBoolean = async (config) => {
+    const { styleDataItem, data, legend, eventPointRadius } = config
+    const { id, name, values } = styleDataItem
 
-    config.data = data.map(feature => {
-        const value = feature.properties[id] || '0';
+    config.data = data.map((feature) => {
+        const value = feature.properties[id] || '0'
 
         if (!value) {
-            return feature;
+            return feature
         }
 
         return {
@@ -56,10 +56,10 @@ export const styleByBoolean = async config => {
                 value: value === '1' ? i18n.t('Yes') : i18n.t('No'),
                 color: value === '1' ? values.true : values.false,
             },
-        };
-    });
+        }
+    })
 
-    legend.unit = name || (await getDataElementName(id));
+    legend.unit = name || (await getDataElementName(id))
 
     legend.items = [
         {
@@ -67,20 +67,20 @@ export const styleByBoolean = async config => {
             color: values.true,
             radius: eventPointRadius || EVENT_RADIUS,
         },
-    ];
+    ]
 
     if (values.false) {
         legend.items.push({
             name: i18n.t('No'),
             color: values.false,
             radius: eventPointRadius || EVENT_RADIUS,
-        });
+        })
     }
 
-    return config;
-};
+    return config
+}
 
-export const styleByNumeric = async config => {
+export const styleByNumeric = async (config) => {
     const {
         styleDataItem,
         method,
@@ -88,27 +88,27 @@ export const styleByNumeric = async config => {
         colorScale,
         eventPointRadius,
         data,
-    } = config;
+    } = config
 
     // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
         // Load legend set from server
-        const legendSet = await loadLegendSet(config.legendSet);
+        const legendSet = await loadLegendSet(config.legendSet)
 
         // Use legend set name and legend unit
-        config.legend.unit = legendSet.name;
+        config.legend.unit = legendSet.name
 
         // Generate legend items from legendSet
-        config.legend.items = getPredefinedLegendItems(legendSet);
+        config.legend.items = getPredefinedLegendItems(legendSet)
     } else {
         // Create array of sorted values needed for classification
         const sortedValues = data
-            .map(feature => Number(feature.properties[styleDataItem.id]))
-            .sort((a, b) => a - b);
+            .map((feature) => Number(feature.properties[styleDataItem.id]))
+            .sort((a, b) => a - b)
 
         // Use data item name as legend unit (load from server if needed)
         config.legend.unit =
-            styleDataItem.name || (await getDataElementName(styleDataItem.id));
+            styleDataItem.name || (await getDataElementName(styleDataItem.id))
 
         // Generate legend items based on layer config
         config.legend.items = getAutomaticLegendItems(
@@ -116,25 +116,25 @@ export const styleByNumeric = async config => {
             method,
             classes,
             colorScale
-        );
+        )
     }
 
     // Add radius and count to each legend item
-    config.legend.items.forEach(item => {
-        item.radius = eventPointRadius || EVENT_RADIUS;
-        item.count = 0;
-    });
+    config.legend.items.forEach((item) => {
+        item.radius = eventPointRadius || EVENT_RADIUS
+        item.count = 0
+    })
 
     // Helper function to get legend item for data value
-    const getLegendItem = curry(getLegendItemForValue)(config.legend.items);
+    const getLegendItem = curry(getLegendItemForValue)(config.legend.items)
 
     // Add style data value and color to each feature
-    config.data = config.data.map(feature => {
-        const value = Number(feature.properties[styleDataItem.id]);
-        const legendItem = getLegendItem(value);
+    config.data = config.data.map((feature) => {
+        const value = Number(feature.properties[styleDataItem.id])
+        const legendItem = getLegendItem(value)
 
         if (legendItem) {
-            legendItem.count++;
+            legendItem.count++
         }
 
         return {
@@ -144,38 +144,38 @@ export const styleByNumeric = async config => {
                 value,
                 color: legendItem ? legendItem.color : null,
             },
-        };
-    });
+        }
+    })
 
-    return config;
-};
+    return config
+}
 
-export const styleByOptionSet = async config => {
-    const { styleDataItem } = config;
-    const optionSet = await getOptionSet(styleDataItem.optionSet);
-    const id = styleDataItem.id;
+export const styleByOptionSet = async (config) => {
+    const { styleDataItem } = config
+    const optionSet = await getOptionSet(styleDataItem.optionSet)
+    const id = styleDataItem.id
 
     // Replace styleDataItem with a version with names
     config.styleDataItem = {
         ...styleDataItem,
         name: optionSet.name,
         optionSet,
-    };
+    }
 
     // For easier and faster lookup below
     // TODO: There might be options with duplicate name, so code/id would be safer
     // If we use code/id we also need to retrive name to show in popup/data table/download
     const optionsByName = optionSet.options.reduce((obj, option) => {
-        obj[option.name.toLowerCase()] = option;
-        return obj;
-    }, {});
+        obj[option.name.toLowerCase()] = option
+        return obj
+    }, {})
 
     // Add style data value and color to each feature
-    config.data = config.data.map(feature => {
-        const name = feature.properties[id];
+    config.data = config.data.map((feature) => {
+        const name = feature.properties[id]
 
         if (name) {
-            const option = optionsByName[name.toLowerCase()];
+            const option = optionsByName[name.toLowerCase()]
 
             if (option) {
                 return {
@@ -185,55 +185,54 @@ export const styleByOptionSet = async config => {
                         value: option.name,
                         color: option.style.color,
                     },
-                };
+                }
             }
         }
 
-        return feature;
-    });
+        return feature
+    })
 
     // Add legend data
-    config.legend.unit = optionSet.name;
-    config.legend.items = optionSet.options.map(option => ({
+    config.legend.unit = optionSet.name
+    config.legend.items = optionSet.options.map((option) => ({
         name: option.name,
         color: option.style.color,
         radius: config.eventPointRadius || EVENT_RADIUS,
-    }));
+    }))
 
-    return config;
-};
+    return config
+}
 
 // The style option set included in a favorite is stripped for names
 // and this function add the names if needed
-const getOptionSet = async optionSet => {
+const getOptionSet = async (optionSet) => {
     // Return unmodified option set if names are included
     if (optionSet.name) {
-        return optionSet;
+        return optionSet
     }
 
     // Load option set from server
-    const d2 = await getD2();
+    const d2 = await getD2()
     const optSet = await d2.models.optionSet.get(optionSet.id, {
-        fields:
-            'displayName~rename(name),options[id,code,displayName~rename(name)]',
-    });
+        fields: 'displayName~rename(name),options[id,code,displayName~rename(name)]',
+    })
 
     // Return modified option set with names and codes
     return {
         ...optionSet,
         name: optSet.name,
-        options: optionSet.options.map(option => ({
-            ...optSet.options.find(opt => opt.id === option.id),
+        options: optionSet.options.map((option) => ({
+            ...optSet.options.find((opt) => opt.id === option.id),
             ...option,
         })),
-    };
-};
+    }
+}
 
-const getDataElementName = async id => {
-    const d2 = await getD2();
+const getDataElementName = async (id) => {
+    const d2 = await getD2()
     return d2.models.dataElement
         .get(id, {
             fields: 'displayName~rename(name)',
         })
-        .then(model => model.name);
-};
+        .then((model) => model.name)
+}

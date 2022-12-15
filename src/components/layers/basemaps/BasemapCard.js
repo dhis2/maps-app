@@ -1,28 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui';
-import LayerCard from '../LayerCard';
-import BasemapList from './BasemapList';
+import i18n from '@dhis2/d2-i18n'
+import { ComponentCover, CenteredContent, CircularLoader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
 import {
     changeBasemapOpacity,
     toggleBasemapExpand,
     toggleBasemapVisibility,
     selectBasemap,
-} from '../../../actions/basemap';
-import { VECTOR_STYLE } from '../../../constants/layers';
-import useBasemapConfig from '../../../hooks/useBasemapConfig';
+} from '../../../actions/basemap.js'
+import { VECTOR_STYLE } from '../../../constants/layers.js'
+import useBasemapConfig from '../../../hooks/useBasemapConfig.js'
+import LayerCard from '../LayerCard.js'
+import BasemapList from './BasemapList.js'
 
-const BasemapCard = props => {
+const BasemapCard = (props) => {
     const {
         subtitle = i18n.t('Basemap'),
         toggleBasemapExpand,
         toggleBasemapVisibility,
         changeBasemapOpacity,
         selectBasemap,
-    } = props;
-    const basemap = useBasemapConfig(props.basemap);
+    } = props
+    const basemap = useBasemapConfig(props.basemap)
 
     return (
         <>
@@ -54,21 +54,21 @@ const BasemapCard = props => {
                 </LayerCard>
             )}
         </>
-    );
-};
+    )
+}
 
 BasemapCard.propTypes = {
-    subtitle: PropTypes.string,
     basemap: PropTypes.object.isRequired,
     basemaps: PropTypes.array.isRequired,
     changeBasemapOpacity: PropTypes.func.isRequired,
+    selectBasemap: PropTypes.func.isRequired,
     toggleBasemapExpand: PropTypes.func.isRequired,
     toggleBasemapVisibility: PropTypes.func.isRequired,
-    selectBasemap: PropTypes.func.isRequired,
-};
+    subtitle: PropTypes.string,
+}
 
 export default connect(
-    state => ({
+    (state) => ({
         basemap: state.map.basemap,
         basemaps: state.basemaps,
     }),
@@ -78,4 +78,4 @@ export default connect(
         toggleBasemapVisibility,
         selectBasemap,
     }
-)(BasemapCard);
+)(BasemapCard)

@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree';
-import orgUnitStyles from '@dhis2/d2-ui-org-unit-dialog/styles/OrgUnitSelector.style';
-import { loadOrgUnitTree } from '../../actions/orgUnits';
-import styles from './styles/OrgUnitTree.module.css';
+import i18n from '@dhis2/d2-i18n'
+import orgUnitStyles from '@dhis2/d2-ui-org-unit-dialog/styles/OrgUnitSelector.style'
+import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loadOrgUnitTree } from '../../actions/orgUnits.js'
+import styles from './styles/OrgUnitTree.module.css'
 
-export class OrgUnitTreeMaps extends Component {
+class OrgUnitTreeMaps extends Component {
     static propTypes = {
+        loadOrgUnitTree: PropTypes.func.isRequired,
+        disabled: PropTypes.bool,
         roots: PropTypes.array,
         selected: PropTypes.array,
-        disabled: PropTypes.bool,
         onClick: PropTypes.func,
-        loadOrgUnitTree: PropTypes.func.isRequired,
-    };
+    }
 
     componentDidMount() {
-        const { roots, loadOrgUnitTree } = this.props;
+        const { roots, loadOrgUnitTree } = this.props
 
         if (!roots) {
-            loadOrgUnitTree();
+            loadOrgUnitTree()
         }
     }
 
     render() {
-        const { roots, selected, disabled } = this.props;
+        const { roots, selected, disabled } = this.props
 
         // TODO: Add loading indicator
         if (!roots) {
-            return null;
+            return null
         }
 
         return (
@@ -37,9 +37,9 @@ export class OrgUnitTreeMaps extends Component {
                 <OrgUnitTreeMultipleRoots
                     roots={roots}
                     selected={selected
-                        .filter(item => item.path)
-                        .map(item => item.path)}
-                    initiallyExpanded={roots.map(root => root.path)}
+                        .filter((item) => item.path)
+                        .map((item) => item.path)}
+                    initiallyExpanded={roots.map((root) => root.path)}
                     onSelectClick={this.onSelectClick}
                     showFolderIcon
                     disableSpacer
@@ -53,20 +53,20 @@ export class OrgUnitTreeMaps extends Component {
                     </div>
                 ) : null}
             </div>
-        );
+        )
     }
 
     onSelectClick = (evt, orgUnit) => {
         if (!this.props.disabled) {
-            this._isClicked = true;
-            this.props.onClick(orgUnit);
+            this._isClicked = true
+            this.props.onClick(orgUnit)
         }
-    };
+    }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         roots: state.orgUnitTree,
     }),
     { loadOrgUnitTree }
-)(OrgUnitTreeMaps);
+)(OrgUnitTreeMaps)

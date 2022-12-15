@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { NoticeBox } from '@dhis2/ui';
-import { Help } from '../../core';
-import EventDownloadInputs from './EventDownloadInputs';
-import styles from './styles/DataDownloadDialogContent.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { NoticeBox } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { Fragment } from 'react'
+import { Help } from '../../core/index.js'
+import EventDownloadInputs from './EventDownloadInputs.js'
+import styles from './styles/DataDownloadDialogContent.module.css'
 
-export const DataDownloadDialogContent = ({
+const DataDownloadDialogContent = ({
     isEventLayer,
     error,
     layerName,
@@ -42,17 +42,17 @@ export const DataDownloadDialogContent = ({
             <NoticeBox error>{i18n.t('Data download failed.')}</NoticeBox>
         )}
     </Fragment>
-);
+)
 
 DataDownloadDialogContent.propTypes = {
-    isEventLayer: PropTypes.bool.isRequired,
-    error: PropTypes.string,
-    layerName: PropTypes.string.isRequired,
     formatOptions: PropTypes.array.isRequired,
-    selectedFormatOption: PropTypes.number,
     humanReadableChecked: PropTypes.bool.isRequired,
+    isEventLayer: PropTypes.bool.isRequired,
+    layerName: PropTypes.string.isRequired,
     onChangeFormatOption: PropTypes.func.isRequired,
     onCheckHumanReadable: PropTypes.func.isRequired,
-};
+    error: PropTypes.string,
+    selectedFormatOption: PropTypes.number,
+}
 
-export default DataDownloadDialogContent;
+export default DataDownloadDialogContent

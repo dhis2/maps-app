@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import Bubbles from './Bubbles';
-import LegendItem from './LegendItem';
-import styles from './styles/Legend.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Bubbles from './Bubbles.js'
+import LegendItem from './LegendItem.js'
+import styles from './styles/Legend.module.css'
 
 // Rendering a layer legend in the left drawer, on a map (download) or in a control (plugin)
 const Legend = ({
@@ -71,23 +71,23 @@ const Legend = ({
             </div>
         )}
     </dl>
-);
+)
 
 Legend.propTypes = {
-    description: PropTypes.string,
-    filters: PropTypes.array,
-    groups: PropTypes.array,
-    unit: PropTypes.string,
-    items: PropTypes.array,
     bubbles: PropTypes.shape({
-        radiusLow: PropTypes.number.isRequired,
         radiusHigh: PropTypes.number.isRequired,
+        radiusLow: PropTypes.number.isRequired,
         color: PropTypes.string,
     }),
-    url: PropTypes.string,
+    description: PropTypes.string,
     explanation: PropTypes.array,
+    filters: PropTypes.array,
+    groups: PropTypes.array,
+    items: PropTypes.array,
     source: PropTypes.string,
     sourceUrl: PropTypes.string,
-};
+    unit: PropTypes.string,
+    url: PropTypes.string,
+}
 
-export default Legend;
+export default Legend

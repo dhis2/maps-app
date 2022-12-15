@@ -1,4 +1,4 @@
-import { bisector, tickStep } from 'd3-array';
+import { bisector, tickStep } from 'd3-array'
 import {
     timeMillisecond as millisecond,
     timeSecond as second,
@@ -8,19 +8,20 @@ import {
     timeMonday as week,
     timeMonth as month,
     timeYear as year,
-} from 'd3-time';
+} from 'd3-time'
 
 // Based on https://github.com/d3/d3-time/blob/main/src/ticks.js
 // Week start on Monday, not Sunday as default in d3.js
 
-const durationSecond = 1000;
-const durationMinute = durationSecond * 60;
-const durationHour = durationMinute * 60;
-const durationDay = durationHour * 24;
-const durationWeek = durationDay * 7;
-const durationMonth = durationDay * 30;
-const durationYear = durationDay * 365;
+const durationSecond = 1000
+const durationMinute = durationSecond * 60
+const durationHour = durationMinute * 60
+const durationDay = durationHour * 24
+const durationWeek = durationDay * 7
+const durationMonth = durationDay * 30
+const durationYear = durationDay * 365
 
+//eslint-disable-next-line max-params
 function ticker(year, month, week, day, hour, minute) {
     const tickIntervals = [
         [second, 1, durationSecond],
@@ -41,37 +42,42 @@ function ticker(year, month, week, day, hour, minute) {
         [month, 1, durationMonth],
         [month, 3, 3 * durationMonth],
         [year, 1, durationYear],
-    ];
+    ]
 
     function ticks(start, stop, count) {
-        const reverse = stop < start;
-        if (reverse) [start, stop] = [stop, start];
+        const reverse = stop < start
+        if (reverse) {
+            ;[start, stop] = [stop, start]
+        }
         const interval =
             count && typeof count.range === 'function'
                 ? count
-                : tickInterval(start, stop, count);
-        const ticks = interval ? interval.range(start, +stop + 1) : []; // inclusive stop
-        return reverse ? ticks.reverse() : ticks;
+                : tickInterval(start, stop, count)
+        const ticks = interval ? interval.range(start, +stop + 1) : [] // inclusive stop
+        return reverse ? ticks.reverse() : ticks
     }
 
     function tickInterval(start, stop, count) {
-        const target = Math.abs(stop - start) / count;
-        const i = bisector(([, , step]) => step).right(tickIntervals, target);
-        if (i === tickIntervals.length)
+        const target = Math.abs(stop - start) / count
+        const i = bisector(([, , step]) => step).right(tickIntervals, target)
+        if (i === tickIntervals.length) {
             return year.every(
                 tickStep(start / durationYear, stop / durationYear, count)
-            );
-        if (i === 0)
-            return millisecond.every(Math.max(tickStep(start, stop, count), 1));
-        const [t, step] = tickIntervals[
-            target / tickIntervals[i - 1][2] < tickIntervals[i][2] / target
-                ? i - 1
-                : i
-        ];
-        return t.every(step);
+            )
+        }
+        if (i === 0) {
+            return millisecond.every(Math.max(tickStep(start, stop, count), 1))
+        }
+        const [t, step] =
+            tickIntervals[
+                target / tickIntervals[i - 1][2] < tickIntervals[i][2] / target
+                    ? i - 1
+                    : i
+            ]
+        return t.every(step)
     }
 
-    return ticks;
+    return ticks
 }
 
-export default ticker(year, month, week, day, hour, minute);
+export default ticker(year, month, week, day, hour, minute)

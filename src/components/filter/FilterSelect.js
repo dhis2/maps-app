@@ -1,25 +1,25 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Fragment, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { loadOptionSet } from '../../actions/optionSets.js'
+import {
+    numberValueTypes,
+    textValueTypes,
+    booleanValueTypes,
+} from '../../constants/valueTypes.js'
 import {
     SelectField,
     NumberField,
     TextField,
     Checkbox,
     DatePicker,
-} from '../core';
-import OptionSetSelect from '../optionSet/OptionSetSelect';
-import { loadOptionSet } from '../../actions/optionSets';
-import {
-    numberValueTypes,
-    textValueTypes,
-    booleanValueTypes,
-} from '../../constants/valueTypes';
-import styles from './styles/FilterSelect.module.css';
+} from '../core/index.js'
+import OptionSetSelect from '../optionSet/OptionSetSelect.js'
+import styles from './styles/FilterSelect.module.css'
 
 const getOperators = (valueType, optionSet) => {
-    let operators;
+    let operators
 
     if (['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(valueType)) {
         operators = [
@@ -29,19 +29,19 @@ const getOperators = (valueType, optionSet) => {
             { id: 'LT', name: '<' },
             { id: 'LE', name: '<=' },
             { id: 'NE', name: '!=' },
-        ];
+        ]
     } else if (optionSet) {
-        operators = [{ id: 'IN', name: i18n.t('one of') }];
+        operators = [{ id: 'IN', name: i18n.t('one of') }]
     } else if (textValueTypes.includes(valueType)) {
         operators = [
             { id: 'LIKE', name: i18n.t('contains') },
             { id: 'EQ', name: i18n.t('is') },
             { id: 'NE', name: i18n.t('is not') },
-        ];
+        ]
     }
 
-    return operators;
-};
+    return operators
+}
 
 const FilterSelect = ({
     valueType,
@@ -51,23 +51,23 @@ const FilterSelect = ({
     onChange,
     loadOptionSet,
 }) => {
-    const operators = getOperators(valueType, optionSet);
-    let operator;
-    let value;
+    const operators = getOperators(valueType, optionSet)
+    let operator
+    let value
 
     if (filter) {
-        const splitFilter = filter.split(':');
-        operator = splitFilter[0];
-        value = splitFilter[1];
+        const splitFilter = filter.split(':')
+        operator = splitFilter[0]
+        value = splitFilter[1]
     } else if (operators) {
-        operator = operators[0].id;
+        operator = operators[0].id
     }
 
     useEffect(() => {
         if (optionSet && !optionSets[optionSet.id]) {
-            loadOptionSet(optionSet.id);
+            loadOptionSet(optionSet.id)
         }
-    }, [optionSet, optionSets, loadOptionSet]);
+    }, [optionSet, optionSets, loadOptionSet])
 
     return (
         <Fragment>
@@ -76,7 +76,7 @@ const FilterSelect = ({
                     label={i18n.t('Operator')}
                     items={operators}
                     value={operator}
-                    onChange={newOperator =>
+                    onChange={(newOperator) =>
                         onChange(`${newOperator.id}:${value ? value : ''}`)
                     }
                     className={styles.operator}
@@ -86,7 +86,7 @@ const FilterSelect = ({
                 <OptionSetSelect
                     options={optionSets[optionSet.id].options}
                     value={value ? value.split(';') : null}
-                    onChange={newValue =>
+                    onChange={(newValue) =>
                         onChange(`${operator}:${newValue.join(';')}`)
                     }
                     className={styles.inputField}
@@ -96,7 +96,7 @@ const FilterSelect = ({
                 <NumberField
                     label={i18n.t('Value')}
                     value={value !== undefined ? Number(value) : value}
-                    onChange={newValue => onChange(`${operator}:${newValue}`)}
+                    onChange={(newValue) => onChange(`${operator}:${newValue}`)}
                     className={styles.inputField}
                 />
             )}
@@ -104,7 +104,7 @@ const FilterSelect = ({
                 <TextField
                     label={i18n.t('Value')}
                     value={value || ''}
-                    onChange={newValue => onChange(`${operator}:${newValue}`)}
+                    onChange={(newValue) => onChange(`${operator}:${newValue}`)}
                     className={styles.inputField}
                 />
             )}
@@ -112,7 +112,7 @@ const FilterSelect = ({
                 <Checkbox
                     label={i18n.t('Yes')}
                     checked={value == 1 ? true : false}
-                    onChange={isChecked =>
+                    onChange={(isChecked) =>
                         onChange(isChecked ? 'IN:1' : 'IN:0')
                     }
                     className={styles.checkbox}
@@ -122,26 +122,26 @@ const FilterSelect = ({
                 <DatePicker
                     label={i18n.t('Date')}
                     value={value}
-                    onChange={date => onChange(`${operator}:${date}`)}
+                    onChange={(date) => onChange(`${operator}:${date}`)}
                     className={styles.inputField}
                 />
             )}
         </Fragment>
-    );
-};
+    )
+}
 
 FilterSelect.propTypes = {
-    valueType: PropTypes.string,
+    loadOptionSet: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     filter: PropTypes.string,
     optionSet: PropTypes.object,
     optionSets: PropTypes.object,
-    loadOptionSet: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-};
+    valueType: PropTypes.string,
+}
 
 export default connect(
-    state => ({
+    (state) => ({
         optionSets: state.optionSets,
     }),
     { loadOptionSet }
-)(FilterSelect);
+)(FilterSelect)

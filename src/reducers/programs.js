@@ -1,13 +1,13 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes.js'
 
 const programs = (state = null, action) => {
     switch (action.type) {
         case types.PROGRAMS_SET:
-            return action.payload;
+            return action.payload
 
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default programs;
+export default programs

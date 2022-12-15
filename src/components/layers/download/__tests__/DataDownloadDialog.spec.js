@@ -1,121 +1,146 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { DataDownloadDialog } from '../DataDownloadDialog';
+import { render } from '@testing-library/react'
+import React from 'react'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import DataDownloadDialog from '../DataDownloadDialog.js'
 
 // Requested by util/geojson dep
-jest.mock('../../../map/MapApi', () => ({
+jest.mock('../../../map/MapApi.js', () => ({
     poleOfInaccessibility: jest.fn(),
-}));
+}))
+
+/* eslint-disable react/prop-types */
+jest.mock('@dhis2/ui', () => {
+    const originalModule = jest.requireActual('@dhis2/ui')
+
+    return {
+        __esModule: true,
+        ...originalModule,
+        Modal: function Mock(props) {
+            return <div className="ui-Modal">{props.children}</div>
+        },
+        Button: function Mock({ children }) {
+            return <div className="ui-Button">{children}</div>
+        },
+        ButtonStrip: function Mock({ children }) {
+            return <div className="ui-ButtonStrip">{children}</div>
+        },
+        ModalActions: function Mock({ children }) {
+            return <div className="ui-ModalActions">{children}</div>
+        },
+        ModalContent: function Mock({ children }) {
+            return <div className="ui-ModalContent">{children}</div>
+        },
+        ModalTitle: function Mock({ children }) {
+            return <div className="ui-ModalTitle">{children}</div>
+        },
+    }
+})
+/* eslint-enable react/prop-types */
+
+const mockStore = configureMockStore()
+
+const dummyEventLayer = {
+    id: 'eventlayerId',
+    layer: 'event',
+    name: 'Event layer',
+}
+const dummyThematicLayer = {
+    id: 'thematicLayerId',
+    layer: 'thematic',
+    name: 'Thematic layer',
+}
 
 describe('DataDownloadDialogContent', () => {
-    const formatOptions = [
-        { id: 1, name: 'Test Format' },
-        { id: 2, name: 'No Format' },
-        { id: 3, name: 'Some Format' },
-    ];
-    const renderComponent = props =>
-        shallow(
-            <DataDownloadDialog
-                open={false}
-                downloading={false}
-                error={null}
-                layer={null}
-                startDownload={() => null}
-                closeDialog={() => null}
-                {...props}
-            />
-        );
+    test('does not render when not open', () => {
+        const store = {
+            dataDownload: { dialogOpen: false, downloading: false },
+            map: {
+                mapViews: [],
+            },
+        }
 
-    const dummyEventLayer = { layer: 'event', name: 'Event layer' };
-    const dummyThematicLayer = { layer: 'thematic', name: 'Thematic layer' };
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <DataDownloadDialog />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
+    })
 
-    it('Should render null when not open', () => {
-        const wrapper = renderComponent();
-        expect(wrapper.isEmptyRender()).toBe(true);
-    });
+    test('renders null when open but layer is null', () => {
+        const store = {
+            dataDownload: { dialogOpen: true, downloading: false },
+            map: {
+                mapViews: [],
+            },
+        }
 
-    it('Should render null when open but layer is null', () => {
-        const wrapper = renderComponent({
-            open: true,
-        });
-        expect(wrapper.isEmptyRender()).toBe(true);
-    });
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <DataDownloadDialog />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
+    })
 
-    it('Should render a dialog when open', () => {
-        const wrapper = renderComponent({
-            open: true,
-            layer: dummyEventLayer,
-        });
+    test('Should render a dialog when open', () => {
+        const store = {
+            dataDownload: {
+                layerid: dummyThematicLayer.id,
+                dialogOpen: true,
+                downloading: false,
+            },
+            map: {
+                mapViews: [dummyThematicLayer],
+            },
+        }
 
-        expect(wrapper.isEmptyRender()).toBe(false);
-        expect(wrapper.find('Modal').length).toBe(1);
-        expect(wrapper.find('DataDownloadDialogContent').length).toBe(1);
-        expect(wrapper.find('DataDownloadDialogActions').length).toBe(1);
-        expect(
-            wrapper.find('DataDownloadDialogActions').prop('downloading')
-        ).toBe(false);
-        expect(
-            wrapper.find('DataDownloadDialogContent').prop('isEventLayer')
-        ).toBe(true);
-    });
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <DataDownloadDialog />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
+    })
 
-    it('Should detect isEventLayer correctly', () => {
-        const wrapper = renderComponent({
-            open: true,
-            layer: dummyThematicLayer,
-        });
-        expect(wrapper.isEmptyRender()).toBe(false);
-        expect(
-            wrapper.find('DataDownloadDialogContent').prop('isEventLayer')
-        ).toBe(false);
-    });
-    it('Should default state to selectedFormatOption=2 and humanReadableChecked=true', () => {
-        const wrapper = renderComponent({
-            open: true,
-            layer: dummyEventLayer,
-        });
-        expect(wrapper.isEmptyRender()).toBe(false);
-        expect(wrapper.state().selectedFormatOption).toBe(2);
-        expect(
-            wrapper
-                .find('DataDownloadDialogContent')
-                .prop('selectedFormatOption')
-        ).toBe(3); // 1-indexed
-        expect(wrapper.state().humanReadableChecked).toBe(true);
-        expect(
-            wrapper
-                .find('DataDownloadDialogContent')
-                .prop('humanReadableChecked')
-        ).toBe(true);
-    });
-    it('Should update humanReadableChecked when calling onCheckHumanReadable', () => {
-        const wrapper = renderComponent({
-            open: true,
-            layer: dummyEventLayer,
-        });
-        expect(wrapper.isEmptyRender()).toBe(false);
-        expect(wrapper.state().humanReadableChecked).toBe(true);
-        wrapper.instance().onCheckHumanReadable(false);
-        expect(wrapper.state().humanReadableChecked).toBe(false);
-    });
-    it('Should update selectedFormatOption when calling onChangeFormatOption', () => {
-        const wrapper = renderComponent({
-            open: true,
-            layer: dummyEventLayer,
-        });
-        expect(wrapper.isEmptyRender()).toBe(false);
-        expect(wrapper.state().selectedFormatOption).toBe(2);
-        wrapper.instance().onChangeFormatOption({ id: 1 }); // IDs are 1-indexed, selectedFormatOption is 0-indexed
-        expect(wrapper.state().selectedFormatOption).toBe(0); // 1 - 1 = 0
-    });
-    it('Should pass downloading to Actions', () => {
-        const wrapper = renderComponent({
-            open: true,
-            layer: dummyEventLayer,
-            downloading: true,
-        });
-        expect(
-            wrapper.find('DataDownloadDialogActions').prop('downloading')
-        ).toBe(true);
-    });
-});
+    test('renders for an event layer', () => {
+        const store = {
+            dataDownload: {
+                layerid: dummyEventLayer.id,
+                dialogOpen: true,
+                downloading: false,
+            },
+            map: {
+                mapViews: [dummyEventLayer],
+            },
+        }
+
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <DataDownloadDialog />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
+    })
+
+    test('renders for event layer with downloading = true', () => {
+        const store = {
+            dataDownload: {
+                layerid: dummyEventLayer.id,
+                dialogOpen: true,
+                downloading: true,
+            },
+            map: {
+                mapViews: [dummyEventLayer],
+            },
+        }
+
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <DataDownloadDialog />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
+    })
+})

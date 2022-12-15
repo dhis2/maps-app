@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
-import { SelectField } from '../core';
-import { loadDataElementOperands } from '../../actions/dataElements';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loadDataElementOperands } from '../../actions/dataElements.js'
+import { SelectField } from '../core/index.js'
 
-export class DataElementOperandSelect extends Component {
+class DataElementOperandSelect extends Component {
     static propTypes = {
-        dataElement: PropTypes.object,
-        dataElementGroup: PropTypes.object,
-        dataElementOperands: PropTypes.object,
         loadDataElementOperands: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         className: PropTypes.string,
+        dataElement: PropTypes.object,
+        dataElementGroup: PropTypes.object,
+        dataElementOperands: PropTypes.object,
         errorText: PropTypes.string,
-    };
+    }
 
     componentDidMount() {
-        this.loadDataElementOperands();
+        this.loadDataElementOperands()
     }
 
     componentDidUpdate() {
-        this.loadDataElementOperands();
+        this.loadDataElementOperands()
     }
 
     loadDataElementOperands() {
@@ -29,10 +29,10 @@ export class DataElementOperandSelect extends Component {
             dataElementOperands,
             dataElementGroup,
             loadDataElementOperands,
-        } = this.props;
+        } = this.props
 
         if (dataElementGroup && !dataElementOperands[dataElementGroup.id]) {
-            loadDataElementOperands(dataElementGroup.id);
+            loadDataElementOperands(dataElementGroup.id)
         }
     }
 
@@ -44,16 +44,16 @@ export class DataElementOperandSelect extends Component {
             onChange,
             className,
             errorText,
-        } = this.props;
+        } = this.props
 
-        let items;
+        let items
 
         if (dataElementOperands && dataElementGroup) {
-            items = dataElementOperands[dataElementGroup.id];
+            items = dataElementOperands[dataElementGroup.id]
         } else if (dataElement) {
-            items = [dataElement];
+            items = [dataElement]
         } else {
-            return null;
+            return null
         }
 
         return (
@@ -62,17 +62,17 @@ export class DataElementOperandSelect extends Component {
                 loading={items ? false : true}
                 items={items}
                 value={dataElement ? dataElement.id : null}
-                onChange={dataElement => onChange(dataElement, 'operand')}
+                onChange={(dataElement) => onChange(dataElement, 'operand')}
                 className={className}
                 errorText={!dataElement && errorText ? errorText : null}
             />
-        );
+        )
     }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         dataElementOperands: state.dataElementOperands,
     }),
     { loadDataElementOperands }
-)(DataElementOperandSelect);
+)(DataElementOperandSelect)

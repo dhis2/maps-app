@@ -1,7 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import OrgUnitData from '../OrgUnitData';
-import PeriodSelect from '../../periods/PeriodSelect';
+import { shallow } from 'enzyme'
+import React from 'react'
+import OrgUnitData from '../OrgUnitData.js'
 
 const defaultProps = {
     id: 'DiszpKrYNg8',
@@ -9,7 +8,7 @@ const defaultProps = {
     defaultPeriod: {
         id: '2021',
     },
-};
+}
 
 const data = [
     {
@@ -37,24 +36,24 @@ const data = [
         label: 'FIC <1y',
         value: 291.4,
     },
-];
+]
 
 describe('Org unit data items', () => {
-    const renderWithProps = props =>
-        shallow(<OrgUnitData {...defaultProps} {...props} />);
+    const renderWithProps = (props) =>
+        shallow(<OrgUnitData {...defaultProps} {...props} />)
 
     it('should render a period select', () => {
-        expect(renderWithProps().find('PeriodSelect')).toHaveLength(1);
-    });
+        expect(renderWithProps().find('PeriodSelect')).toHaveLength(1)
+    })
 
     it('should render a list of data items', () => {
-        const wrapper = renderWithProps({ data });
+        const wrapper = renderWithProps({ data })
 
-        expect(wrapper.find('tr')).toHaveLength(data.length);
+        expect(wrapper.find('tr')).toHaveLength(data.length)
 
         wrapper.find('tr').forEach((node, index) => {
-            expect(node.find('th').prop('children')).toEqual(data[index].label);
-            expect(node.find('td').prop('children')).toEqual(data[index].value);
-        });
-    });
-});
+            expect(node.find('th').prop('children')).toEqual(data[index].label)
+            expect(node.find('td').prop('children')).toEqual(data[index].value)
+        })
+    })
+})

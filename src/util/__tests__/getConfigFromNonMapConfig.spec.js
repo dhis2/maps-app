@@ -1,9 +1,9 @@
-import { getConfigFromNonMapConfig } from '../getConfigFromNonMapConfig';
-import * as getuid from 'd2/uid';
+import * as getuid from 'd2/uid'
+import { getConfigFromNonMapConfig } from '../getConfigFromNonMapConfig.js'
 // import * as analyticalObject from '../analyticalObject';
-import * as legend from '../legend';
+import * as legend from '../legend.js'
 
-const mockLegendSet = { id: 'fqs276KXCXi', name: 'ANC Coverage' };
+const mockLegendSet = { id: 'fqs276KXCXi', name: 'ANC Coverage' }
 const chartConfig = {
     lastUpdated: '2018-12-03T12:51:29.620',
     href: 'http://localhost:8080/api/38/visualizations/DeRrc1gTMjn',
@@ -151,7 +151,7 @@ const chartConfig = {
             ],
         },
     ],
-};
+}
 
 const nonMapMapView = {
     layer: 'thematic',
@@ -237,18 +237,20 @@ const nonMapMapView = {
     },
     isVisible: true,
     opacity: 0.9,
-};
+}
 
-const defaultBasemapId = 'defaultBasemapId';
+const defaultBasemapId = 'defaultBasemapId'
 
 test('getConfigFromNonMapConfig', async () => {
-    legend.loadDataItemLegendSet = jest.fn().mockResolvedValue(mockLegendSet);
-    getuid.generateUid = jest.fn().mockReturnValue('abc123');
+    /* eslint-disable no-import-assign, import/namespace */
+    legend.loadDataItemLegendSet = jest.fn().mockResolvedValue(mockLegendSet)
+    getuid.generateUid = jest.fn().mockReturnValue('abc123')
+    /* eslint-enable no-import-assign, import/namespace */
 
     const res = await getConfigFromNonMapConfig(
         { el: 'the element', ...chartConfig },
         defaultBasemapId
-    );
+    )
 
     expect(res).toEqual(
         expect.objectContaining({
@@ -262,5 +264,5 @@ test('getConfigFromNonMapConfig', async () => {
                 },
             ],
         })
-    );
-});
+    )
+})

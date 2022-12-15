@@ -1,10 +1,10 @@
-import eventLoader from './eventLoader';
-import trackedEntityLoader from './trackedEntityLoader';
-import facilityLoader from './facilityLoader';
-import thematicLoader from './thematicLoader';
-import orgUnitLoader from './orgUnitLoader';
-import earthEngineLoader from './earthEngineLoader';
-import externalLoader from './externalLoader';
+import earthEngineLoader from './earthEngineLoader.js'
+import eventLoader from './eventLoader.js'
+import externalLoader from './externalLoader.js'
+import facilityLoader from './facilityLoader.js'
+import orgUnitLoader from './orgUnitLoader.js'
+import thematicLoader from './thematicLoader.js'
+import trackedEntityLoader from './trackedEntityLoader.js'
 
 const layerType = {
     event: eventLoader,
@@ -14,19 +14,18 @@ const layerType = {
     orgUnit: orgUnitLoader,
     earthEngine: earthEngineLoader,
     external: externalLoader,
-};
+}
 
-export const fetchLayer = config => {
-    const Loader = layerType[config.layer];
+export const fetchLayer = (config) => {
+    const Loader = layerType[config.layer]
 
     if (Loader) {
         return Loader({
             ...config,
             editCounter:
                 config.editCounter !== undefined ? config.editCounter + 1 : 0,
-        });
+        })
     } else {
-        // eslint-disable-next-line
-        console.log('Unknown layer type', config.layer, config);
+        console.log('Unknown layer type', config.layer, config)
     }
-};
+}

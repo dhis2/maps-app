@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { Radio, RadioGroup } from '.';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
 import {
     LABEL_TEMPLATE_NAME_ONLY,
     LABEL_TEMPLATE_NAME_AND_VALUE,
     LABEL_TEMPLATE_VALUE_ONLY,
-} from '../../constants/layers';
+} from '../../constants/layers.js'
+import { Radio, RadioGroup } from '.'
 
 const getLabelDisplayOptions = () => [
     {
@@ -21,25 +21,22 @@ const getLabelDisplayOptions = () => [
         value: LABEL_TEMPLATE_VALUE_ONLY,
         label: i18n.t('Value'),
     },
-];
+]
 
-export const LabelDisplayOptions = ({ option, onDisplayOptionChange }) => (
-    <>
-        <div>{i18n.t('Labels to display')}</div>
-        <RadioGroup
-            value={option || LABEL_DISPLAY_OPTION_NAME_ONLY}
-            onChange={onDisplayOptionChange}
-        >
-            {getLabelDisplayOptions().map(({ value, label }) => (
-                <Radio key={value} value={value} label={label} />
-            ))}
-        </RadioGroup>
-    </>
-);
+const LabelDisplayOptions = ({ option, onDisplayOptionChange }) => (
+    <RadioGroup
+        value={option || LABEL_TEMPLATE_NAME_ONLY}
+        onChange={onDisplayOptionChange}
+    >
+        {getLabelDisplayOptions().map(({ value, label }) => (
+            <Radio key={value} value={value} label={label} />
+        ))}
+    </RadioGroup>
+)
 
 LabelDisplayOptions.propTypes = {
-    option: PropTypes.string,
     onDisplayOptionChange: PropTypes.func.isRequired,
-};
+    option: PropTypes.string,
+}
 
-export default LabelDisplayOptions;
+export default LabelDisplayOptions

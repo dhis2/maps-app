@@ -1,11 +1,11 @@
-import React, { useMemo, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
-import { loadOrgUnitGroupSets } from '../../actions/orgUnits';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useMemo, useCallback, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { loadOrgUnitGroupSets } from '../../actions/orgUnits.js'
+import { SelectField } from '../core/index.js'
 
-export const GroupSetSelect = ({
+const GroupSetSelect = ({
     label = i18n.t('Group set'),
     orgUnitGroupSets,
     value,
@@ -21,18 +21,18 @@ export const GroupSetSelect = ({
             ...(orgUnitGroupSets || []),
         ],
         [orgUnitGroupSets, allowNone]
-    );
+    )
 
     const onGroupSetChange = useCallback(
-        item => onChange(item.id !== 'none' ? item : undefined),
+        (item) => onChange(item.id !== 'none' ? item : undefined),
         [onChange]
-    );
+    )
 
     useEffect(() => {
         if (!orgUnitGroupSets) {
-            loadOrgUnitGroupSets();
+            loadOrgUnitGroupSets()
         }
-    }, [orgUnitGroupSets, loadOrgUnitGroupSets]);
+    }, [orgUnitGroupSets, loadOrgUnitGroupSets])
 
     return (
         <SelectField
@@ -45,23 +45,23 @@ export const GroupSetSelect = ({
             className={className}
             data-test="orgunitgroupsetselect"
         />
-    );
-};
+    )
+}
 
 GroupSetSelect.propTypes = {
-    label: PropTypes.string,
-    value: PropTypes.object,
-    allowNone: PropTypes.bool,
-    orgUnitGroupSets: PropTypes.array,
     loadOrgUnitGroupSets: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    errorText: PropTypes.string,
+    allowNone: PropTypes.bool,
     className: PropTypes.string,
-};
+    errorText: PropTypes.string,
+    label: PropTypes.string,
+    orgUnitGroupSets: PropTypes.array,
+    value: PropTypes.object,
+}
 
 export default connect(
-    state => ({
+    (state) => ({
         orgUnitGroupSets: state.orgUnitGroupSets,
     }),
     { loadOrgUnitGroupSets }
-)(GroupSetSelect);
+)(GroupSetSelect)

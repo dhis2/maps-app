@@ -12,7 +12,7 @@ export const numberValueTypes = [
     'NUMBER',
     'PERCENTAGE',
     'UNIT_INTERVAL',
-];
+]
 
 // Text value types
 export const textValueTypes = [
@@ -22,7 +22,7 @@ export const textValueTypes = [
     'PHONE_NUMBER',
     'TEXT',
     'USERNAME',
-];
+]
 
 // Boolean value types
-export const booleanValueTypes = ['BOOLEAN', 'TRUE_ONLY'];
+export const booleanValueTypes = ['BOOLEAN', 'TRUE_ONLY']

@@ -1,20 +1,20 @@
-import { EventLayer } from '../../elements/event_layer';
-import { EXTENDED_TIMEOUT } from '../../support/util';
+import { EventLayer } from '../../elements/event_layer.js'
+import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 context('Event Layers', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT);
-    });
+        cy.visit('/', EXTENDED_TIMEOUT)
+    })
 
-    const Layer = new EventLayer();
+    const Layer = new EventLayer()
 
     it('shows error if no program selected', () => {
-        Layer.openDialog('Events').addToMap();
+        Layer.openDialog('Events').addToMap()
 
-        Layer.validateDialogClosed(false);
+        Layer.validateDialogClosed(false)
 
-        cy.contains('Program is required').should('be.visible');
-    });
+        cy.contains('Program is required').should('be.visible')
+    })
 
     it('adds an event layer', () => {
         Layer.openDialog('Events')
@@ -23,11 +23,11 @@ context('Event Layers', () => {
             .selectTab('Org Units')
             .selectOu('Bombali')
             .selectOu('Bo')
-            .addToMap();
+            .addToMap()
 
-        Layer.validateDialogClosed(true);
+        Layer.validateDialogClosed(true)
 
-        Layer.validateCardTitle('Inpatient morbidity and mortality');
-        Layer.validateCardItems(['Event']);
-    });
-});
+        Layer.validateCardTitle('Inpatient morbidity and mortality')
+        Layer.validateCardItems(['Event'])
+    })
+})

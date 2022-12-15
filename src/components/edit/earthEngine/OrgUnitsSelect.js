@@ -1,25 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import OrgUnitTree from '../../orgunits/OrgUnitTree';
-import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect';
-import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect';
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect';
-import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect';
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
 import {
     toggleOrgUnit,
     setOrgUnitLevels,
     setOrgUnitGroups,
     setUserOrgUnits,
-} from '../../../actions/layerEdit';
+} from '../../../actions/layerEdit.js'
 import {
     getOrgUnitsFromRows,
     getOrgUnitNodesFromRows,
     getOrgUnitLevelsFromRows,
     getOrgUnitGroupsFromRows,
     getUserOrgUnitsFromRows,
-} from '../../../util/analytics';
-import styles from '../styles/LayerDialog.module.css';
+} from '../../../util/analytics.js'
+import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect.js'
+import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect.js'
+import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect.js'
+import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
+import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
+import styles from '../styles/LayerDialog.module.css'
 
 const OrgUnitsSelect = ({
     rows,
@@ -29,9 +29,9 @@ const OrgUnitsSelect = ({
     setOrgUnitGroups,
     setUserOrgUnits,
 }) => {
-    const orgUnits = getOrgUnitsFromRows(rows);
-    const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows);
-    const hasUserOrgUnits = !!selectedUserOrgUnits.length;
+    const orgUnits = getOrgUnitsFromRows(rows)
+    const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows)
+    const hasUserOrgUnits = !!selectedUserOrgUnits.length
 
     return (
         <div className={styles.flexColumnFlow}>
@@ -63,21 +63,21 @@ const OrgUnitsSelect = ({
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
 OrgUnitsSelect.propTypes = {
-    rows: PropTypes.array,
-    error: PropTypes.string,
-    toggleOrgUnit: PropTypes.func.isRequired,
-    setOrgUnitLevels: PropTypes.func.isRequired,
     setOrgUnitGroups: PropTypes.func.isRequired,
+    setOrgUnitLevels: PropTypes.func.isRequired,
     setUserOrgUnits: PropTypes.func.isRequired,
-};
+    toggleOrgUnit: PropTypes.func.isRequired,
+    error: PropTypes.string,
+    rows: PropTypes.array,
+}
 
 export default connect(null, {
     toggleOrgUnit,
     setOrgUnitLevels,
     setOrgUnitGroups,
     setUserOrgUnits,
-})(OrgUnitsSelect);
+})(OrgUnitsSelect)

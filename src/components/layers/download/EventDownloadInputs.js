@@ -1,17 +1,17 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField, Checkbox } from '../../core';
-import styles from './styles/EventDownloadInputs.module.css';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { SelectField, Checkbox } from '../../core/index.js'
+import styles from './styles/EventDownloadInputs.module.css'
 
-export const EventDownloadInputs = ({
+const EventDownloadInputs = ({
     formatOptions,
     selectedFormatOption,
     humanReadableChecked,
     onChangeFormatOption,
     onCheckHumanReadable,
 }) => (
-    <Fragment>
+    <>
         <div className={styles.headingDiv}>{i18n.t('GeoJSON Properties:')}</div>
         <div className={styles.selectField}>
             <SelectField
@@ -27,14 +27,14 @@ export const EventDownloadInputs = ({
             checked={humanReadableChecked}
             onChange={onCheckHumanReadable}
         />
-    </Fragment>
-);
+    </>
+)
 EventDownloadInputs.propTypes = {
     formatOptions: PropTypes.array.isRequired,
-    selectedFormatOption: PropTypes.number,
     humanReadableChecked: PropTypes.bool.isRequired,
     onChangeFormatOption: PropTypes.func.isRequired,
     onCheckHumanReadable: PropTypes.func.isRequired,
-};
+    selectedFormatOption: PropTypes.number,
+}
 
-export default EventDownloadInputs;
+export default EventDownloadInputs

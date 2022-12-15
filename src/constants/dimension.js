@@ -91,4 +91,4 @@ export const dimConf = {
         dimensionName: 'value',
         objectName: 'value',
     },
-};
+}

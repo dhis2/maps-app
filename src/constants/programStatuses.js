@@ -1,4 +1,4 @@
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 
 export const getProgramStatuses = () => [
     {
@@ -17,4 +17,4 @@ export const getProgramStatuses = () => [
         id: 'CANCELLED',
         name: i18n.t('Cancelled'),
     },
-];
+]

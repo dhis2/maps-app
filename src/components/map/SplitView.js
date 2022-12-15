@@ -1,11 +1,11 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import PeriodName from './PeriodName';
-import MapItem from './MapItem';
-import BasemapLayer from './layers/BasemapLayer';
-import ThematicLayer from './layers/ThematicLayer';
-import styles from './styles/SplitView.module.css';
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
+import BasemapLayer from './layers/BasemapLayer.js'
+import ThematicLayer from './layers/ThematicLayer.js'
+import MapItem from './MapItem.js'
+import PeriodName from './PeriodName.js'
+import styles from './styles/SplitView.module.css'
 
 const SplitView = ({
     isPlugin,
@@ -17,44 +17,44 @@ const SplitView = ({
     isFullscreen,
     interpretationModalOpen,
 }) => {
-    const [showFullscreen, setShowFullscreen] = useState();
-    const [map, setMap] = useState(); // Called from map child
-    const containerRef = useRef();
+    const [showFullscreen, setShowFullscreen] = useState()
+    const [map, setMap] = useState() // Called from map child
+    const containerRef = useRef()
 
     // From built-in fullscreen control
     const onFullscreenChange = useCallback(
         ({ isFullscreen }) => setShowFullscreen(isFullscreen),
         []
-    );
+    )
 
     useEffect(() => {
         if (map && controls && containerRef.current) {
-            controls.forEach(control => {
-                map.addControl(control);
+            controls.forEach((control) => {
+                map.addControl(control)
                 containerRef.current.append(
                     map.getControlContainer(control.type)
-                );
-            });
+                )
+            })
         }
-    }, [map, controls, containerRef]);
+    }, [map, controls, containerRef])
 
     useEffect(() => {
         if (map && isPlugin) {
-            map.on('fullscreenchange', onFullscreenChange);
+            map.on('fullscreenchange', onFullscreenChange)
         }
         return () => {
             if (map && isPlugin) {
-                map.off('fullscreenchange', onFullscreenChange);
+                map.off('fullscreenchange', onFullscreenChange)
             }
-        };
-    }, [map, isPlugin, onFullscreenChange]);
+        }
+    }, [map, isPlugin, onFullscreenChange])
 
     useEffect(() => {
         // From map plugin resize method
-        setShowFullscreen(isFullscreen);
-    }, [isFullscreen]);
+        setShowFullscreen(isFullscreen)
+    }, [isFullscreen])
 
-    const { id, periods = [] } = layer;
+    const { id, periods = [] } = layer
 
     return !interpretationModalOpen ? (
         <div
@@ -83,22 +83,22 @@ const SplitView = ({
                 </MapItem>
             ))}
         </div>
-    ) : null;
-};
+    ) : null
+}
 
 SplitView.propTypes = {
-    isPlugin: PropTypes.bool,
-    isFullscreen: PropTypes.bool,
     layer: PropTypes.object.isRequired,
-    basemap: PropTypes.object,
-    feature: PropTypes.object,
-    controls: PropTypes.array,
-    interpretationModalOpen: PropTypes.bool,
     openContextMenu: PropTypes.func.isRequired,
-};
+    basemap: PropTypes.object,
+    controls: PropTypes.array,
+    feature: PropTypes.object,
+    interpretationModalOpen: PropTypes.bool,
+    isFullscreen: PropTypes.bool,
+    isPlugin: PropTypes.bool,
+}
 
 SplitView.defaultProps = {
     openContextMenu: () => {},
-};
+}
 
-export default SplitView;
+export default SplitView

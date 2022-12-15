@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
-import { SelectField } from '../core';
-import { loadIndicatorGroups } from '../../actions/indicators';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loadIndicatorGroups } from '../../actions/indicators.js'
+import { SelectField } from '../core/index.js'
 
-export class IndicatorGroupSelect extends Component {
+class IndicatorGroupSelect extends Component {
     static propTypes = {
-        indicatorGroups: PropTypes.array,
-        indicatorGroup: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
         loadIndicatorGroups: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         className: PropTypes.string,
         errorText: PropTypes.string,
-    };
+        indicatorGroup: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        }),
+        indicatorGroups: PropTypes.array,
+    }
 
     componentDidMount() {
-        const { indicatorGroups, loadIndicatorGroups } = this.props;
+        const { indicatorGroups, loadIndicatorGroups } = this.props
 
         if (!indicatorGroups) {
-            loadIndicatorGroups();
+            loadIndicatorGroups()
         }
     }
 
@@ -32,7 +32,7 @@ export class IndicatorGroupSelect extends Component {
             onChange,
             className,
             errorText,
-        } = this.props;
+        } = this.props
 
         return (
             <SelectField
@@ -45,13 +45,13 @@ export class IndicatorGroupSelect extends Component {
                 errorText={!indicatorGroup && errorText ? errorText : null}
                 dataTest="indicatorgroupselect"
             />
-        );
+        )
     }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         indicatorGroups: state.indicatorGroups,
     }),
     { loadIndicatorGroups }
-)(IndicatorGroupSelect);
+)(IndicatorGroupSelect)

@@ -1,17 +1,17 @@
-import React from 'react';
-import AddLayerButton from '../layers/overlays/AddLayerButton';
-import FileMenu from './FileMenu';
-import DownloadButton from '../download/DownloadButton';
-import InterpretationsToggle from '../interpretations/InterpretationsToggle';
-import styles from './styles/AppMenu.module.css';
+import React from 'react'
+import DownloadButton from '../download/DownloadButton.js'
+import InterpretationsToggle from '../interpretations/InterpretationsToggle.js'
+import AddLayerButton from '../layers/overlays/AddLayerButton.js'
+import FileMenu from './FileMenu.js'
+import styles from './styles/AppMenu.module.css'
 
-export const AppMenu = () => (
+const AppMenu = () => (
     <div className={styles.appMenu}>
         <AddLayerButton />
         <FileMenu />
         <DownloadButton />
         <InterpretationsToggle />
     </div>
-);
+)
 
-export default AppMenu;
+export default AppMenu

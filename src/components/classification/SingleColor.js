@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { ColorPicker } from '../core';
-import { setColorScale } from '../../actions/layerEdit';
-import { THEMATIC_COLOR } from '../../constants/layers';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { setColorScale } from '../../actions/layerEdit.js'
+import { THEMATIC_COLOR } from '../../constants/layers.js'
+import { ColorPicker } from '../core/index.js'
 
 // Displays a color picker for single color layer
-export const SingleColor = ({ color, setColorScale }) => {
+const SingleColor = ({ color, setColorScale }) => {
     // Set default color
     useEffect(() => {
         if (!color || color.length !== 7) {
-            setColorScale(THEMATIC_COLOR);
+            setColorScale(THEMATIC_COLOR)
         }
-    }, [color, setColorScale]);
+    }, [color, setColorScale])
 
     return color ? (
         <ColorPicker
@@ -25,17 +25,17 @@ export const SingleColor = ({ color, setColorScale }) => {
                 marginTop: -5,
             }}
         />
-    ) : null;
-};
+    ) : null
+}
 
 SingleColor.propTypes = {
-    color: PropTypes.string,
     setColorScale: PropTypes.func.isRequired,
-};
+    color: PropTypes.string,
+}
 
 export default connect(
     ({ layerEdit }) => ({
         color: layerEdit.colorScale,
     }),
     { setColorScale }
-)(SingleColor);
+)(SingleColor)

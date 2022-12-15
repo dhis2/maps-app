@@ -1,7 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
+import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
     ModalTitle,
@@ -9,133 +6,105 @@ import {
     ModalActions,
     Button,
     ButtonStrip,
-} from '@dhis2/ui';
-import { Checkbox } from '../core';
-import LegendPosition from './LegendPosition';
+} from '@dhis2/ui'
+import React, { useState, useMemo } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     toggleDownloadDialog,
     toggleDownloadShowName,
     toggleDownloadShowLegend,
     setDownloadLegendPosition,
-} from '../../actions/download';
-import { downloadMapImage, downloadSupport } from '../../util/export-image';
-import styles from './styles/DownloadDialog.module.css';
+} from '../../actions/download.js'
+import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
+import { Checkbox } from '../core/index.js'
+import LegendPosition from './LegendPosition.js'
+import styles from './styles/DownloadDialog.module.css'
 
-export class DownloadDialog extends Component {
-    static propTypes = {
-        showDialog: PropTypes.bool.isRequired,
-        showName: PropTypes.bool.isRequired,
-        showLegend: PropTypes.bool.isRequired,
-        legendPosition: PropTypes.string.isRequired,
-        hasName: PropTypes.bool.isRequired,
-        hasLegend: PropTypes.bool.isRequired,
-        toggleDownloadDialog: PropTypes.func.isRequired,
-        toggleDownloadShowName: PropTypes.func.isRequired,
-        toggleDownloadShowLegend: PropTypes.func.isRequired,
-        setDownloadLegendPosition: PropTypes.func.isRequired,
-    };
+const DownloadDialog = () => {
+    const [error, setError] = useState(null)
+    const dispatch = useDispatch()
 
-    state = {
-        error: null,
-    };
+    const { mapViews, name: mapName } = useSelector((state) => state.map)
+    const { showDialog, showName, showLegend, legendPosition } = useSelector(
+        (state) => state.download
+    )
 
-    render() {
-        const {
-            showDialog,
-            hasName,
-            showName,
-            hasLegend,
-            showLegend,
-            legendPosition,
-            toggleDownloadShowName,
-            toggleDownloadShowLegend,
-            setDownloadLegendPosition,
-        } = this.props;
+    const hasLegend = useMemo(
+        () => mapViews.filter((layer) => layer.legend).length > 0,
+        [mapViews]
+    )
 
-        if (!showDialog) {
-            return null;
-        }
+    const hasName = mapName !== undefined
 
-        const isSupported = downloadSupport() && !this.state.error;
-
-        return (
-            <Modal position="middle" small onClose={this.onClose}>
-                <ModalTitle>{i18n.t('Download map')}</ModalTitle>
-                <ModalContent>
-                    <div className={styles.modalContent}>
-                        {isSupported ? (
-                            <Fragment>
-                                <Checkbox
-                                    label={i18n.t('Show name')}
-                                    checked={showName}
-                                    disabled={!hasName}
-                                    onChange={toggleDownloadShowName}
-                                />
-                                <Checkbox
-                                    label={i18n.t('Show legend')}
-                                    checked={showLegend}
-                                    disabled={!hasLegend}
-                                    onChange={toggleDownloadShowLegend}
-                                />
-                                {hasLegend && showLegend && (
-                                    <LegendPosition
-                                        position={legendPosition}
-                                        onChange={setDownloadLegendPosition}
-                                    />
-                                )}
-                            </Fragment>
-                        ) : (
-                            i18n.t(
-                                'Map download is not supported by your browser. Try Google Chrome or Firefox.'
-                            )
-                        )}
-                    </div>
-                </ModalContent>
-                <ModalActions>
-                    <ButtonStrip end>
-                        <Button secondary onClick={this.onClose}>
-                            {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
-                        </Button>
-                        {isSupported && (
-                            <Button primary onClick={this.onDownload}>
-                                {i18n.t('Download')}
-                            </Button>
-                        )}
-                    </ButtonStrip>
-                </ModalActions>
-            </Modal>
-        );
+    if (!showDialog) {
+        return null
     }
 
-    onClose = () => this.props.toggleDownloadDialog(false);
+    const isSupported = downloadSupport() && !error
 
-    onDownload = () => {
-        const mapEl = document.getElementById('dhis2-map-container');
+    const onClose = () => dispatch(toggleDownloadDialog(false))
 
-        const filename = `map-${Math.random()
-            .toString(36)
-            .substring(7)}.png`;
+    const onDownload = () => {
+        const mapEl = document.getElementById('dhis2-map-container')
 
-        downloadMapImage(mapEl, filename)
-            .then(this.onClose)
-            .catch(this.onError);
-    };
+        const filename = `map-${Math.random().toString(36).substring(7)}.png`
 
-    onError = error => {
-        this.setState({ error });
-    };
+        downloadMapImage(mapEl, filename).then(onClose).catch(setError)
+    }
+
+    return (
+        <Modal position="middle" small onClose={onClose}>
+            <ModalTitle>{i18n.t('Download map')}</ModalTitle>
+            <ModalContent>
+                <div className={styles.modalContent}>
+                    {isSupported ? (
+                        <>
+                            <Checkbox
+                                label={i18n.t('Show name')}
+                                checked={showName}
+                                disabled={!hasName}
+                                onChange={(v) =>
+                                    dispatch(toggleDownloadShowName(v))
+                                }
+                            />
+                            <Checkbox
+                                label={i18n.t('Show legend')}
+                                checked={showLegend}
+                                disabled={!hasLegend}
+                                onChange={(v) =>
+                                    dispatch(toggleDownloadShowLegend(v))
+                                }
+                            />
+                            {hasLegend && showLegend && (
+                                <LegendPosition
+                                    position={legendPosition}
+                                    onChange={(v) =>
+                                        dispatch(setDownloadLegendPosition(v))
+                                    }
+                                />
+                            )}
+                        </>
+                    ) : (
+                        i18n.t(
+                            'Map download is not supported by your browser. Try Google Chrome or Firefox.'
+                        )
+                    )}
+                </div>
+            </ModalContent>
+            <ModalActions>
+                <ButtonStrip end>
+                    <Button secondary onClick={onClose}>
+                        {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
+                    </Button>
+                    {isSupported && (
+                        <Button primary onClick={onDownload}>
+                            {i18n.t('Download')}
+                        </Button>
+                    )}
+                </ButtonStrip>
+            </ModalActions>
+        </Modal>
+    )
 }
 
-export default connect(
-    state => ({
-        hasName: state.map.name !== undefined,
-        hasLegend: state.map.mapViews.filter(layer => layer.legend).length > 0,
-        ...state.download,
-    }),
-    {
-        toggleDownloadDialog,
-        toggleDownloadShowName,
-        toggleDownloadShowLegend,
-        setDownloadLegendPosition,
-    }
-)(DownloadDialog);
+export default DownloadDialog

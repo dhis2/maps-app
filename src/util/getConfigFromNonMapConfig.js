@@ -1,10 +1,10 @@
-import { generateUid } from 'd2/uid';
-import { getThematicLayerFromAnalyticalObject } from './analyticalObject';
+import { generateUid } from 'd2/uid'
+import { getThematicLayerFromAnalyticalObject } from './analyticalObject.js'
 
 export const getConfigFromNonMapConfig = (config, defaultBasemapId) => {
-    const { el, name } = config;
+    const { el, name } = config
 
-    return getThematicLayerFromAnalyticalObject(config).then(mapView => ({
+    return getThematicLayerFromAnalyticalObject(config).then((mapView) => ({
         el,
         name,
         basemap: { id: defaultBasemapId },
@@ -14,5 +14,5 @@ export const getConfigFromNonMapConfig = (config, defaultBasemapId) => {
                 ...mapView,
             },
         ],
-    }));
-};
+    }))
+}

@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
-import { loadProgramStages } from '../../actions/programs';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loadProgramStages } from '../../actions/programs.js'
+import { SelectField } from '../core/index.js'
 
-export class ProgramStageSelect extends Component {
+class ProgramStageSelect extends Component {
     static propTypes = {
+        loadProgramStages: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        className: PropTypes.string,
+        errorText: PropTypes.string,
         program: PropTypes.object,
         programStage: PropTypes.object,
         programStages: PropTypes.object,
-        errorText: PropTypes.string,
-        onChange: PropTypes.func.isRequired,
-        loadProgramStages: PropTypes.func.isRequired,
-        className: PropTypes.string,
-    };
+    }
 
     componentDidUpdate() {
         const {
@@ -23,19 +23,19 @@ export class ProgramStageSelect extends Component {
             programStages,
             loadProgramStages,
             onChange,
-        } = this.props;
+        } = this.props
 
         if (program) {
-            const stages = programStages[program.id];
+            const stages = programStages[program.id]
 
             // Load program stages when program is selected
             if (!stages) {
-                loadProgramStages(program.id);
+                loadProgramStages(program.id)
             }
 
             // Select first program stage if only one
             if (program && !programStage && stages && stages.length === 1) {
-                onChange(stages[0]);
+                onChange(stages[0])
             }
         }
     }
@@ -48,16 +48,16 @@ export class ProgramStageSelect extends Component {
             onChange,
             className,
             errorText,
-        } = this.props;
+        } = this.props
 
         if (!program) {
-            return null;
+            return null
         }
 
-        let items = programStages[program.id];
+        let items = programStages[program.id]
 
         if (!items && programStage) {
-            items = [programStage]; // If favorite is loaded, we only know the used program stage
+            items = [programStage] // If favorite is loaded, we only know the used program stage
         }
 
         return (
@@ -71,13 +71,13 @@ export class ProgramStageSelect extends Component {
                 errorText={!programStage && errorText ? errorText : null}
                 dataTest="programstageselect"
             />
-        );
+        )
     }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         programStages: state.programStages,
     }),
     { loadProgramStages }
-)(ProgramStageSelect);
+)(ProgramStageSelect)

@@ -1,11 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import cx from 'classnames';
-import { Checkbox, FontStyle, LabelDisplayOptions } from '../../core';
-import styles from '../styles/LayerDialog.module.css';
-
+import i18n from '@dhis2/d2-i18n'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
 import {
     setLabels,
     setLabelFontColor,
@@ -13,7 +10,9 @@ import {
     setLabelFontWeight,
     setLabelFontStyle,
     setLabelTemplate,
-} from '../../../actions/layerEdit';
+} from '../../../actions/layerEdit.js'
+import { Checkbox, FontStyle, LabelDisplayOptions } from '../../core/index.js'
+import styles from '../styles/LayerDialog.module.css'
 
 const Labels = ({
     includeDisplayOption,
@@ -63,24 +62,24 @@ const Labels = ({
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
 Labels.propTypes = {
+    setLabelFontColor: PropTypes.func.isRequired,
+    setLabelFontSize: PropTypes.func.isRequired,
+    setLabelFontStyle: PropTypes.func.isRequired,
+    setLabelFontWeight: PropTypes.func.isRequired,
+    setLabelTemplate: PropTypes.func.isRequired,
+    setLabels: PropTypes.func.isRequired,
     includeDisplayOption: PropTypes.bool,
-    labels: PropTypes.bool,
-    labelTemplate: PropTypes.string,
     labelFontColor: PropTypes.string,
     labelFontSize: PropTypes.string,
     labelFontStyle: PropTypes.string,
     labelFontWeight: PropTypes.string,
-    setLabels: PropTypes.func.isRequired,
-    setLabelTemplate: PropTypes.func.isRequired,
-    setLabelFontColor: PropTypes.func.isRequired,
-    setLabelFontSize: PropTypes.func.isRequired,
-    setLabelFontWeight: PropTypes.func.isRequired,
-    setLabelFontStyle: PropTypes.func.isRequired,
-};
+    labelTemplate: PropTypes.string,
+    labels: PropTypes.bool,
+}
 
 export default connect(
     ({ layerEdit }) => ({
@@ -99,4 +98,4 @@ export default connect(
         setLabelFontWeight,
         setLabelFontStyle,
     }
-)(Labels);
+)(Labels)

@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import LegendTypeSelect from './LegendTypeSelect';
-import LegendSetSelect from './LegendSetSelect';
-import Classification from './Classification';
-import SingleColor from './SingleColor';
-import { setClassification, setLegendSet } from '../../actions/layerEdit';
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { setClassification, setLegendSet } from '../../actions/layerEdit.js'
 import {
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_EQUAL_INTERVALS,
     CLASSIFICATION_SINGLE_COLOR,
-} from '../../constants/layers';
+} from '../../constants/layers.js'
+import Classification from './Classification.js'
+import LegendSetSelect from './LegendSetSelect.js'
+import LegendTypeSelect from './LegendTypeSelect.js'
+import SingleColor from './SingleColor.js'
 
 // Wrapper component for selecting legend style used for numeric map styles
-const NumericLegendStyle = props => {
+const NumericLegendStyle = (props) => {
     const {
         mapType,
         method,
@@ -23,10 +23,10 @@ const NumericLegendStyle = props => {
         setLegendSet,
         legendSetError,
         style,
-    } = props;
+    } = props
 
-    const isSingleColor = method === CLASSIFICATION_SINGLE_COLOR;
-    const isPredefined = method === CLASSIFICATION_PREDEFINED;
+    const isSingleColor = method === CLASSIFICATION_SINGLE_COLOR
+    const isPredefined = method === CLASSIFICATION_PREDEFINED
 
     useEffect(() => {
         // Set default classification method
@@ -36,16 +36,16 @@ const NumericLegendStyle = props => {
                 dataItem && dataItem.legendSet
                     ? CLASSIFICATION_PREDEFINED
                     : CLASSIFICATION_EQUAL_INTERVALS
-            );
+            )
         }
-    }, [method, dataItem, setClassification]);
+    }, [method, dataItem, setClassification])
 
     useEffect(() => {
         // Set legend set defined for data item in use by default
         if (isPredefined && !legendSet && dataItem?.legendSet) {
-            setLegendSet(dataItem.legendSet);
+            setLegendSet(dataItem.legendSet)
         }
-    }, [isPredefined, legendSet, dataItem, setLegendSet]);
+    }, [isPredefined, legendSet, dataItem, setLegendSet])
 
     return (
         <div style={style}>
@@ -62,20 +62,19 @@ const NumericLegendStyle = props => {
                 <Classification />
             )}
         </div>
-    );
-};
+    )
+}
 
 NumericLegendStyle.propTypes = {
-    mapType: PropTypes.string,
-    method: PropTypes.number,
-    colorScale: PropTypes.string,
-    legendSet: PropTypes.object,
-    legendSetError: PropTypes.string,
-    dataItem: PropTypes.object,
     setClassification: PropTypes.func.isRequired,
     setLegendSet: PropTypes.func.isRequired,
+    dataItem: PropTypes.object,
+    legendSet: PropTypes.object,
+    legendSetError: PropTypes.string,
+    mapType: PropTypes.string,
+    method: PropTypes.number,
     style: PropTypes.object,
-};
+}
 
 export default connect(
     ({ layerEdit }) => ({
@@ -83,4 +82,4 @@ export default connect(
         legendSet: layerEdit.legendSet,
     }),
     { setClassification, setLegendSet }
-)(NumericLegendStyle);
+)(NumericLegendStyle)

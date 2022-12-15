@@ -1,26 +1,26 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
-import { SelectField } from '../core';
-import { loadDataElements } from '../../actions/dataElements';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { loadDataElements } from '../../actions/dataElements.js'
+import { SelectField } from '../core/index.js'
 
-export class DataElementSelect extends PureComponent {
+class DataElementSelect extends PureComponent {
     static propTypes = {
-        dataElement: PropTypes.object,
-        dataElements: PropTypes.array,
-        dataElementGroup: PropTypes.object,
         loadDataElements: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,
         className: PropTypes.string,
+        dataElement: PropTypes.object,
+        dataElementGroup: PropTypes.object,
+        dataElements: PropTypes.array,
         errorText: PropTypes.string,
-    };
+    }
 
     componentDidUpdate() {
-        const { dataElements, dataElementGroup, loadDataElements } = this.props;
+        const { dataElements, dataElementGroup, loadDataElements } = this.props
 
         if (dataElementGroup && !dataElements) {
-            loadDataElements(dataElementGroup.id);
+            loadDataElements(dataElementGroup.id)
         }
     }
 
@@ -32,14 +32,14 @@ export class DataElementSelect extends PureComponent {
             onChange,
             className,
             errorText,
-        } = this.props;
+        } = this.props
 
-        let items = dataElements;
+        let items = dataElements
 
         if (!dataElementGroup && !dataElement) {
-            return null;
+            return null
         } else if (!dataElements && dataElement) {
-            items = [dataElement]; // If favorite is loaded, we only know the used data element
+            items = [dataElement] // If favorite is loaded, we only know the used data element
         }
 
         return (
@@ -49,11 +49,11 @@ export class DataElementSelect extends PureComponent {
                 loading={items ? false : true}
                 items={items}
                 value={dataElement ? dataElement.id : null}
-                onChange={dataElement => onChange(dataElement, 'dataElement')}
+                onChange={(dataElement) => onChange(dataElement, 'dataElement')}
                 className={className}
                 errorText={!dataElement && errorText ? errorText : null}
             />
-        );
+        )
     }
 }
 
@@ -64,4 +64,4 @@ export default connect(
             : null,
     }),
     { loadDataElements }
-)(DataElementSelect);
+)(DataElementSelect)

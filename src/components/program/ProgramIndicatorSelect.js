@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import i18n from '@dhis2/d2-i18n';
-import { SelectField } from '../core';
-import { loadProgramIndicators } from '../../actions/programs';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loadProgramIndicators } from '../../actions/programs.js'
+import { SelectField } from '../core/index.js'
 
-export class ProgramIndicatorSelect extends Component {
+class ProgramIndicatorSelect extends Component {
     static propTypes = {
+        loadProgramIndicators: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        className: PropTypes.string,
+        errorText: PropTypes.string,
         program: PropTypes.object,
         programIndicator: PropTypes.object,
         programIndicators: PropTypes.object,
-        onChange: PropTypes.func.isRequired,
-        loadProgramIndicators: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        errorText: PropTypes.string,
-    };
+    }
 
     componentDidMount() {
-        this.loadProgramIndicators();
+        this.loadProgramIndicators()
     }
 
     componentDidUpdate() {
-        this.loadProgramIndicators();
+        this.loadProgramIndicators()
     }
 
     loadProgramIndicators() {
@@ -31,14 +31,14 @@ export class ProgramIndicatorSelect extends Component {
             programIndicators,
             onChange,
             loadProgramIndicators,
-        } = this.props;
+        } = this.props
 
         if (program) {
-            const indicators = programIndicators[program.id];
+            const indicators = programIndicators[program.id]
 
             // Load program stages when program is selected
             if (!indicators) {
-                loadProgramIndicators(program.id);
+                loadProgramIndicators(program.id)
             }
 
             // Select first program indicator if only one
@@ -48,7 +48,7 @@ export class ProgramIndicatorSelect extends Component {
                 indicators &&
                 indicators.length === 1
             ) {
-                onChange(indicators[0]);
+                onChange(indicators[0])
             }
         }
     }
@@ -61,13 +61,13 @@ export class ProgramIndicatorSelect extends Component {
             onChange,
             className,
             errorText,
-        } = this.props;
+        } = this.props
 
         if (!program) {
-            return null;
+            return null
         }
 
-        const items = programIndicators[program.id];
+        const items = programIndicators[program.id]
 
         return (
             <SelectField
@@ -75,19 +75,19 @@ export class ProgramIndicatorSelect extends Component {
                 loading={items ? false : true}
                 items={items}
                 value={programIndicator ? programIndicator.id : null}
-                onChange={programIndicator =>
+                onChange={(programIndicator) =>
                     onChange(programIndicator, 'programIndicator')
                 }
                 className={className}
                 errorText={!programIndicator && errorText ? errorText : null}
             />
-        );
+        )
     }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         programIndicators: state.programIndicators,
     }),
     { loadProgramIndicators }
-)(ProgramIndicatorSelect);
+)(ProgramIndicatorSelect)

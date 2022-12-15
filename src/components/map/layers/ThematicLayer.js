@@ -1,13 +1,5 @@
-import React, { Fragment } from 'react';
-import i18n from '@dhis2/d2-i18n';
-import Layer from './Layer';
-import Timeline from '../../periods/Timeline';
-import PeriodName from '../PeriodName';
-import Popup from '../Popup';
-import { filterData } from '../../../util/filter';
-import { getPeriodFromFilters } from '../../../util/analytics';
-import { polygonsToPoints } from '../../../util/geojson';
-import { getLabelStyle } from '../../../util/labels';
+import i18n from '@dhis2/d2-i18n'
+import React, { Fragment } from 'react'
 import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
@@ -17,7 +9,15 @@ import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
     LABEL_TEMPLATE_NAME_ONLY,
-} from '../../../constants/layers';
+} from '../../../constants/layers.js'
+import { getPeriodFromFilters } from '../../../util/analytics.js'
+import { filterData } from '../../../util/filter.js'
+import { polygonsToPoints } from '../../../util/geojson.js'
+import { getLabelStyle } from '../../../util/labels.js'
+import Timeline from '../../periods/Timeline.js'
+import PeriodName from '../PeriodName.js'
+import Popup from '../Popup.js'
+import Layer from './Layer.js'
 
 class ThematicLayer extends Layer {
     createLayer() {
@@ -33,18 +33,18 @@ class ThematicLayer extends Layer {
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
             thematicMapType = THEMATIC_CHOROPLETH,
             noDataColor,
-        } = this.props;
+        } = this.props
 
-        const { period } = this.state;
+        const { period } = this.state
 
-        const bubbleMap = thematicMapType === THEMATIC_BUBBLE;
+        const bubbleMap = thematicMapType === THEMATIC_BUBBLE
 
-        let periodData = bubbleMap ? polygonsToPoints(data) : data;
+        let periodData = bubbleMap ? polygonsToPoints(data) : data
 
         if (renderingStrategy !== RENDERING_STRATEGY_SINGLE) {
-            const values = valuesByPeriod[period.id] || {};
+            const values = valuesByPeriod[period.id] || {}
 
-            periodData = periodData.map(f => ({
+            periodData = periodData.map((f) => ({
                 ...f,
                 properties: {
                     ...f.properties,
@@ -55,19 +55,19 @@ class ThematicLayer extends Layer {
                             radius: ORG_UNIT_RADIUS_SMALL,
                         }),
                 },
-            }));
+            }))
 
             // Remove org unit features if noDataColor is missing
             if (!noDataColor) {
                 periodData = periodData.filter(
-                    feature => values[feature.id] !== undefined
-                );
+                    (feature) => values[feature.id] !== undefined
+                )
             }
         }
 
-        const map = this.context.map;
+        const map = this.context.map
 
-        const filteredData = filterData(periodData, dataFilters);
+        const filteredData = filterData(periodData, dataFilters)
 
         const config = {
             type: 'choropleth',
@@ -80,11 +80,11 @@ class ThematicLayer extends Layer {
             color: noDataColor,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
-        };
+        }
 
         if (labels) {
-            config.label = this.props.labelTemplate || LABEL_TEMPLATE_NAME_ONLY;
-            config.labelStyle = getLabelStyle(this.props);
+            config.label = this.props.labelTemplate || LABEL_TEMPLATE_NAME_ONLY
+            config.labelStyle = getLabelStyle(this.props)
         }
 
         // Add boundaries as a separate layer
@@ -95,11 +95,11 @@ class ThematicLayer extends Layer {
                 index,
                 opacity,
                 isVisible,
-            });
+            })
 
             this.layer.addLayer({
                 type: BOUNDARY_LAYER,
-                data: data.map(f => ({
+                data: data.map((f) => ({
                     ...f,
                     properties: {
                         ...f.properties,
@@ -110,17 +110,17 @@ class ThematicLayer extends Layer {
                     },
                 })),
                 style: {},
-            });
+            })
 
-            this.layer.addLayer(config);
+            this.layer.addLayer(config)
         } else {
-            this.layer = map.createLayer(config);
+            this.layer = map.createLayer(config)
         }
 
-        map.addLayer(this.layer);
+        map.addLayer(this.layer)
 
         // Fit map to layer bounds once (when first created)
-        this.fitBoundsOnce();
+        this.fitBoundsOnce()
     }
 
     // Set initial period
@@ -129,10 +129,10 @@ class ThematicLayer extends Layer {
             period,
             periods,
             renderingStrategy = RENDERING_STRATEGY_SINGLE,
-        } = this.props;
+        } = this.props
 
         if (!period && !periods) {
-            return;
+            return
         }
 
         const initialPeriod = {
@@ -140,23 +140,23 @@ class ThematicLayer extends Layer {
                 renderingStrategy === RENDERING_STRATEGY_SINGLE
                     ? null
                     : period || periods[0],
-        };
+        }
 
         // setPeriod without callback is called from the constructor (unmounted)
         if (!callback) {
-            this.state = initialPeriod;
+            this.state = initialPeriod
         } else {
-            this.setState(initialPeriod, callback);
+            this.setState(initialPeriod, callback)
         }
     }
 
     getPopup() {
-        const { columns, aggregationType, legend } = this.props;
-        const { popup, period } = this.state;
-        const { coordinates, feature } = popup;
-        const { id, name, value } = feature.properties;
-        const indicator = columns[0].items[0].name || '';
-        const periodName = period ? period.name : legend.period;
+        const { columns, aggregationType, legend } = this.props
+        const { popup, period } = this.state
+        const { coordinates, feature } = popup
+        const { id, name, value } = feature.properties
+        const indicator = columns[0].items[0].name || ''
+        const periodName = period ? period.name : legend.period
 
         return (
             <Popup
@@ -175,37 +175,41 @@ class ThematicLayer extends Layer {
                     <div>{aggregationType}</div>
                 )}
             </Popup>
-        );
+        )
     }
 
     render() {
-        const { periods, renderingStrategy, filters } = this.props;
-        const { period, popup } = this.state;
-        const { id } = getPeriodFromFilters(filters) || {};
+        const { periods, renderingStrategy, filters } = this.props
+        const { period, popup } = this.state
+        const { id } = getPeriodFromFilters(filters) || {}
 
         return (
             <Fragment>
-                {renderingStrategy === RENDERING_STRATEGY_TIMELINE && period && (
-                    <Fragment>
-                        <PeriodName period={period.name} isTimeline={true} />
-                        <Timeline
-                            periodId={id}
-                            period={period}
-                            periods={periods}
-                            onChange={this.onPeriodChange}
-                        />
-                    </Fragment>
-                )}
+                {renderingStrategy === RENDERING_STRATEGY_TIMELINE &&
+                    period && (
+                        <Fragment>
+                            <PeriodName
+                                period={period.name}
+                                isTimeline={true}
+                            />
+                            <Timeline
+                                periodId={id}
+                                period={period}
+                                periods={periods}
+                                onChange={this.onPeriodChange}
+                            />
+                        </Fragment>
+                    )}
                 {popup && this.getPopup()}
             </Fragment>
-        );
+        )
     }
 
-    onPeriodChange = period => this.setState({ period });
+    onPeriodChange = (period) => this.setState({ period })
 
     onFeatureClick(evt) {
-        this.setState({ popup: evt });
+        this.setState({ popup: evt })
     }
 }
 
-export default ThematicLayer;
+export default ThematicLayer

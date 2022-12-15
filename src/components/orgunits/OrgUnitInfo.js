@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { config } from 'd2';
-import { IconDimensionOrgUnit16 } from '@dhis2/ui';
-import ListItem from '../core/ListItem';
-import { formatDate } from '../../util/time';
-import { numberPrecision } from '../../util/numbers';
-import styles from './styles/OrgUnitInfo.module.css';
+import i18n from '@dhis2/d2-i18n'
+import { IconDimensionOrgUnit16 } from '@dhis2/ui'
+import { config } from 'd2'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { numberPrecision } from '../../util/numbers.js'
+import { formatDate } from '../../util/time.js'
+import ListItem from '../core/ListItem.js'
+import styles from './styles/OrgUnitInfo.module.css'
 
-export const coordFormat = numberPrecision(6); // Meter precision for longitude an latitude
+export const coordFormat = numberPrecision(6) // Meter precision for longitude an latitude
 
 /*
  * Displays the fixed information for an org unit together with org unit groups (above) and metadata attributes (below)
@@ -114,11 +114,13 @@ const OrgUnitInfo = ({
             ))}
         </div>
     </div>
-);
+)
 
 OrgUnitInfo.propTypes = {
-    address: PropTypes.string,
     attributes: PropTypes.array.isRequired,
+    groupSets: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired,
+    address: PropTypes.string,
     closedDate: PropTypes.string,
     code: PropTypes.string,
     comment: PropTypes.string,
@@ -126,8 +128,6 @@ OrgUnitInfo.propTypes = {
     description: PropTypes.string,
     email: PropTypes.string,
     featureType: PropTypes.string,
-    groupSets: PropTypes.array.isRequired,
-    id: PropTypes.string.isRequired,
     imageId: PropTypes.string,
     latitude: PropTypes.number,
     level: PropTypes.number,
@@ -139,6 +139,6 @@ OrgUnitInfo.propTypes = {
     phoneNumber: PropTypes.string,
     shortName: PropTypes.string,
     url: PropTypes.string,
-};
+}
 
-export default OrgUnitInfo;
+export default OrgUnitInfo

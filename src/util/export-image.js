@@ -1,10 +1,10 @@
-import FileSaver from 'file-saver';
-import { toBlob } from 'html-to-image';
+import FileSaver from 'file-saver'
+import { toBlob } from 'html-to-image'
 
 export const downloadMapImage = (sourceEl, filename) =>
-    toBlob(sourceEl).then(blob => FileSaver.saveAs(blob, filename));
+    toBlob(sourceEl).then((blob) => FileSaver.saveAs(blob, filename))
 
-const toStringFn = {}.toString;
+const toStringFn = {}.toString
 
 // https://github.com/bubkoo/html-to-image#browsers
 // https://github.com/Modernizr/Modernizr/blob/master/feature-detects/svg/foreignobject.js
@@ -20,5 +20,5 @@ export const downloadSupport = () => {
                 )
             )
         )
-    );
-};
+    )
+}

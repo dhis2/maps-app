@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import FilterInput from './FilterInput';
-import { SortIndicator } from 'react-virtualized';
-import styles from './styles/ColumnHeader.module.css';
+import PropTypes from 'prop-types'
+import React from 'react'
+import { SortIndicator } from 'react-virtualized'
+import FilterInput from './FilterInput.js'
+import styles from './styles/ColumnHeader.module.css'
 
 // Replacement for https://github.com/bvaughn/react-virtualized/blob/master/source/Table/defaultHeaderRenderer.js
 
@@ -14,14 +14,14 @@ const ColumnHeader = ({ dataKey, label, type, sortBy, sortDirection }) => (
         ) : null}
         <FilterInput type={type} dataKey={dataKey} />
     </div>
-);
+)
 
 ColumnHeader.propTypes = {
     dataKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
     sortBy: PropTypes.string.isRequired,
     sortDirection: PropTypes.string.isRequired,
-};
+    type: PropTypes.string.isRequired,
+}
 
-export default ColumnHeader;
+export default ColumnHeader

@@ -1,14 +1,14 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { EventDownloadInputs } from '../EventDownloadInputs';
+import { shallow } from 'enzyme'
+import React from 'react'
+import EventDownloadInputs from '../EventDownloadInputs.js'
 
 describe('EventDownloadInputs', () => {
     const formatOptions = [
         { id: 1, name: 'Test Format' },
         { id: 2, name: 'No Format' },
         { id: 3, name: 'Some Format' },
-    ];
-    const renderComponent = props =>
+    ]
+    const renderComponent = (props) =>
         shallow(
             <EventDownloadInputs
                 classes={{}}
@@ -19,28 +19,28 @@ describe('EventDownloadInputs', () => {
                 onCheckHumanReadable={() => null}
                 {...props}
             />
-        );
+        )
 
     it('Should render select box and checkbox when an Event layer', () => {
-        const wrapper = renderComponent();
-        expect(wrapper.children().length).toBe(3);
-        expect(wrapper.find('SelectField').length).toBe(1);
-        expect(wrapper.find('SelectField').prop('value')).toBe(0);
+        const wrapper = renderComponent()
+        expect(wrapper.children().length).toBe(3)
+        expect(wrapper.find('SelectField').length).toBe(1)
+        expect(wrapper.find('SelectField').prop('value')).toBe(0)
 
-        expect(wrapper.find('Checkbox').length).toBe(1);
-        expect(wrapper.find('Checkbox').prop('checked')).toBe(false);
-    });
+        expect(wrapper.find('Checkbox').length).toBe(1)
+        expect(wrapper.find('Checkbox').prop('checked')).toBe(false)
+    })
 
     it('Should respect controlled inputs', () => {
         const wrapper = renderComponent({
             selectedFormatOption: 2,
             humanReadableChecked: true,
-        });
-        expect(wrapper.find('SelectField').prop('value')).toBe(2);
+        })
+        expect(wrapper.find('SelectField').prop('value')).toBe(2)
 
-        expect(wrapper.find('Checkbox').length).toBe(1);
-        expect(wrapper.find('Checkbox').prop('checked')).toBe(true);
-    });
+        expect(wrapper.find('Checkbox').length).toBe(1)
+        expect(wrapper.find('Checkbox').prop('checked')).toBe(true)
+    })
 
     // it('Should toggle checked in onCheckHumanReadable callback when clicking the checkbox', () => {
     //     const fn = jest.fn();
@@ -65,4 +65,4 @@ describe('EventDownloadInputs', () => {
     //     selectOptions.at(2).simulate('click');
     //     expect(fn).toHaveBeenCalledWith(formatOptions[2]);
     // });
-});
+})

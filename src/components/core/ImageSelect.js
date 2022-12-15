@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import styles from './styles/ImageSelect.module.css';
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import styles from './styles/ImageSelect.module.css'
 
 const ImageSelect = ({ id, img, title, isSelected, onClick, className }) => (
     <div
@@ -22,15 +22,15 @@ const ImageSelect = ({ id, img, title, isSelected, onClick, className }) => (
             )}
         </div>
     </div>
-);
+)
 
 ImageSelect.propTypes = {
     id: PropTypes.string.isRequired,
-    img: PropTypes.string,
-    title: PropTypes.string,
-    isSelected: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     className: PropTypes.string,
-};
+    img: PropTypes.string,
+    isSelected: PropTypes.bool,
+    title: PropTypes.string,
+}
 
-export default ImageSelect;
+export default ImageSelect

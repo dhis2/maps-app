@@ -1,34 +1,34 @@
-import { FacilityLayer } from '../../elements/facility_layer';
+import { FacilityLayer } from '../../elements/facility_layer.js'
 
 context('Facility Layers', () => {
     beforeEach(() => {
-        cy.visit('/');
-    });
+        cy.visit('/')
+    })
 
-    const Layer = new FacilityLayer();
+    const Layer = new FacilityLayer()
 
     it('shows error if no orgunit level selected', () => {
-        Layer.openDialog('Facilities').addToMap();
+        Layer.openDialog('Facilities').addToMap()
 
-        Layer.validateDialogClosed(false);
+        Layer.validateDialogClosed(false)
 
         cy.contains('No organisation units are selected')
             .scrollIntoView()
-            .should('be.visible');
-    });
+            .should('be.visible')
+    })
 
     it('adds a facilities layer', () => {
         Layer.openDialog('Facilities')
             .selectTab('Organisation Units')
             .selectOu('Bo')
             .selectOuLevel('Facility')
-            .addToMap();
+            .addToMap()
 
-        Layer.validateDialogClosed(true);
+        Layer.validateDialogClosed(true)
 
         // TODO: use visual snapshot testing to check the rendering of the map
 
-        Layer.validateCardTitle('Facilities');
-        Layer.validateCardItems(['Facility']);
-    });
-});
+        Layer.validateCardTitle('Facilities')
+        Layer.validateCardItems(['Facility'])
+    })
+})

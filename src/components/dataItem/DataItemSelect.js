@@ -1,41 +1,41 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import i18n from '@dhis2/d2-i18n';
-import { connect } from 'react-redux';
-import { SelectField } from '../core';
-import { combineDataItems } from '../../util/analytics';
+import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
-} from '../../actions/programs';
+} from '../../actions/programs.js'
+import { combineDataItems } from '../../util/analytics.js'
+import { SelectField } from '../core/index.js'
 
-export class DataItemSelect extends Component {
+class DataItemSelect extends Component {
     static propTypes = {
-        label: PropTypes.string,
-        value: PropTypes.string,
+        dataElements: PropTypes.object.isRequired,
+        programAttributes: PropTypes.object.isRequired,
         allowNone: PropTypes.bool,
+        className: PropTypes.string,
+        excludeTypes: PropTypes.array,
+        includeTypes: PropTypes.array,
+        label: PropTypes.string,
+        loadProgramStageDataElements: PropTypes.func,
+        loadProgramTrackedEntityAttributes: PropTypes.func,
         program: PropTypes.shape({
             id: PropTypes.string.isRequired,
         }),
         programStage: PropTypes.shape({
             id: PropTypes.string.isRequired,
         }),
-        programAttributes: PropTypes.object.isRequired,
-        dataElements: PropTypes.object.isRequired,
-        includeTypes: PropTypes.array,
-        excludeTypes: PropTypes.array,
-        loadProgramTrackedEntityAttributes: PropTypes.func,
-        loadProgramStageDataElements: PropTypes.func,
+        value: PropTypes.string,
         onChange: PropTypes.func,
-        className: PropTypes.string,
-    };
+    }
 
     componentDidMount() {
-        this.loadDataItems();
+        this.loadDataItems()
     }
 
     componentDidUpdate() {
-        this.loadDataItems();
+        this.loadDataItems()
     }
 
     // TODO: Make sure data load is only triggered once
@@ -47,14 +47,14 @@ export class DataItemSelect extends Component {
             dataElements,
             loadProgramTrackedEntityAttributes,
             loadProgramStageDataElements,
-        } = this.props;
+        } = this.props
 
         if (program && !programAttributes[program.id]) {
-            loadProgramTrackedEntityAttributes(program.id);
+            loadProgramTrackedEntityAttributes(program.id)
         }
 
         if (programStage && !dataElements[programStage.id]) {
-            loadProgramStageDataElements(programStage.id);
+            loadProgramStageDataElements(programStage.id)
         }
     }
 
@@ -70,10 +70,10 @@ export class DataItemSelect extends Component {
             includeTypes,
             excludeTypes,
             className,
-        } = this.props;
+        } = this.props
 
         if (!program) {
-            return null;
+            return null
         }
 
         const dataItems = [
@@ -84,7 +84,7 @@ export class DataItemSelect extends Component {
                 includeTypes,
                 excludeTypes
             ),
-        ];
+        ]
 
         return (
             <SelectField
@@ -94,16 +94,16 @@ export class DataItemSelect extends Component {
                 onChange={this.onChange}
                 className={className}
             />
-        );
+        )
     }
 
-    onChange = item => this.props.onChange(item.id !== 'none' ? item : null);
+    onChange = (item) => this.props.onChange(item.id !== 'none' ? item : null)
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         programAttributes: state.programTrackedEntityAttributes,
         dataElements: state.programStageDataElements,
     }),
     { loadProgramTrackedEntityAttributes, loadProgramStageDataElements }
-)(DataItemSelect);
+)(DataItemSelect)
