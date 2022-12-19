@@ -75,8 +75,8 @@ const loadEventLayer = async (config) => {
 
     const period = getPeriodFromFilters(filters)
     const dataFilters = getFiltersFromColumns(columns)
-    // const d2 = await getD2();
-    const spatialSupport = true // d2.system.systemInfo.databaseInfo.spatialSupport; // TODO
+    const d2 = await getD2()
+    const spatialSupport = d2.system.systemInfo.databaseInfo.spatialSupport
 
     config.isExtended = showDataTable
 
@@ -240,9 +240,8 @@ export const getAnalyticsRequest = async ({
         : analyticsRequest.withStartDate(startDate).withEndDate(endDate)
 
     if (relativePeriodDate) {
-        analyticsRequest = analyticsRequest.withRelativePeriodDate(
-            relativePeriodDate
-        )
+        analyticsRequest =
+            analyticsRequest.withRelativePeriodDate(relativePeriodDate)
     }
 
     analyticsRequest = analyticsRequest.addOrgUnitDimension(

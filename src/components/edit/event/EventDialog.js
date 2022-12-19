@@ -165,7 +165,7 @@ class EventDialog extends Component {
             onLayerValidation,
         } = this.props
 
-        // Make sure fallback coordiante is different from event coordinate
+        // Make sure fallback coordinate is different from event coordinate
         if (
             (eventCoordinateField &&
                 eventCoordinateField === fallbackCoordinateField) ||
