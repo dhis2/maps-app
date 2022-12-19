@@ -261,11 +261,11 @@ export const getAnalyticsRequest = async ({
     }
 
     // If coordinate field other than event coordinate
-    if (eventCoordinateField !== EVENT_COORDINATE_DEFAULT) {
+    if (eventCoordinateField) {
         console.log('eventCoordinateField', eventCoordinateField)
 
         analyticsRequest = analyticsRequest
-            .addDimension(eventCoordinateField) // Used by analytics/events/query/
+            // .addDimension(eventCoordinateField) // Used by analytics/events/query/
             .withCoordinateField(eventCoordinateField) // Used by analytics/events/count and analytics/events/cluster
 
         /*

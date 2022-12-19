@@ -106,14 +106,10 @@ const CoordinateField = ({
     // Set default value
     useEffect(() => {
         if (!value && !hasDefaultValue) {
-            onChange(
-                eventCoordinateField
-                    ? EVENT_COORDINATE_CASCADING
-                    : EVENT_COORDINATE_DEFAULT
-            )
+            onChange(eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT)
         } else if (eventCoordinateField && eventCoordinateField === value) {
             // Make sure fallback coordinate is different from event coordinate
-            onChange(EVENT_COORDINATE_CASCADING)
+            onChange(NONE)
         }
         setHasDefaulValue(true)
     }, [value, eventCoordinateField, hasDefaultValue, onChange])
