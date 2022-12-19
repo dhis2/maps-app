@@ -88,6 +88,7 @@ class EventDialog extends Component {
         eventCoordinateField: PropTypes.string,
         eventPointColor: PropTypes.string,
         eventPointRadius: PropTypes.number,
+        eventStatus: PropTypes.string,
         fallbackCoordinateField: PropTypes.string,
         filters: PropTypes.array,
         legendSet: PropTypes.object,

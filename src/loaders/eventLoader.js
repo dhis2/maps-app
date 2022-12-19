@@ -104,9 +104,8 @@ const loadEventLayer = async (config) => {
     if (spatialSupport && eventClustering && !styleDataItem) {
         const response = await getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-
-        // FIXME
-        // eslint-disable-next-line react-hooks/rules-of-hooks
+        //FIXME
+        //eslint-disable-next-line react-hooks/rules-of-hooks
         config.serverCluster = useServerCluster(response.count)
     }
 
