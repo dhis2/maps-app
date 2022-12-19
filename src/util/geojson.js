@@ -1,6 +1,7 @@
 import FileSaver from 'file-saver' // https://github.com/eligrey/FileSaver.js
 import findIndex from 'lodash/findIndex'
 import { poleOfInaccessibility } from '../components/map/MapApi.js'
+import { EVENT_COORDINATE_DEFAULT } from '../constants/layers.js'
 import { isValidCoordinate } from './map.js'
 
 export const META_DATA_FORMAT_ID = 'ID'
@@ -69,7 +70,7 @@ export const createEventFeature = (
 
 export const buildEventGeometryGetter = (headers, eventCoordinateField) => {
     // If coordinate field other than event location (only points are currently supported)
-    if (eventCoordinateField) {
+    if (eventCoordinateField !== EVENT_COORDINATE_DEFAULT) {
         const col = findIndex(headers, (h) => h.name === eventCoordinateField)
 
         return (event) => {

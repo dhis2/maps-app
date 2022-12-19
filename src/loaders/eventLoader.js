@@ -6,6 +6,8 @@ import {
     EVENT_SERVER_CLUSTER_COUNT,
     EVENT_COLOR,
     EVENT_RADIUS,
+    EVENT_COORDINATE_CASCADING,
+    EVENT_COORDINATE_DEFAULT,
 } from '../constants/layers.js'
 import { getEventColumns } from '../epics/dataDownload.js'
 import {
@@ -118,6 +120,8 @@ const loadEventLayer = async (config) => {
         const { total } = response.metaData.pager
 
         config.data = data
+
+        console.log('data', data)
 
         if (Array.isArray(config.data) && config.data.length) {
             if (styleDataItem) {
@@ -257,8 +261,8 @@ export const getAnalyticsRequest = async ({
     }
 
     // If coordinate field other than event coordinate
-    if (eventCoordinateField) {
-        // console.log('eventCoordinateField', eventCoordinateField);
+    if (eventCoordinateField !== EVENT_COORDINATE_DEFAULT) {
+        console.log('eventCoordinateField', eventCoordinateField)
 
         analyticsRequest = analyticsRequest
             .addDimension(eventCoordinateField) // Used by analytics/events/query/
@@ -283,11 +287,21 @@ export const getAnalyticsRequest = async ({
         */
     }
 
-    if (fallbackCoordinateField) {
-        // console.log('fallbackCoordinateField', fallbackCoordinateField);
+    console.log('fallbackCoordinateField', fallbackCoordinateField)
 
+    if (fallbackCoordinateField) {
+        if (fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
+            analyticsRequest = analyticsRequest.withParameters({
+                defaultCoordinateFallback: true,
+            })
+        } else {
+            analyticsRequest = analyticsRequest.withParameters({
+                fallbackCoordinateField,
+            })
+        }
+    } else {
         analyticsRequest = analyticsRequest.withParameters({
-            fallbackCoordinateField,
+            defaultCoordinateFallback: false,
         })
     }
 
@@ -306,6 +320,8 @@ export const getCount = async (request) => {
 export const loadData = async (request, config = {}) => {
     const d2 = await getD2()
     const response = await d2.analytics.events.getQuery(request)
+
+    console.log('response', response)
 
     const { data, names } = createEventFeatures(response, config)
 

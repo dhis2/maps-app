@@ -80,6 +80,7 @@ export const EVENT_COORDINATE_DEFAULT = 'psigeometry'
 export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
 export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
 export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
+export const EVENT_COORDINATE_CASCADING = 'cascading'
 
 /* TEI LAYER */
 export const TEI_COLOR = '#BB0000'

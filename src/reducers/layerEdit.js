@@ -345,13 +345,18 @@ const layerEdit = (state = null, action) => {
             return newState
 
         case types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET:
+            return {
+                ...state,
+                eventCoordinateField: action.fieldId,
+            }
+
+        case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:
             newState = { ...state }
 
-            // Default
-            if (action.fieldId === EVENT_COORDINATE_DEFAULT) {
-                delete newState.eventCoordinateField
+            if (action.fieldId === NONE) {
+                delete newState.fallbackCoordinateField
             } else {
-                newState.eventCoordinateField = action.fieldId
+                newState.fallbackCoordinateField = action.fieldId
             }
 
             return newState
@@ -373,18 +378,6 @@ const layerEdit = (state = null, action) => {
                 ...state,
                 eventPointColor: action.color,
             }
-
-        case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:
-            newState = { ...state }
-
-            // Default
-            if (action.fieldId === NONE) {
-                delete newState.fallbackCoordinateField
-            } else {
-                newState.fallbackCoordinateField = action.fieldId
-            }
-
-            return newState
 
         case types.LAYER_EDIT_RELATED_POINT_COLOR_SET:
             return {
