@@ -3,20 +3,6 @@ import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { SystemSettingsCtx } from '../../SystemSettingsProvider'
-import { Tab, Tabs, NumberField, ImageSelect, ColorPicker } from '../../core'
-import ProgramSelect from '../../program/ProgramSelect'
-import ProgramStageSelect from '../../program/ProgramStageSelect'
-import EventStatusSelect from './EventStatusSelect'
-import RelativePeriodSelect from '../../periods/RelativePeriodSelect'
-import StartEndDates from '../../periods/StartEndDates'
-import FilterGroup from '../../filter/FilterGroup'
-import StyleByDataItem from '../../dataItem/StyleByDataItem'
-import CoordinateField from '../../dataItem/CoordinateField'
-import OrgUnitTree from '../../orgunits/OrgUnitTree'
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect'
-import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits'
-import BufferRadius from '../shared/BufferRadius'
 import {
     setProgram,
     setProgramStage,
@@ -34,15 +20,6 @@ import {
     setEndDate,
 } from '../../../actions/layerEdit.js'
 import {
-    getPeriodFromFilters,
-    getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
-    getUserOrgUnitsFromRows,
-} from '../../../util/analytics.js'
-import { cssColor } from '../../../util/colors.js'
-import { isPeriodAvailable } from '../../../util/periods.js'
-import { getStartEndDateError } from '../../../util/time.js'
-import {
     DEFAULT_START_DATE,
     DEFAULT_END_DATE,
     EVENT_COLOR,
@@ -53,11 +30,40 @@ import {
     MAX_RADIUS,
     EVENT_COORDINATE_DEFAULT,
     NONE,
-} from '../../../constants/layers'
-import { START_END_DATES } from '../../../constants/periods'
+} from '../../../constants/layers.js'
+import { START_END_DATES } from '../../../constants/periods.js'
+import {
+    getPeriodFromFilters,
+    getOrgUnitsFromRows,
+    getOrgUnitNodesFromRows,
+    getUserOrgUnitsFromRows,
+} from '../../../util/analytics.js'
+import { cssColor } from '../../../util/colors.js'
+import { isPeriodAvailable } from '../../../util/periods.js'
+import { getStartEndDateError } from '../../../util/time.js'
+import {
+    Tab,
+    Tabs,
+    NumberField,
+    ImageSelect,
+    ColorPicker,
+} from '../../core/index.js'
+import CoordinateField from '../../dataItem/CoordinateField.js'
+import StyleByDataItem from '../../dataItem/StyleByDataItem.js'
+import FilterGroup from '../../filter/FilterGroup.js'
+import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
+import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits.js'
+import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
+import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
+import StartEndDates from '../../periods/StartEndDates.js'
+import ProgramSelect from '../../program/ProgramSelect.js'
+import ProgramStageSelect from '../../program/ProgramStageSelect.js'
+import { SystemSettingsCtx } from '../../SystemSettingsProvider.js'
+import BufferRadius from '../shared/BufferRadius.js'
 import styles from '../styles/LayerDialog.module.css'
+import EventStatusSelect from './EventStatusSelect.js'
 
-export class EventDialog extends Component {
+class EventDialog extends Component {
     static propTypes = {
         setEndDate: PropTypes.func.isRequired,
         setEventClustering: PropTypes.func.isRequired,
@@ -65,6 +71,7 @@ export class EventDialog extends Component {
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setEventStatus: PropTypes.func.isRequired,
+        setFallbackCoordinateField: PropTypes.func.isRequired,
         setOrgUnitRoot: PropTypes.func.isRequired,
         setPeriod: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
@@ -101,21 +108,6 @@ export class EventDialog extends Component {
                 options: PropTypes.array,
             }),
         }),
-        setProgram: PropTypes.func.isRequired,
-        setProgramStage: PropTypes.func.isRequired,
-        setEventStatus: PropTypes.func.isRequired,
-        setEventCoordinateField: PropTypes.func.isRequired,
-        setEventClustering: PropTypes.func.isRequired,
-        setEventPointColor: PropTypes.func.isRequired,
-        setEventPointRadius: PropTypes.func.isRequired,
-        setFallbackCoordinateField: PropTypes.func.isRequired,
-        setOrgUnitRoot: PropTypes.func.isRequired,
-        setUserOrgUnits: PropTypes.func.isRequired,
-        toggleOrgUnit: PropTypes.func.isRequired,
-        setPeriod: PropTypes.func.isRequired,
-        setStartDate: PropTypes.func.isRequired,
-        setEndDate: PropTypes.func.isRequired,
-        validateLayer: PropTypes.bool.isRequired,
     }
 
     constructor(props, context) {
@@ -200,7 +192,6 @@ export class EventDialog extends Component {
             eventPointRadius,
             fallbackCoordinateField,
             filters = [],
-            settings,
             program,
             programStage,
             rows = [],
@@ -307,7 +298,6 @@ export class EventDialog extends Component {
                             <RelativePeriodSelect
                                 period={period}
                                 startEndDates={true}
-                                hiddenPeriods={settings.hiddenPeriods}
                                 onChange={setPeriod}
                                 className={styles.select}
                             />

@@ -6,7 +6,7 @@ import {
 } from '@dhis2/ui'
 import { shallow } from 'enzyme'
 import React from 'react'
-import { SelectField } from '../SelectField.js'
+import SelectField from '../SelectField.js'
 
 const items = [
     {

@@ -4,15 +4,16 @@ import React, { useMemo } from 'react'
 import { START_END_DATES } from '../../constants/periods.js'
 import { getRelativePeriods } from '../../util/periods.js'
 import { SelectField } from '../core/index.js'
+import { useSystemSettings } from '../SystemSettingsProvider.js'
 
 const RelativePeriodSelect = ({
     startEndDates,
     period,
-    hiddenPeriods,
     onChange,
     className,
     errorText,
 }) => {
+    const { hiddenPeriods } = useSystemSettings()
     const periods = useMemo(
         () =>
             (startEndDates
@@ -24,7 +25,7 @@ const RelativePeriodSelect = ({
                   ]
                 : []
             ).concat(getRelativePeriods(hiddenPeriods)),
-        []
+        [hiddenPeriods, startEndDates]
     )
 
     const value =
@@ -47,7 +48,6 @@ RelativePeriodSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
-    hiddenPeriods: PropTypes.array,
     period: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string,

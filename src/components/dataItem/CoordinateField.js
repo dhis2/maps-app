@@ -5,15 +5,15 @@ import { connect } from 'react-redux'
 import {
     loadProgramTrackedEntityAttributes,
     loadProgramStageDataElements,
-} from '../../actions/programs'
+} from '../../actions/programs.js'
 import {
     EVENT_COORDINATE_DEFAULT,
     EVENT_COORDINATE_ENROLLMENT,
     EVENT_COORDINATE_TRACKED_ENTITY,
     EVENT_COORDINATE_ORG_UNIT,
     NONE,
-} from '../../constants/layers'
-import { SelectField } from '../core'
+} from '../../constants/layers.js'
+import { SelectField } from '../core/index.js'
 
 const CoordinateField = ({
     value,
@@ -42,7 +42,7 @@ const CoordinateField = ({
 
     const fields = useMemo(() => {
         const isFallback = !!eventCoordinateField
-        let fields = []
+        const fields = []
 
         if (isFallback) {
             fields.push({
@@ -114,16 +114,16 @@ const CoordinateField = ({
 }
 
 CoordinateField.propTypes = {
-    value: PropTypes.string,
-    program: PropTypes.object,
-    programStage: PropTypes.object,
-    programAttributes: PropTypes.object.isRequired,
     dataElements: PropTypes.object.isRequired,
-    eventCoordinateField: PropTypes.string,
-    loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
     loadProgramStageDataElements: PropTypes.func.isRequired,
+    loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
+    programAttributes: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
+    eventCoordinateField: PropTypes.string,
+    program: PropTypes.object,
+    programStage: PropTypes.object,
+    value: PropTypes.string,
 }
 
 export default connect(

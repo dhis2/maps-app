@@ -2,8 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loadProgramStages } from '../../actions/programs'
-import { SelectField } from '../core'
+import { loadProgramStages } from '../../actions/programs.js'
+import { SelectField } from '../core/index.js'
 
 const ProgramStageSelect = ({
     program,
@@ -26,7 +26,7 @@ const ProgramStageSelect = ({
         if (program && !programStage && stages && stages.length === 1) {
             onChange(stages[0])
         }
-    }, [program, programStages, loadProgramStages, onChange])
+    }, [program, programStage, programStages, loadProgramStages, onChange])
 
     let items = programStages[program.id]
 
@@ -49,13 +49,13 @@ const ProgramStageSelect = ({
 }
 
 ProgramStageSelect.propTypes = {
+    loadProgramStages: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    errorText: PropTypes.string,
     program: PropTypes.object,
     programStage: PropTypes.object,
     programStages: PropTypes.object,
-    errorText: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    loadProgramStages: PropTypes.func.isRequired,
-    className: PropTypes.string,
 }
 
 export default connect(

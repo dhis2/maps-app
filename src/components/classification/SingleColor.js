@@ -7,7 +7,7 @@ import { THEMATIC_COLOR } from '../../constants/layers.js'
 import { ColorPicker } from '../core/index.js'
 
 // Displays a color picker for single color layer
-export const SingleColor = ({ color, setColorScale }) => {
+const SingleColor = ({ color, setColorScale }) => {
     // Set default color
     useEffect(() => {
         if (!color || color.length !== 7) {

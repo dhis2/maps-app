@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { connect } from 'react-redux'
 import {
     setFilter,
@@ -63,7 +63,10 @@ const EarthEngineDialog = (props) => {
 
     const period = getPeriodFromFilter(filter)
 
-    const setPeriod = (period) => setFilter(period ? filters(period) : null)
+    const setPeriod = useCallback(
+        (period) => setFilter(period ? filters(period) : null),
+        [filters, setFilter]
+    )
 
     const noBandSelected = Array.isArray(bands) && (!band || !band.length)
 
@@ -100,7 +103,7 @@ const EarthEngineDialog = (props) => {
                 setPeriod(periods[0])
             }
         }
-    }, [periods, filter])
+    }, [periods, filter, setPeriod])
 
     useEffect(() => {
         if (!rows) {
@@ -136,7 +139,7 @@ const EarthEngineDialog = (props) => {
 
             onLayerValidation(isValid)
         }
-    }, [validateLayer, periodType, period, onLayerValidation])
+    }, [validateLayer, periodType, period, onLayerValidation, noBandSelected])
 
     if (error && error.type === 'engine') {
         return (

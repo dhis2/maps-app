@@ -16,7 +16,7 @@ const eventDataTypes = [
     dimConf.eventDataItem.objectName,
 ]
 
-export const CompletedOnlyCheckbox = ({
+const CompletedOnlyCheckbox = ({
     valueType,
     completedOnly,
     setEventStatus,

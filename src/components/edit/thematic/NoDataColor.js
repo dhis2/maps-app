@@ -8,7 +8,7 @@ import styles from './styles/NoDataColor.module.css'
 const NoDataColor = ({ value, onChange, className }) => {
     const onCheck = useCallback(
         (val) => onChange(val ? NO_DATA_COLOR : undefined),
-        []
+        [onChange]
     )
 
     return (

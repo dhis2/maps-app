@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { DownloadLegend } from '../DownloadLegend.js'
+import DownloadLegend from '../DownloadLegend.js'
 
 describe('DownloadLegend', () => {
     const layers = [

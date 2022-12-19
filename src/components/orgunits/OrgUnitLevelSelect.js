@@ -12,7 +12,7 @@ const style = {
     marginBottom: 24,
 }
 
-export class OrgUnitLevelSelect extends Component {
+class OrgUnitLevelSelect extends Component {
     static propTypes = {
         loadOrgUnitLevels: PropTypes.func.isRequired,
         onChange: PropTypes.func.isRequired,

@@ -10,7 +10,7 @@ const style = {
     marginTop: 20,
 }
 
-export class BooleanStyle extends Component {
+class BooleanStyle extends Component {
     static propTypes = {
         setBooleanStyle: PropTypes.func.isRequired,
         valueType: PropTypes.string.isRequired,

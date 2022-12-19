@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { LegendPosition } from '../LegendPosition.js'
+import LegendPosition from '../LegendPosition.js'
 
 describe('LegendPosition', () => {
     const renderComponent = (props) =>

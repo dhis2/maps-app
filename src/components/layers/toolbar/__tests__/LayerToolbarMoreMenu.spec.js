@@ -1,155 +1,224 @@
-import { shallow } from 'enzyme'
+import { render, fireEvent, screen, waitFor } from '@testing-library/react'
 import React from 'react'
-import { LayerToolbarMoreMenu } from '../LayerToolbarMoreMenu.js'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import LayerToolbarMoreMenu from '../LayerToolbarMoreMenu.js'
+
+const mockStore = configureMockStore()
 
 describe('LayerToolbarMoreMenu', () => {
-    it('Should render nothing when no props passed', () => {
-        const wrapper = shallow(<LayerToolbarMoreMenu />)
-        expect(wrapper.equals(null)).toBe(true)
+    test('does not render if no props passed', () => {
+        const store = {}
+
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
     })
 
-    it('Should open menu on click', () => {
-        const wrapper = shallow(<LayerToolbarMoreMenu onRemove={() => null} />)
+    test('renders menu with Remove layer only', async () => {
+        const store = {
+            dataTable: null,
+            aggregations: {},
+        }
 
-        expect(wrapper.find('Menu').length).toBe(0)
+        const layer = {
+            id: 'rainbowdash',
+            data: 'hasdata',
+        }
 
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
-
-        expect(wrapper.find('Menu').length).toBe(1)
-    })
-
-    it('Should render a single MenuItem with no divider if the only prop is onRemove', () => {
-        const wrapper = shallow(<LayerToolbarMoreMenu onRemove={() => null} />)
-
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
-
-        expect(wrapper.find('MenuItem').length).toBe(1)
-        expect(wrapper.find('Divider').length).toBe(0)
-    })
-
-    it('Should render two MenuItems with no divider if only passed onEdit and onRemove', () => {
-        const wrapper = shallow(
-            <LayerToolbarMoreMenu onEdit={() => null} onRemove={() => null} />
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu layer={layer} onRemove={jest.fn()} />
+            </Provider>
         )
 
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
-        expect(wrapper.find('MenuItem').length).toBe(2)
-        expect(wrapper.find('Divider').length).toBe(0)
+        await waitFor(() => {
+            expect(screen.queryByText('Remove layer')).toBeTruthy()
+            // confirm the divider is not present
+            expect(screen.queryAllByRole('listitem').length).toEqual(1)
+
+            expect(screen.queryByText('Show data table')).toBeNull()
+            expect(screen.queryByText('Open as chart')).toBeNull()
+            expect(screen.queryByText('Download data')).toBeNull()
+            expect(screen.queryByText('Edit layer')).toBeNull()
+        })
     })
 
-    it('Should render two MenuItems with no divider if only passed toggleDataTable', () => {
-        const wrapper = shallow(
-            <LayerToolbarMoreMenu toggleDataTable={() => null} />
+    test('renders menu with Remove layer and Edit layer options', async () => {
+        const store = {
+            dataTable: null,
+            aggregations: {},
+        }
+
+        const layer = {
+            id: 'rainbowdash',
+            data: 'hasdata',
+        }
+
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu
+                    layer={layer}
+                    onRemove={jest.fn()}
+                    onEdit={jest.fn()}
+                />
+            </Provider>
         )
 
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
-        expect(wrapper.find('MenuItem').length).toBe(1)
-        expect(wrapper.find('Divider').length).toBe(0)
+        await waitFor(() => {
+            expect(screen.queryByText('Edit layer')).toBeTruthy()
+            expect(screen.queryByText('Remove layer')).toBeTruthy()
+            // confirm the divider is not present
+            expect(screen.queryAllByRole('listitem').length).toEqual(2)
+
+            expect(screen.queryByText('Show data table')).toBeNull()
+            expect(screen.queryByText('Open as chart')).toBeNull()
+            expect(screen.queryByText('Download data')).toBeNull()
+        })
     })
 
-    it('Should render two MenuItems with no divider if only passed toggleDataTable and downloadData', () => {
-        const wrapper = shallow(
-            <LayerToolbarMoreMenu
-                toggleDataTable={() => null}
-                downloadData={() => null}
-            />
+    test('renders two MenuItems with no divider if only passed toggleDataTable and downloadData', async () => {
+        const store = {
+            aggregations: {},
+        }
+
+        const layer = {
+            id: 'rainbowdash',
+            data: 'hasdata',
+        }
+
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu
+                    layer={layer}
+                    toggleDataTable={jest.fn()}
+                    downloadData={jest.fn()}
+                />
+            </Provider>
         )
 
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
-        expect(wrapper.find('MenuItem').length).toBe(2)
-        expect(wrapper.find('Divider').length).toBe(0)
+        await waitFor(() => {
+            expect(screen.queryByText('Show data table')).toBeTruthy()
+            expect(screen.queryByText('Download data')).toBeTruthy()
+            // confirm the divider is not present
+            expect(screen.queryAllByRole('listitem').length).toEqual(2)
+
+            expect(screen.queryByText('Open as chart')).toBeNull()
+            expect(screen.queryByText('Edit layer')).toBeNull()
+            expect(screen.queryByText('Remove layer')).toBeNull()
+        })
     })
 
-    it('Should render three MenuItems WITH divider if passed toggleDataTable, onEdit, and onRemove', () => {
-        const wrapper = shallow(
-            <LayerToolbarMoreMenu
-                onEdit={() => null}
-                onRemove={() => null}
-                toggleDataTable={() => null}
-            />
+    test('renders only toggleDataTable menu', async () => {
+        const store = {
+            aggregations: {},
+        }
+
+        const layer = {
+            id: 'rainbowdash',
+            data: 'hasdata',
+        }
+
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu
+                    layer={layer}
+                    toggleDataTable={jest.fn()}
+                />
+            </Provider>
         )
 
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
-        expect(wrapper.find('MenuItem').length).toBe(3)
-        expect(wrapper.find('Divider').length).toBe(1)
+        await waitFor(() => {
+            expect(screen.queryByText('Show data table')).toBeTruthy()
+            expect(screen.queryAllByRole('listitem').length).toEqual(1)
+
+            expect(screen.queryByText('Open as chart')).toBeNull()
+            expect(screen.queryByText('Download data')).toBeNull()
+            expect(screen.queryByText('Edit layer')).toBeNull()
+            expect(screen.queryByText('Remove layer')).toBeNull()
+        })
     })
 
-    it('Should render four MenuItems WITH divider if passed toggleDataTable, downloadData, onEdit, and onRemove', () => {
-        const wrapper = shallow(
-            <LayerToolbarMoreMenu
-                onEdit={() => null}
-                onRemove={() => null}
-                downloadData={() => null}
-                toggleDataTable={() => null}
-            />
+    test('renders three MenuItems WITH divider if passed toggleDataTable, onEdit, and onRemove', async () => {
+        const store = {
+            aggregations: {},
+        }
+
+        const layer = {
+            id: 'rainbowdash',
+            data: 'hasdata',
+        }
+
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu
+                    layer={layer}
+                    toggleDataTable={jest.fn()}
+                    onRemove={jest.fn()}
+                    onEdit={jest.fn()}
+                />
+            </Provider>
         )
 
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
-        expect(wrapper.find('MenuItem').length).toBe(4)
-        expect(wrapper.find('Divider').length).toBe(1)
+        await waitFor(() => {
+            expect(screen.queryByText('Show data table')).toBeTruthy()
+            expect(screen.queryByText('Edit layer')).toBeTruthy()
+            expect(screen.queryByText('Remove layer')).toBeTruthy()
+
+            // confirm the divider is present (1 more list item)
+            expect(screen.queryAllByRole('listitem').length).toEqual(4)
+
+            expect(screen.queryByText('Open as chart')).toBeNull()
+            expect(screen.queryByText('Download data')).toBeNull()
+        })
     })
 
-    it('Should match snapshot', () => {
-        const wrapper = shallow(
-            <LayerToolbarMoreMenu
-                onEdit={() => null}
-                onRemove={() => null}
-                downloadData={() => null}
-                toggleDataTable={() => null}
-            />
+    test('renders four MenuItems WITH divider if passed toggleDataTable, downloadData, onEdit, and onRemove', async () => {
+        const store = {
+            aggregations: {},
+        }
+
+        const layer = {
+            id: 'rainbowdash',
+            data: 'hasdata',
+        }
+
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu
+                    layer={layer}
+                    toggleDataTable={jest.fn()}
+                    onRemove={jest.fn()}
+                    onEdit={jest.fn()}
+                    downloadData={jest.fn()}
+                />
+            </Provider>
         )
 
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
-        expect(wrapper).toMatchSnapshot()
-    })
+        await waitFor(() => {
+            expect(screen.queryByText('Show data table')).toBeTruthy()
+            expect(screen.queryByText('Download data')).toBeTruthy()
+            expect(screen.queryByText('Edit layer')).toBeTruthy()
+            expect(screen.queryByText('Remove layer')).toBeTruthy()
+            // confirm the divider is present (1 more list item)
+            expect(screen.queryAllByRole('listitem').length).toEqual(5)
 
-    it('Should respond to click events properly for MenuItems - toggleDataTable, downloadData, onEdit, and onRemove', () => {
-        const onEdit = jest.fn(),
-            onRemove = jest.fn(),
-            toggleDataTable = jest.fn(),
-            downloadData = jest.fn()
-
-        const wrapper = shallow(
-            <LayerToolbarMoreMenu
-                onEdit={onEdit}
-                onRemove={onRemove}
-                downloadData={downloadData}
-                toggleDataTable={toggleDataTable}
-            />
-        )
-
-        wrapper.find('[data-test="moremenubutton"]').simulate('click')
-
-        const menuItems = wrapper.find('MenuItem')
-
-        menuItems.at(0).simulate('click')
-        expect(toggleDataTable).toHaveBeenCalledTimes(1)
-        expect(downloadData).toHaveBeenCalledTimes(0)
-        expect(onEdit).toHaveBeenCalledTimes(0)
-        expect(onRemove).toHaveBeenCalledTimes(0)
-
-        menuItems.at(1).simulate('click')
-        expect(toggleDataTable).toHaveBeenCalledTimes(1)
-        expect(downloadData).toHaveBeenCalledTimes(1)
-        expect(onEdit).toHaveBeenCalledTimes(0)
-        expect(onRemove).toHaveBeenCalledTimes(0)
-
-        menuItems.at(2).simulate('click')
-        expect(toggleDataTable).toHaveBeenCalledTimes(1)
-        expect(downloadData).toHaveBeenCalledTimes(1)
-        expect(onEdit).toHaveBeenCalledTimes(1)
-        expect(onRemove).toHaveBeenCalledTimes(0)
-
-        menuItems.at(3).simulate('click')
-        expect(toggleDataTable).toHaveBeenCalledTimes(1)
-        expect(downloadData).toHaveBeenCalledTimes(1)
-        expect(onEdit).toHaveBeenCalledTimes(1)
-        expect(onRemove).toHaveBeenCalledTimes(1)
+            expect(screen.queryByText('Open as chart')).toBeNull()
+        })
     })
 })

@@ -15,7 +15,7 @@ const playBtn = <path d="M8 5v14l11-7z" />
 const pauseBtn = <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
 const doubleTicksPeriods = ['LAST_6_BIMONTHS', 'BIMONTHS_THIS_YEAR']
 
-export class Timeline extends Component {
+class Timeline extends Component {
     static contextTypes = {
         map: PropTypes.object,
     }

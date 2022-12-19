@@ -3,7 +3,7 @@ import {
     Popover,
     Menu,
     MenuItem,
-    Divider,
+    MenuDivider,
     IconMore24,
     IconTable16,
     IconVisualizationColumn16,
@@ -12,13 +12,13 @@ import {
     IconDelete16,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { Fragment, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
 import { IconButton } from '../../core/index.js'
 import styles from './styles/LayerToolbarMore.module.css'
 
-export const LayerToolbarMoreMenu = ({
+const LayerToolbarMoreMenu = ({
     layer = {},
     onEdit,
     onRemove,
@@ -41,11 +41,13 @@ export const LayerToolbarMoreMenu = ({
     }
 
     return (
-        <Fragment>
+        <>
             <div
                 ref={anchorRef}
                 className={styles.moreMenuButton}
                 onClick={() => setIsOpen(!isOpen)}
+                role="button"
+                aria-label={i18n.t('Toggle layer menu')}
                 data-test="moremenubutton"
             >
                 <IconButton
@@ -102,7 +104,7 @@ export const LayerToolbarMoreMenu = ({
                                     disabled={!hasOrgUnitData || isLoading}
                                 />
                             )}
-                            {showDivider && <Divider />}
+                            {showDivider && <MenuDivider />}
                             {onEdit && (
                                 <MenuItem
                                     label={i18n.t('Edit layer')}
@@ -128,7 +130,7 @@ export const LayerToolbarMoreMenu = ({
                     </div>
                 </Popover>
             )}
-        </Fragment>
+        </>
     )
 }
 

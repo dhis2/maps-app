@@ -1,42 +1,68 @@
-import { shallow } from 'enzyme'
+import { render, act } from '@testing-library/react'
 import React from 'react'
-import { SelectField } from '../../core/index.js'
-import { IndicatorGroupSelect } from '../IndicatorGroupSelect.js'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import { loadIndicatorGroups } from '../../../actions/indicators.js'
+import IndicatorGroupSelect from '../IndicatorGroupSelect.js'
 
-// TODO:
-// clear the spied function after each test run: https://stackoverflow.com/questions/43245040/using-jest-to-spy-on-method-call-in-componentdidmount
+const mockStore = configureMockStore()
+
+/* eslint-disable react/prop-types */
+jest.mock('@dhis2/ui', () => {
+    const originalModule = jest.requireActual('@dhis2/ui')
+
+    return {
+        __esModule: true,
+        ...originalModule,
+        SingleSelectField: function Mock(props) {
+            return <div className="ui-SingleSelectField">{props.children}</div>
+        },
+        SingleSelectOption: function Mock({ children }) {
+            return <div className="ui-SingleSelectOption">{children}</div>
+        },
+    }
+})
+/* eslint-enable react/prop-types */
+
+jest.mock('../../../actions/indicators.js', () => {
+    return {
+        loadIndicatorGroups: jest
+            .fn()
+            .mockReturnValue({ type: 'INDICATORS_LOAD' }),
+    }
+})
 
 describe('IndicatorGroupSelect', () => {
-    const renderWithProps = (props) =>
-        shallow(<IndicatorGroupSelect {...props} />)
+    test('renders SelectField', () => {
+        const store = {
+            indicatorGroups: [
+                { id: 'indicator1', name: 'Indicator 1' },
+                { id: 'indicator2', name: 'Indicator 2' },
+            ],
+        }
 
-    it('should render a d2-ui SelectField', () => {
-        const loadIndicatorGroups = jest.fn()
-        const onChange = jest.fn()
-        expect(renderWithProps({ loadIndicatorGroups, onChange }).type()).toBe(
-            SelectField
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <IndicatorGroupSelect onChange={jest.fn()} />
+            </Provider>
         )
-    })
-
-    it('should call loadIndicatorGroups function in componentDidMount if no indicator groups exists', () => {
-        const loadIndicatorGroups = jest.fn()
-        const onChange = jest.fn()
-        const select = renderWithProps({ loadIndicatorGroups, onChange })
-
-        select.instance().componentDidMount()
-        expect(loadIndicatorGroups).toHaveBeenCalled()
-    })
-
-    it('should not call loadIndicatorGroups function in componentDidMount if indicator groups exists', () => {
-        const loadIndicatorGroups = jest.fn()
-        const onChange = jest.fn()
-        const select = renderWithProps({
-            loadIndicatorGroups,
-            onChange,
-            indicatorGroups: [],
-        })
-
-        select.instance().componentDidMount()
+        expect(container).toMatchSnapshot()
         expect(loadIndicatorGroups).not.toHaveBeenCalled()
+    })
+
+    test('calls loadIndicatorGroups if no indicator groups exist', async () => {
+        const promise = Promise.resolve()
+        const store = {}
+
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <IndicatorGroupSelect onChange={jest.fn()} />
+            </Provider>
+        )
+
+        await act(() => promise)
+        expect(container).toMatchSnapshot()
+
+        expect(loadIndicatorGroups).toHaveBeenCalled()
     })
 })

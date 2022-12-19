@@ -42,7 +42,7 @@ const getSaveFailureMessage = (message) =>
         nsSeparator: ';',
     })
 
-export const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
+const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
     const { d2 } = useD2()
     const engine = useDataEngine()
     const { keyDefaultBaseMap } = useSystemSettings()

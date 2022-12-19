@@ -1,17 +1,17 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { SelectField, Checkbox } from '../../core/index.js'
 import styles from './styles/EventDownloadInputs.module.css'
 
-export const EventDownloadInputs = ({
+const EventDownloadInputs = ({
     formatOptions,
     selectedFormatOption,
     humanReadableChecked,
     onChangeFormatOption,
     onCheckHumanReadable,
 }) => (
-    <Fragment>
+    <>
         <div className={styles.headingDiv}>{i18n.t('GeoJSON Properties:')}</div>
         <div className={styles.selectField}>
             <SelectField
@@ -27,7 +27,7 @@ export const EventDownloadInputs = ({
             checked={humanReadableChecked}
             onChange={onCheckHumanReadable}
         />
-    </Fragment>
+    </>
 )
 EventDownloadInputs.propTypes = {
     formatOptions: PropTypes.array.isRequired,

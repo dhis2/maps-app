@@ -59,7 +59,7 @@ import PeriodTypeSelect from './PeriodTypeSelect.js'
 import ProgramStatusSelect from './ProgramStatusSelect.js'
 import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect.js'
 
-export class TrackedEntityDialog extends Component {
+class TrackedEntityDialog extends Component {
     static propTypes = {
         setEndDate: PropTypes.func.isRequired,
         setEventPointColor: PropTypes.func.isRequired,

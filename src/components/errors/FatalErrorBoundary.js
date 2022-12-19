@@ -13,7 +13,7 @@ const replaceNewlinesWithBreaks = (text) =>
         .split('\n')
         .reduce((out, line, i) => [...out, line, <br key={i} />], [])
 
-export class FatalErrorBoundary extends Component {
+class FatalErrorBoundary extends Component {
     constructor(props) {
         super(props)
         this.state = {
