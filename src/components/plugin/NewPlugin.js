@@ -1,5 +1,4 @@
 import { useDataEngine } from '@dhis2/app-runtime'
-// import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import { isValidUid } from 'd2/uid'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useMemo } from 'react'
@@ -15,11 +14,6 @@ import { fetchExternalLayers } from '../../util/requests.js'
 import LoadingMask from '../LoadingMask.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
 import OldPlugin from './Plugin.js'
-
-// const defaultBounds = [
-//     [-18.7, -34.9],
-//     [50.2, 35.9],
-// ]
 
 async function getBasemaps(basemapId, defaultBasemapId, engine) {
     try {
@@ -37,88 +31,84 @@ async function getBasemaps(basemapId, defaultBasemapId, engine) {
     }
 }
 
+async function getConfig({
+    mapViews,
+    basemapId,
+    keyDefaultBaseMap,
+    keyBingMapsApiKey,
+    engine,
+}) {
+    const fetchedMapViews = await Promise.all(mapViews.map(fetchLayer))
+    const basemaps = await getBasemaps(basemapId, keyDefaultBaseMap, engine)
+
+    const basemap =
+        basemaps.find(({ id }) => id === basemapId) ||
+        basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
+        getFallbackBasemap()
+
+    if (basemap.id.substring(0, 4) === 'bing') {
+        basemap.config.apiKey = keyBingMapsApiKey
+    }
+    return {
+        fetchedMapViews,
+        basemap,
+    }
+}
+
 const Plugin = ({ visualization }) => {
     const {
         basemap: basemapId,
-        controls,
-        hideTitle,
         mapViews,
-        // userOrgUnit,
-        name,
+        userOrgUnit,
+        ...otherMapProps
     } = visualization
     const engine = useDataEngine()
-    // const { d2 } = useD2()
     const { keyBingMapsApiKey, keyDefaultBaseMap } = useSystemSettings()
     const [config, setConfig] = useState(null)
-    const [basemaps, setBasemaps] = useState(null)
 
     const mapConfig = useMemo(() => {
         return getMigratedMapConfig({ basemapId, mapViews }, keyDefaultBaseMap)
     }, [basemapId, mapViews, keyDefaultBaseMap])
 
     useEffect(() => {
-        const getAllBasemaps = async () => {
-            const bm = await getBasemaps(basemapId, keyDefaultBaseMap, engine)
-            setBasemaps(bm)
-        }
-
-        getAllBasemaps()
-    }, [basemapId, keyDefaultBaseMap, engine])
-
-    useEffect(() => {
-        if (!basemaps) {
-            return
-        }
-
-        const basemapToUse =
-            basemaps.find(({ id }) => id === basemapId) ||
-            basemaps.find(({ id }) => id === keyDefaultBaseMap) ||
-            getFallbackBasemap()
-
-        if (basemapToUse.id.substring(0, 4) === 'bing') {
-            basemapToUse.config.apiKey = keyBingMapsApiKey
-        }
-
         const fetchLayers = async () => {
-            const fetchedMapViews = await Promise.all(mapViews.map(fetchLayer))
-
+            const { fetchedMapViews, basemap } = await getConfig({
+                mapViews: userOrgUnit
+                    ? mapViews.map((v) => ({
+                          ...v,
+                          userOrgUnit,
+                      }))
+                    : mapViews,
+                basemapId,
+                keyDefaultBaseMap,
+                keyBingMapsApiKey,
+                engine,
+            })
             setConfig({
                 ...mapConfig,
-                controls,
-                hideTitle,
-                name,
                 mapViews: fetchedMapViews,
-                basemap: basemapToUse,
+                basemap,
             })
         }
 
         if (mapViews) {
-            // if (userOrgUnit) {
-            //     mapViews = mapViews.map((mapView) => ({
-            //         ...mapView,
-            //         userOrgUnit,
-            //     }))
-            // }
-
             fetchLayers()
         }
     }, [
         basemapId,
-        basemaps,
+        engine,
         mapConfig,
-        controls,
-        hideTitle,
         keyBingMapsApiKey,
         keyDefaultBaseMap,
         mapViews,
-        name,
+        userOrgUnit,
     ])
 
-    if (!config) {
-        return <LoadingMask />
-    }
-
-    return <OldPlugin {...config} />
+    return !config ? (
+        <LoadingMask />
+    ) : (
+        <OldPlugin {...config} {...otherMapProps} />
+    )
 }
 
 Plugin.propTypes = {
