@@ -12,8 +12,9 @@ import { createExternalLayer } from '../../util/external.js'
 // import { getConfigFromNonMapConfig } from '../../util/getConfigFromNonMapConfig.js'
 import { getMigratedMapConfig } from '../../util/getMigratedMapConfig.js'
 import { fetchExternalLayers } from '../../util/requests.js'
+import LoadingMask from '../LoadingMask.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
-import Plugin from './Plugin.js'
+import OldPlugin from './Plugin.js'
 
 // const defaultBounds = [
 //     [-18.7, -34.9],
@@ -36,7 +37,7 @@ async function getBasemaps(basemapId, defaultBasemapId, engine) {
     }
 }
 
-const NewPlugin = ({ visualization }) => {
+const Plugin = ({ visualization }) => {
     const {
         basemap: basemapId,
         controls,
@@ -114,17 +115,17 @@ const NewPlugin = ({ visualization }) => {
     ])
 
     if (!config) {
-        return <div>Map goes here</div>
+        return <LoadingMask />
     }
 
-    return <Plugin {...config} />
+    return <OldPlugin {...config} />
 }
 
-NewPlugin.propTypes = {
+Plugin.propTypes = {
     visualization: PropTypes.object,
 }
 
-export default NewPlugin
+export default Plugin
 
 // async function loadMap(config) {
 // if (config.id) {

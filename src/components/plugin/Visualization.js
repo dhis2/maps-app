@@ -1,6 +1,6 @@
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
-import { CenteredContent, CircularLoader } from '@dhis2/ui'
 import React from 'react'
+import LoadingMask from '../LoadingMask.js'
 import SystemSettingsProvider, {
     SystemSettingsCtx,
 } from '../SystemSettingsProvider.js'
@@ -27,20 +27,7 @@ export const VisualizationPlugin = (props) => {
         <D2Shim d2Config={d2Config}>
             {({ d2, d2Error }) => {
                 if (!d2 && !d2Error) {
-                    return (
-                        <div
-                            style={{
-                                position: 'absolute',
-                                width: '100%',
-                                height: '100%',
-                                top: 0,
-                            }}
-                        >
-                            <CenteredContent>
-                                <CircularLoader />
-                            </CenteredContent>
-                        </div>
-                    )
+                    return <LoadingMask />
                 }
 
                 return (
