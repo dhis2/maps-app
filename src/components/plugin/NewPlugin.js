@@ -74,16 +74,17 @@ const Plugin = ({ visualization }) => {
         const fetchLayers = async () => {
             const { fetchedMapViews, basemap } = await getConfig({
                 mapViews: userOrgUnit
-                    ? mapViews.map((v) => ({
+                    ? mapConfig.mapViews?.map((v) => ({
                           ...v,
                           userOrgUnit,
                       }))
-                    : mapViews,
+                    : mapConfig.mapViews,
                 basemapId,
                 keyDefaultBaseMap,
                 keyBingMapsApiKey,
                 engine,
             })
+
             setConfig({
                 ...mapConfig,
                 mapViews: fetchedMapViews,
@@ -91,7 +92,7 @@ const Plugin = ({ visualization }) => {
             })
         }
 
-        if (mapViews) {
+        if (mapConfig.mapViews) {
             fetchLayers()
         }
     }, [
@@ -100,7 +101,6 @@ const Plugin = ({ visualization }) => {
         mapConfig,
         keyBingMapsApiKey,
         keyDefaultBaseMap,
-        mapViews,
         userOrgUnit,
     ])
 
