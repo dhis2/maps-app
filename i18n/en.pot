@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-12-14T09:49:25.172Z\n"
-"PO-Revision-Date: 2022-12-14T09:49:25.172Z\n"
+"POT-Creation-Date: 2023-01-04T13:00:10.986Z\n"
+"PO-Revision-Date: 2023-01-04T13:00:10.986Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -53,6 +53,9 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+msgid "Cascading"
+msgstr ""
+
 msgid "Event location"
 msgstr ""
 
@@ -69,6 +72,9 @@ msgid "Fallback coordinate field"
 msgstr ""
 
 msgid "Coordinate field"
+msgstr ""
+
+msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
 
 msgid "Data item"
