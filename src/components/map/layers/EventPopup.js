@@ -1,28 +1,14 @@
+import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
-import { apiFetch } from '../../../util/api.js'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import { formatTime, formatCoordinate } from '../../../util/helpers.js'
 import Popup from '../Popup.js'
 
-// Returns true if value is not undefined or null;
 const hasValue = (value) => value !== undefined || value !== null
 
-// Loads event data for the selected feature
-const loadEventData = async (feature) => {
-    if (!feature) {
-        return null
-    }
-
-    const id = feature.properties.id || feature.properties[EVENT_ID_FIELD]
-
-    return apiFetch(`/events/${id}`)
-}
-
-// Returns table rows for all display elements
-/* eslint-disable max-params */
-const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
+const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
     const dataRows = []
 
     // Include data element used for styling if not included below
@@ -67,7 +53,6 @@ const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
 }
 /* eslint-enable max-params */
 
-// Will display a popup for an event feature
 const EventPopup = (props) => {
     const {
         coordinates,
@@ -78,23 +63,39 @@ const EventPopup = (props) => {
         onClose,
     } = props
 
-    const [eventData, setEventData] = useState()
+    const [eventData, setEventData] = useState(null)
+    const engine = useDataEngine()
 
-    // Load event data every time a new feature is clicked
     useEffect(() => {
         let aborted = false
+        const loadEventData = async () => {
+            const id =
+                feature.properties.id || feature.properties[EVENT_ID_FIELD]
 
-        loadEventData(feature).then((data) => {
-            if (!aborted) {
-                setEventData(data)
+            // return apiFetch(`/events/${id}`)
+            const query = {
+                events: {
+                    resource: `events/${id}`,
+                },
             }
-        })
+            const { events } = await engine.query(query)
+            console.log('events', events)
+            if (!aborted) {
+                setEventData(events)
+            }
+        }
+
+        if (!feature) {
+            return null
+        }
+
+        loadEventData()
 
         return () => {
-            setEventData() // Clear event data
+            setEventData(null)
             aborted = true
         }
-    }, [feature, setEventData])
+    }, [feature, setEventData, engine])
 
     const { type, coordinates: coord } = feature.geometry
     const { value } = feature.properties
@@ -109,12 +110,12 @@ const EventPopup = (props) => {
             <table>
                 <tbody>
                     {eventData &&
-                        getDataRows(
+                        getDataRows({
                             displayElements,
                             dataValues,
                             styleDataItem,
-                            value
-                        )}
+                            value,
+                        })}
                     {type === 'Point' && (
                         <tr>
                             <th>

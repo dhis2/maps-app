@@ -1,4 +1,4 @@
-import { useDataEngine } from '@dhis2/app-runtime'
+import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import { useSetting } from '@dhis2/app-service-datastore'
 import { CssVariables } from '@dhis2/ui'
 import isEmpty from 'lodash/isEmpty'

@@ -3,6 +3,7 @@ import React from 'react'
 import { EARTH_ENGINE_LAYER } from '../../../../constants/layers.js'
 import { getAuthToken } from '../../../../util/earthEngine.js'
 import { filterData } from '../../../../util/filter.js'
+import { BaseUrlCtx } from '../../../BaseUrlProvider.js'
 import MapLoadingMask from '../../MapLoadingMask.js'
 import Alert from '../Alert.js'
 import Layer from '../Layer.js'
@@ -16,8 +17,11 @@ export default class EarthEngineLayer extends Layer {
         error: null,
     }
 
+    static contextType = BaseUrlCtx
+
     componentDidUpdate(prev) {
         super.componentDidUpdate(prev)
+        console.log('this.context', this.context)
 
         const { coordinate } = this.props
 

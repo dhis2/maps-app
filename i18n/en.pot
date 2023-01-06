@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-12-15T09:11:21.726Z\n"
-"PO-Revision-Date: 2022-12-15T09:11:21.726Z\n"
+"POT-Creation-Date: 2023-01-09T12:27:12.315Z\n"
+"PO-Revision-Date: 2023-01-09T12:27:12.315Z\n"
 
 msgid "Map \"{{name}}\" is saved."
 msgstr ""
@@ -420,9 +420,6 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
-msgid "Failed to load relationship types."
-msgstr ""
-
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
 
@@ -576,7 +573,7 @@ msgid "Latitude"
 msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
-msgstr "Basemap could not be added: {{message}}"
+msgstr ""
 
 msgid "Not set"
 msgstr ""
@@ -1265,7 +1262,7 @@ msgid "Organisation units"
 msgstr ""
 
 msgid "Error"
-msgstr "Error"
+msgstr ""
 
 msgid "Thematic layer"
 msgstr ""
