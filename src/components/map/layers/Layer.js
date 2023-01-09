@@ -203,7 +203,6 @@ class Layer extends PureComponent {
 
     onError(error) {
         const message = error.message || error
-        console.log('onError', message)
 
         if (!this.context.isPlugin) {
             this.setState({ error: message })
@@ -213,7 +212,6 @@ class Layer extends PureComponent {
     }
 
     onErrorHidden() {
-        console.log('onErrorHidden')
         this.setState({ error: null })
     }
 }
