@@ -34,7 +34,7 @@ const saveAsNewMapMutation = {
     data: ({ data }) => data,
 }
 
-const getSavedMessage = (name) => i18n.t('Map "{{name}}" is saved.', { name })
+const getSavedMessage = (name) => i18n.t('Map "{{- name}}" is saved.', { name })
 
 const getSaveFailureMessage = (message) =>
     i18n.t('Failed to save map: {{message}}', {
