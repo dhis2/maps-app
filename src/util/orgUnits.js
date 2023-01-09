@@ -140,7 +140,11 @@ export const getStyledOrgUnits = (
         if (useColor && color) {
             properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color
         } else if (symbol) {
-            properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`
+            // properties.iconUrl = `${contextPath}/images/orgunitgroup/${symbol}`
+            properties.iconUrl = `${contextPath.replace(
+                '8080',
+                '8082'
+            )}/images/orgunitgroup/${symbol}`
         }
 
         if (properties.level && levelWeight) {
