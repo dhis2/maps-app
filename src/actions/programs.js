@@ -6,13 +6,6 @@ export const setPrograms = (data) => ({
     payload: data,
 })
 
-// Set program stages for one program
-export const setProgramStages = (programId, payload) => ({
-    type: types.PROGRAM_STAGES_SET,
-    programId,
-    payload,
-})
-
 // Set tracked entity attributes for one program
 export const setProgramAttributes = (programId, payload) => ({
     type: types.PROGRAM_ATTRIBUTES_SET,
@@ -44,12 +37,6 @@ export const setProgramStageDataElements = (programStageId, payload) => ({
 // Load all programs
 export const loadPrograms = () => ({
     type: types.PROGRAMS_LOAD,
-})
-
-// Load all stages for one program
-export const loadProgramStages = (programId) => ({
-    type: types.PROGRAM_STAGES_LOAD,
-    programId,
 })
 
 // Load program data elements

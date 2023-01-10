@@ -1,83 +1,75 @@
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { loadProgramStages } from '../../actions/programs.js'
+import React, { useCallback, useEffect } from 'react'
 import { SelectField } from '../core/index.js'
 
-class ProgramStageSelect extends Component {
-    static propTypes = {
-        loadProgramStages: PropTypes.func.isRequired,
-        onChange: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        errorText: PropTypes.string,
-        program: PropTypes.object,
-        programStage: PropTypes.object,
-        programStages: PropTypes.object,
-    }
-
-    componentDidUpdate() {
-        const {
-            program,
-            programStage,
-            programStages,
-            loadProgramStages,
-            onChange,
-        } = this.props
-
-        if (program) {
-            const stages = programStages[program.id]
-
-            // Load program stages when program is selected
-            if (!stages) {
-                loadProgramStages(program.id)
-            }
-
-            // Select first program stage if only one
-            if (program && !programStage && stages && stages.length === 1) {
-                onChange(stages[0])
-            }
-        }
-    }
-
-    render() {
-        const {
-            program,
-            programStage,
-            programStages,
-            onChange,
-            className,
-            errorText,
-        } = this.props
-
-        if (!program) {
-            return null
-        }
-
-        let items = programStages[program.id]
-
-        if (!items && programStage) {
-            items = [programStage] // If favorite is loaded, we only know the used program stage
-        }
-
-        return (
-            <SelectField
-                label={i18n.t('Stage')}
-                loading={items ? false : true}
-                items={items}
-                value={programStage ? programStage.id : null}
-                onChange={onChange}
-                className={className}
-                errorText={!programStage && errorText ? errorText : null}
-                dataTest="programstageselect"
-            />
-        )
-    }
+// Load all stages for one program
+const PROGRAM_STAGES_QUERY = {
+    stages: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: {
+            fields: ['programStages[id,displayName~rename(name)]'],
+            paging: false,
+        },
+    },
 }
 
-export default connect(
-    (state) => ({
-        programStages: state.programStages,
-    }),
-    { loadProgramStages }
-)(ProgramStageSelect)
+const ProgramStageSelect = ({
+    program,
+    programStage,
+    onChange,
+    className,
+    errorText,
+}) => {
+    const onProgramStagesLoad = useCallback(
+        (data) => {
+            // Select first program stage if only one
+            if (!programStage && data.stages.programStages.length === 1) {
+                onChange(data.stages.programStages[0])
+            }
+        },
+        [programStage, onChange]
+    )
+
+    // https://runtime.dhis2.nu/#/hooks/useDataQuery
+    const { loading, error, data, refetch } = useDataQuery(
+        PROGRAM_STAGES_QUERY,
+        {
+            variables: { id: program.id },
+            onComplete: onProgramStagesLoad,
+            lazy: true,
+        }
+    )
+
+    // Fetch program stages when program is changed
+    useEffect(() => {
+        refetch({ id: program.id })
+    }, [program, refetch])
+
+    // TODO: Handle error
+
+    return (
+        <SelectField
+            label={i18n.t('Stage')}
+            loading={loading}
+            items={data?.stages.programStages}
+            value={programStage?.id}
+            onChange={onChange}
+            className={className}
+            errorText={!programStage && errorText ? errorText : null}
+            dataTest="programstageselect"
+        />
+    )
+}
+
+ProgramStageSelect.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    errorText: PropTypes.string,
+    program: PropTypes.object,
+    programStage: PropTypes.object,
+}
+
+export default ProgramStageSelect
