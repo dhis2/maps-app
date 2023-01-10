@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-12-14T09:49:25.172Z\n"
-"PO-Revision-Date: 2022-12-14T09:49:25.172Z\n"
+"POT-Creation-Date: 2023-01-10T11:20:11.172Z\n"
+"PO-Revision-Date: 2023-01-10T11:20:11.172Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -39,6 +39,9 @@ msgid "Name and value"
 msgstr ""
 
 msgid "Value"
+msgstr ""
+
+msgid "Label display option"
 msgstr ""
 
 msgid "Data element group"
@@ -307,6 +310,9 @@ msgid "Buffer can't be combined with associated geometry."
 msgstr ""
 
 msgid "Labels"
+msgstr ""
+
+msgid "Label font style"
 msgstr ""
 
 msgid "Aggregation type"

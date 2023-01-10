@@ -6,33 +6,34 @@ import {
     LABEL_TEMPLATE_NAME_AND_VALUE,
     LABEL_TEMPLATE_VALUE_ONLY,
 } from '../../constants/layers.js'
-import { Radio, RadioGroup } from '.'
+import { SelectField } from '.'
 
 const getLabelDisplayOptions = () => [
     {
-        value: LABEL_TEMPLATE_NAME_ONLY,
-        label: i18n.t('Name'),
+        id: LABEL_TEMPLATE_NAME_ONLY,
+        name: i18n.t('Name'),
     },
     {
-        value: LABEL_TEMPLATE_NAME_AND_VALUE,
-        label: i18n.t('Name and value'),
+        id: LABEL_TEMPLATE_NAME_AND_VALUE,
+        name: i18n.t('Name and value'),
     },
     {
-        value: LABEL_TEMPLATE_VALUE_ONLY,
-        label: i18n.t('Value'),
+        id: LABEL_TEMPLATE_VALUE_ONLY,
+        name: i18n.t('Value'),
     },
 ]
 
-const LabelDisplayOptions = ({ option, onDisplayOptionChange }) => (
-    <RadioGroup
-        value={option || LABEL_TEMPLATE_NAME_ONLY}
-        onChange={onDisplayOptionChange}
-    >
-        {getLabelDisplayOptions().map(({ value, label }) => (
-            <Radio key={value} value={value} label={label} />
-        ))}
-    </RadioGroup>
-)
+const LabelDisplayOptions = ({ option, onDisplayOptionChange }) => {
+    return (
+        <SelectField
+            label={i18n.t('Label display option')}
+            loading={false}
+            items={getLabelDisplayOptions()}
+            value={option || null}
+            onChange={({ id }) => onDisplayOptionChange(id)}
+        />
+    )
+}
 
 LabelDisplayOptions.propTypes = {
     onDisplayOptionChange: PropTypes.func.isRequired,
