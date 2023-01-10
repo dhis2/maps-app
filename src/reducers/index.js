@@ -31,7 +31,6 @@ import programs from './programs.js'
 import programStageDataElements from './programStageDataElements.js'
 import programStages from './programStages.js'
 import programTrackedEntityAttributes from './programTrackedEntityAttributes.js'
-import trackedEntityTypes from './trackedEntityTypes.js'
 import ui from './ui.js'
 
 export default combineReducers({
@@ -66,7 +65,6 @@ export default combineReducers({
     programStageDataElements,
     programTrackedEntityAttributes,
     ui,
-    trackedEntityTypes,
     dataDownload,
     feature,
 })
