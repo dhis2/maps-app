@@ -1,6 +1,6 @@
 {
     "name": "maps-app",
-    "version": "1.27.2",
+    "version": "1.27.3",
     "description": "DHIS2 Maps",
     "main": "src/app.js",
     "repository": {
@@ -30,7 +30,7 @@
         "analyze-bundle": "webpack --profile --json --progress > .webpack-profile.json && webpack-bundle-analyzer .webpack-profile.json"
     },
     "dependencies": {
-        "@dhis2/analytics": "^24.0.8",
+        "@dhis2/analytics": "^24.4.0",
         "@dhis2/app-runtime": "^3.4.4",
         "@dhis2/app-runtime-adapter-d2": "^1.1.0",
         "@dhis2/app-service-alerts": "^3.6.2",

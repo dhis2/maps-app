@@ -1,3 +1,10 @@
+## [1.27.3](https://github.com/dhis2/maps-app/compare/v1.27.2...v1.27.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* special characters in map name ([#2424](https://github.com/dhis2/maps-app/issues/2424)) ([cfc6288](https://github.com/dhis2/maps-app/commit/cfc628877a7e539ef16026d1dc84f47e0cda6ad6))
+
 ## [1.27.2](https://github.com/dhis2/maps-app/compare/v1.27.1...v1.27.2) (2022-12-09)
 
 

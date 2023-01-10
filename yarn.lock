@@ -4354,10 +4354,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.0.8":
-  version "24.0.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.0.8.tgz#a463bef8ea1f10b8581d202583fa3da5e474c9bf"
-  integrity sha512-Jkh23yiEkUz4SYgGItEkM1z4nXqsLUs9aqUl7oihwQmut2iIMHLo2355QsuELcQGP8DFf4Qgu9MT1mrOZADIFA==
+"@dhis2/analytics@^24.4.0":
+  version "24.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.4.0.tgz#99a4cc0c8d846edb9792e489db3f93357f71d8be"
+  integrity sha512-0tSECJLMhEvn96OLYQhfdbNoEaLN2EkXp0zc8FfjEfM7HtVjNeiops9SaQH1Fzu2/XkkY9H1lcX5PHGo4Ail9g==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
