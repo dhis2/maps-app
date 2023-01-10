@@ -25,9 +25,11 @@ const ProgramStageSelect = ({
 }) => {
     const onProgramStagesLoad = useCallback(
         (data) => {
+            const stages = data.stages.programStages
+
             // Select first program stage if only one
-            if (!programStage && data.stages.programStages.length === 1) {
-                onChange(data.stages.programStages[0])
+            if (!programStage && stages?.length === 1) {
+                onChange(stages[0])
             }
         },
         [programStage, onChange]
@@ -48,17 +50,25 @@ const ProgramStageSelect = ({
         refetch({ id: program.id })
     }, [program, refetch])
 
-    // TODO: Handle error
+    let items = data?.stages.programStages
+
+    if (!items && programStage) {
+        // If favorite is loaded, we only know the used program stage
+        items = [programStage]
+    }
 
     return (
         <SelectField
             label={i18n.t('Stage')}
             loading={loading}
-            items={data?.stages.programStages}
+            items={items}
             value={programStage?.id}
             onChange={onChange}
             className={className}
-            errorText={!programStage && errorText ? errorText : null}
+            errorText={
+                error?.message ||
+                (!programStage && errorText ? errorText : null)
+            }
             dataTest="programstageselect"
         />
     )
