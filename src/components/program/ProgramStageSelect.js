@@ -75,10 +75,10 @@ const ProgramStageSelect = ({
 }
 
 ProgramStageSelect.propTypes = {
+    program: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
-    program: PropTypes.object,
     programStage: PropTypes.object,
 }
 
