@@ -13,9 +13,6 @@ const EVENTS_QUERY = {
     events: {
         resource: 'events',
         id: ({ id }) => id,
-        params: {
-            paging: false,
-        },
     },
 }
 
@@ -64,23 +61,18 @@ const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
 }
 
 // Will display a popup for an event feature
-const EventPopup = (props) => {
-    const {
-        coordinates,
-        feature,
-        styleDataItem,
-        displayElements,
-        eventCoordinateFieldName,
-        onClose,
-    } = props
-
+const EventPopup = ({
+    coordinates,
+    feature,
+    styleDataItem,
+    displayElements,
+    eventCoordinateFieldName,
+    onClose,
+}) => {
     const { error, data, refetch } = useDataQuery(EVENTS_QUERY, {
-        variables: {
-            id: feature.properties.id || feature.properties[EVENT_ID_FIELD],
-        },
+        lazy: true,
     })
 
-    // Fetch events again when feature is changed
     useEffect(() => {
         refetch({
             id: feature.properties.id || feature.properties[EVENT_ID_FIELD],
