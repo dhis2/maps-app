@@ -8,7 +8,6 @@ import dataDownloadEpics from './dataDownload.js'
 import dataElementEpics from './dataElements.js'
 import dimensionEpics from './dimensions.js'
 import layerEpics from './layers.js'
-import legendSetEpics from './legendSets.js'
 import optionSetEpics from './optionSets.js'
 import orgUnitEpis from './orgUnits.js'
 import programEpics from './programs.js'
@@ -23,7 +22,6 @@ export default combineEpics(
     dataElementEpics,
     errorEpic,
     layerEpics,
-    legendSetEpics,
     optionSetEpics,
     orgUnitEpis,
     programEpics,

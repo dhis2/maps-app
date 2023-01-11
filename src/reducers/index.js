@@ -14,7 +14,6 @@ import feature from './feature.js'
 import interpretation from './interpretation.js'
 import layerEdit from './layerEdit.js'
 import layers from './layers.js'
-import legendSets from './legendSets.js'
 import map from './map.js'
 import optionSets from './optionSets.js'
 import orgUnitGroups from './orgUnitGroups.js'
@@ -43,7 +42,6 @@ export default combineReducers({
     interpretation,
     layerEdit,
     layers,
-    legendSets,
     map,
     optionSets,
     orgUnitProfile,
