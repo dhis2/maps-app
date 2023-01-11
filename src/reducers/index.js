@@ -11,7 +11,6 @@ import dataTable from './dataTable.js'
 import dimensions from './dimensions.js'
 import download from './download.js'
 import feature from './feature.js'
-import indicatorGroups from './indicatorGroups.js'
 import indicators from './indicators.js'
 import interpretation from './interpretation.js'
 import layerEdit from './layerEdit.js'
@@ -43,7 +42,6 @@ export default combineReducers({
     dimensions,
     download,
     indicators,
-    indicatorGroups,
     interpretation,
     layerEdit,
     layers,
