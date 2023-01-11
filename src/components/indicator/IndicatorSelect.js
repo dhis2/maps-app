@@ -2,16 +2,16 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import useDisplayProperty from '../../hooks/useDisplayProperty.js'
 import { SelectField } from '../core/index.js'
+import { useUserSettings } from '../UserSettingsProvider.js'
 
 // Load all indicators within a group
 const INDICATORS_QUERY = {
     indicators: {
         resource: 'indicators',
-        params: ({ groupId, displayProperty }) => ({
+        params: ({ groupId, nameProperty }) => ({
             filter: `indicatorGroups.id:eq:${groupId}`,
-            fields: ['id', `${displayProperty}~rename(name)`, 'legendSet[id]'],
+            fields: ['id', `${nameProperty}~rename(name)`, 'legendSet[id]'],
             paging: false,
         }),
     },
@@ -24,16 +24,19 @@ const IndicatorSelect = ({
     className,
     errorText,
 }) => {
-    const displayProperty = useDisplayProperty()
+    const { nameProperty } = useUserSettings()
     const { loading, error, data, refetch } = useDataQuery(INDICATORS_QUERY, {
         lazy: true,
     })
 
     useEffect(() => {
         if (indicatorGroup) {
-            refetch({ groupId: indicatorGroup.id, displayProperty })
+            refetch({
+                groupId: indicatorGroup.id,
+                nameProperty,
+            })
         }
-    }, [indicatorGroup, displayProperty, refetch])
+    }, [indicatorGroup, nameProperty, refetch])
 
     if (!indicatorGroup && !indicator) {
         return null

@@ -21,7 +21,13 @@ const UserSettingsProvider = ({ children }) => {
                 userSettings: userSettingsQuery,
             })
 
-            setSettings(userSettings)
+            setSettings({
+                ...userSettings,
+                nameProperty:
+                    userSettings.keyAnalysisDisplayProperty === 'name'
+                        ? 'displayName'
+                        : 'displayShortName',
+            })
         }
         fetchData()
     }, [engine])
