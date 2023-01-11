@@ -5,7 +5,6 @@ import basemaps from './basemaps.js'
 import contextMenu from './contextMenu.js'
 import dataDownload from './dataDownload.js'
 import dataElementGroups from './dataElementGroups.js'
-import dataElementOperands from './dataElementOperands.js'
 import dataElements from './dataElements.js'
 import dataTable from './dataTable.js'
 import dimensions from './dimensions.js'
@@ -37,7 +36,6 @@ export default combineReducers({
     contextMenu,
     dataElements,
     dataElementGroups,
-    dataElementOperands,
     dataTable,
     dimensions,
     download,
