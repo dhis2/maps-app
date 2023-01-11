@@ -98,13 +98,13 @@ const EventPopup = (props) => {
             className="dhis2-map-popup-event"
         >
             {error && <span>{i18n.t('Could not retrieve event data')}</span>}
-            {data?.events && (
+            {!error && (
                 <table>
                     <tbody>
-                        {dataValues &&
+                        {data?.events &&
                             getDataRows({
                                 displayElements,
-                                dataValues: dataValues,
+                                dataValues,
                                 styleDataItem,
                                 value,
                             })}
