@@ -1,9 +1,7 @@
 import { getInstance as getD2 } from 'd2'
 import 'rxjs/add/operator/concatMap'
-import { sortBy } from 'lodash/fp'
 import { combineEpics } from 'redux-observable'
 import {
-    setDataElementGroups,
     setDataElements,
     setDataElementOperands,
 } from '../actions/dataElements.js'
@@ -11,22 +9,6 @@ import { errorActionCreator } from '../actions/helpers.js'
 import * as types from '../constants/actionTypes.js'
 import { apiFetch } from '../util/api.js'
 import { getDisplayPropertyUrl } from '../util/helpers.js'
-
-// Load all data element groups
-export const loadDataElementGroups = (action$) =>
-    action$.ofType(types.DATA_ELEMENT_GROUPS_LOAD).concatMap(() =>
-        getD2()
-            .then((d2) =>
-                d2.models.dataElementGroups.list({
-                    fields: `id,${getDisplayPropertyUrl()}`,
-                    paging: false,
-                })
-            )
-            .then((groups) =>
-                setDataElementGroups(sortBy('name', groups.toArray()))
-            )
-            .catch(errorActionCreator(types.PROGRAMS_LOAD_ERROR))
-    )
 
 // Load data elements in one group
 export const loadDataElements = (action$) =>
@@ -73,8 +55,4 @@ export const loadDataElementOperands = (action$) =>
             )
     )
 
-export default combineEpics(
-    loadDataElementGroups,
-    loadDataElements,
-    loadDataElementOperands
-)
+export default combineEpics(loadDataElements, loadDataElementOperands)
