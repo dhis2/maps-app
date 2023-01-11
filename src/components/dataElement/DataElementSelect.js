@@ -1,67 +1,85 @@
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { loadDataElements } from '../../actions/dataElements.js'
+import React, { useEffect } from 'react'
 import { SelectField } from '../core/index.js'
+import { useUserSettings } from '../UserSettingsProvider.js'
 
-class DataElementSelect extends PureComponent {
-    static propTypes = {
-        loadDataElements: PropTypes.func.isRequired,
-        onChange: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        dataElement: PropTypes.object,
-        dataElementGroup: PropTypes.object,
-        dataElements: PropTypes.array,
-        errorText: PropTypes.string,
-    }
-
-    componentDidUpdate() {
-        const { dataElements, dataElementGroup, loadDataElements } = this.props
-
-        if (dataElementGroup && !dataElements) {
-            loadDataElements(dataElementGroup.id)
-        }
-    }
-
-    render() {
-        const {
-            dataElement,
-            dataElements,
-            dataElementGroup,
-            onChange,
-            className,
-            errorText,
-        } = this.props
-
-        let items = dataElements
-
-        if (!dataElementGroup && !dataElement) {
-            return null
-        } else if (!dataElements && dataElement) {
-            items = [dataElement] // If favorite is loaded, we only know the used data element
-        }
-
-        return (
-            <SelectField
-                key="indicators"
-                label={i18n.t('Data element')}
-                loading={items ? false : true}
-                items={items}
-                value={dataElement ? dataElement.id : null}
-                onChange={(dataElement) => onChange(dataElement, 'dataElement')}
-                className={className}
-                errorText={!dataElement && errorText ? errorText : null}
-            />
-        )
-    }
+// Load all data elements within a group
+const DATA_ELEMENTS_QUERY = {
+    dataElements: {
+        resource: 'dataElements',
+        params: ({ groupId, nameProperty }) => ({
+            filter: `dataElementGroups.id:eq:${groupId}`,
+            fields: [
+                'dimensionItem~rename(id)',
+                `${nameProperty}~rename(name)`,
+            ],
+            domainType: 'aggregate',
+            paging: false,
+        }),
+    },
 }
 
-export default connect(
-    (state, props) => ({
-        dataElements: props.dataElementGroup
-            ? state.dataElements[props.dataElementGroup.id]
-            : null,
+const DataElementSelect = ({
+    dataElement,
+    dataElementGroup,
+    onChange,
+    className,
+    errorText,
+}) => {
+    const { nameProperty = 'displayName' } = useUserSettings() // TODO: remove default
+    const { loading, error, data, refetch } = useDataQuery(
+        DATA_ELEMENTS_QUERY,
+        {
+            lazy: true,
+        }
+    )
+
+    useEffect(() => {
+        if (dataElementGroup) {
+            refetch({
+                groupId: dataElementGroup.id,
+                nameProperty,
+            })
+        }
+    }, [dataElementGroup, nameProperty, refetch])
+
+    if (!dataElementGroup && !dataElement) {
+        return null
+    }
+
+    let items = data?.dataElements.dataElements
+
+    if (!items && dataElement) {
+        items = [dataElement] // If favorite is loaded, we only know the used data element
+    }
+
+    return (
+        <SelectField
+            label={i18n.t('Data element')}
+            loading={loading}
+            items={items}
+            value={dataElement?.id}
+            onChange={(dataElement) => onChange(dataElement, 'dataElement')}
+            className={className}
+            errorText={
+                error?.message || (!dataElement && errorText ? errorText : null)
+            }
+        />
+    )
+}
+
+DataElementSelect.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    dataElement: PropTypes.shape({
+        id: PropTypes.string.isRequired,
     }),
-    { loadDataElements }
-)(DataElementSelect)
+    dataElementGroup: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
+    errorText: PropTypes.string,
+}
+
+export default DataElementSelect
