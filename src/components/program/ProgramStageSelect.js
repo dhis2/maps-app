@@ -10,7 +10,7 @@ const PROGRAM_STAGES_QUERY = {
         resource: 'programs',
         id: ({ id }) => id,
         params: {
-            fields: ['programStages[id,displayName~rename(name)]'],
+            fields: 'programStages[id,displayName~rename(name)]',
             paging: false,
         },
     },
@@ -35,7 +35,6 @@ const ProgramStageSelect = ({
         [programStage, onChange]
     )
 
-    // https://runtime.dhis2.nu/#/hooks/useDataQuery
     const { loading, error, data, refetch } = useDataQuery(
         PROGRAM_STAGES_QUERY,
         {
@@ -75,7 +74,9 @@ const ProgramStageSelect = ({
 }
 
 ProgramStageSelect.propTypes = {
-    program: PropTypes.object.isRequired,
+    program: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }).isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
