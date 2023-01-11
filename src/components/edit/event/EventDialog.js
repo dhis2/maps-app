@@ -239,39 +239,26 @@ class EventDialog extends Component {
                                 data-test="eventdialog-programselect"
                             />
                             {program && (
-                                <>
-                                    <ProgramStageSelect
-                                        program={program}
-                                        programStage={programStage}
-                                        onChange={setProgramStage}
-                                        className={styles.select}
-                                        errorText={programStageError}
-                                    />
-                                    <CoordinateField
-                                        program={program}
-                                        programStage={programStage}
-                                        value={eventCoordinateField}
-                                        onChange={setEventCoordinateField}
-                                        className={styles.select}
-                                    />
-                                    <CoordinateField
-                                        program={program}
-                                        programStage={programStage}
-                                        value={fallbackCoordinateField}
-                                        eventCoordinateField={
-                                            eventCoordinateField ||
-                                            EVENT_COORDINATE_DEFAULT
-                                        }
-                                        onChange={setFallbackCoordinateField}
-                                        className={styles.select}
-                                    />
-                                    <EventStatusSelect
-                                        value={eventStatus}
-                                        onChange={setEventStatus}
-                                        className={styles.select}
-                                    />
-                                </>
+                                <ProgramStageSelect
+                                    program={program}
+                                    programStage={programStage}
+                                    onChange={setProgramStage}
+                                    className={styles.select}
+                                    errorText={programStageError}
+                                />
                             )}
+                            <CoordinateField
+                                program={program}
+                                programStage={programStage}
+                                value={eventCoordinateField}
+                                onChange={setEventCoordinateField}
+                                className={styles.select}
+                            />
+                            <EventStatusSelect
+                                value={eventStatus}
+                                onChange={setEventStatus}
+                                className={styles.select}
+                            />
                         </div>
                     )}
                     {tab === 'period' && (

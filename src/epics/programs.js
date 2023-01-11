@@ -5,7 +5,6 @@ import 'rxjs/add/operator/concatMap'
 import { errorActionCreator } from '../actions/helpers.js'
 import {
     setPrograms,
-    setProgramStages,
     setProgramAttributes,
     setProgramDataElements,
     setProgramIndicators,
@@ -26,25 +25,6 @@ export const loadPrograms = (action$) =>
             )
             .then((programs) => setPrograms(programs.toArray()))
             .catch(errorActionCreator(types.PROGRAMS_LOAD_ERROR))
-    )
-
-// Load program stages
-export const loadProgramStages = (action$) =>
-    action$.ofType(types.PROGRAM_STAGES_LOAD).concatMap((action) =>
-        getD2()
-            .then((d2) =>
-                d2.models.program.get(action.programId, {
-                    fields: 'programStages[id,displayName~rename(name)]',
-                    paging: false,
-                })
-            )
-            .then((program) =>
-                setProgramStages(
-                    action.programId,
-                    program.programStages.toArray()
-                )
-            )
-            .catch(errorActionCreator(types.PROGRAM_STAGES_LOAD_ERROR))
     )
 
 // Load program indicators
@@ -135,7 +115,6 @@ export const loadProgramStageDataElements = (action$) =>
 
 export default combineEpics(
     loadPrograms,
-    loadProgramStages,
     loadProgramIndicators,
     loadProgramTrackedEntityAttributes,
     loadProgramDataElements,

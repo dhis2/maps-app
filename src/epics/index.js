@@ -6,7 +6,6 @@ import 'rxjs/add/operator/concatMapTo'
 import 'rxjs/add/observable/empty'
 import dataDownloadEpics from './dataDownload.js'
 import dataElementEpics from './dataElements.js'
-import dataSetEpics from './dataSets.js'
 import dimensionEpics from './dimensions.js'
 import indicatorEpics from './indicators.js'
 import layerEpics from './layers.js'
@@ -14,7 +13,6 @@ import legendSetEpics from './legendSets.js'
 import optionSetEpics from './optionSets.js'
 import orgUnitEpis from './orgUnits.js'
 import programEpics from './programs.js'
-import trackedEntitiesEpics from './trackedEntities.js'
 
 const errorEpic = (action$) =>
     action$
@@ -24,7 +22,6 @@ const errorEpic = (action$) =>
 
 export default combineEpics(
     dataElementEpics,
-    dataSetEpics,
     errorEpic,
     indicatorEpics,
     layerEpics,
@@ -33,6 +30,5 @@ export default combineEpics(
     orgUnitEpis,
     programEpics,
     dimensionEpics,
-    trackedEntitiesEpics,
     dataDownloadEpics
 )

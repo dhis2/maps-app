@@ -1,66 +1,85 @@
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { loadProgramStages } from '../../actions/programs.js'
+import React, { useCallback, useEffect } from 'react'
 import { SelectField } from '../core/index.js'
+
+// Load all stages for one program
+const PROGRAM_STAGES_QUERY = {
+    stages: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: {
+            fields: 'programStages[id,displayName~rename(name)]',
+            paging: false,
+        },
+    },
+}
 
 const ProgramStageSelect = ({
     program,
     programStage,
-    programStages,
     onChange,
-    loadProgramStages,
     className,
     errorText,
 }) => {
+    const onProgramStagesLoad = useCallback(
+        (data) => {
+            const stages = data.stages.programStages
+
+            // Select first program stage if only one
+            if (!programStage && stages?.length === 1) {
+                onChange(stages[0])
+            }
+        },
+        [programStage, onChange]
+    )
+
+    const { loading, error, data, refetch } = useDataQuery(
+        PROGRAM_STAGES_QUERY,
+        {
+            onComplete: onProgramStagesLoad,
+            lazy: true,
+        }
+    )
+
+    // Fetch program stages when program is changed
     useEffect(() => {
-        const stages = programStages[program.id]
+        refetch({ id: program.id })
+    }, [program, refetch])
 
-        // Load program stages when program is selected
-        if (!stages) {
-            loadProgramStages(program.id)
-        }
-
-        // Select first program stage if only one
-        if (program && !programStage && stages && stages.length === 1) {
-            onChange(stages[0])
-        }
-    }, [program, programStage, programStages, loadProgramStages, onChange])
-
-    let items = programStages[program.id]
+    let items = data?.stages.programStages
 
     if (!items && programStage) {
-        items = [programStage] // If favorite is loaded, we only know the used program stage
+        // If favorite is loaded, we only know the used program stage
+        items = [programStage]
     }
 
     return (
         <SelectField
             label={i18n.t('Stage')}
-            loading={items ? false : true}
+            loading={loading}
             items={items}
-            value={programStage ? programStage.id : null}
+            value={programStage?.id}
             onChange={onChange}
             className={className}
-            errorText={!programStage && errorText ? errorText : null}
+            errorText={
+                error?.message ||
+                (!programStage && errorText ? errorText : null)
+            }
             dataTest="programstageselect"
         />
     )
 }
 
 ProgramStageSelect.propTypes = {
-    loadProgramStages: PropTypes.func.isRequired,
+    program: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }).isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
-    program: PropTypes.object,
     programStage: PropTypes.object,
-    programStages: PropTypes.object,
 }
 
-export default connect(
-    (state) => ({
-        programStages: state.programStages,
-    }),
-    { loadProgramStages }
-)(ProgramStageSelect)
+export default ProgramStageSelect

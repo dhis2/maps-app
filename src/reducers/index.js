@@ -7,12 +7,10 @@ import dataDownload from './dataDownload.js'
 import dataElementGroups from './dataElementGroups.js'
 import dataElementOperands from './dataElementOperands.js'
 import dataElements from './dataElements.js'
-import dataSets from './dataSets.js'
 import dataTable from './dataTable.js'
 import dimensions from './dimensions.js'
 import download from './download.js'
 import feature from './feature.js'
-import indicatorGroups from './indicatorGroups.js'
 import indicators from './indicators.js'
 import interpretation from './interpretation.js'
 import layerEdit from './layerEdit.js'
@@ -29,9 +27,7 @@ import programDataElements from './programDataElements.js'
 import programIndicators from './programIndicators.js'
 import programs from './programs.js'
 import programStageDataElements from './programStageDataElements.js'
-import programStages from './programStages.js'
 import programTrackedEntityAttributes from './programTrackedEntityAttributes.js'
-import trackedEntityTypes from './trackedEntityTypes.js'
 import ui from './ui.js'
 
 export default combineReducers({
@@ -42,12 +38,10 @@ export default combineReducers({
     dataElements,
     dataElementGroups,
     dataElementOperands,
-    dataSets,
     dataTable,
     dimensions,
     download,
     indicators,
-    indicatorGroups,
     interpretation,
     layerEdit,
     layers,
@@ -62,11 +56,9 @@ export default combineReducers({
     programs,
     programDataElements,
     programIndicators,
-    programStages,
     programStageDataElements,
     programTrackedEntityAttributes,
     ui,
-    trackedEntityTypes,
     dataDownload,
     feature,
 })

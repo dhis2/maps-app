@@ -1,7 +1,7 @@
 import { getInstance as getD2 } from 'd2'
 import { combineEpics } from 'redux-observable'
 import { errorActionCreator } from '../actions/helpers.js'
-import { setIndicators, setIndicatorGroups } from '../actions/indicators.js'
+import { setIndicators } from '../actions/indicators.js'
 import * as types from '../constants/actionTypes.js'
 
 export const loadIndicators = (action$) =>
@@ -23,19 +23,4 @@ export const loadIndicators = (action$) =>
             .catch(errorActionCreator(types.INDICATORS_LOAD_ERROR))
     )
 
-export const loadIndicatorGroups = (action$) =>
-    action$.ofType(types.INDICATOR_GROUPS_LOAD).concatMap(() =>
-        getD2()
-            .then((d2) =>
-                d2.models.indicatorGroups.list({
-                    fields: 'id,displayName~rename(name)',
-                    paging: false,
-                })
-            )
-            .then((indicatorGroups) =>
-                setIndicatorGroups(indicatorGroups.toArray())
-            )
-            .catch(errorActionCreator(types.INDICATOR_GROUPS_LOAD_ERROR))
-    )
-
-export default combineEpics(loadIndicators, loadIndicatorGroups)
+export default combineEpics(loadIndicators)
