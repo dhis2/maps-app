@@ -38,7 +38,6 @@ const ProgramStageSelect = ({
     const { loading, error, data, refetch } = useDataQuery(
         PROGRAM_STAGES_QUERY,
         {
-            variables: { id: program.id },
             onComplete: onProgramStagesLoad,
             lazy: true,
         }
