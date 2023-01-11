@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { SelectField } from '../core/index.js'
 
-// Load all data sets (reporting rates)
+// Load all indicator groups
 const INDICATOR_GROUPS_QUERY = {
     groups: {
         resource: 'indicatorGroups',

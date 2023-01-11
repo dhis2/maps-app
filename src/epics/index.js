@@ -7,7 +7,6 @@ import 'rxjs/add/observable/empty'
 import dataDownloadEpics from './dataDownload.js'
 import dataElementEpics from './dataElements.js'
 import dimensionEpics from './dimensions.js'
-import indicatorEpics from './indicators.js'
 import layerEpics from './layers.js'
 import legendSetEpics from './legendSets.js'
 import optionSetEpics from './optionSets.js'
@@ -23,7 +22,6 @@ const errorEpic = (action$) =>
 export default combineEpics(
     dataElementEpics,
     errorEpic,
-    indicatorEpics,
     layerEpics,
     legendSetEpics,
     optionSetEpics,
