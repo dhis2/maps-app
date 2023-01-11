@@ -7,7 +7,6 @@ import dataDownload from './dataDownload.js'
 import dataElementGroups from './dataElementGroups.js'
 import dataElementOperands from './dataElementOperands.js'
 import dataElements from './dataElements.js'
-import dataSets from './dataSets.js'
 import dataTable from './dataTable.js'
 import dimensions from './dimensions.js'
 import download from './download.js'
@@ -41,7 +40,6 @@ export default combineReducers({
     dataElements,
     dataElementGroups,
     dataElementOperands,
-    dataSets,
     dataTable,
     dimensions,
     download,
