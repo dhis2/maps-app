@@ -1,7 +1,8 @@
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
+import { CenteredContent, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
-import { apiFetch } from '../../../util/api.js'
+import React, { useEffect } from 'react'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import { formatTime, formatCoordinate } from '../../../util/helpers.js'
 import Popup from '../Popup.js'
@@ -9,20 +10,17 @@ import Popup from '../Popup.js'
 // Returns true if value is not undefined or null;
 const hasValue = (value) => value !== undefined || value !== null
 
-// Loads event data for the selected feature
-const loadEventData = async (feature) => {
-    if (!feature) {
-        return null
-    }
-
-    const id = feature.properties.id || feature.properties[EVENT_ID_FIELD]
-
-    return apiFetch(`/events/${id}`)
+const EVENTS_QUERY = {
+    events: {
+        resource: 'events',
+        id: ({ id }) => id,
+        params: {
+            paging: false,
+        },
+    },
 }
 
-// Returns table rows for all display elements
-/* eslint-disable max-params */
-const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
+const getDataRows = ({ displayElements, dataValues, styleDataItem, value }) => {
     const dataRows = []
 
     // Include data element used for styling if not included below
@@ -65,7 +63,6 @@ const getDataRows = (displayElements, dataValues, styleDataItem, value) => {
 
     return dataRows
 }
-/* eslint-enable max-params */
 
 // Will display a popup for an event feature
 const EventPopup = (props) => {
@@ -78,27 +75,22 @@ const EventPopup = (props) => {
         onClose,
     } = props
 
-    const [eventData, setEventData] = useState()
+    const { error, data, refetch } = useDataQuery(EVENTS_QUERY, {
+        variables: {
+            id: feature.properties.id || feature.properties[EVENT_ID_FIELD],
+        },
+    })
 
-    // Load event data every time a new feature is clicked
+    // Fetch events again when feature is changed
     useEffect(() => {
-        let aborted = false
-
-        loadEventData(feature).then((data) => {
-            if (!aborted) {
-                setEventData(data)
-            }
+        refetch({
+            id: feature.properties.id || feature.properties[EVENT_ID_FIELD],
         })
-
-        return () => {
-            setEventData() // Clear event data
-            aborted = true
-        }
-    }, [feature, setEventData])
+    }, [feature, refetch])
 
     const { type, coordinates: coord } = feature.geometry
     const { value } = feature.properties
-    const { dataValues = [], eventDate, orgUnitName } = eventData || {}
+    const { dataValues = [], eventDate, orgUnitName } = data?.events || {}
 
     return (
         <Popup
@@ -106,40 +98,43 @@ const EventPopup = (props) => {
             onClose={onClose}
             className="dhis2-map-popup-event"
         >
-            <table>
-                <tbody>
-                    {eventData &&
-                        getDataRows(
-                            displayElements,
-                            dataValues,
-                            styleDataItem,
-                            value
+            {error && <span>{i18n.t('Could not retrieve event data')}</span>}
+            {data?.events && (
+                <table>
+                    <tbody>
+                        {dataValues &&
+                            getDataRows({
+                                displayElements,
+                                dataValues: dataValues,
+                                styleDataItem,
+                                value,
+                            })}
+                        {type === 'Point' && (
+                            <tr>
+                                <th>
+                                    {eventCoordinateFieldName ||
+                                        i18n.t('Event location')}
+                                </th>
+                                <td>
+                                    {coord[0].toFixed(6)} {coord[1].toFixed(6)}
+                                </td>
+                            </tr>
                         )}
-                    {type === 'Point' && (
-                        <tr>
-                            <th>
-                                {eventCoordinateFieldName ||
-                                    i18n.t('Event location')}
-                            </th>
-                            <td>
-                                {coord[0].toFixed(6)} {coord[1].toFixed(6)}
-                            </td>
-                        </tr>
-                    )}
-                    {orgUnitName && (
-                        <tr>
-                            <th>{i18n.t('Organisation unit')}</th>
-                            <td>{orgUnitName}</td>
-                        </tr>
-                    )}
-                    {eventDate && (
-                        <tr>
-                            <th>{i18n.t('Event time')}</th>
-                            <td>{formatTime(eventDate)}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                        {orgUnitName && (
+                            <tr>
+                                <th>{i18n.t('Organisation unit')}</th>
+                                <td>{orgUnitName}</td>
+                            </tr>
+                        )}
+                        {eventDate && (
+                            <tr>
+                                <th>{i18n.t('Event time')}</th>
+                                <td>{formatTime(eventDate)}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            )}
         </Popup>
     )
 }
