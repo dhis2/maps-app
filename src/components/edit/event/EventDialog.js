@@ -231,15 +231,13 @@ class EventDialog extends Component {
                                 errorText={programError}
                                 data-test="eventdialog-programselect"
                             />
-                            {program && (
-                                <ProgramStageSelect
-                                    program={program}
-                                    programStage={programStage}
-                                    onChange={setProgramStage}
-                                    className={styles.select}
-                                    errorText={programStageError}
-                                />
-                            )}
+                            <ProgramStageSelect
+                                program={program}
+                                programStage={programStage}
+                                onChange={setProgramStage}
+                                className={styles.select}
+                                errorText={programStageError}
+                            />
                             <CoordinateField
                                 program={program}
                                 programStage={programStage}

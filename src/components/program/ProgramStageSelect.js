@@ -38,7 +38,6 @@ const ProgramStageSelect = ({
     const { loading, error, data, refetch } = useDataQuery(
         PROGRAM_STAGES_QUERY,
         {
-            variables: { id: program.id },
             onComplete: onProgramStagesLoad,
             lazy: true,
         }
@@ -46,8 +45,14 @@ const ProgramStageSelect = ({
 
     // Fetch program stages when program is changed
     useEffect(() => {
-        refetch({ id: program.id })
+        if (program) {
+            refetch({ id: program.id })
+        }
     }, [program, refetch])
+
+    if (!program) {
+        return null
+    }
 
     let items = data?.stages.programStages
 
@@ -74,12 +79,12 @@ const ProgramStageSelect = ({
 }
 
 ProgramStageSelect.propTypes = {
-    program: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }).isRequired,
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     errorText: PropTypes.string,
+    program: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
     programStage: PropTypes.object,
 }
 
