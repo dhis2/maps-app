@@ -14,7 +14,6 @@ import legendSetEpics from './legendSets.js'
 import optionSetEpics from './optionSets.js'
 import orgUnitEpis from './orgUnits.js'
 import programEpics from './programs.js'
-import trackedEntitiesEpics from './trackedEntities.js'
 
 const errorEpic = (action$) =>
     action$
@@ -33,6 +32,5 @@ export default combineEpics(
     orgUnitEpis,
     programEpics,
     dimensionEpics,
-    trackedEntitiesEpics,
     dataDownloadEpics
 )
