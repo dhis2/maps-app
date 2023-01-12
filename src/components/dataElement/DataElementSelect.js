@@ -28,7 +28,7 @@ const DataElementSelect = ({
     className,
     errorText,
 }) => {
-    const { nameProperty = 'displayName' } = useUserSettings() // TODO: remove default
+    const { nameProperty } = useUserSettings()
     const { loading, error, data, refetch } = useDataQuery(
         DATA_ELEMENTS_QUERY,
         {
