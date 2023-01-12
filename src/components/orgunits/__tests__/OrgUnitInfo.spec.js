@@ -1,13 +1,10 @@
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
-import { formatDate } from '../../../util/time.js'
-import OrgUnitInfo, { coordFormat } from '../OrgUnitInfo.js'
+import OrgUnitInfo from '../OrgUnitInfo.js'
 
-const defaultProps = {
-    id: 'DiszpKrYNg8',
-    groupSets: [],
-    attributes: [],
-}
+jest.mock('@dhis2/app-runtime', () => ({
+    useConfig: jest.fn(() => ({ baseUrl: 'dhis2' })),
+}))
 
 const groupSets = [
     {
@@ -30,155 +27,71 @@ const attributes = [
     },
 ]
 
-// Helper function to get list item value
-const getListItem = (wrapper, label) =>
-    wrapper.find(`[label="${label}"]`).dive().find('td').prop('children')
+const allProps = {
+    address: 'Port Loko 1',
+    attributes: [],
+    closedDate: '',
+    code: 'PL',
+    comment: 'This is the comment',
+    contactPerson: 'Johnny',
+    description: 'The district of Port Loko',
+    email: 'portloko@dhis2.org',
+    featureType: '',
+    groupSets: [],
+    id: 'portlokoid',
+    imageId: '',
+    latitude: 8.103932863,
+    level: 2,
+    levelName: 'District',
+    longitude: -11.4197452367,
+    name: 'Port Loko',
+    openingDate: '1970-01-01T00:00:00.000',
+    parentName: 'Sierra Leone',
+    phoneNumber: '123-456-7890',
+    shortName: 'PLoko',
+    url: 'portloko.dhis2.org',
+}
 
 describe('Org unit profile (location details)', () => {
-    const renderWithProps = (props) =>
-        shallow(<OrgUnitInfo {...defaultProps} {...props} />)
-
-    it('should render org unit name', () => {
-        const name = 'Ngelehun CHC'
-        const wrapper = renderWithProps({ name })
-
-        expect(wrapper.find('h3').prop('children')).toEqual(name)
+    it('renders OrgUnitInfo', () => {
+        const { container } = render(<OrgUnitInfo {...allProps} />)
+        expect(container).toMatchSnapshot()
     })
 
-    it('should render org unit level', () => {
-        const level = 4
-        const levelName = 'Facility'
-
-        expect(
-            renderWithProps({ level })
-                .find('[className="level"]')
-                .prop('children')
-        ).toContain(level)
-
-        expect(
-            renderWithProps({ levelName })
-                .find('[className="level"]')
-                .prop('children')
-        ).toContain(levelName)
-
-        expect(
-            renderWithProps({ level, levelName })
-                .find('[className="level"]')
-                .prop('children')
-        ).toContain(`${levelName} (${level})`)
-    })
-
-    it('should render org unit parent name', () => {
-        const parentName = 'Badjia'
-        const wrapper = renderWithProps({ parentName })
-
-        expect(wrapper.find('[className="level"]').prop('children')).toContain(
-            parentName
+    it('renders formatted dates if featureType is POINT', () => {
+        const { container } = render(
+            <OrgUnitInfo
+                {...allProps}
+                featureType="POINT"
+                closedDate="2021-06-09T00:00:00.000"
+            />
         )
+        expect(container).toMatchSnapshot()
     })
 
-    it('should render org unit description', () => {
-        const description = 'Org unit description'
-        const wrapper = renderWithProps({ description })
-
-        expect(wrapper.find('[className="desc"]').prop('children')).toContain(
-            description
+    it('renders org unit group memberships', () => {
+        const { container } = render(
+            <OrgUnitInfo {...allProps} groupSets={groupSets} />
         )
+        expect(container).toMatchSnapshot()
     })
 
-    it('should render fixed attributes in list', () => {
-        const code = 'OU_559'
-        const shortName = 'Ngelehun CHC'
-        const comment = 'This is a comment'
-        const contactPerson = 'John Traore'
-        const address = 'Problemveien 7, 0315 Oslo, Norway'
-        const email = 'john@dhis2test.org'
-        const phoneNumber = '+47 22 85 50 50'
-        const wrapper = renderWithProps({
-            code,
-            shortName,
-            comment,
-            contactPerson,
-            address,
-            email,
-            phoneNumber,
-        })
-
-        expect(getListItem(wrapper, 'Code')).toEqual(code)
-        expect(getListItem(wrapper, 'Short name')).toEqual(shortName)
-        expect(getListItem(wrapper, 'Comment')).toEqual(comment)
-        expect(getListItem(wrapper, 'Contact')).toEqual(contactPerson)
-        expect(getListItem(wrapper, 'Address')).toEqual(address)
-        expect(getListItem(wrapper, 'Email')).toEqual(email)
-        expect(getListItem(wrapper, 'Phone')).toEqual(phoneNumber)
-    })
-
-    it('should render formatted dates if featureType is POINT', () => {
-        const openingDate = '1970-01-01T00:00:00.000'
-        const closedDate = '2021-06-09T00:00:00.000'
-        let featureType = 'POINT'
-        let wrapper = renderWithProps({
-            openingDate,
-            closedDate,
-            featureType,
-        })
-        const opening = getListItem(wrapper, 'Opening date')
-        const closed = getListItem(wrapper, 'Closed date')
-
-        expect(opening).not.toEqual(openingDate)
-        expect(opening).toEqual(formatDate(openingDate))
-        expect(closed).not.toEqual(closedDate)
-        expect(closed).toEqual(formatDate(closedDate))
-
-        expect(wrapper.find('[label="Opening date"]').exists())
-        expect(wrapper.find('[label="Closed date"]').exists())
-
-        featureType = 'POLYGON'
-        wrapper = renderWithProps({
-            openingDate,
-            closedDate,
-            featureType,
-        })
-
-        expect(wrapper.find('[label="Opening date"]').exists()).toEqual(false)
-        expect(wrapper.find('[label="Closed date"]').exists()).toEqual(false)
-    })
-
-    it('should render formatted longitude and latitude', () => {
-        const longitude = -11.4197452367
-        const latitude = 8.103932863
-        const wrapper = renderWithProps({ longitude, latitude })
-        const lng = getListItem(wrapper, 'Longitude')
-        const lat = getListItem(wrapper, 'Latitude')
-
-        expect(lng).not.toEqual(longitude)
-        expect(lng).toEqual(coordFormat(longitude))
-        expect(lat).not.toEqual(latitude)
-        expect(lat).toEqual(coordFormat(latitude))
-    })
-
-    it('should render link for org unit url', () => {
-        const url = 'https://dhis2.org/'
-        const wrapper = renderWithProps({ url })
-
-        expect(
-            wrapper.find(`[label="URL"]`).dive().find('a').prop('href')
-        ).toEqual(url)
-    })
-
-    it('should render org unit group memberships', () => {
-        const wrapper = renderWithProps({ groupSets })
-
-        groupSets.forEach(({ label, value }) =>
-            expect(getListItem(wrapper, label)).toEqual(value)
+    it('renders metadata attributes', () => {
+        const { container } = render(
+            <OrgUnitInfo {...allProps} attributes={attributes} />
         )
+        expect(container).toMatchSnapshot()
     })
 
-    it('should render metadata attributes', () => {
-        const wrapper = renderWithProps({ attributes })
-
-        attributes.forEach(({ label, value }) =>
-            expect(getListItem(wrapper, label)).toEqual(value)
+    it('renders with minimal properties', () => {
+        const { container } = render(
+            <OrgUnitInfo
+                id="portloko123"
+                email="johnny@dhis2.org"
+                attributes={[]}
+                groupSets={[]}
+            />
         )
+        expect(container).toMatchSnapshot()
     })
 })

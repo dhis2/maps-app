@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Org unit data items renders with the default period and items 1`] = `
+<div>
+  <div
+    class="orgUnitData"
+  >
+    <div
+      class="periodSelect periodSelect"
+    >
+      <div
+        class="inputField select"
+      >
+        <div
+          class="ui-SingleSelectField"
+        >
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+          <div
+            class="ui-SingleSelectOption"
+          />
+        </div>
+      </div>
+      <div
+        class="stepper"
+      >
+        <div
+          class="ui-Tooltip"
+        >
+          <div
+            class="ui-Button"
+          />
+        </div>
+        <div
+          class="ui-Tooltip"
+        >
+          <div
+            class="ui-Button"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="dataTable"
+    >
+      <table>
+        <tbody>
+          <tr>
+            <th>
+              Total Population
+            </th>
+            <td>
+              3503
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Total population &lt; 1 year
+            </th>
+            <td>
+              140
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Population of women of child bearing age (WRA)
+            </th>
+            <td>
+              716
+            </td>
+          </tr>
+          <tr>
+            <th>
+              ANC 1 Coverage
+            </th>
+            <td>
+              368.2
+            </td>
+          </tr>
+          <tr>
+            <th>
+              FIC &lt;1y
+            </th>
+            <td>
+              291.4
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

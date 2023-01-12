@@ -1,6 +1,29 @@
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
 import OrgUnitData from '../OrgUnitData.js'
+
+/* eslint-disable react/prop-types */
+jest.mock('@dhis2/ui', () => {
+    const originalModule = jest.requireActual('@dhis2/ui')
+
+    return {
+        __esModule: true,
+        ...originalModule,
+        SingleSelectField: function Mock(props) {
+            return <div className="ui-SingleSelectField">{props.children}</div>
+        },
+        SingleSelectOption: function Mock(props) {
+            return <div className="ui-SingleSelectOption">{props.children}</div>
+        },
+        Tooltip: function Mock(props) {
+            return <div className="ui-Tooltip">{props.children}</div>
+        },
+        Button: function Mock(props) {
+            return <div className="ui-Button">{props.children}</div>
+        },
+    }
+})
+/* eslint-enable react/prop-types */
 
 const defaultProps = {
     id: 'DiszpKrYNg8',
@@ -10,7 +33,7 @@ const defaultProps = {
     },
 }
 
-const data = [
+const defaultItems = [
     {
         id: 'WUg3MYWQ7pt',
         label: 'Total Population',
@@ -39,21 +62,10 @@ const data = [
 ]
 
 describe('Org unit data items', () => {
-    const renderWithProps = (props) =>
-        shallow(<OrgUnitData {...defaultProps} {...props} />)
-
-    it('should render a period select', () => {
-        expect(renderWithProps().find('PeriodSelect')).toHaveLength(1)
-    })
-
-    it('should render a list of data items', () => {
-        const wrapper = renderWithProps({ data })
-
-        expect(wrapper.find('tr')).toHaveLength(data.length)
-
-        wrapper.find('tr').forEach((node, index) => {
-            expect(node.find('th').prop('children')).toEqual(data[index].label)
-            expect(node.find('td').prop('children')).toEqual(data[index].value)
-        })
+    it('renders with the default period and items', () => {
+        const { container } = render(
+            <OrgUnitData {...defaultProps} defaultItems={defaultItems} />
+        )
+        expect(container).toMatchSnapshot()
     })
 })
