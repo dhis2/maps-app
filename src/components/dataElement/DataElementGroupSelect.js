@@ -22,7 +22,7 @@ const DataElementGroupSelect = ({
     className,
     errorText,
 }) => {
-    const { nameProperty = 'displayName' } = useUserSettings() // TODO: remove default
+    const { nameProperty } = useUserSettings()
     const { loading, error, data } = useDataQuery(DATA_ELEMENT_GROUPS_QUERY, {
         variables: { nameProperty },
     })
