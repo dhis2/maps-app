@@ -11,11 +11,9 @@ import dataTable from './dataTable.js'
 import dimensions from './dimensions.js'
 import download from './download.js'
 import feature from './feature.js'
-import indicators from './indicators.js'
 import interpretation from './interpretation.js'
 import layerEdit from './layerEdit.js'
 import layers from './layers.js'
-import legendSets from './legendSets.js'
 import map from './map.js'
 import optionSets from './optionSets.js'
 import orgUnitGroups from './orgUnitGroups.js'
@@ -41,11 +39,9 @@ export default combineReducers({
     dataTable,
     dimensions,
     download,
-    indicators,
     interpretation,
     layerEdit,
     layers,
-    legendSets,
     map,
     optionSets,
     orgUnitProfile,
