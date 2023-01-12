@@ -1,4 +1,4 @@
-import { useDataEngine } from '@dhis2/app-runtime'
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -6,38 +6,34 @@ import React, { useState, useEffect } from 'react'
 import PeriodSelect from '../periods/PeriodSelect.js'
 import styles from './styles/OrgUnitData.module.css'
 
+const ORGUNIT_PROFILE_QUERY = {
+    profile: {
+        resource: 'organisationUnitProfile',
+        id: ({ id }) => `${id}/data`,
+        params: ({ period }) => ({
+            period,
+        }),
+    },
+}
+
 /*
- *  Displays a period selector and org unit data items (data elements, indicators, reporting rates, program indicators)
+ *  Displays a period selector and org unit data items
+ * (data elements, indicators, reporting rates, program indicators)
  */
-const OrgUnitData = ({ id, periodType, defaultPeriod, defaultItems }) => {
+const OrgUnitData = ({ id, periodType, defaultPeriod }) => {
     const [period, setPeriod] = useState(defaultPeriod)
-    const [items, setItems] = useState(defaultItems)
-    const [isLoading, setIsLoading] = useState(false)
-    const engine = useDataEngine()
+    const { loading, data, refetch } = useDataQuery(ORGUNIT_PROFILE_QUERY, {
+        lazy: true,
+    })
 
-    // Load data items if period is changed
     useEffect(() => {
-        const query = {
-            orgUnitProfile: {
-                resource: `organisationUnitProfile/${id}/data`,
-                params: {
-                    period: period.id,
-                },
-            },
+        if (id && period) {
+            refetch({
+                id,
+                period: period.id,
+            })
         }
-
-        const fetchOrgUnitProfile = async () => {
-            setIsLoading(true)
-            const { orgUnitProfile } = await engine.query(query)
-            setItems(orgUnitProfile.dataItems)
-            setIsLoading(false)
-        }
-        if (period.id === defaultPeriod.id) {
-            setItems(defaultItems)
-        } else {
-            fetchOrgUnitProfile()
-        }
-    }, [id, period, defaultPeriod, defaultItems, engine])
+    }, [id, period, refetch])
 
     return (
         <div className={styles.orgUnitData}>
@@ -49,20 +45,23 @@ const OrgUnitData = ({ id, periodType, defaultPeriod, defaultItems }) => {
                 className={styles.periodSelect}
             />
             <div className={styles.dataTable}>
-                {isLoading && (
+                {loading && (
                     <div className={styles.loadingMask}>
                         <CircularLoader />
                     </div>
                 )}
-                {Array.isArray(items) && items.length ? (
+                {Array.isArray(data?.profile.dataItems) &&
+                data.profile.dataItems.length ? (
                     <table>
                         <tbody>
-                            {items.map(({ id, label, value }) => (
-                                <tr key={id}>
-                                    <th>{label}</th>
-                                    <td>{value}</td>
-                                </tr>
-                            ))}
+                            {data.profile.dataItems.map(
+                                ({ id, label, value }) => (
+                                    <tr key={id}>
+                                        <th>{label}</th>
+                                        <td>{value}</td>
+                                    </tr>
+                                )
+                            )}
                         </tbody>
                     </table>
                 ) : (
@@ -79,7 +78,6 @@ OrgUnitData.propTypes = {
     defaultPeriod: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     periodType: PropTypes.string.isRequired,
-    defaultItems: PropTypes.array,
 }
 
 export default OrgUnitData

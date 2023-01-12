@@ -1,7 +1,7 @@
-import { useDataEngine } from '@dhis2/app-runtime'
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { CenteredContent, CircularLoader, IconCross24 } from '@dhis2/ui'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
@@ -19,36 +19,34 @@ const currentYear = String(new Date().getFullYear())
 const periods = getFixedPeriodsByType(periodType, currentYear)
 const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0]
 
+const ORGUNIT_PROFILE_QUERY = {
+    profile: {
+        resource: 'organisationUnitProfile',
+        id: ({ id }) => `${id}/data`,
+        params: ({ period }) => ({
+            period,
+        }),
+    },
+}
+
 /*
  *  Loads an org unit profile and displays it in a right drawer component
  */
 const OrgUnitProfile = () => {
-    const [profile, setProfile] = useState(null)
     const id = useSelector((state) => state.orgUnitProfile)
     const dispatch = useDispatch()
-    const engine = useDataEngine()
+    const { loading, data, refetch } = useDataQuery(ORGUNIT_PROFILE_QUERY, {
+        lazy: true,
+    })
 
     useEffect(() => {
         if (id) {
-            const query = {
-                orgUnitProfile: {
-                    resource: `organisationUnitProfile/${id}/data`,
-                    params: {
-                        period: defaultPeriod.id,
-                    },
-                },
-            }
-
-            const fetchOrgUnitProfile = async () => {
-                const res = await engine.query(query)
-                console.log('res', res)
-                const { orgUnitProfile } = res
-                setProfile(orgUnitProfile)
-            }
-            setProfile(null)
-            fetchOrgUnitProfile()
+            refetch({
+                id,
+                period: defaultPeriod.id,
+            })
         }
-    }, [id, engine])
+    }, [id, refetch])
 
     if (!id) {
         return null
@@ -68,24 +66,24 @@ const OrgUnitProfile = () => {
                 </span>
             </div>
             <div className={styles.content}>
-                {profile ? (
+                {loading && (
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
+                )}
+                {!loading && data?.profile && (
                     <>
                         <OrgUnitInfo
-                            {...profile.info}
-                            groupSets={profile.groupSets}
-                            attributes={profile.attributes}
+                            {...data.profile.info}
+                            groupSets={data.profile.groupSets}
+                            attributes={data.profile.attributes}
                         />
                         <OrgUnitData
                             id={id}
                             periodType={periodType}
                             defaultPeriod={defaultPeriod}
-                            defaultItems={profile.dataItems}
                         />
                     </>
-                ) : (
-                    <CenteredContent>
-                        <CircularLoader />
-                    </CenteredContent>
                 )}
             </div>
         </Drawer>
