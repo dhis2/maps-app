@@ -20,12 +20,12 @@ const OrgUnitData = ({ id, periodType, defaultPeriod, data }) => {
             setItems(data);
         } else {
             setIsLoading(true);
-            apiFetch(`/organisationUnitProfile/${id}/data?period=${period.id}`)
-                .then(({ dataItems }) => {
-                    setItems(dataItems);
-                    setIsLoading(false);
-                })
-                .then(setItems);
+            apiFetch(
+                `/organisationUnitProfile/${id}/data?period=${period.id}`
+            ).then(({ dataItems }) => {
+                setItems(dataItems);
+                setIsLoading(false);
+            });
         }
     }, [id, period, defaultPeriod, data]);
 
