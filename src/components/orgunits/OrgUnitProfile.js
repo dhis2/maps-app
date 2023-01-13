@@ -4,28 +4,15 @@ import { CenteredContent, CircularLoader, IconCross24 } from '@dhis2/ui'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeOrgUnitProfile } from '../../actions/orgUnits.js'
-import {
-    getFixedPeriodsByType,
-    filterFuturePeriods,
-} from '../../util/periods.js'
 import Drawer from '../core/Drawer.js'
 import OrgUnitData from './OrgUnitData.js'
 import OrgUnitInfo from './OrgUnitInfo.js'
 import styles from './styles/OrgUnitProfile.module.css'
 
-// Only YEARLY period type is supported in first version
-const periodType = 'YEARLY'
-const currentYear = String(new Date().getFullYear())
-const periods = getFixedPeriodsByType(periodType, currentYear)
-const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0]
-
 const ORGUNIT_PROFILE_QUERY = {
     profile: {
         resource: 'organisationUnitProfile',
         id: ({ id }) => `${id}/data`,
-        params: ({ period }) => ({
-            period,
-        }),
     },
 }
 
@@ -43,7 +30,6 @@ const OrgUnitProfile = () => {
         if (id) {
             refetch({
                 id,
-                period: defaultPeriod.id,
             })
         }
     }, [id, refetch])
@@ -78,11 +64,7 @@ const OrgUnitProfile = () => {
                             groupSets={data.profile.groupSets}
                             attributes={data.profile.attributes}
                         />
-                        <OrgUnitData
-                            id={id}
-                            periodType={periodType}
-                            defaultPeriod={defaultPeriod}
-                        />
+                        <OrgUnitData id={id} />
                     </>
                 )}
             </div>

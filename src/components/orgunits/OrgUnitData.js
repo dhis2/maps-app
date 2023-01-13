@@ -3,6 +3,10 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
+import {
+    getFixedPeriodsByType,
+    filterFuturePeriods,
+} from '../../util/periods.js'
 import PeriodSelect from '../periods/PeriodSelect.js'
 import styles from './styles/OrgUnitData.module.css'
 
@@ -16,11 +20,17 @@ const ORGUNIT_PROFILE_QUERY = {
     },
 }
 
+// Only YEARLY period type is supported in first version
+const periodType = 'YEARLY'
+const currentYear = String(new Date().getFullYear())
+const periods = getFixedPeriodsByType(periodType, currentYear)
+const defaultPeriod = filterFuturePeriods(periods)[0] || periods[0]
+
 /*
  *  Displays a period selector and org unit data items
  * (data elements, indicators, reporting rates, program indicators)
  */
-const OrgUnitData = ({ id, periodType, defaultPeriod }) => {
+const OrgUnitData = ({ id }) => {
     const [period, setPeriod] = useState(defaultPeriod)
     const { loading, data, refetch } = useDataQuery(ORGUNIT_PROFILE_QUERY, {
         lazy: true,
@@ -75,9 +85,7 @@ const OrgUnitData = ({ id, periodType, defaultPeriod }) => {
 }
 
 OrgUnitData.propTypes = {
-    defaultPeriod: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
-    periodType: PropTypes.string.isRequired,
 }
 
 export default OrgUnitData
