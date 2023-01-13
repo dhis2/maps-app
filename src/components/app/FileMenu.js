@@ -34,6 +34,16 @@ const saveAsNewMapMutation = {
     data: ({ data }) => data,
 }
 
+const getMapName = (name) =>
+    name ||
+    i18n.t('Untitled map, {{date}}', {
+        date: new Date().toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+        }),
+    })
+
 const getSavedMessage = (name) => i18n.t('Map "{{- name}}" is saved.', { name })
 
 const getSaveFailureMessage = (message) =>
@@ -111,7 +121,7 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
                 config: map,
                 defaultBasemapId: keyDefaultBaseMap,
             }),
-            name: name,
+            name: getMapName(name),
             description: description,
         }
 
@@ -144,6 +154,9 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
         }
     }
 
+    const onRename = ({ name, description }) =>
+        setMapProps({ name: getMapName(name), description })
+
     const onDelete = () => {
         newMap()
         deleteAlert.show()
@@ -158,7 +171,7 @@ const FileMenu = ({ map, newMap, tOpenMap, setMapProps }) => {
             onOpen={openMap}
             onSave={saveMap}
             onSaveAs={saveAsNewMap}
-            onRename={setMapProps}
+            onRename={onRename}
             onDelete={onDelete}
             onError={onFileMenuError}
         />
