@@ -4,6 +4,7 @@ exports[`Org unit profile (location details) renders OrgUnitInfo 1`] = `
 <div>
   <div
     class="info"
+    data-test="org-unit-info"
   >
     
     <h3>
@@ -223,6 +224,7 @@ exports[`Org unit profile (location details) renders formatted dates if featureT
 <div>
   <div
     class="info"
+    data-test="org-unit-info"
   >
     
     <h3>
@@ -470,6 +472,7 @@ exports[`Org unit profile (location details) renders metadata attributes 1`] = `
 <div>
   <div
     class="info"
+    data-test="org-unit-info"
   >
     
     <h3>
@@ -703,6 +706,7 @@ exports[`Org unit profile (location details) renders org unit group memberships 
 <div>
   <div
     class="info"
+    data-test="org-unit-info"
   >
     
     <h3>
@@ -950,6 +954,7 @@ exports[`Org unit profile (location details) renders with minimal properties 1`]
 <div>
   <div
     class="info"
+    data-test="org-unit-info"
   >
     <div
       class="list"
