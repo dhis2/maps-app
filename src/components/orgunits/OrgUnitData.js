@@ -46,7 +46,7 @@ const OrgUnitData = ({ id }) => {
     }, [id, period, refetch])
 
     return (
-        <div className={styles.orgUnitData}>
+        <div className={styles.orgUnitData} data-test="org-unit-data">
             <PeriodSelect
                 label={null}
                 periodType={periodType}
@@ -62,7 +62,7 @@ const OrgUnitData = ({ id }) => {
                 )}
                 {Array.isArray(data?.profile.dataItems) &&
                 data.profile.dataItems.length ? (
-                    <table>
+                    <table data-test="org-unit-data-table">
                         <tbody>
                             {data.profile.dataItems.map(
                                 ({ id, label, value }) => (

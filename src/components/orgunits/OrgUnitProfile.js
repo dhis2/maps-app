@@ -39,7 +39,7 @@ const OrgUnitProfile = () => {
     }
 
     return (
-        <Drawer className={styles.drawer}>
+        <Drawer className={styles.drawer} dataTest="org-unit-profile">
             <div className={styles.header}>
                 {i18n.t('Organisation unit profile')}
                 <span

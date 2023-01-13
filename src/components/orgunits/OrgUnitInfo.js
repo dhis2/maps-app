@@ -42,7 +42,7 @@ const OrgUnitInfo = ({
 }) => {
     const { baseUrl } = useConfig()
     return (
-        <div className={styles.info}>
+        <div className={styles.info} data-test="org-unit-info">
             {imageId && (
                 <img
                     src={`${baseUrl}/api/fileResources/${imageId}/data`}
