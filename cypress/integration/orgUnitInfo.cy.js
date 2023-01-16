@@ -6,8 +6,9 @@ context('OrgUnitInfo', () => {
         cy.visit('/?id=ZBjCfSaLSqD', EXTENDED_TIMEOUT)
         cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('canvas').should('be.visible')
+        cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.getByDataTest('dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover')
+            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
             .should('not.exist')
         cy.get('.dhis2-map').click(300, 100) //Bombali
         cy.contains('View profile').click()
