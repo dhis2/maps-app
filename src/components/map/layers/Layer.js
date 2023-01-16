@@ -1,3 +1,4 @@
+import log from 'loglevel'
 import PropTypes from 'prop-types'
 import { PureComponent } from 'react'
 import { RENDERING_STRATEGY_SPLIT_BY_PERIOD } from '../../../constants/layers.js'
@@ -198,6 +199,20 @@ class Layer extends PureComponent {
     // Called when a map popup is closed
     onPopupClose = () => {
         this.setState({ popup: null })
+    }
+
+    onError(error) {
+        const message = error.message || error
+
+        if (!this.context.isPlugin) {
+            this.setState({ error: message })
+        } else {
+            log.error(message)
+        }
+    }
+
+    onErrorHidden() {
+        this.setState({ error: null })
     }
 }
 
