@@ -31,7 +31,7 @@ const getGroupSymbol = (groups) => {
     }
 }
 
-const parseGroupSet = ({ organisationUnitGroups: groups }) => {
+export const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     groups.sort((a, b) => a.name.localeCompare(b.name))
 
     const getColor = getGroupColor(groups)
@@ -48,11 +48,6 @@ export const fetchOrgUnitGroupSet = (id) =>
     apiFetch(
         `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
     ).then(parseGroupSet)
-
-export const fetchOrgUnitFields = () =>
-    apiFetch(
-        `/attributes.json?fields=id,name,description&filter=valueType:eq:GEOJSON&filter=organisationUnitAttribute:eq:true`
-    ).then(({ attributes }) => attributes)
 
 export const filterPointFacilities = (data) => data.filter((d) => d.ty === 1)
 
