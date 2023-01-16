@@ -1,3 +1,17 @@
+## [1.27.6](https://github.com/dhis2/maps-app/compare/v1.27.5...v1.27.6) (2023-01-16)
+
+
+### Bug Fixes
+
+* improved facility symbol handling (DHIS2-14438) ([#2423](https://github.com/dhis2/maps-app/issues/2423)) ([2a43892](https://github.com/dhis2/maps-app/commit/2a4389299e90260024f74bd4bd4c2b8430aa277b))
+
+## [1.27.5](https://github.com/dhis2/maps-app/compare/v1.27.4...v1.27.5) (2023-01-16)
+
+
+### Bug Fixes
+
+* useDataQuery in GroupStyleSelect ([#2443](https://github.com/dhis2/maps-app/issues/2443)) ([0d5e01a](https://github.com/dhis2/maps-app/commit/0d5e01ada6e452a1fc4af9de02ba5aadf44a0508))
+
 ## [1.27.4](https://github.com/dhis2/maps-app/compare/v1.27.3...v1.27.4) (2023-01-13)
 
 

@@ -210,6 +210,7 @@ export default class EarthEngineLayer extends Layer {
                 {isLoading && <MapLoadingMask />}
                 {error && (
                     <Alert
+                        critical={true}
                         message={error}
                         onHidden={() => this.setState({ error: null })}
                     />
