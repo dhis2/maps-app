@@ -5,7 +5,6 @@ import { errorActionCreator } from '../actions/helpers.js'
 import { setOrgUnitPath } from '../actions/layerEdit.js'
 import {
     setOrgUnitTree,
-    setOrgUnitLevels,
     setOrgUnitGroups,
     setOrgUnitGroupSets,
 } from '../actions/orgUnits.js'
@@ -28,6 +27,7 @@ export const loadOrgUnitTree = (action$) =>
             .catch(errorActionCreator(types.ORGANISATION_UNIT_TREE_LOAD_ERROR))
     )
 
+/*    
 export const loadOrgUnitLevels = (action$) =>
     action$.ofType(types.ORGANISATION_UNIT_LEVELS_LOAD).concatMap(() =>
         getD2()
@@ -42,6 +42,7 @@ export const loadOrgUnitLevels = (action$) =>
                 errorActionCreator(types.ORGANISATION_UNIT_LEVELS_LOAD_ERROR)
             )
     )
+*/
 
 export const loadOrgUnitGroups = (action$) =>
     action$.ofType(types.ORGANISATION_UNIT_GROUPS_LOAD).concatMap(() =>
@@ -99,7 +100,6 @@ export const loadOrgUnitPath = (action$) =>
 
 export default combineEpics(
     loadOrgUnitTree,
-    loadOrgUnitLevels,
     loadOrgUnitGroups,
     loadOrgUnitGroupSets,
     loadOrgUnitPath
