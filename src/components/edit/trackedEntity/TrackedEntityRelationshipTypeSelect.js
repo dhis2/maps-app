@@ -9,7 +9,7 @@ const RELATIONSHIP_TYPES_QUERY = {
     relationshipTypes: {
         resource: 'relationshipTypes',
         params: {
-            fields: ['id,displayName,fromConstraint'],
+            fields: ['id', 'displayName~rename(name)', 'fromConstraint'],
         },
     },
 }
@@ -24,26 +24,20 @@ const TrackedEntityRelationshipTypeSelect = ({
 
     const types = useMemo(
         () =>
-            data?.relationshipTypes.relationshipTypes
-                .filter((type) => {
-                    return (
-                        type.fromConstraint.relationshipEntity ===
-                            'TRACKED_ENTITY_INSTANCE' &&
-                        type.fromConstraint.trackedEntityType.id ===
-                            trackedEntityType.id
-                    )
-                })
-                .map(({ id, displayName }) => ({
-                    id,
-                    name: displayName,
-                })) || [],
+            data?.relationshipTypes.relationshipTypes.filter(
+                (type) =>
+                    type.fromConstraint.relationshipEntity ===
+                        'TRACKED_ENTITY_INSTANCE' &&
+                    type.fromConstraint.trackedEntityType.id ===
+                        trackedEntityType.id
+            ) || [],
         [data, trackedEntityType.id]
     )
 
     if (loading) {
         return <CircularLoader small />
     } else if (error) {
-        return <span>{error}</span>
+        return <span>{error.message}</span>
     }
 
     if (!types.length) {
