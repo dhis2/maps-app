@@ -77,6 +77,7 @@ class PeriodSelect extends Component {
                     onChange={onChange}
                     errorText={!value && errorText ? errorText : null}
                     className={styles.select}
+                    dataTest="year-select"
                 />
                 {periodType && (
                     <div className={styles.stepper}>
@@ -85,6 +86,7 @@ class PeriodSelect extends Component {
                                 secondary
                                 icon={<IconChevronLeft24 />}
                                 onClick={this.previousYear}
+                                dataTest="button-previous-year"
                             />
                         </Tooltip>
                         <Tooltip content={i18n.t('Next year')}>
@@ -92,6 +94,7 @@ class PeriodSelect extends Component {
                                 secondary
                                 icon={<IconChevronRight24 />}
                                 onClick={this.nextYear}
+                                dataTest="button-next-year"
                             />
                         </Tooltip>
                     </div>
