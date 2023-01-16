@@ -13,7 +13,7 @@ const DIMENSION_ITEMS_QUERY = {
         id: ({ id }) => `${id}/items`,
         params: ({ nameProperty }) => ({
             fields: ['id', `${nameProperty}~rename(name)`],
-            order: 'displayName:asc',
+            order: `${nameProperty}:asc`,
             paging: false,
         }),
     },

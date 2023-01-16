@@ -21,7 +21,7 @@ const DIMENSIONS_QUERY = {
         params: ({ nameProperty }) => ({
             fields: ['id', `${nameProperty}~rename(name)`, 'dimensionType'],
             filter: `dimensionType:in:[${dimensionTypes.join(',')}]`,
-            order: 'displayName:asc',
+            order: `${nameProperty}:asc`,
             paging: false,
         }),
     },
