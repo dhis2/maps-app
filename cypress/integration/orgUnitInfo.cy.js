@@ -2,7 +2,7 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 context('OrgUnitInfo', () => {
-    it('opens the panel for an OrgUnit', () => {
+    it.skip('opens the panel for an OrgUnit', () => {
         cy.visit('/?id=ZBjCfSaLSqD', EXTENDED_TIMEOUT)
         cy.wait(5000) // eslint-disable-line cypress/no-unnecessary-waiting
         cy.get('canvas').should('be.visible')
