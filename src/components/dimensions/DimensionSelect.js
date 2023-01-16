@@ -1,10 +1,9 @@
 import { DimensionsPanel } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { Popover, IconChevronDown24 } from '@dhis2/ui'
+import { Popover, IconChevronDown24, Help } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { Fragment, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useRef, useState } from 'react'
 import { useUserSettings } from '../UserSettingsProvider.js'
 import styles from './styles/DimensionSelect.module.css'
 
@@ -30,19 +29,14 @@ const DIMENSIONS_QUERY = {
 
 const DimensionSelect = ({ dimension, onChange }) => {
     const [isOpen, setIsOpen] = useState(false)
-    const dimensions = useSelector((state) => state.dimensions)
     const { nameProperty } = useUserSettings()
     const { error, data } = useDataQuery(DIMENSIONS_QUERY, {
         variables: { nameProperty },
     })
     const dropdownRef = useRef()
 
-    if (!data?.dimensions.dimensions) {
-        return null
-    }
-
     const findDimension = (id) =>
-        data.dimensions.dimensions.find((d) => d.id === id)
+        data && data.dimensions.dimensions.find((d) => d.id === id)
     const selected = findDimension(dimension)
 
     const onDimensionClick = (dim) => {
@@ -52,8 +46,12 @@ const DimensionSelect = ({ dimension, onChange }) => {
         setIsOpen(false)
     }
 
+    if (error) {
+        return <Help error={true}>{error.message}</Help>
+    }
+
     return (
-        <Fragment>
+        <>
             <div onClick={() => setIsOpen(true)} className={styles.dropdown}>
                 <label>{i18n.t('Dimension')}</label>
                 <div ref={dropdownRef}>
@@ -76,7 +74,7 @@ const DimensionSelect = ({ dimension, onChange }) => {
                     </div>
                 </Popover>
             )}
-        </Fragment>
+        </>
     )
 }
 
