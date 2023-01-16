@@ -4,7 +4,6 @@ import analyticalObject from './analyticalObject.js'
 import basemaps from './basemaps.js'
 import contextMenu from './contextMenu.js'
 import dataDownload from './dataDownload.js'
-import dataElementOperands from './dataElementOperands.js'
 import dataTable from './dataTable.js'
 import download from './download.js'
 import feature from './feature.js'
@@ -30,7 +29,6 @@ export default combineReducers({
     analyticalObject,
     basemaps,
     contextMenu,
-    dataElementOperands,
     dataTable,
     download,
     interpretation,
