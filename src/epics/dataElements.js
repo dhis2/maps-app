@@ -4,7 +4,6 @@ import { sortBy } from 'lodash/fp'
 import { combineEpics } from 'redux-observable'
 import {
     setDataElementGroups,
-    setDataElements,
     setDataElementOperands,
 } from '../actions/dataElements.js'
 import { errorActionCreator } from '../actions/helpers.js'
@@ -26,29 +25,6 @@ export const loadDataElementGroups = (action$) =>
                 setDataElementGroups(sortBy('name', groups.toArray()))
             )
             .catch(errorActionCreator(types.PROGRAMS_LOAD_ERROR))
-    )
-
-// Load data elements in one group
-export const loadDataElements = (action$) =>
-    action$.ofType(types.DATA_ELEMENTS_LOAD).concatMap((action) =>
-        getD2()
-            .then((d2) =>
-                d2.models.dataElement
-                    .filter()
-                    .on('dataElementGroups.id')
-                    .equals(action.groupId)
-                    .list({
-                        fields: `dimensionItem~rename(id),${getDisplayPropertyUrl(
-                            d2
-                        )}`,
-                        domainType: 'aggregate',
-                        paging: false,
-                    })
-            )
-            .then((dataElements) =>
-                setDataElements(action.groupId, dataElements.toArray())
-            )
-            .catch(errorActionCreator(types.DATA_ELEMENTS_LOAD_ERROR))
     )
 
 // Load data element operands in one group
@@ -73,8 +49,4 @@ export const loadDataElementOperands = (action$) =>
             )
     )
 
-export default combineEpics(
-    loadDataElementGroups,
-    loadDataElements,
-    loadDataElementOperands
-)
+export default combineEpics(loadDataElementGroups, loadDataElementOperands)
