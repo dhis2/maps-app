@@ -8,7 +8,6 @@ import dataElementGroups from './dataElementGroups.js'
 import dataElementOperands from './dataElementOperands.js'
 import dataElements from './dataElements.js'
 import dataTable from './dataTable.js'
-import dimensions from './dimensions.js'
 import download from './download.js'
 import feature from './feature.js'
 import interpretation from './interpretation.js'
@@ -37,7 +36,6 @@ export default combineReducers({
     dataElementGroups,
     dataElementOperands,
     dataTable,
-    dimensions,
     download,
     interpretation,
     layerEdit,
