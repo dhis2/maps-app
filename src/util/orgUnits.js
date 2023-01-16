@@ -31,7 +31,7 @@ const getGroupSymbol = (groups) => {
     }
 }
 
-const parseGroupSet = ({ organisationUnitGroups: groups }) => {
+export const parseGroupSet = ({ organisationUnitGroups: groups }) => {
     groups.sort((a, b) => a.name.localeCompare(b.name))
 
     const getColor = getGroupColor(groups)
