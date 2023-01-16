@@ -20,7 +20,7 @@ const GROUP_SETS_QUERY = {
 
 const GroupSetStyle = ({ defaultStyleType = STYLE_TYPE_COLOR, groupSet }) => {
     const [groups, setGroups] = useState([])
-    const { error, refetch } = useDataQuery(GROUP_SETS_QUERY, {
+    const { error: err, refetch } = useDataQuery(GROUP_SETS_QUERY, {
         lazy: true,
         onComplete: ({ groupSets }) => {
             const groupsWithColors = parseGroupSet({
@@ -36,7 +36,7 @@ const GroupSetStyle = ({ defaultStyleType = STYLE_TYPE_COLOR, groupSet }) => {
         }
     }, [groupSet, refetch])
 
-    if (error) {
+    if (err) {
         return (
             <Help error>
                 {i18n.t('Failed to load organisation unit groups.')}
