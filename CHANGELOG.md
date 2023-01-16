@@ -1,3 +1,17 @@
+## [1.27.5](https://github.com/dhis2/maps-app/compare/v1.27.4...v1.27.5) (2023-01-16)
+
+
+### Bug Fixes
+
+* useDataQuery in GroupStyleSelect ([#2443](https://github.com/dhis2/maps-app/issues/2443)) ([0d5e01a](https://github.com/dhis2/maps-app/commit/0d5e01ada6e452a1fc4af9de02ba5aadf44a0508))
+
+## [1.27.4](https://github.com/dhis2/maps-app/compare/v1.27.3...v1.27.4) (2023-01-13)
+
+
+### Bug Fixes
+
+* untitled map name ([#2438](https://github.com/dhis2/maps-app/issues/2438)) ([081f6fd](https://github.com/dhis2/maps-app/commit/081f6fda88e08927e5dae4ad023763fb7eac23ce))
+
 ## [1.27.3](https://github.com/dhis2/maps-app/compare/v1.27.2...v1.27.3) (2023-01-10)
 
 

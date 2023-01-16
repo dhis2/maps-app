@@ -4,17 +4,13 @@ import analyticalObject from './analyticalObject.js'
 import basemaps from './basemaps.js'
 import contextMenu from './contextMenu.js'
 import dataDownload from './dataDownload.js'
-import dataElementGroups from './dataElementGroups.js'
-import dataElements from './dataElements.js'
 import dataTable from './dataTable.js'
 import dimensions from './dimensions.js'
 import download from './download.js'
 import feature from './feature.js'
-import indicators from './indicators.js'
 import interpretation from './interpretation.js'
 import layerEdit from './layerEdit.js'
 import layers from './layers.js'
-import legendSets from './legendSets.js'
 import map from './map.js'
 import optionSets from './optionSets.js'
 import orgUnitGroups from './orgUnitGroups.js'
@@ -34,16 +30,12 @@ export default combineReducers({
     analyticalObject,
     basemaps,
     contextMenu,
-    dataElements,
-    dataElementGroups,
     dataTable,
     dimensions,
     download,
-    indicators,
     interpretation,
     layerEdit,
     layers,
-    legendSets,
     map,
     optionSets,
     orgUnitProfile,
