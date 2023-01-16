@@ -6,7 +6,6 @@ import contextMenu from './contextMenu.js'
 import dataDownload from './dataDownload.js'
 import dataElementOperands from './dataElementOperands.js'
 import dataTable from './dataTable.js'
-import dimensions from './dimensions.js'
 import download from './download.js'
 import feature from './feature.js'
 import interpretation from './interpretation.js'
@@ -33,7 +32,6 @@ export default combineReducers({
     contextMenu,
     dataElementOperands,
     dataTable,
-    dimensions,
     download,
     interpretation,
     layerEdit,
