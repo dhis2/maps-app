@@ -5,10 +5,13 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-01-11T12:19:42.024Z\n"
-"PO-Revision-Date: 2023-01-11T12:19:42.024Z\n"
+"POT-Creation-Date: 2023-01-16T11:59:29.025Z\n"
+"PO-Revision-Date: 2023-01-16T11:59:29.025Z\n"
 
 msgid "Maps"
+msgstr ""
+
+msgid "Untitled map, {{date}}"
 msgstr ""
 
 msgid "Map \"{{- name}}\" is saved."
@@ -140,6 +143,9 @@ msgstr ""
 msgid "Legend position"
 msgstr ""
 
+msgid "No organisation units are selected"
+msgstr ""
+
 msgid "Organisation Units"
 msgstr ""
 
@@ -150,9 +156,6 @@ msgid "Point color"
 msgstr ""
 
 msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
