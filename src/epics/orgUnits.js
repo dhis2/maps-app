@@ -27,23 +27,6 @@ export const loadOrgUnitTree = (action$) =>
             .catch(errorActionCreator(types.ORGANISATION_UNIT_TREE_LOAD_ERROR))
     )
 
-/*    
-export const loadOrgUnitLevels = (action$) =>
-    action$.ofType(types.ORGANISATION_UNIT_LEVELS_LOAD).concatMap(() =>
-        getD2()
-            .then(async (d2) =>
-                d2.models.organisationUnitLevels.list({
-                    fields: `id,${getDisplayPropertyUrl(d2)},level`,
-                    paging: false,
-                })
-            )
-            .then((levels) => setOrgUnitLevels(levels.toArray()))
-            .catch(
-                errorActionCreator(types.ORGANISATION_UNIT_LEVELS_LOAD_ERROR)
-            )
-    )
-*/
-
 export const loadOrgUnitGroups = (action$) =>
     action$.ofType(types.ORGANISATION_UNIT_GROUPS_LOAD).concatMap(() =>
         getD2()
