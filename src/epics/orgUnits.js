@@ -22,28 +22,6 @@ export const loadOrgUnitTree = (action$) =>
             .catch(errorActionCreator(types.ORGANISATION_UNIT_TREE_LOAD_ERROR))
     )
 
-/*    
-export const loadOrgUnitGroupSets = (action$) =>
-    action$.ofType(types.ORGANISATION_UNIT_GROUP_SETS_LOAD).concatMap(() =>
-        getD2()
-            .then((d2) =>
-                d2.models.organisationUnitGroupSets.list({
-                    fields: `id,${getDisplayPropertyUrl(d2)}`,
-                    paging: false,
-                })
-            )
-            .then((groupSets) =>
-                groupSets.toArray().map(({ id, name }) => ({ id, name }))
-            )
-            .then(setOrgUnitGroupSets)
-            .catch(
-                errorActionCreator(
-                    types.ORGANISATION_UNIT_GROUP_SETS_LOAD_ERROR
-                )
-            )
-    )
-*/
-
 // Load organisation unit tree path (temporary solution, as favorites don't include paths)
 export const loadOrgUnitPath = (action$) =>
     action$
