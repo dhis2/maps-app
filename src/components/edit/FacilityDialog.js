@@ -67,7 +67,7 @@ const FacilityDialog = ({
 
     const orgUnits = getOrgUnitsFromRows(rows)
 
-    const validate = useCallback(() => {
+    const hasOrgUnits = useCallback(() => {
         if (!orgUnits.length) {
             setTab(ORGUNITS_TAB)
             setOrgUnitsError(i18n.t('No organisation units are selected'))
@@ -79,9 +79,9 @@ const FacilityDialog = ({
 
     useEffect(() => {
         if (validateLayer) {
-            onLayerValidation(validate())
+            onLayerValidation(hasOrgUnits())
         }
-    }, [validateLayer, onLayerValidation, validate])
+    }, [validateLayer, onLayerValidation, hasOrgUnits])
 
     useEffect(() => {
         if (!id) {
