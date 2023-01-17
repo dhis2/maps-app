@@ -3,8 +3,8 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { combineDataItems } from '../../util/analytics.js'
-import { getValidDataItems } from '../../util/helpers.js'
 import { SelectField } from '../core/index.js'
+import { useProgramTrackedEntityAttributes } from '../useProgramTrackedEntityAttributes.js'
 import { useUserSettings } from '../UserSettingsProvider.js'
 
 const excludeValueTypes = [
@@ -34,21 +34,6 @@ const PROGRAM_DATA_ELEMENTS_QUERY = {
     },
 }
 
-const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
-    trackedEntityAttributes: {
-        resource: 'programs',
-        id: ({ id }) => id,
-        params: ({ nameProperty }) => {
-            return {
-                fields: [
-                    `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),valueType]]`,
-                ],
-                paging: false,
-            }
-        },
-    },
-}
-
 const EventDataItemSelect = ({
     dataItem,
     program,
@@ -57,7 +42,8 @@ const EventDataItemSelect = ({
     errorText,
 }) => {
     const { nameProperty } = useUserSettings()
-    const [programAttributes, setProgramAttributes] = useState({})
+    const { programAttributes, setProgramIdForProgramAttributes } =
+        useProgramTrackedEntityAttributes()
     const [dataElements, setDataElements] = useState({})
     const { refetch: refetchProgramDataElements } = useDataQuery(
         PROGRAM_DATA_ELEMENTS_QUERY,
@@ -72,43 +58,20 @@ const EventDataItemSelect = ({
         }
     )
 
-    const { refetch: refetchProgramTEAttributes } = useDataQuery(
-        PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
-        {
-            lazy: true,
-            onComplete: (data) => {
-                const attributes =
-                    data.trackedEntityAttributes.programTrackedEntityAttributes.map(
-                        (attr) => attr.trackedEntityAttribute
-                    )
-
-                setProgramAttributes({
-                    ...programAttributes,
-                    [program.id]: getValidDataItems(attributes),
-                })
-            },
-        }
-    )
-
     useEffect(() => {
         if (program) {
             if (!dataElements[program.id]) {
                 refetchProgramDataElements({ id: program.id, nameProperty })
             }
 
-            if (!programAttributes[program.id]) {
-                refetchProgramTEAttributes({
-                    id: program.id,
-                    nameProperty,
-                })
-            }
+            setProgramIdForProgramAttributes(program.id)
         }
     }, [
         program,
         programAttributes,
         dataElements,
         refetchProgramDataElements,
-        refetchProgramTEAttributes,
+        setProgramIdForProgramAttributes,
         nameProperty,
     ])
 
