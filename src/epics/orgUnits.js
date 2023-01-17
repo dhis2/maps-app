@@ -43,6 +43,7 @@ export const loadOrgUnitGroups = (action$) =>
             )
     )
 */
+*/
 
 export const loadOrgUnitGroupSets = (action$) =>
     action$.ofType(types.ORGANISATION_UNIT_GROUP_SETS_LOAD).concatMap(() =>
@@ -85,6 +86,10 @@ export const loadOrgUnitPath = (action$) =>
 
 export default combineEpics(
     loadOrgUnitTree,
+<<<<<<< HEAD
+=======
+    loadOrgUnitGroups,
+>>>>>>> master
     loadOrgUnitGroupSets,
     loadOrgUnitPath
 )
