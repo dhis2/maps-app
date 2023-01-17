@@ -6,12 +6,10 @@ import { errorActionCreator } from '../actions/helpers.js'
 import {
     setPrograms,
     setProgramAttributes,
-    setProgramDataElements,
     setProgramIndicators,
     setProgramStageDataElements,
 } from '../actions/programs.js'
 import * as types from '../constants/actionTypes.js'
-import { apiFetch } from '../util/api.js'
 import { getDisplayPropertyUrl, getValidDataItems } from '../util/helpers.js'
 
 export const loadPrograms = (action$) =>
@@ -68,27 +66,6 @@ export const loadProgramTrackedEntityAttributes = (action$) =>
             .catch(errorActionCreator(types.PROGRAM_ATTRIBUTES_LOAD_ERROR))
     )
 
-// Load program data elements
-export const loadProgramDataElements = (action$) =>
-    action$.ofType(types.PROGRAM_DATA_ELEMENTS_LOAD).concatMap((action) =>
-        getD2()
-            .then((d2) =>
-                apiFetch(
-                    `/programDataElements?program=${
-                        action.programId
-                    }&fields=dimensionItem~rename(id),${getDisplayPropertyUrl(
-                        d2
-                    )},valueType,legendSet&paging=false`
-                )
-            )
-            .then((data) =>
-                setProgramDataElements(
-                    action.programId,
-                    data.programDataElements
-                )
-            )
-    )
-
 // Load program stage data elements
 export const loadProgramStageDataElements = (action$) =>
     action$.ofType(types.PROGRAM_STAGE_DATA_ELEMENTS_LOAD).concatMap((action) =>
@@ -117,6 +94,5 @@ export default combineEpics(
     loadPrograms,
     loadProgramIndicators,
     loadProgramTrackedEntityAttributes,
-    loadProgramDataElements,
     loadProgramStageDataElements
 )
