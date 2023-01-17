@@ -1,7 +1,8 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import orgUnitStyles from '@dhis2/d2-ui-org-unit-dialog/styles/OrgUnitSelector.style'
-import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree'
+import { OrganisationUnitTree } from '@dhis2/ui'
+// import orgUnitStyles from '@dhis2/d2-ui-org-unit-dialog/styles/OrgUnitSelector.style'
+// import { OrgUnitTreeMultipleRoots } from '@dhis2/d2-ui-org-unit-tree'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
 import styles from './styles/OrgUnitTree.module.css'
@@ -11,12 +12,7 @@ const ORG_UNIT_TREE_QUERY = {
     tree: {
         resource: 'organisationUnits',
         params: () => ({
-            fields: [
-                'id',
-                'path',
-                'displayName',
-                'children[id,path,displayName,children::isNotEmpty]',
-            ],
+            fields: ['id'],
             userDataViewFallback: true,
         }),
     },
@@ -41,22 +37,22 @@ const OrgUnitTree = ({ selected, disabled, onClick }) => {
         return null
     }
 
-    const roots = data?.tree.organisationUnits
+    const roots = data?.tree.organisationUnits.map(
+        (rootOrgUnit) => rootOrgUnit.id
+    )
 
-    console.log('roots', roots)
+    console.log('roots', roots, selected)
 
     return (
         <div className={styles.orgUnitTree}>
-            <OrgUnitTreeMultipleRoots
+            <OrganisationUnitTree
                 roots={roots}
-                selected={selected
-                    .filter((item) => item.path)
-                    .map((item) => item.path)}
-                initiallyExpanded={roots.map((root) => root.path)}
-                onSelectClick={onSelectClick}
-                showFolderIcon
-                disableSpacer
-                {...orgUnitStyles.orgUnitTree}
+                initiallyExpanded={[
+                    ...(roots.length === 1 ? [`/${roots[0]}`] : []),
+                ]}
+                selected={[]}
+                onChange={console.log}
+                dataTest={'org-unit-tree'}
             />
             {disabled ? (
                 <div className={styles.disabled}>
