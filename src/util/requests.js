@@ -39,25 +39,6 @@ export const fetchMap = async (id, engine, keyDefaultBaseMap) =>
             throw new Error(`Could not load map with id "${id}"`)
         })
 
-// const fetchOrgUnitsQuery = {
-//     resource: 'organisationUnits',
-//     params: {
-//         userDataViewFallback: true,
-//         fields:
-//             'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
-//     },
-// };
-
-export const fetchOrgUnits = async () => {
-    // TODO - use d2 until correct dataQuery format can be determined
-    const d2 = await getD2()
-    const collection = await d2.models.organisationUnits.list({
-        userDataViewFallback: true,
-        fields: 'id,path,displayName,children[id,path,displayName,children::isNotEmpty]',
-    })
-    return collection.toArray()
-}
-
 const fetchExternalLayersQuery = {
     resource: 'externalMapLayers',
     params: {

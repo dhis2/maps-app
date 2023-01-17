@@ -13,11 +13,10 @@ import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
 import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap.js'
 import { tSetExternalLayers } from '../../actions/externalLayers.js'
 import { tOpenMap } from '../../actions/map.js'
-import { tSetOrgUnitTree } from '../../actions/orgUnits.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { getUrlParameter } from '../../util/requests.js'
 import AlertStack from '../alerts/AlertStack.js'
-import BottomPanel from '../datatable/BottomPanel.js'
+import BottomPanel from '../dataTable/BottomPanel.js'
 import LayerEdit from '../edit/LayerEdit.js'
 import FatalErrorBoundary from '../errors/FatalErrorBoundary.js'
 import InterpretationsPanel from '../interpretations/InterpretationsPanel.js'
@@ -36,7 +35,6 @@ const App = ({
     removeBingBasemaps,
     setBingMapsApiKey,
     tSetAnalyticalObject,
-    tSetOrgUnitTree,
     tSetExternalLayers,
     tOpenMap,
 }) => {
@@ -47,7 +45,6 @@ const App = ({
 
     useEffect(() => {
         async function fetchData() {
-            await tSetOrgUnitTree()
             await tSetExternalLayers(engine)
             setBasemapsLoaded(true)
 
@@ -68,7 +65,6 @@ const App = ({
         tOpenMap,
         tSetAnalyticalObject,
         tSetExternalLayers,
-        tSetOrgUnitTree,
     ])
 
     useEffect(() => {
@@ -116,7 +112,6 @@ App.propTypes = {
     tOpenMap: PropTypes.func,
     tSetAnalyticalObject: PropTypes.func,
     tSetExternalLayers: PropTypes.func,
-    tSetOrgUnitTree: PropTypes.func,
 }
 
 export default connect(null, {
@@ -125,5 +120,4 @@ export default connect(null, {
     tOpenMap,
     tSetAnalyticalObject,
     tSetExternalLayers,
-    tSetOrgUnitTree,
 })(App)
