@@ -1,10 +1,10 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
 import { combineDataItems } from '../../util/analytics.js'
 import { SelectField } from '../core/index.js'
-import { useProgramTrackedEntityAttributes } from '../useProgramTrackedEntityAttributes.js'
 import { useUserSettings } from '../UserSettingsProvider.js'
 
 const excludeValueTypes = [
@@ -20,17 +20,15 @@ const excludeValueTypes = [
 const PROGRAM_DATA_ELEMENTS_QUERY = {
     programDataElements: {
         resource: 'programDataElements',
-        params: ({ id, nameProperty }) => {
-            return {
-                program: id,
-                fields: [
-                    'dimensionItem~rename(id)',
-                    `${nameProperty}~rename(name)`,
-                    'valueType',
-                ],
-                paging: false,
-            }
-        },
+        params: ({ id, nameProperty }) => ({
+            program: id,
+            fields: [
+                'dimensionItem~rename(id)',
+                `${nameProperty}~rename(name)`,
+                'valueType',
+            ],
+            paging: false,
+        }),
     },
 }
 
@@ -44,40 +42,28 @@ const EventDataItemSelect = ({
     const { nameProperty } = useUserSettings()
     const { programAttributes, setProgramIdForProgramAttributes } =
         useProgramTrackedEntityAttributes()
-    const [dataElements, setDataElements] = useState({})
-    const { refetch: refetchProgramDataElements } = useDataQuery(
+    const { data, refetch: refetchProgramDataElements } = useDataQuery(
         PROGRAM_DATA_ELEMENTS_QUERY,
         {
             lazy: true,
-            onComplete: (data) => {
-                setDataElements({
-                    ...dataElements,
-                    [program.id]: data.programDataElements.programDataElements,
-                })
-            },
         }
     )
 
     useEffect(() => {
         if (program) {
-            if (!dataElements[program.id]) {
-                refetchProgramDataElements({ id: program.id, nameProperty })
-            }
-
+            refetchProgramDataElements({ id: program.id, nameProperty })
             setProgramIdForProgramAttributes(program.id)
         }
     }, [
         program,
-        programAttributes,
-        dataElements,
         refetchProgramDataElements,
         setProgramIdForProgramAttributes,
         nameProperty,
     ])
 
     const dataItems = combineDataItems(
-        programAttributes[program.id],
-        dataElements[program.id],
+        programAttributes,
+        data?.programDataElements.programDataElements || [],
         null,
         excludeValueTypes
     ).map((item) => ({

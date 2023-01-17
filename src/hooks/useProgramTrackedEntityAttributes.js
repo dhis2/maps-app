@@ -1,7 +1,7 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useState, useEffect } from 'react'
+import { useUserSettings } from '../components/UserSettingsProvider.js'
 import { getValidDataItems } from '../util/helpers.js'
-import { useUserSettings } from './UserSettingsProvider.js'
 
 const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
     trackedEntityAttributes: {
@@ -19,7 +19,7 @@ const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
 }
 
 export const useProgramTrackedEntityAttributes = () => {
-    const [programAttributes, setProgramAttributes] = useState({})
+    const [programAttributes, setProgramAttributes] = useState([])
     const [programId, setProgramId] = useState(null)
     const { nameProperty } = useUserSettings()
 
@@ -32,20 +32,19 @@ export const useProgramTrackedEntityAttributes = () => {
                     (attr) => attr.trackedEntityAttribute
                 )
 
-            setProgramAttributes({
-                ...programAttributes,
-                [programId]: getValidDataItems(attributes),
-            })
+            setProgramAttributes(getValidDataItems(attributes))
         },
     })
 
     useEffect(() => {
-        if (programId && !programAttributes[programId]) {
+        setProgramAttributes([])
+
+        if (programId) {
             refetch({
                 id: programId,
             })
         }
-    }, [programId, programAttributes, refetch])
+    }, [programId, refetch])
 
     return { programAttributes, setProgramIdForProgramAttributes: setProgramId }
 }
