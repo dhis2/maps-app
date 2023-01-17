@@ -11,6 +11,8 @@ jest.mock('@dhis2/app-service-alerts', () => ({
     useAlerts: jest.fn(() => []),
 }))
 
+jest.mock('@dhis2/maps-gl', () => {})
+
 /* eslint-disable react/prop-types */
 jest.mock('@dhis2/ui', () => {
     const originalModule = jest.requireActual('@dhis2/ui')
