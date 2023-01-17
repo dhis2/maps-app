@@ -5,11 +5,38 @@ import { connect } from 'react-redux'
 import { loadOrgUnitGroups } from '../../actions/orgUnits.js'
 import { SelectField } from '../core/index.js'
 
+// Load org unit levels
+const ORG_UNIT_GROUPS_QUERY = {
+    levels: {
+        resource: 'organisationUnitGroups',
+        params: ({ nameProperty }) => ({
+            fields: ['id', `${nameProperty}~rename(name)`],
+            paging: false,
+        }),
+    },
+}
+
 const style = {
     width: '100%',
     marginTop: -12,
 }
 
+const OrgUnitGroupSelect = ({
+    orgUnitGroup,
+    orgUnitGroups,
+    disabled,
+    onChange,
+}) => {}
+
+OrgUnitGroupSelect.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
+    orgUnitGroup: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+}
+
+export default OrgUnitGroupSelect
+
+/*
 class OrgUnitGroupSelect extends Component {
     static propTypes = {
         loadOrgUnitGroups: PropTypes.func.isRequired,
@@ -56,3 +83,4 @@ export default connect(
     }),
     { loadOrgUnitGroups }
 )(OrgUnitGroupSelect)
+*/

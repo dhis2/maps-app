@@ -27,6 +27,7 @@ export const loadOrgUnitTree = (action$) =>
             .catch(errorActionCreator(types.ORGANISATION_UNIT_TREE_LOAD_ERROR))
     )
 
+/*    
 export const loadOrgUnitGroups = (action$) =>
     action$.ofType(types.ORGANISATION_UNIT_GROUPS_LOAD).concatMap(() =>
         getD2()
@@ -41,6 +42,7 @@ export const loadOrgUnitGroups = (action$) =>
                 errorActionCreator(types.ORGANISATION_UNIT_GROUPS_LOAD_ERROR)
             )
     )
+*/
 
 export const loadOrgUnitGroupSets = (action$) =>
     action$.ofType(types.ORGANISATION_UNIT_GROUP_SETS_LOAD).concatMap(() =>
@@ -83,7 +85,6 @@ export const loadOrgUnitPath = (action$) =>
 
 export default combineEpics(
     loadOrgUnitTree,
-    loadOrgUnitGroups,
     loadOrgUnitGroupSets,
     loadOrgUnitPath
 )

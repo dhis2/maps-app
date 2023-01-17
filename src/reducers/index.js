@@ -12,7 +12,6 @@ import layerEdit from './layerEdit.js'
 import layers from './layers.js'
 import map from './map.js'
 import optionSets from './optionSets.js'
-import orgUnitGroups from './orgUnitGroups.js'
 import orgUnitGroupSets from './orgUnitGroupSets.js'
 import orgUnitProfile from './orgUnitProfile.js'
 import orgUnitTree from './orgUnitTree.js'
@@ -38,7 +37,6 @@ export default combineReducers({
     orgUnitProfile,
     orgUnitTree,
     orgUnitGroupSets,
-    orgUnitGroups,
     programs,
     programDataElements,
     programIndicators,
