@@ -19,7 +19,7 @@ const ORG_UNIT_LEVELS_QUERY = {
 }
 
 // Converts "LEVEL-x" to newer "LEVEL-uid" format
-// TODO: Get rid of old format in a db upgrade
+// TODO: use method from analytics library or get rid of old format in a db upgrade
 const getOrgUnitLevelUid = (orgUnitLevel = [], orgUnitLevels) =>
     orgUnitLevels
         ? orgUnitLevel

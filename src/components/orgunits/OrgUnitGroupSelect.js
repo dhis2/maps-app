@@ -1,13 +1,13 @@
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { loadOrgUnitGroups } from '../../actions/orgUnits.js'
+import React from 'react'
 import { SelectField } from '../core/index.js'
+import { useUserSettings } from '../UserSettingsProvider.js'
 
 // Load org unit levels
 const ORG_UNIT_GROUPS_QUERY = {
-    levels: {
+    groups: {
         resource: 'organisationUnitGroups',
         params: ({ nameProperty }) => ({
             fields: ['id', `${nameProperty}~rename(name)`],
@@ -21,12 +21,27 @@ const style = {
     marginTop: -12,
 }
 
-const OrgUnitGroupSelect = ({
-    orgUnitGroup,
-    orgUnitGroups,
-    disabled,
-    onChange,
-}) => {}
+const OrgUnitGroupSelect = ({ orgUnitGroup, disabled, onChange }) => {
+    const { nameProperty } = useUserSettings()
+    const { loading, error, data } = useDataQuery(ORG_UNIT_GROUPS_QUERY, {
+        variables: { nameProperty },
+    })
+
+    return (
+        <SelectField
+            label={i18n.t('Select groups')}
+            loading={loading}
+            items={data?.groups.organisationUnitGroups}
+            value={orgUnitGroup}
+            multiple={true}
+            onChange={onChange}
+            style={style}
+            errorText={error?.message}
+            disabled={disabled}
+            data-test="orgunitgroupselect"
+        />
+    )
+}
 
 OrgUnitGroupSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
@@ -35,52 +50,3 @@ OrgUnitGroupSelect.propTypes = {
 }
 
 export default OrgUnitGroupSelect
-
-/*
-class OrgUnitGroupSelect extends Component {
-    static propTypes = {
-        loadOrgUnitGroups: PropTypes.func.isRequired,
-        onChange: PropTypes.func.isRequired,
-        disabled: PropTypes.bool,
-        orgUnitGroup: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-        orgUnitGroups: PropTypes.array,
-    }
-
-    static defaultProps = {
-        disabled: false,
-    }
-
-    componentDidMount() {
-        const { orgUnitGroups, loadOrgUnitGroups } = this.props
-
-        if (!orgUnitGroups) {
-            loadOrgUnitGroups()
-        }
-    }
-
-    render() {
-        const { orgUnitGroup, orgUnitGroups, disabled, onChange } = this.props
-
-        return (
-            <SelectField
-                label={i18n.t('Select groups')}
-                loading={orgUnitGroups ? false : true}
-                items={orgUnitGroups}
-                value={orgUnitGroup}
-                multiple={true}
-                onChange={onChange}
-                style={style}
-                data-test="orgunitgroupselect"
-                disabled={disabled}
-            />
-        )
-    }
-}
-
-export default connect(
-    (state) => ({
-        orgUnitGroups: state.orgUnitGroups,
-    }),
-    { loadOrgUnitGroups }
-)(OrgUnitGroupSelect)
-*/
