@@ -34,12 +34,6 @@ export const updateLayer = (layer) => ({
 })
 
 // Load layer data
-export const loadLayer = (layer) => ({
-    type: types.LAYER_LOAD,
-    payload: layer,
-})
-
-// Load layer data
 export const tLoadLayer = (layer) => (dispatch) =>
     fetchLayer(layer)
         .then((config) =>
