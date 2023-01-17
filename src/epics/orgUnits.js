@@ -3,12 +3,7 @@ import { combineEpics } from 'redux-observable'
 import 'rxjs/add/operator/concatMap'
 import { errorActionCreator } from '../actions/helpers.js'
 import { setOrgUnitPath } from '../actions/layerEdit.js'
-import {
-    setOrgUnitTree,
-    setOrgUnitLevels,
-    setOrgUnitGroups,
-    setOrgUnitGroupSets,
-} from '../actions/orgUnits.js'
+import { setOrgUnitTree, setOrgUnitGroupSets } from '../actions/orgUnits.js'
 import * as types from '../constants/actionTypes.js'
 import { getDisplayPropertyUrl } from '../util/helpers.js'
 
@@ -26,36 +21,6 @@ export const loadOrgUnitTree = (action$) =>
                 setOrgUnitTree(modelCollection.toArray())
             )
             .catch(errorActionCreator(types.ORGANISATION_UNIT_TREE_LOAD_ERROR))
-    )
-
-export const loadOrgUnitLevels = (action$) =>
-    action$.ofType(types.ORGANISATION_UNIT_LEVELS_LOAD).concatMap(() =>
-        getD2()
-            .then(async (d2) =>
-                d2.models.organisationUnitLevels.list({
-                    fields: `id,${getDisplayPropertyUrl(d2)},level`,
-                    paging: false,
-                })
-            )
-            .then((levels) => setOrgUnitLevels(levels.toArray()))
-            .catch(
-                errorActionCreator(types.ORGANISATION_UNIT_LEVELS_LOAD_ERROR)
-            )
-    )
-
-export const loadOrgUnitGroups = (action$) =>
-    action$.ofType(types.ORGANISATION_UNIT_GROUPS_LOAD).concatMap(() =>
-        getD2()
-            .then(async (d2) =>
-                d2.models.organisationUnitGroups.list({
-                    fields: `id,${getDisplayPropertyUrl(d2)}`,
-                    paging: false,
-                })
-            )
-            .then((groups) => setOrgUnitGroups(groups.toArray()))
-            .catch(
-                errorActionCreator(types.ORGANISATION_UNIT_GROUPS_LOAD_ERROR)
-            )
     )
 
 export const loadOrgUnitGroupSets = (action$) =>
@@ -99,8 +64,6 @@ export const loadOrgUnitPath = (action$) =>
 
 export default combineEpics(
     loadOrgUnitTree,
-    loadOrgUnitLevels,
-    loadOrgUnitGroups,
     loadOrgUnitGroupSets,
     loadOrgUnitPath
 )
