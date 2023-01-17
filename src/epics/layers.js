@@ -4,8 +4,8 @@ import { errorActionCreator } from '../actions/helpers.js'
 import {
     addLayer,
     updateLayer,
-    loadLayer,
-    // tLoadLayer,
+    // loadLayer,
+    tLoadLayer,
 } from '../actions/layers.js'
 import { closeContextMenu } from '../actions/map.js'
 import * as types from '../constants/actionTypes.js'
@@ -41,6 +41,6 @@ export const drillLayer = (action$, store) =>
                     )
                 })
         )
-        .mergeMap((config) => [closeContextMenu(), loadLayer(config)])
+        .mergeMap((config) => [closeContextMenu(), tLoadLayer(config)])
 
 export default combineEpics(loadLayerEpic, drillLayer)

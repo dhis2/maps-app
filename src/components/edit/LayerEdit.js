@@ -122,8 +122,8 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, tLoadLayer }) => {
 
 LayerEdit.propTypes = {
     cancelLayer: PropTypes.func.isRequired,
-    tLoadLayer: PropTypes.func.isRequired,
     setLayerLoading: PropTypes.func.isRequired,
+    tLoadLayer: PropTypes.func.isRequired,
     layer: PropTypes.object,
 }
 
