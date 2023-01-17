@@ -5,10 +5,13 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-01-11T12:19:42.024Z\n"
-"PO-Revision-Date: 2023-01-11T12:19:42.024Z\n"
+"POT-Creation-Date: 2023-01-17T09:17:02.025Z\n"
+"PO-Revision-Date: 2023-01-17T09:17:02.025Z\n"
 
 msgid "Maps"
+msgstr ""
+
+msgid "Untitled map, {{date}}"
 msgstr ""
 
 msgid "Map \"{{- name}}\" is saved."
@@ -421,9 +424,6 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
-
-msgid "Failed to load relationship types."
 msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
