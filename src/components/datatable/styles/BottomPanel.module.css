@@ -1,0 +1,16 @@
+.bottomPanel {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1040;
+    background: #fff;
+    box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.closeIcon {
+    position: absolute;
+    right: 3px;
+    z-index: 100;
+    cursor: pointer;
+    color: var(--colors-grey800);
+}
