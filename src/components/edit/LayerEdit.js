@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
-    tLoadLayer,
+    loadLayer,
     cancelLayer,
     setLayerLoading,
 } from '../../actions/layers.js'
@@ -43,7 +43,7 @@ const layerName = () => ({
     earthEngine: i18n.t('Earth Engine'),
 })
 
-const LayerEdit = ({ layer, cancelLayer, setLayerLoading, tLoadLayer }) => {
+const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
     const [isValidLayer, setIsValidLayer] = useState(false)
     const { keyAnalysisRelativePeriod } = useSystemSettings()
 
@@ -56,7 +56,7 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, tLoadLayer }) => {
 
             setLayerLoading(id)
 
-            tLoadLayer({
+            loadLayer({
                 ...layer,
                 editCounter: editCounter + 1,
             })
@@ -122,8 +122,8 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, tLoadLayer }) => {
 
 LayerEdit.propTypes = {
     cancelLayer: PropTypes.func.isRequired,
+    loadLayer: PropTypes.func.isRequired,
     setLayerLoading: PropTypes.func.isRequired,
-    tLoadLayer: PropTypes.func.isRequired,
     layer: PropTypes.object,
 }
 
@@ -131,5 +131,5 @@ export default connect(
     ({ layerEdit }) => ({
         layer: layerEdit,
     }),
-    { tLoadLayer, cancelLayer, setLayerLoading }
+    { loadLayer, cancelLayer, setLayerLoading }
 )(LayerEdit)
