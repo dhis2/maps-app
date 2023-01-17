@@ -1,4 +1,8 @@
 import * as types from '../constants/actionTypes.js'
+import { fetchLayer } from '../loaders/layers.js'
+import { errorActionCreator } from './helpers.js'
+
+const isNewLayer = (config) => config.id === undefined
 
 // Add new layer
 export const addLayer = (config) => ({
@@ -30,10 +34,14 @@ export const updateLayer = (layer) => ({
 })
 
 // Load layer data
-export const loadLayer = (layer) => ({
-    type: types.LAYER_LOAD,
-    payload: layer,
-})
+export const tLoadLayer = (layer) => (dispatch) =>
+    fetchLayer(layer)
+        .then((config) =>
+            dispatch(
+                isNewLayer(config) ? addLayer(config) : updateLayer(config)
+            )
+        )
+        .catch(errorActionCreator(types.LAYER_LOAD_ERROR))
 
 // Expand/collapse overlay card
 export const toggleLayerExpand = (id) => ({

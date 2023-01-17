@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes.js'
 import { getFallbackBasemap } from '../constants/basemaps.js'
 import { addOrgUnitPaths } from '../util/helpers.js'
 import { fetchMap } from '../util/requests.js'
-import { loadLayer } from './layers.js'
+import { tLoadLayer } from './layers.js'
 
 export const newMap = () => ({
     type: types.MAP_NEW,
@@ -60,7 +60,7 @@ export const tOpenMap =
 
             dispatch(setMap({ ...map, basemap }))
             addOrgUnitPaths(map.mapViews).map((view) =>
-                dispatch(loadLayer(view))
+                dispatch(tLoadLayer(view))
             )
         } catch (e) {
             log.error(e)

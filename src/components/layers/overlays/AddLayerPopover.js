@@ -2,7 +2,7 @@ import { Popover } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { loadLayer, editLayer } from '../../../actions/layers.js'
+import { tLoadLayer, editLayer } from '../../../actions/layers.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
 import LayerList from './LayerList.js'
@@ -11,13 +11,13 @@ const AddLayerPopover = ({
     anchorEl,
     layers = [],
     isSplitView,
-    loadLayer,
+    tLoadLayer,
     editLayer,
     onClose,
 }) => {
     const onLayerSelect = (layer) => {
         const config = { ...layer }
-        layer.layer === EXTERNAL_LAYER ? loadLayer(config) : editLayer(config)
+        layer.layer === EXTERNAL_LAYER ? tLoadLayer(config) : editLayer(config)
         onClose()
     }
 
@@ -41,7 +41,7 @@ const AddLayerPopover = ({
 
 AddLayerPopover.propTypes = {
     editLayer: PropTypes.func.isRequired,
-    loadLayer: PropTypes.func.isRequired,
+    tLoadLayer: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     anchorEl: PropTypes.object,
     isSplitView: PropTypes.bool,
@@ -53,5 +53,5 @@ export default connect(
         layers,
         isSplitView: isSplitViewMap(map.mapViews),
     }),
-    { loadLayer, editLayer }
+    { tLoadLayer, editLayer }
 )(AddLayerPopover)

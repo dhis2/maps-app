@@ -5,7 +5,7 @@ import {
     hasSingleDataDimension,
     getThematicLayerFromAnalyticalObject,
 } from '../util/analyticalObject.js'
-import { loadLayer } from './layers.js'
+import { tLoadLayer } from './layers.js'
 
 export const setAnalyticalObject = (ao) => ({
     type: types.ANALYTICAL_OBJECT_SET,
@@ -21,7 +21,7 @@ export const tSetAnalyticalObject = (ao) => async (dispatch) => {
         clearAnalyticalObjectFromUrl()
         return hasSingleDataDimension(ao)
             ? getThematicLayerFromAnalyticalObject(ao).then((layer) =>
-                  dispatch(loadLayer(layer))
+                  dispatch(tLoadLayer(layer))
               )
             : dispatch(setAnalyticalObject(ao))
     } catch (e) {
