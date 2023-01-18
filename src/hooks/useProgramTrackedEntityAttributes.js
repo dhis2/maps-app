@@ -18,9 +18,8 @@ const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
     },
 }
 
-export const useProgramTrackedEntityAttributes = () => {
+export const useProgramTrackedEntityAttributes = ({ programId }) => {
     const [programAttributes, setProgramAttributes] = useState(null)
-    const [programId, setProgramId] = useState(null)
     const { nameProperty } = useUserSettings()
 
     const { refetch } = useDataQuery(PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY, {
@@ -48,6 +47,5 @@ export const useProgramTrackedEntityAttributes = () => {
 
     return {
         programAttributes,
-        setProgramIdForProgramAttributes: setProgramId,
     }
 }

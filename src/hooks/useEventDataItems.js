@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { combineDataItems } from '../util/analytics.js'
 import { useProgramStageDataElements } from './useProgramStageDataElements.js'
 import { useProgramTrackedEntityAttributes } from './useProgramTrackedEntityAttributes.js'
@@ -9,10 +9,10 @@ export const useEventDataItems = ({
     includeTypes,
     excludeTypes,
 }) => {
-    const { dataElements, setProgramStageIdForDataElements } =
-        useProgramStageDataElements()
-    const { programAttributes, setProgramIdForProgramAttributes } =
-        useProgramTrackedEntityAttributes()
+    const { dataElements } = useProgramStageDataElements({ programStageId })
+    const { programAttributes } = useProgramTrackedEntityAttributes({
+        programId,
+    })
 
     const eventDataItems = useMemo(() => {
         if (dataElements !== null && programAttributes !== null) {
@@ -25,16 +25,6 @@ export const useEventDataItems = ({
         }
         return null
     }, [dataElements, programAttributes, includeTypes, excludeTypes])
-
-    useEffect(() => {
-        setProgramIdForProgramAttributes(programId)
-        setProgramStageIdForDataElements(programStageId)
-    }, [
-        programId,
-        programStageId,
-        setProgramIdForProgramAttributes,
-        setProgramStageIdForDataElements,
-    ])
 
     return {
         eventDataItems,

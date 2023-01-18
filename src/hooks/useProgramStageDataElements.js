@@ -17,9 +17,8 @@ const PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
         },
     },
 }
-export const useProgramStageDataElements = () => {
+export const useProgramStageDataElements = ({ programStageId }) => {
     const [dataElements, setDataElements] = useState(null)
-    const [programStageId, setProgramStageId] = useState(null)
     const { nameProperty } = useUserSettings()
 
     const { refetch } = useDataQuery(PROGRAM_STAGE_DATA_ELEMENTS_QUERY, {
@@ -36,6 +35,7 @@ export const useProgramStageDataElements = () => {
 
     useEffect(() => {
         setDataElements(null)
+
         if (programStageId) {
             refetch({
                 id: programStageId,
@@ -45,6 +45,5 @@ export const useProgramStageDataElements = () => {
 
     return {
         dataElements,
-        setProgramStageIdForDataElements: setProgramStageId,
     }
 }
