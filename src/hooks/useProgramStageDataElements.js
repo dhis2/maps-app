@@ -1,0 +1,50 @@
+import { useDataQuery } from '@dhis2/app-runtime'
+import { useState, useEffect } from 'react'
+import { useUserSettings } from '../components/UserSettingsProvider.js'
+import { getValidDataItems } from '../util/helpers.js'
+
+const PROGRAM_STAGE_DATA_ELEMENTS_QUERY = {
+    elements: {
+        resource: 'programStages',
+        id: ({ id }) => id,
+        params: ({ nameProperty }) => {
+            return {
+                fields: [
+                    `programStageDataElements[dataElement[id,${nameProperty}~rename(name),valueType,optionSet[id,displayName~rename(name)],legendSet]]`,
+                ],
+                paging: false,
+            }
+        },
+    },
+}
+export const useProgramStageDataElements = () => {
+    const [dataElements, setDataElements] = useState(null)
+    const [programStageId, setProgramStageId] = useState(null)
+    const { nameProperty } = useUserSettings()
+
+    const { refetch } = useDataQuery(PROGRAM_STAGE_DATA_ELEMENTS_QUERY, {
+        lazy: true,
+        variables: { nameProperty },
+        onComplete: (data) => {
+            const elements = data.elements.programStageDataElements.map(
+                (attr) => attr.dataElement
+            )
+
+            setDataElements(getValidDataItems(elements))
+        },
+    })
+
+    useEffect(() => {
+        setDataElements(null)
+        if (programStageId) {
+            refetch({
+                id: programStageId,
+            })
+        }
+    }, [programStageId, refetch])
+
+    return {
+        dataElements,
+        setProgramStageIdForDataElements: setProgramStageId,
+    }
+}

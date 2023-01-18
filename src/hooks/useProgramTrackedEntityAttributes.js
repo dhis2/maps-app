@@ -10,7 +10,7 @@ const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
         params: ({ nameProperty }) => {
             return {
                 fields: [
-                    `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),valueType]]`,
+                    `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),valueType,optionSet[id,displayName~rename(name)],legendSet]]`,
                 ],
                 paging: false,
             }
@@ -19,7 +19,7 @@ const PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
 }
 
 export const useProgramTrackedEntityAttributes = () => {
-    const [programAttributes, setProgramAttributes] = useState([])
+    const [programAttributes, setProgramAttributes] = useState(null)
     const [programId, setProgramId] = useState(null)
     const { nameProperty } = useUserSettings()
 
@@ -37,7 +37,7 @@ export const useProgramTrackedEntityAttributes = () => {
     })
 
     useEffect(() => {
-        setProgramAttributes([])
+        setProgramAttributes(null)
 
         if (programId) {
             refetch({
@@ -46,5 +46,8 @@ export const useProgramTrackedEntityAttributes = () => {
         }
     }, [programId, refetch])
 
-    return { programAttributes, setProgramIdForProgramAttributes: setProgramId }
+    return {
+        programAttributes,
+        setProgramIdForProgramAttributes: setProgramId,
+    }
 }

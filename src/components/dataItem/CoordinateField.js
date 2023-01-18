@@ -1,98 +1,75 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import {
-    loadProgramTrackedEntityAttributes,
-    loadProgramStageDataElements,
-} from '../../actions/programs.js'
+import React, { useEffect } from 'react'
+import { useProgramStageDataElements } from '../../hooks/useProgramStageDataElements.js'
+import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
+import { combineDataItems } from '../../util/analytics.js'
 import { SelectField } from '../core/index.js'
 
-class CoordinateField extends Component {
-    static propTypes = {
-        dataElements: PropTypes.object.isRequired,
-        loadProgramStageDataElements: PropTypes.func.isRequired,
-        loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
-        programAttributes: PropTypes.object.isRequired,
-        onChange: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        program: PropTypes.object,
-        programStage: PropTypes.object,
-        value: PropTypes.string,
-    }
+const EVENT_COORDINATE_FIELD_ID = 'event'
 
-    componentDidMount() {
-        this.loadData()
-    }
+const CoordinateField = ({
+    value,
+    program,
+    programStage,
+    onChange,
+    className,
+}) => {
+    const { dataElements, setProgramStageIdForDataElements } =
+        useProgramStageDataElements()
+    const { programAttributes, setProgramIdForProgramAttributes } =
+        useProgramTrackedEntityAttributes()
 
-    componentDidUpdate(prevProps) {
-        const { program, onChange } = this.props
-
-        if (program !== prevProps.program) {
-            onChange('event')
+    useEffect(() => {
+        if (program) {
+            setProgramIdForProgramAttributes(program.id)
         }
+        if (programStage) {
+            setProgramStageIdForDataElements(programStage.id)
+        }
+    }, [
+        program,
+        programStage,
+        setProgramIdForProgramAttributes,
+        setProgramStageIdForDataElements,
+    ])
 
-        this.loadData()
+    useEffect(() => {
+        if (program) {
+            onChange(EVENT_COORDINATE_FIELD_ID)
+        }
+    }, [program, onChange])
+
+    if (dataElements === null || programAttributes === null) {
+        return null
     }
 
-    render() {
-        const {
-            value,
-            program,
-            programStage,
-            programAttributes,
-            dataElements,
-            onChange,
-            className,
-        } = this.props
-        let fields = [
-            { id: 'event', name: i18n.t('Event location') }, // Default coordinate field
-        ]
+    const fields = [
+        { id: EVENT_COORDINATE_FIELD_ID, name: i18n.t('Event location') },
+        ...combineDataItems(programAttributes, dataElements, ['COORDINATE']),
+    ]
 
-        if (program && programStage) {
-            fields = fields.concat(
-                [
-                    ...(programAttributes[program.id] || []),
-                    ...(dataElements[programStage.id] || []),
-                ].filter((field) => field.valueType === 'COORDINATE')
-            )
-        }
-
-        return (
-            <SelectField
-                label={i18n.t('Coordinate field')}
-                items={fields}
-                value={fields.find((f) => f.id === value) ? value : 'event'}
-                onChange={(field) => onChange(field.id)}
-                className={className}
-            />
-        )
-    }
-
-    loadData() {
-        const {
-            program,
-            programStage,
-            programAttributes,
-            dataElements,
-            loadProgramTrackedEntityAttributes,
-            loadProgramStageDataElements,
-        } = this.props
-
-        if (program && !programAttributes[program.id]) {
-            loadProgramTrackedEntityAttributes(program.id)
-        }
-
-        if (programStage && !dataElements[programStage.id]) {
-            loadProgramStageDataElements(programStage.id)
-        }
-    }
+    return (
+        <SelectField
+            label={i18n.t('Coordinate field')}
+            items={fields}
+            value={
+                fields.find((f) => f.id === value)
+                    ? value
+                    : EVENT_COORDINATE_FIELD_ID
+            }
+            onChange={(field) => onChange(field.id)}
+            className={className}
+        />
+    )
 }
 
-export default connect(
-    (state) => ({
-        programAttributes: state.programTrackedEntityAttributes,
-        dataElements: state.programStageDataElements,
-    }),
-    { loadProgramTrackedEntityAttributes, loadProgramStageDataElements }
-)(CoordinateField)
+CoordinateField.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    program: PropTypes.object,
+    programStage: PropTypes.object,
+    value: PropTypes.string,
+}
+
+export default CoordinateField

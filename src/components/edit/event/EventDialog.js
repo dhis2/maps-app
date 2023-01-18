@@ -369,6 +369,8 @@ class EventDialog extends Component {
                             <div className={styles.flexColumn}>
                                 {program ? (
                                     <StyleByDataItem
+                                        program={program}
+                                        programStage={programStage}
                                         error={!legendSet && legendSetError}
                                     />
                                 ) : (

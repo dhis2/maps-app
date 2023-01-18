@@ -1,6 +1,7 @@
+import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import DataItemSelect from '../dataItem/DataItemSelect.js'
+import { SelectField } from '../core/index.js'
 import FilterSelect from './FilterSelect.js'
 import RemoveFilter from './RemoveFilter.js'
 import styles from './styles/FilterRow.module.css'
@@ -10,55 +11,50 @@ const FilterRow = ({
     dimension,
     filter,
     dataItems,
-    program,
-    programStage,
     onChange,
     onRemove,
 }) => {
-    let dataItem
-
-    if (dataItems && dimension) {
-        dataItem = dataItems.filter((d) => d.id === dimension)[0]
+    if (!dataItems?.length) {
+        return null
     }
 
-    const onSelect = (dim, filter) => {
-        const name = dataItems.filter((d) => d.id === dim)[0].name
+    const dataItem = dimension && dataItems.filter((d) => d.id === dimension)[0]
 
-        if (dim !== dimension) {
+    const onSelect = ({ id }, newFilter) => {
+        const name = dataItems.filter((d) => d.id === id)[0].name
+
+        if (id !== dimension) {
             // New dimension
             onChange(index, {
-                dimension: dim,
+                dimension: id,
                 name,
                 filter: null,
             })
         } else {
             onChange(index, {
-                dimension: dim,
+                dimension: id,
                 name,
-                filter,
+                filter: newFilter,
             })
         }
     }
 
     return (
         <div className={styles.filterRow}>
-            <DataItemSelect
+            <SelectField
+                label={i18n.t('Data item')}
+                items={dataItems}
                 value={dimension || null}
-                program={program}
-                programStage={programStage}
-                excludeTypes={[
-                    'FILE_RESOURCE',
-                    'ORGANISATION_UNIT',
-                    'COORDINATE',
-                ]}
-                onChange={(dataItem) => onSelect(dataItem.id, filter)}
+                onChange={onSelect}
                 className={styles.dataItemSelect}
             />
             {dimension && (
                 <FilterSelect
                     {...dataItem}
                     filter={filter}
-                    onChange={(filter) => onSelect(dimension, filter)}
+                    onChange={(newFilter) =>
+                        onSelect({ id: dimension }, newFilter)
+                    }
                 />
             )}
             <RemoveFilter onClick={() => onRemove(index)} />
@@ -67,18 +63,12 @@ const FilterRow = ({
 }
 
 FilterRow.propTypes = {
+    dataItems: PropTypes.array.isRequired,
     index: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
-    dataItems: PropTypes.array,
     dimension: PropTypes.string,
     filter: PropTypes.string,
-    program: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }),
-    programStage: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }),
 }
 
 export default FilterRow
