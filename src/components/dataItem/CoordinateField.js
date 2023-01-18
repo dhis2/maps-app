@@ -1,12 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import { useProgramStageDataElements } from '../../hooks/useProgramStageDataElements.js'
-import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
-import { combineDataItems } from '../../util/analytics.js'
+import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
 
 const EVENT_COORDINATE_FIELD_ID = 'event'
+
+const includeTypes = ['COORDINATE']
 
 const CoordinateField = ({
     value,
@@ -15,24 +15,11 @@ const CoordinateField = ({
     onChange,
     className,
 }) => {
-    const { dataElements, setProgramStageIdForDataElements } =
-        useProgramStageDataElements()
-    const { programAttributes, setProgramIdForProgramAttributes } =
-        useProgramTrackedEntityAttributes()
-
-    useEffect(() => {
-        if (program) {
-            setProgramIdForProgramAttributes(program.id)
-        }
-        if (programStage) {
-            setProgramStageIdForDataElements(programStage.id)
-        }
-    }, [
-        program,
-        programStage,
-        setProgramIdForProgramAttributes,
-        setProgramStageIdForDataElements,
-    ])
+    const { eventDataItems } = useEventDataItems({
+        programId: program?.id,
+        programStageId: programStage?.id,
+        includeTypes,
+    })
 
     useEffect(() => {
         if (program) {
@@ -40,14 +27,11 @@ const CoordinateField = ({
         }
     }, [program, onChange])
 
-    if (dataElements === null || programAttributes === null) {
-        return null
-    }
-
-    const fields = [
+    let fields = [
         { id: EVENT_COORDINATE_FIELD_ID, name: i18n.t('Event location') },
-        ...combineDataItems(programAttributes, dataElements, ['COORDINATE']),
     ]
+
+    fields = eventDataItems ? fields.concat(eventDataItems) : fields
 
     return (
         <SelectField

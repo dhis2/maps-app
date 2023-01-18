@@ -1,39 +1,26 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import {
     addFilter,
     removeFilter,
     changeFilter,
 } from '../../actions/layerEdit.js'
-import { useProgramStageDataElements } from '../../hooks/useProgramStageDataElements.js'
-import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
-import { combineDataItems } from '../../util/analytics.js'
+import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import FilterRow from './FilterRow.js'
 import styles from './styles/FilterGroup.module.css'
 
-const FilterGroup = ({ filters = [], program, programStage }) => {
-    const { dataElements, setProgramStageIdForDataElements } =
-        useProgramStageDataElements()
-    const { programAttributes, setProgramIdForProgramAttributes } =
-        useProgramTrackedEntityAttributes()
-    const dispatch = useDispatch()
+const excludeTypes = ['FILE_RESOURCE', 'ORGANISATION_UNIT', 'COORDINATE']
 
-    useEffect(() => {
-        if (program) {
-            setProgramIdForProgramAttributes(program.id)
-        }
-        if (programStage) {
-            setProgramStageIdForDataElements(programStage.id)
-        }
-    }, [
-        program,
-        programStage,
-        setProgramIdForProgramAttributes,
-        setProgramStageIdForDataElements,
-    ])
+const FilterGroup = ({ filters = [], program, programStage }) => {
+    const dispatch = useDispatch()
+    const { eventDataItems } = useEventDataItems({
+        programId: program?.id,
+        programStageId: programStage?.id,
+        excludeTypes,
+    })
 
     if (!programStage) {
         return (
@@ -45,17 +32,9 @@ const FilterGroup = ({ filters = [], program, programStage }) => {
         )
     }
 
-    if (dataElements === null || programAttributes === null) {
+    if (eventDataItems === null) {
         return null
     }
-
-    const dataItems = [
-        ...combineDataItems(programAttributes, dataElements, null, [
-            'FILE_RESOURCE',
-            'ORGANISATION_UNIT',
-            'COORDINATE',
-        ]),
-    ]
 
     return (
         <div className={styles.filterGroup}>
@@ -63,7 +42,7 @@ const FilterGroup = ({ filters = [], program, programStage }) => {
                 <FilterRow
                     key={index}
                     index={index}
-                    dataItems={dataItems}
+                    dataItems={eventDataItems}
                     onChange={(index, item) =>
                         dispatch(changeFilter(index, item))
                     }

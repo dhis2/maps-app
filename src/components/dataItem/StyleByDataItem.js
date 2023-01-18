@@ -1,59 +1,42 @@
 import i18n from '@dhis2/d2-i18n'
 import { Help } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setStyleDataItem } from '../../actions/layerEdit.js'
-import { useProgramStageDataElements } from '../../hooks/useProgramStageDataElements.js'
-import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
-import { combineDataItems } from '../../util/analytics.js'
+import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
 import DataItemStyle from './DataItemStyle.js'
+
+const excludeTypes = [
+    'DATE',
+    'FILE_RESOURCE',
+    'ORGANISATION_UNIT',
+    'COORDINATE',
+]
 
 // Style by data item is used by event layer, and can be reused for TEI layer in the future.
 // Displays a select field with data items that support styling.
 // Styling options are shown when a data item is selected.
 const StyleByDataItem = ({ program, programStage, error }) => {
     const styleDataItem = useSelector((state) => state.layerEdit.styleDataItem)
-    const { dataElements, setProgramStageIdForDataElements } =
-        useProgramStageDataElements()
-    const { programAttributes, setProgramIdForProgramAttributes } =
-        useProgramTrackedEntityAttributes()
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        if (program) {
-            setProgramIdForProgramAttributes(program.id)
-        }
-        if (programStage) {
-            setProgramStageIdForDataElements(programStage.id)
-        }
-    }, [
-        program,
-        programStage,
-        setProgramIdForProgramAttributes,
-        setProgramStageIdForDataElements,
-    ])
+    const { eventDataItems } = useEventDataItems({
+        programId: program?.id,
+        programStageId: programStage?.id,
+        excludeTypes,
+    })
 
     const ITEM_NONE = { id: 'none', name: i18n.t('None') }
 
-    const onChange = (item) => {
+    const onChange = (item) =>
         dispatch(setStyleDataItem(item.id !== ITEM_NONE.id ? item : null))
-    }
 
-    if (dataElements === null || programAttributes === null) {
+    if (eventDataItems === null) {
         return null
     }
 
-    const dataItems = [
-        ITEM_NONE,
-        ...combineDataItems(programAttributes, dataElements, null, [
-            'DATE',
-            'FILE_RESOURCE',
-            'ORGANISATION_UNIT',
-            'COORDINATE',
-        ]),
-    ]
+    const dataItems = [ITEM_NONE, ...eventDataItems]
 
     if (
         styleDataItem &&
