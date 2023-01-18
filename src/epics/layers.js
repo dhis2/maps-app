@@ -11,13 +11,20 @@ const isNewLayer = (config) => config.id === undefined
 
 // Load one layer
 export const loadLayerEpic = (action$) =>
-    action$.ofType(types.LAYER_LOAD).concatMap((action) =>
-        fetchLayer(action.payload)
+    action$.ofType(types.LAYER_LOAD).concatMap((action) => {
+        return new Promise((resolve) => {
+            const config = action.payload
+            resolve(isNewLayer(config) ? addLayer(config) : updateLayer(config))
+        })
+
+        /*
+        return fetchLayer(action.payload)
             .then((config) =>
                 isNewLayer(config) ? addLayer(config) : updateLayer(config)
             )
             .catch(errorActionCreator(types.LAYER_LOAD_ERROR))
-    )
+        */
+    })
 
 export const drillLayer = (action$, store) =>
     action$

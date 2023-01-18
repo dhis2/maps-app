@@ -5,6 +5,7 @@ import { union } from 'lodash/fp'
 import React, { createRef } from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import Plugin from './components/plugin/Plugin.js'
+import LayerLoader from './components/loaders/LayerLoader.js'
 import { getFallbackBasemap, defaultBasemaps } from './constants/basemaps.js'
 import { apiVersion } from './constants/settings.js'
 import { fetchLayer } from './loaders/layers.js'
@@ -163,6 +164,43 @@ function PluginContainer() {
                     }))
                 }
 
+                // console.log('mapViews', config.mapViews)
+
+                let mapViews = [...config.mapViews]
+
+                const onLoad = (layerConfig) => {
+                    mapViews = mapViews.map((layer) =>
+                        layer.id === layerConfig.id ? layerConfig : layer
+                    )
+
+                    if (mapViews.every((layer) => layer.isLoaded)) {
+                        // console.log('all loaded', mapViews)
+
+                        drawMap({
+                            ...config,
+                            mapViews,
+                            basemap,
+                        })
+                    }
+                }
+
+                const domEl = document.getElementById(config.el)
+
+                render(
+                    <CenteredContent>
+                        <CircularLoader />
+                        {mapViews.map((config) => (
+                            <LayerLoader
+                                key={config.id}
+                                config={config}
+                                onLoad={onLoad}
+                            />
+                        ))}
+                    </CenteredContent>,
+                    domEl
+                )
+
+                /*
                 Promise.all(config.mapViews.map(fetchLayer)).then((mapViews) =>
                     drawMap({
                         ...config,
@@ -170,11 +208,14 @@ function PluginContainer() {
                         basemap,
                     })
                 )
+                */
             }
         }
     }
 
     function drawMap(config) {
+        console.log('drawMap', config)
+
         if (config.el && !isUnmounted(config.el)) {
             const domEl = document.getElementById(config.el)
 

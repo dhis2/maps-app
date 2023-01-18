@@ -59,6 +59,7 @@ const LayerEdit = ({ layer, cancelLayer, setLayerLoading, loadLayer }) => {
             loadLayer({
                 ...layer,
                 editCounter: editCounter + 1,
+                isLoaded: false,
             })
             cancelLayer()
         }
