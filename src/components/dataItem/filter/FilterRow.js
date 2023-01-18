@@ -1,9 +1,9 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { SelectField } from '../core/index.js'
+import { SelectField } from '../../core/index.js'
+import RemoveFilter from '../../filter/RemoveFilter.js'
 import FilterSelect from './FilterSelect.js'
-import RemoveFilter from './RemoveFilter.js'
 import styles from './styles/FilterRow.module.css'
 
 const FilterRow = ({

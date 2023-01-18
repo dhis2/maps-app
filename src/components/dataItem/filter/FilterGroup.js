@@ -7,8 +7,8 @@ import {
     addFilter,
     removeFilter,
     changeFilter,
-} from '../../actions/layerEdit.js'
-import { useEventDataItems } from '../../hooks/useEventDataItems.js'
+} from '../../../actions/layerEdit.js'
+import { useEventDataItems } from '../../../hooks/useEventDataItems.js'
 import FilterRow from './FilterRow.js'
 import styles from './styles/FilterGroup.module.css'
 
