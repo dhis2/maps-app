@@ -17,8 +17,6 @@ import orgUnitProfile from './orgUnitProfile.js'
 import orgUnitTree from './orgUnitTree.js'
 import programIndicators from './programIndicators.js'
 import programs from './programs.js'
-import programStageDataElements from './programStageDataElements.js'
-import programTrackedEntityAttributes from './programTrackedEntityAttributes.js'
 import ui from './ui.js'
 
 export default combineReducers({
@@ -38,8 +36,6 @@ export default combineReducers({
     orgUnitGroupSets,
     programs,
     programIndicators,
-    programStageDataElements,
-    programTrackedEntityAttributes,
     ui,
     dataDownload,
     feature,

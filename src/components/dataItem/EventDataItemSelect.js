@@ -62,7 +62,7 @@ const EventDataItemSelect = ({
     ])
 
     const dataItems = combineDataItems(
-        programAttributes,
+        programAttributes || [],
         data?.programDataElements.programDataElements || [],
         null,
         excludeValueTypes
