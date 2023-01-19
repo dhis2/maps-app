@@ -20,8 +20,6 @@ const useOptionSet = () => {
         lazy: true,
     })
 
-    console.log('data', data)
-
     return {
         options: data?.set.options,
         fetchOptionSet: refetch,

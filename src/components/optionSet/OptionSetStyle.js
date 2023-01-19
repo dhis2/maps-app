@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { Help, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setOptionStyle } from '../../actions/layerEdit.js'
 import { qualitativeColors } from '../../constants/colors.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
@@ -21,26 +21,29 @@ const addOptionStyle = (option, index) => ({
     },
 })
 
-const OptionSetStyle = ({ optionSet, setOptionStyle }) => {
+const OptionSetStyle = ({ optionSet }) => {
     const { options, fetchOptionSet } = useOptionSet()
     const [warning, setWarning] = useState()
+    const dispatch = useDispatch()
 
     const onChange = useCallback(
         (id, color) => {
-            setOptionStyle(
-                options.map((option) =>
-                    option.id === id
-                        ? {
-                              ...option,
-                              style: {
-                                  color,
-                              },
-                          }
-                        : option
+            dispatch(
+                setOptionStyle(
+                    optionSet.options.map((option) =>
+                        option.id === id
+                            ? {
+                                  ...option,
+                                  style: {
+                                      color,
+                                  },
+                              }
+                            : option
+                    )
                 )
             )
         },
-        [options, setOptionStyle]
+        [optionSet, dispatch]
     )
 
     useEffect(() => {
@@ -48,9 +51,9 @@ const OptionSetStyle = ({ optionSet, setOptionStyle }) => {
     }, [optionSet, fetchOptionSet])
 
     useEffect(() => {
-        if (options) {
+        if (!optionSet.options && options) {
             if (options.length <= MAX_OPTIONS) {
-                setOptionStyle(options.map(addOptionStyle))
+                dispatch(setOptionStyle(options.map(addOptionStyle)))
             } else {
                 setWarning(
                     i18n.t(
@@ -63,7 +66,7 @@ const OptionSetStyle = ({ optionSet, setOptionStyle }) => {
                 )
             }
         }
-    }, [options, setOptionStyle])
+    }, [optionSet, options, dispatch])
 
     return (
         <div className={styles.optionSetStyle}>
@@ -86,8 +89,10 @@ const OptionSetStyle = ({ optionSet, setOptionStyle }) => {
 }
 
 OptionSetStyle.propTypes = {
-    setOptionStyle: PropTypes.func.isRequired,
-    optionSet: PropTypes.object,
+    optionSet: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        options: PropTypes.arryay,
+    }).isRequired,
 }
 
-export default connect(undefined, { setOptionStyle })(OptionSetStyle)
+export default OptionSetStyle

@@ -48,8 +48,6 @@ const FilterSelect = ({ valueType, filter, optionSet, onChange }) => {
     let operator
     let value
 
-    console.log('options', options)
-
     if (filter) {
         const splitFilter = filter.split(':')
         operator = splitFilter[0]
@@ -128,7 +126,9 @@ const FilterSelect = ({ valueType, filter, optionSet, onChange }) => {
 FilterSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
     filter: PropTypes.string,
-    optionSet: PropTypes.object,
+    optionSet: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
     valueType: PropTypes.string,
 }
 
