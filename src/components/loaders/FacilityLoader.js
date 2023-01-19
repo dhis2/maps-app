@@ -1,40 +1,62 @@
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
-import useGeoFeatures from '../../hooks/useGeoFeatures.js'
-import useGroupSet from '../../hooks/useOrgUnitGroupSet.js'
 import { getOrgUnitsFromRows } from '../../util/analytics.js'
-// import facilityLoader from '../../loaders/facilityLoader.js'
-import { getStyledOrgUnits } from '../../util/orgUnits.js'
+import { toGeoJson } from '../../util/map.js'
+import { parseGroupSet, getStyledOrgUnits } from '../../util/orgUnits.js'
 
 const isPoint = (f) => f.geometry.type === 'Point'
 
+const facilityQuery = {
+    features: {
+        resource: 'geoFeatures',
+        params: ({
+            ou,
+            includeGroupSets = false,
+            displayProperty = 'NAME',
+        }) => ({
+            ou,
+            includeGroupSets,
+            displayProperty,
+        }),
+    },
+}
+
+const orgUnitGroupSetQuery = {
+    resource: 'organisationUnitGroupSets',
+    id: ({ id }) => id,
+    params: {
+        fields: 'organisationUnitGroups[id,name,color,symbol]',
+    },
+}
+
 const FacilityLoader = ({ config, onLoad }) => {
-    const { features, getFeatures } = useGeoFeatures()
-    const { groupSet, getGroupSet } = useGroupSet()
     const { rows, organisationUnitGroupSet } = config
 
-    useEffect(() => {
-        if (organisationUnitGroupSet) {
-            console.log('ABC', organisationUnitGroupSet.id)
-            getGroupSet({ id: organisationUnitGroupSet.id })
-        }
-    }, [organisationUnitGroupSet, getGroupSet])
+    if (organisationUnitGroupSet) {
+        facilityQuery.groupSet = orgUnitGroupSetQuery
+    }
+
+    const { data, error, loading, refetch } = useDataQuery(facilityQuery, {
+        lazy: true,
+        // onComplete: console.log,
+    })
 
     useEffect(() => {
         const orgUnits = getOrgUnitsFromRows(rows).map((item) => item.id)
 
-        getFeatures({
+        refetch({
             ou: `ou:${orgUnits.join(',')}`,
             includeGroupSets: !!organisationUnitGroupSet,
+            id: organisationUnitGroupSet?.id,
         })
-    }, [rows, organisationUnitGroupSet, getFeatures])
-
-    console.log('groupSet', groupSet)
+    }, [rows, organisationUnitGroupSet, refetch])
 
     useEffect(() => {
-        if (features) {
-            const groupSet = undefined
+        if (data) {
+            const features = toGeoJson(data.features)
+            const groupSet = data.groupSet ? parseGroupSet(data.groupSet) : null
             const contextPath = ''
             const name = i18n.t('Facilities')
 
@@ -59,7 +81,7 @@ const FacilityLoader = ({ config, onLoad }) => {
                 isVisible: true,
             })
         }
-    }, [features, config, onLoad])
+    }, [data, config, onLoad])
 
     return null
 }
