@@ -4,11 +4,10 @@ import { isValidUid } from 'd2/uid'
 import { union } from 'lodash/fp'
 import React, { createRef } from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
-import Plugin from './components/plugin/Plugin.js'
 import LayerLoader from './components/loaders/LayerLoader.js'
+import Plugin from './components/plugin/Plugin.js'
 import { getFallbackBasemap, defaultBasemaps } from './constants/basemaps.js'
 import { apiVersion } from './constants/settings.js'
-import { fetchLayer } from './loaders/layers.js'
 import i18n from './locales/index.js'
 import { createExternalLayer } from './util/external.js'
 import { getConfigFromNonMapConfig } from './util/getConfigFromNonMapConfig.js'
@@ -199,23 +198,11 @@ function PluginContainer() {
                     </CenteredContent>,
                     domEl
                 )
-
-                /*
-                Promise.all(config.mapViews.map(fetchLayer)).then((mapViews) =>
-                    drawMap({
-                        ...config,
-                        mapViews,
-                        basemap,
-                    })
-                )
-                */
             }
         }
     }
 
     function drawMap(config) {
-        console.log('drawMap', config)
-
         if (config.el && !isUnmounted(config.el)) {
             const domEl = document.getElementById(config.el)
 

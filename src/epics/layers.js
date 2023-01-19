@@ -1,30 +1,9 @@
 import { combineEpics } from 'redux-observable'
 import 'rxjs/add/operator/concatMap'
-import { errorActionCreator } from '../actions/helpers.js'
-import { addLayer, updateLayer, loadLayer } from '../actions/layers.js'
+import { updateLayer } from '../actions/layers.js'
 import { closeContextMenu } from '../actions/map.js'
 import * as types from '../constants/actionTypes.js'
-import { fetchLayer } from '../loaders/layers.js'
 import { drillUpDown } from '../util/map.js'
-
-const isNewLayer = (config) => config.id === undefined
-
-// Load one layer
-export const loadLayerEpic = (action$) =>
-    action$.ofType(types.LAYER_LOAD).concatMap((action) => {
-        return new Promise((resolve) => {
-            const config = action.payload
-            resolve(isNewLayer(config) ? addLayer(config) : updateLayer(config))
-        })
-
-        /*
-        return fetchLayer(action.payload)
-            .then((config) =>
-                isNewLayer(config) ? addLayer(config) : updateLayer(config)
-            )
-            .catch(errorActionCreator(types.LAYER_LOAD_ERROR))
-        */
-    })
 
 export const drillLayer = (action$, store) =>
     action$
@@ -43,6 +22,6 @@ export const drillLayer = (action$, store) =>
                     )
                 })
         )
-        .mergeMap((config) => [closeContextMenu(), loadLayer(config)])
+        .mergeMap((config) => [closeContextMenu(), updateLayer(config)])
 
-export default combineEpics(loadLayerEpic, drillLayer)
+export default combineEpics(drillLayer)

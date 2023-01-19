@@ -56,7 +56,9 @@ const FacilityLoader = ({ config, onLoad }) => {
     useEffect(() => {
         if (data) {
             const features = toGeoJson(data.features)
-            const groupSet = data.groupSet ? parseGroupSet(data.groupSet) : null
+            const groupSet = data.groupSet
+                ? parseGroupSet(data.groupSet)
+                : undefined
             const contextPath = ''
             const name = i18n.t('Facilities')
 

@@ -58,9 +58,12 @@ export const tOpenMap =
 
             const basemap = { ...map.basemap, ...basemapConfig }
 
-            dispatch(setMap({ ...map, basemap }))
-            addOrgUnitPaths(map.mapViews).map((view) =>
-                dispatch(loadLayer(view))
+            dispatch(
+                setMap({
+                    ...map,
+                    mapViews: addOrgUnitPaths(map.mapViews),
+                    basemap,
+                })
             )
         } catch (e) {
             log.error(e)
