@@ -1,13 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Fragment, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { loadOptionSet } from '../../actions/optionSets.js'
 import {
     numberValueTypes,
     textValueTypes,
     booleanValueTypes,
 } from '../../constants/valueTypes.js'
+import useOptionSet from '../../hooks/useOptionSet.js'
 import {
     SelectField,
     NumberField,
@@ -43,17 +42,13 @@ const getOperators = (valueType, optionSet) => {
     return operators
 }
 
-const FilterSelect = ({
-    valueType,
-    filter,
-    optionSet,
-    optionSets,
-    onChange,
-    loadOptionSet,
-}) => {
+const FilterSelect = ({ valueType, filter, optionSet, onChange }) => {
+    const { options, fetchOptionSet } = useOptionSet()
     const operators = getOperators(valueType, optionSet)
     let operator
     let value
+
+    console.log('options', options)
 
     if (filter) {
         const splitFilter = filter.split(':')
@@ -64,10 +59,10 @@ const FilterSelect = ({
     }
 
     useEffect(() => {
-        if (optionSet && !optionSets[optionSet.id]) {
-            loadOptionSet(optionSet.id)
+        if (optionSet) {
+            fetchOptionSet({ id: optionSet.id })
         }
-    }, [optionSet, optionSets, loadOptionSet])
+    }, [optionSet, fetchOptionSet])
 
     return (
         <Fragment>
@@ -82,9 +77,9 @@ const FilterSelect = ({
                     className={styles.operator}
                 />
             )}
-            {optionSet && optionSets[optionSet.id] && (
+            {optionSet && options && (
                 <OptionSetSelect
-                    options={optionSets[optionSet.id].options}
+                    options={options}
                     value={value ? value.split(';') : null}
                     onChange={(newValue) =>
                         onChange(`${operator}:${newValue.join(';')}`)
@@ -131,17 +126,10 @@ const FilterSelect = ({
 }
 
 FilterSelect.propTypes = {
-    loadOptionSet: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     filter: PropTypes.string,
     optionSet: PropTypes.object,
-    optionSets: PropTypes.object,
     valueType: PropTypes.string,
 }
 
-export default connect(
-    (state) => ({
-        optionSets: state.optionSets,
-    }),
-    { loadOptionSet }
-)(FilterSelect)
+export default FilterSelect

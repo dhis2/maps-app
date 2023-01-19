@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import React, { useState, useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { setOptionStyle } from '../../actions/layerEdit.js'
-import { loadOptionSet } from '../../actions/optionSets.js'
 import { qualitativeColors } from '../../constants/colors.js'
+import useOptionSet from '../../hooks/useOptionSet.js'
 import { getUniqueColor } from '../../util/colors.js'
 import OptionStyle from './OptionStyle.js'
 import styles from './styles/OptionSetStyle.module.css'
@@ -21,13 +21,8 @@ const addOptionStyle = (option, index) => ({
     },
 })
 
-const OptionSetStyle = ({
-    id,
-    options,
-    optionSet,
-    loadOptionSet,
-    setOptionStyle,
-}) => {
+const OptionSetStyle = ({ optionSet, setOptionStyle }) => {
+    const { options, fetchOptionSet } = useOptionSet()
     const [warning, setWarning] = useState()
 
     const onChange = useCallback(
@@ -49,11 +44,11 @@ const OptionSetStyle = ({
     )
 
     useEffect(() => {
-        if (!optionSet) {
-            loadOptionSet(id)
-        } else {
-            const { options } = optionSet
+        fetchOptionSet({ id: optionSet.id })
+    }, [optionSet, fetchOptionSet])
 
+    useEffect(() => {
+        if (options) {
             if (options.length <= MAX_OPTIONS) {
                 setOptionStyle(options.map(addOptionStyle))
             } else {
@@ -68,12 +63,12 @@ const OptionSetStyle = ({
                 )
             }
         }
-    }, [id, optionSet, loadOptionSet, setOptionStyle])
+    }, [options, setOptionStyle])
 
     return (
         <div className={styles.optionSetStyle}>
-            {options ? (
-                options.map(({ id, name, style }) => (
+            {optionSet.options ? (
+                optionSet.options.map(({ id, name, style }) => (
                     <OptionStyle
                         key={id}
                         name={name}
@@ -91,16 +86,8 @@ const OptionSetStyle = ({
 }
 
 OptionSetStyle.propTypes = {
-    id: PropTypes.string.isRequired,
-    loadOptionSet: PropTypes.func.isRequired,
     setOptionStyle: PropTypes.func.isRequired,
     optionSet: PropTypes.object,
-    options: PropTypes.array,
 }
 
-export default connect(
-    (state, props) => ({
-        optionSet: state.optionSets[props.id],
-    }),
-    { loadOptionSet, setOptionStyle }
-)(OptionSetStyle)
+export default connect(undefined, { setOptionStyle })(OptionSetStyle)
