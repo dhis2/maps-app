@@ -1,26 +1,40 @@
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useMemo, useCallback, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { loadOrgUnitGroupSets } from '../../actions/orgUnits.js'
+import React, { useMemo, useCallback } from 'react'
 import { SelectField } from '../core/index.js'
+import { useUserSettings } from '../UserSettingsProvider.js'
+
+// Load org unit group sets
+const ORG_UNIT_GROUP_SETS_QUERY = {
+    sets: {
+        resource: 'organisationUnitGroupSets',
+        params: ({ nameProperty }) => ({
+            fields: ['id', `${nameProperty}~rename(name)`],
+            paging: false,
+        }),
+    },
+}
 
 const GroupSetSelect = ({
     label = i18n.t('Group set'),
-    orgUnitGroupSets,
     value,
     allowNone,
     onChange,
-    loadOrgUnitGroupSets,
     errorText,
     className,
 }) => {
+    const { nameProperty } = useUserSettings()
+    const { loading, error, data } = useDataQuery(ORG_UNIT_GROUP_SETS_QUERY, {
+        variables: { nameProperty },
+    })
+
     const groupSets = useMemo(
         () => [
             ...(allowNone ? [{ id: 'none', name: i18n.t('None') }] : []),
-            ...(orgUnitGroupSets || []),
+            ...(data?.sets.organisationUnitGroupSets || []),
         ],
-        [orgUnitGroupSets, allowNone]
+        [data, allowNone]
     )
 
     const onGroupSetChange = useCallback(
@@ -28,20 +42,16 @@ const GroupSetSelect = ({
         [onChange]
     )
 
-    useEffect(() => {
-        if (!orgUnitGroupSets) {
-            loadOrgUnitGroupSets()
-        }
-    }, [orgUnitGroupSets, loadOrgUnitGroupSets])
-
     return (
         <SelectField
             label={label}
-            loading={orgUnitGroupSets ? false : true}
+            loading={loading}
             items={groupSets}
             value={value ? value.id : null}
             onChange={onGroupSetChange}
-            errorText={!value && errorText ? errorText : null}
+            errorText={
+                error?.message || (!value && errorText ? errorText : null)
+            }
             className={className}
             data-test="orgunitgroupsetselect"
         />
@@ -49,19 +59,12 @@ const GroupSetSelect = ({
 }
 
 GroupSetSelect.propTypes = {
-    loadOrgUnitGroupSets: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     allowNone: PropTypes.bool,
     className: PropTypes.string,
     errorText: PropTypes.string,
     label: PropTypes.string,
-    orgUnitGroupSets: PropTypes.array,
     value: PropTypes.object,
 }
 
-export default connect(
-    (state) => ({
-        orgUnitGroupSets: state.orgUnitGroupSets,
-    }),
-    { loadOrgUnitGroupSets }
-)(GroupSetSelect)
+export default GroupSetSelect
