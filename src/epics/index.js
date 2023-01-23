@@ -4,7 +4,6 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/concatMapTo'
 import 'rxjs/add/observable/empty'
-import dataDownloadEpics from './dataDownload.js'
 import layerEpics from './layers.js'
 import optionSetEpics from './optionSets.js'
 import orgUnitEpis from './orgUnits.js'
@@ -21,6 +20,5 @@ export default combineEpics(
     layerEpics,
     optionSetEpics,
     orgUnitEpis,
-    programEpics,
-    dataDownloadEpics
+    programEpics
 )

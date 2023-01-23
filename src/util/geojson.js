@@ -1,33 +1,8 @@
-import FileSaver from 'file-saver' // https://github.com/eligrey/FileSaver.js
 import findIndex from 'lodash/findIndex'
 import { poleOfInaccessibility } from '../components/map/MapApi.js'
 import { isValidCoordinate } from './map.js'
 
-export const META_DATA_FORMAT_ID = 'ID'
-export const META_DATA_FORMAT_NAME = 'Name'
-export const META_DATA_FORMAT_CODE = 'Code'
-
 export const EVENT_ID_FIELD = 'psi'
-
-const standardizeFilename = (rawName) => rawName.replace(/\s+/g, '_')
-export const createGeoJsonBlob = (data) => {
-    const geojson = {
-        type: 'FeatureCollection',
-        features: data,
-    }
-
-    const blob = new Blob([JSON.stringify(geojson)], {
-        type: 'application/json;charset=utf-8',
-    })
-    return blob
-}
-
-export const downloadGeoJson = ({ name, data }) => {
-    FileSaver.saveAs(
-        createGeoJsonBlob(data),
-        standardizeFilename(name) + '.geojson'
-    )
-}
 
 // TODO: Remove name mapping logic, use server params DataIDScheme / OuputIDScheme instead
 /* eslint-disable max-params */
@@ -167,9 +142,3 @@ export const polygonsToPoints = (features) =>
             coordinates: poleOfInaccessibility(feature.geometry),
         },
     }))
-
-// export const downloadStyle = name => {
-//     const sld = createSld(); // TODO: Make generic
-//     const blob = new Blob([sld], { type: 'application/xml;charset=utf-8' });
-//     FileSaver.saveAs(blob, standardizeFilename(name) + '.sld');
-// };

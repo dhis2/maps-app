@@ -1,3 +1,4 @@
+/*
 import { getInstance as getD2 } from 'd2'
 import { combineEpics } from 'redux-observable'
 import { dataDownloadSuccess } from '../actions/dataDownload.js'
@@ -117,3 +118,4 @@ const downloadData = (action$) =>
     })
 
 export default combineEpics(downloadData)
+*/
