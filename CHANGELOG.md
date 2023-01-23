@@ -1,3 +1,31 @@
+## [1.27.7](https://github.com/dhis2/maps-app/compare/v1.27.6...v1.27.7) (2023-01-19)
+
+
+### Bug Fixes
+
+* maps-gl upgrade with svg symbols support ([#2456](https://github.com/dhis2/maps-app/issues/2456)) ([5486892](https://github.com/dhis2/maps-app/commit/54868922a27884ab9b93eaa7770701d87a484906))
+
+## [1.27.6](https://github.com/dhis2/maps-app/compare/v1.27.5...v1.27.6) (2023-01-16)
+
+
+### Bug Fixes
+
+* improved facility symbol handling (DHIS2-14438) ([#2423](https://github.com/dhis2/maps-app/issues/2423)) ([2a43892](https://github.com/dhis2/maps-app/commit/2a4389299e90260024f74bd4bd4c2b8430aa277b))
+
+## [1.27.5](https://github.com/dhis2/maps-app/compare/v1.27.4...v1.27.5) (2023-01-16)
+
+
+### Bug Fixes
+
+* useDataQuery in GroupStyleSelect ([#2443](https://github.com/dhis2/maps-app/issues/2443)) ([0d5e01a](https://github.com/dhis2/maps-app/commit/0d5e01ada6e452a1fc4af9de02ba5aadf44a0508))
+
+## [1.27.4](https://github.com/dhis2/maps-app/compare/v1.27.3...v1.27.4) (2023-01-13)
+
+
+### Bug Fixes
+
+* untitled map name ([#2438](https://github.com/dhis2/maps-app/issues/2438)) ([081f6fd](https://github.com/dhis2/maps-app/commit/081f6fda88e08927e5dae4ad023763fb7eac23ce))
+
 ## [1.27.3](https://github.com/dhis2/maps-app/compare/v1.27.2...v1.27.3) (2023-01-10)
 
 
