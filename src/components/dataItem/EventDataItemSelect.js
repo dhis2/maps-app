@@ -40,8 +40,9 @@ const EventDataItemSelect = ({
     errorText,
 }) => {
     const { nameProperty } = useUserSettings()
-    const { programAttributes, setProgramIdForProgramAttributes } =
-        useProgramTrackedEntityAttributes()
+    const { programAttributes } = useProgramTrackedEntityAttributes({
+        programId: program?.id,
+    })
     const { data, refetch: refetchProgramDataElements } = useDataQuery(
         PROGRAM_DATA_ELEMENTS_QUERY,
         {
@@ -52,14 +53,8 @@ const EventDataItemSelect = ({
     useEffect(() => {
         if (program) {
             refetchProgramDataElements({ id: program.id, nameProperty })
-            setProgramIdForProgramAttributes(program.id)
         }
-    }, [
-        program,
-        refetchProgramDataElements,
-        setProgramIdForProgramAttributes,
-        nameProperty,
-    ])
+    }, [program, refetchProgramDataElements, nameProperty])
 
     const dataItems = combineDataItems(
         programAttributes || [],
