@@ -143,6 +143,9 @@ msgstr ""
 msgid "Legend position"
 msgstr ""
 
+msgid "No organisation units are selected"
+msgstr ""
+
 msgid "Organisation Units"
 msgstr ""
 
@@ -153,9 +156,6 @@ msgid "Point color"
 msgstr ""
 
 msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
