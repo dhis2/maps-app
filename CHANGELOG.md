@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/dhis2/maps-app/compare/v1.27.7...v1.28.0) (2023-01-24)
+
+
+### Features
+
+* add option to include value in the label for Thematic layer ([#2357](https://github.com/dhis2/maps-app/issues/2357)) ([085dbed](https://github.com/dhis2/maps-app/commit/085dbeda10e7ca832aa168d5c24b45bc0324803e))
+
 ## [1.27.7](https://github.com/dhis2/maps-app/compare/v1.27.6...v1.27.7) (2023-01-19)
 
 

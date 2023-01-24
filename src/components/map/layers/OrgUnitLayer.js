@@ -1,6 +1,10 @@
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
-import { ORG_UNIT_COLOR, GEOJSON_LAYER } from '../../../constants/layers.js'
+import {
+    ORG_UNIT_COLOR,
+    GEOJSON_LAYER,
+    LABEL_TEMPLATE_NAME_ONLY,
+} from '../../../constants/layers.js'
 import { filterData } from '../../../util/filter.js'
 import { getLabelStyle } from '../../../util/labels.js'
 import Popup from '../Popup.js'
@@ -45,7 +49,7 @@ export default class OrgUnitLayer extends Layer {
         }
 
         if (labels) {
-            config.label = '{name}'
+            config.label = LABEL_TEMPLATE_NAME_ONLY
             config.labelStyle = getLabelStyle(this.props)
         }
 

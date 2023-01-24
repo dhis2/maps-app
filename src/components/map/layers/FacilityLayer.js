@@ -5,6 +5,7 @@ import {
     ORG_UNIT_COLOR,
     GEOJSON_LAYER,
     GROUP_LAYER,
+    LABEL_TEMPLATE_NAME_ONLY,
 } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
 import { filterData } from '../../../util/filter.js'
@@ -66,7 +67,7 @@ class FacilityLayer extends Layer {
 
         // Labels and label style
         if (labels) {
-            config.label = '{name}'
+            config.label = LABEL_TEMPLATE_NAME_ONLY
             config.labelStyle = {
                 ...getLabelStyle(this.props),
                 paddingTop: '10px',
