@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-01-17T09:17:02.025Z\n"
-"PO-Revision-Date: 2023-01-17T09:17:02.025Z\n"
+"POT-Creation-Date: 2023-01-24T00:21:31.920Z\n"
+"PO-Revision-Date: 2023-01-24T00:21:31.920Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -33,6 +33,18 @@ msgid "Color"
 msgstr ""
 
 msgid "Size"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Display"
 msgstr ""
 
 msgid "Data element group"
@@ -80,16 +92,10 @@ msgstr ""
 msgid "Org unit"
 msgstr ""
 
-msgid "Name"
-msgstr ""
-
 msgid "Id"
 msgstr ""
 
 msgid "Event time"
-msgstr ""
-
-msgid "Value"
 msgstr ""
 
 msgid "Legend"
