@@ -3,9 +3,8 @@ import { combineEpics } from 'redux-observable'
 import 'rxjs/add/operator/concatMap'
 import { errorActionCreator } from '../actions/helpers.js'
 import { setOrgUnitPath } from '../actions/layerEdit.js'
-import { setOrgUnitTree, setOrgUnitGroupSets } from '../actions/orgUnits.js'
+import { setOrgUnitTree } from '../actions/orgUnits.js'
 import * as types from '../constants/actionTypes.js'
-import { getDisplayPropertyUrl } from '../util/helpers.js'
 
 export const loadOrgUnitTree = (action$) =>
     action$.ofType(types.ORGANISATION_UNIT_TREE_LOAD).concatMap(() =>
@@ -21,26 +20,6 @@ export const loadOrgUnitTree = (action$) =>
                 setOrgUnitTree(modelCollection.toArray())
             )
             .catch(errorActionCreator(types.ORGANISATION_UNIT_TREE_LOAD_ERROR))
-    )
-
-export const loadOrgUnitGroupSets = (action$) =>
-    action$.ofType(types.ORGANISATION_UNIT_GROUP_SETS_LOAD).concatMap(() =>
-        getD2()
-            .then((d2) =>
-                d2.models.organisationUnitGroupSets.list({
-                    fields: `id,${getDisplayPropertyUrl(d2)}`,
-                    paging: false,
-                })
-            )
-            .then((groupSets) =>
-                groupSets.toArray().map(({ id, name }) => ({ id, name }))
-            )
-            .then(setOrgUnitGroupSets)
-            .catch(
-                errorActionCreator(
-                    types.ORGANISATION_UNIT_GROUP_SETS_LOAD_ERROR
-                )
-            )
     )
 
 // Load organisation unit tree path (temporary solution, as favorites don't include paths)
@@ -62,8 +41,4 @@ export const loadOrgUnitPath = (action$) =>
                 )
         )
 
-export default combineEpics(
-    loadOrgUnitTree,
-    loadOrgUnitGroupSets,
-    loadOrgUnitPath
-)
+export default combineEpics(loadOrgUnitTree, loadOrgUnitPath)

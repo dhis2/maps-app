@@ -1,3 +1,10 @@
+## [1.27.7](https://github.com/dhis2/maps-app/compare/v1.27.6...v1.27.7) (2023-01-19)
+
+
+### Bug Fixes
+
+* maps-gl upgrade with svg symbols support ([#2456](https://github.com/dhis2/maps-app/issues/2456)) ([5486892](https://github.com/dhis2/maps-app/commit/54868922a27884ab9b93eaa7770701d87a484906))
+
 ## [1.27.6](https://github.com/dhis2/maps-app/compare/v1.27.5...v1.27.6) (2023-01-16)
 
 
