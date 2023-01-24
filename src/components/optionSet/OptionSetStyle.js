@@ -57,7 +57,7 @@ const OptionSetStyle = ({ styledOptionSet }) => {
     }, [styledOptionSet, fetchOptionSet])
 
     useEffect(() => {
-        if (!styledOptionSet.options && options) {
+        if (!styledOptions && options) {
             if (options.length <= MAX_OPTIONS) {
                 // Set default options style
                 dispatch(setOptionStyle(options.map(addOptionStyle)))
@@ -73,7 +73,7 @@ const OptionSetStyle = ({ styledOptionSet }) => {
                 )
             }
         }
-    }, [styledOptionSet, options, dispatch])
+    }, [styledOptions, options, dispatch])
 
     return (
         <div className={styles.optionSetStyle}>
