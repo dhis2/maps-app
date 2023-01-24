@@ -30,22 +30,17 @@ const CoordinateField = ({
         }
     }, [program, onChange])
 
-    if (loading) {
-        return null
-    }
-
     let fields = [
         { id: EVENT_COORDINATE_FIELD_ID, name: i18n.t('Event location') },
     ]
 
     fields = eventDataItems ? fields.concat(eventDataItems) : fields
 
-    if (value && !fields.find((f) => f.id === value)) {
-        return null
-    }
+    const isLoading = loading || (value && !fields.find((f) => f.id === value))
 
     return (
         <SelectField
+            loading={isLoading}
             label={i18n.t('Coordinate field')}
             items={fields}
             value={
