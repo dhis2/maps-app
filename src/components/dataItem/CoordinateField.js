@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
 
@@ -20,6 +20,15 @@ const CoordinateField = ({
         programStageId: programStage?.id,
         includeTypes,
     })
+
+    const prevProgram = useRef(program)
+
+    useEffect(() => {
+        if (prevProgram.current !== program) {
+            onChange(EVENT_COORDINATE_FIELD_ID)
+            prevProgram.current = program
+        }
+    }, [program, onChange])
 
     if (loading) {
         return null
