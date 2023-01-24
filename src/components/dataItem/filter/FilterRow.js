@@ -18,7 +18,8 @@ const FilterRow = ({
         return null
     }
 
-    const dataItem = dimension && dataItems.filter((d) => d.id === dimension)[0]
+    const dataItem = dataItems.find((d) => d.id === dimension) || {}
+    const { valueType, optionSet } = dataItem || {}
 
     const onSelect = ({ id }, newFilter) => {
         const name = dataItems.filter((d) => d.id === id)[0].name
@@ -48,9 +49,10 @@ const FilterRow = ({
                 onChange={onSelect}
                 className={styles.dataItemSelect}
             />
-            {dimension && (
+            {valueType && (
                 <FilterSelect
-                    {...dataItem}
+                    valueType={valueType}
+                    optionSetId={optionSet?.id}
                     filter={filter}
                     onChange={(newFilter) =>
                         onSelect({ id: dimension }, newFilter)

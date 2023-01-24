@@ -17,7 +17,7 @@ import {
 import OptionSetSelect from '../../optionSet/OptionSetSelect.js'
 import styles from './styles/FilterSelect.module.css'
 
-const getOperators = (valueType, optionSet) => {
+const getOperators = (valueType, optionSetId) => {
     let operators
 
     if (['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(valueType)) {
@@ -29,7 +29,7 @@ const getOperators = (valueType, optionSet) => {
             { id: 'LE', name: '<=' },
             { id: 'NE', name: '!=' },
         ]
-    } else if (optionSet) {
+    } else if (optionSetId) {
         operators = [{ id: 'IN', name: i18n.t('one of') }]
     } else if (textValueTypes.includes(valueType)) {
         operators = [
@@ -42,9 +42,9 @@ const getOperators = (valueType, optionSet) => {
     return operators
 }
 
-const FilterSelect = ({ valueType, filter, optionSet, onChange }) => {
+const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
     const { options, fetchOptionSet } = useOptionSet()
-    const operators = getOperators(valueType, optionSet)
+    const operators = getOperators(valueType, optionSetId)
     let operator
     let value
 
@@ -57,10 +57,10 @@ const FilterSelect = ({ valueType, filter, optionSet, onChange }) => {
     }
 
     useEffect(() => {
-        if (optionSet) {
-            fetchOptionSet({ id: optionSet.id })
+        if (optionSetId) {
+            fetchOptionSet({ id: optionSetId })
         }
-    }, [optionSet, fetchOptionSet])
+    }, [optionSetId, fetchOptionSet])
 
     return (
         <Fragment>
@@ -75,7 +75,7 @@ const FilterSelect = ({ valueType, filter, optionSet, onChange }) => {
                     className={styles.operator}
                 />
             )}
-            {optionSet && options && (
+            {optionSetId && options && (
                 <OptionSetSelect
                     options={options}
                     value={value ? value.split(';') : null}
@@ -93,7 +93,7 @@ const FilterSelect = ({ valueType, filter, optionSet, onChange }) => {
                     className={styles.inputField}
                 />
             )}
-            {textValueTypes.includes(valueType) && !optionSet && (
+            {textValueTypes.includes(valueType) && !optionSetId && (
                 <TextField
                     label={i18n.t('Value')}
                     value={value || ''}
@@ -124,12 +124,10 @@ const FilterSelect = ({ valueType, filter, optionSet, onChange }) => {
 }
 
 FilterSelect.propTypes = {
+    optionSetId: PropTypes.string.isRequired,
+    valueType: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     filter: PropTypes.string,
-    optionSet: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }),
-    valueType: PropTypes.string,
 }
 
 export default FilterSelect
