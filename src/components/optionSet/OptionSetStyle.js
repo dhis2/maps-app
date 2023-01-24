@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { Help, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setOptionStyle } from '../../actions/layerEdit.js'
 import { qualitativeColors } from '../../constants/colors.js'
