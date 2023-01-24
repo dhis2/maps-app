@@ -71,16 +71,46 @@ msgstr ""
 msgid "Coordinate field"
 msgstr ""
 
+msgid "Event data item"
+msgstr ""
+
 msgid "None"
+msgstr ""
+
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
 msgstr ""
 
 msgid "Data item"
 msgstr ""
 
-msgid "Event data item"
+msgid "one of"
 msgstr ""
 
-msgid "Style by data element"
+msgid "contains"
+msgstr ""
+
+msgid "is"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Date"
 msgstr ""
 
 msgid "Data set"
@@ -114,9 +144,6 @@ msgid "Type"
 msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
-
-msgid "Add filter"
 msgstr ""
 
 msgid "Items"
@@ -454,27 +481,6 @@ msgid "Show technical details"
 msgstr ""
 
 msgid "The following information may be requested by technical support."
-msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-msgid "contains"
-msgstr ""
-
-msgid "is"
-msgstr ""
-
-msgid "is not"
-msgstr ""
-
-msgid "Operator"
-msgstr ""
-
-msgid "Date"
 msgstr ""
 
 msgid "Remove filter"
