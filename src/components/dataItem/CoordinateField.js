@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useEventDataItems } from '../../hooks/useEventDataItems.js'
 import { SelectField } from '../core/index.js'
 
@@ -15,23 +15,25 @@ const CoordinateField = ({
     onChange,
     className,
 }) => {
-    const { eventDataItems } = useEventDataItems({
+    const { eventDataItems, loading } = useEventDataItems({
         programId: program?.id,
         programStageId: programStage?.id,
         includeTypes,
     })
 
-    useEffect(() => {
-        if (program) {
-            onChange(EVENT_COORDINATE_FIELD_ID)
-        }
-    }, [program, onChange])
+    if (loading) {
+        return null
+    }
 
     let fields = [
         { id: EVENT_COORDINATE_FIELD_ID, name: i18n.t('Event location') },
     ]
 
     fields = eventDataItems ? fields.concat(eventDataItems) : fields
+
+    if (value && !fields.find((f) => f.id === value)) {
+        return null
+    }
 
     return (
         <SelectField
