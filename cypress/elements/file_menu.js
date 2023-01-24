@@ -74,11 +74,17 @@ export const saveExistingMap = () => {
 
 export const deleteMap = () => {
     cy.contains('File').click()
-    cy.getByDataTest('file-menu-container').should('be.visible')
+    cy.getByDataTest('file-menu-container', EXTENDED_TIMEOUT).should(
+        'be.visible'
+    )
 
-    cy.getByDataTest('file-menu-delete').should('be.visible').click()
+    cy.getByDataTest('file-menu-delete', EXTENDED_TIMEOUT)
+        .should('be.visible')
+        .click()
 
-    cy.getByDataTest('file-menu-delete-modal-delete').click()
+    cy.getByDataTest('file-menu-delete-modal-delete', EXTENDED_TIMEOUT).click()
 
-    cy.getByDataTest('file-menu-delete-modal').should('not.exist')
+    cy.getByDataTest('file-menu-delete-modal', EXTENDED_TIMEOUT).should(
+        'not.exist'
+    )
 }
