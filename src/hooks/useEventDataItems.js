@@ -9,10 +9,12 @@ export const useEventDataItems = ({
     includeTypes,
     excludeTypes,
 }) => {
-    const { dataElements } = useProgramStageDataElements({ programStageId })
-    const { programAttributes } = useProgramTrackedEntityAttributes({
-        programId,
-    })
+    const { dataElements, loading: dataElementsLoading } =
+        useProgramStageDataElements({ programStageId })
+    const { programAttributes, loading: attributesLoading } =
+        useProgramTrackedEntityAttributes({
+            programId,
+        })
 
     const eventDataItems = useMemo(() => {
         if (dataElements !== null && programAttributes !== null) {
@@ -28,5 +30,6 @@ export const useEventDataItems = ({
 
     return {
         eventDataItems,
+        loading: dataElementsLoading || attributesLoading,
     }
 }

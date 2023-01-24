@@ -22,18 +22,21 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
     const [programAttributes, setProgramAttributes] = useState(null)
     const { nameProperty } = useUserSettings()
 
-    const { refetch } = useDataQuery(PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY, {
-        lazy: true,
-        variables: { nameProperty },
-        onComplete: (data) => {
-            const attributes =
-                data.trackedEntityAttributes.programTrackedEntityAttributes.map(
-                    (attr) => attr.trackedEntityAttribute
-                )
+    const { refetch, loading } = useDataQuery(
+        PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
+        {
+            lazy: true,
+            variables: { nameProperty },
+            onComplete: (data) => {
+                const attributes =
+                    data.trackedEntityAttributes.programTrackedEntityAttributes.map(
+                        (attr) => attr.trackedEntityAttribute
+                    )
 
-            setProgramAttributes(getValidDataItems(attributes))
-        },
-    })
+                setProgramAttributes(getValidDataItems(attributes))
+            },
+        }
+    )
 
     useEffect(() => {
         setProgramAttributes(null)
@@ -47,5 +50,6 @@ export const useProgramTrackedEntityAttributes = ({ programId }) => {
 
     return {
         programAttributes,
+        loading,
     }
 }
