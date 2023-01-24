@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { Help, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setOptionStyle } from '../../actions/layerEdit.js'
 import { qualitativeColors } from '../../constants/colors.js'
@@ -22,14 +22,20 @@ const addOptionStyle = (option, index) => ({
 })
 
 const OptionSetStyle = ({ styledOptionSet }) => {
-    const { options, fetchOptionSet } = useOptionSet()
+    const { optionSet, fetchOptionSet } = useOptionSet()
     const [warning, setWarning] = useState()
     const dispatch = useDispatch()
+
+    const options = useMemo(
+        () => (styledOptionSet.id === optionSet?.id ? optionSet.options : null),
+        [styledOptionSet, optionSet]
+    )
 
     const onChange = useCallback(
         (id, color) => {
             dispatch(
                 setOptionStyle(
+                    // Update options style
                     styledOptionSet.options.map((option) =>
                         option.id === id
                             ? {
@@ -53,6 +59,7 @@ const OptionSetStyle = ({ styledOptionSet }) => {
     useEffect(() => {
         if (!styledOptionSet.options && options) {
             if (options.length <= MAX_OPTIONS) {
+                // Set default options style
                 dispatch(setOptionStyle(options.map(addOptionStyle)))
             } else {
                 setWarning(

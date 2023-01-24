@@ -1,7 +1,7 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 
 const OPTION_SET_QUERY = {
-    set: {
+    optionSet: {
         resource: 'optionSets',
         id: ({ id }) => id,
         params: {
@@ -21,7 +21,7 @@ const useOptionSet = () => {
     })
 
     return {
-        options: data?.set.options,
+        optionSet: data?.optionSet,
         fetchOptionSet: refetch,
         error,
         loading,

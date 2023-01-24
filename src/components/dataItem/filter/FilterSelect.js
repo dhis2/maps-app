@@ -43,7 +43,7 @@ const getOperators = (valueType, optionSetId) => {
 }
 
 const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
-    const { options, fetchOptionSet } = useOptionSet()
+    const { optionSet, fetchOptionSet } = useOptionSet()
     const operators = getOperators(valueType, optionSetId)
     let operator
     let value
@@ -75,9 +75,9 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
                     className={styles.operator}
                 />
             )}
-            {optionSetId && options && (
+            {optionSetId && optionSet?.options && (
                 <OptionSetSelect
-                    options={options}
+                    options={optionSet?.options}
                     value={value ? value.split(';') : null}
                     onChange={(newValue) =>
                         onChange(`${operator}:${newValue.join(';')}`)
