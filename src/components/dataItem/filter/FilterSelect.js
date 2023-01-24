@@ -5,16 +5,16 @@ import {
     numberValueTypes,
     textValueTypes,
     booleanValueTypes,
-} from '../../constants/valueTypes.js'
-import useOptionSet from '../../hooks/useOptionSet.js'
+} from '../../../constants/valueTypes.js'
+import useOptionSet from '../../../hooks/useOptionSet.js'
 import {
     SelectField,
     NumberField,
     TextField,
     Checkbox,
     DatePicker,
-} from '../core/index.js'
-import OptionSetSelect from '../optionSet/OptionSetSelect.js'
+} from '../../core/index.js'
+import OptionSetSelect from '../../optionSet/OptionSetSelect.js'
 import styles from './styles/FilterSelect.module.css'
 
 const getOperators = (valueType, optionSet) => {
