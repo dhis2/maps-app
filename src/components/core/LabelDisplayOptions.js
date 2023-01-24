@@ -26,7 +26,7 @@ const getLabelDisplayOptions = () => [
 const LabelDisplayOptions = ({ option, onDisplayOptionChange }) => {
     return (
         <SelectField
-            label={i18n.t('Label display option')}
+            label={i18n.t('Display')}
             loading={false}
             items={getLabelDisplayOptions()}
             value={option || null}
