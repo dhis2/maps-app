@@ -48,14 +48,6 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
     let operator
     let value
 
-    const options = useMemo(
-        () =>
-            optionSetId && optionSetId === optionSet?.id
-                ? optionSet.options
-                : null,
-        [optionSetId, optionSet]
-    )
-
     if (filter) {
         const splitFilter = filter.split(':')
         operator = splitFilter[0]
@@ -69,6 +61,9 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
             fetchOptionSet({ id: optionSetId })
         }
     }, [optionSetId, fetchOptionSet])
+
+    const options =
+        optionSetId && optionSetId === optionSet?.id ? optionSet.options : null
 
     return (
         <Fragment>

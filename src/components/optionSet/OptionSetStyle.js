@@ -26,10 +26,10 @@ const OptionSetStyle = ({ styledOptionSet }) => {
     const [warning, setWarning] = useState()
     const dispatch = useDispatch()
 
-    const options = useMemo(
-        () => (styledOptionSet.id === optionSet?.id ? optionSet.options : null),
-        [styledOptionSet, optionSet]
-    )
+    const options =
+        styledOptionSet.id === optionSet?.id ? optionSet.options : null
+
+    const styledOptions = styledOptionSet?.options
 
     const onChange = useCallback(
         (id, color) => {
@@ -77,8 +77,8 @@ const OptionSetStyle = ({ styledOptionSet }) => {
 
     return (
         <div className={styles.optionSetStyle}>
-            {styledOptionSet.options ? (
-                styledOptionSet.options.map(({ id, name, style }) => (
+            {styledOptions ? (
+                styledOptions.map(({ id, name, style }) => (
                     <OptionStyle
                         key={id}
                         name={name}
