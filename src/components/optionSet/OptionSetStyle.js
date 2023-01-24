@@ -21,7 +21,7 @@ const addOptionStyle = (option, index) => ({
     },
 })
 
-const OptionSetStyle = ({ optionSet }) => {
+const OptionSetStyle = ({ styledOptionSet }) => {
     const { options, fetchOptionSet } = useOptionSet()
     const [warning, setWarning] = useState()
     const dispatch = useDispatch()
@@ -30,7 +30,7 @@ const OptionSetStyle = ({ optionSet }) => {
         (id, color) => {
             dispatch(
                 setOptionStyle(
-                    optionSet.options.map((option) =>
+                    styledOptionSet.options.map((option) =>
                         option.id === id
                             ? {
                                   ...option,
@@ -43,15 +43,15 @@ const OptionSetStyle = ({ optionSet }) => {
                 )
             )
         },
-        [optionSet, dispatch]
+        [styledOptionSet, dispatch]
     )
 
     useEffect(() => {
-        fetchOptionSet({ id: optionSet.id })
-    }, [optionSet, fetchOptionSet])
+        fetchOptionSet({ id: styledOptionSet.id })
+    }, [styledOptionSet, fetchOptionSet])
 
     useEffect(() => {
-        if (!optionSet.options && options) {
+        if (!styledOptionSet.options && options) {
             if (options.length <= MAX_OPTIONS) {
                 dispatch(setOptionStyle(options.map(addOptionStyle)))
             } else {
@@ -66,12 +66,12 @@ const OptionSetStyle = ({ optionSet }) => {
                 )
             }
         }
-    }, [optionSet, options, dispatch])
+    }, [styledOptionSet, options, dispatch])
 
     return (
         <div className={styles.optionSetStyle}>
-            {optionSet.options ? (
-                optionSet.options.map(({ id, name, style }) => (
+            {styledOptionSet.options ? (
+                styledOptionSet.options.map(({ id, name, style }) => (
                     <OptionStyle
                         key={id}
                         name={name}
@@ -89,9 +89,9 @@ const OptionSetStyle = ({ optionSet }) => {
 }
 
 OptionSetStyle.propTypes = {
-    optionSet: PropTypes.shape({
+    styledOptionSet: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        options: PropTypes.arryay,
+        options: PropTypes.array,
     }).isRequired,
 }
 

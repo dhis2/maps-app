@@ -18,7 +18,7 @@ const FilterRow = ({
         return null
     }
 
-    const dataItem = dataItems.find((d) => d.id === dimension) || {}
+    const dataItem = dataItems.find((d) => d.id === dimension)
     const { valueType, optionSet } = dataItem || {}
 
     const onSelect = ({ id }, newFilter) => {
