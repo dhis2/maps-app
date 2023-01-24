@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useMemo, useEffect } from 'react'
 import {
     numberValueTypes,
     textValueTypes,
@@ -48,6 +48,14 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
     let operator
     let value
 
+    const options = useMemo(
+        () =>
+            optionSetId && optionSetId === optionSet?.id
+                ? optionSet.options
+                : null,
+        [optionSetId, optionSet]
+    )
+
     if (filter) {
         const splitFilter = filter.split(':')
         operator = splitFilter[0]
@@ -75,9 +83,9 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
                     className={styles.operator}
                 />
             )}
-            {optionSetId && optionSet?.options && (
+            {options && (
                 <OptionSetSelect
-                    options={optionSet?.options}
+                    options={options}
                     value={value ? value.split(';') : null}
                     onChange={(newValue) =>
                         onChange(`${operator}:${newValue.join(';')}`)
@@ -124,10 +132,10 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
 }
 
 FilterSelect.propTypes = {
-    optionSetId: PropTypes.string.isRequired,
     valueType: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     filter: PropTypes.string,
+    optionSetId: PropTypes.string,
 }
 
 export default FilterSelect
