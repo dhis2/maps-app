@@ -48,7 +48,7 @@
 
 .flexInnerColumnFlow > div {
     flex: 1;
-    margin: var(--spacers-dp8);
+    margin: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
 }
 
 .flexInnerColumn {
@@ -162,4 +162,8 @@
 
 .eeNotice {
     font-weight: bold;
+}
+
+.labelDisplayOptions {
+    margin-left: 23px;
 }

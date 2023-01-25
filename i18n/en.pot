@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-01-23T12:40:44.650Z\n"
-"PO-Revision-Date: 2023-01-23T12:40:44.650Z\n"
+"POT-Creation-Date: 2023-01-24T00:21:31.920Z\n"
+"PO-Revision-Date: 2023-01-24T00:21:31.920Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -35,6 +35,18 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
+msgid "Name and value"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
 msgid "Data element group"
 msgstr ""
 
@@ -59,16 +71,46 @@ msgstr ""
 msgid "Coordinate field"
 msgstr ""
 
+msgid "Event data item"
+msgstr ""
+
 msgid "None"
+msgstr ""
+
+msgid "Selected value not available in in list: {{name}}"
+msgstr ""
+
+msgid "Style by data element"
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Add filter"
 msgstr ""
 
 msgid "Data item"
 msgstr ""
 
-msgid "Event data item"
+msgid "one of"
 msgstr ""
 
-msgid "Style by data element"
+msgid "contains"
+msgstr ""
+
+msgid "is"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "Operator"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Date"
 msgstr ""
 
 msgid "Data set"
@@ -80,16 +122,10 @@ msgstr ""
 msgid "Org unit"
 msgstr ""
 
-msgid "Name"
-msgstr ""
-
 msgid "Id"
 msgstr ""
 
 msgid "Event time"
-msgstr ""
-
-msgid "Value"
 msgstr ""
 
 msgid "Legend"
@@ -108,9 +144,6 @@ msgid "Type"
 msgstr ""
 
 msgid "Data table is not supported when events are grouped on the server."
-msgstr ""
-
-msgid "Add filter"
 msgstr ""
 
 msgid "Items"
@@ -143,6 +176,9 @@ msgstr ""
 msgid "Legend position"
 msgstr ""
 
+msgid "No organisation units are selected"
+msgstr ""
+
 msgid "Organisation Units"
 msgstr ""
 
@@ -153,9 +189,6 @@ msgid "Point color"
 msgstr ""
 
 msgid "Point radius"
-msgstr ""
-
-msgid "No organisation units are selected"
 msgstr ""
 
 msgid "event"
@@ -448,27 +481,6 @@ msgid "Show technical details"
 msgstr ""
 
 msgid "The following information may be requested by technical support."
-msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-
-msgid "one of"
-msgstr ""
-
-msgid "contains"
-msgstr ""
-
-msgid "is"
-msgstr ""
-
-msgid "is not"
-msgstr ""
-
-msgid "Operator"
-msgstr ""
-
-msgid "Date"
 msgstr ""
 
 msgid "Remove filter"

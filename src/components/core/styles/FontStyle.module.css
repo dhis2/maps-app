@@ -3,7 +3,6 @@
     align-items: flex-end;
     margin-bottom: var(--spacers-dp8);
     padding-left: 23px;
-    margin-top: -12px;
 }
 
 .fontStyle > * {

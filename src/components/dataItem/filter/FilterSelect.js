@@ -2,20 +2,20 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Fragment, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loadOptionSet } from '../../actions/optionSets.js'
+import { loadOptionSet } from '../../../actions/optionSets.js'
 import {
     numberValueTypes,
     textValueTypes,
     booleanValueTypes,
-} from '../../constants/valueTypes.js'
+} from '../../../constants/valueTypes.js'
 import {
     SelectField,
     NumberField,
     TextField,
     Checkbox,
     DatePicker,
-} from '../core/index.js'
-import OptionSetSelect from '../optionSet/OptionSetSelect.js'
+} from '../../core/index.js'
+import OptionSetSelect from '../../optionSet/OptionSetSelect.js'
 import styles from './styles/FilterSelect.module.css'
 
 const getOperators = (valueType, optionSet) => {

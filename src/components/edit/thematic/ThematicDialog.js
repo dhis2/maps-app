@@ -536,7 +536,7 @@ class ThematicDialog extends Component {
                                         className={styles.numberField}
                                     />
                                 </div>
-                                <Labels />
+                                <Labels includeDisplayOption={true} />
                             </div>
                             <div className={styles.flexColumn}>
                                 <NumericLegendStyle
