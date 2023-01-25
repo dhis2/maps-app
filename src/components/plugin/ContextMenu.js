@@ -23,8 +23,6 @@ const ContextMenu = (props) => {
         onDrill,
         onClose,
     } = props
-    // console.log('ContextMenu', container)
-
     const anchorRef = useRef()
     const [anchorPosition, setAnchorPosition] = useState()
 
@@ -46,14 +44,7 @@ const ContextMenu = (props) => {
         }
     }, [position, offset, container, isSplitView])
 
-    if (!position || !feature) {
-        // console.log('return null')
-        return null
-    }
-
-    // const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties
-
-    console.log('#####', anchorRef.current)
+    const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties
 
     return (
         <>
@@ -68,38 +59,38 @@ const ContextMenu = (props) => {
                 placement="right"
                 onClickOutside={onClose}
             >
-                <div>sadfdsfwefwefwefwefqwfewfwefew</div>
+                <div className={styles.menu}>
+                    <ConditionalWrapper
+                        condition={isOffline}
+                        wrapper={(children) => (
+                            <Tooltip content={i18n.t('Not available offline')}>
+                                {children}
+                            </Tooltip>
+                        )}
+                    >
+                        <Menu dense>
+                            <MenuItem
+                                label={i18n.t('Drill up one level')}
+                                icon={<IconArrowUp16 />}
+                                disabled={!hasCoordinatesUp || isOffline}
+                                onClick={() => onDrill('up')}
+                            />
+                            <MenuItem
+                                label={i18n.t('Drill down one level')}
+                                icon={<IconArrowDown16 />}
+                                disabled={!hasCoordinatesDown || isOffline}
+                                onClick={() => onDrill('down')}
+                            />
+                        </Menu>
+                    </ConditionalWrapper>
+                </div>
             </Popover>
         </>
     )
 }
 
 /*
-<div className={styles.menu}>
-<ConditionalWrapper
-    condition={isOffline}
-    wrapper={(children) => (
-        <Tooltip content={i18n.t('Not available offline')}>
-            {children}
-        </Tooltip>
-    )}
->
-    <Menu dense>
-        <MenuItem
-            label={i18n.t('Drill up one level')}
-            icon={<IconArrowUp16 />}
-            disabled={!hasCoordinatesUp || isOffline}
-            onClick={() => onDrill('up')}
-        />
-        <MenuItem
-            label={i18n.t('Drill down one level')}
-            icon={<IconArrowDown16 />}
-            disabled={!hasCoordinatesDown || isOffline}
-            onClick={() => onDrill('down')}
-        />
-    </Menu>
-</ConditionalWrapper>
-</div>
+
 */
 
 ContextMenu.propTypes = {

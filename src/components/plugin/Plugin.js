@@ -18,19 +18,10 @@ const defaultBounds = [
 const Plugin = forwardRef((props, ref) => {
     const { offline } = useOnlineStatus()
     const [mapViews, setMapViews] = useState(props.mapViews)
-    const [contextMenu, setContextMenu] = useState({})
+    const [contextMenu, setContextMenu] = useState()
     const [resizeCount] = useState(0)
 
     const { name, basemap, hideTitle, controls } = props
-    // const { position, offset, feature, isSplitView, container } = contextMenu
-
-    /*    
-    const onCloseContextMenu = () =>
-        setContextMenuState({
-            position: null,
-            feature: null,
-        })
-    */
 
     const onDrill = async (direction) => {
         const { layerId, feature } = contextMenu
@@ -74,10 +65,6 @@ const Plugin = forwardRef((props, ref) => {
         }
     }
 
-    // console.log('contextMenuState', contextMenu.ref, contextMenu)
-    const { position, offset, feature, isSplitView, container } = contextMenu
-    // {...contextMenu}
-
     return (
         <div ref={ref} className={`dhis2-map-plugin ${styles.plugin}`}>
             <CssReset />
@@ -94,16 +81,14 @@ const Plugin = forwardRef((props, ref) => {
                 resizeCount={resizeCount}
             />
             <Legend layers={mapViews} />
-            <ContextMenu
-                feature={feature}
-                position={position}
-                offset={offset}
-                onDrill={onDrill}
-                onClose={() => setContextMenu()}
-                isOffline={offline}
-                isSplitView={isSplitView}
-                container={container}
-            />
+            {contextMenu && (
+                <ContextMenu
+                    {...contextMenu}
+                    onDrill={onDrill}
+                    onClose={() => setContextMenu()}
+                    isOffline={offline}
+                />
+            )}
         </div>
     )
 })
