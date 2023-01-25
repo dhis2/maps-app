@@ -89,10 +89,6 @@ const ContextMenu = (props) => {
     )
 }
 
-/*
-
-*/
-
 ContextMenu.propTypes = {
     onClose: PropTypes.func.isRequired,
     onDrill: PropTypes.func.isRequired,

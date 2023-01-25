@@ -1,7 +1,7 @@
 import { useOnlineStatus } from '@dhis2/app-runtime'
 import { CssReset, CssVariables } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useState, useEffect } from 'react'
 import { fetchLayer } from '../../loaders/layers.js'
 import { drillUpDown } from '../../util/map.js'
 import MapView from '../map/MapView.js'
@@ -19,9 +19,11 @@ const Plugin = forwardRef((props, ref) => {
     const { offline } = useOnlineStatus()
     const [mapViews, setMapViews] = useState(props.mapViews)
     const [contextMenu, setContextMenu] = useState()
-    const [resizeCount] = useState(0)
+    const [resizeCount, setResizeCount] = useState(0)
 
-    const { name, basemap, hideTitle, controls } = props
+    const { name, basemap, hideTitle, controls, getResizeFunction } = props
+
+    const onResize = () => setResizeCount((state) => state + 1)
 
     const onDrill = async (direction) => {
         const { layerId, feature } = contextMenu
@@ -65,6 +67,13 @@ const Plugin = forwardRef((props, ref) => {
         }
     }
 
+    // TODO: Remove when map.js is refactored
+    useEffect(() => {
+        if (getResizeFunction) {
+            getResizeFunction(onResize)
+        }
+    }, [getResizeFunction])
+
     return (
         <div ref={ref} className={`dhis2-map-plugin ${styles.plugin}`}>
             <CssReset />
@@ -98,6 +107,7 @@ Plugin.displayName = 'Plugin'
 Plugin.propTypes = {
     basemap: PropTypes.object,
     controls: PropTypes.array,
+    getResizeFunction: PropTypes.func,
     hideTitle: PropTypes.bool,
     mapViews: PropTypes.array,
     name: PropTypes.string,
