@@ -1,13 +1,11 @@
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import {
-    loadProgramTrackedEntityAttributes,
-    loadProgramDataElements,
-} from '../../actions/programs.js'
+import React, { useEffect } from 'react'
+import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
 import { combineDataItems } from '../../util/analytics.js'
 import { SelectField } from '../core/index.js'
+import { useUserSettings } from '../UserSettingsProvider.js'
 
 const excludeValueTypes = [
     'FILE_RESOURCE',
@@ -16,89 +14,78 @@ const excludeValueTypes = [
     'DATE',
     'TEXT',
     'BOOLEAN',
+    'LONG_TEXT',
 ]
 
-// Used in thematic layer dialog
-class EventDataItemSelect extends Component {
-    static propTypes = {
-        dataElements: PropTypes.object.isRequired,
-        loadProgramDataElements: PropTypes.func.isRequired,
-        loadProgramTrackedEntityAttributes: PropTypes.func.isRequired,
-        programAttributes: PropTypes.object.isRequired,
-        onChange: PropTypes.func.isRequired,
-        className: PropTypes.string,
-        dataItem: PropTypes.object,
-        errorText: PropTypes.string,
-        program: PropTypes.shape({
-            id: PropTypes.string.isRequired,
+const PROGRAM_DATA_ELEMENTS_QUERY = {
+    programDataElements: {
+        resource: 'programDataElements',
+        params: ({ id, nameProperty }) => ({
+            program: id,
+            fields: [
+                'dimensionItem~rename(id)',
+                `${nameProperty}~rename(name)`,
+                'valueType',
+            ],
+            paging: false,
         }),
-    }
-
-    componentDidMount() {
-        this.loadDataItems()
-    }
-
-    componentDidUpdate() {
-        this.loadDataItems()
-    }
-
-    // TODO: Make sure data load is only triggered once
-    loadDataItems() {
-        const {
-            program,
-            programAttributes,
-            dataElements,
-            loadProgramTrackedEntityAttributes,
-            loadProgramDataElements,
-        } = this.props
-
-        if (program && !programAttributes[program.id]) {
-            loadProgramTrackedEntityAttributes(program.id)
-        }
-
-        if (program && !dataElements[program.id]) {
-            loadProgramDataElements(program.id)
-        }
-    }
-
-    render() {
-        const {
-            dataItem,
-            program,
-            programAttributes,
-            dataElements,
-            onChange,
-            className,
-            errorText,
-        } = this.props
-
-        const dataItems = combineDataItems(
-            programAttributes[program.id],
-            dataElements[program.id],
-            null,
-            excludeValueTypes
-        ).map((item) => ({
-            ...item,
-            id: !item.id.includes('.') ? `${program.id}.${item.id}` : item.id, // Add program id to tracked entity attributes
-        }))
-
-        return (
-            <SelectField
-                label={i18n.t('Event data item')}
-                items={dataItems}
-                value={dataItem ? dataItem.id : null}
-                onChange={(dataItem) => onChange(dataItem, 'eventDataItem')}
-                className={className}
-                errorText={!dataItem && errorText ? errorText : null}
-            />
-        )
-    }
+    },
 }
 
-export default connect(
-    (state) => ({
-        programAttributes: state.programTrackedEntityAttributes,
-        dataElements: state.programDataElements,
+const EventDataItemSelect = ({
+    dataItem,
+    program,
+    onChange,
+    className,
+    errorText,
+}) => {
+    const { nameProperty } = useUserSettings()
+    const { programAttributes } = useProgramTrackedEntityAttributes({
+        programId: program?.id,
+    })
+    const { data, refetch: refetchProgramDataElements } = useDataQuery(
+        PROGRAM_DATA_ELEMENTS_QUERY,
+        {
+            lazy: true,
+        }
+    )
+
+    useEffect(() => {
+        if (program) {
+            refetchProgramDataElements({ id: program.id, nameProperty })
+        }
+    }, [program, refetchProgramDataElements, nameProperty])
+
+    const dataItems = combineDataItems(
+        programAttributes || [],
+        data?.programDataElements.programDataElements || [],
+        null,
+        excludeValueTypes
+    ).map((item) => ({
+        ...item,
+        id: !item.id.includes('.') ? `${program.id}.${item.id}` : item.id, // Add program id to tracked entity attributes
+    }))
+
+    return (
+        <SelectField
+            label={i18n.t('Event data item')}
+            items={dataItems}
+            value={dataItem ? dataItem.id : null}
+            onChange={(dataItem) => onChange(dataItem, 'eventDataItem')}
+            className={className}
+            errorText={!dataItem && errorText ? errorText : null}
+        />
+    )
+}
+
+EventDataItemSelect.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    dataItem: PropTypes.object,
+    errorText: PropTypes.string,
+    program: PropTypes.shape({
+        id: PropTypes.string.isRequired,
     }),
-    { loadProgramTrackedEntityAttributes, loadProgramDataElements }
-)(EventDataItemSelect)
+}
+
+export default EventDataItemSelect

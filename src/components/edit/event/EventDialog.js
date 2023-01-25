@@ -46,8 +46,8 @@ import {
     ColorPicker,
 } from '../../core/index.js'
 import CoordinateField from '../../dataItem/CoordinateField.js'
+import FilterGroup from '../../dataItem/filter/FilterGroup.js'
 import StyleByDataItem from '../../dataItem/StyleByDataItem.js'
-import FilterGroup from '../../filter/FilterGroup.js'
 import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
 import SelectedOrgUnits from '../../orgunits/SelectedOrgUnits.js'
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
@@ -369,6 +369,8 @@ class EventDialog extends Component {
                             <div className={styles.flexColumn}>
                                 {program ? (
                                     <StyleByDataItem
+                                        program={program}
+                                        programStage={programStage}
                                         error={!legendSet && legendSetError}
                                     />
                                 ) : (

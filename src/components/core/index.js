@@ -9,6 +9,7 @@ import FontStyle from './FontStyle.js'
 import Help from './Help.js'
 import IconButton from './IconButton.js'
 import ImageSelect from './ImageSelect.js'
+import LabelDisplayOptions from './LabelDisplayOptions.js'
 import MenuButton from './MenuButton.js'
 import NumberField from './NumberField.js'
 import Radio from './Radio.js'
@@ -30,6 +31,7 @@ export {
     Help,
     IconButton,
     ImageSelect,
+    LabelDisplayOptions,
     MenuButton,
     NumberField,
     Radio,

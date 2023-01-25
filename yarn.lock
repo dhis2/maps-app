@@ -4650,10 +4650,10 @@
     markdown-it "^8.4.2"
     prop-types "^15.6.2"
 
-"@dhis2/maps-gl@^3.5.3":
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.5.3.tgz#58060cb0f611804eeb5205e0ffa2056e7d21fa37"
-  integrity sha512-npaPv3CDLUl6sXB966a21zVfu1b3+sICYopPSPtcxIKHACSmCsjIYpkMpzBdXAy/+x9HkjOqGezLfr7pMQoS9Q==
+"@dhis2/maps-gl@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.7.0.tgz#5f664a5029fcb0a14d989109fb1131e484747642"
+  integrity sha512-SFnbekSYxy7B50ufxbFJkBIaBwcdwXf5qFm9St+jZ4XNtt2sFW5mstxGowCvw2823bpXFJ0EoN9+7+rHutEZ4Q==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
