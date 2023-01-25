@@ -477,6 +477,12 @@ const layerEdit = (state = null, action) => {
                 labels: action.isChecked,
             }
 
+        case types.LAYER_EDIT_LABEL_TEMPLATE:
+            return {
+                ...state,
+                labelTemplate: action.template,
+            }
+
         case types.LAYER_EDIT_LABEL_FONT_COLOR_SET:
             return {
                 ...state,

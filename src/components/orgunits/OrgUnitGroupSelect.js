@@ -5,7 +5,7 @@ import React from 'react'
 import { SelectField } from '../core/index.js'
 import { useUserSettings } from '../UserSettingsProvider.js'
 
-// Load org unit levels
+// Load org unit groups
 const ORG_UNIT_GROUPS_QUERY = {
     groups: {
         resource: 'organisationUnitGroups',

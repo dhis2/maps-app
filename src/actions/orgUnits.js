@@ -13,17 +13,6 @@ export const setOrgUnitTree = (rootModel) => ({
     payload: rootModel,
 })
 
-// Load all organisation unit groups sets
-export const loadOrgUnitGroupSets = () => ({
-    type: types.ORGANISATION_UNIT_GROUP_SETS_LOAD,
-})
-
-// Set all organisation unit groups sets
-export const setOrgUnitGroupSets = (data) => ({
-    type: types.ORGANISATION_UNIT_GROUP_SETS_SET,
-    payload: data,
-})
-
 export const setOrgUnitProfile = (id) => ({
     type: types.ORGANISATION_UNIT_PROFILE_SET,
     payload: id,
