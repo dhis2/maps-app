@@ -2030,7 +2030,7 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@dhis2/app-runtime@^3.2.3", "@dhis2/app-runtime@^3.8.0":
+"@dhis2/app-runtime@^3.2.3", "@dhis2/app-runtime@^3.4.4":
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-3.8.0.tgz#4ec7fc4ec6647dc8428e3c0d2e14b2d188a993b9"
   integrity sha512-f5M1RfUJb4yZaPDywTfogVXjzWcuYGJ7JQzny6iWXrJu1+qrRKYbfFutYNhB+4bXD4bB59DelHWqVaHtrGvbVA==
@@ -2325,7 +2325,7 @@
   resolved "https://registry.yarnpkg.com/@dhis2/ui-icons/-/ui-icons-8.7.7.tgz#8138aebb46723cc82168663eb0f06a6659ab2a8c"
   integrity sha512-appRE/9TmJ8oa0B+Zb4g2W5nD+KMmdmgIAktRDKa6zRwiUvEPHLRoydm92kn38oDIg7oS9wsAHGMN1eff67cNg==
 
-"@dhis2/ui@^8.0.0", "@dhis2/ui@^8.7.7":
+"@dhis2/ui@^8.0.0", "@dhis2/ui@^8.4.13":
   version "8.7.7"
   resolved "https://registry.yarnpkg.com/@dhis2/ui/-/ui-8.7.7.tgz#07c29bbbf83bdeacc27660e4dbd70b917b30a2d6"
   integrity sha512-e5laICpQD0MU4aUZzkGCGAvAbuigpCuqzQg4o8gOzR/tv1K78QnY/eMyF/vv7FBKFX9b0AyfKge0YTXPxXYPUQ==
