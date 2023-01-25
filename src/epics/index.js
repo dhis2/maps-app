@@ -5,7 +5,6 @@ import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/concatMapTo'
 import 'rxjs/add/observable/empty'
 import layerEpics from './layers.js'
-import optionSetEpics from './optionSets.js'
 import orgUnitEpis from './orgUnits.js'
 import programEpics from './programs.js'
 
@@ -18,7 +17,6 @@ const errorEpic = (action$) =>
 export default combineEpics(
     errorEpic,
     layerEpics,
-    optionSetEpics,
     orgUnitEpis,
     programEpics
 )
