@@ -1,4 +1,5 @@
 import { useDataQuery } from '@dhis2/app-runtime'
+import { useState, useEffect } from 'react'
 
 const OPTION_SET_QUERY = {
     optionSet: {
@@ -15,17 +16,27 @@ const OPTION_SET_QUERY = {
     },
 }
 
-const useOptionSet = () => {
-    const { data, error, refetch, loading } = useDataQuery(OPTION_SET_QUERY, {
+const useOptionSet = (optionSetId) => {
+    const [optionSet, setOptionSet] = useState(null)
+
+    const { refetch, loading } = useDataQuery(OPTION_SET_QUERY, {
         lazy: true,
+        onComplete: (data) => {
+            setOptionSet(data.optionSet)
+        },
     })
 
-    return {
-        optionSet: data?.optionSet,
-        fetchOptionSet: refetch,
-        error,
-        loading,
-    }
+    useEffect(() => {
+        setOptionSet(null)
+
+        if (optionSetId) {
+            refetch({
+                id: optionSetId,
+            })
+        }
+    }, [optionSetId, refetch])
+
+    return { optionSet, loading }
 }
 
 export default useOptionSet

@@ -22,14 +22,13 @@ const addOptionStyle = (option, index) => ({
 })
 
 const OptionSetStyle = ({ styledOptionSet }) => {
-    const { optionSet, fetchOptionSet } = useOptionSet()
+    const { optionSet } = useOptionSet(styledOptionSet.id)
     const [warning, setWarning] = useState()
     const dispatch = useDispatch()
 
     const options =
         styledOptionSet.id === optionSet?.id ? optionSet.options : null
-
-    const styledOptions = styledOptionSet?.options
+    const styledOptions = styledOptionSet.options
 
     const onChange = useCallback(
         (id, color) => {
@@ -51,10 +50,6 @@ const OptionSetStyle = ({ styledOptionSet }) => {
         },
         [styledOptionSet, dispatch]
     )
-
-    useEffect(() => {
-        fetchOptionSet({ id: styledOptionSet.id })
-    }, [styledOptionSet, fetchOptionSet])
 
     useEffect(() => {
         if (!styledOptions && options) {

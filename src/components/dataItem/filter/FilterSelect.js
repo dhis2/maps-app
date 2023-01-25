@@ -43,7 +43,7 @@ const getOperators = (valueType, optionSetId) => {
 }
 
 const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
-    const { optionSet, fetchOptionSet } = useOptionSet()
+    const { optionSet } = useOptionSet(optionSetId)
     const operators = getOperators(valueType, optionSetId)
     let operator
     let value
@@ -55,12 +55,6 @@ const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
     } else if (operators) {
         operator = operators[0].id
     }
-
-    useEffect(() => {
-        if (optionSetId) {
-            fetchOptionSet({ id: optionSetId })
-        }
-    }, [optionSetId, fetchOptionSet])
 
     const options =
         optionSetId && optionSetId === optionSet?.id ? optionSet.options : null
