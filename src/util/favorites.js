@@ -47,6 +47,7 @@ const validLayerProperties = [
     'labelFontStyle',
     'labelFontWeight',
     'labelFontColor',
+    'labelTemplate',
     'lastUpdated',
     'layer',
     'legendSet',

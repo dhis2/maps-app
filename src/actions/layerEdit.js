@@ -277,6 +277,11 @@ export const setLabels = (isChecked) => ({
     isChecked,
 })
 
+export const setLabelTemplate = (template) => ({
+    type: types.LAYER_EDIT_LABEL_TEMPLATE,
+    template,
+})
+
 // Set label font style (italic)
 export const setLabelFontSize = (size) => ({
     type: types.LAYER_EDIT_LABEL_FONT_SIZE_SET,
