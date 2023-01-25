@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import {
     numberValueTypes,
     textValueTypes,
