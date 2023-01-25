@@ -1,8 +1,13 @@
-import { CssReset, CssVariables } from '@dhis2/ui'
+import {
+    CssReset,
+    CssVariables,
+    CenteredContent,
+    CircularLoader,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { fetchLayer } from '../../loaders/layers.js'
 import { drillUpDown } from '../../util/map.js'
+import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
 import ContextMenu from './ContextMenu.js'
 import Legend from './Legend.js'
@@ -51,6 +56,21 @@ class Plugin extends Component {
             container,
         } = this.state
 
+        if (mapViews.find((layer) => !layer.isLoaded)) {
+            return (
+                <CenteredContent>
+                    <CircularLoader />
+                    {mapViews.map((config) => (
+                        <LayerLoader
+                            key={config.id}
+                            config={config}
+                            onLoad={this.onLayerLoad}
+                        />
+                    ))}
+                </CenteredContent>
+            )
+        }
+
         return (
             <div className={`dhis2-map-plugin ${styles.plugin}`}>
                 <CssReset />
@@ -94,6 +114,14 @@ class Plugin extends Component {
         this.setState({ isOffline })
     }
 
+    onLayerLoad = (layer) => {
+        this.setState({
+            mapViews: this.state.mapViews.map((mapView) =>
+                layer.id === mapView.id ? layer : mapView
+            ),
+        })
+    }
+
     onOpenContextMenu = (state) => this.setState(state)
 
     onCloseContextMenu = () =>
@@ -132,11 +160,11 @@ class Plugin extends Component {
                 )
             }
 
-            const newLayer = await fetchLayer(newConfig)
+            newConfig.isLoaded = false
 
             this.setState({
                 mapViews: mapViews.map((layer) =>
-                    layer.id === layerId ? newLayer : layer
+                    layer.id === layerId ? newConfig : layer
                 ),
                 position: null,
                 feature: null,
