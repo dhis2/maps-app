@@ -1,7 +1,7 @@
 import { useOnlineStatus } from '@dhis2/app-runtime'
 import { CssReset, CssVariables } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { fetchLayer } from '../../loaders/layers.js'
 import { drillUpDown } from '../../util/map.js'
 import MapView from '../map/MapView.js'
@@ -15,28 +15,25 @@ const defaultBounds = [
     [50.2, 35.9],
 ]
 
-const Plugin = (props) => {
+const Plugin = forwardRef((props, ref) => {
     const { offline } = useOnlineStatus()
     const [mapViews, setMapViews] = useState(props.mapViews)
-    const [contextMenuState, setContextMenuState] = useState({})
+    const [contextMenu, setContextMenu] = useState({})
     const [resizeCount] = useState(0)
 
     const { name, basemap, hideTitle, controls } = props
-    const { position, offset, feature, isSplitView, container } =
-        contextMenuState
+    // const { position, offset, feature, isSplitView, container } = contextMenu
 
-    const onOpenContextMenu = (newState) => {
-        return setContextMenuState(newState)
-    }
-
+    /*    
     const onCloseContextMenu = () =>
         setContextMenuState({
             position: null,
             feature: null,
         })
+    */
 
     const onDrill = async (direction) => {
-        const { layerId, feature } = contextMenuState
+        const { layerId, feature } = contextMenu
         let newConfig
 
         if (layerId && feature) {
@@ -73,15 +70,16 @@ const Plugin = (props) => {
                 )
             )
 
-            setContextMenuState({
-                position: null,
-                feature: null,
-            })
+            setContextMenu()
         }
     }
 
+    // console.log('contextMenuState', contextMenu.ref, contextMenu)
+    const { position, offset, feature, isSplitView, container } = contextMenu
+    // {...contextMenu}
+
     return (
-        <div className={`dhis2-map-plugin ${styles.plugin}`}>
+        <div ref={ref} className={`dhis2-map-plugin ${styles.plugin}`}>
             <CssReset />
             <CssVariables colors spacers theme />
             {!hideTitle && <MapName name={name} />}
@@ -92,7 +90,7 @@ const Plugin = (props) => {
                 layers={mapViews}
                 controls={controls}
                 bounds={defaultBounds}
-                openContextMenu={onOpenContextMenu}
+                openContextMenu={setContextMenu}
                 resizeCount={resizeCount}
             />
             <Legend layers={mapViews} />
@@ -101,14 +99,16 @@ const Plugin = (props) => {
                 position={position}
                 offset={offset}
                 onDrill={onDrill}
-                onClose={onCloseContextMenu}
+                onClose={() => setContextMenu()}
                 isOffline={offline}
                 isSplitView={isSplitView}
                 container={container}
             />
         </div>
     )
-}
+})
+
+Plugin.displayName = 'Plugin'
 
 Plugin.propTypes = {
     basemap: PropTypes.object,

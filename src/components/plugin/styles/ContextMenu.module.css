@@ -1,5 +1,8 @@
 .anchor {
     position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
 }
 
 .menu {
