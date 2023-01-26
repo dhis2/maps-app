@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-01-25T21:01:32.410Z\n"
-"PO-Revision-Date: 2023-01-25T21:01:32.410Z\n"
+"POT-Creation-Date: 2023-01-26T18:15:41.956Z\n"
+"PO-Revision-Date: 2023-01-26T18:15:41.956Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -582,9 +582,6 @@ msgid "Group"
 msgstr ""
 
 msgid "Filters"
-msgstr ""
-
-msgid "Facilities"
 msgstr ""
 
 msgid "Drill up one level"
@@ -1289,6 +1286,9 @@ msgid "No data found"
 msgstr ""
 
 msgid "Event"
+msgstr ""
+
+msgid "Facilities"
 msgstr ""
 
 msgid "Facilities: No coordinates found"

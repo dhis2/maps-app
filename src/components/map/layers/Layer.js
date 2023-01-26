@@ -184,6 +184,7 @@ class Layer extends PureComponent {
             ...evt,
             position: [x, y],
             offset: [left, top],
+            layerConfig: { ...this.props },
             layerId: id,
             layerType: layer,
             isSplitView,
