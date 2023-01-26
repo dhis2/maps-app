@@ -57,7 +57,7 @@
         "file-saver": "^2.0.5",
         "html-to-image": "^1.10.8",
         "lodash": "^4.17.21",
-        "loglevel": "^1.8.0",
+        "loglevel": "^1.8.1",
         "promise-polyfill": "^8.2.3",
         "prop-types": "^15.8.1",
         "react": "^16.14.0",
