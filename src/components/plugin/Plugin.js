@@ -160,8 +160,6 @@ class Plugin extends Component {
                 )
             }
 
-            newConfig.isLoaded = false
-
             this.setState({
                 mapViews: mapViews.map((layer) =>
                     layer.id === layerId ? newConfig : layer
