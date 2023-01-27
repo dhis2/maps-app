@@ -164,6 +164,7 @@ ContextMenu.propTypes = {
     coordinates: PropTypes.array,
     earthEngineLayers: PropTypes.array,
     feature: PropTypes.object,
+    layerConfig: PropTypes.object,
     layerType: PropTypes.string,
     map: PropTypes.object,
     offset: PropTypes.array,
