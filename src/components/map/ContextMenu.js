@@ -157,10 +157,10 @@ const ContextMenu = (props) => {
 
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
-    updateLayer: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
+    updateLayer: PropTypes.func.isRequired,
     coordinates: PropTypes.array,
     earthEngineLayers: PropTypes.array,
     feature: PropTypes.object,
