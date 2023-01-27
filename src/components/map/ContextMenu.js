@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { Fragment, useRef } from 'react'
 import { connect } from 'react-redux'
-import { drillLayer, updateLayer } from '../../actions/layers.js'
+import { updateLayer } from '../../actions/layers.js'
 import {
     closeContextMenu,
     openCoordinatePopup,
@@ -27,7 +27,6 @@ const ContextMenu = (props) => {
 
     const {
         feature,
-        layerId,
         layerType,
         layerConfig,
         coordinates,
@@ -37,7 +36,6 @@ const ContextMenu = (props) => {
         closeContextMenu,
         openCoordinatePopup,
         showEarthEngineValue,
-        drillLayer,
         setOrgUnitProfile,
         updateLayer,
     } = props
@@ -51,14 +49,11 @@ const ContextMenu = (props) => {
 
     const attr = feature?.properties || {}
 
-    console.log('layerConfig', layerConfig)
-
     const onClick = (item, id) => {
         closeContextMenu()
 
         switch (item) {
             case 'drill_up':
-                // TODO: Not working to top level
                 updateLayer(
                     drillUpDown(
                         layerConfig,
@@ -162,7 +157,6 @@ const ContextMenu = (props) => {
 
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
-    drillLayer: PropTypes.func.isRequired,
     updateLayer: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
@@ -170,7 +164,6 @@ ContextMenu.propTypes = {
     coordinates: PropTypes.array,
     earthEngineLayers: PropTypes.array,
     feature: PropTypes.object,
-    layerId: PropTypes.string,
     layerType: PropTypes.string,
     map: PropTypes.object,
     offset: PropTypes.array,
@@ -188,7 +181,6 @@ export default connect(
         closeContextMenu,
         openCoordinatePopup,
         showEarthEngineValue,
-        drillLayer,
         setOrgUnitProfile,
         updateLayer,
     }

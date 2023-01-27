@@ -61,16 +61,6 @@ export const sortLayers = ({ oldIndex, newIndex }) => ({
     newIndex,
 })
 
-// Add new layer
-//eslint-disable-next-line max-params
-export const drillLayer = (layerId, parentId, parentGraph, level) => ({
-    type: types.LAYER_DRILL,
-    layerId,
-    parentId,
-    parentGraph,
-    level,
-})
-
 // Set that layer is loading
 export const setLayerLoading = (id) => ({
     type: types.LAYER_LOADING_SET,
