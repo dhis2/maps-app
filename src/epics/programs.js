@@ -3,21 +3,8 @@ import { sortBy } from 'lodash/fp'
 import { combineEpics } from 'redux-observable'
 import 'rxjs/add/operator/concatMap'
 import { errorActionCreator } from '../actions/helpers.js'
-import { setPrograms, setProgramIndicators } from '../actions/programs.js'
+import { setProgramIndicators } from '../actions/programs.js'
 import * as types from '../constants/actionTypes.js'
-
-export const loadPrograms = (action$) =>
-    action$.ofType(types.PROGRAMS_LOAD).concatMap(() =>
-        getD2()
-            .then((d2) =>
-                d2.models.programs.list({
-                    fields: 'id,displayName~rename(name),trackedEntityType[id,displayName~rename(name)]',
-                    paging: false,
-                })
-            )
-            .then((programs) => setPrograms(programs.toArray()))
-            .catch(errorActionCreator(types.PROGRAMS_LOAD_ERROR))
-    )
 
 // Load program indicators
 export const loadProgramIndicators = (action$) =>
@@ -38,4 +25,4 @@ export const loadProgramIndicators = (action$) =>
             .catch(errorActionCreator(types.PROGRAM_INDICATORS_LOAD_ERROR))
     )
 
-export default combineEpics(loadPrograms, loadProgramIndicators)
+export default combineEpics(loadProgramIndicators)

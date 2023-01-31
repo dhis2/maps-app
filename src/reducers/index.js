@@ -14,7 +14,6 @@ import map from './map.js'
 import orgUnitProfile from './orgUnitProfile.js'
 import orgUnitTree from './orgUnitTree.js'
 import programIndicators from './programIndicators.js'
-import programs from './programs.js'
 import ui from './ui.js'
 
 export default combineReducers({
@@ -30,7 +29,6 @@ export default combineReducers({
     map,
     orgUnitProfile,
     orgUnitTree,
-    programs,
     programIndicators,
     ui,
     dataDownload,
