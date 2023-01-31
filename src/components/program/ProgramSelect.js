@@ -39,7 +39,7 @@ const ProgramSelect = ({
 
     const programs = data?.programs.programs
     let trackedEntityPrograms
-    let value = program ? program.id : null
+    let value = program?.id
 
     if (programs && trackedEntityType) {
         trackedEntityPrograms = [
