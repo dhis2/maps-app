@@ -1,23 +1,15 @@
 import i18n from '@dhis2/d2-i18n'
-import {
-    Modal,
-    ModalTitle,
-    ModalContent,
-    ModalActions,
-    Button,
-    ButtonStrip,
-} from '@dhis2/ui'
+import { Button, ButtonStrip } from '@dhis2/ui'
 import React, { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     toggleDownloadMode,
     toggleDownloadShowName,
     toggleDownloadShowLegend,
-    setDownloadLegendPosition,
 } from '../../actions/download.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
+import Drawer from '../core/Drawer.js'
 import { Checkbox } from '../core/index.js'
-import LegendPosition from './LegendPosition.js'
 import styles from './styles/DownloadDialog.module.css'
 
 const DownloadDialog = () => {
@@ -25,7 +17,7 @@ const DownloadDialog = () => {
     const dispatch = useDispatch()
 
     const { mapViews, name: mapName } = useSelector((state) => state.map)
-    const { downloadMode, showName, showLegend, legendPosition } = useSelector(
+    const { downloadMode, showName, showLegend } = useSelector(
         (state) => state.download
     )
 
@@ -53,9 +45,9 @@ const DownloadDialog = () => {
     }
 
     return (
-        <Modal position="middle" small onClose={onClose}>
-            <ModalTitle>{i18n.t('Download map')}</ModalTitle>
-            <ModalContent>
+        <Drawer position="left">
+            <div className={styles.downloadDialog}>
+                <h2>{i18n.t('Download map')}</h2>
                 <div className={styles.modalContent}>
                     {isSupported ? (
                         <>
@@ -75,14 +67,6 @@ const DownloadDialog = () => {
                                     dispatch(toggleDownloadShowLegend(v))
                                 }
                             />
-                            {hasLegend && showLegend && (
-                                <LegendPosition
-                                    position={legendPosition}
-                                    onChange={(v) =>
-                                        dispatch(setDownloadLegendPosition(v))
-                                    }
-                                />
-                            )}
                         </>
                     ) : (
                         i18n.t(
@@ -90,8 +74,6 @@ const DownloadDialog = () => {
                         )
                     )}
                 </div>
-            </ModalContent>
-            <ModalActions>
                 <ButtonStrip end>
                     <Button secondary onClick={onClose}>
                         {isSupported ? i18n.t('Cancel') : i18n.t('Close')}
@@ -102,8 +84,8 @@ const DownloadDialog = () => {
                         </Button>
                     )}
                 </ButtonStrip>
-            </ModalActions>
-        </Modal>
+            </div>
+        </Drawer>
     )
 }
 

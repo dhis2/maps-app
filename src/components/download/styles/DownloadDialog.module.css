@@ -1,5 +1,7 @@
-.modalContent {
-    min-height: 240px;
+.downloadDialog {
+    padding: var(--spacers-dp8) var(--spacers-dp16);
+    background-color: #fff;
+    height: 100%;
 }
 
 .checkbox {

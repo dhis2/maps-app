@@ -4,7 +4,6 @@ const defaultState = {
     downloadMode: true,
     showName: true,
     showLegend: true,
-    legendPosition: 'bottomright',
 }
 
 const download = (state = defaultState, action) => {
@@ -25,12 +24,6 @@ const download = (state = defaultState, action) => {
             return {
                 ...state,
                 showLegend: action.payload,
-            }
-
-        case types.DOWNLOAD_LEGEND_POSITION_SET:
-            return {
-                ...state,
-                legendPosition: action.payload,
             }
 
         default:

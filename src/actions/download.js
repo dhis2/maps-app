@@ -17,9 +17,3 @@ export const toggleDownloadShowLegend = (show) => ({
     type: types.DOWNLOAD_LEGEND_SHOW_TOGGLE,
     payload: show,
 })
-
-// Legend corner position
-export const setDownloadLegendPosition = (position) => ({
-    type: types.DOWNLOAD_LEGEND_POSITION_SET,
-    payload: position,
-})

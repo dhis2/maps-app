@@ -1,4 +1,9 @@
 .downloadLegend {
+    padding: var(--spacers-dp8) var(--spacers-dp16);
+    background-color: #fff;
+    height: 100%;
+
+    /*
     composes: box from '../../../styles/map.css';
     position: absolute;
     padding: var(--spacers-dp8) var(--spacers-dp8) 0 var(--spacers-dp8);
@@ -6,6 +11,7 @@
     font-size: 14px;
     max-width: 240px;
     overflow: hidden;
+    */
 }
 
 .downloadLegend div a:link,

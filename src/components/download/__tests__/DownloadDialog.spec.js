@@ -60,7 +60,6 @@ describe('DownloadMode', () => {
                 downloadMode: false,
                 showName: true,
                 showLegend: true,
-                legendPosition: 'bottomright',
             },
         }
 
@@ -83,7 +82,6 @@ describe('DownloadMode', () => {
                 downloadMode: true,
                 showName: true,
                 showLegend: true,
-                legendPosition: 'bottomright',
             },
         }
 
@@ -110,7 +108,6 @@ describe('DownloadMode', () => {
                 downloadMode: true,
                 showName: true,
                 showLegend: true,
-                legendPosition: 'bottomright',
             },
         }
 
@@ -133,7 +130,6 @@ describe('DownloadMode', () => {
                 downloadMode: true,
                 showName: true,
                 showLegend: true,
-                legendPosition: 'bottomright',
             },
         }
 

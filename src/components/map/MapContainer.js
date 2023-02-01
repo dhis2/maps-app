@@ -30,7 +30,6 @@ const MapContainer = (props) => {
         dataTableHeight,
         interpretationModalOpen,
         isDownload,
-        legendPosition,
         openContextMenu,
         closeCoordinatePopup,
         setAggregations,
@@ -78,13 +77,9 @@ const MapContainer = (props) => {
                     setAggregations={setAggregations}
                     resizeCount={resizeCount}
                 />
-                {isDownload && legendPosition && layers.length ? (
-                    <DownloadLegend
-                        position={legendPosition}
-                        layers={layers}
-                        showName={showName}
-                    />
-                ) : null}
+                {isDownload && layers.length && (
+                    <DownloadLegend layers={layers} showName={showName} />
+                )}
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>
