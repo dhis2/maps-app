@@ -21,7 +21,6 @@ const MapContainer = (props) => {
         mapViews,
         bounds,
         feature,
-        showName,
         newLayerIsLoading,
         coordinatePopup,
         layersPanelOpen,
@@ -29,7 +28,7 @@ const MapContainer = (props) => {
         dataTableOpen,
         dataTableHeight,
         interpretationModalOpen,
-        isDownload,
+        downloadMode,
         openContextMenu,
         closeCoordinatePopup,
         setAggregations,
@@ -51,7 +50,13 @@ const MapContainer = (props) => {
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
         setResizeCount((count) => count + 1)
-    }, [layersPanelOpen, rightPanelOpen, dataTableOpen, dataTableHeight])
+    }, [
+        layersPanelOpen,
+        rightPanelOpen,
+        dataTableOpen,
+        dataTableHeight,
+        downloadMode,
+    ])
 
     return (
         <div style={style}>
@@ -59,27 +64,34 @@ const MapContainer = (props) => {
                 id="dhis2-map-container"
                 data-test="dhis2-map-container"
                 className={cx(styles.container, {
-                    'dhis2-map-download': isDownload,
-                    [styles.download]: isDownload,
+                    'dhis2-map-download': downloadMode,
+                    [styles.download]: downloadMode,
                 })}
             >
-                <MapName />
-                <MapView
-                    isPlugin={false}
-                    basemap={basemap}
-                    layers={layers}
-                    bounds={bounds}
-                    feature={feature}
-                    openContextMenu={openContextMenu}
-                    coordinatePopup={coordinatePopup}
-                    interpretationModalOpen={interpretationModalOpen}
-                    closeCoordinatePopup={closeCoordinatePopup}
-                    setAggregations={setAggregations}
-                    resizeCount={resizeCount}
-                />
-                {isDownload && layers.length && (
-                    <DownloadLegend layers={layers} showName={showName} />
-                )}
+                <div
+                    style={{
+                        height: '100%',
+                        width: downloadMode
+                            ? `calc(100% - ${RIGHT_PANEL_WIDTH}px)`
+                            : '100%',
+                    }}
+                >
+                    {!downloadMode && <MapName />}
+                    <MapView
+                        isPlugin={false}
+                        basemap={basemap}
+                        layers={layers}
+                        bounds={bounds}
+                        feature={feature}
+                        openContextMenu={openContextMenu}
+                        coordinatePopup={coordinatePopup}
+                        interpretationModalOpen={interpretationModalOpen}
+                        closeCoordinatePopup={closeCoordinatePopup}
+                        setAggregations={setAggregations}
+                        resizeCount={resizeCount}
+                    />
+                </div>
+                {downloadMode && <DownloadLegend />}
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>
@@ -95,15 +107,13 @@ MapContainer.propTypes = {
     coordinatePopup: PropTypes.array,
     dataTableHeight: PropTypes.number,
     dataTableOpen: PropTypes.bool,
+    downloadMode: PropTypes.bool,
     feature: PropTypes.object,
     interpretationModalOpen: PropTypes.bool,
-    isDownload: PropTypes.bool,
     layersPanelOpen: PropTypes.bool,
-    legendPosition: PropTypes.string,
     mapViews: PropTypes.array,
     newLayerIsLoading: PropTypes.bool,
     rightPanelOpen: PropTypes.bool,
-    showName: PropTypes.bool,
 }
 
 export default connect(
@@ -113,9 +123,7 @@ export default connect(
         coordinatePopup: map.coordinatePopup,
         mapViews: map.mapViews,
         bounds: map.bounds,
-        isDownload: download.downloadMode,
-        showName: download.downloadMode ? download.showName : true,
-        legendPosition: download.showLegend ? download.legendPosition : null,
+        downloadMode: download.downloadMode,
         dataTableOpen: !!dataTable,
         interpretationModalOpen: !!interpretation.id,
         feature,

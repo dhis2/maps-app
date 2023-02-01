@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     toggleDownloadMode,
     toggleDownloadShowName,
+    toggleDownloadShowDescription,
     toggleDownloadShowLegend,
 } from '../../actions/download.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
@@ -16,8 +17,8 @@ const DownloadDialog = () => {
     const [error, setError] = useState(null)
     const dispatch = useDispatch()
 
-    const { mapViews, name: mapName } = useSelector((state) => state.map)
-    const { downloadMode, showName, showLegend } = useSelector(
+    const { mapViews, name, description } = useSelector((state) => state.map)
+    const { downloadMode, showName, showDescription, showLegend } = useSelector(
         (state) => state.download
     )
 
@@ -25,8 +26,6 @@ const DownloadDialog = () => {
         () => mapViews.filter((layer) => layer.legend).length > 0,
         [mapViews]
     )
-
-    const hasName = mapName !== undefined
 
     if (!downloadMode) {
         return null
@@ -38,7 +37,6 @@ const DownloadDialog = () => {
 
     const onDownload = () => {
         const mapEl = document.getElementById('dhis2-map-container')
-
         const filename = `map-${Math.random().toString(36).substring(7)}.png`
 
         downloadMapImage(mapEl, filename).then(onClose).catch(setError)
@@ -54,9 +52,17 @@ const DownloadDialog = () => {
                             <Checkbox
                                 label={i18n.t('Show name')}
                                 checked={showName}
-                                disabled={!hasName}
+                                disabled={!name}
                                 onChange={(v) =>
                                     dispatch(toggleDownloadShowName(v))
+                                }
+                            />
+                            <Checkbox
+                                label={i18n.t('Show description')}
+                                checked={showDescription}
+                                disabled={!description}
+                                onChange={(v) =>
+                                    dispatch(toggleDownloadShowDescription(v))
                                 }
                             />
                             <Checkbox

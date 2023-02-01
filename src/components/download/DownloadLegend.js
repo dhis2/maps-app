@@ -1,37 +1,37 @@
-import PropTypes from 'prop-types'
 import React from 'react'
-import Drawer from '../core/Drawer.js'
+import { useSelector } from 'react-redux'
 import Legend from '../legend/Legend.js'
 import styles from './styles/DownloadLegend.module.css'
 
-const DownloadLegend = ({ layers, showName }) => {
-    const legends = layers
-        .filter((layer) => layer.legend)
-        .map((layer) => layer.legend)
-        .reverse()
+const DownloadLegend = () => {
+    const { showName, showDescription, showLegend } = useSelector(
+        (state) => state.download
+    )
+    const { mapViews, name, description } = useSelector((state) => state.map)
 
     return (
-        <Drawer>
-            <div className={styles.downloadLegend}>
-                {legends.map((legend, index) => (
-                    <div key={index} className={styles.legend}>
-                        <h2 className={styles.title}>
-                            {legend.title}
-                            <span className={styles.period}>
-                                {legend.period}
-                            </span>
-                        </h2>
-                        <Legend {...legend} />
-                    </div>
-                ))}
-            </div>
-        </Drawer>
-    )
-}
+        <div className={styles.downloadLegend}>
+            {showName && name && <h1>{name}</h1>}
+            {showDescription && description && <p>{description}</p>}
 
-DownloadLegend.propTypes = {
-    layers: PropTypes.array.isRequired,
-    showName: PropTypes.bool.isRequired,
+            {showLegend &&
+                mapViews
+                    .filter((layer) => layer.legend)
+                    .map((layer) => layer.legend)
+                    .reverse()
+                    .map((legend, index) => (
+                        <div key={index} className={styles.legend}>
+                            <h2 className={styles.title}>
+                                {legend.title}
+                                <span className={styles.period}>
+                                    {legend.period}
+                                </span>
+                            </h2>
+                            <Legend {...legend} />
+                        </div>
+                    ))}
+        </div>
+    )
 }
 
 export default DownloadLegend

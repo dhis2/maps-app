@@ -12,6 +12,12 @@ export const toggleDownloadShowName = (show) => ({
     payload: show,
 })
 
+// Whether the name should be included on the map download
+export const toggleDownloadShowDescription = (show) => ({
+    type: types.DOWNLOAD_DESCRIPTION_SHOW_TOGGLE,
+    payload: show,
+})
+
 // Whether the legend should be included on the map download
 export const toggleDownloadShowLegend = (show) => ({
     type: types.DOWNLOAD_LEGEND_SHOW_TOGGLE,
