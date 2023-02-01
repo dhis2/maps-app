@@ -9,6 +9,11 @@
     border-left: 1px solid #e0e0e0;
 }
 
+.downloadLegend h1 {
+    font-size: 24px;
+    margin: 0 0 var(--spacers-dp24);
+}
+
 .downloadLegend div a:link,
 .downloadLegend div a:visited {
     color: var(--colors-grey900);
