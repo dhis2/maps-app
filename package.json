@@ -55,7 +55,7 @@
         "d3-time": "^3.0.0",
         "d3-time-format": "^4.1.0",
         "file-saver": "^2.0.5",
-        "html-to-image": "^1.10.8",
+        "html-to-image": "^1.11.10",
         "lodash": "^4.17.21",
         "loglevel": "^1.8.0",
         "promise-polyfill": "^8.2.3",
