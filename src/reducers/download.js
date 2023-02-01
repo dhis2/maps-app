@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes.js'
 
 const defaultState = {
-    downloadMode: false,
+    downloadMode: true,
     showName: true,
     showLegend: true,
     legendPosition: 'bottomright',

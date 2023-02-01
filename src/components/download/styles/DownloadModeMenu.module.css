@@ -1,0 +1,15 @@
+.downloadModeMenu {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 38px;
+    z-index: 1200;
+    box-shadow: 0 1px 1px 0 #9e9e9e;
+    padding-top: 1px;
+    background-color: #4a5768;
+}
+
+.downloadModeMenu button {
+    height: 30px!important;
+    margin: 3px 0 0 10px;
+}
