@@ -1,8 +1,8 @@
 import * as types from '../constants/actionTypes.js'
 
-// Set download state (download dialog is open)
-export const toggleDownloadDialog = (show) => ({
-    type: types.DOWNLOAD_DIALOG_TOGGLE,
+// Toggle download mode
+export const toggleDownloadMode = (show) => ({
+    type: types.DOWNLOAD_MODE_TOGGLE,
     payload: show,
 })
 

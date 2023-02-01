@@ -17,5 +17,5 @@ MapName.propTypes = {
 
 export default connect(({ map, download }) => ({
     name: map.name,
-    showName: download.showDialog ? download.showName : true,
+    showName: download.downloadMode ? download.showName : true,
 }))(MapName)

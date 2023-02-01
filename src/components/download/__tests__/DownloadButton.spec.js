@@ -6,9 +6,9 @@ import DownloadButton from '../DownloadButton.js'
 
 jest.mock('../../../actions/download', () => {
     return {
-        toggleDownloadDialog: jest
+        toggleDownloadMode: jest
             .fn()
-            .mockReturnValue({ type: 'DOWNLOAD_DIALOG_TOGGLE' }),
+            .mockReturnValue({ type: 'DOWNLOAD_MODE_TOGGLE' }),
     }
 })
 

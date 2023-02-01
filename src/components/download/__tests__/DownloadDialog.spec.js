@@ -14,9 +14,9 @@ jest.mock('../../../util/export-image', () => ({
 
 jest.mock('../../../actions/download.js', () => {
     return {
-        toggleDownloadDialog: jest
+        toggleDownloadMode: jest
             .fn()
-            .mockReturnValue({ type: 'DOWNLOAD_DIALOG_TOGGLE' }),
+            .mockReturnValue({ type: 'DOWNLOAD_MODE_TOGGLE' }),
     }
 })
 
@@ -49,15 +49,15 @@ jest.mock('@dhis2/ui', () => {
 })
 /* eslint-enable react/prop-types */
 
-describe('DownloadDialog', () => {
-    test('does not render if showDialog is false', () => {
+describe('DownloadMode', () => {
+    test('does not render if downloadMode is false', () => {
         const store = {
             map: {
                 name: 'my map',
                 mapViews: [],
             },
             download: {
-                showDialog: false,
+                downloadMode: false,
                 showName: true,
                 showLegend: true,
                 legendPosition: 'bottomright',
@@ -80,7 +80,7 @@ describe('DownloadDialog', () => {
                 mapViews: [],
             },
             download: {
-                showDialog: true,
+                downloadMode: true,
                 showName: true,
                 showLegend: true,
                 legendPosition: 'bottomright',
@@ -107,7 +107,7 @@ describe('DownloadDialog', () => {
                 ],
             },
             download: {
-                showDialog: true,
+                downloadMode: true,
                 showName: true,
                 showLegend: true,
                 legendPosition: 'bottomright',
@@ -130,7 +130,7 @@ describe('DownloadDialog', () => {
                 mapViews: [],
             },
             download: {
-                showDialog: true,
+                downloadMode: true,
                 showName: true,
                 showLegend: true,
                 legendPosition: 'bottomright',

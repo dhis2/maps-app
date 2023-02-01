@@ -10,7 +10,7 @@ import {
 import React, { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-    toggleDownloadDialog,
+    toggleDownloadMode,
     toggleDownloadShowName,
     toggleDownloadShowLegend,
     setDownloadLegendPosition,
@@ -25,7 +25,7 @@ const DownloadDialog = () => {
     const dispatch = useDispatch()
 
     const { mapViews, name: mapName } = useSelector((state) => state.map)
-    const { showDialog, showName, showLegend, legendPosition } = useSelector(
+    const { downloadMode, showName, showLegend, legendPosition } = useSelector(
         (state) => state.download
     )
 
@@ -36,13 +36,13 @@ const DownloadDialog = () => {
 
     const hasName = mapName !== undefined
 
-    if (!showDialog) {
+    if (!downloadMode) {
         return null
     }
 
     const isSupported = downloadSupport() && !error
 
-    const onClose = () => dispatch(toggleDownloadDialog(false))
+    const onClose = () => dispatch(toggleDownloadMode(false))
 
     const onDownload = () => {
         const mapEl = document.getElementById('dhis2-map-container')

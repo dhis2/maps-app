@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DownloadDialog does not render if showDialog is false 1`] = `<div />`;
+exports[`DownloadDialog does not render if downloadMode is false 1`] = `<div />`;
 
 exports[`DownloadDialog does not show download options if no browser support 1`] = `
 <div>
