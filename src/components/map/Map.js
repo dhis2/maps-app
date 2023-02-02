@@ -42,6 +42,7 @@ class Map extends Component {
         longitude: PropTypes.number,
         resizeCount: PropTypes.number,
         setAggregations: PropTypes.func,
+        setMapObject: PropTypes.func,
         showNorthArrow: PropTypes.bool,
         zoom: PropTypes.number,
     }
@@ -111,8 +112,6 @@ class Map extends Component {
         } else {
             map.fitWorld()
         }
-
-        map.sync('inset') // TODO: Remove
     }
 
     componentDidUpdate(prevProps) {
@@ -205,7 +204,15 @@ class Map extends Component {
         })
     }
 
-    onMapReady = (map) => this.setState({ map })
+    onMapReady = (map) => {
+        this.setState({ map })
+
+        const { setMapObject } = this.props
+
+        if (setMapObject) {
+            setMapObject(this.map)
+        }
+    }
 
     // From built-in fullscreen control
     onFullscreenChange = ({ isFullscreen }) => {

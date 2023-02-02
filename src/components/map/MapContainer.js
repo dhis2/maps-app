@@ -34,6 +34,7 @@ const MapContainer = (props) => {
         setAggregations,
         showNorthArrow,
     } = props
+    const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
     const basemap = useBasemapConfig(props.basemap)
 
@@ -93,9 +94,10 @@ const MapContainer = (props) => {
                         setAggregations={setAggregations}
                         resizeCount={resizeCount}
                         showNorthArrow={showNorthArrow}
+                        setMapObject={setMap}
                     />
                 </div>
-                {downloadMode && <DownloadLegend />}
+                {downloadMode && map && <DownloadLegend map={map} />}
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>

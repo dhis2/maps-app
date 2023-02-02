@@ -1,14 +1,17 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Legend from '../legend/Legend.js'
 import InsetMap from './InsetMap.js'
 import styles from './styles/DownloadLegend.module.css'
 
-const DownloadLegend = () => {
+const DownloadLegend = ({ map }) => {
     const { showName, showDescription, showLegend } = useSelector(
         (state) => state.download
     )
     const { mapViews, name, description } = useSelector((state) => state.map)
+
+    // console.log('DownloadLegend map', map)
 
     return (
         <div className={styles.downloadLegend}>
@@ -31,9 +34,13 @@ const DownloadLegend = () => {
                             <Legend {...legend} />
                         </div>
                     ))}
-            <InsetMap />
+            <InsetMap map={map} />
         </div>
     )
+}
+
+DownloadLegend.propTypes = {
+    map: PropTypes.object.isRequired,
 }
 
 export default DownloadLegend

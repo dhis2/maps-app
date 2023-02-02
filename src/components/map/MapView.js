@@ -21,6 +21,7 @@ const MapView = (props) => {
         closeCoordinatePopup,
         openContextMenu,
         setAggregations,
+        setMapObject,
         resizeCount,
         showNorthArrow,
     } = props
@@ -69,6 +70,7 @@ const MapView = (props) => {
                             setAggregations={setAggregations}
                             resizeCount={resizeCount}
                             showNorthArrow={showNorthArrow}
+                            setMapObject={setMapObject}
                         />
                     )}
                 </>
