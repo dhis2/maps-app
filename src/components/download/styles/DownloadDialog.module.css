@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+.dialogContent {
+    padding-bottom: var(--spacers-dp24);
+}
+
 .checkbox {
     padding-bottom: var(--spacers-dp16);
 }

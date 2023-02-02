@@ -5,6 +5,7 @@ const defaultState = {
     showName: true,
     showDescription: true,
     showLegend: true,
+    showNorthArrow: true,
 }
 
 const download = (state = defaultState, action) => {
@@ -31,6 +32,12 @@ const download = (state = defaultState, action) => {
             return {
                 ...state,
                 showLegend: action.payload,
+            }
+
+        case types.DOWNLOAD_NORTH_ARROW_TOGGLE:
+            return {
+                ...state,
+                showNorthArrow: action.payload,
             }
 
         default:

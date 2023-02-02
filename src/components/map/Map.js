@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
 import { onFullscreenChange } from '../../util/map.js'
+import NorthArrow from '../download/NorthArrow.js'
 import BasemapLayer from './layers/BasemapLayer.js'
 import EarthEngineLayer from './layers/earthEngine/EarthEngineLayer.js'
 import EventLayer from './layers/EventLayer.js'
@@ -41,6 +42,7 @@ class Map extends Component {
         longitude: PropTypes.number,
         resizeCount: PropTypes.number,
         setAggregations: PropTypes.func,
+        showNorthArrow: PropTypes.bool,
         zoom: PropTypes.number,
     }
 
@@ -139,6 +141,7 @@ class Map extends Component {
             layers,
             feature,
             coordinatePopup: coordinates,
+            showNorthArrow,
             closeCoordinatePopup,
             openContextMenu,
             setAggregations,
@@ -182,6 +185,7 @@ class Map extends Component {
                                 {coordinates[1].toFixed(6)}
                             </Popup>
                         )}
+                        {showNorthArrow && <NorthArrow map={map._mapgl} />}
                     </Fragment>
                 )}
             </div>

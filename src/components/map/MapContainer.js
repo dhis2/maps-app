@@ -32,6 +32,7 @@ const MapContainer = (props) => {
         openContextMenu,
         closeCoordinatePopup,
         setAggregations,
+        showNorthArrow,
     } = props
     const [resizeCount, setResizeCount] = useState(0)
     const basemap = useBasemapConfig(props.basemap)
@@ -42,6 +43,7 @@ const MapContainer = (props) => {
         left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
         right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
+        border: downloadMode ? 'var(--spacers-dp8) solid #ccc' : 'none',
     }
 
     const layers = mapViews.filter((layer) => layer.isLoaded)
@@ -74,6 +76,7 @@ const MapContainer = (props) => {
                         width: downloadMode
                             ? `calc(100% - ${RIGHT_PANEL_WIDTH}px)`
                             : '100%',
+                        backgroundColor: '#fff',
                     }}
                 >
                     {!downloadMode && <MapName />}
@@ -89,6 +92,7 @@ const MapContainer = (props) => {
                         closeCoordinatePopup={closeCoordinatePopup}
                         setAggregations={setAggregations}
                         resizeCount={resizeCount}
+                        showNorthArrow={showNorthArrow}
                     />
                 </div>
                 {downloadMode && <DownloadLegend />}
@@ -114,6 +118,7 @@ MapContainer.propTypes = {
     mapViews: PropTypes.array,
     newLayerIsLoading: PropTypes.bool,
     rightPanelOpen: PropTypes.bool,
+    showNorthArrow: PropTypes.bool,
 }
 
 export default connect(
@@ -124,6 +129,7 @@ export default connect(
         mapViews: map.mapViews,
         bounds: map.bounds,
         downloadMode: download.downloadMode,
+        showNorthArrow: download.downloadMode && download.showNorthArrow,
         dataTableOpen: !!dataTable,
         interpretationModalOpen: !!interpretation.id,
         feature,

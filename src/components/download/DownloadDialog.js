@@ -7,6 +7,7 @@ import {
     toggleDownloadShowName,
     toggleDownloadShowDescription,
     toggleDownloadShowLegend,
+    toggleDownloadNorthArrow,
 } from '../../actions/download.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import Drawer from '../core/Drawer.js'
@@ -18,9 +19,13 @@ const DownloadDialog = () => {
     const dispatch = useDispatch()
 
     const { mapViews, name, description } = useSelector((state) => state.map)
-    const { downloadMode, showName, showDescription, showLegend } = useSelector(
-        (state) => state.download
-    )
+    const {
+        downloadMode,
+        showName,
+        showDescription,
+        showLegend,
+        showNorthArrow,
+    } = useSelector((state) => state.download)
 
     const hasLegend = useMemo(
         () => mapViews.filter((layer) => layer.legend).length > 0,
@@ -46,7 +51,7 @@ const DownloadDialog = () => {
         <Drawer position="left">
             <div className={styles.downloadDialog}>
                 <h2>{i18n.t('Download map')}</h2>
-                <div className={styles.modalContent}>
+                <div className={styles.dialogContent}>
                     {isSupported ? (
                         <>
                             <Checkbox
@@ -71,6 +76,13 @@ const DownloadDialog = () => {
                                 disabled={!hasLegend}
                                 onChange={(v) =>
                                     dispatch(toggleDownloadShowLegend(v))
+                                }
+                            />
+                            <Checkbox
+                                label={i18n.t('Show north arrow')}
+                                checked={showNorthArrow}
+                                onChange={(v) =>
+                                    dispatch(toggleDownloadNorthArrow(v))
                                 }
                             />
                         </>

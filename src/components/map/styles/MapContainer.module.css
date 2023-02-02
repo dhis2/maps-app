@@ -5,10 +5,6 @@
     overflow: hidden;
 }
 
-.download {
-    border: var(--spacers-dp8) solid #ccc;
-}
-
 .download :global(.dhis2-map-timeline) {
     display: none;
 }

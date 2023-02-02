@@ -22,6 +22,7 @@ const MapView = (props) => {
         openContextMenu,
         setAggregations,
         resizeCount,
+        showNorthArrow,
     } = props
 
     const splitViewLayer = getSplitViewLayer(layers)
@@ -67,6 +68,7 @@ const MapView = (props) => {
                             openContextMenu={openContextMenu}
                             setAggregations={setAggregations}
                             resizeCount={resizeCount}
+                            showNorthArrow={showNorthArrow}
                         />
                     )}
                 </>
@@ -89,6 +91,7 @@ MapView.propTypes = {
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
     setAggregations: PropTypes.func,
+    showNorthArrow: PropTypes.bool,
 }
 
 export default MapView
