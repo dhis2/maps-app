@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import mapApi from '../map/MapApi.js'
-import Plugin from '../plugin/Plugin.js'
 import styles from './styles/InsetMap.module.css'
 
 const InsetMap = () => {
     const [map, setMap] = useState()
+    const basemap = useSelector((state) => state.map.basemap)
+    const mapId = useSelector((state) => state.map.id)
+    const mapContainer = useRef()
 
     useEffect(() => {
         mapApi({
@@ -14,10 +16,23 @@ const InsetMap = () => {
     }, [])
 
     useEffect(() => {
-        console.log('map', map)
-    }, [map])
+        if (map) {
+            mapContainer.current.appendChild(map.getContainer())
 
-    return <div className={styles.insetMap}></div>
+            const basemapLayer = map.createLayer({
+                ...basemap.config,
+            })
+
+            map.addLayer(basemapLayer)
+
+            console.log('mapId', mapId)
+
+            map.fitWorld()
+            map.sync('inset')
+        }
+    }, [map, mapContainer, basemap, mapId])
+
+    return <div ref={mapContainer} className={styles.insetMap}></div>
 }
 
 export default InsetMap

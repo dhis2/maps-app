@@ -111,6 +111,8 @@ class Map extends Component {
         } else {
             map.fitWorld()
         }
+
+        map.sync('inset') // TODO: Remove
     }
 
     componentDidUpdate(prevProps) {
