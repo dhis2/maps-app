@@ -21,6 +21,7 @@ class Plugin extends Component {
         hideTitle: PropTypes.bool,
         mapViews: PropTypes.array,
         name: PropTypes.string,
+        type: PropTypes.string,
     }
 
     static defaultProps = {
@@ -38,7 +39,7 @@ class Plugin extends Component {
     }
 
     render() {
-        const { name, basemap, hideTitle, controls } = this.props
+        const { name, basemap, hideTitle, controls, type } = this.props
         const {
             position,
             offset,
@@ -55,7 +56,6 @@ class Plugin extends Component {
             <div className={`dhis2-map-plugin ${styles.plugin}`}>
                 <CssReset />
                 <CssVariables colors spacers theme />
-                {!hideTitle && <MapName name={name} />}
                 <MapView
                     isPlugin={true}
                     isFullscreen={isFullscreen}
@@ -66,17 +66,22 @@ class Plugin extends Component {
                     openContextMenu={this.onOpenContextMenu}
                     resizeCount={resizeCount}
                 />
-                <Legend layers={mapViews} />
-                <ContextMenu
-                    feature={feature}
-                    position={position}
-                    offset={offset}
-                    onDrill={this.onDrill}
-                    onClose={this.onCloseContextMenu}
-                    isOffline={isOffline}
-                    isSplitView={isSplitView}
-                    container={container}
-                />
+                {type !== 'inset' && (
+                    <>
+                        {!hideTitle && <MapName name={name} />}
+                        <Legend layers={mapViews} />
+                        <ContextMenu
+                            feature={feature}
+                            position={position}
+                            offset={offset}
+                            onDrill={this.onDrill}
+                            onClose={this.onCloseContextMenu}
+                            isOffline={isOffline}
+                            isSplitView={isSplitView}
+                            container={container}
+                        />
+                    </>
+                )}
             </div>
         )
     }

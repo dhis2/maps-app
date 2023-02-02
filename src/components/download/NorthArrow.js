@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types'
 import React, { useState, useCallback, useEffect } from 'react'
+import styles from './styles/NorthArrow.module.css'
 
-// TODO: Consider adding to maps-gl
-const NorthArrow = ({ map, width = 80, height = 80, northLetter = 'N' }) => {
+const NorthArrow = ({
+    map,
+    width = 90,
+    height = 90,
+    color = 'black',
+    northLetter = 'N',
+}) => {
     const [rotation, setRotation] = useState(map.getBearing())
 
     const onMapRotate = useCallback((evt) => {
@@ -17,13 +23,7 @@ const NorthArrow = ({ map, width = 80, height = 80, northLetter = 'N' }) => {
     }, [map, onMapRotate])
 
     return (
-        <div
-            style={{
-                position: 'absolute',
-                bottom: 20,
-                right: 390,
-            }}
-        >
+        <div className={styles.northArrow}>
             <svg
                 width={width}
                 height={height}
@@ -31,16 +31,13 @@ const NorthArrow = ({ map, width = 80, height = 80, northLetter = 'N' }) => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <circle cx="24" cy="24" r="8" stroke="black" strokeWidth="2" />
+                <circle cx="24" cy="24" r="8" stroke={color} strokeWidth="2" />
                 <text
                     x="50%"
                     y="50%"
                     dominantBaseline="central"
                     textAnchor="middle"
-                    fill="black"
-                    style={{
-                        font: 'bold 70% sans-serif',
-                    }}
+                    fill={color}
                 >
                     {northLetter}
                 </text>
@@ -48,7 +45,7 @@ const NorthArrow = ({ map, width = 80, height = 80, northLetter = 'N' }) => {
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M24.4472 0.776393C24.3625 0.607001 24.1893 0.5 23.9999 0.5C23.8106 0.5 23.6374 0.607001 23.5527 0.776393L16.2178 15.4463C16.1098 15.6623 16.5106 15.9397 16.691 15.7792C18.6342 14.0503 21.1944 13 24 13C26.8055 13 29.3657 14.0503 31.3089 15.7792C31.4893 15.9396 31.8901 15.6623 31.7821 15.4463L24.4472 0.776393Z"
-                    fill="black"
+                    fill={color}
                     transform={`rotate(${rotation}, 24, 24)`}
                 />
             </svg>
@@ -58,9 +55,9 @@ const NorthArrow = ({ map, width = 80, height = 80, northLetter = 'N' }) => {
 
 NorthArrow.propTypes = {
     map: PropTypes.object.isRequired,
+    color: PropTypes.string,
     height: PropTypes.number,
     northLetter: PropTypes.string,
-    rotation: PropTypes.number,
     width: PropTypes.number,
 }
 

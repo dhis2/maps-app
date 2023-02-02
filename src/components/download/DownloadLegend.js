@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Legend from '../legend/Legend.js'
+import InsetMap from './InsetMap.js'
 import styles from './styles/DownloadLegend.module.css'
 
 const DownloadLegend = () => {
@@ -30,6 +31,7 @@ const DownloadLegend = () => {
                             <Legend {...legend} />
                         </div>
                     ))}
+            <InsetMap />
         </div>
     )
 }
