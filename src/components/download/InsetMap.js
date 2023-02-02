@@ -79,13 +79,14 @@ const InsetMap = ({ map }) => {
                 })
             }
 
+            const zoom = map.getMapGL().getZoom()
+            // const bearing = map.getMapGL().getBearing()
+
             insetMap.fitBounds(bounds)
-
-            const zoom = insetMap.getMapGL().getZoom()
-
+            // insetMap.getMapGL().setBearing(bearing)
             insetMap.getMapGL().setZoom(zoom - 3)
         }
-    }, [insetMap, bounds])
+    }, [map, insetMap, bounds])
 
     return <div ref={mapContainer} className={styles.insetMap}></div>
 }
