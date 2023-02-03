@@ -107,15 +107,15 @@ const getBasemapString = (basemap, defaultBasemapId) => {
     return basemap.id || defaultBasemapId;
 };
 
-const cleanLayerConfig = (config) => ({
+const cleanLayerConfig = config => ({
     ...models2objects(pick(validLayerProperties, config)),
 });
 
 // TODO: This feels hacky, find better way to clean map configs before saving
-const models2objects = (config) => {
+const models2objects = config => {
     const { layer } = config;
 
-    Object.keys(config).forEach((key) => {
+    Object.keys(config).forEach(key => {
         config[key] = models.includes(key)
             ? pick(validModelProperties, config[key])
             : config[key];
@@ -138,7 +138,7 @@ const models2objects = (config) => {
 
         // Removes undefined keys before stringify
         Object.keys(eeConfig).forEach(
-            (key) => eeConfig[key] === undefined && delete eeConfig[key]
+            key => eeConfig[key] === undefined && delete eeConfig[key]
         );
 
         config.config = JSON.stringify(eeConfig);
@@ -188,7 +188,7 @@ const models2objects = (config) => {
 
         if (config.styleDataItem.optionSet) {
             // Remove name and code from options as these are not persistent
-            config.styleDataItem.optionSet.options.forEach((option) => {
+            config.styleDataItem.optionSet.options.forEach(option => {
                 delete option.name;
                 delete option.code;
             });
@@ -198,7 +198,7 @@ const models2objects = (config) => {
     return config;
 };
 
-export const cleanDimension = (dim) => ({
+export const cleanDimension = dim => ({
     ...dim,
-    items: dim.items.map((item) => pick(validModelProperties, item)),
+    items: dim.items.map(item => pick(validModelProperties, item)),
 });

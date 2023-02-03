@@ -107,18 +107,18 @@ export const legendSetFields = [
 ];
 
 // Add path to org unit dimension  - https://jira.dhis2.org/browse/DHIS2-4212
-export const addOrgUnitPaths = (mapViews) =>
-    mapViews.map((view) =>
+export const addOrgUnitPaths = mapViews =>
+    mapViews.map(view =>
         view.rows && view.organisationUnits
             ? {
                   ...view,
-                  rows: view.rows.map((dim) => ({
+                  rows: view.rows.map(dim => ({
                       ...dim,
-                      items: dim.items.map((orgUnit) => ({
+                      items: dim.items.map(orgUnit => ({
                           ...orgUnit,
                           path: (
                               view.organisationUnits.find(
-                                  (ou) => ou.id === orgUnit.id
+                                  ou => ou.id === orgUnit.id
                               ) || {}
                           ).path,
                       })),
@@ -130,27 +130,26 @@ export const addOrgUnitPaths = (mapViews) =>
 const mandatoryDataItemAttributes = ['id', 'name', 'valueType'];
 
 // Checks if a data item is valid (program stage data elements and tracked entity attributes)
-export const getValidDataItems = (items) =>
+export const getValidDataItems = items =>
     items.filter(
-        (item) =>
+        item =>
             isObject(item) &&
-            mandatoryDataItemAttributes.every((prop) => prop in item)
+            mandatoryDataItemAttributes.every(prop => prop in item)
     );
 
 // Returns split view layer if exist
-export const getSplitViewLayer = (layers) =>
+export const getSplitViewLayer = layers =>
     layers.find(
-        (layer) =>
-            layer.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
+        layer => layer.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
     );
 
 // Checks if split view map
-export const isSplitViewMap = (layers) => !!getSplitViewLayer(layers);
+export const isSplitViewMap = layers => !!getSplitViewLayer(layers);
 
-export const formatCoordinate = (value) => {
+export const formatCoordinate = value => {
     try {
         return JSON.parse(value)
-            .map((v) => v.toFixed(6))
+            .map(v => v.toFixed(6))
             .join(', ');
     } catch (e) {
         return value;
@@ -158,7 +157,7 @@ export const formatCoordinate = (value) => {
 };
 
 // Formats a DHIS2 time string
-export const formatTime = (time) =>
+export const formatTime = time =>
     `${time.substring(0, 10)} ${time.substring(11, 16)}`;
 
 // Get the longest text length from an object property in an array
