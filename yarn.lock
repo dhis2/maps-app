@@ -2109,10 +2109,10 @@
     react-select "^2.0.0"
     rxjs "^5.5.7"
 
-"@dhis2/maps-gl@^3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.5.1.tgz#76d929659973df7635a8df70811005d8230feae3"
-  integrity sha512-6fyvJd7qEosfrf6bLh8d7eiSi509fJ5Y5sk/NxWgxJC2FcIgcu4xDBE43/N+Yw6WKSGaWsKkgI3kQiYElqoUAA==
+"@dhis2/maps-gl@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-3.7.0.tgz#5f664a5029fcb0a14d989109fb1131e484747642"
+  integrity sha512-SFnbekSYxy7B50ufxbFJkBIaBwcdwXf5qFm9St+jZ4XNtt2sFW5mstxGowCvw2823bpXFJ0EoN9+7+rHutEZ4Q==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^6.5.0"
@@ -2122,12 +2122,12 @@
     "@turf/circle" "^6.5.0"
     "@turf/length" "^6.5.0"
     comlink "^4.3.1"
-    fetch-jsonp "^1.2.1"
+    fetch-jsonp "^1.2.2"
     lodash.throttle "^4.1.1"
-    maplibre-gl "^2.1.9"
+    maplibre-gl "^2.4.0"
     polylabel "^1.1.0"
     suggestions "^1.7.1"
-    uuid "^8.3.2"
+    uuid "^9.0.0"
 
 "@dhis2/prop-types@^1.6.4":
   version "1.6.4"
@@ -8936,10 +8936,10 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
-fetch-jsonp@^1.2.1:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.2.2.tgz#c98923191390119a8eae401a9cbe75845230e000"
-  integrity sha512-8rQTSU3G2k9VwpsTLpuUQ8Ix7Yv1bZDGcOUGr4me0F7pxyKxMH9PSBXF6tPMx3fca9DICYwztDa1KgOTeAdTWg==
+fetch-jsonp@^1.2.2:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.2.3.tgz#ae99a867095cb1ce5c39fac601d70d1084db122f"
+  integrity sha512-C13k1o7R9JTN1wmhKkrW5bU/00LwixXnkufQUR6Rbf4KCS0i8mycQaovt4WVbHnA2NKgi7Ryp9Whpy/CGcij6Q==
 
 figgy-pudding@^3.5.1:
   version "3.5.2"
@@ -13396,7 +13396,7 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-maplibre-gl@^2.1.9:
+maplibre-gl@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-2.4.0.tgz#2b53dbf526626bf4ee92ad4f33f13ef09e5af182"
   integrity sha512-csNFylzntPmHWidczfgCZpvbTSmhaWvLRj9e1ezUDBEPizGgshgm3ea1T5TCNEEBq0roauu7BPuRZjA3wO4KqA==
@@ -19409,6 +19409,11 @@ uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
+uuid@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.0.tgz#592f550650024a38ceb0c562f2f6aa435761efb5"
+  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
 
 v8-compile-cache@^2.0.3, v8-compile-cache@^2.2.0:
   version "2.3.0"
