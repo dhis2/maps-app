@@ -16,6 +16,7 @@ const validMapProperties = [
     'longitude',
     'mapViews',
     'name',
+    'description',
     'user',
     'zoom',
     'publicAccess',
