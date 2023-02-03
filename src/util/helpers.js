@@ -31,6 +31,7 @@ const baseFields = [
     'id',
     'user',
     'displayName~rename(name)',
+    'description',
     'longitude',
     'latitude',
     'zoom',
