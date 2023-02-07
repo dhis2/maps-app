@@ -173,7 +173,8 @@ class Layer extends PureComponent {
 
     onFeatureRightClick(evt) {
         const [x, y] = evt.position
-        const { id, layer, renderingStrategy } = this.props
+        const layerConfig = { ...this.props }
+        const { id: layerId, layer: layerType, renderingStrategy } = layerConfig
         const { map } = this.context
         const container = map.getContainer()
         const { left, top } = container.getBoundingClientRect()
@@ -184,11 +185,11 @@ class Layer extends PureComponent {
             ...evt,
             position: [x, y],
             offset: [left, top],
-            layerConfig: { ...this.props },
-            layerId: id,
-            layerType: layer,
+            layerConfig,
+            layerId,
+            layerType,
             isSplitView,
-            map: map,
+            map,
             container: isSplitView
                 ? container.parentNode.parentNode
                 : container,
