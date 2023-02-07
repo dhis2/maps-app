@@ -6,7 +6,7 @@ import {
     CircularLoader,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { forwardRef, useState, useEffect } from 'react'
+import React, { forwardRef, useState, useCallback, useEffect } from 'react'
 import { drillUpDown } from '../../util/map.js'
 import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
@@ -29,6 +29,16 @@ const Plugin = forwardRef((props, ref) => {
     const { name, basemap, hideTitle, controls, getResizeFunction } = props
 
     const onResize = () => setResizeCount((state) => state + 1)
+
+    const onLayerLoad = useCallback(
+        (layer) =>
+            setMapViews((mapViews) =>
+                mapViews.map((mapView) =>
+                    layer.id === mapView.id ? layer : mapView
+                )
+            ),
+        []
+    )
 
     const onDrill = async (direction) => {
         const { layerId, feature } = contextMenu
@@ -60,11 +70,9 @@ const Plugin = forwardRef((props, ref) => {
                 )
             }
 
-            // const newLayer = await fetchLayer(newConfig)
-
             setMapViews(
                 mapViews.map((layer) =>
-                    layer.id === layerId ? newLayer : layer
+                    layer.id === layerId ? newConfig : layer
                 )
             )
 
@@ -87,7 +95,7 @@ const Plugin = forwardRef((props, ref) => {
                     <LayerLoader
                         key={config.id}
                         config={config}
-                        onLoad={this.onLayerLoad}
+                        onLoad={onLayerLoad}
                     />
                 ))}
             </CenteredContent>
