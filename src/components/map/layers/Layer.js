@@ -18,10 +18,8 @@ class Layer extends PureComponent {
         feature: PropTypes.object,
         index: PropTypes.number,
         isVisible: PropTypes.bool,
-        layer: PropTypes.string,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
-        renderingStrategy: PropTypes.string,
     }
 
     static defaultProps = {
