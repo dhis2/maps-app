@@ -23,6 +23,7 @@ import InterpretationsPanel from '../interpretations/InterpretationsPanel.js'
 import DataDownloadDialog from '../layers/download/DataDownloadDialog.js'
 import LayersPanel from '../layers/LayersPanel.js'
 import LayersToggle from '../layers/LayersToggle.js'
+import LayersLoader from '../loaders/LayersLoader.js'
 import ContextMenu from '../map/ContextMenu.js'
 import MapContainer from '../map/MapContainer.js'
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog.js'
@@ -90,6 +91,7 @@ const App = ({
                         <>
                             <LayersToggle />
                             <LayersPanel />
+                            <LayersLoader />
                             <MapContainer />
                         </>
                     )}

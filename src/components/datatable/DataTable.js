@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { Table, Column } from 'react-virtualized'
 import { closeDataTable } from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
-import { loadLayer } from '../../actions/layers.js'
+import { updateLayer } from '../../actions/layers.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
     EVENT_LAYER,
@@ -32,8 +32,8 @@ class DataTable extends Component {
         height: PropTypes.number.isRequired,
         highlightFeature: PropTypes.func.isRequired,
         layer: PropTypes.object.isRequired,
-        loadLayer: PropTypes.func.isRequired,
         setOrgUnitProfile: PropTypes.func.isRequired,
+        updateLayer: PropTypes.func.isRequired,
         width: PropTypes.number.isRequired,
         aggregations: PropTypes.object,
         feature: PropTypes.object,
@@ -86,11 +86,11 @@ class DataTable extends Component {
     }
 
     loadExtendedData() {
-        const { layer, loadLayer } = this.props
+        const { layer, updateLayer } = this.props
         const { layer: layerType, isExtended, serverCluster } = layer
 
         if (layerType === EVENT_LAYER && !isExtended && !serverCluster) {
-            loadLayer({
+            updateLayer({
                 ...layer,
                 showDataTable: true,
             })
@@ -377,7 +377,7 @@ export default connect(
     },
     {
         closeDataTable,
-        loadLayer,
+        updateLayer,
         setOrgUnitProfile,
         highlightFeature,
     }

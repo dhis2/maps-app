@@ -5,7 +5,6 @@ import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/concatMapTo'
 import 'rxjs/add/observable/empty'
 import dataDownloadEpics from './dataDownload.js'
-import layerEpics from './layers.js'
 import orgUnitEpis from './orgUnits.js'
 
 const errorEpic = (action$) =>
@@ -14,9 +13,4 @@ const errorEpic = (action$) =>
         .do((action) => console.error(action.error))
         .concatMapTo(Observable.empty()) // Avoid infinite loop, same as .map(action => Observable.empty()).concatAll()
 
-export default combineEpics(
-    errorEpic,
-    layerEpics,
-    orgUnitEpis,
-    dataDownloadEpics
-)
+export default combineEpics(errorEpic, orgUnitEpis, dataDownloadEpics)

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-01-24T00:21:31.920Z\n"
-"PO-Revision-Date: 2023-01-24T00:21:31.920Z\n"
+"POT-Creation-Date: 2023-01-26T18:15:41.956Z\n"
+"PO-Revision-Date: 2023-01-26T18:15:41.956Z\n"
 
 msgid "Maps"
 msgstr ""
@@ -105,9 +105,6 @@ msgid "is not"
 msgstr ""
 
 msgid "Operator"
-msgstr ""
-
-msgid "Value"
 msgstr ""
 
 msgid "Date"
