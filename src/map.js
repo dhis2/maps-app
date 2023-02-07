@@ -7,7 +7,6 @@ import { render, unmountComponentAtNode } from 'react-dom'
 import Plugin from './components/plugin/Plugin.js'
 import { getFallbackBasemap, defaultBasemaps } from './constants/basemaps.js'
 import { apiVersion } from './constants/settings.js'
-import { fetchLayer } from './loaders/layers.js'
 import i18n from './locales/index.js'
 import { createExternalLayer } from './util/external.js'
 import { getConfigFromNonMapConfig } from './util/getConfigFromNonMapConfig.js'
@@ -163,13 +162,10 @@ function PluginContainer() {
                     }))
                 }
 
-                Promise.all(config.mapViews.map(fetchLayer)).then((mapViews) =>
-                    drawMap({
-                        ...config,
-                        mapViews,
-                        basemap,
-                    })
-                )
+                drawMap({
+                    ...config,
+                    basemap,
+                })
             }
         }
     }

@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { Fragment, useRef } from 'react'
 import { connect } from 'react-redux'
-import { drillLayer } from '../../actions/layers.js'
+import { updateLayer } from '../../actions/layers.js'
 import {
     closeContextMenu,
     openCoordinatePopup,
@@ -19,6 +19,7 @@ import {
 } from '../../actions/map.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import { FACILITY_LAYER, EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import { drillUpDown } from '../../util/map.js'
 import styles from './styles/ContextMenu.module.css'
 
 const ContextMenu = (props) => {
@@ -26,8 +27,8 @@ const ContextMenu = (props) => {
 
     const {
         feature,
-        layerId,
         layerType,
+        layerConfig,
         coordinates,
         earthEngineLayers,
         position,
@@ -35,8 +36,8 @@ const ContextMenu = (props) => {
         closeContextMenu,
         openCoordinatePopup,
         showEarthEngineValue,
-        drillLayer,
         setOrgUnitProfile,
+        updateLayer,
     } = props
 
     if (!position) {
@@ -53,19 +54,23 @@ const ContextMenu = (props) => {
 
         switch (item) {
             case 'drill_up':
-                drillLayer(
-                    layerId,
-                    attr.grandParentId,
-                    attr.grandParentParentGraph,
-                    parseInt(attr.level) - 1
+                updateLayer(
+                    drillUpDown(
+                        layerConfig,
+                        attr.grandParentId,
+                        attr.grandParentParentGraph,
+                        parseInt(attr.level) - 1
+                    )
                 )
                 break
             case 'drill_down':
-                drillLayer(
-                    layerId,
-                    attr.id,
-                    attr.parentGraph,
-                    parseInt(attr.level) + 1
+                updateLayer(
+                    drillUpDown(
+                        layerConfig,
+                        attr.id,
+                        attr.parentGraph,
+                        parseInt(attr.level) + 1
+                    )
                 )
                 break
             case 'show_info':
@@ -152,14 +157,14 @@ const ContextMenu = (props) => {
 
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
-    drillLayer: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
+    updateLayer: PropTypes.func.isRequired,
     coordinates: PropTypes.array,
     earthEngineLayers: PropTypes.array,
     feature: PropTypes.object,
-    layerId: PropTypes.string,
+    layerConfig: PropTypes.object,
     layerType: PropTypes.string,
     map: PropTypes.object,
     offset: PropTypes.array,
@@ -177,7 +182,7 @@ export default connect(
         closeContextMenu,
         openCoordinatePopup,
         showEarthEngineValue,
-        drillLayer,
         setOrgUnitProfile,
+        updateLayer,
     }
 )(ContextMenu)
