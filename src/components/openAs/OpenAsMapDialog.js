@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { clearAnalyticalObject } from '../../actions/analyticalObject.js'
-import { loadLayer } from '../../actions/layers.js'
+import { addLayer } from '../../actions/layers.js'
 import {
     getDataDimensionsFromAnalyticalObject,
     getThematicLayerFromAnalyticalObject,
@@ -21,8 +21,8 @@ import styles from './styles/OpenAsMapDialog.module.css'
 
 class OpenAsMapDialog extends Component {
     static propTypes = {
+        addLayer: PropTypes.func.isRequired,
         clearAnalyticalObject: PropTypes.func.isRequired,
-        loadLayer: PropTypes.func.isRequired,
         showDialog: PropTypes.bool.isRequired,
         ao: PropTypes.object,
     }
@@ -106,7 +106,7 @@ class OpenAsMapDialog extends Component {
     }
 
     onProceedClick = async () => {
-        const { ao, loadLayer, clearAnalyticalObject } = this.props
+        const { ao, addLayer, clearAnalyticalObject } = this.props
         const dataDims = [...this.state.selectedDataDims].reverse()
         const lastDataId = dataDims[dataDims.length - 1]
 
@@ -119,7 +119,7 @@ class OpenAsMapDialog extends Component {
             )
 
             if (layer) {
-                loadLayer(layer)
+                addLayer(layer)
             }
         }
 
@@ -133,7 +133,7 @@ export default connect(
         ao: state.analyticalObject,
     }),
     {
-        loadLayer,
+        addLayer,
         clearAnalyticalObject,
     }
 )(OpenAsMapDialog)

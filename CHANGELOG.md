@@ -1,3 +1,10 @@
+## [1.28.1](https://github.com/dhis2/maps-app/compare/v1.28.0...v1.28.1) (2023-02-03)
+
+
+### Bug Fixes
+
+* save and retrieve map description ([#2470](https://github.com/dhis2/maps-app/issues/2470)) ([b56ab54](https://github.com/dhis2/maps-app/commit/b56ab54ac23dce74b8e02bfceff95fba03b0705b))
+
 # [1.28.0](https://github.com/dhis2/maps-app/compare/v1.27.7...v1.28.0) (2023-01-24)
 
 

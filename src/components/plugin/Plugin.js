@@ -1,9 +1,14 @@
 import { useOnlineStatus } from '@dhis2/app-runtime'
-import { CssReset, CssVariables } from '@dhis2/ui'
+import {
+    CssReset,
+    CssVariables,
+    CenteredContent,
+    CircularLoader,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { forwardRef, useState, useEffect } from 'react'
-import { fetchLayer } from '../../loaders/layers.js'
 import { drillUpDown } from '../../util/map.js'
+import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
 import ContextMenu from './ContextMenu.js'
 import Legend from './Legend.js'
@@ -55,7 +60,7 @@ const Plugin = forwardRef((props, ref) => {
                 )
             }
 
-            const newLayer = await fetchLayer(newConfig)
+            // const newLayer = await fetchLayer(newConfig)
 
             setMapViews(
                 mapViews.map((layer) =>
@@ -73,6 +78,21 @@ const Plugin = forwardRef((props, ref) => {
             getResizeFunction(onResize)
         }
     }, [getResizeFunction])
+
+    if (mapViews.find((layer) => !layer.isLoaded)) {
+        return (
+            <CenteredContent>
+                <CircularLoader />
+                {mapViews.map((config) => (
+                    <LayerLoader
+                        key={config.id}
+                        config={config}
+                        onLoad={this.onLayerLoad}
+                    />
+                ))}
+            </CenteredContent>
+        )
+    }
 
     return (
         <div ref={ref} className={`dhis2-map-plugin ${styles.plugin}`}>
