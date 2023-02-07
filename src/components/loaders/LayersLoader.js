@@ -5,7 +5,10 @@ import LayerLoader from './LayerLoader.js'
 
 const LayersLoader = () => {
     const layers = useSelector((state) =>
-        state.map.mapViews.filter((layer) => !layer.isLoaded)
+        state.map.mapViews.filter(
+            (layer) =>
+                !layer.isLoaded || (layer.showDataTable && !layer.isExtended)
+        )
     )
     const dispatch = useDispatch()
 
