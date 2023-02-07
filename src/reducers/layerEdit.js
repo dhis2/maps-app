@@ -403,6 +403,12 @@ const layerEdit = (state = null, action) => {
                 organisationUnitGroupSet: action.organisationUnitGroupSet,
             }
 
+        case types.LAYER_EDIT_ORGANISATION_UNITS_SET:
+            return {
+                ...state,
+                rows: [action.payload],
+            }
+
         case types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET:
             return {
                 ...state,

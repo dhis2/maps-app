@@ -175,7 +175,7 @@ class ThematicDialog extends Component {
 
         // Set default org unit level
         if (!getOrgUnitsFromRows(rows).length) {
-            setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL])
+            // setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL])
         }
     }
 

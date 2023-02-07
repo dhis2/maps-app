@@ -229,6 +229,12 @@ export const setAggregationType = (aggregationType) => ({
     aggregationType,
 })
 
+// Set organisation units
+export const setOrgUnits = (payload) => ({
+    type: types.LAYER_EDIT_ORGANISATION_UNITS_SET,
+    payload,
+})
+
 // Set org. unit levels (facility, thematic, org unit)
 export const setOrgUnitLevels = (levels) => ({
     type: types.LAYER_EDIT_ORGANISATION_UNIT_LEVELS_SET,
