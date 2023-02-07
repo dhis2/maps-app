@@ -13,8 +13,4 @@ const errorEpic = (action$) =>
         .do((action) => console.error(action.error))
         .concatMapTo(Observable.empty()) // Avoid infinite loop, same as .map(action => Observable.empty()).concatAll()
 
-export default combineEpics(
-    errorEpic,
-    orgUnitEpis,
-    dataDownloadEpics
-)
+export default combineEpics(errorEpic, orgUnitEpis, dataDownloadEpics)
