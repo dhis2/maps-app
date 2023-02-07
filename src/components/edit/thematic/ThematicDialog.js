@@ -57,6 +57,7 @@ import IndicatorSelect from '../../indicator/IndicatorSelect.js'
 import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect.js'
 import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect.js'
 import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect.js'
+import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
 import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
 import PeriodSelect from '../../periods/PeriodSelect.js'
@@ -477,44 +478,11 @@ class ThematicDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="thematicdialog-orgunitstab"
-                        >
-                            <div className={styles.orgUnitTree}>
-                                <OrgUnitTree
-                                    selected={getOrgUnitNodesFromRows(rows)}
-                                    onClick={toggleOrgUnit}
-                                    disabled={hasUserOrgUnits}
-                                />
+                        <>
+                            <div className={styles.flexRowFlow}>
+                                <OrgUnitSelect />
                             </div>
-                            <div className={styles.flexColumn}>
-                                <OrgUnitLevelSelect
-                                    orgUnitLevel={getOrgUnitLevelsFromRows(
-                                        rows
-                                    )}
-                                    onChange={setOrgUnitLevels}
-                                    disabled={hasUserOrgUnits}
-                                />
-                                <OrgUnitGroupSelect
-                                    orgUnitGroup={getOrgUnitGroupsFromRows(
-                                        rows
-                                    )}
-                                    onChange={setOrgUnitGroups}
-                                    disabled={hasUserOrgUnits}
-                                />
-                                <UserOrgUnitsSelect
-                                    selected={selectedUserOrgUnits}
-                                    onChange={setUserOrgUnits}
-                                />
-                                <OrgUnitFieldSelect />
-                                {!orgUnits.length && orgUnitsError && (
-                                    <div className={styles.error}>
-                                        {orgUnitsError}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        </>
                     )}
                     {tab === 'filter' && (
                         <div
@@ -731,3 +699,44 @@ export default connect(
         forwardRef: true,
     }
 )(ThematicDialogWithSettings)
+
+/*
+<div
+className={styles.flexColumnFlow}
+data-test="thematicdialog-orgunitstab"
+>
+<div className={styles.orgUnitTree}>
+    <OrgUnitTree
+        selected={getOrgUnitNodesFromRows(rows)}
+        onClick={toggleOrgUnit}
+        disabled={hasUserOrgUnits}
+    />
+</div>
+<div className={styles.flexColumn}>
+    <OrgUnitLevelSelect
+        orgUnitLevel={getOrgUnitLevelsFromRows(
+            rows
+        )}
+        onChange={setOrgUnitLevels}
+        disabled={hasUserOrgUnits}
+    />
+    <OrgUnitGroupSelect
+        orgUnitGroup={getOrgUnitGroupsFromRows(
+            rows
+        )}
+        onChange={setOrgUnitGroups}
+        disabled={hasUserOrgUnits}
+    />
+    <UserOrgUnitsSelect
+        selected={selectedUserOrgUnits}
+        onChange={setUserOrgUnits}
+    />
+    <OrgUnitFieldSelect />
+    {!orgUnits.length && orgUnitsError && (
+        <div className={styles.error}>
+            {orgUnitsError}
+        </div>
+    )}
+</div>
+</div>
+*/

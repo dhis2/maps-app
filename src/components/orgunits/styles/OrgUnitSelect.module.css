@@ -1,0 +1,7 @@
+.orgUnitSelect :global(.orgUnitTreeWrapper) {
+    max-height: 236px;
+}
+
+.orgUnitSelect :global(.userOrgUnitsWrapper label) {
+    margin-right: 38px;
+}
