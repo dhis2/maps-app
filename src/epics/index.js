@@ -6,7 +6,6 @@ import 'rxjs/add/operator/concatMapTo'
 import 'rxjs/add/observable/empty'
 import dataDownloadEpics from './dataDownload.js'
 import orgUnitEpis from './orgUnits.js'
-import programEpics from './programs.js'
 
 const errorEpic = (action$) =>
     action$
@@ -17,6 +16,5 @@ const errorEpic = (action$) =>
 export default combineEpics(
     errorEpic,
     orgUnitEpis,
-    programEpics,
     dataDownloadEpics
 )
