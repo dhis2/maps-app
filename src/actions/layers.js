@@ -29,12 +29,6 @@ export const updateLayer = (layer) => ({
     payload: layer,
 })
 
-// Load layer data
-export const loadLayer = (layer) => ({
-    type: types.LAYER_LOAD,
-    payload: layer,
-})
-
 // Expand/collapse overlay card
 export const toggleLayerExpand = (id) => ({
     type: types.LAYER_TOGGLE_EXPAND,
