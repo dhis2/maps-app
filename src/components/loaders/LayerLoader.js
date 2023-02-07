@@ -22,6 +22,7 @@ const LayerLoader = ({ config, onLoad }) => {
     const Loader = layerType[config.layer]
 
     if (!Loader) {
+        console.log('Unknown layer type', config.layer, config)
         return null
     }
 
