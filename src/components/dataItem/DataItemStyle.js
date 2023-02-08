@@ -28,7 +28,7 @@ const DataItemStyle = ({ dataItem, style }) => {
                 <BooleanStyle {...dataItem} />
             ) : null}
 
-            {optionSet ? <OptionSetStyle {...optionSet} /> : null}
+            {optionSet ? <OptionSetStyle styledOptionSet={optionSet} /> : null}
         </div>
     )
 }

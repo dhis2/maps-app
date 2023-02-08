@@ -1,3 +1,52 @@
+## [1.28.1](https://github.com/dhis2/maps-app/compare/v1.28.0...v1.28.1) (2023-02-03)
+
+
+### Bug Fixes
+
+* save and retrieve map description ([#2470](https://github.com/dhis2/maps-app/issues/2470)) ([b56ab54](https://github.com/dhis2/maps-app/commit/b56ab54ac23dce74b8e02bfceff95fba03b0705b))
+
+# [1.28.0](https://github.com/dhis2/maps-app/compare/v1.27.7...v1.28.0) (2023-01-24)
+
+
+### Features
+
+* add option to include value in the label for Thematic layer ([#2357](https://github.com/dhis2/maps-app/issues/2357)) ([085dbed](https://github.com/dhis2/maps-app/commit/085dbeda10e7ca832aa168d5c24b45bc0324803e))
+
+## [1.27.7](https://github.com/dhis2/maps-app/compare/v1.27.6...v1.27.7) (2023-01-19)
+
+
+### Bug Fixes
+
+* maps-gl upgrade with svg symbols support ([#2456](https://github.com/dhis2/maps-app/issues/2456)) ([5486892](https://github.com/dhis2/maps-app/commit/54868922a27884ab9b93eaa7770701d87a484906))
+
+## [1.27.6](https://github.com/dhis2/maps-app/compare/v1.27.5...v1.27.6) (2023-01-16)
+
+
+### Bug Fixes
+
+* improved facility symbol handling (DHIS2-14438) ([#2423](https://github.com/dhis2/maps-app/issues/2423)) ([2a43892](https://github.com/dhis2/maps-app/commit/2a4389299e90260024f74bd4bd4c2b8430aa277b))
+
+## [1.27.5](https://github.com/dhis2/maps-app/compare/v1.27.4...v1.27.5) (2023-01-16)
+
+
+### Bug Fixes
+
+* useDataQuery in GroupStyleSelect ([#2443](https://github.com/dhis2/maps-app/issues/2443)) ([0d5e01a](https://github.com/dhis2/maps-app/commit/0d5e01ada6e452a1fc4af9de02ba5aadf44a0508))
+
+## [1.27.4](https://github.com/dhis2/maps-app/compare/v1.27.3...v1.27.4) (2023-01-13)
+
+
+### Bug Fixes
+
+* untitled map name ([#2438](https://github.com/dhis2/maps-app/issues/2438)) ([081f6fd](https://github.com/dhis2/maps-app/commit/081f6fda88e08927e5dae4ad023763fb7eac23ce))
+
+## [1.27.3](https://github.com/dhis2/maps-app/compare/v1.27.2...v1.27.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* special characters in map name ([#2424](https://github.com/dhis2/maps-app/issues/2424)) ([cfc6288](https://github.com/dhis2/maps-app/commit/cfc628877a7e539ef16026d1dc84f47e0cda6ad6))
+
 ## [1.27.2](https://github.com/dhis2/maps-app/compare/v1.27.1...v1.27.2) (2022-12-09)
 
 

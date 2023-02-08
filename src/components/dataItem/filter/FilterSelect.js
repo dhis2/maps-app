@@ -1,24 +1,23 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { Fragment, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { loadOptionSet } from '../../actions/optionSets.js'
+import React, { Fragment } from 'react'
 import {
     numberValueTypes,
     textValueTypes,
     booleanValueTypes,
-} from '../../constants/valueTypes.js'
+} from '../../../constants/valueTypes.js'
+import useOptionSet from '../../../hooks/useOptionSet.js'
 import {
     SelectField,
     NumberField,
     TextField,
     Checkbox,
     DatePicker,
-} from '../core/index.js'
-import OptionSetSelect from '../optionSet/OptionSetSelect.js'
+} from '../../core/index.js'
+import OptionSetSelect from '../../optionSet/OptionSetSelect.js'
 import styles from './styles/FilterSelect.module.css'
 
-const getOperators = (valueType, optionSet) => {
+const getOperators = (valueType, optionSetId) => {
     let operators
 
     if (['NUMBER', 'INTEGER', 'INTEGER_POSITIVE', 'DATE'].includes(valueType)) {
@@ -30,7 +29,7 @@ const getOperators = (valueType, optionSet) => {
             { id: 'LE', name: '<=' },
             { id: 'NE', name: '!=' },
         ]
-    } else if (optionSet) {
+    } else if (optionSetId) {
         operators = [{ id: 'IN', name: i18n.t('one of') }]
     } else if (textValueTypes.includes(valueType)) {
         operators = [
@@ -43,15 +42,9 @@ const getOperators = (valueType, optionSet) => {
     return operators
 }
 
-const FilterSelect = ({
-    valueType,
-    filter,
-    optionSet,
-    optionSets,
-    onChange,
-    loadOptionSet,
-}) => {
-    const operators = getOperators(valueType, optionSet)
+const FilterSelect = ({ valueType, filter, optionSetId, onChange }) => {
+    const { optionSet } = useOptionSet(optionSetId)
+    const operators = getOperators(valueType, optionSetId)
     let operator
     let value
 
@@ -63,11 +56,8 @@ const FilterSelect = ({
         operator = operators[0].id
     }
 
-    useEffect(() => {
-        if (optionSet && !optionSets[optionSet.id]) {
-            loadOptionSet(optionSet.id)
-        }
-    }, [optionSet, optionSets, loadOptionSet])
+    const options =
+        optionSetId && optionSetId === optionSet?.id ? optionSet.options : null
 
     return (
         <Fragment>
@@ -82,9 +72,9 @@ const FilterSelect = ({
                     className={styles.operator}
                 />
             )}
-            {optionSet && optionSets[optionSet.id] && (
+            {options && (
                 <OptionSetSelect
-                    options={optionSets[optionSet.id].options}
+                    options={options}
                     value={value ? value.split(';') : null}
                     onChange={(newValue) =>
                         onChange(`${operator}:${newValue.join(';')}`)
@@ -100,7 +90,7 @@ const FilterSelect = ({
                     className={styles.inputField}
                 />
             )}
-            {textValueTypes.includes(valueType) && !optionSet && (
+            {textValueTypes.includes(valueType) && !optionSetId && (
                 <TextField
                     label={i18n.t('Value')}
                     value={value || ''}
@@ -131,17 +121,10 @@ const FilterSelect = ({
 }
 
 FilterSelect.propTypes = {
-    loadOptionSet: PropTypes.func.isRequired,
+    valueType: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     filter: PropTypes.string,
-    optionSet: PropTypes.object,
-    optionSets: PropTypes.object,
-    valueType: PropTypes.string,
+    optionSetId: PropTypes.string,
 }
 
-export default connect(
-    (state) => ({
-        optionSets: state.optionSets,
-    }),
-    { loadOptionSet }
-)(FilterSelect)
+export default FilterSelect

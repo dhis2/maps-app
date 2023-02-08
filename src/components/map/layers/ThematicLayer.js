@@ -8,6 +8,7 @@ import {
     BOUNDARY_LAYER,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
+    LABEL_TEMPLATE_NAME_ONLY,
 } from '../../../constants/layers.js'
 import { getPeriodFromFilters } from '../../../util/analytics.js'
 import { filterData } from '../../../util/filter.js'
@@ -82,7 +83,7 @@ class ThematicLayer extends Layer {
         }
 
         if (labels) {
-            config.label = '{name}'
+            config.label = this.props.labelTemplate || LABEL_TEMPLATE_NAME_ONLY
             config.labelStyle = getLabelStyle(this.props)
         }
 

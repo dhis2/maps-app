@@ -58,6 +58,7 @@ const MapContainer = (props) => {
         <div style={style}>
             <div
                 id="dhis2-map-container"
+                data-test="dhis2-map-container"
                 className={cx(styles.container, {
                     'dhis2-map-download': isDownload,
                     [styles.download]: isDownload,
