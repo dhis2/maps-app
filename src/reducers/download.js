@@ -1,10 +1,11 @@
 import * as types from '../constants/actionTypes.js'
 
 const defaultState = {
-    downloadMode: true,
+    downloadMode: false,
     showName: true,
     showDescription: true,
     showLegend: true,
+    showInsetMap: true,
     showNorthArrow: true,
 }
 
@@ -16,28 +17,10 @@ const download = (state = defaultState, action) => {
                 downloadMode: action.payload,
             }
 
-        case types.DOWNLOAD_NAME_SHOW_TOGGLE:
+        case types.DOWNLOAD_PROPERTY_SET:
             return {
                 ...state,
-                showName: action.payload,
-            }
-
-        case types.DOWNLOAD_DESCRIPTION_SHOW_TOGGLE:
-            return {
-                ...state,
-                showDescription: action.payload,
-            }
-
-        case types.DOWNLOAD_LEGEND_SHOW_TOGGLE:
-            return {
-                ...state,
-                showLegend: action.payload,
-            }
-
-        case types.DOWNLOAD_NORTH_ARROW_TOGGLE:
-            return {
-                ...state,
-                showNorthArrow: action.payload,
+                ...action.payload,
             }
 
         default:

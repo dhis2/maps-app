@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     toggleDownloadMode,
+    setDownloadProperty,
     toggleDownloadShowName,
     toggleDownloadShowDescription,
     toggleDownloadShowLegend,
@@ -24,6 +25,7 @@ const DownloadDialog = () => {
         showName,
         showDescription,
         showLegend,
+        showInsetMap,
         showNorthArrow,
     } = useSelector((state) => state.download)
 
@@ -58,31 +60,56 @@ const DownloadDialog = () => {
                                 label={i18n.t('Show name')}
                                 checked={showName}
                                 disabled={!name}
-                                onChange={(v) =>
-                                    dispatch(toggleDownloadShowName(v))
+                                onChange={(value) =>
+                                    dispatch(
+                                        setDownloadProperty({ showName: value })
+                                    )
                                 }
                             />
                             <Checkbox
                                 label={i18n.t('Show description')}
                                 checked={showDescription}
                                 disabled={!description}
-                                onChange={(v) =>
-                                    dispatch(toggleDownloadShowDescription(v))
+                                onChange={(value) =>
+                                    dispatch(
+                                        setDownloadProperty({
+                                            showDescription: value,
+                                        })
+                                    )
                                 }
                             />
                             <Checkbox
                                 label={i18n.t('Show legend')}
                                 checked={showLegend}
                                 disabled={!hasLegend}
-                                onChange={(v) =>
-                                    dispatch(toggleDownloadShowLegend(v))
+                                onChange={(value) =>
+                                    dispatch(
+                                        setDownloadProperty({
+                                            showLegend: value,
+                                        })
+                                    )
+                                }
+                            />
+                            <Checkbox
+                                label={i18n.t('Show inset map')}
+                                checked={showInsetMap}
+                                onChange={(value) =>
+                                    dispatch(
+                                        setDownloadProperty({
+                                            showInsetMap: value,
+                                        })
+                                    )
                                 }
                             />
                             <Checkbox
                                 label={i18n.t('Show north arrow')}
                                 checked={showNorthArrow}
-                                onChange={(v) =>
-                                    dispatch(toggleDownloadNorthArrow(v))
+                                onChange={(value) =>
+                                    dispatch(
+                                        setDownloadProperty({
+                                            showNorthArrow: value,
+                                        })
+                                    )
                                 }
                             />
                         </>
