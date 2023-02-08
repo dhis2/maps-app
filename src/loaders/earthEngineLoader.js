@@ -21,7 +21,7 @@ const earthEngineLoader = async (config) => {
 
     let layerConfig = {}
     let dataset
-    let features
+    let features = []
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2()
@@ -33,7 +33,7 @@ const earthEngineLoader = async (config) => {
             .displayProperty(displayProperty)
 
         try {
-            features = await featuresRequest.getAll().then(toGeoJson)
+            const mainFeatures = await featuresRequest.getAll().then(toGeoJson)
 
             if (coordinateField) {
                 const associatedGeometries = await featuresRequest
@@ -53,10 +53,14 @@ const earthEngineLoader = async (config) => {
                 }
 
                 features = addAssociatedGeometries(
-                    features,
+                    mainFeatures,
                     associatedGeometries
                 )
-            } else if (!features.length) {
+            } else {
+                features = mainFeatures
+            }
+
+            if (!features.length) {
                 alerts.push({
                     warning: true,
                     message: i18n.t(

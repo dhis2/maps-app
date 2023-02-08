@@ -221,15 +221,3 @@ export const addAssociatedGeometries = (features, associatedGeometries) =>
             },
         }))
         .concat(associatedGeometries)
-
-// Set hasAddiditionalGeometry property if exist
-/*
-export const setAdditionalGeometry = (features) =>
-    features
-        .filter(
-            (feature, i) =>
-                i <
-                features.findIndex((f) => f.id === feature.id && f !== feature)
-        )
-        .forEach((f) => (f.properties.hasAdditionalGeometry = true))
-*/
