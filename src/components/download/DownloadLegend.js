@@ -6,12 +6,10 @@ import InsetMap from './InsetMap.js'
 import styles from './styles/DownloadLegend.module.css'
 
 const DownloadLegend = ({ map }) => {
-    const { showName, showDescription, showLegend } = useSelector(
+    const { showName, showDescription, showLegend, showInsetMap } = useSelector(
         (state) => state.download
     )
     const { mapViews, name, description } = useSelector((state) => state.map)
-
-    // console.log('DownloadLegend map', map)
 
     return (
         <div className={styles.downloadLegend}>
@@ -34,7 +32,7 @@ const DownloadLegend = ({ map }) => {
                             <Legend {...legend} />
                         </div>
                     ))}
-            <InsetMap map={map} />
+            {showInsetMap && <InsetMap map={map} />}
         </div>
     )
 }

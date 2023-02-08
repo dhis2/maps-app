@@ -5,10 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     toggleDownloadMode,
     setDownloadProperty,
-    toggleDownloadShowName,
-    toggleDownloadShowDescription,
-    toggleDownloadShowLegend,
-    toggleDownloadNorthArrow,
 } from '../../actions/download.js'
 import { downloadMapImage, downloadSupport } from '../../util/export-image.js'
 import Drawer from '../core/Drawer.js'
