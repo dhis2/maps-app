@@ -1,24 +1,3 @@
-.downloadLegend {
-    padding: var(--spacers-dp24);
-    background-color: #fff;
-    height: 100%;
-    width: 380px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-left: 1px solid #e0e0e0;
-}
-
-.downloadLegend h1 {
-    font-size: 24px;
-    margin: 0 0 var(--spacers-dp24);
-}
-
-.downloadLegend div a:link,
-.downloadLegend div a:visited {
-    color: var(--colors-grey900);
-}
-
 .legend {
     margin-bottom: var(--spacers-dp16);
 }
@@ -35,28 +14,4 @@
     font-size: 14px;
     font-weight: normal;
     padding-top: 2px;
-}
-
-.topleft {
-    top: var(--spacers-dp8);
-    left: var(--spacers-dp8);
-}
-
-.topright {
-    top: var(--spacers-dp8);
-    right: var(--spacers-dp8);
-}
-
-.bottomleft {
-    bottom: 40px;
-    left: var(--spacers-dp8);
-}
-
-.bottomright {
-    bottom: 30px;
-    right: var(--spacers-dp8);
-}
-
-.name {
-    top: 48px;
 }

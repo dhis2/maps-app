@@ -1,0 +1,24 @@
+.downloadPanel {
+    padding: var(--spacers-dp24);
+    background-color: #fff;
+    height: 100%;
+    width: 380px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1px solid #e0e0e0;
+}
+
+.downloadPanel h1 {
+    font-size: 24px;
+    margin: 0 0 var(--spacers-dp24);
+}
+
+.downloadPanel p {
+    margin: var(--spacers-dp24) 0;
+}
+
+.downloadPanel div a:link,
+.downloadPanel div a:visited {
+    color: var(--colors-grey900);
+}

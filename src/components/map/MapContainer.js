@@ -10,7 +10,7 @@ import {
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
-import DownloadLegend from '../download/DownloadLegend.js'
+import DownloadLPanel from '../download/DownloadPanel.js'
 import MapLoadingMask from './MapLoadingMask.js'
 import MapName from './MapName.js'
 import MapView from './MapView.js'
@@ -97,7 +97,7 @@ const MapContainer = (props) => {
                         setMapObject={setMap}
                     />
                 </div>
-                {downloadMode && map && <DownloadLegend map={map} />}
+                {downloadMode && map && <DownloadLPanel map={map} />}
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>
