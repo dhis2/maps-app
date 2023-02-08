@@ -91,7 +91,6 @@ const App = () => {
                             <LayersToggle />
                             <LayersPanel />
                             <LayersLoader />
-                            <MapContainer />
                         </>
                     )}
                     <InterpretationsPanel />
