@@ -204,7 +204,26 @@ export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>
         ? { id: orgUnitField, name: orgUnitFieldDisplayName }
         : null
 
+// Only keep org unit point features if associated geometry is not a point
+export const addAssociatedGeometries = (features, associatedGeometries) =>
+    features
+        .filter(
+            (f) =>
+                f.geometry.type === 'Point' &&
+                associatedGeometries.find((a) => a.id === f.id)?.geometry
+                    .type !== 'Point'
+        )
+        .map((f) => ({
+            ...f,
+            properties: {
+                ...f.properties,
+                hasAdditionalGeometry: true,
+            },
+        }))
+        .concat(associatedGeometries)
+
 // Set hasAddiditionalGeometry property if exist
+/*
 export const setAdditionalGeometry = (features) =>
     features
         .filter(
@@ -213,3 +232,4 @@ export const setAdditionalGeometry = (features) =>
                 features.findIndex((f) => f.id === feature.id && f !== feature)
         )
         .forEach((f) => (f.properties.hasAdditionalGeometry = true))
+*/

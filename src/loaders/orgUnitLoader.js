@@ -5,7 +5,7 @@ import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
     fetchOrgUnitGroupSet,
-    setAdditionalGeometry,
+    addAssociatedGeometries,
     getOrgUnitLevels,
     getStyledOrgUnits,
     getCoordinateField,
@@ -88,9 +88,7 @@ const orgUnitLoader = async (config) => {
         }
     }
 
-    const features = mainFeatures.concat(associatedGeometries)
-
-    setAdditionalGeometry(features)
+    const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
 
     const { styledFeatures, legend } = getStyledOrgUnits(
         features,

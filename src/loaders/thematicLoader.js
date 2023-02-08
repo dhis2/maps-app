@@ -30,7 +30,10 @@ import {
     getAutomaticLegendItems,
 } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
-import { setAdditionalGeometry, getCoordinateField } from '../util/orgUnits.js'
+import {
+    getCoordinateField,
+    addAssociatedGeometries,
+} from '../util/orgUnits.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
 const thematicLoader = async (config) => {
@@ -78,7 +81,7 @@ const thematicLoader = async (config) => {
     }
 
     const [mainFeatures, data, associatedGeometries = []] = response
-    const features = mainFeatures.concat(associatedGeometries)
+    const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE
     const isSingleColor = config.method === CLASSIFICATION_SINGLE_COLOR
@@ -173,9 +176,7 @@ const thematicLoader = async (config) => {
         .domain([minValue, maxValue])
         .clamp(true)
 
-    if (valueFeatures.length) {
-        setAdditionalGeometry(valueFeatures)
-    } else {
+    if (!valueFeatures.length) {
         if (!features.length) {
             alerts.push({
                 warning: true,

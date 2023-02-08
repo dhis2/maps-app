@@ -7,7 +7,10 @@ import { hasClasses, getPeriodNameFromFilter } from '../util/earthEngine.js'
 import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import { numberPrecision } from '../util/numbers.js'
-import { getCoordinateField, setAdditionalGeometry } from '../util/orgUnits.js'
+import {
+    getCoordinateField,
+    addAssociatedGeometries,
+} from '../util/orgUnits.js'
 
 // Returns a promise
 const earthEngineLoader = async (config) => {
@@ -49,8 +52,10 @@ const earthEngineLoader = async (config) => {
                     })
                 }
 
-                features = features.concat(associatedGeometries)
-                setAdditionalGeometry(features)
+                features = addAssociatedGeometries(
+                    features,
+                    associatedGeometries
+                )
             } else if (!features.length) {
                 alerts.push({
                     warning: true,
