@@ -50,9 +50,7 @@ const App = () => {
                 await dispatch(
                     tOpenMap(mapId, systemSettings.keyDefaultBaseMap, engine)
                 )
-            }
-
-            if (getUrlParameter('currentAnalyticalObject') === 'true') {
+            } else if (getUrlParameter('currentAnalyticalObject') === 'true') {
                 await dispatch(tSetAnalyticalObject(currentAO))
             }
         }
