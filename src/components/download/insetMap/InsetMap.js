@@ -51,6 +51,12 @@ const InsetMap = ({ mainMap }) => {
         }
     }, [insetMap, onMainMapMove])
 
+    useEffect(() => {
+        // TODO: Don't allow the map container to overflow the right column
+        // https://www.google.com/search?q=javascript+check+if+element+is+overflowing&oq=javascript+check+if+element+is+ov&aqs=chrome.1.69i57j0i512j0i22i30i625l8.8282j0j7&sourceid=chrome&ie=UTF-8
+        console.log('mapContainer', mapContainer.current)
+    }, [mapContainer])
+
     return (
         <div ref={mapContainer} className={styles.insetMap}>
             {insetMap && (
