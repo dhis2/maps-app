@@ -6,7 +6,7 @@ import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui'
 import isEmpty from 'lodash/isEmpty'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
 import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap.js'
@@ -34,7 +34,6 @@ import AppMenu from './AppMenu.js'
 import styles from './styles/App.module.css'
 
 const App = () => {
-    const [basemapsLoaded, setBasemapsLoaded] = useState(false)
     const systemSettings = useSystemSettings()
     const engine = useDataEngine()
     const [currentAO] = useSetting(CURRENT_AO_KEY)
@@ -45,16 +44,13 @@ const App = () => {
         async function fetchData() {
             await dispatch(tSetOrgUnitTree())
             await dispatch(tSetExternalLayers(engine))
-            setBasemapsLoaded(true)
 
             const mapId = getUrlParameter('id')
             if (mapId) {
                 await dispatch(
                     tOpenMap(mapId, systemSettings.keyDefaultBaseMap, engine)
                 )
-            }
-
-            if (getUrlParameter('currentAnalyticalObject') === 'true') {
+            } else if (getUrlParameter('currentAnalyticalObject') === 'true') {
                 await dispatch(tSetAnalyticalObject(currentAO))
             }
         }
@@ -70,11 +66,6 @@ const App = () => {
             }
         }
     }, [systemSettings, dispatch])
-
-    // TODO: Loading basemaps handling
-    if (!basemapsLoaded) {
-        return null
-    }
 
     return (
         <FatalErrorBoundary>
