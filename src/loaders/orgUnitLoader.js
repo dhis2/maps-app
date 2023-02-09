@@ -28,7 +28,7 @@ const orgUnitLoader = async (config) => {
         .byOrgUnit(orgUnitParams)
         .displayProperty(displayProperty)
 
-    let associatedGeometries = []
+    let associatedGeometries
 
     const requests = [
         featuresRequest

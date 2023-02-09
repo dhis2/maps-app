@@ -80,7 +80,7 @@ const thematicLoader = async (config) => {
         }
     }
 
-    const [mainFeatures, data, associatedGeometries = []] = response
+    const [mainFeatures, data, associatedGeometries] = response
     const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
     const isBubbleMap = thematicMapType === THEMATIC_BUBBLE

@@ -49,7 +49,9 @@ export const fetchOrgUnitGroupSet = (id) =>
         `/organisationUnitGroupSets/${id}?fields=organisationUnitGroups[id,name,color,symbol]`
     ).then(parseGroupSet)
 
-export const filterPointFacilities = (data) => data.filter((d) => d.ty === 1)
+export const filterPoints = (data) => data.filter((d) => d.ty === 1)
+
+export const filterPolygons = (data) => data.filter((d) => d.ty === 2)
 
 export const getOrgUnitStyle = (dimensions, groupSet) =>
     groupSet &&
@@ -204,20 +206,40 @@ export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>
         ? { id: orgUnitField, name: orgUnitFieldDisplayName }
         : null
 
-// Only keep org unit point features if associated geometry is not a point
-export const addAssociatedGeometries = (features, associatedGeometries) =>
-    features
-        .filter(
-            (f) =>
-                f.geometry.type === 'Point' &&
-                associatedGeometries.find((a) => a.id === f.id)?.geometry
-                    .type !== 'Point'
-        )
-        .map((f) => ({
-            ...f,
-            properties: {
-                ...f.properties,
-                hasAdditionalGeometry: true,
-            },
-        }))
+// Combines main org unit features with associated geometries
+export const addAssociatedGeometries = (mainFeatures, associatedGeometries) => {
+    // Return main features if there are no associated geomteries
+    if (!associatedGeometries) {
+        return mainFeatures
+    }
+
+    // If there are associated geometries we only return main features that are
+    // points - and only if the associated geometry is not existing or not a point.
+    // The returned main feature points with an associated geometry gets an extra
+    // "hasAdditionalGeometry" property (used to only show the same org unit once
+    // in the data table).
+    return mainFeatures
+        .filter((f) => {
+            const associated = associatedGeometries.find((a) => a.id === f.id)
+
+            if (f.geometry.type === 'Point') {
+                return associated ? associated.geometry.type !== 'Point' : true
+            } else {
+                return false
+            }
+        })
+        .map((f) => {
+            const associated = associatedGeometries.find((a) => a.id === f.id)
+
+            return associated
+                ? {
+                      ...f,
+                      properties: {
+                          ...f.properties,
+                          hasAdditionalGeometry: true,
+                      },
+                  }
+                : f
+        })
         .concat(associatedGeometries)
+}

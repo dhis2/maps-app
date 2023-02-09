@@ -21,22 +21,24 @@ const earthEngineLoader = async (config) => {
 
     let layerConfig = {}
     let dataset
-    let features = []
+    let features
 
     if (orgUnits && orgUnits.length) {
         const d2 = await getD2()
         const displayProperty = getDisplayProperty(d2).toUpperCase()
         const orgUnitParams = orgUnits.map((item) => item.id)
+        let mainFeatures
+        let associatedGeometries
 
         const featuresRequest = d2.geoFeatures
             .byOrgUnit(orgUnitParams)
             .displayProperty(displayProperty)
 
         try {
-            const mainFeatures = await featuresRequest.getAll().then(toGeoJson)
+            mainFeatures = await featuresRequest.getAll().then(toGeoJson)
 
             if (coordinateField) {
-                const associatedGeometries = await featuresRequest
+                associatedGeometries = await featuresRequest
                     .getAll({
                         coordinateField: coordinateField.id,
                     })
@@ -51,14 +53,12 @@ const earthEngineLoader = async (config) => {
                         }),
                     })
                 }
-
-                features = addAssociatedGeometries(
-                    mainFeatures,
-                    associatedGeometries
-                )
-            } else {
-                features = mainFeatures
             }
+
+            features = addAssociatedGeometries(
+                mainFeatures,
+                associatedGeometries
+            )
 
             if (!features.length) {
                 alerts.push({
