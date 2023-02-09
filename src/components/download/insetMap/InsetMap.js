@@ -45,6 +45,12 @@ const InsetMap = ({ mainMap }) => {
         }
     }, [insetMap, basemap])
 
+    useEffect(() => {
+        if (insetMap) {
+            onMainMapMove()
+        }
+    }, [insetMap, onMainMapMove])
+
     return (
         <div ref={mapContainer} className={styles.insetMap}>
             {insetMap && (
