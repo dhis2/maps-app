@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import DownloadLegend from './DownloadLegend.js'
 import InsetMap from './insetMap/InsetMap.js'

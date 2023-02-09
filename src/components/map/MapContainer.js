@@ -41,7 +41,7 @@ const MapContainer = (props) => {
     const style = {
         position: 'absolute',
         top: HEADER_HEIGHT,
-        left: layersPanelOpen ? LAYERS_PANEL_WIDTH : 0,
+        left: layersPanelOpen || downloadMode ? LAYERS_PANEL_WIDTH : 0,
         right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
         border: downloadMode ? 'var(--spacers-dp8) solid #ccc' : 'none',
@@ -60,6 +60,17 @@ const MapContainer = (props) => {
         dataTableHeight,
         downloadMode,
     ])
+
+    // Fit layer bounds when download mode is toggled
+    useEffect(() => {
+        if (map) {
+            map.getMapGL().once('resize', () =>
+                map.fitBounds(map.getLayersBounds(), {
+                    padding: 40,
+                })
+            )
+        }
+    }, [map, downloadMode])
 
     return (
         <div style={style}>
