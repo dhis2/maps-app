@@ -29,6 +29,9 @@ const InsetMap = ({ mainMap }) => {
     useEffect(() => {
         mapApi({
             attributionControl: false,
+            dragRotate: false,
+            touchZoomRotate: false,
+            pitchWithRotate: false,
         }).once('ready', (evt) => setInsetMap(evt.target))
     }, [])
 
