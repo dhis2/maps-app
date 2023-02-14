@@ -6,6 +6,7 @@ import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import { formatTime, formatCoordinate } from '../../../util/helpers.js'
 import Popup from '../Popup.js'
 
+// Returns true if value is not undefined or null;
 const hasValue = (value) => value !== undefined || value !== null
 
 const EVENTS_QUERY = {
