@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { setAggregations } from '../../actions/aggregations.js'
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
 import {
@@ -17,27 +17,24 @@ import MapName from './MapName.js'
 import MapView from './MapView.js'
 import styles from './styles/MapContainer.module.css'
 
-const MapContainer = (props) => {
-    const {
-        mapViews,
-        bounds,
-        feature,
-        newLayerIsLoading,
-        coordinatePopup,
-        layersPanelOpen,
-        rightPanelOpen,
-        dataTableOpen,
-        dataTableHeight,
-        interpretationModalOpen,
-        downloadMode,
-        openContextMenu,
-        closeCoordinatePopup,
-        setAggregations,
-        showNorthArrow,
-    } = props
+const MapContainer = () => {
     const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
-    const basemap = useBasemapConfig(props.basemap)
+    const { basemap, newLayerIsLoading, coordinatePopup, mapViews, bounds } =
+        useSelector((state) => state.map)
+    const { downloadMode, showNorthArrow } = useSelector(
+        (state) => state.download
+    )
+    const { layersPanelOpen, rightPanelOpen, dataTableHeight } = useSelector(
+        (state) => state.ui
+    )
+    const dataTableOpen = useSelector((state) => !!state.dataTable)
+    const interpretationModalOpen = useSelector(
+        (state) => !!state.interpretation.id
+    )
+    const feature = useSelector((state) => state.feature)
+    const basemapConfig = useBasemapConfig(basemap)
+    const dispatch = useDispatch()
 
     const mapPosition = {
         top: HEADER_HEIGHT,
@@ -85,17 +82,23 @@ const MapContainer = (props) => {
                     {!downloadMode && <MapName />}
                     <MapView
                         isPlugin={false}
-                        basemap={basemap}
+                        basemap={basemapConfig}
                         layers={layers}
                         bounds={bounds}
                         feature={feature}
-                        openContextMenu={openContextMenu}
+                        openContextMenu={(config) =>
+                            dispatch(openContextMenu(config))
+                        }
                         coordinatePopup={coordinatePopup}
                         interpretationModalOpen={interpretationModalOpen}
-                        closeCoordinatePopup={closeCoordinatePopup}
-                        setAggregations={setAggregations}
+                        closeCoordinatePopup={() =>
+                            dispatch(closeCoordinatePopup())
+                        }
+                        setAggregations={(data) =>
+                            dispatch(setAggregations(data))
+                        }
                         resizeCount={resizeCount}
-                        showNorthArrow={showNorthArrow}
+                        showNorthArrow={downloadMode && showNorthArrow}
                         setMapObject={setMap}
                     />
                     {downloadMode && map && (
@@ -111,42 +114,4 @@ const MapContainer = (props) => {
     )
 }
 
-MapContainer.propTypes = {
-    closeCoordinatePopup: PropTypes.func.isRequired,
-    openContextMenu: PropTypes.func.isRequired,
-    setAggregations: PropTypes.func.isRequired,
-    basemap: PropTypes.object,
-    bounds: PropTypes.array,
-    coordinatePopup: PropTypes.array,
-    dataTableHeight: PropTypes.number,
-    dataTableOpen: PropTypes.bool,
-    downloadMode: PropTypes.bool,
-    feature: PropTypes.object,
-    interpretationModalOpen: PropTypes.bool,
-    layersPanelOpen: PropTypes.bool,
-    mapViews: PropTypes.array,
-    newLayerIsLoading: PropTypes.bool,
-    rightPanelOpen: PropTypes.bool,
-    showNorthArrow: PropTypes.bool,
-}
-
-export default connect(
-    ({ map, download, dataTable, ui, feature, interpretation }) => ({
-        basemap: map.basemap,
-        newLayerIsLoading: map.newLayerIsLoading,
-        coordinatePopup: map.coordinatePopup,
-        mapViews: map.mapViews,
-        bounds: map.bounds,
-        downloadMode: download.downloadMode,
-        showNorthArrow: download.downloadMode && download.showNorthArrow,
-        dataTableOpen: !!dataTable,
-        interpretationModalOpen: !!interpretation.id,
-        feature,
-        ...ui,
-    }),
-    {
-        openContextMenu,
-        closeCoordinatePopup,
-        setAggregations,
-    }
-)(MapContainer)
+export default MapContainer

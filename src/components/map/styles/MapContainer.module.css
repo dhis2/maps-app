@@ -23,8 +23,7 @@
     bottom: 10px !important;
 } 
 
-.mapDownload :global(.maplibregl-ctrl-group:not(:empty))
-{
+.mapDownload :global(.maplibregl-ctrl-group:not(:empty)) {
     box-shadow: none;
 }
 
