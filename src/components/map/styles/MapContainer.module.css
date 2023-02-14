@@ -19,9 +19,14 @@
     display: none;
 }
 
-.mapDownload:global(.dhis2-map-period) {
+.mapDownload :global(.dhis2-map-period) {
     bottom: 10px !important;
 } 
+
+.mapDownload :global(.maplibregl-ctrl-group:not(:empty))
+{
+    box-shadow: none;
+}
 
 .mapContainer {
     height: 100%;
