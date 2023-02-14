@@ -1,14 +1,31 @@
-.container {
+.mapPosition {
+    position: absolute;
+}
+
+.mapPosition > div {
+    height: 100%;
+}
+
+.mapDownload {
+    border: var(--spacers-dp24) solid #fff
+}
+
+.mapDownload > div > div:first-child {
+    border: 1px solid #ccc;
+    width: calc(100% - 380px);
+}
+
+.mapDownload :global(.dhis2-map-timeline) {
+    display: none;
+}
+
+.mapDownload:global(.dhis2-map-period) {
+    bottom: 10px !important;
+} 
+
+.mapContainer {
     height: 100%;
     width: 100%;
     position: relative;
     overflow: hidden;
-}
-
-.download :global(.dhis2-map-timeline) {
-    display: none;
-}
-
-.download :global(.dhis2-map-period) {
-    bottom: 10px !important;
 }

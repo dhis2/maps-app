@@ -11,7 +11,7 @@ import {
 } from '../../constants/layout.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
-import DownloadLPanel from '../download/DownloadPanel.js'
+import DownloadPanel from '../download/DownloadPanel.js'
 import MapLoadingMask from './MapLoadingMask.js'
 import MapName from './MapName.js'
 import MapView from './MapView.js'
@@ -39,13 +39,11 @@ const MapContainer = (props) => {
     const [resizeCount, setResizeCount] = useState(0)
     const basemap = useBasemapConfig(props.basemap)
 
-    const style = {
-        position: 'absolute',
+    const mapPosition = {
         top: HEADER_HEIGHT,
         left: layersPanelOpen || downloadMode ? LAYERS_PANEL_WIDTH : 0,
         right: rightPanelOpen ? RIGHT_PANEL_WIDTH : 0,
         bottom: dataTableOpen ? dataTableHeight : 0,
-        border: downloadMode ? 'var(--spacers-dp8) solid #ccc' : 'none',
     }
 
     const layers = mapViews.filter((layer) => layer.isLoaded)
@@ -75,23 +73,14 @@ const MapContainer = (props) => {
     }, [map, downloadMode])
 
     return (
-        <div style={style}>
-            <div
-                id="dhis2-map-container"
-                data-test="dhis2-map-container"
-                className={cx(styles.container, {
-                    'dhis2-map-download': downloadMode,
-                    [styles.download]: downloadMode,
-                })}
-            >
+        <div className={styles.mapPosition} style={mapPosition}>
+            <div className={downloadMode ? styles.mapDownload : undefined}>
                 <div
-                    style={{
-                        height: '100%',
-                        width: downloadMode
-                            ? `calc(100% - ${RIGHT_PANEL_WIDTH}px)`
-                            : '100%',
-                        backgroundColor: '#fff',
-                    }}
+                    id="dhis2-map-container"
+                    data-test="dhis2-map-container"
+                    className={cx(styles.mapContainer, {
+                        'dhis2-map-download': downloadMode,
+                    })}
                 >
                     {!downloadMode && <MapName />}
                     <MapView
@@ -109,14 +98,14 @@ const MapContainer = (props) => {
                         showNorthArrow={showNorthArrow}
                         setMapObject={setMap}
                     />
+                    {downloadMode && map && (
+                        <DownloadPanel
+                            map={map.getMapGL()}
+                            isSplitView={isSplitView}
+                        />
+                    )}
+                    {isLoading && <MapLoadingMask />}
                 </div>
-                {downloadMode && map && (
-                    <DownloadLPanel
-                        map={map.getMapGL()}
-                        isSplitView={isSplitView}
-                    />
-                )}
-                {isLoading && <MapLoadingMask />}
             </div>
         </div>
     )

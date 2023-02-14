@@ -1,6 +1,6 @@
 .downloadDialog {
     padding: var(--spacers-dp8) var(--spacers-dp16);
-    background-color: #fff;
+    background-color: #fafafa;
     height: 100%;
 }
 

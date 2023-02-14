@@ -23,6 +23,7 @@ const DownloadDialog = () => {
         showLegend,
         showInsetMap,
         showNorthArrow,
+        includeMargins,
     } = useSelector((state) => state.download)
 
     const hasLegend = useMemo(
@@ -39,8 +40,14 @@ const DownloadDialog = () => {
     const onClose = () => dispatch(toggleDownloadMode(false))
 
     const onDownload = () => {
-        const mapEl = document.getElementById('dhis2-map-container')
         const filename = `map-${Math.random().toString(36).substring(7)}.png`
+        let mapEl = document.getElementById('dhis2-map-container')
+
+        if (includeMargins) {
+            mapEl = mapEl.parentNode
+        }
+
+        // console.log('mapEl', mapEl)
 
         downloadMapImage(mapEl, filename).then(onClose).catch(setError)
     }
@@ -104,6 +111,17 @@ const DownloadDialog = () => {
                                     dispatch(
                                         setDownloadProperty({
                                             showNorthArrow: value,
+                                        })
+                                    )
+                                }
+                            />
+                            <Checkbox
+                                label={i18n.t('Include margins in download')}
+                                checked={includeMargins}
+                                onChange={(value) =>
+                                    dispatch(
+                                        setDownloadProperty({
+                                            includeMargins: value,
                                         })
                                     )
                                 }

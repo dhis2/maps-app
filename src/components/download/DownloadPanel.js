@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -12,7 +13,7 @@ const DownloadPanel = ({ map, isSplitView }) => {
     const { mapViews, name, description } = useSelector((state) => state.map)
 
     return (
-        <div className={styles.downloadPanel}>
+        <div className={cx(styles.downloadPanel)}>
             {showName && name && <h1>{name}</h1>}
             {showDescription && description && <p>{description}</p>}
             {showLegend && <DownloadLegend layers={mapViews} />}

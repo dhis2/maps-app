@@ -1,12 +1,12 @@
 .downloadPanel {
-    padding: var(--spacers-dp24);
+    padding-left: var(--spacers-dp24);
     background-color: #fff;
     height: 100%;
     width: 380px;
     position: absolute;
     top: 0;
     right: 0;
-    border-left: 1px solid #e0e0e0;
+    box-sizing: border-box;
 }
 
 .downloadPanel h1 {

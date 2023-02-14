@@ -55,10 +55,32 @@ const InsetMap = ({ mainMap, isSplitView }) => {
     }, [insetMap, onMainMapMove])
 
     useEffect(() => {
-        // TODO: Don't allow the map container to overflow the right column
-        // https://www.google.com/search?q=javascript+check+if+element+is+overflowing&oq=javascript+check+if+element+is+ov&aqs=chrome.1.69i57j0i512j0i22i30i625l8.8282j0j7&sourceid=chrome&ie=UTF-8
-        console.log('mapContainer', mapContainer.current)
-    }, [mapContainer])
+        if (insetMap) {
+            // TODO: Don't allow the map container to overflow the right column
+            // https://www.google.com/search?q=javascript+check+if+element+is+overflowing&oq=javascript+check+if+element+is+ov&aqs=chrome.1.69i57j0i512j0i22i30i625l8.8282j0j7&sourceid=chrome&ie=UTF-8
+            console.log('inset map container', mapContainer.current)
+
+            // setTimeout(() => {
+            const mapEl = mapContainer.current
+            const panelEl = mapEl.parentElement
+
+            mapEl.style.height = `300px`
+
+            const isOverflowing = panelEl.clientHeight < panelEl.scrollHeight
+
+            if (isOverflowing) {
+                const mapHeight =
+                    300 - (panelEl.scrollHeight - panelEl.clientHeight)
+
+                mapEl.style.height = `${mapHeight}px`
+
+                console.log('isOverflowing', mapHeight)
+            }
+
+            insetMap.resize()
+        }
+        // }, 500)
+    }, [insetMap, mapContainer])
 
     return (
         <div ref={mapContainer} className={styles.insetMap}>
