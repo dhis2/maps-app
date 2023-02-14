@@ -16,6 +16,7 @@ const SplitView = ({
     openContextMenu,
     isFullscreen,
     interpretationModalOpen,
+    setMapObject,
 }) => {
     const [showFullscreen, setShowFullscreen] = useState()
     const [map, setMap] = useState() // Called from map child
@@ -35,8 +36,10 @@ const SplitView = ({
                     map.getControlContainer(control.type)
                 )
             })
+
+            setMapObject(map)
         }
-    }, [map, controls, containerRef])
+    }, [map, controls, containerRef, setMapObject])
 
     useEffect(() => {
         if (map && isPlugin) {
@@ -89,6 +92,7 @@ const SplitView = ({
 SplitView.propTypes = {
     layer: PropTypes.object.isRequired,
     openContextMenu: PropTypes.func.isRequired,
+    setMapObject: PropTypes.func.isRequired,
     basemap: PropTypes.object,
     controls: PropTypes.array,
     feature: PropTypes.object,

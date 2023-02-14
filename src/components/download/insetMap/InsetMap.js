@@ -5,7 +5,7 @@ import mapApi from '../../map/MapApi.js'
 import InsetMapOutline from './InsetMapOutline.js'
 import styles from './styles/InsetMap.module.css'
 
-const InsetMap = ({ mainMap }) => {
+const InsetMap = ({ mainMap, isSplitView }) => {
     const [insetMap, setInsetMap] = useState()
     const basemap = useSelector((state) => state.map.basemap.config)
     const mapContainer = useRef()
@@ -15,9 +15,9 @@ const InsetMap = ({ mainMap }) => {
             const mapGl = insetMap.getMapGL()
             mapGl.resize()
             mapGl.setCenter(mainMap.getCenter())
-            mapGl.setZoom(mainMap.getZoom() - 4)
+            mapGl.setZoom(mainMap.getZoom() - (isSplitView ? 2 : 4))
         }
-    }, [mainMap, insetMap])
+    }, [mainMap, insetMap, isSplitView])
 
     useEffect(() => {
         mainMap.on('move', onMainMapMove)
@@ -71,6 +71,7 @@ const InsetMap = ({ mainMap }) => {
 
 InsetMap.propTypes = {
     mainMap: PropTypes.object.isRequired,
+    isSplitView: PropTypes.bool,
 }
 
 export default InsetMap

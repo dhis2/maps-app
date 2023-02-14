@@ -10,6 +10,7 @@ import {
     RIGHT_PANEL_WIDTH,
 } from '../../constants/layout.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
+import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadLPanel from '../download/DownloadPanel.js'
 import MapLoadingMask from './MapLoadingMask.js'
 import MapName from './MapName.js'
@@ -49,6 +50,7 @@ const MapContainer = (props) => {
 
     const layers = mapViews.filter((layer) => layer.isLoaded)
     const isLoading = newLayerIsLoading || layers.length !== mapViews.length
+    const isSplitView = !!getSplitViewLayer(layers)
 
     // Trigger map resize when panels are expanded, collapsed or dragged
     useEffect(() => {
@@ -108,7 +110,12 @@ const MapContainer = (props) => {
                         setMapObject={setMap}
                     />
                 </div>
-                {downloadMode && map && <DownloadLPanel map={map} />}
+                {downloadMode && map && (
+                    <DownloadLPanel
+                        map={map.getMapGL()}
+                        isSplitView={isSplitView}
+                    />
+                )}
                 {isLoading && <MapLoadingMask />}
             </div>
         </div>

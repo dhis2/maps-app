@@ -68,15 +68,6 @@ const InsetMapOutline = ({ mainMap, insetMap }) => {
                     source.setData(outline)
                 }
             }
-
-            /*
-            const zoom = mainMap.getZoom()
-            // const bearing = mainMap.getBearing()
-
-            insetMap.fitBounds(mainBounds)
-            // insetMap.setBearing(bearing)
-            insetMap.setZoom(zoom - 3)
-            */
         }
     }, [insetMap, outline, sourceId])
 

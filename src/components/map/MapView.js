@@ -54,6 +54,7 @@ const MapView = (props) => {
                             interpretationModalOpen={interpretationModalOpen}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
+                            setMapObject={setMapObject}
                         />
                     ) : (
                         <Map
@@ -93,6 +94,7 @@ MapView.propTypes = {
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
     setAggregations: PropTypes.func,
+    setMapObject: PropTypes.func,
     showNorthArrow: PropTypes.bool,
 }
 
