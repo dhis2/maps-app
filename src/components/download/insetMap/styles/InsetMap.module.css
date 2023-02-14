@@ -1,5 +1,5 @@
 .insetMap {
-    margin-top: 50px; /* var(--spacers-dp24); */
+    margin-top: var(--spacers-dp24);
     border: 1px solid #ccc;
     width: 100%;
     height: 300px;
