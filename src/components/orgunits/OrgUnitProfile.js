@@ -16,6 +16,9 @@ const ORGUNIT_PROFILE_QUERY = {
     },
 }
 
+/*
+ *  Loads an org unit profile and displays it in a right drawer component
+ */
 const OrgUnitProfile = () => {
     const id = useSelector((state) => state.orgUnitProfile)
     const dispatch = useDispatch()

@@ -59,7 +59,6 @@ export const apiFetch = async (url, method, body) => {
         }
     }
 
-    console.log('fetch url', url, config.baseUrl)
     // TODO: Better error handling
     return fetch(encodeURI(config.baseUrl + url), options)
         .then((response) =>
