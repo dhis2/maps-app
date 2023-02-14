@@ -7,7 +7,7 @@ import i18n from '@dhis2/d2-i18n'
 import { CssReset, CssVariables, HeaderBar } from '@dhis2/ui'
 import isEmpty from 'lodash/isEmpty'
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { tSetAnalyticalObject } from '../../actions/analyticalObject.js'
 import { removeBingBasemaps, setBingMapsApiKey } from '../../actions/basemap.js'
 import { tSetExternalLayers } from '../../actions/externalLayers.js'
@@ -17,27 +17,21 @@ import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { getUrlParameter } from '../../util/requests.js'
 import AlertStack from '../alerts/AlertStack.js'
 import BottomPanel from '../datatable/BottomPanel.js'
-import DownloadMode from '../download/DownloadMode.js'
 import LayerEdit from '../edit/LayerEdit.js'
 import FatalErrorBoundary from '../errors/FatalErrorBoundary.js'
 import InterpretationsPanel from '../interpretations/InterpretationsPanel.js'
 import DataDownloadDialog from '../layers/download/DataDownloadDialog.js'
-import LayersPanel from '../layers/LayersPanel.js'
-import LayersToggle from '../layers/LayersToggle.js'
-import LayersLoader from '../loaders/LayersLoader.js'
 import ContextMenu from '../map/ContextMenu.js'
-import MapContainer from '../map/MapContainer.js'
 import OpenAsMapDialog from '../openAs/OpenAsMapDialog.js'
 import OrgUnitProfile from '../orgunits/OrgUnitProfile.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
-import AppMenu from './AppMenu.js'
+import AppMode from './AppMode.js'
 import styles from './styles/App.module.css'
 
 const App = () => {
     const systemSettings = useSystemSettings()
     const engine = useDataEngine()
     const [currentAO] = useSetting(CURRENT_AO_KEY)
-    const downloadMode = useSelector((state) => state.download.downloadMode)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -74,18 +68,8 @@ const App = () => {
                     <CssReset />
                     <CssVariables colors spacers theme />
                     <HeaderBar appName={i18n.t('Maps')} />
-                    {downloadMode ? (
-                        <DownloadMode />
-                    ) : (
-                        <>
-                            <AppMenu />
-                            <LayersToggle />
-                            <LayersPanel />
-                            <LayersLoader />
-                        </>
-                    )}
                     <InterpretationsPanel />
-                    <MapContainer />
+                    <AppMode />
                     <BottomPanel />
                     <LayerEdit />
                     <ContextMenu />

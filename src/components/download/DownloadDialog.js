@@ -47,7 +47,7 @@ const DownloadDialog = () => {
             mapEl = mapEl.parentNode
         }
 
-        // console.log('mapEl', mapEl)
+        console.log('mapEl', mapEl)
 
         downloadMapImage(mapEl, filename).then(onClose).catch(setError)
     }
