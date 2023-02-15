@@ -20,6 +20,7 @@ import {
 function PluginContainer() {
     let _configs = []
     const _components = {}
+    const _resizeFunctions = {}
     let _isReady = false
     let _isPending = false
 
@@ -177,7 +178,17 @@ function PluginContainer() {
             if (domEl) {
                 const ref = createRef()
 
-                render(<Plugin ref={ref} {...config} />, domEl)
+                render(
+                    <Plugin
+                        ref={ref}
+                        {...config}
+                        // Temporary hack to be able to resize map
+                        getResizeFunction={(resizeFunc) => {
+                            _resizeFunctions[config.el] = resizeFunc
+                        }}
+                    />,
+                    domEl
+                )
 
                 if (config.onReady) {
                     config.onReady()
@@ -252,10 +263,10 @@ function PluginContainer() {
 
     // Should be called if the map container is resized
     function resize(el, isFullscreen) {
-        const mapComponent = _components[el]
+        const resizeFunction = _resizeFunctions[el]
 
-        if (mapComponent && mapComponent.current) {
-            mapComponent.current.resize(isFullscreen)
+        if (resizeFunction) {
+            resizeFunction(isFullscreen)
             return true
         }
 
