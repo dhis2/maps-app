@@ -14,7 +14,7 @@
 
 .tabContent {
     width: calc(100% + var(--spacers-dp32));
-    margin: var(--spacers-dp8) -16px 0;
+    margin: var(--spacers-dp12) -16px 0;
     height: 410px;
     overflow-y: auto;
     font-size: 14px;

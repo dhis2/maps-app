@@ -60,7 +60,6 @@ class TrackedEntityDialog extends Component {
         setEventPointColor: PropTypes.func.isRequired,
         setEventPointRadius: PropTypes.func.isRequired,
         setFollowUpStatus: PropTypes.func.isRequired,
-        setOrgUnitRoot: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setProgramStatus: PropTypes.func.isRequired,
         setRelatedPointColor: PropTypes.func.isRequired,
@@ -100,7 +99,7 @@ class TrackedEntityDialog extends Component {
             startDate,
             endDate,
             relationshipType,
-            setOrgUnitRoot,
+            //setOrgUnitRoot,
             setStartDate,
             setEndDate,
         } = this.props
@@ -109,7 +108,7 @@ class TrackedEntityDialog extends Component {
 
         // Set org unit tree root as default
         if (orgUnits.length === 0) {
-            setOrgUnitRoot()
+            // setOrgUnitRoot()
         }
 
         // Set default period (last year)
