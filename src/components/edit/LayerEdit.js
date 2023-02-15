@@ -101,7 +101,11 @@ const LayerEdit = ({
         : i18n.t('Add new {{name}} layer', { name })
 
     return (
-        <Modal position="middle" dataTest="layeredit">
+        <Modal
+            position="middle"
+            className={styles.layerModal}
+            dataTest="layeredit"
+        >
             <ModalTitle>{title}</ModalTitle>
             <ModalContent>
                 <div className={styles.content}>

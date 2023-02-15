@@ -3,6 +3,7 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
+import OrgUnitFieldSelect from './OrgUnitFieldSelect.js'
 import styles from './styles/OrgUnitSelect.module.css'
 
 // Fetches the root org units associated with the current user with fallback to data capture org units
@@ -45,6 +46,7 @@ const OrgUnitSelect = () => {
                     )
                 }
             />
+            <OrgUnitFieldSelect />
         </div>
     )
 }
