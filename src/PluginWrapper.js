@@ -102,8 +102,6 @@ const PluginWrapper = () => {
         return () => window.removeEventListener('resize', updateRenderId)
     }, [])
 
-    console.log('propsFromParent', propsFromParent)
-
     return propsFromParent ? (
         <div
             style={{

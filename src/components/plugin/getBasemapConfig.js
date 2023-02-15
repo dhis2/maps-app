@@ -3,7 +3,6 @@ import {
     getFallbackBasemap,
     defaultBasemaps,
 } from '../../constants/basemaps.js'
-import { fetchLayer } from '../../loaders/layers.js'
 import { createExternalLayer } from '../../util/external.js'
 import { fetchExternalLayers } from '../../util/requests.js'
 
@@ -23,14 +22,12 @@ async function getBasemaps(basemapId, defaultBasemapId, engine) {
     }
 }
 
-async function getConfig({
-    mapViews,
+async function getBasemapConfig({
     basemapId,
     keyDefaultBaseMap,
     keyBingMapsApiKey,
     engine,
 }) {
-    const fetchedMapViews = await Promise.all(mapViews.map(fetchLayer))
     const basemaps = await getBasemaps(basemapId, keyDefaultBaseMap, engine)
 
     const basemap =
@@ -42,9 +39,8 @@ async function getConfig({
         basemap.config.apiKey = keyBingMapsApiKey
     }
     return {
-        fetchedMapViews,
         basemap,
     }
 }
 
-export { getConfig }
+export default getBasemapConfig

@@ -5,8 +5,8 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { getMigratedMapConfig } from '../../util/getMigratedMapConfig.js'
 import LoadingMask from '../LoadingMask.js'
 import { useSystemSettings } from '../SystemSettingsProvider.js'
+import getBasemapConfig from './getBasemapConfig.js'
 import OldPlugin from './Plugin.js'
-import { getConfig } from './pluginUtils.js'
 
 const Plugin = ({ visualization }) => {
     const {
@@ -24,14 +24,8 @@ const Plugin = ({ visualization }) => {
     }, [basemapId, mapViews, keyDefaultBaseMap])
 
     useEffect(() => {
-        const fetchLayers = async () => {
-            const { fetchedMapViews, basemap } = await getConfig({
-                mapViews: userOrgUnit
-                    ? mapConfig.mapViews?.map((v) => ({
-                          ...v,
-                          userOrgUnit,
-                      }))
-                    : mapConfig.mapViews,
+        const prepareConfig = async () => {
+            const { basemap } = await getBasemapConfig({
                 basemapId,
                 keyDefaultBaseMap,
                 keyBingMapsApiKey,
@@ -40,13 +34,18 @@ const Plugin = ({ visualization }) => {
 
             setConfig({
                 ...mapConfig,
-                mapViews: fetchedMapViews,
+                mapViews: userOrgUnit
+                    ? mapConfig.mapViews?.map((v) => ({
+                          ...v,
+                          userOrgUnit,
+                      }))
+                    : mapConfig.mapViews,
                 basemap,
             })
         }
 
         if (mapConfig.mapViews) {
-            fetchLayers()
+            prepareConfig()
         }
     }, [
         basemapId,
