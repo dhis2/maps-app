@@ -2000,10 +2000,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.4.0":
-  version "24.4.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.4.0.tgz#99a4cc0c8d846edb9792e489db3f93357f71d8be"
-  integrity sha512-0tSECJLMhEvn96OLYQhfdbNoEaLN2EkXp0zc8FfjEfM7HtVjNeiops9SaQH1Fzu2/XkkY9H1lcX5PHGo4Ail9g==
+"@dhis2/analytics@^24.7.0":
+  version "24.7.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.7.0.tgz#0530576d40a5a423eac57e3524efd8b481a76dff"
+  integrity sha512-/piTVABnOsK+Yj8hMLl36PJhSi2HBWSQA+ImUW9g5mMcuEB/Qsq0e+jG5BtD47hkBhTzWjnp+lPPfhinYWFW9Q==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
