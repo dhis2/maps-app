@@ -480,7 +480,13 @@ class ThematicDialog extends Component {
                     {tab === 'orgunits' && (
                         <>
                             <div className={styles.flexRowFlow}>
-                                <OrgUnitSelect />
+                                <OrgUnitSelect
+                                    warning={
+                                        !orgUnits.length && orgUnitsError
+                                            ? orgUnitsError
+                                            : null
+                                    }
+                                />
                             </div>
                         </>
                     )}

@@ -1,5 +1,6 @@
 import { OrgUnitDimension } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnits } from '../../actions/layerEdit.js'
@@ -17,7 +18,7 @@ const ORG_UNIT_TREE_QUERY = {
     },
 }
 
-const OrgUnitSelect = () => {
+const OrgUnitSelect = ({ warning }) => {
     const { loading, error, data } = useDataQuery(ORG_UNIT_TREE_QUERY)
     const rows = useSelector((state) => state.layerEdit.rows)
     const dispatch = useDispatch()
@@ -45,10 +46,15 @@ const OrgUnitSelect = () => {
                         })
                     )
                 }
+                warning={warning}
             />
             <OrgUnitFieldSelect />
         </div>
     )
+}
+
+OrgUnitSelect.propTypes = {
+    warning: PropTypes.string,
 }
 
 export default OrgUnitSelect

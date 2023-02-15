@@ -34,9 +34,9 @@ const OrgUnitFieldSelect = () => {
     const attribute = attributes.find((a) => a.id === orgUnitField)
 
     return (
-        <>
+        <div className={styles.orgUnitField}>
             <SelectField
-                label={i18n.t('Use associated geometry')}
+                prefix={i18n.t('Use associated geometry')}
                 items={[{ id: NONE, name: i18n.t('None') }, ...attributes]}
                 value={orgUnitField}
                 onChange={(val) => dispatch(setOrganisationUnitField(val))}
@@ -47,7 +47,7 @@ const OrgUnitFieldSelect = () => {
                     {attribute.description}
                 </div>
             )}
-        </>
+        </div>
     )
 }
 
