@@ -1,9 +1,14 @@
 import { useOnlineStatus } from '@dhis2/app-runtime'
-import { CssReset, CssVariables } from '@dhis2/ui'
+import {
+    CssReset,
+    CssVariables,
+    CenteredContent,
+    CircularLoader,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
-import { fetchLayer } from '../../loaders/layers.js'
+import React, { forwardRef, useState, useCallback, useEffect } from 'react'
 import { drillUpDown } from '../../util/map.js'
+import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
 import ContextMenu from './ContextMenu.js'
 import Legend from './Legend.js'
@@ -15,36 +20,38 @@ const defaultBounds = [
     [50.2, 35.9],
 ]
 
-const NO_MAP_VIEWS = []
-
-const Plugin = ({
-    name,
-    basemap,
-    mapViews: originalMapViews,
-    hideTitle,
-    controls,
-}) => {
+const Plugin = forwardRef((props, ref) => {
     const { offline } = useOnlineStatus()
-    const [mapViews, setMapViews] = useState(NO_MAP_VIEWS)
-    const [contextMenuState, setContextMenuState] = useState({})
-    const [resizeCount] = useState(0)
+    const [layers, setLayers] = useState([])
+    const [contextMenu, setContextMenu] = useState()
+    const [resizeCount, setResizeCount] = useState(0)
+
+    const { name, basemap, mapViews, hideTitle, controls, getResizeFunction } =
+        props
+
+    const onResize = () => setResizeCount((state) => state + 1)
+
+    const onLayerLoad = useCallback(
+        (layer) =>
+            setLayers((layers) =>
+                layers.map((l) => (layer.id === l.id ? layer : l))
+            ),
+        []
+    )
 
     useEffect(() => {
-        setMapViews(originalMapViews)
-    }, [originalMapViews])
+        setLayers(mapViews)
+    }, [mapViews])
 
-    const onOpenContextMenu = (newState) => {
-        return setContextMenuState(newState)
-    }
-
-    const onCloseContextMenu = () =>
-        setContextMenuState({
-            position: null,
-            feature: null,
-        })
+    // TODO: Remove when map.js is refactored
+    useEffect(() => {
+        if (getResizeFunction) {
+            getResizeFunction(onResize)
+        }
+    }, [getResizeFunction])
 
     const onDrill = async (direction) => {
-        const { layerId, feature } = contextMenuState
+        const { layerId, feature } = contextMenu
         let newConfig
 
         if (layerId && feature) {
@@ -55,7 +62,7 @@ const Plugin = ({
                 grandParentId,
                 grandParentParentGraph,
             } = feature.properties
-            const layerConfig = mapViews.find((layer) => layer.id === layerId)
+            const layerConfig = layers.find((layer) => layer.id === layerId)
 
             if (direction === 'up') {
                 newConfig = drillUpDown(
@@ -73,26 +80,33 @@ const Plugin = ({
                 )
             }
 
-            const newLayer = await fetchLayer(newConfig)
-
-            setMapViews(
-                mapViews.map((layer) =>
-                    layer.id === layerId ? newLayer : layer
+            setLayers(
+                layers.map((layer) =>
+                    layer.id === layerId ? newConfig : layer
                 )
             )
 
-            setContextMenuState({
-                position: null,
-                feature: null,
-            })
+            setContextMenu()
         }
     }
 
-    const { position, offset, feature, isSplitView, container } =
-        contextMenuState
+    if (layers.find((layer) => !layer.isLoaded)) {
+        return (
+            <CenteredContent>
+                <CircularLoader />
+                {layers.map((config) => (
+                    <LayerLoader
+                        key={config.id}
+                        config={config}
+                        onLoad={onLayerLoad}
+                    />
+                ))}
+            </CenteredContent>
+        )
+    }
 
     return (
-        <div className={`dhis2-map-plugin ${styles.plugin}`}>
+        <div ref={ref} className={`dhis2-map-plugin ${styles.plugin}`}>
             <CssReset />
             <CssVariables colors spacers theme />
             {!hideTitle && <MapName name={name} />}
@@ -100,30 +114,31 @@ const Plugin = ({
                 isPlugin={true}
                 isFullscreen={false}
                 basemap={basemap}
-                layers={mapViews}
+                layers={layers}
                 controls={controls}
                 bounds={defaultBounds}
-                openContextMenu={onOpenContextMenu}
+                openContextMenu={setContextMenu}
                 resizeCount={resizeCount}
             />
-            <Legend layers={mapViews} />
-            <ContextMenu
-                feature={feature}
-                position={position}
-                offset={offset}
-                onDrill={onDrill}
-                onClose={onCloseContextMenu}
-                isOffline={offline}
-                isSplitView={isSplitView}
-                container={container}
-            />
+            <Legend layers={layers} />
+            {contextMenu && (
+                <ContextMenu
+                    {...contextMenu}
+                    onDrill={onDrill}
+                    onClose={() => setContextMenu()}
+                    isOffline={offline}
+                />
+            )}
         </div>
     )
-}
+})
+
+Plugin.displayName = 'Plugin'
 
 Plugin.propTypes = {
     basemap: PropTypes.object,
     controls: PropTypes.array,
+    getResizeFunction: PropTypes.func,
     hideTitle: PropTypes.bool,
     mapViews: PropTypes.array,
     name: PropTypes.string,

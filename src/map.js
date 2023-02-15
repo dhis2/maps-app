@@ -7,7 +7,6 @@ import { render, unmountComponentAtNode } from 'react-dom'
 import Plugin from './components/plugin/Plugin.js'
 import { getFallbackBasemap, defaultBasemaps } from './constants/basemaps.js'
 import { apiVersion } from './constants/settings.js'
-import { fetchLayer } from './loaders/layers.js'
 import i18n from './locales/index.js'
 import { createExternalLayer } from './util/external.js'
 import { getConfigFromNonMapConfig } from './util/getConfigFromNonMapConfig.js'
@@ -21,6 +20,7 @@ import {
 function PluginContainer() {
     let _configs = []
     const _components = {}
+    const _resizeFunctions = {}
     let _isReady = false
     let _isPending = false
 
@@ -163,13 +163,10 @@ function PluginContainer() {
                     }))
                 }
 
-                Promise.all(config.mapViews.map(fetchLayer)).then((mapViews) =>
-                    drawMap({
-                        ...config,
-                        mapViews,
-                        basemap,
-                    })
-                )
+                drawMap({
+                    ...config,
+                    basemap,
+                })
             }
         }
     }
@@ -181,7 +178,17 @@ function PluginContainer() {
             if (domEl) {
                 const ref = createRef()
 
-                render(<Plugin ref={ref} {...config} />, domEl)
+                render(
+                    <Plugin
+                        ref={ref}
+                        {...config}
+                        // Temporary hack to be able to resize map
+                        getResizeFunction={(resizeFunc) => {
+                            _resizeFunctions[config.el] = resizeFunc
+                        }}
+                    />,
+                    domEl
+                )
 
                 if (config.onReady) {
                     config.onReady()
@@ -256,10 +263,10 @@ function PluginContainer() {
 
     // Should be called if the map container is resized
     function resize(el, isFullscreen) {
-        const mapComponent = _components[el]
+        const resizeFunction = _resizeFunctions[el]
 
-        if (mapComponent && mapComponent.current) {
-            mapComponent.current.resize(isFullscreen)
+        if (resizeFunction) {
+            resizeFunction(isFullscreen)
             return true
         }
 

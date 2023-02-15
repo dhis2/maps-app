@@ -44,10 +44,6 @@ const ContextMenu = (props) => {
         }
     }, [position, offset, container, isSplitView])
 
-    if (!position || !feature) {
-        return null
-    }
-
     const { hasCoordinatesUp, hasCoordinatesDown } = feature.properties
 
     return (

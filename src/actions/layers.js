@@ -29,12 +29,6 @@ export const updateLayer = (layer) => ({
     payload: layer,
 })
 
-// Load layer data
-export const loadLayer = (layer) => ({
-    type: types.LAYER_LOAD,
-    payload: layer,
-})
-
 // Expand/collapse overlay card
 export const toggleLayerExpand = (id) => ({
     type: types.LAYER_TOGGLE_EXPAND,
@@ -59,16 +53,6 @@ export const sortLayers = ({ oldIndex, newIndex }) => ({
     type: types.LAYER_SORT,
     oldIndex,
     newIndex,
-})
-
-// Add new layer
-//eslint-disable-next-line max-params
-export const drillLayer = (layerId, parentId, parentGraph, level) => ({
-    type: types.LAYER_DRILL,
-    layerId,
-    parentId,
-    parentGraph,
-    level,
 })
 
 // Set that layer is loading

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
-import { fetchLayer } from '../../loaders/layers.js'
 import { getPeriodFromFilters } from '../../util/analytics.js'
 import { getRelativePeriods } from '../../util/periods.js'
 import Plugin from '../plugin/Plugin.js'
@@ -22,23 +21,18 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
             .map((layer) => ({
                 ...layer,
                 ...filters, // includes relativePeriodDate
+                isLoaded: false,
             }))
 
         if (relativePeriodLayers.length) {
-            // Refetch all relative period layers using the relativePeriodDate date
-            Promise.all(relativePeriodLayers.map(fetchLayer)).then(
-                (mapViews) => {
-                    // Replace layers fetched and update state
-                    setMapViews(
-                        visualization.mapViews.map(
-                            (layer) =>
-                                mapViews.find(
-                                    (relativeLayer) =>
-                                        relativeLayer.id === layer.id
-                                ) || layer
-                        )
-                    )
-                }
+            // Replace relative period layers and update state
+            setMapViews(
+                visualization.mapViews.map(
+                    (layer) =>
+                        relativePeriodLayers.find(
+                            (relativeLayer) => relativeLayer.id === layer.id
+                        ) || layer
+                )
             )
         } else {
             setMapViews(visualization.mapViews)
