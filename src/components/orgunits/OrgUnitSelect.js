@@ -18,7 +18,12 @@ const ORG_UNIT_TREE_QUERY = {
     },
 }
 
-const OrgUnitSelect = ({ warning }) => {
+const OrgUnitSelect = ({
+    allowAssociatedGeometry = true,
+    hideLevelSelect = false,
+    hideGroupSelect = false,
+    warning,
+}) => {
     const { loading, error, data } = useDataQuery(ORG_UNIT_TREE_QUERY)
     const rows = useSelector((state) => state.layerEdit.rows)
     const dispatch = useDispatch()
@@ -32,9 +37,16 @@ const OrgUnitSelect = ({ warning }) => {
     }
 
     const orgUnits = rows?.find((r) => r.dimension === 'ou')
+    const hasOrgUnits = !!orgUnits?.items.length
 
     return (
-        <div className={styles.orgUnitSelect}>
+        <div
+            className={
+                allowAssociatedGeometry
+                    ? styles.orgUnitSelectCompact
+                    : styles.orgUnitSelect
+            }
+        >
             <OrgUnitDimension
                 roots={roots}
                 selected={orgUnits?.items || []}
@@ -46,14 +58,19 @@ const OrgUnitSelect = ({ warning }) => {
                         })
                     )
                 }
-                warning={warning}
+                hideLevelSelect={hideLevelSelect}
+                hideGroupSelect={hideGroupSelect}
+                warning={!hasOrgUnits ? warning : null}
             />
-            <OrgUnitFieldSelect />
+            {allowAssociatedGeometry && <OrgUnitFieldSelect />}
         </div>
     )
 }
 
 OrgUnitSelect.propTypes = {
+    allowAssociatedGeometry: PropTypes.bool,
+    hideGroupSelect: PropTypes.bool,
+    hideLevelSelect: PropTypes.bool,
     warning: PropTypes.string,
 }
 

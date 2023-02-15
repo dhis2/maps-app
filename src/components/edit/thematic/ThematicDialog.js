@@ -34,12 +34,9 @@ import {
 import {
     getDataItemFromColumns,
     getOrgUnitsFromRows,
-    getOrgUnitGroupsFromRows,
-    getOrgUnitLevelsFromRows,
     getOrgUnitNodesFromRows,
     getPeriodFromFilters,
     getDimensionsFromFilters,
-    getUserOrgUnitsFromRows,
 } from '../../../util/analytics.js'
 import { isPeriodAvailable } from '../../../util/periods.js'
 import { getStartEndDateError } from '../../../util/time.js'
@@ -54,12 +51,7 @@ import DataSetsSelect from '../../dataSets/DataSetsSelect.js' // Reporting rate
 import DimensionFilter from '../../dimensions/DimensionFilter.js'
 import IndicatorGroupSelect from '../../indicator/IndicatorGroupSelect.js'
 import IndicatorSelect from '../../indicator/IndicatorSelect.js'
-import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect.js'
-import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect.js'
-import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect.js'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
-import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
 import PeriodSelect from '../../periods/PeriodSelect.js'
 import PeriodTypeSelect from '../../periods/PeriodTypeSelect.js'
 import RelativePeriodSelect from '../../periods/RelativePeriodSelect.js'
@@ -93,10 +85,8 @@ class ThematicDialog extends Component {
         setPeriodType: PropTypes.func.isRequired,
         setProgram: PropTypes.func.isRequired,
         setRenderingStrategy: PropTypes.func.isRequired,
-        setUserOrgUnits: PropTypes.func.isRequired,
         setValueType: PropTypes.func.isRequired,
         settings: PropTypes.object.isRequired,
-        toggleOrgUnit: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         columns: PropTypes.array,
@@ -175,6 +165,7 @@ class ThematicDialog extends Component {
 
         // Set default org unit level
         if (!getOrgUnitsFromRows(rows).length) {
+            console.log('rows', DEFAULT_ORG_UNIT_LEVEL)
             // setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL])
         }
     }
@@ -247,15 +238,11 @@ class ThematicDialog extends Component {
             setIndicatorGroup,
             setNoDataColor,
             setOperand,
-            setOrgUnitLevels,
-            setOrgUnitGroups,
             setPeriod,
             setPeriodType,
             setRenderingStrategy,
             setProgram,
-            setUserOrgUnits,
             setValueType,
-            toggleOrgUnit,
         } = this.props
 
         const {
@@ -275,11 +262,9 @@ class ThematicDialog extends Component {
         } = this.state
 
         const orgUnits = getOrgUnitsFromRows(rows)
-        const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows)
         const period = getPeriodFromFilters(filters)
         const dataItem = getDataItemFromColumns(columns)
         const dimensions = getDimensionsFromFilters(filters)
-        const hasUserOrgUnits = !!selectedUserOrgUnits.length
 
         return (
             <div className={styles.content} data-test="thematicdialog">
@@ -478,17 +463,16 @@ class ThematicDialog extends Component {
                         </div>
                     )}
                     {tab === 'orgunits' && (
-                        <>
-                            <div className={styles.flexRowFlow}>
-                                <OrgUnitSelect
-                                    warning={
-                                        !orgUnits.length && orgUnitsError
-                                            ? orgUnitsError
-                                            : null
-                                    }
-                                />
-                            </div>
-                        </>
+                        <div className={styles.flexRowFlow}>
+                            <OrgUnitSelect
+                                allowAssociatedGeometry={true}
+                                warning={
+                                    !orgUnits.length && orgUnitsError
+                                        ? orgUnitsError
+                                        : null
+                                }
+                            />
+                        </div>
                     )}
                     {tab === 'filter' && (
                         <div
@@ -705,44 +689,3 @@ export default connect(
         forwardRef: true,
     }
 )(ThematicDialogWithSettings)
-
-/*
-<div
-className={styles.flexColumnFlow}
-data-test="thematicdialog-orgunitstab"
->
-<div className={styles.orgUnitTree}>
-    <OrgUnitTree
-        selected={getOrgUnitNodesFromRows(rows)}
-        onClick={toggleOrgUnit}
-        disabled={hasUserOrgUnits}
-    />
-</div>
-<div className={styles.flexColumn}>
-    <OrgUnitLevelSelect
-        orgUnitLevel={getOrgUnitLevelsFromRows(
-            rows
-        )}
-        onChange={setOrgUnitLevels}
-        disabled={hasUserOrgUnits}
-    />
-    <OrgUnitGroupSelect
-        orgUnitGroup={getOrgUnitGroupsFromRows(
-            rows
-        )}
-        onChange={setOrgUnitGroups}
-        disabled={hasUserOrgUnits}
-    />
-    <UserOrgUnitsSelect
-        selected={selectedUserOrgUnits}
-        onChange={setUserOrgUnits}
-    />
-    <OrgUnitFieldSelect />
-    {!orgUnits.length && orgUnitsError && (
-        <div className={styles.error}>
-            {orgUnitsError}
-        </div>
-    )}
-</div>
-</div>
-*/
