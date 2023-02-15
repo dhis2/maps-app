@@ -3,10 +3,6 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-    setOrgUnitLevels,
-    setOrgUnitGroups,
-    setUserOrgUnits,
-    toggleOrgUnit,
     setRadiusLow,
     setOrganisationUnitColor,
 } from '../../../actions/layerEdit.js'
@@ -17,31 +13,17 @@ import {
     MIN_RADIUS,
     MAX_RADIUS,
 } from '../../../constants/layers.js'
-import {
-    getOrgUnitsFromRows,
-    getOrgUnitNodesFromRows,
-    getOrgUnitLevelsFromRows,
-    getOrgUnitGroupsFromRows,
-    getUserOrgUnitsFromRows,
-} from '../../../util/analytics.js'
+import { getOrgUnitsFromRows } from '../../../util/analytics.js'
 import { Tab, Tabs, NumberField, ColorPicker } from '../../core/index.js'
 import StyleByGroupSet from '../../groupSet/StyleByGroupSet.js'
-import OrgUnitFieldSelect from '../../orgunits/OrgUnitFieldSelect.js'
-import OrgUnitGroupSelect from '../../orgunits/OrgUnitGroupSelect.js'
-import OrgUnitLevelSelect from '../../orgunits/OrgUnitLevelSelect.js'
-import OrgUnitTree from '../../orgunits/OrgUnitTree.js'
-import UserOrgUnitsSelect from '../../orgunits/UserOrgUnitsSelect.js'
+import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import Labels from '../shared/Labels.js'
 import styles from '../styles/LayerDialog.module.css'
 
 class OrgUnitDialog extends Component {
     static propTypes = {
-        setOrgUnitGroups: PropTypes.func.isRequired,
-        setOrgUnitLevels: PropTypes.func.isRequired,
         setOrganisationUnitColor: PropTypes.func.isRequired,
         setRadiusLow: PropTypes.func.isRequired,
-        setUserOrgUnits: PropTypes.func.isRequired,
-        toggleOrgUnit: PropTypes.func.isRequired,
         validateLayer: PropTypes.bool.isRequired,
         onLayerValidation: PropTypes.func.isRequired,
         organisationUnitColor: PropTypes.string,
@@ -63,22 +45,13 @@ class OrgUnitDialog extends Component {
 
     render() {
         const {
-            rows = [],
             radiusLow,
             organisationUnitColor,
-            setOrgUnitLevels,
-            setOrgUnitGroups,
-            setUserOrgUnits,
-            toggleOrgUnit,
             setOrganisationUnitColor,
             setRadiusLow,
         } = this.props
 
         const { tab, orgUnitsError } = this.state
-
-        const orgUnits = getOrgUnitsFromRows(rows)
-        const selectedUserOrgUnits = getUserOrgUnitsFromRows(rows)
-        const hasUserOrgUnits = !!selectedUserOrgUnits.length
 
         return (
             <div className={styles.content} data-test="orgunitdialog">
@@ -88,43 +61,8 @@ class OrgUnitDialog extends Component {
                 </Tabs>
                 <div className={styles.tabContent}>
                     {tab === 'orgunits' && (
-                        <div
-                            className={styles.flexColumnFlow}
-                            data-test="orgunitdialog-orgunitstab"
-                        >
-                            <div className={styles.orgUnitTree}>
-                                <OrgUnitTree
-                                    selected={getOrgUnitNodesFromRows(rows)}
-                                    onClick={toggleOrgUnit}
-                                    disabled={hasUserOrgUnits}
-                                />
-                            </div>
-                            <div className={styles.flexColumn}>
-                                <OrgUnitLevelSelect
-                                    orgUnitLevel={getOrgUnitLevelsFromRows(
-                                        rows
-                                    )}
-                                    onChange={setOrgUnitLevels}
-                                    disabled={hasUserOrgUnits}
-                                />
-                                <OrgUnitGroupSelect
-                                    orgUnitGroup={getOrgUnitGroupsFromRows(
-                                        rows
-                                    )}
-                                    onChange={setOrgUnitGroups}
-                                    disabled={hasUserOrgUnits}
-                                />
-                                <UserOrgUnitsSelect
-                                    selected={selectedUserOrgUnits}
-                                    onChange={setUserOrgUnits}
-                                />
-                                <OrgUnitFieldSelect />
-                                {!orgUnits.length && orgUnitsError && (
-                                    <div className={styles.error}>
-                                        {orgUnitsError}
-                                    </div>
-                                )}
-                            </div>
+                        <div className={styles.flexRowFlow}>
+                            <OrgUnitSelect warning={orgUnitsError} />
                         </div>
                     )}
                     {tab === 'style' && (
@@ -195,10 +133,6 @@ class OrgUnitDialog extends Component {
 export default connect(
     null,
     {
-        setOrgUnitLevels,
-        setOrgUnitGroups,
-        setUserOrgUnits,
-        toggleOrgUnit,
         setRadiusLow,
         setOrganisationUnitColor,
     },

@@ -1,13 +1,16 @@
 .orgUnitSelect :global(.orgUnitTreeWrapper) {
-    max-height: 315px;
-}
-
-.orgUnitSelectCompact :global(.orgUnitTreeWrapper) {
     max-height: 220px;
 }
 
-.orgUnitSelect :global(.userOrgUnitsWrapper label),
-.orgUnitSelectCompact :global(.userOrgUnitsWrapper label)
-{
+.orgUnitSelect :global(.userOrgUnitsWrapper label) {
     margin-right: 36px;
 }
+
+.event :global(.orgUnitTreeWrapper) {
+    max-height: 315px;
+}   
+
+.trackedEntity :global(.orgUnitTreeWrapper) {
+    max-height: 265px;
+}  
+

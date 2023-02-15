@@ -464,14 +464,7 @@ class ThematicDialog extends Component {
                     )}
                     {tab === 'orgunits' && (
                         <div className={styles.flexRowFlow}>
-                            <OrgUnitSelect
-                                allowAssociatedGeometry={true}
-                                warning={
-                                    !orgUnits.length && orgUnitsError
-                                        ? orgUnitsError
-                                        : null
-                                }
-                            />
+                            <OrgUnitSelect warning={orgUnitsError} />
                         </div>
                     )}
                     {tab === 'filter' && (

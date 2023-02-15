@@ -3,6 +3,7 @@
     border-top: 1px solid #eee;
     padding-top: var(--spacers-dp12);
 }
+
 .orgUnitFieldDescription {
     margin-top: -4px;
     color: rgb(110, 122, 138);

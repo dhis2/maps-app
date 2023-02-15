@@ -265,10 +265,11 @@ class EventDialog extends Component {
                     {tab === 'orgunits' && (
                         <div className={styles.flexRowFlow}>
                             <OrgUnitSelect
-                                allowAssociatedGeometry={false}
+                                hideAssociatedGeometry={true}
                                 hideLevelSelect={true}
                                 hideGroupSelect={true}
                                 warning={orgUnitsError}
+                                style="event"
                             />
                         </div>
                     )}

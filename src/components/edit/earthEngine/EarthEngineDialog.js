@@ -20,10 +20,10 @@ import {
     defaultFilters,
 } from '../../../util/earthEngine.js'
 import { Help, Tab, Tabs } from '../../core/index.js'
+import OrgUnitSelect from '../../orgunits/OrgUnitSelect.js'
 import styles from '../styles/LayerDialog.module.css'
 import AggregationSelect from './AggregationSelect.js'
 import BandSelect from './BandSelect.js'
-import OrgUnitsSelect from './OrgUnitsSelect.js'
 import PeriodSelect from './PeriodSelect.js'
 import StyleTab from './StyleTab.js'
 
@@ -107,7 +107,7 @@ const EarthEngineDialog = (props) => {
 
     useEffect(() => {
         if (!rows) {
-            setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL])
+            // setOrgUnitLevels([DEFAULT_ORG_UNIT_LEVEL])
         }
     }, [rows, setOrgUnitLevels])
 
@@ -224,7 +224,11 @@ const EarthEngineDialog = (props) => {
                         className={styles.flexRowFlow}
                     />
                 )}
-                {tab === 'orgunits' && <OrgUnitsSelect rows={rows} />}
+                {tab === 'orgunits' && (
+                    <div className={styles.flexRowFlow}>
+                        <OrgUnitSelect />
+                    </div>
+                )}
                 {tab === 'style' && (
                     <StyleTab
                         unit={unit}
