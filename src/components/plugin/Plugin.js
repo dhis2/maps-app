@@ -1,7 +1,7 @@
 import { useOnlineStatus } from '@dhis2/app-runtime'
 import { CssReset, CssVariables } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { fetchLayer } from '../../loaders/layers.js'
 import { drillUpDown } from '../../util/map.js'
 import MapView from '../map/MapView.js'
@@ -15,15 +15,23 @@ const defaultBounds = [
     [50.2, 35.9],
 ]
 
-const Plugin = (props) => {
+const NO_MAP_VIEWS = []
+
+const Plugin = ({
+    name,
+    basemap,
+    mapViews: originalMapViews,
+    hideTitle,
+    controls,
+}) => {
     const { offline } = useOnlineStatus()
-    const [mapViews, setMapViews] = useState(props.mapViews)
+    const [mapViews, setMapViews] = useState(NO_MAP_VIEWS)
     const [contextMenuState, setContextMenuState] = useState({})
     const [resizeCount] = useState(0)
 
-    const { name, basemap, hideTitle, controls } = props
-    const { position, offset, feature, isSplitView, container } =
-        contextMenuState
+    useEffect(() => {
+        setMapViews(originalMapViews)
+    }, [originalMapViews])
 
     const onOpenContextMenu = (newState) => {
         return setContextMenuState(newState)
@@ -79,6 +87,9 @@ const Plugin = (props) => {
             })
         }
     }
+
+    const { position, offset, feature, isSplitView, container } =
+        contextMenuState
 
     return (
         <div className={`dhis2-map-plugin ${styles.plugin}`}>
