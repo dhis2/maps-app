@@ -39,6 +39,17 @@ const Plugin = forwardRef((props, ref) => {
         []
     )
 
+    useEffect(() => {
+        setLayers(mapViews)
+    }, [mapViews])
+
+    // TODO: Remove when map.js is refactored
+    useEffect(() => {
+        if (getResizeFunction) {
+            getResizeFunction(onResize)
+        }
+    }, [getResizeFunction])
+
     const onDrill = async (direction) => {
         const { layerId, feature } = contextMenu
         let newConfig
@@ -78,17 +89,6 @@ const Plugin = forwardRef((props, ref) => {
             setContextMenu()
         }
     }
-
-    useEffect(() => {
-        setLayers(mapViews)
-    }, [mapViews])
-
-    // TODO: Remove when map.js is refactored
-    useEffect(() => {
-        if (getResizeFunction) {
-            getResizeFunction(onResize)
-        }
-    }, [getResizeFunction])
 
     if (layers.find((layer) => !layer.isLoaded)) {
         return (
