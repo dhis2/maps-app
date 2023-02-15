@@ -1,3 +1,4 @@
+import { useOnlineStatus } from '@dhis2/app-runtime'
 import {
     CssReset,
     CssVariables,
@@ -5,7 +6,7 @@ import {
     CircularLoader,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { forwardRef, useState, useCallback, useEffect } from 'react'
 import { drillUpDown } from '../../util/map.js'
 import LayerLoader from '../loaders/LayerLoader.js'
 import MapView from '../map/MapView.js'
@@ -19,119 +20,38 @@ const defaultBounds = [
     [50.2, 35.9],
 ]
 
-class Plugin extends Component {
-    static propTypes = {
-        basemap: PropTypes.object,
-        controls: PropTypes.array,
-        hideTitle: PropTypes.bool,
-        mapViews: PropTypes.array,
-        name: PropTypes.string,
-    }
+const Plugin = forwardRef((props, ref) => {
+    const { offline } = useOnlineStatus()
+    const [layers, setLayers] = useState([])
+    const [contextMenu, setContextMenu] = useState()
+    const [resizeCount, setResizeCount] = useState(0)
 
-    static defaultProps = {
-        hideTitle: false,
-    }
+    const { name, basemap, mapViews, hideTitle, controls, getResizeFunction } =
+        props
 
-    constructor(props, context) {
-        super(props, context)
+    const onResize = () => setResizeCount((state) => state + 1)
 
-        this.state = {
-            isOffline: false,
-            mapViews: props.mapViews, // Can be changed by drilling
-            resizeCount: 0,
-        }
-    }
-
-    render() {
-        const { name, basemap, hideTitle, controls } = this.props
-        const {
-            position,
-            offset,
-            feature,
-            mapViews,
-            resizeCount,
-            isFullscreen,
-            isSplitView,
-            isOffline,
-            container,
-        } = this.state
-
-        if (mapViews.find((layer) => !layer.isLoaded)) {
-            return (
-                <CenteredContent>
-                    <CircularLoader />
-                    {mapViews.map((config) => (
-                        <LayerLoader
-                            key={config.id}
-                            config={config}
-                            onLoad={this.onLayerLoad}
-                        />
-                    ))}
-                </CenteredContent>
-            )
-        }
-
-        return (
-            <div className={`dhis2-map-plugin ${styles.plugin}`}>
-                <CssReset />
-                <CssVariables colors spacers theme />
-                {!hideTitle && <MapName name={name} />}
-                <MapView
-                    isPlugin={true}
-                    isFullscreen={isFullscreen}
-                    basemap={basemap}
-                    layers={mapViews}
-                    controls={controls}
-                    bounds={defaultBounds}
-                    openContextMenu={this.onOpenContextMenu}
-                    resizeCount={resizeCount}
-                />
-                <Legend layers={mapViews} />
-                <ContextMenu
-                    feature={feature}
-                    position={position}
-                    offset={offset}
-                    onDrill={this.onDrill}
-                    onClose={this.onCloseContextMenu}
-                    isOffline={isOffline}
-                    isSplitView={isSplitView}
-                    container={container}
-                />
-            </div>
-        )
-    }
-
-    // Call this method when plugin container is resized
-    resize(isFullscreen) {
-        // Will trigger a redraw of the MapView component
-        this.setState((state) => ({
-            resizeCount: state.resizeCount + 1,
-            isFullscreen,
-        }))
-    }
-
-    setOfflineStatus(isOffline) {
-        this.setState({ isOffline })
-    }
-
-    onLayerLoad = (layer) => {
-        this.setState({
-            mapViews: this.state.mapViews.map((mapView) =>
-                layer.id === mapView.id ? layer : mapView
+    const onLayerLoad = useCallback(
+        (layer) =>
+            setLayers((layers) =>
+                layers.map((l) => (layer.id === l.id ? layer : l))
             ),
-        })
-    }
+        []
+    )
 
-    onOpenContextMenu = (state) => this.setState(state)
+    useEffect(() => {
+        setLayers(mapViews)
+    }, [mapViews])
 
-    onCloseContextMenu = () =>
-        this.setState({
-            position: null,
-            feature: null,
-        })
+    // TODO: Remove when map.js is refactored
+    useEffect(() => {
+        if (getResizeFunction) {
+            getResizeFunction(onResize)
+        }
+    }, [getResizeFunction])
 
-    onDrill = async (direction) => {
-        const { layerId, feature, mapViews } = this.state
+    const onDrill = async (direction) => {
+        const { layerId, feature } = contextMenu
         let newConfig
 
         if (layerId && feature) {
@@ -142,7 +62,7 @@ class Plugin extends Component {
                 grandParentId,
                 grandParentParentGraph,
             } = feature.properties
-            const layerConfig = mapViews.find((layer) => layer.id === layerId)
+            const layerConfig = layers.find((layer) => layer.id === layerId)
 
             if (direction === 'up') {
                 newConfig = drillUpDown(
@@ -160,15 +80,72 @@ class Plugin extends Component {
                 )
             }
 
-            this.setState({
-                mapViews: mapViews.map((layer) =>
+            setLayers(
+                layers.map((layer) =>
                     layer.id === layerId ? newConfig : layer
-                ),
-                position: null,
-                feature: null,
-            })
+                )
+            )
+
+            setContextMenu()
         }
     }
+
+    if (layers.find((layer) => !layer.isLoaded)) {
+        return (
+            <CenteredContent>
+                <CircularLoader />
+                {layers.map((config) => (
+                    <LayerLoader
+                        key={config.id}
+                        config={config}
+                        onLoad={onLayerLoad}
+                    />
+                ))}
+            </CenteredContent>
+        )
+    }
+
+    return (
+        <div ref={ref} className={`dhis2-map-plugin ${styles.plugin}`}>
+            <CssReset />
+            <CssVariables colors spacers theme />
+            {!hideTitle && <MapName name={name} />}
+            <MapView
+                isPlugin={true}
+                isFullscreen={false}
+                basemap={basemap}
+                layers={layers}
+                controls={controls}
+                bounds={defaultBounds}
+                openContextMenu={setContextMenu}
+                resizeCount={resizeCount}
+            />
+            <Legend layers={layers} />
+            {contextMenu && (
+                <ContextMenu
+                    {...contextMenu}
+                    onDrill={onDrill}
+                    onClose={() => setContextMenu()}
+                    isOffline={offline}
+                />
+            )}
+        </div>
+    )
+})
+
+Plugin.displayName = 'Plugin'
+
+Plugin.propTypes = {
+    basemap: PropTypes.object,
+    controls: PropTypes.array,
+    getResizeFunction: PropTypes.func,
+    hideTitle: PropTypes.bool,
+    mapViews: PropTypes.array,
+    name: PropTypes.string,
+}
+
+Plugin.defaultProps = {
+    hideTitle: false,
 }
 
 export default Plugin
