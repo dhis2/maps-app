@@ -22,20 +22,19 @@ const defaultBounds = [
 
 const Plugin = forwardRef((props, ref) => {
     const { offline } = useOnlineStatus()
-    const [mapViews, setMapViews] = useState(props.mapViews)
+    const [layers, setLayers] = useState([])
     const [contextMenu, setContextMenu] = useState()
     const [resizeCount, setResizeCount] = useState(0)
 
-    const { name, basemap, hideTitle, controls, getResizeFunction } = props
+    const { name, basemap, mapViews, hideTitle, controls, getResizeFunction } =
+        props
 
     const onResize = () => setResizeCount((state) => state + 1)
 
     const onLayerLoad = useCallback(
         (layer) =>
-            setMapViews((mapViews) =>
-                mapViews.map((mapView) =>
-                    layer.id === mapView.id ? layer : mapView
-                )
+            setLayers((layers) =>
+                layers.map((l) => (layer.id === l.id ? layer : l))
             ),
         []
     )
@@ -52,7 +51,7 @@ const Plugin = forwardRef((props, ref) => {
                 grandParentId,
                 grandParentParentGraph,
             } = feature.properties
-            const layerConfig = mapViews.find((layer) => layer.id === layerId)
+            const layerConfig = layers.find((layer) => layer.id === layerId)
 
             if (direction === 'up') {
                 newConfig = drillUpDown(
@@ -70,8 +69,8 @@ const Plugin = forwardRef((props, ref) => {
                 )
             }
 
-            setMapViews(
-                mapViews.map((layer) =>
+            setLayers(
+                layers.map((layer) =>
                     layer.id === layerId ? newConfig : layer
                 )
             )
@@ -80,6 +79,10 @@ const Plugin = forwardRef((props, ref) => {
         }
     }
 
+    useEffect(() => {
+        setLayers(mapViews)
+    }, [mapViews])
+
     // TODO: Remove when map.js is refactored
     useEffect(() => {
         if (getResizeFunction) {
@@ -87,11 +90,11 @@ const Plugin = forwardRef((props, ref) => {
         }
     }, [getResizeFunction])
 
-    if (mapViews.find((layer) => !layer.isLoaded)) {
+    if (layers.find((layer) => !layer.isLoaded)) {
         return (
             <CenteredContent>
                 <CircularLoader />
-                {mapViews.map((config) => (
+                {layers.map((config) => (
                     <LayerLoader
                         key={config.id}
                         config={config}
@@ -111,13 +114,13 @@ const Plugin = forwardRef((props, ref) => {
                 isPlugin={true}
                 isFullscreen={false}
                 basemap={basemap}
-                layers={mapViews}
+                layers={layers}
                 controls={controls}
                 bounds={defaultBounds}
                 openContextMenu={setContextMenu}
                 resizeCount={resizeCount}
             />
-            <Legend layers={mapViews} />
+            <Legend layers={layers} />
             {contextMenu && (
                 <ContextMenu
                     {...contextMenu}
