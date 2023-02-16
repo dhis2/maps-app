@@ -1,7 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { getInstance as getD2 } from 'd2'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { getDisplayProperty } from '../util/helpers.js'
 import { toGeoJson } from '../util/map.js'
 import {
     fetchOrgUnitGroupSet,
@@ -11,22 +9,20 @@ import {
     getCoordinateField,
 } from '../util/orgUnits.js'
 
-const orgUnitLoader = async (config) => {
+const orgUnitLoader = async (config, { displayProperty, d2 }) => {
     const { rows, organisationUnitGroupSet: groupSet } = config
     const orgUnits = getOrgUnitsFromRows(rows)
     const orgUnitParams = orgUnits.map((item) => item.id)
     const includeGroupSets = !!groupSet
     const coordinateField = getCoordinateField(config)
 
-    const d2 = await getD2()
-    const displayProperty = getDisplayProperty(d2).toUpperCase()
     const { contextPath } = d2.system.systemInfo
     const name = i18n.t('Organisation units')
     const alerts = []
 
     const featuresRequest = d2.geoFeatures
         .byOrgUnit(orgUnitParams)
-        .displayProperty(displayProperty)
+        .displayProperty(displayProperty.toUpperCase())
 
     let associatedGeometries = []
 
