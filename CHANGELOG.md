@@ -1,3 +1,10 @@
+## [1.28.2](https://github.com/dhis2/maps-app/compare/v1.28.1...v1.28.2) (2023-02-16)
+
+
+### Bug Fixes
+
+* org unit levels do not have short names ([#2478](https://github.com/dhis2/maps-app/issues/2478)) ([3a949f3](https://github.com/dhis2/maps-app/commit/3a949f3aa48743de4f572bde43758e606219bdab))
+
 ## [1.28.1](https://github.com/dhis2/maps-app/compare/v1.28.0...v1.28.1) (2023-02-03)
 
 
